@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Niveau 3 — Lamdan · Siman 246 · DAAT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #1A1F3A; --gold: #C5A55A; --cream: #FAF6EE; --cream-dark: #F0EAD8;
+      --text-dark: #1A1F3A; --text-mid: #3D4266; --text-muted: #7A7F9A;
+      --white: #FFFFFF; --border: #E4DDD0; --purple: #6B3FA0; --purple-light: #F3E8FF;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--cream); color: var(--text-dark); line-height: 1.7; }
+
+    header { background: var(--navy); padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 70px; border-bottom: 2px solid var(--purple); }
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-he { font-family: 'Frank Ruhl Libre', serif; font-size: 26px; font-weight: 700; color: var(--gold); }
+    .logo-en { font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600; color: #fff; letter-spacing: 3px; }
+    .level-indicator { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; background: var(--purple); color: #fff; padding: 6px 14px; letter-spacing: 1px; text-transform: uppercase; }
+    .breadcrumb { background: var(--navy); padding: 10px 40px; border-bottom: 1px solid rgba(197,165,90,0.15); }
+    .breadcrumb span, .breadcrumb a { font-family: 'Inter', sans-serif; font-size: 12px; color: rgba(255,255,255,0.4); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--gold); }
+    .breadcrumb .sep { margin: 0 8px; }
+    .breadcrumb .current { color: var(--purple); }
+
+    .page-hero { background: var(--purple); padding: 48px 40px; border-bottom: 3px solid var(--gold); }
+    .hero-inner { max-width: 1000px; margin: 0 auto; }
+    .hero-meta { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 12px; }
+    .hero-title { font-size: 36px; font-weight: 400; color: #fff; margin-bottom: 8px; }
+    .hero-subtitle { font-size: 18px; color: rgba(255,255,255,0.7); font-style: italic; }
+
+    .toc { background: var(--white); border: 1px solid var(--border); border-left: 4px solid var(--purple); padding: 20px 28px; margin: 32px auto; max-width: 1000px; }
+    .toc-title { font-family: 'Inter', sans-serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--purple); margin-bottom: 12px; }
+    .toc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .toc-item { font-size: 14px; color: var(--text-mid); }
+    .toc-item a { color: var(--purple); text-decoration: none; }
+    .toc-item a:hover { text-decoration: underline; }
+
+    .main { max-width: 1000px; margin: 0 auto; padding: 48px 40px; }
+
+    /* PILPOUL SECTIONS */
+    .pilpoul-section { margin-bottom: 56px; padding-bottom: 48px; border-bottom: 1px solid var(--border); }
+    .pilpoul-section:last-of-type { border-bottom: none; }
+
+    .section-num {
+      font-family: 'Frank Ruhl Libre', serif; font-size: 48px;
+      font-weight: 900; color: var(--purple); opacity: 0.15;
+      line-height: 1; margin-bottom: -16px;
+    }
+    .section-type {
+      font-family: 'Frank Ruhl Libre', serif; font-size: 20px;
+      font-weight: 700; color: var(--purple); direction: rtl;
+      margin-bottom: 4px;
+    }
+    .section-title { font-size: 28px; font-weight: 500; color: var(--navy); margin-bottom: 8px; }
+    .divider { width: 48px; height: 2px; background: var(--purple); margin: 12px 0 24px; }
+
+    /* TEXT BLOCKS */
+    .source-block {
+      background: var(--navy); padding: 24px 28px;
+      margin-bottom: 16px; border-left: 3px solid var(--gold);
+    }
+    .source-name { font-family: 'Inter', sans-serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .source-he { font-family: 'Frank Ruhl Libre', serif; font-size: 19px; direction: rtl; text-align: right; color: var(--cream); line-height: 1.9; }
+    .source-fr { font-size: 15px; color: rgba(250,246,238,0.65); margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(197,165,90,0.15); font-style: italic; line-height: 1.7; }
+
+    .analysis-text { font-size: 17px; color: var(--text-mid); line-height: 1.9; margin-bottom: 16px; }
+    .analysis-text strong { color: var(--navy); }
+    .analysis-text em { color: var(--purple); }
+
+    /* BOX TYPES */
+    .kushia-box { background: #FFF0F0; border: 1px solid #FFCCCC; border-left: 4px solid #C0392B; padding: 20px 24px; margin-bottom: 16px; }
+    .kushia-label { font-family: 'Frank Ruhl Libre', serif; font-size: 16px; color: #C0392B; direction: rtl; margin-bottom: 8px; }
+    .tirutz-box { background: #F0FFF0; border: 1px solid #AADDAA; border-left: 4px solid #27AE60; padding: 20px 24px; margin-bottom: 16px; }
+    .tirutz-label { font-family: 'Frank Ruhl Libre', serif; font-size: 16px; color: #27AE60; direction: rtl; margin-bottom: 8px; }
+    .hakira-box { background: var(--purple-light); border: 1px solid #D4B0EE; border-left: 4px solid var(--purple); padding: 20px 24px; margin-bottom: 16px; }
+    .hakira-label { font-family: 'Frank Ruhl Libre', serif; font-size: 16px; color: var(--purple); direction: rtl; margin-bottom: 8px; }
+    .nafka-box { background: #FFF8E7; border: 1px solid #F0D090; border-left: 4px solid var(--gold); padding: 20px 24px; margin-bottom: 16px; }
+    .nafka-label { font-family: 'Frank Ruhl Libre', serif; font-size: 16px; color: #8B6914; direction: rtl; margin-bottom: 8px; }
+    .pilpul-label { font-family: 'Frank Ruhl Libre', serif; font-size: 16px; color: var(--navy); direction: rtl; margin-bottom: 8px; }
+    .pilpul-box { background: #EEF0FF; border: 1px solid #C0C4EE; border-left: 4px solid var(--navy); padding: 20px 24px; margin-bottom: 16px; }
+
+    .box-text { font-size: 16px; color: var(--text-mid); line-height: 1.8; }
+    .box-text strong { color: var(--navy); }
+
+    /* COMPARISON TABLE */
+    .compare-table { width: 100%; border-collapse: collapse; background: var(--white); border: 1px solid var(--border); margin-bottom: 24px; }
+    .compare-table thead { background: var(--purple); }
+    .compare-table thead th { padding: 12px 16px; font-family: 'Inter', sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #fff; text-align: left; }
+    .compare-table tbody tr { border-bottom: 1px solid var(--border); }
+    .compare-table tbody tr:hover { background: var(--cream); }
+    .compare-table td { padding: 14px 16px; font-size: 14px; color: var(--text-mid); vertical-align: top; }
+    .compare-table td:first-child { font-family: 'Frank Ruhl Libre', serif; font-size: 17px; color: var(--navy); direction: rtl; font-weight: 500; }
+    .opinion-1 { color: #2E7D52 !important; }
+    .opinion-2 { color: var(--purple) !important; }
+    .pesak-row { background: #FFF8E7 !important; }
+    .pesak-row td { font-weight: 600; }
+
+    footer { background: var(--navy); border-top: 2px solid var(--gold); padding: 24px 40px; text-align: center; }
+    footer p { font-family: 'Inter', sans-serif; font-size: 12px; color: rgba(255,255,255,0.3); }
+    footer a { color: var(--gold); text-decoration: none; }
+
+    .bottom-nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 0; border-top: 1px solid var(--border); margin-top: 48px; }
+    .bottom-nav a { font-family: 'Inter', sans-serif; font-size: 13px; color: var(--navy); text-decoration: none; font-weight: 500; }
+    .bottom-nav a:hover { color: var(--gold); }
+    .next-btn { background: var(--navy); color: #fff !important; padding: 12px 24px; }
+    .next-btn:hover { background: var(--gold) !important; color: var(--navy) !important; }
+
+    @media (max-width: 768px) {
+      .main { padding: 24px 20px; }
+      .toc-grid { grid-template-columns: 1fr; }
+      header { padding: 0 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="../../../index.html" class="logo">
+      <span class="logo-he">דעת</span>
+      <span class="logo-en">DAAT</span>
+    </a>
+    <div class="level-indicator">Niveau 3 — Lamdan</div>
+  </header>
+
+  <div class="breadcrumb">
+    <a href="../../../index.html">Accueil</a>
+    <span class="sep">›</span>
+    <a href="index.html">Siman 246</a>
+    <span class="sep">›</span>
+    <span class="current">Niveau 3 — Lamdan</span>
+  </div>
+
+  <div class="page-hero">
+    <div class="hero-inner">
+      <div class="hero-meta">Orah Haïm 246 · Seif Alef · Pilpoul avancé</div>
+      <div class="hero-title">דיני השאלה והשכרה לגוי — Analyse savante</div>
+      <div class="hero-subtitle">Sugya · Shitot Rishonim · Hakirot · Plougot Acharonim · Nafka Minot</div>
+    </div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">Table des matières — 13 sections</div>
+    <div class="toc-grid">
+      <div class="toc-item"><a href="#s1">① מקור הסוגיא</a> — Source talmudique</div>
+      <div class="toc-item"><a href="#s2">② שיטת הרמב״ם / רי״ף</a> — Opinion permissive</div>
+      <div class="toc-item"><a href="#s3">③ שיטת ר׳ יונה / רא״ש</a> — Opinion restrictive</div>
+      <div class="toc-item"><a href="#s4">④ חקירה א׳</a> — Nature de l'interdiction</div>
+      <div class="toc-item"><a href="#s5">⑤ פסק בית יוסף / שו״ע</a> — Décision du Mechaber</div>
+      <div class="toc-item"><a href="#s6">⑥ הגהת הרמ״א</a> — Extension du Rama</div>
+      <div class="toc-item"><a href="#s7">⑦ חקירה ב׳</a> — שכר שבת vs. נראה כשלוחו</div>
+      <div class="toc-item"><a href="#s8">⑧ דעת הט״ז</a> — Position du Taz</div>
+      <div class="toc-item"><a href="#s9">⑨ דעת מגן אברהם</a> — Position du Magen Avraham</div>
+      <div class="toc-item"><a href="#s10">⑩ מחלוקת בנפקא מינות</a> — Conséquences pratiques</div>
+      <div class="toc-item"><a href="#s11">⑪ שאלה וחידוש הרמ״א</a> — Prêt vs. location</div>
+      <div class="toc-item"><a href="#s12">⑫ יסוד</a> — Principe fondateur</div>
+      <div class="toc-item"><a href="#s13">⑬ הלכה למעשה</a> — Conclusion pratique</div>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <!-- SECTION 1: SOURCE -->
+    <div class="pilpoul-section" id="s1">
+      <div class="section-num">I</div>
+      <div class="section-type">מקור הסוגיא</div>
+      <div class="section-title">Source talmudique et contexte</div>
+      <div class="divider"></div>
+
+      <div class="source-block">
+        <div class="source-name">תלמוד בבלי, מסכת שבת, דף יח ע״א</div>
+        <div class="source-he">לא ישכיר אדם כליו לגוי בערב שבת, בשבת אינו צריך לומר, ולא בערב יום טוב...</div>
+        <div class="source-fr">Un homme ne doit pas louer ses ustensiles à un non-juif la veille de Shabbat — et il va sans dire [qu'il ne peut pas les louer] le Shabbat lui-même — ni la veille de Yom Tov…</div>
+      </div>
+
+      <p class="analysis-text">Cette baraïta est la source principale de la discussion. La question fondamentale est : <strong>selon quelle opinion est-elle énoncée ?</strong> Si elle reflète uniquement l'opinion de Beit Chammaï (qui exige שביתת כלים), elle ne serait pas retenue pratiquement. Si elle reflète aussi Beit Hillel, l'interdiction est universelle.</p>
+    </div>
+
+    <!-- SECTION 2: RAMBAM -->
+    <div class="pilpoul-section" id="s2">
+      <div class="section-num">II</div>
+      <div class="section-type">שיטת הרמב״ם והרי״ף</div>
+      <div class="section-title">Opinion ① — Position permissive (Rambam / Rif)</div>
+      <div class="divider"></div>
+
+      <div class="source-block">
+        <div class="source-name">רמב״ם, הל׳ שבת, פ״ו ה״א</div>
+        <div class="source-he">מי שנתן בגד לכובס גוי ערב שבת, אם היה גוי בביתו מותר, ואם הוא בביתו של ישראל אסור — משום מראית עין.</div>
+        <div class="source-fr">Celui qui donne un vêtement à un teinturier non-juif la veille de Shabbat : si le non-juif est dans sa propre maison, c'est permis ; si c'est dans la maison du Juif, c'est interdit — en raison de l'apparence.</div>
+      </div>
+
+      <p class="analysis-text">Le Rambam distingue selon le lieu : l'interdiction n'est que de <em>mar'it ayin</em> (apparence), et non absolue. Il en résulte que la baraïta qui interdit est selon <strong>Beit Chammaï uniquement</strong>. Selon Beit Hillel (retenu en pratique), il n'y a pas d'obligation de שביתת כלים, donc pas d'interdiction intrinsèque.</p>
+
+      <div class="kushia-box">
+        <div class="kushia-label">קושיא על הרמב״ם</div>
+        <div class="box-text">Si l'interdiction n'est que de <em>mar'it ayin</em>, pourquoi le Rambam ne mentionne-t-il pas l'interdiction de שכר שבת ? Rabbénou Yona répondra que le Rambam n'y voit pas un problème indépendant dans ce cas.</div>
+      </div>
+    </div>
+
+    <!-- SECTION 3: RABBENU YONA -->
+    <div class="pilpoul-section" id="s3">
+      <div class="section-num">III</div>
+      <div class="section-type">שיטת רבנו יונה / רא״ש / תוספות</div>
+      <div class="section-title">Opinion ② — Position restrictive</div>
+      <div class="divider"></div>
+
+      <p class="analysis-text">Rabbénou Yona, suivi du Rosh et des Tossafot, tranche différemment : la baraïta talmudique s'applique <strong>même selon Beit Hillel</strong>. L'interdiction existe indépendamment de la question de שביתת כלים, pour deux raisons distinctes :</p>
+
+      <div class="source-block">
+        <div class="source-name">ר׳ יונה — ריטב״א (בשמו)</div>
+        <div class="source-he">אפילו לבית הלל אסור — משום שכר שבת, ומשום דנראה כשלוחו.</div>
+        <div class="source-fr">Même selon Beit Hillel, c'est interdit — en raison de שכר שבת [le Juif tire profit d'un travail de Shabbat] et en raison de נראה כשלוחו [il paraît être son émissaire].</div>
+      </div>
+
+      <div class="tirutz-box">
+        <div class="tirutz-label">הסבר — חידוש הראשונים</div>
+        <div class="box-text">La nouveauté de Rabbénou Yona : même sans obligation de שביתת כלים (car Beit Hillel la rejette), il existe deux interdictions <em>indépendantes</em> — (a) l'interdiction de שכר שבת qui est de droit rabbinique, et (b) l'interdiction de mar'it ayin sous la forme de נראה כשלוחו. Ces deux raisons se cumulent.</div>
+      </div>
+    </div>
+
+    <!-- SECTION 4: HAKIRA -->
+    <div class="pilpoul-section" id="s4">
+      <div class="section-num">IV</div>
+      <div class="section-type">חקירה א׳</div>
+      <div class="section-title">Nature de l'interdiction : Torah ou décret rabbinique ?</div>
+      <div class="divider"></div>
+
+      <div class="hakira-box">
+        <div class="hakira-label">חקירה</div>
+        <div class="box-text"><strong>L'interdiction de שכר שבת est-elle d'origine biblique (דאורייתא) ou rabbinique (דרבנן) ?</strong> La différence est déterminante pour les cas de doute et pour les nafka minot.</div>
+      </div>
+
+      <p class="analysis-text">Les Acharonim débattent : selon la plupart, שכר שבת est une <em>gzéra derabanan</em> (décret rabbinique) fondée sur la préoccupation que le propriétaire soit trop engagé dans le commerce le Shabbat. Le Magen Avraham suggère que la base pourrait être biblique (liée à l'interdiction de faire travailler ses serviteurs le Shabbat), mais la pratique suit le caractère rabbinique.</p>
+
+      <div class="nafka-box">
+        <div class="nafka-label">נפקא מינה</div>
+        <div class="box-text">Si l'interdiction est rabbinique : dans un cas de ספק (doute), on pourrait être plus permissif. Si elle est biblique : le ספק doit être traité avec rigueur.</div>
+      </div>
+    </div>
+
+    <!-- SECTION 5: BEIT YOSEF -->
+    <div class="pilpoul-section" id="s5">
+      <div class="section-num">V</div>
+      <div class="section-type">פסק בית יוסף / שולחן ערוך</div>
+      <div class="section-title">Décision du Méchaber — R' Yossef Karo</div>
+      <div class="divider"></div>
+
+      <div class="source-block">
+        <div class="source-name">שולחן ערוך, אורח חיים, סימן רמ״ו, סעיף א׳</div>
+        <div class="source-he">אָסוּר לְהַשְׂכִּיר כֵּלָיו לְגוֹי כְּשֶׁהוּא יוֹדֵעַ שֶׁיַּעֲשֶׂה בָּהֶם מְלָאכָה בְּשַׁבָּת, מִשּׁוּם שְׂכַר שַׁבָּת. אֲבָל אִם אֵינוֹ יוֹדֵעַ, מֻתָּר.</div>
+        <div class="source-fr">Il est interdit de louer ses ustensiles à un non-juif lorsqu'on sait qu'il effectuera avec eux un travail le Shabbat, en raison de שכר שבת. Mais si l'on ne sait pas, c'est permis.</div>
+      </div>
+
+      <p class="analysis-text">Le Méchaber tranche selon <strong>Rabbénou Yona</strong> (opinion ②). L'interdiction existe même selon Beit Hillel, en raison de שכר שבת. La condition est la <strong>connaissance</strong> du Juif : s'il sait que l'objet sera utilisé le Shabbat — interdit. S'il ne sait pas — permis.</p>
+
+      <div class="pilpul-box">
+        <div class="pilpul-label">פלפול — הגדרת "יוֹדֵעַ"</div>
+        <div class="box-text">Qu'est-ce que "savoir" dans ce contexte ? Les Acharonim débattent : suffit-il d'une <em>hazaka</em> (présomption forte) que le non-juif travaillera le Shabbat, ou faut-il une certitude ? Le Mishna Berurah (246:2) penche pour : si on a une forte présomption qu'il travaillera le Shabbat, c'est considéré comme "יודע" et c'est interdit.</div>
+      </div>
+    </div>
+
+    <!-- SECTION 6: RAMA -->
+    <div class="pilpoul-section" id="s6">
+      <div class="section-num">VI</div>
+      <div class="section-type">הגהת הרמ״א וחידושו</div>
+      <div class="section-title">Extension du Rama — le prêt gratuit</div>
+      <div class="divider"></div>
+
+      <div class="source-block">
+        <div class="source-name">הגהות הרמ״א על השו״ע</div>
+        <div class="source-he">וְכֵן עִקָּר כִּסְבָרָא הָאַחֲרוֹנָה, וְאָסוּר אֲפִלּוּ לְהַשְׁאִיל כֵּלָיו לְגוֹי בְּעֶרֶב שַׁבָּת, כְּשֶׁיּוֹדֵעַ שֶׁיַּעֲשֶׂה בָּהֶם מְלָאכָה בְּשַׁבָּת.</div>
+        <div class="source-fr">C'est l'opinion principale — et il est même interdit de prêter ses ustensiles à un non-juif la veille de Shabbat lorsqu'on sait qu'il les utilisera le Shabbat.</div>
+      </div>
+
+      <p class="analysis-text">Le <strong>חידוש</strong> du Rama : le Shulchan Aroukh parle uniquement de <em>location</em> (שכירות) — qui implique une rémunération directe (שכר שבת). Mais le Rama ajoute l'interdiction même pour un <em>prêt gratuit</em> (השאלה).</p>
+
+      <div class="kushia-box">
+        <div class="kushia-label">קושיא על הרמ״א</div>
+        <div class="box-text">Si le Juif ne reçoit rien (prêt gratuit), où est le problème de שכר שבת ? Il n'y a pas de rémunération !</div>
+      </div>
+      <div class="tirutz-box">
+        <div class="tirutz-label">תירוץ — מקור איסור ההשאלה</div>
+        <div class="box-text">Le Rama interdit le prêt gratuit pour une raison <strong>différente</strong> : non pas שכר שבת, mais <strong>נראה כשלוחו</strong> — l'apparence que le non-juif agit comme émissaire du Juif. Même sans bénéfice financier, l'apparence d'émissaire existe, et c'est suffisant pour interdire.</div>
+      </div>
+    </div>
+
+    <!-- SECTION 7: HAKIRA 2 -->
+    <div class="pilpoul-section" id="s7">
+      <div class="section-num">VII</div>
+      <div class="section-type">חקירה ב׳</div>
+      <div class="section-title">שכר שבת ou נראה כשלוחו — quelle est la raison principale ?</div>
+      <div class="divider"></div>
+
+      <div class="hakira-box">
+        <div class="hakira-label">חקירה — שני טעמים, שתי מחלוקות</div>
+        <div class="box-text">Le Shulchan Aroukh mentionne explicitement <strong>שכר שבת</strong> comme raison. Le Rama semble se fonder sur <strong>נראה כשלוחו</strong> pour étendre l'interdiction au prêt. Quelle est la raison <em>première</em> de l'interdiction ?</div>
+      </div>
+
+      <table class="compare-table">
+        <thead>
+          <tr><th>Raison</th><th>Source</th><th>Application</th><th>Conséquence si c'est la raison principale</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>שְׂכַר שַׁבָּת</td>
+            <td>Shulchan Aroukh (explicite)</td>
+            <td class="opinion-1">Location uniquement</td>
+            <td>Le prêt gratuit serait permis (pas de rémunération)</td>
+          </tr>
+          <tr>
+            <td>נִרְאֶה כִּשְׁלוּחוֹ</td>
+            <td>Rama (implicite dans l'extension)</td>
+            <td class="opinion-2">Location + Prêt</td>
+            <td>Les deux sont interdits — même sans argent, l'apparence existe</td>
+          </tr>
+          <tr class="pesak-row">
+            <td>שתיהן ביחד</td>
+            <td>Acharonim (Magen Avraham, Taz)</td>
+            <td>Les deux raisonnements se cumulent</td>
+            <td>Pour la location : double raison. Pour le prêt : seul נראה כשלוחו suffit.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SECTION 8-9: TAZ & MAGEN AVRAHAM -->
+    <div class="pilpoul-section" id="s8">
+      <div class="section-num">VIII–IX</div>
+      <div class="section-type">דעת הט״ז ומגן אברהם</div>
+      <div class="section-title">Positions du Taz et du Magen Avraham</div>
+      <div class="divider"></div>
+
+      <div class="source-block">
+        <div class="source-name">ט״ז, או״ח, רמ״ו, ס״ק א</div>
+        <div class="source-he">ונראה דטעם שכר שבת הוא העיקר, דאז גם הגוף נהנה מן הכלי בשבת...</div>
+        <div class="source-fr">Il semble que la raison de שכר שבת est la principale — car alors le corps [du Juif] bénéficie de l'objet pendant Shabbat...</div>
+      </div>
+
+      <p class="analysis-text">Le <strong>Taz</strong> insiste sur שכר שבת comme raison première. Il explique que même dans un prêt "gratuit", si le Juif en retire un bénéfice indirect (réputation, faveur), il y a שכר שבת.</p>
+
+      <div class="source-block">
+        <div class="source-name">מגן אברהם, סימן רמ״ו, ס״ק א</div>
+        <div class="source-he">ואין לחלק בין שאלה לשכירות, דגם בשאלה אסור מן הטעם דנראה כשלוחו.</div>
+        <div class="source-fr">On ne peut pas distinguer entre le prêt et la location — car même pour le prêt, c'est interdit en raison de נראה כשלוחו.</div>
+      </div>
+
+      <p class="analysis-text">Le <strong>Magen Avraham</strong> adopte une position différente : la raison du prêt est exclusivement <em>נראה כשלוחו</em>, et il n'est pas nécessaire de chercher un שכר שבת artificiel.</p>
+    </div>
+
+    <!-- SECTION 10: NAFKA MINOT -->
+    <div class="pilpoul-section" id="s10">
+      <div class="section-num">X</div>
+      <div class="section-type">נפקא מינות מעשיות</div>
+      <div class="section-title">Conséquences pratiques de la dispute</div>
+      <div class="divider"></div>
+
+      <div class="nafka-box">
+        <div class="nafka-label">נפקא מינה א׳ — Prêt dans un lieu caché</div>
+        <div class="box-text">Si le non-juif utilise l'objet dans un lieu où personne ne le voit : selon la raison de <em>נראה כשלוחו</em>, ce serait permis (pas d'apparence). Selon la raison de שכר שבת, c'est toujours interdit. La Halakha retient l'interdiction même dans ce cas (Mishna Berurah 246:3).</div>
+      </div>
+
+      <div class="nafka-box">
+        <div class="nafka-label">נפקא מינה ב׳ — Location longue durée (חוזה שנתי)</div>
+        <div class="box-text">Si le Juif loue pour un an (donc incluant des Shabbatot), sans référence à Shabbat : selon certains, si le paiement est forfaitaire (sans distinguer le Shabbat), le problème de שכר שבת est moindre. Les Acharonim débattent — en pratique, on est strict.</div>
+      </div>
+
+      <div class="nafka-box">
+        <div class="nafka-label">נפקא מינה ג׳ — Location avant vendredi</div>
+        <div class="box-text">Le Seif mentionne "ערב שבת" (veille de Shabbat). Qu'en est-il d'une location faite le lundi pour le Shabbat suivant ? Le Biour Halakha (246) explique que si au moment de la location le Juif sait déjà qu'elle sera utilisée le Shabbat — c'est interdit quelle que soit la date de la transaction.</div>
+      </div>
+    </div>
+
+    <!-- SECTION 11-12: CHIDOUSH + YESSOD -->
+    <div class="pilpoul-section" id="s11">
+      <div class="section-num">XI–XII</div>
+      <div class="section-type">חידוש הרמ״א · יסוד</div>
+      <div class="section-title">Le chidoush du Rama et le principe fondateur</div>
+      <div class="divider"></div>
+
+      <p class="analysis-text">Le <strong>חידוש</strong> du Rama est double : (1) confirme l'opinion de Rabbénou Yona contre l'opinion permissive du Rambam/Rif ; (2) étend l'interdiction au prêt gratuit.</p>
+
+      <div class="pilpul-box">
+        <div class="pilpul-label">יסוד — Le principe fondateur</div>
+        <div class="box-text"><strong>Un Juif est responsable de l'image publique de ses actes, même indirect.</strong> Ce principe — le noyau de l'interdiction — est que le Juif ne peut pas créer une situation où ses biens "apparaissent" travailler le Shabbat, que ce soit par location (profit direct = שכר שבת) ou par prêt (profit indirect d'image = נראה כשלוחו). La Torah et les Rabbins encadrent non seulement les actes directs, mais aussi les <em>apparences</em>.</div>
+      </div>
+    </div>
+
+    <!-- SECTION 13: PSAK -->
+    <div class="pilpoul-section" id="s13">
+      <div class="section-num">XIII</div>
+      <div class="section-type">הלכה למעשה</div>
+      <div class="section-title">Conclusion halakhique pratique</div>
+      <div class="divider"></div>
+
+      <table class="compare-table">
+        <thead>
+          <tr><th>Cas</th><th>Séfarades (Shulchan Aroukh)</th><th>Ashkénazes (Rama)</th><th>Source</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Location · sait qu'utilisé le Shabbat</td>
+            <td class="opinion-2">Interdit (שכר שבת)</td>
+            <td class="opinion-2">Interdit (idem)</td>
+            <td>שו״ע מח׳ + הרמ״א</td>
+          </tr>
+          <tr>
+            <td>Location · ne sait pas</td>
+            <td style="color:#27AE60; font-weight:500;">Permis</td>
+            <td style="color:#27AE60; font-weight:500;">Permis</td>
+            <td>שו״ע סעיף א׳</td>
+          </tr>
+          <tr>
+            <td>Prêt gratuit · sait qu'utilisé le Shabbat</td>
+            <td style="color:orange; font-weight:500;">Débat (permis selon certains)</td>
+            <td class="opinion-2">Interdit (נראה כשלוחו)</td>
+            <td>הרמ״א + מג״א</td>
+          </tr>
+          <tr class="pesak-row">
+            <td>Prêt/Location · doute si utilisé le Shabbat</td>
+            <td colspan="2" style="text-align:center;">Consulter un Rav — dépend des détails</td>
+            <td>מ״ב רמ״ו:ב</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="bottom-nav">
+        <a href="niveau-1-base.html">← Niveau 1 — Base</a>
+        <a href="niveau-4-synthese.html" class="next-btn">Niveau 4 — Synthèse →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>DAAT דעת · Siman 246 · Niveau Lamdan · <a href="../../../index.html">Accueil</a> · <a href="index.html">Retour Siman 246</a></p>
+  </footer>
+
+</body>
+</html>

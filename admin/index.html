@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DAAT Admin — Gestion du contenu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #1A1F3A; --gold: #C5A55A; --cream: #FAF6EE;
+      --green: #2E7D52; --purple: #6B3FA0; --red: #C0392B;
+      --border: #E4DDD0; --white: #fff; --text: #2C2C2C;
+      --muted: #888;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; background:#F4F4F6; color:var(--text); min-height:100vh; }
+
+    /* SIDEBAR */
+    .layout { display:grid; grid-template-columns:220px 1fr; min-height:100vh; }
+    .sidebar { background:var(--navy); padding:0; position:sticky; top:0; height:100vh; overflow-y:auto; }
+    .sidebar-logo { padding:24px 20px; border-bottom:1px solid rgba(255,255,255,0.08); }
+    .sidebar-logo .he { font-family:'Frank Ruhl Libre',serif; font-size:28px; color:var(--gold); font-weight:700; }
+    .sidebar-logo .sub { font-size:10px; color:rgba(255,255,255,0.4); letter-spacing:3px; text-transform:uppercase; margin-top:2px; }
+    .sidebar-badge { background:rgba(197,165,90,0.15); color:var(--gold); font-size:10px; padding:2px 8px; border-radius:2px; margin-top:8px; display:inline-block; letter-spacing:1px; }
+    .nav-section { padding:16px 12px 8px; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,0.25); }
+    .nav-item { display:flex; align-items:center; gap:10px; padding:10px 20px; font-size:13px; color:rgba(255,255,255,0.6); cursor:pointer; transition:all 0.15s; border-left:3px solid transparent; }
+    .nav-item:hover { background:rgba(255,255,255,0.05); color:#fff; }
+    .nav-item.active { color:#fff; border-left-color:var(--gold); background:rgba(197,165,90,0.08); }
+    .nav-item .icon { font-size:16px; width:20px; text-align:center; }
+
+    /* MAIN */
+    .main { padding:32px; overflow-y:auto; }
+    .page { display:none; }
+    .page.active { display:block; }
+
+    /* HEADER */
+    .page-header { margin-bottom:28px; }
+    .page-header h1 { font-size:24px; font-weight:600; color:var(--navy); margin-bottom:4px; }
+    .page-header p { font-size:14px; color:var(--muted); }
+
+    /* STATS ROW */
+    .stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:28px; }
+    .stat-card { background:var(--white); border:1px solid var(--border); padding:20px; }
+    .stat-val { font-size:32px; font-weight:700; color:var(--navy); line-height:1; margin-bottom:6px; }
+    .stat-label { font-size:12px; color:var(--muted); letter-spacing:0.5px; }
+    .stat-card.gold .stat-val { color:var(--gold); }
+    .stat-card.green .stat-val { color:var(--green); }
+
+    /* CARDS */
+    .card { background:var(--white); border:1px solid var(--border); padding:24px; margin-bottom:20px; }
+    .card-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; padding-bottom:16px; border-bottom:1px solid var(--border); }
+    .card-title { font-size:16px; font-weight:600; color:var(--navy); }
+    .card-title .he { font-family:'Frank Ruhl Libre',serif; font-size:18px; color:var(--gold); margin-right:8px; }
+
+    /* TABLE */
+    .data-table { width:100%; border-collapse:collapse; }
+    .data-table thead th { font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); padding:8px 12px; border-bottom:2px solid var(--border); text-align:left; }
+    .data-table tbody tr { border-bottom:1px solid var(--border); transition:background 0.1s; }
+    .data-table tbody tr:hover { background:#F9F9FB; }
+    .data-table td { padding:12px; font-size:13px; color:var(--text); vertical-align:middle; }
+    .he-cell { font-family:'Frank Ruhl Libre',serif; font-size:16px; direction:rtl; }
+
+    /* BADGES */
+    .badge { display:inline-block; font-size:10px; font-weight:600; letter-spacing:1px; text-transform:uppercase; padding:3px 8px; border-radius:2px; }
+    .badge-ready { background:#E8F5EE; color:var(--green); }
+    .badge-soon { background:#F0F0F0; color:#999; }
+    .badge-planned { background:#F0F0F0; color:#bbb; }
+    .badge-active { background:#EEF; color:var(--navy); }
+
+    /* BUTTONS */
+    .btn { font-family:'Inter',sans-serif; font-size:12px; font-weight:600; letter-spacing:1px; text-transform:uppercase; padding:8px 16px; border:none; cursor:pointer; transition:all 0.15s; }
+    .btn-primary { background:var(--navy); color:#fff; }
+    .btn-primary:hover { background:var(--gold); color:var(--navy); }
+    .btn-gold { background:var(--gold); color:var(--navy); }
+    .btn-gold:hover { background:#D4B97A; }
+    .btn-sm { padding:5px 10px; font-size:11px; }
+    .btn-outline { background:transparent; border:1px solid var(--border); color:var(--text); }
+    .btn-outline:hover { border-color:var(--navy); }
+    .btn-danger { background:transparent; border:1px solid #FFCCCC; color:var(--red); }
+
+    /* FORM */
+    .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .form-group { margin-bottom:16px; }
+    .form-group label { display:block; font-size:12px; font-weight:600; letter-spacing:0.5px; color:var(--muted); margin-bottom:6px; text-transform:uppercase; }
+    .form-group input, .form-group select, .form-group textarea {
+      width:100%; padding:10px 12px; border:1px solid var(--border);
+      font-family:'Inter',sans-serif; font-size:14px; color:var(--text);
+      background:var(--white); outline:none; transition:border-color 0.15s;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color:var(--navy); }
+    .form-group textarea { resize:vertical; min-height:80px; }
+    .form-group input[dir="rtl"] { font-family:'Frank Ruhl Libre',serif; font-size:16px; text-align:right; }
+    .form-full { grid-column:1/-1; }
+
+    /* LEVELS CHECKBOXES */
+    .levels-row { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:16px; }
+    .level-toggle { border:1px solid var(--border); padding:12px; cursor:pointer; text-align:center; transition:all 0.15s; }
+    .level-toggle input { display:none; }
+    .level-toggle.checked { border-color:var(--green); background:#E8F5EE; }
+    .level-toggle .lnum { font-size:20px; font-weight:700; color:var(--border); margin-bottom:4px; }
+    .level-toggle.checked .lnum { color:var(--green); }
+    .level-toggle .lname { font-size:12px; color:var(--muted); }
+    .level-toggle.checked .lname { color:var(--green); }
+
+    /* OUTPUT BOX */
+    .output-box { background:#1A1A2E; padding:20px; font-family:'Courier New',monospace; font-size:13px; color:#A8D8A8; white-space:pre-wrap; border:1px solid #333; max-height:400px; overflow-y:auto; }
+    .output-label { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
+
+    /* SEPARATOR */
+    .sep { border:none; border-top:1px solid var(--border); margin:24px 0; }
+
+    /* ALERT */
+    .alert { padding:12px 16px; margin-bottom:16px; font-size:14px; border-left:4px solid; }
+    .alert-info { background:#EEF4FF; border-color:#4A90D9; color:#2C5F8A; }
+    .alert-success { background:#E8F5EE; border-color:var(--green); color:#1A4D33; }
+    .alert-warn { background:#FFF8E7; border-color:var(--gold); color:#7A5A10; }
+
+    /* PROGRESS */
+    .progress-bar { background:#E8E8E8; height:6px; border-radius:3px; overflow:hidden; margin-top:6px; }
+    .progress-fill { height:100%; background:var(--gold); border-radius:3px; transition:width 0.3s; }
+
+    /* TOAST */
+    #toast { position:fixed; bottom:24px; right:24px; background:var(--navy); color:#fff; padding:14px 20px; font-size:13px; border-left:4px solid var(--gold); opacity:0; transition:opacity 0.3s; pointer-events:none; z-index:1000; }
+    #toast.show { opacity:1; }
+
+    @media (max-width:900px) {
+      .layout { grid-template-columns:1fr; }
+      .sidebar { display:none; }
+      .stats-row { grid-template-columns:1fr 1fr; }
+      .form-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="toast"></div>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="he">דעת</div>
+      <div class="sub">DAAT Admin</div>
+      <div class="sidebar-badge">📝 Gestion contenu</div>
+    </div>
+
+    <div class="nav-section">Navigation</div>
+    <div class="nav-item active" onclick="showPage('dashboard',this)"><span class="icon">🏠</span> Tableau de bord</div>
+    <div class="nav-item" onclick="showPage('inventory',this)"><span class="icon">📚</span> Inventaire</div>
+    <div class="nav-item" onclick="showPage('add-content',this)"><span class="icon">➕</span> Ajouter contenu</div>
+    <div class="nav-item" onclick="showPage('generate',this)"><span class="icon">⚙️</span> Générer page HTML</div>
+
+    <div class="nav-section">Outils</div>
+    <div class="nav-item" onclick="showPage('json-editor',this)"><span class="icon">📄</span> Éditeur JSON</div>
+    <div class="nav-item" onclick="showPage('deploy',this)"><span class="icon">🚀</span> Déploiement</div>
+
+    <div style="padding:20px; margin-top:auto; border-top:1px solid rgba(255,255,255,0.05);">
+      <div style="font-size:11px; color:rgba(255,255,255,0.3);">הרב יוסף חיים סממה</div>
+      <a href="../index.html" style="font-size:11px; color:var(--gold); text-decoration:none;">← Voir le site</a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- ── DASHBOARD ── -->
+    <div id="page-dashboard" class="page active">
+      <div class="page-header">
+        <h1>Tableau de bord</h1>
+        <p>Vue d'ensemble du contenu DAAT.AI — <span id="last-updated">chargement...</span></p>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-card gold"><div class="stat-val" id="stat-simanim">—</div><div class="stat-label">Simanim traités</div></div>
+        <div class="stat-card green"><div class="stat-val" id="stat-seifim-ready">—</div><div class="stat-label">Seifim complets</div></div>
+        <div class="stat-card"><div class="stat-val" id="stat-pages">—</div><div class="stat-label">Pages HTML créées</div></div>
+        <div class="stat-card"><div class="stat-val" id="stat-pdfs">—</div><div class="stat-label">PDFs disponibles</div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><span class="he">מצב הפרויקט</span> État du projet</div>
+        </div>
+        <div id="dashboard-content">Chargement du registre...</div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><div class="card-title">Actions rapides</div></div>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <button class="btn btn-primary" onclick="showPage('add-content', document.querySelector('[onclick*=add-content]'))">➕ Ajouter un nouveau Seif</button>
+          <button class="btn btn-gold" onclick="showPage('generate', document.querySelector('[onclick*=generate]'))">⚙️ Générer une page HTML</button>
+          <button class="btn btn-outline" onclick="showPage('deploy', document.querySelector('[onclick*=deploy]'))">🚀 Instructions déploiement</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── INVENTORY ── -->
+    <div id="page-inventory" class="page">
+      <div class="page-header">
+        <h1>Inventaire du contenu</h1>
+        <p>Tous les Simanim et Seifim enregistrés dans le registre JSON</p>
+      </div>
+      <div id="inventory-content">Chargement...</div>
+    </div>
+
+    <!-- ── ADD CONTENT ── -->
+    <div id="page-add-content" class="page">
+      <div class="page-header">
+        <h1>Ajouter du contenu</h1>
+        <p>Enregistrer un nouveau Siman ou Seif dans le registre — met à jour <code>data/simanim.json</code></p>
+      </div>
+
+      <div class="alert alert-info">
+        💡 Remplis ce formulaire pour ajouter un nouveau Seif. Le JSON généré sera à copier dans <strong>data/simanim.json</strong>, puis à committer sur GitHub.
+      </div>
+
+      <div class="card">
+        <div class="card-header"><div class="card-title">Nouveau Seif</div></div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Section (Choulhan Aroukh)</label>
+            <select id="f-section">
+              <option value="orah-haim">Orah Haïm — אורח חיים</option>
+              <option value="yoreh-deah">Yoreh De'ah — יורה דעה</option>
+              <option value="even-haezer">Even HaEzer — אבן העזר</option>
+              <option value="hoshen-mishpat">Hoshen Mishpat — חושן משפט</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Chapitre / Sujet</label>
+            <input type="text" id="f-chapter" placeholder="ex: hilkhot-shabbat">
+          </div>
+          <div class="form-group">
+            <label>Numéro du Siman (chiffres arabes)</label>
+            <input type="number" id="f-siman-num" placeholder="ex: 246">
+          </div>
+          <div class="form-group">
+            <label>Numéro hébreu (guimatria)</label>
+            <input type="text" id="f-siman-he" dir="rtl" placeholder="ex: רמ״ו">
+          </div>
+          <div class="form-group form-full">
+            <label>Titre hébreu du Siman</label>
+            <input type="text" id="f-siman-title-he" dir="rtl" placeholder="ex: דיני השאלה והשכרה לגוי בשבת">
+          </div>
+          <div class="form-group form-full">
+            <label>Titre français du Siman</label>
+            <input type="text" id="f-siman-title-fr" placeholder="ex: Prêt et location au non-juif pour Shabbat">
+          </div>
+
+          <hr class="sep form-full">
+
+          <div class="form-group">
+            <label>Numéro du Seif (lettre hébraïque)</label>
+            <input type="text" id="f-seif-num" dir="rtl" placeholder="ex: א, ב, ג…">
+          </div>
+          <div class="form-group">
+            <label>Statut</label>
+            <select id="f-seif-status">
+              <option value="complete">Complet ✅</option>
+              <option value="in-progress">En cours 🔄</option>
+              <option value="planned">Planifié 📋</option>
+            </select>
+          </div>
+          <div class="form-group form-full">
+            <label>Titre hébreu du Seif</label>
+            <input type="text" id="f-seif-title-he" dir="rtl" placeholder="ex: איסור השכרת כלים לגוי בשבת">
+          </div>
+          <div class="form-group form-full">
+            <label>Titre français du Seif</label>
+            <input type="text" id="f-seif-title-fr" placeholder="ex: Interdiction de louer ses ustensiles à un non-juif le Shabbat">
+          </div>
+          <div class="form-group form-full">
+            <label>Poskim mentionnés (séparés par virgule)</label>
+            <input type="text" id="f-poskim" placeholder="ex: רמב״ם, רי״ף, ר׳ יונה, שו״ע, רמ״א">
+          </div>
+          <div class="form-group form-full">
+            <label>Concepts halakhiques clés</label>
+            <input type="text" id="f-concepts" placeholder="ex: שביתת כלים, שכר שבת, נראה כשלוחו">
+          </div>
+        </div>
+
+        <label style="font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:10px;">Niveaux disponibles</label>
+        <div class="levels-row">
+          <div class="level-toggle" id="lt-1" onclick="toggleLevel(1)">
+            <div class="lnum">1</div>
+            <div class="lname">Initiation</div>
+          </div>
+          <div class="level-toggle" id="lt-2" onclick="toggleLevel(2)">
+            <div class="lnum">2</div>
+            <div class="lname">Étudiant</div>
+          </div>
+          <div class="level-toggle" id="lt-3" onclick="toggleLevel(3)">
+            <div class="lnum">3</div>
+            <div class="lname">Lamdan</div>
+          </div>
+          <div class="level-toggle" id="lt-4" onclick="toggleLevel(4)">
+            <div class="lnum">4</div>
+            <div class="lname">Synthèse</div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="generateSeifJSON()">Générer l'entrée JSON →</button>
+      </div>
+
+      <div class="card" id="json-output-card" style="display:none;">
+        <div class="card-header">
+          <div class="card-title">JSON généré — à copier dans data/simanim.json</div>
+          <button class="btn btn-gold btn-sm" onclick="copyJSON()">📋 Copier</button>
+        </div>
+        <div class="output-label">Entrée JSON pour ce Seif</div>
+        <div class="output-box" id="json-output"></div>
+        <div style="margin-top:16px;" class="alert alert-warn">
+          ⚠️ Ce JSON est à insérer dans le tableau <code>"seifim"</code> du Siman correspondant dans <code>data/simanim.json</code>, puis committer sur GitHub pour mettre à jour le site.
+        </div>
+      </div>
+    </div>
+
+    <!-- ── GENERATE PAGE ── -->
+    <div id="page-generate" class="page">
+      <div class="page-header">
+        <h1>Générer une page HTML</h1>
+        <p>Crée automatiquement le fichier HTML d'un niveau à partir d'un template</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><div class="card-title">Paramètres de la page</div></div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Siman (numéro arabe)</label>
+            <input type="number" id="g-siman" placeholder="ex: 246" oninput="updatePagePath()">
+          </div>
+          <div class="form-group">
+            <label>Seif (lettre hébraïque)</label>
+            <input type="text" id="g-seif" dir="rtl" placeholder="ex: א" oninput="updatePagePath()">
+          </div>
+          <div class="form-group">
+            <label>Niveau à générer</label>
+            <select id="g-level" onchange="updatePagePath()">
+              <option value="1">Niveau 1 — Initiation</option>
+              <option value="2">Niveau 2 — Étudiant</option>
+              <option value="3">Niveau 3 — Lamdan</option>
+              <option value="4">Niveau 4 — Synthèse</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Chemin de sortie (auto)</label>
+            <input type="text" id="g-path" readonly style="background:#F4F4F6;color:var(--muted);">
+          </div>
+          <div class="form-group form-full">
+            <label>Titre hébreu (Siman + Seif)</label>
+            <input type="text" id="g-title-he" dir="rtl" placeholder="ex: דיני השאלה והשכרה לגוי — סעיף א׳">
+          </div>
+          <div class="form-group form-full">
+            <label>Titre français</label>
+            <input type="text" id="g-title-fr" placeholder="ex: Prêt et location au non-juif — Seif Alef">
+          </div>
+          <div class="form-group form-full">
+            <label>Contenu principal (texte hébreu du Seif — שולחן ערוך)</label>
+            <textarea id="g-content-he" dir="rtl" placeholder="Colle ici le texte hébreu du Shulchan Aroukh…" style="min-height:100px;"></textarea>
+          </div>
+          <div class="form-group form-full">
+            <label>Traduction française</label>
+            <textarea id="g-content-fr" placeholder="Colle ici la traduction française…" style="min-height:100px;"></textarea>
+          </div>
+          <div class="form-group form-full">
+            <label>Explication / notes pédagogiques</label>
+            <textarea id="g-notes" placeholder="Notes, explications pédagogiques, contexte…" style="min-height:80px;"></textarea>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="generateHTML()">⚙️ Générer le fichier HTML</button>
+      </div>
+
+      <div class="card" id="html-output-card" style="display:none;">
+        <div class="card-header">
+          <div class="card-title">HTML généré</div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-gold btn-sm" onclick="copyHTML()">📋 Copier</button>
+            <button class="btn btn-primary btn-sm" onclick="downloadHTML()">⬇️ Télécharger</button>
+          </div>
+        </div>
+        <div class="output-label">Contenu du fichier — à sauvegarder au chemin indiqué</div>
+        <div class="output-box" id="html-output" style="max-height:300px;"></div>
+        <div class="alert alert-success" style="margin-top:16px;">
+          ✅ Sauvegarde ce fichier dans ton projet daat-ai au chemin <strong id="html-save-path"></strong> et committe sur GitHub.
+        </div>
+      </div>
+    </div>
+
+    <!-- ── JSON EDITOR ── -->
+    <div id="page-json-editor" class="page">
+      <div class="page-header">
+        <h1>Éditeur JSON</h1>
+        <p>Visualise et modifie directement le registre <code>data/simanim.json</code></p>
+      </div>
+      <div class="alert alert-warn">
+        ⚠️ Modification avancée — assure-toi de valider le JSON avant de sauvegarder.
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">data/simanim.json</div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-outline btn-sm" onclick="loadJSON()">🔄 Recharger</button>
+            <button class="btn btn-primary btn-sm" onclick="copyJSONEditor()">📋 Copier</button>
+          </div>
+        </div>
+        <textarea id="json-editor" style="width:100%;min-height:500px;font-family:'Courier New',monospace;font-size:13px;padding:16px;border:1px solid var(--border);background:#1A1A2E;color:#A8D8A8;resize:vertical;"></textarea>
+        <div style="margin-top:12px;display:flex;gap:8px;">
+          <button class="btn btn-primary" onclick="validateJSON()">✅ Valider JSON</button>
+          <button class="btn btn-gold" onclick="applyJSON()">💾 Appliquer (session)</button>
+        </div>
+        <div id="json-validate-msg" style="margin-top:10px;font-size:13px;"></div>
+      </div>
+    </div>
+
+    <!-- ── DEPLOY ── -->
+    <div id="page-deploy" class="page">
+      <div class="page-header">
+        <h1>Déploiement GitHub Pages</h1>
+        <p>Mettre à jour le site en ligne après modification du contenu</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><div class="card-title">Workflow de mise à jour</div></div>
+        <ol style="font-size:15px;line-height:2.5;padding-left:24px;color:#3D4266;">
+          <li>Ajoute ou modifie le contenu via les onglets <strong>Ajouter</strong> ou <strong>Générer page HTML</strong></li>
+          <li>Sauvegarde les fichiers générés dans le bon dossier du projet daat-ai</li>
+          <li>Mets à jour <code>data/simanim.json</code> avec les nouvelles entrées</li>
+          <li>Ouvre <strong>Terminal</strong> et navigue vers le projet :<br>
+            <code style="background:#F0F0F0;padding:4px 8px;font-size:13px;">cd ~/Documents/Claude/Projects/daat-ai</code>
+          </li>
+          <li>Committe et pousse :<br>
+            <code style="background:#F0F0F0;padding:4px 8px;font-size:13px;">git add . && git commit -m "Ajout Siman XXX Seif X" && git push</code>
+          </li>
+          <li>Le site se met à jour automatiquement en ~1 minute sur GitHub Pages ✅</li>
+        </ol>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><div class="card-title">Premier déploiement (à faire une seule fois)</div></div>
+        <div class="alert alert-info">Ces commandes créent le repo GitHub et activent GitHub Pages. À exécuter une seule fois depuis Terminal.</div>
+        <div class="output-box" style="background:#1A1A2E;">
+cd ~/Documents/Claude/Projects/daat-ai
+git init
+git add .
+git commit -m "Initial commit — DAAT.AI Siman 246"
+/usr/local/Cellar/gh/2.86.0/bin/gh auth login
+/usr/local/Cellar/gh/2.86.0/bin/gh repo create daat-ai --public --source=. --remote=origin --push
+# Activer GitHub Pages :
+/usr/local/Cellar/gh/2.86.0/bin/gh api repos/{owner}/daat-ai/pages -X POST -f source[branch]=main -f source[path]=/
+        </div>
+        <div style="margin-top:12px;" class="alert alert-warn">
+          ⚠️ Remplace <code>{owner}</code> par ton nom d'utilisateur GitHub avant d'exécuter la dernière commande.
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+// ── State ──
+let registry = null;
+
+// ── Navigation ──
+function showPage(id, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  if (el) el.classList.add('active');
+}
+
+// ── Load registry ──
+async function loadRegistry() {
+  try {
+    const res = await fetch('../data/simanim.json?t=' + Date.now());
+    registry = await res.json();
+    renderDashboard();
+    renderInventory();
+    document.getElementById('json-editor').value = JSON.stringify(registry, null, 2);
+    document.getElementById('last-updated').textContent = 'Dernière mise à jour : ' + registry.meta.lastUpdated;
+  } catch(e) {
+    document.getElementById('dashboard-content').innerHTML = '<div class="alert alert-warn">⚠️ Impossible de charger data/simanim.json. Ouvre cette page depuis un serveur local ou via le projet.</div>';
+  }
+}
+
+// ── Dashboard ──
+function renderDashboard() {
+  if (!registry) return;
+  let simanim = 0, seifimReady = 0, pages = 0, pdfs = 0;
+  let html = '';
+  registry.sections.forEach(sec => {
+    sec.chapters?.forEach(ch => {
+      ch.simanim?.forEach(sim => {
+        simanim++;
+        sim.seifim?.forEach(s => {
+          if (s.status === 'complete') seifimReady++;
+          s.niveaux?.forEach(n => {
+            if (n.status === 'ready') {
+              if (n.htmlPath) pages++;
+              if (n.pdfPath) pdfs++;
+            }
+          });
+        });
+        const ready = sim.seifim?.filter(s => s.status === 'complete').length || 0;
+        const total = sim.seifim?.length || 0;
+        const pct = total ? Math.round(ready/total*100) : 0;
+        html += `<div style="display:flex;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid var(--border);">
+          <div style="font-family:'Frank Ruhl Libre',serif;font-size:20px;direction:rtl;min-width:60px;color:var(--gold);">${sim.num}</div>
+          <div style="flex:1;">
+            <div style="font-size:14px;font-weight:600;">${sim.titleFr}</div>
+            <div style="font-size:12px;color:var(--muted);">${ready}/${total} seifim traités</div>
+            <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+          </div>
+          <span class="badge badge-${sim.status === 'active' ? 'active' : 'planned'}">${sim.status}</span>
+        </div>`;
+      });
+    });
+  });
+  document.getElementById('stat-simanim').textContent = simanim;
+  document.getElementById('stat-seifim-ready').textContent = seifimReady;
+  document.getElementById('stat-pages').textContent = pages;
+  document.getElementById('stat-pdfs').textContent = pdfs;
+  document.getElementById('dashboard-content').innerHTML = html || '<p style="color:var(--muted)">Aucun contenu.</p>';
+}
+
+// ── Inventory ──
+function renderInventory() {
+  if (!registry) return;
+  let html = '';
+  registry.sections.forEach(sec => {
+    if (sec.status === 'planned' && !sec.chapters?.length) return;
+    html += `<div class="card" style="margin-bottom:16px;">
+      <div class="card-header">
+        <div class="card-title"><span class="he">${sec.name}</span> ${sec.nameFr}</div>
+        <span class="badge badge-${sec.status === 'active' ? 'active' : 'planned'}">${sec.status}</span>
+      </div>`;
+    sec.chapters?.forEach(ch => {
+      html += `<div style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">${ch.nameFr}</div>
+      <table class="data-table"><thead><tr>
+        <th>Siman</th><th>Titre</th><th>Seif</th><th>Niveaux</th><th>Statut</th>
+      </tr></thead><tbody>`;
+      ch.simanim?.forEach(sim => {
+        sim.seifim?.forEach((s, i) => {
+          const niveauxBadges = s.niveaux?.map(n =>
+            `<span class="badge badge-${n.status === 'ready' ? 'ready' : 'soon'}" style="margin-right:4px;">${n.id}</span>`
+          ).join('') || '<span style="color:var(--muted);font-size:12px;">—</span>';
+          html += `<tr>
+            ${i === 0 ? `<td rowspan="${sim.seifim.length}" class="he-cell" style="color:var(--gold);font-size:20px;">${sim.num}</td>` : ''}
+            ${i === 0 ? `<td rowspan="${sim.seifim.length}" style="font-size:13px;max-width:200px;">${sim.titleFr}</td>` : ''}
+            <td class="he-cell" style="font-size:16px;">${s.num}</td>
+            <td>${niveauxBadges}</td>
+            <td><span class="badge badge-${s.status === 'complete' ? 'ready' : s.status === 'in-progress' ? 'active' : 'planned'}">${s.status}</span></td>
+          </tr>`;
+        });
+        if (!sim.seifim?.length) {
+          html += `<tr><td class="he-cell" style="color:var(--gold);font-size:20px;">${sim.num}</td><td colspan="4" style="color:var(--muted);font-size:13px;">${sim.titleFr} — <em>planifié</em></td></tr>`;
+        }
+      });
+      html += '</tbody></table>';
+    });
+    html += '</div>';
+  });
+  document.getElementById('inventory-content').innerHTML = html;
+}
+
+// ── Level toggles ──
+const selectedLevels = new Set();
+function toggleLevel(n) {
+  const el = document.getElementById('lt-' + n);
+  if (selectedLevels.has(n)) { selectedLevels.delete(n); el.classList.remove('checked'); }
+  else { selectedLevels.add(n); el.classList.add('checked'); }
+}
+
+// ── Generate Seif JSON ──
+function generateSeifJSON() {
+  const simanNum = document.getElementById('f-siman-num').value;
+  const seifNum = document.getElementById('f-seif-num').value;
+  const status = document.getElementById('f-seif-status').value;
+  const titleHe = document.getElementById('f-seif-title-he').value;
+  const titleFr = document.getElementById('f-seif-title-fr').value;
+  const poskim = document.getElementById('f-poskim').value.split(',').map(s => s.trim()).filter(Boolean);
+  const concepts = document.getElementById('f-concepts').value.split(',').map(s => s.trim()).filter(Boolean);
+  const levelNames = { 1:'Initiation', 2:'Étudiant', 3:'Lamdan', 4:'Synthèse' };
+  const levelNamesHe = { 1:'מתחילים', 2:'בני ישיבה', 3:'תלמידי חכמים', 4:'חזרה וסיכום' };
+  const niveaux = [1,2,3,4].map(n => ({
+    id: n, label: levelNames[n], labelHe: levelNamesHe[n],
+    status: selectedLevels.has(n) ? 'ready' : 'coming-soon',
+    htmlPath: selectedLevels.has(n) ? `sources/shabbat/siman-${simanNum}/niveau-${n}-${['','base','etudiant','lamdan','synthese'][n]}.html` : null,
+    pdfPath: null
+  }));
+  const entry = {
+    id: `${simanNum}-${seifNum}`,
+    num: seifNum, numFr: `Seif ${seifNum}`,
+    title: titleHe, titleFr: titleFr,
+    status, niveaux, poskim, concepts,
+    addedDate: new Date().toISOString().slice(0,10)
+  };
+  document.getElementById('json-output').textContent = JSON.stringify(entry, null, 2);
+  document.getElementById('json-output-card').style.display = 'block';
+  toast('JSON généré ✅');
+}
+
+// ── Page path helper ──
+function updatePagePath() {
+  const sim = document.getElementById('g-siman').value;
+  const lv = document.getElementById('g-level').value;
+  const names = ['','base','etudiant','lamdan','synthese'];
+  if (sim) {
+    document.getElementById('g-path').value = `sources/shabbat/siman-${sim}/niveau-${lv}-${names[lv]}.html`;
+    document.getElementById('html-save-path').textContent = `sources/shabbat/siman-${sim}/niveau-${lv}-${names[lv]}.html`;
+  }
+}
+
+// ── Generate HTML ──
+function generateHTML() {
+  const sim = document.getElementById('g-siman').value || '???';
+  const seif = document.getElementById('g-seif').value || 'א';
+  const lv = parseInt(document.getElementById('g-level').value);
+  const titleHe = document.getElementById('g-title-he').value || 'כותרת';
+  const titleFr = document.getElementById('g-title-fr').value || 'Titre';
+  const contentHe = document.getElementById('g-content-he').value || '';
+  const contentFr = document.getElementById('g-content-fr').value || '';
+  const notes = document.getElementById('g-notes').value || '';
+  const colors = ['','#2E7D52','#1A1F3A','#6B3FA0','#C5A55A'];
+  const levelNames = ['','Initiation','Étudiant','Lamdan','Synthèse Magistrale'];
+  const html = `<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Niveau ${lv} — ${levelNames[lv]} · Siman ${sim} · DAAT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --navy:#1A1F3A; --gold:#C5A55A; --cream:#FAF6EE; --accent:${colors[lv]}; --white:#fff; --border:#E4DDD0; --text:#3D4266; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Cormorant Garamond',serif; background:var(--cream); color:var(--navy); line-height:1.7; }
+    header { background:var(--navy); padding:0 40px; display:flex; align-items:center; justify-content:space-between; height:70px; border-bottom:2px solid var(--accent); }
+    .logo-he { font-family:'Frank Ruhl Libre',serif; font-size:26px; font-weight:700; color:var(--gold); }
+    .logo-en { font-family:'Inter',sans-serif; font-size:16px; font-weight:600; color:#fff; letter-spacing:3px; }
+    .level-badge { font-family:'Inter',sans-serif; font-size:12px; font-weight:600; background:var(--accent); color:#fff; padding:6px 14px; letter-spacing:1px; text-transform:uppercase; }
+    .breadcrumb { background:var(--navy); padding:10px 40px; border-bottom:1px solid rgba(197,165,90,0.15); font-family:'Inter',sans-serif; font-size:12px; }
+    .breadcrumb a { color:rgba(255,255,255,0.4); text-decoration:none; }
+    .breadcrumb a:hover { color:var(--gold); }
+    .breadcrumb .sep { margin:0 8px; color:rgba(255,255,255,0.2); }
+    .breadcrumb .current { color:var(--accent); }
+    .hero { background:var(--accent); padding:48px 40px; border-bottom:3px solid var(--gold); }
+    .hero-meta { font-family:'Inter',sans-serif; font-size:11px; letter-spacing:4px; text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:12px; }
+    .hero-title { font-size:32px; color:#fff; margin-bottom:8px; }
+    .hero-subtitle { font-size:17px; color:rgba(255,255,255,0.7); font-style:italic; }
+    .main { max-width:900px; margin:0 auto; padding:60px 40px; }
+    .section { margin-bottom:48px; }
+    .section-label { font-family:'Inter',sans-serif; font-size:10px; font-weight:600; letter-spacing:4px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; }
+    .section-title { font-size:28px; font-weight:500; color:var(--navy); margin-bottom:8px; }
+    .divider { width:48px; height:2px; background:var(--accent); margin:10px 0 24px; }
+    .hebrew-box { background:var(--navy); padding:28px 32px; border-left:4px solid var(--gold); margin-bottom:16px; }
+    .hebrew-text { font-family:'Frank Ruhl Libre',serif; font-size:22px; line-height:1.9; direction:rtl; text-align:right; color:var(--cream); }
+    .translation-box { background:var(--white); border:1px solid var(--border); padding:24px 28px; margin-bottom:24px; }
+    .translation-text { font-size:18px; color:var(--text); line-height:1.9; font-style:italic; }
+    .notes-box { background:#F8F5FF; border:1px solid #DDD0F0; border-left:4px solid var(--accent); padding:24px; }
+    .notes-box h3 { font-size:20px; color:var(--accent); margin-bottom:12px; }
+    .notes-box p { font-size:16px; color:var(--text); line-height:1.8; }
+    .nav-bottom { display:flex; justify-content:space-between; padding:24px 0; border-top:1px solid var(--border); margin-top:48px; }
+    .nav-bottom a { font-family:'Inter',sans-serif; font-size:13px; color:var(--navy); text-decoration:none; font-weight:500; }
+    footer { background:var(--navy); border-top:2px solid var(--gold); padding:24px 40px; text-align:center; font-family:'Inter',sans-serif; font-size:12px; color:rgba(255,255,255,0.3); }
+    footer a { color:var(--gold); text-decoration:none; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="../../../index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+      <span class="logo-he">דעת</span><span class="logo-en">DAAT</span>
+    </a>
+    <div class="level-badge">Niveau ${lv} — ${levelNames[lv]}</div>
+  </header>
+  <div class="breadcrumb">
+    <a href="../../../index.html">Accueil</a><span class="sep">›</span>
+    <a href="index.html">Siman ${sim}</a><span class="sep">›</span>
+    <span class="current">Niveau ${lv} — ${levelNames[lv]}</span>
+  </div>
+  <div class="hero">
+    <div class="hero-meta">Orah Haïm ${sim} · Seif ${seif} · Niveau ${levelNames[lv]}</div>
+    <div class="hero-title">${titleFr}</div>
+    <div class="hero-subtitle">${titleHe}</div>
+  </div>
+  <div class="main">
+    <div class="section">
+      <div class="section-label">Texte original</div>
+      <div class="section-title">שולחן ערוך — Siman ${sim}, Seif ${seif}</div>
+      <div class="divider"></div>
+      <div class="hebrew-box">
+        <div class="hebrew-text">${contentHe.replace(/\n/g,'<br>')}</div>
+      </div>
+      <div class="translation-box">
+        <div class="translation-text">${contentFr.replace(/\n/g,'<br>')}</div>
+      </div>
+    </div>
+    ${notes ? `<div class="section">
+      <div class="section-label">Explication</div>
+      <div class="section-title">Notes pédagogiques</div>
+      <div class="divider"></div>
+      <div class="notes-box">
+        <p>${notes.replace(/\n/g,'<br>')}</p>
+      </div>
+    </div>` : ''}
+    <div class="nav-bottom">
+      <a href="index.html">← Retour Siman ${sim}</a>
+      <a href="../../../index.html">Accueil DAAT →</a>
+    </div>
+  </div>
+  <footer>DAAT דעת · Siman ${sim} · <a href="../../../index.html">Accueil</a> · © 5786 — Rav Yossef Haim Samama</footer>
+</body>
+</html>`;
+  document.getElementById('html-output').textContent = html;
+  document.getElementById('html-output-card').style.display = 'block';
+  document.getElementById('html-save-path').textContent = document.getElementById('g-path').value;
+  window._generatedHTML = html;
+  window._generatedFilename = document.getElementById('g-path').value.split('/').pop();
+  toast('HTML généré ✅');
+}
+
+// ── JSON editor ──
+function loadJSON() { loadRegistry(); toast('Rechargé'); }
+function copyJSONEditor() { navigator.clipboard.writeText(document.getElementById('json-editor').value); toast('JSON copié'); }
+function validateJSON() {
+  try {
+    JSON.parse(document.getElementById('json-editor').value);
+    document.getElementById('json-validate-msg').innerHTML = '<span style="color:var(--green)">✅ JSON valide</span>';
+  } catch(e) {
+    document.getElementById('json-validate-msg').innerHTML = `<span style="color:var(--red)">❌ Erreur : ${e.message}</span>`;
+  }
+}
+function applyJSON() {
+  try {
+    registry = JSON.parse(document.getElementById('json-editor').value);
+    renderDashboard(); renderInventory();
+    toast('Registre mis à jour en session');
+  } catch(e) { toast('Erreur JSON : ' + e.message); }
+}
+
+// ── Utilities ──
+function copyJSON() {
+  navigator.clipboard.writeText(document.getElementById('json-output').textContent);
+  toast('JSON copié dans le presse-papiers ✅');
+}
+function copyHTML() {
+  navigator.clipboard.writeText(document.getElementById('html-output').textContent);
+  toast('HTML copié ✅');
+}
+function downloadHTML() {
+  if (!window._generatedHTML) return;
+  const a = document.createElement('a');
+  a.href = 'data:text/html;charset=utf-8,' + encodeURIComponent(window._generatedHTML);
+  a.download = window._generatedFilename || 'niveau.html';
+  a.click();
+  toast('Téléchargement lancé ✅');
+}
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ── Init ──
+window.addEventListener('DOMContentLoaded', () => {
+  loadRegistry();
+  updatePagePath();
+});
+</script>
+</body>
+</html>

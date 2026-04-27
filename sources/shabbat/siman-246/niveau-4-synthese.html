@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Synthèse Magistrale · Siman 246 · DAAT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #1A1F3A; --gold: #C5A55A; --gold-light: #D4B97A;
+      --cream: #FAF6EE; --cream-dark: #F0EAD8;
+      --text-dark: #1A1F3A; --text-mid: #3D4266; --text-muted: #7A7F9A;
+      --white: #FFFFFF; --border: #E4DDD0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--cream); color: var(--text-dark); line-height: 1.7; }
+
+    header { background: var(--navy); padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 70px; border-bottom: 2px solid var(--gold); }
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-he { font-family: 'Frank Ruhl Libre', serif; font-size: 26px; font-weight: 700; color: var(--gold); }
+    .logo-en { font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600; color: #fff; letter-spacing: 3px; }
+    .level-indicator { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; background: var(--gold); color: var(--navy); padding: 6px 14px; letter-spacing: 1px; text-transform: uppercase; }
+    .breadcrumb { background: var(--navy); padding: 10px 40px; border-bottom: 1px solid rgba(197,165,90,0.15); }
+    .breadcrumb span, .breadcrumb a { font-family: 'Inter', sans-serif; font-size: 12px; color: rgba(255,255,255,0.4); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--gold); }
+    .breadcrumb .sep { margin: 0 8px; }
+    .breadcrumb .current { color: var(--gold); }
+
+    .page-hero { background: linear-gradient(135deg, var(--navy) 0%, #2A2040 100%); padding: 56px 40px; border-bottom: 3px solid var(--gold); }
+    .hero-inner { max-width: 1000px; margin: 0 auto; }
+    .hero-meta { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    .hero-he { font-family: 'Frank Ruhl Libre', serif; font-size: 28px; font-weight: 700; color: var(--gold); direction: rtl; margin-bottom: 8px; }
+    .hero-title { font-size: 36px; font-weight: 400; color: #fff; margin-bottom: 8px; }
+    .hero-subtitle { font-size: 17px; color: rgba(255,255,255,0.6); font-style: italic; }
+
+    .main { max-width: 1000px; margin: 0 auto; padding: 56px 40px; }
+
+    /* SYNTHESE CARDS */
+    .syn-section { margin-bottom: 56px; }
+    .syn-label { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+    .syn-title { font-size: 30px; font-weight: 500; color: var(--navy); margin-bottom: 8px; }
+    .divider { width: 48px; height: 2px; background: var(--gold); margin: 10px 0 24px; }
+
+    /* TIMELINE */
+    .timeline { position: relative; padding-left: 32px; }
+    .timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: var(--gold); opacity: 0.3; }
+    .timeline-item { position: relative; margin-bottom: 24px; }
+    .timeline-item::before { content: ''; position: absolute; left: -28px; top: 8px; width: 10px; height: 10px; border-radius: 50%; background: var(--gold); }
+    .timeline-author { font-family: 'Frank Ruhl Libre', serif; font-size: 18px; color: var(--navy); direction: rtl; margin-bottom: 4px; }
+    .timeline-period { font-family: 'Inter', sans-serif; font-size: 11px; color: var(--gold); letter-spacing: 1px; margin-bottom: 6px; }
+    .timeline-opinion { font-size: 15px; color: var(--text-mid); line-height: 1.6; }
+    .op-permis { border-left: 3px solid #27AE60; padding-left: 12px; }
+    .op-interdit { border-left: 3px solid #C0392B; padding-left: 12px; }
+    .op-pesak { border-left: 3px solid var(--gold); padding-left: 12px; }
+
+    /* RULES GRID */
+    .rules-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .rule-card { background: var(--white); border: 1px solid var(--border); padding: 20px 24px; }
+    .rule-num { font-family: 'Frank Ruhl Libre', serif; font-size: 32px; color: var(--gold); opacity: 0.3; line-height: 1; margin-bottom: 8px; }
+    .rule-he { font-family: 'Frank Ruhl Libre', serif; font-size: 18px; color: var(--navy); direction: rtl; margin-bottom: 6px; }
+    .rule-fr { font-size: 15px; color: var(--text-mid); line-height: 1.6; }
+
+    /* DECISION TREE */
+    .decision-tree { background: var(--white); border: 1px solid var(--border); padding: 28px; }
+    .dt-question { background: var(--navy); color: var(--white); padding: 14px 20px; font-size: 17px; margin-bottom: 16px; border-left: 4px solid var(--gold); }
+    .dt-branches { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+    .dt-branch { padding: 12px 16px; border: 1px solid var(--border); }
+    .dt-branch-label { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+    .dt-branch.yes .dt-branch-label { color: #C0392B; }
+    .dt-branch.no .dt-branch-label { color: #27AE60; }
+    .dt-result { font-size: 15px; color: var(--text-mid); line-height: 1.5; }
+    .result-interdit { font-family: 'Inter', sans-serif; font-weight: 700; color: #C0392B; }
+    .result-permis { font-family: 'Inter', sans-serif; font-weight: 700; color: #27AE60; }
+    .result-rav { font-family: 'Inter', sans-serif; font-weight: 700; color: var(--gold); }
+
+    /* TRAPS */
+    .traps-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .trap-card { background: #FFF5F5; border: 1px solid #FFCCCC; border-left: 4px solid #C0392B; padding: 20px; }
+    .trap-title { font-size: 16px; font-weight: 600; color: #C0392B; margin-bottom: 8px; }
+    .trap-text { font-size: 14px; color: var(--text-mid); line-height: 1.6; }
+    .trap-correction { font-size: 14px; color: #27AE60; margin-top: 8px; font-style: italic; }
+
+    /* MEMORY AIDS */
+    .memory-box { background: var(--navy); padding: 32px; color: var(--white); margin-bottom: 24px; }
+    .memory-label { font-family: 'Inter', sans-serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .memory-he { font-family: 'Frank Ruhl Libre', serif; font-size: 26px; direction: rtl; text-align: right; color: var(--gold); line-height: 1.8; margin-bottom: 16px; }
+    .memory-fr { font-size: 16px; color: rgba(255,255,255,0.7); line-height: 1.8; font-style: italic; }
+
+    /* COMPARE TABLE */
+    .compare-table { width: 100%; border-collapse: collapse; background: var(--white); border: 1px solid var(--border); margin-bottom: 24px; }
+    .compare-table thead { background: var(--navy); }
+    .compare-table thead th { padding: 12px 16px; font-family: 'Inter', sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); text-align: left; }
+    .compare-table tbody tr { border-bottom: 1px solid var(--border); }
+    .compare-table tbody tr:hover { background: var(--cream); }
+    .compare-table td { padding: 12px 16px; font-size: 14px; color: var(--text-mid); }
+    .compare-table td:first-child { font-family: 'Frank Ruhl Libre', serif; font-size: 17px; color: var(--navy); direction: rtl; }
+    .ok { color: #27AE60; font-weight: 600; }
+    .nok { color: #C0392B; font-weight: 600; }
+    .rav-row td { background: #FFF8E7; font-weight: 600; }
+
+    .bottom-nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 0; border-top: 1px solid var(--border); margin-top: 48px; }
+    .bottom-nav a { font-family: 'Inter', sans-serif; font-size: 13px; color: var(--navy); text-decoration: none; font-weight: 500; }
+    .bottom-nav a:hover { color: var(--gold); }
+
+    footer { background: var(--navy); border-top: 2px solid var(--gold); padding: 24px 40px; text-align: center; }
+    footer p { font-family: 'Inter', sans-serif; font-size: 12px; color: rgba(255,255,255,0.3); }
+    footer a { color: var(--gold); text-decoration: none; }
+
+    @media (max-width: 768px) {
+      .main { padding: 24px 20px; }
+      .rules-grid, .dt-branches, .traps-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="../../../index.html" class="logo">
+      <span class="logo-he">דעת</span>
+      <span class="logo-en">DAAT</span>
+    </a>
+    <div class="level-indicator">Synthèse Magistrale</div>
+  </header>
+
+  <div class="breadcrumb">
+    <a href="../../../index.html">Accueil</a>
+    <span class="sep">›</span>
+    <a href="index.html">Siman 246</a>
+    <span class="sep">›</span>
+    <span class="current">Niveau 4 — Synthèse</span>
+  </div>
+
+  <div class="page-hero">
+    <div class="hero-inner">
+      <div class="hero-meta">Orah Haïm 246 · Seif Alef · Révision & Mémorisation</div>
+      <div class="hero-he">סיכום מגיסטרלי — חזרה ושינון</div>
+      <div class="hero-title">Synthèse Magistrale — Siman 246</div>
+      <div class="hero-subtitle">Tableaux · Règles d'or · Arbres de décision · Pièges classiques · Mémorisation</div>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <!-- SECTION 1: TIMELINE -->
+    <div class="syn-section">
+      <div class="syn-label">Section 1</div>
+      <div class="syn-title">Chronologie des opinions</div>
+      <div class="divider"></div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-author">רמב״ם / רי״ף — XIe–XIIe s.</div>
+          <div class="timeline-period">Rishonim — Espagne / Maroc</div>
+          <div class="timeline-opinion op-permis">Opinion ① — La baraïta talmudique est selon Beit Chammaï. Selon Beit Hillel (retenu) : pas de שביתת כלים → <strong>pas d'interdiction intrinsèque</strong>. Seulement une question de mar'it ayin selon le lieu.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-author">ר׳ יונה / רא״ש / תוספות — XIIe–XIIIe s.</div>
+          <div class="timeline-period">Rishonim — France / Espagne</div>
+          <div class="timeline-opinion op-interdit">Opinion ② — Même selon Beit Hillel, l'interdiction existe en raison de <strong>שכר שבת</strong> et <strong>נראה כשלוחו</strong>. Ces deux raisons sont indépendantes de שביתת כלים.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-author">בית יוסף / שולחן ערוך — XVIe s.</div>
+          <div class="timeline-period">Acharonim — Safed</div>
+          <div class="timeline-opinion op-pesak">Tranche selon l'opinion ②. Interdit louer si sait que l'objet sera utilisé le Shabbat. Si ne sait pas → permis.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-author">הרמ״א — XVIe s.</div>
+          <div class="timeline-period">Acharonim — Cracovie (Ashkénazes)</div>
+          <div class="timeline-opinion op-pesak">Confirme l'opinion ② et <strong>étend</strong> : interdit même le <em>prêt gratuit</em> (השאלה), car נראה כשלוחו s'applique même sans rémunération.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2: CONCEPTS -->
+    <div class="syn-section">
+      <div class="syn-label">Section 2</div>
+      <div class="syn-title">Les 3 concepts — tableau récapitulatif</div>
+      <div class="divider"></div>
+      <table class="compare-table">
+        <thead>
+          <tr><th>Concept</th><th>Définition</th><th>Opinion qui l'invoque</th><th>Conséquence</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>שְׁבִיתַת כֵּלִים</td>
+            <td>Repos des ustensiles du Juif le Shabbat</td>
+            <td>Beit Chammaï (non retenu)</td>
+            <td>Base de l'opinion permissive : Beit Hillel ne l'exige pas</td>
+          </tr>
+          <tr>
+            <td>שְׂכַר שַׁבָּת</td>
+            <td>Rémunération tirée d'un travail de Shabbat</td>
+            <td>Rabbénou Yona / Shulchan Aroukh</td>
+            <td>Interdit louer si sait que l'objet sera utilisé le Shabbat</td>
+          </tr>
+          <tr>
+            <td>נִרְאֶה כִּשְׁלוּחוֹ</td>
+            <td>Apparence d'envoyer son émissaire travailler le Shabbat</td>
+            <td>Rabbénou Yona / Rama</td>
+            <td>Interdit même prêter gratuitement (Rama) + interdit même si pas de rémunération</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SECTION 3: RULES D'OR -->
+    <div class="syn-section">
+      <div class="syn-label">Section 3</div>
+      <div class="syn-title">Règles d'or — mémorisation</div>
+      <div class="divider"></div>
+      <div class="rules-grid">
+        <div class="rule-card">
+          <div class="rule-num">①</div>
+          <div class="rule-he">יוֹדֵעַ → אָסוּר</div>
+          <div class="rule-fr"><strong>Sait que l'objet sera utilisé le Shabbat → Interdit.</strong> C'est la règle principale. La connaissance du Juif est la clé.</div>
+        </div>
+        <div class="rule-card">
+          <div class="rule-num">②</div>
+          <div class="rule-he">אֵינוֹ יוֹדֵעַ → מֻתָּר</div>
+          <div class="rule-fr"><strong>Ne sait pas → Permis.</strong> Si le Juif n'a pas la connaissance que l'objet sera utilisé le Shabbat, il peut louer/prêter.</div>
+        </div>
+        <div class="rule-card">
+          <div class="rule-num">③</div>
+          <div class="rule-he">שכירות ≤ השאלה (רמ״א)</div>
+          <div class="rule-fr"><strong>Rama : même le prêt gratuit est interdit.</strong> L'interdiction n'est pas limitée à la location — un prêt gratuit en sachant que l'objet sera utilisé le Shabbat est aussi interdit.</div>
+        </div>
+        <div class="rule-card">
+          <div class="rule-num">④</div>
+          <div class="rule-he">ערב שבת = שבת עצמה</div>
+          <div class="rule-fr"><strong>Remettre l'objet la veille de Shabbat en sachant qu'il sera utilisé le Shabbat = interdit.</strong> Le timing de la remise n'annule pas l'interdiction.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 4: DECISION TREE -->
+    <div class="syn-section">
+      <div class="syn-label">Section 4</div>
+      <div class="syn-title">Arbre de décision pratique</div>
+      <div class="divider"></div>
+      <div class="decision-tree">
+        <div class="dt-question">❓ Un non-juif me demande de lui louer/prêter un objet — peut-il l'utiliser le Shabbat ?</div>
+        <div class="dt-branches">
+          <div class="dt-branch yes">
+            <div class="dt-branch-label">OUI — je sais qu'il l'utilisera le Shabbat</div>
+            <div class="dt-result">
+              <span class="result-interdit">INTERDIT</span> pour tous.<br>
+              Raison : שכר שבת (location) + נראה כשלוחו (prêt selon Rama).<br>
+              <em>Ne pas louer ni prêter.</em>
+            </div>
+          </div>
+          <div class="dt-branch no">
+            <div class="dt-branch-label">NON / Incertain — je ne sais pas</div>
+            <div class="dt-result">
+              <span class="result-permis">PERMIS</span> a priori.<br>
+              "אם אינו יודע, מותר" (Shulchan Aroukh).<br>
+              <em>Prudence si forte présomption.</em>
+            </div>
+          </div>
+        </div>
+        <div class="dt-question" style="margin-top:16px;">❓ Je sais que l'objet sera utilisé le Shabbat — c'est une location ou un prêt gratuit ?</div>
+        <div class="dt-branches">
+          <div class="dt-branch yes">
+            <div class="dt-branch-label">LOCATION (שכירות)</div>
+            <div class="dt-result">
+              <span class="result-interdit">INTERDIT</span> pour tous (Séfarades + Ashkénazes).<br>
+              Raison principale : <strong>שכר שבת</strong>.
+            </div>
+          </div>
+          <div class="dt-branch no">
+            <div class="dt-branch-label">PRÊT GRATUIT (השאלה)</div>
+            <div class="dt-result">
+              <strong>Séfarades :</strong> <span style="color:orange;">Débat — certains permettent</span>.<br>
+              <strong>Ashkénazes (Rama) :</strong> <span class="result-interdit">INTERDIT</span> — נראה כשלוחו.<br>
+              <span class="result-rav">En pratique : consulter un Rav.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 5: COMPARE TABLEAU -->
+    <div class="syn-section">
+      <div class="syn-label">Section 5</div>
+      <div class="syn-title">Tableau comparatif — Séfarades vs. Ashkénazes</div>
+      <div class="divider"></div>
+      <table class="compare-table">
+        <thead>
+          <tr><th>Situation</th><th>Séfarades (Shulchan Aroukh)</th><th>Ashkénazes (+ Rama)</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Louer · sait qu'utilisé le Shabbat</td>
+            <td class="nok">Interdit (שכר שבת)</td>
+            <td class="nok">Interdit (idem)</td>
+          </tr>
+          <tr>
+            <td>Louer · ne sait pas</td>
+            <td class="ok">Permis</td>
+            <td class="ok">Permis</td>
+          </tr>
+          <tr>
+            <td>Prêter gratuitement · sait que Shabbat</td>
+            <td style="color:orange; font-weight:500;">Débat / Permis selon certains</td>
+            <td class="nok">Interdit (נראה כשלוחו)</td>
+          </tr>
+          <tr>
+            <td>Prêter gratuitement · ne sait pas</td>
+            <td class="ok">Permis</td>
+            <td class="ok">Permis</td>
+          </tr>
+          <tr class="rav-row">
+            <td>Location longue durée (contrat annuel)</td>
+            <td colspan="2" style="text-align:center; color:var(--gold);">⚠️ Consulter un Rav — dépend des détails</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SECTION 6: PIÈGES -->
+    <div class="syn-section">
+      <div class="syn-label">Section 6</div>
+      <div class="syn-title">Pièges classiques à éviter</div>
+      <div class="divider"></div>
+      <div class="traps-grid">
+        <div class="trap-card">
+          <div class="trap-title">⚠️ Piège 1 — "Le contrat est antérieur à Shabbat"</div>
+          <div class="trap-text">Erreur courante : croire que si le contrat a été signé le lundi, le problème de שכר שבת ne s'applique pas.</div>
+          <div class="trap-correction">✓ La date du contrat n'a pas d'importance. Ce qui compte : le Juif <em>sait-il</em> au moment de la transaction que l'objet sera utilisé le Shabbat ?</div>
+        </div>
+        <div class="trap-card">
+          <div class="trap-title">⚠️ Piège 2 — "C'est un prêt gratuit, donc permis"</div>
+          <div class="trap-text">Confusion : croire que seule la location payante est interdite, et que le prêt gratuit est toujours permis.</div>
+          <div class="trap-correction">✓ Pour les Ashkénazes (Rama) : même le prêt gratuit est interdit en raison de נראה כשלוחו. Les Séfarades sont moins stricts, mais c'est quand même débattu.</div>
+        </div>
+        <div class="trap-card">
+          <div class="trap-title">⚠️ Piège 3 — "La baraïta est selon Beit Chammaï"</div>
+          <div class="trap-text">Erreur d'argumentation : citer l'opinion du Rambam pour être permissif, sans savoir que le Shulchan Aroukh et le Rama rejettent explicitement cette opinion.</div>
+          <div class="trap-correction">✓ Le Rama dit clairement : "וכן עיקר כסברא האחרונה" — la décision suit Rabbénou Yona, pas le Rambam.</div>
+        </div>
+        <div class="trap-card">
+          <div class="trap-title">⚠️ Piège 4 — Confusion שכר שבת / עירוב</div>
+          <div class="trap-text">Mélanger שכר שבת (rémunération de Shabbat, O.H. 246) avec les règles d'eruv tavshilin ou de הבלעה dans d'autres contextes.</div>
+          <div class="trap-correction">✓ Le principe de הבלעה (intégration du salaire de Shabbat dans un salaire global) s'applique aux travailleurs, pas aux ustensiles. Ne pas confondre les deux sujets.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 7: MÉMORISATION -->
+    <div class="syn-section">
+      <div class="syn-label">Section 7</div>
+      <div class="syn-title">Aide-mémoire — Le Pesak en une phrase</div>
+      <div class="divider"></div>
+      <div class="memory-box">
+        <div class="memory-label">Pesak à retenir — Shulchan Aroukh + Rama</div>
+        <div class="memory-he">
+          כשיוֹדֵעַ שֶׁיִּשְׁתַּמֵּשׁ בְּשַׁבָּת — אָסוּר לְהַשְׂכִּיר וְלִשְׁאוֹל
+        </div>
+        <div class="memory-fr">Lorsqu'il sait que [le non-juif] utilisera [l'objet] le Shabbat — il est interdit de louer et de prêter.</div>
+      </div>
+      <div class="memory-box" style="background:#1E2847; margin-top:16px;">
+        <div class="memory-label">Les 3 raisons — résumé mnémotechnique</div>
+        <div class="memory-he">שביתה · שכר · שליח — שלוש ש׳</div>
+        <div class="memory-fr">Les "trois Shin" : שביתת כלים (débat Beit Hillel/Chammaï), שכר שבת (raison principale — location), שלוחו = נראה כשלוחו (prêt gratuit selon Rama).</div>
+      </div>
+    </div>
+
+    <!-- SECTION 8: RÉVISIONS -->
+    <div class="syn-section">
+      <div class="syn-label">Section 8</div>
+      <div class="syn-title">Questions de révision</div>
+      <div class="divider"></div>
+      <ol style="font-size:17px; color:var(--text-mid); line-height:2; padding-left:24px;">
+        <li>Quelle est la différence entre l'opinion du Rambam et celle de Rabbénou Yona sur la baraïta talmudique ?</li>
+        <li>Pourquoi le Rama étend-il l'interdiction au prêt gratuit alors que le Shulchan Aroukh ne mentionne que la location ?</li>
+        <li>Que signifie "יודע" dans ce contexte — faut-il une certitude ou une forte présomption ?</li>
+        <li>Quelle est la nafka mina entre שכר שבת et נראה כשלוחו comme raison principale ?</li>
+        <li>Si je loue mon appartement pour un an à un non-juif, y a-t-il un problème de שכר שבת pour les Shabbatot inclus ?</li>
+        <li>Le Taz et le Magen Avraham sont-ils en accord sur la raison de l'interdiction du prêt gratuit ?</li>
+      </ol>
+    </div>
+
+    <div class="bottom-nav">
+      <a href="niveau-3-lamdan.html">← Niveau 3 — Lamdan</a>
+      <a href="index.html" style="color:var(--gold);">↑ Retour Siman 246</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>DAAT דעת · Siman 246 · Synthèse Magistrale · <a href="../../../index.html">Accueil</a> · © 5786 — Rav Yossef Haim Samama</p>
+  </footer>
+
+</body>
+</html>

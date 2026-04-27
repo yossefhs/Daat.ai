@@ -1,0 +1,128 @@
+{
+  "meta": {
+    "lastUpdated": "2026-04-27",
+    "version": "1.0",
+    "maintainer": "Rav Yossef Haim Samama",
+    "description": "Registre central du contenu DAAT.AI"
+  },
+  "sections": [
+    {
+      "id": "orah-haim",
+      "name": "אורח חיים",
+      "nameFr": "Orah Haïm",
+      "description": "Lois quotidiennes, Shabbat, Yom Tov",
+      "status": "active",
+      "chapters": [
+        {
+          "id": "hilkhot-shabbat",
+          "name": "הלכות שבת",
+          "nameFr": "Hilkhot Shabbat",
+          "status": "active",
+          "simanim": [
+            {
+              "id": "246",
+              "num": "רמ״ו",
+              "numArabic": "246",
+              "title": "דיני השאלה והשכרה לגוי בשבת",
+              "titleFr": "Prêt et location au non-juif pour Shabbat",
+              "status": "active",
+              "seifim": [
+                {
+                  "id": "246-1",
+                  "num": "א",
+                  "numFr": "Seif 1",
+                  "title": "איסור השכרת כלים לגוי בשבת",
+                  "titleFr": "Interdiction de louer ses ustensiles à un non-juif le Shabbat",
+                  "status": "complete",
+                  "niveaux": [
+                    {
+                      "id": 1,
+                      "label": "Initiation",
+                      "labelHe": "מתחילים",
+                      "status": "ready",
+                      "htmlPath": "sources/shabbat/siman-246/niveau-1-base.html",
+                      "pdfPath": "sources/shabbat/siman-246/pdfs/Siman_246_Seif_Alef_Hilkhot_Shabbat.pdf"
+                    },
+                    {
+                      "id": 2,
+                      "label": "Étudiant",
+                      "labelHe": "בני ישיבה",
+                      "status": "coming-soon",
+                      "htmlPath": null,
+                      "pdfPath": null
+                    },
+                    {
+                      "id": 3,
+                      "label": "Lamdan",
+                      "labelHe": "תלמידי חכמים",
+                      "status": "ready",
+                      "htmlPath": "sources/shabbat/siman-246/niveau-3-lamdan.html",
+                      "pdfPath": "sources/shabbat/siman-246/pdfs/Siman_246_Seif_Alef_Pilpoul_Lamdan.pdf"
+                    },
+                    {
+                      "id": 4,
+                      "label": "Synthèse",
+                      "labelHe": "חזרה וסיכום",
+                      "status": "ready",
+                      "htmlPath": "sources/shabbat/siman-246/niveau-4-synthese.html",
+                      "pdfPath": "sources/shabbat/siman-246/pdfs/Synthese_Magistrale_Siman_246_Seif_Alef.pdf"
+                    }
+                  ],
+                  "poskim": ["רמב״ם", "רי״ף", "ר׳ יונה", "רא״ש", "תוספות", "שו״ע", "רמ״א", "ט״ז", "מג״א", "מ״ב"],
+                  "concepts": ["שביתת כלים", "נראה כשלוחו", "שכר שבת"],
+                  "addedDate": "2026-04-27"
+                },
+                {
+                  "id": "246-2",
+                  "num": "ב",
+                  "numFr": "Seif 2",
+                  "title": "דין המשכיר חנות לגוי",
+                  "titleFr": "Loi concernant celui qui loue une boutique à un non-juif",
+                  "status": "planned",
+                  "niveaux": [],
+                  "poskim": [],
+                  "concepts": [],
+                  "addedDate": null
+                }
+              ]
+            },
+            {
+              "id": "247",
+              "num": "רמ״ז",
+              "numArabic": "247",
+              "title": "דין המשכיר בית לגוי",
+              "titleFr": "Loi concernant la location d'une maison à un non-juif",
+              "status": "planned",
+              "seifim": []
+            },
+            {
+              "id": "248",
+              "num": "רמ״ח",
+              "numArabic": "248",
+              "title": "דין הנוסע בספינה לפני שבת",
+              "titleFr": "Voyager en bateau avant Shabbat",
+              "status": "planned",
+              "seifim": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "yoreh-deah",
+      "name": "יורה דעה",
+      "nameFr": "Yoreh De'ah",
+      "description": "Issour ve-Heter, Nidda, Ribit…",
+      "status": "planned",
+      "chapters": []
+    },
+    {
+      "id": "even-haezer",
+      "name": "אבן העזר",
+      "nameFr": "Even HaEzer",
+      "description": "Hilkhot Ishut",
+      "status": "planned",
+      "chapters": []
+    }
+  ]
+}

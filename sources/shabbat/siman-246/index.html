@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Siman 246 — DAAT דעת</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #1A1F3A; --gold: #C5A55A; --gold-light: #D4B97A;
+      --cream: #FAF6EE; --cream-dark: #F0EAD8;
+      --text-dark: #1A1F3A; --text-mid: #3D4266; --text-muted: #7A7F9A;
+      --white: #FFFFFF; --border: #E4DDD0;
+      --green: #2E7D52; --purple: #6B3FA0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--cream); color: var(--text-dark); line-height: 1.7; }
+
+    header {
+      background: var(--navy); padding: 0 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 70px; border-bottom: 2px solid var(--gold);
+    }
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-he { font-family: 'Frank Ruhl Libre', serif; font-size: 26px; font-weight: 700; color: var(--gold); }
+    .logo-en { font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600; color: #fff; letter-spacing: 3px; }
+    nav a { font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(255,255,255,0.6); text-decoration: none; margin-left: 28px; letter-spacing: 1px; }
+    nav a:hover { color: var(--gold); }
+    nav a.active { color: var(--gold); }
+
+    /* BREADCRUMB */
+    .breadcrumb {
+      background: var(--navy); padding: 12px 40px;
+      border-bottom: 1px solid rgba(197,165,90,0.15);
+    }
+    .breadcrumb-inner { max-width: 1100px; margin: 0 auto; }
+    .breadcrumb span, .breadcrumb a {
+      font-family: 'Inter', sans-serif; font-size: 12px;
+      color: rgba(255,255,255,0.4); text-decoration: none; letter-spacing: 0.5px;
+    }
+    .breadcrumb a:hover { color: var(--gold); }
+    .breadcrumb .sep { margin: 0 8px; color: rgba(255,255,255,0.2); }
+    .breadcrumb .current { color: var(--gold); }
+
+    /* HERO SIMAN */
+    .siman-hero {
+      background: var(--navy);
+      padding: 60px 40px 48px;
+      border-bottom: 3px solid var(--gold);
+    }
+    .siman-hero-inner { max-width: 1100px; margin: 0 auto; }
+
+    .siman-meta {
+      font-family: 'Inter', sans-serif; font-size: 11px;
+      letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 16px;
+    }
+    .siman-title-he {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 48px; font-weight: 900; color: var(--gold);
+      direction: rtl; margin-bottom: 8px;
+    }
+    .siman-title-fr {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px; font-weight: 300; color: var(--white);
+      margin-bottom: 4px;
+    }
+    .siman-subtitle {
+      font-size: 16px; color: rgba(255,255,255,0.5);
+      font-style: italic; margin-bottom: 24px;
+    }
+    .siman-tags { display: flex; gap: 10px; flex-wrap: wrap; }
+    .siman-tag {
+      font-family: 'Inter', sans-serif; font-size: 11px;
+      padding: 4px 10px; border-radius: 2px;
+      background: rgba(197,165,90,0.15); color: var(--gold);
+      letter-spacing: 1px;
+    }
+
+    /* CONTENT AREA */
+    .content { max-width: 1100px; margin: 0 auto; padding: 60px 40px; }
+
+    /* SEIF INFO BOX */
+    .seif-info {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--gold);
+      padding: 28px 32px;
+      margin-bottom: 48px;
+    }
+    .seif-info-label {
+      font-family: 'Inter', sans-serif; font-size: 10px;
+      letter-spacing: 3px; text-transform: uppercase; color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .seif-text-he {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 20px; line-height: 1.8; direction: rtl;
+      text-align: right; color: var(--navy);
+      margin-bottom: 16px;
+      padding: 16px;
+      background: var(--cream);
+      border-right: 3px solid var(--gold);
+    }
+    .seif-text-fr {
+      font-size: 17px; color: var(--text-mid); font-style: italic;
+      line-height: 1.8; border-top: 1px solid var(--border); padding-top: 16px;
+    }
+
+    /* LEVELS GRID */
+    .levels-header {
+      font-family: 'Inter', sans-serif; font-size: 11px;
+      letter-spacing: 4px; text-transform: uppercase; color: var(--gold);
+      margin-bottom: 24px;
+    }
+
+    .levels-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+      margin-bottom: 60px;
+    }
+
+    .level-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 28px;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .level-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(26,31,58,0.1); }
+    .level-card.available { cursor: pointer; }
+    .level-card.coming-soon { opacity: 0.55; }
+
+    .level-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+    .level-num { font-size: 48px; font-weight: 300; color: var(--cream-dark); line-height: 1; }
+    .level-status-badge {
+      font-family: 'Inter', sans-serif; font-size: 10px;
+      font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 2px;
+    }
+    .badge-ready { background: #E8F5EE; color: #2E7D52; }
+    .badge-soon { background: #F0F0F0; color: #999; }
+
+    .level-bar { height: 3px; margin-bottom: 16px; }
+    .bar-1 { background: var(--green); }
+    .bar-2 { background: var(--navy); }
+    .bar-3 { background: var(--purple); }
+    .bar-4 { background: var(--gold); }
+
+    .level-name-he {
+      font-family: 'Frank Ruhl Libre', serif; font-size: 15px;
+      color: var(--text-muted); direction: rtl; margin-bottom: 4px;
+    }
+    .level-name-fr {
+      font-family: 'Cormorant Garamond', serif; font-size: 24px;
+      font-weight: 600; color: var(--navy); margin-bottom: 12px;
+    }
+    .level-desc { font-size: 15px; color: var(--text-mid); line-height: 1.6; margin-bottom: 20px; }
+
+    .level-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn-level {
+      font-family: 'Inter', sans-serif; font-size: 12px;
+      font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+      padding: 10px 18px; text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-html-1 { background: var(--green); color: #fff; }
+    .btn-html-1:hover { background: #1E5C3A; }
+    .btn-html-3 { background: var(--purple); color: #fff; }
+    .btn-html-3:hover { background: #4A2075; }
+    .btn-html-4 { background: var(--gold); color: var(--navy); }
+    .btn-html-4:hover { background: var(--gold-light); }
+    .btn-soon { background: #F0F0F0; color: #999; cursor: not-allowed; }
+
+    /* CONCEPTS SECTION */
+    .concepts-section { margin-bottom: 60px; }
+    .section-title {
+      font-size: 32px; font-weight: 400; color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .divider { width: 50px; height: 2px; background: var(--gold); margin: 12px 0 24px; }
+
+    .concepts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .concept-box {
+      background: var(--white); border: 1px solid var(--border);
+      padding: 24px; border-top: 3px solid var(--gold);
+    }
+    .concept-he {
+      font-family: 'Frank Ruhl Libre', serif; font-size: 22px;
+      font-weight: 700; color: var(--navy); direction: rtl;
+      margin-bottom: 8px;
+    }
+    .concept-fr {
+      font-family: 'Cormorant Garamond', serif; font-size: 17px;
+      font-style: italic; color: var(--gold); margin-bottom: 12px;
+    }
+    .concept-desc { font-size: 14px; color: var(--text-mid); line-height: 1.6; }
+
+    /* POSKIM TABLE */
+    .poskim-section { margin-bottom: 60px; }
+    .poskim-table {
+      width: 100%; border-collapse: collapse;
+      background: var(--white); border: 1px solid var(--border);
+    }
+    .poskim-table thead { background: var(--navy); }
+    .poskim-table thead th {
+      padding: 14px 16px; font-family: 'Inter', sans-serif;
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold); text-align: left;
+    }
+    .poskim-table tbody tr { border-bottom: 1px solid var(--border); }
+    .poskim-table tbody tr:hover { background: var(--cream); }
+    .poskim-table td { padding: 14px 16px; font-size: 15px; color: var(--text-mid); }
+    .poskim-table td:first-child { font-family: 'Frank Ruhl Libre', serif; font-size: 18px; color: var(--navy); direction: rtl; }
+    .opinion-1 { color: var(--green) !important; font-weight: 500; }
+    .opinion-2 { color: var(--purple) !important; font-weight: 500; }
+    .pesak { background: #FFF8E7 !important; }
+    .pesak td:last-child { font-weight: 600; color: var(--navy) !important; }
+
+    /* FOOTER */
+    footer {
+      background: var(--navy); border-top: 2px solid var(--gold);
+      padding: 32px 40px; text-align: center;
+    }
+    footer p { font-family: 'Inter', sans-serif; font-size: 12px; color: rgba(255,255,255,0.3); }
+    footer a { color: var(--gold); text-decoration: none; }
+
+    @media (max-width: 768px) {
+      .levels-grid, .concepts-grid { grid-template-columns: 1fr; }
+      .content { padding: 32px 20px; }
+      header { padding: 0 20px; }
+      .siman-hero { padding: 40px 20px 32px; }
+      .breadcrumb { padding: 12px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="../../../index.html" class="logo">
+      <span class="logo-he">דעת</span>
+      <span class="logo-en">DAAT</span>
+    </a>
+    <nav>
+      <a href="../../../index.html">Accueil</a>
+      <a href="#" class="active">Siman 246</a>
+    </nav>
+  </header>
+
+  <div class="breadcrumb">
+    <div class="breadcrumb-inner">
+      <a href="../../../index.html">Accueil</a>
+      <span class="sep">›</span>
+      <span>Orah Haïm</span>
+      <span class="sep">›</span>
+      <span>Hilkhot Shabbat</span>
+      <span class="sep">›</span>
+      <span class="current">Siman 246</span>
+    </div>
+  </div>
+
+  <div class="siman-hero">
+    <div class="siman-hero-inner">
+      <div class="siman-meta">Orah Haïm · Hilkhot Shabbat · Siman רמ״ו</div>
+      <div class="siman-title-he">דיני השאלה והשכרה לגוי בשבת</div>
+      <div class="siman-title-fr">Lois du prêt et de la location à un non-juif pour Shabbat</div>
+      <div class="siman-subtitle">Shulchan Aroukh, Orah Haïm 246 — Seif Alef</div>
+      <div class="siman-tags">
+        <span class="siman-tag">4 niveaux disponibles</span>
+        <span class="siman-tag">Seif Alef · Complet</span>
+        <span class="siman-tag">Rambam · Rif · Rabbénou Yona · Rama</span>
+        <span class="siman-tag">שכר שבת · נראה כשלוחו</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- TEXTE DU SEIF -->
+    <div class="seif-info">
+      <div class="seif-info-label">Texte du Seif Alef — שולחן ערוך עם הגהות הרמ״א</div>
+      <div class="seif-text-he">
+        אָסוּר לְהַשְׁכִּיר כֵּלָיו לְגוֹי כְּשֶׁהוּא יוֹדֵעַ שֶׁיַּעֲשֶׂה בָּהֶם מְלָאכָה בְּשַׁבָּת, מִשּׁוּם שְׂכַר שַׁבָּת. אֲבָל אִם אֵינוֹ יוֹדֵעַ, מֻתָּר. הגה׃ וְכֵן עִקָּר כִּסְבָרָא הָאַחֲרוֹנָה, וְאָסוּר אֲפִלּוּ לְהַשְׁאִיל כֵּלָיו לְגוֹי בְּעֶרֶב שַׁבָּת, כְּשֶׁיּוֹדֵעַ שֶׁיַּעֲשֶׂה בָּהֶם מְלָאכָה בְּשַׁבָּת.
+      </div>
+      <div class="seif-text-fr">
+        Il est interdit de louer ses ustensiles à un non-juif lorsqu'on sait qu'il effectuera avec eux un travail le jour de Shabbat, en raison de l'interdiction de <em>skhar Shabbat</em> (rémunération de Shabbat). Mais si l'on ne le sait pas, c'est permis. — <strong>Hagahot HaRama :</strong> Il en va de même, et c'est l'opinion principale — et il est même interdit de <em>prêter</em> ses ustensiles à un non-juif la veille de Shabbat, lorsqu'on sait qu'il les utilisera le jour de Shabbat.
+      </div>
+    </div>
+
+    <!-- NIVEAUX D'ÉTUDE -->
+    <div class="levels-header">Les 4 niveaux d'étude — Siman 246, Seif Alef</div>
+    <div class="levels-grid">
+
+      <div class="level-card available">
+        <div class="level-bar bar-1"></div>
+        <div class="level-top">
+          <div class="level-num">01</div>
+          <span class="level-status-badge badge-ready">Disponible</span>
+        </div>
+        <div class="level-name-he">רמת המתחיל</div>
+        <div class="level-name-fr">Initiation — Base</div>
+        <div class="level-desc">Texte hébreu avec traduction française complète, explication pédagogique des 3 concepts fondamentaux, pesak pratique pour les communautés ashkénazes et séfarades.</div>
+        <div class="level-actions">
+          <a href="niveau-1-base.html" class="btn-level btn-html-1">📖 Étudier ce niveau</a>
+          <a href="pdfs/Siman_246_Seif_Alef_Hilkhot_Shabbat.pdf" class="btn-level" style="background:#F0FFF5;color:#2E7D52;border:1px solid #A8D5B5;" target="_blank">📄 PDF</a>
+        </div>
+      </div>
+
+      <div class="level-card coming-soon">
+        <div class="level-bar bar-2"></div>
+        <div class="level-top">
+          <div class="level-num">02</div>
+          <span class="level-status-badge badge-soon">Bientôt</span>
+        </div>
+        <div class="level-name-he">רמת הישיבה</div>
+        <div class="level-name-fr">Étudiant</div>
+        <div class="level-desc">Étude approfondie des commentateurs classiques, introduction aux divergences entre Rishonim, analyse du Beit Yossef et du B'ach.</div>
+        <div class="level-actions">
+          <span class="btn-level btn-soon">En préparation</span>
+        </div>
+      </div>
+
+      <div class="level-card available">
+        <div class="level-bar bar-3"></div>
+        <div class="level-top">
+          <div class="level-num">03</div>
+          <span class="level-status-badge badge-ready">Disponible</span>
+        </div>
+        <div class="level-name-he">רמת הלמדן</div>
+        <div class="level-name-fr">Lamdan</div>
+        <div class="level-desc">Pilpoul complet en 13 sections : sugya talmudique, שיטות ראשונים ואחרונים, חקירות, נפקא מינות. Pour les vrais érudits.</div>
+        <div class="level-actions">
+          <a href="niveau-3-lamdan.html" class="btn-level btn-html-3">📚 Étudier ce niveau</a>
+          <a href="pdfs/Siman_246_Seif_Alef_Pilpoul_Lamdan.pdf" class="btn-level" style="background:#F3E8FF;color:#6B3FA0;border:1px solid #D4B0EE;" target="_blank">📄 PDF Lamdan</a>
+        </div>
+      </div>
+
+      <div class="level-card available">
+        <div class="level-bar bar-4"></div>
+        <div class="level-top">
+          <div class="level-num">04</div>
+          <span class="level-status-badge badge-ready">Disponible</span>
+        </div>
+        <div class="level-name-he">חזרה וסיכום</div>
+        <div class="level-name-fr">Synthèse Magistrale</div>
+        <div class="level-desc">Récapitulatif structuré pour révision et mémorisation. Tableaux comparatifs, règles d'or, cas pratiques, pièges classiques à éviter.</div>
+        <div class="level-actions">
+          <a href="niveau-4-synthese.html" class="btn-level btn-html-4">⭐ Réviser</a>
+          <a href="pdfs/Synthese_Magistrale_Siman_246_Seif_Alef.pdf" class="btn-level" style="background:#FFF8E7;color:#8B6914;border:1px solid #F0D090;" target="_blank">📄 PDF Synthèse</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CONCEPTS FONDAMENTAUX -->
+    <div class="concepts-section">
+      <p class="section-title">Les 3 concepts fondamentaux</p>
+      <div class="divider"></div>
+      <div class="concepts-grid">
+        <div class="concept-box">
+          <div class="concept-he">שְׁבִיתַת כֵּלִים</div>
+          <div class="concept-fr">Repos des ustensiles</div>
+          <div class="concept-desc">L'obligation — ou non — que les ustensiles d'un Juif se "reposent" le Shabbat, même s'ils sont entre les mains d'un non-juif. Selon Beit Hillel, il n'y a pas d'obligation de <em>shvitat kelim</em>.</div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-he">נִרְאֶה כִּשְׁלוּחוֹ</div>
+          <div class="concept-fr">Apparence d'émissaire</div>
+          <div class="concept-desc">Le problème de <em>mar'it ayin</em> : si le non-juif utilise l'objet du Juif le Shabbat, il "paraît" agir comme son émissaire, ce qui crée une apparence prohibée même sans intention réelle.</div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-he">שְׂכַר שַׁבָּת</div>
+          <div class="concept-fr">Rémunération de Shabbat</div>
+          <div class="concept-desc">L'interdiction indépendante de bénéficier d'une rémunération pour un travail effectué le Shabbat. Même si le contrat est antérieur à Shabbat, le profit issu d'un travail de Shabbat est problématique.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TABLEAU DES POSKIM -->
+    <div class="poskim-section">
+      <p class="section-title">Les deux écoles d'opinion</p>
+      <div class="divider"></div>
+      <table class="poskim-table">
+        <thead>
+          <tr>
+            <th>Posek</th>
+            <th>Époque</th>
+            <th>Position</th>
+            <th>Raisonnement</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>רמב״ם / רי״ף</td>
+            <td>Rishonim — XIe–XIIe s.</td>
+            <td class="opinion-1">Opinion ① — Permis</td>
+            <td>La baraïta qui interdit est selon Beit Chammaï seulement. Selon Beit Hillel (qui est retenu), pas d'interdiction de שביתת כלים.</td>
+          </tr>
+          <tr>
+            <td>רבנו יונה / רא״ש / תוספות</td>
+            <td>Rishonim — XIIe–XIIIe s.</td>
+            <td class="opinion-2">Opinion ② — Interdit</td>
+            <td>Même selon Beit Hillel, l'interdiction existe en raison de נראה כשלוחו (mar'it ayin) et de שכר שבת.</td>
+          </tr>
+          <tr>
+            <td>בית יוסף / שולחן ערוך</td>
+            <td>Acharonim — XVIe s.</td>
+            <td class="opinion-2">Opinion ② (retenu)</td>
+            <td>Tranche selon Rabbénou Yona. Interdit louer ses ustensiles quand on sait qu'ils seront utilisés le Shabbat.</td>
+          </tr>
+          <tr class="pesak">
+            <td>הגהות הרמ״א</td>
+            <td>Acharonim — XVIe s.</td>
+            <td style="color:var(--gold); font-weight:700;">✦ Pesak final</td>
+            <td>"וכן עיקר כסברא האחרונה" — Confirme et étend : interdit même de <em>prêter</em> (pas seulement louer) la veille de Shabbat.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>DAAT דעת — © 5786 / 2026 · <a href="../../../index.html">Retour à l'accueil</a> · Initié par le <a href="https://ravabichid.org" target="_blank">Rav Yossef Haim Samama</a></p>
+  </footer>
+
+</body>
+</html>

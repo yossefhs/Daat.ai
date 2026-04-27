@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DAAT דעת — Étude de la Torah par niveaux</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #1A1F3A;
+      --gold: #C5A55A;
+      --gold-light: #D4B97A;
+      --cream: #FAF6EE;
+      --cream-dark: #F0EAD8;
+      --text-dark: #1A1F3A;
+      --text-mid: #3D4266;
+      --text-muted: #7A7F9A;
+      --white: #FFFFFF;
+      --border: #E4DDD0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      line-height: 1.7;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--navy);
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 2px solid var(--gold);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-hebrew {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 2px;
+    }
+
+    .logo-latin {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    .logo-divider {
+      width: 1px;
+      height: 32px;
+      background: rgba(197,165,90,0.4);
+    }
+
+    nav {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    nav a {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--gold); }
+
+    .nav-cta {
+      background: var(--gold) !important;
+      color: var(--navy) !important;
+      padding: 8px 20px;
+      border-radius: 2px;
+      font-weight: 600 !important;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--navy);
+      padding: 100px 40px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: 'דעת';
+      position: absolute;
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 300px;
+      font-weight: 900;
+      color: rgba(197,165,90,0.04);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .hero-tagline {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 15px;
+      color: var(--gold);
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 72px;
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    .hero h1 span {
+      font-family: 'Frank Ruhl Libre', serif;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .hero-subtitle {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 22px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 16px;
+      direction: rtl;
+    }
+
+    .hero-desc {
+      font-size: 20px;
+      color: rgba(255,255,255,0.7);
+      max-width: 600px;
+      margin: 0 auto 40px;
+      font-weight: 300;
+      font-style: italic;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+      padding: 14px 32px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover { background: var(--gold-light); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      padding: 14px 32px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.3);
+      transition: border-color 0.2s;
+    }
+
+    .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ── SECTION WRAPPER ── */
+    .section {
+      padding: 80px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 42px;
+      font-weight: 400;
+      color: var(--navy);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .section-subtitle {
+      font-size: 18px;
+      color: var(--text-muted);
+      font-style: italic;
+      max-width: 600px;
+    }
+
+    .divider {
+      width: 60px;
+      height: 2px;
+      background: var(--gold);
+      margin: 24px 0;
+    }
+
+    /* ── VISION ── */
+    .vision-bg {
+      background: var(--white);
+      border-top: 4px solid var(--gold);
+    }
+
+    .vision-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .vision-text p {
+      font-size: 19px;
+      color: var(--text-mid);
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+
+    .vision-quote {
+      background: var(--navy);
+      color: var(--white);
+      padding: 40px;
+      position: relative;
+    }
+
+    .vision-quote::before {
+      content: '❝';
+      font-size: 60px;
+      color: var(--gold);
+      opacity: 0.3;
+      position: absolute;
+      top: 16px;
+      left: 24px;
+      line-height: 1;
+    }
+
+    .vision-quote blockquote {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 22px;
+      line-height: 1.6;
+      direction: rtl;
+      text-align: right;
+      margin-bottom: 16px;
+      color: var(--cream);
+    }
+
+    .vision-quote cite {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: var(--gold);
+      text-transform: uppercase;
+      font-style: normal;
+    }
+
+    /* ── LEVELS ── */
+    .levels-bg { background: var(--cream-dark); }
+
+    .levels-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+    }
+
+    .level-card {
+      background: var(--white);
+      padding: 32px 24px;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border-bottom: 3px solid transparent;
+    }
+
+    .level-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(26,31,58,0.12);
+    }
+
+    .level-card.niveau-1 { border-color: #2E7D52; }
+    .level-card.niveau-2 { border-color: var(--navy); }
+    .level-card.niveau-3 { border-color: #6B3FA0; }
+    .level-card.niveau-4 { border-color: var(--gold); }
+
+    .level-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 48px;
+      font-weight: 300;
+      color: var(--cream-dark);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .level-badge {
+      display: inline-block;
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 13px;
+      padding: 4px 10px;
+      margin-bottom: 12px;
+      border-radius: 2px;
+    }
+
+    .niveau-1 .level-badge { background: #E8F5EE; color: #2E7D52; }
+    .niveau-2 .level-badge { background: #E8EAF6; color: var(--navy); }
+    .niveau-3 .level-badge { background: #F3E8FF; color: #6B3FA0; }
+    .niveau-4 .level-badge { background: #FFF8E7; color: #8B6914; }
+
+    .level-title-fr {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    .level-title-he {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 16px;
+      color: var(--text-muted);
+      direction: rtl;
+      margin-bottom: 16px;
+    }
+
+    .level-desc {
+      font-size: 15px;
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+
+    /* ── AI SECTION ── */
+    .ai-bg {
+      background: var(--navy);
+    }
+
+    .ai-section {
+      padding: 80px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .ai-section .section-title { color: var(--white); }
+    .ai-section .section-label { color: var(--gold); }
+    .ai-section .divider { background: var(--gold); }
+
+    .ai-section .section-subtitle { color: rgba(255,255,255,0.6); }
+
+    .ai-features {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .ai-feature {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(197,165,90,0.2);
+      padding: 28px;
+      transition: border-color 0.2s;
+    }
+
+    .ai-feature:hover { border-color: rgba(197,165,90,0.6); }
+
+    .ai-feature-icon {
+      font-size: 28px;
+      margin-bottom: 16px;
+    }
+
+    .ai-feature h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .ai-feature p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
+    }
+
+    .ai-demo {
+      margin-top: 48px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(197,165,90,0.15);
+      padding: 32px;
+    }
+
+    .ai-demo-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .ai-chat-bubble {
+      background: rgba(255,255,255,0.07);
+      padding: 16px 20px;
+      margin-bottom: 12px;
+      font-size: 16px;
+      color: rgba(255,255,255,0.8);
+      font-style: italic;
+      border-left: 2px solid var(--gold);
+    }
+
+    .ai-response {
+      background: rgba(197,165,90,0.08);
+      padding: 20px;
+      font-size: 15px;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.7;
+      border-left: 2px solid rgba(197,165,90,0.4);
+    }
+
+    .ai-coming-soon {
+      text-align: center;
+      margin-top: 20px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,0.3);
+      text-transform: uppercase;
+    }
+
+    /* ── CONTENT LIBRARY ── */
+    .library-bg { background: var(--white); }
+
+    .masekhtot-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .masekhet-card {
+      border: 1px solid var(--border);
+      padding: 28px;
+      position: relative;
+      transition: box-shadow 0.2s;
+    }
+
+    .masekhet-card.active {
+      border-color: var(--gold);
+      box-shadow: 0 4px 20px rgba(197,165,90,0.1);
+    }
+
+    .masekhet-card.soon {
+      opacity: 0.5;
+    }
+
+    .masekhet-tag {
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      margin-bottom: 12px;
+    }
+
+    .tag-active { background: #FFF8E7; color: #8B6914; }
+    .tag-soon { background: #F0F0F0; color: #999; }
+
+    .masekhet-name-he {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--navy);
+      direction: rtl;
+      margin-bottom: 4px;
+    }
+
+    .masekhet-name-fr {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .siman-list {
+      list-style: none;
+    }
+
+    .siman-list li {
+      font-size: 14px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text-mid);
+    }
+
+    .siman-list li:last-child { border-bottom: none; }
+
+    .siman-list a {
+      color: var(--navy);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .siman-list a:hover { color: var(--gold); }
+
+    .siman-badge {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      background: #E8F5EE;
+      color: #2E7D52;
+      padding: 2px 6px;
+      border-radius: 2px;
+      font-weight: 600;
+    }
+
+    /* ── ABOUT ── */
+    .about-bg { background: var(--cream-dark); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .about-text p {
+      font-size: 18px;
+      color: var(--text-mid);
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+
+    .rav-card {
+      background: var(--navy);
+      padding: 32px;
+      text-align: center;
+    }
+
+    .rav-name-he {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gold);
+      direction: rtl;
+      margin-bottom: 8px;
+    }
+
+    .rav-name-fr {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      color: rgba(255,255,255,0.7);
+      font-style: italic;
+      margin-bottom: 4px;
+    }
+
+    .rav-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .rav-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      margin: 16px auto;
+    }
+
+    .rav-community {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: var(--gold);
+      letter-spacing: 1px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      border-top: 2px solid var(--gold);
+      padding: 48px 40px 24px;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .footer-brand .logo-hebrew { font-size: 32px; }
+    .footer-brand .logo-latin { display: block; font-size: 11px; margin-top: 4px; }
+
+    .footer-tagline {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 14px;
+      color: rgba(255,255,255,0.4);
+      direction: rtl;
+      margin-top: 12px;
+    }
+
+    .footer-links h4 {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .footer-links ul { list-style: none; }
+    .footer-links ul li { margin-bottom: 8px; }
+    .footer-links ul li a {
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links ul li a:hover { color: var(--gold); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-copy {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+    }
+
+    .footer-verse {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 13px;
+      color: rgba(197,165,90,0.5);
+      direction: rtl;
+      font-style: italic;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 48px; }
+      .vision-grid, .levels-grid, .ai-features, .masekhtot-grid, .about-grid { grid-template-columns: 1fr; }
+      .footer-top { flex-direction: column; gap: 32px; }
+      nav { display: none; }
+      .section { padding: 48px 20px; }
+      header { padding: 0 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <a href="index.html" class="logo">
+      <span class="logo-hebrew">דעת</span>
+      <div class="logo-divider"></div>
+      <div>
+        <div style="font-family:'Inter',sans-serif; font-size:18px; font-weight:600; color:#fff; letter-spacing:3px;">DAAT</div>
+        <div class="logo-latin">Torah Study Platform</div>
+      </div>
+    </a>
+    <nav>
+      <a href="#vision">Vision</a>
+      <a href="#niveaux">Niveaux</a>
+      <a href="#contenu">Contenu</a>
+      <a href="#ia">IA Daat</a>
+      <a href="sources/shabbat/siman-246/index.html" class="nav-cta">Étudier →</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-tagline">Plateforme d'étude halakhique</div>
+    <h1>DAAT <span>דעת</span></h1>
+    <div class="hero-subtitle">דעת התורה לעומקה</div>
+    <p class="hero-desc">La connaissance profonde de la Torah — du débutant au Talmid Chakham, en français.</p>
+    <div class="hero-buttons">
+      <a href="sources/shabbat/siman-246/index.html" class="btn-primary">Commencer l'étude</a>
+      <a href="#vision" class="btn-secondary">Notre vision</a>
+    </div>
+  </section>
+
+  <!-- VISION -->
+  <section id="vision" class="vision-bg">
+    <div class="section">
+      <div class="vision-grid">
+        <div class="vision-text">
+          <div class="section-label">Notre Vision</div>
+          <h2 class="section-title">La Torah accessible à tous les niveaux</h2>
+          <div class="divider"></div>
+          <p>Daat.AI est une plateforme d'étude halakhique conçue pour accompagner chaque étudiant — du débutant curieux jusqu'au Talmid Chakham confirmé — dans une étude sérieuse et structurée de la Torah.</p>
+          <p>Chaque texte est présenté en plusieurs niveaux : une version accessible et pédagogique, une version étudiante, une version savante avec pilpoul complet, et une synthèse magistrale pour la révision et la mémorisation.</p>
+          <p>Initiée par le Rav Yossef Haim Samama, la plateforme commence par les <em>Hilkhot Shabbat</em> (Orah Haïm) et s'étendra progressivement à l'ensemble de la Halakha.</p>
+        </div>
+        <div class="vision-quote">
+          <blockquote>
+            "כִּי תוֹרַת ה' תְּמִימָה, מְשִׁיבַת נָפֶשׁ"
+          </blockquote>
+          <cite>Psaumes 19:8 — La Torah de l'Éternel est parfaite, elle restaure l'âme.</cite>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NIVEAUX -->
+  <section id="niveaux" class="levels-bg">
+    <div class="section">
+      <div class="section-label">Système pédagogique</div>
+      <h2 class="section-title">Quatre niveaux d'étude</h2>
+      <div class="divider"></div>
+      <p class="section-subtitle">Chaque sujet est traité en quatre profondeurs progressives, permettant à chacun d'étudier à son propre niveau.</p>
+
+      <div class="levels-grid">
+        <div class="level-card niveau-1">
+          <div class="level-num">01</div>
+          <div class="level-badge">מתחילים</div>
+          <div class="level-title-fr">Initiation</div>
+          <div class="level-title-he">רמת המתחיל</div>
+          <p class="level-desc">Texte hébreu avec traduction française complète. Explication pédagogique des concepts de base. Idéal pour commencer.</p>
+        </div>
+        <div class="level-card niveau-2">
+          <div class="level-num">02</div>
+          <div class="level-badge">בני ישיבה</div>
+          <div class="level-title-fr">Étudiant</div>
+          <div class="level-title-he">רמת הישיבה</div>
+          <p class="level-desc">Étude des commentateurs classiques (Rashi, Tossafot, Rambam). Introduction aux divergences d'opinions. Pour les étudiants sérieux.</p>
+        </div>
+        <div class="level-card niveau-3">
+          <div class="level-num">03</div>
+          <div class="level-badge">תלמידי חכמים</div>
+          <div class="level-title-fr">Lamdan</div>
+          <div class="level-title-he">רמת הלמדן</div>
+          <p class="level-desc">Pilpoul complet en 13 sections : sugya, שיטות ראשונים, חקירות, מחלוקות אחרונים, נפקא מינות. Pour les vrais érudits.</p>
+        </div>
+        <div class="level-card niveau-4">
+          <div class="level-num">04</div>
+          <div class="level-badge">חזרה וסיכום</div>
+          <div class="level-title-fr">Synthèse Magistrale</div>
+          <div class="level-title-he">סיכום מגיסטרלי</div>
+          <p class="level-desc">Récapitulatif structuré pour révision et mémorisation. Tableaux comparatifs, règles d'or, cas pratiques, pièges classiques.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IA DAAT -->
+  <section id="ia" class="ai-bg">
+    <div class="ai-section">
+      <div class="section-label">Intelligence Artificielle</div>
+      <h2 class="section-title">L'IA Daat — votre guide d'étude</h2>
+      <div class="divider"></div>
+      <p class="section-subtitle">Une IA spécialisée en halakha, ancrée dans les sources primaires, qui répond avec précision aux niveaux avancés.</p>
+
+      <div class="ai-features">
+        <div class="ai-feature">
+          <div class="ai-feature-icon">📚</div>
+          <h3>Strict Grounding</h3>
+          <p>L'IA ne répond qu'à partir des sources référencées dans la plateforme. Si l'information n'est pas dans les sources, elle le dit clairement — sans inventer.</p>
+        </div>
+        <div class="ai-feature">
+          <div class="ai-feature-icon">🎯</div>
+          <h3>Multi-niveaux</h3>
+          <p>La même question reçoit une réponse adaptée à votre niveau : pédagogique pour le débutant, analytique pour le lamdan, synthétique pour la révision.</p>
+        </div>
+        <div class="ai-feature">
+          <div class="ai-feature-icon">⚖️</div>
+          <h3>Rigueur halakhique</h3>
+          <p>L'IA cite systématiquement ses sources (Shulchan Aroukh, Rama, Mishna Berurah…), distingue les niveaux d'autorité et signale les divergences entre Rishonim et Acharonim.</p>
+        </div>
+        <div class="ai-feature">
+          <div class="ai-feature-icon">🌐</div>
+          <h3>Bilingue</h3>
+          <p>Réponses en français avec citations hébraïques. À terme : hébreu, anglais et espagnol. L'étude de la Torah sans barrière linguistique.</p>
+        </div>
+      </div>
+
+      <div class="ai-demo">
+        <div class="ai-demo-label">Exemple de dialogue — Siman 246, Seif Alef</div>
+        <div class="ai-chat-bubble">« Peut-on louer un outil à un non-juif avant Shabbat s'il va l'utiliser le jour de Shabbat ? »</div>
+        <div class="ai-response">
+          Selon la Halakha (O.H. 246:1), le Shulchan Aroukh et le Rama s'accordent sur l'interdiction. Le Rama précise : <em>"וכן עיקר כסברא האחרונה"</em> — il tranche selon l'opinion de Rabbénou Yona, Rosh et Tossafot, qui interdisent en raison de <strong>שכר שבת</strong> (rémunération de Shabbat) et de <strong>נראה כשלוחו</strong> (apparence d'émissaire). Cette interdiction s'applique même si le Juif n'est pas présent le jour de Shabbat.
+        </div>
+        <div class="ai-coming-soon">✦ L'IA sera disponible prochainement ✦</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENT LIBRARY -->
+  <section id="contenu" class="library-bg">
+    <div class="section">
+      <div class="section-label">Bibliothèque de contenus</div>
+      <h2 class="section-title">Contenu disponible</h2>
+      <div class="divider"></div>
+      <p class="section-subtitle">Nous commençons par les Hilkhot Shabbat — la branche la plus riche et la plus pratique de la Halakha quotidienne.</p>
+
+      <div class="masekhtot-grid">
+        <div class="masekhet-card active">
+          <div class="masekhet-tag tag-active">En cours</div>
+          <div class="masekhet-name-he">אורח חיים</div>
+          <div class="masekhet-name-fr">Orah Haïm — Hilkhot Shabbat</div>
+          <ul class="siman-list">
+            <li>
+              <a href="sources/shabbat/siman-246/index.html">Siman 246 — Prêt/location au non-juif</a>
+              <span class="siman-badge">Complet</span>
+            </li>
+            <li>
+              <span style="color:var(--text-muted)">Siman 247 — Suite…</span>
+              <span style="font-size:11px;color:var(--text-muted)">Bientôt</span>
+            </li>
+            <li>
+              <span style="color:var(--text-muted)">Siman 248 — Voyager avant Shabbat</span>
+              <span style="font-size:11px;color:var(--text-muted)">Bientôt</span>
+            </li>
+          </ul>
+        </div>
+        <div class="masekhet-card soon">
+          <div class="masekhet-tag tag-soon">Bientôt</div>
+          <div class="masekhet-name-he">יורה דעה</div>
+          <div class="masekhet-name-fr">Yoreh De'ah — Issour ve-Heter</div>
+          <ul class="siman-list">
+            <li><span style="color:var(--text-muted)">Contenu en préparation</span></li>
+          </ul>
+        </div>
+        <div class="masekhet-card soon">
+          <div class="masekhet-tag tag-soon">Futur</div>
+          <div class="masekhet-name-he">אבן העזר</div>
+          <div class="masekhet-name-fr">Even HaEzer — Hilkhot Ishut</div>
+          <ul class="siman-list">
+            <li><span style="color:var(--text-muted)">Contenu en préparation</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about-bg">
+    <div class="section">
+      <div class="about-grid">
+        <div class="about-text">
+          <div class="section-label">À propos</div>
+          <h2 class="section-title">Une initiative pour la communauté</h2>
+          <div class="divider"></div>
+          <p>Daat.AI est née d'un constat simple : la littérature halakhique en français, accessible à tous les niveaux, reste encore trop rare. Des milliers de francophones — en France, en Israël, au Canada, au Maroc — méritent d'avoir accès à une étude sérieuse dans leur langue.</p>
+          <p>Chaque texte est soigneusement transcrit, traduit et annoté par le Rav Yossef Haim Samama, avec le souci de rester fidèle aux sources primaires tout en rendant les concepts accessibles.</p>
+          <p>Le projet démarre modestement — une plateforme communautaire — avec l'ambition de devenir, à terme, une référence internationale de l'étude halakhique en français.</p>
+        </div>
+        <div>
+          <div class="rav-card">
+            <div class="rav-name-he">הרב יוסף חיים סממה</div>
+            <div class="rav-divider"></div>
+            <div class="rav-name-fr">Rav Yossef Haim Samama</div>
+            <div class="rav-title">Fondateur · Daat.AI</div>
+            <div class="rav-divider"></div>
+            <div class="rav-community">YH Community Manager</div>
+          </div>
+          <div style="margin-top:20px; padding:20px; border:1px solid var(--border); background:var(--white);">
+            <div style="font-size:13px; color:var(--text-muted); margin-bottom:8px; font-family:'Inter',sans-serif; letter-spacing:1px; text-transform:uppercase; font-size:10px;">Site associé</div>
+            <a href="https://ravabichid.org" target="_blank" style="font-size:16px; color:var(--navy); text-decoration:none; font-weight:500;">ravabichid.org ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="logo" style="text-decoration:none;">
+            <span class="logo-hebrew">דעת</span>
+            <span class="logo-latin" style="color:rgba(255,255,255,0.3); letter-spacing:4px; font-size:11px; display:block; margin-top:4px;">DAAT.AI</span>
+          </a>
+          <div class="footer-tagline">כִּי מִצִּיּוֹן תֵּצֵא תוֹרָה</div>
+        </div>
+        <div class="footer-links">
+          <h4>Étude</h4>
+          <ul>
+            <li><a href="sources/shabbat/siman-246/index.html">Siman 246 — Shabbat</a></li>
+            <li><a href="#niveaux">Les 4 niveaux</a></li>
+            <li><a href="#ia">IA Daat</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Niveaux</h4>
+          <ul>
+            <li><a href="sources/shabbat/siman-246/niveau-1-base.html">Niveau 1 — Base</a></li>
+            <li><a href="sources/shabbat/siman-246/niveau-3-lamdan.html">Niveau 3 — Lamdan</a></li>
+            <li><a href="sources/shabbat/siman-246/niveau-4-synthese.html">Niveau 4 — Synthèse</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Projet</h4>
+          <ul>
+            <li><a href="#vision">Vision</a></li>
+            <li><a href="https://ravabichid.org" target="_blank">Rav Abichid ↗</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© 5786 / 2026 — Daat.AI · Initié par le Rav Yossef Haim Samama · YH Community Manager</div>
+        <div class="footer-verse">אִם תֵּבִין לַחֲכָמָה תִּקְרָא — Proverbes 2:3</div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
