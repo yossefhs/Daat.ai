@@ -1,10 +1,30 @@
 {
   "meta": {
-    "lastUpdated": "2026-04-27",
-    "version": "1.0",
+    "lastUpdated": "2026-04-29",
+    "version": "2.0",
     "maintainer": "Rav Yossef Haim Samama",
-    "description": "Registre central du contenu DAAT.AI"
+    "description": "Registre central du contenu DAAT.AI — système à 3 niveaux"
   },
+  "niveauxRef": [
+    {
+      "id": 1,
+      "label": "Base",
+      "labelHe": "רמת המתחיל",
+      "description": "Texte hébreu + traduction française fluide. Pédagogique pour débutant et intermédiaire."
+    },
+    {
+      "id": 2,
+      "label": "Lamdan",
+      "labelHe": "רמת הלמדן",
+      "description": "Pilpoul approfondi : שיטות ראשונים ואחרונים, חקירות, נפקא מינות."
+    },
+    {
+      "id": 3,
+      "label": "Synthèse",
+      "labelHe": "חזרה וסיכום",
+      "description": "Récapitulatif structuré pour révision et mémorisation."
+    }
+  ],
   "sections": [
     {
       "id": "orah-haim",
@@ -19,6 +39,53 @@
           "nameFr": "Hilkhot Shabbat",
           "status": "active",
           "simanim": [
+            {
+              "id": "242",
+              "num": "רמ״ב",
+              "numArabic": "242",
+              "title": "להזהר בכבוד שבת",
+              "titleFr": "Veiller au kavod du Shabbat",
+              "status": "active",
+              "seifim": [
+                {
+                  "id": "242-1",
+                  "num": "א",
+                  "numFr": "Seif 1",
+                  "title": "מצות עונג שבת ושאר ענינים",
+                  "titleFr": "L'oneg Shabbat et les sujets connexes (5 thèmes)",
+                  "status": "complete",
+                  "niveaux": [
+                    {
+                      "id": 1,
+                      "label": "Base",
+                      "labelHe": "רמת המתחיל",
+                      "status": "ready",
+                      "htmlPath": "sources/shabbat/siman-242/niveau-1-base.html",
+                      "pdfPath": null
+                    },
+                    {
+                      "id": 2,
+                      "label": "Lamdan",
+                      "labelHe": "רמת הלמדן",
+                      "status": "ready",
+                      "htmlPath": "sources/shabbat/siman-242/niveau-2-lamdan.html",
+                      "pdfPath": "sources/shabbat/siman-242/pdfs/Siman_242_Seif_Alef_Niveau2_Lamdan.pdf"
+                    },
+                    {
+                      "id": 3,
+                      "label": "Synthèse",
+                      "labelHe": "חזרה וסיכום",
+                      "status": "coming-soon",
+                      "htmlPath": null,
+                      "pdfPath": null
+                    }
+                  ],
+                  "poskim": ["רש״י", "רמב״ם", "יראים", "ריב״ש", "רמב״ן", "טור", "ב״י", "ב״ח", "ט״ז", "מג״א", "מ״ב", "שו״ע הרב", "חת״ם סופר", "צמח צדק"],
+                  "concepts": ["עונג שבת", "כבוד שבת", "כסא דהרסנא", "לוו עלי", "תקנת עזרא", "אפיית חלות"],
+                  "addedDate": "2026-04-28"
+                }
+              ]
+            },
             {
               "id": "246",
               "num": "רמ״ו",
@@ -37,30 +104,22 @@
                   "niveaux": [
                     {
                       "id": 1,
-                      "label": "Initiation",
-                      "labelHe": "מתחילים",
+                      "label": "Base",
+                      "labelHe": "רמת המתחיל",
                       "status": "ready",
                       "htmlPath": "sources/shabbat/siman-246/niveau-1-base.html",
                       "pdfPath": "sources/shabbat/siman-246/pdfs/Siman_246_Seif_Alef_Hilkhot_Shabbat.pdf"
                     },
                     {
                       "id": 2,
-                      "label": "Étudiant",
-                      "labelHe": "בני ישיבה",
-                      "status": "coming-soon",
-                      "htmlPath": null,
-                      "pdfPath": null
-                    },
-                    {
-                      "id": 3,
                       "label": "Lamdan",
-                      "labelHe": "תלמידי חכמים",
+                      "labelHe": "רמת הלמדן",
                       "status": "ready",
                       "htmlPath": "sources/shabbat/siman-246/niveau-3-lamdan.html",
                       "pdfPath": "sources/shabbat/siman-246/pdfs/Siman_246_Seif_Alef_Pilpoul_Lamdan.pdf"
                     },
                     {
-                      "id": 4,
+                      "id": 3,
                       "label": "Synthèse",
                       "labelHe": "חזרה וסיכום",
                       "status": "ready",
