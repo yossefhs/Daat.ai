@@ -186,6 +186,17 @@
   font-size: 15px;
   line-height: 1.5;
   word-wrap: break-word;
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: embed;
+}
+
+/* Passages hébreux inline — RTL dans un contexte LTR */
+.daat-chat-message [lang="he"] {
+  direction: rtl;
+  unicode-bidi: embed;
+  display: inline-block;
+  font-family: 'Frank Ruhl Libre', serif;
 }
 
 .daat-chat-message.is-user {

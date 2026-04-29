@@ -81,8 +81,10 @@
       return '<ol>' + items + '</ol>';
     });
 
-    // Hebrew text wrapping (sequences of Hebrew chars)
-    s = s.replace(/([֐-׿\s֑-ׇ]{2,})/g, '<span lang="he" dir="rtl">$1</span>');
+    // Hebrew text wrapping — isole les passages hébreux en RTL inline
+    // pour que le français environnant reste LTR
+    s = s.replace(/([א-תװ-״יִ-פֿ][ְ-ׇא-תװ-״יִ-פֿ\sְ-ׇ״׃,.\-'()]{0,}[א-תװ-״יִ-פֿ])/g,
+      '<span lang="he" dir="rtl" style="unicode-bidi:embed;display:inline-block;">$1</span>');
 
     // Paragraphs (double newline)
     const paragraphs = s.split(/\n\n+/);
@@ -150,7 +152,7 @@
             <div class="daat-chat-header-subtitle">Assistant d'étude · Rav Yossef Haim Samama</div>
           </div>
         </div>
-        <div class="daat-chat-messages" id="daat-chat-messages"></div>
+        <div class="daat-chat-messages" id="daat-chat-messages" dir="ltr"></div>
         <div class="daat-chat-input-area">
           <div class="daat-chat-input-wrapper">
             <textarea
@@ -248,6 +250,10 @@
     appendMessage(role, content) {
       const el = document.createElement('div');
       el.className = 'daat-chat-message is-' + role;
+      // Force LTR for all messages — le français s'affiche de gauche à droite,
+      // les passages hébreux sont wrappés en <span dir="rtl"> par renderMarkdown
+      el.setAttribute('dir', 'ltr');
+      el.style.textAlign = 'left';
       if (role === 'assistant') {
         el.innerHTML = renderMarkdown(content);
       } else {
