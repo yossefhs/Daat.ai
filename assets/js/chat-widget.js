@@ -210,18 +210,24 @@
             <span class="heb">דעת</span>
             <h3>Bienvenue !</h3>
             <p>Je suis <strong>Daat</strong>, ton assistant d'étude pour la Torah et la Halakha.</p>
-            <p>Pose-moi une question — sur le Choulchan Aroukh, le Talmud, un concept halakhique...</p>
+            <p><strong>Avant de commencer, dis-moi quel est ton niveau d'étude</strong> — pour que j'adapte mes réponses :</p>
             <div class="daat-chat-suggestions">
-              <button class="daat-chat-suggestion" data-q="Explique-moi le Siman 246 Seif Alef">
-                📖 Explique-moi le Siman 246 Seif Alef
+              <button class="daat-chat-suggestion" data-q="Je suis débutant — j'ai peu ou pas de bagage en étude juive. Explique-moi simplement, avec des traductions et des exemples concrets.">
+                🌱 <strong>Débutant</strong> — peu ou pas de bagage
               </button>
-              <button class="daat-chat-suggestion" data-q="C'est quoi שביתת כלים ?">
-                🤔 C'est quoi שביתת כלים ?
-               </button>
-              <button class="daat-chat-suggestion" data-q="Quelle est la différence entre prêter et louer un objet à un non-juif pour Shabbat ?">
-                ⚖️ Prêter vs louer à un non-juif pour Shabbat ?
+              <button class="daat-chat-suggestion" data-q="J'ai un bagage moyen — je connais l'hébreu et j'ai déjà étudié quelques sujets. Tu peux utiliser des termes techniques mais explique les concepts importants.">
+                📚 <strong>Bagage moyen</strong> — quelques connaissances
+              </button>
+              <button class="daat-chat-suggestion" data-q="Je suis élève de Yeshiva — j'étudie régulièrement la Guemara et la Halakha. Tu peux utiliser le vocabulaire technique et citer Rishonim et Acharonim.">
+                🕮 <strong>Élève de Yeshiva</strong> — étude régulière
+              </button>
+              <button class="daat-chat-suggestion" data-q="Je suis Talmid Hakham — déploie le pilpoul complet (Kashya, Teruts, Hakira, Nafka mina), cite les Rishonim et Acharonim, méthodologie de Brisk, sans simplifier.">
+                🎓 <strong>Talmid Hakham</strong> — étude approfondie
               </button>
             </div>
+            <p style="font-size: 0.85em; color: var(--text-muted); margin-top: 16px;">
+              💡 Tu peux aussi me parler en <strong>français</strong>, <strong>hébreu</strong>, <strong>anglais</strong> ou <strong>espagnol</strong> — je m'adapte à ta langue.
+            </p>
             <div class="signature">דעת התורה לעומקה</div>
           </div>
         `;
@@ -255,6 +261,14 @@
     appendError(text) {
       const el = document.createElement('div');
       el.className = 'daat-chat-message is-error';
+      el.textContent = text;
+      this.messagesEl.appendChild(el);
+      this.scrollToBottom();
+    }
+
+    appendToolNotice(text) {
+      const el = document.createElement('div');
+      el.className = 'daat-chat-tool-notice';
       el.textContent = text;
       this.messagesEl.appendChild(el);
       this.scrollToBottom();
@@ -347,12 +361,19 @@
                 assistantText += parsed.delta;
                 assistantEl.innerHTML = renderMarkdown(assistantText);
                 this.scrollToBottom();
+              } else if (parsed.type === 'tool_use') {
+                // Afficher discrètement la consultation Sefaria
+                const toolLabel = parsed.tool === 'sefaria_get_text'
+                  ? `📖 Vérification dans Sefaria : ${parsed.input?.ref || ''}`
+                  : `🔍 Recherche dans Sefaria : ${parsed.input?.query || ''}`;
+                this.appendToolNotice(toolLabel);
+              } else if (parsed.type === 'notice') {
+                this.appendToolNotice('⏳ ' + parsed.message);
               } else if (parsed.type === 'error') {
                 throw new Error(parsed.error || 'Erreur de génération');
               } else if (parsed.type === 'done') {
-                // Optional: log usage info
                 if (window.DAAT_CHAT_DEBUG) {
-                  console.log('[Daat] Usage:', parsed.usage);
+                  console.log('[Daat] Usage:', parsed.usage, 'Iterations:', parsed.iterations);
                 }
               }
             } catch (e) {

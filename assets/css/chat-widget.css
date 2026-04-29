@@ -212,6 +212,27 @@
   font-style: italic;
 }
 
+/* Tool notice (sources Sefaria consultées) */
+.daat-chat-tool-notice {
+  align-self: stretch;
+  background: rgba(197, 165, 90, 0.08);
+  color: var(--daat-text-mid);
+  border-left: 3px solid var(--daat-gold);
+  padding: 6px 12px;
+  margin: 4px 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-style: italic;
+  border-radius: 0 4px 4px 0;
+  opacity: 0.85;
+  animation: daatFadeIn 0.3s ease;
+}
+
+@keyframes daatFadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 0.85; transform: translateY(0); }
+}
+
 /* Markdown content inside assistant messages */
 .daat-chat-message.is-assistant p {
   margin: 0 0 10px;
