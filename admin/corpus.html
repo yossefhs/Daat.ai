@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DAAT Admin — Corpus Chat AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #1A1F3A;
+      --gold: #C5A55A;
+      --cream: #FAF6EE;
+      --green: #2E7D52;
+      --red: #C0392B;
+      --border: #E4DDD0;
+      --text: #2C2C2C;
+      --muted: #888;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #F4F4F6;
+      color: var(--text);
+      min-height: 100vh;
+    }
+    header {
+      background: var(--navy);
+      color: white;
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid var(--gold);
+    }
+    header .logo { display: flex; align-items: center; gap: 12px; }
+    header .logo .he { font-family: 'Frank Ruhl Libre', serif; font-size: 26px; color: var(--gold); font-weight: 700; }
+    header .logo .sub { font-size: 11px; color: rgba(255,255,255,0.5); letter-spacing: 3px; text-transform: uppercase; }
+    header nav a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 13px; margin-left: 20px; }
+    header nav a:hover { color: var(--gold); }
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px;
+    }
+    h1 { font-size: 26px; color: var(--navy); margin-bottom: 8px; }
+    h2 { font-size: 18px; color: var(--navy); margin: 24px 0 12px; padding-top: 16px; border-top: 1px solid var(--border); }
+    .lead { color: var(--muted); margin-bottom: 24px; font-size: 14px; }
+
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .auth-banner {
+      background: #FFF8E5;
+      border: 1px solid var(--gold);
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .auth-banner.connected { background: #E8F5E9; border-color: var(--green); }
+
+    label { display: block; font-size: 13px; font-weight: 600; color: var(--navy); margin-bottom: 6px; margin-top: 16px; }
+    label .req { color: var(--red); }
+    input[type="text"], input[type="password"], textarea, select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      background: white;
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--text);
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: 2px solid var(--gold);
+      outline-offset: -1px;
+    }
+    textarea { resize: vertical; font-family: 'Menlo', monospace; font-size: 13px; line-height: 1.5; }
+    .field-help { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+    .row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    button {
+      background: var(--navy);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    button:hover { background: #2A2F4A; }
+    button.gold { background: var(--gold); }
+    button.gold:hover { background: #D4B97A; }
+    button.danger { background: var(--red); }
+    button.ghost { background: transparent; color: var(--navy); border: 1px solid var(--border); }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .toolbar { display: flex; gap: 12px; margin-top: 20px; }
+
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      background: var(--navy);
+      color: white;
+      padding: 14px 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      transform: translateX(120%);
+      transition: transform 0.3s;
+      z-index: 9999;
+      max-width: 400px;
+    }
+    .toast.show { transform: translateX(0); }
+    .toast.success { background: var(--green); }
+    .toast.error { background: var(--red); }
+
+    .entries-list { display: flex; flex-direction: column; gap: 12px; }
+    .entry-item {
+      border: 1px solid var(--border);
+      padding: 16px;
+      background: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .entry-item h3 { font-size: 15px; color: var(--navy); margin-bottom: 4px; }
+    .entry-item .meta { font-size: 12px; color: var(--muted); }
+    .entry-item .tags { margin-top: 6px; }
+    .entry-item .tag {
+      display: inline-block;
+      background: rgba(197,165,90,0.12);
+      color: var(--navy);
+      padding: 2px 8px;
+      font-size: 11px;
+      border-radius: 2px;
+      margin-right: 4px;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .kv-warning {
+      background: #FFF3E0;
+      border-left: 4px solid #F57C00;
+      padding: 14px 18px;
+      margin: 16px 0;
+      font-size: 13px;
+      color: #5D4037;
+    }
+    .kv-warning code { background: rgba(0,0,0,0.05); padding: 2px 6px; font-family: 'Menlo', monospace; font-size: 12px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <span class="he">דעת</span>
+    <div>
+      <div style="font-family: 'Inter'; font-size: 12px; font-weight: 600;">DAAT Admin</div>
+      <div class="sub">Corpus Chat AI</div>
+    </div>
+  </div>
+  <nav>
+    <a href="../index.html">← Site</a>
+    <a href="index.html">Admin général</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Gestion du corpus du Chat IA</h1>
+  <p class="lead">Ajoute des contenus que <strong>Daat</strong> (le chat IA) consultera quand un utilisateur posera une question. Tu peux ajouter des résumés de simanim, des concepts halakhiques, des positions du Rav, etc.</p>
+
+  <!-- Auth banner -->
+  <div id="auth-banner" class="auth-banner">
+    <div style="flex: 1;">
+      <strong>🔒 Authentification requise</strong>
+      <div style="font-size: 13px; color: var(--muted); margin-top: 4px;">
+        Saisis le mot de passe admin (variable d'environnement <code>ADMIN_PASSWORD</code> sur Vercel).
+      </div>
+    </div>
+    <input type="password" id="admin-pw" placeholder="Mot de passe admin" style="max-width: 250px;">
+    <button id="auth-btn" class="gold">Se connecter</button>
+  </div>
+
+  <!-- Form to add entry -->
+  <div class="card" id="add-card" style="display:none;">
+    <h2 style="margin-top: 0; padding-top: 0; border: none;">➕ Ajouter une entrée au corpus</h2>
+
+    <label>Titre <span class="req">*</span></label>
+    <input type="text" id="f-title" placeholder="Ex : Siman 247 — Vue d'ensemble">
+
+    <div class="row">
+      <div>
+        <label>Section</label>
+        <select id="f-section">
+          <option value="orah-haim">Orah Haim</option>
+          <option value="yoreh-deah">Yoreh De'ah</option>
+          <option value="even-haezer">Even HaEzer</option>
+          <option value="hochen-mishpat">Hochen Mishpat</option>
+          <option value="other">Autre</option>
+        </select>
+      </div>
+      <div>
+        <label>Chapitre</label>
+        <input type="text" id="f-chapter" placeholder="Ex : hilkhot-shabbat">
+      </div>
+      <div>
+        <label>Niveau</label>
+        <select id="f-level">
+          <option value="all">Tous niveaux</option>
+          <option value="beginner">Débutant</option>
+          <option value="intermediate">Intermédiaire</option>
+          <option value="lamdan">Lamdan</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label>Siman</label>
+        <input type="text" id="f-siman" placeholder="Ex : 247">
+      </div>
+      <div>
+        <label>Seif</label>
+        <input type="text" id="f-seif" placeholder="Ex : 1">
+      </div>
+      <div>
+        <label>Tags (séparés par des virgules)</label>
+        <input type="text" id="f-tags" placeholder="shabbat, location, non-juif">
+      </div>
+    </div>
+
+    <label>Résumé court</label>
+    <textarea id="f-summary" rows="2" placeholder="Une à deux phrases de résumé..."></textarea>
+
+    <label>Contenu (markdown) <span class="req">*</span></label>
+    <textarea id="f-content" rows="12" placeholder="# Titre&#10;&#10;Contenu en markdown — supporte titres, listes, **gras**, *italique*, [liens](url), tableaux..."></textarea>
+    <div class="field-help">Le contenu sera lu par Claude (l'IA) quand il consulte le corpus. Cite les sources avec des liens markdown.</div>
+
+    <label>Sources externes (Sefaria) — JSON</label>
+    <textarea id="f-sources" rows="3" placeholder='[{"label":"Choulchan Aroukh 247:1","url":"https://www.sefaria.org/Shulchan_Arukh%2C_Orach_Chayim.247.1"}]'></textarea>
+
+    <label>Liens internes (vers pages du site) — JSON</label>
+    <textarea id="f-internal" rows="3" placeholder='[{"label":"Niveau 1 — Base","url":"sources/shabbat/siman-247/niveau-1-base.html"}]'></textarea>
+
+    <div class="toolbar">
+      <button id="submit-btn" class="gold">Ajouter au corpus</button>
+      <button id="clear-btn" class="ghost">Effacer le formulaire</button>
+    </div>
+  </div>
+
+  <!-- Existing entries -->
+  <div class="card" id="list-card" style="display:none;">
+    <h2 style="margin-top: 0; padding-top: 0; border: none;">📚 Entrées dynamiques actuelles</h2>
+    <p class="field-help" style="margin-top: -4px; margin-bottom: 16px;">
+      Les entrées <strong>statiques</strong> (du fichier <code>data/corpus.json</code>) ne sont pas listées ici — elles sont gérées par Git.
+    </p>
+    <div id="entries-list" class="entries-list"></div>
+  </div>
+</main>
+
+<div id="toast" class="toast"></div>
+
+<script>
+const TOKEN_KEY = 'daat-admin-token-v1';
+
+function showToast(message, type) {
+  const t = document.getElementById('toast');
+  t.textContent = message;
+  t.className = 'toast show ' + (type || '');
+  setTimeout(() => { t.className = 'toast ' + (type || ''); }, 3500);
+}
+
+function getToken() {
+  return sessionStorage.getItem(TOKEN_KEY) || '';
+}
+
+function setToken(t) {
+  if (t) sessionStorage.setItem(TOKEN_KEY, t);
+  else sessionStorage.removeItem(TOKEN_KEY);
+}
+
+function showAdminUI(connected) {
+  document.getElementById('auth-banner').classList.toggle('connected', connected);
+  document.getElementById('add-card').style.display = connected ? '' : 'none';
+  document.getElementById('list-card').style.display = connected ? '' : 'none';
+  if (connected) {
+    document.getElementById('auth-banner').innerHTML =
+      '<strong>✓ Connecté</strong>' +
+      '<div style="flex:1; font-size: 13px; color: var(--muted);">Tu peux ajouter, voir et supprimer des entrées du corpus dynamique.</div>' +
+      '<button id="logout-btn" class="ghost">Déconnexion</button>';
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      setToken('');
+      location.reload();
+    });
+    loadEntries();
+  }
+}
+
+async function tryAuth(token) {
+  // On ping GET /api/admin/corpus pour valider le token
+  try {
+    const res = await fetch('/api/admin/corpus', {
+      method: 'GET',
+      headers: { 'Authorization': 'Bearer ' + token },
+    });
+    if (res.status === 401) return { ok: false, reason: 'Mot de passe incorrect' };
+    if (res.status === 500) {
+      const j = await res.json().catch(() => ({}));
+      return { ok: false, reason: j.error || 'Erreur serveur (ADMIN_PASSWORD configuré ?)' };
+    }
+    if (!res.ok) return { ok: false, reason: 'HTTP ' + res.status };
+    return { ok: true };
+  } catch (err) {
+    return { ok: false, reason: 'Connexion impossible : ' + err.message };
+  }
+}
+
+document.getElementById('auth-btn').addEventListener('click', async () => {
+  const pw = document.getElementById('admin-pw').value.trim();
+  if (!pw) return showToast('Saisis un mot de passe', 'error');
+  const r = await tryAuth(pw);
+  if (r.ok) {
+    setToken(pw);
+    showAdminUI(true);
+    showToast('Connecté ✓', 'success');
+  } else {
+    showToast(r.reason, 'error');
+  }
+});
+
+document.getElementById('admin-pw').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') document.getElementById('auth-btn').click();
+});
+
+async function loadEntries() {
+  const list = document.getElementById('entries-list');
+  list.innerHTML = '<div class="empty">Chargement...</div>';
+  try {
+    const res = await fetch('/api/admin/corpus', {
+      headers: { 'Authorization': 'Bearer ' + getToken() },
+    });
+    if (!res.ok) {
+      const j = await res.json().catch(() => ({}));
+      list.innerHTML = '<div class="empty">Erreur : ' + (j.error || res.status) + '</div>';
+      if (j.error && j.error.includes('KV')) {
+        list.innerHTML += '<div class="kv-warning">⚠️ <strong>Vercel KV non activé.</strong> Active-le dans le dashboard Vercel (Storage → Create → KV), puis ajoute <code>KV_REST_API_URL</code> et <code>KV_REST_API_TOKEN</code> aux variables d\'environnement.</div>';
+      }
+      return;
+    }
+    const data = await res.json();
+    if (!data.entries || data.entries.length === 0) {
+      list.innerHTML = '<div class="empty">Aucune entrée dynamique pour l\'instant. Ajoute-en avec le formulaire ci-dessus.</div>';
+      return;
+    }
+    list.innerHTML = '';
+    data.entries.forEach(e => {
+      const el = document.createElement('div');
+      el.className = 'entry-item';
+      el.innerHTML = `
+        <div style="flex:1; min-width:0;">
+          <h3>${escapeHtml(e.title || '(sans titre)')}</h3>
+          <div class="meta">
+            <span>ID : ${escapeHtml(e.id)}</span>
+            ${e.siman ? ' · Siman ' + escapeHtml(e.siman) : ''}
+            ${e.seif ? ' Seif ' + escapeHtml(e.seif) : ''}
+            ${e.level ? ' · Niveau : ' + escapeHtml(e.level) : ''}
+            ${e.addedAt ? ' · Ajouté : ' + new Date(e.addedAt).toLocaleString('fr-FR') : ''}
+          </div>
+          ${e.summary ? '<div style="margin-top:6px; font-size: 13px;">' + escapeHtml(e.summary) + '</div>' : ''}
+          ${(e.tags || []).length ? '<div class="tags">' + e.tags.map(t => '<span class="tag">' + escapeHtml(t) + '</span>').join('') + '</div>' : ''}
+        </div>
+        <button class="danger" data-del="${escapeHtml(e.id)}">Supprimer</button>
+      `;
+      list.appendChild(el);
+    });
+    list.querySelectorAll('button[data-del]').forEach(btn => {
+      btn.addEventListener('click', () => deleteEntry(btn.dataset.del));
+    });
+  } catch (err) {
+    list.innerHTML = '<div class="empty">Erreur : ' + escapeHtml(err.message) + '</div>';
+  }
+}
+
+async function deleteEntry(id) {
+  if (!confirm('Supprimer cette entrée du corpus ?\n\nID : ' + id)) return;
+  try {
+    const res = await fetch('/api/admin/corpus?id=' + encodeURIComponent(id), {
+      method: 'DELETE',
+      headers: { 'Authorization': 'Bearer ' + getToken() },
+    });
+    if (!res.ok) {
+      const j = await res.json().catch(() => ({}));
+      throw new Error(j.error || 'HTTP ' + res.status);
+    }
+    showToast('Entrée supprimée ✓', 'success');
+    loadEntries();
+  } catch (err) {
+    showToast('Erreur : ' + err.message, 'error');
+  }
+}
+
+document.getElementById('submit-btn').addEventListener('click', async () => {
+  const title = document.getElementById('f-title').value.trim();
+  const content = document.getElementById('f-content').value.trim();
+  if (!title || !content) {
+    return showToast('Titre et Contenu sont obligatoires', 'error');
+  }
+
+  let sources = [];
+  let internalLinks = [];
+  try {
+    const s = document.getElementById('f-sources').value.trim();
+    if (s) sources = JSON.parse(s);
+    const i = document.getElementById('f-internal').value.trim();
+    if (i) internalLinks = JSON.parse(i);
+  } catch (err) {
+    return showToast('JSON invalide pour les sources/liens : ' + err.message, 'error');
+  }
+
+  const entry = {
+    title,
+    content,
+    section: document.getElementById('f-section').value,
+    chapter: document.getElementById('f-chapter').value.trim(),
+    siman: document.getElementById('f-siman').value.trim(),
+    seif: document.getElementById('f-seif').value.trim(),
+    level: document.getElementById('f-level').value,
+    tags: document.getElementById('f-tags').value.split(',').map(t => t.trim()).filter(Boolean),
+    summary: document.getElementById('f-summary').value.trim(),
+    sources,
+    internalLinks,
+  };
+
+  document.getElementById('submit-btn').disabled = true;
+  try {
+    const res = await fetch('/api/admin/corpus', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + getToken(),
+      },
+      body: JSON.stringify(entry),
+    });
+    if (!res.ok) {
+      const j = await res.json().catch(() => ({}));
+      throw new Error(j.error || 'HTTP ' + res.status);
+    }
+    const data = await res.json();
+    showToast('Entrée ajoutée ✓ (ID: ' + data.entry.id + ')', 'success');
+    document.getElementById('clear-btn').click();
+    loadEntries();
+  } catch (err) {
+    showToast('Erreur : ' + err.message, 'error');
+  } finally {
+    document.getElementById('submit-btn').disabled = false;
+  }
+});
+
+document.getElementById('clear-btn').addEventListener('click', () => {
+  ['f-title','f-chapter','f-siman','f-seif','f-tags','f-summary','f-content','f-sources','f-internal'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+});
+
+function escapeHtml(s) {
+  if (!s) return '';
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+// Auto-login si déjà un token en session
+(async () => {
+  const t = getToken();
+  if (t) {
+    const r = await tryAuth(t);
+    if (r.ok) showAdminUI(true);
+    else setToken('');
+  }
+})();
+</script>
+
+</body>
+</html>

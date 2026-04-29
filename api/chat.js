@@ -8,10 +8,20 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { SYSTEM_PROMPT } from './_system-prompt.js';
 import { SEFARIA_TOOLS, executeSefariaTool } from './_sefaria.js';
+import { CORPUS_TOOLS, executeCorpusTool } from './_corpus.js';
 
 const client = new Anthropic();
 
-const MAX_TOOL_ITERATIONS = 6; // garde-fou agentic loop
+const MAX_TOOL_ITERATIONS = 8; // garde-fou agentic loop (corpus + Sefaria peuvent enchaîner)
+const ALL_TOOLS = [...CORPUS_TOOLS, ...SEFARIA_TOOLS];
+
+// Map tool name → executor
+const TOOL_EXECUTORS = {
+  daat_search_corpus: executeCorpusTool,
+  daat_get_content: executeCorpusTool,
+  sefaria_get_text: executeSefariaTool,
+  sefaria_search: executeSefariaTool,
+};
 
 export default async function handler(req, res) {
   // CORS preflight
@@ -84,21 +94,14 @@ export default async function handler(req, res) {
     while (iterations < MAX_TOOL_ITERATIONS) {
       iterations++;
 
-      // Notifier le client qu'on commence (utile pour les itérations avec tool use)
-      if (iterations > 1) {
-        const noticePayload = JSON.stringify({
-          type: 'notice',
-          message: `Recherche dans Sefaria... (${iterations - 1})`,
-        });
-        res.write(`data: ${noticePayload}\n\n`);
-      }
+      // (Plus de notice générique — chaque tool_use envoie sa propre notice détaillée)
 
       const stream = client.messages.stream({
         model: 'claude-opus-4-7',
         max_tokens: 8192,
         thinking: { type: 'adaptive' },
         output_config: { effort: 'high' },
-        tools: SEFARIA_TOOLS,
+        tools: ALL_TOOLS,
         system: [
           {
             type: 'text',
@@ -143,11 +146,20 @@ export default async function handler(req, res) {
         break; // safety
       }
 
-      // Exécuter chaque outil (en parallèle)
+      // Exécuter chaque outil (en parallèle, dispatch sur le bon executor)
       const toolResults = await Promise.all(
         toolUses.map(async (tu) => {
           try {
-            const result = await executeSefariaTool(tu.name, tu.input);
+            const executor = TOOL_EXECUTORS[tu.name];
+            if (!executor) {
+              return {
+                type: 'tool_result',
+                tool_use_id: tu.id,
+                content: JSON.stringify({ error: `Outil inconnu : ${tu.name}` }),
+                is_error: true,
+              };
+            }
+            const result = await executor(tu.name, tu.input);
             return {
               type: 'tool_result',
               tool_use_id: tu.id,

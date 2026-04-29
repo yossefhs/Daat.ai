@@ -362,10 +362,14 @@
                 assistantEl.innerHTML = renderMarkdown(assistantText);
                 this.scrollToBottom();
               } else if (parsed.type === 'tool_use') {
-                // Afficher discrètement la consultation Sefaria
-                const toolLabel = parsed.tool === 'sefaria_get_text'
-                  ? `📖 Vérification dans Sefaria : ${parsed.input?.ref || ''}`
-                  : `🔍 Recherche dans Sefaria : ${parsed.input?.query || ''}`;
+                // Afficher discrètement la consultation (corpus DAAT ou Sefaria)
+                const toolLabels = {
+                  daat_search_corpus: `📚 Recherche dans le corpus DAAT : « ${parsed.input?.query || ''} »`,
+                  daat_get_content: `📖 Lecture du corpus DAAT : ${parsed.input?.id || ''}`,
+                  sefaria_get_text: `📜 Vérification dans Sefaria : ${parsed.input?.ref || ''}`,
+                  sefaria_search: `🔍 Recherche dans Sefaria : « ${parsed.input?.query || ''} »`,
+                };
+                const toolLabel = toolLabels[parsed.tool] || `🔧 ${parsed.tool}`;
                 this.appendToolNotice(toolLabel);
               } else if (parsed.type === 'notice') {
                 this.appendToolNotice('⏳ ' + parsed.message);
