@@ -102,6 +102,36 @@
     return s;
   }
 
+  // === LABELS NIVEAU + MINHAG ===
+  const NIVEAU_LABELS = {
+    debutant: 'Débutant — peu ou pas de bagage',
+    intermediaire: 'Intermédiaire — bagage moyen',
+    yeshiva: 'Élève de Yeshiva — étude régulière',
+    lamdan: 'Lamdan / Talmid Hakham — pilpoul approfondi',
+  };
+  const MINHAG_LABELS = {
+    sefarade: 'Séfarade (général — Choulchan Aroukh sans Rama)',
+    marocain: 'Séfarade marocain',
+    yemenite: 'Yéménite (Téimani — Baladi ou Shami selon le cas)',
+    'edot-hamizrah': 'Edot HaMizrah (Iraqi / Bagdadi / Halabi)',
+    ashkenaze: 'Ashkénaze (général — Choulchan Aroukh + Rama)',
+    habad: 'Habad / Loubavitch',
+    litvak: 'Litvak (yeshivot lituaniennes)',
+    autre: 'Autre ou non spécifié — demander si pertinent',
+  };
+
+  function buildIntroMessage(niveau, minhag) {
+    const niveauTxt = NIVEAU_LABELS[niveau] || niveau;
+    const minhagTxt = MINHAG_LABELS[minhag] || minhag;
+    return (
+      `Bonjour Daat. Voici mon profil pour cette session :\n` +
+      `• **Niveau** : ${niveauTxt}\n` +
+      `• **Minhag** : ${minhagTxt}\n\n` +
+      `Adapte tes explications, le pesak, le minhag (séfarade vs ashkénaze, etc.) ` +
+      `et le niveau de pilpoul à ce profil. Sur quel sujet veux-tu qu'on commence à étudier ?`
+    );
+  }
+
   // === STATE MANAGEMENT ===
   function loadHistory() {
     try {
@@ -233,39 +263,92 @@
 
     renderMessages() {
       if (this.messages.length === 0) {
+        // Restaurer choix précédents si l'utilisateur revient
+        const savedNiveau = sessionStorage.getItem('daat-niveau');
+        const savedMinhag = sessionStorage.getItem('daat-minhag');
+        this.selectedNiveau = savedNiveau || null;
+        this.selectedMinhag = savedMinhag || null;
+
         this.messagesEl.innerHTML = `
           <div class="daat-chat-welcome">
             <span class="heb">דעת</span>
             <h3>Bienvenue !</h3>
             <p>Je suis <strong>Daat</strong>, ton assistant d'étude pour la Torah et la Halakha.</p>
-            <p><strong>Avant de commencer, dis-moi quel est ton niveau d'étude</strong> — pour que j'adapte mes réponses :</p>
-            <div class="daat-chat-suggestions">
-              <button class="daat-chat-suggestion" data-q="Je suis débutant — j'ai peu ou pas de bagage en étude juive. Explique-moi simplement, avec des traductions et des exemples concrets.">
-                🌱 <strong>Débutant</strong> — peu ou pas de bagage
-              </button>
-              <button class="daat-chat-suggestion" data-q="J'ai un bagage moyen — je connais l'hébreu et j'ai déjà étudié quelques sujets. Tu peux utiliser des termes techniques mais explique les concepts importants.">
-                📚 <strong>Bagage moyen</strong> — quelques connaissances
-              </button>
-              <button class="daat-chat-suggestion" data-q="Je suis élève de Yeshiva — j'étudie régulièrement la Guemara et la Halakha. Tu peux utiliser le vocabulaire technique et citer Rishonim et Acharonim.">
-                🕮 <strong>Élève de Yeshiva</strong> — étude régulière
-              </button>
-              <button class="daat-chat-suggestion" data-q="Je suis Talmid Hakham — déploie le pilpoul complet (Kashya, Teruts, Hakira, Nafka mina), cite les Rishonim et Acharonim, méthodologie de Brisk, sans simplifier.">
-                🎓 <strong>Talmid Hakham</strong> — étude approfondie
-              </button>
+
+            <div class="daat-chat-step">
+              <div class="daat-chat-step-label">① Quel est ton niveau d'étude ?</div>
+              <div class="daat-chat-chips" data-group="niveau">
+                <button class="daat-chat-chip" data-value="debutant">🌱 Débutant</button>
+                <button class="daat-chat-chip" data-value="intermediaire">📚 Bagage moyen</button>
+                <button class="daat-chat-chip" data-value="yeshiva">🕮 Élève de Yeshiva</button>
+                <button class="daat-chat-chip" data-value="lamdan">🎓 Talmid Hakham</button>
+              </div>
             </div>
-            <p style="font-size: 0.85em; color: var(--text-muted); margin-top: 16px;">
-              💡 Tu peux aussi me parler en <strong>français</strong>, <strong>hébreu</strong>, <strong>anglais</strong> ou <strong>espagnol</strong> — je m'adapte à ta langue.
+
+            <div class="daat-chat-step">
+              <div class="daat-chat-step-label">② Quel est ton minhag ?</div>
+              <div class="daat-chat-chips" data-group="minhag">
+                <button class="daat-chat-chip" data-value="sefarade">🕎 Séfarade</button>
+                <button class="daat-chat-chip" data-value="marocain">🇲🇦 Marocain</button>
+                <button class="daat-chat-chip" data-value="yemenite">🌴 Yéménite (Téimani)</button>
+                <button class="daat-chat-chip" data-value="edot-hamizrah">🌅 Edot HaMizrah</button>
+                <button class="daat-chat-chip" data-value="ashkenaze">❄️ Ashkénaze</button>
+                <button class="daat-chat-chip" data-value="habad">🔵 Habad / Loubavitch</button>
+                <button class="daat-chat-chip" data-value="litvak">📖 Litvak</button>
+                <button class="daat-chat-chip" data-value="autre">🤷 Autre / pas sûr</button>
+              </div>
+            </div>
+
+            <button class="daat-chat-start" id="daat-chat-start" disabled>✓ Commencer l'étude</button>
+
+            <p style="font-size: 0.85em; color: var(--daat-text-muted); margin-top: 16px;">
+              💡 Tu peux me parler en <strong>français</strong>, <strong>hébreu</strong>, <strong>anglais</strong> ou <strong>espagnol</strong>.
             </p>
             <div class="signature">דעת התורה לעומקה</div>
           </div>
         `;
-        // Suggestion buttons
-        this.messagesEl.querySelectorAll('.daat-chat-suggestion').forEach(btn => {
-          btn.addEventListener('click', () => {
-            this.inputEl.value = btn.dataset.q;
-            this.send();
+
+        // Hydrater les chips déjà sélectionnés
+        if (this.selectedNiveau) {
+          const b = this.messagesEl.querySelector(`.daat-chat-chip[data-value="${this.selectedNiveau}"]`);
+          if (b) b.classList.add('is-selected');
+        }
+        if (this.selectedMinhag) {
+          const b = this.messagesEl.querySelector(`.daat-chat-chip[data-value="${this.selectedMinhag}"]`);
+          if (b) b.classList.add('is-selected');
+        }
+
+        const updateStartBtn = () => {
+          const btn = this.messagesEl.querySelector('#daat-chat-start');
+          if (btn) btn.disabled = !(this.selectedNiveau && this.selectedMinhag);
+        };
+        updateStartBtn();
+
+        // Toggle des chips (sélection unique par groupe)
+        this.messagesEl.querySelectorAll('.daat-chat-chips').forEach(group => {
+          const groupName = group.dataset.group;
+          group.querySelectorAll('.daat-chat-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+              group.querySelectorAll('.daat-chat-chip').forEach(c => c.classList.remove('is-selected'));
+              chip.classList.add('is-selected');
+              const val = chip.dataset.value;
+              if (groupName === 'niveau') this.selectedNiveau = val;
+              if (groupName === 'minhag') this.selectedMinhag = val;
+              sessionStorage.setItem('daat-' + groupName, val);
+              updateStartBtn();
+            });
           });
         });
+
+        // Bouton "Commencer"
+        const startBtn = this.messagesEl.querySelector('#daat-chat-start');
+        if (startBtn) {
+          startBtn.addEventListener('click', () => {
+            if (!this.selectedNiveau || !this.selectedMinhag) return;
+            this.inputEl.value = buildIntroMessage(this.selectedNiveau, this.selectedMinhag);
+            this.send();
+          });
+        }
         return;
       }
 

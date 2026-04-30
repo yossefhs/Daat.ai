@@ -433,6 +433,79 @@
   background: var(--daat-cream-dark);
 }
 
+/* ============ STEPS (Niveau / Minhag) ============ */
+.daat-chat-step {
+  margin-top: 18px;
+}
+
+.daat-chat-step-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--daat-gold);
+  margin-bottom: 8px;
+}
+
+.daat-chat-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.daat-chat-chip {
+  padding: 7px 11px;
+  background: white;
+  border: 1px solid var(--daat-border);
+  border-radius: 18px;
+  font-family: inherit;
+  font-size: 12px;
+  color: var(--daat-text);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.daat-chat-chip:hover {
+  border-color: var(--daat-gold);
+  background: var(--daat-cream-dark);
+}
+
+.daat-chat-chip.is-selected {
+  background: var(--daat-navy);
+  color: var(--daat-gold);
+  border-color: var(--daat-navy);
+  font-weight: 600;
+}
+
+.daat-chat-start {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px 18px;
+  background: var(--daat-gold);
+  color: var(--daat-navy);
+  border: none;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.daat-chat-start:hover:not(:disabled) {
+  background: var(--daat-gold-light);
+}
+
+.daat-chat-start:disabled {
+  background: #DDD;
+  color: #999;
+  cursor: not-allowed;
+}
+
 /* ============ SCROLL DOWN BUTTON (apparaît quand l'utilisateur remonte) ============ */
 .daat-chat-scroll-down {
   position: absolute;
