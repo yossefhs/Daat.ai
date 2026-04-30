@@ -124,11 +124,10 @@
     const niveauTxt = NIVEAU_LABELS[niveau] || niveau;
     const minhagTxt = MINHAG_LABELS[minhag] || minhag;
     return (
-      `Bonjour Daat. Voici mon profil pour cette session :\n` +
-      `• **Niveau** : ${niveauTxt}\n` +
-      `• **Minhag** : ${minhagTxt}\n\n` +
-      `Adapte tes explications, le pesak, le minhag (séfarade vs ashkénaze, etc.) ` +
-      `et le niveau de pilpoul à ce profil. Sur quel sujet veux-tu qu'on commence à étudier ?`
+      `Bonjour Daat ! Voici mon profil pour cette session :\n` +
+      `• Niveau : ${niveauTxt}\n` +
+      `• Minhag : ${minhagTxt}\n\n` +
+      `Je suis prêt à commencer. Adapte tes réponses à ce profil.`
     );
   }
 
@@ -184,6 +183,7 @@
             <div class="daat-chat-header-title">Daat</div>
             <div class="daat-chat-header-subtitle">Assistant d'étude · Rav Yossef Haim Samama</div>
           </div>
+          <button class="daat-chat-reset" id="daat-chat-reset" title="Nouvelle conversation" aria-label="Nouvelle conversation">↺</button>
         </div>
         <div class="daat-chat-messages" id="daat-chat-messages" dir="ltr"></div>
         <button class="daat-chat-scroll-down" id="daat-chat-scroll-down" type="button" aria-label="Aller au dernier message">↓ Nouveau</button>
@@ -209,11 +209,17 @@
       this.inputEl = this.panel.querySelector('#daat-chat-input');
       this.sendBtn = this.panel.querySelector('#daat-chat-send');
       this.scrollDownBtn = this.panel.querySelector('#daat-chat-scroll-down');
+      this.resetBtn = this.panel.querySelector('#daat-chat-reset');
       this.userScrolledUp = false;
     }
 
     attach() {
       this.button.addEventListener('click', () => this.toggle());
+
+      // Bouton reset — remet à zéro la conversation
+      if (this.resetBtn) {
+        this.resetBtn.addEventListener('click', () => this.resetChat());
+      }
 
       this.sendBtn.addEventListener('click', () => this.send());
 
@@ -423,6 +429,21 @@
       this.isStreaming = streaming;
       this.inputEl.disabled = streaming;
       this.sendBtn.disabled = streaming;
+    }
+
+    resetChat() {
+      if (this.isStreaming) return; // Ne pas couper en plein stream
+      // Effacer l'historique et les préférences
+      sessionStorage.removeItem(STORAGE_KEY);
+      sessionStorage.removeItem('daat-niveau');
+      sessionStorage.removeItem('daat-minhag');
+      this.messages = [];
+      this.selectedNiveau = null;
+      this.selectedMinhag = null;
+      this.userScrolledUp = false;
+      if (this.scrollDownBtn) this.scrollDownBtn.classList.remove('is-visible');
+      // Revenir à l'écran de bienvenue
+      this.renderMessages();
     }
 
     async send() {

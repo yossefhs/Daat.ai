@@ -143,16 +143,42 @@
 
 .daat-chat-header-title {
   font-weight: 600;
-  font-size: 18px;
+  font-size: 19px;
   color: var(--daat-cream);
   letter-spacing: 0.02em;
 }
 
 .daat-chat-header-subtitle {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--daat-gold-light);
   font-style: italic;
   margin-top: 2px;
+}
+
+/* Bouton reset (↺ Nouvelle conversation) */
+.daat-chat-reset {
+  background: transparent;
+  border: 1px solid rgba(197, 165, 90, 0.35);
+  color: var(--daat-gold-light);
+  border-radius: 6px;
+  padding: 5px 9px;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  flex-shrink: 0;
+  margin-left: 4px;
+  title: "Nouvelle conversation";
+}
+
+.daat-chat-reset:hover {
+  background: rgba(197, 165, 90, 0.15);
+  color: var(--daat-gold);
+  border-color: var(--daat-gold);
+}
+
+.daat-chat-reset:active {
+  transform: rotate(-30deg);
 }
 
 /* ============ MESSAGES ============ */
@@ -183,8 +209,8 @@
   max-width: 85%;
   padding: 10px 14px;
   border-radius: 12px;
-  font-size: 15px;
-  line-height: 1.5;
+  font-size: 16px;
+  line-height: 1.6;
   word-wrap: break-word;
   direction: ltr;
   text-align: left;
@@ -283,10 +309,10 @@
   font-weight: 600;
 }
 
-.daat-chat-message.is-assistant h1 { font-size: 18px; }
-.daat-chat-message.is-assistant h2 { font-size: 17px; }
-.daat-chat-message.is-assistant h3 { font-size: 16px; }
-.daat-chat-message.is-assistant h4 { font-size: 15px; }
+.daat-chat-message.is-assistant h1 { font-size: 20px; }
+.daat-chat-message.is-assistant h2 { font-size: 19px; }
+.daat-chat-message.is-assistant h3 { font-size: 18px; }
+.daat-chat-message.is-assistant h4 { font-size: 17px; }
 
 .daat-chat-message.is-assistant ul,
 .daat-chat-message.is-assistant ol {
@@ -396,7 +422,7 @@
 }
 
 .daat-chat-welcome p {
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.6;
   margin: 8px 0;
 }
@@ -455,12 +481,12 @@
 }
 
 .daat-chat-chip {
-  padding: 7px 11px;
+  padding: 7px 12px;
   background: white;
   border: 1px solid var(--daat-border);
   border-radius: 18px;
   font-family: inherit;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--daat-text);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -483,13 +509,13 @@
   display: block;
   width: 100%;
   margin-top: 20px;
-  padding: 12px 18px;
+  padding: 13px 18px;
   background: var(--daat-gold);
   color: var(--daat-navy);
   border: none;
   border-radius: 6px;
   font-family: inherit;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.5px;
   cursor: pointer;
@@ -558,7 +584,7 @@
   border: 1px solid var(--daat-border);
   border-radius: 8px;
   font-family: inherit;
-  font-size: 15px;
+  font-size: 16px;
   resize: none;
   min-height: 40px;
   max-height: 120px;
