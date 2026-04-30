@@ -81,10 +81,13 @@
       return '<ol>' + items + '</ol>';
     });
 
-    // Hebrew text wrapping — isole les passages hébreux en RTL inline
-    // pour que le français environnant reste LTR
-    s = s.replace(/([א-תװ-״יִ-פֿ][ְ-ׇא-תװ-״יִ-פֿ\sְ-ׇ״׃,.\-'()]{0,}[א-תװ-״יִ-פֿ])/g,
-      '<span lang="he" dir="rtl" style="unicode-bidi:embed;display:inline-block;">$1</span>');
+    // Hebrew text wrapping — isole les passages hébreux en RTL inline.
+    // Inclut guillemets ASCII (") et typo + apostrophes pour ne pas casser
+    // des abréviations comme אדה"ז, שו"ע, רמב"ם, מג"א, וכו׳, etc.
+    s = s.replace(
+      /([\u05D0-\u05EA\u05F0-\u05F2](?:[\u0591-\u05F4\u05D0-\u05EA\u05F0-\u05F2\s"'\u2019\u201C\u201D,.\-()]{0,80}[\u05D0-\u05EA\u05F0-\u05F2])?)/g,
+      '<span lang="he" dir="rtl" style="unicode-bidi:isolate;">$1</span>'
+    );
 
     // Paragraphs (double newline)
     const paragraphs = s.split(/\n\n+/);
@@ -153,6 +156,7 @@
           </div>
         </div>
         <div class="daat-chat-messages" id="daat-chat-messages" dir="ltr"></div>
+        <button class="daat-chat-scroll-down" id="daat-chat-scroll-down" type="button" aria-label="Aller au dernier message">↓ Nouveau</button>
         <div class="daat-chat-input-area">
           <div class="daat-chat-input-wrapper">
             <textarea
@@ -174,6 +178,8 @@
       this.messagesEl = this.panel.querySelector('#daat-chat-messages');
       this.inputEl = this.panel.querySelector('#daat-chat-input');
       this.sendBtn = this.panel.querySelector('#daat-chat-send');
+      this.scrollDownBtn = this.panel.querySelector('#daat-chat-scroll-down');
+      this.userScrolledUp = false;
     }
 
     attach() {
@@ -187,6 +193,26 @@
           this.send();
         }
       });
+
+      // Track manual scrolling — si l'utilisateur remonte, on désactive l'auto-scroll
+      this.messagesEl.addEventListener('scroll', () => {
+        const el = this.messagesEl;
+        const distanceFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
+        const isAtBottom = distanceFromBottom < 30;
+        this.userScrolledUp = !isAtBottom;
+        if (this.scrollDownBtn) {
+          this.scrollDownBtn.classList.toggle('is-visible', this.userScrolledUp && this.isStreaming);
+        }
+      });
+
+      // Bouton "↓ Nouveau" — ramène en bas et reprend l'auto-scroll
+      if (this.scrollDownBtn) {
+        this.scrollDownBtn.addEventListener('click', () => {
+          this.messagesEl.scrollTop = this.messagesEl.scrollHeight;
+          this.userScrolledUp = false;
+          this.scrollDownBtn.classList.remove('is-visible');
+        });
+      }
 
       // Auto-resize textarea
       this.inputEl.addEventListener('input', () => {
@@ -289,9 +315,24 @@
       return el;
     }
 
-    scrollToBottom() {
+    scrollToBottom(force) {
+      // Respecte la position de l'utilisateur : si il a remonté le chat
+      // pour lire pendant que le streaming continue, on NE le ramène PAS
+      // automatiquement en bas. Il faut soit envoyer un nouveau message,
+      // soit cliquer le bouton "↓" qui s'affiche, soit scroller manuellement.
       requestAnimationFrame(() => {
-        this.messagesEl.scrollTop = this.messagesEl.scrollHeight;
+        const el = this.messagesEl;
+        if (!el) return;
+        const distanceFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
+        if (force || distanceFromBottom < 80) {
+          el.scrollTop = el.scrollHeight;
+          this.userScrolledUp = false;
+          if (this.scrollDownBtn) this.scrollDownBtn.classList.remove('is-visible');
+        } else {
+          // L'utilisateur lit en remontant — on signale juste qu'il y a du nouveau
+          this.userScrolledUp = true;
+          if (this.scrollDownBtn) this.scrollDownBtn.classList.add('is-visible');
+        }
       });
     }
 
@@ -305,6 +346,10 @@
       const text = this.inputEl.value.trim();
       if (!text || this.isStreaming) return;
 
+      // Nouveau message → on reset le tracking de scroll et on revient en bas
+      this.userScrolledUp = false;
+      if (this.scrollDownBtn) this.scrollDownBtn.classList.remove('is-visible');
+
       // Welcome screen → first message
       if (this.messages.length === 0) {
         this.messagesEl.innerHTML = '';
@@ -313,6 +358,7 @@
       // Add user message
       this.messages.push({ role: 'user', content: text });
       this.appendMessage('user', text);
+      this.scrollToBottom(true); // force le scroll au moment d'envoyer
       this.inputEl.value = '';
       this.inputEl.style.height = 'auto';
       saveHistory(this.messages);

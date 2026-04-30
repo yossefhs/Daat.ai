@@ -433,6 +433,39 @@
   background: var(--daat-cream-dark);
 }
 
+/* ============ SCROLL DOWN BUTTON (apparaît quand l'utilisateur remonte) ============ */
+.daat-chat-scroll-down {
+  position: absolute;
+  right: 16px;
+  bottom: 90px;
+  z-index: 5;
+  background: var(--daat-navy);
+  color: var(--daat-gold);
+  border: 1px solid var(--daat-gold);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(26,31,58,0.2);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.daat-chat-scroll-down.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.daat-chat-scroll-down:hover {
+  background: var(--daat-gold);
+  color: var(--daat-navy);
+}
+
 /* ============ INPUT ============ */
 .daat-chat-input-area {
   padding: 12px;
