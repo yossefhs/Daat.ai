@@ -447,7 +447,7 @@
     }
 
     async send() {
-      const text = this.inputEl.value.trim();
+      let text = this.inputEl.value.trim();
       if (!text || this.isStreaming) return;
 
       // Nouveau message → on reset le tracking de scroll et on revient en bas
@@ -457,6 +457,24 @@
       // Welcome screen → first message
       if (this.messages.length === 0) {
         this.messagesEl.innerHTML = '';
+
+        // Si l'utilisateur a sélectionné niveau + minhag dans les chips
+        // mais a tapé directement sa question (sans cliquer "Commencer"),
+        // on préfixe le profil pour que Daat le reçoive.
+        const niveau = this.selectedNiveau || sessionStorage.getItem('daat-niveau');
+        const minhag = this.selectedMinhag || sessionStorage.getItem('daat-minhag');
+        if (niveau && minhag) {
+          const niveauTxt = NIVEAU_LABELS[niveau] || niveau;
+          const minhagTxt = MINHAG_LABELS[minhag] || minhag;
+          // Détection : si le message ne contient pas déjà le profil, on l'ajoute
+          if (!/•\s*Niveau/i.test(text)) {
+            text =
+              `[Profil de cette session]\n` +
+              `• Niveau : ${niveauTxt}\n` +
+              `• Minhag : ${minhagTxt}\n\n` +
+              `[Ma question]\n${text}`;
+          }
+        }
       }
 
       // Add user message
