@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Siman רמ״ג · Niveau 2 — Lamdan</title>
+<style>
+  @page { size: A4; margin: 2cm 1.8cm; }
+  @media print { .daat-nav-bar, .daat-breadcrumb { display: none !important; } }
+  body { font-family: 'Georgia', 'Cambria', serif; font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0; }
+  .he { direction: rtl; text-align: right; font-family: 'Frank Ruhl Libre', 'David', 'Times New Roman', serif; font-size: 13pt; line-height: 1.9; }
+  .he-q { direction: rtl; unicode-bidi: embed; font-family: 'Frank Ruhl Libre', 'David', serif; font-weight: 600; color: #1A1F3A; }
+
+  .cover { text-align: center; margin-top: 2.5cm; margin-bottom: 2cm; }
+  .cover h1 { font-size: 30pt; color: #1A1F3A; margin: 5px 0; font-family: 'Cormorant Garamond', 'Georgia', serif; }
+  .cover .he-title { font-size: 38pt; color: #1A1F3A; margin: 15px 0 5px 0; }
+  .cover .he-sub { font-size: 18pt; color: #C5A55A; margin-bottom: 20px; }
+  .cover .he-subject { font-size: 15pt; color: #5a4a1a; margin: 15px 0; font-style: italic; }
+  .cover .ornament { color: #C5A55A; font-size: 22pt; margin: 15px 0; }
+  .cover .level-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #6a1b7a, #3d0f4a);
+    color: #C5A55A; padding: 12px 35px; font-size: 13pt; letter-spacing: 2px;
+    margin: 20px 0; border-radius: 4px;
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .cover .credits { margin-top: 2cm; padding-top: 20px; border-top: 1px solid #C5A55A; font-size: 10pt; color: #555; line-height: 1.8; }
+  .cover .subtitle { font-size: 14pt; color: #5a4a1a; font-style: italic; margin: 10px 0 30px 0; }
+  .cover .badge-top { color: #C5A55A; font-size: 11pt; letter-spacing: 4px; margin-bottom: 10px; }
+
+  h2.section-title {
+    color: #fff; background: #1A1F3A; font-size: 16pt; padding: 10px 18px;
+    margin-top: 30px; border-left: 6px solid #C5A55A;
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+  }
+  h3 {
+    color: #1A1F3A; font-size: 14pt; margin-top: 25px;
+    border-right: 4px solid #C5A55A; padding-right: 10px;
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+  }
+  h3.sugya { background: #1A1F3A; color: #fff; padding: 8px 15px; border-right: none; border-left: 6px solid #C5A55A; }
+  h3.he-h3 { direction: rtl; text-align: right; border-right: none; border-left: 4px solid #C5A55A; padding-right: 0; padding-left: 10px; }
+  h4 { color: #5a4a1a; font-size: 12pt; margin-top: 20px; margin-bottom: 8px; font-weight: bold; }
+
+  .sacred-text {
+    background: #FAF6EE; border-right: 3px solid #C5A55A; border-left: 3px solid #C5A55A;
+    padding: 15px 20px; margin: 15px 0; font-size: 12.5pt; line-height: 1.9;
+  }
+  .pilpul-box { background: #eef3fa; border-left: 4px solid #1A1F3A; padding: 12px 18px; margin: 15px 0; }
+  .pilpul-box::before { content: "⚡ פלפול"; display: block; color: #1A1F3A; font-weight: bold; font-size: 10pt; margin-bottom: 5px; letter-spacing: 1px; }
+  .kashya-box { background: #fef4e4; border-left: 4px solid #C5A55A; padding: 12px 18px; margin: 15px 0; }
+  .kashya-box::before { content: "❓ קושיא"; display: block; color: #8a6a1a; font-weight: bold; font-size: 10pt; margin-bottom: 5px; letter-spacing: 1px; }
+  .teruts-box { background: #e8f4ea; border-left: 4px solid #2d7a3e; padding: 12px 18px; margin: 15px 0; }
+  .teruts-box::before { content: "✓ תירוץ"; display: block; color: #2d7a3e; font-weight: bold; font-size: 10pt; margin-bottom: 5px; letter-spacing: 1px; }
+  .hakira-box { background: #f5e9f5; border-left: 4px solid #6a1b7a; padding: 12px 18px; margin: 15px 0; }
+  .hakira-box::before { content: "🔍 חקירה"; display: block; color: #6a1b7a; font-weight: bold; font-size: 10pt; margin-bottom: 5px; letter-spacing: 1px; }
+  .nafka-mina-box { background: #fff4e6; border: 2px solid #C5A55A; padding: 12px 18px; margin: 15px 0; border-radius: 4px; }
+  .nafka-mina-box::before { content: "⚖️ נפקא מינה"; display: block; color: #1A1F3A; font-weight: bold; font-size: 10pt; margin-bottom: 5px; letter-spacing: 1px; }
+  .yesod-box { background: #1A1F3A; color: #fff; padding: 15px 20px; margin: 20px 0; border-radius: 4px; }
+  .yesod-box::before { content: "💎 יסוד"; display: block; color: #C5A55A; font-weight: bold; font-size: 10pt; margin-bottom: 8px; letter-spacing: 2px; }
+  .yesod-box .he-q { color: #C5A55A; }
+  .machloket-box { background: #faf5ff; border: 1.5px dashed #6a1b7a; padding: 12px 18px; margin: 15px 0; }
+
+  table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 10pt; }
+  th { background: #1A1F3A; color: #fff; padding: 10px; text-align: left; font-size: 11pt; }
+  td { border: 1px solid #d4c89a; padding: 10px; vertical-align: top; }
+  tr:nth-child(even) td { background: #FAF6EE; }
+  td.he, th.he { text-align: right; direction: rtl; font-size: 11.5pt; }
+
+  .page-break { page-break-before: always; }
+  hr.ornament { border: none; text-align: center; margin: 25px 0; }
+  hr.ornament::before { content: "✦ ❖ ✦"; color: #C5A55A; font-size: 14pt; }
+
+  .source-ref { color: #6a5a1a; font-style: italic; font-size: 0.95em; }
+
+  .yh-watermark { text-align: center; font-size: 9pt; color: #8a7a4a; margin-top: 40px; padding-top: 15px; border-top: 1px solid #C5A55A; font-style: italic; }
+
+  .rishon-card { background: #f7f3e4; border-left: 4px solid #8a6a1a; padding: 10px 15px; margin: 10px 0; font-size: 10.5pt; }
+  .rishon-card strong { color: #1A1F3A; font-size: 11pt; }
+
+  blockquote { border-right: 3px solid #C5A55A; margin: 10px 15px 10px 0; padding: 8px 15px; background: #faf8f0; font-style: italic; direction: rtl; text-align: right; font-family: 'Frank Ruhl Libre', serif; font-size: 11.5pt; }
+
+  .index-box { background: #FAF6EE; border: 1px solid #C5A55A; padding: 15px 20px; margin: 20px 0; border-radius: 4px; }
+  .index-box ol { margin: 5px 0; padding-right: 25px; }
+  .index-box li { margin-bottom: 5px; }
+</style>
+</head>
+<body>
+
+<div style="background:#1A1F3A;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:58px;border-bottom:2px solid #C5A55A;print-color-adjust:exact;-webkit-print-color-adjust:exact;">
+  <a href="../../../index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+    <span style="font-family:'Frank Ruhl Libre',serif;font-size:24px;font-weight:700;color:#C5A55A;">דעת</span>
+    <span style="font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:#fff;letter-spacing:3px;">DAAT</span>
+  </a>
+  <div style="display:flex;align-items:center;gap:20px;">
+    <a href="index.html" style="font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,0.7);text-decoration:none;">← Siman 243</a>
+    <a href="../../../index.html" style="font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,0.5);text-decoration:none;">Accueil</a>
+  </div>
+</div>
+<div style="background:#1A1F3A;padding:10px 32px;border-bottom:1px solid rgba(197,165,90,0.15);">
+  <span style="font-family:'Inter',sans-serif;font-size:11px;color:rgba(255,255,255,0.4);">
+    <a href="../../../index.html" style="color:rgba(255,255,255,0.4);text-decoration:none;">Accueil</a>
+    <span style="margin:0 8px;">›</span>
+    Orah Haïm · Hilkhot Shabbat
+    <span style="margin:0 8px;">›</span>
+    <a href="index.html" style="color:rgba(255,255,255,0.4);text-decoration:none;">Siman 243</a>
+    <span style="margin:0 8px;">›</span>
+    <span style="color:#C5A55A;">Niveau 2 — Lamdan</span>
+  </span>
+</div>
+
+<!-- COUVERTURE -->
+<div class="cover">
+  <div class="ornament">✦ ❖ ✦</div>
+  <div class="badge-top">DAAT · NIVEAU 2 — LAMDAN</div>
+  <h1>שולחן ערוך · אורח חיים</h1>
+  <div class="subtitle">הלכות שבת — Études approfondies</div>
+
+  <div class="he-title">סימן רמ״ג · ב' סעיפים</div>
+  <div class="he-sub">דין המשכיר שדה ומרחץ לגוי</div>
+  <div class="he-subject">עיון, פלפול, שיטות הראשונים והאחרונים</div>
+
+  <div class="level-badge">⚡ ללומדים ותלמידי חכמים ⚡</div>
+
+  <div class="ornament">✦ ❖ ✦</div>
+
+  <h2 style="margin-top:20px; color: #1A1F3A;">Pilpoul approfondi</h2>
+  <p style="font-size:12pt; color:#555;">
+    הקדמה כללית בדיני אמירה לגוי, חקירת היסוד באיסור,<br>
+    שיטות הראשונים, מחלוקת האחרונים בארבעת האופנים
+  </p>
+
+  <div class="credits">
+    <p><strong>Sujet :</strong><br>
+    שולחן ערוך אורח חיים סימן רמ״ג סעיף א'-ב'<br>
+    עם הגהת רמ״א, ביאורי שו״ע, מג״א, משנה ברורה ושער הציון</p>
+
+    <p><strong>Base talmudique :</strong><br>
+    שבת קכ״א. שבת קנ. עירובין סז: ע״ז כ״א:<br>
+    גיטין ח: כ״ג: בבא מציעא צ.</p>
+
+    <p><strong>Rédaction et iyun :</strong><br>
+    הרב יוסף חיים סממה · DAAT · daattorah.com</p>
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- TABLE DES MATIÈRES -->
+<h2 class="section-title">📑 תוכן העניינים</h2>
+
+<div class="index-box">
+<ol>
+  <li><strong>הקדמת הסוגיא</strong> — איסור אמירה לגוי בשבת</li>
+  <li><strong>חקירת היסוד</strong> — מהו טעם איסור אמירה לגוי</li>
+  <li><strong>שיטת השאילתות</strong> — משום "ממצוא חפצך ודבר דבר"</li>
+  <li><strong>שיטת רש״י</strong> — משום שליחות</li>
+  <li><strong>שיטת הרמב״ם</strong> — קלות שבת בעיניו</li>
+  <li><strong>נפקא מינה בין השיטות</strong></li>
+  <li><strong>הסוגיא בשבת קכ״א</strong> — מקור המשנה</li>
+  <li><strong>ארבעת האופנים</strong> — שכיר יום, קבלנות, השכרה, אריסות</li>
+  <li><strong>שיטות הפוסקים בקבלנות</strong> — מחלוקת ראשונים</li>
+  <li><strong>שיטת הב״ח לעומת המג״א</strong> — קושיא ותירוץ</li>
+  <li><strong>גדר מראית עין</strong> — מתי גוזרים מתי לא</li>
+  <li><strong>סוגיית מרחץ ותנור</strong> — למה דווקא הם אסורים</li>
+  <li><strong>ייחוס המלאכה</strong> — לבעל הקרקע או לפועל</li>
+  <li><strong>נפקא מינה למעשה</strong> — בעת המודרנית</li>
+  <li><strong>סיכום השיטות בטבלה מקיפה</strong></li>
+</ol>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ============================================================= -->
+<h2 class="section-title">1. הקדמת הסוגיא — איסור אמירה לגוי בשבת</h2>
+
+<h3 class="he-h3">המקור הבסיסי</h3>
+
+<div class="sacred-text he">
+<strong>במשנה</strong> (שבת קכ״א.) מבואר שמלאכה שישראל אסור לעשותה בשבת — אסור לומר לגוי לעשותה בשבילו. ובגמרא בכמה מקומות (שבת קנ. עירובין סז: גיטין ח: ב״מ צ.) אמרו שאמירה לגוי שבות.
+<br><br>
+וכתבו כמה אחרונים שמסתימת הפוסקים נראה שנקטו ש<strong>איסור אמירה לגוי הוא מדרבנן</strong>.
+</div>
+
+<div class="kashya-box">
+<strong>כיצד נחלקו הראשונים בטעם איסור אמירה לגוי ?</strong> בפוסקים נאמרו <strong>שלושה טעמים</strong>:
+<ol>
+  <li>שאילתות — משום "ממצוא חפצך ודבר דבר"</li>
+  <li>רש״י — משום שליחות</li>
+  <li>רמב״ם — שלא תהיה שבת קלה בעיניו</li>
+</ol>
+</div>
+
+<!-- ============================================================= -->
+<h2 class="section-title">2. שיטת השאילתות — "ממצוא חפצך ודבר דבר"</h2>
+
+<div class="rishon-card">
+<strong>השאילתות דרב אחאי</strong> (וירא שאילתא י׳, שמות שאילתא לז):<br>
+כתב שהאיסור הוא משום "ממצוא חפצך ודבר דבר" (ישעיהו נ״ח), שלמדו (שבת קי״ג) מזה שאסור לדבר מעשיית מלאכות האסורות בשבת.<br>
+<strong>וכן כתב רש״י</strong> (ע״ז ט״ו ד״ה כיון).
+</div>
+
+<div class="pilpul-box">
+לפי שיטה זו, איסור אמירה לגוי הוא <strong>בעיקרו איסור על הישראל</strong> — שאסור לו לדבר על מלאכה בשבת. הגוי הוא רק ה״כלי״ דרכו עובר האיסור.
+<br><br>
+<strong>נפקא מינה :</strong> אם הישראל לא דיבר עם הגוי בשבת, אלא רק בערב שבת, או רק רמז לו, או הגוי עושה מלבד עצמו — אין כאן עצם איסור אמירה.
+</div>
+
+<!-- ============================================================= -->
+<h2 class="section-title">3. שיטת רש״י — משום שליחות</h2>
+
+<div class="rishon-card">
+<strong>רש״י</strong> (שבת קנ״ג. ד״ה מאי טעמא, ע״ז כ״א: ד״ה מפני, גיטין כ״א: ד״ה לא):<br>
+שטעם האיסור הוא משום שליחות, שכיון ש"שלוחו של אדם כמותו" — הרי זה כמו שהישראל עושה בעצמו.
+</div>
+
+<div class="rishon-card">
+<strong>הגהות מיימוני</strong> (פ״ו אות ב): שאף על פי שאין שליחות לגוי (גיטין כ״ג:), מכל מקום מצינו (ב״מ עא:) שלחומרא יש לו שליחות.
+</div>
+
+<div class="rishon-card">
+<strong>המאירי</strong> (ע״ז כ״א: ד״ה כלל): שאף על פי שאין שליח לדבר עבירה, מכל מקום מבואר בגמרא (ב״מ י:) ש<strong>אם השליח אינו חייב במצוה זו, יש שליחות</strong>.
+</div>
+
+<div class="hakira-box">
+<strong>החקירה כאן :</strong> איך אפשר לומר שיש שליחות לגוי, והרי הכלל הוא "אין שליחות לגוי" (גיטין כ״ג:) ?
+<br><br>
+<strong>שלוש תשובות :</strong>
+<ol>
+  <li>לחומרא יש שליחות (הגהות מיימוני)</li>
+  <li>השליח לא חייב במצוה זו → יש שליחות (מאירי)</li>
+  <li>זה רק "כעין שליחות" מדרבנן (ביאור אחר ברש״י)</li>
+</ol>
+</div>
+
+<!-- ============================================================= -->
+<h2 class="section-title">4. שיטת הרמב״ם — קלות שבת בעיניו</h2>
+
+<div class="rishon-card">
+<strong>הרמב״ם</strong> (הלכות שבת פ״ו ה״א):<br>
+כתב שאסרו חכמים אמירה לגוי <strong>כדי שלא תהיה שבת קלה בעיניו ויבוא לעשות בעצמו</strong>.
+</div>
+
+<div class="pilpul-box">
+לפי שיטת הרמב״ם, האיסור הוא <strong>סייג חינוכי</strong>. אין כאן עבירה אובייקטיבית, אלא חשש שאם נתיר לישראל לומר לגוי לעשות, יבוא להקל ולעשות בעצמו.
+<br><br>
+<strong>נפקא מינה :</strong>
+<ul>
+<li>הרמב״ם אינו זקוק לשליחות</li>
+<li>גם בעקיפין אסור — כל דרך שעלולה לגרום ל"קלות שבת"</li>
+<li>אבל גם — קל יותר במצבים מסוימים (כגון פיקוח נפש)</li>
+</ul>
+</div>
+
+<!-- ============================================================= -->
+<h2 class="section-title">5. נפקא מינה בין שלוש השיטות</h2>
+
+<div class="machloket-box">
+<table>
+<tr>
+  <th>נפקא מינה</th>
+  <th>שאילתות</th>
+  <th>רש״י</th>
+  <th>רמב״ם</th>
+</tr>
+<tr>
+  <td>אמירה בערב שבת על שבת</td>
+  <td>אסור (דבור)</td>
+  <td>אסור (שליחות)</td>
+  <td>אסור (קלות)</td>
+</tr>
+<tr>
+  <td>רמז לגוי בשבת</td>
+  <td>קל יותר</td>
+  <td>אסור</td>
+  <td>אסור</td>
+</tr>
+<tr>
+  <td>גוי עושה מעצמו</td>
+  <td>אין דיבור — מותר</td>
+  <td>אין שליחות — מותר</td>
+  <td>אסור (חשש)</td>
+</tr>
+<tr>
+  <td>גוי קטן (פחות מבר מצוות)</td>
+  <td>אסור (דבור)</td>
+  <td>יש שליחות לקטן ?</td>
+  <td>אסור (חשש)</td>
+</tr>
+<tr>
+  <td>אמירה למצוה (כגון נר חנוכה)</td>
+  <td>תלוי</td>
+  <td>תלוי</td>
+  <td>קל יותר</td>
+</tr>
+</table>
+</div>
+
+<div class="yesod-box">
+<strong>היסוד :</strong> ולהלכה — <strong>חוששים לכל הטעמים לחומרא</strong>, וגם כאשר שייך רק אחד מהם, אסור לומר לגוי לעשות עבורו (ביאור הלכה).
+</div>
+
+<div class="page-break"></div>
+
+<!-- ============================================================= -->
+<h2 class="section-title">6. הסוגיא בשבת קכ״א — המקור</h2>
+
+<h3 class="he-h3">לשון המשנה</h3>
+
+<div class="sacred-text he">
+<strong>במשנה</strong> (שבת קכ״א.) :<br>
+"נכרי שבא לכבות, אין אומרים לו 'כבה' ו'אל תכבה', מפני שאין שביתתו עליהם."
+</div>
+
+<h3 class="he-h3">לימוד הגמרא בעירובין</h3>
+
+<div class="sacred-text he">
+<strong>בגמרא</strong> (עירובין סז:) :<br>
+"אמירה לעובד כוכבים שבות" — והוא איסור דרבנן בעלמא.
+</div>
+
+<h3 class="he-h3">המקור במכילתא</h3>
+
+<div class="sacred-text he">
+<strong>במכילתא</strong> (בא מסכת דפסחא פ״ט) :<br>
+"אתה אומר כן, או אינו אלא 'כל מלאכה לא תעשה אתה ולא יעשה גוי בשבילו', תלמוד לומר 'ששת ימים תעשה מלאכתך' — לא תעשה אתה, ולא יעשה גוי מלאכתך, דברי רבי יאשיה. רבי יונתן אומר: אין צריך, יום טוב הוא הקל דין הוא — שלא תהא מוזהר על מלאכת חברך במלאכתך, שבת מנין ? קל וחומר..."
+</div>
+
+<div class="pilpul-box">
+מבואר במכילתא, שלשון הפסוק "לא יעשה" — שמשמע על ידי אחרים, מוכיח קצת שזו דרשה גמורה, ואסור מן התורה לומר לגוי לעשות מלאכה עבור הישראל.
+<br><br>
+<strong>אמנם הסמ״ג</strong> כתב, שלשון הפסוק "לא יעשה בהם" שנקטו רבי יאשיה במכילתא נראה שאינה דרשה גמורה.
+</div>
+
+<!-- ============================================================= -->
+<h2 class="section-title">7. ארבעת האופנים — סקירה כללית</h2>
+
+<div class="hakira-box">
+<strong>החקירה :</strong> בסימננו ובסימן רמ״ד מתבאר דין קרקע של ישראל, כגון שדה או מרחץ, שהגוי עושה בהם מלאכה והישראל מרויח מזה.<br>
+<strong>וְיֵשׁ אַרְבָּעָה אוֹפַנִּים</strong> שבהם הגוי עושה מלאכה והישראל מרוויח מזה :
+</div>
+
+<h3 class="he-h3">אופן א' — שכיר יום</h3>
+
+<div class="sacred-text he">
+שהישראל שוכר את הגוי שיעבוד אצלו, וכל הרווחים שיהיו ממעבודתו שייכים לישראל, והישראל יתן לו כך וכך עבור כל יום.<br>
+<strong>אופן זה אסור מן הדין</strong>, וזהו בכלל אמירה לגוי שאסרו חכמים.
+</div>
+
+<h3 class="he-h3">אופן ב' — קבלנות</h3>
+
+<div class="sacred-text he">
+גם בזה הישראל שוכר את הגוי שיעבוד אצלו, וכל הרווחים שיהיו ממעבודתו שייכים לישראל, אלא שהתנו ביניהם שהישראל לא יתן לו שכרו לפי ימים אלא שכר קצוב עבור פעולתו, כגון שהתנה שיעשה עמו את כל העבודות הצריכות בשדה, וכשיוציא לו את הפירות שגדלו יתן לו בשכרו כך וכך מעות, בין אם היה צריך לעמול הרבה בשדה ובין שבא לו הדבר במעט מלאכה.
+<br><br>
+ובזה אם הוא דבר שהגוי יכול לעשות עבודתו בימות החול לבד, ומה שעושה בשבת זה רק לצורך עצמו שיוכל לנוח בחול, וכן שהדבר מצוי בעבודת שדה, <strong>מותר מן הדין</strong>, משום שאין הגוי עושה עבור הישראל אלא בשביל שכרו, וגם אין לישראל רווח ממה שהגוי עושה בשבת.
+<br><br>
+<strong>אבל</strong> אם הוא דבר שאם לא יעבוד בשבת יפסיד הישראל, כגון מרחץ שאלו שבאים לרחוץ בשבת לא ירחצו במקום זה בימות החול, יש אומרים שאסור מן הדין, לפי שהישראל נהנה ממה שהגוי עוסק בשבת, שלא יוכל להשלים רווח זה אחר כך.
+</div>
+
+<h3 class="he-h3">אופן ג' — השכרת הקרקע</h3>
+
+<div class="sacred-text he">
+הישראל משכיר את הקרקע לגוי בעד שכר קצוב, והגוי עובד בקרקע ונוטל את כל הרווחים.<br>
+<strong>באופן זה מותר מן הדין</strong>, לפי שהישראל אינו מרויח כלל ממעבודת הגוי, שהרי גם אם לא יעבוד ישלם לישראל שכר קרקעו, והגוי עובד עבור עצמו שהרי נוטל כל רווחי השדה.
+</div>
+
+<h3 class="he-h3">אופן ד' — אריסות</h3>
+
+<div class="sacred-text he">
+הגוי מקבל את הקרקע לעבוד בה על מנת ליטול מחצה שליש ורבעי מהרווחים. וגם בזה דינו שמותר כאופן הקודם, משום שהגוי עושה עבור חלקו, ואף על פי שגם הישראל נהנה מזה דרך אגב, אין בזה איסור מן הדין.
+</div>
+
+<!-- ============================================================= -->
+<h2 class="section-title">8. גדר מראית עין — מתי גוזרים</h2>
+
+<div class="kashya-box">
+<strong>קושיא יסודית :</strong> אם בקבלנות, השכרה ואריסות מותר מצד עיקר דין אמירה לגוי, מדוע <strong>אסרו חכמים</strong> חלק מהמקרים ?
+</div>
+
+<div class="teruts-box">
+<strong>תירוץ :</strong> וכל זה מצד עיקר דין אמירה לגוי, אבל <strong>שני דברים המותרים אסרו חכמים</strong> משום מראית העין שנראה שעושה באיסור :
+<ol>
+<li><strong>דבר שהדרך לעשותו על ידי שכיר יום</strong> — אסור גם להשכירו או ליתנו באריסות, משום שהרואים יחשדו שהגוי הוא שכיר יום</li>
+<li><strong>גם דבר שהדרך לעשותו</strong> אבל בו מפסיד הישראל בשבת אם לא יעבוד — אסור משום שיש לישראל הנאה ממה שהגוי עושה בשבת</li>
+</ol>
+</div>
+
+<div class="yesod-box">
+<strong>היסוד של מראית עין כאן :</strong>
+<ul>
+  <li>אין זה איסור עצמי</li>
+  <li>אלא <strong>גזירת חכמים</strong> משום שהציבור עלול לטעות</li>
+  <li>גוף הדין — שכר קצוב, מותר. אבל מראית העין — אסור</li>
+</ul>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ============================================================= -->
+<h2 class="section-title">9. שיטות הפוסקים בקבלנות — מחלוקת</h2>
+
+<h3 class="he-h3">דעת הב״ח</h3>
+
+<div class="sacred-text he">
+<strong>הב״ח</strong> (סימן רמ״ד, ססק״ד) :<br>
+כתב שאין לסמוך על הגוי, ומה שאמרו בגמרא שהגוי מציית, <strong>היינו לדעת רבי שמעון בן אלעזר</strong> שם, אבל לפי מה שהלכה כרבן שמעון בן גמליאל אין הכרח לזה, ויש לומר שגם גוי אינו מציית למה שאמר לו הישראל בשעת השכירות.
+<br><br>
+ובשערי תורה (ססק״ה) פירש הטעם — שבהמה שלום לישראל, מצא דרך אחרת, מכל מקום אסור.
+</div>
+
+<h3 class="he-h3">דעת רעק״א</h3>
+
+<div class="rishon-card">
+<strong>רעק״א</strong> (ס״ק ג) :<br>
+כתב שטעם איסור משום שמחשד היהודי שהגוי הוא שכיר יום, ומבואר שאין ברור לו להחמיר בזה, ומבואר שגם אם בקבלנות יוכלו אנשים לאמר שאיש כן.
+</div>
+
+<h3 class="he-h3">המחלוקת המרכזית — האם בקבלנות מותר תמיד ?</h3>
+
+<div class="machloket-box">
+<table>
+<tr>
+  <th>פוסק</th>
+  <th>שיטה בדין מרחץ בקבלנות</th>
+</tr>
+<tr>
+  <td><strong>הרשב״א</strong></td>
+  <td>בקבלנות מותר אפילו במרחץ, שהגוי עושה לעצמו</td>
+</tr>
+<tr>
+  <td><strong>הרמב״ם, מהר״י אבוהב</strong></td>
+  <td>אסרו במרחץ אפילו בקבלנות משום מראית עין</td>
+</tr>
+<tr>
+  <td><strong>הב״י, השלחן ערוך</strong></td>
+  <td>הביאו דעת מהר״י אבוהב כעיקר ההלכה</td>
+</tr>
+<tr>
+  <td><strong>הרמ״א בהגהה</strong></td>
+  <td>תלוי במנהג המקום ובכוונה</td>
+</tr>
+<tr>
+  <td><strong>הב״ח</strong></td>
+  <td>בקבלנות אם הגוי לא לקח רק לרבע או לשליש — מותר</td>
+</tr>
+</table>
+</div>
+
+<!-- ============================================================= -->
+<h2 class="section-title">10. דעת המגן אברהם והב״ח</h2>
+
+<h3 class="he-h3">קושיית המג״א על הב״ח</h3>
+
+<div class="kashya-box">
+<strong>הב״ח כתב</strong> שבמרחץ אסור בקבלנות, אפילו אם הגוי לא לקח רק לחלק קטן, משום שעדיין נראה כשליחות.<br>
+<strong>קשה :</strong> והרי בקבלנות הגוי לוקח לעצמו ! אם כן מהו השוני בין מרחץ לשדה ?
+</div>
+
+<div class="teruts-box">
+<strong>תירץ המג״א</strong> (ס״ק ב) :<br>
+שבמרחץ "מבואר באופנים שאמירה לגוי אסורה כו', שבאופן שהגוי אינו צריך לעבוד כלום, מותר, אבל כשבטל יום מפסיד מהקנייה". כלומר אם המרחץ סגור הישראל מפסיד.
+</div>
+
+<div class="pilpul-box">
+<strong>המג״א מדייק :</strong> בכל מקום שיש קצת חשש מצד הקרקע — שהיא של ישראל — אסור גם בקבלנות. אבל אם הקרקע אינה של הישראל, מותר.
+<br><br>
+זה התירוץ ש<strong>המרחץ נחשב כקרקע של ישראל</strong>, ולכן יש מראית עין משום השדה והבית, ובקבלנות אסור כשעדיין הקרקע של ישראל.
+</div>
+
+<!-- ============================================================= -->
+<h2 class="section-title">11. סוגיית מרחץ ותנור</h2>
+
+<h3 class="he-h3">למה דווקא מרחץ ותנור אסורים ?</h3>
+
+<div class="hakira-box">
+<strong>חקירת היסוד :</strong> מה משותף בין מרחץ ותנור, להבדיל משדה ורחיים ?
+<br><br>
+<ol>
+  <li>במרחץ — דרך הישראל לרחוץ בשבת, וזה נחשב הנאת השבת ישירה</li>
+  <li>בתנור — דרך לאפות בשבת, וזה הנאת מאכל</li>
+</ol>
+לעומת זאת :
+<ol>
+  <li>בשדה — אין הנאה ישירה בשבת, רק רווח כללי</li>
+  <li>ברחיים — אין הנאה ישירה בשבת לישראל המסוים</li>
+</ol>
+</div>
+
+<div class="yesod-box">
+<strong>היסוד :</strong> במרחץ ובתנור יש <strong>הנאה אישית מיידית של ישראל</strong> בשבת, ולכן <strong>מראית עין</strong> חזקה יותר. הציבור רואה ישראל נכנס למרחץ או קונה לחם — ויחשבו שהגוי עובד בשליחותו.
+</div>
+
+<h3 class="he-h3">הקשר עם רחיים — שיטת הרמ״א</h3>
+
+<div class="rishon-card">
+<strong>הרמ״א בהגהה</strong> :<br>
+"ותנור דינו כמרחץ, ורחיים דינם כשדה."<br><br>
+<strong>הסבר :</strong> ברחיים, הקמח אינו צריך מיידית — אפשר לטחון מערב שבת. אין מראית עין שהגוי טוחן בשבילי. לעומת זאת בתנור — הציבור רואה את הלחם החם ויחשבו שהוא נאפה בשבת.
+</div>
+
+<!-- ============================================================= -->
+<h2 class="section-title">12. ייחוס המלאכה</h2>
+
+<h3 class="he-h3">סוגיית "אדעתיה דנפשיה עביד"</h3>
+
+<div class="sacred-text he">
+<strong>הסברת השלחן ערוך</strong> :<br>
+"דסתם מרחץ לאו לאריסותא — פירוש, אינו מקבלו לעשות בו מלאכה לרביע או לשליש בשכרו, רק שיתן לו מטבע מתחילה ואחר כך גוי <strong>אדעתיה דנפשיה עביד</strong>."
+</div>
+
+<div class="pilpul-box">
+<strong>שני פירושים :</strong>
+<ol>
+  <li><strong>פירוש פשוט</strong> — הגוי עובד לעצמו, כי הוא שכיר עם שכר קצוב, וחשק שיגמור מהר</li>
+  <li><strong>פירוש המג״א</strong> — אפילו אם הוא שכיר יום ממש, כיון שאינו עושה לטובת הישראל אלא לשכרו, כל מה שעובד יותר זה לטובתו</li>
+</ol>
+</div>
+
+<div class="hakira-box">
+<strong>החקירה :</strong> מהו המבחן ל"אדעתא דנפשיה עביד" ?
+<br><br>
+<ol>
+  <li><strong>שכר קצוב</strong> — הגוי לוקח שכר קצוב ויש לו אינטרס לגמור מהר</li>
+  <li><strong>אריסות / קבלנות</strong> — הגוי שותף ברווחים, יש לו אינטרס באמת</li>
+  <li><strong>השכרה</strong> — הקרקע של הגוי בעצם, הוא עובד עליה כשלו</li>
+</ol>
+ובכל אלה — הגוי בעיקרו "אדעתא דנפשיה עביד".
+</div>
+
+<!-- ============================================================= -->
+<h2 class="section-title">13. נפקא מינה למעשה — בעת המודרנית</h2>
+
+<div class="nafka-mina-box">
+<table>
+<tr>
+  <th>מצב מודרני</th>
+  <th>הלכה</th>
+</tr>
+<tr>
+  <td><strong>חנות יהודית עם מנהל גוי</strong></td>
+  <td>אם בקבלנות (% מהמכירות) — מותר. אם שכיר יום — אסור.</td>
+</tr>
+<tr>
+  <td><strong>מסעדה עם טבח גוי</strong></td>
+  <td>כתנור — אסור גם בקבלנות (מראית עין).</td>
+</tr>
+<tr>
+  <td><strong>מפעל יהודי 24/7</strong></td>
+  <td>פתרון : מכירת המפעל לגוי לשבת (היתר עיסקא מיוחד), או הקמת חברה גויית.</td>
+</tr>
+<tr>
+  <td><strong>שדה חקלאי</strong></td>
+  <td>אריסות מותרת בכל אופן.</td>
+</tr>
+<tr>
+  <td><strong>תחנת דלק / מינימרקט</strong></td>
+  <td>תלוי במראית עין — לרוב צריך השכרה מלאה לגוי.</td>
+</tr>
+<tr>
+  <td><strong>חברה היי-טק עם דירקטור גוי</strong></td>
+  <td>אם הגוי הוא שותף ברווחים — מותר. כעבד — אסור.</td>
+</tr>
+</table>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ============================================================= -->
+<h2 class="section-title">14. סיכום השיטות בטבלה מקיפה</h2>
+
+<h3 class="he-h3">טבלת ארבעת האופנים</h3>
+
+<table>
+<tr>
+  <th>אופן</th>
+  <th>שדה / רחיים</th>
+  <th>מרחץ / תנור</th>
+  <th>הסבר</th>
+</tr>
+<tr>
+  <td><strong>שכיר יום</strong></td>
+  <td>🔴 אסור</td>
+  <td>🔴 אסור</td>
+  <td>אמירה לגוי ישירה</td>
+</tr>
+<tr>
+  <td><strong>קבלנות</strong></td>
+  <td>🟢 מותר</td>
+  <td>🔴 אסור (מראית עין)</td>
+  <td>בשדה הדרך זאת, במרחץ אינה הדרך</td>
+</tr>
+<tr>
+  <td><strong>השכרת קרקע</strong></td>
+  <td>🟢 מותר</td>
+  <td>🔴 אסור (מראית עין)</td>
+  <td>במרחץ עדיין הקרקע "נקראת על שמו"</td>
+</tr>
+<tr>
+  <td><strong>אריסות</strong></td>
+  <td>🟢 מותר</td>
+  <td>🔴 לא קיים בדרך כלל</td>
+  <td>אריסות במרחץ אינה דרך</td>
+</tr>
+</table>
+
+<h3 class="he-h3">טבלת השיטות בטעמי איסור אמירה לגוי</h3>
+
+<table>
+<tr>
+  <th>פוסק</th>
+  <th>טעם איסור אמירה לגוי</th>
+  <th>נפקא מינה ביישומו</th>
+</tr>
+<tr>
+  <td><strong>שאילתות</strong></td>
+  <td>"ממצוא חפצך ודבר דבר"</td>
+  <td>חיוב על הדיבור עצמו, לא על המלאכה</td>
+</tr>
+<tr>
+  <td><strong>רש״י</strong></td>
+  <td>שליחות</td>
+  <td>צריך אמירה ברורה, רמז לא חמור</td>
+</tr>
+<tr>
+  <td><strong>רמב״ם</strong></td>
+  <td>קלות שבת בעיניו</td>
+  <td>אפילו ברמז אסור — חשש</td>
+</tr>
+</table>
+
+<h3 class="he-h3">טבלת מקורות</h3>
+
+<div class="rishon-card">
+<strong>גמרא :</strong> שבת קכ״א. שבת קנ. שבת קי״ג. עירובין סז: ע״ז כ״א. גיטין ח: כ״ג: ב״מ צ. י: עא:
+</div>
+<div class="rishon-card">
+<strong>ראשונים :</strong> שאילתות דרב אחאי · רש״י · רמב״ם (פ״ו ה״א) · הגהות מיימוני · רא״ש · ר״ן · רשב״א · מאירי · מרדכי · מהר״י אבוהב
+</div>
+<div class="rishon-card">
+<strong>פוסקים :</strong> טור · בית יוסף · שלחן ערוך · רמ״א · ב״ח · ט״ז · מגן אברהם · עולת שבת · אליה רבה · חכמת שלמה · נתיבות המשפט · שלחן ערוך הרב · ערוך השלחן · משנה ברורה · ביאור הלכה · שער הציון · רעק״א · חתם סופר · מהר״ם שיק · בית יהודה · תפארת ישראל · חכמת אדם · אגרות משה
+</div>
+
+<hr class="ornament">
+
+<div class="yh-watermark">
+~ ~ ~ ~ ~<br>
+<strong>DAAT</strong> · <strong>הרב יוסף חיים סממה</strong><br>
+תלמיד חכם · מעביר שיעורים בהלכה ובחסידות<br>
+<em>פלפול ועיון בהלכות שבת · סימן רמ״ג ב' סעיפים · ⚡ Niveau 2 — Lamdan</em><br>
+<em>daattorah.com</em>
+</div>
+
+
+<div style="background:#1A1F3A;border-top:2px solid #C5A55A;padding:24px 40px;text-align:center;margin-top:40px;">
+  <p style="font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,0.35);margin:0;">
+    DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">Retour à l'accueil</a> · <a href="index.html" style="color:#C5A55A;text-decoration:none;">Siman 243</a>
+  </p>
+</div>
+<link rel="stylesheet" href="../../../assets/css/chat-widget.css">
+<script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
+<script src="../../../assets/js/chat-widget.js" defer></script>
+</body>
+</html>

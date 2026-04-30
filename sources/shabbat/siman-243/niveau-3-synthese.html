@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Siman רמ״ג · Niveau 3 — Synthèse</title>
+<style>
+  @page { size: A4; margin: 2cm 1.8cm; }
+  @media print { .daat-nav-bar, .daat-breadcrumb { display: none !important; } }
+  body { font-family: 'Georgia', 'Cambria', serif; font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0; }
+  .he { direction: rtl; text-align: right; font-family: 'Frank Ruhl Libre', 'David', 'Times New Roman', serif; font-size: 13pt; line-height: 1.9; }
+  .he-q { direction: rtl; unicode-bidi: embed; font-family: 'Frank Ruhl Libre', 'David', serif; font-weight: 600; color: #1A1F3A; }
+
+  .cover { text-align: center; margin-top: 2cm; margin-bottom: 2cm; }
+  .cover h1 { font-size: 28pt; color: #1A1F3A; margin: 5px 0; font-family: 'Cormorant Garamond', 'Georgia', serif; }
+  .cover .he-title { font-size: 40pt; color: #1A1F3A; margin: 15px 0 5px 0; }
+  .cover .he-sub { font-size: 18pt; color: #C5A55A; margin-bottom: 20px; }
+  .cover .ornament { color: #C5A55A; font-size: 22pt; margin: 15px 0; }
+  .cover .level-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #C5A55A, #8a6a1a);
+    color: #1A1F3A; padding: 12px 35px; font-size: 13pt; letter-spacing: 2px;
+    margin: 20px 0; border-radius: 4px;
+    font-family: 'Cormorant Garamond', serif; font-weight: bold;
+  }
+  .cover .credits { margin-top: 2cm; padding-top: 20px; border-top: 1px solid #C5A55A; font-size: 10pt; color: #555; line-height: 1.8; }
+  .cover .badge-top { color: #C5A55A; font-size: 11pt; letter-spacing: 4px; margin-bottom: 10px; }
+  .cover .subtitle { font-size: 13pt; color: #5a4a1a; font-style: italic; margin: 10px 0 20px 0; }
+
+  h2.section-title {
+    color: #fff; background: #1A1F3A; font-size: 15pt; padding: 10px 18px; margin-top: 30px;
+    border-left: 6px solid #C5A55A;
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+  }
+  h3 { color: #1A1F3A; font-size: 13pt; margin-top: 20px; border-right: 4px solid #C5A55A; padding-right: 10px; font-family: 'Cormorant Garamond', 'Georgia', serif; }
+  h4 { color: #5a4a1a; font-size: 11.5pt; margin-top: 15px; margin-bottom: 8px; font-weight: bold; }
+
+  .sacred-text { background: #FAF6EE; border-right: 3px solid #C5A55A; border-left: 3px solid #C5A55A; padding: 12px 18px; margin: 12px 0; font-size: 11.5pt; line-height: 1.8; }
+  .recap-box { background: #1A1F3A; color: #fff; padding: 15px 20px; margin: 15px 0; border-radius: 4px; }
+  .recap-box .he-q { color: #C5A55A; }
+  .key-rule { background: #fff4e6; border-left: 5px solid #C5A55A; padding: 10px 15px; margin: 10px 0; }
+  .key-rule::before { content: "⚙️ RÈGLE"; display: block; color: #1A1F3A; font-weight: bold; font-size: 9pt; margin-bottom: 4px; letter-spacing: 1px; }
+  .decision-tree { background: #e8f4ea; border: 2px solid #2d7a3e; padding: 15px 20px; margin: 15px 0; border-radius: 4px; }
+  .decision-tree::before { content: "🌳 ARBRE DE DÉCISION"; display: block; color: #2d7a3e; font-weight: bold; font-size: 10pt; margin-bottom: 8px; letter-spacing: 1px; }
+  .schema-box { background: #f5e9f5; border-left: 4px solid #6a1b7a; padding: 12px 18px; margin: 12px 0; }
+  .schema-box::before { content: "📊 SCHÉMA"; display: block; color: #6a1b7a; font-weight: bold; font-size: 10pt; margin-bottom: 6px; letter-spacing: 1px; }
+
+  table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 10pt; }
+  th { background: #1A1F3A; color: #fff; padding: 9px; text-align: left; font-size: 10.5pt; }
+  td { border: 1px solid #d4c89a; padding: 8px; vertical-align: top; }
+  tr:nth-child(even) td { background: #FAF6EE; }
+  td.he, th.he { text-align: right; direction: rtl; font-size: 11pt; }
+
+  .page-break { page-break-before: always; }
+  hr.ornament { border: none; text-align: center; margin: 20px 0; }
+  hr.ornament::before { content: "✦ ❖ ✦"; color: #C5A55A; font-size: 13pt; }
+
+  .yh-watermark { text-align: center; font-size: 9pt; color: #8a7a4a; margin-top: 30px; padding-top: 15px; border-top: 1px solid #C5A55A; font-style: italic; }
+
+  .memory-card { background: #fff9e6; border: 2px solid #C5A55A; padding: 12px 18px; margin: 12px 0; border-radius: 4px; font-size: 10.5pt; }
+  .memory-card::before { content: "💡 À RETENIR"; display: block; color: #1A1F3A; font-weight: bold; font-size: 9pt; margin-bottom: 6px; letter-spacing: 1px; }
+
+  .nafka-mina-table { background: #fef4e4; border-left: 4px solid #C5A55A; padding: 12px 18px; margin: 12px 0; }
+</style>
+</head>
+<body>
+
+<div style="background:#1A1F3A;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:58px;border-bottom:2px solid #C5A55A;print-color-adjust:exact;-webkit-print-color-adjust:exact;">
+  <a href="../../../index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+    <span style="font-family:'Frank Ruhl Libre',serif;font-size:24px;font-weight:700;color:#C5A55A;">דעת</span>
+    <span style="font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:#fff;letter-spacing:3px;">DAAT</span>
+  </a>
+  <div style="display:flex;align-items:center;gap:20px;">
+    <a href="index.html" style="font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,0.7);text-decoration:none;">← Siman 243</a>
+    <a href="../../../index.html" style="font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,0.5);text-decoration:none;">Accueil</a>
+  </div>
+</div>
+<div style="background:#1A1F3A;padding:10px 32px;border-bottom:1px solid rgba(197,165,90,0.15);">
+  <span style="font-family:'Inter',sans-serif;font-size:11px;color:rgba(255,255,255,0.4);">
+    <a href="../../../index.html" style="color:rgba(255,255,255,0.4);text-decoration:none;">Accueil</a>
+    <span style="margin:0 8px;">›</span>
+    Orah Haïm · Hilkhot Shabbat
+    <span style="margin:0 8px;">›</span>
+    <a href="index.html" style="color:rgba(255,255,255,0.4);text-decoration:none;">Siman 243</a>
+    <span style="margin:0 8px;">›</span>
+    <span style="color:#C5A55A;">Niveau 3 — Synthèse</span>
+  </span>
+</div>
+
+<!-- COUVERTURE -->
+<div class="cover">
+  <div class="ornament">✦ ❖ ✦</div>
+  <div class="badge-top">DAAT · NIVEAU 3 — SYNTHÈSE MAGISTRALE</div>
+  <h1>Siman רמ״ג</h1>
+  <div class="subtitle">Révision structurée, mémorisation rapide, applications pratiques</div>
+
+  <div class="he-title">סימן רמ״ג · ב' סעיפים</div>
+  <div class="he-sub">דין המשכיר שדה ומרחץ — סיכום וקיצור</div>
+
+  <div class="level-badge">✨ Synthèse Magistrale ✨</div>
+
+  <div class="ornament">✦ ❖ ✦</div>
+
+  <p style="font-size:11pt; color:#555; max-width:550px; margin:30px auto; line-height:1.6;">
+  <strong>Pour les étudiants ayant maîtrisé les Niveaux 1 et 2</strong><br>
+  Synthèse organisée par regroupements logiques, arbres de décision, règles mnémoniques, et noyaux durs du Siman.
+  </p>
+
+  <div class="credits">
+    <p><strong>Sigle source :</strong><br>
+    שולחן ערוך אורח חיים סימן רמ״ג סעיפים א'-ב'<br>
+    + הגהת רמ״א, ביאור הלכה, מג״א, משנה ברורה</p>
+
+    <p><strong>Compilation :</strong><br>
+    הרב יוסף חיים סממה · DAAT<br>
+    <em>daattorah.com</em></p>
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- TABLE DES MATIÈRES -->
+<h2 class="section-title">📑 Table des matières</h2>
+
+<div style="background: #FAF6EE; padding: 15px 20px; border-radius: 4px;">
+<ol style="margin: 0; padding-left: 20px;">
+  <li><strong>Axiome central</strong> — la règle mère du Siman</li>
+  <li><strong>Les 4 types de location</strong> — arbre de décision</li>
+  <li><strong>Le test des 4 biens</strong> — bain, champ, four, moulin</li>
+  <li><strong>Les 3 concepts-clés</strong> — Mar'it Ayin, Amira, Adata d'Nafshé</li>
+  <li><strong>Mnémoniques</strong> — aide-mémoire</li>
+  <li><strong>Pièges à éviter</strong></li>
+  <li><strong>Cas pratiques modernes</strong></li>
+  <li><strong>Tableau de synthèse finale</strong></li>
+  <li><strong>Lien avec Siman 246</strong></li>
+</ol>
+</div>
+
+<div class="page-break"></div>
+
+<!-- 1. AXIOME -->
+<h2 class="section-title">1. L'Axiome central</h2>
+
+<div class="recap-box">
+<strong>Principe universel du Siman :</strong><br><br>
+On peut louer un bien à un non-juif <strong>SI</strong> :
+<ol>
+<li>Le non-juif travaille pour son propre intérêt (<span class="he-q">אדעתיה דנפשיה עביד</span>)</li>
+<li>Il n'y a pas de מראית עין (apparence d'employé)</li>
+<li>La coutume du métier le permet</li>
+</ol>
+</div>
+
+<div class="memory-card">
+<strong>La clé universelle :</strong> "<span class="he-q">סתם X לאריסותא</span> ?"<br>
+La question fondamentale est : <em>la coutume habituelle de ce métier est-elle le métayage ou le salaire journalier ?</em><br>
+• Si <strong>métayage</strong> (cas du champ et du moulin) → 🟢 Permis<br>
+• Si <strong>salaire journalier</strong> (cas du bain et du four) → 🔴 Interdit
+</div>
+
+<!-- 2. LES 4 TYPES -->
+<h2 class="section-title">2. Les 4 types de location — Arbre de décision</h2>
+
+<div class="decision-tree">
+<h4 style="margin-top: 0; color: #2d7a3e;">Étape 1 — Quel type de relation ai-je avec le non-juif ?</h4>
+
+<table style="width: 100%; margin-top: 12px;">
+<tr style="background: #e8f4ea;">
+  <td style="border: none; padding: 8px 0; font-weight: bold; color: #2d7a3e;" colspan="2">Le non-juif est-il MON EMPLOYÉ direct ou un ENTREPRENEUR ?</td>
+</tr>
+<tr>
+  <td style="border: 1px solid #2d7a3e; padding: 10px;">
+    <strong>👨‍💼 EMPLOYÉ</strong><br>
+    Salaire journalier<br>
+    (שכיר יום)<br><br>
+    🔴 <strong>Toujours interdit</strong>
+  </td>
+  <td style="border: 1px solid #2d7a3e; padding: 10px;">
+    <strong>🤝 ENTREPRENEUR</strong><br>
+    Forfait, métayage, ou location<br>
+    (קבלנות / אריסות / השכרה)<br><br>
+    ⚠️ <strong>Voir étape 2</strong>
+  </td>
+</tr>
+</table>
+
+<h4 style="margin-top: 15px; color: #2d7a3e;">Étape 2 — Quel est le bien concerné ?</h4>
+
+<table style="width: 100%; margin-top: 12px;">
+<tr>
+  <td style="border: 1px solid #2d7a3e; padding: 10px; text-align: center; background: #e8f4ea;">
+    <strong>🌾 שדה (Champ)</strong><br>
+    <strong>⚙️ רחיים (Moulin)</strong><br><br>
+    🟢 <strong>Permis</strong><br>
+    (la coutume = aristut/kablanut)
+  </td>
+  <td style="border: 1px solid #b91c1c; padding: 10px; text-align: center; background: #fdebeb;">
+    <strong>🛁 מרחץ (Bain)</strong><br>
+    <strong>🔥 תנור (Four)</strong><br><br>
+    🔴 <strong>Interdit</strong><br>
+    (mar'it ayin)
+  </td>
+</tr>
+</table>
+</div>
+
+<div class="schema-box">
+<strong>Les 4 types de location en schéma mental :</strong><br><br>
+<table style="margin-top: 8px;">
+<tr>
+  <th>Type</th>
+  <th>Définition</th>
+  <th>Statut</th>
+</tr>
+<tr>
+  <td><strong>1. שכיר יום</strong></td>
+  <td>Salaire fixe par jour</td>
+  <td>🔴 Toujours interdit</td>
+</tr>
+<tr>
+  <td><strong>2. קבלנות</strong></td>
+  <td>Forfait sur travail défini</td>
+  <td>🟢 Permis (sauf bain/four)</td>
+</tr>
+<tr>
+  <td><strong>3. השכרת קרקע</strong></td>
+  <td>Location pure du terrain</td>
+  <td>🟢 Permis (sauf bain/four)</td>
+</tr>
+<tr>
+  <td><strong>4. אריסות</strong></td>
+  <td>Métayage (% des fruits)</td>
+  <td>🟢 Permis (cas idéal du champ)</td>
+</tr>
+</table>
+</div>
+
+<!-- 3. LE TEST DES 4 BIENS -->
+<h2 class="section-title">3. Le test des 4 biens</h2>
+
+<div class="key-rule">
+<strong>Test rapide :</strong> Pose-toi 1 seule question — <em>"Quelle est la coutume habituelle de ce métier ?"</em><br>
+• Métayage / Forfait → ✅ Permis<br>
+• Salaire journalier → ❌ Interdit
+</div>
+
+<div class="schema-box">
+<strong>Les 4 biens classés par "coutume habituelle" :</strong><br><br>
+
+<table>
+<tr>
+  <th>Bien</th>
+  <th>Coutume habituelle</th>
+  <th>Halakha</th>
+  <th>Pourquoi ?</th>
+</tr>
+<tr>
+  <td><strong>🛁 מרחץ</strong><br>(Bain public)</td>
+  <td>Salaire journalier</td>
+  <td>🔴 Interdit</td>
+  <td>Fonctionne 24/7, propriétaire embauche des employés</td>
+</tr>
+<tr>
+  <td><strong>🌾 שדה</strong><br>(Champ)</td>
+  <td>Métayage</td>
+  <td>🟢 Permis</td>
+  <td>Travail saisonnier, partage des récoltes</td>
+</tr>
+<tr>
+  <td><strong>🔥 תנור</strong><br>(Four)</td>
+  <td>Salaire journalier</td>
+  <td>🔴 Interdit</td>
+  <td>Comme le bain — fonctionne en continu, employés</td>
+</tr>
+<tr>
+  <td><strong>⚙️ רחיים</strong><br>(Moulin)</td>
+  <td>Forfait / Métayage</td>
+  <td>🟢 Permis</td>
+  <td>Comme le champ — travail à la tâche</td>
+</tr>
+</table>
+</div>
+
+<div class="memory-card">
+<strong>Le pivot du Rama :</strong><br>
+<span class="he-q">תנור דינו כמרחץ, רחיים דינם כשדה</span><br>
+"Le four = comme le bain (interdit), le moulin = comme le champ (permis)"
+</div>
+
+<div class="page-break"></div>
+
+<!-- 4. LES 3 CONCEPTS CLÉS -->
+<h2 class="section-title">4. Les 3 concepts-clés</h2>
+
+<h3>Concept 1 — אמירה לגוי (Amira la-goï)</h3>
+
+<div class="recap-box">
+<strong>"Instruction au non-juif"</strong><br>
+On ne peut pas dire à un non-juif de faire à Shabbat un travail interdit au juif.<br>
+Niveau d'interdiction : <strong>שבות</strong> (rabbinique).
+</div>
+
+<h3>Concept 2 — מראית עין (Mar'it Ayin)</h3>
+
+<div class="recap-box">
+<strong>"L'apparence"</strong><br>
+Même si quelque chose est permis sur le plan halakhique pur, c'est interdit si les gens pourraient PENSER qu'il y a transgression.<br>
+Application : c'est la raison de l'interdiction du bain et du four en forfait.
+</div>
+
+<h3>Concept 3 — אדעתיה דנפשיה עביד</h3>
+
+<div class="recap-box">
+<strong>"Il fait pour son propre compte"</strong><br>
+Le non-juif a un intérêt personnel à finir le travail (parce qu'il prend une part des fruits, ou un forfait), donc on dit qu'il "travaille pour lui-même".<br>
+Application : c'est le critère qui rend permis l'אריסות et la קבלנות.
+</div>
+
+<!-- 5. MNÉMONIQUES -->
+<h2 class="section-title">5. Mnémoniques — Aide-mémoire</h2>
+
+<h3>Acrostiche : MA-CHAB</h3>
+
+<div class="recap-box">
+<strong>M</strong> = Mar'it ayin (apparence — pourquoi le bain est interdit)<br>
+<strong>A</strong> = Amira la-goï (l'interdiction de base)<br>
+<strong>C</strong> = Coutume du métier (le critère décisif)<br>
+<strong>H</strong> = Hovah ou rechout (obligatoire ou facultatif)<br>
+<strong>A</strong> = Adata d'Nafshé (il fait pour lui-même)<br>
+<strong>B</strong> = Biens immobiliers (le sujet du Siman)
+</div>
+
+<h3>Formule des 4 biens — "MoSh-ChaR"</h3>
+
+<div class="memory-card">
+<strong>Mémorise par paires :</strong><br><br>
+🔴 Interdits : <strong>Mer'hatz + Tanour</strong> (Bain + Four)<br>
+🟢 Permis : <strong>Sadeh + Re'hayim</strong> (Champ + Moulin)<br><br>
+Mnémonique : "<strong>BAin et FOur sont BAFOués</strong>" (interdits) ;<br>
+"<strong>CHAmp et MOulin sont CHAMOnix</strong>" (libres = permis)
+</div>
+
+<h3>Les 3 piliers du Siman 243</h3>
+
+<div class="recap-box">
+<strong>1. הקרקע נקראת על שמו</strong> (Le terrain est connu comme appartenant au juif)<br>
+<strong>2. דרך התעסקות</strong> (Quelle est la coutume du métier ?)<br>
+<strong>3. הנאת ישראל בשבת</strong> (Y a-t-il un bénéfice direct du juif Shabbat ?)
+</div>
+
+<!-- 6. PIÈGES -->
+<h2 class="section-title">6. Pièges à éviter</h2>
+
+<div style="background: #fef4e4; border-left: 4px solid #C5A55A; padding: 12px 18px; margin: 12px 0;">
+<h4 style="margin-top: 0; color: #8a6a1a;">❌ Piège 1</h4>
+<strong>Penser que "métayage" rend tout permis.</strong><br>
+→ Non. Le métayage du <em>bain</em> est interdit (mar'it ayin), même si techniquement c'est de l'aristut.
+</div>
+
+<div style="background: #fef4e4; border-left: 4px solid #C5A55A; padding: 12px 18px; margin: 12px 0;">
+<h4 style="margin-top: 0; color: #8a6a1a;">❌ Piège 2</h4>
+<strong>Croire que la "location pure" est toujours permise.</strong><br>
+→ Non. Si le bien est connu comme appartenant au juif (נקראת על שמו) et qu'il y a coutume du métier en שכיר יום, c'est interdit même en השכרה pure.
+</div>
+
+<div style="background: #fef4e4; border-left: 4px solid #C5A55A; padding: 12px 18px; margin: 12px 0;">
+<h4 style="margin-top: 0; color: #8a6a1a;">❌ Piège 3</h4>
+<strong>Embaucher un non-juif שכיר יום et "espérer" que ce soit OK.</strong><br>
+→ Le שכיר יום est <strong>toujours interdit</strong>, sans exception. C'est le cas le plus simple d'אמירה לגוי.
+</div>
+
+<div style="background: #fef4e4; border-left: 4px solid #C5A55A; padding: 12px 18px; margin: 12px 0;">
+<h4 style="margin-top: 0; color: #8a6a1a;">❌ Piège 4</h4>
+<strong>Confondre Siman 243 et Siman 246.</strong><br>
+→ Siman 243 = biens <strong>immobiliers</strong> (champ, bain, four, moulin).<br>
+→ Siman 246 = biens <strong>mobiliers</strong> (objets, animaux, etc.).<br>
+Les principes sont similaires mais les applications diffèrent.
+</div>
+
+<div style="background: #fef4e4; border-left: 4px solid #C5A55A; padding: 12px 18px; margin: 12px 0;">
+<h4 style="margin-top: 0; color: #8a6a1a;">❌ Piège 5</h4>
+<strong>Ne pas tenir compte de la coutume locale.</strong><br>
+→ Si dans ta région, la coutume du métier change (ex : un nouveau type de bain qui fonctionne en métayage), la halakha peut s'adapter — mais consulte toujours un Rav.
+</div>
+
+<!-- 7. CAS PRATIQUES MODERNES -->
+<h2 class="section-title">7. Cas pratiques modernes</h2>
+
+<div class="nafka-mina-table">
+<table>
+<tr>
+  <th>Situation moderne</th>
+  <th>Halakha de base</th>
+  <th>Solution</th>
+</tr>
+<tr>
+  <td><strong>Restaurant juif avec chef non-juif</strong></td>
+  <td>🔴 Interdit (= comme four/tanour)</td>
+  <td>Fermer Shabbat, ou louer la cuisine au chef</td>
+</tr>
+<tr>
+  <td><strong>Hôtel juif avec personnel non-juif</strong></td>
+  <td>⚠️ Dépend de la structure</td>
+  <td>Souvent : société "Heter Iska" qui sépare les rôles</td>
+</tr>
+<tr>
+  <td><strong>Usine juive 24/7 avec opérateurs non-juifs</strong></td>
+  <td>⚠️ Selon le métier</td>
+  <td>Métayage (% bénéfices) ou vente Shabbat</td>
+</tr>
+<tr>
+  <td><strong>Boulangerie juive avec boulanger non-juif</strong></td>
+  <td>🔴 Interdit (= four/tanour)</td>
+  <td>Fermer Shabbat, ou héter mékhira</td>
+</tr>
+<tr>
+  <td><strong>Champ d'oliviers avec ouvrier non-juif</strong></td>
+  <td>🟢 Permis en aristut</td>
+  <td>Aristut (% des olives)</td>
+</tr>
+<tr>
+  <td><strong>Moulin à huile avec employé non-juif</strong></td>
+  <td>🟢 Permis (= champ)</td>
+  <td>Forfait ou métayage</td>
+</tr>
+<tr>
+  <td><strong>Spa juif avec masseur non-juif</strong></td>
+  <td>🔴 Interdit (= bain)</td>
+  <td>Fermer Shabbat, ou location complète</td>
+</tr>
+<tr>
+  <td><strong>Station-service juive 24/7</strong></td>
+  <td>⚠️ Très complexe</td>
+  <td>Solution rabbinique spécifique</td>
+</tr>
+</table>
+</div>
+
+<div class="page-break"></div>
+
+<!-- 8. TABLEAU DE SYNTHÈSE FINALE -->
+<h2 class="section-title">8. Tableau de synthèse finale</h2>
+
+<h3>Vue d'ensemble : Qui peut faire quoi ?</h3>
+
+<table>
+<tr>
+  <th></th>
+  <th>שכיר יום</th>
+  <th>קבלנות</th>
+  <th>השכרה</th>
+  <th>אריסות</th>
+</tr>
+<tr>
+  <td><strong>🛁 מרחץ</strong></td>
+  <td>🔴</td>
+  <td>🔴 (mar'it ayin)</td>
+  <td>🔴 (mar'it ayin)</td>
+  <td>🔴 (rare)</td>
+</tr>
+<tr>
+  <td><strong>🌾 שדה</strong></td>
+  <td>🔴</td>
+  <td>🟢</td>
+  <td>🟢</td>
+  <td>🟢</td>
+</tr>
+<tr>
+  <td><strong>🔥 תנור</strong></td>
+  <td>🔴</td>
+  <td>🔴 (mar'it ayin)</td>
+  <td>🔴 (mar'it ayin)</td>
+  <td>🔴</td>
+</tr>
+<tr>
+  <td><strong>⚙️ רחיים</strong></td>
+  <td>🔴</td>
+  <td>🟢</td>
+  <td>🟢</td>
+  <td>🟢</td>
+</tr>
+</table>
+
+<h3>Tableau des sources principales</h3>
+
+<table>
+<tr>
+  <th>Sujet</th>
+  <th>Source</th>
+  <th>Conclusion halakhique</th>
+</tr>
+<tr>
+  <td><strong>Bain interdit</strong></td>
+  <td>Mishna Shabbat 121, Tour, Beit Yossef</td>
+  <td>Interdit même en forfait (mar'it ayin)</td>
+</tr>
+<tr>
+  <td><strong>Champ permis en aristut</strong></td>
+  <td>Av. Zara 21, Rambam, Rashba</td>
+  <td>Permis car coutume = métayage</td>
+</tr>
+<tr>
+  <td><strong>Four = bain</strong></td>
+  <td>Rama, Tossafot Shabbat</td>
+  <td>Même règle pour les 2</td>
+</tr>
+<tr>
+  <td><strong>Moulin = champ</strong></td>
+  <td>Rama, Magen Avraham</td>
+  <td>Même règle pour les 2</td>
+</tr>
+<tr>
+  <td><strong>אדעתיה דנפשיה עביד</strong></td>
+  <td>Sugiyah Av. Zara, Tour, Shulchan Aruch</td>
+  <td>Critère décisif pour la permission</td>
+</tr>
+</table>
+
+<hr class="ornament">
+
+<h3>Les 5 commandements du Siman 243 en abrégé</h3>
+
+<div class="recap-box">
+<strong>1. Identifie le bien</strong> (Bain/Four = interdit ; Champ/Moulin = à voir)<br>
+<strong>2. Identifie la relation</strong> (Employé שכיר יום = toujours interdit)<br>
+<strong>3. Vérifie la coutume du métier</strong> (Salaire journalier ou métayage ?)<br>
+<strong>4. Vérifie la מראית עין</strong> (Le public peut-il se tromper ?)<br>
+<strong>5. Consulte un Rav</strong> pour les cas complexes
+</div>
+
+<!-- 9. LIEN AVEC SIMAN 246 -->
+<h2 class="section-title">9. Lien avec Siman רמ״ו (déjà étudié)</h2>
+
+<table>
+<tr>
+  <th>Critère</th>
+  <th>Siman רמ״ג (243)</th>
+  <th>Siman רמ״ו (246)</th>
+</tr>
+<tr>
+  <td><strong>Sujet</strong></td>
+  <td>Biens immobiliers</td>
+  <td>Objets mobiliers</td>
+</tr>
+<tr>
+  <td><strong>Exemples</strong></td>
+  <td>Bain, champ, four, moulin</td>
+  <td>Outils, animaux, vaisseaux</td>
+</tr>
+<tr>
+  <td><strong>Concept-clé</strong></td>
+  <td>אדעתיה דנפשיה עביד</td>
+  <td>שביתת כלים + נראה כשלוחו</td>
+</tr>
+<tr>
+  <td><strong>Critère décisif</strong></td>
+  <td>Coutume du métier (שכיר vs קבלן)</td>
+  <td>Bénéfice direct du juif (oui/non)</td>
+</tr>
+<tr>
+  <td><strong>Solution typique</strong></td>
+  <td>Aristut / Kablanut / Location pure</td>
+  <td>Hablaa (forfait global)</td>
+</tr>
+</table>
+
+<div class="memory-card">
+<strong>Pour réviser ensemble :</strong><br>
+Les Simanim 243 et 246 forment un <strong>diptyque cohérent</strong> sur "comment le juif peut bénéficier indirectement du travail d'un non-juif Shabbat sans transgresser".<br><br>
+La règle commune : le non-juif doit travailler <strong>pour lui-même</strong> (אדעתא דנפשיה), et il ne doit pas y avoir <strong>apparence d'employé</strong> (mar'it ayin).
+</div>
+
+<div class="page-break"></div>
+
+<!-- RÉCAP DU PARCOURS -->
+<h2 class="section-title">🎓 Résumé du parcours d'étude</h2>
+
+<div style="background: #FAF6EE; padding: 20px; border-radius: 8px; margin: 15px 0;">
+
+<h3 style="color: #1A1F3A; margin-top: 0;">Tu as étudié le Siman 243 en 3 niveaux</h3>
+
+<table style="margin-top: 15px;">
+<tr>
+  <td style="padding: 10px; vertical-align: top; border: 1px solid #C5A55A;">
+    <strong>🌱 Niveau 1 — Base</strong><br>
+    <em>Découverte</em><br>
+    ✓ Texte des Seifim<br>
+    ✓ Traduction complète<br>
+    ✓ Les 4 types de location<br>
+    ✓ Questions de compréhension
+  </td>
+  <td style="padding: 10px; vertical-align: top; border: 1px solid #C5A55A;">
+    <strong>⚡ Niveau 2 — Lamdan</strong><br>
+    <em>Pilpoul</em><br>
+    ✓ 3 שיטות בטעם איסור<br>
+    ✓ ארבעת האופנים<br>
+    ✓ מחלוקת המג״א והב״ח<br>
+    ✓ נפקא מינה למעשה
+  </td>
+  <td style="padding: 10px; vertical-align: top; border: 1px solid #C5A55A;">
+    <strong>✨ Niveau 3 — Synthèse</strong><br>
+    <em>Maîtrise</em><br>
+    ✓ Axiomes centraux<br>
+    ✓ Arbres de décision<br>
+    ✓ Mnémoniques + pièges<br>
+    ✓ Cas pratiques modernes
+  </td>
+</tr>
+</table>
+
+</div>
+
+<div class="memory-card">
+<strong>Prochaines étapes suggérées :</strong><br>
+1. Relire le Siman 243 en hébreu original (Shulchan Aruch)<br>
+2. Réviser le Siman 246 (sujet complémentaire) si déjà étudié<br>
+3. Étudier le Siman רמ״ד (244) — Faire faire un travail à un non-juif<br>
+4. Discuter avec un Rav pour des cas pratiques personnels
+</div>
+
+<hr class="ornament">
+
+<div class="yh-watermark">
+~ ~ ~ ~ ~<br>
+<strong>DAAT</strong> · <strong>הרב יוסף חיים סממה</strong><br>
+תלמיד חכם · מעביר שיעורים בהלכה ובחסידות<br>
+<em>סימן רמ״ג · שלוש רמות : מתחילים, לומדים, תלמידי חכמים</em><br>
+<em>daattorah.com</em>
+</div>
+
+
+<div style="background:#1A1F3A;border-top:2px solid #C5A55A;padding:24px 40px;text-align:center;margin-top:40px;">
+  <p style="font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,0.35);margin:0;">
+    DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">Retour à l'accueil</a> · <a href="index.html" style="color:#C5A55A;text-decoration:none;">Siman 243</a>
+  </p>
+</div>
+<link rel="stylesheet" href="../../../assets/css/chat-widget.css">
+<script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
+<script src="../../../assets/js/chat-widget.js" defer></script>
+</body>
+</html>
