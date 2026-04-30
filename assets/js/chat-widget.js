@@ -181,7 +181,7 @@
           <div class="daat-chat-header-logo">דעת</div>
           <div class="daat-chat-header-info">
             <div class="daat-chat-header-title">Daat</div>
-            <div class="daat-chat-header-subtitle">Assistant d'étude · Rav Yossef Haim Samama</div>
+            <div class="daat-chat-header-subtitle">Assistant d'étude</div>
           </div>
           <button class="daat-chat-reset" id="daat-chat-reset" title="Nouvelle conversation" aria-label="Nouvelle conversation">↺</button>
         </div>

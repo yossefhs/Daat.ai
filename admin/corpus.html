@@ -197,6 +197,45 @@
     <button id="auth-btn" class="gold">Se connecter</button>
   </div>
 
+  <!-- PDF Import -->
+  <div class="card" id="pdf-card" style="display:none;">
+    <h2 style="margin-top: 0; padding-top: 0; border: none;">📄 Importer un PDF</h2>
+    <p class="field-help" style="margin-top: -4px; margin-bottom: 16px;">
+      Sélectionne un PDF (max 5 Mo, texte extractible — pas de scans/images).
+      Le texte sera extrait et inséré dans le formulaire ci-dessous pour relecture / édition avant ajout au corpus.
+    </p>
+
+    <div class="row-2">
+      <div>
+        <label>Fichier PDF <span class="req">*</span></label>
+        <input type="file" id="pdf-file" accept="application/pdf">
+      </div>
+      <div>
+        <label>Siman associé (optionnel)</label>
+        <input type="text" id="pdf-siman" placeholder="Ex : 247">
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <button id="pdf-upload-btn" class="gold">📤 Extraire le texte</button>
+      <button id="pdf-clear-btn" class="ghost">Annuler</button>
+    </div>
+
+    <div id="pdf-progress" style="display:none; margin-top: 16px; font-size: 13px; color: var(--muted);">
+      ⏳ Extraction en cours…
+    </div>
+
+    <div id="pdf-preview" style="display:none; margin-top: 16px;">
+      <label>Aperçu du texte extrait (modifiable)</label>
+      <textarea id="pdf-preview-text" rows="10" style="font-family: 'Menlo', monospace; font-size: 12px;"></textarea>
+      <div class="field-help" id="pdf-preview-meta"></div>
+      <div class="toolbar">
+        <button id="pdf-insert-btn" class="gold">✓ Insérer dans le formulaire ci-dessous</button>
+        <button id="pdf-cancel-btn" class="ghost">Tout effacer</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Form to add entry -->
   <div class="card" id="add-card" style="display:none;">
     <h2 style="margin-top: 0; padding-top: 0; border: none;">➕ Ajouter une entrée au corpus</h2>
@@ -297,6 +336,7 @@ function setToken(t) {
 
 function showAdminUI(connected) {
   document.getElementById('auth-banner').classList.toggle('connected', connected);
+  document.getElementById('pdf-card').style.display = connected ? '' : 'none';
   document.getElementById('add-card').style.display = connected ? '' : 'none';
   document.getElementById('list-card').style.display = connected ? '' : 'none';
   if (connected) {
@@ -487,6 +527,109 @@ function escapeHtml(s) {
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
 }
+
+// === PDF UPLOAD ===
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result.replace(/^data:.+;base64,/, ''));
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+let lastExtractedPdf = null; // garde { text, suggested, filename, pages, info }
+
+document.getElementById('pdf-upload-btn').addEventListener('click', async () => {
+  const fileInput = document.getElementById('pdf-file');
+  const file = fileInput.files[0];
+  if (!file) return showToast('Choisis un fichier PDF d\'abord', 'error');
+  if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
+    return showToast('Le fichier doit être un PDF', 'error');
+  }
+  if (file.size > 5 * 1024 * 1024) {
+    return showToast('PDF trop lourd (max 5 Mo)', 'error');
+  }
+
+  const btn = document.getElementById('pdf-upload-btn');
+  const progress = document.getElementById('pdf-progress');
+  btn.disabled = true;
+  progress.style.display = '';
+  document.getElementById('pdf-preview').style.display = 'none';
+
+  try {
+    const pdfBase64 = await fileToBase64(file);
+    const siman = document.getElementById('pdf-siman').value.trim();
+    const res = await fetch('/api/admin/upload-pdf', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + getToken(),
+      },
+      body: JSON.stringify({
+        filename: file.name,
+        pdfBase64,
+        meta: { siman: siman || undefined },
+      }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || 'HTTP ' + res.status);
+
+    lastExtractedPdf = data;
+    document.getElementById('pdf-preview-text').value = data.text || '';
+    document.getElementById('pdf-preview-meta').textContent =
+      `${data.pages || '?'} page(s) · ${(data.text || '').length} caractères extraits · suggéré : "${data.suggested?.title || ''}"`;
+    document.getElementById('pdf-preview').style.display = '';
+    showToast('Texte extrait ✓ — relis-le puis insère-le dans le formulaire', 'success');
+  } catch (err) {
+    showToast('Erreur : ' + err.message, 'error');
+  } finally {
+    btn.disabled = false;
+    progress.style.display = 'none';
+  }
+});
+
+document.getElementById('pdf-insert-btn').addEventListener('click', () => {
+  if (!lastExtractedPdf) return;
+  const editedText = document.getElementById('pdf-preview-text').value.trim();
+  const sug = lastExtractedPdf.suggested || {};
+  const sugSiman = document.getElementById('pdf-siman').value.trim();
+
+  // Pré-remplit le formulaire en bas (sans écraser les champs déjà remplis)
+  if (!document.getElementById('f-title').value && sug.title) {
+    document.getElementById('f-title').value = sug.title;
+  }
+  if (!document.getElementById('f-summary').value && sug.summary) {
+    document.getElementById('f-summary').value = sug.summary;
+  }
+  if (sugSiman && !document.getElementById('f-siman').value) {
+    document.getElementById('f-siman').value = sugSiman;
+  }
+  if (!document.getElementById('f-tags').value && (sug.tags || []).length) {
+    document.getElementById('f-tags').value = sug.tags.join(', ');
+  }
+  // Le contenu extrait vient en markdown brut (à toi de le structurer)
+  const existing = document.getElementById('f-content').value;
+  document.getElementById('f-content').value =
+    existing
+      ? existing + '\n\n---\n\n' + editedText
+      : editedText;
+
+  showToast('Inséré ✓ — édite/structure le contenu puis clique "Ajouter au corpus"', 'success');
+  // Scroll vers le formulaire
+  document.getElementById('add-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+document.getElementById('pdf-clear-btn').addEventListener('click', () => {
+  document.getElementById('pdf-file').value = '';
+  document.getElementById('pdf-siman').value = '';
+  document.getElementById('pdf-preview').style.display = 'none';
+  lastExtractedPdf = null;
+});
+
+document.getElementById('pdf-cancel-btn').addEventListener('click', () => {
+  document.getElementById('pdf-clear-btn').click();
+});
 
 // Auto-login si déjà un token en session
 (async () => {
