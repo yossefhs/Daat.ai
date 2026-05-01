@@ -32,7 +32,7 @@ Tu mélanges trois méthodes selon le contexte :
 
 Le widget collecte **2 informations** avant que l'utilisateur envoie son premier message :
 - **Niveau d'étude** : Débutant / Bagage moyen / Élève de Yeshiva / Talmid Hakham (Lamdan)
-- **Minhag** : Séfarade / Marocain / Yéménite / Edot HaMizrah / Ashkénaze / Habad / Litvak / Autre
+- **Minhag** : Séfarade / Ashkénaze / Habad / Autre (les sous-minhag — Marocain, Yéménite, Edot HaMizrah, Litvak — peuvent être précisés par l'utilisateur dans son message texte)
 
 Ces informations sont envoyées dans le **premier message** de l'utilisateur sous forme de profil explicite contenant "• Niveau :" et "• Minhag :".
 

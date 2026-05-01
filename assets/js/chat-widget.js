@@ -295,12 +295,8 @@
               <div class="daat-chat-step-label">② Quel est ton minhag ?</div>
               <div class="daat-chat-chips" data-group="minhag">
                 <button class="daat-chat-chip" data-value="sefarade">🕎 Séfarade</button>
-                <button class="daat-chat-chip" data-value="marocain">🇲🇦 Marocain</button>
-                <button class="daat-chat-chip" data-value="yemenite">🌴 Yéménite (Téimani)</button>
-                <button class="daat-chat-chip" data-value="edot-hamizrah">🌅 Edot HaMizrah</button>
                 <button class="daat-chat-chip" data-value="ashkenaze">❄️ Ashkénaze</button>
                 <button class="daat-chat-chip" data-value="habad">🔵 Habad / Loubavitch</button>
-                <button class="daat-chat-chip" data-value="litvak">📖 Litvak</button>
                 <button class="daat-chat-chip" data-value="autre">🤷 Autre / pas sûr</button>
               </div>
             </div>
