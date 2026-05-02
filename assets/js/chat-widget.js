@@ -7,8 +7,9 @@
   // === CONFIGURATION ===
   // L'URL de l'API Vercel — à mettre à jour après déploiement
   const API_URL = window.DAAT_CHAT_API_URL || 'https://daat-ai.vercel.app/api/chat';
-  const STORAGE_KEY = 'daat-chat-history-v1';
-  const MAX_HISTORY = 24; // tours max gardés en mémoire
+  const HISTORY_KEY = 'daat-conversations-v1'; // partagé avec chat.html
+  const MAX_HISTORY = 50; // conversations max gardées
+  const MAX_MESSAGES_PER_CONV = 60;
 
   // === MARKDOWN MINIMAL (sécurisé : échappe HTML d'abord) ===
   function escapeHtml(s) {
@@ -131,35 +132,73 @@
     );
   }
 
-  // === STATE MANAGEMENT ===
-  function loadHistory() {
+  // === CONVERSATION STORAGE (localStorage — persistent across sessions) ===
+  function loadConversations() {
     try {
-      const raw = sessionStorage.getItem(STORAGE_KEY);
+      const raw = localStorage.getItem(HISTORY_KEY);
       if (!raw) return [];
-      const parsed = JSON.parse(raw);
-      return Array.isArray(parsed) ? parsed.slice(-MAX_HISTORY) : [];
-    } catch (e) {
-      return [];
-    }
+      const arr = JSON.parse(raw);
+      return Array.isArray(arr) ? arr : [];
+    } catch (e) { return []; }
   }
-
-  function saveHistory(messages) {
-    try {
-      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(messages.slice(-MAX_HISTORY)));
-    } catch (e) {
-      // Ignore (sessionStorage full or unavailable)
+  function saveConversations(convs) {
+    try { localStorage.setItem(HISTORY_KEY, JSON.stringify(convs.slice(0, MAX_HISTORY))); } catch (e) {}
+  }
+  function upsertConversation(conv) {
+    const all = loadConversations();
+    const idx = all.findIndex(c => c.id === conv.id);
+    conv.updatedAt = Date.now();
+    if (conv.messages) conv.messages = conv.messages.slice(-MAX_MESSAGES_PER_CONV);
+    if (idx >= 0) all[idx] = conv;
+    else all.unshift(conv);
+    saveConversations(all);
+  }
+  function deleteConversation(id) {
+    saveConversations(loadConversations().filter(c => c.id !== id));
+  }
+  function getConversation(id) {
+    return loadConversations().find(c => c.id === id) || null;
+  }
+  function newConversationId() {
+    return 'c-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7);
+  }
+  function autoTitleFromMessage(text) {
+    let t = text;
+    if (t.startsWith('[Profil de cette session]')) {
+      const lines = t.split('\n');
+      const blankIdx = lines.findIndex((l, i) => i > 0 && l.trim() === '');
+      if (blankIdx > 0) t = lines.slice(blankIdx + 1).join('\n');
     }
+    // Strip leading "[Ma question]" marker too
+    t = t.replace(/^\[Ma question\]\s*/i, '');
+    t = t.trim().replace(/\s+/g, ' ');
+    if (!t) return 'Nouvelle conversation';
+    return t.length > 50 ? t.slice(0, 50) + '…' : t;
+  }
+  function relativeDate(ts) {
+    if (!ts) return '';
+    const d = new Date(ts), now = new Date();
+    const sameDay = d.toDateString() === now.toDateString();
+    const yest = new Date(now); yest.setDate(yest.getDate() - 1);
+    const isYest = d.toDateString() === yest.toDateString();
+    if (sameDay) return 'Aujourd\'hui ' + d.toLocaleTimeString('fr-FR', {hour:'2-digit',minute:'2-digit'});
+    if (isYest) return 'Hier ' + d.toLocaleTimeString('fr-FR', {hour:'2-digit',minute:'2-digit'});
+    return d.toLocaleDateString('fr-FR', {day:'2-digit', month:'short'});
   }
 
   // === WIDGET ===
   class DaatChatWidget {
     constructor() {
-      this.messages = loadHistory();
+      this.messages = [];                // conversation courante (vide à l'ouverture)
+      this.currentConvId = null;         // id de la conversation en cours, null = aucune
+      this.selectedNiveau = null;
+      this.selectedMinhag = null;
       this.isOpen = false;
       this.isStreaming = false;
+      this.isHistoryOpen = false;
       this.build();
       this.attach();
-      this.renderMessages();
+      this.renderMessages();             // affiche l'écran d'accueil (vierge)
     }
 
     build() {
@@ -178,6 +217,7 @@
       this.panel.setAttribute('aria-label', 'Chat avec Daat — assistant Torah');
       this.panel.innerHTML = `
         <div class="daat-chat-header">
+          <button class="daat-chat-history-btn" id="daat-chat-history-btn" title="Historique des conversations" aria-label="Historique des conversations">📋</button>
           <div class="daat-chat-header-logo">דעת</div>
           <div class="daat-chat-header-info">
             <div class="daat-chat-header-title">Daat</div>
@@ -186,6 +226,14 @@
           <button class="daat-chat-reset" id="daat-chat-reset" title="Nouvelle conversation" aria-label="Nouvelle conversation">↺</button>
         </div>
         <div class="daat-chat-messages" id="daat-chat-messages" dir="ltr"></div>
+        <div class="daat-chat-history-panel" id="daat-chat-history-panel">
+          <div class="daat-chat-history-header">
+            <span>Historique des conversations</span>
+            <button class="daat-chat-history-close" id="daat-chat-history-close" aria-label="Fermer">✕</button>
+          </div>
+          <button class="daat-chat-history-new" id="daat-chat-history-new">＋ Nouvelle conversation</button>
+          <div class="daat-chat-history-list" id="daat-chat-history-list"></div>
+        </div>
         <button class="daat-chat-scroll-down" id="daat-chat-scroll-down" type="button" aria-label="Aller au dernier message">↓ Nouveau</button>
         <div class="daat-chat-input-area">
           <div class="daat-chat-input-wrapper">
@@ -210,15 +258,34 @@
       this.sendBtn = this.panel.querySelector('#daat-chat-send');
       this.scrollDownBtn = this.panel.querySelector('#daat-chat-scroll-down');
       this.resetBtn = this.panel.querySelector('#daat-chat-reset');
+      this.historyBtn = this.panel.querySelector('#daat-chat-history-btn');
+      this.historyPanel = this.panel.querySelector('#daat-chat-history-panel');
+      this.historyCloseBtn = this.panel.querySelector('#daat-chat-history-close');
+      this.historyNewBtn = this.panel.querySelector('#daat-chat-history-new');
+      this.historyListEl = this.panel.querySelector('#daat-chat-history-list');
       this.userScrolledUp = false;
     }
 
     attach() {
       this.button.addEventListener('click', () => this.toggle());
 
-      // Bouton reset — remet à zéro la conversation
+      // Bouton reset — remet à zéro la conversation (ne supprime pas l'historique)
       if (this.resetBtn) {
-        this.resetBtn.addEventListener('click', () => this.resetChat());
+        this.resetBtn.addEventListener('click', () => this.startFreshState());
+      }
+
+      // Bouton historique — ouvre/ferme le panneau d'historique
+      if (this.historyBtn) {
+        this.historyBtn.addEventListener('click', () => this.toggleHistory());
+      }
+      if (this.historyCloseBtn) {
+        this.historyCloseBtn.addEventListener('click', () => this.closeHistory());
+      }
+      if (this.historyNewBtn) {
+        this.historyNewBtn.addEventListener('click', () => {
+          this.startFreshState();
+          this.closeHistory();
+        });
       }
 
       this.sendBtn.addEventListener('click', () => this.send());
@@ -262,19 +329,117 @@
       this.panel.classList.toggle('is-open', this.isOpen);
       this.button.classList.toggle('is-open', this.isOpen);
       if (this.isOpen) {
+        // À chaque ouverture, on revient sur l'écran d'accueil vierge
+        // (l'historique des conversations reste accessible via le bouton 📋)
+        if (!this.isStreaming) this.startFreshState();
         setTimeout(() => this.inputEl.focus(), 250);
-        this.scrollToBottom();
       }
+    }
+
+    toggleHistory() {
+      if (this.isHistoryOpen) this.closeHistory();
+      else this.openHistory();
+    }
+    openHistory() {
+      this.isHistoryOpen = true;
+      this.historyPanel.classList.add('is-open');
+      this.renderHistoryList();
+    }
+    closeHistory() {
+      this.isHistoryOpen = false;
+      this.historyPanel.classList.remove('is-open');
+    }
+
+    renderHistoryList() {
+      const convs = loadConversations();
+      if (convs.length === 0) {
+        this.historyListEl.innerHTML = '<div class="daat-chat-history-empty">Aucune conversation pour l\'instant. Choisis ton niveau et ton minhag, puis pose ta première question.</div>';
+        return;
+      }
+      this.historyListEl.innerHTML = '';
+      const widget = this;
+      convs.forEach(c => {
+        const item = document.createElement('div');
+        item.className = 'daat-chat-history-item' + (c.id === widget.currentConvId ? ' is-active' : '');
+        item.innerHTML = `
+          <div class="daat-chat-history-item-content">
+            <div class="daat-chat-history-item-title"></div>
+            <div class="daat-chat-history-item-meta"></div>
+          </div>
+          <button class="daat-chat-history-item-del" title="Supprimer" aria-label="Supprimer cette conversation">🗑</button>
+        `;
+        item.querySelector('.daat-chat-history-item-title').textContent = c.title || 'Nouvelle conversation';
+        const niveau = c.niveau || '?', minhag = c.minhag || '?';
+        item.querySelector('.daat-chat-history-item-meta').textContent =
+          `${niveau} · ${minhag} · ${relativeDate(c.updatedAt || c.createdAt)}`;
+        item.addEventListener('click', e => {
+          if (e.target.closest('.daat-chat-history-item-del')) {
+            e.stopPropagation();
+            if (confirm('Supprimer cette conversation ?')) {
+              deleteConversation(c.id);
+              if (widget.currentConvId === c.id) widget.startFreshState();
+              widget.renderHistoryList();
+            }
+            return;
+          }
+          widget.loadConvIntoView(c.id);
+          widget.closeHistory();
+        });
+        this.historyListEl.appendChild(item);
+      });
+    }
+
+    loadConvIntoView(id) {
+      const conv = getConversation(id);
+      if (!conv) return;
+      this.currentConvId = conv.id;
+      this.messages = conv.messages || [];
+      this.selectedNiveau = conv.niveau;
+      this.selectedMinhag = conv.minhag;
+      this.messagesEl.innerHTML = '';
+      // Bandeau méta
+      const meta = document.createElement('div');
+      meta.className = 'daat-chat-conv-meta';
+      meta.textContent = `📋 ${conv.title || ''} · ${conv.niveau || '?'} · ${conv.minhag || '?'}`;
+      this.messagesEl.appendChild(meta);
+      this.messages.forEach(m => this.appendMessage(m.role, m.content));
+      this.scrollToBottom(true);
+      setTimeout(() => this.inputEl.focus(), 100);
+    }
+
+    startFreshState() {
+      if (this.isStreaming) return;
+      this.currentConvId = null;
+      this.messages = [];
+      this.selectedNiveau = null;
+      this.selectedMinhag = null;
+      this.userScrolledUp = false;
+      if (this.scrollDownBtn) this.scrollDownBtn.classList.remove('is-visible');
+      this.renderMessages(); // affiche l'écran d'accueil avec chips
+    }
+
+    persistConversation() {
+      if (!this.currentConvId) return;
+      const existing = getConversation(this.currentConvId);
+      const firstUserMsg = this.messages.find(m => m.role === 'user');
+      const niveauLabel = NIVEAU_LABELS[this.selectedNiveau] || this.selectedNiveau || existing?.niveau;
+      const minhagLabel = MINHAG_LABELS[this.selectedMinhag] || this.selectedMinhag || existing?.minhag;
+      const title = existing?.title || (firstUserMsg ? autoTitleFromMessage(firstUserMsg.content) : 'Nouvelle conversation');
+      upsertConversation({
+        id: this.currentConvId,
+        title,
+        niveau: niveauLabel,
+        minhag: minhagLabel,
+        createdAt: existing?.createdAt || Date.now(),
+        updatedAt: Date.now(),
+        messages: this.messages,
+      });
     }
 
     renderMessages() {
       if (this.messages.length === 0) {
-        // Restaurer choix précédents si l'utilisateur revient
-        const savedNiveau = sessionStorage.getItem('daat-niveau');
-        const savedMinhag = sessionStorage.getItem('daat-minhag');
-        this.selectedNiveau = savedNiveau || null;
-        this.selectedMinhag = savedMinhag || null;
-
+        // À chaque ouverture, écran vierge — pas de pré-sélection
+        // (l'utilisateur doit toujours re-choisir niveau et minhag)
         this.messagesEl.innerHTML = `
           <div class="daat-chat-welcome">
             <span class="heb">דעת</span>
@@ -310,16 +475,6 @@
           </div>
         `;
 
-        // Hydrater les chips déjà sélectionnés
-        if (this.selectedNiveau) {
-          const b = this.messagesEl.querySelector(`.daat-chat-chip[data-value="${this.selectedNiveau}"]`);
-          if (b) b.classList.add('is-selected');
-        }
-        if (this.selectedMinhag) {
-          const b = this.messagesEl.querySelector(`.daat-chat-chip[data-value="${this.selectedMinhag}"]`);
-          if (b) b.classList.add('is-selected');
-        }
-
         const updateStartBtn = () => {
           const btn = this.messagesEl.querySelector('#daat-chat-start');
           if (btn) btn.disabled = !(this.selectedNiveau && this.selectedMinhag);
@@ -336,7 +491,6 @@
               const val = chip.dataset.value;
               if (groupName === 'niveau') this.selectedNiveau = val;
               if (groupName === 'minhag') this.selectedMinhag = val;
-              sessionStorage.setItem('daat-' + groupName, val);
               updateStartBtn();
             });
           });
@@ -427,21 +581,6 @@
       this.sendBtn.disabled = streaming;
     }
 
-    resetChat() {
-      if (this.isStreaming) return; // Ne pas couper en plein stream
-      // Effacer l'historique et les préférences
-      sessionStorage.removeItem(STORAGE_KEY);
-      sessionStorage.removeItem('daat-niveau');
-      sessionStorage.removeItem('daat-minhag');
-      this.messages = [];
-      this.selectedNiveau = null;
-      this.selectedMinhag = null;
-      this.userScrolledUp = false;
-      if (this.scrollDownBtn) this.scrollDownBtn.classList.remove('is-visible');
-      // Revenir à l'écran de bienvenue
-      this.renderMessages();
-    }
-
     async send() {
       let text = this.inputEl.value.trim();
       if (!text || this.isStreaming) return;
@@ -452,34 +591,33 @@
 
       // Welcome screen → first message
       if (this.messages.length === 0) {
+        // L'utilisateur doit avoir choisi niveau + minhag avant d'envoyer
+        if (!this.selectedNiveau || !this.selectedMinhag) {
+          alert('Choisis d\'abord ton niveau et ton minhag.');
+          return;
+        }
         this.messagesEl.innerHTML = '';
+        // Génère un nouvel id de conversation
+        if (!this.currentConvId) this.currentConvId = newConversationId();
 
-        // Si l'utilisateur a sélectionné niveau + minhag dans les chips
-        // mais a tapé directement sa question (sans cliquer "Commencer"),
-        // on préfixe le profil pour que Daat le reçoive.
-        const niveau = this.selectedNiveau || sessionStorage.getItem('daat-niveau');
-        const minhag = this.selectedMinhag || sessionStorage.getItem('daat-minhag');
-        if (niveau && minhag) {
-          const niveauTxt = NIVEAU_LABELS[niveau] || niveau;
-          const minhagTxt = MINHAG_LABELS[minhag] || minhag;
-          // Détection : si le message ne contient pas déjà le profil, on l'ajoute
-          if (!/•\s*Niveau/i.test(text)) {
-            text =
-              `[Profil de cette session]\n` +
-              `• Niveau : ${niveauTxt}\n` +
-              `• Minhag : ${minhagTxt}\n\n` +
-              `[Ma question]\n${text}`;
-          }
+        const niveauTxt = NIVEAU_LABELS[this.selectedNiveau] || this.selectedNiveau;
+        const minhagTxt = MINHAG_LABELS[this.selectedMinhag] || this.selectedMinhag;
+        if (!/•\s*Niveau/i.test(text)) {
+          text =
+            `[Profil de cette session]\n` +
+            `• Niveau : ${niveauTxt}\n` +
+            `• Minhag : ${minhagTxt}\n\n` +
+            `[Ma question]\n${text}`;
         }
       }
 
       // Add user message
       this.messages.push({ role: 'user', content: text });
       this.appendMessage('user', text);
-      this.scrollToBottom(true); // force le scroll au moment d'envoyer
+      this.scrollToBottom(true);
       this.inputEl.value = '';
       this.inputEl.style.height = 'auto';
-      saveHistory(this.messages);
+      this.persistConversation();
 
       // Show typing indicator
       const typingEl = this.showTyping();
@@ -560,7 +698,7 @@
         // Save final assistant message to history
         if (assistantText) {
           this.messages.push({ role: 'assistant', content: assistantText });
-          saveHistory(this.messages);
+          this.persistConversation();
         } else {
           assistantEl.remove();
           this.appendError('Pas de réponse reçue. Réessaie.');

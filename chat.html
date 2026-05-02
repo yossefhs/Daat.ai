@@ -13,9 +13,11 @@
       --cream: #FAF6EE; --cream-dark: #F0EAD8;
       --text: #1A1F3A; --text-mid: #3D4266; --text-muted: #7A7F9A;
       --white: #FFFFFF; --border: #E4DDD0;
-      --green: #2E7D52; --purple: #6B3FA0;
+      --green: #2E7D52; --purple: #6B3FA0; --red: #C0392B;
       --user-bg: #1A1F3A; --user-color: #FFFFFF;
       --assistant-bg: #FFFFFF; --assistant-color: #1A1F3A;
+      --sidebar-bg: #14182E; --sidebar-text: #DDD;
+      --sidebar-width: 280px;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { height: 100%; }
@@ -29,28 +31,31 @@
     /* HEADER */
     header {
       background: var(--navy); flex-shrink: 0;
-      padding: 0 32px; height: 64px;
+      padding: 0 24px; height: 60px;
       display: flex; align-items: center; justify-content: space-between;
-      border-bottom: 2px solid var(--gold);
+      border-bottom: 2px solid var(--gold); z-index: 50;
+    }
+    .header-left { display: flex; align-items: center; gap: 14px; }
+    .sidebar-toggle {
+      display: none; background: transparent; border: none;
+      color: rgba(255,255,255,0.85); font-size: 22px;
+      cursor: pointer; padding: 4px 8px;
     }
     .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-    .logo-he { font-family: 'Frank Ruhl Libre', serif; font-size: 28px; font-weight: 700; color: var(--gold); }
-    .logo-meta { display: flex; flex-direction: column; }
-    .logo-en { font-size: 14px; font-weight: 600; color: #fff; letter-spacing: 3px; }
+    .logo-he { font-family: 'Frank Ruhl Libre', serif; font-size: 26px; font-weight: 700; color: var(--gold); }
+    .logo-meta { display: flex; flex-direction: column; line-height: 1.1; }
+    .logo-en { font-size: 13px; font-weight: 600; color: #fff; letter-spacing: 3px; }
     .logo-sub { font-size: 10px; color: rgba(255,255,255,0.5); letter-spacing: 2px; text-transform: uppercase; }
     .header-actions { display: flex; align-items: center; gap: 8px; }
     .header-btn {
       background: transparent; border: 1px solid rgba(255,255,255,0.2);
-      color: rgba(255,255,255,0.7); padding: 8px 14px;
+      color: rgba(255,255,255,0.75); padding: 7px 13px;
       font-size: 12px; font-weight: 500; cursor: pointer;
       transition: all 0.2s; text-decoration: none;
       display: inline-flex; align-items: center; gap: 6px;
-      border-radius: 4px;
+      border-radius: 4px; font-family: inherit;
     }
     .header-btn:hover { border-color: var(--gold); color: var(--gold); }
-    .header-btn-primary { background: var(--gold); color: var(--navy); border-color: var(--gold); }
-    .header-btn-primary:hover { background: var(--gold-light); color: var(--navy); }
-
     .simanim-dropdown { position: relative; }
     .simanim-menu {
       position: absolute; top: calc(100% + 6px); right: 0;
@@ -69,61 +74,130 @@
     .simanim-menu a strong { color: var(--navy); font-size: 14px; font-weight: 600; }
     .simanim-menu a span { color: var(--text-muted); font-size: 12px; }
 
-    /* CHAT CONTAINER */
+    /* APP LAYOUT */
     .chat-app {
-      flex: 1; display: flex; flex-direction: column; min-height: 0;
-      overflow: hidden;
+      flex: 1; display: flex; min-height: 0; overflow: hidden;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: var(--sidebar-width); flex-shrink: 0;
+      background: var(--sidebar-bg); color: var(--sidebar-text);
+      display: flex; flex-direction: column;
+      border-right: 1px solid rgba(197,165,90,0.2);
+    }
+    .sidebar-header {
+      padding: 14px 16px 10px; flex-shrink: 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .new-conv-btn {
+      width: 100%; padding: 11px 14px;
+      background: var(--gold); color: var(--navy);
+      border: none; border-radius: 6px;
+      font-family: inherit; font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: background 0.2s;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .new-conv-btn:hover { background: var(--gold-light); }
+    .sidebar-section-label {
+      font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      padding: 14px 16px 8px; font-weight: 600;
+    }
+    .conv-list {
+      flex: 1; overflow-y: auto; padding: 0 8px 16px;
+    }
+    .conv-list::-webkit-scrollbar { width: 6px; }
+    .conv-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+    .conv-empty {
+      padding: 16px; font-size: 12px; color: rgba(255,255,255,0.4);
+      font-style: italic; text-align: center; line-height: 1.5;
+    }
+    .conv-item {
+      display: flex; align-items: flex-start; gap: 8px;
+      padding: 10px 12px; margin: 2px 0;
+      border-radius: 6px; cursor: pointer;
+      transition: background 0.15s;
+      font-size: 13px; color: rgba(255,255,255,0.8);
+    }
+    .conv-item:hover { background: rgba(255,255,255,0.05); }
+    .conv-item.active { background: rgba(197,165,90,0.18); color: #fff; }
+    .conv-item-content { flex: 1; min-width: 0; }
+    .conv-item-title {
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      font-weight: 500; line-height: 1.35;
+    }
+    .conv-item-meta {
+      font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 3px;
+      letter-spacing: 0.3px;
+    }
+    .conv-item-del {
+      flex-shrink: 0; opacity: 0; transition: opacity 0.15s;
+      background: transparent; border: none; color: rgba(255,255,255,0.5);
+      cursor: pointer; padding: 4px; border-radius: 3px;
+      font-size: 12px;
+    }
+    .conv-item:hover .conv-item-del { opacity: 1; }
+    .conv-item-del:hover { color: var(--red); background: rgba(192,57,43,0.15); }
+    .sidebar-footer {
+      padding: 12px 16px; border-top: 1px solid rgba(255,255,255,0.06);
+      font-size: 11px; color: rgba(255,255,255,0.35); text-align: center;
+    }
+
+    /* MAIN AREA */
+    .main-area {
+      flex: 1; display: flex; flex-direction: column; min-width: 0;
+      background: var(--cream);
     }
 
     /* WELCOME SCREEN */
     .welcome-screen {
-      flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
-      padding: 40px 20px; overflow-y: auto;
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 32px 20px; overflow-y: auto;
     }
     .welcome-screen.hidden { display: none; }
     .welcome-inner { max-width: 720px; width: 100%; text-align: center; }
     .welcome-he {
-      font-family: 'Frank Ruhl Libre', serif; font-size: 60px;
-      color: var(--navy); margin-bottom: 8px; direction: rtl;
+      font-family: 'Frank Ruhl Libre', serif; font-size: 56px;
+      color: var(--navy); margin-bottom: 6px; direction: rtl;
     }
     .welcome-en {
-      font-family: 'Cormorant Garamond', serif; font-size: 28px;
+      font-family: 'Cormorant Garamond', serif; font-size: 24px;
       color: var(--gold); font-weight: 500; margin-bottom: 12px;
       letter-spacing: 4px;
     }
     .welcome-tagline {
-      font-size: 16px; color: var(--text-mid); margin-bottom: 36px;
-      max-width: 560px; margin-left: auto; margin-right: auto; line-height: 1.7;
+      font-size: 15px; color: var(--text-mid); margin-bottom: 28px;
+      max-width: 540px; margin-left: auto; margin-right: auto; line-height: 1.65;
     }
 
     .selector-block {
       background: var(--white); border: 1px solid var(--border);
-      padding: 20px 24px; margin-bottom: 16px;
+      padding: 18px 22px; margin-bottom: 14px;
       border-left: 3px solid var(--gold);
       text-align: left;
     }
     .selector-label {
       font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 12px; font-weight: 600;
+      color: var(--gold); margin-bottom: 10px; font-weight: 600;
     }
     .selector-chips { display: flex; flex-wrap: wrap; gap: 8px; }
     .chip {
       padding: 8px 14px; font-size: 13px; font-weight: 500;
       background: var(--cream); color: var(--text-mid);
       border: 1px solid var(--border); cursor: pointer;
-      transition: all 0.15s;
-      border-radius: 4px;
+      transition: all 0.15s; border-radius: 4px; font-family: inherit;
     }
     .chip:hover { border-color: var(--gold); color: var(--navy); }
     .chip.selected {
-      background: var(--navy); color: var(--gold);
-      border-color: var(--navy);
+      background: var(--navy); color: var(--gold); border-color: var(--navy);
     }
 
     .start-btn {
-      margin-top: 20px; width: 100%; padding: 16px;
+      margin-top: 18px; width: 100%; padding: 15px;
       background: var(--gold); color: var(--navy);
-      font-family: inherit; font-size: 15px; font-weight: 700;
+      font-family: inherit; font-size: 14px; font-weight: 700;
       letter-spacing: 1px; text-transform: uppercase;
       border: none; cursor: pointer; transition: background 0.2s;
       border-radius: 4px;
@@ -132,33 +206,40 @@
     .start-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
     .quick-questions {
-      margin-top: 28px; display: grid; grid-template-columns: repeat(2, 1fr);
+      margin-top: 24px; display: grid; grid-template-columns: repeat(2, 1fr);
       gap: 10px;
     }
     .quick-q {
-      padding: 14px 16px; background: var(--white); border: 1px solid var(--border);
+      padding: 13px 15px; background: var(--white); border: 1px solid var(--border);
       font-size: 13px; color: var(--text-mid); cursor: pointer;
-      text-align: left; line-height: 1.5; transition: all 0.15s;
-      border-radius: 4px;
+      text-align: left; line-height: 1.45; transition: all 0.15s;
+      border-radius: 4px; font-family: inherit;
     }
     .quick-q:hover { border-color: var(--gold); color: var(--navy); transform: translateY(-1px); }
 
     /* MESSAGES AREA */
     .messages-wrap {
       flex: 1; overflow-y: auto;
-      padding: 24px 16px; display: none;
+      padding: 22px 16px; display: none;
     }
     .messages-wrap.active { display: block; }
     .messages-inner { max-width: 880px; margin: 0 auto; }
 
+    .conv-meta-bar {
+      max-width: 880px; margin: 0 auto 18px;
+      padding: 8px 14px; background: rgba(197,165,90,0.08);
+      border-left: 3px solid var(--gold); border-radius: 0 4px 4px 0;
+      font-size: 12px; color: var(--text-mid);
+    }
+
     .message {
-      display: flex; gap: 16px; margin-bottom: 24px;
+      display: flex; gap: 14px; margin-bottom: 22px;
       animation: fadeUp 0.25s ease;
     }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
     .avatar {
-      flex-shrink: 0; width: 38px; height: 38px;
+      flex-shrink: 0; width: 36px; height: 36px;
       display: flex; align-items: center; justify-content: center;
       font-family: 'Frank Ruhl Libre', serif; font-weight: 700;
       font-size: 16px; border-radius: 50%;
@@ -168,7 +249,7 @@
 
     .bubble {
       flex: 1; min-width: 0;
-      padding: 14px 18px; border-radius: 12px;
+      padding: 13px 17px; border-radius: 12px;
       font-size: 15px; line-height: 1.65;
       direction: ltr; text-align: left;
     }
@@ -219,7 +300,7 @@
 
     /* INPUT AREA */
     .input-wrap {
-      flex-shrink: 0; padding: 16px 16px 24px;
+      flex-shrink: 0; padding: 14px 16px 20px;
       background: var(--cream); border-top: 1px solid var(--border);
     }
     .input-inner {
@@ -251,158 +332,173 @@
       font-size: 11px; color: var(--text-muted);
     }
 
+    .sidebar-overlay {
+      display: none; position: fixed; inset: 60px 0 0 0;
+      background: rgba(0,0,0,0.4); z-index: 40;
+    }
+    .sidebar-overlay.open { display: block; }
+
     /* RESPONSIVE */
-    @media (max-width: 768px) {
-      header { padding: 0 16px; height: 56px; }
+    @media (max-width: 900px) {
+      :root { --sidebar-width: 260px; }
+      .sidebar-toggle { display: block; }
+      .sidebar {
+        position: fixed; left: 0; top: 60px; bottom: 0;
+        z-index: 45; transform: translateX(-100%);
+        transition: transform 0.25s ease;
+      }
+      .sidebar.open { transform: translateX(0); }
       .logo-sub { display: none; }
-      .welcome-he { font-size: 44px; }
-      .welcome-en { font-size: 22px; }
-      .welcome-tagline { font-size: 14px; margin-bottom: 24px; }
+    }
+    @media (max-width: 600px) {
+      header { padding: 0 14px; height: 56px; }
+      .sidebar { top: 56px; }
+      .sidebar-overlay { top: 56px; }
+      .welcome-he { font-size: 42px; }
+      .welcome-en { font-size: 20px; }
+      .welcome-tagline { font-size: 13px; margin-bottom: 22px; }
       .quick-questions { grid-template-columns: 1fr; }
-      .selector-block { padding: 16px; }
-      .messages-wrap { padding: 16px 12px; }
-      .input-wrap { padding: 12px; }
-      .input-inner { padding: 6px 6px 6px 12px; }
+      .selector-block { padding: 14px; }
+      .messages-wrap { padding: 14px 12px; }
+      .input-wrap { padding: 10px; }
       .input-textarea { font-size: 15px; }
-      .bubble { font-size: 14px; padding: 12px 14px; }
-      .avatar { width: 32px; height: 32px; font-size: 14px; }
+      .bubble { font-size: 14px; padding: 11px 13px; }
+      .avatar { width: 30px; height: 30px; font-size: 13px; }
+      .header-btn { padding: 6px 10px; font-size: 11px; }
+      #simanim-btn { display: none; }
     }
   </style>
 </head>
 <body>
 
 <header>
-  <a href="index.html" class="logo">
-    <span class="logo-he">דעת</span>
-    <div class="logo-meta">
-      <span class="logo-en">DAAT</span>
-      <span class="logo-sub">Chat IA — Plein écran</span>
-    </div>
-  </a>
+  <div class="header-left">
+    <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Menu historique">☰</button>
+    <a href="index.html" class="logo">
+      <span class="logo-he">דעת</span>
+      <div class="logo-meta">
+        <span class="logo-en">DAAT</span>
+        <span class="logo-sub">Chat IA — Plein écran</span>
+      </div>
+    </a>
+  </div>
   <div class="header-actions">
     <div class="simanim-dropdown">
-      <button class="header-btn" id="simanim-btn">📚 Simanim étudiés ▾</button>
+      <button class="header-btn" id="simanim-btn">📚 Simanim ▾</button>
       <div class="simanim-menu" id="simanim-menu">
         <a href="sources/shabbat/siman-242/index.html"><strong>Siman 242</strong><br><span>Oneg et kavod du Shabbat</span></a>
         <a href="sources/shabbat/siman-243/index.html"><strong>Siman 243</strong><br><span>Louer son bain/champ à un non-juif</span></a>
         <a href="sources/shabbat/siman-246/index.html"><strong>Siman 246</strong><br><span>Prêt et location à un non-juif</span></a>
       </div>
     </div>
-    <button class="header-btn" id="reset-btn" title="Nouvelle conversation">↺ Nouveau</button>
     <a href="index.html" class="header-btn">← Accueil</a>
   </div>
 </header>
 
 <div class="chat-app">
 
-  <!-- WELCOME SCREEN -->
-  <div class="welcome-screen" id="welcome">
-    <div class="welcome-inner">
-      <div class="welcome-he">דעת</div>
-      <div class="welcome-en">DAAT</div>
-      <p class="welcome-tagline">
-        Assistant d'étude halakhique. Daat consulte le corpus DAAT (Choulhan Aroukh, biourim, מקורות) et Sefaria pour répondre avec précision, en s'adaptant à ton niveau et ton minhag.
-      </p>
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <button class="new-conv-btn" id="new-conv-btn">＋ Nouvelle conversation</button>
+    </div>
+    <div class="sidebar-section-label">Historique</div>
+    <div class="conv-list" id="conv-list"></div>
+    <div class="sidebar-footer">דעת · DAAT</div>
+  </aside>
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
-      <div class="selector-block">
-        <div class="selector-label">① Choisis ton niveau d'étude</div>
-        <div class="selector-chips" id="niveau-chips">
-          <button class="chip" data-niveau="Débutant">Débutant</button>
-          <button class="chip" data-niveau="Intermédiaire">Intermédiaire</button>
-          <button class="chip" data-niveau="Yeshiva">Yeshiva</button>
-          <button class="chip" data-niveau="Lamdan">Lamdan / Talmid Hakham</button>
+  <!-- MAIN AREA -->
+  <main class="main-area">
+
+    <!-- WELCOME SCREEN -->
+    <div class="welcome-screen" id="welcome">
+      <div class="welcome-inner">
+        <div class="welcome-he">דעת</div>
+        <div class="welcome-en">DAAT</div>
+        <p class="welcome-tagline">
+          Assistant d'étude halakhique. Daat consulte le corpus DAAT (Choulhan Aroukh, biourim, מקורות) et Sefaria pour répondre avec précision, en s'adaptant à ton niveau et ton minhag.
+        </p>
+
+        <div class="selector-block">
+          <div class="selector-label">① Choisis ton niveau d'étude</div>
+          <div class="selector-chips" id="niveau-chips">
+            <button class="chip" data-niveau="Débutant">Débutant</button>
+            <button class="chip" data-niveau="Intermédiaire">Intermédiaire</button>
+            <button class="chip" data-niveau="Yeshiva">Yeshiva</button>
+            <button class="chip" data-niveau="Lamdan">Lamdan / Talmid Hakham</button>
+          </div>
+        </div>
+
+        <div class="selector-block">
+          <div class="selector-label">② Choisis ton minhag</div>
+          <div class="selector-chips" id="minhag-chips">
+            <button class="chip" data-minhag="Séfarade">Séfarade</button>
+            <button class="chip" data-minhag="Ashkénaze">Ashkénaze</button>
+            <button class="chip" data-minhag="Habad">Habad</button>
+            <button class="chip" data-minhag="Autre">Autre</button>
+          </div>
+        </div>
+
+        <button class="start-btn" id="start-btn" disabled>Choisis niveau et minhag</button>
+
+        <div class="quick-questions">
+          <button class="quick-q" data-q="Qu'est-ce que la mitzvat oneg Shabbat selon le Choulhan Aroukh Siman 242 ?">📖 Qu'est-ce que la mitzvat oneg Shabbat ?</button>
+          <button class="quick-q" data-q="Peux-tu m'expliquer Siman 243 — louer son bain à un non-juif ?">🛁 Siman 243 — Bain et non-juif</button>
+          <button class="quick-q" data-q="Quelle est la différence entre Siman 243 et Siman 246 ?">⚖ Diff. Siman 243 vs 246</button>
+          <button class="quick-q" data-q="Explique-moi le concept de מראית עין dans les hilkhot Shabbat.">👁 Mar'it ayin en pratique</button>
         </div>
       </div>
+    </div>
 
-      <div class="selector-block">
-        <div class="selector-label">② Choisis ton minhag</div>
-        <div class="selector-chips" id="minhag-chips">
-          <button class="chip" data-minhag="Séfarade">Séfarade</button>
-          <button class="chip" data-minhag="Ashkénaze">Ashkénaze</button>
-          <button class="chip" data-minhag="Habad">Habad</button>
-          <button class="chip" data-minhag="Autre">Autre</button>
-        </div>
+    <!-- MESSAGES AREA -->
+    <div class="messages-wrap" id="messages-wrap">
+      <div class="messages-inner" id="messages-inner"></div>
+    </div>
+
+    <!-- INPUT AREA -->
+    <div class="input-wrap">
+      <div class="input-inner">
+        <textarea
+          id="input"
+          class="input-textarea"
+          placeholder="Pose ta question — par exemple : « Peut-on louer une voiture à un non-juif pour Shabbat ? »"
+          rows="1"
+        ></textarea>
+        <button id="send-btn" class="send-btn" title="Envoyer">↑</button>
       </div>
-
-      <button class="start-btn" id="start-btn" disabled>Commencer l'étude →</button>
-
-      <div class="quick-questions">
-        <button class="quick-q" data-q="Qu'est-ce que la mitzvat oneg Shabbat selon le Choulhan Aroukh Siman 242 ?">📖 Qu'est-ce que la mitzvat oneg Shabbat ?</button>
-        <button class="quick-q" data-q="Peux-tu m'expliquer Siman 243 — louer son bain à un non-juif ?">🛁 Siman 243 — Bain et non-juif</button>
-        <button class="quick-q" data-q="Quelle est la différence entre Siman 243 et Siman 246 ?">⚖ Diff. Siman 243 vs 246</button>
-        <button class="quick-q" data-q="Explique-moi le concept de מראית עין dans les hilkhot Shabbat.">👁 Mar'it ayin en pratique</button>
+      <div class="input-footer">
+        Daat est un assistant pédagogique. Pour la halakha lema'asseh, consulte ton Rav.
       </div>
     </div>
-  </div>
 
-  <!-- MESSAGES AREA -->
-  <div class="messages-wrap" id="messages-wrap">
-    <div class="messages-inner" id="messages-inner"></div>
-  </div>
-
-  <!-- INPUT AREA -->
-  <div class="input-wrap">
-    <div class="input-inner">
-      <textarea
-        id="input"
-        class="input-textarea"
-        placeholder="Pose ta question — par exemple : « Peut-on louer une voiture à un non-juif pour Shabbat ? »"
-        rows="1"
-      ></textarea>
-      <button id="send-btn" class="send-btn" title="Envoyer">↑</button>
-    </div>
-    <div class="input-footer">
-      Daat est un assistant pédagogique. Pour la halakha lema'asseh, consulte ton Rav.
-    </div>
-  </div>
+  </main>
 
 </div>
 
 <script>
 const API_URL = 'https://daatai.vercel.app/api/chat';
-const STORAGE_KEY = 'daat-page-chat-v1';
-const PROFILE_KEY = 'daat-page-profile-v1';
+const HISTORY_KEY = 'daat-conversations-v1';
 
-// Markdown renderer (mirror du widget)
+// ============================================================
+// MARKDOWN RENDERER
+// ============================================================
 function renderMarkdown(text) {
   if (!text) return '';
-  let html = text
-    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-
-  // Hebrew RTL wrapping
-  html = html.replace(
-    /([֐-׿][֐-׿\s'""״׳''-]*[֐-׿]|[֐-׿])/g,
-    '<span dir="rtl" lang="he">$1</span>'
-  );
-
-  // Code blocks
+  let html = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  html = html.replace(/([֐-׿][֐-׿\s'""״׳''-]*[֐-׿]|[֐-׿])/g, '<span dir="rtl" lang="he">$1</span>');
   html = html.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
   html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
-
-  // Headings (must come before bold/italic)
   html = html.replace(/^#### (.+)$/gm, '<h4>$1</h4>');
   html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
   html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
   html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>');
-
-  // Bold + italic
   html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
   html = html.replace(/\*([^*]+)\*/g, '<em>$1</em>');
-
-  // Links
   html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
-
-  // Lists
   html = html.replace(/^[\s]*[-*] (.+)$/gm, '<li>$1</li>');
-  html = html.replace(/(<li>[\s\S]+?<\/li>)/g, function(m) {
-    if (m.includes('<ul>') || m.includes('<ol>')) return m;
-    return '<ul>' + m + '</ul>';
-  });
-
-  // Blockquotes
+  html = html.replace(/(<li>[\s\S]+?<\/li>)/g, m => m.includes('<ul>') || m.includes('<ol>') ? m : '<ul>' + m + '</ul>');
   html = html.replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>');
-
-  // Paragraphs
   const blocks = html.split(/\n\n+/);
   html = blocks.map(b => {
     b = b.trim();
@@ -410,63 +506,204 @@ function renderMarkdown(text) {
     if (/^<(h[1-6]|ul|ol|pre|blockquote|li)/.test(b)) return b;
     return '<p>' + b.replace(/\n/g, '<br>') + '</p>';
   }).join('\n');
-
   return html;
 }
 
+// ============================================================
+// CONVERSATION STORAGE (localStorage — persistent across sessions)
+// ============================================================
+function loadConversations() {
+  try {
+    const raw = localStorage.getItem(HISTORY_KEY);
+    if (!raw) return [];
+    const arr = JSON.parse(raw);
+    return Array.isArray(arr) ? arr : [];
+  } catch (_) { return []; }
+}
+function saveConversations(convs) {
+  try { localStorage.setItem(HISTORY_KEY, JSON.stringify(convs)); } catch (_) {}
+}
+function upsertConversation(conv) {
+  const all = loadConversations();
+  const idx = all.findIndex(c => c.id === conv.id);
+  conv.updatedAt = Date.now();
+  if (idx >= 0) all[idx] = conv;
+  else all.unshift(conv);
+  // Keep at most 50 conversations
+  saveConversations(all.slice(0, 50));
+}
+function deleteConversation(id) {
+  saveConversations(loadConversations().filter(c => c.id !== id));
+}
+function getConversation(id) {
+  return loadConversations().find(c => c.id === id) || null;
+}
+function newConversationId() {
+  return 'c-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7);
+}
+function autoTitleFromMessage(text) {
+  // Strip [Profil de cette session] block if present
+  let t = text;
+  if (t.startsWith('[Profil de cette session]')) {
+    const lines = t.split('\n');
+    const blankIdx = lines.findIndex((l, i) => i > 0 && l.trim() === '');
+    if (blankIdx > 0) t = lines.slice(blankIdx + 1).join('\n');
+  }
+  t = t.trim().replace(/\s+/g, ' ');
+  if (t.length === 0) return 'Nouvelle conversation';
+  return t.length > 60 ? t.slice(0, 60) + '…' : t;
+}
+function relativeDate(ts) {
+  if (!ts) return '';
+  const d = new Date(ts), now = new Date();
+  const sameDay = d.toDateString() === now.toDateString();
+  const yest = new Date(now); yest.setDate(yest.getDate() - 1);
+  const isYest = d.toDateString() === yest.toDateString();
+  if (sameDay) return 'Aujourd\'hui · ' + d.toLocaleTimeString('fr-FR', {hour:'2-digit',minute:'2-digit'});
+  if (isYest) return 'Hier · ' + d.toLocaleTimeString('fr-FR', {hour:'2-digit',minute:'2-digit'});
+  return d.toLocaleDateString('fr-FR', {day:'2-digit', month:'short'}) + ' · ' + d.toLocaleTimeString('fr-FR', {hour:'2-digit',minute:'2-digit'});
+}
+
+// ============================================================
+// STATE
+// ============================================================
 const state = {
+  currentConvId: null,    // null = no active conversation (welcome)
   messages: [],
   selectedNiveau: null,
   selectedMinhag: null,
   isStreaming: false,
 };
 
-// Restore state
-try {
-  const savedProfile = JSON.parse(sessionStorage.getItem(PROFILE_KEY) || '{}');
-  if (savedProfile.niveau) state.selectedNiveau = savedProfile.niveau;
-  if (savedProfile.minhag) state.selectedMinhag = savedProfile.minhag;
-  const savedMessages = JSON.parse(sessionStorage.getItem(STORAGE_KEY) || '[]');
-  if (Array.isArray(savedMessages) && savedMessages.length > 0) {
-    state.messages = savedMessages;
-  }
-} catch (_) {}
-
-// DOM refs
+// ============================================================
+// DOM REFS
+// ============================================================
 const $welcome = document.getElementById('welcome');
 const $messagesWrap = document.getElementById('messages-wrap');
 const $messagesInner = document.getElementById('messages-inner');
 const $input = document.getElementById('input');
 const $sendBtn = document.getElementById('send-btn');
 const $startBtn = document.getElementById('start-btn');
-const $resetBtn = document.getElementById('reset-btn');
+const $newConvBtn = document.getElementById('new-conv-btn');
+const $convList = document.getElementById('conv-list');
 const $niveauChips = document.getElementById('niveau-chips');
 const $minhagChips = document.getElementById('minhag-chips');
+const $sidebar = document.getElementById('sidebar');
+const $sidebarToggle = document.getElementById('sidebar-toggle');
+const $sidebarOverlay = document.getElementById('sidebar-overlay');
 
-// Restore selected chips
-if (state.selectedNiveau) {
-  const c = $niveauChips.querySelector(`[data-niveau="${state.selectedNiveau}"]`);
-  if (c) c.classList.add('selected');
-}
-if (state.selectedMinhag) {
-  const c = $minhagChips.querySelector(`[data-minhag="${state.selectedMinhag}"]`);
-  if (c) c.classList.add('selected');
-}
-updateStartButton();
+// ============================================================
+// SIDEBAR (mobile toggle)
+// ============================================================
+$sidebarToggle.addEventListener('click', () => {
+  $sidebar.classList.toggle('open');
+  $sidebarOverlay.classList.toggle('open');
+});
+$sidebarOverlay.addEventListener('click', () => {
+  $sidebar.classList.remove('open');
+  $sidebarOverlay.classList.remove('open');
+});
 
-// If we have prior messages, restore them
-if (state.messages.length > 0) {
+// ============================================================
+// CONVERSATION LIST RENDER
+// ============================================================
+function renderConvList() {
+  const convs = loadConversations();
+  if (convs.length === 0) {
+    $convList.innerHTML = '<div class="conv-empty">Aucune conversation pour l\'instant. Choisis ton niveau et ton minhag, puis pose ta première question.</div>';
+    return;
+  }
+  $convList.innerHTML = '';
+  convs.forEach(c => {
+    const el = document.createElement('div');
+    el.className = 'conv-item' + (c.id === state.currentConvId ? ' active' : '');
+    el.dataset.id = c.id;
+    el.innerHTML = `
+      <div class="conv-item-content">
+        <div class="conv-item-title">${escapeHtml(c.title || 'Nouvelle conversation')}</div>
+        <div class="conv-item-meta">${escapeHtml(c.niveau || '')} · ${escapeHtml(c.minhag || '')} · ${relativeDate(c.updatedAt || c.createdAt)}</div>
+      </div>
+      <button class="conv-item-del" title="Supprimer cette conversation">🗑</button>
+    `;
+    el.addEventListener('click', e => {
+      if (e.target.closest('.conv-item-del')) {
+        e.stopPropagation();
+        if (confirm('Supprimer cette conversation ?')) {
+          deleteConversation(c.id);
+          if (state.currentConvId === c.id) startFreshState();
+          renderConvList();
+        }
+        return;
+      }
+      loadConversationIntoView(c.id);
+      // Close sidebar on mobile
+      if (window.innerWidth <= 900) {
+        $sidebar.classList.remove('open');
+        $sidebarOverlay.classList.remove('open');
+      }
+    });
+    $convList.appendChild(el);
+  });
+}
+
+function escapeHtml(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+// ============================================================
+// FRESH STATE (welcome screen, no chips selected)
+// ============================================================
+function startFreshState() {
+  state.currentConvId = null;
+  state.messages = [];
+  state.selectedNiveau = null;
+  state.selectedMinhag = null;
+  $messagesInner.innerHTML = '';
+  $messagesWrap.classList.remove('active');
+  $welcome.classList.remove('hidden');
+  $niveauChips.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+  $minhagChips.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+  $input.value = '';
+  $input.style.height = 'auto';
+  updateStartButton();
+  renderConvList();
+}
+
+// ============================================================
+// LOAD CONVERSATION INTO VIEW
+// ============================================================
+function loadConversationIntoView(id) {
+  const conv = getConversation(id);
+  if (!conv) return;
+  state.currentConvId = conv.id;
+  state.messages = conv.messages || [];
+  state.selectedNiveau = conv.niveau;
+  state.selectedMinhag = conv.minhag;
+  $messagesInner.innerHTML = '';
+  // Render meta bar
+  const metaBar = document.createElement('div');
+  metaBar.className = 'conv-meta-bar';
+  metaBar.innerHTML = `📋 <strong>${escapeHtml(conv.title || '')}</strong> · Niveau : <strong>${escapeHtml(conv.niveau || '')}</strong> · Minhag : <strong>${escapeHtml(conv.minhag || '')}</strong>`;
+  $messagesInner.appendChild(metaBar);
+  state.messages.forEach(m => renderMessage(m.role, m.content));
   $welcome.classList.add('hidden');
   $messagesWrap.classList.add('active');
-  state.messages.forEach(m => renderMessage(m.role, m.content));
+  scrollToBottom();
+  $input.focus();
+  renderConvList();
 }
 
+// ============================================================
+// CHIP SELECTION
+// ============================================================
 function updateStartButton() {
   const ready = state.selectedNiveau && state.selectedMinhag;
   $startBtn.disabled = !ready;
   $startBtn.textContent = ready
-    ? `Commencer l'étude — ${state.selectedNiveau} · ${state.selectedMinhag} →`
-    : 'Choisis ton niveau et ton minhag';
+    ? `Commencer — ${state.selectedNiveau} · ${state.selectedMinhag} →`
+    : 'Choisis niveau et minhag';
 }
 
 $niveauChips.addEventListener('click', e => {
@@ -475,7 +712,6 @@ $niveauChips.addEventListener('click', e => {
   $niveauChips.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
   btn.classList.add('selected');
   state.selectedNiveau = btn.dataset.niveau;
-  saveProfile();
   updateStartButton();
 });
 
@@ -485,18 +721,12 @@ $minhagChips.addEventListener('click', e => {
   $minhagChips.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
   btn.classList.add('selected');
   state.selectedMinhag = btn.dataset.minhag;
-  saveProfile();
   updateStartButton();
 });
 
-function saveProfile() {
-  try {
-    sessionStorage.setItem(PROFILE_KEY, JSON.stringify({
-      niveau: state.selectedNiveau, minhag: state.selectedMinhag
-    }));
-  } catch (_) {}
-}
-
+// ============================================================
+// START NEW CONVERSATION (intro mode)
+// ============================================================
 function buildIntroMessage() {
   return `[Profil de cette session]
 - Niveau d'étude : ${state.selectedNiveau}
@@ -507,10 +737,7 @@ Je suis prêt à commencer. Adapte tes réponses à ce profil.`;
 
 $startBtn.addEventListener('click', () => {
   if ($startBtn.disabled) return;
-  const intro = buildIntroMessage();
-  $welcome.classList.add('hidden');
-  $messagesWrap.classList.add('active');
-  send(intro);
+  beginNewConversation(buildIntroMessage());
 });
 
 document.querySelectorAll('.quick-q').forEach(btn => {
@@ -520,25 +747,33 @@ document.querySelectorAll('.quick-q').forEach(btn => {
       return;
     }
     const q = btn.dataset.q;
-    $welcome.classList.add('hidden');
-    $messagesWrap.classList.add('active');
-    // First message: prepend profile
-    const profile = `[Profil de cette session]\n- Niveau : ${state.selectedNiveau}\n- Minhag : ${state.selectedMinhag}\n\n${q}`;
-    send(profile);
+    const msg = `[Profil de cette session]\n- Niveau : ${state.selectedNiveau}\n- Minhag : ${state.selectedMinhag}\n\n${q}`;
+    beginNewConversation(msg);
   });
 });
 
-$resetBtn.addEventListener('click', () => {
-  if (!confirm('Effacer la conversation et recommencer ?')) return;
+function beginNewConversation(firstMessage) {
+  // Create a new conversation entry
+  state.currentConvId = newConversationId();
   state.messages = [];
-  sessionStorage.removeItem(STORAGE_KEY);
   $messagesInner.innerHTML = '';
-  $messagesWrap.classList.remove('active');
-  $welcome.classList.remove('hidden');
-  $input.value = '';
-  $input.focus();
+  $welcome.classList.add('hidden');
+  $messagesWrap.classList.add('active');
+  send(firstMessage);
+}
+
+$newConvBtn.addEventListener('click', () => {
+  if (state.isStreaming) return;
+  startFreshState();
+  if (window.innerWidth <= 900) {
+    $sidebar.classList.remove('open');
+    $sidebarOverlay.classList.remove('open');
+  }
 });
 
+// ============================================================
+// INPUT & SEND
+// ============================================================
 $input.addEventListener('input', () => {
   $input.style.height = 'auto';
   $input.style.height = Math.min($input.scrollHeight, 200) + 'px';
@@ -559,15 +794,21 @@ function submitInput() {
   $input.value = '';
   $input.style.height = 'auto';
 
-  // First message: include profile if available
-  let messageToSend = text;
+  // First-message in a new conversation: include profile
   if (state.messages.length === 0 && state.selectedNiveau && state.selectedMinhag) {
-    messageToSend = `[Profil de cette session]\n- Niveau : ${state.selectedNiveau}\n- Minhag : ${state.selectedMinhag}\n\n${text}`;
+    const msg = `[Profil de cette session]\n- Niveau : ${state.selectedNiveau}\n- Minhag : ${state.selectedMinhag}\n\n${text}`;
+    if (!state.currentConvId) state.currentConvId = newConversationId();
+    $welcome.classList.add('hidden');
+    $messagesWrap.classList.add('active');
+    send(msg);
+    return;
   }
-
-  $welcome.classList.add('hidden');
-  $messagesWrap.classList.add('active');
-  send(messageToSend);
+  // Continuing an existing conversation
+  if (!state.currentConvId) {
+    alert('Choisis d\'abord ton niveau et ton minhag dans l\'écran d\'accueil.');
+    return;
+  }
+  send(text);
 }
 
 function renderMessage(role, content) {
@@ -579,7 +820,6 @@ function renderMessage(role, content) {
   const bubble = document.createElement('div');
   bubble.className = 'bubble ' + (role === 'user' ? 'bubble-user' : 'bubble-assistant');
   if (role === 'user') {
-    // Hide the [Profil] block visually if at start of user message
     let displayed = content;
     if (displayed.startsWith('[Profil de cette session]')) {
       const lines = displayed.split('\n');
@@ -632,10 +872,27 @@ function setStreaming(on) {
   $sendBtn.disabled = on;
 }
 
+function persistConversation() {
+  if (!state.currentConvId) return;
+  const existing = getConversation(state.currentConvId);
+  const firstUserMsg = state.messages.find(m => m.role === 'user');
+  const title = existing?.title || (firstUserMsg ? autoTitleFromMessage(firstUserMsg.content) : 'Nouvelle conversation');
+  upsertConversation({
+    id: state.currentConvId,
+    title,
+    niveau: state.selectedNiveau,
+    minhag: state.selectedMinhag,
+    createdAt: existing?.createdAt || Date.now(),
+    updatedAt: Date.now(),
+    messages: state.messages,
+  });
+  renderConvList();
+}
+
 async function send(userText) {
   state.messages.push({ role: 'user', content: userText });
   renderMessage('user', userText);
-  saveMessages();
+  persistConversation();
 
   const typingEl = showTyping();
   setStreaming(true);
@@ -699,10 +956,10 @@ async function send(userText) {
     }
 
     state.messages.push({ role: 'assistant', content: assistantText });
-    saveMessages();
+    persistConversation();
   } catch (err) {
     if (typingEl.parentElement) typingEl.remove();
-    const errBubble = renderMessage('assistant', `⚠️ Erreur : ${err.message}`);
+    renderMessage('assistant', `⚠️ Erreur : ${err.message}`);
     console.error('[Daat chat]', err);
   } finally {
     setStreaming(false);
@@ -710,13 +967,9 @@ async function send(userText) {
   }
 }
 
-function saveMessages() {
-  try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state.messages)); } catch (_) {}
-}
-
-$input.focus();
-
-// Simanim dropdown
+// ============================================================
+// SIMANIM DROPDOWN
+// ============================================================
 const $simanimBtn = document.getElementById('simanim-btn');
 const $simanimMenu = document.getElementById('simanim-menu');
 $simanimBtn.addEventListener('click', e => {
@@ -728,6 +981,12 @@ document.addEventListener('click', e => {
     $simanimMenu.classList.remove('open');
   }
 });
+
+// ============================================================
+// INIT — always start with fresh welcome screen
+// ============================================================
+startFreshState();
+$input.focus();
 </script>
 
 </body>
