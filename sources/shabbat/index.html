@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hilkhot Shabbat — Étude par siman · DAAT דעת</title>
+  <meta name="description" content="Choisis un siman du Choulchan Aroukh, Orah Haïm — Hilkhot Shabbat. 3 niveaux d'étude par siman : Base, Lamdan, Synthèse.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #1A1F3A; --gold: #C5A55A; --gold-light: #D4B97A;
+      --cream: #FAF6EE; --cream-dark: #F0EAD8;
+      --text-dark: #1A1F3A; --text-mid: #3D4266; --text-muted: #7A7F9A;
+      --white: #FFFFFF; --border: #E4DDD0;
+      --green: #2E7D52; --purple: #6B3FA0; --red: #C0392B;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      background: var(--cream); color: var(--text-dark);
+      line-height: 1.7;
+    }
+
+    /* HEADER */
+    header {
+      background: var(--navy); padding: 0 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 70px; border-bottom: 2px solid var(--gold);
+    }
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-he { font-family: 'Frank Ruhl Libre', serif; font-size: 26px; font-weight: 700; color: var(--gold); }
+    .logo-en { font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600; color: #fff; letter-spacing: 3px; }
+    nav a { font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(255,255,255,0.6); text-decoration: none; margin-left: 28px; letter-spacing: 1px; }
+    nav a:hover { color: var(--gold); }
+
+    /* BREADCRUMB */
+    .breadcrumb {
+      background: var(--navy); padding: 12px 40px;
+      border-bottom: 1px solid rgba(197,165,90,0.15);
+    }
+    .breadcrumb-inner { max-width: 1100px; margin: 0 auto; }
+    .breadcrumb a, .breadcrumb span {
+      font-family: 'Inter', sans-serif; font-size: 12px;
+      color: rgba(255,255,255,0.4); text-decoration: none; letter-spacing: 0.5px;
+    }
+    .breadcrumb a:hover { color: var(--gold); }
+    .breadcrumb .sep { margin: 0 8px; color: rgba(255,255,255,0.2); }
+    .breadcrumb .current { color: var(--gold); }
+
+    /* HERO */
+    .page-hero {
+      background: var(--navy); padding: 60px 40px 48px;
+      border-bottom: 3px solid var(--gold);
+    }
+    .hero-inner { max-width: 1100px; margin: 0 auto; }
+    .hero-meta {
+      font-family: 'Inter', sans-serif; font-size: 11px;
+      letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 16px;
+    }
+    .hero-title-he {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 48px; font-weight: 900; color: var(--gold);
+      direction: rtl; margin-bottom: 8px;
+    }
+    .hero-title-fr {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px; font-weight: 300; color: var(--white);
+      margin-bottom: 12px;
+    }
+    .hero-subtitle {
+      font-size: 17px; color: rgba(255,255,255,0.6);
+      font-style: italic; max-width: 800px;
+    }
+
+    /* CONTENT */
+    .content { max-width: 1100px; margin: 0 auto; padding: 50px 40px 60px; }
+
+    .intro-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-left: 4px solid var(--gold);
+      padding: 24px 28px; margin-bottom: 40px;
+    }
+    .intro-card p {
+      font-size: 15px; color: var(--text-mid); line-height: 1.7;
+    }
+    .intro-card p + p { margin-top: 10px; }
+    .intro-card strong { color: var(--navy); }
+
+    /* SECTION HEADERS */
+    .section-header {
+      display: flex; align-items: baseline; justify-content: space-between;
+      margin: 40px 0 18px; padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif; font-size: 24px;
+      color: var(--navy); font-weight: 500;
+    }
+    .section-count {
+      font-family: 'Inter', sans-serif; font-size: 11px;
+      letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted);
+    }
+
+    /* SIMAN CARDS GRID */
+    .simanim-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 18px;
+    }
+
+    .siman-card {
+      background: var(--white); border: 1px solid var(--border);
+      padding: 24px 26px;
+      transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+      position: relative; display: flex; flex-direction: column;
+    }
+    .siman-card.available { cursor: pointer; border-top: 3px solid var(--green); }
+    .siman-card.available:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(26,31,58,0.10);
+      border-color: var(--gold);
+    }
+    .siman-card.coming-soon {
+      opacity: 0.65; border-top: 3px solid var(--border);
+    }
+
+    .siman-card-top {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .siman-num {
+      font-family: 'Cormorant Garamond', serif; font-size: 36px;
+      font-weight: 300; color: var(--gold); line-height: 1;
+    }
+    .siman-status {
+      font-family: 'Inter', sans-serif; font-size: 10px;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 2px;
+    }
+    .status-ready { background: rgba(46,125,82,0.12); color: var(--green); }
+    .status-soon { background: rgba(0,0,0,0.05); color: var(--text-muted); }
+
+    .siman-name-he {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 22px; color: var(--navy);
+      direction: rtl; margin-bottom: 4px; font-weight: 500;
+    }
+    .siman-name-fr {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px; color: var(--text-mid); font-style: italic;
+      margin-bottom: 12px; min-height: 44px;
+    }
+    .siman-desc {
+      font-size: 13px; color: var(--text-mid); line-height: 1.55;
+      margin-bottom: 16px; flex: 1;
+    }
+
+    .siman-card-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+    .siman-levels-info {
+      font-family: 'Inter', sans-serif; font-size: 11px;
+      color: var(--text-muted); letter-spacing: 0.5px;
+    }
+    .btn-study {
+      font-family: 'Inter', sans-serif; font-size: 12px;
+      font-weight: 600; letter-spacing: 1px;
+      background: var(--navy); color: #fff;
+      padding: 8px 14px; text-decoration: none;
+      border-radius: 2px; transition: background 0.15s;
+    }
+    .btn-study:hover { background: var(--gold); color: var(--navy); }
+    .btn-coming-soon {
+      font-family: 'Inter', sans-serif; font-size: 11px;
+      color: var(--text-muted); font-style: italic;
+    }
+
+    /* DAATCHAT INVITE */
+    .ai-invite {
+      background: linear-gradient(135deg, #1A1F3A 0%, #2A2F5A 100%);
+      color: #fff; padding: 32px 36px; margin-top: 50px;
+      border: 1px solid var(--gold);
+      display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+    }
+    .ai-invite-text { flex: 1; min-width: 300px; }
+    .ai-invite h3 {
+      font-family: 'Cormorant Garamond', serif; font-size: 22px;
+      color: var(--gold); margin-bottom: 6px;
+    }
+    .ai-invite p {
+      font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.6;
+    }
+    .ai-invite .btn-ai {
+      background: var(--gold); color: var(--navy);
+      padding: 10px 20px; text-decoration: none;
+      font-family: 'Inter', sans-serif; font-size: 13px;
+      font-weight: 600; letter-spacing: 1px;
+      border-radius: 2px; transition: background 0.15s;
+    }
+    .ai-invite .btn-ai:hover { background: var(--gold-light); }
+
+    /* FOOTER */
+    footer {
+      background: var(--navy); border-top: 2px solid var(--gold);
+      padding: 28px 40px; text-align: center;
+      margin-top: 60px;
+    }
+    footer p {
+      font-family: 'Inter', sans-serif; font-size: 12px;
+      color: rgba(255,255,255,0.4);
+    }
+    footer a { color: var(--gold); text-decoration: none; }
+
+    @media (max-width: 768px) {
+      header, .breadcrumb, .page-hero, .content { padding-left: 20px; padding-right: 20px; }
+      .hero-title-he { font-size: 38px; }
+      .hero-title-fr { font-size: 24px; }
+      .simanim-grid { grid-template-columns: 1fr; }
+      nav a { display: none; }
+      nav a:last-child { display: inline; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="../../index.html" class="logo">
+    <span class="logo-he">דעת</span>
+    <span class="logo-en">DAAT</span>
+  </a>
+  <nav>
+    <a href="../../index.html#vision">Vision</a>
+    <a href="../../index.html#contenu">Contenu</a>
+    <a href="../../chat.html">💬 IA Daat</a>
+  </nav>
+</header>
+
+<div class="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="../../index.html">Accueil</a>
+    <span class="sep">›</span>
+    <span class="current">Orah Haïm — Hilkhot Shabbat</span>
+  </div>
+</div>
+
+<div class="page-hero">
+  <div class="hero-inner">
+    <div class="hero-meta">Choulchan Aroukh · אורח חיים</div>
+    <div class="hero-title-he">הלכות שבת</div>
+    <div class="hero-title-fr">Hilkhot Shabbat — Étude par siman</div>
+    <p class="hero-subtitle">
+      Choisis un siman pour commencer. Chaque siman est étudié en 3 niveaux : Base (initiation pédagogique), Lamdan (pilpoul approfondi), Synthèse (révision et mémorisation).
+    </p>
+  </div>
+</div>
+
+<div class="content">
+
+  <div class="intro-card">
+    <p>Les <strong>Hilkhot Shabbat</strong> du Choulchan Aroukh, Orah Haïm, couvrent les sections <strong>242 à 365</strong>. Nous progressons dans l'ordre du Mehaber. Les simanim ci-dessous sont disponibles ; les autres seront ajoutés au fil de l'étude.</p>
+    <p>Pour chaque siman : texte hébreu intégral du Choulchan Aroukh + Hagaha du Rama, traduction et explication, sources des Rishonim et Acharonim, plus le pilpoul des grands commentateurs (Mishna Brura, Choulchan Aroukh haRav, Yabia Omer, Igrot Moshe…).</p>
+  </div>
+
+  <!-- DISPONIBLES -->
+  <div class="section-header">
+    <div class="section-title">Simanim disponibles</div>
+    <div class="section-count">3 simanim</div>
+  </div>
+
+  <div class="simanim-grid">
+
+    <!-- SIMAN 242 -->
+    <a href="siman-242/index.html" class="siman-card available" style="text-decoration:none; color:inherit;">
+      <div class="siman-card-top">
+        <div class="siman-num">242</div>
+        <span class="siman-status status-ready">Disponible</span>
+      </div>
+      <div class="siman-name-he">להזהר בכבוד שבת</div>
+      <div class="siman-name-fr">Kavod et oneg Shabbat</div>
+      <div class="siman-desc">
+        Le devoir d'honorer le Shabbat. Les 3 חלוקות (riche / moyen / pauvre absolu), les 3 séoudot, la tsedaka pour Shabbat, l'emprunt pour l'oneg (לוו עלי), Tikkun Ezra (lessive), apifyat halehem (hallot maison).
+      </div>
+      <div class="siman-card-bottom">
+        <span class="siman-levels-info">Seif Alef · 3 niveaux · PDFs disponibles</span>
+        <span class="btn-study">Étudier →</span>
+      </div>
+    </a>
+
+    <!-- SIMAN 243 -->
+    <a href="siman-243/index.html" class="siman-card available" style="text-decoration:none; color:inherit;">
+      <div class="siman-card-top">
+        <div class="siman-num">243</div>
+        <span class="siman-status status-ready">Disponible</span>
+      </div>
+      <div class="siman-name-he">דין המשכיר שדה ומרחץ לגוי</div>
+      <div class="siman-name-fr">Louer son bain ou son champ à un non-juif</div>
+      <div class="siman-desc">
+        Distinction structurelle entre השכרה / קבלנות / אריסות. Le bain (interdit), le champ (permis), four et moulin selon le Rama. Concept de אדעתא דנפשיה. 3 niveaux complets avec biourim et מקורות exhaustifs.
+      </div>
+      <div class="siman-card-bottom">
+        <span class="siman-levels-info">Seifim Alef-Beit · 3 niveaux · PDFs disponibles</span>
+        <span class="btn-study">Étudier →</span>
+      </div>
+    </a>
+
+    <!-- SIMAN 246 -->
+    <a href="siman-246/index.html" class="siman-card available" style="text-decoration:none; color:inherit;">
+      <div class="siman-card-top">
+        <div class="siman-num">246</div>
+        <span class="siman-status status-ready">Disponible</span>
+      </div>
+      <div class="siman-name-he">דיני השאלה והשכרה לגוי בשבת</div>
+      <div class="siman-name-fr">Prêt et location d'objets à un non-juif</div>
+      <div class="siman-desc">
+        Les 3 concepts fondamentaux : שביתת כלים, נראה כשלוחו, שכר שבת. Le חידוש du Rama (prêt vs location). Le concept de הבלעה. 3 niveaux + 2 versions PDF (web + classique typeset).
+      </div>
+      <div class="siman-card-bottom">
+        <span class="siman-levels-info">Seif Alef · 3 niveaux · 6 PDFs (web + classique)</span>
+        <span class="btn-study">Étudier →</span>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- À VENIR -->
+  <div class="section-header">
+    <div class="section-title">Simanim à venir (dans l'ordre du Choulchan Aroukh)</div>
+    <div class="section-count">En préparation</div>
+  </div>
+
+  <div class="simanim-grid">
+
+    <div class="siman-card coming-soon">
+      <div class="siman-card-top">
+        <div class="siman-num">244</div>
+        <span class="siman-status status-soon">Bientôt</span>
+      </div>
+      <div class="siman-name-he">דיני קבלנות בשבת</div>
+      <div class="siman-name-fr">Forfait (קבלנות) à un non-juif pour Shabbat</div>
+      <div class="siman-desc">
+        Construction d'une maison, fabrication d'un vêtement, etc. — quand un non-juif accepte un forfait pour une tâche qui inclut Shabbat. Conditions de permission selon le Mehaber, le Rama, le Mishna Brura.
+      </div>
+      <div class="siman-card-bottom">
+        <span class="siman-levels-info">À venir</span>
+        <span class="btn-coming-soon">En préparation</span>
+      </div>
+    </div>
+
+    <div class="siman-card coming-soon">
+      <div class="siman-card-top">
+        <div class="siman-num">245</div>
+        <span class="siman-status status-soon">Bientôt</span>
+      </div>
+      <div class="siman-name-he">דיני שותפות עם גוי</div>
+      <div class="siman-name-fr">Partenariat (שותפות) commercial avec un non-juif</div>
+      <div class="siman-desc">
+        Quand un Juif et un non-juif s'associent dans un commerce qui fonctionne aussi le Shabbat. Conditions, partage des bénéfices, limites halakhiques.
+      </div>
+      <div class="siman-card-bottom">
+        <span class="siman-levels-info">À venir</span>
+        <span class="btn-coming-soon">En préparation</span>
+      </div>
+    </div>
+
+    <div class="siman-card coming-soon">
+      <div class="siman-card-top">
+        <div class="siman-num">247</div>
+        <span class="siman-status status-soon">Bientôt</span>
+      </div>
+      <div class="siman-name-he">דיני שילוח אגרת ביד גוי</div>
+      <div class="siman-name-fr">Envoyer une lettre / colis par un non-juif</div>
+      <div class="siman-desc">
+        Confier une lettre, un colis, ou une marchandise à un non-juif (כותי, postier, livreur) avant Shabbat pour qu'il transporte Shabbat. Distance, ville voisine, lieu déterminé.
+      </div>
+      <div class="siman-card-bottom">
+        <span class="siman-levels-info">À venir</span>
+        <span class="btn-coming-soon">En préparation</span>
+      </div>
+    </div>
+
+    <div class="siman-card coming-soon">
+      <div class="siman-card-top">
+        <div class="siman-num">248</div>
+        <span class="siman-status status-soon">Bientôt</span>
+      </div>
+      <div class="siman-name-he">דיני הפלגת ספינה ויציאה לדרך</div>
+      <div class="siman-name-fr">Voyager / partir en bateau avant Shabbat</div>
+      <div class="siman-desc">
+        À partir de quel jour de la semaine peut-on entreprendre un voyage qui durera jusqu'à Shabbat ? Bateau, terre ferme, déterminer le דבר מצוה.
+      </div>
+      <div class="siman-card-bottom">
+        <span class="siman-levels-info">À venir</span>
+        <span class="btn-coming-soon">En préparation</span>
+      </div>
+    </div>
+
+    <div class="siman-card coming-soon">
+      <div class="siman-card-top">
+        <div class="siman-num">249</div>
+        <span class="siman-status status-soon">Bientôt</span>
+      </div>
+      <div class="siman-name-he">דיני קביעת סעודה בערב שבת</div>
+      <div class="siman-name-fr">Repas en érev Shabbat</div>
+      <div class="siman-desc">
+        Limites pour ne pas entrer dans Shabbat avec faim — ou au contraire, pour entrer avec appétit. Heures à éviter, kavod Shabbat.
+      </div>
+      <div class="siman-card-bottom">
+        <span class="siman-levels-info">À venir</span>
+        <span class="btn-coming-soon">En préparation</span>
+      </div>
+    </div>
+
+    <div class="siman-card coming-soon">
+      <div class="siman-card-top">
+        <div class="siman-num">250</div>
+        <span class="siman-status status-soon">Bientôt</span>
+      </div>
+      <div class="siman-name-he">דיני הכנת צרכי שבת בערב שבת</div>
+      <div class="siman-name-fr">Préparation des besoins de Shabbat le vendredi</div>
+      <div class="siman-desc">
+        Achats, cuisine, hakhanat haShabbat. Le rôle de chacun dans la maison. Les שלושה דברים שאדם צריך לעשות בערב שבת.
+      </div>
+      <div class="siman-card-bottom">
+        <span class="siman-levels-info">À venir</span>
+        <span class="btn-coming-soon">En préparation</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- IA DAAT INVITE -->
+  <div class="ai-invite">
+    <div class="ai-invite-text">
+      <h3>💬 Pose tes questions à Daat</h3>
+      <p>L'assistant IA présente les positions des sources (Mehaber, Rama, Mishna Brura, Choulchan Aroukh haRav, Yabia Omer…) selon ton minhag. Pour la halakha lema'asseh : consulte ton Rav.</p>
+    </div>
+    <a href="../../chat.html" class="btn-ai">Ouvrir le chat →</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>
+    DAAT דעת — © 5786 / 2026 ·
+    <a href="../../index.html">Accueil</a> ·
+    <a href="../../chat.html">IA Daat</a>
+  </p>
+</footer>
+
+<link rel="stylesheet" href="../../assets/css/chat-widget.css">
+<script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
+<script src="../../assets/js/chat-widget.js" defer></script>
+
+</body>
+</html>
