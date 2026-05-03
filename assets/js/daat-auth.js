@@ -33,7 +33,7 @@
 
   async function refresh() {
     try {
-      const res = await fetch('/api/auth/me', { credentials: 'include' });
+      const res = await fetch('https://daatai.vercel.app/api/auth/me', { credentials: 'include' });
       if (res.ok) {
         const data = await res.json();
         setUser(data.user);
@@ -47,7 +47,7 @@
 
   async function logout() {
     try {
-      await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' });
+      await fetch('https://daatai.vercel.app/api/auth/logout', { method: 'POST', credentials: 'include' });
     } catch (_) {}
     setUser(null);
   }
@@ -113,7 +113,7 @@
       const originalText = $sendBtn.textContent;
       $sendBtn.textContent = 'Envoi…';
       try {
-        const res = await fetch('/api/auth/send-code', {
+        const res = await fetch('https://daatai.vercel.app/api/auth/send-code', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email }),
@@ -157,7 +157,7 @@
       const originalText = $verifyBtn.textContent;
       $verifyBtn.textContent = 'Vérification…';
       try {
-        const res = await fetch('/api/auth/verify-code', {
+        const res = await fetch('https://daatai.vercel.app/api/auth/verify-code', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include',
