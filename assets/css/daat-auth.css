@@ -1,0 +1,265 @@
+/* DAAT Auth — bouton header + modal de connexion OTP */
+
+/* === BOUTON HEADER === */
+.daat-auth-btn-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 16px;
+  vertical-align: middle;
+}
+
+.daat-auth-login-btn {
+  background: #C5A55A;
+  color: #1A1F3A;
+  border: none;
+  padding: 7px 14px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background 0.15s, transform 0.1s;
+  white-space: nowrap;
+}
+.daat-auth-login-btn:hover { background: #D4B97A; }
+.daat-auth-login-btn:active { transform: scale(0.97); }
+
+.daat-auth-user-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(197, 165, 90, 0.12);
+  border: 1px solid rgba(197, 165, 90, 0.3);
+  padding: 4px 10px 4px 4px;
+  border-radius: 16px;
+  cursor: default;
+  max-width: 180px;
+}
+.daat-auth-user-avatar {
+  width: 22px; height: 22px;
+  background: #C5A55A;
+  color: #1A1F3A;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px; font-weight: 700;
+  flex-shrink: 0;
+}
+.daat-auth-user-email {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.daat-auth-logout-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.55);
+  padding: 4px 9px;
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all 0.15s;
+}
+.daat-auth-logout-btn:hover {
+  border-color: rgba(192, 57, 43, 0.6);
+  color: #C0392B;
+}
+
+/* Adaptation pour les pages avec header clair */
+header.daat-light-header .daat-auth-user-email,
+.light-bg .daat-auth-user-email {
+  color: #1A1F3A;
+}
+
+@media (max-width: 600px) {
+  .daat-auth-btn-container { margin-left: 8px; }
+  .daat-auth-user-email { max-width: 60px; font-size: 11px; }
+  .daat-auth-login-btn { padding: 6px 10px; font-size: 11px; }
+}
+
+/* === MODAL === */
+.daat-auth-modal {
+  display: none;
+  position: fixed; inset: 0;
+  z-index: 99999;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+.daat-auth-modal.is-open {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: daat-auth-fade 0.18s ease;
+}
+@keyframes daat-auth-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.daat-auth-overlay {
+  position: absolute; inset: 0;
+  background: rgba(26, 31, 58, 0.78);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.daat-auth-dialog {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #C5A55A;
+  border-radius: 8px;
+  width: 92%;
+  max-width: 440px;
+  padding: 28px 28px 22px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  animation: daat-auth-pop 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes daat-auth-pop {
+  from { opacity: 0; transform: scale(0.94) translateY(8px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0);   }
+}
+
+.daat-auth-close {
+  position: absolute; top: 8px; right: 12px;
+  background: transparent; border: none;
+  font-size: 24px; line-height: 1;
+  color: #888; cursor: pointer;
+  padding: 6px 10px; border-radius: 3px;
+  transition: all 0.15s;
+}
+.daat-auth-close:hover {
+  color: #1A1F3A;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.daat-auth-header {
+  display: flex; align-items: baseline; gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #E4DDD0;
+}
+.daat-auth-logo {
+  font-family: 'Frank Ruhl Libre', Georgia, serif;
+  font-size: 30px; font-weight: 700;
+  color: #C5A55A;
+}
+.daat-auth-title {
+  font-size: 17px; font-weight: 600;
+  color: #1A1F3A;
+}
+
+.daat-auth-step { display: none; }
+.daat-auth-step.is-active { display: block; }
+
+.daat-auth-text {
+  font-size: 14px; color: #3D4266;
+  line-height: 1.55;
+  margin-bottom: 20px;
+}
+.daat-auth-text strong { color: #1A1F3A; }
+
+.daat-auth-label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #C5A55A;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.daat-auth-input {
+  width: 100%;
+  padding: 12px 14px;
+  font-family: inherit;
+  font-size: 16px;
+  border: 1px solid #E4DDD0;
+  background: #FAF6EE;
+  color: #1A1F3A;
+  border-radius: 4px;
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+  margin-bottom: 14px;
+  box-sizing: border-box;
+}
+.daat-auth-input:focus {
+  outline: none;
+  border-color: #C5A55A;
+  box-shadow: 0 0 0 3px rgba(197, 165, 90, 0.18);
+  background: #ffffff;
+}
+.daat-auth-code-input {
+  text-align: center;
+  letter-spacing: 14px;
+  font-size: 26px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  font-family: 'Menlo', 'Courier New', monospace;
+}
+
+.daat-auth-submit {
+  width: 100%;
+  padding: 13px;
+  background: #1A1F3A;
+  color: #ffffff;
+  border: none;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.15s, transform 0.1s;
+}
+.daat-auth-submit:hover { background: #2A2F4A; }
+.daat-auth-submit:active { transform: scale(0.99); }
+.daat-auth-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.daat-auth-link {
+  display: block;
+  width: 100%;
+  background: transparent;
+  color: #888;
+  border: none;
+  padding: 9px;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  margin-top: 6px;
+  text-align: center;
+  border-radius: 3px;
+  transition: color 0.15s, background 0.15s;
+}
+.daat-auth-link:hover {
+  color: #C5A55A;
+  background: rgba(197, 165, 90, 0.06);
+}
+
+.daat-auth-error {
+  font-size: 12px;
+  color: #C0392B;
+  background: #FFE8E8;
+  padding: 0;
+  border-radius: 3px;
+  margin-top: 10px;
+  transition: padding 0.2s;
+  line-height: 1.4;
+}
+.daat-auth-error:not(:empty) { padding: 9px 12px; }
+
+.daat-auth-footer {
+  margin-top: 22px;
+  padding-top: 14px;
+  border-top: 1px solid #E4DDD0;
+  font-size: 11px;
+  color: #888;
+  text-align: center;
+}

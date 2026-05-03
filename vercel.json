@@ -26,6 +26,18 @@
     },
     "api/admin/feedback.js": {
       "maxDuration": 5
+    },
+    "api/auth/send-code.js": {
+      "maxDuration": 10
+    },
+    "api/auth/verify-code.js": {
+      "maxDuration": 5
+    },
+    "api/auth/logout.js": {
+      "maxDuration": 5
+    },
+    "api/auth/me.js": {
+      "maxDuration": 5
     }
   }
 }
