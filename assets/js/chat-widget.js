@@ -122,14 +122,33 @@
     autre: 'Autre ou non spécifié — demander si pertinent',
   };
 
+  // === LANGUAGE PREFERENCE ===
+  const LANG_KEY = 'daat-lang-v1';
+  const LANG_LABELS = {
+    fr: 'français',
+    he: 'hébreu (עברית)',
+    en: 'English',
+    es: 'español',
+  };
+  function getLang() {
+    return localStorage.getItem(LANG_KEY) || 'fr';
+  }
+  function setLang(lang) {
+    if (!LANG_LABELS[lang]) lang = 'fr';
+    localStorage.setItem(LANG_KEY, lang);
+  }
+
   function buildIntroMessage(niveau, minhag) {
     const niveauTxt = NIVEAU_LABELS[niveau] || niveau;
     const minhagTxt = MINHAG_LABELS[minhag] || minhag;
+    const lang = getLang();
+    const langTxt = LANG_LABELS[lang] || 'français';
     return (
       `Bonjour Daat ! Voici mon profil pour cette session :\n` +
       `• Niveau : ${niveauTxt}\n` +
-      `• Minhag : ${minhagTxt}\n\n` +
-      `Je suis prêt à commencer. Adapte tes réponses à ce profil.`
+      `• Minhag : ${minhagTxt}\n` +
+      `• Langue de réponse souhaitée : ${langTxt}\n\n` +
+      `Je suis prêt à commencer. Adapte tes réponses à ce profil et réponds dans la langue indiquée.`
     );
   }
 
@@ -470,11 +489,17 @@
               </div>
             </div>
 
-            <button class="daat-chat-start" id="daat-chat-start" disabled>✓ Commencer l'étude</button>
+            <div class="daat-chat-step">
+              <div class="daat-chat-step-label">③ Langue de réponse</div>
+              <div class="daat-chat-chips" data-group="lang">
+                <button class="daat-chat-chip" data-value="fr">🇫🇷 Français</button>
+                <button class="daat-chat-chip" data-value="he" style="font-family:'Frank Ruhl Libre',serif;">עברית</button>
+                <button class="daat-chat-chip" data-value="en">🇬🇧 English</button>
+                <button class="daat-chat-chip" data-value="es">🇪🇸 Español</button>
+              </div>
+            </div>
 
-            <p style="font-size: 0.85em; color: var(--daat-text-muted); margin-top: 16px;">
-              💡 Tu peux me parler en <strong>français</strong>, <strong>hébreu</strong>, <strong>anglais</strong> ou <strong>espagnol</strong>.
-            </p>
+            <button class="daat-chat-start" id="daat-chat-start" disabled>✓ Commencer l'étude</button>
             <div class="signature">דעת התורה לעומקה</div>
           </div>
         `;
@@ -484,6 +509,11 @@
           if (btn) btn.disabled = !(this.selectedNiveau && this.selectedMinhag);
         };
         updateStartBtn();
+
+        // Pré-sélectionne la langue précédemment choisie
+        const currentLang = getLang();
+        const langChip = this.messagesEl.querySelector(`.daat-chat-chips[data-group="lang"] .daat-chat-chip[data-value="${currentLang}"]`);
+        if (langChip) langChip.classList.add('is-selected');
 
         // Toggle des chips (sélection unique par groupe)
         this.messagesEl.querySelectorAll('.daat-chat-chips').forEach(group => {
@@ -495,6 +525,7 @@
               const val = chip.dataset.value;
               if (groupName === 'niveau') this.selectedNiveau = val;
               if (groupName === 'minhag') this.selectedMinhag = val;
+              if (groupName === 'lang') setLang(val);
               updateStartBtn();
             });
           });
@@ -696,11 +727,13 @@
 
         const niveauTxt = NIVEAU_LABELS[this.selectedNiveau] || this.selectedNiveau;
         const minhagTxt = MINHAG_LABELS[this.selectedMinhag] || this.selectedMinhag;
+        const langTxt = LANG_LABELS[getLang()] || 'français';
         if (!/•\s*Niveau/i.test(text)) {
           text =
             `[Profil de cette session]\n` +
             `• Niveau : ${niveauTxt}\n` +
-            `• Minhag : ${minhagTxt}\n\n` +
+            `• Minhag : ${minhagTxt}\n` +
+            `• Langue de réponse souhaitée : ${langTxt}\n\n` +
             `[Ma question]\n${text}`;
         }
       }

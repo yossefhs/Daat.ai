@@ -35,6 +35,85 @@
     nav a { font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(255,255,255,0.6); text-decoration: none; margin-left: 28px; letter-spacing: 1px; }
     nav a:hover { color: var(--gold); }
 
+    /* LANGUAGE PICKER */
+    .lang-picker { display: inline-flex; gap: 4px; margin-left: 28px; }
+    .lang-btn {
+      background: transparent; border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.5); padding: 4px 9px; font-size: 11px;
+      cursor: pointer; font-family: 'Inter', sans-serif; letter-spacing: 1px;
+      border-radius: 2px; transition: all 0.15s;
+    }
+    .lang-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .lang-btn.is-active { background: var(--gold); color: var(--navy); border-color: var(--gold); font-weight: 600; }
+
+    /* SEARCH BAR */
+    .search-block { margin-bottom: 28px; }
+    .search-input {
+      width: 100%; padding: 14px 18px; font-family: inherit; font-size: 16px;
+      border: 1px solid var(--border); background: var(--white); color: var(--text-dark);
+      border-radius: 4px; transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .search-input:focus {
+      outline: none; border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(197,165,90,0.12);
+    }
+    .search-meta {
+      font-family: 'Inter', sans-serif; font-size: 11px;
+      color: var(--text-muted); margin-top: 6px; letter-spacing: 0.5px;
+    }
+
+    /* PROGRESS BAR */
+    .progress-block {
+      background: var(--white); border: 1px solid var(--border);
+      border-left: 4px solid var(--green);
+      padding: 18px 22px; margin-bottom: 28px;
+    }
+    .progress-header {
+      display: flex; align-items: baseline; justify-content: space-between;
+      margin-bottom: 10px; flex-wrap: wrap; gap: 8px;
+    }
+    .progress-label {
+      font-family: 'Inter', sans-serif; font-size: 11px;
+      letter-spacing: 2px; text-transform: uppercase; color: var(--green);
+      font-weight: 600;
+    }
+    .progress-stat {
+      font-family: 'Cormorant Garamond', serif; font-size: 18px;
+      color: var(--navy);
+    }
+    .progress-stat strong { color: var(--green); font-weight: 600; }
+    .progress-bar {
+      height: 8px; background: var(--cream-dark); border-radius: 4px; overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%; background: linear-gradient(90deg, var(--green), var(--gold));
+      transition: width 0.4s ease;
+    }
+    .progress-actions {
+      display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;
+    }
+    .progress-action {
+      font-family: 'Inter', sans-serif; font-size: 11px;
+      background: transparent; border: 1px solid var(--border);
+      color: var(--text-mid); padding: 5px 10px; cursor: pointer;
+      border-radius: 2px; transition: all 0.15s;
+    }
+    .progress-action:hover { border-color: var(--gold); color: var(--navy); }
+
+    /* SIMAN CARD STATUS BADGES */
+    .siman-progress-badge {
+      position: absolute; top: 10px; right: 10px;
+      width: 24px; height: 24px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 600;
+    }
+    .badge-visited { background: rgba(197,165,90,0.15); color: var(--gold); }
+    .badge-completed { background: rgba(46,125,82,0.15); color: var(--green); }
+
+    /* RTL helpers */
+    body[dir="rtl"] .siman-card { text-align: right; }
+    body[dir="rtl"] .breadcrumb a, body[dir="rtl"] .breadcrumb span { direction: ltr; }
+
     /* BREADCRUMB */
     .breadcrumb {
       background: var(--navy); padding: 12px 40px;
@@ -233,9 +312,15 @@
     <span class="logo-en">DAAT</span>
   </a>
   <nav>
-    <a href="../../index.html#vision">Vision</a>
-    <a href="../../index.html#contenu">Contenu</a>
-    <a href="../../chat.html">💬 IA Daat</a>
+    <a href="../../index.html#vision" data-i18n="nav.vision">Vision</a>
+    <a href="../../index.html#contenu" data-i18n="nav.content">Contenu</a>
+    <a href="../../chat.html" data-i18n="nav.chat">💬 IA Daat</a>
+    <span class="lang-picker" id="lang-picker">
+      <button class="lang-btn" data-lang="fr" title="Français">FR</button>
+      <button class="lang-btn" data-lang="he" title="עברית" style="font-family:'Frank Ruhl Libre',serif;">ע</button>
+      <button class="lang-btn" data-lang="en" title="English">EN</button>
+      <button class="lang-btn" data-lang="es" title="Español">ES</button>
+    </span>
   </nav>
 </header>
 
@@ -261,8 +346,38 @@
 <div class="content">
 
   <div class="intro-card">
-    <p>Les <strong>Hilkhot Shabbat</strong> du Choulchan Aroukh, Orah Haïm, couvrent les sections <strong>242 à 365</strong>. Nous progressons dans l'ordre du Mehaber. Les simanim ci-dessous sont disponibles ; les autres seront ajoutés au fil de l'étude.</p>
-    <p>Pour chaque siman : texte hébreu intégral du Choulchan Aroukh + Hagaha du Rama, traduction et explication, sources des Rishonim et Acharonim, plus le pilpoul des grands commentateurs (Mishna Brura, Choulchan Aroukh haRav, Yabia Omer, Igrot Moshe…).</p>
+    <p data-i18n="shabbat.intro1">Les <strong>Hilkhot Shabbat</strong> du Choulchan Aroukh, Orah Haïm, couvrent les sections <strong>242 à 365</strong>. Nous progressons dans l'ordre du Mehaber. Les simanim ci-dessous sont disponibles ; les autres seront ajoutés au fil de l'étude.</p>
+    <p data-i18n="shabbat.intro2">Pour chaque siman : texte hébreu intégral du Choulchan Aroukh + Hagaha du Rama, traduction et explication, sources des Rishonim et Acharonim, plus le pilpoul des grands commentateurs (Mishna Brura, Choulchan Aroukh haRav, Yabia Omer, Igrot Moshe…).</p>
+  </div>
+
+  <!-- BARRE DE RECHERCHE -->
+  <div class="search-block">
+    <input
+      type="text"
+      class="search-input"
+      id="search-input"
+      placeholder="🔍 Rechercher un siman par numéro, mot-clé, hébreu ou français…"
+      data-i18n-placeholder="shabbat.searchPlaceholder"
+    >
+    <div class="search-meta" id="search-meta"></div>
+  </div>
+
+  <!-- BARRE DE PROGRESSION -->
+  <div class="progress-block">
+    <div class="progress-header">
+      <span class="progress-label" data-i18n="shabbat.progressLabel">Ton parcours d'étude</span>
+      <span class="progress-stat" id="progress-stat">—</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress-fill" style="width: 0%;"></div>
+    </div>
+    <div class="progress-actions">
+      <button class="progress-action" id="reset-progress" data-i18n="shabbat.resetProgress">↺ Réinitialiser</button>
+      <span class="progress-action" style="border-color:transparent; cursor:default;">
+        🟡 <span data-i18n="shabbat.visited">Visité</span> ·
+        🟢 <span data-i18n="shabbat.completed">Complété (3 niveaux)</span>
+      </span>
+    </div>
   </div>
 
   <!-- DISPONIBLES -->
@@ -454,6 +569,244 @@
 <link rel="stylesheet" href="../../assets/css/chat-widget.css">
 <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
 <script src="../../assets/js/chat-widget.js" defer></script>
+
+<script>
+// =================================================================
+// 1) LANGUE D'AFFICHAGE — sélecteur (FR / HE / EN / ES)
+// =================================================================
+const LANG_KEY = 'daat-lang-v1';
+
+const I18N = {
+  fr: {
+    'nav.vision': 'Vision',
+    'nav.content': 'Contenu',
+    'nav.chat': '💬 IA Daat',
+    'shabbat.intro1': 'Les <strong>Hilkhot Shabbat</strong> du Choulchan Aroukh, Orah Haïm, couvrent les sections <strong>242 à 365</strong>. Nous progressons dans l\'ordre du Mehaber. Les simanim ci-dessous sont disponibles ; les autres seront ajoutés au fil de l\'étude.',
+    'shabbat.intro2': 'Pour chaque siman : texte hébreu intégral du Choulchan Aroukh + Hagaha du Rama, traduction et explication, sources des Rishonim et Acharonim, plus le pilpoul des grands commentateurs (Mishna Brura, Choulchan Aroukh haRav, Yabia Omer, Igrot Moshe…).',
+    'shabbat.searchPlaceholder': '🔍 Rechercher un siman par numéro, mot-clé, hébreu ou français…',
+    'shabbat.progressLabel': 'Ton parcours d\'étude',
+    'shabbat.resetProgress': '↺ Réinitialiser',
+    'shabbat.visited': 'Visité',
+    'shabbat.completed': 'Complété (3 niveaux)',
+    'shabbat.searchNoResult': 'Aucun siman ne correspond à',
+    'shabbat.searchResult': 'simanim trouvés',
+    'shabbat.progressNone': 'Tu n\'as pas encore commencé. Choisis un siman pour démarrer.',
+    'shabbat.progressVisited': 'siman visité(s)',
+    'shabbat.progressCompleted': 'complété(s)',
+    'shabbat.progressOf': 'sur',
+  },
+  he: {
+    'nav.vision': 'חזון',
+    'nav.content': 'תוכן',
+    'nav.chat': '💬 דעת AI',
+    'shabbat.intro1': '<strong>הלכות שבת</strong> בשולחן ערוך אורח חיים מכסות את הסימנים <strong>רמ״ב-שס״ה</strong>. אנו מתקדמים לפי סדר המחבר. הסימנים שלמטה זמינים ; השאר ייתוספו במהלך הלימוד.',
+    'shabbat.intro2': 'לכל סימן : טקסט עברי מלא של השולחן ערוך + הגהת הרמ״א, תרגום והסבר, מקורות הראשונים והאחרונים, ופלפול של גדולי המפרשים (משנה ברורה, שולחן ערוך הרב, יביע אומר, אגרות משה…).',
+    'shabbat.searchPlaceholder': '🔍 חפש סימן לפי מספר, מילת מפתח, עברית או צרפתית…',
+    'shabbat.progressLabel': 'מסלול הלימוד שלך',
+    'shabbat.resetProgress': '↺ איפוס',
+    'shabbat.visited': 'נצפה',
+    'shabbat.completed': 'הושלם (3 רמות)',
+    'shabbat.searchNoResult': 'אין סימן שמתאים ל-',
+    'shabbat.searchResult': 'סימנים נמצאו',
+    'shabbat.progressNone': 'עדיין לא התחלת. בחר סימן כדי להתחיל.',
+    'shabbat.progressVisited': 'סימן(ים) נצפה(ו)',
+    'shabbat.progressCompleted': 'הושלם(ו)',
+    'shabbat.progressOf': 'מתוך',
+  },
+  en: {
+    'nav.vision': 'Vision',
+    'nav.content': 'Content',
+    'nav.chat': '💬 Daat AI',
+    'shabbat.intro1': 'The <strong>Hilkhot Shabbat</strong> of the Shulchan Aruch, Orach Chayim, cover sections <strong>242–365</strong>. We progress in the order of the Mehaber. The simanim below are available; others will be added as the study unfolds.',
+    'shabbat.intro2': 'For each siman: full Hebrew text of the Shulchan Aruch + Rama Hagaha, translation and explanation, Rishonim and Acharonim sources, plus the pilpul of the great commentators (Mishna Brura, Shulchan Aruch haRav, Yabia Omer, Igrot Moshe…).',
+    'shabbat.searchPlaceholder': '🔍 Search a siman by number, keyword, Hebrew or French…',
+    'shabbat.progressLabel': 'Your learning journey',
+    'shabbat.resetProgress': '↺ Reset',
+    'shabbat.visited': 'Visited',
+    'shabbat.completed': 'Completed (3 levels)',
+    'shabbat.searchNoResult': 'No siman matches',
+    'shabbat.searchResult': 'simanim found',
+    'shabbat.progressNone': 'You haven\'t started yet. Pick a siman to begin.',
+    'shabbat.progressVisited': 'siman(s) visited',
+    'shabbat.progressCompleted': 'completed',
+    'shabbat.progressOf': 'of',
+  },
+  es: {
+    'nav.vision': 'Visión',
+    'nav.content': 'Contenido',
+    'nav.chat': '💬 IA Daat',
+    'shabbat.intro1': 'Las <strong>Hilkhot Shabbat</strong> del Shulján Aruj, Oraj Jaim, cubren las secciones <strong>242 a 365</strong>. Avanzamos en el orden del Mejaber. Los simanim de abajo están disponibles ; los demás se añadirán a lo largo del estudio.',
+    'shabbat.intro2': 'Para cada siman : texto hebreo íntegro del Shulján Aruj + Hagahá del Ramá, traducción y explicación, fuentes de los Rishonim y Ajaronim, además del pilpul de los grandes comentaristas (Mishná Brurá, Shulján Aruj haRav, Yabia Omer, Igrot Moshé…).',
+    'shabbat.searchPlaceholder': '🔍 Buscar un siman por número, palabra clave, hebreo o francés…',
+    'shabbat.progressLabel': 'Tu camino de estudio',
+    'shabbat.resetProgress': '↺ Reiniciar',
+    'shabbat.visited': 'Visitado',
+    'shabbat.completed': 'Completado (3 niveles)',
+    'shabbat.searchNoResult': 'Ningún siman coincide con',
+    'shabbat.searchResult': 'simanim encontrados',
+    'shabbat.progressNone': 'Aún no has comenzado. Elige un siman para empezar.',
+    'shabbat.progressVisited': 'siman(es) visitado(s)',
+    'shabbat.progressCompleted': 'completado(s)',
+    'shabbat.progressOf': 'de',
+  },
+};
+
+function getLang() {
+  return localStorage.getItem(LANG_KEY) || 'fr';
+}
+function setLang(lang) {
+  if (!I18N[lang]) lang = 'fr';
+  localStorage.setItem(LANG_KEY, lang);
+  document.documentElement.lang = lang;
+  document.body.dir = (lang === 'he') ? 'rtl' : 'ltr';
+  applyI18n(lang);
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('is-active', b.dataset.lang === lang);
+  });
+  // Re-render dynamic UI in the new language
+  if (typeof renderProgress === 'function') renderProgress();
+  if (typeof searchCards === 'function') searchCards();
+}
+function applyI18n(lang) {
+  const dict = I18N[lang] || I18N.fr;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (dict[key]) el.innerHTML = dict[key];
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.dataset.i18nPlaceholder;
+    if (dict[key]) el.placeholder = dict[key];
+  });
+}
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => setLang(btn.dataset.lang));
+});
+
+// Initialize
+setLang(getLang());
+
+// =================================================================
+// 2) RECHERCHE — filtre les cards par numéro, nom, description, tags
+// =================================================================
+const $searchInput = document.getElementById('search-input');
+const $searchMeta = document.getElementById('search-meta');
+const $allCards = document.querySelectorAll('.siman-card');
+
+function searchCards() {
+  const q = $searchInput.value.trim().toLowerCase();
+  const dict = I18N[getLang()] || I18N.fr;
+  let visible = 0;
+  $allCards.forEach(card => {
+    if (!q) {
+      card.style.display = '';
+      visible++;
+      return;
+    }
+    const txt = card.textContent.toLowerCase();
+    const num = card.querySelector('.siman-num')?.textContent || '';
+    const matches = txt.includes(q) || num.includes(q);
+    card.style.display = matches ? '' : 'none';
+    if (matches) visible++;
+  });
+  if (!q) {
+    $searchMeta.textContent = '';
+  } else if (visible === 0) {
+    $searchMeta.textContent = `${dict['shabbat.searchNoResult']} "${q}".`;
+  } else {
+    $searchMeta.textContent = `${visible} ${dict['shabbat.searchResult']}.`;
+  }
+}
+$searchInput.addEventListener('input', searchCards);
+
+// =================================================================
+// 3) PROGRESSION — visited / completed par siman
+// =================================================================
+const PROGRESS_KEY = 'daat-progress-v1';
+
+function loadProgress() {
+  try { return JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}'); }
+  catch { return {}; }
+}
+function saveProgress(p) {
+  try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(p)); } catch {}
+}
+
+function renderProgress() {
+  const p = loadProgress();
+  const dict = I18N[getLang()] || I18N.fr;
+  const availableCards = document.querySelectorAll('.siman-card.available');
+  const totalAvailable = availableCards.length;
+  let visitedCount = 0;
+  let completedCount = 0;
+
+  availableCards.forEach(card => {
+    const num = card.querySelector('.siman-num')?.textContent.trim();
+    if (!num) return;
+    const state = p[num];
+    // Remove old badges
+    const oldBadge = card.querySelector('.siman-progress-badge');
+    if (oldBadge) oldBadge.remove();
+
+    if (state === 'completed') {
+      completedCount++;
+      visitedCount++;
+      const b = document.createElement('span');
+      b.className = 'siman-progress-badge badge-completed';
+      b.textContent = '✓';
+      b.title = dict['shabbat.completed'];
+      card.appendChild(b);
+    } else if (state === 'visited') {
+      visitedCount++;
+      const b = document.createElement('span');
+      b.className = 'siman-progress-badge badge-visited';
+      b.textContent = '·';
+      b.title = dict['shabbat.visited'];
+      card.appendChild(b);
+    }
+  });
+
+  const $stat = document.getElementById('progress-stat');
+  const $fill = document.getElementById('progress-fill');
+  if (totalAvailable === 0) {
+    $stat.textContent = '—';
+    $fill.style.width = '0%';
+    return;
+  }
+  if (visitedCount === 0) {
+    $stat.textContent = dict['shabbat.progressNone'];
+    $fill.style.width = '0%';
+  } else {
+    $stat.innerHTML =
+      `<strong>${visitedCount}</strong> ${dict['shabbat.progressVisited']} ` +
+      `${dict['shabbat.progressOf']} ${totalAvailable} · ` +
+      `<strong>${completedCount}</strong> ${dict['shabbat.progressCompleted']}`;
+    const pct = Math.round((completedCount * 100 + visitedCount * 30) / totalAvailable / 1.3);
+    $fill.style.width = Math.min(pct, 100) + '%';
+  }
+}
+
+// Mark visited when user clicks a siman card
+document.querySelectorAll('.siman-card.available').forEach(card => {
+  card.addEventListener('click', () => {
+    const num = card.querySelector('.siman-num')?.textContent.trim();
+    if (!num) return;
+    const p = loadProgress();
+    if (!p[num]) p[num] = 'visited';
+    saveProgress(p);
+    // (renderProgress will run on next page load)
+  });
+});
+
+// Reset button
+document.getElementById('reset-progress').addEventListener('click', () => {
+  const dict = I18N[getLang()] || I18N.fr;
+  if (!confirm('OK?')) return;
+  localStorage.removeItem(PROGRESS_KEY);
+  renderProgress();
+});
+
+renderProgress();
+</script>
 
 </body>
 </html>

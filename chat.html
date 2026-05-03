@@ -56,6 +56,17 @@
       border-radius: 4px; font-family: inherit;
     }
     .header-btn:hover { border-color: var(--gold); color: var(--gold); }
+    /* LANGUAGE PICKER */
+    .lang-picker { display: inline-flex; gap: 3px; margin-right: 6px; }
+    .lang-btn {
+      background: transparent; border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.55); padding: 5px 9px; font-size: 11px;
+      cursor: pointer; font-family: inherit; letter-spacing: 1px;
+      border-radius: 3px; transition: all 0.15s;
+    }
+    .lang-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .lang-btn.is-active { background: var(--gold); color: var(--navy); border-color: var(--gold); font-weight: 600; }
+
     .simanim-dropdown { position: relative; }
     .simanim-menu {
       position: absolute; top: calc(100% + 6px); right: 0;
@@ -416,6 +427,12 @@
     </a>
   </div>
   <div class="header-actions">
+    <span class="lang-picker" id="lang-picker">
+      <button class="lang-btn" data-lang="fr" title="Français">FR</button>
+      <button class="lang-btn" data-lang="he" title="עברית" style="font-family:'Frank Ruhl Libre',serif;">ע</button>
+      <button class="lang-btn" data-lang="en" title="English">EN</button>
+      <button class="lang-btn" data-lang="es" title="Español">ES</button>
+    </span>
     <div class="simanim-dropdown">
       <button class="header-btn" id="simanim-btn">📚 Simanim ▾</button>
       <div class="simanim-menu" id="simanim-menu">
@@ -765,12 +782,39 @@ $minhagChips.addEventListener('click', e => {
 // ============================================================
 // START NEW CONVERSATION (intro mode)
 // ============================================================
+// === LANGUAGE PICKER ===
+const LANG_KEY = 'daat-lang-v1';
+const LANG_LABELS = {
+  fr: { name: 'français', code: 'fr' },
+  he: { name: 'hébreu (עברית)', code: 'he' },
+  en: { name: 'English', code: 'en' },
+  es: { name: 'español', code: 'es' },
+};
+function getLang() {
+  return localStorage.getItem(LANG_KEY) || 'fr';
+}
+function setLang(lang) {
+  if (!LANG_LABELS[lang]) lang = 'fr';
+  localStorage.setItem(LANG_KEY, lang);
+  document.documentElement.lang = lang;
+  document.body.dir = (lang === 'he') ? 'rtl' : 'ltr';
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('is-active', b.dataset.lang === lang);
+  });
+}
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => setLang(btn.dataset.lang));
+});
+setLang(getLang());
+
 function buildIntroMessage() {
+  const lang = getLang();
   return `[Profil de cette session]
 - Niveau d'étude : ${state.selectedNiveau}
 - Minhag : ${state.selectedMinhag}
+- Langue de réponse souhaitée : ${LANG_LABELS[lang].name}
 
-Je suis prêt à commencer. Adapte tes réponses à ce profil.`;
+Je suis prêt à commencer. Adapte tes réponses à ce profil et réponds dans la langue indiquée.`;
 }
 
 $startBtn.addEventListener('click', () => {
@@ -785,7 +829,8 @@ document.querySelectorAll('.quick-q').forEach(btn => {
       return;
     }
     const q = btn.dataset.q;
-    const msg = `[Profil de cette session]\n- Niveau : ${state.selectedNiveau}\n- Minhag : ${state.selectedMinhag}\n\n${q}`;
+    const lang = getLang();
+    const msg = `[Profil de cette session]\n- Niveau : ${state.selectedNiveau}\n- Minhag : ${state.selectedMinhag}\n- Langue de réponse souhaitée : ${LANG_LABELS[lang].name}\n\n${q}`;
     beginNewConversation(msg);
   });
 });
@@ -834,7 +879,8 @@ function submitInput() {
 
   // First-message in a new conversation: include profile
   if (state.messages.length === 0 && state.selectedNiveau && state.selectedMinhag) {
-    const msg = `[Profil de cette session]\n- Niveau : ${state.selectedNiveau}\n- Minhag : ${state.selectedMinhag}\n\n${text}`;
+    const lang = getLang();
+    const msg = `[Profil de cette session]\n- Niveau : ${state.selectedNiveau}\n- Minhag : ${state.selectedMinhag}\n- Langue de réponse souhaitée : ${LANG_LABELS[lang].name}\n\n${text}`;
     if (!state.currentConvId) state.currentConvId = newConversationId();
     $welcome.classList.add('hidden');
     $messagesWrap.classList.add('active');
