@@ -128,7 +128,6 @@
     fr: 'français',
     he: 'hébreu (עברית)',
     en: 'English',
-    es: 'español',
   };
   function getLang() {
     return localStorage.getItem(LANG_KEY) || 'fr';
@@ -495,7 +494,6 @@
                 <button class="daat-chat-chip" data-value="fr">🇫🇷 Français</button>
                 <button class="daat-chat-chip" data-value="he" style="font-family:'Frank Ruhl Libre',serif;">עברית</button>
                 <button class="daat-chat-chip" data-value="en">🇬🇧 English</button>
-                <button class="daat-chat-chip" data-value="es">🇪🇸 Español</button>
               </div>
             </div>
 
