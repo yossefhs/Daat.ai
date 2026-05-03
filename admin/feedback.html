@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DAAT Admin — Feedback utilisateurs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #1A1F3A; --gold: #C5A55A; --cream: #FAF6EE;
+      --green: #2E7D52; --red: #C0392B; --border: #E4DDD0;
+      --text: #2C2C2C; --muted: #888;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #F4F4F6; color: var(--text); min-height: 100vh; }
+    header {
+      background: var(--navy); color: white; padding: 16px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 2px solid var(--gold);
+    }
+    .logo { display: flex; align-items: center; gap: 12px; }
+    .logo .he { font-family: 'Frank Ruhl Libre', serif; font-size: 26px; color: var(--gold); font-weight: 700; }
+    .logo .sub { font-size: 11px; color: rgba(255,255,255,0.5); letter-spacing: 3px; text-transform: uppercase; }
+    nav a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 13px; margin-left: 20px; }
+    nav a:hover { color: var(--gold); }
+    main { max-width: 1200px; margin: 0 auto; padding: 32px; }
+    h1 { font-size: 26px; color: var(--navy); margin-bottom: 8px; }
+    .lead { color: var(--muted); margin-bottom: 24px; font-size: 14px; }
+
+    .auth-banner {
+      background: #FFF8E5; border: 1px solid var(--gold);
+      padding: 16px 20px; margin-bottom: 24px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .auth-banner.connected { background: #E8F5E9; border-color: var(--green); }
+    input[type="password"] {
+      width: 100%; max-width: 280px; padding: 10px 12px;
+      border: 1px solid var(--border); background: white;
+      font-family: inherit; font-size: 14px;
+    }
+    button {
+      background: var(--navy); color: white; border: none;
+      padding: 10px 22px; font-family: inherit; font-size: 14px;
+      font-weight: 600; cursor: pointer; transition: background 0.15s;
+    }
+    button:hover { background: #2A2F4A; }
+    button.gold { background: var(--gold); }
+    button.gold:hover { background: #D4B97A; }
+    button.ghost { background: transparent; color: var(--navy); border: 1px solid var(--border); }
+    button.danger { background: var(--red); padding: 6px 12px; font-size: 12px; }
+
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+      margin-bottom: 32px;
+    }
+    .stat-card {
+      background: white; border: 1px solid var(--border);
+      padding: 20px; border-left: 3px solid var(--gold);
+    }
+    .stat-card .label {
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--muted); font-weight: 600; margin-bottom: 8px;
+    }
+    .stat-card .value { font-size: 32px; color: var(--navy); font-weight: 600; }
+    .stat-card.up { border-left-color: var(--green); }
+    .stat-card.up .value { color: var(--green); }
+    .stat-card.down { border-left-color: var(--red); }
+    .stat-card.down .value { color: var(--red); }
+
+    .filters { display: flex; gap: 12px; margin-bottom: 20px; align-items: center; }
+    .filter-btn {
+      padding: 6px 14px; background: white; border: 1px solid var(--border);
+      cursor: pointer; font-size: 13px; color: var(--text);
+    }
+    .filter-btn.is-active { background: var(--navy); color: white; border-color: var(--navy); }
+
+    .feedback-item {
+      background: white; border: 1px solid var(--border);
+      padding: 18px 22px; margin-bottom: 14px;
+      border-left: 4px solid var(--border);
+    }
+    .feedback-item.up { border-left-color: var(--green); }
+    .feedback-item.down { border-left-color: var(--red); }
+    .fb-header {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .fb-rating { font-size: 22px; }
+    .fb-meta { font-size: 12px; color: var(--muted); }
+    .fb-meta strong { color: var(--navy); }
+    .fb-question {
+      font-size: 14px; color: var(--text); margin: 8px 0;
+      padding: 10px 14px; background: #F4F4F6; border-radius: 4px;
+    }
+    .fb-question::before { content: "❓ "; color: var(--gold); }
+    .fb-answer {
+      font-size: 13px; color: var(--muted); margin: 8px 0;
+      padding: 10px 14px; background: #FAFAF6; border-left: 2px solid var(--gold);
+      max-height: 200px; overflow-y: auto;
+      line-height: 1.6;
+    }
+    .fb-comment {
+      background: #FFF3E0; padding: 10px 14px; margin: 8px 0;
+      font-size: 13px; color: #5D4037; border-left: 2px solid #F57C00;
+    }
+    .fb-comment::before { content: "💬 "; }
+    .fb-actions { display: flex; justify-content: flex-end; margin-top: 8px; }
+
+    .empty {
+      text-align: center; padding: 50px 20px; color: var(--muted);
+      font-style: italic; background: white; border: 1px solid var(--border);
+    }
+
+    .toast {
+      position: fixed; bottom: 32px; right: 32px;
+      background: var(--navy); color: white; padding: 14px 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      transform: translateX(120%); transition: transform 0.3s;
+      z-index: 9999; max-width: 400px;
+    }
+    .toast.show { transform: translateX(0); }
+    .toast.success { background: var(--green); }
+    .toast.error { background: var(--red); }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <span class="he">דעת</span>
+    <div>
+      <div style="font-size: 12px; font-weight: 600;">DAAT Admin</div>
+      <div class="sub">Feedback utilisateurs</div>
+    </div>
+  </div>
+  <nav>
+    <a href="../index.html">← Site</a>
+    <a href="corpus.html">Corpus</a>
+    <a href="feedback.html" style="color: var(--gold);">Feedback</a>
+    <a href="index.html">Admin</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Feedback utilisateurs</h1>
+  <p class="lead">Retours 👍/👎 que les utilisateurs laissent sous chaque réponse de Daat. Permet d'identifier les patterns de réponses faibles et de combler les lacunes du corpus.</p>
+
+  <!-- Auth -->
+  <div id="auth-banner" class="auth-banner">
+    <div style="flex: 1;">
+      <strong>🔒 Authentification requise</strong>
+      <div style="font-size: 13px; color: var(--muted); margin-top: 4px;">
+        Saisis le mot de passe admin (variable <code>ADMIN_PASSWORD</code>).
+      </div>
+    </div>
+    <input type="password" id="admin-pw" placeholder="Mot de passe admin">
+    <button id="auth-btn" class="gold">Se connecter</button>
+  </div>
+
+  <!-- Content (hidden until auth) -->
+  <div id="content" style="display:none;">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="label">Total feedback</div>
+        <div class="value" id="stat-total">—</div>
+      </div>
+      <div class="stat-card up">
+        <div class="label">👍 Positifs</div>
+        <div class="value" id="stat-positive">—</div>
+      </div>
+      <div class="stat-card down">
+        <div class="label">👎 Négatifs</div>
+        <div class="value" id="stat-negative">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Satisfaction</div>
+        <div class="value" id="stat-satisfaction">—</div>
+      </div>
+    </div>
+
+    <div class="filters">
+      <span style="font-size:13px; color:var(--muted);">Filtrer :</span>
+      <button class="filter-btn is-active" data-filter="all">Tous</button>
+      <button class="filter-btn" data-filter="👍">👍 Positifs</button>
+      <button class="filter-btn" data-filter="👎">👎 Négatifs</button>
+      <button class="ghost" id="refresh-btn" style="margin-left:auto;">↻ Actualiser</button>
+    </div>
+
+    <div id="feedback-list"></div>
+  </div>
+</main>
+
+<div id="toast" class="toast"></div>
+
+<script>
+const TOKEN_KEY = 'daat-admin-token-v1';
+let allEntries = [];
+let currentFilter = 'all';
+
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + (type || '');
+  setTimeout(() => t.className = 'toast ' + (type || ''), 3500);
+}
+function getToken() { return sessionStorage.getItem(TOKEN_KEY) || ''; }
+function setToken(t) { if (t) sessionStorage.setItem(TOKEN_KEY, t); else sessionStorage.removeItem(TOKEN_KEY); }
+function escapeHtml(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+document.getElementById('auth-btn').addEventListener('click', async () => {
+  const pw = document.getElementById('admin-pw').value.trim();
+  if (!pw) return showToast('Saisis un mot de passe', 'error');
+  setToken(pw);
+  await loadFeedback();
+});
+
+document.getElementById('admin-pw').addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('auth-btn').click();
+});
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('is-active'));
+    btn.classList.add('is-active');
+    currentFilter = btn.dataset.filter;
+    renderList();
+  });
+});
+
+document.getElementById('refresh-btn').addEventListener('click', loadFeedback);
+
+async function loadFeedback() {
+  try {
+    const res = await fetch('/api/admin/feedback', {
+      headers: { 'Authorization': 'Bearer ' + getToken() },
+    });
+    if (res.status === 401) {
+      setToken('');
+      return showToast('Mot de passe incorrect', 'error');
+    }
+    if (!res.ok) {
+      const j = await res.json().catch(() => ({}));
+      return showToast('Erreur : ' + (j.error || res.status), 'error');
+    }
+    const data = await res.json();
+    document.getElementById('auth-banner').classList.add('connected');
+    document.getElementById('auth-banner').innerHTML =
+      '<strong>✓ Connecté</strong>' +
+      '<div style="flex:1; font-size: 13px; color: var(--muted);">Tu vois les ' + (data.entries?.length || 0) + ' derniers retours.</div>' +
+      '<button class="ghost" id="logout-btn">Déconnexion</button>';
+    document.getElementById('logout-btn').addEventListener('click', () => { setToken(''); location.reload(); });
+    document.getElementById('content').style.display = '';
+
+    document.getElementById('stat-total').textContent = data.stats.total;
+    document.getElementById('stat-positive').textContent = data.stats.positive;
+    document.getElementById('stat-negative').textContent = data.stats.negative;
+    document.getElementById('stat-satisfaction').textContent = data.stats.satisfaction + '%';
+
+    allEntries = data.entries || [];
+    renderList();
+  } catch (err) {
+    showToast('Erreur réseau : ' + err.message, 'error');
+  }
+}
+
+function renderList() {
+  const list = document.getElementById('feedback-list');
+  let entries = allEntries;
+  if (currentFilter !== 'all') entries = entries.filter(e => e.rating === currentFilter);
+  if (entries.length === 0) {
+    list.innerHTML = '<div class="empty">Aucun feedback ' + (currentFilter !== 'all' ? currentFilter : '') + '.</div>';
+    return;
+  }
+  list.innerHTML = '';
+  entries.forEach(e => {
+    const el = document.createElement('div');
+    el.className = 'feedback-item ' + (e.rating === '👍' ? 'up' : 'down');
+    const date = new Date(e.createdAt).toLocaleString('fr-FR');
+    el.innerHTML = `
+      <div class="fb-header">
+        <span class="fb-rating">${e.rating}</span>
+        <span class="fb-meta">
+          <strong>${escapeHtml(e.niveau || '?')}</strong> · <strong>${escapeHtml(e.minhag || '?')}</strong>
+          · ${date}
+          ${e.page ? ' · <code>' + escapeHtml(e.page) + '</code>' : ''}
+        </span>
+      </div>
+      <div class="fb-question">${escapeHtml(e.question || '(pas de question)').slice(0, 800)}</div>
+      ${e.comment ? '<div class="fb-comment">' + escapeHtml(e.comment) + '</div>' : ''}
+      <details>
+        <summary style="cursor:pointer; font-size:12px; color:var(--muted); margin: 6px 0;">Voir la réponse de Daat</summary>
+        <div class="fb-answer">${escapeHtml(e.answer || '(vide)').replace(/\n/g, '<br>')}</div>
+      </details>
+      <div class="fb-actions">
+        <button class="danger" data-del="${escapeHtml(e.id)}">Supprimer</button>
+      </div>
+    `;
+    list.appendChild(el);
+  });
+  list.querySelectorAll('button[data-del]').forEach(btn => {
+    btn.addEventListener('click', () => deleteEntry(btn.dataset.del));
+  });
+}
+
+async function deleteEntry(id) {
+  if (!confirm('Supprimer ce feedback ?')) return;
+  try {
+    const res = await fetch('/api/admin/feedback?id=' + encodeURIComponent(id), {
+      method: 'DELETE',
+      headers: { 'Authorization': 'Bearer ' + getToken() },
+    });
+    if (!res.ok) {
+      const j = await res.json().catch(() => ({}));
+      throw new Error(j.error || 'HTTP ' + res.status);
+    }
+    showToast('Supprimé ✓', 'success');
+    loadFeedback();
+  } catch (err) {
+    showToast('Erreur : ' + err.message, 'error');
+  }
+}
+
+// Auto-login si token déjà en session
+(async () => {
+  if (getToken()) await loadFeedback();
+})();
+</script>
+
+</body>
+</html>

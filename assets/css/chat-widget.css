@@ -326,6 +326,51 @@
   background: rgba(192,57,43,0.15);
 }
 
+/* Boutons feedback (👍/👎) */
+.daat-chat-feedback {
+  display: flex; gap: 6px; margin-top: 10px; padding-top: 8px;
+  align-items: center; flex-wrap: wrap;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  opacity: 0.7; transition: opacity 0.2s;
+}
+.daat-chat-feedback:hover { opacity: 1; }
+.daat-chat-feedback-label {
+  font-size: 11px; color: #888; margin-right: 4px;
+}
+.daat-chat-fb-btn {
+  background: transparent; border: 1px solid #E4DDD0;
+  color: #888; padding: 3px 8px;
+  border-radius: 4px; cursor: pointer; font-family: inherit;
+  font-size: 12px; transition: all 0.15s;
+}
+.daat-chat-fb-btn:hover { border-color: var(--daat-gold); color: var(--daat-navy); background: rgba(197,165,90,0.05); }
+.daat-chat-fb-btn.is-selected { border-color: var(--daat-gold); background: rgba(197,165,90,0.15); color: var(--daat-navy); }
+.daat-chat-fb-btn.daat-chat-fb-down.is-selected { border-color: #C0392B; background: rgba(192,57,43,0.10); color: #C0392B; }
+.daat-chat-fb-btn:disabled { opacity: 0.4; cursor: default; }
+.daat-chat-feedback-thanks {
+  font-size: 11px; color: var(--daat-gold); font-style: italic; margin-left: 4px;
+}
+.daat-chat-fb-comment {
+  width: 100%; margin-top: 8px;
+  padding: 8px 10px; background: #fff;
+  border: 1px solid #E4DDD0; border-radius: 4px;
+  font-family: inherit; font-size: 12px; resize: vertical;
+  min-height: 50px;
+}
+.daat-chat-fb-comment:focus { outline: none; border-color: var(--daat-gold); }
+.daat-chat-fb-comment-actions { display: flex; gap: 6px; margin-top: 6px; }
+.daat-chat-fb-send {
+  background: var(--daat-navy); color: #fff; border: none;
+  padding: 4px 10px; font-size: 11px; cursor: pointer; border-radius: 3px;
+  font-family: inherit;
+}
+.daat-chat-fb-send:hover { background: #2A2F4A; }
+.daat-chat-fb-skip {
+  background: transparent; color: #888; border: none;
+  padding: 4px 10px; font-size: 11px; cursor: pointer;
+  font-family: inherit;
+}
+
 /* Bandeau méta-conversation au-dessus des messages chargés */
 .daat-chat-conv-meta {
   background: rgba(197,165,90,0.10);

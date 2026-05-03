@@ -289,6 +289,39 @@
       border-radius: 0 4px 4px 0;
     }
 
+    /* Feedback buttons */
+    .feedback-bar {
+      display: flex; gap: 6px; margin-top: 8px; padding-left: 52px;
+      align-items: center; opacity: 0.6; transition: opacity 0.2s;
+      flex-wrap: wrap;
+    }
+    .feedback-bar:hover { opacity: 1; }
+    .fb-btn {
+      background: transparent; border: 1px solid var(--border);
+      color: var(--text-muted); padding: 4px 10px;
+      border-radius: 4px; cursor: pointer; font-family: inherit;
+      font-size: 13px; transition: all 0.15s;
+    }
+    .fb-btn:hover { border-color: var(--gold); color: var(--navy); background: rgba(197,165,90,0.05); }
+    .fb-btn.is-selected { border-color: var(--gold); background: rgba(197,165,90,0.15); color: var(--navy); }
+    .fb-btn.fb-down.is-selected { border-color: #C0392B; background: rgba(192,57,43,0.10); color: #C0392B; }
+    .fb-btn:disabled { opacity: 0.4; cursor: default; }
+    .fb-thanks {
+      font-size: 12px; color: var(--gold); font-style: italic; margin-left: 6px;
+    }
+    .fb-comment-box {
+      width: 100%; margin-top: 8px; margin-left: 52px;
+      padding: 10px 12px; background: var(--white);
+      border: 1px solid var(--border); border-radius: 6px;
+      font-family: inherit; font-size: 13px; resize: vertical;
+      min-height: 60px;
+    }
+    .fb-comment-box:focus { outline: none; border-color: var(--gold); }
+    .fb-comment-actions { display: flex; gap: 6px; margin-top: 6px; margin-left: 52px; }
+    .fb-comment-send { background: var(--navy); color: #fff; border: none; padding: 5px 12px; font-size: 12px; cursor: pointer; border-radius: 4px; }
+    .fb-comment-send:hover { background: #2A2F4A; }
+    .fb-comment-skip { background: transparent; color: var(--text-muted); border: none; padding: 5px 12px; font-size: 12px; cursor: pointer; }
+
     .typing { display: flex; gap: 5px; padding: 6px 0; }
     .typing span {
       width: 7px; height: 7px; background: var(--text-muted);
@@ -687,7 +720,12 @@ function loadConversationIntoView(id) {
   metaBar.className = 'conv-meta-bar';
   metaBar.innerHTML = `📋 <strong>${escapeHtml(conv.title || '')}</strong> · Niveau : <strong>${escapeHtml(conv.niveau || '')}</strong> · Minhag : <strong>${escapeHtml(conv.minhag || '')}</strong>`;
   $messagesInner.appendChild(metaBar);
-  state.messages.forEach(m => renderMessage(m.role, m.content));
+  state.messages.forEach((m, i) => {
+    const bubble = renderMessage(m.role, m.content);
+    if (m.role === 'assistant') {
+      attachFeedbackBar(bubble, m.content);
+    }
+  });
   $welcome.classList.add('hidden');
   $messagesWrap.classList.add('active');
   scrollToBottom();
@@ -834,8 +872,110 @@ function renderMessage(role, content) {
   wrap.appendChild(avatar);
   wrap.appendChild(bubble);
   $messagesInner.appendChild(wrap);
+  // For assistant messages: store metadata so we can attach feedback once streaming is done
+  if (role === 'assistant') {
+    wrap.dataset.role = 'assistant';
+  }
   scrollToBottom();
   return bubble;
+}
+
+function attachFeedbackBar(assistantBubble, answerText) {
+  // Find the parent .message wrap
+  const wrap = assistantBubble.closest('.message');
+  if (!wrap) return;
+  // Don't double-attach
+  if (wrap.querySelector('.feedback-bar')) return;
+  // Don't attach to empty/error messages
+  if (!answerText || answerText.length < 20) return;
+
+  // Find the last user message that triggered this assistant response
+  const allMsgs = Array.from($messagesInner.querySelectorAll('.message'));
+  const idx = allMsgs.indexOf(wrap);
+  let lastUserContent = '';
+  for (let i = idx - 1; i >= 0; i--) {
+    const m = state.messages[i];
+    if (m && m.role === 'user') { lastUserContent = m.content; break; }
+  }
+
+  const bar = document.createElement('div');
+  bar.className = 'feedback-bar';
+  bar.innerHTML = `
+    <span style="font-size:11px; color:var(--text-muted); margin-right:6px;">Cette réponse :</span>
+    <button class="fb-btn fb-up" title="Utile">👍</button>
+    <button class="fb-btn fb-down" title="À corriger">👎</button>
+    <span class="fb-thanks" style="display:none;"></span>
+  `;
+  wrap.appendChild(bar);
+
+  bar.querySelector('.fb-up').addEventListener('click', () => sendFeedback('👍', wrap, bar, lastUserContent, answerText));
+  bar.querySelector('.fb-down').addEventListener('click', () => askDownComment(wrap, bar, lastUserContent, answerText));
+}
+
+function askDownComment(wrap, bar, question, answer) {
+  // Mark down-button as selected and show comment textarea
+  bar.querySelector('.fb-down').classList.add('is-selected');
+  bar.querySelectorAll('.fb-btn').forEach(b => b.disabled = true);
+  if (wrap.querySelector('.fb-comment-box')) return;
+  const ta = document.createElement('textarea');
+  ta.className = 'fb-comment-box';
+  ta.placeholder = 'Optionnel : pourquoi ? (incorrect, source manquante, ton inadapté…) — sera transmis à l\'admin.';
+  const actions = document.createElement('div');
+  actions.className = 'fb-comment-actions';
+  actions.innerHTML = `
+    <button class="fb-comment-send">Envoyer le retour</button>
+    <button class="fb-comment-skip">Sans commentaire</button>
+  `;
+  wrap.appendChild(ta);
+  wrap.appendChild(actions);
+  ta.focus();
+  actions.querySelector('.fb-comment-send').addEventListener('click', () => {
+    sendFeedback('👎', wrap, bar, question, answer, ta.value.trim());
+    ta.remove(); actions.remove();
+  });
+  actions.querySelector('.fb-comment-skip').addEventListener('click', () => {
+    sendFeedback('👎', wrap, bar, question, answer, '');
+    ta.remove(); actions.remove();
+  });
+}
+
+async function sendFeedback(rating, wrap, bar, question, answer, comment) {
+  const upBtn = bar.querySelector('.fb-up');
+  const downBtn = bar.querySelector('.fb-down');
+  const thanks = bar.querySelector('.fb-thanks');
+  upBtn.disabled = true; downBtn.disabled = true;
+  if (rating === '👍') upBtn.classList.add('is-selected');
+  else downBtn.classList.add('is-selected');
+  thanks.style.display = '';
+  thanks.textContent = 'Envoi…';
+
+  try {
+    const res = await fetch('/api/feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        rating,
+        question: question || '',
+        answer: answer || '',
+        niveau: state.selectedNiveau,
+        minhag: state.selectedMinhag,
+        comment: comment || '',
+        conversationId: state.currentConvId,
+        page: window.location.pathname,
+      }),
+    });
+    if (!res.ok) {
+      const j = await res.json().catch(() => ({}));
+      throw new Error(j.error || 'HTTP ' + res.status);
+    }
+    thanks.textContent = rating === '👍' ? 'Merci !' : 'Reçu — merci pour ce retour.';
+    setTimeout(() => { thanks.style.opacity = '0.5'; }, 2000);
+  } catch (err) {
+    thanks.textContent = 'Erreur : ' + err.message;
+    thanks.style.color = '#C0392B';
+    upBtn.disabled = false; downBtn.disabled = false;
+    upBtn.classList.remove('is-selected'); downBtn.classList.remove('is-selected');
+  }
 }
 
 function appendToolNotice(label) {
@@ -957,6 +1097,8 @@ async function send(userText) {
 
     state.messages.push({ role: 'assistant', content: assistantText });
     persistConversation();
+    // Attach feedback buttons to this assistant message
+    attachFeedbackBar(assistantBubble, assistantText);
   } catch (err) {
     if (typingEl.parentElement) typingEl.remove();
     renderMessage('assistant', `⚠️ Erreur : ${err.message}`);

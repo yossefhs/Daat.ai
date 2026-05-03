@@ -7,6 +7,7 @@
   // === CONFIGURATION ===
   // L'URL de l'API Vercel — à mettre à jour après déploiement
   const API_URL = window.DAAT_CHAT_API_URL || 'https://daat-ai.vercel.app/api/chat';
+  const FEEDBACK_URL = (window.DAAT_CHAT_API_URL || 'https://daatai.vercel.app/api/chat').replace(/\/api\/chat\/?$/, '/api/feedback');
   const HISTORY_KEY = 'daat-conversations-v1'; // partagé avec chat.html
   const MAX_HISTORY = 50; // conversations max gardées
   const MAX_MESSAGES_PER_CONV = 60;
@@ -402,7 +403,10 @@
       meta.className = 'daat-chat-conv-meta';
       meta.textContent = `📋 ${conv.title || ''} · ${conv.niveau || '?'} · ${conv.minhag || '?'}`;
       this.messagesEl.appendChild(meta);
-      this.messages.forEach(m => this.appendMessage(m.role, m.content));
+      this.messages.forEach(m => {
+        const el = this.appendMessage(m.role, m.content);
+        if (m.role === 'assistant') this.attachFeedbackBar(el, m.content);
+      });
       this.scrollToBottom(true);
       setTimeout(() => this.inputEl.focus(), 100);
     }
@@ -527,6 +531,96 @@
       this.messagesEl.appendChild(el);
       this.scrollToBottom();
       return el;
+    }
+
+    attachFeedbackBar(assistantEl, answerText) {
+      if (!answerText || answerText.length < 20) return;
+      if (assistantEl.dataset.fbAttached) return;
+      assistantEl.dataset.fbAttached = '1';
+      // Find the last user message to associate
+      let lastUserContent = '';
+      for (let i = this.messages.length - 1; i >= 0; i--) {
+        if (this.messages[i].role === 'user') { lastUserContent = this.messages[i].content; break; }
+        if (this.messages[i].role === 'assistant' && this.messages[i].content === answerText) continue;
+      }
+      const bar = document.createElement('div');
+      bar.className = 'daat-chat-feedback';
+      bar.innerHTML = `
+        <span class="daat-chat-feedback-label">Cette réponse :</span>
+        <button class="daat-chat-fb-btn daat-chat-fb-up" title="Utile">👍</button>
+        <button class="daat-chat-fb-btn daat-chat-fb-down" title="À corriger">👎</button>
+        <span class="daat-chat-feedback-thanks" style="display:none;"></span>
+      `;
+      assistantEl.appendChild(bar);
+      const widget = this;
+      bar.querySelector('.daat-chat-fb-up').addEventListener('click', () => {
+        widget.sendFeedback('👍', bar, lastUserContent, answerText);
+      });
+      bar.querySelector('.daat-chat-fb-down').addEventListener('click', () => {
+        widget.askDownComment(assistantEl, bar, lastUserContent, answerText);
+      });
+    }
+
+    askDownComment(assistantEl, bar, question, answer) {
+      bar.querySelector('.daat-chat-fb-down').classList.add('is-selected');
+      bar.querySelectorAll('.daat-chat-fb-btn').forEach(b => b.disabled = true);
+      if (assistantEl.querySelector('.daat-chat-fb-comment')) return;
+      const ta = document.createElement('textarea');
+      ta.className = 'daat-chat-fb-comment';
+      ta.placeholder = 'Optionnel : pourquoi ? (incorrect, source manquante…)';
+      const actions = document.createElement('div');
+      actions.className = 'daat-chat-fb-comment-actions';
+      actions.innerHTML = `
+        <button class="daat-chat-fb-send">Envoyer</button>
+        <button class="daat-chat-fb-skip">Sans commentaire</button>
+      `;
+      assistantEl.appendChild(ta);
+      assistantEl.appendChild(actions);
+      ta.focus();
+      const widget = this;
+      actions.querySelector('.daat-chat-fb-send').addEventListener('click', () => {
+        widget.sendFeedback('👎', bar, question, answer, ta.value.trim());
+        ta.remove(); actions.remove();
+      });
+      actions.querySelector('.daat-chat-fb-skip').addEventListener('click', () => {
+        widget.sendFeedback('👎', bar, question, answer, '');
+        ta.remove(); actions.remove();
+      });
+    }
+
+    async sendFeedback(rating, bar, question, answer, comment) {
+      const upBtn = bar.querySelector('.daat-chat-fb-up');
+      const downBtn = bar.querySelector('.daat-chat-fb-down');
+      const thanks = bar.querySelector('.daat-chat-feedback-thanks');
+      upBtn.disabled = true; downBtn.disabled = true;
+      if (rating === '👍') upBtn.classList.add('is-selected');
+      else downBtn.classList.add('is-selected');
+      thanks.style.display = '';
+      thanks.textContent = 'Envoi…';
+      try {
+        const res = await fetch(FEEDBACK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            rating,
+            question: question || '',
+            answer: answer || '',
+            niveau: NIVEAU_LABELS[this.selectedNiveau] || this.selectedNiveau,
+            minhag: MINHAG_LABELS[this.selectedMinhag] || this.selectedMinhag,
+            comment: comment || '',
+            conversationId: this.currentConvId,
+            page: window.location.pathname,
+          }),
+        });
+        if (!res.ok) {
+          const j = await res.json().catch(() => ({}));
+          throw new Error(j.error || 'HTTP ' + res.status);
+        }
+        thanks.textContent = rating === '👍' ? 'Merci !' : 'Reçu — merci.';
+      } catch (err) {
+        thanks.textContent = 'Erreur : ' + err.message;
+        thanks.style.color = '#C0392B';
+      }
     }
 
     appendError(text) {
@@ -699,6 +793,8 @@
         if (assistantText) {
           this.messages.push({ role: 'assistant', content: assistantText });
           this.persistConversation();
+          // Attach feedback buttons to the assistant message
+          this.attachFeedbackBar(assistantEl, assistantText);
         } else {
           assistantEl.remove();
           this.appendError('Pas de réponse reçue. Réessaie.');
