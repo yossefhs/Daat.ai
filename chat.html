@@ -302,7 +302,8 @@
 
     /* Feedback buttons */
     .feedback-bar {
-      display: flex; gap: 6px; margin-top: 8px; padding-left: 52px;
+      display: flex; gap: 6px; margin-top: 4px; margin-bottom: 8px;
+      padding-left: 52px; /* aligne avec la bulle assistant (avatar + gap) */
       align-items: center; opacity: 0.6; transition: opacity 0.2s;
       flex-wrap: wrap;
     }
@@ -950,7 +951,8 @@ function attachFeedbackBar(assistantBubble, answerText) {
     <button class="fb-btn fb-down" title="À corriger">👎</button>
     <span class="fb-thanks" style="display:none;"></span>
   `;
-  wrap.appendChild(bar);
+  // Insérer APRÈS .message, pas dedans — la barre s'affiche sous la bulle
+  wrap.insertAdjacentElement('afterend', bar);
 
   bar.querySelector('.fb-up').addEventListener('click', () => sendFeedback('👍', wrap, bar, lastUserContent, answerText));
   bar.querySelector('.fb-down').addEventListener('click', () => askDownComment(wrap, bar, lastUserContent, answerText));
@@ -1046,8 +1048,27 @@ function showTyping() {
   return wrap;
 }
 
-function scrollToBottom() {
+let userScrolledUp = false;
+
+// Détecter scroll manuel vers le haut (wheel ou touch)
+$messagesWrap.addEventListener('wheel', (e) => {
+  if (e.deltaY < 0) userScrolledUp = true; // scroll vers le haut
+}, { passive: true });
+let _touchY = 0;
+$messagesWrap.addEventListener('touchstart', (e) => { _touchY = e.touches[0].clientY; }, { passive: true });
+$messagesWrap.addEventListener('touchmove', (e) => {
+  if (e.touches[0].clientY > _touchY + 10) userScrolledUp = true; // scroll vers le haut
+}, { passive: true });
+// Revenir tout en bas remet le flag à false
+$messagesWrap.addEventListener('scroll', () => {
+  const d = $messagesWrap.scrollHeight - $messagesWrap.scrollTop - $messagesWrap.clientHeight;
+  if (d < 30) userScrolledUp = false;
+});
+
+function scrollToBottom(force) {
+  if (!force && userScrolledUp) return; // Respecte la lecture de l'utilisateur
   $messagesWrap.scrollTop = $messagesWrap.scrollHeight;
+  userScrolledUp = false;
 }
 
 function setStreaming(on) {

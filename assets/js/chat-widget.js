@@ -695,23 +695,18 @@
     }
 
     scrollToBottom(force) {
-      // Respecte la position de l'utilisateur : si il a remonté le chat
-      // pour lire pendant que le streaming continue, on NE le ramène PAS
-      // automatiquement en bas. Il faut soit envoyer un nouveau message,
-      // soit cliquer le bouton "↓" qui s'affiche, soit scroller manuellement.
+      // Si l'utilisateur a scrollé vers le haut manuellement, on ne touche pas à sa position
+      // sauf si force=true (nouveau message envoyé, ouverture du panel)
+      if (!force && this.userScrolledUp) {
+        if (this.scrollDownBtn) this.scrollDownBtn.classList.add('is-visible');
+        return;
+      }
       requestAnimationFrame(() => {
         const el = this.messagesEl;
         if (!el) return;
-        const distanceFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
-        if (force || distanceFromBottom < 80) {
-          el.scrollTop = el.scrollHeight;
-          this.userScrolledUp = false;
-          if (this.scrollDownBtn) this.scrollDownBtn.classList.remove('is-visible');
-        } else {
-          // L'utilisateur lit en remontant — on signale juste qu'il y a du nouveau
-          this.userScrolledUp = true;
-          if (this.scrollDownBtn) this.scrollDownBtn.classList.add('is-visible');
-        }
+        el.scrollTop = el.scrollHeight;
+        this.userScrolledUp = false;
+        if (this.scrollDownBtn) this.scrollDownBtn.classList.remove('is-visible');
       });
     }
 
