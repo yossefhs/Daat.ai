@@ -316,14 +316,30 @@
         }
       });
 
-      // Track manual scrolling — si l'utilisateur remonte, on désactive l'auto-scroll
+      // Track manual scrolling — seulement via wheel/touch (pas les scrolls programmatiques)
+      // pour éviter que le scroll auto pendant le streaming soit détecté comme "user scroll"
+      const markScrolledUp = () => {
+        const el = this.messagesEl;
+        const distanceFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
+        if (distanceFromBottom > 60) {
+          this.userScrolledUp = true;
+          if (this.scrollDownBtn) this.scrollDownBtn.classList.toggle('is-visible', this.isStreaming);
+        }
+      };
+      this.messagesEl.addEventListener('wheel', markScrolledUp, { passive: true });
+      this.messagesEl.addEventListener('touchstart', () => { this._touchScrolling = true; }, { passive: true });
+      this.messagesEl.addEventListener('touchend', () => { this._touchScrolling = false; }, { passive: true });
       this.messagesEl.addEventListener('scroll', () => {
         const el = this.messagesEl;
         const distanceFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
         const isAtBottom = distanceFromBottom < 30;
-        this.userScrolledUp = !isAtBottom;
-        if (this.scrollDownBtn) {
-          this.scrollDownBtn.classList.toggle('is-visible', this.userScrolledUp && this.isStreaming);
+        // Quand l'utilisateur revient en bas, on réactive l'auto-scroll
+        if (isAtBottom) {
+          this.userScrolledUp = false;
+          if (this.scrollDownBtn) this.scrollDownBtn.classList.remove('is-visible');
+        } else if (this._touchScrolling) {
+          this.userScrolledUp = true;
+          if (this.scrollDownBtn) this.scrollDownBtn.classList.toggle('is-visible', this.isStreaming);
         }
       });
 
@@ -580,7 +596,8 @@
         <button class="daat-chat-fb-btn daat-chat-fb-down" title="À corriger">👎</button>
         <span class="daat-chat-feedback-thanks" style="display:none;"></span>
       `;
-      assistantEl.appendChild(bar);
+      // Insérer la barre APRÈS la bulle (pas dedans) — en dessous du texte
+      assistantEl.insertAdjacentElement('afterend', bar);
       const widget = this;
       bar.querySelector('.daat-chat-fb-up').addEventListener('click', () => {
         widget.sendFeedback('👍', bar, lastUserContent, answerText);
@@ -593,7 +610,7 @@
     askDownComment(assistantEl, bar, question, answer) {
       bar.querySelector('.daat-chat-fb-down').classList.add('is-selected');
       bar.querySelectorAll('.daat-chat-fb-btn').forEach(b => b.disabled = true);
-      if (assistantEl.querySelector('.daat-chat-fb-comment')) return;
+      if (bar.nextElementSibling && bar.nextElementSibling.classList.contains('daat-chat-fb-comment')) return;
       const ta = document.createElement('textarea');
       ta.className = 'daat-chat-fb-comment';
       ta.placeholder = 'Optionnel : pourquoi ? (incorrect, source manquante…)';
@@ -603,8 +620,8 @@
         <button class="daat-chat-fb-send">Envoyer</button>
         <button class="daat-chat-fb-skip">Sans commentaire</button>
       `;
-      assistantEl.appendChild(ta);
-      assistantEl.appendChild(actions);
+      bar.insertAdjacentElement('afterend', ta);
+      ta.insertAdjacentElement('afterend', actions);
       ta.focus();
       const widget = this;
       actions.querySelector('.daat-chat-fb-send').addEventListener('click', () => {
