@@ -9,17 +9,17 @@ import Anthropic from '@anthropic-ai/sdk';
 import { SYSTEM_PROMPT } from './_system-prompt.js';
 import { SEFARIA_TOOLS, executeSefariaTool } from './_sefaria.js';
 import { CORPUS_TOOLS, executeCorpusTool } from './_corpus.js';
-import { PESAKIM_TOOLS, executePesakimTool } from './_pesakim.js';
+import { MAREH_MEKOMOT_TOOLS, executeMarehMekomotTool } from './_mareh_mekomot.js';
 
 const client = new Anthropic();
 
-const MAX_TOOL_ITERATIONS = 8; // garde-fou agentic loop (pesakim + corpus + Sefaria)
-const ALL_TOOLS = [...PESAKIM_TOOLS, ...CORPUS_TOOLS, ...SEFARIA_TOOLS];
+const MAX_TOOL_ITERATIONS = 8; // agentic loop (mareh_mekomot + corpus + Sefaria)
+const ALL_TOOLS = [...MAREH_MEKOMOT_TOOLS, ...CORPUS_TOOLS, ...SEFARIA_TOOLS];
 
 // Map tool name → executor
 const TOOL_EXECUTORS = {
-  daat_search_pesakim: executePesakimTool,
-  daat_get_pesak: executePesakimTool,
+  daat_search_mareh_mekomot: executeMarehMekomotTool,
+  daat_get_mareh_mekomot: executeMarehMekomotTool,
   daat_search_corpus: executeCorpusTool,
   daat_get_content: executeCorpusTool,
   sefaria_get_text: executeSefariaTool,

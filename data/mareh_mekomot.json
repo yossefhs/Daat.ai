@@ -1,0 +1,894 @@
+{
+  "meta": {
+    "version": "2.0",
+    "lastUpdated": "2026-05-03",
+    "title": "מראי מקומות — Registre de questions halakhiques avec leurs sources",
+    "description": "Pour chaque question pratique, ce registre rassemble les positions des sources classiques (Guemara, Rambam, Choulchan Aroukh, Rama, Tour, Béit Yossef) et des poskim selon les minhagim (Mishna Brura / Igrot Moshe pour Ashkénazes ; Ben Ish Hai / Yabia Omer / Yalkout Yossef pour Séfarades ; Choulchan Aroukh haRav / Tzemach Tzedek pour Habad). CE N'EST PAS UN REGISTRE DE PSAKIM — c'est un outil d'étude. Chaque réponse doit se conclure par : « Cette analyse présente ce que disent les sources. Ce n'est pas un psak halakha. Pour ton cas concret, consulte ton Rav. »",
+    "format": "Chaque entrée : {id, question, clarity, positions[], synthesis_neutre, alternative_dans_sources, tags[]}. Le champ clarity = 'shulchan-aroukh-tranche' (le Mehaber dit מותר/אסור clairement → on transmet) ou 'requires-rav' (mahaloket ou ambiguïté → on présente sans trancher). Chaque position contient {name, label_he, scope ∈ [fondement, source-classique, poskim-recent], minhag ∈ [tous, sefarade, ashkenaze, habad], text, ref, url?}."
+  },
+  "entries": [
+    {
+      "id": "242-q01",
+      "question": "Combien de séoudot doit-on faire le Shabbat ?",
+      "category": "shabbat-oneg",
+      "siman": "242",
+      "seif": "1",
+      "tags": ["shabbat", "oneg", "seoudot", "242"],
+      "clarity": "shulchan-aroukh-tranche",
+      "clarity_note": "Le Choulchan Aroukh OH 242:1 mentionne explicitement l'obligation des 3 séoudot.",
+      "positions": [
+        {
+          "name": "Talmud Bavli, Pessahim 113a",
+          "label_he": "תלמוד בבלי, פסחים קי״ג.",
+          "scope": "fondement",
+          "minhag": "tous",
+          "text": "מקור הכלל של רבי עקיבא: 'עשה שבתך חול ואל תצטרך לבריות'. נאמר על העני הגמור שאין לו כלום — מותר לו להסתפק בפחות.",
+          "ref": "Pessahim 113a",
+          "url": "https://www.sefaria.org/Pesachim.113a"
+        },
+        {
+          "name": "Talmud Bavli, Shabbat 117b-118a",
+          "label_he": "תלמוד בבלי, שבת קי״ז:-קי״ח.",
+          "scope": "fondement",
+          "minhag": "tous",
+          "text": "כמה סעודות חייב אדם לאכול בשבת? שלוש (רב חידקא: ארבע). המקור: שלושה פעמים 'היום' בפסוק (שמות טז, כה).",
+          "ref": "Shabbat 117b",
+          "url": "https://www.sefaria.org/Shabbat.117b"
+        },
+        {
+          "name": "Tour, Orah Haim 242",
+          "label_he": "טור אורח חיים סימן רמ״ב",
+          "scope": "source-classique",
+          "minhag": "tous",
+          "text": "הטור מציג שלוש חלוקות (catégories) של בני אדם לפי יכולתם הכלכלית: (1) העשיר — מחויב במאכלים חשובים. (2) הבינוני — שלוש סעודות עם כסא דהרסנא לפחות. (3) העני הגמור — די לו בשתי סעודות אם אין לו כלום (כדברי רבי עקיבא).",
+          "ref": "Tour OH 242"
+        },
+        {
+          "name": "Choulchan Aroukh OH 242:1",
+          "label_he": "שולחן ערוך אורח חיים סימן רמ״ב, סעיף א",
+          "scope": "source-classique",
+          "minhag": "tous",
+          "text": "אף על פי שאמרו עשה שבתך חול ואל תצטרך לבריות, מכל מקום צריך לצמצם מהוצאותיו בימי החול כדי שיהיה לו בשבת. ואם אין ידו משגת, אפילו הכי ישתדל להיות לו יין לקידוש ולהבדלה ושתי כיכרות בסעודות.",
+          "ref": "Choulchan Aroukh OH 242:1",
+          "url": "https://www.sefaria.org/Shulchan_Arukh%2C_Orach_Chayim.242.1"
+        },
+        {
+          "name": "Mishna Brura 242:1",
+          "label_he": "משנה ברורה רמ״ב:א",
+          "scope": "poskim-recent",
+          "minhag": "ashkenaze",
+          "text": "מסכם את ההלכה: שלוש סעודות הן חיוב גמור. גם בעני, חייב להשתדל לפחות בכיכרות לקידוש ובסעודה שלישית עם דבר מועט (כסא דהרסנא).",
+          "ref": "Mishna Brura 242:1",
+          "url": "https://www.sefaria.org/Mishnah_Berurah.242.1"
+        },
+        {
+          "name": "Choulchan Aroukh haRav OH 242",
+          "label_he": "שולחן ערוך הרב סימן רמ״ב",
+          "scope": "source-classique",
+          "minhag": "habad",
+          "text": "אדה״ז (האדמו״ר הזקן) פוסק כהשו״ע ומבאר את היחס בין כבוד שבת ועונג שבת.",
+          "ref": "Choulchan Aroukh haRav OH 242"
+        },
+        {
+          "name": "Yalkout Yossef OH 242 (R. Ovadia Yossef)",
+          "label_he": "ילקוט יוסף סימן רמ״ב",
+          "scope": "poskim-recent",
+          "minhag": "sefarade",
+          "text": "מסכם את הפסיקה הספרדית: שלוש סעודות חיוב, וגם העני יקבל מהקופה הציבורית כדי לקיים את חיובו.",
+          "ref": "Yalkout Yossef OH 242"
+        },
+        {
+          "name": "Ben Ish Hai, פרשת בראשית שנה ב",
+          "label_he": "בן איש חי, פרשת בראשית שנה ב",
+          "scope": "poskim-recent",
+          "minhag": "sefarade",
+          "text": "מדגיש את חשיבות שלוש הסעודות גם בעני, ומפרט מנהגי כיבוד שבת לפי המנהג הבגדאדי.",
+          "ref": "Ben Ish Hai, פרשת בראשית"
+        }
+      ],
+      "synthesis_neutre": "Toutes les sources convergent sur **3 séoudot** comme obligation. Le Choulchan Aroukh utilise des termes nets (אפילו הכי ישתדל) pour le minimum. La règle de R. Akiva (עשה שבתך חול) ne s'applique qu'à celui qui n'a vraiment rien — c'est une exception, pas une norme.",
+      "alternative_dans_sources": "Le Choulchan Aroukh mentionne explicitement la possibilité de tsedaka (Béit Yossef sur Tour 242) pour celui qui n'a pas les moyens, plutôt que de réduire l'oneg."
+    },
+
+    {
+      "id": "242-q02",
+      "question": "Peut-on prendre la tsedaka pour avoir de quoi honorer le Shabbat ?",
+      "category": "shabbat-oneg",
+      "siman": "242",
+      "seif": "1",
+      "tags": ["shabbat", "tsedaka", "oneg", "pauvre", "242"],
+      "clarity": "shulchan-aroukh-tranche",
+      "clarity_note": "Le Béit Yossef sur Tour OH 242 traite explicitement de cette question et conclut sur la permission.",
+      "positions": [
+        {
+          "name": "Béit Yossef sur Tour OH 242",
+          "label_he": "בית יוסף על טור אורח חיים סימן רמ״ב",
+          "scope": "source-classique",
+          "minhag": "tous",
+          "text": "מי שאין ידו משגת — יקבל מן הצדקה כדי לעשות את שבתו, ואל ימעט בכבוד שבת. הכלל של 'עשה שבתך חול' אינו אלא לעני הגמור שאין מי שיתן לו, או שאינו רוצה לבקש.",
+          "ref": "Béit Yossef sur Tour OH 242",
+          "url": "https://www.sefaria.org/Beit_Yosef_on_Tur%2C_Orach_Chaim.242"
+        },
+        {
+          "name": "Choulchan Aroukh OH 242:1",
+          "label_he": "שולחן ערוך אורח חיים סימן רמ״ב, סעיף א",
+          "scope": "source-classique",
+          "minhag": "tous",
+          "text": "אם אין ידו משגת אפילו הכי ישתדל להיות לו יין לקידוש ולהבדלה ושתי כיכרות בסעודות. השו״ע אינו מזכיר במפורש את הצדקה כאן, אבל הכוונה ברורה: השתדלות וקבלת עזרה מהציבור אם צריך.",
+          "ref": "Choulchan Aroukh OH 242:1",
+          "url": "https://www.sefaria.org/Shulchan_Arukh%2C_Orach_Chayim.242.1"
+        },
+        {
+          "name": "Mishna Brura 242:5",
+          "label_he": "משנה ברורה רמ״ב:ה",
+          "scope": "poskim-recent",
+          "minhag": "ashkenaze",
+          "text": "מבאר שאין בושה לקבל סיוע קהילתי לכבוד שבת. החיוב לכבד את השבת קודם לבושת ההצרך לבריות.",
+          "ref": "Mishna Brura 242:5",
+          "url": "https://www.sefaria.org/Mishnah_Berurah.242.5"
+        },
+        {
+          "name": "Yabia Omer ח״ה או״ח סי' לה (R. Ovadia Yossef)",
+          "label_he": "שו״ת יביע אומר חלק ה אורח חיים סימן לה",
+          "scope": "poskim-recent",
+          "minhag": "sefarade",
+          "text": "דן בקבלת מעות צדקה לצרכי שבת ומאשר את ההיתר על פי הבית יוסף, אף ממליץ למוסדות הצדקה לתת קופה מיוחדת לעניים לפני שבת.",
+          "ref": "Yabia Omer Vol 5 OH 35"
+        }
+      ],
+      "synthesis_neutre": "Le Béit Yossef est explicite : prendre la tsedaka pour Shabbat est non seulement permis, mais préférable au fait de réduire l'oneg. Cette position fait l'unanimité chez tous les poskim contemporains.",
+      "alternative_dans_sources": null
+    },
+
+    {
+      "id": "242-q03",
+      "question": "Peut-on s'endetter (לוו עלי) pour acheter de quoi honorer le Shabbat ?",
+      "category": "shabbat-oneg",
+      "siman": "242",
+      "seif": "1",
+      "tags": ["shabbat", "emprunt", "lou-alai", "oneg", "242"],
+      "clarity": "requires-rav",
+      "clarity_note": "Il y a des nuances entre les Rishonim et entre les Acharonim sur les conditions exactes de לוו עלי. Pour un cas concret (situation financière personnelle), il faut un Rav.",
+      "positions": [
+        {
+          "name": "Talmud Bavli, Beitsa 15b",
+          "label_he": "תלמוד בבלי, ביצה ט״ו:",
+          "scope": "fondement",
+          "minhag": "tous",
+          "text": "אמר הקדוש ברוך הוא לישראל: בני, לוו עלי וקדשו קדושת היום, והאמינו בי ואני פורע. זהו מקור הכלל של 'לוו עלי' לכבוד שבת ויום טוב.",
+          "ref": "Beitsa 15b",
+          "url": "https://www.sefaria.org/Beitzah.15b"
+        },
+        {
+          "name": "Tossafot Beitsa 15b ד״ה לוו",
+          "label_he": "תוספות, ביצה ט״ו: ד״ה לוו",
+          "scope": "source-classique",
+          "minhag": "tous",
+          "text": "התוספות מגבילים: 'לוו עלי' מתיר לוות עם משכון או כשיש בטחון מציאותי שיוכל להחזיר. אינו היתר לסמוך על נס.",
+          "ref": "Tossafot Beitsa 15b",
+          "url": "https://www.sefaria.org/Tosafot_on_Beitzah.15b"
+        },
+        {
+          "name": "Choulchan Aroukh OH 242:1",
+          "label_he": "שולחן ערוך אורח חיים סימן רמ״ב",
+          "scope": "source-classique",
+          "minhag": "tous",
+          "text": "השו״ע מציין את הכלל של 'לוו עלי' אך אינו פוסק במפורש על תנאי ההיתר (משכון, בטחון, וכו').",
+          "ref": "Choulchan Aroukh OH 242:1",
+          "url": "https://www.sefaria.org/Shulchan_Arukh%2C_Orach_Chayim.242.1"
+        },
+        {
+          "name": "Choulchan Aroukh haRav OH 242:3",
+          "label_he": "שולחן ערוך הרב, סימן רמ״ב, סעיף ג",
+          "scope": "source-classique",
+          "minhag": "habad",
+          "text": "אדה״ז מציג עמדה יחסית ליברלית: אם יש בטחון כללי שיוכל להחזיר (גם בלי משכון), ה'לוו עלי' מתקיים. אבל לא מדובר בהיתר להסתבך בחובות בלתי אפשריים.",
+          "ref": "Choulchan Aroukh haRav OH 242:3"
+        },
+        {
+          "name": "Mishna Brura 242:3-4",
+          "label_he": "משנה ברורה רמ״ב:ג-ד",
+          "scope": "poskim-recent",
+          "minhag": "ashkenaze",
+          "text": "מבאר את שיטת התוספות: 'לוו עלי' רק עם משכון או בטחון של פירעון. בלי בטחון — לא הותר. גם בלי ריבית כמובן.",
+          "ref": "Mishna Brura 242:3"
+        },
+        {
+          "name": "Yalkout Yossef OH 242",
+          "label_he": "ילקוט יוסף, אורח חיים סימן רמ״ב",
+          "scope": "poskim-recent",
+          "minhag": "sefarade",
+          "text": "מסכם את הפסיקה הספרדית בדומה לתוספות והמ״ב: רק עם בטחון פירעון מציאותי. אינו היתר להיכנס לחובות מסוכנים.",
+          "ref": "Yalkout Yossef OH 242"
+        }
+      ],
+      "synthesis_neutre": "Tous d'accord que 'לוו עלי' n'est pas un blanc-seing : il y a besoin soit d'un משכון soit d'une perspective réaliste de remboursement. Avec ribit ou sans aucune garantie, c'est problématique. Le Choulchan Aroukh haRav est plus permissif que Tossafot/Mishna Brura.",
+      "alternative_dans_sources": "Les sources classiques (Béit Yossef sur Tour 242) recommandent la tsedaka comme alternative à l'endettement risqué."
+    },
+
+    {
+      "id": "242-q04",
+      "question": "Quand faut-il laver le linge pour Shabbat selon תקנת עזרא ?",
+      "category": "shabbat-kavod",
+      "siman": "242",
+      "seif": "1",
+      "tags": ["shabbat", "tikkun-ezra", "kavod", "lessive", "242"],
+      "clarity": "requires-rav",
+      "clarity_note": "Le תקנת עזרא originel concerne le 5e jour (jeudi). Avec la machine à laver moderne, le timing manuel disparaît — les Acharonim modernes proposent des adaptations différentes.",
+      "positions": [
+        {
+          "name": "Talmud Bavli, Bava Kama 82a",
+          "label_he": "תלמוד בבלי, בבא קמא פ״ב.",
+          "scope": "fondement",
+          "minhag": "tous",
+          "text": "תקנת עזרא: שיהיו מכבסים בחמישי בשבת, לכבוד שבת. הטעם: שלא יהיו עסוקים בכביסה ביום שישי ולא יספיקו לכבד את השבת.",
+          "ref": "Bava Kama 82a",
+          "url": "https://www.sefaria.org/Bava_Kamma.82a"
+        },
+        {
+          "name": "Choulchan Aroukh OH 242:1",
+          "label_he": "שולחן ערוך אורח חיים סימן רמ״ב, סעיף א",
+          "scope": "source-classique",
+          "minhag": "tous",
+          "text": "השו״ע מזכיר תקנת עזרא — לכבס את הבגדים בחמישי בשבת. אינו מפרט במפורש על איסור כביסה ביום שישי, אלא רק את החובה החיובית של כיבוס בחמישי.",
+          "ref": "Choulchan Aroukh OH 242:1",
+          "url": "https://www.sefaria.org/Shulchan_Arukh%2C_Orach_Chayim.242.1"
+        },
+        {
+          "name": "Mishna Brura 242:5-7",
+          "label_he": "משנה ברורה רמ״ב:ה-ז",
+          "scope": "poskim-recent",
+          "minhag": "ashkenaze",
+          "text": "המ״ב מבאר שלכתחילה יש לכבס בחמישי בשבת. בדיעבד, ביום שישי בבוקר עוד מותר. אחר חצות יום שישי — בעייתי, אבל אם אין ברירה, מותר.",
+          "ref": "Mishna Brura 242:5"
+        },
+        {
+          "name": "Aliya Rabba OH 242",
+          "label_he": "אליה רבה אורח חיים רמ״ב",
+          "scope": "source-classique",
+          "minhag": "ashkenaze",
+          "text": "מחמיר יותר מהמ״ב: לכבס דווקא בחמישי, ויום שישי כבר נחשב פחות מהיום הנכון.",
+          "ref": "Aliya Rabba OH 242"
+        },
+        {
+          "name": "Hut Shani, Shabbat ח״א (R. Niessim Karelitz)",
+          "label_he": "חוט שני, שבת חלק א",
+          "scope": "poskim-recent",
+          "minhag": "ashkenaze",
+          "text": "בעידן המכונה הביתית: התקנה כיוונה למצב שבו הכביסה עצמה היא עבודה גופנית. כיום, להפעיל את המכונה בבוקר יום שישי ולסיים זמן רב לפני שבת — אינו מנוגד לרוח התקנה.",
+          "ref": "Hut Shani, Shabbat Vol 1"
+        },
+        {
+          "name": "Yalkout Yossef OH 242",
+          "label_he": "ילקוט יוסף, סימן רמ״ב",
+          "scope": "poskim-recent",
+          "minhag": "sefarade",
+          "text": "פסיקה ספרדית דומה: לכתחילה בחמישי, בדיעבד יום שישי בבוקר. עם מכונת כביסה — להפעיל מבעוד מועד.",
+          "ref": "Yalkout Yossef OH 242"
+        }
+      ],
+      "synthesis_neutre": "Tous d'accord : lekhatkhila jeudi (5e jour). Vendredi matin reste acceptable selon la majorité des Acharonim. Vendredi après-midi à éviter. Avec une machine à laver, plus de souplesse selon le Hut Shani et autres modernes — mais l'esprit (ne pas être absorbé par la lessive le vendredi soir) demeure.",
+      "alternative_dans_sources": null
+    },
+
+    {
+      "id": "242-q05",
+      "question": "Faut-il pétrir les hallot soi-même à la maison pour Shabbat ?",
+      "category": "shabbat-kavod",
+      "siman": "242",
+      "seif": "1",
+      "tags": ["shabbat", "halla", "apifyat-halehem", "kavod", "242"],
+      "clarity": "requires-rav",
+      "clarity_note": "Le Rama écrit 'אין לשנות' (ne pas dévier) mais il n'y a pas d'interdiction stricte. Pour le Choulchan Aroukh (séfarade), pat Israel acheté est suffisant. C'est un minhag.",
+      "positions": [
+        {
+          "name": "Yerushalmi Shabbat 2:5",
+          "label_he": "ירושלמי שבת ב:ה",
+          "scope": "fondement",
+          "minhag": "tous",
+          "text": "מקור המנהג של אפיית הלחם בבית: לתקן את חטא חוה. מנהג אפיית פת בערב שבת היא תיקון.",
+          "ref": "Yerushalmi Shabbat 2:5"
+        },
+        {
+          "name": "Choulchan Aroukh OH 242:1 (Mehaber)",
+          "label_he": "שולחן ערוך אורח חיים סימן רמ״ב, סעיף א",
+          "scope": "source-classique",
+          "minhag": "sefarade",
+          "text": "המחבר אינו מזכיר במפורש את חיוב אפיית הלחם בבית. הספרדים סומכים על פת ישראל הנקנית מאופה כשר.",
+          "ref": "Choulchan Aroukh OH 242:1",
+          "url": "https://www.sefaria.org/Shulchan_Arukh%2C_Orach_Chayim.242.1"
+        },
+        {
+          "name": "Hagaha du Rama OH 242:1",
+          "label_he": "הגהת הרמ״א, אורח חיים סימן רמ״ב",
+          "scope": "source-classique",
+          "minhag": "ashkenaze",
+          "text": "וכן יש ללוש כשיעור חלה בבית לעשות ממנו לחם לבצוע עליו בשבת ויום טוב, והוא כבוד שבת ויום טוב, ואין לשנות.",
+          "ref": "Rama OH 242:1"
+        },
+        {
+          "name": "Massat Binyamin (responsa)",
+          "label_he": "שו״ת משאת בנימין",
+          "scope": "source-classique",
+          "minhag": "ashkenaze",
+          "text": "הטעם העיקרי של המנהג: לקיים מצוות הפרשת חלה (שלא ניתן לקיים אם הפת נאפתה אצל אופה גוי או אפילו יהודי בכמות גדולה). זהו טעם הלכתי גמור, לא רק מנהג בעלמא.",
+          "ref": "Massat Binyamin"
+        },
+        {
+          "name": "Mishna Brura 242:6",
+          "label_he": "משנה ברורה רמ״ב:ו",
+          "scope": "poskim-recent",
+          "minhag": "ashkenaze",
+          "text": "המ״ב מאמץ את הרמ״א ומונה חמישה טעמים למנהג: (1) הפרשת חלה. (2) תיקון חטא חוה. (3) פת ישראל. (4) לחם משנה. (5) פת טריה לכבוד שבת.",
+          "ref": "Mishna Brura 242:6"
+        },
+        {
+          "name": "Choulchan Aroukh haRav OH 242:1",
+          "label_he": "שולחן ערוך הרב, סימן רמ״ב, סעיף א",
+          "scope": "source-classique",
+          "minhag": "habad",
+          "text": "אדה״ז פוסק כהרמ״א: יש ללוש בבית כדי לקיים מצוות חלה. במנהג חב״ד, רבים מקפידים על אפיית חלה לכבוד שבת.",
+          "ref": "Choulchan Aroukh haRav OH 242:1"
+        },
+        {
+          "name": "Ben Ish Hai, פרשת ויקהל שנה ב",
+          "label_he": "בן איש חי, פרשת ויקהל שנה ב",
+          "scope": "poskim-recent",
+          "minhag": "sefarade",
+          "text": "משבח את המנהג של אפיית חלה בבית גם לספרדים, אך אינו מחיל זאת כחובה. רבים בקהילות ספרד אימצו את המנהג כמדה טובה.",
+          "ref": "Ben Ish Hai, פרשת ויקהל"
+        }
+      ],
+      "synthesis_neutre": "**Pour les Ashkénazes** (Rama + Mishna Brura) : 'אין לשנות' — il faut faire les hallot maison. **Pour les Séfarades** (Mehaber) : pat Israel acheté est entièrement suffisant ; le minhag d'apifyat halehem est valorisé mais pas obligatoire. **Pour les Habad** : suit le Rama. La raison principale = la mitzvah de הפרשת חלה qui ne peut s'accomplir qu'avec un pain fait maison de quantité suffisante.",
+      "alternative_dans_sources": "Pour ceux qui ne peuvent pas pétrir : acheter du pat Israel chez un boulanger juif kasher est validé partout."
+    },
+
+    {
+      "id": "243-q01",
+      "question": "Peut-on louer son bain (מרחץ) à un non-juif qui l'exploitera le Shabbat ?",
+      "category": "shabbat-non-juif",
+      "siman": "243",
+      "seif": "1",
+      "tags": ["shabbat", "non-juif", "merhatz", "bain", "aristut", "243"],
+      "clarity": "shulchan-aroukh-tranche",
+      "clarity_note": "Le Choulchan Aroukh OH 243:1 utilise אסור explicitement.",
+      "positions": [
+        {
+          "name": "Talmud Bavli, Avoda Zara 21b",
+          "label_he": "תלמוד בבלי, עבודה זרה כ״א:",
+          "scope": "fondement",
+          "minhag": "tous",
+          "text": "סוגיית השכרת מרחץ לגוי. אביי ורבא חולקים על הטעם, אבל המסקנה: אסור להשכיר מרחץ הנקרא על שם הישראל לגוי, משום שיתחזה כעובד אצל הישראל בשבת.",
+          "ref": "Avoda Zara 21b",
+          "url": "https://www.sefaria.org/Avodah_Zarah.21b"
+        },
+        {
+          "name": "Choulchan Aroukh OH 243:1",
+          "label_he": "שולחן ערוך אורח חיים סימן רמ״ג, סעיף א",
+          "scope": "source-classique",
+          "minhag": "tous",
+          "text": "אסור לאדם להשכיר מרחצו לגוי, מפני שנקראת על שם הישראל וגוי זה עושה בו מלאכה בשבת, וגם אין דרך השכרה במרחץ אלא בשכר יום (= שכיר יום, נראה כמשרת לישראל).",
+          "ref": "Choulchan Aroukh OH 243:1",
+          "url": "https://www.sefaria.org/Shulchan_Arukh%2C_Orach_Chayim.243.1"
+        },
+        {
+          "name": "Mahari Avohav (cité dans Béit Yossef OH 244)",
+          "label_he": "מהר״י אבוהב (מובא בבית יוסף סי' רמ״ד)",
+          "scope": "source-classique",
+          "minhag": "tous",
+          "text": "המהר״י אבוהב מבאר שגם בקבלנות (מחיר קבוע ולא לפי יום) אסור במרחץ, כי הישראל נהנה מהרווח של השבת ישירות.",
+          "ref": "Mahari Avohav"
+        },
+        {
+          "name": "Bach (Bayit Hadash) OH 244",
+          "label_he": "ב״ח אורח חיים סימן רמ״ד",
+          "scope": "source-classique",
+          "minhag": "ashkenaze",
+          "text": "הב״ח חולק על המהר״י אבוהב: בקבלנות מותר, כי הגוי עושה אדעתא דנפשיה. אבל זה לאחר שהשו״ע פסק כמהר״י אבוהב.",
+          "ref": "Bach OH 244"
+        },
+        {
+          "name": "Mishna Brura 243:1-3",
+          "label_he": "משנה ברורה רמ״ג:א-ג",
+          "scope": "poskim-recent",
+          "minhag": "ashkenaze",
+          "text": "המ״ב מסכם את ההלכה לפי השו״ע (כמהר״י אבוהב): אסור להשכיר ולתת בקבלנות מרחץ לגוי. ואף מצטרף הב״ח כדי שאם אין ברירה כלכלית, אפשר לסמוך עליו בשעת הדחק.",
+          "ref": "Mishna Brura 243:1",
+          "url": "https://www.sefaria.org/Mishnah_Berurah.243.1"
+        },
+        {
+          "name": "Choulchan Aroukh haRav OH 243",
+          "label_he": "שולחן ערוך הרב, סימן רמ״ג",
+          "scope": "source-classique",
+          "minhag": "habad",
+          "text": "אדה״ז פוסק כהשו״ע: אסור להשכיר מרחץ לגוי, גם בקבלנות, משום שיתחזה כשכיר יום ויש בעיה של שכר שבת.",
+          "ref": "Choulchan Aroukh haRav OH 243"
+        }
+      ],
+      "synthesis_neutre": "Tous les sources tranchent : interdit. Le Choulchan Aroukh n'accepte ni la location au jour ni la קבלנות (forfait) pour un bain. Le Bach permet la קבלנות mais reste minoritaire. Le Mishna Brura admet qu'en שעת הדחק (situation économique extrême), on peut s'appuyer sur le Bach.",
+      "alternative_dans_sources": "Les sources mentionnent qu'un champ (שדה) ou un moulin (רחיים) peut être donné en אריסות — alternative claire au bain qui, lui, ne le peut pas."
+    },
+
+    {
+      "id": "243-q02",
+      "question": "Peut-on louer son champ (שדה) à un non-juif en אריסות (métayage) ?",
+      "category": "shabbat-non-juif",
+      "siman": "243",
+      "seif": "2",
+      "tags": ["shabbat", "non-juif", "sadeh", "champ", "aristut", "243"],
+      "clarity": "shulchan-aroukh-tranche",
+      "clarity_note": "Le Choulchan Aroukh OH 243:2 dit מותר explicitement.",
+      "positions": [
+        {
+          "name": "Talmud Bavli, Avoda Zara 21b-22a",
+          "label_he": "תלמוד בבלי, עבודה זרה כ״א:-כ״ב.",
+          "scope": "fondement",
+          "minhag": "tous",
+          "text": "סוגיית השכרת שדה לגוי באריסות: הגוי נוטל מחצה / שליש / רביע מהפירות, ועובד למעשה לעצמו. אדעתא דנפשיה עביד.",
+          "ref": "Avoda Zara 21b",
+          "url": "https://www.sefaria.org/Avodah_Zarah.21b"
+        },
+        {
+          "name": "Choulchan Aroukh OH 243:2",
+          "label_he": "שולחן ערוך אורח חיים סימן רמ״ג, סעיף ב",
+          "scope": "source-classique",
+          "minhag": "tous",
+          "text": "מותר ליתן שדהו לגוי באריסות, ואף על פי שהוא עושה בה מלאכה בשבת, אין בכך כלום, מפני שהגוי לעצמו הוא עושה — אדעתא דנפשיה.",
+          "ref": "Choulchan Aroukh OH 243:2",
+          "url": "https://www.sefaria.org/Shulchan_Arukh%2C_Orach_Chayim.243.2"
+        },
+        {
+          "name": "Mishna Brura 243:11",
+          "label_he": "משנה ברורה רמ״ג:י״א",
+          "scope": "poskim-recent",
+          "minhag": "ashkenaze",
+          "text": "המ״ב מאשר את ההיתר ומבאר את היסוד: באריסות הגוי הוא שותף, לא שכיר. אין מראית עין כי הוא עובד לעצמו.",
+          "ref": "Mishna Brura 243:11"
+        },
+        {
+          "name": "Choulchan Aroukh haRav OH 243",
+          "label_he": "שולחן ערוך הרב סימן רמ״ג",
+          "scope": "source-classique",
+          "minhag": "habad",
+          "text": "אדה״ז פוסק כהשו״ע: שדה באריסות מותר, וזהו ההבדל המבני בינו לבין מרחץ.",
+          "ref": "Choulchan Aroukh haRav OH 243"
+        },
+        {
+          "name": "Yabia Omer ח״ב או״ח סי' מח",
+          "label_he": "שו״ת יביע אומר חלק ב סימן מח",
+          "scope": "poskim-recent",
+          "minhag": "sefarade",
+          "text": "מאשר את ההלכה: אריסות שדה לגוי מותרת, אף שהגוי עובד בשבת. הטעם: 'אדעתא דנפשיה' — הגוי עובד עבור חלקו שלו.",
+          "ref": "Yabia Omer Vol 2 OH 48"
+        }
+      ],
+      "synthesis_neutre": "Unanimité totale : permis. Tout repose sur le concept אדעתא דנפשיה — le non-juif travaille pour sa propre part de récolte, donc le travail Shabbat n'est pas attribué à l'Israélien.",
+      "alternative_dans_sources": null
+    },
+
+    {
+      "id": "243-q03",
+      "question": "Et un four (תנור) ? Un moulin (רחיים) ? Quelle règle s'applique selon le Rama ?",
+      "category": "shabbat-non-juif",
+      "siman": "243",
+      "seif": "1-2",
+      "tags": ["shabbat", "non-juif", "tanour", "rehayim", "rama", "243"],
+      "clarity": "shulchan-aroukh-tranche",
+      "clarity_note": "Le Rama (Hagaha) tranche explicitement les deux cas.",
+      "positions": [
+        {
+          "name": "Béit Yossef sur Tour OH 244",
+          "label_he": "בית יוסף על טור אורח חיים רמ״ד",
+          "scope": "source-classique",
+          "minhag": "tous",
+          "text": "הב״י דן ברחיים: אם דרכו לתת לאריסות (כי הטוחנים נותנים חלק מהקמח), הוא ככלי השדה — מותר. אם דרכו לשכיר יום, הוא כמרחץ — אסור.",
+          "ref": "Béit Yossef sur Tour OH 244"
+        },
+        {
+          "name": "Hagaha du Rama OH 243:1",
+          "label_he": "הגהת הרמ״א, אורח חיים רמ״ג סעיף א",
+          "scope": "source-classique",
+          "minhag": "tous",
+          "text": "ותנור דינו כמרחץ, ורחיים דינם כשדה. כלומר: תנור — אסור. רחיים — מותר באריסות. הסיבה: בתנור הדרך לתת לשכיר יום, ברחיים הדרך לאריסות.",
+          "ref": "Rama OH 243:1"
+        },
+        {
+          "name": "Mishna Brura 243:6, 14",
+          "label_he": "משנה ברורה רמ״ג:ו, יד",
+          "scope": "poskim-recent",
+          "minhag": "ashkenaze",
+          "text": "המ״ב מבאר: התנור (אפיית לחם) דומה למרחץ — לא נותנים אותו לאריסות בדרך כלל. הרחיים, לעומת זאת, נחשב כמו שדה משום שהאריסות (חלק מהקמח) היא הדרך הרגילה.",
+          "ref": "Mishna Brura 243:6"
+        },
+        {
+          "name": "Choulchan Aroukh haRav OH 243",
+          "label_he": "שולחן ערוך הרב, סימן רמ״ג",
+          "scope": "source-classique",
+          "minhag": "habad",
+          "text": "אדה״ז מאמץ את הרמ״א: תנור = מרחץ, רחיים = שדה. אבל אם בעיר מסויימת רחיים נמסר לשכיר יום, אז דינו כמרחץ.",
+          "ref": "Choulchan Aroukh haRav OH 243"
+        }
+      ],
+      "synthesis_neutre": "Tous d'accord avec le Rama : **תנור = מרחץ** (interdit), **רחיים = שדה** (permis). Le critère est la coutume locale — quel est le mode normal d'exploitation ? Si c'est שכיר יום, c'est interdit ; si c'est אריסות, c'est permis.",
+      "alternative_dans_sources": null
+    },
+
+    {
+      "id": "243-q04",
+      "question": "Quelle est la différence halakhique entre השכרה (location), קבלנות (forfait) et אריסות (métayage) ?",
+      "category": "shabbat-non-juif",
+      "siman": "243",
+      "seif": "1-2",
+      "tags": ["shabbat", "non-juif", "haskirah", "kabalanout", "aristut", "243"],
+      "clarity": "shulchan-aroukh-tranche",
+      "clarity_note": "Question conceptuelle clarifiée par le Choulchan Aroukh + Tour.",
+      "positions": [
+        {
+          "name": "Tour OH 243-244",
+          "label_he": "טור אורח חיים סימנים רמ״ג-רמ״ד",
+          "scope": "source-classique",
+          "minhag": "tous",
+          "text": "הטור מסביר שלוש הצורות: (1) השכרה — שכר קבוע, הגוי שכיר. (2) קבלנות — מחיר קבוע על משימה (הגוי בוחר את זמנו). (3) אריסות — חלק מהיבול לגוי.",
+          "ref": "Tour OH 243-244"
+        },
+        {
+          "name": "Choulchan Aroukh OH 243:1-2",
+          "label_he": "שולחן ערוך אורח חיים רמ״ג",
+          "scope": "source-classique",
+          "minhag": "tous",
+          "text": "השו״ע מבדיל: השכרה (אסור במרחץ, מותר בשדה אם אדעתא דנפשיה), קבלנות (אסור במרחץ לפי המהר״י אבוהב), אריסות (מותר תמיד כי הגוי לעצמו עובד).",
+          "ref": "Choulchan Aroukh OH 243"
+        },
+        {
+          "name": "Mishna Brura 243 (Introduction)",
+          "label_he": "משנה ברורה רמ״ג, מבוא",
+          "scope": "poskim-recent",
+          "minhag": "ashkenaze",
+          "text": "המ״ב מסכם: השאלה המרכזית היא 'למי המלאכה?'. אם לישראל (שכיר יום) — אסור. אם לגוי (אריסות) — מותר.",
+          "ref": "Mishna Brura 243"
+        }
+      ],
+      "synthesis_neutre": "**Trois modes** distincts : (1) **השכרה / שכיר יום** : non-juif est employé du Juif → souvent interdit. (2) **קבלנות** : non-juif fixé son rythme → permis sauf si l'Israélien gagne directement de Shabbat. (3) **אריסות** : non-juif partage les fruits → toujours permis car אדעתא דנפשיה.",
+      "alternative_dans_sources": null
+    },
+
+    {
+      "id": "246-q01",
+      "question": "Peut-on louer sa voiture à un non-juif vendredi soir, sachant qu'il l'utilisera le Shabbat ?",
+      "category": "shabbat-non-juif",
+      "siman": "246",
+      "seif": "1",
+      "tags": ["shabbat", "non-juif", "voiture", "location", "sekhar-shabbat", "246"],
+      "clarity": "shulchan-aroukh-tranche",
+      "clarity_note": "Le Choulchan Aroukh OH 246:1 utilise אסור explicitement pour la location en סכר יום avec connaissance.",
+      "positions": [
+        {
+          "name": "Talmud Bavli, Shabbat 18b-19a",
+          "label_he": "תלמוד בבלי, מסכת שבת י״ח:-י״ט.",
+          "scope": "fondement",
+          "minhag": "tous",
+          "text": "המקור התלמודי: מחלוקת בית הלל ובית שמאי על שביתת כלים. בית הלל: אין מצווה על שביתת כלים — מותר להשאיל ולהשכיר לגוי לפני שבת.",
+          "ref": "Shabbat 18b",
+          "url": "https://www.sefaria.org/Shabbat.18b"
+        },
+        {
+          "name": "Rambam, Hilkhot Shabbat 6:15-18",
+          "label_he": "רמב״ם, הלכות שבת ו:טו-יח",
+          "scope": "source-classique",
+          "minhag": "tous",
+          "text": "פוסק כבית הלל: מותר להשאיל ולהשכיר כלים לגוי לפני שבת. אבל בערב שבת סמוך לחשכה — אסור משום נראה כשלוחו. ובשכירות לפי יום (סכר יום) — אסור משום שכר שבת. בהבלעה — מותר.",
+          "ref": "Mishneh Tora, Hilkhot Shabbat 6:15"
+        },
+        {
+          "name": "Choulchan Aroukh OH 246:1",
+          "label_he": "שולחן ערוך אורח חיים סימן רמ״ו, סעיף א",
+          "scope": "source-classique",
+          "minhag": "tous",
+          "text": "מותר להשאיל ולהשכיר כלים לגוי, אף על פי שעושה בהם מלאכה בשבת, מפני שאין אנו מצווים על שביתת כלים. במה דברים אמורים? כשהשאילן והשכירן לו מקודם השבת. אבל בערב שבת, סמוך לחשכה, אסור להשכירן או להשאילן לו, מפני שנראה כאלו הוא שלוחו לעשות מלאכה. ואסור להשכירן לו אפילו מקודם השבת בסכר יום, מפני שנראה כמשתכר בשבת, אבל בהבלעה — מותר.",
+          "ref": "Choulchan Aroukh OH 246:1",
+          "url": "https://www.sefaria.org/Shulchan_Arukh%2C_Orach_Chayim.246.1"
+        },
+        {
+          "name": "Hagaha du Rama OH 246:1",
+          "label_he": "הגהת הרמ״א, אורח חיים רמ״ו סעיף א",
+          "scope": "source-classique",
+          "minhag": "ashkenaze",
+          "text": "וההשאלה מותרת אפילו ערב שבת סמוך לחשכה, רק שלא יקבל שכר אם הוא כלי שמלאכתו לאסור. וכל זה בשאין הישראל מצוהו על המלאכה.",
+          "ref": "Rama OH 246:1"
+        },
+        {
+          "name": "Choulchan Aroukh haRav OH 246",
+          "label_he": "שולחן ערוך הרב, סימן רמ״ו",
+          "scope": "source-classique",
+          "minhag": "habad",
+          "text": "אדה״ז פוסק כהרמ״א: אסור להשכיר בסכר יום לגוי כשיודע שיעשה בו מלאכה בשבת. גם בהשאלה (ללא תשלום) של כלי שמלאכתו לאסור — אסור סמוך לחשכה. בהבלעה — מותר.",
+          "ref": "Choulchan Aroukh haRav OH 246"
+        },
+        {
+          "name": "Mishna Brura 246:1-5",
+          "label_he": "משנה ברורה רמ״ו:א-ה",
+          "scope": "poskim-recent",
+          "minhag": "ashkenaze",
+          "text": "מסכם את הפסיקה לפי הרמ״א: כשיודע שיעשה הגוי מלאכה בשבת, אסור גם להשכיר וגם להשאיל (כלי מלאכה). הבלעה מתירה השכירות.",
+          "ref": "Mishna Brura 246:1",
+          "url": "https://www.sefaria.org/Mishnah_Berurah.246.1"
+        },
+        {
+          "name": "Yabia Omer ח״ב או״ח סי' מח",
+          "label_he": "שו״ת יביע אומר חלק ב או״ח סימן מח",
+          "scope": "poskim-recent",
+          "minhag": "sefarade",
+          "text": "דן בהשכרת רכוש לגוי בעידן המודרני. לפי הספרדים (פסק המחבר): השכרה בסכר יום אסורה כשיודע. בהבלעה — מותרת. הוא אינו מאמץ את חידוש הרמ״א על איסור השאלה.",
+          "ref": "Yabia Omer Vol 2 OH 48"
+        },
+        {
+          "name": "Igrot Moshe OH ח״א סי' צו",
+          "label_he": "אגרות משה, אורח חיים חלק א סימן צו",
+          "scope": "poskim-recent",
+          "minhag": "ashkenaze",
+          "text": "דן ביישומים מודרניים של ההלכה. מאשר את הפסק של הרמ״א, ומפרט מה נחשב 'כלי שמלאכתו לאסור' בעידן הטכנולוגיה.",
+          "ref": "Igrot Moshe OH Vol 1 #96"
+        }
+      ],
+      "synthesis_neutre": "Le **Choulchan Aroukh tranche אסור** la location en סכר יום avec connaissance de l'usage Shabbat. **Pour les Séfarades** (Yabia Omer) : le Mehaber suffit — la location au jour est interdite, mais la הבלעה est permise. **Pour les Ashkénazes** (Rama + Mishna Brura + Igrot Moshe) : ajouté l'interdiction du prêt gratuit (השאלה) pour les כלי מלאכה. **Pour les Habad** : suit le Rama.",
+      "alternative_dans_sources": "Le Choulchan Aroukh lui-même mentionne explicitement la **הבלעה** (forfait multi-jours) comme alternative permise."
+    },
+
+    {
+      "id": "246-q02",
+      "question": "Peut-on prêter (gratuitement) ses outils à un non-juif vendredi soir, sachant qu'il les utilisera Shabbat ?",
+      "category": "shabbat-non-juif",
+      "siman": "246",
+      "seif": "1",
+      "tags": ["shabbat", "non-juif", "hashalah", "prêt", "kli-melakhah", "246"],
+      "clarity": "requires-rav",
+      "clarity_note": "Le Mehaber permet le prêt gratuit avant Shabbat (séfarade). Le Rama interdit pour les כלי מלאכה (ashkénaze). C'est la מחלוקת structurelle séfarade/ashkénaze de ce Siman.",
+      "positions": [
+        {
+          "name": "Talmud Bavli, Shabbat 18b",
+          "label_he": "תלמוד בבלי, מסכת שבת י״ח:",
+          "scope": "fondement",
+          "minhag": "tous",
+          "text": "סוגיית השאלת כלים לגוי — מחלוקת בית הלל / בית שמאי. בית הלל מתיר.",
+          "ref": "Shabbat 18b",
+          "url": "https://www.sefaria.org/Shabbat.18b"
+        },
+        {
+          "name": "Tossafot Shabbat 18b ד״ה ובית הלל",
+          "label_he": "תוספות, שבת י״ח: ד״ה ובית הלל",
+          "scope": "source-classique",
+          "minhag": "ashkenaze",
+          "text": "התוספות מחמירים: יש איסור שביתת כלים מדרבנן עכ״פ בכלים שמלאכתן לאסור. זהו המקור של הרמ״א.",
+          "ref": "Tossafot Shabbat 18b"
+        },
+        {
+          "name": "Rambam, Hilkhot Shabbat 6:15",
+          "label_he": "רמב״ם, הלכות שבת ו:טו",
+          "scope": "source-classique",
+          "minhag": "tous",
+          "text": "פוסק כבית הלל ובלי הוספת התוספות: מותר להשאיל כלים לגוי לפני שבת. אין שביתת כלים. זוהי הגישה הליברלית שאומצה ע״י המחבר הספרדי.",
+          "ref": "Mishneh Tora, Hilkhot Shabbat 6:15"
+        },
+        {
+          "name": "Choulchan Aroukh OH 246:1 (Mehaber)",
+          "label_he": "שולחן ערוך אורח חיים רמ״ו, סעיף א",
+          "scope": "source-classique",
+          "minhag": "sefarade",
+          "text": "המחבר (פסק כרמב״ם): מותר להשאיל לגוי גם בערב שבת סמוך לחשכה, ובלבד שלא יקבל שכר. אין הבחנה בין כלי שמלאכתו לאסור לכלי שמלאכתו להיתר.",
+          "ref": "Choulchan Aroukh OH 246:1",
+          "url": "https://www.sefaria.org/Shulchan_Arukh%2C_Orach_Chayim.246.1"
+        },
+        {
+          "name": "Hagaha du Rama OH 246:1",
+          "label_he": "הגהת הרמ״א, רמ״ו סעיף א",
+          "scope": "source-classique",
+          "minhag": "ashkenaze",
+          "text": "מחדש: 'רק שלא יקבל שכר אם הוא כלי שמלאכתו לאסור'. כלומר: בכלי מלאכה רגילים, השאלה סמוך לחשכה אסורה גם ללא תשלום.",
+          "ref": "Rama OH 246:1"
+        },
+        {
+          "name": "Choulchan Aroukh haRav OH 246",
+          "label_he": "שולחן ערוך הרב, סימן רמ״ו",
+          "scope": "source-classique",
+          "minhag": "habad",
+          "text": "אדה״ז פוסק כהרמ״א: בכלי מלאכה אסור להשאיל סמוך לחשכה גם ללא תשלום, משום שיתחזה כשולח את הגוי לעשות מלאכה.",
+          "ref": "Choulchan Aroukh haRav OH 246"
+        },
+        {
+          "name": "Mishna Brura 246:6-9",
+          "label_he": "משנה ברורה רמ״ו:ו-ט",
+          "scope": "poskim-recent",
+          "minhag": "ashkenaze",
+          "text": "המ״ב מאמץ את הרמ״א ומדגיש: בכלי מלאכה (perceuse, scie, machine) אסור להשאיל סמוך לחשכה כשיודע שיעשה בו מלאכה. רחוק מהשבת — מותר אפילו בכלי מלאכה.",
+          "ref": "Mishna Brura 246:6"
+        },
+        {
+          "name": "Yabia Omer ח״ב או״ח סי' מח",
+          "label_he": "שו״ת יביע אומר חלק ב סימן מח",
+          "scope": "poskim-recent",
+          "minhag": "sefarade",
+          "text": "מאמץ את פסק המחבר: לספרדים, השאלה אינה אסורה גם בכלי מלאכה. אינו מקבל את חידוש הרמ״א.",
+          "ref": "Yabia Omer Vol 2 OH 48"
+        }
+      ],
+      "synthesis_neutre": "**מחלוקת מבנית** Séfarade vs Ashkénaze : (a) **Séfarades** (Mehaber + Yabia Omer) — prêt gratuit permis pour tout objet, même en כלי מלאכה. (b) **Ashkénazes** (Rama + Mishna Brura) — prêt gratuit interdit pour les כלי מלאכה près de la nuit. (c) **Habad** — suit le Rama. Pour les objets neutres (livre, vaisselle), tous d'accord : permis.",
+      "alternative_dans_sources": null
+    },
+
+    {
+      "id": "246-q03",
+      "question": "Qu'est-ce que le concept de הבלעה (englobement) et quand permet-il une location à un non-juif sur Shabbat ?",
+      "category": "shabbat-non-juif",
+      "siman": "246",
+      "seif": "1",
+      "tags": ["shabbat", "non-juif", "havlaa", "englobement", "246"],
+      "clarity": "shulchan-aroukh-tranche",
+      "clarity_note": "Le Choulchan Aroukh OH 246:1 mentionne explicitement la הבלעה comme cas permis.",
+      "positions": [
+        {
+          "name": "Tossefta Shabbat 17",
+          "label_he": "תוספתא, שבת פרק י״ז",
+          "scope": "fondement",
+          "minhag": "tous",
+          "text": "מקור הכלל של הבלעה: כשהשכר מובלע בתוך תקופת זמן רחבה יותר משבת בלבד, אין זה נחשב כשכר שבת ספציפי.",
+          "ref": "Tossefta Shabbat 17"
+        },
+        {
+          "name": "Choulchan Aroukh OH 246:1",
+          "label_he": "שולחן ערוך אורח חיים רמ״ו:א",
+          "scope": "source-classique",
+          "minhag": "tous",
+          "text": "ואסור להשכירן לו אפילו מקודם השבת בסכר יום, מפני שנראה כמשתכר בשבת, **אבל בהבלעה — מותר**.",
+          "ref": "Choulchan Aroukh OH 246:1",
+          "url": "https://www.sefaria.org/Shulchan_Arukh%2C_Orach_Chayim.246.1"
+        },
+        {
+          "name": "Mishna Brura 246:5-6",
+          "label_he": "משנה ברורה רמ״ו:ה-ו",
+          "scope": "poskim-recent",
+          "minhag": "ashkenaze",
+          "text": "מבאר: הבלעה היא כשהשכר על שבת מובלע בתוך מחיר כולל למספר ימים. דוגמא: השכרה לחודש ב-100 שקל. אסור: 5 שקל ליום.",
+          "ref": "Mishna Brura 246:5"
+        },
+        {
+          "name": "Choulchan Aroukh haRav OH 246",
+          "label_he": "שולחן ערוך הרב, סימן רמ״ו",
+          "scope": "source-classique",
+          "minhag": "habad",
+          "text": "אדה״ז מפרט את תנאי ההבלעה: (1) המחיר חייב להיות כללי, לא יומי. (2) השבת אינו עיקר ההשכרה. (3) הימים שאינם שבת אינם תוספת מינורית.",
+          "ref": "Choulchan Aroukh haRav OH 246"
+        },
+        {
+          "name": "Yabia Omer ח״ב או״ח סי' מח",
+          "label_he": "שו״ת יביע אומר חלק ב סימן מח",
+          "scope": "poskim-recent",
+          "minhag": "sefarade",
+          "text": "מאשר את הסוגיה ומיישם אותה לעידן המודרני: השכרת מכוניות לימים רבים, השכרת מקומות לכמה לילות, וכו'. אם המחיר כולל ושבת אינו עיקר — מותר.",
+          "ref": "Yabia Omer Vol 2 OH 48"
+        }
+      ],
+      "synthesis_neutre": "Tous d'accord : la **הבלעה** est un mécanisme explicitement validé par le Choulchan Aroukh. Conditions : (1) le prix est global (pas divisé jour par jour), (2) plusieurs jours non-Shabbat sont inclus, (3) Shabbat n'est pas l'essentiel du contrat.",
+      "alternative_dans_sources": null
+    },
+
+    {
+      "id": "246-q04",
+      "question": "Peut-on louer son appartement Airbnb à un non-juif pour 3 nuits incluant Shabbat ?",
+      "category": "shabbat-non-juif",
+      "siman": "246",
+      "seif": "1",
+      "tags": ["shabbat", "non-juif", "airbnb", "havlaa", "246"],
+      "clarity": "shulchan-aroukh-tranche",
+      "clarity_note": "C'est un cas direct d'application de הבלעה au Choulchan Aroukh.",
+      "positions": [
+        {
+          "name": "Choulchan Aroukh OH 246:1",
+          "label_he": "שולחן ערוך אורח חיים רמ״ו:א",
+          "scope": "source-classique",
+          "minhag": "tous",
+          "text": "השכרה בהבלעה — מותרת. השכרה בסכר יום — אסורה.",
+          "ref": "Choulchan Aroukh OH 246:1",
+          "url": "https://www.sefaria.org/Shulchan_Arukh%2C_Orach_Chayim.246.1"
+        },
+        {
+          "name": "Choulchan Aroukh OH 244 (השכרת בית)",
+          "label_he": "שולחן ערוך אורח חיים סימן רמ״ד (השכרת בית לגוי)",
+          "scope": "source-classique",
+          "minhag": "tous",
+          "text": "סימן זה דן בהשכרת בית לגוי. ההלכה: מותר להשכיר בית לגוי לתקופה של מספר ימים שכוללים שבת, כי הגוי גר בו לעצמו.",
+          "ref": "Choulchan Aroukh OH 244",
+          "url": "https://www.sefaria.org/Shulchan_Arukh%2C_Orach_Chayim.244"
+        },
+        {
+          "name": "Mishna Brura 244",
+          "label_he": "משנה ברורה רמ״ד",
+          "scope": "poskim-recent",
+          "minhag": "ashkenaze",
+          "text": "השכרת בית בהבלעה (שבוע, חודש) מותרת — הגוי גר בו לעצמו, ואין שכר שבת מבודד.",
+          "ref": "Mishna Brura 244"
+        },
+        {
+          "name": "Yabia Omer ח״ב או״ח סי' מח",
+          "label_he": "שו״ת יביע אומר חלק ב סימן מח",
+          "scope": "poskim-recent",
+          "minhag": "sefarade",
+          "text": "מאשר את ההיתר במפורש לעידן המודרני: השכרת אירבי-אנ-בי לכמה לילות שכוללים שבת — מותרת. תנאי: המחיר כולל, לא לפי יום.",
+          "ref": "Yabia Omer Vol 2 OH 48"
+        }
+      ],
+      "synthesis_neutre": "Toutes les sources convergent : **permis** quand : (1) prix forfaitaire global pour les 3 nuits, (2) Shabbat n'est pas l'essentiel, (3) le Juif ne demande pas explicitement au non-juif de faire un travail particulier le Shabbat (אמירה לגוי).",
+      "alternative_dans_sources": null
+    },
+
+    {
+      "id": "246-q05",
+      "question": "Peut-on prêter un livre à un voisin non-juif jeudi, sachant qu'il le lira le Shabbat ?",
+      "category": "shabbat-non-juif",
+      "siman": "246",
+      "seif": "1",
+      "tags": ["shabbat", "non-juif", "livre", "prêt", "246"],
+      "clarity": "shulchan-aroukh-tranche",
+      "clarity_note": "Cas où Mehaber et Rama tranchent tous deux מותר.",
+      "positions": [
+        {
+          "name": "Choulchan Aroukh OH 246:1",
+          "label_he": "שולחן ערוך אורח חיים רמ״ו:א",
+          "scope": "source-classique",
+          "minhag": "tous",
+          "text": "השאלה לגוי לפני השבת — מותרת. רק בערב שבת סמוך לחשכה ובכלים מסויימים יש מגבלה.",
+          "ref": "Choulchan Aroukh OH 246:1",
+          "url": "https://www.sefaria.org/Shulchan_Arukh%2C_Orach_Chayim.246.1"
+        },
+        {
+          "name": "Hagaha du Rama OH 246:1",
+          "label_he": "הגהת הרמ״א, רמ״ו",
+          "scope": "source-classique",
+          "minhag": "ashkenaze",
+          "text": "ההשאלה מותרת אפילו ערב שבת סמוך לחשכה — בכלים שמלאכתן להיתר (כמו ספר, שאינו כלי מלאכה).",
+          "ref": "Rama OH 246:1"
+        },
+        {
+          "name": "Mishna Brura 246:6",
+          "label_he": "משנה ברורה רמ״ו:ו",
+          "scope": "poskim-recent",
+          "minhag": "ashkenaze",
+          "text": "מבאר: ספר אינו 'כלי שמלאכתו לאסור' — קריאת ספר אינה מלאכה אסורה בשבת. לכן השאלה מותרת בכל זמן, ובלי תשלום.",
+          "ref": "Mishna Brura 246:6"
+        }
+      ],
+      "synthesis_neutre": "Permis selon toutes les autorités. Trois raisons : (1) lire un livre n'est pas une מלאכה Shabbat, (2) le prêt est gratuit (pas de שכר שבת), (3) jeudi est loin de Shabbat.",
+      "alternative_dans_sources": null
+    },
+
+    {
+      "id": "246-q06",
+      "question": "Quelle est la différence entre Siman 243 et Siman 246 ? Pourquoi deux Simanim séparés sur la même thématique ?",
+      "category": "shabbat-non-juif",
+      "siman": "243-246",
+      "seif": "tous",
+      "tags": ["shabbat", "non-juif", "243", "246", "structure"],
+      "clarity": "shulchan-aroukh-tranche",
+      "clarity_note": "Question structurelle clarifiée par la lecture du Tour et du Choulchan Aroukh.",
+      "positions": [
+        {
+          "name": "Tour OH 243-246",
+          "label_he": "טור אורח חיים סימנים רמ״ג-רמ״ו",
+          "scope": "source-classique",
+          "minhag": "tous",
+          "text": "הטור בנה את ארבעת הסימנים האלה כיחידה אחת: רמ״ג (השכרת מרחץ ושדה לגוי), רמ״ד (השכרת בית), רמ״ה (השכרת מכון לחיטוב), רמ״ו (השאלה והשכרה של כלים).",
+          "ref": "Tour OH 243-246"
+        },
+        {
+          "name": "Choulchan Aroukh OH 243-246",
+          "label_he": "שולחן ערוך אורח חיים רמ״ג-רמ״ו",
+          "scope": "source-classique",
+          "minhag": "tous",
+          "text": "השו״ע ממשיך את חלוקת הטור: סי' רמ״ג מטפל ברכוש מסחרי-מנצל (מרחץ, שדה, תנור, רחיים) — שאלת אריסות ושכיר יום. סי' רמ״ו מטפל בכלים אישיים — שאלת השאלה, שכירות לפי יום, הבלעה.",
+          "ref": "Choulchan Aroukh OH 243-246"
+        }
+      ],
+      "synthesis_neutre": "**Siman 243** = exploitation commerciale (bain, champ, four, moulin) où le non-juif **opère** un bien productif. **Siman 246** = prêt/location d'**objets mobiles** à un non-juif pour son **usage personnel**. Conceptuellement : 243 = exploitation, 246 = usage personnel.",
+      "alternative_dans_sources": null
+    }
+  ]
+}
