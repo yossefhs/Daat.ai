@@ -428,6 +428,39 @@
   font-family: 'Frank Ruhl Libre', serif;
 }
 
+/* Message majoritairement en hébreu — bulle entière en RTL */
+.daat-chat-message[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+  font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', serif;
+  font-size: 17px;
+  line-height: 1.85;
+}
+.daat-chat-message[dir="rtl"] p { text-align: right; }
+.daat-chat-message[dir="rtl"] ul,
+.daat-chat-message[dir="rtl"] ol { margin: 8px 22px 8px 0; padding: 0; }
+.daat-chat-message[dir="rtl"] li { text-align: right; }
+.daat-chat-message[dir="rtl"] blockquote {
+  border-left: none;
+  border-right: 3px solid var(--daat-gold);
+  padding: 4px 12px 4px 0;
+  margin: 8px 0;
+}
+.daat-chat-message[dir="rtl"] pre,
+.daat-chat-message[dir="rtl"] code {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: embed;
+}
+.daat-chat-message[dir="rtl"] pre { display: block; }
+.daat-chat-message[dir="rtl"] table { direction: rtl; }
+.daat-chat-message[dir="rtl"] th,
+.daat-chat-message[dir="rtl"] td { text-align: right; }
+.daat-chat-message[dir="rtl"] h1,
+.daat-chat-message[dir="rtl"] h2,
+.daat-chat-message[dir="rtl"] h3,
+.daat-chat-message[dir="rtl"] h4 { text-align: right; }
+
 .daat-chat-message.is-user {
   align-self: flex-end;
   background: var(--daat-navy);

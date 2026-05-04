@@ -22,6 +22,16 @@
       .replace(/'/g, '&#39;');
   }
 
+  // Détecte si un texte est majoritairement en hébreu (≥ ~50% des lettres).
+  // → utilisé pour passer la bulle entière en RTL quand l'IA répond en hébreu pur.
+  function detectMessageDir(text) {
+    if (!text) return 'ltr';
+    const heb = (text.match(/[א-תװ-ײ]/g) || []).length;
+    const lat = (text.match(/[A-Za-zÀ-ÿ]/g) || []).length;
+    if (heb === 0) return 'ltr';
+    return heb >= lat ? 'rtl' : 'ltr';
+  }
+
   function renderMarkdown(text) {
     if (!text) return '';
     let s = escapeHtml(text);
@@ -678,10 +688,10 @@
     appendMessage(role, content) {
       const el = document.createElement('div');
       el.className = 'daat-chat-message is-' + role;
-      // Force LTR for all messages — le français s'affiche de gauche à droite,
-      // les passages hébreux sont wrappés en <span dir="rtl"> par renderMarkdown
-      el.setAttribute('dir', 'ltr');
-      el.style.textAlign = 'left';
+      // Direction adaptative : LTR par défaut, RTL si le message est
+      // majoritairement en hébreu (ex: l'IA répond en hébreu pur).
+      // Cas LTR → les passages hébreux restent wrappés en <span dir="rtl">.
+      el.setAttribute('dir', detectMessageDir(content));
       if (role === 'assistant') {
         el.innerHTML = renderMarkdown(content);
       } else {
@@ -918,6 +928,7 @@
               const parsed = JSON.parse(data);
               if (parsed.type === 'text' && parsed.delta) {
                 assistantText += parsed.delta;
+                assistantEl.setAttribute('dir', detectMessageDir(assistantText));
                 assistantEl.innerHTML = renderMarkdown(assistantText);
                 this.scrollToBottom();
               } else if (parsed.type === 'tool_use') {

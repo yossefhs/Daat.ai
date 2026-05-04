@@ -267,6 +267,19 @@
     .bubble-user { background: var(--user-bg); color: var(--user-color); border-top-left-radius: 4px; }
     .bubble-assistant { background: var(--assistant-bg); color: var(--assistant-color); border: 1px solid var(--border); border-top-left-radius: 4px; }
 
+    /* RTL : message majoritairement en hebreu — bulle entiere passe en RTL */
+    .bubble[dir="rtl"] { direction: rtl; text-align: right; }
+    .bubble[dir="rtl"] p { font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', serif; font-size: 17px; line-height: 1.85; }
+    .bubble[dir="rtl"] h1, .bubble[dir="rtl"] h2, .bubble[dir="rtl"] h3, .bubble[dir="rtl"] h4 {
+      font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', serif; text-align: right;
+    }
+    .bubble[dir="rtl"] ul, .bubble[dir="rtl"] ol { margin: 8px 22px 8px 0; padding: 0; }
+    .bubble[dir="rtl"] li { text-align: right; }
+    .bubble[dir="rtl"] blockquote { border-left: none; border-right: 3px solid var(--gold); padding: 4px 12px 4px 0; }
+    .bubble[dir="rtl"] pre, .bubble[dir="rtl"] code { direction: ltr; text-align: left; unicode-bidi: embed; display: block; }
+    .bubble[dir="rtl"] table { direction: rtl; }
+    .bubble[dir="rtl"] th, .bubble[dir="rtl"] td { text-align: right; }
+
     .bubble p { margin: 0 0 10px 0; }
     .bubble p:last-child { margin-bottom: 0; }
     .bubble h1, .bubble h2, .bubble h3, .bubble h4 {
@@ -1014,6 +1027,18 @@ function submitInput() {
   send(text);
 }
 
+// Détecte si un texte est majoritairement en hébreu (≥ ~50% des lettres)
+// → utilisé pour passer la bulle entière en RTL quand l'IA répond en hébreu.
+// Compte les lettres hébraïques (U+05D0–U+05EA, U+05F0–U+05F2) vs lettres latines.
+function detectMessageDir(text) {
+  if (!text) return 'ltr';
+  const heb = (text.match(/[א-תװ-ײ]/g) || []).length;
+  const lat = (text.match(/[A-Za-zÀ-ÿ]/g) || []).length;
+  // Seuil : RTL dès que l'hébreu domine ou égale (souvent l'IA répond en hébreu pur).
+  if (heb === 0) return 'ltr';
+  return heb >= lat ? 'rtl' : 'ltr';
+}
+
 function renderMessage(role, content) {
   const wrap = document.createElement('div');
   wrap.className = 'message';
@@ -1022,18 +1047,17 @@ function renderMessage(role, content) {
   avatar.textContent = role === 'user' ? 'Y' : 'ד';
   const bubble = document.createElement('div');
   bubble.className = 'bubble ' + (role === 'user' ? 'bubble-user' : 'bubble-assistant');
+  let displayed = content;
   if (role === 'user') {
-    let displayed = content;
     if (displayed.startsWith('[Profil de cette session]')) {
       const lines = displayed.split('\n');
       const blankIdx = lines.findIndex((l, i) => i > 0 && l.trim() === '');
       if (blankIdx > 0) displayed = lines.slice(blankIdx + 1).join('\n');
       if (!displayed.trim()) displayed = '(Démarrage de la conversation)';
     }
-    bubble.innerHTML = renderMarkdown(displayed);
-  } else {
-    bubble.innerHTML = renderMarkdown(content);
   }
+  bubble.setAttribute('dir', detectMessageDir(displayed));
+  bubble.innerHTML = renderMarkdown(displayed);
   wrap.appendChild(avatar);
   wrap.appendChild(bubble);
   $messagesInner.appendChild(wrap);
@@ -1259,6 +1283,7 @@ async function send(userText) {
           const parsed = JSON.parse(data);
           if (parsed.type === 'text' && parsed.delta) {
             assistantText += parsed.delta;
+            assistantBubble.setAttribute('dir', detectMessageDir(assistantText));
             assistantBubble.innerHTML = renderMarkdown(assistantText);
             scrollToBottom();
           } else if (parsed.type === 'tool_use') {
