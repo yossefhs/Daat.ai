@@ -411,30 +411,47 @@ dropzone.addEventListener('click', () => photoInput.click());
 dropzone.addEventListener('drop', e => handleFiles(e.dataTransfer.files));
 photoInput.addEventListener('change', e => handleFiles(e.target.files));
 
-async function compressImage(file, maxDim = 2000, quality = 0.85) {
-  // Réduit la taille pour rester sous la limite Vercel et améliorer la latence Vision
+// Limite Vercel = ~4.5 Mo / requête. On vise <2 Mo par photo (compressée + base64)
+// pour garder une marge confortable. Compression agressive avec retry si encore trop gros.
+async function compressImage(file, maxDim = 1600, quality = 0.78) {
   return new Promise((resolve, reject) => {
     const img = new Image();
-    img.onload = () => {
-      let { width, height } = img;
-      if (width > maxDim || height > maxDim) {
-        const r = Math.min(maxDim / width, maxDim / height);
-        width = Math.round(width * r);
-        height = Math.round(height * r);
-      }
-      const canvas = document.createElement('canvas');
-      canvas.width = width; canvas.height = height;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(img, 0, 0, width, height);
-      canvas.toBlob(
-        blob => {
-          const reader = new FileReader();
-          reader.onload = () => resolve({ dataUrl: reader.result, blob });
-          reader.onerror = reject;
-          reader.readAsDataURL(blob);
-        },
-        'image/jpeg', quality
-      );
+    img.onload = async () => {
+      try {
+        // Tentatives successives : on baisse maxDim/quality si la photo reste trop lourde
+        const attempts = [
+          { maxDim: 1600, quality: 0.78 },
+          { maxDim: 1400, quality: 0.72 },
+          { maxDim: 1200, quality: 0.65 },
+          { maxDim: 1000, quality: 0.6 },
+        ];
+        const TARGET_BYTES = 2.5 * 1024 * 1024; // 2.5 Mo après b64 → ~3.4 Mo en payload JSON
+
+        for (const a of attempts) {
+          let { width, height } = img;
+          if (width > a.maxDim || height > a.maxDim) {
+            const r = Math.min(a.maxDim / width, a.maxDim / height);
+            width = Math.round(width * r);
+            height = Math.round(height * r);
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = width; canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', a.quality));
+          if (!blob) continue;
+          const dataUrl = await new Promise((res, rej) => {
+            const reader = new FileReader();
+            reader.onload = () => res(reader.result);
+            reader.onerror = rej;
+            reader.readAsDataURL(blob);
+          });
+          // dataUrl.length × 0.75 ≈ taille décodée
+          if (dataUrl.length * 0.75 < TARGET_BYTES || a === attempts[attempts.length - 1]) {
+            return resolve({ dataUrl, blob, dims: `${width}×${height}`, qual: a.quality });
+          }
+        }
+      } catch (err) { reject(err); }
     };
     img.onerror = reject;
     img.src = URL.createObjectURL(file);
@@ -448,9 +465,10 @@ async function handleFiles(fileList) {
   }
   for (const file of files) {
     try {
-      const { dataUrl } = await compressImage(file);
+      const { dataUrl, dims, qual } = await compressImage(file);
       const b64 = dataUrl.replace(/^data:image\/[a-zA-Z]+;base64,/, '');
-      state.photos.push({ name: file.name, mimeType: 'image/jpeg', dataUrl, b64 });
+      const sizeKB = Math.round(b64.length * 0.75 / 1024);
+      state.photos.push({ name: file.name, mimeType: 'image/jpeg', dataUrl, b64, dims, sizeKB, qual });
     } catch (err) {
       showToast('Erreur lecture ' + file.name + ' : ' + err.message, 'error');
     }
@@ -467,7 +485,7 @@ function renderPhotos() {
     div.innerHTML = `
       <img src="${p.dataUrl}" alt="page ${i + 1}">
       <button class="rm" data-i="${i}" title="Retirer">×</button>
-      <div class="idx">Page ${i + 1}</div>
+      <div class="idx">Page ${i + 1} · ${p.sizeKB} Ko · ${p.dims || ''}</div>
     `;
     div.querySelector('.rm').addEventListener('click', () => {
       state.photos.splice(i, 1); renderPhotos();
@@ -479,6 +497,27 @@ function renderPhotos() {
 
 $('clear-photos-btn').addEventListener('click', () => { state.photos = []; renderPhotos(); });
 
+async function transcribeOnePhoto(photo, index, siman, hint) {
+  // 1 photo par requête pour rester sous la limite Vercel ~4.5 Mo.
+  const res = await fetch('/api/admin/transcribe-photos', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + getToken(),
+    },
+    body: JSON.stringify({
+      images: [{ data: photo.b64, mimeType: photo.mimeType }],
+      siman, hint,
+    }),
+  });
+  if (!res.ok) {
+    const j = await res.json().catch(() => ({}));
+    throw new Error(`Photo ${index + 1} : ` + (j.error || 'HTTP ' + res.status));
+  }
+  const data = await res.json();
+  return { ...data.pages[0], _idx: index, _usage: data.usage };
+}
+
 $('transcribe-btn').addEventListener('click', async () => {
   if (state.photos.length === 0) return showToast('Ajoute au moins une photo', 'error');
   const siman = $('f-siman').value.trim();
@@ -487,38 +526,47 @@ $('transcribe-btn').addEventListener('click', async () => {
   const prog = $('transcribe-progress');
   prog.style.display = 'block';
   prog.className = 'progress';
-  prog.textContent = '⏳ Transcription en cours… (5–15 sec par photo)';
+  prog.textContent = `⏳ Transcription en cours (${state.photos.length} photo${state.photos.length > 1 ? 's en parallèle' : ''})…`;
 
   $('transcribe-btn').disabled = true;
+  const hint = $('f-hint').value.trim();
   try {
-    const res = await fetch('/api/admin/transcribe-photos', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + getToken(),
-      },
-      body: JSON.stringify({
-        images: state.photos.map(p => ({ data: p.b64, mimeType: p.mimeType })),
-        siman,
-        hint: $('f-hint').value.trim(),
-      }),
-    });
-    if (!res.ok) {
-      const j = await res.json().catch(() => ({}));
-      throw new Error(j.error || 'HTTP ' + res.status);
-    }
-    const data = await res.json();
-    state.transcription = data;
+    // Envoi 1 photo par requête, parallèle (Promise.allSettled pour ne pas tout perdre si une échoue).
+    const settled = await Promise.allSettled(
+      state.photos.map((p, i) => transcribeOnePhoto(p, i, siman, hint))
+    );
+    const ok = settled.filter(r => r.status === 'fulfilled').map(r => r.value)
+      .sort((a, b) => a._idx - b._idx);
+    const errs = settled.filter(r => r.status === 'rejected').map(r => r.reason.message);
 
-    // Concaténer hebrew + hagahot pour pré-remplir
-    const allHebrew = data.pages.map(p => p.hebrew).filter(Boolean).join('\n\n');
-    const allHagahot = data.pages.map(p => p.hagahot).filter(Boolean).join('\n\n');
+    if (ok.length === 0) {
+      throw new Error(errs.join(' · ') || 'Aucune photo transcrite');
+    }
+
+    // Numéroter les pages dans l'ordre d'origine
+    const pages = ok.map((p, i) => ({ ...p, index: i + 1 }));
+    const totalUsage = ok.reduce(
+      (acc, p) => ({
+        input_tokens: acc.input_tokens + (p._usage?.input_tokens || 0),
+        output_tokens: acc.output_tokens + (p._usage?.output_tokens || 0),
+      }),
+      { input_tokens: 0, output_tokens: 0 }
+    );
+    state.transcription = { pages, usage: totalUsage };
+
+    const allHebrew = pages.map(p => p.hebrew).filter(Boolean).join('\n\n');
+    const allHagahot = pages.map(p => p.hagahot).filter(Boolean).join('\n\n');
     $('f-hebrew').value = allHebrew;
     $('f-hagahot').value = allHagahot;
-    $('pages-raw').textContent = JSON.stringify(data.pages, null, 2);
+    $('pages-raw').textContent = JSON.stringify(pages, null, 2);
 
-    prog.className = 'progress success';
-    prog.textContent = `✓ ${data.pages.length} page(s) transcrite(s) — ${data.usage.input_tokens} tokens in / ${data.usage.output_tokens} out`;
+    if (errs.length > 0) {
+      prog.className = 'progress';
+      prog.textContent = `⚠ ${ok.length}/${state.photos.length} pages OK — ${errs.length} échec(s) : ${errs.join(' ; ')}`;
+    } else {
+      prog.className = 'progress success';
+      prog.textContent = `✓ ${pages.length} page(s) transcrite(s) — ${totalUsage.input_tokens} tokens in / ${totalUsage.output_tokens} out`;
+    }
     setStep(1, true);
     enableCard('step-transcription', true);
     enableCard('step-meta', true);

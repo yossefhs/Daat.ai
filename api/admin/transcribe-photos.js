@@ -27,15 +27,15 @@ import Anthropic from '@anthropic-ai/sdk';
 
 export const config = {
   api: {
-    // 8 photos × ~1 Mo en base64 ≈ 12 Mo. On reste prudent — les photos
-    // doivent être compressées côté client avant envoi.
-    bodyParser: { sizeLimit: '15mb' },
+    // Vercel impose une limite dure ~4.5 Mo sur le body des fonctions Node.
+    // → le client envoie UNE photo à la fois (en parallèle), pas un batch.
+    bodyParser: { sizeLimit: '4mb' },
   },
 };
 
 const MODEL = 'claude-opus-4-7'; // Vision-capable. Aligné avec api/chat.js du projet.
-const MAX_IMAGES = 8;
-const MAX_IMAGE_BYTES = 5 * 1024 * 1024; // 5 Mo par image (avant b64)
+const MAX_IMAGES = 8; // garde-fou si quelqu'un envoie quand même un batch
+const MAX_IMAGE_BYTES = 3 * 1024 * 1024; // 3 Mo par image (raw bytes après b64 decode)
 
 function checkAuth(req) {
   const expected = process.env.ADMIN_PASSWORD;
