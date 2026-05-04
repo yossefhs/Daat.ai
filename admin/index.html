@@ -160,6 +160,9 @@
     <div class="nav-section">Chat IA</div>
     <a href="corpus.html" class="nav-item" style="text-decoration:none;"><span class="icon">🤖</span> Corpus du chat</a>
 
+    <div class="nav-section">Auto-pilote</div>
+    <a href="siman-builder.html" class="nav-item" style="text-decoration:none;"><span class="icon">📸</span> Photos → Siman complet</a>
+
     <div style="padding:20px; margin-top:auto; border-top:1px solid rgba(255,255,255,0.05);">
       <div style="font-size:11px; color:rgba(255,255,255,0.3);">הרב יוסף חיים סממה</div>
       <a href="../index.html" style="font-size:11px; color:var(--gold); text-decoration:none;">← Voir le site</a>
@@ -193,8 +196,9 @@
       <div class="card">
         <div class="card-header"><div class="card-title">Actions rapides</div></div>
         <div style="display:flex; gap:12px; flex-wrap:wrap;">
-          <button class="btn btn-primary" onclick="showPage('add-content', document.querySelector('[onclick*=add-content]'))">➕ Ajouter un nouveau Seif</button>
-          <button class="btn btn-gold" onclick="showPage('generate', document.querySelector('[onclick*=generate]'))">⚙️ Générer une page HTML</button>
+          <a href="siman-builder.html" class="btn btn-gold" style="text-decoration:none;display:inline-flex;align-items:center;">📸 Photos → Siman complet (auto-pilote)</a>
+          <button class="btn btn-primary" onclick="showPage('add-content', document.querySelector('[onclick*=add-content]'))">➕ Ajouter un nouveau Seif (manuel)</button>
+          <button class="btn btn-outline" onclick="showPage('generate', document.querySelector('[onclick*=generate]'))">⚙️ Générer une page HTML</button>
           <button class="btn btn-outline" onclick="showPage('deploy', document.querySelector('[onclick*=deploy]'))">🚀 Instructions déploiement</button>
         </div>
       </div>

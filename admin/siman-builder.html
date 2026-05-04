@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DAAT Admin — Constructeur de Siman (photos → site)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #1A1F3A; --gold: #C5A55A; --cream: #FAF6EE;
+      --green: #2E7D52; --red: #C0392B; --border: #E4DDD0;
+      --text: #2C2C2C; --muted: #888;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #F4F4F6; color: var(--text); min-height: 100vh; }
+
+    header {
+      background: var(--navy); color: white;
+      padding: 16px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 2px solid var(--gold);
+    }
+    header .logo { display: flex; align-items: center; gap: 12px; }
+    header .logo .he { font-family: 'Frank Ruhl Libre', serif; font-size: 26px; color: var(--gold); font-weight: 700; }
+    header .logo .sub { font-size: 11px; color: rgba(255,255,255,0.5); letter-spacing: 3px; text-transform: uppercase; }
+    header nav a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 13px; margin-left: 20px; }
+    header nav a:hover { color: var(--gold); }
+
+    main { max-width: 1100px; margin: 0 auto; padding: 32px; }
+    h1 { font-size: 26px; color: var(--navy); margin-bottom: 8px; }
+    h2 { font-size: 18px; color: var(--navy); margin: 0 0 12px; }
+    .lead { color: var(--muted); margin-bottom: 24px; font-size: 14px; }
+
+    .card { background: white; border: 1px solid var(--border); padding: 24px; margin-bottom: 24px; }
+    .card.disabled { opacity: 0.45; pointer-events: none; }
+    .card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .step-num {
+      display: inline-block; width: 28px; height: 28px; border-radius: 50%;
+      background: var(--navy); color: white; text-align: center; line-height: 28px;
+      font-weight: 700; margin-right: 10px; font-size: 14px;
+    }
+    .step-num.done { background: var(--green); }
+
+    .auth-banner {
+      background: #FFF8E5; border: 1px solid var(--gold);
+      padding: 16px 20px; margin-bottom: 24px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .auth-banner.connected { background: #E8F5E9; border-color: var(--green); }
+
+    label { display: block; font-size: 13px; font-weight: 600; color: var(--navy); margin: 12px 0 6px; }
+    label .req { color: var(--red); }
+    input[type="text"], input[type="password"], input[type="number"], textarea, select {
+      width: 100%;
+      padding: 10px 12px; border: 1px solid var(--border);
+      background: white; font-family: inherit; font-size: 14px; color: var(--text);
+    }
+    input:focus, textarea:focus, select:focus { outline: 2px solid var(--gold); outline-offset: -1px; }
+    textarea { resize: vertical; line-height: 1.55; }
+    textarea.he { font-family: 'Frank Ruhl Libre', serif; font-size: 18px; direction: rtl; text-align: right; }
+    .field-help { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+    button {
+      background: var(--navy); color: white; border: none;
+      padding: 12px 24px; font-family: inherit; font-size: 14px; font-weight: 600;
+      cursor: pointer; transition: background 0.15s;
+    }
+    button:hover { background: #2A2F4A; }
+    button.gold { background: var(--gold); }
+    button.gold:hover { background: #D4B97A; }
+    button.green { background: var(--green); }
+    button.danger { background: var(--red); }
+    button.ghost { background: transparent; color: var(--navy); border: 1px solid var(--border); }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    .toolbar { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
+
+    .dropzone {
+      border: 2px dashed var(--border);
+      padding: 40px 20px;
+      text-align: center;
+      background: #FAFAFA;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .dropzone:hover, .dropzone.drag { border-color: var(--gold); background: #FFF8E5; }
+    .dropzone-text { color: var(--muted); font-size: 14px; }
+    .dropzone-cta { color: var(--navy); font-weight: 600; margin-top: 4px; }
+
+    .photos-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 12px; margin-top: 16px;
+    }
+    .photo-thumb {
+      position: relative; border: 1px solid var(--border);
+      background: white; aspect-ratio: 3/4; overflow: hidden;
+    }
+    .photo-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .photo-thumb .rm {
+      position: absolute; top: 4px; right: 4px;
+      background: rgba(192,57,43,0.9); color: white; border: none;
+      width: 24px; height: 24px; border-radius: 12px; cursor: pointer;
+      font-size: 14px; line-height: 24px; padding: 0;
+    }
+    .photo-thumb .idx {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: rgba(26,31,58,0.85); color: white; padding: 4px;
+      font-size: 11px; text-align: center; font-weight: 600;
+    }
+
+    .progress {
+      margin-top: 16px; padding: 12px 16px; background: #F4F4F6;
+      border-left: 3px solid var(--gold); font-size: 13px;
+    }
+    .progress.error { border-color: var(--red); background: #FFEBEE; color: var(--red); }
+    .progress.success { border-color: var(--green); background: #E8F5E9; color: var(--green); }
+
+    .file-preview {
+      margin-top: 16px; border: 1px solid var(--border); background: white;
+    }
+    .file-preview summary {
+      cursor: pointer; padding: 12px 16px; background: #FAFAFA;
+      font-weight: 600; color: var(--navy); user-select: none;
+    }
+    .file-preview iframe { width: 100%; height: 600px; border: none; }
+    .file-preview .src {
+      max-height: 400px; overflow: auto; padding: 12px;
+      font-family: 'Menlo', monospace; font-size: 11px; line-height: 1.5;
+      background: #1A1F3A; color: #DDD; white-space: pre-wrap;
+    }
+
+    .mm-list { margin-top: 12px; font-size: 13px; }
+    .mm-list li { padding: 6px 0; border-bottom: 1px dashed var(--border); }
+    .mm-list a { color: var(--navy); text-decoration: none; }
+    .mm-list a:hover { color: var(--gold); }
+
+    .toast {
+      position: fixed; bottom: 32px; right: 32px;
+      background: var(--navy); color: white;
+      padding: 14px 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      transform: translateX(120%); transition: transform 0.3s; z-index: 9999;
+      max-width: 400px;
+    }
+    .toast.show { transform: translateX(0); }
+    .toast.error { background: var(--red); }
+    .toast.success { background: var(--green); }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <span class="he">דעת</span>
+    <span class="sub">ADMIN · Siman Builder</span>
+  </div>
+  <nav>
+    <a href="../index.html">← Site</a>
+    <a href="index.html">Admin général</a>
+    <a href="corpus.html">Corpus chat</a>
+  </nav>
+</header>
+
+<main>
+  <h1>📸 Constructeur de Siman</h1>
+  <p class="lead">
+    Photographie le Choulchan Aroukh d'un nouveau siman, vérifie la transcription, complète les métadonnées,
+    et l'IA génère les 4 fichiers HTML <strong>fidèles au gabarit du siman 242</strong> avec mareh mekomot
+    automatiques (Sefaria). Tu télécharges un ZIP que tu pousses dans <code>sources/shabbat/siman-XXX/</code>.
+  </p>
+
+  <!-- AUTH -->
+  <div id="auth-banner" class="auth-banner">
+    <div style="flex: 1;">
+      <strong>🔒 Authentification admin requise</strong>
+      <div style="font-size: 13px; color: var(--muted); margin-top: 4px;">
+        Mot de passe ADMIN_PASSWORD (Vercel).
+      </div>
+    </div>
+    <input type="password" id="admin-pw" placeholder="Mot de passe admin" style="max-width: 250px;">
+    <button id="auth-btn" class="gold">Se connecter</button>
+  </div>
+
+  <!-- ÉTAPE 1 : photos -->
+  <div class="card disabled" id="step-photos">
+    <div class="card-head">
+      <h2><span class="step-num" id="num-1">1</span>Photos du Choulchan Aroukh</h2>
+      <span class="field-help">JPG / PNG · max 8 photos · max 5 Mo / photo</span>
+    </div>
+
+    <div class="dropzone" id="dropzone">
+      <div class="dropzone-text">Glisse-dépose les photos ici, ou</div>
+      <div class="dropzone-cta">📂 Click pour parcourir</div>
+      <input type="file" id="photo-input" accept="image/jpeg,image/png" multiple style="display:none;">
+    </div>
+
+    <div class="photos-grid" id="photos-grid"></div>
+
+    <div class="row-2" style="margin-top: 16px;">
+      <div>
+        <label>Siman (numéro arabe) <span class="req">*</span></label>
+        <input type="text" id="f-siman" placeholder="Ex : 247" inputmode="numeric">
+      </div>
+      <div>
+        <label>Indication pour l'OCR (optionnel)</label>
+        <input type="text" id="f-hint" placeholder="Ex : Choulchan Aroukh OH 247, seif 1 + Hagahot Rama">
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <button id="transcribe-btn" class="gold" disabled>📝 Transcrire les photos</button>
+      <button id="clear-photos-btn" class="ghost">Effacer les photos</button>
+    </div>
+
+    <div id="transcribe-progress" class="progress" style="display:none;"></div>
+  </div>
+
+  <!-- ÉTAPE 2 : transcription -->
+  <div class="card disabled" id="step-transcription">
+    <div class="card-head">
+      <h2><span class="step-num" id="num-2">2</span>Vérifier la transcription hébraïque</h2>
+      <span class="field-help">Édite si besoin avant génération</span>
+    </div>
+    <p class="field-help" style="margin-bottom: 12px;">
+      L'OCR Claude Vision a transcrit les photos. Relis attentivement, corrige les erreurs (lettres mal lues, coupures),
+      sépare correctement Mehaber / Hagahot. Le contenu de ce champ servira de base à la génération.
+    </p>
+
+    <label>Texte hébreu (Mehaber) <span class="req">*</span></label>
+    <textarea id="f-hebrew" rows="10" class="he" placeholder="טקסט מהשולחן ערוך…"></textarea>
+
+    <label>Hagahot du Rama (si applicable)</label>
+    <textarea id="f-hagahot" rows="5" class="he" placeholder="הגהות הרמ״א…"></textarea>
+
+    <details class="file-preview" id="pages-detail" style="margin-top: 16px;">
+      <summary>Voir le détail page par page (transcription brute)</summary>
+      <div class="src" id="pages-raw"></div>
+    </details>
+  </div>
+
+  <!-- ÉTAPE 3 : métadonnées + génération -->
+  <div class="card disabled" id="step-meta">
+    <div class="card-head">
+      <h2><span class="step-num" id="num-3">3</span>Métadonnées + génération du siman</h2>
+    </div>
+
+    <div class="row-3">
+      <div>
+        <label>Numéro hébreu (gimatria) <span class="req">*</span></label>
+        <input type="text" id="m-num-he" placeholder="Ex : רמ״ז">
+      </div>
+      <div>
+        <label>Section</label>
+        <select id="m-section">
+          <option value="orah-haim">Orah Haim</option>
+          <option value="yoreh-deah">Yoreh De'ah</option>
+          <option value="even-haezer">Even HaEzer</option>
+          <option value="hochen-mishpat">Hochen Mishpat</option>
+        </select>
+      </div>
+      <div>
+        <label>Chapitre</label>
+        <input type="text" id="m-chapter" value="hilkhot-shabbat">
+      </div>
+    </div>
+
+    <label>Titre hébreu officiel <span class="req">*</span></label>
+    <input type="text" id="m-title-he" class="he" style="font-family: 'Frank Ruhl Libre', serif; font-size: 18px; direction: rtl; text-align: right;" placeholder="Ex : דברים האסורים בערב שבת">
+
+    <label>Titre français <span class="req">*</span></label>
+    <input type="text" id="m-title-fr" placeholder="Ex : Choses interdites la veille de Shabbat">
+
+    <label>Sous-titre court (optionnel)</label>
+    <input type="text" id="m-subtitle" placeholder="Ex : trois Seifim sur les interdictions">
+
+    <label>Traduction française du texte hébreu (optionnel — sera générée si vide)</label>
+    <textarea id="m-translation" rows="6" placeholder="Traduction littérale + glosses halakhiques. Si vide, l'IA génère."></textarea>
+
+    <label>Mareh mekomot — refs Sefaria à résoudre automatiquement (une par ligne)</label>
+    <textarea id="m-refs" rows="6" placeholder="Shulchan_Arukh,_Orach_Chayim.247.1
+Mishneh_Torah,_Sabbath.6.16
+Shabbat.19a"></textarea>
+    <div class="field-help">
+      Format Sefaria avec underscores et points (cf. URL Sefaria). L'API récupère automatiquement
+      le texte hébreu et anglais et l'injecte dans le niveau 2.
+    </div>
+
+    <div class="toolbar">
+      <button id="generate-btn" class="gold">✨ Générer les 4 fichiers HTML</button>
+    </div>
+
+    <div id="generate-progress" class="progress" style="display:none;"></div>
+  </div>
+
+  <!-- ÉTAPE 4 : preview + download -->
+  <div class="card disabled" id="step-result">
+    <div class="card-head">
+      <h2><span class="step-num" id="num-4">4</span>Aperçu + téléchargement</h2>
+      <span class="field-help" id="usage-info"></span>
+    </div>
+
+    <div id="mareh-mekomot-summary"></div>
+    <div id="files-preview"></div>
+
+    <div class="toolbar">
+      <button id="download-btn" class="green">📦 Télécharger ZIP siman-XXX.zip</button>
+      <button id="restart-btn" class="ghost">↻ Recommencer</button>
+    </div>
+
+    <p class="field-help" style="margin-top: 16px;">
+      <strong>Étapes finales (manuelles)</strong> :
+      1) Décompresser le ZIP dans <code>sources/shabbat/siman-XXX/</code>.
+      2) Éditer <code>data/simanim.json</code> pour ajouter le siman au catalogue.
+      3) <code>git add . &amp;&amp; git commit -m "feat: add siman XXX" &amp;&amp; git push</code> — Vercel redéploie automatiquement.
+    </p>
+  </div>
+</main>
+
+<div id="toast" class="toast"></div>
+
+<!-- JSZip pour le ZIP côté client -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+<script>
+const TOKEN_KEY = 'daat-admin-token-v1';
+
+// === STATE ===
+const state = {
+  photos: [],            // [{ name, mimeType, dataUrl, b64 }]
+  transcription: null,   // { pages, merged }
+  generated: null,       // { siman, files, mareh_mekomot, usage }
+};
+
+// === HELPERS ===
+function $(id) { return document.getElementById(id); }
+function getToken() { return sessionStorage.getItem(TOKEN_KEY) || ''; }
+function setToken(t) { t ? sessionStorage.setItem(TOKEN_KEY, t) : sessionStorage.removeItem(TOKEN_KEY); }
+function showToast(msg, type) {
+  const t = $('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + (type || '');
+  setTimeout(() => { t.className = 'toast ' + (type || ''); }, 4000);
+}
+function setStep(n, done) {
+  $('num-' + n).classList.toggle('done', !!done);
+}
+function enableCard(id, on) {
+  $(id).classList.toggle('disabled', !on);
+}
+
+// === AUTH ===
+async function tryAuth(token) {
+  try {
+    const res = await fetch('/api/admin/corpus', {
+      method: 'GET',
+      headers: { 'Authorization': 'Bearer ' + token },
+    });
+    if (res.status === 401) return { ok: false, reason: 'Mot de passe incorrect' };
+    if (!res.ok) {
+      const j = await res.json().catch(() => ({}));
+      return { ok: false, reason: j.error || 'HTTP ' + res.status };
+    }
+    return { ok: true };
+  } catch (err) {
+    return { ok: false, reason: 'Connexion impossible : ' + err.message };
+  }
+}
+
+function showConnected() {
+  $('auth-banner').classList.add('connected');
+  $('auth-banner').innerHTML =
+    '<strong>✓ Connecté admin</strong>' +
+    '<div style="flex:1; font-size: 13px; color: var(--muted);">Tu peux uploader des photos et générer des simanim.</div>' +
+    '<button id="logout-btn" class="ghost">Déconnexion</button>';
+  $('logout-btn').addEventListener('click', () => { setToken(''); location.reload(); });
+  enableCard('step-photos', true);
+}
+
+$('auth-btn').addEventListener('click', async () => {
+  const pw = $('admin-pw').value.trim();
+  if (!pw) return showToast('Saisis un mot de passe', 'error');
+  const r = await tryAuth(pw);
+  if (r.ok) { setToken(pw); showConnected(); showToast('Connecté ✓', 'success'); }
+  else showToast(r.reason, 'error');
+});
+$('admin-pw').addEventListener('keydown', e => { if (e.key === 'Enter') $('auth-btn').click(); });
+
+// Auto-auth si déjà en session
+(async () => {
+  const t = getToken();
+  if (t) {
+    const r = await tryAuth(t);
+    if (r.ok) showConnected();
+    else setToken('');
+  }
+})();
+
+// === ÉTAPE 1 : photos ===
+const dropzone = $('dropzone');
+const photoInput = $('photo-input');
+
+dropzone.addEventListener('click', () => photoInput.click());
+['dragenter', 'dragover'].forEach(ev =>
+  dropzone.addEventListener(ev, e => { e.preventDefault(); dropzone.classList.add('drag'); })
+);
+['dragleave', 'drop'].forEach(ev =>
+  dropzone.addEventListener(ev, e => { e.preventDefault(); dropzone.classList.remove('drag'); })
+);
+dropzone.addEventListener('drop', e => handleFiles(e.dataTransfer.files));
+photoInput.addEventListener('change', e => handleFiles(e.target.files));
+
+async function compressImage(file, maxDim = 2000, quality = 0.85) {
+  // Réduit la taille pour rester sous la limite Vercel et améliorer la latence Vision
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      let { width, height } = img;
+      if (width > maxDim || height > maxDim) {
+        const r = Math.min(maxDim / width, maxDim / height);
+        width = Math.round(width * r);
+        height = Math.round(height * r);
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = width; canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, width, height);
+      canvas.toBlob(
+        blob => {
+          const reader = new FileReader();
+          reader.onload = () => resolve({ dataUrl: reader.result, blob });
+          reader.onerror = reject;
+          reader.readAsDataURL(blob);
+        },
+        'image/jpeg', quality
+      );
+    };
+    img.onerror = reject;
+    img.src = URL.createObjectURL(file);
+  });
+}
+
+async function handleFiles(fileList) {
+  const files = Array.from(fileList).filter(f => f.type.startsWith('image/'));
+  if (state.photos.length + files.length > 8) {
+    return showToast('Maximum 8 photos par siman', 'error');
+  }
+  for (const file of files) {
+    try {
+      const { dataUrl } = await compressImage(file);
+      const b64 = dataUrl.replace(/^data:image\/[a-zA-Z]+;base64,/, '');
+      state.photos.push({ name: file.name, mimeType: 'image/jpeg', dataUrl, b64 });
+    } catch (err) {
+      showToast('Erreur lecture ' + file.name + ' : ' + err.message, 'error');
+    }
+  }
+  renderPhotos();
+}
+
+function renderPhotos() {
+  const grid = $('photos-grid');
+  grid.innerHTML = '';
+  state.photos.forEach((p, i) => {
+    const div = document.createElement('div');
+    div.className = 'photo-thumb';
+    div.innerHTML = `
+      <img src="${p.dataUrl}" alt="page ${i + 1}">
+      <button class="rm" data-i="${i}" title="Retirer">×</button>
+      <div class="idx">Page ${i + 1}</div>
+    `;
+    div.querySelector('.rm').addEventListener('click', () => {
+      state.photos.splice(i, 1); renderPhotos();
+    });
+    grid.appendChild(div);
+  });
+  $('transcribe-btn').disabled = state.photos.length === 0;
+}
+
+$('clear-photos-btn').addEventListener('click', () => { state.photos = []; renderPhotos(); });
+
+$('transcribe-btn').addEventListener('click', async () => {
+  if (state.photos.length === 0) return showToast('Ajoute au moins une photo', 'error');
+  const siman = $('f-siman').value.trim();
+  if (!siman) return showToast('Indique le numéro de siman', 'error');
+
+  const prog = $('transcribe-progress');
+  prog.style.display = 'block';
+  prog.className = 'progress';
+  prog.textContent = '⏳ Transcription en cours… (5–15 sec par photo)';
+
+  $('transcribe-btn').disabled = true;
+  try {
+    const res = await fetch('/api/admin/transcribe-photos', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + getToken(),
+      },
+      body: JSON.stringify({
+        images: state.photos.map(p => ({ data: p.b64, mimeType: p.mimeType })),
+        siman,
+        hint: $('f-hint').value.trim(),
+      }),
+    });
+    if (!res.ok) {
+      const j = await res.json().catch(() => ({}));
+      throw new Error(j.error || 'HTTP ' + res.status);
+    }
+    const data = await res.json();
+    state.transcription = data;
+
+    // Concaténer hebrew + hagahot pour pré-remplir
+    const allHebrew = data.pages.map(p => p.hebrew).filter(Boolean).join('\n\n');
+    const allHagahot = data.pages.map(p => p.hagahot).filter(Boolean).join('\n\n');
+    $('f-hebrew').value = allHebrew;
+    $('f-hagahot').value = allHagahot;
+    $('pages-raw').textContent = JSON.stringify(data.pages, null, 2);
+
+    prog.className = 'progress success';
+    prog.textContent = `✓ ${data.pages.length} page(s) transcrite(s) — ${data.usage.input_tokens} tokens in / ${data.usage.output_tokens} out`;
+    setStep(1, true);
+    enableCard('step-transcription', true);
+    enableCard('step-meta', true);
+    showToast('Transcription terminée ✓', 'success');
+  } catch (err) {
+    prog.className = 'progress error';
+    prog.textContent = '❌ ' + err.message;
+    showToast(err.message, 'error');
+  } finally {
+    $('transcribe-btn').disabled = false;
+  }
+});
+
+// === ÉTAPE 3 : génération ===
+$('generate-btn').addEventListener('click', async () => {
+  const required = {
+    siman: $('f-siman').value.trim(),
+    num_he: $('m-num-he').value.trim(),
+    title_he: $('m-title-he').value.trim(),
+    title_fr: $('m-title-fr').value.trim(),
+    hebrew_text: $('f-hebrew').value.trim(),
+  };
+  for (const [k, v] of Object.entries(required)) {
+    if (!v) return showToast('Champ requis : ' + k, 'error');
+  }
+  setStep(2, true);
+
+  const refs = $('m-refs').value
+    .split('\n').map(s => s.trim()).filter(Boolean);
+
+  const prog = $('generate-progress');
+  prog.style.display = 'block';
+  prog.className = 'progress';
+  prog.textContent = '⏳ Résolution Sefaria + génération des 4 fichiers HTML… (~2–4 min)';
+
+  $('generate-btn').disabled = true;
+  try {
+    const res = await fetch('/api/admin/generate-siman', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + getToken(),
+      },
+      body: JSON.stringify({
+        ...required,
+        subtitle: $('m-subtitle').value.trim(),
+        section: $('m-section').value,
+        chapter: $('m-chapter').value.trim(),
+        hagahot: $('f-hagahot').value.trim(),
+        translation_fr: $('m-translation').value.trim(),
+        refs,
+      }),
+    });
+    if (!res.ok) {
+      const j = await res.json().catch(() => ({}));
+      throw new Error(j.error || 'HTTP ' + res.status);
+    }
+    const data = await res.json();
+    state.generated = data;
+
+    prog.className = 'progress success';
+    prog.textContent = `✓ ${Object.keys(data.files).length} fichiers générés — ${data.mareh_mekomot.length} mareh mekomot résolus`;
+
+    renderResult(data);
+    setStep(3, true);
+    enableCard('step-result', true);
+    document.getElementById('step-result').scrollIntoView({ behavior: 'smooth' });
+    showToast('Siman généré ✓', 'success');
+  } catch (err) {
+    prog.className = 'progress error';
+    prog.textContent = '❌ ' + err.message;
+    showToast(err.message, 'error');
+  } finally {
+    $('generate-btn').disabled = false;
+  }
+});
+
+function renderResult(data) {
+  // Mareh mekomot summary
+  const mmDiv = $('mareh-mekomot-summary');
+  if (data.mareh_mekomot && data.mareh_mekomot.length) {
+    mmDiv.innerHTML = `
+      <h3 style="font-size: 14px; color: var(--navy); margin-bottom: 8px;">📚 ${data.mareh_mekomot.length} mareh mekomot résolus via Sefaria</h3>
+      <ul class="mm-list">
+        ${data.mareh_mekomot.map(m => `
+          <li>
+            <a href="${m.url}" target="_blank" rel="noopener">${m.title || m.ref}</a>
+            <div style="color: var(--muted); font-size: 12px;">${m.hebrew_preview || ''}…</div>
+          </li>
+        `).join('')}
+      </ul>
+    `;
+  } else {
+    mmDiv.innerHTML = '';
+  }
+
+  // Files preview
+  const filesDiv = $('files-preview');
+  filesDiv.innerHTML = '';
+  for (const [name, html] of Object.entries(data.files)) {
+    const blob = new Blob([html], { type: 'text/html' });
+    const blobUrl = URL.createObjectURL(blob);
+    const det = document.createElement('details');
+    det.className = 'file-preview';
+    det.innerHTML = `
+      <summary>📄 ${name} <span style="color: var(--muted); font-weight: normal; font-size: 12px;">(${(html.length / 1024).toFixed(1)} KB)</span></summary>
+      <iframe src="${blobUrl}" sandbox="allow-same-origin"></iframe>
+    `;
+    filesDiv.appendChild(det);
+  }
+
+  // Usage info
+  if (data.usage) {
+    $('usage-info').textContent = `Input: ${data.usage.input_tokens} · Output: ${data.usage.output_tokens} · Cache read: ${data.usage.cache_read_tokens || 0}`;
+  }
+
+  $('download-btn').textContent = `📦 Télécharger ZIP siman-${data.siman}.zip`;
+}
+
+// === ÉTAPE 4 : ZIP ===
+$('download-btn').addEventListener('click', async () => {
+  if (!state.generated) return;
+  const { siman, files } = state.generated;
+  const zip = new JSZip();
+  const folder = zip.folder('siman-' + siman);
+  for (const [name, content] of Object.entries(files)) {
+    folder.file(name, content);
+  }
+  // Petit README pour rappeler les étapes manuelles
+  folder.file('README.md', `# Siman ${siman}
+
+Fichiers générés automatiquement par DAAT Admin Builder.
+
+## Étapes pour publier
+1. Décompresser ce dossier dans \`sources/shabbat/siman-${siman}/\` du repo
+2. Éditer \`data/simanim.json\` pour ajouter cette entrée au catalogue
+3. \`git add . && git commit -m "feat: add siman ${siman}" && git push\`
+
+## Fichiers
+${Object.keys(files).map(f => '- ' + f).join('\n')}
+
+## Mareh mekomot résolus (Sefaria)
+${state.generated.mareh_mekomot.map(m => '- [' + (m.title || m.ref) + '](' + m.url + ')').join('\n')}
+`);
+  setStep(4, true);
+  const blob = await zip.generateAsync({ type: 'blob' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `siman-${siman}.zip`;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  showToast('ZIP téléchargé ✓', 'success');
+});
+
+$('restart-btn').addEventListener('click', () => { location.reload(); });
+</script>
+</body>
+</html>
