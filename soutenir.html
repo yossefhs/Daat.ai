@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soutenir DAAT — Permettre l'étude de la Torah · דעת</title>
+  <meta name="description" content="Prendre part à la diffusion de la Torah. Don libre, dédicace d'étude, ou mécénat mensuel — דעת.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400&family=Frank+Ruhl+Libre:wght@300;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    /* =========================================================
+       DAAT · Soutenir — Identité visuelle continue avec le site
+       ========================================================= */
+    :root {
+      --color-gold: #B8972A;
+      --color-gold-light: #D4B255;
+      --color-gold-dark: #8C6F1E;
+      --color-parchment: #F5F0E8;
+      --color-parchment-soft: #FBF7EF;
+      --color-parchment-warm: #EDE5D3;
+      --color-dark: #1a1a2e;
+      --color-hebrew: #2C1810;
+      --color-text: #3a2e1f;
+      --color-muted: #7a6a55;
+      --color-line: rgba(184,151,42,0.25);
+
+      --font-display: 'Cormorant Garamond', 'Georgia', serif;
+      --font-body: 'Crimson Pro', 'Georgia', serif;
+      --font-hebrew: 'Frank Ruhl Libre', 'David Libre', serif;
+
+      --max-w: 1100px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-parchment);
+      color: var(--color-text);
+      line-height: 1.65;
+      font-size: 17px;
+      overflow-x: hidden;
+      background-image:
+        radial-gradient(at 12% 18%, rgba(184,151,42,0.06) 0%, transparent 45%),
+        radial-gradient(at 88% 82%, rgba(44,24,16,0.04) 0%, transparent 50%);
+    }
+
+    /* Texture papier subtile */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.5;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+    }
+
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ===== Sélecteur de langue ===== */
+    .lang-switcher {
+      position: fixed;
+      top: 1.5rem;
+      right: 1.5rem;
+      z-index: 100;
+      display: flex;
+      gap: 0.25rem;
+      background: rgba(245, 240, 232, 0.92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid var(--color-line);
+      border-radius: 100px;
+      padding: 0.3rem;
+      box-shadow: 0 6px 18px -6px rgba(44,24,16,0.15);
+    }
+    .lang-switcher button {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      padding: 0.4rem 0.95rem;
+      border-radius: 100px;
+      color: var(--color-muted);
+      letter-spacing: 0.5px;
+      transition: all 0.25s ease;
+      font-weight: 500;
+    }
+    .lang-switcher button:hover { color: var(--color-dark); }
+    .lang-switcher button.active {
+      background: var(--color-gold);
+      color: #fff;
+    }
+
+    /* ===== Bandeau de retour ===== */
+    .topbar {
+      padding: 1.4rem 0;
+      border-bottom: 1px solid var(--color-line);
+      position: relative;
+      z-index: 2;
+    }
+    .topbar a {
+      color: var(--color-muted);
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      letter-spacing: 0.5px;
+      transition: color 0.2s;
+    }
+    .topbar a:hover { color: var(--color-gold-dark); }
+    .topbar-flex { display: flex; align-items: center; gap: 0.6rem; }
+
+    /* ===== Hero ===== */
+    .hero {
+      padding: 5rem 0 4rem;
+      text-align: center;
+      position: relative;
+    }
+    .hero-watermark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -45%);
+      font-family: var(--font-hebrew);
+      font-size: clamp(14rem, 28vw, 26rem);
+      color: var(--color-gold);
+      opacity: 0.05;
+      z-index: 0;
+      font-weight: 700;
+      letter-spacing: -0.05em;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-hebrew);
+      font-size: 1.3rem;
+      color: var(--color-gold-dark);
+      margin-bottom: 1.2rem;
+      direction: rtl;
+      letter-spacing: 0.04em;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 4.4rem);
+      font-weight: 500;
+      color: var(--color-dark);
+      line-height: 1.08;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.015em;
+      position: relative;
+      z-index: 2;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--color-gold-dark);
+      font-weight: 400;
+    }
+
+    .hero-sub {
+      font-size: 1.2rem;
+      color: var(--color-muted);
+      max-width: 640px;
+      margin: 0 auto 2rem;
+      line-height: 1.55;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Ornement */
+    .ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem;
+      margin: 2.5rem auto;
+      color: var(--color-gold);
+      position: relative;
+      z-index: 2;
+    }
+    .ornament-symbol {
+      font-family: var(--font-hebrew);
+      font-size: 1.4rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+    }
+    .ornament-line {
+      width: 90px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--color-gold), transparent);
+    }
+
+    /* ===== Verset ===== */
+    .verse {
+      background: linear-gradient(135deg, rgba(184,151,42,0.07), rgba(255,252,246,0.6));
+      border-left: 3px solid var(--color-gold);
+      padding: 2.4rem 2.8rem;
+      margin: 2rem auto 4rem;
+      max-width: 720px;
+      position: relative;
+    }
+    body.lang-he .verse { border-left: none; border-right: 3px solid var(--color-gold); }
+
+    .verse-hebrew {
+      font-family: var(--font-hebrew);
+      direction: rtl;
+      font-size: 1.5rem;
+      color: var(--color-hebrew);
+      margin-bottom: 0.9rem;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+    .verse-trans {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--color-text);
+      line-height: 1.5;
+    }
+    .verse-source {
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: var(--color-muted);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-family: var(--font-body);
+    }
+
+    /* ===== Sections ===== */
+    .section {
+      padding: 5rem 0;
+      position: relative;
+    }
+    .section-eyebrow {
+      font-family: var(--font-hebrew);
+      direction: rtl;
+      color: var(--color-gold-dark);
+      font-size: 1.05rem;
+      text-align: center;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 2.7rem);
+      font-weight: 500;
+      color: var(--color-dark);
+      text-align: center;
+      margin-bottom: 1rem;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+    }
+    .section-intro {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 3.5rem;
+      color: var(--color-muted);
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    /* ===== Issachar-Zévouloun ===== */
+    .partnership {
+      padding: 5rem 0;
+      background: linear-gradient(180deg, transparent, rgba(184,151,42,0.05));
+      border-top: 1px solid var(--color-line);
+      border-bottom: 1px solid var(--color-line);
+    }
+    .partnership-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .partnership h2 {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      color: var(--color-dark);
+      margin-bottom: 1.5rem;
+      line-height: 1.15;
+      font-weight: 500;
+    }
+    .partnership h2 em {
+      color: var(--color-gold-dark);
+      font-style: italic;
+    }
+    .partnership p {
+      font-size: 1.1rem;
+      line-height: 1.75;
+      margin-bottom: 1rem;
+      color: var(--color-text);
+    }
+    .partnership-quote {
+      background: var(--color-parchment-soft);
+      padding: 2.2rem;
+      border: 1px solid var(--color-line);
+      position: relative;
+    }
+    .partnership-quote::before {
+      content: '';
+      position: absolute;
+      top: -1px; left: -1px;
+      width: 30px; height: 30px;
+      border-top: 2px solid var(--color-gold);
+      border-left: 2px solid var(--color-gold);
+    }
+    .partnership-quote::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; right: -1px;
+      width: 30px; height: 30px;
+      border-bottom: 2px solid var(--color-gold);
+      border-right: 2px solid var(--color-gold);
+    }
+    .partnership-quote .verse-hebrew {
+      font-size: 1.25rem;
+      margin-bottom: 0.7rem;
+    }
+    .partnership-quote .verse-trans { font-size: 1.05rem; }
+
+    /* ===== Trois piliers (cards) ===== */
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .pillar {
+      background: var(--color-parchment-soft);
+      border: 1px solid var(--color-line);
+      padding: 2.5rem 2rem 2rem;
+      position: relative;
+      transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .pillar:hover {
+      transform: translateY(-5px);
+      border-color: var(--color-gold);
+      box-shadow: 0 22px 40px -12px rgba(44,24,16,0.14);
+    }
+    .pillar-num {
+      font-family: var(--font-hebrew);
+      font-size: 4rem;
+      color: var(--color-gold);
+      opacity: 0.55;
+      line-height: 1;
+      margin-bottom: 0.8rem;
+      font-weight: 300;
+      letter-spacing: -0.05em;
+    }
+    .pillar-title {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      color: var(--color-dark);
+      margin-bottom: 0.4rem;
+      font-weight: 500;
+      line-height: 1.1;
+    }
+    .pillar-subtitle {
+      font-family: var(--font-hebrew);
+      direction: rtl;
+      color: var(--color-gold-dark);
+      font-size: 1.05rem;
+      margin-bottom: 1.3rem;
+      letter-spacing: 0.02em;
+    }
+    .pillar-desc {
+      color: var(--color-text);
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+      line-height: 1.6;
+    }
+
+    .amount-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 1.2rem;
+    }
+    .amount {
+      padding: 0.75rem 0.5rem;
+      text-align: center;
+      border: 1px solid var(--color-line);
+      background: rgba(255,252,246,0.6);
+      cursor: pointer;
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      color: var(--color-text);
+      text-decoration: none;
+      display: block;
+    }
+    .amount:hover {
+      background: var(--color-gold);
+      color: #fff;
+      border-color: var(--color-gold);
+      transform: translateY(-1px);
+    }
+    .amount-list {
+      list-style: none;
+      margin-bottom: 1.4rem;
+    }
+    .amount-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.6rem 0;
+      border-bottom: 1px dashed var(--color-line);
+      font-size: 0.98rem;
+    }
+    .amount-list li:last-child { border-bottom: none; }
+    .amount-list strong {
+      font-family: var(--font-display);
+      font-weight: 600;
+      color: var(--color-gold-dark);
+      font-size: 1.1rem;
+    }
+
+    .pillar-cta {
+      margin-top: auto;
+      display: block;
+      padding: 0.95rem 1.5rem;
+      background: var(--color-dark);
+      color: var(--color-parchment);
+      text-align: center;
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-weight: 500;
+      letter-spacing: 0.6px;
+      font-size: 1.05rem;
+      transition: background 0.25s ease;
+      border: none;
+      cursor: pointer;
+    }
+    .pillar-cta:hover { background: var(--color-gold-dark); }
+
+    .pillar.featured {
+      background: linear-gradient(180deg, rgba(184,151,42,0.10), rgba(255,252,246,0.85));
+      border-color: var(--color-gold);
+    }
+    .pillar.featured .pillar-cta { background: var(--color-gold); }
+    .pillar.featured .pillar-cta:hover { background: var(--color-gold-dark); }
+    .pillar.featured::after {
+      content: 'הכי משפיע';
+      position: absolute;
+      top: -13px;
+      right: 1.5rem;
+      background: var(--color-gold);
+      color: #fff;
+      padding: 0.35rem 0.95rem;
+      font-family: var(--font-hebrew);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      direction: rtl;
+    }
+    body.lang-he .pillar.featured::after { right: auto; left: 1.5rem; }
+
+    /* ===== Transparence ===== */
+    .transparency {
+      padding: 5rem 0;
+    }
+    .trans-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .trans-item {
+      text-align: center;
+      padding: 2rem 1.2rem;
+      background: var(--color-parchment-soft);
+      border: 1px solid var(--color-line);
+    }
+    .trans-percent {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      color: var(--color-gold);
+      font-weight: 500;
+      line-height: 1;
+    }
+    .trans-label {
+      font-size: 1rem;
+      color: var(--color-text);
+      margin-top: 0.6rem;
+      line-height: 1.4;
+    }
+
+    .reassurance {
+      max-width: 720px;
+      margin: 3.5rem auto 0;
+      text-align: center;
+      padding: 1.8rem 2rem;
+      background: var(--color-parchment-soft);
+      border: 1px solid var(--color-line);
+      font-size: 0.98rem;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+    .reassurance strong { color: var(--color-gold-dark); font-family: var(--font-display); font-size: 1.1rem; }
+
+    /* ===== Footer ===== */
+    footer {
+      background: var(--color-dark);
+      color: var(--color-parchment);
+      padding: 3.5rem 0 2rem;
+      text-align: center;
+      margin-top: 5rem;
+      position: relative;
+      z-index: 2;
+    }
+    footer .ornament-symbol { color: var(--color-gold-light); }
+    footer .ornament-line {
+      background: linear-gradient(to right, transparent, var(--color-gold-light), transparent);
+    }
+    footer h3 {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+      color: #fff;
+    }
+    footer p {
+      color: rgba(245,240,232,0.7);
+      font-size: 0.95rem;
+      margin: 0.4rem 0;
+    }
+    footer a {
+      color: var(--color-gold-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    footer a:hover { color: #fff; }
+    .footer-meta {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(212,178,85,0.2);
+      font-size: 0.85rem;
+      color: rgba(245,240,232,0.5);
+    }
+
+    /* ===== Système de bascule de langue ===== */
+    .lang-fr-block, .lang-en-block, .lang-he-block { display: none; }
+    body.lang-fr .lang-fr-block { display: block; }
+    body.lang-en .lang-en-block { display: block; }
+    body.lang-he .lang-he-block { display: block; }
+
+    .lang-fr-inline, .lang-en-inline, .lang-he-inline { display: none; }
+    body.lang-fr .lang-fr-inline { display: inline; }
+    body.lang-en .lang-en-inline { display: inline; }
+    body.lang-he .lang-he-inline { display: inline; }
+
+    /* ===== Mode hébreu : RTL global ===== */
+    body.lang-he {
+      direction: rtl;
+      font-family: var(--font-hebrew);
+    }
+    body.lang-he .hero h1,
+    body.lang-he .section-title,
+    body.lang-he .partnership h2,
+    body.lang-he .pillar-title,
+    body.lang-he footer h3 {
+      font-family: var(--font-hebrew);
+    }
+    body.lang-he .lang-switcher {
+      right: auto;
+      left: 1.5rem;
+    }
+    body.lang-he .topbar a { font-family: var(--font-hebrew); }
+
+    /* ===== Animations d'entrée ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-eyebrow { animation: fadeUp 0.7s 0.1s both; }
+    .hero h1 { animation: fadeUp 0.7s 0.25s both; }
+    .hero-sub { animation: fadeUp 0.7s 0.4s both; }
+    .ornament { animation: fadeUp 0.7s 0.55s both; }
+    .verse { animation: fadeUp 0.8s 0.7s both; }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 860px) {
+      .partnership-grid { grid-template-columns: 1fr; gap: 2rem; }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      .hero { padding: 4rem 0 2.5rem; }
+      .hero h1 { font-size: 2.2rem; }
+      .hero-sub { font-size: 1.05rem; }
+      .verse { padding: 1.6rem 1.7rem; margin: 1.5rem 0.5rem 3rem; }
+      .verse-hebrew { font-size: 1.25rem; }
+      .lang-switcher { top: 0.8rem; right: 0.8rem; padding: 0.25rem; }
+      .lang-switcher button { padding: 0.35rem 0.7rem; font-size: 0.78rem; }
+      body.lang-he .lang-switcher { left: 0.8rem; right: auto; }
+      .section { padding: 3.5rem 0; }
+      .pillar { padding: 2rem 1.5rem 1.5rem; }
+      .container { padding: 0 1.2rem; }
+      .partnership-quote { padding: 1.6rem; }
+    }
+  </style>
+</head>
+<body class="lang-fr">
+
+  <!-- Sélecteur de langue -->
+  <div class="lang-switcher" role="group" aria-label="Choisir la langue">
+    <button data-lang="fr" class="active">FR</button>
+    <button data-lang="en">EN</button>
+    <button data-lang="he">עב</button>
+  </div>
+
+  <!-- Bandeau de retour -->
+  <div class="topbar">
+    <div class="container topbar-flex">
+      <a href="/">
+        <span class="lang-fr-inline">← Retour à DAAT</span>
+        <span class="lang-en-inline">← Back to DAAT</span>
+        <span class="lang-he-inline">← חזרה ל-דעת</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-watermark" aria-hidden="true">דעת</div>
+    <div class="container">
+      <div class="hero-eyebrow">עֵץ חַיִּים הִיא לַמַּחֲזִיקִים בָּהּ</div>
+
+      <h1>
+        <span class="lang-fr-inline">Prendre <em>part</em> à la diffusion de la Torah</span>
+        <span class="lang-en-inline">Take <em>part</em> in the spreading of Torah</span>
+        <span class="lang-he-inline">קחו <em>חלק</em> בהפצת התורה</span>
+      </h1>
+
+      <p class="hero-sub">
+        <span class="lang-fr-inline">DAAT met l'étude halakhique gratuitement à disposition de chaque Juif, à son niveau, dans sa langue. Cette mission ne tient debout que par celles et ceux qui choisissent d'en être les bâtisseurs.</span>
+        <span class="lang-en-inline">DAAT makes halakhic study freely available to every Jew, at their level, in their language. This mission stands only because of those who choose to be its builders.</span>
+        <span class="lang-he-inline">דעת מציעה לימוד הלכה לכל יהודי, ברמתו ובשפתו, ללא תשלום. השליחות הזו עומדת רק בזכות מי שבוחרים להיות מבנֵיה.</span>
+      </p>
+
+      <div class="ornament" aria-hidden="true">
+        <div class="ornament-line"></div>
+        <span class="ornament-symbol">✦</span>
+        <div class="ornament-line"></div>
+      </div>
+
+      <!-- Verset central -->
+      <div class="verse">
+        <div class="verse-hebrew">עֵץ חַיִּים הִיא לַמַּחֲזִיקִים בָּהּ וְתֹמְכֶיהָ מְאֻשָּׁר</div>
+        <div class="verse-trans">
+          <span class="lang-fr-inline">« Elle est un arbre de vie pour ceux qui la soutiennent, et qui s'y attachent est heureux. »</span>
+          <span class="lang-en-inline">"She is a tree of life to those who hold her fast, and happy are all who support her."</span>
+          <span class="lang-he-inline">משלי, פרק ג, פסוק י״ח</span>
+        </div>
+        <div class="verse-source">Mishlei 3 · 18</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ISSACHAR · ZÉVOULOUN -->
+  <section class="partnership">
+    <div class="container">
+      <div class="partnership-grid">
+        <div>
+          <div class="lang-fr-block">
+            <h2>Le modèle de <em>Issachar et Zévouloun</em></h2>
+            <p>Dans la Torah, deux frères concluent un pacte. Issachar siège dans la tente d'étude. Zévouloun part au commerce — et soutient son frère matériellement. <strong>Le mérite de la Torah étudiée se partage entre eux deux, à parts égales.</strong></p>
+            <p>Aujourd'hui, des milliers de pages de halakha demandent à être étudiées, traduites, mises en ligne, expliquées par l'IA Daat. Tout cela a un coût — hébergement, recherche, traduction, contenu, IA — mais tout cela peut être donné gratuitement aux étudiants si des Zévouloun choisissent d'en porter une part.</p>
+            <p>En soutenant DAAT, vous ne faites pas un don. Vous prenez votre place dans l'étude.</p>
+          </div>
+          <div class="lang-en-block">
+            <h2>The <em>Issachar &amp; Zevulun</em> model</h2>
+            <p>In the Torah, two brothers struck a pact. Issachar sat in the tent of study. Zevulun went to trade — and supported his brother. <strong>The merit of the Torah studied was shared equally between them.</strong></p>
+            <p>Today, thousands of pages of halakha need to be studied, translated, brought online, explained by the Daat AI. All of this costs money — hosting, research, translation, content, AI — but all of it can be given freely to learners if Zevuluns choose to carry their share.</p>
+            <p>By supporting DAAT, you are not making a donation. You are taking your seat at the study.</p>
+          </div>
+          <div class="lang-he-block">
+            <h2>שותפות <em>יששכר וזבולון</em></h2>
+            <p>בתורה, שני אחים כורתים ברית. יששכר יושב באוהל ועוסק בתורה. זבולון יוצא לסחורה — ומפרנס את אחיו. <strong>שכר התורה מתחלק ביניהם בשווה.</strong></p>
+            <p>היום, אלפי עמודי הלכה ממתינים שילמדו, יתורגמו, יועלו לרשת, ויוסברו על ידי בינה מלאכותית. לכל זה יש עלות — אחסון, מחקר, תרגום, תוכן, AI — אבל אפשר לתת את הכול חינם ללומדים, אם זבולונים בוחרים לשאת בחלקם.</p>
+            <p>בתמיכה ב-דעת, אינך תורם. אתה תופס את מקומך בלימוד.</p>
+          </div>
+        </div>
+
+        <aside class="partnership-quote">
+          <div class="verse-hebrew">שְׂמַח זְבוּלֻן בְּצֵאתֶךָ וְיִשָּׂשכָר בְּאֹהָלֶיךָ</div>
+          <div class="verse-trans">
+            <span class="lang-fr-inline">« Réjouis-toi, Zévouloun, dans tes sorties — et toi, Issachar, dans tes tentes. »</span>
+            <span class="lang-en-inline">"Rejoice, Zevulun, in your going out — and Issachar, in your tents."</span>
+            <span class="lang-he-inline">דברים, פרק ל״ג, פסוק י״ח</span>
+          </div>
+          <div class="verse-source">Devarim 33 · 18</div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- TROIS PILIERS -->
+  <section class="section" id="participer">
+    <div class="container">
+      <div class="section-eyebrow">שלוש דרכים להצטרף</div>
+      <h2 class="section-title">
+        <span class="lang-fr-inline">Trois manières de prendre part</span>
+        <span class="lang-en-inline">Three ways to take part</span>
+        <span class="lang-he-inline">שלוש דרכים להצטרף</span>
+      </h2>
+      <p class="section-intro">
+        <span class="lang-fr-inline">Du plus simple au plus profond. Chaque participation, à toute hauteur, fait avancer l'étude.</span>
+        <span class="lang-en-inline">From the simplest to the most lasting. Every gift, at every level, moves the study forward.</span>
+        <span class="lang-he-inline">מהפשוט עד המעמיק ביותר. כל תרומה, בכל גובה, מקדמת את הלימוד.</span>
+      </p>
+
+      <div class="pillars">
+
+        <!-- PILIER 1 — Don ponctuel -->
+        <article class="pillar">
+          <div class="pillar-num">א</div>
+          <h3 class="pillar-title">
+            <span class="lang-fr-inline">Don libre</span>
+            <span class="lang-en-inline">One-time gift</span>
+            <span class="lang-he-inline">תרומה חד-פעמית</span>
+          </h3>
+          <div class="pillar-subtitle">תרומה למחזיקי תורה</div>
+          <p class="pillar-desc">
+            <span class="lang-fr-inline">Un geste simple, à toute hauteur. Reçu fiscal délivré (association loi 1901).</span>
+            <span class="lang-en-inline">A simple gesture, at any amount. Tax receipt provided (French registered non-profit).</span>
+            <span class="lang-he-inline">מחווה פשוטה, בכל סכום. אישור לזיכוי מס נמסר (עמותה רשומה בצרפת).</span>
+          </p>
+
+          <div class="amount-grid">
+            <!-- ⚠️ Remplacer YOUR_HELLOASSO_URL par l'URL HelloAsso réelle. Ajouter ?montant=18 etc. -->
+            <a href="https://www.helloasso.com/associations/YOUR_ASSO/formulaires/1?montant=18" class="amount" target="_blank" rel="noopener">18 €</a>
+            <a href="https://www.helloasso.com/associations/YOUR_ASSO/formulaires/1?montant=36" class="amount" target="_blank" rel="noopener">36 €</a>
+            <a href="https://www.helloasso.com/associations/YOUR_ASSO/formulaires/1?montant=72" class="amount" target="_blank" rel="noopener">72 €</a>
+            <a href="https://www.helloasso.com/associations/YOUR_ASSO/formulaires/1?montant=180" class="amount" target="_blank" rel="noopener">180 €</a>
+            <a href="https://www.helloasso.com/associations/YOUR_ASSO/formulaires/1?montant=360" class="amount" target="_blank" rel="noopener">360 €</a>
+            <a href="https://www.helloasso.com/associations/YOUR_ASSO/formulaires/1" class="amount" target="_blank" rel="noopener">
+              <span class="lang-fr-inline">Libre</span>
+              <span class="lang-en-inline">Other</span>
+              <span class="lang-he-inline">אחר</span>
+            </a>
+          </div>
+
+          <a href="https://www.helloasso.com/associations/YOUR_ASSO/formulaires/1" target="_blank" rel="noopener" class="pillar-cta">
+            <span class="lang-fr-inline">Faire un don</span>
+            <span class="lang-en-inline">Give now</span>
+            <span class="lang-he-inline">תרום עכשיו</span>
+          </a>
+        </article>
+
+        <!-- PILIER 2 — Dédicace (featured) -->
+        <article class="pillar featured">
+          <div class="pillar-num">ב</div>
+          <h3 class="pillar-title">
+            <span class="lang-fr-inline">Dédier l'étude</span>
+            <span class="lang-en-inline">Dedicate a study</span>
+            <span class="lang-he-inline">להקדיש לימוד</span>
+          </h3>
+          <div class="pillar-subtitle">לעילוי נשמת · רפואה שלמה · הצלחה</div>
+          <p class="pillar-desc">
+            <span class="lang-fr-inline">Dédier une page, un siman entier, ou un mois d'étude — à la mémoire d'un proche, pour la guérison ou la réussite. <strong>Le nom et la dédicace apparaissent sur les pages concernées</strong>, étudiées chaque jour à travers le monde.</span>
+            <span class="lang-en-inline">Dedicate a page, an entire siman, or a month of study — in memory of a loved one, for healing, or for success. <strong>The name and dedication appear on the relevant pages</strong>, studied every day around the world.</span>
+            <span class="lang-he-inline">הקדישו דף, סימן שלם, או חודש שלם של לימוד — לעילוי נשמת, לרפואה שלמה, או להצלחה. <strong>השם וההקדשה מופיעים בעמוד הנלמד</strong>, מדי יום ברחבי העולם.</span>
+          </p>
+
+          <ul class="amount-list">
+            <li>
+              <span>
+                <span class="lang-fr-inline">Une page de niveau</span>
+                <span class="lang-en-inline">One level page</span>
+                <span class="lang-he-inline">עמוד אחד</span>
+              </span>
+              <strong>36 €</strong>
+            </li>
+            <li>
+              <span>
+                <span class="lang-fr-inline">Un siman complet (3 niveaux)</span>
+                <span class="lang-en-inline">A full siman (3 levels)</span>
+                <span class="lang-he-inline">סימן שלם (3 רמות)</span>
+              </span>
+              <strong>180 €</strong>
+            </li>
+            <li>
+              <span>
+                <span class="lang-fr-inline">Un mois d'étude</span>
+                <span class="lang-en-inline">A month of study</span>
+                <span class="lang-he-inline">חודש לימוד</span>
+              </span>
+              <strong>720 €</strong>
+            </li>
+          </ul>
+
+          <a href="https://www.helloasso.com/associations/YOUR_ASSO/formulaires/2" target="_blank" rel="noopener" class="pillar-cta">
+            <span class="lang-fr-inline">Dédier une étude</span>
+            <span class="lang-en-inline">Dedicate a study</span>
+            <span class="lang-he-inline">להקדיש</span>
+          </a>
+        </article>
+
+        <!-- PILIER 3 — Mécène mensuel -->
+        <article class="pillar">
+          <div class="pillar-num">ג</div>
+          <h3 class="pillar-title">
+            <span class="lang-fr-inline">Habérim Dedaat</span>
+            <span class="lang-en-inline">Friends of Daat</span>
+            <span class="lang-he-inline">חברי דעת</span>
+          </h3>
+          <div class="pillar-subtitle">שותפות חודשית · קבועה</div>
+          <p class="pillar-desc">
+            <span class="lang-fr-inline">Rejoindre le cercle des soutiens mensuels — votre nom rejoint la liste des Hovevei Torah qui font vivre la plateforme jour après jour.</span>
+            <span class="lang-en-inline">Join the circle of monthly supporters — your name joins the list of Hovevei Torah who keep the platform alive day after day.</span>
+            <span class="lang-he-inline">הצטרפו למעגל התומכים החודשיים — שמכם מצטרף לרשימת חובבי התורה שמחזיקים את הפלטפורמה יום-יום.</span>
+          </p>
+
+          <div class="amount-grid">
+            <a href="https://www.helloasso.com/associations/YOUR_ASSO/adhesions/3?montant=18" class="amount" target="_blank" rel="noopener">18 €<small style="display:block;font-size:0.7em;color:var(--color-muted);margin-top:2px;">/mois</small></a>
+            <a href="https://www.helloasso.com/associations/YOUR_ASSO/adhesions/3?montant=36" class="amount" target="_blank" rel="noopener">36 €<small style="display:block;font-size:0.7em;color:var(--color-muted);margin-top:2px;">/mois</small></a>
+            <a href="https://www.helloasso.com/associations/YOUR_ASSO/adhesions/3?montant=100" class="amount" target="_blank" rel="noopener">100 €<small style="display:block;font-size:0.7em;color:var(--color-muted);margin-top:2px;">/mois</small></a>
+          </div>
+
+          <a href="https://www.helloasso.com/associations/YOUR_ASSO/adhesions/3" target="_blank" rel="noopener" class="pillar-cta">
+            <span class="lang-fr-inline">Devenir mécène</span>
+            <span class="lang-en-inline">Become a patron</span>
+            <span class="lang-he-inline">להצטרף</span>
+          </a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSPARENCE -->
+  <section class="transparency">
+    <div class="container">
+      <div class="section-eyebrow">שקיפות מלאה</div>
+      <h2 class="section-title">
+        <span class="lang-fr-inline">Où va chaque shekel</span>
+        <span class="lang-en-inline">Where every shekel goes</span>
+        <span class="lang-he-inline">לאן הולך כל שקל</span>
+      </h2>
+      <p class="section-intro">
+        <span class="lang-fr-inline">Pas de salaires cachés, pas de frais administratifs gonflés. La quasi-totalité de votre soutien finance directement la production et la diffusion de l'étude.</span>
+        <span class="lang-en-inline">No hidden salaries, no inflated overhead. Almost all of your support funds the production and dissemination of the study itself.</span>
+        <span class="lang-he-inline">בלי משכורות נסתרות, בלי הוצאות מנהליות מנופחות. כמעט כל התמיכה ממומנת ישירות להפקה ולהפצה של הלימוד.</span>
+      </p>
+
+      <div class="trans-grid">
+        <div class="trans-item">
+          <div class="trans-percent">55%</div>
+          <div class="trans-label">
+            <span class="lang-fr-inline">Production de contenu &amp; traduction</span>
+            <span class="lang-en-inline">Content production &amp; translation</span>
+            <span class="lang-he-inline">הפקת תוכן ותרגום</span>
+          </div>
+        </div>
+        <div class="trans-item">
+          <div class="trans-percent">25%</div>
+          <div class="trans-label">
+            <span class="lang-fr-inline">IA Daat &amp; serveurs</span>
+            <span class="lang-en-inline">Daat AI &amp; servers</span>
+            <span class="lang-he-inline">בינת דעת ושרתים</span>
+          </div>
+        </div>
+        <div class="trans-item">
+          <div class="trans-percent">15%</div>
+          <div class="trans-label">
+            <span class="lang-fr-inline">Diffusion &amp; outils</span>
+            <span class="lang-en-inline">Outreach &amp; tools</span>
+            <span class="lang-he-inline">הפצה וכלים</span>
+          </div>
+        </div>
+        <div class="trans-item">
+          <div class="trans-percent">5%</div>
+          <div class="trans-label">
+            <span class="lang-fr-inline">Frais bancaires &amp; HelloAsso</span>
+            <span class="lang-en-inline">Banking &amp; HelloAsso fees</span>
+            <span class="lang-he-inline">עמלות בנק והליואסו</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reassurance">
+        <div class="lang-fr-block">
+          <strong>Une association loi 1901</strong><br>
+          DAAT est porté par une association à but non lucratif déclarée en France. Tous les dons donnent lieu à un reçu fiscal — déductible à 66% en France pour les particuliers, dans la limite de 20% du revenu imposable.
+        </div>
+        <div class="lang-en-block">
+          <strong>A registered non-profit</strong><br>
+          DAAT is operated by a non-profit association declared in France. All donations are receipted — French taxpayers can deduct 66% (up to 20% of taxable income). Other countries: please check local rules.
+        </div>
+        <div class="lang-he-block">
+          <strong>עמותה רשומה</strong><br>
+          דעת מנוהלת על ידי עמותה רשומה (loi 1901) בצרפת. כל התרומות מקבלות אישור לזיכוי מס. בצרפת: 66% החזר עד 20% מההכנסה החייבת. במדינות אחרות: בדקו את הכללים המקומיים.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="ornament">
+        <div class="ornament-line"></div>
+        <span class="ornament-symbol">דעת</span>
+        <div class="ornament-line"></div>
+      </div>
+      <h3>
+        <span class="lang-fr-inline">Une question ? Un projet de mécénat ?</span>
+        <span class="lang-en-inline">A question? A patronage project?</span>
+        <span class="lang-he-inline">שאלה? פרויקט מתמיד?</span>
+      </h3>
+      <p>
+        <span class="lang-fr-inline">Écrivez à </span>
+        <span class="lang-en-inline">Write to </span>
+        <span class="lang-he-inline">כתבו ל- </span>
+        <a href="mailto:contact@daattorah.com">contact@daattorah.com</a>
+      </p>
+      <p>
+        <span class="lang-fr-inline">Pour les dons hors zone Euro · </span>
+        <span class="lang-en-inline">Donations outside Eurozone · </span>
+        <span class="lang-he-inline">תרומות מחוץ לאזור האירו · </span>
+        <a href="https://www.paypal.com/donate?hosted_button_id=YOUR_PAYPAL_ID" target="_blank" rel="noopener">PayPal</a>
+        ·
+        <a href="https://buy.stripe.com/YOUR_STRIPE_LINK" target="_blank" rel="noopener">Stripe</a>
+      </p>
+      <div class="footer-meta">
+        <p>DAAT · דעת — <span class="lang-fr-inline">Plateforme d'étude halakhique en 3 niveaux</span><span class="lang-en-inline">Three-level halakhic study platform</span><span class="lang-he-inline">פלטפורמת לימוד הלכה בשלוש רמות</span></p>
+        <p><a href="/">daattorah.com</a> · YH Community Manager</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ===== Bascule de langue (FR / EN / HE) =====
+    const langBtns = document.querySelectorAll('.lang-switcher button');
+    const body = document.body;
+
+    function setLang(lang) {
+      body.classList.remove('lang-fr', 'lang-en', 'lang-he');
+      body.classList.add('lang-' + lang);
+      body.setAttribute('dir', lang === 'he' ? 'rtl' : 'ltr');
+      document.documentElement.setAttribute('lang', lang);
+      langBtns.forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+      try { localStorage.setItem('daat-lang', lang); } catch(e) {}
+    }
+
+    langBtns.forEach(btn => {
+      btn.addEventListener('click', () => setLang(btn.dataset.lang));
+    });
+
+    // Restauration de la langue choisie
+    try {
+      const saved = localStorage.getItem('daat-lang');
+      if (saved && ['fr','en','he'].includes(saved)) setLang(saved);
+    } catch(e) {}
+  </script>
+
+</body>
+</html>
