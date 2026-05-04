@@ -577,14 +577,134 @@ function upsertConversation(conv) {
   const all = loadConversations();
   const idx = all.findIndex(c => c.id === conv.id);
   conv.updatedAt = Date.now();
+  if (!conv.createdAt) conv.createdAt = conv.updatedAt;
   if (idx >= 0) all[idx] = conv;
   else all.unshift(conv);
   // Keep at most 50 conversations
   saveConversations(all.slice(0, 50));
+  syncConvUpsert(conv);
 }
 function deleteConversation(id) {
   saveConversations(loadConversations().filter(c => c.id !== id));
+  syncConvDelete(id);
 }
+
+// ============================================================
+// SERVER SYNC — par utilisateur connecté (cookie daat_session)
+// Les fonctions ci-dessous sont des no-ops si l'utilisateur n'est
+// pas connecté. Tout fonctionne déjà localement via localStorage,
+// la sync n'ajoute QUE la persistance multi-appareils par compte.
+// ============================================================
+const SYNC_BASE = 'https://daatai.vercel.app/api/conversations';
+const SYNC_DEBOUNCE_MS = 1500;
+const _syncUpsertQueue = new Map(); // id -> conv (dernière version)
+let _syncUpsertTimer = null;
+let _syncPullDone = false;
+
+function isLoggedIn() {
+  return !!(window.daatAuth && window.daatAuth.getUser && window.daatAuth.getUser());
+}
+
+async function _syncFetch(method, opts) {
+  opts = opts || {};
+  return fetch(SYNC_BASE + (opts.qs || ''), {
+    method,
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    body: opts.body ? JSON.stringify(opts.body) : undefined,
+  });
+}
+
+function _flushSyncUpserts() {
+  _syncUpsertTimer = null;
+  if (!isLoggedIn()) return;
+  const items = Array.from(_syncUpsertQueue.values());
+  _syncUpsertQueue.clear();
+  for (const conv of items) {
+    _syncFetch('POST', { body: conv }).catch(err => {
+      console.warn('[sync] upsert failed', conv.id, err);
+    });
+  }
+}
+
+function syncConvUpsert(conv) {
+  if (!isLoggedIn()) return;
+  _syncUpsertQueue.set(conv.id, conv);
+  if (_syncUpsertTimer) clearTimeout(_syncUpsertTimer);
+  _syncUpsertTimer = setTimeout(_flushSyncUpserts, SYNC_DEBOUNCE_MS);
+}
+
+function syncConvDelete(id) {
+  if (!isLoggedIn()) return;
+  _syncUpsertQueue.delete(id);
+  _syncFetch('DELETE', { qs: '?id=' + encodeURIComponent(id) })
+    .catch(err => console.warn('[sync] delete failed', id, err));
+}
+
+async function syncPullAndMerge() {
+  if (!isLoggedIn()) return;
+  try {
+    const res = await _syncFetch('GET');
+    if (!res.ok) return;
+    const data = await res.json();
+    const serverConvs = Array.isArray(data.conversations) ? data.conversations : [];
+
+    const local = loadConversations();
+    const localMap = new Map(local.map(c => [c.id, c]));
+    const merged = [];
+    const serverIds = new Set();
+
+    // 1) Server gagne sur les conflits par updatedAt — sinon on garde le local et on push au server
+    for (const sc of serverConvs) {
+      const lc = localMap.get(sc.id);
+      if (!lc || (sc.updatedAt || 0) >= (lc.updatedAt || 0)) {
+        merged.push(sc);
+      } else {
+        merged.push(lc);
+        _syncUpsertQueue.set(lc.id, lc);
+      }
+      serverIds.add(sc.id);
+    }
+    // 2) Conversations locales jamais synchronisées → on les uploade en première sync
+    for (const lc of local) {
+      if (!serverIds.has(lc.id)) {
+        merged.push(lc);
+        _syncUpsertQueue.set(lc.id, lc);
+      }
+    }
+
+    merged.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+    saveConversations(merged.slice(0, 50));
+    _syncPullDone = true;
+
+    // Push les ajouts/conflits accumulés
+    if (_syncUpsertQueue.size > 0) _flushSyncUpserts();
+
+    // Re-render la sidebar avec les conversations remontées
+    if (typeof renderConvList === 'function') renderConvList();
+  } catch (err) {
+    console.warn('[sync] pull failed', err);
+  }
+}
+
+// Hook : attendre que daat-auth.js (defer) soit prêt, puis s'abonner aux changements
+function _bindAuthSyncHook() {
+  if (window.daatAuth && typeof window.daatAuth.onChange === 'function') {
+    window.daatAuth.onChange(user => {
+      if (user) {
+        _syncPullDone = false;
+        syncPullAndMerge();
+      }
+      // Au logout, on garde les convs locales en lecture (pas de wipe).
+    });
+    if (window.daatAuth.getUser && window.daatAuth.getUser()) {
+      syncPullAndMerge();
+    }
+  } else {
+    setTimeout(_bindAuthSyncHook, 100);
+  }
+}
+window.addEventListener('DOMContentLoaded', _bindAuthSyncHook);
 function getConversation(id) {
   return loadConversations().find(c => c.id === id) || null;
 }
