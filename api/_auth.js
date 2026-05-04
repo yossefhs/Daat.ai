@@ -53,14 +53,16 @@ export function getUserFromRequest(req) {
 
 export function setSessionCookie(res, token) {
   const maxAge = SESSION_DAYS * 24 * 60 * 60; // seconds
+  // SameSite=None requis : le cookie est posé par daatai.vercel.app mais consommé
+  // depuis daattorah.com (cross-site). Lax bloquerait l'envoi sur les fetch().
   res.setHeader('Set-Cookie', [
-    `${COOKIE_NAME}=${encodeURIComponent(token)}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${maxAge}`,
+    `${COOKIE_NAME}=${encodeURIComponent(token)}; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=${maxAge}`,
   ]);
 }
 
 export function clearSessionCookie(res) {
   res.setHeader('Set-Cookie', [
-    `${COOKIE_NAME}=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0`,
+    `${COOKIE_NAME}=; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=0`,
   ]);
 }
 
