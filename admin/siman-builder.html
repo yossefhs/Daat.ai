@@ -411,64 +411,144 @@ dropzone.addEventListener('click', () => photoInput.click());
 dropzone.addEventListener('drop', e => handleFiles(e.dataTransfer.files));
 photoInput.addEventListener('change', e => handleFiles(e.target.files));
 
-// Limite Vercel = ~4.5 Mo / requête. On vise <2 Mo par photo (compressée + base64)
-// pour garder une marge confortable. Compression agressive avec retry si encore trop gros.
-async function compressImage(file, maxDim = 1600, quality = 0.78) {
+// Stratégie : qualité MAXIMALE pour l'OCR (texte rabbinique parfois minuscule).
+// On garde 2400px et qualité 0.92. Si la photo dépasse la limite Vercel
+// (~3 Mo en base64 → ~4 Mo de payload JSON), on découpe en bandes
+// horizontales avec recouvrement (8%) — chaque bande conservant la pleine
+// résolution. Claude OCR traite chaque bande comme une photo indépendante,
+// l'admin recolle au moment de la relecture (les recouvrements aident à
+// ne perdre aucune ligne).
+async function loadImageBitmap(file) {
   return new Promise((resolve, reject) => {
     const img = new Image();
-    img.onload = async () => {
-      try {
-        // Tentatives successives : on baisse maxDim/quality si la photo reste trop lourde
-        const attempts = [
-          { maxDim: 1600, quality: 0.78 },
-          { maxDim: 1400, quality: 0.72 },
-          { maxDim: 1200, quality: 0.65 },
-          { maxDim: 1000, quality: 0.6 },
-        ];
-        const TARGET_BYTES = 2.5 * 1024 * 1024; // 2.5 Mo après b64 → ~3.4 Mo en payload JSON
-
-        for (const a of attempts) {
-          let { width, height } = img;
-          if (width > a.maxDim || height > a.maxDim) {
-            const r = Math.min(a.maxDim / width, a.maxDim / height);
-            width = Math.round(width * r);
-            height = Math.round(height * r);
-          }
-          const canvas = document.createElement('canvas');
-          canvas.width = width; canvas.height = height;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0, width, height);
-          const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', a.quality));
-          if (!blob) continue;
-          const dataUrl = await new Promise((res, rej) => {
-            const reader = new FileReader();
-            reader.onload = () => res(reader.result);
-            reader.onerror = rej;
-            reader.readAsDataURL(blob);
-          });
-          // dataUrl.length × 0.75 ≈ taille décodée
-          if (dataUrl.length * 0.75 < TARGET_BYTES || a === attempts[attempts.length - 1]) {
-            return resolve({ dataUrl, blob, dims: `${width}×${height}`, qual: a.quality });
-          }
-        }
-      } catch (err) { reject(err); }
-    };
+    img.onload = () => resolve(img);
     img.onerror = reject;
     img.src = URL.createObjectURL(file);
   });
 }
 
+async function canvasToJpegDataURL(canvas, quality) {
+  const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', quality));
+  if (!blob) throw new Error('toBlob returned null');
+  return new Promise((res, rej) => {
+    const reader = new FileReader();
+    reader.onload = () => res(reader.result);
+    reader.onerror = rej;
+    reader.readAsDataURL(blob);
+  });
+}
+
+function drawScaled(img, maxDim) {
+  let { width, height } = img;
+  if (width > maxDim || height > maxDim) {
+    const r = Math.min(maxDim / width, maxDim / height);
+    width = Math.round(width * r);
+    height = Math.round(height * r);
+  }
+  const canvas = document.createElement('canvas');
+  canvas.width = width; canvas.height = height;
+  const ctx = canvas.getContext('2d');
+  // Lissage pour préserver le rendu du texte fin
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = 'high';
+  ctx.drawImage(img, 0, 0, width, height);
+  return canvas;
+}
+
+async function compressImage(file) {
+  const TARGET_BYTES = 3.0 * 1024 * 1024;   // payload JSON < ~4 Mo (Vercel limit)
+  const HARD_TARGET   = 3.4 * 1024 * 1024;
+  const MAX_DIM       = 2400;               // résolution haute pour préserver le texte fin
+  const QUALITY       = 0.92;
+  const OVERLAP       = 0.08;               // 8% de recouvrement entre bandes
+
+  const img = await loadImageBitmap(file);
+  const fullCanvas = drawScaled(img, MAX_DIM);
+  const fullDataUrl = await canvasToJpegDataURL(fullCanvas, QUALITY);
+  const fullBytes = fullDataUrl.length * 0.75;
+
+  // Cas 1 : la photo entre dans la limite — on l'envoie en pleine qualité
+  if (fullBytes <= TARGET_BYTES) {
+    return [{
+      dataUrl: fullDataUrl,
+      dims: `${fullCanvas.width}×${fullCanvas.height}`,
+      qual: QUALITY,
+      partOf: null,
+      partIndex: null,
+    }];
+  }
+
+  // Cas 2 : trop grosse — on la découpe en bandes horizontales (overlap 8%)
+  // Nombre de bandes calibré pour que chaque bande pèse ~ TARGET / N
+  const bandsCount = Math.min(4, Math.ceil(fullBytes / (TARGET_BYTES * 0.85)));
+  const W = fullCanvas.width;
+  const H = fullCanvas.height;
+  // Hauteur d'une bande = H/N + overlap, mais on évite les arrondis qui débordent
+  const bandHeight = Math.ceil(H / bandsCount * (1 + OVERLAP));
+  const stepY = bandsCount > 1 ? Math.floor((H - bandHeight) / (bandsCount - 1)) : 0;
+
+  const tiles = [];
+  for (let i = 0; i < bandsCount; i++) {
+    const y0 = bandsCount === 1 ? 0 : Math.min(i * stepY, H - bandHeight);
+    const tileCanvas = document.createElement('canvas');
+    tileCanvas.width = W;
+    tileCanvas.height = bandHeight;
+    const ctx = tileCanvas.getContext('2d');
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(fullCanvas, 0, y0, W, bandHeight, 0, 0, W, bandHeight);
+
+    let q = QUALITY;
+    let dataUrl = await canvasToJpegDataURL(tileCanvas, q);
+    // Si une bande individuelle est encore trop grosse (peu probable avec 4 bandes),
+    // on baisse légèrement la qualité de cette bande seulement.
+    while (dataUrl.length * 0.75 > HARD_TARGET && q > 0.7) {
+      q -= 0.05;
+      dataUrl = await canvasToJpegDataURL(tileCanvas, q);
+    }
+    tiles.push({
+      dataUrl,
+      dims: `${W}×${bandHeight}`,
+      qual: q,
+      partOf: bandsCount,
+      partIndex: i + 1,
+    });
+  }
+  return tiles;
+}
+
 async function handleFiles(fileList) {
   const files = Array.from(fileList).filter(f => f.type.startsWith('image/'));
-  if (state.photos.length + files.length > 8) {
-    return showToast('Maximum 8 photos par siman', 'error');
+  // On compte les photos SOURCES (pas les tuiles), max 8 sources par siman.
+  const currentSources = new Set(state.photos.map(p => p.sourceId)).size;
+  if (currentSources + files.length > 8) {
+    return showToast('Maximum 8 photos source par siman', 'error');
   }
+  let nextSourceId = (state.photos.length === 0 ? 0 : Math.max(...state.photos.map(p => p.sourceId))) + 1;
+
   for (const file of files) {
+    const sourceId = nextSourceId++;
     try {
-      const { dataUrl, dims, qual } = await compressImage(file);
-      const b64 = dataUrl.replace(/^data:image\/[a-zA-Z]+;base64,/, '');
-      const sizeKB = Math.round(b64.length * 0.75 / 1024);
-      state.photos.push({ name: file.name, mimeType: 'image/jpeg', dataUrl, b64, dims, sizeKB, qual });
+      const tiles = await compressImage(file);
+      tiles.forEach(tile => {
+        const b64 = tile.dataUrl.replace(/^data:image\/[a-zA-Z]+;base64,/, '');
+        const sizeKB = Math.round(b64.length * 0.75 / 1024);
+        state.photos.push({
+          name: file.name,
+          mimeType: 'image/jpeg',
+          dataUrl: tile.dataUrl,
+          b64,
+          dims: tile.dims,
+          sizeKB,
+          qual: tile.qual,
+          sourceId,
+          partOf: tile.partOf,
+          partIndex: tile.partIndex,
+        });
+      });
+      if (tiles.length > 1) {
+        showToast(`Photo ${sourceId} découpée en ${tiles.length} bandes (qualité préservée)`, 'success');
+      }
     } catch (err) {
       showToast('Erreur lecture ' + file.name + ' : ' + err.message, 'error');
     }
@@ -482,13 +562,20 @@ function renderPhotos() {
   state.photos.forEach((p, i) => {
     const div = document.createElement('div');
     div.className = 'photo-thumb';
+    const label = p.partOf
+      ? `Photo ${p.sourceId} · bande ${p.partIndex}/${p.partOf}`
+      : `Photo ${p.sourceId}`;
     div.innerHTML = `
-      <img src="${p.dataUrl}" alt="page ${i + 1}">
+      <img src="${p.dataUrl}" alt="${label}">
       <button class="rm" data-i="${i}" title="Retirer">×</button>
-      <div class="idx">Page ${i + 1} · ${p.sizeKB} Ko · ${p.dims || ''}</div>
+      <div class="idx">${label} · ${p.sizeKB} Ko · ${p.dims || ''}</div>
     `;
     div.querySelector('.rm').addEventListener('click', () => {
-      state.photos.splice(i, 1); renderPhotos();
+      // Si on retire une bande, on retire toutes les bandes de la même photo source
+      // pour éviter une transcription incohérente.
+      const sid = state.photos[i].sourceId;
+      state.photos = state.photos.filter(x => x.sourceId !== sid);
+      renderPhotos();
     });
     grid.appendChild(div);
   });
@@ -497,8 +584,12 @@ function renderPhotos() {
 
 $('clear-photos-btn').addEventListener('click', () => { state.photos = []; renderPhotos(); });
 
-async function transcribeOnePhoto(photo, index, siman, hint) {
-  // 1 photo par requête pour rester sous la limite Vercel ~4.5 Mo.
+async function transcribeOnePhoto(photo, flatIndex, siman, hint) {
+  // 1 photo (ou 1 bande) par requête pour rester sous la limite Vercel ~4.5 Mo.
+  // Pour les bandes : on enrichit le hint pour avertir Claude du recouvrement.
+  const tileHint = photo.partOf
+    ? `${hint ? hint + ' · ' : ''}Cette image est la bande ${photo.partIndex}/${photo.partOf} d'une photo plus grande, avec un recouvrement de ~8% en haut et en bas — il peut donc y avoir des lignes coupées aux extrémités, et certaines lignes apparaîtront aussi dans la bande voisine.`
+    : hint;
   const res = await fetch('/api/admin/transcribe-photos', {
     method: 'POST',
     headers: {
@@ -507,15 +598,23 @@ async function transcribeOnePhoto(photo, index, siman, hint) {
     },
     body: JSON.stringify({
       images: [{ data: photo.b64, mimeType: photo.mimeType }],
-      siman, hint,
+      siman, hint: tileHint,
     }),
   });
   if (!res.ok) {
     const j = await res.json().catch(() => ({}));
-    throw new Error(`Photo ${index + 1} : ` + (j.error || 'HTTP ' + res.status));
+    const lbl = photo.partOf ? `Photo ${photo.sourceId} bande ${photo.partIndex}/${photo.partOf}` : `Photo ${photo.sourceId}`;
+    throw new Error(`${lbl} : ` + (j.error || 'HTTP ' + res.status));
   }
   const data = await res.json();
-  return { ...data.pages[0], _idx: index, _usage: data.usage };
+  return {
+    ...data.pages[0],
+    _flatIdx: flatIndex,
+    _sourceId: photo.sourceId,
+    _partOf: photo.partOf,
+    _partIndex: photo.partIndex,
+    _usage: data.usage,
+  };
 }
 
 $('transcribe-btn').addEventListener('click', async () => {
@@ -543,8 +642,30 @@ $('transcribe-btn').addEventListener('click', async () => {
       throw new Error(errs.join(' · ') || 'Aucune photo transcrite');
     }
 
-    // Numéroter les pages dans l'ordre d'origine
-    const pages = ok.map((p, i) => ({ ...p, index: i + 1 }));
+    // Regrouper par sourceId puis trier par partIndex pour reconstituer l'ordre
+    // de lecture : photo 1 (bandes 1→N) → photo 2 (bandes 1→N) → …
+    ok.sort((a, b) => (a._sourceId - b._sourceId) || ((a._partIndex || 1) - (b._partIndex || 1)));
+
+    // Pour les pages multi-bandes, on fusionne le hebrew/hagahot en concaténant.
+    // On garde aussi le détail page-par-page (pour relecture) en regroupant.
+    const grouped = {};
+    for (const r of ok) {
+      const sid = r._sourceId;
+      if (!grouped[sid]) grouped[sid] = { sourceId: sid, parts: [], partOf: r._partOf };
+      grouped[sid].parts.push(r);
+    }
+    const pages = Object.values(grouped).map((g, i) => ({
+      index: i + 1,
+      sourceId: g.sourceId,
+      partOf: g.partOf,
+      hebrew: g.parts.map(p => p.hebrew).filter(Boolean).join('\n'),
+      hagahot: g.parts.map(p => p.hagahot).filter(Boolean).join('\n'),
+      notes: g.parts.map(p => p.notes).filter(Boolean).join('\n'),
+      confidence: g.parts.map(p => p.confidence).join(' / '),
+      warnings: g.parts.flatMap(p => p.warnings || []),
+      _bands: g.parts.length,
+    }));
+
     const totalUsage = ok.reduce(
       (acc, p) => ({
         input_tokens: acc.input_tokens + (p._usage?.input_tokens || 0),
