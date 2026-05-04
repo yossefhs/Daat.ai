@@ -167,13 +167,127 @@
     const all = loadConversations();
     const idx = all.findIndex(c => c.id === conv.id);
     conv.updatedAt = Date.now();
+    if (!conv.createdAt) conv.createdAt = conv.updatedAt;
     if (conv.messages) conv.messages = conv.messages.slice(-MAX_MESSAGES_PER_CONV);
     if (idx >= 0) all[idx] = conv;
     else all.unshift(conv);
     saveConversations(all);
+    syncConvUpsert(conv);
   }
   function deleteConversation(id) {
     saveConversations(loadConversations().filter(c => c.id !== id));
+    syncConvDelete(id);
+  }
+
+  // === SERVER SYNC — par utilisateur connecté (cookie daat_session) ===
+  // Mêmes principes que dans chat.html : no-op si pas connecté, push
+  // debounce 1.5s, pull-and-merge au login. Stockage localStorage partagé
+  // avec chat.html (clé HISTORY_KEY) — donc une conv créée par le widget
+  // remonte dans chat.html et inversement, et la sync server est unifiée.
+  const SYNC_BASE = 'https://daatai.vercel.app/api/conversations';
+  const SYNC_DEBOUNCE_MS = 1500;
+  const _syncUpsertQueue = new Map();
+  let _syncUpsertTimer = null;
+
+  function isLoggedIn() {
+    return !!(window.daatAuth && window.daatAuth.getUser && window.daatAuth.getUser());
+  }
+
+  function _syncFetch(method, opts) {
+    opts = opts || {};
+    return fetch(SYNC_BASE + (opts.qs || ''), {
+      method,
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: opts.body ? JSON.stringify(opts.body) : undefined,
+    });
+  }
+
+  function _flushSyncUpserts() {
+    _syncUpsertTimer = null;
+    if (!isLoggedIn()) return;
+    const items = Array.from(_syncUpsertQueue.values());
+    _syncUpsertQueue.clear();
+    for (const conv of items) {
+      _syncFetch('POST', { body: conv }).catch(err => {
+        console.warn('[widget-sync] upsert failed', conv.id, err);
+      });
+    }
+  }
+
+  function syncConvUpsert(conv) {
+    if (!isLoggedIn()) return;
+    _syncUpsertQueue.set(conv.id, conv);
+    if (_syncUpsertTimer) clearTimeout(_syncUpsertTimer);
+    _syncUpsertTimer = setTimeout(_flushSyncUpserts, SYNC_DEBOUNCE_MS);
+  }
+
+  function syncConvDelete(id) {
+    if (!isLoggedIn()) return;
+    _syncUpsertQueue.delete(id);
+    _syncFetch('DELETE', { qs: '?id=' + encodeURIComponent(id) })
+      .catch(err => console.warn('[widget-sync] delete failed', id, err));
+  }
+
+  async function syncPullAndMerge() {
+    if (!isLoggedIn()) return;
+    try {
+      const res = await _syncFetch('GET');
+      if (!res.ok) return;
+      const data = await res.json();
+      const serverConvs = Array.isArray(data.conversations) ? data.conversations : [];
+
+      const local = loadConversations();
+      const localMap = new Map(local.map(c => [c.id, c]));
+      const merged = [];
+      const serverIds = new Set();
+
+      for (const sc of serverConvs) {
+        const lc = localMap.get(sc.id);
+        if (!lc || (sc.updatedAt || 0) >= (lc.updatedAt || 0)) {
+          merged.push(sc);
+        } else {
+          merged.push(lc);
+          _syncUpsertQueue.set(lc.id, lc);
+        }
+        serverIds.add(sc.id);
+      }
+      for (const lc of local) {
+        if (!serverIds.has(lc.id)) {
+          merged.push(lc);
+          _syncUpsertQueue.set(lc.id, lc);
+        }
+      }
+
+      merged.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+      saveConversations(merged);
+      if (_syncUpsertQueue.size > 0) _flushSyncUpserts();
+
+      // Re-render le panneau historique du widget si l'instance existe
+      if (window.daatChatWidget && typeof window.daatChatWidget.renderHistoryList === 'function') {
+        window.daatChatWidget.renderHistoryList();
+      }
+    } catch (err) {
+      console.warn('[widget-sync] pull failed', err);
+    }
+  }
+
+  function _bindAuthSyncHook() {
+    if (window.daatAuth && typeof window.daatAuth.onChange === 'function') {
+      window.daatAuth.onChange(user => {
+        if (user) syncPullAndMerge();
+      });
+      if (window.daatAuth.getUser && window.daatAuth.getUser()) {
+        syncPullAndMerge();
+      }
+    } else {
+      setTimeout(_bindAuthSyncHook, 100);
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', _bindAuthSyncHook);
+  } else {
+    _bindAuthSyncHook();
   }
   function getConversation(id) {
     return loadConversations().find(c => c.id === id) || null;
