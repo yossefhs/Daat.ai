@@ -1,0 +1,551 @@
+/* =============================================================
+   DAAT דעת — Design System
+   Source de vérité unique pour les couleurs, typographies,
+   espaces et composants partagés du site.
+
+   Pour toute nouvelle page, importer ce fichier :
+     <link rel="stylesheet" href="/assets/css/daat.css">
+   ============================================================= */
+
+/* -------------------------------------------------------------
+   1. TOKENS — variables CSS
+   ------------------------------------------------------------- */
+:root {
+  /* Couleurs principales (cohérentes avec l'existant) */
+  --daat-navy:        #1A1F3A;
+  --daat-navy-soft:   #2A2F5A;
+  --daat-navy-deep:   #14182E;
+
+  --daat-gold:        #C5A55A;
+  --daat-gold-light:  #D4B97A;
+  --daat-gold-dark:   #8C6F1E;
+
+  --daat-cream:       #FAF6EE;
+  --daat-cream-dark:  #F0EAD8;
+  --daat-parchment:   #F5F0E8;
+
+  --daat-white:       #FFFFFF;
+  --daat-border:      #E4DDD0;
+
+  /* Couleurs de texte */
+  --daat-text:        #1A1F3A;
+  --daat-text-mid:    #3D4266;
+  --daat-text-muted:  #7A7F9A;
+
+  /* Couleurs sémantiques (poskim, niveaux, badges) */
+  --daat-green:       #2E7D52;
+  --daat-purple:      #6B3FA0;
+  --daat-red:         #C0392B;
+  --daat-pesak-bg:    #FFF8E7;
+
+  /* Typographies */
+  --daat-font-serif:  'Cormorant Garamond', Georgia, serif;
+  --daat-font-hebrew: 'Frank Ruhl Libre', 'David', 'Times New Roman', serif;
+  --daat-font-sans:   'Inter', system-ui, sans-serif;
+
+  /* Espacements (échelle 4) */
+  --daat-space-xs:    4px;
+  --daat-space-sm:    8px;
+  --daat-space-md:    16px;
+  --daat-space-lg:    24px;
+  --daat-space-xl:    40px;
+  --daat-space-2xl:   60px;
+
+  /* Radius / ombres */
+  --daat-radius-sm:   2px;
+  --daat-radius-md:   4px;
+  --daat-radius-lg:   8px;
+  --daat-shadow-card: 0 8px 32px rgba(26, 31, 58, 0.10);
+
+  /* Layout */
+  --daat-content-max: 1100px;
+}
+
+/* -------------------------------------------------------------
+   2. RESET LÉGER (à utiliser sur les nouvelles pages)
+   ------------------------------------------------------------- */
+.daat-reset *,
+.daat-reset *::before,
+.daat-reset *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.daat-body {
+  font-family: var(--daat-font-serif);
+  font-size: 18px;
+  background: var(--daat-cream);
+  color: var(--daat-text);
+  line-height: 1.7;
+}
+
+/* -------------------------------------------------------------
+   3. HEADER (barre de nav DAAT)
+   ------------------------------------------------------------- */
+.daat-header {
+  background: var(--daat-navy);
+  padding: 0 var(--daat-space-xl);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+  border-bottom: 2px solid var(--daat-gold);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.daat-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--daat-space-sm);
+  text-decoration: none;
+}
+
+.daat-logo-he {
+  font-family: var(--daat-font-hebrew);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--daat-gold);
+  letter-spacing: 2px;
+}
+
+.daat-logo-en {
+  font-family: var(--daat-font-sans);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.daat-nav {
+  display: flex;
+  gap: var(--daat-space-lg);
+  align-items: center;
+}
+
+.daat-nav a {
+  font-family: var(--daat-font-sans);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.daat-nav a:hover {
+  color: var(--daat-gold);
+}
+
+.daat-nav-cta {
+  background: var(--daat-gold);
+  color: var(--daat-navy) !important;
+  padding: 8px 20px;
+  border-radius: var(--daat-radius-sm);
+  font-weight: 600;
+}
+
+/* -------------------------------------------------------------
+   4. BREADCRUMB
+   ------------------------------------------------------------- */
+.daat-breadcrumb {
+  background: var(--daat-navy);
+  padding: 12px var(--daat-space-xl);
+  border-bottom: 1px solid rgba(197, 165, 90, 0.15);
+}
+
+.daat-breadcrumb-inner {
+  max-width: var(--daat-content-max);
+  margin: 0 auto;
+}
+
+.daat-breadcrumb a,
+.daat-breadcrumb span {
+  font-family: var(--daat-font-sans);
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+  text-decoration: none;
+  letter-spacing: 0.5px;
+}
+
+.daat-breadcrumb a:hover {
+  color: var(--daat-gold);
+}
+
+.daat-breadcrumb .sep {
+  margin: 0 var(--daat-space-sm);
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.daat-breadcrumb .current {
+  color: var(--daat-gold);
+}
+
+/* -------------------------------------------------------------
+   5. HERO (en-tête de page siman / section)
+   ------------------------------------------------------------- */
+.daat-hero {
+  background: var(--daat-navy);
+  padding: 60px var(--daat-space-xl) 48px;
+  border-bottom: 3px solid var(--daat-gold);
+}
+
+.daat-hero-inner {
+  max-width: var(--daat-content-max);
+  margin: 0 auto;
+}
+
+.daat-hero-meta {
+  font-family: var(--daat-font-sans);
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--daat-gold);
+  margin-bottom: var(--daat-space-md);
+}
+
+.daat-hero-title-he {
+  font-family: var(--daat-font-hebrew);
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--daat-gold);
+  direction: rtl;
+  margin-bottom: var(--daat-space-sm);
+  /* Sémantique : le concepteur peut envelopper dans <h1> */
+}
+
+.daat-hero-title-fr {
+  font-family: var(--daat-font-serif);
+  font-size: 32px;
+  font-weight: 300;
+  color: var(--daat-white);
+  margin-bottom: 12px;
+}
+
+.daat-hero-subtitle {
+  font-size: 17px;
+  color: rgba(255, 255, 255, 0.6);
+  font-style: italic;
+  max-width: 800px;
+}
+
+/* -------------------------------------------------------------
+   6. CONTENT WRAPPER
+   ------------------------------------------------------------- */
+.daat-content {
+  max-width: var(--daat-content-max);
+  margin: 0 auto;
+  padding: 50px var(--daat-space-xl) var(--daat-space-2xl);
+}
+
+/* -------------------------------------------------------------
+   7. CARDS — siman, niveau, source citation
+   ------------------------------------------------------------- */
+.daat-siman-card {
+  background: var(--daat-white);
+  border: 1px solid var(--daat-border);
+  padding: var(--daat-space-lg) 26px;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.daat-siman-card.is-available {
+  cursor: pointer;
+  border-top: 3px solid var(--daat-green);
+}
+
+.daat-siman-card.is-available:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--daat-shadow-card);
+  border-color: var(--daat-gold);
+}
+
+.daat-siman-card.is-coming-soon {
+  opacity: 0.65;
+  border-top: 3px solid var(--daat-border);
+}
+
+.daat-level-card {
+  background: var(--daat-white);
+  border: 1px solid var(--daat-border);
+  padding: 28px;
+  position: relative;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.daat-level-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--daat-shadow-card);
+}
+
+.daat-level-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+
+.daat-level-bar.bar-1 { background: var(--daat-green); }
+.daat-level-bar.bar-2 { background: var(--daat-purple); }
+.daat-level-bar.bar-3 { background: var(--daat-gold); }
+
+/* Bloc de citation de source (Talmud / Choulhan Aroukh / poskim) */
+.daat-source-citation {
+  background: var(--daat-cream);
+  border-left: 3px solid var(--daat-gold);
+  padding: var(--daat-space-md) var(--daat-space-lg);
+  font-family: var(--daat-font-serif);
+  font-style: italic;
+  color: var(--daat-text-mid);
+  margin: var(--daat-space-md) 0;
+}
+
+.daat-source-citation cite {
+  display: block;
+  margin-top: var(--daat-space-sm);
+  font-size: 13px;
+  color: var(--daat-text-muted);
+  font-style: normal;
+}
+
+/* Bloc hébreu (texte du Choulhan Aroukh, etc.) */
+.daat-hebrew-block {
+  font-family: var(--daat-font-hebrew);
+  direction: rtl;
+  text-align: right;
+  font-size: 22px;
+  line-height: 1.85;
+  color: var(--daat-navy);
+}
+
+/* -------------------------------------------------------------
+   8. POSKIM TABLE
+   ------------------------------------------------------------- */
+.daat-poskim-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--daat-white);
+  border: 1px solid var(--daat-border);
+}
+
+.daat-poskim-table thead {
+  background: var(--daat-navy);
+}
+
+.daat-poskim-table thead th {
+  padding: 14px var(--daat-space-md);
+  font-family: var(--daat-font-sans);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--daat-gold);
+  text-align: left;
+}
+
+.daat-poskim-table tbody tr {
+  border-bottom: 1px solid var(--daat-border);
+}
+
+.daat-poskim-table tbody tr:hover {
+  background: var(--daat-cream);
+}
+
+.daat-poskim-table td {
+  padding: 14px var(--daat-space-md);
+  font-size: 15px;
+  color: var(--daat-text-mid);
+}
+
+.daat-poskim-table td:first-child {
+  font-family: var(--daat-font-hebrew);
+  font-size: 18px;
+  color: var(--daat-navy);
+  direction: rtl;
+}
+
+.daat-poskim-opinion-1 { color: var(--daat-green) !important; font-weight: 500; }
+.daat-poskim-opinion-2 { color: var(--daat-purple) !important; font-weight: 500; }
+
+.daat-poskim-pesak {
+  background: var(--daat-pesak-bg) !important;
+}
+
+.daat-poskim-pesak td:last-child {
+  font-weight: 600;
+  color: var(--daat-navy) !important;
+}
+
+/* -------------------------------------------------------------
+   9. FAQ block
+   ------------------------------------------------------------- */
+.daat-faq {
+  margin-top: var(--daat-space-2xl);
+  padding-top: var(--daat-space-xl);
+  border-top: 1px solid var(--daat-border);
+}
+
+.daat-faq h2 {
+  font-family: var(--daat-font-serif);
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--daat-navy);
+  margin-bottom: var(--daat-space-lg);
+}
+
+.daat-faq details {
+  background: var(--daat-white);
+  border: 1px solid var(--daat-border);
+  border-left: 3px solid var(--daat-gold);
+  padding: var(--daat-space-md) var(--daat-space-lg);
+  margin-bottom: var(--daat-space-md);
+}
+
+.daat-faq details[open] {
+  background: var(--daat-cream);
+}
+
+.daat-faq summary {
+  font-family: var(--daat-font-serif);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--daat-navy);
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+  padding-right: 28px;
+}
+
+.daat-faq summary::after {
+  content: '+';
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 22px;
+  color: var(--daat-gold);
+  transition: transform 0.2s;
+}
+
+.daat-faq details[open] summary::after {
+  content: '−';
+}
+
+.daat-faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.daat-faq .daat-faq-answer {
+  margin-top: var(--daat-space-md);
+  color: var(--daat-text-mid);
+  line-height: 1.7;
+  font-size: 16px;
+}
+
+/* -------------------------------------------------------------
+   10. BOUTONS
+   ------------------------------------------------------------- */
+.daat-btn {
+  display: inline-block;
+  font-family: var(--daat-font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: var(--daat-radius-sm);
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.daat-btn-primary {
+  background: var(--daat-gold);
+  color: var(--daat-navy);
+}
+
+.daat-btn-primary:hover {
+  background: var(--daat-gold-light);
+}
+
+.daat-btn-secondary {
+  background: var(--daat-navy);
+  color: var(--daat-white);
+}
+
+.daat-btn-secondary:hover {
+  background: var(--daat-gold);
+  color: var(--daat-navy);
+}
+
+.daat-btn-ghost {
+  background: transparent;
+  color: var(--daat-gold);
+  border: 1px solid rgba(197, 165, 90, 0.5);
+  padding: 4px 12px;
+  font-size: 12px;
+}
+
+.daat-btn-ghost:hover {
+  background: var(--daat-gold);
+  color: var(--daat-navy);
+}
+
+/* -------------------------------------------------------------
+   11. FOOTER
+   ------------------------------------------------------------- */
+.daat-footer {
+  background: var(--daat-navy);
+  border-top: 2px solid var(--daat-gold);
+  padding: 28px var(--daat-space-xl);
+  text-align: center;
+  margin-top: var(--daat-space-2xl);
+}
+
+.daat-footer p {
+  font-family: var(--daat-font-sans);
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.daat-footer a {
+  color: var(--daat-gold);
+  text-decoration: none;
+}
+
+.daat-footer a:hover {
+  text-decoration: underline;
+}
+
+/* -------------------------------------------------------------
+   12. RTL helpers (pour la version hébraïque)
+   ------------------------------------------------------------- */
+[dir="rtl"] .daat-hero-meta,
+[dir="rtl"] .daat-breadcrumb-inner {
+  text-align: right;
+}
+
+[dir="rtl"] .daat-source-citation {
+  border-left: none;
+  border-right: 3px solid var(--daat-gold);
+  text-align: right;
+}
+
+/* -------------------------------------------------------------
+   13. RESPONSIVE
+   ------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .daat-header,
+  .daat-breadcrumb,
+  .daat-hero,
+  .daat-content,
+  .daat-footer {
+    padding-left: var(--daat-space-md);
+    padding-right: var(--daat-space-md);
+  }
+  .daat-hero-title-he { font-size: 38px; }
+  .daat-hero-title-fr { font-size: 24px; }
+}
