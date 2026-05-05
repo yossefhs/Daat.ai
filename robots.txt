@@ -1,0 +1,46 @@
+# DAAT דעת — daattorah.com
+# Plateforme d'étude halakhique en français
+
+User-agent: *
+Allow: /
+
+# AI search & answer engines (explicitly welcome)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+# Disallow private endpoints
+Disallow: /api/
+Disallow: /admin/
+Disallow: /data/
+
+Sitemap: https://daattorah.com/sitemap.xml
