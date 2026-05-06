@@ -40,6 +40,12 @@
   --daat-red:         #C0392B;
   --daat-pesak-bg:    #FFF8E7;
 
+  /* Habad / Niveau 4 — Daat HaRav (Choulhan Aroukh HaRav) */
+  --daat-habad:       #3851A3;
+  --daat-habad-soft:  #5A72C2;
+  --daat-habad-deep:  #243669;
+  --daat-habad-tint:  rgba(56, 81, 163, 0.06);
+
   /* Alias legacy (utilisés directement par les pages existantes) */
   --navy:        var(--daat-navy);
   --navy-soft:   var(--daat-navy-soft);
@@ -315,6 +321,7 @@
 .daat-level-bar.bar-1 { background: var(--daat-green); }
 .daat-level-bar.bar-2 { background: var(--daat-purple); }
 .daat-level-bar.bar-3 { background: var(--daat-gold); }
+.daat-level-bar.bar-4 { background: var(--daat-habad); }
 
 /* Bloc de citation de source (Talmud / Choulhan Aroukh / poskim) */
 .daat-source-citation {
