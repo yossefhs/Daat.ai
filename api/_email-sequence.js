@@ -4,7 +4,7 @@
 //   - /api/cron/sequence (envoi J3 / J7 / J10 / J14 par cron quotidien)
 
 const SITE = 'https://daattorah.com';
-const LOGO = `${SITE}/assets/img/og/og-default.png`;
+const LOGO = `${SITE}/assets/img/og/og-default.svg`;
 
 function shell(title, bodyHtml, cta) {
   const ctaHtml = cta

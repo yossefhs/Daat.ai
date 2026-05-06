@@ -12,8 +12,6 @@
     }
   ],
 
-  "_url-architecture": "URLs propres /oh/{N}/{niveau} — sert le contenu via rewrites (URL utilisateur inchangée). Rétrocompat : les anciennes URLs sources/shabbat/siman-{N}/ redirigent en 301 vers les nouvelles pour la consolidation SEO. Ces routes ne s'activent que sur le déploiement Vercel — sur GitHub Pages, les URLs sources/shabbat/* restent accessibles directement.",
-
   "rewrites": [
     { "source": "/oh", "destination": "/sources/shabbat/index.html" },
     { "source": "/oh/", "destination": "/sources/shabbat/index.html" },

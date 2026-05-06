@@ -12,15 +12,17 @@
  *
  * Output : assets/img/og/siman-{N}.svg + assets/img/og/og-default.svg
  *
- * Note : Format SVG car les bots OG (Facebook, Twitter, Slack, WhatsApp,
- * LinkedIn) acceptent les SVG vectoriels. Très léger (~3 KB chacun) et
- * permet du texte hébreu sans rasterisation.
+ * Format : SVG vectoriel (~4 KB). Twitter, LinkedIn, WhatsApp, Slack,
+ * Discord acceptent SVG. Facebook préfère PNG/JPG ; pour Facebook on
+ * pourra brancher @vercel/og plus tard via une route /api/og?siman=N
+ * (rendu serverless à la demande, sans binaire natif).
+ *
+ * Pure Node — aucune dépendance native, déploiement Vercel safe.
  */
 
 import { readFileSync, writeFileSync, readdirSync, existsSync, mkdirSync } from 'node:fs';
 import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { Resvg } from '@resvg/resvg-js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -178,25 +180,6 @@ function getSimanFiles() {
     .map(f => resolve(DATA_DIR, f));
 }
 
-// Rasterize SVG → PNG via resvg-js
-// resvg-js charge les polices système ; les Google Fonts importées dans
-// le SVG ne sont pas téléchargées. Pour un rendu acceptable, on injecte
-// des familles avec des fallbacks robustes (Georgia, serif).
-function svgToPng(svg) {
-  const resvg = new Resvg(svg, {
-    fitTo: { mode: 'width', value: 1200 },
-    background: '#F5F0E8',
-    font: {
-      // resvg-js cherchera les polices système installées
-      loadSystemFonts: true,
-      defaultFontFamily: 'Georgia',
-    },
-    textRendering: 2, // optimizeLegibility
-    shapeRendering: 2, // crispEdges
-  });
-  return resvg.render().asPng();
-}
-
 function generateForSiman(filepath) {
   const data = JSON.parse(readFileSync(filepath, 'utf8'));
   const svg = renderOG({
@@ -206,17 +189,8 @@ function generateForSiman(filepath) {
     subtitle: data.subtitle || data.description?.slice(0, 100),
   });
   const svgPath = join(OUT_DIR, `siman-${data.number}.svg`);
-  const pngPath = join(OUT_DIR, `siman-${data.number}.png`);
   writeFileSync(svgPath, svg, 'utf8');
   console.log(`✓ ${svgPath} (${(svg.length / 1024).toFixed(1)} KB)`);
-
-  try {
-    const png = svgToPng(svg);
-    writeFileSync(pngPath, png);
-    console.log(`✓ ${pngPath} (${(png.length / 1024).toFixed(1)} KB)`);
-  } catch (e) {
-    console.warn(`  PNG render failed for siman ${data.number} : ${e.message}`);
-  }
 }
 
 // -- Main --
@@ -226,16 +200,8 @@ const onlyDefault = has('--default');
 function writeDefault() {
   const svg = renderDefault();
   const svgPath = join(OUT_DIR, 'og-default.svg');
-  const pngPath = join(OUT_DIR, 'og-default.png');
   writeFileSync(svgPath, svg, 'utf8');
   console.log(`✓ ${svgPath}`);
-  try {
-    const png = svgToPng(svg);
-    writeFileSync(pngPath, png);
-    console.log(`✓ ${pngPath} (${(png.length / 1024).toFixed(1)} KB)`);
-  } catch (e) {
-    console.warn(`  PNG render failed for default : ${e.message}`);
-  }
 }
 
 if (onlyDefault) {
@@ -247,5 +213,5 @@ if (onlyDefault) {
   const files = getSimanFiles();
   for (const f of files) generateForSiman(f);
   writeDefault();
-  console.log(`\n🎨 ${files.length + 1} images OG générées (SVG + PNG) dans ${OUT_DIR}`);
+  console.log(`\n🎨 ${files.length + 1} images OG SVG générées dans ${OUT_DIR}`);
 }
