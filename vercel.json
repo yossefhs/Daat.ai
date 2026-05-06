@@ -13,6 +13,11 @@
   ],
 
   "rewrites": [
+    { "source": "/api/auth/send-code", "destination": "/api/auth?action=send-code" },
+    { "source": "/api/auth/verify-code", "destination": "/api/auth?action=verify-code" },
+    { "source": "/api/auth/me", "destination": "/api/auth?action=me" },
+    { "source": "/api/auth/logout", "destination": "/api/auth?action=logout" },
+
     { "source": "/oh", "destination": "/sources/shabbat/index.html" },
     { "source": "/oh/", "destination": "/sources/shabbat/index.html" },
     { "source": "/oh/:n(\\d+)", "destination": "/sources/shabbat/siman-:n/index.html" },
@@ -33,42 +38,28 @@
     { "source": "/sources/shabbat/siman-:n(\\d+)/niveau-2-lamdan.html", "destination": "/oh/:n/lamdan", "permanent": true },
     { "source": "/sources/shabbat/siman-:n(\\d+)/niveau-3-synthese.html", "destination": "/oh/:n/synthese", "permanent": true }
   ],
+
   "functions": {
-    "api/chat.js": {
-      "maxDuration": 90
-    },
-    "api/admin/corpus.js": {
-      "maxDuration": 10
-    },
-    "api/admin/upload-pdf.js": {
-      "maxDuration": 30
-    },
-    "api/admin/transcribe-photos.js": {
-      "maxDuration": 90
-    },
-    "api/admin/generate-siman.js": {
-      "maxDuration": 300
-    },
-    "api/feedback.js": {
-      "maxDuration": 5
-    },
-    "api/admin/feedback.js": {
-      "maxDuration": 5
-    },
-    "api/auth/send-code.js": {
-      "maxDuration": 10
-    },
-    "api/auth/verify-code.js": {
-      "maxDuration": 5
-    },
-    "api/auth/logout.js": {
-      "maxDuration": 5
-    },
-    "api/auth/me.js": {
-      "maxDuration": 5
-    },
-    "api/conversations.js": {
-      "maxDuration": 10
+    "api/chat.js": { "maxDuration": 90 },
+    "api/conversations.js": { "maxDuration": 10 },
+    "api/feedback.js": { "maxDuration": 5 },
+
+    "api/auth.js": { "maxDuration": 10 },
+    "api/newsletter.js": { "maxDuration": 60 },
+    "api/khavroutha.js": { "maxDuration": 10 },
+    "api/soutenir.js": { "maxDuration": 10 },
+
+    "api/admin/corpus.js": { "maxDuration": 10 },
+    "api/admin/upload-pdf.js": { "maxDuration": 30 },
+    "api/admin/transcribe-photos.js": { "maxDuration": 90 },
+    "api/admin/generate-siman.js": { "maxDuration": 300 },
+    "api/admin/feedback.js": { "maxDuration": 5 }
+  },
+
+  "crons": [
+    {
+      "path": "/api/newsletter",
+      "schedule": "0 9 * * *"
     }
-  }
+  ]
 }
