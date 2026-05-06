@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Frank+Ruhl+Libre:wght@500;700;900&family=Inter:wght@400;500;600&display=swap');
-  
+    <style><![CDATA[
+    @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Frank+Ruhl+Libre:wght@500;700;900&family=Inter:wght@400;500;600&display=swap");
+  ]]>
       .bg          { fill: #F5F0E8; }
       .border-frame{ fill: none; stroke: #B8972A; stroke-width: 4; }
       .border-inner{ fill: none; stroke: #B8972A; stroke-width: 1.5; opacity: 0.4; }
       .label       { font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600;
                      letter-spacing: 6px; fill: #B8972A; text-transform: uppercase; }
-      .title-fr    { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 64px;
+      .title-fr    { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 60px;
                      font-weight: 600; fill: #1A1F3A; }
-      .title-he    { font-family: 'Frank Ruhl Libre', serif; font-size: 96px; font-weight: 900;
+      .title-he    { font-family: 'Frank Ruhl Libre', serif; font-size: 78px; font-weight: 900;
                      fill: #B8972A; direction: rtl; }
-      .subtitle    { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 24px;
+      .subtitle    { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 22px;
                      font-style: italic; fill: #3D4266; }
-      .number      { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 44px;
-                     font-weight: 500; fill: #B8972A; }
+      .number      { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 30px;
+                     font-weight: 500; fill: #B8972A; letter-spacing: 2px; }
       .brand-he    { font-family: 'Frank Ruhl Libre', serif; font-size: 32px; font-weight: 700;
                      fill: #B8972A; }
       .brand-en    { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
@@ -54,20 +54,20 @@
   <rect class="border-inner" x="48" y="48" width="1104" height="534" rx="3"/>
 
   <!-- Top label -->
-  <text class="label" x="120" y="120">CHOULHAN AROUKH · ÉTUDE EN FRANÇAIS</text>
+  <text class="label" x="120" y="110">CHOULHAN AROUKH · ÉTUDE EN FRANÇAIS</text>
 
-  <!-- Number en français + hébreu -->
-  <text class="number" x="120" y="180">Siman 242 · רמ״ב</text>
+  <!-- Hebrew title (sa propre ligne, à droite) -->
+  <text class="title-he" x="1140" y="200" text-anchor="end">להזהר בכבוד שבת</text>
 
-  <!-- Hebrew title (top right) -->
-  <text class="title-he" x="1140" y="220" text-anchor="end">להזהר בכבוד שבת</text>
+  <!-- Number en français + hébreu (sa propre ligne, sous le label, plus discret) -->
+  <text class="number" x="120" y="160">Siman 242 · רמ״ב</text>
 
-  <!-- Title FR (multi-line) -->
-  <text class="title-fr" x="120" y="280">Kavod et Oneg Shabbat</text>
+  <!-- Title FR (multi-line) — décalé vers le bas pour aérer -->
+  <text class="title-fr" x="120" y="290">Kavod et Oneg Shabbat</text>
 
   <!-- Subtitle (multi-line) -->
-  <text class="subtitle" x="120" y="460">Le devoir d'honorer et de jouir du Shabbat (Shulchan Aroukh,</text>
-  <text class="subtitle" x="120" y="492">Orah Haïm 242 — Seif Alef)</text>
+  <text class="subtitle" x="120" y="475">Le devoir d'honorer et de jouir du Shabbat (Shulchan Aroukh,</text>
+  <text class="subtitle" x="120" y="505">Orah Haïm 242 — Seif Alef)</text>
 
   <!-- Footer brand -->
   <line x1="120" y1="535" x2="1080" y2="535" stroke="#B8972A" stroke-width="1" opacity="0.4"/>

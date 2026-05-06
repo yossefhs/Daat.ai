@@ -20,6 +20,7 @@
 import { readFileSync, writeFileSync, readdirSync, existsSync, mkdirSync } from 'node:fs';
 import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { Resvg } from '@resvg/resvg-js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -75,9 +76,13 @@ function renderOG({ titleFr, titleHe, numberLabel, subtitle }) {
   const titleLines = wrap(titleFr, 28).slice(0, 3);
   const subtitleLines = wrap(subtitle || '', 60).slice(0, 2);
 
-  const fontImport = `
-    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Frank+Ruhl+Libre:wght@500;700;900&family=Inter:wght@400;500;600&display=swap');
-  `;
+  // Le @import des Google Fonts contient des & qui cassent le parsing XML
+  // → on l'enveloppe dans CDATA. Les bots OG (Facebook, Twitter, LinkedIn)
+  // qui rendent SVG vont l'utiliser. resvg-js n'exécute pas le @import
+  // mais sait au moins parser le SVG (et utilise les polices système).
+  const fontImport = `<![CDATA[
+    @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Frank+Ruhl+Libre:wght@500;700;900&family=Inter:wght@400;500;600&display=swap");
+  ]]>`;
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
@@ -88,14 +93,14 @@ function renderOG({ titleFr, titleHe, numberLabel, subtitle }) {
       .border-inner{ fill: none; stroke: ${COLORS.gold}; stroke-width: 1.5; opacity: 0.4; }
       .label       { font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600;
                      letter-spacing: 6px; fill: ${COLORS.gold}; text-transform: uppercase; }
-      .title-fr    { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 64px;
+      .title-fr    { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 60px;
                      font-weight: 600; fill: ${COLORS.navy}; }
-      .title-he    { font-family: 'Frank Ruhl Libre', serif; font-size: 96px; font-weight: 900;
+      .title-he    { font-family: 'Frank Ruhl Libre', serif; font-size: 78px; font-weight: 900;
                      fill: ${COLORS.gold}; direction: rtl; }
-      .subtitle    { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 24px;
+      .subtitle    { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 22px;
                      font-style: italic; fill: ${COLORS.textMid}; }
-      .number      { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 44px;
-                     font-weight: 500; fill: ${COLORS.gold}; }
+      .number      { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 30px;
+                     font-weight: 500; fill: ${COLORS.gold}; letter-spacing: 2px; }
       .brand-he    { font-family: 'Frank Ruhl Libre', serif; font-size: 32px; font-weight: 700;
                      fill: ${COLORS.gold}; }
       .brand-en    { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
@@ -133,19 +138,19 @@ function renderOG({ titleFr, titleHe, numberLabel, subtitle }) {
   <rect class="border-inner" x="48" y="48" width="1104" height="534" rx="3"/>
 
   <!-- Top label -->
-  <text class="label" x="120" y="120">CHOULHAN AROUKH · ÉTUDE EN FRANÇAIS</text>
+  <text class="label" x="120" y="110">CHOULHAN AROUKH · ÉTUDE EN FRANÇAIS</text>
 
-  <!-- Number en français + hébreu -->
-  ${numberLabel ? `<text class="number" x="120" y="180">${esc(numberLabel)}</text>` : ''}
+  <!-- Hebrew title (sa propre ligne, à droite) -->
+  <text class="title-he" x="1140" y="200" text-anchor="end">${esc(titleHe || '')}</text>
 
-  <!-- Hebrew title (top right) -->
-  <text class="title-he" x="1140" y="220" text-anchor="end">${esc(titleHe || '')}</text>
+  <!-- Number en français + hébreu (sa propre ligne, sous le label, plus discret) -->
+  ${numberLabel ? `<text class="number" x="120" y="160">${esc(numberLabel)}</text>` : ''}
 
-  <!-- Title FR (multi-line) -->
-  ${titleLines.map((line, i) => `<text class="title-fr" x="120" y="${280 + i * 78}">${esc(line)}</text>`).join('\n  ')}
+  <!-- Title FR (multi-line) — décalé vers le bas pour aérer -->
+  ${titleLines.map((line, i) => `<text class="title-fr" x="120" y="${290 + i * 74}">${esc(line)}</text>`).join('\n  ')}
 
   <!-- Subtitle (multi-line) -->
-  ${subtitleLines.map((line, i) => `<text class="subtitle" x="120" y="${460 + i * 32}">${esc(line)}</text>`).join('\n  ')}
+  ${subtitleLines.map((line, i) => `<text class="subtitle" x="120" y="${475 + i * 30}">${esc(line)}</text>`).join('\n  ')}
 
   <!-- Footer brand -->
   <line x1="120" y1="535" x2="1080" y2="535" stroke="${COLORS.gold}" stroke-width="1" opacity="0.4"/>
@@ -173,6 +178,25 @@ function getSimanFiles() {
     .map(f => resolve(DATA_DIR, f));
 }
 
+// Rasterize SVG → PNG via resvg-js
+// resvg-js charge les polices système ; les Google Fonts importées dans
+// le SVG ne sont pas téléchargées. Pour un rendu acceptable, on injecte
+// des familles avec des fallbacks robustes (Georgia, serif).
+function svgToPng(svg) {
+  const resvg = new Resvg(svg, {
+    fitTo: { mode: 'width', value: 1200 },
+    background: '#F5F0E8',
+    font: {
+      // resvg-js cherchera les polices système installées
+      loadSystemFonts: true,
+      defaultFontFamily: 'Georgia',
+    },
+    textRendering: 2, // optimizeLegibility
+    shapeRendering: 2, // crispEdges
+  });
+  return resvg.render().asPng();
+}
+
 function generateForSiman(filepath) {
   const data = JSON.parse(readFileSync(filepath, 'utf8'));
   const svg = renderOG({
@@ -181,29 +205,47 @@ function generateForSiman(filepath) {
     titleHe: data.titleHe,
     subtitle: data.subtitle || data.description?.slice(0, 100),
   });
-  const outPath = join(OUT_DIR, `siman-${data.number}.svg`);
-  writeFileSync(outPath, svg, 'utf8');
-  console.log(`✓ ${outPath} (${(svg.length / 1024).toFixed(1)} KB)`);
+  const svgPath = join(OUT_DIR, `siman-${data.number}.svg`);
+  const pngPath = join(OUT_DIR, `siman-${data.number}.png`);
+  writeFileSync(svgPath, svg, 'utf8');
+  console.log(`✓ ${svgPath} (${(svg.length / 1024).toFixed(1)} KB)`);
+
+  try {
+    const png = svgToPng(svg);
+    writeFileSync(pngPath, png);
+    console.log(`✓ ${pngPath} (${(png.length / 1024).toFixed(1)} KB)`);
+  } catch (e) {
+    console.warn(`  PNG render failed for siman ${data.number} : ${e.message}`);
+  }
 }
 
 // -- Main --
 const onlySiman = flag('--siman');
 const onlyDefault = has('--default');
 
+function writeDefault() {
+  const svg = renderDefault();
+  const svgPath = join(OUT_DIR, 'og-default.svg');
+  const pngPath = join(OUT_DIR, 'og-default.png');
+  writeFileSync(svgPath, svg, 'utf8');
+  console.log(`✓ ${svgPath}`);
+  try {
+    const png = svgToPng(svg);
+    writeFileSync(pngPath, png);
+    console.log(`✓ ${pngPath} (${(png.length / 1024).toFixed(1)} KB)`);
+  } catch (e) {
+    console.warn(`  PNG render failed for default : ${e.message}`);
+  }
+}
+
 if (onlyDefault) {
-  const out = join(OUT_DIR, 'og-default.svg');
-  writeFileSync(out, renderDefault(), 'utf8');
-  console.log(`✓ ${out}`);
+  writeDefault();
 } else if (onlySiman) {
   generateForSiman(join(DATA_DIR, `siman-${onlySiman}.json`));
 } else {
   // All simanim + default
   const files = getSimanFiles();
   for (const f of files) generateForSiman(f);
-
-  const def = join(OUT_DIR, 'og-default.svg');
-  writeFileSync(def, renderDefault(), 'utf8');
-  console.log(`✓ ${def}`);
-
-  console.log(`\n🎨 ${files.length + 1} images OG générées dans ${OUT_DIR}`);
+  writeDefault();
+  console.log(`\n🎨 ${files.length + 1} images OG générées (SVG + PNG) dans ${OUT_DIR}`);
 }
