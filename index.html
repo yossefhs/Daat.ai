@@ -504,6 +504,132 @@
     }
     .ai-coming-soon:hover { color: var(--gold-light); }
 
+    /* ── BANDE DE PREUVES SOCIALES ── */
+    .social-proof {
+      background: var(--cream-dark);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 28px 40px;
+    }
+    .social-proof-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .social-proof-item {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+    .social-proof-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .social-proof-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-mid);
+    }
+    .social-proof-divider {
+      width: 1px;
+      height: 36px;
+      background: var(--border);
+    }
+    @media (max-width: 768px) {
+      .social-proof-divider { display: none; }
+      .social-proof-inner { flex-direction: column; gap: 16px; }
+    }
+
+    /* ── EMAIL CAPTURE ── */
+    .email-capture {
+      background: linear-gradient(135deg, var(--navy) 0%, #2A2F5A 100%);
+      color: #fff;
+      padding: 60px 40px;
+      border-top: 3px solid var(--gold);
+      border-bottom: 3px solid var(--gold);
+    }
+    .email-capture-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .email-capture .label {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .email-capture h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .email-capture p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 28px;
+      font-style: italic;
+    }
+    .email-capture-form {
+      display: flex;
+      gap: 12px;
+      max-width: 480px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+    .email-capture-input {
+      flex: 1;
+      min-width: 220px;
+      padding: 14px 18px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      background: rgba(255,255,255,0.95);
+      color: var(--text-dark);
+      border: 1px solid var(--gold);
+      border-radius: 2px;
+      outline: none;
+    }
+    .email-capture-input:focus {
+      box-shadow: 0 0 0 3px rgba(197,165,90,0.25);
+    }
+    .email-capture-btn {
+      padding: 14px 24px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: var(--gold);
+      color: var(--navy);
+      border: 1px solid var(--gold);
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .email-capture-btn:hover { background: var(--gold-light); }
+    .email-capture-meta {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      margin-top: 16px;
+      letter-spacing: 0.5px;
+    }
+    @media (max-width: 600px) {
+      .email-capture h2 { font-size: 28px; }
+    }
+
     /* ── CONTENT LIBRARY ── */
     .library-bg { background: var(--white); }
 
@@ -805,6 +931,26 @@
     </div>
   </section>
 
+  <!-- BANDE DE PREUVES SOCIALES -->
+  <section class="social-proof">
+    <div class="social-proof-inner">
+      <div class="social-proof-item">
+        <span class="social-proof-num">3</span>
+        <span class="social-proof-label">simanim publiés</span>
+      </div>
+      <div class="social-proof-divider"></div>
+      <div class="social-proof-item">
+        <span class="social-proof-num">3</span>
+        <span class="social-proof-label">niveaux par siman · Base · Lamdan · Synthèse</span>
+      </div>
+      <div class="social-proof-divider"></div>
+      <div class="social-proof-item">
+        <span class="social-proof-num">IA</span>
+        <span class="social-proof-label">halakhique spécialisée · sources citées</span>
+      </div>
+    </div>
+  </section>
+
   <!-- VISION -->
   <section id="vision" class="vision-bg">
     <div class="section">
@@ -982,6 +1128,20 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- EMAIL CAPTURE -->
+  <section class="email-capture" id="newsletter">
+    <div class="email-capture-inner">
+      <div class="label">Newsletter Daat</div>
+      <h2>Recevoir 1 siman par semaine — gratuit</h2>
+      <p>Un siman du Choulhan Aroukh chaque dimanche. Texte hébreu, traduction, sources. Pas de spam, désabonnement en un clic.</p>
+      <form class="email-capture-form" action="#" method="post" onsubmit="event.preventDefault(); alert('Merci ! L\\'inscription sera bientôt active. En attendant, ouvre déjà l\\'IA Daat.');">
+        <input type="email" name="email" class="email-capture-input" placeholder="ton-email@exemple.com" required>
+        <button type="submit" class="email-capture-btn">S'inscrire</button>
+      </form>
+      <div class="email-capture-meta">📚 Le premier envoi : Siman 242 — Kavod et Oneg Shabbat</div>
     </div>
   </section>
 
