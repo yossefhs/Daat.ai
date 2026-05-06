@@ -53,6 +53,15 @@
     },
     "api/khavroutha.js": {
       "maxDuration": 10
+    },
+    "api/cron/sequence.js": {
+      "maxDuration": 60
     }
-  }
+  },
+  "crons": [
+    {
+      "path": "/api/cron/sequence",
+      "schedule": "0 9 * * *"
+    }
+  ]
 }

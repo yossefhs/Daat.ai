@@ -13,6 +13,7 @@
 import { kv } from '@vercel/kv';
 import { Resend } from 'resend';
 import { randomBytes } from 'node:crypto';
+import { getStepById } from './_email-sequence.js';
 
 function setCors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -68,6 +69,7 @@ export default async function handler(req, res) {
       subscribedAt: new Date().toISOString(),
       confirmed: true, // Single opt-in pour l'instant
       token,
+      sentSteps: [], // Sera mis à jour avec ['j0'] après envoi du welcome
     };
 
     await kv.set(`newsletter:${email}`, record);
@@ -80,41 +82,26 @@ export default async function handler(req, res) {
       console.warn('[newsletter] kv list push failed:', e?.message);
     }
 
-    // Email de bienvenue (best-effort)
+    // Email de bienvenue (J0 — premier email de la séquence, best-effort)
     if (process.env.RESEND_API_KEY) {
       try {
         const resend = new Resend(process.env.RESEND_API_KEY);
         const fromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
-        const html = `
-<!DOCTYPE html>
-<html>
-<body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;background:#FAF6EE;margin:0;padding:24px;">
-  <div style="max-width:520px;margin:0 auto;background:#fff;border:1px solid #E4DDD0;border-radius:8px;padding:32px;">
-    <div style="display:flex;align-items:baseline;gap:12px;padding-bottom:16px;border-bottom:2px solid #C5A55A;margin-bottom:24px;">
-      <span style="font-family:'Frank Ruhl Libre',Georgia,serif;font-size:32px;font-weight:700;color:#C5A55A;">דעת</span>
-      <span style="font-size:14px;font-weight:600;color:#1A1F3A;letter-spacing:4px;">DAAT</span>
-    </div>
-    <h1 style="font-family:Georgia,serif;color:#1A1F3A;font-size:24px;margin:0 0 16px;">Barukh haba dans la communauté Daat</h1>
-    <p style="color:#3D4266;font-size:15px;line-height:1.7;">Tu recevras chaque dimanche un siman du Choulhan Aroukh — texte hébreu, traduction, sources des Rishonim et Acharonim.</p>
-    <p style="color:#3D4266;font-size:15px;line-height:1.7;">Le premier envoi : <strong>Siman 242 — Kavod et Oneg Shabbat</strong>.</p>
-    <div style="background:#FAF6EE;border-left:3px solid #C5A55A;padding:16px 20px;margin:24px 0;color:#3D4266;font-style:italic;line-height:1.6;">
-      Pour toute question halakhique, l'IA Daat est disponible : <a href="https://daattorah.com/chat.html" style="color:#C5A55A;font-weight:600;">daattorah.com/chat.html</a>
-    </div>
-    <p style="color:#3D4266;font-size:14px;line-height:1.7;">Pour soutenir l'étude : <a href="https://daattorah.com/soutenir.html" style="color:#C5A55A;font-weight:600;">don libre, dédicace, ou Tomeh Adaat</a>.</p>
-    <p style="color:#aaa;font-size:11px;line-height:1.6;margin-top:32px;padding-top:16px;border-top:1px solid #E4DDD0;text-align:center;">דעת DAAT · daattorah.com — initié par le Rav Yossef Haim Samama</p>
-  </div>
-</body>
-</html>`.trim();
+        const j0 = getStepById('j0').build();
 
-        const text = `Barukh haba dans la communauté Daat.\n\nTu recevras chaque dimanche un siman du Choulhan Aroukh — texte hébreu, traduction, sources.\n\nLe premier envoi : Siman 242 — Kavod et Oneg Shabbat.\n\nIA Daat : https://daattorah.com/chat.html\nSoutenir : https://daattorah.com/soutenir.html\n\n— DAAT דעת · daattorah.com`;
-
-        await resend.emails.send({
+        const result = await resend.emails.send({
           from: `DAAT <${fromEmail}>`,
           to: email,
-          subject: 'Bienvenue dans la newsletter Daat',
-          html,
-          text,
+          subject: j0.subject,
+          html: j0.html,
+          text: j0.text,
         });
+
+        if (!result.error) {
+          // Marque J0 comme envoyé pour que le cron ne le ré-envoie pas
+          record.sentSteps = ['j0'];
+          await kv.set(`newsletter:${email}`, record);
+        }
       } catch (e) {
         console.warn('[newsletter] welcome email failed:', e?.message);
       }
