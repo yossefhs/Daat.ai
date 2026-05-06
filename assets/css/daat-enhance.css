@@ -1,0 +1,222 @@
+/* =============================================================
+   DAAT דעת — Enhancement layer (overlay visuel)
+   Importé en plus des styles inline existants pour ajouter :
+     1. Signature visuelle « manuscrit » sur les blocs de seif
+     2. Typographie renforcée (Source Serif 4 sur les titres,
+        hébreu agrandi)
+     3. Animations d'apparition fade-in séquentielles
+     4. Layout 2 colonnes pour les pages niveau-2-lamdan
+   Sans casser l'existant — uniquement additif.
+   ============================================================= */
+
+/* ---------- 1. Signature manuscrit ---------- */
+/*
+ * Cible : .seif-info (page index siman), .daat-source-citation
+ * (composant générique). Bordure gauche dorée fine + bande crème
+ * « marge de manuscrit » qui simule le bord d'une page imprimée.
+ */
+.seif-info,
+.daat-source-citation {
+  position: relative;
+  border-left: 3px solid #B8972A !important;
+  padding-left: 32px !important;
+  background: #FBF7EF !important;
+}
+
+.seif-info::before,
+.daat-source-citation::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 24px;
+  background: linear-gradient(
+    90deg,
+    #EDE3CE 0%,
+    #EDE3CE 70%,
+    rgba(237, 227, 206, 0.0) 100%
+  );
+  pointer-events: none;
+  /* Petites lignes de cahier discrètes */
+  background-image:
+    linear-gradient(90deg, #EDE3CE 0%, #EDE3CE 70%, rgba(237, 227, 206, 0.0) 100%),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 19px,
+      rgba(184, 151, 42, 0.10) 19px,
+      rgba(184, 151, 42, 0.10) 20px
+    );
+  background-blend-mode: multiply;
+}
+
+/* Variante RTL : bande passe à droite */
+[dir="rtl"] .seif-info,
+body.lang-he .seif-info,
+[dir="rtl"] .daat-source-citation {
+  border-left: none !important;
+  border-right: 3px solid #B8972A !important;
+  padding-left: inherit !important;
+  padding-right: 32px !important;
+}
+
+[dir="rtl"] .seif-info::before,
+[dir="rtl"] .daat-source-citation::before {
+  left: auto;
+  right: 0;
+  background: linear-gradient(
+    -90deg,
+    #EDE3CE 0%,
+    #EDE3CE 70%,
+    rgba(237, 227, 206, 0.0) 100%
+  );
+}
+
+/* ---------- 2. Typographie renforcée ---------- */
+/*
+ * Source Serif 4 pour les titres de section en français
+ * (différencie de Cormorant Garamond qui reste sur le hero/body).
+ * Chargement dans <head> :
+ *   <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+ */
+.section-title,
+.levels-header,
+.daat-faq h2,
+.poskim-section .section-title,
+.concepts-section .section-title {
+  font-family: 'Source Serif 4', 'Cormorant Garamond', Georgia, serif !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.01em;
+}
+
+/* Hébreu renforcé — sur les blocs de Choulhan Aroukh */
+.seif-text-he,
+.daat-hebrew-block,
+.hebrew-block,
+.he,
+.he-q {
+  font-size: 1.1em !important;
+  line-height: 1.85 !important;
+}
+
+.seif-text-he {
+  letter-spacing: 0.01em;
+}
+
+/* ---------- 3. Animations fade-in ---------- */
+@keyframes daatFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Désactivable si l'utilisateur préfère réduire les animations */
+@media (prefers-reduced-motion: no-preference) {
+  .seif-info,
+  .level-card,
+  .siman-card.available,
+  .daat-source-citation,
+  .poskim-section,
+  .concepts-section,
+  .daat-faq details {
+    animation: daatFadeInUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: 0.05s;
+  }
+  /* Décalage progressif pour les cards en grille */
+  .levels-grid > *:nth-child(1) { animation-delay: 0.10s; }
+  .levels-grid > *:nth-child(2) { animation-delay: 0.20s; }
+  .levels-grid > *:nth-child(3) { animation-delay: 0.30s; }
+  .simanim-grid > *:nth-child(1) { animation-delay: 0.05s; }
+  .simanim-grid > *:nth-child(2) { animation-delay: 0.12s; }
+  .simanim-grid > *:nth-child(3) { animation-delay: 0.19s; }
+  .simanim-grid > *:nth-child(4) { animation-delay: 0.26s; }
+  .simanim-grid > *:nth-child(5) { animation-delay: 0.33s; }
+  .simanim-grid > *:nth-child(6) { animation-delay: 0.40s; }
+}
+
+/* ---------- 4. Layout 2 colonnes (niveau-2-lamdan) ---------- */
+/*
+ * À utiliser en wrappant une paire HE/FR :
+ *   <div class="daat-two-col">
+ *     <div class="daat-two-col-he"> [hébreu] </div>
+ *     <div class="daat-two-col-fr"> [français] </div>
+ *   </div>
+ *
+ * Sur écran ≥ 980px : grid 2 colonnes — hébreu à droite (RTL),
+ * français à gauche. Comme une page de Choulhan Aroukh imprimé.
+ * Sur mobile : empile en colonne unique.
+ */
+.daat-two-col {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin: 28px 0;
+  background: #FBF7EF;
+  border: 1px solid #E4DDD0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+@media (min-width: 980px) {
+  .daat-two-col {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.daat-two-col-he,
+.daat-two-col-fr {
+  padding: 28px 32px;
+}
+
+.daat-two-col-he {
+  background: linear-gradient(
+    -90deg,
+    #FBF7EF 0%,
+    #FBF7EF 92%,
+    #EDE3CE 100%
+  );
+  font-family: 'Frank Ruhl Libre', 'David', 'Times New Roman', serif;
+  direction: rtl;
+  text-align: right;
+  font-size: 1.18rem;
+  line-height: 1.95;
+  color: #1A1F3A;
+  border-right: 3px solid #B8972A;
+}
+
+.daat-two-col-fr {
+  font-family: 'Source Serif 4', 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: #3D4266;
+  border-left: 3px solid rgba(184, 151, 42, 0.4);
+}
+
+@media (max-width: 979px) {
+  /* Sur mobile : empile, hébreu en haut */
+  .daat-two-col-he { border-right: 3px solid #B8972A; border-left: none; }
+  .daat-two-col-fr { border-top: 1px solid #E4DDD0; border-left: none; }
+}
+
+/* Petit label en haut de chaque colonne — purement décoratif */
+.daat-two-col-he::before,
+.daat-two-col-fr::before {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #B8972A;
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(184, 151, 42, 0.3);
+}
+
+.daat-two-col-he::before { content: 'שולחן ערוך'; }
+.daat-two-col-fr::before { content: 'Traduction & explication'; }
