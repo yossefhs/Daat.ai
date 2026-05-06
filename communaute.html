@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Communauté DAAT — Khavroutha & Groupe WhatsApp · Étudier la halakha à plusieurs | DAAT דעת</title>
+  <meta name="description" content="Rejoindre la communauté DAAT : groupe WhatsApp pour échanger entre étudiants, formulaire Khavroutha pour trouver un binôme d'étude. La halakha s'étudie à plusieurs.">
+  <meta name="author" content="Rav Yossef Haim Samama">
+  <meta name="keywords" content="communauté daat, khavroutha, hévrouta, groupe whatsapp halakha, étudier torah à plusieurs, binôme étude juive">
+  <link rel="canonical" href="https://daattorah.com/communaute.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="DAAT דעת">
+  <meta property="og:title" content="Communauté DAAT — Khavroutha & Groupe WhatsApp">
+  <meta property="og:description" content="Rejoindre la communauté DAAT pour étudier la halakha à plusieurs : groupe WhatsApp + binôme d'étude (Khavroutha).">
+  <meta property="og:url" content="https://daattorah.com/communaute.html">
+  <meta property="og:image" content="https://daattorah.com/assets/img/og/og-default.svg">
+  <meta property="og:locale" content="fr_FR">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Communauté DAAT — Khavroutha & Groupe WhatsApp">
+  <meta name="twitter:description" content="Rejoindre la communauté DAAT : étudier la halakha à plusieurs.">
+  <meta name="twitter:image" content="https://daattorah.com/assets/img/og/og-default.svg">
+
+  <!-- JSON-LD : WebPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": "https://daattorah.com/communaute.html#webpage",
+    "url": "https://daattorah.com/communaute.html",
+    "name": "Communauté DAAT — Khavroutha & Groupe WhatsApp",
+    "description": "Rejoindre la communauté DAAT pour étudier la halakha à plusieurs.",
+    "inLanguage": "fr-FR",
+    "isPartOf": { "@id": "https://daattorah.com/#website" }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Inter:wght@300;400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/daat-enhance.css">
+
+  <style>
+    :root {
+      --navy: #1A1F3A; --gold: #C5A55A; --gold-light: #D4B97A; --gold-dark: #8C6F1E;
+      --cream: #FAF6EE; --cream-dark: #F0EAD8; --parchment: #F5F0E8;
+      --text-dark: #1A1F3A; --text-mid: #3D4266; --text-muted: #7A7F9A;
+      --white: #FFFFFF; --border: #E4DDD0;
+      --green: #2E7D52; --green-whatsapp: #25D366;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 18px;
+      background: var(--cream);
+      color: var(--text-dark);
+      line-height: 1.7;
+    }
+
+    /* HEADER */
+    header {
+      background: var(--navy); padding: 0 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 70px; border-bottom: 2px solid var(--gold);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-he { font-family: 'Frank Ruhl Libre', serif; font-size: 26px; font-weight: 700; color: var(--gold); letter-spacing: 2px; }
+    .logo-en { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; color: #fff; letter-spacing: 3px; }
+    nav { display: flex; gap: 28px; align-items: center; }
+    nav a {
+      font-family: 'Inter', sans-serif; font-size: 13px;
+      color: rgba(255,255,255,0.7); text-decoration: none; letter-spacing: 1px;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--gold); }
+    nav a.active { color: var(--gold); }
+    nav a.cta-soutenir {
+      color: var(--gold); border: 1px solid rgba(197,165,90,0.5);
+      padding: 4px 12px; border-radius: 2px;
+    }
+
+    /* BREADCRUMB */
+    .breadcrumb {
+      background: var(--navy); padding: 12px 40px;
+      border-bottom: 1px solid rgba(197,165,90,0.15);
+    }
+    .breadcrumb-inner { max-width: 1100px; margin: 0 auto; }
+    .breadcrumb a, .breadcrumb span {
+      font-family: 'Inter', sans-serif; font-size: 12px;
+      color: rgba(255,255,255,0.4); text-decoration: none; letter-spacing: 0.5px;
+    }
+    .breadcrumb a:hover { color: var(--gold); }
+    .breadcrumb .sep { margin: 0 8px; color: rgba(255,255,255,0.2); }
+    .breadcrumb .current { color: var(--gold); }
+
+    /* HERO */
+    .page-hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #2A2F5A 100%);
+      padding: 60px 40px 48px;
+      border-bottom: 3px solid var(--gold);
+    }
+    .hero-inner { max-width: 1100px; margin: 0 auto; text-align: center; }
+    .hero-meta {
+      font-family: 'Inter', sans-serif; font-size: 11px;
+      letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 16px;
+    }
+    .hero-title-he {
+      font-family: 'Frank Ruhl Libre', serif; font-size: 44px; font-weight: 900;
+      color: var(--gold); margin-bottom: 8px; direction: rtl;
+    }
+    .hero-title-fr {
+      font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300;
+      color: #fff; margin-bottom: 16px;
+    }
+    .hero-subtitle {
+      font-size: 18px; color: rgba(255,255,255,0.7); font-style: italic;
+      max-width: 700px; margin: 0 auto;
+    }
+
+    /* CONTENT */
+    .content { max-width: 1100px; margin: 0 auto; padding: 60px 40px; }
+
+    /* CARDS */
+    .community-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 30px;
+      margin-bottom: 50px;
+    }
+    @media (max-width: 880px) {
+      .community-grid { grid-template-columns: 1fr; }
+    }
+    .community-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 36px 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .community-card.whatsapp {
+      border-top: 3px solid var(--green-whatsapp);
+    }
+    .community-card.khavroutha {
+      border-top: 3px solid var(--gold);
+    }
+    .community-card-icon {
+      font-size: 40px; margin-bottom: 20px; display: block;
+    }
+    .community-card h2 {
+      font-family: 'Source Serif 4', 'Cormorant Garamond', serif;
+      font-size: 28px; font-weight: 500; color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .community-card-he {
+      font-family: 'Frank Ruhl Libre', serif; font-size: 22px;
+      color: var(--gold); direction: rtl; margin-bottom: 16px;
+    }
+    .community-card p {
+      color: var(--text-mid); font-size: 16px; line-height: 1.65;
+      margin-bottom: 22px;
+    }
+    .community-card ul {
+      list-style: none; padding: 0;
+      margin-bottom: 24px; font-size: 15px; color: var(--text-mid);
+    }
+    .community-card li {
+      padding: 8px 0; padding-left: 24px;
+      position: relative; line-height: 1.5;
+    }
+    .community-card li::before {
+      content: '✓'; position: absolute; left: 0;
+      color: var(--gold); font-weight: 700;
+    }
+
+    .btn-whatsapp {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--green-whatsapp); color: #fff;
+      padding: 14px 26px; text-decoration: none; border-radius: 4px;
+      font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: background 0.15s, transform 0.15s;
+    }
+    .btn-whatsapp:hover { background: #1FAD52; transform: translateY(-1px); }
+
+    /* FORM */
+    .khavroutha-form {
+      display: grid; gap: 14px;
+    }
+    .khavroutha-form label {
+      font-family: 'Inter', sans-serif; font-size: 12px;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--text-muted); font-weight: 600;
+      margin-bottom: 4px; display: block;
+    }
+    .khavroutha-form input,
+    .khavroutha-form select,
+    .khavroutha-form textarea {
+      width: 100%; padding: 12px 14px;
+      font-family: inherit; font-size: 15px;
+      border: 1px solid var(--border); background: var(--cream);
+      color: var(--text-dark); border-radius: 3px;
+      outline: none; transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .khavroutha-form input:focus,
+    .khavroutha-form select:focus,
+    .khavroutha-form textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(197,165,90,0.15);
+    }
+    .khavroutha-form textarea { resize: vertical; min-height: 80px; }
+    .btn-submit {
+      background: var(--navy); color: #fff;
+      padding: 14px 26px; border: none; cursor: pointer;
+      font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase;
+      border-radius: 3px; transition: background 0.15s;
+    }
+    .btn-submit:hover { background: var(--gold); color: var(--navy); }
+
+    /* WHY CHAVROUTHA */
+    .why-section {
+      background: var(--white); padding: 50px 40px;
+      border: 1px solid var(--border); border-left: 4px solid var(--gold);
+      margin-top: 30px;
+    }
+    .why-section h2 {
+      font-family: 'Source Serif 4', 'Cormorant Garamond', serif;
+      font-size: 30px; color: var(--navy); margin-bottom: 22px; font-weight: 500;
+    }
+    .why-section blockquote {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 22px; color: var(--navy);
+      direction: rtl; text-align: right;
+      padding: 18px 22px; background: var(--cream);
+      border-right: 3px solid var(--gold);
+      margin: 18px 0;
+    }
+    .why-section cite {
+      display: block; font-style: normal;
+      font-size: 13px; color: var(--text-muted);
+      letter-spacing: 1px; margin-top: 10px;
+      direction: ltr; text-align: left;
+    }
+    .why-section p {
+      color: var(--text-mid); margin-bottom: 14px; line-height: 1.75;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--navy); border-top: 2px solid var(--gold);
+      padding: 28px 40px; text-align: center;
+      margin-top: 60px;
+    }
+    footer p {
+      font-family: 'Inter', sans-serif; font-size: 12px;
+      color: rgba(255,255,255,0.4);
+    }
+    footer a { color: var(--gold); text-decoration: none; }
+
+    /* SUCCESS MESSAGE */
+    .form-success {
+      display: none;
+      background: rgba(46,125,82,0.1); border: 1px solid var(--green);
+      padding: 14px 18px; border-radius: 3px;
+      color: var(--green); font-size: 14px; margin-top: 12px;
+    }
+    .form-success.is-visible { display: block; }
+
+    @media (max-width: 768px) {
+      header, .breadcrumb, .page-hero, .content, footer { padding-left: 20px; padding-right: 20px; }
+      .hero-title-fr { font-size: 28px; }
+      .hero-title-he { font-size: 36px; }
+      nav { gap: 16px; }
+      nav a { font-size: 12px; }
+      nav a.cta-soutenir { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="index.html" class="logo">
+      <span class="logo-he">דעת</span>
+      <span class="logo-en">DAAT</span>
+    </a>
+    <nav>
+      <a href="sources/shabbat/">Hilkhot Shabbat</a>
+      <a href="chat.html">💬 IA Daat</a>
+      <a href="communaute.html" class="active">Communauté</a>
+      <a href="soutenir.html" class="cta-soutenir">♥ Soutenir</a>
+    </nav>
+  </header>
+
+  <div class="breadcrumb">
+    <div class="breadcrumb-inner">
+      <a href="index.html">Accueil</a>
+      <span class="sep">›</span>
+      <span class="current">Communauté</span>
+    </div>
+  </div>
+
+  <div class="page-hero">
+    <div class="hero-inner">
+      <div class="hero-meta">לימוד בחברותא · études à plusieurs</div>
+      <div class="hero-title-he" aria-hidden="true">חברתא חברתא — או מיתותא</div>
+      <h1 class="hero-title-fr" style="margin: 0 0 16px;">La halakha s'étudie à plusieurs</h1>
+      <p class="hero-subtitle">
+        « Ou la khavroutha, ou la mort » — disait Honi haMéagel (Taanit 23a). Rejoindre une communauté d'étudiants pour avancer ensemble dans le Choulhan Aroukh.
+      </p>
+    </div>
+  </div>
+
+  <main class="content">
+
+    <div class="community-grid">
+
+      <!-- WHATSAPP -->
+      <div class="community-card whatsapp">
+        <span class="community-card-icon">💬</span>
+        <h2>Groupe WhatsApp DAAT</h2>
+        <div class="community-card-he">קהילת דעת</div>
+        <p>
+          Un groupe ouvert aux étudiants de la plateforme. On y partage les questions, on signale les erreurs, on échange sur les simanim en cours d'étude. Modération par le Rav Yossef Haim Samama.
+        </p>
+        <ul>
+          <li>Annonce de chaque nouveau siman publié</li>
+          <li>Q&amp;R spontanées entre étudiants</li>
+          <li>Partage de sources, mareh mekomot</li>
+          <li>Pas de spam, pas de hors-sujet</li>
+        </ul>
+        <a href="https://chat.whatsapp.com/" target="_blank" rel="noopener" class="btn-whatsapp">
+          <span>📱</span>
+          <span>Rejoindre le groupe WhatsApp</span>
+        </a>
+      </div>
+
+      <!-- KHAVROUTHA -->
+      <div class="community-card khavroutha">
+        <span class="community-card-icon">📖</span>
+        <h2>Khavroutha Daat</h2>
+        <div class="community-card-he">חברותא דעת</div>
+        <p>
+          Trouve un binôme d'étude pour avancer ensemble dans les simanim. Remplis ce formulaire — l'équipe DAAT te met en contact avec un étudiant compatible.
+        </p>
+
+        <form class="khavroutha-form" action="#" method="post" onsubmit="event.preventDefault(); document.getElementById('form-success').classList.add('is-visible'); this.reset();">
+          <div>
+            <label for="kh-nom">Nom (ou pseudo)</label>
+            <input type="text" id="kh-nom" name="nom" required placeholder="Yossef · David · etc.">
+          </div>
+          <div>
+            <label for="kh-niveau">Ton niveau</label>
+            <select id="kh-niveau" name="niveau" required>
+              <option value="">Choisir…</option>
+              <option value="base">Base — débutant / intermédiaire</option>
+              <option value="lamdan">Lamdan — pilpoul, sources</option>
+              <option value="synthese">Synthèse — révision, mémorisation</option>
+              <option value="mixte">Ouvert à plusieurs niveaux</option>
+            </select>
+          </div>
+          <div>
+            <label for="kh-dispo">Disponibilité (jours / heures)</label>
+            <input type="text" id="kh-dispo" name="disponibilite" required placeholder="ex. dim/mer 21h–22h, ou samedi soir">
+          </div>
+          <div>
+            <label for="kh-contact">Comment te contacter</label>
+            <input type="text" id="kh-contact" name="contact" required placeholder="WhatsApp, email, Telegram…">
+          </div>
+          <button type="submit" class="btn-submit">Trouver un binôme</button>
+          <div class="form-success" id="form-success">
+            ✓ Merci ! Le formulaire sera bientôt opérationnel. En attendant, rejoins le groupe WhatsApp pour te présenter.
+          </div>
+        </form>
+      </div>
+
+    </div>
+
+    <!-- POURQUOI LA KHAVROUTHA -->
+    <div class="why-section">
+      <h2>Pourquoi étudier à plusieurs ?</h2>
+      <p>
+        Le Talmud (<strong>Taanit 7a</strong>) compare l'étude de la Torah au feu : <em>« Comme le feu ne brûle pas seul, ainsi la Torah ne se maintient pas chez celui qui étudie seul. »</em> La khavroutha — l'étude en binôme — est la modalité par excellence de la transmission halakhique.
+      </p>
+      <blockquote>
+        « חברתא חברתא — או מיתותא »
+        <cite>Honi haMéagel · Taanit 23a</cite>
+      </blockquote>
+      <p>
+        Dans la communauté DAAT, l'objectif est simple : <strong>permettre à chaque étudiant de trouver un binôme adapté à son niveau et à ses disponibilités</strong>. Que tu études le Choulhan Aroukh pour la première fois ou que tu cherches un partenaire de pilpoul, l'équipe te met en contact avec un étudiant compatible.
+      </p>
+      <p style="margin-top: 22px; font-size: 14px; color: var(--text-muted);">
+        <em>Pour toute question : utilise le chat IA Daat ou rejoins le groupe WhatsApp.</em>
+      </p>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>
+      DAAT דעת — © 5786 / 2026 ·
+      <a href="index.html">Accueil</a> ·
+      <a href="chat.html">IA Daat</a> ·
+      <a href="soutenir.html">Soutenir</a>
+    </p>
+  </footer>
+
+  <link rel="stylesheet" href="assets/css/chat-widget.css">
+  <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
+  <script src="assets/js/chat-widget.js" defer></script>
+</body>
+</html>

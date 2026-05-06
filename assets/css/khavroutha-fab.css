@@ -1,0 +1,53 @@
+/* =============================================================
+   DAAT — Bouton flottant Khavroutha
+   À inclure sur toutes les pages siman (index + niveaux).
+   Petit, coin bas-gauche, lien vers /communaute.html#khavroutha
+   ============================================================= */
+
+.daat-khavroutha-fab {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 90;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #1A1F3A;
+  color: #C5A55A;
+  text-decoration: none;
+  padding: 10px 16px;
+  border: 1px solid #C5A55A;
+  border-radius: 999px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  box-shadow: 0 6px 20px rgba(26, 31, 58, 0.25);
+  transition: all 0.18s ease;
+  cursor: pointer;
+}
+
+.daat-khavroutha-fab:hover {
+  background: #C5A55A;
+  color: #1A1F3A;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(197, 165, 90, 0.4);
+}
+
+.daat-khavroutha-fab .icon {
+  font-size: 14px;
+  line-height: 1;
+}
+
+@media (max-width: 600px) {
+  .daat-khavroutha-fab {
+    bottom: 80px; /* Laisse place au chat-widget */
+    padding: 8px 14px;
+    font-size: 11px;
+  }
+  .daat-khavroutha-fab .label-long { display: none; }
+}
+
+@media print {
+  .daat-khavroutha-fab { display: none !important; }
+}
