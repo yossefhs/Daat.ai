@@ -76,7 +76,7 @@ function buildJsonLd(d) {
       "alternativeHeadline": d.titleHe,
       "description": d.description,
       "url": url,
-      "image": `${SITE}/assets/img/yh-logo.png`,
+      "image": `${SITE}/assets/img/og/siman-${d.number}.svg`,
       "inLanguage": "fr-FR",
       "isAccessibleForFree": true,
       "learningResourceType": "Cours d'étude halakhique",
@@ -146,7 +146,7 @@ function buildLevelsHtml(levels) {
 function render(d) {
   const url = `${SITE}/sources/shabbat/siman-${d.number}/`;
   const titleSeo = `Siman ${d.number} — ${d.titleFr} · Choulhan Aroukh · Étude en français | DAAT`;
-  const ogImage = `${SITE}/assets/img/yh-logo.png`;
+  const ogImage = `${SITE}/assets/img/og/siman-${d.number}.svg`;
   const jsonLd = buildJsonLd(d);
   const levelsHtml = buildLevelsHtml(d.levels);
   const faqHtml = (d.faq || []).map(({ q, a }) => `
