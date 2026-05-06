@@ -1139,12 +1139,58 @@
       <div class="label">Newsletter Daat</div>
       <h2>Recevoir 1 siman par semaine — gratuit</h2>
       <p>Un siman du Choulhan Aroukh chaque dimanche. Texte hébreu, traduction, sources. Pas de spam, désabonnement en un clic.</p>
-      <form class="email-capture-form" action="#" method="post" onsubmit="event.preventDefault(); alert('Merci ! L\\'inscription sera bientôt active. En attendant, ouvre déjà l\\'IA Daat.');">
-        <input type="email" name="email" class="email-capture-input" placeholder="ton-email@exemple.com" required>
-        <button type="submit" class="email-capture-btn">S'inscrire</button>
+      <form class="email-capture-form" id="newsletter-form" novalidate>
+        <input type="email" name="email" id="newsletter-email" class="email-capture-input" placeholder="ton-email@exemple.com" required autocomplete="email">
+        <button type="submit" class="email-capture-btn" id="newsletter-submit">S'inscrire</button>
       </form>
-      <div class="email-capture-meta">📚 Le premier envoi : Siman 242 — Kavod et Oneg Shabbat</div>
+      <div class="email-capture-meta" id="newsletter-meta">📚 Le premier envoi : Siman 242 — Kavod et Oneg Shabbat</div>
     </div>
+    <script>
+      (function () {
+        var form = document.getElementById('newsletter-form');
+        var emailInput = document.getElementById('newsletter-email');
+        var btn = document.getElementById('newsletter-submit');
+        var meta = document.getElementById('newsletter-meta');
+        if (!form) return;
+        var API = 'https://daatai.vercel.app/api/newsletter';
+        form.addEventListener('submit', async function (e) {
+          e.preventDefault();
+          var email = (emailInput.value || '').trim();
+          if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            meta.textContent = '⚠ Adresse email invalide.';
+            meta.style.color = '#FFB4B4';
+            return;
+          }
+          btn.disabled = true;
+          var orig = btn.textContent;
+          btn.textContent = '…';
+          try {
+            var r = await fetch(API, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email: email, source: 'home' }),
+            });
+            var data = await r.json().catch(function () { return {}; });
+            if (r.ok && data.ok) {
+              meta.innerHTML = data.alreadySubscribed
+                ? '✓ Tu es déjà inscrit — à dimanche !'
+                : '✓ Merci ! Vérifie ta boîte mail (et les spams) pour la confirmation.';
+              meta.style.color = '#A8D5BA';
+              form.reset();
+            } else {
+              meta.textContent = '⚠ ' + (data.error || 'Erreur. Réessaie dans un instant.');
+              meta.style.color = '#FFB4B4';
+            }
+          } catch (err) {
+            meta.textContent = '⚠ Connexion impossible. Réessaie plus tard.';
+            meta.style.color = '#FFB4B4';
+          } finally {
+            btn.disabled = false;
+            btn.textContent = orig;
+          }
+        });
+      })();
+    </script>
   </section>
 
   <!-- FOOTER -->

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Cette page n'existe pas · DAAT דעת</title>
+  <meta name="description" content="La page que tu cherches n'existe pas (encore). Reviens à l'accueil ou explore les Hilkhot Shabbat.">
+  <meta name="robots" content="noindex">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Frank+Ruhl+Libre:wght@500;700;900&family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --navy: #1A1F3A; --navy-soft: #2A2F5A;
+      --gold: #C5A55A; --gold-light: #D4B97A; --gold-dark: #8C6F1E;
+      --cream: #FAF6EE; --cream-dark: #F0EAD8;
+      --text: #1A1F3A; --text-mid: #3D4266; --text-muted: #7A7F9A;
+      --white: #FFFFFF; --border: #E4DDD0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    header {
+      background: var(--navy);
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+      border-bottom: 2px solid var(--gold);
+    }
+    .logo { display: flex; align-items: baseline; gap: 12px; text-decoration: none; }
+    .logo-he {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 26px; font-weight: 700;
+      color: var(--gold); letter-spacing: 2px;
+    }
+    .logo-en {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px; font-weight: 600;
+      color: #fff; letter-spacing: 3px;
+    }
+    nav { display: flex; gap: 24px; align-items: center; }
+    nav a {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px; color: rgba(255,255,255,0.7);
+      text-decoration: none; letter-spacing: 1px;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--gold); }
+
+    /* MAIN */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 24px;
+    }
+    .panel {
+      max-width: 720px;
+      text-align: center;
+    }
+    .verse {
+      font-family: 'Frank Ruhl Libre', serif;
+      direction: rtl;
+      font-size: 26px;
+      color: var(--gold);
+      margin-bottom: 12px;
+      line-height: 1.7;
+    }
+    .verse-source {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+    .number {
+      font-family: 'Source Serif 4', 'Cormorant Garamond', serif;
+      font-size: 120px;
+      font-weight: 600;
+      line-height: 1;
+      color: var(--navy);
+      letter-spacing: -0.04em;
+      margin-bottom: 8px;
+    }
+    .number-he {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 28px;
+      color: var(--gold);
+      direction: rtl;
+      margin-bottom: 24px;
+    }
+    h1 {
+      font-family: 'Source Serif 4', 'Cormorant Garamond', serif;
+      font-size: 32px;
+      font-weight: 500;
+      color: var(--navy);
+      margin-bottom: 14px;
+    }
+    .lead {
+      font-size: 18px;
+      color: var(--text-mid);
+      font-style: italic;
+      margin-bottom: 32px;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+    .btn {
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      padding: 12px 22px;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.15s;
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+    }
+    .btn-primary:hover { background: var(--gold-light); }
+    .btn-secondary {
+      background: transparent;
+      color: var(--navy);
+      border: 1px solid var(--navy);
+    }
+    .btn-secondary:hover { background: var(--navy); color: var(--gold); }
+
+    /* SUGGESTIONS */
+    .suggest {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--gold);
+      padding: 24px 28px;
+      text-align: left;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .suggest-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 12px; display: block;
+    }
+    .suggest ul { list-style: none; }
+    .suggest li {
+      padding: 8px 0;
+      border-bottom: 1px dashed var(--border);
+      font-size: 15px;
+    }
+    .suggest li:last-child { border-bottom: none; }
+    .suggest a {
+      color: var(--text-mid);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .suggest a:hover { color: var(--gold-dark); }
+    .suggest a strong { color: var(--navy); }
+
+    /* FOOTER */
+    footer {
+      background: var(--navy);
+      border-top: 2px solid var(--gold);
+      padding: 24px 40px;
+      text-align: center;
+    }
+    footer p {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+    }
+    footer a { color: var(--gold); text-decoration: none; }
+
+    @media (max-width: 600px) {
+      header, footer { padding: 0 20px; }
+      header { padding: 0 20px; }
+      footer { padding: 24px 20px; }
+      nav a { font-size: 11px; }
+      .number { font-size: 88px; }
+      h1 { font-size: 24px; }
+      .lead { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="/" class="logo">
+      <span class="logo-he">דעת</span>
+      <span class="logo-en">DAAT</span>
+    </a>
+    <nav>
+      <a href="/sources/shabbat/">Hilkhot Shabbat</a>
+      <a href="/chat.html">💬 IA Daat</a>
+      <a href="/communaute.html">Communauté</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="panel">
+      <p class="verse" aria-label="Job 28:12">וְהַחָכְמָה מֵאַיִן תִּמָּצֵא</p>
+      <p class="verse-source">Iyov 28:12 · « D'où la sagesse se trouvera-t-elle ? »</p>
+
+      <p class="number">404</p>
+      <p class="number-he">לא נמצא</p>
+
+      <h1>Cette page n'existe pas (encore)</h1>
+      <p class="lead">
+        Le siman que tu cherches n'a peut-être pas encore été publié, ou le lien est cassé. Ce n'est rien — la Torah n'a pas de fin.
+      </p>
+
+      <div class="actions">
+        <a href="/" class="btn btn-primary">Retour à l'accueil</a>
+        <a href="/sources/shabbat/" class="btn btn-secondary">Hilkhot Shabbat</a>
+      </div>
+
+      <div class="suggest">
+        <span class="suggest-label">Simanim disponibles</span>
+        <ul>
+          <li><a href="/sources/shabbat/siman-242/"><strong>Siman 242</strong> — Kavod et Oneg Shabbat</a></li>
+          <li><a href="/sources/shabbat/siman-243/"><strong>Siman 243</strong> — Louer son bain ou son champ à un non-juif</a></li>
+          <li><a href="/sources/shabbat/siman-246/"><strong>Siman 246</strong> — Prêt et location d'objets à un non-juif</a></li>
+          <li><a href="/chat.html"><strong>IA Daat</strong> — Pose ta question halakhique</a></li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>
+      DAAT דעת — © 5786 / 2026 ·
+      <a href="/">Accueil</a> ·
+      <a href="/chat.html">IA Daat</a> ·
+      <a href="/communaute.html">Communauté</a> ·
+      <a href="/soutenir.html">♥ Soutenir</a>
+    </p>
+  </footer>
+
+</body>
+</html>

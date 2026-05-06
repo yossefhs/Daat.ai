@@ -346,10 +346,10 @@
           Trouve un binôme d'étude pour avancer ensemble dans les simanim. Remplis ce formulaire — l'équipe DAAT te met en contact avec un étudiant compatible.
         </p>
 
-        <form class="khavroutha-form" action="#" method="post" onsubmit="event.preventDefault(); document.getElementById('form-success').classList.add('is-visible'); this.reset();">
+        <form class="khavroutha-form" id="khavroutha-form" novalidate>
           <div>
             <label for="kh-nom">Nom (ou pseudo)</label>
-            <input type="text" id="kh-nom" name="nom" required placeholder="Yossef · David · etc.">
+            <input type="text" id="kh-nom" name="nom" required placeholder="Yossef · David · etc." maxlength="80">
           </div>
           <div>
             <label for="kh-niveau">Ton niveau</label>
@@ -363,17 +363,77 @@
           </div>
           <div>
             <label for="kh-dispo">Disponibilité (jours / heures)</label>
-            <input type="text" id="kh-dispo" name="disponibilite" required placeholder="ex. dim/mer 21h–22h, ou samedi soir">
+            <input type="text" id="kh-dispo" name="disponibilite" required placeholder="ex. dim/mer 21h–22h, ou samedi soir" maxlength="200">
           </div>
           <div>
             <label for="kh-contact">Comment te contacter</label>
-            <input type="text" id="kh-contact" name="contact" required placeholder="WhatsApp, email, Telegram…">
+            <input type="text" id="kh-contact" name="contact" required placeholder="WhatsApp, email, Telegram…" maxlength="160">
           </div>
-          <button type="submit" class="btn-submit">Trouver un binôme</button>
+          <button type="submit" class="btn-submit" id="kh-submit">Trouver un binôme</button>
           <div class="form-success" id="form-success">
-            ✓ Merci ! Le formulaire sera bientôt opérationnel. En attendant, rejoins le groupe WhatsApp pour te présenter.
+            ✓ Merci ! Ta demande a bien été reçue — l'équipe DAAT te recontacte sous quelques jours pour te proposer un binôme.
           </div>
         </form>
+        <script>
+          (function () {
+            var form = document.getElementById('khavroutha-form');
+            var btn = document.getElementById('kh-submit');
+            var success = document.getElementById('form-success');
+            if (!form) return;
+            var API = 'https://daatai.vercel.app/api/khavroutha';
+            form.addEventListener('submit', async function (e) {
+              e.preventDefault();
+              var payload = {
+                nom: form.nom.value.trim(),
+                niveau: form.niveau.value,
+                disponibilite: form.disponibilite.value.trim(),
+                contact: form.contact.value.trim(),
+              };
+              if (!payload.nom || !payload.niveau || !payload.disponibilite || !payload.contact) {
+                success.textContent = '⚠ Merci de remplir tous les champs.';
+                success.style.color = '#C0392B';
+                success.style.background = 'rgba(192,57,43,0.08)';
+                success.style.borderColor = '#C0392B';
+                success.classList.add('is-visible');
+                return;
+              }
+              btn.disabled = true;
+              var orig = btn.textContent;
+              btn.textContent = 'Envoi…';
+              try {
+                var r = await fetch(API, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(payload),
+                });
+                var data = await r.json().catch(function () { return {}; });
+                if (r.ok && data.ok) {
+                  success.textContent = '✓ Merci ' + payload.nom + ' ! Ta demande a bien été reçue — l’équipe DAAT te recontacte sous quelques jours.';
+                  success.style.color = '';
+                  success.style.background = '';
+                  success.style.borderColor = '';
+                  success.classList.add('is-visible');
+                  form.reset();
+                } else {
+                  success.textContent = '⚠ ' + (data.error || 'Erreur lors de l’envoi. Réessaie ou rejoins le groupe WhatsApp.');
+                  success.style.color = '#C0392B';
+                  success.style.background = 'rgba(192,57,43,0.08)';
+                  success.style.borderColor = '#C0392B';
+                  success.classList.add('is-visible');
+                }
+              } catch (err) {
+                success.textContent = '⚠ Connexion impossible. Rejoins plutôt le groupe WhatsApp pour te présenter.';
+                success.style.color = '#C0392B';
+                success.style.background = 'rgba(192,57,43,0.08)';
+                success.style.borderColor = '#C0392B';
+                success.classList.add('is-visible');
+              } finally {
+                btn.disabled = false;
+                btn.textContent = orig;
+              }
+            });
+          })();
+        </script>
       </div>
 
     </div>
