@@ -7,7 +7,12 @@
      3. Animations d'apparition fade-in séquentielles
      4. Layout 2 colonnes pour les pages niveau-2-lamdan
    Sans casser l'existant — uniquement additif.
+
+   Importe automatiquement daat.css pour fournir les tokens et
+   composants partagés (--navy, --gold, .seif-info, etc.).
    ============================================================= */
+@import url('./daat.css');
+
 
 /* ---------- 1. Signature manuscrit ---------- */
 /*

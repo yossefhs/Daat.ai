@@ -9,6 +9,8 @@
 
 /* -------------------------------------------------------------
    1. TOKENS — variables CSS
+   Préfixées --daat-* (canonique) + alias --navy / --gold / etc.
+   pour rétrocompatibilité avec les pages existantes.
    ------------------------------------------------------------- */
 :root {
   /* Couleurs principales (cohérentes avec l'existant) */
@@ -37,6 +39,26 @@
   --daat-purple:      #6B3FA0;
   --daat-red:         #C0392B;
   --daat-pesak-bg:    #FFF8E7;
+
+  /* Alias legacy (utilisés directement par les pages existantes) */
+  --navy:        var(--daat-navy);
+  --navy-soft:   var(--daat-navy-soft);
+  --navy-deep:   var(--daat-navy-deep);
+  --gold:        var(--daat-gold);
+  --gold-light:  var(--daat-gold-light);
+  --gold-dark:   var(--daat-gold-dark);
+  --cream:       var(--daat-cream);
+  --cream-dark:  var(--daat-cream-dark);
+  --parchment:   var(--daat-parchment);
+  --white:       var(--daat-white);
+  --border:      var(--daat-border);
+  --text:        var(--daat-text);
+  --text-dark:   var(--daat-text);
+  --text-mid:    var(--daat-text-mid);
+  --text-muted:  var(--daat-text-muted);
+  --green:       var(--daat-green);
+  --purple:      var(--daat-purple);
+  --red:         var(--daat-red);
 
   /* Typographies */
   --daat-font-serif:  'Cormorant Garamond', Georgia, serif;
