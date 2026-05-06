@@ -1020,7 +1020,12 @@
         <span class="lang-he-inline">בחרו לחקוק את תמיכתם לאורך זמן. שמותיהם, הקדשותיהם, מחיים את הלימוד יום אחר יום.</span>
       </p>
 
-      <div class="builders-grid">
+      <!--
+        Mur dynamique : peuplé via fetch /api/soutenir au chargement.
+        Le fallback statique ci-dessous (template "data-fallback") sert
+        si l'API est indisponible (réseau, 1ère installation, KV vide).
+      -->
+      <div class="builders-grid" id="builders-grid" aria-live="polite" data-fallback>
         <div class="builder">
           <div class="builder-name">R. Moché K.</div>
           <div class="builder-tag">Tomeh Adaat · 36 €/mois</div>
@@ -1034,7 +1039,7 @@
           <div class="builder-tag">לעילוי נשמת אביהם ז״ל</div>
         </div>
         <div class="builder">
-          <div class="builder-name">M. & Mme Cohen</div>
+          <div class="builder-name">M. &amp; Mme Cohen</div>
           <div class="builder-tag">Tomhei Adaat · 100 €/mois</div>
         </div>
         <div class="builder">
@@ -1193,6 +1198,39 @@
       const saved = localStorage.getItem('daat-lang');
       if (saved && ['fr','en','he'].includes(saved)) setLang(saved);
     } catch(e) {}
+  </script>
+
+  <!-- Mur des Bâtisseurs — fetch dynamique avec fallback statique -->
+  <script>
+    (function () {
+      var grid = document.getElementById('builders-grid');
+      if (!grid) return;
+      var API = 'https://daatai.vercel.app/api/soutenir';
+
+      function esc(s) {
+        return String(s == null ? '' : s)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
+
+      function render(wall) {
+        if (!wall || !wall.length) return; // garde le fallback
+        grid.removeAttribute('data-fallback');
+        grid.innerHTML = wall.map(function (b) {
+          return '<div class="builder">' +
+                   '<div class="builder-name">' + esc(b.name || 'Anonyme') + '</div>' +
+                   '<div class="builder-tag">' + esc(b.tag || 'Bâtisseur') + '</div>' +
+                 '</div>';
+        }).join('');
+      }
+
+      fetch(API, { method: 'GET', headers: { 'Accept': 'application/json' } })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (data) {
+          if (data && data.ok && Array.isArray(data.wall)) render(data.wall);
+        })
+        .catch(function () { /* fallback statique reste affiché */ });
+    })();
   </script>
 
 </body>
