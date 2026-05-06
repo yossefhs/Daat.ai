@@ -11,6 +11,30 @@
       ]
     }
   ],
+
+  "_url-architecture": "URLs propres /oh/{N}/{niveau} — sert le contenu via rewrites (URL utilisateur inchangée). Rétrocompat : les anciennes URLs sources/shabbat/siman-{N}/ redirigent en 301 vers les nouvelles pour la consolidation SEO. Ces routes ne s'activent que sur le déploiement Vercel — sur GitHub Pages, les URLs sources/shabbat/* restent accessibles directement.",
+
+  "rewrites": [
+    { "source": "/oh", "destination": "/sources/shabbat/index.html" },
+    { "source": "/oh/", "destination": "/sources/shabbat/index.html" },
+    { "source": "/oh/:n(\\d+)", "destination": "/sources/shabbat/siman-:n/index.html" },
+    { "source": "/oh/:n(\\d+)/", "destination": "/sources/shabbat/siman-:n/index.html" },
+    { "source": "/oh/:n(\\d+)/base", "destination": "/sources/shabbat/siman-:n/niveau-1-base.html" },
+    { "source": "/oh/:n(\\d+)/lamdan", "destination": "/sources/shabbat/siman-:n/niveau-2-lamdan.html" },
+    { "source": "/oh/:n(\\d+)/synthese", "destination": "/sources/shabbat/siman-:n/niveau-3-synthese.html" }
+  ],
+
+  "redirects": [
+    { "source": "/sources/shabbat", "destination": "/oh/", "permanent": true },
+    { "source": "/sources/shabbat/", "destination": "/oh/", "permanent": true },
+    { "source": "/sources/shabbat/index.html", "destination": "/oh/", "permanent": true },
+    { "source": "/sources/shabbat/siman-:n(\\d+)", "destination": "/oh/:n/", "permanent": true },
+    { "source": "/sources/shabbat/siman-:n(\\d+)/", "destination": "/oh/:n/", "permanent": true },
+    { "source": "/sources/shabbat/siman-:n(\\d+)/index.html", "destination": "/oh/:n/", "permanent": true },
+    { "source": "/sources/shabbat/siman-:n(\\d+)/niveau-1-base.html", "destination": "/oh/:n/base", "permanent": true },
+    { "source": "/sources/shabbat/siman-:n(\\d+)/niveau-2-lamdan.html", "destination": "/oh/:n/lamdan", "permanent": true },
+    { "source": "/sources/shabbat/siman-:n(\\d+)/niveau-3-synthese.html", "destination": "/oh/:n/synthese", "permanent": true }
+  ],
   "functions": {
     "api/chat.js": {
       "maxDuration": 90
