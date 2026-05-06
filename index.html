@@ -498,9 +498,11 @@
       font-family: 'Inter', sans-serif;
       font-size: 12px;
       letter-spacing: 2px;
-      color: rgba(255,255,255,0.3);
+      color: var(--gold);
       text-transform: uppercase;
+      transition: color 0.15s;
     }
+    .ai-coming-soon:hover { color: var(--gold-light); }
 
     /* ── CONTENT LIBRARY ── */
     .library-bg { background: var(--white); }
@@ -793,13 +795,13 @@
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-tagline">Plateforme d'étude halakhique</div>
+    <div class="hero-tagline">Le Choulhan Aroukh, en français, à ton niveau.</div>
     <h1>DAAT <span>דעת</span></h1>
     <div class="hero-subtitle">דעת התורה לעומקה</div>
-    <p class="hero-desc">La connaissance profonde de la Torah — du débutant au Talmid Chakham, en français.</p>
+    <p class="hero-desc">Étudie la halakha sérieusement — en français, en 20 min/jour.</p>
     <div class="hero-buttons">
-      <a href="sources/shabbat/index.html" class="btn-primary">Commencer l'étude</a>
-      <a href="#vision" class="btn-secondary">Notre vision</a>
+      <a href="sources/shabbat/siman-242/" class="btn-primary">Étudier le Siman 242</a>
+      <a href="chat.html" class="btn-secondary">Tester l'IA Daat</a>
     </div>
   </section>
 
@@ -896,7 +898,7 @@
         <div class="ai-response">
           Selon la Halakha (O.H. 246:1), le Shulchan Aroukh et le Rama s'accordent sur l'interdiction. Le Rama précise : <em>"וכן עיקר כסברא האחרונה"</em> — il tranche selon l'opinion de Rabbénou Yona, Rosh et Tossafot, qui interdisent en raison de <strong>שכר שבת</strong> (rémunération de Shabbat) et de <strong>נראה כשלוחו</strong> (apparence d'émissaire). Cette interdiction s'applique même si le Juif n'est pas présent le jour de Shabbat.
         </div>
-        <div class="ai-coming-soon">✦ L'IA sera disponible prochainement ✦</div>
+        <a href="chat.html" class="ai-coming-soon" style="text-decoration:none; display:inline-block;">✦ Tester l'IA Daat — disponible maintenant →</a>
       </div>
     </div>
   </section>
