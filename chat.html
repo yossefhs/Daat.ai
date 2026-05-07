@@ -1375,9 +1375,70 @@ document.addEventListener('click', e => {
 });
 
 // ============================================================
+// MODE RECONSTRUCT — Niveau 5 personnalisé
+// Détecte ?action=reconstruct&siman=XXX et pré-remplit l'input
+// ============================================================
+function handleReconstructMode() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('action') !== 'reconstruct') return;
+
+  const siman = params.get('siman') || '';
+
+  // Map des sigles Hébreu pour affichage
+  const simanHebrew = {
+    '242': 'רמ״ב',
+    '243': 'רמ״ג',
+    '246': 'רמ״ו',
+    '247': 'רמ״ז',
+    '248': 'רמ״ח'
+  };
+  const simanHe = simanHebrew[siman] || siman;
+  const simanRef = siman ? `סימן ${simanHe} (${siman})` : '[NUMÉRO DU SIMAN]';
+
+  // Template du prompt — l'utilisateur édite les [PLACEHOLDERS]
+  const template = `Reconstruis pour moi le ${simanRef} (Choulhan Aroukh, Orach Haïm) selon les opinions des Poskim que je suis :
+
+1. [REMPLACE PAR TON 1er POSEK — ex : Admour HaZaken (Choulhan Aroukh de l'Admour HaZaken, Kountress Aharon)]
+2. [REMPLACE PAR TON 2e POSEK — ex : Le Rebbe (Likoutei Sichot, Igrot Kodesh, Sefer HaMinhagim Habad)]
+3. [Optionnel : ajoute d'autres Poskim — ex : Rav Ovadia Yossef (Yabia Omer, Yehavé Daat), Mishna Berurah, Ben Ish Hai…]
+
+Pour chaque seif :
+• Présente la position de chaque Posek sélectionné, avec sa source précise
+• Signale les divergences éventuelles entre eux
+• Si AUCUN des Poskim que j'ai sélectionnés ne traite explicitement ce point — demande-moi d'abord avant d'élargir au minhag plus large
+• Conclus par : "Pour la halakha lema'asseh, consulte ton Rav"
+
+Commence par me confirmer les Poskim retenus (corrige-moi si je me trompe sur un nom ou un ouvrage), puis structure ton enseignement seif par seif.`;
+
+  // Pré-remplis et ajuste la hauteur du textarea
+  $input.value = template;
+  $input.style.height = 'auto';
+  $input.style.height = Math.min($input.scrollHeight, 300) + 'px';
+
+  // Sélectionne le premier [REMPLACE...] pour que l'utilisateur tape directement
+  const firstPlaceholderStart = template.indexOf('[REMPLACE PAR TON 1er POSEK');
+  const firstPlaceholderEnd = template.indexOf(']', firstPlaceholderStart) + 1;
+  if (firstPlaceholderStart !== -1) {
+    setTimeout(() => {
+      $input.focus();
+      $input.setSelectionRange(firstPlaceholderStart, firstPlaceholderEnd);
+    }, 100);
+  }
+
+  // Affiche un toast informatif
+  const toast = document.createElement('div');
+  toast.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#1A1F3A;color:#C5A55A;padding:14px 22px;border-radius:8px;font-size:14px;z-index:9999;border:1px solid #C5A55A;box-shadow:0 4px 16px rgba(0,0,0,0.3);max-width:90%;text-align:center;transition:opacity 0.5s;';
+  toast.innerHTML = `✨ Mode <strong>Niveau 5 — Personnalisé</strong> activé. Remplace les <code style="background:rgba(197,165,90,0.15);padding:2px 6px;border-radius:3px;">[PLACEHOLDERS]</code> par tes Poskim, puis envoie.`;
+  document.body.appendChild(toast);
+  setTimeout(() => { toast.style.opacity = '0'; }, 6000);
+  setTimeout(() => toast.remove(), 6800);
+}
+
+// ============================================================
 // INIT — always start with fresh welcome screen
 // ============================================================
 startFreshState();
+handleReconstructMode();
 $input.focus();
 </script>
 
