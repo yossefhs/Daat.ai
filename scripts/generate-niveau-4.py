@@ -115,6 +115,55 @@ def cleanup_residual_sa_harav(content):
     """Replace any 'SA HaRav' with 'Choulhan Aroukh HaRav'."""
     return re.sub(r'(?<!Choulhan Aroukh )\bSA HaRav\b', 'Choulhan Aroukh HaRav', content)
 
+def apply_modern_convention(content, n, siman_he):
+    """
+    Apply the project conventions:
+    1. 'Siman {n}' → 'Siman {siman_he}' (gematria) — body text only
+    2. 'Orah Haïm {n}' → 'Orah Haïm {siman_he}' (gematria)
+    3. 'Choulhan Aroukh HaRav' → 'Choulhan Aroukh de l'Admour HaZaken'
+       Preserves Sefaria official labels and URLs.
+    """
+    # 1. Preserve Sefaria official label + URL — they keep numeric siman
+    SEFARIA_LABEL = f'Sefaria — Shulchan Arukh HaRav, Orach Chayim {n}'
+    SEFARIA_URL_FRAGMENT = f'Shulchan_Arukh_HaRav%2C_Orach_Chayim.{n}'
+    SEFARIA_URL_FRAGMENT2 = f'Shulchan_Arukh_HaRav,_Orach_Chayim.{n}'
+    TOKEN_LABEL = '___SEFARIA_LABEL_TOKEN___'
+    TOKEN_URL = '___SEFARIA_URL_TOKEN___'
+    TOKEN_URL2 = '___SEFARIA_URL_TOKEN2___'
+    content = content.replace(SEFARIA_LABEL, TOKEN_LABEL)
+    content = content.replace(SEFARIA_URL_FRAGMENT, TOKEN_URL)
+    content = content.replace(SEFARIA_URL_FRAGMENT2, TOKEN_URL2)
+
+    # 2. Convert all variants of 'SA HaRav' to 'de l'Admour HaZaken'
+    content = content.replace('Choulhan Aroukh HaRav', "Choulhan Aroukh de l'Admour HaZaken")
+    content = content.replace('Shulhan Aroukh HaRav', "Choulhan Aroukh de l'Admour HaZaken")
+    content = content.replace('Choulchan Aroukh HaRav', "Choulhan Aroukh de l'Admour HaZaken")
+
+    # 3. Convert 'Siman {n}' → 'Siman {siman_he}' in body text
+    # Avoid touching URLs (siman-{n}/), JSON keys, etc. — only matches 'Siman ' followed by space then digits
+    content = re.sub(rf'\bSiman {n}\b', f'Siman {siman_he}', content)
+    content = re.sub(rf'\bsiman {n}\b', f'siman {siman_he}', content)
+
+    # 4. Convert 'Orah Haïm {n}' / 'Orach Chayim {n}' (only inside body text — URLs preserved by token)
+    content = re.sub(rf'\bOrah Haïm {n}\b', f'Orah Haïm {siman_he}', content)
+    content = re.sub(rf'\bOrach Chayim {n}\b', f'Orach Chayim {siman_he}', content)
+
+    # 5. Convert 'de l'Admour HaZaken {n}:X' → 'de l'Admour HaZaken {siman_he}:X' (references)
+    content = re.sub(
+        rf"(de l'Admour HaZaken ){n}([:\b])",
+        rf'\1{siman_he}\2', content
+    )
+    content = re.sub(
+        rf"(de l'Admour HaZaken ){n}\b(?!\d)",
+        rf'\1{siman_he}', content
+    )
+
+    # 6. Restore preserved fragments — Sefaria label gets gematria number
+    content = content.replace(TOKEN_LABEL, f'Sefaria — Shulchan Arukh HaRav, Orach Chayim {siman_he}')
+    content = content.replace(TOKEN_URL, SEFARIA_URL_FRAGMENT)
+    content = content.replace(TOKEN_URL2, SEFARIA_URL_FRAGMENT2)
+    return content
+
 def generate_niveau4(spec):
     """
     spec = {
@@ -458,15 +507,16 @@ def generate_niveau4(spec):
 </html>
 '''
 
-    # Apply Hebrew gloss + cleanup SA HaRav residuals
+    # Apply Hebrew gloss + cleanup SA HaRav residuals + modern convention
     html = apply_hebrew_glosses(html)
     html = cleanup_residual_sa_harav(html)
+    html = apply_modern_convention(html, spec['siman'], spec['siman_he'])
     return html
 
 def generate_index(spec):
     """Generate the index.html for a siman with only niveau 4 available."""
     n = spec['siman']
-    return f'''<!DOCTYPE html>
+    html = f'''<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
@@ -658,6 +708,8 @@ def generate_index(spec):
 </body>
 </html>
 '''
+    # Apply modern convention (gematria + Admour HaZaken) on the index too
+    return apply_modern_convention(html, spec['siman'], spec['siman_he'])
 
 if __name__ == '__main__':
     print('Module — to be called with a spec dict via the wrapper script.')
