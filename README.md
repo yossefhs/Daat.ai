@@ -24,12 +24,18 @@ daat-ai/
     └── css/
 ```
 
-## Déploiement — GitHub Pages
+## Déploiement — Vercel
 
-1. Créer un repo GitHub : `daat-ai`
-2. Pousser tous les fichiers
-3. Dans Settings → Pages → Source : `main` branch, `/ (root)`
-4. Le site sera accessible à : `https://[username].github.io/daat-ai/`
+Le site est déployé sur Vercel et accessible à : `https://daattorah.com`
+
+Configuration DNS requise chez le registrar du domaine :
+
+```
+A      @     76.76.21.21
+CNAME  www   cname.vercel-dns.com
+```
+
+GitHub Pages doit rester désactivé (Settings → Pages → Source : None) pour éviter tout conflit DNS / SSL avec Vercel.
 
 ## Contenu disponible
 
