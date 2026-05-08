@@ -35,13 +35,35 @@ def fetch_sefaria(siman_n):
         'ka': [clean(s if isinstance(s, str) else (s[0] if s else '')) for s in (ka.get('he') or [])],
     }
 
+def _seif_preview(seif_text, max_chars=110):
+    """Extract a short Hebrew preview from a seif (~10 words for the <summary>)."""
+    import re as _re
+    # Strip HTML tags and <i> commentator markers from the preview only
+    clean = _re.sub(r'<[^>]+>', '', seif_text)
+    # Collapse whitespace
+    clean = _re.sub(r'\s+', ' ', clean).strip()
+    # Truncate to max_chars at a word boundary
+    if len(clean) <= max_chars:
+        return clean
+    cut = clean[:max_chars].rsplit(' ', 1)[0]
+    return cut + '…'
+
 def build_seifim_html(seifim):
     blocks = []
     for i, seif in enumerate(seifim, 1):
         clean = seif.replace('\n', '<br><br>')
-        blocks.append(f'''    <div class="sa-block">
-      <p class="sa-he"><span class="seif-num">{HEB_LETTERS[i]}.</span> {clean}</p>
-    </div>''')
+        preview = _seif_preview(seif)
+        # First seif open by default, the rest collapsed
+        open_attr = ' open' if i == 1 else ''
+        blocks.append(f'''    <details class="seif-details"{open_attr}>
+      <summary class="seif-summary">
+        <span class="seif-num">סעיף {HEB_LETTERS[i]}</span>
+        <span class="seif-preview">{preview}</span>
+      </summary>
+      <div class="sa-block">
+        <p class="sa-he">{clean}</p>
+      </div>
+    </details>''')
     return '\n\n'.join(blocks)
 
 def build_ka_html(ka_entries):
@@ -188,16 +210,16 @@ def generate_niveau4(spec):
     seifim_html = build_seifim_html(sf['seifim'])
     ka_html = build_ka_html(sf['ka'])
 
-    # Build compare table rows
+    # Build compare table rows (data-label for mobile stacked layout)
     compare_rows = []
     for r in spec['compare_table_rows']:
         cls = ' class="harav"' if r.get('harav_class') else ''
         compare_rows.append(f'''        <tr{cls}>
           <td>{r["sujet"]}</td>
-          <td>{r["mehaber"]}</td>
-          <td>{r["rama"]}</td>
-          <td>{r["mb"]}</td>
-          <td>{r["harav"]}</td>
+          <td data-label="Mehaber">{r["mehaber"]}</td>
+          <td data-label="Rama (רמ״א)">{r["rama"]}</td>
+          <td data-label="Mishna Berurah">{r["mb"]}</td>
+          <td data-label="Choulhan Aroukh de l'Admour HaZaken">{r["harav"]}</td>
         </tr>''')
     compare_table_html = '\n'.join(compare_rows)
 
@@ -293,18 +315,33 @@ def generate_niveau4(spec):
   .section-title-he {{ font-family: 'Frank Ruhl Libre', serif; direction: rtl; font-size: 26px; color: var(--navy); margin-bottom: 6px; font-weight: 700; }}
   .section-title-fr {{ font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 500; color: var(--navy); margin-bottom: 18px; }}
   .section-divider {{ width: 60px; height: 2px; background: var(--gold); margin-bottom: 24px; }}
-  .sa-block {{ background: var(--white); border: 1px solid var(--border); border-right: 4px solid var(--habad); padding: 24px 28px; margin-bottom: 18px; }}
+  .sa-block {{ background: var(--white); border: 1px solid var(--border); border-right: 4px solid var(--habad); padding: 24px 28px; margin-bottom: 0; }}
   .sa-block .seif-num {{ font-family: 'Frank Ruhl Libre', serif; font-weight: 700; color: var(--habad); margin-left: 4px; }}
   .sa-he {{ font-family: 'Frank Ruhl Libre', serif; direction: rtl; text-align: right; font-size: 19px; line-height: 1.95; color: var(--navy); }}
-  .compare-table {{ width: 100%; border-collapse: collapse; background: var(--white); border: 1px solid var(--border); margin-bottom: 18px; }}
+
+  /* Seifim déroulables (style Kountress Aharon) */
+  .seif-details {{ background: var(--white); border: 1px solid var(--border); border-right: 4px solid var(--habad); margin-bottom: 12px; }}
+  .seif-details[open] {{ border-bottom-color: var(--habad-tint); }}
+  .seif-summary {{ list-style: none; cursor: pointer; padding: 14px 22px; display: flex; align-items: center; gap: 16px; user-select: none; transition: background 0.15s; }}
+  .seif-summary:hover {{ background: var(--cream); }}
+  .seif-summary::-webkit-details-marker {{ display: none; }}
+  .seif-summary::before {{ content: '▸'; color: var(--habad); font-size: 14px; flex-shrink: 0; transition: transform 0.2s; }}
+  .seif-details[open] > .seif-summary::before {{ transform: rotate(90deg); }}
+  .seif-summary .seif-num {{ font-family: 'Frank Ruhl Libre', serif; font-weight: 700; color: var(--habad); font-size: 17px; flex-shrink: 0; min-width: 70px; direction: rtl; }}
+  .seif-summary .seif-preview {{ font-family: 'Frank Ruhl Libre', serif; direction: rtl; text-align: right; color: var(--text-mid); font-size: 15px; line-height: 1.5; flex: 1; overflow: hidden; text-overflow: ellipsis; }}
+  .seif-details .sa-block {{ border: none; border-top: 1px solid var(--border); border-right: none; padding: 18px 28px 22px; margin-bottom: 0; }}
+
+  .compare-table {{ width: 100%; border-collapse: collapse; background: var(--white); border: 1px solid var(--border); margin-bottom: 18px; table-layout: fixed; }}
   .compare-table thead {{ background: var(--habad); }}
   .compare-table thead th {{ padding: 12px 16px; font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); text-align: left; }}
   .compare-table tbody tr {{ border-bottom: 1px solid var(--border); }}
   .compare-table tbody tr:hover {{ background: var(--cream); }}
-  .compare-table td {{ padding: 14px 16px; font-size: 15px; color: var(--text-mid); vertical-align: top; }}
-  .compare-table td:first-child {{ font-family: 'Frank Ruhl Libre', serif; font-size: 18px; color: var(--navy); white-space: nowrap; }}
+  .compare-table td {{ padding: 14px 16px; font-size: 15px; color: var(--text-mid); vertical-align: top; line-height: 1.6; word-wrap: break-word; }}
+  .compare-table td:first-child {{ font-family: 'Frank Ruhl Libre', serif; font-size: 18px; color: var(--navy); }}
   .compare-table tr.harav td {{ background: var(--habad-tint); }}
   .compare-table tr.harav td:last-child {{ font-weight: 600; color: var(--habad-deep); }}
+  .compare-table thead th:nth-child(5),
+  .compare-table td:nth-child(5) {{ min-width: 280px; white-space: normal; line-height: 1.6; }}
   .quote-block {{ background: var(--cream); border: 1px solid var(--border); border-left: 4px solid var(--gold); padding: 22px 26px; margin-bottom: 18px; position: relative; }}
   .quote-block .quote-fr {{ color: var(--text-mid); line-height: 1.75; }}
   .quote-source {{ margin-top: 12px; font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); padding-top: 12px; border-top: 1px dashed var(--border); }}
@@ -320,6 +357,37 @@ def generate_niveau4(spec):
     header, .breadcrumb, .page-hero, main, footer {{ padding-left: 20px; padding-right: 20px; }}
     .hero-title-he {{ font-size: 34px; }}
     .hero-title {{ font-size: 24px; }}
+
+    /* Tableau כח הפסק en layout stacké sur mobile */
+    .compare-table, .compare-table tbody, .compare-table tr, .compare-table td {{ display: block; width: 100%; }}
+    .compare-table thead {{ display: none; }}
+    .compare-table {{ border: none; background: transparent; table-layout: auto; }}
+    .compare-table tbody tr {{ background: var(--white); border: 1px solid var(--border); border-right: 4px solid var(--habad); margin-bottom: 18px; padding: 4px 0; }}
+    .compare-table tr.harav {{ border-right-color: var(--habad-deep); }}
+    .compare-table td {{ padding: 10px 18px; border-bottom: 1px solid var(--border); }}
+    .compare-table td:last-child {{ border-bottom: none; }}
+    .compare-table td:first-child {{ background: var(--habad); color: var(--gold); font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 600; padding: 14px 18px; }}
+    .compare-table td:not(:first-child)::before {{
+      content: attr(data-label);
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--habad);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }}
+    .compare-table thead th:nth-child(5),
+    .compare-table td:nth-child(5) {{ min-width: 0; }}
+    .compare-table tr.harav td:nth-child(5) {{ background: var(--habad-tint); border-left: 3px solid var(--habad); padding-left: 15px; }}
+
+    /* Seif summary plus compact sur mobile */
+    .seif-summary {{ padding: 12px 16px; gap: 10px; }}
+    .seif-summary .seif-num {{ min-width: 60px; font-size: 15px; }}
+    .seif-summary .seif-preview {{ font-size: 13px; }}
+    .seif-details .sa-block {{ padding: 14px 18px 18px; }}
+    .sa-he {{ font-size: 17px; line-height: 1.85; }}
   }}
 </style>
 </head>

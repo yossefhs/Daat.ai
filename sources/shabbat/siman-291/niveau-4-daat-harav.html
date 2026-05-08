@@ -63,18 +63,33 @@
   .section-title-he { font-family: 'Frank Ruhl Libre', serif; direction: rtl; font-size: 26px; color: var(--navy); margin-bottom: 6px; font-weight: 700; }
   .section-title-fr { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 500; color: var(--navy); margin-bottom: 18px; }
   .section-divider { width: 60px; height: 2px; background: var(--gold); margin-bottom: 24px; }
-  .sa-block { background: var(--white); border: 1px solid var(--border); border-right: 4px solid var(--habad); padding: 24px 28px; margin-bottom: 18px; }
+  .sa-block { background: var(--white); border: 1px solid var(--border); border-right: 4px solid var(--habad); padding: 24px 28px; margin-bottom: 0; }
   .sa-block .seif-num { font-family: 'Frank Ruhl Libre', serif; font-weight: 700; color: var(--habad); margin-left: 4px; }
   .sa-he { font-family: 'Frank Ruhl Libre', serif; direction: rtl; text-align: right; font-size: 19px; line-height: 1.95; color: var(--navy); }
-  .compare-table { width: 100%; border-collapse: collapse; background: var(--white); border: 1px solid var(--border); margin-bottom: 18px; }
+
+  /* Seifim (סעיפים) déroulables (style Kountress Aharon (קונטרס אחרון)) */
+  .seif-details { background: var(--white); border: 1px solid var(--border); border-right: 4px solid var(--habad); margin-bottom: 12px; }
+  .seif-details[open] { border-bottom-color: var(--habad-tint); }
+  .seif-summary { list-style: none; cursor: pointer; padding: 14px 22px; display: flex; align-items: center; gap: 16px; user-select: none; transition: background 0.15s; }
+  .seif-summary:hover { background: var(--cream); }
+  .seif-summary::-webkit-details-marker { display: none; }
+  .seif-summary::before { content: '▸'; color: var(--habad); font-size: 14px; flex-shrink: 0; transition: transform 0.2s; }
+  .seif-details[open] > .seif-summary::before { transform: rotate(90deg); }
+  .seif-summary .seif-num { font-family: 'Frank Ruhl Libre', serif; font-weight: 700; color: var(--habad); font-size: 17px; flex-shrink: 0; min-width: 70px; direction: rtl; }
+  .seif-summary .seif-preview { font-family: 'Frank Ruhl Libre', serif; direction: rtl; text-align: right; color: var(--text-mid); font-size: 15px; line-height: 1.5; flex: 1; overflow: hidden; text-overflow: ellipsis; }
+  .seif-details .sa-block { border: none; border-top: 1px solid var(--border); border-right: none; padding: 18px 28px 22px; margin-bottom: 0; }
+
+  .compare-table { width: 100%; border-collapse: collapse; background: var(--white); border: 1px solid var(--border); margin-bottom: 18px; table-layout: fixed; }
   .compare-table thead { background: var(--habad); }
   .compare-table thead th { padding: 12px 16px; font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); text-align: left; }
   .compare-table tbody tr { border-bottom: 1px solid var(--border); }
   .compare-table tbody tr:hover { background: var(--cream); }
-  .compare-table td { padding: 14px 16px; font-size: 15px; color: var(--text-mid); vertical-align: top; }
-  .compare-table td:first-child { font-family: 'Frank Ruhl Libre', serif; font-size: 18px; color: var(--navy); white-space: nowrap; }
+  .compare-table td { padding: 14px 16px; font-size: 15px; color: var(--text-mid); vertical-align: top; line-height: 1.6; word-wrap: break-word; }
+  .compare-table td:first-child { font-family: 'Frank Ruhl Libre', serif; font-size: 18px; color: var(--navy); }
   .compare-table tr.harav td { background: var(--habad-tint); }
   .compare-table tr.harav td:last-child { font-weight: 600; color: var(--habad-deep); }
+  .compare-table thead th:nth-child(5),
+  .compare-table td:nth-child(5) { min-width: 280px; white-space: normal; line-height: 1.6; }
   .quote-block { background: var(--cream); border: 1px solid var(--border); border-left: 4px solid var(--gold); padding: 22px 26px; margin-bottom: 18px; position: relative; }
   .quote-block .quote-fr { color: var(--text-mid); line-height: 1.75; }
   .quote-source { margin-top: 12px; font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); padding-top: 12px; border-top: 1px dashed var(--border); }
@@ -90,6 +105,37 @@
     header, .breadcrumb, .page-hero, main, footer { padding-left: 20px; padding-right: 20px; }
     .hero-title-he { font-size: 34px; }
     .hero-title { font-size: 24px; }
+
+    /* Tableau כח הפסק en layout stacké sur mobile */
+    .compare-table, .compare-table tbody, .compare-table tr, .compare-table td { display: block; width: 100%; }
+    .compare-table thead { display: none; }
+    .compare-table { border: none; background: transparent; table-layout: auto; }
+    .compare-table tbody tr { background: var(--white); border: 1px solid var(--border); border-right: 4px solid var(--habad); margin-bottom: 18px; padding: 4px 0; }
+    .compare-table tr.harav { border-right-color: var(--habad-deep); }
+    .compare-table td { padding: 10px 18px; border-bottom: 1px solid var(--border); }
+    .compare-table td:last-child { border-bottom: none; }
+    .compare-table td:first-child { background: var(--habad); color: var(--gold); font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 600; padding: 14px 18px; }
+    .compare-table td:not(:first-child)::before {
+      content: attr(data-label);
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--habad);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    .compare-table thead th:nth-child(5),
+    .compare-table td:nth-child(5) { min-width: 0; }
+    .compare-table tr.harav td:nth-child(5) { background: var(--habad-tint); border-left: 3px solid var(--habad); padding-left: 15px; }
+
+    /* Seif (סעיף) summary plus compact sur mobile */
+    .seif-summary { padding: 12px 16px; gap: 10px; }
+    .seif-summary .seif-num { min-width: 60px; font-size: 15px; }
+    .seif-summary .seif-preview { font-size: 13px; }
+    .seif-details .sa-block { padding: 14px 18px 18px; }
+    .sa-he { font-size: 17px; line-height: 1.85; }
   }
 </style>
 </head>
@@ -125,7 +171,7 @@
     <div class="hero-meta">Orah Haïm רצ"א · Niveau 4 · שיטת אדמו״ר הזקן</div>
     <p class="hero-title-he">דעת הרב</p>
     <h1 class="hero-title" style="margin: 0;">Daat HaRav — Le Choulhan Aroukh de l'Admour HaZaken sur le Siman רצ"א</h1>
-    <p class="hero-subtitle">La chitah de l'Admour HaZaken sur les 8 seifim (סעיפים) qui codifient le 3e repas de Shabbat — son timing (entre minha et la fin de Shabbat), son contenu minimal, son importance même sans appétit. Mitzva (מצוה) positive d'oneg Shabbat structurelle.</p>
+    <p class="hero-subtitle">La chitah de l'Admour HaZaken sur les 8 seifim qui codifient le 3e repas de Shabbat — son timing (entre minha et la fin de Shabbat), son contenu minimal, son importance même sans appétit. Mitzva (מצוה) positive d'oneg Shabbat structurelle.</p>
   </div>
 </div>
 
@@ -149,44 +195,92 @@
       <em>Source : édition Kehot, telle que reproduite sur Sefaria. 8 seifim + 2 entrée(s) de Kountress Aharon (קונטרס אחרון).</em>
     </p>
 
-    <div class="sa-block">
-      <p class="sa-he"><span class="seif-num">א.</span> דִּין שָׁלֹשׁ סְעֻדּוֹת וּבוֹ ח' סְעִיפִים:<br><br>יְהֵא זָהִיר מְאֹד לְקַיֵּם סְעֻדָּה שְׁלִישִׁית. וְאַף אִם הוּא שָׂבֵעַ — הֲרֵי יָכוֹל לְקַיֵּם אוֹתָהּ (בְּיוֹתֵר מִכְּבֵיצָה מְעַט אֲבָל) כְּבֵיצָה. וְאַף שֶׁכְּבֵיצָה הִיא סְעֻדַּת עֲרַאי (וְאֵינוֹ [יוֹצֵא בָּהּ]), מִכָּל מָקוֹם מֵאַחַר שֶׁיֵּשׁ בָּהּ כְּדֵי שְׂבִיעָה — נִקְרָא סְעֻדָּה (וְיוֹצֵא בָּהּ). <br><br>(וְיֵשׁ אוֹמְרִים שֶׁאֲפִלּוּ בִּכְזַיִת יוֹצֵא יְדֵי חוֹבָתוֹ לְכַתְּחִלָּה בְּכָל אַחַת מִשָּׁלֹשׁ סְעֻדּוֹת, כְּמוֹ שֶׁיִּתְבָּאֵר בְּסִמָּן תרל"ט. <br><br>וְיֵשׁ לְהַחֲמִיר לְכַתְּחִלָּה כַּסְבָרָא הָרִאשׁוֹנָה אִם אֶפְשָׁר לוֹ). <br><br>וְאִם אִי אֶפְשָׁר לוֹ לֶאֱכוֹל כְּלָל — אֵין צָרִיךְ לְצַעֵר אֶת עַצְמוֹ לֶאֱכוֹל, שֶׁסְּעֻדּוֹת הַשַּׁבָּת לְעֹנֶג נִצְטַוּוּ וְלֹא לְצַעַר. אֲבָל הֶחָכָם עֵינָיו בְּרֹאשׁוֹ שֶׁלֹּא לְמַלֹּאת בִּטְנוֹ בִּסְעֻדַּת הַבֹּקֶר, כְּדֵי לִתֵּן מָקוֹם לִסְעֻדָּה שְׁלִישִׁית:</p>
-    </div>
+    <details class="seif-details" open>
+      <summary class="seif-summary">
+        <span class="seif-num">סעיף א</span>
+        <span class="seif-preview">דִּין שָׁלֹשׁ סְעֻדּוֹת וּבוֹ ח' סְעִיפִים: יְהֵא זָהִיר מְאֹד לְקַיֵּם סְעֻדָּה שְׁלִישִׁית. וְאַף אִם הוּא…</span>
+      </summary>
+      <div class="sa-block">
+        <p class="sa-he">דִּין שָׁלֹשׁ סְעֻדּוֹת וּבוֹ ח' סְעִיפִים:<br><br>יְהֵא זָהִיר מְאֹד לְקַיֵּם סְעֻדָּה שְׁלִישִׁית. וְאַף אִם הוּא שָׂבֵעַ — הֲרֵי יָכוֹל לְקַיֵּם אוֹתָהּ (בְּיוֹתֵר מִכְּבֵיצָה מְעַט אֲבָל) כְּבֵיצָה. וְאַף שֶׁכְּבֵיצָה הִיא סְעֻדַּת עֲרַאי (וְאֵינוֹ [יוֹצֵא בָּהּ]), מִכָּל מָקוֹם מֵאַחַר שֶׁיֵּשׁ בָּהּ כְּדֵי שְׂבִיעָה — נִקְרָא סְעֻדָּה (וְיוֹצֵא בָּהּ). <br><br>(וְיֵשׁ אוֹמְרִים שֶׁאֲפִלּוּ בִּכְזַיִת יוֹצֵא יְדֵי חוֹבָתוֹ לְכַתְּחִלָּה בְּכָל אַחַת מִשָּׁלֹשׁ סְעֻדּוֹת, כְּמוֹ שֶׁיִּתְבָּאֵר בְּסִמָּן תרל"ט. <br><br>וְיֵשׁ לְהַחֲמִיר לְכַתְּחִלָּה כַּסְבָרָא הָרִאשׁוֹנָה אִם אֶפְשָׁר לוֹ). <br><br>וְאִם אִי אֶפְשָׁר לוֹ לֶאֱכוֹל כְּלָל — אֵין צָרִיךְ לְצַעֵר אֶת עַצְמוֹ לֶאֱכוֹל, שֶׁסְּעֻדּוֹת הַשַּׁבָּת לְעֹנֶג נִצְטַוּוּ וְלֹא לְצַעַר. אֲבָל הֶחָכָם עֵינָיו בְּרֹאשׁוֹ שֶׁלֹּא לְמַלֹּאת בִּטְנוֹ בִּסְעֻדַּת הַבֹּקֶר, כְּדֵי לִתֵּן מָקוֹם לִסְעֻדָּה שְׁלִישִׁית:</p>
+      </div>
+    </details>
 
-    <div class="sa-block">
-      <p class="sa-he"><span class="seif-num">ב.</span> זְמַן סְעֻדָּה ג' הוּא מִשֶּׁיַּגִּיעַ זְמַן מִנְחָה גְדוֹלָה עַד הָעֶרֶב, דְּהַיְנוּ מִשֵּׁשׁ שָׁעוֹת וּמֶחֱצָה וְאֵילַךְ. וְאִם עֲשָׂאָהּ קֹדֶם לְכֵן — לֹא קִיֵּם מִצְוַת סְעֻדָּה שְׁלִישִׁית,  אֶלָּא אִם כֵּן נִמְשַׁךְ בָּהּ עַד אַחַר הַמִּנְחָה, שֶׁאָכַל (יוֹתֵר מִ)כְּבֵיצָה אַחַר שֵׁשׁ וּמֶחֱצָה, אֲבָל לְכַתְּחִלָּה גַּם הַתְחָלַת הַסְּעֻדָּה תְּהֵא אַחַר שֵׁשׁ וּמֶחֱצָה. <br><br>וּלְהָאוֹמְרִים שֶׁמִּשֶּׁהִגִּיעַ זְמַן מִנְחָה גְדוֹלָה אָסוּר לִקְבּוֹעַ אֲפִלּוּ סְעֻדָּה קְטַנָּה עַד שֶׁיִּתְפַּלֵּל מִנְחָה תְּחִלָּה, כְּמוֹ שֶׁנִּתְבָּאֵר בְּסִמָּן רל"ב — צָרִיךְ לְהִתְפַּלֵּל לְעוֹלָם מִנְחָה קֹדֶם סְעֻדָּה שְׁלִישִׁית. וְכֵן נוֹהֲגִים בִּמְדִינוֹת אֵלּוּ. <br><br>אֲבָל הַמַּתִּירִים לִקְבּוֹעַ סְעֻדָּה קֹדֶם תְּפִלַּת הַמִּנְחָה אוֹמְרִים שֶׁבְּשַׁבָּת טוֹב לֶאֱכוֹל סְעֻדָּה ג' קֹדֶם תְּפִלַּת הַמִּנְחָה, לְפִי שֶׁבֵּין מִנְחָה לְמַעֲרִיב בְּבֵין הַשְּׁמָשׁוֹת אָסוּר לִשְׁתּוֹת מַיִם בְּתוֹךְ הַסְּעֻדָּה אוֹ אַחֲרֶיהָ, מִפְּנֵי שֶׁהוּא קָרוֹב לִזְמַן חֲזָרַת הַנְּשָׁמוֹת לְגֵיהִנֹּם בְּמוֹצָאֵי שַׁבָּת, וְהַשּׁוֹתֶה אָז מַיִם מֵהַנָּהָר — הֲרֵי זֶה גוֹזֵל אֶת הַמֵּתִים, שֶׁמִּתְקָרְרִים בְּמַיִם קֹדֶם חֲזָרָתָם, וְיֵשׁ חֲשַׁשׁ סַכָּנָה בַּדָּבָר. <br><br>וּלְפִי מִנְהָגֵנוּ שֶׁאָנוּ אוֹכְלִים בֵּין מִנְחָה לְמַעֲרִיב — יֵשׁ לָנוּ לִזָּהֵר שֶׁלֹּא לִשְׁתּוֹת אָז מַיִם שֶׁנִּשְׁאֲבוּ אָז מֵהַנָּהָר, אֶלָּא מַיִם שֶׁבַּבַּיִת שֶׁנִּשְׁאֲבוּ קֹדֶם לְכֵן מֵהַנָּהָר, אוֹ שְׁאָר מַשְׁקִים. <br><br>וְיֵשׁ אוֹמְרִים שֶׁאִסּוּר זֶה שֶׁל שְׁתִיַּת מַיִם מֵהַנָּהָר בְּבֵין הַשְּׁמָשׁוֹת הוּא בְּעֶרֶב שַׁבָּת, שֶׁמִּתְקָרְרִים כְּשֶׁיּוֹצְאִים מֵהַגֵּיהִנֹּם. וְטוֹב לָחוּשׁ גַּם לְדִבְרֵיהֶם:</p>
-    </div>
+    <details class="seif-details">
+      <summary class="seif-summary">
+        <span class="seif-num">סעיף ב</span>
+        <span class="seif-preview">זְמַן סְעֻדָּה ג' הוּא מִשֶּׁיַּגִּיעַ זְמַן מִנְחָה גְדוֹלָה עַד הָעֶרֶב, דְּהַיְנוּ מִשֵּׁשׁ שָׁעוֹת…</span>
+      </summary>
+      <div class="sa-block">
+        <p class="sa-he">זְמַן סְעֻדָּה ג' הוּא מִשֶּׁיַּגִּיעַ זְמַן מִנְחָה גְדוֹלָה עַד הָעֶרֶב, דְּהַיְנוּ מִשֵּׁשׁ שָׁעוֹת וּמֶחֱצָה וְאֵילַךְ. וְאִם עֲשָׂאָהּ קֹדֶם לְכֵן — לֹא קִיֵּם מִצְוַת סְעֻדָּה שְׁלִישִׁית,  אֶלָּא אִם כֵּן נִמְשַׁךְ בָּהּ עַד אַחַר הַמִּנְחָה, שֶׁאָכַל (יוֹתֵר מִ)כְּבֵיצָה אַחַר שֵׁשׁ וּמֶחֱצָה, אֲבָל לְכַתְּחִלָּה גַּם הַתְחָלַת הַסְּעֻדָּה תְּהֵא אַחַר שֵׁשׁ וּמֶחֱצָה. <br><br>וּלְהָאוֹמְרִים שֶׁמִּשֶּׁהִגִּיעַ זְמַן מִנְחָה גְדוֹלָה אָסוּר לִקְבּוֹעַ אֲפִלּוּ סְעֻדָּה קְטַנָּה עַד שֶׁיִּתְפַּלֵּל מִנְחָה תְּחִלָּה, כְּמוֹ שֶׁנִּתְבָּאֵר בְּסִמָּן רל"ב — צָרִיךְ לְהִתְפַּלֵּל לְעוֹלָם מִנְחָה קֹדֶם סְעֻדָּה שְׁלִישִׁית. וְכֵן נוֹהֲגִים בִּמְדִינוֹת אֵלּוּ. <br><br>אֲבָל הַמַּתִּירִים לִקְבּוֹעַ סְעֻדָּה קֹדֶם תְּפִלַּת הַמִּנְחָה אוֹמְרִים שֶׁבְּשַׁבָּת טוֹב לֶאֱכוֹל סְעֻדָּה ג' קֹדֶם תְּפִלַּת הַמִּנְחָה, לְפִי שֶׁבֵּין מִנְחָה לְמַעֲרִיב בְּבֵין הַשְּׁמָשׁוֹת אָסוּר לִשְׁתּוֹת מַיִם בְּתוֹךְ הַסְּעֻדָּה אוֹ אַחֲרֶיהָ, מִפְּנֵי שֶׁהוּא קָרוֹב לִזְמַן חֲזָרַת הַנְּשָׁמוֹת לְגֵיהִנֹּם בְּמוֹצָאֵי שַׁבָּת, וְהַשּׁוֹתֶה אָז מַיִם מֵהַנָּהָר — הֲרֵי זֶה גוֹזֵל אֶת הַמֵּתִים, שֶׁמִּתְקָרְרִים בְּמַיִם קֹדֶם חֲזָרָתָם, וְיֵשׁ חֲשַׁשׁ סַכָּנָה בַּדָּבָר. <br><br>וּלְפִי מִנְהָגֵנוּ שֶׁאָנוּ אוֹכְלִים בֵּין מִנְחָה לְמַעֲרִיב — יֵשׁ לָנוּ לִזָּהֵר שֶׁלֹּא לִשְׁתּוֹת אָז מַיִם שֶׁנִּשְׁאֲבוּ אָז מֵהַנָּהָר, אֶלָּא מַיִם שֶׁבַּבַּיִת שֶׁנִּשְׁאֲבוּ קֹדֶם לְכֵן מֵהַנָּהָר, אוֹ שְׁאָר מַשְׁקִים. <br><br>וְיֵשׁ אוֹמְרִים שֶׁאִסּוּר זֶה שֶׁל שְׁתִיַּת מַיִם מֵהַנָּהָר בְּבֵין הַשְּׁמָשׁוֹת הוּא בְּעֶרֶב שַׁבָּת, שֶׁמִּתְקָרְרִים כְּשֶׁיּוֹצְאִים מֵהַגֵּיהִנֹּם. וְטוֹב לָחוּשׁ גַּם לְדִבְרֵיהֶם:</p>
+      </div>
+    </details>
 
-    <div class="sa-block">
-      <p class="sa-he"><span class="seif-num">ג.</span> אִם נִמְשְׁכָה סְעֻדַּת הַבֹּקֶר עַד שֶׁהִגִּיעַ זְמַן מִנְחָה גְדוֹלָה שֶׁאָז מַתְחִיל זְמַן סְעֻדָּה ג' — טוֹב שֶׁיַּפְסִיק הַסְּעֻדָּה וִיבָרֵךְ בִּרְכַּת הַמָּזוֹן, וְיִטּוֹל יָדָיו מִיָּד וִיבָרֵךְ הַמּוֹצִיא עַל לֶחֶם מִשְׁנֶה וְיִסְעוֹד, שֶׁאִם לֹא יַעֲשֶׂה כֵּן, מֵאַחַר שֶׁנִּמְשְׁכָה סְעֻדַּת הַבֹּקֶר עַד אוֹתָהּ שָׁעָה — לֹא יוּכַל לֶאֱכוֹל אַחַר כָּךְ סְעֻדָּה ג' אֶלָּא אֲכִילָה גַסָּה, אֲבָל מִיָּד סָמוּךְ לַאֲכִילָה עֲדַיִן הָאִצְטוּמְכָא פְּתוּחָה. <br><br>וּמִכָּל מָקוֹם, כְּדֵי שֶׁלֹּא יְהֵא נִרְאֶה שֶׁהַכֹּל סְעֻדָּה אַחַת — טוֹב לְהַפְסִיק מְעַט אַחַר בִּרְכַּת הַמָּזוֹן בְּדִבְרֵי תוֹרָה אוֹ בְּטִיּוּל קְצָת. וְטוֹב גַּם כֵּן לָקוּם וְלֵילֵךְ מְעַט, וְלֹא לְהִשָּׁאֵר יוֹשֵׁב בִּמְקוֹמוֹ אַף שֶׁמַּפְסִיק מְעַט בְּדִבְרֵי תוֹרָה. <br><br>אֲבָל אִם אֵינוֹ מַפְסִיק בְּבִרְכַּת הַמָּזוֹן, אַף שֶׁמַּפְסִיק הַרְבֵּה בִּדְבָרִים אֲחֵרִים וּבְטִיּוּל — הֲרֵי הַכֹּל נֶחְשָׁב סְעֻדָּה אַחַת. <br><br>וְאֵין אִסּוּר בְּמַה שֶׁמַּפְסִיק בְּבִרְכַּת הַמָּזוֹן וְגוֹרֵם לַחֲזוֹר וּלְבָרֵךְ הַמּוֹצִיא וּבִרְכַּת הַמָּזוֹן עַל גְּמַר הַסְּעֻדָּה שֶׁהָיָה יָכוֹל לְגָמְרָהּ קֹדֶם בִּרְכַּת הַמָּזוֹן, וַהֲרֵי זֶה גוֹרֵם בְּרָכָה שֶׁאֵינָהּ צְרִיכָה, דְּכֵיוָן שֶׁמַּפְסִיק בִּשְׁבִיל כְּבוֹד שַׁבָּת — אֵין כַּאן מִשּׁוּם מַרְבֶּה בִּבְרָכוֹת שֶׁלֹּא לְצֹרֶךְ. <br><br>אֲבָל אֵין לִדְרוֹשׁ כֵּן בָּרַבִּים, כֵּיוָן שֶׁקֹּדֶם חֲצוֹת אֵינוֹ יָכוֹל לְהַפְסִיק בְּבִרְכַּת הַמָּזוֹן וְלָצֵאת יְדֵי חוֹבַת סְעֻדָּה ג' בְּמַה שֶּׁיֹּאכַל אַחַר בִּרְכַּת הַמָּזוֹן, וְאֵין הָעוֹלָם בְּקִיאִים בַּהֲלָכָה זוֹ לְחַלֵּק בֵּין קֹדֶם חֲצוֹת לְאַחַר חֲצוֹת, אֶלָּא כָּל אָדָם יַעֲשֶׂה כֵּן לְעַצְמוֹ:</p>
-    </div>
+    <details class="seif-details">
+      <summary class="seif-summary">
+        <span class="seif-num">סעיף ג</span>
+        <span class="seif-preview">אִם נִמְשְׁכָה סְעֻדַּת הַבֹּקֶר עַד שֶׁהִגִּיעַ זְמַן מִנְחָה גְדוֹלָה שֶׁאָז מַתְחִיל זְמַן סְעֻדָּה ג' —…</span>
+      </summary>
+      <div class="sa-block">
+        <p class="sa-he">אִם נִמְשְׁכָה סְעֻדַּת הַבֹּקֶר עַד שֶׁהִגִּיעַ זְמַן מִנְחָה גְדוֹלָה שֶׁאָז מַתְחִיל זְמַן סְעֻדָּה ג' — טוֹב שֶׁיַּפְסִיק הַסְּעֻדָּה וִיבָרֵךְ בִּרְכַּת הַמָּזוֹן, וְיִטּוֹל יָדָיו מִיָּד וִיבָרֵךְ הַמּוֹצִיא עַל לֶחֶם מִשְׁנֶה וְיִסְעוֹד, שֶׁאִם לֹא יַעֲשֶׂה כֵּן, מֵאַחַר שֶׁנִּמְשְׁכָה סְעֻדַּת הַבֹּקֶר עַד אוֹתָהּ שָׁעָה — לֹא יוּכַל לֶאֱכוֹל אַחַר כָּךְ סְעֻדָּה ג' אֶלָּא אֲכִילָה גַסָּה, אֲבָל מִיָּד סָמוּךְ לַאֲכִילָה עֲדַיִן הָאִצְטוּמְכָא פְּתוּחָה. <br><br>וּמִכָּל מָקוֹם, כְּדֵי שֶׁלֹּא יְהֵא נִרְאֶה שֶׁהַכֹּל סְעֻדָּה אַחַת — טוֹב לְהַפְסִיק מְעַט אַחַר בִּרְכַּת הַמָּזוֹן בְּדִבְרֵי תוֹרָה אוֹ בְּטִיּוּל קְצָת. וְטוֹב גַּם כֵּן לָקוּם וְלֵילֵךְ מְעַט, וְלֹא לְהִשָּׁאֵר יוֹשֵׁב בִּמְקוֹמוֹ אַף שֶׁמַּפְסִיק מְעַט בְּדִבְרֵי תוֹרָה. <br><br>אֲבָל אִם אֵינוֹ מַפְסִיק בְּבִרְכַּת הַמָּזוֹן, אַף שֶׁמַּפְסִיק הַרְבֵּה בִּדְבָרִים אֲחֵרִים וּבְטִיּוּל — הֲרֵי הַכֹּל נֶחְשָׁב סְעֻדָּה אַחַת. <br><br>וְאֵין אִסּוּר בְּמַה שֶׁמַּפְסִיק בְּבִרְכַּת הַמָּזוֹן וְגוֹרֵם לַחֲזוֹר וּלְבָרֵךְ הַמּוֹצִיא וּבִרְכַּת הַמָּזוֹן עַל גְּמַר הַסְּעֻדָּה שֶׁהָיָה יָכוֹל לְגָמְרָהּ קֹדֶם בִּרְכַּת הַמָּזוֹן, וַהֲרֵי זֶה גוֹרֵם בְּרָכָה שֶׁאֵינָהּ צְרִיכָה, דְּכֵיוָן שֶׁמַּפְסִיק בִּשְׁבִיל כְּבוֹד שַׁבָּת — אֵין כַּאן מִשּׁוּם מַרְבֶּה בִּבְרָכוֹת שֶׁלֹּא לְצֹרֶךְ. <br><br>אֲבָל אֵין לִדְרוֹשׁ כֵּן בָּרַבִּים, כֵּיוָן שֶׁקֹּדֶם חֲצוֹת אֵינוֹ יָכוֹל לְהַפְסִיק בְּבִרְכַּת הַמָּזוֹן וְלָצֵאת יְדֵי חוֹבַת סְעֻדָּה ג' בְּמַה שֶּׁיֹּאכַל אַחַר בִּרְכַּת הַמָּזוֹן, וְאֵין הָעוֹלָם בְּקִיאִים בַּהֲלָכָה זוֹ לְחַלֵּק בֵּין קֹדֶם חֲצוֹת לְאַחַר חֲצוֹת, אֶלָּא כָּל אָדָם יַעֲשֶׂה כֵּן לְעַצְמוֹ:</p>
+      </div>
+    </details>
 
-    <div class="sa-block">
-      <p class="sa-he"><span class="seif-num">ד.</span> אֲבָל מִי שֶׁיּוֹדֵעַ בְּעַצְמוֹ שֶׁאֶפְשָׁר לוֹ לֶאֱכוֹל אַחַר שֶׁיִּתְפַּלֵּל מִנְחָה בְּצִבּוּר — טוֹב שֶׁיִּתְפַּלֵּל מִנְחָה בְּצִבּוּר תְּחִלָּה וְאַחַר כָּךְ יֹאכַל סְעֻדָּה ג' כְּמוֹ שֶׁנּוֹהֲגִין. <br><br>וַאֲפִלּוּ אִם חָל יוֹם טוֹב בְּמוֹצָאֵי שַׁבָּת, שֶׁאִי אֶפְשָׁר לוֹ לֶאֱכוֹל סְעֻדָּה ג' בֵּין מִנְחָה לְמַעֲרִיב, שֶׁהֲרֵי מִצְוָה לְהִמָּנַע מִלִּקְבּוֹעַ סְעֻדָּה בְּעֶרֶב יוֹם טוֹב מִשָּׁעָה עֲשִׂירִית וּלְמַעְלָה כְּמוֹ בְּעֶרֶב שַׁבָּת, מִכָּל מָקוֹם אִם יוֹדֵעַ שֶׁיּוּכַל לֶאֱכוֹל קֹדֶם שָׁעָה עֲשִׂירִית — אֵין לוֹ לְחַלֵּק סְעֻדַּת הַבֹּקֶר לִשְׁתַּיִם עַל יְדֵי הֶפְסֵק בִּרְכַּת הַמָּזוֹן, לְפִי שֶׁיֵּשׁ אוֹמְרִים שֶׁיֵּשׁ כַּאן מִשּׁוּם מַרְבֶּה בִּבְרָכוֹת שֶׁלֹּא לְצֹרֶךְ. <br><br>וְאִם עָבַר וְחִלְּקָהּ לִשְׁתַּיִם — יָצָא, וְאֵין צָרִיךְ לַחֲזוֹר וְלֶאֱכוֹל סְעֻדָּה ג' אַף עַל פִּי שֶׁאֶפְשָׁר לוֹ, בֵּין שֶׁהוּא עֶרֶב יוֹם טוֹב בֵּין שֶׁאֵינוֹ עֶרֶב יוֹם טוֹב:</p>
-    </div>
+    <details class="seif-details">
+      <summary class="seif-summary">
+        <span class="seif-num">סעיף ד</span>
+        <span class="seif-preview">אֲבָל מִי שֶׁיּוֹדֵעַ בְּעַצְמוֹ שֶׁאֶפְשָׁר לוֹ לֶאֱכוֹל אַחַר שֶׁיִּתְפַּלֵּל מִנְחָה בְּצִבּוּר — טוֹב…</span>
+      </summary>
+      <div class="sa-block">
+        <p class="sa-he">אֲבָל מִי שֶׁיּוֹדֵעַ בְּעַצְמוֹ שֶׁאֶפְשָׁר לוֹ לֶאֱכוֹל אַחַר שֶׁיִּתְפַּלֵּל מִנְחָה בְּצִבּוּר — טוֹב שֶׁיִּתְפַּלֵּל מִנְחָה בְּצִבּוּר תְּחִלָּה וְאַחַר כָּךְ יֹאכַל סְעֻדָּה ג' כְּמוֹ שֶׁנּוֹהֲגִין. <br><br>וַאֲפִלּוּ אִם חָל יוֹם טוֹב בְּמוֹצָאֵי שַׁבָּת, שֶׁאִי אֶפְשָׁר לוֹ לֶאֱכוֹל סְעֻדָּה ג' בֵּין מִנְחָה לְמַעֲרִיב, שֶׁהֲרֵי מִצְוָה לְהִמָּנַע מִלִּקְבּוֹעַ סְעֻדָּה בְּעֶרֶב יוֹם טוֹב מִשָּׁעָה עֲשִׂירִית וּלְמַעְלָה כְּמוֹ בְּעֶרֶב שַׁבָּת, מִכָּל מָקוֹם אִם יוֹדֵעַ שֶׁיּוּכַל לֶאֱכוֹל קֹדֶם שָׁעָה עֲשִׂירִית — אֵין לוֹ לְחַלֵּק סְעֻדַּת הַבֹּקֶר לִשְׁתַּיִם עַל יְדֵי הֶפְסֵק בִּרְכַּת הַמָּזוֹן, לְפִי שֶׁיֵּשׁ אוֹמְרִים שֶׁיֵּשׁ כַּאן מִשּׁוּם מַרְבֶּה בִּבְרָכוֹת שֶׁלֹּא לְצֹרֶךְ. <br><br>וְאִם עָבַר וְחִלְּקָהּ לִשְׁתַּיִם — יָצָא, וְאֵין צָרִיךְ לַחֲזוֹר וְלֶאֱכוֹל סְעֻדָּה ג' אַף עַל פִּי שֶׁאֶפְשָׁר לוֹ, בֵּין שֶׁהוּא עֶרֶב יוֹם טוֹב בֵּין שֶׁאֵינוֹ עֶרֶב יוֹם טוֹב:</p>
+      </div>
+    </details>
 
-    <div class="sa-block">
-      <p class="sa-he"><span class="seif-num">ה.</span> מִי שֶׁיֵּשׁ לוֹ מְזוֹן ב' סְעֻדּוֹת לְשַׁבָּת וְאִם יְחַלְּקֵם לְג' סְעֻדּוֹת לֹא יִהְיֶה לוֹ לְכָל סְעֻדָּה לְשָׂבְעָה — מוּטָב שֶׁיֹּאכַל ב' סְעֻדּוֹת לְשָׂבְעָה, וְאַל יֹאכַל ג' שֶׁלֹּא לְשָׂבְעָה. <br><br>וּמִכָּל מָקוֹם, אִם נִמְשְׁכָה סְעֻדַּת הַבֹּקֶר עַד שֶׁהִגִּיעַ זְמַן מִנְחָה גְדוֹלָה — יְחַלְּקָהּ לִשְׁתַּיִם עַל יְדֵי הֶפְסֵק בִּרְכַּת הַמָּזוֹן כְּמוֹ שֶׁנִּתְבָּאֵר, שֶׁהֲרֵי יִשְׂבַּע כְּשֶׁיֹּאכַל שֵׁנִית מִיָּד. <br><br>אֲבָל לְכַתְּחִלָּה אֵין לְהַמְתִּין עִם סְעֻדַּת הַבֹּקֶר עַד סָמוּךְ לְמִנְחָה גְדוֹלָה בִּשְׁבִיל קִיּוּם סְעֻדָּה ג', שֶׁהֲרֵי אָסוּר לְהִתְעַנּוֹת עַד חֲצוֹת, כְּמוֹ שֶׁנִּתְבָּאֵר בְּסִמָּן רפ"ח. <br><br>(וּמִכָּל מָקוֹם, אַף כְּשֶׁאוֹכֵל  בַּבֹּקֶר — טוֹב לוֹ שֶׁיְּחַלְּקֶנָּה לִשְׁתַּיִם עַל יְדֵי הֶפְסֵק בִּרְכַּת הַמָּזוֹן, לְפִי שֶׁיֵּשׁ אוֹמְרִים שֶׁיּוֹצֵא בָּזֶה יְדֵי חוֹבַת סְעֻדָּה ג'. וְאַף שֶׁהָעִקָּר כְּהָאוֹמְרִים שֶׁזְּמַן סְעֻדָּה ג' הוּא מִן הַמִּנְחָה וּלְמַעְלָה כְּמוֹ שֶׁנִּתְבָּאֵר, מִכָּל מָקוֹם כֵּיוָן שֶׁאֵין לוֹ בַּמֶּה לְקַיְּמָהּ בִּזְמַנָּהּ — טוֹב שֶׁיְּקַיְּמֶנָּה בַּבֹּקֶר, שֶׁיְּקַיְּמֶנָּה לְפִי סְבָרָא זוֹ אַף שֶׁאֵינָהּ עִקָּר, מִמַּה שֶּׁלֹּא יְקַיְּמֶנָּה כְּלָל):</p>
-    </div>
+    <details class="seif-details">
+      <summary class="seif-summary">
+        <span class="seif-num">סעיף ה</span>
+        <span class="seif-preview">מִי שֶׁיֵּשׁ לוֹ מְזוֹן ב' סְעֻדּוֹת לְשַׁבָּת וְאִם יְחַלְּקֵם לְג' סְעֻדּוֹת לֹא יִהְיֶה לוֹ לְכָל סְעֻדָּה…</span>
+      </summary>
+      <div class="sa-block">
+        <p class="sa-he">מִי שֶׁיֵּשׁ לוֹ מְזוֹן ב' סְעֻדּוֹת לְשַׁבָּת וְאִם יְחַלְּקֵם לְג' סְעֻדּוֹת לֹא יִהְיֶה לוֹ לְכָל סְעֻדָּה לְשָׂבְעָה — מוּטָב שֶׁיֹּאכַל ב' סְעֻדּוֹת לְשָׂבְעָה, וְאַל יֹאכַל ג' שֶׁלֹּא לְשָׂבְעָה. <br><br>וּמִכָּל מָקוֹם, אִם נִמְשְׁכָה סְעֻדַּת הַבֹּקֶר עַד שֶׁהִגִּיעַ זְמַן מִנְחָה גְדוֹלָה — יְחַלְּקָהּ לִשְׁתַּיִם עַל יְדֵי הֶפְסֵק בִּרְכַּת הַמָּזוֹן כְּמוֹ שֶׁנִּתְבָּאֵר, שֶׁהֲרֵי יִשְׂבַּע כְּשֶׁיֹּאכַל שֵׁנִית מִיָּד. <br><br>אֲבָל לְכַתְּחִלָּה אֵין לְהַמְתִּין עִם סְעֻדַּת הַבֹּקֶר עַד סָמוּךְ לְמִנְחָה גְדוֹלָה בִּשְׁבִיל קִיּוּם סְעֻדָּה ג', שֶׁהֲרֵי אָסוּר לְהִתְעַנּוֹת עַד חֲצוֹת, כְּמוֹ שֶׁנִּתְבָּאֵר בְּסִמָּן רפ"ח. <br><br>(וּמִכָּל מָקוֹם, אַף כְּשֶׁאוֹכֵל  בַּבֹּקֶר — טוֹב לוֹ שֶׁיְּחַלְּקֶנָּה לִשְׁתַּיִם עַל יְדֵי הֶפְסֵק בִּרְכַּת הַמָּזוֹן, לְפִי שֶׁיֵּשׁ אוֹמְרִים שֶׁיּוֹצֵא בָּזֶה יְדֵי חוֹבַת סְעֻדָּה ג'. וְאַף שֶׁהָעִקָּר כְּהָאוֹמְרִים שֶׁזְּמַן סְעֻדָּה ג' הוּא מִן הַמִּנְחָה וּלְמַעְלָה כְּמוֹ שֶׁנִּתְבָּאֵר, מִכָּל מָקוֹם כֵּיוָן שֶׁאֵין לוֹ בַּמֶּה לְקַיְּמָהּ בִּזְמַנָּהּ — טוֹב שֶׁיְּקַיְּמֶנָּה בַּבֹּקֶר, שֶׁיְּקַיְּמֶנָּה לְפִי סְבָרָא זוֹ אַף שֶׁאֵינָהּ עִקָּר, מִמַּה שֶּׁלֹּא יְקַיְּמֶנָּה כְּלָל):</p>
+      </div>
+    </details>
 
-    <div class="sa-block">
-      <p class="sa-he"><span class="seif-num">ו.</span> בִּסְעֻדָּה ג' אֵין צָרִיךְ לְקַדֵּשׁ עַל הַיַּיִן, דְּהַיְנוּ לְבָרֵךְ עַל הַכּוֹס קֹדֶם הַסְּעֻדָּה כְּמוֹ קֹדֶם סְעֻדַּת שַׁחֲרִית, לְפִי שֶׁלֹּא תִקְּנוּ חֲכָמִים קִדּוּשׁ בַּיּוֹם אֶלָּא כְּעֵין קִדּוּשׁ שֶׁבַּלַּיְלָה, וּמַה בַּלַּיְלָה דַּי בְּקִדּוּשׁ אֶחָד — אַף בַּיּוֹם דַּי בְּקִדּוּשׁ אֶחָד שֶׁבְּשַׁחֲרִית:</p>
-    </div>
+    <details class="seif-details">
+      <summary class="seif-summary">
+        <span class="seif-num">סעיף ו</span>
+        <span class="seif-preview">בִּסְעֻדָּה ג' אֵין צָרִיךְ לְקַדֵּשׁ עַל הַיַּיִן, דְּהַיְנוּ לְבָרֵךְ עַל הַכּוֹס קֹדֶם הַסְּעֻדָּה כְּמוֹ…</span>
+      </summary>
+      <div class="sa-block">
+        <p class="sa-he">בִּסְעֻדָּה ג' אֵין צָרִיךְ לְקַדֵּשׁ עַל הַיַּיִן, דְּהַיְנוּ לְבָרֵךְ עַל הַכּוֹס קֹדֶם הַסְּעֻדָּה כְּמוֹ קֹדֶם סְעֻדַּת שַׁחֲרִית, לְפִי שֶׁלֹּא תִקְּנוּ חֲכָמִים קִדּוּשׁ בַּיּוֹם אֶלָּא כְּעֵין קִדּוּשׁ שֶׁבַּלַּיְלָה, וּמַה בַּלַּיְלָה דַּי בְּקִדּוּשׁ אֶחָד — אַף בַּיּוֹם דַּי בְּקִדּוּשׁ אֶחָד שֶׁבְּשַׁחֲרִית:</p>
+      </div>
+    </details>
 
-    <div class="sa-block">
-      <p class="sa-he"><span class="seif-num">ז.</span> אֲבָל צָרִיךְ לִבְצוֹעַ עַל שְׁתֵּי כִּכָּרוֹת שְׁלֵמוֹת כְּמוֹ בִּסְעֻדּוֹת הָרִאשׁוֹנוֹת. וַאֲפִלּוּ סוֹעֵד פְּעָמִים הַרְבֵּה בְּשַׁבָּת — צָרִיךְ לְכָל סְעֻדָּה לֶחֶם מִשְׁנֶה. <br><br>וְיֵשׁ אוֹמְרִים שֶׁאֲפִלּוּ לִסְעֻדָּה ג' דַּי בְּכִכָּר אֶחָד שָׁלֵם, לְפִי שֶׁבְּיוֹם ו' יָרַד הַמָּן לְכָל אֶחָד שְׁנֵי עֹמָרִים, וּמִכָּל עֹמֶר עָשׂוּ שְׁתֵּי כִכָּרוֹת, הֲרֵי ד' כִּכָּרוֹת לְב' עֹמָרִים, אָכַל אַחַת מֵהֶן בְּיוֹם ו', וְאַחַת בְּלֵיל שַׁבָּת, וְאַחַת בַּבֹּקֶר — נִשְׁאֲרָה כִּכָּר אֶחָד שָׁלֵם לִסְעֻדָּה ג'. <br><br>וְכֵן נִתְפַּשֵּׁט הַמִּנְהָג לְהָקֵל בִּמְדִינוֹת אֵלּוּ לִבְצוֹעַ בִּסְעֻדָּה ג' עַל כִּכָּר אֶחָד שָׁלֵם. אֲבָל יֵשׁ לְהַחֲמִיר לִקַּח שְׁנַיִם כַּסְבָרָא הָרִאשׁוֹנָה שֶׁהוּא עִקָּר, אֶלָּא אִם כֵּן אֵין לוֹ שְׁנַיִם, שֶׁאָז לֹא יִפְחוֹת מִכִּכָּר אֶחָד שָׁלֵם. <br><br>אֲבָל יֵשׁ מְקִלִּין עוֹד שֶׁיָּכוֹל לְקַיֵּם סְעֻדָּה ג' בְּכָל מַאֲכָל הֶעָשׂוּי מֵחֲמֵשֶׁת הַמִּינִים שֶׁמְּבָרְכִים עָלָיו "בּוֹרֵא מִינֵי מְזוֹנוֹת", שֶׁהוּא נִקְרָא מָזוֹן. <br><br>וְיֵשׁ מְקִלִּין עוֹד שֶׁיָּכוֹל לְקַיְּמָהּ גַּם כֵּן בִּדְבָרִים שֶׁדֶּרֶךְ לְלַפֵּת בָּהֶן אֶת הַפַּת, כְּגוֹן בָּשָׂר וְדָגִים וְכַיּוֹצֵא בָהֶם, אֲבָל לֹא בְּפֵרוֹת. <br><br>וְיֵשׁ מְקִלִּין עוֹד שֶׁאֲפִלּוּ בְּפֵרוֹת יָכוֹל לְקַיְּמָהּ. <br><br>וְאֵין לִסְמוֹךְ כְּלָל עַל כָּל זֶה, אֶלָּא אִם כֵּן אִי אֶפְשָׁר כְּלָל בְּעִנְיָן אַחֵר, כְּגוֹן שֶׁהוּא שָׂבֵעַ בְּיוֹתֵר וְאִי אֶפְשָׁר לוֹ לֶאֱכוֹל פַּת בְּלֹא שֶׁיְּצַעֵר אֶת עַצְמוֹ. <br><br>וְכֵן עֶרֶב פֶּסַח שֶׁחָל לִהְיוֹת בְּשַׁבָּת, שֶׁאִי אֶפְשָׁר לֶאֱכוֹל פַּת בִּמְדִינוֹת אֵלּוּ שֶׁאֵין נוֹהֲגִין בְּמַצָּה עֲשִׁירָה, כְּמוֹ שֶׁיִּתְבָּאֵר בְּסִמָּן תע"א:</p>
-    </div>
+    <details class="seif-details">
+      <summary class="seif-summary">
+        <span class="seif-num">סעיף ז</span>
+        <span class="seif-preview">אֲבָל צָרִיךְ לִבְצוֹעַ עַל שְׁתֵּי כִּכָּרוֹת שְׁלֵמוֹת כְּמוֹ בִּסְעֻדּוֹת הָרִאשׁוֹנוֹת. וַאֲפִלּוּ סוֹעֵד…</span>
+      </summary>
+      <div class="sa-block">
+        <p class="sa-he">אֲבָל צָרִיךְ לִבְצוֹעַ עַל שְׁתֵּי כִּכָּרוֹת שְׁלֵמוֹת כְּמוֹ בִּסְעֻדּוֹת הָרִאשׁוֹנוֹת. וַאֲפִלּוּ סוֹעֵד פְּעָמִים הַרְבֵּה בְּשַׁבָּת — צָרִיךְ לְכָל סְעֻדָּה לֶחֶם מִשְׁנֶה. <br><br>וְיֵשׁ אוֹמְרִים שֶׁאֲפִלּוּ לִסְעֻדָּה ג' דַּי בְּכִכָּר אֶחָד שָׁלֵם, לְפִי שֶׁבְּיוֹם ו' יָרַד הַמָּן לְכָל אֶחָד שְׁנֵי עֹמָרִים, וּמִכָּל עֹמֶר עָשׂוּ שְׁתֵּי כִכָּרוֹת, הֲרֵי ד' כִּכָּרוֹת לְב' עֹמָרִים, אָכַל אַחַת מֵהֶן בְּיוֹם ו', וְאַחַת בְּלֵיל שַׁבָּת, וְאַחַת בַּבֹּקֶר — נִשְׁאֲרָה כִּכָּר אֶחָד שָׁלֵם לִסְעֻדָּה ג'. <br><br>וְכֵן נִתְפַּשֵּׁט הַמִּנְהָג לְהָקֵל בִּמְדִינוֹת אֵלּוּ לִבְצוֹעַ בִּסְעֻדָּה ג' עַל כִּכָּר אֶחָד שָׁלֵם. אֲבָל יֵשׁ לְהַחֲמִיר לִקַּח שְׁנַיִם כַּסְבָרָא הָרִאשׁוֹנָה שֶׁהוּא עִקָּר, אֶלָּא אִם כֵּן אֵין לוֹ שְׁנַיִם, שֶׁאָז לֹא יִפְחוֹת מִכִּכָּר אֶחָד שָׁלֵם. <br><br>אֲבָל יֵשׁ מְקִלִּין עוֹד שֶׁיָּכוֹל לְקַיֵּם סְעֻדָּה ג' בְּכָל מַאֲכָל הֶעָשׂוּי מֵחֲמֵשֶׁת הַמִּינִים שֶׁמְּבָרְכִים עָלָיו "בּוֹרֵא מִינֵי מְזוֹנוֹת", שֶׁהוּא נִקְרָא מָזוֹן. <br><br>וְיֵשׁ מְקִלִּין עוֹד שֶׁיָּכוֹל לְקַיְּמָהּ גַּם כֵּן בִּדְבָרִים שֶׁדֶּרֶךְ לְלַפֵּת בָּהֶן אֶת הַפַּת, כְּגוֹן בָּשָׂר וְדָגִים וְכַיּוֹצֵא בָהֶם, אֲבָל לֹא בְּפֵרוֹת. <br><br>וְיֵשׁ מְקִלִּין עוֹד שֶׁאֲפִלּוּ בְּפֵרוֹת יָכוֹל לְקַיְּמָהּ. <br><br>וְאֵין לִסְמוֹךְ כְּלָל עַל כָּל זֶה, אֶלָּא אִם כֵּן אִי אֶפְשָׁר כְּלָל בְּעִנְיָן אַחֵר, כְּגוֹן שֶׁהוּא שָׂבֵעַ בְּיוֹתֵר וְאִי אֶפְשָׁר לוֹ לֶאֱכוֹל פַּת בְּלֹא שֶׁיְּצַעֵר אֶת עַצְמוֹ. <br><br>וְכֵן עֶרֶב פֶּסַח שֶׁחָל לִהְיוֹת בְּשַׁבָּת, שֶׁאִי אֶפְשָׁר לֶאֱכוֹל פַּת בִּמְדִינוֹת אֵלּוּ שֶׁאֵין נוֹהֲגִין בְּמַצָּה עֲשִׁירָה, כְּמוֹ שֶׁיִּתְבָּאֵר בְּסִמָּן תע"א:</p>
+      </div>
+    </details>
 
-    <div class="sa-block">
-      <p class="sa-he"><span class="seif-num">ח.</span> נָשִׁים חַיָּבוֹת בִּסְעֻדָּה שְׁלִישִׁית כְּמוֹ אֲנָשִׁים, וְכֵן לִבְצוֹעַ עַל ב' כִּכָּרוֹת בְּכָל סְעֻדָּה, שֶׁלְּכָל מַעֲשֵׂה שַׁבָּת אִישׁ וְאִשָּׁה שָׁוִין, מִטַּעַם שֶׁנִּתְבָּאֵר בְּסִמָּן רע"א:</p>
-    </div>
+    <details class="seif-details">
+      <summary class="seif-summary">
+        <span class="seif-num">סעיף ח</span>
+        <span class="seif-preview">נָשִׁים חַיָּבוֹת בִּסְעֻדָּה שְׁלִישִׁית כְּמוֹ אֲנָשִׁים, וְכֵן לִבְצוֹעַ עַל ב' כִּכָּרוֹת בְּכָל…</span>
+      </summary>
+      <div class="sa-block">
+        <p class="sa-he">נָשִׁים חַיָּבוֹת בִּסְעֻדָּה שְׁלִישִׁית כְּמוֹ אֲנָשִׁים, וְכֵן לִבְצוֹעַ עַל ב' כִּכָּרוֹת בְּכָל סְעֻדָּה, שֶׁלְּכָל מַעֲשֵׂה שַׁבָּת אִישׁ וְאִשָּׁה שָׁוִין, מִטַּעַם שֶׁנִּתְבָּאֵר בְּסִמָּן רע"א:</p>
+      </div>
+    </details>
 
     <details style="margin-top: 32px; background: var(--white); border: 1px solid var(--border); border-left: 4px solid var(--habad); padding: 18px 24px;">
       <summary style="font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--habad-deep); cursor: pointer;">
         קונטרס אחרון — 2 entrée(s) (cliquer pour déplier)
       </summary>
       <p style="margin-top: 12px; color: var(--text-muted); font-style: italic; font-size: 13px;">
-        Le Kountress Aharon (קונטרס אחרון) est l'annexe pilpoulique de l'Admour HaZaken — son laboratoire halakhique en bas de page.
+        Le Kountress Aharon est l'annexe pilpoulique de l'Admour HaZaken — son laboratoire halakhique en bas de page.
       </p>
 
       <div class="sa-block" style="margin-top: 14px;">
@@ -233,31 +327,31 @@
       <tbody>
         <tr class="harav">
           <td>Mitzva structurelle</td>
-          <td>OH — règle générale.</td>
-          <td>—</td>
-          <td>—</td>
-          <td><strong>Choulhan Aroukh de l'Admour HaZaken רצ"א:1-2</strong> — articule : <em>essayer fort</em> de faire le seudah shlishi, même si pas d'appétit. Le Rav structure : c'est une mitzva positive, manger même un peu est obligatoire.</td>
+          <td data-label="Mehaber">OH — règle générale.</td>
+          <td data-label="Rama (רמ״א)">—</td>
+          <td data-label="Mishna Berurah">—</td>
+          <td data-label="Choulhan Aroukh de l'Admour HaZaken"><strong>Choulhan Aroukh de l'Admour HaZaken רצ"א:1-2</strong> — articule : <em>essayer fort</em> de faire le seudah shlishi, même si pas d'appétit. Le Rav structure : c'est une mitzva positive, manger même un peu est obligatoire.</td>
         </tr>
         <tr>
           <td>Timing — après minha</td>
-          <td>OH — règle générale.</td>
-          <td>—</td>
-          <td>—</td>
-          <td><strong>Choulhan Aroukh de l'Admour HaZaken רצ"א:3-5</strong> — codifie : le seudah shlishi se fait <em>après minha</em> (samedi après-midi). Idéal : commencer avant la fin du Shabbat pour conclure dans Shabbat.</td>
+          <td data-label="Mehaber">OH — règle générale.</td>
+          <td data-label="Rama (רמ״א)">—</td>
+          <td data-label="Mishna Berurah">—</td>
+          <td data-label="Choulhan Aroukh de l'Admour HaZaken"><strong>Choulhan Aroukh de l'Admour HaZaken רצ"א:3-5</strong> — codifie : le seudah shlishi se fait <em>après minha</em> (samedi après-midi). Idéal : commencer avant la fin du Shabbat pour conclure dans Shabbat.</td>
         </tr>
         <tr class="harav">
           <td>Contenu minimal</td>
-          <td>OH — règle générale.</td>
-          <td>—</td>
-          <td>—</td>
-          <td><strong>Choulhan Aroukh de l'Admour HaZaken רצ"א:6-8</strong> — articule : pain et un accompagnement (poisson, fromage, fruits) suffit. Coutume Habad : étendre avec divrei Torah et zemirot. Le seudah shlishi a une dimension kabbalistique élevée.</td>
+          <td data-label="Mehaber">OH — règle générale.</td>
+          <td data-label="Rama (רמ״א)">—</td>
+          <td data-label="Mishna Berurah">—</td>
+          <td data-label="Choulhan Aroukh de l'Admour HaZaken"><strong>Choulhan Aroukh de l'Admour HaZaken רצ"א:6-8</strong> — articule : pain et un accompagnement (poisson, fromage, fruits) suffit. Coutume Habad : étendre avec divrei Torah et zemirot. Le seudah shlishi a une dimension kabbalistique élevée.</td>
         </tr>
         <tr>
           <td>מהדורא בתרא</td>
-          <td>—</td>
-          <td>—</td>
-          <td>—</td>
-          <td><strong>Mahadoura Batra (מהדורא בתרא) (édition Kehot)</strong> — révisions de l'Admour HaZaken sur ce siman. À consulter dans l'imprimé Kehot — non disponible sur Sefaria.</td>
+          <td data-label="Mehaber">—</td>
+          <td data-label="Rama (רמ״א)">—</td>
+          <td data-label="Mishna Berurah">—</td>
+          <td data-label="Choulhan Aroukh de l'Admour HaZaken"><strong>Mahadoura Batra (מהדורא בתרא) (édition Kehot)</strong> — révisions de l'Admour HaZaken sur ce siman. À consulter dans l'imprimé Kehot — non disponible sur Sefaria.</td>
         </tr>
       </tbody>
     </table>

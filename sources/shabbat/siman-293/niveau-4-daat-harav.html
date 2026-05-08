@@ -63,18 +63,33 @@
   .section-title-he { font-family: 'Frank Ruhl Libre', serif; direction: rtl; font-size: 26px; color: var(--navy); margin-bottom: 6px; font-weight: 700; }
   .section-title-fr { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 500; color: var(--navy); margin-bottom: 18px; }
   .section-divider { width: 60px; height: 2px; background: var(--gold); margin-bottom: 24px; }
-  .sa-block { background: var(--white); border: 1px solid var(--border); border-right: 4px solid var(--habad); padding: 24px 28px; margin-bottom: 18px; }
+  .sa-block { background: var(--white); border: 1px solid var(--border); border-right: 4px solid var(--habad); padding: 24px 28px; margin-bottom: 0; }
   .sa-block .seif-num { font-family: 'Frank Ruhl Libre', serif; font-weight: 700; color: var(--habad); margin-left: 4px; }
   .sa-he { font-family: 'Frank Ruhl Libre', serif; direction: rtl; text-align: right; font-size: 19px; line-height: 1.95; color: var(--navy); }
-  .compare-table { width: 100%; border-collapse: collapse; background: var(--white); border: 1px solid var(--border); margin-bottom: 18px; }
+
+  /* Seifim (סעיפים) déroulables (style Kountress Aharon (קונטרס אחרון)) */
+  .seif-details { background: var(--white); border: 1px solid var(--border); border-right: 4px solid var(--habad); margin-bottom: 12px; }
+  .seif-details[open] { border-bottom-color: var(--habad-tint); }
+  .seif-summary { list-style: none; cursor: pointer; padding: 14px 22px; display: flex; align-items: center; gap: 16px; user-select: none; transition: background 0.15s; }
+  .seif-summary:hover { background: var(--cream); }
+  .seif-summary::-webkit-details-marker { display: none; }
+  .seif-summary::before { content: '▸'; color: var(--habad); font-size: 14px; flex-shrink: 0; transition: transform 0.2s; }
+  .seif-details[open] > .seif-summary::before { transform: rotate(90deg); }
+  .seif-summary .seif-num { font-family: 'Frank Ruhl Libre', serif; font-weight: 700; color: var(--habad); font-size: 17px; flex-shrink: 0; min-width: 70px; direction: rtl; }
+  .seif-summary .seif-preview { font-family: 'Frank Ruhl Libre', serif; direction: rtl; text-align: right; color: var(--text-mid); font-size: 15px; line-height: 1.5; flex: 1; overflow: hidden; text-overflow: ellipsis; }
+  .seif-details .sa-block { border: none; border-top: 1px solid var(--border); border-right: none; padding: 18px 28px 22px; margin-bottom: 0; }
+
+  .compare-table { width: 100%; border-collapse: collapse; background: var(--white); border: 1px solid var(--border); margin-bottom: 18px; table-layout: fixed; }
   .compare-table thead { background: var(--habad); }
   .compare-table thead th { padding: 12px 16px; font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); text-align: left; }
   .compare-table tbody tr { border-bottom: 1px solid var(--border); }
   .compare-table tbody tr:hover { background: var(--cream); }
-  .compare-table td { padding: 14px 16px; font-size: 15px; color: var(--text-mid); vertical-align: top; }
-  .compare-table td:first-child { font-family: 'Frank Ruhl Libre', serif; font-size: 18px; color: var(--navy); white-space: nowrap; }
+  .compare-table td { padding: 14px 16px; font-size: 15px; color: var(--text-mid); vertical-align: top; line-height: 1.6; word-wrap: break-word; }
+  .compare-table td:first-child { font-family: 'Frank Ruhl Libre', serif; font-size: 18px; color: var(--navy); }
   .compare-table tr.harav td { background: var(--habad-tint); }
   .compare-table tr.harav td:last-child { font-weight: 600; color: var(--habad-deep); }
+  .compare-table thead th:nth-child(5),
+  .compare-table td:nth-child(5) { min-width: 280px; white-space: normal; line-height: 1.6; }
   .quote-block { background: var(--cream); border: 1px solid var(--border); border-left: 4px solid var(--gold); padding: 22px 26px; margin-bottom: 18px; position: relative; }
   .quote-block .quote-fr { color: var(--text-mid); line-height: 1.75; }
   .quote-source { margin-top: 12px; font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); padding-top: 12px; border-top: 1px dashed var(--border); }
@@ -90,6 +105,37 @@
     header, .breadcrumb, .page-hero, main, footer { padding-left: 20px; padding-right: 20px; }
     .hero-title-he { font-size: 34px; }
     .hero-title { font-size: 24px; }
+
+    /* Tableau כח הפסק en layout stacké sur mobile */
+    .compare-table, .compare-table tbody, .compare-table tr, .compare-table td { display: block; width: 100%; }
+    .compare-table thead { display: none; }
+    .compare-table { border: none; background: transparent; table-layout: auto; }
+    .compare-table tbody tr { background: var(--white); border: 1px solid var(--border); border-right: 4px solid var(--habad); margin-bottom: 18px; padding: 4px 0; }
+    .compare-table tr.harav { border-right-color: var(--habad-deep); }
+    .compare-table td { padding: 10px 18px; border-bottom: 1px solid var(--border); }
+    .compare-table td:last-child { border-bottom: none; }
+    .compare-table td:first-child { background: var(--habad); color: var(--gold); font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 600; padding: 14px 18px; }
+    .compare-table td:not(:first-child)::before {
+      content: attr(data-label);
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--habad);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    .compare-table thead th:nth-child(5),
+    .compare-table td:nth-child(5) { min-width: 0; }
+    .compare-table tr.harav td:nth-child(5) { background: var(--habad-tint); border-left: 3px solid var(--habad); padding-left: 15px; }
+
+    /* Seif (סעיף) summary plus compact sur mobile */
+    .seif-summary { padding: 12px 16px; gap: 10px; }
+    .seif-summary .seif-num { min-width: 60px; font-size: 15px; }
+    .seif-summary .seif-preview { font-size: 13px; }
+    .seif-details .sa-block { padding: 14px 18px 18px; }
+    .sa-he { font-size: 17px; line-height: 1.85; }
   }
 </style>
 </head>
@@ -125,7 +171,7 @@
     <div class="hero-meta">Orah Haïm רצ"ג · Niveau 4 · שיטת אדמו״ר הזקן</div>
     <p class="hero-title-he">דעת הרב</p>
     <h1 class="hero-title" style="margin: 0;">Daat HaRav — Le Choulhan Aroukh de l'Admour HaZaken sur le Siman רצ"ג</h1>
-    <p class="hero-subtitle">La chitah de l'Admour HaZaken sur les 4 seifim (סעיפים) qui codifient l'arvit de motsei Shabbat : retarder pour étendre Shabbat (tossefet), ajout de « אתה חוננתנו » dans l'Amida (avdala in tefilla).</p>
+    <p class="hero-subtitle">La chitah de l'Admour HaZaken sur les 4 seifim qui codifient l'arvit de motsei Shabbat : retarder pour étendre Shabbat (tossefet), ajout de « אתה חוננתנו » dans l'Amida (avdala in tefilla).</p>
   </div>
 </div>
 
@@ -149,28 +195,52 @@
       <em>Source : édition Kehot, telle que reproduite sur Sefaria. 4 seifim + 1 entrée(s) de Kountress Aharon (קונטרס אחרון).</em>
     </p>
 
-    <div class="sa-block">
-      <p class="sa-he"><span class="seif-num">א.</span> דִּין עַרְבִית בְּמוֹצָאֵי שַׁבָּת וּבוֹ ד' סְעִיפִים:<br><br>נוֹהֲגִים שֶׁמְּאַחֲרִים תְּפִלַּת עַרְבִית בְּמוֹצָאֵי שַׁבָּת, כְּדֵי לְהוֹסִיף מֵחֹל עַל הַקֹּדֶשׁ. אֲבָל עִקַּר יְצִיאַת הַשַּׁבָּת הוּא מִשְּׁעַת צֵאת ג' כּוֹכָבִים קְטַנִּים, שֶׁאֵין אָנוּ בְּקִיאִים בְּבֵינוֹנִים, <br><br>וּמִיָּד שֶׁיָּצְאוּ ג' כּוֹכָבִים קְטַנִּים הָיָה מֻתָּר בַּעֲשִׂיַּת מְלָאכָה, אֶלָּא שֶׁצָּרִיךְ לְהַמְתִּין עַד שֶׁיִּהְיוּ ג' כּוֹכָבִים עוֹמְדִים רְצוּפִים בְּמָקוֹם אֶחָד וְלֹא מְפֻזָּרִים, שֶׁזֶּהוּ הַשִּׁעוּר שֶׁצָּרִיךְ לְהוֹסִיף מֵחֹל עַל הַקֹּדֶשׁ בִּיצִיאַת הַשַּׁבָּת. <br><br>אֲבָל מִיָּד שֶׁנִּרְאִים ג' כּוֹכָבִים רְצוּפִים מֻתָּר לְהַבְדִּיל וְלַעֲשׂוֹת מְלָאכָה, אַף עַל פִּי שֶׁעֲדַיִן לֹא הִתְפַּלֵּל עַרְבִית. <br><br>וְאִם הוּא יוֹם הַמְּעֻנָּן — יַמְתִּין עַד שֶׁיֵּצֵא הַסָּפֵק מִלִּבּוֹ:</p>
-    </div>
+    <details class="seif-details" open>
+      <summary class="seif-summary">
+        <span class="seif-num">סעיף א</span>
+        <span class="seif-preview">דִּין עַרְבִית בְּמוֹצָאֵי שַׁבָּת וּבוֹ ד' סְעִיפִים: נוֹהֲגִים שֶׁמְּאַחֲרִים תְּפִלַּת עַרְבִית…</span>
+      </summary>
+      <div class="sa-block">
+        <p class="sa-he">דִּין עַרְבִית בְּמוֹצָאֵי שַׁבָּת וּבוֹ ד' סְעִיפִים:<br><br>נוֹהֲגִים שֶׁמְּאַחֲרִים תְּפִלַּת עַרְבִית בְּמוֹצָאֵי שַׁבָּת, כְּדֵי לְהוֹסִיף מֵחֹל עַל הַקֹּדֶשׁ. אֲבָל עִקַּר יְצִיאַת הַשַּׁבָּת הוּא מִשְּׁעַת צֵאת ג' כּוֹכָבִים קְטַנִּים, שֶׁאֵין אָנוּ בְּקִיאִים בְּבֵינוֹנִים, <br><br>וּמִיָּד שֶׁיָּצְאוּ ג' כּוֹכָבִים קְטַנִּים הָיָה מֻתָּר בַּעֲשִׂיַּת מְלָאכָה, אֶלָּא שֶׁצָּרִיךְ לְהַמְתִּין עַד שֶׁיִּהְיוּ ג' כּוֹכָבִים עוֹמְדִים רְצוּפִים בְּמָקוֹם אֶחָד וְלֹא מְפֻזָּרִים, שֶׁזֶּהוּ הַשִּׁעוּר שֶׁצָּרִיךְ לְהוֹסִיף מֵחֹל עַל הַקֹּדֶשׁ בִּיצִיאַת הַשַּׁבָּת. <br><br>אֲבָל מִיָּד שֶׁנִּרְאִים ג' כּוֹכָבִים רְצוּפִים מֻתָּר לְהַבְדִּיל וְלַעֲשׂוֹת מְלָאכָה, אַף עַל פִּי שֶׁעֲדַיִן לֹא הִתְפַּלֵּל עַרְבִית. <br><br>וְאִם הוּא יוֹם הַמְּעֻנָּן — יַמְתִּין עַד שֶׁיֵּצֵא הַסָּפֵק מִלִּבּוֹ:</p>
+      </div>
+    </details>
 
-    <div class="sa-block">
-      <p class="sa-he"><span class="seif-num">ב.</span> מִי שֶׁהוּא אָנוּס שֶׁאִי אֶפְשָׁר לוֹ לְהַבְדִּיל עַל הַכּוֹס בַּלַּיְלָה, כְּגוֹן שֶׁצָּרִיךְ לֵילֵךְ לִדְבַר מִצְוָה וְהוֹלֵךְ מִבֵּיתוֹ מִבְּעוֹד יוֹם עַד סוֹף הַתְּחוּם וְיוֹשֵׁב שָׁם עַד שֶׁחָשֵׁכָה, וּמִיָּד שֶׁחָשֵׁכָה הוֹלֵךְ לְדַרְכּוֹ — יָכוֹל לְהִתְפַּלֵּל עַרְבִית וּלְהַבְדִּיל עַל הַכּוֹס בְּבֵיתוֹ מִבְּעוֹד יוֹם, וּבִלְבָד שֶׁיְּהֵא מִפְּלַג הַמִּנְחָה וּלְמַעְלָה. <br><br>וְלֹא יְבָרֵךְ עַל הַנֵּר מִבְּעוֹד יוֹם, אֶלָּא יַבְדִּיל בְּלֹא נֵר. וּבַעֲשִׂיַּת מְלָאכָה אָסוּר עַד צֵאת הַכּוֹכָבִים רְצוּפִים אַף עַל פִּי שֶׁהִבְדִּיל. <br><br> וְכֵן קְרִיאַת שְׁמַע צָרִיךְ לַחֲזוֹר וְלִקְרוֹת בְּצֵאת הַכּוֹכָבִים כְּשֶׁהוֹלֵךְ בַּדֶּרֶךְ, וְאֵינוֹ יוֹצֵא בְּמַה שֶּׁקָּרָא מִבְּעוֹד יוֹם, אַף עַל פִּי שֶׁבְּהַבְדָּלָה יוֹצֵא יְדֵי חוֹבָתוֹ וְאֵינוֹ צָרִיךְ לַחֲזוֹר וּלְהַבְדִּיל אַף אִם יִזְדַּמֵּן לוֹ כּוֹס בַּדֶּרֶךְ. <br><br>וְאִם הוּא רוֹצֶה יָכוֹל לְהִתְפַּלֵּל תְּפִלַּת י"ח בִּלְבַדָּהּ מִבְּעוֹד יוֹם בְּלֹא קְרִיאַת שְׁמַע וּבִרְכוֹתֶיהָ, וּכְשֶׁתֶּחְשַׁךְ לוֹ בַּדֶּרֶךְ יִקְרָא קְרִיאַת שְׁמַע בְּבִרְכוֹתֶיהָ. וְאַף שֶׁאֵינוֹ סוֹמֵךְ גְּאֻלָּה לִתְפִלָּה — אֵין לָחוּשׁ, הוֹאִיל וּמִתְכַּוֵּן לִדְבַר מִצְוָה:</p>
-    </div>
+    <details class="seif-details">
+      <summary class="seif-summary">
+        <span class="seif-num">סעיף ב</span>
+        <span class="seif-preview">מִי שֶׁהוּא אָנוּס שֶׁאִי אֶפְשָׁר לוֹ לְהַבְדִּיל עַל הַכּוֹס בַּלַּיְלָה, כְּגוֹן שֶׁצָּרִיךְ לֵילֵךְ…</span>
+      </summary>
+      <div class="sa-block">
+        <p class="sa-he">מִי שֶׁהוּא אָנוּס שֶׁאִי אֶפְשָׁר לוֹ לְהַבְדִּיל עַל הַכּוֹס בַּלַּיְלָה, כְּגוֹן שֶׁצָּרִיךְ לֵילֵךְ לִדְבַר מִצְוָה וְהוֹלֵךְ מִבֵּיתוֹ מִבְּעוֹד יוֹם עַד סוֹף הַתְּחוּם וְיוֹשֵׁב שָׁם עַד שֶׁחָשֵׁכָה, וּמִיָּד שֶׁחָשֵׁכָה הוֹלֵךְ לְדַרְכּוֹ — יָכוֹל לְהִתְפַּלֵּל עַרְבִית וּלְהַבְדִּיל עַל הַכּוֹס בְּבֵיתוֹ מִבְּעוֹד יוֹם, וּבִלְבָד שֶׁיְּהֵא מִפְּלַג הַמִּנְחָה וּלְמַעְלָה. <br><br>וְלֹא יְבָרֵךְ עַל הַנֵּר מִבְּעוֹד יוֹם, אֶלָּא יַבְדִּיל בְּלֹא נֵר. וּבַעֲשִׂיַּת מְלָאכָה אָסוּר עַד צֵאת הַכּוֹכָבִים רְצוּפִים אַף עַל פִּי שֶׁהִבְדִּיל. <br><br> וְכֵן קְרִיאַת שְׁמַע צָרִיךְ לַחֲזוֹר וְלִקְרוֹת בְּצֵאת הַכּוֹכָבִים כְּשֶׁהוֹלֵךְ בַּדֶּרֶךְ, וְאֵינוֹ יוֹצֵא בְּמַה שֶּׁקָּרָא מִבְּעוֹד יוֹם, אַף עַל פִּי שֶׁבְּהַבְדָּלָה יוֹצֵא יְדֵי חוֹבָתוֹ וְאֵינוֹ צָרִיךְ לַחֲזוֹר וּלְהַבְדִּיל אַף אִם יִזְדַּמֵּן לוֹ כּוֹס בַּדֶּרֶךְ. <br><br>וְאִם הוּא רוֹצֶה יָכוֹל לְהִתְפַּלֵּל תְּפִלַּת י"ח בִּלְבַדָּהּ מִבְּעוֹד יוֹם בְּלֹא קְרִיאַת שְׁמַע וּבִרְכוֹתֶיהָ, וּכְשֶׁתֶּחְשַׁךְ לוֹ בַּדֶּרֶךְ יִקְרָא קְרִיאַת שְׁמַע בְּבִרְכוֹתֶיהָ. וְאַף שֶׁאֵינוֹ סוֹמֵךְ גְּאֻלָּה לִתְפִלָּה — אֵין לָחוּשׁ, הוֹאִיל וּמִתְכַּוֵּן לִדְבַר מִצְוָה:</p>
+      </div>
+    </details>
 
-    <div class="sa-block">
-      <p class="sa-he"><span class="seif-num">ג.</span> יֵשׁ אוֹמְרִים שֶׁאַף שֶׁחֲכָמִים הִתִּירוּ לְאָדָם לַעֲשׂוֹת כֵּן — טוֹב לְאָדָם לִזָּהֵר שֶׁלֹּא יַעֲשֶׂה כֵּן, מִפְּנֵי שֶׁהוּא דָבָר הַתָּמוּהַּ לָרַבִּים:</p>
-    </div>
+    <details class="seif-details">
+      <summary class="seif-summary">
+        <span class="seif-num">סעיף ג</span>
+        <span class="seif-preview">יֵשׁ אוֹמְרִים שֶׁאַף שֶׁחֲכָמִים הִתִּירוּ לְאָדָם לַעֲשׂוֹת כֵּן — טוֹב לְאָדָם לִזָּהֵר שֶׁלֹּא יַעֲשֶׂה…</span>
+      </summary>
+      <div class="sa-block">
+        <p class="sa-he">יֵשׁ אוֹמְרִים שֶׁאַף שֶׁחֲכָמִים הִתִּירוּ לְאָדָם לַעֲשׂוֹת כֵּן — טוֹב לְאָדָם לִזָּהֵר שֶׁלֹּא יַעֲשֶׂה כֵּן, מִפְּנֵי שֶׁהוּא דָבָר הַתָּמוּהַּ לָרַבִּים:</p>
+      </div>
+    </details>
 
-    <div class="sa-block">
-      <p class="sa-he"><span class="seif-num">ד.</span> (הָיוּ) נוֹהֲגִים לוֹמַר "וְהוּא רַחוּם" וּ"בָרְכוּ" בְּמֶשֶׁךְ גָּדוֹל וּבַאֲרִיכוּת נֹעַם, כְּדֵי לְהוֹסִיף מֵחֹל עַל הַקֹּדֶשׁ:</p>
-    </div>
+    <details class="seif-details">
+      <summary class="seif-summary">
+        <span class="seif-num">סעיף ד</span>
+        <span class="seif-preview">(הָיוּ) נוֹהֲגִים לוֹמַר "וְהוּא רַחוּם" וּ"בָרְכוּ" בְּמֶשֶׁךְ גָּדוֹל וּבַאֲרִיכוּת נֹעַם, כְּדֵי לְהוֹסִיף…</span>
+      </summary>
+      <div class="sa-block">
+        <p class="sa-he">(הָיוּ) נוֹהֲגִים לוֹמַר "וְהוּא רַחוּם" וּ"בָרְכוּ" בְּמֶשֶׁךְ גָּדוֹל וּבַאֲרִיכוּת נֹעַם, כְּדֵי לְהוֹסִיף מֵחֹל עַל הַקֹּדֶשׁ:</p>
+      </div>
+    </details>
 
     <details style="margin-top: 32px; background: var(--white); border: 1px solid var(--border); border-left: 4px solid var(--habad); padding: 18px 24px;">
       <summary style="font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--habad-deep); cursor: pointer;">
         קונטרס אחרון — 1 entrée(s) (cliquer pour déplier)
       </summary>
       <p style="margin-top: 12px; color: var(--text-muted); font-style: italic; font-size: 13px;">
-        Le Kountress Aharon (קונטרס אחרון) est l'annexe pilpoulique de l'Admour HaZaken — son laboratoire halakhique en bas de page.
+        Le Kountress Aharon est l'annexe pilpoulique de l'Admour HaZaken — son laboratoire halakhique en bas de page.
       </p>
 
       <div class="sa-block" style="margin-top: 14px;">
@@ -212,24 +282,24 @@
       <tbody>
         <tr class="harav">
           <td>Retarder pour étendre Shabbat</td>
-          <td>OH — règle générale.</td>
-          <td>—</td>
-          <td>—</td>
-          <td><strong>Choulhan Aroukh de l'Admour HaZaken רצ"ג:1-2</strong> — articule : on <em>retarde</em> arvit motsei Shabbat (jusqu'à apparition des étoiles bien visibles) pour étendre Shabbat. Coutume répandue.</td>
+          <td data-label="Mehaber">OH — règle générale.</td>
+          <td data-label="Rama (רמ״א)">—</td>
+          <td data-label="Mishna Berurah">—</td>
+          <td data-label="Choulhan Aroukh de l'Admour HaZaken"><strong>Choulhan Aroukh de l'Admour HaZaken רצ"ג:1-2</strong> — articule : on <em>retarde</em> arvit motsei Shabbat (jusqu'à apparition des étoiles bien visibles) pour étendre Shabbat. Coutume répandue.</td>
         </tr>
         <tr>
           <td>אתה חוננתנו (avdala dans Amida)</td>
-          <td>OH — règle générale.</td>
-          <td>—</td>
-          <td>—</td>
-          <td><strong>Choulhan Aroukh de l'Admour HaZaken רצ"ג:3-4</strong> — codifie : ajout de « אתה חוננתנו » dans la 4e brakha de l'Amida. Si oublié → pas reprise (sauf si pas encore mangé : faire avdala sur vin).</td>
+          <td data-label="Mehaber">OH — règle générale.</td>
+          <td data-label="Rama (רמ״א)">—</td>
+          <td data-label="Mishna Berurah">—</td>
+          <td data-label="Choulhan Aroukh de l'Admour HaZaken"><strong>Choulhan Aroukh de l'Admour HaZaken רצ"ג:3-4</strong> — codifie : ajout de « אתה חוננתנו » dans la 4e brakha de l'Amida. Si oublié → pas reprise (sauf si pas encore mangé : faire avdala sur vin).</td>
         </tr>
         <tr>
           <td>מהדורא בתרא</td>
-          <td>—</td>
-          <td>—</td>
-          <td>—</td>
-          <td><strong>Mahadoura Batra (מהדורא בתרא) (édition Kehot)</strong> — révisions de l'Admour HaZaken sur ce siman. À consulter dans l'imprimé Kehot — non disponible sur Sefaria.</td>
+          <td data-label="Mehaber">—</td>
+          <td data-label="Rama (רמ״א)">—</td>
+          <td data-label="Mishna Berurah">—</td>
+          <td data-label="Choulhan Aroukh de l'Admour HaZaken"><strong>Mahadoura Batra (מהדורא בתרא) (édition Kehot)</strong> — révisions de l'Admour HaZaken sur ce siman. À consulter dans l'imprimé Kehot — non disponible sur Sefaria.</td>
         </tr>
       </tbody>
     </table>
