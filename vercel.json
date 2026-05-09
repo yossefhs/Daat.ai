@@ -23,9 +23,13 @@
     { "source": "/oh/:n(\\d+)", "destination": "/sources/shabbat/siman-:n/index.html" },
     { "source": "/oh/:n(\\d+)/", "destination": "/sources/shabbat/siman-:n/index.html" },
     { "source": "/oh/:n(\\d+)/base", "destination": "/sources/shabbat/siman-:n/niveau-1-base.html" },
+    { "source": "/oh/:n(\\d+)/base/", "destination": "/sources/shabbat/siman-:n/niveau-1-base.html" },
     { "source": "/oh/:n(\\d+)/lamdan", "destination": "/sources/shabbat/siman-:n/niveau-2-lamdan.html" },
+    { "source": "/oh/:n(\\d+)/lamdan/", "destination": "/sources/shabbat/siman-:n/niveau-2-lamdan.html" },
     { "source": "/oh/:n(\\d+)/synthese", "destination": "/sources/shabbat/siman-:n/niveau-3-synthese.html" },
-    { "source": "/oh/:n(\\d+)/daat-harav", "destination": "/sources/shabbat/siman-:n/niveau-4-daat-harav.html" }
+    { "source": "/oh/:n(\\d+)/synthese/", "destination": "/sources/shabbat/siman-:n/niveau-3-synthese.html" },
+    { "source": "/oh/:n(\\d+)/daat-harav", "destination": "/sources/shabbat/siman-:n/niveau-4-daat-harav.html" },
+    { "source": "/oh/:n(\\d+)/daat-harav/", "destination": "/sources/shabbat/siman-:n/niveau-4-daat-harav.html" }
   ],
 
   "redirects": [
