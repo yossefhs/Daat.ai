@@ -607,6 +607,17 @@ git commit -m "Initial commit — DAAT.AI Siman 246"
 // ── State ──
 let registry = null;
 
+// ── Helper : exécute fn dès que le DOM est prêt (marche même si déjà chargé) ──
+// Robuste vs addEventListener('DOMContentLoaded') qui rate l'event s'il a déjà tiré.
+function onReady(fn) {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fn);
+  } else {
+    // DOM déjà parsé — exécute immédiatement
+    setTimeout(fn, 0);
+  }
+}
+
 // ── Navigation ──
 function showPage(id, el) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -617,15 +628,12 @@ function showPage(id, el) {
 }
 
 // ── Auto-wire nav-item clicks (compat iOS Safari + tap mobile) ──
-// Les <div onclick=...> ne sont pas toujours déclenchés au tap sur iOS.
-// On utilise addEventListener('click') programmatique qui marche partout.
-document.addEventListener('DOMContentLoaded', () => {
+onReady(() => {
   document.querySelectorAll('.nav-item[data-page]').forEach(el => {
     el.addEventListener('click', (e) => {
       e.preventDefault();
       showPage(el.dataset.page, el);
     });
-    // Fallback touchend pour iOS très ancien (rarement nécessaire mais sûr)
     el.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
@@ -928,7 +936,7 @@ function toast(msg) {
 }
 
 // ── Init ──
-window.addEventListener('DOMContentLoaded', () => {
+onReady(() => {
   loadRegistry();
   updatePagePath();
 });
@@ -942,7 +950,7 @@ let anApiUrl = localStorage.getItem('daat_admin_api') || 'https://daatai.vercel.
 let anCharts = {};
 
 // Pré-remplir les champs si déjà en localStorage
-window.addEventListener('DOMContentLoaded', () => {
+onReady(() => {
   if (anSecret) {
     const f1 = document.getElementById('an-secret');
     const f2 = document.getElementById('an-api-url');
@@ -1165,7 +1173,7 @@ async function anResetLimit(email) {
 }
 
 // Auto-connect si secret déjà en localStorage
-window.addEventListener('DOMContentLoaded', () => {
+onReady(() => {
   if (anSecret && anApiUrl) {
     setTimeout(() => {
       const f1 = document.getElementById('an-secret');
