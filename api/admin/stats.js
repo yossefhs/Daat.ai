@@ -17,7 +17,7 @@ function daysAgo(n) {
 export default async function handler(req, res) {
   // ── AUTH ADMIN ────────────────────────────────────────────────────────────
   const secret = req.query.secret || req.headers['x-admin-secret'];
-  if (!secret || secret !== process.env.ADMIN_SECRET) {
+  if (!secret || secret !== process.env.ADMIN_PASSWORD) {
     return res.status(401).json({ error: 'Non autorisé' });
   }
 
