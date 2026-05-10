@@ -174,22 +174,22 @@
     </div>
 
     <div class="nav-section">Navigation</div>
-    <div class="nav-item active" onclick="showPage('dashboard',this)"><span class="icon">🏠</span> Tableau de bord</div>
-    <div class="nav-item" onclick="showPage('inventory',this)"><span class="icon">📚</span> Inventaire</div>
-    <div class="nav-item" onclick="showPage('add-content',this)"><span class="icon">➕</span> Ajouter contenu</div>
-    <div class="nav-item" onclick="showPage('generate',this)"><span class="icon">⚙️</span> Générer page HTML</div>
+    <div class="nav-item active" role="button" tabindex="0" data-page="dashboard"><span class="icon">🏠</span> Tableau de bord</div>
+    <div class="nav-item" role="button" tabindex="0" data-page="inventory"><span class="icon">📚</span> Inventaire</div>
+    <div class="nav-item" role="button" tabindex="0" data-page="add-content"><span class="icon">➕</span> Ajouter contenu</div>
+    <div class="nav-item" role="button" tabindex="0" data-page="generate"><span class="icon">⚙️</span> Générer page HTML</div>
 
     <div class="nav-section">Outils</div>
-    <div class="nav-item" onclick="showPage('json-editor',this)"><span class="icon">📄</span> Éditeur JSON</div>
-    <div class="nav-item" onclick="showPage('deploy',this)"><span class="icon">🚀</span> Déploiement</div>
+    <div class="nav-item" role="button" tabindex="0" data-page="json-editor"><span class="icon">📄</span> Éditeur JSON</div>
+    <div class="nav-item" role="button" tabindex="0" data-page="deploy"><span class="icon">🚀</span> Déploiement</div>
 
     <div class="nav-section">Chat IA</div>
     <a href="corpus.html" class="nav-item" style="text-decoration:none;"><span class="icon">🤖</span> Corpus du chat</a>
 
     <div class="nav-section">Analytics IA</div>
-    <div class="nav-item" onclick="showPage('analytics',this)"><span class="icon">📊</span> Stats & Tokens</div>
-    <div class="nav-item" onclick="showPage('an-users',this)"><span class="icon">👥</span> Utilisateurs</div>
-    <div class="nav-item" onclick="showPage('an-logs',this)"><span class="icon">📋</span> Logs temps réel</div>
+    <div class="nav-item" role="button" tabindex="0" data-page="analytics"><span class="icon">📊</span> Stats & Tokens</div>
+    <div class="nav-item" role="button" tabindex="0" data-page="an-users"><span class="icon">👥</span> Utilisateurs</div>
+    <div class="nav-item" role="button" tabindex="0" data-page="an-logs"><span class="icon">📋</span> Logs temps réel</div>
     <div class="nav-section">Auto-pilote</div>
     <a href="siman-builder.html" class="nav-item" style="text-decoration:none;"><span class="icon">📸</span> Photos → Siman complet</a>
 
@@ -227,9 +227,9 @@
         <div class="card-header"><div class="card-title">Actions rapides</div></div>
         <div style="display:flex; gap:12px; flex-wrap:wrap;">
           <a href="siman-builder.html" class="btn btn-gold" style="text-decoration:none;display:inline-flex;align-items:center;">📸 Photos → Siman complet (auto-pilote)</a>
-          <button class="btn btn-primary" onclick="showPage('add-content', document.querySelector('[onclick*=add-content]'))">➕ Ajouter un nouveau Seif (manuel)</button>
-          <button class="btn btn-outline" onclick="showPage('generate', document.querySelector('[onclick*=generate]'))">⚙️ Générer une page HTML</button>
-          <button class="btn btn-outline" onclick="showPage('deploy', document.querySelector('[onclick*=deploy]'))">🚀 Instructions déploiement</button>
+          <button class="btn btn-primary" onclick="showPage('add-content', document.querySelector('[data-page=add-content]'))">➕ Ajouter un nouveau Seif (manuel)</button>
+          <button class="btn btn-outline" onclick="showPage('generate', document.querySelector('[data-page=generate]'))">⚙️ Générer une page HTML</button>
+          <button class="btn btn-outline" onclick="showPage('deploy', document.querySelector('[data-page=deploy]'))">🚀 Instructions déploiement</button>
         </div>
       </div>
     </div>
@@ -611,9 +611,29 @@ let registry = null;
 function showPage(id, el) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
+  const target = document.getElementById('page-' + id);
+  if (target) target.classList.add('active');
   if (el) el.classList.add('active');
 }
+
+// ── Auto-wire nav-item clicks (compat iOS Safari + tap mobile) ──
+// Les <div onclick=...> ne sont pas toujours déclenchés au tap sur iOS.
+// On utilise addEventListener('click') programmatique qui marche partout.
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.nav-item[data-page]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      showPage(el.dataset.page, el);
+    });
+    // Fallback touchend pour iOS très ancien (rarement nécessaire mais sûr)
+    el.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        showPage(el.dataset.page, el);
+      }
+    });
+  });
+});
 
 // ── Load registry ──
 async function loadRegistry() {

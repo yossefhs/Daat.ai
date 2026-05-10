@@ -6,7 +6,7 @@
       "headers": [
         { "key": "Access-Control-Allow-Origin", "value": "*" },
         { "key": "Access-Control-Allow-Methods", "value": "GET, POST, DELETE, OPTIONS" },
-        { "key": "Access-Control-Allow-Headers", "value": "Content-Type, Authorization" },
+        { "key": "Access-Control-Allow-Headers", "value": "Content-Type, Authorization, X-Admin-Secret" },
         { "key": "Access-Control-Max-Age", "value": "86400" }
       ]
     }
@@ -77,7 +77,8 @@
     "api/admin/upload-pdf.js": { "maxDuration": 30 },
     "api/admin/transcribe-photos.js": { "maxDuration": 90 },
     "api/admin/generate-siman.js": { "maxDuration": 300 },
-    "api/admin/feedback.js": { "maxDuration": 5 }
+    "api/admin/feedback.js": { "maxDuration": 5 },
+    "api/admin/stats.js": { "maxDuration": 10 }
   },
 
   "crons": [
