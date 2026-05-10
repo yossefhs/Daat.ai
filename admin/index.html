@@ -1081,7 +1081,7 @@ async function anLoadUsers() {
   try {
     const data = await anFetch('/api/admin/stats?action=users');
     if (!data.users || !data.users.length) {
-      wrap.innerHTML = '<div style="padding:24px;color:var(--muted);">Aucun utilisateur connecté aujourd'hui.</div>';
+      wrap.innerHTML = '<div style="padding:24px;color:var(--muted);">Aucun utilisateur connecté aujourd’hui.</div>';
       return;
     }
     const limits = { free: 20, premium: 9999, anonymous: 5 };
