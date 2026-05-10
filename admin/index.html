@@ -1185,6 +1185,59 @@ onReady(() => {
   }
 });
 
+// ════════════════════════════════════════════════════════════
+// FAILSAFE INIT — exécution immédiate inconditionnelle
+// (Garantie : ce bloc tourne même si onReady ne se déclenche pas
+// pour une raison quelconque — race conditions, scripts externes
+// qui modifient document.readyState avant ce point, etc.)
+// ════════════════════════════════════════════════════════════
+(function failsafeInit() {
+  try {
+    // 1. Câbler les nav-items (clics sidebar) — idempotent grâce à __wired
+    document.querySelectorAll('.nav-item[data-page]').forEach(el => {
+      if (el.__wired) return;
+      el.__wired = true;
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        showPage(el.dataset.page, el);
+      });
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          showPage(el.dataset.page, el);
+        }
+      });
+    });
+
+    // 2. Charger le registre si pas déjà fait
+    if (typeof loadRegistry === 'function' && !registry) {
+      loadRegistry();
+    }
+
+    // 3. Mettre à jour le path
+    if (typeof updatePagePath === 'function') {
+      updatePagePath();
+    }
+
+    // 4. Pré-remplir analytics si secret en localStorage
+    if (typeof anSecret !== 'undefined' && anSecret) {
+      const f1 = document.getElementById('an-secret');
+      const f2 = document.getElementById('an-api-url');
+      if (f1 && !f1.value) f1.value = anSecret;
+      if (f2 && !f2.value) f2.value = anApiUrl || 'https://daatai.vercel.app';
+    }
+
+    console.log('[DAAT admin] failsafe init OK');
+  } catch (e) {
+    console.error('[DAAT admin] failsafe init ERROR:', e);
+    // Affichage visuel de l'erreur pour debug user sans DevTools
+    const el = document.getElementById('dashboard-content');
+    if (el) {
+      el.innerHTML = '<div class="alert alert-warn" style="background:#FEE;border:1px solid #C0392B;padding:12px;color:#C0392B;"><strong>⚠️ Erreur init admin :</strong> ' + e.message + '<br><small>Ouvre DevTools (F12) → Console pour la stack trace complète.</small></div>';
+    }
+  }
+})();
+
 </script>
 </body>
 </html>
