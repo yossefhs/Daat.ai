@@ -131,7 +131,33 @@
       .stats-row { grid-template-columns:1fr 1fr; }
       .form-grid { grid-template-columns:1fr; }
     }
+
+    /* ── ANALYTICS ── */
+    .analytics-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:24px; }
+    .an-card { background:var(--white); border:1px solid var(--border); padding:20px; }
+    .an-val { font-size:28px; font-weight:700; color:var(--navy); line-height:1; }
+    .an-val.gold { color:var(--gold); }
+    .an-val.green { color:var(--green); }
+    .an-label { font-size:11px; letter-spacing:.5px; color:var(--muted); margin-top:6px; text-transform:uppercase; }
+    .an-chart-wrap { background:var(--white); border:1px solid var(--border); padding:24px; margin-bottom:20px; }
+    .an-chart-title { font-size:13px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:var(--muted); margin-bottom:16px; }
+    .an-table { width:100%; border-collapse:collapse; }
+    .an-table thead th { font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); padding:8px 12px; border-bottom:2px solid var(--border); text-align:left; }
+    .an-table tbody tr { border-bottom:1px solid var(--border); }
+    .an-table tbody tr:hover { background:#F9F9FB; }
+    .an-table td { padding:10px 12px; font-size:13px; vertical-align:middle; }
+    .an-progress { background:#E8E8E8; height:5px; border-radius:3px; margin-top:4px; }
+    .an-progress-fill { height:100%; background:var(--gold); border-radius:3px; }
+    .an-progress-fill.danger { background:var(--red); }
+    .plan-badge { display:inline-block; font-size:10px; font-weight:600; letter-spacing:1px; text-transform:uppercase; padding:2px 7px; border-radius:2px; }
+    .plan-badge.premium { background:#FFF8E1; color:#C5A55A; border:1px solid #C5A55A; }
+    .plan-badge.free { background:#E8F5EE; color:var(--green); border:1px solid var(--green); }
+    .plan-badge.anonymous { background:#FCE4EC; color:var(--red); border:1px solid var(--red); }
+    .an-secret-bar { background:#FFF8E1; border:1px solid var(--gold); border-left:4px solid var(--gold); padding:14px 18px; margin-bottom:20px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+    .an-secret-bar input { flex:1; min-width:220px; padding:8px 12px; border:1px solid var(--border); font-size:13px; font-family:'Inter',sans-serif; outline:none; }
+    .an-log-row td { font-family:'Courier New',monospace; font-size:11px; }
   </style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -160,6 +186,10 @@
     <div class="nav-section">Chat IA</div>
     <a href="corpus.html" class="nav-item" style="text-decoration:none;"><span class="icon">🤖</span> Corpus du chat</a>
 
+    <div class="nav-section">Analytics IA</div>
+    <div class="nav-item" onclick="showPage('analytics',this)"><span class="icon">📊</span> Stats & Tokens</div>
+    <div class="nav-item" onclick="showPage('an-users',this)"><span class="icon">👥</span> Utilisateurs</div>
+    <div class="nav-item" onclick="showPage('an-logs',this)"><span class="icon">📋</span> Logs temps réel</div>
     <div class="nav-section">Auto-pilote</div>
     <a href="siman-builder.html" class="nav-item" style="text-decoration:none;"><span class="icon">📸</span> Photos → Siman complet</a>
 
@@ -467,6 +497,109 @@ git commit -m "Initial commit — DAAT.AI Siman 246"
       </div>
     </div>
 
+
+    <!-- ── ANALYTICS — Stats & Tokens ── -->
+    <div id="page-analytics" class="page">
+      <div class="page-header">
+        <h1>📊 Analytics IA — Stats & Tokens</h1>
+        <p>Consommation OpenAI, coûts et activité en temps réel.</p>
+      </div>
+
+      <div class="an-secret-bar">
+        <span style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);">Clé admin Vercel :</span>
+        <input type="password" id="an-secret" placeholder="ADMIN_SECRET (stocké localement)" />
+        <input type="text" id="an-api-url" placeholder="https://daatai.vercel.app" style="max-width:280px;" />
+        <button class="btn btn-gold btn-sm" onclick="anConnect()">Connecter →</button>
+        <span id="an-status" style="font-size:12px;color:var(--muted);"></span>
+      </div>
+
+      <div class="analytics-grid" id="an-cards">
+        <div class="an-card"><div class="an-val gold">—</div><div class="an-label">Questions (7j)</div></div>
+        <div class="an-card"><div class="an-val">—</div><div class="an-label">Tokens input (7j)</div></div>
+        <div class="an-card"><div class="an-val">—</div><div class="an-label">Tokens output (7j)</div></div>
+        <div class="an-card"><div class="an-val green">—</div><div class="an-label">Coût estimé (7j)</div></div>
+      </div>
+
+      <div class="an-chart-wrap">
+        <div class="an-chart-title">Questions & Tokens — 7 derniers jours</div>
+        <canvas id="an-chart-usage" height="90"></canvas>
+      </div>
+      <div class="an-chart-wrap">
+        <div class="an-chart-title">Coût USD — 7 derniers jours</div>
+        <canvas id="an-chart-cost" height="70"></canvas>
+      </div>
+
+      <div class="card" style="margin-top:0;">
+        <div class="card-header">
+          <div class="card-title">Limite par plan</div>
+        </div>
+        <table class="data-table">
+          <thead><tr><th>Plan</th><th>Questions / jour</th><th>Accès</th></tr></thead>
+          <tbody>
+            <tr><td><span class="plan-badge anonymous">Anonyme</span></td><td><strong>5</strong></td><td>Sans compte</td></tr>
+            <tr><td><span class="plan-badge free">Gratuit</span></td><td><strong>20</strong></td><td>Compte OTP</td></tr>
+            <tr><td><span class="plan-badge premium">Premium</span></td><td><strong>Illimité</strong></td><td>Abonnement payant</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── ANALYTICS — Utilisateurs ── -->
+    <div id="page-an-users" class="page">
+      <div class="page-header">
+        <h1>👥 Utilisateurs</h1>
+        <p>Activité et plan de chaque utilisateur connecté aujourd'hui.</p>
+      </div>
+      <div class="an-secret-bar" style="margin-bottom:16px;">
+        <span style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);">Connexion :</span>
+        <span id="an-status2" style="font-size:13px;color:var(--green);">—</span>
+        <button class="btn btn-outline btn-sm" onclick="anLoadUsers()">↻ Actualiser</button>
+        <button class="btn btn-gold btn-sm" onclick="openAnUpgrade()">+ Modifier plan</button>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <div id="an-users-wrap" style="padding:24px;color:var(--muted);font-size:14px;">
+          Connecte-toi d'abord dans l'onglet "Stats &amp; Tokens".
+        </div>
+      </div>
+
+      <!-- Modal upgrade -->
+      <div id="an-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;">
+        <div style="background:#fff;padding:28px;width:400px;max-width:95vw;border-top:3px solid var(--gold);">
+          <div style="font-size:17px;font-weight:600;margin-bottom:16px;">✏️ Modifier le plan</div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="an-up-email" placeholder="utilisateur@example.com" />
+          </div>
+          <div class="form-group">
+            <label>Plan</label>
+            <select id="an-up-plan">
+              <option value="free">Gratuit (20 questions/jour)</option>
+              <option value="premium">Premium (illimité)</option>
+            </select>
+          </div>
+          <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px;">
+            <button class="btn btn-outline" onclick="closeAnModal()">Annuler</button>
+            <button class="btn btn-gold" onclick="submitAnUpgrade()">Appliquer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ANALYTICS — Logs ── -->
+    <div id="page-an-logs" class="page">
+      <div class="page-header">
+        <h1>📋 Logs temps réel</h1>
+        <p>Les 100 dernières requêtes traitées par l'IA Daat.</p>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-bottom:16px;">
+        <button class="btn btn-gold btn-sm" onclick="anLoadLogs()">↻ Actualiser</button>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <div id="an-logs-wrap" style="padding:24px;color:var(--muted);font-size:14px;">
+          Connecte-toi d'abord dans l'onglet "Stats &amp; Tokens".
+        </div>
+      </div>
+    </div>
   </main>
 </div>
 
@@ -779,6 +912,251 @@ window.addEventListener('DOMContentLoaded', () => {
   loadRegistry();
   updatePagePath();
 });
+
+
+// ════════════════════════════════════════════════════════════
+// ANALYTICS IA
+// ════════════════════════════════════════════════════════════
+let anSecret = localStorage.getItem('daat_admin_secret') || '';
+let anApiUrl = localStorage.getItem('daat_admin_api') || 'https://daatai.vercel.app';
+let anCharts = {};
+
+// Pré-remplir les champs si déjà en localStorage
+window.addEventListener('DOMContentLoaded', () => {
+  if (anSecret) {
+    const f1 = document.getElementById('an-secret');
+    const f2 = document.getElementById('an-api-url');
+    if (f1) f1.value = anSecret;
+    if (f2) f2.value = anApiUrl;
+  }
+});
+
+async function anFetch(path, opts) {
+  opts = opts || {};
+  const sep = path.includes('?') ? '&' : '?';
+  const url = anApiUrl + path + sep + 'secret=' + encodeURIComponent(anSecret);
+  const res = await fetch(url, {
+    headers: { 'Content-Type': 'application/json' },
+    ...opts
+  });
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  return res.json();
+}
+
+async function anConnect() {
+  anSecret = document.getElementById('an-secret').value.trim();
+  anApiUrl = (document.getElementById('an-api-url').value.trim() || 'https://daatai.vercel.app').replace(/\/$/, '');
+  const status = document.getElementById('an-status');
+  status.textContent = 'Connexion…';
+  status.style.color = 'var(--muted)';
+  try {
+    await anFetch('/api/admin/stats?action=overview&days=1');
+    localStorage.setItem('daat_admin_secret', anSecret);
+    localStorage.setItem('daat_admin_api', anApiUrl);
+    status.textContent = '✅ Connecté à ' + anApiUrl;
+    status.style.color = 'var(--green)';
+    const s2 = document.getElementById('an-status2');
+    if (s2) { s2.textContent = '✅ Connecté'; s2.style.color = 'var(--green)'; }
+    anLoadOverview();
+    anLoadUsers();
+    anLoadLogs();
+    toast('Analytics connecté ✅');
+  } catch (e) {
+    status.textContent = '❌ ' + e.message;
+    status.style.color = 'var(--red)';
+  }
+}
+
+async function anLoadOverview() {
+  try {
+    const data = await anFetch('/api/admin/stats?action=overview&days=7');
+    const t = data.totals;
+    const cards = document.getElementById('an-cards');
+    cards.innerHTML = `
+      <div class="an-card"><div class="an-val gold">${t.count.toLocaleString('fr')}</div><div class="an-label">Questions (7j)</div></div>
+      <div class="an-card"><div class="an-val">${Math.round(t.tokens_in/1000)}K</div><div class="an-label">Tokens input (7j)</div></div>
+      <div class="an-card"><div class="an-val">${Math.round(t.tokens_out/1000)}K</div><div class="an-label">Tokens output (7j)</div></div>
+      <div class="an-card"><div class="an-val green">$${t.cost_usd.toFixed(3)}</div><div class="an-label">Coût estimé (7j)</div></div>
+    `;
+    anRenderUsageChart(data.days);
+    anRenderCostChart(data.days);
+  } catch (e) {
+    console.warn('Analytics overview:', e.message);
+  }
+}
+
+function anRenderUsageChart(days) {
+  const ctx = document.getElementById('an-chart-usage');
+  if (!ctx) return;
+  if (anCharts.usage) anCharts.usage.destroy();
+  anCharts.usage = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: days.map(d => d.date.slice(5)),
+      datasets: [
+        {
+          label: 'Questions',
+          data: days.map(d => d.count),
+          backgroundColor: 'rgba(197,165,90,0.5)',
+          borderColor: '#C5A55A',
+          borderWidth: 2, borderRadius: 4, yAxisID: 'y'
+        },
+        {
+          label: 'Tokens (K)',
+          data: days.map(d => Math.round((d.tokens_in + d.tokens_out) / 1000)),
+          type: 'line', borderColor: '#1A1F3A',
+          backgroundColor: 'rgba(26,31,58,0.07)',
+          fill: true, tension: 0.4, pointRadius: 4, yAxisID: 'y1'
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      interaction: { mode: 'index' },
+      scales: {
+        y:  { position: 'left',  title: { display: true, text: 'Questions' } },
+        y1: { position: 'right', title: { display: true, text: 'Tokens (K)' }, grid: { drawOnChartArea: false } }
+      }
+    }
+  });
+}
+
+function anRenderCostChart(days) {
+  const ctx = document.getElementById('an-chart-cost');
+  if (!ctx) return;
+  if (anCharts.cost) anCharts.cost.destroy();
+  anCharts.cost = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: days.map(d => d.date.slice(5)),
+      datasets: [{
+        label: 'Coût USD',
+        data: days.map(d => d.cost_usd),
+        borderColor: '#2E7D52',
+        backgroundColor: 'rgba(46,125,82,0.1)',
+        fill: true, tension: 0.4, pointRadius: 5,
+        pointBackgroundColor: '#2E7D52'
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: { y: { ticks: { callback: v => '$' + v.toFixed(4) } } },
+      plugins: { tooltip: { callbacks: { label: c => '$' + c.raw.toFixed(5) } } }
+    }
+  });
+}
+
+async function anLoadUsers() {
+  const wrap = document.getElementById('an-users-wrap');
+  if (!anSecret) return;
+  wrap.innerHTML = '<div style="padding:24px;color:var(--muted);">Chargement…</div>';
+  try {
+    const data = await anFetch('/api/admin/stats?action=users');
+    if (!data.users || !data.users.length) {
+      wrap.innerHTML = '<div style="padding:24px;color:var(--muted);">Aucun utilisateur connecté aujourd'hui.</div>';
+      return;
+    }
+    const limits = { free: 20, premium: 9999, anonymous: 5 };
+    wrap.innerHTML = '<table class="an-table"><thead><tr><th>Email</th><th>Plan</th><th>Questions auj.</th><th>Tokens auj.</th><th>Coût auj.</th><th>Actions</th></tr></thead><tbody>' +
+      data.users.map(u => {
+        const lim = limits[u.plan] || 20;
+        const pct = Math.min(100, Math.round((u.today_questions / lim) * 100));
+        return `<tr>
+          <td style="font-family:monospace;font-size:12px;">${u.email}</td>
+          <td><span class="plan-badge ${u.plan}">${u.plan}</span></td>
+          <td>
+            <strong>${u.today_questions}</strong> / ${lim >= 9999 ? '∞' : lim}
+            <div class="an-progress"><div class="an-progress-fill ${pct >= 80 ? 'danger' : ''}" style="width:${pct}%"></div></div>
+          </td>
+          <td>${((u.tokens_in||0)+(u.tokens_out||0)).toLocaleString('fr')}</td>
+          <td>$${(u.cost_usd||0).toFixed(4)}</td>
+          <td style="display:flex;gap:6px;">
+            <button class="btn btn-gold btn-sm" onclick="openAnUpgrade('${u.email}','${u.plan}')">Plan</button>
+            <button class="btn btn-outline btn-sm btn-danger" onclick="anResetLimit('${u.email}')">Reset</button>
+          </td>
+        </tr>`;
+      }).join('') + '</tbody></table>';
+  } catch (e) {
+    wrap.innerHTML = `<div style="padding:24px;color:var(--red);">Erreur : ${e.message}</div>`;
+  }
+}
+
+async function anLoadLogs() {
+  const wrap = document.getElementById('an-logs-wrap');
+  if (!anSecret) return;
+  wrap.innerHTML = '<div style="padding:24px;color:var(--muted);">Chargement…</div>';
+  try {
+    const data = await anFetch('/api/admin/stats?action=logs&limit=100');
+    if (!data.logs || !data.logs.length) {
+      wrap.innerHTML = '<div style="padding:24px;color:var(--muted);">Aucun log disponible.</div>';
+      return;
+    }
+    wrap.innerHTML = '<table class="an-table"><thead><tr><th>Heure</th><th>Utilisateur</th><th>Tokens in</th><th>Tokens out</th><th>Coût</th><th>Modèle</th></tr></thead><tbody>' +
+      data.logs.map(l => `<tr class="an-log-row">
+        <td>${new Date(l.ts).toLocaleTimeString('fr-FR')}</td>
+        <td>${l.user}</td>
+        <td>${(l.tokens_in||0).toLocaleString('fr')}</td>
+        <td>${(l.tokens_out||0).toLocaleString('fr')}</td>
+        <td style="color:var(--green);">$${(l.cost_usd||0).toFixed(5)}</td>
+        <td style="color:var(--muted);">${l.model||'—'}</td>
+      </tr>`).join('') + '</tbody></table>';
+  } catch (e) {
+    wrap.innerHTML = `<div style="padding:24px;color:var(--red);">Erreur : ${e.message}</div>`;
+  }
+}
+
+function openAnUpgrade(email, plan) {
+  email = email || '';
+  plan  = plan  || 'free';
+  document.getElementById('an-up-email').value = email;
+  document.getElementById('an-up-plan').value  = plan;
+  const m = document.getElementById('an-modal');
+  m.style.display = 'flex';
+}
+function closeAnModal() {
+  document.getElementById('an-modal').style.display = 'none';
+}
+
+async function submitAnUpgrade() {
+  const email = document.getElementById('an-up-email').value.trim();
+  const plan  = document.getElementById('an-up-plan').value;
+  if (!email) return;
+  try {
+    await anFetch('/api/admin/stats', {
+      method: 'POST',
+      body: JSON.stringify({ action: 'set-plan', email, plan })
+    });
+    closeAnModal();
+    toast(`✅ ${email} → ${plan}`);
+    anLoadUsers();
+  } catch (e) { toast('Erreur : ' + e.message); }
+}
+
+async function anResetLimit(email) {
+  if (!confirm(`Réinitialiser la limite journalière de ${email} ?`)) return;
+  try {
+    await anFetch('/api/admin/stats', {
+      method: 'POST',
+      body: JSON.stringify({ action: 'reset-limit', email })
+    });
+    toast(`✅ Limite de ${email} réinitialisée`);
+    anLoadUsers();
+  } catch (e) { toast('Erreur : ' + e.message); }
+}
+
+// Auto-connect si secret déjà en localStorage
+window.addEventListener('DOMContentLoaded', () => {
+  if (anSecret && anApiUrl) {
+    setTimeout(() => {
+      const f1 = document.getElementById('an-secret');
+      const f2 = document.getElementById('an-api-url');
+      if (f1) f1.value = anSecret;
+      if (f2) f2.value = anApiUrl;
+      // Ne pas auto-connecter — laisser l'utilisateur décider
+    }, 100);
+  }
+});
+
 </script>
 </body>
 </html>
