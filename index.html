@@ -710,6 +710,71 @@
       font-weight: 600;
     }
 
+    /* Grille auto-générée des simanim disponibles */
+    .simanim-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 6px;
+      margin-top: 10px;
+      max-height: 380px;
+      overflow-y: auto;
+      padding: 4px 6px 4px 0;
+      border-top: 1px dashed var(--border);
+      padding-top: 12px;
+    }
+    .simanim-grid::-webkit-scrollbar { width: 6px; }
+    .simanim-grid::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    .simanim-grid::-webkit-scrollbar-thumb:hover { background: var(--gold-light); }
+
+    .simanim-tile {
+      display: flex;
+      flex-direction: column;
+      padding: 8px 10px;
+      background: var(--cream-dark);
+      border-left: 2px solid var(--gold);
+      text-decoration: none;
+      color: var(--text);
+      transition: background 0.15s, border-color 0.15s;
+      min-height: 52px;
+    }
+    .simanim-tile:hover {
+      background: var(--cream);
+      border-left-color: var(--navy);
+    }
+    .simanim-tile-num {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 16px;
+      color: var(--gold-dark);
+      font-weight: 600;
+      line-height: 1;
+      margin-bottom: 3px;
+    }
+    .simanim-tile-num .siman-num-fr {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-left: 4px;
+    }
+    .simanim-tile-title {
+      font-size: 11px;
+      color: var(--text-mid);
+      line-height: 1.3;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+    .simanim-grid-loading {
+      grid-column: 1 / -1;
+      padding: 24px;
+      text-align: center;
+      color: var(--text-muted);
+      font-style: italic;
+      font-size: 13px;
+    }
+
     /* ── ABOUT ── */
     .about-bg { background: var(--cream-dark); }
 
@@ -1070,37 +1135,13 @@
           <div class="masekhet-tag tag-active">En cours</div>
           <div class="masekhet-name-he">אורח חיים</div>
           <div class="masekhet-name-fr">Orah Haïm — Hilkhot Shabbat</div>
-          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 14px;">122 simanim avec <strong style="color:#3851A3;">Niveau 4 Daat HaRav</strong> · 3 simanim avec niveaux 1-3 complets · Tous les simanim 242-365.</p>
-          <ul class="siman-list">
-            <li>
-              <a href="sources/shabbat/siman-242/index.html">Siman רמ״ב — Kavod et oneg Shabbat</a>
-              <span class="siman-badge">4 niveaux</span>
-            </li>
-            <li>
-              <a href="sources/shabbat/siman-243/index.html">Siman רמ״ג — Louer son bain/champ à un non-juif</a>
-              <span class="siman-badge">4 niveaux</span>
-            </li>
-            <li>
-              <a href="sources/shabbat/siman-246/index.html">Siman רמ״ו — Prêt/location au non-juif</a>
-              <span class="siman-badge">4 niveaux</span>
-            </li>
-            <li>
-              <a href="sources/shabbat/siman-263/index.html">Siman רס״ג — Hadlakat nerot Shabbat</a>
-              <span class="siman-badge" style="background:rgba(56,81,163,0.10); color:#3851A3;">Daat HaRav</span>
-            </li>
-            <li>
-              <a href="sources/shabbat/siman-308/index.html">Siman ש״ח — Muktsé (4 catégories)</a>
-              <span class="siman-badge" style="background:rgba(56,81,163,0.10); color:#3851A3;">Daat HaRav</span>
-            </li>
-            <li>
-              <a href="sources/shabbat/siman-318/index.html">Siman שי״ח — Mevashel (cuisson Shabbat)</a>
-              <span class="siman-badge" style="background:rgba(56,81,163,0.10); color:#3851A3;">Daat HaRav</span>
-            </li>
-            <li>
-              <a href="sources/shabbat/" style="font-weight: 600; color: var(--gold);">→ Voir les 124 simanim</a>
-              <span class="siman-badge" style="background:transparent; color: var(--gold);">122 disponibles</span>
-            </li>
-          </ul>
+          <p id="simanim-desc-counts" style="font-size: 13px; color: var(--text-muted); margin-bottom: 6px;">Chargement de la liste des simanim disponibles…</p>
+          <div id="simanim-grid-disponibles" class="simanim-grid" aria-live="polite" aria-busy="true">
+            <div class="simanim-grid-loading">Chargement des simanim…</div>
+          </div>
+          <div style="margin-top: 14px; text-align: center;">
+            <a href="sources/shabbat/" style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 1px; color: var(--gold); text-decoration: none;">→ Page complète des simanim</a>
+          </div>
         </div>
         <div class="masekhet-card soon">
           <div class="masekhet-tag tag-soon">Bientôt</div>
@@ -1270,5 +1311,53 @@
     window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';
   </script>
   <script src="assets/js/chat-widget.js" defer></script>
+
+  <!-- Auto-rendu liste des simanim disponibles depuis data/simanim-disponibles.json -->
+  <script>
+    (async function () {
+      const grid = document.getElementById('simanim-grid-disponibles');
+      const desc = document.getElementById('simanim-desc-counts');
+      if (!grid) return;
+      try {
+        const res = await fetch('data/simanim-disponibles.json', { cache: 'no-cache' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        const frag = document.createDocumentFragment();
+        for (const s of data.simanim) {
+          const a = document.createElement('a');
+          a.href = s.path;
+          a.className = 'simanim-tile';
+          a.title = 'Siman ' + s.num + ' — ' + s.title;
+          const num = document.createElement('span');
+          num.className = 'simanim-tile-num';
+          num.textContent = s.numHe;
+          const numFr = document.createElement('span');
+          numFr.className = 'siman-num-fr';
+          numFr.textContent = '· ' + s.num;
+          num.appendChild(numFr);
+          const title = document.createElement('span');
+          title.className = 'simanim-tile-title';
+          title.textContent = s.title;
+          a.appendChild(num);
+          a.appendChild(title);
+          frag.appendChild(a);
+        }
+        grid.innerHTML = '';
+        grid.appendChild(frag);
+        grid.removeAttribute('aria-busy');
+        if (desc) {
+          const c = data.meta.counts;
+          desc.innerHTML =
+            '<strong>' + c.total + ' simanim disponibles</strong> · ' +
+            c.complet + ' avec les 4 niveaux complets · ' +
+            'mis à jour automatiquement (' + data.meta.lastUpdated + ')';
+        }
+      } catch (e) {
+        console.error('Failed to load simanim index:', e);
+        grid.innerHTML = '<div class="simanim-grid-loading">Liste indisponible. <a href="sources/shabbat/" style="color: var(--gold);">Voir tous les simanim →</a></div>';
+        if (desc) desc.textContent = 'Tous les simanim 242-365 sont disponibles sur la page Hilkhot Shabbat.';
+      }
+    })();
+  </script>
 </body>
 </html>
