@@ -250,6 +250,26 @@
 
     .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
 
+    .btn-soutenir-hero {
+      background: transparent;
+      color: var(--gold);
+      padding: 14px 32px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 2px solid var(--gold);
+      transition: all 0.2s;
+      box-shadow: 0 0 0 0 rgba(197,165,90,0.4);
+    }
+    .btn-soutenir-hero:hover {
+      background: var(--gold);
+      color: var(--navy);
+      box-shadow: 0 0 0 4px rgba(197,165,90,0.25);
+    }
+
     /* ── SECTION WRAPPER ── */
     .section {
       padding: 80px 40px;
@@ -1039,6 +1059,7 @@
     <div class="hero-buttons">
       <a href="/oh/" class="btn-primary">Étudier</a>
       <a href="chat.html" class="btn-secondary">Tester l'IA Daat</a>
+      <a href="soutenir.html" class="btn-soutenir-hero">♥ Soutenir le projet</a>
     </div>
   </section>
 
@@ -1247,7 +1268,7 @@
   <section class="email-capture" id="newsletter">
     <div class="email-capture-inner">
       <div class="label">Newsletter Daat</div>
-      <h2>Recevoir un siman par semaine — gratuit</h2>
+      <h2>Recevoir un siman par semaine</h2>
       <p>Un siman du Choulhan Aroukh chaque dimanche. Texte hébreu, traduction, sources. Pas de spam, désabonnement en un clic.</p>
       <form class="email-capture-form" id="newsletter-form" novalidate>
         <input type="email" name="email" id="newsletter-email" class="email-capture-input" placeholder="ton-email@exemple.com" required autocomplete="email">
