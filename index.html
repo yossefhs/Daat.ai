@@ -112,16 +112,38 @@
     }
 
     .nav-soutenir {
-      color: var(--gold) !important;
-      border: 1px solid rgba(197,165,90,0.5);
+      background: var(--gold);
+      color: var(--navy) !important;
+      border: 1px solid var(--gold);
       padding: 6px 14px;
       border-radius: 2px;
-      font-weight: 500 !important;
+      font-weight: 700 !important;
       transition: all 0.2s;
+      box-shadow: 0 0 0 0 rgba(197,165,90,0.4);
     }
     .nav-soutenir:hover {
-      background: rgba(197,165,90,0.12);
-      border-color: var(--gold);
+      background: var(--gold-light);
+      border-color: var(--gold-light);
+      box-shadow: 0 0 0 4px rgba(197,165,90,0.25);
+    }
+
+    .footer-soutenir-btn {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--navy) !important;
+      padding: 10px 20px;
+      border-radius: 2px;
+      font-weight: 700 !important;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: all 0.2s;
+      margin-top: 4px;
+    }
+    .footer-soutenir-btn:hover {
+      background: var(--gold-light);
+      transform: translateY(-1px);
     }
 
     /* ── HERO ── */
@@ -227,6 +249,26 @@
     }
 
     .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+    .btn-soutenir-hero {
+      background: transparent;
+      color: var(--gold);
+      padding: 14px 32px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 2px solid var(--gold);
+      transition: all 0.2s;
+      box-shadow: 0 0 0 0 rgba(197,165,90,0.4);
+    }
+    .btn-soutenir-hero:hover {
+      background: var(--gold);
+      color: var(--navy);
+      box-shadow: 0 0 0 4px rgba(197,165,90,0.25);
+    }
 
     /* ── SECTION WRAPPER ── */
     .section {
@@ -1017,6 +1059,7 @@
     <div class="hero-buttons">
       <a href="/oh/" class="btn-primary">Étudier</a>
       <a href="chat.html" class="btn-secondary">Tester l'IA Daat</a>
+      <a href="soutenir.html" class="btn-soutenir-hero">♥ Soutenir le projet</a>
     </div>
   </section>
 
@@ -1225,7 +1268,7 @@
   <section class="email-capture" id="newsletter">
     <div class="email-capture-inner">
       <div class="label">Newsletter Daat</div>
-      <h2>Recevoir un siman par semaine — gratuit</h2>
+      <h2>Recevoir un siman par semaine</h2>
       <p>Un siman du Choulhan Aroukh chaque dimanche. Texte hébreu, traduction, sources. Pas de spam, désabonnement en un clic.</p>
       <form class="email-capture-form" id="newsletter-form" novalidate>
         <input type="email" name="email" id="newsletter-email" class="email-capture-input" placeholder="ton-email@exemple.com" required autocomplete="email">
@@ -1288,41 +1331,38 @@
         <div class="footer-brand">
           <a href="index.html" class="logo" style="text-decoration:none;">
             <span class="logo-hebrew">דעת</span>
-            <span class="logo-latin" style="color:rgba(255,255,255,0.3); letter-spacing:4px; font-size:11px; display:block; margin-top:4px;">DAAT.AI</span>
+            <span class="logo-latin" style="color:rgba(255,255,255,0.5); letter-spacing:4px; font-size:11px; display:block; margin-top:4px;">DAAT TORAH</span>
           </a>
           <div class="footer-tagline">כִּי מִצִּיּוֹן תֵּצֵא תוֹרָה</div>
         </div>
         <div class="footer-links">
-          <h4>Siman רמ״ב — Oneg Shabbat</h4>
+          <h4>Hilkhot Shabbat — Simanim phares</h4>
           <ul>
-            <li><a href="sources/shabbat/siman-242/niveau-1-base.html">Niveau 1 — Base</a></li>
-            <li><a href="sources/shabbat/siman-242/niveau-2-lamdan.html">Niveau 2 — Lamdan</a></li>
-            <li><a href="sources/shabbat/siman-242/niveau-3-synthese.html">Niveau 3 — Synthèse</a></li>
+            <li><a href="sources/shabbat/siman-242/index.html">Siman רמ״ב — Oneg Shabbat</a></li>
+            <li><a href="sources/shabbat/siman-263/index.html">Siman רס״ג — Hadlakat nerot</a></li>
+            <li><a href="sources/shabbat/siman-271/index.html">Siman רע״א — Kiddush</a></li>
+            <li><a href="sources/shabbat/siman-308/index.html">Siman ש״ח — Muktsé</a></li>
+            <li><a href="sources/shabbat/siman-318/index.html">Siman שי״ח — Mevashel</a></li>
+            <li><a href="sources/shabbat/" style="color:var(--gold); font-weight:600;">→ Voir les 122 simanim</a></li>
           </ul>
         </div>
         <div class="footer-links">
-          <h4>Siman רמ״ג — Location non-juif</h4>
+          <h4>Niveaux d'étude</h4>
           <ul>
-            <li><a href="sources/shabbat/siman-243/niveau-1-base.html">Niveau 1 — Base</a></li>
-            <li><a href="sources/shabbat/siman-243/niveau-2-lamdan.html">Niveau 2 — Lamdan</a></li>
-            <li><a href="sources/shabbat/siman-243/niveau-3-synthese.html">Niveau 3 — Synthèse</a></li>
-          </ul>
-        </div>
-        <div class="footer-links">
-          <h4>Siman רמ״ו — Prêt non-juif</h4>
-          <ul>
-            <li><a href="sources/shabbat/siman-246/niveau-1-base.html">Niveau 1 — Base</a></li>
-            <li><a href="sources/shabbat/siman-246/niveau-2-lamdan.html">Niveau 2 — Lamdan</a></li>
-            <li><a href="sources/shabbat/siman-246/niveau-3-synthese.html">Niveau 3 — Synthèse</a></li>
+            <li>Niveau 1 — Base (français)</li>
+            <li>Niveau 2 — Lamdan (sources)</li>
+            <li>Niveau 3 — Synthèse</li>
+            <li>Niveau 4 — Daat HaRav</li>
           </ul>
         </div>
         <div class="footer-links">
           <h4>Plateforme</h4>
           <ul>
             <li><a href="chat.html">💬 IA Daat — Plein écran</a></li>
+            <li><a href="communaute.html">Communauté</a></li>
             <li><a href="#vision">Vision du projet</a></li>
-            <li><a href="#niveaux">Les 3 niveaux</a></li>
           </ul>
+          <a href="soutenir.html" class="footer-soutenir-btn">♥ Soutenir le projet</a>
         </div>
       </div>
       <div class="footer-bottom">
