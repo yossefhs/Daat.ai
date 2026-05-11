@@ -4,6 +4,10 @@
   "description": "Daat Torah — Plateforme d'étude halakhique avec assistant IA",
   "type": "module",
   "private": true,
+  "scripts": {
+    "build": "node scripts/generate-simanim-index.js",
+    "vercel-build": "node scripts/generate-simanim-index.js"
+  },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.91.1",
     "@vercel/kv": "^3.0.0",
