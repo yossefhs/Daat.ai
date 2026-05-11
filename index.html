@@ -4,26 +4,26 @@
   <meta charset="UTF-8">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DAAT דעת — Étude de la halakha en français · Choulhan Aroukh par siman, 3 niveaux</title>
-  <meta name="description" content="Plateforme d'étude halakhique en français. Le Choulhan Aroukh étudié par siman, en 3 niveaux (Base, Lamdan, Synthèse). Sources des Rishonim et Acharonim, IA Daat halakhique.">
+  <title>Daat Torah — Halakha en français | Choulhan Aroukh par siman</title>
+  <meta name="description" content="Plateforme d'étude halakhique en français. Le Choulhan Aroukh étudié par siman, en 3 niveaux (Base, Lamdan, Synthèse). Sources des Rishonim et Acharonim, assistant IA.">
   <meta name="author" content="Rav Yossef Haim Samama">
   <meta name="keywords" content="halakha, choulhan aroukh, hilkhot shabbat, siman, judaïsme français, étude torah, mishna brura, yabia omer">
   <link rel="canonical" href="https://daattorah.com/">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="DAAT דעת">
-  <meta property="og:title" content="DAAT דעת — Étude de la halakha en français">
-  <meta property="og:description" content="Le Choulhan Aroukh étudié par siman, en 3 niveaux. Sources des Rishonim et Acharonim, assistant IA halakhique.">
+  <meta property="og:site_name" content="Daat Torah">
+  <meta property="og:title" content="Daat Torah — Halakha en français">
+  <meta property="og:description" content="122 simanim du Choulhan Aroukh en français, 3 niveaux d'étude. Sources des Rishonim et Acharonim, assistant IA halakhique.">
   <meta property="og:url" content="https://daattorah.com/">
-  <meta property="og:image" content="https://daattorah.com/assets/img/og/og-default.svg">
+  <meta property="og:image" content="https://daattorah.com/api/og">
   <meta property="og:locale" content="fr_FR">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="DAAT דעת — Étude de la halakha en français">
-  <meta name="twitter:description" content="Le Choulhan Aroukh étudié par siman, en 3 niveaux. Sources des Rishonim et Acharonim, assistant IA halakhique.">
-  <meta name="twitter:image" content="https://daattorah.com/assets/img/og/og-default.svg">
+  <meta name="twitter:title" content="Daat Torah — Halakha en français">
+  <meta name="twitter:description" content="122 simanim du Choulhan Aroukh, 3 niveaux d'étude. Sources et assistant IA.">
+  <meta name="twitter:image" content="https://daattorah.com/api/og">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
@@ -853,7 +853,7 @@
     }
   </style>
 
-  <!-- JSON-LD Schema.org : WebSite + Organization + Person -->
+  <!-- JSON-LD Schema.org : WebSite + Organization + Person + EducationalOrganization + FAQPage -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -862,27 +862,59 @@
         "@type": "WebSite",
         "@id": "https://daattorah.com/#website",
         "url": "https://daattorah.com/",
-        "name": "DAAT דעת",
-        "description": "Plateforme d'étude halakhique en français. Le Choulhan Aroukh étudié par siman, en 3 niveaux.",
+        "name": "Daat Torah — Étude de la halakha en français",
+        "description": "Plateforme d'étude halakhique en français. 122 simanim du Choulhan Aroukh étudiés en 3 niveaux.",
         "inLanguage": "fr-FR",
+        "image": "https://daattorah.com/api/og",
         "publisher": { "@id": "https://daattorah.com/#organization" }
       },
       {
-        "@type": "Organization",
+        "@type": ["Organization", "EducationalOrganization"],
         "@id": "https://daattorah.com/#organization",
-        "name": "DAAT דעת",
+        "name": "Daat Torah",
         "url": "https://daattorah.com/",
-        "logo": "https://daattorah.com/assets/img/og/og-default.svg",
+        "logo": "https://daattorah.com/api/og",
+        "description": "Plateforme d'étude halakhique en français avec 122 simanim du Choulhan Aroukh, 3 niveaux d'étude, et assistant IA.",
         "founder": { "@id": "https://daattorah.com/#rav-samama" },
-        "sameAs": ["https://daattorah.com/"]
+        "sameAs": ["https://daattorah.com/"],
+        "educationalLevel": ["Débutant", "Intermédiaire", "Avancé"]
       },
       {
         "@type": "Person",
         "@id": "https://daattorah.com/#rav-samama",
         "name": "Rav Yossef Haim Samama",
         "jobTitle": "Rabbin, posek",
-        "description": "Rav qui a grandi en France et vit en Israël, élève du Rav Abichid, ayant étudié dans les yeshivot Tomchei Tmimim Lubavitch (Habad). Initiateur de la plateforme DAAT pour rendre l'étude rigoureuse de la halakha accessible aux francophones.",
+        "description": "Rav qui a grandi en France et vit en Israël, élève du Rav Abichid, ayant étudié dans les yeshivot Tomchei Tmimim Lubavitch (Habad). Fondateur de Daat Torah pour rendre l'étude rigoureuse de la halakha accessible aux francophones.",
         "knowsAbout": ["Halakha", "Choulhan Aroukh", "Hilkhot Shabbat", "Hassidout Habad Lubavitch", "Choulhan Aroukh de l'Admour HaZaken", "Tomchei Tmimim", "Tzemach Tzedek"]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Quels sont les 3 niveaux d'étude?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Base : Texte hébreu + traduction française fluide. Lamdan : Pilpoul approfondi avec les positions des Rishonim et Acharonim. Synthèse : Récapitulatif structuré pour révision et mémorisation."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Combien de simanim sont disponibles?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "122 simanim du Choulhan Aroukh (Orah Haïm) sont disponibles pour étude, avec contenu détaillé pour certains et accès complet au catalogue."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Puis-je utiliser l'assistant IA Daat?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui, l'assistant IA Daat vous permet de poser des questions de halakha et reçoit des réponses sourçées du Choulhan Aroukh et des Poskim. Pour la halakha lema'asseh, consultez votre Rav."
+            }
+          }
+        ]
       }
     ]
   }
@@ -896,8 +928,8 @@
       <span class="logo-hebrew">דעת</span>
       <div class="logo-divider"></div>
       <div>
-        <div style="font-family:'Inter',sans-serif; font-size:18px; font-weight:600; color:#fff; letter-spacing:3px;">DAAT</div>
-        <div class="logo-latin">Torah Study Platform</div>
+        <div style="font-family:'Inter',sans-serif; font-size:18px; font-weight:600; color:#fff; letter-spacing:3px;">Daat Torah</div>
+        <div class="logo-latin">Étude halakhique</div>
       </div>
     </a>
     <nav>
@@ -914,7 +946,7 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-tagline">Le Choulhan Aroukh, en français, à ton niveau.</div>
-    <h1>DAAT <span>דעת</span></h1>
+    <h1>Daat Torah <span>דעת</span></h1>
     <div class="hero-subtitle">דעת התורה לעומקה</div>
     <p class="hero-desc">Étudie la halakha sérieusement — en français, en 20 min/jour.</p>
     <div class="hero-buttons">
@@ -927,8 +959,8 @@
   <section class="social-proof">
     <div class="social-proof-inner">
       <div class="social-proof-item">
-        <span class="social-proof-num">3</span>
-        <span class="social-proof-label">simanim publiés</span>
+        <span class="social-proof-num">122</span>
+        <span class="social-proof-label">simanim du Choulhan Aroukh</span>
       </div>
       <div class="social-proof-divider"></div>
       <div class="social-proof-item">
@@ -951,7 +983,7 @@
           <div class="section-label">Notre Vision</div>
           <h2 class="section-title">La Torah accessible à tous les niveaux</h2>
           <div class="divider"></div>
-          <p>Daat.AI est une plateforme d'étude halakhique conçue pour accompagner chaque étudiant — du débutant curieux jusqu'au Talmid Chakham confirmé — dans une étude sérieuse et structurée de la Torah.</p>
+          <p>Daat Torah est une plateforme d'étude halakhique conçue pour accompagner chaque étudiant — du débutant curieux jusqu'au Talmid Chakham confirmé — dans une étude sérieuse et structurée de la Torah.</p>
           <p>Chaque texte est présenté en trois niveaux : une version accessible et pédagogique (Base), une version savante avec pilpoul complet (Lamdan), et une synthèse magistrale pour la révision et la mémorisation.</p>
           <p>Initiée par le Rav Yossef Haim Samama, la plateforme commence par les <em>Hilkhot Shabbat</em> (Orah Haïm) et s'étendra progressivement à l'ensemble de la Halakha.</p>
         </div>
@@ -1130,7 +1162,7 @@
           <div class="section-label">À propos</div>
           <h2 class="section-title">Une initiative pour la communauté</h2>
           <div class="divider"></div>
-          <p>Daat.AI est née d'un constat simple : la littérature halakhique en français, accessible à tous les niveaux, reste encore trop rare. Des milliers de francophones — en France, en Israël, au Canada, au Maroc — méritent d'avoir accès à une étude sérieuse dans leur langue.</p>
+          <p>Daat Torah est née d'un constat simple : la littérature halakhique en français, accessible à tous les niveaux, reste encore trop rare. Des milliers de francophones — en France, en Israël, au Canada, au Maroc — méritent d'avoir accès à une étude sérieuse dans leur langue.</p>
           <p>Chaque texte est soigneusement transcrit, traduit et annoté par le Rav Yossef Haim Samama, avec le souci de rester fidèle aux sources primaires tout en rendant les concepts accessibles.</p>
           <p>Le projet démarre modestement — une plateforme communautaire — avec l'ambition de devenir, à terme, une référence internationale de l'étude halakhique en français.</p>
         </div>
@@ -1139,7 +1171,7 @@
             <div class="rav-name-he">הרב יוסף חיים סממה</div>
             <div class="rav-divider"></div>
             <div class="rav-name-fr">Rav Yossef Haim Samama</div>
-            <div class="rav-title">Fondateur · Daat.AI</div>
+            <div class="rav-title">Fondateur · Daat Torah</div>
             <div class="rav-divider"></div>
             <img src="assets/img/yh-logo-about.png" alt="Logo YH — Yossef Haim Samama" class="rav-logo">
           </div>
@@ -1253,7 +1285,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <div class="footer-copy">© 5786 / 2026 — Daat.AI · Initié par le Rav Yossef Haim Samama</div>
+        <div class="footer-copy">© 5786 / 2026 — Daat Torah · Initié par le Rav Yossef Haim Samama</div>
         <div class="footer-verse">אִם תֵּבִין לַחֲכָמָה תִּקְרָא — Proverbes 2:3</div>
       </div>
     </div>
