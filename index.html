@@ -112,16 +112,38 @@
     }
 
     .nav-soutenir {
-      color: var(--gold) !important;
-      border: 1px solid rgba(197,165,90,0.5);
+      background: var(--gold);
+      color: var(--navy) !important;
+      border: 1px solid var(--gold);
       padding: 6px 14px;
       border-radius: 2px;
-      font-weight: 500 !important;
+      font-weight: 700 !important;
       transition: all 0.2s;
+      box-shadow: 0 0 0 0 rgba(197,165,90,0.4);
     }
     .nav-soutenir:hover {
-      background: rgba(197,165,90,0.12);
-      border-color: var(--gold);
+      background: var(--gold-light);
+      border-color: var(--gold-light);
+      box-shadow: 0 0 0 4px rgba(197,165,90,0.25);
+    }
+
+    .footer-soutenir-btn {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--navy) !important;
+      padding: 10px 20px;
+      border-radius: 2px;
+      font-weight: 700 !important;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: all 0.2s;
+      margin-top: 4px;
+    }
+    .footer-soutenir-btn:hover {
+      background: var(--gold-light);
+      transform: translateY(-1px);
     }
 
     /* ── HERO ── */
@@ -1318,8 +1340,8 @@
             <li><a href="chat.html">💬 IA Daat — Plein écran</a></li>
             <li><a href="communaute.html">Communauté</a></li>
             <li><a href="#vision">Vision du projet</a></li>
-            <li><a href="soutenir.html" style="color:var(--gold); font-weight:600;">♥ Soutenir</a></li>
           </ul>
+          <a href="soutenir.html" class="footer-soutenir-btn">♥ Soutenir le projet</a>
         </div>
       </div>
       <div class="footer-bottom">
