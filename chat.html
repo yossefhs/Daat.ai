@@ -11,18 +11,18 @@
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="DAAT דעת">
+  <meta property="og:site_name" content="Daat Torah">
   <meta property="og:title" content="IA Daat — Assistant halakhique en français">
   <meta property="og:description" content="Pose tes questions de halakha. L'IA présente les positions des sources selon ton minhag, avec citations explicites.">
   <meta property="og:url" content="https://daattorah.com/chat.html">
-  <meta property="og:image" content="https://daattorah.com/assets/img/og/og-default.svg">
+  <meta property="og:image" content="https://daattorah.com/api/og">
   <meta property="og:locale" content="fr_FR">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="IA Daat — Assistant halakhique en français">
   <meta name="twitter:description" content="Pose tes questions de halakha. Sources citées, positions selon ton minhag.">
-  <meta name="twitter:image" content="https://daattorah.com/assets/img/og/og-default.svg">
+  <meta name="twitter:image" content="https://daattorah.com/api/og">
 
   <!-- JSON-LD : WebApplication -->
   <script type="application/ld+json">
@@ -473,8 +473,8 @@
     <a href="index.html" class="logo">
       <span class="logo-he">דעת</span>
       <div class="logo-meta">
-        <span class="logo-en">DAAT</span>
-        <span class="logo-sub">Chat IA — Plein écran</span>
+        <span class="logo-en">Daat Torah</span>
+        <span class="logo-sub">Chat IA</span>
       </div>
     </a>
   </div>
@@ -487,9 +487,10 @@
     <div class="simanim-dropdown">
       <button class="header-btn" id="simanim-btn">📚 Simanim ▾</button>
       <div class="simanim-menu" id="simanim-menu">
-        <a href="sources/shabbat/siman-242/index.html"><strong>Siman רמ״ב</strong><br><span>Oneg et kavod du Shabbat</span></a>
-        <a href="sources/shabbat/siman-243/index.html"><strong>Siman רמ״ג</strong><br><span>Louer son bain/champ à un non-juif</span></a>
-        <a href="sources/shabbat/siman-246/index.html"><strong>Siman רמ״ו</strong><br><span>Prêt et location à un non-juif</span></a>
+        <input type="text" id="simanim-search" placeholder="Chercher siman..." style="width:100%; padding:10px 14px; border:none; border-bottom:1px solid var(--border); font-size:13px; box-sizing:border-box; border-radius:4px 4px 0 0;">
+        <div id="simanim-list" style="max-height:400px; overflow-y:auto;">
+          <!-- Simanim générés dynamiquement -->
+        </div>
       </div>
     </div>
     <a href="communaute.html" class="header-btn">Communauté</a>
@@ -507,7 +508,7 @@
     </div>
     <div class="sidebar-section-label">Historique</div>
     <div class="conv-list" id="conv-list"></div>
-    <div class="sidebar-footer">דעת · DAAT</div>
+    <div class="sidebar-footer">דעת · Daat Torah</div>
   </aside>
   <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
@@ -1360,19 +1361,80 @@ async function send(userText) {
 }
 
 // ============================================================
-// SIMANIM DROPDOWN
+// SIMANIM DROPDOWN avec recherche
 // ============================================================
 const $simanimBtn = document.getElementById('simanim-btn');
 const $simanimMenu = document.getElementById('simanim-menu');
+const $simanimSearch = document.getElementById('simanim-search');
+const $simanimList = document.getElementById('simanim-list');
+
+let allSimanim = [];
+
+// Charger les simanim depuis le JSON
+async function loadSimanim() {
+  try {
+    const resp = await fetch('/data/all-simanim.json');
+    const data = await resp.json();
+    allSimanim = data.simanim || [];
+    renderSimanim(allSimanim);
+  } catch (err) {
+    console.error('Erreur chargement simanim:', err);
+    $simanimList.innerHTML = '<div style="padding:10px;color:red;">Erreur chargement</div>';
+  }
+}
+
+// Afficher les simanim (tous ou filtrés)
+function renderSimanim(simanim) {
+  if (!simanim.length) {
+    $simanimList.innerHTML = '<div style="padding:10px;color:#7A7F9A;font-size:12px;">Aucun siman trouvé</div>';
+    return;
+  }
+
+  $simanimList.innerHTML = simanim.map(s => `
+    <a href="sources/shabbat/siman-${s.num}/index.html" style="display:block;padding:10px 14px;text-decoration:none;color:var(--text);font-size:13px;line-height:1.4;border-radius:4px;transition:background 0.15s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background='transparent'">
+      <strong style="color:var(--navy);font-size:14px;font-weight:600;">Siman ${s.num}</strong><br>
+      <span style="color:var(--text-muted);font-size:12px;">${escapeHtml(s.title)}</span>
+    </a>
+  `).join('');
+}
+
+// Filtrer les simanim par recherche
+function filterSimanim(query) {
+  if (!query.trim()) {
+    renderSimanim(allSimanim);
+    return;
+  }
+
+  const lowerQuery = query.toLowerCase();
+  const filtered = allSimanim.filter(s =>
+    s.num.toString().includes(lowerQuery) ||
+    s.title.toLowerCase().includes(lowerQuery) ||
+    s.numHe.includes(query) // Support recherche hébreux
+  );
+  renderSimanim(filtered);
+}
+
+// Gestionnaires d'événements
 $simanimBtn.addEventListener('click', e => {
   e.stopPropagation();
   $simanimMenu.classList.toggle('open');
+  if ($simanimMenu.classList.contains('open')) {
+    setTimeout(() => $simanimSearch.focus(), 100);
+  }
 });
+
+$simanimSearch.addEventListener('input', e => {
+  filterSimanim(e.target.value);
+});
+
 document.addEventListener('click', e => {
   if (!$simanimMenu.contains(e.target) && !$simanimBtn.contains(e.target)) {
     $simanimMenu.classList.remove('open');
   }
 });
+
+// Charger au démarrage
+loadSimanim();
 
 // ============================================================
 // MODE RECONSTRUCT — Niveau 5 personnalisé
