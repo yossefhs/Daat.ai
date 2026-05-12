@@ -15,8 +15,50 @@ import { getUserFromRequest } from './_auth.js';
 
 const client = new Anthropic();
 
-const MAX_TOOL_ITERATIONS = 8; // agentic loop (mareh_mekomot + corpus + Sefaria)
+const MAX_TOOL_ITERATIONS = 5; // agentic loop (mareh_mekomot + corpus + Sefaria) — réduit de 8 à 5
+const MAX_TOKENS_OUTPUT = 4096; // réduit de 8192 à 4096 (Claude s'arrête naturellement)
+const HISTORY_TURNS = 12; // réduit de 24 à 12
 const ALL_TOOLS = [...MAREH_MEKOMOT_TOOLS, ...CORPUS_TOOLS, ...SEFARIA_TOOLS];
+
+// ── Routing modèles : Haiku ($0.001/$0.005) → Sonnet ($0.003/$0.015) → Opus ($0.015/$0.06) ──
+const MODELS = {
+  haiku:  { id: 'claude-haiku-4-5',  thinking: null,                              effort: null,       in: 0.001, out: 0.005 },
+  sonnet: { id: 'claude-sonnet-4-6', thinking: { type: 'adaptive' },              effort: null,       in: 0.003, out: 0.015 },
+  opus:   { id: 'claude-opus-4-7',   thinking: { type: 'adaptive' },              effort: 'high',     in: 0.015, out: 0.06  },
+};
+
+// Heuristique : choisit le modèle selon la complexité de la dernière question utilisateur
+function pickModel(messages, hint) {
+  // Hint explicite passé par le client (ex: depuis une page Lamdan/Synthèse) — gagne toujours
+  if (hint === 'opus' || hint === 'sonnet' || hint === 'haiku') return MODELS[hint];
+
+  const lastUser = [...messages].reverse().find(m => m.role === 'user');
+  const text = (lastUser?.content || '').toString();
+  const lower = text.toLowerCase();
+
+  // 1. Mots-clés "lamdan" / poskim pointus → Opus
+  const opusKeywords = [
+    'lamdan', 'machloket', 'mahloket', 'rishonim', 'aharonim', 'ahronim',
+    'rambam', 'ramban', 'rashba', 'ritva', 'rivash', 'rosh', "ba'al hatanya",
+    'pri megadim', 'mishna berura', 'biur halakha', 'shaagat aryeh', "noda biyhuda",
+    'shulchan aroukh harav', 'admour hazaken', 'machaloket', 'synthèse', 'synthese',
+    'approfondir', 'analyse', 'compare', 'comparer', 'débat', 'debat',
+  ];
+  if (opusKeywords.some(k => lower.includes(k))) return MODELS.opus;
+
+  // 2. Beaucoup d'hébreu cité (> 40 caractères) → Sonnet (citations talmudiques, halakhiques)
+  const heCount = (text.match(/[֐-׿]/g) || []).length;
+  if (heCount > 40) return MODELS.sonnet;
+
+  // 3. Question longue/complexe (> 220 caractères) → Sonnet
+  if (text.length > 220) return MODELS.sonnet;
+
+  // 4. Conversation déjà commencée avec ≥ 4 messages → Sonnet (continuité)
+  if (messages.length >= 4) return MODELS.sonnet;
+
+  // 5. Par défaut : Haiku (15× moins cher, suffisant pour les questions factuelles courtes)
+  return MODELS.haiku;
+}
 
 // ── Limites quotidiennes par plan ──────────────────────────────────────────
 const DAILY_LIMITS = {
@@ -144,12 +186,15 @@ export default async function handler(req, res) {
       }
     }
 
-    // Garder les 24 derniers tours
-    const trimmedMessages = messages.slice(-24);
+    // Garder les N derniers tours (réduit de 24 à 12)
+    const trimmedMessages = messages.slice(-HISTORY_TURNS);
 
     if (trimmedMessages[0].role !== 'user') {
       return res.status(400).json({ error: 'Le premier message doit être de l\'utilisateur' });
     }
+
+    // Choisir le modèle adapté à la complexité (router cost-optimisé)
+    const model = pickModel(trimmedMessages, req.body?.model_hint);
 
     // En-têtes SSE
     res.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
@@ -196,11 +241,10 @@ export default async function handler(req, res) {
 
       // (Plus de notice générique — chaque tool_use envoie sa propre notice détaillée)
 
-      const stream = client.messages.stream({
-        model: 'claude-opus-4-7',
-        max_tokens: 8192,
-        thinking: { type: 'adaptive' },
-        output_config: { effort: 'high' },
+      // Construire les paramètres dynamiques selon le modèle choisi
+      const streamParams = {
+        model: model.id,
+        max_tokens: MAX_TOKENS_OUTPUT,
         tools: ALL_TOOLS,
         system: [
           {
@@ -210,7 +254,11 @@ export default async function handler(req, res) {
           },
         ],
         messages: conversation,
-      });
+      };
+      if (model.thinking) streamParams.thinking = model.thinking;
+      if (model.effort) streamParams.output_config = { effort: model.effort };
+
+      const stream = client.messages.stream(streamParams);
 
       // Stream les deltas de texte au client (pour la réponse finale uniquement)
       for await (const event of stream) {
@@ -308,9 +356,9 @@ export default async function handler(req, res) {
     try {
       const todayKey = new Date().toISOString().slice(0, 10);
 
-      // Coûts Claude Opus 4.7 (prix actuels)
-      const inputCost = 0.015 / 1000; // $0.015 par 1K tokens
-      const outputCost = 0.06 / 1000; // $0.06 par 1K tokens
+      // Coûts dynamiques selon le modèle effectivement utilisé
+      const inputCost = model.in / 1000;
+      const outputCost = model.out / 1000;
       const costUsd = (totalUsage.input_tokens * inputCost) + (totalUsage.output_tokens * outputCost);
 
       // Stats globales
@@ -349,7 +397,7 @@ export default async function handler(req, res) {
         tokens_in: totalUsage.input_tokens,
         tokens_out: totalUsage.output_tokens,
         cost_usd: costUsd,
-        model: 'claude-opus-4-7',
+        model: model.id,
         iterations,
         stop_reason: stopReason,
       };
@@ -358,7 +406,7 @@ export default async function handler(req, res) {
 
       // Liste des utilisateurs connus
       await kv.sadd('users:known', userId);
-      console.log(`[chat.js] usage tracked: ${userId} +${totalUsage.input_tokens}in/${totalUsage.output_tokens}out ($${costUsd.toFixed(5)})`);
+      console.log(`[chat.js] usage tracked: ${userId} model=${model.id} +${totalUsage.input_tokens}in/${totalUsage.output_tokens}out ($${costUsd.toFixed(5)})`);
     } catch (err) {
       console.error('[chat.js] Erreur enregistrement usage:', err?.message || err);
     }
