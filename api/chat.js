@@ -293,7 +293,7 @@ export default async function handler(req, res) {
       });
     }
 
-    // Envoyer le done final
+    // Envoyer le done final (côté UX, la conversation est terminée)
     const donePayload = JSON.stringify({
       type: 'done',
       stop_reason: stopReason,
@@ -301,67 +301,69 @@ export default async function handler(req, res) {
       usage: totalUsage,
     });
     res.write(`data: ${donePayload}\n\n`);
-    res.end();
 
-    // Enregistrer l'usage dans Vercel KV (analytics non-bloquant)
-    (async () => {
-      try {
-        const todayKey = new Date().toISOString().slice(0, 10);
+    // ⚠️ Enregistrer l'usage AVANT res.end() — sinon Vercel kill le lambda
+    // (le fire-and-forget ne marche pas en serverless Node, contrairement à Edge)
+    // L'utilisateur a déjà tout le texte côté UX, la connexion reste juste ouverte ~100ms de plus
+    try {
+      const todayKey = new Date().toISOString().slice(0, 10);
 
-        // Coûts Claude Opus 4.7 (prix actuels)
-        const inputCost = 0.015 / 1000; // $0.015 par 1K tokens
-        const outputCost = 0.06 / 1000; // $0.06 par 1K tokens
-        const costUsd = (totalUsage.input_tokens * inputCost) + (totalUsage.output_tokens * outputCost);
+      // Coûts Claude Opus 4.7 (prix actuels)
+      const inputCost = 0.015 / 1000; // $0.015 par 1K tokens
+      const outputCost = 0.06 / 1000; // $0.06 par 1K tokens
+      const costUsd = (totalUsage.input_tokens * inputCost) + (totalUsage.output_tokens * outputCost);
 
-        // Incrémenter les stats globales
-        const globalKey = `usage:global:${todayKey}`;
-        const globalData = (await kv.get(globalKey)) || { tokens_in: 0, tokens_out: 0, cost_usd: 0, count: 0 };
-        await kv.set(globalKey, {
-          tokens_in: globalData.tokens_in + totalUsage.input_tokens,
-          tokens_out: globalData.tokens_out + totalUsage.output_tokens,
-          cost_usd: parseFloat((globalData.cost_usd + costUsd).toFixed(6)),
-          count: globalData.count + 1,
-        });
+      // Stats globales
+      const globalKey = `usage:global:${todayKey}`;
+      const globalData = (await kv.get(globalKey)) || { tokens_in: 0, tokens_out: 0, cost_usd: 0, count: 0 };
+      await kv.set(globalKey, {
+        tokens_in: globalData.tokens_in + totalUsage.input_tokens,
+        tokens_out: globalData.tokens_out + totalUsage.output_tokens,
+        cost_usd: parseFloat((globalData.cost_usd + costUsd).toFixed(6)),
+        count: globalData.count + 1,
+      });
 
-        // Incrémenter les stats par utilisateur (email OU guest_id)
-        const userKey = `usage:${userId}:${todayKey}`;
-        const userData = (await kv.get(userKey)) || { tokens_in: 0, tokens_out: 0, cost_usd: 0, count: 0 };
-        await kv.set(userKey, {
-          tokens_in: userData.tokens_in + totalUsage.input_tokens,
-          tokens_out: userData.tokens_out + totalUsage.output_tokens,
-          cost_usd: parseFloat((userData.cost_usd + costUsd).toFixed(6)),
-          count: userData.count + 1,
-        });
+      // Stats par utilisateur (email OU guest_id)
+      const userKey = `usage:${userId}:${todayKey}`;
+      const userData = (await kv.get(userKey)) || { tokens_in: 0, tokens_out: 0, cost_usd: 0, count: 0 };
+      await kv.set(userKey, {
+        tokens_in: userData.tokens_in + totalUsage.input_tokens,
+        tokens_out: userData.tokens_out + totalUsage.output_tokens,
+        cost_usd: parseFloat((userData.cost_usd + costUsd).toFixed(6)),
+        count: userData.count + 1,
+      });
 
-        // Incrémenter le compteur de questions (rate limit quotidien)
-        await kv.incr(rateKey);
-        const ttl = await kv.ttl(rateKey);
-        if (ttl === -1 || ttl === -2) {
-          await kv.expire(rateKey, 24 * 60 * 60);
-        }
-
-        // Log d'utilisation (rolling 500 dernières)
-        const logEntry = {
-          ts: new Date().toISOString(),
-          user: userId,
-          is_guest: isGuest,
-          plan,
-          tokens_in: totalUsage.input_tokens,
-          tokens_out: totalUsage.output_tokens,
-          cost_usd: costUsd,
-          model: 'claude-opus-4-7',
-          iterations,
-          stop_reason: stopReason,
-        };
-        await kv.lpush('logs:usage', JSON.stringify(logEntry));
-        await kv.ltrim('logs:usage', 0, 499);
-
-        // Ajouter à la liste des utilisateurs connus (email OU guest_id)
-        await kv.sadd('users:known', userId);
-      } catch (err) {
-        console.error('[chat.js] Erreur enregistrement usage:', err.message);
+      // Compteur quotidien (rate limit)
+      await kv.incr(rateKey);
+      const ttl = await kv.ttl(rateKey);
+      if (ttl === -1 || ttl === -2) {
+        await kv.expire(rateKey, 24 * 60 * 60);
       }
-    })();
+
+      // Log rolling 500 dernières
+      const logEntry = {
+        ts: new Date().toISOString(),
+        user: userId,
+        is_guest: isGuest,
+        plan,
+        tokens_in: totalUsage.input_tokens,
+        tokens_out: totalUsage.output_tokens,
+        cost_usd: costUsd,
+        model: 'claude-opus-4-7',
+        iterations,
+        stop_reason: stopReason,
+      };
+      await kv.lpush('logs:usage', JSON.stringify(logEntry));
+      await kv.ltrim('logs:usage', 0, 499);
+
+      // Liste des utilisateurs connus
+      await kv.sadd('users:known', userId);
+      console.log(`[chat.js] usage tracked: ${userId} +${totalUsage.input_tokens}in/${totalUsage.output_tokens}out ($${costUsd.toFixed(5)})`);
+    } catch (err) {
+      console.error('[chat.js] Erreur enregistrement usage:', err?.message || err);
+    }
+
+    res.end();
   } catch (error) {
     console.error('[Daat chat API] error:', error);
 
