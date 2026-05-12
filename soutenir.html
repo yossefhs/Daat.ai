@@ -766,6 +766,30 @@
 </head>
 <body class="lang-fr">
 
+  <!-- Bandeau "Tu viens du chat ?" — affiché si ?from=chat -->
+  <div id="from-chat-banner" style="display:none; position:relative; z-index:5; background:linear-gradient(90deg, #1a1a2e 0%, #2a2a4e 100%); color:#FBF7EF; padding:18px 20px; border-bottom:2px solid #B8972A;">
+    <div class="container" style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+      <div style="font-family:'Frank Ruhl Libre',serif; font-size:32px; color:#D4B255; flex-shrink:0;">דעת</div>
+      <div style="flex:1; min-width:220px;">
+        <div style="font-family:'Cormorant Garamond',serif; font-size:1.25rem; font-weight:500; margin-bottom:4px;">
+          <span class="lang-fr-inline">Tu viens du chat Daat ?</span>
+          <span class="lang-en-inline">Coming from the Daat chat?</span>
+          <span class="lang-he-inline">הגעת מהצ׳אט של דעת?</span>
+        </div>
+        <div style="font-size:0.98rem; color:rgba(251,247,239,0.85); line-height:1.5;">
+          <span class="lang-fr-inline">Chaque conversation avec l'IA Daat coûte environ <strong style="color:#D4B255;">0,50 €</strong> à l'association. <strong>Ton don de 18 €</strong> finance directement <strong>36 conversations</strong> offertes à d'autres étudiants.</span>
+          <span class="lang-en-inline">Each conversation with the Daat AI costs about <strong style="color:#D4B255;">€0.50</strong> to the association. <strong>Your €18 donation</strong> directly funds <strong>36 conversations</strong> offered to other learners.</span>
+          <span class="lang-he-inline">כל שיחה עם דעת AI עולה כ-<strong style="color:#D4B255;">0.50 €</strong> לעמותה. <strong>תרומה של 18 €</strong> ממנת ישירות <strong>36 שיחות</strong> שתינתנה במתנה לתלמידים אחרים.</span>
+        </div>
+      </div>
+      <a href="#participer" style="background:#B8972A; color:#fff; padding:11px 22px; text-decoration:none; font-family:'Cormorant Garamond',serif; font-size:1.05rem; letter-spacing:0.5px; white-space:nowrap;">
+        <span class="lang-fr-inline">Voir les paliers ↓</span>
+        <span class="lang-en-inline">See tiers ↓</span>
+        <span class="lang-he-inline">לראות אפשרויות ↓</span>
+      </a>
+    </div>
+  </div>
+
   <!-- Sélecteur de langue -->
   <div class="lang-switcher" role="group" aria-label="Choisir la langue">
     <button data-lang="fr" class="active">FR</button>
@@ -800,7 +824,7 @@
   <header class="hero">
     <div class="hero-watermark" aria-hidden="true">דעת</div>
     <div class="container">
-      <div class="hero-eyebrow">עֵץ חַיִּים הִיא לַמַּחֲזִיקִים בָּהּ</div>
+      <div class="hero-eyebrow">אִם אֵין קֶמַח אֵין תּוֹרָה</div>
 
       <h1>
         <span class="lang-fr-inline">Prendre <em>part</em> à la diffusion de la Torah</span>
@@ -871,6 +895,48 @@
     </div>
   </section>
 
+  <!-- OBJECTIF DU MOIS -->
+  <section style="padding: 3rem 0 1rem; position: relative; z-index: 2;">
+    <div class="container">
+      <div style="max-width:720px; margin:0 auto; background:#fff; border:1px solid var(--color-line); border-top:3px solid var(--color-gold); padding:2rem 2.2rem; box-shadow:0 12px 30px -16px rgba(44,24,16,0.15);">
+        <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:0.6rem; margin-bottom:1rem;">
+          <div>
+            <div style="font-family:var(--font-hebrew); font-size:0.95rem; color:var(--color-gold-dark); letter-spacing:0.06em; margin-bottom:2px;">יעד החודש</div>
+            <div style="font-family:var(--font-display); font-size:1.4rem; font-weight:500; color:var(--color-dark);">
+              <span class="lang-fr-inline">Objectif <span id="goal-month-fr">du mois</span></span>
+              <span class="lang-en-inline">Goal for <span id="goal-month-en">this month</span></span>
+              <span class="lang-he-inline">יעד <span id="goal-month-he">החודש</span></span>
+            </div>
+          </div>
+          <div style="font-family:var(--font-display); font-size:1.1rem; color:var(--color-muted);">
+            <span style="color:var(--color-gold-dark); font-weight:600; font-size:1.3rem;" id="goal-current">0&nbsp;€</span>
+            <span style="opacity:0.6;"> / </span>
+            <span id="goal-target">800&nbsp;€</span>
+          </div>
+        </div>
+
+        <div style="background:rgba(184,151,42,0.12); height:10px; border-radius:6px; overflow:hidden; margin-bottom:0.8rem;">
+          <div id="goal-bar" style="height:100%; width:0%; background:linear-gradient(90deg, var(--color-gold-light), var(--color-gold)); border-radius:6px; transition:width 0.8s ease;"></div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; font-size:0.9rem; color:var(--color-muted); margin-bottom:1.2rem;">
+          <span><span id="goal-percent">0</span>&nbsp;%</span>
+          <span>
+            <span class="lang-fr-inline"><span id="goal-days">—</span> jours restants</span>
+            <span class="lang-en-inline"><span id="goal-days-en">—</span> days left</span>
+            <span class="lang-he-inline"><span id="goal-days-he">—</span> ימים נותרו</span>
+          </span>
+        </div>
+
+        <p style="font-size:0.95rem; color:var(--color-text); line-height:1.55; margin:0; padding-top:1rem; border-top:1px dashed var(--color-line);">
+          <span class="lang-fr-inline">Cet objectif couvre les <strong>frais mensuels réels</strong> : IA Claude (chat Daat), serveurs Vercel, base de données et domaine. Sans ça, la plateforme s'arrête.</span>
+          <span class="lang-en-inline">This goal covers <strong>real monthly costs</strong>: Claude AI (Daat chat), Vercel servers, database and domain. Without it, the platform stops.</span>
+          <span class="lang-he-inline">יעד זה מכסה את <strong>העלויות החודשיות הממשיות</strong>: דעת AI (קלוד), שרתי Vercel, מסד נתונים ודומיין. בלי זה, הפלטפורמה נעצרת.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
   <!-- TROIS PILIERS -->
   <section class="section" id="participer">
     <div class="container">
@@ -885,6 +951,28 @@
         <span class="lang-en-inline">From the simplest to the most lasting. Every gift, at every level, moves the study forward.</span>
         <span class="lang-he-inline">מהפשוט עד המעמיק ביותר. כל תרומה, בכל גובה, מקדמת את הלימוד.</span>
       </p>
+
+      <!-- Légende moyens de paiement -->
+      <div style="max-width:680px; margin:-1.5rem auto 2.5rem; padding:1rem 1.3rem; background:var(--color-parchment-soft); border:1px solid var(--color-line); display:flex; gap:1.5rem; flex-wrap:wrap; justify-content:center; font-size:0.92rem; color:var(--color-text);">
+        <div style="display:flex; align-items:center; gap:0.5rem;">
+          <span style="display:inline-block; width:10px; height:10px; background:var(--color-gold); border-radius:50%;"></span>
+          <strong>Qonto</strong>
+          <span style="color:var(--color-muted);">
+            <span class="lang-fr-inline">— carte bancaire, paiement instantané</span>
+            <span class="lang-en-inline">— credit card, instant payment</span>
+            <span class="lang-he-inline">— כרטיס אשראי, תשלום מיידי</span>
+          </span>
+        </div>
+        <div style="display:flex; align-items:center; gap:0.5rem;">
+          <span style="display:inline-block; width:10px; height:10px; background:var(--color-dark); border-radius:50%;"></span>
+          <strong>HelloAsso</strong>
+          <span style="color:var(--color-muted);">
+            <span class="lang-fr-inline">— reçu fiscal automatique (66 % déductible)</span>
+            <span class="lang-en-inline">— automatic tax receipt (66 % deductible)</span>
+            <span class="lang-he-inline">— אישור מס אוטומטי (66 % החזר)</span>
+          </span>
+        </div>
+      </div>
 
       <div class="pillars">
 
@@ -905,15 +993,14 @@
 
           <div class="amount-grid">
             <a href="https://pay.qonto.com/payment-links/019e1774-43c9-7345-874f-c7a233a30868?resource_id=019e1774-43ca-778d-b991-d33baaee875d" class="amount" target="_blank" rel="noopener">18 €</a>
-            <a href="https://pay.qonto.com/payment-links/019e1781-89f3-700f-bec2-f4e46e6e9190?resource_id=019e1781-89f3-79f9-a14b-11302991fdda" class="amount" target="_blank" rel="noopener">36 €</a>
             <a href="https://pay.qonto.com/payment-links/019e1772-d2ca-77b1-b36c-50cda318f098?resource_id=019e1772-d2cb-720f-82f1-e7f1a2b63d0a" class="amount featured" target="_blank" rel="noopener">72 €</a>
             <a href="https://pay.qonto.com/payment-links/019e177a-6295-7163-b0c1-57cb5672e5c7?resource_id=019e177a-6296-727a-8ed0-8392b2863558" class="amount" target="_blank" rel="noopener">180 €</a>
-            <a href="https://www.helloasso.com/associations/association-hessed/formulaires/9" class="amount" target="_blank" rel="noopener" style="grid-column:span 2;">
-              <span class="lang-fr-inline">Montant libre</span>
-              <span class="lang-en-inline">Custom amount</span>
-              <span class="lang-he-inline">סכום חופשי</span>
-            </a>
           </div>
+          <a href="https://www.helloasso.com/associations/association-hessed/formulaires/9" target="_blank" rel="noopener" style="display:block; text-align:center; margin-bottom:1rem; font-size:0.95rem; color:var(--color-muted); text-decoration:underline; text-decoration-color:var(--color-line); text-underline-offset:3px;">
+            <span class="lang-fr-inline">↓ Choisir un autre montant</span>
+            <span class="lang-en-inline">↓ Choose another amount</span>
+            <span class="lang-he-inline">↓ סכום אחר</span>
+          </a>
 
           <a href="https://www.helloasso.com/associations/association-hessed/formulaires/9" target="_blank" rel="noopener" class="pillar-cta">
             <span class="lang-fr-inline">Faire un don</span>
@@ -963,6 +1050,17 @@
               <strong>720 €</strong>
             </li>
           </ul>
+
+          <div style="background:rgba(184,151,42,0.08); border-left:3px solid var(--color-gold); padding:0.85rem 1rem; margin-bottom:1rem; font-size:0.9rem; color:var(--color-text); line-height:1.5;">
+            <strong style="color:var(--color-gold-dark);">
+              <span class="lang-fr-inline">💡 Comment dédier ?</span>
+              <span class="lang-en-inline">💡 How to dedicate?</span>
+              <span class="lang-he-inline">💡 איך להקדיש?</span>
+            </strong><br>
+            <span class="lang-fr-inline">Sur HelloAsso, indique <strong>le nom de la personne dédiée</strong> (et le type — לעילוי נשמת, רפואה שלמה…) dans le champ <em>« Message »</em> du formulaire. Tu recevras une confirmation, et la dédicace apparaîtra sur la page concernée sous 48h.</span>
+            <span class="lang-en-inline">On HelloAsso, write <strong>the dedicatee's name</strong> (and the type — לעילוי נשמת, רפואה שלמה…) in the <em>"Message"</em> field of the form. You'll get a confirmation, and the dedication will appear on the relevant page within 48h.</span>
+            <span class="lang-he-inline">בטופס HelloAsso, ציין את <strong>שם המוקדש</strong> (ואת הסוג — לעילוי נשמת, רפואה שלמה…) בשדה <em>"הודעה"</em>. תקבל אישור, וההקדשה תופיע על העמוד הרלוונטי תוך 48 שעות.</span>
+          </div>
 
           <a href="https://www.helloasso.com/associations/association-hessed/formulaires/9" target="_blank" rel="noopener" class="pillar-cta">
             <span class="lang-fr-inline">Dédier une étude</span>
@@ -1020,45 +1118,31 @@
 
       <!--
         Mur dynamique : peuplé via fetch /api/soutenir au chargement.
-        Le fallback statique ci-dessous (template "data-fallback") sert
-        si l'API est indisponible (réseau, 1ère installation, KV vide).
+        Si l'API renvoie des bâtisseurs, ils s'affichent. Sinon, message d'invitation.
       -->
-      <div class="builders-grid" id="builders-grid" aria-live="polite" data-fallback>
-        <div class="builder">
-          <div class="builder-name">R. Moché K.</div>
-          <div class="builder-tag">Tomeh Adaat · 36 €/mois</div>
+      <div class="builders-grid" id="builders-grid" aria-live="polite" data-fallback style="display:none;"></div>
+
+      <!-- État initial : DAAT démarre, invitation à être le premier -->
+      <div id="builders-empty" style="text-align:center; padding:2.5rem 1.5rem; background:var(--color-parchment-soft); border:1px solid var(--color-line); border-left:3px solid var(--color-gold); max-width:680px; margin:2rem auto 1.5rem;">
+        <div style="font-family:var(--font-hebrew); font-size:2.2rem; color:var(--color-gold); margin-bottom:0.6rem; font-weight:300;">א</div>
+        <div style="font-family:var(--font-display); font-size:1.5rem; font-weight:500; color:var(--color-dark); margin-bottom:0.6rem;">
+          <span class="lang-fr-inline">DAAT démarre — sois parmi les premiers Bâtisseurs</span>
+          <span class="lang-en-inline">DAAT is starting — be among the first Builders</span>
+          <span class="lang-he-inline">דעת מתחילה — היה בין הבונים הראשונים</span>
         </div>
-        <div class="builder">
-          <div class="builder-name">R. David A.</div>
-          <div class="builder-tag">Dédicace · Siman 242</div>
-        </div>
-        <div class="builder">
-          <div class="builder-name">Famille Lévy</div>
-          <div class="builder-tag">לעילוי נשמת אביהם ז״ל</div>
-        </div>
-        <div class="builder">
-          <div class="builder-name">M. &amp; Mme Cohen</div>
-          <div class="builder-tag">Tomhei Adaat · 100 €/mois</div>
-        </div>
-        <div class="builder">
-          <div class="builder-name">R. Yossef Bénichou</div>
-          <div class="builder-tag">Dédicace · Siman 243</div>
-        </div>
-        <div class="builder">
-          <div class="builder-name">Famille Sebbah</div>
-          <div class="builder-tag">לרפואה שלמה</div>
-        </div>
-        <div class="builder">
-          <div class="builder-name">R. Avraham M.</div>
-          <div class="builder-tag">Tomeh Adaat · 18 €/mois</div>
-        </div>
-        <div class="builder">
-          <div class="builder-name">Anonyme</div>
-          <div class="builder-tag">Don ponctuel · 360 €</div>
-        </div>
+        <p style="color:var(--color-muted); font-size:1.05rem; line-height:1.6; margin-bottom:1.5rem;">
+          <span class="lang-fr-inline">Ce mur s'écrira nom par nom, dédicace par dédicace. Les premiers à y inscrire leur soutien fondent littéralement le lieu d'étude.</span>
+          <span class="lang-en-inline">This wall will be written name by name, dedication by dedication. The first to inscribe their support are literally founding the place of study.</span>
+          <span class="lang-he-inline">קיר זה ייכתב שם אחר שם, הקדשה אחר הקדשה. הראשונים שיירשמו בו מייסדים פשוטו כמשמעו את בית המדרש.</span>
+        </p>
+        <a href="#participer" class="pillar-cta" style="display:inline-block; padding:0.85rem 1.8rem; background:var(--color-gold); color:#fff; text-decoration:none; font-family:var(--font-display); font-size:1.05rem;">
+          <span class="lang-fr-inline">Devenir le premier Bâtisseur →</span>
+          <span class="lang-en-inline">Become the first Builder →</span>
+          <span class="lang-he-inline">להיות הבונה הראשון →</span>
+        </a>
       </div>
 
-      <p class="builders-cta">
+      <p class="builders-cta" id="builders-cta-bottom" style="display:none;">
         <span class="lang-fr-inline">Inscrivez votre nom parmi les piliers de la plateforme — </span>
         <span class="lang-en-inline">Add your name among the pillars of the platform — </span>
         <span class="lang-he-inline">הוסיפו את שמכם בין עמודי הפלטפורמה — </span>
@@ -1138,6 +1222,87 @@
     </div>
   </section>
 
+  <!-- FAQ -->
+  <section class="section" id="faq" style="padding:4rem 0 5rem;">
+    <div class="container">
+      <div class="section-eyebrow">שאלות נפוצות</div>
+      <h2 class="section-title">
+        <span class="lang-fr-inline">Questions fréquentes</span>
+        <span class="lang-en-inline">Frequently asked questions</span>
+        <span class="lang-he-inline">שאלות נפוצות</span>
+      </h2>
+
+      <div style="max-width:780px; margin:3rem auto 0;">
+
+        <details class="faq-item" style="background:var(--color-parchment-soft); border:1px solid var(--color-line); padding:1.2rem 1.6rem; margin-bottom:0.7rem;">
+          <summary style="font-family:var(--font-display); font-size:1.2rem; font-weight:500; cursor:pointer; color:var(--color-dark); list-style:none;">
+            <span class="lang-fr-inline">Le don est-il déductible des impôts ?</span>
+            <span class="lang-en-inline">Is the donation tax-deductible?</span>
+            <span class="lang-he-inline">האם התרומה ניתנת להחזר מס?</span>
+          </summary>
+          <div style="padding-top:0.9rem; color:var(--color-text); line-height:1.65;">
+            <span class="lang-fr-inline">Oui, pour les contribuables français. L'association est déclarée loi 1901 d'intérêt général. <strong>66 % de votre don est déductible</strong> de l'impôt sur le revenu, dans la limite de 20 % du revenu imposable. Le reçu fiscal est envoyé automatiquement par HelloAsso. <em>Pour les dons via Qonto, le reçu est envoyé manuellement sur demande à</em> <a href="mailto:contact@daattorah.com">contact@daattorah.com</a>.</span>
+            <span class="lang-en-inline">Yes, for French taxpayers. The association is a registered <em>loi 1901</em> non-profit of general interest. <strong>66 % of your donation is deductible</strong> from income tax, up to 20 % of taxable income. HelloAsso sends the tax receipt automatically. <em>For donations via Qonto, the receipt is sent on request to</em> <a href="mailto:contact@daattorah.com">contact@daattorah.com</a>. For other countries, please check local rules.</span>
+            <span class="lang-he-inline">כן, עבור משלמי מס בצרפת. העמותה רשומה לפי חוק 1901 כעמותה לתועלת הציבור. <strong>66 % מהתרומה ניתנת להחזר</strong> ממס הכנסה, עד 20 % מההכנסה החייבת. HelloAsso שולח את אישור המס אוטומטית. <em>לתרומות דרך Qonto, האישור נשלח בבקשה ל-</em> <a href="mailto:contact@daattorah.com">contact@daattorah.com</a>.</span>
+          </div>
+        </details>
+
+        <details class="faq-item" style="background:var(--color-parchment-soft); border:1px solid var(--color-line); padding:1.2rem 1.6rem; margin-bottom:0.7rem;">
+          <summary style="font-family:var(--font-display); font-size:1.2rem; font-weight:500; cursor:pointer; color:var(--color-dark); list-style:none;">
+            <span class="lang-fr-inline">Comment annuler ou modifier un don mensuel ?</span>
+            <span class="lang-en-inline">How can I cancel or modify a monthly donation?</span>
+            <span class="lang-he-inline">איך לבטל או לשנות תרומה חודשית?</span>
+          </summary>
+          <div style="padding-top:0.9rem; color:var(--color-text); line-height:1.65;">
+            <span class="lang-fr-inline">À tout moment. Pour un don mensuel via <strong>Qonto</strong>, écris-nous à <a href="mailto:contact@daattorah.com">contact@daattorah.com</a> avec la mention <em>« Annulation Tomeit Daat »</em> et nous arrêtons le prélèvement sous 5 jours. Pour <strong>HelloAsso</strong>, va sur ton espace donateur HelloAsso et désactive le prélèvement directement.</span>
+            <span class="lang-en-inline">Anytime. For monthly donations via <strong>Qonto</strong>, email us at <a href="mailto:contact@daattorah.com">contact@daattorah.com</a> with <em>"Cancel Tomeit Daat"</em> and we'll stop the debit within 5 days. For <strong>HelloAsso</strong>, log in to your HelloAsso donor space and disable the recurring payment directly.</span>
+            <span class="lang-he-inline">בכל עת. עבור תרומה חודשית דרך <strong>Qonto</strong>, שלחו לנו מייל ל-<a href="mailto:contact@daattorah.com">contact@daattorah.com</a> עם הציון <em>"ביטול תומכי הדעת"</em> ונעצור את החיוב תוך 5 ימים. עבור <strong>HelloAsso</strong>, היכנסו לאזור התורם שלכם ובטלו את החיוב הקבוע ישירות.</span>
+          </div>
+        </details>
+
+        <details class="faq-item" style="background:var(--color-parchment-soft); border:1px solid var(--color-line); padding:1.2rem 1.6rem; margin-bottom:0.7rem;">
+          <summary style="font-family:var(--font-display); font-size:1.2rem; font-weight:500; cursor:pointer; color:var(--color-dark); list-style:none;">
+            <span class="lang-fr-inline">Quelle différence entre Qonto et HelloAsso ?</span>
+            <span class="lang-en-inline">What's the difference between Qonto and HelloAsso?</span>
+            <span class="lang-he-inline">מה ההבדל בין Qonto לבין HelloAsso?</span>
+          </summary>
+          <div style="padding-top:0.9rem; color:var(--color-text); line-height:1.65;">
+            <span class="lang-fr-inline"><strong>Qonto</strong> est notre compte associatif — paiement direct par carte bancaire, sans intermédiaire ni commission. <strong>HelloAsso</strong> est la plateforme française de référence pour les dons aux associations — elle gère automatiquement les reçus fiscaux et propose un pourboire libre (jamais imposé) qui finance leur service. Les deux moyens reversent 100 % du don à DAAT.</span>
+            <span class="lang-en-inline"><strong>Qonto</strong> is our association bank account — direct card payment with no intermediary or commission. <strong>HelloAsso</strong> is the leading French platform for non-profit donations — it handles tax receipts automatically and offers an optional tip (never required) that funds their service. Both transfer 100 % of the donation to DAAT.</span>
+            <span class="lang-he-inline"><strong>Qonto</strong> הוא חשבון הבנק העמותי שלנו — תשלום ישיר באמצעות כרטיס אשראי, בלי מתווך או עמלה. <strong>HelloAsso</strong> היא הפלטפורמה הצרפתית המובילה לתרומות לעמותות — היא מנהלת אישורי מס אוטומטית ומציעה טיפ אופציונלי (אף פעם לא חובה) שמממן את השירות שלהם. שני האמצעים מעבירים 100 % מהתרומה ל-דעת.</span>
+          </div>
+        </details>
+
+        <details class="faq-item" style="background:var(--color-parchment-soft); border:1px solid var(--color-line); padding:1.2rem 1.6rem; margin-bottom:0.7rem;">
+          <summary style="font-family:var(--font-display); font-size:1.2rem; font-weight:500; cursor:pointer; color:var(--color-dark); list-style:none;">
+            <span class="lang-fr-inline">Puis-je dédier une étude après avoir donné ?</span>
+            <span class="lang-en-inline">Can I dedicate a study after donating?</span>
+            <span class="lang-he-inline">האם אפשר להקדיש לימוד לאחר התרומה?</span>
+          </summary>
+          <div style="padding-top:0.9rem; color:var(--color-text); line-height:1.65;">
+            <span class="lang-fr-inline">Oui. Envoie-nous un email à <a href="mailto:contact@daattorah.com">contact@daattorah.com</a> avec la référence de ton don (date, montant, plateforme) et le texte de la dédicace souhaitée. Nous l'ajoutons sur la page de Siman correspondante sous 48h.</span>
+            <span class="lang-en-inline">Yes. Email us at <a href="mailto:contact@daattorah.com">contact@daattorah.com</a> with the reference of your donation (date, amount, platform) and the dedication text. We'll add it to the corresponding Siman page within 48h.</span>
+            <span class="lang-he-inline">כן. שלחו לנו מייל ל-<a href="mailto:contact@daattorah.com">contact@daattorah.com</a> עם הפניה לתרומה שלכם (תאריך, סכום, פלטפורמה) וטקסט ההקדשה. נוסיף אותה לעמוד הסימן המתאים תוך 48 שעות.</span>
+          </div>
+        </details>
+
+        <details class="faq-item" style="background:var(--color-parchment-soft); border:1px solid var(--color-line); padding:1.2rem 1.6rem; margin-bottom:0.7rem;">
+          <summary style="font-family:var(--font-display); font-size:1.2rem; font-weight:500; cursor:pointer; color:var(--color-dark); list-style:none;">
+            <span class="lang-fr-inline">Comment mon don finance-t-il l'IA Daat ?</span>
+            <span class="lang-en-inline">How does my donation fund the Daat AI?</span>
+            <span class="lang-he-inline">איך התרומה שלי מממנת את דעת AI?</span>
+          </summary>
+          <div style="padding-top:0.9rem; color:var(--color-text); line-height:1.65;">
+            <span class="lang-fr-inline">Chaque question posée à Daat déclenche un appel à l'API Claude (Anthropic), qui coûte en moyenne <strong>0,50 €</strong>. Un don de 18 € permet donc <strong>~36 conversations gratuites</strong> offertes à d'autres étudiants. Au-delà de l'IA, ton don finance aussi l'hébergement (Vercel), la base de données et le travail de rédaction des contenus halakhiques.</span>
+            <span class="lang-en-inline">Each question to Daat triggers a call to the Claude API (Anthropic), costing about <strong>€0.50</strong> on average. A €18 donation funds <strong>~36 free conversations</strong> offered to other learners. Beyond AI, your donation also covers hosting (Vercel), database and the work of writing halakhic content.</span>
+            <span class="lang-he-inline">כל שאלה לדעת מפעילה קריאה ל-API של Claude (Anthropic), שעולה בממוצע <strong>0.50 €</strong>. תרומה של 18 € מממנת <strong>כ-36 שיחות חינמיות</strong> שמוצעות לתלמידים אחרים. מעבר ל-AI, התרומה שלכם מכסה גם את האחסון (Vercel), מסד הנתונים ועבודת כתיבת התכנים ההלכתיים.</span>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
   <!-- FOOTER -->
   <footer>
     <div class="container">
@@ -1173,6 +1338,40 @@
     </div>
   </footer>
 
+  <!-- Sticky CTA mobile — visible uniquement < 760px, disparaît quand on est sur #participer -->
+  <a id="sticky-cta-mobile" href="#participer" style="
+    display: none;
+    position: fixed;
+    bottom: 14px;
+    left: 14px;
+    right: 14px;
+    z-index: 90;
+    background: linear-gradient(180deg, #B8972A, #8C6F1E);
+    color: #fff;
+    text-align: center;
+    padding: 14px 18px;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    border-radius: 6px;
+    box-shadow: 0 10px 30px rgba(140,111,30,0.45), 0 2px 8px rgba(0,0,0,0.15);
+    transition: opacity 0.25s, transform 0.25s;
+  ">
+    <span class="lang-fr-inline">❤️ Soutenir DAAT →</span>
+    <span class="lang-en-inline">❤️ Support DAAT →</span>
+    <span class="lang-he-inline">❤️ לתמוך בדעת →</span>
+  </a>
+  <style>
+    @media (max-width: 760px) {
+      #sticky-cta-mobile { display: block !important; }
+      #sticky-cta-mobile.hidden { opacity: 0; transform: translateY(20px); pointer-events: none; }
+      /* Espace au bas pour ne pas masquer le footer */
+      footer { padding-bottom: 6rem !important; }
+    }
+  </style>
+
   <script>
     // ===== Bascule de langue (FR / EN / HE) =====
     const langBtns = document.querySelectorAll('.lang-switcher button');
@@ -1196,6 +1395,66 @@
       const saved = localStorage.getItem('daat-lang');
       if (saved && ['fr','en','he'].includes(saved)) setLang(saved);
     } catch(e) {}
+
+    // Bandeau "Tu viens du chat ?" — affiché si ?from=chat
+    try {
+      const params = new URLSearchParams(location.search);
+      if (params.get('from') === 'chat') {
+        const banner = document.getElementById('from-chat-banner');
+        if (banner) banner.style.display = 'block';
+      }
+    } catch(e) {}
+
+    // Sticky CTA mobile — masqué quand l'utilisateur est sur la section #participer
+    (function stickyCtaLogic() {
+      const cta = document.getElementById('sticky-cta-mobile');
+      const target = document.getElementById('participer');
+      if (!cta || !target || !('IntersectionObserver' in window)) return;
+      const obs = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          cta.classList.toggle('hidden', e.isIntersecting);
+        }
+      }, { threshold: 0.15 });
+      obs.observe(target);
+    })();
+
+    // ============================================================
+    // OBJECTIF DU MOIS — barre de progression
+    // À mettre à jour manuellement (ou brancher sur /api/soutenir/objectif plus tard)
+    // ============================================================
+    const GOAL = {
+      target: 800,    // €/mois — couvre IA + serveurs + domaine
+      current: 0,     // € collectés ce mois (à mettre à jour)
+    };
+
+    (function renderGoal() {
+      const now = new Date();
+      const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+      const daysLeft = Math.max(0, lastDay - now.getDate());
+      const monthsFr = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+      const monthsEn = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      // Mois hébreu approximatif (sans calcul lunaire précis)
+      const monthsHe = ['טבת/שבט','שבט/אדר','אדר/ניסן','ניסן/אייר','אייר/סיוון','סיוון/תמוז','תמוז/אב','אב/אלול','אלול/תשרי','תשרי/חשוון','חשוון/כסלו','כסלו/טבת'];
+
+      const pct = Math.min(100, Math.round((GOAL.current / GOAL.target) * 100));
+      const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+
+      set('goal-month-fr', monthsFr[now.getMonth()] + ' ' + now.getFullYear());
+      set('goal-month-en', monthsEn[now.getMonth()] + ' ' + now.getFullYear());
+      set('goal-month-he', monthsHe[now.getMonth()]);
+      set('goal-current', GOAL.current.toLocaleString('fr-FR') + ' €');
+      set('goal-target', GOAL.target.toLocaleString('fr-FR') + ' €');
+      set('goal-percent', pct);
+      set('goal-days', daysLeft);
+      set('goal-days-en', daysLeft);
+      set('goal-days-he', daysLeft);
+
+      // Animation barre (au prochain frame pour voir l'animation)
+      requestAnimationFrame(() => {
+        const bar = document.getElementById('goal-bar');
+        if (bar) bar.style.width = pct + '%';
+      });
+    })();
   </script>
 
   <!-- Mur des Bâtisseurs — fetch dynamique avec fallback statique -->
@@ -1212,14 +1471,20 @@
       }
 
       function render(wall) {
-        if (!wall || !wall.length) return; // garde le fallback
+        if (!wall || !wall.length) return; // garde l'état "premiers Bâtisseurs"
         grid.removeAttribute('data-fallback');
+        grid.style.display = '';
         grid.innerHTML = wall.map(function (b) {
           return '<div class="builder">' +
                    '<div class="builder-name">' + esc(b.name || 'Anonyme') + '</div>' +
                    '<div class="builder-tag">' + esc(b.tag || 'Bâtisseur') + '</div>' +
                  '</div>';
         }).join('');
+        // Masquer le message "DAAT démarre" et afficher le CTA bas
+        var empty = document.getElementById('builders-empty');
+        var ctaBottom = document.getElementById('builders-cta-bottom');
+        if (empty) empty.style.display = 'none';
+        if (ctaBottom) ctaBottom.style.display = '';
       }
 
       fetch(API, { method: 'GET', headers: { 'Accept': 'application/json' } })

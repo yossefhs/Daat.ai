@@ -1324,7 +1324,7 @@ function updateRateBanner(info) {
 }
 
 function showLimitReachedModal(info) {
-  const helloasso = info.helloasso_url || 'https://www.helloasso.com/associations/association-hessed/formulaires/9';
+  const helloasso = info.helloasso_url || '/soutenir.html?from=chat';
   const isGuest = info.is_guest !== false;
   const limit = info.limit || (isGuest ? 3 : 15);
 
