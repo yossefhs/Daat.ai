@@ -201,5 +201,48 @@ export default async function handler(req, res) {
     }
   }
 
-  return res.status(405).json({ error: 'GET ou POST uniquement' });
+  // ---- DELETE : supprimer un soutien (admin-only) ----
+  if (req.method === 'DELETE') {
+    if (!isAuthed(req)) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+    const id = clean(req.query.id, 64);
+    if (!id) {
+      return res.status(400).json({ error: 'id requis (?id=s-xxx)' });
+    }
+
+    try {
+      const record = await kv.get(`soutien:${id}`);
+      if (!record) {
+        return res.status(404).json({ error: 'Don introuvable' });
+      }
+
+      // 1. Décrémenter les compteurs du mois où le don a été enregistré
+      if (record.amount && record.amount > 0 && record.createdAt) {
+        const d = new Date(record.createdAt);
+        const monthKey = `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}`;
+        const cents = Math.round(record.amount * 100);
+        // incrby avec valeur négative = decrement
+        await kv.incrby(`soutien:total:${monthKey}`, -cents);
+        await kv.incrby(`soutien:count:${monthKey}`, -1);
+      }
+
+      // 2. Retirer du mur public (LREM avec le publicRecord JSON-stringified exact)
+      const publicRecord = buildPublicRecord(record);
+      try { await kv.lrem('soutien:wall', 0, JSON.stringify(publicRecord)); } catch (_) {}
+
+      // 3. Retirer l'id de la liste d'audit
+      try { await kv.lrem('soutien:list', 0, id); } catch (_) {}
+
+      // 4. Supprimer le record détaillé
+      await kv.del(`soutien:${id}`);
+
+      return res.status(200).json({ ok: true, id, deleted: record });
+    } catch (err) {
+      console.error('[soutenir] DELETE error:', err);
+      return res.status(500).json({ error: err?.message || 'Erreur serveur' });
+    }
+  }
+
+  return res.status(405).json({ error: 'GET, POST ou DELETE uniquement' });
 }

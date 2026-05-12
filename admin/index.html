@@ -1387,18 +1387,21 @@ async function soutLoadRecent() {
       wrap.innerHTML = '<div style="padding:20px;color:var(--muted);">Aucun don enregistré pour l\'instant. Sois le 1er à en ajouter ci-dessus ↑</div>';
       return;
     }
-    wrap.innerHTML = '<table class="an-table"><thead><tr><th>Date</th><th>Donateur</th><th>Type</th><th>Montant</th><th>Dédicace</th></tr></thead><tbody>' +
+    wrap.innerHTML = '<table class="an-table"><thead><tr><th>Date</th><th>Donateur</th><th>Type</th><th>Montant</th><th>Dédicace</th><th></th></tr></thead><tbody>' +
       data.records.map(r => {
         const date = new Date(r.createdAt);
         const dateStr = date.toLocaleDateString('fr-FR') + ' ' + date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
         const displayName = r.anonymous ? '<em>Anonyme</em>' : (r.name || '—');
         const amount = r.amount ? r.amount.toLocaleString('fr-FR') + ' €' : '—';
+        const safeId = String(r.id).replace(/'/g, '');
+        const safeName = String(r.name || 'Anonyme').replace(/'/g, '');
         return `<tr>
           <td style="font-size:12px;color:var(--muted);">${dateStr}</td>
           <td><strong>${displayName}</strong></td>
           <td><span style="font-size:11px;color:var(--muted);">${r.type || ''}</span></td>
           <td style="font-family:'Inter',sans-serif;font-weight:600;color:var(--gold);">${amount}</td>
           <td style="font-size:13px;color:var(--text);max-width:240px;">${r.dedicace || ''}</td>
+          <td><button class="btn btn-outline btn-sm btn-danger" onclick="soutDelete('${safeId}','${safeName}',${r.amount || 0})">🗑️</button></td>
         </tr>`;
       }).join('') + '</tbody></table>';
   } catch (e) {
@@ -1416,6 +1419,22 @@ async function soutLoadAll() {
   status.textContent = '✅ Connecté';
   status.style.color = 'var(--green)';
   await Promise.all([soutLoadStats(), soutLoadRecent()]);
+}
+
+async function soutDelete(id, name, amount) {
+  if (!anSecret) {
+    toast('Connecte-toi d\'abord');
+    return;
+  }
+  const label = name ? `${name}${amount ? ' (' + amount + ' €)' : ''}` : id;
+  if (!confirm(`Supprimer le don de ${label} ?\n\nCela retirera le don du Mur des Bâtisseurs et décrémentera la barre de progression. Action irréversible.`)) return;
+  try {
+    await soutFetch('/api/soutenir?id=' + encodeURIComponent(id), { method: 'DELETE' });
+    toast('Don supprimé ✅');
+    soutLoadAll();
+  } catch (e) {
+    toast('Erreur : ' + e.message);
+  }
 }
 
 async function soutSubmit() {
