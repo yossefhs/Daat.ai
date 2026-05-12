@@ -6,10 +6,12 @@
 // - Multi-turn (l'historique est envoyé par le client à chaque appel)
 
 import Anthropic from '@anthropic-ai/sdk';
+import { kv } from '@vercel/kv';
 import { SYSTEM_PROMPT } from './_system-prompt.js';
 import { SEFARIA_TOOLS, executeSefariaTool } from './_sefaria.js';
 import { CORPUS_TOOLS, executeCorpusTool } from './_corpus.js';
 import { MAREH_MEKOMOT_TOOLS, executeMarehMekomotTool } from './_mareh_mekomot.js';
+import { getUserFromRequest } from './_auth.js';
 
 const client = new Anthropic();
 
@@ -45,6 +47,31 @@ export default async function handler(req, res) {
     // Validation
     if (!Array.isArray(messages) || messages.length === 0) {
       return res.status(400).json({ error: 'Le champ "messages" doit être un tableau non vide' });
+    }
+
+    // Vérifier les limites de taux par utilisateur
+    const user = getUserFromRequest(req);
+    const email = user?.email || 'anonymous';
+    const today = new Date().toISOString().slice(0, 10);
+    const rateKey = `rate:${email}:${today}`;
+    const plan = (await kv.get(`user:plan:${email}`)) || 'free';
+    const limits = { free: 20, premium: 9999, anonymous: 5 };
+    const limit = limits[plan] || 5;
+    const currentCount = (await kv.get(rateKey)) || 0;
+
+    if (currentCount >= limit) {
+      const resetTime = new Date();
+      resetTime.setDate(resetTime.getDate() + 1);
+      resetTime.setHours(0, 0, 0, 0);
+      const resetIso = resetTime.toISOString();
+      return res.status(400).json({
+        type: 'error',
+        error: {
+          type: 'invalid_request_error',
+          message: `You have reached your specified API usage limits. You will regain access on ${resetIso.split('T')[0]} at 00:00 UTC.`,
+        },
+        request_id: `req_${Date.now()}`,
+      });
     }
 
     for (const m of messages) {
@@ -205,6 +232,67 @@ export default async function handler(req, res) {
     });
     res.write(`data: ${donePayload}\n\n`);
     res.end();
+
+    // Enregistrer l'usage dans Vercel KV (analytics non-bloquant)
+    (async () => {
+      try {
+        const user = getUserFromRequest(req);
+        const email = user?.email || 'anonymous';
+        const today = new Date().toISOString().slice(0, 10);
+
+        // Coûts Claude Opus 4.7 (prix actuels)
+        const inputCost = 0.015 / 1000; // $0.015 par 1K tokens
+        const outputCost = 0.06 / 1000; // $0.06 par 1K tokens
+        const costUsd = (totalUsage.input_tokens * inputCost) + (totalUsage.output_tokens * outputCost);
+
+        // Incrémenter les stats globales
+        const globalKey = `usage:global:${today}`;
+        const globalData = (await kv.get(globalKey)) || { tokens_in: 0, tokens_out: 0, cost_usd: 0, count: 0 };
+        await kv.set(globalKey, {
+          tokens_in: globalData.tokens_in + totalUsage.input_tokens,
+          tokens_out: globalData.tokens_out + totalUsage.output_tokens,
+          cost_usd: parseFloat((globalData.cost_usd + costUsd).toFixed(6)),
+          count: globalData.count + 1,
+        });
+
+        // Incrémenter les stats par utilisateur
+        const userKey = `usage:${email}:${today}`;
+        const userData = (await kv.get(userKey)) || { tokens_in: 0, tokens_out: 0, cost_usd: 0, count: 0 };
+        await kv.set(userKey, {
+          tokens_in: userData.tokens_in + totalUsage.input_tokens,
+          tokens_out: userData.tokens_out + totalUsage.output_tokens,
+          cost_usd: parseFloat((userData.cost_usd + costUsd).toFixed(6)),
+          count: userData.count + 1,
+        });
+
+        // Incrémenter le compteur de questions (rate limit)
+        const rateKey = `rate:${email}:${today}`;
+        await kv.incr(rateKey);
+        if (await kv.ttl(rateKey) === -1) {
+          await kv.expire(rateKey, 24 * 60 * 60);
+        }
+
+        // Ajouter le log d'utilisation
+        const logEntry = {
+          ts: new Date().toISOString(),
+          user: email,
+          tokens_in: totalUsage.input_tokens,
+          tokens_out: totalUsage.output_tokens,
+          cost_usd: costUsd,
+          model: 'claude-opus-4-7',
+          iterations,
+          stop_reason: stopReason,
+        };
+        await kv.lpush('logs:usage', JSON.stringify(logEntry));
+        // Garder seulement les 500 derniers logs
+        await kv.ltrim('logs:usage', 0, 499);
+
+        // Ajouter l'email à la liste des utilisateurs connus
+        await kv.sadd('users:known', email);
+      } catch (err) {
+        console.error('[chat.js] Erreur enregistrement usage:', err.message);
+      }
+    })();
   } catch (error) {
     console.error('[Daat chat API] error:', error);
 
