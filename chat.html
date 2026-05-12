@@ -1279,6 +1279,105 @@ function persistConversation() {
   renderConvList();
 }
 
+// ============================================================
+// RATE LIMIT — bannière progressive + modal de blocage
+// ============================================================
+function ensureRateBanner() {
+  let el = document.getElementById('daat-rate-banner');
+  if (el) return el;
+  el = document.createElement('div');
+  el.id = 'daat-rate-banner';
+  el.style.cssText = `
+    position: sticky; top: 0; z-index: 50;
+    padding: 10px 16px; font-size: 14px; line-height: 1.4;
+    background: linear-gradient(90deg, #FBF7EF 0%, #F5F0E8 100%);
+    border-bottom: 1px solid rgba(184,151,42,0.35);
+    color: #3a2e1f; display: none;
+    font-family: 'Crimson Pro', Georgia, serif;
+  `;
+  const main = document.querySelector('main') || document.body;
+  main.insertBefore(el, main.firstChild);
+  return el;
+}
+
+function updateRateBanner(info) {
+  const el = ensureRateBanner();
+  const { plan, is_guest, count, limit, remaining, helloasso_url } = info;
+  if (plan === 'premium' || remaining > Math.ceil(limit / 2)) {
+    el.style.display = 'none';
+    return;
+  }
+  let msg = '';
+  if (is_guest) {
+    if (remaining <= 0) {
+      msg = `Tu as utilisé tes ${limit} questions gratuites. <a href="/auth.html" style="color:#8C6F1E;text-decoration:underline;font-weight:600;">Connecte-toi</a> pour 15 questions/jour, ou <a href="${helloasso_url}" target="_blank" rel="noopener" style="color:#8C6F1E;text-decoration:underline;font-weight:600;">soutiens DAAT</a> pour un accès illimité.`;
+    } else if (remaining === 1) {
+      msg = `Il te reste <strong>1 question gratuite</strong> aujourd'hui. <a href="/auth.html" style="color:#8C6F1E;text-decoration:underline;">Crée un compte gratuit</a> pour 15 questions/jour.`;
+    } else {
+      msg = `Il te reste <strong>${remaining} questions gratuites</strong>. <a href="/auth.html" style="color:#8C6F1E;text-decoration:underline;">Connecte-toi gratuitement</a> pour en avoir plus.`;
+    }
+  } else {
+    msg = `Tu as utilisé <strong>${count}/${limit}</strong> questions aujourd'hui. <a href="${helloasso_url}" target="_blank" rel="noopener" style="color:#8C6F1E;text-decoration:underline;font-weight:600;">Soutiens DAAT</a> pour un accès illimité.`;
+  }
+  el.innerHTML = msg;
+  el.style.display = 'block';
+}
+
+function showLimitReachedModal(info) {
+  const helloasso = info.helloasso_url || 'https://www.helloasso.com/associations/association-hessed/formulaires/9';
+  const isGuest = info.is_guest !== false;
+  const limit = info.limit || (isGuest ? 3 : 15);
+
+  const overlay = document.createElement('div');
+  overlay.style.cssText = `
+    position: fixed; inset: 0; background: rgba(26,26,46,0.65); z-index: 1000;
+    display: flex; align-items: center; justify-content: center; padding: 20px;
+    backdrop-filter: blur(4px);
+  `;
+  const modal = document.createElement('div');
+  modal.style.cssText = `
+    background: #FBF7EF; max-width: 480px; width: 100%; padding: 36px 32px;
+    border-top: 4px solid #B8972A; border-radius: 4px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.3); text-align: center;
+    font-family: 'Crimson Pro', Georgia, serif; color: #3a2e1f;
+  `;
+  modal.innerHTML = `
+    <div style="font-family:'Frank Ruhl Libre',serif;font-size:42px;color:#B8972A;margin-bottom:6px;direction:rtl;">דעת</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:500;color:#1a1a2e;margin-bottom:14px;">
+      ${isGuest ? 'Continue ton étude avec DAAT' : 'Tu as bien étudié aujourd\'hui'}
+    </h2>
+    <p style="font-size:1.05rem;line-height:1.6;margin-bottom:22px;color:#3a2e1f;">
+      ${isGuest
+        ? `Tu as utilisé tes <strong>${limit} questions gratuites</strong>. L'IA Daat utilise Claude d'Anthropic — chaque réponse a un coût réel pour l'association.`
+        : `Tu as atteint ta limite de <strong>${limit} questions/jour</strong>. L'IA Daat tourne grâce aux dons — chaque conversation coûte ~0,50&nbsp;€ à l'association.`}
+    </p>
+
+    ${isGuest ? `
+    <div style="background:#fff;border:1px solid rgba(184,151,42,0.25);padding:14px;margin-bottom:14px;border-radius:4px;">
+      <div style="font-size:0.85rem;letter-spacing:1px;text-transform:uppercase;color:#7a6a55;margin-bottom:6px;">Option simple — gratuit</div>
+      <a href="/auth.html" style="display:block;background:#1a1a2e;color:#F5F0E8;padding:12px 20px;text-decoration:none;font-family:'Cormorant Garamond',serif;font-size:1.05rem;letter-spacing:0.5px;">
+        📧 Crée un compte → <strong>15 questions/jour</strong>
+      </a>
+    </div>` : ''}
+
+    <div style="background:#fff;border:1px solid #B8972A;padding:14px;margin-bottom:18px;border-radius:4px;">
+      <div style="font-size:0.85rem;letter-spacing:1px;text-transform:uppercase;color:#8C6F1E;margin-bottom:6px;">Soutenir l'étude</div>
+      <a href="${helloasso}" target="_blank" rel="noopener" style="display:block;background:#B8972A;color:#fff;padding:12px 20px;text-decoration:none;font-family:'Cormorant Garamond',serif;font-size:1.05rem;letter-spacing:0.5px;font-weight:500;">
+        ❤️ Faire un don → <strong>accès illimité</strong>
+      </a>
+      <div style="font-size:0.85rem;color:#7a6a55;margin-top:8px;font-style:italic;">Reçu fiscal (déduction 66 % en France)</div>
+    </div>
+
+    <button id="daat-close-limit" style="background:transparent;border:none;color:#7a6a55;font-family:'Crimson Pro',serif;font-size:0.95rem;cursor:pointer;text-decoration:underline;">
+      Reviens demain — fermer
+    </button>
+  `;
+  overlay.appendChild(modal);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+  modal.querySelector('#daat-close-limit').onclick = () => overlay.remove();
+  document.body.appendChild(overlay);
+}
+
 async function send(userText) {
   state.messages.push({ role: 'user', content: userText });
   renderMessage('user', userText);
@@ -1291,13 +1390,25 @@ async function send(userText) {
     const response = await fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify({ messages: state.messages }),
     });
 
     if (!response.ok) {
-      let errMsg = 'Erreur ' + response.status;
-      try { const e = await response.json(); errMsg = e.error || errMsg; } catch (_) {}
-      throw new Error(errMsg);
+      let errData = null;
+      try { errData = await response.json(); } catch (_) {}
+      // 429 + type=limit_reached → notre limite custom, on affiche le modal HelloAsso
+      if (response.status === 429 && errData && errData.type === 'limit_reached') {
+        if (typingEl.parentElement) typingEl.remove();
+        showLimitReachedModal(errData);
+        // Retirer la dernière question utilisateur pour qu'il puisse réessayer plus tard
+        state.messages.pop();
+        const lastUserBubble = $log.querySelector('.message-user:last-of-type');
+        if (lastUserBubble) lastUserBubble.remove();
+        persistConversation();
+        return;
+      }
+      throw new Error((errData && errData.error) || ('Erreur ' + response.status));
     }
 
     typingEl.remove();
@@ -1337,6 +1448,8 @@ async function send(userText) {
             appendToolNotice(toolLabels[parsed.tool] || `🔧 ${parsed.tool}`);
           } else if (parsed.type === 'notice') {
             appendToolNotice('⏳ ' + parsed.message);
+          } else if (parsed.type === 'rate_info') {
+            updateRateBanner(parsed);
           } else if (parsed.type === 'error') {
             throw new Error(parsed.error || 'Erreur de génération');
           }

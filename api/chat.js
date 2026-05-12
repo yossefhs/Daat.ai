@@ -18,6 +18,50 @@ const client = new Anthropic();
 const MAX_TOOL_ITERATIONS = 8; // agentic loop (mareh_mekomot + corpus + Sefaria)
 const ALL_TOOLS = [...MAREH_MEKOMOT_TOOLS, ...CORPUS_TOOLS, ...SEFARIA_TOOLS];
 
+// ── Limites quotidiennes par plan ──────────────────────────────────────────
+const DAILY_LIMITS = {
+  anonymous: 3,    // visiteur sans compte
+  free: 15,        // compte email (OTP)
+  premium: 99999,  // donateur — illimité
+};
+const HELLOASSO_URL = 'https://www.helloasso.com/associations/association-hessed/formulaires/9';
+const GUEST_COOKIE = 'daat_guest_id';
+
+// ── Helpers identité ───────────────────────────────────────────────────────
+function readCookie(req, name) {
+  const header = req.headers.cookie || '';
+  for (const pair of header.split(';')) {
+    const idx = pair.indexOf('=');
+    if (idx < 0) continue;
+    const k = pair.slice(0, idx).trim();
+    if (k === name) return decodeURIComponent(pair.slice(idx + 1).trim());
+  }
+  return null;
+}
+
+function genGuestId() {
+  // UUID v4 simplifié — pas besoin de crypto fort, c'est juste un identifiant
+  return 'guest_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
+}
+
+// Renvoie { userId, plan, isGuest, guestIdSetCookie }
+async function identifyUser(req) {
+  const user = getUserFromRequest(req);
+  if (user?.email) {
+    const plan = (await kv.get(`user:plan:${user.email}`)) || 'free';
+    return { userId: user.email, plan, isGuest: false, guestIdSetCookie: null };
+  }
+  // Anonyme — lire/créer guest_id
+  let guestId = readCookie(req, GUEST_COOKIE);
+  let setCookie = null;
+  if (!guestId || !guestId.startsWith('guest_')) {
+    guestId = genGuestId();
+    // Cookie cross-site (le chat tourne sur daatai.vercel.app, embarqué dans daattorah.com)
+    setCookie = `${GUEST_COOKIE}=${encodeURIComponent(guestId)}; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=${365 * 24 * 60 * 60}`;
+  }
+  return { userId: guestId, plan: 'anonymous', isGuest: true, guestIdSetCookie: setCookie };
+}
+
 // Map tool name → executor
 const TOOL_EXECUTORS = {
   daat_search_mareh_mekomot: executeMarehMekomotTool,
@@ -29,11 +73,15 @@ const TOOL_EXECUTORS = {
 };
 
 export default async function handler(req, res) {
-  // CORS preflight
+  // CORS — credentials:include nécessite origin spécifique (pas *)
+  const origin = req.headers.origin || '*';
+  res.setHeader('Access-Control-Allow-Origin', origin);
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Vary', 'Origin');
+
   if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     return res.status(200).end();
   }
 
@@ -49,28 +97,35 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Le champ "messages" doit être un tableau non vide' });
     }
 
-    // Vérifier les limites de taux par utilisateur
-    const user = getUserFromRequest(req);
-    const email = user?.email || 'anonymous';
+    // Identifier l'utilisateur (email connecté OU guest_id par cookie)
+    const { userId, plan, isGuest, guestIdSetCookie } = await identifyUser(req);
     const today = new Date().toISOString().slice(0, 10);
-    const rateKey = `rate:${email}:${today}`;
-    const plan = (await kv.get(`user:plan:${email}`)) || 'free';
-    const limits = { free: 20, premium: 9999, anonymous: 5 };
-    const limit = limits[plan] || 5;
-    const currentCount = (await kv.get(rateKey)) || 0;
+    const rateKey = `rate:${userId}:${today}`;
+    const limit = DAILY_LIMITS[plan] || DAILY_LIMITS.anonymous;
+    const currentCount = parseInt((await kv.get(rateKey)) || 0, 10);
 
+    // Définir le cookie guest_id si nouveau visiteur
+    if (guestIdSetCookie) {
+      res.setHeader('Set-Cookie', guestIdSetCookie);
+    }
+
+    // Limite atteinte → renvoyer un blocage clair avec lien HelloAsso
     if (currentCount >= limit) {
       const resetTime = new Date();
       resetTime.setDate(resetTime.getDate() + 1);
       resetTime.setHours(0, 0, 0, 0);
-      const resetIso = resetTime.toISOString();
-      return res.status(400).json({
-        type: 'error',
-        error: {
-          type: 'invalid_request_error',
-          message: `You have reached your specified API usage limits. You will regain access on ${resetIso.split('T')[0]} at 00:00 UTC.`,
-        },
-        request_id: `req_${Date.now()}`,
+      return res.status(429).json({
+        error: 'limit_reached',
+        type: 'limit_reached',
+        plan,
+        count: currentCount,
+        limit,
+        is_guest: isGuest,
+        reset_date: resetTime.toISOString(),
+        helloasso_url: HELLOASSO_URL,
+        message: isGuest
+          ? `Tu as utilisé tes ${limit} questions gratuites aujourd'hui. Connecte-toi avec ton email pour 15 questions/jour, ou soutiens DAAT pour un accès illimité.`
+          : `Tu as atteint ta limite quotidienne de ${limit} questions. Reviens demain ou soutiens DAAT pour un accès illimité.`,
       });
     }
 
@@ -102,6 +157,21 @@ export default async function handler(req, res) {
     res.setHeader('Connection', 'keep-alive');
     res.setHeader('X-Accel-Buffering', 'no');
     res.flushHeaders?.();
+
+    // Premier event : info sur la consommation actuelle (pour bannière progressive)
+    // currentCount = avant cette question. La question en cours sera ajoutée à la fin.
+    const willBeCount = currentCount + 1;
+    const remaining = Math.max(0, limit - willBeCount);
+    const rateInfoPayload = JSON.stringify({
+      type: 'rate_info',
+      plan,
+      is_guest: isGuest,
+      count: willBeCount,
+      limit,
+      remaining,
+      helloasso_url: HELLOASSO_URL,
+    });
+    res.write(`data: ${rateInfoPayload}\n\n`);
 
     // Conversation working set : on travaille avec un format de blocs (pour le tool use)
     // Le client envoie des messages texte simple — on les convertit en blocs.
@@ -236,9 +306,7 @@ export default async function handler(req, res) {
     // Enregistrer l'usage dans Vercel KV (analytics non-bloquant)
     (async () => {
       try {
-        const user = getUserFromRequest(req);
-        const email = user?.email || 'anonymous';
-        const today = new Date().toISOString().slice(0, 10);
+        const todayKey = new Date().toISOString().slice(0, 10);
 
         // Coûts Claude Opus 4.7 (prix actuels)
         const inputCost = 0.015 / 1000; // $0.015 par 1K tokens
@@ -246,7 +314,7 @@ export default async function handler(req, res) {
         const costUsd = (totalUsage.input_tokens * inputCost) + (totalUsage.output_tokens * outputCost);
 
         // Incrémenter les stats globales
-        const globalKey = `usage:global:${today}`;
+        const globalKey = `usage:global:${todayKey}`;
         const globalData = (await kv.get(globalKey)) || { tokens_in: 0, tokens_out: 0, cost_usd: 0, count: 0 };
         await kv.set(globalKey, {
           tokens_in: globalData.tokens_in + totalUsage.input_tokens,
@@ -255,8 +323,8 @@ export default async function handler(req, res) {
           count: globalData.count + 1,
         });
 
-        // Incrémenter les stats par utilisateur
-        const userKey = `usage:${email}:${today}`;
+        // Incrémenter les stats par utilisateur (email OU guest_id)
+        const userKey = `usage:${userId}:${todayKey}`;
         const userData = (await kv.get(userKey)) || { tokens_in: 0, tokens_out: 0, cost_usd: 0, count: 0 };
         await kv.set(userKey, {
           tokens_in: userData.tokens_in + totalUsage.input_tokens,
@@ -265,17 +333,19 @@ export default async function handler(req, res) {
           count: userData.count + 1,
         });
 
-        // Incrémenter le compteur de questions (rate limit)
-        const rateKey = `rate:${email}:${today}`;
+        // Incrémenter le compteur de questions (rate limit quotidien)
         await kv.incr(rateKey);
-        if (await kv.ttl(rateKey) === -1) {
+        const ttl = await kv.ttl(rateKey);
+        if (ttl === -1 || ttl === -2) {
           await kv.expire(rateKey, 24 * 60 * 60);
         }
 
-        // Ajouter le log d'utilisation
+        // Log d'utilisation (rolling 500 dernières)
         const logEntry = {
           ts: new Date().toISOString(),
-          user: email,
+          user: userId,
+          is_guest: isGuest,
+          plan,
           tokens_in: totalUsage.input_tokens,
           tokens_out: totalUsage.output_tokens,
           cost_usd: costUsd,
@@ -284,11 +354,10 @@ export default async function handler(req, res) {
           stop_reason: stopReason,
         };
         await kv.lpush('logs:usage', JSON.stringify(logEntry));
-        // Garder seulement les 500 derniers logs
         await kv.ltrim('logs:usage', 0, 499);
 
-        // Ajouter l'email à la liste des utilisateurs connus
-        await kv.sadd('users:known', email);
+        // Ajouter à la liste des utilisateurs connus (email OU guest_id)
+        await kv.sadd('users:known', userId);
       } catch (err) {
         console.error('[chat.js] Erreur enregistrement usage:', err.message);
       }

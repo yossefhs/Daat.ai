@@ -547,9 +547,9 @@ git commit -m "Initial commit — DAAT.AI Siman 246"
         <table class="data-table">
           <thead><tr><th>Plan</th><th>Questions / jour</th><th>Accès</th></tr></thead>
           <tbody>
-            <tr><td><span class="plan-badge anonymous">Anonyme</span></td><td><strong>5</strong></td><td>Sans compte</td></tr>
-            <tr><td><span class="plan-badge free">Gratuit</span></td><td><strong>20</strong></td><td>Compte OTP</td></tr>
-            <tr><td><span class="plan-badge premium">Premium</span></td><td><strong>Illimité</strong></td><td>Abonnement payant</td></tr>
+            <tr><td><span class="plan-badge anonymous">Anonyme</span></td><td><strong>3</strong></td><td>Cookie navigateur, sans compte</td></tr>
+            <tr><td><span class="plan-badge free">Gratuit</span></td><td><strong>15</strong></td><td>Compte email (OTP)</td></tr>
+            <tr><td><span class="plan-badge premium">Premium</span></td><td><strong>Illimité</strong></td><td>Donateur HelloAsso / Qonto</td></tr>
           </tbody>
         </table>
       </div>
@@ -1149,13 +1149,20 @@ async function anLoadUsers() {
       wrap.innerHTML = '<div style="padding:24px;color:var(--muted);">Aucun utilisateur connecté aujourd’hui.</div>';
       return;
     }
-    const limits = { free: 20, premium: 9999, anonymous: 5 };
-    wrap.innerHTML = '<table class="an-table"><thead><tr><th>Email</th><th>Plan</th><th>Questions auj.</th><th>Tokens auj.</th><th>Coût auj.</th><th>Actions</th></tr></thead><tbody>' +
+    const limits = { free: 15, premium: 9999, anonymous: 3 };
+    const s = data.stats || { total: data.users.length, guests: 0, registered: data.users.length };
+    const summary = `<div style="padding:14px 24px;background:#FBF7EF;border-bottom:1px solid var(--border);font-size:13px;display:flex;gap:24px;">
+      <span><strong>${s.total}</strong> utilisateurs</span>
+      <span><strong>${s.registered}</strong> inscrits (email)</span>
+      <span><strong>${s.guests}</strong> anonymes</span>
+    </div>`;
+    wrap.innerHTML = summary + '<table class="an-table"><thead><tr><th>Utilisateur</th><th>Plan</th><th>Questions auj.</th><th>Tokens auj.</th><th>Coût auj.</th><th>Actions</th></tr></thead><tbody>' +
       data.users.map(u => {
-        const lim = limits[u.plan] || 20;
+        const lim = limits[u.plan] || 3;
         const pct = Math.min(100, Math.round((u.today_questions / lim) * 100));
+        const label = u.label || u.email;
         return `<tr>
-          <td style="font-family:monospace;font-size:12px;">${u.email}</td>
+          <td style="font-family:monospace;font-size:12px;${u.is_guest ? 'color:var(--muted);font-style:italic;' : ''}">${label}</td>
           <td><span class="plan-badge ${u.plan}">${u.plan}</span></td>
           <td>
             <strong>${u.today_questions}</strong> / ${lim >= 9999 ? '∞' : lim}
@@ -1164,7 +1171,7 @@ async function anLoadUsers() {
           <td>${((u.tokens_in||0)+(u.tokens_out||0)).toLocaleString('fr')}</td>
           <td>$${(u.cost_usd||0).toFixed(4)}</td>
           <td style="display:flex;gap:6px;">
-            <button class="btn btn-gold btn-sm" onclick="openAnUpgrade('${u.email}','${u.plan}')">Plan</button>
+            ${u.is_guest ? '<span style="font-size:11px;color:var(--muted);">anonyme</span>' : `<button class="btn btn-gold btn-sm" onclick="openAnUpgrade('${u.email}','${u.plan}')">Plan</button>`}
             <button class="btn btn-outline btn-sm btn-danger" onclick="anResetLimit('${u.email}')">Reset</button>
           </td>
         </tr>`;

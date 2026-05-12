@@ -69,21 +69,32 @@ export default async function handler(req, res) {
 
   // 2. USERS — liste des utilisateurs connus avec stats aujourd'hui
   if (action === 'users') {
-    const emails = await kv.smembers('users:known') || [];
+    const knownIds = await kv.smembers('users:known') || [];
     const d = today();
+    const includeGuests = req.query.guests !== 'false'; // par défaut on inclut
 
-    const users = await Promise.all(
-      emails.map(async email => {
-        const usage = (await kv.get(`usage:${email}:${d}`)) || { tokens_in: 0, tokens_out: 0, cost_usd: 0, count: 0 };
-        const rateKey = `rate:${email}:${d}`;
-        const rateCount = (await kv.get(rateKey)) || 0;
-        const plan = (await kv.get(`user:plan:${email}`)) || 'free';
-        return { email, plan, today_questions: rateCount, ...usage };
+    const all = await Promise.all(
+      knownIds.map(async id => {
+        const isGuest = id.startsWith('guest_');
+        if (isGuest && !includeGuests) return null;
+        const usage = (await kv.get(`usage:${id}:${d}`)) || { tokens_in: 0, tokens_out: 0, cost_usd: 0, count: 0 };
+        const rateCount = parseInt((await kv.get(`rate:${id}:${d}`)) || 0, 10);
+        const plan = isGuest ? 'anonymous' : ((await kv.get(`user:plan:${id}`)) || 'free');
+        // Label lisible : email tel quel, ou "Anonyme #abc12345" pour les guests
+        const label = isGuest ? `Anonyme #${id.slice(-8)}` : id;
+        return { email: id, label, plan, is_guest: isGuest, today_questions: rateCount, ...usage };
       })
     );
 
+    const users = all.filter(Boolean);
     users.sort((a, b) => b.today_questions - a.today_questions);
-    return res.json({ users, total: users.length, date: d });
+
+    const stats = {
+      total: users.length,
+      guests: users.filter(u => u.is_guest).length,
+      registered: users.filter(u => !u.is_guest).length,
+    };
+    return res.json({ users, total: users.length, stats, date: d });
   }
 
   // 3. LOGS — dernières requêtes
