@@ -1420,14 +1420,13 @@
 
     // ============================================================
     // OBJECTIF DU MOIS — barre de progression
-    // À mettre à jour manuellement (ou brancher sur /api/soutenir/objectif plus tard)
+    // Données récupérées depuis /api/soutenir?action=stats
+    // Total auto-incrémenté à chaque POST /api/soutenir
     // ============================================================
-    const GOAL = {
-      target: 800,    // €/mois — couvre IA + serveurs + domaine
-      current: 0,     // € collectés ce mois (à mettre à jour)
-    };
+    const GOAL_API = 'https://daatai.vercel.app/api/soutenir?action=stats';
+    const GOAL_DEFAULT = { target: 800, current: 0 };
 
-    (function renderGoal() {
+    function renderGoal(goal) {
       const now = new Date();
       const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
       const daysLeft = Math.max(0, lastDay - now.getDate());
@@ -1436,25 +1435,40 @@
       // Mois hébreu approximatif (sans calcul lunaire précis)
       const monthsHe = ['טבת/שבט','שבט/אדר','אדר/ניסן','ניסן/אייר','אייר/סיוון','סיוון/תמוז','תמוז/אב','אב/אלול','אלול/תשרי','תשרי/חשוון','חשוון/כסלו','כסלו/טבת'];
 
-      const pct = Math.min(100, Math.round((GOAL.current / GOAL.target) * 100));
+      const target = Number(goal.target) || GOAL_DEFAULT.target;
+      const current = Number(goal.current) || 0;
+      const pct = target > 0 ? Math.min(100, Math.round((current / target) * 100)) : 0;
       const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
 
       set('goal-month-fr', monthsFr[now.getMonth()] + ' ' + now.getFullYear());
       set('goal-month-en', monthsEn[now.getMonth()] + ' ' + now.getFullYear());
       set('goal-month-he', monthsHe[now.getMonth()]);
-      set('goal-current', GOAL.current.toLocaleString('fr-FR') + ' €');
-      set('goal-target', GOAL.target.toLocaleString('fr-FR') + ' €');
+      // Affiche les centimes seulement s'ils sont > 0 (sinon "120 €" plus propre que "120,00 €")
+      const fmt = n => n.toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: n % 1 ? 2 : 0 }) + ' €';
+      set('goal-current', fmt(current));
+      set('goal-target', fmt(target));
       set('goal-percent', pct);
       set('goal-days', daysLeft);
       set('goal-days-en', daysLeft);
       set('goal-days-he', daysLeft);
 
-      // Animation barre (au prochain frame pour voir l'animation)
       requestAnimationFrame(() => {
         const bar = document.getElementById('goal-bar');
         if (bar) bar.style.width = pct + '%';
       });
-    })();
+    }
+
+    // 1. Rendu immédiat avec valeurs par défaut (évite un flash de "0/0")
+    renderGoal(GOAL_DEFAULT);
+
+    // 2. Fetch des vraies stats et re-rendu
+    fetch(GOAL_API, { headers: { 'Accept': 'application/json' } })
+      .then(r => r.ok ? r.json() : null)
+      .then(data => {
+        if (!data || !data.ok) return;
+        renderGoal({ current: data.month_total, target: data.target });
+      })
+      .catch(() => { /* fallback default reste affiché */ });
   </script>
 
   <!-- Mur des Bâtisseurs — fetch dynamique avec fallback statique -->

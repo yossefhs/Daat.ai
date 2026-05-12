@@ -1,14 +1,17 @@
 // /api/soutenir
 //
-// GET  → renvoie le « Mur des Bâtisseurs » public (50 derniers)
-// POST → ajoute un nouveau soutien (admin-only via SOUTIEN_ADMIN_SECRET)
-//        ou via webhook HelloAsso/Stripe/PayPal (à brancher plus tard)
+// GET                  → renvoie le « Mur des Bâtisseurs » public (50 derniers)
+// GET ?action=stats    → renvoie le total collecté du mois courant + objectif
+// POST                 → ajoute un nouveau soutien (admin-only via SOUTIEN_ADMIN_SECRET)
+//                        ou via webhook HelloAsso/Stripe/PayPal (à brancher plus tard)
 //
 // Stockage Vercel KV :
-//   - soutien:wall      → liste JSON-stringified des records publics
-//                         (anonymisés au besoin), 100 derniers
-//   - soutien:list      → liste de tous les IDs (audit interne)
-//   - soutien:{id}      → record complet (pour audit interne)
+//   - soutien:wall              → liste JSON-stringified des records publics
+//                                 (anonymisés au besoin), 100 derniers
+//   - soutien:list              → liste de tous les IDs (audit interne)
+//   - soutien:{id}              → record complet (pour audit interne)
+//   - soutien:total:YYYY-MM     → total cumulé du mois (en centimes)
+//   - soutien:count:YYYY-MM     → nombre de soutiens du mois
 
 import { kv } from '@vercel/kv';
 import { randomBytes } from 'node:crypto';
@@ -53,8 +56,34 @@ export default async function handler(req, res) {
   setCors(res);
   if (req.method === 'OPTIONS') return res.status(200).end();
 
-  // ---- GET : mur public ----
+  // ---- GET : mur public OU stats du mois ----
   if (req.method === 'GET') {
+    // GET ?action=stats → objectif mensuel + total collecté
+    if (req.query.action === 'stats') {
+      try {
+        const now = new Date();
+        const monthKey = `${now.getUTCFullYear()}-${String(now.getUTCMonth() + 1).padStart(2, '0')}`;
+        const totalCents = parseInt((await kv.get(`soutien:total:${monthKey}`)) || 0, 10);
+        const count = parseInt((await kv.get(`soutien:count:${monthKey}`)) || 0, 10);
+        const target = parseInt(process.env.SOUTIEN_MONTHLY_TARGET || '800', 10);
+
+        // Cache CDN court (2 min) — la barre n'a pas besoin d'être temps réel
+        res.setHeader('Cache-Control', 's-maxage=120, stale-while-revalidate=300');
+        return res.status(200).json({
+          ok: true,
+          month: monthKey,
+          month_total: totalCents / 100,
+          month_count: count,
+          target,
+          currency: 'EUR',
+        });
+      } catch (err) {
+        console.error('[soutenir] stats error:', err);
+        return res.status(500).json({ error: err?.message || 'Erreur serveur' });
+      }
+    }
+
+    // GET (par défaut) → mur public
     try {
       const raw = (await kv.lrange('soutien:wall', 0, 49)) || [];
       const wall = raw
@@ -122,6 +151,13 @@ export default async function handler(req, res) {
       const publicRecord = buildPublicRecord(record);
       await kv.lpush('soutien:wall', JSON.stringify(publicRecord));
       await kv.ltrim('soutien:wall', 0, 99);
+
+      // Compteurs mensuels pour la barre de progression
+      if (amount && amount > 0) {
+        const monthKey = `${new Date().getUTCFullYear()}-${String(new Date().getUTCMonth() + 1).padStart(2, '0')}`;
+        await kv.incrby(`soutien:total:${monthKey}`, Math.round(amount * 100));
+        await kv.incr(`soutien:count:${monthKey}`);
+      }
 
       return res.status(200).json({ ok: true, id, public: publicRecord });
     } catch (err) {
