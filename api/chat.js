@@ -15,49 +15,67 @@ import { getUserFromRequest } from './_auth.js';
 
 const client = new Anthropic();
 
-const MAX_TOOL_ITERATIONS = 5; // agentic loop (mareh_mekomot + corpus + Sefaria) — réduit de 8 à 5
-const MAX_TOKENS_OUTPUT = 4096; // réduit de 8192 à 4096 (Claude s'arrête naturellement)
-const HISTORY_TURNS = 12; // réduit de 24 à 12
+const MAX_TOOL_ITERATIONS = 6; // agentic loop — 6 itérations (compromis qualité/coût)
+const MAX_TOKENS_OUTPUT = 4096; // cap output ; Claude s'arrête naturellement avant
+const HISTORY_TURNS = 16;       // 16 derniers tours (plus de contexte = meilleure réponse)
 const ALL_TOOLS = [...MAREH_MEKOMOT_TOOLS, ...CORPUS_TOOLS, ...SEFARIA_TOOLS];
 
-// ── Routing modèles : Haiku ($0.001/$0.005) → Sonnet ($0.003/$0.015) → Opus ($0.015/$0.06) ──
+// ── Routing modèles — priorité QUALITÉ, économies opportunistes ──
+// Haiku ($0.001/$0.005) → Sonnet ($0.003/$0.015) → Opus ($0.015/$0.06)
 const MODELS = {
-  haiku:  { id: 'claude-haiku-4-5',  thinking: null,                              effort: null,       in: 0.001, out: 0.005 },
-  sonnet: { id: 'claude-sonnet-4-6', thinking: { type: 'adaptive' },              effort: null,       in: 0.003, out: 0.015 },
-  opus:   { id: 'claude-opus-4-7',   thinking: { type: 'adaptive' },              effort: 'high',     in: 0.015, out: 0.06  },
+  haiku:  { id: 'claude-haiku-4-5',  thinking: null,                  effort: null,    in: 0.001, out: 0.005 },
+  sonnet: { id: 'claude-sonnet-4-6', thinking: { type: 'adaptive' },  effort: null,    in: 0.003, out: 0.015 },
+  opus:   { id: 'claude-opus-4-7',   thinking: { type: 'adaptive' },  effort: 'high',  in: 0.015, out: 0.06  },
 };
 
-// Heuristique : choisit le modèle selon la complexité de la dernière question utilisateur
+// Heuristique : qualité d'abord. Sonnet par défaut, Opus dès qu'on touche au halakhique pointu.
+// Haiku réservé aux meta-questions très courtes sans contenu halakhique.
 function pickModel(messages, hint) {
-  // Hint explicite passé par le client (ex: depuis une page Lamdan/Synthèse) — gagne toujours
+  // Hint explicite du client (ex: depuis une page Lamdan/Synthèse) — gagne toujours
   if (hint === 'opus' || hint === 'sonnet' || hint === 'haiku') return MODELS[hint];
 
   const lastUser = [...messages].reverse().find(m => m.role === 'user');
-  const text = (lastUser?.content || '').toString();
+  const text = (lastUser?.content || '').toString().trim();
   const lower = text.toLowerCase();
 
-  // 1. Mots-clés "lamdan" / poskim pointus → Opus
+  // 1. Triggers Opus — TOUT ce qui touche au halakhique pointu, citations, synthèse
   const opusKeywords = [
-    'lamdan', 'machloket', 'mahloket', 'rishonim', 'aharonim', 'ahronim',
-    'rambam', 'ramban', 'rashba', 'ritva', 'rivash', 'rosh', "ba'al hatanya",
-    'pri megadim', 'mishna berura', 'biur halakha', 'shaagat aryeh', "noda biyhuda",
-    'shulchan aroukh harav', 'admour hazaken', 'machaloket', 'synthèse', 'synthese',
-    'approfondir', 'analyse', 'compare', 'comparer', 'débat', 'debat',
+    // Lamdan / niveaux d'analyse
+    'lamdan', 'synthèse', 'synthese', 'analyse', 'analyser', 'approfondir',
+    'profondeur', 'compare', 'comparer', 'débat', 'debat', 'controverse',
+    'machloket', 'mahloket', 'machaloket', 'plusieurs opinions', 'différentes opinions',
+    // Périodes & sources
+    'rishonim', 'aharonim', 'ahronim', 'guemara', 'gemara', 'talmud', 'tossafot',
+    'tosafot', 'mishna', 'midrash', 'baraita', 'beraita', 'yerushalmi',
+    // Poskim majeurs
+    'rambam', 'ramban', 'rashba', 'ritva', 'rivash', 'rosh', 'rashi',
+    'tur', 'beit yosef', 'shulchan aroukh', 'choulhan aroukh', 'choul\'han aroukh',
+    'rama', 'rema', 'shach', 'taz', "ba'h", 'magen avraham', 'mishna berura',
+    'biur halakha', 'pri megadim', 'shaagat aryeh', 'noda biyhuda', 'noda biyhouda',
+    'kaf hahaim', 'ben ish hai', 'yabia omer', 'igrot moshe', 'minhat itzhak',
+    "shulchan aroukh harav", 'admour hazaken', "ba'al hatanya", 'baal hatanya',
+    'arouh hashulchan', 'kitsour shoulhan',
+    // Concepts halakhiques denses
+    'safek', 'sfeka', 'beriah', 'bittul', 'mouktsé', 'mouktse', 'mouqtse',
+    'derabbanan', "d'oraita", 'doraita', 'kavanah', 'shogueg', 'mezid',
   ];
   if (opusKeywords.some(k => lower.includes(k))) return MODELS.opus;
 
-  // 2. Beaucoup d'hébreu cité (> 40 caractères) → Sonnet (citations talmudiques, halakhiques)
+  // 2. Citations hébraïques significatives (> 25 caractères) → souvent une source à analyser → Opus
   const heCount = (text.match(/[֐-׿]/g) || []).length;
-  if (heCount > 40) return MODELS.sonnet;
+  if (heCount > 25) return MODELS.opus;
 
-  // 3. Question longue/complexe (> 220 caractères) → Sonnet
-  if (text.length > 220) return MODELS.sonnet;
+  // 3. Haiku UNIQUEMENT pour méta-questions très courtes ET 1ère question ET zéro mot halakhique
+  // Ex: "bonjour", "merci", "tu peux m'aider ?", "comment ça marche ?"
+  const isFirstQuestion = messages.length <= 1;
+  const halakhicHint = /shab|kasher|kasher|tefil|tznio|mouk|hila|sefer|torah|halakh|halacha|halaha|halaja|seif|siman|guemar|mishna|talmud|cohen|brah|berakh|nidda|kashr|peot|tsitsit|loulav|souka|sukka|mezou|tefil|shem|shabb|peah|maase|mitsv|mitzv/i;
+  if (isFirstQuestion && text.length < 40 && !halakhicHint.test(lower)) {
+    return MODELS.haiku;
+  }
 
-  // 4. Conversation déjà commencée avec ≥ 4 messages → Sonnet (continuité)
-  if (messages.length >= 4) return MODELS.sonnet;
-
-  // 5. Par défaut : Haiku (15× moins cher, suffisant pour les questions factuelles courtes)
-  return MODELS.haiku;
+  // 4. Par défaut : Sonnet 4.6 — qualité quasi équivalente à Opus pour le grand public,
+  //    5× moins cher. Bon compromis qualité/coût.
+  return MODELS.sonnet;
 }
 
 // ── Limites quotidiennes par plan ──────────────────────────────────────────
