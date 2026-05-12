@@ -120,6 +120,20 @@
   align-items: center;
   gap: 12px;
   border-bottom: 2px solid var(--daat-gold);
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+.daat-chat-header:active { cursor: grabbing; }
+.daat-chat-header button,
+.daat-chat-header a { cursor: pointer; }
+
+/* Désactive la transition d'ouverture pendant le drag (sinon ça lag) */
+.daat-chat-panel.is-dragging { transition: none !important; }
+
+/* Sur mobile, pas de drag — le panel prend l'écran */
+@media (max-width: 760px) {
+  .daat-chat-header { cursor: default; touch-action: auto; }
 }
 
 .daat-chat-header-logo {

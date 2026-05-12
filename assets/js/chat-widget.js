@@ -409,7 +409,102 @@
       this.userScrolledUp = false;
     }
 
+    attachDrag() {
+      const header = this.panel.querySelector('.daat-chat-header');
+      const panel = this.panel;
+      if (!header) return;
+
+      // Restaurer la position sauvegardée
+      try {
+        const saved = JSON.parse(localStorage.getItem('daat-chat-pos') || 'null');
+        if (saved && window.innerWidth > 760) {
+          // Clamp dans le viewport au cas où la taille a changé
+          const maxLeft = window.innerWidth - 100;
+          const maxTop = window.innerHeight - 100;
+          const left = Math.max(0, Math.min(saved.left, maxLeft));
+          const top = Math.max(0, Math.min(saved.top, maxTop));
+          panel.style.left = left + 'px';
+          panel.style.top = top + 'px';
+          panel.style.right = 'auto';
+          panel.style.bottom = 'auto';
+        }
+      } catch (_) {}
+
+      let dragging = false;
+      let startX = 0, startY = 0, startLeft = 0, startTop = 0;
+
+      const onDown = (e) => {
+        // Pas de drag sur mobile (panel plein écran)
+        if (window.innerWidth <= 760) return;
+        // Pas de drag si on a cliqué sur un bouton/lien à l'intérieur du header
+        if (e.target.closest('button, a, input')) return;
+
+        const point = e.touches ? e.touches[0] : e;
+        dragging = true;
+        panel.classList.add('is-dragging');
+
+        // Position courante du panel (gère le cas initial où c'est bottom/right)
+        const rect = panel.getBoundingClientRect();
+        startLeft = rect.left;
+        startTop = rect.top;
+        startX = point.clientX;
+        startY = point.clientY;
+
+        // Bascule en left/top pour le drag
+        panel.style.left = startLeft + 'px';
+        panel.style.top = startTop + 'px';
+        panel.style.right = 'auto';
+        panel.style.bottom = 'auto';
+
+        if (e.cancelable) e.preventDefault();
+      };
+
+      const onMove = (e) => {
+        if (!dragging) return;
+        const point = e.touches ? e.touches[0] : e;
+        const dx = point.clientX - startX;
+        const dy = point.clientY - startY;
+        // Clamp dans le viewport (laisse au moins le header visible)
+        const maxLeft = window.innerWidth - 80;
+        const maxTop = window.innerHeight - 60;
+        const newLeft = Math.max(0, Math.min(startLeft + dx, maxLeft));
+        const newTop = Math.max(0, Math.min(startTop + dy, maxTop));
+        panel.style.left = newLeft + 'px';
+        panel.style.top = newTop + 'px';
+      };
+
+      const onUp = () => {
+        if (!dragging) return;
+        dragging = false;
+        panel.classList.remove('is-dragging');
+        try {
+          localStorage.setItem('daat-chat-pos', JSON.stringify({
+            left: parseFloat(panel.style.left) || 0,
+            top: parseFloat(panel.style.top) || 0,
+          }));
+        } catch (_) {}
+      };
+
+      header.addEventListener('mousedown', onDown);
+      window.addEventListener('mousemove', onMove);
+      window.addEventListener('mouseup', onUp);
+      header.addEventListener('touchstart', onDown, { passive: false });
+      window.addEventListener('touchmove', onMove, { passive: false });
+      window.addEventListener('touchend', onUp);
+
+      // Double-clic sur le header → reset à la position par défaut
+      header.addEventListener('dblclick', (e) => {
+        if (e.target.closest('button, a, input')) return;
+        panel.style.left = '';
+        panel.style.top = '';
+        panel.style.right = '';
+        panel.style.bottom = '';
+        try { localStorage.removeItem('daat-chat-pos'); } catch (_) {}
+      });
+    }
+
     attach() {
+      this.attachDrag();
       this.button.addEventListener('click', () => this.toggle());
 
       // Bouton reset — remet à zéro la conversation (ne supprime pas l'historique)
