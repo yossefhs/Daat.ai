@@ -190,6 +190,9 @@
     <div class="nav-item" role="button" tabindex="0" data-page="analytics"><span class="icon">📊</span> Stats & Tokens</div>
     <div class="nav-item" role="button" tabindex="0" data-page="an-users"><span class="icon">👥</span> Utilisateurs</div>
     <div class="nav-item" role="button" tabindex="0" data-page="an-logs"><span class="icon">📋</span> Logs temps réel</div>
+
+    <div class="nav-section">Soutiens</div>
+    <div class="nav-item" role="button" tabindex="0" data-page="soutiens"><span class="icon">❤️</span> Dons & Bâtisseurs</div>
     <div class="nav-section">Auto-pilote</div>
     <a href="siman-builder.html" class="nav-item" style="text-decoration:none;"><span class="icon">📸</span> Photos → Siman complet</a>
 
@@ -592,6 +595,98 @@ git commit -m "Initial commit — DAAT.AI Siman 246"
             <button class="btn btn-outline" onclick="closeAnModal()">Annuler</button>
             <button class="btn btn-gold" onclick="submitAnUpgrade()">Appliquer</button>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SOUTIENS — Dons & Bâtisseurs ── -->
+    <div id="page-soutiens" class="page">
+      <div class="page-header">
+        <h1>❤️ Dons & Bâtisseurs</h1>
+        <p>Ajoute un don manuellement, suis l'objectif mensuel, gère le Mur des Bâtisseurs.</p>
+      </div>
+
+      <!-- Bandeau connexion -->
+      <div class="an-secret-bar">
+        <span style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);">Connexion :</span>
+        <span id="sout-status" style="font-size:13px;color:var(--muted);">— Connecte-toi d'abord dans Stats & Tokens</span>
+        <button class="btn btn-outline btn-sm" onclick="soutLoadAll()">↻ Actualiser</button>
+      </div>
+
+      <!-- Stats du mois -->
+      <div class="analytics-grid" id="sout-stats" style="margin-bottom:20px;">
+        <div class="an-card"><div class="an-val gold" id="sout-total">— €</div><div class="an-label">Collecté ce mois</div></div>
+        <div class="an-card"><div class="an-val" id="sout-target">— €</div><div class="an-label">Objectif mensuel</div></div>
+        <div class="an-card"><div class="an-val green" id="sout-pct">— %</div><div class="an-label">Progression</div></div>
+        <div class="an-card"><div class="an-val" id="sout-count">—</div><div class="an-label">Dons ce mois</div></div>
+      </div>
+
+      <!-- Formulaire ajout -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">➕ Ajouter un don</div>
+        </div>
+        <div class="alert alert-info">
+          💡 Saisis ici tout don reçu (HelloAsso, Qonto, virement, espèces). Le montant alimente automatiquement la barre de progression du site et l'entrée apparaît sur le Mur des Bâtisseurs.
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Nom du donateur</label>
+            <input type="text" id="sout-name" placeholder="ex: R. David A. / Famille Lévy">
+          </div>
+          <div class="form-group">
+            <label>Montant (€)</label>
+            <input type="number" id="sout-amount" min="0" step="0.01" placeholder="ex: 72">
+          </div>
+          <div class="form-group">
+            <label>Type</label>
+            <select id="sout-type">
+              <option value="don">Don ponctuel (libre)</option>
+              <option value="don-petit">Don ponctuel · 36 €</option>
+              <option value="don-moyen">Don ponctuel · 180 €</option>
+              <option value="don-grand">Don ponctuel · 360 €</option>
+              <option value="dedicace">Dédicace d'étude (libre)</option>
+              <option value="dedicace-page">Dédicace · une page</option>
+              <option value="dedicace-siman">Dédicace · un siman</option>
+              <option value="dedicace-mois">Dédicace · un mois</option>
+              <option value="illoui-nichmat">לעילוי נשמת (à la mémoire)</option>
+              <option value="refoua-cheléma">לרפואה שלמה (guérison)</option>
+              <option value="hatslakha">להצלחה (réussite)</option>
+              <option value="tomeh">Tomeh Adaat (libre)</option>
+              <option value="tomeh-18">Tomeh Adaat · 18 €/mois</option>
+              <option value="tomeh-36">Tomeh Adaat · 36 €/mois</option>
+              <option value="tomeh-100">Tomeh Adaat · 100 €/mois</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Tag personnalisé (optionnel)</label>
+            <input type="text" id="sout-tag" placeholder="Si vide → utilise le type">
+          </div>
+          <div class="form-group form-full">
+            <label>Dédicace / message (optionnel, non public)</label>
+            <input type="text" id="sout-dedicace" placeholder="ex: לעילוי נשמת אביו ז״ל / pour la réussite des enfants…">
+          </div>
+          <div class="form-group">
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+              <input type="checkbox" id="sout-anonymous" style="width:auto;">
+              <span style="text-transform:none;letter-spacing:0;font-size:14px;color:var(--text);">Don anonyme (affiche "Anonyme")</span>
+            </label>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="soutSubmit()">💾 Enregistrer le don</button>
+        <div id="sout-submit-msg" style="margin-top:10px;font-size:13px;"></div>
+      </div>
+
+      <!-- Liste des derniers dons -->
+      <div class="card" id="sout-recent-card">
+        <div class="card-header">
+          <div class="card-title">📋 Derniers dons enregistrés</div>
+          <button class="btn btn-outline btn-sm" onclick="soutLoadRecent()">↻</button>
+        </div>
+        <div id="sout-recent-wrap" style="font-size:14px;color:var(--muted);">
+          Connecte-toi d'abord dans l'onglet "Stats &amp; Tokens".
         </div>
       </div>
     </div>
@@ -1243,6 +1338,136 @@ async function anResetLimit(email) {
     anLoadUsers();
   } catch (e) { toast('Erreur : ' + e.message); }
 }
+
+// ════════════════════════════════════════════════════════════
+// SOUTIENS — Dons & Bâtisseurs
+// ════════════════════════════════════════════════════════════
+async function soutFetch(path, opts) {
+  opts = opts || {};
+  const sep = path.includes('?') ? '&' : '?';
+  const url = anApiUrl + path + sep + 'secret=' + encodeURIComponent(anSecret);
+  const res = await fetch(url, {
+    headers: { 'Content-Type': 'application/json', 'X-Admin-Secret': anSecret },
+    ...opts,
+  });
+  if (!res.ok) {
+    let msg = 'HTTP ' + res.status;
+    try { const j = await res.json(); msg = j.error || msg; } catch (_) {}
+    throw new Error(msg);
+  }
+  return res.json();
+}
+
+async function soutLoadStats() {
+  try {
+    const data = await soutFetch('/api/soutenir?action=stats');
+    const target = data.target || 800;
+    const total = data.month_total || 0;
+    const pct = target > 0 ? Math.round((total / target) * 100) : 0;
+    const fmt = n => n.toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: n % 1 ? 2 : 0 }) + ' €';
+    document.getElementById('sout-total').textContent = fmt(total);
+    document.getElementById('sout-target').textContent = fmt(target);
+    document.getElementById('sout-pct').textContent = pct + ' %';
+    document.getElementById('sout-count').textContent = data.month_count || 0;
+  } catch (e) {
+    console.warn('soutLoadStats:', e.message);
+  }
+}
+
+async function soutLoadRecent() {
+  const wrap = document.getElementById('sout-recent-wrap');
+  if (!anSecret) {
+    wrap.innerHTML = '<div style="padding:20px;color:var(--muted);">Connecte-toi d\'abord dans "Stats & Tokens".</div>';
+    return;
+  }
+  wrap.innerHTML = '<div style="padding:20px;color:var(--muted);">Chargement…</div>';
+  try {
+    const data = await soutFetch('/api/soutenir?action=recent&limit=50');
+    if (!data.records || !data.records.length) {
+      wrap.innerHTML = '<div style="padding:20px;color:var(--muted);">Aucun don enregistré pour l\'instant. Sois le 1er à en ajouter ci-dessus ↑</div>';
+      return;
+    }
+    wrap.innerHTML = '<table class="an-table"><thead><tr><th>Date</th><th>Donateur</th><th>Type</th><th>Montant</th><th>Dédicace</th></tr></thead><tbody>' +
+      data.records.map(r => {
+        const date = new Date(r.createdAt);
+        const dateStr = date.toLocaleDateString('fr-FR') + ' ' + date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+        const displayName = r.anonymous ? '<em>Anonyme</em>' : (r.name || '—');
+        const amount = r.amount ? r.amount.toLocaleString('fr-FR') + ' €' : '—';
+        return `<tr>
+          <td style="font-size:12px;color:var(--muted);">${dateStr}</td>
+          <td><strong>${displayName}</strong></td>
+          <td><span style="font-size:11px;color:var(--muted);">${r.type || ''}</span></td>
+          <td style="font-family:'Inter',sans-serif;font-weight:600;color:var(--gold);">${amount}</td>
+          <td style="font-size:13px;color:var(--text);max-width:240px;">${r.dedicace || ''}</td>
+        </tr>`;
+      }).join('') + '</tbody></table>';
+  } catch (e) {
+    wrap.innerHTML = `<div style="padding:20px;color:var(--red);">Erreur : ${e.message}</div>`;
+  }
+}
+
+async function soutLoadAll() {
+  const status = document.getElementById('sout-status');
+  if (!anSecret) {
+    status.textContent = '— Connecte-toi d\'abord dans Stats & Tokens';
+    status.style.color = 'var(--muted)';
+    return;
+  }
+  status.textContent = '✅ Connecté';
+  status.style.color = 'var(--green)';
+  await Promise.all([soutLoadStats(), soutLoadRecent()]);
+}
+
+async function soutSubmit() {
+  const msg = document.getElementById('sout-submit-msg');
+  if (!anSecret) {
+    msg.innerHTML = '<span style="color:var(--red)">❌ Connecte-toi d\'abord dans "Stats & Tokens"</span>';
+    return;
+  }
+  const name = document.getElementById('sout-name').value.trim();
+  const amount = parseFloat(document.getElementById('sout-amount').value);
+  const type = document.getElementById('sout-type').value;
+  const tag = document.getElementById('sout-tag').value.trim();
+  const dedicace = document.getElementById('sout-dedicace').value.trim();
+  const anonymous = document.getElementById('sout-anonymous').checked;
+
+  if (!name && !anonymous) {
+    msg.innerHTML = '<span style="color:var(--red)">❌ Nom requis (ou coche "Anonyme")</span>';
+    return;
+  }
+  if (!amount || amount <= 0) {
+    msg.innerHTML = '<span style="color:var(--red)">❌ Montant invalide</span>';
+    return;
+  }
+
+  msg.innerHTML = '<span style="color:var(--muted)">Enregistrement…</span>';
+  try {
+    const result = await soutFetch('/api/soutenir', {
+      method: 'POST',
+      body: JSON.stringify({ name, type, amount, tag: tag || undefined, dedicace: dedicace || undefined, anonymous }),
+    });
+    msg.innerHTML = `<span style="color:var(--green)">✅ Don enregistré (${result.id}) — barre du site mise à jour.</span>`;
+    toast('Don enregistré ✅');
+    // Reset formulaire
+    document.getElementById('sout-name').value = '';
+    document.getElementById('sout-amount').value = '';
+    document.getElementById('sout-tag').value = '';
+    document.getElementById('sout-dedicace').value = '';
+    document.getElementById('sout-anonymous').checked = false;
+    // Refresh stats + liste
+    soutLoadAll();
+  } catch (e) {
+    msg.innerHTML = `<span style="color:var(--red)">❌ Erreur : ${e.message}</span>`;
+  }
+}
+
+// Auto-charger les soutiens quand on ouvre l'onglet
+document.addEventListener('click', (e) => {
+  const navItem = e.target.closest('.nav-item[data-page="soutiens"]');
+  if (navItem && anSecret) {
+    setTimeout(soutLoadAll, 100);
+  }
+});
 
 // Auto-connect si secret déjà en localStorage
 onReady(() => {

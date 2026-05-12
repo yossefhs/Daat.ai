@@ -18,8 +18,29 @@ import { randomBytes } from 'node:crypto';
 
 function setCors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Admin-Secret');
+}
+
+// Vérifie le secret admin — accepte 3 formats :
+//   - Authorization: Bearer <SOUTIEN_ADMIN_SECRET>  (historique, webhooks)
+//   - x-admin-secret: <ADMIN_PASSWORD>              (header, admin UI)
+//   - ?secret=<ADMIN_PASSWORD>                       (query, admin UI simple)
+function isAuthed(req) {
+  const adminPwd = process.env.ADMIN_PASSWORD;
+  const soutienSecret = process.env.SOUTIEN_ADMIN_SECRET;
+
+  const bearer = (req.headers.authorization || '').replace(/^Bearer\s+/i, '');
+  if (bearer && soutienSecret && bearer === soutienSecret) return true;
+  if (bearer && adminPwd && bearer === adminPwd) return true;
+
+  const headerSecret = req.headers['x-admin-secret'];
+  if (headerSecret && adminPwd && headerSecret === adminPwd) return true;
+
+  const qsSecret = req.query?.secret;
+  if (qsSecret && adminPwd && qsSecret === adminPwd) return true;
+
+  return false;
 }
 
 function clean(s, max = 200) {
@@ -56,8 +77,27 @@ export default async function handler(req, res) {
   setCors(res);
   if (req.method === 'OPTIONS') return res.status(200).end();
 
-  // ---- GET : mur public OU stats du mois ----
+  // ---- GET : mur public OU stats du mois OU liste admin ----
   if (req.method === 'GET') {
+    // GET ?action=recent → liste des derniers dons (admin only, données complètes)
+    if (req.query.action === 'recent') {
+      if (!isAuthed(req)) return res.status(401).json({ error: 'Unauthorized' });
+      try {
+        const limit = Math.min(parseInt(req.query.limit || '50', 10), 200);
+        const ids = (await kv.lrange('soutien:list', 0, limit - 1)) || [];
+        const records = await Promise.all(
+          ids.map(async (id) => {
+            const r = await kv.get(`soutien:${id}`);
+            return r || null;
+          })
+        );
+        return res.status(200).json({ ok: true, records: records.filter(Boolean) });
+      } catch (err) {
+        console.error('[soutenir] recent error:', err);
+        return res.status(500).json({ error: err?.message || 'Erreur serveur' });
+      }
+    }
+
     // GET ?action=stats → objectif mensuel + total collecté
     if (req.query.action === 'stats') {
       try {
@@ -105,12 +145,7 @@ export default async function handler(req, res) {
 
   // ---- POST : ajout d'un soutien (admin-only) ----
   if (req.method === 'POST') {
-    const auth = req.headers.authorization || '';
-    const secret = process.env.SOUTIEN_ADMIN_SECRET;
-    if (!secret) {
-      return res.status(500).json({ error: 'SOUTIEN_ADMIN_SECRET non configuré' });
-    }
-    if (auth !== `Bearer ${secret}`) {
+    if (!isAuthed(req)) {
       return res.status(401).json({ error: 'Unauthorized' });
     }
 
