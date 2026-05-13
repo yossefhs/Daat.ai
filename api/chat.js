@@ -430,17 +430,15 @@ export default async function handler(req, res) {
 
     // Boucle agentique : tant que Claude veut utiliser un outil, on exécute et on relance.
     while (iterations < MAX_TOOL_ITERATIONS) {
-      // Soft timeout : on coupe AVANT de relancer Claude si on approche du plafond Vercel.
-      // Laisse de la marge pour la finalisation forcée juste après.
-      if (Date.now() - startedAt > SOFT_TIMEOUT_MS) {
+      // Soft timeout ENTRE itérations
+      const elapsedBefore = Date.now() - startedAt;
+      if (elapsedBefore > SOFT_TIMEOUT_MS) {
         softTimeoutHit = true;
-        stopReason = 'tool_use'; // déclenche la finalisation forcée
-        console.log(`[chat.js] soft timeout (${iterations} iters, ${Date.now() - startedAt}ms) — forcing finalization`);
+        stopReason = 'tool_use';
+        console.log(`[chat.js] soft timeout between iters (${iterations} iters, ${elapsedBefore}ms)`);
         break;
       }
       iterations++;
-
-      // (Plus de notice générique — chaque tool_use envoie sa propre notice détaillée)
 
       // Construire les paramètres dynamiques selon le modèle choisi
       const streamParams = {
@@ -459,93 +457,127 @@ export default async function handler(req, res) {
       if (model.thinking) streamParams.thinking = model.thinking;
       if (model.effort) streamParams.output_config = { effort: model.effort };
 
-      const stream = client.messages.stream(streamParams);
+      // AbortController par stream : coupe le stream Claude si on dépasse SOFT_TIMEOUT_MS
+      // en plein milieu d'une itération (thinking long, génération de texte longue, etc.)
+      const abortCtrl = new AbortController();
+      const msLeft = SOFT_TIMEOUT_MS - (Date.now() - startedAt);
+      const abortTimer = setTimeout(() => {
+        console.log(`[chat.js] mid-stream abort at ${Date.now() - startedAt}ms`);
+        abortCtrl.abort();
+      }, Math.max(msLeft, 3000));
 
-      // Stream les deltas de texte au client (pour la réponse finale uniquement)
-      for await (const event of stream) {
-        if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
-          const payload = JSON.stringify({ type: 'text', delta: event.delta.text });
-          res.write(`data: ${payload}\n\n`);
+      let iterHadText = false;
+
+      try {
+        const stream = client.messages.stream(streamParams, { signal: abortCtrl.signal });
+
+        // Stream les deltas de texte au client (pour la réponse finale uniquement)
+        for await (const event of stream) {
+          if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
+            iterHadText = true;
+            const payload = JSON.stringify({ type: 'text', delta: event.delta.text });
+            res.write(`data: ${payload}\n\n`);
+          }
         }
-      }
 
-      const final = await stream.finalMessage();
-      stopReason = final.stop_reason;
+        const final = await stream.finalMessage();
+        stopReason = final.stop_reason;
 
-      // Cumuler l'usage
-      totalUsage.input_tokens += final.usage.input_tokens || 0;
-      totalUsage.output_tokens += final.usage.output_tokens || 0;
-      totalUsage.cache_creation += final.usage.cache_creation_input_tokens || 0;
-      totalUsage.cache_read += final.usage.cache_read_input_tokens || 0;
+        // Cumuler l'usage
+        totalUsage.input_tokens += final.usage.input_tokens || 0;
+        totalUsage.output_tokens += final.usage.output_tokens || 0;
+        totalUsage.cache_creation += final.usage.cache_creation_input_tokens || 0;
+        totalUsage.cache_read += final.usage.cache_read_input_tokens || 0;
 
-      // Ajouter la réponse complète de Claude (tous les blocs : text + tool_use) à la conversation
-      conversation.push({
-        role: 'assistant',
-        content: final.content,
-      });
+        // Ajouter la réponse complète de Claude (tous les blocs : text + tool_use) à la conversation
+        conversation.push({
+          role: 'assistant',
+          content: final.content,
+        });
 
-      // Si pas d'appel d'outil → fin de la conversation
-      if (stopReason !== 'tool_use') {
-        break;
-      }
+        // Si pas d'appel d'outil → fin de la conversation
+        if (stopReason !== 'tool_use') {
+          break;
+        }
 
-      // Récupérer tous les tool_use de la réponse
-      const toolUses = final.content.filter(b => b.type === 'tool_use');
-      if (toolUses.length === 0) {
-        break; // safety
-      }
+        // Récupérer tous les tool_use de la réponse
+        const toolUses = final.content.filter(b => b.type === 'tool_use');
+        if (toolUses.length === 0) {
+          break; // safety
+        }
 
-      // Exécuter chaque outil (en parallèle, dispatch sur le bon executor)
-      const toolResults = await Promise.all(
-        toolUses.map(async (tu) => {
-          try {
-            const executor = TOOL_EXECUTORS[tu.name];
-            if (!executor) {
+        // Exécuter chaque outil (en parallèle, dispatch sur le bon executor)
+        const toolResults = await Promise.all(
+          toolUses.map(async (tu) => {
+            try {
+              const executor = TOOL_EXECUTORS[tu.name];
+              if (!executor) {
+                return {
+                  type: 'tool_result',
+                  tool_use_id: tu.id,
+                  content: JSON.stringify({ error: `Outil inconnu : ${tu.name}` }),
+                  is_error: true,
+                };
+              }
+              const result = await executor(tu.name, tu.input);
               return {
                 type: 'tool_result',
                 tool_use_id: tu.id,
-                content: JSON.stringify({ error: `Outil inconnu : ${tu.name}` }),
+                content: result,
+              };
+            } catch (err) {
+              return {
+                type: 'tool_result',
+                tool_use_id: tu.id,
+                content: JSON.stringify({ error: err.message || 'Erreur outil' }),
                 is_error: true,
               };
             }
-            const result = await executor(tu.name, tu.input);
-            return {
-              type: 'tool_result',
-              tool_use_id: tu.id,
-              content: result,
-            };
-          } catch (err) {
-            return {
-              type: 'tool_result',
-              tool_use_id: tu.id,
-              content: JSON.stringify({ error: err.message || 'Erreur outil' }),
-              is_error: true,
-            };
-          }
-        })
-      );
+          })
+        );
 
-      // Notifier le client des sources consultées
-      for (const tu of toolUses) {
-        const sourcePayload = JSON.stringify({
-          type: 'tool_use',
-          tool: tu.name,
-          input: tu.input,
+        // Notifier le client des sources consultées
+        for (const tu of toolUses) {
+          const sourcePayload = JSON.stringify({
+            type: 'tool_use',
+            tool: tu.name,
+            input: tu.input,
+          });
+          res.write(`data: ${sourcePayload}\n\n`);
+        }
+
+        // Ajouter les résultats d'outils comme un message user
+        conversation.push({
+          role: 'user',
+          content: toolResults,
         });
-        res.write(`data: ${sourcePayload}\n\n`);
-      }
 
-      // Ajouter les résultats d'outils comme un message user
-      conversation.push({
-        role: 'user',
-        content: toolResults,
-      });
+      } catch (err) {
+        // Stream aborté par notre timer (soft timeout en plein milieu d'un appel Claude)
+        if (abortCtrl.signal.aborted) {
+          softTimeoutHit = true;
+          if (iterHadText) {
+            // Claude avait déjà commencé à streamer du texte → on ferme proprement
+            // Le client a déjà reçu une réponse partielle, pas d'erreur côté UX.
+            stopReason = 'end_turn';
+            console.log(`[chat.js] mid-stream abort — had text, closing gracefully`);
+          } else {
+            // Claude pensait encore ou appelait des outils → finalisation forcée
+            stopReason = 'tool_use';
+            console.log(`[chat.js] mid-stream abort — no text yet, forcing finalization`);
+          }
+          break;
+        }
+        throw err;
+      } finally {
+        clearTimeout(abortTimer);
+      }
     }
 
     // ── Finalisation forcée : Claude voulait encore des outils, mais on a coupé ──
     // (soft timeout OU MAX_TOOL_ITERATIONS atteint). Un dernier appel SANS outils,
     // avec instruction explicite, garantit un texte streamé au client.
-    // Pas de thinking ni effort high ici — on optimise pour la latence (Vercel à 90s).
+    // Toujours sur Haiku ici — on optimise la latence, plus la qualité.
     if (stopReason === 'tool_use') {
       conversation.push({
         role: 'user',
@@ -555,28 +587,41 @@ export default async function handler(req, res) {
         }],
       });
 
-      // Sur soft timeout on prend Haiku (rapide) ; sinon on garde le modèle courant sans thinking
-      const finalModel = softTimeoutHit ? MODELS.haiku : model;
-      const finalStream = client.messages.stream({
-        model: finalModel.id,
-        max_tokens: MAX_TOKENS_OUTPUT,
-        system: [
-          { type: 'text', text: SYSTEM_PROMPT, cache_control: { type: 'ephemeral', ttl: '1h' } },
-        ],
-        messages: conversation,
-      });
+      const finalModel = MODELS.haiku; // toujours Haiku ici : rapide, évite le timeout
+      const msLeftForFinal = SOFT_TIMEOUT_MS + 15_000 - (Date.now() - startedAt); // 5s de marge avant 90s
 
-      for await (const event of finalStream) {
-        if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
-          res.write(`data: ${JSON.stringify({ type: 'text', delta: event.delta.text })}\n\n`);
+      const finalAbortCtrl = new AbortController();
+      const finalAbortTimer = setTimeout(() => finalAbortCtrl.abort(), Math.max(msLeftForFinal, 5000));
+
+      try {
+        const finalStream = client.messages.stream({
+          model: finalModel.id,
+          max_tokens: 1500, // cap serré pour rester dans le temps imparti
+          system: [
+            { type: 'text', text: SYSTEM_PROMPT, cache_control: { type: 'ephemeral', ttl: '1h' } },
+          ],
+          messages: conversation,
+        }, { signal: finalAbortCtrl.signal });
+
+        for await (const event of finalStream) {
+          if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
+            res.write(`data: ${JSON.stringify({ type: 'text', delta: event.delta.text })}\n\n`);
+          }
         }
+        const finalMsg = await finalStream.finalMessage();
+        totalUsage.input_tokens += finalMsg.usage.input_tokens || 0;
+        totalUsage.output_tokens += finalMsg.usage.output_tokens || 0;
+        totalUsage.cache_creation += finalMsg.usage.cache_creation_input_tokens || 0;
+        totalUsage.cache_read += finalMsg.usage.cache_read_input_tokens || 0;
+        stopReason = finalMsg.stop_reason;
+      } catch (err) {
+        if (!finalAbortCtrl.signal.aborted) throw err;
+        stopReason = 'end_turn';
+        console.log(`[chat.js] finalization abort (ran out of time)`);
+      } finally {
+        clearTimeout(finalAbortTimer);
       }
-      const finalMsg = await finalStream.finalMessage();
-      totalUsage.input_tokens += finalMsg.usage.input_tokens || 0;
-      totalUsage.output_tokens += finalMsg.usage.output_tokens || 0;
-      totalUsage.cache_creation += finalMsg.usage.cache_creation_input_tokens || 0;
-      totalUsage.cache_read += finalMsg.usage.cache_read_input_tokens || 0;
-      stopReason = finalMsg.stop_reason;
+
       iterations++;
       console.log(`[chat.js] forced finalization done with ${finalModel.id} — soft=${softTimeoutHit}`);
     }
