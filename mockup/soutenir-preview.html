@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mockup — Soutenir DAAT (preview UX)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1A1F3A; --gold: #C5A55A; --gold-light: #D4B97A; --gold-dark: #8B6A00;
+    --cream: #FAF6EE; --cream-dark: #F0EAD8; --cream-lighter: #FDFAF3;
+    --text: #1A1F3A; --text-mid: #3D4266; --text-muted: #7A7F9A;
+    --white: #FFFFFF; --border: #E4DDD0;
+    --green: #2E7D52; --red: #C0392B; --amber: #B8860B;
+    --shadow-sm: 0 1px 3px rgba(26,31,58,0.05);
+    --shadow-md: 0 4px 12px rgba(26,31,58,0.08);
+    --shadow-lg: 0 12px 32px rgba(26,31,58,0.12);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream); color: var(--text);
+    line-height: 1.5;
+  }
+
+  /* Mockup nav */
+  .mockup-nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    background: var(--navy); color: white;
+    padding: 10px 20px; z-index: 100;
+    display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+  .mockup-nav-title { font-weight: 700; color: var(--gold); letter-spacing: 1px; }
+  .mockup-nav a {
+    color: rgba(255,255,255,0.75); text-decoration: none; font-size: 13px;
+    padding: 6px 12px; border: 1px solid rgba(255,255,255,0.2); border-radius: 3px;
+    transition: all 0.2s;
+  }
+  .mockup-nav a:hover { color: var(--gold); border-color: var(--gold); }
+
+  .mockup-section {
+    padding: 80px 20px 60px;
+    border-bottom: 2px solid var(--cream-dark);
+    min-height: 100vh;
+  }
+  .mockup-section-header {
+    max-width: 900px; margin: 0 auto 40px;
+    padding: 12px 20px; background: rgba(197,165,90,0.1);
+    border-left: 3px solid var(--gold);
+    font-size: 13px; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--gold-dark); font-weight: 700;
+  }
+
+  /* ─── PAGE SOUTENIR ─── */
+  .soutenir-hero {
+    max-width: 800px; margin: 0 auto 50px; text-align: center;
+  }
+  .soutenir-hero-eyebrow {
+    font-family: 'Frank Ruhl Libre', serif; font-size: 28px;
+    color: var(--gold); margin-bottom: 8px;
+  }
+  .soutenir-hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 44px; font-weight: 600; line-height: 1.15;
+    margin-bottom: 20px;
+  }
+  .soutenir-hero-lead {
+    font-size: 18px; color: var(--text-mid); line-height: 1.6;
+    max-width: 620px; margin: 0 auto;
+  }
+  .soutenir-impact-banner {
+    max-width: 760px; margin: 30px auto 0;
+    background: linear-gradient(135deg, #FFF8E1 0%, #FBF3D9 100%);
+    border: 1px solid var(--gold);
+    border-radius: 4px; padding: 18px 24px;
+    display: flex; align-items: center; gap: 16px;
+    font-size: 14px;
+  }
+  .soutenir-impact-banner-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px; font-weight: 700; color: var(--gold-dark);
+  }
+
+  .tiers {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .tier {
+    background: white; border: 1px solid var(--border);
+    border-radius: 4px; padding: 28px;
+    display: flex; flex-direction: column;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .tier:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+  .tier.featured {
+    border: 2px solid var(--gold);
+    background: linear-gradient(180deg, #FFF8E1 0%, white 30%);
+  }
+  .tier.featured::before {
+    content: 'POPULAIRE';
+    position: absolute; top: -10px; left: 24px;
+    background: var(--gold); color: white;
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+    padding: 4px 10px; border-radius: 2px;
+  }
+  .tier-icon {
+    font-size: 28px; margin-bottom: 8px;
+  }
+  .tier-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px; font-weight: 600; margin-bottom: 4px;
+  }
+  .tier-tagline {
+    font-size: 13px; color: var(--text-muted); margin-bottom: 16px;
+  }
+  .tier-price {
+    margin-bottom: 4px;
+  }
+  .tier-price-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px; font-weight: 700; color: var(--navy);
+  }
+  .tier-price-suffix {
+    font-size: 14px; color: var(--text-mid);
+  }
+  .tier-price-annual {
+    font-size: 12px; color: var(--text-muted); margin-bottom: 4px;
+  }
+  .tier-fiscal {
+    font-size: 11px; color: var(--green); font-weight: 600;
+    margin-bottom: 18px;
+  }
+  .tier-impact {
+    background: var(--cream-lighter); border-left: 2px solid var(--gold);
+    padding: 12px 14px; margin-bottom: 18px; font-size: 13px;
+  }
+  .tier-impact-title {
+    font-weight: 700; color: var(--gold-dark); margin-bottom: 4px;
+    font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
+  }
+  .tier-impact ul { list-style: none; }
+  .tier-impact li {
+    padding: 2px 0; color: var(--text-mid);
+  }
+  .tier-impact li::before { content: '• '; color: var(--gold); }
+  .tier-features {
+    list-style: none; margin-bottom: 22px; font-size: 13.5px;
+  }
+  .tier-features-title {
+    font-weight: 700; font-size: 11px; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--text-mid); margin-bottom: 8px;
+  }
+  .tier-features li {
+    padding: 5px 0; color: var(--text-mid);
+    display: flex; gap: 8px; align-items: flex-start;
+  }
+  .tier-features li::before {
+    content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0;
+  }
+  .tier-cta {
+    margin-top: auto;
+    display: block; text-align: center; padding: 12px 20px;
+    text-decoration: none; font-weight: 600; font-size: 14px;
+    border-radius: 3px; transition: all 0.15s;
+    border: 1px solid transparent;
+  }
+  .tier-cta-primary {
+    background: var(--gold); color: white;
+  }
+  .tier-cta-primary:hover { background: var(--gold-dark); }
+  .tier-cta-outline {
+    background: white; color: var(--navy); border-color: var(--navy);
+  }
+  .tier-cta-outline:hover { background: var(--navy); color: white; }
+
+  /* Lifetime banner */
+  .lifetime-banner {
+    max-width: 1100px; margin: 30px auto 0;
+    background: linear-gradient(135deg, #1A1F3A 0%, #2D3358 100%);
+    color: white; padding: 32px;
+    border-radius: 4px; position: relative; overflow: hidden;
+    display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: center;
+  }
+  .lifetime-banner-decor {
+    position: absolute; top: 0; right: 0;
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 180px; color: rgba(197,165,90,0.06);
+    line-height: 1; pointer-events: none;
+  }
+  .lifetime-eyebrow {
+    color: var(--gold); font-size: 11px; letter-spacing: 2px; font-weight: 700;
+    margin-bottom: 6px; text-transform: uppercase;
+  }
+  .lifetime-banner h3 {
+    font-family: 'Cormorant Garamond', serif; font-size: 30px;
+    margin-bottom: 10px; font-weight: 600;
+  }
+  .lifetime-banner p {
+    color: rgba(255,255,255,0.8); font-size: 14px; margin-bottom: 6px;
+  }
+  .lifetime-cta {
+    display: inline-block; background: var(--gold); color: white;
+    padding: 14px 24px; text-decoration: none; font-weight: 600;
+    border-radius: 3px; font-size: 14px;
+  }
+
+  /* Bourse scholarship */
+  .scholarship-note {
+    max-width: 900px; margin: 30px auto 0;
+    background: white; border: 1px dashed var(--gold);
+    padding: 20px 24px; font-size: 13.5px; color: var(--text-mid);
+    text-align: center;
+  }
+  .scholarship-note strong { color: var(--gold-dark); font-weight: 700; }
+
+  /* ─── CHAT MOCKUPS ─── */
+  .chat-mockup {
+    max-width: 720px; margin: 0 auto;
+    background: white; border-radius: 6px;
+    box-shadow: var(--shadow-lg); overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .chat-header {
+    background: var(--navy); color: white;
+    padding: 12px 18px; display: flex; justify-content: space-between; align-items: center;
+  }
+  .chat-header-title {
+    font-family: 'Frank Ruhl Libre', serif; font-size: 18px; color: var(--gold);
+  }
+  .chat-header-actions { display: flex; gap: 8px; font-size: 11px; opacity: 0.6; }
+
+  /* Bannières d'état */
+  .state-banner {
+    padding: 12px 18px; font-size: 13.5px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  }
+  .state-banner-aperçu {
+    background: linear-gradient(135deg, #FFF8E1 0%, #FDF3D9 100%);
+    border-bottom-color: var(--gold);
+  }
+  .state-banner-aperçu strong { color: var(--gold-dark); }
+  .state-banner-standard {
+    background: var(--cream-lighter);
+  }
+  .state-banner-impact {
+    background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%);
+    border-bottom-color: var(--green);
+    color: var(--green);
+  }
+  .state-banner-warning {
+    background: #FEF3C7;
+    border-bottom-color: var(--amber);
+    color: var(--amber);
+  }
+  .state-banner-locked {
+    background: #FEE2E2;
+    border-bottom-color: var(--red);
+    color: var(--red);
+  }
+
+  .state-banner-cta {
+    background: var(--gold); color: white;
+    padding: 5px 12px; border-radius: 2px; font-size: 12px;
+    text-decoration: none; font-weight: 600;
+    flex-shrink: 0;
+  }
+  .state-banner-cta:hover { background: var(--gold-dark); }
+
+  /* Messages */
+  .chat-body {
+    background: var(--cream); padding: 22px;
+    min-height: 380px;
+  }
+  .msg { margin-bottom: 18px; }
+  .msg-user {
+    text-align: right;
+  }
+  .msg-user-bubble {
+    display: inline-block;
+    background: var(--navy); color: white;
+    padding: 10px 16px; border-radius: 14px 14px 4px 14px;
+    max-width: 80%; text-align: left; font-size: 14px;
+  }
+  .msg-assistant {
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .msg-avatar {
+    width: 30px; height: 30px; flex-shrink: 0;
+    background: var(--gold); color: white;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-family: 'Frank Ruhl Libre', serif; font-weight: 700; font-size: 14px;
+  }
+  .msg-bubble {
+    background: white; padding: 14px 18px; border-radius: 4px 14px 14px 14px;
+    flex: 1; box-shadow: var(--shadow-sm); border: 1px solid var(--border);
+  }
+  .msg-bubble h4 { font-family: 'Cormorant Garamond', serif; font-size: 19px; margin-bottom: 6px; color: var(--navy); }
+  .msg-bubble p { font-size: 14px; line-height: 1.6; color: var(--text); margin-bottom: 8px; }
+  .msg-bubble .sources {
+    background: var(--cream-lighter); padding: 10px 12px;
+    border-left: 2px solid var(--gold); font-size: 12.5px;
+    color: var(--text-mid); margin-top: 8px;
+  }
+  .msg-bubble .sources strong { color: var(--gold-dark); }
+  .msg-meta {
+    display: flex; gap: 10px; font-size: 11px; color: var(--text-muted);
+    margin-top: 8px; align-items: center; padding-top: 8px;
+    border-top: 1px solid var(--cream-dark);
+  }
+  .badge-premium {
+    display: inline-block; background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: white; padding: 2px 8px; border-radius: 2px;
+    font-size: 10px; font-weight: 700; letter-spacing: 1px;
+  }
+  .badge-standard {
+    display: inline-block; background: #E2E8F0; color: #475569;
+    padding: 2px 8px; border-radius: 2px;
+    font-size: 10px; font-weight: 700; letter-spacing: 1px;
+  }
+  .upsell-hint {
+    background: var(--cream-lighter); border: 1px dashed var(--gold);
+    padding: 10px 12px; margin-top: 10px; font-size: 12.5px;
+    color: var(--text-mid); border-radius: 3px;
+  }
+  .upsell-hint strong { color: var(--gold-dark); }
+  .upsell-hint a {
+    color: var(--gold-dark); font-weight: 700; text-decoration: none;
+    border-bottom: 1px dotted var(--gold-dark);
+  }
+
+  /* Input mock */
+  .chat-input {
+    background: white; padding: 14px 18px;
+    border-top: 1px solid var(--border);
+    display: flex; gap: 10px; align-items: center;
+  }
+  .chat-input-field {
+    flex: 1; padding: 10px 14px;
+    border: 1px solid var(--border); border-radius: 24px;
+    font-size: 14px; color: var(--text-muted);
+  }
+  .chat-input-btn {
+    background: var(--gold); color: white;
+    width: 38px; height: 38px; border-radius: 50%;
+    border: none; cursor: pointer;
+  }
+
+  /* MODAL transition */
+  .modal-demo {
+    max-width: 720px; margin: 0 auto;
+    position: relative; min-height: 480px;
+    background: rgba(26,31,58,0.4); border-radius: 6px;
+    padding: 30px; display: flex; align-items: center; justify-content: center;
+  }
+  .modal-demo-frame {
+    background: white; padding: 40px 36px; max-width: 460px;
+    border-top: 3px solid var(--gold);
+    border-radius: 2px;
+    box-shadow: var(--shadow-lg);
+  }
+  .modal-demo-icon { font-size: 36px; margin-bottom: 10px; text-align: center; }
+  .modal-demo h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; text-align: center; margin-bottom: 14px;
+  }
+  .modal-demo-lead {
+    text-align: center; color: var(--text-mid); margin-bottom: 24px; font-size: 14.5px;
+    line-height: 1.55;
+  }
+  .modal-demo-card {
+    background: var(--cream-lighter); border: 1px solid var(--gold);
+    padding: 18px; margin-bottom: 18px; font-size: 13.5px;
+  }
+  .modal-demo-card-title {
+    font-weight: 700; color: var(--gold-dark); margin-bottom: 8px;
+    font-size: 13px; letter-spacing: 0.5px;
+  }
+  .modal-demo-card ul { list-style: none; padding: 0; margin: 0; }
+  .modal-demo-card li {
+    padding: 3px 0; color: var(--text-mid); display: flex; gap: 6px;
+  }
+  .modal-demo-card li::before { content: '•'; color: var(--gold); }
+  .modal-demo-actions { display: flex; flex-direction: column; gap: 8px; }
+  .modal-demo-btn {
+    padding: 12px 20px; border-radius: 3px; text-align: center;
+    font-weight: 600; font-size: 14px; cursor: pointer; border: 1px solid transparent;
+    text-decoration: none;
+  }
+  .modal-demo-btn-primary { background: var(--gold); color: white; }
+  .modal-demo-btn-outline { background: transparent; color: var(--text-mid); border-color: var(--border); }
+
+  /* welcome after pay */
+  .welcome-modal {
+    max-width: 540px; margin: 0 auto;
+    background: white; padding: 50px 40px;
+    border-top: 3px solid var(--gold);
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+  }
+  .welcome-modal-icon {
+    font-size: 56px; margin-bottom: 12px;
+  }
+  .welcome-modal h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px; margin-bottom: 14px;
+  }
+  .welcome-modal-lead { font-size: 15px; color: var(--text-mid); margin-bottom: 28px; }
+  .welcome-modal ul { list-style: none; max-width: 320px; margin: 0 auto 30px; text-align: left; font-size: 14px; }
+  .welcome-modal ul li { padding: 5px 0; display: flex; gap: 8px; }
+  .welcome-modal ul li::before { content: '✨'; }
+
+  /* footer */
+  footer {
+    background: var(--navy); color: rgba(255,255,255,0.5);
+    padding: 24px; text-align: center; font-size: 12px;
+  }
+</style>
+</head>
+<body>
+
+<nav class="mockup-nav">
+  <span class="mockup-nav-title">🧪 MOCKUP UX</span>
+  <a href="#soutenir">Page Soutenir</a>
+  <a href="#chat-apercu">Chat Aperçu Q1</a>
+  <a href="#chat-derniere">Q3 (dernière premium)</a>
+  <a href="#modal-transition">Modale Q3→Q4</a>
+  <a href="#chat-standard">Q4 Standard</a>
+  <a href="#chat-limit">Limite quotidienne</a>
+  <a href="#chat-welcome">Bienvenue post-paiement</a>
+  <a href="#chat-impact">Compteur impact</a>
+</nav>
+
+<!-- ═════════════════ PAGE SOUTENIR ═════════════════ -->
+<section id="soutenir" class="mockup-section" style="background: var(--cream);">
+  <div class="mockup-section-header">1️⃣ — Page /soutenir (présentation des 4 niveaux)</div>
+
+  <div class="soutenir-hero">
+    <div class="soutenir-hero-eyebrow">סייע למוסד</div>
+    <h1>Soutiens DAAT, soutiens l'étude pour tous</h1>
+    <p class="soutenir-hero-lead">
+      L'association DAAT met une IA halakhique à disposition de tous, gratuitement.
+      L'infrastructure a un coût. Ton soutien permet à des dizaines de talmidim
+      d'accéder librement à la Torah chaque jour.
+    </p>
+    <div class="soutenir-impact-banner">
+      <div class="soutenir-impact-banner-num">142</div>
+      <div>
+        <strong>talmidim soutenus ce mois-ci</strong> grâce à 47 donateurs réguliers.<br>
+        <span style="color: var(--text-muted); font-size: 13px;">
+          Chaque don finance directement l'accès gratuit de la communauté.
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tiers">
+    <!-- Khavroutha -->
+    <div class="tier featured">
+      <div class="tier-icon">📚</div>
+      <div class="tier-name">Khavroutha</div>
+      <div class="tier-tagline">Pour l'étude personnelle régulière</div>
+      <div class="tier-price">
+        <span class="tier-price-num">8 €</span>
+        <span class="tier-price-suffix">/mois</span>
+      </div>
+      <div class="tier-price-annual">ou 80 €/an (-17 %)</div>
+      <div class="tier-fiscal">📜 66 % déductible (reçu fiscal)</div>
+
+      <div class="tier-impact">
+        <div class="tier-impact-title">Ton don finance</div>
+        <ul>
+          <li>8 questions gratuites/jour pour la communauté</li>
+          <li>L'accès quotidien de 3 talmidim sans frais</li>
+        </ul>
+      </div>
+
+      <div class="tier-features-title">En remerciement, tu reçois</div>
+      <ul class="tier-features">
+        <li>Qualité Opus sur les questions halakhiques pointues</li>
+        <li>30 questions/jour · 600/mois</li>
+        <li>Historique illimité, export PDF</li>
+        <li>Pas de bannière promotionnelle</li>
+      </ul>
+      <a href="#" class="tier-cta tier-cta-primary">Devenir Khavroutha</a>
+    </div>
+
+    <!-- Beit Midrash -->
+    <div class="tier">
+      <div class="tier-icon">🕯️</div>
+      <div class="tier-name">Beit Midrash</div>
+      <div class="tier-tagline">Pour l'étude intensive et le lamdan</div>
+      <div class="tier-price">
+        <span class="tier-price-num">25 €</span>
+        <span class="tier-price-suffix">/mois</span>
+      </div>
+      <div class="tier-price-annual">ou 250 €/an (-17 %)</div>
+      <div class="tier-fiscal">📜 66 % déductible (reçu fiscal)</div>
+
+      <div class="tier-impact">
+        <div class="tier-impact-title">Ton don finance</div>
+        <ul>
+          <li>25 questions gratuites/jour pour la communauté</li>
+          <li>L'accès quotidien de 8 talmidim sans frais</li>
+        </ul>
+      </div>
+
+      <div class="tier-features-title">En remerciement, tu reçois</div>
+      <ul class="tier-features">
+        <li>Qualité Opus sur toutes les questions</li>
+        <li>100 questions/jour · 2000/mois</li>
+        <li>Mode lamdan automatique</li>
+        <li>Outils Mareh Mekomot avancés</li>
+        <li>Support prioritaire</li>
+      </ul>
+      <a href="#" class="tier-cta tier-cta-outline">Devenir Beit Midrash</a>
+    </div>
+
+    <!-- Yeshiva -->
+    <div class="tier">
+      <div class="tier-icon">🎓</div>
+      <div class="tier-name">Yeshiva</div>
+      <div class="tier-tagline">Pour les groupes et institutions</div>
+      <div class="tier-price">
+        <span class="tier-price-num">80 €</span>
+        <span class="tier-price-suffix">/mois</span>
+      </div>
+      <div class="tier-price-annual">ou 800 €/an (-17 %)</div>
+      <div class="tier-fiscal">📜 66 % déductible (reçu fiscal)</div>
+
+      <div class="tier-impact">
+        <div class="tier-impact-title">Ton don finance</div>
+        <ul>
+          <li>80 questions/jour pour la communauté</li>
+          <li>L'accès de 25 talmidim externes sans frais</li>
+        </ul>
+      </div>
+
+      <div class="tier-features-title">En remerciement, tu reçois</div>
+      <ul class="tier-features">
+        <li>Tout du Beit Midrash, multiplié</li>
+        <li>3 comptes sous une même affiliation</li>
+        <li>300 questions/jour partagées</li>
+        <li>Stats de groupe (tableau de bord)</li>
+        <li>Branding personnalisé en option</li>
+      </ul>
+      <a href="#" class="tier-cta tier-cta-outline">Affilier ma yeshiva</a>
+    </div>
+  </div>
+
+  <!-- Lifetime banner -->
+  <div class="lifetime-banner">
+    <div class="lifetime-banner-decor">ל</div>
+    <div style="position: relative; z-index: 2;">
+      <div class="lifetime-eyebrow">Soutien éternel</div>
+      <h3>Lifetime Supporter ✨</h3>
+      <p>Un don unique de 500 € te donne accès à vie au niveau Beit Midrash,</p>
+      <p>plus ton nom sur le Mur des Bâtisseurs pour toujours.</p>
+      <p style="color: var(--gold); margin-top: 8px;">66 % déductible — soit 170 € de coût réel.</p>
+    </div>
+    <div style="position: relative; z-index: 2;">
+      <a href="#" class="lifetime-cta">Faire un don de 500 €</a>
+    </div>
+  </div>
+
+  <!-- Scholarship note -->
+  <div class="scholarship-note">
+    🌿 <strong>Bourse Talmid :</strong> les bahurim sans moyens peuvent demander l'accès Khavroutha gratuit
+    en écrivant à <strong>contact@daat-asso.fr</strong>. Notre engagement : la Torah ne se vend pas.
+  </div>
+</section>
+
+<!-- ═════════════════ CHAT — APERÇU PREMIUM Q1 ═════════════════ -->
+<section id="chat-apercu" class="mockup-section" style="background: #F5EFE0;">
+  <div class="mockup-section-header">2️⃣ — État Aperçu Premium, question 1 (effet "waouh")</div>
+
+  <div class="chat-mockup">
+    <div class="chat-header">
+      <div class="chat-header-title">דעת.AI</div>
+      <div class="chat-header-actions"><span>+</span><span>≡</span><span>×</span></div>
+    </div>
+
+    <div class="state-banner state-banner-aperçu">
+      <div>
+        <strong>💎 Aperçu Premium</strong>
+        · 3 questions offertes en qualité maximale pour découvrir DAAT
+      </div>
+      <span style="font-size: 11px; color: var(--gold-dark); font-weight: 700;">QUESTION 1 / 3</span>
+    </div>
+
+    <div class="chat-body">
+      <div class="msg msg-user">
+        <div class="msg-user-bubble">Peut-on faire du thé à la plancha le Chabbat ?</div>
+      </div>
+
+      <div class="msg msg-assistant">
+        <div class="msg-avatar">ד</div>
+        <div class="msg-bubble">
+          <h4>Distinguer kéli rishon, kéli shéni et le statut de la plancha</h4>
+          <p>La halakha distingue plusieurs cas selon que la plancha est branchée ou éteinte,
+          et selon le récipient utilisé pour verser l'eau chaude.</p>
+          <p><strong>1. Plancha branchée pendant Chabbat</strong> — verser l'eau d'un kéli rishon
+          (qui était sur le feu) sur les feuilles de thé pose le problème de מבשל. Le Rambam (Hilkhot
+          Chabbat 22:4) et le Shoulhan Aroukh (OH 318:5) tranchent que c'est interdit.</p>
+          <p><strong>2. Solution pratique</strong> — préparer un essence de thé (תמצית) avant
+          Chabbat, puis verser de l'eau chaude depuis un kéli shéni sur cette essence. La Mishna
+          Berura (318:39) accepte explicitement cette pratique.</p>
+          <div class="sources">
+            <strong>📜 Sources :</strong>
+            Shoulhan Aroukh OH 318:5 · Mishna Berura 318:39 ·
+            Iguerot Moshe OH IV:74 · Yabia Omer OH IV:33
+          </div>
+          <div class="msg-meta">
+            <span class="badge-premium">💎 PREMIUM · OPUS</span>
+            <span>2 questions Aperçu restantes</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-input">
+      <input class="chat-input-field" placeholder="Pose ta question…" disabled>
+      <button class="chat-input-btn">➤</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════ CHAT — Q3 LAST PREMIUM ═════════════════ -->
+<section id="chat-derniere" class="mockup-section" style="background: var(--cream-dark);">
+  <div class="mockup-section-header">3️⃣ — État dernière question Aperçu Premium (semer la conversion)</div>
+
+  <div class="chat-mockup">
+    <div class="chat-header">
+      <div class="chat-header-title">דעת.AI</div>
+      <div class="chat-header-actions"><span>+</span><span>≡</span><span>×</span></div>
+    </div>
+
+    <div class="state-banner state-banner-aperçu">
+      <div>
+        <strong>💎 Dernière question en qualité Premium</strong>
+        · profite de la qualité maximale
+      </div>
+      <a href="#" class="state-banner-cta">Soutenir DAAT</a>
+    </div>
+
+    <div class="chat-body" style="min-height: 220px;">
+      <div class="msg msg-user">
+        <div class="msg-user-bubble">Et si je voulais comprendre la position du Rama sur ce point ?</div>
+      </div>
+
+      <div class="msg msg-assistant">
+        <div class="msg-avatar">ד</div>
+        <div class="msg-bubble">
+          <p style="color: var(--text-muted); font-style: italic;">
+            [Réponse détaillée du Rama avec mahloket Beit Yossef vs Rama,
+             analyse des Aharonim et synthèse...]
+          </p>
+          <div class="msg-meta">
+            <span class="badge-premium">💎 PREMIUM · OPUS</span>
+            <span>Dernière question Aperçu</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-input">
+      <input class="chat-input-field" placeholder="Pose ta question…" disabled>
+      <button class="chat-input-btn">➤</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════ MODAL TRANSITION Q3→Q4 ═════════════════ -->
+<section id="modal-transition" class="mockup-section" style="background: var(--cream);">
+  <div class="mockup-section-header">4️⃣ — Modale de transition Q3→Q4 (esprit hessed, pas commercial)</div>
+
+  <div class="modal-demo">
+    <div class="modal-demo-frame">
+      <div class="modal-demo-icon">✨</div>
+      <h3>Tu as découvert DAAT en qualité maximale</h3>
+      <p class="modal-demo-lead">
+        À partir de maintenant : mode <strong>Standard</strong>,
+        qui reste excellent pour 95 % des questions halakhiques courantes.
+      </p>
+
+      <div class="modal-demo-card">
+        <div class="modal-demo-card-title">💎 Tu veux soutenir l'asso et débloquer la qualité Opus ?</div>
+        <p style="font-size: 13.5px; color: var(--text-mid); margin: 8px 0;">
+          Pour <strong>8 €/mois</strong>, ton don :
+        </p>
+        <ul>
+          <li>Finance 8 talmidim chaque mois</li>
+          <li>Te débloque la qualité Opus partout</li>
+          <li>Est déductible à 66 % (reçu fiscal)</li>
+        </ul>
+      </div>
+
+      <div class="modal-demo-actions">
+        <a href="#" class="modal-demo-btn modal-demo-btn-primary">💎 Soutenir DAAT et débloquer</a>
+        <a href="#" class="modal-demo-btn modal-demo-btn-outline">Continuer en mode Standard →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════ CHAT — Q4 STANDARD ═════════════════ -->
+<section id="chat-standard" class="mockup-section" style="background: #F5EFE0;">
+  <div class="mockup-section-header">5️⃣ — État Standard (Q4-Q10) avec rappel discret de ce qui manque</div>
+
+  <div class="chat-mockup">
+    <div class="chat-header">
+      <div class="chat-header-title">דעת.AI</div>
+      <div class="chat-header-actions"><span>+</span><span>≡</span><span>×</span></div>
+    </div>
+
+    <div class="state-banner state-banner-standard">
+      <div>
+        <strong>⚡ Standard</strong>
+        · 7 questions restantes aujourd'hui
+      </div>
+      <a href="#" class="state-banner-cta">💎 Passer Premium</a>
+    </div>
+
+    <div class="chat-body">
+      <div class="msg msg-user">
+        <div class="msg-user-bubble">Et avec une bouilloire Crock-Pot ?</div>
+      </div>
+
+      <div class="msg msg-assistant">
+        <div class="msg-avatar">ד</div>
+        <div class="msg-bubble">
+          <p>Avec une Crock-Pot allumée le Chabbat, on évite de l'utiliser comme kéli rishon
+          pour préparer du thé. La pratique courante : sortir l'eau dans un autre récipient
+          (qui devient kéli shéni) et préparer le thé à partir de là.</p>
+          <p>Le Shoulhan Aroukh (OH 318) traite ces cas dans le cadre général du בישול sur
+          un kli déjà chaud.</p>
+          <div class="msg-meta">
+            <span class="badge-standard">⚡ STANDARD · SONNET</span>
+            <span>Réponse en mode Standard</span>
+          </div>
+          <div class="upsell-hint">
+            <strong>💎 En mode Premium</strong>, cette question aurait été traitée avec
+            les avis du <em>Iguerot Moshe</em>, du <em>Yabia Omer</em> et la machloket
+            entre poskim ashkénazes et séfarades.
+            <a href="#">Soutiens DAAT pour débloquer ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-input">
+      <input class="chat-input-field" placeholder="Pose ta question…" disabled>
+      <button class="chat-input-btn">➤</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════ LIMITE QUOTIDIENNE ═════════════════ -->
+<section id="chat-limit" class="mockup-section" style="background: var(--cream-dark);">
+  <div class="mockup-section-header">6️⃣ — Limite quotidienne atteinte (8/8 ou 10/10 questions)</div>
+
+  <div class="chat-mockup">
+    <div class="chat-header">
+      <div class="chat-header-title">דעת.AI</div>
+      <div class="chat-header-actions"><span>+</span><span>≡</span><span>×</span></div>
+    </div>
+
+    <div class="state-banner state-banner-locked">
+      <div>
+        <strong>🌙 Tu as utilisé tes 8 questions du jour.</strong>
+      </div>
+    </div>
+
+    <div class="chat-body" style="text-align: center; padding: 60px 22px; display: flex; flex-direction: column; align-items: center; gap: 20px;">
+      <div style="font-size: 56px;">🌅</div>
+      <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 26px;">
+        Reviens demain ou soutiens l'asso
+      </h2>
+      <p style="color: var(--text-mid); font-size: 15px; max-width: 420px;">
+        Pour 8 €/mois, tu débloques 30 questions/jour + qualité Opus partout,
+        et tu finances l'accès gratuit de 3 talmidim.
+      </p>
+
+      <div style="display: flex; gap: 10px; margin-top: 14px;">
+        <a href="#" style="background: var(--gold); color: white; padding: 12px 22px; text-decoration: none; font-weight: 600; border-radius: 3px; font-size: 14px;">
+          💎 Devenir Khavroutha
+        </a>
+        <a href="#" style="background: white; color: var(--navy); padding: 12px 22px; text-decoration: none; font-weight: 600; border-radius: 3px; font-size: 14px; border: 1px solid var(--navy);">
+          📅 Revenir demain
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════ BIENVENUE POST PAIEMENT ═════════════════ -->
+<section id="chat-welcome" class="mockup-section" style="background: #F5EFE0;">
+  <div class="mockup-section-header">7️⃣ — Confirmation de soutien (juste après HelloAsso)</div>
+
+  <div class="welcome-modal">
+    <div class="welcome-modal-icon">💎</div>
+    <h3>Bienvenue dans Khavroutha</h3>
+    <p class="welcome-modal-lead">
+      Merci pour ton soutien à DAAT. Ton don finance directement l'étude de la
+      communauté, et te débloque la qualité Opus partout.
+    </p>
+    <ul>
+      <li>Qualité Opus 4.7 sur toutes les questions halakhiques</li>
+      <li>30 questions/jour · 600/mois</li>
+      <li>Historique illimité · export PDF</li>
+      <li>Mode lamdan automatique</li>
+    </ul>
+    <a href="#" class="lifetime-cta">Poser ma première question Premium ↗</a>
+    <p style="font-size: 12px; color: var(--text-muted); margin-top: 24px;">
+      Tu recevras un reçu fiscal HelloAsso par email d'ici 24h.
+    </p>
+  </div>
+</section>
+
+<!-- ═════════════════ COMPTEUR IMPACT (abonné) ═════════════════ -->
+<section id="chat-impact" class="mockup-section" style="background: var(--cream);">
+  <div class="mockup-section-header">8️⃣ — Vue d'un Khavroutha (déjà abonné) : compteur d'impact collectif</div>
+
+  <div class="chat-mockup">
+    <div class="chat-header">
+      <div class="chat-header-title">דעת.AI</div>
+      <div class="chat-header-actions"><span>+</span><span>≡</span><span>×</span></div>
+    </div>
+
+    <div class="state-banner state-banner-impact">
+      <div>
+        <strong>💎 Khavroutha</strong>
+        · Ton soutien ce mois finance <strong>23 questions gratuites</strong> pour la communauté
+      </div>
+      <span style="font-size: 11px; color: var(--green); font-weight: 700;">Mois en cours</span>
+    </div>
+
+    <div class="chat-body" style="min-height: 240px;">
+      <div class="msg msg-user">
+        <div class="msg-user-bubble">Quelle est la position du Mishna Berura sur les bougies électriques pour le Chabbat ?</div>
+      </div>
+
+      <div class="msg msg-assistant">
+        <div class="msg-avatar">ד</div>
+        <div class="msg-bubble">
+          <p style="color: var(--text-muted); font-style: italic;">
+            [Réponse approfondie en qualité Opus, avec citations détaillées,
+             machloket Aharonim, sources contemporaines, distinctions
+             halakhiques précises...]
+          </p>
+          <div class="msg-meta">
+            <span class="badge-premium">💎 PREMIUM · OPUS</span>
+            <span>Question 12 du mois · 588 questions restantes</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-input">
+      <input class="chat-input-field" placeholder="Pose ta question…" disabled>
+      <button class="chat-input-btn">➤</button>
+    </div>
+  </div>
+
+  <!-- Approche limite mensuelle -->
+  <div style="margin-top: 30px;">
+    <div class="mockup-section-header" style="margin-top: 30px;">
+      Variant : approche de la limite mensuelle (>80%)
+    </div>
+
+    <div class="chat-mockup" style="margin-top: 16px;">
+      <div class="chat-header">
+        <div class="chat-header-title">דעת.AI</div>
+        <div class="chat-header-actions"><span>+</span><span>≡</span><span>×</span></div>
+      </div>
+
+      <div class="state-banner state-banner-warning">
+        <div>
+          <strong>⚠ Tu approches ta limite mensuelle</strong>
+          · 530/600 questions utilisées
+        </div>
+        <span style="font-size: 11px; color: var(--amber); font-weight: 700;">88 %</span>
+      </div>
+
+      <div class="chat-body" style="text-align: center; padding: 40px 22px; min-height: 120px; color: var(--text-mid); font-size: 14px;">
+        Après 600 questions ce mois, le service passe en mode Standard
+        jusqu'au mois prochain. Tu peux faire un don supplémentaire
+        pour augmenter ton quota.
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Mockup statique — preview UX pour validation avant implémentation · DAAT.AI
+</footer>
+
+<script>
+  // Smooth scroll
+  document.querySelectorAll('.mockup-nav a').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+
+</body>
+</html>
