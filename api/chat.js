@@ -9,15 +9,27 @@ import Anthropic from '@anthropic-ai/sdk';
 import { kv } from '@vercel/kv';
 import { SYSTEM_PROMPT } from './_system-prompt.js';
 import { SEFARIA_TOOLS, executeSefariaTool } from './_sefaria.js';
-import { CORPUS_TOOLS, executeCorpusTool } from './_corpus.js';
+import { CORPUS_TOOLS, executeCorpusTool, searchCorpus } from './_corpus.js';
 import { MAREH_MEKOMOT_TOOLS, executeMarehMekomotTool } from './_mareh_mekomot.js';
 import { getUserFromRequest } from './_auth.js';
+import {
+  deepSeekAvailable,
+  streamMetaQuestion,
+  summarizeOlderTurns,
+  reformulateForCorpus,
+  DEEPSEEK_PRICING,
+} from './_deepseek.js';
 
 const client = new Anthropic();
 
-const MAX_TOOL_ITERATIONS = 6; // agentic loop — 6 itérations (compromis qualité/coût)
+const MAX_TOOL_ITERATIONS = 8; // agentic loop — 8 itérations (questions denses : Houpa, gittin, etc.)
 const MAX_TOKENS_OUTPUT = 4096; // cap output ; Claude s'arrête naturellement avant
 const HISTORY_TURNS = 16;       // 16 derniers tours (plus de contexte = meilleure réponse)
+
+// Vercel Hobby plafonne à ~90s même avec maxDuration=300 dans vercel.json.
+// On laisse 20s de marge pour la finalisation forcée → SOFT_TIMEOUT à 70s.
+// Pro plan (60s/300s) : on peut monter cette valeur.
+const SOFT_TIMEOUT_MS = 70_000;
 const ALL_TOOLS = [...MAREH_MEKOMOT_TOOLS, ...CORPUS_TOOLS, ...SEFARIA_TOOLS];
 
 // ── Routing modèles — priorité QUALITÉ, économies opportunistes ──
@@ -65,12 +77,13 @@ function pickModel(messages, hint) {
   const heCount = (text.match(/[֐-׿]/g) || []).length;
   if (heCount > 25) return MODELS.opus;
 
-  // 3. Haiku UNIQUEMENT pour méta-questions très courtes ET 1ère question ET zéro mot halakhique
+  // 3. Méta-questions très courtes (1ère question, < 40 chars, zéro mot halakhique).
   // Ex: "bonjour", "merci", "tu peux m'aider ?", "comment ça marche ?"
+  // → DeepSeek si dispo (≈ 4× moins cher que Haiku), sinon Haiku.
   const isFirstQuestion = messages.length <= 1;
   const halakhicHint = /shab|kasher|kasher|tefil|tznio|mouk|hila|sefer|torah|halakh|halacha|halaha|halaja|seif|siman|guemar|mishna|talmud|cohen|brah|berakh|nidda|kashr|peot|tsitsit|loulav|souka|sukka|mezou|tefil|shem|shabb|peah|maase|mitsv|mitzv/i;
   if (isFirstQuestion && text.length < 40 && !halakhicHint.test(lower)) {
-    return MODELS.haiku;
+    return { ...MODELS.haiku, _meta: true };
   }
 
   // 4. Par défaut : Sonnet 4.6 — qualité quasi équivalente à Opus pour le grand public,
@@ -204,11 +217,26 @@ export default async function handler(req, res) {
       }
     }
 
-    // Garder les N derniers tours (réduit de 24 à 12)
+    // Garder les N derniers tours (qualité = plus de contexte récent)
     const trimmedMessages = messages.slice(-HISTORY_TURNS);
 
     if (trimmedMessages[0].role !== 'user') {
       return res.status(400).json({ error: 'Le premier message doit être de l\'utilisateur' });
+    }
+
+    // Compaction des tours antérieurs via DeepSeek (uniquement si > HISTORY_TURNS).
+    // Économie : évite de renvoyer 10 000+ tokens d'historique à Claude.
+    // Si DeepSeek absent ou échoue : on n'injecte rien (Claude perd juste le contexte ancien).
+    const olderTurns = messages.length > HISTORY_TURNS ? messages.slice(0, -HISTORY_TURNS) : [];
+    let historySummary = null;
+    let deepseekUsage = { input_tokens: 0, output_tokens: 0 };
+    if (olderTurns.length >= 4 && deepSeekAvailable()) {
+      const r = await summarizeOlderTurns(olderTurns);
+      if (r?.text) {
+        historySummary = r.text;
+        deepseekUsage.input_tokens += r.usage.input_tokens || 0;
+        deepseekUsage.output_tokens += r.usage.output_tokens || 0;
+      }
     }
 
     // Choisir le modèle adapté à la complexité (router cost-optimisé)
@@ -236,12 +264,157 @@ export default async function handler(req, res) {
     });
     res.write(`data: ${rateInfoPayload}\n\n`);
 
-    // Conversation working set : on travaille avec un format de blocs (pour le tool use)
-    // Le client envoie des messages texte simple — on les convertit en blocs.
+    // ── Court-circuit DeepSeek pour méta-questions (≈ 4× moins cher que Haiku) ──
+    // Salutations, "tu es qui", "comment ça marche", "merci". Pas de psak ici.
+    // Si DeepSeek échoue/timeout, on retombe sur Claude (Haiku) normalement.
+    if (model._meta && deepSeekAvailable()) {
+      const lastUserText = trimmedMessages[trimmedMessages.length - 1].content;
+      const ds = await streamMetaQuestion(lastUserText, (delta) => {
+        res.write(`data: ${JSON.stringify({ type: 'text', delta })}\n\n`);
+      });
+
+      if (ds) {
+        const dsCost =
+          (ds.usage.input_tokens * DEEPSEEK_PRICING.in / 1000) +
+          (ds.usage.output_tokens * DEEPSEEK_PRICING.out / 1000);
+
+        res.write(`data: ${JSON.stringify({
+          type: 'done',
+          stop_reason: 'end_turn',
+          iterations: 1,
+          usage: ds.usage,
+          provider: 'deepseek',
+        })}\n\n`);
+
+        try {
+          const todayKey = new Date().toISOString().slice(0, 10);
+          const globalKey = `usage:global:${todayKey}`;
+          const globalData = (await kv.get(globalKey)) || { tokens_in: 0, tokens_out: 0, cost_usd: 0, count: 0 };
+          await kv.set(globalKey, {
+            tokens_in: globalData.tokens_in + ds.usage.input_tokens,
+            tokens_out: globalData.tokens_out + ds.usage.output_tokens,
+            cost_usd: parseFloat((globalData.cost_usd + dsCost).toFixed(6)),
+            count: globalData.count + 1,
+          });
+          const userKey = `usage:${userId}:${todayKey}`;
+          const userData = (await kv.get(userKey)) || { tokens_in: 0, tokens_out: 0, cost_usd: 0, count: 0 };
+          await kv.set(userKey, {
+            tokens_in: userData.tokens_in + ds.usage.input_tokens,
+            tokens_out: userData.tokens_out + ds.usage.output_tokens,
+            cost_usd: parseFloat((userData.cost_usd + dsCost).toFixed(6)),
+            count: userData.count + 1,
+          });
+          await kv.incr(rateKey);
+          const ttl = await kv.ttl(rateKey);
+          if (ttl === -1 || ttl === -2) await kv.expire(rateKey, 24 * 60 * 60);
+          await kv.lpush('logs:usage', JSON.stringify({
+            ts: new Date().toISOString(),
+            user: userId,
+            is_guest: isGuest,
+            plan,
+            tokens_in: ds.usage.input_tokens,
+            tokens_out: ds.usage.output_tokens,
+            cost_usd: dsCost,
+            provider: 'deepseek',
+            model: 'deepseek-chat',
+            iterations: 1,
+            stop_reason: 'end_turn',
+          }));
+          await kv.ltrim('logs:usage', 0, 499);
+          await kv.sadd('users:known', userId);
+          console.log(`[chat.js] usage tracked: ${userId} deepseek:meta +${ds.usage.input_tokens}in/${ds.usage.output_tokens}out ($${dsCost.toFixed(5)})`);
+        } catch (err) {
+          console.error('[chat.js] Erreur enregistrement usage (deepseek):', err?.message || err);
+        }
+
+        res.end();
+        return;
+      }
+      // DeepSeek a échoué → on continue avec Claude Haiku (fallback transparent)
+    }
+
+    // Conversation working set : format de blocs (pour le tool use)
     let conversation = trimmedMessages.map(m => ({
       role: m.role,
       content: [{ type: 'text', text: m.content }],
     }));
+
+    // Compaction d'historique : préfixer un résumé synthétique des anciens tours
+    if (historySummary) {
+      conversation.unshift(
+        { role: 'user', content: [{ type: 'text', text: `Contexte de notre conversation précédente (résumé) :\n\n${historySummary}` }] },
+        { role: 'assistant', content: [{ type: 'text', text: 'Bien noté, je tiens compte de ce contexte.' }] },
+      );
+    }
+
+    // Pré-recherche RAG via DeepSeek : reformule la question, interroge le corpus,
+    // injecte les meilleurs hits dans le dernier message user → élimine un round-trip
+    // Claude sur la plupart des questions halakhiques SIMPLES.
+    //
+    // ⚠️ Gating strict — on saute le pré-RAG quand :
+    //  - question complexe (déjà routée vers Opus) → Claude fait déjà sa propre orchestration
+    //  - question longue (> 220 chars) → idem, sera tool-heavy de toute façon
+    //  - conversation longue (> 4 turns) → contexte conversationnel suffit
+    //  Sur ces cas le pré-RAG ajoute 3-5s upfront sans réduire les tool calls — c'est perdu.
+    const isOpus = model.id === MODELS.opus.id;
+    const lastUserText = trimmedMessages[trimmedMessages.length - 1].content;
+    const skipPreRag = isOpus || (lastUserText?.length || 0) > 220 || trimmedMessages.length > 4;
+
+    if (deepSeekAvailable() && !model._meta && !skipPreRag) {
+      if (lastUserText && lastUserText.length >= 30) {
+        try {
+          const ref = await reformulateForCorpus(lastUserText);
+          if (ref?.queries?.length) {
+            deepseekUsage.input_tokens += ref.usage.input_tokens || 0;
+            deepseekUsage.output_tokens += ref.usage.output_tokens || 0;
+
+            const allHits = await Promise.all(ref.queries.map(q => searchCorpus(q, { limit: 3 })));
+            const seen = new Set();
+            const merged = [];
+            for (const hits of allHits) {
+              for (const h of (hits || [])) {
+                if (!h?.id || seen.has(h.id)) continue;
+                seen.add(h.id);
+                merged.push(h);
+                if (merged.length >= 4) break;
+              }
+              if (merged.length >= 4) break;
+            }
+
+            if (merged.length) {
+              const blob = merged.map(h => {
+                const where = h.siman ? ` (siman ${h.siman}${h.seif ? `:${h.seif}` : ''})` : '';
+                const lvl = h.level ? ` [${h.level}]` : '';
+                const srcs = (h.sources || []).slice(0, 3)
+                  .map(s => typeof s === 'string' ? s : (s?.ref || ''))
+                  .filter(Boolean).join(' ; ');
+                return `[${h.id}] ${h.title}${where}${lvl}\n  ${(h.summary || '').slice(0, 240)}${srcs ? `\n  Sources : ${srcs}` : ''}`;
+              }).join('\n\n');
+
+              const lastIdx = conversation.length - 1;
+              const last = conversation[lastIdx];
+              const originalText = last.content.map(b => b.text || '').join('');
+              conversation[lastIdx] = {
+                role: 'user',
+                content: [{
+                  type: 'text',
+                  text:
+                    `<contexte_corpus_daat queries="${ref.queries.join(' | ')}">\n` +
+                    `Entrées du corpus DAAT pré-sélectionnées par recherche automatique. ` +
+                    `Cite-les si elles répondent à la question ; sinon ignore-les et utilise les outils habituels.\n\n` +
+                    `${blob}\n` +
+                    `</contexte_corpus_daat>\n\n` +
+                    originalText,
+                }],
+              };
+            }
+          }
+        } catch (err) {
+          console.error('[chat.js] pre-RAG DeepSeek failed:', err?.message || err);
+          // Fail open : on continue sans pré-contexte
+        }
+      }
+    }
 
     const totalUsage = {
       input_tokens: 0,
@@ -252,9 +425,19 @@ export default async function handler(req, res) {
 
     let iterations = 0;
     let stopReason = null;
+    const startedAt = Date.now();
+    let softTimeoutHit = false;
 
     // Boucle agentique : tant que Claude veut utiliser un outil, on exécute et on relance.
     while (iterations < MAX_TOOL_ITERATIONS) {
+      // Soft timeout : on coupe AVANT de relancer Claude si on approche du plafond Vercel.
+      // Laisse de la marge pour la finalisation forcée juste après.
+      if (Date.now() - startedAt > SOFT_TIMEOUT_MS) {
+        softTimeoutHit = true;
+        stopReason = 'tool_use'; // déclenche la finalisation forcée
+        console.log(`[chat.js] soft timeout (${iterations} iters, ${Date.now() - startedAt}ms) — forcing finalization`);
+        break;
+      }
       iterations++;
 
       // (Plus de notice générique — chaque tool_use envoie sa propre notice détaillée)
@@ -359,6 +542,45 @@ export default async function handler(req, res) {
       });
     }
 
+    // ── Finalisation forcée : Claude voulait encore des outils, mais on a coupé ──
+    // (soft timeout OU MAX_TOOL_ITERATIONS atteint). Un dernier appel SANS outils,
+    // avec instruction explicite, garantit un texte streamé au client.
+    // Pas de thinking ni effort high ici — on optimise pour la latence (Vercel à 90s).
+    if (stopReason === 'tool_use') {
+      conversation.push({
+        role: 'user',
+        content: [{
+          type: 'text',
+          text: 'Tu as déjà consulté suffisamment de sources. Synthétise maintenant ta réponse complète et structurée à ma question initiale, en t\'appuyant uniquement sur ce que tu as déjà recueilli. N\'appelle plus aucun outil.',
+        }],
+      });
+
+      // Sur soft timeout on prend Haiku (rapide) ; sinon on garde le modèle courant sans thinking
+      const finalModel = softTimeoutHit ? MODELS.haiku : model;
+      const finalStream = client.messages.stream({
+        model: finalModel.id,
+        max_tokens: MAX_TOKENS_OUTPUT,
+        system: [
+          { type: 'text', text: SYSTEM_PROMPT, cache_control: { type: 'ephemeral', ttl: '1h' } },
+        ],
+        messages: conversation,
+      });
+
+      for await (const event of finalStream) {
+        if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
+          res.write(`data: ${JSON.stringify({ type: 'text', delta: event.delta.text })}\n\n`);
+        }
+      }
+      const finalMsg = await finalStream.finalMessage();
+      totalUsage.input_tokens += finalMsg.usage.input_tokens || 0;
+      totalUsage.output_tokens += finalMsg.usage.output_tokens || 0;
+      totalUsage.cache_creation += finalMsg.usage.cache_creation_input_tokens || 0;
+      totalUsage.cache_read += finalMsg.usage.cache_read_input_tokens || 0;
+      stopReason = finalMsg.stop_reason;
+      iterations++;
+      console.log(`[chat.js] forced finalization done with ${finalModel.id} — soft=${softTimeoutHit}`);
+    }
+
     // Envoyer le done final (côté UX, la conversation est terminée)
     const donePayload = JSON.stringify({
       type: 'done',
@@ -370,21 +592,29 @@ export default async function handler(req, res) {
 
     // ⚠️ Enregistrer l'usage AVANT res.end() — sinon Vercel kill le lambda
     // (le fire-and-forget ne marche pas en serverless Node, contrairement à Edge)
-    // L'utilisateur a déjà tout le texte côté UX, la connexion reste juste ouverte ~100ms de plus
     try {
       const todayKey = new Date().toISOString().slice(0, 10);
 
-      // Coûts dynamiques selon le modèle effectivement utilisé
-      const inputCost = model.in / 1000;
-      const outputCost = model.out / 1000;
-      const costUsd = (totalUsage.input_tokens * inputCost) + (totalUsage.output_tokens * outputCost);
+      // Coût Claude (modèle effectivement utilisé)
+      const claudeCost =
+        (totalUsage.input_tokens * model.in / 1000) +
+        (totalUsage.output_tokens * model.out / 1000);
+
+      // Coût DeepSeek (reformulation RAG + résumé d'historique, si activé)
+      const dsCost =
+        (deepseekUsage.input_tokens * DEEPSEEK_PRICING.in / 1000) +
+        (deepseekUsage.output_tokens * DEEPSEEK_PRICING.out / 1000);
+
+      const costUsd = claudeCost + dsCost;
+      const tokensIn = totalUsage.input_tokens + deepseekUsage.input_tokens;
+      const tokensOut = totalUsage.output_tokens + deepseekUsage.output_tokens;
 
       // Stats globales
       const globalKey = `usage:global:${todayKey}`;
       const globalData = (await kv.get(globalKey)) || { tokens_in: 0, tokens_out: 0, cost_usd: 0, count: 0 };
       await kv.set(globalKey, {
-        tokens_in: globalData.tokens_in + totalUsage.input_tokens,
-        tokens_out: globalData.tokens_out + totalUsage.output_tokens,
+        tokens_in: globalData.tokens_in + tokensIn,
+        tokens_out: globalData.tokens_out + tokensOut,
         cost_usd: parseFloat((globalData.cost_usd + costUsd).toFixed(6)),
         count: globalData.count + 1,
       });
@@ -393,8 +623,8 @@ export default async function handler(req, res) {
       const userKey = `usage:${userId}:${todayKey}`;
       const userData = (await kv.get(userKey)) || { tokens_in: 0, tokens_out: 0, cost_usd: 0, count: 0 };
       await kv.set(userKey, {
-        tokens_in: userData.tokens_in + totalUsage.input_tokens,
-        tokens_out: userData.tokens_out + totalUsage.output_tokens,
+        tokens_in: userData.tokens_in + tokensIn,
+        tokens_out: userData.tokens_out + tokensOut,
         cost_usd: parseFloat((userData.cost_usd + costUsd).toFixed(6)),
         count: userData.count + 1,
       });
@@ -412,10 +642,12 @@ export default async function handler(req, res) {
         user: userId,
         is_guest: isGuest,
         plan,
-        tokens_in: totalUsage.input_tokens,
-        tokens_out: totalUsage.output_tokens,
+        tokens_in: tokensIn,
+        tokens_out: tokensOut,
         cost_usd: costUsd,
+        provider: deepseekUsage.input_tokens > 0 ? 'claude+deepseek' : 'claude',
         model: model.id,
+        deepseek_tokens: deepseekUsage.input_tokens + deepseekUsage.output_tokens,
         iterations,
         stop_reason: stopReason,
       };
@@ -424,7 +656,7 @@ export default async function handler(req, res) {
 
       // Liste des utilisateurs connus
       await kv.sadd('users:known', userId);
-      console.log(`[chat.js] usage tracked: ${userId} model=${model.id} +${totalUsage.input_tokens}in/${totalUsage.output_tokens}out ($${costUsd.toFixed(5)})`);
+      console.log(`[chat.js] usage tracked: ${userId} model=${model.id} +${tokensIn}in/${tokensOut}out ($${costUsd.toFixed(5)}, ds=${deepseekUsage.input_tokens + deepseekUsage.output_tokens}tok)`);
     } catch (err) {
       console.error('[chat.js] Erreur enregistrement usage:', err?.message || err);
     }
