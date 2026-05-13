@@ -22,14 +22,15 @@ import {
 
 const client = new Anthropic();
 
-const MAX_TOOL_ITERATIONS = 8; // agentic loop — 8 itérations (questions denses : Houpa, gittin, etc.)
+const MAX_TOOL_ITERATIONS = 6; // 5 itérations outils + 1 synthèse forcée
 const MAX_TOKENS_OUTPUT = 4096; // cap output ; Claude s'arrête naturellement avant
 const HISTORY_TURNS = 16;       // 16 derniers tours (plus de contexte = meilleure réponse)
 
-// Vercel Hobby plafonne à ~90s même avec maxDuration=300 dans vercel.json.
-// On laisse 20s de marge pour la finalisation forcée → SOFT_TIMEOUT à 70s.
-// Pro plan (60s/300s) : on peut monter cette valeur.
-const SOFT_TIMEOUT_MS = 70_000;
+// Vercel Hobby plafonne à ~90s. On force la synthèse (tool_choice: none) dès
+// qu'on dépasse cette durée OU à la dernière itération, garantissant qu'il
+// reste assez de temps pour streamer une réponse textuelle complète.
+const FORCE_SYNTHESIS_AFTER_MS = 50_000;
+const HARD_ABORT_MS = 80_000; // dernier recours : abort à 80s (5s avant Vercel)
 const ALL_TOOLS = [...MAREH_MEKOMOT_TOOLS, ...CORPUS_TOOLS, ...SEFARIA_TOOLS];
 
 // ── Routing modèles — priorité QUALITÉ, économies opportunistes ──
@@ -426,24 +427,34 @@ export default async function handler(req, res) {
     let iterations = 0;
     let stopReason = null;
     const startedAt = Date.now();
-    let softTimeoutHit = false;
+    let forcedSynthesis = false;
 
-    // Boucle agentique : tant que Claude veut utiliser un outil, on exécute et on relance.
+    // Boucle agentique. À la dernière itération OU si on dépasse FORCE_SYNTHESIS_AFTER_MS,
+    // on bascule sur tool_choice:none + thinking désactivé pour FORCER Claude à produire
+    // du texte (pas d'autre tool_use possible). Garantit qu'on rend toujours une réponse.
     while (iterations < MAX_TOOL_ITERATIONS) {
-      // Soft timeout ENTRE itérations
-      const elapsedBefore = Date.now() - startedAt;
-      if (elapsedBefore > SOFT_TIMEOUT_MS) {
-        softTimeoutHit = true;
-        stopReason = 'tool_use';
-        console.log(`[chat.js] soft timeout between iters (${iterations} iters, ${elapsedBefore}ms)`);
-        break;
-      }
       iterations++;
+      const elapsedBefore = Date.now() - startedAt;
 
-      // Construire les paramètres dynamiques selon le modèle choisi
+      const forceSynthesis =
+        iterations === MAX_TOOL_ITERATIONS ||
+        elapsedBefore > FORCE_SYNTHESIS_AFTER_MS;
+
+      if (forceSynthesis && !forcedSynthesis) {
+        forcedSynthesis = true;
+        conversation.push({
+          role: 'user',
+          content: [{
+            type: 'text',
+            text: 'Tu as déjà consulté suffisamment de sources. Synthétise maintenant ta réponse complète et structurée à ma question initiale, en t\'appuyant uniquement sur ce que tu as déjà recueilli. N\'appelle plus aucun outil.',
+          }],
+        });
+        console.log(`[chat.js] forcing synthesis at iter ${iterations} (elapsed ${elapsedBefore}ms)`);
+      }
+
       const streamParams = {
         model: model.id,
-        max_tokens: MAX_TOKENS_OUTPUT,
+        max_tokens: forceSynthesis ? 1500 : MAX_TOKENS_OUTPUT,
         tools: ALL_TOOLS,
         system: [
           {
@@ -454,59 +465,49 @@ export default async function handler(req, res) {
         ],
         messages: conversation,
       };
-      if (model.thinking) streamParams.thinking = model.thinking;
-      if (model.effort) streamParams.output_config = { effort: model.effort };
+      if (forceSynthesis) {
+        // tool_choice:none → Claude DOIT produire du texte (pas de tool_use possible)
+        streamParams.tool_choice = { type: 'none' };
+      } else {
+        if (model.thinking) streamParams.thinking = model.thinking;
+        if (model.effort) streamParams.output_config = { effort: model.effort };
+      }
 
-      // AbortController par stream : coupe le stream Claude si on dépasse SOFT_TIMEOUT_MS
-      // en plein milieu d'une itération (thinking long, génération de texte longue, etc.)
+      // Hard abort à 80s : dernier filet de sécurité avant le kill Vercel ~90s
       const abortCtrl = new AbortController();
-      const msLeft = SOFT_TIMEOUT_MS - (Date.now() - startedAt);
+      const msUntilHardAbort = HARD_ABORT_MS - (Date.now() - startedAt);
       const abortTimer = setTimeout(() => {
-        console.log(`[chat.js] mid-stream abort at ${Date.now() - startedAt}ms`);
+        console.log(`[chat.js] HARD abort at ${Date.now() - startedAt}ms`);
         abortCtrl.abort();
-      }, Math.max(msLeft, 3000));
+      }, Math.max(msUntilHardAbort, 3000));
 
       let iterHadText = false;
 
       try {
         const stream = client.messages.stream(streamParams, { signal: abortCtrl.signal });
 
-        // Stream les deltas de texte au client (pour la réponse finale uniquement)
         for await (const event of stream) {
           if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
             iterHadText = true;
-            const payload = JSON.stringify({ type: 'text', delta: event.delta.text });
-            res.write(`data: ${payload}\n\n`);
+            res.write(`data: ${JSON.stringify({ type: 'text', delta: event.delta.text })}\n\n`);
           }
         }
 
         const final = await stream.finalMessage();
         stopReason = final.stop_reason;
 
-        // Cumuler l'usage
         totalUsage.input_tokens += final.usage.input_tokens || 0;
         totalUsage.output_tokens += final.usage.output_tokens || 0;
         totalUsage.cache_creation += final.usage.cache_creation_input_tokens || 0;
         totalUsage.cache_read += final.usage.cache_read_input_tokens || 0;
 
-        // Ajouter la réponse complète de Claude (tous les blocs : text + tool_use) à la conversation
-        conversation.push({
-          role: 'assistant',
-          content: final.content,
-        });
+        conversation.push({ role: 'assistant', content: final.content });
 
-        // Si pas d'appel d'outil → fin de la conversation
-        if (stopReason !== 'tool_use') {
-          break;
-        }
+        if (stopReason !== 'tool_use') break;
 
-        // Récupérer tous les tool_use de la réponse
         const toolUses = final.content.filter(b => b.type === 'tool_use');
-        if (toolUses.length === 0) {
-          break; // safety
-        }
+        if (toolUses.length === 0) break;
 
-        // Exécuter chaque outil (en parallèle, dispatch sur le bon executor)
         const toolResults = await Promise.all(
           toolUses.map(async (tu) => {
             try {
@@ -520,11 +521,7 @@ export default async function handler(req, res) {
                 };
               }
               const result = await executor(tu.name, tu.input);
-              return {
-                type: 'tool_result',
-                tool_use_id: tu.id,
-                content: result,
-              };
+              return { type: 'tool_result', tool_use_id: tu.id, content: result };
             } catch (err) {
               return {
                 type: 'tool_result',
@@ -536,94 +533,26 @@ export default async function handler(req, res) {
           })
         );
 
-        // Notifier le client des sources consultées
         for (const tu of toolUses) {
-          const sourcePayload = JSON.stringify({
+          res.write(`data: ${JSON.stringify({
             type: 'tool_use',
             tool: tu.name,
             input: tu.input,
-          });
-          res.write(`data: ${sourcePayload}\n\n`);
+          })}\n\n`);
         }
 
-        // Ajouter les résultats d'outils comme un message user
-        conversation.push({
-          role: 'user',
-          content: toolResults,
-        });
+        conversation.push({ role: 'user', content: toolResults });
 
       } catch (err) {
-        // Stream aborté par notre timer (soft timeout en plein milieu d'un appel Claude)
         if (abortCtrl.signal.aborted) {
-          softTimeoutHit = true;
-          if (iterHadText) {
-            // Claude avait déjà commencé à streamer du texte → on ferme proprement
-            // Le client a déjà reçu une réponse partielle, pas d'erreur côté UX.
-            stopReason = 'end_turn';
-            console.log(`[chat.js] mid-stream abort — had text, closing gracefully`);
-          } else {
-            // Claude pensait encore ou appelait des outils → finalisation forcée
-            stopReason = 'tool_use';
-            console.log(`[chat.js] mid-stream abort — no text yet, forcing finalization`);
-          }
+          stopReason = 'end_turn';
+          console.log(`[chat.js] hard abort caught — iterHadText=${iterHadText}, elapsed=${Date.now() - startedAt}ms`);
           break;
         }
         throw err;
       } finally {
         clearTimeout(abortTimer);
       }
-    }
-
-    // ── Finalisation forcée : Claude voulait encore des outils, mais on a coupé ──
-    // (soft timeout OU MAX_TOOL_ITERATIONS atteint). Un dernier appel SANS outils,
-    // avec instruction explicite, garantit un texte streamé au client.
-    // Toujours sur Haiku ici — on optimise la latence, plus la qualité.
-    if (stopReason === 'tool_use') {
-      conversation.push({
-        role: 'user',
-        content: [{
-          type: 'text',
-          text: 'Tu as déjà consulté suffisamment de sources. Synthétise maintenant ta réponse complète et structurée à ma question initiale, en t\'appuyant uniquement sur ce que tu as déjà recueilli. N\'appelle plus aucun outil.',
-        }],
-      });
-
-      const finalModel = MODELS.haiku; // toujours Haiku ici : rapide, évite le timeout
-      const msLeftForFinal = SOFT_TIMEOUT_MS + 15_000 - (Date.now() - startedAt); // 5s de marge avant 90s
-
-      const finalAbortCtrl = new AbortController();
-      const finalAbortTimer = setTimeout(() => finalAbortCtrl.abort(), Math.max(msLeftForFinal, 5000));
-
-      try {
-        const finalStream = client.messages.stream({
-          model: finalModel.id,
-          max_tokens: 1500, // cap serré pour rester dans le temps imparti
-          system: [
-            { type: 'text', text: SYSTEM_PROMPT, cache_control: { type: 'ephemeral', ttl: '1h' } },
-          ],
-          messages: conversation,
-        }, { signal: finalAbortCtrl.signal });
-
-        for await (const event of finalStream) {
-          if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
-            res.write(`data: ${JSON.stringify({ type: 'text', delta: event.delta.text })}\n\n`);
-          }
-        }
-        const finalMsg = await finalStream.finalMessage();
-        totalUsage.input_tokens += finalMsg.usage.input_tokens || 0;
-        totalUsage.output_tokens += finalMsg.usage.output_tokens || 0;
-        totalUsage.cache_creation += finalMsg.usage.cache_creation_input_tokens || 0;
-        totalUsage.cache_read += finalMsg.usage.cache_read_input_tokens || 0;
-        stopReason = finalMsg.stop_reason;
-      } catch (err) {
-        if (!finalAbortCtrl.signal.aborted) throw err;
-        stopReason = 'end_turn';
-        console.log(`[chat.js] finalization abort (ran out of time)`);
-      } finally {
-        clearTimeout(finalAbortTimer);
-      }
-
-      iterations++;
-      console.log(`[chat.js] forced finalization done with ${finalModel.id} — soft=${softTimeoutHit}`);
     }
 
     // Envoyer le done final (côté UX, la conversation est terminée)
