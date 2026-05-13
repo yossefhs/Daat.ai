@@ -43,13 +43,26 @@ const MODELS = {
 
 // Heuristique : qualité d'abord. Sonnet par défaut, Opus dès qu'on touche au halakhique pointu.
 // Haiku réservé aux meta-questions très courtes sans contenu halakhique.
-function pickModel(messages, hint) {
+// forceOpus = perk admin par utilisateur : Opus sur tout sauf méta-questions.
+function pickModel(messages, hint, forceOpus) {
   // Hint explicite du client (ex: depuis une page Lamdan/Synthèse) — gagne toujours
   if (hint === 'opus' || hint === 'sonnet' || hint === 'haiku') return MODELS[hint];
 
   const lastUser = [...messages].reverse().find(m => m.role === 'user');
   const text = (lastUser?.content || '').toString().trim();
   const lower = text.toLowerCase();
+
+  // Méta-questions très courtes : DeepSeek/Haiku même pour les users force_opus
+  // (économie sur "bonjour"/"merci", zéro perte de qualité halakhique)
+  const isFirstQuestion = messages.length <= 1;
+  const halakhicHint = /shab|kasher|kasher|tefil|tznio|mouk|hila|sefer|torah|halakh|halacha|halaha|halaja|seif|siman|guemar|mishna|talmud|cohen|brah|berakh|nidda|kashr|peot|tsitsit|loulav|souka|sukka|mezou|tefil|shem|shabb|peah|maase|mitsv|mitzv/i;
+  const isMetaQuestion = isFirstQuestion && text.length < 40 && !halakhicHint.test(lower);
+  if (isMetaQuestion) {
+    return { ...MODELS.haiku, _meta: true };
+  }
+
+  // Force Opus pour les utilisateurs privilégiés (perk admin)
+  if (forceOpus) return MODELS.opus;
 
   // 1. Triggers Opus — TOUT ce qui touche au halakhique pointu, citations, synthèse
   const opusKeywords = [
@@ -78,16 +91,7 @@ function pickModel(messages, hint) {
   const heCount = (text.match(/[֐-׿]/g) || []).length;
   if (heCount > 25) return MODELS.opus;
 
-  // 3. Méta-questions très courtes (1ère question, < 40 chars, zéro mot halakhique).
-  // Ex: "bonjour", "merci", "tu peux m'aider ?", "comment ça marche ?"
-  // → DeepSeek si dispo (≈ 4× moins cher que Haiku), sinon Haiku.
-  const isFirstQuestion = messages.length <= 1;
-  const halakhicHint = /shab|kasher|kasher|tefil|tznio|mouk|hila|sefer|torah|halakh|halacha|halaha|halaja|seif|siman|guemar|mishna|talmud|cohen|brah|berakh|nidda|kashr|peot|tsitsit|loulav|souka|sukka|mezou|tefil|shem|shabb|peah|maase|mitsv|mitzv/i;
-  if (isFirstQuestion && text.length < 40 && !halakhicHint.test(lower)) {
-    return { ...MODELS.haiku, _meta: true };
-  }
-
-  // 4. Par défaut : Sonnet 4.6 — qualité quasi équivalente à Opus pour le grand public,
+  // 3. Par défaut : Sonnet 4.6 — qualité quasi équivalente à Opus pour le grand public,
   //    5× moins cher. Bon compromis qualité/coût.
   return MODELS.sonnet;
 }
@@ -118,12 +122,21 @@ function genGuestId() {
   return 'guest_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
 }
 
-// Renvoie { userId, plan, isGuest, guestIdSetCookie }
+// Renvoie { userId, plan, isGuest, guestIdSetCookie, forceOpus }
 async function identifyUser(req) {
   const user = getUserFromRequest(req);
   if (user?.email) {
-    const plan = (await kv.get(`user:plan:${user.email}`)) || 'free';
-    return { userId: user.email, plan, isGuest: false, guestIdSetCookie: null };
+    const [plan, forceOpusRaw] = await Promise.all([
+      kv.get(`user:plan:${user.email}`),
+      kv.get(`user:force_opus:${user.email}`),
+    ]);
+    return {
+      userId: user.email,
+      plan: plan || 'free',
+      isGuest: false,
+      guestIdSetCookie: null,
+      forceOpus: Boolean(forceOpusRaw),
+    };
   }
   // Anonyme — lire/créer guest_id
   let guestId = readCookie(req, GUEST_COOKIE);
@@ -133,7 +146,7 @@ async function identifyUser(req) {
     // Cookie cross-site (le chat tourne sur daatai.vercel.app, embarqué dans daattorah.com)
     setCookie = `${GUEST_COOKIE}=${encodeURIComponent(guestId)}; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=${365 * 24 * 60 * 60}`;
   }
-  return { userId: guestId, plan: 'anonymous', isGuest: true, guestIdSetCookie: setCookie };
+  return { userId: guestId, plan: 'anonymous', isGuest: true, guestIdSetCookie: setCookie, forceOpus: false };
 }
 
 // Map tool name → executor
@@ -172,7 +185,7 @@ export default async function handler(req, res) {
     }
 
     // Identifier l'utilisateur (email connecté OU guest_id par cookie)
-    const { userId, plan, isGuest, guestIdSetCookie } = await identifyUser(req);
+    const { userId, plan, isGuest, guestIdSetCookie, forceOpus } = await identifyUser(req);
     const today = new Date().toISOString().slice(0, 10);
     const rateKey = `rate:${userId}:${today}`;
     const limit = DAILY_LIMITS[plan] || DAILY_LIMITS.anonymous;
@@ -241,7 +254,7 @@ export default async function handler(req, res) {
     }
 
     // Choisir le modèle adapté à la complexité (router cost-optimisé)
-    const model = pickModel(trimmedMessages, req.body?.model_hint);
+    const model = pickModel(trimmedMessages, req.body?.model_hint, forceOpus);
 
     // En-têtes SSE
     res.setHeader('Content-Type', 'text/event-stream; charset=utf-8');

@@ -578,8 +578,8 @@ git commit -m "Initial commit — DAAT.AI Siman 246"
 
       <!-- Modal upgrade -->
       <div id="an-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;">
-        <div style="background:#fff;padding:28px;width:400px;max-width:95vw;border-top:3px solid var(--gold);">
-          <div style="font-size:17px;font-weight:600;margin-bottom:16px;">✏️ Modifier le plan</div>
+        <div style="background:#fff;padding:28px;width:420px;max-width:95vw;border-top:3px solid var(--gold);">
+          <div style="font-size:17px;font-weight:600;margin-bottom:16px;">✏️ Modifier l'utilisateur</div>
           <div class="form-group">
             <label>Email</label>
             <input type="email" id="an-up-email" placeholder="utilisateur@example.com" />
@@ -587,9 +587,18 @@ git commit -m "Initial commit — DAAT.AI Siman 246"
           <div class="form-group">
             <label>Plan</label>
             <select id="an-up-plan">
-              <option value="free">Gratuit (20 questions/jour)</option>
+              <option value="free">Gratuit (15 questions/jour)</option>
               <option value="premium">Premium (illimité)</option>
             </select>
+          </div>
+          <div class="form-group" style="background:#FFF8E1;padding:10px 12px;border:1px solid #C5A55A;">
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:600;color:#8B6A00;">
+              <input type="checkbox" id="an-up-force-opus" style="width:18px;height:18px;cursor:pointer;" />
+              <span>💎 Forcer Opus (qualité max)</span>
+            </label>
+            <div style="font-size:12px;color:var(--muted);margin-top:4px;margin-left:26px;">
+              Utilise Claude Opus pour toutes les questions halakhiques (sauf "bonjour"/"merci"). Coût ~5× supérieur à Sonnet.
+            </div>
           </div>
           <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px;">
             <button class="btn btn-outline" onclick="closeAnModal()">Annuler</button>
@@ -1256,9 +1265,10 @@ async function anLoadUsers() {
         const lim = limits[u.plan] || 3;
         const pct = Math.min(100, Math.round((u.today_questions / lim) * 100));
         const label = u.label || u.email;
+        const opusBadge = u.force_opus ? ' <span title="Forcer Opus activé" style="display:inline-block;font-size:10px;font-weight:700;padding:2px 6px;border-radius:2px;background:#FFF8E1;color:#8B6A00;border:1px solid #C5A55A;margin-left:4px;">💎 OPUS</span>' : '';
         return `<tr>
           <td style="font-family:monospace;font-size:12px;${u.is_guest ? 'color:var(--muted);font-style:italic;' : ''}">${label}</td>
-          <td><span class="plan-badge ${u.plan}">${u.plan}</span></td>
+          <td><span class="plan-badge ${u.plan}">${u.plan}</span>${opusBadge}</td>
           <td>
             <strong>${u.today_questions}</strong> / ${lim >= 9999 ? '∞' : lim}
             <div class="an-progress"><div class="an-progress-fill ${pct >= 80 ? 'danger' : ''}" style="width:${pct}%"></div></div>
@@ -1266,7 +1276,7 @@ async function anLoadUsers() {
           <td>${((u.tokens_in||0)+(u.tokens_out||0)).toLocaleString('fr')}</td>
           <td>$${(u.cost_usd||0).toFixed(4)}</td>
           <td style="display:flex;gap:6px;">
-            ${u.is_guest ? '<span style="font-size:11px;color:var(--muted);">anonyme</span>' : `<button class="btn btn-gold btn-sm" onclick="openAnUpgrade('${u.email}','${u.plan}')">Plan</button>`}
+            ${u.is_guest ? '<span style="font-size:11px;color:var(--muted);">anonyme</span>' : `<button class="btn btn-gold btn-sm" onclick="openAnUpgrade('${u.email}','${u.plan}',${u.force_opus ? 'true' : 'false'})">Plan</button>`}
             <button class="btn btn-outline btn-sm btn-danger" onclick="anResetLimit('${u.email}')">Reset</button>
           </td>
         </tr>`;
@@ -1300,11 +1310,12 @@ async function anLoadLogs() {
   }
 }
 
-function openAnUpgrade(email, plan) {
+function openAnUpgrade(email, plan, forceOpus) {
   email = email || '';
   plan  = plan  || 'free';
   document.getElementById('an-up-email').value = email;
   document.getElementById('an-up-plan').value  = plan;
+  document.getElementById('an-up-force-opus').checked = Boolean(forceOpus);
   const m = document.getElementById('an-modal');
   m.style.display = 'flex';
 }
@@ -1313,16 +1324,22 @@ function closeAnModal() {
 }
 
 async function submitAnUpgrade() {
-  const email = document.getElementById('an-up-email').value.trim();
-  const plan  = document.getElementById('an-up-plan').value;
+  const email     = document.getElementById('an-up-email').value.trim();
+  const plan      = document.getElementById('an-up-plan').value;
+  const forceOpus = document.getElementById('an-up-force-opus').checked;
   if (!email) return;
   try {
+    // Plan et force_opus sont stockés séparément côté backend — deux POST
     await anFetch('/api/admin/stats', {
       method: 'POST',
       body: JSON.stringify({ action: 'set-plan', email, plan })
     });
+    await anFetch('/api/admin/stats', {
+      method: 'POST',
+      body: JSON.stringify({ action: 'set-force-opus', email, value: forceOpus })
+    });
     closeAnModal();
-    toast(`✅ ${email} → ${plan}`);
+    toast(`✅ ${email} → ${plan}${forceOpus ? ' • 💎 Opus' : ''}`);
     anLoadUsers();
   } catch (e) { toast('Erreur : ' + e.message); }
 }

@@ -3,6 +3,7 @@
 // GET  /api/admin/stats?secret=XXX&action=users
 // GET  /api/admin/stats?secret=XXX&action=logs&limit=50
 // POST /api/admin/stats?secret=XXX  { action: 'set-plan', email, plan }
+// POST /api/admin/stats?secret=XXX  { action: 'set-force-opus', email, value: true|false }
 // POST /api/admin/stats?secret=XXX  { action: 'reset-limit', email }
 
 import { kv } from '@vercel/kv';
@@ -25,11 +26,20 @@ export default async function handler(req, res) {
 
   // ── POST — actions admin ──────────────────────────────────────────────────
   if (req.method === 'POST') {
-    const { action, email, plan } = req.body;
+    const { action, email, plan, value } = req.body;
 
     if (action === 'set-plan' && email && plan) {
       await kv.set(`user:plan:${email}`, plan);
       return res.json({ success: true, message: `Plan de ${email} → ${plan}` });
+    }
+
+    if (action === 'set-force-opus' && email && typeof value === 'boolean') {
+      if (value) {
+        await kv.set(`user:force_opus:${email}`, '1');
+      } else {
+        await kv.del(`user:force_opus:${email}`);
+      }
+      return res.json({ success: true, message: `Forcer Opus pour ${email} : ${value ? 'ON' : 'OFF'}` });
     }
 
     if (action === 'reset-limit' && email) {
@@ -80,9 +90,10 @@ export default async function handler(req, res) {
         const usage = (await kv.get(`usage:${id}:${d}`)) || { tokens_in: 0, tokens_out: 0, cost_usd: 0, count: 0 };
         const rateCount = parseInt((await kv.get(`rate:${id}:${d}`)) || 0, 10);
         const plan = isGuest ? 'anonymous' : ((await kv.get(`user:plan:${id}`)) || 'free');
+        const forceOpus = isGuest ? false : Boolean(await kv.get(`user:force_opus:${id}`));
         // Label lisible : email tel quel, ou "Anonyme #abc12345" pour les guests
         const label = isGuest ? `Anonyme #${id.slice(-8)}` : id;
-        return { email: id, label, plan, is_guest: isGuest, today_questions: rateCount, ...usage };
+        return { email: id, label, plan, force_opus: forceOpus, is_guest: isGuest, today_questions: rateCount, ...usage };
       })
     );
 
@@ -124,9 +135,10 @@ export default async function handler(req, res) {
     );
 
     const plan = (await kv.get(`user:plan:${email}`)) || 'free';
+    const forceOpus = Boolean(await kv.get(`user:force_opus:${email}`));
     const todayRate = (await kv.get(`rate:${email}:${today()}`)) || 0;
 
-    return res.json({ email, plan, today_questions: todayRate, days: days30 });
+    return res.json({ email, plan, force_opus: forceOpus, today_questions: todayRate, days: days30 });
   }
 
   return res.status(400).json({ error: 'action invalide' });
