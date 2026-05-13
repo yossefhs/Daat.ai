@@ -22,7 +22,7 @@ import {
 
 const client = new Anthropic();
 
-const MAX_TOOL_ITERATIONS = 6; // agentic loop — 6 itérations (compromis qualité/coût)
+const MAX_TOOL_ITERATIONS = 8; // agentic loop — 8 itérations (questions denses : Houpa, gittin, etc.)
 const MAX_TOKENS_OUTPUT = 4096; // cap output ; Claude s'arrête naturellement avant
 const HISTORY_TURNS = 16;       // 16 derniers tours (plus de contexte = meilleure réponse)
 const ALL_TOOLS = [...MAREH_MEKOMOT_TOOLS, ...CORPUS_TOOLS, ...SEFARIA_TOOLS];
@@ -525,6 +525,46 @@ export default async function handler(req, res) {
         role: 'user',
         content: toolResults,
       });
+    }
+
+    // ── Finalisation forcée : on a atteint MAX_TOOL_ITERATIONS sans réponse finale ──
+    // Claude voulait encore des outils, mais on a coupé. On fait un dernier appel SANS
+    // outils, avec une instruction explicite, pour qu'il synthétise avec ce qu'il a déjà.
+    // Sinon le client reçoit zéro text delta → "Pas de réponse reçue. Réessaie."
+    if (stopReason === 'tool_use') {
+      conversation.push({
+        role: 'user',
+        content: [{
+          type: 'text',
+          text: 'Tu as déjà consulté suffisamment de sources. Synthétise maintenant ta réponse complète et structurée à ma question initiale, en t\'appuyant uniquement sur ce que tu as déjà recueilli. N\'appelle plus aucun outil.',
+        }],
+      });
+
+      const finalParams = {
+        model: model.id,
+        max_tokens: MAX_TOKENS_OUTPUT,
+        system: [
+          { type: 'text', text: SYSTEM_PROMPT, cache_control: { type: 'ephemeral', ttl: '1h' } },
+        ],
+        messages: conversation,
+      };
+      if (model.thinking) finalParams.thinking = model.thinking;
+      if (model.effort) finalParams.output_config = { effort: model.effort };
+
+      const finalStream = client.messages.stream(finalParams);
+      for await (const event of finalStream) {
+        if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
+          res.write(`data: ${JSON.stringify({ type: 'text', delta: event.delta.text })}\n\n`);
+        }
+      }
+      const finalMsg = await finalStream.finalMessage();
+      totalUsage.input_tokens += finalMsg.usage.input_tokens || 0;
+      totalUsage.output_tokens += finalMsg.usage.output_tokens || 0;
+      totalUsage.cache_creation += finalMsg.usage.cache_creation_input_tokens || 0;
+      totalUsage.cache_read += finalMsg.usage.cache_read_input_tokens || 0;
+      stopReason = finalMsg.stop_reason;
+      iterations++;
+      console.log('[chat.js] forced finalization done — was at iteration limit');
     }
 
     // Envoyer le done final (côté UX, la conversation est terminée)
