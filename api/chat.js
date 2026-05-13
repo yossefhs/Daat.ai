@@ -41,10 +41,14 @@ const MODELS = {
   opus:   { id: 'claude-opus-4-7',   thinking: { type: 'adaptive' },  effort: 'high',  in: 0.015, out: 0.06  },
 };
 
-// Heuristique : qualité d'abord. Sonnet par défaut, Opus dès qu'on touche au halakhique pointu.
-// Haiku réservé aux meta-questions très courtes sans contenu halakhique.
-// forceOpus = perk admin par utilisateur : Opus sur tout sauf méta-questions.
-function pickModel(messages, hint, forceOpus) {
+// Heuristique : qualité d'abord. Routage selon plan + Aperçu Premium pour les nouveaux.
+// 1. Méta-questions courtes → DeepSeek/Haiku (zéro coût, zéro perte qualité)
+// 2. Subscribers (Beit Midrash+) → Opus toujours
+// 3. Khavroutha → Opus sur halakhique pointu, Sonnet ailleurs
+// 4. Free/anonyme avec previewUsed < 3 → Aperçu Premium Opus (compte à vie)
+// 5. Free/anonyme après Aperçu → Sonnet (qualité standard)
+// 6. forceOpus = perk admin manuel : Opus sur tout (sauf méta)
+function pickModel(messages, hint, plan, previewUsed, forceOpus) {
   // Hint explicite du client (ex: depuis une page Lamdan/Synthèse) — gagne toujours
   if (hint === 'opus' || hint === 'sonnet' || hint === 'haiku') return MODELS[hint];
 
@@ -52,8 +56,7 @@ function pickModel(messages, hint, forceOpus) {
   const text = (lastUser?.content || '').toString().trim();
   const lower = text.toLowerCase();
 
-  // Méta-questions très courtes : DeepSeek/Haiku même pour les users force_opus
-  // (économie sur "bonjour"/"merci", zéro perte de qualité halakhique)
+  // 1. Méta-questions très courtes — toujours DeepSeek/Haiku (toutes catégories d'users)
   const isFirstQuestion = messages.length <= 1;
   const halakhicHint = /shab|kasher|kasher|tefil|tznio|mouk|hila|sefer|torah|halakh|halacha|halaha|halaja|seif|siman|guemar|mishna|talmud|cohen|brah|berakh|nidda|kashr|peot|tsitsit|loulav|souka|sukka|mezou|tefil|shem|shabb|peah|maase|mitsv|mitzv/i;
   const isMetaQuestion = isFirstQuestion && text.length < 40 && !halakhicHint.test(lower);
@@ -61,10 +64,21 @@ function pickModel(messages, hint, forceOpus) {
     return { ...MODELS.haiku, _meta: true };
   }
 
-  // Force Opus pour les utilisateurs privilégiés (perk admin)
+  // 2. Force Opus pour les users privilégiés (perk admin)
   if (forceOpus) return MODELS.opus;
 
-  // 1. Triggers Opus — TOUT ce qui touche au halakhique pointu, citations, synthèse
+  // 3. Abonnés "Beit Midrash et plus" : Opus toujours
+  if (ALWAYS_OPUS_PLANS.has(plan)) return MODELS.opus;
+
+  // 4. Aperçu Premium : free/anonyme avec compteur lifetime < 3 → Opus (incrémenté côté serveur)
+  if (!SUBSCRIBER_PLANS.has(plan) && previewUsed < PREVIEW_OPUS_LIMIT) {
+    return { ...MODELS.opus, _aperçu: true };
+  }
+
+  // 5. Khavroutha : Opus sur halakhique pointu uniquement
+  // (idem que Sonnet/Opus auto, mais on garde la même heuristique pour ne pas spoiler)
+
+  // 6. Triggers Opus — TOUT ce qui touche au halakhique pointu, citations, synthèse
   const opusKeywords = [
     // Lamdan / niveaux d'analyse
     'lamdan', 'synthèse', 'synthese', 'analyse', 'analyser', 'approfondir',
@@ -87,22 +101,53 @@ function pickModel(messages, hint, forceOpus) {
   ];
   if (opusKeywords.some(k => lower.includes(k))) return MODELS.opus;
 
-  // 2. Citations hébraïques significatives (> 25 caractères) → souvent une source à analyser → Opus
+  // 7. Citations hébraïques significatives (> 25 caractères) → souvent une source à analyser → Opus
   const heCount = (text.match(/[֐-׿]/g) || []).length;
   if (heCount > 25) return MODELS.opus;
 
-  // 3. Par défaut : Sonnet 4.6 — qualité quasi équivalente à Opus pour le grand public,
+  // 8. Par défaut : Sonnet 4.6 — qualité quasi équivalente à Opus pour le grand public,
   //    5× moins cher. Bon compromis qualité/coût.
+  // Sur les users free post-Aperçu, on indique _would_use_opus si la question aurait
+  // mérité Opus côté abonné — pour afficher le bandeau "aurait été Opus" côté client.
+  if (!SUBSCRIBER_PLANS.has(plan)) {
+    return { ...MODELS.sonnet, _standard_free: true };
+  }
   return MODELS.sonnet;
 }
 
-// ── Limites quotidiennes par plan ──────────────────────────────────────────
+// ── Plans, limites quotidiennes & mensuelles ──────────────────────────────
+// Aperçu Premium : 3 questions Opus à vie offertes aux nouveaux comptes (kavod ha-mehadech)
+const PREVIEW_OPUS_LIMIT = 3;
+
 const DAILY_LIMITS = {
-  anonymous: 3,    // visiteur sans compte
-  free: 15,        // compte email (OTP)
-  premium: 99999,  // donateur — illimité
+  anonymous:         5,        // visiteur sans compte (était 3 → 5 pour mieux convertir)
+  free:              8,        // compte email (OTP)
+  khavroutha:       30,        // soutien 8 €/mois (HelloAsso) ou 18 €/mois (Qonto Tomhei Adaat)
+  beit_midrash:    100,        // soutien 25 €/mois (HelloAsso) ou 36 €/mois (Qonto)
+  beit_midrash_plus: 150,      // soutien 50 €/mois (Qonto)
+  yeshiva:         300,        // soutien 80-100 €/mois — 3 sous-comptes
+  lifetime:        100,        // don unique 500 € = équivalent Beit Midrash à vie
+  premium:       99999,        // ancien plan, conservé pour compatibilité
 };
+
+const MONTHLY_LIMITS = {
+  anonymous:        100,
+  free:             150,
+  khavroutha:       600,
+  beit_midrash:    2000,
+  beit_midrash_plus: 3000,
+  yeshiva:         6000,
+  lifetime:        2000,
+  premium:        99999,
+};
+
+// Plans qui débloquent la qualité Opus sur les questions halakhiques
+const SUBSCRIBER_PLANS = new Set(['khavroutha', 'beit_midrash', 'beit_midrash_plus', 'yeshiva', 'lifetime', 'premium']);
+// Plans qui ont Opus TOUJOURS (sauf méta) — Khavroutha n'a Opus que sur halakhique pointu
+const ALWAYS_OPUS_PLANS = new Set(['beit_midrash', 'beit_midrash_plus', 'yeshiva', 'lifetime']);
+
 const HELLOASSO_URL = 'https://www.helloasso.com/associations/association-hessed/formulaires/9';
+const SOUTENIR_URL = '/soutenir.html';
 const GUEST_COOKIE = 'daat_guest_id';
 
 // ── Helpers identité ───────────────────────────────────────────────────────
@@ -122,20 +167,32 @@ function genGuestId() {
   return 'guest_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
 }
 
-// Renvoie { userId, plan, isGuest, guestIdSetCookie, forceOpus }
+// Renvoie { userId, plan, isGuest, guestIdSetCookie, forceOpus, previewUsed, planExpires }
 async function identifyUser(req) {
   const user = getUserFromRequest(req);
   if (user?.email) {
-    const [plan, forceOpusRaw] = await Promise.all([
+    const [plan, forceOpusRaw, previewRaw, expiresRaw] = await Promise.all([
       kv.get(`user:plan:${user.email}`),
       kv.get(`user:force_opus:${user.email}`),
+      kv.get(`user:preview_used:${user.email}`),
+      kv.get(`user:plan_expires:${user.email}`),
     ]);
+    // Vérif expiration : si plan payant expiré → downgrade vers free
+    let effectivePlan = plan || 'free';
+    if (SUBSCRIBER_PLANS.has(effectivePlan) && effectivePlan !== 'lifetime' && expiresRaw) {
+      const expiresAt = new Date(expiresRaw).getTime();
+      if (Date.now() > expiresAt) {
+        effectivePlan = 'free';
+      }
+    }
     return {
       userId: user.email,
-      plan: plan || 'free',
+      plan: effectivePlan,
       isGuest: false,
       guestIdSetCookie: null,
       forceOpus: Boolean(forceOpusRaw),
+      previewUsed: parseInt(previewRaw || '0', 10),
+      planExpires: expiresRaw || null,
     };
   }
   // Anonyme — lire/créer guest_id
@@ -143,10 +200,18 @@ async function identifyUser(req) {
   let setCookie = null;
   if (!guestId || !guestId.startsWith('guest_')) {
     guestId = genGuestId();
-    // Cookie cross-site (le chat tourne sur daatai.vercel.app, embarqué dans daattorah.com)
     setCookie = `${GUEST_COOKIE}=${encodeURIComponent(guestId)}; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=${365 * 24 * 60 * 60}`;
   }
-  return { userId: guestId, plan: 'anonymous', isGuest: true, guestIdSetCookie: setCookie, forceOpus: false };
+  const previewRaw = await kv.get(`user:preview_used:${guestId}`);
+  return {
+    userId: guestId,
+    plan: 'anonymous',
+    isGuest: true,
+    guestIdSetCookie: setCookie,
+    forceOpus: false,
+    previewUsed: parseInt(previewRaw || '0', 10),
+    planExpires: null,
+  };
 }
 
 // Map tool name → executor
@@ -185,18 +250,22 @@ export default async function handler(req, res) {
     }
 
     // Identifier l'utilisateur (email connecté OU guest_id par cookie)
-    const { userId, plan, isGuest, guestIdSetCookie, forceOpus } = await identifyUser(req);
+    const { userId, plan, isGuest, guestIdSetCookie, forceOpus, previewUsed, planExpires } = await identifyUser(req);
     const today = new Date().toISOString().slice(0, 10);
+    const currentMonth = today.slice(0, 7); // YYYY-MM
     const rateKey = `rate:${userId}:${today}`;
+    const monthRateKey = `rate-month:${userId}:${currentMonth}`;
     const limit = DAILY_LIMITS[plan] || DAILY_LIMITS.anonymous;
+    const monthLimit = MONTHLY_LIMITS[plan] || MONTHLY_LIMITS.anonymous;
     const currentCount = parseInt((await kv.get(rateKey)) || 0, 10);
+    const currentMonthCount = parseInt((await kv.get(monthRateKey)) || 0, 10);
 
     // Définir le cookie guest_id si nouveau visiteur
     if (guestIdSetCookie) {
       res.setHeader('Set-Cookie', guestIdSetCookie);
     }
 
-    // Limite atteinte → renvoyer un blocage clair avec lien HelloAsso
+    // Limite QUOTIDIENNE atteinte
     if (currentCount >= limit) {
       const resetTime = new Date();
       resetTime.setDate(resetTime.getDate() + 1);
@@ -204,15 +273,37 @@ export default async function handler(req, res) {
       return res.status(429).json({
         error: 'limit_reached',
         type: 'limit_reached',
+        scope: 'daily',
         plan,
         count: currentCount,
         limit,
         is_guest: isGuest,
         reset_date: resetTime.toISOString(),
         helloasso_url: HELLOASSO_URL,
+        soutenir_url: SOUTENIR_URL,
         message: isGuest
-          ? `Tu as utilisé tes ${limit} questions gratuites aujourd'hui. Connecte-toi avec ton email pour 15 questions/jour, ou soutiens DAAT pour un accès illimité.`
-          : `Tu as atteint ta limite quotidienne de ${limit} questions. Reviens demain ou soutiens DAAT pour un accès illimité.`,
+          ? `Tu as utilisé tes ${limit} questions gratuites aujourd'hui. Connecte-toi avec ton email pour ${DAILY_LIMITS.free} questions/jour, ou soutiens DAAT pour débloquer plus.`
+          : `Tu as atteint ta limite quotidienne de ${limit} questions. Reviens demain ou soutiens DAAT.`,
+      });
+    }
+
+    // Limite MENSUELLE atteinte (cap protecteur pour l'asso)
+    if (currentMonthCount >= monthLimit) {
+      const nextMonth = new Date();
+      nextMonth.setMonth(nextMonth.getMonth() + 1);
+      nextMonth.setDate(1);
+      nextMonth.setHours(0, 0, 0, 0);
+      return res.status(429).json({
+        error: 'limit_reached',
+        type: 'limit_reached',
+        scope: 'monthly',
+        plan,
+        count: currentMonthCount,
+        limit: monthLimit,
+        is_guest: isGuest,
+        reset_date: nextMonth.toISOString(),
+        soutenir_url: SOUTENIR_URL,
+        message: `Tu as atteint ton quota mensuel (${monthLimit} questions). Reviens le mois prochain, ou passe à un niveau supérieur pour plus de questions.`,
       });
     }
 
@@ -253,8 +344,8 @@ export default async function handler(req, res) {
       }
     }
 
-    // Choisir le modèle adapté à la complexité (router cost-optimisé)
-    const model = pickModel(trimmedMessages, req.body?.model_hint, forceOpus);
+    // Choisir le modèle adapté à la complexité (router cost-optimisé + Aperçu Premium)
+    const model = pickModel(trimmedMessages, req.body?.model_hint, plan, previewUsed, forceOpus);
 
     // En-têtes SSE
     res.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
@@ -263,10 +354,20 @@ export default async function handler(req, res) {
     res.setHeader('X-Accel-Buffering', 'no');
     res.flushHeaders?.();
 
-    // Premier event : info sur la consommation actuelle (pour bannière progressive)
-    // currentCount = avant cette question. La question en cours sera ajoutée à la fin.
+    // Premier event : info état de la session (pour bannière + UX progressive)
     const willBeCount = currentCount + 1;
     const remaining = Math.max(0, limit - willBeCount);
+    const previewRemaining = Math.max(0, PREVIEW_OPUS_LIMIT - previewUsed - (model._aperçu ? 1 : 0));
+    // Statut affiché côté UI :
+    //  - "aperçu"  : Free/anon en pleine phase Aperçu Premium (Opus offert)
+    //  - "standard": Free/anon après Aperçu (Sonnet)
+    //  - "premium" : Abonné (Khavroutha/Beit Midrash/Yeshiva/Lifetime)
+    //  - "limit"   : Limite quotidienne ou mensuelle bientôt atteinte
+    let uxStatus = 'standard';
+    if (SUBSCRIBER_PLANS.has(plan)) uxStatus = 'premium';
+    else if (model._aperçu) uxStatus = 'aperçu';
+    else if (model._meta) uxStatus = 'meta';
+
     const rateInfoPayload = JSON.stringify({
       type: 'rate_info',
       plan,
@@ -274,7 +375,18 @@ export default async function handler(req, res) {
       count: willBeCount,
       limit,
       remaining,
+      month_count: currentMonthCount + 1,
+      month_limit: monthLimit,
+      ux_status: uxStatus,
+      preview_used: previewUsed,
+      preview_remaining: previewRemaining,
+      preview_limit: PREVIEW_OPUS_LIMIT,
+      is_aperçu: Boolean(model._aperçu),
+      is_subscriber: SUBSCRIBER_PLANS.has(plan),
+      model_tier: model.id?.includes('opus') ? 'opus' : (model.id?.includes('sonnet') ? 'sonnet' : 'haiku'),
+      would_use_opus: Boolean(model._standard_free), // hint UI "aurait été Opus en Premium"
       helloasso_url: HELLOASSO_URL,
+      soutenir_url: SOUTENIR_URL,
     });
     res.write(`data: ${rateInfoPayload}\n\n`);
 
@@ -319,6 +431,9 @@ export default async function handler(req, res) {
             count: userData.count + 1,
           });
           await kv.incr(rateKey);
+          await kv.incr(monthRateKey);
+          const monthTtl = await kv.ttl(monthRateKey);
+          if (monthTtl === -1 || monthTtl === -2) await kv.expire(monthRateKey, 35 * 24 * 60 * 60);
           const ttl = await kv.ttl(rateKey);
           if (ttl === -1 || ttl === -2) await kv.expire(rateKey, 24 * 60 * 60);
           await kv.lpush('logs:usage', JSON.stringify({
@@ -621,6 +736,19 @@ export default async function handler(req, res) {
       const ttl = await kv.ttl(rateKey);
       if (ttl === -1 || ttl === -2) {
         await kv.expire(rateKey, 24 * 60 * 60);
+      }
+
+      // Compteur mensuel (token cap protecteur)
+      await kv.incr(monthRateKey);
+      const monthTtl = await kv.ttl(monthRateKey);
+      if (monthTtl === -1 || monthTtl === -2) {
+        await kv.expire(monthRateKey, 35 * 24 * 60 * 60); // ~35 jours pour couvrir le mois en cours
+      }
+
+      // Incrément Aperçu Premium si on a servi du Opus à un free/anonyme dans le compteur lifetime
+      if (model._aperçu) {
+        await kv.incr(`user:preview_used:${userId}`);
+        // Pas d'expiration : c'est un compteur lifetime
       }
 
       // Log rolling 500 dernières
