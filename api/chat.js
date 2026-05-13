@@ -344,9 +344,18 @@ export default async function handler(req, res) {
 
     // Pré-recherche RAG via DeepSeek : reformule la question, interroge le corpus,
     // injecte les meilleurs hits dans le dernier message user → élimine un round-trip
-    // Claude sur la plupart des questions halakhiques.
-    if (deepSeekAvailable() && !model._meta) {
-      const lastUserText = trimmedMessages[trimmedMessages.length - 1].content;
+    // Claude sur la plupart des questions halakhiques SIMPLES.
+    //
+    // ⚠️ Gating strict — on saute le pré-RAG quand :
+    //  - question complexe (déjà routée vers Opus) → Claude fait déjà sa propre orchestration
+    //  - question longue (> 220 chars) → idem, sera tool-heavy de toute façon
+    //  - conversation longue (> 4 turns) → contexte conversationnel suffit
+    //  Sur ces cas le pré-RAG ajoute 3-5s upfront sans réduire les tool calls — c'est perdu.
+    const isOpus = model.id === MODELS.opus.id;
+    const lastUserText = trimmedMessages[trimmedMessages.length - 1].content;
+    const skipPreRag = isOpus || (lastUserText?.length || 0) > 220 || trimmedMessages.length > 4;
+
+    if (deepSeekAvailable() && !model._meta && !skipPreRag) {
       if (lastUserText && lastUserText.length >= 30) {
         try {
           const ref = await reformulateForCorpus(lastUserText);

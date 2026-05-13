@@ -20,11 +20,17 @@ const ENDPOINT = 'https://api.deepseek.com/v1/chat/completions';
 const MODEL = 'deepseek-chat';
 export const DEEPSEEK_PRICING = { in: 0.00027, out: 0.0011 }; // $ per 1K tokens
 
+// Timeouts agressifs : si DeepSeek ne répond pas vite, on saute l'optimisation
+// et on laisse Claude travailler directement. Mieux vaut un peu plus cher qu'un timeout.
+const TIMEOUT_REFORMULATE = 3500;
+const TIMEOUT_SUMMARIZE = 5000;
+const TIMEOUT_META_STREAM = 8000;
+
 export function deepSeekAvailable() {
   return Boolean(process.env.DEEPSEEK_API_KEY);
 }
 
-async function call(messages, { max_tokens = 400, temperature = 0.2, timeout = 8000 } = {}) {
+async function call(messages, { max_tokens = 400, temperature = 0.2, timeout = 5000 } = {}) {
   if (!deepSeekAvailable()) return null;
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeout);
@@ -62,7 +68,7 @@ async function call(messages, { max_tokens = 400, temperature = 0.2, timeout = 8
 export async function streamMetaQuestion(userText, onDelta) {
   if (!deepSeekAvailable()) return null;
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 12000);
+  const timer = setTimeout(() => controller.abort(), TIMEOUT_META_STREAM);
   try {
     const res = await fetch(ENDPOINT, {
       method: 'POST',
@@ -145,7 +151,7 @@ export async function summarizeOlderTurns(turns) {
       },
       { role: 'user', content: `Résume la conversation suivante :\n\n${transcript}` },
     ],
-    { max_tokens: 350, temperature: 0 }
+    { max_tokens: 350, temperature: 0, timeout: TIMEOUT_SUMMARIZE }
   );
   return r ? { text: r.text.trim(), usage: r.usage } : null;
 }
@@ -162,7 +168,7 @@ export async function reformulateForCorpus(userText) {
       },
       { role: 'user', content: userText },
     ],
-    { max_tokens: 150, temperature: 0 }
+    { max_tokens: 150, temperature: 0, timeout: TIMEOUT_REFORMULATE }
   );
   if (!r?.text) return null;
   try {
