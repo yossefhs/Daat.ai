@@ -25,6 +25,11 @@ const client = new Anthropic();
 const MAX_TOOL_ITERATIONS = 8; // agentic loop — 8 itérations (questions denses : Houpa, gittin, etc.)
 const MAX_TOKENS_OUTPUT = 4096; // cap output ; Claude s'arrête naturellement avant
 const HISTORY_TURNS = 16;       // 16 derniers tours (plus de contexte = meilleure réponse)
+
+// Vercel Hobby plafonne à ~90s même avec maxDuration=300 dans vercel.json.
+// On laisse 20s de marge pour la finalisation forcée → SOFT_TIMEOUT à 70s.
+// Pro plan (60s/300s) : on peut monter cette valeur.
+const SOFT_TIMEOUT_MS = 70_000;
 const ALL_TOOLS = [...MAREH_MEKOMOT_TOOLS, ...CORPUS_TOOLS, ...SEFARIA_TOOLS];
 
 // ── Routing modèles — priorité QUALITÉ, économies opportunistes ──
@@ -420,9 +425,19 @@ export default async function handler(req, res) {
 
     let iterations = 0;
     let stopReason = null;
+    const startedAt = Date.now();
+    let softTimeoutHit = false;
 
     // Boucle agentique : tant que Claude veut utiliser un outil, on exécute et on relance.
     while (iterations < MAX_TOOL_ITERATIONS) {
+      // Soft timeout : on coupe AVANT de relancer Claude si on approche du plafond Vercel.
+      // Laisse de la marge pour la finalisation forcée juste après.
+      if (Date.now() - startedAt > SOFT_TIMEOUT_MS) {
+        softTimeoutHit = true;
+        stopReason = 'tool_use'; // déclenche la finalisation forcée
+        console.log(`[chat.js] soft timeout (${iterations} iters, ${Date.now() - startedAt}ms) — forcing finalization`);
+        break;
+      }
       iterations++;
 
       // (Plus de notice générique — chaque tool_use envoie sa propre notice détaillée)
@@ -527,10 +542,10 @@ export default async function handler(req, res) {
       });
     }
 
-    // ── Finalisation forcée : on a atteint MAX_TOOL_ITERATIONS sans réponse finale ──
-    // Claude voulait encore des outils, mais on a coupé. On fait un dernier appel SANS
-    // outils, avec une instruction explicite, pour qu'il synthétise avec ce qu'il a déjà.
-    // Sinon le client reçoit zéro text delta → "Pas de réponse reçue. Réessaie."
+    // ── Finalisation forcée : Claude voulait encore des outils, mais on a coupé ──
+    // (soft timeout OU MAX_TOOL_ITERATIONS atteint). Un dernier appel SANS outils,
+    // avec instruction explicite, garantit un texte streamé au client.
+    // Pas de thinking ni effort high ici — on optimise pour la latence (Vercel à 90s).
     if (stopReason === 'tool_use') {
       conversation.push({
         role: 'user',
@@ -540,18 +555,17 @@ export default async function handler(req, res) {
         }],
       });
 
-      const finalParams = {
-        model: model.id,
+      // Sur soft timeout on prend Haiku (rapide) ; sinon on garde le modèle courant sans thinking
+      const finalModel = softTimeoutHit ? MODELS.haiku : model;
+      const finalStream = client.messages.stream({
+        model: finalModel.id,
         max_tokens: MAX_TOKENS_OUTPUT,
         system: [
           { type: 'text', text: SYSTEM_PROMPT, cache_control: { type: 'ephemeral', ttl: '1h' } },
         ],
         messages: conversation,
-      };
-      if (model.thinking) finalParams.thinking = model.thinking;
-      if (model.effort) finalParams.output_config = { effort: model.effort };
+      });
 
-      const finalStream = client.messages.stream(finalParams);
       for await (const event of finalStream) {
         if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
           res.write(`data: ${JSON.stringify({ type: 'text', delta: event.delta.text })}\n\n`);
@@ -564,7 +578,7 @@ export default async function handler(req, res) {
       totalUsage.cache_read += finalMsg.usage.cache_read_input_tokens || 0;
       stopReason = finalMsg.stop_reason;
       iterations++;
-      console.log('[chat.js] forced finalization done — was at iteration limit');
+      console.log(`[chat.js] forced finalization done with ${finalModel.id} — soft=${softTimeoutHit}`);
     }
 
     // Envoyer le done final (côté UX, la conversation est terminée)
