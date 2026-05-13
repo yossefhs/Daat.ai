@@ -1292,9 +1292,10 @@ async function anLoadUsers() {
           <td><strong>${u.month_questions || 0}</strong></td>
           <td>${previewStr}</td>
           <td>$${(u.cost_usd||0).toFixed(4)}</td>
-          <td style="display:flex;gap:6px;">
+          <td style="display:flex;gap:4px;flex-wrap:wrap;">
             ${u.is_guest ? '<span style="font-size:11px;color:var(--muted);">anonyme</span>' : `<button class="btn btn-gold btn-sm" onclick="openAnUpgrade('${u.email}','${u.plan}',${u.force_opus ? 'true' : 'false'},'${u.plan_expires || ''}')">Plan</button>`}
-            <button class="btn btn-outline btn-sm btn-danger" onclick="anResetLimit('${u.email}')">Reset</button>
+            <button class="btn btn-outline btn-sm" title="Remettre à 0 le compteur quotidien" onclick="anResetLimit('${u.email}')">↻ jour</button>
+            ${u.is_guest || (u.preview_used || 0) === 0 ? '' : `<button class="btn btn-outline btn-sm" title="Restaurer les 3 Aperçu Opus" onclick="anResetPreview('${u.email}')">✨ Aperçu</button>`}
           </td>
         </tr>`;
       }).join('') + '</tbody></table>';
@@ -1370,6 +1371,18 @@ async function anResetLimit(email) {
       body: JSON.stringify({ action: 'reset-limit', email })
     });
     toast(`✅ Limite de ${email} réinitialisée`);
+    anLoadUsers();
+  } catch (e) { toast('Erreur : ' + e.message); }
+}
+
+async function anResetPreview(email) {
+  if (!confirm(`Restaurer les 3 questions Aperçu Premium (Opus) pour ${email} ?`)) return;
+  try {
+    await anFetch('/api/admin/stats', {
+      method: 'POST',
+      body: JSON.stringify({ action: 'reset-preview', email })
+    });
+    toast(`✨ Aperçu Premium restauré pour ${email}`);
     anLoadUsers();
   } catch (e) { toast('Erreur : ' + e.message); }
 }

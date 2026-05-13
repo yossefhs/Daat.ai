@@ -147,6 +147,29 @@ async function handleVerifyCode(req, res) {
     };
     await kv.set(userKey, user);
 
+    // ── Migration du compteur Aperçu Premium guest → email (anti-gaming) ──
+    // Si l'utilisateur a déjà épuisé son Aperçu en tant qu'anonyme, on garde
+    // ce compteur sur son compte email. Évite : "anonyme épuise 3 → crée
+    // compte → repart à 0". Le MAX préserve aussi le cas inverse improbable
+    // où le user aurait un compteur email plus élevé qu'en anonyme.
+    try {
+      const cookieHeader = req.headers.cookie || '';
+      const m = cookieHeader.match(/(?:^|;\s*)daat_guest_id=([^;]+)/);
+      const guestId = m ? decodeURIComponent(m[1]) : null;
+      if (guestId && guestId.startsWith('guest_')) {
+        const [guestPreview, emailPreview] = await Promise.all([
+          kv.get(`user:preview_used:${guestId}`),
+          kv.get(`user:preview_used:${cleanEmail}`),
+        ]);
+        const merged = Math.max(parseInt(guestPreview || '0', 10), parseInt(emailPreview || '0', 10));
+        if (merged > 0) {
+          await kv.set(`user:preview_used:${cleanEmail}`, merged);
+        }
+      }
+    } catch (err) {
+      console.warn('[auth/verify] preview counter migration failed:', err?.message);
+    }
+
     const token = signSession({ email: cleanEmail });
     setSessionCookie(res, token);
 

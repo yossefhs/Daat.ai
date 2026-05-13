@@ -54,6 +54,11 @@ export default async function handler(req, res) {
       return res.json({ success: true, message: `Limite de ${email} réinitialisée` });
     }
 
+    if (action === 'reset-preview' && email) {
+      await kv.del(`user:preview_used:${email}`);
+      return res.json({ success: true, message: `Compteur Aperçu Premium de ${email} remis à 0 (3 questions Opus offertes restaurées)` });
+    }
+
     return res.status(400).json({ error: 'Action inconnue' });
   }
 
