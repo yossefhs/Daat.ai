@@ -800,6 +800,9 @@ const state = {
   selectedNiveau: null,
   selectedMinhag: null,
   isStreaming: false,
+  lastRateInfo: null,           // dernier rate_info SSE reçu (plan, Aperçu, etc.)
+  previousAperçuRemaining: null, // pour détecter Q3 → Q4 (transition Aperçu → Standard)
+  pendingTransitionModal: false, // flag pour ouvrir la modale après la fin du streaming
 };
 
 // ============================================================
@@ -1305,25 +1308,132 @@ function ensureRateBanner() {
 
 function updateRateBanner(info) {
   const el = ensureRateBanner();
-  const { plan, is_guest, count, limit, remaining, helloasso_url } = info;
-  if (plan === 'premium' || remaining > Math.ceil(limit / 2)) {
+  state.lastRateInfo = info;
+  const soutenirUrl = info.soutenir_url || info.helloasso_url || '/soutenir.html';
+  // Détection Q3 → Q4 : si avant ce message previousAperçuRemaining=1 et
+  // maintenant 0 + is_aperçu → on vient de servir la dernière Aperçu, on flag
+  // pour ouvrir la modale de transition à la fin du streaming.
+  if (
+    state.previousAperçuRemaining === 1 &&
+    info.preview_remaining === 0 &&
+    info.is_aperçu === true
+  ) {
+    state.pendingTransitionModal = true;
+  }
+  state.previousAperçuRemaining = info.preview_remaining;
+  // Style et message selon ux_status
+  let bg, border, msg;
+  if (info.ux_status === 'meta') {
     el.style.display = 'none';
     return;
   }
-  let msg = '';
-  if (is_guest) {
-    if (remaining <= 0) {
-      msg = `Tu as utilisé tes ${limit} questions gratuites. <a href="/auth.html" style="color:#8C6F1E;text-decoration:underline;font-weight:600;">Connecte-toi</a> pour 15 questions/jour, ou <a href="${helloasso_url}" target="_blank" rel="noopener" style="color:#8C6F1E;text-decoration:underline;font-weight:600;">soutiens DAAT</a> pour un accès illimité.`;
-    } else if (remaining === 1) {
-      msg = `Il te reste <strong>1 question gratuite</strong> aujourd'hui. <a href="/auth.html" style="color:#8C6F1E;text-decoration:underline;">Crée un compte gratuit</a> pour 15 questions/jour.`;
-    } else {
-      msg = `Il te reste <strong>${remaining} questions gratuites</strong>. <a href="/auth.html" style="color:#8C6F1E;text-decoration:underline;">Connecte-toi gratuitement</a> pour en avoir plus.`;
-    }
+  if (info.ux_status === 'aperçu') {
+    bg = 'linear-gradient(90deg, rgba(184,151,42,0.10), rgba(184,151,42,0.03))';
+    border = 'rgba(184,151,42,0.4)';
+    const r = info.preview_remaining ?? 0;
+    const txt = r === 0
+      ? "Dernière réponse en qualité Opus offerte"
+      : `<strong>${r} question${r > 1 ? 's' : ''}</strong> Opus offerte${r > 1 ? 's' : ''} restante${r > 1 ? 's' : ''}`;
+    msg = `✨ Aperçu Premium · ${txt} — <a href="${soutenirUrl}" target="_blank" rel="noopener" style="color:#8C6F1E;text-decoration:underline;font-weight:600;">Soutenir DAAT →</a>`;
+  } else if (info.ux_status === 'premium' || info.is_subscriber) {
+    bg = 'linear-gradient(90deg, rgba(74,107,72,0.10), rgba(74,107,72,0.03))';
+    border = 'rgba(74,107,72,0.4)';
+    const planLabels = {
+      khavroutha: '📚 Khavroutha',
+      beit_midrash: '🕯️ Beit Midrash',
+      beit_midrash_plus: '🕯️ Beit Midrash+',
+      yeshiva: '🎓 Yeshiva',
+      lifetime: '✨ Lifetime',
+      premium: '💎 Premium',
+    };
+    const label = planLabels[info.plan] || info.plan;
+    const remain = (info.limit && info.limit < 9999) ? ` · ${info.remaining} questions restantes aujourd'hui` : '';
+    msg = `${label} · qualité Opus active${remain}`;
   } else {
-    msg = `Tu as utilisé <strong>${count}/${limit}</strong> questions aujourd'hui. <a href="${helloasso_url}" target="_blank" rel="noopener" style="color:#8C6F1E;text-decoration:underline;font-weight:600;">Soutiens DAAT</a> pour un accès illimité.`;
+    // Standard : free/anonyme après Aperçu épuisé
+    bg = 'linear-gradient(90deg, #FBF7EF 0%, #F5F0E8 100%)';
+    border = 'rgba(184,151,42,0.35)';
+    const r = info.remaining ?? 0;
+    const aurait = info.would_use_opus
+      ? ' Tes réponses sont en qualité standard (Sonnet). Soutenir DAAT débloque Opus en continu.'
+      : ` Il te reste ${r} question${r > 1 ? 's' : ''} aujourd'hui.`;
+    msg = `📜 Mode standard.${aurait} <a href="${soutenirUrl}" target="_blank" rel="noopener" style="color:#8C6F1E;text-decoration:underline;font-weight:600;">Soutenir →</a>`;
   }
+  el.style.cssText = `
+    position: sticky; top: 0; z-index: 50;
+    padding: 10px 16px; font-size: 14px; line-height: 1.4;
+    background: ${bg};
+    border-bottom: 1px solid ${border};
+    color: #3a2e1f; display: block;
+    font-family: 'Crimson Pro', Georgia, serif;
+  `;
   el.innerHTML = msg;
-  el.style.display = 'block';
+}
+
+// Badge modèle en haut de la bulle assistant
+function addModelBadge(bubble, info) {
+  if (!info || !bubble) return;
+  if (info.ux_status === 'meta') return;
+  let bg, color, border, text, title, clickable = false;
+  if (info.is_aperçu) {
+    bg = 'rgba(184,151,42,0.12)'; color = '#8B6A00'; border = 'rgba(184,151,42,0.35)';
+    text = '✨ APERÇU OPUS';
+    title = `Réponse Opus offerte · il te reste ${info.preview_remaining} Aperçu`;
+  } else if (info.is_subscriber && info.model_tier === 'opus') {
+    bg = 'rgba(74,107,72,0.12)'; color = '#3a5638'; border = 'rgba(74,107,72,0.35)';
+    text = '🕯️ OPUS';
+    title = 'Qualité Opus grâce à ton soutien';
+  } else if (info.would_use_opus) {
+    bg = 'rgba(180,180,180,0.10)'; color = '#8a847b'; border = 'rgba(180,180,180,0.30)';
+    text = '→ AURAIT ÉTÉ OPUS EN SOUTIEN';
+    title = 'Cette réponse aurait été en qualité Opus — clique pour soutenir DAAT';
+    clickable = true;
+  } else {
+    return;
+  }
+  const badge = document.createElement('span');
+  badge.textContent = text;
+  badge.title = title;
+  badge.style.cssText = `
+    display: inline-block; font-size: 10px; font-weight: 600;
+    letter-spacing: 0.03em; padding: 2px 6px; border-radius: 3px;
+    margin-bottom: 6px; background: ${bg}; color: ${color}; border: 1px solid ${border};
+    ${clickable ? 'cursor: pointer;' : ''}
+  `;
+  if (clickable) {
+    badge.addEventListener('click', () => {
+      const url = (state.lastRateInfo && state.lastRateInfo.soutenir_url) || '/soutenir.html';
+      window.open(url, '_blank', 'noopener');
+    });
+  }
+  bubble.insertBefore(badge, bubble.firstChild);
+  bubble.insertBefore(document.createElement('br'), badge.nextSibling);
+}
+
+// Modale de transition Aperçu → Standard (Q3 → Q4)
+function showTransitionModal() {
+  const soutenirUrl = (state.lastRateInfo && state.lastRateInfo.soutenir_url) || '/soutenir.html';
+  const overlay = document.createElement('div');
+  overlay.style.cssText = `
+    position: fixed; inset: 0; background: rgba(26,26,46,0.65); z-index: 1000;
+    display: flex; align-items: center; justify-content: center; padding: 20px;
+    backdrop-filter: blur(4px);
+  `;
+  overlay.innerHTML = `
+    <div style="background:#FBF7EF;max-width:460px;width:100%;padding:30px 28px 24px;border-top:4px solid #B8972A;border-radius:4px;box-shadow:0 30px 60px rgba(0,0,0,0.3);font-family:'Crimson Pro',Georgia,serif;color:#3a2e1f;">
+      <div style="font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#B8972A;margin-bottom:6px;font-weight:600;">✨ Aperçu Premium terminé</div>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:500;color:#1a1a2e;margin:0 0 12px;line-height:1.3;">Tu as goûté à la qualité Opus.</h3>
+      <p style="font-size:0.98rem;line-height:1.6;margin-bottom:10px;">Tu viens d'utiliser tes <strong>3 questions Opus offertes</strong>. Tes prochaines réponses seront en qualité Sonnet — sérieuses, mais sans la profondeur analytique de l'Opus.</p>
+      <p style="font-size:0.98rem;line-height:1.6;margin-bottom:18px;">DAAT est gratuit et le restera. Si tu veux garder l'Opus en continu et soutenir l'accès gratuit pour d'autres talmidim, rejoins une <em>Khavroutha</em>.</p>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <a href="${soutenirUrl}" target="_blank" rel="noopener" style="display:block;background:#B8972A;color:#fff;padding:12px 16px;text-decoration:none;text-align:center;font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:500;border-radius:4px;">Découvrir les soutiens →</a>
+        <button id="daat-transition-close" style="background:transparent;border:none;color:#7a6a55;font-family:'Crimson Pro',serif;font-size:0.92rem;cursor:pointer;text-decoration:underline;padding:6px;">Continuer en Sonnet</button>
+      </div>
+    </div>
+  `;
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+  overlay.querySelector('#daat-transition-close').onclick = () => overlay.remove();
+  document.body.appendChild(overlay);
 }
 
 function showLimitReachedModal(info) {
@@ -1464,8 +1574,15 @@ async function send(userText) {
 
     state.messages.push({ role: 'assistant', content: assistantText });
     persistConversation();
+    // Badge modèle (Aperçu / Opus / "aurait été Opus")
+    addModelBadge(assistantBubble, state.lastRateInfo);
     // Attach feedback buttons to this assistant message
     attachFeedbackBar(assistantBubble, assistantText);
+    // Modale de transition Aperçu → Standard si on vient de servir le 3e Opus offert
+    if (state.pendingTransitionModal) {
+      state.pendingTransitionModal = false;
+      setTimeout(showTransitionModal, 400);
+    }
   } catch (err) {
     if (typingEl.parentElement) typingEl.remove();
     renderMessage('assistant', `⚠️ Erreur : ${err.message}`);
