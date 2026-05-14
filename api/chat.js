@@ -130,29 +130,33 @@ const PREVIEW_GLOBAL_DAILY_LIMIT = 100;
 const DAILY_LIMITS = {
   anonymous:         5,        // visiteur sans compte (était 3 → 5 pour mieux convertir)
   free:              8,        // compte email (OTP)
-  khavroutha:       30,        // soutien 8 €/mois (HelloAsso) ou 18 €/mois (Qonto Tomhei Adaat)
-  beit_midrash:    100,        // soutien 25 €/mois (HelloAsso) ou 36 €/mois (Qonto)
-  beit_midrash_plus: 150,      // soutien 50 €/mois (Qonto)
-  yeshiva:         300,        // soutien 80-100 €/mois — 3 sous-comptes
-  lifetime:        100,        // don unique 500 € = équivalent Beit Midrash à vie
+  khavroutha:        5,        // soutien 8 €/mois — Opus sur halakhique pointu uniquement
+  beit_midrash:     15,        // soutien 25 €/mois — Opus largement
+  beit_midrash_plus: 30,       // soutien 50 €/mois — Opus largement, plus de questions
+  yeshiva:          50,        // soutien 100 €/mois — Opus largement, gros usage
+  lifetime:         15,        // don unique 500 € = équivalent Beit Midrash à vie
   premium:       99999,        // ancien plan, conservé pour compatibilité
 };
 
 const MONTHLY_LIMITS = {
   anonymous:        100,
   free:             150,
-  khavroutha:       600,
-  beit_midrash:    2000,
-  beit_midrash_plus: 3000,
-  yeshiva:         6000,
-  lifetime:        2000,
+  khavroutha:       100,       // moyenne 3.3 q/jour, cap pour limiter les marges négatives
+  beit_midrash:     300,       // moyenne 10 q/jour
+  beit_midrash_plus: 600,
+  yeshiva:         1000,
+  lifetime:         300,       // = Beit Midrash
   premium:        99999,
 };
 
-// Plans qui débloquent la qualité Opus sur les questions halakhiques
+// Plans qui débloquent la qualité Opus sur les questions halakhiques pointues
 const SUBSCRIBER_PLANS = new Set(['khavroutha', 'beit_midrash', 'beit_midrash_plus', 'yeshiva', 'lifetime', 'premium']);
-// Plans qui ont Opus TOUJOURS (sauf méta) — Khavroutha n'a Opus que sur halakhique pointu
-const ALWAYS_OPUS_PLANS = new Set(['beit_midrash', 'beit_midrash_plus', 'yeshiva', 'lifetime']);
+// Plans qui ont Opus TOUJOURS (sauf méta). Vide intentionnellement — même les abonnés
+// utilisent le routage intelligent Opus/Sonnet (Opus sur halakhique pointu, Sonnet sinon).
+// Économise massivement les coûts sans dégrader la qualité perçue (Sonnet 4.6 est excellent
+// pour les questions non-halakhiques). Maintient les marges positives sur tous les paliers.
+// 'premium' legacy conservé pour les anciens utilisateurs Premium illimité.
+const ALWAYS_OPUS_PLANS = new Set(['premium']);
 
 const HELLOASSO_URL = 'https://www.helloasso.com/associations/association-hessed/formulaires/9';
 const SOUTENIR_URL = '/soutenir.html';

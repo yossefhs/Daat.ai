@@ -588,11 +588,11 @@ git commit -m "Initial commit — DAAT.AI Siman 246"
             <label>Plan</label>
             <select id="an-up-plan">
               <option value="free">Gratuit (8 q/jour · Sonnet + 3 Aperçu Opus)</option>
-              <option value="khavroutha">📚 Khavroutha (30 q/j · Opus halakhique)</option>
-              <option value="beit_midrash">🕯️ Beit Midrash (100 q/j · Opus toujours)</option>
-              <option value="beit_midrash_plus">🕯️+ Beit Midrash+ (150 q/j · Opus + prio)</option>
-              <option value="yeshiva">🎓 Yeshiva (300 q/j · Opus + multi-comptes)</option>
-              <option value="lifetime">✨ Lifetime (don 500 € · Beit Midrash à vie)</option>
+              <option value="khavroutha">📚 Khavroutha 8 €/mois (5 q/j · Opus halakhique)</option>
+              <option value="beit_midrash">🕯️ Beit Midrash 25 €/mois (15 q/j · Opus largement)</option>
+              <option value="beit_midrash_plus">🕯️+ Beit Midrash+ 50 €/mois (30 q/j)</option>
+              <option value="yeshiva">🎓 Yeshiva 100 €/mois (50 q/j)</option>
+              <option value="lifetime">✨ Lifetime 500 € (15 q/j à vie)</option>
               <option value="premium">Premium (legacy, illimité)</option>
             </select>
           </div>
@@ -1270,7 +1270,7 @@ async function anLoadUsers() {
       <span><strong>${s.guests}</strong> anonymes</span>
     </div>`;
     // Limites alignées sur DAILY_LIMITS dans api/chat.js
-    const newLimits = { anonymous: 5, free: 8, khavroutha: 30, beit_midrash: 100, beit_midrash_plus: 150, yeshiva: 300, lifetime: 100, premium: 9999 };
+    const newLimits = { anonymous: 5, free: 8, khavroutha: 5, beit_midrash: 15, beit_midrash_plus: 30, yeshiva: 50, lifetime: 15, premium: 9999 };
     wrap.innerHTML = summary + '<table class="an-table"><thead><tr><th>Utilisateur</th><th>Plan</th><th>Q. auj.</th><th>Q. mois</th><th>Aperçu</th><th>Coût auj.</th><th>Actions</th></tr></thead><tbody>' +
       data.users.map(u => {
         const lim = newLimits[u.plan] || newLimits[u.plan] === 0 ? newLimits[u.plan] : (limits[u.plan] || 3);

@@ -111,9 +111,11 @@ export default async function handler(req, res) {
         // Tant qu'une URL n'est pas configurée, on renvoie null → la card affichera un message
         // "à venir" et un fallback vers Qonto.
         const helloasso = {
-          khavroutha:   process.env.HELLOASSO_FORM_KHAVROUTHA_URL   || null,
-          beit_midrash: process.env.HELLOASSO_FORM_BEIT_MIDRASH_URL || null,
-          lifetime:     process.env.HELLOASSO_FORM_LIFETIME_URL     || null,
+          khavroutha:        process.env.HELLOASSO_FORM_KHAVROUTHA_URL        || null,
+          beit_midrash:      process.env.HELLOASSO_FORM_BEIT_MIDRASH_URL      || null,
+          beit_midrash_plus: process.env.HELLOASSO_FORM_BEIT_MIDRASH_PLUS_URL || null,
+          yeshiva:           process.env.HELLOASSO_FORM_YESHIVA_URL           || null,
+          lifetime:          process.env.HELLOASSO_FORM_LIFETIME_URL          || null,
         };
 
         // Cache CDN court (2 min) — la barre n'a pas besoin d'être temps réel
