@@ -339,6 +339,8 @@
       this.isOpen = false;
       this.isStreaming = false;
       this.isHistoryOpen = false;
+      this.rateInfo = null;              // dernier rate_info reçu (plan, Aperçu, etc.)
+      this.previousAperçuRemaining = null; // pour détecter Q3→Q4 (transition Aperçu→Standard)
       this.build();
       this.attach();
       this.renderMessages();             // affiche l'écran d'accueil (vierge)
@@ -378,6 +380,7 @@
           <div class="daat-chat-history-list" id="daat-chat-history-list"></div>
         </div>
         <button class="daat-chat-scroll-down" id="daat-chat-scroll-down" type="button" aria-label="Aller au dernier message">↓ Nouveau</button>
+        <div class="daat-status-banner" id="daat-status-banner" data-status="hidden"></div>
         <div class="daat-chat-input-area">
           <div class="daat-chat-input-wrapper">
             <textarea
@@ -406,6 +409,7 @@
       this.historyCloseBtn = this.panel.querySelector('#daat-chat-history-close');
       this.historyNewBtn = this.panel.querySelector('#daat-chat-history-new');
       this.historyListEl = this.panel.querySelector('#daat-chat-history-list');
+      this.bannerEl = this.panel.querySelector('#daat-status-banner');
       this.userScrolledUp = false;
     }
 
@@ -888,6 +892,161 @@
       }
     }
 
+    // ─── Bannière d'état au-dessus de l'input (Aperçu/Standard/Premium) ───
+    updateStatusBanner() {
+      const r = this.rateInfo;
+      const el = this.bannerEl;
+      if (!el || !r) return;
+      if (r.ux_status === 'meta' || r.is_subscriber === false && r.plan === 'anonymous' && r.preview_used === 0 && !r.is_aperçu) {
+        // Premier contact, méta-question : pas de bannière (zéro friction)
+        el.setAttribute('data-status', 'hidden');
+        return;
+      }
+      const soutenirUrl = r.soutenir_url || '/soutenir.html';
+      if (r.ux_status === 'aperçu') {
+        const remaining = r.preview_remaining ?? 0;
+        const remainTxt = remaining === 0
+          ? 'Dernière réponse en qualité Opus'
+          : remaining === 1
+            ? '<strong>1 question</strong> Opus offerte restante'
+            : `<strong>${remaining} questions</strong> Opus offertes restantes`;
+        el.setAttribute('data-status', 'aperçu');
+        el.innerHTML = `
+          <span class="daat-status-banner-icon">✨</span>
+          <span class="daat-status-banner-text">Aperçu Premium · ${remainTxt}</span>
+          <button class="daat-status-banner-cta" data-action="open-soutenir">Soutenir →</button>
+        `;
+      } else if (r.ux_status === 'premium') {
+        const planLabels = {
+          khavroutha: '📚 Khavroutha',
+          beit_midrash: '🕯️ Beit Midrash',
+          beit_midrash_plus: '🕯️ Beit Midrash+',
+          yeshiva: '🎓 Yeshiva',
+          lifetime: '✨ Lifetime',
+          premium: '💎 Premium',
+        };
+        const label = planLabels[r.plan] || r.plan;
+        const remain = (r.limit && r.limit < 9999) ? `${r.remaining} questions restantes aujourd'hui` : 'qualité Opus active';
+        el.setAttribute('data-status', 'premium');
+        el.innerHTML = `
+          <span class="daat-status-banner-icon">${label.split(' ')[0]}</span>
+          <span class="daat-status-banner-text">${label.split(' ').slice(1).join(' ')} · ${remain}</span>
+        `;
+      } else {
+        // Standard : free/anonyme après Aperçu épuisé
+        const remain = r.remaining ?? 0;
+        el.setAttribute('data-status', 'standard');
+        el.innerHTML = `
+          <span class="daat-status-banner-icon">📜</span>
+          <span class="daat-status-banner-text"><strong>${remain}</strong> question${remain > 1 ? 's' : ''} restante${remain > 1 ? 's' : ''} aujourd'hui · qualité standard</span>
+          <button class="daat-status-banner-cta" data-action="open-soutenir">Soutenir DAAT →</button>
+        `;
+      }
+      // Bind CTA(s)
+      el.querySelectorAll('[data-action="open-soutenir"]').forEach(btn => {
+        btn.addEventListener('click', () => window.open(soutenirUrl, '_blank', 'noopener'));
+      });
+    }
+
+    // ─── Badge modèle en haut de la bulle assistant ───
+    addModelBadge(assistantEl) {
+      const r = this.rateInfo;
+      if (!r || !assistantEl) return;
+      // Pas de badge sur les méta (Haiku/DeepSeek)
+      if (r.ux_status === 'meta') return;
+      let badge = null;
+      if (r.is_aperçu) {
+        badge = document.createElement('span');
+        badge.className = 'daat-msg-badge is-aperçu';
+        badge.textContent = '✨ APERÇU OPUS';
+        badge.title = `Réponse en qualité Opus (offerte) — il te reste ${r.preview_remaining} question(s) Opus offerte(s)`;
+      } else if (r.is_subscriber && r.model_tier === 'opus') {
+        badge = document.createElement('span');
+        badge.className = 'daat-msg-badge is-opus';
+        badge.textContent = '🕯️ OPUS';
+        badge.title = 'Réponse en qualité Opus (grâce à ton soutien)';
+      } else if (r.would_use_opus) {
+        badge = document.createElement('span');
+        badge.className = 'daat-msg-badge is-sonnet-hint';
+        badge.textContent = '→ AURAIT ÉTÉ OPUS EN SOUTIEN';
+        badge.title = 'Cette réponse aurait été en qualité Opus si tu soutenais DAAT — clique pour découvrir';
+        badge.addEventListener('click', () => {
+          window.open(r.soutenir_url || '/soutenir.html', '_blank', 'noopener');
+        });
+      }
+      if (badge) {
+        assistantEl.insertBefore(badge, assistantEl.firstChild);
+        // saut de ligne après le badge pour que le markdown commence à la ligne
+        const br = document.createElement('br');
+        assistantEl.insertBefore(br, badge.nextSibling);
+      }
+    }
+
+    // ─── Paywall modal (limite atteinte OU transition Aperçu→Standard) ───
+    showPaywallModal({ reason, info }) {
+      const r = this.rateInfo || {};
+      const soutenirUrl = (info && info.soutenir_url) || r.soutenir_url || '/soutenir.html';
+      const overlay = document.createElement('div');
+      overlay.className = 'daat-paywall-overlay';
+      let title, eyebrow, body, primaryLabel, secondaryLabel, ghostLabel;
+      if (reason === 'transition') {
+        // Q3 → Q4 : on vient de servir la dernière Aperçu Opus.
+        eyebrow = '✨ APERÇU PREMIUM TERMINÉ';
+        title = 'Tu as goûté à la qualité Opus.';
+        body = `
+          <p>Tu viens d'utiliser tes <strong>3 questions Opus offertes</strong>. À partir de maintenant, tes réponses seront en qualité Sonnet — toujours sérieuses, mais sans la profondeur analytique de l'Opus.</p>
+          <p>DAAT est gratuit et le restera. Si tu veux garder l'Opus en continu et soutenir l'accès gratuit pour d'autres talmidim, tu peux rejoindre une Khavroutha.</p>
+        `;
+        primaryLabel = 'Découvrir les soutiens';
+        secondaryLabel = null;
+        ghostLabel = 'Continuer en Sonnet';
+      } else if (reason === 'limit') {
+        // 429 — limite quotidienne ou mensuelle atteinte
+        const isMonthly = info && info.scope === 'monthly';
+        const limit = info?.limit ?? '?';
+        const plan = info?.plan || r.plan || 'free';
+        const isGuest = info?.is_guest;
+        eyebrow = isMonthly ? 'QUOTA MENSUEL ATTEINT' : 'LIMITE QUOTIDIENNE ATTEINTE';
+        title = isMonthly
+          ? `Tu as utilisé tes ${limit} questions ce mois.`
+          : isGuest
+            ? `Tu as utilisé tes ${limit} questions du jour.`
+            : `Tu as posé ${limit} questions aujourd'hui.`;
+        body = `
+          <p>${isGuest
+            ? 'Connecte-toi avec ton email pour <strong>8 questions/jour</strong> et 3 questions Opus offertes en bienvenue.'
+            : 'Reviens demain pour de nouvelles questions, ou rejoins une Khavroutha pour <strong>30 à 300 questions/jour</strong> en qualité Opus.'}</p>
+          ${isMonthly ? '<p style="font-size:12px;color:#8a847b;">Le quota mensuel protège l\'asso contre les usages excessifs et garantit que DAAT reste accessible à tous.</p>' : ''}
+        `;
+        primaryLabel = 'Soutenir DAAT';
+        secondaryLabel = isGuest ? 'Créer un compte gratuit' : null;
+        ghostLabel = 'Fermer';
+      }
+      overlay.innerHTML = `
+        <div class="daat-paywall" role="dialog" aria-modal="true">
+          <div class="daat-paywall-eyebrow">${eyebrow}</div>
+          <h3 class="daat-paywall-title">${title}</h3>
+          <div class="daat-paywall-body">${body}</div>
+          <div class="daat-paywall-actions">
+            <button class="daat-paywall-btn is-primary" data-act="primary">${primaryLabel}</button>
+            ${secondaryLabel ? `<button class="daat-paywall-btn" data-act="secondary">${secondaryLabel}</button>` : ''}
+            ${ghostLabel ? `<button class="daat-paywall-btn is-ghost" data-act="ghost">${ghostLabel}</button>` : ''}
+          </div>
+        </div>
+      `;
+      this.panel.appendChild(overlay);
+      const close = () => overlay.remove();
+      overlay.querySelector('[data-act="primary"]').addEventListener('click', () => {
+        window.open(soutenirUrl, '_blank', 'noopener');
+        close();
+      });
+      const sec = overlay.querySelector('[data-act="secondary"]');
+      if (sec) sec.addEventListener('click', () => { close(); /* Le bouton login est ailleurs */ });
+      const ghost = overlay.querySelector('[data-act="ghost"]');
+      if (ghost) ghost.addEventListener('click', close);
+      overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+    }
+
     appendError(text) {
       const el = document.createElement('div');
       el.className = 'daat-chat-message is-error';
@@ -988,10 +1147,18 @@
 
         if (!response.ok) {
           let errMsg = 'Erreur ' + response.status;
+          let errJson = null;
           try {
-            const errJson = await response.json();
+            errJson = await response.json();
             errMsg = errJson.error || errMsg;
           } catch (_) {}
+          // 429 = limite quotidienne/mensuelle atteinte → paywall plutôt qu'erreur
+          if (response.status === 429 && errJson && errJson.type === 'limit_reached') {
+            const limitErr = new Error(errJson.message || errMsg);
+            limitErr._isLimitReached = true;
+            limitErr._info = errJson;
+            throw limitErr;
+          }
           throw new Error(errMsg);
         }
 
@@ -1021,7 +1188,21 @@
 
             try {
               const parsed = JSON.parse(data);
-              if (parsed.type === 'text' && parsed.delta) {
+              if (parsed.type === 'rate_info') {
+                // Détection Q3 → Q4 : avant ce message, l'user avait 1 Aperçu restant
+                // (so it was his Q3 Aperçu). Après → 0 restant. On affichera la modale
+                // de transition à la fin du streaming pour ne pas casser l'expérience.
+                if (
+                  this.previousAperçuRemaining === 1 &&
+                  parsed.preview_remaining === 0 &&
+                  parsed.is_aperçu === true
+                ) {
+                  this.pendingTransitionModal = true;
+                }
+                this.previousAperçuRemaining = parsed.preview_remaining;
+                this.rateInfo = parsed;
+                this.updateStatusBanner();
+              } else if (parsed.type === 'text' && parsed.delta) {
                 assistantText += parsed.delta;
                 assistantEl.setAttribute('dir', detectMessageDir(assistantText));
                 assistantEl.innerHTML = renderMarkdown(assistantText);
@@ -1056,8 +1237,15 @@
         if (assistantText) {
           this.messages.push({ role: 'assistant', content: assistantText });
           this.persistConversation();
+          // Badge modèle (Aperçu / Opus / "aurait été Opus")
+          this.addModelBadge(assistantEl);
           // Attach feedback buttons to the assistant message
           this.attachFeedbackBar(assistantEl, assistantText);
+          // Modale de transition Aperçu → Standard après Q3 (semer la conversion)
+          if (this.pendingTransitionModal) {
+            this.pendingTransitionModal = false;
+            setTimeout(() => this.showPaywallModal({ reason: 'transition' }), 400);
+          }
         } else {
           assistantEl.remove();
           this.appendError('Pas de réponse reçue. Réessaie.');
@@ -1065,7 +1253,12 @@
       } catch (error) {
         console.error('[Daat chat] error:', error);
         if (typingEl.parentNode) typingEl.remove();
-        this.appendError(error.message || 'Erreur de connexion. Vérifie ta connexion internet.');
+        // 429 = limite atteinte → paywall, pas un message d'erreur
+        if (error._isLimitReached) {
+          this.showPaywallModal({ reason: 'limit', info: error._info });
+        } else {
+          this.appendError(error.message || 'Erreur de connexion. Vérifie ta connexion internet.');
+        }
         // Remove the user message that failed (so they can retry without duplicates)
         // Actually keep it — let them edit and retry
       } finally {
