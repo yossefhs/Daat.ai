@@ -581,7 +581,10 @@
 </div>
 
 <script>
-const API_URL = 'https://daatai.vercel.app/api/chat';
+// Si on est sur un domaine vercel.app (preview ou prod du projet), on utilise
+// l'API du même domaine — sinon (embed externe / daattorah.com), on tape la prod.
+const API_BASE = (/\.vercel\.app$/.test(window.location.host) ? window.location.origin : 'https://daatai.vercel.app');
+const API_URL = API_BASE + '/api/chat';
 const HISTORY_KEY = 'daat-conversations-v1';
 
 // ============================================================
@@ -649,7 +652,7 @@ function deleteConversation(id) {
 // pas connecté. Tout fonctionne déjà localement via localStorage,
 // la sync n'ajoute QUE la persistance multi-appareils par compte.
 // ============================================================
-const SYNC_BASE = 'https://daatai.vercel.app/api/conversations';
+const SYNC_BASE = API_BASE + '/api/conversations';
 const SYNC_DEBOUNCE_MS = 1500;
 const _syncUpsertQueue = new Map(); // id -> conv (dernière version)
 let _syncUpsertTimer = null;

@@ -5,9 +5,21 @@
   'use strict';
 
   // === CONFIGURATION ===
-  // L'URL de l'API Vercel — à mettre à jour après déploiement
-  const API_URL = window.DAAT_CHAT_API_URL || 'https://daat-ai.vercel.app/api/chat';
-  const FEEDBACK_URL = (window.DAAT_CHAT_API_URL || 'https://daatai.vercel.app/api/chat').replace(/\/api\/chat\/?$/, '/api/feedback');
+  // Résolution de l'URL API :
+  //  1. window.DAAT_CHAT_API_URL si défini (embed daattorah.com par exemple)
+  //  2. Si on est sur un domaine *.vercel.app (preview ou prod du projet) → API du même domaine
+  //     Ça permet de tester un preview branch sans que le widget tape la prod par erreur.
+  //  3. Sinon (script chargé depuis un autre site sans config) → PROD par défaut.
+  function resolveApiUrl() {
+    if (window.DAAT_CHAT_API_URL) return window.DAAT_CHAT_API_URL;
+    const host = window.location.host || '';
+    if (/\.vercel\.app$/.test(host)) {
+      return window.location.origin + '/api/chat';
+    }
+    return 'https://daat-ai.vercel.app/api/chat';
+  }
+  const API_URL = resolveApiUrl();
+  const FEEDBACK_URL = API_URL.replace(/\/api\/chat\/?$/, '/api/feedback');
   const HISTORY_KEY = 'daat-conversations-v1'; // partagé avec chat.html
   const MAX_HISTORY = 50; // conversations max gardées
   const MAX_MESSAGES_PER_CONV = 60;
