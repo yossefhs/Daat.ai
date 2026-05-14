@@ -48,7 +48,8 @@ const MODELS = {
 // 4. Free/anonyme avec previewUsed < 3 → Aperçu Premium Opus (compte à vie)
 // 5. Free/anonyme après Aperçu → Sonnet (qualité standard)
 // 6. forceOpus = perk admin manuel : Opus sur tout (sauf méta)
-function pickModel(messages, hint, plan, previewUsed, forceOpus) {
+// aperçuBlocked = caps IP ou global atteints (anti-abus) → on dégrade vers Sonnet
+function pickModel(messages, hint, plan, previewUsed, aperçuBlocked, forceOpus) {
   // Hint explicite du client (ex: depuis une page Lamdan/Synthèse) — gagne toujours
   if (hint === 'opus' || hint === 'sonnet' || hint === 'haiku') return MODELS[hint];
 
@@ -70,8 +71,9 @@ function pickModel(messages, hint, plan, previewUsed, forceOpus) {
   // 3. Abonnés "Beit Midrash et plus" : Opus toujours
   if (ALWAYS_OPUS_PLANS.has(plan)) return MODELS.opus;
 
-  // 4. Aperçu Premium : free/anonyme avec compteur lifetime < 3 → Opus (incrémenté côté serveur)
-  if (!SUBSCRIBER_PLANS.has(plan) && previewUsed < PREVIEW_OPUS_LIMIT) {
+  // 4. Aperçu Premium : free/anonyme avec compteur lifetime < 3 → Opus
+  // Bloqué si IP a déjà servi 3 Aperçu aujourd'hui, ou si le quota global du jour est atteint
+  if (!SUBSCRIBER_PLANS.has(plan) && previewUsed < PREVIEW_OPUS_LIMIT && !aperçuBlocked) {
     return { ...MODELS.opus, _aperçu: true };
   }
 
@@ -118,6 +120,12 @@ function pickModel(messages, hint, plan, previewUsed, forceOpus) {
 // ── Plans, limites quotidiennes & mensuelles ──────────────────────────────
 // Aperçu Premium : 3 questions Opus à vie offertes aux nouveaux comptes (kavod ha-mehadech)
 const PREVIEW_OPUS_LIMIT = 3;
+// Anti-abus : on plafonne aussi l'Aperçu par IP/jour et globalement par jour.
+// Sans ces caps, clear-cookies + incognito = nouveau guest_id → 3 Aperçu de plus,
+// répétable à l'infini. Avec : 3 Aperçu/IP/jour MAX (toutes guestIds confondues)
+// et 100 Aperçu/jour MAX sur la planète (≈ 15 € de coût Opus pire cas).
+const PREVIEW_IP_DAILY_LIMIT = 3;
+const PREVIEW_GLOBAL_DAILY_LIMIT = 100;
 
 const DAILY_LIMITS = {
   anonymous:         5,        // visiteur sans compte (était 3 → 5 pour mieux convertir)
@@ -151,6 +159,12 @@ const SOUTENIR_URL = '/soutenir.html';
 const GUEST_COOKIE = 'daat_guest_id';
 
 // ── Helpers identité ───────────────────────────────────────────────────────
+function getClientIp(req) {
+  const xff = req.headers['x-forwarded-for'] || '';
+  const first = xff.split(',')[0].trim();
+  return first || req.headers['x-real-ip'] || req.socket?.remoteAddress || 'unknown';
+}
+
 function readCookie(req, name) {
   const header = req.headers.cookie || '';
   for (const pair of header.split(';')) {
@@ -253,12 +267,23 @@ export default async function handler(req, res) {
     const { userId, plan, isGuest, guestIdSetCookie, forceOpus, previewUsed, planExpires } = await identifyUser(req);
     const today = new Date().toISOString().slice(0, 10);
     const currentMonth = today.slice(0, 7); // YYYY-MM
+    const clientIp = getClientIp(req);
     const rateKey = `rate:${userId}:${today}`;
     const monthRateKey = `rate-month:${userId}:${currentMonth}`;
+    const previewIpKey = `preview-ip:${clientIp}:${today}`;
+    const previewGlobalKey = `preview-global:${today}`;
     const limit = DAILY_LIMITS[plan] || DAILY_LIMITS.anonymous;
     const monthLimit = MONTHLY_LIMITS[plan] || MONTHLY_LIMITS.anonymous;
-    const currentCount = parseInt((await kv.get(rateKey)) || 0, 10);
-    const currentMonthCount = parseInt((await kv.get(monthRateKey)) || 0, 10);
+    const [currentCount, currentMonthCount, previewIpCount, previewGlobalCount] = await Promise.all([
+      kv.get(rateKey).then(v => parseInt(v || '0', 10)),
+      kv.get(monthRateKey).then(v => parseInt(v || '0', 10)),
+      kv.get(previewIpKey).then(v => parseInt(v || '0', 10)),
+      kv.get(previewGlobalKey).then(v => parseInt(v || '0', 10)),
+    ]);
+    // Caps anti-abus : si l'IP a déjà servi 3 Aperçu aujourd'hui OU si le quota global
+    // anonyme du jour est atteint, on désactive l'Aperçu (l'user passe en Sonnet).
+    // Les abonnés ne sont pas concernés (Aperçu ne s'applique pas à eux).
+    const aperçuBlocked = previewIpCount >= PREVIEW_IP_DAILY_LIMIT || previewGlobalCount >= PREVIEW_GLOBAL_DAILY_LIMIT;
 
     // Définir le cookie guest_id si nouveau visiteur
     if (guestIdSetCookie) {
@@ -344,8 +369,8 @@ export default async function handler(req, res) {
       }
     }
 
-    // Choisir le modèle adapté à la complexité (router cost-optimisé + Aperçu Premium)
-    const model = pickModel(trimmedMessages, req.body?.model_hint, plan, previewUsed, forceOpus);
+    // Choisir le modèle adapté à la complexité (router cost-optimisé + Aperçu Premium + anti-abus)
+    const model = pickModel(trimmedMessages, req.body?.model_hint, plan, previewUsed, aperçuBlocked, forceOpus);
 
     // En-têtes SSE
     res.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
@@ -382,6 +407,7 @@ export default async function handler(req, res) {
       preview_remaining: previewRemaining,
       preview_limit: PREVIEW_OPUS_LIMIT,
       is_aperçu: Boolean(model._aperçu),
+      aperçu_blocked: aperçuBlocked, // true si caps IP/global ont dégradé en Sonnet
       is_subscriber: SUBSCRIBER_PLANS.has(plan),
       model_tier: model.id?.includes('opus') ? 'opus' : (model.id?.includes('sonnet') ? 'sonnet' : 'haiku'),
       would_use_opus: Boolean(model._standard_free), // hint UI "aurait été Opus en Premium"
@@ -745,10 +771,23 @@ export default async function handler(req, res) {
         await kv.expire(monthRateKey, 35 * 24 * 60 * 60); // ~35 jours pour couvrir le mois en cours
       }
 
-      // Incrément Aperçu Premium si on a servi du Opus à un free/anonyme dans le compteur lifetime
+      // Incrément Aperçu Premium si on a servi du Opus à un free/anonyme
+      // 1. Compteur lifetime par user (pas d'expiration)
+      // 2. Cap par IP du jour (24h TTL) — anti clear-cookies
+      // 3. Cap global du jour (24h TTL) — plafond budgétaire
       if (model._aperçu) {
-        await kv.incr(`user:preview_used:${userId}`);
-        // Pas d'expiration : c'est un compteur lifetime
+        await Promise.all([
+          kv.incr(`user:preview_used:${userId}`),
+          kv.incr(previewIpKey),
+          kv.incr(previewGlobalKey),
+        ]);
+        // TTL 24h sur les caps quotidiens (set seulement si pas déjà set)
+        const [ipTtl, globalTtl] = await Promise.all([
+          kv.ttl(previewIpKey),
+          kv.ttl(previewGlobalKey),
+        ]);
+        if (ipTtl === -1 || ipTtl === -2) await kv.expire(previewIpKey, 24 * 60 * 60);
+        if (globalTtl === -1 || globalTtl === -2) await kv.expire(previewGlobalKey, 24 * 60 * 60);
       }
 
       // Log rolling 500 dernières
