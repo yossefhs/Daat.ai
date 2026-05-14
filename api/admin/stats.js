@@ -133,6 +133,23 @@ export default async function handler(req, res) {
     return res.json({ logs, total: logs.length });
   }
 
+  // 3b. PAIEMENTS HELLOASSO — auto-upgrades reçus par webhook
+  if (action === 'payments') {
+    const limit = Math.min(parseInt(req.query.limit || '50', 10), 200);
+    const [rawPayments, rawUnmatched] = await Promise.all([
+      kv.lrange('logs:helloasso', 0, limit - 1),
+      kv.lrange('logs:helloasso-unmatched', 0, Math.min(limit, 50) - 1),
+    ]);
+    const parse = (arr) => arr.map(r => {
+      try { return typeof r === 'string' ? JSON.parse(r) : r; }
+      catch (_) { return r; }
+    });
+    return res.json({
+      payments: parse(rawPayments),
+      unmatched: parse(rawUnmatched),
+    });
+  }
+
   // 4. USER DETAIL — stats sur 30 jours pour un utilisateur
   if (action === 'user-detail') {
     const email = req.query.email;
