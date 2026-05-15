@@ -30,6 +30,12 @@ export default async function handler(req, res) {
 
     if (action === 'set-plan' && email && plan) {
       await kv.set(`user:plan:${email}`, plan);
+      // Date d'expiration optionnelle (pour les abonnements mensuels manuels Qonto)
+      if (req.body.expires) {
+        await kv.set(`user:plan_expires:${email}`, req.body.expires);
+      } else if (req.body.expires === null || req.body.expires === '') {
+        await kv.del(`user:plan_expires:${email}`);
+      }
       return res.json({ success: true, message: `Plan de ${email} → ${plan}` });
     }
 
@@ -46,6 +52,11 @@ export default async function handler(req, res) {
       const key = `rate:${email}:${today()}`;
       await kv.set(key, 0);
       return res.json({ success: true, message: `Limite de ${email} réinitialisée` });
+    }
+
+    if (action === 'reset-preview' && email) {
+      await kv.del(`user:preview_used:${email}`);
+      return res.json({ success: true, message: `Compteur Aperçu Premium de ${email} remis à 0 (3 questions Opus offertes restaurées)` });
     }
 
     return res.status(400).json({ error: 'Action inconnue' });
@@ -83,17 +94,20 @@ export default async function handler(req, res) {
     const d = today();
     const includeGuests = req.query.guests !== 'false'; // par défaut on inclut
 
+    const month = d.slice(0, 7);
     const all = await Promise.all(
       knownIds.map(async id => {
         const isGuest = id.startsWith('guest_');
         if (isGuest && !includeGuests) return null;
         const usage = (await kv.get(`usage:${id}:${d}`)) || { tokens_in: 0, tokens_out: 0, cost_usd: 0, count: 0 };
         const rateCount = parseInt((await kv.get(`rate:${id}:${d}`)) || 0, 10);
+        const monthCount = parseInt((await kv.get(`rate-month:${id}:${month}`)) || 0, 10);
+        const previewUsed = parseInt((await kv.get(`user:preview_used:${id}`)) || 0, 10);
         const plan = isGuest ? 'anonymous' : ((await kv.get(`user:plan:${id}`)) || 'free');
         const forceOpus = isGuest ? false : Boolean(await kv.get(`user:force_opus:${id}`));
-        // Label lisible : email tel quel, ou "Anonyme #abc12345" pour les guests
+        const planExpires = isGuest ? null : await kv.get(`user:plan_expires:${id}`);
         const label = isGuest ? `Anonyme #${id.slice(-8)}` : id;
-        return { email: id, label, plan, force_opus: forceOpus, is_guest: isGuest, today_questions: rateCount, ...usage };
+        return { email: id, label, plan, plan_expires: planExpires, force_opus: forceOpus, preview_used: previewUsed, is_guest: isGuest, today_questions: rateCount, month_questions: monthCount, ...usage };
       })
     );
 
@@ -117,6 +131,23 @@ export default async function handler(req, res) {
       catch (_) { return r; }
     });
     return res.json({ logs, total: logs.length });
+  }
+
+  // 3b. PAIEMENTS HELLOASSO — auto-upgrades reçus par webhook
+  if (action === 'payments') {
+    const limit = Math.min(parseInt(req.query.limit || '50', 10), 200);
+    const [rawPayments, rawUnmatched] = await Promise.all([
+      kv.lrange('logs:helloasso', 0, limit - 1),
+      kv.lrange('logs:helloasso-unmatched', 0, Math.min(limit, 50) - 1),
+    ]);
+    const parse = (arr) => arr.map(r => {
+      try { return typeof r === 'string' ? JSON.parse(r) : r; }
+      catch (_) { return r; }
+    });
+    return res.json({
+      payments: parse(rawPayments),
+      unmatched: parse(rawUnmatched),
+    });
   }
 
   // 4. USER DETAIL — stats sur 30 jours pour un utilisateur

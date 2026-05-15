@@ -908,3 +908,184 @@
     right: 16px;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────────
+   BANNIÈRE D'ÉTAT (Aperçu / Standard / Premium) — au-dessus de l'input
+   ───────────────────────────────────────────────────────────────── */
+.daat-status-banner {
+  padding: 10px 14px;
+  font-size: 12.5px;
+  line-height: 1.45;
+  border-top: 1px solid var(--daat-border, #e5e0d6);
+  background: var(--daat-parchment, #faf7f0);
+  color: var(--daat-text, #2a2520);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.daat-status-banner[data-status="hidden"] { display: none; }
+.daat-status-banner[data-status="aperçu"] {
+  background: linear-gradient(90deg, rgba(184,151,42,0.10), rgba(184,151,42,0.03));
+  border-top-color: rgba(184,151,42,0.35);
+}
+.daat-status-banner[data-status="standard"] {
+  background: var(--daat-parchment-soft, #f5f0e3);
+}
+.daat-status-banner[data-status="premium"] {
+  background: linear-gradient(90deg, rgba(74,107,72,0.10), rgba(74,107,72,0.03));
+  border-top-color: rgba(74,107,72,0.35);
+}
+.daat-status-banner-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+.daat-status-banner-text {
+  flex: 1;
+  min-width: 0;
+}
+.daat-status-banner-text strong { font-weight: 600; }
+.daat-status-banner-cta {
+  font-size: 12px;
+  color: var(--daat-gold, #b8972a);
+  text-decoration: underline;
+  text-decoration-color: rgba(184,151,42,0.4);
+  text-underline-offset: 2px;
+  white-space: nowrap;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+}
+.daat-status-banner-cta:hover {
+  text-decoration-color: var(--daat-gold, #b8972a);
+}
+
+/* ─── BADGE MODÈLE sur les messages assistant ─── */
+.daat-msg-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 2px 6px;
+  border-radius: 3px;
+  margin-bottom: 6px;
+}
+.daat-msg-badge.is-aperçu {
+  background: rgba(184,151,42,0.12);
+  color: #8B6A00;
+  border: 1px solid rgba(184,151,42,0.35);
+}
+.daat-msg-badge.is-opus {
+  background: rgba(74,107,72,0.12);
+  color: #3a5638;
+  border: 1px solid rgba(74,107,72,0.35);
+}
+.daat-msg-badge.is-sonnet-hint {
+  background: rgba(180,180,180,0.08);
+  color: #8a847b;
+  border: 1px solid rgba(180,180,180,0.25);
+  cursor: pointer;
+}
+.daat-msg-badge.is-sonnet-hint:hover {
+  background: rgba(184,151,42,0.10);
+  color: #8B6A00;
+  border-color: rgba(184,151,42,0.35);
+}
+
+/* ─── PAYWALL MODAL ─── */
+.daat-paywall-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(42,37,32,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+  animation: daat-fade-in 0.2s ease;
+}
+@keyframes daat-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.daat-paywall {
+  background: var(--daat-parchment, #faf7f0);
+  border: 1px solid var(--daat-border, #e5e0d6);
+  border-top: 3px solid var(--daat-gold, #b8972a);
+  border-radius: 6px;
+  max-width: 420px;
+  width: 100%;
+  padding: 24px 22px 20px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  font-family: inherit;
+}
+.daat-paywall-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--daat-gold, #b8972a);
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+.daat-paywall-title {
+  font-size: 17px;
+  font-weight: 600;
+  margin: 0 0 10px;
+  color: var(--daat-text, #2a2520);
+  line-height: 1.35;
+}
+.daat-paywall-body {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--daat-text, #2a2520);
+  margin-bottom: 16px;
+}
+.daat-paywall-body p { margin: 0 0 10px; }
+.daat-paywall-body p:last-child { margin-bottom: 0; }
+.daat-paywall-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.daat-paywall-btn {
+  display: block;
+  padding: 11px 14px;
+  text-align: center;
+  font-size: 13.5px;
+  font-weight: 500;
+  border: 1px solid var(--daat-border, #e5e0d6);
+  background: #fff;
+  color: var(--daat-text, #2a2520);
+  text-decoration: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s, border-color 0.15s;
+}
+.daat-paywall-btn:hover {
+  background: var(--daat-parchment-soft, #f5f0e3);
+  border-color: var(--daat-gold, #b8972a);
+}
+.daat-paywall-btn.is-primary {
+  background: var(--daat-gold, #b8972a);
+  color: #fff;
+  border-color: var(--daat-gold, #b8972a);
+}
+.daat-paywall-btn.is-primary:hover {
+  background: #a08524;
+  border-color: #a08524;
+}
+.daat-paywall-btn.is-ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--daat-muted, #8a847b);
+  font-size: 12.5px;
+  padding: 8px;
+}
+.daat-paywall-btn.is-ghost:hover {
+  background: transparent;
+  color: var(--daat-text, #2a2520);
+  text-decoration: underline;
+}

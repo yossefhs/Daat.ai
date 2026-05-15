@@ -3,8 +3,17 @@
 //
 // Usage : récupère le texte hébreu et la traduction d'une référence Sefaria
 // pour ancrer les réponses de Claude dans des sources réelles (anti-hallucination).
+//
+// Cache KV : les textes Sefaria (versets, pages de Guemara, Choulhan Aroukh)
+// sont IMMUABLES. On les met en cache 30 jours → économise un round-trip réseau
+// + les tokens de réponse Sefaria pour les références populaires (Berakhot 17a
+// demandé des centaines de fois/mois). Le cache est gaté : si KV échoue, on
+// retombe transparemment sur le fetch direct (zéro régression).
+
+import { kv } from '@vercel/kv';
 
 const SEFARIA_BASE = 'https://www.sefaria.org/api';
+const SEFARIA_CACHE_TTL = 30 * 24 * 60 * 60; // 30 jours
 
 /**
  * Récupère un texte depuis Sefaria.
@@ -12,6 +21,17 @@ const SEFARIA_BASE = 'https://www.sefaria.org/api';
  * @returns {Promise<{ref: string, hebrew: string, english: string, error?: string}>}
  */
 export async function fetchSefariaText(ref) {
+  // 1. Tentative de lecture cache (texte immuable → cache long)
+  const cacheKey = `sefaria:text:${ref}`;
+  try {
+    const cached = await kv.get(cacheKey);
+    if (cached && typeof cached === 'object' && cached.hebrew !== undefined) {
+      return { ...cached, _cached: true };
+    }
+  } catch (_) {
+    // KV indisponible → on continue sur le fetch direct
+  }
+
   try {
     // Encoder la référence pour l'URL
     const encodedRef = encodeURIComponent(ref).replace(/%2C/g, ',').replace(/%2F/g, '/');
@@ -52,12 +72,23 @@ export async function fetchSefariaText(ref) {
     hebrew = stripHtml(hebrew);
     english = stripHtml(english);
 
-    return {
+    const result = {
       ref,
       hebrew: hebrew || '',
       english: english || '',
       title: data.title || data.indexTitle || ref,
     };
+
+    // 2. Écriture cache — uniquement si on a vraiment du contenu (pas de réponse vide)
+    if (result.hebrew || result.english) {
+      try {
+        await kv.set(cacheKey, result, { ex: SEFARIA_CACHE_TTL });
+      } catch (_) {
+        // KV en écriture indisponible → tant pis, on renvoie quand même le résultat
+      }
+    }
+
+    return result;
   } catch (err) {
     return {
       ref,

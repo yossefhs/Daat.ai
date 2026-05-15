@@ -98,7 +98,7 @@ export default async function handler(req, res) {
       }
     }
 
-    // GET ?action=stats → objectif mensuel + total collecté
+    // GET ?action=stats → objectif mensuel + total collecté + URLs HelloAsso configurées
     if (req.query.action === 'stats') {
       try {
         const now = new Date();
@@ -106,6 +106,17 @@ export default async function handler(req, res) {
         const totalCents = parseInt((await kv.get(`soutien:total:${monthKey}`)) || 0, 10);
         const count = parseInt((await kv.get(`soutien:count:${monthKey}`)) || 0, 10);
         const target = parseInt(process.env.SOUTIEN_MONTHLY_TARGET || '800', 10);
+
+        // URLs HelloAsso configurables via env vars (Vercel Settings → Environment Variables)
+        // Tant qu'une URL n'est pas configurée, on renvoie null → la card affichera un message
+        // "à venir" et un fallback vers Qonto.
+        const helloasso = {
+          khavroutha:        process.env.HELLOASSO_FORM_KHAVROUTHA_URL        || null,
+          beit_midrash:      process.env.HELLOASSO_FORM_BEIT_MIDRASH_URL      || null,
+          beit_midrash_plus: process.env.HELLOASSO_FORM_BEIT_MIDRASH_PLUS_URL || null,
+          yeshiva:           process.env.HELLOASSO_FORM_YESHIVA_URL           || null,
+          lifetime:          process.env.HELLOASSO_FORM_LIFETIME_URL          || null,
+        };
 
         // Cache CDN court (2 min) — la barre n'a pas besoin d'être temps réel
         res.setHeader('Cache-Control', 's-maxage=120, stale-while-revalidate=300');
@@ -116,6 +127,7 @@ export default async function handler(req, res) {
           month_count: count,
           target,
           currency: 'EUR',
+          helloasso,
         });
       } catch (err) {
         console.error('[soutenir] stats error:', err);

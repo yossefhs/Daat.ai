@@ -79,7 +79,8 @@
     "api/admin/transcribe-photos.js": { "maxDuration": 90 },
     "api/admin/generate-siman.js": { "maxDuration": 300 },
     "api/admin/feedback.js": { "maxDuration": 5 },
-    "api/admin/stats.js": { "maxDuration": 15 }
+    "api/admin/stats.js": { "maxDuration": 15 },
+    "api/helloasso-webhook.js": { "maxDuration": 10 }
   },
 
   "crons": [
