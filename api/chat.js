@@ -185,6 +185,24 @@ function genGuestId() {
   return 'guest_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
 }
 
+// ── Cache des méta-réponses ────────────────────────────────────────────────
+// "bonjour", "merci", "tu es qui", "comment ça marche" sont quasi-déterministes.
+// On normalise (minuscule, sans ponctuation, espaces compactés) puis on fait un
+// exact-match en KV. Un hit = 0 token LLM. TTL 14j (assez stable, refresh régulier).
+// Version dans la clé : bumper METÀ_CACHE_VERSION invalide tout le cache d'un coup
+// (utile si on change le ton/contenu des réponses méta dans le system prompt).
+const META_CACHE_VERSION = 'v1';
+const META_CACHE_TTL = 14 * 24 * 60 * 60;
+function metaCacheKey(text) {
+  const norm = String(text || '')
+    .toLowerCase()
+    .trim()
+    .replace(/[!?.,;:'"«»()\[\]{}]/g, '')
+    .replace(/\s+/g, ' ')
+    .slice(0, 80);
+  return `meta-cache:${META_CACHE_VERSION}:${norm}`;
+}
+
 // Renvoie { userId, plan, isGuest, guestIdSetCookie, forceOpus, previewUsed, planExpires }
 async function identifyUser(req) {
   const user = getUserFromRequest(req);
@@ -420,12 +438,49 @@ export default async function handler(req, res) {
     });
     res.write(`data: ${rateInfoPayload}\n\n`);
 
+    // ── Cache méta-réponses : exact-match KV avant tout appel LLM ──
+    // Les méta-questions sont des premiers messages courts (cf. isMetaQuestion),
+    // donc zéro contexte conversationnel → une réponse cachée est toujours valide.
+    if (model._meta) {
+      const lastUserText = trimmedMessages[trimmedMessages.length - 1].content;
+      let cachedMeta = null;
+      try { cachedMeta = await kv.get(metaCacheKey(lastUserText)); } catch (_) {}
+      if (cachedMeta && typeof cachedMeta === 'string' && cachedMeta.length > 10) {
+        // HIT — on streame la réponse cachée en chunks (garde le feel progressif)
+        const CHUNK = 24;
+        for (let i = 0; i < cachedMeta.length; i += CHUNK) {
+          res.write(`data: ${JSON.stringify({ type: 'text', delta: cachedMeta.slice(i, i + CHUNK) })}\n\n`);
+        }
+        res.write(`data: ${JSON.stringify({
+          type: 'done', stop_reason: 'end_turn', iterations: 1,
+          usage: { input_tokens: 0, output_tokens: 0 }, provider: 'meta-cache',
+        })}\n\n`);
+        // La question compte dans les quotas, mais coût = 0
+        try {
+          await kv.incr(rateKey);
+          const ttl = await kv.ttl(rateKey);
+          if (ttl === -1 || ttl === -2) await kv.expire(rateKey, 24 * 60 * 60);
+          await kv.incr(monthRateKey);
+          const mttl = await kv.ttl(monthRateKey);
+          if (mttl === -1 || mttl === -2) await kv.expire(monthRateKey, 35 * 24 * 60 * 60);
+          await kv.sadd('users:known', userId);
+          console.log(`[chat.js] meta-cache HIT: ${userId} "${lastUserText.slice(0, 30)}"`);
+        } catch (err) {
+          console.error('[chat.js] meta-cache HIT tracking error:', err?.message || err);
+        }
+        res.end();
+        return;
+      }
+    }
+
     // ── Court-circuit DeepSeek pour méta-questions (≈ 4× moins cher que Haiku) ──
     // Salutations, "tu es qui", "comment ça marche", "merci". Pas de psak ici.
     // Si DeepSeek échoue/timeout, on retombe sur Claude (Haiku) normalement.
     if (model._meta && deepSeekAvailable()) {
       const lastUserText = trimmedMessages[trimmedMessages.length - 1].content;
+      let metaAnswerText = '';
       const ds = await streamMetaQuestion(lastUserText, (delta) => {
+        metaAnswerText += delta;
         res.write(`data: ${JSON.stringify({ type: 'text', delta })}\n\n`);
       });
 
@@ -481,6 +536,10 @@ export default async function handler(req, res) {
           }));
           await kv.ltrim('logs:usage', 0, 499);
           await kv.sadd('users:known', userId);
+          // Stocker la réponse en cache méta — les prochains "bonjour" seront gratuits
+          if (metaAnswerText.length > 10) {
+            await kv.set(metaCacheKey(lastUserText), metaAnswerText, { ex: META_CACHE_TTL });
+          }
           console.log(`[chat.js] usage tracked: ${userId} deepseek:meta +${ds.usage.input_tokens}in/${ds.usage.output_tokens}out ($${dsCost.toFixed(5)})`);
         } catch (err) {
           console.error('[chat.js] Erreur enregistrement usage (deepseek):', err?.message || err);
