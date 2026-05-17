@@ -1616,35 +1616,55 @@
         if (!data || !data.ok) return;
         renderGoal({ current: data.month_total, target: data.target });
 
-        // ── Branchement des CTAs HelloAsso (si les env vars sont configurées) ──
-        // Si une URL est absente, le bouton bascule en fallback vers Qonto Tomhei
-        // Adaat (déjà existant plus bas dans la page) et le label change pour
-        // refléter que l'auto-upgrade n'est pas dispo encore.
+        // ── Branchement des CTAs HelloAsso / Qonto ──
+        // 2 systèmes de paiement aux rôles distincts :
+        //  - HelloAsso (si env var configurée) → bouton principal, auto-upgrade immédiat
+        //  - Qonto (toujours dispo) → fallback fonctionnel, activation manuelle
+        // Tant qu'une URL HelloAsso n'est pas configurée, le bouton reste pleinement
+        // cliquable et mène à la section Qonto Tomhei Adaat (virement mensuel).
         var ha = (data && data.helloasso) || {};
-        var fallbackQontoAnchor = '#participer'; // section Trois manières (Qonto)
-        Object.keys(ha).forEach(function (key) {
-          var card = document.querySelector('[data-helloasso="' + key + '"]');
-          if (!card) return;
+        var cards = document.querySelectorAll('[data-helloasso]');
+        cards.forEach(function (card) {
+          var key = card.getAttribute('data-helloasso');
           var cta = card.querySelector('.pillar-cta');
           if (!cta) return;
-          if (ha[key]) {
-            cta.setAttribute('href', ha[key]);
+          var url = ha[key];
+          if (url) {
+            // HelloAsso configuré → bouton = paiement direct, auto-upgrade
+            cta.setAttribute('href', url);
             cta.setAttribute('target', '_blank');
             cta.setAttribute('rel', 'noopener');
+            cta.removeAttribute('data-qonto-scroll');
+            cta.style.opacity = '';
+            var oldNote = card.querySelector('.helloasso-pending');
+            if (oldNote) oldNote.remove();
           } else {
-            // Pas d'URL HelloAsso → indique "bientôt", lien vers la section Qonto
-            cta.setAttribute('href', fallbackQontoAnchor);
+            // Pas de HelloAsso → bouton fonctionnel vers la section Qonto (virement mensuel)
+            cta.setAttribute('href', '#participer');
             cta.removeAttribute('target');
-            cta.style.opacity = '0.85';
-            // Petit hint visuel sous la card
+            cta.setAttribute('data-qonto-scroll', '1');
+            cta.style.opacity = '';
+            // Note claire : le paiement marche, c'est juste une activation manuelle
             if (!card.querySelector('.helloasso-pending')) {
               var note = document.createElement('div');
               note.className = 'helloasso-pending';
-              note.style.cssText = 'margin-top:0.75rem;text-align:center;font-size:0.78rem;color:var(--color-muted);font-style:italic;';
-              note.innerHTML = '⏳ <span class="lang-fr-inline">Auto-upgrade bientôt disponible — passe par Qonto en attendant (activation manuelle)</span><span class="lang-en-inline">Auto-upgrade coming soon — use Qonto for now (manual activation)</span><span class="lang-he-inline">הפעלה אוטומטית בקרוב — בינתיים דרך Qonto (הפעלה ידנית)</span>';
+              note.style.cssText = 'margin-top:0.75rem;text-align:center;font-size:0.8rem;color:var(--color-muted);line-height:1.5;';
+              note.innerHTML = '💳 <span class="lang-fr-inline">Paiement par virement mensuel <strong>Qonto</strong> (section ci-dessous). Ton plan est activé manuellement sous 24&nbsp;h. L\'activation immédiate arrive bientôt.</span><span class="lang-en-inline">Monthly transfer payment via <strong>Qonto</strong> (section below). Your plan is activated manually within 24h. Instant activation coming soon.</span><span class="lang-he-inline">תשלום בהעברה חודשית דרך <strong>Qonto</strong> (בהמשך). התוכנית מופעלת ידנית תוך 24 שעות. הפעלה מיידית בקרוב.</span>';
               card.appendChild(note);
             }
           }
+        });
+        // Smooth-scroll + highlight bref de la section Qonto pour les boutons fallback
+        document.querySelectorAll('.pillar-cta[data-qonto-scroll]').forEach(function (btn) {
+          btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            var target = document.getElementById('participer');
+            if (!target) return;
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            target.style.transition = 'box-shadow 0.4s ease';
+            target.style.boxShadow = 'inset 0 0 0 2px var(--color-gold)';
+            setTimeout(function () { target.style.boxShadow = ''; }, 1600);
+          });
         });
       })
       .catch(() => { /* fallback default reste affiché */ });
