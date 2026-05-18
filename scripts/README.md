@@ -54,3 +54,17 @@ Tous les champs sont obligatoires sauf `seifText` et `subtitle`. Voir `data/sima
 ### Pourquoi le générateur ne produit que la page index ?
 
 Chaque siman a son propre pilpoul, ses propres tableaux de poskim, ses propres concepts. Tenter d'industrialiser les 3 niveaux d'étude ne ferait que produire des pages génériques sans valeur. Le générateur prend en charge ce qui est répétitif (head SEO, JSON-LD, breadcrumb, hero, navigation, FAQ) — la rédaction halakhique reste artisanale.
+
+## audit-simanim.py
+
+Audite l'état réel des niveaux 1-4 de tous les simanim de Hilkhot Shabbat (242-365) : fichiers manquants, contenu générique non réécrit (boilerplate laissé par `generate-niveaux-123.py`), tables des matières du Niveau 2 désynchronisées.
+
+```bash
+python3 scripts/audit-simanim.py                  # rapport complet
+python3 scripts/audit-simanim.py --quiet          # résumé seul
+python3 scripts/audit-simanim.py --write-progress # régénère PROGRESS.md
+```
+
+Le script renvoie un **code de sortie non nul** dès qu'une erreur est détectée (boilerplate, fichier absent, TOC désynchronisée). Il peut donc servir de garde-fou — par exemple en hook `SessionStart` ou en pre-commit — pour empêcher de considérer un siman comme « complété » alors qu'il contient encore du contenu générique.
+
+`PROGRESS.md` (racine du dépôt) est le manifeste de progression : il est **généré** par ce script, ne pas l'éditer à la main.

@@ -16,7 +16,7 @@
     if (/\.vercel\.app$/.test(host)) {
       return window.location.origin + '/api/chat';
     }
-    return 'https://daat-ai.vercel.app/api/chat';
+    return 'https://daatai.vercel.app/api/chat';
   }
   const API_URL = resolveApiUrl();
   const FEEDBACK_URL = API_URL.replace(/\/api\/chat\/?$/, '/api/feedback');

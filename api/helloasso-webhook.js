@@ -1,7 +1,7 @@
 // /api/helloasso-webhook — Auto-upgrade de plan après paiement HelloAsso.
 //
 // URL à configurer dans le dashboard HelloAsso :
-//   https://daat-ai.vercel.app/api/helloasso-webhook?secret=XXX
+//   https://daatai.vercel.app/api/helloasso-webhook?secret=XXX
 //   (XXX = HELLOASSO_WEBHOOK_SECRET côté Vercel)
 //
 // Mapping des formulaires HelloAsso → plans DAAT, via variables d'environnement :
