@@ -1606,7 +1606,7 @@ let allSimanim = [];
 // Charger les simanim depuis le JSON
 async function loadSimanim() {
   try {
-    const resp = await fetch('/data/all-simanim.json');
+    const resp = await fetch('/data/simanim-disponibles.json');
     const data = await resp.json();
     allSimanim = data.simanim || [];
     renderSimanim(allSimanim);
