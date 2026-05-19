@@ -221,14 +221,17 @@ LANG_SWITCHER_CSS = """
     .lang-switcher a:hover { color: var(--gold, #C5A55A); border-color: var(--gold, #C5A55A); }
 """
 
-# Banner indiquant que la traduction du contenu specifique est en cours
-WIP_BANNER_HE = """<div class="wip-banner" style="background:#FFF8E5;border:1px solid #C5A55A;border-left:4px solid #C5A55A;padding:10px 16px;margin:0 0 12px;font-family:'Frank Ruhl Libre',sans-serif;font-size:14px;color:#5a4a1a;direction:rtl;text-align:right;">
-ℹ️ עמוד זה מתורגם — מקורות עבריים נשמרו במלואם. הסבר ייחודי לסימן זה עשוי להישאר חלקית בצרפתית. <a href="LANG_FR_LINK" style="color:#8C6F1E;font-weight:600;">לראות בצרפתית</a>
+# Banner indiquant que la traduction du contenu specifique est en cours.
+# Inclut un selecteur FR / HE / EN pour les pages de niveau (sans <nav>).
+WIP_BANNER_HE = """<div class="wip-banner" style="background:#FFF8E5;border:1px solid #C5A55A;border-left:4px solid #C5A55A;padding:10px 16px;margin:0 0 12px;font-family:'Frank Ruhl Libre',sans-serif;font-size:14px;color:#5a4a1a;direction:rtl;text-align:right;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+<span>ℹ️ עמוד זה מתורגם — מקורות עבריים נשמרו במלואם. הסבר ייחודי עשוי להישאר חלקית בצרפתית.</span>
+<span style="font-family:'Inter',sans-serif;font-size:12px;letter-spacing:1px;"><a href="LANG_FR_LINK" style="color:#8C6F1E;padding:2px 8px;border:1px solid #C5A55A;text-decoration:none;">FR</a> <a href="#" style="color:#1A1F3A;padding:2px 8px;border:1px solid #1A1F3A;background:#FFF8E5;text-decoration:none;font-weight:600;">HE</a> <a href="LANG_EN_LINK" style="color:#8C6F1E;padding:2px 8px;border:1px solid #C5A55A;text-decoration:none;">EN</a></span>
 </div>
 """
 
-WIP_BANNER_EN = """<div class="wip-banner" style="background:#FFF8E5;border:1px solid #C5A55A;border-left:4px solid #C5A55A;padding:10px 16px;margin:0 0 12px;font-family:'Inter',sans-serif;font-size:14px;color:#5a4a1a;">
-ℹ️ This page is being translated — Hebrew sources are fully preserved. Specific commentary may remain partially in French. <a href="LANG_FR_LINK" style="color:#8C6F1E;font-weight:600;">View in French</a>
+WIP_BANNER_EN = """<div class="wip-banner" style="background:#FFF8E5;border:1px solid #C5A55A;border-left:4px solid #C5A55A;padding:10px 16px;margin:0 0 12px;font-family:'Inter',sans-serif;font-size:14px;color:#5a4a1a;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+<span>ℹ️ This page is being translated — Hebrew sources are fully preserved. Specific commentary may remain partially in French.</span>
+<span style="font-size:12px;letter-spacing:1px;"><a href="LANG_FR_LINK" style="color:#8C6F1E;padding:2px 8px;border:1px solid #C5A55A;text-decoration:none;">FR</a> <a href="LANG_HE_LINK" style="color:#8C6F1E;padding:2px 8px;border:1px solid #C5A55A;text-decoration:none;">HE</a> <a href="#" style="color:#1A1F3A;padding:2px 8px;border:1px solid #1A1F3A;background:#FFF8E5;text-decoration:none;font-weight:600;">EN</a></span>
 </div>
 """
 

@@ -1,0 +1,1717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daat AI — Halachic Assistant in English · Ask Your Halacha Questions</title>
+  <meta name="description" content="Ask your halacha questions to the Daat AI assistant. Sources cited (Mechaber, Rema, Mishna Berura, Yabia Omer…), positions presented according to your minhag. For halacha lema'aseh: consult your Rav.">
+  <meta name="author" content="Rav Yossef Haim Samama">
+  <link rel="canonical" href="https://daattorah.com/chat-en.html">
+
+  <link rel="alternate" hreflang="fr" href="https://daattorah.com/chat.html">
+  <link rel="alternate" hreflang="he" href="https://daattorah.com/chat-he.html">
+  <link rel="alternate" hreflang="en" href="https://daattorah.com/chat-en.html">
+  <link rel="alternate" hreflang="x-default" href="https://daattorah.com/chat.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Daat Torah">
+  <meta property="og:title" content="Daat AI — Halachic Assistant in English">
+  <meta property="og:description" content="Ask your halacha questions. The AI presents the positions of the sources according to your minhag, with explicit citations.">
+  <meta property="og:url" content="https://daattorah.com/chat-en.html">
+  <meta property="og:image" content="https://daattorah.com/api/og">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Daat AI — Halachic Assistant in English">
+  <meta name="twitter:description" content="Ask your halacha questions. Sources cited, positions according to your minhag.">
+  <meta name="twitter:image" content="https://daattorah.com/api/og">
+
+  <!-- JSON-LD : WebApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Daat AI",
+    "description": "Halachic AI assistant in English — presents the positions of the poskim according to the user's minhag, with explicit sources.",
+    "url": "https://daattorah.com/chat-en.html",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "inLanguage": ["en-US", "fr-FR", "he-IL"],
+    "isPartOf": { "@id": "https://daattorah.com/#website" },
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/daat-enhance.css">
+  <style>
+    :root {
+      --navy: #1A1F3A; --gold: #C5A55A; --gold-light: #D4B97A;
+      --cream: #FAF6EE; --cream-dark: #F0EAD8;
+      --text: #1A1F3A; --text-mid: #3D4266; --text-muted: #7A7F9A;
+      --white: #FFFFFF; --border: #E4DDD0;
+      --green: #2E7D52; --purple: #6B3FA0; --red: #C0392B;
+      --user-bg: #1A1F3A; --user-color: #FFFFFF;
+      --assistant-bg: #FFFFFF; --assistant-color: #1A1F3A;
+      --sidebar-bg: #14182E; --sidebar-text: #DDD;
+      --sidebar-width: 280px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream); color: var(--text);
+      display: flex; flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* HEADER */
+    header {
+      background: var(--navy); flex-shrink: 0;
+      padding: 0 24px; height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 2px solid var(--gold); z-index: 50;
+    }
+    .header-left { display: flex; align-items: center; gap: 14px; }
+    .sidebar-toggle {
+      display: none; background: transparent; border: none;
+      color: rgba(255,255,255,0.85); font-size: 22px;
+      cursor: pointer; padding: 4px 8px;
+    }
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-he { font-family: 'Frank Ruhl Libre', serif; font-size: 26px; font-weight: 700; color: var(--gold); }
+    .logo-meta { display: flex; flex-direction: column; line-height: 1.1; }
+    .logo-en { font-size: 13px; font-weight: 600; color: #fff; letter-spacing: 3px; }
+    .logo-sub { font-size: 10px; color: rgba(255,255,255,0.5); letter-spacing: 2px; text-transform: uppercase; }
+    .header-actions { display: flex; align-items: center; gap: 8px; }
+    .header-btn {
+      background: transparent; border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.75); padding: 7px 13px;
+      font-size: 12px; font-weight: 500; cursor: pointer;
+      transition: all 0.2s; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 6px;
+      border-radius: 4px; font-family: inherit;
+    }
+    .header-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .header-btn-soutenir { color: var(--gold); border-color: rgba(197,165,90,0.5); }
+    .header-btn-soutenir:hover { background: rgba(197,165,90,0.12); }
+
+    /* LANG SWITCHER */
+    .lang-switcher { display: flex; gap: 6px; align-items: center; }
+    .lang-switcher a {
+      font-family: 'Inter', sans-serif; font-size: 11px;
+      padding: 3px 7px; border-radius: 2px; letter-spacing: 1px;
+      color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.15);
+      text-decoration: none;
+    }
+    .lang-switcher a.active { color: var(--gold); border-color: var(--gold); }
+    .lang-switcher a:hover { color: var(--gold); border-color: var(--gold); }
+
+    /* LANGUAGE PICKER */
+    .lang-picker { display: inline-flex; gap: 3px; margin-right: 6px; }
+    .lang-btn {
+      background: transparent; border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.55); padding: 5px 9px; font-size: 11px;
+      cursor: pointer; font-family: inherit; letter-spacing: 1px;
+      border-radius: 3px; transition: all 0.15s;
+    }
+    .lang-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .lang-btn.is-active { background: var(--gold); color: var(--navy); border-color: var(--gold); font-weight: 600; }
+
+    .simanim-dropdown { position: relative; }
+    .simanim-menu {
+      position: absolute; top: calc(100% + 6px); right: 0;
+      background: #fff; border: 1px solid var(--border);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+      border-radius: 6px; min-width: 280px; z-index: 100;
+      display: none; padding: 6px;
+    }
+    .simanim-menu.open { display: block; }
+    .simanim-menu a {
+      display: block; padding: 10px 14px; text-decoration: none;
+      color: var(--text); font-size: 13px; line-height: 1.4;
+      border-radius: 4px; transition: background 0.15s;
+    }
+    .simanim-menu a:hover { background: var(--cream); }
+    .simanim-menu a strong { color: var(--navy); font-size: 14px; font-weight: 600; }
+    .simanim-menu a span { color: var(--text-muted); font-size: 12px; }
+
+    /* APP LAYOUT */
+    .chat-app {
+      flex: 1; display: flex; min-height: 0; overflow: hidden;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: var(--sidebar-width); flex-shrink: 0;
+      background: var(--sidebar-bg); color: var(--sidebar-text);
+      display: flex; flex-direction: column;
+      border-right: 1px solid rgba(197,165,90,0.2);
+    }
+    .sidebar-header {
+      padding: 14px 16px 10px; flex-shrink: 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .new-conv-btn {
+      width: 100%; padding: 11px 14px;
+      background: var(--gold); color: var(--navy);
+      border: none; border-radius: 6px;
+      font-family: inherit; font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: background 0.2s;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .new-conv-btn:hover { background: var(--gold-light); }
+    .sidebar-section-label {
+      font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      padding: 14px 16px 8px; font-weight: 600;
+    }
+    .conv-list {
+      flex: 1; overflow-y: auto; padding: 0 8px 16px;
+    }
+    .conv-list::-webkit-scrollbar { width: 6px; }
+    .conv-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+    .conv-empty {
+      padding: 16px; font-size: 12px; color: rgba(255,255,255,0.4);
+      font-style: italic; text-align: center; line-height: 1.5;
+    }
+    .conv-item {
+      display: flex; align-items: flex-start; gap: 8px;
+      padding: 10px 12px; margin: 2px 0;
+      border-radius: 6px; cursor: pointer;
+      transition: background 0.15s;
+      font-size: 13px; color: rgba(255,255,255,0.8);
+    }
+    .conv-item:hover { background: rgba(255,255,255,0.05); }
+    .conv-item.active { background: rgba(197,165,90,0.18); color: #fff; }
+    .conv-item-content { flex: 1; min-width: 0; }
+    .conv-item-title {
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      font-weight: 500; line-height: 1.35;
+    }
+    .conv-item-meta {
+      font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 3px;
+      letter-spacing: 0.3px;
+    }
+    .conv-item-del {
+      flex-shrink: 0; opacity: 0; transition: opacity 0.15s;
+      background: transparent; border: none; color: rgba(255,255,255,0.5);
+      cursor: pointer; padding: 4px; border-radius: 3px;
+      font-size: 12px;
+    }
+    .conv-item:hover .conv-item-del { opacity: 1; }
+    .conv-item-del:hover { color: var(--red); background: rgba(192,57,43,0.15); }
+    .sidebar-footer {
+      padding: 12px 16px; border-top: 1px solid rgba(255,255,255,0.06);
+      font-size: 11px; color: rgba(255,255,255,0.35); text-align: center;
+    }
+
+    /* MAIN AREA */
+    .main-area {
+      flex: 1; display: flex; flex-direction: column; min-width: 0;
+      background: var(--cream);
+    }
+
+    /* WELCOME SCREEN */
+    .welcome-screen {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 32px 20px; overflow-y: auto;
+    }
+    .welcome-screen.hidden { display: none; }
+    .welcome-inner { max-width: 720px; width: 100%; text-align: center; }
+    .welcome-he {
+      font-family: 'Frank Ruhl Libre', serif; font-size: 56px;
+      color: var(--navy); margin-bottom: 6px; direction: rtl;
+    }
+    .welcome-en {
+      font-family: 'Cormorant Garamond', serif; font-size: 24px;
+      color: var(--gold); font-weight: 500; margin-bottom: 12px;
+      letter-spacing: 4px;
+    }
+    .welcome-tagline {
+      font-size: 15px; color: var(--text-mid); margin-bottom: 28px;
+      max-width: 540px; margin-left: auto; margin-right: auto; line-height: 1.65;
+    }
+
+    .selector-block {
+      background: var(--white); border: 1px solid var(--border);
+      padding: 18px 22px; margin-bottom: 14px;
+      border-left: 3px solid var(--gold);
+      text-align: left;
+    }
+    .selector-label {
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 10px; font-weight: 600;
+    }
+    .selector-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      padding: 8px 14px; font-size: 13px; font-weight: 500;
+      background: var(--cream); color: var(--text-mid);
+      border: 1px solid var(--border); cursor: pointer;
+      transition: all 0.15s; border-radius: 4px; font-family: inherit;
+    }
+    .chip:hover { border-color: var(--gold); color: var(--navy); }
+    .chip.selected {
+      background: var(--navy); color: var(--gold); border-color: var(--navy);
+    }
+
+    .start-btn {
+      margin-top: 18px; width: 100%; padding: 15px;
+      background: var(--gold); color: var(--navy);
+      font-family: inherit; font-size: 14px; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase;
+      border: none; cursor: pointer; transition: background 0.2s;
+      border-radius: 4px;
+    }
+    .start-btn:hover { background: var(--gold-light); }
+    .start-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .quick-questions {
+      margin-top: 24px; display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .quick-q {
+      padding: 13px 15px; background: var(--white); border: 1px solid var(--border);
+      font-size: 13px; color: var(--text-mid); cursor: pointer;
+      text-align: left; line-height: 1.45; transition: all 0.15s;
+      border-radius: 4px; font-family: inherit;
+    }
+    .quick-q:hover { border-color: var(--gold); color: var(--navy); transform: translateY(-1px); }
+
+    /* MESSAGES AREA */
+    .messages-wrap {
+      flex: 1; overflow-y: auto;
+      padding: 22px 16px; display: none;
+    }
+    .messages-wrap.active { display: block; }
+    .messages-inner { max-width: 880px; margin: 0 auto; }
+
+    .conv-meta-bar {
+      max-width: 880px; margin: 0 auto 18px;
+      padding: 8px 14px; background: rgba(197,165,90,0.08);
+      border-left: 3px solid var(--gold); border-radius: 0 4px 4px 0;
+      font-size: 12px; color: var(--text-mid);
+    }
+
+    .message {
+      display: flex; gap: 14px; margin-bottom: 22px;
+      animation: fadeUp 0.25s ease;
+    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+    .avatar {
+      flex-shrink: 0; width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Frank Ruhl Libre', serif; font-weight: 700;
+      font-size: 16px; border-radius: 50%;
+    }
+    .avatar-user { background: var(--cream-dark); color: var(--text-mid); }
+    .avatar-assistant { background: var(--navy); color: var(--gold); font-size: 18px; }
+
+    .bubble {
+      flex: 1; min-width: 0;
+      padding: 13px 17px; border-radius: 12px;
+      font-size: 15px; line-height: 1.65;
+      direction: ltr; text-align: left;
+    }
+    .bubble-user { background: var(--user-bg); color: var(--user-color); border-top-left-radius: 4px; }
+    .bubble-assistant { background: var(--assistant-bg); color: var(--assistant-color); border: 1px solid var(--border); border-top-left-radius: 4px; }
+
+    .bubble[dir="rtl"] { direction: rtl; text-align: right; }
+    .bubble[dir="rtl"] p { font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', serif; font-size: 17px; line-height: 1.85; }
+    .bubble[dir="rtl"] h1, .bubble[dir="rtl"] h2, .bubble[dir="rtl"] h3, .bubble[dir="rtl"] h4 {
+      font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', serif; text-align: right;
+    }
+    .bubble[dir="rtl"] ul, .bubble[dir="rtl"] ol { margin: 8px 22px 8px 0; padding: 0; }
+    .bubble[dir="rtl"] li { text-align: right; }
+    .bubble[dir="rtl"] blockquote { border-left: none; border-right: 3px solid var(--gold); padding: 4px 12px 4px 0; }
+    .bubble[dir="rtl"] pre, .bubble[dir="rtl"] code { direction: ltr; text-align: left; unicode-bidi: embed; display: block; }
+    .bubble[dir="rtl"] table { direction: rtl; }
+    .bubble[dir="rtl"] th, .bubble[dir="rtl"] td { text-align: right; }
+
+    .bubble p { margin: 0 0 10px 0; }
+    .bubble p:last-child { margin-bottom: 0; }
+    .bubble h1, .bubble h2, .bubble h3, .bubble h4 {
+      margin: 14px 0 8px; line-height: 1.3; color: var(--navy);
+    }
+    .bubble-user h1, .bubble-user h2, .bubble-user h3, .bubble-user h4 { color: #fff; }
+    .bubble h1 { font-size: 20px; } .bubble h2 { font-size: 19px; }
+    .bubble h3 { font-size: 18px; } .bubble h4 { font-size: 17px; }
+    .bubble ul, .bubble ol { margin: 8px 0 8px 22px; }
+    .bubble li { margin: 4px 0; }
+    .bubble strong { font-weight: 600; }
+    .bubble em { font-style: italic; }
+    .bubble a { color: var(--gold); text-decoration: underline; }
+    .bubble-user a { color: var(--gold-light); }
+    .bubble code {
+      background: rgba(0,0,0,0.05); padding: 2px 5px; border-radius: 3px;
+      font-family: 'Menlo', monospace; font-size: 13px;
+    }
+    .bubble-user code { background: rgba(255,255,255,0.15); }
+    .bubble pre { background: rgba(0,0,0,0.05); padding: 10px; border-radius: 6px; overflow-x: auto; }
+    .bubble blockquote { border-left: 3px solid var(--gold); padding-left: 12px; margin: 8px 0; color: var(--text-mid); }
+    .bubble [dir="rtl"], .bubble [lang="he"] {
+      font-family: 'Frank Ruhl Libre', serif; direction: rtl; unicode-bidi: isolate;
+      display: inline-block; font-size: 1.08em;
+    }
+
+    .tool-notice {
+      max-width: 880px; margin: 0 auto 14px auto; padding: 8px 14px;
+      background: rgba(197,165,90,0.1); color: var(--text-mid);
+      font-size: 12px; font-style: italic; border-left: 2px solid var(--gold);
+      border-radius: 0 4px 4px 0;
+    }
+
+    /* Feedback buttons */
+    .feedback-bar {
+      display: flex; gap: 6px; margin-top: 4px; margin-bottom: 8px;
+      padding-left: 52px;
+      align-items: center; opacity: 0.6; transition: opacity 0.2s;
+      flex-wrap: wrap;
+    }
+    .feedback-bar:hover { opacity: 1; }
+    .fb-btn {
+      background: transparent; border: 1px solid var(--border);
+      color: var(--text-muted); padding: 4px 10px;
+      border-radius: 4px; cursor: pointer; font-family: inherit;
+      font-size: 13px; transition: all 0.15s;
+    }
+    .fb-btn:hover { border-color: var(--gold); color: var(--navy); background: rgba(197,165,90,0.05); }
+    .fb-btn.is-selected { border-color: var(--gold); background: rgba(197,165,90,0.15); color: var(--navy); }
+    .fb-btn.fb-down.is-selected { border-color: #C0392B; background: rgba(192,57,43,0.10); color: #C0392B; }
+    .fb-btn:disabled { opacity: 0.4; cursor: default; }
+    .fb-thanks {
+      font-size: 12px; color: var(--gold); font-style: italic; margin-left: 6px;
+    }
+    .fb-comment-box {
+      width: 100%; margin-top: 8px; margin-left: 52px;
+      padding: 10px 12px; background: var(--white);
+      border: 1px solid var(--border); border-radius: 6px;
+      font-family: inherit; font-size: 13px; resize: vertical;
+      min-height: 60px;
+    }
+    .fb-comment-box:focus { outline: none; border-color: var(--gold); }
+    .fb-comment-actions { display: flex; gap: 6px; margin-top: 6px; margin-left: 52px; }
+    .fb-comment-send { background: var(--navy); color: #fff; border: none; padding: 5px 12px; font-size: 12px; cursor: pointer; border-radius: 4px; }
+    .fb-comment-send:hover { background: #2A2F4A; }
+    .fb-comment-skip { background: transparent; color: var(--text-muted); border: none; padding: 5px 12px; font-size: 12px; cursor: pointer; }
+
+    .typing { display: flex; gap: 5px; padding: 6px 0; }
+    .typing span {
+      width: 7px; height: 7px; background: var(--text-muted);
+      border-radius: 50%; animation: bounce 1.2s ease-in-out infinite;
+    }
+    .typing span:nth-child(2) { animation-delay: 0.15s; }
+    .typing span:nth-child(3) { animation-delay: 0.3s; }
+    @keyframes bounce { 0%, 60%, 100% { opacity: 0.4; } 30% { opacity: 1; transform: scale(1.3); } }
+
+    /* INPUT AREA */
+    .input-wrap {
+      flex-shrink: 0; padding: 14px 16px 20px;
+      background: var(--cream); border-top: 1px solid var(--border);
+    }
+    .input-inner {
+      max-width: 880px; margin: 0 auto;
+      display: flex; gap: 10px; align-items: flex-end;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 12px; padding: 8px 8px 8px 16px;
+      box-shadow: 0 4px 16px rgba(26,31,58,0.04);
+    }
+    .input-inner:focus-within { border-color: var(--gold); box-shadow: 0 4px 16px rgba(197,165,90,0.15); }
+    .input-textarea {
+      flex: 1; border: none; resize: none; outline: none;
+      font-family: inherit; font-size: 16px; line-height: 1.5;
+      background: transparent; color: var(--text);
+      max-height: 200px; padding: 10px 0;
+    }
+    .send-btn {
+      flex-shrink: 0; width: 42px; height: 42px;
+      background: var(--gold); color: var(--navy); border: none;
+      border-radius: 8px; cursor: pointer; transition: background 0.2s;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .send-btn:hover { background: var(--gold-light); }
+    .send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .input-footer {
+      max-width: 880px; margin: 8px auto 0; text-align: center;
+      font-size: 11px; color: var(--text-muted);
+    }
+
+    .sidebar-overlay {
+      display: none; position: fixed; inset: 60px 0 0 0;
+      background: rgba(0,0,0,0.4); z-index: 40;
+    }
+    .sidebar-overlay.open { display: block; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      :root { --sidebar-width: 260px; }
+      .sidebar-toggle { display: block; }
+      .sidebar {
+        position: fixed; left: 0; top: 60px; bottom: 0;
+        z-index: 45; transform: translateX(-100%);
+        transition: transform 0.25s ease;
+      }
+      .sidebar.open { transform: translateX(0); }
+      .logo-sub { display: none; }
+    }
+    @media (max-width: 600px) {
+      header { padding: 0 14px; height: 56px; }
+      .sidebar { top: 56px; }
+      .sidebar-overlay { top: 56px; }
+      .welcome-he { font-size: 42px; }
+      .welcome-en { font-size: 20px; }
+      .welcome-tagline { font-size: 13px; margin-bottom: 22px; }
+      .quick-questions { grid-template-columns: 1fr; }
+      .selector-block { padding: 14px; }
+      .messages-wrap { padding: 14px 12px; }
+      .input-wrap { padding: 10px; }
+      .input-textarea { font-size: 15px; }
+      .bubble { font-size: 14px; padding: 11px 13px; }
+      .avatar { width: 30px; height: 30px; font-size: 13px; }
+      .header-btn { padding: 6px 10px; font-size: 11px; }
+      #simanim-btn { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <button class="sidebar-toggle" id="sidebar-toggle" aria-label="History menu">☰</button>
+    <a href="index.html" class="logo">
+      <span class="logo-he">דעת</span>
+      <div class="logo-meta">
+        <span class="logo-en">Daat Torah</span>
+        <span class="logo-sub">AI Chat</span>
+      </div>
+    </a>
+  </div>
+  <div class="header-actions">
+    <span class="lang-switcher">
+      <a href="chat.html">FR</a>
+      <a href="chat-he.html">HE</a>
+      <a href="chat-en.html" class="active">EN</a>
+    </span>
+    <span class="lang-picker" id="lang-picker">
+      <button class="lang-btn" data-lang="fr" title="Français">FR</button>
+      <button class="lang-btn" data-lang="he" title="עברית" style="font-family:'Frank Ruhl Libre',serif;">ע</button>
+      <button class="lang-btn" data-lang="en" title="English">EN</button>
+    </span>
+    <div class="simanim-dropdown">
+      <button class="header-btn" id="simanim-btn">📚 Simanim ▾</button>
+      <div class="simanim-menu" id="simanim-menu">
+        <input type="text" id="simanim-search" placeholder="Search siman..." style="width:100%; padding:10px 14px; border:none; border-bottom:1px solid var(--border); font-size:13px; box-sizing:border-box; border-radius:4px 4px 0 0;">
+        <div id="simanim-list" style="max-height:400px; overflow-y:auto;">
+          <!-- Simanim générés dynamiquement -->
+        </div>
+      </div>
+    </div>
+    <a href="communaute-en.html" class="header-btn">Community</a>
+    <a href="soutenir-en.html" class="header-btn header-btn-soutenir">♥ Support</a>
+    <a href="index-en.html" class="header-btn">← Home</a>
+  </div>
+</header>
+
+<div class="chat-app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <button class="new-conv-btn" id="new-conv-btn">＋ New conversation</button>
+    </div>
+    <div class="sidebar-section-label">History</div>
+    <div class="conv-list" id="conv-list"></div>
+    <div class="sidebar-footer">דעת · Daat Torah</div>
+  </aside>
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <!-- MAIN AREA -->
+  <main class="main-area">
+
+    <!-- WELCOME SCREEN -->
+    <div class="welcome-screen" id="welcome">
+      <div class="welcome-inner">
+        <div class="welcome-he">דעת</div>
+        <div class="welcome-en">DAAT</div>
+        <p class="welcome-tagline">
+          Halachic study assistant. Daat consults the DAAT corpus (Shulchan Aruch, biurim, מקורות) and Sefaria to answer with precision, adapting to your level and your minhag.
+        </p>
+
+        <div class="selector-block">
+          <div class="selector-label">① Choose your level of study</div>
+          <div class="selector-chips" id="niveau-chips">
+            <button class="chip" data-niveau="Débutant">Beginner</button>
+            <button class="chip" data-niveau="Intermédiaire">Intermediate</button>
+            <button class="chip" data-niveau="Yeshiva">Yeshiva</button>
+            <button class="chip" data-niveau="Lamdan">Lamdan / Talmid Chacham</button>
+          </div>
+        </div>
+
+        <div class="selector-block">
+          <div class="selector-label">② Choose your minhag</div>
+          <div class="selector-chips" id="minhag-chips">
+            <button class="chip" data-minhag="Séfarade">Sefardi</button>
+            <button class="chip" data-minhag="Ashkénaze">Ashkenazi</button>
+            <button class="chip" data-minhag="Habad">Chabad</button>
+            <button class="chip" data-minhag="Autre">Other</button>
+          </div>
+        </div>
+
+        <button class="start-btn" id="start-btn" disabled>Choose level and minhag</button>
+
+        <div class="quick-questions">
+          <button class="quick-q" data-q="What is the mitzvat oneg Shabbat according to the Shulchan Aruch Siman רמ״ב?">📖 What is mitzvat oneg Shabbat?</button>
+          <button class="quick-q" data-q="Can you explain Siman רמ״ג to me — renting one's bath to a non-Jew?">🛁 Siman רמ״ג — Bath and non-Jew</button>
+          <button class="quick-q" data-q="What is the difference between Siman רמ״ג and Siman רמ״ו?">⚖ Diff. Siman רמ״ג vs 246</button>
+          <button class="quick-q" data-q="Explain to me the concept of מראית עין in hilchot Shabbat.">👁 Mar'it ayin in practice</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MESSAGES AREA -->
+    <div class="messages-wrap" id="messages-wrap">
+      <div class="messages-inner" id="messages-inner"></div>
+    </div>
+
+    <!-- INPUT AREA -->
+    <div class="input-wrap">
+      <div class="input-inner">
+        <textarea
+          id="input"
+          class="input-textarea"
+          placeholder="Ask your question — for example: « May one rent a car to a non-Jew for Shabbat? »"
+          rows="1"
+        ></textarea>
+        <button id="send-btn" class="send-btn" title="Send">↑</button>
+      </div>
+      <div class="input-footer">
+        Daat is an educational assistant. For halacha lema'aseh, consult your Rav.
+      </div>
+    </div>
+
+  </main>
+
+</div>
+
+<script>
+// Si on est sur un domaine vercel.app (preview ou prod du projet), on utilise
+// l'API du même domaine — sinon (embed externe / daattorah.com), on tape la prod.
+const API_BASE = (/\.vercel\.app$/.test(window.location.host) ? window.location.origin : 'https://daatai.vercel.app');
+const API_URL = API_BASE + '/api/chat';
+const HISTORY_KEY = 'daat-conversations-v1';
+const PAGE_LANG = 'en';
+
+// ============================================================
+// MARKDOWN RENDERER
+// ============================================================
+function renderMarkdown(text) {
+  if (!text) return '';
+  let html = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  html = html.replace(/([֐-׿][֐-׿\s'""״׳''-]*[֐-׿]|[֐-׿])/g, '<span dir="rtl" lang="he">$1</span>');
+  html = html.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+  html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+  html = html.replace(/^#### (.+)$/gm, '<h4>$1</h4>');
+  html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+  html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+  html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>');
+  html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  html = html.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  html = html.replace(/^[\s]*[-*] (.+)$/gm, '<li>$1</li>');
+  html = html.replace(/(<li>[\s\S]+?<\/li>)/g, m => m.includes('<ul>') || m.includes('<ol>') ? m : '<ul>' + m + '</ul>');
+  html = html.replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>');
+  const blocks = html.split(/\n\n+/);
+  html = blocks.map(b => {
+    b = b.trim();
+    if (!b) return '';
+    if (/^<(h[1-6]|ul|ol|pre|blockquote|li)/.test(b)) return b;
+    return '<p>' + b.replace(/\n/g, '<br>') + '</p>';
+  }).join('\n');
+  return html;
+}
+
+// ============================================================
+// CONVERSATION STORAGE
+// ============================================================
+function loadConversations() {
+  try {
+    const raw = localStorage.getItem(HISTORY_KEY);
+    if (!raw) return [];
+    const arr = JSON.parse(raw);
+    return Array.isArray(arr) ? arr : [];
+  } catch (_) { return []; }
+}
+function saveConversations(convs) {
+  try { localStorage.setItem(HISTORY_KEY, JSON.stringify(convs)); } catch (_) {}
+}
+function upsertConversation(conv) {
+  const all = loadConversations();
+  const idx = all.findIndex(c => c.id === conv.id);
+  conv.updatedAt = Date.now();
+  if (!conv.createdAt) conv.createdAt = conv.updatedAt;
+  if (idx >= 0) all[idx] = conv;
+  else all.unshift(conv);
+  saveConversations(all.slice(0, 50));
+  syncConvUpsert(conv);
+}
+function deleteConversation(id) {
+  saveConversations(loadConversations().filter(c => c.id !== id));
+  syncConvDelete(id);
+}
+
+// ============================================================
+// SERVER SYNC
+// ============================================================
+const SYNC_BASE = API_BASE + '/api/conversations';
+const SYNC_DEBOUNCE_MS = 1500;
+const _syncUpsertQueue = new Map();
+let _syncUpsertTimer = null;
+let _syncPullDone = false;
+
+function isLoggedIn() {
+  return !!(window.daatAuth && window.daatAuth.getUser && window.daatAuth.getUser());
+}
+
+async function _syncFetch(method, opts) {
+  opts = opts || {};
+  return fetch(SYNC_BASE + (opts.qs || ''), {
+    method,
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    body: opts.body ? JSON.stringify(opts.body) : undefined,
+  });
+}
+
+function _flushSyncUpserts() {
+  _syncUpsertTimer = null;
+  if (!isLoggedIn()) return;
+  const items = Array.from(_syncUpsertQueue.values());
+  _syncUpsertQueue.clear();
+  for (const conv of items) {
+    _syncFetch('POST', { body: conv }).catch(err => {
+      console.warn('[sync] upsert failed', conv.id, err);
+    });
+  }
+}
+
+function syncConvUpsert(conv) {
+  if (!isLoggedIn()) return;
+  _syncUpsertQueue.set(conv.id, conv);
+  if (_syncUpsertTimer) clearTimeout(_syncUpsertTimer);
+  _syncUpsertTimer = setTimeout(_flushSyncUpserts, SYNC_DEBOUNCE_MS);
+}
+
+function syncConvDelete(id) {
+  if (!isLoggedIn()) return;
+  _syncUpsertQueue.delete(id);
+  _syncFetch('DELETE', { qs: '?id=' + encodeURIComponent(id) })
+    .catch(err => console.warn('[sync] delete failed', id, err));
+}
+
+async function syncPullAndMerge() {
+  if (!isLoggedIn()) return;
+  try {
+    const res = await _syncFetch('GET');
+    if (!res.ok) return;
+    const data = await res.json();
+    const serverConvs = Array.isArray(data.conversations) ? data.conversations : [];
+
+    const local = loadConversations();
+    const localMap = new Map(local.map(c => [c.id, c]));
+    const merged = [];
+    const serverIds = new Set();
+
+    for (const sc of serverConvs) {
+      const lc = localMap.get(sc.id);
+      if (!lc || (sc.updatedAt || 0) >= (lc.updatedAt || 0)) {
+        merged.push(sc);
+      } else {
+        merged.push(lc);
+        _syncUpsertQueue.set(lc.id, lc);
+      }
+      serverIds.add(sc.id);
+    }
+    for (const lc of local) {
+      if (!serverIds.has(lc.id)) {
+        merged.push(lc);
+        _syncUpsertQueue.set(lc.id, lc);
+      }
+    }
+
+    merged.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+    saveConversations(merged.slice(0, 50));
+    _syncPullDone = true;
+
+    if (_syncUpsertQueue.size > 0) _flushSyncUpserts();
+
+    if (typeof renderConvList === 'function') renderConvList();
+  } catch (err) {
+    console.warn('[sync] pull failed', err);
+  }
+}
+
+function _bindAuthSyncHook() {
+  if (window.daatAuth && typeof window.daatAuth.onChange === 'function') {
+    window.daatAuth.onChange(user => {
+      if (user) {
+        _syncPullDone = false;
+        syncPullAndMerge();
+      }
+    });
+    if (window.daatAuth.getUser && window.daatAuth.getUser()) {
+      syncPullAndMerge();
+    }
+  } else {
+    setTimeout(_bindAuthSyncHook, 100);
+  }
+}
+window.addEventListener('DOMContentLoaded', _bindAuthSyncHook);
+
+function getConversation(id) {
+  return loadConversations().find(c => c.id === id) || null;
+}
+function newConversationId() {
+  return 'c-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7);
+}
+function autoTitleFromMessage(text) {
+  let t = text;
+  if (t.startsWith('[Session profile]') || t.startsWith('[Profil de cette session]')) {
+    const lines = t.split('\n');
+    const blankIdx = lines.findIndex((l, i) => i > 0 && l.trim() === '');
+    if (blankIdx > 0) t = lines.slice(blankIdx + 1).join('\n');
+  }
+  t = t.trim().replace(/\s+/g, ' ');
+  if (t.length === 0) return 'New conversation';
+  return t.length > 60 ? t.slice(0, 60) + '…' : t;
+}
+function relativeDate(ts) {
+  if (!ts) return '';
+  const d = new Date(ts), now = new Date();
+  const sameDay = d.toDateString() === now.toDateString();
+  const yest = new Date(now); yest.setDate(yest.getDate() - 1);
+  const isYest = d.toDateString() === yest.toDateString();
+  if (sameDay) return 'Today · ' + d.toLocaleTimeString('en-US', {hour:'2-digit',minute:'2-digit'});
+  if (isYest) return 'Yesterday · ' + d.toLocaleTimeString('en-US', {hour:'2-digit',minute:'2-digit'});
+  return d.toLocaleDateString('en-US', {day:'2-digit', month:'short'}) + ' · ' + d.toLocaleTimeString('en-US', {hour:'2-digit',minute:'2-digit'});
+}
+
+// ============================================================
+// STATE
+// ============================================================
+const state = {
+  currentConvId: null,
+  messages: [],
+  selectedNiveau: null,
+  selectedMinhag: null,
+  isStreaming: false,
+  lastRateInfo: null,
+  previousAperçuRemaining: null,
+  pendingTransitionModal: false,
+};
+
+// ============================================================
+// DOM REFS
+// ============================================================
+const $welcome = document.getElementById('welcome');
+const $messagesWrap = document.getElementById('messages-wrap');
+const $messagesInner = document.getElementById('messages-inner');
+const $input = document.getElementById('input');
+const $sendBtn = document.getElementById('send-btn');
+const $startBtn = document.getElementById('start-btn');
+const $newConvBtn = document.getElementById('new-conv-btn');
+const $convList = document.getElementById('conv-list');
+const $niveauChips = document.getElementById('niveau-chips');
+const $minhagChips = document.getElementById('minhag-chips');
+const $sidebar = document.getElementById('sidebar');
+const $sidebarToggle = document.getElementById('sidebar-toggle');
+const $sidebarOverlay = document.getElementById('sidebar-overlay');
+
+// ============================================================
+// SIDEBAR (mobile toggle)
+// ============================================================
+$sidebarToggle.addEventListener('click', () => {
+  $sidebar.classList.toggle('open');
+  $sidebarOverlay.classList.toggle('open');
+});
+$sidebarOverlay.addEventListener('click', () => {
+  $sidebar.classList.remove('open');
+  $sidebarOverlay.classList.remove('open');
+});
+
+// ============================================================
+// CONVERSATION LIST RENDER
+// ============================================================
+function renderConvList() {
+  const convs = loadConversations();
+  if (convs.length === 0) {
+    $convList.innerHTML = '<div class="conv-empty">No conversations yet. Choose your level and your minhag, then ask your first question.</div>';
+    return;
+  }
+  $convList.innerHTML = '';
+  convs.forEach(c => {
+    const el = document.createElement('div');
+    el.className = 'conv-item' + (c.id === state.currentConvId ? ' active' : '');
+    el.dataset.id = c.id;
+    el.innerHTML = `
+      <div class="conv-item-content">
+        <div class="conv-item-title">${escapeHtml(c.title || 'New conversation')}</div>
+        <div class="conv-item-meta">${escapeHtml(c.niveau || '')} · ${escapeHtml(c.minhag || '')} · ${relativeDate(c.updatedAt || c.createdAt)}</div>
+      </div>
+      <button class="conv-item-del" title="Delete this conversation">🗑</button>
+    `;
+    el.addEventListener('click', e => {
+      if (e.target.closest('.conv-item-del')) {
+        e.stopPropagation();
+        if (confirm('Delete this conversation?')) {
+          deleteConversation(c.id);
+          if (state.currentConvId === c.id) startFreshState();
+          renderConvList();
+        }
+        return;
+      }
+      loadConversationIntoView(c.id);
+      if (window.innerWidth <= 900) {
+        $sidebar.classList.remove('open');
+        $sidebarOverlay.classList.remove('open');
+      }
+    });
+    $convList.appendChild(el);
+  });
+}
+
+function escapeHtml(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+// ============================================================
+// FRESH STATE
+// ============================================================
+function startFreshState() {
+  state.currentConvId = null;
+  state.messages = [];
+  state.selectedNiveau = null;
+  state.selectedMinhag = null;
+  $messagesInner.innerHTML = '';
+  $messagesWrap.classList.remove('active');
+  $welcome.classList.remove('hidden');
+  $niveauChips.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+  $minhagChips.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+  $input.value = '';
+  $input.style.height = 'auto';
+  updateStartButton();
+  renderConvList();
+}
+
+// ============================================================
+// LOAD CONVERSATION INTO VIEW
+// ============================================================
+function loadConversationIntoView(id) {
+  const conv = getConversation(id);
+  if (!conv) return;
+  state.currentConvId = conv.id;
+  state.messages = conv.messages || [];
+  state.selectedNiveau = conv.niveau;
+  state.selectedMinhag = conv.minhag;
+  $messagesInner.innerHTML = '';
+  const metaBar = document.createElement('div');
+  metaBar.className = 'conv-meta-bar';
+  metaBar.innerHTML = `📋 <strong>${escapeHtml(conv.title || '')}</strong> · Level: <strong>${escapeHtml(conv.niveau || '')}</strong> · Minhag: <strong>${escapeHtml(conv.minhag || '')}</strong>`;
+  $messagesInner.appendChild(metaBar);
+  state.messages.forEach((m, i) => {
+    const bubble = renderMessage(m.role, m.content);
+    if (m.role === 'assistant') {
+      attachFeedbackBar(bubble, m.content);
+    }
+  });
+  $welcome.classList.add('hidden');
+  $messagesWrap.classList.add('active');
+  scrollToBottom();
+  $input.focus();
+  renderConvList();
+}
+
+// ============================================================
+// CHIP SELECTION
+// ============================================================
+function updateStartButton() {
+  const ready = state.selectedNiveau && state.selectedMinhag;
+  $startBtn.disabled = !ready;
+  const niveauEn = { 'Débutant':'Beginner','Intermédiaire':'Intermediate','Yeshiva':'Yeshiva','Lamdan':'Lamdan' };
+  const minhagEn = { 'Séfarade':'Sefardi','Ashkénaze':'Ashkenazi','Habad':'Chabad','Autre':'Other' };
+  $startBtn.textContent = ready
+    ? `Start — ${niveauEn[state.selectedNiveau]||state.selectedNiveau} · ${minhagEn[state.selectedMinhag]||state.selectedMinhag} →`
+    : 'Choose level and minhag';
+}
+
+$niveauChips.addEventListener('click', e => {
+  const btn = e.target.closest('[data-niveau]');
+  if (!btn) return;
+  $niveauChips.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+  btn.classList.add('selected');
+  state.selectedNiveau = btn.dataset.niveau;
+  updateStartButton();
+});
+
+$minhagChips.addEventListener('click', e => {
+  const btn = e.target.closest('[data-minhag]');
+  if (!btn) return;
+  $minhagChips.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+  btn.classList.add('selected');
+  state.selectedMinhag = btn.dataset.minhag;
+  updateStartButton();
+});
+
+// ============================================================
+// LANGUAGE PICKER
+// ============================================================
+const LANG_KEY = 'daat-lang-v1';
+const LANG_LABELS = {
+  fr: { name: 'français', code: 'fr' },
+  he: { name: 'עברית', code: 'he' },
+  en: { name: 'English', code: 'en' },
+};
+function getLang() {
+  return localStorage.getItem(LANG_KEY) || PAGE_LANG;
+}
+function setLang(lang) {
+  if (!LANG_LABELS[lang]) lang = PAGE_LANG;
+  localStorage.setItem(LANG_KEY, lang);
+  document.documentElement.lang = lang;
+  document.body.dir = (lang === 'he') ? 'rtl' : 'ltr';
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('is-active', b.dataset.lang === lang);
+  });
+}
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => setLang(btn.dataset.lang));
+});
+setLang(getLang());
+
+function buildIntroMessage() {
+  const lang = getLang();
+  return `[Session profile]
+- Study level: ${state.selectedNiveau}
+- Minhag: ${state.selectedMinhag}
+- Desired response language: ${LANG_LABELS[lang].name}
+
+I am ready to begin. Adapt your answers to this profile and reply in the indicated language.`;
+}
+
+$startBtn.addEventListener('click', () => {
+  if ($startBtn.disabled) return;
+  beginNewConversation(buildIntroMessage());
+});
+
+document.querySelectorAll('.quick-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (!state.selectedNiveau || !state.selectedMinhag) {
+      alert('First choose your level and your minhag.');
+      return;
+    }
+    const q = btn.dataset.q;
+    const lang = getLang();
+    const msg = `[Session profile]\n- Level: ${state.selectedNiveau}\n- Minhag: ${state.selectedMinhag}\n- Desired response language: ${LANG_LABELS[lang].name}\n\n${q}`;
+    beginNewConversation(msg);
+  });
+});
+
+function beginNewConversation(firstMessage) {
+  state.currentConvId = newConversationId();
+  state.messages = [];
+  $messagesInner.innerHTML = '';
+  $welcome.classList.add('hidden');
+  $messagesWrap.classList.add('active');
+  send(firstMessage);
+}
+
+$newConvBtn.addEventListener('click', () => {
+  if (state.isStreaming) return;
+  startFreshState();
+  if (window.innerWidth <= 900) {
+    $sidebar.classList.remove('open');
+    $sidebarOverlay.classList.remove('open');
+  }
+});
+
+// ============================================================
+// INPUT & SEND
+// ============================================================
+$input.addEventListener('input', () => {
+  $input.style.height = 'auto';
+  $input.style.height = Math.min($input.scrollHeight, 200) + 'px';
+});
+
+$input.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    submitInput();
+  }
+});
+
+$sendBtn.addEventListener('click', submitInput);
+
+function submitInput() {
+  const text = $input.value.trim();
+  if (!text || state.isStreaming) return;
+  $input.value = '';
+  $input.style.height = 'auto';
+
+  if (state.messages.length === 0 && state.selectedNiveau && state.selectedMinhag) {
+    const lang = getLang();
+    const msg = `[Session profile]\n- Level: ${state.selectedNiveau}\n- Minhag: ${state.selectedMinhag}\n- Desired response language: ${LANG_LABELS[lang].name}\n\n${text}`;
+    if (!state.currentConvId) state.currentConvId = newConversationId();
+    $welcome.classList.add('hidden');
+    $messagesWrap.classList.add('active');
+    send(msg);
+    return;
+  }
+  if (!state.currentConvId) {
+    alert('First choose your level and your minhag on the welcome screen.');
+    return;
+  }
+  send(text);
+}
+
+function detectMessageDir(text) {
+  if (!text) return 'ltr';
+  const heb = (text.match(/[א-תװ-ײ]/g) || []).length;
+  const lat = (text.match(/[A-Za-zÀ-ÿ]/g) || []).length;
+  if (heb === 0) return 'ltr';
+  return heb >= lat ? 'rtl' : 'ltr';
+}
+
+function renderMessage(role, content) {
+  const wrap = document.createElement('div');
+  wrap.className = 'message';
+  const avatar = document.createElement('div');
+  avatar.className = 'avatar ' + (role === 'user' ? 'avatar-user' : 'avatar-assistant');
+  avatar.textContent = role === 'user' ? 'Y' : 'ד';
+  const bubble = document.createElement('div');
+  bubble.className = 'bubble ' + (role === 'user' ? 'bubble-user' : 'bubble-assistant');
+  let displayed = content;
+  if (role === 'user') {
+    if (displayed.startsWith('[Session profile]') || displayed.startsWith('[Profil de cette session]')) {
+      const lines = displayed.split('\n');
+      const blankIdx = lines.findIndex((l, i) => i > 0 && l.trim() === '');
+      if (blankIdx > 0) displayed = lines.slice(blankIdx + 1).join('\n');
+      if (!displayed.trim()) displayed = '(Start of conversation)';
+    }
+  }
+  bubble.setAttribute('dir', detectMessageDir(displayed));
+  bubble.innerHTML = renderMarkdown(displayed);
+  wrap.appendChild(avatar);
+  wrap.appendChild(bubble);
+  $messagesInner.appendChild(wrap);
+  if (role === 'assistant') {
+    wrap.dataset.role = 'assistant';
+  }
+  scrollToBottom();
+  return bubble;
+}
+
+function attachFeedbackBar(assistantBubble, answerText) {
+  const wrap = assistantBubble.closest('.message');
+  if (!wrap) return;
+  if (wrap.querySelector('.feedback-bar')) return;
+  if (!answerText || answerText.length < 20) return;
+
+  const allMsgs = Array.from($messagesInner.querySelectorAll('.message'));
+  const idx = allMsgs.indexOf(wrap);
+  let lastUserContent = '';
+  for (let i = idx - 1; i >= 0; i--) {
+    const m = state.messages[i];
+    if (m && m.role === 'user') { lastUserContent = m.content; break; }
+  }
+
+  const bar = document.createElement('div');
+  bar.className = 'feedback-bar';
+  bar.innerHTML = `
+    <span style="font-size:11px; color:var(--text-muted); margin-right:6px;">This answer:</span>
+    <button class="fb-btn fb-up" title="Helpful">👍</button>
+    <button class="fb-btn fb-down" title="Needs correction">👎</button>
+    <span class="fb-thanks" style="display:none;"></span>
+  `;
+  wrap.insertAdjacentElement('afterend', bar);
+
+  bar.querySelector('.fb-up').addEventListener('click', () => sendFeedback('👍', wrap, bar, lastUserContent, answerText));
+  bar.querySelector('.fb-down').addEventListener('click', () => askDownComment(wrap, bar, lastUserContent, answerText));
+}
+
+function askDownComment(wrap, bar, question, answer) {
+  bar.querySelector('.fb-down').classList.add('is-selected');
+  bar.querySelectorAll('.fb-btn').forEach(b => b.disabled = true);
+  if (wrap.querySelector('.fb-comment-box')) return;
+  const ta = document.createElement('textarea');
+  ta.className = 'fb-comment-box';
+  ta.placeholder = 'Optional: why? (incorrect, source missing, inappropriate tone...) — will be sent to the admin.';
+  const actions = document.createElement('div');
+  actions.className = 'fb-comment-actions';
+  actions.innerHTML = `
+    <button class="fb-comment-send">Send feedback</button>
+    <button class="fb-comment-skip">No comment</button>
+  `;
+  wrap.appendChild(ta);
+  wrap.appendChild(actions);
+  ta.focus();
+  actions.querySelector('.fb-comment-send').addEventListener('click', () => {
+    sendFeedback('👎', wrap, bar, question, answer, ta.value.trim());
+    ta.remove(); actions.remove();
+  });
+  actions.querySelector('.fb-comment-skip').addEventListener('click', () => {
+    sendFeedback('👎', wrap, bar, question, answer, '');
+    ta.remove(); actions.remove();
+  });
+}
+
+async function sendFeedback(rating, wrap, bar, question, answer, comment) {
+  const upBtn = bar.querySelector('.fb-up');
+  const downBtn = bar.querySelector('.fb-down');
+  const thanks = bar.querySelector('.fb-thanks');
+  upBtn.disabled = true; downBtn.disabled = true;
+  if (rating === '👍') upBtn.classList.add('is-selected');
+  else downBtn.classList.add('is-selected');
+  thanks.style.display = '';
+  thanks.textContent = 'Sending…';
+
+  try {
+    const res = await fetch('/api/feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        rating,
+        question: question || '',
+        answer: answer || '',
+        niveau: state.selectedNiveau,
+        minhag: state.selectedMinhag,
+        comment: comment || '',
+        conversationId: state.currentConvId,
+        page: window.location.pathname,
+      }),
+    });
+    if (!res.ok) {
+      const j = await res.json().catch(() => ({}));
+      throw new Error(j.error || 'HTTP ' + res.status);
+    }
+    thanks.textContent = rating === '👍' ? 'Thanks!' : 'Received — thank you for the feedback.';
+    setTimeout(() => { thanks.style.opacity = '0.5'; }, 2000);
+  } catch (err) {
+    thanks.textContent = 'Error: ' + err.message;
+    thanks.style.color = '#C0392B';
+    upBtn.disabled = false; downBtn.disabled = false;
+    upBtn.classList.remove('is-selected'); downBtn.classList.remove('is-selected');
+  }
+}
+
+function appendToolNotice(label) {
+  const el = document.createElement('div');
+  el.className = 'tool-notice';
+  el.textContent = label;
+  $messagesInner.appendChild(el);
+  scrollToBottom();
+}
+
+function showTyping() {
+  const wrap = document.createElement('div');
+  wrap.className = 'message';
+  const avatar = document.createElement('div');
+  avatar.className = 'avatar avatar-assistant';
+  avatar.textContent = 'ד';
+  const bubble = document.createElement('div');
+  bubble.className = 'bubble bubble-assistant';
+  bubble.innerHTML = '<div class="typing"><span></span><span></span><span></span></div>';
+  wrap.appendChild(avatar);
+  wrap.appendChild(bubble);
+  $messagesInner.appendChild(wrap);
+  scrollToBottom();
+  return wrap;
+}
+
+let userScrolledUp = false;
+
+$messagesWrap.addEventListener('wheel', (e) => {
+  if (e.deltaY < 0) userScrolledUp = true;
+}, { passive: true });
+let _touchY = 0;
+$messagesWrap.addEventListener('touchstart', (e) => { _touchY = e.touches[0].clientY; }, { passive: true });
+$messagesWrap.addEventListener('touchmove', (e) => {
+  if (e.touches[0].clientY > _touchY + 10) userScrolledUp = true;
+}, { passive: true });
+$messagesWrap.addEventListener('scroll', () => {
+  const d = $messagesWrap.scrollHeight - $messagesWrap.scrollTop - $messagesWrap.clientHeight;
+  if (d < 30) userScrolledUp = false;
+});
+
+function scrollToBottom(force) {
+  if (!force && userScrolledUp) return;
+  $messagesWrap.scrollTop = $messagesWrap.scrollHeight;
+  userScrolledUp = false;
+}
+
+function setStreaming(on) {
+  state.isStreaming = on;
+  $input.disabled = on;
+  $sendBtn.disabled = on;
+}
+
+function persistConversation() {
+  if (!state.currentConvId) return;
+  const existing = getConversation(state.currentConvId);
+  const firstUserMsg = state.messages.find(m => m.role === 'user');
+  const title = existing?.title || (firstUserMsg ? autoTitleFromMessage(firstUserMsg.content) : 'New conversation');
+  upsertConversation({
+    id: state.currentConvId,
+    title,
+    niveau: state.selectedNiveau,
+    minhag: state.selectedMinhag,
+    createdAt: existing?.createdAt || Date.now(),
+    updatedAt: Date.now(),
+    messages: state.messages,
+  });
+  renderConvList();
+}
+
+// ============================================================
+// RATE LIMIT
+// ============================================================
+function ensureRateBanner() {
+  let el = document.getElementById('daat-rate-banner');
+  if (el) return el;
+  el = document.createElement('div');
+  el.id = 'daat-rate-banner';
+  el.style.cssText = `
+    position: sticky; top: 0; z-index: 50;
+    padding: 10px 16px; font-size: 14px; line-height: 1.4;
+    background: linear-gradient(90deg, #FBF7EF 0%, #F5F0E8 100%);
+    border-bottom: 1px solid rgba(184,151,42,0.35);
+    color: #3a2e1f; display: none;
+    font-family: 'Crimson Pro', Georgia, serif;
+  `;
+  const main = document.querySelector('main') || document.body;
+  main.insertBefore(el, main.firstChild);
+  return el;
+}
+
+function updateRateBanner(info) {
+  const el = ensureRateBanner();
+  state.lastRateInfo = info;
+  const soutenirUrl = info.soutenir_url || info.helloasso_url || '/soutenir-en.html';
+  if (
+    state.previousAperçuRemaining === 1 &&
+    info.preview_remaining === 0 &&
+    info.is_aperçu === true
+  ) {
+    state.pendingTransitionModal = true;
+  }
+  state.previousAperçuRemaining = info.preview_remaining;
+  let bg, border, msg;
+  if (info.ux_status === 'meta') {
+    el.style.display = 'none';
+    return;
+  }
+  if (info.ux_status === 'aperçu') {
+    bg = 'linear-gradient(90deg, rgba(184,151,42,0.10), rgba(184,151,42,0.03))';
+    border = 'rgba(184,151,42,0.4)';
+    const r = info.preview_remaining ?? 0;
+    const txt = r === 0
+      ? "Last free Opus-quality answer"
+      : `<strong>${r} free Opus question${r > 1 ? 's' : ''}</strong> remaining`;
+    msg = `✨ Premium Preview · ${txt} — <a href="${soutenirUrl}" target="_blank" rel="noopener" style="color:#8C6F1E;text-decoration:underline;font-weight:600;">Support DAAT →</a>`;
+  } else if (info.ux_status === 'premium' || info.is_subscriber) {
+    bg = 'linear-gradient(90deg, rgba(74,107,72,0.10), rgba(74,107,72,0.03))';
+    border = 'rgba(74,107,72,0.4)';
+    const planLabels = {
+      khavroutha: '📚 Chavruta',
+      beit_midrash: '🕯️ Beit Midrash',
+      beit_midrash_plus: '🕯️ Beit Midrash+',
+      yeshiva: '🎓 Yeshiva',
+      lifetime: '✨ Lifetime',
+      premium: '💎 Premium',
+    };
+    const label = planLabels[info.plan] || info.plan;
+    const remain = (info.limit && info.limit < 9999) ? ` · ${info.remaining} questions left today` : '';
+    msg = `${label} · Opus quality active${remain}`;
+  } else {
+    bg = 'linear-gradient(90deg, #FBF7EF 0%, #F5F0E8 100%)';
+    border = 'rgba(184,151,42,0.35)';
+    const r = info.remaining ?? 0;
+    const aurait = info.would_use_opus
+      ? ' Your answers are in standard quality (Sonnet). Supporting DAAT unlocks Opus continuously.'
+      : ` You have ${r} question${r > 1 ? 's' : ''} left today.`;
+    msg = `📜 Standard mode.${aurait} <a href="${soutenirUrl}" target="_blank" rel="noopener" style="color:#8C6F1E;text-decoration:underline;font-weight:600;">Support →</a>`;
+  }
+  el.style.cssText = `
+    position: sticky; top: 0; z-index: 50;
+    padding: 10px 16px; font-size: 14px; line-height: 1.4;
+    background: ${bg};
+    border-bottom: 1px solid ${border};
+    color: #3a2e1f; display: block;
+    font-family: 'Crimson Pro', Georgia, serif;
+  `;
+  el.innerHTML = msg;
+}
+
+function addModelBadge(bubble, info) {
+  if (!info || !bubble) return;
+  if (info.ux_status === 'meta') return;
+  let bg, color, border, text, title, clickable = false;
+  if (info.is_aperçu) {
+    bg = 'rgba(184,151,42,0.12)'; color = '#8B6A00'; border = 'rgba(184,151,42,0.35)';
+    text = '✨ OPUS PREVIEW';
+    title = `Free Opus answer · ${info.preview_remaining} preview${info.preview_remaining > 1 ? 's' : ''} left`;
+  } else if (info.is_subscriber && info.model_tier === 'opus') {
+    bg = 'rgba(74,107,72,0.12)'; color = '#3a5638'; border = 'rgba(74,107,72,0.35)';
+    text = '🕯️ OPUS';
+    title = 'Opus quality thanks to your support';
+  } else if (info.would_use_opus) {
+    bg = 'rgba(180,180,180,0.10)'; color = '#8a847b'; border = 'rgba(180,180,180,0.30)';
+    text = '→ WOULD HAVE BEEN OPUS WITH SUPPORT';
+    title = 'This answer would have been Opus quality — click to support DAAT';
+    clickable = true;
+  } else {
+    return;
+  }
+  const badge = document.createElement('span');
+  badge.textContent = text;
+  badge.title = title;
+  badge.style.cssText = `
+    display: inline-block; font-size: 10px; font-weight: 600;
+    letter-spacing: 0.03em; padding: 2px 6px; border-radius: 3px;
+    margin-bottom: 6px; background: ${bg}; color: ${color}; border: 1px solid ${border};
+    ${clickable ? 'cursor: pointer;' : ''}
+  `;
+  if (clickable) {
+    badge.addEventListener('click', () => {
+      const url = (state.lastRateInfo && state.lastRateInfo.soutenir_url) || '/soutenir-en.html';
+      window.open(url, '_blank', 'noopener');
+    });
+  }
+  bubble.insertBefore(badge, bubble.firstChild);
+  bubble.insertBefore(document.createElement('br'), badge.nextSibling);
+}
+
+function showTransitionModal() {
+  const soutenirUrl = (state.lastRateInfo && state.lastRateInfo.soutenir_url) || '/soutenir-en.html';
+  const overlay = document.createElement('div');
+  overlay.style.cssText = `
+    position: fixed; inset: 0; background: rgba(26,26,46,0.65); z-index: 1000;
+    display: flex; align-items: center; justify-content: center; padding: 20px;
+    backdrop-filter: blur(4px);
+  `;
+  overlay.innerHTML = `
+    <div style="background:#FBF7EF;max-width:460px;width:100%;padding:30px 28px 24px;border-top:4px solid #B8972A;border-radius:4px;box-shadow:0 30px 60px rgba(0,0,0,0.3);font-family:'Crimson Pro',Georgia,serif;color:#3a2e1f;">
+      <div style="font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#B8972A;margin-bottom:6px;font-weight:600;">✨ Premium Preview ended</div>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:500;color:#1a1a2e;margin:0 0 12px;line-height:1.3;">You've tasted Opus quality.</h3>
+      <p style="font-size:0.98rem;line-height:1.6;margin-bottom:10px;">You've just used your <strong>3 free Opus questions</strong>. Your next answers will be in Sonnet quality — serious, but without the analytical depth of Opus.</p>
+      <p style="font-size:0.98rem;line-height:1.6;margin-bottom:18px;">DAAT is free and will remain so. If you want to keep Opus continuously and support free access for other talmidim, join a <em>Chavruta</em>.</p>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <a href="${soutenirUrl}" target="_blank" rel="noopener" style="display:block;background:#B8972A;color:#fff;padding:12px 16px;text-decoration:none;text-align:center;font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:500;border-radius:4px;">Discover supports →</a>
+        <button id="daat-transition-close" style="background:transparent;border:none;color:#7a6a55;font-family:'Crimson Pro',serif;font-size:0.92rem;cursor:pointer;text-decoration:underline;padding:6px;">Continue with Sonnet</button>
+      </div>
+    </div>
+  `;
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+  overlay.querySelector('#daat-transition-close').onclick = () => overlay.remove();
+  document.body.appendChild(overlay);
+}
+
+function showLimitReachedModal(info) {
+  const helloasso = info.helloasso_url || '/soutenir-en.html?from=chat';
+  const isGuest = info.is_guest !== false;
+  const limit = info.limit || (isGuest ? 3 : 15);
+
+  const overlay = document.createElement('div');
+  overlay.style.cssText = `
+    position: fixed; inset: 0; background: rgba(26,26,46,0.65); z-index: 1000;
+    display: flex; align-items: center; justify-content: center; padding: 20px;
+    backdrop-filter: blur(4px);
+  `;
+  const modal = document.createElement('div');
+  modal.style.cssText = `
+    background: #FBF7EF; max-width: 480px; width: 100%; padding: 36px 32px;
+    border-top: 4px solid #B8972A; border-radius: 4px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.3); text-align: center;
+    font-family: 'Crimson Pro', Georgia, serif; color: #3a2e1f;
+  `;
+  modal.innerHTML = `
+    <div style="font-family:'Frank Ruhl Libre',serif;font-size:42px;color:#B8972A;margin-bottom:6px;direction:rtl;">דעת</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:500;color:#1a1a2e;margin-bottom:14px;">
+      ${isGuest ? 'Continue your study with DAAT' : 'You have learned well today'}
+    </h2>
+    <p style="font-size:1.05rem;line-height:1.6;margin-bottom:22px;color:#3a2e1f;">
+      ${isGuest
+        ? `You have used your <strong>${limit} free questions</strong>. Daat AI uses Anthropic's Claude — each answer has a real cost for the association.`
+        : `You have reached your limit of <strong>${limit} questions/day</strong>. Daat AI runs on donations — each conversation costs about €0.50 for the association.`}
+    </p>
+
+    ${isGuest ? `
+    <div style="background:#fff;border:1px solid rgba(184,151,42,0.25);padding:14px;margin-bottom:14px;border-radius:4px;">
+      <div style="font-size:0.85rem;letter-spacing:1px;text-transform:uppercase;color:#7a6a55;margin-bottom:6px;">Simple option — free</div>
+      <a href="/auth.html" style="display:block;background:#1a1a2e;color:#F5F0E8;padding:12px 20px;text-decoration:none;font-family:'Cormorant Garamond',serif;font-size:1.05rem;letter-spacing:0.5px;">
+        📧 Create an account → <strong>15 questions/day</strong>
+      </a>
+    </div>` : ''}
+
+    <div style="background:#fff;border:1px solid #B8972A;padding:14px;margin-bottom:18px;border-radius:4px;">
+      <div style="font-size:0.85rem;letter-spacing:1px;text-transform:uppercase;color:#8C6F1E;margin-bottom:6px;">Support the study</div>
+      <a href="${helloasso}" target="_blank" rel="noopener" style="display:block;background:#B8972A;color:#fff;padding:12px 20px;text-decoration:none;font-family:'Cormorant Garamond',serif;font-size:1.05rem;letter-spacing:0.5px;font-weight:500;">
+        ❤️ Donate → <strong>unlimited access</strong>
+      </a>
+      <div style="font-size:0.85rem;color:#7a6a55;margin-top:8px;font-style:italic;">Tax receipt (66% deduction in France)</div>
+    </div>
+
+    <button id="daat-close-limit" style="background:transparent;border:none;color:#7a6a55;font-family:'Crimson Pro',serif;font-size:0.95rem;cursor:pointer;text-decoration:underline;">
+      Come back tomorrow — close
+    </button>
+  `;
+  overlay.appendChild(modal);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+  modal.querySelector('#daat-close-limit').onclick = () => overlay.remove();
+  document.body.appendChild(overlay);
+}
+
+async function send(userText) {
+  state.messages.push({ role: 'user', content: userText });
+  renderMessage('user', userText);
+  persistConversation();
+
+  const typingEl = showTyping();
+  setStreaming(true);
+
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ messages: state.messages, lang: 'en' }),
+    });
+
+    if (!response.ok) {
+      let errData = null;
+      try { errData = await response.json(); } catch (_) {}
+      if (response.status === 429 && errData && errData.type === 'limit_reached') {
+        if (typingEl.parentElement) typingEl.remove();
+        showLimitReachedModal(errData);
+        state.messages.pop();
+        const lastUserBubble = $log && $log.querySelector ? $log.querySelector('.message-user:last-of-type') : null;
+        if (lastUserBubble) lastUserBubble.remove();
+        persistConversation();
+        return;
+      }
+      throw new Error((errData && errData.error) || ('Error ' + response.status));
+    }
+
+    typingEl.remove();
+    const assistantBubble = renderMessage('assistant', '');
+    let assistantText = '';
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      const events = buffer.split('\n\n');
+      buffer = events.pop() || '';
+
+      for (const evt of events) {
+        const line = evt.trim();
+        if (!line.startsWith('data:')) continue;
+        const data = line.slice(5).trim();
+        if (!data) continue;
+        try {
+          const parsed = JSON.parse(data);
+          if (parsed.type === 'text' && parsed.delta) {
+            assistantText += parsed.delta;
+            assistantBubble.setAttribute('dir', detectMessageDir(assistantText));
+            assistantBubble.innerHTML = renderMarkdown(assistantText);
+            scrollToBottom();
+          } else if (parsed.type === 'tool_use') {
+            const toolLabels = {
+              daat_search_corpus: `📚 Searching the DAAT corpus: « ${parsed.input?.query || ''} »`,
+              daat_get_content: `📖 Reading the DAAT corpus: ${parsed.input?.id || ''}`,
+              sefaria_get_text: `📜 Verification in Sefaria: ${parsed.input?.ref || ''}`,
+              sefaria_search: `🔍 Searching Sefaria: « ${parsed.input?.query || ''} »`,
+            };
+            appendToolNotice(toolLabels[parsed.tool] || `🔧 ${parsed.tool}`);
+          } else if (parsed.type === 'notice') {
+            appendToolNotice('⏳ ' + parsed.message);
+          } else if (parsed.type === 'rate_info') {
+            updateRateBanner(parsed);
+          } else if (parsed.type === 'error') {
+            throw new Error(parsed.error || 'Generation error');
+          }
+        } catch (e) {
+          if (e.message && !e.message.includes('JSON')) throw e;
+        }
+      }
+    }
+
+    state.messages.push({ role: 'assistant', content: assistantText });
+    persistConversation();
+    addModelBadge(assistantBubble, state.lastRateInfo);
+    attachFeedbackBar(assistantBubble, assistantText);
+    if (state.pendingTransitionModal) {
+      state.pendingTransitionModal = false;
+      setTimeout(showTransitionModal, 400);
+    }
+  } catch (err) {
+    if (typingEl.parentElement) typingEl.remove();
+    renderMessage('assistant', `⚠️ Error: ${err.message}`);
+    console.error('[Daat chat]', err);
+  } finally {
+    setStreaming(false);
+    $input.focus();
+  }
+}
+
+// ============================================================
+// SIMANIM DROPDOWN
+// ============================================================
+const $simanimBtn = document.getElementById('simanim-btn');
+const $simanimMenu = document.getElementById('simanim-menu');
+const $simanimSearch = document.getElementById('simanim-search');
+const $simanimList = document.getElementById('simanim-list');
+
+let allSimanim = [];
+
+async function loadSimanim() {
+  try {
+    const resp = await fetch('/data/simanim-disponibles.json');
+    const data = await resp.json();
+    allSimanim = data.simanim || [];
+    renderSimanim(allSimanim);
+  } catch (err) {
+    console.error('Error loading simanim:', err);
+    $simanimList.innerHTML = '<div style="padding:10px;color:red;">Loading error</div>';
+  }
+}
+
+function renderSimanim(simanim) {
+  if (!simanim.length) {
+    $simanimList.innerHTML = '<div style="padding:10px;color:#7A7F9A;font-size:12px;">No siman found</div>';
+    return;
+  }
+
+  $simanimList.innerHTML = simanim.map(s => `
+    <a href="sources/shabbat/siman-${s.num}/index.html" style="display:block;padding:10px 14px;text-decoration:none;color:var(--text);font-size:13px;line-height:1.4;border-radius:4px;transition:background 0.15s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background='transparent'">
+      <strong style="color:var(--navy);font-size:14px;font-weight:600;">Siman ${s.num}</strong><br>
+      <span style="color:var(--text-muted);font-size:12px;">${escapeHtml(s.title)}</span>
+    </a>
+  `).join('');
+}
+
+function filterSimanim(query) {
+  if (!query.trim()) {
+    renderSimanim(allSimanim);
+    return;
+  }
+
+  const lowerQuery = query.toLowerCase();
+  const filtered = allSimanim.filter(s =>
+    s.num.toString().includes(lowerQuery) ||
+    s.title.toLowerCase().includes(lowerQuery) ||
+    s.numHe.includes(query)
+  );
+  renderSimanim(filtered);
+}
+
+$simanimBtn.addEventListener('click', e => {
+  e.stopPropagation();
+  $simanimMenu.classList.toggle('open');
+  if ($simanimMenu.classList.contains('open')) {
+    setTimeout(() => $simanimSearch.focus(), 100);
+  }
+});
+
+$simanimSearch.addEventListener('input', e => {
+  filterSimanim(e.target.value);
+});
+
+document.addEventListener('click', e => {
+  if (!$simanimMenu.contains(e.target) && !$simanimBtn.contains(e.target)) {
+    $simanimMenu.classList.remove('open');
+  }
+});
+
+loadSimanim();
+
+// ============================================================
+// MODE RECONSTRUCT
+// ============================================================
+function handleReconstructMode() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('action') !== 'reconstruct') return;
+
+  const siman = params.get('siman') || '';
+
+  const simanHebrew = {
+    '242': 'רמ״ב',
+    '243': 'רמ״ג',
+    '246': 'רמ״ו',
+    '247': 'רמ״ז',
+    '248': 'רמ״ח'
+  };
+  const simanHe = simanHebrew[siman] || siman;
+  const simanRef = siman ? `סימן ${simanHe} (${siman})` : '[SIMAN NUMBER]';
+
+  const template = `Reconstruct for me ${simanRef} (Shulchan Aruch, Orach Chaim) according to the opinions of the Poskim I follow:
+
+1. [REPLACE WITH YOUR 1st POSEK — e.g.: Admur HaZaken (Shulchan Aruch of the Admur HaZaken, Kuntress Acharon)]
+2. [REPLACE WITH YOUR 2nd POSEK — e.g.: The Rebbe (Likutei Sichot, Igrot Kodesh, Sefer HaMinhagim Chabad)]
+3. [Optional: add other Poskim — e.g.: Rav Ovadia Yossef (Yabia Omer, Yechaveh Daat), Mishna Berura, Ben Ish Chai...]
+
+For each seif:
+• Present the position of each selected Posek, with its precise source
+• Note any disagreements between them
+• If NONE of the Poskim I selected explicitly address this point — ask me first before broadening to the wider minhag
+• Conclude with: "For halacha lema'aseh, consult your Rav"
+
+Start by confirming the retained Poskim (correct me if I made a mistake on a name or a work), then structure your teaching seif by seif.`;
+
+  $input.value = template;
+  $input.style.height = 'auto';
+  $input.style.height = Math.min($input.scrollHeight, 300) + 'px';
+
+  const firstPlaceholderStart = template.indexOf('[REPLACE WITH YOUR 1st POSEK');
+  const firstPlaceholderEnd = template.indexOf(']', firstPlaceholderStart) + 1;
+  if (firstPlaceholderStart !== -1) {
+    setTimeout(() => {
+      $input.focus();
+      $input.setSelectionRange(firstPlaceholderStart, firstPlaceholderEnd);
+    }, 100);
+  }
+
+  const toast = document.createElement('div');
+  toast.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#1A1F3A;color:#C5A55A;padding:14px 22px;border-radius:8px;font-size:14px;z-index:9999;border:1px solid #C5A55A;box-shadow:0 4px 16px rgba(0,0,0,0.3);max-width:90%;text-align:center;transition:opacity 0.5s;';
+  toast.innerHTML = `✨ <strong>Level 5 — Personalized</strong> mode activated. Replace the <code style="background:rgba(197,165,90,0.15);padding:2px 6px;border-radius:3px;">[PLACEHOLDERS]</code> with your Poskim, then send.`;
+  document.body.appendChild(toast);
+  setTimeout(() => { toast.style.opacity = '0'; }, 6000);
+  setTimeout(() => toast.remove(), 6800);
+}
+
+// ============================================================
+// INIT
+// ============================================================
+startFreshState();
+handleReconstructMode();
+$input.focus();
+</script>
+
+<!-- DAAT Auth -->
+<link rel="stylesheet" href="assets/css/daat-auth.css">
+<script src="assets/js/daat-auth.js" defer></script>
+
+</body>
+</html>

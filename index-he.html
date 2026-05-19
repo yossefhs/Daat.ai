@@ -1419,7 +1419,7 @@
         const frag = document.createDocumentFragment();
         for (const s of data.simanim) {
           const a = document.createElement('a');
-          a.href = s.path;
+          a.href = s.path.replace(/index\.html$/, 'index-he.html');
           a.className = 'simanim-tile';
           a.title = 'סימן ' + s.num + ' — ' + s.title;
           const num = document.createElement('span');
