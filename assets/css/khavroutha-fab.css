@@ -1,51 +1,39 @@
 /* =============================================================
-   DAAT — Bouton flottant Khavroutha
+   DAAT — Lien Khavroutha
    À inclure sur toutes les pages siman (index + niveaux).
-   Petit, coin bas-gauche, lien vers /communaute.html#khavroutha
+   Lien discret, intégré en bas du contenu, vers
+   /communaute.html#khavroutha
    ============================================================= */
 
 .daat-khavroutha-fab {
-  position: fixed;
-  bottom: 24px;
-  left: 24px;
-  z-index: 90;
-  display: inline-flex;
+  display: flex;
+  width: max-content;
+  max-width: 90%;
+  margin: 36px auto 28px;
   align-items: center;
   gap: 8px;
-  background: #1A1F3A;
-  color: #C5A55A;
+  background: transparent;
+  color: #1A1F3A;
   text-decoration: none;
-  padding: 10px 16px;
-  border: 1px solid #C5A55A;
+  padding: 9px 18px;
+  border: 1px solid rgba(197, 165, 90, 0.55);
   border-radius: 999px;
   font-family: 'Inter', sans-serif;
   font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.5px;
-  box-shadow: 0 6px 20px rgba(26, 31, 58, 0.25);
-  transition: all 0.18s ease;
-  cursor: pointer;
+  letter-spacing: 0.4px;
+  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
 }
 
 .daat-khavroutha-fab:hover {
   background: #C5A55A;
   color: #1A1F3A;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(197, 165, 90, 0.4);
+  border-color: #C5A55A;
 }
 
 .daat-khavroutha-fab .icon {
   font-size: 14px;
   line-height: 1;
-}
-
-@media (max-width: 600px) {
-  .daat-khavroutha-fab {
-    bottom: 80px; /* Laisse place au chat-widget */
-    padding: 8px 14px;
-    font-size: 11px;
-  }
-  .daat-khavroutha-fab .label-long { display: none; }
 }
 
 @media print {
