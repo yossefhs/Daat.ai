@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>קהילת דעת — חברותא וקבוצת וואטסאפ · לימוד הלכה בחברותא | DAAT דעת</title>
+  <meta name="description" content="הצטרפו לקהילת דעת: קבוצת וואטסאפ להתייעצות בין הלומדים, טופס חברותא למציאת בן זוג ללימוד. ההלכה נלמדת בחברותא.">
+  <meta name="author" content="הרב יוסף חיים סמאמא">
+  <meta name="keywords" content="קהילת דעת, חברותא, קבוצת וואטסאפ הלכה, לימוד תורה בחברותא, בן זוג ללימוד">
+  <link rel="canonical" href="https://daattorah.com/communaute-he.html">
+
+  <link rel="alternate" hreflang="fr" href="https://daattorah.com/communaute.html">
+  <link rel="alternate" hreflang="en" href="https://daattorah.com/communaute-en.html">
+  <link rel="alternate" hreflang="he" href="https://daattorah.com/communaute-he.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Daat Torah">
+  <meta property="og:title" content="קהילת דעת — חברותא וקבוצת וואטסאפ">
+  <meta property="og:description" content="הצטרפו לקהילת דעת ללימוד הלכה בחברותא: קבוצת וואטסאפ + בן זוג ללימוד (חברותא).">
+  <meta property="og:url" content="https://daattorah.com/communaute-he.html">
+  <meta property="og:image" content="https://daattorah.com/api/og">
+  <meta property="og:locale" content="he_IL">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="קהילת דעת — חברותא וקבוצת וואטסאפ">
+  <meta name="twitter:description" content="הצטרפו לקהילת דעת: לימוד הלכה בחברותא.">
+  <meta name="twitter:image" content="https://daattorah.com/api/og">
+
+  <!-- JSON-LD : WebPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": "https://daattorah.com/communaute-he.html#webpage",
+    "url": "https://daattorah.com/communaute-he.html",
+    "name": "קהילת דעת — חברותא וקבוצת וואטסאפ",
+    "description": "הצטרפו לקהילת דעת ללימוד הלכה בחברותא.",
+    "inLanguage": "he-IL",
+    "isPartOf": { "@id": "https://daattorah.com/#website" }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Inter:wght@300;400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/daat-enhance.css">
+
+  <style>
+    /* Tokens DAAT fournis par /assets/css/daat.css ; on ajoute juste
+       ce qui est spécifique à cette page. */
+    :root { --green-whatsapp: #25D366; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', Georgia, serif;
+      font-size: 18px;
+      background: var(--cream);
+      color: var(--text-dark);
+      line-height: 1.7;
+    }
+
+    /* HEADER */
+    header {
+      background: var(--navy); padding: 0 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 70px; border-bottom: 2px solid var(--gold);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-he { font-family: 'Frank Ruhl Libre', serif; font-size: 26px; font-weight: 700; color: var(--gold); letter-spacing: 2px; }
+    .logo-en { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; color: #fff; letter-spacing: 3px; }
+    nav { display: flex; gap: 28px; align-items: center; }
+    nav a {
+      font-family: 'Inter', sans-serif; font-size: 13px;
+      color: rgba(255,255,255,0.7); text-decoration: none; letter-spacing: 1px;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--gold); }
+    nav a.active { color: var(--gold); }
+    nav a.cta-soutenir {
+      color: var(--gold); border: 1px solid rgba(197,165,90,0.5);
+      padding: 4px 12px; border-radius: 2px;
+    }
+
+    .lang-switcher { display: flex; gap: 6px; align-items: center; }
+    .lang-switcher a {
+      font-family: 'Inter', sans-serif; font-size: 11px;
+      padding: 3px 7px; border-radius: 2px; letter-spacing: 1px;
+      color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.15);
+    }
+    .lang-switcher a.active { color: var(--gold); border-color: var(--gold); }
+    .lang-switcher a:hover { color: var(--gold); border-color: var(--gold); }
+
+    /* BREADCRUMB */
+    .breadcrumb {
+      background: var(--navy); padding: 12px 40px;
+      border-bottom: 1px solid rgba(197,165,90,0.15);
+    }
+    .breadcrumb-inner { max-width: 1100px; margin: 0 auto; }
+    .breadcrumb a, .breadcrumb span {
+      font-family: 'Inter', sans-serif; font-size: 12px;
+      color: rgba(255,255,255,0.4); text-decoration: none; letter-spacing: 0.5px;
+    }
+    .breadcrumb a:hover { color: var(--gold); }
+    .breadcrumb .sep { margin: 0 8px; color: rgba(255,255,255,0.2); }
+    .breadcrumb .current { color: var(--gold); }
+
+    /* HERO */
+    .page-hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #2A2F5A 100%);
+      padding: 60px 40px 48px;
+      border-bottom: 3px solid var(--gold);
+    }
+    .hero-inner { max-width: 1100px; margin: 0 auto; text-align: center; }
+    .hero-meta {
+      font-family: 'Inter', sans-serif; font-size: 11px;
+      letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 16px;
+    }
+    .hero-title-he {
+      font-family: 'Frank Ruhl Libre', serif; font-size: 44px; font-weight: 900;
+      color: var(--gold); margin-bottom: 8px; direction: rtl;
+    }
+    .hero-title-fr {
+      font-family: 'Frank Ruhl Libre', serif; font-size: 36px; font-weight: 400;
+      color: #fff; margin-bottom: 16px;
+    }
+    .hero-subtitle {
+      font-size: 18px; color: rgba(255,255,255,0.7); font-style: italic;
+      max-width: 700px; margin: 0 auto;
+    }
+
+    /* CONTENT */
+    .content { max-width: 1100px; margin: 0 auto; padding: 60px 40px; }
+
+    /* CARDS */
+    .community-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 30px;
+      margin-bottom: 50px;
+    }
+    @media (max-width: 880px) {
+      .community-grid { grid-template-columns: 1fr; }
+    }
+    .community-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 36px 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .community-card.whatsapp {
+      border-top: 3px solid var(--green-whatsapp);
+    }
+    .community-card.khavroutha {
+      border-top: 3px solid var(--gold);
+    }
+    .community-card-icon {
+      font-size: 40px; margin-bottom: 20px; display: block;
+    }
+    .community-card h2 {
+      font-family: 'Frank Ruhl Libre', 'Source Serif 4', serif;
+      font-size: 28px; font-weight: 700; color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .community-card-he {
+      font-family: 'Frank Ruhl Libre', serif; font-size: 22px;
+      color: var(--gold); direction: rtl; margin-bottom: 16px;
+    }
+    .community-card p {
+      color: var(--text-mid); font-size: 16px; line-height: 1.65;
+      margin-bottom: 22px;
+    }
+    .community-card ul {
+      list-style: none; padding: 0;
+      margin-bottom: 24px; font-size: 15px; color: var(--text-mid);
+    }
+    .community-card li {
+      padding: 8px 0; padding-right: 24px;
+      position: relative; line-height: 1.5;
+    }
+    .community-card li::before {
+      content: '✓'; position: absolute; right: 0;
+      color: var(--gold); font-weight: 700;
+    }
+
+    .btn-whatsapp {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--green-whatsapp); color: #fff;
+      padding: 14px 26px; text-decoration: none; border-radius: 4px;
+      font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: background 0.15s, transform 0.15s;
+    }
+    .btn-whatsapp:hover { background: #1FAD52; transform: translateY(-1px); }
+
+    /* FORM */
+    .khavroutha-form {
+      display: grid; gap: 14px;
+    }
+    .khavroutha-form label {
+      font-family: 'Inter', sans-serif; font-size: 12px;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--text-muted); font-weight: 600;
+      margin-bottom: 4px; display: block;
+    }
+    .khavroutha-form input,
+    .khavroutha-form select,
+    .khavroutha-form textarea {
+      width: 100%; padding: 12px 14px;
+      font-family: inherit; font-size: 15px;
+      border: 1px solid var(--border); background: var(--cream);
+      color: var(--text-dark); border-radius: 3px;
+      outline: none; transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .khavroutha-form input:focus,
+    .khavroutha-form select:focus,
+    .khavroutha-form textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(197,165,90,0.15);
+    }
+    .khavroutha-form textarea { resize: vertical; min-height: 80px; }
+    .btn-submit {
+      background: var(--navy); color: #fff;
+      padding: 14px 26px; border: none; cursor: pointer;
+      font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase;
+      border-radius: 3px; transition: background 0.15s;
+    }
+    .btn-submit:hover { background: var(--gold); color: var(--navy); }
+
+    /* WHY CHAVROUTHA */
+    .why-section {
+      background: var(--white); padding: 50px 40px;
+      border: 1px solid var(--border); border-right: 4px solid var(--gold);
+      margin-top: 30px;
+    }
+    .why-section h2 {
+      font-family: 'Frank Ruhl Libre', 'Source Serif 4', serif;
+      font-size: 30px; color: var(--navy); margin-bottom: 22px; font-weight: 700;
+    }
+    .why-section blockquote {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 22px; color: var(--navy);
+      direction: rtl; text-align: right;
+      padding: 18px 22px; background: var(--cream);
+      border-right: 3px solid var(--gold);
+      margin: 18px 0;
+    }
+    .why-section cite {
+      display: block; font-style: normal;
+      font-size: 13px; color: var(--text-muted);
+      letter-spacing: 1px; margin-top: 10px;
+      direction: ltr; text-align: left;
+    }
+    .why-section p {
+      color: var(--text-mid); margin-bottom: 14px; line-height: 1.75;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--navy); border-top: 2px solid var(--gold);
+      padding: 28px 40px; text-align: center;
+      margin-top: 60px;
+    }
+    footer p {
+      font-family: 'Inter', sans-serif; font-size: 12px;
+      color: rgba(255,255,255,0.4);
+    }
+    footer a { color: var(--gold); text-decoration: none; }
+
+    /* SUCCESS MESSAGE */
+    .form-success {
+      display: none;
+      background: rgba(46,125,82,0.1); border: 1px solid var(--green);
+      padding: 14px 18px; border-radius: 3px;
+      color: var(--green); font-size: 14px; margin-top: 12px;
+    }
+    .form-success.is-visible { display: block; }
+
+    @media (max-width: 768px) {
+      header, .breadcrumb, .page-hero, .content, footer { padding-left: 20px; padding-right: 20px; }
+      .hero-title-fr { font-size: 28px; }
+      .hero-title-he { font-size: 36px; }
+      nav { gap: 16px; }
+      nav a { font-size: 12px; }
+      nav a.cta-soutenir { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="index-he.html" class="logo">
+      <span class="logo-he">דעת</span>
+      <span class="logo-en">Daat Torah</span>
+    </a>
+    <nav>
+      <a href="sources/shabbat/index-he.html">הלכות שבת</a>
+      <a href="chat-he.html">💬 דעת AI</a>
+      <a href="communaute-he.html" class="active">קהילה</a>
+      <a href="soutenir-he.html" class="cta-soutenir">♥ תמיכה</a>
+      <span class="lang-switcher">
+        <a href="communaute.html">FR</a>
+        <a href="communaute-he.html" class="active">HE</a>
+        <a href="communaute-en.html">EN</a>
+      </span>
+    </nav>
+  </header>
+
+  <div class="breadcrumb">
+    <div class="breadcrumb-inner">
+      <a href="index-he.html">עמוד הבית</a>
+      <span class="sep">›</span>
+      <span class="current">קהילה</span>
+    </div>
+  </div>
+
+  <div class="page-hero">
+    <div class="hero-inner">
+      <div class="hero-meta">לימוד בחברותא · לימוד משותף</div>
+      <div class="hero-title-he" aria-hidden="true">חברתא חברתא — או מיתותא</div>
+      <h1 class="hero-title-fr" style="margin: 0 0 16px;">ההלכה נלמדת בחברותא</h1>
+      <p class="hero-subtitle">
+        "או חברתא או מיתותא" — אמר חוני המעגל (תענית כ"ג ע"א). הצטרפו לקהילת לומדים כדי להתקדם יחד בשולחן ערוך.
+      </p>
+    </div>
+  </div>
+
+  <main class="content">
+
+    <div class="community-grid">
+
+      <!-- WHATSAPP -->
+      <div class="community-card whatsapp">
+        <span class="community-card-icon">💬</span>
+        <h2>קבוצת וואטסאפ דעת</h2>
+        <div class="community-card-he">קהילת דעת</div>
+        <p>
+          קבוצה פתוחה לכל לומדי הפלטפורמה. שם משתפים שאלות, מציינים שגיאות, מתדיינים על הסימנים הנלמדים. בהשגחת הרב יוסף חיים סמאמא.
+        </p>
+        <ul>
+          <li>הודעה על כל סימן חדש המתפרסם</li>
+          <li>שאלות ותשובות ספונטניות בין הלומדים</li>
+          <li>שיתוף מקורות ומראי מקומות</li>
+          <li>ללא ספאם וללא יציאה מהנושא</li>
+        </ul>
+        <a href="https://chat.whatsapp.com/" target="_blank" rel="noopener" class="btn-whatsapp">
+          <span>📱</span>
+          <span>הצטרפות לקבוצת הוואטסאפ</span>
+        </a>
+      </div>
+
+      <!-- KHAVROUTHA -->
+      <div class="community-card khavroutha">
+        <span class="community-card-icon">📖</span>
+        <h2>חברותא דעת</h2>
+        <div class="community-card-he">חברותא דעת</div>
+        <p>
+          מצאו בן זוג ללימוד כדי להתקדם יחד בסימני השולחן ערוך. מלאו את הטופס — צוות דעת ישבץ אתכם עם בן זוג מתאים.
+        </p>
+
+        <form class="khavroutha-form" id="khavroutha-form" novalidate>
+          <div>
+            <label for="kh-nom">שם (או כינוי)</label>
+            <input type="text" id="kh-nom" name="nom" required placeholder="יוסף · דוד · וכו'" maxlength="80">
+          </div>
+          <div>
+            <label for="kh-niveau">רמת הלימוד שלך</label>
+            <select id="kh-niveau" name="niveau" required>
+              <option value="">בחר…</option>
+              <option value="base">בסיס — מתחיל / בינוני</option>
+              <option value="lamdan">למדן — פלפול ומקורות</option>
+              <option value="synthese">סיכום — חזרה ושינון</option>
+              <option value="mixte">פתוח למספר רמות</option>
+            </select>
+          </div>
+          <div>
+            <label for="kh-dispo">זמינות (ימים / שעות)</label>
+            <input type="text" id="kh-dispo" name="disponibilite" required placeholder="לדוגמה: א'/ד' 21:00–22:00, או מוצאי שבת" maxlength="200">
+          </div>
+          <div>
+            <label for="kh-contact">איך ניצור איתך קשר</label>
+            <input type="text" id="kh-contact" name="contact" required placeholder="וואטסאפ, אימייל, טלגרם…" maxlength="160">
+          </div>
+          <button type="submit" class="btn-submit" id="kh-submit">מציאת בן זוג ללימוד</button>
+          <div class="form-success" id="form-success">
+            ✓ תודה! בקשתך התקבלה — צוות דעת יחזור אליך תוך מספר ימים כדי להציע לך בן זוג ללימוד.
+          </div>
+        </form>
+        <script>
+          (function () {
+            var form = document.getElementById('khavroutha-form');
+            var btn = document.getElementById('kh-submit');
+            var success = document.getElementById('form-success');
+            if (!form) return;
+            var API = 'https://daatai.vercel.app/api/khavroutha';
+            form.addEventListener('submit', async function (e) {
+              e.preventDefault();
+              var payload = {
+                nom: form.nom.value.trim(),
+                niveau: form.niveau.value,
+                disponibilite: form.disponibilite.value.trim(),
+                contact: form.contact.value.trim(),
+              };
+              if (!payload.nom || !payload.niveau || !payload.disponibilite || !payload.contact) {
+                success.textContent = '⚠ נא למלא את כל השדות.';
+                success.style.color = '#C0392B';
+                success.style.background = 'rgba(192,57,43,0.08)';
+                success.style.borderColor = '#C0392B';
+                success.classList.add('is-visible');
+                return;
+              }
+              btn.disabled = true;
+              var orig = btn.textContent;
+              btn.textContent = 'שולח…';
+              try {
+                var r = await fetch(API, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(payload),
+                });
+                var data = await r.json().catch(function () { return {}; });
+                if (r.ok && data.ok) {
+                  success.textContent = '✓ תודה ' + payload.nom + '! בקשתך התקבלה — צוות דעת יחזור אליך תוך מספר ימים.';
+                  success.style.color = '';
+                  success.style.background = '';
+                  success.style.borderColor = '';
+                  success.classList.add('is-visible');
+                  form.reset();
+                } else {
+                  success.textContent = '⚠ ' + (data.error || 'שגיאה בשליחה. נסה שוב או הצטרף לקבוצת הוואטסאפ.');
+                  success.style.color = '#C0392B';
+                  success.style.background = 'rgba(192,57,43,0.08)';
+                  success.style.borderColor = '#C0392B';
+                  success.classList.add('is-visible');
+                }
+              } catch (err) {
+                success.textContent = '⚠ אין חיבור. עדיף להצטרף לקבוצת הוואטסאפ כדי להציג את עצמך.';
+                success.style.color = '#C0392B';
+                success.style.background = 'rgba(192,57,43,0.08)';
+                success.style.borderColor = '#C0392B';
+                success.classList.add('is-visible');
+              } finally {
+                btn.disabled = false;
+                btn.textContent = orig;
+              }
+            });
+          })();
+        </script>
+      </div>
+
+    </div>
+
+    <!-- POURQUOI LA KHAVROUTHA -->
+    <div class="why-section">
+      <h2>מדוע ללמוד בחברותא?</h2>
+      <p>
+        התלמוד (<strong>תענית ז' ע"א</strong>) ממשיל את לימוד התורה לאש: <em>"כשם שהאש אינה דולקת ביחיד, כך דברי תורה אין מתקיימים ביחיד."</em> החברותא — הלימוד בשניים — היא דרך המלך של מסירת ההלכה מדור לדור.
+      </p>
+      <blockquote>
+        « חברתא חברתא — או מיתותא »
+        <cite>חוני המעגל · תענית כ"ג ע"א</cite>
+      </blockquote>
+      <p>
+        בקהילת דעת המטרה פשוטה: <strong>לאפשר לכל לומד למצוא בן זוג המתאים לרמתו ולזמינותו</strong>. בין אם אתה לומד את השולחן ערוך בפעם הראשונה ובין אם אתה מחפש שותף לפלפול, הצוות ישבץ אותך עם לומד מתאים.
+      </p>
+      <p style="margin-top: 22px; font-size: 14px; color: var(--text-muted);">
+        <em>לכל שאלה: השתמש בצ'אט דעת AI או הצטרף לקבוצת הוואטסאפ.</em>
+      </p>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>
+      DAAT דעת — © תשפ"ו / 2026 ·
+      <a href="index-he.html">עמוד הבית</a> ·
+      <a href="chat-he.html">דעת AI</a> ·
+      <a href="soutenir-he.html">תמיכה</a>
+    </p>
+  </footer>
+
+  <link rel="stylesheet" href="assets/css/chat-widget.css">
+  <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
+  <script src="assets/js/chat-widget.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>דעת תורה — ההלכה בשפה הצרפתית | שולחן ערוך סימן אחר סימן</title>
+  <meta name="description" content="פלטפורמה ללימוד הלכה. השולחן ערוך הנלמד סימן אחר סימן, בשלוש רמות (בסיס, למדן, סיכום). מקורות הראשונים והאחרונים, עוזר בינה מלאכותית.">
+  <meta name="author" content="הרב יוסף חיים סממה">
+  <meta name="keywords" content="הלכה, שולחן ערוך, הלכות שבת, סימן, יהדות צרפתית, לימוד תורה, משנה ברורה, יביע אומר">
+  <link rel="canonical" href="https://daattorah.com/index-he.html">
+
+  <link rel="alternate" hreflang="fr" href="https://daattorah.com/">
+  <link rel="alternate" hreflang="en" href="https://daattorah.com/index-en.html">
+  <link rel="alternate" hreflang="he" href="https://daattorah.com/index-he.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="דעת תורה">
+  <meta property="og:title" content="דעת תורה — ההלכה בשפה הצרפתית">
+  <meta property="og:description" content="122 סימני השולחן ערוך, שלוש רמות לימוד. מקורות הראשונים והאחרונים, עוזר בינה מלאכותית הלכתי.">
+  <meta property="og:url" content="https://daattorah.com/index-he.html">
+  <meta property="og:image" content="https://daattorah.com/api/og">
+  <meta property="og:locale" content="he_IL">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="דעת תורה — ההלכה בשפה הצרפתית">
+  <meta name="twitter:description" content="122 סימני השולחן ערוך, שלוש רמות לימוד. מקורות ועוזר בינה מלאכותית.">
+  <meta name="twitter:image" content="https://daattorah.com/api/og">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/daat-enhance.css">
+  <style>
+    /* Tokens DAAT (--navy, --gold, --cream, --text-mid…) fournis
+       par /assets/css/daat.css importé via daat-enhance.css */
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', Georgia, serif;
+      font-size: 18px;
+      background: var(--cream);
+      color: var(--text-dark);
+      line-height: 1.7;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--navy);
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 2px solid var(--gold);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-hebrew {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 2px;
+    }
+
+    .logo-latin {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    .logo-divider {
+      width: 1px;
+      height: 32px;
+      background: rgba(197,165,90,0.4);
+    }
+
+    nav {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    nav a {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--gold); }
+
+    .nav-cta {
+      background: var(--gold) !important;
+      color: var(--navy) !important;
+      padding: 8px 20px;
+      border-radius: 2px;
+      font-weight: 600 !important;
+    }
+
+    .nav-soutenir {
+      background: var(--gold);
+      color: var(--navy) !important;
+      border: 1px solid var(--gold);
+      padding: 6px 14px;
+      border-radius: 2px;
+      font-weight: 700 !important;
+      transition: all 0.2s;
+      box-shadow: 0 0 0 0 rgba(197,165,90,0.4);
+    }
+    .nav-soutenir:hover {
+      background: var(--gold-light);
+      border-color: var(--gold-light);
+      box-shadow: 0 0 0 4px rgba(197,165,90,0.25);
+    }
+
+    .lang-switcher { display: flex; gap: 6px; align-items: center; margin-left: 8px; }
+    .lang-switcher a {
+      font-family: 'Inter', sans-serif; font-size: 11px;
+      padding: 3px 7px; border-radius: 2px; letter-spacing: 1px;
+      color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.15);
+      text-transform: none;
+    }
+    .lang-switcher a.active { color: var(--gold); border-color: var(--gold); }
+    .lang-switcher a:hover { color: var(--gold); border-color: var(--gold); }
+
+    .footer-soutenir-btn {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--navy) !important;
+      padding: 10px 20px;
+      border-radius: 2px;
+      font-weight: 700 !important;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: all 0.2s;
+      margin-top: 4px;
+    }
+    .footer-soutenir-btn:hover {
+      background: var(--gold-light);
+      transform: translateY(-1px);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--navy);
+      padding: 100px 40px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: 'דעת';
+      position: absolute;
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 300px;
+      font-weight: 900;
+      color: rgba(197,165,90,0.04);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .hero-tagline {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 15px;
+      color: var(--gold);
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', serif;
+      font-size: 72px;
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    .hero h1 span {
+      font-family: 'Frank Ruhl Libre', serif;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .hero-subtitle {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 22px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 16px;
+      direction: rtl;
+    }
+
+    .hero-desc {
+      font-size: 20px;
+      color: rgba(255,255,255,0.7);
+      max-width: 600px;
+      margin: 0 auto 40px;
+      font-weight: 300;
+      font-style: italic;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+      padding: 14px 32px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover { background: var(--gold-light); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      padding: 14px 32px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.3);
+      transition: border-color 0.2s;
+    }
+
+    .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+    .btn-soutenir-hero {
+      background: transparent;
+      color: var(--gold);
+      padding: 14px 32px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 2px solid var(--gold);
+      transition: all 0.2s;
+      box-shadow: 0 0 0 0 rgba(197,165,90,0.4);
+    }
+    .btn-soutenir-hero:hover {
+      background: var(--gold);
+      color: var(--navy);
+      box-shadow: 0 0 0 4px rgba(197,165,90,0.25);
+    }
+
+    /* ── SECTION WRAPPER ── */
+    .section {
+      padding: 80px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 42px;
+      font-weight: 400;
+      color: var(--navy);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .section-subtitle {
+      font-size: 18px;
+      color: var(--text-muted);
+      font-style: italic;
+      max-width: 600px;
+    }
+
+    .divider {
+      width: 60px;
+      height: 2px;
+      background: var(--gold);
+      margin: 24px 0;
+    }
+
+    /* ── VISION ── */
+    .vision-bg {
+      background: var(--white);
+      border-top: 4px solid var(--gold);
+    }
+
+    .vision-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .vision-text p {
+      font-size: 19px;
+      color: var(--text-mid);
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+
+    .vision-quote {
+      background: var(--navy);
+      color: var(--white);
+      padding: 40px;
+      position: relative;
+    }
+
+    .vision-quote::before {
+      content: '❝';
+      font-size: 60px;
+      color: var(--gold);
+      opacity: 0.3;
+      position: absolute;
+      top: 16px;
+      right: 24px;
+      line-height: 1;
+    }
+
+    .vision-quote blockquote {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 22px;
+      line-height: 1.6;
+      direction: rtl;
+      text-align: right;
+      margin-bottom: 16px;
+      color: var(--cream);
+    }
+
+    .vision-quote cite {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: var(--gold);
+      text-transform: uppercase;
+      font-style: normal;
+    }
+
+    /* ── LEVELS ── */
+    .levels-bg { background: var(--cream-dark); }
+
+    .levels-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .level-card {
+      background: var(--white);
+      padding: 32px 24px;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border-bottom: 3px solid transparent;
+    }
+
+    .level-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(26,31,58,0.12);
+    }
+
+    .level-card.niveau-1 { border-color: #2E7D52; }
+    .level-card.niveau-2 { border-color: var(--navy); }
+    .level-card.niveau-3 { border-color: #6B3FA0; }
+    .level-card.niveau-4 { border-color: var(--gold); }
+
+    .level-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 48px;
+      font-weight: 300;
+      color: var(--cream-dark);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .level-badge {
+      display: inline-block;
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 13px;
+      padding: 4px 10px;
+      margin-bottom: 12px;
+      border-radius: 2px;
+    }
+
+    .niveau-1 .level-badge { background: #E8F5EE; color: #2E7D52; }
+    .niveau-2 .level-badge { background: #E8EAF6; color: var(--navy); }
+    .niveau-3 .level-badge { background: #F3E8FF; color: #6B3FA0; }
+    .niveau-4 .level-badge { background: #FFF8E7; color: #8B6914; }
+
+    .level-title-fr {
+      font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    .level-title-he {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 16px;
+      color: var(--text-muted);
+      direction: rtl;
+      margin-bottom: 16px;
+    }
+
+    .level-desc {
+      font-size: 15px;
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+
+    /* ── AI SECTION ── */
+    .ai-bg {
+      background: var(--navy);
+    }
+
+    .ai-section {
+      padding: 80px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .ai-section .section-title { color: var(--white); }
+    .ai-section .section-label { color: var(--gold); }
+    .ai-section .divider { background: var(--gold); }
+
+    .ai-section .section-subtitle { color: rgba(255,255,255,0.6); }
+
+    .ai-features {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .ai-feature {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(197,165,90,0.2);
+      padding: 28px;
+      transition: border-color 0.2s;
+    }
+
+    .ai-feature:hover { border-color: rgba(197,165,90,0.6); }
+
+    .ai-feature-icon {
+      font-size: 28px;
+      margin-bottom: 16px;
+    }
+
+    .ai-feature h3 {
+      font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', serif;
+      font-size: 22px;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .ai-feature p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
+    }
+
+    .ai-demo {
+      margin-top: 48px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(197,165,90,0.15);
+      padding: 32px;
+    }
+
+    .ai-demo-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .ai-chat-bubble {
+      background: rgba(255,255,255,0.07);
+      padding: 16px 20px;
+      margin-bottom: 12px;
+      font-size: 16px;
+      color: rgba(255,255,255,0.8);
+      font-style: italic;
+      border-right: 2px solid var(--gold);
+    }
+
+    .ai-response {
+      background: rgba(197,165,90,0.08);
+      padding: 20px;
+      font-size: 15px;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.7;
+      border-right: 2px solid rgba(197,165,90,0.4);
+    }
+
+    .ai-coming-soon {
+      text-align: center;
+      margin-top: 20px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: var(--gold);
+      text-transform: uppercase;
+      transition: color 0.15s;
+    }
+    .ai-coming-soon:hover { color: var(--gold-light); }
+
+    /* ── BANDE DE PREUVES SOCIALES ── */
+    .social-proof {
+      background: var(--cream-dark);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 28px 40px;
+    }
+    .social-proof-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .social-proof-item {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+    .social-proof-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .social-proof-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-mid);
+    }
+    .social-proof-divider {
+      width: 1px;
+      height: 36px;
+      background: var(--border);
+    }
+    @media (max-width: 768px) {
+      .social-proof-divider { display: none; }
+      .social-proof-inner { flex-direction: column; gap: 16px; }
+    }
+
+    /* ── EMAIL CAPTURE ── */
+    .email-capture {
+      background: linear-gradient(135deg, var(--navy) 0%, #2A2F5A 100%);
+      color: #fff;
+      padding: 60px 40px;
+      border-top: 3px solid var(--gold);
+      border-bottom: 3px solid var(--gold);
+    }
+    .email-capture-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .email-capture .label {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .email-capture h2 {
+      font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', serif;
+      font-size: 36px;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .email-capture p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 28px;
+      font-style: italic;
+    }
+    .email-capture-form {
+      display: flex;
+      gap: 12px;
+      max-width: 480px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+    .email-capture-input {
+      flex: 1;
+      min-width: 220px;
+      padding: 14px 18px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      background: rgba(255,255,255,0.95);
+      color: var(--text-dark);
+      border: 1px solid var(--gold);
+      border-radius: 2px;
+      outline: none;
+    }
+    .email-capture-input:focus {
+      box-shadow: 0 0 0 3px rgba(197,165,90,0.25);
+    }
+    .email-capture-btn {
+      padding: 14px 24px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: var(--gold);
+      color: var(--navy);
+      border: 1px solid var(--gold);
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .email-capture-btn:hover { background: var(--gold-light); }
+    .email-capture-meta {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      margin-top: 16px;
+      letter-spacing: 0.5px;
+    }
+    @media (max-width: 600px) {
+      .email-capture h2 { font-size: 28px; }
+    }
+
+    /* ── CONTENT LIBRARY ── */
+    .library-bg { background: var(--white); }
+
+    .masekhtot-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .masekhet-card {
+      border: 1px solid var(--border);
+      padding: 28px;
+      position: relative;
+      transition: box-shadow 0.2s;
+    }
+
+    .masekhet-card.active {
+      border-color: var(--gold);
+      box-shadow: 0 4px 20px rgba(197,165,90,0.1);
+    }
+
+    .masekhet-card.soon {
+      opacity: 0.5;
+    }
+
+    .masekhet-tag {
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      margin-bottom: 12px;
+    }
+
+    .tag-active { background: #FFF8E7; color: #8B6914; }
+    .tag-soon { background: #F0F0F0; color: #999; }
+
+    .masekhet-name-he {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--navy);
+      direction: rtl;
+      margin-bottom: 4px;
+    }
+
+    .masekhet-name-fr {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .siman-list {
+      list-style: none;
+    }
+
+    .siman-list li {
+      font-size: 14px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text-mid);
+    }
+
+    .siman-list li:last-child { border-bottom: none; }
+
+    .siman-list a {
+      color: var(--navy);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .siman-list a:hover { color: var(--gold); }
+
+    .siman-badge {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      background: #E8F5EE;
+      color: #2E7D52;
+      padding: 2px 6px;
+      border-radius: 2px;
+      font-weight: 600;
+    }
+
+    /* Grille auto-générée des simanim disponibles */
+    .simanim-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 6px;
+      margin-top: 10px;
+      max-height: 380px;
+      overflow-y: auto;
+      padding: 4px 6px 4px 0;
+      border-top: 1px dashed var(--border);
+      padding-top: 12px;
+    }
+    .simanim-grid::-webkit-scrollbar { width: 6px; }
+    .simanim-grid::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    .simanim-grid::-webkit-scrollbar-thumb:hover { background: var(--gold-light); }
+
+    .simanim-tile {
+      display: flex;
+      flex-direction: column;
+      padding: 8px 10px;
+      background: var(--cream-dark);
+      border-right: 2px solid var(--gold);
+      text-decoration: none;
+      color: var(--text);
+      transition: background 0.15s, border-color 0.15s;
+      min-height: 52px;
+    }
+    .simanim-tile:hover {
+      background: var(--cream);
+      border-right-color: var(--navy);
+    }
+    .simanim-tile-num {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 16px;
+      color: var(--gold-dark);
+      font-weight: 600;
+      line-height: 1;
+      margin-bottom: 3px;
+    }
+    .simanim-tile-num .siman-num-fr {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-right: 4px;
+    }
+    .simanim-tile-title {
+      font-size: 11px;
+      color: var(--text-mid);
+      line-height: 1.3;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+    .simanim-grid-loading {
+      grid-column: 1 / -1;
+      padding: 24px;
+      text-align: center;
+      color: var(--text-muted);
+      font-style: italic;
+      font-size: 13px;
+    }
+
+    /* ── ABOUT ── */
+    .about-bg { background: var(--cream-dark); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .about-text p {
+      font-size: 18px;
+      color: var(--text-mid);
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+
+    .rav-card {
+      background: var(--navy);
+      padding: 32px;
+      text-align: center;
+    }
+
+    .rav-name-he {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gold);
+      direction: rtl;
+      margin-bottom: 8px;
+    }
+
+    .rav-name-fr {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      color: rgba(255,255,255,0.7);
+      font-style: italic;
+      margin-bottom: 4px;
+    }
+
+    .rav-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .rav-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      margin: 16px auto;
+    }
+
+    .rav-logo {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto;
+      display: block;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      border-top: 2px solid var(--gold);
+      padding: 48px 40px 24px;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .footer-brand .logo-hebrew { font-size: 32px; }
+    .footer-brand .logo-latin { display: block; font-size: 11px; margin-top: 4px; }
+
+    .footer-tagline {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 14px;
+      color: rgba(255,255,255,0.4);
+      direction: rtl;
+      margin-top: 12px;
+    }
+
+    .footer-links h4 {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .footer-links ul { list-style: none; }
+    .footer-links ul li {
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+    }
+    .footer-links ul li a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links ul li a:hover { color: var(--gold); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-copy {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+    }
+
+    .footer-verse {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 13px;
+      color: rgba(197,165,90,0.5);
+      direction: rtl;
+      font-style: italic;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 48px; }
+      .vision-grid, .levels-grid, .ai-features, .masekhtot-grid, .about-grid { grid-template-columns: 1fr; }
+      .footer-top { flex-direction: column; gap: 32px; }
+      nav { display: none; }
+      .section { padding: 48px 20px; }
+      header { padding: 0 20px; }
+    }
+  </style>
+
+  <!-- JSON-LD Schema.org : WebSite + Organization + Person + EducationalOrganization + FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://daattorah.com/#website",
+        "url": "https://daattorah.com/index-he.html",
+        "name": "דעת תורה — לימוד ההלכה בשפה הצרפתית",
+        "description": "פלטפורמה ללימוד הלכה. 122 סימני השולחן ערוך הנלמדים בשלוש רמות.",
+        "inLanguage": "he-IL",
+        "image": "https://daattorah.com/api/og",
+        "publisher": { "@id": "https://daattorah.com/#organization" }
+      },
+      {
+        "@type": ["Organization", "EducationalOrganization"],
+        "@id": "https://daattorah.com/#organization",
+        "name": "דעת תורה",
+        "url": "https://daattorah.com/",
+        "logo": "https://daattorah.com/api/og",
+        "description": "פלטפורמה ללימוד הלכה עם 122 סימני השולחן ערוך, שלוש רמות לימוד, ועוזר בינה מלאכותית.",
+        "founder": { "@id": "https://daattorah.com/#rav-samama" },
+        "sameAs": ["https://daattorah.com/"],
+        "educationalLevel": ["מתחילים", "בינוני", "מתקדם"]
+      },
+      {
+        "@type": "Person",
+        "@id": "https://daattorah.com/#rav-samama",
+        "name": "הרב יוסף חיים סממה",
+        "jobTitle": "רב, פוסק",
+        "description": "רב שגדל בצרפת ומתגורר בארץ ישראל, תלמידו של הרב אבישיד, למד בישיבות תומכי תמימים ליובאוויטש (חב״ד). מייסד דעת תורה כדי להנגיש לימוד הלכה רציני לדוברי הצרפתית.",
+        "knowsAbout": ["הלכה", "שולחן ערוך", "הלכות שבת", "חסידות חב״ד ליובאוויטש", "שולחן ערוך אדמו״ר הזקן", "תומכי תמימים", "צמח צדק"]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "מהן שלוש רמות הלימוד?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "בסיס: טקסט עברי + תרגום צרפתי שוטף. למדן: פלפול מעמיק עם שיטות הראשונים והאחרונים. סיכום: סיכום מובנה לחזרה ולזכירה."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "כמה סימנים זמינים?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "122 סימני השולחן ערוך (אורח חיים) זמינים ללימוד, עם תוכן מפורט לחלקם וגישה מלאה לקטלוג."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "האם ניתן להשתמש בעוזר דעת AI?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "כן, עוזר דעת AI מאפשר לשאול שאלות בהלכה ולקבל תשובות מבוססות מקורות מתוך השולחן ערוך והפוסקים. להלכה למעשה, יש להתייעץ עם רב."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <a href="index-he.html" class="logo">
+      <span class="logo-hebrew">דעת</span>
+      <div class="logo-divider"></div>
+      <div>
+        <div style="font-family:'Inter',sans-serif; font-size:18px; font-weight:600; color:#fff; letter-spacing:3px;">Daat Torah</div>
+        <div class="logo-latin">לימוד הלכה</div>
+      </div>
+    </a>
+    <nav>
+      <a href="#vision">החזון</a>
+      <a href="#niveaux">רמות</a>
+      <a href="#contenu">תוכן</a>
+      <a href="chat-he.html">💬 דעת AI</a>
+      <a href="communaute-he.html">קהילה</a>
+      <a href="soutenir-he.html" class="nav-soutenir">♥ תמיכה</a>
+      <span class="lang-switcher">
+        <a href="index.html">FR</a>
+        <a href="index-he.html" class="active">HE</a>
+        <a href="index-en.html">EN</a>
+      </span>
+      <a href="sources/shabbat/index-he.html" class="nav-cta">לימוד →</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-tagline">השולחן ערוך, בשפה הצרפתית, ברמה שלך.</div>
+    <h1>דעת תורה <span>דעת</span></h1>
+    <div class="hero-subtitle">דעת התורה לעומקה</div>
+    <p class="hero-desc">לימוד הלכה רציני — בשפה הצרפתית, ב-20 דקות ביום.</p>
+    <div class="hero-buttons">
+      <a href="/oh/index-he.html" class="btn-primary">ללמוד</a>
+      <a href="chat-he.html" class="btn-secondary">לנסות את דעת AI</a>
+      <a href="soutenir-he.html" class="btn-soutenir-hero">♥ לתמוך בפרויקט</a>
+    </div>
+  </section>
+
+  <!-- BANDE DE PREUVES SOCIALES -->
+  <section class="social-proof">
+    <div class="social-proof-inner">
+      <div class="social-proof-item">
+        <span class="social-proof-num">122</span>
+        <span class="social-proof-label">סימני השולחן ערוך</span>
+      </div>
+      <div class="social-proof-divider"></div>
+      <div class="social-proof-item">
+        <span class="social-proof-num">3</span>
+        <span class="social-proof-label">רמות בכל סימן · בסיס · למדן · סיכום</span>
+      </div>
+      <div class="social-proof-divider"></div>
+      <div class="social-proof-item">
+        <span class="social-proof-num">AI</span>
+        <span class="social-proof-label">בינה מלאכותית הלכתית · עם מקורות</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISION -->
+  <section id="vision" class="vision-bg">
+    <div class="section">
+      <div class="vision-grid">
+        <div class="vision-text">
+          <div class="section-label">החזון שלנו</div>
+          <h2 class="section-title">תורה נגישה לכל הרמות</h2>
+          <div class="divider"></div>
+          <p>דעת תורה היא פלטפורמת לימוד הלכה שנוצרה כדי ללוות כל לומד — מהמתחיל הסקרן ועד לתלמיד חכם מובהק — בלימוד תורה רציני ומובנה.</p>
+          <p>כל טקסט מוגש בשלוש רמות: גרסה נגישה ופדגוגית (בסיס), גרסה למדנית עם פלפול מלא (למדן), וסיכום מקיף לחזרה ולזכירה.</p>
+          <p>ביוזמתו של הרב יוסף חיים סממה, הפלטפורמה פותחת ב<em>הלכות שבת</em> (אורח חיים) ותתרחב בהדרגה לכלל ההלכה.</p>
+        </div>
+        <div class="vision-quote">
+          <blockquote>
+            "כִּי תוֹרַת ה' תְּמִימָה, מְשִׁיבַת נָפֶשׁ"
+          </blockquote>
+          <cite>תהילים י״ט:ח — תורת ה' תמימה, משיבת נפש.</cite>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NIVEAUX -->
+  <section id="niveaux" class="levels-bg">
+    <div class="section">
+      <div class="section-label">שיטה פדגוגית</div>
+      <h2 class="section-title">שלוש רמות לימוד</h2>
+      <div class="divider"></div>
+      <p class="section-subtitle">כל נושא מטופל בשלוש רמות עומק מתקדמות, המאפשרות לכל אחד ללמוד ברמתו האישית.</p>
+
+      <div class="levels-grid">
+        <div class="level-card niveau-1">
+          <div class="level-num">01</div>
+          <div class="level-badge">מתחילים</div>
+          <div class="level-title-fr">בסיס</div>
+          <div class="level-title-he">רמת המתחיל</div>
+          <p class="level-desc">טקסט עברי עם תרגום צרפתי שוטף. הסבר פדגוגי של המושגים היסודיים, נגיש למתחילים וללומדים בדרגת ביניים.</p>
+        </div>
+        <div class="level-card niveau-3">
+          <div class="level-num">02</div>
+          <div class="level-badge">תלמידי חכמים</div>
+          <div class="level-title-fr">למדן</div>
+          <div class="level-title-he">רמת הלמדן</div>
+          <p class="level-desc">פלפול מעמיק: סוגיא, שיטות ראשונים ואחרונים, חקירות, מחלוקות, נפקא מינות. עבור תלמידי ישיבה ותלמידי חכמים.</p>
+        </div>
+        <div class="level-card niveau-4">
+          <div class="level-num">03</div>
+          <div class="level-badge">חזרה וסיכום</div>
+          <div class="level-title-fr">סיכום מקיף</div>
+          <div class="level-title-he">סיכום מגיסטרלי</div>
+          <p class="level-desc">סיכום מובנה לחזרה ולזכירה. טבלאות השוואה, כללי יסוד, מקרים מעשיים, מכשולים נפוצים.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IA DAAT -->
+  <section id="ia" class="ai-bg">
+    <div class="ai-section">
+      <div class="section-label">בינה מלאכותית</div>
+      <h2 class="section-title">דעת AI — מדריך הלימוד שלך</h2>
+      <div class="divider"></div>
+      <p class="section-subtitle">בינה מלאכותית המתמחה בהלכה, מעוגנת במקורות הראשוניים, המשיבה בדיוק גם ברמות המתקדמות.</p>
+
+      <div class="ai-features">
+        <div class="ai-feature">
+          <div class="ai-feature-icon">📚</div>
+          <h3>עיגון מקורות מחמיר</h3>
+          <p>הבינה המלאכותית משיבה רק על בסיס המקורות המופיעים בפלטפורמה. אם המידע אינו במקורות, היא אומרת זאת במפורש — בלי להמציא.</p>
+        </div>
+        <div class="ai-feature">
+          <div class="ai-feature-icon">🎯</div>
+          <h3>רב-רמות</h3>
+          <p>אותה שאלה מקבלת תשובה המותאמת לרמתך: פדגוגית למתחיל, אנליטית ללמדן, סיכומית לחזרה.</p>
+        </div>
+        <div class="ai-feature">
+          <div class="ai-feature-icon">⚖️</div>
+          <h3>דיוק הלכתי</h3>
+          <p>הבינה המלאכותית מצטטת באופן שיטתי את מקורותיה (שולחן ערוך, רמ״א, משנה ברורה…), מבחינה בין רמות הסמכות ומציינת מחלוקות בין הראשונים והאחרונים.</p>
+        </div>
+        <div class="ai-feature">
+          <div class="ai-feature-icon">🌐</div>
+          <h3>רב-לשוני</h3>
+          <p>תשובות בצרפתית עם ציטוטים בעברית. בעתיד: עברית, אנגלית וספרדית. לימוד תורה ללא מחסום לשוני.</p>
+        </div>
+      </div>
+
+      <div class="ai-demo">
+        <div class="ai-demo-label">דוגמת דיאלוג — סימן רמ״ו, סעיף א'</div>
+        <div class="ai-chat-bubble">"האם מותר להשכיר כלי לגוי לפני שבת אם הוא ישתמש בו ביום השבת?"</div>
+        <div class="ai-response">
+          על פי ההלכה (או״ח רמ״ו:א'), השולחן ערוך והרמ״א מסכימים על האיסור. הרמ״א מבהיר: <em>"וכן עיקר כסברא האחרונה"</em> — הוא פוסק כדעת רבנו יונה, הרא״ש והתוספות האוסרים משום <strong>שכר שבת</strong> ו<strong>נראה כשלוחו</strong>. איסור זה חל אפילו אם היהודי אינו נוכח ביום השבת.
+        </div>
+        <a href="chat-he.html" class="ai-coming-soon" style="text-decoration:none; display:inline-block;">✦ לנסות את דעת AI — זמין כעת →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENT LIBRARY -->
+  <section id="contenu" class="library-bg">
+    <div class="section">
+      <div class="section-label">ספריית התוכן</div>
+      <h2 class="section-title">התוכן הזמין</h2>
+      <div class="divider"></div>
+      <p class="section-subtitle">אנו פותחים בהלכות שבת — הענף העשיר והמעשי ביותר של ההלכה היומיומית. <strong style="color:#3851A3;">רמה 4 דעת הרב</strong> (שיטת אדמו״ר הזקן — שולחן ערוך הרב) זמינה כעת על <strong>122 סימני הלכות שבת</strong>.</p>
+
+      <!-- HIGHLIGHT DAAT HARAV -->
+      <div style="background: linear-gradient(135deg, #3851A3 0%, #2A3F7F 100%); color: #fff; padding: 32px 36px; margin: 32px 0; border-radius: 4px; border: 1px solid #C5A55A;">
+        <div style="display: flex; gap: 24px; flex-wrap: wrap; align-items: center; justify-content: space-between;">
+          <div style="flex: 1; min-width: 280px;">
+            <div style="font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #C5A55A; margin-bottom: 8px;">חדש · רמה 4</div>
+            <h3 style="font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', serif; font-size: 30px; color: #C5A55A; margin: 0 0 6px;">דעת הרב — Daat HaRav</h3>
+            <p style="margin: 0 0 8px; font-size: 16px; color: rgba(255,255,255,0.9);"><em>שיטת</em> אדמו״ר הזקן על <strong>122 סימני הלכות שבת</strong> — הטקסט העברי המלא של שולחן ערוך הרב (שולחן ערוך אדמו״ר הזקן) עם הקונטרס אחרון, חוזק הפסק, חידוש מיוחד של הרב, מראי מקומות לשיחות ואגרות הרבי, הוראה למעשה.</p>
+            <p style="margin: 8px 0 0; font-size: 13px; color: rgba(255,255,255,0.6);">סימנים 242 → 365 · משולב עם ספריא · קונבנציית הגהה בעברית · Placeholders הגהות/מהדורא בתרא</p>
+          </div>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <a href="sources/shabbat/index-he.html" style="background: #C5A55A; color: #1A1F3A; padding: 12px 24px; text-decoration: none; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1px; border-radius: 2px;">לעיון ב-122 הסימנים →</a>
+            <a href="chitah-admour-hazaken-he.html" style="background: transparent; color: #fff; padding: 12px 24px; text-decoration: none; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1px; border: 1px solid rgba(255,255,255,0.4); border-radius: 2px;">שיטת אדמו״ר הזקן ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="masekhtot-grid">
+        <div class="masekhet-card active">
+          <div class="masekhet-tag tag-active">בעבודה</div>
+          <div class="masekhet-name-he">אורח חיים</div>
+          <div class="masekhet-name-fr">אורח חיים — הלכות שבת</div>
+          <p id="simanim-desc-counts" style="font-size: 13px; color: var(--text-muted); margin-bottom: 6px;">טוען את רשימת הסימנים הזמינים…</p>
+          <div id="simanim-grid-disponibles" class="simanim-grid" aria-live="polite" aria-busy="true">
+            <div class="simanim-grid-loading">טוען את הסימנים…</div>
+          </div>
+          <div style="margin-top: 14px; text-align: center;">
+            <a href="sources/shabbat/index-he.html" style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 1px; color: var(--gold); text-decoration: none;">→ הדף המלא של הסימנים</a>
+          </div>
+        </div>
+        <div class="masekhet-card soon">
+          <div class="masekhet-tag tag-soon">בקרוב</div>
+          <div class="masekhet-name-he">יורה דעה</div>
+          <div class="masekhet-name-fr">יורה דעה — איסור והיתר</div>
+          <ul class="siman-list">
+            <li><span style="color:var(--text-muted)">התוכן בהכנה</span></li>
+          </ul>
+        </div>
+        <div class="masekhet-card soon">
+          <div class="masekhet-tag tag-soon">עתידי</div>
+          <div class="masekhet-name-he">אבן העזר</div>
+          <div class="masekhet-name-fr">אבן העזר — הלכות אישות</div>
+          <ul class="siman-list">
+            <li><span style="color:var(--text-muted)">התוכן בהכנה</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about-bg">
+    <div class="section">
+      <div class="about-grid">
+        <div class="about-text">
+          <div class="section-label">אודות</div>
+          <h2 class="section-title">יוזמה לטובת הקהילה</h2>
+          <div class="divider"></div>
+          <p>דעת תורה נולדה מתוך הכרה פשוטה: ספרות הלכתית בצרפתית, הנגישה לכל הרמות, עודנה נדירה מדי. אלפי דוברי צרפתית — בצרפת, בישראל, בקנדה ובמרוקו — ראויים לגישה ללימוד רציני בשפתם.</p>
+          <p>כל טקסט מועתק, מתורגם ומבואר בקפידה על ידי הרב יוסף חיים סממה, מתוך שמירה על נאמנות למקורות הראשוניים תוך הנגשת המושגים.</p>
+          <p>הפרויקט מתחיל בצניעות — פלטפורמה קהילתית — עם השאיפה להפוך עם הזמן לאסמכתא בינלאומית ללימוד הלכה בצרפתית.</p>
+        </div>
+        <div>
+          <div class="rav-card">
+            <div class="rav-name-he">הרב יוסף חיים סממה</div>
+            <div class="rav-divider"></div>
+            <div class="rav-name-fr">Rav Yossef Haim Samama</div>
+            <div class="rav-title">מייסד · דעת תורה</div>
+            <div class="rav-divider"></div>
+            <img src="assets/img/yh-logo-about.png" alt="לוגו YH — יוסף חיים סממה" class="rav-logo">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EMAIL CAPTURE -->
+  <section class="email-capture" id="newsletter">
+    <div class="email-capture-inner">
+      <div class="label">ניוזלטר דעת</div>
+      <h2>קבלת סימן בכל שבוע</h2>
+      <p>סימן אחד מהשולחן ערוך בכל יום ראשון. טקסט עברי, תרגום, מקורות. ללא ספאם, הסרה בלחיצה אחת.</p>
+      <form class="email-capture-form" id="newsletter-form" novalidate>
+        <input type="email" name="email" id="newsletter-email" class="email-capture-input" placeholder="האימייל-שלך@דוגמה.com" required autocomplete="email">
+        <button type="submit" class="email-capture-btn" id="newsletter-submit">הרשמה</button>
+      </form>
+      <div class="email-capture-meta" id="newsletter-meta">📚 השליחה הראשונה: סימן רמ״ב — כבוד ועונג שבת</div>
+    </div>
+    <script>
+      (function () {
+        var form = document.getElementById('newsletter-form');
+        var emailInput = document.getElementById('newsletter-email');
+        var btn = document.getElementById('newsletter-submit');
+        var meta = document.getElementById('newsletter-meta');
+        if (!form) return;
+        var API = 'https://daatai.vercel.app/api/newsletter';
+        form.addEventListener('submit', async function (e) {
+          e.preventDefault();
+          var email = (emailInput.value || '').trim();
+          if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            meta.textContent = '⚠ כתובת אימייל לא תקינה.';
+            meta.style.color = '#FFB4B4';
+            return;
+          }
+          btn.disabled = true;
+          var orig = btn.textContent;
+          btn.textContent = '…';
+          try {
+            var r = await fetch(API, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email: email, source: 'home' }),
+            });
+            var data = await r.json().catch(function () { return {}; });
+            if (r.ok && data.ok) {
+              meta.innerHTML = data.alreadySubscribed
+                ? '✓ אתה כבר רשום — נתראה ביום ראשון!'
+                : '✓ תודה! בדוק את תיבת הדואר שלך (וגם את הספאם) לאישור.';
+              meta.style.color = '#A8D5BA';
+              form.reset();
+            } else {
+              meta.textContent = '⚠ ' + (data.error || 'שגיאה. נסה שוב בעוד רגע.');
+              meta.style.color = '#FFB4B4';
+            }
+          } catch (err) {
+            meta.textContent = '⚠ אין חיבור. נסה שוב מאוחר יותר.';
+            meta.style.color = '#FFB4B4';
+          } finally {
+            btn.disabled = false;
+            btn.textContent = orig;
+          }
+        });
+      })();
+    </script>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index-he.html" class="logo" style="text-decoration:none;">
+            <span class="logo-hebrew">דעת</span>
+            <span class="logo-latin" style="color:rgba(255,255,255,0.5); letter-spacing:4px; font-size:11px; display:block; margin-top:4px;">DAAT TORAH</span>
+          </a>
+          <div class="footer-tagline">כִּי מִצִּיּוֹן תֵּצֵא תוֹרָה</div>
+        </div>
+        <div class="footer-links">
+          <h4>הלכות שבת — סימנים מרכזיים</h4>
+          <ul>
+            <li><a href="sources/shabbat/siman-242/index.html">סימן רמ״ב — עונג שבת</a></li>
+            <li><a href="sources/shabbat/siman-263/index.html">סימן רס״ג — הדלקת נרות</a></li>
+            <li><a href="sources/shabbat/siman-271/index.html">סימן רע״א — קידוש</a></li>
+            <li><a href="sources/shabbat/siman-308/index.html">סימן ש״ח — מוקצה</a></li>
+            <li><a href="sources/shabbat/siman-318/index.html">סימן שי״ח — מבשל</a></li>
+            <li><a href="sources/shabbat/index-he.html" style="color:var(--gold); font-weight:600;">→ לכל 122 הסימנים</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>רמות הלימוד</h4>
+          <ul>
+            <li>רמה 1 — בסיס (צרפתית)</li>
+            <li>רמה 2 — למדן (מקורות)</li>
+            <li>רמה 3 — סיכום</li>
+            <li>רמה 4 — דעת הרב</li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>הפלטפורמה</h4>
+          <ul>
+            <li><a href="chat-he.html">💬 דעת AI — מסך מלא</a></li>
+            <li><a href="communaute-he.html">קהילה</a></li>
+            <li><a href="#vision">חזון הפרויקט</a></li>
+          </ul>
+          <a href="soutenir-he.html" class="footer-soutenir-btn">♥ לתמוך בפרויקט</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© 5786 / 2026 — דעת תורה · ביוזמת הרב יוסף חיים סממה</div>
+        <div class="footer-verse">אִם תֵּבִין לַחֲכָמָה תִּקְרָא — משלי ב':ג'</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- DAAT Auth — bouton connexion + modal OTP par email -->
+  <link rel="stylesheet" href="assets/css/daat-auth.css">
+  <script src="assets/js/daat-auth.js" defer></script>
+
+  <!-- DAAT Chat Widget — Assistant IA -->
+  <link rel="stylesheet" href="assets/css/chat-widget.css">
+  <script>
+    // URL relative — fonctionne sur tous les domaines (daatai.vercel.app, daattorah.com, etc.)
+    window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';
+  </script>
+  <script src="assets/js/chat-widget.js" defer></script>
+
+  <!-- Auto-rendu liste des simanim disponibles depuis data/simanim-disponibles.json -->
+  <script>
+    (async function () {
+      const grid = document.getElementById('simanim-grid-disponibles');
+      const desc = document.getElementById('simanim-desc-counts');
+      if (!grid) return;
+      try {
+        const res = await fetch('data/simanim-disponibles.json', { cache: 'no-cache' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        const frag = document.createDocumentFragment();
+        for (const s of data.simanim) {
+          const a = document.createElement('a');
+          a.href = s.path;
+          a.className = 'simanim-tile';
+          a.title = 'סימן ' + s.num + ' — ' + s.title;
+          const num = document.createElement('span');
+          num.className = 'simanim-tile-num';
+          num.textContent = s.numHe;
+          const numFr = document.createElement('span');
+          numFr.className = 'siman-num-fr';
+          numFr.textContent = '· ' + s.num;
+          num.appendChild(numFr);
+          const title = document.createElement('span');
+          title.className = 'simanim-tile-title';
+          title.textContent = s.title;
+          a.appendChild(num);
+          a.appendChild(title);
+          frag.appendChild(a);
+        }
+        grid.innerHTML = '';
+        grid.appendChild(frag);
+        grid.removeAttribute('aria-busy');
+        if (desc) {
+          const c = data.meta.counts;
+          desc.innerHTML =
+            '<strong>' + c.total + ' סימנים זמינים</strong> · ' +
+            c.complet + ' עם 4 רמות מלאות · ' +
+            'מתעדכן אוטומטית (' + data.meta.lastUpdated + ')';
+        }
+      } catch (e) {
+        console.error('Failed to load simanim index:', e);
+        grid.innerHTML = '<div class="simanim-grid-loading">הרשימה אינה זמינה. <a href="sources/shabbat/index-he.html" style="color: var(--gold);">לכל הסימנים →</a></div>';
+        if (desc) desc.textContent = 'כל הסימנים 242-365 זמינים בדף הלכות שבת.';
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Siman <bdi>שי"ג</bdi> · Level 3 Master Synthesis — Déplacement de portes, fenêtres, serrures Shabbat | DAAT</title>
+<meta name="description" content="Level 3 (Synthèse) du Siman שי"ג — Summary structuré pour révision et mémorisation : axiome, hiérarchie, arbres de décision, mnémoniques.">
+<meta name="author" content="Rav Yossef Haim Samama">
+<link rel="canonical" href="https://daattorah.com/oh/313/synthese">
+  <link rel="alternate" hreflang="fr" href="https://daattorah.com/sources/shabbat/siman-313/niveau-3-synthese.html">
+<link rel="alternate" hreflang="en" href="https://daattorah.com/sources/shabbat/siman-313/niveau-3-synthese-en.html">
+<link rel="alternate" hreflang="he" href="https://daattorah.com/sources/shabbat/siman-313/niveau-3-synthese-he.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="DAAT דעת">
+<meta property="og:title" content="Siman שי"ג · Level 3 Master Synthesis">
+<meta property="og:description" content="Summary structuré pour révision et mémorisation.">
+<meta property="og:url" content="https://daattorah.com/oh/313/synthese">
+<meta property="og:image" content="https://daattorah.com/assets/img/og/siman-313.svg">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Siman שי"ג · Level 3 Master Synthesis">
+<meta name="twitter:description" content="Summary structuré.">
+<meta name="twitter:image" content="https://daattorah.com/assets/img/og/siman-313.svg">
+<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 2cm 1.8cm; }
+  @media print { .daat-nav-bar, .daat-breadcrumb { display: none !important; } }
+  body { font-family: 'Georgia', 'Cambria', serif; font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0; }
+  .he { direction: rtl; text-align: right; font-family: 'Frank Ruhl Libre', 'David', 'Times New Roman', serif; font-size: 13pt; line-height: 1.9; }
+  .he-q { direction: rtl; unicode-bidi: embed; font-family: 'Frank Ruhl Libre', 'David', serif; font-weight: 600; color: #1A1F3A; }
+  .container { max-width: 720pt; margin: 0 auto; padding: 24pt 32pt; }
+  .cover { text-align: center; margin: 2cm 0; }
+  .cover .badge-top { color: #C5A55A; font-size: 11pt; letter-spacing: 4px; margin-bottom: 10px; }
+  .cover h1 { font-family: 'Frank Ruhl Libre', serif; font-size: 32pt; color: #1A1F3A; margin: 12px 0 8px; font-weight: 900; }
+  .cover .he-title { font-family: 'Frank Ruhl Libre', serif; font-size: 28pt; color: #C5A55A; direction: rtl; margin: 4px 0; }
+  .cover .subtitle { font-style: italic; font-size: 13pt; color: #555; margin: 16px 0; }
+  .cover .meta { font-size: 11pt; color: #888; margin-top: 24px; line-height: 1.8; }
+  .ornament { border: none; height: 2px; background: #C5A55A; margin: 24px auto; width: 60px; }
+  h2 { color: #1A1F3A; font-family: 'Frank Ruhl Libre', serif; font-size: 18pt; margin: 32pt 0 12pt; padding-bottom: 8pt; border-bottom: 2px solid #C5A55A; }
+  h3 { color: #1A1F3A; font-family: 'Frank Ruhl Libre', serif; font-size: 14pt; margin: 20pt 0 8pt; font-weight: 700; }
+  h4 { color: #6B3FA0; font-size: 13pt; margin: 14pt 0 6pt; font-weight: 700; }
+  p { margin: 10pt 0; }
+  ul, ol { margin: 10pt 0 10pt 24pt; }
+  li { margin: 6pt 0; }
+  table { width: 100%; border-collapse: collapse; margin: 16pt 0; font-size: 10pt; }
+  th { background: #1A1F3A; color: #C5A55A; padding: 10pt; text-align: left; font-weight: 600; font-size: 10pt; letter-spacing: 1px; text-transform: uppercase; }
+  td { padding: 10pt; border-bottom: 1px solid #E4DDD0; vertical-align: top; }
+  tr:nth-child(even) td { background: #FAF6EE; }
+  .axiome { background: linear-gradient(135deg, #FFF8E5 0%, #FAF6EE 100%); border-left: 4px solid #C5A55A; padding: 16pt 20pt; margin: 16pt 0; font-size: 12pt; line-height: 1.8; }
+  .axiome strong { color: #C5A55A; font-size: 14pt; }
+  .remember { background: #E8F5EE; border-left: 4px solid #2E7D52; padding: 14pt 18pt; margin: 14pt 0; }
+  .warning { background: #FFE8E8; border-left: 4px solid #C0392B; padding: 14pt 18pt; margin: 14pt 0; }
+  .mnemonic { background: #F3E8FF; border-left: 4px solid #6B3FA0; padding: 14pt 18pt; margin: 14pt 0; font-family: 'Inter', sans-serif; }
+  .mnemonic .letter { font-weight: 700; color: #6B3FA0; font-size: 13pt; }
+  .schema { background: #F5F5F8; padding: 16pt; margin: 14pt 0; border: 1px solid #E4DDD0; }
+  .schema-step { display: block; padding: 8pt 12pt; margin: 6pt 0; background: #fff; border: 1px solid #E4DDD0; }
+  .schema-arrow { text-align: center; color: #C5A55A; margin: 4pt 0; font-size: 14pt; }
+  .pesak-box { background: #FFF3E0; border: 2px solid #C5A55A; padding: 14pt 18pt; margin: 16pt 0; }
+  .pesak-box h4 { margin-top: 0; color: #C5A55A; }
+  .yh-watermark { text-align: center; margin-top: 60pt; padding-top: 16pt; border-top: 1px solid #E4DDD0; font-size: 10pt; color: #999; line-height: 1.6; }
+  .compact li { margin: 3pt 0; }
+  .toc { background: #FAF6EE; padding: 16pt 20pt; margin: 16pt 0; }
+  .toc ol { margin-left: 20pt; }
+
+    .lang-switcher { display: flex; gap: 6px; align-items: center; margin-left: 12px; }
+    .lang-switcher a {
+      font-family: 'Inter', sans-serif; font-size: 11px;
+      padding: 3px 7px; border-radius: 2px; letter-spacing: 1px;
+      color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.15);
+      text-decoration: none; text-transform: none;
+    }
+    .lang-switcher a.active { color: var(--gold, #C5A55A); border-color: var(--gold, #C5A55A); }
+    .lang-switcher a:hover { color: var(--gold, #C5A55A); border-color: var(--gold, #C5A55A); }
+
+</style>
+</head>
+<body>
+<div class="wip-banner" style="background:#FFF8E5;border:1px solid #C5A55A;border-left:4px solid #C5A55A;padding:10px 16px;margin:0 0 12px;font-family:'Inter',sans-serif;font-size:14px;color:#5a4a1a;">
+ℹ️ This page is being translated — Hebrew sources are fully preserved. Specific commentary may remain partially in French. <a href="niveau-3-synthese.html" style="color:#8C6F1E;font-weight:600;">View in French</a>
+</div>
+
+
+<div style="background:#1A1F3A;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:58px;border-bottom:2px solid #C5A55A;">
+  <a href="../../../index-en.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+    <span style="font-family:'Frank Ruhl Libre',serif;font-size:24px;font-weight:700;color:#C5A55A;">דעת</span>
+    <span style="font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:#fff;letter-spacing:3px;">DAAT</span>
+  </a>
+  <div style="display:flex;gap:20px;align-items:center;">
+    <a href="../index-en.html" style="color:#C5A55A;text-decoration:none;font-family:'Inter',sans-serif;font-size:13px;">Hilkhot Shabbat</a>
+    <a href="index-en.html" style="color:#fff;text-decoration:none;font-family:'Inter',sans-serif;font-size:13px;">Siman <bdi>שי"ג</bdi></a>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="cover">
+  <div class="badge-top">DAAT · NIVEAU 3 — SYNTHÈSE MAGISTRALE</div>
+  <h1>Siman <bdi>שי"ג</bdi></h1>
+  <div class="he-title">סימן שי"ג · טִלְטוּל דֶּלֶת וְחַלּוֹן וְהַמַּנְעוּל</div>
+  <div class="subtitle">Summary & mnémoniques pour la révision</div>
+  <hr class="ornament">
+  <div class="meta">
+    Synthèse magistrale · Hilkhot Shabbat · 10 seifim<br>
+    <em>Pour mémoriser et réviser après les Niveaux 1 & 2</em>
+  </div>
+</div>
+
+<div style="text-align:center;margin:20px 0;">
+  <button onclick="window.print()" class="print-btn" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;background:#1A1F3A;color:#C5A55A;padding:10px 22px;border:1px solid #C5A55A;border-radius:2px;cursor:pointer;text-transform:uppercase;">📄 Imprimer / Sauver en PDF</button>
+</div>
+<style>@media print { .print-btn, .daat-khavroutha-fab, .daat-chat-fab { display: none !important; } }</style>
+
+
+<h3>📑 Plan de la synthèse</h3>
+
+<div class="toc">
+<ol class="compact">
+  <li><strong>L'Axiome central</strong> du siman</li>
+  <li><strong>Les concepts-clés</strong> condensés</li>
+  <li><strong>Hiérarchie des cas</strong> — du plus large au plus restrictif</li>
+  <li><strong>Arbre de décision</strong></li>
+  <li><strong>L'échelle de la תורת כלי</strong> — trois degrés d'exigence</li>
+  <li><strong>Pièges à éviter</strong></li>
+  <li><strong>Cas pratiques modernes</strong></li>
+  <li><strong>Tableau de synthèse finale</strong></li>
+  <li><strong>Les commandements pratiques</strong></li>
+</ol>
+</div>
+
+<h2>1. L'Axiome central</h2>
+
+<div class="axiome">
+<strong>Le Siman <bdi>שי"ג</bdi> en une phrase.</strong><br>
+Fermer une fenêtre, verrouiller une porte — est-ce <strong>construire</strong> (<em>boné</em>) ou simplement <strong>utiliser</strong> ? Réponse : si l'objet a le <strong>statut d'ustensile</strong> (<span class="he-q">תורת כלי</span>), son usage n'est pas « construire ». Et plus l'objet ressemble à de la construction, plus l'exigence pour lui conférer ce statut est forte : <em>volet</em> → pensée préalable ; <em>loquet</em> → aménagement ; <em>verrou-pieu</em> → attache.
+</div>
+
+<h2>2. Les concepts-clés condensés</h2>
+
+<table>
+<tr><th>Concept</th><th>Définition</th><th>Application</th></tr>
+<tr><td><span class="he-q">בונה</span></td><td>Construire</td><td>Mélakha — assembler, fixer, « ajouter au bâtiment »</td></tr>
+<tr><td><span class="he-q">סותר</span></td><td>Démolir</td><td>Mélakha jumelle — défaire une structure</td></tr>
+<tr><td><span class="he-q">תורת כלי</span></td><td>Statut d'ustensile</td><td>Un kli — son usage n'est pas « construire »</td></tr>
+<tr><td><span class="he-q">ציר</span></td><td>Gond / pivot</td><td>Remettre un gond = boné ; signe que c'est une « porte »</td></tr>
+<tr><td><span class="he-q">מחשבה מערב שבת</span></td><td>Pensée préalable</td><td>Confère le statut de kli au volet</td></tr>
+</table>
+
+<h2>3. Hiérarchie des cas (= degrés d'exigence)</h2>
+
+<div class="schema">
+<span class="schema-step"><strong>1.</strong> Porte / fenêtre installée, usage normal → <strong>permis</strong> (c'est utiliser, pas construire).</span>
+<div class="schema-arrow">↓</div>
+<span class="schema-step"><strong>2.</strong> Volet (peu semblable à la construction) → permis si <em>pensé la veille</em>.</span>
+<div class="schema-arrow">↓</div>
+<span class="schema-step"><strong>3.</strong> Loquet-roseau (plus semblable) → permis si <em>aménagé</em>.</span>
+<div class="schema-arrow">↓</div>
+<span class="schema-step"><strong>4.</strong> Verrou-pieu (très semblable) → permis seulement si <em>attaché</em>.</span>
+<div class="schema-arrow">↓</div>
+<span class="schema-step"><strong>5.</strong> Verrou qui perce le sol / remettre un gond → <strong>boné, interdit</strong>.</span>
+</div>
+
+<h2>4. Arbre de décision</h2>
+
+<div class="schema">
+<span class="schema-step"><strong>Q1 :</strong> L'objet est-il installé pour un usage régulier (porte, fenêtre) ?</span>
+<div class="schema-arrow">↓</div>
+<span class="schema-step">Si <strong>OUI</strong> → l'utiliser = permis.</span>
+<div class="schema-arrow">↓</div>
+<span class="schema-step">Si <strong>NON</strong> (objet amovible) : a-t-il le statut de kli ?</span>
+<div class="schema-arrow">↓</div>
+<span class="schema-step">Vérifier le degré requis : pensée (volet) / aménagement (loquet) / attache (verrou).</span>
+<div class="schema-arrow">↓</div>
+<span class="schema-step"><strong>Q2 :</strong> L'action perce-t-elle le sol / remonte-t-elle un gond ? → boné, interdit.</span>
+</div>
+
+<h2>5. L'échelle de la תורת כלי — trois degrés d'exigence</h2>
+
+<p>Le cœur du siman est une intuition fine : un objet amovible qui sert à fermer une ouverture n'est <em>pas</em> en soi un ustensile. Pour que son usage cesse d'être « construire », il faut lui conférer le <strong>statut d'ustensile</strong> (<span class="he-q">תורת כלי</span>). Et le siman pose une règle graduée : <strong>plus l'objet ressemble à de la construction, plus l'effort exigé pour lui donner ce statut est grand.</strong></p>
+
+<h3>Pourquoi une échelle, et non un seuil unique</h3>
+<p>Si tout objet de fermeture exigeait le même acte, on perdrait la logique du <em>boné</em>. La crainte que les Sages traitent est la ressemblance avec l'acte de bâtir. Un volet posé dans une fenêtre évoque peu un mur ; un pieu enfoncé dans le sol évoque beaucoup une fondation. L'exigence suit donc cette ressemblance, en trois crans :</p>
+
+<table>
+<tr><th>Objet</th><th>Ressemblance à la construction</th><th>Acte requis pour le statut de kli</th></tr>
+<tr><td><span class="he-q">פקק החלון</span> — le volet</td><td>Faible</td><td>Une simple <strong>pensée</strong> préalable (mahshava mé-erev Shabbat) qu'il servira de fermeture</td></tr>
+<tr><td><span class="he-q">קנה</span> — le loquet-roseau</td><td>Moyenne</td><td>Un <strong>aménagement</strong> concret — qu'il soit façonné, taillé, prêt à servir</td></tr>
+<tr><td><span class="he-q">נגר</span> — le verrou-pieu</td><td>Forte</td><td>Une <strong>attache</strong> — qu'il soit lié à la porte, ne touchant pas le sol</td></tr>
+</table>
+
+<h3>Le cas-limite : où l'échelle s'arrête</h3>
+<p>Au-delà du dernier cran, aucun acte ne « sauve » l'objet. Un verrou-pieu qui <strong>perce le sol</strong> et s'y enfonce, ou la <strong>remise d'un gond</strong> dans son logement, sont du <em>boné</em> véritable : on n'utilise plus un ustensile, on ajoute au bâtiment lui-même. La pensée, l'aménagement, l'attache ne valent que tant que l'objet reste distinct de la structure fixe.</p>
+
+<div class="warning">
+<strong>Le raisonnement à retenir :</strong> ne jamais se demander seulement « est-ce un objet mobile ? », mais « cet objet a-t-il reçu, au degré que sa nature exige, son statut d'ustensile ? ». Un objet amovible sans ce statut, employé comme fermeture, reste un acte de construction interdit.
+</div>
+
+<h2>6. Mnémonique « <bdi>פק"נ</bdi> »</h2>
+
+<div class="mnemonic">
+<p><span class="letter">פ</span> — <strong>Pekak</strong> (פקק החלון) — volet : pensée préalable suffit.</p>
+<p><span class="letter">ק</span> — <strong>Qané</strong> (קנה) — loquet : aménagement requis.</p>
+<p><span class="letter">נ</span> — <strong>Néguer</strong> (נגר) — verrou-pieu : attache requise.</p>
+<p style="margin-top:10px;font-style:italic;">— Plus l'objet ressemble à la construction, plus l'exigence monte.</p>
+</div>
+
+<h2>7. Pièges à éviter</h2>
+
+<div class="warning">
+<strong>Piège 1 — Remettre une porte sur ses gonds :</strong> une porte sortie de ses gonds — la remettre = <em>boné</em>. Ne pas le faire Shabbat.
+</div>
+
+<div class="warning">
+<strong>Piège 2 — Assembler un meuble :</strong> monter une bibliothèque, visser des pièces = construction. Interdit.
+</div>
+
+<div class="warning">
+<strong>Piège 3 — Le verrou qui perce le sol :</strong> un verrou-pieu qui s'enfonce dans la terre = vraie construction (boné). Vérifier que le seuil est surélevé.
+</div>
+
+<div class="warning">
+<strong>Piège 4 — Le volet / la porte électriques :</strong> au-delà de boné, c'est de l'électricité — interdit absolu.
+</div>
+
+<div class="warning">
+<strong>Piège 5 — Croire que tout objet amovible est permis :</strong> un objet amovible doit avoir le statut de kli (pensée / aménagement / attache selon le cas).
+</div>
+
+<h2>8. Cas pratiques modernes</h2>
+
+<table>
+<tr><th>Situation</th><th>Conduite</th></tr>
+<tr><td>Ouvrir/fermer une porte sur gonds fixes</td><td>Permis (usage normal)</td></tr>
+<tr><td>Remettre une porte sortie de ses gonds</td><td>Interdit (boné)</td></tr>
+<tr><td>Volet roulant manuel</td><td>Généralement permis</td></tr>
+<tr><td>Volet / porte électriques</td><td>Interdit (électricité)</td></tr>
+<tr><td>Verrouiller / déverrouiller une serrure ordinaire</td><td>Permis</td></tr>
+<tr><td>Serrure / cadenas électronique</td><td>Interdit</td></tr>
+<tr><td>Déplier un lit pliant conçu pour cela</td><td>Permis (usage)</td></tr>
+<tr><td>Assembler un meuble en pièces détachées</td><td>Interdit (boné)</td></tr>
+<tr><td>Verrou-pieu qui perce le sol</td><td>Interdit (boné)</td></tr>
+</table>
+
+<h2>9. Tableau de synthèse finale</h2>
+
+<table>
+<tr><th>Élément</th><th>Détail</th></tr>
+<tr><td>Subject du siman</td><td>Portes, fenêtres, verrous Shabbat — boné/sotér appliqués</td></tr>
+<tr><td>Nombre de seifim</td><td>10</td></tr>
+<tr><td>Mishnah Berurah</td><td>56 entrées</td></tr>
+<tr><td>Source(s) talmudiques</td><td>Shabbat 125b-126a (pekak hahalon ; néguer)</td></tr>
+<tr><td>Mélakhot concernées</td><td>בונה (construire) et סותר (démolir)</td></tr>
+<tr><td>Concept-pivot</td><td>תורת כלי — le statut d'ustensile</td></tr>
+<tr><td>Décision pratique</td><td>Usage normal d'objets installés = permis. Assemblage / gond / verrou perçant / électricité = interdit.</td></tr>
+</table>
+
+<h2>10. Les commandements pratiques du Siman <bdi>שי"ג</bdi></h2>
+
+<div class="pesak-box">
+<h4>Portes et fenêtres Shabbat — la checklist</h4>
+<ol class="compact">
+  <li><strong>Usage normal</strong> d'une porte / fenêtre / volet installés = permis.</li>
+  <li><strong>Ne pas remettre</strong> une porte sur ses gonds (boné).</li>
+  <li><strong>Ne pas assembler</strong> de meubles en pièces détachées.</li>
+  <li><strong>Verrou-pieu</strong> : vérifier qu'il ne perce pas le sol.</li>
+  <li><strong>Objet amovible</strong> servant de fermeture : doit avoir le statut de kli (pensée / aménagement / attache).</li>
+  <li><strong>Volet/serrure électriques</strong> : interdits (électricité).</li>
+  <li><strong>En cas de doute</strong> → consulter le Rav.</li>
+</ol>
+</div>
+
+<div class="remember">
+<strong>📚 Summary du parcours d'étude</strong><br>
+Tu as étudié le Siman <bdi>שי"ג</bdi> en 3 niveaux :
+<ul class="compact">
+  <li>🌱 <strong>Level 1 — Base :</strong> les 10 seifim, traduction française, concepts halakhiques</li>
+  <li>⚡ <strong>Level 2 — Lamdan :</strong> sources talmudiques, שיטות des Rishonim, מחלוקות, נפקא מינות</li>
+  <li>✨ <strong>Level 3 — Synthèse :</strong> axiome, mnémonique, arbre de décision, commandements pratiques</li>
+</ul>
+Pour aller plus loin : <strong>Level 4 — Daat HaRav</strong> (chitah de l'Admour HaZaken sur le Choulhan Aroukh HaRav siman <bdi>שי"ג</bdi>).
+</div>
+
+</div>
+
+<div class="yh-watermark">
+~ ~ ~ ~ ~<br>
+<strong>DAAT</strong> · <strong>הרב יוסף חיים סממה</strong><br>
+תלמיד חכם · מעביר שיעורים בהלכה ובחסידות<br>
+<em>סימן שי"ג · Level 3 — Master Synthesis</em><br>
+<a href="../../../soutenir-en.html" style="display:inline-block;margin-top:14px;font-size:13px;color:#B8972A;text-decoration:none;border:1px solid rgba(184,151,42,0.5);padding:6px 16px;border-radius:2px;">♥ Support DAAT</a>
+</div>
+
+  <link rel="stylesheet" href="../../../assets/css/khavroutha-fab.css">
+<link rel="stylesheet" href="../../../assets/css/chat-widget.css">
+  <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
+  <script src="../../../assets/js/chat-widget.js" defer></script>
+<a href="../../../communaute-en.html#khavroutha" class="daat-khavroutha-fab" title="Find a khavroutha for this siman"><span class="icon">📖</span><span class="label-long">Join the khavroutha</span></a>
+  <script src="../../../assets/js/daat-progress.js"></script>
+</body>
+</html>
