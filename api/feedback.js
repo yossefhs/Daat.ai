@@ -18,7 +18,7 @@
 //   - feedback:{id}    → l'objet complet
 //   - feedback:list    → liste des ids (les 1000 plus récents)
 
-import { kv } from '@vercel/kv';
+import { kv } from './_kv.js';
 
 export default async function handler(req, res) {
   // CORS

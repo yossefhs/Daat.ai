@@ -15,7 +15,7 @@
 //
 // Auth : header Authorization: Bearer <ADMIN_PASSWORD>
 
-import { kv } from '@vercel/kv';
+import { kv } from '../_kv.js';
 
 function checkAuth(req) {
   const expected = process.env.ADMIN_PASSWORD;

@@ -12,7 +12,7 @@
 //   DELETE /api/conversations?id=xxx → supprime une conversation
 //   DELETE /api/conversations?all=1  → supprime tout (rare ; demande explicite)
 
-import { kv } from '@vercel/kv';
+import { kv } from './_kv.js';
 import { getUserFromRequest, setCorsHeaders } from './_auth.js';
 
 const MAX_CONVERSATIONS = 100;        // garde-fou — 100 conversations max par user
@@ -64,7 +64,7 @@ function sanitizeConversation(c) {
 }
 
 function parseValue(raw) {
-  // @vercel/kv déserialise déjà parfois ; on est défensif.
+  // le client Redis déserialise déjà parfois ; on est défensif.
   if (typeof raw === 'string') {
     try { return JSON.parse(raw); } catch { return null; }
   }

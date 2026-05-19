@@ -40,12 +40,12 @@ export async function getAllEntries() {
  * Retourne [] si KV non configuré (silencieux).
  */
 async function loadDynamicEntries() {
-  // Vercel KV via @vercel/kv — chargé lazy pour ne pas bloquer si non installé
+  // Store Redis — chargé lazy pour ne pas bloquer si KV non configuré
   if (!process.env.KV_REST_API_URL || !process.env.KV_REST_API_TOKEN) {
     return [];
   }
   try {
-    const { kv } = await import('@vercel/kv');
+    const { kv } = await import('./_kv.js');
     const ids = (await kv.smembers('daat:corpus:ids')) || [];
     if (ids.length === 0) return [];
     const entries = await Promise.all(
@@ -197,9 +197,9 @@ export async function executeCorpusTool(toolName, input) {
 // Helpers pour l'admin (CRUD sur entrées dynamiques via KV)
 export async function addDynamicEntry(entry) {
   if (!process.env.KV_REST_API_URL) {
-    throw new Error('Vercel KV non configuré — impossible d\'ajouter un contenu dynamique. Active Vercel KV dans le dashboard puis ajoute KV_REST_API_URL et KV_REST_API_TOKEN aux variables d\'environnement.');
+    throw new Error('Store Redis non configuré — impossible d\'ajouter un contenu dynamique. Ajoute KV_REST_API_URL et KV_REST_API_TOKEN aux variables d\'environnement.');
   }
-  const { kv } = await import('@vercel/kv');
+  const { kv } = await import('./_kv.js');
   if (!entry.id) {
     entry.id = `dynamic-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
   }
@@ -213,7 +213,7 @@ export async function deleteDynamicEntry(id) {
   if (!process.env.KV_REST_API_URL) {
     throw new Error('Vercel KV non configuré');
   }
-  const { kv } = await import('@vercel/kv');
+  const { kv } = await import('./_kv.js');
   await kv.del(`daat:corpus:entry:${id}`);
   await kv.srem('daat:corpus:ids', id);
   return { ok: true };

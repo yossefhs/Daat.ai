@@ -11,7 +11,7 @@
 //
 // On peut aussi appeler directement /api/auth?action=… si besoin.
 
-import { kv } from '@vercel/kv';
+import { kv } from './_kv.js';
 import { Resend } from 'resend';
 import {
   generateCode,

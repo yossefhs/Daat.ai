@@ -144,15 +144,21 @@
     }
     .progress-action:hover { border-color: var(--gold); color: var(--navy); }
 
-    /* SIMAN CARD STATUS BADGES */
-    .siman-progress-badge {
-      position: absolute; top: 10px; right: 10px;
-      width: 24px; height: 24px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 12px; font-weight: 600;
+    /* SIMAN CARD — suivi des niveaux étudiés */
+    .siman-lvl-track {
+      display: flex; gap: 5px; margin-top: 12px;
+      padding-top: 12px; border-top: 1px solid var(--border);
     }
-    .badge-visited { background: rgba(197,165,90,0.15); color: var(--gold); }
-    .badge-completed { background: rgba(46,125,82,0.15); color: var(--green); }
+    .siman-lvl-dot {
+      width: 20px; height: 20px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700;
+      background: var(--cream-dark); color: var(--text-mid);
+      border: 1px solid var(--border);
+    }
+    .siman-lvl-dot.done {
+      background: var(--green); color: #fff; border-color: var(--green);
+    }
 
     /* RTL helpers */
     body[dir="rtl"] .siman-card { text-align: right; }
@@ -440,8 +446,7 @@
     <div class="progress-actions">
       <button class="progress-action" id="reset-progress" data-i18n="shabbat.resetProgress">↺ Réinitialiser</button>
       <span class="progress-action" style="border-color:transparent; cursor:default;">
-        🟡 <span data-i18n="shabbat.visited">Visité</span> ·
-        🟢 <span data-i18n="shabbat.completed">Complété (3 niveaux)</span>
+        <span data-i18n="shabbat.legend">🟢 niveau étudié · B Base · L Lamdan · S Synthèse · D Daat HaRav</span>
       </span>
     </div>
   </div>
@@ -2272,7 +2277,7 @@ const I18N = {
     'nav.content': 'Contenu',
     'nav.chat': '💬 IA Daat',
     'shabbat.intro1': 'Les <strong>Hilkhot Shabbat</strong> du Choulchan Aroukh, Orah Haïm, couvrent les sections <strong>242 à 365</strong>. Nous progressons dans l\'ordre du Mehaber. Les simanim ci-dessous sont disponibles ; les autres seront ajoutés au fil de l\'étude.',
-    'shabbat.intro2': 'Pour chaque siman : texte hébreu intégral du Choulchan Aroukh + Hagaha du Rama, traduction et explication, sources des Rishonim et Acharonim, plus le pilpoul des grands commentateurs (Mishna Brura, Choulchan Aroukh de l'Admour HaZaken, Yabia Omer, Igrot Moshe…).',
+    'shabbat.intro2': 'Pour chaque siman : texte hébreu intégral du Choulchan Aroukh + Hagaha du Rama, traduction et explication, sources des Rishonim et Acharonim, plus le pilpoul des grands commentateurs (Mishna Brura, Choulchan Aroukh de l\'Admour HaZaken, Yabia Omer, Igrot Moshe…).',
     'shabbat.searchPlaceholder': '🔍 Rechercher un siman par numéro, mot-clé, hébreu ou français…',
     'shabbat.progressLabel': 'Ton parcours d\'étude',
     'shabbat.resetProgress': '↺ Réinitialiser',
@@ -2280,10 +2285,11 @@ const I18N = {
     'shabbat.completed': 'Complété (3 niveaux)',
     'shabbat.searchNoResult': 'Aucun siman ne correspond à',
     'shabbat.searchResult': 'simanim trouvés',
-    'shabbat.progressNone': 'Tu n\'as pas encore commencé. Choisis un siman pour démarrer.',
-    'shabbat.progressVisited': 'siman visité(s)',
-    'shabbat.progressCompleted': 'complété(s)',
+    'shabbat.progressNone': 'Tu n\'as pas encore étudié de niveau. Ouvre un siman pour commencer.',
+    'shabbat.progressVisited': 'niveaux étudiés',
+    'shabbat.progressCompleted': 'simanim complétés (4 niveaux)',
     'shabbat.progressOf': 'sur',
+    'shabbat.legend': '🟢 niveau étudié · B Base · L Lamdan · S Synthèse · D Daat HaRav',
   },
   he: {
     'nav.vision': 'חזון',
@@ -2298,10 +2304,11 @@ const I18N = {
     'shabbat.completed': 'הושלם (3 רמות)',
     'shabbat.searchNoResult': 'אין סימן שמתאים ל-',
     'shabbat.searchResult': 'סימנים נמצאו',
-    'shabbat.progressNone': 'עדיין לא התחלת. בחר סימן כדי להתחיל.',
-    'shabbat.progressVisited': 'סימן(ים) נצפה(ו)',
-    'shabbat.progressCompleted': 'הושלם(ו)',
+    'shabbat.progressNone': 'עדיין לא למדת אף רמה. פתח סימן כדי להתחיל.',
+    'shabbat.progressVisited': 'רמות נלמדו',
+    'shabbat.progressCompleted': 'סימנים הושלמו (4 רמות)',
     'shabbat.progressOf': 'מתוך',
+    'shabbat.legend': '🟢 רמה נלמדה · B בסיס · L למדן · S סיכום · D דעת הרב',
   },
   en: {
     'nav.vision': 'Vision',
@@ -2316,10 +2323,11 @@ const I18N = {
     'shabbat.completed': 'Completed (3 levels)',
     'shabbat.searchNoResult': 'No siman matches',
     'shabbat.searchResult': 'simanim found',
-    'shabbat.progressNone': 'You haven\'t started yet. Pick a siman to begin.',
-    'shabbat.progressVisited': 'siman(s) visited',
-    'shabbat.progressCompleted': 'completed',
+    'shabbat.progressNone': 'You haven\'t studied any level yet. Open a siman to begin.',
+    'shabbat.progressVisited': 'levels studied',
+    'shabbat.progressCompleted': 'simanim completed (4 levels)',
     'shabbat.progressOf': 'of',
+    'shabbat.legend': '🟢 level studied · B Base · L Lamdan · S Synthesis · D Daat HaRav',
   },
 };
 
@@ -2391,88 +2399,78 @@ function searchCards() {
 $searchInput.addEventListener('input', searchCards);
 
 // =================================================================
-// 3) PROGRESSION — visited / completed par siman
+// 3) PROGRESSION — niveaux étudiés par siman
+//    Données écrites par assets/js/daat-progress.js sur les pages
+//    de niveau ; format { "357": ["base","lamdan",…] }.
 // =================================================================
-const PROGRESS_KEY = 'daat-progress-v1';
+const PROGRESS_KEY = 'daat-progress-v2';
+const PROGRESS_LEVELS = [
+  { id: 'base', letter: 'B' },
+  { id: 'lamdan', letter: 'L' },
+  { id: 'synthese', letter: 'S' },
+  { id: 'daat-harav', letter: 'D' },
+];
 
 function loadProgress() {
   try { return JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}'); }
   catch { return {}; }
 }
-function saveProgress(p) {
-  try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(p)); } catch {}
+
+function simanNumOf(card) {
+  const m = (card.getAttribute('href') || '').match(/siman-(\d+)/);
+  return m ? m[1] : null;
 }
 
 function renderProgress() {
   const p = loadProgress();
   const dict = I18N[getLang()] || I18N.fr;
   const availableCards = document.querySelectorAll('.siman-card.available');
-  const totalAvailable = availableCards.length;
-  let visitedCount = 0;
-  let completedCount = 0;
+  const totalSimanim = availableCards.length;
+  let doneLevels = 0;
+  let completedSimanim = 0;
 
   availableCards.forEach(card => {
-    const num = card.querySelector('.siman-num')?.textContent.trim();
-    if (!num) return;
-    const state = p[num];
-    // Remove old badges
-    const oldBadge = card.querySelector('.siman-progress-badge');
-    if (oldBadge) oldBadge.remove();
+    const num = simanNumOf(card);
+    const done = (num && Array.isArray(p[num])) ? p[num] : [];
+    doneLevels += done.length;
+    if (done.length >= PROGRESS_LEVELS.length) completedSimanim++;
 
-    if (state === 'completed') {
-      completedCount++;
-      visitedCount++;
-      const b = document.createElement('span');
-      b.className = 'siman-progress-badge badge-completed';
-      b.textContent = '✓';
-      b.title = dict['shabbat.completed'];
-      card.appendChild(b);
-    } else if (state === 'visited') {
-      visitedCount++;
-      const b = document.createElement('span');
-      b.className = 'siman-progress-badge badge-visited';
-      b.textContent = '·';
-      b.title = dict['shabbat.visited'];
-      card.appendChild(b);
+    let track = card.querySelector('.siman-lvl-track');
+    if (!track) {
+      track = document.createElement('div');
+      track.className = 'siman-lvl-track';
+      for (const lvl of PROGRESS_LEVELS) {
+        const dot = document.createElement('span');
+        dot.className = 'siman-lvl-dot';
+        dot.dataset.level = lvl.id;
+        dot.textContent = lvl.letter;
+        track.appendChild(dot);
+      }
+      card.appendChild(track);
     }
+    track.querySelectorAll('.siman-lvl-dot').forEach(dot => {
+      dot.classList.toggle('done', done.indexOf(dot.dataset.level) !== -1);
+    });
   });
 
   const $stat = document.getElementById('progress-stat');
   const $fill = document.getElementById('progress-fill');
-  if (totalAvailable === 0) {
-    $stat.textContent = '—';
+  const totalLevels = totalSimanim * PROGRESS_LEVELS.length;
+  if (totalLevels === 0 || doneLevels === 0) {
+    $stat.textContent = dict['shabbat.progressNone'];
     $fill.style.width = '0%';
     return;
   }
-  if (visitedCount === 0) {
-    $stat.textContent = dict['shabbat.progressNone'];
-    $fill.style.width = '0%';
-  } else {
-    $stat.innerHTML =
-      `<strong>${visitedCount}</strong> ${dict['shabbat.progressVisited']} ` +
-      `${dict['shabbat.progressOf']} ${totalAvailable} · ` +
-      `<strong>${completedCount}</strong> ${dict['shabbat.progressCompleted']}`;
-    const pct = Math.round((completedCount * 100 + visitedCount * 30) / totalAvailable / 1.3);
-    $fill.style.width = Math.min(pct, 100) + '%';
-  }
+  $stat.innerHTML =
+    `<strong>${doneLevels}</strong> ${dict['shabbat.progressVisited']} ` +
+    `${dict['shabbat.progressOf']} ${totalLevels} · ` +
+    `<strong>${completedSimanim}</strong> ${dict['shabbat.progressCompleted']}`;
+  $fill.style.width = Math.round((doneLevels / totalLevels) * 100) + '%';
 }
 
-// Mark visited when user clicks a siman card
-document.querySelectorAll('.siman-card.available').forEach(card => {
-  card.addEventListener('click', () => {
-    const num = card.querySelector('.siman-num')?.textContent.trim();
-    if (!num) return;
-    const p = loadProgress();
-    if (!p[num]) p[num] = 'visited';
-    saveProgress(p);
-    // (renderProgress will run on next page load)
-  });
-});
-
-// Reset button
+// Réinitialiser la progression
 document.getElementById('reset-progress').addEventListener('click', () => {
-  const dict = I18N[getLang()] || I18N.fr;
-  if (!confirm('OK?')) return;
+  if (!confirm('Réinitialiser tout ton parcours d\'étude ?')) return;
   localStorage.removeItem(PROGRESS_KEY);
   renderProgress();
 });
