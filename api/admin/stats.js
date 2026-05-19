@@ -6,7 +6,7 @@
 // POST /api/admin/stats?secret=XXX  { action: 'set-force-opus', email, value: true|false }
 // POST /api/admin/stats?secret=XXX  { action: 'reset-limit', email }
 
-import { kv } from '@vercel/kv';
+import { kv } from '../_kv.js';
 
 function today() { return new Date().toISOString().slice(0, 10); }
 function daysAgo(n) {

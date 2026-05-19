@@ -6,7 +6,7 @@
 // - Multi-turn (l'historique est envoyé par le client à chaque appel)
 
 import Anthropic from '@anthropic-ai/sdk';
-import { kv } from '@vercel/kv';
+import { kv } from './_kv.js';
 import { SYSTEM_PROMPT } from './_system-prompt.js';
 import { SEFARIA_TOOLS, executeSefariaTool } from './_sefaria.js';
 import { CORPUS_TOOLS, executeCorpusTool, searchCorpus } from './_corpus.js';

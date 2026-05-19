@@ -10,7 +10,7 @@
 // demandé des centaines de fois/mois). Le cache est gaté : si KV échoue, on
 // retombe transparemment sur le fetch direct (zéro régression).
 
-import { kv } from '@vercel/kv';
+import { kv } from './_kv.js';
 
 const SEFARIA_BASE = 'https://www.sefaria.org/api';
 const SEFARIA_CACHE_TTL = 30 * 24 * 60 * 60; // 30 jours

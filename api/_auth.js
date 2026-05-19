@@ -7,7 +7,7 @@
 //   - RESEND_FROM_EMAIL: optionnel — adresse expéditeur (défaut : onboarding@resend.dev)
 
 import jwt from 'jsonwebtoken';
-import { kv } from '@vercel/kv';
+import { kv } from './_kv.js';
 
 const COOKIE_NAME = 'daat_session';
 const SESSION_DAYS = 30;

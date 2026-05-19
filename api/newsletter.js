@@ -15,7 +15,7 @@
 //
 // Cron Vercel : pointe vers /api/newsletter (le header Bearer fait le tri).
 
-import { kv } from '@vercel/kv';
+import { kv } from './_kv.js';
 import { Resend } from 'resend';
 import { randomBytes } from 'node:crypto';
 import { getStepById, getDueSteps } from './_email-sequence.js';

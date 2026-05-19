@@ -7,7 +7,7 @@
 // - Envoie un email récapitulatif à KHAVROUTHA_NOTIFY_EMAIL (par défaut yossefhs@gmail.com)
 // - Rate-limit : 3 demandes / IP / heure
 
-import { kv } from '@vercel/kv';
+import { kv } from './_kv.js';
 import { Resend } from 'resend';
 import { randomBytes } from 'node:crypto';
 

@@ -14,7 +14,7 @@
 // Sécurité : la requête doit passer ?secret=XXX qui matche HELLOASSO_WEBHOOK_SECRET.
 // HelloAsso v5 ne signe pas en HMAC ; le secret query string est leur recommandation.
 
-import { kv } from '@vercel/kv';
+import { kv } from './_kv.js';
 
 const SUBSCRIBER_PLANS = new Set(['khavroutha', 'beit_midrash', 'beit_midrash_plus', 'yeshiva', 'lifetime', 'premium']);
 

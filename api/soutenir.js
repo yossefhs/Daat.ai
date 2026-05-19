@@ -13,7 +13,7 @@
 //   - soutien:total:YYYY-MM     → total cumulé du mois (en centimes)
 //   - soutien:count:YYYY-MM     → nombre de soutiens du mois
 
-import { kv } from '@vercel/kv';
+import { kv } from './_kv.js';
 import { randomBytes } from 'node:crypto';
 
 function setCors(res) {
