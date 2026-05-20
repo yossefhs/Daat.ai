@@ -1413,7 +1413,7 @@
       const desc = document.getElementById('simanim-desc-counts');
       if (!grid) return;
       try {
-        const res = await fetch('data/simanim-disponibles.json', { cache: 'no-cache' });
+        const res = await fetch('data/simanim-disponibles-he.json', { cache: 'no-cache' });
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const data = await res.json();
         const frag = document.createDocumentFragment();
