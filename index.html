@@ -960,9 +960,19 @@
       .hero h1 { font-size: 48px; }
       .vision-grid, .levels-grid, .ai-features, .masekhtot-grid, .about-grid { grid-template-columns: 1fr; }
       .footer-top { flex-direction: column; gap: 32px; }
-      nav { display: none; }
+      /* Mobile : on cache les liens textuels, on garde le bouton "Étudier",
+         le sélecteur de langue et le bouton de connexion injecté par auth.js */
+      nav { gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+      nav a:not(.nav-cta):not(.nav-soutenir) { display: none; }
+      nav .nav-cta { padding: 6px 12px; font-size: 12px; }
+      nav .nav-soutenir { padding: 4px 10px; font-size: 12px; }
       .section { padding: 48px 20px; }
-      header { padding: 0 20px; }
+      header { padding: 0 16px; }
+      .lang-switcher { margin-left: 4px; }
+      .lang-switcher a { padding: 2px 5px; font-size: 10px; }
+    }
+    @media (max-width: 480px) {
+      nav .nav-soutenir { display: none; }
     }
   
     .lang-switcher { display: flex; gap: 6px; align-items: center; margin-left: 12px; }
