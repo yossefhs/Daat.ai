@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Siman <bdi>רס"ז</bdi> · Level 1 Base — La tefilla du vendredi soir (érev Shabbat) · Initiation pédagogique | DAAT</title>
-<meta name="description" content="Level 1 (Base) du Siman רס"ז — La tefilla du vendredi soir (érev Shabbat). Texte hébreu du Choulhan Aroukh avec traduction française, explication des concepts-clés, cas pratiques modernes.">
+<title>Siman <bdi>רס"ז</bdi> · Level 1 Base — Friday-night tefilah (erev Shabbos) · Introductory shiur | DAAT</title>
+<meta name="description" content="Level 1 (Base) of Siman רס&quot;ז — The Friday-night tefilah (erev Shabbos). Hebrew text of the Shulchan Aruch with English translation, explanation of key concepts, modern practical cases.">
 <meta name="author" content="Rav Yossef Haim Samama">
 <link rel="canonical" href="https://daattorah.com/oh/267/base">
   <link rel="alternate" hreflang="fr" href="https://daattorah.com/sources/shabbat/siman-267/niveau-1-base.html">
@@ -12,14 +12,14 @@
   <link rel="alternate" hreflang="he" href="https://daattorah.com/sources/shabbat/siman-267/niveau-1-base-he.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="DAAT דעת">
-<meta property="og:title" content="Siman רס"ז · Level 1 Base — La tefilla du vendredi soir (érev Shabbat)">
-<meta property="og:description" content="Initiation pédagogique. Texte hébreu, traduction, concepts-clés.">
+<meta property="og:title" content="Siman רס&quot;ז · Level 1 Base — Friday-night tefilah (erev Shabbos)">
+<meta property="og:description" content="Introductory shiur. Hebrew text, translation, key concepts.">
 <meta property="og:url" content="https://daattorah.com/oh/267/base">
 <meta property="og:image" content="https://daattorah.com/assets/img/og/siman-267.svg">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Siman רס"ז · Level 1 Base — La tefilla du vendredi soir (érev Shabbat)">
-<meta name="twitter:description" content="Initiation pédagogique au Siman רס"ז du Choulhan Aroukh.">
+<meta name="twitter:title" content="Siman רס&quot;ז · Level 1 Base — Friday-night tefilah (erev Shabbos)">
+<meta name="twitter:description" content="Introductory shiur on Siman רס&quot;ז of the Shulchan Aruch.">
 <meta name="twitter:image" content="https://daattorah.com/assets/img/og/siman-267.svg">
 <style>
   @page { size: A4; margin: 2cm 1.8cm; }
@@ -44,9 +44,9 @@
   .key-point { background: #fff8e1; border-left: 5px solid #C5A55A; padding: 10px 16px; margin: 12px 0; page-break-inside: avoid; }
   .key-point::before { content: "🔑 "; font-size: 13pt; }
   .definition { background: #f0e9f7; border-left: 5px solid #6a1b7a; padding: 10px 16px; margin: 12px 0; }
-  .definition::before { content: "📖 DÉFINITION"; display: block; color: #6a1b7a; font-weight: bold; font-size: 9.5pt; letter-spacing: 2px; margin-bottom: 6px; }
+  .definition::before { content: "📖 DEFINITION"; display: block; color: #6a1b7a; font-weight: bold; font-size: 9.5pt; letter-spacing: 2px; margin-bottom: 6px; }
   .remember { background: #e8f4ea; border: 1.5px solid #2d7a3e; padding: 12px 18px; margin: 12px 0; border-radius: 4px; }
-  .remember::before { content: "✓ À RETENIR"; display: block; color: #2d7a3e; font-weight: bold; font-size: 9.5pt; letter-spacing: 2px; margin-bottom: 6px; }
+  .remember::before { content: "✓ TO REMEMBER"; display: block; color: #2d7a3e; font-weight: bold; font-size: 9.5pt; letter-spacing: 2px; margin-bottom: 6px; }
   .question-box { background: #fff9e6; border: 1.5px solid #C5A55A; border-radius: 6px; padding: 15px 20px; margin: 15px 0; }
   .question-box ol { margin: 8px 0 0 0; padding-left: 20px; }
   .question-box li { margin-bottom: 8px; }
@@ -66,252 +66,270 @@
   .toc-num { display: inline-block; width: 25px; color: #C5A55A; font-weight: bold; }
   .quick-recap { background: #FAF6EE; border: 2px solid #C5A55A; border-radius: 8px; padding: 18px 22px; margin: 20px 0; }
 
-    .lang-switcher { display: flex; gap: 6px; align-items: center; margin-left: 12px; }
-    .lang-switcher a {
-      font-family: 'Inter', sans-serif; font-size: 11px;
-      padding: 3px 7px; border-radius: 2px; letter-spacing: 1px;
-      color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.15);
-      text-decoration: none; text-transform: none;
-    }
-    .lang-switcher a.active { color: var(--gold, #C5A55A); border-color: var(--gold, #C5A55A); }
-    .lang-switcher a:hover { color: var(--gold, #C5A55A); border-color: var(--gold, #C5A55A); }
+  .lang-switcher-float {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    z-index: 9999;
+    display: flex;
+    gap: 4px;
+    background: rgba(255,255,255,0.95);
+    border: 1px solid #C5A55A;
+    padding: 4px 6px;
+    border-radius: 3px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    font-family: 'Inter', sans-serif;
+  }
+  .lang-switcher-float a {
+    font-size: 11px; letter-spacing: 1px;
+    padding: 3px 7px; border-radius: 2px;
+    color: #5a4a1a; text-decoration: none;
+    border: 1px solid transparent;
+  }
+  .lang-switcher-float a.active {
+    color: #1A1F3A; background: #FFF8E5;
+    border-color: #1A1F3A; font-weight: 600;
+  }
+  .lang-switcher-float a:hover { color: #1A1F3A; border-color: #C5A55A; }
+  @media print { .lang-switcher-float { display: none; } }
 
 </style>
 </head>
 <body>
-<div class="wip-banner" style="background:#FFF8E5;border:1px solid #C5A55A;border-left:4px solid #C5A55A;padding:10px 16px;margin:0 0 12px;font-family:'Inter',sans-serif;font-size:14px;color:#5a4a1a;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
-<span>ℹ️ This page is being translated — Hebrew sources are fully preserved. Specific commentary may remain partially in French.</span>
-<span style="font-size:12px;letter-spacing:1px;"><a href="niveau-1-base.html" style="color:#8C6F1E;padding:2px 8px;border:1px solid #C5A55A;text-decoration:none;">FR</a> <a href="LANG_HE_LINK" style="color:#8C6F1E;padding:2px 8px;border:1px solid #C5A55A;text-decoration:none;">HE</a> <a href="#" style="color:#1A1F3A;padding:2px 8px;border:1px solid #1A1F3A;background:#FFF8E5;text-decoration:none;font-weight:600;">EN</a></span>
-</div>
+<div class="lang-switcher-float" role="navigation" aria-label="Language"><a href="niveau-1-base.html">FR</a><a href="niveau-1-base-he.html">HE</a><a href="niveau-1-base-en.html" class="active">EN</a></div>
 
+<div style="background:#FFF8E5;border:1px solid #C5A55A;border-left:4px solid #C5A55A;padding:10px 16px;margin:0 0 20px;font-family:'Inter',sans-serif;font-size:14px;color:#5a4a1a;direction:ltr;text-align:left;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+<span>ℹ️ Page fully translated</span>
+<span style="font-size:12px;letter-spacing:1px;"><a href="niveau-1-base.html" style="color:#8C6F1E;padding:2px 8px;border:1px solid #C5A55A;text-decoration:none;">FR</a> <a href="niveau-1-base-he.html" style="color:#8C6F1E;padding:2px 8px;border:1px solid #C5A55A;text-decoration:none;">HE</a> <a href="#" style="color:#1A1F3A;padding:2px 8px;border:1px solid #1A1F3A;background:#FFF8E5;text-decoration:none;font-weight:600;">EN</a></span>
+</div>
 
 <div class="cover">
   <div class="ornament">✦ ❖ ✦</div>
-  <div class="badge-top">DAAT · NIVEAU 1 — INITIATION</div>
+  <div class="badge-top">DAAT · LEVEL 1 — INTRODUCTION</div>
   <h1>Siman <bdi>רס"ז</bdi> · 3 Seifim</h1>
-  <div class="subtitle">La tefilla du vendredi soir (érev Shabbat) — pour découvrir et comprendre</div>
+  <div class="subtitle">The Friday-night tefilah (erev Shabbos) — to discover and understand</div>
 
   <div class="he-title">סימן רס"ז</div>
   <div class="he-sub">דִּין הַתְּפִלָּה בְּעֶרֶב שַׁבָּת</div>
 
-  <div class="level-badge">🌱 Niveau Initiation · מתחילים</div>
+  <div class="level-badge">🌱 Introductory Level · מתחילים</div>
 
   <div class="ornament">✦ ❖ ✦</div>
 
   <p style="font-size: 11pt; color: #555; max-width: 500px; margin: 30px auto;">
-  Première approche du Siman <bdi>רס"ז</bdi> : texte hébreu intégral du Mehaber, traduction française fluide, explications pédagogiques des concepts halakhiques, cas pratiques modernes et synthèse.
+  First approach to Siman <bdi>רס"ז</bdi>: full Hebrew text of the Mechaber, fluent English translation, pedagogical explanations of the halachic concepts, modern practical cases and synthesis.
   </p>
 
   <div class="credits">
-    <p><strong>Subject :</strong> La tefilla du vendredi soir (érev Shabbat)<br>
-    <strong>Source(s) :</strong> שולחן ערוך אורח חיים סימן רס"ז (3 seifim)</p>
-    <p><strong>Compilation :</strong> הרב יוסף חיים סממה<br>
+    <p><strong>Subject:</strong> The Friday-night tefilah (erev Shabbos)<br>
+    <strong>Source:</strong> שולחן ערוך אורח חיים סימן רס"ז (3 seifim)</p>
+    <p><strong>Compilation:</strong> הרב יוסף חיים סממה<br>
     <em>DAAT · daattorah.com</em></p>
   </div>
 </div>
 
 <div style="text-align:center;margin:20px 0;">
-  <button onclick="window.print()" class="print-btn" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;background:#1A1F3A;color:#C5A55A;padding:10px 22px;border:1px solid #C5A55A;border-radius:2px;cursor:pointer;text-transform:uppercase;">📄 Imprimer / Sauver en PDF</button>
+  <button onclick="window.print()" class="print-btn" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;background:#1A1F3A;color:#C5A55A;padding:10px 22px;border:1px solid #C5A55A;border-radius:2px;cursor:pointer;text-transform:uppercase;">📄 Print / Save as PDF</button>
 </div>
 <style>@media print { .print-btn, .daat-khavroutha-fab, .daat-chat-fab { display: none !important; } }</style>
 
 
 <div class="page-break"></div>
 
-<h2 class="section-title">📑 Plan de l'étude</h2>
+<h2 class="section-title">📑 Study outline</h2>
 
 <div class="quick-recap">
-<div class="toc-item"><span class="toc-num">1.</span> <strong>The Shulchan Aroukh text</strong> — les 3 seifim du Mehaber</div>
-<div class="toc-item"><span class="toc-num">2.</span> <strong>Le contexte général</strong> : pourquoi ce siman, quelle est la question ?</div>
-<div class="toc-item"><span class="toc-num">3.</span> <strong>Les concepts-clés halakhiques</strong> de ce siman</div>
-<div class="toc-item"><span class="toc-num">4.</span> <strong>Le détail des seifim</strong> — un par un</div>
-<div class="toc-item"><span class="toc-num">5.</span> <strong>Le Mishnah Berurah</strong> — premières entrées</div>
-<div class="toc-item"><span class="toc-num">6.</span> <strong>La position du Rama</strong> — différences ashkénaze vs séfarade</div>
-<div class="toc-item"><span class="toc-num">7.</span> <strong>Cas pratiques modernes</strong></div>
-<div class="toc-item"><span class="toc-num">8.</span> <strong>Practical synthesis</strong> et règles à retenir</div>
+<div class="toc-item"><span class="toc-num">1.</span> <strong>The text of the Shulchan Aruch</strong> — the 3 seifim of the Mechaber</div>
+<div class="toc-item"><span class="toc-num">2.</span> <strong>The general context</strong>: why this siman, what is the question?</div>
+<div class="toc-item"><span class="toc-num">3.</span> <strong>The key halachic concepts</strong> of this siman</div>
+<div class="toc-item"><span class="toc-num">4.</span> <strong>The detail of the seifim</strong> — one by one</div>
+<div class="toc-item"><span class="toc-num">5.</span> <strong>The Mishnah Berurah</strong> — first entries</div>
+<div class="toc-item"><span class="toc-num">6.</span> <strong>The position of the Rama</strong> — Ashkenazi vs Sephardi differences</div>
+<div class="toc-item"><span class="toc-num">7.</span> <strong>Modern practical cases</strong></div>
+<div class="toc-item"><span class="toc-num">8.</span> <strong>Practical synthesis</strong> and rules to remember</div>
 <div class="toc-item"><span class="toc-num">9.</span> <strong>Comprehension questions</strong></div>
 </div>
 
 <div class="page-break"></div>
 
-<h2 class="section-title">1. The Shulchan Aroukh text</h2>
+<h2 class="section-title">1. The text of the Shulchan Aruch</h2>
 
-<p>Le siman <bdi>רס"ז</bdi> contient <strong>3 seifim</strong> du Mehaber (Rabbi Yossef Karo) qui codifie<span style="display:inline">nt</span> les règles relatives à <em>la tefilla du vendredi soir (érev shabbat)</em>.</p>
+<p>Siman <bdi>רס"ז</bdi> contains <strong>3 seifim</strong> of the Mechaber (Rabbi Yosef Karo) which codify the halachos relating to the <em>Friday-night tefilah (erev Shabbos)</em>.</p>
 
-<h4>Seif א — Pas de Tahanun à Mincha de vendredi</h4>
+<h4>Seif א — No Tachanun at Mincha on Friday</h4>
 <blockquote class="text-source"><b>דין התפלה בערב שבת. ובו ג סעיפים:</b><br>בִּתְפִלַּת הַמִּנְחָה דְּעֶרֶב שַׁבָּת אֵין נוֹפְלִים עַל פְּנֵיהֶם.</blockquote>
-<div class="translation"><strong>Traduction :</strong> à la <strong>tefilla de Mincha du vendredi</strong>, on <strong>ne fait pas</strong> נפילת אפים (Tahanun, "tomber sur la face"). Raison : la proximité avec l'entrée de Shabbat — moment de joie qui exclut les supplications pénitentielles. C'est l'amorce du caractère sacré du jour.</div>
+<div class="translation"><strong>Translation:</strong> at the <strong>Mincha tefilah on Friday</strong>, we <strong>do not</strong> say נפילת אפים (Tachanun, "falling on the face"). Reason: the proximity to the entry of Shabbos — a time of simcha which excludes penitential supplications. This is the onset of the sacred character of the day.</div>
 
-<h4>Seif ב — Mariv tôt à partir de Plag Hamincha</h4>
+<h4>Seif ב — Early maariv from Plag Hamincha</h4>
 <blockquote class="text-source">מַקְדִּימִין לְהִתְפַּלֵּל עַרְבִית יוֹתֵר בִּימוֹת הַחוֹל. וּבִפְלַג הַמִּנְחָה יָכוֹל לְהַדְלִיק וּלְקַבֵּל שַׁבָּת בִּתְפִלַּת עַרְבִית וְלֶאֱכוֹל מִיָּד. <small>(וע"ל סי' רל"ג כיצד משערין שיעור פלג המנחה.)</small></blockquote>
-<div class="translation"><strong>Traduction :</strong> on <em>devance</em> la tefilla d'Arvit (Maariv) le vendredi soir, plus tôt que les jours ordinaires. À partir de <strong>Plag Hamincha</strong> (= 1¼ heures temporelles avant le coucher du soleil), on peut <em>allumer les bougies de Shabbat</em>, accepter le Shabbat par la tefilla d'Arvit, et passer <strong>immédiatement</strong> au repas. (Pour la mesure exacte de Plag Hamincha, voir siman 233.)</div>
+<div class="translation"><strong>Translation:</strong> we <em>advance</em> the tefilah of arvis (maariv) on Friday night, earlier than ordinary weekdays. From <strong>Plag Hamincha</strong> (= 1¼ proportional hours before sunset) onwards, one may <em>light the Shabbos candles</em>, accept Shabbos through the arvis tefilah, and proceed <strong>immediately</strong> to the seudah. (For the exact measure of Plag Hamincha, see siman 233.)</div>
 
-<h4>Seif ג — Hashkivenou : "Pores soukat shalom"</h4>
+<h4>Seif ג — Hashkiveinu: "Pores sukkas shalom"</h4>
 <blockquote class="text-source">בְּבִרְכַּת הַשְׁכִּיבֵנוּ אֵינוֹ חוֹתֵם "שׁוֹמֵר עַמּוֹ יִשְׂרָאֵל לָעַד", אֶלָּא כֵּיוָן שֶׁהִגִּיעַ לְ"וּבְצֵל כְּנָפֶיךָ תַּסְתִּירֵנוּ" אוֹמֵר: "וּפְרוֹשׂ סוּכַּת שָׁלוֹם עָלֵינוּ וְעַל יְרוּשָׁלַיִם עִירֶךָ — בָּרוּךְ אַתָּה ה', הַפּוֹרֵשׂ סוּכַּת שָׁלוֹם עָלֵינוּ וְעַל עַמּוֹ יִשְׂרָאֵל וְעַל יְרוּשָׁלַיִם".</blockquote>
-<div class="translation"><strong>Traduction :</strong> dans la berakha de הַשְׁכִּיבֵנוּ (Hashkivenou — deuxième berakha qui suit le Chéma du soir), on <strong>ne conclut pas</strong> "שומר עמו ישראל לעד" (comme en semaine), <strong>mais</strong> : arrivé à "וּבְצֵל כְּנָפֶיךָ תַּסְתִּירֵנוּ" (à l'ombre de Tes ailes Tu nous abriteras), on enchaîne — <em>"וּפְרוֹשׂ סוּכַּת שָׁלוֹם עָלֵינוּ וְעַל יְרוּשָׁלַיִם עִירֶךָ"</em> (étends sur nous le abri de la paix, sur nous et sur Jérusalem Ta ville), et on clôture par la berakha — <em>"בָּרוּךְ אַתָּה ה', הַפּוֹרֵשׂ סוּכַּת שָׁלוֹם עָלֵינוּ וְעַל עַמּוֹ יִשְׂרָאֵל וְעַל יְרוּשָׁלַיִם"</em>.</div>
+<div class="translation"><strong>Translation:</strong> in the bracha of הַשְׁכִּיבֵנוּ (Hashkiveinu — the second bracha following the evening Shema), one does <strong>not</strong> conclude with "שומר עמו ישראל לעד" (as during the week), <strong>but rather</strong>: upon reaching "וּבְצֵל כְּנָפֶיךָ תַּסְתִּירֵנוּ" (and in the shadow of Your wings shelter us), one continues — <em>"וּפְרוֹשׂ סוּכַּת שָׁלוֹם עָלֵינוּ וְעַל יְרוּשָׁלַיִם עִירֶךָ"</em> (spread over us the shelter of peace, over us and over Yerushalayim Your city), and concludes the bracha with — <em>"בָּרוּךְ אַתָּה ה', הַפּוֹרֵשׂ סוּכַּת שָׁלוֹם עָלֵינוּ וְעַל עַמּוֹ יִשְׂרָאֵל וְעַל יְרוּשָׁלַיִם"</em>.</div>
 
 <div class="key-point">
-<strong>Vue d'ensemble des 3 seifim :</strong> le siman codifie <em>trois changements</em> par rapport au Maariv ordinaire — (1) <strong>Mincha</strong> : pas de Tahanun ; (2) <strong>Heure de Maariv</strong> : avancée possible dès Plag Hamincha ; (3) <strong>Texte de Hashkivenou</strong> : substitution de la conclusion. Trois "signaux" qui marquent le passage du quotidien au sacré.
+<strong>Overview of the 3 seifim:</strong> the siman codifies <em>three changes</em> compared to ordinary maariv — (1) <strong>Mincha</strong>: no Tachanun; (2) <strong>Time of maariv</strong>: may be advanced from Plag Hamincha; (3) <strong>Text of Hashkiveinu</strong>: substitution of the conclusion. Three "signals" marking the transition from the mundane to the sacred.
 </div>
 
 <div class="page-break"></div>
 
-<h2 class="section-title">2. Le contexte général</h2>
+<h2 class="section-title">2. The general context</h2>
 
-<h3>Le moment liturgique fondateur</h3>
+<h3>The founding liturgical moment</h3>
 
-<p>Le vendredi soir n'est pas un moment ordinaire. C'est <strong>la charnière liturgique</strong> entre la semaine et le Shabbat. Trois questions s'imposent :</p>
+<p>Friday night is not an ordinary moment. It is <strong>the liturgical hinge</strong> between the week and Shabbos. Three questions arise:</p>
 <ul>
-  <li><strong>(a)</strong> Quand commence-t-on à <em>annoncer</em> le caractère sacré du jour ?</li>
-  <li><strong>(b)</strong> À quelle <em>heure</em> peut-on accepter le Shabbat liturgiquement ?</li>
-  <li><strong>(c)</strong> Quel <em>texte</em> particulier marque ce passage ?</li>
+  <li><strong>(a)</strong> When does one begin to <em>announce</em> the sacred character of the day?</li>
+  <li><strong>(b)</strong> At what <em>hour</em> may one accept Shabbos liturgically?</li>
+  <li><strong>(c)</strong> What particular <em>text</em> marks this transition?</li>
 </ul>
 
-<p>Le siman <bdi>רס"ז</bdi> codifie ces trois transitions. Bref, c'est un siman <em>court mais dense</em> : 3 seifim seulement, mais ils dessinent toute la liturgie du début du Shabbat.</p>
+<p>Siman <bdi>רס"ז</bdi> codifies these three transitions. In short, it is a siman that is <em>short but dense</em>: only 3 seifim, but they outline the entire liturgy of the entry into Shabbos.</p>
 
 <div class="definition">
-<strong>La question fondamentale :</strong> comment la liturgie marque-t-elle le passage du h'ol (profane) au kodesh (sacré) le vendredi soir ? Et jusqu'où peut-on <em>devancer</em> le Shabbat liturgique avant la nuit physique ?
+<strong>The fundamental question:</strong> how does the liturgy mark the transition from chol (mundane) to kodesh (sacred) on Friday night? And how far may one <em>advance</em> the liturgical Shabbos before physical night?
 </div>
 
-<h3>Place dans Hilkhot Shabbat</h3>
+<h3>Place within Hilchos Shabbos</h3>
 
-<p>Le siman <bdi>רס"ז</bdi> succède au siman 266 (voyageur surpris par Shabbat — préparatifs pratiques) et précède le siman 268 (texte de l'Amida du Shabbat). C'est le <strong>premier siman exclusivement liturgique</strong> de la séquence Shabbat — il ouvre la sous-section "Tefillot de Shabbat" (267-272).</p>
+<p>Siman <bdi>רס"ז</bdi> follows siman 266 (traveler caught by Shabbos — practical preparations) and precedes siman 268 (text of the Shabbos Amidah). It is <strong>the first exclusively liturgical siman</strong> of the Shabbos sequence — it opens the subsection "Tefilos of Shabbos" (267-272).</p>
 
-<h2 class="section-title">3. Les concepts-clés halakhiques</h2>
+<h2 class="section-title">3. The key halachic concepts</h2>
 
-<p>Pour comprendre les 3 seifim, il faut maîtriser <strong>4 concepts liturgico-temporels</strong> :</p>
-
-<div class="definition">
-<strong>Concept 1 — <span class="he-q">נְפִילַת אַפַּיִם</span> (Tahanun) :</strong> "tomber sur la face" — supplications pénitentielles dites après l'Amida de Shahrit et Mincha en semaine. <em>Composées</em> du psaume 6 (וידוי) + תפילה לדוד. <em>Caractère :</em> tristesse, contrition, demande de pardon. Donc <strong>incompatible</strong> avec la joie d'un jour saint ou de sa veille (Roch Hodech, Yom Tov, ...vendredi après-midi).
-</div>
+<p>To understand the 3 seifim, one must master <strong>4 liturgical-temporal concepts</strong>:</p>
 
 <div class="definition">
-<strong>Concept 2 — <span class="he-q">פְּלַג הַמִּנְחָה</span> (Plag Hamincha) :</strong> "moitié de Mincha" — 1¼ heures temporelles avant le coucher du soleil. <em>Origine talmudique :</em> Berakhot 26b. <em>Importance :</em> c'est l'heure-charnière à partir de laquelle, selon Rabbi Yehouda, on peut prier Arvit (= la "nuit liturgique" commence). C'est donc l'heure-pivot pour <em>devancer</em> le Shabbat.
+<strong>Concept 1 — <span class="he-q">נְפִילַת אַפַּיִם</span> (Tachanun):</strong> "falling on the face" — penitential supplications said after the Amidah of shacharis and mincha during the week. <em>Composed</em> of Psalm 6 (וידוי) + תפילה לדוד. <em>Character:</em> sadness, contrition, request for forgiveness. Therefore <strong>incompatible</strong> with the simcha of a sacred day or its eve (Rosh Chodesh, Yom Tov, ...Friday afternoon).
 </div>
 
 <div class="definition">
-<strong>Concept 3 — <span class="he-q">תּוֹסֶפֶת שַׁבָּת</span> (Tossefet Shabbat) :</strong> "rajout au Shabbat" — l'obligation de <em>commencer</em> Shabbat avant l'heure stricte (et de le finir après). Source(s) : מצוה déorayta (selon plusieurs Rishonim). Application pratique : allumage avant la shkia, kabbalat Shabbat par la tefilla, repas avancé. Le siman 267 codifie le <em>versant liturgique</em> de cette tossefet.
+<strong>Concept 2 — <span class="he-q">פְּלַג הַמִּנְחָה</span> (Plag Hamincha):</strong> "half of Mincha" — 1¼ proportional hours before sunset. <em>Talmudic source:</em> Berachos 26b. <em>Importance:</em> this is the pivotal hour from which, according to Rabbi Yehuda, one may daven maariv (= the "liturgical night" begins). It is therefore the pivot hour for <em>advancing</em> Shabbos.
 </div>
 
 <div class="definition">
-<strong>Concept 4 — <span class="he-q">סוּכַּת שָׁלוֹם</span> (Soukat Chalom) :</strong> "le abri de la paix" — image biblique (Isaïe 4:6) : Hashem couvre Israël comme une soukka qui protège. <em>Pour le Shabbat,</em> on évoque la <em>paix</em> (caractère du jour) plutôt que la <em>protection nocturne</em> (caractère de la semaine, où l'on demande à être gardé). C'est la <em>logique</em> de la substitution textuelle dans Hashkivenou.
+<strong>Concept 3 — <span class="he-q">תּוֹסֶפֶת שַׁבָּת</span> (Tosefes Shabbos):</strong> "addition to Shabbos" — the obligation to <em>begin</em> Shabbos before the strict time (and to end it after). Source: a mitzvah d'oraisa (according to several Rishonim). Practical application: lighting before sunset, kabbalas Shabbos through the tefilah, advanced seudah. Siman 267 codifies the <em>liturgical aspect</em> of this tosefes.
+</div>
+
+<div class="definition">
+<strong>Concept 4 — <span class="he-q">סוּכַּת שָׁלוֹם</span> (Sukkas Shalom):</strong> "the shelter of peace" — biblical image (Yeshayahu 4:6): Hashem covers Yisrael like a sukkah which protects. <em>For Shabbos,</em> we invoke <em>peace</em> (the character of the day) rather than <em>nocturnal protection</em> (the character of the week, when we ask to be guarded). This is the <em>logic</em> of the textual substitution in Hashkiveinu.
 </div>
 
 <div class="remember">
-<strong>3 transitions liturgiques codifiées par le siman :</strong>
+<strong>3 liturgical transitions codified by the siman:</strong>
 <ol class="compact">
-  <li><strong>Tahanun supprimé</strong> à Mincha → le sacré commence à se diffuser dès l'après-midi.</li>
-  <li><strong>Maariv avancé</strong> dès Plag Hamincha → tossefet Shabbat par la tefilla.</li>
-  <li><strong>Hashkivenou modifié</strong> → la berakha change de fonction (de protection → de paix).</li>
+  <li><strong>Tachanun omitted</strong> at Mincha → the sacred begins to spread already in the afternoon.</li>
+  <li><strong>Maariv advanced</strong> from Plag Hamincha → tosefes Shabbos through the tefilah.</li>
+  <li><strong>Hashkiveinu modified</strong> → the bracha changes function (from protection → to peace).</li>
 </ol>
 </div>
 
-<h2 class="section-title">4. Le détail des seifim — vue synoptique</h2>
+<h2 class="section-title">4. The detail of the seifim — synoptic view</h2>
 
 <table>
-<tr><th>Seif</th><th>Subject</th><th>Détail pratique</th></tr>
-<tr><td><strong>א</strong></td><td>Tahanun à Mincha de vendredi</td><td>Supprimé. Pas de Nephilat Apayim, pas de "Vayehi Binsoa", pas de "Lamenatseah". Direct: Kaddish + Aleinu.</td></tr>
-<tr><td><strong>ב</strong></td><td>Mariv tôt</td><td>Permis à partir de Plag Hamincha (≈ 1h15 avant la shkia, en heures temporelles). Allumage, kabbalat Shabbat par la tefilla, repas immédiat.</td></tr>
-<tr><td><strong>ג</strong></td><td>Hashkivenou Shabbat</td><td>Conclusion changée : "הפורש סוכת שלום עלינו ועל עמו ישראל ועל ירושלים" au lieu de "שומר עמו ישראל לעד".</td></tr>
+<tr><th>Seif</th><th>Subject</th><th>Practical detail</th></tr>
+<tr><td><strong>א</strong></td><td>Tachanun at Friday Mincha</td><td>Omitted. No Nefilas Apayim, no "Vayehi Binsoa", no "Lamenatze'ach". Directly: Kaddish + Aleinu.</td></tr>
+<tr><td><strong>ב</strong></td><td>Early maariv</td><td>Permitted from Plag Hamincha (≈ 1h15 before sunset, in proportional hours). Hadlakah, kabbalas Shabbos through the tefilah, immediate seudah.</td></tr>
+<tr><td><strong>ג</strong></td><td>Hashkiveinu Shabbos</td><td>Conclusion changed: "הפורש סוכת שלום עלינו ועל עמו ישראל ועל ירושלים" instead of "שומר עמו ישראל לעד".</td></tr>
 </table>
 
 <div class="page-break"></div>
 
-<h2 class="section-title">5. Le Mishnah Berurah — premières entrées</h2>
+<h2 class="section-title">5. The Mishnah Berurah — first entries</h2>
 
-<p>Le Mishnah Berurah de Rabbi Israël Méir Kagan (Hafets Haïm) compte <strong>9 entrées</strong> sur ce siman. Voici les premières — pour mieux comprendre le sens des seifim :</p>
+<p>The Mishnah Berurah of Rabbi Yisrael Meir Kagan (Chofetz Chaim) has <strong>9 entries</strong> on this siman. Here are the first ones — to better understand the meaning of the seifim:</p>
 
 <div class="sacred-text he"><strong>משנה ברורה (א)</strong> — (א) אין נופלין - מפני שהוא סמוך להכנסת שבת כ"כ הלבוש וכתב הפמ"ג ונראה דה"ה כשמתפללים מנחה גדולה אחר חצות נמי אין נופלים ע"פ וכן מי שאוכל פת אחר חצות ג"כ אין לומר על נהרות בבל כ"א שיר המעלות ועיין בה"ל:</div>
 <div class="sacred-text he"><strong>משנה ברורה (ב)</strong> — (ב) מקדימין - משום דהוי נהיגי עלמא לקבל עליהם שבת מכי פתח הש"ץ ברכו וכדלעיל בסימן רס"א ס"ד לכך מהנכון להקדים להתפלל ערבית כדי להקדים הקבלת שבת וה"ה דיכול לקבל עליו שבת קודם תפלת ערבית:</div>
 <div class="sacred-text he"><strong>משנה ברורה (ג)</strong> — (ג) ובפלג וכו' - משמע מדברי המ"א דאפילו הנוהגין להתפלל מעריב בזמנה מותרים להתפלל בליל שבת מבע"י ובלבד שיהיה מפלג המנחה ואילך דכיון דמצותה להוסיף מחול על הקודש וכבר קבל שבת עליו יכול לסמוך על דעת הסוברים דהוי כלילה לענין תפלה אך הנוהג כן יזהר עכ"פ בע"ש להתפלל מנחה קודם פלג המנחה כדי שלא יהיה תרתי דסתרי אהדדי [היינו דלדעת ר' יהודה בגמרא זמן מנחה נמשך רק עד פלג המנחה ומשם ואילך הוא זמן תפלת ערבית ולד…</div>
 
-<p style="font-size: 10pt; color: #666;"><em>Pour le texte intégral des 9 entrées, consulte Sefaria : <a href="https://www.sefaria.org/Mishnah_Berurah.267" target="_blank">Mishnah Berurah 267</a>.</em></p>
+<p style="font-size: 10pt; color: #666;"><em>For the full text of the 9 entries, see Sefaria: <a href="https://www.sefaria.org/Mishnah_Berurah.267" target="_blank">Mishnah Berurah 267</a>.</em></p>
 
-<h2 class="section-title">6. La position du Rama et les usages locaux</h2>
+<h2 class="section-title">6. The position of the Rama and local customs</h2>
 
-<p>Le Rama <strong>n'ajoute pas de הגהה</strong> sur ce siman — texte rare où Mehaber et Rama sont alignés. Cela ne signifie pas l'unanimité totale : Maguen Avraham, Taz et Mishna Berurah précisent plusieurs nuances pratiques (voir N2 Lamdan).</p>
+<p>The Rama <strong>adds no הגהה</strong> on this siman — a rare case where Mechaber and Rama are aligned. This does not mean complete unanimity: Magen Avraham, Taz and Mishnah Berurah specify several practical nuances (see L2 Lamdan).</p>
 
-<h3>Usages différenciés malgré l'alignement</h3>
+<h3>Differentiated practices despite the alignment</h3>
 
 <div class="remember">
-<strong>Différences pratiques entre עדות :</strong>
+<strong>Practical differences between עדות:</strong>
 <ul class="compact">
-  <li><strong>Séfarades (Mehaber + Yalkout Yossef) :</strong> Maariv généralement <em>après</em> la shkia, sauf nécessité. À Mincha, "Hodu" puis Korbanot ; pas de Tahanun.</li>
-  <li><strong>Ashkénazes (Rama + MB) :</strong> habituellement Maariv plus tôt en hiver (proche de la shkia) ou aux alentours de Plag en été. According to la communauté.</li>
-  <li><strong>Habad (Admour HaZaken) :</strong> position spécifique sur Plag Hamincha — voir N4 ; communément Maariv tardif en semaine, mais peut être avancé vendredi.</li>
+  <li><strong>Sephardim (Mechaber + Yalkut Yosef):</strong> maariv generally <em>after</em> sunset, except in case of need. At Mincha, "Hodu" then Korbanos; no Tachanun.</li>
+  <li><strong>Ashkenazim (Rama + MB):</strong> usually maariv earlier in winter (near sunset) or around Plag in summer. Depending on the community.</li>
+  <li><strong>Chabad (Admur HaZaken):</strong> specific position on Plag Hamincha — see L4; commonly late maariv during the week, but may be advanced on Friday.</li>
 </ul>
 </div>
 
-<h3>Précision MB sur "deux jurisprudences contradictoires"</h3>
+<h3>MB precision on "two contradictory rulings"</h3>
 
-<p>Le MB (s"k ג) souligne un point crucial : <em>celui qui prie Maariv avant la shkia doit avoir prié Mincha <strong>avant</strong> Plag Hamincha</em>. Sinon, contradiction (תרתי דסתרי) : on aurait considéré ce moment-là à la fois comme "jour" (pour Mincha) et "nuit" (pour Maariv).</p>
+<p>The MB (s.k. ג) highlights a crucial point: <em>one who davens maariv before sunset must have davened mincha <strong>before</strong> Plag Hamincha</em>. Otherwise, a contradiction (תרתי דסתרי): that moment would have been considered both as "day" (for Mincha) and "night" (for maariv).</p>
 
 <div class="key-point">
-<strong>Règle MB pratique :</strong> en hiver, où Plag tombe vers 16h-16h30, on a deux options cohérentes — (a) <em>Mincha avant Plag</em> + Maariv après Plag (commun) ; (b) Mincha après Plag + Maariv après la shkia. <strong>Pas</strong> Mincha après Plag + Maariv avant la shkia.
+<strong>Practical MB rule:</strong> in winter, when Plag falls around 16:00-16:30, there are two consistent options — (a) <em>Mincha before Plag</em> + maariv after Plag (common); (b) Mincha after Plag + maariv after sunset. <strong>Not</strong> Mincha after Plag + maariv before sunset.
 </div>
 
-<h2 class="section-title">7. Cas pratiques modernes</h2>
+<h2 class="section-title">7. Modern practical cases</h2>
 
 <table>
 <tr><th>Situation</th><th>Application</th></tr>
-<tr><td><strong>Mincha le vendredi à 12h30 (été, "Mincha Gdola")</strong></td><td>According to le Pri Megadim cité par MB : pas de Tahanun même à Mincha Gdola, car déjà "approche du Shabbat" (un peu surprenant — mais c'est l'usage). Vérifier l'usage de la communauté.</td></tr>
-<tr><td><strong>Repas du vendredi soir avant la shkia (hiver)</strong></td><td>Permis si on a accepté Shabbat (allumage + tefilla d'Arvit). Le seif 2 est explicite : "להדליק ולקבל שבת בתפלת ערבית ולאכול מיד".</td></tr>
-<tr><td><strong>Community qui prie Maariv "Bizmano" (après shkia) toute la semaine</strong></td><td>Le vendredi peut-on devancer ? Le MB (s"k ג) dit OUI — même les communautés qui font Maariv à l'heure peuvent avancer le vendredi soir, à condition d'avoir prié Mincha avant Plag.</td></tr>
-<tr><td><strong>Oublier "Soukat Shalom" et dire "Shomer Ammo"</strong></td><td>Si on s'en aperçoit avant de continuer la prière suivante (אם לא הזכיר) — reprendre la berakha. Si on est déjà avancé — selon les poskim, ne pas reprendre (le sens général est intact).</td></tr>
-<tr><td><strong>Vendredi qui tombe Roch Hodech (matin)</strong></td><td>Tahanun n'est pas dit le matin (Roch Hodech). À Mincha, vu seif 1 — aussi pas de Tahanun. Double raison.</td></tr>
-<tr><td><strong>Vendredi à l'hôpital, hors minyan</strong></td><td>Liturgie individuelle, mêmes règles. La berakha de Hashkivenou se dit avec la modification.</td></tr>
+<tr><td><strong>Mincha on Friday at 12:30 (summer, "Mincha Gedolah")</strong></td><td>According to Pri Megadim cited by MB: no Tachanun even at Mincha Gedolah, since already "approach of Shabbos" (somewhat surprising — but it is the minhag). Check the community's custom.</td></tr>
+<tr><td><strong>Friday-night seudah before sunset (winter)</strong></td><td>Permitted if one has accepted Shabbos (hadlakah + arvis tefilah). Seif 2 is explicit: "להדליק ולקבל שבת בתפלת ערבית ולאכול מיד".</td></tr>
+<tr><td><strong>Community that davens maariv "Bizmano" (after sunset) all week</strong></td><td>On Friday may one advance? The MB (s.k. ג) says YES — even communities that daven maariv at its proper time may advance on Friday night, provided they davened Mincha before Plag.</td></tr>
+<tr><td><strong>Forgetting "Sukkas Shalom" and saying "Shomer Amo"</strong></td><td>If one notices before continuing to the next tefilah (אם לא הזכיר) — repeat the bracha. If one has already moved on — according to the poskim, do not repeat (the general meaning is intact).</td></tr>
+<tr><td><strong>Friday that falls on Rosh Chodesh (morning)</strong></td><td>Tachanun is not said in the morning (Rosh Chodesh). At Mincha, given seif 1 — also no Tachanun. Double reason.</td></tr>
+<tr><td><strong>Friday in the hospital, without a minyan</strong></td><td>Individual liturgy, same rules. The bracha of Hashkiveinu is said with the modification.</td></tr>
 </table>
 
 <div class="key-point">
-<strong>Note pratique sur le siddur :</strong> tous les siddurim modernes (Ashkénaze, Séfarade, Édot Mizrah, Habad) incluent le texte modifié de Hashkivenou pour Shabbat. Il suffit d'utiliser la section "Maariv Leil Shabbat" sans s'inquiéter — la modification est automatique.
+<strong>Practical note on the siddur:</strong> all modern siddurim (Ashkenaz, Sefard, Edos Hamizrach, Chabad) include the modified text of Hashkiveinu for Shabbos. It suffices to use the "Maariv Leil Shabbos" section without concern — the modification is automatic.
 </div>
 
-<h2 class="section-title">8. Practical synthesis du siman</h2>
+<h2 class="section-title">8. Practical synthesis of the siman</h2>
 
 <div class="key-point">
-<strong>Les 3 règles du Siman <bdi>רס"ז</bdi> à retenir :</strong>
+<strong>The 3 rules of Siman <bdi>רס"ז</bdi> to remember:</strong>
 <ol>
-  <li><strong>Mincha du vendredi :</strong> pas de Tahanun. Pas de "Vayehi Binsoa" non plus selon la coutume.</li>
-  <li><strong>Maariv tôt :</strong> permis à partir de Plag Hamincha (≈ 1h15 avant la shkia). Allumage + tefilla + repas = tossefet Shabbat valide.</li>
-  <li><strong>Hashkivenou Shabbat :</strong> conclusion "Hapores Soukat Shalom" — au lieu de "Shomer Ammo Israël Laad" en semaine.</li>
+  <li><strong>Friday Mincha:</strong> no Tachanun. No "Vayehi Binsoa" either, according to the minhag.</li>
+  <li><strong>Early maariv:</strong> permitted from Plag Hamincha (≈ 1h15 before sunset). Hadlakah + tefilah + seudah = valid tosefes Shabbos.</li>
+  <li><strong>Hashkiveinu Shabbos:</strong> conclusion "Hapores Sukkas Shalom" — instead of "Shomer Amo Yisrael La'ad" during the week.</li>
 </ol>
 </div>
 
 <div class="remember">
-<strong>Test rapide vendredi après-midi :</strong>
+<strong>Quick check on Friday afternoon:</strong>
 <ul class="compact">
-  <li>✓ J'ai prié Mincha <em>sans</em> Tahanun</li>
-  <li>✓ Si je devance Maariv : Mincha était avant Plag Hamincha</li>
-  <li>✓ Dans Hashkivenou : "וּפְרוֹשׂ סוּכַּת שָׁלוֹם" et chatima "הַפּוֹרֵשׂ סוּכַּת שָׁלוֹם"</li>
-  <li>✓ Le Maariv inclut אַתָּה קִדַּשְׁתָּ et l'Amida des 7 berakhot (siman 268)</li>
+  <li>✓ I davened Mincha <em>without</em> Tachanun</li>
+  <li>✓ If I advance maariv: Mincha was before Plag Hamincha</li>
+  <li>✓ In Hashkiveinu: "וּפְרוֹשׂ סוּכַּת שָׁלוֹם" and chasimah "הַפּוֹרֵשׂ סוּכַּת שָׁלוֹם"</li>
+  <li>✓ Maariv includes אַתָּה קִדַּשְׁתָּ and the Amidah of 7 brachos (siman 268)</li>
 </ul>
 </div>
 
 <h2 class="section-title">9. Comprehension questions</h2>
 
 <div class="question-box">
-<strong>Vérifie ta compréhension :</strong>
+<strong>Check your understanding:</strong>
 <ol>
-  <li>Quelles sont les 3 transitions liturgiques codifiées par le Siman <bdi>רס"ז</bdi> ?</li>
-  <li>Pourquoi pas de Tahanun à Mincha de vendredi ?</li>
-  <li>Qu'est-ce que Plag Hamincha ? À partir de quand peut-on prier Maariv le vendredi soir ?</li>
-  <li>Pourquoi la berakha de Hashkivenou change-t-elle de conclusion le Shabbat ?</li>
-  <li>Quelle est la contradiction (תרתי דסתרי) à éviter avec Mincha et Maariv ?</li>
-  <li>Quelle différence entre "Shomer Ammo Israel" et "Hapores Soukat Shalom" ?</li>
-  <li>Que dit le seif 2 sur l'enchaînement allumage → tefilla → repas ?</li>
+  <li>What are the 3 liturgical transitions codified by Siman <bdi>רס"ז</bdi>?</li>
+  <li>Why no Tachanun at Mincha on Friday?</li>
+  <li>What is Plag Hamincha? From when may one daven maariv on Friday night?</li>
+  <li>Why does the bracha of Hashkiveinu change its conclusion on Shabbos?</li>
+  <li>What is the contradiction (תרתי דסתרי) to avoid between Mincha and maariv?</li>
+  <li>What is the difference between "Shomer Amo Yisrael" and "Hapores Sukkas Shalom"?</li>
+  <li>What does seif 2 say about the sequence hadlakah → tefilah → seudah?</li>
 </ol>
 </div>
 
 <hr class="ornament">
 
-<h3>Pour aller plus loin</h3>
+<h3>To go further</h3>
 
 <div class="remember">
-Si tu veux <strong>approfondir</strong> ce siman :
+If you want to <strong>deepen</strong> this siman:
 <ul class="compact">
-  <li>📚 <strong>Level 2 — Lamdan</strong> : pour le pilpoul, les שיטות ראשונים, les חקירות יסודיות, et les nuances Acharonim</li>
-  <li>✨ <strong>Level 3 — Synthèse</strong> : pour la révision et la mémorisation rapide avec mnémoniques</li>
-  <li>📜 <strong>Level 4 — Daat HaRav</strong> : la chitah de l'Admour HaZaken (Choulhan Aroukh HaRav siman <bdi>רס"ז</bdi>)</li>
+  <li>📚 <strong>Level 2 — Lamdan</strong>: for pilpul, the שיטות ראשונים, the חקירות יסודיות, and Acharonim nuances</li>
+  <li>✨ <strong>Level 3 — Synthesis</strong>: for review and quick memorization with mnemonics</li>
+  <li>📜 <strong>Level 4 — Daat HaRav</strong>: the shitah of the Admur HaZaken (Shulchan Aruch HaRav siman <bdi>רס"ז</bdi>)</li>
 </ul>
 </div>
 
@@ -319,15 +337,15 @@ Si tu veux <strong>approfondir</strong> ce siman :
 ~ ~ ~ ~ ~<br>
 <strong>DAAT</strong> · <strong>הרב יוסף חיים סממה</strong><br>
 תלמיד חכם · מעביר שיעורים בהלכה ובחסידות<br>
-<em>סימן רס"ז · Level 1 — Initiation</em><br>
-<a href="../../../soutenir-en.html" style="display:inline-block;margin-top:14px;font-size:13px;color:#B8972A;text-decoration:none;border:1px solid rgba(184,151,42,0.5);padding:6px 16px;border-radius:2px;">♥ Support DAAT</a>
+<em>סימן רס"ז · Level 1 — Introduction</em><br>
+<a href="../../../soutenir.html" style="display:inline-block;margin-top:14px;font-size:13px;color:#B8972A;text-decoration:none;border:1px solid rgba(184,151,42,0.5);padding:6px 16px;border-radius:2px;">♥ Support DAAT</a>
 </div>
 
   <link rel="stylesheet" href="../../../assets/css/khavroutha-fab.css">
 <link rel="stylesheet" href="../../../assets/css/chat-widget.css">
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="../../../assets/js/chat-widget.js" defer></script>
-<a href="../../../communaute-en.html#khavroutha" class="daat-khavroutha-fab" title="Find a khavroutha for this siman"><span class="icon">📖</span><span class="label-long">Join the khavroutha</span></a>
+<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="Find a chavrusa for this siman"><span class="icon">📖</span><span class="label-long">Join the chavrusa</span></a>
   <script src="../../../assets/js/daat-progress.js"></script>
 </body>
 </html>

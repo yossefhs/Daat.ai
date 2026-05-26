@@ -284,9 +284,38 @@
     .lang-switcher a.active { color: var(--gold, #C5A55A); border-color: var(--gold, #C5A55A); }
     .lang-switcher a:hover { color: var(--gold, #C5A55A); border-color: var(--gold, #C5A55A); }
 
+
+  .lang-switcher-float {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    z-index: 9999;
+    display: flex;
+    gap: 4px;
+    background: rgba(255,255,255,0.95);
+    border: 1px solid #C5A55A;
+    padding: 4px 6px;
+    border-radius: 3px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    font-family: 'Inter', sans-serif;
+  }
+  .lang-switcher-float a {
+    font-size: 11px; letter-spacing: 1px;
+    padding: 3px 7px; border-radius: 2px;
+    color: #5a4a1a; text-decoration: none;
+    border: 1px solid transparent;
+  }
+  .lang-switcher-float a.active {
+    color: #1A1F3A; background: #FFF8E5;
+    border-color: #1A1F3A; font-weight: 600;
+  }
+  .lang-switcher-float a:hover { color: #1A1F3A; border-color: #C5A55A; }
+  @media print { .lang-switcher-float { display: none; } }
+
 </style>
 </head>
 <body>
+<div class="lang-switcher-float" role="navigation" aria-label="Language"><a href="niveau-1-base.html">FR</a><a href="niveau-1-base-he.html" class="active">HE</a><a href="niveau-1-base-en.html">EN</a></div>
 
 <div style="background:#FFF8E5;border:1px solid #C5A55A;border-left:4px solid #C5A55A;padding:10px 16px;margin:0 0 20px;font-family:'Frank Ruhl Libre',sans-serif;font-size:14px;color:#5a4a1a;direction:rtl;text-align:right;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
 <span>ℹ️ עמוד מתורגם במלואו</span>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Siman <bdi>רס"ו</bdi> · Level 3 Master Synthesis — Le voyageur surpris par l'entrée de Shabbat en chemin | DAAT</title>
-<meta name="description" content="Level 3 (Synthèse) du Siman רס"ו — Summary structuré pour révision et mémorisation : axiome, hiérarchie, arbres de décision, mnémoniques.">
+<title>Siman <bdi>רס"ו</bdi> · Level 3 Synthesis — One Caught by Shabbos On the Road | DAAT</title>
+<meta name="description" content="Level 3 (Synthesis) of Siman רס"ו — Structured recap for chazarah and memorization: axiom, hierarchy, decision trees, mnemonics.">
 <meta name="author" content="Rav Yossef Haim Samama">
 <link rel="canonical" href="https://daattorah.com/oh/266/synthese">
   <link rel="alternate" hreflang="fr" href="https://daattorah.com/sources/shabbat/siman-266/niveau-3-synthese.html">
@@ -13,13 +13,13 @@
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="DAAT דעת">
 <meta property="og:title" content="Siman רס"ו · Level 3 Master Synthesis">
-<meta property="og:description" content="Summary structuré pour révision et mémorisation.">
+<meta property="og:description" content="Structured recap for chazarah and memorization.">
 <meta property="og:url" content="https://daattorah.com/oh/266/synthese">
 <meta property="og:image" content="https://daattorah.com/assets/img/og/siman-266.svg">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Siman רס"ו · Level 3 Master Synthesis">
-<meta name="twitter:description" content="Summary structuré.">
+<meta name="twitter:description" content="Structured recap.">
 <meta name="twitter:image" content="https://daattorah.com/assets/img/og/siman-266.svg">
 <link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -64,229 +64,247 @@
   .toc { background: #FAF6EE; padding: 16pt 20pt; margin: 16pt 0; }
   .toc ol { margin-left: 20pt; }
 
-    .lang-switcher { display: flex; gap: 6px; align-items: center; margin-left: 12px; }
-    .lang-switcher a {
-      font-family: 'Inter', sans-serif; font-size: 11px;
-      padding: 3px 7px; border-radius: 2px; letter-spacing: 1px;
-      color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.15);
-      text-decoration: none; text-transform: none;
-    }
-    .lang-switcher a.active { color: var(--gold, #C5A55A); border-color: var(--gold, #C5A55A); }
-    .lang-switcher a:hover { color: var(--gold, #C5A55A); border-color: var(--gold, #C5A55A); }
+  .lang-switcher-float {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    z-index: 9999;
+    display: flex;
+    gap: 4px;
+    background: rgba(255,255,255,0.95);
+    border: 1px solid #C5A55A;
+    padding: 4px 6px;
+    border-radius: 3px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    font-family: 'Inter', sans-serif;
+  }
+  .lang-switcher-float a {
+    font-size: 11px; letter-spacing: 1px;
+    padding: 3px 7px; border-radius: 2px;
+    color: #5a4a1a; text-decoration: none;
+    border: 1px solid transparent;
+  }
+  .lang-switcher-float a.active {
+    color: #1A1F3A; background: #FFF8E5;
+    border-color: #1A1F3A; font-weight: 600;
+  }
+  .lang-switcher-float a:hover { color: #1A1F3A; border-color: #C5A55A; }
+  @media print { .lang-switcher-float { display: none; } }
 
 </style>
 </head>
 <body>
-<div class="wip-banner" style="background:#FFF8E5;border:1px solid #C5A55A;border-left:4px solid #C5A55A;padding:10px 16px;margin:0 0 12px;font-family:'Inter',sans-serif;font-size:14px;color:#5a4a1a;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
-<span>ℹ️ This page is being translated — Hebrew sources are fully preserved. Specific commentary may remain partially in French.</span>
-<span style="font-size:12px;letter-spacing:1px;"><a href="niveau-3-synthese.html" style="color:#8C6F1E;padding:2px 8px;border:1px solid #C5A55A;text-decoration:none;">FR</a> <a href="LANG_HE_LINK" style="color:#8C6F1E;padding:2px 8px;border:1px solid #C5A55A;text-decoration:none;">HE</a> <a href="#" style="color:#1A1F3A;padding:2px 8px;border:1px solid #1A1F3A;background:#FFF8E5;text-decoration:none;font-weight:600;">EN</a></span>
+<div class="lang-switcher-float" role="navigation" aria-label="Language"><a href="niveau-3-synthese.html">FR</a><a href="niveau-3-synthese-he.html">HE</a><a href="niveau-3-synthese-en.html" class="active">EN</a></div>
+
+<div style="background:#FFF8E5;border:1px solid #C5A55A;border-left:4px solid #C5A55A;padding:10px 16px;margin:0 0 20px;font-family:'Frank Ruhl Libre',sans-serif;font-size:14px;color:#5a4a1a;direction:ltr;text-align:left;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+<span>ℹ️ Page fully translated</span>
+<span style="font-size:12px;letter-spacing:1px;"><a href="niveau-3-synthese.html" style="color:#8C6F1E;padding:2px 8px;border:1px solid #C5A55A;text-decoration:none;">FR</a> <a href="niveau-3-synthese-he.html" style="color:#8C6F1E;padding:2px 8px;border:1px solid #C5A55A;text-decoration:none;">HE</a> <a href="#" style="color:#1A1F3A;padding:2px 8px;border:1px solid #1A1F3A;background:#FFF8E5;text-decoration:none;font-weight:600;">EN</a></span>
 </div>
 
-
 <div style="background:#1A1F3A;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:58px;border-bottom:2px solid #C5A55A;">
-  <a href="../../../index-en.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+  <a href="../../../index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
     <span style="font-family:'Frank Ruhl Libre',serif;font-size:24px;font-weight:700;color:#C5A55A;">דעת</span>
     <span style="font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:#fff;letter-spacing:3px;">DAAT</span>
   </a>
   <div style="display:flex;gap:20px;align-items:center;">
-    <a href="../index-en.html" style="color:#C5A55A;text-decoration:none;font-family:'Inter',sans-serif;font-size:13px;">Hilkhot Shabbat</a>
-    <a href="index-en.html" style="color:#fff;text-decoration:none;font-family:'Inter',sans-serif;font-size:13px;">Siman <bdi>רס"ו</bdi></a>
+    <a href="../index.html" style="color:#C5A55A;text-decoration:none;font-family:'Inter',sans-serif;font-size:13px;">Hilchos Shabbos</a>
+    <a href="index.html" style="color:#fff;text-decoration:none;font-family:'Inter',sans-serif;font-size:13px;">Siman <bdi>רס"ו</bdi></a>
   </div>
 </div>
 
 <div class="container">
 
 <div class="cover">
-  <div class="badge-top">DAAT · NIVEAU 3 — SYNTHÈSE MAGISTRALE</div>
+  <div class="badge-top">DAAT · LEVEL 3 — SYNTHESIS</div>
   <h1>Siman <bdi>רס"ו</bdi></h1>
   <div class="he-title">סימן רס"ו · דִּין מִי שֶׁהֶחְשִׁיךְ לוֹ בַּדֶּרֶךְ</div>
-  <div class="subtitle">Summary & mnémoniques pour la révision</div>
+  <div class="subtitle">Recap & mnemonics for chazarah</div>
   <hr class="ornament">
   <div class="meta">
-    Synthèse magistrale · Hilkhot Shabbat · 13 seifim<br>
-    <em>Pour mémoriser et réviser après les Niveaux 1 & 2</em>
+    Master synthesis · Hilchos Shabbos · 13 seifim<br>
+    <em>To memorize and review after Levels 1 & 2</em>
   </div>
 </div>
 
 <div style="text-align:center;margin:20px 0;">
-  <button onclick="window.print()" class="print-btn" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;background:#1A1F3A;color:#C5A55A;padding:10px 22px;border:1px solid #C5A55A;border-radius:2px;cursor:pointer;text-transform:uppercase;">📄 Imprimer / Sauver en PDF</button>
+  <button onclick="window.print()" class="print-btn" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;background:#1A1F3A;color:#C5A55A;padding:10px 22px;border:1px solid #C5A55A;border-radius:2px;cursor:pointer;text-transform:uppercase;">📄 Print / Save as PDF</button>
 </div>
 <style>@media print { .print-btn, .daat-khavroutha-fab, .daat-chat-fab { display: none !important; } }</style>
 
 
-<h3>📑 Plan de la synthèse</h3>
+<h3>📑 Synthesis Plan</h3>
 
 <div class="toc">
 <ol class="compact">
-  <li><strong>L'Axiome central</strong> du siman</li>
-  <li><strong>Les concepts-clés</strong> condensés</li>
-  <li><strong>Hiérarchie des cas</strong> — du plus large au plus restrictif</li>
-  <li><strong>Arbre de décision</strong></li>
-  <li><strong>Le cœur du siman</strong> — surpris ou négligent ?</li>
-  <li><strong>Pièges à éviter</strong></li>
-  <li><strong>Cas pratiques modernes</strong></li>
-  <li><strong>Tableau de synthèse finale</strong></li>
-  <li><strong>Les commandements pratiques</strong></li>
+  <li><strong>The central axiom</strong> of the siman</li>
+  <li><strong>Key concepts</strong> condensed</li>
+  <li><strong>Hierarchy of cases</strong> — from broadest to most restrictive</li>
+  <li><strong>Decision tree</strong></li>
+  <li><strong>The heart of the siman</strong> — caught or negligent?</li>
+  <li><strong>Pitfalls to avoid</strong></li>
+  <li><strong>Modern practical cases</strong></li>
+  <li><strong>Final synthesis table</strong></li>
+  <li><strong>The practical commandments</strong></li>
 </ol>
 </div>
 
-<h2>1. L'Axiome central</h2>
+<h2>1. The central axiom</h2>
 
 <div class="axiome">
-<strong>Le Siman <bdi>רס"ו</bdi> en une phrase.</strong><br>
-<em>Quand Shabbat surprend le voyageur en chemin, Hazal proposent un <strong>escalier de compromis</strong> pour préserver son bien : du non-juif (compromis minimal) à la marche par tranches de moins de 4 amot (compromis maximal). Mais cet escalier ne s'ouvre qu'à celui qui a été surpris — pas au négligent.</em>
+<strong>Siman <bdi>רס"ו</bdi> in one sentence.</strong><br>
+<em>When Shabbos overtakes the traveler on the derech, Chazal offer a <strong>staircase of compromises</strong> to preserve his property: from the non-Jew (minimal compromise) to walking in increments of less than 4 amos (maximal compromise). But this staircase opens only to one who was caught off guard — not to the negligent.</em>
 </div>
 
-<h2>2. Les 5 concepts-clés condensés</h2>
+<h2>2. The 5 key concepts condensed</h2>
 
 <table>
-<tr><th>Concept</th><th>Sens technique</th><th>Application</th></tr>
-<tr><td><span class="he-q">מְחַמֵּר</span></td><td>Conduire un animal qui porte une charge interdite</td><td>Interdit ; évité en plaçant la bourse <em>pendant la marche</em> et la reprenant à l'arrêt</td></tr>
-<tr><td><span class="he-q">שְׁבִיתַת בְּהֵמָה</span></td><td>Repos obligatoire de l'animal du juif (Ex. 23:12)</td><td>Raison pour laquelle on préfère le non-juif à l'âne (seif 1)</td></tr>
-<tr><td><span class="he-q">אָדָם בָּהוּל עַל מָמוֹנוֹ</span></td><td>L'homme est paniqué pour son argent — fait des fautes graves si on ne l'aide pas</td><td>Yessod talmudique de toutes les facilités du siman (Shabbat 153b)</td></tr>
-<tr><td><span class="he-q">פָּחוֹת פָּחוֹת מֵד' אַמּוֹת</span></td><td>Moins de 4 amot à la fois, avec arrêts complets</td><td>Dernier recours (seif 7) — chaque tranche n'est pas une transgression déorayta</td></tr>
-<tr><td><span class="he-q">כְּלַאַחַר יָד</span></td><td>De manière inhabituelle (à l'envers de la main)</td><td>Lancer la charge en arrivant chez soi (seif 11) — réduit la mélakha à dérabanan</td></tr>
+<tr><th>Concept</th><th>Technical meaning</th><th>Application</th></tr>
+<tr><td><span class="he-q">מְחַמֵּר</span></td><td>Leading an animal carrying a forbidden load</td><td>Assur; avoided by placing the purse <em>while walking</em> and taking it back at rest</td></tr>
+<tr><td><span class="he-q">שְׁבִיתַת בְּהֵמָה</span></td><td>Obligatory rest of the Yid's animal (Sh. 23:12)</td><td>Reason why one prefers the non-Jew to the donkey (seif 1)</td></tr>
+<tr><td><span class="he-q">אָדָם בָּהוּל עַל מָמוֹנוֹ</span></td><td>A person is panicked over his mammon — commits grave aveiros if not helped</td><td>The talmudic yesod for all the heteirim of the siman (Shabbos 153b)</td></tr>
+<tr><td><span class="he-q">פָּחוֹת פָּחוֹת מֵד' אַמּוֹת</span></td><td>Less than 4 amos at a time, with complete stops</td><td>Last resort (seif 7) — each increment is not a d'oraisa transgression</td></tr>
+<tr><td><span class="he-q">כְּלַאַחַר יָד</span></td><td>B'shinui (the reverse of the hand)</td><td>Throwing the load upon arriving home (seif 11) — reduces the melachah to derabbanan</td></tr>
 </table>
 
-<h2>3. Hiérarchie des 6 options (sommet → dernier recours)</h2>
+<h2>3. Hierarchy of the 6 options (top → last resort)</h2>
 
 <div class="schema">
-<span class="schema-step"><strong>OPTION 1 — Non-juif (seif 1)</strong> : si présent. Donner la bourse pour le Shabbat entier. Pas de problème de שביתת בהמה. Permis même sans rémunération.</span>
+<span class="schema-step"><strong>OPTION 1 — Non-Jew (seif 1)</strong>: if present. Give the purse for the entire Shabbos. No issue of shevisas behema. Muttar even without payment.</span>
 <div class="schema-arrow">↓</div>
-<span class="schema-step"><strong>OPTION 2 — Âne avec précautions (seif 2)</strong> : poser pendant la marche, reprendre à l'arrêt, pas de voix forte. Le juif marche à pied. Exception : monter si danger.</span>
+<span class="schema-step"><strong>OPTION 2 — Donkey with precautions (seif 2)</strong>: place while walking, take back at rest, no loud voice. The Yid walks on foot. Exception: ride if in sakanah.</span>
 <div class="schema-arrow">↓</div>
-<span class="schema-step"><strong>OPTION 3 — Shoteh / fou (seifim 4-5)</strong> : daat nulle, donc à lui en priorité parmi les humains incapables.</span>
+<span class="schema-step"><strong>OPTION 3 — Shoteh (seifim 4-5)</strong>: zero daas, so first to him among the incapable humans.</span>
 <div class="schema-arrow">↓</div>
-<span class="schema-step"><strong>OPTION 4 — Cheresh / sourd-muet (seif 4)</strong> : daat partielle ; après shoteh.</span>
+<span class="schema-step"><strong>OPTION 4 — Cheresh (seif 4)</strong>: partial daas; after shoteh.</span>
 <div class="schema-arrow">↓</div>
-<span class="schema-step"><strong>OPTION 5 — Katan / mineur (seif 5)</strong> : daat en construction ; en dernier parmi les humains.</span>
+<span class="schema-step"><strong>OPTION 5 — Katan (seif 5)</strong>: daas being formed; last among humans.</span>
 <div class="schema-arrow">↓</div>
-<span class="schema-step"><strong>OPTION 6 — Moins de 4 amot à la fois (seif 7)</strong> : ultime recours, seulement pour bourse ou objet trouvé déjà reçu en main.</span>
+<span class="schema-step"><strong>OPTION 6 — Less than 4 amos at a time (seif 7)</strong>: ultimate resort, only for purse or found object already received in hand.</span>
 <div class="schema-arrow">↓</div>
-<span class="schema-step"><strong>FERMETURE — Négligent (seif 8)</strong> : aucune des options ci-dessus n'est ouverte au sortir-de-chez-lui qui a oublié quelque chose.</span>
+<span class="schema-step"><strong>CLOSURE — Negligent (seif 8)</strong>: none of the above options is open to one who left his house and forgot something.</span>
 </div>
 
-<h2>4. Arbre de décision pratique</h2>
+<h2>4. Practical decision tree</h2>
 
 <div class="schema">
-<span class="schema-step"><strong>Q1 :</strong> Étais-je <em>surpris</em> par Shabbat en chemin (je pensais avoir encore le temps) ?</span>
+<span class="schema-step"><strong>Q1:</strong> Was I <em>caught</em> by Shabbos on the derech (I thought I still had time)?</span>
 <div class="schema-arrow">↓</div>
-<span class="schema-step">Si NON (je suis sorti à la dernière minute et j'ai oublié) → <strong>aucune facilité, je dois m'arrêter là et abandonner</strong> (seif 8).</span>
+<span class="schema-step">If NO (I left at the last minute and I forgot) → <strong>no heter, I must stop and abandon</strong> (seif 8).</span>
 <div class="schema-arrow">↓</div>
-<span class="schema-step">Si OUI → <strong>Q2 :</strong> Y a-t-il un non-juif disponible ? → SI OUI : donner la bourse, fin (seif 1).</span>
+<span class="schema-step">If YES → <strong>Q2:</strong> Is there a non-Jew available? → IF YES: give the purse, sof (seif 1).</span>
 <div class="schema-arrow">↓</div>
-<span class="schema-step">Si NON → <strong>Q3 :</strong> Ai-je un âne avec moi ? → SI OUI : poser pendant la marche, reprendre à l'arrêt (seif 2). Je marche à pied. Exception : danger → je monte.</span>
+<span class="schema-step">If NO → <strong>Q3:</strong> Do I have a donkey with me? → IF YES: place during walking, take back at rest (seif 2). I walk on foot. Exception: sakanah → I ride.</span>
 <div class="schema-arrow">↓</div>
-<span class="schema-step">Si NON → <strong>Q4 :</strong> Y a-t-il un cheresh/shoteh/katan ? → SI OUI : selon l'ordre (shoteh → cheresh → katan), avec les mêmes précautions de pose/reprise après la nuit (seifim 3-6).</span>
+<span class="schema-step">If NO → <strong>Q4:</strong> Is there a cheresh/shoteh/katan? → IF YES: in order (shoteh → cheresh → katan), with the same placing/taking-back precautions after nightfall (seifim 3-6).</span>
 <div class="schema-arrow">↓</div>
-<span class="schema-step">Si NON → <strong>Q5 :</strong> Marcher par tranches de moins de 4 amot, avec arrêts complets. Uniquement bourse / objet déjà en main (seif 7).</span>
+<span class="schema-step">If NO → <strong>Q5:</strong> Walk in increments of less than 4 amos, with complete stops. Only purse / object already in hand (seif 7).</span>
 <div class="schema-arrow">↓</div>
-<span class="schema-step"><strong>Cas particuliers :</strong> charge sur épaule (Q6) → courir + lancer כלאחר יד (seif 11). Téfilines (Q7) → main dessus jusqu'à la maison sûre (seif 10). Bourse oubliée sur soi (Q8) → dénouer ceinture (seif 12). Objet trouvé Shabbat (Q9) → ne pas toucher (seif 13).</span>
+<span class="schema-step"><strong>Special cases:</strong> load on the shoulder (Q6) → run + throw kelachar yad (seif 11). Tefillin (Q7) → hand on them until the safe house (seif 10). Purse forgotten on oneself (Q8) → undo belt (seif 12). Object found on Shabbos (Q9) → do not touch (seif 13).</span>
 </div>
 
-<h2>5. Le cœur du siman — surpris ou négligent ?</h2>
+<h2>5. The heart of the siman — caught or negligent?</h2>
 
-<p>Tout l'escalier de compromis du siman <bdi>רס"ו</bdi> — non-juif, âne, incapables, tranches de moins de 4 amot — repose sur une seule porte d'entrée. Si cette porte est fermée, aucune des facilités n'est disponible. Cette porte, c'est la distinction entre celui qui a été <strong>surpris</strong> par Shabbat (<span class="he-q">מי שהחשיך לו בדרך</span>) et celui qui a été <strong>négligent</strong> (seif 8).</p>
+<p>The entire staircase of compromises of siman <bdi>רס"ו</bdi> — non-Jew, donkey, incapables, increments of less than 4 amos — rests on a single entry gate. If this gate is closed, none of the heteirim is available. This gate is the chiluk between one who has been <strong>caught</strong> by Shabbos (<span class="he-q">מי שהחשיך לו בדרך</span>) and one who has been <strong>negligent</strong> (seif 8).</p>
 
-<h3>La logique de la facilité</h3>
-<p>Le yessod talmudique est explicite (Shabbat 153b) : Hazal n'ont autorisé ces compromis que parce que <span class="he-q">אדם בהול על ממונו</span> — « l'homme est paniqué pour son argent ». Sans soupape, il transgresserait <em>lui-même</em> un interdit déorayta en portant sa bourse dans le domaine public. Les Sages ont donc préféré ouvrir une voie atténuée pour éviter une faute grave. <strong>C'est une concession à la faiblesse humaine, pas un droit acquis.</strong></p>
+<h3>The logic of the heter</h3>
+<p>The talmudic yesod is mefurash (Shabbos 153b): Chazal were matir these compromises only because <span class="he-q">אדם בהול על ממונו</span> — "a person is panicked over his mammon." Without a safety valve, he would <em>himself</em> be over on a d'oraisa issur by carrying his purse in the reshus harabim. The Chachamim therefore preferred to open an attenuated path in order to be moneya a graver aveirah. <strong>It is a concession to human weakness, not an acquired right.</strong></p>
 
-<h3>La ligne de partage</h3>
+<h3>The dividing line</h3>
 <div class="schema">
-<span class="schema-step"><strong>SURPRIS</strong> — il pensait raisonnablement avoir le temps de rentrer ; la nuit l'a devancé. La panique est <em>involontaire</em>. → Tout l'escalier de compromis lui est ouvert.</span>
+<span class="schema-step"><strong>CAUGHT</strong> — he reasonably thought he had time to return; night overtook him. The panic is <em>involuntary</em>. → The entire staircase of compromises is open to him.</span>
 <div class="schema-arrow">↓</div>
-<span class="schema-step"><strong>NÉGLIGENT</strong> — il est sorti au dernier moment, ou a sciemment pris le risque, ou a oublié quelque chose chez lui et veut y retourner. La situation est le fruit de son <em>choix</em>. → Aucune facilité. Il pose sa charge et l'abandonne (seif 8).</span>
+<span class="schema-step"><strong>NEGLIGENT</strong> — he left at the last moment, or knowingly took the risk, or forgot something at home and wants to go back for it. The situation is the fruit of his <em>choice</em>. → No heter. He puts down his load and is mafkir it (seif 8).</span>
 </div>
 
-<h3>Le cas-limite : pourquoi cette sévérité ?</h3>
-<p>On pourrait objecter : le négligent aussi est « paniqué pour son argent » — pourquoi ne pas l'aider ? La réponse touche au fond du système : si le négligent bénéficiait des mêmes compromis, la concession deviendrait une <em>incitation</em>. Chacun calculerait qu'en cas de retard volontaire, la halakha le rattraperait. La soupape n'a de sens que tant qu'elle reste réservée à l'imprévu véritable. Accorder la facilité au négligent reviendrait à abolir l'interdit lui-même.</p>
+<h3>The borderline case: why this chumrah?</h3>
+<p>One could be makshe: the negligent person too is "bahul al mamono" — why not help him? The teretz touches the foundation of the system: if the negligent person benefited from the same compromises, the concession would become an <em>incentive</em>. Everyone would calculate that in case of voluntary delay, halachah would catch them up. The safety valve has meaning only as long as it remains reserved for the truly unforeseen. To grant the heter to the negligent would amount to mevatel the issur itself.</p>
 
 <div class="warning">
-<strong>Application moderne.</strong> Celui dont la voiture tombe en panne un vendredi parce qu'il est parti trop tard, en sachant le risque, est dans la catégorie du <em>négligent</em> : il abandonne ses biens en lieu sûr et marche. Celui qu'un embouteillage imprévu ou une panne mécanique soudaine a surpris malgré une marge raisonnable relève du <em>surpris</em> — et peut recourir, par analogie, aux compromis du siman. La conscience honnête de sa propre marge initiale est le seul juge.
+<strong>Modern application.</strong> One whose car breaks down on a Friday because he left too late, knowing the sakanah, is in the category of the <em>negligent</em>: he abandons his property in a safe place and walks. One who has been caught off guard by an unforeseen traffic jam or sudden mechanical failure despite a reasonable margin falls under the <em>caught</em> — and may resort, by analogy, to the siman's compromises. The honest awareness of one's own initial margin is the only judge.
 </div>
 
-<h2>6. Mnémonique — N.A.S.C.K.</h2>
+<h2>6. Mnemonic — N.D.S.C.K.</h2>
 
 <div class="mnemonic">
-<p><span class="letter">N</span> — <strong>Nokhri</strong> (נכרי) → premier choix : donner au non-juif</p>
-<p><span class="letter">A</span> — <strong>Ânon/Âne</strong> (חמור) → si pas de non-juif : sur l'âne, précautions de mouvement</p>
-<p><span class="letter">S</span> — <strong>Shoteh</strong> (שוטה) → fou avant cheresh, cheresh avant katan</p>
-<p><span class="letter">C</span> — <strong>Court tranches</strong> (פחות פחות מד' אמות) → dernier recours, arrêts complets</p>
-<p><span class="letter">K</span> — <strong>Kelahar Yad</strong> (כלאחר יד) → si déjà en course : courir + lancer "à l'envers" à la maison</p>
+<p><span class="letter">N</span> — <strong>Nochri</strong> (נכרי) → first choice: give to the non-Jew</p>
+<p><span class="letter">D</span> — <strong>Donkey</strong> (חמור) → if no non-Jew: on the donkey, movement precautions</p>
+<p><span class="letter">S</span> — <strong>Shoteh</strong> (שוטה) → shoteh before cheresh, cheresh before katan</p>
+<p><span class="letter">C</span> — <strong>Cuts (increments)</strong> (פחות פחות מד' אמות) → last resort, complete stops</p>
+<p><span class="letter">K</span> — <strong>Kelachar Yad</strong> (כלאחר יד) → if already underway: run + throw "backwards" at home</p>
 </div>
 
-<h2>7. Les 5 pièges à éviter</h2>
+<h2>7. The 5 pitfalls to avoid</h2>
 
 <div class="warning">
-<strong>Piège 1 — Confondre "surpris" et "négligent".</strong> Le seif 8 est explicite : celui qui est sorti tard et a "oublié" n'a aucune facilité. Il doit poser la charge et l'abandonner ou attendre. La pacification de Shabbat n'est pas une commodité pour le retard volontaire.
-</div>
-
-<div class="warning">
-<strong>Piège 2 — Donner directement à un mineur "parce qu'il est innocent".</strong> Faux. La hiérarchie est <em>l'inverse</em> : le mineur est le <em>dernier</em> à qui donner parmi les incapables, parce qu'il acquerra la daat et qu'on construit son chinoukh maintenant.
+<strong>Pitfall 1 — Being mevalbel "caught" and "negligent."</strong> Seif 8 is mefurash: one who left late and "forgot" has no heter. He must put down the load and be mafkir or wait. The shalom of Shabbos is not a convenience for voluntary delay.
 </div>
 
 <div class="warning">
-<strong>Piège 3 — Marcher lentement avec la charge sur l'épaule.</strong> Le seif 11 exige de <em>courir</em>. La marche lente sans signe distinctif risque l'arrêt → עקירה → הנחה → mélakha déorayta. La course est le filet de sécurité.
+<strong>Pitfall 2 — Giving directly to a katan "because he is innocent."</strong> Sheker. The hierarchy is the <em>inverse</em>: the katan is the <em>last</em> to whom to give among the incapable, because he will be koneh daas and his chinuch is being built now.
 </div>
 
 <div class="warning">
-<strong>Piège 4 — Prendre un porte-monnaie trouvé Shabbat "pour le rendre".</strong> Interdit absolu (seif 13), même si on craint qu'un autre l'emporte. L'argent est muktsé total ; le respect de l'interdit prime sur la justice civile.
+<strong>Pitfall 3 — Walking slowly with the load on the shoulder.</strong> Seif 11 is mechayev <em>running</em>. Slow walking without a heker is mesakein stopping → akirah → hanachah → melachah d'oraisa. Running is the safety net.
 </div>
 
 <div class="warning">
-<strong>Piège 5 — Monter sur l'âne qui porte la bourse.</strong> Le Rama interdit (seif 2). Pourquoi ? Parce qu'à ce moment-là le juif "utilise" pleinement l'animal — il devient lui-même la cause active du transport. Exception : danger → monter permis (פיקוח נפש).
+<strong>Pitfall 4 — Taking a wallet found on Shabbos "to return it."</strong> Assur outright (seif 13), even if one is choshesh someone else will take it. The mammon is muktzeh gamur; the respect for the issur is doche civil yashrus.
 </div>
 
-<h2>8. Cas pratiques modernes</h2>
+<div class="warning">
+<strong>Pitfall 5 — Riding on the donkey carrying the purse.</strong> The Rama is oser (seif 2). The taam? Because at that moment the Yid is "using" the animal fully — he himself becomes the active sibah of the carrying. Exception: sakanah → riding is mutter (pikuach nefesh).
+</div>
+
+<h2>8. Modern practical cases</h2>
 
 <table>
-<tr><th>Situation</th><th>Référence siman</th><th>Conduite</th></tr>
-<tr><td>Voiture en panne le vendredi soir</td><td>Adaptation seif 1</td><td>Si non-juif disponible : confier la voiture. Sinon : abandonner clés/objets en lieu sûr, marcher rejoindre la communauté.</td></tr>
-<tr><td>Téléphone portable oublié sur soi en entrant Shabbat</td><td>Seif 12 (Hagaha)</td><td>Chez soi : pièce isolée, dénouer la poche, laisser tomber. Au marché : dénouer sur place, demander à non-juif de garder.</td></tr>
-<tr><td>Bagage à main lors d'un vol Shabbat (escale forcée)</td><td>Seif 11 + 12</td><td>Si une partie du trajet est à pied vers l'hôtel d'urgence : approche analogue au seif 11. Mais consulter Rav avant.</td></tr>
-<tr><td>Portefeuille trouvé dans la synagogue Shabbat</td><td>Seif 13</td><td>Ne pas toucher, ne pas le déplacer. Le signaler verbalement après Shabbat.</td></tr>
-<tr><td>Sortir du shul avec téfilines mises et tardive entrée Shabbat</td><td>Seif 10</td><td>Main sur les téfilines, marche discrète vers la maison la plus proche.</td></tr>
-<tr><td>Touriste sans érouv, retour à l'hôtel</td><td>Seifim 7 + 11</td><td>Si charge sur l'épaule : courir. Si poche : moins de 4 amot tranches. Idéal : laisser tout à l'hôtel avant la sortie.</td></tr>
+<tr><th>Situation</th><th>Siman reference</th><th>Conduct</th></tr>
+<tr><td>Car breakdown on Friday evening</td><td>Adaptation of seif 1</td><td>If non-Jew available: entrust the car. Otherwise: be mafkir keys/objects in a safe place, walk to join the kehillah.</td></tr>
+<tr><td>Cell phone forgotten on oneself entering Shabbos</td><td>Seif 12 (Hagahah)</td><td>At home: isolated room, undo pocket, let fall. In marketplace: undo on the spot, ask non-Jew to watch.</td></tr>
+<tr><td>Hand luggage on a Shabbos flight (forced layover)</td><td>Seif 11 + 12</td><td>If part of the route is on foot to the emergency hotel: approach analogous to seif 11. But consult Rav beforehand.</td></tr>
+<tr><td>Wallet found in shul on Shabbos</td><td>Seif 13</td><td>Do not touch, do not move it. Report it verbally after Shabbos.</td></tr>
+<tr><td>Leaving shul with tefillin on and late onset of Shabbos</td><td>Seif 10</td><td>Hand on the tefillin, discreet walk to the nearest house.</td></tr>
+<tr><td>Yid traveling without eruv, return to hotel</td><td>Seifim 7 + 11</td><td>If load on the shoulder: run. If pocket: less than 4 amos increments. Ideal: leave everything at the hotel before departure.</td></tr>
 </table>
 
-<h2>9. Tableau de synthèse finale</h2>
+<h2>9. Final synthesis table</h2>
 
 <table>
-<tr><th>Élément</th><th>Détail</th></tr>
-<tr><td>Subject</td><td>Le voyageur surpris par Shabbat en chemin avec bourse, charge, téfilines, ou animal</td></tr>
-<tr><td>Nombre de seifim</td><td>13 (Mehaber) + 3 Hagahot (Rama)</td></tr>
-<tr><td>Concepts structurants</td><td>מחמר — שביתת בהמה — אדם בהול על ממונו — פחות פחות מד' אמות — כלאחר יד</td></tr>
-<tr><td>Source(s) talmudique</td><td>Mishna Shabbat 24:1 (153a) ; sougya 153b–154b</td></tr>
-<tr><td>Mishna Berurah</td><td>38 entrées (l'un des plus longs)</td></tr>
-<tr><td>Yessod talmudique</td><td>Rav Nahman : "Hazal n'ont autorisé que parce que l'homme est paniqué pour son argent — sans cela il transgresserait pire."</td></tr>
-<tr><td>Distinction critique</td><td>Surpris (toutes les facilités) vs négligent (aucune — seif 8)</td></tr>
+<tr><th>Element</th><th>Detail</th></tr>
+<tr><td>Topic</td><td>The traveler caught by Shabbos on the derech with purse, load, tefillin, or animal</td></tr>
+<tr><td>Number of seifim</td><td>13 (Mechaber) + 3 Hagahos (Rama)</td></tr>
+<tr><td>Structuring concepts</td><td>מחמר — שביתת בהמה — אדם בהול על ממונו — פחות פחות מד' אמות — כלאחר יד</td></tr>
+<tr><td>Talmudic mekor</td><td>Mishnah Shabbos 24:1 (153a); sugya 153b–154b</td></tr>
+<tr><td>Mishnah Berurah</td><td>38 entries (one of the longest)</td></tr>
+<tr><td>Talmudic yesod</td><td>Rav Nachman: "Chazal were matir only because a person is bahul al mamono — without this he would be over on worse."</td></tr>
+<tr><td>Critical chiluk</td><td>Caught (all heteirim) vs negligent (none — seif 8)</td></tr>
 </table>
 
-<h2>10. Les 7 commandements pratiques du Siman <bdi>רס"ו</bdi></h2>
+<h2>10. The 7 practical commandments of Siman <bdi>רס"ו</bdi></h2>
 
 <div class="pesak-box">
-<h4>🚶 La règle du voyageur de Shabbat — en 7 commandements</h4>
+<h4>🚶 The rule of the Shabbos traveler — in 7 commandments</h4>
 <ol class="compact">
-  <li><strong>Anticiper.</strong> Rentrer avant Shabbat est la première mitsva. Le siman ne couvre que les imprévus.</li>
-  <li><strong>Préférer le non-juif</strong> à toute autre option, si disponible et fiable.</li>
-  <li><strong>Si âne :</strong> poser pendant la marche, reprendre à l'arrêt, pas de voix forte, marcher à pied (sauf danger).</li>
-  <li><strong>Si humain incapable :</strong> hiérarchie shoteh > cheresh > katan (jamais l'inverse).</li>
-  <li><strong>Si rien :</strong> tranches de moins de 4 amot, arrêts complets, uniquement bourse/objet déjà reçu.</li>
-  <li><strong>Si charge sur épaule :</strong> courir, lancer כלאחר יד en entrant.</li>
-  <li><strong>Si trouvé Shabbat :</strong> ne pas prendre, même au risque de perte.</li>
+  <li><strong>Anticipate.</strong> Returning before Shabbos is the first mitzvah. The siman covers only the unforeseen.</li>
+  <li><strong>Prefer the non-Jew</strong> to any other option, if available and reliable.</li>
+  <li><strong>If donkey:</strong> place while walking, take back at rest, no loud voice, walk on foot (except sakanah).</li>
+  <li><strong>If incapable human:</strong> hierarchy shoteh > cheresh > katan (never the inverse).</li>
+  <li><strong>If nothing:</strong> increments of less than 4 amos, complete stops, only purse/object already received.</li>
+  <li><strong>If load on shoulder:</strong> run, throw kelachar yad upon entering.</li>
+  <li><strong>If found on Shabbos:</strong> do not take, even at risk of loss.</li>
 </ol>
-<p style="margin-top: 16pt; font-style: italic;">→ Les cas modernes (voiture, avion, téléphone) demandent l'analogie avec ces principes <strong>+ consultation d'un Rav</strong>.</p>
+<p style="margin-top: 16pt; font-style: italic;">→ Modern cases (car, plane, phone) require analogy with these yesodos <strong>+ consultation with a Rav</strong>.</p>
 </div>
 
 <div class="remember">
-<strong>📚 Summary du parcours d'étude</strong><br>
-Tu as étudié le Siman <bdi>רס"ו</bdi> en 3 niveaux :
+<strong>📚 Recap of the study path</strong><br>
+You have learned Siman <bdi>רס"ו</bdi> at 3 levels:
 <ul class="compact">
-  <li>🌱 <strong>Level 1 — Base :</strong> les 13 seifim, traduction française, concepts halakhiques</li>
-  <li>⚡ <strong>Level 2 — Lamdan :</strong> sources talmudiques, שיטות des Rishonim, מחלוקות, נפקא מינות</li>
-  <li>✨ <strong>Level 3 — Synthèse :</strong> axiome, mnémonique, arbre de décision, commandements pratiques</li>
+  <li>🌱 <strong>Level 1 — Base:</strong> the 13 seifim, English translation, halachic concepts</li>
+  <li>⚡ <strong>Level 2 — Lamdan:</strong> talmudic mekoros, שיטות of the Rishonim, מחלוקות, נפקא מינות</li>
+  <li>✨ <strong>Level 3 — Synthesis:</strong> axiom, mnemonic, decision tree, practical commandments</li>
 </ul>
-Pour aller plus loin : <strong>Level 4 — Daat HaRav</strong> (chitah de l'Admour HaZaken sur le Choulhan Aroukh HaRav siman <bdi>רס"ו</bdi>).
+To go further: <strong>Level 4 — Daas HaRav</strong> (shitah of the Admor HaZaken on the Shulchan Aruch HaRav siman <bdi>רס"ו</bdi>).
 </div>
 
 </div>
@@ -296,14 +314,14 @@ Pour aller plus loin : <strong>Level 4 — Daat HaRav</strong> (chitah de l'Admo
 <strong>DAAT</strong> · <strong>הרב יוסף חיים סממה</strong><br>
 תלמיד חכם · מעביר שיעורים בהלכה ובחסידות<br>
 <em>סימן רס"ו · Level 3 — Master Synthesis</em><br>
-<a href="../../../soutenir-en.html" style="display:inline-block;margin-top:14px;font-size:13px;color:#B8972A;text-decoration:none;border:1px solid rgba(184,151,42,0.5);padding:6px 16px;border-radius:2px;">♥ Support DAAT</a>
+<a href="../../../soutenir.html" style="display:inline-block;margin-top:14px;font-size:13px;color:#B8972A;text-decoration:none;border:1px solid rgba(184,151,42,0.5);padding:6px 16px;border-radius:2px;">♥ Support DAAT</a>
 </div>
 
   <link rel="stylesheet" href="../../../assets/css/khavroutha-fab.css">
 <link rel="stylesheet" href="../../../assets/css/chat-widget.css">
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="../../../assets/js/chat-widget.js" defer></script>
-<a href="../../../communaute-en.html#khavroutha" class="daat-khavroutha-fab" title="Find a khavroutha for this siman"><span class="icon">📖</span><span class="label-long">Join the khavroutha</span></a>
+<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="Find a chavrusa for this siman"><span class="icon">📖</span><span class="label-long">Join the chavrusa</span></a>
   <script src="../../../assets/js/daat-progress.js"></script>
 </body>
 </html>
