@@ -21,16 +21,32 @@
 
     { "source": "/oh", "destination": "/sources/shabbat/index.html" },
     { "source": "/oh/", "destination": "/sources/shabbat/index.html" },
+    { "source": "/oh/index-he.html", "destination": "/sources/shabbat/index-he.html" },
+    { "source": "/oh/index-en.html", "destination": "/sources/shabbat/index-en.html" },
+    { "source": "/oh/he", "destination": "/sources/shabbat/index-he.html" },
+    { "source": "/oh/en", "destination": "/sources/shabbat/index-en.html" },
     { "source": "/oh/:n(\\d+)", "destination": "/sources/shabbat/siman-:n/index.html" },
     { "source": "/oh/:n(\\d+)/", "destination": "/sources/shabbat/siman-:n/index.html" },
+    { "source": "/oh/:n(\\d+)/index-he.html", "destination": "/sources/shabbat/siman-:n/index-he.html" },
+    { "source": "/oh/:n(\\d+)/index-en.html", "destination": "/sources/shabbat/siman-:n/index-en.html" },
+    { "source": "/oh/:n(\\d+)/he", "destination": "/sources/shabbat/siman-:n/index-he.html" },
+    { "source": "/oh/:n(\\d+)/en", "destination": "/sources/shabbat/siman-:n/index-en.html" },
     { "source": "/oh/:n(\\d+)/base", "destination": "/sources/shabbat/siman-:n/niveau-1-base.html" },
     { "source": "/oh/:n(\\d+)/base/", "destination": "/sources/shabbat/siman-:n/niveau-1-base.html" },
+    { "source": "/oh/:n(\\d+)/niveau-1-base-he.html", "destination": "/sources/shabbat/siman-:n/niveau-1-base-he.html" },
+    { "source": "/oh/:n(\\d+)/niveau-1-base-en.html", "destination": "/sources/shabbat/siman-:n/niveau-1-base-en.html" },
     { "source": "/oh/:n(\\d+)/lamdan", "destination": "/sources/shabbat/siman-:n/niveau-2-lamdan.html" },
     { "source": "/oh/:n(\\d+)/lamdan/", "destination": "/sources/shabbat/siman-:n/niveau-2-lamdan.html" },
+    { "source": "/oh/:n(\\d+)/niveau-2-lamdan-he.html", "destination": "/sources/shabbat/siman-:n/niveau-2-lamdan-he.html" },
+    { "source": "/oh/:n(\\d+)/niveau-2-lamdan-en.html", "destination": "/sources/shabbat/siman-:n/niveau-2-lamdan-en.html" },
     { "source": "/oh/:n(\\d+)/synthese", "destination": "/sources/shabbat/siman-:n/niveau-3-synthese.html" },
     { "source": "/oh/:n(\\d+)/synthese/", "destination": "/sources/shabbat/siman-:n/niveau-3-synthese.html" },
+    { "source": "/oh/:n(\\d+)/niveau-3-synthese-he.html", "destination": "/sources/shabbat/siman-:n/niveau-3-synthese-he.html" },
+    { "source": "/oh/:n(\\d+)/niveau-3-synthese-en.html", "destination": "/sources/shabbat/siman-:n/niveau-3-synthese-en.html" },
     { "source": "/oh/:n(\\d+)/daat-harav", "destination": "/sources/shabbat/siman-:n/niveau-4-daat-harav.html" },
-    { "source": "/oh/:n(\\d+)/daat-harav/", "destination": "/sources/shabbat/siman-:n/niveau-4-daat-harav.html" }
+    { "source": "/oh/:n(\\d+)/daat-harav/", "destination": "/sources/shabbat/siman-:n/niveau-4-daat-harav.html" },
+    { "source": "/oh/:n(\\d+)/niveau-4-daat-harav-he.html", "destination": "/sources/shabbat/siman-:n/niveau-4-daat-harav-he.html" },
+    { "source": "/oh/:n(\\d+)/niveau-4-daat-harav-en.html", "destination": "/sources/shabbat/siman-:n/niveau-4-daat-harav-en.html" }
   ],
 
   "redirects": [
