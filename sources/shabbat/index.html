@@ -9,6 +9,9 @@
   <meta name="author" content="Rav Yossef Haim Samama">
   <meta name="keywords" content="hilkhot shabbat, choulhan aroukh, siman 242, siman 243, siman 246, halakha shabbat français, oneg shabbat, kavod shabbat, mishna brura">
   <link rel="canonical" href="https://daattorah.com/oh/">
+  <link rel="alternate" hreflang="fr" href="https://daattorah.com/sources/shabbat/index.html">
+  <link rel="alternate" hreflang="en" href="https://daattorah.com/sources/shabbat/index-en.html">
+  <link rel="alternate" hreflang="he" href="https://daattorah.com/sources/shabbat/index-he.html">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
@@ -373,7 +376,18 @@
       nav a { display: none; }
       nav a:last-child { display: inline; }
     }
-  </style>
+  
+    .lang-switcher { display: flex; gap: 6px; align-items: center; margin-left: 12px; }
+    .lang-switcher a {
+      font-family: 'Inter', sans-serif; font-size: 11px;
+      padding: 3px 7px; border-radius: 2px; letter-spacing: 1px;
+      color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.15);
+      text-decoration: none; text-transform: none;
+    }
+    .lang-switcher a.active { color: var(--gold, #C5A55A); border-color: var(--gold, #C5A55A); }
+    .lang-switcher a:hover { color: var(--gold, #C5A55A); border-color: var(--gold, #C5A55A); }
+
+</style>
 </head>
 <body>
 
@@ -393,7 +407,7 @@
       <button class="lang-btn" data-lang="he" title="עברית" style="font-family:'Frank Ruhl Libre',serif;">ע</button>
       <button class="lang-btn" data-lang="en" title="English">EN</button>
     </span>
-  </nav>
+  <span class="lang-switcher"><a href="index.html" class="active">FR</a><a href="index-he.html">HE</a><a href="index-en.html">EN</a></span></nav>
 </header>
 
 <div class="breadcrumb">

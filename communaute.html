@@ -9,6 +9,9 @@
   <meta name="author" content="Rav Yossef Haim Samama">
   <meta name="keywords" content="communauté daat, khavroutha, hévrouta, groupe whatsapp halakha, étudier torah à plusieurs, binôme étude juive">
   <link rel="canonical" href="https://daattorah.com/communaute.html">
+  <link rel="alternate" hreflang="fr" href="https://daattorah.com/communaute.html">
+  <link rel="alternate" hreflang="en" href="https://daattorah.com/communaute-en.html">
+  <link rel="alternate" hreflang="he" href="https://daattorah.com/communaute-he.html">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
@@ -273,7 +276,18 @@
       nav a { font-size: 12px; }
       nav a.cta-soutenir { display: none; }
     }
-  </style>
+  
+    .lang-switcher { display: flex; gap: 6px; align-items: center; margin-left: 12px; }
+    .lang-switcher a {
+      font-family: 'Inter', sans-serif; font-size: 11px;
+      padding: 3px 7px; border-radius: 2px; letter-spacing: 1px;
+      color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.15);
+      text-decoration: none; text-transform: none;
+    }
+    .lang-switcher a.active { color: var(--gold, #C5A55A); border-color: var(--gold, #C5A55A); }
+    .lang-switcher a:hover { color: var(--gold, #C5A55A); border-color: var(--gold, #C5A55A); }
+
+</style>
 </head>
 <body>
 
@@ -287,7 +301,7 @@
       <a href="chat.html">💬 IA Daat</a>
       <a href="communaute.html" class="active">Communauté</a>
       <a href="soutenir.html" class="cta-soutenir">♥ Soutenir</a>
-    </nav>
+    <span class="lang-switcher"><a href="communaute.html" class="active">FR</a><a href="communaute-he.html">HE</a><a href="communaute-en.html">EN</a></span></nav>
   </header>
 
   <div class="breadcrumb">
