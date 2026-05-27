@@ -1154,7 +1154,7 @@ function attachFeedbackBar(assistantBubble, answerText) {
     <span style="font-size:11px; color:var(--text-muted); margin-right:6px;">Cette réponse :</span>
     <button class="fb-btn fb-up" title="Utile">👍</button>
     <button class="fb-btn fb-down" title="À corriger">👎</button>
-    <span class="fb-thanks" style="display:none;"></span>
+    
   `;
   // Insérer APRÈS .message, pas dedans — la barre s'affiche sous la bulle
   wrap.insertAdjacentElement('afterend', bar);
@@ -1245,7 +1245,7 @@ function showTyping() {
   avatar.textContent = 'ד';
   const bubble = document.createElement('div');
   bubble.className = 'bubble bubble-assistant';
-  bubble.innerHTML = '<div class="typing"><span></span><span></span><span></span></div>';
+  bubble.innerHTML = '<div class="typing"></div>';
   wrap.appendChild(avatar);
   wrap.appendChild(bubble);
   $messagesInner.appendChild(wrap);
