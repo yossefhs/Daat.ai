@@ -876,7 +876,7 @@
             <li><span>Opus on advanced halakha</span><strong>✓</strong></li>
             <li><span>Tax receipt · 66 % deduction</span><strong>✓</strong></li>
           </ul>
-          <a href="#" class="pillar-cta" data-fallback="qonto-tomhei">
+          <a href="https://www.helloasso.com/associations/association-hessed/formulaires/9" target="_blank" rel="noopener" class="pillar-cta">
             Support Khavroutha →
           </a>
         </article>
@@ -897,7 +897,7 @@
             <li><span>Priority on new features</span><strong>✓</strong></li>
             <li><span>Tax receipt · 66 %</span><strong>✓</strong></li>
           </ul>
-          <a href="#" class="pillar-cta" data-fallback="qonto-tomhei">
+          <a href="https://www.helloasso.com/associations/association-hessed/formulaires/9" target="_blank" rel="noopener" class="pillar-cta">
             Support Beit Midrash →
           </a>
         </article>
@@ -918,7 +918,7 @@
             <li><span>Boosts talmid scholarships</span><strong>✓</strong></li>
             <li><span>Tax receipt · 66 %</span><strong>✓</strong></li>
           </ul>
-          <a href="#" class="pillar-cta" data-fallback="qonto-tomhei">
+          <a href="https://www.helloasso.com/associations/association-hessed/formulaires/9" target="_blank" rel="noopener" class="pillar-cta">
             Support Beit Midrash+ →
           </a>
         </article>
@@ -939,7 +939,7 @@
             <li><span>Name on Wall of Builders</span><strong>✓</strong></li>
             <li><span>Tax receipt · 66 %</span><strong>✓</strong></li>
           </ul>
-          <a href="#" class="pillar-cta" data-fallback="qonto-tomhei">
+          <a href="https://www.helloasso.com/associations/association-hessed/formulaires/9" target="_blank" rel="noopener" class="pillar-cta">
             Support Yeshiva →
           </a>
         </article>
@@ -959,7 +959,7 @@
             <li><span>No renewal</span><strong>✓</strong></li>
             <li><span>Tax receipt · 66 %</span><strong>✓</strong></li>
           </ul>
-          <a href="#" class="pillar-cta" data-fallback="qonto-tomhei">
+          <a href="https://www.helloasso.com/associations/association-hessed/formulaires/9" target="_blank" rel="noopener" class="pillar-cta">
             Become Lifetime →
           </a>
         </article>
@@ -1358,10 +1358,11 @@
         if (!data || !data.ok) return;
         renderGoal({ current: data.month_total, target: data.target });
 
-        // ── Wire up HelloAsso / Qonto CTAs ──
+        // ── Wire up HelloAsso CTAs ──
+        // Cards default (in HTML) to the association's HelloAsso Don libre page.
+        // If a tier-specific env var URL is configured, swap the href for the dedicated form.
         var ha = (data && data.helloasso) || {};
-        var cards = document.querySelectorAll('[data-helloasso]');
-        cards.forEach(function (card) {
+        document.querySelectorAll('[data-helloasso]').forEach(function (card) {
           var key = card.getAttribute('data-helloasso');
           var cta = card.querySelector('.pillar-cta');
           if (!cta) return;
@@ -1370,34 +1371,7 @@
             cta.setAttribute('href', url);
             cta.setAttribute('target', '_blank');
             cta.setAttribute('rel', 'noopener');
-            cta.removeAttribute('data-qonto-scroll');
-            cta.style.opacity = '';
-            var oldNote = card.querySelector('.helloasso-pending');
-            if (oldNote) oldNote.remove();
-          } else {
-            cta.setAttribute('href', '#participer');
-            cta.removeAttribute('target');
-            cta.setAttribute('data-qonto-scroll', '1');
-            cta.style.opacity = '';
-            if (!card.querySelector('.helloasso-pending')) {
-              var note = document.createElement('div');
-              note.className = 'helloasso-pending';
-              note.style.cssText = 'margin-top:0.75rem;text-align:center;font-size:0.8rem;color:var(--color-muted);line-height:1.5;';
-              note.innerHTML = '💳 Monthly transfer payment via <strong>Qonto</strong> (section below). Your plan is activated manually within 24h. Instant activation coming soon.';
-              card.appendChild(note);
-            }
           }
-        });
-        document.querySelectorAll('.pillar-cta[data-qonto-scroll]').forEach(function (btn) {
-          btn.addEventListener('click', function (e) {
-            e.preventDefault();
-            var target = document.getElementById('participer');
-            if (!target) return;
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            target.style.transition = 'box-shadow 0.4s ease';
-            target.style.boxShadow = 'inset 0 0 0 2px var(--color-gold)';
-            setTimeout(function () { target.style.boxShadow = ''; }, 1600);
-          });
         });
       })
       .catch(() => { /* fallback default stays displayed */ });
