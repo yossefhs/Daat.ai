@@ -116,11 +116,17 @@ function getIdf(term) {
   return Math.log(1 + (_N + 0.5) / 0.5);
 }
 
-function scoreChunk(chunk, queryTerms, keyTokens) {
+function scoreChunk(chunk, queryTerms, keyTokens, originalTokens, strict) {
   const k1 = 1.5, b = 0.75;
   const tf = chunk._tfMap;
   // Garde-fou keyToken : au moins un des tokens originaux à haute IDF doit matcher
   if (keyTokens.length && !keyTokens.some((t) => tf.get(t))) return 0;
+  // Mode strict (prod) : au moins 2 tokens originaux distincts doivent matcher
+  if (strict) {
+    let matched = 0;
+    for (const t of originalTokens) { if (tf.get(t)) matched++; if (matched >= 2) break; }
+    if (matched < 2 && originalTokens.length >= 2) return 0;
+  }
 
   const dl = chunk._tokenCount;
   let score = 0;
@@ -149,17 +155,19 @@ export function searchCorpus(question, opts = {}) {
   loadAndIndex();
   const limit = opts.limit || 3;
   const minScore = opts.minScore ?? 1.5;
+  const strict = opts.strict === true;
   const tokens = tokenize(question);
   if (tokens.length === 0) return { results: [], keyTokens: [], totalChunks: _N };
 
   // Key tokens = les 2 tokens originaux de plus haute IDF
   const byIdf = tokens.map((t) => ({ t, idf: getIdf(t) })).sort((a, b) => b.idf - a.idf);
   const keyTokens = byIdf.slice(0, 2).map((x) => x.t);
+  const originalSet = [...new Set(tokens)];
 
   const expanded = expandQuery(tokens);
   const scored = [];
   for (const c of _corpus.chunks) {
-    const s = scoreChunk(c, expanded, keyTokens);
+    const s = scoreChunk(c, expanded, keyTokens, originalSet, strict);
     if (s >= minScore) scored.push({ chunk: c, score: s });
   }
   scored.sort((a, b) => b.score - a.score);

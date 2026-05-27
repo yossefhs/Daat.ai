@@ -10,6 +10,7 @@ import { kv } from './_kv.js';
 import { SYSTEM_PROMPT } from './_system-prompt.js';
 import { SEFARIA_TOOLS, executeSefariaTool } from './_sefaria.js';
 import { CORPUS_TOOLS, executeCorpusTool, searchCorpus } from './_corpus.js';
+import { searchCorpus as searchShabbatCorpus } from './_corpus-search.js';
 import { MAREH_MEKOMOT_TOOLS, executeMarehMekomotTool } from './_mareh_mekomot.js';
 import { getUserFromRequest } from './_auth.js';
 import {
@@ -549,6 +550,161 @@ export default async function handler(req, res) {
         return;
       }
       // DeepSeek a échoué → on continue avec Claude Haiku (fallback transparent)
+    }
+
+    // ── Corpus-first : questions Shabbat avec réponse vetée dans le texte du Rav ──
+    // Si la question matche fortement un chunk du corpus Shabbat (mode strict :
+    // score ≥ 8 + ≥2 tokens originaux matchés), on demande à Haiku 4.5 de reformuler
+    // l'extrait au lieu d'appeler Sonnet/Opus. Coût ~0.002 € vs ~0.05-0.12 € sinon.
+    // Kill switch : env CORPUS_FIRST_ENABLED=false → bypass complet.
+    // Skip pour Opus (paid plans / aperçu / forceOpus) : ils paient/profitent d'Opus.
+    if (
+      !model._meta &&
+      !model._aperçu &&
+      model.id !== MODELS.opus.id &&
+      process.env.CORPUS_FIRST_ENABLED !== 'false'
+    ) {
+      const lastUserText = trimmedMessages[trimmedMessages.length - 1].content;
+      const minScore = parseFloat(process.env.CORPUS_MIN_SCORE || '8');
+      let cs = null;
+      try {
+        cs = searchShabbatCorpus(lastUserText, { limit: 3, minScore, strict: true });
+      } catch (err) {
+        console.error('[chat.js] corpus search error (continue avec Claude):', err?.message || err);
+      }
+
+      if (cs && cs.results.length > 0) {
+        const top = cs.results[0];
+        const others = cs.results.slice(1);
+        const subs = top.subsection ? ` · ${top.subsection}` : '';
+        const corpusSystem = `Tu es l'assistant de DAAT — site d'étude halakhique du Rav Yossef Haim Samama.
+
+Tu reçois :
+1. Une QUESTION d'utilisateur sur les hilkhot Shabbat
+2. UN EXTRAIT précis du corpus écrit par le Rav (avec son siman + section)
+
+Ta tâche : répondre à la question en reformulant l'extrait en 2-4 phrases conversationnelles et fluides.
+
+RÈGLES STRICTES :
+- RESTE FIDÈLE à l'extrait. N'invente AUCUNE halakha qui n'y est pas explicitement.
+- Si l'extrait ne couvre pas vraiment la nuance demandée, dis-le honnêtement : « L'extrait du corpus aborde [le sujet réel de l'extrait], mais pas directement ta question. Pour une réflexion sur ce point précis, repose la question en mode étendu. »
+- Termine TOUJOURS par la source au format : *Source : Siman X · [titre de section]*
+- Pour décisions pratiques sensibles ou cas-limites, ajoute : « consulte un Rav pour ton cas précis. »
+- Pas de markdown lourd, texte naturel.
+- Conserve les termes hébreux en transcription (borer, bishoul, mouktsé) — ne les sur-traduis pas.
+- Ne mentionne PAS que tu reformules un extrait — réponds DIRECTEMENT comme si tu savais.`;
+
+        let corpusUserMsg = `QUESTION DE L'UTILISATEUR :\n${lastUserText}\n\n`;
+        corpusUserMsg += `EXTRAIT DU CORPUS (Siman ${top.siman} — ${top.simanTitle} · ${top.sectionTitle}${subs}) :\n${top.text.trim()}`;
+        if (others.length > 0) {
+          corpusUserMsg += `\n\nAUTRES EXTRAITS PERTINENTS (en complément, plus faibles) :\n`;
+          others.slice(0, 2).forEach((r, i) => {
+            const ss = r.subsection ? ` · ${r.subsection}` : '';
+            corpusUserMsg += `[${i + 1}] Siman ${r.siman} · ${r.sectionTitle}${ss} — ${r.text.trim().slice(0, 250)}…\n`;
+          });
+        }
+
+        const corpusAbort = new AbortController();
+        req.on('close', () => corpusAbort.abort());
+
+        let corpusAnswer = '';
+        let inTok = 0, outTok = 0;
+        let corpusErrored = false;
+
+        try {
+          const stream = client.messages.stream({
+            model: MODELS.haiku.id,
+            max_tokens: 350,
+            system: corpusSystem,
+            messages: [{ role: 'user', content: corpusUserMsg }],
+          }, { signal: corpusAbort.signal });
+
+          for await (const event of stream) {
+            if (event.type === 'content_block_delta' && event.delta?.type === 'text_delta') {
+              const text = event.delta.text || '';
+              if (text) {
+                corpusAnswer += text;
+                res.write(`data: ${JSON.stringify({ type: 'text', delta: text })}\n\n`);
+              }
+            }
+          }
+          const final = await stream.finalMessage();
+          if (final?.usage) {
+            inTok = final.usage.input_tokens || 0;
+            outTok = final.usage.output_tokens || 0;
+          }
+        } catch (err) {
+          corpusErrored = true;
+          console.error('[chat.js] corpus Haiku error:', err?.message || err);
+        }
+
+        // Si la réponse a commencé à streamer, on doit la terminer proprement (impossible de fallback Claude maintenant)
+        if (corpusAnswer.length > 0) {
+          const cost = (inTok * MODELS.haiku.in / 1000) + (outTok * MODELS.haiku.out / 1000);
+          res.write(`data: ${JSON.stringify({
+            type: 'done',
+            stop_reason: corpusErrored ? 'error' : 'end_turn',
+            iterations: 1,
+            usage: { input_tokens: inTok, output_tokens: outTok },
+            provider: 'corpus-haiku',
+            corpus_source: {
+              siman: top.siman,
+              simanTitle: top.simanTitle,
+              sectionTitle: top.sectionTitle,
+              subsection: top.subsection,
+              sourceUrl: top.sourceUrl,
+              score: parseFloat(top.score.toFixed(2)),
+            },
+          })}\n\n`);
+
+          try {
+            const todayKey = new Date().toISOString().slice(0, 10);
+            const globalKey = `usage:global:${todayKey}`;
+            const globalData = (await kv.get(globalKey)) || { tokens_in: 0, tokens_out: 0, cost_usd: 0, count: 0 };
+            await kv.set(globalKey, {
+              tokens_in: globalData.tokens_in + inTok,
+              tokens_out: globalData.tokens_out + outTok,
+              cost_usd: parseFloat((globalData.cost_usd + cost).toFixed(6)),
+              count: globalData.count + 1,
+            });
+            const userKey = `usage:${userId}:${todayKey}`;
+            const userData = (await kv.get(userKey)) || { tokens_in: 0, tokens_out: 0, cost_usd: 0, count: 0 };
+            await kv.set(userKey, {
+              tokens_in: userData.tokens_in + inTok,
+              tokens_out: userData.tokens_out + outTok,
+              cost_usd: parseFloat((userData.cost_usd + cost).toFixed(6)),
+              count: userData.count + 1,
+            });
+            // Quota : par défaut, on décompte comme une question normale.
+            // CORPUS_QUOTA_FREE=true → les réponses corpus ne décomptent pas (avantage utilisateurs free).
+            if (process.env.CORPUS_QUOTA_FREE !== 'true') {
+              await kv.incr(rateKey);
+              const ttl = await kv.ttl(rateKey);
+              if (ttl === -1 || ttl === -2) await kv.expire(rateKey, 24 * 60 * 60);
+              await kv.incr(monthRateKey);
+              const mttl = await kv.ttl(monthRateKey);
+              if (mttl === -1 || mttl === -2) await kv.expire(monthRateKey, 35 * 24 * 60 * 60);
+            }
+            await kv.lpush('logs:usage', JSON.stringify({
+              ts: new Date().toISOString(),
+              user: userId, is_guest: isGuest, plan,
+              tokens_in: inTok, tokens_out: outTok, cost_usd: cost,
+              provider: 'corpus-haiku', model: MODELS.haiku.id,
+              iterations: 1, stop_reason: corpusErrored ? 'error' : 'end_turn',
+              corpus_siman: top.siman, corpus_score: top.score,
+            }));
+            await kv.ltrim('logs:usage', 0, 499);
+            await kv.sadd('users:known', userId);
+            console.log(`[chat.js] corpus HIT: ${userId} siman-${top.siman} score=${top.score.toFixed(1)} +${inTok}in/${outTok}out ($${cost.toFixed(5)})`);
+          } catch (err) {
+            console.error('[chat.js] corpus usage tracking error:', err?.message || err);
+          }
+
+          res.end();
+          return;
+        }
+        // Aucune sortie streamée (erreur Haiku avant le premier token) → fallback transparent vers Claude
+      }
     }
 
     // Conversation working set : format de blocs (pour le tool use)
