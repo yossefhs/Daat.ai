@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>POC · Recherche directe dans le corpus DAAT — 0 token</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+  :root {
+    --color-ink: #1A1F3A;
+    --color-gold: #C5A55A;
+    --color-parchment: #FAF6EE;
+    --color-paper: #ffffff;
+    --color-muted: #6a6a6a;
+    --color-success: #2d7a3e;
+    --color-success-bg: #e8f4ea;
+    --color-warning: #b8862e;
+    --color-warning-bg: #fff8e1;
+    --color-danger: #a02020;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    background: linear-gradient(180deg, #fafaf7 0%, var(--color-parchment) 100%);
+    color: #1a1a1a;
+    line-height: 1.55;
+    min-height: 100vh;
+  }
+  .hero {
+    background: var(--color-ink);
+    color: #fff;
+    padding: 2rem 1.5rem 2.5rem;
+    text-align: center;
+    border-bottom: 4px solid var(--color-gold);
+  }
+  .hero-badge {
+    display: inline-block;
+    color: var(--color-gold);
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-size: 2rem;
+    margin: 0.25rem 0 0.5rem;
+    color: var(--color-gold);
+    font-weight: 600;
+  }
+  .hero p {
+    color: rgba(255,255,255,0.85);
+    margin: 0.25rem auto;
+    max-width: 640px;
+    font-size: 0.95rem;
+  }
+  .container { max-width: 880px; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+  .search-card {
+    background: var(--color-paper);
+    border: 2px solid var(--color-gold);
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin-top: -1.5rem;
+    box-shadow: 0 8px 32px rgba(26,31,58,0.12);
+  }
+  .search-card label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--color-ink);
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  #q {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    font-size: 1rem;
+    border: 1.5px solid #ddd;
+    border-radius: 6px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  #q:focus { border-color: var(--color-gold); }
+  .examples {
+    margin-top: 0.85rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .examples-label {
+    width: 100%;
+    font-size: 0.75rem;
+    color: var(--color-muted);
+    margin-bottom: 0.25rem;
+  }
+  .ex-chip {
+    background: var(--color-parchment);
+    border: 1px solid #e0d4a0;
+    color: var(--color-ink);
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .ex-chip:hover { background: var(--color-gold); color: #fff; border-color: var(--color-gold); }
+
+  .meta-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1.25rem 0 0.75rem;
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .cost-badge {
+    background: var(--color-success-bg);
+    color: var(--color-success);
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    border: 1px solid #b8d8c0;
+  }
+  .cost-badge.warn { background: var(--color-warning-bg); color: var(--color-warning); border-color: #e8c87a; }
+
+  .results { display: flex; flex-direction: column; gap: 0.85rem; }
+  .result {
+    background: var(--color-paper);
+    border: 1px solid #e8e0c5;
+    border-left: 4px solid var(--color-gold);
+    border-radius: 6px;
+    padding: 1rem 1.1rem;
+    box-shadow: 0 2px 8px rgba(26,31,58,0.04);
+  }
+  .result-top {
+    border-left-color: var(--color-success);
+    background: linear-gradient(135deg, var(--color-paper) 0%, #f8fdf9 100%);
+  }
+  .result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .result-siman {
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-size: 1.15rem;
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+  .result-siman a { color: var(--color-ink); text-decoration: none; border-bottom: 1px dotted var(--color-gold); }
+  .result-siman a:hover { color: var(--color-gold); }
+  .result-score {
+    font-size: 0.7rem;
+    color: var(--color-muted);
+    background: #f5f5f0;
+    padding: 0.2rem 0.5rem;
+    border-radius: 999px;
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  }
+  .result-section {
+    font-size: 0.78rem;
+    color: var(--color-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+  }
+  .result-type {
+    display: inline-block;
+    font-size: 0.65rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-left: 0.4rem;
+    background: var(--color-gold);
+    color: #fff;
+  }
+  .result-type.definition { background: #6a1b7a; }
+  .result-type.remember { background: var(--color-success); }
+  .result-type.cas-pratique { background: #b8862e; }
+  .result-type.narratif { background: #5a6680; }
+  .result-text {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #2a2a2a;
+    white-space: pre-wrap;
+  }
+  .result-text strong { color: var(--color-ink); }
+  .result-link {
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+    color: var(--color-ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-gold);
+  }
+  .result-link:hover { color: var(--color-gold); }
+
+  .no-results {
+    text-align: center;
+    padding: 2rem 1rem;
+    background: var(--color-warning-bg);
+    border: 1px solid #e8c87a;
+    border-radius: 8px;
+    color: #6a5020;
+  }
+  .no-results .cta {
+    display: inline-block;
+    margin-top: 0.75rem;
+    padding: 0.6rem 1.2rem;
+    background: var(--color-ink);
+    color: var(--color-gold);
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .no-results .cta:hover { background: var(--color-gold); color: #fff; }
+
+  .footer-note {
+    margin-top: 2.5rem;
+    padding: 1.25rem;
+    background: rgba(26,31,58,0.05);
+    border-left: 3px solid var(--color-gold);
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    line-height: 1.65;
+  }
+  .footer-note strong { color: var(--color-ink); }
+  .footer-note code {
+    background: #fff;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    font-size: 0.85em;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0.75rem;
+    margin: 1rem 0;
+  }
+  .stat {
+    background: var(--color-paper);
+    border: 1px solid #e0d4a0;
+    border-radius: 6px;
+    padding: 0.75rem;
+    text-align: center;
+  }
+  .stat-val { font-size: 1.25rem; font-weight: 700; color: var(--color-ink); font-family: 'Cormorant Garamond', serif; }
+  .stat-lbl { font-size: 0.7rem; color: var(--color-muted); text-transform: uppercase; letter-spacing: 1px; }
+  .he { direction: rtl; font-family: 'Frank Ruhl Libre', serif; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">POC · DAAT Corpus Retrieval</div>
+  <h1>Réponses directes depuis le corpus — sans LLM</h1>
+  <p>Recherche keyword/BM25 dans <strong>3 simanim de référence</strong> (308 mouktsé · 318 bishoul · 319 borer). Coût LLM par requête : <strong>0 €</strong>. Latence : <strong>&lt;100 ms</strong>. Si pas de match → fallback gracieux vers Daat IA.</p>
+</div>
+
+<div class="container">
+
+  <div class="search-card">
+    <label for="q">Pose ta question halakhique</label>
+    <input id="q" type="text" placeholder="Ex : peut-on cuire de l'eau Shabbat ?" autofocus autocomplete="off">
+    <div class="examples" id="examples">
+      <span class="examples-label">Essaie une de ces questions :</span>
+      <span class="ex-chip" data-q="Qu'est-ce que le borer ?">Qu'est-ce que le borer ?</span>
+      <span class="ex-chip" data-q="Peut-on utiliser une passoire à Shabbat ?">Passoire à Shabbat ?</span>
+      <span class="ex-chip" data-q="C'est quoi le mouktsé ?">C'est quoi le mouktsé ?</span>
+      <span class="ex-chip" data-q="Yad soledet bo">Yad soledet bo</span>
+      <span class="ex-chip" data-q="Peut-on éplucher un fruit Shabbat ?">Éplucher un fruit Shabbat</span>
+      <span class="ex-chip" data-q="Les 4 catégories de mouktsé">4 catégories de mouktsé</span>
+      <span class="ex-chip" data-q="Bishoul après bishoul des liquides">Bishoul aḥar bishoul</span>
+      <span class="ex-chip" data-q="Comment laver la vaisselle Shabbat ?">Vaisselle Shabbat</span>
+    </div>
+  </div>
+
+  <div class="stats-grid" id="stats" style="display:none;">
+    <div class="stat"><div class="stat-val" id="stat-time">—</div><div class="stat-lbl">Latence</div></div>
+    <div class="stat"><div class="stat-val" id="stat-chunks">—</div><div class="stat-lbl">Chunks indexés</div></div>
+    <div class="stat"><div class="stat-val" id="stat-cost">0 €</div><div class="stat-lbl">Coût LLM</div></div>
+    <div class="stat"><div class="stat-val" id="stat-saved">—</div><div class="stat-lbl">Économisé vs Opus</div></div>
+  </div>
+
+  <div class="meta-line" id="meta-line" style="display:none;">
+    <span id="meta-text"></span>
+    <span class="cost-badge" id="cost-badge">📚 Réponse depuis le corpus · 0 token</span>
+  </div>
+
+  <div class="results" id="results"></div>
+
+  <div class="footer-note">
+    <strong>Comment ça marche.</strong> Chaque chunk du corpus (définition, remember, cas pratique, paragraphe narratif) est tokenisé et scoré BM25 contre la question, avec boost halakhique pour les synonymes (cuire↔bishoul, trier↔borer, déplacer↔mouktsé, etc.). Pas d'embeddings, pas d'API LLM — pure recherche keyword en JS côté client. Le résultat est l'<strong>extrait brut du texte vetté</strong> par le Rav, avec lien vers le siman complet.
+    <br><br>
+    <strong>Si on industrialise :</strong> indexer les ~80 simanim de Shabbat (~1500 chunks estimés), exposer en <code>/api/chat-corpus</code>, ajouter optionnellement Haiku 4.5 pour reformuler (~0.005 €/q au lieu de 0.12 €/q en Opus), badge UX <code>📚 Réponse Daat — siman X §Y</code>, et <strong>ne pas décompter</strong> le quota free pour les réponses corpus.
+  </div>
+
+</div>
+
+<script>
+// ── Chargement du corpus POC ───────────────────────────────────────────────
+let CORPUS = null;
+const STAT_TIME = document.getElementById('stat-time');
+const STAT_CHUNKS = document.getElementById('stat-chunks');
+const STAT_SAVED = document.getElementById('stat-saved');
+
+fetch('/data/corpus-poc.json')
+  .then((r) => r.json())
+  .then((data) => {
+    CORPUS = data;
+    STAT_CHUNKS.textContent = data.meta.totalChunks;
+    console.log('Corpus chargé :', data.meta);
+  })
+  .catch((e) => console.error('Erreur chargement corpus :', e));
+
+// ── Synonymes halakhiques (boost de matching) ───────────────────────────────
+// Mapping : terme question → liste de termes corpus à booster
+const SYNONYMS = {
+  // Bishoul
+  'cuire': ['bishoul', 'cuisson', 'cuire'],
+  'cuisson': ['bishoul', 'cuisson'],
+  'chauffer': ['bishoul', 'chauffer', 'rechauffer'],
+  'rechauffer': ['bishoul', 'rechauffer', 'ein'],
+  'eau': ['eau', 'liquide', 'mayim'],
+  'temperature': ['yad', 'soledet', 'temperature', 'chaud'],
+  // Borer
+  'trier': ['borer', 'trier', 'tri'],
+  'separer': ['borer', 'separer', 'separation'],
+  'salade': ['salade', 'aliments', 'okhel'],
+  'passoire': ['passoire', 'tamis', 'crible', 'instrument'],
+  'eplucher': ['eplucher', 'epluchage', 'derekh', 'akhila'],
+  // Mouktsé
+  'mouktse': ['mouktse', 'muqtse', 'deplacement'],
+  'deplacer': ['mouktse', 'deplacer', 'tiltoul', 'porter'],
+  'porter': ['mouktse', 'porter', 'tiltoul'],
+  'objet': ['mouktse', 'objet', 'kli'],
+  'casser': ['casser', 'brise', 'nolad'],
+  'argent': ['argent', 'kis', 'hisaron', 'money'],
+  // Concepts généraux
+  'shabbat': ['shabbat', 'chabbat', 'sabbat'],
+  'chabbat': ['shabbat', 'chabbat', 'sabbat'],
+  'permis': ['permis', 'mutar', 'permise'],
+  'interdit': ['interdit', 'assour', 'isour'],
+  'vaisselle': ['kelim', 'vaisselle', 'plat', 'ustensile'],
+};
+
+// ── Tokenisation ───────────────────────────────────────────────────────────
+const STOPWORDS = new Set([
+  'le','la','les','de','des','du','et','ou','un','une','en','a','au','aux',
+  'que','qu','qui','quoi','ce','cette','ces','est','sont','etre','avoir','pas','ne',
+  'on','je','tu','il','elle','nous','vous','ils','elles','se','sa','son','ses',
+  'mon','ma','mes','ton','ta','tes','dans','sur','par','pour','avec','sans',
+  'mais','donc','car','si','plus','moins','tres','peu','tout','tous','toute',
+  'comment','pourquoi','quand','ou','y','d','l','s','c','j','m','n','t',
+  'ca','oui','non','apres','avant','ici','la','meme','aussi',
+  'fait','faire','faut','peut','peuvent','dire','dit','quoi','quel','quelle',
+  'the','an','of','to','in','is','are','was','were','be','been','this','that',
+]);
+
+function normalizeToken(s) {
+  return s
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '') // strip accents
+    .replace(/['']/g, '')
+    .replace(/[^a-z֐-׿0-9]/g, ''); // garde hébreu + alphanum
+}
+
+function tokenize(text) {
+  return text
+    .split(/[\s,.;:!?()«»""'\-—–_/]+/)
+    .map(normalizeToken)
+    .filter((t) => t.length >= 2 && !STOPWORDS.has(t));
+}
+
+function expandQuery(tokens) {
+  // Retourne une map { term: boost } incluant synonymes
+  const expanded = new Map();
+  tokens.forEach((t) => {
+    expanded.set(t, (expanded.get(t) || 0) + 1.0);
+    if (SYNONYMS[t]) {
+      SYNONYMS[t].forEach((syn) => {
+        const n = normalizeToken(syn);
+        if (n.length >= 2) expanded.set(n, (expanded.get(n) || 0) + 0.6);
+      });
+    }
+  });
+  return expanded;
+}
+
+// ── BM25 scoring ───────────────────────────────────────────────────────────
+let _idfCache = null;
+let _avgdlCache = null;
+let _N = 0;
+
+function buildIdf() {
+  if (_idfCache) return;
+  _N = CORPUS.chunks.length;
+  const df = new Map();
+  let totalLen = 0;
+  CORPUS.chunks.forEach((c) => {
+    // Inclut simanTitle/simanTopic dans l'index pour que "shabbat" matche partout
+    const tokens = tokenize(
+      c.text + ' ' +
+      (c.subsection || '') + ' ' +
+      c.sectionTitle + ' ' +
+      (c.simanTitle || '') + ' ' +
+      (c.simanTopic || '')
+    );
+    c._tokens = tokens;
+    c._tokenCount = tokens.length;
+    totalLen += tokens.length;
+    new Set(tokens).forEach((t) => df.set(t, (df.get(t) || 0) + 1));
+  });
+  _idfCache = new Map();
+  df.forEach((freq, term) => {
+    _idfCache.set(term, Math.log(1 + (_N - freq + 0.5) / (freq + 0.5)));
+  });
+  _avgdlCache = totalLen / _N;
+}
+
+function getIdf(term) {
+  if (_idfCache.has(term)) return _idfCache.get(term);
+  // Token jamais vu dans le corpus → IDF maximale théorique
+  return Math.log(1 + (_N + 0.5) / 0.5);
+}
+
+function scoreChunk(chunk, queryTerms, keyTokens) {
+  const k1 = 1.5, b = 0.75;
+  const dl = chunk._tokenCount;
+  const tf = new Map();
+  chunk._tokens.forEach((t) => tf.set(t, (tf.get(t) || 0) + 1));
+  // Garde-fou anti faux positif : au moins un des "key tokens" (haute IDF) doit matcher.
+  // Sinon la requête parle d'un sujet hors-corpus → score=0.
+  if (keyTokens.length && !keyTokens.some((t) => tf.get(t))) {
+    return { score: 0, hasKeyMatch: false };
+  }
+  let score = 0;
+  queryTerms.forEach((boost, term) => {
+    const f = tf.get(term);
+    if (!f) return;
+    const idf = getIdf(term);
+    const numerator = f * (k1 + 1);
+    const denominator = f + k1 * (1 - b + b * dl / _avgdlCache);
+    score += boost * idf * (numerator / denominator);
+  });
+  // Bonus titre de section / subsection
+  const titleTokens = new Set(tokenize(chunk.sectionTitle + ' ' + (chunk.subsection || '')));
+  let titleBonus = 0;
+  queryTerms.forEach((boost, term) => {
+    if (titleTokens.has(term)) titleBonus += boost * getIdf(term) * 0.8;
+  });
+  if (chunk.type === 'cas-pratique') score *= 1.15;
+  if (chunk.type === 'definition') score *= 1.1;
+  return { score: score + titleBonus, hasKeyMatch: true };
+}
+
+function search(query) {
+  if (!CORPUS) return { results: [], elapsed: 0 };
+  buildIdf();
+  const t0 = performance.now();
+  const tokens = tokenize(query);
+  if (tokens.length === 0) return { results: [], elapsed: 0 };
+  // Identifie les "key tokens" : les 2 tokens originaux de plus haute IDF.
+  // Pour passer le filtre, le chunk doit contenir au moins UN d'entre eux.
+  const byIdf = tokens
+    .map((t) => ({ t, idf: getIdf(t) }))
+    .sort((a, b) => b.idf - a.idf);
+  const keyTokens = byIdf.slice(0, 2).map((x) => x.t);
+  const expanded = expandQuery(tokens);
+  const scored = CORPUS.chunks.map((c) => {
+    const r = scoreChunk(c, expanded, keyTokens);
+    return { chunk: c, score: r.score };
+  });
+  scored.sort((a, b) => b.score - a.score);
+  const top = scored.filter((s) => s.score > 0.5).slice(0, 4);
+  const elapsed = performance.now() - t0;
+  return { results: top, elapsed, totalScored: scored.length, keyTokens };
+}
+
+// ── Rendu ──────────────────────────────────────────────────────────────────
+const RESULTS = document.getElementById('results');
+const META_LINE = document.getElementById('meta-line');
+const META_TEXT = document.getElementById('meta-text');
+const COST_BADGE = document.getElementById('cost-badge');
+const STATS = document.getElementById('stats');
+
+function escapeHtml(s) {
+  return s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+function highlightTerms(text, queryTokens) {
+  if (!queryTokens.length) return escapeHtml(text);
+  let html = escapeHtml(text);
+  queryTokens.forEach((t) => {
+    if (t.length < 3) return;
+    // Reconstruction approximative : on highlight les mots qui commencent par le token (sans accents)
+    const re = new RegExp('(?<![\\w])(' + t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '[\\w]*)', 'gi');
+    html = html.replace(re, '<mark style="background:#fff4c4;color:#5a4a1a;padding:1px 3px;border-radius:2px;">$1</mark>');
+  });
+  return html;
+}
+
+function render(query, { results, elapsed }) {
+  RESULTS.innerHTML = '';
+  STATS.style.display = 'grid';
+  STAT_TIME.textContent = elapsed.toFixed(1) + ' ms';
+  STAT_SAVED.textContent = '~0.12 €';
+
+  if (!results.length) {
+    META_LINE.style.display = '';
+    META_TEXT.textContent = 'Pas de match dans le corpus POC';
+    COST_BADGE.textContent = '↪ Fallback Daat IA recommandé';
+    COST_BADGE.className = 'cost-badge warn';
+    RESULTS.innerHTML = `
+      <div class="no-results">
+        <strong>Aucune réponse claire dans le corpus indexé.</strong><br>
+        Cette question dépasse les 3 simanim couverts par le POC (308 mouktsé · 318 bishoul · 319 borer),
+        ou elle demande une réflexion contextuelle. <br>
+        En production, le routeur basculerait automatiquement vers Daat IA (Opus/Sonnet).
+        <br>
+        <a href="/chat.html?q=${encodeURIComponent(query)}" class="cta">↪ Poser à Daat IA</a>
+      </div>`;
+    return;
+  }
+
+  META_LINE.style.display = '';
+  const topScore = results[0].score;
+  if (topScore > 3) {
+    META_TEXT.innerHTML = `<strong style="color:var(--color-success);">✓ Réponse trouvée dans le corpus</strong> · ${results.length} extrait${results.length > 1 ? 's' : ''} pertinent${results.length > 1 ? 's' : ''}`;
+    COST_BADGE.textContent = '📚 0 token · 0 €';
+    COST_BADGE.className = 'cost-badge';
+  } else {
+    META_TEXT.innerHTML = `<strong style="color:var(--color-warning);">Match approximatif</strong> · le corpus couvre partiellement, vérifie la pertinence`;
+    COST_BADGE.textContent = '⚠ Confiance modérée';
+    COST_BADGE.className = 'cost-badge warn';
+  }
+
+  const queryTokens = tokenize(query);
+
+  results.forEach((r, i) => {
+    const c = r.chunk;
+    const isTop = i === 0;
+    const cardEl = document.createElement('div');
+    cardEl.className = 'result' + (isTop ? ' result-top' : '');
+    const simanLabel = `Siman ${c.siman} · ${c.simanTitle}`;
+    const sectionLabel = c.sectionTitle + (c.subsection ? ' · ' + c.subsection : '');
+    cardEl.innerHTML = `
+      <div class="result-header">
+        <div class="result-siman">
+          <a href="${c.sourceUrl}" target="_blank">${escapeHtml(simanLabel)}</a>
+          <span class="result-type ${c.type}">${c.type === 'cas-pratique' ? 'cas pratique' : c.type}</span>
+        </div>
+        <span class="result-score">score ${r.score.toFixed(2)}</span>
+      </div>
+      <div class="result-section">${escapeHtml(sectionLabel)}</div>
+      <div class="result-text">${highlightTerms(c.text, queryTokens)}</div>
+      <a href="${c.sourceUrl}" target="_blank" class="result-link">→ Lire le siman complet (niveau 1)</a>
+    `;
+    RESULTS.appendChild(cardEl);
+  });
+}
+
+// ── UI bindings ────────────────────────────────────────────────────────────
+const Q = document.getElementById('q');
+let debounceTimer = null;
+function trigger() {
+  const v = Q.value.trim();
+  if (!v) {
+    RESULTS.innerHTML = '';
+    META_LINE.style.display = 'none';
+    STATS.style.display = 'none';
+    return;
+  }
+  if (!CORPUS) return;
+  const out = search(v);
+  render(v, out);
+}
+Q.addEventListener('input', () => {
+  clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(trigger, 120);
+});
+Q.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') { e.preventDefault(); trigger(); }
+});
+document.querySelectorAll('.ex-chip').forEach((chip) => {
+  chip.addEventListener('click', () => {
+    Q.value = chip.getAttribute('data-q');
+    trigger();
+    Q.focus();
+  });
+});
+</script>
+
+</body>
+</html>
