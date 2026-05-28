@@ -4,7 +4,7 @@
 // Variables d'environnement requises (Vercel) :
 //   - JWT_SECRET       : chaîne aléatoire ≥ 32 caractères (signe les sessions)
 //   - RESEND_API_KEY   : clé API Resend (envoi des emails)
-//   - RESEND_FROM_EMAIL: optionnel — adresse expéditeur (défaut : onboarding@resend.dev)
+//   - RESEND_FROM_EMAIL: optionnel — adresse expéditeur (défaut : noreply@daattorah.com)
 
 import jwt from 'jsonwebtoken';
 import { kv } from './_kv.js';

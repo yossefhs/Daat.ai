@@ -56,7 +56,7 @@ async function handleSendCode(req, res) {
     await kv.set(`auth:code:${cleanEmail}`, { code, attempts: 0 }, { ex: 600 });
 
     const resend = new Resend(process.env.RESEND_API_KEY);
-    const fromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
+    const fromEmail = process.env.RESEND_FROM_EMAIL || 'noreply@daattorah.com';
 
     const html = `<!DOCTYPE html>
 <html><body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;background:#FAF6EE;margin:0;padding:24px;">
