@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Siman <bdi>רצ"ג</bdi> · Level 3 Master Synthesis — Arvit du soir de la sortie de Shabbat (motsei Shabbat) | DAAT</title>
-<meta name="description" content="Level 3 (Synthèse) du Siman רצ"ג — Summary structuré pour révision et mémorisation : axiome, hiérarchie, arbres de décision, mnémoniques.">
+<title>Siman <bdi>רצ"ג</bdi> · Level 3 Master Synthesis — Maariv of Motzaei Shabbat | DAAT</title>
+<meta name="description" content="Level 3 (Synthesis) of Siman רצ"ג — Structured recap for review and memorization.">
 <meta name="author" content="Rav Yossef Haim Samama">
 <link rel="canonical" href="https://daattorah.com/oh/293/synthese">
   <link rel="alternate" hreflang="fr" href="https://daattorah.com/sources/shabbat/siman-293/niveau-3-synthese.html">
@@ -13,22 +13,20 @@
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="DAAT דעת">
 <meta property="og:title" content="Siman רצ"ג · Level 3 Master Synthesis">
-<meta property="og:description" content="Summary structuré pour révision et mémorisation.">
+<meta property="og:description" content="Structured recap for review and memorization.">
 <meta property="og:url" content="https://daattorah.com/oh/293/synthese">
 <meta property="og:image" content="https://daattorah.com/assets/img/og/siman-293.svg">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Siman רצ"ג · Level 3 Master Synthesis">
-<meta name="twitter:description" content="Summary structuré.">
+<meta name="twitter:description" content="Structured recap.">
 <meta name="twitter:image" content="https://daattorah.com/assets/img/og/siman-293.svg">
 <link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   @page { size: A4; margin: 2cm 1.8cm; }
-  @media print { .daat-nav-bar, .daat-breadcrumb { display: none !important; } }
   body { font-family: 'Georgia', 'Cambria', serif; font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0; }
-  .he { direction: rtl; text-align: right; font-family: 'Frank Ruhl Libre', 'David', 'Times New Roman', serif; font-size: 13pt; line-height: 1.9; }
   .he-q { direction: rtl; unicode-bidi: embed; font-family: 'Frank Ruhl Libre', 'David', serif; font-weight: 600; color: #1A1F3A; }
   .container { max-width: 720pt; margin: 0 auto; padding: 24pt 32pt; }
   .cover { text-align: center; margin: 2cm 0; }
@@ -40,7 +38,6 @@
   .ornament { border: none; height: 2px; background: #C5A55A; margin: 24px auto; width: 60px; }
   h2 { color: #1A1F3A; font-family: 'Frank Ruhl Libre', serif; font-size: 18pt; margin: 32pt 0 12pt; padding-bottom: 8pt; border-bottom: 2px solid #C5A55A; }
   h3 { color: #1A1F3A; font-family: 'Frank Ruhl Libre', serif; font-size: 14pt; margin: 20pt 0 8pt; font-weight: 700; }
-  h4 { color: #6B3FA0; font-size: 13pt; margin: 14pt 0 6pt; font-weight: 700; }
   p { margin: 10pt 0; }
   ul, ol { margin: 10pt 0 10pt 24pt; }
   li { margin: 6pt 0; }
@@ -63,256 +60,219 @@
   .compact li { margin: 3pt 0; }
   .toc { background: #FAF6EE; padding: 16pt 20pt; margin: 16pt 0; }
   .toc ol { margin-left: 20pt; }
-
-    .lang-switcher { display: flex; gap: 6px; align-items: center; margin-left: 12px; }
-    .lang-switcher a {
-      font-family: 'Inter', sans-serif; font-size: 11px;
-      padding: 3px 7px; border-radius: 2px; letter-spacing: 1px;
-      color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.15);
-      text-decoration: none; text-transform: none;
-    }
-    .lang-switcher a.active { color: var(--gold, #C5A55A); border-color: var(--gold, #C5A55A); }
-    .lang-switcher a:hover { color: var(--gold, #C5A55A); border-color: var(--gold, #C5A55A); }
-
-
-  .lang-switcher-float {
-    position: fixed;
-    top: 12px;
-    right: 12px;
-    z-index: 9999;
-    display: flex;
-    gap: 4px;
-    background: rgba(255,255,255,0.95);
-    border: 1px solid #C5A55A;
-    padding: 4px 6px;
-    border-radius: 3px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    font-family: 'Inter', sans-serif;
-  }
-  .lang-switcher-float a {
-    font-size: 11px; letter-spacing: 1px;
-    padding: 3px 7px; border-radius: 2px;
-    color: #5a4a1a; text-decoration: none;
-    border: 1px solid transparent;
-  }
-  .lang-switcher-float a.active {
-    color: #1A1F3A; background: #FFF8E5;
-    border-color: #1A1F3A; font-weight: 600;
-  }
-  .lang-switcher-float a:hover { color: #1A1F3A; border-color: #C5A55A; }
+  .lang-switcher-float { position: fixed; top: 12px; right: 12px; z-index: 9999; display: flex; gap: 4px; background: rgba(255,255,255,0.95); border: 1px solid #C5A55A; padding: 4px 6px; border-radius: 3px; }
+  .lang-switcher-float a { font-size: 11px; padding: 3px 7px; color: #5a4a1a; text-decoration: none; border: 1px solid transparent; }
+  .lang-switcher-float a.active { color: #1A1F3A; background: #FFF8E5; border-color: #1A1F3A; font-weight: 600; }
   @media print { .lang-switcher-float { display: none; } }
-
 </style>
 </head>
 <body>
-<div class="lang-switcher-float" role="navigation" aria-label="Language"><a href="niveau-3-synthese.html">FR</a><a href="niveau-3-synthese-he.html">HE</a><a href="niveau-3-synthese-en.html" class="active">EN</a></div>
-<div class="wip-banner" style="background:#FFF8E5;border:1px solid #C5A55A;border-left:4px solid #C5A55A;padding:10px 16px;margin:0 0 12px;font-family:'Inter',sans-serif;font-size:14px;color:#5a4a1a;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
-<span>ℹ️ This page is being translated — Hebrew sources are fully preserved. Specific commentary may remain partially in French.</span>
-<span style="font-size:12px;letter-spacing:1px;"><a href="niveau-3-synthese.html" style="color:#8C6F1E;padding:2px 8px;border:1px solid #C5A55A;text-decoration:none;">FR</a> <a href="LANG_HE_LINK" style="color:#8C6F1E;padding:2px 8px;border:1px solid #C5A55A;text-decoration:none;">HE</a> <a href="#" style="color:#1A1F3A;padding:2px 8px;border:1px solid #1A1F3A;background:#FFF8E5;text-decoration:none;font-weight:600;">EN</a></span>
+<div class="lang-switcher-float"><a href="niveau-3-synthese.html">FR</a><a href="niveau-3-synthese-he.html">HE</a><a href="niveau-3-synthese-en.html" class="active">EN</a></div>
+
+<div style="background:#FFF8E5;border:1px solid #C5A55A;border-left:4px solid #C5A55A;padding:10px 16px;margin:0 0 20px;font-family:'Inter',sans-serif;font-size:14px;color:#5a4a1a;direction:ltr;text-align:left;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+<span>ℹ️ Fully translated page</span>
+<span style="font-size:12px;letter-spacing:1px;"><a href="niveau-3-synthese.html" style="color:#8C6F1E;padding:2px 8px;border:1px solid #C5A55A;text-decoration:none;">FR</a> <a href="niveau-3-synthese-he.html" style="color:#8C6F1E;padding:2px 8px;border:1px solid #C5A55A;text-decoration:none;">HE</a> <a href="#" style="color:#1A1F3A;padding:2px 8px;border:1px solid #1A1F3A;background:#FFF8E5;text-decoration:none;font-weight:600;">EN</a></span>
 </div>
 
-
 <div style="background:#1A1F3A;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:58px;border-bottom:2px solid #C5A55A;">
-  <a href="../../../index-en.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+  <a href="../../../index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
     <span style="font-family:'Frank Ruhl Libre',serif;font-size:24px;font-weight:700;color:#C5A55A;">דעת</span>
     <span style="font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:#fff;letter-spacing:3px;">DAAT</span>
   </a>
   <div style="display:flex;gap:20px;align-items:center;">
-    <a href="../index-en.html" style="color:#C5A55A;text-decoration:none;font-family:'Inter',sans-serif;font-size:13px;">Hilkhot Shabbat</a>
-    <a href="index-en.html" style="color:#fff;text-decoration:none;font-family:'Inter',sans-serif;font-size:13px;">Siman <bdi>רצ"ג</bdi></a>
+    <a href="../index.html" style="color:#C5A55A;text-decoration:none;font-family:'Inter',sans-serif;font-size:13px;">Hilchos Shabbat</a>
+    <a href="index.html" style="color:#fff;text-decoration:none;font-family:'Inter',sans-serif;font-size:13px;">Siman <bdi>רצ"ג</bdi></a>
   </div>
 </div>
 
 <div class="container">
 
 <div class="cover">
-  <div class="badge-top">DAAT · NIVEAU 3 — SYNTHÈSE MAGISTRALE</div>
+  <div class="badge-top">DAAT · LEVEL 3 — MASTER SYNTHESIS</div>
   <h1>Siman <bdi>רצ"ג</bdi></h1>
   <div class="he-title">סימן רצ"ג · דִּין עַרְבִית בְּמוֹצָאֵי שַׁבָּת</div>
-  <div class="subtitle">Summary & mnémoniques pour la révision</div>
+  <div class="subtitle">Recap & mnemonics for review</div>
   <hr class="ornament">
   <div class="meta">
-    Synthèse magistrale · Hilkhot Shabbat · 3 seifim<br>
-    <em>Pour mémoriser et réviser après les Niveaux 1 & 2</em>
+    Master synthesis · Hilchos Shabbat · 3 seifim<br>
+    <em>For memorizing and reviewing after Levels 1 & 2</em>
   </div>
 </div>
 
 <div style="text-align:center;margin:20px 0;">
-  <button onclick="window.print()" class="print-btn" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;background:#1A1F3A;color:#C5A55A;padding:10px 22px;border:1px solid #C5A55A;border-radius:2px;cursor:pointer;text-transform:uppercase;">📄 Imprimer / Sauver en PDF</button>
+  <button onclick="window.print()" class="print-btn" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;background:#1A1F3A;color:#C5A55A;padding:10px 22px;border:1px solid #C5A55A;border-radius:2px;cursor:pointer;text-transform:uppercase;">📄 Print / Save as PDF</button>
 </div>
-<style>@media print { .print-btn, .daat-khavroutha-fab, .daat-chat-fab { display: none !important; } }</style>
 
-
-<h3>📑 Plan de la synthèse</h3>
+<h3>📑 Synthesis plan</h3>
 
 <div class="toc">
 <ol class="compact">
-  <li><strong>L'Axiome central</strong> du siman</li>
-  <li><strong>Les concepts-clés</strong> condensés</li>
-  <li><strong>Hiérarchie des cas</strong> — du plus large au plus restrictif</li>
-  <li><strong>Arbre de décision</strong></li>
-  <li><strong>Le paradoxe du cas d'ones</strong> — prier sans clore le Shabbat</li>
-  <li><strong>Pièges à éviter</strong></li>
-  <li><strong>Cas pratiques modernes</strong></li>
-  <li><strong>Tableau de synthèse finale</strong></li>
-  <li><strong>Les commandements pratiques</strong></li>
+  <li><strong>The central axiom</strong></li>
+  <li><strong>Key concepts</strong> condensed</li>
+  <li><strong>Hierarchy of Shabbat's end</strong></li>
+  <li><strong>Decision tree</strong></li>
+  <li><strong>The paradox of the ones case</strong></li>
+  <li><strong>Pitfalls to avoid</strong></li>
+  <li><strong>Modern practical applications</strong></li>
+  <li><strong>Final summary table</strong></li>
+  <li><strong>The practical commandments</strong></li>
 </ol>
 </div>
 
-<h2>1. L'Axiome central</h2>
+<h2>1. The central axiom</h2>
 
 <div class="axiome">
-<strong>Le Siman <bdi>רצ"ג</bdi> en une phrase.</strong><br>
-À la sortie du Shabbat, on <strong>retarde Arvit</strong> pour « <em>ajouter du houl sur le kodesh</em> » ; la fin du Shabbat = <strong>3 petites étoiles rapprochées</strong> ; en cas d'<em>ones pour devar mitzva</em>, Arvit dès <em>plag ha-Minha</em> et Havdala (mais sans bougie, sans mélakha jusqu'à tslet). Le Rama ajoute le minhag de <em>Ve-hou rahum + Barekhou be-arikhout no'am</em>.
+<strong>Siman <bdi>רצ"ג</bdi> in one sentence.</strong><br>
+At the exit of Shabbat, we <strong>delay Maariv</strong> in order to "<em>add chol onto kodesh</em>"; the end of Shabbat = <strong>3 small close-together stars</strong>; in case of <em>ones for a devar mitzvah</em>, Maariv from <em>plag haminchah</em> and Havdalah (but without candle, without melachah until tzeis). The Rema adds the minhag of <em>Ve-hu rachum + Barchu be-arichus no'am</em>.
 </div>
 
-<h2>2. Les concepts-clés condensés</h2>
+<h2>2. Key concepts condensed</h2>
 
 <table>
-<tr><th>Concept</th><th>Définition</th><th>Application</th></tr>
-<tr><td><span class="he-q">תוספת שבת</span></td><td>Ajouter du temps profane au saint</td><td>À l'entrée et à la sortie</td></tr>
-<tr><td><span class="he-q">ג' כוכבים קטנים</span></td><td>3 petites étoiles rapprochées</td><td>Critère astronomique de fin Shabbat</td></tr>
-<tr><td><span class="he-q">פלג המנחה</span></td><td>1h¼ avant le coucher (heures temporelles)</td><td>Anticipation possible en cas d'ones</td></tr>
-<tr><td><span class="he-q">דבר מצוה</span></td><td>Action de mitzva</td><td>Justifie l'anticipation</td></tr>
-<tr><td><span class="he-q">תחום שבת</span></td><td>Limite des 2000 amot</td><td>Cas d'ones type seif ג</td></tr>
-<tr><td><span class="he-q">והוא רחום</span></td><td>Verset de Tehilim 78:38</td><td>Récité avant Barekhou (minhag ashkénaze)</td></tr>
-<tr><td><span class="he-q">אריכות נועם</span></td><td>Mélodie longue</td><td>Pour Barekhou Arvit motzaei Shabbat</td></tr>
+<tr><th>Concept</th><th>Definition</th><th>Application</th></tr>
+<tr><td><span class="he-q">תוספת שבת</span></td><td>Add mundane time onto the holy</td><td>At entry and exit</td></tr>
+<tr><td><span class="he-q">ג' כוכבים קטנים</span></td><td>3 small close-together stars</td><td>Astronomical criterion for end of Shabbat</td></tr>
+<tr><td><span class="he-q">פלג המנחה</span></td><td>1¼ hours before sunset (halachic hours)</td><td>Anticipation possible in case of ones</td></tr>
+<tr><td><span class="he-q">דבר מצוה</span></td><td>Mitzvah action</td><td>Justifies anticipation</td></tr>
+<tr><td><span class="he-q">תחום שבת</span></td><td>Limit of 2000 amos</td><td>Case of ones type seif ג</td></tr>
+<tr><td><span class="he-q">והוא רחום</span></td><td>Verse from Tehillim 78:38</td><td>Recited before Barchu (Ashkenazi minhag)</td></tr>
+<tr><td><span class="he-q">אריכות נועם</span></td><td>Long melody</td><td>For Barchu Maariv motzaei Shabbat</td></tr>
 </table>
 
-<h2>3. Hiérarchie de la fin du Shabbat</h2>
+<h2>3. Hierarchy of Shabbat's end</h2>
 
 <div class="schema">
-<span class="schema-step"><strong>1.</strong> Shkia (coucher du soleil) — Shabbat <em>continue encore</em></span>
-<div class="schema-arrow">↓ environ 15-30 min</div>
-<span class="schema-step"><strong>2.</strong> Tslet ha-kohavim (3 petites étoiles) — fin halakhique du Shabbat</span>
-<div class="schema-arrow">↓ + mélodies / Arvit / Havdala</div>
-<span class="schema-step"><strong>3.</strong> Idéal Rabbeinou Tam : ≈ 72 min après shkia — strict</span>
+<span class="schema-step"><strong>1.</strong> Shkiah (sunset) — Shabbat <em>still continues</em></span>
+<div class="schema-arrow">↓ about 15-30 min</div>
+<span class="schema-step"><strong>2.</strong> Tzeis ha-kochavim (3 small stars) — halachic end of Shabbat</span>
+<div class="schema-arrow">↓ + niggunim / Maariv / Havdalah</div>
+<span class="schema-step"><strong>3.</strong> Rabbeinu Tam ideal: ≈ 72 min after shkiah — strict</span>
 </div>
 
-<h2>4. Arbre de décision — Cas d'ones pour devar mitzva</h2>
+<h2>4. Decision tree — Case of ones for devar mitzvah</h2>
 
 <div class="schema">
-<span class="schema-step"><strong>Q1 :</strong> Y a-t-il un cas d'ones pour devar mitzva ?</span>
-<div class="schema-arrow">↓ Non → attendre tslet normalement</div>
-<div class="schema-arrow">↓ Oui → suite</div>
-<span class="schema-step"><strong>Q2 :</strong> Sommes-nous après plag ha-Minha ?</span>
-<div class="schema-arrow">↓ Non → attendre plag</div>
-<div class="schema-arrow">↓ Oui → suite</div>
-<span class="schema-step"><strong>Q3 :</strong> Dire Arvit motzaei Shabbat + Havdala immédiatement.</span>
+<span class="schema-step"><strong>Q1:</strong> Is there a case of ones for a devar mitzvah?</span>
+<div class="schema-arrow">↓ No → wait for tzeis normally</div>
+<div class="schema-arrow">↓ Yes → continue</div>
+<span class="schema-step"><strong>Q2:</strong> Are we after plag haminchah?</span>
+<div class="schema-arrow">↓ No → wait for plag</div>
+<div class="schema-arrow">↓ Yes → continue</div>
+<span class="schema-step"><strong>Q3:</strong> Say Maariv of motzaei Shabbat + Havdalah immediately.</span>
 <div class="schema-arrow">↓</div>
-<span class="schema-step"><strong>Q4 :</strong> Ne pas dire <em>boré meorei ha-esh</em> sur la bougie.</span>
+<span class="schema-step"><strong>Q4:</strong> Do not say <em>borei meorei ha-eish</em> on the candle.</span>
 <div class="schema-arrow">↓</div>
-<span class="schema-step"><strong>Q5 :</strong> Ne pas faire mélakha jusqu'à tslet ha-kohavim.</span>
+<span class="schema-step"><strong>Q5:</strong> Do not do melachah until tzeis ha-kochavim.</span>
 </div>
 
-<h2>5. Le paradoxe du cas d'ones — prier Arvit sans clore le Shabbat</h2>
+<h2>5. The paradox of the ones case — davening Maariv without closing Shabbat</h2>
 
-<p>Le cœur du siman, traité au seif ג, est une situation en apparence contradictoire : on récite l'Arvit de <em>motzaei</em> Shabbat — donc une prière de jour profane — et l'on fait la Havdala, <strong>alors que le Shabbat n'est pas encore terminé halakhiquement</strong>. C'est permis uniquement pour un <em>devar mitzva</em> (une brit, un voyage urgent pour une mitzva), et seulement après <em>plag ha-Minha</em>.</p>
+<p>The heart of the siman, treated in seif ג, is an apparently contradictory situation: one recites the Maariv of <em>motzaei</em> Shabbat — thus a tefillah of a weekday — and makes Havdalah, <strong>even though Shabbat has not halachically ended</strong>. This is permitted only for a <em>devar mitzvah</em> (a bris, an urgent trip for a mitzvah), and only after <em>plag haminchah</em>.</p>
 
 <div class="warning">
-<strong>La clé pour dénouer le paradoxe :</strong> il faut distinguer deux plans. La <em>tefilla</em> et la <em>Havdala verbale</em> relèvent du domaine de la parole et du temps liturgique — celui-ci peut être anticipé dès plag ha-Minha (principe déjà admis pour Arvit en semaine). Mais le <em>statut objectif du jour</em> — l'interdit de mélakha — ne dépend pas de la prière : il ne cesse qu'à <em>tslet ha-kohavim</em>.
+<strong>The key to unraveling the paradox:</strong> one must distinguish two planes. <em>Tefillah</em> and <em>verbal Havdalah</em> belong to the domain of speech and liturgical time — this can be anticipated from plag haminchah (a principle already accepted for weekday Maariv). But the <em>objective status of the day</em> — the melachah prohibition — does not depend on the tefillah: it ceases only at <em>tzeis ha-kochavim</em>.
 </div>
 
-<p>D'où les deux conséquences-limites du seif ג, qui sont les véritables points fins :</p>
+<p>Hence the two limiting consequences of seif ג, which are the true fine points:</p>
 <ul class="compact">
-<li><strong>Pas de <em>boré meorei ha-esh</em> sur la bougie.</strong> Cette berakha exige l'obscurité réelle pour qu'on profite de la lumière ; or il fait encore jour. On dit donc le texte de la Havdala <em>sans</em> la berakha sur le feu — Havdala « amputée » de son ner.</li>
-<li><strong>Mélakha interdite jusqu'à tslet.</strong> Avoir dit la Havdala n'autorise pas le travail : tant que les 3 étoiles ne sont pas sorties, le Shabbat pèse encore de tout son poids objectif. On a prié l'avenir, mais on n'a pas raccourci le présent.</li>
+<li><strong>No <em>borei meorei ha-eish</em> on the candle.</strong> This berachah requires real darkness so that one benefits from the light; but it is still light. So one says the Havdalah text <em>without</em> the berachah on fire — Havdalah "amputated" of its ner.</li>
+<li><strong>Melachah forbidden until tzeis.</strong> Having said Havdalah does not permit work: as long as the 3 stars are not out, Shabbat still weighs with all its objective force. We have davened the future, but we have not shortened the present.</li>
 </ul>
 
-<p>Ce siman enseigne ainsi une leçon de méthode : <strong>anticiper la liturgie n'est pas anticiper la réalité halakhique du temps.</strong> Les deux peuvent — exceptionnellement — diverger.</p>
+<p>This siman thus teaches a methodological lesson: <strong>anticipating the liturgy is not anticipating the halachic reality of time.</strong> The two can — exceptionally — diverge.</p>
 
-<h2>6. Mnémonique — « 3 · ק · ר »</h2>
-
-<div class="mnemonic">
-<p><span class="letter">3</span> — <strong>3 étoiles</strong> petites et rapprochées.</p>
-<p><span class="letter">ק</span> — <strong>K</strong>etanim (petites) — pas les planètes du début de nuit.</p>
-<p><span class="letter">ר</span> — <strong>R</strong>etsoufim (rapprochées) — concentration, pas dispersion.</p>
-</div>
+<h2>6. Mnemonic — "3 · K · R"</h2>
 
 <div class="mnemonic">
-<p><strong>Mnémonique « 3 restrictions en cas d'ones (seif ג) :</strong></p>
-<p><span class="letter">A</span> — <strong>A</strong>rvit + Havdala anticipées : <em>permises</em>.</p>
-<p><span class="letter">N</span> — <strong>N</strong>er (bougie) : <em>pas de berakha</em>.</p>
-<p><span class="letter">M</span> — <strong>M</strong>élakha : <em>interdite jusqu'à tslet</em>.</p>
+<p><span class="letter">3</span> — <strong>3 stars</strong> small and close together.</p>
+<p><span class="letter">K</span> — <strong>K</strong>etanim (small) — not the planets of early evening.</p>
+<p><span class="letter">R</span> — <strong>R</strong>etzufim (close together) — concentration, not dispersion.</p>
 </div>
 
-<h2>7. Pièges à éviter</h2>
-
-<div class="warning">
-<strong>Piège 1 — Décider de la fin du Shabbat à la shkia :</strong> faux. Shabbat continue 15-30 min après shkia jusqu'à tslet ha-kohavim.
+<div class="mnemonic">
+<p><strong>"3 restrictions in case of ones (seif ג):</strong></p>
+<p><span class="letter">M</span> — <strong>M</strong>aariv + Havdalah anticipated: <em>permitted</em>.</p>
+<p><span class="letter">N</span> — <strong>N</strong>er (candle): <em>no berachah</em>.</p>
+<p><span class="letter">M</span> — <strong>M</strong>elachah: <em>forbidden until tzeis</em>.</p>
 </div>
 
-<div class="warning">
-<strong>Piège 2 — Faire mélakha juste après plag ha-Minha en cas d'ones :</strong> non. Même anticipant Arvit, mélakha reste interdite jusqu'à tslet.
-</div>
+<h2>7. Pitfalls to avoid</h2>
 
 <div class="warning">
-<strong>Piège 3 — Bénir sur la bougie en cas d'ones avant tslet :</strong> interdit. Boré meorei ha-esh nécessite l'obscurité réelle.
+<strong>Pitfall 1 — Deciding Shabbat ends at shkiah:</strong> wrong. Shabbat continues 15-30 min after shkiah until tzeis ha-kochavim.
 </div>
 
 <div class="warning">
-<strong>Piège 4 — Confondre planètes (Vénus) et étoiles :</strong> Vénus = grande étoile du soir, apparaît tôt. On attend les <em>petites</em> étoiles, plus tardives.
+<strong>Pitfall 2 — Doing melachah right after plag haminchah in case of ones:</strong> no. Even anticipating Maariv, melachah remains forbidden until tzeis.
 </div>
 
 <div class="warning">
-<strong>Piège 5 — Ignorer le minhag Ashkénaze de Ve-hou rahum / Barekhou prolongé :</strong> source codifiée (Rama, Or Zaroua). À conserver en kéhila ashkénaze.
+<strong>Pitfall 3 — Blessing on the candle in case of ones before tzeis:</strong> forbidden. Borei meorei ha-eish requires real darkness.
 </div>
 
 <div class="warning">
-<strong>Piège 6 — Chanter « Elohim Yehanenou » à motzaei Tisha be-Av :</strong> on n'y dit pas mizmorim de hanina (gracieuseté). Connaître l'exception.
+<strong>Pitfall 4 — Confusing planets (Venus) and stars:</strong> Venus = large evening star, appears early. We wait for the <em>small</em> stars, later.
 </div>
 
-<h2>8. Cas pratiques modernes</h2>
+<div class="warning">
+<strong>Pitfall 5 — Ignoring the Ashkenazi minhag of Ve-hu rachum / prolonged Barchu:</strong> codified source (Rema, Or Zarua). To preserve in an Ashkenazi shul.
+</div>
+
+<div class="warning">
+<strong>Pitfall 6 — Singing "Elohim Yechonenu" on motzaei Tisha b'Av:</strong> we don't say mizmorim of chaninah then. Know the exception.
+</div>
+
+<h2>8. Modern practical applications</h2>
 
 <table>
-<tr><th>Situation</th><th>Référence</th><th>Conduite</th></tr>
-<tr><td>Heure d'Arvit en kéhila</td><td>Seif א</td><td>≈ 10-15 min après tslet ; certains attendent Rabbeinou Tam</td></tr>
-<tr><td>Jour nuageux</td><td>Seif ב</td><td>Attendre plus longtemps, surtout en hiver couvert</td></tr>
-<tr><td>Brit Mila ou voyage urgent</td><td>Seif ג</td><td>Arvit + Havdala dès plag ; pas de bougie ; pas de mélakha jusqu'à tslet</td></tr>
-<tr><td>Été : Shabbat finit à 22h+</td><td>Seif ב</td><td>Attendre quand même. Pas d'allègement</td></tr>
-<tr><td>Voyage en avion</td><td>—</td><td>Suivre l'horaire local où on se trouve à la fin</td></tr>
-<tr><td>Tisha be-Av motzaei Shabbat</td><td>MB sur seif א</td><td>Pas de chants de hanina ; ne pas dire « Elohim Yehanenou »</td></tr>
-<tr><td>Yom Tov motzaei Shabbat</td><td>MB sur seif א</td><td>Idem — pas de chants ordinaires</td></tr>
-<tr><td>Femme à la maison veut commencer cuisson tôt</td><td>Seif ב</td><td>Interdit avant tslet. Même chez soi.</td></tr>
+<tr><th>Situation</th><th>Reference</th><th>Conduct</th></tr>
+<tr><td>Maariv time in shul</td><td>Seif א</td><td>≈ 10-15 min after tzeis; some wait for Rabbeinu Tam</td></tr>
+<tr><td>Cloudy day</td><td>Seif ב</td><td>Wait longer, especially in a covered winter</td></tr>
+<tr><td>Bris Milah or urgent travel</td><td>Seif ג</td><td>Maariv + Havdalah from plag; no candle; no melachah until tzeis</td></tr>
+<tr><td>Summer: Shabbat ends at 10pm+</td><td>Seif ב</td><td>Wait nonetheless. No leniency</td></tr>
+<tr><td>Travel by plane</td><td>—</td><td>Follow the local time where one finds himself at the end</td></tr>
+<tr><td>Tisha b'Av on motzaei Shabbat</td><td>MB on seif א</td><td>No chaninah songs; don't say "Elohim Yechonenu"</td></tr>
+<tr><td>Yom Tov on motzaei Shabbat</td><td>MB on seif א</td><td>Same — no ordinary mizmorim</td></tr>
+<tr><td>Woman at home wants to start cooking early</td><td>Seif ב</td><td>Forbidden before tzeis. Even at home.</td></tr>
 </table>
 
-<h2>9. Tableau de synthèse finale</h2>
+<h2>9. Final summary table</h2>
 
 <table>
-<tr><th>Élément</th><th>Détail</th></tr>
-<tr><td>Subject</td><td>Arvit de motzaei Shabbat</td></tr>
-<tr><td>Nombre de seifim</td><td>3</td></tr>
-<tr><td>Mishnah Berurah</td><td>10 entrées</td></tr>
-<tr><td>Source(s) talmudique</td><td>Berakhot 27b ; Shabbat 35b (3 étoiles), 118b</td></tr>
-<tr><td>Principe central</td><td>Mossifin me-houl al ha-kodesh</td></tr>
-<tr><td>Critère astronomique</td><td>3 petites étoiles rapprochées</td></tr>
-<tr><td>Cas d'ones</td><td>Plag ha-Minha pour Arvit + Havdala (pas bougie, pas mélakha)</td></tr>
-<tr><td>Minhag ashkénaze</td><td>Ve-hou rahum + Barekhou be-arikhout no'am</td></tr>
-<tr><td>Liturgie pré-Arvit</td><td>Mizmor « Elohim Yehanenou » (sauf Tisha be-Av, Yom Tov)</td></tr>
+<tr><th>Element</th><th>Detail</th></tr>
+<tr><td>Topic</td><td>Maariv of motzaei Shabbat</td></tr>
+<tr><td>Number of seifim</td><td>3</td></tr>
+<tr><td>Mishnah Berurah</td><td>10 entries</td></tr>
+<tr><td>Talmudic source</td><td>Berachos 27b; Shabbat 35b (3 stars), 118b</td></tr>
+<tr><td>Central principle</td><td>Mosifin me-chol al ha-kodesh</td></tr>
+<tr><td>Astronomical criterion</td><td>3 small close-together stars</td></tr>
+<tr><td>Case of ones</td><td>Plag haminchah for Maariv + Havdalah (no candle, no melachah)</td></tr>
+<tr><td>Ashkenazi minhag</td><td>Ve-hu rachum + Barchu be-arichus no'am</td></tr>
+<tr><td>Liturgy pre-Maariv</td><td>Mizmor "Elohim Yechonenu" (except Tisha b'Av, Yom Tov)</td></tr>
 </table>
 
-<h2>10. Les 5 commandements pratiques du Siman <bdi>רצ"ג</bdi></h2>
+<h2>10. The 5 practical commandments of Siman <bdi>רצ"ג</bdi></h2>
 
 <div class="pesak-box">
-<h4>Pour Arvit motzaei Shabbat</h4>
+<h4>For Maariv motzaei Shabbat</h4>
 <ol class="compact">
-  <li><strong>Retarder Arvit</strong> au-delà de tslet ha-kohavim — ajouter du houl sur le kodesh.</li>
-  <li><strong>3 petites étoiles rapprochées</strong> = fin Shabbat ; jour nuageux : attendre plus.</li>
-  <li><strong>Pas de mélakha avant tslet</strong>, même chez soi.</li>
-  <li><strong>Cas d'ones pour devar mitzva :</strong> Arvit + Havdala dès plag ha-Minha ; mais pas de bougie, pas de mélakha jusqu'à tslet.</li>
-  <li><strong>Ashkenazim :</strong> Ve-hou rahum + Barekhou prolongés ; chants « Elohim Yehanenou » avant (sauf Tisha be-Av, YT).</li>
+  <li><strong>Delay Maariv</strong> beyond tzeis ha-kochavim — add chol onto kodesh.</li>
+  <li><strong>3 small close-together stars</strong> = end of Shabbat; cloudy day: wait more.</li>
+  <li><strong>No melachah before tzeis</strong>, even at home.</li>
+  <li><strong>Case of ones for devar mitzvah:</strong> Maariv + Havdalah from plag haminchah; but no candle, no melachah until tzeis.</li>
+  <li><strong>Ashkenazim:</strong> Ve-hu rachum + Barchu prolonged; "Elohim Yechonenu" zemiros before (except Tisha b'Av, YT).</li>
 </ol>
 </div>
 
 <div class="remember">
-<strong>📚 Summary du parcours d'étude</strong><br>
-Tu as étudié le Siman <bdi>רצ"ג</bdi> en 3 niveaux :
+<strong>📚 Study path recap</strong><br>
+You have studied Siman <bdi>רצ"ג</bdi> in 3 levels:
 <ul class="compact">
-  <li>🌱 <strong>Level 1 — Base :</strong> les 3 seifim, traduction française, concepts halakhiques</li>
-  <li>⚡ <strong>Level 2 — Lamdan :</strong> sources talmudiques, שיטות des Rishonim, מחלוקות, נפקא מינות</li>
-  <li>✨ <strong>Level 3 — Synthèse :</strong> axiome, mnémonique, arbre de décision, commandements pratiques</li>
+  <li>🌱 <strong>Level 1 — Base:</strong> the 3 seifim, English translation, halachic concepts</li>
+  <li>⚡ <strong>Level 2 — Lamdan:</strong> Talmudic sources, shitos of the Rishonim, machlokos, nafka minos</li>
+  <li>✨ <strong>Level 3 — Synthesis:</strong> axiom, mnemonic, decision tree, practical commandments</li>
 </ul>
-Pour aller plus loin : <strong>Level 4 — Daat HaRav</strong> (chitah de l'Admour HaZaken sur le Choulhan Aroukh HaRav siman <bdi>רצ"ג</bdi>).
+To go further: <strong>Level 4 — Daat HaRav</strong> (shitah of the Alter Rebbe on Shulchan Aruch HaRav siman <bdi>רצ"ג</bdi>).
 </div>
 
 </div>
@@ -322,14 +282,14 @@ Pour aller plus loin : <strong>Level 4 — Daat HaRav</strong> (chitah de l'Admo
 <strong>DAAT</strong> · <strong>רב יוסף חיים סממה</strong><br>
 <br>
 <em>סימן רצ"ג · Level 3 — Master Synthesis</em><br>
-<a href="../../../soutenir-en.html" style="display:inline-block;margin-top:14px;font-size:13px;color:#B8972A;text-decoration:none;border:1px solid rgba(184,151,42,0.5);padding:6px 16px;border-radius:2px;">♥ Support DAAT</a>
+<a href="../../../soutenir.html" style="display:inline-block;margin-top:14px;font-size:13px;color:#B8972A;text-decoration:none;border:1px solid rgba(184,151,42,0.5);padding:6px 16px;border-radius:2px;">♥ Support DAAT</a>
 </div>
 
   <link rel="stylesheet" href="../../../assets/css/khavroutha-fab.css">
 <link rel="stylesheet" href="../../../assets/css/chat-widget.css">
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="../../../assets/js/chat-widget.js" defer></script>
-<a href="../../../communaute-en.html#khavroutha" class="daat-khavroutha-fab" title="Find a khavroutha for this siman"><span class="icon">📖</span><span class="label-long">Join the khavroutha</span></a>
+<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab"><span class="icon">📖</span><span class="label-long">Join the chavrusa</span></a>
   <script src="../../../assets/js/daat-progress.js"></script>
 </body>
 </html>
