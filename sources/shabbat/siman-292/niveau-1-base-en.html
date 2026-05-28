@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Siman <bdi>רצ"ב</bdi> · Level 1 Base — La tefilla de Minha Shabbat · Initiation pédagogique | DAAT</title>
-<meta name="description" content="Level 1 (Base) du Siman רצ"ב — La tefilla de Minha Shabbat. Texte hébreu du Choulhan Aroukh avec traduction française, explication des concepts-clés, cas pratiques modernes.">
+<title>Siman <bdi>רצ"ב</bdi> · Level 1 Base — Minchah of Shabbat · Introductory Learning | DAAT</title>
+<meta name="description" content="Level 1 (Base) of Siman רצ"ב — Minchah of Shabbat. Hebrew text of the Shulchan Aruch with English translation, explanation of key concepts, practical applications.">
 <meta name="author" content="Rav Yossef Haim Samama">
 <link rel="canonical" href="https://daattorah.com/oh/292/base">
   <link rel="alternate" hreflang="fr" href="https://daattorah.com/sources/shabbat/siman-292/niveau-1-base.html">
@@ -12,14 +12,14 @@
   <link rel="alternate" hreflang="he" href="https://daattorah.com/sources/shabbat/siman-292/niveau-1-base-he.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="DAAT דעת">
-<meta property="og:title" content="Siman רצ"ב · Level 1 Base — La tefilla de Minha Shabbat">
-<meta property="og:description" content="Initiation pédagogique. Texte hébreu, traduction, concepts-clés.">
+<meta property="og:title" content="Siman רצ"ב · Level 1 Base — Minchah of Shabbat">
+<meta property="og:description" content="Introductory learning. Hebrew text, translation, key concepts.">
 <meta property="og:url" content="https://daattorah.com/oh/292/base">
 <meta property="og:image" content="https://daattorah.com/assets/img/og/siman-292.svg">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Siman רצ"ב · Level 1 Base — La tefilla de Minha Shabbat">
-<meta name="twitter:description" content="Initiation pédagogique au Siman רצ"ב du Choulhan Aroukh.">
+<meta name="twitter:title" content="Siman רצ"ב · Level 1 Base — Minchah of Shabbat">
+<meta name="twitter:description" content="Introductory learning of Siman רצ"ב.">
 <meta name="twitter:image" content="https://daattorah.com/assets/img/og/siman-292.svg">
 <style>
   @page { size: A4; margin: 2cm 1.8cm; }
@@ -44,9 +44,9 @@
   .key-point { background: #fff8e1; border-left: 5px solid #C5A55A; padding: 10px 16px; margin: 12px 0; page-break-inside: avoid; }
   .key-point::before { content: "🔑 "; font-size: 13pt; }
   .definition { background: #f0e9f7; border-left: 5px solid #6a1b7a; padding: 10px 16px; margin: 12px 0; }
-  .definition::before { content: "📖 DÉFINITION"; display: block; color: #6a1b7a; font-weight: bold; font-size: 9.5pt; letter-spacing: 2px; margin-bottom: 6px; }
+  .definition::before { content: "📖 DEFINITION"; display: block; color: #6a1b7a; font-weight: bold; font-size: 9.5pt; letter-spacing: 2px; margin-bottom: 6px; }
   .remember { background: #e8f4ea; border: 1.5px solid #2d7a3e; padding: 12px 18px; margin: 12px 0; border-radius: 4px; }
-  .remember::before { content: "✓ À RETENIR"; display: block; color: #2d7a3e; font-weight: bold; font-size: 9.5pt; letter-spacing: 2px; margin-bottom: 6px; }
+  .remember::before { content: "✓ REMEMBER"; display: block; color: #2d7a3e; font-weight: bold; font-size: 9.5pt; letter-spacing: 2px; margin-bottom: 6px; }
   .question-box { background: #fff9e6; border: 1.5px solid #C5A55A; border-radius: 6px; padding: 15px 20px; margin: 15px 0; }
   .question-box ol { margin: 8px 0 0 0; padding-left: 20px; }
   .question-box li { margin-bottom: 8px; }
@@ -65,265 +65,231 @@
   .toc-item { padding: 6px 0; border-bottom: 1px dotted #C5A55A; }
   .toc-num { display: inline-block; width: 25px; color: #C5A55A; font-weight: bold; }
   .quick-recap { background: #FAF6EE; border: 2px solid #C5A55A; border-radius: 8px; padding: 18px 22px; margin: 20px 0; }
-
-    .lang-switcher { display: flex; gap: 6px; align-items: center; margin-left: 12px; }
-    .lang-switcher a {
-      font-family: 'Inter', sans-serif; font-size: 11px;
-      padding: 3px 7px; border-radius: 2px; letter-spacing: 1px;
-      color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.15);
-      text-decoration: none; text-transform: none;
-    }
-    .lang-switcher a.active { color: var(--gold, #C5A55A); border-color: var(--gold, #C5A55A); }
-    .lang-switcher a:hover { color: var(--gold, #C5A55A); border-color: var(--gold, #C5A55A); }
-
-
-  .lang-switcher-float {
-    position: fixed;
-    top: 12px;
-    right: 12px;
-    z-index: 9999;
-    display: flex;
-    gap: 4px;
-    background: rgba(255,255,255,0.95);
-    border: 1px solid #C5A55A;
-    padding: 4px 6px;
-    border-radius: 3px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    font-family: 'Inter', sans-serif;
-  }
-  .lang-switcher-float a {
-    font-size: 11px; letter-spacing: 1px;
-    padding: 3px 7px; border-radius: 2px;
-    color: #5a4a1a; text-decoration: none;
-    border: 1px solid transparent;
-  }
-  .lang-switcher-float a.active {
-    color: #1A1F3A; background: #FFF8E5;
-    border-color: #1A1F3A; font-weight: 600;
-  }
+  .lang-switcher-float { position: fixed; top: 12px; right: 12px; z-index: 9999; display: flex; gap: 4px; background: rgba(255,255,255,0.95); border: 1px solid #C5A55A; padding: 4px 6px; border-radius: 3px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); font-family: 'Inter', sans-serif; }
+  .lang-switcher-float a { font-size: 11px; letter-spacing: 1px; padding: 3px 7px; border-radius: 2px; color: #5a4a1a; text-decoration: none; border: 1px solid transparent; }
+  .lang-switcher-float a.active { color: #1A1F3A; background: #FFF8E5; border-color: #1A1F3A; font-weight: 600; }
   .lang-switcher-float a:hover { color: #1A1F3A; border-color: #C5A55A; }
   @media print { .lang-switcher-float { display: none; } }
-
 </style>
 </head>
 <body>
 <div class="lang-switcher-float" role="navigation" aria-label="Language"><a href="niveau-1-base.html">FR</a><a href="niveau-1-base-he.html">HE</a><a href="niveau-1-base-en.html" class="active">EN</a></div>
-<div class="wip-banner" style="background:#FFF8E5;border:1px solid #C5A55A;border-left:4px solid #C5A55A;padding:10px 16px;margin:0 0 12px;font-family:'Inter',sans-serif;font-size:14px;color:#5a4a1a;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
-<span>ℹ️ This page is being translated — Hebrew sources are fully preserved. Specific commentary may remain partially in French.</span>
-<span style="font-size:12px;letter-spacing:1px;"><a href="niveau-1-base.html" style="color:#8C6F1E;padding:2px 8px;border:1px solid #C5A55A;text-decoration:none;">FR</a> <a href="LANG_HE_LINK" style="color:#8C6F1E;padding:2px 8px;border:1px solid #C5A55A;text-decoration:none;">HE</a> <a href="#" style="color:#1A1F3A;padding:2px 8px;border:1px solid #1A1F3A;background:#FFF8E5;text-decoration:none;font-weight:600;">EN</a></span>
-</div>
 
+<div style="background:#FFF8E5;border:1px solid #C5A55A;border-left:4px solid #C5A55A;padding:10px 16px;margin:0 0 20px;font-family:'Inter',sans-serif;font-size:14px;color:#5a4a1a;direction:ltr;text-align:left;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+<span>ℹ️ Fully translated page</span>
+<span style="font-size:12px;letter-spacing:1px;"><a href="niveau-1-base.html" style="color:#8C6F1E;padding:2px 8px;border:1px solid #C5A55A;text-decoration:none;">FR</a> <a href="niveau-1-base-he.html" style="color:#8C6F1E;padding:2px 8px;border:1px solid #C5A55A;text-decoration:none;">HE</a> <a href="#" style="color:#1A1F3A;padding:2px 8px;border:1px solid #1A1F3A;background:#FFF8E5;text-decoration:none;font-weight:600;">EN</a></span>
+</div>
 
 <div class="cover">
   <div class="ornament">✦ ❖ ✦</div>
-  <div class="badge-top">DAAT · NIVEAU 1 — INITIATION</div>
+  <div class="badge-top">DAAT · LEVEL 1 — INTRODUCTION</div>
   <h1>Siman <bdi>רצ"ב</bdi> · 2 Seifim</h1>
-  <div class="subtitle">La tefilla de Minha Shabbat — pour découvrir et comprendre</div>
+  <div class="subtitle">Minchah of Shabbat — to discover and understand</div>
 
   <div class="he-title">סימן רצ"ב</div>
   <div class="he-sub">דִּין תְּפִלַּת מִנְחָה בְּשַׁבָּת</div>
 
-  <div class="level-badge">🌱 Niveau Initiation · מתחילים</div>
+  <div class="level-badge">🌱 Beginner Level · מתחילים</div>
 
   <div class="ornament">✦ ❖ ✦</div>
 
   <p style="font-size: 11pt; color: #555; max-width: 500px; margin: 30px auto;">
-  Première approche du Siman <bdi>רצ"ב</bdi> : texte hébreu intégral du Mehaber, traduction française fluide, explications pédagogiques des concepts halakhiques, cas pratiques modernes et synthèse.
+  First approach to Siman <bdi>רצ"ב</bdi>: full Hebrew text of the Mechaber, clear English translation, pedagogical explanations of halachic concepts, modern practical cases and summary.
   </p>
 
   <div class="credits">
-    <p><strong>Subject :</strong> La tefilla de Minha Shabbat<br>
-    <strong>Source(s) :</strong> שולחן ערוך אורח חיים סימן רצ"ב (2 seifim)</p>
-    <p><strong>Compilation :</strong> רב יוסף חיים סממה<br>
+    <p><strong>Topic:</strong> Minchah of Shabbat<br>
+    <strong>Source:</strong> Shulchan Aruch Orach Chaim siman רצ"ב (2 seifim)</p>
+    <p><strong>Compiled by:</strong> Rav Yossef Haim Samama<br>
     <em>DAAT · daattorah.com</em></p>
   </div>
 </div>
 
 <div style="text-align:center;margin:20px 0;">
-  <button onclick="window.print()" class="print-btn" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;background:#1A1F3A;color:#C5A55A;padding:10px 22px;border:1px solid #C5A55A;border-radius:2px;cursor:pointer;text-transform:uppercase;">📄 Imprimer / Sauver en PDF</button>
+  <button onclick="window.print()" class="print-btn" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;background:#1A1F3A;color:#C5A55A;padding:10px 22px;border:1px solid #C5A55A;border-radius:2px;cursor:pointer;text-transform:uppercase;">📄 Print / Save as PDF</button>
 </div>
 <style>@media print { .print-btn, .daat-khavroutha-fab, .daat-chat-fab { display: none !important; } }</style>
 
 
 <div class="page-break"></div>
 
-<h2 class="section-title">📑 Plan de l'étude</h2>
+<h2 class="section-title">📑 Study Plan</h2>
 
 <div class="quick-recap">
-<div class="toc-item"><span class="toc-num">1.</span> <strong>The Shulchan Aroukh text</strong> — les 2 seifim du Mehaber</div>
-<div class="toc-item"><span class="toc-num">2.</span> <strong>Le contexte général</strong> : pourquoi ce siman, quelle est la question ?</div>
-<div class="toc-item"><span class="toc-num">3.</span> <strong>Les concepts-clés halakhiques</strong> de ce siman</div>
-<div class="toc-item"><span class="toc-num">4.</span> <strong>Le détail des seifim</strong> — un par un</div>
-<div class="toc-item"><span class="toc-num">5.</span> <strong>Le Mishnah Berurah</strong> — premières entrées</div>
-<div class="toc-item"><span class="toc-num">6.</span> <strong>La position du Rama</strong> — différences ashkénaze vs séfarade</div>
-<div class="toc-item"><span class="toc-num">7.</span> <strong>Cas pratiques modernes</strong></div>
-<div class="toc-item"><span class="toc-num">8.</span> <strong>Practical synthesis</strong> et règles à retenir</div>
-<div class="toc-item"><span class="toc-num">9.</span> <strong>Comprehension questions</strong></div>
+<div class="toc-item"><span class="toc-num">1.</span> <strong>The text of the Shulchan Aruch</strong> — the 2 seifim of the Mechaber</div>
+<div class="toc-item"><span class="toc-num">2.</span> <strong>The general context</strong>: why this siman, what is the question?</div>
+<div class="toc-item"><span class="toc-num">3.</span> <strong>Key halachic concepts</strong> of this siman</div>
+<div class="toc-item"><span class="toc-num">4.</span> <strong>Detailed seifim</strong> — one by one</div>
+<div class="toc-item"><span class="toc-num">5.</span> <strong>The Mishnah Berurah</strong> — first entries</div>
+<div class="toc-item"><span class="toc-num">6.</span> <strong>The position of the Rema</strong> — Ashkenazi vs. Sefardi differences</div>
+<div class="toc-item"><span class="toc-num">7.</span> <strong>Modern practical applications</strong></div>
+<div class="toc-item"><span class="toc-num">8.</span> <strong>Practical summary</strong> and key rules</div>
+<div class="toc-item"><span class="toc-num">9.</span> <strong>Review questions</strong></div>
 </div>
 
 <div class="page-break"></div>
 
-<h2 class="section-title">1. The Shulchan Aroukh text</h2>
+<h2 class="section-title">1. The text of the Shulchan Aruch</h2>
 
-<p>Le siman <bdi>רצ"ב</bdi> contient <strong>2 seifim</strong> du Mehaber (Rabbi Yossef Karo) qui codifie<span style="display:inline">nt</span> les règles relatives à <em>la tefilla de minha shabbat</em>.</p>
+<p>Siman <bdi>רצ"ב</bdi> contains <strong>2 seifim</strong> of the Mechaber (Rabbi Yosef Karo) which codify the halachos relating to <em>the minchah of Shabbat</em>.</p>
 
-<h4>Seif א — Lecture de la Torah à Minha Shabbat : 3 montants, 10 versets de la parasha suivante</h4>
+<h4>Seif א — Krias HaTorah at Minchah of Shabbat: 3 olim, 10 pesukim of the following parashah</h4>
 <blockquote class="text-source"><b>דין תפלת מנחה בשבת. ובו ב סעיפים:</b><br>במנחה <small>[אומרים אשרי ובא לציון ואני תפלתי וגו'] (טור)</small> מוציאין ספר תורה וקורין שלשה אנשים עשרה פסוקים מפרשה הבאה ואפי' חל יו"ט להיות בשבת קוראין בפרשה הבאה ולא בשל יום טוב:</blockquote>
-<div class="translation"><strong>Traduction :</strong> « À Minha [Shabbat], <em>(on dit Ashrei + U-va le-Tsion + Va-ani tefilati...)</em> on sort le Sefer Torah et l'on appelle <strong>3 hommes</strong> qui lisent <strong>10 versets de la parasha <em>suivante</em></strong> (celle de la semaine prochaine). Et même si Yom Tov tombe à Shabbat, on lit dans la parasha suivante et non dans la parasha de Yom Tov. »</div>
-<div class="key-point"><strong>Caractéristiques de la lecture à Minha Shabbat :</strong>
+<div class="translation"><strong>Translation:</strong> "At Minchah [of Shabbat], <em>(we say Ashrei + Uva le-Tzion + Va-ani sefilasi...)</em> we take out the Sefer Torah and call up <strong>3 men</strong> who read <strong>10 pesukim from the <em>following</em> parashah</strong> (that of the coming week). And even if Yom Tov falls on Shabbat, we read in the following parashah and not in the parashah of Yom Tov."</div>
+<div class="key-point"><strong>Features of krias haTorah at Minchah of Shabbat:</strong>
 <ol>
-<li><strong>3 olim</strong> (Kohen, Lévi, Israël) — comme lundi/jeudi matin.</li>
-<li><strong>10 versets minimum</strong> dans la parasha de la semaine suivante.</li>
-<li><strong>Pas la parasha de Yom Tov</strong> même si chevauchement — la lecture Minha est <em>spécifique à Shabbat</em> et anticipe la parasha hebdomadaire.</li>
-<li><strong>Ashrei + Uva le-Tsion + Va-ani tefilati</strong> récités avant la lecture.</li>
+<li><strong>3 olim</strong> (Kohen, Levi, Yisrael) — like Monday/Thursday morning.</li>
+<li><strong>Minimum 10 pesukim</strong> from the following week's parashah.</li>
+<li><strong>Not the parashah of Yom Tov</strong> even when overlapping — the Minchah reading is <em>specific to Shabbat</em> and anticipates the weekly parashah.</li>
+<li><strong>Ashrei + Uva le-Tzion + Va-ani sefilasi</strong> recited before the reading.</li>
 </ol>
 </div>
-<div class="definition"><strong>Va-ani tefilati :</strong> verset des Tehilim 69:14 — « <em>Et moi, ma tefilla à Toi, Hashem, en un temps de faveur (et ratzon)... </em> ». Récité spécifiquement à Minha Shabbat car c'est <strong>« et ratzon »</strong> — le moment kabbalistique de plus grande grâce divine de la semaine.</div>
+<div class="definition"><strong>Va-ani sefilasi:</strong> verse from Tehillim 69:14 — "<em>And as for me, my prayer is to You, Hashem, at an eis ratzon...</em>". Recited specifically at Minchah of Shabbat because it is <strong>"eis ratzon"</strong> — the Kabbalistic moment of greatest divine favor of the week.</div>
 
-<h4>Seif ב — Tsidkatekha tsedek et Pirké Avot après Minha</h4>
+<h4>Seif ב — Tzidkascha tzedek and Pirkei Avos after Minchah</h4>
 <blockquote class="text-source">אומרים צדקתך ואם חל בו יום שאלו היה חול לא היו אומרים בו במנחה נפילת אפים אין אומרים צדקתך: <small>הגה ונהגו שלא לקבוע מדרש בין מנחה למעריב (טור זוהר תרומה ע' רע"ט) אבל אומרים פרקי אבות בקיץ ושיר המעלות בחורף וכל מקום לפי מנהגו:</small></blockquote>
-<div class="translation"><strong>Traduction :</strong> « On dit <strong>Tsidkatekha tsedek</strong> [= 3 versets : Tehilim 36:7, 71:19, 119:142]. Et si tombe un jour où, en semaine, on ne dirait pas <em>nefilat apayim</em> à Minha (par exemple Erev Yom Tov, Rosh Hodesh, etc.), on ne dit pas Tsidkatekha tsedek. <em>Rama :</em> On a l'usage de <strong>ne pas établir de cours d'étude entre Minha et Maariv</strong> (Tour, Zohar Teroumah p. 279). Mais on dit <strong>Pirké Avot en été</strong> et <strong>Shir ha-Maalot en hiver</strong> — chaque lieu selon son minhag. »</div>
-<div class="key-point"><strong>Tsidkatekha tsedek :</strong> 3 courts versets formant un seul psaume, dits après l'Amida de Minha Shabbat. Contenu : « Ta justice est juste éternellement, Ta Torah est vérité ». Représente <em>tsidkatkha</em> sur les âmes que la halakha hassidique associe à ce moment (cf. siman 291 sur la sortie des âmes du gan eden).</div>
-<div class="definition"><strong>Pirké Avot en été — minhag :</strong> de Pessah à Roch Hachana, on étudie un chapitre par semaine de Pirké Avot entre Minha et Maariv Shabbat (6 chapitres + Kinyan Torah = 7 Shabbatot par cycle). En hiver : <em>Shir ha-Maalot</em> (Tehilim 120-134, les 15 chants des montées). Ces minhagim contournent l'interdit de « <em>kove'a midrash</em> » à ce moment-là — car ce ne sont pas des cours mais des récitations.</div>
+<div class="translation"><strong>Translation:</strong> "We say <strong>Tzidkascha tzedek</strong> [= 3 pesukim: Tehillim 36:7, 71:19, 119:142]. And if it falls on a day on which, during the week, one would not say <em>nefilas apayim</em> at Minchah (e.g. Erev Yom Tov, Rosh Chodesh, etc.), we do not say Tzidkascha tzedek. <em>Rema:</em> It is the custom <strong>not to establish a study session between Minchah and Maariv</strong> (Tur, Zohar Terumah p. 279). But we say <strong>Pirkei Avos in the summer</strong> and <strong>Shir HaMa'alos in the winter</strong> — each place according to its minhag."</div>
+<div class="key-point"><strong>Tzidkascha tzedek:</strong> 3 short pesukim forming one mizmor, recited after the Shabbat Minchah Amidah. Content: "Your tzedek is forever just, Your Torah is truth." Represents <em>tzidkascha</em> over the neshamos that chassidic halacha associates with this moment (cf. siman רצ"א on the departure of neshamos from gan eden).</div>
+<div class="definition"><strong>Pirkei Avos in the summer — minhag:</strong> from Pesach to Rosh Hashanah, one studies a perek a week of Pirkei Avos between Minchah and Maariv on Shabbat (6 perakim + Kinyan Torah = 7 Shabbasos per cycle). In the winter: <em>Shir HaMa'alos</em> (Tehillim 120-134, the 15 songs of ascents). These minhagim circumvent the prohibition of "<em>kove'a midrash</em>" at that time — for they are not classes but recitations.</div>
 
 <div class="key-point">
-<strong>Texte intégral :</strong> ces 2 seifim constituent l'ensemble de la codification du Mehaber pour ce sujet. Chacun précise un cas, une condition, ou une exception.
+<strong>Full text:</strong> these 2 seifim constitute the entire codification of the Mechaber on this topic. Each specifies a case, condition, or exception.
 </div>
 
-<h2 class="section-title">2. Le contexte général</h2>
+<h2 class="section-title">2. The general context</h2>
 
-<h3>De quoi parle ce siman ?</h3>
+<h3>What does this siman discuss?</h3>
 
-<p>Notre siman codifie la <strong>tefilla de Minha Shabbat</strong> — 3ème prière du jour, avec ses 2 spécificités liturgiques : (1) la <strong>lecture de la Torah</strong> (anticipant la parasha suivante) et (2) le <strong>texte de Tsidkatekha tsedek</strong> + les minhagim de Pirké Avot / Shir ha-Maalot.</p>
+<p>Our siman codifies the <strong>tefillah of Minchah of Shabbat</strong> — the 3rd tefillah of the day, with its 2 liturgical particularities: (1) the <strong>krias haTorah</strong> (anticipating the following parashah) and (2) the <strong>text of Tzidkascha tzedek</strong> + the minhagim of Pirkei Avos / Shir HaMa'alos.</p>
 
 <div class="definition">
-<strong>Spécificité de Minha Shabbat :</strong> c'est le moment kabbalistique de « <em>et ratzon</em> » (temps de faveur) — d'où le verset Tehilim 69:14 « <em>Va-ani tefilati lekha Hashem et ratzon</em> ». Pour les Hassidim, c'est le moment de la sortie des âmes du paradis et la <em>ra'ava de-ra'avin</em> selon le Zohar (parallèle à Seuda Shelishit qui s'y rattache).
+<strong>Particularity of Minchah of Shabbat:</strong> it is the Kabbalistic moment of "<em>eis ratzon</em>" (time of favor) — hence the verse Tehillim 69:14 "<em>Va-ani sefilasi lecha Hashem eis ratzon</em>". For chassidim, it is the moment of the neshamos' departure from paradise and the <em>ra'ava de-ra'avin</em> per the Zohar (paralleling seudah shlishis which is connected to it).
 </div>
 
-<h3>Place dans Hilkhot Shabbat</h3>
+<h3>Place in Hilchos Shabbat</h3>
 
 <ul class="compact">
-<li><strong>Siman 289</strong> — Seudat Shaharit</li>
-<li><strong>Siman 290</strong> — 100 berakhot + beit midrash</li>
-<li><strong>Siman 291</strong> — Seuda Shelishit</li>
-<li><strong>Siman 292</strong> — <em>Tefilat Minha Shabbat</em> (notre siman)</li>
-<li><strong>Siman 293</strong> — Arvit motzaei Shabbat</li>
-<li><strong>Siman 294</strong> — Havdala dans la tefilla</li>
+<li><strong>Siman 289</strong> — Seudas Shacharis</li>
+<li><strong>Siman 290</strong> — 100 berachos + beis midrash</li>
+<li><strong>Siman 291</strong> — Seudah shlishis</li>
+<li><strong>Siman 292</strong> — <em>Tefilas Minchah Shabbat</em> (our siman)</li>
+<li><strong>Siman 293</strong> — Maariv motzaei Shabbat</li>
+<li><strong>Siman 294</strong> — Havdalah in tefillah</li>
 </ul>
 
-<h2 class="section-title">3. Les concepts-clés halakhiques</h2>
+<h2 class="section-title">3. Key halachic concepts</h2>
 
 <div class="definition">
-<strong>1. <span class="he-q">קריאה בתורה במנחה</span> :</strong> lecture de la Torah à Minha Shabbat — 3 olim, 10 versets de la parasha <strong>suivante</strong> (anticipation de la semaine prochaine).
+<strong>1. <span class="he-q">קריאה בתורה במנחה</span>:</strong> krias haTorah at Minchah of Shabbat — 3 olim, 10 pesukim of the <strong>following</strong> parashah (anticipating the coming week).
 </div>
 
 <div class="definition">
-<strong>2. <span class="he-q">ואני תפלתי</span> (Tehilim 69:14) :</strong> verset propre à Minha Shabbat. « <em>Va-ani tefilati lekha Hashem et ratzon</em> » — moment de faveur divine.
+<strong>2. <span class="he-q">ואני תפלתי</span> (Tehillim 69:14):</strong> verse particular to Minchah of Shabbat. "<em>Va-ani sefilasi lecha Hashem eis ratzon</em>" — moment of divine favor.
 </div>
 
 <div class="definition">
-<strong>3. <span class="he-q">צדקתך צדק</span> (Tsidkatekha tsedek) :</strong> 3 versets (Tehilim 36:7, 71:19, 119:142) dits après l'Amida. Représente la sortie des justes du Gan Eden, le retour des âmes en gehinom.
+<strong>3. <span class="he-q">צדקתך צדק</span> (Tzidkascha tzedek):</strong> 3 pesukim (Tehillim 36:7, 71:19, 119:142) recited after the Amidah. Represents the departure of the tzaddikim from Gan Eden, the return of neshamos to gehinnom.
 </div>
 
 <div class="definition">
-<strong>4. <span class="he-q">פרקי אבות</span> (Pirké Avot) en été :</strong> minhag d'étudier un chapitre/Shabbat de Pessah à Roch Hachana (6 + Kinyan Torah = 7 chapitres cycliques).
+<strong>4. <span class="he-q">פרקי אבות</span> (Pirkei Avos) in the summer:</strong> minhag of studying one perek/Shabbat from Pesach to Rosh Hashanah (6 + Kinyan Torah = 7 cyclical perakim).
 </div>
 
 <div class="definition">
-<strong>5. <span class="he-q">שיר המעלות</span> (Shir ha-Maalot) en hiver :</strong> les 15 psaumes des montées (Tehilim 120-134) dits entre Minha et Maariv.
+<strong>5. <span class="he-q">שיר המעלות</span> (Shir HaMa'alos) in the winter:</strong> the 15 mizmorim of ascents (Tehillim 120-134) recited between Minchah and Maariv.
 </div>
 
 <div class="definition">
-<strong>6. <span class="he-q">לא לקבוע מדרש</span> :</strong> interdit kabbalistique d'organiser un nouveau cours entre Minha et Maariv (Zohar Teroumah). Mais réciter Pirké Avot / Shir ha-Maalot — c'est <em>récitation</em>, pas « kove'a midrash ».
+<strong>6. <span class="he-q">לא לקבוע מדרש</span>:</strong> Kabbalistic prohibition to establish a new shiur between Minchah and Maariv (Zohar Terumah). But reciting Pirkei Avos / Shir HaMa'alos — that is <em>recitation</em>, not "kove'a midrash."
 </div>
 
-<h2 class="section-title">4. Vue d'ensemble des 2 seifim</h2>
+<h2 class="section-title">4. Overview of the 2 seifim</h2>
 
 <div class="key-point">
 <table>
-<tr><th>Seif</th><th>Subject</th><th>Halakha</th></tr>
-<tr><td><strong>א</strong></td><td>Lecture Torah</td><td>3 olim, 10 versets parasha suivante ; Ashrei + Uva le-Tsion + Va-ani tefilati ; même Yom Tov-Shabbat</td></tr>
-<tr><td><strong>ב</strong></td><td>Tsidkatekha + minhagim</td><td>Tsidkatekha tsedek (sauf si pas nefilat apayim semaine) ; Pirké Avot été / Shir ha-Maalot hiver</td></tr>
+<tr><th>Seif</th><th>Topic</th><th>Halacha</th></tr>
+<tr><td><strong>א</strong></td><td>Krias HaTorah</td><td>3 olim, 10 pesukim following parashah; Ashrei + Uva le-Tzion + Va-ani sefilasi; even Yom Tov-Shabbat</td></tr>
+<tr><td><strong>ב</strong></td><td>Tzidkascha + minhagim</td><td>Tzidkascha tzedek (unless no nefilas apayim during the week); Pirkei Avos summer / Shir HaMa'alos winter</td></tr>
 </table>
 </div>
 
 <div class="page-break"></div>
 
-<h2 class="section-title">5. Le Mishnah Berurah — premières entrées</h2>
+<h2 class="section-title">5. The Mishnah Berurah — first entries</h2>
 
-<p>Le Mishnah Berurah de Rabbi Israël Méir Kagan (Hafets Haïm) compte <strong>9 entrées</strong> sur ce siman. Voici les premières — pour mieux comprendre le sens des seifim :</p>
+<p>The Mishnah Berurah of Rabbi Yisrael Meir Kagan (Chafetz Chaim) counts <strong>9 entries</strong> on this siman. Here are the first — to better understand the seifim:</p>
 
 <div class="sacred-text he"><strong>משנה ברורה (א)</strong> — (א) אומרים אשרי ובא לציון וכו' - ומפסיקין בקדיש קודם ואני תפלתי. ואמירת ובא לציון במנחה הוא במקום סדר קדושה דחול ובשבת שמאריכין הרבה בשחרית ומוסף הניחוה עד מנחה [כל בו]:</div>
 <div class="sacred-text he"><strong>משנה ברורה (ב)</strong> — (ב) ואני תפלתי - הוא על פי המדרש שאמר דוד לפני הקב"ה רבש"ע אין אומה זו כעו"ג ששותין ומשתכרים ופוחזים ואנו לא כן אע"פ שאכלנו ושתינו ואני תפלתי וגו' אבל במנחה של יו"ט א"א אותו כיון דאין קורין בתורה שהוא עת רצון עי"ז ומיהו בשבת נהגו לאמרו אף במקום שאין ס"ת וכן אפילו ביחיד [אחרונים]:</div>
 <div class="sacred-text he"><strong>משנה ברורה (ג)</strong> — (ג) ומוציאין וכו' - הוא מתקנת עזרא כדאיתא בגמרא:</div>
 
-<p style="font-size: 10pt; color: #666;"><em>Pour le texte intégral des 9 entrées, consulte Sefaria : <a href="https://www.sefaria.org/Mishnah_Berurah.292" target="_blank">Mishnah Berurah 292</a>.</em></p>
+<p style="font-size: 10pt; color: #666;"><em>For the full text of all 9 entries, consult Sefaria: <a href="https://www.sefaria.org/Mishnah_Berurah.292" target="_blank">Mishnah Berurah 292</a>.</em></p>
 
-<h2 class="section-title">6. La position du Rama</h2>
+<h2 class="section-title">6. The position of the Rema</h2>
 
-<p>Là où le Rama (Rabbi Moshe Isserles) ajoute une <em>הגהה</em> (glose), il précise généralement les nuances ashkénazes par rapport au Mehaber séfarade. Vérifie attentivement le texte hébreu ci-dessus pour repérer les passages introduits par <span class="he-q">הגה</span>.</p>
+<p>Wherever the Rema (Rabbi Moshe Isserles) adds a <em>הגהה</em> (gloss), he generally clarifies the Ashkenazi nuances vis-à-vis the Sefardi Mechaber. Look carefully at the Hebrew text above to spot the passages introduced by <span class="he-q">הגה</span>.</p>
 
 <div class="remember">
-<strong>L'ajout du Rama dans ce siman :</strong>
+<strong>The Rema's addition in this siman:</strong>
 <ul class="compact">
-<li><strong>Seif ב :</strong> ne pas établir de cours d'étude entre Minha et Maariv (Tour, Zohar). Dire Pirké Avot l'été et Shir ha-Maalot l'hiver. According to les minhagim.</li>
+<li><strong>Seif ב:</strong> not to establish a study session between Minchah and Maariv (Tur, Zohar). Say Pirkei Avos in the summer and Shir HaMa'alos in the winter. According to the minhagim.</li>
 </ul>
 </div>
 
-<h2 class="section-title">7. Cas pratiques modernes</h2>
+<h2 class="section-title">7. Modern practical applications</h2>
 
 <table>
-<tr><th>Situation</th><th>Halakha pratique</th></tr>
-<tr><td><strong>Tefilat Minha Shabbat à la kéhila</strong></td><td>Ashrei + Uva le-Tsion + Va-ani tefilati → Hatsi Kaddish → sortie du Sefer Torah → 3 olim, 10 versets parasha suivante → Ashrei + Yehalelou → rangement Sefer → Hatsi Kaddish → Amida → Tsidkatekha tsedek → Kaddish</td></tr>
-<tr><td><strong>Pas de minyan à Minha</strong></td><td>Pas de kri'at ha-Torah ; Va-ani tefilati dit individuellement néanmoins (MB)</td></tr>
-<tr><td><strong>Shabbat-Yom Tov</strong></td><td>Lecture de la parasha suivante (pas la parasha de Yom Tov) ; voir siman pour exceptions selon les jours</td></tr>
-<tr><td><strong>Erev Pessah-Shabbat / 9 Av qui tombe Shabbat</strong></td><td>Tsidkatekha tsedek omis (cas où nefilat apayim manque en semaine — voir siman pour la liste)</td></tr>
-<tr><td><strong>Pirké Avot l'été</strong></td><td>De Shabbat après Pessah à Shabbat avant Roch Hachana — un chapitre par semaine ; 6 + 1 (Kinyan Torah) = 7 cycles</td></tr>
-<tr><td><strong>Shir ha-Maalot l'hiver</strong></td><td>De Shabbat Bereshit à Shabbat HaGadol — Tehilim 120-134 (les 15 montées)</td></tr>
-<tr><td><strong>Bar-Mitzvah à Minha</strong></td><td>Possible — le jeune homme peut monter à la Torah ; mais usage : à Shabbat matin</td></tr>
-<tr><td><strong>Cours rabbinique entre Minha et Maariv</strong></td><td>Interdit lekhathila (Zohar) ; mais dire Pirké Avot/Shir ha-Maalot c'est une récitation, pas un cours formel — permis</td></tr>
+<tr><th>Situation</th><th>Practical halacha</th></tr>
+<tr><td><strong>Tefilas Minchah Shabbat in shul</strong></td><td>Ashrei + Uva le-Tzion + Va-ani sefilasi → Chatzi Kaddish → taking out the Sefer Torah → 3 olim, 10 pesukim following parashah → Ashrei + Yehallelu → returning the Sefer → Chatzi Kaddish → Amidah → Tzidkascha tzedek → Kaddish</td></tr>
+<tr><td><strong>No minyan at Minchah</strong></td><td>No krias haTorah; but Va-ani sefilasi is recited individually nonetheless (MB)</td></tr>
+<tr><td><strong>Shabbat-Yom Tov</strong></td><td>Reading of the following parashah (not the parashah of Yom Tov); see siman for exceptions per the days</td></tr>
+<tr><td><strong>Erev Pesach-Shabbat / 9th of Av falling on Shabbat</strong></td><td>Tzidkascha tzedek omitted (cases where nefilas apayim is absent during the week — see siman for the list)</td></tr>
+<tr><td><strong>Pirkei Avos in the summer</strong></td><td>From the Shabbat after Pesach to the Shabbat before Rosh Hashanah — one perek per week; 6 + 1 (Kinyan Torah) = 7 cycles</td></tr>
+<tr><td><strong>Shir HaMa'alos in the winter</strong></td><td>From Shabbat Bereishis to Shabbat HaGadol — Tehillim 120-134 (the 15 ascents)</td></tr>
+<tr><td><strong>Bar Mitzvah at Minchah</strong></td><td>Possible — the young man can be called to the Torah; but custom: on Shabbat morning</td></tr>
+<tr><td><strong>Rabbinic shiur between Minchah and Maariv</strong></td><td>Forbidden lechatchilah (Zohar); but saying Pirkei Avos/Shir HaMa'alos is a recitation, not a formal shiur — permitted</td></tr>
 </table>
 
 <div class="key-point">
-<strong>Règle pratique :</strong> Minha Shabbat = <strong>tefilla courte mais dense</strong>. Le seul moment de la semaine où l'on lit la Torah Minha avec 3 olim. C'est le pivot kabbalistique du jour — <em>et ratzon</em>.
+<strong>Practical rule:</strong> Minchah of Shabbat = <strong>short but dense tefillah</strong>. The only moment of the week when we read the Torah at Minchah with 3 olim. It is the Kabbalistic pivot of the day — <em>eis ratzon</em>.
 </div>
 
-<h2 class="section-title">8. Practical synthesis du Siman</h2>
+<h2 class="section-title">8. Practical summary of the Siman</h2>
 
 <div class="key-point">
-<strong>Les 4 enseignements clés du Siman <bdi>רצ"ב</bdi> :</strong>
+<strong>The 4 key teachings of Siman <bdi>רצ"ב</bdi>:</strong>
 <ol>
-  <li><strong>Lecture de la Torah à Minha :</strong> 3 olim, 10 versets, parasha <em>suivante</em> (anticipation hebdomadaire).</li>
-  <li><strong>Même Shabbat-Yom Tov :</strong> on lit la parasha hebdomadaire, pas celle de Yom Tov.</li>
-  <li><strong>Va-ani tefilati :</strong> verset propre à Minha Shabbat — <em>et ratzon</em>.</li>
-  <li><strong>Tsidkatekha tsedek + Pirké Avot/Shir ha-Maalot :</strong> liturgie spécifique d'après-Minha.</li>
+  <li><strong>Krias HaTorah at Minchah:</strong> 3 olim, 10 pesukim, <em>following</em> parashah (weekly anticipation).</li>
+  <li><strong>Even Shabbat-Yom Tov:</strong> we read the weekly parashah, not that of Yom Tov.</li>
+  <li><strong>Va-ani sefilasi:</strong> verse particular to Minchah of Shabbat — <em>eis ratzon</em>.</li>
+  <li><strong>Tzidkascha tzedek + Pirkei Avos/Shir HaMa'alos:</strong> liturgy specific to after Minchah.</li>
 </ol>
 </div>
 
-<h2 class="section-title">9. Comprehension questions</h2>
+<h2 class="section-title">9. Review questions</h2>
 
 <div class="question-box">
-<strong>Vérifie ta compréhension :</strong>
+<strong>Check your understanding:</strong>
 <ol>
-  <li>Combien d'olim et combien de versets à la lecture de Minha Shabbat ? De quelle parasha ?</li>
-  <li>Pourquoi le verset Va-ani tefilati est-il spécifique à Minha Shabbat ? Quelle expression-clé ?</li>
-  <li>Que dit-on à Minha si Yom Tov tombe Shabbat — la parasha suivante ou celle de Yom Tov ? Pourquoi ?</li>
-  <li>Qu'est-ce que Tsidkatekha tsedek et quand ne le dit-on pas ?</li>
-  <li>Que dit-on entre Minha et Maariv en été ? En hiver ? Pourquoi pas un cours ?</li>
-  <li>Quelle est la signification de « <em>et ratzon</em> » pour Minha Shabbat ?</li>
+  <li>How many olim and how many pesukim at krias haTorah of Minchah Shabbat? From which parashah?</li>
+  <li>Why is the verse Va-ani sefilasi particular to Minchah of Shabbat? Which key expression?</li>
+  <li>What do we say at Minchah if Yom Tov falls on Shabbat — the following parashah or that of Yom Tov? Why?</li>
+  <li>What is Tzidkascha tzedek and when do we not say it?</li>
+  <li>What is said between Minchah and Maariv in the summer? In the winter? Why no shiur?</li>
+  <li>What is the meaning of "<em>eis ratzon</em>" for Minchah of Shabbat?</li>
 </ol>
 </div>
 
 <hr class="ornament">
 
-<h3>Pour aller plus loin</h3>
+<h3>To go further</h3>
 
 <div class="remember">
-Si tu veux <strong>approfondir</strong> ce siman :
+If you want to <strong>deepen</strong> this siman:
 <ul class="compact">
-  <li>📚 <strong>Level 2 — Lamdan</strong> : pour le pilpoul, les שיטות ראשונים, les חקירות יסודיות, et les nuances Acharonim</li>
-  <li>✨ <strong>Level 3 — Synthèse</strong> : pour la révision et la mémorisation rapide avec mnémoniques</li>
-  <li>📜 <strong>Level 4 — Daat HaRav</strong> : la chitah de l'Admour HaZaken (Choulhan Aroukh HaRav siman <bdi>רצ"ב</bdi>)</li>
+  <li>📚 <strong>Level 2 — Lamdan</strong>: for the pilpul, shitos of the Rishonim, chakiros yesodiyos, and Acharonim nuances</li>
+  <li>✨ <strong>Level 3 — Synthesis</strong>: for review and quick memorization with mnemonics</li>
+  <li>📜 <strong>Level 4 — Daat HaRav</strong>: the shitah of the Alter Rebbe (Shulchan Aruch HaRav siman <bdi>רצ"ב</bdi>)</li>
 </ul>
 </div>
 
@@ -331,15 +297,15 @@ Si tu veux <strong>approfondir</strong> ce siman :
 ~ ~ ~ ~ ~<br>
 <strong>DAAT</strong> · <strong>רב יוסף חיים סממה</strong><br>
 <br>
-<em>סימן רצ"ב · Level 1 — Initiation</em><br>
-<a href="../../../soutenir-en.html" style="display:inline-block;margin-top:14px;font-size:13px;color:#B8972A;text-decoration:none;border:1px solid rgba(184,151,42,0.5);padding:6px 16px;border-radius:2px;">♥ Support DAAT</a>
+<em>סימן רצ"ב · Level 1 — Introduction</em><br>
+<a href="../../../soutenir.html" style="display:inline-block;margin-top:14px;font-size:13px;color:#B8972A;text-decoration:none;border:1px solid rgba(184,151,42,0.5);padding:6px 16px;border-radius:2px;">♥ Support DAAT</a>
 </div>
 
   <link rel="stylesheet" href="../../../assets/css/khavroutha-fab.css">
 <link rel="stylesheet" href="../../../assets/css/chat-widget.css">
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="../../../assets/js/chat-widget.js" defer></script>
-<a href="../../../communaute-en.html#khavroutha" class="daat-khavroutha-fab" title="Find a khavroutha for this siman"><span class="icon">📖</span><span class="label-long">Join the khavroutha</span></a>
+<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="Find a chavrusa for this siman"><span class="icon">📖</span><span class="label-long">Join the chavrusa</span></a>
   <script src="../../../assets/js/daat-progress.js"></script>
 </body>
 </html>
