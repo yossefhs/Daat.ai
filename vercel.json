@@ -34,6 +34,7 @@
     { "source": "/oh/", "destination": "/sources/shabbat/index.html" },
     { "source": "/oh/:n(\\d+)", "destination": "/sources/shabbat/siman-:n/index.html" },
     { "source": "/oh/:n(\\d+)/", "destination": "/sources/shabbat/siman-:n/index.html" },
+    { "source": "/oh/:n(\\d+)/pdfs/:file", "destination": "/sources/shabbat/siman-:n/pdfs/:file" },
     { "source": "/oh/:n(\\d+)/base", "destination": "/sources/shabbat/siman-:n/niveau-1-base.html" },
     { "source": "/oh/:n(\\d+)/base/", "destination": "/sources/shabbat/siman-:n/niveau-1-base.html" },
     { "source": "/oh/:n(\\d+)/lamdan", "destination": "/sources/shabbat/siman-:n/niveau-2-lamdan.html" },
