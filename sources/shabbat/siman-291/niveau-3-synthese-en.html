@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Siman <bdi>רצ"א</bdi> · Level 3 Master Synthesis — Seudah Shlishis of Shabbat | DAAT</title>
+<meta name="description" content="Level 3 (Synthesis) of Siman רצ"א — Structured recap for review and memorization: axiom, hierarchy, decision trees, mnemonics.">
+<meta name="author" content="Rav Yossef Haim Samama">
+<link rel="canonical" href="https://daattorah.com/oh/291/synthese">
+  <link rel="alternate" hreflang="fr" href="https://daattorah.com/sources/shabbat/siman-291/niveau-3-synthese.html">
+  <link rel="alternate" hreflang="en" href="https://daattorah.com/sources/shabbat/siman-291/niveau-3-synthese-en.html">
+  <link rel="alternate" hreflang="he" href="https://daattorah.com/sources/shabbat/siman-291/niveau-3-synthese-he.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="DAAT דעת">
+<meta property="og:title" content="Siman רצ"א · Level 3 Master Synthesis">
+<meta property="og:description" content="Structured recap for review and memorization.">
+<meta property="og:url" content="https://daattorah.com/oh/291/synthese">
+<meta property="og:image" content="https://daattorah.com/assets/img/og/siman-291.svg">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Siman רצ"א · Level 3 Master Synthesis">
+<meta name="twitter:description" content="Structured recap.">
+<meta name="twitter:image" content="https://daattorah.com/assets/img/og/siman-291.svg">
+<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 2cm 1.8cm; }
+  @media print { .daat-nav-bar, .daat-breadcrumb { display: none !important; } }
+  body { font-family: 'Georgia', 'Cambria', serif; font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0; }
+  .he { direction: rtl; text-align: right; font-family: 'Frank Ruhl Libre', 'David', 'Times New Roman', serif; font-size: 13pt; line-height: 1.9; }
+  .he-q { direction: rtl; unicode-bidi: embed; font-family: 'Frank Ruhl Libre', 'David', serif; font-weight: 600; color: #1A1F3A; }
+  .container { max-width: 720pt; margin: 0 auto; padding: 24pt 32pt; }
+  .cover { text-align: center; margin: 2cm 0; }
+  .cover .badge-top { color: #C5A55A; font-size: 11pt; letter-spacing: 4px; margin-bottom: 10px; }
+  .cover h1 { font-family: 'Frank Ruhl Libre', serif; font-size: 32pt; color: #1A1F3A; margin: 12px 0 8px; font-weight: 900; }
+  .cover .he-title { font-family: 'Frank Ruhl Libre', serif; font-size: 28pt; color: #C5A55A; direction: rtl; margin: 4px 0; }
+  .cover .subtitle { font-style: italic; font-size: 13pt; color: #555; margin: 16px 0; }
+  .cover .meta { font-size: 11pt; color: #888; margin-top: 24px; line-height: 1.8; }
+  .ornament { border: none; height: 2px; background: #C5A55A; margin: 24px auto; width: 60px; }
+  h2 { color: #1A1F3A; font-family: 'Frank Ruhl Libre', serif; font-size: 18pt; margin: 32pt 0 12pt; padding-bottom: 8pt; border-bottom: 2px solid #C5A55A; }
+  h3 { color: #1A1F3A; font-family: 'Frank Ruhl Libre', serif; font-size: 14pt; margin: 20pt 0 8pt; font-weight: 700; }
+  h4 { color: #6B3FA0; font-size: 13pt; margin: 14pt 0 6pt; font-weight: 700; }
+  p { margin: 10pt 0; }
+  ul, ol { margin: 10pt 0 10pt 24pt; }
+  li { margin: 6pt 0; }
+  table { width: 100%; border-collapse: collapse; margin: 16pt 0; font-size: 10pt; }
+  th { background: #1A1F3A; color: #C5A55A; padding: 10pt; text-align: left; font-weight: 600; font-size: 10pt; letter-spacing: 1px; text-transform: uppercase; }
+  td { padding: 10pt; border-bottom: 1px solid #E4DDD0; vertical-align: top; }
+  tr:nth-child(even) td { background: #FAF6EE; }
+  .axiome { background: linear-gradient(135deg, #FFF8E5 0%, #FAF6EE 100%); border-left: 4px solid #C5A55A; padding: 16pt 20pt; margin: 16pt 0; font-size: 12pt; line-height: 1.8; }
+  .axiome strong { color: #C5A55A; font-size: 14pt; }
+  .remember { background: #E8F5EE; border-left: 4px solid #2E7D52; padding: 14pt 18pt; margin: 14pt 0; }
+  .warning { background: #FFE8E8; border-left: 4px solid #C0392B; padding: 14pt 18pt; margin: 14pt 0; }
+  .mnemonic { background: #F3E8FF; border-left: 4px solid #6B3FA0; padding: 14pt 18pt; margin: 14pt 0; font-family: 'Inter', sans-serif; }
+  .mnemonic .letter { font-weight: 700; color: #6B3FA0; font-size: 13pt; }
+  .schema { background: #F5F5F8; padding: 16pt; margin: 14pt 0; border: 1px solid #E4DDD0; }
+  .schema-step { display: block; padding: 8pt 12pt; margin: 6pt 0; background: #fff; border: 1px solid #E4DDD0; }
+  .schema-arrow { text-align: center; color: #C5A55A; margin: 4pt 0; font-size: 14pt; }
+  .pesak-box { background: #FFF3E0; border: 2px solid #C5A55A; padding: 14pt 18pt; margin: 16pt 0; }
+  .pesak-box h4 { margin-top: 0; color: #C5A55A; }
+  .yh-watermark { text-align: center; margin-top: 60pt; padding-top: 16pt; border-top: 1px solid #E4DDD0; font-size: 10pt; color: #999; line-height: 1.6; }
+  .compact li { margin: 3pt 0; }
+  .toc { background: #FAF6EE; padding: 16pt 20pt; margin: 16pt 0; }
+  .toc ol { margin-left: 20pt; }
+  .lang-switcher-float { position: fixed; top: 12px; right: 12px; z-index: 9999; display: flex; gap: 4px; background: rgba(255,255,255,0.95); border: 1px solid #C5A55A; padding: 4px 6px; border-radius: 3px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); font-family: 'Inter', sans-serif; }
+  .lang-switcher-float a { font-size: 11px; letter-spacing: 1px; padding: 3px 7px; border-radius: 2px; color: #5a4a1a; text-decoration: none; border: 1px solid transparent; }
+  .lang-switcher-float a.active { color: #1A1F3A; background: #FFF8E5; border-color: #1A1F3A; font-weight: 600; }
+  .lang-switcher-float a:hover { color: #1A1F3A; border-color: #C5A55A; }
+  @media print { .lang-switcher-float { display: none; } }
+</style>
+</head>
+<body>
+<div class="lang-switcher-float" role="navigation" aria-label="Language"><a href="niveau-3-synthese.html">FR</a><a href="niveau-3-synthese-he.html">HE</a><a href="niveau-3-synthese-en.html" class="active">EN</a></div>
+
+<div style="background:#FFF8E5;border:1px solid #C5A55A;border-left:4px solid #C5A55A;padding:10px 16px;margin:0 0 20px;font-family:'Inter',sans-serif;font-size:14px;color:#5a4a1a;direction:ltr;text-align:left;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+<span>ℹ️ Fully translated page</span>
+<span style="font-size:12px;letter-spacing:1px;"><a href="niveau-3-synthese.html" style="color:#8C6F1E;padding:2px 8px;border:1px solid #C5A55A;text-decoration:none;">FR</a> <a href="niveau-3-synthese-he.html" style="color:#8C6F1E;padding:2px 8px;border:1px solid #C5A55A;text-decoration:none;">HE</a> <a href="#" style="color:#1A1F3A;padding:2px 8px;border:1px solid #1A1F3A;background:#FFF8E5;text-decoration:none;font-weight:600;">EN</a></span>
+</div>
+
+<div style="background:#1A1F3A;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:58px;border-bottom:2px solid #C5A55A;">
+  <a href="../../../index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+    <span style="font-family:'Frank Ruhl Libre',serif;font-size:24px;font-weight:700;color:#C5A55A;">דעת</span>
+    <span style="font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:#fff;letter-spacing:3px;">DAAT</span>
+  </a>
+  <div style="display:flex;gap:20px;align-items:center;">
+    <a href="../index.html" style="color:#C5A55A;text-decoration:none;font-family:'Inter',sans-serif;font-size:13px;">Hilchos Shabbat</a>
+    <a href="index.html" style="color:#fff;text-decoration:none;font-family:'Inter',sans-serif;font-size:13px;">Siman <bdi>רצ"א</bdi></a>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="cover">
+  <div class="badge-top">DAAT · LEVEL 3 — MASTER SYNTHESIS</div>
+  <h1>Siman <bdi>רצ"א</bdi></h1>
+  <div class="he-title">סימן רצ"א · דִּין שָׁלֹשׁ סְעֻדּוֹת</div>
+  <div class="subtitle">Recap & mnemonics for review</div>
+  <hr class="ornament">
+  <div class="meta">
+    Master synthesis · Hilchos Shabbat · 6 seifim<br>
+    <em>For memorizing and reviewing after Levels 1 & 2</em>
+  </div>
+</div>
+
+<div style="text-align:center;margin:20px 0;">
+  <button onclick="window.print()" class="print-btn" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;background:#1A1F3A;color:#C5A55A;padding:10px 22px;border:1px solid #C5A55A;border-radius:2px;cursor:pointer;text-transform:uppercase;">📄 Print / Save as PDF</button>
+</div>
+<style>@media print { .print-btn, .daat-khavroutha-fab, .daat-chat-fab { display: none !important; } }</style>
+
+
+<h3>📑 Synthesis plan</h3>
+
+<div class="toc">
+<ol class="compact">
+  <li><strong>The central axiom</strong> of the siman</li>
+  <li><strong>Key concepts</strong> condensed</li>
+  <li><strong>Hierarchy of cases</strong> — from broadest to most restrictive</li>
+  <li><strong>Decision tree</strong></li>
+  <li><strong>The heart of the siman</strong> — the obligation facing the satisfied body</li>
+  <li><strong>Pitfalls to avoid</strong></li>
+  <li><strong>Modern practical applications</strong></li>
+  <li><strong>Final summary table</strong></li>
+  <li><strong>The practical commandments</strong></li>
+</ol>
+</div>
+
+<h2>1. The central axiom</h2>
+
+<div class="axiome">
+<strong>Siman <bdi>רצ"א</bdi> in one sentence.</strong><br>
+The third Shabbat seudah — <em>seudah shlishis</em> — is <strong>obligatory</strong> (three "ha-yom" in Shemot 16:25; saves from 3 calamities per Shabbat 117b); from <strong>Minchah gedolah (6½ halachic hours)</strong>, with <em>lechem mishneh</em> (1 whole loaf by minhag), <strong>without Kiddush</strong>, ideally with bread but at minimum a <em>ka-beitzah</em> (approx. 56g) — except in cases of impossibility where one does not constrain himself.
+</div>
+
+<h2>2. Key concepts condensed</h2>
+
+<table>
+<tr><th>Concept</th><th>Definition</th><th>Application</th></tr>
+<tr><td><span class="he-q">שלוש סעודות</span></td><td>3 obligatory Shabbat seudos</td><td>Shabbat 117b; Shemot 16:25</td></tr>
+<tr><td><span class="he-q">כביצה</span></td><td>approx. 56 grams</td><td>Minimum if satisfied</td></tr>
+<tr><td><span class="he-q">משש שעות ומחצה</span></td><td>approx. 12:30 halachic (Minchah gedolah)</td><td>Start of valid time</td></tr>
+<tr><td><span class="he-q">אכילה גסה</span></td><td>Forced eating without appetite</td><td>Does not discharge the obligation</td></tr>
+<tr><td><span class="he-q">לחם משנה</span></td><td>2 loaves (minhag: 1 whole)</td><td>Leniency at seudah shlishis</td></tr>
+<tr><td><span class="he-q">רעוא דרעוין</span></td><td>"Favor of favors"</td><td>Kabbalistic name (Zohar)</td></tr>
+<tr><td><span class="he-q">חכם עיניו בראשו</span></td><td>"The wise man has his eyes in his head"</td><td>Plan from the morning</td></tr>
+</table>
+
+<h2>3. Hierarchy of foods</h2>
+
+<div class="schema">
+<span class="schema-step"><strong>★★★★ Ideal:</strong> bread (lechem hamotzi)</span>
+<div class="schema-arrow">↓</div>
+<span class="schema-step"><strong>★★★ If satisfied:</strong> mezonos (5 grains)</span>
+<div class="schema-arrow">↓</div>
+<span class="schema-step"><strong>★★ Bedieved:</strong> meat, fish, main dish</span>
+<div class="schema-arrow">↓</div>
+<span class="schema-step"><strong>★ Ultimate:</strong> fruits</span>
+</div>
+
+<h2>4. Decision tree — How to fulfill seudah shlishis?</h2>
+
+<div class="schema">
+<span class="schema-step"><strong>Q1:</strong> What time is it?</span>
+<div class="schema-arrow">↓ Before 12:30 → too early, wait</div>
+<div class="schema-arrow">↓ After 12:30 → continue</div>
+<span class="schema-step"><strong>Q2:</strong> Do I have enough appetite for bread + side dish?</span>
+<div class="schema-arrow">↓ Yes → bread + lechem mishneh (1 whole)</div>
+<div class="schema-arrow">↓ Too satisfied for bread → mezonos or meat/fish</div>
+<span class="schema-step"><strong>Q3:</strong> Am I totally unable to eat?</span>
+<div class="schema-arrow">↓ Yes → no obligation to pain oneself (seif א)</div>
+<div class="schema-arrow">↓ No → at least ka-beitzah (approx. 56g)</div>
+<span class="schema-step"><strong>Q4:</strong> Order tefillah/seudah → Minchah first, then seudah (current minhag).</span>
+<div class="schema-arrow">↓</div>
+<span class="schema-step"><strong>Q5:</strong> Birkas Hamazon with Retzei at the end.</span>
+</div>
+
+<h2>5. The heart of the siman — the obligation facing the satisfied body</h2>
+
+<p>Siman <bdi>רצ"א</bdi> sets a firm obligation: <strong>three seudos on Shabbat</strong>, derived from the three "<span class="he-q">הַיּוֹם</span>" of the verse (Shemot 16:25) and assuring deliverance from three calamities (Shabbat 117b). But its real difficulty is neither the count nor the source — it is a <em>practical collision</em> that the whole siman works to resolve: seudah shlishis falls in the afternoon, when one is already satisfied from the hearty morning seudah.</p>
+
+<div class="schema">
+<span class="schema-step"><strong>The tension:</strong> the mitzvah demands a real meal, ideally of bread. But eating without hunger, forcing oneself, is <span class="he-q">אֲכִילָה גַסָּה</span> — "gross eating" which, says the siman, does <em>not</em> fulfill the mitzvah. One can therefore neither skip the meal nor "endure" it.</span>
+<div class="schema-arrow">↓ how the siman resolves</div>
+<span class="schema-step"><strong>An obligation modulated by appetite:</strong> the siman draws a scale. One who is hungry eats bread with lechem mishneh. Too satisfied for bread → mezonos, or meat and fish. Even further → fruits. And total inability to eat <em>exempts</em>: one does not constrain himself to suffer, because the seudah is meant to be oneg.</span>
+</div>
+
+<p>From this comes the decisive borderline case, and the advice the siman raises to a rule of wisdom: <strong><span class="he-q">חָכָם עֵינָיו בְּרֹאשׁוֹ</span></strong> — "the wise man has his eyes in his head." Since one cannot fulfill the mitzvah by forcing or abstaining, the solution is not <em>within</em> the afternoon but <em>upstream</em>: moderate the morning seudah to preserve appetite. The pitfall is prevented in advance; one who gorged at lunch closed for himself the door of the third seudah.</p>
+
+<div class="remember">
+<strong>The principle to take away.</strong> Seudah shlishis teaches that a food obligation is never an obligation to <em>gulp down</em>, but to <em>honor Shabbat through a real meal</em>. Hence the double escape: a minimum of <span class="he-q">כְּבֵיצָה</span> (approx. 56g) suffices when appetite is lacking; and genuine impossibility exempts entirely. The mitzvah is measured by intention and planning — "eyes in the head" — much more than by the quantity swallowed.
+</div>
+
+<h2>6. Mnemonic — "6.30 · ב · ש"</h2>
+
+<div class="mnemonic">
+<p><span class="letter">6.30</span> — Start at <strong>Minchah gedolah</strong> (6½ halachic hours).</p>
+<p><span class="letter">ב</span> — <strong>B</strong>eitzah: minimum ka-beitzah (approx. 56g).</p>
+<p><span class="letter">ש</span> — <strong>Sh</strong>alosh seudos: zecher to the 3× "ha-yom" of the verse Shemot 16:25.</p>
+</div>
+
+<div class="mnemonic">
+<p><strong>"P.M.M.F" mnemonic for foods by preference:</strong></p>
+<p><span class="letter">P</span> — <strong>P</strong>at (ideal).</p>
+<p><span class="letter">M</span> — <strong>M</strong>ezonos (5 grains).</p>
+<p><span class="letter">M</span> — <strong>M</strong>eat/fish.</p>
+<p><span class="letter">F</span> — <strong>F</strong>ruits (ultimate).</p>
+</div>
+
+<h2>7. Pitfalls to avoid</h2>
+
+<div class="warning">
+<strong>Pitfall 1 — Eating seudah shlishis before 12:30:</strong> mitzvah not fulfilled per the Mechaber. Wait for Minchah gedolah.
+</div>
+
+<div class="warning">
+<strong>Pitfall 2 — Not making seudah shlishis at all:</strong> missing a structural mitzvah of Shabbat. At minimum a ka-beitzah of bread.
+</div>
+
+<div class="warning">
+<strong>Pitfall 3 — Eating too much in the morning:</strong> "chacham einav b'rosho" — leave room for seudah shlishis. Anticipate!
+</div>
+
+<div class="warning">
+<strong>Pitfall 4 — Eating in achilas gassa:</strong> forced eating without appetite does not fulfill the mitzvah. Better: interrupt the morning seudah.
+</div>
+
+<div class="warning">
+<strong>Pitfall 5 — Forgetting lechem mishneh:</strong> minimum 1 whole loaf (minhag). Touch both even if breaking on one.
+</div>
+
+<div class="warning">
+<strong>Pitfall 6 — Thinking Kiddush is needed:</strong> no. The daytime Kiddush is done in the morning. At seudah shlishis: just bread + meal.
+</div>
+
+<h2>8. Modern practical applications</h2>
+
+<table>
+<tr><th>Situation</th><th>Reference</th><th>Conduct</th></tr>
+<tr><td>Very satisfied, no appetite</td><td>Seif א</td><td>Ka-beitzah of bread (approx. 56g) suffices</td></tr>
+<tr><td>Unable to eat</td><td>Seif א</td><td>No obligation to pain oneself; eat a bit of mezonos or fruit</td></tr>
+<tr><td>Morning meal too long</td><td>Seif ג</td><td>Interrupt at 12:30: Birkas Hamazon → netilah → new bread</td></tr>
+<tr><td>Late Shabbat brunch</td><td>—</td><td>Brunch does not "count" as seudah shlishis if before 12:30</td></tr>
+<tr><td>Erev Pesach-Shabbat</td><td>Rema seif ה</td><td>Fish, meat, or matzah ashirah (non-chametz bread)</td></tr>
+<tr><td>Woman alone at home</td><td>Seif ו</td><td>Equal obligation; make 3 seudos</td></tr>
+<tr><td>Travel / hospital on Shabbat</td><td>—</td><td>Do what you can. At minimum ka-beitzah.</td></tr>
+<tr><td>Traditional zemiros ("Yedid Nefesh")</td><td>Custom</td><td>Many sing Yedid Nefesh, Mizmor le-David, Bnei Heichala</td></tr>
+</table>
+
+<h2>9. Final summary table</h2>
+
+<table>
+<tr><th>Element</th><th>Detail</th></tr>
+<tr><td>Topic</td><td>Seudah shlishis — 3rd Shabbat seudah</td></tr>
+<tr><td>Number of seifim</td><td>6</td></tr>
+<tr><td>Mishnah Berurah</td><td>26 entries</td></tr>
+<tr><td>Talmudic source</td><td>Shabbat 117b (3 seudos, 3 "ha-yom"); Pesachim 12b (Minchah gedolah)</td></tr>
+<tr><td>Halachic status</td><td>Obligation (derabbanan mostly; asmachta on Shemot 16:25)</td></tr>
+<tr><td>Merit</td><td>Saved from 3 calamities (chevlei mashiach, dina de-gehinnom, milchemes Gog u-Magog)</td></tr>
+<tr><td>Time</td><td>From 6½ halachic hours (Minchah gedolah) until end of Shabbat</td></tr>
+<tr><td>Minhag order</td><td>Minchah → seudah shlishis → Maariv</td></tr>
+<tr><td>Kiddush</td><td>None (already made in the morning)</td></tr>
+<tr><td>Lechem mishneh</td><td>Lechatchilah 2; common minhag 1 whole</td></tr>
+<tr><td>Foods</td><td>Ideally bread; mezonos, meat, fish; fruits bedieved</td></tr>
+<tr><td>Minimum</td><td>Ka-beitzah (approx. 56g); bedieved ka-zayis (approx. 28g)</td></tr>
+<tr><td>Women</td><td>Obligated</td></tr>
+<tr><td>Kabbalistic name</td><td>Raava de-raavin ("favor of favors" — Zohar)</td></tr>
+</table>
+
+<h2>10. The 6 practical commandments of Siman <bdi>רצ"א</bdi></h2>
+
+<div class="pesak-box">
+<h4>For seudah shlishis</h4>
+<ol class="compact">
+  <li><strong>Plan from the morning</strong> — don't eat too much, leave room ("chacham einav b'rosho").</li>
+  <li><strong>Wait for 12:30 (Minchah gedolah)</strong> — before, the mitzvah is not fulfilled.</li>
+  <li><strong>Daven Minchah first</strong>, then seudah shlishis (current minhag).</li>
+  <li><strong>Lechem mishneh</strong>: at minimum 1 whole loaf (lechatchilah 2).</li>
+  <li><strong>No Kiddush</strong>; just Hamotzi + meal.</li>
+  <li><strong>At minimum a ka-beitzah of bread</strong> — unless truly impossible.</li>
+</ol>
+</div>
+
+<div class="remember">
+<strong>📚 Study path recap</strong><br>
+You have studied Siman <bdi>רצ"א</bdi> in 3 levels:
+<ul class="compact">
+  <li>🌱 <strong>Level 1 — Base:</strong> the 6 seifim, English translation, halachic concepts</li>
+  <li>⚡ <strong>Level 2 — Lamdan:</strong> Talmudic sources, shitos of the Rishonim, machlokos, nafka minos</li>
+  <li>✨ <strong>Level 3 — Synthesis:</strong> axiom, mnemonic, decision tree, practical commandments</li>
+</ul>
+To go further: <strong>Level 4 — Daat HaRav</strong> (shitah of the Alter Rebbe on Shulchan Aruch HaRav siman <bdi>רצ"א</bdi>).
+</div>
+
+</div>
+
+<div class="yh-watermark">
+~ ~ ~ ~ ~<br>
+<strong>DAAT</strong> · <strong>רב יוסף חיים סממה</strong><br>
+<br>
+<em>סימן רצ"א · Level 3 — Master Synthesis</em><br>
+<a href="../../../soutenir.html" style="display:inline-block;margin-top:14px;font-size:13px;color:#B8972A;text-decoration:none;border:1px solid rgba(184,151,42,0.5);padding:6px 16px;border-radius:2px;">♥ Support DAAT</a>
+</div>
+
+  <link rel="stylesheet" href="../../../assets/css/khavroutha-fab.css">
+<link rel="stylesheet" href="../../../assets/css/chat-widget.css">
+  <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
+  <script src="../../../assets/js/chat-widget.js" defer></script>
+<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="Find a chavrusa for this siman"><span class="icon">📖</span><span class="label-long">Join the chavrusa</span></a>
+  <script src="../../../assets/js/daat-progress.js"></script>
+</body>
+</html>

@@ -7,6 +7,9 @@
   <title>404 — Cette page n'existe pas · DAAT דעת</title>
   <meta name="description" content="La page que tu cherches n'existe pas (encore). Reviens à l'accueil ou explore les Hilkhot Shabbat.">
   <meta name="robots" content="noindex">
+  <link rel="alternate" hreflang="fr" href="/404.html">
+  <link rel="alternate" hreflang="en" href="/404-en.html">
+  <link rel="alternate" hreflang="he" href="/404-he.html">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -62,6 +65,15 @@
       transition: color 0.2s;
     }
     nav a:hover { color: var(--gold); }
+
+    .lang-switcher { display: flex; gap: 6px; align-items: center; }
+    .lang-switcher a {
+      font-family: 'Inter', sans-serif; font-size: 11px;
+      padding: 3px 7px; border-radius: 2px; letter-spacing: 1px;
+      color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.15);
+    }
+    .lang-switcher a.active { color: var(--gold); border-color: var(--gold); }
+    .lang-switcher a:hover { color: var(--gold); border-color: var(--gold); }
 
     /* MAIN */
     main {
@@ -221,6 +233,11 @@
       <a href="/sources/shabbat/">Hilkhot Shabbat</a>
       <a href="/chat.html">💬 IA Daat</a>
       <a href="/communaute.html">Communauté</a>
+      <span class="lang-switcher">
+        <a href="/404.html" class="active">FR</a>
+        <a href="/404-he.html">HE</a>
+        <a href="/404-en.html">EN</a>
+      </span>
     </nav>
   </header>
 

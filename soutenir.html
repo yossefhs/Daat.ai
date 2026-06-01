@@ -10,8 +10,8 @@
 
   <!-- hreflang FR / EN / HE -->
   <link rel="alternate" hreflang="fr" href="https://daattorah.com/soutenir.html">
-  <link rel="alternate" hreflang="en" href="https://daattorah.com/soutenir.html?lang=en">
-  <link rel="alternate" hreflang="he" href="https://daattorah.com/soutenir.html?lang=he">
+  <link rel="alternate" hreflang="en" href="https://daattorah.com/soutenir-en.html">
+  <link rel="alternate" hreflang="he" href="https://daattorah.com/soutenir-he.html">
   <link rel="alternate" hreflang="x-default" href="https://daattorah.com/soutenir.html">
 
   <!-- Open Graph -->
@@ -976,7 +976,7 @@
             <li><span class="lang-fr-inline">Opus halakhique pointu</span><span class="lang-en-inline">Opus on advanced halakha</span><span class="lang-he-inline">Opus בהלכה מעמיקה</span><strong>✓</strong></li>
             <li><span class="lang-fr-inline">Reçu fiscal · 66 % déduit</span><span class="lang-en-inline">Tax receipt · 66 % deduction</span><span class="lang-he-inline">אישור מס · 66 %</span><strong>✓</strong></li>
           </ul>
-          <a href="#" class="pillar-cta" data-fallback="qonto-tomhei">
+          <a href="https://www.helloasso.com/associations/association-hessed/formulaires/9" target="_blank" rel="noopener" class="pillar-cta">
             <span class="lang-fr-inline">Soutenir Khavroutha →</span>
             <span class="lang-en-inline">Support Khavroutha →</span>
             <span class="lang-he-inline">להצטרף לחברותא ←</span>
@@ -1003,7 +1003,7 @@
             <li><span class="lang-fr-inline">Accès prioritaire nouveautés</span><span class="lang-en-inline">Priority on new features</span><span class="lang-he-inline">גישה ראשונית לחדש</span><strong>✓</strong></li>
             <li><span class="lang-fr-inline">Reçu fiscal · 66 % déduit</span><span class="lang-en-inline">Tax receipt · 66 %</span><span class="lang-he-inline">אישור מס · 66 %</span><strong>✓</strong></li>
           </ul>
-          <a href="#" class="pillar-cta" data-fallback="qonto-tomhei">
+          <a href="https://www.helloasso.com/associations/association-hessed/formulaires/9" target="_blank" rel="noopener" class="pillar-cta">
             <span class="lang-fr-inline">Soutenir Beit Midrash →</span>
             <span class="lang-en-inline">Support Beit Midrash →</span>
             <span class="lang-he-inline">להצטרף לבית המדרש ←</span>
@@ -1030,7 +1030,7 @@
             <li><span class="lang-fr-inline">Renforce les bourses talmidim</span><span class="lang-en-inline">Boosts student scholarships</span><span class="lang-he-inline">מחזק את מלגות התלמידים</span><strong>✓</strong></li>
             <li><span class="lang-fr-inline">Reçu fiscal · 66 % déduit</span><span class="lang-en-inline">Tax receipt · 66 %</span><span class="lang-he-inline">אישור מס · 66 %</span><strong>✓</strong></li>
           </ul>
-          <a href="#" class="pillar-cta" data-fallback="qonto-tomhei">
+          <a href="https://www.helloasso.com/associations/association-hessed/formulaires/9" target="_blank" rel="noopener" class="pillar-cta">
             <span class="lang-fr-inline">Soutenir Beit Midrash+ →</span>
             <span class="lang-en-inline">Support Beit Midrash+ →</span>
             <span class="lang-he-inline">להצטרף לבית המדרש+ ←</span>
@@ -1057,7 +1057,7 @@
             <li><span class="lang-fr-inline">Nom sur Mur des Bâtisseurs</span><span class="lang-en-inline">Name on Wall of Builders</span><span class="lang-he-inline">שם על קיר הבונים</span><strong>✓</strong></li>
             <li><span class="lang-fr-inline">Reçu fiscal · 66 % déduit</span><span class="lang-en-inline">Tax receipt · 66 %</span><span class="lang-he-inline">אישור מס · 66 %</span><strong>✓</strong></li>
           </ul>
-          <a href="#" class="pillar-cta" data-fallback="qonto-tomhei">
+          <a href="https://www.helloasso.com/associations/association-hessed/formulaires/9" target="_blank" rel="noopener" class="pillar-cta">
             <span class="lang-fr-inline">Soutenir Yeshiva →</span>
             <span class="lang-en-inline">Support Yeshiva →</span>
             <span class="lang-he-inline">להצטרף לישיבה ←</span>
@@ -1083,7 +1083,7 @@
             <li><span class="lang-fr-inline">Pas de renouvellement</span><span class="lang-en-inline">No renewal</span><span class="lang-he-inline">ללא חידוש</span><strong>✓</strong></li>
             <li><span class="lang-fr-inline">Reçu fiscal · 66 % déduit</span><span class="lang-en-inline">Tax receipt · 66 %</span><span class="lang-he-inline">אישור מס · 66 %</span><strong>✓</strong></li>
           </ul>
-          <a href="#" class="pillar-cta" data-fallback="qonto-tomhei">
+          <a href="https://www.helloasso.com/associations/association-hessed/formulaires/9" target="_blank" rel="noopener" class="pillar-cta">
             <span class="lang-fr-inline">Devenir Lifetime →</span>
             <span class="lang-en-inline">Become Lifetime →</span>
             <span class="lang-he-inline">להפוך ללכל החיים ←</span>
@@ -1618,55 +1618,23 @@
         if (!data || !data.ok) return;
         renderGoal({ current: data.month_total, target: data.target });
 
-        // ── Branchement des CTAs HelloAsso / Qonto ──
-        // 2 systèmes de paiement aux rôles distincts :
-        //  - HelloAsso (si env var configurée) → bouton principal, auto-upgrade immédiat
-        //  - Qonto (toujours dispo) → fallback fonctionnel, activation manuelle
-        // Tant qu'une URL HelloAsso n'est pas configurée, le bouton reste pleinement
-        // cliquable et mène à la section Qonto Tomhei Adaat (virement mensuel).
+        // ── Branchement des CTAs HelloAsso ──
+        // Chaque carte pointe par défaut (dans le HTML) vers la page HelloAsso
+        // Don libre de l'association. Si une env var spécifique au tier est
+        // configurée (HELLOASSO_FORM_KHAVROUTHA_URL, etc.), on remplace le lien
+        // par celui du formulaire dédié (auto-upgrade via webhook).
         var ha = (data && data.helloasso) || {};
-        var cards = document.querySelectorAll('[data-helloasso]');
-        cards.forEach(function (card) {
+        document.querySelectorAll('[data-helloasso]').forEach(function (card) {
           var key = card.getAttribute('data-helloasso');
           var cta = card.querySelector('.pillar-cta');
           if (!cta) return;
           var url = ha[key];
           if (url) {
-            // HelloAsso configuré → bouton = paiement direct, auto-upgrade
             cta.setAttribute('href', url);
             cta.setAttribute('target', '_blank');
             cta.setAttribute('rel', 'noopener');
-            cta.removeAttribute('data-qonto-scroll');
-            cta.style.opacity = '';
-            var oldNote = card.querySelector('.helloasso-pending');
-            if (oldNote) oldNote.remove();
-          } else {
-            // Pas de HelloAsso → bouton fonctionnel vers la section Qonto (virement mensuel)
-            cta.setAttribute('href', '#participer');
-            cta.removeAttribute('target');
-            cta.setAttribute('data-qonto-scroll', '1');
-            cta.style.opacity = '';
-            // Note claire : le paiement marche, c'est juste une activation manuelle
-            if (!card.querySelector('.helloasso-pending')) {
-              var note = document.createElement('div');
-              note.className = 'helloasso-pending';
-              note.style.cssText = 'margin-top:0.75rem;text-align:center;font-size:0.8rem;color:var(--color-muted);line-height:1.5;';
-              note.innerHTML = '💳 <span class="lang-fr-inline">Paiement par virement mensuel <strong>Qonto</strong> (section ci-dessous). Ton plan est activé manuellement sous 24&nbsp;h. L\'activation immédiate arrive bientôt.</span><span class="lang-en-inline">Monthly transfer payment via <strong>Qonto</strong> (section below). Your plan is activated manually within 24h. Instant activation coming soon.</span><span class="lang-he-inline">תשלום בהעברה חודשית דרך <strong>Qonto</strong> (בהמשך). התוכנית מופעלת ידנית תוך 24 שעות. הפעלה מיידית בקרוב.</span>';
-              card.appendChild(note);
-            }
           }
-        });
-        // Smooth-scroll + highlight bref de la section Qonto pour les boutons fallback
-        document.querySelectorAll('.pillar-cta[data-qonto-scroll]').forEach(function (btn) {
-          btn.addEventListener('click', function (e) {
-            e.preventDefault();
-            var target = document.getElementById('participer');
-            if (!target) return;
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            target.style.transition = 'box-shadow 0.4s ease';
-            target.style.boxShadow = 'inset 0 0 0 2px var(--color-gold)';
-            setTimeout(function () { target.style.boxShadow = ''; }, 1600);
-          });
+          // Sinon : on laisse le href HelloAsso Don libre déjà présent dans le HTML.
         });
       })
       .catch(() => { /* fallback default reste affiché */ });

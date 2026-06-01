@@ -5,8 +5,8 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "node scripts/generate-simanim-index.js",
-    "vercel-build": "node scripts/generate-simanim-index.js"
+    "build": "node scripts/generate-simanim-index.js && node scripts/extract-corpus.js",
+    "vercel-build": "node scripts/generate-simanim-index.js && node scripts/extract-corpus.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.91.1",

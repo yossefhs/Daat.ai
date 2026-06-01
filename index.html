@@ -9,6 +9,9 @@
   <meta name="author" content="Rav Yossef Haim Samama">
   <meta name="keywords" content="halakha, choulhan aroukh, hilkhot shabbat, siman, judaïsme français, étude torah, mishna brura, yabia omer">
   <link rel="canonical" href="https://daattorah.com/">
+  <link rel="alternate" hreflang="fr" href="https://daattorah.com/index.html">
+  <link rel="alternate" hreflang="en" href="https://daattorah.com/index-en.html">
+  <link rel="alternate" hreflang="he" href="https://daattorah.com/index-he.html">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
@@ -960,11 +963,32 @@
       .hero h1 { font-size: 48px; }
       .vision-grid, .levels-grid, .ai-features, .masekhtot-grid, .about-grid { grid-template-columns: 1fr; }
       .footer-top { flex-direction: column; gap: 32px; }
-      nav { display: none; }
+      /* Mobile : on cache les liens textuels, on garde le bouton "Étudier",
+         le sélecteur de langue et le bouton de connexion injecté par auth.js */
+      nav { gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+      nav a:not(.nav-cta):not(.nav-soutenir) { display: none; }
+      nav .nav-cta { padding: 6px 12px; font-size: 12px; }
+      nav .nav-soutenir { padding: 4px 10px; font-size: 12px; }
       .section { padding: 48px 20px; }
-      header { padding: 0 20px; }
+      header { padding: 0 16px; }
+      .lang-switcher { margin-left: 4px; }
+      .lang-switcher a { padding: 2px 5px; font-size: 10px; }
     }
-  </style>
+    @media (max-width: 480px) {
+      nav .nav-soutenir { display: none; }
+    }
+  
+    .lang-switcher { display: flex; gap: 6px; align-items: center; margin-left: 12px; }
+    .lang-switcher a {
+      font-family: 'Inter', sans-serif; font-size: 11px;
+      padding: 3px 7px; border-radius: 2px; letter-spacing: 1px;
+      color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.15);
+      text-decoration: none; text-transform: none;
+    }
+    .lang-switcher a.active { color: var(--gold, #C5A55A); border-color: var(--gold, #C5A55A); }
+    .lang-switcher a:hover { color: var(--gold, #C5A55A); border-color: var(--gold, #C5A55A); }
+
+</style>
 
   <!-- JSON-LD Schema.org : WebSite + Organization + Person + EducationalOrganization + FAQPage -->
   <script type="application/ld+json">
@@ -1053,7 +1077,7 @@
       <a href="communaute.html">Communauté</a>
       <a href="soutenir.html" class="nav-soutenir">♥ Soutenir</a>
       <a href="sources/shabbat/index.html" class="nav-cta">Étudier →</a>
-    </nav>
+    <span class="lang-switcher"><a href="index.html" class="active">FR</a><a href="index-he.html">HE</a><a href="index-en.html">EN</a></span></nav>
   </header>
 
   <main id="main">
@@ -1260,7 +1284,7 @@
         </div>
         <div>
           <div class="rav-card">
-            <div class="rav-name-he">הרב יוסף חיים סממה</div>
+            <div class="rav-name-he">רב יוסף חיים סממה</div>
             <div class="rav-divider"></div>
             <div class="rav-name-fr">Rav Yossef Haim Samama</div>
             <div class="rav-title">Fondateur · Daat Torah</div>

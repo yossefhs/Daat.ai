@@ -225,3 +225,77 @@ body.lang-he .seif-info,
 
 .daat-two-col-he::before { content: 'שולחן ערוך'; }
 .daat-two-col-fr::before { content: 'Traduction & explication'; }
+
+/* =====================================================================
+   Mobile responsive — header nav (FR + HE + EN + auth + soutenir)
+   Sans cette regle, les pages siman empilent les liens du <nav> de
+   maniere chaotique sur ecrans < 768px. On serre tout en hauteur,
+   on autorise le wrap, et on raccourcit les liens secondaires.
+   ===================================================================== */
+@media (max-width: 768px) {
+  header nav {
+    gap: 6px !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-end !important;
+    row-gap: 4px !important;
+    column-gap: 6px !important;
+    margin-left: 8px;
+  }
+  header nav a {
+    font-size: 11px !important;
+    letter-spacing: 0.5px !important;
+    margin-left: 0 !important;
+    padding: 4px 6px !important;
+  }
+  /* Cache les liens textuels secondaires (Vision, Accueil, Niveaux,
+     Communaute, etc.). On garde les boutons d'action et le switcher. */
+  header nav a:not(.nav-cta):not(.nav-soutenir):not(.daat-auth-login-btn):not(.daat-auth-logout-btn) {
+    display: none;
+  }
+  /* Le bouton Soutenir reste mais plus compact */
+  header nav a.nav-soutenir,
+  header nav a[href*='soutenir'] {
+    padding: 3px 8px !important;
+    font-size: 11px !important;
+  }
+  /* Selecteur de langue compact */
+  header nav .lang-switcher {
+    margin-left: 4px;
+    margin-right: 4px;
+    gap: 3px !important;
+  }
+  header nav .lang-switcher a {
+    padding: 2px 5px !important;
+    font-size: 10px !important;
+    display: inline-block !important;
+  }
+  /* Bouton de connexion compact */
+  header nav .daat-auth-login-btn,
+  header nav .daat-auth-btn-container button {
+    padding: 4px 8px !important;
+    font-size: 11px !important;
+  }
+  /* Logo plus compact */
+  header .logo-hebrew, header .logo-he {
+    font-size: 22px !important;
+  }
+  header .logo-latin, header .logo-en {
+    font-size: 11px !important;
+    letter-spacing: 2px !important;
+  }
+  header .logo-divider {
+    height: 24px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Sur tres petit ecran on cache aussi le Soutenir pour laisser
+     respirer le selecteur de langue et le bouton de connexion */
+  header nav a.nav-soutenir,
+  header nav a[href*='soutenir']:not(.daat-auth-login-btn) {
+    display: none !important;
+  }
+  header .logo-latin, header .logo-en {
+    display: none !important;
+  }
+}
