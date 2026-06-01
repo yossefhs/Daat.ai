@@ -259,7 +259,9 @@
   @media print { .lang-switcher-float { display: none; } }
 
 </style>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap"></noscript>
+<link rel="stylesheet" href="/assets/css/daat.css">
 <link rel="stylesheet" href="/assets/css/daat-enhance.css">
 </head>
 <body>
@@ -979,5 +981,7 @@
   <script src="../../../assets/js/chat-widget.js" defer></script>
 <a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="Trouver une khavroutha pour ce siman"><span class="icon">📖</span><span class="label-long">Rejoindre la khavroutha</span></a>
   <script src="../../../assets/js/daat-progress.js"></script>
+  <script src="/assets/js/siman-nav.js" defer></script>
+
 </body>
 </html>
