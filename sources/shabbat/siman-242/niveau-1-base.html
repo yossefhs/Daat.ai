@@ -310,6 +310,36 @@
   .lang-switcher-float a:hover { color: #1A1F3A; border-color: #C5A55A; }
   @media print { .lang-switcher-float { display: none; } }
 
+
+  /* Bouton de navigation vers le seif suivant */
+  .next-seif-nav {
+    margin: 28px 0 18px 0;
+    padding: 16px 22px;
+    background: linear-gradient(135deg, #1A1F3A 0%, #2a3050 100%);
+    border-left: 6px solid #C5A55A;
+    border-radius: 6px;
+    page-break-inside: avoid;
+  }
+  .next-seif-nav .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+  }
+  .next-seif-nav .label {
+    color: #d4c89a;
+    font-size: 10.5pt;
+    font-style: italic;
+  }
+  .next-seif-nav a {
+    color: #C5A55A;
+    text-decoration: none;
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-size: 14pt;
+    font-weight: bold;
+    transition: color 0.2s;
+  }
+  .next-seif-nav a:hover { color: #fff; }
 </style>
 </head>
 <body>
@@ -385,7 +415,7 @@
 <!-- ========================================== -->
 <!-- 1. TEXTE DU CHOULHAN AROUKH -->
 <!-- ========================================== -->
-<h2 class="section-title">1. Le texte du Choul'han Aroukh</h2>
+<h2 class="section-title" id="seif-alef">1. Le texte du Choul'han Aroukh</h2>
 
 <h3>Texte original</h3>
 
@@ -703,6 +733,8 @@ Glose du Rama : <strong>Dans certains endroits, l'usage est de pétrir à la mai
 <!-- PARTIE II — SEIFIM ב à י״ג (SHHaRav)       -->
 <!-- ========================================== -->
 
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-bet">Seif Bet →</a></div></div>
+
 <div class="page-break"></div>
 
 <h2 class="section-title">Partie II — Les Seifim Bet à Yod-Guimel selon le SHHaRav</h2>
@@ -712,7 +744,7 @@ Glose du Rama : <strong>Dans certains endroits, l'usage est de pétrir à la mai
 <!-- ========================================== -->
 <!-- SEIF BET — Avec quoi délecte-t-on Shabbat ? -->
 <!-- ========================================== -->
-<h2 class="section-title">9. Seif Bet — Avec quoi délecte-t-on Shabbat ?</h2>
+<h2 class="section-title" id="seif-bet">9. Seif Bet — Avec quoi délecte-t-on Shabbat ?</h2>
 
 <h3>Texte intégral du SHHaRav (Seif ב)</h3>
 
@@ -806,12 +838,14 @@ Et il <strong>n'y a pas d'obligation</strong> de manger de la viande ni de boire
 <strong>Question de compréhension :</strong> Pourquoi le Rav précise-t-il qu'il n'y a "pas d'obligation" de viande / vin, alors qu'il dit ensuite qu'on doit en "augmenter selon ses moyens" ? N'est-ce pas contradictoire ?
 </div>
 
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-gimel">Seif Guimel →</a></div></div>
+
 <div class="page-break"></div>
 
 <!-- ========================================== -->
 <!-- SEIF GUIMEL — Multiplier les dépenses     -->
 <!-- ========================================== -->
-<h2 class="section-title">10. Seif Guimel — Multiplier les dépenses & "לוו עלי"</h2>
+<h2 class="section-title" id="seif-gimel">10. Seif Guimel — Multiplier les dépenses & "לוו עלי"</h2>
 
 <h3>Texte intégral du SHHaRav (Seif ג)</h3>
 
@@ -907,12 +941,14 @@ Mais s'il n'a <strong>aucun bien</strong> à mettre en gage — qu'il <strong>n'
 <strong>Question de compréhension :</strong> Pourquoi la promesse "לוו עלי" ne s'applique-t-elle pas à celui qui n'a rien ? N'est-ce pas précisément lui qui aurait le plus besoin de cette aide ?
 </div>
 
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-dalet">Seif Dalet →</a></div></div>
+
 <div class="page-break"></div>
 
 <!-- ========================================== -->
 <!-- SEIF DALET — Pauvre qui a 14 séoudot       -->
 <!-- ========================================== -->
-<h2 class="section-title">11. Seif Dalet — Le pauvre qui possède 14 séoudot</h2>
+<h2 class="section-title" id="seif-dalet">11. Seif Dalet — Le pauvre qui possède 14 séoudot</h2>
 
 <h3>Texte intégral du SHHaRav (Seif ד)</h3>
 
@@ -1007,12 +1043,14 @@ Et à plus forte raison s'il veut prendre <strong>pour se délecter un peu plus<
 <strong>Question de compréhension :</strong> Pourquoi le Rav exige-t-il qu'un pauvre avec 14 séoudot ne touche pas du kupa, alors qu'il insiste tant sur l'importance d'honorer Shabbat ? N'y a-t-il pas une tension entre le kavod Shabbat et l'autonomie ?
 </div>
 
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-he">Seif Hé →</a></div></div>
+
 <div class="page-break"></div>
 
 <!-- ========================================== -->
 <!-- SEIF HÉ — Pauvre déjà inscrit au kupa      -->
 <!-- ========================================== -->
-<h2 class="section-title">12. Seif Hé — Le pauvre déjà inscrit au kupa</h2>
+<h2 class="section-title" id="seif-he">12. Seif Hé — Le pauvre déjà inscrit au kupa</h2>
 
 <h3>Texte intégral du SHHaRav (Seif ה)</h3>
 
@@ -1102,12 +1140,14 @@ De même, celui à qui une autre tsedaka donne semaine après semaine — où il
 <strong>Question de compréhension :</strong> Pourquoi un pauvre déjà inscrit au kupa a droit à plus qu'un pauvre qui s'en tient à 14 séoudot ? N'est-ce pas paradoxal : celui qui s'efforce de rester autonome reçoit moins ?
 </div>
 
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-vav">Seif Vav →</a></div></div>
+
 <div class="page-break"></div>
 
 <!-- ========================================== -->
 <!-- SEIF VAV — Faire un peu                    -->
 <!-- ========================================== -->
-<h2 class="section-title">13. Seif Vav — "Faire un peu" et se restreindre la semaine</h2>
+<h2 class="section-title" id="seif-vav">13. Seif Vav — "Faire un peu" et se restreindre la semaine</h2>
 
 <h3>Texte intégral du SHHaRav (Seif ו)</h3>
 
@@ -1210,12 +1250,14 @@ Et si ce qu'on lui donne ne suffit même pas pour <strong>une chose minime</stro
 <strong>Question de compréhension :</strong> Pourquoi le Rav valorise-t-il la restriction des repas de semaine pour libérer de quoi pour Shabbat plutôt que la sollicitation de la communauté ? Quelle valeur spirituelle est sous-jacente ?
 </div>
 
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-zayin">Seif Zayin →</a></div></div>
+
 <div class="page-break"></div>
 
 <!-- ========================================== -->
 <!-- SEIF ZAYIN — Deux mets, poisson, boycott    -->
 <!-- ========================================== -->
-<h2 class="section-title">14. Seif Zayin — Deux mets minimum, poisson, et boycott communautaire</h2>
+<h2 class="section-title" id="seif-zayin">14. Seif Zayin — Deux mets minimum, poisson, et boycott communautaire</h2>
 
 <h3>Texte intégral du SHHaRav (Seif ז)</h3>
 
@@ -1312,12 +1354,14 @@ Et si les non-juifs <strong>renchérissent le prix du poisson</strong> au point 
 <strong>Question de compréhension :</strong> Pourquoi le Rav codifie-t-il un boycott collectif dans un livre d'halakha personnelle ? En quoi cela illustre-t-il sa vision de la communauté ?
 </div>
 
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-het">Seif 'Het →</a></div></div>
+
 <div class="page-break"></div>
 
 <!-- ========================================== -->
 <!-- SEIF 'HET — Mets envoyés pour Shabbat       -->
 <!-- ========================================== -->
-<h2 class="section-title">15. Seif 'Het — Aliments envoyés pour Shabbat</h2>
+<h2 class="section-title" id="seif-het">15. Seif 'Het — Aliments envoyés pour Shabbat</h2>
 
 <h3>Texte intégral du SHHaRav (Seif ח)</h3>
 
@@ -1402,12 +1446,14 @@ Si l'on a <strong>envoyé à quelqu'un un mets pour qu'il le mange Shabbat</stro
 <strong>Question de compréhension :</strong> Quelle est la différence entre "din" et "midat hassidout" ? Pourquoi le Rav prend-il la peine de codifier ce qui n'est <em>que</em> de la midat hassidout ?
 </div>
 
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-tet">Seif Tet →</a></div></div>
+
 <div class="page-break"></div>
 
 <!-- ========================================== -->
 <!-- SEIF TET — Emprunter avec intérêts dérabanan -->
 <!-- ========================================== -->
-<h2 class="section-title">16. Seif Tet — Emprunter avec intérêts dérabanan</h2>
+<h2 class="section-title" id="seif-tet">16. Seif Tet — Emprunter avec intérêts dérabanan</h2>
 
 <h3>Texte intégral du SHHaRav (Seif ט)</h3>
 
@@ -1502,12 +1548,14 @@ Il est <strong>permis d'emprunter avec un intérêt de leurs paroles</strong> (r
 <strong>Question de compréhension :</strong> Pourquoi les Sages permettent-ils d'enfreindre leur propre interdit (ribit dérabanan) pour la séouda de Shabbat ? Le principe régent peut-il être étendu à d'autres mitzvot ?
 </div>
 
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-yod">Seif Yod →</a></div></div>
+
 <div class="page-break"></div>
 
 <!-- ========================================== -->
 <!-- SEIF YOD — Beit Shamai vs Hillel             -->
 <!-- ========================================== -->
-<h2 class="section-title">17. Seif Yod — "Zakhor" : Beit Shamai vs. Hillel</h2>
+<h2 class="section-title" id="seif-yod">17. Seif Yod — "Zakhor" : Beit Shamai vs. Hillel</h2>
 
 <h3>Texte intégral du SHHaRav (Seif י)</h3>
 
@@ -1601,12 +1649,14 @@ Mais <strong>Hillel l'Ancien</strong> avait une autre conduite : il disait "<em>
 <strong>Question de compréhension :</strong> Pourquoi est-ce que la halakha suit normalement Beit Hillel, mais sur ce point précis Hillel lui-même admet la supériorité de Beit Shamai ? Que cela révèle-t-il sur la nature du Shabbat ?
 </div>
 
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-yod-alef">Seif Yod-Alef →</a></div></div>
+
 <div class="page-break"></div>
 
 <!-- ========================================== -->
 <!-- SEIF YOD-ALEF — Tikkun Ezra                  -->
 <!-- ========================================== -->
-<h2 class="section-title">18. Seif Yod-Alef — Tikkun Ezra : laver le jeudi</h2>
+<h2 class="section-title" id="seif-yod-alef">18. Seif Yod-Alef — Tikkun Ezra : laver le jeudi</h2>
 
 <h3>Texte intégral du SHHaRav (Seif יא)</h3>
 
@@ -1700,12 +1750,14 @@ Mais <strong>Hillel l'Ancien</strong> avait une autre conduite : il disait "<em>
 <strong>Question de compréhension :</strong> Pourquoi Ezra a-t-il choisi le 5e jour (jeudi) plutôt que le 4e (mercredi) ou le 3e (mardi) ? Quel principe halakhique est en jeu ?
 </div>
 
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-yod-bet">Seif Yod-Bet →</a></div></div>
+
 <div class="page-break"></div>
 
 <!-- ========================================== -->
 <!-- SEIF YOD-BET — Pétrir les hallot              -->
 <!-- ========================================== -->
-<h2 class="section-title">19. Seif Yod-Bet — Pétrir les hallot à la maison</h2>
+<h2 class="section-title" id="seif-yod-bet">19. Seif Yod-Bet — Pétrir les hallot à la maison</h2>
 
 <h3>Texte intégral du SHHaRav (Seif יב)</h3>
 
@@ -1792,12 +1844,14 @@ Mais <strong>Hillel l'Ancien</strong> avait une autre conduite : il disait "<em>
 <strong>Question de compréhension :</strong> Pourquoi le Rav codifie-t-il ce minhag dans le corps du Choulhan Aroukh, alors que le Rama le mettait seulement en hagaha ? Quelle est la portée halakhique de ce déplacement ?
 </div>
 
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-yod-gimel">Seif Yod-Guimel →</a></div></div>
+
 <div class="page-break"></div>
 
 <!-- ========================================== -->
 <!-- SEIF YOD-GUIMEL — Pain non-juif              -->
 <!-- ========================================== -->
-<h2 class="section-title">20. Seif Yod-Guimel — Pain non-juif et hallot Shabbat</h2>
+<h2 class="section-title" id="seif-yod-gimel">20. Seif Yod-Guimel — Pain non-juif et hallot Shabbat</h2>
 
 <h3>Texte intégral du SHHaRav (Seif יג)</h3>
 
@@ -1884,12 +1938,14 @@ Mais <strong>Hillel l'Ancien</strong> avait une autre conduite : il disait "<em>
 <strong>Question de compréhension :</strong> Pourquoi le Rav met-il ce seif <em>entre parenthèses</em> dans le texte original ? Quelle est la portée halakhique de cette présentation ?
 </div>
 
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#synthese">Synthèse du siman →</a></div></div>
+
 <div class="page-break"></div>
 
 <!-- ========================================== -->
 <!-- 9. SYNTHÈSE PRATIQUE -->
 <!-- ========================================== -->
-<h2 class="section-title">21. Synthèse pratique du Siman רמ״ב</h2>
+<h2 class="section-title" id="synthese">21. Synthèse pratique du Siman רמ״ב</h2>
 
 <div class="key-point">
 <strong>Les 5 enseignements du Seif Alef en 5 phrases :</strong>

@@ -310,6 +310,36 @@
   .lang-switcher-float a:hover { color: #1A1F3A; border-color: #C5A55A; }
   @media print { .lang-switcher-float { display: none; } }
 
+
+  /* Bouton de navigation vers le seif suivant */
+  .next-seif-nav {
+    margin: 28px 0 18px 0;
+    padding: 16px 22px;
+    background: linear-gradient(135deg, #1A1F3A 0%, #2a3050 100%);
+    border-left: 6px solid #C5A55A;
+    border-radius: 6px;
+    page-break-inside: avoid;
+  }
+  .next-seif-nav .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+  }
+  .next-seif-nav .label {
+    color: #d4c89a;
+    font-size: 10.5pt;
+    font-style: italic;
+  }
+  .next-seif-nav a {
+    color: #C5A55A;
+    text-decoration: none;
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-size: 14pt;
+    font-weight: bold;
+    transition: color 0.2s;
+  }
+  .next-seif-nav a:hover { color: #fff; }
 </style>
 </head>
 <body>
@@ -390,7 +420,7 @@
 <!-- ========================================== -->
 <!-- 1. TEXT OF THE SHULCHAN AROUKH -->
 <!-- ========================================== -->
-<h2 class="section-title">1. The text of the Shulchan Aruch</h2>
+<h2 class="section-title" id="seif-alef">1. The text of the Shulchan Aruch</h2>
 
 <h3>Original text</h3>
 
@@ -629,6 +659,8 @@ The Tur adds a <strong>spiritual</strong> dimension: each person should endeavor
 <strong>The spiritual lesson:</strong> one who spends to honor Shabbos — Hashem reimburses him. The Maharil and many Acharonim encourage borrowing (without interest) rather than diminishing the honor of Shabbos.
 </div>
 
+<div class="next-seif-nav"><div class="row"><span class="label">Continue the study</span><a href="#seif-bet">Seif Bet →</a></div></div>
+
 <div class="page-break"></div>
 
 <!-- ========================================== -->
@@ -714,7 +746,7 @@ Gloss of the Rama: <strong>In some places, the custom is to knead at home the am
 <!-- ========================================== -->
 <!-- SEIF BET — With what does one delight in Shabbos? -->
 <!-- ========================================== -->
-<h2 class="section-title">9. Seif Bet — With what does one delight in Shabbos?</h2>
+<h2 class="section-title" id="seif-bet">9. Seif Bet — With what does one delight in Shabbos?</h2>
 
 <h3>Full text of the SHHaRav (Seif ב)</h3>
 
@@ -808,12 +840,14 @@ And there is <strong>no chiyuv</strong> to eat meat or drink wine on Shabbos; ra
 <strong>Comprehension question:</strong> Why does the Rav specify that there is "no chiyuv" of meat / wine, yet then say one must "increase them according to one's means"? Isn't this a contradiction?
 </div>
 
+<div class="next-seif-nav"><div class="row"><span class="label">Continue the study</span><a href="#seif-gimel">Seif Gimel →</a></div></div>
+
 <div class="page-break"></div>
 
 <!-- ========================================== -->
 <!-- SEIF GIMEL — Increasing expenses             -->
 <!-- ========================================== -->
-<h2 class="section-title">10. Seif Gimel — Increasing expenses &amp; "לוו עלי"</h2>
+<h2 class="section-title" id="seif-gimel">10. Seif Gimel — Increasing expenses &amp; "לוו עלי"</h2>
 
 <h3>Full text of the SHHaRav (Seif ג)</h3>
 
@@ -909,12 +943,14 @@ But if he has <strong>no belongings</strong> to pawn — let him <strong>not bor
 <strong>Comprehension question:</strong> Why does the promise "לוו עלי" not apply to one who has nothing? Isn't he precisely the one who would need this help the most?
 </div>
 
+<div class="next-seif-nav"><div class="row"><span class="label">Continue the study</span><a href="#seif-dalet">Seif Dalet →</a></div></div>
+
 <div class="page-break"></div>
 
 <!-- ========================================== -->
 <!-- SEIF DALET — Aniy who has 14 seudos          -->
 <!-- ========================================== -->
-<h2 class="section-title">11. Seif Dalet — The aniy who has 14 seudos</h2>
+<h2 class="section-title" id="seif-dalet">11. Seif Dalet — The aniy who has 14 seudos</h2>
 
 <h3>Full text of the SHHaRav (Seif ד)</h3>
 
@@ -1009,12 +1045,14 @@ And all the more so if he wishes to take <strong>in order to have a bit more one
 <strong>Comprehension question:</strong> Why does the Rav require an aniy with 14 seudos not to touch the kupah, when he insists so much on the importance of honoring Shabbos? Isn't there a tension between kavod Shabbos and autonomy?
 </div>
 
+<div class="next-seif-nav"><div class="row"><span class="label">Continue the study</span><a href="#seif-he">Seif Heh →</a></div></div>
+
 <div class="page-break"></div>
 
 <!-- ========================================== -->
 <!-- SEIF HEH — Aniy already on the kupah         -->
 <!-- ========================================== -->
-<h2 class="section-title">12. Seif Heh — The aniy already on the kupah</h2>
+<h2 class="section-title" id="seif-he">12. Seif Heh — The aniy already on the kupah</h2>
 
 <h3>Full text of the SHHaRav (Seif ה)</h3>
 
@@ -1104,12 +1142,14 @@ Similarly, one to whom another tzedakah gives week after week — from which he 
 <strong>Comprehension question:</strong> Why does an aniy already enrolled on the kupah have a right to more than an aniy who manages with 14 seudos? Isn't this paradoxical: the one who strives to remain autonomous receives less?
 </div>
 
+<div class="next-seif-nav"><div class="row"><span class="label">Continue the study</span><a href="#seif-vav">Seif Vav →</a></div></div>
+
 <div class="page-break"></div>
 
 <!-- ========================================== -->
 <!-- SEIF VAV — Doing something small             -->
 <!-- ========================================== -->
-<h2 class="section-title">13. Seif Vav — "Doing something small" and cutting back during the week</h2>
+<h2 class="section-title" id="seif-vav">13. Seif Vav — "Doing something small" and cutting back during the week</h2>
 
 <h3>Full text of the SHHaRav (Seif ו)</h3>
 
@@ -1212,12 +1252,14 @@ All the more so one who takes nothing from tzedakah and makes do with the little
 <strong>Comprehension question:</strong> Why does the Rav value cutting back during the week's meals to free up something for Shabbos over soliciting the kehillah? What underlying spiritual value is at work?
 </div>
 
+<div class="next-seif-nav"><div class="row"><span class="label">Continue the study</span><a href="#seif-zayin">Seif Zayin →</a></div></div>
+
 <div class="page-break"></div>
 
 <!-- ========================================== -->
 <!-- SEIF ZAYIN — Two dishes, fish, boycott        -->
 <!-- ========================================== -->
-<h2 class="section-title">14. Seif Zayin — Two cooked dishes minimum, fish, and communal boycott</h2>
+<h2 class="section-title" id="seif-zayin">14. Seif Zayin — Two cooked dishes minimum, fish, and communal boycott</h2>
 
 <h3>Full text of the SHHaRav (Seif ז)</h3>
 
@@ -1314,12 +1356,14 @@ And if the non-Jews <strong>raise the price of fish</strong> to the point that s
 <strong>Comprehension question:</strong> Why does the Rav codify a collective boycott in a sefer of personal halachah? How does this illustrate his vision of the kehillah?
 </div>
 
+<div class="next-seif-nav"><div class="row"><span class="label">Continue the study</span><a href="#seif-het">Seif Ches →</a></div></div>
+
 <div class="page-break"></div>
 
 <!-- ========================================== -->
 <!-- SEIF CHES — Food sent for Shabbos             -->
 <!-- ========================================== -->
-<h2 class="section-title">15. Seif Ches — Food sent for Shabbos</h2>
+<h2 class="section-title" id="seif-het">15. Seif Ches — Food sent for Shabbos</h2>
 
 <h3>Full text of the SHHaRav (Seif ח)</h3>
 
@@ -1404,12 +1448,14 @@ If <strong>they sent someone a food item for him to eat on Shabbos</strong> — 
 <strong>Comprehension question:</strong> What is the difference between "din" and "midas chassidus"? Why does the Rav take the trouble to codify what is <em>only</em> midas chassidus?
 </div>
 
+<div class="next-seif-nav"><div class="row"><span class="label">Continue the study</span><a href="#seif-tet">Seif Tes →</a></div></div>
+
 <div class="page-break"></div>
 
 <!-- ========================================== -->
 <!-- SEIF TES — Borrowing with rabbinic ribbis      -->
 <!-- ========================================== -->
-<h2 class="section-title">16. Seif Tes — Borrowing with rabbinic ribbis</h2>
+<h2 class="section-title" id="seif-tet">16. Seif Tes — Borrowing with rabbinic ribbis</h2>
 
 <h3>Full text of the SHHaRav (Seif ט)</h3>
 
@@ -1504,12 +1550,14 @@ It is <strong>permitted to borrow with rabbinic ribbis</strong> (ribbis de'rabba
 <strong>Comprehension question:</strong> Why do the Chachamim permit transgressing their own issur (ribbis de'rabbanan) for a seudas Shabbos? Can the governing principle be extended to other mitzvos?
 </div>
 
+<div class="next-seif-nav"><div class="row"><span class="label">Continue the study</span><a href="#seif-yod">Seif Yud →</a></div></div>
+
 <div class="page-break"></div>
 
 <!-- ========================================== -->
 <!-- SEIF YOD — Beis Shammai vs Beis Hillel        -->
 <!-- ========================================== -->
-<h2 class="section-title">17. Seif Yod — "Zachor": Beis Shammai vs. Beis Hillel</h2>
+<h2 class="section-title" id="seif-yod">17. Seif Yod — "Zachor": Beis Shammai vs. Beis Hillel</h2>
 
 <h3>Full text of the SHHaRav (Seif י)</h3>
 
@@ -1603,12 +1651,14 @@ But <strong>Hillel HaZaken</strong> had a different conduct: he would say "<em>B
 <strong>Comprehension question:</strong> Why does the halachah normally follow Beis Hillel, but on this specific point Hillel himself concedes the superiority of Beis Shammai? What does this reveal about the nature of Shabbos?
 </div>
 
+<div class="next-seif-nav"><div class="row"><span class="label">Continue the study</span><a href="#seif-yod-alef">Seif Yud-Alef →</a></div></div>
+
 <div class="page-break"></div>
 
 <!-- ========================================== -->
 <!-- SEIF YOD-ALEF — Tikkun Ezra                   -->
 <!-- ========================================== -->
-<h2 class="section-title">18. Seif Yod-Alef — Tikkun Ezra: laundering on Thursday</h2>
+<h2 class="section-title" id="seif-yod-alef">18. Seif Yod-Alef — Tikkun Ezra: laundering on Thursday</h2>
 
 <h3>Full text of the SHHaRav (Seif יא)</h3>
 
@@ -1702,12 +1752,14 @@ But <strong>Hillel HaZaken</strong> had a different conduct: he would say "<em>B
 <strong>Comprehension question:</strong> Why did Ezra choose the 5th day (Thursday) rather than the 4th (Wednesday) or the 3rd (Tuesday)? What halachic principle is at stake?
 </div>
 
+<div class="next-seif-nav"><div class="row"><span class="label">Continue the study</span><a href="#seif-yod-bet">Seif Yud-Bet →</a></div></div>
+
 <div class="page-break"></div>
 
 <!-- ========================================== -->
 <!-- SEIF YOD-BET — Kneading challos                -->
 <!-- ========================================== -->
-<h2 class="section-title">19. Seif Yod-Bet — Kneading the challos at home</h2>
+<h2 class="section-title" id="seif-yod-bet">19. Seif Yod-Bet — Kneading the challos at home</h2>
 
 <h3>Full text of the SHHaRav (Seif יב)</h3>
 
@@ -1794,12 +1846,14 @@ But <strong>Hillel HaZaken</strong> had a different conduct: he would say "<em>B
 <strong>Comprehension question:</strong> Why does the Rav codify this minhag in the body of the Shulchan Aruch, when the Rama placed it only in a hagahah? What is the halachic significance of this shift?
 </div>
 
+<div class="next-seif-nav"><div class="row"><span class="label">Continue the study</span><a href="#seif-yod-gimel">Seif Yud-Gimel →</a></div></div>
+
 <div class="page-break"></div>
 
 <!-- ========================================== -->
 <!-- SEIF YOD-GIMEL — Pas akum                     -->
 <!-- ========================================== -->
-<h2 class="section-title">20. Seif Yod-Gimel — Pas akum and Shabbos challos</h2>
+<h2 class="section-title" id="seif-yod-gimel">20. Seif Yod-Gimel — Pas akum and Shabbos challos</h2>
 
 <h3>Full text of the SHHaRav (Seif יג)</h3>
 
@@ -1886,12 +1940,14 @@ But <strong>Hillel HaZaken</strong> had a different conduct: he would say "<em>B
 <strong>Comprehension question:</strong> Why does the Rav place this seif <em>in parentheses</em> in the original text? What is the halachic significance of this presentation?
 </div>
 
+<div class="next-seif-nav"><div class="row"><span class="label">Continue the study</span><a href="#synthese">Siman synthesis →</a></div></div>
+
 <div class="page-break"></div>
 
 <!-- ========================================== -->
 <!-- 21. PRACTICAL SYNTHESIS -->
 <!-- ========================================== -->
-<h2 class="section-title">21. Practical synthesis of Siman רמ״ב</h2>
+<h2 class="section-title" id="synthese">21. Practical synthesis of Siman רמ״ב</h2>
 
 <div class="key-point">
 <strong>The 5 teachings of Seif Alef in 5 sentences:</strong>
