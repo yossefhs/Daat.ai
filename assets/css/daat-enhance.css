@@ -8,10 +8,10 @@
      4. Layout 2 colonnes pour les pages niveau-2-lamdan
    Sans casser l'existant — uniquement additif.
 
-   Importe automatiquement daat.css pour fournir les tokens et
-   composants partagés (--navy, --gold, .seif-info, etc.).
+   Surcouche de daat.css (tokens --navy, --gold, .seif-info, etc.) :
+   daat.css DOIT être chargé avant ce fichier dans le HTML
+   (deux <link> parallèles plutôt qu'un @import sérialisé).
    ============================================================= */
-@import url('./daat.css');
 
 
 /* ---------- 1. Signature manuscrit ---------- */
