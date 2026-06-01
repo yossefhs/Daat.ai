@@ -7,6 +7,7 @@
 
 import Anthropic from '@anthropic-ai/sdk';
 import { kv } from './_kv.js';
+import { getClientIp } from './_http.js';
 import { SYSTEM_PROMPT } from './_system-prompt.js';
 import { SEFARIA_TOOLS, executeSefariaTool } from './_sefaria.js';
 import { CORPUS_TOOLS, executeCorpusTool, searchCorpus } from './_corpus.js';
@@ -164,11 +165,6 @@ const SOUTENIR_URL = '/soutenir.html';
 const GUEST_COOKIE = 'daat_guest_id';
 
 // ── Helpers identité ───────────────────────────────────────────────────────
-function getClientIp(req) {
-  const xff = req.headers['x-forwarded-for'] || '';
-  const first = xff.split(',')[0].trim();
-  return first || req.headers['x-real-ip'] || req.socket?.remoteAddress || 'unknown';
-}
 
 function readCookie(req, name) {
   const header = req.headers.cookie || '';

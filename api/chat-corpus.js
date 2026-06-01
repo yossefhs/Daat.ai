@@ -18,6 +18,7 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { searchCorpus, getCorpusStats } from './_corpus-search.js';
 import { kv } from './_kv.js';
+import { getClientIp } from './_http.js';
 
 const client = new Anthropic();
 
@@ -30,12 +31,6 @@ const SCORE_THRESHOLD = 3.0; // en dessous, on considère "match faible"
 // grimper la facture en bouclant. Surchargeable via variables d'environnement.
 const RL_PER_IP_DAY = parseInt(process.env.CORPUS_RL_PER_IP_DAY || '60', 10);
 const RL_GLOBAL_DAY = parseInt(process.env.CORPUS_RL_GLOBAL_DAY || '5000', 10);
-
-function getClientIp(req) {
-  const xff = req.headers['x-forwarded-for'] || '';
-  const first = xff.split(',')[0].trim();
-  return first || req.headers['x-real-ip'] || req.socket?.remoteAddress || 'unknown';
-}
 
 function setCors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
