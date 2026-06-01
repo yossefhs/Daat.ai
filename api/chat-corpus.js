@@ -17,6 +17,7 @@
 
 import Anthropic from '@anthropic-ai/sdk';
 import { searchCorpus, getCorpusStats } from './_corpus-search.js';
+import { kv } from './_kv.js';
 
 const client = new Anthropic();
 
@@ -24,10 +25,46 @@ const HAIKU = { id: 'claude-haiku-4-5', in: 0.001, out: 0.005 }; // €/1000 tok
 const MAX_OUTPUT_TOKENS = 350;
 const SCORE_THRESHOLD = 3.0; // en dessous, on considère "match faible"
 
+// ── Anti-abus : endpoint public non authentifié qui appelle l'API payante Haiku.
+// On limite par IP et globalement (par jour) pour éviter qu'un tiers ne fasse
+// grimper la facture en bouclant. Surchargeable via variables d'environnement.
+const RL_PER_IP_DAY = parseInt(process.env.CORPUS_RL_PER_IP_DAY || '60', 10);
+const RL_GLOBAL_DAY = parseInt(process.env.CORPUS_RL_GLOBAL_DAY || '5000', 10);
+
+function getClientIp(req) {
+  const xff = req.headers['x-forwarded-for'] || '';
+  const first = xff.split(',')[0].trim();
+  return first || req.headers['x-real-ip'] || req.socket?.remoteAddress || 'unknown';
+}
+
 function setCors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+}
+
+// Incrémente les compteurs IP + global et renvoie true si la limite est dépassée.
+// En cas d'erreur KV (ou KV non configuré), on laisse passer (fail-open) pour ne
+// pas casser l'endpoint si Redis est indisponible.
+async function isRateLimited(ip) {
+  try {
+    const today = new Date().toISOString().slice(0, 10);
+    const ipKey = `corpus:rl:ip:${ip}:${today}`;
+    const globalKey = `corpus:rl:global:${today}`;
+
+    const ipCount = await kv.incr(ipKey);
+    if (ipCount === 1) await kv.expire(ipKey, 24 * 60 * 60);
+    if (ipCount > RL_PER_IP_DAY) return true;
+
+    const globalCount = await kv.incr(globalKey);
+    if (globalCount === 1) await kv.expire(globalKey, 24 * 60 * 60);
+    if (globalCount > RL_GLOBAL_DAY) return true;
+
+    return false;
+  } catch (err) {
+    console.error('[chat-corpus] rate-limit KV error (fail-open):', err?.message || err);
+    return false;
+  }
 }
 
 function sseWrite(res, event, data) {
@@ -97,6 +134,12 @@ export default async function handler(req, res) {
 
   if (!question) return res.status(400).json({ error: 'question required' });
   if (question.length > 800) return res.status(400).json({ error: 'question too long (max 800 chars)' });
+
+  // ── Anti-abus : limite par IP + globale (avant tout appel payant) ──
+  if (await isRateLimited(getClientIp(req))) {
+    res.setHeader('Retry-After', '3600');
+    return res.status(429).json({ error: 'Trop de requêtes. Réessaie plus tard.' });
+  }
 
   // ── Recherche corpus ──
   let searchResult;
