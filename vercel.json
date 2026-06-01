@@ -10,6 +10,17 @@
         { "key": "Access-Control-Allow-Headers", "value": "Content-Type, Authorization, X-Admin-Secret" },
         { "key": "Access-Control-Max-Age", "value": "86400" }
       ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Cross-Origin-Opener-Policy", "value": "same-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=(), interest-cohort=()" }
+      ]
     }
   ],
 
@@ -30,6 +41,7 @@
     { "source": "/oh/siman-:n(\\d+)/pdfs/:file", "destination": "/sources/shabbat/siman-:n/pdfs/:file" },
     { "source": "/oh/:n(\\d+)", "destination": "/sources/shabbat/siman-:n/index.html" },
     { "source": "/oh/:n(\\d+)/", "destination": "/sources/shabbat/siman-:n/index.html" },
+    { "source": "/oh/:n(\\d+)/pdfs/:file", "destination": "/sources/shabbat/siman-:n/pdfs/:file" },
     { "source": "/oh/:n(\\d+)/index-he.html", "destination": "/sources/shabbat/siman-:n/index-he.html" },
     { "source": "/oh/:n(\\d+)/index-en.html", "destination": "/sources/shabbat/siman-:n/index-en.html" },
     { "source": "/oh/:n(\\d+)/he", "destination": "/sources/shabbat/siman-:n/index-he.html" },
