@@ -201,7 +201,135 @@
       header { padding: 0 20px; }
       .page-hero { padding: 32px 20px; }
     }
-  
+
+    /* ===== Pattern "Seif Alef" (style 244/245) pour la Partie II ===== */
+    blockquote.text-source {
+      background: #faf8f0; border-right: 4px solid #C5A55A;
+      direction: rtl; text-align: right; margin: 14px 0;
+      padding: 14px 18px; font-family: 'Frank Ruhl Libre', serif;
+      font-size: 17px; line-height: 1.95; color: var(--navy);
+    }
+    .translation {
+      background: #f5f5f0; border-left: 3px solid var(--navy);
+      padding: 14px 20px; margin: 14px 0;
+      color: var(--text-mid); line-height: 1.7;
+    }
+    .translation strong { color: var(--navy); font-weight: 600; }
+    .translation em { color: #8B6914; font-style: italic; }
+    .definition {
+      background: #f0e9f7; border-left: 5px solid #6a1b7a;
+      padding: 12px 18px; margin: 14px 0;
+    }
+    .definition::before {
+      content: "📖 DÉFINITION"; display: block;
+      color: #6a1b7a; font-weight: bold; font-size: 11px;
+      letter-spacing: 2px; margin-bottom: 6px;
+      font-family: 'Inter', sans-serif;
+    }
+    .key-point {
+      background: #fff8e1; border-left: 5px solid var(--gold);
+      padding: 12px 18px; margin: 14px 0;
+    }
+    .key-point::before { content: "🔑 "; font-size: 15pt; }
+    .remember {
+      background: #e8f4ea; border: 1.5px solid #2d7a3e;
+      padding: 14px 20px; margin: 14px 0; border-radius: 4px;
+    }
+    .remember::before {
+      content: "✓ À RETENIR"; display: block;
+      color: #2d7a3e; font-weight: bold; font-size: 11px;
+      letter-spacing: 2px; margin-bottom: 6px;
+      font-family: 'Inter', sans-serif;
+    }
+    .question-box {
+      background: #fff9e6; border: 1.5px solid var(--gold);
+      border-radius: 6px; padding: 14px 22px; margin: 16px 0;
+    }
+    .case-card {
+      background: #eef4fb; border-left: 5px solid #2a5b9e;
+      padding: 12px 18px; margin: 14px 0; border-radius: 4px;
+    }
+    .case-card::before {
+      content: "⚖️ CAS PRATIQUES"; display: block;
+      color: #2a5b9e; font-weight: bold; font-size: 11px;
+      letter-spacing: 2px; margin-bottom: 6px;
+      font-family: 'Inter', sans-serif;
+    }
+    .seif-rav-block { margin: 28px 0; padding-top: 8px; }
+    .seif-rav-block h2.section-title-rav {
+      color: #fff; background: var(--navy);
+      font-size: 19px; padding: 12px 20px;
+      margin: 30px 0 16px; border-left: 6px solid var(--gold);
+      font-family: 'Cormorant Garamond', serif; font-weight: 600;
+    }
+    .seif-rav-block h3 {
+      color: var(--navy); font-size: 17px;
+      margin: 22px 0 8px; padding-bottom: 4px;
+      border-bottom: 2px solid var(--gold);
+      font-family: 'Cormorant Garamond', serif; font-weight: 600;
+    }
+    .seif-rav-block table {
+      width: 100%; border-collapse: collapse;
+      margin: 14px 0; font-size: 14px;
+    }
+    .seif-rav-block th {
+      background: var(--navy); color: #fff;
+      padding: 8px 12px; text-align: left;
+      font-family: 'Inter', sans-serif; font-size: 12px;
+      letter-spacing: 1px; text-transform: uppercase;
+    }
+    .seif-rav-block td {
+      border: 1px solid #d4c89a; padding: 8px 12px;
+      vertical-align: top; color: var(--text-mid);
+    }
+    .seif-rav-block tr:nth-child(even) td { background: #FAF6EE; }
+    .seif-rav-block tr.harav td {
+      background: #fff8e1; font-weight: 500; color: var(--navy);
+    }
+    .seif-rav-block ul.compact { padding-left: 22px; margin: 8px 0; }
+    .seif-rav-block ul.compact li { margin-bottom: 5px; line-height: 1.6; }
+    .seif-rav-block p { margin-bottom: 10px; color: var(--text-mid); line-height: 1.7; }
+    .seif-rav-block p strong { color: var(--navy); }
+    .next-seif-nav {
+      margin: 28px 0 18px;
+      padding: 16px 22px;
+      background: linear-gradient(135deg, var(--navy) 0%, #2a3050 100%);
+      border-left: 6px solid var(--gold);
+      border-radius: 6px;
+    }
+    .next-seif-nav .row {
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 14px; flex-wrap: wrap;
+    }
+    .next-seif-nav .label {
+      color: #d4c89a; font-size: 13px; font-style: italic;
+      font-family: 'Inter', sans-serif;
+    }
+    .next-seif-nav a {
+      color: var(--gold); text-decoration: none;
+      font-family: 'Cormorant Garamond', 'Georgia', serif;
+      font-size: 17px; font-weight: 700;
+    }
+    .next-seif-nav a:hover { color: #fff; }
+    .partie-divider {
+      margin: 60px 0 24px; padding: 24px 0 16px;
+      border-top: 3px double var(--gold);
+      border-bottom: 1px solid var(--border);
+    }
+    .partie-divider .partie-label {
+      font-family: 'Inter', sans-serif; font-size: 11px;
+      letter-spacing: 4px; text-transform: uppercase;
+      color: var(--green); margin-bottom: 8px;
+    }
+    .partie-divider h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30px; color: var(--navy); font-weight: 500;
+    }
+    .partie-divider .partie-intro {
+      margin-top: 14px; color: var(--text-mid);
+      font-size: 16px; line-height: 1.7;
+    }
+
     .lang-switcher { display: flex; gap: 6px; align-items: center; margin-left: 12px; }
     .lang-switcher a {
       font-family: 'Inter', sans-serif; font-size: 11px;
@@ -263,18 +391,18 @@
 
   <div class="page-hero">
     <div class="hero-inner">
-      <div class="hero-meta">Orah Haïm רמ״ו · Seif Alef · Niveau Initiation</div>
-      <h1 class="hero-title" style="margin: 0 0 8px;">Siman רמ״ו · Niveau 1 — Prêt et location d'objets à un non-juif pour Shabbat</h1>
-      <div class="hero-subtitle">Version accessible — texte, traduction et explication pédagogique</div>
+      <div class="hero-meta">Orah Haïm רמ״ו · Les 19 Seifim · Niveau Initiation</div>
+      <h1 class="hero-title" style="margin: 0 0 8px;">Siman רמ״ו · Niveau 1 — Prêter et louer des objets à un non-juif</h1>
+      <div class="hero-subtitle">Étude pédagogique des 19 seifim du Choulhan Aroukh HaRav — du prêt d'outils à la cession temporaire de bétail</div>
     </div>
   </div>
 
   <div class="main">
 
     <!-- SECTION 1: TEXTE -->
-    <div class="doc-section">
-      <div class="section-label">Section 1</div>
-      <div class="section-title">Le texte du Shulchan Aroukh</div>
+    <div class="doc-section" id="seif-alef-rav">
+      <div class="section-label">Section 1 — Seif Alef</div>
+      <div class="section-title">Le texte du Shulchan Aroukh (Seif א׳)</div>
       <div class="divider"></div>
 
       <div class="hebrew-box">
@@ -604,299 +732,1386 @@
     </div>
 
     <!-- ====================================================== -->
-    <!-- DEUXIÈME PARTIE : SEIFIM ב׳ — י׳ -->
+    <!-- PARTIE II : LES 19 SEIFIM DU SHHaRav -->
     <!-- ====================================================== -->
 
-    <div class="doc-section" style="margin-top:80px; padding-top:32px; border-top:3px double var(--gold);">
-      <div class="section-label">Deuxième partie</div>
-      <div class="section-title">Les Seifim suivants — ב׳ jusqu'à י׳</div>
-      <div class="divider"></div>
-      <div class="explanation-box">
-        <h3>Plan de la suite</h3>
-        <p>Après avoir établi la règle générale dans le Seif Alef (prêt/location à un non-juif, distinction entre <em>הבלעה</em> et <em>סכר יום</em>), le Siman développe et raffine la doctrine sur neuf seifim supplémentaires. Le texte de référence reproduit ci-dessous est celui du <strong>Choulhan Aroukh HaRav</strong> (Admour HaZaken), qui résume et tranche les positions du Mehaber, du Rama et des Rishonim.</p>
-        <p>Le fil conducteur passe progressivement des <strong>כלים (ustensiles)</strong> vers la <strong>בהמה (animal de travail)</strong> — qui introduit une nouvelle obligation : <em>שביתת בהמתו</em> (le repos de son animal), commandée par la Torah elle-même.</p>
+    <div class="partie-divider">
+      <div class="partie-label">Partie II</div>
+      <h2>Les 19 Seifim du Choulhan Aroukh HaRav</h2>
+      <div class="partie-intro">
+        <p>Après le Seif Alef qui pose la règle générale (location/prêt à un non-juif, distinction entre <em>הבלעה</em> et <em>סכר יום</em>), le Siman développe la doctrine sur dix-huit seifim supplémentaires. Le texte de référence est celui du <strong>Choulhan Aroukh HaRav</strong> (Admour HaZaken), qui résume et tranche les positions du Mehaber, du Rama, des Rishonim et des Acharonim.</p>
+        <p>Le fil conducteur passe progressivement des <strong>כלים (ustensiles)</strong> — domaine rabbinique — vers la <strong>בהמה (animal de travail)</strong> — interdit de la Torah par <em>שביתת בהמתו</em>. Les sept derniers seifim développent des mécanismes juridiques sophistiqués (הפקר, הקנאה, אפותיקי, משכון) pour permettre la coopération économique avec un non-juif tout en respectant l'esprit du Shabbat.</p>
       </div>
     </div>
 
-    <!-- SEIF BET -->
-    <div class="doc-section">
-      <div class="section-label">Seif ב׳</div>
-      <div class="section-title">Restriction sur les כלי אומנות (outils professionnels)</div>
-      <div class="divider"></div>
+    <div class="seif-rav-block">
 
-      <div class="hebrew-box">
-        <div class="hebrew-title">סימן רמ״ו · סעיף ב׳ — שולחן ערוך הרב</div>
-        <div class="hebrew-text">
-          יֵשׁ אוֹמְרִים שֶׁהַכֵּלִים שֶׁעוֹשִׂים בָּהֶם מְלָאכָה, כְּגוֹן רֵחַיִם בְּמָקוֹם שֶׁמֻתָּר לְהַשְׂכִּירָם לְנָכְרִי, וּמַחֲרֵשָׁה וְכַיּוֹצֵא בָהֶן מִשְּׁאָר כְּלֵי אֻמָּנוּת — אָסוּר לְהַשְׂכִּירָם לְנָכְרִי בְּעֶרֶב שַׁבָּת, דְּכֵיוָן שֶׁיֵּשׁ רֶוַח לְהַיִּשְׂרָאֵל בְּמַה שֶּׁהַכֵּלִים נִשְׂכָּרִים לְנָכְרִי גַּם בְּיוֹם הַשַּׁבָּת... הֲרֵי נִרְאֶה כְּאִלּוּ עוֹשֶׂה בִּשְׁלִיחוּת הַיִּשְׂרָאֵל. וְכֵן עִקָּר.
-        </div>
+      <div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-bet-rav">Seif Bet (SHHaRav) →</a></div></div>
+
+      <!-- ===== Seif Bet — כלי אומנות ===== -->
+      <h2 class="section-title-rav" id="seif-bet-rav">2. Seif Bet — Les כלי אומנות (outils professionnels) : interdit de location en ערב שבת</h2>
+
+      <h3>Texte intégral du SHHaRav</h3>
+      <blockquote class="text-source">יֵשׁ אוֹמְרִים שֶׁהַכֵּלִים שֶׁעוֹשִׂים בָּהֶם מְלָאכָה, כְּגוֹן רֵחַיִם בְּמָקוֹם שֶׁמֻתָּר לְהַשְׂכִּירָם לְנָכְרִי, כְּמוֹ שֶׁנִּתְבָּאֵר בְּסִמָּן רמ"ג, וּמַחֲרֵשָׁה וְכַיּוֹצֵא בָהֶן מִשְּׁאָר כְּלֵי אֻמָּנוּת — אָסוּר לְהַשְׂכִּירָם לְנָכְרִי בְּעֶרֶב שַׁבָּת, דְּכֵיוָן שֶׁיֵּשׁ רֶוַח לְהַיִּשְׂרָאֵל בְּמַה שֶּׁהַכֵּלִים נִשְׂכָּרִים לְנָכְרִי גַּם בְּיוֹם הַשַּׁבָּת, כִּי יָדוּעַ הוּא אַף שֶׁמַּשְׂכִּירָם לוֹ לְשָׁבוּעַ אוֹ לְחֹדֶשׁ אִם הָיָה מַשְׂכִּיר לוֹ חוּץ מִשַׁבָּתוֹת שֶׁלֹּא הָיָה רַשַּׁאי לַעֲשׂוֹת בָּהֶם מְלָאכָה גַּם בְּשַׁבָּת — הָיָה הַנָּכְרִי פּוֹחֵת לוֹ מְעַט מִשְּׂכִירוּת שֶׁנּוֹתֵן עַכְשָׁו כְּשֶׁמַּשְׂכִּיר לוֹ סְתָם וְיֵשׁ לוֹ רְשׁוּת לַעֲשׂוֹת גַּם בְּשַׁבָּת, לְפִיכָךְ כְּשֶׁהַנָּכְרִי עוֹשֶׂה מְלָאכָה בְּשַׁבָּת סָמוּךְ לְיוֹם שֶׁהִשְׂכִּירָם לוֹ דְּהַיְנוּ עֶרֶב שַׁבָּת — הֲרֵי נִרְאֶה כְּאִלּוּ עוֹשֶׂה בִּשְׁלִיחוּת הַיִּשְׂרָאֵל שֶׁצִּוָּהוּ לַעֲשׂוֹת בְּשַׁבָּת כְּשֶׁהִשְׂכִּירָם לוֹ אֶתְמוֹל, כֵּיוָן שֶׁיֵּשׁ רֶוַח לְיִשְׂרָאֵל בְּמַה שֶּׁהוּא רַשַּׁאי לַעֲשׂוֹת בְּשַׁבָּת. וְכֵן עִקָּר:</blockquote>
+
+      <h3>Traduction française</h3>
+      <div class="translation">
+      <strong>Certains disent</strong> que les ustensiles avec lesquels on accomplit une mélakha — comme le moulin (dans les endroits où il est permis de le louer à un non-juif, comme expliqué au siman רמ"ג), la charrue et les autres <strong>outils professionnels</strong> (כלי אומנות) — sont <strong>interdits à la location à un non-juif la veille du Shabbat</strong>.<br><br>
+      La raison : il y a un <em>bénéfice</em> pour le Juif dans le fait que les outils sont loués au non-juif <em>aussi le jour du Shabbat</em>. En effet, si la location avait exclu les Shabbatot, le non-juif aurait diminué un peu le prix de location. Le fait qu'il paie le prix plein <em>incluant Shabbat</em> prouve qu'une partie du loyer correspond précisément au travail du Shabbat.<br><br>
+      Donc, lorsque le non-juif travaille avec les outils le Shabbat <em>juste après</em> les avoir reçus (ערב שבת), il <strong>apparaît comme l'envoyé du Juif</strong> (כשליחות הישראל) — comme si le Juif lui avait commandé hier de travailler aujourd'hui Shabbat. <strong>Et c'est l'essentiel</strong> (וכן עיקר — décision tranchante du Rav).
       </div>
 
-      <div class="translation-box">
-        <div class="translation-title">Traduction</div>
-        <div class="translation-text">
-          Selon une opinion (acceptée comme עיקר — décision principale), les <strong>ustensiles de travail</strong> (כלי אומנות) — comme un moulin, une charrue ou tout outil de métier — sont soumis à une <strong>restriction supplémentaire</strong>. Lorsqu'il s'agit d'un outil dont l'usage en Shabbat <em>profite financièrement</em> au propriétaire juif (parce que le non-juif paie un loyer plus élevé pour pouvoir l'utiliser aussi le Shabbat), il est <strong>interdit de le louer la veille du Shabbat</strong>. La raison : le Juif retire un bénéfice direct de l'utilisation de l'outil pendant Shabbat, ce qui fait apparaître le non-juif comme son <em>émissaire</em>.
-        </div>
+      <h3>De quoi parle ce Seif ?</h3>
+      <p>Le Seif Alef avait posé une règle simple : on peut louer ses ustensiles à un non-juif (en הבלעה). Le Seif Bet introduit une <strong>première restriction</strong> : pour une catégorie spéciale — les <em>כלי אומנות</em> (outils de métier) — la location <em>la veille même du Shabbat</em> est interdite, même en הבלעה.</p>
+      <div class="definition">
+      <strong>כְּלִי אֻמָּנוּת</strong> = <em>outils de production professionnels</em>. Ce sont des outils dont l'usage <em>en lui-même</em> rapporte de l'argent (moulin, charrue, four de boulanger). Leur location intègre dans le prix un supplément correspondant à l'usage du Shabbat — ce qui les rend assimilables, en cas de remise immédiate, à une mission donnée par le Juif au non-juif.
       </div>
 
-      <div class="explanation-box">
-        <h3>De quoi parle ce Seif ?</h3>
-        <p>Ce seif introduit une nuance importante : tous les ustensiles ne sont pas équivalents. Un outil professionnel (כלי אומנות) — qui rapporte une plus-value parce qu'il fonctionne aussi le Shabbat — pose un problème supplémentaire. Le profit du Shabbat est ici <strong>intégré dans le tarif</strong>, donc même un contrat passé avant Shabbat est suspect.</p>
-        <p>La logique : si le non-juif accepterait de payer moins en louant l'outil <em>sans</em> Shabbat, alors le supplément correspond précisément au travail du Shabbat — ce qui ressuscite le problème de <em>נראה כשלוחו</em>.</p>
+      <h3>La question halakhique</h3>
+      <p>Si le Seif Alef permet la location en הבלעה, pourquoi le Seif Bet la <em>réinterdit</em>-il pour les כלי אומנות en ערב שבת ? Réponse du Rav : l'analyse économique trahit ici un <em>bénéfice direct</em> du Juif lié au Shabbat ; remettre l'outil juste avant Shabbat évoque la <strong>commission</strong> du Juif → נראה כשלוחו.</p>
+
+      <h3>Les avis</h3>
+      <table>
+      <tr><th>Source</th><th>Position</th></tr>
+      <tr><td><strong>Rishonim (יש אומרים)</strong></td><td>Pour les outils de métier, la location en ערב שבת est interdite : la plus-value du loyer trahit l'usage du Shabbat.</td></tr>
+      <tr><td><strong>Mehaber</strong> (246:1)</td><td>Citation du יש אומרים sans trancher explicitement, mais glosé par les Acharonim comme עיקר.</td></tr>
+      <tr><td><strong>Rama</strong></td><td>Suit la position stricte sur les כלי אומנות.</td></tr>
+      <tr><td><strong>Mishna Berura</strong> (246:4-5)</td><td>Tranche comme le יש אומרים ; spécifie que la restriction s'applique seulement à l'ערב שבת (avant, c'est permis).</td></tr>
+      <tr class="harav"><td><strong>SHHaRav</strong> (246:2)</td><td><strong>« וכן עיקר »</strong> — tranche définitivement : interdit en ערב שבת pour les כלי אומנות, à cause de la chaîne « bénéfice direct → apparence d'émissaire ».</td></tr>
+      </table>
+
+      <h3>Le pesak du Rav</h3>
+      <div class="key-point">
+      <strong>La règle des כלי אומנות :</strong>
+      <ol>
+        <li>Locations en milieu de semaine (avant ערב שבת) : permises même pour les outils de métier (הבלעה classique).</li>
+        <li>Location en <strong>ערב שבת</strong> d'un outil de métier (moulin, charrue, machine de production) : <strong>interdit</strong> — la proximité temporelle révèle la mission.</li>
+        <li>Le critère décisif : <em>y a-t-il un bénéfice économique pour le Juif lié spécifiquement au travail du Shabbat ?</em></li>
+      </ol>
+      </div>
+
+      <div class="case-card">
+      <ul class="compact">
+        <li><strong>Louer ma bétonnière à un entrepreneur non-juif, contrat signé jeudi pour 2 semaines :</strong> 🟢 location avancée → הבלעה classique permise.</li>
+        <li><strong>Lui louer la même bétonnière vendredi après-midi pour 2 semaines :</strong> 🔴 ערב שבת + כלי אומנות → interdit.</li>
+        <li><strong>Louer mon imprimante professionnelle à un voisin vendredi midi pour le week-end :</strong> 🔴 interdit (כלי אומנות en ערב שבת).</li>
+        <li><strong>Louer mon outillage léger (perceuse) pour un mois, contrat signé mercredi :</strong> 🟢 permis (loyer global).</li>
+        <li><strong>Louer ma fraiseuse CNC vendredi 15h pour un cycle de 10 jours :</strong> 🔴 כלי אומנות + ערב שבת → interdit même si הבלעה.</li>
+      </ul>
+      </div>
+
+      <h3>Points à retenir</h3>
+      <div class="remember">
+      <ul class="compact">
+        <li>Les <strong>כלי אומנות</strong> (outils de métier) ont un statut renforcé : interdit de les <em>louer</em> en ערב שבת</li>
+        <li>Raison : la plus-value du loyer correspond à l'usage du Shabbat → נראה כשלוחו</li>
+        <li>Le Rav tranche <strong>« וכן עיקר »</strong> — décision finale</li>
+        <li>Avant l'ערב שבת : הבלעה classique permise</li>
+      </ul>
+      </div>
+
+      <div class="question-box">
+      <strong>Question de compréhension :</strong> Si la הבלעה a déjà été acceptée au Seif Alef, qu'est-ce qui change pour les כלי אומנות en ערב שבת ? Pourquoi la proximité temporelle modifie-t-elle l'analyse halakhique ?
+      </div>
+
+      <div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-gimel-rav">Seif Gimel (SHHaRav) →</a></div></div>
+
+      <!-- ===== Seif Gimel — השאלה כלי אומנות ===== -->
+      <h2 class="section-title-rav" id="seif-gimel-rav">3. Seif Gimel — Le prêt (השאלה) gratuit d'un כלי אומנות est permis même en ערב שבת</h2>
+
+      <h3>Texte intégral du SHHaRav</h3>
+      <blockquote class="text-source">אֲבָל לְהַשְׁאִיל לוֹ כֵּלִים שֶׁעוֹשִׂים בָּהֶם מְלָאכָה — מֻתָּר אֲפִלּוּ בְּעֶרֶב שַׁבָּת סָמוּךְ לַחֲשֵׁכָה, דְּכֵיוָן שֶׁאֵין רֶוַח לְיִשְׂרָאֵל בְּמַה שֶּׁהַנָּכְרִי רַשַּׁאי לַעֲשׂוֹת בָּהֶם בְּשַׁבָּת — אֵין נִרְאֶה כְּאִלּוּ עוֹשֶׂה בִּשְׁלִיחוּתוֹ. <br><br>וַאֲפִלּוּ אִם מַשְׁאִילוֹ בִּתְנַאי עַל מְנָת שֶׁיַּשְׁאִילֶנּוּ הַנָּכְרִי כְּלִי אַחֵר לְאַחַר הַשַּׁבָּת, וְנִמְצָא שֶׁיֵּשׁ רֶוַח לְיִשְׂרָאֵל בְּמַה שֶּׁמַּשְׁאִיל לְהַנָּכְרִי גַּם בְּשַׁבָּת, מִכָּל מָקוֹם כֵּיוָן שֶׁאֵינוֹ נוֹטֵל שְׂכִירוּת מַמָּשׁ בְּעַד זֶה — לֹא גָזְרוּ חֲכָמִים:</blockquote>
+
+      <h3>Traduction française</h3>
+      <div class="translation">
+      <strong>Mais prêter</strong> (השאלה — gratuitement) à un non-juif des ustensiles avec lesquels on accomplit une mélakha — c'est <strong>permis même la veille du Shabbat près de la tombée de la nuit</strong>. Car puisqu'il <em>n'y a aucun bénéfice</em> pour le Juif du fait que le non-juif est autorisé à les utiliser le Shabbat, il n'apparaît pas comme son émissaire.<br><br>
+      <strong>Et même</strong> si le prêt est <em>conditionné</em> à un prêt en retour d'un autre objet par le non-juif après Shabbat — et qu'il y a donc un bénéfice pour le Juif dans le fait de prêter à un non-juif <em>aussi pendant Shabbat</em> — néanmoins, comme il <strong>ne perçoit pas un véritable loyer</strong> pour cela, les Sages n'ont pas décrété d'interdit.
+      </div>
+
+      <h3>De quoi parle ce Seif ?</h3>
+      <p>Le Rav contraste : la <em>location</em> d'un כלי אומנות en ערב שבת est interdite (Seif Bet), mais le <em>prêt gratuit</em> du même outil — même en ערב שבת très tardif — est <strong>permis</strong>. Le critère décisif est le <em>bénéfice financier</em>.</p>
+      <div class="definition">
+      <strong>הַשְׁאָלָה vs הַשְׂכָּרָה</strong> :
+      <ul class="compact">
+      <li><strong>הַשְׁאָלָה</strong> (prêt) = sans rémunération. Pas de bénéfice → pas d'apparence d'émissaire.</li>
+      <li><strong>הַשְׂכָּרָה</strong> (location) = avec loyer. Le loyer crée un bénéfice du Shabbat → apparence d'émissaire.</li>
+      </ul>
+      </div>
+
+      <h3>La question halakhique</h3>
+      <p>Et si le prêt est <em>réciproque</em> (« je te prête mon outil aujourd'hui, tu me prêteras le tien la semaine prochaine ») ? Il y a bien un avantage économique. Le Rav répond : ce qui importe pour la gzeira de נראה כשלוחו est <strong>la perception d'un loyer monétaire</strong> (שכירות ממש), pas un troc de services. Le décret n'a pas été étendu là.</p>
+
+      <h3>Les avis</h3>
+      <table>
+      <tr><th>Source</th><th>Position</th></tr>
+      <tr><td><strong>Rishonim</strong></td><td>השאלה sans rémunération ≠ השכרה. Pas de bénéfice → pas d'apparence d'émissaire.</td></tr>
+      <tr><td><strong>Mehaber</strong> (246:1)</td><td>Permet le prêt même en ערב שבת tardif pour les כלי אומנות.</td></tr>
+      <tr><td><strong>Rama</strong></td><td>Concorde, mais ajoute la restriction du Seif Alef (כלי שמלאכתו לאסור).</td></tr>
+      <tr><td><strong>Mishna Berura</strong> (246:6-7)</td><td>Détaille : prêt réciproque permis tant qu'il n'y a pas de transaction monétaire.</td></tr>
+      <tr class="harav"><td><strong>SHHaRav</strong> (246:3)</td><td>Tranche : prêt permis même en ערב שבת tardif, et même conditionné à un prêt en retour, car « אינו נוטל שכירות ממש ».</td></tr>
+      </table>
+
+      <h3>Le pesak du Rav</h3>
+      <div class="key-point">
+      <strong>Les trois niveaux :</strong>
+      <ol>
+        <li><strong>Prêt gratuit</strong> (השאלה) d'un כלי אומנות même en ערב שבת tardif → <strong>permis</strong>.</li>
+        <li><strong>Prêt réciproque</strong> (échange de services) → permis (pas de loyer monétaire).</li>
+        <li><strong>Location</strong> (השכרה) en ערב שבת → interdit (cf. Seif Bet).</li>
+      </ol>
+      </div>
+
+      <div class="case-card">
+      <ul class="compact">
+        <li><strong>Je prête ma scie circulaire vendredi 16h à mon voisin non-juif :</strong> 🟢 prêt gratuit même tardif → permis.</li>
+        <li><strong>Je prête mon escabeau professionnel à un peintre non-juif pour le week-end :</strong> 🟢 השאלה permise même ערב שבת.</li>
+        <li><strong>« Je te prête ma perceuse aujourd'hui, prête-moi ta meuleuse lundi » :</strong> 🟢 troc de services, pas de loyer monétaire → permis.</li>
+        <li><strong>« Je te prête, mais en échange tu me paieras 20€ » :</strong> 🔴 c'est une location déguisée → interdit en ערב שבת.</li>
+        <li><strong>Prêter mon échelle au voisin non-juif vendredi 14h pour un usage Shabbat connu :</strong> 🟢 permis (Mehaber/Séfarades). Rama : selon le type d'outil (cf. Seif Alef pour כלי שמלאכתו לאסור).</li>
+      </ul>
+      </div>
+
+      <h3>Points à retenir</h3>
+      <div class="remember">
+      <ul class="compact">
+        <li><strong>Prêt ≠ location</strong> : la gzeira de נראה כשלוחו ne s'applique qu'à la <em>location monétaire</em></li>
+        <li>Même en ערב שבת tardif, le <strong>prêt gratuit</strong> d'un outil de métier est permis</li>
+        <li>Le <strong>prêt réciproque</strong> (échange de services) reste permis : pas de שכירות ממש</li>
+        <li>Critère du Rav : « נטילת שכירות ממש » — perception d'un loyer effectif</li>
+      </ul>
+      </div>
+
+      <div class="question-box">
+      <strong>Question de compréhension :</strong> Pourquoi un échange réciproque de prêts (avec un avantage économique évident pour le Juif) ne tombe-t-il pas sous le coup de la gzeira de נראה כשלוחו, alors qu'une location monétaire — où l'avantage n'est parfois pas plus grand — est interdite ?
+      </div>
+
+      <div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-dalet-rav">Seif Dalet (SHHaRav) →</a></div></div>
+
+      <!-- ===== Seif Dalet — מראית העין quand l'objet sort le Shabbat ===== -->
+      <h2 class="section-title-rav" id="seif-dalet-rav">4. Seif Dalet — מראית העין : le non-juif sort de chez moi avec mon objet en Shabbat</h2>
+
+      <h3>Texte intégral du SHHaRav</h3>
+      <blockquote class="text-source">אָסוּר לְהַשְׁאִיל שׁוּם חֵפֶץ לְנָכְרִי בְּשַׁבָּת, וַאֲפִלּוּ בְּעֶרֶב שַׁבָּת, אִם הוּא סָמוּךְ לַחֲשֵׁכָה כָּל כָּךְ עַד שֶׁאֵין שָׁהוּת לַנָּכְרִי לְהוֹצִיא הַחֵפֶץ מִפֶּתַח בֵּיתוֹ שֶׁל הַיִּשְׂרָאֵל לִרְשׁוּת הָרַבִּים מִבְּעוֹד יוֹם — אָסוּר לְהַשְׁאִילוֹ, מִפְּנֵי מַרְאִית הָעַיִן, שֶׁהָרוֹאֶה אֶת הַנָּכְרִי יוֹצֵא מִבֵּית הַיִּשְׂרָאֵל וְחֵפֶץ יִשְׂרָאֵל בְּיָדוֹ יַחְשׁוֹד אֶת הַיִּשְׂרָאֵל שֶׁהוּא שׁוֹלֵחַ חֲפָצָיו בְּשַׁבָּת עַל יְדֵי נָכְרִי זֶה, שֶׁלֹּא יַעֲלֶה עַל דַּעְתּוֹ שֶׁהִשְׁאִיל לוֹ וְהוּא מוֹצִיאוֹ לְצֹרֶךְ עַצְמוֹ. <br><br>וַאֲפִלּוּ בְּעִיר שֶׁאֵין בָּהּ רְשׁוּת הָרַבִּים אֶלָּא כַּרְמְלִית, שֶׁאֵין אִסּוּר שֶׁל תּוֹרָה אֲפִלּוּ לְיִשְׂרָאֵל לְהוֹצִיא לְתוֹכָהּ מֵרְשׁוּת הַיָּחִיד, אַף עַל פִּי כֵן כֵּיוָן שֶׁמִּדִּבְרֵי סוֹפְרִים אָסוּר לְהוֹצִיא אֲפִלּוּ עַל יְדֵי נָכְרִי שֶׁלֹּא לְצֹרֶךְ מִצְוָה כְּמוֹ שֶׁיִּתְבָּאֵר בְּסִמָּן ש"ז, אִם כֵּן יַחְשְׁדוּהוּ שֶׁהוּא עוֹבֵר עַל דִּבְרֵי סוֹפְרִים:</blockquote>
+
+      <h3>Traduction française</h3>
+      <div class="translation">
+      <strong>Il est interdit de prêter tout objet</strong> à un non-juif <em>le Shabbat même</em>, et <strong>même la veille du Shabbat</strong> — si l'on est si proche de la tombée de la nuit qu'il <em>n'y a plus le temps</em> pour le non-juif de sortir l'objet par la porte de chez le Juif vers le domaine public <em>avant la nuit</em>. La raison : <strong>מראית העין</strong> — celui qui voit le non-juif sortir de chez le Juif avec un objet du Juif dans la main, soupçonnera le Juif d'envoyer ses affaires Shabbat par ce non-juif (il ne lui viendra pas à l'esprit que c'est un simple prêt et que le non-juif le sort pour ses propres besoins).<br><br>
+      <strong>Et même dans une ville</strong> qui n'a pas de רשות הרבים au sens biblique mais seulement un כרמלית (où le transport depuis le domaine privé n'est interdit qu'au plan rabbinique), c'est interdit. Car les Sages ont interdit même de faire sortir par un non-juif sans nécessité de mitzvah (siman ש"ז) — on soupçonnera donc le Juif d'avoir transgressé une parole des Sages.
+      </div>
+
+      <h3>De quoi parle ce Seif ?</h3>
+      <p>Nouveau registre : on quitte le problème de <em>שכר שבת / נראה כשלוחו</em> (lié au loyer du Seif Alef-Bet) pour aborder un <strong>tout autre problème</strong> : <em>מראית העין</em> — l'apparence d'un transgresseur de l'interdit d'<em>הוצאה</em> (transfert entre domaines).</p>
+      <div class="definition">
+      <strong>מַרְאִית הָעַיִן</strong> = <em>« ce que voit l'œil »</em>. Même si l'action en elle-même est permise, si elle <em>ressemble</em> à une transgression aux yeux d'un observateur, elle est interdite. Ici : voir un non-juif sortir de chez moi en Shabbat avec mes affaires fait croire que je l'ai envoyé.
+      </div>
+
+      <h3>La question halakhique</h3>
+      <p>Si l'on a le temps avant la tombée de la nuit pour que le non-juif sorte avec l'objet, le prêt est permis (le passant verra simplement un non-juif rentrer chez lui avec son objet vendredi). Mais si la nuit tombe avec l'objet encore chez moi, n'importe quel passant Shabbat soupçonnera. <strong>Cela vaut même pour un כרמלית</strong> (zone semi-publique), car même là le transport par non-juif est interdit aux Juifs rabbiniquement.</p>
+
+      <h3>Les avis</h3>
+      <table>
+      <tr><th>Source</th><th>Position</th></tr>
+      <tr><td><strong>Talmud / Rishonim</strong></td><td>Le prêt en Shabbat ou très proche de la nuit est interdit par מראית העין.</td></tr>
+      <tr><td><strong>Mehaber</strong> (246:1-2)</td><td>Cite la règle ; restriction même pour כרמלית.</td></tr>
+      <tr><td><strong>Rama</strong></td><td>Accepte ; rappelle la distinction entre ville avec עירוב et sans.</td></tr>
+      <tr><td><strong>Mishna Berura</strong> (246:8-10)</td><td>Précise : « שהות כדי להוציא » = le temps de sortir effectivement de la maison vers la rue.</td></tr>
+      <tr class="harav"><td><strong>SHHaRav</strong> (246:4)</td><td><strong>Précise l'étendue de la gzeira</strong> : vaut même en כרמלית, car même là, le transport par non-juif est interdit rabbiniquement → suspicion identique.</td></tr>
+      </table>
+
+      <h3>Le pesak du Rav</h3>
+      <div class="key-point">
+      <strong>La règle de l'objet sortant le Shabbat :</strong>
+      <ol>
+        <li>Prêter Shabbat : <strong>interdit</strong> (מראית העין).</li>
+        <li>Prêter en ערב שבת si la nuit tombe avant que le non-juif soit sorti : <strong>interdit</strong>.</li>
+        <li>Prêter en ערב שבת si le non-juif a le temps de sortir avant la nuit : <strong>permis</strong>.</li>
+        <li>Vaut <em>même en כרמלית</em> (zone semi-publique) — car le transport par non-juif y est aussi rabbiniquement interdit.</li>
+      </ol>
+      </div>
+
+      <div class="case-card">
+      <ul class="compact">
+        <li><strong>Mon voisin non-juif sonne à 18h45 vendredi (nuit tombe à 19h) pour emprunter un outil :</strong> 🔴 il n'aura pas le temps de partir → interdit.</li>
+        <li><strong>Il vient à 14h vendredi pour le même outil :</strong> 🟢 largement le temps de partir → permis.</li>
+        <li><strong>Il sonne Shabbat midi pour emprunter ma tondeuse :</strong> 🔴 prêt Shabbat → interdit (מראית העין).</li>
+        <li><strong>Mon collègue non-juif veut me rapporter un livre Shabbat (il vient à moi avec son objet) :</strong> 🟢 c'est lui qui apporte, je ne sors rien.</li>
+        <li><strong>Je vis dans une ville sans עירוב ; vendredi 16h, mon voisin emprunte un fer à repasser :</strong> 🟢 il a le temps de rentrer avant la nuit.</li>
+      </ul>
+      </div>
+
+      <h3>Points à retenir</h3>
+      <div class="remember">
+      <ul class="compact">
+        <li>Nouveau registre : <strong>מראית העין</strong> (apparence de transgression de l'הוצאה), pas שכר שבת</li>
+        <li>Le test : <em>« le non-juif a-t-il le temps de sortir de chez moi vers la rue avant la nuit ? »</em></li>
+        <li>S'applique <strong>même en כרמלית</strong> (zone semi-publique) — l'interdit rabbinique suffit à créer la suspicion</li>
+        <li>Le prêt <em>la nuit Shabbat même</em> est toujours interdit</li>
+      </ul>
+      </div>
+
+      <div class="question-box">
+      <strong>Question de compréhension :</strong> Pourquoi la halakha distingue-t-elle « avant que la nuit ne tombe » (objet sorti = permis) vs « après » (objet encore chez moi = interdit) — alors que dans les deux cas, le prêt en lui-même est antérieur à Shabbat ?
+      </div>
+
+      <div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-he-rav">Seif Hé (SHHaRav) →</a></div></div>
+
+      <!-- ===== Seif He — Ville avec érouv + תחומין ===== -->
+      <h2 class="section-title-rav" id="seif-he-rav">5. Seif Hé — Ville avec עירוב, et la nouvelle limite des תחומין</h2>
+
+      <h3>Texte intégral du SHHaRav</h3>
+      <blockquote class="text-source">אֲבָל בְּעִיר הַמְעֹרֶבֶת שֶׁמֻּתָּר לְטַלְטֵל בְּתוֹכָהּ — מֻתָּר לְהַשְׁאִילוֹ אֲפִלּוּ בְּשַׁבָּת אִם הַנָּכְרִי דָר בְּמָקוֹם הַמְעֹרָב שֶׁמֻּתָּר לְטַלְטֵל בּוֹ. אוֹ אֲפִלּוּ דָר בְּמָקוֹם שֶׁאֵינוֹ מְעֹרָב, אֶלָּא בְּעִנְיָן שֶׁאֵין לָחוּשׁ לְמַרְאִית הָעַיִן שֶׁל הָרוֹאֶה אוֹתוֹ יוֹצֵא מִבֵּיתוֹ שֶׁל יִשְׂרָאֵל. <br><br>וּמִכָּל מָקוֹם, אִם יָדוּעַ לוֹ שֶׁהַנָּכְרִי יוֹלִיכֶנּוּ הַיּוֹם חוּץ לַתְּחוּם — אָסוּר לְהַשְׁאִילוֹ בְּשַׁבָּת, לְפִי שֶׁחֶפְצוֹ שֶׁל יִשְׂרָאֵל שֶׁהָיוּ בִּרְשׁוּתוֹ בְּבֵין הַשְּׁמָשׁוֹת קָנוּ אֶצְלוֹ שְׁבִיתָה בִּשְׁבִיתָתוֹ, דְּהַיְנוּ אַלְפַּיִם אַמָּה לְכָל רוּחַ וְלֹא יוֹתֵר. <br><br>וְיֵשׁ מַתִּירִין אֲפִלּוּ לִמְסוֹר לוֹ בְּיָדַיִם, כֵּיוָן שֶׁהַנָּכְרִי הוּא הַמּוֹצִיאָן חוּץ לַתְּחוּם מִדַּעְתּוֹ לְצֹרֶךְ עַצְמוֹ, וְהַיִּשְׂרָאֵל אֵינוֹ אֶלָּא גּוֹרֵם בְּעָלְמָא. וְכֵן עִקָּר. <br><br>וּלְעִנְיַן הֲלָכָה, יֵשׁ לְהָקֵל בִּשְׁאֵלָה בְּעֵת הַצֹּרֶךְ כִּסְבָרָא הָרִאשׁוֹנָה.</blockquote>
+
+      <h3>Traduction française</h3>
+      <div class="translation">
+      <strong>Mais dans une ville couverte par un עירוב</strong> (où le transport est permis Shabbat), il est <strong>permis de prêter même Shabbat</strong> — à condition que le non-juif réside dans la zone couverte. Ou même s'il habite hors-érouv, dès lors qu'il n'y a pas de risque de מראית העין (par exemple si la maison du Juif est suffisamment éloignée du bord de l'érouv pour qu'on ne voie pas le non-juif passer de la zone érouvée à la zone non-érouvée).<br><br>
+      <strong>Néanmoins</strong>, si le Juif <em>sait</em> que le non-juif emportera l'objet <strong>au-delà des תחומין</strong> (les 2000 amot autorisés), il est <strong>interdit</strong> de prêter Shabbat : les objets du Juif présents en son domaine à בין השמשות acquièrent leur <em>שביתה</em> (limite de déplacement) — 2000 amot dans chaque direction, pas plus.<br><br>
+      <strong>Et certains permettent</strong> même de remettre en main propre, puisque c'est le non-juif qui sort l'objet de son propre chef pour ses propres besoins — le Juif n'étant qu'une <em>cause</em> (גורם). <strong>Et c'est l'essentiel</strong> (וכן עיקר). En pratique, on peut être indulgent dans le cas d'un prêt en cas de besoin, selon la première opinion.
+      </div>
+
+      <h3>De quoi parle ce Seif ?</h3>
+      <p>Le Seif Dalet posait l'interdit du prêt Shabbat à cause de מראית העין. Le Seif Hé <strong>assouplit</strong> cette règle dans deux cas — et introduit une <em>nouvelle</em> contrainte : les <em>תחומין</em>.</p>
+      <div class="definition">
+      <strong>תְּחוּמִין</strong> = <em>limites de déplacement</em>. Les objets du Juif acquièrent à בין השמשות (entre les deux soleils, début de Shabbat) un « lieu de repos » (שביתה) à partir duquel ils ne peuvent être déplacés que de <strong>2000 amot</strong> (≈ 960 m) dans chaque direction. Au-delà, c'est interdit — même par un non-juif.
+      </div>
+
+      <h3>La question halakhique</h3>
+      <p>Si le Juif sait que le non-juif sortira au-delà des תחומין avec son objet : (1) il y a <em>איסור תחומין</em> intrinsèque (l'objet du Juif ne peut sortir des 2000 amot) ; (2) le Juif a-t-il le droit de <em>remettre l'objet en main propre</em>, sachant cela ? Mahloket : selon la 1ère opinion il faut juste <em>montrer</em>, pas remettre ; selon la seconde, on peut remettre car le non-juif est l'<em>agent de lui-même</em>, et le Juif n'est que cause (גורם בעלמא). Le Rav tranche pour la seconde (וכן עיקר), avec une mansuétude en pratique pour le besoin.</p>
+
+      <h3>Les avis</h3>
+      <table>
+      <tr><th>Source</th><th>Position</th></tr>
+      <tr><td><strong>Rambam</strong></td><td>Pas d'obligation de תחומין pour les ustensiles du Juif quand le non-juif les sort de son chef.</td></tr>
+      <tr><td><strong>Rashba / Tossafot</strong></td><td>Les objets du Juif acquièrent שביתה ; même par non-juif, il faut éviter de leur faire dépasser 2000 amot.</td></tr>
+      <tr><td><strong>Mehaber</strong> (246:3)</td><td>Permet le prêt dans la ville érouvée si le non-juif y réside ; restriction des תחומין.</td></tr>
+      <tr><td><strong>Mishna Berura</strong> (246:11-15)</td><td>Permet de montrer l'objet sans le remettre, mais בעת הצורך on peut remettre.</td></tr>
+      <tr class="harav"><td><strong>SHHaRav</strong> (246:5)</td><td><strong>« וכן עיקר »</strong> : on peut remettre en main propre — le non-juif est l'agent de lui-même, le Juif est <em>גורם בעלמא</em>. En pratique : indulgence pour le besoin.</td></tr>
+      </table>
+
+      <h3>Le pesak du Rav</h3>
+      <div class="key-point">
+      <strong>Quatre situations :</strong>
+      <ol>
+        <li>Ville érouvée + non-juif réside dans la zone : prêt Shabbat <strong>permis</strong>.</li>
+        <li>Ville érouvée + non-juif hors-zone, mais maison du Juif éloignée du bord : <strong>permis</strong> (pas de מראית העין).</li>
+        <li>Sait que le non-juif sortira au-delà des תחומין : <strong>la 1ère opinion interdit de remettre</strong>, on ne peut que montrer. Mais le Rav tranche : <strong>permis de remettre</strong> (גורם בעלמא) — וכן עיקר.</li>
+        <li>En pratique (« עת הצורך ») : indulgence selon la 1ère opinion aussi.</li>
+      </ol>
+      </div>
+
+      <div class="case-card">
+      <ul class="compact">
+        <li><strong>Ville avec érouv, voisin non-juif demande un livre Shabbat :</strong> 🟢 permis.</li>
+        <li><strong>Sans érouv, voisin sonne Shabbat midi pour un outil :</strong> 🔴 מראית העין → interdit.</li>
+        <li><strong>Ville érouvée, mais je sais que le non-juif partira de la ville (au-delà des 2000 amot) avec mon objet :</strong> 🟡 Rashba : interdit de remettre. SHHaRav tranche : <strong>permis</strong> (le non-juif est גורם בעלמא).</li>
+        <li><strong>Cas de besoin (objet médical urgent) :</strong> 🟢 indulgence selon les deux opinions.</li>
+        <li><strong>Le non-juif vient avec son taxi prendre un colis Shabbat pour l'emmener loin :</strong> 🟢 selon SHHaRav, on peut remettre — le non-juif agit de son chef.</li>
+      </ul>
+      </div>
+
+      <h3>Points à retenir</h3>
+      <div class="remember">
+      <ul class="compact">
+        <li>L'<strong>עירוב</strong> en ville assouplit le prêt Shabbat (plus de מראית העין locale)</li>
+        <li>Nouvelle limite : les <strong>תחומין</strong> — 2000 amot pour les objets du Juif</li>
+        <li>Mahloket sur la remise en main propre quand on sait le dépassement → SHHaRav <strong>« וכן עיקר » : permis</strong></li>
+        <li>En pratique : <strong>indulgence en עת הצורך</strong> (besoin pressant)</li>
+      </ul>
+      </div>
+
+      <div class="question-box">
+      <strong>Question de compréhension :</strong> Comment le concept de « גורם בעלמא » (le Juif n'est qu'une cause, le non-juif est l'agent direct) permet-il au Rav de trancher pour la permission, même quand le Juif <em>sait</em> que les תחומין seront dépassés ?
+      </div>
+
+      <div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-vav-rav">Seif Vav (SHHaRav) →</a></div></div>
+
+      <!-- ===== Seif Vav — Objets du non-juif déposés ===== -->
+      <h2 class="section-title-rav" id="seif-vav-rav">6. Seif Vav — Les objets du non-juif déposés chez le Juif : restitution permise Shabbat</h2>
+
+      <h3>Texte intégral du SHHaRav</h3>
+      <blockquote class="text-source">וְכָל זֶה בַּחֲפָצִים שֶׁל יִשְׂרָאֵל, אֲבָל חֲפָצִים שֶׁל נָכְרִי שֶׁהָיוּ מֻפְקָדִים בְּיַד יִשְׂרָאֵל וּבָא לִטְּלוֹ בְּשַׁבָּת — יָכוֹל לִתְּנוֹ וְאַף עַל פִּי שֶׁיּוֹצִיאֶנּוּ לִרְשׁוּת הָרַבִּים, כְּמוֹ שֶׁיִּתְבָּאֵר בְּסִמָּן שכ"ה, עַיֵּן שָׁם תַּשְׁלוּם דִּינִים אֵלּוּ:</blockquote>
+
+      <h3>Traduction française</h3>
+      <div class="translation">
+      <strong>Tout cela</strong> (les seifim précédents) <strong>ne concerne que les objets du Juif</strong>. Mais des objets <em>du non-juif</em> qui étaient simplement <strong>déposés en garde</strong> (מופקדים) chez un Juif, et que le non-juif vient récupérer Shabbat : le Juif peut les lui remettre, <strong>même s'il les emportera dans le domaine public</strong> — comme expliqué au siman שכ"ה où sont détaillés ces lois.
+      </div>
+
+      <h3>De quoi parle ce Seif ?</h3>
+      <p>Cas particulier mais important : le non-juif a laissé chez moi son <em>propre</em> objet (en dépôt). Il vient Shabbat le récupérer. Toute la problématique des seifim précédents (שכר שבת, נראה כשלוחו, מראית העין) <strong>ne s'applique pas</strong>, car ce n'est plus mon objet — c'est le sien.</p>
+      <div class="definition">
+      <strong>פִּקָּדוֹן</strong> (pikkadon, dépôt) = un objet appartenant à autrui, simplement gardé en confiance. Le Juif n'est qu'un dépositaire — pas un propriétaire, pas un prêteur. Aucune apparence de mission ne peut se créer.
+      </div>
+
+      <h3>La question halakhique</h3>
+      <p>Pourquoi cette permission, alors même que le non-juif emportera l'objet en רשות הרבים pendant Shabbat ? Réponse du Rav : <strong>les gzeirot des seifim précédents protègent l'image du Juif comme propriétaire de l'objet</strong>. Quand l'objet appartient au non-juif, aucune confusion possible — le passant comprend que le non-juif vient simplement récupérer son bien.</p>
+
+      <h3>Les avis</h3>
+      <table>
+      <tr><th>Source</th><th>Position</th></tr>
+      <tr><td><strong>Talmud / Rishonim</strong></td><td>Le dépôt du non-juif peut être restitué Shabbat ; renvoi à siman שכ"ה pour les détails.</td></tr>
+      <tr><td><strong>Mehaber</strong> (246:3)</td><td>Permet la restitution même vers רשות הרבים.</td></tr>
+      <tr><td><strong>Rama</strong></td><td>Concorde ; ajoute que c'est même une mitzvah de ne pas retenir le bien du non-juif.</td></tr>
+      <tr><td><strong>Mishna Berura</strong> (246:16-17)</td><td>Précise : si le Juif craint un risque pour lui-même de מראית העין, qu'il l'aide discrètement.</td></tr>
+      <tr class="harav"><td><strong>SHHaRav</strong> (246:6)</td><td>Renvoie au siman שכ"ה pour le détail complet ; pose le principe : pas de gzeira sur les biens du non-juif.</td></tr>
+      </table>
+
+      <h3>Le pesak du Rav</h3>
+      <div class="key-point">
+      <strong>La règle du dépôt :</strong>
+      <ol>
+        <li>Le non-juif a déposé son objet chez moi avant Shabbat.</li>
+        <li>Il vient Shabbat le récupérer.</li>
+        <li>Je peux le lui remettre — <strong>même s'il sortira en domaine public</strong>.</li>
+        <li>Aucune מראית העין : tout passant comprend que c'est son bien.</li>
+      </ol>
+      </div>
+
+      <div class="case-card">
+      <ul class="compact">
+        <li><strong>Un voisin non-juif a laissé son vélo chez moi mercredi, il vient le reprendre Shabbat :</strong> 🟢 restitution permise.</li>
+        <li><strong>Un livreur non-juif a oublié son colis Shabbat dans ma cour, vient le récupérer Shabbat :</strong> 🟢 restitution permise.</li>
+        <li><strong>Mon collègue m'a confié son ordinateur portable jeudi, vient Shabbat le chercher :</strong> 🟢 permis (sous réserve : interdit de l'allumer, etc.).</li>
+        <li><strong>Le non-juif m'a confié son chien : peut-il le reprendre Shabbat ?</strong> 🟡 voir siman שכ"ה (problèmes de מוקצה possibles).</li>
+        <li><strong>Un client non-juif vient récupérer ses chaussures laissées chez le cordonnier juif Shabbat (réparation finie avant Shabbat) :</strong> 🟢 permis.</li>
+      </ul>
+      </div>
+
+      <h3>Points à retenir</h3>
+      <div class="remember">
+      <ul class="compact">
+        <li>Les gzeirot des seifim précédents <strong>ne s'appliquent qu'aux biens du Juif</strong></li>
+        <li>Le bien du non-juif déposé chez le Juif peut être restitué Shabbat — <strong>même vers רשות הרבים</strong></li>
+        <li>Logique : pas de מראית העין possible (le passant comprend la restitution)</li>
+        <li>Détails complémentaires au siman שכ"ה (cas de מוקצה, etc.)</li>
+      </ul>
+      </div>
+
+      <div class="question-box">
+      <strong>Question de compréhension :</strong> En quoi le caractère « du non-juif » de l'objet supprime-t-il toutes les gzeirot — alors même que physiquement, le non-juif sort de ma maison avec un objet vers la rue, exactement comme dans les seifim précédents ?
+      </div>
+
+      <div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-zayin-rav">Seif Zayin (SHHaRav) →</a></div></div>
+
+      <!-- ===== Seif Zayin — Tournant : la בהמה, איסור תורה ===== -->
+      <h2 class="section-title-rav" id="seif-zayin-rav">7. Seif Zayin — Tournant majeur : la בהמה (animal) — שביתת בהמתו, איסור תורה</h2>
+
+      <h3>Texte intégral du SHHaRav</h3>
+      <blockquote class="text-source">אָסוּר לְהַשְׁאִיל בְּהֶמְתּוֹ לְנָכְרִי לַעֲשׂוֹת בָּהּ מְלָאכָה, מִפְּנֵי שֶׁהַנָּכְרִי עוֹשֶׂה בָּהּ גַּם בְּשַׁבָּת, וְאָדָם מְצֻוֶּה עַל שְׁבִיתַת בְּהֶמְתּוֹ, שֶׁנֶּאֱמַר "לְמַעַן יָנוּחַ שׁוֹרְךָ וַחֲמֹרֶךָ". <br><br>וְאַף לְהַשְׂכִּירָהּ לוֹ אָסוּר מִן הַתּוֹרָה, אַף עַל פִּי שֶׁמַּשְׂכִּירָהּ הַרְבֵּה יָמִים קֹדֶם הַשַּׁבָּת, וַאֲפִלּוּ אִם מַתְנֶה עִמּוֹ שֶׁלֹּא יַעֲשֶׂה בָּהּ כְּלוּם בְּשַׁבָּת וְהִבְטִיחַ לוֹ — אֵין זֶה מוֹעִיל, כִּי אֵין הַנָּכְרִי נֶאֱמָן עַל כָּךְ, מִטַּעַם שֶׁיִּתְבָּאֵר בְּסִמָּן ש"ה, עַיֵּן שָׁם:</blockquote>
+
+      <h3>Traduction française</h3>
+      <div class="translation">
+      <strong>Il est interdit de prêter son animal</strong> (בְּהֶמְתּוֹ) à un non-juif pour qu'il l'utilise au travail — parce que le non-juif l'utilisera <em>aussi le Shabbat</em>, et <strong>l'homme est commandé sur le repos de son animal</strong>, comme il est dit (Exode 23:12) : <em>« Afin que ton bœuf et ton âne se reposent »</em> (לְמַעַן יָנוּחַ שׁוֹרְךָ וַחֲמֹרֶךָ).<br><br>
+      <strong>Et même le louer</strong> à un non-juif est <strong>interdit par la Torah</strong> (אסור מן התורה) — même si on le loue de <em>nombreux jours avant Shabbat</em>, et même si on stipule qu'il ne sera pas utilisé le Shabbat et que le non-juif a promis : cela ne sert à rien, car le non-juif n'est pas considéré comme digne de confiance sur ce point (voir siman ש"ה).
+      </div>
+
+      <h3>De quoi parle ce Seif ?</h3>
+      <p>Tournant majeur du Siman. Jusqu'ici, tous les interdits étaient <em>rabbiniques</em> (gzeirot sur les כלים). À partir du Seif Zayin et jusqu'à la fin, on entre dans un domaine <strong>biblique</strong> : <em>שביתת בהמתו</em> — le commandement positif de la Torah de faire reposer son animal.</p>
+      <div class="definition">
+      <strong>שְׁבִיתַת בְּהֶמְתּוֹ</strong> = <em>repos de son animal</em>. Inscrit dans les Dix Paroles (Décalogue) : « Pour que ton bœuf et ton âne se reposent ». C'est un <strong>commandement positif de la Torah</strong> — il s'agit d'un véritable איסור תורה, pas d'une simple gzeira rabbinique. Ce statut renforcé change tout : aucune solution « simple » (הבלעה, prêt sans loyer) ne suffit plus.
+      </div>
+
+      <h3>La question halakhique</h3>
+      <p>Pourquoi même la <em>location</em> faite de nombreux jours à l'avance est-elle interdite מן התורה, alors que pour les כלים c'était permis ? Réponse du Rav : l'obligation porte sur le <em>repos effectif</em> de l'animal Shabbat. Tant que l'animal <em>appartient</em> au Juif (גוף הבהמה שלו), peu importe quand le contrat est signé : si le non-juif l'utilise Shabbat, le Juif transgresse. Et la promesse du non-juif n'est pas fiable.</p>
+
+      <h3>Les avis</h3>
+      <table>
+      <tr><th>Source</th><th>Position</th></tr>
+      <tr><td><strong>Torah</strong> (Ex 23:12, Décalogue)</td><td>« Pour que ton bœuf et ton âne se reposent » — obligation explicite.</td></tr>
+      <tr><td><strong>Talmud</strong> (Shabbat 5a, AZ 15a)</td><td>שביתת בהמתו = איסור תורה ; ne peut être contourné par la location.</td></tr>
+      <tr><td><strong>Mehaber</strong> (246:3)</td><td>Interdit la location ou le prêt d'animal, מן התורה.</td></tr>
+      <tr><td><strong>Rama</strong></td><td>Accepte ; ajoute la non-fiabilité de la promesse du non-juif.</td></tr>
+      <tr><td><strong>Mishna Berura</strong> (246:18-20)</td><td>Toute la difficulté du Siman vient de ce point : pour les animaux, la solution doit être <em>structurelle</em> (vente, הפקר).</td></tr>
+      <tr class="harav"><td><strong>SHHaRav</strong> (246:7)</td><td>Pose clairement le <strong>passage rabbinique → biblique</strong> ; renvoie à siman ש"ה pour la non-fiabilité du non-juif sur la promesse de ne pas utiliser.</td></tr>
+      </table>
+
+      <h3>Le pesak du Rav</h3>
+      <div class="key-point">
+      <strong>L'interdit biblique de la בהמה :</strong>
+      <ol>
+        <li>Prêter un animal qui travaillera Shabbat → <strong>interdit מן התורה</strong>.</li>
+        <li>Louer le même animal, même très en avance → <strong>interdit מן התורה</strong>.</li>
+        <li>Stipuler qu'il ne sera pas utilisé Shabbat + promesse du non-juif → <strong>ne suffit pas</strong> (אין הנכרי נאמן).</li>
+        <li>Les seules solutions valides seront <em>structurelles</em> : הפקר (Seif ט׳), vente (Seif י׳, י"ב, ט"ו), שותפות avec conditions (Seif י"ג).</li>
+      </ol>
+      </div>
+
+      <div class="case-card">
+      <ul class="compact">
+        <li><strong>Louer mon cheval de trait à un agriculteur non-juif pour la saison :</strong> 🔴 il travaillera Shabbat → איסור תורה.</li>
+        <li><strong>Prêter mon âne au voisin pour un mois en lui faisant promettre « pas Shabbat » :</strong> 🔴 promesse non fiable → interdit.</li>
+        <li><strong>Mon chien guide est utilisé par mon ami non-juif Shabbat :</strong> 🟡 question complexe — pour un chien, le חיוב שביתה est discuté ; consulter un Rav.</li>
+        <li><strong>Vendre mon âne le vendredi soir pour ne plus en être propriétaire Shabbat :</strong> 🟢 c'est la voie ouverte aux seifim suivants (Seif י׳).</li>
+        <li><strong>Mes vaches sont à l'étable communale gérée par un non-juif qui les sortira Shabbat :</strong> 🔴 גוף הבהמה שלי → interdit.</li>
+      </ul>
+      </div>
+
+      <h3>Points à retenir</h3>
+      <div class="remember">
+      <ul class="compact">
+        <li>Tournant : passage du <strong>rabbinique au biblique</strong> (איסור תורה)</li>
+        <li>שביתת בהמתו = commandement explicite du <strong>Décalogue</strong></li>
+        <li>Aucune solution « simple » : ni הבלעה, ni prêt sans loyer, ni promesse, ni signature avancée</li>
+        <li>Seules les solutions <strong>structurelles</strong> (Seifim ט׳–ט"ו) résolvent le problème</li>
+      </ul>
+      </div>
+
+      <div class="question-box">
+      <strong>Question de compréhension :</strong> Pourquoi la promesse du non-juif (« je n'utiliserai pas l'animal Shabbat ») est-elle insuffisante en halakha, alors qu'elle suffirait dans n'importe quel contrat civil ?
+      </div>
+
+      <div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-het-rav">Seif Het (SHHaRav) →</a></div></div>
+
+      <!-- ===== Seif Het — Sous-location d'animal loué d'un non-juif ===== -->
+      <h2 class="section-title-rav" id="seif-het-rav">8. Seif Het — Sous-location d'un animal loué par le Juif à un non-juif</h2>
+
+      <h3>Texte intégral du SHHaRav</h3>
+      <blockquote class="text-source">בַּמֶּה דְּבָרִים אֲמוּרִים? כְּשֶׁגּוּף הַבְּהֵמָה שֶׁל יִשְׂרָאֵל, אֲבָל יִשְׂרָאֵל שֶׁשָּׂכַר בְּהֵמָה מִנָּכְרִי — יָכוֹל לַחֲזוֹר וּלְהַשְׂכִּירָהּ אוֹ לְהַשְׁאִילָהּ לְנָכְרִי אַחֵר, דְּכֵיוָן שֶׁאֵין גּוּף הַבְּהֵמָה שֶׁלּוֹ — אֵינוֹ מְצֻוֶּה עַל שְׁבִיתָתָהּ. <br><br>וְיֵשׁ מִי שֶׁאוֹסֵר לְהַשְׁאִילָהּ, לְפִי שֶׁיֵּשׁ לְהִסְתַּפֵּק שֶׁמָּא עַל יְדֵי הַשְּׂכִירוּת שֶׁשְּׂכָרָהּ הַיִּשְׂרָאֵל, שֶׁנּוֹתֵן דָּמִים לְהַנָּכְרִי בַּעֲדָהּ כְּדֵי שֶׁיְּהֵא רַשַּׁאי לַעֲשׂוֹת בָּהּ מְלָאכָה, נִקְנֶה לוֹ עַל יְדֵי כָךְ הַבְּהֵמָה לְיָמִים אֵלּוּ שֶׁשְּׂכָרָהּ לוֹ מֵהַנָּכְרִי. וְטוֹב לָחוּשׁ לִדְבָרָיו:</blockquote>
+
+      <h3>Traduction française</h3>
+      <div class="translation">
+      <strong>Dans quels cas</strong> tout cela s'applique-t-il (l'interdit du Seif ז') ? Quand le <strong>corps de l'animal</strong> (גוף הבהמה) appartient au Juif. Mais un Juif qui a <em>loué</em> un animal à un non-juif peut <strong>le sous-louer ou le prêter</strong> à un autre non-juif : puisque le corps de l'animal n'est pas le sien, il n'est pas commandé sur son repos.<br><br>
+      <strong>Et un autre avis interdit le prêt</strong> (השאלה), car il y a un doute : peut-être que par la location, le Juif (qui paie pour avoir le droit de l'utiliser) a <em>acquis l'animal</em> pour ces jours-là. <strong>Et il est bon de tenir compte de cet avis</strong> (par stringance).
+      </div>
+
+      <h3>De quoi parle ce Seif ?</h3>
+      <p>Cas inverse : ce n'est pas le Juif qui possède l'animal, mais qui l'a loué à un non-juif. Peut-il le sous-louer (ou le prêter) à un autre non-juif qui l'utilisera Shabbat ? Le Rav distingue deux opinions selon la conception juridique de la location (שכירות).</p>
+      <div class="definition">
+      <strong>גּוּף הַבְּהֵמָה</strong> = <em>« corps de l'animal »</em>, la propriété <em>réelle</em>. La question est : la location d'un animal transfère-t-elle un droit d'usage seul (le « corps » reste au propriétaire), ou bien acquiert-elle l'animal pour la durée du bail (« שכירות ליומיה ממכר ») ? Cette mahloket talmudique (BM 56b) détermine ici si l'interdit de שביתת בהמתו s'applique au locataire.
+      </div>
+
+      <h3>La question halakhique</h3>
+      <p>Si la location ne transmet qu'un droit d'usage, le Juif n'est pas propriétaire et n'a pas l'obligation de שביתת בהמתו → il peut sous-louer ou prêter. Si la location <em>fait acquisition</em> (שכירות ליומיה ממכר), alors pendant la durée du bail le Juif est propriétaire de fait → l'obligation s'applique. Le Rav rapporte les deux : la première (Mehaber) permet, la seconde (יש מי שאוסר) interdit le prêt — et conseille de <strong>tenir compte de cette stringance</strong>.</p>
+
+      <h3>Les avis</h3>
+      <table>
+      <tr><th>Source</th><th>Position</th></tr>
+      <tr><td><strong>1ère opinion (Rishonim)</strong></td><td>שכירות n'est pas ממכר. Le Juif locataire peut sous-louer ou prêter — pas d'obligation de שביתה.</td></tr>
+      <tr><td><strong>יש מי שאוסר</strong></td><td>שכירות ליומיה ממכר ; le Juif est acquéreur pour la durée → interdit de prêter (השאלה).</td></tr>
+      <tr><td><strong>Mehaber</strong> (246:4)</td><td>Permet le sous-loyer et le prêt selon la 1ère opinion.</td></tr>
+      <tr><td><strong>Rama</strong></td><td>Mentionne la מחלוקת ; conseille la stringance pour le prêt.</td></tr>
+      <tr><td><strong>Mishna Berura</strong> (246:21-23)</td><td>« טוב לחוש » : ne pas prêter ; sous-louer reste permis.</td></tr>
+      <tr class="harav"><td><strong>SHHaRav</strong> (246:8)</td><td>Permet la sous-location (1ère opinion) ; <strong>« טוב לחוש »</strong> pour interdire le prêt (השאלה) par stringance.</td></tr>
+      </table>
+
+      <h3>Le pesak du Rav</h3>
+      <div class="key-point">
+      <strong>L'animal loué par le Juif à un non-juif :</strong>
+      <ol>
+        <li><strong>Sous-loyer</strong> à un autre non-juif : <strong>permis</strong> selon le Rav (1ère opinion ; pas d'obligation).</li>
+        <li><strong>Prêt</strong> à un autre non-juif : <strong>il est bon de s'abstenir</strong> par stringance (טוב לחוש).</li>
+        <li>Raison de la stringance : doute si la שכירות équivaut à un ממכר temporaire.</li>
+      </ol>
+      </div>
+
+      <div class="case-card">
+      <ul class="compact">
+        <li><strong>Je loue un cheval de mon collègue non-juif pour l'année ; je le sous-loue à un autre non-juif :</strong> 🟢 sous-loyer permis (l'animal n'est pas à moi).</li>
+        <li><strong>Même situation, mais je le <em>prête</em> à un autre non-juif :</strong> 🟡 טוב לחוש — préférable de s'abstenir.</li>
+        <li><strong>Mon collègue m'a loué son tracteur (assimilé à בהמה motorisée) que je sous-loue :</strong> 🟡 les machines n'ont pas le חיוב שביתה, mais voir Seif Bet pour les כלי אומנות.</li>
+        <li><strong>Je gère pour le compte d'un non-juif son animal — pure gestion, pas de bail :</strong> 🟢 cas du Seif Vav adapté — l'animal reste du non-juif.</li>
+        <li><strong>Location d'un animal de location de vacances pour la durée du séjour, sous-prêté à un ami non-juif :</strong> 🟡 stringance recommandée.</li>
+      </ul>
+      </div>
+
+      <h3>Points à retenir</h3>
+      <div class="remember">
+      <ul class="compact">
+        <li>Le critère décisif est <strong>גוף הבהמה</strong> — la propriété réelle, pas le droit d'usage</li>
+        <li>Sous-location à un autre non-juif : <strong>permise</strong> (le Juif n'est pas propriétaire)</li>
+        <li>Prêt : <strong>טוב לחוש</strong> — préférable de s'abstenir par stringance (doute שכירות = ממכר)</li>
+        <li>Cette distinction sous-prépare les solutions des seifim suivants (cession partielle, vente temporaire)</li>
+      </ul>
+      </div>
+
+      <div class="question-box">
+      <strong>Question de compréhension :</strong> Quelle est la différence conceptuelle entre « שכירות » (droit d'usage) et « ממכר » (acquisition) qui justifie de prêter sans crainte vs avec stringance ? Pourquoi cette mahloket talmudique a-t-elle des conséquences pratiques ici ?
+      </div>
+
+      <div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-tet-rav">Seif Tet (SHHaRav) →</a></div></div>
+
+      <!-- ===== Seif Tet — Mécanisme du הפקר ===== -->
+      <h2 class="section-title-rav" id="seif-tet-rav">9. Seif Tet — Le mécanisme du הפקר (déclaration de bien sans propriétaire)</h2>
+
+      <h3>Texte intégral du SHHaRav</h3>
+      <blockquote class="text-source">מֻתָּר לְהַשְׂכִּיר אוֹ לְהַשְׁאִיל בְּהֶמְתּוֹ לְנָכְרִי וּלְהַתְנוֹת עִמּוֹ שֶׁיַּחֲזִירֶנָּה לוֹ קֹדֶם הַשַּׁבָּת. וְאִם עָבַר הַנָּכְרִי עַל תְּנָאוֹ וְעִכְּבָהּ וְלֹא הֶחֱזִירָהּ קֹדֶם הַשַּׁבָּת — יַפְקִירֶנָּה הַיִּשְׂרָאֵל בֵּינוֹ לְבֵין עַצְמוֹ קֹדֶם הַשַּׁבָּת, שֶׁאָז אֵינוֹ מְצֻוֶּה עַל שְׁבִיתָתָהּ, כֵּיוָן שֶׁאֵינָהּ שֶׁלּוֹ, שֶׁכְּבָר הִפְקִירָהּ. <br><br>וְאַף עַל פִּי שֶׁמִּדִּבְרֵי סוֹפְרִים כָּל הֶפְקֵר שֶׁאֵינוֹ בִּפְנֵי שְׁלֹשָׁה אֵינוֹ הֶפְקֵר כְּלָל, מִכָּל מָקוֹם אַף עַל פִּי שֶׁמַּפְקִיר בֵּינוֹ לְבֵין עַצְמוֹ — בְּוַדַּאי מַפְקִיר בְּלֵב שָׁלֵם, כְּדֵי שֶׁיִּנָּצֵל מֵאִסּוּר שֶׁל תּוֹרָה. <br><br>וּמִכָּל מָקוֹם, אֵין אָדָם אַחֵר יָכוֹל לִזְכּוֹת בָּהּ אֲפִלּוּ אִם מַפְקִירָהּ בִּפְנֵי שְׁלֹשָׁה כִּשְׁאָר הֶפְקֵר, דְּכֵיוָן שֶׁאֵינָהּ מַפְקִירָהּ אֶלָּא כְּדֵי לְהַפְקִיעַ מֵעָלָיו אִסּוּר שַׁבָּת בִּלְבָד, אִם כֵּן מִן הַסְּתָם אֵינוֹ מַפְקִירָהּ אֶלָּא לְיוֹם הַשַּׁבָּת בִּלְבָד. וּבְמוֹצָאֵי שַׁבָּת מִיָּד הִיא חוֹזֶרֶת לִהְיוֹת שֶׁלּוֹ:</blockquote>
+
+      <h3>Traduction française</h3>
+      <div class="translation">
+      <strong>Il est permis</strong> de louer ou prêter son animal à un non-juif <strong>à condition</strong> qu'il le ramène avant Shabbat. Et si le non-juif a transgressé la condition et l'a retenu sans le ramener avant Shabbat, <strong>le Juif déclare l'animal הפקר</strong> (sans propriétaire) <em>entre lui et lui-même</em> avant Shabbat. Dès lors il n'est plus commandé sur son repos, puisque l'animal n'est plus à lui.<br><br>
+      <strong>Bien que, selon les Sages</strong>, tout הפקר qui n'est pas fait devant <em>trois témoins</em> ne soit pas valable comme הפקר ; néanmoins, même s'il déclare entre lui et lui-même — il déclare certainement <em>de cœur entier</em>, afin de se sauver d'un איסור תורה.<br><br>
+      <strong>Néanmoins</strong>, aucun autre ne peut « gagner » (לזכות) cet animal — même si on l'a déclaré devant trois témoins comme un הפקר normal. Car puisque le but est uniquement de s'évacuer de l'interdit de Shabbat, le הפקר est <em>limité au seul jour du Shabbat</em>. Et à la sortie du Shabbat, l'animal redevient immédiatement la propriété du Juif.
+      </div>
+
+      <h3>De quoi parle ce Seif ?</h3>
+      <p>Première <em>solution structurelle</em> au problème biblique du Seif ז'. Le Juif a loué son animal sous condition de retour avant Shabbat ; le non-juif n'a pas tenu sa promesse → l'animal est toujours en sa possession et il l'utilisera Shabbat. Le Rav propose une issue halakhique sophistiquée : le <em>הפקר temporaire et personnel</em>.</p>
+      <div class="definition">
+      <strong>הֶפְקֵר</strong> = <em>déclaration d'un bien comme sans propriétaire</em>. Normalement, le הפקר requiert d'être fait devant 3 témoins (sinon : non valable selon les Sages). Mais ici, exception : (1) c'est fait pour échapper à un איסור תורה → l'intention est sincère ; (2) c'est limité au temps strict du Shabbat ; (3) personne d'autre ne peut acquérir l'animal — il revient au Juif à מוצאי שבת.
+      </div>
+
+      <h3>La question halakhique</h3>
+      <p>Plusieurs problèmes : (1) Le הפקר devant un seul (soi-même) est-il valable ? Réponse : oui ici, car la sincérité est garantie par l'איסור תורה qu'on évite. (2) Un tiers peut-il s'approprier l'animal ? Réponse : non, car le הפקר est <em>limité dans le temps</em> (seul Shabbat). (3) Comment un הפקר temporaire peut-il être valable ? Réponse : siman רע"ג du חושן משפט permet le הפקר limité dans le temps.</p>
+
+      <h3>Les avis</h3>
+      <table>
+      <tr><th>Source</th><th>Position</th></tr>
+      <tr><td><strong>Talmud</strong> (BM 30b, AZ 15a)</td><td>Le הפקר sauve de l'interdit de שביתת בהמתו ; sincérité présumée quand איסור תורה.</td></tr>
+      <tr><td><strong>Rishonim</strong></td><td>Pour l'urgence, accepter le הפקר privé.</td></tr>
+      <tr><td><strong>Mehaber</strong> (246:3)</td><td>Permet le הפקר entre soi et soi pour se sauver de l'איסור.</td></tr>
+      <tr><td><strong>Rama</strong></td><td>Accorde ; précise que c'est <em>בדיעבד</em> (en dernier recours après échec de la condition).</td></tr>
+      <tr><td><strong>Mishna Berura</strong> (246:25-28)</td><td>Détaille la limitation temporelle : הפקר uniquement pour Shabbat ; retour automatique à מוצאי שבת.</td></tr>
+      <tr class="harav"><td><strong>SHHaRav</strong> (246:9)</td><td><strong>Architecture du הפקר temporaire</strong> : (a) condition initiale, (b) הפקר privé valable en cas d'urgence, (c) limitation temporelle, (d) renvoi à חו"מ רע"ג pour le principe du הפקר limité.</td></tr>
+      </table>
+
+      <h3>Le pesak du Rav</h3>
+      <div class="key-point">
+      <strong>La séquence du Seif Tet :</strong>
+      <ol>
+        <li>Toujours <strong>louer/prêter sous condition</strong> de retour avant Shabbat.</li>
+        <li>Si le non-juif a transgressé : déclarer le הפקר <strong>entre soi et soi-même</strong> avant Shabbat.</li>
+        <li>Validité du הפקר privé : assurée par la sincérité (איסור תורה à éviter).</li>
+        <li>Limitation : הפקר <em>uniquement pour le temps du Shabbat</em>.</li>
+        <li>À la sortie du Shabbat : l'animal redevient propriété du Juif <strong>automatiquement</strong>.</li>
+        <li>Aucun tiers ne peut s'approprier l'animal entre-temps.</li>
+      </ol>
+      </div>
+
+      <div class="case-card">
+      <ul class="compact">
+        <li><strong>J'ai loué mon cheval pour la semaine sous condition de retour vendredi 17h ; il n'est toujours pas revenu à 18h45 :</strong> 🟢 déclarer הפקר entre moi et moi avant la nuit.</li>
+        <li><strong>Je suis en voyage, sans 3 témoins ; même situation :</strong> 🟢 הפקר privé valable (איסור תורה).</li>
+        <li><strong>Quelqu'un veut s'approprier mon animal pendant le Shabbat :</strong> 🚫 impossible — le הפקר n'est valable que pour le Shabbat.</li>
+        <li><strong>À la sortie du Shabbat, je veux racheter l'animal :</strong> 🚫 inutile — il est automatiquement à moi.</li>
+        <li><strong>Pour un drone agricole non-juif loué à mon associé qui ne le rend pas avant Shabbat :</strong> 🟢 même mécanisme — déclarer הפקר avant la nuit pour éviter le שכר שבת (pour un drone, pas שביתת בהמתו).</li>
+      </ul>
+      </div>
+
+      <h3>Points à retenir</h3>
+      <div class="remember">
+      <ul class="compact">
+        <li>Première solution structurelle au problème biblique : <strong>הפקר temporaire</strong></li>
+        <li>Validité du הפקר privé garantie par la <strong>sincérité (איסור תורה)</strong></li>
+        <li><strong>Limitation</strong> : seulement pour Shabbat ; aucun tiers ne peut s'approprier</li>
+        <li>Retour automatique à la sortie du Shabbat</li>
+        <li>Toujours commencer par la <strong>condition initiale</strong> (retour avant Shabbat)</li>
+      </ul>
+      </div>
+
+      <div class="question-box">
+      <strong>Question de compréhension :</strong> Comment un הפקר peut-il être <em>temporaire</em> (limité à un jour) tout en étant pleinement valable ? Et pourquoi ne suffit-il pas qu'un tiers le déclare — il faut le propriétaire lui-même ?
+      </div>
+
+      <div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-yod-rav">Seif Yod (SHHaRav) →</a></div></div>
+
+      <!-- ===== Seif Yod — Vente temporaire par déclaration ===== -->
+      <h2 class="section-title-rav" id="seif-yod-rav">10. Seif Yod — Vente temporaire par déclaration (קנין אמירה)</h2>
+
+      <h3>Texte intégral du SHHaRav</h3>
+      <blockquote class="text-source">וְאִם הוּא רוֹצֶה יָכוֹל לְהַקְנוֹת גּוּף הַבְּהֵמָה לְנָכְרִי זֶה לְיוֹם הַשַּׁבָּת קֹדֶם הַשַּׁבָּת, וְהוּא שֶׁיֹּאמַר לוֹ בְּפָנָיו "בְּהֶמְתִּי קְנוּיָה לְךָ", שֶׁאָז מִתְכַּוֵּן הַנָּכְרִי לִקְנוֹתָהּ, וְהִיא נִקְנֵית לוֹ בַּאֲמִירָה זוֹ כֵּיוָן שֶׁהִיא בִּרְשׁוּתוֹ, אֲבָל אִם אוֹמֵר כֵּן שֶׁלֹּא בְּפָנָיו — לֹא קְנָאָהּ הַנָּכְרִי כְּלָל:</blockquote>
+
+      <h3>Traduction française</h3>
+      <div class="translation">
+      <strong>Et s'il le souhaite</strong>, il peut <strong>céder la propriété (גוף הבהמה) de l'animal</strong> à ce non-juif pour le jour du Shabbat — avant le Shabbat. Et c'est en lui disant <em>en sa présence</em> : <strong>« Mon animal t'est acquis »</strong> (בהמתי קנויה לך). Alors le non-juif a l'intention d'acquérir, et l'animal est acquis pour lui par cette simple déclaration, puisqu'il est déjà en sa possession (physique).<br><br>
+      <strong>Mais s'il dit cela hors de sa présence</strong> — le non-juif n'a rien acquis du tout.
+      </div>
+
+      <h3>De quoi parle ce Seif ?</h3>
+      <p>Deuxième solution structurelle (alternative au הפקר du Seif ט'). Au lieu de déclarer l'animal sans propriétaire, le Juif le <em>vend</em> au non-juif uniquement pour le jour du Shabbat. C'est un <em>קנין אמירה</em> (acquisition par simple déclaration), valable parce que l'animal est déjà physiquement chez le non-juif.</p>
+      <div class="definition">
+      <strong>קִנְיָן אֲמִירָה</strong> = <em>acquisition par déclaration verbale</em>. Normalement les קניינים (acquisitions) requièrent un acte concret (משיכה, כסף, שטר…). Mais quand le bien est <em>déjà</em> en possession physique de l'acquéreur, une simple déclaration suffit (cf. בבא בתרא נג). Ici : le non-juif possède l'animal → la déclaration de cession le rend propriétaire au sens halakhique.
+      </div>
+
+      <h3>La question halakhique</h3>
+      <p>Pourquoi la déclaration <em>en présence</em> est-elle indispensable ? Réponse du Rav : tout קנין requiert <em>l'intention de l'acquéreur</em> (דעת מקנה ודעת קונה). Si le Juif dit « בהמתי קנויה לך » hors de la présence du non-juif, ce dernier n'a aucune intention d'acquérir — l'acquisition n'opère pas.</p>
+
+      <h3>Les avis</h3>
+      <table>
+      <tr><th>Source</th><th>Position</th></tr>
+      <tr><td><strong>Talmud</strong> (BB 53a)</td><td>Un bien déjà en possession peut être acquis par simple déclaration en présence.</td></tr>
+      <tr><td><strong>Rishonim</strong></td><td>קנין אמירה valable pour la vente temporaire ; le דעת קונה requiert la présence.</td></tr>
+      <tr><td><strong>Mehaber</strong> (246:3)</td><td>Mentionne la vente temporaire ; le Rama précise la condition de présence.</td></tr>
+      <tr><td><strong>Rama</strong></td><td>Insiste : <em>en sa présence</em> est essentiel pour valider l'acquisition.</td></tr>
+      <tr><td><strong>Mishna Berura</strong> (246:29-32)</td><td>Détaille les formes acceptables ; alternative au הפקר ; préférable car l'animal n'est jamais « sans propriétaire ».</td></tr>
+      <tr class="harav"><td><strong>SHHaRav</strong> (246:10)</td><td>Pose la <strong>règle de la présence</strong> : sans le non-juif, pas de דעת קונה, pas d'acquisition. Le mécanisme préfigure les solutions des seifim י"א–י"ח.</td></tr>
+      </table>
+
+      <h3>Le pesak du Rav</h3>
+      <div class="key-point">
+      <strong>La vente temporaire par déclaration :</strong>
+      <ol>
+        <li>Avant Shabbat, déclarer <em>en présence</em> du non-juif : <strong>« בהמתי קנויה לך »</strong> (« mon animal t'est acquis »).</li>
+        <li>L'animal doit déjà être en sa possession physique (il l'a déjà loué).</li>
+        <li>Hors présence : le קנין n'opère pas (pas de דעת קונה).</li>
+        <li>L'acquisition vaut pour le seul jour du Shabbat.</li>
+        <li>Alternative préférable au הפקר (Seif ט') : l'animal a toujours un propriétaire (donc plus de protection juridique).</li>
+      </ol>
+      </div>
+
+      <div class="case-card">
+      <ul class="compact">
+        <li><strong>Mon cheval est resté chez un agriculteur non-juif qui le retient ; je lui téléphone vendredi pour dire « בהמתי קנויה לך » :</strong> 🟡 par téléphone, certains permettent (il « entend » → c'est בפניו). À voir avec un Rav.</li>
+        <li><strong>Je vais sur place lui dire en personne :</strong> 🟢 קנין אמירה valide.</li>
+        <li><strong>Je lui envoie une lettre disant « בהמתי קנויה לך » :</strong> 🔴 hors présence → pas de דעת קונה → invalide.</li>
+        <li><strong>Mon animal n'est <em>pas</em> déjà chez le non-juif (je voudrais lui vendre pour le Shabbat sans qu'il l'ait reçu) :</strong> 🔴 le קנין אמירה ne fonctionne pas — il faut un קנין avec משיכה.</li>
+        <li><strong>Préfère-t-on הפקר ou vente temporaire ?</strong> → <em>vente</em> : l'animal a toujours un propriétaire, donc plus de מראית העין et plus de risque de revendication par un tiers.</li>
+      </ul>
+      </div>
+
+      <h3>Points à retenir</h3>
+      <div class="remember">
+      <ul class="compact">
+        <li>Deuxième solution structurelle : <strong>vente temporaire par קנין אמירה</strong></li>
+        <li>Formule : « בהמתי קנויה לך » <strong>en présence</strong> du non-juif</li>
+        <li>Validité : nécessite que l'animal soit <em>déjà</em> en possession physique du non-juif</li>
+        <li>Alternative préférable au הפקר : pas de risque de revendication par un tiers</li>
+        <li>Préfigure les mécanismes plus sophistiqués des seifim י"א–י"ח</li>
+      </ul>
+      </div>
+
+      <div class="question-box">
+      <strong>Question de compréhension :</strong> Pourquoi la simple présence du non-juif suffit-elle à constituer son intention d'acquérir (דעת קונה), sans qu'il ait à dire « j'accepte » ? Quelle est la logique halakhique du קנין אמירה ?
+      </div>
+
+      <div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-yod-alef-rav">Seif Yod Alef (SHHaRav) →</a></div></div>
+
+      <!-- ===== Seif Yod Alef — Lekhatchila avec הפקר/הקנאה devant 3 ===== -->
+      <h2 class="section-title-rav" id="seif-yod-alef-rav">11. Seif Yod-Alef — Lekhatchila avec הפקר devant trois et acquisition complète</h2>
+
+      <h3>Texte intégral du SHHaRav</h3>
+      <blockquote class="text-source">וְכָל זֶה בְּדִיעֲבַד, שֶׁכְּבָר הִשְׂכִּירָהּ אוֹ הִשְׁאִילָהּ לְנָכְרִי בְּהֶתֵּר, שֶׁהִתְנָה עִמּוֹ שֶׁיַּחֲזִירֶנָּה לוֹ קֹדֶם הַשַּׁבָּת, אֲבָל לְכַתְּחִלָּה אָסוּר לְהַשְׂכִּירָהּ אוֹ לְהַשְׁאִילָהּ סְתָם עַל סְמַךְ שֶׁכְּשֶׁיַּגִּיעַ הַשַּׁבָּת יַפְקִירֶנָּה אוֹ יַקְנֶה אוֹתָהּ לְהַנָּכְרִי, לְפִי שֶׁמְּפֻרְסָם לָרַבִּים שֶׁהִיא בֶּהֱמַת יִשְׂרָאֵל, וְהַהֶפְקֵר וְהַהַקְנָאָה אֵינָן מְפֻרְסָמִים כְּלָל, וְיֵשׁ כַּאן חֲשַׁשׁ מַרְאִית הָעַיִן. <br><br>וְיֵשׁ מַתִּירִין לְהַשְׂכִּיר אוֹ לְהַשְׁאִיל לְכַתְּחִלָּה עַל סְמַךְ שֶׁכְּשֶׁיַּגִּיעַ הַשַּׁבָּת יַפְקִירֶנָּה אוֹ יַקְנֶה אוֹתָהּ לְהַנָּכְרִי בִּפְנֵי שְׁלֹשָׁה יִשְׂרְאֵלִים. וְיֵשׁ לִסְמוֹךְ עַל דִּבְרֵיהֶם בִּשְׁעַת הַדְּחַק. <br><br>וְכֵן יֵשׁ לְהַתִּיר לְצֹרֶךְ מִצְוָה, כְּגוֹן לִשְׁלוֹחַ אֶתְרוֹגִים עַל בְּהֶמְתּוֹ עַל יְדֵי נָכְרִי, עַל דֶּרֶךְ שֶׁיִּתְבָּאֵר בְּסִמָּן תרנ"ה.</blockquote>
+
+      <h3>Traduction française</h3>
+      <div class="translation">
+      <strong>Tout cela</strong> (les solutions des Seifim ט'-י') <strong>ne vaut qu'en בדיעבד</strong> — quand on a déjà loué ou prêté l'animal en bonne et due forme (avec condition de retour). <strong>Mais לכתחילה</strong> (a priori), il est <strong>interdit</strong> de louer ou prêter <em>sans condition</em>, en comptant sur le fait qu'à l'arrivée du Shabbat on déclarera le הפקר ou la cession au non-juif. Raison : il est <em>publiquement connu</em> que l'animal est juif, et le הפקר ou la cession <em>ne sont pas publiquement connus</em> — il y a là un risque de מראית העין.<br><br>
+      <strong>Et certains permettent</strong> לכתחילה, à condition que la cession ou le הפקר soit fait <em>devant trois Juifs</em> (qui publieront la chose). On peut s'appuyer sur cet avis <strong>en שעת הדחק</strong> (moment de contrainte).<br><br>
+      <strong>De même, on peut autoriser pour un besoin de mitzvah</strong> — comme envoyer des etrogim sur son animal par un non-juif (cf. siman תרנ"ה).
+      </div>
+
+      <h3>De quoi parle ce Seif ?</h3>
+      <p>Question pratique : peut-on <strong>planifier d'avance</strong> d'utiliser le mécanisme du הפקר ou de la cession (Seifim ט'-י') ? Non — לכתחילה c'est interdit, car le caractère « juif » de l'animal est public alors que le הפקר ne l'est pas → מראית העין persistante. <strong>Sauf</strong> : devant trois témoins (qui publient), ou en שעת הדחק, ou pour une mitzvah.</p>
+      <div class="definition">
+      <strong>לְכַתְּחִלָּה vs בְּדִיעֲבַד</strong> :
+      <ul class="compact">
+      <li><strong>לכתחילה</strong> = action <em>a priori</em>, planifiée à l'avance. Plus strict.</li>
+      <li><strong>בדיעבד</strong> = action <em>après-coup</em>, gestion d'une situation déjà advenue. Plus souple.</li>
+      </ul>
+      Les Seifim ט'-י' sont des <em>solutions בדיעבד</em>. Pour les utiliser <em>לכתחילה</em>, il faut une publication adéquate (3 témoins).
+      </div>
+
+      <h3>La question halakhique</h3>
+      <p>Pourquoi exiger 3 témoins לכתחילה ? Parce que la <em>publicité</em> du הפקר contrebalance la publicité antérieure de la propriété juive. Sans les 3 témoins, les passants verront « l'animal du Juif travailler Shabbat » et soupçonneront — מראית העין. Avec 3 témoins, la rumeur se répand : « il a fait דרך היתר » (un acte conforme).</p>
+
+      <h3>Les avis</h3>
+      <table>
+      <tr><th>Source</th><th>Position</th></tr>
+      <tr><td><strong>1ère opinion (Rashba)</strong></td><td>Interdit לכתחילה même avec 3 témoins : la propriété juive reste plus connue.</td></tr>
+      <tr><td><strong>2ème opinion (Ran, Tossafot)</strong></td><td>Permet לכתחילה devant 3 témoins (publication suffisante).</td></tr>
+      <tr><td><strong>Mehaber</strong> (246:3)</td><td>Interdit לכתחילה sauf cas exceptionnels.</td></tr>
+      <tr><td><strong>Rama</strong></td><td>Permet en שעת הדחק / mitzvah devant 3 témoins.</td></tr>
+      <tr><td><strong>Mishna Berura</strong> (246:33-37)</td><td>Trois cas où l'on peut être indulgent : (1) שעת הדחק économique, (2) צורך מצוה, (3) דייני העיר pour publier.</td></tr>
+      <tr class="harav"><td><strong>SHHaRav</strong> (246:11)</td><td><strong>Synthèse pratique</strong> : (a) לכתחילה <em>interdit</em>, (b) avec 3 témoins en שעת הדחק <em>permis</em>, (c) pour mitzvah <em>même sans 3 témoins</em> (envoyer etrogim par non-juif).</td></tr>
+      </table>
+
+      <h3>Le pesak du Rav</h3>
+      <div class="key-point">
+      <strong>Quatre niveaux d'autorisation :</strong>
+      <ol>
+        <li><strong>לכתחילה classique</strong> : interdit. הפקר/cession seulement בדיעבד.</li>
+        <li><strong>שעת הדחק</strong> (par ex. nécessité économique vitale) : permis לכתחילה <em>devant 3 témoins Juifs</em>.</li>
+        <li><strong>Idéalement devant les דייני העיר</strong> (juges du tribunal) qui publieront formellement.</li>
+        <li><strong>צורך מצוה</strong> (envoyer etrogim, etc.) : permis <em>même entre soi et soi-même</em> (pas de 3 témoins requis).</li>
+      </ol>
+      </div>
+
+      <div class="case-card">
+      <ul class="compact">
+        <li><strong>Je veux dès le départ louer mon cheval à un non-juif pour la saison en comptant sur le הפקר Shabbat :</strong> 🔴 לכתחילה interdit.</li>
+        <li><strong>Mon exploitation va fermer si je ne loue pas (שעת הדחק) ; je fais הפקר devant 3 voisins juifs :</strong> 🟢 permis.</li>
+        <li><strong>Idéalement, le faire devant le בית דין de la ville :</strong> 🟢 préférable (publication formelle).</li>
+        <li><strong>Envoyer mes etrogim pour Soukkot par un non-juif sur mon âne :</strong> 🟢 mitzvah → permis même sans 3 témoins.</li>
+        <li><strong>Vouloir éviter d'avoir un employé Shabbat en mettant l'entreprise au nom du non-juif pour la durée :</strong> 🟡 שעת הדחק économique — formalisation requise (3 témoins / contrat publié).</li>
+      </ul>
+      </div>
+
+      <h3>Points à retenir</h3>
+      <div class="remember">
+      <ul class="compact">
+        <li><strong>Distinction לכתחילה / בדיעבד</strong> : les Seifim ט'-י' sont des solutions de rattrapage</li>
+        <li>Pour planifier la cession לכתחילה : <strong>3 témoins Juifs</strong> (publication)</li>
+        <li>Cas où le Rav permet לכתחילה : <strong>שעת הדחק</strong> (avec 3 témoins) et <strong>צורך מצוה</strong> (même seul)</li>
+        <li>Idéal : passer par le <strong>בית דין de la ville</strong> pour publication formelle</li>
+      </ul>
+      </div>
+
+      <div class="question-box">
+      <strong>Question de compréhension :</strong> Pourquoi la publicité (devant 3 témoins) suffit-elle à neutraliser la מראית העין ? Et pourquoi un cas de mitzvah dispense-t-il même de cette exigence ?
+      </div>
+
+      <div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-yod-bet-rav">Seif Yod Bet (SHHaRav) →</a></div></div>
+
+      <!-- ===== Seif Yod Bet — Cession conditionnelle "si tu utilises" ===== -->
+      <h2 class="section-title-rav" id="seif-yod-bet-rav">12. Seif Yod-Bet — Cession conditionnelle « si tu utilises Shabbat » + acte notarié</h2>
+
+      <h3>Texte intégral du SHHaRav</h3>
+      <blockquote class="text-source">וְכֵן יָכוֹל לְהַשְׂכִּירָהּ אוֹ לְהַשְׁאִילָהּ לְנָכְרִי עַל יְדֵי שֶׁיַּזְהִיר אוֹתוֹ שֶׁלֹּא יַעֲשֶׂה בָּהּ בְּשַׁבָּת, וּבְאִם שֶׁיַּעֲבוֹר עַל תְּנָאוֹ וְיַעֲשֶׂה אֲזַי הִיא קְנוּיָה לוֹ לְיוֹם הַשַּׁבָּת וְיִתְחַיֵּב בְּאֹנָסִין שֶׁיֶּאֶרְעוּ לָהּ בְּשַׁבָּת, וְיִכְתּוֹב כֵּן בְּעַרְכָּאוֹתֵיהֶם, שֶׁנִּמְצָא כְּשֶׁבָּא הַנָּכְרִי לַעֲשׂוֹת בָּהּ בְּשַׁבָּת אֵינָהּ בֶּהֱמַת יִשְׂרָאֵל כְּלָל, שֶׁהֲרֵי קְנָאָהּ הַנָּכְרִי לְהִתְחַיֵּב בְּאֹנָסֶיהָ. וְאַף שֶׁאֵינָהּ קְנוּיָה לוֹ אֶלָּא בְּשַׁבָּת בִּלְבָד — אֵין לָחוּשׁ לְמַרְאִית הָעַיִן, כֵּיוָן שֶׁכָּתַב כֵּן בְּעַרְכָּאוֹתֵיהֶם — יֵשׁ לַדָּבָר קוֹל וּפִרְסוּם:</blockquote>
+
+      <h3>Traduction française</h3>
+      <div class="translation">
+      <strong>De même</strong>, il peut louer ou prêter son animal à un non-juif en <strong>l'avertissant qu'il ne doit pas l'utiliser Shabbat</strong>, et que <strong>s'il transgresse cette condition</strong> et l'utilise, <strong>l'animal lui est acquis pour le jour du Shabbat</strong>, et il sera responsable des accidents qui pourraient lui arriver Shabbat.<br><br>
+      <strong>Et qu'il écrive cela dans leurs tribunaux</strong> (בערכאותיהם — les actes notariés des non-juifs). Ainsi, quand le non-juif vient utiliser l'animal Shabbat, <em>ce n'est plus un animal juif du tout</em>, car le non-juif l'a acquis (par le déclenchement de la condition) et en est responsable des accidents.<br><br>
+      Et bien qu'il ne lui soit acquis que pour Shabbat seul — il n'y a pas de risque de מראית העין, puisque cela est écrit dans leurs actes notariés : <strong>il y a publication officielle</strong> (קול ופרסום).
+      </div>
+
+      <h3>De quoi parle ce Seif ?</h3>
+      <p>Troisième solution structurelle. Le Rav fait évoluer la doctrine vers un mécanisme juridique sophistiqué : la <strong>cession conditionnelle automatique</strong> par acte notarié. Le contrat dit : « tu peux utiliser l'animal, mais pas Shabbat ; si tu le fais quand même, alors ipso facto l'animal devient le tien pour ce jour-là ». Et la publication officielle (acte notarié civil) résout le problème de מראית העין.</p>
+      <div class="definition">
+      <strong>עַרְכָּאוֹתֵיהֶם</strong> = <em>les tribunaux des non-juifs</em>. Normalement, recourir aux tribunaux civils est très limité en halakha (cf. Hochen Mishpat). Mais pour <em>enregistrer un acte</em> et lui donner publication officielle, on peut le faire — ici, c'est la clé qui élimine le risque de מראית העין car le contrat est public et opposable à tous.
+      </div>
+
+      <h3>La question halakhique</h3>
+      <p>Comment une simple condition peut-elle <em>automatiquement</em> transférer la propriété ? Réponse : c'est une <em>תנאי כפול</em> (condition à double face) : le contrat de location stipule expressément qu'<em>en cas d'usage Shabbat</em>, le statut juridique de l'animal change <em>de plein droit</em>. La validité de ce mécanisme repose sur la sincérité du contrat et son enregistrement public.</p>
+
+      <h3>Les avis</h3>
+      <table>
+      <tr><th>Source</th><th>Position</th></tr>
+      <tr><td><strong>Acharonim</strong></td><td>Cette solution combine condition et publicité : meilleure protection contre la מראית העין.</td></tr>
+      <tr><td><strong>Mehaber</strong> (cf. Beit Yosef)</td><td>Mentionne la possibilité de la condition automatique.</td></tr>
+      <tr><td><strong>Rama</strong></td><td>Insiste sur la nécessité de l'acte notarié pour la publicité.</td></tr>
+      <tr><td><strong>Mishna Berura</strong> (246:38-40)</td><td>Loue cette solution comme la plus complète : (a) protection juridique, (b) responsabilité civile transférée, (c) publication officielle.</td></tr>
+      <tr class="harav"><td><strong>SHHaRav</strong> (246:12)</td><td><strong>Architecture combinée</strong> : condition d'usage + transfert automatique de propriété + responsabilité civile + acte notarié = solution complète et לכתחילה.</td></tr>
+      </table>
+
+      <h3>Le pesak du Rav</h3>
+      <div class="key-point">
+      <strong>La solution complète du Seif Yod-Bet :</strong>
+      <ol>
+        <li>Contrat de location/prêt avec <strong>clause expresse</strong> : « pas d'usage Shabbat ».</li>
+        <li>Clause additionnelle : <em>« si tu utilises Shabbat, l'animal devient le tien pour ce jour-là, avec ta responsabilité civile »</em>.</li>
+        <li>Le contrat est <strong>enregistré chez un notaire ou tribunal civil</strong> (ערכאותיהם).</li>
+        <li>Résultat : si le non-juif viole la condition, propriété transférée automatiquement → plus d'animal juif → pas de violation de שביתת בהמתו.</li>
+        <li>La publication officielle dissout la מראית העין.</li>
+      </ol>
+      </div>
+
+      <div class="case-card">
+      <ul class="compact">
+        <li><strong>Je loue mon tracteur à un agriculteur non-juif via un contrat notarié contenant la clause de cession automatique :</strong> 🟢 solution complète.</li>
+        <li><strong>Même contrat, mais le notaire enregistre uniquement la location sans la clause de cession :</strong> 🔴 il manque la publication de la cession → מראית העין persiste.</li>
+        <li><strong>Mon voisin loue mon cheval ; nous signons un sous-seing privé avec la clause :</strong> 🟡 valide juridiquement mais moins de publicité — préférable d'aller chez le notaire.</li>
+        <li><strong>Bail commercial d'un atelier à un non-juif qui pourrait l'utiliser Shabbat : clause automatique + acte notarié :</strong> 🟢 solution analogique pour les כלים aussi.</li>
+        <li><strong>Logiciel ou plateforme SaaS dont mon abonné non-juif fait usage Shabbat ?</strong> 🟡 question moderne — un contrat de licence avec clause similaire peut être envisagé.</li>
+      </ul>
+      </div>
+
+      <h3>Points à retenir</h3>
+      <div class="remember">
+      <ul class="compact">
+        <li>Solution structurelle <strong>la plus aboutie</strong> : combine condition + cession automatique + acte notarié</li>
+        <li>La clause <em>« si tu transgresses, l'animal devient le tien »</em> opère automatiquement (תנאי כפול)</li>
+        <li><strong>L'enregistrement officiel</strong> (ערכאותיהם) crée la publicité qui dissout la מראית העין</li>
+        <li>Solution valable <strong>לכתחילה</strong> grâce à la publicité juridique</li>
+      </ul>
+      </div>
+
+      <div class="question-box">
+      <strong>Question de compréhension :</strong> Pourquoi le recours à un acte notarié civil (ערכאותיהם) est-il ici <em>positif</em> alors qu'il est habituellement restreint en halakha ? Quelle fonction halakhique cette publication remplit-elle ?
+      </div>
+
+      <div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-yod-gimel-rav">Seif Yod Gimel (SHHaRav) →</a></div></div>
+
+      <!-- ===== Seif Yod Gimel — שותפות avec partage Shabbat/semaine ===== -->
+      <h2 class="section-title-rav" id="seif-yod-gimel-rav">13. Seif Yod-Gimel — שותפות (partenariat) avec partage Shabbat / semaine initial</h2>
+
+      <h3>Texte intégral du SHHaRav</h3>
+      <blockquote class="text-source">יִשְׂרָאֵל וְנָכְרִי שֶׁהֵם שֻׁתָּפִים בִּבְהֵמָה לִטְחוֹן בָּרֵחַיִם וְכַיּוֹצֵא — יֵשׁ הֶתֵּר שֶׁיַּעֲשֶׂה בָּהּ הַנָּכְרִי בְּשַׁבָּת עַל יְדֵי שֶׁיַּתְנֶה עִם הַנָּכְרִי בַּתְּחִלָּה בְּשָׁעָה שֶׁקְּנָאוּהָ שֶׁיִּטּוֹל הַנָּכְרִי כָּל שְׂכַר הַשַּׁבָּת בִּלְבַדּוֹ וְהַיִּשְׂרָאֵל יִטּוֹל כְּנֶגֶד זֶה כָּל שְׂכַר יוֹם אֶחָד בְּחֹל בִּלְבַדּוֹ, שֶׁכְּשֶׁמַּתְנֶה עִמּוֹ כֵּן בִּתְחִלַּת הַשֻּׁתָּפוּת — הֲרֵי זֶה כְּמַקְנֶה לוֹ בִּלְבַדּוֹ כָּל גּוּף הַבְּהֵמָה לְשַׁבָּתוֹת וּלְיִשְׂרָאֵל בִּלְבַדּוֹ בְּיוֹם אַחֵר, וְאֵין לְהַיִּשְׂרָאֵל חֵלֶק בָּהּ בְּשַׁבָּתוֹת, וְאֵינוֹ מְצֻוֶּה עַל שְׁבִיתָתָהּ.</blockquote>
+
+      <h3>Traduction française</h3>
+      <div class="translation">
+      <strong>Un Juif et un non-juif qui sont שותפים</strong> (associés) sur un animal pour moudre au moulin et travaux similaires — <strong>il y a une autorisation</strong> pour que le non-juif l'utilise Shabbat. Comment ? En stipulant avec lui <em>dès le début</em>, au moment de l'achat de l'animal en commun, que <strong>le non-juif prendra pour lui seul tout le gain du Shabbat</strong>, et que le Juif prendra en contrepartie tout le gain d'un jour de semaine pour lui seul.<br><br>
+      Cette stipulation initiale équivaut à <strong>céder au non-juif seul tout le גוף de l'animal pour les Shabbatot</strong>, et au Juif seul pour un jour de la semaine. Ainsi, le Juif n'a aucune part dans l'animal les Shabbatot, et n'est pas commandé sur son repos.<br><br>
+      <em>(Même si la responsabilité de l'animal reste sur les deux les autres jours — peu importe ; ce qui compte est que pour Shabbat, propriété exclusive du non-juif.)</em>
+      </div>
+
+      <h3>De quoi parle ce Seif ?</h3>
+      <p>Cas du <em>partenariat</em> (שותפות) entre un Juif et un non-juif sur un animal. Le Rav propose une structure permettant au partenariat de fonctionner Shabbat : <strong>une clause initiale d'attribution exclusive du Shabbat au non-juif</strong> (et d'un jour de semaine au Juif). Cette stipulation, faite <em>dès l'achat</em>, équivaut à une cession permanente du « jour Shabbat » au non-juif.</p>
+      <div class="definition">
+      <strong>שֻׁתָּפוּת</strong> (chouttafout) = <em>partenariat juridique</em>. Différent d'une simple co-propriété : c'est un accord économique sur la gestion et le partage des bénéfices. Une clause initiale qui répartit les <em>jours</em> (et non les pourcentages) crée une propriété <em>temporelle exclusive</em> : Shabbat = au non-juif, jour X = au Juif. Cela neutralise le problème de שביתת בהמתו.
+      </div>
+
+      <h3>La question halakhique</h3>
+      <p>Comment une simple clause de partage peut-elle créer une propriété exclusive ? Réponse : parce qu'elle est <em>initiale</em>. Au moment de l'achat, les parties décident ensemble que les jours sont attribués individuellement. Ce n'est pas un échange après-coup (qui serait מעמיד פועל במקומו, cf. siman רמ"ה), mais une <em>structuration ab initio</em> de la propriété — comme si l'on avait acheté en commun en répartissant les jours dès le début.</p>
+
+      <h3>Les avis</h3>
+      <table>
+      <tr><th>Source</th><th>Position</th></tr>
+      <tr><td><strong>Talmud</strong> (AZ 22a)</td><td>שותפות avec stipulation initiale = cession exclusive de Shabbat au non-juif.</td></tr>
+      <tr><td><strong>Rishonim</strong></td><td>La distinction <em>בתחילה / לאחר מכן</em> est cruciale : seule la clause initiale fonctionne.</td></tr>
+      <tr><td><strong>Mehaber</strong> (245:1, 246:5)</td><td>Stipulation initiale permet ; après-coup interdit (cf. siman רמ"ה).</td></tr>
+      <tr><td><strong>Rama</strong></td><td>Accorde ; précise les détails de la stipulation.</td></tr>
+      <tr><td><strong>Mishna Berura</strong> (246:41-43)</td><td>Cette stipulation doit être <em>explicite</em> sur l'attribution des jours, pas implicite.</td></tr>
+      <tr class="harav"><td><strong>SHHaRav</strong> (246:13)</td><td><strong>« בתחלת השותפות »</strong> : la stipulation initiale équivaut à une cession ab initio des jours individuels. Le Juif n'a aucune part les Shabbatot.</td></tr>
+      </table>
+
+      <h3>Le pesak du Rav</h3>
+      <div class="key-point">
+      <strong>Le mécanisme du Seif Yod-Gimel :</strong>
+      <ol>
+        <li>Au moment de <strong>l'achat en commun</strong> de l'animal, stipuler explicitement :
+          <ul><li>« Le non-juif prend tout le gain des Shabbatot, pour lui seul. »</li>
+          <li>« Le Juif prend tout le gain d'un jour de semaine, pour lui seul. »</li></ul>
+        </li>
+        <li>Cette clause initiale = cession exclusive des jours → Juif sans part le Shabbat → pas d'obligation de שביתה.</li>
+        <li>La responsabilité partagée les autres jours n'affecte pas le statut Shabbat (cf. discussion siman רמ"ה).</li>
+        <li><strong>Si la clause n'a pas été faite initialement</strong> : ne pas la faire après — voir Seifim suivants pour les solutions de rattrapage.</li>
+      </ol>
+      </div>
+
+      <div class="case-card">
+      <ul class="compact">
+        <li><strong>Achat d'un tracteur en commun (50/50) avec un non-juif, avec clause initiale « Shabbat à toi, lundi à moi » :</strong> 🟢 permis.</li>
+        <li><strong>Joint-venture agricole : nous achetons les bêtes ensemble en distribuant les jours d'usage dès le contrat :</strong> 🟢 montage halakhique valide.</li>
+        <li><strong>Société commerciale 50/50 sans clause initiale ; mon associé travaille Shabbat :</strong> 🔴 sans stipulation initiale, cas du siman רמ"ה — interdit en l'état.</li>
+        <li><strong>Cabinet libéral co-fondé avec clause initiale d'attribution des gardes par jour :</strong> 🟢 montage propre.</li>
+        <li><strong>J'achète une part d'un cheval de course avec mon partenaire non-juif sans clause spécifique :</strong> 🔴 corriger via les seifim י"ד-ט"ו.</li>
+      </ul>
+      </div>
+
+      <h3>Points à retenir</h3>
+      <div class="remember">
+      <ul class="compact">
+        <li>Mécanisme <strong>de plein droit</strong> pour les partenariats : clause d'attribution initiale par jour</li>
+        <li>Le moment-clé : <strong>בתחלת השותפות</strong> (au moment de l'achat en commun)</li>
+        <li>Après-coup : <strong>ne fonctionne pas</strong> (cf. siman רמ"ה — מעמיד פועל במקומו)</li>
+        <li>La responsabilité partagée les autres jours n'affecte pas le statut Shabbat</li>
+      </ul>
+      </div>
+
+      <div class="question-box">
+      <strong>Question de compréhension :</strong> Pourquoi la stipulation <em>initiale</em> (au moment de l'achat) fonctionne-t-elle comme une cession permanente, alors qu'une simple convention <em>après-coup</em> (« je te donnerai ce jour-là contre mon jour de Shabbat ») est interdite (siman רמ"ה) ?
+      </div>
+
+      <div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-yod-dalet-rav">Seif Yod Dalet (SHHaRav) →</a></div></div>
+
+      <!-- ===== Seif Yod Dalet — Sans clause initiale ===== -->
+      <h2 class="section-title-rav" id="seif-yod-dalet-rav">14. Seif Yod-Dalet — Partenariat sans clause initiale : הבלעה comme rattrapage</h2>
+
+      <h3>Texte intégral du SHHaRav</h3>
+      <blockquote class="text-source">וְאִם לֹא הִתְנָה עִמּוֹ כֵּן בִּתְחִלַּת הַשֻּׁתָּפוּת — לֹא יַתְנֶה עִמּוֹ אַחַר כָּךְ, שֶׁאַף אִם עַכְשָׁו אֵין כַּאן אִסּוּר מִשּׁוּם שְׁבִיתַת בְּהֶמְתּוֹ, שֶׁהֲרֵי עַכְשָׁו אֵין הַנָּכְרִי נִמְנָע מִלַּעֲשׂוֹת בָּהּ מְלָאכָה בְּעַל כָּרְחוֹ שֶׁל הַיִּשְׂרָאֵל, מִכָּל מָקוֹם יֵשׁ אִסּוּר בְּמַה שֶּׁנּוֹטֵל רֶוַח יוֹם אֶחָד בְּחֹל כְּנֶגֶד יוֹם הַשַּׁבָּת, שֶׁהֲרֵי נוֹטֵל שְׂכַר שַׁבָּת שֶׁלֹּא בְהַבְלָעָה. <br><br>וּבִכְגוֹן זֶה שֶׁלֹּא הִתְנוּ מִתְּחִלָּה — יֵשׁ הֶתֵּר כְּשֶׁלֹּא יֹאמַר לוֹ כְּלָל "טֹל אַתָּה בְּשַׁבָּת וַאֲנִי בְּחֹל", אֶלָּא יַחֲלוֹק עִמּוֹ כָּל הָרֶוַח שֶׁל כָּל יְמוֹת הַשָּׁבוּעַ בְּשָׁוֶה, שֶׁאָז הוּא נוֹטֵל שְׂכַר שַׁבָּת בְּהַבְלָעָה. <br><br>אֶלָּא שֶׁגַּם זֶה אֵין לְהַתִּיר אֶלָּא בִּמְקוֹם הֶפְסֵד גָּדוֹל.</blockquote>
+
+      <h3>Traduction française</h3>
+      <div class="translation">
+      <strong>Si l'on n'a pas fait la stipulation initiale</strong> (du Seif י"ג), <strong>on ne doit pas la faire après-coup</strong>. Car même si maintenant il n'y a plus d'interdit de שביתת בהמתו (puisque le non-juif est déjà associé et le Juif ne peut plus l'empêcher), <strong>il reste un interdit</strong> dans le fait de prendre le gain d'un jour de semaine en contrepartie du jour de Shabbat — c'est <em>שכר שבת שלא בהבלעה</em> (nommer le Shabbat dans le compte).<br><br>
+      <strong>Dans ce cas-là</strong> (pas de stipulation initiale), <strong>il y a une autorisation</strong> : ne pas lui dire du tout « prends Shabbat, je prends en semaine », mais <strong>partager équitablement tous les gains de la semaine entière</strong>. Ainsi le Juif prend le gain de Shabbat <em>en הבלעה</em> (englobement dans le total).<br><br>
+      <strong>Mais même cela</strong> ne doit être autorisé qu'<strong>en cas de הפסד גדול</strong> (perte importante).
+      </div>
+
+      <h3>De quoi parle ce Seif ?</h3>
+      <p>Solution de rattrapage si la stipulation initiale du Seif י"ג n'a pas été faite. Deux options : (a) <em>ne pas</em> faire une stipulation après-coup avec mention du Shabbat (שלא בהבלעה) ; (b) partager les gains en הבלעה (sans nommer le Shabbat) — mais seulement en cas de הפסד גדול.</p>
+
+      <h3>La question halakhique</h3>
+      <p>Pourquoi la stipulation après-coup est-elle interdite, même si le non-juif est déjà associé et fait son travail ? Parce que dès qu'on <em>nomme</em> le Shabbat dans le compte (« ton jour Shabbat contre mon jour de semaine »), on crée un שכר שבת שלא בהבלעה. Sauf si on partage <em>globalement</em> tous les gains, sans détailler les jours — alors le profit de Shabbat est englobé.</p>
+
+      <h3>Les avis</h3>
+      <table>
+      <tr><th>Source</th><th>Position</th></tr>
+      <tr><td><strong>Mehaber</strong> (245:1)</td><td>Sans stipulation initiale : interdit la mention de Shabbat dans le compte.</td></tr>
+      <tr><td><strong>Rama</strong></td><td>Permet הבלעה globale en cas de הפסד גדול.</td></tr>
+      <tr><td><strong>Mishna Berura</strong> (246:44-46)</td><td>Détaille הפסד גדול : par exemple si rompre l'association entraînerait une perte significative.</td></tr>
+      <tr class="harav"><td><strong>SHHaRav</strong> (246:14)</td><td><strong>Triple analyse</strong> : (a) שביתת בהמתו ne s'applique plus (non-juif déjà associé), (b) mais שכר שבת שלא בהבלעה s'applique, (c) sauf si partage global en הבלעה — uniquement en הפסד גדול.</td></tr>
+      </table>
+
+      <h3>Le pesak du Rav</h3>
+      <div class="key-point">
+      <strong>Trois niveaux de gravité :</strong>
+      <ol>
+        <li><strong>Stipulation après-coup nommant le Shabbat</strong> (« toi Shabbat, moi semaine ») : <strong>interdit</strong> (שכר שבת שלא בהבלעה).</li>
+        <li><strong>Partage global sans nommer le Shabbat</strong> (50/50 sur tout) : <strong>permis uniquement en הפסד גדול</strong>.</li>
+        <li>Cas idéal : remonter au Seif י"ג et inclure la stipulation dès l'achat.</li>
+      </ol>
+      </div>
+
+      <div class="case-card">
+      <ul class="compact">
+        <li><strong>Société existante sans clause initiale ; je propose à mon associé « tu prends Shabbat, je prends mardi » :</strong> 🔴 interdit (שלא בהבלעה).</li>
+        <li><strong>Même société ; nous décidons de partager les bénéfices annuels à 50/50 sans détailler :</strong> 🟢 הבלעה globale — permis si rompre coûterait gros.</li>
+        <li><strong>Société florissante sans difficulté économique ; partage global :</strong> 🟡 הפסד גדול n'est pas avéré → mieux vaut restructurer (cf. Seif ט"ו).</li>
+        <li><strong>Petit commerce familial co-fondé qui ferait faillite en cas de rupture :</strong> 🟢 הפסד גדול clair → הבלעה permise.</li>
+        <li><strong>Comptable qui détaille les jours-Juif et jours-non-juif Shabbat inclus :</strong> 🔴 incompatible avec la הבלעה.</li>
+      </ul>
+      </div>
+
+      <h3>Points à retenir</h3>
+      <div class="remember">
+      <ul class="compact">
+        <li>Sans clause initiale (Seif י"ג) : <strong>jamais nommer le Shabbat</strong> dans les comptes</li>
+        <li>Solution rattrapage : <strong>הבלעה globale</strong> (50/50 sur tout)</li>
+        <li>Réservée aux cas de <strong>הפסד גדול</strong> (perte importante)</li>
+        <li>Solution durable : restructurer le partenariat (Seif ט"ו)</li>
+      </ul>
+      </div>
+
+      <div class="question-box">
+      <strong>Question de compréhension :</strong> Pourquoi le simple fait de <em>nommer</em> le Shabbat dans le partage suffit-il à créer un שכר שבת שלא בהבלעה, alors que la même répartition économique globale (50/50) est acceptable ?
+      </div>
+
+      <div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-tet-vav-rav">Seif Tet-Vav (SHHaRav) →</a></div></div>
+
+      <!-- ===== Seif Tet Vav — אפותיקי et משכון ===== -->
+      <h2 class="section-title-rav" id="seif-tet-vav-rav">15. Seif Tet-Vav — Restructuration : אפותיקי, משכון, et vente avec dette</h2>
+
+      <h3>Texte intégral du SHHaRav</h3>
+      <blockquote class="text-source">וְגַם בִּמְקוֹם הֶפְסֵד גָּדוֹל, אוֹ אֲפִלּוּ אֵינוֹ רוֹצֶה לִטּוֹל כְּלָל בְּחֹל כְּנֶגֶד הַשַּׁבָּת, אַף שֶׁאֵין אִסּוּר מִשּׁוּם שְׂכַר שַׁבָּת, וְלֹא מִשּׁוּם שְׁבִיתַת בְּהֶמְתּוֹ — מִכָּל מָקוֹם יֵשׁ אִסּוּר לְמַפְרֵעַ בְּמַה שֶּׁנִּשְׁתַּתֵּף עִם הַנָּכְרִי בִּבְהֵמָה. <br><br>וְיֵשׁ תִּקּוּן לְזֶה עַל יְדֵי שֶׁיַּתְנֶה עִמּוֹ שֶׁאִם יַעֲשֶׂה בָּהּ מְלָאכָה בְּשַׁבָּת — אֲזַי הִיא קְנוּיָה לוֹ לְיוֹם הַשַּׁבָּת, וְיִכְתּוֹב כֵּן. אוֹ עַל יְדֵי שֶׁיַּקְנֶה לוֹ גַּם חֶלְקוֹ לְעִנְיַן יֹקֶר וְזוֹל וּמִיתָה בְּאֹנֶס. <br><br>אוֹ אֲפִלּוּ יִמְכּוֹר לוֹ חֶלְקוֹ בִּמְכִירָה גְמוּרָה, וְאַף עַל פִּי כֵן לֹא יוּכַל הַנָּכְרִי לְמָכְרָהּ שֶׁלֹּא מִדַּעְתּוֹ, כְּגוֹן שֶׁיִּזְקוֹף עָלָיו הַדָּמִים בְּמִלְוָה שֶׁיִּפְרָעֵם לוֹ כְּשֶׁיִּתְבָּעֶנּוּ, וְיַחֲזוֹר הַנָּכְרִי וְיַעֲשֶׂה לוֹ בְּהֵמָה זוֹ אַפּוֹתִּיקִי לְחוֹבוֹ.</blockquote>
+
+      <h3>Traduction française</h3>
+      <div class="translation">
+      <strong>Même en cas de הפסד גדול</strong>, ou même si le Juif <em>ne veut pas du tout</em> prendre un jour de semaine en contrepartie du Shabbat — bien qu'il n'y ait pas d'interdit de שכר שבת ni de שביתת בהמתו, <strong>il reste un interdit rétroactif</strong> dans le fait même d'avoir associé un non-juif sur un animal (qui travaillera Shabbat par sa propre volonté).<br><br>
+      <strong>Il y a une rectification</strong> (תיקון) à cela : (1) par <em>condition</em> que s'il travaille Shabbat, l'animal lui est acquis pour ce jour-là (cf. Seif י"ב, par écrit) ; (2) ou en <em>cédant aussi sa part</em> pour ce qui est de l'inflation/déflation et de la responsabilité d'accident.<br><br>
+      <strong>Ou même en lui vendant sa part par une vente complète</strong> — tout en s'assurant que le non-juif ne puisse pas la revendre sans son accord. Pour cela : <em>convertir le prix en dette</em> (זקיפת מלוה) à payer sur demande, puis faire de l'animal une <strong>אפותיקי</strong> (gage spécifique) pour cette dette.
+      </div>
+
+      <h3>De quoi parle ce Seif ?</h3>
+      <p>Le plus sophistiqué des seifim. Pour les cas où la הבלעה du Seif י"ד ne suffit pas (ou si on ne veut même pas prendre de gain), le Rav offre une série de <em>restructurations</em> juridiques : (a) condition de cession automatique (cf. Seif י"ב), (b) cession des risques de marché, (c) vente complète avec dette + אפותיקי (gage spécifique).</p>
+      <div class="definition">
+      <strong>אַפּוֹתִּיקִי</strong> (apothiki) = <em>gage spécifique</em>. Un bien est désigné comme garantie d'une dette précise : tant que la dette n'est pas remboursée, le créancier ne peut accepter aucun autre paiement (seul ce bien). C'est plus fort qu'une <em>hypothèque</em> : c'est une affectation exclusive.<br><br>
+      <strong>מַשְׁכּוֹן</strong> (machkon) = <em>gage</em> classique remis en main propre.<br><br>
+      <strong>זְקִיפַת מִלְוָה</strong> = <em>conversion en dette</em>. Le prix de vente n'est pas payé en numéraire mais transformé en une dette à terme — ce qui crée un lien juridique permanent entre les parties.
+      </div>
+
+      <h3>La question halakhique</h3>
+      <p>Comment vendre sa part tout en gardant un contrôle ? Solution : (1) vente formelle complète au non-juif, (2) prix converti en dette (zekifat milvé), (3) gage spécifique sur l'animal (apothiki). Résultat : le non-juif est <em>juridiquement</em> propriétaire (pas d'obligation de שביתה pour le Juif), mais ne peut pas vendre l'animal sans rembourser la dette → contrôle conservé.</p>
+
+      <h3>Les avis</h3>
+      <table>
+      <tr><th>Source</th><th>Position</th></tr>
+      <tr><td><strong>Talmud</strong> (BM 56b, BB 137b)</td><td>Mécanismes d'אפותיקי et משכון bien établis ; siman רע"ג חו"מ.</td></tr>
+      <tr><td><strong>Rishonim</strong></td><td>Applicabilité au cas de Shabbat débattue ; majorité accepte.</td></tr>
+      <tr><td><strong>Mehaber</strong> (cf. 246:5-6)</td><td>Mentionne ces solutions complexes.</td></tr>
+      <tr><td><strong>Rama</strong></td><td>Accorde ; insiste sur la publicité (cf. Seif ט"ז).</td></tr>
+      <tr><td><strong>Mishna Berura</strong> (246:47-52)</td><td>Loue cette ingénierie juridique ; précise les conditions de validité.</td></tr>
+      <tr class="harav"><td><strong>SHHaRav</strong> (246:15)</td><td><strong>Trois options graduées</strong> : (1) condition de cession (Seif י"ב), (2) cession des risques de marché, (3) vente complète + dette + אפותיקי. Solution la plus complète : vente + apothiki.</td></tr>
+      </table>
+
+      <h3>Le pesak du Rav</h3>
+      <div class="key-point">
+      <strong>Les trois options de restructuration :</strong>
+      <ol>
+        <li><strong>Condition automatique</strong> (cf. Seif י"ב) : le contrat stipule cession ipso facto en cas d'usage Shabbat. Écrit dans un acte notarié.</li>
+        <li><strong>Cession des risques de marché</strong> : on cède au non-juif les fluctuations de valeur et la responsabilité des accidents → l'animal est économiquement à lui même si juridiquement encore partagé.</li>
+        <li><strong>Vente formelle complète</strong> : (a) vente, (b) prix converti en dette (zekifat milvé), (c) gage spécifique sur l'animal (apothiki). Le non-juif est propriétaire ; le Juif a un droit de gage qui empêche la revente.</li>
+      </ol>
+      </div>
+
+      <div class="case-card">
+      <ul class="compact">
+        <li><strong>Société agricole : je vends ma part de bétail à mon associé non-juif, prix converti en dette, animaux en אפותיקי :</strong> 🟢 solution sophistiquée valide.</li>
+        <li><strong>Je veux garder le contrôle : je cède officiellement la responsabilité des accidents et fluctuations :</strong> 🟢 cession économique permise.</li>
+        <li><strong>Restaurant cacher exploité avec un associé non-juif Shabbat : vente formelle + dette + gage :</strong> 🟢 montage complexe mais propre.</li>
+        <li><strong>Solution informelle (« je te laisse faire, on verra plus tard ») :</strong> 🔴 sans formalisation, l'animal reste à moitié à moi → interdit.</li>
+        <li><strong>Pour un commerce moderne : structure de société (SARL/SA) avec parts attribuées de manière à neutraliser l'exposition Shabbat :</strong> 🟡 nécessite ingénierie halakhique + civile — consulter un Rav spécialisé.</li>
+      </ul>
+      </div>
+
+      <h3>Points à retenir</h3>
+      <div class="remember">
+      <ul class="compact">
+        <li>Trois niveaux de restructuration : <strong>condition / cession de risques / vente avec gage</strong></li>
+        <li>L'<strong>אפותיקי</strong> (gage spécifique) permet de vendre tout en gardant un contrôle</li>
+        <li>La <strong>זקיפת מלוה</strong> (conversion du prix en dette) maintient le lien juridique</li>
+        <li>Solutions valides <strong>לכתחילה</strong> avec acte notarié et publicité (cf. Seif ט"ז)</li>
+        <li>Ingénierie halakhique avancée : <em>toujours consulter un Rav</em> pour le montage exact</li>
+      </ul>
+      </div>
+
+      <div class="question-box">
+      <strong>Question de compréhension :</strong> Quelle est la différence pratique entre une vente complète avec dette+gage et un simple partenariat avec clause initiale (Seif י"ג) ? Pourquoi le Rav offre-t-il plusieurs solutions parallèles ?
+      </div>
+
+      <div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-tet-zayin-rav">Seif Tet-Zayin (SHHaRav) →</a></div></div>
+
+      <!-- ===== Seif Tet Zayin — Publicité dans tous les cas ===== -->
+      <h2 class="section-title-rav" id="seif-tet-zayin-rav">16. Seif Tet-Zayin — La publicité (פרסום) reste requise dans tous les cas</h2>
+
+      <h3>Texte intégral du SHHaRav</h3>
+      <blockquote class="text-source">וּבֵין שֶׁעֲשָׂאָה אַפּוֹתִּיקִי וּבֵין שֶׁלֹּא עֲשָׂאָהּ, וּבֵין שֶׁנְּטָלָהּ לְמַשְׁכּוֹן וּבֵין שֶׁלֹּא נְטָלָהּ, אֶלָּא מְכָרָהּ לוֹ בִּמְכִירָה גְמוּרָה שֶׁיְּהֵא רְשׁוּת בְּיָדוֹ לְמָכְרָהּ שֶׁלֹּא מִדַּעְתּוֹ, כֵּיוָן שֶׁכָּל זְמַן שֶׁלֹּא מְכָרָהּ הֵם שֻׁתָּפִים בָּהּ וְיֵשׁ חֲשַׁשׁ מַרְאִית עַיִן, לְפִיכָךְ יֵשׁ לוֹ לְפַרְסֵם לָרַבִּים שֶׁעָשָׂה דֶּרֶךְ הֶתֵּר:</blockquote>
+
+      <h3>Traduction française</h3>
+      <div class="translation">
+      <strong>Que l'on ait fait אפותיקי ou non</strong>, <strong>que l'on ait pris un משכון ou non</strong>, <strong>ou même si on a fait une vente complète</strong> donnant au non-juif le droit de revendre sans accord du Juif — tant que la vente n'est pas effective, les deux sont considérés comme שותפים, et il y a un risque de מראית העין.<br><br>
+      <strong>Il faut donc publier publiquement</strong> qu'on a agi par une <em>voie d'autorisation</em> (דרך היתר).
+      </div>
+
+      <h3>De quoi parle ce Seif ?</h3>
+      <p>Conclusion sur la publicité. Quels que soient les montages des seifim précédents (אפותיקי, משכון, vente complète), le risque de מראית העין persiste tant que le grand public ne connaît pas la modalité. La <strong>publication active</strong> de la « voie d'autorisation » (דרך היתר) est donc essentielle.</p>
+      <div class="definition">
+      <strong>דֶּרֶךְ הֶתֵּר</strong> = <em>« voie d'autorisation »</em>, la procédure halakhique formelle qu'on a empruntée. Publier qu'on a suivi une telle procédure (cession initiale, vente avec apothiki, etc.) sert à informer les passants : « ne soupçonnez pas — voici comment c'est légitimé ».
+      </div>
+
+      <h3>La question halakhique</h3>
+      <p>Pourquoi la publicité reste requise même après une <em>vente complète</em> ? Parce que tant que les apparences extérieures laissent croire à un partenariat (même temporaire), le public peut soupçonner — d'où l'obligation d'<em>annoncer</em> qu'on a fait דרך היתר.</p>
+
+      <h3>Les avis</h3>
+      <table>
+      <tr><th>Source</th><th>Position</th></tr>
+      <tr><td><strong>Rishonim</strong></td><td>La publicité est consubstantielle à toute solution de cession.</td></tr>
+      <tr><td><strong>Mehaber</strong></td><td>Implicite dans la formulation des Seifim précédents.</td></tr>
+      <tr><td><strong>Rama</strong></td><td>Insiste sur la nécessité de publier.</td></tr>
+      <tr><td><strong>Mishna Berura</strong> (246:53-54)</td><td>« לפרסם לרבים » = annoncer dans la synagogue, par exemple ; ou faire connaître par les דייני העיר.</td></tr>
+      <tr class="harav"><td><strong>SHHaRav</strong> (246:16)</td><td><strong>Principe universel</strong> : indépendamment de la modalité juridique choisie, la <em>publication</em> reste obligatoire pour neutraliser la מראית העין.</td></tr>
+      </table>
+
+      <h3>Le pesak du Rav</h3>
+      <div class="key-point">
+      <strong>L'obligation de publication :</strong>
+      <ol>
+        <li>Quelle que soit la solution choisie (Seifim י׳ – ט"ו), il y a obligation de <strong>פרסום</strong>.</li>
+        <li>Formes acceptables : annonce à la communauté, devant 3 témoins, acte notarié civil (cf. Seif י"ב), ou via les דייני העיר.</li>
+        <li>Sans publicité : la מראית העין persiste → la solution juridique ne « tient pas » socialement.</li>
+      </ol>
+      </div>
+
+      <div class="case-card">
+      <ul class="compact">
+        <li><strong>Je vends mon cheval à mon associé non-juif Shabbat avec dette+apothiki ; je n'en parle à personne :</strong> 🔴 sans publicité, מראית העין → invalidé.</li>
+        <li><strong>Même montage + annonce à la synagogue + acte chez le notaire :</strong> 🟢 publication adéquate.</li>
+        <li><strong>הקנאה avec clause automatique (Seif י"ב) : l'acte notarié suffit-il ?</strong> 🟢 oui — l'enregistrement civil est public.</li>
+        <li><strong>Petit village où personne ne sait : je le mentionne au minyan local :</strong> 🟢 communauté informée → suffisant.</li>
+        <li><strong>Grande métropole : comment publier ?</strong> 🟡 acte notarié + information du Beth Din local est l'idéal.</li>
+      </ul>
+      </div>
+
+      <h3>Points à retenir</h3>
+      <div class="remember">
+      <ul class="compact">
+        <li>Principe universel : <strong>פרסום obligatoire</strong> pour toute solution de cession</li>
+        <li>Formes acceptables : <strong>synagogue, 3 témoins, acte notarié, Beth Din</strong></li>
+        <li>Sans publicité : la מראית העין n'est pas dissoute → solution incomplete</li>
+        <li>Combiner toujours <strong>l'ingénierie juridique</strong> avec la <strong>communication communautaire</strong></li>
+      </ul>
+      </div>
+
+      <div class="question-box">
+      <strong>Question de compréhension :</strong> Pourquoi la simple validité juridique (par exemple une vente complète enregistrée) ne suffit-elle pas à dissoudre la מראית העין — alors que la halakha valide habituellement les actes selon leur forme légale ?
+      </div>
+
+      <div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-yod-zayin-rav">Seif Yod Zayin (SHHaRav) →</a></div></div>
+
+      <!-- ===== Seif Yod Zayin — Pas seulement שותפות, vaut aussi pour כל הבהמה ===== -->
+      <h2 class="section-title-rav" id="seif-yod-zayin-rav">17. Seif Yod-Zayin — Apothiki/machkon : valable aussi quand toute la בהמה est juive</h2>
+
+      <h3>Texte intégral du SHHaRav</h3>
+      <blockquote class="text-source">הֶתֵּר זֶה שֶׁל עֲשִׂיַּת אַפּוֹתִּיקִי, אוֹ שֶׁיִּטְּלָהּ לְמַשְׁכּוֹן, מוֹעִיל אַף כְּשֶׁכָּל הַבְּהֵמָה הִיא שֶׁל יִשְׂרָאֵל וּמַשְׂכִּירָהּ אוֹ מַשְׁאִילָהּ לְנָכְרִי, רַק שֶׁיְּפַרְסֵם שֶׁעָשָׂה דֶּרֶךְ הֶתֵּר:</blockquote>
+
+      <h3>Traduction française</h3>
+      <div class="translation">
+      <strong>Cette autorisation</strong> de faire אפותיקי ou de prendre un משכון <strong>s'applique aussi</strong> quand <em>l'animal tout entier</em> appartient au Juif et qu'il le loue ou le prête à un non-juif — à condition qu'il <strong>publie qu'il a fait דרך היתר</strong>.
+      </div>
+
+      <h3>De quoi parle ce Seif ?</h3>
+      <p>Précision essentielle : les mécanismes sophistiqués des Seifim י"ב – ט"ו ne sont <strong>pas limités</strong> au cas du partenariat (שותפות). Ils valent aussi pour un animal <em>intégralement</em> juif qu'on veut louer ou prêter à un non-juif Shabbat. La condition unique : <strong>publication</strong>.</p>
+
+      <h3>La question halakhique</h3>
+      <p>L'אפותיקי et le משכון permettent-ils de vendre un animal 100% juif à un non-juif (pour le seul Shabbat) tout en gardant un contrôle ? Réponse du Rav : <strong>oui</strong>, avec publication. C'est la généralisation maximale des solutions structurelles.</p>
+
+      <h3>Les avis</h3>
+      <table>
+      <tr><th>Source</th><th>Position</th></tr>
+      <tr><td><strong>Mehaber</strong></td><td>Permet ces mécanismes même pour animal entier.</td></tr>
+      <tr><td><strong>Rama</strong></td><td>Confirme ; insiste sur la publicité.</td></tr>
+      <tr><td><strong>Mishna Berura</strong> (246:55)</td><td>Cette généralisation est cruciale : elle permet l'élevage moderne avec partenaires non-juifs.</td></tr>
+      <tr class="harav"><td><strong>SHHaRav</strong> (246:17)</td><td><strong>Généralisation maximale</strong> : peu importe que ce soit partenariat ou propriété intégrale du Juif — les mécanismes fonctionnent partout avec פרסום.</td></tr>
+      </table>
+
+      <h3>Le pesak du Rav</h3>
+      <div class="key-point">
+      <strong>Généralisation des solutions :</strong>
+      <ol>
+        <li>Les mécanismes (אפותיקי, משכון, vente avec dette) valent <strong>aussi pour un animal 100% juif</strong>.</li>
+        <li>Pas besoin de partenariat préalable : on peut <em>directement</em> vendre l'animal pour le Shabbat avec dette + gage.</li>
+        <li>Condition unique : <strong>פרסום</strong> que c'est דרך היתר.</li>
+        <li>Permet l'élevage juif moderne avec contractuels non-juifs.</li>
+      </ol>
+      </div>
+
+      <div class="case-card">
+      <ul class="compact">
+        <li><strong>Mes vaches m'appartiennent intégralement ; je veux qu'un employé non-juif les trait Shabbat :</strong> 🟢 vendre + dette + apothiki + publication.</li>
+        <li><strong>Ferme entièrement juive avec personnel non-juif Shabbat :</strong> 🟢 mécanisme adaptable ; consulter un Rav pour le montage.</li>
+        <li><strong>Mon âne pour livraison Shabbat à un non-juif :</strong> 🟢 vente formelle + gage spécifique + publication.</li>
+        <li><strong>Sans publicité : juridiquement vendu mais personne ne le sait :</strong> 🔴 מראית העין persiste → invalide.</li>
+        <li><strong>Transposition moderne : machine industrielle juive utilisée Shabbat par employé non-juif via société écran :</strong> 🟡 ingénierie complexe — Rav spécialisé requis.</li>
+      </ul>
+      </div>
+
+      <h3>Points à retenir</h3>
+      <div class="remember">
+      <ul class="compact">
+        <li>Les mécanismes des Seifim י"ב – ט"ו valent <strong>aussi pour un animal 100% juif</strong></li>
+        <li>Pas besoin de passer par un partenariat préalable</li>
+        <li>Toujours combiner avec <strong>publicité</strong></li>
+        <li>Solution clé pour <strong>l'élevage moderne</strong> avec personnel non-juif</li>
+      </ul>
+      </div>
+
+      <div class="question-box">
+      <strong>Question de compréhension :</strong> Pourquoi la halakha accepte-t-elle qu'un Juif <em>vende</em> totalement son animal à un non-juif (avec dette + gage) plutôt que de simplement « louer » l'animal pour le Shabbat ? Quelle est la différence essentielle ?
+      </div>
+
+      <div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-yod-het-rav">Seif Yod-Het (SHHaRav) →</a></div></div>
+
+      <!-- ===== Seif Yod Het — Travail du non-juif pour le compte du Juif ===== -->
+      <h2 class="section-title-rav" id="seif-yod-het-rav">18. Seif Yod-Het — Le travail du non-juif pour le compte du Juif (vs pour soi)</h2>
+
+      <h3>Texte intégral du SHHaRav</h3>
+      <blockquote class="text-source">בַּמֶּה דְּבָרִים אֲמוּרִים? כְּשֶׁמַּשְׂכִּירָהּ אוֹ מַשְׁאִילָהּ לוֹ לַעֲשׂוֹת מְלֶאכֶת עַצְמוֹ, אֲבָל לַעֲשׂוֹת מְלֶאכֶת יִשְׂרָאֵל בְּשַׁבָּת אֵין הֶתֵּר כְּלָל אֲפִלּוּ אִם מְכָרָהּ לוֹ בִּמְכִירָה גְמוּרָה, שֶׁמִּכָּל מָקוֹם הַנָּכְרִי עוֹשֶׂה מְלָאכָה בְּשַׁבָּת בִּשְׁבִיל הַיִּשְׂרָאֵל אִם לֹא קָצַץ לוֹ שָׂכָר עַל זֶה. <br><br>אֲבָל אִם אֵינוֹ שָׂכוּר לוֹ אֶלָּא לִמְלָאכָה זוֹ בִּלְבָד... כְּגוֹן מִי שֶׁיֵּשׁ לוֹ סוּסִים וַעֲגָלָה וְשָׂכַר לוֹ נָכְרִי לְשָׁנָה שֶׁיִּסַּע עִם סוּסִים וַעֲגָלָה שֶׁלּוֹ בְּכָל עֵת שֶׁיִּצְטָרֵךְ לְהוֹלִיךְ בָּהֶם סְחוֹרָה בְּתוֹךְ שָׁנָה זוֹ, וְהַנָּכְרִי נוֹסֵעַ גַּם בְּשַׁבָּת מֵעַצְמוֹ בְּלֹא אֲמִירַת הַיִּשְׂרָאֵל — אֵינוֹ צָרִיךְ לוֹמַר לוֹ שֶׁלֹּא יִסַּע בְּשַׁבָּת אִם נוֹסֵעַ מִבֵּית הַיִּשְׂרָאֵל מִבְּעוֹד יוֹם. רַק שֶׁיַּקְנֶה לוֹ הַסּוּסִים בְּאֶחָד מֵהַדְּרָכִים שֶׁנִּתְבָּאֲרוּ, וִיפַרְסֵם שֶׁעָשָׂה דֶּרֶךְ הֶתֵּר.</blockquote>
+
+      <h3>Traduction française</h3>
+      <div class="translation">
+      <strong>Dans quels cas</strong> tout cela s'applique-t-il ? <strong>Quand on lui loue/prête l'animal pour faire son propre travail</strong> (à lui, le non-juif). <strong>Mais pour faire le travail du Juif Shabbat — aucune autorisation</strong>, même si on lui a vendu par vente complète : car de toute façon, le non-juif travaille Shabbat <em>pour le Juif</em> (si on n'a pas fixé un salaire spécifique pour ce travail).<br><br>
+      <strong>Mais</strong> si le non-juif est engagé seulement pour un travail spécifique (cf. siman רמ"ד pour le kablanout) — par exemple s'il a des chevaux et un chariot pour transporter des marchandises pendant l'année, et que le non-juif voyage aussi Shabbat de lui-même sans amira du Juif : il n'a pas besoin de lui dire de ne pas voyager Shabbat, à condition qu'il parte de chez le Juif avant la nuit. Il faut juste <strong>céder les chevaux par l'une des méthodes</strong> (vues précédemment), et <strong>publier qu'il a fait דרך היתר</strong>.
+      </div>
+
+      <h3>De quoi parle ce Seif ?</h3>
+      <p>Distinction cruciale : tout ce qui précède concerne le cas où le non-juif utilise l'animal <strong>pour son propre travail</strong>. Si le non-juif est <em>employé du Juif</em> (le travail bénéficie au Juif), la cession ne suffit pas : c'est de l'<em>amira</em> en équivalent. Le Rav rejoint ici le siman רמ"ד (kablanout) : seul un contrat précis <em>par tâche</em> peut autoriser.</p>
+      <div class="definition">
+      <strong>מְלֶאכֶת עַצְמוֹ vs מְלֶאכֶת יִשְׂרָאֵל</strong> :
+      <ul class="compact">
+      <li><strong>מלאכת עצמו</strong> = le non-juif fait son propre travail avec l'animal. La cession suffit.</li>
+      <li><strong>מלאכת ישראל</strong> = le non-juif fait le travail du Juif (livreur, ouvrier). La cession ne suffit pas ; il faut un קבלנות par tâche (cf. siman רמ"ד).</li>
+      </ul>
+      </div>
+
+      <h3>La question halakhique</h3>
+      <p>Le Rav illustre par le cas du livreur : si le Juif a un chariot et engage un non-juif pour livrer ses marchandises Shabbat — c'est interdit par défaut (le non-juif travaille pour lui). Solution : (a) céder les chevaux par l'une des méthodes (vente + dette + apothiki), (b) le contrat doit être <em>par tâche</em> (kablanout par livraison), pas un salaire annuel pour toutes livraisons, (c) publier.</p>
+
+      <h3>Les avis</h3>
+      <table>
+      <tr><th>Source</th><th>Position</th></tr>
+      <tr><td><strong>Talmud / Rishonim</strong></td><td>Distinction מלאכת עצמו / מלאכת ישראל fondamentale.</td></tr>
+      <tr><td><strong>Siman רמ"ד</strong></td><td>Le kablanout par tâche est seul permis pour le travail du Juif.</td></tr>
+      <tr><td><strong>Mehaber</strong> (246:5)</td><td>La cession ne fonctionne pas si le travail est du Juif.</td></tr>
+      <tr><td><strong>Rama</strong></td><td>Accorde ; détaille les cas pratiques.</td></tr>
+      <tr><td><strong>Mishna Berura</strong> (246:56-58)</td><td>Cas typique : livreur, conducteur. Combinaison cession+kablanout+publicité requise.</td></tr>
+      <tr class="harav"><td><strong>SHHaRav</strong> (246:18)</td><td><strong>Synthèse </strong> : (1) cession nécessaire mais insuffisante, (2) le contrat doit être par tâche (kablanout), (3) départ avant la nuit, (4) publicité.</td></tr>
+      </table>
+
+      <h3>Le pesak du Rav</h3>
+      <div class="key-point">
+      <strong>Quand le non-juif travaille avec mon animal pour mes affaires :</strong>
+      <ol>
+        <li><strong>Céder les animaux</strong> par l'une des méthodes (cf. Seifim י"ב, ט"ו).</li>
+        <li><strong>Engager au forfait par tâche</strong> (kablanout — cf. siman רמ"ד), pas au salaire global.</li>
+        <li>Le non-juif doit <strong>partir de chez le Juif avant la nuit</strong>.</li>
+        <li><strong>Publier</strong> la voie d'autorisation.</li>
+        <li>Si l'un de ces 4 éléments manque : <strong>interdit</strong>.</li>
+      </ol>
+      </div>
+
+      <div class="case-card">
+      <ul class="compact">
+        <li><strong>Mon chauffeur non-juif livre mes colis Shabbat avec mon camion :</strong> 🔴 défaut → cession + kablanout par livraison + départ vendredi + publication.</li>
+        <li><strong>Mon employé annuel non-juif fait toutes mes courses Shabbat :</strong> 🔴 salaire annuel ≠ kablanout → interdit.</li>
+        <li><strong>Société de livraison non-juive payée par livraison, avec mes véhicules cédés + dette/gage :</strong> 🟢 structure correcte.</li>
+        <li><strong>Restaurant où le manager non-juif gère mon établissement Shabbat :</strong> 🟡 ingénierie : (a) bail Shabbat, (b) contrat kablanout sur tâches, (c) publicité — Rav requis.</li>
+        <li><strong>Plateforme automatisée (commande client → livraison directe) sans intervention humaine du Juif Shabbat :</strong> 🟡 cas moderne — questions de גרמא et automation : Rav contemporain requis.</li>
+      </ul>
+      </div>
+
+      <h3>Points à retenir</h3>
+      <div class="remember">
+      <ul class="compact">
+        <li>Distinction cruciale : <strong>travail du non-juif pour soi vs travail pour le Juif</strong></li>
+        <li>Travail pour le Juif : <strong>la cession ne suffit pas</strong> — il faut aussi kablanout par tâche (siman רמ"ד)</li>
+        <li>Quatre conditions cumulatives : <strong>cession + kablanout + départ avant la nuit + publication</strong></li>
+        <li>Cas typiques modernes : livreurs, chauffeurs, gérants — toujours consulter un Rav</li>
+      </ul>
+      </div>
+
+      <div class="question-box">
+      <strong>Question de compréhension :</strong> Pourquoi la cession de l'animal (qui transfère la propriété au non-juif) ne résout-elle pas le problème quand le travail est <em>pour le Juif</em> ? Quel principe distinct intervient alors ?
+      </div>
+
+      <div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-yod-tet-rav">Seif Yod-Tet (SHHaRav) →</a></div></div>
+
+      <!-- ===== Seif Yod Tet — Yom Tov ===== -->
+      <h2 class="section-title-rav" id="seif-yod-tet-rav">19. Seif Yod-Tet — Application à Yom Tov : שביתת בהמה également en fête</h2>
+
+      <h3>Texte intégral du SHHaRav</h3>
+      <blockquote class="text-source">כְּשֵׁם שֶׁאָדָם מְצֻוֶּה עַל שְׁבִיתַת בְּהֶמְתּוֹ בְּשַׁבָּת — כָּךְ הוּא מְצֻוֶּה עַל שְׁבִיתָתָהּ בְּיוֹם טוֹב. לְפִיכָךְ, כָּל פְּרָטֵי הַהֲלָכוֹת שֶׁנִּתְבָּאֲרוּ לְעִנְיַן שְׁאֵלָה וּשְׂכִירוּת בְּהֶמְתּוֹ לְנָכְרִי וְשֻׁתָּפוּת עִמּוֹ גַּבֵּי שַׁבָּת, הֵן נוֹהֲגִים גַּם כֵּן גַּבֵּי יוֹם טוֹב, שֶׁאֵין בֵּין יוֹם טוֹב לְשַׁבָּת אֶלָּא מְלָאכוֹת שֶׁהֻתְּרוּ בִּגְלַל אֹכֶל נֶפֶשׁ. <br><br>וְיֵשׁ אוֹמְרִים שֶׁבְּיוֹם טוֹב אֵין אָדָם מְצֻוֶּה מִן הַתּוֹרָה עַל שְׁבִיתַת בְּהֶמְתּוֹ, לְפִי שֶׁלֹּא נִצְטַוִּינוּ בְּיוֹם טוֹב אֶלָּא שֶׁלֹּא נַעֲשֶׂה מְלָאכָה, וּמַה שֶּׁבְּהֶמְתֵּנוּ עוֹשָׂה אֵין זוֹ נִקְרֵאת מְלָאכָה אֶצְלֵנוּ אֶלָּא אֵצֶל הַבְּהֵמָה. <br><br>וּלְעִנְיַן הֲלָכָה, יֵשׁ לְהַחֲמִיר בְּשֶׁל תּוֹרָה כִּסְבָרָא הָרִאשׁוֹנָה (עַיֵּן סִמָּן תצ"ה):</blockquote>
+
+      <h3>Traduction française</h3>
+      <div class="translation">
+      <strong>De même qu'un homme est commandé sur le repos de son animal Shabbat</strong>, ainsi est-il commandé sur son repos <strong>à Yom Tov</strong>. Tous les détails halakhiques précédents (prêt, location, partnership) <strong>s'appliquent aussi à Yom Tov</strong> — la seule différence avec Shabbat étant les mélakhot permises pour <em>אוכל נפש</em> (préparation de nourriture).<br><br>
+      <strong>Et certains disent</strong> qu'à Yom Tov, l'homme n'est <em>pas</em> commandé מן התורה sur le repos de son animal — car à Yom Tov on n'a interdit que <em>nos propres mélakhot</em>, et ce que l'animal fait n'est pas notre mélakha mais la sienne. (Même chose pour le serviteur — voir « yanouah avdékha »).<br><br>
+      <strong>En pratique</strong>, il faut être <strong>stringent dans les choses de la Torah</strong> selon la première opinion (cf. siman תצ"ה).
+      </div>
+
+      <h3>De quoi parle ce Seif ?</h3>
+      <p>Dernier seif : extension de tout le siman à Yom Tov. Le Rav rapporte une <em>מחלוקת</em> : (1) שביתת בהמתו vaut aussi à Yom Tov (1ère opinion), (2) seulement à Shabbat (2ème opinion). En pratique, on tranche <em>stringent</em> par la 1ère opinion (אסור מן התורה).</p>
+      <div class="definition">
+      <strong>יוֹם טוֹב</strong> = <em>jour de fête biblique</em> (Pessah, Shavouot, Soukkot, Roch Hachana, Yom Kippour, Sheminí Atseret). Plus permissif que Shabbat (préparation de nourriture autorisée) mais conserve l'essentiel des interdits.<br><br>
+      <strong>אֹכֶל נֶפֶשׁ</strong> = <em>besoins alimentaires immédiats</em> — la « licence » spécifique de Yom Tov, qui autorise cuire et préparer la nourriture du jour.
+      </div>
+
+      <h3>La question halakhique</h3>
+      <p>Le verset « pour que ton bœuf et ton âne se reposent » vise-t-il aussi Yom Tov ou seulement Shabbat ? Selon la 1ère opinion : oui, l'esprit est le même. Selon la 2ème : non, seul Shabbat a explicitement cette obligation ; à Yom Tov, seules <em>nos mélakhot</em> sont interdites, pas celles de l'animal. <strong>Tranche : 1ère opinion</strong> — c'est une règle de stringance pour les choses de la Torah.</p>
+
+      <h3>Les avis</h3>
+      <table>
+      <tr><th>Source</th><th>Position</th></tr>
+      <tr><td><strong>1ère opinion (Rambam)</strong></td><td>שביתת בהמתו vaut aussi à Yom Tov ; toutes les règles du Siman s'appliquent.</td></tr>
+      <tr><td><strong>2ème opinion (יש אומרים)</strong></td><td>À Yom Tov, on n'est pas commandé מן התורה sur le repos de l'animal (seules nos propres mélakhot interdites).</td></tr>
+      <tr><td><strong>Mehaber</strong> (495:3)</td><td>Suit la 1ère opinion : שביתת בהמתו à Yom Tov aussi.</td></tr>
+      <tr><td><strong>Rama</strong></td><td>Accorde.</td></tr>
+      <tr><td><strong>Mishna Berura</strong> (246:59-60, 495)</td><td>En pratique, suivre la 1ère opinion : מחמיר בשל תורה.</td></tr>
+      <tr class="harav"><td><strong>SHHaRav</strong> (246:19)</td><td><strong>Tranche stringent</strong> selon la 1ère opinion : שביתת בהמתו s'applique à Yom Tov aussi, et tous les détails du Siman s'y transposent (sauf אוכל נפש).</td></tr>
+      </table>
+
+      <h3>Le pesak du Rav</h3>
+      <div class="key-point">
+      <strong>Application à Yom Tov :</strong>
+      <ol>
+        <li>שביתת בהמתו s'applique aussi à Yom Tov, מן התורה (stringent — 1ère opinion).</li>
+        <li>Tous les seifim du Siman se transposent à Yom Tov.</li>
+        <li>Seule différence : les mélakhot autorisées pour אוכל נפש (préparation de nourriture) restent autorisées.</li>
+        <li>Pour les détails spécifiques à Yom Tov : voir siman תצ"ה.</li>
+      </ol>
+      </div>
+
+      <div class="case-card">
+      <ul class="compact">
+        <li><strong>Mon cheval va labourer pour mon associé non-juif à Pessah :</strong> 🔴 même interdit qu'à Shabbat.</li>
+        <li><strong>Ma vache est utilisée Shavouot par un voisin non-juif (transport de matériel pour son commerce) :</strong> 🔴 interdit מן התורה.</li>
+        <li><strong>Mon âne porte de la nourriture pour ma famille à Yom Tov :</strong> 🟢 אוכל נפש autorisé.</li>
+        <li><strong>Mon animal traîne un chariot pour un voisin non-juif Soukkot (non lié à אוכל נפש) :</strong> 🔴 interdit.</li>
+        <li><strong>Mécanismes de cession (Seifim י"ב-ט"ו) à Yom Tov :</strong> 🟢 fonctionnent aussi (mêmes structures).</li>
+      </ul>
+      </div>
+
+      <h3>Points à retenir</h3>
+      <div class="remember">
+      <ul class="compact">
+        <li>שביתת בהמתו s'applique <strong>aussi à Yom Tov</strong> (stringent — 1ère opinion)</li>
+        <li>Tous les seifim du Siman <strong>se transposent à Yom Tov</strong></li>
+        <li>Seule différence : <strong>אוכל נפש</strong> (préparation de nourriture) reste autorisé</li>
+        <li>Détails complémentaires : <strong>siman תצ"ה</strong></li>
+      </ul>
+      </div>
+
+      <div class="question-box">
+      <strong>Question de compréhension :</strong> Pourquoi le Rav tranche-t-il <em>stringent</em> dans la מחלוקת sur Yom Tov (selon la 1ère opinion), alors qu'en général la halakha penche parfois vers le ראשון et parfois vers le שני ? Quel principe gouverne ce choix ?
+      </div>
+
+      <div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#synthese">Synthèse générale →</a></div></div>
+
+    </div><!-- /.seif-rav-block -->
+
+    <!-- ====================================================== -->
+    <!-- PARTIE III : SYNTHÈSE GÉNÉRALE -->
+    <!-- ====================================================== -->
+
+    <div class="partie-divider" id="synthese">
+      <div class="partie-label">Partie III</div>
+      <h2>Synthèse générale du Siman רמ״ו</h2>
+      <div class="partie-intro">
+        <p>Après l'étude détaillée des 19 seifim, voici une vue d'ensemble structurée et les questions de compréhension générale qui couvrent l'ensemble du Siman.</p>
       </div>
     </div>
 
-    <!-- SEIF GIMEL -->
     <div class="doc-section">
-      <div class="section-label">Seif ג׳</div>
-      <div class="section-title">Prêt (השאלה) — règle plus souple que la location</div>
+      <div class="section-title">Vue d'ensemble — les trois grandes parties du Siman</div>
       <div class="divider"></div>
-
-      <div class="hebrew-box">
-        <div class="hebrew-title">סימן רמ״ו · סעיף ג׳</div>
-        <div class="hebrew-text">
-          אֲבָל לְהַשְׁאִיל לוֹ כֵּלִים שֶׁעוֹשִׂים בָּהֶם מְלָאכָה — מֻתָּר אֲפִלּוּ בְּעֶרֶב שַׁבָּת סָמוּךְ לַחֲשֵׁכָה, דְּכֵיוָן שֶׁאֵין רֶוַח לְיִשְׂרָאֵל בְּמַה שֶּׁהַנָּכְרִי רַשַּׁאי לַעֲשׂוֹת בָּהֶם בְּשַׁבָּת — אֵין נִרְאֶה כְּאִלּוּ עוֹשֶׂה בִּשְׁלִיחוּתוֹ.
-        </div>
-      </div>
-
-      <div class="translation-box">
-        <div class="translation-title">Traduction</div>
-        <div class="translation-text">
-          En revanche, <strong>prêter gratuitement</strong> (השאלה) un outil de travail au non-juif est <em>permis même la veille du Shabbat près de l'obscurité</em>. Puisque le Juif ne tire <strong>aucun bénéfice financier</strong> de l'usage du Shabbat — il ne paraît pas que le non-juif travaille comme son émissaire. Et même si le prêt est conditionnel à un prêt en retour après Shabbat (échange de services), tant qu'aucun véritable loyer n'est échangé, les Sages n'ont pas décrété d'interdit.
-        </div>
-      </div>
-
-      <div class="explanation-box">
-        <h3>L'idée-clé</h3>
-        <p>Le critère décisif de <em>נראה כשלוחו</em> est le <strong>bénéfice financier</strong> du Juif. Sans loyer, sans profit, aucun observateur ne peut soupçonner que le non-juif est l'envoyé du Juif. Le prêt gratuit, même d'un outil de travail, échappe donc à la restriction du Seif précédent.</p>
-      </div>
-    </div>
-
-    <!-- SEIF DALET -->
-    <div class="doc-section">
-      <div class="section-label">Seif ד׳</div>
-      <div class="section-title">Le problème de מראית העין quand l'objet sort le Shabbat</div>
-      <div class="divider"></div>
-
-      <div class="hebrew-box">
-        <div class="hebrew-title">סימן רמ״ו · סעיף ד׳</div>
-        <div class="hebrew-text">
-          אָסוּר לְהַשְׁאִיל שׁוּם חֵפֶץ לְנָכְרִי בְּשַׁבָּת, וַאֲפִלּוּ בְּעֶרֶב שַׁבָּת, אִם הוּא סָמוּךְ לַחֲשֵׁכָה כָּל כָּךְ עַד שֶׁאֵין שָׁהוּת לַנָּכְרִי לְהוֹצִיא הַחֵפֶץ מִפֶּתַח בֵּיתוֹ שֶׁל הַיִּשְׂרָאֵל לִרְשׁוּת הָרַבִּים מִבְּעוֹד יוֹם — אָסוּר לְהַשְׁאִילוֹ, מִפְּנֵי מַרְאִית הָעַיִן.
-        </div>
-      </div>
-
-      <div class="translation-box">
-        <div class="translation-title">Traduction</div>
-        <div class="translation-text">
-          Il est interdit de prêter tout objet à un non-juif <strong>le Shabbat lui-même</strong>, et <strong>même la veille du Shabbat, si on est si proche de la tombée de la nuit</strong> que le non-juif n'aura pas le temps de sortir l'objet de chez le Juif vers le domaine public <em>avant la nuit</em>. La raison : <strong>מראית העין</strong> — quiconque verrait le non-juif sortir avec un objet appartenant au Juif <em>pendant Shabbat</em> pourrait soupçonner que le Juif l'envoie transporter ses affaires.
-        </div>
-      </div>
-
-      <div class="explanation-box">
-        <h3>De quoi parle ce Seif ?</h3>
-        <p>Ici le problème n'est plus <em>שכר שבת</em> ni <em>נראה כשלוחו</em> (du Seif Alef), mais bien <strong>מראית העין</strong> dans le sens étroit : le risque qu'un passant suppose à tort que le Juif envoie le non-juif transporter pour lui en Shabbat — une violation directe de l'interdit d'הוצאה (transfert d'un domaine à un autre).</p>
-        <p>La règle : pour qu'un prêt en fin de vendredi soit valide, il faut que le non-juif ait <strong>le temps de quitter la maison avant la nuit</strong>, pour que personne ne le voie partir avec l'objet pendant Shabbat lui-même.</p>
-      </div>
-    </div>
-
-    <!-- SEIF HE -->
-    <div class="doc-section">
-      <div class="section-label">Seif ה׳</div>
-      <div class="section-title">Ville avec עירוב — assouplissement et restrictions</div>
-      <div class="divider"></div>
-
-      <div class="hebrew-box">
-        <div class="hebrew-title">סימן רמ״ו · סעיף ה׳ (extrait)</div>
-        <div class="hebrew-text">
-          אֲבָל בְּעִיר הַמְעֹרֶבֶת שֶׁמֻּתָּר לְטַלְטֵל בְּתוֹכָהּ — מֻתָּר לְהַשְׁאִילוֹ אֲפִלּוּ בְּשַׁבָּת אִם הַנָּכְרִי דָר בְּמָקוֹם הַמְעֹרָב... וּמִכָּל מָקוֹם, אִם יָדוּעַ לוֹ שֶׁהַנָּכְרִי יוֹלִיכֶנּוּ הַיּוֹם חוּץ לַתְּחוּם — אָסוּר לְהַשְׁאִילוֹ בְּשַׁבָּת.
-        </div>
-      </div>
-
-      <div class="translation-box">
-        <div class="translation-title">Traduction</div>
-        <div class="translation-text">
-          Dans une ville <strong>avec עירוב</strong> (où le transport en Shabbat est permis), il est permis de prêter un objet à un non-juif <strong>même le Shabbat</strong>, à condition que le non-juif habite dans la zone couverte par l'érouv (ou si la maison du Juif est suffisamment éloignée du bord de l'érouv pour qu'aucun observateur ne suppose un transport interdit).
-          <br><br>
-          <strong>Mais</strong> : si le Juif <em>sait</em> que le non-juif emportera l'objet <strong>au-delà des תחומין</strong> (les 2000 amot autorisés), il est interdit de prêter même le Shabbat — car les ustensiles du Juif acquièrent leur propre <em>שביתה</em> (limite de déplacement) à l'entrée du Shabbat.
-        </div>
-      </div>
-
-      <div class="explanation-box">
-        <h3>L'enjeu</h3>
-        <p>Quand un עירוב est en place, le problème de מראית העין du Seif précédent disparaît : personne ne soupçonnera de transport interdit. Mais une <strong>nouvelle limite</strong> apparaît : les <em>תחומין</em> (limites de déplacement de 2000 amot ≈ 960 m). Les objets d'un Juif acquièrent leur <em>שביתה</em> au début du Shabbat, et ne peuvent être déplacés au-delà.</p>
-        <p>Le Choulhan Aroukh HaRav tranche : on peut <em>montrer</em> l'objet au non-juif et le laisser le prendre lui-même (גרמא — causalité indirecte), mais on ne peut pas le lui remettre en mains propres si on sait qu'il sortira des limites.</p>
-      </div>
-    </div>
-
-    <!-- SEIF VAV -->
-    <div class="doc-section">
-      <div class="section-label">Seif ו׳</div>
-      <div class="section-title">Objets appartenant au non-juif — pas de restriction</div>
-      <div class="divider"></div>
-
-      <div class="hebrew-box">
-        <div class="hebrew-title">סימן רמ״ו · סעיף ו׳</div>
-        <div class="hebrew-text">
-          וְכָל זֶה בַּחֲפָצִים שֶׁל יִשְׂרָאֵל, אֲבָל חֲפָצִים שֶׁל נָכְרִי שֶׁהָיוּ מֻפְקָדִים בְּיַד יִשְׂרָאֵל וּבָא לִטְּלוֹ בְּשַׁבָּת — יָכוֹל לִתְּנוֹ וְאַף עַל פִּי שֶׁיּוֹצִיאֶנּוּ לִרְשׁוּת הָרַבִּים.
-        </div>
-      </div>
-
-      <div class="translation-box">
-        <div class="translation-title">Traduction</div>
-        <div class="translation-text">
-          Tout ce qui a été dit s'applique aux objets <strong>appartenant au Juif</strong>. En revanche, des objets <strong>appartenant au non-juif</strong> qui étaient simplement <em>déposés</em> (מופקדים) chez un Juif : si le non-juif vient les chercher le Shabbat, le Juif peut les lui remettre <strong>même s'il les emportera en domaine public</strong>. Le Juif n'est qu'un dépositaire — il rend simplement le bien à son propriétaire.
-        </div>
-      </div>
-
-      <div class="explanation-box">
-        <h3>Pourquoi cette différence ?</h3>
-        <p>Toute la problématique des seifim précédents (שכר שבת, נראה כשלוחו, מראית העין) suppose un objet <strong>du Juif</strong>. Quand le non-juif vient simplement reprendre <em>son propre bien</em> qu'il avait laissé en dépôt, le Juif n'agit que comme restitueur. Aucun observateur ne peut soupçonner d'envoi en mission, et le Juif ne tire évidemment aucun profit.</p>
-      </div>
-    </div>
-
-    <!-- SEIF ZAYIN -->
-    <div class="doc-section">
-      <div class="section-label">Seif ז׳</div>
-      <div class="section-title">Tournant majeur — l'animal (בהמה) et l'interdit de la Torah</div>
-      <div class="divider"></div>
-
-      <div class="hebrew-box">
-        <div class="hebrew-title">סימן רמ״ו · סעיף ז׳</div>
-        <div class="hebrew-text">
-          אָסוּר לְהַשְׁאִיל בְּהֶמְתּוֹ לְנָכְרִי לַעֲשׂוֹת בָּהּ מְלָאכָה, מִפְּנֵי שֶׁהַנָּכְרִי עוֹשֶׂה בָּהּ גַּם בְּשַׁבָּת, וְאָדָם מְצֻוֶּה עַל שְׁבִיתַת בְּהֶמְתּוֹ, שֶׁנֶּאֱמַר "לְמַעַן יָנוּחַ שׁוֹרְךָ וַחֲמֹרֶךָ". וְאַף לְהַשְׂכִּירָהּ לוֹ אָסוּר מִן הַתּוֹרָה, אַף עַל פִּי שֶׁמַּשְׂכִּירָהּ הַרְבֵּה יָמִים קֹדֶם הַשַּׁבָּת.
-        </div>
-      </div>
-
-      <div class="translation-box">
-        <div class="translation-title">Traduction</div>
-        <div class="translation-text">
-          Il est <strong>interdit de prêter son animal</strong> à un non-juif pour qu'il l'utilise au travail, car le non-juif l'utilisera aussi le Shabbat. <strong>L'homme est commandé sur le repos de son animal</strong> — comme il est dit : <em>« Pour que ton bœuf et ton âne se reposent »</em> (Exode 23:12).
-          <br><br>
-          Et il est même <strong>interdit par la Torah</strong> (מן התורה) de le louer, <em>même de nombreux jours avant Shabbat</em>. Et même si le Juif stipule expressément que l'animal ne devra pas travailler le Shabbat et que le non-juif le promet — cela ne sert à rien, car le non-juif n'est pas considéré comme fiable sur ce point.
-          </div>
-      </div>
-
-      <div class="explanation-box">
-        <h3>Un changement de catégorie fondamental</h3>
-        <p>On passe d'un domaine <strong>rabbinique</strong> (gzeira sur les כלים, à cause de l'apparence) à un domaine <strong>de la Torah elle-même</strong>. Pour l'animal, le verset des Dix Paroles inscrit explicitement l'obligation du repos : <em>שביתת בהמתו</em> est un commandement positif de la Torah, pas un simple décret rabbinique.</p>
-        <p>Conséquence : aucune des permissions des seifim précédents (הבלעה, prêt sans rémunération, etc.) ne s'applique à l'animal. La location et le prêt sont <strong>tous deux interdits, même longtemps à l'avance</strong>.</p>
-      </div>
-    </div>
-
-    <!-- SEIF HET -->
-    <div class="doc-section">
-      <div class="section-label">Seif ח׳</div>
-      <div class="section-title">Cas particulier : un animal loué par le Juif au non-juif</div>
-      <div class="divider"></div>
-
-      <div class="hebrew-box">
-        <div class="hebrew-title">סימן רמ״ו · סעיף ח׳</div>
-        <div class="hebrew-text">
-          בַּמֶּה דְּבָרִים אֲמוּרִים? כְּשֶׁגּוּף הַבְּהֵמָה שֶׁל יִשְׂרָאֵל, אֲבָל יִשְׂרָאֵל שֶׁשָּׂכַר בְּהֵמָה מִנָּכְרִי — יָכוֹל לַחֲזוֹר וּלְהַשְׂכִּירָהּ אוֹ לְהַשְׁאִילָהּ לְנָכְרִי אַחֵר, דְּכֵיוָן שֶׁאֵין גּוּף הַבְּהֵמָה שֶׁלּוֹ — אֵינוֹ מְצֻוֶּה עַל שְׁבִיתָתָהּ. וְיֵשׁ מִי שֶׁאוֹסֵר לְהַשְׁאִילָהּ... וְטוֹב לָחוּשׁ לִדְבָרָיו.
-        </div>
-      </div>
-
-      <div class="translation-box">
-        <div class="translation-title">Traduction</div>
-        <div class="translation-text">
-          De quoi parle-t-on ? Du cas où l'animal <em>appartient en propre</em> au Juif. Mais si un Juif a <strong>loué un animal à un non-juif</strong> et veut le sous-louer ou le prêter à un autre non-juif — c'est <em>permis</em>, car le corps de l'animal ne lui appartient pas, et il n'est donc pas obligé sur son repos.
-          <br><br>
-          <strong>Mais</strong> : il y a une opinion qui interdit le <em>prêt</em> (השאלה) dans ce cas, par crainte que la location ait conféré un droit de propriété quasi-réel pour la durée. <em>Il est bon de tenir compte de cet avis (par stringance).</em>
-        </div>
-      </div>
-
-      <div class="explanation-box">
-        <h3>Le principe clé</h3>
-        <p>L'obligation de <em>שביתת בהמתו</em> s'applique uniquement à l'animal <strong>qui appartient au Juif en propre</strong> (גוף הבהמה). Si le Juif n'a qu'un droit d'usage par location, l'obligation ne le concerne pas — le « corps » de l'animal reste au non-juif propriétaire.</p>
-        <p>Cette distinction sera capitale pour les seifim suivants : on peut <em>vendre</em> l'animal au non-juif, ou le <em>déclarer ownerless</em> (הפקר), pour échapper à l'obligation.</p>
-      </div>
-    </div>
-
-    <!-- SEIF TET -->
-    <div class="doc-section">
-      <div class="section-label">Seif ט׳</div>
-      <div class="section-title">Le mécanisme de הפקר (déclaration ownerless)</div>
-      <div class="divider"></div>
-
-      <div class="hebrew-box">
-        <div class="hebrew-title">סימן רמ״ו · סעיף ט׳ (extrait)</div>
-        <div class="hebrew-text">
-          מֻתָּר לְהַשְׂכִּיר אוֹ לְהַשְׁאִיל בְּהֶמְתּוֹ לְנָכְרִי וּלְהַתְנוֹת עִמּוֹ שֶׁיַּחֲזִירֶנָּה לוֹ קֹדֶם הַשַּׁבָּת. וְאִם עָבַר הַנָּכְרִי עַל תְּנָאוֹ וְעִכְּבָהּ וְלֹא הֶחֱזִירָהּ קֹדֶם הַשַּׁבָּת — יַפְקִירֶנָּה הַיִּשְׂרָאֵל בֵּינוֹ לְבֵין עַצְמוֹ קֹדֶם הַשַּׁבָּת.
-        </div>
-      </div>
-
-      <div class="translation-box">
-        <div class="translation-title">Traduction</div>
-        <div class="translation-text">
-          Il est <strong>permis</strong> de louer ou prêter son animal à un non-juif <strong>à condition de stipuler</strong> qu'il soit ramené avant le Shabbat. Si le non-juif transgresse cette condition et ne le ramène pas à temps, le Juif peut <strong>le déclarer הפקר</strong> (sans propriétaire) <em>entre lui et lui-même</em>, avant Shabbat — à ce moment-là, il n'est plus tenu de son repos, puisque l'animal ne lui appartient plus.
-          <br><br>
-          Bien que normalement un הפקר ne soit valable que devant trois témoins, ici, comme le Juif veut sincèrement échapper à un <em>איסור תורה</em>, on présume qu'il y renonce de bon cœur — son הפקר est valable même en privé.
-          <br><br>
-          Cependant, personne d'autre ne pourra revendiquer l'animal — car le Juif ne renonce qu'au temps strict du Shabbat ; dès la sortie du Shabbat, l'animal lui revient.
-        </div>
-      </div>
-
-      <div class="explanation-box">
-        <h3>Une solution juridique élégante</h3>
-        <p>Si la situation est devenue problématique (le non-juif a gardé l'animal au-delà du Shabbat malgré la condition), le Juif dispose d'une <strong>échappatoire halakhique</strong> : déclarer son animal <em>הפקר</em> pour la durée du Shabbat. Comme l'obligation de <em>שביתת בהמתו</em> ne s'applique qu'à un animal lui appartenant, le הפקר fait disparaître l'interdit.</p>
-        <p>Subtilité : le הפקר est <strong>limité dans le temps</strong> (uniquement pendant Shabbat), et l'animal revient automatiquement au Juif à la sortie du Shabbat — autre application du principe qu'un הפקר peut être borné dans le temps (חושן משפט סימן רע״ג).</p>
-      </div>
-    </div>
-
-    <!-- SEIF YOD -->
-    <div class="doc-section">
-      <div class="section-label">Seif י׳</div>
-      <div class="section-title">Alternative : vendre l'animal pour le jour du Shabbat</div>
-      <div class="divider"></div>
-
-      <div class="hebrew-box">
-        <div class="hebrew-title">סימן רמ״ו · סעיף י׳</div>
-        <div class="hebrew-text">
-          וְאִם הוּא רוֹצֶה יָכוֹל לְהַקְנוֹת גּוּף הַבְּהֵמָה לְנָכְרִי זֶה לְיוֹם הַשַּׁבָּת קֹדֶם הַשַּׁבָּת, וְהוּא שֶׁיֹּאמַר לוֹ בְּפָנָיו "בְּהֶמְתִּי קְנוּיָה לְךָ", שֶׁאָז מִתְכַּוֵּן הַנָּכְרִי לִקְנוֹתָהּ, וְהִיא נִקְנֵית לוֹ בַּאֲמִירָה זוֹ.
-        </div>
-      </div>
-
-      <div class="translation-box">
-        <div class="translation-title">Traduction</div>
-        <div class="translation-text">
-          S'il le souhaite, le Juif peut <strong>céder la propriété (גוף הבהמה)</strong> de l'animal au non-juif pour le seul jour du Shabbat, <em>avant Shabbat</em>. Pour que cette cession soit effective, il doit lui dire <strong>en sa présence</strong> : « Mon animal t'est acquis » (בהמתי קנויה לך). Ainsi, le non-juif a l'intention d'acquérir, et l'acquisition se réalise par cette déclaration, puisque l'animal est déjà dans son domaine. En revanche, si le Juif dit cela <em>hors de sa présence</em>, l'acquisition n'est pas valide.
-        </div>
-      </div>
-
-      <div class="explanation-box">
-        <h3>Deuxième solution : la vente temporaire</h3>
-        <p>Outre le הפקר (Seif ט׳), le Choulhan Aroukh HaRav offre une <strong>seconde solution</strong> : transférer la propriété de l'animal au non-juif <strong>uniquement pour le jour du Shabbat</strong>. Le mécanisme : déclaration orale en présence du non-juif (קנין אמירה).</p>
-        <p>Cette technique sera développée et étendue dans les seifim י״א — י״ח (animal en partenariat, vente assortie de garanties, etc.), et constitue le grand <em>חידוש</em> halakhique du Siman : créer des structures juridiques de cession partielle pour permettre les transactions commerciales tout en préservant l'esprit du Shabbat.</p>
-      </div>
-
-      <div class="ped-box">
-        <div class="ped-icon">📚</div>
-        <div class="ped-content">
-          <div class="ped-label">Suite du Siman</div>
-          <div class="ped-text">Les Seifim י״א à י״ט poursuivent les développements sur la partnership (שותפות) avec un non-juif, les conditions de vente fictive (אפותיקי, משכון), et les distinctions Shabbat/Yom Tov. Pour l'étude approfondie de ces seifim, voir le <strong>Niveau 4 — דעת הרב</strong>.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- SYNTHÈSE -->
-    <div class="doc-section">
-      <div class="section-label">Synthèse Seifim א׳ — י׳</div>
-      <div class="section-title">Vue d'ensemble — les deux moitiés du Siman</div>
-      <div class="divider"></div>
-      <div class="concept-grid" style="grid-template-columns: repeat(2, 1fr);">
+      <div class="concept-grid" style="grid-template-columns: repeat(3, 1fr);">
         <div class="concept-card" style="border-top-color:var(--green);">
           <div class="concept-num">א׳–ו׳</div>
           <div class="concept-he-title">כֵּלִים</div>
           <div class="concept-fr-title">Ustensiles — domaine rabbinique</div>
-          <div class="concept-body">L'interdiction de location/prêt à un non-juif pour le Shabbat repose sur des <em>gzeirot</em> (décrets rabbiniques) : שכר שבת, נראה כשלוחו, מראית העין. Solutions : הבלעה, prêt gratuit, עירוב, restitution d'un dépôt.</div>
+          <div class="concept-body">Location et prêt d'objets à un non-juif. Gzeirot rabbiniques : שכר שבת, נראה כשלוחו, מראית העין. Solutions : הבלעה, prêt gratuit, érouv, restitution d'un dépôt.</div>
         </div>
         <div class="concept-card" style="border-top-color:#C0392B;">
-          <div class="concept-num">ז׳–י׳+</div>
+          <div class="concept-num">ז׳–י׳</div>
           <div class="concept-he-title">בְּהֵמָה</div>
           <div class="concept-fr-title">Animal — interdit de la Torah</div>
-          <div class="concept-body">L'obligation de <em>שביתת בהמתו</em> est explicitement biblique. Aucune solution « simple » : il faut recourir à des mécanismes juridiques structurels — הפקר, vente temporaire, partnership avec stipulation. Les seifim י״א – י״ט développent ces mécanismes.</div>
+          <div class="concept-body">שביתת בהמתו = איסור תורה. Premières solutions structurelles בדיעבד : הפקר privé (Seif ט׳), vente temporaire par קנין אמירה (Seif י׳).</div>
+        </div>
+        <div class="concept-card" style="border-top-color:#6B3FA0;">
+          <div class="concept-num">י"א–י"ט</div>
+          <div class="concept-he-title">תיקונים</div>
+          <div class="concept-fr-title">Ingénierie halakhique לכתחילה</div>
+          <div class="concept-body">Mécanismes sophistiqués : cession devant 3 témoins, contrat avec condition automatique (acte notarié), שותפות avec partage initial, אפותיקי + dette, et extension à Yom Tov.</div>
         </div>
       </div>
     </div>
+
+    <!-- Cinq grandes idées -->
+    <div class="doc-section">
+      <div class="section-title">Les cinq grandes idées à retenir</div>
+      <div class="divider"></div>
+
+      <div class="pesak-box">
+        <div class="pesak-label">Synthèse halakhique</div>
+        <div class="pesak-fr">
+          <strong>① Distinction prêt / location</strong><br>
+          La gzeira de נראה כשלוחו ne vise que la <em>location monétaire</em> (Seif ג׳). Le prêt gratuit, même d'un כלי אומנות en ערב שבת tardif, est permis.
+          <br><br>
+          <strong>② הבלעה résout le שכר שבת</strong><br>
+          Loyer englobé dans un forfait multi-jours = pas de gain isolé du Shabbat. סכר יום, en revanche, isole le Shabbat → interdit (Seif א׳).
+          <br><br>
+          <strong>③ Tournant biblique au Seif ז׳</strong><br>
+          La בהמה introduit שביתת בהמתו = איסור תורה. Aucune solution simple : il faut des montages structurels (הפקר, vente temporaire, אפותיקי).
+          <br><br>
+          <strong>④ Lekhatchila vs bediavad</strong><br>
+          Les solutions du הפקר (Seif ט׳) sont des rattrapages בדיעבד. Pour utiliser ces mécanismes לכתחילה : 3 témoins (Seif י"א) ou acte notarié (Seif י"ב).
+          <br><br>
+          <strong>⑤ Le rôle vital de la publicité</strong><br>
+          Quels que soient les montages juridiques, la <em>publication</em> (devant 3 témoins, synagogue, acte notarié) reste essentielle pour dissoudre la מראית העין (Seif ט"ז).
+        </div>
+      </div>
+    </div>
+
+    <!-- Questions de compréhension générale -->
+    <div class="doc-section">
+      <div class="section-title">Questions de compréhension générale</div>
+      <div class="divider"></div>
+
+      <div class="question-box">
+        <strong>Question 1 — Architecture du Siman :</strong> Pourquoi le Siman commence-t-il par les כלים (Seifim א׳–ו׳) avant de passer à la בהמה (Seifim ז׳–י"ט) ? Quelle est la logique pédagogique du passage rabbinique → biblique ?
+      </div>
+
+      <div class="question-box">
+        <strong>Question 2 — Le critère économique :</strong> Comment le Rav utilise-t-il l'<em>analyse du loyer</em> (« le non-juif aurait payé moins sans Shabbat ») pour fonder la restriction du Seif ב׳ sur les כלי אומנות ? Quel principe halakhique général tire-t-on de ce raisonnement ?
+      </div>
+
+      <div class="question-box">
+        <strong>Question 3 — Les deux registres de מראית העין :</strong> Distinguez (a) la מראית העין du Seif ב׳ (apparence d'émissaire pour la location d'un outil) et (b) la מראית העין du Seif ד׳ (apparence de transgression de l'הוצאה quand le non-juif sort avec mon objet). Pourquoi sont-elles différentes ?
+      </div>
+
+      <div class="question-box">
+        <strong>Question 4 — Le mécanisme du הפקר :</strong> Pourquoi un הפקר fait <em>en privé</em> est-il valide ici, alors que les Sages exigent normalement 3 témoins ? Et pourquoi un tiers ne peut-il s'approprier l'animal pendant le temps du הפקר ?
+      </div>
+
+      <div class="question-box">
+        <strong>Question 5 — La vente conditionnelle :</strong> Comment le mécanisme « si tu travailles Shabbat, l'animal devient le tien » (Seif י"ב) opère-t-il automatiquement ? Quelle est la nature halakhique de cette condition (תנאי) et pourquoi nécessite-t-elle un acte notarié ?
+      </div>
+
+      <div class="question-box">
+        <strong>Question 6 — Partenariat initial vs après-coup :</strong> Pourquoi la stipulation « toi Shabbat, moi semaine » est-elle permise au moment de l'achat (Seif י"ג) mais interdite si elle est faite après (Seif י"ד) ? Quel est le rapport avec siman רמ"ה ?
+      </div>
+
+      <div class="question-box">
+        <strong>Question 7 — אפותיקי et control juridique :</strong> Comment la combinaison « vente complète + dette + gage spécifique (אפותיקי) » permet-elle au Juif de céder pleinement la propriété tout en conservant un contrôle effectif sur l'animal ? En quoi est-ce préférable à un simple partnership ?
+      </div>
+
+      <div class="question-box">
+        <strong>Question 8 — Travail pour soi vs pour le Juif :</strong> Pourquoi la cession de l'animal (Seif י"ח) ne suffit-elle pas quand le travail est <em>pour le Juif</em> ? Quel principe additionnel intervient et quel siman le développe ?
+      </div>
+
+      <div class="question-box">
+        <strong>Question 9 — Cas pratique de synthèse :</strong> Vous co-fondez une exploitation laitière avec un partenaire non-juif. Comment structurer le partenariat dès le départ pour permettre la traite Shabbat sans violer aucun seif ? Listez les composants juridiques requis.
+      </div>
+
+      <div class="question-box">
+        <strong>Question 10 — Yom Tov :</strong> Pourquoi le Rav tranche-t-il stringent pour appliquer שביתת בהמתו à Yom Tov (Seif י"ט) ? Et quelle est la seule mélakha que l'animal pourrait faire à Yom Tov sans violer cet interdit ?
+      </div>
+    </div>
+
 
     <!-- NAVIGATION -->
     <div class="bottom-nav">
