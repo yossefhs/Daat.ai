@@ -876,7 +876,7 @@
             <li><span>Opus בהלכה מעמיקה</span><strong>✓</strong></li>
             <li><span>אישור מס · 66 %</span><strong>✓</strong></li>
           </ul>
-          <a href="#" class="pillar-cta" data-fallback="qonto-tomhei">
+          <a href="https://www.helloasso.com/associations/association-hessed/formulaires/9" target="_blank" rel="noopener" class="pillar-cta">
             להצטרף לחברותא ←
           </a>
         </article>
@@ -897,7 +897,7 @@
             <li><span>גישה מוקדמת לחדש</span><strong>✓</strong></li>
             <li><span>אישור מס · 66 %</span><strong>✓</strong></li>
           </ul>
-          <a href="#" class="pillar-cta" data-fallback="qonto-tomhei">
+          <a href="https://www.helloasso.com/associations/association-hessed/formulaires/9" target="_blank" rel="noopener" class="pillar-cta">
             להצטרף לבית המדרש ←
           </a>
         </article>
@@ -918,7 +918,7 @@
             <li><span>מחזק את מלגות התלמידים</span><strong>✓</strong></li>
             <li><span>אישור מס · 66 %</span><strong>✓</strong></li>
           </ul>
-          <a href="#" class="pillar-cta" data-fallback="qonto-tomhei">
+          <a href="https://www.helloasso.com/associations/association-hessed/formulaires/9" target="_blank" rel="noopener" class="pillar-cta">
             להצטרף לבית המדרש+ ←
           </a>
         </article>
@@ -939,7 +939,7 @@
             <li><span>שם על קיר הבונים</span><strong>✓</strong></li>
             <li><span>אישור מס · 66 %</span><strong>✓</strong></li>
           </ul>
-          <a href="#" class="pillar-cta" data-fallback="qonto-tomhei">
+          <a href="https://www.helloasso.com/associations/association-hessed/formulaires/9" target="_blank" rel="noopener" class="pillar-cta">
             להצטרף לישיבה ←
           </a>
         </article>
@@ -959,7 +959,7 @@
             <li><span>ללא חידוש</span><strong>✓</strong></li>
             <li><span>אישור מס · 66 %</span><strong>✓</strong></li>
           </ul>
-          <a href="#" class="pillar-cta" data-fallback="qonto-tomhei">
+          <a href="https://www.helloasso.com/associations/association-hessed/formulaires/9" target="_blank" rel="noopener" class="pillar-cta">
             להפוך ללכל החיים ←
           </a>
         </article>
@@ -1359,10 +1359,11 @@
         if (!data || !data.ok) return;
         renderGoal({ current: data.month_total, target: data.target });
 
-        // ── חיבור CTAs של HelloAsso / Qonto ──
+        // ── חיבור CTAs של HelloAsso ──
+        // ברירת המחדל (ב-HTML) של כל הכרטיסים מצביעה לדף HelloAsso Don libre של העמותה.
+        // אם הוגדר env var ספציפי לרמה, נחליף את ה-href לטופס הייעודי.
         var ha = (data && data.helloasso) || {};
-        var cards = document.querySelectorAll('[data-helloasso]');
-        cards.forEach(function (card) {
+        document.querySelectorAll('[data-helloasso]').forEach(function (card) {
           var key = card.getAttribute('data-helloasso');
           var cta = card.querySelector('.pillar-cta');
           if (!cta) return;
@@ -1371,34 +1372,7 @@
             cta.setAttribute('href', url);
             cta.setAttribute('target', '_blank');
             cta.setAttribute('rel', 'noopener');
-            cta.removeAttribute('data-qonto-scroll');
-            cta.style.opacity = '';
-            var oldNote = card.querySelector('.helloasso-pending');
-            if (oldNote) oldNote.remove();
-          } else {
-            cta.setAttribute('href', '#participer');
-            cta.removeAttribute('target');
-            cta.setAttribute('data-qonto-scroll', '1');
-            cta.style.opacity = '';
-            if (!card.querySelector('.helloasso-pending')) {
-              var note = document.createElement('div');
-              note.className = 'helloasso-pending';
-              note.style.cssText = 'margin-top:0.75rem;text-align:center;font-size:0.8rem;color:var(--color-muted);line-height:1.6;';
-              note.innerHTML = '💳 תשלום בהעברה חודשית דרך <strong>Qonto</strong> (בהמשך). התוכנית מופעלת ידנית תוך 24 שעות. הפעלה מיידית בקרוב.';
-              card.appendChild(note);
-            }
           }
-        });
-        document.querySelectorAll('.pillar-cta[data-qonto-scroll]').forEach(function (btn) {
-          btn.addEventListener('click', function (e) {
-            e.preventDefault();
-            var target = document.getElementById('participer');
-            if (!target) return;
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            target.style.transition = 'box-shadow 0.4s ease';
-            target.style.boxShadow = 'inset 0 0 0 2px var(--color-gold)';
-            setTimeout(function () { target.style.boxShadow = ''; }, 1600);
-          });
         });
       })
       .catch(() => { /* ברירת המחדל נשארת */ });
