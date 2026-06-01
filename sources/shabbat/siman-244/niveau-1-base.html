@@ -57,6 +57,34 @@
   .toc-item { padding: 6px 0; border-bottom: 1px dotted #C5A55A; }
   .toc-num { display: inline-block; width: 25px; color: #C5A55A; font-weight: bold; }
   .quick-recap { background: #FAF6EE; border: 2px solid #C5A55A; border-radius: 8px; padding: 18px 22px; margin: 20px 0; }
+  .next-seif-nav {
+    margin: 28px 0 18px 0;
+    padding: 16px 22px;
+    background: linear-gradient(135deg, #1A1F3A 0%, #2a3050 100%);
+    border-left: 6px solid #C5A55A;
+    border-radius: 6px;
+    page-break-inside: avoid;
+  }
+  .next-seif-nav .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+  }
+  .next-seif-nav .label {
+    color: #d4c89a;
+    font-size: 10.5pt;
+    font-style: italic;
+  }
+  .next-seif-nav a {
+    color: #C5A55A;
+    text-decoration: none;
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-size: 14pt;
+    font-weight: bold;
+    transition: color 0.2s;
+  }
+  .next-seif-nav a:hover { color: #fff; }
 
     .lang-switcher { display: flex; gap: 6px; align-items: center; margin-left: 12px; }
     .lang-switcher a {
@@ -105,7 +133,7 @@
   <div class="ornament">✦ ❖ ✦</div>
   <div class="badge-top">DAAT · NIVEAU 1 — INITIATION</div>
   <h1>Siman <bdi>רמ״ד</bdi> · 22 Seifim</h1>
-  <div class="subtitle">Travaux au forfait du non-juif pour le Juif — kablanout, mar'it ayin, talush vs mehoubar</div>
+  <div class="subtitle">Faire faire un travail à un non-juif — kablanout, mar'it ayin, talush vs mehoubar</div>
   <div class="he-title">סימן רמ״ד</div>
   <div class="he-sub">איזו מלאכות יכול הנכרי לעשות בעד הישראל</div>
   <div class="level-badge">🌱 Niveau Initiation · מתחילים</div>
@@ -129,77 +157,50 @@
 <div class="page-break"></div>
 
 <h2 class="section-title">📑 Plan de l'étude</h2>
+
 <div class="quick-recap">
-<div class="toc-item"><span class="toc-num">1.</span> <strong>Le texte du Choul'han Aroukh</strong> — extraits des 22 seifim</div>
-<div class="toc-item"><span class="toc-num">2.</span> <strong>Le contexte général</strong> — le grand siman du kablanout</div>
-<div class="toc-item"><span class="toc-num">3.</span> <strong>Concept-clé 1</strong> — שכיר יום vs קבלן</div>
-<div class="toc-item"><span class="toc-num">4.</span> <strong>Concept-clé 2</strong> — תלוש vs מחובר</div>
-<div class="toc-item"><span class="toc-num">5.</span> <strong>Concept-clé 3</strong> — מראית עין et publicité</div>
-<div class="toc-item"><span class="toc-num">6.</span> <strong>Les 4 conditions cumulatives</strong> du kablanout permis</div>
-<div class="toc-item"><span class="toc-num">7.</span> <strong>Position du Rama</strong></div>
-<div class="toc-item"><span class="toc-num">8.</span> <strong>Cas pratiques modernes</strong> — entreprise non-juive, artisan, livraison</div>
-<div class="toc-item"><span class="toc-num">9.</span> <strong>Synthèse pratique</strong></div>
-<div class="toc-item"><span class="toc-num">10.</span> <strong>Questions de compréhension</strong></div>
+<p style="margin: 0 0 10px 0; font-style: italic; color: #5a4a1a;"><strong>Partie I — Cadre général &amp; concepts-clés</strong></p>
+<div class="toc-item"><span class="toc-num">1.</span> <strong>Le contexte général</strong> — le grand siman du kablanout</div>
+<div class="toc-item"><span class="toc-num">2.</span> <strong>Concept-clé 1</strong> — שכיר יום vs קבלן</div>
+<div class="toc-item"><span class="toc-num">3.</span> <strong>Concept-clé 2</strong> — תלוש vs מחובר</div>
+<div class="toc-item"><span class="toc-num">4.</span> <strong>Concept-clé 3</strong> — מראית עין et publicité</div>
+<div class="toc-item"><span class="toc-num">5.</span> <strong>Les 4 conditions cumulatives</strong> du kablanout permis</div>
+
+<p style="margin: 18px 0 10px 0; font-style: italic; color: #5a4a1a;"><strong>Partie II — Les 22 seifim du SHHaRav (Admour HaZaken)</strong></p>
+<div class="toc-item"><span class="toc-num">6.</span> <strong>Seif Alef</strong> — Le fondement : קבלנות vs שכיר יום</div>
+<div class="toc-item"><span class="toc-num">7.</span> <strong>Seif Bet</strong> — תלוש vs מחובר ; le décret de מראית עין</div>
+<div class="toc-item"><span class="toc-num">8.</span> <strong>Seif Gimel</strong> — חוץ לתחום : la permission hors limite</div>
+<div class="toc-item"><span class="toc-num">9.</span> <strong>Seif Dalet</strong> — תלוש public et notoire : le bateau (ספינה)</div>
+<div class="toc-item"><span class="toc-num">10.</span> <strong>Seif Hé</strong> — דבר שאין שם הישראל נקרא עליו</div>
+<div class="toc-item"><span class="toc-num">11.</span> <strong>Seif Vav</strong> — תלוש לצורך מחובר : pierres et poutres</div>
+<div class="toc-item"><span class="toc-num">12.</span> <strong>Seif Zayin</strong> — Bediavad : habiter une maison bâtie Shabbat</div>
+<div class="toc-item"><span class="toc-num">13.</span> <strong>Seif 'Het</strong> — Nettoyage des rues ; bâtir une synagogue</div>
+<div class="toc-item"><span class="toc-num">14.</span> <strong>Seif Tet</strong> — Le scribe annuel (סופר) : מלאכות מיוחדות</div>
+<div class="toc-item"><span class="toc-num">15.</span> <strong>Seif Yod</strong> — קפידא : le critère de l'exigence du juif</div>
+<div class="toc-item"><span class="toc-num">16.</span> <strong>Seif Yod-Alef</strong> — Loué à toutes les tâches : משתרשא ליה</div>
+<div class="toc-item"><span class="toc-num">17.</span> <strong>Seif Yod-Bet</strong> — Le fermier du péage (מכס) : שבות דשבות</div>
+<div class="toc-item"><span class="toc-num">18.</span> <strong>Seif Yod-Gimel</strong> — Péage nécessitant une mélakha gemoura</div>
+<div class="toc-item"><span class="toc-num">19.</span> <strong>Seif Yod-Dalet</strong> — Affermer le péage ; mar'it ayin et הפסד</div>
+<div class="toc-item"><span class="toc-num">20.</span> <strong>Seif Tet-Vav</strong> — Louer le péage pour le Shabbat seul (sans הבלעה)</div>
+<div class="toc-item"><span class="toc-num">21.</span> <strong>Seif Tet-Zayin</strong> — La frappe de monnaie (מטבע)</div>
+<div class="toc-item"><span class="toc-num">22.</span> <strong>Seif Yod-Zayin</strong> — S'asseoir auprès du non-juif : interdit</div>
+<div class="toc-item"><span class="toc-num">23.</span> <strong>Seif Yod-'Het</strong> — Surveiller et faire les comptes : interdit</div>
+<div class="toc-item"><span class="toc-num">24.</span> <strong>Seif Yod-Tet</strong> — Donner de l'argent à réparer en קבלנות</div>
+<div class="toc-item"><span class="toc-num">25.</span> <strong>Seif Khaf</strong> — Les ouvriers du sel (מלח)</div>
+<div class="toc-item"><span class="toc-num">26.</span> <strong>Seif Khaf-Alef</strong> — מראית עין vs perte du seul profit</div>
+<div class="toc-item"><span class="toc-num">27.</span> <strong>Seif Khaf-Bet</strong> — Mines de fer et verre : généralisation</div>
+
+<p style="margin: 18px 0 10px 0; font-style: italic; color: #5a4a1a;"><strong>Partie III — Synthèse &amp; Questions</strong></p>
+<div class="toc-item"><span class="toc-num">28.</span> <strong>Synthèse pratique du Siman רמ״ד</strong></div>
+<div class="toc-item"><span class="toc-num">29.</span> <strong>Questions de compréhension générale</strong></div>
 </div>
 
 <div class="page-break"></div>
 
-<h2 class="section-title">1. Le texte du Choul'han Aroukh</h2>
+<p style="text-align:center;font-family:'Cormorant Garamond',serif;font-size:15pt;color:#5a4a1a;font-style:italic;margin:10px 0 0 0;">— Partie I —</p>
+<p style="text-align:center;font-family:'Cormorant Garamond',serif;font-size:12pt;color:#8a7a4a;margin:0 0 18px 0;">Cadre général &amp; concepts-clés</p>
 
-<h3>Seif Alef — Distinction fondamentale שכיר יום / קבלן</h3>
-<blockquote class="text-source">
-אַף עַל פִּי שֶׁאָסוּר לְהַנִּיחַ לְנָכְרִי שֶׁיַּעֲשֶׂה מְלָאכָה לְיִשְׂרָאֵל בְּשַׁבָּת אַף עַל פִּי שֶׁעוֹשֶׂה בְּשָׂכָר אִם הוּא עוֹשֶׂה בְּתוֹרַת שְׂכִיר יוֹם... אֲבָל אִם הוּא עוֹשֶׂה בְּתוֹרַת קַבְּלָנוּת שֶׁקִּבֵּל עָלָיו לַעֲשׂוֹת כָּךְ וְכָךְ בְּעַד שָׂכָר כָּךְ וְכָךְ — מֻתָּר לְהַנִּיחוֹ שֶׁיַּעֲשֶׂה כָּל מְלַאכְתּוֹ בְּשַׁבָּת.
-</blockquote>
-
-<div class="translation">
-<strong>Distinction fondamentale :</strong>
-<ul>
-<li><strong>שְׂכִיר יוֹם</strong> = employé à la journée. Le Juif paie par journée de travail. Le non-juif est <em>l'agent du Juif</em> (שלוחו). <strong>Interdit</strong> qu'il travaille Shabbat.</li>
-<li><strong>קַבְּלָן</strong> = entrepreneur au forfait. Le Juif paie pour <em>un travail défini</em> (tant pour le tout). Le non-juif agit <em>pour son propre intérêt</em> (terminer vite pour être payé). <strong>Permis</strong> qu'il travaille Shabbat.</li>
-</ul>
-</div>
-
-<div class="key-point">
-<strong>Le חידוש fondamental :</strong> en cas de קבלנות, le non-juif <em>"אֵינוֹ עוֹשֶׂה בִּשְׁבִיל טוֹבַת הַיִּשְׂרָאֵל אֶלָּא בִּשְׁבִיל עַצְמוֹ"</em> (il agit pour soi, pas pour le Juif). Il n'est plus <em>שלוחו של ישראל</em> (agent du Juif). Le rabbinique <em>אמירה לעכו״ם</em> (dire au non-juif) ne s'applique pas.
-</div>
-
-<h3>Seif Beit — Distinction תלוש / מחובר</h3>
-<blockquote class="text-source">
-בַּמֶּה דְּבָרִים אֲמוּרִים שֶׁמֻּתָּר לְהַנִּיחַ לְקַבְּלָן נָכְרִי לַעֲשׂוֹת בְּשַׁבָּת? כְּשֶׁעוֹשֶׂה מְלָאכָה בְּדָבָר הַתָּלוּשׁ מִן הַקַּרְקַע, שֶׁהַנָּכְרִי יָכוֹל לַעֲשׂוֹתָהּ בְּבֵיתוֹ אוֹ בְּמָקוֹם אַחֵר שֶׁאֵינוֹ רְשׁוּת הַיִּשְׂרָאֵל... אֲבָל כְּשֶׁעוֹשֶׂה בִּמְחֻבָּר לַקַּרְקַע — אָסוּר.
-</blockquote>
-
-<div class="translation">
-<strong>2 catégories de travail :</strong>
-<ul>
-<li><strong>תָּלוּשׁ</strong> = objet mobile (tissu à coudre, livre à imprimer). Le non-juif l'emporte chez lui. <strong>Permis Shabbat</strong> car personne ne sait que c'est pour un Juif.</li>
-<li><strong>מְחֻבָּר לַקַּרְקַע</strong> = terrain/construction (bâtir une maison, moissonner un champ). Le terrain est <em>visible et public</em> (la terre étant connue comme du Juif). <strong>Interdit Shabbat</strong> — מראית עין.</li>
-</ul>
-</div>
-
-<h3>Seifim Guimel-Vav — Affinements (intra/extra-tehoum, mehoubar)</h3>
-
-<table>
-<tr><th>Seif</th><th>Sujet</th><th>Règle</th></tr>
-<tr><td>3</td><td>Mehoubar : intra-tehoum vs extra-tehoum</td><td>Intra-tehoum interdit ; extra-tehoum permis (sans Juifs habitant à proximité)</td></tr>
-<tr><td>4</td><td>Talush exceptionnel : construction de bateau</td><td>Si très visible / public (sur la rive du fleuve) — interdit (mar'it ayin)</td></tr>
-<tr><td>5</td><td>Imprimerie / atelier juif</td><td>Si visible publiquement comme atelier juif — interdit</td></tr>
-<tr><td>6</td><td>Demander explicitement de travailler Shabbat</td><td>Interdit même en kablanout</td></tr>
-</table>
-
-<h3>Seifim 7-22 — Cas particuliers</h3>
-
-<table>
-<tr><th>Catégorie</th><th>Règle pratique</th></tr>
-<tr><td>Construction maison juive (mehoubar)</td><td>Interdit — même par kablan</td></tr>
-<tr><td>Cuisine d'un repas pour un Juif</td><td>Interdit — agit comme agent</td></tr>
-<tr><td>Lettre / colis livré par non-juif</td><td>Cf. sim. רמ״ז (קציצה)</td></tr>
-<tr><td>Travail commencé vendredi se terminant Shabbat</td><td>Permis si conditions cumulées (sim. רנ״ב)</td></tr>
-<tr><td>Bateau sur fleuve Shabbat</td><td>Permis si non-juif maître à bord et au profit propre</td></tr>
-</table>
-
-<div class="page-break"></div>
-
-<h2 class="section-title">2. Le contexte général</h2>
+<h2 class="section-title">1. Le contexte général</h2>
 
 <h3>De quoi parle ce siman ?</h3>
 
@@ -229,7 +230,7 @@
 <tr><td>רנ״ב</td><td>Mélakhot à commencer érev Shabbat</td><td>Application aux mélakhot autonomes</td></tr>
 </table>
 
-<h2 class="section-title section-title--he">3. Concept-clé 1 — שכיר יום vs קבלן</h2>
+<h2 class="section-title section-title--he">2. Concept-clé 1 — שכיר יום vs קבלן</h2>
 
 <div class="definition">
 <strong>שְׂכִיר יוֹם</strong> = employé à la journée. Salaire au temps. <strong>קַבְּלָן</strong> = entrepreneur au forfait. Salaire au résultat. La halakha distingue ces deux modes par <em>l'agence</em> (שליחות) :
@@ -247,7 +248,7 @@
 <tr><td>Application moderne</td><td>Salarié à temps plein, intérimaire payé à l'heure</td><td>Artisan au devis, freelance par projet, livraison forfaitaire</td></tr>
 </table>
 
-<h2 class="section-title section-title--he">4. Concept-clé 2 — תלוש vs מחובר</h2>
+<h2 class="section-title section-title--he">3. Concept-clé 2 — תלוש vs מחובר</h2>
 
 <div class="definition">
 <strong>תָּלוּשׁ</strong> = <em>"détaché"</em> — objet mobile (tissu, papier, machine portable). <strong>מְחֻבָּר לַקַּרְקַע</strong> = <em>"attaché à la terre"</em> — terrain, construction, plantations. Le <em>talush</em> peut être emporté chez le non-juif (= invisible). Le <em>mehoubar</em> est nécessairement public (= visible).
@@ -257,7 +258,7 @@
 <strong>Logique :</strong> le danger n'est pas le travail en soi (déjà résolu par le kablanout) mais le <em>mar'it ayin</em> — l'image publique. Si les passants voient un non-juif construire la maison du Juif Shabbat, ils penseront qu'il est שכיר יום (employé) → mauvais exemple.
 </div>
 
-<h2 class="section-title section-title--he">5. Concept-clé 3 — מראית עין et publicité</h2>
+<h2 class="section-title section-title--he">4. Concept-clé 3 — מראית עין et publicité</h2>
 
 <div class="definition">
 <strong>מַרְאִית עַיִן</strong> = <em>"apparence visuelle"</em>. La halakha interdit certaines actions <em>même permises en soi</em> si elles donnent une fausse impression au public. Ici : un non-juif travaillant pour un Juif Shabbat dans un lieu public peut faire croire qu'il est employé direct.
@@ -273,7 +274,7 @@
 
 <div class="page-break"></div>
 
-<h2 class="section-title">6. Les 4 conditions cumulatives du kablanout permis</h2>
+<h2 class="section-title">5. Les 4 conditions cumulatives du kablanout permis</h2>
 
 <div class="key-point">
 <strong>Pour qu'un non-juif puisse travailler Shabbat pour un Juif :</strong>
@@ -286,119 +287,1647 @@
 + Conditions du sim. רנ״ב : pour les travaux qui ont commencé vendredi.
 </div>
 
-<h2 class="section-title">7. Position du Rama</h2>
-
-<table>
-<tr><th>Sujet</th><th>Position Rama</th></tr>
-<tr><td>Construction maison juive (Seif Beit)</td><td>Interdit même hors tehoum si maison connue comme juive</td></tr>
-<tr><td>Imprimerie atelier juif</td><td>Interdit publiquement visible</td></tr>
-<tr><td>Travail urgent (deadline)</td><td>Permis kablanout étendu (Maharam Mintz)</td></tr>
-<tr><td>Voiture/transport non-juif</td><td>Si kablan + chez lui (= bus public) — permis</td></tr>
-</table>
-
-<h2 class="section-title">8. Cas pratiques modernes</h2>
-
-<h3>Cas 1 — Imprimerie non-juive qui imprime un livre juif</h3>
-<div class="key-point">
-<ul class="compact">
-<li>Si imprimeur = kablan (paye au tirage, pas à l'heure) ✓</li>
-<li>Travail dans son atelier (chez lui) ✓</li>
-<li>Talush (livre = mobile) ✓</li>
-<li>Pas de mar'it ayin si l'atelier n'est pas connu comme servant un Juif</li>
-</ul>
-→ <strong>Permis</strong> que l'imprimerie tourne Shabbat.
-</div>
-
-<h3>Cas 2 — Construction d'un immeuble par entrepreneur non-juif</h3>
-<div class="key-point">
-<ul class="compact">
-<li>Kablan : oui (forfait pour le projet)</li>
-<li>Mehoubar (chantier) ✗</li>
-<li>Visible publiquement ✗</li>
-</ul>
-→ <strong>Interdit</strong> Shabbat. Le contrat doit prévoir l'arrêt du Shabbat.
-</div>
-
-<h3>Cas 3 — Livraison Amazon / colis Shabbat</h3>
-<div class="key-point">
-<ul class="compact">
-<li>Service de livraison = kablan global (livre par colis, pas à l'heure)</li>
-<li>Pas chez le Juif (camion, route)</li>
-<li>Talush (colis mobile)</li>
-<li>Pas mar'it ayin (livraison anonyme)</li>
-</ul>
-→ <strong>Permis</strong> de recevoir un colis Shabbat. <em>Mais ne pas commander vendredi en sachant que livraison Shabbat sera spécifique pour soi.</em>
-</div>
-
-<h3>Cas 4 — Femme de ménage non-juive</h3>
-<div class="key-point">
-<ul class="compact">
-<li>Si payée à l'heure / journée = שכיר יום → <strong>interdit</strong> Shabbat</li>
-<li>Si payée par tâche (forfait par maison nettoyée) = kablan → permis si chez le Juif possible ?</li>
-</ul>
-<strong>Problème :</strong> elle agit chez le Juif (pas mehoubar, mais visible). Mar'it ayin envisageable. <em>Conduite habituelle :</em> ne pas faire venir la femme de ménage Shabbat.
-</div>
-
-<h3>Cas 5 — Voiture conduite par chauffeur non-juif (Uber)</h3>
-<div class="key-point">
-<ul class="compact">
-<li>Uber = kablan par course (forfait par trajet)</li>
-<li>Voiture du chauffeur (pas chez le Juif)</li>
-<li>Talush</li>
-</ul>
-→ Mais <strong>monter Shabbat dans la voiture</strong> = équivaut à initier la mélakha (= demande explicite). <strong>Interdit</strong> en pratique.
-</div>
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-alef-rav">Seif Alef (SHHaRav) →</a></div></div>
 
 <div class="page-break"></div>
 
-<h2 class="section-title">9. Synthèse pratique du Siman</h2>
+<p style="text-align:center;font-family:'Cormorant Garamond',serif;font-size:15pt;color:#5a4a1a;font-style:italic;margin:10px 0 0 0;">— Partie II —</p>
+<p style="text-align:center;font-family:'Cormorant Garamond',serif;font-size:12pt;color:#8a7a4a;margin:0 0 6px 0;">Les 22 seifim du Choulhan Aroukh HaRav</p>
+<h2 class="section-title">Partie II — Les 22 seifim du SHHaRav (Admour HaZaken)</h2>
+<p style="font-style:italic;color:#5a4a1a;">Chaque seif est étudié selon le texte intégral de l'Admour HaZaken (שולחן ערוך הרב), sa traduction, son analyse pédagogique, le tableau des avis, le pesak du Rav, cinq cas pratiques modernes et une question de compréhension.</p>
+
+<!-- ===== Seif Alef — Le fondement : קבלנות vs שכיר יום ===== -->
+<h2 class="section-title" id="seif-alef-rav">6. Seif Alef — Le fondement : קבלנות vs שכיר יום</h2>
+
+<h3>Texte intégral du SHHaRav</h3>
+<blockquote class="text-source">
+אֵיזוֹ מְלָאכוֹת יָכוֹל הַנָּכְרִי לַעֲשׂוֹת בְּעַד הַיִּשְׂרָאֵל וּבוֹ כ"ב סְעִיפִים:<br><br>אַף עַל פִּי שֶׁאָסוּר לְהַנִּיחַ לְנָכְרִי שֶׁיַּעֲשֶׂה מְלָאכָה לְיִשְׂרָאֵל בְּשַׁבָּת, אַף עַל פִּי שֶׁעוֹשֶׂה בְּשָׂכָר אִם הוּא עוֹשֶׂה בְּתוֹרַת שְׂכִיר יוֹם, כְּגוֹן שֶׁשְּׂכָרוֹ הַיִּשְׂרָאֵל קֹדֶם הַשַּׁבָּת וְאָמַר לוֹ בְּעַד כָּל יוֹם וְיוֹם שֶׁתַּעֲבוֹד לִי אֶתֵּן לְךָ כָּךְ וְכָךְ, אַף עַל פִּי שֶׁלֹּא אָמַר לוֹ שֶׁיַּעֲבוֹד גַּם בְּשַׁבָּת אֶלָּא מֵעַצְמוֹ הוּא עוֹבֵד — צָרִיךְ הוּא לִמְחוֹת בְּיָדוֹ, כְּמוֹ שֶׁנִּתְבָּאֵר בְּסִמָּן רמ"ג, אֲבָל אִם הוּא עוֹשֶׂה בְּתוֹרַת קַבְּלָנוּת, שֶׁקִּבֵּל עָלָיו לַעֲשׂוֹת כָּךְ וְכָךְ בְּעַד שָׂכָר כָּךְ וְכָךְ, בֵּין שֶׁעוֹשֶׂה מִשֶּׁלּוֹ, בֵּין שֶׁעוֹשֶׂה מִשֶּׁל הַיִּשְׂרָאֵל, שֶׁנָּתַן לוֹ מִמָּה לַעֲשׂוֹת הַמְּלָאכָה, כְּגוֹן שֶׁנָּתַן לוֹ בֶּגֶד לִתְפּוֹר וְקָצַץ לוֹ שָׂכָר, אוֹ שֶׁנָּתַן לוֹ חוּטִין לֶאֱרוֹג לוֹ בֶּגֶד, בֵּין שֶׁקִּבֵּל עָלָיו לֶאֱרוֹג כָּל הַבֶּגֶד, בֵּין שֶׁלֹּא קִבֵּל עָלָיו כְּלָל לֶאֱרוֹג כָּל הַבֶּגֶד, אֶלָּא שֶׁקָּצַץ לוֹ בְּעַד כָּל אַמָּה וְאַמָּה שֶׁיֶּאֱרוֹג — מֻתָּר לְהַנִּיחוֹ שֶׁיַּעֲשֶׂה כָּל מְלַאכְתּוֹ בְּשַׁבָּת. <br><br>וַאֲפִלּוּ לְכַתְּחִלָּה מֻתָּר לִתֵּן לוֹ אֲפִלּוּ בְּעֶרֶב שַׁבָּת סָמוּךְ לַחֲשֵׁכָה, עַל דֶּרֶךְ שֶׁיִּתְבָּאֵר בְּסִמָּן רנ"ב, אַף עַל פִּי שֶׁיּוֹדֵעַ שֶׁהַנָּכְרִי יַעֲשֶׂה בְּשַׁבָּת  (וּבְכָךְ הוּא חָפֵץ), מִכָּל מָקוֹם הַנָּכְרִי אֵינוֹ עוֹשֶׂה בִּשְׁבִיל טוֹבַת הַיִּשְׂרָאֵל אֶלָּא בִּשְׁבִיל עַצְמוֹ, לְמַהֵר לְהַשְׁלִים מְלַאכְתּוֹ כְּדֵי לְקַבֵּל שְׂכָרוֹ. <br><br>וְאֵינוֹ דוֹמֶה לִשְׂכִיר יוֹם, שֶׁהַשְּׂכִיר יוֹם אֵין הַמְּלָאכָה שֶׁלּוֹ כְּלָל, וְאֵין לוֹ עֵסֶק בָּהּ, שֶׁהֲרֵי אֵין כַּוָּנָתוֹ בַּעֲבוֹדָתוֹ כְּדֵי לְהַשְׁלִים הַמְּלָאכָה, שֶׁהֲרֵי לֹא עָלָיו הַמְּלָאכָה לִגְמוֹר, וְאֵין לוֹ תּוֹעֶלֶת כְּלָל בְּהִגָּמְרָהּ, אֶלָּא כַּוָּנָתוֹ לַעֲבוֹד אֶת הַיִּשְׂרָאֵל כָּל הַיּוֹם כְּדֵי שֶׁיִּתֵּן לוֹ שְׂכָרוֹ, לְפִיכָךְ הֲרֵי זֶה כְּעוֹשֶׂה שְׁלִיחוּת הַיִּשְׂרָאֵל, אֲבָל הַקַּבְּלָן הַמְּלָאכָה הִיא שֶׁלּוֹ, שֶׁכַּוָּנָתוֹ בַּעֲבוֹדָתוֹ הִיא לְהַשְׁלִים הַמְּלָאכָה כְּדֵי לִטּוֹל שְׂכָרוֹ, וְאֵינוֹ כִּשְׁלוּחוֹ שֶׁל יִשְׂרָאֵל. <br><br>וּמִכָּל מָקוֹם, צָרִיךְ לִזָּהֵר שֶׁלֹּא יַעֲשֶׂה בְּבֵית הַיִּשְׂרָאֵל, וְשֶׁלֹּא יֹאמַר לוֹ שֶׁיַּעֲשֶׂה בְּשַׁבָּת, וְגַם שֶׁיִּקְצוֹץ לוֹ דָּמִים קֹדֶם הַשַּׁבָּת, וְגַם שֶׁלֹּא יִתֵּן לוֹ אֶלָּא אִם כֵּן בְּעִנְיָן שֶׁיּוּכַל הַנָּכְרִי לַעֲשׂוֹת כָּל הַמְּלָאכָה בְּחֹל אִם יִרְצֶה קֹדֶם הַשַּׁבָּת אוֹ לְאַחֲרָיו, כְּמוֹ שֶׁיִּתְבָּאֵר בְּסִמָּן רנ"ב, עַיֵּן שָׁם כָּל פְּרָטֵי דִינִים אֵלּוּ:
+</blockquote>
+
+<h3>Traduction française</h3>
+<div class="translation">
+<strong>Quels travaux le non-juif peut-il accomplir pour le Juif — comporte 22 seifim :</strong><br><br>
+Bien qu'il soit interdit de laisser un non-juif accomplir une mélakha pour un Juif Shabbat — même contre salaire — lorsqu'il agit <strong>à titre de salarié à la journée</strong> (שכיר יום), par exemple si le Juif l'a embauché avant Shabbat en disant « pour chaque jour de travail je te donnerai tant », même sans lui dire de travailler Shabbat, il faut l'en empêcher (cf. siman רמ"ג). <strong>Mais</strong> s'il agit <strong>à titre de forfait</strong> (קבלנות), ayant accepté de faire telle tâche pour tel prix — qu'il travaille avec son matériel ou celui du Juif (un vêtement à coudre, des fils à tisser, qu'il s'engage pour tout le vêtement ou à la coudée) — <strong>il est permis</strong> de le laisser accomplir tout son travail Shabbat.<br><br>
+Il est même permis <em>lekhatchila</em> de lui confier l'ouvrage la veille de Shabbat au crépuscule (siman רנ"ב), même en sachant qu'il travaillera Shabbat — <em>et qu'on le souhaite</em> — car <strong>le non-juif n'agit pas pour le bien du Juif, mais pour lui-même</strong>, afin d'achever vite et de toucher sa paye.<br><br>
+Cela ne ressemble pas au salarié à la journée, dont l'ouvrage ne lui appartient pas et qui agit donc <em>comme l'envoyé du Juif</em>. Le forfaitaire, lui, l'ouvrage <em>est le sien</em> — <strong>il n'est pas comme l'envoyé du Juif</strong>.<br><br>
+Néanmoins, il faut veiller à <strong>quatre choses</strong> : (1) qu'il ne travaille pas dans la maison du Juif ; (2) qu'on ne lui dise pas de faire Shabbat ; (3) qu'on fixe le prix avant Shabbat (קציצה) ; (4) qu'on ne lui confie l'ouvrage que de façon qu'il <em>pourrait</em> tout faire en semaine — voir siman רנ"ב.
+</div>
+
+<h3>De quoi parle ce Seif ?</h3>
+<p>Le Rav ouvre le Siman par le <strong>fondement du kablanout</strong>. La question d'<em>amira l'akum</em> est : le non-juif est-il l'<strong>agent du Juif</strong> (שליחות) ? Le seif oppose deux structures :</p>
+<div class="definition">
+<strong>Les deux modes de rémunération :</strong>
+<ul class="compact">
+<li><strong>שְׂכִיר יוֹם</strong> — payé au <em>temps</em> ; l'ouvrage n'est pas le sien → agent du Juif → <strong>interdit</strong>.</li>
+<li><strong>קַבְּלָן</strong> — payé au <em>résultat</em> ; l'ouvrage est le sien → agit pour soi → <strong>permis</strong>.</li>
+</ul>
+</div>
+
+<h3>La question halakhique</h3>
+<p>Pourquoi le forfaitaire échappe-t-il à l'interdit, alors que le travail bénéficie au Juif et qu'il le souhaite ? Parce que l'interdit d'amira repose sur la <strong>שליחות</strong> ; or le forfaitaire agit <em>אדעתא דנפשיה</em>. Mais pourquoi maintenir quatre conditions ?</p>
+
+<h3>Les avis</h3>
+<table>
+<tr><th>Source</th><th>Position</th></tr>
+<tr><td><strong>Talmud</strong> (AZ 21b, MK 12a)</td><td>« נכרי שעוסק במלאכת ישראל בקבלנות — מותר » : forfait permis, journée interdit.</td></tr>
+<tr><td><strong>Tossafot / Rosh</strong></td><td>Le forfaitaire « עביד אדעתא דנפשיה » — agit pour soi ; pas de shélihout.</td></tr>
+<tr><td><strong>Mehaber</strong> (244:1)</td><td>Forfait permis ; pose les conditions (pas chez le Juif, pas d'amira, kežiça).</td></tr>
+<tr><td><strong>Mishna Berura</strong> (244:1-3)</td><td>Permis même si le Juif désire le résultat, car le non-juif agit pour sa paye.</td></tr>
+<tr class="harav"><td><strong>SHHaRav</strong> (244:1)</td><td><strong>Architecture conceptuelle</strong> : critère de la <em>propriété de l'ouvrage</em> et de l'<em>intention</em> (כוונה) ; 4 garde-fous.</td></tr>
+</table>
+
+<h3>Le pesak du Rav</h3>
+<div class="key-point">
+<strong>Le critère : « à qui appartient l'ouvrage ? »</strong>
+<ol>
+  <li>Journée : <em>ouvrage pas le sien</em> → pour le Juif → shélihout → interdit.</li>
+  <li>Forfait : <em>ouvrage le sien</em> → pour soi (אדעתא דנפשיה) → pas de shélihout → permis.</li>
+  <li>Garde-fous : pas chez le Juif, pas d'amira, kežiça avant Shabbat, faisable en semaine.</li>
+</ol>
+</div>
+
+<h3>Cas pratiques modernes</h3>
+<ul class="compact">
+  <li><strong>Imprimeur payé au tirage :</strong> 🟢 forfait → permis (chez lui, prix d'avance, sans dire « Shabbat »).</li>
+  <li><strong>Freelance payé au projet :</strong> 🟢 forfait — ne pas dire « livre Shabbat » ni exiger un travail réalisable <em>seulement</em> Shabbat.</li>
+  <li><strong>Femme de ménage payée à l'heure :</strong> 🔴 salariée à la journée — mon agent ; interdit Shabbat.</li>
+  <li><strong>Traducteur payé au document :</strong> 🟢 forfait — permis si prix d'avance.</li>
+  <li><strong>Chauffeur payé à la course :</strong> forfait, mais <em>monter</em> Shabbat = amira → 🔴 interdit en pratique.</li>
+</ul>
+
+<h3>Points à retenir</h3>
+<div class="remember">
+<ul class="compact">
+  <li>Critère = <strong>shélihout</strong> : journée = agent → interdit ; forfait = pour soi → permis</li>
+  <li>Permis même si le Juif <em>souhaite</em> que ce soit fait Shabbat</li>
+  <li>Quatre conditions : pas chez le Juif, pas d'amira, kežiça avant Shabbat, faisable en semaine</li>
+</ul>
+</div>
+
+<div class="question-box">
+<strong>Question de compréhension :</strong> Pourquoi le désir du Juif (ובכך הוא חפץ) n'interdit-il pas la chose en kablanout ?
+</div>
+
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-bet-rav">Seif Bet (SHHaRav) →</a></div></div>
+
+<div class="page-break"></div>
+
+<!-- ===== Seif Bet — תלוש vs מחובר ; le décret de מראית עין ===== -->
+<h2 class="section-title" id="seif-bet-rav">7. Seif Bet — תלוש vs מחובר ; le décret de מראית עין</h2>
+
+<h3>Texte intégral du SHHaRav</h3>
+<blockquote class="text-source">
+בַּמֶּה דְּבָרִים אֲמוּרִים שֶׁמֻּתָּר לְהַנִּיחַ לְקַבְּלָן נָכְרִי לַעֲשׂוֹת בְּשַׁבָּת? כְּשֶׁעוֹשֶׂה מְלָאכָה בְּדָבָר הַתָּלוּשׁ מִן הַקַּרְקַע, שֶׁהַנָּכְרִי יָכוֹל לַעֲשׂוֹתָהּ בְּבֵיתוֹ אוֹ בְּמָקוֹם אַחֵר שֶׁאֵינוֹ רְשׁוּת הַיִּשְׂרָאֵל, וְאֵין הַדָּבָר נִכָּר שֶׁהִיא מְלֶאכֶת הַיִּשְׂרָאֵל, וְאֵין כַּאן חֲשַׁשׁ מַרְאִית הָעַיִן. אֲבָל כְּשֶׁעוֹשֶׂה בִּמְחֻבָּר לַקַּרְקַע, כְּגוֹן שֶׁקִּבֵּל עָלָיו לִבְנוֹת בַּיִת לְיִשְׂרָאֵל, אוֹ לִקְצוֹר שָׂדֶה לְיִשְׂרָאֵל, כֵּיוָן שֶׁהַקַּרְקַע גְּלוּיָה וּמְפֻרְסֶמֶת לַכֹּל שֶׁהִיא שֶׁל יִשְׂרָאֵל — נִכָּר הַדָּבָר לְכָל רוֹאֶה שֶׁגַּם הַמְּלָאכָה הִיא שֶׁל הַיִּשְׂרָאֵל, לְפִיכָךְ אִם הוּא בְּתוֹךְ הָעִיר אוֹ בְּתוֹךְ תְּחוּמָהּ — אָסוּר לְהַנִּיחוֹ שֶׁיַּעֲשֶׂה בְּשַׁבָּת, מִפְּנֵי מַרְאִית הָעַיִן, שֶׁהָרוֹאֶה יֹאמַר שֶׁהוּא שְׂכִיר יוֹם אֵצֶל הַיִּשְׂרָאֵל. <br><br>וַאֲפִלּוּ אִם אֵין הַדָּבָר מְפֻרְסָם לַכֹּל שֶׁקַּרְקַע זוֹ הִיא שֶׁל יִשְׂרָאֵל, מִכָּל מָקוֹם יֵשׁ לָחוּשׁ לְמַרְאִית הָעַיִן שֶׁל שְׁכֵנָיו, שֶׁהֵם יוֹדְעִים שֶׁקַּרְקַע זוֹ הִיא שֶׁלּוֹ, וְאֵינָן יוֹדְעִים שֶׁהַנָּכְרִִי הָעוֹסֵק בִּמְלָאכָה הוּא קַבְּלָן, אֶלָּא יֹאמְרוּ שֶׁהוּא שְׂכִיר יוֹם. <br><br>וַאֲפִלּוּ אִם הוּא דָר בִּכְפָר בֵּין הַנָּכְרִים שֶׁאֵין לוֹ שָׁם שְׁכֵנִים יִשְׂרָאֵל, מִכָּל מָקוֹם אִם עוֹשֶׂה בְּתוֹךְ תְּחוּם הַכְּפָר — יֵשׁ לָחוּשׁ שֶׁמָּא יִזְדַּמְּנוּ לוֹ שָׁם אוֹרְחִים שֶׁיִּשְׁבְּתוּ אֶצְלוֹ וְיִרְאוּ אֶת הַנָּכְרִי עוֹסֵק בְּשַׁבָּת בְּקַרְקַע הַיִּשְׂרָאֵל, וְיַחְשְׁדוּהוּ שֶׁהַנָּכְרִי שְׂכִיר יוֹם אֶצְלוֹ. וְגַם יֵשׁ לָחוּשׁ לִבְנֵי בֵיתוֹ, שֶׁהֵם יוֹדְעִים שֶׁהַמְּלָאכָה הִיא שֶׁלּוֹ, וְיַחְשְׁדוּ אוֹתוֹ שֶׁהַנָּכְרִי הוּא שְׂכִיר יוֹם אֶצְלוֹ. <br><br>אֲבָל כְּשֶׁעוֹשֶׂה בְּדָבָר תָּלוּשׁ,  אַף שֶׁמִּקְצָת יִשְׂרָאֵל יוֹדְעִים שֶׁהַמְּלָאכָה הִיא שֶׁל יִשְׂרָאֵל — לֹא גָזְרוּ חֲכָמִים, כֵּיוָן שֶׁרֹב הַפְּעָמִים אֵין הַדָּבָר נוֹדָע לַאֲחֵרִים כְּלָל, שֶׁמְּלֶאכֶת תָּלוּשׁ אֵין לָהּ קוֹל כְּלָל, מַה שֶּׁאֵין כֵּן כְּשֶׁעוֹשֶׂה בִּמְחֻבָּר שֶׁהוּא בְּמָקוֹם גָּלוּי וּמְפֻרְסָם, וְרֹב הַפְּעָמִים הַמְּלָאכָה גְּלוּיָה וּמְפֻרְסֶמֶת לָרַבִּים, שֶׁמְּלֶאכֶת מְחֻבָּר יֵשׁ לָהּ קוֹל, לְפִיכָךְ אִם לִפְעָמִים אֵין חֲשַׁשׁ מַרְאִית הָעַיִן אֶלָּא מִמִּקְצָת יִשְׂרָאֵל גָּזְרוּ חֲכָמִים:
+</blockquote>
+
+<h3>Traduction française</h3>
+<div class="translation">
+<strong>Dans quels cas est-il permis</strong> de laisser un forfaitaire non-juif travailler Shabbat ? <strong>Lorsqu'il œuvre sur un objet détaché du sol</strong> (תלוש), que le non-juif peut faire chez lui ou en un lieu qui n'est pas le domaine du Juif, où l'on ne reconnaît pas qu'il s'agit de l'ouvrage d'un Juif — il n'y a alors aucun soupçon de mar’it ayin.<br><br>
+Mais lorsqu'il œuvre sur du <strong>relié au sol</strong> (מחובר) — par exemple s'il s'est engagé à bâtir une maison ou à moissonner un champ pour le Juif — puisque le terrain est <em>visible et notoirement connu</em> comme appartenant au Juif, tout passant comprend que le travail aussi est du Juif. Si c'est <strong>dans la ville ou son tehoum, c'est interdit</strong> Shabbat, par mar’it ayin : on dira qu'il est salarié à la journée. Et même si la propriété n'est pas notoire pour tous, on craint le mar’it ayin des voisins qui savent que ce terrain est le sien et ignorent que le non-juif est forfaitaire. Même résidant dans un village sans voisins juifs, on craint des hôtes de passage ou les gens de sa propre maison.<br><br>
+En revanche pour le <strong>détaché</strong>, même si quelques Juifs savent que l'ouvrage est d'un Juif, les Sages n'ont pas décrété, car le plus souvent l'ouvrage détaché « n'a pas de retentissement » (אין לה קול), contrairement au relié qui est en lieu découvert et notoire.
+</div>
+
+<h3>De quoi parle ce Seif ?</h3>
+<p>Après le fondement (Seif Alef), le Rav pose la <strong>première grande limite</strong> du kablanout : tout dépend de la nature de l'objet travaillé.</p>
+<div class="definition">
+<strong>תָּלוּשׁ vs מְחֻבָּר :</strong>
+<ul class="compact">
+<li><strong>תָּלוּשׁ</strong> (détaché) — objet mobile (tissu, livre, machine portable). Discret, « אין לה קול » → permis.</li>
+<li><strong>מְחֻבָּר לַקַּרְקַע</strong> (relié) — maison, champ, chantier. Public, le terrain trahit le propriétaire juif → mar’it ayin → interdit.</li>
+</ul>
+</div>
+
+<h3>La question halakhique</h3>
+<p>Le forfait étant déjà permis sur le fond (Seif Alef), pourquoi réinterdire le <em>mehoubar</em> ? Réponse : non plus à cause de la shélihout, mais à cause de la <strong>מראית עין</strong> — l'apparence : le public croira que le non-juif est salarié à la journée du Juif.</p>
+
+<h3>Les avis</h3>
+<table>
+<tr><th>Source</th><th>Position</th></tr>
+<tr><td><strong>Yeroushalmi</strong></td><td>N'a interdit que le <em>mehoubar</em> — d'où la distinction de base.</td></tr>
+<tr><td><strong>Tossafot / Ran</strong></td><td>Le détaché « לא מיפרסמא מילתא » (ne se publie pas) ; le relié, étant sur la terre du Juif, est connu de lui.</td></tr>
+<tr><td><strong>Mehaber</strong> (244:1)</td><td>Permis le détaché hors du domaine du Juif ; interdit le relié dans la ville/tehoum.</td></tr>
+<tr><td><strong>Mishna Berura</strong> (244:8-12)</td><td>Le mar’it ayin vaut même pour les voisins et les hôtes ; détaille les degrés de notoriété.</td></tr>
+<tr class="harav"><td><strong>SHHaRav</strong> (244:2)</td><td><strong>Théorie du « קול »</strong> : le relié a un retentissement public, le détaché non ; les Sages n'ont décrété que là où le mar’it ayin est habituel.</td></tr>
+</table>
+
+<h3>Le pesak du Rav</h3>
+<div class="key-point">
+<strong>La règle du Rav :</strong>
+<ol>
+  <li><strong>Détaché</strong> hors du domaine du Juif → permis (pas de קול, pas de mar’it ayin).</li>
+  <li><strong>Relié</strong> dans la ville ou le tehoum → interdit (le terrain trahit le propriétaire).</li>
+  <li>Le mar’it ayin vaut même pour <em>une partie</em> des Juifs (voisins, hôtes, gens de la maison).</li>
+</ol>
+</div>
+
+<h3>Cas pratiques modernes</h3>
+<ul class="compact">
+  <li><strong>Entreprise non-juive bâtit ma maison/immeuble :</strong> 🔴 mehoubar visible → interdit Shabbat ; le contrat doit prévoir l'arrêt du Shabbat.</li>
+  <li><strong>Atelier non-juif coud mes vêtements chez lui :</strong> 🟢 talush discret → permis.</li>
+  <li><strong>Paysagiste non-juif tond mon jardin/champ :</strong> 🔴 mehoubar, terrain connu comme mien → interdit.</li>
+  <li><strong>Imprimerie tire mon livre dans son atelier :</strong> 🟢 talush sans קול → permis.</li>
+  <li><strong>Rénovation de ma boutique en centre-ville :</strong> 🔴 lieu public, propriété notoire → interdit même par forfait.</li>
+</ul>
+
+<h3>Points à retenir</h3>
+<div class="remember">
+<ul class="compact">
+  <li><strong>תלוש</strong> (mobile, discret) → permis ; <strong>מחובר</strong> (terrain, public) → interdit</li>
+  <li>Le moteur de l'interdit n'est plus la shélihout mais le <strong>mar’it ayin</strong></li>
+  <li>Le relié « a un קול » (retentissement public) ; le détaché non</li>
+  <li>Le mar’it ayin vaut même pour les voisins et les hôtes de passage</li>
+</ul>
+</div>
+
+<div class="question-box">
+<strong>Question de compréhension :</strong> Pourquoi le mehoubar reste-t-il interdit même quand le non-juif est forfaitaire et agit pour lui-même ?
+</div>
+
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-gimel-rav">Seif Gimel (SHHaRav) →</a></div></div>
+
+<div class="page-break"></div>
+
+<!-- ===== Seif Gimel — חוץ לתחום : la permission hors limite ===== -->
+<h2 class="section-title" id="seif-gimel-rav">8. Seif Gimel — חוץ לתחום : la permission hors limite</h2>
+
+<h3>Texte intégral du SHHaRav</h3>
+<blockquote class="text-source">
+וְכָל זֶה כְּשֶׁעוֹשֶׂה הַמְּלָאכָה בְּתוֹךְ הָעִיר אוֹ בְּתוֹךְ תְּחוּם הָעִיר, שֶׁיְּכוֹלִין אַנְשֵׁי הָעִיר לֵילֵךְ לְשָׁם בְּשַׁבָּת, אֲבָל כְּשֶׁעוֹשֶׂה הַמְּלָאכָה חוּץ לַתְּחוּם, וְגַם אֵין עִיר אַחֶרֶת שֶׁיִּשְׂרָאֵל דָּרִים בָּהּ תּוֹךְ תְּחוּמָיו שֶׁל מְקוֹם הַמְּלָאכָה — מֻתָּר לְהַנִּיחוֹ שֶׁיַּעֲשֶׂה בְּשַׁבָּת:
+</blockquote>
+
+<h3>Traduction française</h3>
+<div class="translation">
+Et tout ceci ne vaut que lorsqu'il fait l'ouvrage <strong>dans la ville ou dans son tehoum</strong>, où les habitants peuvent se rendre Shabbat. Mais s'il fait l'ouvrage <strong>hors du tehoum</strong>, et qu'il n'y a pas non plus d'autre ville où résident des Juifs dans le tehoum du lieu de travail — <strong>il est permis</strong> de le laisser œuvrer Shabbat.
+</div>
+
+<h3>De quoi parle ce Seif ?</h3>
+<p>Le Rav précise la portée géographique du décret du Seif Bet. Le mar’it ayin n'existe que là où des Juifs <em>pourraient voir</em>. D'où l'exception : <strong>hors du tehoum</strong>.</p>
+<div class="key-point">
+La condition est <strong>double</strong> : (1) hors du tehoum de la ville du Juif, ET (2) aucune autre ville juive dans le tehoum du chantier. Si nul Juif ne peut s'y rendre Shabbat, il n'y a pas de témoin → pas de mar’it ayin → permis, même pour du mehoubar.
+</div>
+
+<h3>La question halakhique</h3>
+<p>Le mehoubar est interdit par mar’it ayin. Mais le mar’it ayin suppose un observateur juif potentiel. Que se passe-t-il quand le chantier est trop loin pour qu'aucun Juif n'y vienne Shabbat ?</p>
+
+<h3>Les avis</h3>
+<table>
+<tr><th>Source</th><th>Position</th></tr>
+<tr><td><strong>Talmud / Rishonim</strong></td><td>Le décret de mar’it ayin ne porte que là où il y a un public susceptible de voir.</td></tr>
+<tr><td><strong>Mehaber</strong> (244:1)</td><td>Permet hors du tehoum, en l'absence de Juifs à proximité.</td></tr>
+<tr><td><strong>Mishna Berura</strong> (244:13-15)</td><td>Exige les deux conditions cumulatives : hors tehoum du Juif et pas de ville juive proche.</td></tr>
+<tr class="harav"><td><strong>SHHaRav</strong> (244:3)</td><td>Formule la <strong>double condition</strong> avec précision : critère du « peut s'y rendre Shabbat ».</td></tr>
+</table>
+
+<h3>Le pesak du Rav</h3>
+<div class="key-point">
+<strong>La permission hors tehoum :</strong>
+<ol>
+  <li>Hors du tehoum de la ville du Juif (≈ 1 km au-delà des limites).</li>
+  <li>Aucune ville juive dans le tehoum du chantier.</li>
+  <li>Alors même le mehoubar (construction, champ) devient permis Shabbat.</li>
+</ol>
+</div>
+
+<h3>Cas pratiques modernes</h3>
+<ul class="compact">
+  <li><strong>Usine non-juive en zone industrielle isolée :</strong> 🟢 si aucun Juif ne peut s'y rendre Shabbat → permis.</li>
+  <li><strong>Chantier d'un entrepôt loin de toute communauté :</strong> 🟢 hors tehoum + pas de Juifs → permis (mehoubar).</li>
+  <li><strong>Forage/extraction en pleine campagne :</strong> 🟢 conditions remplies → permis.</li>
+  <li><strong>Construction en banlieue à 500 m d'un quartier juif :</strong> 🔴 dans le tehoum → interdit.</li>
+  <li><strong>Ferme du Juif exploitée par non-juifs près d'un village juif :</strong> 🔴 ville juive dans le tehoum → interdit.</li>
+</ul>
+
+<h3>Points à retenir</h3>
+<div class="remember">
+<ul class="compact">
+  <li>Le mar’it ayin suppose un <strong>observateur juif potentiel</strong></li>
+  <li>Double condition : <strong>hors tehoum</strong> du Juif ET aucune ville juive proche</li>
+  <li>Réunies, elles permettent même le <strong>mehoubar</strong> Shabbat</li>
+</ul>
+</div>
+
+<div class="question-box">
+<strong>Question de compréhension :</strong> Pourquoi faut-il les <em>deux</em> conditions (hors tehoum du Juif et pas de ville juive proche) plutôt qu'une seule ?
+</div>
+
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-dalet-rav">Seif Dalet (SHHaRav) →</a></div></div>
+
+<div class="page-break"></div>
+
+<!-- ===== Seif Dalet — תלוש public et notoire : le bateau (ספינה) ===== -->
+<h2 class="section-title" id="seif-dalet-rav">9. Seif Dalet — תלוש public et notoire : le bateau (ספינה)</h2>
+
+<h3>Texte intégral du SHHaRav</h3>
+<blockquote class="text-source">
+אֲפִלּוּ מְלֶאכֶת תָּלוּשׁ, אִם הִיא מְפֻרְסֶמֶת וִידוּעָה לָרַבִּים שֶׁהִיא שֶׁל יִשְׂרָאֵל, וְהִיא נַעֲשֵׂית בְּמָקוֹם גָּלוּי וּמְפֻרְסָם, כְּגוֹן בִּנְיַן הַסְּפִינָה, שֶׁדֶּרֶךְ לִבְנוֹתָהּ עַל שְׂפַת הַנָּהָר שֶׁהוּא מְקוֹם פַּרְהֶסְיָא — אָסוּר לְהַנִּיחוֹ לַעֲשׂוֹת בְּשַׁבָּת, מִפְּנֵי מַרְאִית הָעַיִן:
+</blockquote>
+
+<h3>Traduction française</h3>
+<div class="translation">
+<strong>Même un ouvrage détaché</strong> (תלוש), s'il est <em>notoirement connu</em> comme étant du Juif et qu'il est fait en lieu découvert et public — par exemple <strong>la construction d'un bateau</strong>, qu'on a coutume de bâtir sur la rive du fleuve, lieu de pleine publicité (פרהסיא) — <strong>il est interdit</strong> de le laisser œuvrer Shabbat, à cause du mar’it ayin.
+</div>
+
+<h3>De quoi parle ce Seif ?</h3>
+<p>Le Seif Bet a posé : détaché = permis, relié = interdit. Le Rav introduit ici une <strong>exception au détaché</strong> : si le détaché devient lui-même public et identifié au Juif, il rejoint le régime du relié.</p>
+<div class="definition">
+<strong>Le cas du bateau (ספינה) :</strong> objet détaché par nature, mais construit en pleine vue sur la rive et publiquement connu comme « le bateau d'un tel ». La notoriété recrée le mar’it ayin.
+</div>
+
+<h3>La question halakhique</h3>
+<p>Si le détaché est permis parce qu'il « n'a pas de קול » (Seif Bet), que se passe-t-il quand un détaché particulier <em>acquiert</em> un קול — fait en public et nommément attribué au Juif ?</p>
+
+<h3>Les avis</h3>
+<table>
+<tr><th>Source</th><th>Position</th></tr>
+<tr><td><strong>Magen Avraham</strong> (244)</td><td>Si fait en פרהסיא, interdit même si seule une partie le sait.</td></tr>
+<tr><td><strong>Mehaber</strong> (244:2)</td><td>Interdit le détaché public et notoire (type bateau) par mar’it ayin.</td></tr>
+<tr><td><strong>Mishna Berura</strong> (244:16-18)</td><td>Exige deux traits : lieu public ET nom du Juif attaché à l'objet.</td></tr>
+<tr class="harav"><td><strong>SHHaRav</strong> (244:4)</td><td>Cristallise le critère : « ששם הישראל נקרא עליו » — le nom du Juif est attaché à la chose.</td></tr>
+</table>
+
+<h3>Le pesak du Rav</h3>
+<div class="key-point">
+<strong>L'exception du détaché public :</strong>
+<ol>
+  <li>Détaché ordinaire (chez le non-juif, discret) → permis.</li>
+  <li>Détaché <em>en public</em> ET <em>nommément du Juif</em> → interdit (mar’it ayin).</li>
+  <li>Critère-clé du Rav : <strong>le nom du Juif est attaché à l'objet</strong> (שם הישראל נקרא עליו).</li>
+</ol>
+</div>
+
+<h3>Cas pratiques modernes</h3>
+<ul class="compact">
+  <li><strong>Construction d'un yacht au nom du Juif sur le port :</strong> 🔴 public + nominatif → interdit.</li>
+  <li><strong>Voiture du Juif réparée dehors, plaque connue :</strong> 🔴 si publiquement identifiée comme la sienne → interdit.</li>
+  <li><strong>Enseigne lumineuse « Maison X » montée en façade :</strong> 🔴 objet détaché mais public et nominatif → interdit.</li>
+  <li><strong>Meuble fabriqué dans l'atelier fermé du non-juif :</strong> 🟢 discret → permis.</li>
+  <li><strong>Stand du Juif monté sur la place publique :</strong> 🔴 public + à son nom → interdit Shabbat.</li>
+</ul>
+
+<h3>Points à retenir</h3>
+<div class="remember">
+<ul class="compact">
+  <li>Le détaché peut redevenir interdit s'il est <strong>public ET nominatif</strong></li>
+  <li>Critère : <strong>שם הישראל נקרא עליו</strong> (le nom du Juif est attaché à l'objet)</li>
+  <li>Le bateau sur la rive est l'archétype talmudique</li>
+</ul>
+</div>
+
+<div class="question-box">
+<strong>Question de compréhension :</strong> Qu'est-ce qui distingue le bateau (interdit) d'un meuble fabriqué dans l'atelier du non-juif (permis), tous deux détachés ?
+</div>
+
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-he-rav">Seif Hé (SHHaRav) →</a></div></div>
+
+<div class="page-break"></div>
+
+<!-- ===== Seif Hé — דבר שאין שם הישראל נקרא עליו ===== -->
+<h2 class="section-title" id="seif-he-rav">10. Seif Hé — דבר שאין שם הישראל נקרא עליו</h2>
+
+<h3>Texte intégral du SHHaRav</h3>
+<blockquote class="text-source">
+בַּמֶּה דְּבָרִים אֲמוּרִים?  בִּסְפִינָה וְכַיּוֹצֵא בָהּ מִדְּבָרִים שֶׁשֵּׁם הַיִּשְׂרָאֵל נִקְרָא עֲלֵיהֶם, שֶׁאוֹמְרִים דָּבָר זֶה הוּא שֶׁל פְּלוֹנִי. אֲבָל דָּבָר שֶׁאֵין שֵׁם הַיִּשְׂרָאֵל נִקְרָא עָלָיו, רַק שֶׁעוֹשֶׂה בְּפַרְהֶסְיָא, וְנִתְפַּרְסֵם לָרַבִּים שֶׁדָּבָר זֶה נַעֲשֶׂה בְּשַׁבָּת לְצֹרֶךְ הַיִּשְׂרָאֵל, כְּגוֹן יִשְׂרָאֵל שֶׁשָּׂכַר לוֹ נָכְרִי בְּקַבְּלָנוּת לַעֲשׂוֹת לוֹ כֵּלִים חֲדָשִׁים וְעָשָׂה אוֹתָם בְּשַׁבָּת בְּפַרְהֶסְיָא, שֶׁאַף שֶׁיָּצָא הַקּוֹל וְנִתְפַּרְסֵם לָרַבִּים שֶׁעוֹשֶׂה בִּשְׁבִיל הַיִּשְׂרָאֵל, מִכָּל מָקוֹם עֲדַיִן לֹא נִקְרָא שְׁמוֹ עֲלֵיהֶם לִהְיוֹת נִקְרָאִים כֵּלִים שֶׁל פְּלוֹנִי, כֵּיוָן שֶׁעֲדַיִן לֹא בָאוּ לִרְשׁוּתוֹ מֵעוֹלָם, לְפִיכָךְ אַף שֶׁעוֹשֶׂה בְּמָקוֹם גָּלוּי וּמְפֻרְסָם — אֵינוֹ צָרִיךְ לִמְחוֹת בְּיָדוֹ מֵעִקַּר הַדִּין. וּמִכָּל מָקוֹם, טוֹב לְהַחֲמִיר וְלִמְחוֹת בְּיָדוֹ לָחוּשׁ לְרִנּוּן שָׁעָה, שֶׁלֹּא יָרֹנּוּ אַחֲרָיו לוֹמַר שֶׁנָּכְרִי עוֹשֶׂה מְלָאכָה בְּשַׁבָּת בִּשְׁלִיחוּתוֹ:
+</blockquote>
+
+<h3>Traduction française</h3>
+<div class="translation">
+<strong>Dans quels cas l'interdit précédent vaut-il ?</strong> Pour un bateau et choses semblables <em>dont le nom du Juif est attaché</em> à elles, dont on dit « cette chose est à un tel ». <strong>Mais une chose dont le nom du Juif n'est pas attaché</strong>, seulement qu'elle est faite en public et qu'il est notoire qu'elle est faite pour le Juif Shabbat — par exemple un Juif qui a loué un non-juif en forfait pour lui fabriquer des objets <em>neufs</em> qu'il a faits Shabbat en public : bien que le bruit ait couru que c'est pour le Juif, le nom du Juif n'est pas encore attaché à ces objets (ils ne sont jamais entrés en sa possession) — c'est pourquoi, <strong>selon la stricte loi, il n'est pas tenu de protester</strong>. Néanmoins, il est <strong>bon d'être rigoureux</strong> et de protester, pour éviter les médisances passagères (רינון).
+</div>
+
+<h3>De quoi parle ce Seif ?</h3>
+<p>Le Rav affine le critère du Seif Dalet : le déclencheur n'est pas la simple publicité, mais l'<strong>attachement du nom du Juif</strong> à l'objet.</p>
+<div class="key-point">
+Deux situations distinctes :<br>
+• L'objet <strong>est déjà du Juif</strong> (nom attaché) → interdit (din pur).<br>
+• L'objet est <em>neuf</em>, pas encore en possession du Juif, simplement fait pour lui en public → <strong>permis selon le din</strong>, bien qu'il soit louable de protester (רינון).
+</div>
+
+<h3>La question halakhique</h3>
+<p>Si la notoriété recrée le mar’it ayin (Seif Dalet), suffit-il que « le bruit coure » que l'ouvrage est pour le Juif ? Ou faut-il que l'objet soit <em>déjà</em> identifié comme sien ?</p>
+
+<h3>Les avis</h3>
+<table>
+<tr><th>Source</th><th>Position</th></tr>
+<tr><td><strong>Rashba</strong> (cité par Beit Yossef)</td><td>Bediavad/objet neuf : pas d'interdit strict, mais on craint le רינון (médisance).</td></tr>
+<tr><td><strong>Magen Avraham</strong></td><td>Distingue « objet du Juif » (interdit) et « fait pour le Juif » (permis selon le din).</td></tr>
+<tr><td><strong>Mehaber / Rama</strong></td><td>Permettent selon le din l'objet neuf non encore possédé ; rigueur recommandée.</td></tr>
+<tr class="harav"><td><strong>SHHaRav</strong> (244:5)</td><td>Pose la frontière nette : <em>nom attaché</em> = interdit ; <em>simplement pour le Juif</em> = permis mais « טוב להחמיר ».</td></tr>
+</table>
+
+<h3>Le pesak du Rav</h3>
+<div class="key-point">
+<strong>La frontière du Rav :</strong>
+<ol>
+  <li>Objet <strong>déjà du Juif</strong> (nom attaché) en public → interdit.</li>
+  <li>Objet <strong>neuf</strong>, pas encore possédé, fait pour le Juif → permis selon le din.</li>
+  <li>Mais <strong>« טוב להחמיר »</strong> et protester, à cause du רינון (mauvaise rumeur).</li>
+</ol>
+</div>
+
+<h3>Cas pratiques modernes</h3>
+<ul class="compact">
+  <li><strong>Imprimerie tire un livre commandé, pas encore livré :</strong> 🟢 objet neuf → permis selon le din ; mieux vaut éviter le tapage public.</li>
+  <li><strong>Atelier fabrique des meubles neufs pour le Juif, en vitrine :</strong> 🟢 din permet (pas encore sien) ; rigueur si rumeur.</li>
+  <li><strong>Usine produit en série une commande du Juif :</strong> 🟢 produits non encore livrés → permis selon le din.</li>
+  <li><strong>Réparation d'un bien déjà au Juif, en public :</strong> 🔴 nom attaché → interdit.</li>
+  <li><strong>Fabrication discrète en atelier fermé :</strong> 🟢 ni public ni rumeur → pleinement permis.</li>
+</ul>
+
+<h3>Points à retenir</h3>
+<div class="remember">
+<ul class="compact">
+  <li>Critère : le <strong>nom du Juif est-il attaché</strong> à l'objet ?</li>
+  <li>Objet <em>neuf</em> fait pour le Juif → permis selon le din, mais רינון à éviter</li>
+  <li>« טוב להחמיר » : être rigoureux par souci de la rumeur publique</li>
+</ul>
+</div>
+
+<div class="question-box">
+<strong>Question de compréhension :</strong> Pourquoi un objet neuf « fait pour le Juif » est-il permis selon le din, alors qu'un objet « du Juif » est interdit ?
+</div>
+
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-vav-rav">Seif Vav (SHHaRav) →</a></div></div>
+
+<div class="page-break"></div>
+
+<!-- ===== Seif Vav — תלוש לצורך מחובר : pierres et poutres ===== -->
+<h2 class="section-title" id="seif-vav-rav">11. Seif Vav — תלוש לצורך מחובר : pierres et poutres</h2>
+
+<h3>Texte intégral du SHHaRav</h3>
+<blockquote class="text-source">
+אֲפִלּוּ לַעֲשׂוֹת בְּתָלוּשׁ, אִם הוּא לְצֹרֶךְ מְחֻבָּר, כְּגוֹן  לִפְסוֹל הָאֲבָנִים וּלְתַקֵּן הַקּוֹרוֹת כְּדֵי לְשַׁקְּעָם בְּבִנְיָן — צָרִיךְ לִמְחוֹת בְּיָדוֹ אִם הוּא בְּתוֹךְ הַתְּחוּם, אֲפִלּוּ עוֹשֶׂה רָחוֹק מֵהַבִּנְיָן, וַאֲפִלּוּ עוֹשֶׂה בְּבֵיתוֹ שֶׁאֵין הַדָּבָר נִכָּר שֶׁעוֹשֶׂה בִּשְׁבִיל בִּנְיָן זֶה שֶׁל הַיִּשְׂרָאֵל, מִכָּל מָקוֹם כֵּיוָן שֶׁסּוֹפָן לְשַׁקְּעָם בְּהַבִּנְיָן — הֲרֵי דִינָם כְּהַבִּנְיָן עַצְמוֹ:
+</blockquote>
+
+<h3>Traduction française</h3>
+<div class="translation">
+<strong>Même faire un travail sur du détaché</strong>, s'il est <em>au service d'un relié</em> — par exemple tailler les pierres et préparer les poutres pour les insérer dans une construction — <strong>il faut protester</strong> si c'est dans le tehoum, <em>même</em> s'il œuvre loin du chantier, <em>même</em> chez lui où l'on ne reconnaît pas que c'est pour cette construction du Juif : puisque leur destination est d'être insérées dans la construction, <strong>leur statut est celui de la construction elle-même</strong> (הרי דינם כהבנין עצמו).
+</div>
+
+<h3>De quoi parle ce Seif ?</h3>
+<p>Le Rav traite un cas-frontière : un travail <em>détaché</em> (tailler la pierre) mais <em>destiné</em> au relié (la bâtisse). Suit-il le régime permissif du détaché ou le régime sévère du relié ?</p>
+<div class="key-point">
+Réponse : la <strong>destination finale</strong> l'emporte. Tailler des pierres pour les sceller dans un mur, c'est déjà « de la construction » → interdit, même fait loin et discrètement.
+</div>
+
+<h3>La question halakhique</h3>
+<p>Le détaché est permis car discret (Seif Bet). Mais si ce détaché n'est qu'une <em>étape</em> vers un relié interdit, son apparente discrétion suffit-elle à le permettre ?</p>
+
+<h3>Les avis</h3>
+<table>
+<tr><th>Source</th><th>Position</th></tr>
+<tr><td><strong>Tossafot, Rosh, Smag, Tour</strong></td><td>Le travail préparatoire au bâti suit le régime du bâti — interdit.</td></tr>
+<tr><td><strong>Kol Bo</strong> (avis isolé)</td><td>Tendance à permettre ; rejeté par la majorité.</td></tr>
+<tr><td><strong>Mehaber</strong> (244:3)</td><td>Tranche comme la majorité : interdit, car « סופן לשקעם בבנין ».</td></tr>
+<tr><td><strong>Mishna Berura</strong></td><td>Confirme : la taille de pierres destinée au mur est assimilée à la construction.</td></tr>
+<tr class="harav"><td><strong>SHHaRav</strong> (244:6)</td><td><strong>Principe</strong> : « דינם כהבנין עצמו » — la destination détermine le statut, même fait loin et chez le non-juif.</td></tr>
+</table>
+
+<h3>Le pesak du Rav</h3>
+<div class="key-point">
+<strong>La règle de la destination :</strong>
+<ol>
+  <li>Détaché pour lui-même → permis (Seif Bet).</li>
+  <li>Détaché <em>destiné</em> à un relié (pierres, poutres) → statut de relié → interdit.</li>
+  <li>Vaut même loin du chantier et dans l'atelier du non-juif.</li>
+</ol>
+</div>
+
+<h3>Cas pratiques modernes</h3>
+<ul class="compact">
+  <li><strong>Préfabrication de poutres pour ma maison, en usine :</strong> 🔴 destinées au bâti → interdit Shabbat.</li>
+  <li><strong>Découpe de marbre pour mon sol/plan de travail scellé :</strong> 🔴 destiné au mehoubar → interdit.</li>
+  <li><strong>Fabrication d'une charpente métallique pour mon immeuble :</strong> 🔴 statut de construction → interdit.</li>
+  <li><strong>Production de carrelage générique non destiné à un chantier nommé :</strong> 🟢 détaché ordinaire → permis.</li>
+  <li><strong>Tissu coupé pour un vêtement (sans rapport au bâti) :</strong> 🟢 détaché pur → permis.</li>
+</ul>
+
+<h3>Points à retenir</h3>
+<div class="remember">
+<ul class="compact">
+  <li>Détaché <em>destiné au relié</em> = <strong>statut de relié</strong> → interdit</li>
+  <li>Vaut même loin du chantier et dans l'atelier du non-juif</li>
+  <li>La <strong>destination finale</strong> (סופן לשקעם בבנין) détermine le statut</li>
+</ul>
+</div>
+
+<div class="question-box">
+<strong>Question de compréhension :</strong> Pourquoi tailler des pierres chez le non-juif, loin du chantier, est-il interdit alors qu'un travail détaché ordinaire chez lui est permis ?
+</div>
+
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-zayin-rav">Seif Zayin (SHHaRav) →</a></div></div>
+
+<div class="page-break"></div>
+
+<!-- ===== Seif Zayin — Bediavad : habiter une maison bâtie Shabbat ===== -->
+<h2 class="section-title" id="seif-zayin-rav">12. Seif Zayin — Bediavad : habiter une maison bâtie Shabbat</h2>
+
+<h3>Texte intégral du SHHaRav</h3>
+<blockquote class="text-source">
+וְאִם לֹא מִחָה בְּיָדוֹ וְעָשָׂה בְּשַׁבָּת בְּקַבְּלָנוּת — יֵשׁ לְהַתִּיר לְשַׁקְּעָם בַּבִּנְיָן, וְכֵן הַבַּיִת שֶׁנִּבְנָה בְּשַׁבָּת בְּקַבְּלָנוּת — מֻתָּר לְהַיִּשְׂרָאֵל לִכָּנֵס לָדוּר בּוֹ, לְפִי שֶׁיֵּשׁ מִי שֶׁמַּתִּיר קַבְּלָנוּת נָכְרִי וַאֲפִלּוּ בִּמְחֻבָּר, וּכְדַאי הוּא לִסְמוֹךְ עָלָיו בְּדִיעֲבַד. <br><br>אֲבָל נָכְרִי שְׂכִיר יוֹם שֶׁבָּנָה בְּשַׁבָּת — נָכוֹן לְהַחֲמִיר שֶׁלֹּא יִכָּנֵס בּוֹ שׁוּם יִשְׂרָאֵל לְעוֹלָם. וַאֲפִלּוּ אִם כְּשֶׁשָּׂכַר אֶת הַנָּכְרִי לְיָמִים הִתְנָה עִמּוֹ שֶׁלֹּא יַעֲשֶׂה בְּיוֹם הַשַּׁבָּת וְהַנָּכְרִי עָשָׂה מֵעַצְמוֹ, (וְ)אִם עָשָׂה לְטוֹבַת הַיִּשְׂרָאֵל — נָכוֹן שֶׁלֹּא יִכָּנֵס בּוֹ שׁוּם יִשְׂרָאֵל לְעוֹלָם. אֲבָל אִם נִתְכַּוֵּן לְטוֹבַת עַצְמוֹ — מֻתָּר אֲפִלּוּ לְבַעַל הַבַּיִת לָדוּר בּוֹ, כֵּיוָן שֶׁהִתְנָה עִמּוֹ שֶׁלֹּא יַעֲשֶׂה בְּשַׁבָּת:
+</blockquote>
+
+<h3>Traduction française</h3>
+<div class="translation">
+<strong>S'il n'a pas protesté</strong> et que le non-juif a œuvré Shabbat <em>en forfait</em> — il y a lieu de <strong>permettre d'insérer</strong> les pierres dans le bâti, et de même la maison bâtie Shabbat en forfait : <strong>il est permis au Juif d'y entrer habiter</strong>, car il existe une opinion qui autorise le forfait du non-juif même en relié, et elle vaut qu'on s'y appuie bediavad.<br><br>
+Mais un non-juif <strong>salarié à la journée</strong> qui a bâti Shabbat — il convient d'être rigoureux : qu'aucun Juif n'y entre jamais. Et même si, en l'embauchant, le Juif a stipulé qu'il ne travaille pas Shabbat et que le non-juif l'a fait de lui-même : s'il l'a fait <em>pour le bien du Juif</em>, qu'aucun Juif n'y entre jamais ; mais s'il a visé <em>son propre intérêt</em> — il est permis même au propriétaire d'y habiter, puisqu'il avait stipulé l'abstention de Shabbat.
+</div>
+
+<h3>De quoi parle ce Seif ?</h3>
+<p>Le Rav passe du <em>lekhatchila</em> (interdiction préventive) au <strong>bediavad</strong> (que faire une fois le fait accompli ?). Distinction décisive entre forfait et salarié à la journée.</p>
+<div class="key-point">
+• Bâti par <strong>forfait</strong> Shabbat → on peut s'appuyer sur l'avis permissif → habitable bediavad.<br>
+• Bâti par <strong>salarié à la journée</strong> → rigueur : interdit d'y entrer jamais — <em>sauf</em> si stipulation d'abstention + le non-juif a agi pour soi.
+</div>
+
+<h3>La question halakhique</h3>
+<p>Le mehoubar par forfait est interdit lekhatchila (mar’it ayin). Mais une fois la maison construite Shabbat, peut-on en jouir ? Le statut bediavad dépend-il du mode de rémunération ?</p>
+
+<h3>Les avis</h3>
+<table>
+<tr><th>Source</th><th>Position</th></tr>
+<tr><td><strong>Avis permissif (יש מתירין)</strong></td><td>Autorise le forfait même en relié — base du bediavad.</td></tr>
+<tr><td><strong>Rama</strong> (244:3)</td><td>Bediavad, on s'appuie sur l'avis isolé en cas de perte/pressing ; distingue forfait et journée.</td></tr>
+<tr><td><strong>Magen Avraham / Taz</strong></td><td>Bediavad on suit l'avis permissif (Rabbenou Tam) ; salarié à la journée reste sévère.</td></tr>
+<tr class="harav"><td><strong>SHHaRav</strong> (244:7)</td><td>Permet bediavad pour le forfait ; pour le salarié à la journée : interdit sauf <em>intérêt propre + stipulation</em>.</td></tr>
+</table>
+
+<h3>Le pesak du Rav</h3>
+<div class="key-point">
+<strong>Le bediavad du Rav :</strong>
+<ol>
+  <li>Bâti par <strong>forfait</strong> Shabbat → habitable (appui sur l'avis permissif).</li>
+  <li>Bâti par <strong>journée</strong> Shabbat → interdit d'y entrer jamais.</li>
+  <li>Exception : journée ayant stipulé l'abstention + ayant agi <em>pour soi</em> → permis au propriétaire.</li>
+</ol>
+</div>
+
+<h3>Cas pratiques modernes</h3>
+<ul class="compact">
+  <li><strong>Immeuble achevé un Shabbat par une entreprise au forfait :</strong> 🟢 bediavad habitable.</li>
+  <li><strong>Maison bâtie par ouvriers payés à la journée Shabbat :</strong> 🔴 ne pas y entrer (rigueur).</li>
+  <li><strong>Rénovation faite Shabbat par un ouvrier payé à l'heure, contre la consigne :</strong> 🟡 examiner s'il a agi pour soi + stipulation.</li>
+  <li><strong>Pierres taillées Shabbat puis livrées :</strong> 🟢 forfait → on peut les sceller bediavad.</li>
+  <li><strong>Salarié journalier qui « rend service » Shabbat pour le Juif :</strong> 🔴 pour le bien du Juif → interdit d'en jouir.</li>
+</ul>
+
+<h3>Points à retenir</h3>
+<div class="remember">
+<ul class="compact">
+  <li><strong>Forfait</strong> bâti Shabbat → habitable bediavad</li>
+  <li><strong>Journée</strong> bâti Shabbat → interdit d'y entrer jamais</li>
+  <li>Exception journée : <em>stipulation</em> + intérêt propre → permis</li>
+</ul>
+</div>
+
+<div class="question-box">
+<strong>Question de compréhension :</strong> Pourquoi une maison bâtie par forfait est-elle habitable bediavad, alors que par salarié à la journée elle est interdite à jamais ?
+</div>
+
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-het-rav">Seif ’Het (SHHaRav) →</a></div></div>
+
+<div class="page-break"></div>
+
+<!-- ===== Seif ’Het — Nettoyage des rues ; bâtir une synagogue ===== -->
+<h2 class="section-title" id="seif-het-rav">13. Seif ’Het — Nettoyage des rues ; bâtir une synagogue</h2>
+
+<h3>Texte intégral du SHHaRav</h3>
+<blockquote class="text-source">
+בִּקְצָת מְקוֹמוֹת נוֹהֲגִין הֶתֵּר שֶׁהַקָּהָל שׂוֹכְרִים נָכְרִים בְּקַבְּלָנוּת לְפַנּוֹת הַזֶּבֶל מִן הָרְחוֹב, וְהַנָּכְרִי עוֹשֶׂה לְעַצְמוֹ וַאֲפִלּוּ בְּשַׁבָּת, וְאֵין חוֹשְׁשִׁין לְמַרְאִית הָעַיִן.  וְיֵשׁ שֶׁלִּמְּדוּ עֲלֵיהֶם זְכוּת, לְפִי שֶׁכְּבָר נִתְפַּרְסֵם הַדָּבָר שֶׁדֶּרֶךְ לִשְׂכּוֹר נָכְרִי בְּקַבְּלָנוּת לְפַנּוֹת הַזֶּבֶל וְלֹא שְׂכִיר יוֹם, וְאִם כֵּן אֵין כַּאן חֲשַׁשׁ מַרְאִית הָעַיִן, כְּמוֹ שֶׁנִּתְבָּאֵר בְּסִמָּן רמ"ג לְעִנְיַן מֶרְחָץ תַּנּוּר וְרֵחַיִם, עַיֵּן שָׁם. <br><br>וּמִטַּעַם זֶה יֵשׁ לְהַתִּיר לְהַנִּיחַ לְנָכְרִים לִבְנוֹת בֵּית הַכְּנֶסֶת בְּשַׁבָּת, אִם הוּא מָקוֹם שֶׁמְּפֻרְסָם בּוֹ דֶּרֶךְ בִּנְיַן הַבָּתִּים עַל יְדֵי אֻמָּנִים קַבְּלָנִים, וְלֹא עַל יְדֵי שְׂכִירֵי יוֹם כְּמוֹ שֶׁהוּא בְּרֹב הַמְּקוֹמוֹת, שֶׁהָאַדְרִיכָל לְבַדּוֹ הוּא קַבְּלָן וְהָאֻמָּנִים עוֹשֵׂי מְלָאכָה שֶׁתַּחְתָּיו הֵם שְׂכִירֵי יוֹם, שֶׁשָּׁם יֵשׁ חֲשַׁשׁ מַרְאִית הָעַיִן. <br><br>וּמִכָּל מָקוֹם, אֵין לְהַתִּיר אֶלָּא בִּשְׁעַת הַדְּחַק, כְּגוֹן שֶׁיֵּשׁ חֲשַׁשׁ שֶׁמָּא יִתְבַּטֵּל בְּהֶמְשֵׁךְ הַזְּמַן בִּנְיַן בֵּית הַכְּנֶסֶת לְגַמְרֵי מֵחֲמַת רִשְׁעַת הַנָּכְרִים. אֲבָל שֶׁלֹּא בִּשְׁעַת הַדְּחַק — אֵין לְהַתִּיר, מִפְּנֵי חִלּוּל הַשֵּׁם בְּעֵינֵי הַנָּכְרִים, שֶׁהֵם אֵינָם מַנִּיחִים לְשׁוּם אָדָם לַעֲשׂוֹת מְלָאכָה בְּפַרְהֶסְיָא בְּיוֹם אֵידָם, וְאָנוּ מַנִּיחִים לַעֲשׂוֹת מְלָאכָה בְּשַׁבָּת בִּשְׁבִילֵנוּ בְּפַרְהֶסְיָא. <br><br>אֲבָל כִּבּוּד הָרְחוֹב אֵינוֹ נִקְרָא עַל שֵׁם הַיִּשְׂרָאֵל כָּל כָּךְ, וְאֵין בּוֹ חִלּוּל הַשֵּׁם, לָכֵן נוֹהֲגִין לְהַתִּירוֹ אַף שֶׁלֹּא בִּשְׁעַת הַדְּחַק. <br><br>וּמִכָּל מָקוֹם, בְּמָקוֹם שֶׁאֵין שָׁם מִנְהָג — אֵין לְהָקֵל אַף בְּכִבּוּד הָרְחוֹב:
+</blockquote>
+
+<h3>Traduction française</h3>
+<div class="translation">
+<strong>En certains lieux on a coutume de permettre</strong> que la communauté loue des non-juifs en forfait pour <strong>évacuer les ordures de la rue</strong>, le non-juif œuvrant pour lui-même même Shabbat, sans craindre le mar’it ayin — car il est déjà notoire que l'usage est de louer en forfait, non à la journée.<br><br>
+Pour cette raison, il y a lieu de permettre de laisser des non-juifs <strong>bâtir une synagogue</strong> Shabbat, dans un lieu où la coutume est de bâtir les maisons par des artisans forfaitaires (non à la journée). <strong>Mais on ne le permet qu'en cas de pressing</strong> (שעת הדחק) — par exemple si la construction risque de s'interrompre à cause de la malveillance des non-juifs. Hors pressing, on ne permet pas, à cause du <em>’hiloul Hashem</em> aux yeux des non-juifs (qui, eux, ne laissent personne travailler en public lors de leurs fêtes). En revanche le nettoyage de la rue n'est pas attaché au nom du Juif et ne comporte pas de ’hiloul Hashem ; on le permet même hors pressing. Mais là où il n'y a pas de coutume, on ne sera pas indulgent même pour le nettoyage.
+</div>
+
+<h3>De quoi parle ce Seif ?</h3>
+<p>Le Rav introduit le <strong>rôle de la coutume (מנהג)</strong> qui peut neutraliser le mar’it ayin, et l'ajout du <strong>’hiloul Hashem</strong> comme considération supplémentaire.</p>
+<div class="key-point">
+• <strong>Nettoyage des rues</strong> par forfait : permis si coutume établie (pas attaché au Juif, pas de ’hiloul Hashem).<br>
+• <strong>Synagogue</strong> : permise seulement en <em>שעת הדחק</em> (pressing), à cause du ’hiloul Hashem si en public.
+</div>
+
+<h3>La question halakhique</h3>
+<p>La coutume peut-elle dissoudre le mar’it ayin (si « tout le monde sait » que c'est du forfait) ? Et un édifice <em>religieux</em> visible introduit-il un risque nouveau : le ’hiloul Hashem ?</p>
+
+<h3>Les avis</h3>
+<table>
+<tr><th>Source</th><th>Position</th></tr>
+<tr><td><strong>Coutume locale (מנהג)</strong></td><td>Quand le forfait est notoire, plus de mar’it ayin (cf. siman רמ"ג, bain/four/moulin).</td></tr>
+<tr><td><strong>Rama</strong> (244:?)</td><td>Permet la synagogue en pressing ; souligne le souci de ’hiloul Hashem en public.</td></tr>
+<tr><td><strong>Magen Avraham</strong></td><td>Distingue le nettoyage (anonyme) de la synagogue (au nom de la communauté).</td></tr>
+<tr class="harav"><td><strong>SHHaRav</strong> (244:8)</td><td>Articule trois ressorts : <em>coutume</em>, <em>שעת הדחק</em>, <em>’hiloul Hashem</em> ; et l'absence de coutume comme limite.</td></tr>
+</table>
+
+<h3>Le pesak du Rav</h3>
+<div class="key-point">
+<strong>Les trois ressorts du Rav :</strong>
+<ol>
+  <li>La <strong>coutume du forfait</strong> dissout le mar’it ayin.</li>
+  <li>La <strong>synagogue</strong> : permise seulement en pressing (sinon ’hiloul Hashem).</li>
+  <li><strong>Sans coutume locale</strong> → pas d'indulgence, même pour le nettoyage.</li>
+</ol>
+</div>
+
+<h3>Cas pratiques modernes</h3>
+<ul class="compact">
+  <li><strong>Service municipal non-juif d'enlèvement des ordures Shabbat :</strong> 🟢 forfait notoire → permis.</li>
+  <li><strong>Voirie/déneigement par entreprise au forfait :</strong> 🟢 si coutume établie → permis.</li>
+  <li><strong>Construction d'une synagogue par entreprise non-juive, en public :</strong> 🟡 permis seulement en שעת הדחק.</li>
+  <li><strong>Travaux publics au nom de la communauté juive, sans urgence :</strong> 🔴 hors pressing → interdit (’hiloul Hashem).</li>
+  <li><strong>Nettoyage là où nul usage du forfait n'existe :</strong> 🔴 pas de coutume → interdit.</li>
+</ul>
+
+<h3>Points à retenir</h3>
+<div class="remember">
+<ul class="compact">
+  <li>La <strong>coutume du forfait</strong> peut neutraliser le mar’it ayin</li>
+  <li>Synagogue en public → seulement en <strong>שעת הדחק</strong> (’hiloul Hashem)</li>
+  <li>Sans coutume locale, pas d'indulgence même pour le nettoyage</li>
+</ul>
+</div>
+
+<div class="question-box">
+<strong>Question de compréhension :</strong> Pourquoi le nettoyage des rues est-il permis hors pressing, mais la construction d'une synagogue seulement en שעת הדחק ?
+</div>
+
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-tet-rav">Seif Tet (SHHaRav) →</a></div></div>
+
+<div class="page-break"></div>
+
+<!-- ===== Seif Tet — Le scribe annuel (סופר) : מלאכות מיוחדות ===== -->
+<h2 class="section-title" id="seif-tet-rav">14. Seif Tet — Le scribe annuel (סופר) : מלאכות מיוחדות</h2>
+
+<h3>Texte intégral du SHHaRav</h3>
+<blockquote class="text-source">
+מִי שֶׁשָּׂכַר לוֹ נָכְרִי  לְשָׁנָה אוֹ לִשְׁתַּיִם שֶׁיִּכְתּוֹב לוֹ אוֹ שֶׁיֶּאֱרוֹג לוֹ בְּכָל עֵת שֶׁיִּצְטָרֵךְ בְּתוֹךְ זְמַן מֶשֶׁךְ שְׂכִירוּתוֹ, כְּמוֹ שֶׁהוּא דֶרֶךְ הַשָּׂרִים שֶׁיֵּשׁ לָהֶם סוֹפֵר מְיֻחָד שֶׁכּוֹתֵב לוֹ כָּל עֵת שֶׁצָּרִיךְ, וּכְשֶׁאֵין צָרִיךְ הוּא יוֹשֵׁב בָּטֵל — מֻתָּר לְהַנִּיחוֹ שֶׁיַּעֲשֶׂה בְּשַׁבָּת מַה שֶּׁצִּוָּה לוֹ קֹדֶם הַשַּׁבָּת (רַק שֶׁיִּזָּהֵר שֶׁלֹּא יֹאמַר לוֹ שֶׁיַּעֲשֶׂה בְּשַׁבָּת) אִם אֵינוֹ עוֹשֶׂה בְּבֵית הַיִּשְׂרָאֵל, לְפִי שֶׁאֵין לְיִשְׂרָאֵל רֶוַח בְּמַה שֶּׁעוֹשֶׂה בְּשַׁבָּת, שֶׁאִם לֹא יַעֲשֶׂה בְּשַׁבָּת יַעֲשֶׂה אַחַר הַשַּׁבָּת. וְאַף אִם הַמְּלָאכָה צְרִיכָה לוֹ בְּמוֹצָאֵי שַׁבָּת מִיָּד, מִכָּל מָקוֹם אֵין זֶה נִקְרָא רֶוַח אֶלָּא הֲנָאָה בְּעָלְמָא, וְרֶוַח הוּא כְּגוֹן שֶׁהַמְּלָאכָה הָיְתָה מִתְבַּטֶּלֶת לְגַמְרֵי אִם לֹא הָיְתָה נַעֲשֵׂית בְּשַׁבָּת, שֶׁאָז הוּא מַרְוִיחַ הַמְּלָאכָה עַל יְדֵי שֶׁנַּעֲשֵׂית בְּשַׁבָּת, וּכְמוֹ שֶׁיִּתְבָּאֵר בְּסִמָּן רנ"ב, וְכֵן אִם יֵשׁ לוֹ רֶוַח אַחֵר שֶׁרְכוּשׁוֹ מִתְרַוֵּחַ וּמִתְרַבֶּה עַל יְדֵי שֶׁנַּעֲשֵׂית הַמְּלָאכָה בְּשַׁבָּת, כְּמוֹ שֶׁנִּתְבָּאֵר בְּסִמָּן רמ"ג:
+</blockquote>
+
+<h3>Traduction française</h3>
+<div class="translation">
+<strong>Celui qui a loué un non-juif pour un ou deux ans</strong> afin qu'il écrive ou tisse pour lui chaque fois qu'il en a besoin durant la durée de l'embauche — comme l'usage des seigneurs qui ont un scribe attitré écrivant à la demande, et restant oisif sans besoin — <strong>il est permis</strong> de le laisser faire Shabbat ce qui lui a été commandé avant Shabbat (à condition de ne pas lui dire de le faire Shabbat), <em>s'il n'œuvre pas dans la maison du Juif</em> : car le Juif <strong>n'a aucun gain</strong> à ce qu'il fasse Shabbat — s'il ne le fait pas Shabbat, il le fera après. Et même si le travail lui est nécessaire immédiatement à la sortie de Shabbat, ce n'est qu'un <em>agrément</em> (הנאה בעלמא), non un gain (רֶוַח). Le « gain » serait : que l'ouvrage soit perdu s'il n'était pas fait Shabbat, ou que la fortune du Juif s'accroisse par le travail du Shabbat (cf. siman רמ"ג).
+</div>
+
+<h3>De quoi parle ce Seif ?</h3>
+<p>Le Rav introduit la distinction décisive entre <strong>הנאה</strong> (agrément) et <strong>רֶוַח</strong> (gain effectif). Le scribe annuel oisif est permis car le Juif ne <em>gagne</em> rien à ce que ce soit fait Shabbat.</p>
+<div class="definition">
+<strong>הנאה vs רֶוַח :</strong>
+<ul class="compact">
+<li><strong>הנאה</strong> (agrément) — simple commodité (l'avoir prêt dimanche matin). N'interdit pas.</li>
+<li><strong>רֶוַח</strong> (gain) — l'ouvrage serait perdu sinon, ou la fortune s'accroît. Interdit.</li>
+</ul>
+</div>
+
+<h3>La question halakhique</h3>
+<p>Le non-juif est forfaitaire/attitré et agit pour sa paye. Mais le Juif tire-t-il un <em>gain</em> du travail effectué précisément Shabbat ? Si oui, on se rapproche d'une shélihout interdite ; si ce n'est qu'un agrément, c'est permis.</p>
+
+<h3>Les avis</h3>
+<table>
+<tr><th>Source</th><th>Position</th></tr>
+<tr><td><strong>Rambam</strong></td><td>Permet le travailleur attitré oisif ; ce n'est qu'un agrément, non un gain.</td></tr>
+<tr><td><strong>Rosh / Tour</strong></td><td>Le critère du gain effectif (משתרשא ליה) détermine l'interdit.</td></tr>
+<tr><td><strong>Mehaber</strong> (244:5)</td><td>Permet ce qui fut commandé avant Shabbat, hors de la maison du Juif, sans amira.</td></tr>
+<tr><td><strong>Mishna Berura</strong></td><td>Distingue agrément (permis) et perte évitée / enrichissement (interdit).</td></tr>
+<tr class="harav"><td><strong>SHHaRav</strong> (244:9)</td><td>Définit précisément <strong>רֶוַח</strong> : ouvrage perdu sinon, ou accroissement de la fortune ; le simple « prêt dimanche » n'est qu'agrément.</td></tr>
+</table>
+
+<h3>Le pesak du Rav</h3>
+<div class="key-point">
+<strong>La règle du gain :</strong>
+<ol>
+  <li>Travailleur attitré oisif, commande passée avant Shabbat, hors maison du Juif, sans amira → permis.</li>
+  <li>Condition : aucun <strong>רֶוַח</strong> (gain) — seulement un agrément.</li>
+  <li>S'il y a gain (ouvrage sauvé, fortune accrue) → interdit.</li>
+</ol>
+</div>
+
+<h3>Cas pratiques modernes</h3>
+<ul class="compact">
+  <li><strong>Prestataire IT en abonnement annuel exécute une tâche Shabbat :</strong> 🟢 si simple commodité, hors mes locaux, sans amira → permis.</li>
+  <li><strong>Comptable attitré prépare un document utile dès dimanche :</strong> 🟢 agrément, non gain → permis.</li>
+  <li><strong>Tâche qui serait <em>perdue</em> si non faite Shabbat :</strong> 🔴 c'est un רֶוַח → interdit.</li>
+  <li><strong>Serveur loué qui enrichit le Juif en tournant Shabbat :</strong> 🔴 accroissement de fortune → interdit.</li>
+  <li><strong>Demander explicitement « fais-le Shabbat » :</strong> 🔴 amira → interdit dans tous les cas.</li>
+</ul>
+
+<h3>Points à retenir</h3>
+<div class="remember">
+<ul class="compact">
+  <li>Distinguer <strong>הנאה</strong> (agrément, permis) et <strong>רֶוַח</strong> (gain, interdit)</li>
+  <li>Le « prêt dès dimanche » n'est qu'un agrément</li>
+  <li>Conditions : commande avant Shabbat, hors maison du Juif, sans amira</li>
+</ul>
+</div>
+
+<div class="question-box">
+<strong>Question de compréhension :</strong> Quelle est la différence entre avoir un document « prêt dimanche matin » (permis) et un ouvrage « qui serait perdu sinon » (interdit) ?
+</div>
+
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-yod-rav">Seif Yod (SHHaRav) →</a></div></div>
+
+<div class="page-break"></div>
+
+<!-- ===== Seif Yod — קפידא : le critère de l'exigence du juif ===== -->
+<h2 class="section-title" id="seif-yod-rav">15. Seif Yod — קפידא : le critère de l'exigence du juif</h2>
+
+<h3>Texte intégral du SHHaRav</h3>
+<blockquote class="text-source">
+בַּמֶּה דְּבָרִים אֲמוּרִים? כְּשֶׁאֵין הַיִּשְׂרָאֵל מַקְפִּיד עִמּוֹ כְּלָל אִם הוּא יוֹשֵׁב וּבָטֵל לְאַחַר שֶׁצִּוָּה לוֹ לַעֲשׂוֹת הַמְּלָאכָה, אֶלָּא בְּיָדוֹ לַעֲשׂוֹתָהּ בְּכָל עֵת שֶׁיִּרְצֶה, לְפִיכָךְ כְּשֶׁהוּא עוֹשֶׂה בְּשַׁבָּת — לְדַעַת עַצְמוֹ הוּא עוֹשֶׂה וְלֹא מֵחֲמַת הַיִּשְׂרָאֵל. אֲבָל אִם הוּא מַקְפִּיד עִמּוֹ עַל בִּטּוּלוֹ — הֲרֵי הוּא עוֹשֶׂה בְּשַׁבָּת מֵחֲמַת הַיִּשְׂרָאֵל, לְפִיכָךְ צָרִיךְ הוּא לוֹמַר לוֹ שֶׁלֹּא יַעֲשֶׂה בְּשַׁבָּת. וְאִם אַף עַל פִּי כֵן הוּא עוֹשֶׂה — אֵינוֹ צָרִיךְ לִמְחוֹת בְּיָדוֹ, שֶׁלְּדַעַת עַצְמוֹ הוּא עוֹשֶׂה:
+</blockquote>
+
+<h3>Traduction française</h3>
+<div class="translation">
+<strong>Dans quel cas cela vaut-il ?</strong> Lorsque le Juif <em>n'est nullement exigeant</em> (אינו מקפיד) que le non-juif reste oisif après lui avoir commandé l'ouvrage — celui-ci pouvant le faire quand il veut. Alors, quand il le fait Shabbat, <strong>c'est de sa propre initiative</strong> (לדעת עצמו), non à cause du Juif. <strong>Mais si le Juif est exigeant</strong> (מקפיד) sur son oisiveté — alors le non-juif fait Shabbat <em>à cause du Juif</em> ; il faut donc lui dire de ne pas faire Shabbat. Et s'il le fait quand même — il n'est pas tenu de protester, car il agit de sa propre initiative.
+</div>
+
+<h3>De quoi parle ce Seif ?</h3>
+<p>Le Rav ajoute un critère psychologique-objectif : la <strong>קפידא</strong> (exigence) du Juif. Elle détermine si le non-juif œuvre « pour lui-même » ou « à cause du Juif ».</p>
+<div class="key-point">
+• Juif <strong>indifférent</strong> au moment où c'est fait → le non-juif agit לדעת עצמו → permis.<br>
+• Juif <strong>exigeant</strong> (presse, contrôle) → le non-juif agit à cause du Juif → il faut dire « pas Shabbat » (mais sans devoir protester ensuite).
+</div>
+
+<h3>La question halakhique</h3>
+<p>Même un travailleur attitré peut basculer dans la shélihout si le Juif <em>l'exige</em>. La frontière n'est donc pas seulement contractuelle (forfait/journée) mais aussi dans l'attitude du Juif. Quand l'exigence transforme-t-elle le travail en travail « pour le Juif » ?</p>
+
+<h3>Les avis</h3>
+<table>
+<tr><th>Source</th><th>Position</th></tr>
+<tr><td><strong>Rosh</strong></td><td>L'exigence du Juif (קפידא) le rend bénéficiaire actif → assimilation à la shélihout.</td></tr>
+<tr><td><strong>Mehaber</strong> (244:5)</td><td>Permet quand le Juif n'est pas exigeant ; impose de dire « pas Shabbat » s'il l'est.</td></tr>
+<tr><td><strong>Mishna Berura</strong></td><td>Précise qu'il suffit de dire « pas Shabbat » ; pas d'obligation de protester ensuite.</td></tr>
+<tr class="harav"><td><strong>SHHaRav</strong> (244:10)</td><td>Pose le critère <strong>לדעת עצמו</strong> vs <strong>מחמת הישראל</strong> selon la קפידא ; nuance le devoir de protestation.</td></tr>
+</table>
+
+<h3>Le pesak du Rav</h3>
+<div class="key-point">
+<strong>Le critère de l'exigence :</strong>
+<ol>
+  <li>Juif non exigeant → non-juif לדעת עצמו → permis.</li>
+  <li>Juif exigeant → non-juif מחמת הישראל → dire « pas Shabbat ».</li>
+  <li>S'il continue malgré tout → pas d'obligation de protester (il agit pour soi).</li>
+</ol>
+</div>
+
+<h3>Cas pratiques modernes</h3>
+<ul class="compact">
+  <li><strong>Prestataire libre de son planning :</strong> 🟢 agit pour soi → permis qu'il travaille Shabbat.</li>
+  <li><strong>Je presse un fournisseur « il me le faut absolument » :</strong> 🔴 ma קפידא → lui dire de ne pas faire Shabbat.</li>
+  <li><strong>Astreinte où j'exige une intervention immédiate :</strong> 🔴 exigence → travail à cause de moi.</li>
+  <li><strong>SLA souple sans deadline stricte :</strong> 🟢 pas de קפידא → permis.</li>
+  <li><strong>Je lui ai dit « pas Shabbat » mais il le fait quand même :</strong> 🟡 pas besoin de protester (il agit pour soi).</li>
+</ul>
+
+<h3>Points à retenir</h3>
+<div class="remember">
+<ul class="compact">
+  <li>La <strong>קפידא</strong> (exigence du Juif) peut transformer le travail en shélihout</li>
+  <li>Non exigeant → <strong>לדעת עצמו</strong> → permis ; exigeant → dire « pas Shabbat »</li>
+  <li>S'il persiste malgré la consigne → pas d'obligation de protester</li>
+</ul>
+</div>
+
+<div class="question-box">
+<strong>Question de compréhension :</strong> Comment l'exigence (קפידא) du Juif peut-elle transformer un travail permis en travail interdit, sans rien changer au contrat ?
+</div>
+
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-yod-alef-rav">Seif Yod-Alef (SHHaRav) →</a></div></div>
+
+<div class="page-break"></div>
+
+<!-- ===== Seif Yod-Alef — Loué à toutes les tâches : משתרשא ליה ===== -->
+<h2 class="section-title" id="seif-yod-alef-rav">16. Seif Yod-Alef — Loué à toutes les tâches : משתרשא ליה</h2>
+
+<h3>Texte intégral du SHHaRav</h3>
+<blockquote class="text-source">
+וְכָל זֶה כְּשֶׁאֵין הַנָּכְרִי מֻשְׂכָּר לוֹ אֶלָּא לִמְלָאכוֹת מְיֻחָדוֹת, כְּגוֹן לִכְתּוֹב אוֹ לֶאֱרוֹג בְּכָל עֵת שֶׁיִּצְטָרֵךְ, וְאַחַר שֶׁגָּמַר הַמְּלָאכָה הוּא יוֹשֵׁב וּבָטֵל, אֲבָל אִם שְׂכָרוֹ לְכָל הַמְּלָאכוֹת שֶׁיִּצְטָרֵךְ בְּתוֹךְ מֶשֶׁךְ זְמַן שְׂכִירָתוֹ — אָסוּר לְהַנִּיחוֹ שֶׁיַּעֲשֶׂה בְּשַׁבָּת, לְפִי שֶׁהַיִּשְׂרָאֵל מַרְוִיחַ מְלָאכָה זוֹ בְּשַׁבָּת, שֶׁהֲרֵי כְּשֶׁיִּהְיֶה פָּנוּי אַחַר הַשַּׁבָּת יִצְטָרֵךְ לַעֲשׂוֹת מְלָאכוֹת אֲחֵרוֹת. וְאֵין לְהַתִּיר מִפְּנֵי שֶׁהַנָּכְרִי עוֹשֶׂה לְטוֹבַת עַצְמוֹ כְּדֵי לְקַבֵּל כָּל שְׂכָרוֹ, שֶׁהֲרֵי אַף אִם לֹא יַעֲשֶׂה בְּשַׁבָּת לֹא יְנַכֶּה לוֹ כְּלוּם, כְּמוֹ שֶׁנִּתְבָּאֵר בְּסִמָּן רמ"ג. <br><br>וְיֵשׁ מַתִּירִים גַּם בָּזֶה, לְפִי שֶׁהַנָּכְרִי אֵינוֹ מַעֲלֶה עַל דַּעְתּוֹ שֶׁהַיִּשְׂרָאֵל אֵינוֹ מַכְרִיחוֹ לַעֲשׂוֹת בְּשַׁבָּת וְשֶׁלֹּא יְנַכֶּה לוֹ כְּלוּם מִשְּׂכָרוֹ אַף אִם לֹא יַעֲשֶׂה כְּלוּם בְּשַׁבָּת, אֶלָּא הוּא עוֹשֶׂה מֵאֵלָיו לְפִי תֻמּוֹ לְהַשְׁלִים קַבְּלָנוּתוֹ שֶׁקִּבֵּל עָלָיו בִּתְחִלַּת שְׂכִירוּתוֹ לַעֲשׂוֹת כָּל הַמְּלָאכוֹת שֶׁיִּצְטָרְכוּ לְיִשְׂרָאֵל בְּכָל מֶשֶׁךְ זְמַן שְׂכִירוּתוֹ, כְּדֵי שֶׁיְּשַׁלֵּם לוֹ כָּל שְׂכָרוֹ מִשָּׁלֵם וְלֹא יִהְיֶה לוֹ עָלָיו שׁוּם תַּרְעֹמֶת. <br><br>וְאֵין לִסְמוֹךְ עַל סְבָרָא זוֹ (מִטַּעַם שֶׁנִּתְבָּאֵר שָׁם), כִּי אִם לְעִנְיַן דְּלֵקָה מִשּׁוּם הֶפְסֵד, כְּמוֹ שֶׁיִּתְבָּאֵר בְּסִמָּן של"ד, וּלְעִנְיַן שְׁלִיחוּת אִגֶּרֶת, כְּמוֹ שֶׁיִּתְבָּאֵר בְּסִמָּן רמ"ז, עַיֵּן שָׁם הַטַּעַם:
+</blockquote>
+
+<h3>Traduction française</h3>
+<div class="translation">
+<strong>Tout ceci ne vaut</strong> que lorsque le non-juif n'est loué que pour des <em>tâches déterminées</em> (mélakhot mé'youhadot) — écrire, tisser — après quoi il reste oisif. <strong>Mais s'il est loué pour <em>toutes</em> les tâches</strong> qui surviendront durant la période — <strong>il est interdit</strong> de le laisser œuvrer Shabbat, car le Juif <em>gagne</em> ce travail du Shabbat (משתרשא ליה) : libre après Shabbat, le non-juif aurait dû faire d'autres tâches. On ne permet pas sous prétexte qu'il agit pour toucher toute sa paye, puisqu'on ne lui retiendrait rien s'il chômait Shabbat (cf. siman רמ"ג).<br><br>
+<strong>Certains permettent</strong> aussi ce cas, le non-juif ne s'imaginant pas qu'on ne le forcera pas et œuvrant de lui-même pour accomplir son engagement. <strong>Mais on ne s'appuie pas sur cet avis</strong>, sauf pour l'incendie (perte, siman של"ד) et l'envoi de lettre (siman רמ"ז).
+</div>
+
+<h3>De quoi parle ce Seif ?</h3>
+<p>Le Rav distingue le travailleur <em>à tâches déterminées</em> (permis, Seif Tet) du travailleur <em>à toutes tâches</em> (interdit), par le concept de <strong>משתרשא ליה</strong> — « cela lui rapporte ».</p>
+<div class="key-point">
+Loué « à tout faire » : ce qu'il accomplit Shabbat, il n'aura plus à le faire après → le Juif <strong>économise du temps de travail</strong> → c'est un gain → interdit. L'avis permissif n'est retenu que dans deux cas extrêmes (incendie, lettre).
+</div>
+
+<h3>La question halakhique</h3>
+<p>Quand un travailleur fait Shabbat une tâche qu'il aurait de toute façon dû faire (car loué « à tout »), le Juif y gagne-t-il ? Oui : il économise le créneau post-Shabbat. Ce gain (משתרשא ליה) suffit-il à interdire malgré le forfait global ?</p>
+
+<h3>Les avis</h3>
+<table>
+<tr><th>Source</th><th>Position</th></tr>
+<tr><td><strong>Sefer haTeruma / Hagahot Mordekhai</strong></td><td>Avis permissif (יש מתירין) : le non-juif œuvre pour accomplir son engagement.</td></tr>
+<tr><td><strong>Rosh</strong></td><td>Interdit : le Juif gagne (משתרשא ליה) le travail du Shabbat.</td></tr>
+<tr><td><strong>Mehaber</strong> (244:6)</td><td>Interdit « à toutes tâches » ; permet seulement les tâches déterminées.</td></tr>
+<tr><td><strong>Mishna Berura</strong></td><td>Retient l'avis permissif uniquement pour l'incendie et l'envoi de lettre.</td></tr>
+<tr class="harav"><td><strong>SHHaRav</strong> (244:11)</td><td>Tranche pour l'interdit ; n'autorise l'avis permissif que pour incendie (של"ד) et lettre (רמ"ז).</td></tr>
+</table>
+
+<h3>Le pesak du Rav</h3>
+<div class="key-point">
+<strong>La règle du gain de travail :</strong>
+<ol>
+  <li>Loué à <strong>tâches déterminées</strong> + oisif ensuite → permis.</li>
+  <li>Loué à <strong>toutes les tâches</strong> → interdit (משתרשא ליה).</li>
+  <li>Avis permissif réservé à l'<em>incendie</em> et à la <em>lettre</em>.</li>
+</ol>
+</div>
+
+<h3>Cas pratiques modernes</h3>
+<ul class="compact">
+  <li><strong>Assistant non-juif en CDI à temps plein « tout-venant » :</strong> 🔴 משתרשא ליה → interdit Shabbat.</li>
+  <li><strong>Prestataire au forfait global illimité :</strong> 🔴 le travail du Shabbat m'économise du temps → interdit.</li>
+  <li><strong>Spécialiste loué pour une seule tâche, puis oisif :</strong> 🟢 permis (Seif Tet).</li>
+  <li><strong>Envoi d'une lettre/colis par non-juif en cas particulier :</strong> 🟡 appui possible (siman רמ"ז).</li>
+  <li><strong>Intervention en cas d'incendie/perte majeure :</strong> 🟡 avis permissif retenu (siman של"ד).</li>
+</ul>
+
+<h3>Points à retenir</h3>
+<div class="remember">
+<ul class="compact">
+  <li><strong>Tâches déterminées</strong> + oisif → permis ; <strong>toutes tâches</strong> → interdit</li>
+  <li>Le concept-clé : <strong>משתרשא ליה</strong> (le travail du Shabbat rapporte au Juif)</li>
+  <li>L'avis permissif n'est retenu que pour l'incendie et la lettre</li>
+</ul>
+</div>
+
+<div class="question-box">
+<strong>Question de compréhension :</strong> Pourquoi un travailleur loué « à toutes tâches » est-il interdit Shabbat, alors qu'un travailleur loué à une tâche précise est permis ?
+</div>
+
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-yod-bet-rav">Seif Yod-Bet (SHHaRav) →</a></div></div>
+
+<div class="page-break"></div>
+
+<!-- ===== Seif Yod-Bet — Le fermier du péage (מכס) : שבות דשבות ===== -->
+<h2 class="section-title" id="seif-yod-bet-rav">17. Seif Yod-Bet — Le fermier du péage (מכס) : שבות דשבות</h2>
+
+<h3>Texte intégral du SHHaRav</h3>
+<blockquote class="text-source">
+יִשְׂרָאֵל הַקּוֹנֶה מֶכֶס — אָסוּר לוֹ לְקַבֵּל מֶכֶס בְּשַׁבָּת, אֲפִלּוּ הֱבִיאוֹ דְּבַר מַאֲכָל שֶׁאֵינוֹ מֻקְצֶה וְרָאוּי לַאֲכִילָה, כְּגוֹן שֶׁהוּבָא מִתּוֹךְ הַתְּחוּם, וְהוּא דָּבָר שֶׁאֵין בּוֹ חֲשָׁשׁ שֶׁמָּא נִלְקַט הַיּוֹם מֵהַמְחֻבָּר אוֹ שֶׁמָּא נִצַּד הַיּוֹם — אַף עַל פִּי כֵן אָסוּר לוֹ לְקַבֵּל בְּעַצְמוֹ, מִשּׁוּם שֶׁנֶּאֱמַר "מִמְּצֹא חֶפְצְךָ", חֲפָצֶיךָ אֲסוּרִים, כְּמוֹ שֶׁיִּתְבָּאֵר בְּסִמָּן ש"ו. <br><br>אֶלָּא שׂוֹכֵר לוֹ נָכְרִי בְּקַבְּלָנוּת, דְּהַיְנוּ שֶׁאוֹמֵר לוֹ לִכְשֶׁתִּגְבֶּה מֵאָה דִינָרִים אֶתֵּן לְךָ כָּךְ וְכָךְ. אֲבָל לֹא יִשְׂכּוֹר לוֹ נָכְרִי לְיוֹם הַשַּׁבָּת, שֶׁכְּשֶׁהַנָּכְרִי הוּא שְׂכִיר יוֹם — הֲרֵי הוּא כִּשְׁלוּחוֹ שֶׁל יִשְׂרָאֵל, מַה שֶּׁאֵין כֵּן בְּקַבְּלָנוּת שֶׁאֵינוֹ כִּשְׁלוּחוֹ שֶׁל יִשְׂרָאֵל, אֶלָּא לְעַצְמוֹ הוּא טוֹרֵחַ כְּדֵי לְהַרְבּוֹת שְׂכָרוֹ. <br><br>וְאַף עַל פִּי שֶׁהַיִּשְׂרָאֵל קוֹבֵעַ לוֹ מְלַאכְתּוֹ שֶׁיַּעֲשֶׂה בְּשַׁבָּת — אֵין בָּזֶה מִשּׁוּם אֲמִירָה לְנָכְרִי שְׁבוּת, לְפִי שֶׁקַּבָּלַת הַמֶּכֶס אֵין בָּהּ אִסּוּר אֲפִלּוּ לְיִשְׂרָאֵל אֶלָּא מִשּׁוּם שְׁבוּת, וַהֲרֵי זֶה שְׁבוּת דִּשְׁבוּת, שֶׁיֵּשׁ מַתִּירִין אוֹתוֹ בִּמְקוֹם הֶפְסֵד, כְּמוֹ שֶׁיִּתְבָּאֵר בְּסִמָּן ש"ז. וְאַף שֶׁיֵּשׁ אוֹסְרִין אַף בִּמְקוֹם הֶפְסֵד אִם לֹא לְצֹרֶךְ מִצְוָה כְּמוֹ שֶׁיִּתְבָּאֵר שָׁם, מִכָּל מָקוֹם כַּאן חָשׁוּב דְּבַר מִצְוָה, שֶׁאִם לֹא יִטּוֹל הַמֶּכֶס מֵהַנָּכְרִי בְּשַׁבָּת לֹא יוּכַל לִגְבּוֹתוֹ אַחַר הַשַּׁבָּת, וְיִשְׁתַּקֵּעַ הַמָּמוֹן בְּיַד הַנָּכְרִי, וַהֲרֵי הוּא עוֹשֶׂה מִצְוָה בְּמַה שֶּׁמַּצִּיל הַמָּמוֹן מִיָּדָם, כְּמוֹ שֶׁיִּתְבָּאֵר בְּיוֹרֶה דֵעָה סִמָּן קמ"ט וְשע"ב:
+</blockquote>
+
+<h3>Traduction française</h3>
+<div class="translation">
+<strong>Un Juif fermier des douanes</strong> (מכס) : il lui est interdit de percevoir le péage lui-même Shabbat, même un aliment non muktsé, car il est dit « מִמְּצֹא חֶפְצְךָ » — tes affaires sont interdites (siman ש"ו). <strong>Mais il loue un non-juif en forfait</strong> — en lui disant « quand tu auras perçu cent dinars je te donnerai tant ». Il ne le louera pas comme salarié du jour de Shabbat, car alors il serait son agent ; en forfait, il n'est pas son agent mais peine pour lui-même.<br><br>
+Et bien que le Juif lui fixe son travail du Shabbat, il n'y a pas là d'amira interdite, car la perception du péage n'est pour le Juif lui-même qu'un <em>chevout</em> (interdit rabbinique léger) — c'est donc un <strong>שבות דשבות</strong> (double interdit rabbinique), permis en cas de perte et pour une mitsva : sauver l'argent des mains des non-juifs.
+</div>
+
+<h3>De quoi parle ce Seif ?</h3>
+<p>Le Rav applique le kablanout à un cas commercial : le fermier des douanes. Il introduit le levier du <strong>שבות דשבות</strong> (double interdit rabbinique).</p>
+<div class="definition">
+<strong>שבות דשבות :</strong> quand l'acte est doublement « léger » — (1) amira à un non-juif (rabbinique) sur (2) une mélakha elle-même rabbinique (recevoir le péage) — on permet en cas de <em>perte</em> ou de <em>mitsva</em> (ici : récupérer l'argent des non-juifs).
+</div>
+
+<h3>La question halakhique</h3>
+<p>Le Juif ne peut percevoir lui-même Shabbat (מוקצה/מִמְּצֹא חֶפְצְךָ). En forfait, le non-juif agit pour soi → pas de shélihout. Mais le Juif lui <em>fixe</em> son travail du Shabbat — n'est-ce pas une amira ? Réponse : שבות דשבות, permis ici.</p>
+
+<h3>Les avis</h3>
+<table>
+<tr><th>Source</th><th>Position</th></tr>
+<tr><td><strong>Talmud / Rishonim</strong></td><td>Le forfait neutralise la shélihout même quand le travail est fixé au Shabbat.</td></tr>
+<tr><td><strong>Mehaber</strong> (244:6)</td><td>Permet le forfait pour le péage ; interdit le salaire au jour de Shabbat.</td></tr>
+<tr><td><strong>Mishna Berura</strong></td><td>Fonde l'autorisation sur le שבות דשבות en cas de perte/mitsva.</td></tr>
+<tr class="harav"><td><strong>SHHaRav</strong> (244:12)</td><td>Explicite le mécanisme : perception = chevout pour le Juif → amira dessus = שבות דשבות → permis (perte + mitsva de sauver l'argent).</td></tr>
+</table>
+
+<h3>Le pesak du Rav</h3>
+<div class="key-point">
+<strong>L'autorisation du Rav :</strong>
+<ol>
+  <li>Forfait (pas salaire au jour) → pas de shélihout.</li>
+  <li>La perception n'est qu'un <em>chevout</em> pour le Juif → amira dessus = <strong>שבות דשבות</strong>.</li>
+  <li>Permis en cas de perte et pour la mitsva de sauver l'argent.</li>
+</ol>
+</div>
+
+<h3>Cas pratiques modernes</h3>
+<ul class="compact">
+  <li><strong>Société de recouvrement non-juive au forfait perçoit Shabbat :</strong> 🟢 שבות דשבות + perte → permis.</li>
+  <li><strong>Encaissement automatisé/délégué pour éviter une perte :</strong> 🟢 si forfait et perte réelle.</li>
+  <li><strong>Payer un agent au jour de Shabbat pour encaisser :</strong> 🔴 salarié du Shabbat = agent → interdit.</li>
+  <li><strong>Affermer une concession publique gérée Shabbat par un non-juif au forfait :</strong> 🟢 cadre du מכס.</li>
+  <li><strong>Perception sans aucune perte ni mitsva :</strong> 🔴 le שבות דשבות ne s'applique pas.</li>
+</ul>
+
+<h3>Points à retenir</h3>
+<div class="remember">
+<ul class="compact">
+  <li>Le forfait neutralise la shélihout même si le Juif <em>fixe</em> le travail du Shabbat</li>
+  <li>La perception n'est qu'un <strong>chevout</strong> → amira dessus = <strong>שבות דשבות</strong></li>
+  <li>Permis pour <em>perte</em> + <em>mitsva</em> de sauver l'argent</li>
+</ul>
+</div>
+
+<div class="question-box">
+<strong>Question de compréhension :</strong> Pourquoi peut-on fixer au non-juif son travail du Shabbat dans le cas du péage, alors que l'amira est normalement interdite ?
+</div>
+
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-yod-gimel-rav">Seif Yod-Gimel (SHHaRav) →</a></div></div>
+
+<div class="page-break"></div>
+
+<!-- ===== Seif Yod-Gimel — Péage nécessitant une mélakha gemoura ===== -->
+<h2 class="section-title" id="seif-yod-gimel-rav">18. Seif Yod-Gimel — Péage nécessitant une mélakha gemoura</h2>
+
+<h3>Texte intégral du SHHaRav</h3>
+<blockquote class="text-source">
+אֲפִלּוּ אִם הוּא מֶכֶס שֶׁצָּרִיךְ לַעֲשׂוֹת בּוֹ מְלָאכָה גְמוּרָה, כְּגוֹן שֶׁצָּרִיךְ לִכְתּוֹב — אַף עַל פִּי כֵן מֻתָּר לוֹמַר לְנָכְרִי שֶׁיִּתְעַסֵּק בּוֹ בְּשַׁבָּת בְּקַבְּלָנוּת, לְפִי שֶׁאָדָם בָּהוּל עַל מָמוֹנוֹ, וְאִם לֹא נַתִּיר לוֹ אֲמִירָה לְנָכְרִי יָבֹא לְהִתְעַסֵּק בְּעַצְמוֹ, וְשֶׁמָּא יִשְׁכַּח וְיִכְתּוֹב, לְפִיכָךְ מַתִּירִים לוֹ אִסּוּר אֲמִירָה לְנָכְרִי שֶׁהוּא מִדִּבְרֵי סוֹפְרִים כְּדֵי שֶׁלֹּא יָבֹא לִידֵי כְתִיבָה הָאֲסוּרָה מִן הַתּוֹרָה:
+</blockquote>
+
+<h3>Traduction française</h3>
+<div class="translation">
+<strong>Même s'il s'agit d'un péage</strong> exigeant un <em>travail complet</em> (מלאכה גמורה) — par exemple écrire — <strong>il est néanmoins permis</strong> de dire au non-juif de s'en occuper Shabbat en forfait. Car l'homme est <em>affolé pour son argent</em> (אדם בהול על ממונו) : si on ne lui permet pas l'amira au non-juif, il viendra s'en occuper lui-même et risque par mégarde d'écrire (interdit biblique). On lui permet donc l'amira (rabbinique) pour qu'il n'en arrive pas à l'écriture interdite de la Tora.
+</div>
+
+<h3>De quoi parle ce Seif ?</h3>
+<p>Le Rav étend la permission du péage même quand il faut une <strong>mélakha biblique</strong> (écrire). Le levier change : ce n'est plus le שבות דשבות mais le principe préventif <strong>אדם בהול על ממונו</strong>.</p>
+<div class="key-point">
+On préfère permettre l'amira (interdit <em>rabbinique</em>) plutôt que de risquer que le Juif, paniqué pour son argent, n'écrive lui-même (interdit <em>biblique</em>). Logique de moindre mal.
+</div>
+
+<h3>La question halakhique</h3>
+<p>Si la perception nécessite d'écrire (mélakha gemoura), le שבות דשבות ne tient plus (l'acte n'est pas léger). Comment permettre alors l'amira ? Par le souci pédagogique-préventif : empêcher une transgression biblique pire.</p>
+
+<h3>Les avis</h3>
+<table>
+<tr><th>Source</th><th>Position</th></tr>
+<tr><td><strong>Talmud</strong> (« אדם בהול על ממונו »)</td><td>Principe : la panique financière peut conduire à une transgression grave ; on prévient par un assouplissement léger.</td></tr>
+<tr><td><strong>Mehaber</strong> (244:6)</td><td>Permet l'amira en forfait même pour une mélakha complète, par ce souci.</td></tr>
+<tr><td><strong>Mishna Berura</strong></td><td>Confirme : mieux vaut l'amira rabbinique que l'écriture biblique du Juif.</td></tr>
+<tr class="harav"><td><strong>SHHaRav</strong> (244:13)</td><td>Formule explicitement la logique de moindre mal : permettre le דברי סופרים pour éviter le דאורייתא.</td></tr>
+</table>
+
+<h3>Le pesak du Rav</h3>
+<div class="key-point">
+<strong>Le principe du moindre mal :</strong>
+<ol>
+  <li>Péage nécessitant d'écrire = mélakha biblique.</li>
+  <li>Risque : le Juif affolé (בהול) le fera lui-même.</li>
+  <li>On permet donc l'amira (rabbinique) en forfait pour éviter le pire.</li>
+</ol>
+</div>
+
+<h3>Cas pratiques modernes</h3>
+<ul class="compact">
+  <li><strong>Documents de douane à rédiger, traités par un non-juif au forfait :</strong> 🟢 permis (éviter que je le fasse).</li>
+  <li><strong>Saisie informatique urgente d'une créance par un tiers non-juif :</strong> 🟢 si forfait + risque que je m'en charge.</li>
+  <li><strong>Formalités fiscales bloquantes confiées à un non-juif :</strong> 🟢 cadre du בהול על ממונו.</li>
+  <li><strong>Tâche d'écriture sans aucune panique financière :</strong> 🔴 le principe ne s'applique pas.</li>
+  <li><strong>Le Juif s'en occupe lui-même Shabbat :</strong> 🔴 risque d'écriture biblique — précisément ce qu'on veut éviter.</li>
+</ul>
+
+<h3>Points à retenir</h3>
+<div class="remember">
+<ul class="compact">
+  <li>Même une <strong>mélakha biblique</strong> (écrire) peut être confiée au non-juif en forfait</li>
+  <li>Levier : <strong>אדם בהול על ממונו</strong> (panique financière)</li>
+  <li>Logique de moindre mal : permettre le rabbinique pour éviter le biblique</li>
+</ul>
+</div>
+
+<div class="question-box">
+<strong>Question de compréhension :</strong> Pourquoi permet-on l'amira (rabbinique) ici, alors que l'écriture est un interdit biblique ?
+</div>
+
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-yod-dalet-rav">Seif Yod-Dalet (SHHaRav) →</a></div></div>
+
+<div class="page-break"></div>
+
+<!-- ===== Seif Yod-Dalet — Affermer le péage ; mar’it ayin et הפסד ===== -->
+<h2 class="section-title" id="seif-yod-dalet-rav">19. Seif Yod-Dalet — Affermer le péage ; mar’it ayin et הפסד</h2>
+
+<h3>Texte intégral du SHHaRav</h3>
+<blockquote class="text-source">
+וְכֵן מֻתָּר לוֹ לְהַשְׂכִּיר לְנָכְרִי אֶת הַמֶּכֶס שֶׁיִּטּוֹל לְעַצְמוֹ מַה שֶּׁיִּגְבֶּה בְּשַׁבָּת הֵן רַב הֵן מְעַט וְהוּא יִתֵּן לְיִשְׂרָאֵל דָּבָר קָצוּב, שֶׁנִּמְצָא שֶׁהוּא טוֹרֵחַ לְעַצְמוֹ, וְאֵינוֹ כִּשְׁלוּחוֹ שֶׁל יִשְׂרָאֵל. <br><br>וּכְשֶׁמַּשְׂכִּיר הַמֶּכֶס לְנָכְרִי, וְכֵן כְּשֶׁשּׂוֹכֵר לוֹ הַנָּכְרִי בְּקַבְּלָנוּת — אֵין חוֹשְׁשִׁין לְמַרְאִית הָעַיִן שֶׁהָרוֹאֶה יֹאמַר שְׂכִיר יוֹם הוּא אֶצְלוֹ, לְפִי  שֶׁבִּמְקוֹם הֶפְסֵד גָּדוֹל לֹא גָזְרוּ עַל מַרְאִית הָעַיִן. וְאַף אִם לִפְעָמִים הוּא הֶפְסֵד מוּעָט, מִכָּל מָקוֹם כֵּיוָן שֶׁעַל הָרֹב דֶּרֶךְ לִהְיוֹת הֶפְסֵד גָּדוֹל בִּמְנִיעַת קַבָּלַת הַמֶּכֶס בְּשַׁבָּתוֹת — לֹא חִלְּקוּ חֲכָמִים, וְהִתִּירוּ לְגַמְרֵי גְּזֵרָה זוֹ שֶׁל מַרְאִית הָעַיִן בְּמֶכֶס וּבְכָל כַּיּוֹצֵא בָזֶה שֶׁדֶּרֶךְ לִהְיוֹת שָׁם הֶפְסֵד גָּדוֹל עַל הָרֹב:
+</blockquote>
+
+<h3>Traduction française</h3>
+<div class="translation">
+<strong>De même il est permis</strong> d'affermer le péage à un non-juif — qu'il prenne pour lui ce qu'il percevra Shabbat, beaucoup ou peu, et donne au Juif une somme fixe — de sorte qu'il peine pour lui-même et n'est pas l'agent du Juif.<br><br>
+Et lorsqu'on afferme ainsi, ou qu'on loue en forfait, <strong>on ne craint pas le mar’it ayin</strong> (« on dira qu'il est salarié à la journée »), car <em>en cas de grande perte les Sages n'ont pas décrété sur le mar’it ayin</em>. Et même si parfois la perte est minime, puisqu'<em>en général</em> il y a grande perte à ne pas percevoir Shabbat, les Sages n'ont pas distingué et ont totalement levé ce décret pour le péage et tout cas semblable où la perte est habituellement grande.
+</div>
+
+<h3>De quoi parle ce Seif ?</h3>
+<p>Le Rav ajoute un second mode (affermage) et une règle majeure : le <strong>mar’it ayin cède devant la grande perte</strong> (הפסד גדול).</p>
+<div class="key-point">
+Quand un domaine est <em>habituellement</em> source de grande perte (le péage), les Sages n'ont pas décrété le mar’it ayin — et ce, <em>en bloc</em>, même les cas particuliers à perte minime (לא חילקו חכמים).
+</div>
+
+<h3>La question halakhique</h3>
+<p>Le mar’it ayin interdit normalement (on croira à un salarié). Mais quand le refus de travailler Shabbat causerait une grande perte, ce décret tient-il ? Et faut-il évaluer chaque cas, ou statuer par catégorie ?</p>
+
+<h3>Les avis</h3>
+<table>
+<tr><th>Source</th><th>Position</th></tr>
+<tr><td><strong>Rishonim</strong></td><td>« במקום הפסד לא גזרו על מראית העין » — pas de mar’it ayin là où il y a perte.</td></tr>
+<tr><td><strong>Mehaber</strong> (244:6)</td><td>Permet l'affermage et le forfait du péage sans crainte de mar’it ayin.</td></tr>
+<tr><td><strong>Mishna Berura</strong></td><td>Souligne la règle de la grande perte habituelle.</td></tr>
+<tr class="harav"><td><strong>SHHaRav</strong> (244:14)</td><td><strong>Statue par catégorie</strong> : puisque le péage est <em>généralement</em> à grande perte, on lève le décret pour <em>tous</em> les cas (לא חילקו).</td></tr>
+</table>
+
+<h3>Le pesak du Rav</h3>
+<div class="key-point">
+<strong>La règle de la grande perte :</strong>
+<ol>
+  <li>Affermage (somme fixe au Juif) → non-juif pour soi → pas de shélihout.</li>
+  <li><strong>Grande perte</strong> (הפסד גדול) → pas de décret de mar’it ayin.</li>
+  <li>Statut <em>par catégorie</em> : même les cas à perte minime sont couverts.</li>
+</ol>
+</div>
+
+<h3>Cas pratiques modernes</h3>
+<ul class="compact">
+  <li><strong>Concession affermée à un exploitant non-juif (somme fixe) :</strong> 🟢 il agit pour soi → permis.</li>
+  <li><strong>Activité à forte perte si fermée Shabbat (péage, marché) :</strong> 🟢 mar’it ayin levé.</li>
+  <li><strong>Location d'un commerce avec loyer fixe, géré Shabbat par non-juif :</strong> 🟢 cadre de l'affermage.</li>
+  <li><strong>Activité sans risque de perte réelle :</strong> 🔴 le mar’it ayin demeure.</li>
+  <li><strong>Cas isolé à perte minime dans une catégorie à grande perte :</strong> 🟢 couvert (לא חילקו).</li>
+</ul>
+
+<h3>Points à retenir</h3>
+<div class="remember">
+<ul class="compact">
+  <li>L'<strong>affermage</strong> (loyer fixe) rend le non-juif acteur pour soi</li>
+  <li>La <strong>grande perte</strong> (הפסד גדול) lève le décret de mar’it ayin</li>
+  <li>Le Rav statue <em>par catégorie</em>, pas cas par cas</li>
+</ul>
+</div>
+
+<div class="question-box">
+<strong>Question de compréhension :</strong> Pourquoi les Sages n'ont-ils « pas distingué » (לא חילקו), levant le mar’it ayin même pour les cas du péage à perte minime ?
+</div>
+
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-tet-vav-rav">Seif Tet-Vav (SHHaRav) →</a></div></div>
+
+<div class="page-break"></div>
+
+<!-- ===== Seif Tet-Vav — Louer le péage pour le Shabbat seul (sans הבלעה) ===== -->
+<h2 class="section-title" id="seif-tet-vav-rav">20. Seif Tet-Vav — Louer le péage pour le Shabbat seul (sans הבלעה)</h2>
+
+<h3>Texte intégral du SHHaRav</h3>
+<blockquote class="text-source">
+וּכְשֶׁמַּשְׂכִּיר הַמֶּכֶס לְנָכְרִי — יָכוֹל לְהַשְׂכִּיר לוֹ לְיוֹם הַשַּׁבָּת בִּלְבָד שֶׁלֹּא בְהַבְלָעָה עִם שְׁאָר הַיָּמִים. וְאֵינוֹ דוֹמֶה לְמֶרְחָץ שֶׁאָסוּר לְהַשְׂכִּירוֹ לְשַׁבָּת בִּלְבָד כְּדֵי שֶׁלֹּא יִטּוֹל שָׂכָר בְּשַׁבָּת שֶׁלֹּא בְהַבְלָעָה, לְפִי שֶׁהַמֶּרְחָץ גּוּפוֹ קָנוּי לוֹ אַף בְּיוֹם הַשַּׁבָּת, וּכְשֶׁהַנָּכְרִי נוֹתֵן לוֹ שָׂכָר בְּעַד מֶרְחָץ שֶׁלּוֹ שֶׁהָיָה מֻשְׂכָּר לוֹ לְיוֹם הַשַּׁבָּת — הֲרֵי מִשְׂתַּכֵּר הַיִּשְׂרָאֵל בְּמֶרְחָץ שֶׁלּוֹ בְּשַׁבָּת, וַהֲרֵי זֶה נִקְרָא שְׂכַר שַׁבָּת, וְאָסוּר לִטְּלוֹ שֶׁלֹּא בְהַבְלָעָה, מַה שֶּׁאֵין כֵּן בְּמֶכֶס וְכַיּוֹצֵא בוֹ שֶׁכְּשֶׁהִשְׂכִּירוֹ לְנָכְרִי לְיוֹם הַשַּׁבָּת הֲרֵי מְכָרוֹ לוֹ לְגַמְרֵי לְיוֹם זֶה, וְאֵין כַּאן שְׂכַר שַׁבָּת כְּלָל, שֶׁאֵין הַנָּכְרִי נוֹתֵן לוֹ שָׂכָר כְּלָל, אֶלָּא קָנָה מִמֶּנּוּ לְגַמְרֵי לְיוֹם זֶה, וַהֲרֵי זֶה דוֹמֶה לְמִי שֶׁיּוֹדֵעַ שֶׁיָּבִיאוּ לוֹ סְחוֹרָה בְּשַׁבָּת וּמוֹכְרָהּ לְנָכְרִי מֵעֶרֶב שַׁבָּת שֶׁיְּקַבְּלֶנָּה לְמָחָר לְעַצְמוֹ, שֶׁאֵין בְּזֶה מִשּׁוּם שְׂכַר שַׁבָּת:
+</blockquote>
+
+<h3>Traduction française</h3>
+<div class="translation">
+<strong>Lorsqu'on afferme le péage</strong> à un non-juif, on peut le lui louer <strong>pour le seul jour de Shabbat</strong>, sans absorption (הבלעה) avec les autres jours. Cela ne ressemble pas au bain (מרחץ), qu'il est interdit de louer pour le seul Shabbat afin de ne pas toucher de salaire de Shabbat hors absorption — car le bain lui-même reste la propriété du Juif Shabbat, et le loyer du non-juif est un <em>salaire de Shabbat</em>. Pour le péage, en revanche, lui louer le jour de Shabbat revient à <strong>le lui vendre entièrement pour ce jour</strong> : il n'y a aucun salaire de Shabbat, le non-juif ne paie pas un loyer mais <em>achète</em> le droit pour ce jour. C'est comparable à celui qui, sachant qu'on lui livrera une marchandise Shabbat, la vend d'avance à un non-juif la veille.
+</div>
+
+<h3>De quoi parle ce Seif ?</h3>
+<p>Le Rav distingue deux régimes de <strong>שכר שבת</strong> (salaire du Shabbat) : le bain (interdit hors הבלעה) et le péage (permis pour le Shabbat seul).</p>
+<div class="definition">
+<strong>הבלעה (absorption) :</strong> noyer le paiement du Shabbat dans une période plus large pour éviter le « salaire de Shabbat ». <em>Nécessaire</em> pour le bain (qui reste au Juif), <em>inutile</em> pour le péage — car l'affermer le Shabbat équivaut à le <strong>vendre</strong> pour ce jour (pas un loyer).
+</div>
+
+<h3>La question halakhique</h3>
+<p>Le שכר שבת (gain tiré du Shabbat) est interdit. Pourquoi alors peut-on affermer le péage pour le Shabbat seul, sans הבלעה, alors que le bain l'exige ? Tout dépend de la nature juridique : loyer (interdit) vs vente du droit pour ce jour (permis).</p>
+
+<h3>Les avis</h3>
+<table>
+<tr><th>Source</th><th>Position</th></tr>
+<tr><td><strong>Talmud / Rishonim (bain)</strong></td><td>Le bain reste au Juif → loyer du Shabbat = שכר שבת → exige הבלעה.</td></tr>
+<tr><td><strong>Mehaber</strong> (244:6)</td><td>Permet de louer le péage pour le Shabbat seul, sans absorption.</td></tr>
+<tr><td><strong>Mishna Berura</strong></td><td>Explique la distinction loyer/vente quant au salaire du Shabbat.</td></tr>
+<tr class="harav"><td><strong>SHHaRav</strong> (244:15)</td><td>Analyse fine : affermer le péage = <strong>vente du droit</strong> pour ce jour → pas de שכר שבת ; ≠ bain (loyer).</td></tr>
+</table>
+
+<h3>Le pesak du Rav</h3>
+<div class="key-point">
+<strong>La distinction du Rav :</strong>
+<ol>
+  <li>Bain : reste propriété du Juif → loyer = <strong>שכר שבת</strong> → exige הבלעה.</li>
+  <li>Péage : l'affermer le Shabbat = <strong>vente</strong> du droit pour ce jour → pas de salaire de Shabbat.</li>
+  <li>Comparable à vendre d'avance une marchandise livrée Shabbat.</li>
+</ol>
+</div>
+
+<h3>Cas pratiques modernes</h3>
+<ul class="compact">
+  <li><strong>Affermer une concession pour le Shabbat seul (vente du droit) :</strong> 🟢 pas de שכר שבת → permis.</li>
+  <li><strong>Louer une salle/bain au Juif pour le Shabbat isolé :</strong> 🔴 salaire de Shabbat → exige הבלעה.</li>
+  <li><strong>Vendre d'avance à un non-juif une marchandise qui arrivera Shabbat :</strong> 🟢 permis (pas de salaire de Shabbat).</li>
+  <li><strong>Location AirBnB nuit de Shabbat isolée :</strong> 🔴 loyer de Shabbat → préférer un forfait week-end (הבלעה).</li>
+  <li><strong>Cession d'un droit d'exploitation pour la journée :</strong> 🟢 vente, non loyer → permis.</li>
+</ul>
+
+<h3>Points à retenir</h3>
+<div class="remember">
+<ul class="compact">
+  <li>Distinguer <strong>loyer</strong> (שכר שבת interdit) et <strong>vente du droit</strong> (permis)</li>
+  <li>Le bain exige l'<strong>הבלעה</strong> ; le péage non</li>
+  <li>Affermer le péage pour le Shabbat = le vendre pour ce jour</li>
+</ul>
+</div>
+
+<div class="question-box">
+<strong>Question de compréhension :</strong> Pourquoi le péage peut-il être affermé pour le seul Shabbat, alors que le bain doit l'être en absorption (הבלעה) ?
+</div>
+
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-tet-zayin-rav">Seif Tet-Zayin (SHHaRav) →</a></div></div>
+
+<div class="page-break"></div>
+
+<!-- ===== Seif Tet-Zayin — La frappe de monnaie (מטבע) ===== -->
+<h2 class="section-title" id="seif-tet-zayin-rav">21. Seif Tet-Zayin — La frappe de monnaie (מטבע)</h2>
+
+<h3>Texte intégral du SHHaRav</h3>
+<blockquote class="text-source">
+וְכֵן יִשְׂרָאֵל שֶׁשָּׂכַר הַמַּטְבֵּעַ מֵהַמֶּלֶךְ — יָכוֹל לְהַשְׂכִּירוֹ לְנָכְרִי לְיוֹם הַשַּׁבָּת, שֶׁאֵין בְּזֶה מִשּׁוּם שְׂכַר שַׁבָּת, שֶׁאֵין הַנָּכְרִי נוֹתֵן לוֹ שָׂכָר כְּלָל בְּעַד דָּבָר שֶׁהוּא שֶׁלּוֹ בְּשַׁבָּת, שֶׁהֲרֵי הַכֹּל הוּא שֶׁל הַמֶּלֶךְ, אֶלָּא שֶׁהָרְשׁוּת בִּלְבָד שֶׁיֵּשׁ לְיִשְׂרָאֵל מֵהַמֶּלֶךְ הוּא שֶׁהִשְׂכִּיר לוֹ, וַהֲרֵי מְכָרוֹ לוֹ לְגַמְרֵי לְיוֹם זֶה. וְכֵן יָכוֹל לִשְׂכּוֹר לוֹ נָכְרִי בְּקַבְּלָנוּת, עַל דֶּרֶךְ שֶׁנִּתְבָּאֵר בְּמֶכֶס. וְאַף עַל פִּי שֶׁמַּשְׁמִיעִים קוֹל בְּשַׁבָּת בְּהַכָּאַת הַמַּטְבֵּעַ — אֵין בְּכָךְ כְּלוּם, כֵּיוָן שֶׁכְּבָר הִשְׂכִּירוֹ לַנָּכְרִי, אוֹ שֶׁשְּׂכָרוֹ לוֹ בְּקַבְּלָנוּת:
+</blockquote>
+
+<h3>Traduction française</h3>
+<div class="translation">
+<strong>De même un Juif qui a affermé la frappe de monnaie</strong> (מטבע) du roi peut la louer à un non-juif pour le jour de Shabbat : il n'y a pas là de salaire de Shabbat, car le non-juif ne paie rien pour une chose qui serait au Juif Shabbat — <em>tout appartient au roi</em> ; seule la <em>concession</em> que le Juif tient du roi est ce qu'il sous-loue, et c'est comme s'il la lui vendait entièrement pour ce jour. De même il peut louer un non-juif en forfait, comme pour le péage. <strong>Et bien que l'on fasse du bruit Shabbat</strong> en frappant la monnaie — cela ne fait rien, puisqu'il l'a déjà affermée au non-juif ou loué en forfait.
+</div>
+
+<h3>De quoi parle ce Seif ?</h3>
+<p>Le Rav généralise le régime du péage à la frappe de monnaie, et résout en passant la question du <strong>bruit (קול)</strong> produit Shabbat.</p>
+<div class="key-point">
+Comme la monnaie appartient au roi (pas au Juif), la sous-location = <strong>vente d'une concession</strong> → pas de salaire de Shabbat. Et le <em>bruit</em> de la frappe ne pose pas de problème de mar’it ayin, l'activité étant déjà cédée au non-juif.
+</div>
+
+<h3>La question halakhique</h3>
+<p>Frapper monnaie fait du bruit en public (קול) — n'est-ce pas un mar’it ayin ? Et le Juif n'en tire-t-il pas un salaire de Shabbat ? Réponse : la chose appartient au roi, la cession est une vente de concession, et le bruit ne change rien une fois la chose cédée.</p>
+
+<h3>Les avis</h3>
+<table>
+<tr><th>Source</th><th>Position</th></tr>
+<tr><td><strong>Rishonim</strong></td><td>La concession du roi sous-louée = vente du droit, non loyer du bien du Juif.</td></tr>
+<tr><td><strong>Mehaber</strong> (244:6)</td><td>Étend le régime du péage à la monnaie ; le bruit n'empêche pas.</td></tr>
+<tr><td><strong>Mishna Berura</strong></td><td>Confirme : pas de שכר שבת, pas de mar’it ayin pour le bruit après cession.</td></tr>
+<tr class="harav"><td><strong>SHHaRav</strong> (244:16)</td><td>Précise : la propriété royale + la cession-vente écartent à la fois le salaire de Shabbat et le souci du קול.</td></tr>
+</table>
+
+<h3>Le pesak du Rav</h3>
+<div class="key-point">
+<strong>La généralisation du Rav :</strong>
+<ol>
+  <li>Bien appartenant au roi → sous-location = <strong>vente de concession</strong> → pas de salaire de Shabbat.</li>
+  <li>Forfait possible aussi (comme le péage).</li>
+  <li>Le <strong>bruit</strong> (קול) ne pose pas problème, l'activité étant déjà cédée.</li>
+</ol>
+</div>
+
+<h3>Cas pratiques modernes</h3>
+<ul class="compact">
+  <li><strong>Concession publique (frappe, licence d'État) sous-louée à un non-juif :</strong> 🟢 vente de droit → permis.</li>
+  <li><strong>Usine bruyante exploitée Shabbat par le concessionnaire non-juif :</strong> 🟢 le bruit ne nuit pas.</li>
+  <li><strong>Atelier au forfait produisant en faisant du bruit :</strong> 🟢 si déjà cédé/forfaitaire.</li>
+  <li><strong>Sous-location d'un bien <em>du Juif</em> (pas de l'État) pour le Shabbat seul :</strong> 🔴 salaire de Shabbat → exige הבלעה.</li>
+  <li><strong>Activité non cédée encore, faisant du bruit public au nom du Juif :</strong> 🔴 mar’it ayin possible.</li>
+</ul>
+
+<h3>Points à retenir</h3>
+<div class="remember">
+<ul class="compact">
+  <li>Concession <strong>du roi</strong> sous-louée = vente de droit → pas de שכר שבת</li>
+  <li>Le <strong>bruit</strong> (קול) ne crée pas de mar’it ayin une fois la chose cédée</li>
+  <li>Forfait également possible (comme le péage)</li>
+</ul>
+</div>
+
+<div class="question-box">
+<strong>Question de compréhension :</strong> Pourquoi le bruit public de la frappe de monnaie Shabbat ne crée-t-il pas de mar’it ayin ?
+</div>
+
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-yod-zayin-rav">Seif Yod-Zayin (SHHaRav) →</a></div></div>
+
+<div class="page-break"></div>
+
+<!-- ===== Seif Yod-Zayin — S'asseoir auprès du non-juif : interdit ===== -->
+<h2 class="section-title" id="seif-yod-zayin-rav">22. Seif Yod-Zayin — S'asseoir auprès du non-juif : interdit</h2>
+
+<h3>Texte intégral du SHHaRav</h3>
+<blockquote class="text-source">
+וְאָסוּר לְהַיִּשְׂרָאֵל אוֹ שְׁלוּחוֹ לֵישֵׁב אֵצֶל הַנָּכְרִי בִּשְׁעַת קַבָּלַת הַמֶּכֶס אוֹ הַמַּטְבֵּעַ, אַף עַל פִּי שֶׁכְּבָר הִשְׂכִּירוֹ לוֹ וְאֵין לְהַיִּשְׂרָאֵל שׁוּם עֵסֶק בּוֹ, מִכָּל מָקוֹם כְּשֶׁהוּא יוֹשֵׁב אֶצְלוֹ הֲרֵי הוּא נִרְאֶה כְּעוֹשֶׂה בִּשְׁבִילוֹ וּלְצָרְכּוֹ, וְאָסוּר מִפְּנֵי מַרְאִית הָעַיִן. <br><br>וְאִם שָׂכַר לוֹ אֶת הַנָּכְרִי בְּקַבְּלָנוּת וּמִתְיָרֵא שֶׁמָּא יִגְנוֹב הַרְבֵּה, כֵּיוָן שֶׁיֵּשׁ  חֲשַׁשׁ הֶפְסֵד מְרֻבֶּה — יָכוֹל לְהוֹשִׁיב אֶצְלוֹ יִשְׂרָאֵל אוֹ לֵישֵׁב בְּעַצְמוֹ לְשָׁמְרוֹ שֶׁלֹּא יִגְנוֹב, שֶׁבִּמְקוֹם הֶפְסֵד מְרֻבֶּה אֵין חוֹשְׁשִׁים לְמַרְאִית הָעַיִן:
+</blockquote>
+
+<h3>Traduction française</h3>
+<div class="translation">
+<strong>Il est interdit au Juif ou à son envoyé de s'asseoir auprès du non-juif</strong> pendant la perception du péage ou la frappe de monnaie : bien qu'il la lui ait déjà affermée et qu'il n'ait plus aucune part, quand il est assis à côté il <em>paraît</em> œuvrer pour lui et à son profit — interdit par mar’it ayin.<br><br>
+<strong>Mais s'il a loué le non-juif en forfait</strong> et qu'il craint un vol important : puisqu'il y a risque de <em>grande perte</em>, il peut placer un Juif (ou s'asseoir lui-même) pour le surveiller — car en cas de grande perte, on ne craint pas le mar’it ayin.
+</div>
+
+<h3>De quoi parle ce Seif ?</h3>
+<p>Le Rav règle un cas pratique de présence physique : même quand l'activité est licitement cédée, <strong>s'asseoir à côté</strong> recrée le mar’it ayin (on croira que le Juif y travaille).</p>
+<div class="key-point">
+Règle : ne pas s'asseoir auprès du non-juif (apparence d'œuvrer pour soi). Exception : <strong>risque de grande perte</strong> (vol) → la surveillance est permise (le mar’it ayin cède devant הפסד מרובה).
+</div>
+
+<h3>La question halakhique</h3>
+<p>Si l'activité est cédée et que le Juif n'y a plus de part, pourquoi sa simple présence poserait-elle problème ? Parce que l'apparence (mar’it ayin) suffit. Quand cette présence redevient-elle permise ?</p>
+
+<h3>Les avis</h3>
+<table>
+<tr><th>Source</th><th>Position</th></tr>
+<tr><td><strong>Rishonim</strong></td><td>La présence visible recrée l'apparence de travailler pour soi → mar’it ayin.</td></tr>
+<tr><td><strong>Mehaber</strong> (244:6)</td><td>Interdit de s'asseoir auprès ; permet la surveillance en cas de risque de vol important.</td></tr>
+<tr><td><strong>Mishna Berura</strong></td><td>Confirme l'exception du הפסד מרובה (grande perte) pour la surveillance.</td></tr>
+<tr class="harav"><td><strong>SHHaRav</strong> (244:17)</td><td>Articule la règle (mar’it ayin de la présence) et son exception (grande perte = surveillance permise).</td></tr>
+</table>
+
+<h3>Le pesak du Rav</h3>
+<div class="key-point">
+<strong>La règle de présence :</strong>
+<ol>
+  <li>Ne pas s'asseoir auprès du non-juif → apparence d'œuvrer pour soi → interdit.</li>
+  <li>Exception : <strong>grande perte</strong> (risque de vol) → surveillance permise.</li>
+  <li>Le mar’it ayin cède devant le <strong>הפסד מרובה</strong>.</li>
+</ol>
+</div>
+
+<h3>Cas pratiques modernes</h3>
+<ul class="compact">
+  <li><strong>Rester à la caisse pendant qu'un employé non-juif encaisse Shabbat :</strong> 🔴 apparence d'y travailler → interdit.</li>
+  <li><strong>Superviser physiquement un prestataire en l'absence de risque :</strong> 🔴 mar’it ayin.</li>
+  <li><strong>Surveiller un encaissement par crainte de vol important :</strong> 🟢 grande perte → permis.</li>
+  <li><strong>Caméra/agent juif pour prévenir un détournement majeur :</strong> 🟢 cadre du הפסד מרובה.</li>
+  <li><strong>Présence pour simple curiosité/confort :</strong> 🔴 non justifiée → interdit.</li>
+</ul>
+
+<h3>Points à retenir</h3>
+<div class="remember">
+<ul class="compact">
+  <li>Même après cession, <strong>s'asseoir auprès</strong> du non-juif recrée le mar’it ayin</li>
+  <li>Exception : <strong>grande perte</strong> (risque de vol) → surveillance permise</li>
+  <li>Le mar’it ayin cède devant le הפסד מרובה</li>
+</ul>
+</div>
+
+<div class="question-box">
+<strong>Question de compréhension :</strong> Pourquoi le Juif ne peut-il s'asseoir auprès du non-juif même quand l'activité lui a été licitement cédée ?
+</div>
+
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-yod-het-rav">Seif Yod-’Het (SHHaRav) →</a></div></div>
+
+<div class="page-break"></div>
+
+<!-- ===== Seif Yod-’Het — Surveiller et faire les comptes : interdit ===== -->
+<h2 class="section-title" id="seif-yod-het-rav">23. Seif Yod-’Het — Surveiller et faire les comptes : interdit</h2>
+
+<h3>Texte intégral du SHHaRav</h3>
+<blockquote class="text-source">
+בַּמֶּה דְּבָרִים אֲמוּרִים? כְּשֶׁיִּשְׂרָאֵל הַיּוֹשֵׁב אֵינוֹ מַשְׁגִּיחַ וּמְעַיֵּן עַל הַנָּכְרִי רַק שֶׁיַּנִּיחַ הַכֹּל לְתֵבַת הַמֶּכֶס אוֹ הַמַּטְבֵּעַ וְלֹא יִגְנוֹב לְעַצְמוֹ כְּלוּם, אֲבָל אָסוּר לוֹ לְעַיֵּן וְלֵידַע מַה הוּא הַהִתְעַסְּקוּת שֶׁעוֹשֶׂה הַנָּכְרִי כְּדֵי לִקַּח מִמֶּנּוּ חֶשְׁבּוֹן עַל זֶה, דְּכֵיוָן שֶׁבְּשַׁבָּת עַצְמָהּ אָסוּר לִקַּח מִמֶּנּוּ חֶשְׁבּוֹן — אָסוּר לוֹ גַּם כֵּן לְעַיֵּן עָלָיו בִּשְׁבִיל הַחֶשְׁבּוֹן שֶׁלְּמָחָר, שֶׁכָּל דָּבָר שֶׁאָסוּר לַעֲשׂוֹתוֹ בְּשַׁבָּת — אָסוּר לְהָכִין וּלְהַזְמִין אֶת עַצְמוֹ כְּדֵי לַעֲשׂוֹתוֹ אַחַר הַשַּׁבָּת, כְּמוֹ שֶׁיִּתְבָּאֵר בְּסִמָּן ש"ו:
+</blockquote>
+
+<h3>Traduction française</h3>
+<div class="translation">
+<strong>Dans quel cas la surveillance précédente est-elle permise ?</strong> Lorsque le Juif assis ne <em>contrôle</em> pas le non-juif — veillant seulement à ce qu'il dépose tout dans la caisse et ne vole rien. <strong>Mais il lui est interdit d'examiner</strong> et de prendre connaissance de l'activité du non-juif <em>en vue d'en faire le compte</em> : puisqu'il est interdit de faire ce compte Shabbat même, il lui est aussi interdit d'observer en vue du compte de demain — car <strong>tout ce qu'il est interdit de faire Shabbat, il est interdit de s'y préparer</strong> pour l'accomplir après Shabbat (siman ש"ו).
+</div>
+
+<h3>De quoi parle ce Seif ?</h3>
+<p>Le Rav précise les <strong>limites de la surveillance</strong> autorisée (Seif Yod-Zayin) : surveiller contre le vol, oui ; examiner pour faire les comptes, non.</p>
+<div class="key-point">
+Le principe sous-jacent : <strong>הכנה</strong> — il est interdit de <em>se préparer</em> Shabbat à un acte interdit Shabbat (faire les comptes), même si l'acte lui-même n'aura lieu que dimanche (siman ש"ו).
+</div>
+
+<h3>La question halakhique</h3>
+<p>La surveillance contre le vol est permise (grande perte). Mais jusqu'où ? Peut-on en profiter pour <em>examiner</em> les chiffres en vue du compte de dimanche ? Non : c'est une הכנה (préparation) interdite d'un acte interdit Shabbat.</p>
+
+<h3>Les avis</h3>
+<table>
+<tr><th>Source</th><th>Position</th></tr>
+<tr><td><strong>Talmud</strong> (principe de הכנה)</td><td>« אסור להכין משבת לחול » — interdit de préparer Shabbat pour la semaine.</td></tr>
+<tr><td><strong>Mehaber</strong> (244 / ש"ו)</td><td>Permet la surveillance anti-vol ; interdit l'examen en vue du compte.</td></tr>
+<tr><td><strong>Mishna Berura</strong></td><td>Confirme : observer pour le compte de demain = préparation interdite.</td></tr>
+<tr class="harav"><td><strong>SHHaRav</strong> (244:18)</td><td>Relie au principe général de הכנה (siman ש"ו) : interdit de se préparer Shabbat à un acte interdit.</td></tr>
+</table>
+
+<h3>Le pesak du Rav</h3>
+<div class="key-point">
+<strong>La limite du Rav :</strong>
+<ol>
+  <li>Surveillance <em>anti-vol</em> (dépôt en caisse) → permise.</li>
+  <li>Examiner les chiffres <em>pour le compte</em> → interdit.</li>
+  <li>Motif : <strong>הכנה</strong> — pas de préparation Shabbat à un acte interdit (ש"ו).</li>
+</ol>
+</div>
+
+<h3>Cas pratiques modernes</h3>
+<ul class="compact">
+  <li><strong>Veiller à ce qu'un caissier non-juif ne vole pas :</strong> 🟢 surveillance permise.</li>
+  <li><strong>Noter mentalement/relever les chiffres pour la compta de dimanche :</strong> 🔴 הכנה interdite.</li>
+  <li><strong>Consulter un tableau de bord Shabbat pour préparer un rapport :</strong> 🔴 préparation interdite.</li>
+  <li><strong>Vérifier l'intégrité d'une livraison sans calcul comptable :</strong> 🟢 anti-perte → permis.</li>
+  <li><strong>Préparer ses calculs/factures Shabbat « pour gagner du temps » :</strong> 🔴 הכנה משבת לחול.</li>
+</ul>
+
+<h3>Points à retenir</h3>
+<div class="remember">
+<ul class="compact">
+  <li>Surveillance <strong>anti-vol</strong> permise ; <strong>examen pour le compte</strong> interdit</li>
+  <li>Principe : <strong>הכנה</strong> — pas de préparation Shabbat à un acte interdit</li>
+  <li>Vaut même si le compte n'aura lieu que dimanche</li>
+</ul>
+</div>
+
+<div class="question-box">
+<strong>Question de compréhension :</strong> Pourquoi peut-on surveiller contre le vol Shabbat, mais pas examiner les chiffres en vue du compte de dimanche ?
+</div>
+
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-yod-tet-rav">Seif Yod-Tet (SHHaRav) →</a></div></div>
+
+<div class="page-break"></div>
+
+<!-- ===== Seif Yod-Tet — Donner de l'argent à réparer en קבלנות ===== -->
+<h2 class="section-title" id="seif-yod-tet-rav">24. Seif Yod-Tet — Donner de l'argent à réparer en קבלנות</h2>
+
+<h3>Texte intégral du SHHaRav</h3>
+<blockquote class="text-source">
+מֻתָּר לִתֵּן כֶּסֶף לְנָכְרִי בְּקַבְּלָנוּת לְתַקֵּן לוֹ מָעוֹת, וְהַנָּכְרִי עוֹשֶׂה לְעַצְמוֹ אֲפִלּוּ בְּשַׁבָּת. וְאַף עַל פִּי שֶׁמַּשְׁמִיעַ קוֹל בְּפַרְהֶסְיָא — אֵין בְּכָךְ כְּלוּם, כֵּיוָן שֶׁאֵין יָדוּעַ לָרַבִּים שֶׁהוּא עוֹשֶׂה בִּשְׁבִיל יִשְׂרָאֵל — אֵין כַּאן חֲשַׁשׁ מַרְאִית הָעַיִן:
+</blockquote>
+
+<h3>Traduction française</h3>
+<div class="translation">
+<strong>Il est permis de donner de l'argent à un non-juif en forfait</strong> pour qu'il lui répare/façonne de la monnaie, le non-juif œuvrant pour lui-même même Shabbat. <strong>Et bien qu'il fasse du bruit en public</strong> (פרהסיא) — cela ne fait rien : puisqu'il n'est pas connu des passants qu'il œuvre pour un Juif, il n'y a pas de soupçon de mar’it ayin.
+</div>
+
+<h3>De quoi parle ce Seif ?</h3>
+<p>Le Rav illustre une dernière fois le cas du détaché bruyant mais anonyme : la <strong>publicité du bruit</strong> n'interdit pas si la propriété juive reste <em>inconnue</em> du public.</p>
+<div class="key-point">
+Critère récurrent : ce n'est pas le <em>bruit</em> ni la <em>publicité</em> en soi qui interdisent, mais la <strong>connaissance publique</strong> que l'ouvrage est pour un Juif. Ici, anonyme → permis.
+</div>
+
+<h3>La question halakhique</h3>
+<p>Façonner de la monnaie fait du bruit en פרהסיא. Pourtant le Seif Dalet interdisait le détaché « public et notoire » (bateau). Quelle différence ? Ici, nul ne sait que c'est pour un Juif → pas de mar’it ayin.</p>
+
+<h3>Les avis</h3>
+<table>
+<tr><th>Source</th><th>Position</th></tr>
+<tr><td><strong>Rishonim</strong></td><td>Le mar’it ayin suppose que le public <em>sache</em> que l'ouvrage est du Juif.</td></tr>
+<tr><td><strong>Mehaber</strong> (244:?)</td><td>Permet le forfait sur la monnaie même bruyant, si la propriété juive est inconnue.</td></tr>
+<tr><td><strong>Mishna Berura</strong></td><td>Confirme : bruit + anonymat → pas de mar’it ayin.</td></tr>
+<tr class="harav"><td><strong>SHHaRav</strong> (244:19)</td><td>Réaffirme le critère : « אין ידוע לרבים שעושה בשביל ישראל » → pas de soupçon.</td></tr>
+</table>
+
+<h3>Le pesak du Rav</h3>
+<div class="key-point">
+<strong>La règle de l'anonymat :</strong>
+<ol>
+  <li>Forfait sur du détaché (monnaie) → permis, le non-juif agit pour soi.</li>
+  <li>Le <strong>bruit public</strong> n'interdit pas en soi.</li>
+  <li>Condition : la propriété juive reste <strong>inconnue</strong> du public.</li>
+</ol>
+</div>
+
+<h3>Cas pratiques modernes</h3>
+<ul class="compact">
+  <li><strong>Atelier bruyant façonne ma matière première, anonymement :</strong> 🟢 permis.</li>
+  <li><strong>Usine non-juive produit ma commande sans que nul ne sache qu'elle est mienne :</strong> 🟢 pas de mar’it ayin.</li>
+  <li><strong>Machine bruyante tournant en public mais activité anonyme :</strong> 🟢 permis.</li>
+  <li><strong>Même atelier, mais l'enseigne indique « commande de M. X (juif) » :</strong> 🔴 notoriété → interdit.</li>
+  <li><strong>Travail public et publiquement attribué au Juif :</strong> 🔴 mar’it ayin (cf. Seif Dalet).</li>
+</ul>
+
+<h3>Points à retenir</h3>
+<div class="remember">
+<ul class="compact">
+  <li>Ce n'est pas le <strong>bruit</strong> qui interdit, mais la <strong>connaissance publique</strong></li>
+  <li>Détaché bruyant mais anonyme → permis</li>
+  <li>Si l'ouvrage est notoirement du Juif → interdit (Seif Dalet)</li>
+</ul>
+</div>
+
+<div class="question-box">
+<strong>Question de compréhension :</strong> Pourquoi le façonnage bruyant de la monnaie est-il permis, alors que la construction publique du bateau (Seif Dalet) est interdite ?
+</div>
+
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-chaf-rav">Seif Khaf (SHHaRav) →</a></div></div>
+
+<div class="page-break"></div>
+
+<!-- ===== Seif Khaf — Les ouvriers du sel (מלח) ===== -->
+<h2 class="section-title" id="seif-chaf-rav">25. Seif Khaf — Les ouvriers du sel (מלח)</h2>
+
+<h3>Texte intégral du SHHaRav</h3>
+<blockquote class="text-source">
+יִשְׂרָאֵל שֶׁשָּׂכַר הַמֶּלַח מֵהַשָּׂר לְשָׁנָה, שֶׁכַּמָּה מֶלַח שֶׁיַּעֲשֶׂה בְּתוֹךְ הַשָּׁנָה הוּא שֶׁלּוֹ, וְהוּא שׂוֹכֵר לוֹ פּוֹעֲלִים נָכְרִים לְשָׁנָה אוֹ לְחֹדֶשׁ, וְקָצַץ לָהֶם שְׂכָרָם לְפִי רִבּוּי מְלַאכְתָּם, דְּהַיְנוּ מִכָּל כָּךְ וְכָךְ מֶלַח שֶׁיְּבַשְּׁלוּ נוֹתֵן לָהֶם כָּךְ וְכָךְ, אַף עַל פִּי שֶׁמְּבַשְּׁלִים בְּכֵלִים שֶׁל הַיִּשְׂרָאֵל — מֻתָּר לְהַנִּיחָם שֶׁיַּעֲשׂוּ בְּשַׁבָּת, שֶׁאֵין אָדָם מְצֻוֶּה עַל שְׁבִיתַת כֵּלָיו, כְּמוֹ שֶׁיִּתְבָּאֵר בְּסִמָּן רמ"ו, וְהַנָּכְרִים הֵם כְּקַבְּלָנִים שֶׁעוֹשִׂים לְטוֹבַת עַצְמָן כְּדֵי לְהַרְבּוֹת בִּשְׂכָרָן, שֶׁהֲרֵי אֵין שְׂכָרָם מִשְׁתַּלֵּם לְפִי הַיָּמִים אוֹ חֳדָשִׁים, אֶלָּא לְפִי סְכוּם הַמְּלָאכָה שֶׁגּוֹמְרִין, וְכָךְ מְשַׁלֵּם לָהֶם, נִמְצָא שֶׁהֵם מִתְכַּוְּנִים בַּעֲשִׂיָּתָם בְּשַׁבָּת לְטוֹבַת עַצְמָן. <br><br>(וְאַף שֶׁאִם לֹא הָיוּ עוֹשִׂים בְּשַׁבָּת הָיָה מַגִּיעַ הֶפְסֵד לְיִשְׂרָאֵל, שֶׁהֲרֵי הַיִּשְׂרָאֵל שָׂכַר הַמֶּלַח שֶׁיְּבַשֵּׁל בְּתוֹךְ שְׁנָתוֹ, וְהַיָּמִים שֶׁהֶחְסִיר וְלֹא בִשֵּׁל מֵהֶם אֵין לָהֶם תַּשְׁלוּמִים, שֶׁלֹּא יְנַכֶּה לוֹ הַשָּׂר כְּלוּם מִשְּׂכָרוֹ, וְגַם לֹא יַנִּיחֶנּוּ לְבַשֵּׁל כְּנֶגְדָּם בְּשָׁנָה הָאַחֶרֶת, וּבִשְׁבִיל כָּךְ כְּשֶׁהַיִּשְׂרָאֵל שׂוֹכֵר פּוֹעֲלִים לְחֹדֶשׁ אוֹ לְשָׁנָה הוּא  מַקְפִּיד עֲלֵיהֶם מְאֹד שֶׁלֹּא יְבַטְּלוּ אֲפִלּוּ יוֹם אֶחָד, וְהֵם מֻכְרָחִים לַעֲשׂוֹת גַּם בְּשַׁבָּת מֵחֲמַת קְפֵדָתוֹ, מִכָּל מָקוֹם בִּשְׁבִיל כָּךְ אֵין צָרִיךְ לִמְחוֹת בְּיָדָם שֶׁלֹּא יַעֲשׂוּ בְּשַׁבָּת, אֶלָּא דַּי שֶׁיֹּאמַר לָהֶם שֶׁאֵינָם מֻכְרָחִים לַעֲשׂוֹת בְּשַׁבָּת בִּשְׁבִילוֹ, וְאִם יִרְצוּ שֶׁלֹּא לַעֲשׂוֹת בְּשַׁבָּת הָרְשׁוּת בְּיָדָם, וְאִם אַף עַל פִּי כֵן הֵם עוֹשִׂים מֵאֲלֵיהֶם כְּדֵי לְהַרְבּוֹת בִּשְׂכָרָם — אֵין צָרִיךְ לוֹמַר לָהֶם כְּלוּם, אַף עַל פִּי שֶׁמַּגִּיעַ לְיִשְׂרָאֵל הֲנָאָה גְדוֹלָה מִזֶּה — אֵין בְּכָךְ כְּלוּם, כֵּיוָן שֶׁהַנָּכְרִים מִתְכַּוְּנִים לְטוֹבַת עַצְמָן[)]. <br><br>וְאֵין לֶאֱסוֹר מִפְּנֵי מַרְאִית הָעַיִן, לְפִי שֶׁהָרוֹאֶה אֵינוֹ יוֹדֵעַ שֶׁבִּשּׁוּל זֶה הוּא שֶׁל יִשְׂרָאֵל, שֶׁהַכֵּלִים שֶׁמְּבַשְּׁלִים בָּהֶם, וְכֵן הָעֵצִים שֶׁמַּבְעִירִים בָּהֶם — אֵין שֵׁם הַיִּשְׂרָאֵל נִקְרָא עֲלֵיהֶם, דְּהַיְנוּ שֶׁאֵין מְפֻרְסָם לָרַבִּים שֶׁהֵן שֶׁל יִשְׂרָאֵל. <br><br>וּבִלְבָד  שֶׁלֹּא יָבִיאוּ עֵצִים מֵרְשׁוּת הַיִּשְׂרָאֵל בְּשַׁבָּת, שֶׁכָּל קַבְּלָנוּת אֵינָהּ מֻתֶּרֶת אֶלָּא אִם כֵּן מָסַר לוֹ מֵעֶרֶב שַׁבָּת כָּל מַה שֶּׁרוֹצֶה לִמְסוֹר לוֹ לְצֹרֶךְ הַמְּלָאכָה. <br><br>וַאֲפִלּוּ אִם מָסַר לָהֶם הָעֵצִים מֵעֶרֶב שַׁבָּת, אֶלָּא שֶׁלֹּא הוֹצִיאוּם מֵרְשׁוּתוֹ עַד שֶׁחָשְׁכָה — אָסוּר לְהַנִּיחָם שֶׁיּוֹצִיאוּ בְּשַׁבָּת, מִפְּנֵי מַרְאִית הָעַיִן, שֶׁיֹּאמְרוּ שֶׁבְּשַׁבָּת מָסַר לָהֶם, וּכְמוֹ שֶׁיִּתְבָּאֵר בְּסִמָּן רמ"ו, עַיֵּן שָׁם:
+</blockquote>
+
+<h3>Traduction française</h3>
+<div class="translation">
+<strong>Un Juif qui a affermé le sel d'un seigneur</strong> pour un an — tout le sel produit dans l'année lui appartient — et qui loue des ouvriers non-juifs pour un an ou un mois, leur fixant un salaire <em>selon la quantité</em> produite (tant pour telle quantité de sel) : <strong>même s'ils cuisent dans les ustensiles du Juif, il est permis</strong> de les laisser œuvrer Shabbat — car <em>/dev/null n'est tenu au repos de ses ustensiles</em> (אין אדם מצווה על שביתת כליו, siman רמ"ו), et les non-juifs sont comme des forfaitaires œuvrant pour leur profit (salaire à la quantité, non au temps).<br><br>
+On ne l'interdit pas par mar’it ayin, car nul ne sait que cette cuisson est d'un Juif (ni les ustensiles ni le bois ne portent son nom). <strong>À condition</strong> qu'on n'apporte pas le bois du domaine du Juif Shabbat — car tout forfait exige que tout le matériel ait été remis avant Shabbat. Et même si remis avant Shabbat mais non sorti du domaine avant la nuit, on ne le laissera pas sortir Shabbat (mar’it ayin, siman רמ"ו).
+</div>
+
+<h3>De quoi parle ce Seif ?</h3>
+<p>Le Rav réunit ici plusieurs principes : salaire <strong>à la quantité</strong> (= forfait), <strong>שביתת כלים</strong> (repos des ustensiles), <strong>anonymat</strong>, et la condition de remise du matériel <strong>avant Shabbat</strong>.</p>
+<div class="key-point">
+Salaire « tant par quantité de sel » = forfait (pas au temps) → ouvriers pour soi. Même avec les ustensiles du Juif, c'est permis (nul n'est tenu au repos de ses ustensiles). Condition stricte : tout le matériel remis <em>avant</em> Shabbat.
+</div>
+
+<h3>La question halakhique</h3>
+<p>Les ouvriers utilisent les ustensiles <em>du Juif</em> — n'est-ce pas un problème (שביתת כלים) ? Et le salaire à la quantité est-il du forfait ? Et faut-il craindre le mar’it ayin ? Le Rav répond à chaque point.</p>
+
+<h3>Les avis</h3>
+<table>
+<tr><th>Source</th><th>Position</th></tr>
+<tr><td><strong>Talmud</strong> (שביתת כלים)</td><td>« אין אדם מצווה על שביתת כליו » — pas d'obligation de repos des ustensiles (siman רמ"ו).</td></tr>
+<tr><td><strong>Rosh / Rishonim</strong></td><td>Salaire à la quantité = forfait → ouvriers pour leur profit.</td></tr>
+<tr><td><strong>Mehaber</strong> (244:6)</td><td>Permet ce montage ; impose la remise du matériel avant Shabbat.</td></tr>
+<tr><td><strong>Mishna Berura</strong></td><td>Confirme l'anonymat (ni ustensiles ni bois nominatifs) et la condition de remise.</td></tr>
+<tr class="harav"><td><strong>SHHaRav</strong> (244:20)</td><td>Synthèse : forfait à la quantité + שביתת כלים + anonymat ; <strong>matériel remis avant Shabbat</strong>, non sorti du domaine Shabbat.</td></tr>
+</table>
+
+<h3>Le pesak du Rav</h3>
+<div class="key-point">
+<strong>Le montage permis du Rav :</strong>
+<ol>
+  <li>Salaire <strong>à la quantité</strong> = forfait → ouvriers pour soi.</li>
+  <li>Ustensiles du Juif → permis (<strong>שביתת כלים</strong>).</li>
+  <li>Anonymat → pas de mar’it ayin. <em>Condition :</em> matériel remis <strong>avant Shabbat</strong>.</li>
+</ol>
+</div>
+
+<h3>Cas pratiques modernes</h3>
+<ul class="compact">
+  <li><strong>Usine du Juif, ouvriers non-juifs payés à la production, tourne Shabbat :</strong> 🟢 forfait + שביתת כלים → permis (matières remises avant Shabbat).</li>
+  <li><strong>Machines du Juif utilisées par un prestataire payé au rendement :</strong> 🟢 permis (anonyme).</li>
+  <li><strong>Apporter Shabbat des matières premières depuis l'entrepôt du Juif :</strong> 🔴 doit être fait avant Shabbat.</li>
+  <li><strong>Matières remises vendredi mais sorties Shabbat seulement :</strong> 🔴 mar’it ayin → ne pas sortir Shabbat.</li>
+  <li><strong>Ouvriers payés à l'heure dans l'usine du Juif :</strong> 🔴 salariés à la journée → interdit.</li>
+</ul>
+
+<h3>Points à retenir</h3>
+<div class="remember">
+<ul class="compact">
+  <li>Salaire <strong>à la quantité</strong> = forfait → permis même avec les ustensiles du Juif</li>
+  <li><strong>שביתת כלים</strong> : nul n'est tenu au repos de ses ustensiles</li>
+  <li>Condition stricte : tout le <strong>matériel remis avant Shabbat</strong></li>
+</ul>
+</div>
+
+<div class="question-box">
+<strong>Question de compréhension :</strong> Pourquoi l'usage des ustensiles du Juif n'interdit-il pas le travail des ouvriers Shabbat ?
+</div>
+
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-chaf-alef-rav">Seif Khaf-Alef (SHHaRav) →</a></div></div>
+
+<div class="page-break"></div>
+
+<!-- ===== Seif Khaf-Alef — מראית עין vs perte du seul profit ===== -->
+<h2 class="section-title" id="seif-chaf-alef-rav">26. Seif Khaf-Alef — מראית עין vs perte du seul profit</h2>
+
+<h3>Texte intégral du SHHaRav</h3>
+<blockquote class="text-source">
+וְאִם הוּא בְּעִנְיָן שֶׁיֵּשׁ חֲשַׁשׁ מַרְאִית הָעַיִן — אֵין לְהַתִּיר מֵחֲמַת הֶפְסֵד מְרֻבֶּה שֶׁיַּפְסִיד הַיִּשְׂרָאֵל בְּכָל שַׁבְּתוֹת הַשָּׁנָה, אֶלָּא אִם כֵּן הוּא בְּעִנְיָן שֶׁמַּפְסִיד הַרְבֵּה מִכִּיסוֹ מִמַּה שֶּׁצָּרִיךְ לְשַׁלֵּם לְהַשָּׂר וְלַפּוֹעֲלִים וְיֶתֶר הוֹצָאוֹתָיו, אֲבָל אִם הוּא בְּעִנְיָן שֶׁלֹּא יַפְסִיד כְּלוּם מִכִּיסוֹ, אֶלָּא שֶׁמַּפְסִיד הָרֶוַח שֶׁהָיָה יָכוֹל לְהַרְוִיחַ הַרְבֵּה בַּעֲשִׂיַּת הַמֶּלַח גַּם בְּשַׁבָּתוֹת — אֵין מַתִּירִין לוֹ בִּשְׁבִיל כָּךְ אִסּוּר שֶׁל מַרְאִית הָעַיִן. <br><br>וְאֵינוֹ דוֹמֶה לְמֶכֶס וּלְמַטְבֵּעַ שֶׁאַף אִם הוּא בְּעִנְיָן שֶׁלֹּא יַפְסִיד כְּלוּם מִכִּיסוֹ, אֶלָּא מִשּׁוּם שֶׁלֹּא יַפְסִיד הָרֶוַח שֶׁל הַשַּׁבָּתוֹת הִתִּירוּ לוֹ אִסּוּר מַרְאִית הָעַיִן, לְפִי שֶׁהַמֶּכֶס כְּבָר נִתְחַיְּבוּ בּוֹ הַנָּכְרִים הַסּוֹחֲרִים הָעוֹבְרִים בְּשַׁבָּת לִתְּנוֹ לְהַמֶּלֶךְ, וְהַיִּשְׂרָאֵל כְּבָר קָנָה חִיּוּב זֶה מֵהַמֶּלֶךְ, נִמְצָא שֶׁאִם לֹא יִטְּלֶנּוּ הַיִּשְׂרָאֵל מֵהַסּוֹחֲרִים — הֲרֵי זֶה כְּמַפְסִיד הָרֶוַח שֶׁבָּא כְּבָר לְכִיסוֹ. וְכֵן הַמַּטְבֵּעוֹת שֶׁיַּעֲשׂוּ עוֹשֵׂי הַמְּלָאכָה אֲשֶׁר לַמֶּלֶךְ בְּעַל כָּרְחוֹ שֶׁל יִשְׂרָאֵל, כְּבָר הֵם קְנוּיִים לְיִשְׂרָאֵל, וְאִם לֹא יִטְּלֵם הַיִּשְׂרָאֵל — הֲרֵי זֶה כְּמַפְסִיד הָרֶוַח שֶׁבָּא כְּבָר לְכִיסוֹ:
+</blockquote>
+
+<h3>Traduction française</h3>
+<div class="translation">
+<strong>Si la situation comporte un soupçon de mar’it ayin</strong> — on ne permet pas en raison de la grande perte que le Juif subirait tous les Shabbatot de l'année, <strong>sauf</strong> s'il perdrait <em>beaucoup de sa propre poche</em> (ce qu'il doit payer au seigneur, aux ouvriers, ses frais). Mais s'il ne perd rien de sa poche, perdant seulement le <strong>profit</strong> qu'il aurait pu réaliser en produisant aussi Shabbat — on ne lui permet pas pour cela l'interdit de mar’it ayin.<br><br>
+Cela ne ressemble pas au péage et à la monnaie, où l'on a permis même pour la simple perte du profit des Shabbatot — car là, les non-juifs devaient déjà ce péage au roi, et le Juif l'a déjà acquis : ne pas le percevoir, c'est perdre un profit <em>déjà entré</em> dans sa poche. De même les monnaies frappées par les ouvriers du roi sont déjà acquises au Juif.
+</div>
+
+<h3>De quoi parle ce Seif ?</h3>
+<p>Le Rav affine la règle « grande perte lève le mar’it ayin » (Seif Yod-Dalet) : il faut distinguer une <strong>perte effective de capital</strong> (lève le décret) d'un simple <strong>manque à gagner</strong> (ne le lève pas).</p>
+<div class="key-point">
+• Perte <em>de sa poche</em> (frais déjà engagés) → le mar’it ayin cède.<br>
+• Simple <em>manque à gagner</em> (profit non réalisé) → le mar’it ayin demeure.<br>
+Exception (péage/monnaie) : le profit était <em>déjà acquis</em> → assimilé à une perte réelle.
+</div>
+
+<h3>La question halakhique</h3>
+<p>La « grande perte » lève le mar’it ayin (Seif Yod-Dalet). Mais qu'est-ce qu'une « perte » ? Une dépense de poche, ou aussi un gain qu'on n'a pas pu faire ? Le Rav tranche : seule la perte effective (ou le profit déjà acquis) compte.</p>
+
+<h3>Les avis</h3>
+<table>
+<tr><th>Source</th><th>Position</th></tr>
+<tr><td><strong>Raavad / Rosh</strong></td><td>Distinction entre perte de capital (חסרון כיס) et manque à gagner (מניעת ריוח).</td></tr>
+<tr><td><strong>Mehaber / Beit Yossef</strong></td><td>Le péage/monnaie : profit déjà acquis → traité comme perte réelle.</td></tr>
+<tr><td><strong>Mishna Berura</strong></td><td>Confirme : le simple manque à gagner ne lève pas le mar’it ayin.</td></tr>
+<tr class="harav"><td><strong>SHHaRav</strong> (244:21)</td><td><strong>Distinction fine</strong> : חסרון כיס (lève le décret) vs מניעת ריוח (ne le lève pas) ; péage/monnaie = profit déjà entré en poche.</td></tr>
+</table>
+
+<h3>Le pesak du Rav</h3>
+<div class="key-point">
+<strong>La distinction du Rav :</strong>
+<ol>
+  <li><strong>Perte de poche</strong> (frais payés au seigneur, ouvriers) → mar’it ayin levé.</li>
+  <li><strong>Manque à gagner</strong> seul → mar’it ayin maintenu.</li>
+  <li>Péage/monnaie = profit <strong>déjà acquis</strong> → assimilé à une perte réelle.</li>
+</ol>
+</div>
+
+<h3>Cas pratiques modernes</h3>
+<ul class="compact">
+  <li><strong>Activité à l'arrêt Shabbat avec charges fixes payées (loyer, salaires) :</strong> 🟢 perte de poche → mar’it ayin levé.</li>
+  <li><strong>Manque à gagner pur (ventes non réalisées Shabbat) :</strong> 🔴 pas de levée du mar’it ayin.</li>
+  <li><strong>Créance déjà acquise non encaissée Shabbat (type péage) :</strong> 🟢 profit déjà entré → permis.</li>
+  <li><strong>Usine à l'arrêt qui perd surtout du chiffre d'affaires potentiel :</strong> 🔴 manque à gagner → interdit.</li>
+  <li><strong>Frais incompressibles dus quoi qu'il arrive :</strong> 🟢 perte effective → levée possible.</li>
+</ul>
+
+<h3>Points à retenir</h3>
+<div class="remember">
+<ul class="compact">
+  <li>Distinguer <strong>perte de poche</strong> (lève le mar’it ayin) et <strong>manque à gagner</strong> (ne le lève pas)</li>
+  <li>Le péage/monnaie : profit <strong>déjà acquis</strong> → traité comme perte réelle</li>
+  <li>Le manque à gagner seul ne justifie pas de braver le mar’it ayin</li>
+</ul>
+</div>
+
+<div class="question-box">
+<strong>Question de compréhension :</strong> Quelle est la différence entre une « perte de poche » et un « manque à gagner » quant au mar’it ayin ?
+</div>
+
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#seif-chaf-bet-rav">Seif Khaf-Bet (SHHaRav) →</a></div></div>
+
+<div class="page-break"></div>
+
+<!-- ===== Seif Khaf-Bet — Mines de fer et verre : généralisation ===== -->
+<h2 class="section-title" id="seif-chaf-bet-rav">27. Seif Khaf-Bet — Mines de fer et verre : généralisation</h2>
+
+<h3>Texte intégral du SHHaRav</h3>
+<blockquote class="text-source">
+וְיִשְׂרְאֵלִים שֶׁשּׂוֹכְרִים מֵהַשָּׂר שֶׁיִּהְיֶה רְשׁוּת בְּיָדָם לַחְפּוֹר בֶּהָרִים לִמְצוֹא הֶעָפָר שֶׁעוֹשִׂים מִמֶּנּוּ בַּרְזֶל, וְשׂוֹרְפִים וְצוֹרְפִים הֶעָפָר יוֹם וְלַיְלָה לֹא יִשְׁבֹּתוּ עַד כְּלוֹת מֶשֶׁךְ זְמַן שְׂכִירוּתָם, וְשׂוֹכְרִים לָהֶם פּוֹעֲלִים לְכָךְ לְשָׁנָה אוֹ לְחֹדֶשׁ, וְקוֹצְצִים לָהֶם שָׂכָר כָּךְ וְכָךְ בְּעַד כָּךְ וְכָךְ בַּרְזֶל — הֲרֵי דִינָם כְּדִין שׂוֹכֵר אֶת הַמֶּלַח לְכָל דָּבָר, אִם הוּא בְּעִנְיָן שֶׁאֵין לָחוּשׁ לְמַרְאִית הָעַיִן, עַל דֶּרֶךְ שֶׁנִּתְבָּאֵר בְּסִמָּן רמ"ג עַיֵּן שָׁם. וְכֵן הַדִּין בְּשׂוֹכְרֵי הִתּוּךְ הַזְּכוּכִית מֵהַשָּׂרִים, וְכֵן בְּכָל כַּיּוֹצֵא בָזֶה:
+</blockquote>
+
+<h3>Traduction française</h3>
+<div class="translation">
+<strong>Des Juifs qui afferment d'un seigneur</strong> le droit de creuser les montagnes pour en extraire le minerai dont on fait le fer, le brûlant et le raffinant jour et nuit sans interruption jusqu'à la fin de leur bail, et qui louent pour cela des ouvriers à l'année ou au mois, leur fixant un salaire <em>selon la quantité de fer</em> : <strong>leur statut est en tout celui de l'affermage du sel</strong> — pourvu qu'il n'y ait pas de soupçon de mar’it ayin (cf. siman רמ"ג). <strong>Et de même</strong> pour ceux qui afferment la fonte du verre des seigneurs, <strong>et tout cas semblable</strong>.
+</div>
+
+<h3>De quoi parle ce Seif ?</h3>
+<p>Le Rav <strong>clôt le Siman par une généralisation</strong> : le régime du sel (Seif Khaf) s'applique à toute industrie affermée à salaire-à-la-quantité — fer, verre, « et tout cas semblable ».</p>
+<div class="key-point">
+Le principe est désormais <strong>transposable</strong> : forfait à la quantité + anonymat (pas de mar’it ayin) → permis, quelle que soit l'industrie. Le Rav formule une règle générale plutôt qu'une liste close.
+</div>
+
+<h3>La question halakhique</h3>
+<p>Faut-il refaire toute l'analyse pour chaque nouvelle industrie (fer, verre, etc.) ? Non : le Rav établit que tous ces cas suivent le régime du sel, dès lors que les conditions (forfait, anonymat) sont réunies.</p>
+
+<h3>Les avis</h3>
+<table>
+<tr><th>Source</th><th>Position</th></tr>
+<tr><td><strong>Rishonim</strong></td><td>Les industries affermées à la quantité suivent le même principe (forfait + anonymat).</td></tr>
+<tr><td><strong>Mehaber</strong> (244:6 / רמ"ג)</td><td>Renvoie au régime général de l'affermage industriel.</td></tr>
+<tr><td><strong>Mishna Berura</strong></td><td>Confirme la transposition à toute industrie semblable.</td></tr>
+<tr class="harav"><td><strong>SHHaRav</strong> (244:22)</td><td><strong>Généralisation finale</strong> : fer, verre « וכן בכל כיוצא בזה » — règle ouverte, conditionnée à l'absence de mar’it ayin.</td></tr>
+</table>
+
+<h3>Le pesak du Rav</h3>
+<div class="key-point">
+<strong>La règle générale du Rav :</strong>
+<ol>
+  <li>Toute industrie affermée à salaire <strong>à la quantité</strong> = régime du sel.</li>
+  <li>Condition : <strong>pas de mar’it ayin</strong> (anonymat, cf. רמ"ג).</li>
+  <li>Règle <em>ouverte</em> : « et tout cas semblable » (fer, verre, etc.).</li>
+</ol>
+</div>
+
+<h3>Cas pratiques modernes</h3>
+<ul class="compact">
+  <li><strong>Usine sidérurgique affermée, ouvriers payés au tonnage, tourne Shabbat :</strong> 🟢 régime du sel → permis (anonyme).</li>
+  <li><strong>Verrerie/fonderie au forfait de production :</strong> 🟢 permise sous les mêmes conditions.</li>
+  <li><strong>Raffinerie tournant en continu, salaire à la quantité :</strong> 🟢 si pas de mar’it ayin.</li>
+  <li><strong>Toute industrie nouvelle au forfait anonyme :</strong> 🟢 couverte par la règle générale.</li>
+  <li><strong>Même industrie mais publiquement identifiée au Juif :</strong> 🔴 mar’it ayin → interdit.</li>
+</ul>
+
+<h3>Points à retenir</h3>
+<div class="remember">
+<ul class="compact">
+  <li>Le régime du <strong>sel</strong> se généralise à toute industrie affermée à la quantité</li>
+  <li>Condition unique : <strong>pas de mar’it ayin</strong> (anonymat)</li>
+  <li>Règle <em>ouverte</em> : « וכן בכל כיוצא בזה » (fer, verre, et tout cas semblable)</li>
+</ul>
+</div>
+
+<div class="question-box">
+<strong>Question de compréhension :</strong> Pourquoi le Rav formule-t-il une règle générale (« et tout cas semblable ») plutôt qu'une liste fermée d'industries ?
+</div>
+
+<div class="next-seif-nav"><div class="row"><span class="label">Pour continuer l'étude</span><a href="#synthese">Synthèse du siman →</a></div></div>
+
+<div class="page-break"></div>
+
+<div class="page-break"></div>
+
+<p style="text-align:center;font-family:'Cormorant Garamond',serif;font-size:15pt;color:#5a4a1a;font-style:italic;margin:10px 0 0 0;">— Partie III —</p>
+<p style="text-align:center;font-family:'Cormorant Garamond',serif;font-size:12pt;color:#8a7a4a;margin:0 0 18px 0;">Synthèse &amp; questions</p>
+
+<h2 class="section-title" id="synthese">28. Synthèse pratique du Siman <bdi>רמ״ד</bdi></h2>
 
 <div class="key-point">
-<strong>Les 4 enseignements du Siman <bdi>רמ״ד</bdi> :</strong>
+<strong>Les 5 piliers du Siman en 5 phrases :</strong>
 <ol>
-  <li><strong>Distinction kablan/shakir-yom</strong> — agence vs intérêt propre</li>
-  <li><strong>Talush/mehoubar</strong> — mobile chez lui OK, immobile public KO</li>
-  <li><strong>Mar'it ayin</strong> — bloque même le talush s'il est trop visible</li>
-  <li><strong>Pas d'amira explicite</strong> — ne jamais demander Shabbat</li>
+  <li><strong>קבלנות vs שכיר יום</strong> — le forfaitaire agit pour soi (אדעתא דנפשיה) → permis ; le salarié à la journée est l'agent du Juif → interdit</li>
+  <li><strong>תלוש vs מחובר</strong> — le détaché discret est permis ; le relié (terrain, chantier) est interdit par mar’it ayin</li>
+  <li><strong>מראית עין</strong> — bloque même le détaché s'il est <em>public ET nominatif</em> (שם הישראל נקרא עליו) ; cède devant la <em>grande perte</em></li>
+  <li><strong>הנאה vs רֶוַח</strong> — un simple agrément est permis ; un gain effectif (משתרשא ליה) est interdit</li>
+  <li><strong>שבות דשבות, שביתת כלים, אדם בהול</strong> — leviers qui assouplissent le forfait dans les cas commerciaux (péage, monnaie, sel, fer)</li>
+</ol>
+</div>
+
+<div class="key-point">
+<strong>Les apports propres du SHHaRav (les 22 seifim) :</strong>
+<ol>
+  <li><strong>Seif Alef</strong> — Fondement : propriété de l'ouvrage + intention ; les 4 garde-fous</li>
+  <li><strong>Seif Bet</strong> — תלוש/מחובר ; théorie du « קול » (retentissement public)</li>
+  <li><strong>Seif Gimel</strong> — חוץ לתחום : double condition de permission hors limite</li>
+  <li><strong>Seif Dalet</strong> — Le détaché public et nominatif (ספינה) redevient interdit</li>
+  <li><strong>Seif Hé</strong> — Frontière : « du Juif » (interdit) vs « pour le Juif » (permis, רינון)</li>
+  <li><strong>Seif Vav</strong> — תלוש לצורך מחובר : la destination détermine le statut</li>
+  <li><strong>Seif Zayin</strong> — Bediavad : forfait habitable, journée interdite</li>
+  <li><strong>Seif 'Het</strong> — מנהג, שעת הדחק, 'hiloul Hashem (nettoyage / synagogue)</li>
+  <li><strong>Seif Tet</strong> — Scribe annuel oisif : הנאה (permis) vs רֶוַח (interdit)</li>
+  <li><strong>Seif Yod</strong> — La קפידא (exigence du Juif) bascule en shélihout</li>
+  <li><strong>Seif Yod-Alef</strong> — Loué « à tout » : משתרשא ליה → interdit</li>
+  <li><strong>Seif Yod-Bet</strong> — Péage en forfait : שבות דשבות (perte + mitsva)</li>
+  <li><strong>Seif Yod-Gimel</strong> — Mélakha biblique : אדם בהול על ממונו</li>
+  <li><strong>Seif Yod-Dalet</strong> — Affermage ; grande perte lève le mar’it ayin (par catégorie)</li>
+  <li><strong>Seif Tet-Vav</strong> — Péage pour le Shabbat seul : vente ≠ loyer (pas de שכר שבת)</li>
+  <li><strong>Seif Tet-Zayin</strong> — Monnaie : concession du roi ; le bruit n'interdit pas</li>
+  <li><strong>Seif Yod-Zayin</strong> — Ne pas s'asseoir auprès (sauf grande perte)</li>
+  <li><strong>Seif Yod-'Het</strong> — Surveiller oui, faire les comptes non (הכנה)</li>
+  <li><strong>Seif Yod-Tet</strong> — Détaché bruyant mais anonyme → permis</li>
+  <li><strong>Seif Khaf</strong> — Sel : forfait à la quantité + שביתת כלים + matériel remis avant Shabbat</li>
+  <li><strong>Seif Khaf-Alef</strong> — חסרון כיס (lève) vs מניעת ריוח (ne lève pas) le mar’it ayin</li>
+  <li><strong>Seif Khaf-Bet</strong> — Fer, verre : généralisation (« et tout cas semblable »)</li>
+</ol>
+</div>
+
+<h3>Les 4 conditions cumulatives — rappel</h3>
+<div class="remember">
+<ol>
+  <li><strong>קַבְּלָנוּת</strong> — forfait, jamais à la journée</li>
+  <li><strong>בְּבֵיתוֹ</strong> — chez le non-juif, pas chez le Juif</li>
+  <li><strong>תָּלוּשׁ</strong> — objet mobile, pas de relié visible</li>
+  <li><strong>בְּלִי אֲמִירָה</strong> — sans dire « fais-le Shabbat » ; קציצה (prix) fixée avant Shabbat ; faisable en semaine</li>
 </ol>
 </div>
 
 <h3>Tableau de décision pratique</h3>
 <table>
 <tr><th>Situation</th><th>Conduite</th></tr>
-<tr><td>Imprimerie non-juive imprime mon livre</td><td>Permis (kablan + chez lui + talush)</td></tr>
-<tr><td>Entrepreneur construit mon immeuble</td><td>Interdit Shabbat (mehoubar)</td></tr>
-<tr><td>Amazon livre mon colis Shabbat</td><td>Permis (kablan global)</td></tr>
-<tr><td>Femme de ménage Shabbat</td><td>À éviter (chez moi, visible)</td></tr>
-<tr><td>Uber Shabbat</td><td>Interdit (équivaut à demande explicite)</td></tr>
-<tr><td>Demander explicitement Shabbat travail</td><td>Interdit toujours</td></tr>
+<tr><td>Imprimerie non-juive imprime mon livre (forfait, chez elle)</td><td>🟢 Permis (Seif Alef-Bet)</td></tr>
+<tr><td>Entreprise non-juive construit mon immeuble Shabbat</td><td>🔴 Interdit — mehoubar (Seif Bet) ; prévoir l'arrêt du Shabbat</td></tr>
+<tr><td>Chantier isolé, hors tehoum, aucun Juif à proximité</td><td>🟢 Permis même en mehoubar (Seif Gimel)</td></tr>
+<tr><td>Yacht/enseigne au nom du Juif monté en public</td><td>🔴 Interdit — détaché public et nominatif (Seif Dalet)</td></tr>
+<tr><td>Objets neufs fabriqués pour moi, pas encore livrés</td><td>🟢 Permis selon le din ; éviter le tapage (Seif Hé)</td></tr>
+<tr><td>Préfabrication de poutres pour ma maison</td><td>🔴 Interdit — destiné au bâti (Seif Vav)</td></tr>
+<tr><td>Immeuble achevé Shabbat par forfait</td><td>🟢 Habitable bediavad (Seif Zayin)</td></tr>
+<tr><td>Enlèvement des ordures par service non-juif au forfait</td><td>🟢 Permis si coutume (Seif 'Het)</td></tr>
+<tr><td>Prestataire en abonnement, tâche commode dès dimanche</td><td>🟢 Agrément, non gain (Seif Tet)</td></tr>
+<tr><td>Je presse un fournisseur « il me le faut absolument »</td><td>🔴 Ma קפידא → lui dire « pas Shabbat » (Seif Yod)</td></tr>
+<tr><td>Assistant non-juif « tout-venant » à temps plein</td><td>🔴 משתרשא ליה → interdit (Seif Yod-Alef)</td></tr>
+<tr><td>Recouvrement non-juif au forfait, pour éviter une perte</td><td>🟢 שבות דשבות (Seif Yod-Bet / Yod-Gimel)</td></tr>
+<tr><td>Concession affermée (loyer fixe) gérée Shabbat par non-juif</td><td>🟢 Il agit pour soi ; grande perte (Seif Yod-Dalet)</td></tr>
+<tr><td>Affermer le péage pour le Shabbat seul</td><td>🟢 Vente du droit, pas de שכר שבת (Seif Tet-Vav)</td></tr>
+<tr><td>Rester à la caisse pendant qu'un employé non-juif encaisse</td><td>🔴 Mar’it ayin — sauf risque de vol (Seif Yod-Zayin)</td></tr>
+<tr><td>Relever les chiffres Shabbat pour la compta de dimanche</td><td>🔴 הכנה interdite (Seif Yod-'Het)</td></tr>
+<tr><td>Usine du Juif, ouvriers payés au rendement, tourne Shabbat</td><td>🟢 Forfait + שביתת כלים ; matières remises avant Shabbat (Seif Khaf)</td></tr>
+<tr><td>Arrêt Shabbat : simple manque à gagner</td><td>🔴 Ne lève pas le mar’it ayin (Seif Khaf-Alef)</td></tr>
+<tr><td>Sidérurgie/verrerie affermée au tonnage</td><td>🟢 Régime du sel généralisé (Seif Khaf-Bet)</td></tr>
+<tr><td>Uber / chauffeur non-juif Shabbat</td><td>🔴 Monter = amira/initiation → interdit</td></tr>
 </table>
 
-<h3>Les 5 commandements pratiques du Siman <bdi>רמ״ד</bdi></h3>
-<div class="remember">
+<h2 class="section-title">29. Questions de compréhension générale</h2>
+
+<div class="question-box">
+<strong>Vérifie ta compréhension (Cadre général &amp; concepts-clés) :</strong>
 <ol>
-  <li><strong>Vérifier kablanout</strong> — contrat au forfait, pas à l'heure</li>
-  <li><strong>Travail chez le non-juif</strong> — pas chez le Juif</li>
-  <li><strong>Talush uniquement</strong> — pas de terrain ni construction visible</li>
-  <li><strong>Pas demander Shabbat</strong> — laisser le non-juif décider quand</li>
-  <li><strong>Vérifier mar'it ayin</strong> — pas trop publiquement connu comme servant un Juif</li>
+  <li>Quelle est la différence fondamentale entre <span class="he-q">שכיר יום</span> et <span class="he-q">קבלן</span> ?</li>
+  <li>Pourquoi le forfaitaire n'est-il pas l'agent (שלוחו) du Juif ?</li>
+  <li>Que signifie <span class="he-q">תלוש</span> vs <span class="he-q">מחובר</span>, et pourquoi le mehoubar est-il interdit même par forfait ?</li>
+  <li>Quelles sont les 4 conditions cumulatives du kablanout permis ?</li>
+  <li>Qu'est-ce que la <span class="he-q">מראית עין</span> et donne un exemple dans ce Siman.</li>
+  <li>Comment articuler le Siman 244 avec le Siman <bdi>רמ״ז</bdi> (קציצה) ?</li>
 </ol>
 </div>
 
-<h2 class="section-title">10. Questions de compréhension</h2>
 <div class="question-box">
-<strong>Vérifie ta compréhension :</strong>
+<strong>Vérifie ta compréhension (Seifim du SHHaRav — fondement) :</strong>
 <ol>
-  <li>Quelle est la différence fondamentale entre שכיר יום et קבלן ?</li>
-  <li>Pourquoi le kablan n'est-il pas l'agent du Juif ?</li>
-  <li>Que signifie תלוש vs מחובר ?</li>
-  <li>Pourquoi le mehoubar est-il interdit même par kablan ?</li>
-  <li>Quelles sont les 4 conditions cumulatives du kablanout permis ?</li>
-  <li>Que signifie מראית עין ?</li>
-  <li>Imprimerie non-juive Shabbat — permise ?</li>
-  <li>Construction maison Shabbat — permise ?</li>
-  <li>Amazon livre Shabbat — permise ?</li>
-  <li>Comment articuler sim. 244 avec sim. רמ״ז (קציצה) ?</li>
+  <li>Pourquoi le désir du Juif (ובכך הוא חפץ) n'interdit-il pas le forfait ? (Seif Alef)</li>
+  <li>Qu'est-ce que la théorie du « קול » et comment distingue-t-elle תלוש et מחובר ? (Seif Bet)</li>
+  <li>Quelles sont les deux conditions de la permission hors tehoum ? (Seif Gimel)</li>
+  <li>Pourquoi le bateau (ספינה) est-il interdit malgré son statut de détaché ? (Seif Dalet)</li>
+  <li>Quelle est la frontière entre un objet « du Juif » et un objet « pour le Juif » ? (Seif Hé)</li>
+  <li>Pourquoi tailler des pierres destinées au mur est-il interdit, même loin et chez le non-juif ? (Seif Vav)</li>
+</ol>
+</div>
+
+<div class="question-box">
+<strong>Vérifie ta compréhension (Seifim du SHHaRav — casuistique) :</strong>
+<ol>
+  <li>Pourquoi une maison bâtie par forfait est-elle habitable bediavad, mais non par salarié à la journée ? (Seif Zayin)</li>
+  <li>Pourquoi la synagogue n'est-elle permise qu'en שעת הדחק, contrairement au nettoyage des rues ? (Seif 'Het)</li>
+  <li>Distingue <span class="he-q">הנאה</span> (agrément) et <span class="he-q">רֶוַח</span> (gain). (Seif Tet / Yod-Alef)</li>
+  <li>Comment la <span class="he-q">קפידא</span> du Juif peut-elle transformer un travail permis en interdit ? (Seif Yod)</li>
+  <li>Qu'est-ce que le <span class="he-q">שבות דשבות</span> et pourquoi permet-il le péage en forfait ? (Seif Yod-Bet)</li>
+  <li>Pourquoi le péage peut-il être affermé pour le Shabbat seul, alors que le bain exige l'הבלעה ? (Seif Tet-Vav)</li>
+  <li>Quelle est la différence entre חסרון כיס (perte de poche) et מניעת ריוח (manque à gagner) quant au mar’it ayin ? (Seif Khaf-Alef)</li>
+  <li>Pourquoi le Rav clôt-il par une règle générale (« et tout cas semblable ») plutôt qu'une liste fermée ? (Seif Khaf-Bet)</li>
 </ol>
 </div>
 
