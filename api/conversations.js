@@ -15,6 +15,24 @@
 import { kv } from './_kv.js';
 import { getUserFromRequest, setCorsHeaders } from './_auth.js';
 
+// Rate-limit par user (mutations seulement : POST/DELETE).
+// Endpoint déjà authentifié, mais un user malveillant ou un bug client
+// pourrait spammer les écritures KV (coût + bruit). 300 mutations/h suffisent
+// pour l'usage légitime (sync rapide, suppressions en lot).
+const RL_MUTATIONS_PER_HOUR = 300;
+
+async function isWriteRateLimited(email) {
+  try {
+    const key = `convs:rl:${email.toLowerCase()}`;
+    const count = await kv.incr(key);
+    if (count === 1) await kv.expire(key, 3600);
+    return count > RL_MUTATIONS_PER_HOUR;
+  } catch (err) {
+    console.error('[conversations] rate-limit KV error (fail-open):', err?.message || err);
+    return false;
+  }
+}
+
 const MAX_CONVERSATIONS = 100;        // garde-fou — 100 conversations max par user
 const MAX_MESSAGES_PER_CONV = 200;    // tronque les conversations très longues
 const MAX_CONTENT_PER_MESSAGE = 60000; // 60k chars ≈ 15k tokens — large, mais évite les abus
@@ -120,6 +138,12 @@ export default async function handler(req, res) {
 
   const user = getUserFromRequest(req);
   if (!user) return res.status(401).json({ error: 'Non authentifié' });
+
+  // Rate-limit sur les mutations (GET non concerné, lecture peu coûteuse)
+  if ((req.method === 'POST' || req.method === 'DELETE') && await isWriteRateLimited(user.email)) {
+    res.setHeader('Retry-After', '3600');
+    return res.status(429).json({ error: 'Trop de modifications. Réessaie dans une heure.' });
+  }
 
   try {
     if (req.method === 'GET') {
