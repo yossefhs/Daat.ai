@@ -1141,12 +1141,58 @@ function attachFeedbackBar(assistantBubble, answerText) {
     <span style="font-size:11px; color:var(--text-muted); margin-right:6px;">This answer:</span>
     <button class="fb-btn fb-up" title="Helpful">👍</button>
     <button class="fb-btn fb-down" title="Needs correction">👎</button>
-    
+    <button class="fb-btn fb-share" title="Share this answer">📤 Share</button>
+    <span class="fb-share-status" style="display:none; font-size:11px; color:var(--gold); margin-left:6px;"></span>
   `;
   wrap.insertAdjacentElement('afterend', bar);
 
   bar.querySelector('.fb-up').addEventListener('click', () => sendFeedback('👍', wrap, bar, lastUserContent, answerText));
   bar.querySelector('.fb-down').addEventListener('click', () => askDownComment(wrap, bar, lastUserContent, answerText));
+  bar.querySelector('.fb-share').addEventListener('click', () => shareResponse(bar, lastUserContent, answerText));
+}
+
+// Share an answer: native Web Share API on mobile, otherwise clipboard.
+// Always includes the site URL at the bottom to promote the platform.
+async function shareResponse(bar, question, answer) {
+  const SITE_URL = 'https://daattorah.com';
+  const q = (question || '').trim();
+  const a = (answer || '').trim();
+
+  const text = (q ? `❓ ${q}\n\n` : '') +
+               `${a}\n\n` +
+               `— Daat Torah · ${SITE_URL}\n` +
+               `Multilingual halacha study · Shulchan Aruch with AI assistant`;
+
+  const statusEl = bar.querySelector('.fb-share-status');
+  const showStatus = (msg, ms = 2500) => {
+    statusEl.textContent = msg;
+    statusEl.style.display = '';
+    setTimeout(() => { statusEl.style.display = 'none'; }, ms);
+  };
+
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: 'Answer from Daat Torah', text, url: SITE_URL });
+      showStatus('Shared ✓');
+      return;
+    } catch (err) {
+      if (err && err.name === 'AbortError') return;
+    }
+  }
+
+  try {
+    await navigator.clipboard.writeText(text);
+    showStatus('Copied to clipboard ✓');
+  } catch (err) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); showStatus('Copied ✓'); }
+    catch { showStatus('Copy failed — select text manually', 4000); }
+    ta.remove();
+  }
 }
 
 function askDownComment(wrap, bar, question, answer) {

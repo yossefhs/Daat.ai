@@ -1157,12 +1157,58 @@ function attachFeedbackBar(assistantBubble, answerText) {
     <span style="font-size:12px; color:var(--text-muted); margin-left:6px;">תשובה זו:</span>
     <button class="fb-btn fb-up" title="מועילה">👍</button>
     <button class="fb-btn fb-down" title="טעונה תיקון">👎</button>
-    
+    <button class="fb-btn fb-share" title="שתף תשובה זו">📤 שתף</button>
+    <span class="fb-share-status" style="display:none; font-size:11px; color:var(--gold); margin-right:6px;"></span>
   `;
   wrap.insertAdjacentElement('afterend', bar);
 
   bar.querySelector('.fb-up').addEventListener('click', () => sendFeedback('👍', wrap, bar, lastUserContent, answerText));
   bar.querySelector('.fb-down').addEventListener('click', () => askDownComment(wrap, bar, lastUserContent, answerText));
+  bar.querySelector('.fb-share').addEventListener('click', () => shareResponse(bar, lastUserContent, answerText));
+}
+
+// שיתוף תשובה — Web Share API במכשירים תומכים, אחרת העתקה ללוח.
+// תמיד כולל את כתובת האתר בסוף לקידום הלימוד.
+async function shareResponse(bar, question, answer) {
+  const SITE_URL = 'https://daattorah.com';
+  const q = (question || '').trim();
+  const a = (answer || '').trim();
+
+  const text = (q ? `❓ ${q}\n\n` : '') +
+               `${a}\n\n` +
+               `— דעת תורה · ${SITE_URL}\n` +
+               `לימוד הלכה רב-לשוני · שולחן ערוך עם עוזר בינה מלאכותית`;
+
+  const statusEl = bar.querySelector('.fb-share-status');
+  const showStatus = (msg, ms = 2500) => {
+    statusEl.textContent = msg;
+    statusEl.style.display = '';
+    setTimeout(() => { statusEl.style.display = 'none'; }, ms);
+  };
+
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: 'תשובה מדעת תורה', text, url: SITE_URL });
+      showStatus('שותף ✓');
+      return;
+    } catch (err) {
+      if (err && err.name === 'AbortError') return;
+    }
+  }
+
+  try {
+    await navigator.clipboard.writeText(text);
+    showStatus('הועתק ללוח ✓');
+  } catch (err) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); showStatus('הועתק ✓'); }
+    catch { showStatus('העתקה נכשלה — בחר את הטקסט ידנית', 4000); }
+    ta.remove();
+  }
 }
 
 function askDownComment(wrap, bar, question, answer) {

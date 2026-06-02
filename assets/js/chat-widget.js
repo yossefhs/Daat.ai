@@ -823,12 +823,21 @@
         if (this.messages[i].role === 'user') { lastUserContent = this.messages[i].content; break; }
         if (this.messages[i].role === 'assistant' && this.messages[i].content === answerText) continue;
       }
+      // i18n minimal selon la lang de la page hôte
+      const pageLang = (document.documentElement.lang || 'fr').slice(0, 2);
+      const i18n = {
+        fr: { label: 'Cette réponse :', up: 'Utile', down: 'À corriger', share: '📤 Partager', shareTitle: 'Partager cette réponse' },
+        he: { label: 'תשובה זו:', up: 'מועילה', down: 'טעונה תיקון', share: '📤 שתף', shareTitle: 'שתף תשובה זו' },
+        en: { label: 'This answer:', up: 'Helpful', down: 'Needs correction', share: '📤 Share', shareTitle: 'Share this answer' },
+      }[pageLang] || { label: 'Cette réponse :', up: 'Utile', down: 'À corriger', share: '📤 Partager', shareTitle: 'Partager cette réponse' };
+
       const bar = document.createElement('div');
       bar.className = 'daat-chat-feedback';
       bar.innerHTML = `
-        <span class="daat-chat-feedback-label">Cette réponse :</span>
-        <button class="daat-chat-fb-btn daat-chat-fb-up" title="Utile">👍</button>
-        <button class="daat-chat-fb-btn daat-chat-fb-down" title="À corriger">👎</button>
+        <span class="daat-chat-feedback-label">${i18n.label}</span>
+        <button class="daat-chat-fb-btn daat-chat-fb-up" title="${i18n.up}">👍</button>
+        <button class="daat-chat-fb-btn daat-chat-fb-down" title="${i18n.down}">👎</button>
+        <button class="daat-chat-fb-btn daat-chat-fb-share" title="${i18n.shareTitle}">${i18n.share}</button>
         <span class="daat-chat-feedback-thanks" style="display:none;"></span>
       `;
       // Insérer la barre APRÈS la bulle (pas dedans) — en dessous du texte
@@ -840,6 +849,66 @@
       bar.querySelector('.daat-chat-fb-down').addEventListener('click', () => {
         widget.askDownComment(assistantEl, bar, lastUserContent, answerText);
       });
+      bar.querySelector('.daat-chat-fb-share').addEventListener('click', () => {
+        widget.shareResponse(bar, lastUserContent, answerText, pageLang);
+      });
+    }
+
+    // Partage une réponse Daat — Web Share API natif si dispo (mobile),
+    // sinon copie presse-papier. Inclut TOUJOURS l'URL daattorah.com en bas
+    // pour la promotion du site auprès du destinataire.
+    async shareResponse(bar, question, answer, pageLang = 'fr') {
+      const SITE_URL = 'https://daattorah.com';
+      const lang = (pageLang || 'fr').slice(0, 2);
+      const footers = {
+        fr: `— Daat Torah · ${SITE_URL}\nÉtude halakhique en français · Choulhan Aroukh trilingue + assistant IA`,
+        he: `— דעת תורה · ${SITE_URL}\nלימוד הלכה רב-לשוני · שולחן ערוך עם עוזר בינה מלאכותית`,
+        en: `— Daat Torah · ${SITE_URL}\nMultilingual halacha study · Shulchan Aruch with AI assistant`,
+      };
+      const titles = { fr: 'Réponse de Daat Torah', he: 'תשובה מדעת תורה', en: 'Answer from Daat Torah' };
+      const statusMsgs = {
+        fr: { shared: 'Partagé ✓', copied: 'Copié ✓', fail: 'Copie échouée — sélectionne le texte manuellement' },
+        he: { shared: 'שותף ✓', copied: 'הועתק ✓', fail: 'העתקה נכשלה — בחר את הטקסט ידנית' },
+        en: { shared: 'Shared ✓', copied: 'Copied ✓', fail: 'Copy failed — select text manually' },
+      };
+      const msg = statusMsgs[lang] || statusMsgs.fr;
+
+      const q = (question || '').trim();
+      const a = (answer || '').trim();
+      const text = (q ? `❓ ${q}\n\n` : '') + `${a}\n\n` + (footers[lang] || footers.fr);
+
+      const thanks = bar.querySelector('.daat-chat-feedback-thanks');
+      const showStatus = (m, ms = 2500) => {
+        thanks.style.display = '';
+        thanks.textContent = m;
+        setTimeout(() => {
+          if (thanks.textContent === m) thanks.style.display = 'none';
+        }, ms);
+      };
+
+      if (navigator.share) {
+        try {
+          await navigator.share({ title: titles[lang] || titles.fr, text, url: SITE_URL });
+          showStatus(msg.shared);
+          return;
+        } catch (err) {
+          if (err && err.name === 'AbortError') return;
+        }
+      }
+
+      try {
+        await navigator.clipboard.writeText(text);
+        showStatus(msg.copied);
+      } catch (err) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); showStatus(msg.copied); }
+        catch { showStatus(msg.fail, 4000); }
+        ta.remove();
+      }
     }
 
     askDownComment(assistantEl, bar, question, answer) {
