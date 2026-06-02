@@ -160,7 +160,7 @@ const SUBSCRIBER_PLANS = new Set(['khavroutha', 'beit_midrash', 'beit_midrash_pl
 // 'premium' legacy conservé pour les anciens utilisateurs Premium illimité.
 const ALWAYS_OPUS_PLANS = new Set(['premium']);
 
-const HELLOASSO_URL = 'https://www.helloasso.com/associations/association-hessed/formulaires/9';
+const HELLOASSO_URL = 'https://www.helloasso.com/associations/association-hessed';
 const SOUTENIR_URL = '/soutenir.html';
 const GUEST_COOKIE = 'daat_guest_id';
 
