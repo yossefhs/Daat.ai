@@ -19,6 +19,25 @@
 //   - feedback:list    → liste des ids (les 1000 plus récents)
 
 import { kv } from './_kv.js';
+import { getClientIp } from './_http.js';
+
+// Garde-fou anti-spam : 30 feedbacks/IP/jour suffisent pour un usage légitime
+// (un même utilisateur peut noter quelques dizaines de réponses dans une session
+// d'étude intensive, mais pas centaines).
+const RL_PER_IP_DAY = 30;
+
+async function isRateLimited(ip) {
+  if (ip === 'unknown') return false; // fail-open si IP introuvable
+  try {
+    const key = `feedback:rl:${ip}`;
+    const count = await kv.incr(key);
+    if (count === 1) await kv.expire(key, 24 * 60 * 60);
+    return count > RL_PER_IP_DAY;
+  } catch (err) {
+    console.error('[feedback] rate-limit KV error (fail-open):', err?.message || err);
+    return false;
+  }
+}
 
 export default async function handler(req, res) {
   // CORS
@@ -28,6 +47,13 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'POST uniquement' });
+  }
+
+  // Rate-limit IP avant tout traitement (endpoint public non authentifié)
+  const ip = getClientIp(req);
+  if (await isRateLimited(ip)) {
+    res.setHeader('Retry-After', String(24 * 60 * 60));
+    return res.status(429).json({ error: 'Trop de retours envoyés aujourd\'hui. Reviens demain.' });
   }
 
   try {
@@ -55,7 +81,7 @@ export default async function handler(req, res) {
       page: typeof page === 'string' ? page.slice(0, 200) : '',
       createdAt: Date.now(),
       userAgent: (req.headers['user-agent'] || '').slice(0, 200),
-      ip: (req.headers['x-forwarded-for'] || req.connection?.remoteAddress || '').toString().slice(0, 50),
+      ip: ip.slice(0, 50),
     };
 
     // Sauvegarde dans KV
