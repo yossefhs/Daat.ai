@@ -2,48 +2,45 @@
   "number": 304,
   "numberHe": "ש\"ד",
   "titleHe": "דין שביתת עבד",
-  "titleFr": "Sur le repos de l'esclave",
-  "subtitle": "L'Admour HaZaken n'a pas écrit ce siman (sujet historique).",
-  "description": "Siman 304 — sur le repos de l'esclave juif. L'Admour HaZaken n'a pas développé ce siman, le sujet étant devenu inapplicable.",
-  "keywords": "siman 304, esclave, choulhan aroukh, admour hazaken absence",
-  "teaches": [],
+  "titleFr": "Le repos du serviteur et de l'esclave le Chabbat",
+  "subtitle": "Les lois du repos du serviteur non-juif et de l'esclave le Chabbat, selon le Mehaber et le Mishnah Berurah.",
+  "description": "Siman 304 — le repos du serviteur et de l'esclave le Chabbat, étudié selon le Choulhan Aroukh (Mehaber) et le Mishnah Berurah. L'Admour HaZaken n'a pas rédigé ce siman ; le niveau Daat HaRav (niveau 4) n'est donc pas proposé.",
+  "keywords": "siman 304, repos de l'esclave, shevitat eved, choulhan aroukh, mishnah berurah, hilkhot shabbat",
+  "teaches": [
+    "Le repos du serviteur non-juif et de l'esclave le Chabbat",
+    "Les obligations du maître concernant le travail de ses serviteurs"
+  ],
   "citations": [],
+  "faq": [
+    {
+      "q": "Pourquoi le siman 304 n'a-t-il pas de niveau Daat HaRav (niveau 4) ?",
+      "a": "L'Admour HaZaken (Choulhan Aroukh HaRav) n'a pas rédigé ce siman. L'étude suit donc le Mehaber (Rabbi Yossef Karo) et le Mishnah Berurah, proposés aux niveaux 1 à 3."
+    }
+  ],
   "levels": [
     {
       "num": 1,
       "bar": 1,
-      "nameHe": "—",
-      "nameFr": "Absent",
-      "desc": "Niveau pas développé pour ce siman.",
-      "href": "#",
-      "comingSoon": true
+      "nameHe": "רמת המתחילים",
+      "nameFr": "Base — Initiation",
+      "desc": "Initiation pédagogique : texte hébreu du Mehaber et du Mishnah Berurah, traduction française fluide, concepts-clés expliqués, cas pratiques et synthèse.",
+      "href": "niveau-1-base.html"
     },
     {
       "num": 2,
       "bar": 2,
-      "nameHe": "—",
-      "nameFr": "Absent",
-      "desc": "Niveau pas développé pour ce siman.",
-      "href": "#",
-      "comingSoon": true
+      "nameHe": "רמת הלמדן",
+      "nameFr": "Lamdan — Pilpoul avancé",
+      "desc": "Pilpoul approfondi : sources talmudiques, שיטות des Rishonim et Acharonim, חקירות יסודיות, מחלוקות classiques, נפקא מינות pratiques.",
+      "href": "niveau-2-lamdan.html"
     },
     {
       "num": 3,
       "bar": 3,
-      "nameHe": "—",
-      "nameFr": "Absent",
-      "desc": "Niveau pas développé pour ce siman.",
-      "href": "#",
-      "comingSoon": true
-    },
-    {
-      "num": 4,
-      "bar": 4,
-      "isHabad": true,
-      "nameHe": "דעת הרב",
-      "nameFr": "Daat HaRav — Non développé",
-      "desc": "L'Admour HaZaken n'a pas écrit ce siman. Référence au Mehaber pour étude académique.",
-      "href": "index.html"
+      "nameHe": "חזרה וסיכום",
+      "nameFr": "Synthèse Magistrale",
+      "desc": "Synthèse magistrale : axiome central, hiérarchie des concepts, arbres de décision, mnémoniques, pièges à éviter, tableau de synthèse.",
+      "href": "niveau-3-synthese.html"
     }
   ]
 }

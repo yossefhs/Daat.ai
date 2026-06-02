@@ -12,7 +12,7 @@ Pour un siman donné :
 Usage :
     python3 scripts/generate-niveaux-123.py --siman 248
     python3 scripts/generate-niveaux-123.py --range 248-257
-    python3 scripts/generate-niveaux-123.py --all  # 248-365 hors 304, 322
+    python3 scripts/generate-niveaux-123.py --all  # tous les simanim 242-365
 
 Le contenu inclut le texte hébreu intégral du Mehaber et du MB depuis Sefaria.
 La structure et les sections analytiques sont adaptées au siman via son JSON.
@@ -30,8 +30,10 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / 'data' / 'simanim'
 SOURCES_DIR = ROOT / 'sources' / 'shabbat'
 
-# Skip placeholders (non développés par l'Admour)
-SKIP = {304, 322}
+# Les niveaux 1-3 suivent le Mehaber : ils couvrent TOUS les simanim 242-365,
+# y compris 304 et 322 — que le Mehaber et le Mishnah Berurah traitent, même si
+# l'Admour HaZaken (niveau 4) ne les a pas rédigés. Aucun siman n'est ignoré.
+SKIP = set()
 
 # ============================================================
 # SEFARIA FETCHING

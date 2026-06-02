@@ -25,8 +25,10 @@ import sys
 
 ROOT = os.path.join(os.path.dirname(__file__), "..", "sources", "shabbat")
 FIRST, LAST = 242, 365
-# Simanim que l'Admour HaZaken n'a pas rédigés : pas de niveaux 1-4 attendus.
-NO_LEVELS = {304, 322}
+# Simanim non rédigés par l'Admour HaZaken : le niveau 4 (Daat HaRav) n'est pas
+# attendu, mais les niveaux 1-3 (Mehaber + Mishnah Berurah) le sont, car ils
+# suivent le Mehaber, qui traite bien ces simanim.
+NO_LEVEL4 = {304, 322}
 
 # Marqueurs NON ambigus de contenu générique laissé par le générateur.
 BP_N1 = "Traduction structurelle"
@@ -80,12 +82,13 @@ def audit_siman(n):
     d = os.path.join(ROOT, f"siman-{n}")
     res = {"siman": n, "errors": [], "warnings": [], "levels": {}}
 
-    if n in NO_LEVELS:
-        res["levels"] = {k: "n/a" for k in LEVELS}
-        res["note"] = "non rédigé par l'Admour HaZaken"
-        return res
+    if n in NO_LEVEL4:
+        res["note"] = "Niveau 4 (Daat HaRav) non rédigé par l'Admour HaZaken"
 
     for lvl, fname in LEVELS.items():
+        if lvl == "N4" and n in NO_LEVEL4:
+            res["levels"][lvl] = "n/a"
+            continue
         html = read(os.path.join(d, fname))
         if html is None:
             res["levels"][lvl] = "ABSENT"

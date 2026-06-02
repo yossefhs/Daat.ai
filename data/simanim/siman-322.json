@@ -2,48 +2,45 @@
   "number": 322,
   "numberHe": "שכ\"ב",
   "titleHe": "דין נולד בשבת",
-  "titleFr": "Œuf pondu Shabbat (Mehaber seul)",
-  "subtitle": "L'Admour HaZaken n'a pas écrit ce siman séparément.",
-  "description": "Siman 322 — œuf pondu Shabbat. Sujet traité dans les simanim 308, 310 chez l'Admour HaZaken.",
-  "keywords": "siman 322, nolad, muktsé, admour hazaken absence",
-  "teaches": [],
+  "titleFr": "L'œuf pondu le Chabbat (Nolad)",
+  "subtitle": "L'œuf pondu le Chabbat et les lois du Nolad, selon le Mehaber et le Mishnah Berurah.",
+  "description": "Siman 322 — l'œuf pondu le Chabbat et les questions de Nolad et de Mouktsé, étudiés selon le Choulhan Aroukh (Mehaber) et le Mishnah Berurah. L'Admour HaZaken n'a pas rédigé ce siman séparément (il traite le sujet dans les simanim 308 et 310) ; le niveau Daat HaRav (niveau 4) n'est donc pas proposé.",
+  "keywords": "siman 322, nolad, oeuf pondu, muktsé, choulhan aroukh, mishnah berurah, hilkhot shabbat",
+  "teaches": [
+    "L'œuf pondu le Chabbat",
+    "Les lois du Nolad (objet « nouveau ») le Chabbat"
+  ],
   "citations": [],
+  "faq": [
+    {
+      "q": "Pourquoi le siman 322 n'a-t-il pas de niveau Daat HaRav (niveau 4) ?",
+      "a": "L'Admour HaZaken (Choulhan Aroukh HaRav) n'a pas consacré de siman séparé à ce sujet ; il traite le Nolad dans les simanim 308 et 310. L'étude du siman 322 suit donc le Mehaber et le Mishnah Berurah, proposés aux niveaux 1 à 3."
+    }
+  ],
   "levels": [
     {
       "num": 1,
       "bar": 1,
-      "nameHe": "—",
-      "nameFr": "Absent",
-      "desc": "Voir simanim 308, 310.",
-      "href": "#",
-      "comingSoon": true
+      "nameHe": "רמת המתחילים",
+      "nameFr": "Base — Initiation",
+      "desc": "Initiation pédagogique : texte hébreu du Mehaber et du Mishnah Berurah, traduction française fluide, concepts-clés expliqués, cas pratiques et synthèse.",
+      "href": "niveau-1-base.html"
     },
     {
       "num": 2,
       "bar": 2,
-      "nameHe": "—",
-      "nameFr": "Absent",
-      "desc": "Voir simanim 308, 310.",
-      "href": "#",
-      "comingSoon": true
+      "nameHe": "רמת הלמדן",
+      "nameFr": "Lamdan — Pilpoul avancé",
+      "desc": "Pilpoul approfondi : sources talmudiques, שיטות des Rishonim et Acharonim, חקירות יסודיות, מחלוקות classiques, נפקא מינות pratiques.",
+      "href": "niveau-2-lamdan.html"
     },
     {
       "num": 3,
       "bar": 3,
-      "nameHe": "—",
-      "nameFr": "Absent",
-      "desc": "Voir simanim 308, 310.",
-      "href": "#",
-      "comingSoon": true
-    },
-    {
-      "num": 4,
-      "bar": 4,
-      "isHabad": true,
-      "nameHe": "דעת הרב",
-      "nameFr": "Daat HaRav — Non développé séparément",
-      "desc": "L'Admour HaZaken traite le sujet dans les simanim 308 et 310. Référence au Mehaber.",
-      "href": "index.html"
+      "nameHe": "חזרה וסיכום",
+      "nameFr": "Synthèse Magistrale",
+      "desc": "Synthèse magistrale : axiome central, hiérarchie des concepts, arbres de décision, mnémoniques, pièges à éviter, tableau de synthèse.",
+      "href": "niveau-3-synthese.html"
     }
   ]
 }
