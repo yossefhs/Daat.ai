@@ -38,13 +38,39 @@ MEHABER_SEIFIM = {
 }
 
 
+# Pattern : extraire le « X Seifim » déclaré dans le H1 du N1
+H1_DECLARED_PATTERN = re.compile(
+    r'<h1>Siman[^<]*<bdi>[^<]+</bdi>[^<]*·\s*(\d+)\s+Seifim'
+)
+
+
+def extract_declared_seifim(file_path: Path) -> int | None:
+    """Extrait le nombre de séifim auto-déclaré dans le H1 du N1.
+
+    Format attendu : `<h1>Siman <bdi>רמ״ז</bdi> · 6 Seifim</h1>`.
+    Renvoie None si pas de H1 standard.
+    """
+    if not file_path.exists():
+        return None
+    try:
+        text = file_path.read_text(encoding="utf-8")
+    except Exception:
+        return None
+    m = H1_DECLARED_PATTERN.search(text)
+    return int(m.group(1)) if m else None
+
+
 def count_seifim_in_file(file_path: Path) -> int:
     """Compte les seifim distincts presents dans un fichier HTML.
 
     Cherche des marqueurs comme :
-    - "Seif Alef", "Seif Bet", "Seif Gimel"...
+    - "Seif Alef", "Seif Bet", "Seif Gimel"... (translit EN)
+    - "Seif Beit", "Seif Daled", "Seif Guimel", "Seif Hé" (translit FR)
     - "Seif 1", "Seif 2"...
-    - "סעיף א", "סעיף ב"...
+    - "סעיף א", "סעיף ב"... (hébreu)
+    - "Seif א", "Seif ב"... (translit + hébreu)
+    - "Séif א" (français + hébreu)
+    - Ranges : "Seifim Daled–Hé", "Seifim 11-17" (groupements éditoriaux)
     """
     if not file_path.exists():
         return 0
@@ -53,13 +79,45 @@ def count_seifim_in_file(file_path: Path) -> int:
     except Exception:
         return 0
 
-    # Latin transliterations (Alef, Bet, ...) — format "Seif Alef"
+    # Détection des RANGES "Seifim X–Y" / "Seifim X-Y" (groupements éditoriaux)
+    # Format : "Seifim Daled–Hé", "Seifim 11-17", "Seifim Daled-Hé"
+    range_letter = re.findall(
+        r"S[ée]ifim\s+([A-Za-zéא-ת]+)\s*[-–—]\s*([A-Za-zéא-ת]+)",
+        text,
+    )
+    range_num = re.findall(r"S[ée]ifim\s+(\d+)\s*[-–—]\s*(\d+)", text)
+
+    range_count = 0
+    HE_ORDER = [
+        "Alef", "Bet", "Beit", "Gimel", "Guimel", "Dalet", "Daled",
+        "He", "Hé", "Hei", "Vav", "Zayin", "Het", "Chet", "Tet", "Yod",
+    ]
+    NORMALIZE = {
+        "Beit": "Bet", "Guimel": "Gimel", "Daled": "Dalet",
+        "Hé": "He", "Hei": "He", "Chet": "Het",
+    }
+    for start, end in range_letter:
+        s = NORMALIZE.get(start, start)
+        e = NORMALIZE.get(end, end)
+        # Order simplifié
+        base = ["Alef", "Bet", "Gimel", "Dalet", "He", "Vav", "Zayin",
+                "Het", "Tet", "Yod"]
+        if s in base and e in base:
+            range_count += base.index(e) - base.index(s) + 1
+    for start, end in range_num:
+        range_count += int(end) - int(start) + 1
+
+    # Transliterations (Alef, Bet, ...) — format "Seif Alef"
+    # Inclut variantes FR (Beit, Daled, Guimel, Hé) et EN (Bet, Dalet, Gimel, He)
     LATIN_LETTERS = [
-        "Alef", "Bet", "Gimel", "Dalet", "He", "Hei", "Vav", "Zayin",
-        "Het", "Chet", "Tet", "Yod",
-        "Yod Alef", "Yod Bet", "Yod Gimel", "Yod Dalet", "Yod He",
+        "Alef", "Bet", "Beit", "Gimel", "Guimel", "Dalet", "Daled",
+        "He", "Hei", "Hé", "Vav", "Zayin", "Het", "Chet", "Heth",
+        "Tet", "Yod", "Youd",
+        "Yod Alef", "Yod Bet", "Yod Beit", "Yod Gimel", "Yod Guimel",
+        "Yod Dalet", "Yod Daled", "Yod He", "Yod Hé",
         "Yod Vav", "Yod Zayin", "Yod Het", "Yod Tet",
-        "Kaf", "Lamed", "Mem", "Nun", "Samech", "Ayin", "Pe", "Tzadi",
+        "Kaf", "Khaf", "Lamed", "Mem", "Nun", "Noun", "Samech",
+        "Ayin", "Pe", "Pé", "Tzadi", "Tsadi",
     ]
     latin_count = 0
     for letter in LATIN_LETTERS:
@@ -82,10 +140,14 @@ def count_seifim_in_file(file_path: Path) -> int:
     # Numerical Seif (Seif 1, Seif 2, ...)
     num_count = len(set(re.findall(r"\bSeif (\d+)\b", text)))
 
-    return max(
+    # Inclure les ranges éditoriaux dans le total détecté
+    base_max = max(
         latin_count, mixed_count, fr_mixed_count, he_count, num_count,
         1 if text else 0,
     )
+    # Si on a des ranges, ils complètent le comptage
+    return max(base_max, base_max + range_count - latin_count if range_count else 0,
+               base_max + range_count if range_count else base_max)
 
 
 def main():
@@ -98,7 +160,9 @@ def main():
         if not folder.exists():
             continue
         total += 1
-        mehaber = MEHABER_SEIFIM[num]
+        # Source de vérité : H1 du N1 (auto-déclaré) > dict figé
+        declared = extract_declared_seifim(folder / "niveau-1-base.html")
+        mehaber = declared if declared is not None else MEHABER_SEIFIM[num]
         n1 = count_seifim_in_file(folder / "niveau-1-base.html")
         n3 = count_seifim_in_file(folder / "niveau-3-synthese.html")
         n4 = count_seifim_in_file(folder / "niveau-4-daat-harav.html")
