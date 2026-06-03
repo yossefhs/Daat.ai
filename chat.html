@@ -87,7 +87,7 @@
     .logo-he { font-family: 'Frank Ruhl Libre', serif; font-size: 26px; font-weight: 700; color: var(--gold); }
     .logo-meta { display: flex; flex-direction: column; line-height: 1.1; }
     .logo-en { font-size: 13px; font-weight: 600; color: #fff; letter-spacing: 3px; }
-    .logo-sub { font-size: 10px; color: rgba(255,255,255,0.5); letter-spacing: 2px; text-transform: uppercase; }
+    .logo-sub { font-size: 10px; color: rgba(255,255,255,0.85); letter-spacing: 2px; text-transform: uppercase; }
     .header-actions { display: flex; align-items: center; gap: 8px; }
     .header-btn {
       background: transparent; border: 1px solid rgba(255,255,255,0.2);
@@ -104,7 +104,7 @@
     .lang-picker { display: inline-flex; gap: 3px; margin-right: 6px; }
     .lang-btn {
       background: transparent; border: 1px solid rgba(255,255,255,0.15);
-      color: rgba(255,255,255,0.55); padding: 5px 9px; font-size: 11px;
+      color: rgba(255,255,255,0.85); padding: 5px 9px; font-size: 11px;
       cursor: pointer; font-family: inherit; letter-spacing: 1px;
       border-radius: 3px; transition: all 0.15s;
     }
@@ -156,7 +156,7 @@
     .new-conv-btn:hover { background: var(--gold-light); }
     .sidebar-section-label {
       font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.85);
       padding: 14px 16px 8px; font-weight: 600;
     }
     .conv-list {
@@ -165,7 +165,7 @@
     .conv-list::-webkit-scrollbar { width: 6px; }
     .conv-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
     .conv-empty {
-      padding: 16px; font-size: 12px; color: rgba(255,255,255,0.4);
+      padding: 16px; font-size: 12px; color: rgba(255,255,255,0.85);
       font-style: italic; text-align: center; line-height: 1.5;
     }
     .conv-item {
@@ -183,12 +183,12 @@
       font-weight: 500; line-height: 1.35;
     }
     .conv-item-meta {
-      font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 3px;
+      font-size: 10px; color: rgba(255,255,255,0.85); margin-top: 3px;
       letter-spacing: 0.3px;
     }
     .conv-item-del {
       flex-shrink: 0; opacity: 0; transition: opacity 0.15s;
-      background: transparent; border: none; color: rgba(255,255,255,0.5);
+      background: transparent; border: none; color: rgba(255,255,255,0.85);
       cursor: pointer; padding: 4px; border-radius: 3px;
       font-size: 12px;
     }
@@ -196,7 +196,7 @@
     .conv-item-del:hover { color: var(--red); background: rgba(192,57,43,0.15); }
     .sidebar-footer {
       padding: 12px 16px; border-top: 1px solid rgba(255,255,255,0.06);
-      font-size: 11px; color: rgba(255,255,255,0.35); text-align: center;
+      font-size: 11px; color: rgba(255,255,255,0.85); text-align: center;
     }
 
     /* MAIN AREA */
@@ -474,7 +474,7 @@
     .lang-switcher a {
       font-family: 'Inter', sans-serif; font-size: 11px;
       padding: 3px 7px; border-radius: 2px; letter-spacing: 1px;
-      color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.85); border: 1px solid rgba(255,255,255,0.15);
       text-decoration: none; text-transform: none;
     }
     .lang-switcher a.active { color: var(--gold, #C5A55A); border-color: var(--gold, #C5A55A); }
@@ -1157,13 +1157,68 @@ function attachFeedbackBar(assistantBubble, answerText) {
     <span style="font-size:11px; color:var(--text-muted); margin-right:6px;">Cette réponse :</span>
     <button class="fb-btn fb-up" title="Utile">👍</button>
     <button class="fb-btn fb-down" title="À corriger">👎</button>
-    
+    <button class="fb-btn fb-share" title="Partager cette réponse">📤 Partager</button>
+    <span class="fb-share-status" style="display:none; font-size:11px; color:var(--gold); margin-left:6px;"></span>
   `;
   // Insérer APRÈS .message, pas dedans — la barre s'affiche sous la bulle
   wrap.insertAdjacentElement('afterend', bar);
 
   bar.querySelector('.fb-up').addEventListener('click', () => sendFeedback('👍', wrap, bar, lastUserContent, answerText));
   bar.querySelector('.fb-down').addEventListener('click', () => askDownComment(wrap, bar, lastUserContent, answerText));
+  bar.querySelector('.fb-share').addEventListener('click', () => shareResponse(bar, lastUserContent, answerText));
+}
+
+// Partage une réponse : Web Share API natif si dispo (mobile), sinon copie presse-papier.
+// Inclut systématiquement l'URL daattorah.com en bas pour la promotion du site.
+async function shareResponse(bar, question, answer) {
+  const SITE_URL = 'https://daattorah.com';
+  const q = (question || '').trim();
+  const a = (answer || '').trim();
+
+  const text = (q ? `❓ ${q}\n\n` : '') +
+               `${a}\n\n` +
+               `— Daat Torah · ${SITE_URL}\n` +
+               `Étude halakhique en français · Choulhan Aroukh trilingue + assistant IA`;
+
+  const statusEl = bar.querySelector('.fb-share-status');
+  const btn = bar.querySelector('.fb-share');
+  const showStatus = (msg, ms = 2500) => {
+    statusEl.textContent = msg;
+    statusEl.style.display = '';
+    setTimeout(() => { statusEl.style.display = 'none'; }, ms);
+  };
+
+  // 1. Web Share API (mobile, certains desktop)
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: 'Réponse de Daat Torah',
+        text,
+        url: SITE_URL,
+      });
+      showStatus('Partagé ✓');
+      return;
+    } catch (err) {
+      if (err && err.name === 'AbortError') return; // user a annulé
+      // sinon, fallback clipboard
+    }
+  }
+
+  // 2. Clipboard fallback
+  try {
+    await navigator.clipboard.writeText(text);
+    showStatus('Copié dans le presse-papier ✓');
+  } catch (err) {
+    // 3. Ultime fallback : textarea + execCommand
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); showStatus('Copié ✓'); }
+    catch { showStatus('Copie échouée — sélectionne le texte manuellement', 4000); }
+    ta.remove();
+  }
 }
 
 function askDownComment(wrap, bar, question, answer) {

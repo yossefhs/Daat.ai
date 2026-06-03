@@ -46,7 +46,9 @@
   </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap"></noscript>
   <link rel="stylesheet" href="/assets/css/daat-enhance.css">
   <style>
     :root {
@@ -86,7 +88,7 @@
     .logo-he { font-family: 'Frank Ruhl Libre', serif; font-size: 26px; font-weight: 700; color: var(--gold); }
     .logo-meta { display: flex; flex-direction: column; line-height: 1.1; }
     .logo-en { font-size: 13px; font-weight: 600; color: #fff; letter-spacing: 3px; }
-    .logo-sub { font-size: 10px; color: rgba(255,255,255,0.5); letter-spacing: 2px; text-transform: uppercase; }
+    .logo-sub { font-size: 10px; color: rgba(255,255,255,0.85); letter-spacing: 2px; text-transform: uppercase; }
     .header-actions { display: flex; align-items: center; gap: 8px; }
     .header-btn {
       background: transparent; border: 1px solid rgba(255,255,255,0.2);
@@ -105,7 +107,7 @@
     .lang-switcher a {
       font-family: 'Inter', sans-serif; font-size: 11px;
       padding: 3px 7px; border-radius: 2px; letter-spacing: 1px;
-      color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.85); border: 1px solid rgba(255,255,255,0.15);
       text-decoration: none;
     }
     .lang-switcher a.active { color: var(--gold); border-color: var(--gold); }
@@ -115,7 +117,7 @@
     .lang-picker { display: inline-flex; gap: 3px; margin-right: 6px; }
     .lang-btn {
       background: transparent; border: 1px solid rgba(255,255,255,0.15);
-      color: rgba(255,255,255,0.55); padding: 5px 9px; font-size: 11px;
+      color: rgba(255,255,255,0.85); padding: 5px 9px; font-size: 11px;
       cursor: pointer; font-family: inherit; letter-spacing: 1px;
       border-radius: 3px; transition: all 0.15s;
     }
@@ -167,7 +169,7 @@
     .new-conv-btn:hover { background: var(--gold-light); }
     .sidebar-section-label {
       font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.85);
       padding: 14px 16px 8px; font-weight: 600;
     }
     .conv-list {
@@ -176,7 +178,7 @@
     .conv-list::-webkit-scrollbar { width: 6px; }
     .conv-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
     .conv-empty {
-      padding: 16px; font-size: 12px; color: rgba(255,255,255,0.4);
+      padding: 16px; font-size: 12px; color: rgba(255,255,255,0.85);
       font-style: italic; text-align: center; line-height: 1.5;
     }
     .conv-item {
@@ -194,12 +196,12 @@
       font-weight: 500; line-height: 1.35;
     }
     .conv-item-meta {
-      font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 3px;
+      font-size: 10px; color: rgba(255,255,255,0.85); margin-top: 3px;
       letter-spacing: 0.3px;
     }
     .conv-item-del {
       flex-shrink: 0; opacity: 0; transition: opacity 0.15s;
-      background: transparent; border: none; color: rgba(255,255,255,0.5);
+      background: transparent; border: none; color: rgba(255,255,255,0.85);
       cursor: pointer; padding: 4px; border-radius: 3px;
       font-size: 12px;
     }
@@ -207,7 +209,7 @@
     .conv-item-del:hover { color: var(--red); background: rgba(192,57,43,0.15); }
     .sidebar-footer {
       padding: 12px 16px; border-top: 1px solid rgba(255,255,255,0.06);
-      font-size: 11px; color: rgba(255,255,255,0.35); text-align: center;
+      font-size: 11px; color: rgba(255,255,255,0.85); text-align: center;
     }
 
     /* MAIN AREA */
@@ -495,7 +497,7 @@
     </a>
   </div>
   <div class="header-actions">
-    <span class="lang-switcher">
+    <a href="faq-en.html">FAQ</a><a href="about-en.html">About</a><span class="lang-switcher">
       <a href="chat.html">FR</a>
       <a href="chat-he.html">HE</a>
       <a href="chat-en.html" class="active">EN</a>
@@ -1139,12 +1141,58 @@ function attachFeedbackBar(assistantBubble, answerText) {
     <span style="font-size:11px; color:var(--text-muted); margin-right:6px;">This answer:</span>
     <button class="fb-btn fb-up" title="Helpful">👍</button>
     <button class="fb-btn fb-down" title="Needs correction">👎</button>
-    
+    <button class="fb-btn fb-share" title="Share this answer">📤 Share</button>
+    <span class="fb-share-status" style="display:none; font-size:11px; color:var(--gold); margin-left:6px;"></span>
   `;
   wrap.insertAdjacentElement('afterend', bar);
 
   bar.querySelector('.fb-up').addEventListener('click', () => sendFeedback('👍', wrap, bar, lastUserContent, answerText));
   bar.querySelector('.fb-down').addEventListener('click', () => askDownComment(wrap, bar, lastUserContent, answerText));
+  bar.querySelector('.fb-share').addEventListener('click', () => shareResponse(bar, lastUserContent, answerText));
+}
+
+// Share an answer: native Web Share API on mobile, otherwise clipboard.
+// Always includes the site URL at the bottom to promote the platform.
+async function shareResponse(bar, question, answer) {
+  const SITE_URL = 'https://daattorah.com';
+  const q = (question || '').trim();
+  const a = (answer || '').trim();
+
+  const text = (q ? `❓ ${q}\n\n` : '') +
+               `${a}\n\n` +
+               `— Daat Torah · ${SITE_URL}\n` +
+               `Multilingual halacha study · Shulchan Aruch with AI assistant`;
+
+  const statusEl = bar.querySelector('.fb-share-status');
+  const showStatus = (msg, ms = 2500) => {
+    statusEl.textContent = msg;
+    statusEl.style.display = '';
+    setTimeout(() => { statusEl.style.display = 'none'; }, ms);
+  };
+
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: 'Answer from Daat Torah', text, url: SITE_URL });
+      showStatus('Shared ✓');
+      return;
+    } catch (err) {
+      if (err && err.name === 'AbortError') return;
+    }
+  }
+
+  try {
+    await navigator.clipboard.writeText(text);
+    showStatus('Copied to clipboard ✓');
+  } catch (err) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); showStatus('Copied ✓'); }
+    catch { showStatus('Copy failed — select text manually', 4000); }
+    ta.remove();
+  }
 }
 
 function askDownComment(wrap, bar, question, answer) {

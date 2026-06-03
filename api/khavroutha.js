@@ -10,17 +10,12 @@
 import { kv } from './_kv.js';
 import { Resend } from 'resend';
 import { randomBytes } from 'node:crypto';
+import { getClientIp } from './_http.js';
 
 function setCors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-}
-
-function getClientIp(req) {
-  const fwd = req.headers['x-forwarded-for'];
-  if (typeof fwd === 'string') return fwd.split(',')[0].trim();
-  return req.socket?.remoteAddress || 'unknown';
 }
 
 const ALLOWED_NIVEAUX = new Set(['base', 'lamdan', 'synthese', 'mixte']);

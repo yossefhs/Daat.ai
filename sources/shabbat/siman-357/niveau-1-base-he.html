@@ -50,9 +50,39 @@
   .toc-num { display:inline-block; width:25px; color:#C5A55A; font-weight:bold; }
   .quick-recap { background:#FAF6EE; border:2px solid #C5A55A; border-radius:8px; padding:18px 22px; margin:20px 0; }
   ul.compact { padding-right:20px; }
+
+/* Lang-switcher flottant (cohérence cross-pages) */
+.lang-switcher-float {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 9999;
+  display: flex;
+  gap: 4px;
+  background: rgba(255,255,255,0.95);
+  border: 1px solid #C5A55A;
+  padding: 4px 6px;
+  border-radius: 3px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  font-family: 'Inter', sans-serif;
+}
+.lang-switcher-float a {
+  font-size: 11px; letter-spacing: 1px;
+  padding: 3px 7px; border-radius: 2px;
+  color: #5a4a1a; text-decoration: none;
+  border: 1px solid transparent;
+}
+.lang-switcher-float a.active {
+  color: #1A1F3A; background: #FFF8E5;
+  border-color: #1A1F3A; font-weight: 600;
+}
+.lang-switcher-float a:hover { color: #1A1F3A; border-color: #C5A55A; }
+@media print { .lang-switcher-float { display: none; } }
 </style>
 </head>
 <body>
+<div class="lang-switcher-float" role="navigation" aria-label="Language"><a href="niveau-1-base.html">FR</a><a href="niveau-1-base-he.html" class="active">HE</a><a href="niveau-1-base-en.html">EN</a></div>
+<main>
 <div style="background:#FFF8E5;border:1px solid #C5A55A;border-left:4px solid #C5A55A;padding:10px 16px;margin:0 0 20px;font-size:14px;color:#5a4a1a;direction:rtl;text-align:right;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
 <span>ℹ️ עמוד מתורגם במלואו</span>
 <span style="font-size:12px;letter-spacing:1px;"><a href="niveau-1-base.html" style="color:#8C6F1E;padding:2px 8px;border:1px solid #C5A55A;text-decoration:none;">FR</a> <a href="#" style="color:#1A1F3A;padding:2px 8px;border:1px solid #1A1F3A;background:#FFF8E5;text-decoration:none;font-weight:600;">HE</a> <a href="niveau-1-base-en.html" style="color:#8C6F1E;padding:2px 8px;border:1px solid #C5A55A;text-decoration:none;">EN</a></span>
@@ -232,5 +262,11 @@
 
 <div class="yh-watermark">~ ~ ~ ~ ~<br><strong>DAAT</strong> · <strong>רב יוסף חיים סממה</strong><br><br><em>סימן שנ"ז · רמה 1 — התחלה</em></div>
 
+
+<div style="text-align:center;margin:20px 0;">
+  <button onclick="window.print()" class="print-btn" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;background:#1A1F3A;color:#C5A55A;padding:10px 22px;border:1px solid #C5A55A;border-radius:2px;cursor:pointer;text-transform:uppercase;">📄 הדפס / שמור כ-PDF</button>
+</div>
+<style>@media print { .print-btn, .daat-khavroutha-fab, .daat-chat-fab { display: none !important; } }</style>
+</main>
 </body>
 </html>

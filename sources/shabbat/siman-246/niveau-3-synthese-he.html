@@ -23,7 +23,9 @@
   <meta name="twitter:description" content="סיכום מובנה לשינון.">
   <meta name="twitter:image" content="https://daattorah.com/assets/img/og/siman-246.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600&display=swap"></noscript>
   <style>
     :root {
       --navy: #1A1F3A; --gold: #C5A55A; --gold-light: #D4B97A;
@@ -40,7 +42,7 @@
     .logo-en { font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600; color: #fff; letter-spacing: 3px; }
     .level-indicator { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; background: var(--gold); color: var(--navy); padding: 6px 14px; letter-spacing: 1px; text-transform: uppercase; }
     .breadcrumb { background: var(--navy); padding: 10px 40px; border-bottom: 1px solid rgba(197,165,90,0.15); }
-    .breadcrumb span, .breadcrumb a { font-family: 'Inter', sans-serif; font-size: 12px; color: rgba(255,255,255,0.4); text-decoration: none; }
+    .breadcrumb span, .breadcrumb a { font-family: 'Inter', sans-serif; font-size: 12px; color: rgba(255,255,255,0.85); text-decoration: none; }
     .breadcrumb a:hover { color: var(--gold); }
     .breadcrumb .sep { margin: 0 8px; }
     .breadcrumb .current { color: var(--gold); }
@@ -50,7 +52,7 @@
     .hero-meta { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
     .hero-he { font-family: 'Frank Ruhl Libre', serif; font-size: 28px; font-weight: 700; color: var(--gold); direction: rtl; margin-bottom: 8px; }
     .hero-title { font-size: 36px; font-weight: 400; color: #fff; margin-bottom: 8px; }
-    .hero-subtitle { font-size: 17px; color: rgba(255,255,255,0.6); font-style: italic; }
+    .hero-subtitle { font-size: 17px; color: rgba(255,255,255,0.85); font-style: italic; }
 
     .main { max-width: 1000px; margin: 0 auto; padding: 56px 40px; }
 
@@ -122,7 +124,7 @@
     .bottom-nav a:hover { color: var(--gold); }
 
     footer { background: var(--navy); border-top: 2px solid var(--gold); padding: 24px 40px; text-align: center; }
-    footer p { font-family: 'Inter', sans-serif; font-size: 12px; color: rgba(255,255,255,0.3); }
+    footer p { font-family: 'Inter', sans-serif; font-size: 12px; color: rgba(255,255,255,0.85); }
     footer a { color: var(--gold); text-decoration: none; }
 
     @media (max-width: 768px) {
@@ -134,7 +136,7 @@
     .lang-switcher a {
       font-family: 'Inter', sans-serif; font-size: 11px;
       padding: 3px 7px; border-radius: 2px; letter-spacing: 1px;
-      color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.85); border: 1px solid rgba(255,255,255,0.15);
       text-decoration: none; text-transform: none;
     }
     .lang-switcher a.active { color: var(--gold, #C5A55A); border-color: var(--gold, #C5A55A); }
@@ -180,6 +182,7 @@
     </a>
     <div class="level-indicator">סיכום מגיסטרלי</div>
   </header>
+<main>
 
   <div class="breadcrumb">
     <a href="../../../index.html">דף הבית</a>
@@ -556,15 +559,21 @@
 
   </div>
 
-  <footer>
+  </main>
+<footer>
     <p>DAAT דעת · סימן רמ״ו · סיכום מגיסטרלי · <a href="../../../index.html">דף הבית</a> · <a href="../../../soutenir.html">♥ תמיכה</a> · © תשפ״ו — הרב יוסף חיים סמאמא</p>
   </footer>
 
   <link rel="stylesheet" href="../../../assets/css/khavroutha-fab.css">
 <link rel="stylesheet" href="../../../assets/css/chat-widget.css">
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
-  <script src="../../../assets/js/chat-widget.js" defer></script>
+  <script src="../../../assets/js/chat-widget.min.js" defer></script>
 <a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="מצא חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">הצטרף לחברותא</span></a>
   <script src="../../../assets/js/daat-progress.js"></script>
+
+<div style="text-align:center;margin:20px 0;">
+  <button onclick="window.print()" class="print-btn" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;background:#1A1F3A;color:#C5A55A;padding:10px 22px;border:1px solid #C5A55A;border-radius:2px;cursor:pointer;text-transform:uppercase;">📄 הדפס / שמור כ-PDF</button>
+</div>
+<style>@media print { .print-btn, .daat-khavroutha-fab, .daat-chat-fab { display: none !important; } }</style>
 </body>
 </html>

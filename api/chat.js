@@ -7,6 +7,7 @@
 
 import Anthropic from '@anthropic-ai/sdk';
 import { kv } from './_kv.js';
+import { getClientIp } from './_http.js';
 import { SYSTEM_PROMPT } from './_system-prompt.js';
 import { SEFARIA_TOOLS, executeSefariaTool } from './_sefaria.js';
 import { CORPUS_TOOLS, executeCorpusTool, searchCorpus } from './_corpus.js';
@@ -164,11 +165,6 @@ const SOUTENIR_URL = '/soutenir.html';
 const GUEST_COOKIE = 'daat_guest_id';
 
 // ── Helpers identité ───────────────────────────────────────────────────────
-function getClientIp(req) {
-  const xff = req.headers['x-forwarded-for'] || '';
-  const first = xff.split(',')[0].trim();
-  return first || req.headers['x-real-ip'] || req.socket?.remoteAddress || 'unknown';
-}
 
 function readCookie(req, name) {
   const header = req.headers.cookie || '';
@@ -557,20 +553,27 @@ export default async function handler(req, res) {
     // score ≥ 8 + ≥2 tokens originaux matchés), on demande à Haiku 4.5 de reformuler
     // l'extrait au lieu d'appeler Sonnet/Opus. Coût ~0.002 € vs ~0.05-0.12 € sinon.
     // Kill switch : env CORPUS_FIRST_ENABLED=false → bypass complet.
-    // Skip pour Opus (paid plans / aperçu / forceOpus) : ils paient/profitent d'Opus.
+    // Skip pour Opus (paid plans / aperçu / forceOpus) ET pour tout abonné payant :
+    // ils paient pour une réponse Sonnet/Opus complète, pas une reformulation Haiku.
     if (
       !model._meta &&
       !model._aperçu &&
       model.id !== MODELS.opus.id &&
+      !SUBSCRIBER_PLANS.has(plan) &&
       process.env.CORPUS_FIRST_ENABLED !== 'false'
     ) {
-      const lastUserText = trimmedMessages[trimmedMessages.length - 1].content;
+      // On cherche le DERNIER message utilisateur (pas forcément le dernier du tableau :
+      // un flux « regenerate » peut se terminer par un message assistant).
+      const lastUserMsg = [...trimmedMessages].reverse().find((m) => m.role === 'user');
+      const lastUserText = lastUserMsg ? lastUserMsg.content : null;
       const minScore = parseFloat(process.env.CORPUS_MIN_SCORE || '8');
       let cs = null;
-      try {
-        cs = searchShabbatCorpus(lastUserText, { limit: 3, minScore, strict: true });
-      } catch (err) {
-        console.error('[chat.js] corpus search error (continue avec Claude):', err?.message || err);
+      if (lastUserText) {
+        try {
+          cs = searchShabbatCorpus(lastUserText, { limit: 3, minScore, strict: true });
+        } catch (err) {
+          console.error('[chat.js] corpus search error (continue avec Claude):', err?.message || err);
+        }
       }
 
       if (cs && cs.results.length > 0) {
@@ -641,6 +644,11 @@ RÈGLES STRICTES :
         // Si la réponse a commencé à streamer, on doit la terminer proprement (impossible de fallback Claude maintenant)
         if (corpusAnswer.length > 0) {
           const cost = (inTok * MODELS.haiku.in / 1000) + (outTok * MODELS.haiku.out / 1000);
+          // Stream interrompu en cours : on signale visiblement la coupure pour que
+          // l'utilisateur ne prenne pas une réponse tronquée pour un psak complet.
+          if (corpusErrored) {
+            res.write(`data: ${JSON.stringify({ type: 'text', delta: '\n\n_(Réponse interrompue — repose ta question pour une réponse complète.)_' })}\n\n`);
+          }
           res.write(`data: ${JSON.stringify({
             type: 'done',
             stop_reason: corpusErrored ? 'error' : 'end_turn',
@@ -677,7 +685,8 @@ RÈGLES STRICTES :
             });
             // Quota : par défaut, on décompte comme une question normale.
             // CORPUS_QUOTA_FREE=true → les réponses corpus ne décomptent pas (avantage utilisateurs free).
-            if (process.env.CORPUS_QUOTA_FREE !== 'true') {
+            // En cas d'erreur (réponse tronquée), on ne décompte jamais : l'utilisateur n'a pas eu son psak.
+            if (process.env.CORPUS_QUOTA_FREE !== 'true' && !corpusErrored) {
               await kv.incr(rateKey);
               const ttl = await kv.ttl(rateKey);
               if (ttl === -1 || ttl === -2) await kv.expire(rateKey, 24 * 60 * 60);

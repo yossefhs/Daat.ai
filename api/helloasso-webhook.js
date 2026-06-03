@@ -70,8 +70,17 @@ export default async function handler(req, res) {
   const eventType = body.eventType || body.event || '';
   const data = body.data || body;
 
-  // Log toujours, même si on ignore — permet de débugger sans rejouer un paiement
-  console.log('[helloasso-webhook] eventType=', eventType, 'data=', JSON.stringify(data).slice(0, 800));
+  // Log non-PII : eventType + metadata du formulaire/montant uniquement.
+  // L'email et autres données personnelles ne sont JAMAIS écrits dans les logs Vercel ;
+  // l'audit trail complet (email, plan, montant) est stocké dans KV `logs:helloasso`
+  // accessible via l'admin pour les opérations légitimes.
+  const safeMeta = {
+    formSlug: data?.formSlug || data?.form?.formSlug,
+    formType: data?.formType || data?.form?.formType,
+    amount: data?.amount?.total || data?.amount || data?.totalAmount,
+    orderId: data?.id || data?.orderId,
+  };
+  console.log('[helloasso-webhook] eventType=', eventType, 'meta=', JSON.stringify(safeMeta));
 
   // On ne traite que les paiements validés (Order créé/payé, ou Payment confirmé)
   // HelloAsso envoie "Order" pour adhésion/don validé, "Payment" pour échéance récurrente
@@ -172,7 +181,9 @@ export default async function handler(req, res) {
   }
   await Promise.all(ops);
 
-  console.log(`[helloasso-webhook] UPGRADED ${email} → ${plan}${expiresAt ? ' (expires ' + expiresAt + ')' : ' (lifetime)'} via ${eventType}`);
+  // Email masqué dans les logs (audit trail complet en KV)
+  const maskedEmail = email.replace(/^(.).*?(@.*)$/, '$1***$2');
+  console.log(`[helloasso-webhook] UPGRADED ${maskedEmail} → ${plan}${expiresAt ? ' (expires ' + expiresAt + ')' : ' (lifetime)'} via ${eventType}`);
 
   return res.status(200).json({
     ok: true,

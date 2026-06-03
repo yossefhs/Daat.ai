@@ -19,6 +19,7 @@ import { kv } from './_kv.js';
 import { Resend } from 'resend';
 import { randomBytes } from 'node:crypto';
 import { getStepById, getDueSteps } from './_email-sequence.js';
+import { getClientIp } from './_http.js';
 
 function setCors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -28,12 +29,6 @@ function setCors(res) {
 
 function isValidEmail(s) {
   return typeof s === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s) && s.length <= 254;
-}
-
-function getClientIp(req) {
-  const fwd = req.headers['x-forwarded-for'];
-  if (typeof fwd === 'string') return fwd.split(',')[0].trim();
-  return req.socket?.remoteAddress || 'unknown';
 }
 
 // ---------- POST : inscription publique ----------

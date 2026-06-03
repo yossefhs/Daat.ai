@@ -23,7 +23,9 @@
   <meta name="twitter:description" content="התחלה לימודית בשני סעיפי המחבר שבסימן רמ״ה.">
   <meta name="twitter:image" content="https://daattorah.com/assets/img/og/siman-245.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600&display=swap"></noscript>
   <style>
     :root {
       --navy: #1A1F3A; --gold: #C5A55A; --cream: #FAF6EE; --cream-dark: #F0EAD8;
@@ -47,9 +49,9 @@
       letter-spacing: 1px;
     }
     .breadcrumb { background: var(--navy); padding: 10px 40px; border-bottom: 1px solid rgba(197,165,90,0.15); }
-    .breadcrumb span, .breadcrumb a { font-family: 'Frank Ruhl Libre', serif; font-size: 13px; color: rgba(255,255,255,0.5); text-decoration: none; }
+    .breadcrumb span, .breadcrumb a { font-family: 'Frank Ruhl Libre', serif; font-size: 13px; color: rgba(255,255,255,0.85); text-decoration: none; }
     .breadcrumb a:hover { color: var(--gold); }
-    .breadcrumb .sep { margin: 0 8px; color: rgba(255,255,255,0.2); }
+    .breadcrumb .sep { margin: 0 8px; color: rgba(255,255,255,0.85); }
     .breadcrumb .current { color: var(--green); }
 
     .page-hero { background: var(--green); padding: 48px 40px; border-bottom: 3px solid var(--gold); }
@@ -78,7 +80,7 @@
     .hebrew-title {
       font-family: 'Frank Ruhl Libre', serif; font-size: 12px;
       letter-spacing: 2px;
-      color: rgba(255,255,255,0.55); margin-bottom: 16px;
+      color: rgba(255,255,255,0.85); margin-bottom: 16px;
     }
     .hebrew-text {
       font-family: 'Frank Ruhl Libre', serif;
@@ -184,7 +186,7 @@
     .next-btn:hover { background: var(--gold) !important; color: var(--navy) !important; }
 
     footer { background: var(--navy); border-top: 2px solid var(--gold); padding: 24px 40px; text-align: center; }
-    footer p { font-family: 'Frank Ruhl Libre', serif; font-size: 13px; color: rgba(255,255,255,0.45); }
+    footer p { font-family: 'Frank Ruhl Libre', serif; font-size: 13px; color: rgba(255,255,255,0.85); }
     footer a { color: var(--gold); text-decoration: none; }
 
     @media (max-width: 768px) {
@@ -384,6 +386,7 @@
     </a>
     <div class="level-indicator">רמה 1 — התחלה</div>
   </header>
+<main>
 
   <div class="breadcrumb">
     <a href="../../../index.html">דף הבית</a>
@@ -1139,16 +1142,22 @@
 
   </div>
 
-  <footer>
+  </main>
+<footer>
     <p>DAAT דעת · סימן רמ״ה · רמת התחלה · <a href="../../../index.html">דף הבית</a> · <a href="index.html">חזרה לסימן רמ״ה</a> · <a href="../../../soutenir-he.html">♥ לתמוך</a></p>
   </footer>
 
   <link rel="stylesheet" href="../../../assets/css/khavroutha-fab.css">
   <link rel="stylesheet" href="../../../assets/css/chat-widget.css">
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
-  <script src="../../../assets/js/chat-widget.js" defer></script>
+  <script src="../../../assets/js/chat-widget.min.js" defer></script>
   <a href="../../../communaute-he.html#khavroutha" class="daat-khavroutha-fab" title="מצא חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">להצטרף לחברותא</span></a>
   <script src="../../../assets/js/daat-progress.js"></script>
   <div class="next-siman-nav" style="margin:40px 0 20px 0;padding:20px 24px;background:linear-gradient(135deg,#1A1F3A 0%,#2a3050 100%);border-radius:8px;display:flex;align-items:center;justify-content:space-between;gap:16px;page-break-inside:avoid;direction:rtl;border-right:6px solid #C5A55A;"><span style="color:#d4c89a;font-size:11pt;font-style:italic;">להמשך הלימוד — הסימן הבא</span><a href="../siman-246/niveau-1-base-he.html" style="color:#C5A55A;text-decoration:none;font-family:'Frank Ruhl Libre','David',serif;font-size:16pt;font-weight:bold;">סימן רמ״ו ←</a></div>
+
+<div style="text-align:center;margin:20px 0;">
+  <button onclick="window.print()" class="print-btn" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;background:#1A1F3A;color:#C5A55A;padding:10px 22px;border:1px solid #C5A55A;border-radius:2px;cursor:pointer;text-transform:uppercase;">📄 הדפס / שמור כ-PDF</button>
+</div>
+<style>@media print { .print-btn, .daat-khavroutha-fab, .daat-chat-fab { display: none !important; } }</style>
 </body>
 </html>

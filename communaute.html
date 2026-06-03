@@ -93,10 +93,10 @@
     .breadcrumb-inner { max-width: 1100px; margin: 0 auto; }
     .breadcrumb a, .breadcrumb span {
       font-family: 'Inter', sans-serif; font-size: 12px;
-      color: rgba(255,255,255,0.4); text-decoration: none; letter-spacing: 0.5px;
+      color: rgba(255,255,255,0.85); text-decoration: none; letter-spacing: 0.5px;
     }
     .breadcrumb a:hover { color: var(--gold); }
-    .breadcrumb .sep { margin: 0 8px; color: rgba(255,255,255,0.2); }
+    .breadcrumb .sep { margin: 0 8px; color: rgba(255,255,255,0.85); }
     .breadcrumb .current { color: var(--gold); }
 
     /* HERO */
@@ -258,7 +258,7 @@
     }
     footer p {
       font-family: 'Inter', sans-serif; font-size: 12px;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.85);
     }
     footer a { color: var(--gold); text-decoration: none; }
 
@@ -284,7 +284,7 @@
     .lang-switcher a {
       font-family: 'Inter', sans-serif; font-size: 11px;
       padding: 3px 7px; border-radius: 2px; letter-spacing: 1px;
-      color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.85); border: 1px solid rgba(255,255,255,0.15);
       text-decoration: none; text-transform: none;
     }
     .lang-switcher a.active { color: var(--gold, #C5A55A); border-color: var(--gold, #C5A55A); }
@@ -303,7 +303,7 @@
       <a href="sources/shabbat/">Hilkhot Shabbat</a>
       <a href="chat.html">💬 IA Daat</a>
       <a href="communaute.html" class="active">Communauté</a>
-      <a href="soutenir.html" class="cta-soutenir">♥ Soutenir</a>
+      <a href="faq.html">FAQ</a><a href="about.html">À propos</a><a href="soutenir.html" class="cta-soutenir">♥ Soutenir</a>
     <span class="lang-switcher"><a href="communaute.html" class="active">FR</a><a href="communaute-he.html">HE</a><a href="communaute-en.html">EN</a></span></nav>
   </header>
 
@@ -482,6 +482,6 @@
 
   <link rel="stylesheet" href="assets/css/chat-widget.css">
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
-  <script src="assets/js/chat-widget.js" defer></script>
+  <script src="assets/js/chat-widget.min.js" defer></script>
 </body>
 </html>

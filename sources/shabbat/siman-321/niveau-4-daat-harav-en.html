@@ -6,7 +6,7 @@
 <title>Siman 321 · Level 4 Daas HaRav — Shitah of the Alter Rebbe | DAAT</title>
 <meta name="description" content="Level 4 (Daas HaRav) of Siman 321 — The shitah of the Alter Rebbe on tolesh, tochen, me'abed, lash on Shabbos. Text of the Shulchan Aruch HaRav, force of the psak, the Rav's chidush, sichos of the Rebbe.">
 <meta name="author" content="Rav Yossef Haim Samama">
-<link rel="canonical" href="https://daattorah.com/sources/shabbat/siman-321/niveau-4-daat-harav-en.html">
+<link rel="canonical" href="https://daattorah.com/oh/321/daat-harav">
 <link rel="alternate" hreflang="fr" href="https://daattorah.com/sources/shabbat/siman-321/niveau-4-daat-harav.html">
 <link rel="alternate" hreflang="en" href="https://daattorah.com/sources/shabbat/siman-321/niveau-4-daat-harav-en.html">
 <link rel="alternate" hreflang="he" href="https://daattorah.com/sources/shabbat/siman-321/niveau-4-daat-harav-he.html">
@@ -40,9 +40,39 @@
   table { width: 100%; border-collapse: collapse; background: var(--white); border: 1px solid var(--border); margin: 16px 0; }
   th { background: var(--habad); color: var(--gold); padding: 12px; text-align: left; }
   td { padding: 12px; border-bottom: 1px solid var(--border); }
+
+/* Lang-switcher flottant (cohérence cross-pages) */
+.lang-switcher-float {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 9999;
+  display: flex;
+  gap: 4px;
+  background: rgba(255,255,255,0.95);
+  border: 1px solid #C5A55A;
+  padding: 4px 6px;
+  border-radius: 3px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  font-family: 'Inter', sans-serif;
+}
+.lang-switcher-float a {
+  font-size: 11px; letter-spacing: 1px;
+  padding: 3px 7px; border-radius: 2px;
+  color: #5a4a1a; text-decoration: none;
+  border: 1px solid transparent;
+}
+.lang-switcher-float a.active {
+  color: #1A1F3A; background: #FFF8E5;
+  border-color: #1A1F3A; font-weight: 600;
+}
+.lang-switcher-float a:hover { color: #1A1F3A; border-color: #C5A55A; }
+@media print { .lang-switcher-float { display: none; } }
 </style>
 </head>
 <body>
+<div class="lang-switcher-float" role="navigation" aria-label="Language"><a href="niveau-4-daat-harav.html">FR</a><a href="niveau-4-daat-harav-he.html">HE</a><a href="niveau-4-daat-harav-en.html" class="active">EN</a></div>
+<main>
 
 <div style="background:#FFF8E5;border:1px solid #C5A55A;border-left:4px solid #C5A55A;padding:10px 16px;margin:0;font-family:'Inter',sans-serif;font-size:14px;color:#5a4a1a;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
 <span>ℹ️ Fully translated page</span>
@@ -240,5 +270,11 @@
 
 </div>
 
+
+<div style="text-align:center;margin:20px 0;">
+  <button onclick="window.print()" class="print-btn" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;background:#1A1F3A;color:#C5A55A;padding:10px 22px;border:1px solid #C5A55A;border-radius:2px;cursor:pointer;text-transform:uppercase;">📄 Print / Save as PDF</button>
+</div>
+<style>@media print { .print-btn, .daat-khavroutha-fab, .daat-chat-fab { display: none !important; } }</style>
+</main>
 </body>
 </html>

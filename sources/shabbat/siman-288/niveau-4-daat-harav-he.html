@@ -7,7 +7,7 @@
 <title>סימן רפ"ח · רמה 4 דעת הרב — שיטת אדמו"ר הזקן | דעת</title>
 <meta name="description" content="רמה 4 (דעת הרב) של סימן רפ"ח — שיטת אדמו"ר הזקן בדין תענית ודין תענית חלום בשבת. טקסט שולחן ערוך הרב, כוח הפסק, חידושי הרב, שיחות הרבי.">
 <meta name="author" content="רב יוסף חיים סממה">
-<link rel="canonical" href="https://daattorah.com/sources/shabbat/siman-288/niveau-4-daat-harav.html">
+<link rel="canonical" href="https://daattorah.com/oh/288/daat-harav">
   <link rel="alternate" hreflang="fr" href="https://daattorah.com/sources/shabbat/siman-288/niveau-4-daat-harav.html">
   <link rel="alternate" hreflang="en" href="https://daattorah.com/sources/shabbat/siman-288/niveau-4-daat-harav-en.html">
   <link rel="alternate" hreflang="he" href="https://daattorah.com/sources/shabbat/siman-288/niveau-4-daat-harav-he.html">
@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="דעת DAAT">
 <meta property="og:title" content="סימן רפ"ח · רמה 4 דעת הרב">
 <meta property="og:description" content="שיטת אדמו"ר הזקן בדין תענית ודין תענית חלום בשבת.">
-<meta property="og:url" content="https://daattorah.com/sources/shabbat/siman-288/niveau-4-daat-harav.html">
+<meta property="og:url" content="https://daattorah.com/oh/288/daat-harav">
 <meta property="og:image" content="https://daattorah.com/assets/img/og/siman-288.svg">
 <meta property="og:locale" content="he_IL">
 <meta name="twitter:card" content="summary_large_image">
@@ -24,7 +24,9 @@
 <meta name="twitter:image" content="https://daattorah.com/assets/img/og/siman-288.svg">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600&display=swap"></noscript>
 
 <style>
   :root {
@@ -46,9 +48,9 @@
   nav a:hover { color: var(--gold); }
   .breadcrumb { background: var(--navy); padding: 12px 40px; border-bottom: 1px solid rgba(197,165,90,0.15); }
   .breadcrumb-inner { max-width: 1100px; margin: 0 auto; }
-  .breadcrumb a, .breadcrumb span { font-family: 'Frank Ruhl Libre', sans-serif; font-size: 12px; color: rgba(255,255,255,0.4); text-decoration: none; letter-spacing: 0.5px; }
+  .breadcrumb a, .breadcrumb span { font-family: 'Frank Ruhl Libre', sans-serif; font-size: 12px; color: rgba(255,255,255,0.85); text-decoration: none; letter-spacing: 0.5px; }
   .breadcrumb a:hover { color: var(--gold); }
-  .breadcrumb .sep { margin: 0 8px; color: rgba(255,255,255,0.2); }
+  .breadcrumb .sep { margin: 0 8px; color: rgba(255,255,255,0.85); }
   .breadcrumb .current { color: var(--gold); }
   .page-hero { background: linear-gradient(135deg, var(--habad-deep) 0%, var(--habad) 60%, var(--habad-soft) 100%); padding: 56px 40px; border-bottom: 3px solid var(--gold); }
   .hero-inner { max-width: 1100px; margin: 0 auto; }
@@ -99,7 +101,7 @@
   .lemaaseh-block li { margin-bottom: 8px; line-height: 1.7; }
   .lemaaseh-block li strong { color: var(--navy); }
   footer { background: var(--navy); border-top: 2px solid var(--gold); padding: 28px 40px; text-align: center; margin-top: 60px; }
-  footer p { font-family: 'Frank Ruhl Libre', sans-serif; font-size: 12px; color: rgba(255,255,255,0.4); }
+  footer p { font-family: 'Frank Ruhl Libre', sans-serif; font-size: 12px; color: rgba(255,255,255,0.85); }
   footer a { color: var(--gold); text-decoration: none; }
   @media (max-width: 768px) {
     header, .breadcrumb, .page-hero, main, footer { padding-left: 20px; padding-right: 20px; }
@@ -111,9 +113,38 @@
     .seif-details .sa-block { padding: 14px 18px 18px; }
     .sa-he { font-size: 17px; line-height: 1.85; }
   }
+
+/* Lang-switcher flottant (cohérence cross-pages) */
+.lang-switcher-float {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 9999;
+  display: flex;
+  gap: 4px;
+  background: rgba(255,255,255,0.95);
+  border: 1px solid #C5A55A;
+  padding: 4px 6px;
+  border-radius: 3px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  font-family: 'Inter', sans-serif;
+}
+.lang-switcher-float a {
+  font-size: 11px; letter-spacing: 1px;
+  padding: 3px 7px; border-radius: 2px;
+  color: #5a4a1a; text-decoration: none;
+  border: 1px solid transparent;
+}
+.lang-switcher-float a.active {
+  color: #1A1F3A; background: #FFF8E5;
+  border-color: #1A1F3A; font-weight: 600;
+}
+.lang-switcher-float a:hover { color: #1A1F3A; border-color: #C5A55A; }
+@media print { .lang-switcher-float { display: none; } }
 </style>
 </head>
 <body>
+<div class="lang-switcher-float" role="navigation" aria-label="Language"><a href="niveau-4-daat-harav.html">FR</a><a href="niveau-4-daat-harav-he.html" class="active">HE</a><a href="niveau-4-daat-harav-en.html">EN</a></div>
 
 <div style="background:#FFF8E5;border:1px solid #C5A55A;border-right:4px solid #C5A55A;padding:10px 16px;margin:0 0 20px;font-family:'Frank Ruhl Libre',sans-serif;font-size:14px;color:#5a4a1a;direction:rtl;text-align:right;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
 <span>ℹ️ עמוד מתורגם במלואו</span>
@@ -425,7 +456,12 @@
 
 <link rel="stylesheet" href="../../../assets/css/chat-widget.css">
 <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
-<script src="../../../assets/js/chat-widget.js" defer></script>
+<script src="../../../assets/js/chat-widget.min.js" defer></script>
   <script src="../../../assets/js/daat-progress.js"></script>
+
+<div style="text-align:center;margin:20px 0;">
+  <button onclick="window.print()" class="print-btn" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;background:#1A1F3A;color:#C5A55A;padding:10px 22px;border:1px solid #C5A55A;border-radius:2px;cursor:pointer;text-transform:uppercase;">📄 הדפס / שמור כ-PDF</button>
+</div>
+<style>@media print { .print-btn, .daat-khavroutha-fab, .daat-chat-fab { display: none !important; } }</style>
 </body>
 </html>

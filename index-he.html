@@ -30,7 +30,9 @@
   <meta name="twitter:image" content="https://daattorah.com/api/og">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap"></noscript>
   <link rel="stylesheet" href="/assets/css/daat-enhance.css">
   <style>
     /* Tokens DAAT (--navy, --gold, --cream, --text-mid…) fournis
@@ -78,7 +80,7 @@
     .logo-latin {
       font-family: 'Cormorant Garamond', serif;
       font-size: 13px;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.85);
       letter-spacing: 4px;
       text-transform: uppercase;
     }
@@ -135,7 +137,7 @@
     .lang-switcher a {
       font-family: 'Inter', sans-serif; font-size: 11px;
       padding: 3px 7px; border-radius: 2px; letter-spacing: 1px;
-      color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.85); border: 1px solid rgba(255,255,255,0.15);
       text-transform: none;
     }
     .lang-switcher a.active { color: var(--gold); border-color: var(--gold); }
@@ -210,7 +212,7 @@
     .hero-subtitle {
       font-family: 'Frank Ruhl Libre', serif;
       font-size: 22px;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.85);
       margin-bottom: 16px;
       direction: rtl;
     }
@@ -468,7 +470,7 @@
     .ai-section .section-label { color: var(--gold); }
     .ai-section .divider { background: var(--gold); }
 
-    .ai-section .section-subtitle { color: rgba(255,255,255,0.6); }
+    .ai-section .section-subtitle { color: rgba(255,255,255,0.85); }
 
     .ai-features {
       display: grid;
@@ -500,7 +502,7 @@
 
     .ai-feature p {
       font-size: 15px;
-      color: rgba(255,255,255,0.65);
+      color: rgba(255,255,255,0.85);
       line-height: 1.7;
     }
 
@@ -669,7 +671,7 @@
     .email-capture-btn:hover { background: var(--gold-light); }
     .email-capture-meta {
       font-size: 12px;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.85);
       margin-top: 16px;
       letter-spacing: 0.5px;
     }
@@ -876,7 +878,7 @@
       font-size: 11px;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.85);
     }
 
     .rav-divider {
@@ -920,7 +922,7 @@
     .footer-tagline {
       font-family: 'Frank Ruhl Libre', serif;
       font-size: 14px;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.85);
       direction: rtl;
       margin-top: 12px;
     }
@@ -938,7 +940,7 @@
     .footer-links ul li {
       margin-bottom: 8px;
       font-size: 14px;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.85);
     }
     .footer-links ul li a {
       color: inherit;
@@ -956,7 +958,7 @@
     .footer-copy {
       font-family: 'Inter', sans-serif;
       font-size: 12px;
-      color: rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.85);
     }
 
     .footer-verse {
@@ -1071,7 +1073,7 @@
       <a href="chat-he.html">💬 דעת AI</a>
       <a href="communaute-he.html">קהילה</a>
       <a href="soutenir-he.html" class="nav-soutenir">♥ תמיכה</a>
-      <span class="lang-switcher">
+      <a href="faq-he.html">שאלות</a><a href="about-he.html">אודות</a><span class="lang-switcher">
         <a href="index.html">FR</a>
         <a href="index-he.html" class="active">HE</a>
         <a href="index-en.html">EN</a>
@@ -1226,7 +1228,7 @@
             <div style="font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #C5A55A; margin-bottom: 8px;">חדש · רמה 4</div>
             <h3 style="font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', serif; font-size: 30px; color: #C5A55A; margin: 0 0 6px;">דעת הרב — Daat HaRav</h3>
             <p style="margin: 0 0 8px; font-size: 16px; color: rgba(255,255,255,0.9);"><em>שיטת</em> אדמו״ר הזקן על <strong>122 סימני הלכות שבת</strong> — הטקסט העברי המלא של שולחן ערוך הרב (שולחן ערוך אדמו״ר הזקן) עם הקונטרס אחרון, חוזק הפסק, חידוש מיוחד של הרב, מראי מקומות לשיחות ואגרות הרבי, הוראה למעשה.</p>
-            <p style="margin: 8px 0 0; font-size: 13px; color: rgba(255,255,255,0.6);">סימנים 242 → 365 · משולב עם ספריא · קונבנציית הגהה בעברית · Placeholders הגהות/מהדורא בתרא</p>
+            <p style="margin: 8px 0 0; font-size: 13px; color: rgba(255,255,255,0.85);">סימנים 242 → 365 · משולב עם ספריא · קונבנציית הגהה בעברית · Placeholders הגהות/מהדורא בתרא</p>
           </div>
           <div style="display: flex; gap: 12px; flex-wrap: wrap;">
             <a href="sources/shabbat/index-he.html" style="background: #C5A55A; color: #1A1F3A; padding: 12px 24px; text-decoration: none; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1px; border-radius: 2px;">לעיון ב-122 הסימנים →</a>
@@ -1287,7 +1289,7 @@
             <div class="rav-name-fr">Rav Yossef Haim Samama</div>
             <div class="rav-title">מייסד · דעת תורה</div>
             <div class="rav-divider"></div>
-            <img src="assets/img/yh-logo-about.png" alt="לוגו YH — יוסף חיים סממה" class="rav-logo">
+            <img src="assets/img/yh-logo-about.png" alt="לוגו YH — יוסף חיים סממה" class="rav-logo" width="1024" height="1024">
           </div>
         </div>
       </div>
@@ -1361,7 +1363,7 @@
         <div class="footer-brand">
           <a href="index-he.html" class="logo" style="text-decoration:none;">
             <span class="logo-hebrew">דעת</span>
-            <span class="logo-latin" style="color:rgba(255,255,255,0.5); letter-spacing:4px; font-size:11px; display:block; margin-top:4px;">DAAT TORAH</span>
+            <span class="logo-latin" style="color:rgba(255,255,255,0.85); letter-spacing:4px; font-size:11px; display:block; margin-top:4px;">DAAT TORAH</span>
           </a>
           <div class="footer-tagline">כִּי מִצִּיּוֹן תֵּצֵא תוֹרָה</div>
         </div>
@@ -1412,7 +1414,7 @@
     // URL relative — fonctionne sur tous les domaines (daatai.vercel.app, daattorah.com, etc.)
     window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';
   </script>
-  <script src="assets/js/chat-widget.js" defer></script>
+  <script src="assets/js/chat-widget.min.js" defer></script>
 
   <!-- Auto-rendu liste des simanim disponibles depuis data/simanim-disponibles.json -->
   <script>

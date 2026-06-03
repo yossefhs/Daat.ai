@@ -36,6 +36,9 @@
     { "source": "/oh/index-en.html", "destination": "/sources/shabbat/index-en.html" },
     { "source": "/oh/he", "destination": "/sources/shabbat/index-he.html" },
     { "source": "/oh/en", "destination": "/sources/shabbat/index-en.html" },
+
+    { "source": "/oh/:n(\\d+)/pdfs/:file", "destination": "/sources/shabbat/siman-:n/pdfs/:file" },
+    { "source": "/oh/siman-:n(\\d+)/pdfs/:file", "destination": "/sources/shabbat/siman-:n/pdfs/:file" },
     { "source": "/oh/:n(\\d+)", "destination": "/sources/shabbat/siman-:n/index.html" },
     { "source": "/oh/:n(\\d+)/", "destination": "/sources/shabbat/siman-:n/index.html" },
     { "source": "/oh/:n(\\d+)/pdfs/:file", "destination": "/sources/shabbat/siman-:n/pdfs/:file" },

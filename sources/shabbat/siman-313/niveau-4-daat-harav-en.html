@@ -6,7 +6,7 @@
 <title>Siman 313 · Level 4 Daat HaRav — Shitah of the Alter Rebbe | DAAT</title>
 <meta name="description" content="Level 4 (Daat HaRav) of Siman 313 — The shitah of the Alter Rebbe on moving doors, windows and locks on Shabbos.">
 <meta name="author" content="Rav Yossef Haim Samama">
-<link rel="canonical" href="https://daattorah.com/sources/shabbat/siman-313/niveau-4-daat-harav.html">
+<link rel="canonical" href="https://daattorah.com/oh/313/daat-harav">
 <link rel="alternate" hreflang="fr" href="https://daattorah.com/sources/shabbat/siman-313/niveau-4-daat-harav.html">
 <link rel="alternate" hreflang="en" href="https://daattorah.com/sources/shabbat/siman-313/niveau-4-daat-harav-en.html">
 <link rel="alternate" hreflang="he" href="https://daattorah.com/sources/shabbat/siman-313/niveau-4-daat-harav-he.html">
@@ -15,7 +15,9 @@
 <meta property="og:title" content="Siman 313 · Level 4 Daat HaRav">
 <meta property="og:locale" content="en_US">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600&display=swap"></noscript>
 <style>
   :root { --navy:#1A1F3A; --gold:#C5A55A; --cream:#FAF6EE; --text:#1A1F3A; --text-mid:#3D4266; --text-muted:#7A7F9A; --white:#FFFFFF; --border:#E4DDD0; --chabad:#3851A3; --chabad-deep:#243669; --chabad-tint:rgba(56,81,163,0.06); }
   * { margin:0; padding:0; box-sizing:border-box; }
@@ -57,11 +59,40 @@
   .lemaaseh-block li { margin-bottom:8px; }
   .lemaaseh-block li strong { color:var(--navy); }
   footer { background:var(--navy); padding:28px 40px; text-align:center; margin-top:60px; border-top:2px solid var(--gold); }
-  footer p { font-family:'Inter',sans-serif; font-size:12px; color:rgba(255,255,255,0.4); }
+  footer p { font-family:'Inter',sans-serif; font-size:12px; color:rgba(255,255,255,0.85); }
   footer a { color:var(--gold); }
+
+/* Lang-switcher flottant (cohérence cross-pages) */
+.lang-switcher-float {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 9999;
+  display: flex;
+  gap: 4px;
+  background: rgba(255,255,255,0.95);
+  border: 1px solid #C5A55A;
+  padding: 4px 6px;
+  border-radius: 3px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  font-family: 'Inter', sans-serif;
+}
+.lang-switcher-float a {
+  font-size: 11px; letter-spacing: 1px;
+  padding: 3px 7px; border-radius: 2px;
+  color: #5a4a1a; text-decoration: none;
+  border: 1px solid transparent;
+}
+.lang-switcher-float a.active {
+  color: #1A1F3A; background: #FFF8E5;
+  border-color: #1A1F3A; font-weight: 600;
+}
+.lang-switcher-float a:hover { color: #1A1F3A; border-color: #C5A55A; }
+@media print { .lang-switcher-float { display: none; } }
 </style>
 </head>
 <body>
+<div class="lang-switcher-float" role="navigation" aria-label="Language"><a href="niveau-4-daat-harav.html">FR</a><a href="niveau-4-daat-harav-he.html">HE</a><a href="niveau-4-daat-harav-en.html" class="active">EN</a></div>
 
 <div style="background:#FFF8E5;border:1px solid #C5A55A;border-left:4px solid #C5A55A;padding:10px 16px;margin:0;font-family:'Inter',sans-serif;font-size:14px;color:#5a4a1a;direction:ltr;text-align:left;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
 <span>ℹ️ Fully translated page</span>
@@ -279,5 +310,10 @@
   <p>DAAT דעת — © 5786 / 2026 · <a href="../../../index.html">Back to home</a></p>
 </footer>
 
+
+<div style="text-align:center;margin:20px 0;">
+  <button onclick="window.print()" class="print-btn" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;background:#1A1F3A;color:#C5A55A;padding:10px 22px;border:1px solid #C5A55A;border-radius:2px;cursor:pointer;text-transform:uppercase;">📄 Print / Save as PDF</button>
+</div>
+<style>@media print { .print-btn, .daat-khavroutha-fab, .daat-chat-fab { display: none !important; } }</style>
 </body>
 </html>
