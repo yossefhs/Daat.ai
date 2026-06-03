@@ -11,7 +11,7 @@
 //   - Authorization: Bearer <ADMIN_PASSWORD>
 //   - x-admin-secret: <ADMIN_PASSWORD>
 //   - ?secret=<ADMIN_PASSWORD>
-import { getRedis, listAll, makeDedicace, saveDedicace } from './_dedicaces.js';
+import { getRedis, listAll, makeDedicace, saveDedicace, deleteDedicace } from './_dedicaces.js';
 
 function isAuthed(req) {
   const adminPwd = process.env.ADMIN_PASSWORD;
@@ -25,7 +25,7 @@ function isAuthed(req) {
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Admin-Secret');
   if (req.method === 'OPTIONS') return res.status(200).end();
 
@@ -70,6 +70,24 @@ export default async function handler(req, res) {
       return res.status(200).json({ ok: true, saved: dedic });
     } catch (err) {
       console.error('[dedicaces] POST error:', err?.message || err);
+      return res.status(500).json({ error: 'Erreur serveur' });
+    }
+  }
+
+  // ── DELETE : suppression par id (admin) ────────────────────────────────────
+  if (req.method === 'DELETE') {
+    if (!isAuthed(req)) {
+      return res.status(401).json({ error: 'Non autorisé' });
+    }
+    try {
+      const id = String(req.query?.id || '').trim();
+      if (!id) return res.status(400).json({ error: 'id requis' });
+      const removed = await deleteDedicace(redis, id);
+      if (!removed) return res.status(404).json({ error: 'Dédicace introuvable' });
+      console.log(`[dedicaces] suppression id=${id}`);
+      return res.status(200).json({ ok: true, deleted: id });
+    } catch (err) {
+      console.error('[dedicaces] DELETE error:', err?.message || err);
       return res.status(500).json({ error: 'Erreur serveur' });
     }
   }

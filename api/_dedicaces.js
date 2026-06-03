@@ -42,7 +42,7 @@ const MAX_ALL = 999; // 1000 dédicaces max dans le flux global
 // ── Types de dédicace → libellé hébreu ──────────────────────────────────────
 export const DEDIC_TYPES = {
   ilui: { he: 'לעילוי נשמת', fr: 'Illoui Nichmat' }, // à la mémoire
-  refoua: { he: 'רפואה שלמה', fr: 'Refoua Chelema' }, // guérison
+  refoua: { he: 'לרפואה שלמה', fr: 'Refoua Chelema' }, // guérison
   hatzlacha: { he: 'להצלחה', fr: 'Hatzlacha' }, // réussite
 };
 
@@ -107,4 +107,24 @@ export async function listSiman(redis, n, limit = 50) {
 export async function listAll(redis, limit = 200) {
   const raw = await redis.lrange(K_ALL, 0, limit - 1);
   return (raw || []).map(parseItem).filter(Boolean);
+}
+
+// Réécrit une liste de bout en bout en préservant l'ordre (newest → oldest).
+async function rewriteList(redis, key, items) {
+  await redis.del(key);
+  if (items.length) await redis.rpush(key, ...items);
+}
+
+// Supprime une dédicace par id (du flux global ET de la liste du siman).
+// Renvoie true si trouvée et supprimée, false sinon.
+export async function deleteDedicace(redis, id) {
+  const all = await listAll(redis, 1000);
+  const target = all.find((d) => d && d.id === id);
+  if (!target) return false;
+  await rewriteList(redis, K_ALL, all.filter((d) => d && d.id !== id));
+  if (target.siman != null) {
+    const sm = await listSiman(redis, target.siman, 1000);
+    await rewriteList(redis, kSiman(target.siman), sm.filter((d) => d && d.id !== id));
+  }
+  return true;
 }
