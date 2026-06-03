@@ -10,7 +10,11 @@
 (function () {
   'use strict';
 
-  var m = (location.pathname || '').match(/siman-(\d+)/) || (location.href || '').match(/siman-(\d+)/);
+  // Déduit N depuis l'URL. Deux formes possibles :
+  //   - canonique servie par les rewrites vercel.json : /oh/242, /oh/242/, /oh/242/base…
+  //   - accès direct au fichier : /sources/shabbat/siman-242/index.html
+  var path = location.pathname || '';
+  var m = path.match(/siman-(\d+)/) || path.match(/\/oh\/(\d+)/);
   if (!m) return;
   var siman = m[1];
   var API = 'https://daatai.vercel.app/api/dedicace/' + siman;
