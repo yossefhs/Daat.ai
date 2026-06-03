@@ -2,7 +2,7 @@
 
 Généré par `scripts/audit-simanim.py --write-progress`. Ne pas éditer à la main.
 
-✅ réécrit · 🟡 structure générique (à personnaliser) · 🟠 TOC désynchronisée · 🔴 boilerplate · ❌ absent · — non concerné
+✅ réécrit · 🟡 structure générique (à personnaliser) · 🟠 TOC désynchronisée · 🔴 boilerplate · ❌ absent · — non concerné · 🌉 page-passerelle (siman non rédigé par l'Admour HaZaken, traité par analogie)
 
 | Siman | N1 | N2 | N3 | N4 |
 |-------|----|----|----|----|
@@ -68,7 +68,7 @@ Généré par `scripts/audit-simanim.py --write-progress`. Ne pas éditer à la 
 | 301 | ✅ | ✅ | ✅ | ✅ |
 | 302 | ✅ | ✅ | ✅ | ✅ |
 | 303 | ✅ | ✅ | ✅ | ✅ |
-| 304 | ✅ | ✅ | ✅ | — |
+| 304 | ✅ | ✅ | ✅ | 🌉 |
 | 305 | ✅ | ✅ | ✅ | ✅ |
 | 306 | ✅ | ✅ | ✅ | ✅ |
 | 307 | ✅ | ✅ | ✅ | ✅ |
@@ -86,7 +86,7 @@ Généré par `scripts/audit-simanim.py --write-progress`. Ne pas éditer à la 
 | 319 | ✅ | ✅ | ✅ | ✅ |
 | 320 | ✅ | ✅ | ✅ | ✅ |
 | 321 | ✅ | ✅ | ✅ | ✅ |
-| 322 | ✅ | ✅ | ✅ | — |
+| 322 | ✅ | ✅ | ✅ | 🌉 |
 | 323 | ✅ | ✅ | ✅ | ✅ |
 | 324 | ✅ | ✅ | ✅ | ✅ |
 | 325 | ✅ | ✅ | ✅ | ✅ |
