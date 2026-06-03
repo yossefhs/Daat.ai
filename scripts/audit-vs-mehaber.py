@@ -53,7 +53,7 @@ def count_seifim_in_file(file_path: Path) -> int:
     except Exception:
         return 0
 
-    # Latin transliterations (Alef, Bet, ...)
+    # Latin transliterations (Alef, Bet, ...) — format "Seif Alef"
     LATIN_LETTERS = [
         "Alef", "Bet", "Gimel", "Dalet", "He", "Hei", "Vav", "Zayin",
         "Het", "Chet", "Tet", "Yod",
@@ -66,7 +66,13 @@ def count_seifim_in_file(file_path: Path) -> int:
         if re.search(rf"\bSeif {letter}\b", text):
             latin_count += 1
 
-    # Hebrew letter sequence (sequential count)
+    # Format mixte : "Seif א", "Seif ב" — translit + lettre hébraïque
+    mixed_count = len(set(re.findall(r"\bSeif\s+([א-ת]['׳״\"]?[א-ת]?['׳״\"]?)", text)))
+
+    # Format français : "Séif א"
+    fr_mixed_count = len(set(re.findall(r"\bSéif\s+([א-ת]['׳״\"]?[א-ת]?['׳״\"]?)", text)))
+
+    # Hebrew letter sequence (sequential count) — format "סעיף א"
     HE_LETTERS = ['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ז', 'ח', 'ט', 'י']
     he_count = 0
     for letter in HE_LETTERS:
@@ -76,7 +82,10 @@ def count_seifim_in_file(file_path: Path) -> int:
     # Numerical Seif (Seif 1, Seif 2, ...)
     num_count = len(set(re.findall(r"\bSeif (\d+)\b", text)))
 
-    return max(latin_count, he_count, num_count, 1 if text else 0)
+    return max(
+        latin_count, mixed_count, fr_mixed_count, he_count, num_count,
+        1 if text else 0,
+    )
 
 
 def main():

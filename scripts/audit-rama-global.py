@@ -29,6 +29,18 @@ RAMA_FR_MARKER = re.compile(r'\bRama\b|Hagaha du Rama|Glose du Rama|Ashkén', re
 RAMA_EN_MARKER = re.compile(r'\bRema\b|Hagahah of the Rema|Rema gloss|Ashkenazi', re.IGNORECASE)
 RAMA_HE_PROSE = re.compile(r'הרמ["״]א|רמ["״]א|אַשְׁכְּנַזִּים')
 
+# Mention explicite « le Rama n'a pas de hagaha sur ce siman »
+RAMA_ABSENT_DOCUMENTED = re.compile(
+    r"n'ajoute (?:aucune|pas de|pas)|n'a pas (?:de )?glos|"
+    r"pas de glose ashkénaze|adds? no (?:gloss|hagahah)|does not add|"
+    r"no specific Ashkenaz|"
+    r"suivent la même halakha|pratique (?:est )?commune|"
+    r"לֹא הוֹסִיף|לא הוסיף|לא מוסיף|אינו מוסיף|"
+    r"unifié|signe d'unanimité|the Mechaber and the Rama are unified|"
+    r"מאוחדים|מוסכם",
+    re.IGNORECASE,
+)
+
 
 def analyze(html: str, lang: str) -> dict:
     """Analyse un fichier HTML pour Rama."""
@@ -64,31 +76,30 @@ def analyze(html: str, lang: str) -> dict:
     }
 
 
-def categorize(stats_fr, stats_he, stats_en) -> str:
+def categorize(stats_fr, stats_he, stats_en, fr_html) -> str:
     """Categorise le siman :
-    - OK : Rama present quelque part (citation ou rama-div) dans les 3 langues
-    - GAP_CITATIONS : prose mais pas dans les citations
-    - NO_RAMA : aucun Rama mentionne (= probablement pas de Rama dans standard)
-    - INCOMPLET : Rama partiel (une langue manque)
+    - OK : Rama present dans citations dans les 3 langues
+    - NO_RAMA_DOCUMENTED : le N1 documente explicitement « pas de Rama »
+    - GAP_CITATIONS : prose mais pas dans citations (vrai gap potentiel)
+    - INCOMPLET : Rama partiel entre langues
+    - NO_RAMA : aucune trace de Rama nulle part
     """
-    has_any = all(s["has_rama_anywhere"] for s in [stats_fr, stats_he, stats_en])
     has_prose = all(s["prose_marker"] for s in [stats_fr, stats_he, stats_en])
     has_citation = all(
         s["blocks_with_rama"] > 0 or s["rama_text_divs"] > 0
         for s in [stats_fr, stats_he, stats_en]
     )
 
-    if not (stats_fr["prose_marker"] or stats_he["prose_marker"] or stats_en["prose_marker"]):
-        if not has_any:
-            return "NO_RAMA"
-
     if has_citation:
         return "OK"
+
+    # Documented "no Rama" : le N1 explique que le Rama n'a pas de hagaha
+    if RAMA_ABSENT_DOCUMENTED.search(fr_html):
+        return "NO_RAMA_DOCUMENTED"
 
     if has_prose and not has_citation:
         return "GAP_CITATIONS"
 
-    # Heterogene
     if any(s["has_rama_anywhere"] for s in [stats_fr, stats_he, stats_en]):
         return "INCOMPLET"
 
@@ -98,7 +109,13 @@ def categorize(stats_fr, stats_he, stats_en) -> str:
 def main():
     print("=== AUDIT RAMA GLOBAL — simanim 242-365 ===\n")
 
-    categories = {"OK": [], "GAP_CITATIONS": [], "NO_RAMA": [], "INCOMPLET": []}
+    categories = {
+        "OK": [],
+        "NO_RAMA_DOCUMENTED": [],
+        "GAP_CITATIONS": [],
+        "NO_RAMA": [],
+        "INCOMPLET": [],
+    }
 
     for num in range(242, 366):
         folder = SHABBAT / f"siman-{num}"
@@ -117,14 +134,14 @@ def main():
         sfr = analyze(fr, "fr")
         she = analyze(he, "he")
         sen = analyze(en, "en")
-        cat = categorize(sfr, she, sen)
+        cat = categorize(sfr, she, sen, fr)
         categories[cat].append((num, sfr, she, sen))
 
     # Affichage par categorie
-    for cat in ["GAP_CITATIONS", "INCOMPLET", "NO_RAMA", "OK"]:
+    for cat in ["GAP_CITATIONS", "INCOMPLET", "NO_RAMA", "NO_RAMA_DOCUMENTED", "OK"]:
         items = categories[cat]
         print(f"\n## {cat} : {len(items)} simanim")
-        if cat == "OK":
+        if cat in ("OK", "NO_RAMA_DOCUMENTED"):
             print(f"  {[n for n,*_ in items]}")
         else:
             for num, sfr, she, sen in items:
@@ -136,8 +153,8 @@ def main():
                       f"rama_div={sen['rama_text_divs']}/prose={sen['prose_marker']})")
 
     print("\n=== RÉSUMÉ ===")
-    for cat in ["OK", "GAP_CITATIONS", "INCOMPLET", "NO_RAMA"]:
-        print(f"  {cat:18} : {len(categories[cat]):3} simanim")
+    for cat in ["OK", "NO_RAMA_DOCUMENTED", "GAP_CITATIONS", "INCOMPLET", "NO_RAMA"]:
+        print(f"  {cat:20} : {len(categories[cat]):3} simanim")
 
 
 if __name__ == "__main__":
