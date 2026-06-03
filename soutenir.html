@@ -1346,12 +1346,34 @@
         <span class="lang-he-inline">כל שם מופיע בראש הסימן המוקדש, נלמד מדי יום לעילוי נשמת, רפואה שלמה או להצלחה.</span>
       </p>
 
-      <div class="dedicaces-grid" id="dedicaces-grid" aria-live="polite" style="display:none;"></div>
+      <!--
+        Grille peuplée dynamiquement via /api/dedicaces. En l'absence de vraie
+        dédicace (ou tant qu'Upstash n'est pas branché), on affiche des cartes
+        d'exemple (data-examples) pour montrer le rendu. Le fetch les remplace
+        dès qu'une vraie dédicace existe.
+      -->
+      <div class="dedicaces-grid" id="dedicaces-grid" aria-live="polite" data-examples="1">
+        <div class="dedicace-card">
+          <div class="dedicace-type">לעילוי נשמת</div>
+          <div class="dedicace-nom">ר' משה בן אברהם ז״ל</div>
+          <div class="dedicace-siman"><a href="/oh/242/">סימן רמ״ב · 242</a></div>
+        </div>
+        <div class="dedicace-card">
+          <div class="dedicace-type">לרפואה שלמה</div>
+          <div class="dedicace-nom">שרה בת רבקה</div>
+          <div class="dedicace-siman"><a href="/oh/247/">סימן רמ״ז · 247</a></div>
+        </div>
+        <div class="dedicace-card">
+          <div class="dedicace-type">להצלחה</div>
+          <div class="dedicace-nom">יוסף בן חנה</div>
+          <div class="dedicace-siman"><a href="/oh/250/">סימן ר״נ · 250</a></div>
+        </div>
+      </div>
 
       <div id="dedicaces-empty">
-        <span class="lang-fr-inline">Les premières dédicaces apparaîtront ici — et en haut du siman concerné.</span>
-        <span class="lang-en-inline">The first dedications will appear here — and atop the relevant siman.</span>
-        <span class="lang-he-inline">ההקדשות הראשונות יופיעו כאן — ובראש הסימן הרלוונטי.</span>
+        <span class="lang-fr-inline">Exemples ci-dessus — vos dédicaces réelles s'afficheront ici, et en haut du siman concerné.</span>
+        <span class="lang-en-inline">Examples above — your real dedications will appear here, and atop the relevant siman.</span>
+        <span class="lang-he-inline">דוגמאות למעלה — ההקדשות האמיתיות שלכם יופיעו כאן, ובראש הסימן הרלוונטי.</span>
       </div>
     </div>
   </section>
@@ -1745,7 +1767,9 @@
       }
 
       function render(list) {
-        if (!list || !list.length) return; // garde le message d'invitation
+        if (!list || !list.length) return; // pas de vraie dédicace : on garde les exemples
+        // De vraies dédicaces existent : on remplace les cartes d'exemple.
+        grid.removeAttribute('data-examples');
         grid.innerHTML = list.slice(0, 60).map(function (d) {
           var simanHtml = (d.siman != null)
             ? '<div class="dedicace-siman"><a href="/oh/' + encodeURIComponent(d.siman) + '/">סימן ' + esc(d.siman) + '</a></div>'
