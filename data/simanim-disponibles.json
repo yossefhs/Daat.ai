@@ -2,12 +2,12 @@
   "meta": {
     "version": "2.0",
     "description": "Index auto-généré des simanim disponibles sur disque. Régénéré au build par scripts/generate-simanim-index.js.",
-    "lastUpdated": "2026-05-11",
+    "lastUpdated": "2026-06-03",
     "counts": {
       "total": 124,
       "complet": 122,
       "daatHarav": 0,
-      "partiel": 0
+      "partiel": 2
     }
   },
   "simanim": [
@@ -819,15 +819,15 @@
     },
     {
       "num": 304,
-      "numHe": "ש\"ד",
-      "title": "Sur le repos de l'esclave (Mehaber seul)",
+      "numHe": "304",
+      "title": "Le repos du serviteur et de l'esclave le Chabbat",
       "levels": {
-        "n1": false,
-        "n2": false,
-        "n3": false,
+        "n1": true,
+        "n2": true,
+        "n3": true,
         "n4": false
       },
-      "status": "index-seul",
+      "status": "partiel-3",
       "path": "sources/shabbat/siman-304/index.html"
     },
     {
@@ -1053,15 +1053,15 @@
     },
     {
       "num": 322,
-      "numHe": "שכ\"ב",
-      "title": "Œuf pondu Shabbat (Mehaber seul)",
+      "numHe": "322",
+      "title": "L'œuf pondu le Chabbat (Nolad)",
       "levels": {
-        "n1": false,
-        "n2": false,
-        "n3": false,
+        "n1": true,
+        "n2": true,
+        "n3": true,
         "n4": false
       },
-      "status": "index-seul",
+      "status": "partiel-3",
       "path": "sources/shabbat/siman-322/index.html"
     },
     {
