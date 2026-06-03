@@ -560,6 +560,32 @@
     .builders-cta a:hover { color: var(--color-gold); }
     body.lang-he .builder { border-left: 1px solid var(--color-line); border-right: 3px solid var(--color-gold); }
     body.lang-he .builder:hover { border-right-color: var(--color-gold-dark); }
+
+    /* ── MUR DES DÉDICACES ── */
+    .dedicaces { background: #1a1a2e; color: #f5e9c8; border-top: 2px solid #B8972A; border-bottom: 2px solid #B8972A; }
+    .dedicaces .section-eyebrow { color: #B8972A; }
+    .dedicaces .section-title, .dedicaces .section-intro { color: #f5e9c8; }
+    .dedicaces-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0 0;
+    }
+    .dedicace-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(184,151,42,0.35);
+      border-top: 3px solid #B8972A;
+      padding: 1.1rem 1.2rem;
+      text-align: center;
+      direction: rtl;
+      font-family: var(--font-hebrew, 'Frank Ruhl Libre', serif);
+    }
+    .dedicace-type { color: #B8972A; font-weight: 600; font-size: 1.05rem; margin-bottom: 0.4rem; }
+    .dedicace-nom { color: #f5e9c8; font-size: 1.35rem; line-height: 1.5; margin-bottom: 0.5rem; }
+    .dedicace-siman { display: inline-block; }
+    .dedicace-siman a { color: #d8c79a; font-size: 0.85rem; text-decoration: none; border-bottom: 1px solid rgba(184,151,42,0.5); direction: ltr; }
+    .dedicace-siman a:hover { color: #B8972A; }
+    #dedicaces-empty { text-align: center; color: #d8c79a; font-style: italic; padding: 1.5rem; }
     .amount-list {
       list-style: none;
       margin-bottom: 1.4rem;
@@ -1305,6 +1331,31 @@
     </div>
   </section>
 
+  <!-- MUR DES DÉDICACES — peuplé dynamiquement via /api/dedicaces -->
+  <section class="section dedicaces" id="dedicaces">
+    <div class="container">
+      <div class="section-eyebrow">הקדשות הלימוד</div>
+      <h2 class="section-title">
+        <span class="lang-fr-inline">Mur des dédicaces</span>
+        <span class="lang-en-inline">Wall of dedications</span>
+        <span class="lang-he-inline">קיר ההקדשות</span>
+      </h2>
+      <p class="section-intro">
+        <span class="lang-fr-inline">Chaque nom apparaît en haut du siman dédié, étudié chaque jour לעילוי נשמת, רפואה שלמה ou להצלחה.</span>
+        <span class="lang-en-inline">Each name appears atop its dedicated siman, studied every day לעילוי נשמת, רפואה שלמה or להצלחה.</span>
+        <span class="lang-he-inline">כל שם מופיע בראש הסימן המוקדש, נלמד מדי יום לעילוי נשמת, רפואה שלמה או להצלחה.</span>
+      </p>
+
+      <div class="dedicaces-grid" id="dedicaces-grid" aria-live="polite" style="display:none;"></div>
+
+      <div id="dedicaces-empty">
+        <span class="lang-fr-inline">Les premières dédicaces apparaîtront ici — et en haut du siman concerné.</span>
+        <span class="lang-en-inline">The first dedications will appear here — and atop the relevant siman.</span>
+        <span class="lang-he-inline">ההקדשות הראשונות יופיעו כאן — ובראש הסימן הרלוונטי.</span>
+      </div>
+    </div>
+  </section>
+
   <!-- TRANSPARENCE -->
   <section class="transparency">
     <div class="container">
@@ -1676,6 +1727,45 @@
           if (data && data.ok && Array.isArray(data.wall)) render(data.wall);
         })
         .catch(function () { /* fallback statique reste affiché */ });
+    })();
+  </script>
+
+  <!-- Mur des dédicaces — fetch dynamique via /api/dedicaces -->
+  <script>
+    (function () {
+      var grid = document.getElementById('dedicaces-grid');
+      var empty = document.getElementById('dedicaces-empty');
+      if (!grid) return;
+      var API = 'https://daatai.vercel.app/api/dedicaces';
+
+      function esc(s) {
+        return String(s == null ? '' : s)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
+
+      function render(list) {
+        if (!list || !list.length) return; // garde le message d'invitation
+        grid.innerHTML = list.slice(0, 60).map(function (d) {
+          var simanHtml = (d.siman != null)
+            ? '<div class="dedicace-siman"><a href="/oh/' + encodeURIComponent(d.siman) + '/">סימן ' + esc(d.siman) + '</a></div>'
+            : '';
+          return '<div class="dedicace-card">' +
+                   '<div class="dedicace-type">' + esc(d.typeHe || '') + '</div>' +
+                   '<div class="dedicace-nom">' + esc(d.nom || '') + '</div>' +
+                   simanHtml +
+                 '</div>';
+        }).join('');
+        grid.style.display = '';
+        if (empty) empty.style.display = 'none';
+      }
+
+      fetch(API, { method: 'GET', headers: { 'Accept': 'application/json' } })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (data) {
+          if (data && data.ok && Array.isArray(data.dedicaces)) render(data.dedicaces);
+        })
+        .catch(function () { /* le message d'invitation reste affiché */ });
     })();
   </script>
 

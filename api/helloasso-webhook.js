@@ -15,6 +15,32 @@
 // HelloAsso v5 ne signe pas en HMAC ; le secret query string est leur recommandation.
 
 import { kv } from './_kv.js';
+import { getRedis, K_ORDERS, makeDedicace, saveDedicace } from './_dedicaces.js';
+
+// Cherche une réponse de champ personnalisé HelloAsso par nom (fuzzy).
+// HelloAsso renvoie les customFields sous forme [{ name, answer }, ...],
+// au niveau de l'order et/ou de chaque item.
+function collectCustomFields(data) {
+  const fields = [];
+  const push = (arr) => {
+    if (Array.isArray(arr)) for (const f of arr) if (f) fields.push(f);
+  };
+  push(data?.customFields);
+  push(data?.order?.customFields);
+  if (Array.isArray(data?.items)) for (const it of data.items) push(it?.customFields);
+  return fields;
+}
+
+function findField(fields, regex) {
+  for (const f of fields) {
+    const name = String(f?.name || f?.label || '').toLowerCase();
+    if (regex.test(name)) {
+      const v = f?.answer ?? f?.value ?? f?.values;
+      if (v != null && String(v).trim()) return String(Array.isArray(v) ? v.join(' ') : v).trim();
+    }
+  }
+  return '';
+}
 
 const SUBSCRIBER_PLANS = new Set(['khavroutha', 'beit_midrash', 'beit_midrash_plus', 'yeshiva', 'lifetime', 'premium']);
 
@@ -87,6 +113,51 @@ export default async function handler(req, res) {
   const acceptedEvents = ['Order', 'Payment', 'Form'];
   if (eventType && !acceptedEvents.includes(eventType)) {
     return res.status(200).json({ ok: true, ignored: true, eventType });
+  }
+
+  // ── Branche DÉDICACE ────────────────────────────────────────────────────────
+  // Si le formulaire est un formulaire de dédicace (formSlug contient « dedicace »),
+  // on lit les champs personnalisés (Nom hébreu, Type, Siman concerné) et on
+  // enregistre la/les dédicace(s). Ces formulaires sont des dons ponctuels : on
+  // ne déclenche pas d'upgrade de plan.
+  const formSlugRaw = String(
+    data?.formSlug || data?.form?.formSlug || data?.formName || data?.form?.name || '',
+  ).toLowerCase();
+  if (formSlugRaw.includes('dedicace') || formSlugRaw.includes('dédicace') || formSlugRaw.includes('dedication')) {
+    // Anti-doublon : un order id ne doit être traité qu'une seule fois.
+    const orderId = String(data?.id || data?.orderId || data?.order?.id || '').trim();
+    if (orderId) {
+      let redis;
+      try {
+        redis = getRedis();
+        const isNew = await redis.sadd(K_ORDERS, orderId);
+        if (isNew === 0) {
+          return res.status(200).json({ ok: true, dedicace: true, duplicate: true, orderId });
+        }
+      } catch (err) {
+        console.error('[helloasso-webhook] dedicace KV error:', err?.message || err);
+        return res.status(500).json({ error: 'KV error' });
+      }
+
+      const fields = collectCustomFields(data);
+      const nom = findField(fields, /nom|name|h[ée]breu|hebrew|שם|niftar|d[ée]di/);
+      const type = findField(fields, /type|cat[ée]gorie|category|nature|כוונה|לעילוי|רפואה|הצלחה/);
+      const simanRaw = findField(fields, /siman|simane|chapitre|chapter|סימן|page/);
+      const siman = (String(simanRaw).match(/\d+/) || [])[0] || null;
+
+      if (!nom) {
+        console.warn('[helloasso-webhook] dedicace sans nom, orderId=', orderId);
+        return res.status(200).json({ ok: true, dedicace: true, warning: 'no_name', orderId });
+      }
+
+      const dedic = makeDedicace({ siman, nom, type, source: 'helloasso', orderId });
+      await saveDedicace(redis, dedic);
+      console.log(`[helloasso-webhook] DEDICACE enregistrée siman=${dedic.siman} type=${dedic.type} order=${orderId}`);
+      return res.status(200).json({ ok: true, dedicace: true, saved: dedic });
+    }
+    // Pas d'order id exploitable : on log et on s'arrête (pas d'anti-doublon possible).
+    console.warn('[helloasso-webhook] dedicace sans orderId exploitable');
+    return res.status(200).json({ ok: true, dedicace: true, warning: 'no_order_id' });
   }
 
   // Extraction email payeur (plusieurs chemins possibles selon le type d'event)
