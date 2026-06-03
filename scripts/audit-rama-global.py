@@ -22,14 +22,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 SHABBAT = ROOT / "sources" / "shabbat"
 
-RAMA_HE = re.compile(r'הַגָּ?הּ|הַגָּהָה|הגה(?:[ ״״\'":,.]|״)|הג"ה')
-RAMA_FR_MARKER = re.compile(
-    r'(?:Glose|Hagaha|Position) du Rama|Rama (?:dit|ajoute)|Rama:|Rama\s*\('
+RAMA_HE = re.compile(
+    r'הַגָּ?הּ|הַגָּהָה|הגה(?=[<\s:,.ֻ-ׇ])|הג["״]ה|רמ["״]א|הרמ["״]א|אַשְׁכְּנַזִּים'
 )
-RAMA_EN_MARKER = re.compile(
-    r'(?:Hagahah|Rema gloss|Rema:|Rema\s+(?:states|adds|brings))|the Rema'
-)
-RAMA_HE_PROSE = re.compile(r'הרמ״?א|רמ״?א|אַשְׁכְּנַזִּים')
+RAMA_FR_MARKER = re.compile(r'\bRama\b|Hagaha du Rama|Glose du Rama|Ashkén', re.IGNORECASE)
+RAMA_EN_MARKER = re.compile(r'\bRema\b|Hagahah of the Rema|Rema gloss|Ashkenazi', re.IGNORECASE)
+RAMA_HE_PROSE = re.compile(r'הרמ["״]א|רמ["״]א|אַשְׁכְּנַזִּים')
 
 
 def analyze(html: str, lang: str) -> dict:
