@@ -23,13 +23,24 @@ def count_seifim(file_path: Path) -> int:
     except Exception:
         return 0
 
-    # Match Seif Alef, Seif Bet, etc. — Latin transliteration
-    latin_seifim = set(re.findall(r"Seif[- ]([A-Za-z]+)", text))
+    # Format Latin : "Seif Alef", "Seif Bet"...
+    latin_seifim = set(re.findall(r"Seif[- ]([A-Za-z]+)\b", text))
 
-    # Match seif aleph hebrew letters
-    he_seifim = set(re.findall(r"סעיף\s+([א-ת]['׳״]?)", text))
+    # Format mixte : "Seif א", "Seif ב" — translittération + lettre hébraïque
+    mixed_seifim = set(re.findall(r"Seif\s+([א-ת]['׳״\"׳״]?)", text))
 
-    return max(len(latin_seifim), len(he_seifim))
+    # Format hébreu pur : "סעיף א'"
+    he_seifim = set(re.findall(r"סעיף\s+([א-ת]['׳״\"׳״]?)", text))
+
+    # Format français : "Séif א" ou "Séif aleph"
+    fr_seifim_he = set(re.findall(r"S[ée]if\s+([א-ת]['׳״\"׳״]?)", text))
+
+    return max(
+        len(latin_seifim),
+        len(mixed_seifim),
+        len(he_seifim),
+        len(fr_seifim_he),
+    )
 
 
 def audit_siman(num: int) -> dict:
