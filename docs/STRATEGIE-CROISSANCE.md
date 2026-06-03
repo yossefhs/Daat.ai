@@ -26,7 +26,8 @@ voici l'actif réel détecté dans le code :
 | **Blog / articles** | 🔴 Absent | **Aucune section blog/actualités** sur le site. C'est le grand manque pour le SEO/AEO. |
 | **Publication réseaux** | 🔴 Absent | **Aucun système d'auto-publication** Instagram/Facebook/LinkedIn/X. Tout est manuel. |
 | **« Skill » de publication** | 🔴 Introuvable | Recherché dans `.claude/skills`, skills globaux et Google Drive : **n'existe pas en tant que fichier**. C'était un concept discuté, jamais matérialisé. Seul skill présent : `session-start-hook`. |
-| **« Omniprésence sociale »** | 🔴 Concept | Pas de fichier ni d'outil connecté. C'est le terme marketing « social omnipresence » (être partout à la fois) — voir §4, c'est exactement ce que la solution ci-dessous met en place. |
+| **« Omnisocial »** | 🟢 Identifié | L'outil dont on avait parlé = **OmniSocials** (omnisocials.com) : 10 $/mo, 10 réseaux, **connexion MCP native à Claude**. C'est le pilier de la solution (§4). |
+| **Skill `daat-social`** | 🟢 Créé | `.claude/skills/daat-social/` : le moteur réutilisable qui transforme un siman → kit multi-plateforme dans la voix DAAT, puis publie via OmniSocials. C'est le « skill » qu'on voulait. |
 
 ### Verdict
 La **fondation est là** (contenu + SEO + newsletter + Vercel/Node + Anthropic SDK).
@@ -72,11 +73,14 @@ par ChatGPT, Perplexity, Claude et les Google AI Overviews**.
 
 | Outil | Modèle | Prix d'entrée | Plateformes | Pour DAAT |
 |-------|--------|---------------|-------------|-----------|
-| **Postiz** | Open-source, **auto-hébergeable**, API | **Gratuit** (self-host) / cloud 29 $/mo | 30+ (X, LinkedIn, IG, FB, TikTok, YouTube, Threads, Bluesky, Mastodon…) | ⭐ **Recommandé** — gratuit, API, agentic, contrôle total |
-| **Ayrshare** | API-first, clé en main | 149 $/mo (limité) | 13 | Le plus simple à coder, mais **cher** pour une asso |
-| **Buffer** | SaaS simple | **Tier gratuit** + API | IG, FB, LinkedIn, X, TikTok, Pinterest | Bon démarrage gratuit, API correcte |
-| **n8n** | Orchestrateur open-source | **Gratuit** (self-host) / cloud | Via Postiz/Ayrshare/Buffer | ⭐ **La « colle »** qui automatise tout le pipeline |
-| Publer / Vista / SocialPilot | SaaS | 30–79 $/mo | 10–15 | Manuel, moins « code-first » |
+| **OmniSocials** | SaaS **+ MCP natif Claude** | **10 $/mo** (essai 14 j) | 10 (IG, FB, LinkedIn, X, YouTube, TikTok, Pinterest, Bluesky, Threads, Mastodon) | ⭐⭐ **LE choix** — Claude rédige, **programme et publie** en langage naturel ; MCP+skill open-source MIT ; pas cher |
+| **Postiz** | Open-source, auto-hébergeable, API | Gratuit (self-host) / 29 $/mo | 30+ | Alternative si on veut du self-host |
+| **Buffer** | SaaS simple | Tier gratuit + API | IG, FB, LinkedIn, X… | Démarrage gratuit basique |
+| **Ayrshare** | API-first | 149 $/mo | 13 | Cher pour une asso |
+| **n8n** | Orchestrateur open-source | Gratuit (self-host) | Via API | Optionnel, si canvas visuel souhaité |
+
+**→ Choix retenu : OmniSocials.** Il fait exactement ce qu'on cherchait : **connecter
+Claude pour faire les envois**. Setup dans `.claude/skills/daat-social/references/omnisocials-setup.md`.
 
 **Insight clé 2026** : 83 % des équipes marketing automatisent leurs publications,
 mais celles qui **adaptent le message par plateforme** (vs copier-coller identique)
@@ -92,56 +96,59 @@ post FB, story, email) **sans réécriture manuelle**.
 
 ---
 
-## 4. ⭐ La solution recommandée — « Moteur de contenu DAAT »
+## 4. ⭐ La solution recommandée — Skill `daat-social` + OmniSocials
 
-> **Principe : DAAT produit déjà LE contenu le plus dur à produire (la Torah de
-> qualité). On ne crée rien de neuf — on REDISTRIBUE automatiquement le corpus
-> existant partout, en permanence.** C'est ça, l'« omniprésence sociale ».
+> **Principe : DAAT produit déjà LE contenu le plus dur (la Torah de qualité). On ne
+> crée rien de neuf — on REDISTRIBUE automatiquement le corpus existant partout.**
+> C'est ça, l'omniprésence — et **OmniSocials** en est le bras armé.
 
-### 4.1 Architecture (s'appuie sur l'existant, zéro réécriture du site)
+La meilleure option n'est **pas** de coder un cron Vercel + choisir un outil d'API :
+c'est plus simple et plus puissant. **Claude devient lui-même le community manager** via
+le skill `daat-social` (créé dans ce dépôt) et publie via le **MCP OmniSocials**.
+
+### 4.1 Architecture (réutilise l'existant, zéro réécriture du site)
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│  SOURCE  : corpus existant (124 simanim × 4 niveaux × 3 langues)      │
+│  SOURCE  : corpus existant (data/simanim/*.json + sources/shabbat/)   │
 │            + calendrier juif (paracha / fête de la semaine)           │
 └───────────────────────────────┬─────────────────────────────────────┘
-                                 │  Cron Vercel hebdo (déjà en place)
+                                 │  Skill .claude/skills/daat-social
                                  ▼
 ┌─────────────────────────────────────────────────────────────────────┐
-│  GÉNÉRATION  : Claude (Anthropic SDK, déjà installé)                  │
-│   1 siman  →  • post LinkedIn (ton pro, 1 enseignement)              │
-│              • thread X (3-5 tweets, la sougya en fil)               │
-│              • caption Instagram + texte carrousel                   │
-│              • post Facebook (groupe communautaire)                  │
-│              • story / hook « halakha pratique du jour »             │
-│              • brouillon d'article de BLOG (SEO/AEO long)            │
-│              • objet + corps de l'email newsletter                   │
+│  GÉNÉRATION  : Claude (reformate, n'invente pas de psak)              │
+│   1 siman  →  • post LinkedIn   • thread X   • caption+carrousel IG   │
+│              • post Facebook    • rappel communauté WhatsApp          │
+│              • (option) article BLOG long SEO/AEO + email newsletter  │
+│  VISUEL : node scripts/generate-og-image.js --siman {N}              │
 └───────────────────────────────┬─────────────────────────────────────┘
+                                 ▼  VALIDATION HUMAINE (au début)
+                                 │  tu relis → « OK »
                                  ▼
-┌──────────────────────────────┐   ┌──────────────────────────────────┐
-│  VISUEL : generate-og-image  │   │  VALIDATION (option, au début)   │
-│  → carte SVG/PNG par siman   │   │  Brouillon → ton email/Notion    │
-└──────────────┬───────────────┘   └───────────────┬──────────────────┘
-               │                                    │ « OK » en 1 clic
-               ▼                                    ▼
 ┌─────────────────────────────────────────────────────────────────────┐
-│  PUBLICATION : Postiz (API)  →  LinkedIn · Instagram · Facebook · X  │
+│  PUBLICATION : OmniSocials (MCP)  → programme LinkedIn·IG·FB·X… aux   │
+│                                     heures optimales, étalé/semaine   │
 │  NEWSLETTER  : Resend (déjà en place)  →  email hebdo                 │
-│  BLOG        : nouvelle section /blog/ du site (SEO/AEO)              │
+│  BLOG        : section /blog/ à créer (SEO/AEO) — le multiplicateur   │
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
+**Utilisation concrète (rituel hebdo ~15 min, validé par toi) :**
+> « Publie le siman 247 » → Claude lit la source, génère le kit FR multi-plateforme +
+> le visuel, te le présente, tu dis « OK », Claude **programme** la semaine sur
+> OmniSocials (LinkedIn mar, IG mer, X jeu, FB ven). Puis ça tourne tout seul.
+
 **Pourquoi c'est la meilleure option pour DAAT :**
-1. **Réutilise 90 % de l'infra déjà payée/codée** (Vercel cron, Anthropic SDK,
-   Resend, KV, générateur OG). Coût marginal ≈ 0.
-2. **Le contenu existe déjà** — Claude ne « hallucine » pas de la halakha, il
-   **reformate** un siman validé. Sécurité halakhique préservée (+ le disclaimer
-   « pour la pratique, demande à ton Rav » est déjà dans l'ADN du site).
-3. **Une variante par plateforme** (best practice 2026), pas du copier-coller.
-4. **Le blog nourrit le SEO ET l'IA** (AEO) ET les réseaux ET la newsletter :
-   un seul effort, 5 canaux.
-5. **Validation humaine optionnelle** au début (tu valides en 1 clic), puis
-   **100 % autonome** une fois la qualité éprouvée.
+1. **OmniSocials = exactement « connecter Claude pour faire les envois »** — 10 $/mo,
+   MCP natif, 10 réseaux, OAuth. Rien à coder côté publication.
+2. **Le skill est réutilisable et versionné** — la voix, la charte, les formats par
+   plateforme et les **garde-fous halakhiques** sont encapsulés une fois pour toutes.
+3. **Le contenu existe déjà** — Claude **reformate** un siman validé, ne hallucine pas
+   de halakha (+ disclaimer « pour la pratique, demande à ton Rav » intégré au skill).
+4. **Une variante par plateforme** (best practice 2026), pas du copier-coller.
+5. **Validation humaine au début**, puis bascule full-auto possible une fois la qualité
+   éprouvée — sans changer d'outil.
+6. **Le même kit nourrit blog + newsletter** : un seul effort, plusieurs canaux.
 
 ### 4.2 Le composant central : `/blog/` (le chaînon manquant)
 Un blog est le **multiplicateur** : c'est la seule brique qui sert SEO + AEO +
@@ -152,14 +159,12 @@ réseaux + newsletter en même temps. Idées de rubriques, toutes tirées du cor
 - **« Cas pratique »** (intent process : checklist + Q/R → schema FAQ).
 Chaque article = réponse directe en intro (AEO) + sources citées (déjà le standard DAAT).
 
-### 4.3 Recommandation d'outil de publication
-- **Démarrage gratuit / contrôle total** → **Postiz auto-hébergé** (open-source,
-  API, 30+ réseaux). Idéal pour une asso financée par les dons.
-- **Si tu veux zéro maintenance serveur** → **Buffer (tier gratuit)** pour
-  commencer, puis **Ayrshare** si le budget le permet plus tard.
-- **Orchestration** → soit directement dans le code Vercel (cron → génération →
-  appel API Postiz), soit via **n8n** si tu préfères un canvas visuel modifiable
-  sans code.
+### 4.3 Outil de publication — décision : **OmniSocials**
+- **10 $/mo**, essai 14 j sans CB. 10 réseaux. OAuth (rien à copier-coller).
+- **MCP natif Claude** : `claude mcp add omnisocials …` ou remote `mcp.omnisocials.com`
+  (Settings → Integrations → Claude). Détails : `references/omnisocials-setup.md`.
+- Claude **rédige, programme et publie** en langage naturel + analytics + audits.
+- Alternatives gardées en réserve : Postiz (self-host gratuit), Buffer (free).
 
 ---
 
@@ -177,12 +182,13 @@ Chaque article = réponse directe en intro (AEO) + sources citées (déjà le st
 - [ ] Publier 4–8 articles de départ (1 par grande rubrique).
 - [ ] Ajouter le blog au `sitemap.xml` + flux **RSS** (= source pour l'automation).
 
-### Phase 2 — Moteur d'auto-publication réseaux
-- [ ] Choisir l'outil (Postiz self-host recommandé) + connecter les comptes.
-- [ ] `api/social-cron.js` (ou workflow n8n) : cron hebdo → Claude génère le
-      « content kit » multi-plateforme → publication via API.
-- [ ] Étape validation : brouillon envoyé par email, publication sur « OK ».
-- [ ] Passer en **100 % autonome** une fois la qualité validée sur ~4 semaines.
+### Phase 2 — Moteur d'auto-publication réseaux ✅ *(outillage prêt)*
+- [x] Skill `daat-social` créé (`.claude/skills/daat-social/`) : génère le kit
+      multi-plateforme dans la voix DAAT, avec garde-fous halakhiques.
+- [ ] Créer le compte **OmniSocials** (essai 14 j) + connecter LinkedIn/IG/FB/X.
+- [ ] Connecter OmniSocials à Claude (MCP) — voir `omnisocials-setup.md`.
+- [ ] Rituel hebdo : « Publie le siman {N} » → kit FR → validation → programmation.
+- [ ] Passer en **full-auto** une fois la qualité validée sur ~4 semaines.
 
 ### Phase 3 — Boucle de croissance
 - [ ] Newsletter : ajouter un **CTA de parrainage** (« invite un ami à étudier »).
@@ -201,19 +207,21 @@ Chaque article = réponse directe en intro (AEO) + sources citées (déjà le st
 
 ---
 
-## 7. Décisions à prendre (avant de coder la Phase 2)
-1. **Budget mensuel** réseaux : 0 € (Postiz self-host / Buffer free) ou ~30–150 $/mo (cloud) ?
-2. **Plateformes prioritaires** : LinkedIn + Instagram + Facebook + X ? (WhatsApp/Telegram en plus ?)
-3. **Validation humaine** au début, ou **full-auto** direct ?
-4. **Langue des posts** : FR d'abord, ou FR + HE + EN dès le départ ?
+## 7. Décisions (tranchées le 2026-06-03)
+1. **Outil / budget** : ✅ **OmniSocials, 10 $/mo** (connexion MCP à Claude).
+2. **Validation** : ✅ **humaine au début**, full-auto une fois la qualité éprouvée.
+3. **Langue** : ✅ **français d'abord**, HE/EN ensuite.
+4. **Plateformes prioritaires** : LinkedIn (page déjà créée) → Instagram → Facebook → X.
 
-> Une fois ces 4 points tranchés, l'implémentation de la Phase 1 (blog) et de la
-> Phase 2 (auto-publication) peut démarrer immédiatement — toute l'infra de base
-> est déjà là.
+> Reste à faire côté toi : créer le compte OmniSocials et connecter les réseaux + Claude.
+> Côté contenu, le skill `daat-social` est prêt à générer dès maintenant. La Phase 1
+> (blog) reste le plus gros levier SEO/AEO et peut démarrer en parallèle.
 
 ---
 
 ### Sources (recherche web, 2026)
+- [OmniSocials — Connect Claude to your social media](https://omnisocials.com/integrations/claude)
+- [OmniSocials — pricing & features](https://omnisocials.com/)
 - [Zapier — Best social media management tools 2026](https://zapier.com/blog/best-social-media-management-tools/)
 - [Zernio — Apps to post to all social media 2026](https://zernio.com/blog/apps-to-post-to-all-social-media)
 - [WoopSocial — Ayrshare alternatives](https://woopsocial.com/blog/ayrshare-alternatives)
