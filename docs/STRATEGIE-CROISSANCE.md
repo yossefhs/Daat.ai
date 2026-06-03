@@ -176,11 +176,15 @@ Chaque article = réponse directe en intro (AEO) + sources citées (déjà le st
 - [ ] Vérifier que les **OG images** s'affichent bien au partage (LinkedIn/WhatsApp).
 - [ ] Soumettre `sitemap.xml` à Google Search Console + Bing Webmaster.
 
-### Phase 1 — Le blog (fondation SEO/AEO) — *le plus gros levier*
-- [ ] Créer la section `/blog/` (réutilise le template/charte existants).
-- [ ] Script `generate-blog-post.js` : 1 siman → 1 article AEO (Claude).
-- [ ] Publier 4–8 articles de départ (1 par grande rubrique).
-- [ ] Ajouter le blog au `sitemap.xml` + flux **RSS** (= source pour l'automation).
+### Phase 1 — Le blog (fondation SEO/AEO) — *le plus gros levier* 🟡 *(démarrée)*
+- [x] Section `/blog/` créée (hub + charte DAAT, schema `Blog` + `BreadcrumbList`).
+- [x] 1er article AEO publié : **« Peut-on se faire livrer un colis pendant Shabbat ? »**
+      (`/blog/livraison-colis-shabbat.html`, basé sur le siman 247) — réponse-d'abord,
+      `BlogPosting` + `FAQPage` + fil d'ariane, liens internes vers `/oh/247`, disclaimer Rav.
+- [x] Blog ajouté au `sitemap.xml` + lien dans la nav de l'accueil.
+- [ ] Publier 4–8 articles de départ (1 par grande rubrique / siman porteur).
+- [ ] (Option) Script `generate-blog-post.js` : 1 siman → 1 article AEO (Claude).
+- [ ] (Option) Flux **RSS** `/blog/feed.xml` (= source pour l'automation sociale).
 
 ### Phase 2 — Moteur d'auto-publication réseaux ✅ *(outillage prêt)*
 - [x] Skill `daat-social` créé (`.claude/skills/daat-social/`) : génère le kit
