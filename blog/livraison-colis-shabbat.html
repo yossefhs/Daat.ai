@@ -86,73 +86,7 @@
   <link rel="stylesheet" href="/assets/css/daat.css">
   <link rel="stylesheet" href="/assets/css/daat-enhance.css">
 
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 19px; background: var(--cream); color: var(--text-dark); line-height: 1.8; }
-    header { background: var(--navy); padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 70px; position: sticky; top: 0; z-index: 100; border-bottom: 2px solid var(--gold); }
-    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-    .logo-he { font-family: 'Frank Ruhl Libre', serif; font-size: 28px; font-weight: 700; color: var(--gold); letter-spacing: 2px; }
-    .logo-en { font-family: 'Cormorant Garamond', serif; font-size: 13px; color: rgba(255,255,255,0.85); letter-spacing: 4px; text-transform: uppercase; }
-    nav { display: flex; gap: 28px; align-items: center; }
-    nav a { font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(255,255,255,0.85); text-decoration: none; letter-spacing: 1px; text-transform: uppercase; }
-    nav a:hover, nav a.active { color: var(--gold); }
-    nav a.cta-soutenir { background: var(--gold); color: var(--navy) !important; padding: 8px 20px; border-radius: 2px; font-weight: 600; }
-    .breadcrumb { background: rgba(26,31,58,0.04); padding: 14px 40px; border-bottom: 1px solid var(--border); font-family: 'Inter', sans-serif; font-size: 12px; }
-    .breadcrumb a { color: var(--text-mid); text-decoration: none; }
-    .breadcrumb .sep { margin: 0 8px; color: var(--text-mid); }
-    .breadcrumb .current { color: var(--navy); font-weight: 600; }
-    .article-hero { background: var(--navy); padding: 70px 40px 56px; text-align: center; color: white; }
-    .article-hero .kicker { font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
-    .article-hero h1 { font-family: 'Source Serif 4', serif; font-size: 40px; font-weight: 600; color: white; max-width: 760px; margin: 0 auto 18px; line-height: 1.25; }
-    .article-hero .meta { font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 1px; color: rgba(255,255,255,0.7); }
-    .article-hero .meta a { color: var(--gold); text-decoration: none; }
-    main.article { max-width: 740px; margin: 0 auto; padding: 56px 40px 40px; }
-    .tldr { background: white; border-left: 4px solid var(--gold); padding: 24px 28px; margin-bottom: 44px; border-radius: 0 4px 4px 0; }
-    .tldr .label { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 10px; }
-    .tldr p { font-size: 20px; color: var(--navy); margin: 0; }
-    .article h2 { font-family: 'Source Serif 4', serif; font-size: 28px; color: var(--navy); font-weight: 600; margin: 48px 0 18px; line-height: 1.3; }
-    .article h3 { font-family: 'Source Serif 4', serif; font-size: 21px; color: var(--navy); font-weight: 600; margin: 32px 0 12px; }
-    .article p { margin-bottom: 18px; color: var(--text-mid); }
-    .article p strong { color: var(--navy); }
-    .article .he { font-family: 'Frank Ruhl Libre', serif; direction: rtl; color: var(--navy); }
-    .article ul, .article ol { margin: 0 0 20px 26px; color: var(--text-mid); }
-    .article li { margin-bottom: 10px; }
-    .concept { background: white; border: 1px solid var(--border); border-left: 4px solid var(--gold); padding: 20px 24px; margin: 22px 0; border-radius: 0 4px 4px 0; }
-    .concept .term { font-family: 'Frank Ruhl Libre', serif; font-size: 22px; color: var(--gold); direction: rtl; display: inline-block; }
-    .concept .translit { font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--text-mid); margin-left: 4px; }
-    .concept p { margin: 8px 0 0; }
-    table.cases { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 17px; background: white; }
-    table.cases th, table.cases td { border: 1px solid var(--border); padding: 12px 14px; text-align: left; vertical-align: top; }
-    table.cases th { background: var(--navy); color: var(--gold); font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
-    table.cases td strong { color: var(--navy); }
-    .psak-warning { background: #FBF3E2; border: 1px solid var(--gold); border-radius: 4px; padding: 22px 26px; margin: 40px 0; }
-    .psak-warning strong { color: var(--navy); display: block; margin-bottom: 6px; font-family: 'Source Serif 4', serif; font-size: 18px; }
-    .psak-warning p { margin: 0; color: var(--text-mid); font-size: 17px; }
-    .faq-block { margin: 40px 0; }
-    .faq-block h2 { margin-bottom: 8px; }
-    .faq-item { background: white; border: 1px solid var(--border); border-radius: 4px; padding: 20px 24px; margin-bottom: 14px; }
-    .faq-item h3 { margin: 0 0 8px; font-size: 19px; }
-    .faq-item p { margin: 0; font-size: 17px; }
-    .study-cta { background: var(--navy); color: white; border-radius: 4px; padding: 40px 36px; margin: 52px 0 20px; text-align: center; }
-    .study-cta h2 { color: var(--gold); margin: 0 0 12px; border: none; }
-    .study-cta p { color: rgba(255,255,255,0.85); margin-bottom: 24px; }
-    .study-cta .btn-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    .study-cta .btn { display: inline-block; padding: 12px 24px; font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; text-decoration: none; border-radius: 2px; }
-    .study-cta .btn-gold { background: var(--gold); color: var(--navy); }
-    .study-cta .btn-outline { background: transparent; color: white; border: 1px solid rgba(255,255,255,0.4); }
-    .levels-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 18px; }
-    .levels-links a { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.9); text-decoration: none; padding: 12px; border-radius: 3px; font-family: 'Inter', sans-serif; font-size: 13px; }
-    .levels-links a:hover { border-color: var(--gold); color: var(--gold); }
-    footer { background: var(--navy); color: rgba(255,255,255,0.85); text-align: center; padding: 28px 40px; font-family: 'Inter', sans-serif; font-size: 12px; }
-    footer a { color: var(--gold); text-decoration: none; margin: 0 6px; }
-    @media (max-width: 768px) {
-      header, .breadcrumb, .article-hero, main.article, footer { padding-left: 20px; padding-right: 20px; }
-      .article-hero h1 { font-size: 28px; }
-      nav { gap: 14px; }
-      nav a { font-size: 11px; letter-spacing: 0.5px; }
-      nav a.cta-soutenir { display: none; }
-    }
-  </style>
+  <link rel="stylesheet" href="/assets/css/blog.css">
 </head>
 <body>
 

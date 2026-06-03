@@ -182,9 +182,13 @@ Chaque article = réponse directe en intro (AEO) + sources citées (déjà le st
       (`/blog/livraison-colis-shabbat.html`, basé sur le siman 247) — réponse-d'abord,
       `BlogPosting` + `FAQPage` + fil d'ariane, liens internes vers `/oh/247`, disclaimer Rav.
 - [x] Blog ajouté au `sitemap.xml` + lien dans la nav de l'accueil.
-- [ ] Publier 4–8 articles de départ (1 par grande rubrique / siman porteur).
+- [x] **4 articles** de départ publiés (simanim porteurs, sujets du quotidien) :
+      livraison de colis (247), réchauffer un plat (318), muktsé téléphone/argent (308),
+      se doucher (326). CSS mutualisé dans `/assets/css/blog.css`.
+- [x] Flux **RSS** `/blog/feed.xml` (= source que le skill `daat-social` peut relire).
+- [ ] Étendre à 8–12 articles (autres simanim porteurs) au fil des semaines.
 - [ ] (Option) Script `generate-blog-post.js` : 1 siman → 1 article AEO (Claude).
-- [ ] (Option) Flux **RSS** `/blog/feed.xml` (= source pour l'automation sociale).
+- [ ] (Option) Versions HE/EN des articles (le corpus existe en 3 langues).
 
 ### Phase 2 — Moteur d'auto-publication réseaux ✅ *(outillage prêt)*
 - [x] Skill `daat-social` créé (`.claude/skills/daat-social/`) : génère le kit

@@ -9,6 +9,7 @@
   <meta name="author" content="Rav Yossef Haim Samama">
   <meta name="keywords" content="blog halakha, halakha française, choulhan aroukh moderne, questions shabbat, daat torah blog, halakha vie quotidienne">
   <link rel="canonical" href="https://daattorah.com/blog/">
+  <link rel="alternate" type="application/rss+xml" title="Daat Torah — Blog halakhique" href="https://daattorah.com/blog/feed.xml">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Daat Torah">
@@ -38,6 +39,27 @@
         "blogPost": [
           {
             "@type": "BlogPosting",
+            "headline": "Peut-on réchauffer un plat le Shabbat ? (plata, casserole, eau chaude)",
+            "url": "https://daattorah.com/blog/rechauffer-plat-shabbat.html",
+            "datePublished": "2026-06-03",
+            "author": { "@type": "Person", "name": "Rav Yossef Haim Samama" }
+          },
+          {
+            "@type": "BlogPosting",
+            "headline": "Peut-on toucher son téléphone ou de l'argent le Shabbat ? Le muktsé expliqué",
+            "url": "https://daattorah.com/blog/muktse-telephone-argent-shabbat.html",
+            "datePublished": "2026-06-03",
+            "author": { "@type": "Person", "name": "Rav Yossef Haim Samama" }
+          },
+          {
+            "@type": "BlogPosting",
+            "headline": "Peut-on se doucher ou se laver le Shabbat ?",
+            "url": "https://daattorah.com/blog/se-doucher-laver-shabbat.html",
+            "datePublished": "2026-06-03",
+            "author": { "@type": "Person", "name": "Rav Yossef Haim Samama" }
+          },
+          {
+            "@type": "BlogPosting",
             "headline": "Peut-on se faire livrer un colis pendant Shabbat ? (Amazon, La Poste, Chronopost)",
             "url": "https://daattorah.com/blog/livraison-colis-shabbat.html",
             "datePublished": "2026-06-03",
@@ -63,49 +85,7 @@
   <link rel="stylesheet" href="/assets/css/daat.css">
   <link rel="stylesheet" href="/assets/css/daat-enhance.css">
 
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 18px; background: var(--cream); color: var(--text-dark); line-height: 1.75; }
-    header { background: var(--navy); padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 70px; position: sticky; top: 0; z-index: 100; border-bottom: 2px solid var(--gold); }
-    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-    .logo-he { font-family: 'Frank Ruhl Libre', serif; font-size: 28px; font-weight: 700; color: var(--gold); letter-spacing: 2px; }
-    .logo-en { font-family: 'Cormorant Garamond', serif; font-size: 13px; color: rgba(255,255,255,0.85); letter-spacing: 4px; text-transform: uppercase; }
-    nav { display: flex; gap: 28px; align-items: center; }
-    nav a { font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(255,255,255,0.85); text-decoration: none; letter-spacing: 1px; text-transform: uppercase; }
-    nav a:hover, nav a.active { color: var(--gold); }
-    nav a.cta-soutenir { background: var(--gold); color: var(--navy) !important; padding: 8px 20px; border-radius: 2px; font-weight: 600; }
-    .breadcrumb { background: rgba(26,31,58,0.04); padding: 14px 40px; border-bottom: 1px solid var(--border); font-family: 'Inter', sans-serif; font-size: 12px; }
-    .breadcrumb a { color: var(--text-mid); text-decoration: none; }
-    .breadcrumb .sep { margin: 0 8px; color: var(--text-mid); }
-    .breadcrumb .current { color: var(--navy); font-weight: 600; }
-    .page-hero { background: var(--navy); padding: 80px 40px 60px; text-align: center; color: white; }
-    .hero-meta { font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
-    .hero-title-he { font-family: 'Frank Ruhl Libre', serif; font-size: 46px; color: var(--gold); direction: rtl; margin-bottom: 14px; }
-    .page-hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 300; color: white; margin-bottom: 12px; }
-    .page-hero .sub { font-size: 19px; color: rgba(255,255,255,0.85); max-width: 600px; margin: 0 auto; font-style: italic; }
-    main.content { max-width: 880px; margin: 0 auto; padding: 60px 40px; }
-    .post-card { background: white; border: 1px solid var(--border); border-left: 4px solid var(--gold); border-radius: 0 4px 4px 0; padding: 30px 34px; margin-bottom: 22px; display: block; text-decoration: none; transition: box-shadow .2s, transform .2s; }
-    .post-card:hover { box-shadow: 0 8px 28px rgba(26,31,58,0.12); transform: translateY(-2px); }
-    .post-card .tag { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 600; }
-    .post-card h2 { font-family: 'Source Serif 4', serif; font-size: 26px; color: var(--navy); font-weight: 600; margin: 10px 0 12px; line-height: 1.3; }
-    .post-card p { color: var(--text-mid); margin-bottom: 14px; }
-    .post-card .post-meta { font-family: 'Inter', sans-serif; font-size: 12px; color: var(--text-mid); letter-spacing: 0.5px; }
-    .post-card .read { color: var(--gold); font-weight: 600; }
-    .intro-block { background: white; border-left: 4px solid var(--gold); padding: 26px 30px; margin-bottom: 44px; border-radius: 0 4px 4px 0; }
-    .intro-block p { color: var(--text-mid); margin: 0; }
-    .intro-block p strong { color: var(--navy); }
-    .soon { text-align: center; color: var(--text-mid); font-style: italic; margin-top: 36px; font-size: 16px; }
-    footer { background: var(--navy); color: rgba(255,255,255,0.85); text-align: center; padding: 28px 40px; font-family: 'Inter', sans-serif; font-size: 12px; }
-    footer a { color: var(--gold); text-decoration: none; margin: 0 6px; }
-    @media (max-width: 768px) {
-      header, .breadcrumb, .page-hero, main.content, footer { padding-left: 20px; padding-right: 20px; }
-      .page-hero h1 { font-size: 30px; }
-      .hero-title-he { font-size: 36px; }
-      nav { gap: 14px; }
-      nav a { font-size: 11px; letter-spacing: 0.5px; }
-      nav a.cta-soutenir { display: none; }
-    }
-  </style>
+  <link rel="stylesheet" href="/assets/css/blog.css">
 </head>
 <body>
 
@@ -141,6 +121,27 @@
     <div class="intro-block">
       <p>Chaque article part d'une <strong>question réelle</strong> et remonte à la source du <strong>Choulhan Aroukh</strong> pour la comprendre en profondeur. On y présente <em>ce que disent les sources</em> — jamais un psak. <strong>Pour la pratique, consulte ton Rav.</strong></p>
     </div>
+
+    <a class="post-card" href="/blog/rechauffer-plat-shabbat.html">
+      <span class="tag">Hilkhot Shabbat · Siman 318</span>
+      <h2>Peut-on réchauffer un plat le Shabbat ?</h2>
+      <p>Plata, casserole, eau chaude : la mélakha de cuisson expliquée. Les notions יד סולדת בו, אין בישול אחר בישול (« pas de cuisson après cuisson ») et la distinction kéli rishon / kéli shéni, appliquées à la cuisine d'aujourd'hui.</p>
+      <div class="post-meta">3 juin 2026 · <span class="read">Lire l'article →</span></div>
+    </a>
+
+    <a class="post-card" href="/blog/muktse-telephone-argent-shabbat.html">
+      <span class="tag">Hilkhot Shabbat · Siman 308</span>
+      <h2>Peut-on toucher son téléphone ou de l'argent le Shabbat ?</h2>
+      <p>Le muktsé décrypté : ce qu'on peut déplacer, ce qui est interdit, les grandes catégories — et la règle du Rama « toucher sans déplacer ». Cas du smartphone, de l'argent et des clés.</p>
+      <div class="post-meta">3 juin 2026 · <span class="read">Lire l'article →</span></div>
+    </a>
+
+    <a class="post-card" href="/blog/se-doucher-laver-shabbat.html">
+      <span class="tag">Hilkhot Shabbat · Siman 326</span>
+      <h2>Peut-on se doucher ou se laver le Shabbat ?</h2>
+      <p>Eau chaude vs eau froide, bain du corps entier, visage-mains-pieds : ce que dit le Choulhan Aroukh sur la toilette le Shabbat, et pourquoi la douche moderne au chauffe-eau pose question.</p>
+      <div class="post-meta">3 juin 2026 · <span class="read">Lire l'article →</span></div>
+    </a>
 
     <a class="post-card" href="/blog/livraison-colis-shabbat.html">
       <span class="tag">Hilkhot Shabbat · Siman 247</span>
