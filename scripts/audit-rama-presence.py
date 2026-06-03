@@ -20,10 +20,16 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 SHABBAT = ROOT / "sources" / "shabbat"
 
-# Patterns Rama
-RAMA_IN_HEB = re.compile(r'הַגָּ?הּ|הַגָּהָה|הגה(?:[ ״״\']|״)?|הג"ה')
-RAMA_FR_MARKER = re.compile(r'(?:Glose|Hagaha|Position) du Rama|Rama (?:dit|ajoute)|Rama:|Rama\s*\(')
-RAMA_EN_MARKER = re.compile(r'(?:Hagahah|Rema gloss|Rema:|Rema\s+states|Rema\s+adds|Rema\s+brings|the Rema)')
+# Patterns Rama (acceptent guillemets droits/typo + format <span/small>הגה<)
+RAMA_IN_HEB = re.compile(
+    r'הַגָּ?הּ|הַגָּהָה|הגה(?=[<\s:,.ֻ-ׇ])|הג["״]ה|רמ["״]א|הרמ["״]א'
+)
+RAMA_FR_MARKER = re.compile(
+    r'\bRama\b|Hagaha du Rama|Glose du Rama|Ashkén', re.IGNORECASE
+)
+RAMA_EN_MARKER = re.compile(
+    r'\bRema\b|Hagahah of the Rema|Rema gloss|Ashkenazi', re.IGNORECASE
+)
 
 # Comptes connus de séifim du Mehaber
 MEHABER_SEIFIM = {
