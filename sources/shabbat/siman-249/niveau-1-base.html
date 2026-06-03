@@ -57,13 +57,18 @@
   .page-break { page-break-before: always; }
   hr.ornament { border: none; text-align: center; margin: 20px 0; }
   hr.ornament::before { content: "✦ ❖ ✦"; color: #C5A55A; font-size: 13pt; }
-  blockquote.text-source { background: #faf8f0; border-right: 4px solid #C5A55A; direction: rtl; text-align: right; margin: 10px 0; padding: 10px 15px; font-family: 'Frank Ruhl Libre', serif; font-size: 12pt; font-style: italic; }
+  blockquote.text-source { background: #faf8f0; border-right: 4px solid #C5A55A; direction: rtl; text-align: right; margin: 10px 0; padding: 10px 15px; font-family: 'Frank Ruhl Libre', serif; font-size: 14pt; font-style: italic; }
   .yh-watermark { text-align: center; font-size: 9pt; color: #8a7a4a; margin-top: 30px; padding-top: 15px; border-top: 1px solid #C5A55A; font-style: italic; }
   ul.compact { padding-left: 20px; }
   ul.compact li { margin-bottom: 4px; }
   .toc-item { padding: 6px 0; border-bottom: 1px dotted #C5A55A; }
   .toc-num { display: inline-block; width: 25px; color: #C5A55A; font-weight: bold; }
   .quick-recap { background: #FAF6EE; border: 2px solid #C5A55A; border-radius: 8px; padding: 18px 22px; margin: 20px 0; }
+  .case-card { background: #eef4fb; border-left: 5px solid #2a5b9e; padding: 12px 18px; margin: 14px 0; border-radius: 4px; }
+  .case-card::before { content: "⚖️ CAS PRATIQUE"; display: block; color: #2a5b9e; font-weight: bold; font-size: 9.5pt; letter-spacing: 2px; margin-bottom: 6px; }
+  .next-seif-nav { margin: 20px 0; padding: 10px 16px; background: #f5f5f0; border-left: 4px solid #C5A55A; border-radius: 3px; font-size: 10.5pt; text-align: right; }
+  .next-seif-nav a { color: #1A1F3A; text-decoration: none; font-weight: 600; font-family: 'Cormorant Garamond', 'Georgia', serif; }
+  .next-seif-nav a:hover { color: #C5A55A; }
 
     .lang-switcher { display: flex; gap: 6px; align-items: center; margin-left: 12px; }
     .lang-switcher a {
@@ -144,11 +149,14 @@
 <div class="toc-item"><span class="toc-num">3.</span> <strong>Concept-clé 1</strong> : les 3 parsa'ot — la limite de distance</div>
 <div class="toc-item"><span class="toc-num">4.</span> <strong>Concept-clé 2</strong> : l'interdit de séouda excessive (כבוד שבת)</div>
 <div class="toc-item"><span class="toc-num">5.</span> <strong>Concept-clé 3</strong> : ta'anit érev Shabbat (anshei ma'aseh)</div>
-<div class="toc-item"><span class="toc-num">6.</span> <strong>Le détail des 4 seifim</strong></div>
-<div class="toc-item"><span class="toc-num">7.</span> <strong>Position du Rama</strong> sur les seifim 2 et 4</div>
-<div class="toc-item"><span class="toc-num">8.</span> <strong>Cas pratiques modernes</strong></div>
-<div class="toc-item"><span class="toc-num">9.</span> <strong>Synthèse pratique</strong></div>
-<div class="toc-item"><span class="toc-num">10.</span> <strong>Questions de compréhension</strong></div>
+<div class="toc-item"><span class="toc-num">6.</span> <strong>Séif א — étude détaillée</strong> : la limite des 3 parsa'ot et ses exceptions <a href="#seif-1" style="color:#C5A55A;text-decoration:none;">[→ §6]</a></div>
+<div class="toc-item"><span class="toc-num">7.</span> <strong>Séif ב — étude détaillée</strong> : interdit de séouda excessive vendredi <a href="#seif-2" style="color:#C5A55A;text-decoration:none;">[→ §7]</a></div>
+<div class="toc-item"><span class="toc-num">8.</span> <strong>Séif ג — étude détaillée</strong> : la coutume des anshei ma'aseh de jeûner <a href="#seif-3" style="color:#C5A55A;text-decoration:none;">[→ §8]</a></div>
+<div class="toc-item"><span class="toc-num">9.</span> <strong>Séif ד — étude détaillée</strong> : jusqu'à quand jeûner érev Shabbat <a href="#seif-4" style="color:#C5A55A;text-decoration:none;">[→ §9]</a></div>
+<div class="toc-item"><span class="toc-num">10.</span> <strong>Position du Rama</strong> sur les seifim 2 et 4</div>
+<div class="toc-item"><span class="toc-num">11.</span> <strong>Cas pratiques modernes</strong></div>
+<div class="toc-item"><span class="toc-num">12.</span> <strong>Synthèse pratique</strong></div>
+<div class="toc-item"><span class="toc-num">13.</span> <strong>Questions de compréhension</strong></div>
 </div>
 
 <div class="page-break"></div>
@@ -311,38 +319,332 @@ Cette coutume est mentionnée dans plusieurs sources Rishonim. Le but : entrer S
 
 <div class="page-break"></div>
 
-<h2 class="section-title">6. Le détail des 4 seifim</h2>
+<h2 class="section-title" id="seif-1">6. Séif א — La limite des 3 parsa'ot et ses exceptions</h2>
 
-<h3>Seif Alef — Distance et préparation</h3>
+<blockquote class="text-source">
+אֵין הוֹלְכִין בְּעֶרֶב שַׁבָּת יוֹתֵר מִג' פַּרְסָאוֹת, כְּדֵי שֶׁיַּגִּיעַ לְבֵיתוֹ בְּעוֹד הַיּוֹם גָּדוֹל וְיוּכַל לְהָכִין צָרְכֵי סְעוּדָה לְשַׁבָּת. בֵּין שֶׁהוֹלֵךְ לְבֵית אֲחֵרִים בֵּין שֶׁהוֹלֵךְ לְבֵיתוֹ. וְהָנֵי מִילֵי כְּשֶׁהוּא בְּיִשּׁוּב בְּמָקוֹם שֶׁיּוּכַל לְהָכִין צָרְכֵי שַׁבָּת. אֲבָל אִם בְּמָקוֹם שֶׁהוּא שָׁם אִי אֶפְשָׁר לוֹ לְהָכִין צָרְכֵי שַׁבָּת, אוֹ שֶׁאֵינוֹ מְקוֹם יִשּׁוּב בָּטוּחַ — מֻתָּר לֵילֵךְ אֲפִלּוּ כַּמָּה פַּרְסָאוֹת. וְאִם שָׁלַח לְהוֹדִיעָם שֶׁהוּא הוֹלֵךְ שָׁם לְשַׁבָּת — מֻתָּר לוֹ לֵילֵךְ כַּמָּה פַּרְסָאוֹת בְּכָל גַּוְנָא.
+</blockquote>
 
-<div class="key-point">
-<strong>Test pratique :</strong> est-ce que je peux arriver chez moi avant midi pour préparer Shabbat ? Si oui → la limite des 3 parsa'ot ne m'inquiète pas. Si non → je dois soit prévenir d'avance, soit changer de plan.
+<div class="translation">
+<strong>On ne marche pas plus de 3 parsa'ot un vendredi</strong>, afin d'arriver chez soi alors que la journée est encore longue, pour pouvoir préparer les besoins du repas de Shabbat. Que l'on aille chez soi ou chez d'autres. <strong>Cela vaut</strong> quand on est dans un lieu habité où on peut préparer les besoins de Shabbat. <strong>Mais si</strong> on est dans un lieu où on ne peut pas préparer (ou un lieu non habité non sécurisé) — il est permis de marcher même plusieurs parsa'ot. Et si on a envoyé un message pour les prévenir qu'on arrive chez eux pour Shabbat — c'est permis dans tous les cas.
 </div>
 
-<h3>Seif Beit — Repas de la journée</h3>
+<h3>De quoi parle ce Séif ?</h3>
 
-<div class="key-point">
-<strong>Règle :</strong> manger normalement OK. <strong>Festin nouveau</strong> = interdit. <strong>9e heure et plus</strong> = mitzva s'abstenir même d'un repas habituel. Sauf brit ou pidyon haben.
+<p>Le Séif א pose la <strong>règle de base</strong> du siman : ne pas s'engager dans un déplacement long le vendredi qui risque de compromettre la préparation du Shabbat. La <em>distance maximale</em> codifiée est <strong>3 parsa'ot</strong> (≈ 12 km, soit environ une demi-journée de marche traditionnelle).</p>
+
+<p>Cette règle vise <em>structurellement</em> le voyageur en pleine journée : qu'il revienne chez lui ou qu'il aille chez un hôte, il doit gérer son timing pour <strong>arriver "tant que la journée est encore longue"</strong> (<span class="he-q">בעוד היום גדול</span>). Concrètement : avant la 6e heure (midi) idéalement, pour avoir le temps d'acheter, cuisiner, allumer, se laver et se préparer dignement.</p>
+
+<h3>La question halakhique</h3>
+
+<div class="definition">
+<strong>L'enjeu :</strong> Shabbat n'est pas seulement un moment <em>chronologique</em> ; c'est une <em>institution</em> qui exige une préparation visible et digne. Or un voyageur qui arrive tard se trouve <em>matériellement empêché</em> de mettre en œuvre la préparation. Le Mehaber légifère donc <em>en amont</em> : ne pas se mettre dans une situation où la préparation sera compromise.
 </div>
 
-<h3>Seif Guimel — Coutume du jeûne</h3>
+<h3>Le concept-clé : la parsa et la distance</h3>
 
-<div class="key-point">
-<strong>Coutume des pieux</strong> mentionnée. Pas une obligation. Aujourd'hui, peu suivie. Le Habad préfère préparation spirituelle (Tanya, Mishneh Torah) plutôt que jeûne.
+<div class="definition">
+<strong>1 פרסה (parsa)</strong> = 4 mil = environ <strong>4 km</strong> selon les calculs traditionnels.<br>
+<strong>3 parsa'ot</strong> ≈ 12 km — distance qu'un homme parcourt en environ 3 heures de marche soutenue. La règle vise donc à laisser <em>au moins une demi-journée</em> de marge entre l'arrivée et l'entrée du Shabbat.
 </div>
 
-<h3>Seif Daled — Fin du jeûne</h3>
+<h3>Les trois exceptions du Mehaber</h3>
 
-<div class="key-point">
-<strong>Trois cas :</strong>
+<table>
+<tr><th>Exception</th><th>Justification</th><th>Conduite permise</th></tr>
+<tr><td><strong>Lieu où on ne peut pas préparer</strong></td><td>L'enjeu (préparation) est déjà inaccessible — la règle perd son objet</td><td>Plusieurs parsa'ot permises</td></tr>
+<tr><td><strong>Lieu non habité non sécurisé</strong></td><td>La sécurité du voyageur prime sur la préparation</td><td>Plusieurs parsa'ot permises</td></tr>
+<tr><td><strong>Message envoyé d'avance</strong></td><td>Les hôtes prennent en charge la préparation à sa place</td><td>Plusieurs parsa'ot permises dans tous les cas</td></tr>
+</table>
+
+<h3>Pesak en pratique</h3>
+
+<div class="remember">
+<strong>Synthèse du Séif א :</strong>
 <ul class="compact">
-  <li>Ta'anit individuel : Rama → manger dès sortie de la synagogue ; Mehaber → צאת הכוכבים</li>
-  <li>Ta'anit tsibur (public) : צאת הכוכבים</li>
-  <li>Ta'anit halom : צאת הכוכבים</li>
+  <li>Limite de base : <strong>3 parsa'ot (≈ 12 km)</strong> de marche le vendredi.</li>
+  <li>Objectif : arriver <em>בעוד היום גדול</em> pour préparer Shabbat dignement.</li>
+  <li>Trois portes de sortie : lieu sans préparation possible, danger, ou prévention préalable de l'hôte.</li>
+  <li>La règle est <em>téléologique</em> : elle protège la préparation, pas une distance abstraite.</li>
 </ul>
 </div>
 
-<h2 class="section-title">7. Position du Rama</h2>
+<h3>Cas pratiques du Séif א</h3>
+
+<div class="case-card">
+<strong>Cas 1 — Voyage en train vendredi matin :</strong> on prend le train Paris-Marseille vendredi à 8h, arrivée 12h. Bien que la distance dépasse largement 12 km, le voyage est <em>rapide</em> et l'on arrive avec largement le temps de préparer. La règle vise la <em>marche</em> (mode de déplacement par défaut à l'époque) et son timing — l'esprit (arriver <em>בעוד היום גדול</em>) est respecté.
+</div>
+
+<div class="case-card">
+<strong>Cas 2 — Randonnée vendredi avec retour à pied :</strong> une marche de plus de 12 km le matin reste problématique selon le Mehaber, même physiquement réalisable. Le risque est d'arriver épuisé et tard. Conduite : raccourcir, partir plus tôt, ou rentrer en transport.
+</div>
+
+<div class="case-card">
+<strong>Cas 3 — Invité qui arrive de loin, hôte prévenu :</strong> on est invité chez un cousin à 50 km, on l'a prévenu il y a une semaine. Selon la 3e exception du Mehaber, c'est permis — l'hôte prépare à sa place. Reste à arriver avant Shabbat physiquement.
+</div>
+
+<div class="remember">
+<strong>Points à retenir (Séif א) :</strong>
+<ul class="compact">
+  <li>3 parsa'ot ≈ 12 km — limite de marche le vendredi.</li>
+  <li>Le but est la <em>préparation digne</em> du Shabbat, pas la distance en soi.</li>
+  <li>Trois exceptions : impossibilité de préparer / insécurité / hôte prévenu.</li>
+</ul>
+</div>
+
+<div class="question-box">
+<strong>Question de compréhension :</strong> Pourquoi le Mehaber légifère-t-il sur la <em>distance</em> et pas directement sur "arriver à temps pour préparer" ? Quel principe halakhique général s'exprime dans ce choix d'une règle <em>quantitative</em> objective ?
+</div>
+
+<div class="next-seif-nav"><span style="color:#5a4a1a;font-style:italic;">Pour continuer l'étude →</span> <a href="#seif-2">Séif ב — L'interdit de séouda excessive vendredi</a></div>
+
+<div class="page-break"></div>
+
+<h2 class="section-title" id="seif-2">7. Séif ב — L'interdit de séouda excessive vendredi</h2>
+
+<blockquote class="text-source">
+אָסוּר לִקְבֹּעַ בְּעֶרֶב שַׁבָּת סְעוּדָה וּמִשְׁתֶּה שֶׁאֵינוֹ רָגִיל בִּימֵי הַחוֹל. וַאֲפִלּוּ הוּא סְעוּדַת אֵרוּסִין — מִפְּנֵי כְּבוֹד הַשַּׁבָּת שֶׁיִּכָּנֵס לְשַׁבָּת כְּשֶׁהוּא תָּאֵב לֶאֱכוֹל. וְכָל הַיּוֹם בִּכְלָל הָאִסּוּר. <span class="he-q">הגה</span>: וּסְעוּדָה שֶׁזְּמַנָּהּ בְּעֶרֶב שַׁבָּת, כְּגוֹן בְּרִית מִילָה אוֹ פִּדְיוֹן הַבֵּן — מֻתָּר. וְכֵן הַמִּנְהָג פָּשׁוּט. וְלֶאֱכוֹל וְלִשְׁתּוֹת בְּלִי קְבִיעוּת סְעוּדָה אֲפִלּוּ סְעוּדָה שֶׁרָגִיל בָּהּ בְּחוֹל — כָּל הַיּוֹם מֻתָּר לְהַתְחִיל מִן הַדִּין. אֲבָל מִצְוָה לְהִמָּנַע מִלִּקְבֹּעַ סְעוּדָה שֶׁנָּהוּג בָּהּ בְּחוֹל מִתֵּשַׁע שָׁעוֹת וּלְמַעְלָה.
+</blockquote>
+
+<div class="translation">
+<strong>Il est interdit de fixer un vendredi un repas/festin auquel on n'est pas habitué les jours ordinaires</strong> — même un repas de fiançailles (sé'oudat erusin), à cause de l'<strong>honneur du Shabbat</strong>, pour qu'on entre Shabbat avec appétit. Et tout le jour est inclus dans l'interdit. <em>Glose du Rama :</em> Mais un repas dont le moment est érev Shabbat (ex : brit mila, pidyon haben) — c'est permis. Et tel est le minhag clair. Et manger/boire <em>sans</em> faire de séouda fixe — même un repas habituel — toute la journée c'est permis selon la stricte halakha. Mais c'est une mitzva de s'abstenir de faire un repas habituel <strong>à partir de la 9e heure</strong>.
+</div>
+
+<h3>De quoi parle ce Séif ?</h3>
+
+<p>Le Séif ב traite de la <strong>conduite alimentaire</strong> du vendredi. La question centrale n'est pas <em>"peut-on manger ?"</em> — on peut évidemment manger — mais <em>"peut-on fixer un repas important inhabituel, qui couperait l'appétit pour le repas du Shabbat soir ?"</em>. Réponse : <strong>non</strong>, à cause du <em>kvod Shabbat</em>.</p>
+
+<p>Le Mehaber distingue subtilement entre <strong>קבוע סעודה</strong> (fixer un repas, c.-à-d. s'attabler formellement) et <strong>manger sans formaliser</strong>. Le Rama complète : les repas dont le <em>moment</em> est intrinsèquement érev Shabbat (brit, pidyon haben) sortent de l'interdit — leur <em>raison d'être</em> les ancre à ce jour précis.</p>
+
+<h3>La question halakhique</h3>
+
+<div class="definition">
+<strong>L'enjeu :</strong> Shabbat exige d'entrer <em>תאב לאכול</em> (avec appétit, désireux de manger) pour honorer le repas du vendredi soir, qui est un <em>kvod Shabbat</em> central. Tout comportement qui <em>structurellement</em> sature l'appétit avant Shabbat trahit donc le principe. Le Mehaber légifère trois niveaux distincts selon que l'on (a) fixe un festin nouveau, (b) fixe un repas habituel tardif, ou (c) mange légèrement.
+</div>
+
+<h3>Le concept-clé : kvod Shabbat par le contraste</h3>
+
+<div class="definition">
+<strong>כְּבוֹד שַׁבָּת</strong> = "l'honneur du Shabbat". L'expression s'incarne dans le <em>contraste</em> entre la journée du vendredi (ordinaire, voire un peu plus modeste) et la soirée du vendredi (festive, opulente, honorée). Si la journée du vendredi est elle-même festive et saturée, le contraste s'effondre et Shabbat n'apparaît plus comme un sommet — d'où l'interdit du Mehaber.
+</div>
+
+<h3>Les trois niveaux de strictesse</h3>
+
+<table>
+<tr><th>Période</th><th>Repas habituel</th><th>Festin inhabituel</th><th>Brit / Pidyon Haben (Rama)</th></tr>
+<tr><td><strong>Toute la journée</strong></td><td>Permis selon le din</td><td>❌ Interdit (Mehaber)</td><td>✓ Permis</td></tr>
+<tr><td><strong>À partir de la 9e heure</strong> (≈ 15h en heures hala'hiques)</td><td>Mitzva de s'abstenir</td><td>❌ Interdit</td><td>✓ Permis</td></tr>
+<tr><td><strong>Manger/boire sans קביעות סעודה</strong></td><td>Permis toute la journée</td><td>—</td><td>—</td></tr>
+</table>
+
+<h3>Pesak en pratique</h3>
+
+<div class="remember">
+<strong>Synthèse du Séif ב :</strong>
+<ul class="compact">
+  <li><strong>Tout le vendredi</strong> : pas de festin nouveau (fiançailles, anniversaire mondain) sauf si le motif est lié à érev Shabbat (brit, pidyon haben).</li>
+  <li><strong>Dès la 9e heure</strong> (≈ 15h hala'hique) : éviter <em>même un repas habituel</em> de type "déjeuner classique".</li>
+  <li><strong>Toute la journée</strong> : manger/boire sans formaliser de séouda — pain, fruit, café — reste permis.</li>
+  <li>Le critère opérationnel : <em>entrer Shabbat תאב לאכול</em>, désireux de manger.</li>
+</ul>
+</div>
+
+<h3>Cas pratiques du Séif ב</h3>
+
+<div class="case-card">
+<strong>Cas 1 — Brunch d'affaires vendredi 12h :</strong> si le brunch est un <em>repas festif nouveau</em> qu'on ne fait pas en semaine → ❌ interdit (Mehaber). Si c'est un déjeuner business régulier de la semaine → permis avant la 9e heure, mitzva de s'abstenir après. Si c'est un cocktail léger sans <em>kibu'a sé'ouda</em> → permis. Conduite : préférer un format léger en cas de doute.
+</div>
+
+<div class="case-card">
+<strong>Cas 2 — Brit mila vendredi 11h avec sé'oudat brit :</strong> permis explicitement (Rama). La sé'ouda de brit est intrinsèquement liée à érev Shabbat car son moment est déterminé par la date de naissance — telle est la pratique claire.
+</div>
+
+<div class="case-card">
+<strong>Cas 3 — Anniversaire de mariage qu'on souhaite fêter vendredi midi :</strong> ❌ problématique. C'est un festin <em>inhabituel</em> dont la date est <em>arbitraire</em> (on choisit le jour). Le Mehaber range cela dans l'interdit. Conduite : déplacer la fête au repas du vendredi soir, ou à un autre jour.
+</div>
+
+<div class="remember">
+<strong>Points à retenir (Séif ב) :</strong>
+<ul class="compact">
+  <li>L'interdit porte sur la <em>fixation</em> d'un festin (קביעות סעודה), pas sur le fait de manger.</li>
+  <li>Critère opérationnel : <em>entrer Shabbat avec appétit (תאב לאכול)</em>.</li>
+  <li>Exception du Rama : repas dont le moment est intrinsèquement lié à érev Shabbat (brit, pidyon haben).</li>
+  <li>9e heure (≈ 15h) : seuil supplémentaire de strictesse même pour un repas habituel.</li>
+</ul>
+</div>
+
+<div class="question-box">
+<strong>Question de compréhension :</strong> Pourquoi le Mehaber autorise-t-il la sé'ouda de brit mila vendredi (via le Rama) mais pas une sé'ouda d'érusin (fiançailles), alors que les deux sont des <em>repas de mitzva</em> ? Quel critère permet de les distinguer ?
+</div>
+
+<div class="next-seif-nav"><span style="color:#5a4a1a;font-style:italic;">Pour continuer l'étude →</span> <a href="#seif-3">Séif ג — La coutume des anshei ma'aseh</a></div>
+
+<div class="page-break"></div>
+
+<h2 class="section-title" id="seif-3">8. Séif ג — La coutume des anshei ma'aseh de jeûner</h2>
+
+<blockquote class="text-source">
+דֶּרֶךְ אַנְשֵׁי מַעֲשֶׂה לְהִתְעַנּוֹת בְּכָל עֶרֶב שַׁבָּת.
+</blockquote>
+
+<div class="translation">
+<strong>La voie des anshei ma'aseh</strong> (pieux / hommes de qualité) est de <strong>jeûner chaque érev Shabbat</strong>.
+</div>
+
+<h3>De quoi parle ce Séif ?</h3>
+
+<p>Le Séif ג est le plus court du siman : une seule phrase, presque elliptique. Il mentionne une <strong>coutume des pieux</strong> (אנשי מעשה) de jeûner chaque vendredi. Le Mehaber ne légifère pas une <em>obligation</em> ; il <em>rapporte une pratique</em> historique de discipline spirituelle.</p>
+
+<p>Cette mention est très brève, mais elle ouvre toute une discussion chez les Acharonim : qui sont les <em>anshei ma'aseh</em> ? Pourquoi jeûner précisément érev Shabbat ? Et comment articuler ce jeûne avec le <em>kvod Shabbat</em> du Séif ב (entrer avec appétit) — n'y a-t-il pas tension ?</p>
+
+<h3>La question halakhique</h3>
+
+<div class="definition">
+<strong>L'enjeu :</strong> Est-ce une simple mention historique sans force halakhique, une recommandation pour tous, ou une coutume strictement réservée à une élite ? Le silence du Mehaber sur ces points laisse aux Acharonim le soin de préciser le statut de cette pratique.
+</div>
+
+<h3>Le concept-clé : אנשי מעשה — la voie des pieux</h3>
+
+<div class="definition">
+<strong>אַנְשֵׁי מַעֲשֶׂה</strong> = littéralement "hommes d'action / de réalisation". Au sens classique : ceux qui s'engagent dans une <em>discipline spirituelle approfondie</em> (méditation, prière prolongée, ascèse, étude intensive). Ce sont des individus reconnus pour leur niveau spirituel, qui ajoutent à la halakha standard des pratiques renforcées (חומרות) issues de la voie des hassidim ou des kabbalistes.
+</div>
+
+<h3>Pourquoi jeûner érev Shabbat ?</h3>
+
+<table>
+<tr><th>Motivation</th><th>Explication</th></tr>
+<tr><td><strong>Teshuva préparatoire</strong></td><td>Entrer Shabbat lavé de ses fautes de la semaine</td></tr>
+<tr><td><strong>Aiguiser le désir du repas</strong></td><td>Renforcer le <em>תאב לאכול</em> du Séif ב par un jeûne diurne</td></tr>
+<tr><td><strong>Préparation spirituelle</strong></td><td>Détacher l'esprit du corporel pour s'élever</td></tr>
+<tr><td><strong>Tradition des hassidim antiques</strong></td><td>Pratique des cercles pieux dès l'époque talmudique</td></tr>
+</table>
+
+<h3>Pesak en pratique</h3>
+
+<div class="remember">
+<strong>Synthèse du Séif ג :</strong>
+<ul class="compact">
+  <li>Ce n'est <em>pas</em> une obligation pour tous — c'est une <em>voie spirituelle</em> rapportée.</li>
+  <li>Les Acharonim majoritaires considèrent que la pratique est aujourd'hui <em>peu suivie</em>.</li>
+  <li>Pour qui souhaite l'adopter : qu'il l'accepte explicitement (acceptation formelle, voir Séif ד).</li>
+  <li>Pour la majorité : préférer une <em>préparation spirituelle</em> (mikvé, étude, prière, tsedaka) plutôt qu'un jeûne strict.</li>
+</ul>
+</div>
+
+<h3>Cas pratiques du Séif ג</h3>
+
+<div class="case-card">
+<strong>Cas 1 — Personne qui souhaite renforcer sa préparation au Shabbat :</strong> plusieurs voies existent — étude additionnelle des parashiyot, mikvé, tsedaka, prière kabbalat Shabbat précoce, lecture du Cantique des Cantiques (Chir HaChirim) avant minha. Le jeûne reste une option, mais ce n'est <em>qu'une option</em> parmi d'autres voies pieuses.
+</div>
+
+<div class="case-card">
+<strong>Cas 2 — Quelqu'un qui jeûne par habitude depuis longtemps érev Shabbat :</strong> qu'il continue avec une intention claire, et qu'il pense aux règles du Séif ד pour la fin du jeûne. Recommander l'avis d'un Rav pour vérifier que la pratique ne nuit pas à la santé ni au repas du Shabbat soir.
+</div>
+
+<div class="case-card">
+<strong>Cas 3 — Hassid Habad — coutume de ta'anit érev Shabbat ?</strong> La pratique Habad <em>ne recommande pas</em> le jeûne érev Shabbat. Elle privilégie : étude du Tanya (chapitres orientés sur la préparation Shabbat), étude du Mishneh Torah du Rambam, mikvé, préparation matérielle digne. La <em>simha shel mitzva</em> et la préparation positive priment sur l'ascèse du jeûne dans cette voie.
+</div>
+
+<div class="remember">
+<strong>Points à retenir (Séif ג) :</strong>
+<ul class="compact">
+  <li>אנשי מעשה = pieux engagés dans une discipline spirituelle approfondie.</li>
+  <li>Coutume historique, pas une obligation halakhique pour tous.</li>
+  <li>Le but : entrer Shabbat préparé spirituellement, le corps maîtrisé.</li>
+  <li>Aujourd'hui, peu pratiqué — les voies alternatives (mikvé, étude) sont majoritaires.</li>
+</ul>
+</div>
+
+<div class="question-box">
+<strong>Question de compréhension :</strong> Comment concilier le jeûne d'érev Shabbat (Séif ג) avec l'exigence du Séif ב d'<em>entrer Shabbat תאב לאכול</em> ? Le jeûne renforce-t-il ou contredit-il le <em>kvod Shabbat</em> ?
+</div>
+
+<div class="next-seif-nav"><span style="color:#5a4a1a;font-style:italic;">Pour continuer l'étude →</span> <a href="#seif-4">Séif ד — Jusqu'à quand jeûner</a></div>
+
+<div class="page-break"></div>
+
+<h2 class="section-title" id="seif-4">9. Séif ד — Jusqu'à quand jeûner érev Shabbat</h2>
+
+<blockquote class="text-source">
+אִם קִבֵּל עָלָיו לְהִתְעַנּוֹת בְּעֶרֶב שַׁבָּת — צָרִיךְ לְהִתְעַנּוֹת עַד צֵאת הַכּוֹכָבִים, אִם לֹא שֶׁפֵּרֵשׁ בִּשְׁעַת קַבָּלַת הַתַּעֲנִית עַד שֶׁיַּשְׁלִימוּ הַצִּבּוּר תְּפִלָּתָן. <span class="he-q">הגה</span>: וְיֵשׁ אוֹמְרִים דְּלֹא יַשְׁלִים אֶלָּא מִיָּד שֶׁיּוֹצְאִים מִבֵּית הַכְּנֶסֶת יֹאכַל. וְלָכֵן בְּתַעֲנִית יָחִיד לֹא יַשְׁלִים, וְטוֹב לְפָרֵשׁ כֵּן בִּשְׁעַת קַבָּלַת הַתַּעֲנִית. וּבְתַעֲנִית צִבּוּר יַשְׁלִים, וְהָכִי נָהוּג. וְאִם הוּא תַּעֲנִית חֲלוֹם — צָרִיךְ לְהִתְעַנּוֹת עַד צֵאת הַכּוֹכָבִים.
+</blockquote>
+
+<div class="translation">
+<strong>Si on a accepté un jeûne en érev Shabbat</strong> — il faut jeûner <strong>jusqu'à צאת הכוכבים</strong> (sortie des étoiles), sauf si on a explicité au moment de l'acceptation qu'on jeûnerait jusqu'à la fin de la prière du tsibur. <em>Glose du Rama :</em> Certains disent qu'on ne doit <strong>pas terminer le jeûne</strong> mais manger dès la sortie de la synagogue. Donc en jeûne individuel, ne pas terminer ; et il est bon d'expliciter ce point en acceptant. En jeûne public, on termine — telle est la pratique. <strong>Pour un ta'anit halom</strong> (jeûne suite à un mauvais rêve) — il faut jeûner jusqu'à צאת הכוכבים.
+</div>
+
+<h3>De quoi parle ce Séif ?</h3>
+
+<p>Le Séif ד complète le Séif ג en répondant à la question pratique : <em>jusqu'à quand maintenir le jeûne ?</em>. C'est délicat car le Shabbat lui-même <em>interdit</em> de jeûner. Or si on commence un jeûne le vendredi et qu'on continue dans la nuit, on entre dans une zone de tension entre l'acceptation du jeûne et l'obligation de <em>oneg Shabbat</em>.</p>
+
+<p>Le Mehaber pose une règle de base (jeûner jusqu'à la sortie des étoiles) avec une <em>option d'aménagement</em> par déclaration préalable. Le Rama divise ensuite selon trois cas : jeûne <em>individuel</em>, jeûne <em>public</em>, jeûne <em>de mauvais rêve</em>.</p>
+
+<h3>La question halakhique</h3>
+
+<div class="definition">
+<strong>L'enjeu :</strong> tout jeûne accepté formellement est en principe contraignant <em>jusqu'au bout</em> (sortie des étoiles). Mais Shabbat exige <em>oneg</em> dès le kiddoush du vendredi soir. Comment articuler ? Le Mehaber : tenir jusqu'à la sortie des étoiles, sauf clause préalable. Le Rama : distinguer selon la nature du jeûne (privé / public / halom).
+</div>
+
+<h3>Le concept-clé : קבלת תענית et sa durée</h3>
+
+<div class="definition">
+<strong>קַבָּלַת תַּעֲנִית</strong> = "acceptation du jeûne", déclaration formelle (souvent à minha de la veille) par laquelle on s'engage à jeûner. Cette acceptation <em>fixe la durée</em> par défaut (jusqu'à צאת הכוכבים). Pour la modifier, il faut <em>expliciter dès l'acceptation</em> une clause de raccourcissement (par ex. "jusqu'à la fin de la prière du tsibur").
+</div>
+
+<h3>Les trois cas distincts du Séif ד</h3>
+
+<table>
+<tr><th>Type de jeûne</th><th>Mehaber strict</th><th>Rama</th><th>Pratique courante</th></tr>
+<tr><td><strong>Ta'anit individuel (privé)</strong></td><td>Jusqu'à צאת הכוכבים sauf clause</td><td>Manger dès la sortie de la synagogue</td><td>Suivre le Rama ; expliciter la clause à l'acceptation</td></tr>
+<tr><td><strong>Ta'anit tsibur (public, ex. 17 Tamouz un vendredi)</strong></td><td>Jusqu'à צאת הכוכבים</td><td>Pareil — telle est la pratique</td><td>Jusqu'à צאת הכוכבים</td></tr>
+<tr><td><strong>Ta'anit halom (mauvais rêve)</strong></td><td>Jusqu'à צאת הכוכבים</td><td>Pareil</td><td>Jusqu'à צאת הכוכבים</td></tr>
+</table>
+
+<h3>Pesak en pratique</h3>
+
+<div class="remember">
+<strong>Synthèse du Séif ד :</strong>
+<ul class="compact">
+  <li><strong>Jeûne individuel d'érev Shabbat</strong> : selon le Rama, manger dès la sortie de la synagogue (kabbalat Shabbat / arvit). Ne <em>pas</em> attendre la sortie des étoiles.</li>
+  <li>Il est <strong>recommandé d'expliciter</strong> la clause au moment de l'acceptation du jeûne.</li>
+  <li><strong>Jeûne public</strong> (17 Tamouz, 10 Tevet tombant vendredi) : tenir jusqu'à צאת הכוכבים même si Shabbat commence.</li>
+  <li><strong>Ta'anit halom</strong> : jusqu'à צאת הכוכבים, mais la pratique moderne consulte un Rav vu le contexte délicat.</li>
+</ul>
+</div>
+
+<h3>Cas pratiques du Séif ד</h3>
+
+<div class="case-card">
+<strong>Cas 1 — 17 Tamouz qui tombe un vendredi :</strong> jeûne public reporté ou direct selon les années. Conduite : jeûner jusqu'à צאת הכוכבים. Le repas du Shabbat débute après le kiddoush — décaler simplement. Telle est la pratique générale.
+</div>
+
+<div class="case-card">
+<strong>Cas 2 — Personne qui accepte un jeûne privé un vendredi pour une intention spirituelle :</strong> selon le Rama, manger dès la sortie de la synagogue après arvit. <em>Important :</em> au moment de l'acceptation à la minha de jeudi, dire explicitement "je jeûnerai jusqu'à la sortie de la synagogue". Sinon, débat (Mehaber strict / Rama).
+</div>
+
+<div class="case-card">
+<strong>Cas 3 — Ta'anit halom le vendredi (mauvais rêve la nuit du jeudi) :</strong> selon le Mehaber et le Rama, jeûner jusqu'à צאת הכוכבים. Le ta'anit halom a un statut particulier car il vise à "annuler" l'effet du rêve. Aujourd'hui, beaucoup consultent un Rav avant de l'accepter — la pratique a évolué.
+</div>
+
+<div class="remember">
+<strong>Points à retenir (Séif ד) :</strong>
+<ul class="compact">
+  <li>Trois cas : individuel / public / halom — chacun avec sa règle de fin.</li>
+  <li>Pour un ta'anit individuel : Rama → manger dès sortie de la synagogue (pratique majoritaire).</li>
+  <li>Pour un ta'anit public ou halom : jusqu'à צאת הכוכבים (sortie des étoiles).</li>
+  <li>Toujours <em>expliciter</em> la clause au moment de l'acceptation pour éviter le doute.</li>
+</ul>
+</div>
+
+<div class="question-box">
+<strong>Question de compréhension :</strong> Pourquoi le Rama traite-t-il différemment le jeûne <em>individuel</em> (manger dès la synagogue) et le jeûne <em>public</em> (jusqu'à la sortie des étoiles) ? Quel principe halakhique général distingue ces deux types de jeûnes ?
+</div>
+
+<div class="next-seif-nav"><span style="color:#5a4a1a;font-style:italic;">Pour continuer l'étude →</span> <a href="#section-rama">Section 10 — Position du Rama (synthèse)</a></div>
+
+<div class="page-break"></div>
+
+<h2 class="section-title" id="section-rama">10. Position du Rama</h2>
 
 <table>
 <tr><th>Sujet</th><th>Mehaber</th><th>Rama</th></tr>
@@ -352,7 +654,7 @@ Cette coutume est mentionnée dans plusieurs sources Rishonim. Le but : entrer S
 <tr><td>Fin du ta'anit public</td><td>Jusqu'à צאת הכוכבים</td><td>Pareil (telle est la pratique)</td></tr>
 </table>
 
-<h2 class="section-title">8. Cas pratiques modernes</h2>
+<h2 class="section-title">11. Cas pratiques modernes</h2>
 
 <h3>Cas 1 — Voyage en train le vendredi</h3>
 <div class="key-point">
@@ -391,16 +693,16 @@ Cette coutume est mentionnée dans plusieurs sources Rishonim. Le but : entrer S
 <strong>Conduite :</strong> Non. La pratique Habad préfère :
 <ul class="compact">
   <li>Étude du Tanya (chapitres 41-44 spécifiquement orientés vers la préparation Shabbat)</li>
-  <li>Étude du Choulhan Aroukh HaRav du jour</li>
+  <li>Étude approfondie du jour</li>
   <li>Mikvé (préparation purifiante)</li>
   <li>Préparation matérielle digne</li>
 </ul>
-Le ta'anit n'est pas la voie hassidique habad. L'Admour HaZaken privilégie la <em>simha shel mitzva</em>.
+Le ta'anit n'est pas la voie hassidique habad — la voie privilégie la <em>simha shel mitzva</em> et la préparation positive.
 </div>
 
 <div class="page-break"></div>
 
-<h2 class="section-title">9. Synthèse pratique</h2>
+<h2 class="section-title">12. Synthèse pratique</h2>
 
 <div class="key-point">
 <strong>Les 4 enseignements du Siman <bdi>רמ״ט</bdi> :</strong>
@@ -424,7 +726,7 @@ Le ta'anit n'est pas la voie hassidique habad. L'Admour HaZaken privilégie la <
 <tr><td>Coutume de jeûner érev Shabbat</td><td>Pratique des pieux — Habad préfère préparation spirituelle</td></tr>
 </table>
 
-<h2 class="section-title">10. Questions de compréhension</h2>
+<h2 class="section-title">13. Questions de compréhension</h2>
 <div class="question-box">
 <strong>Vérifie ta compréhension :</strong>
 <ol>
