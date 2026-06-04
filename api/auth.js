@@ -13,6 +13,7 @@
 
 import { kv } from './_kv.js';
 import { Resend } from 'resend';
+import { getClientIp } from './_http.js';
 import {
   generateCode,
   isValidEmail,
@@ -49,6 +50,19 @@ async function handleSendCode(req, res) {
     if (!ok) {
       return res.status(429).json({
         error: 'Trop de codes demandés. Réessaie dans 15 minutes.',
+      });
+    }
+
+    // Anti-bombing : plafond par IP (toutes adresses confondues). Sans ça, le
+    // throttle par email seul laisse envoyer des OTP vers une infinité d'adresses
+    // (spam des victimes + coût Resend). 15 envois / heure / IP suffit largement.
+    const ip = getClientIp(req);
+    const ipKey = `auth:send-ip:${ip}`;
+    const ipCount = await kv.incr(ipKey);
+    if (ipCount === 1) await kv.expire(ipKey, 60 * 60);
+    if (ipCount > 15) {
+      return res.status(429).json({
+        error: 'Trop de demandes depuis ce réseau. Réessaie plus tard.',
       });
     }
 
