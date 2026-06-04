@@ -15,7 +15,15 @@
 // HelloAsso v5 ne signe pas en HMAC ; le secret query string est leur recommandation.
 
 import { kv } from './_kv.js';
+import crypto from 'node:crypto';
 import { getRedis, K_ORDERS, makeDedicace, saveDedicace } from './_dedicaces.js';
+
+// Comparaison à temps constant — évite les attaques temporelles sur le secret.
+function safeEqual(a, b) {
+  const x = Buffer.from(String(a || ''));
+  const y = Buffer.from(String(b || ''));
+  return x.length === y.length && crypto.timingSafeEqual(x, y);
+}
 
 // Cherche une réponse de champ personnalisé HelloAsso par nom (fuzzy).
 // HelloAsso renvoie les customFields sous forme [{ name, answer }, ...],
@@ -86,7 +94,7 @@ export default async function handler(req, res) {
     return res.status(503).json({ error: 'Webhook not configured' });
   }
   const providedSecret = req.query?.secret || req.headers['x-helloasso-secret'];
-  if (providedSecret !== expectedSecret) {
+  if (!safeEqual(providedSecret, expectedSecret)) {
     console.warn('[helloasso-webhook] invalid secret from', req.headers['x-forwarded-for'] || 'unknown');
     return res.status(401).json({ error: 'Invalid secret' });
   }
@@ -230,6 +238,25 @@ export default async function handler(req, res) {
   if (recurring && plan !== 'lifetime') {
     const exp = new Date(Date.now() + MONTHLY_GRACE_DAYS * 24 * 60 * 60 * 1000);
     expiresAt = exp.toISOString().slice(0, 10);
+  }
+
+  // ── 3bis. Anti-rejeu : un même paiement ne doit upgrader qu'une fois ──
+  // HelloAsso peut renvoyer le même event (retries). On réutilise le set K_ORDERS
+  // (déjà utilisé par la branche dédicace) pour garantir l'idempotence. Les
+  // échéances récurrentes ont un orderId distinct chaque mois → renouvellements
+  // non bloqués ; seul un VRAI doublon (même id rejoué) est ignoré.
+  const upgradeOrderId = String(data?.id || data?.orderId || data?.order?.id || '').trim();
+  if (upgradeOrderId) {
+    try {
+      const isNew = await getRedis().sadd(K_ORDERS, upgradeOrderId);
+      if (isNew === 0) {
+        console.log('[helloasso-webhook] duplicate plan event ignored, orderId=', upgradeOrderId);
+        return res.status(200).json({ ok: true, duplicate: true, orderId: upgradeOrderId });
+      }
+    } catch (err) {
+      // Fail-open : mieux vaut un éventuel double upgrade qu'un vrai paiement bloqué.
+      console.error('[helloasso-webhook] dedup KV error (continue):', err?.message || err);
+    }
   }
 
   // ── 4. Application de l'upgrade en KV ──
