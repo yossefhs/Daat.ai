@@ -1486,6 +1486,10 @@
     // ============================================================
     const GOAL_API = 'https://daatai.vercel.app/api/soutenir?action=stats';
     const GOAL_DEFAULT = { target: 800, current: 0 };
+    // Plancher d'affichage : la jauge ne descend jamais sous ce pourcentage,
+    // pour montrer une dynamique de départ. Les vrais dons s'affichent dès
+    // qu'ils dépassent ce plancher.
+    const GOAL_MIN_PCT = 30;
 
     function renderGoal(goal) {
       const now = new Date();
@@ -1497,7 +1501,9 @@
       const monthsHe = ['טבת/שבט','שבט/אדר','אדר/ניסן','ניסן/אייר','אייר/סיוון','סיוון/תמוז','תמוז/אב','אב/אלול','אלול/תשרי','תשרי/חשוון','חשוון/כסלו','כסלו/טבת'];
 
       const target = Number(goal.target) || GOAL_DEFAULT.target;
-      const current = Number(goal.current) || 0;
+      // Applique le plancher : on affiche au moins GOAL_MIN_PCT % du target.
+      const floor = target * GOAL_MIN_PCT / 100;
+      const current = Math.max(Number(goal.current) || 0, floor);
       const pct = target > 0 ? Math.min(100, Math.round((current / target) * 100)) : 0;
       const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
 
