@@ -1,0 +1,82 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+DAAT (דעת / daattorah.com) is a trilingual halakhic study platform: hand-authored static HTML pages for the Choulhan Aroukh (Orah Haïm, Hilkhot Shabbat) plus Vercel serverless functions powering an AI study assistant. No front-end framework — pages are standalone HTML with inline `<style>`; the API is ESM Node functions under `api/`.
+
+## Commands
+
+```bash
+# Full build (run by Vercel as vercel-build, and locally before commit if you touched content or chat-widget.js)
+npm run build
+#   → generate-simanim-index.js : rebuilds data/simanim-disponibles.json from page <title>/<h1>
+#   → extract-corpus.js         : rebuilds data/corpus-shabbat.json (the BM25 corpus the chat searches)
+#   → build:js                  : terser-minifies assets/js/chat-widget.js → chat-widget.min.js
+
+# Content state guard — MUST stay green (124/124 conformes). Exits non-zero on boilerplate / missing files / desynced TOC.
+python3 scripts/audit-simanim.py            # full report
+python3 scripts/audit-simanim.py --quiet    # summary only (what the SessionStart hook prints)
+python3 scripts/audit-simanim.py --write-progress   # regenerates PROGRESS.md (never hand-edit PROGRESS.md)
+
+# Generate a siman's index page from data/simanim/siman-XXX.json (does NOT generate study levels — those are written by hand)
+node scripts/generate-siman.js --siman XXX [--force] [--no-sitemap]
+```
+
+There is no test suite and no linter. `scripts/audit-simanim.py` is the de-facto correctness gate for content; the SessionStart hook (`.claude/hooks/session-start.sh`, remote-only) runs `npm install` then this audit at the start of every web session.
+
+## Content model — the core of the repo
+
+`sources/shabbat/siman-242/` … `siman-365/` = **124 simanim** of Hilkhot Shabbat. Each siman directory holds an `index.html` plus up to **4 study levels**, and **every page exists in 3 languages**:
+
+| Level | File stem | Audience |
+|-------|-----------|----------|
+| 1 — Base | `niveau-1-base` | Hebrew text + fluent French translation + explanation |
+| 2 — Lamdan | `niveau-2-lamdan` | In-depth pilpoul (Rishonim/Acharonim, hakira, machloket) — body is largely Hebrew |
+| 3 — Synthèse | `niveau-3-synthese` | Structured recap for revision |
+| 4 — Daat HaRav | `niveau-4-daat-harav` | Shitah of the Admour HaZaken (Choulhan Aroukh HaRav + Kountress Aharon) |
+
+Language convention (applies site-wide, not just simanim): **`X.html` = French (default, `lang="fr"`)**, **`X-he.html` = Hebrew (`dir`/RTL)**, **`X-en.html` = English**. When you change content in one language you must keep the other two in sync — this is the single most common source of inconsistency. Many `scripts/*.py` exist to propagate edits across the trilingual set (translate, add buttons, fix canonicals, audit Rama gloses); prefer adapting one of those to mass-edits by hand.
+
+Levels 1–3 exist for all 124 simanim; Level 4 exists for **122** of them. **Simanim 304 and 322 have no Level 4** — the Admour HaZaken did not write them in the Choulhan Aroukh HaRav, so they carry a "bridge page" (🌉 in `PROGRESS.md`) instead. Treat "124 simanim" (corpus / Mehaber) and "122 simanim" (Level 4 / Daat HaRav) as distinct counts; do not collapse them.
+
+Study-level pages are **artisanal**: `generate-siman.js` only builds the repetitive `index.html` (SEO head, JSON-LD, breadcrumb, hero, FAQ). Do not try to industrialize the level pages — generic generated pilpoul has no value, and the audit flags boilerplate as an error.
+
+`PROGRESS.md` is the generated manifest of per-siman/per-level state (✅ written · 🔴 boilerplate · ❌ absent · 🌉 bridge). Other top-level HTML (homepage `index.html`, `chat.html`, `soutenir.html`, `about/faq/communaute`, `blog/`) follows the same trilingual triple.
+
+## URL scheme (vercel.json)
+
+Public URLs are short and canonical; the physical paths are rewritten:
+- `/oh/` → catalogue · `/oh/:n` → siman index · `/oh/:n/base|lamdan|synthese|daat-harav` → the 4 levels
+- `/oh/:n/he` · `/oh/:n/en` → language variants
+- Old `/sources/shabbat/...` paths **301-redirect** to `/oh/...`, so always link via `/oh/`.
+
+When adding pages/levels, add matching `rewrites` in `vercel.json`. The repo deploys as a static site (`outputDirectory: "."`) on Vercel; `main` → daattorah.com (auto-deploy on merge). Security headers and `/api/*` CORS are also set here; `crons` triggers `/api/newsletter` daily.
+
+## API architecture (`api/`, ESM serverless on Vercel, Node 22)
+
+Shared modules are prefixed `_` (e.g. `_kv.js`, `_auth.js`, `_corpus.js`, `_system-prompt.js`, `_sefaria.js`, `_deepseek.js`). State lives in **Upstash Redis** (`_kv.js`) — there is no SQL database. Everything (rate limits, usage/cost tracking, plans, dedications, meta-response cache) is KV keys.
+
+**`api/chat.js`** is the heart and the most complex file — the AI study assistant ("Daat"):
+- Agentic loop with **tool use** (Sefaria API, the DAAT corpus, mareh mekomot), **SSE streaming**, and **1h prompt caching** on the long system prompt.
+- **Cost-optimized model routing** (`pickModel`): meta/greeting questions → DeepSeek or Haiku (or a KV-cached canned answer, $0); halakhic-depth questions → Opus; otherwise Sonnet. New users get a lifetime "Aperçu Premium" of 3 Opus answers (with per-IP and global daily anti-abuse caps).
+- **Corpus-first**: a strong BM25 match in the Rav's own corpus (`data/corpus-shabbat.json`, built by `extract-corpus.js`) is reformulated by Haiku instead of calling Opus/Sonnet. Several behaviors are env-gated (`CORPUS_FIRST_ENABLED`, `CORPUS_MIN_SCORE`, `CORPUS_QUOTA_FREE`).
+- Time-budget aware: forces a final synthesis (`tool_choice: none`) past ~50s and hard-aborts at 80s, because Vercel kills the lambda ~90s. Usage/cost **must be written to KV before `res.end()`** (no fire-and-forget in serverless Node).
+- Note model IDs are pinned in-file (`claude-opus-4-7`, `claude-sonnet-4-6`, `claude-haiku-4-5`) — update here when bumping models.
+
+**Auth** (`_auth.js`, `auth.js`): passwordless **email OTP** (6-digit code via Resend) → **JWT** session in the `daat_session` cookie. Cookies are `SameSite=None; Secure` on purpose: the chat API is served from `daatai.vercel.app` but consumed from `daattorah.com` (cross-site), so `Lax` would drop them. Pages set `window.DAAT_CHAT_API_URL` to the API origin. Anonymous users get a `daat_guest_id` cookie.
+
+**Monetization / plans**: HelloAsso donations hit `helloasso-webhook.js` (verified via `HELLOASSO_WEBHOOK_SECRET`), which sets the user's plan in KV. Plans: `anonymous`, `free`, `khavroutha`, `beit_midrash`, `beit_midrash_plus`, `yeshiva`, `lifetime` — each with daily + monthly question caps defined in `chat.js`. `dedicaces.js` / `dedicace/[siman].js` drive the dedication banners.
+
+**Admin** (`api/admin/*`, pages under `admin/`): gated by `ADMIN_PASSWORD` / `SOUTIEN_ADMIN_SECRET` via the `X-Admin-Secret` header.
+
+### Environment variables
+
+Set in Vercel (never committed; `.env` is git-ignored). Core: `ANTHROPIC_API_KEY`, `UPSTASH_REDIS_REST_URL`/`_TOKEN` (and `KV_REST_API_*`), `JWT_SECRET`, `RESEND_API_KEY` (+ `RESEND_FROM_EMAIL`), `DEEPSEEK_API_KEY`, `HELLOASSO_WEBHOOK_SECRET` (+ `HELLOASSO_FORM_*` URLs), `ADMIN_PASSWORD`/`ADMIN_EMAIL`/`SOUTIEN_ADMIN_SECRET`, `CRON_SECRET`. Behavior flags: `CORPUS_FIRST_ENABLED`, `CORPUS_MIN_SCORE`, `CORPUS_QUOTA_FREE`, `SOUTIEN_MONTHLY_TARGET`.
+
+## Conventions & gotchas
+
+- **Trilingual parity**: a change is not done until FR, HE, and EN are updated consistently.
+- **Corpus is derived**: after editing siman HTML that should be searchable by the chat, rerun `npm run build` so `data/corpus-shabbat.json` and `data/simanim-disponibles.json` reflect it.
+- **Don't hand-edit generated files**: `PROGRESS.md`, `data/simanim-disponibles*.json`, `data/corpus-shabbat.json`, `assets/js/chat-widget.min.js`, `sitemap.xml` are build outputs.
+- **Visual identity** (used throughout the inline CSS): Navy `#1A1F3A`, Or `#C5A55A`, Crème `#FAF6EE`; fonts Frank Ruhl Libre (Hebrew) + Cormorant Garamond.
+- **README.md is stale** (describes an old single-siman layout with different level names) — trust this file, `vercel.json`, and `scripts/README.md` instead.
