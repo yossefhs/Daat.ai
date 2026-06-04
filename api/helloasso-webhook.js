@@ -15,8 +15,16 @@
 // HelloAsso v5 ne signe pas en HMAC ; le secret query string est leur recommandation.
 
 import { kv } from './_kv.js';
+import crypto from 'node:crypto';
 
 const SUBSCRIBER_PLANS = new Set(['khavroutha', 'beit_midrash', 'beit_midrash_plus', 'yeshiva', 'lifetime', 'premium']);
+
+// Comparaison à temps constant — évite les attaques temporelles sur le secret.
+function safeEqual(a, b) {
+  const x = Buffer.from(String(a || ''));
+  const y = Buffer.from(String(b || ''));
+  return x.length === y.length && crypto.timingSafeEqual(x, y);
+}
 
 // Mapping forme → plan (lu au runtime pour permettre la maj env sans redéploiement)
 function getFormMap() {
@@ -60,7 +68,7 @@ export default async function handler(req, res) {
     return res.status(503).json({ error: 'Webhook not configured' });
   }
   const providedSecret = req.query?.secret || req.headers['x-helloasso-secret'];
-  if (providedSecret !== expectedSecret) {
+  if (!safeEqual(providedSecret, expectedSecret)) {
     console.warn('[helloasso-webhook] invalid secret from', req.headers['x-forwarded-for'] || 'unknown');
     return res.status(401).json({ error: 'Invalid secret' });
   }
@@ -150,6 +158,18 @@ export default async function handler(req, res) {
   if (recurring && plan !== 'lifetime') {
     const exp = new Date(Date.now() + MONTHLY_GRACE_DAYS * 24 * 60 * 60 * 1000);
     expiresAt = exp.toISOString().slice(0, 10);
+  }
+
+  // ── 3bis. Anti-rejeu : un même paiement ne doit upgrader qu'une fois ──
+  // HelloAsso peut renvoyer le même event (retries). Sans dédup, un event valide
+  // rejoué ré-applique l'upgrade. On pose une clé d'idempotence sur l'orderId.
+  const orderId = data?.id || data?.orderId || null;
+  if (orderId) {
+    const fresh = await kv.set(`helloasso:processed:${orderId}`, '1', { nx: true, ex: 7776000 }); // 90j
+    if (fresh === null) {
+      console.log('[helloasso-webhook] duplicate event ignored, orderId=', orderId);
+      return res.status(200).json({ ok: true, duplicate: true, orderId });
+    }
   }
 
   // ── 4. Application de l'upgrade en KV ──
