@@ -52,11 +52,11 @@
     /* ── HEADER ── */
     header {
       background: var(--navy);
-      padding: 0 40px;
+      padding: 0 28px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 70px;
+      height: 64px;
       position: sticky;
       top: 0;
       z-index: 100;
@@ -66,35 +66,38 @@
     .logo {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 9px;
       text-decoration: none;
+      flex-shrink: 0;
     }
 
     .logo-hebrew {
       font-family: 'Frank Ruhl Libre', serif;
-      font-size: 28px;
+      font-size: 23px;
       font-weight: 700;
       color: var(--gold);
-      letter-spacing: 2px;
+      letter-spacing: 1px;
     }
 
     .logo-latin {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 13px;
-      color: rgba(255,255,255,0.85);
-      letter-spacing: 4px;
+      font-size: 10.5px;
+      color: rgba(255,255,255,0.8);
+      letter-spacing: 2px;
       text-transform: uppercase;
+      white-space: nowrap;
+      line-height: 1.25;
     }
 
     .logo-divider {
       width: 1px;
-      height: 32px;
+      height: 26px;
       background: rgba(197,165,90,0.4);
     }
 
     nav {
       display: flex;
-      gap: 32px;
+      gap: 16px;
       align-items: center;
     }
 
@@ -106,6 +109,7 @@
       letter-spacing: 0.5px;
       text-transform: uppercase;
       transition: color 0.2s;
+      white-space: nowrap;
     }
 
     nav a:hover { color: var(--gold); }
@@ -166,7 +170,7 @@
     /* ── HERO ── */
     .hero {
       background: var(--navy);
-      padding: 100px 40px 80px;
+      padding: 72px 40px 60px;
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -237,9 +241,9 @@
     .btn-primary {
       background: var(--gold);
       color: var(--navy);
-      padding: 14px 32px;
+      padding: 11px 24px;
       font-family: 'Inter', sans-serif;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       letter-spacing: 1px;
       text-transform: uppercase;
@@ -254,9 +258,9 @@
     .btn-secondary {
       background: transparent;
       color: var(--white);
-      padding: 14px 32px;
+      padding: 11px 24px;
       font-family: 'Inter', sans-serif;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 500;
       letter-spacing: 1px;
       text-transform: uppercase;
@@ -270,9 +274,9 @@
     .btn-soutenir-hero {
       background: transparent;
       color: var(--gold);
-      padding: 14px 32px;
+      padding: 11px 24px;
       font-family: 'Inter', sans-serif;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       letter-spacing: 1px;
       text-transform: uppercase;
@@ -1062,8 +1066,8 @@
     <a href="index-en.html" class="logo">
       <span class="logo-hebrew">דעת</span>
       <div class="logo-divider"></div>
-      <div>
-        <div style="font-family:'Inter',sans-serif; font-size:18px; font-weight:600; color:#fff; letter-spacing:3px;">Daat Torah</div>
+      <div style="line-height:1.1;">
+        <div style="font-family:'Inter',sans-serif; font-size:15px; font-weight:600; color:#fff; letter-spacing:1.5px; white-space:nowrap;">Daat Torah</div>
         <div class="logo-latin">Halakha Study</div>
       </div>
     </a>
