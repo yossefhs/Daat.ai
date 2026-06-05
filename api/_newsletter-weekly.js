@@ -19,6 +19,11 @@ const LAST_SIMAN = 365;
 
 // Simanim qui ont déjà un article de blog (FR). Slug = fichier dans /blog/.
 export const BLOG_BY_SIMAN = {
+  242: 'honorer-shabbat-kavod-oneg',
+  243: 'louer-bien-non-juif-shabbat',
+  244: 'travaux-non-juif-pour-juif-shabbat',
+  245: 'association-juif-non-juif-shabbat',
+  246: 'pret-location-non-juif-shabbat',
   247: 'livraison-colis-shabbat',
   318: 'rechauffer-plat-shabbat',
   308: 'muktse-telephone-argent-shabbat',

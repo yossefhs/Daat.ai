@@ -214,6 +214,17 @@
       </div>
     </div>
 
+
+    <section class="newsletter-box" dir="rtl">
+      <div class="nb-kicker">ניוזלטר</div>
+      <h3>קבלו את סימן יום ראשון</h3>
+      <p>סימן מהשולחן ערוך מדי שבוע, במייל. בחינם, וניתן לבטל בכל עת.</p>
+      <form class="newsletter-box-form" data-daat-newsletter data-source="blog-he" data-ok-text="תודה! נרשמתם בהצלחה. נתראה ביום ראשון 🕯️" data-ko-text="אירעה שגיאה, נסו שוב.">
+        <input type="email" name="email" required placeholder="your@email.com" aria-label="Email">
+        <button type="submit">הרשמה</button>
+      </form>
+      <div class="newsletter-box-msg" aria-live="polite"></div>
+    </section>
   </main>
 
   <footer>
@@ -230,5 +241,6 @@
   <link rel="stylesheet" href="/assets/css/chat-widget.css">
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="/assets/js/chat-widget.min.js" defer></script>
+  <script src="/assets/js/newsletter-inline.js" defer></script>
 </body>
 </html>
