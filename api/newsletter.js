@@ -20,6 +20,7 @@ import { Resend } from 'resend';
 import { randomBytes } from 'node:crypto';
 import { getStepById, getDueSteps } from './_email-sequence.js';
 import { getClientIp } from './_http.js';
+import { buildWeeklyEmail, getSiman, nextValidSiman, WEEKLY_DEFAULTS } from './_newsletter-weekly.js';
 
 function setCors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -179,11 +180,22 @@ async function handleCron(req, res) {
       }
     }
 
+    // Dimanche : on envoie en plus le « siman du dimanche » à tous les abonnés.
+    let weekly = null;
+    if (new Date().getUTCDay() === 0) {
+      try {
+        weekly = await runWeeklyBroadcast(resend, fromEmail, { mode: 'auto' });
+      } catch (e) {
+        weekly = { error: e?.message };
+      }
+    }
+
     return res.status(200).json({
       ok: true,
       processed,
       sent,
       errors,
+      weekly,
       log: log.slice(0, 50),
     });
   } catch (err) {
@@ -192,11 +204,106 @@ async function handleCron(req, res) {
   }
 }
 
+// ---------- broadcast hebdomadaire (« siman du dimanche ») ----------
+function todayStr() {
+  return new Date().toISOString().slice(0, 10); // YYYY-MM-DD (UTC)
+}
+
+async function getConfirmedEmails() {
+  const emails = (await kv.lrange('newsletter:list', 0, 9999)) || [];
+  const out = [];
+  for (const email of [...new Set(emails)]) {
+    const rec = await kv.get(`newsletter:${email}`);
+    if (rec && rec.confirmed) out.push(email);
+  }
+  return out;
+}
+
+// mode: 'auto' (cron dimanche) · 'force' · 'test' · 'preview'
+async function runWeeklyBroadcast(resend, fromEmail, { mode = 'auto', testTo = null } = {}) {
+  const cursor = Number(await kv.get('newsletter:weekly:cursor')) || WEEKLY_DEFAULTS.FIRST_SIMAN;
+  const num = nextValidSiman(cursor);
+  if (!num) return { ok: true, done: true, message: 'Série terminée (siman 365 atteint).' };
+
+  const mail = buildWeeklyEmail(getSiman(num));
+  if (mode === 'preview') {
+    return { ok: true, preview: true, siman: num, subject: mail.subject, html: mail.html };
+  }
+
+  // Anti-doublon : un seul envoi par jour calendaire (sauf force / test).
+  if (mode === 'auto') {
+    const last = await kv.get('newsletter:weekly:lastSentDate');
+    if (last === todayStr()) return { ok: true, skipped: 'already-sent-today', siman: num };
+  }
+
+  const recipients = mode === 'test' ? (testTo ? [testTo] : []) : await getConfirmedEmails();
+  if (!recipients.length) return { ok: true, siman: num, sent: 0, message: 'Aucun destinataire.' };
+
+  let sent = 0, errors = 0;
+  const log = [];
+  for (const email of recipients) {
+    try {
+      const r = await resend.emails.send({
+        from: `DAAT <${fromEmail}>`,
+        to: email,
+        subject: mail.subject,
+        html: mail.html,
+        text: mail.text,
+      });
+      if (r.error) { errors++; log.push({ email, error: r.error.message }); }
+      else sent++;
+    } catch (e) { errors++; log.push({ email, error: e?.message }); }
+  }
+
+  // En test : on n'avance ni le curseur ni la date.
+  if (mode !== 'test') {
+    await kv.set('newsletter:weekly:lastSentDate', todayStr());
+    const next = nextValidSiman(num + 1);
+    await kv.set('newsletter:weekly:cursor', next || (WEEKLY_DEFAULTS.LAST_SIMAN + 1));
+  }
+
+  return { ok: true, mode, siman: num, recipients: recipients.length, sent, errors, log: log.slice(0, 20) };
+}
+
+// ---------- GET : cron quotidien + actions admin du broadcast ----------
+async function handleGet(req, res) {
+  const expectedSecret = process.env.CRON_SECRET;
+  const auth = req.headers.authorization || '';
+  const qSecret = (req.query && req.query.secret) || '';
+  const authorized = !!expectedSecret && (auth === `Bearer ${expectedSecret}` || qSecret === expectedSecret);
+
+  const weekly = req.query && req.query.weekly;
+  if (weekly) {
+    if (!authorized) return res.status(401).json({ error: 'Unauthorized' });
+    if (!process.env.RESEND_API_KEY) return res.status(500).json({ error: 'RESEND_API_KEY non configuré' });
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    const fromEmail = process.env.RESEND_FROM_EMAIL || 'noreply@daattorah.com';
+
+    if (weekly === 'preview') {
+      const r = await runWeeklyBroadcast(resend, fromEmail, { mode: 'preview' });
+      if (r.html) { res.setHeader('Content-Type', 'text/html; charset=utf-8'); return res.status(200).send(r.html); }
+      return res.status(200).json(r);
+    }
+    if (weekly === 'test') {
+      const to = req.query && req.query.to;
+      if (!to) return res.status(400).json({ error: 'Paramètre ?to=email requis' });
+      return res.status(200).json(await runWeeklyBroadcast(resend, fromEmail, { mode: 'test', testTo: String(to) }));
+    }
+    if (weekly === 'force') {
+      return res.status(200).json(await runWeeklyBroadcast(resend, fromEmail, { mode: 'force' }));
+    }
+    return res.status(400).json({ error: 'weekly invalide (preview | test | force)' });
+  }
+
+  // Sinon : exécution normale du cron (séquence + dimanche → broadcast).
+  return handleCron(req, res);
+}
+
 // ---------- dispatcher ----------
 export default async function handler(req, res) {
   setCors(res);
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method === 'POST') return handleSignup(req, res);
-  if (req.method === 'GET')  return handleCron(req, res);
+  if (req.method === 'GET')  return handleGet(req, res);
   return res.status(405).json({ error: 'GET ou POST uniquement' });
 }
