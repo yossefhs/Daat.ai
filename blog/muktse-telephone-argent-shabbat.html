@@ -197,6 +197,17 @@
       </div>
     </div>
 
+
+    <section class="newsletter-box">
+      <div class="nb-kicker">Newsletter</div>
+      <h3>Reçois le siman du dimanche</h3>
+      <p>Un siman du Choulhan Aroukh chaque semaine, en français. Gratuit, désinscription à tout moment.</p>
+      <form class="newsletter-box-form" data-daat-newsletter data-source="blog" data-ok-text="Merci ! Tu es inscrit. À dimanche 🕯️" data-ko-text="Une erreur est survenue. Réessaie.">
+        <input type="email" name="email" required placeholder="ton-email@exemple.com" aria-label="Email">
+        <button type="submit">S'abonner</button>
+      </form>
+      <div class="newsletter-box-msg" aria-live="polite"></div>
+    </section>
   </main>
 
   <footer>
@@ -213,5 +224,6 @@
   <link rel="stylesheet" href="/assets/css/chat-widget.css">
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="/assets/js/chat-widget.min.js" defer></script>
+  <script src="/assets/js/newsletter-inline.js" defer></script>
 </body>
 </html>
