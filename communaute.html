@@ -213,6 +213,16 @@
       box-shadow: 0 0 0 3px rgba(197,165,90,0.15);
     }
     .khavroutha-form textarea { resize: vertical; min-height: 80px; }
+    .kh-choices { display: flex; flex-wrap: wrap; gap: 8px; }
+    .kh-opt {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 14px; font-weight: 400; letter-spacing: 0; text-transform: none;
+      background: var(--cream); border: 1px solid var(--border);
+      border-radius: 6px; padding: 7px 11px; cursor: pointer; margin: 0; color: var(--text-dark);
+    }
+    .kh-opt input { width: auto; padding: 0; margin: 0; }
+    .kh-opt:has(input:checked) { border-color: var(--gold); box-shadow: 0 0 0 2px rgba(197,165,90,0.18); }
+    .kh-consent { font-size: 12px; color: var(--text-muted); line-height: 1.45; margin: 2px 0 0; text-transform: none; letter-spacing: 0; }
     .btn-submit {
       background: var(--navy); color: #fff;
       padding: 14px 26px; border: none; cursor: pointer;
@@ -356,13 +366,20 @@
         <h2>Khavroutha Daat</h2>
         <div class="community-card-he">חברותא דעת</div>
         <p>
-          Trouve un binôme d'étude pour avancer ensemble dans les simanim. Remplis ce formulaire — l'équipe DAAT te met en contact avec un étudiant compatible.
+          Trouve un binôme d'étude pour avancer ensemble dans les simanim. <strong>Mise en relation automatique</strong> : si un étudiant compatible est déjà inscrit, tu reçois son contact WhatsApp <strong>immédiatement</strong>. Sinon, on te prévient dès qu'il s'inscrit.
         </p>
 
         <form class="khavroutha-form" id="khavroutha-form" novalidate>
           <div>
-            <label for="kh-nom">Nom (ou pseudo)</label>
+            <label for="kh-nom">Prénom (ou pseudo)</label>
             <input type="text" id="kh-nom" name="nom" required placeholder="Yossef · David · etc." maxlength="80">
+          </div>
+          <div>
+            <label>Tu es…</label>
+            <div class="kh-choices">
+              <label class="kh-opt"><input type="radio" name="genre" value="h" required> Homme</label>
+              <label class="kh-opt"><input type="radio" name="genre" value="f"> Femme</label>
+            </div>
           </div>
           <div>
             <label for="kh-niveau">Ton niveau</label>
@@ -375,17 +392,45 @@
             </select>
           </div>
           <div>
-            <label for="kh-dispo">Disponibilité (jours / heures)</label>
-            <input type="text" id="kh-dispo" name="disponibilite" required placeholder="ex. dim/mer 21h–22h, ou samedi soir" maxlength="200">
+            <label>Jours possibles</label>
+            <div class="kh-choices">
+              <label class="kh-opt"><input type="checkbox" name="jours" value="dim"> Dim</label>
+              <label class="kh-opt"><input type="checkbox" name="jours" value="lun"> Lun</label>
+              <label class="kh-opt"><input type="checkbox" name="jours" value="mar"> Mar</label>
+              <label class="kh-opt"><input type="checkbox" name="jours" value="mer"> Mer</label>
+              <label class="kh-opt"><input type="checkbox" name="jours" value="jeu"> Jeu</label>
+              <label class="kh-opt"><input type="checkbox" name="jours" value="ven"> Ven</label>
+            </div>
           </div>
           <div>
-            <label for="kh-contact">Comment te contacter</label>
-            <input type="text" id="kh-contact" name="contact" required placeholder="WhatsApp, email, Telegram…" maxlength="160">
+            <label>Moments possibles</label>
+            <div class="kh-choices">
+              <label class="kh-opt"><input type="checkbox" name="moments" value="matin"> Matin</label>
+              <label class="kh-opt"><input type="checkbox" name="moments" value="aprem"> Après-midi</label>
+              <label class="kh-opt"><input type="checkbox" name="moments" value="soir"> Soir</label>
+              <label class="kh-opt"><input type="checkbox" name="moments" value="nuit"> Nuit</label>
+            </div>
           </div>
+          <div>
+            <label for="kh-format">Format (optionnel)</label>
+            <select id="kh-format" name="format">
+              <option value="peu-importe">Peu importe</option>
+              <option value="visio">Visio</option>
+              <option value="tel">Téléphone</option>
+              <option value="presentiel">Présentiel</option>
+            </select>
+          </div>
+          <div>
+            <label for="kh-whatsapp">Numéro WhatsApp (format international)</label>
+            <input type="tel" id="kh-whatsapp" name="whatsapp" required placeholder="ex. 33612345678 · 972541234567" maxlength="20">
+          </div>
+          <div>
+            <label for="kh-email">Email</label>
+            <input type="email" id="kh-email" name="email" required placeholder="pour te prévenir dès qu'un binôme est trouvé" maxlength="160">
+          </div>
+          <p class="kh-consent">En m'inscrivant, j'accepte d'être mis en relation avec un partenaire d'étude et que mon prénom + numéro WhatsApp lui soient communiqués.</p>
           <button type="submit" class="btn-submit" id="kh-submit">Trouver un binôme</button>
-          <div class="form-success" id="form-success">
-            ✓ Merci ! Ta demande a bien été reçue — l'équipe DAAT te recontacte sous quelques jours pour te proposer un binôme.
-          </div>
+          <div class="form-success" id="form-success"></div>
         </form>
         <script>
           (function () {
@@ -394,25 +439,43 @@
             var success = document.getElementById('form-success');
             if (!form) return;
             var API = 'https://daatai.vercel.app/api/khavroutha';
+            function checked(name) {
+              return [].slice.call(form.querySelectorAll('input[name="' + name + '"]:checked')).map(function (i) { return i.value; });
+            }
+            function fail(msg) {
+              success.innerHTML = '⚠ ' + msg;
+              success.style.color = '#C0392B';
+              success.style.background = 'rgba(192,57,43,0.08)';
+              success.style.borderColor = '#C0392B';
+              success.classList.add('is-visible');
+            }
+            function ok(html) {
+              success.innerHTML = html;
+              success.style.color = '';
+              success.style.background = '';
+              success.style.borderColor = '';
+              success.classList.add('is-visible');
+            }
             form.addEventListener('submit', async function (e) {
               e.preventDefault();
+              var genreEl = form.querySelector('input[name="genre"]:checked');
               var payload = {
                 nom: form.nom.value.trim(),
+                genre: genreEl ? genreEl.value : '',
+                langue: 'fr',
                 niveau: form.niveau.value,
-                disponibilite: form.disponibilite.value.trim(),
-                contact: form.contact.value.trim(),
+                jours: checked('jours'),
+                moments: checked('moments'),
+                format: form.format.value,
+                whatsapp: form.whatsapp.value.trim(),
+                email: form.email.value.trim(),
               };
-              if (!payload.nom || !payload.niveau || !payload.disponibilite || !payload.contact) {
-                success.textContent = '⚠ Merci de remplir tous les champs.';
-                success.style.color = '#C0392B';
-                success.style.background = 'rgba(192,57,43,0.08)';
-                success.style.borderColor = '#C0392B';
-                success.classList.add('is-visible');
-                return;
-              }
+              if (!payload.nom || !payload.genre || !payload.niveau) return fail('Renseigne ton prénom, qui tu es et ton niveau.');
+              if (!payload.jours.length || !payload.moments.length) return fail('Choisis au moins un jour et un moment.');
+              if (!payload.whatsapp || !payload.email) return fail('Numéro WhatsApp et email requis.');
               btn.disabled = true;
               var orig = btn.textContent;
-              btn.textContent = 'Envoi…';
+              btn.textContent = 'Recherche…';
               try {
                 var r = await fetch(API, {
                   method: 'POST',
@@ -420,26 +483,19 @@
                   body: JSON.stringify(payload),
                 });
                 var data = await r.json().catch(function () { return {}; });
-                if (r.ok && data.ok) {
-                  success.textContent = '✓ Merci ' + payload.nom + ' ! Ta demande a bien été reçue — l’équipe DAAT te recontacte sous quelques jours.';
-                  success.style.color = '';
-                  success.style.background = '';
-                  success.style.borderColor = '';
-                  success.classList.add('is-visible');
+                if (r.ok && data.ok && data.matched) {
+                  var p = (data.partner && data.partner.nom) ? data.partner.nom : 'ton binôme';
+                  ok('🎉 Binôme trouvé : <strong>' + p + '</strong> !<br>' +
+                     '<a href="' + data.whatsapp_link + '" target="_blank" rel="noopener" style="display:inline-block;margin-top:10px;background:#25D366;color:#fff;text-decoration:none;padding:11px 22px;border-radius:6px;font-weight:600;">💬 Lui écrire sur WhatsApp</a>');
+                  form.reset();
+                } else if (r.ok && data.ok) {
+                  ok('✓ Inscrit, ' + payload.nom + ' ! Dès qu’un partenaire compatible s’inscrit, on te met en relation par email et WhatsApp.');
                   form.reset();
                 } else {
-                  success.textContent = '⚠ ' + (data.error || 'Erreur lors de l’envoi. Réessaie ou rejoins le groupe WhatsApp.');
-                  success.style.color = '#C0392B';
-                  success.style.background = 'rgba(192,57,43,0.08)';
-                  success.style.borderColor = '#C0392B';
-                  success.classList.add('is-visible');
+                  fail(data.error || 'Erreur lors de l’envoi. Réessaie ou rejoins le groupe WhatsApp.');
                 }
               } catch (err) {
-                success.textContent = '⚠ Connexion impossible. Rejoins plutôt le groupe WhatsApp pour te présenter.';
-                success.style.color = '#C0392B';
-                success.style.background = 'rgba(192,57,43,0.08)';
-                success.style.borderColor = '#C0392B';
-                success.classList.add('is-visible');
+                fail('Connexion impossible. Réessaie ou rejoins le groupe WhatsApp.');
               } finally {
                 btn.disabled = false;
                 btn.textContent = orig;
