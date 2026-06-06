@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DAAT Admin — Khavroutot</title>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap"></noscript>
+  <style>
+    :root { --navy:#1A1F3A; --gold:#C5A55A; --green:#2E7D52; --red:#C0392B; --border:#E4DDD0; --text:#2C2C2C; --muted:#888; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; background:#F4F4F6; color:var(--text); min-height:100vh; }
+    header { background:var(--navy); color:#fff; padding:16px 32px; display:flex; align-items:center; justify-content:space-between; border-bottom:2px solid var(--gold); }
+    .logo .he { font-family:'Frank Ruhl Libre',serif; font-size:26px; color:var(--gold); font-weight:700; }
+    .logo .sub { font-size:11px; color:rgba(255,255,255,0.85); letter-spacing:3px; text-transform:uppercase; }
+    nav a { color:rgba(255,255,255,0.7); text-decoration:none; font-size:13px; margin-left:20px; }
+    nav a:hover { color:var(--gold); }
+    main { max-width:1100px; margin:0 auto; padding:32px; }
+    h1 { font-size:26px; color:var(--navy); margin-bottom:8px; }
+    .lead { color:var(--muted); margin-bottom:24px; font-size:14px; }
+    .auth-banner { background:#FFF8E5; border:1px solid var(--gold); padding:16px 20px; margin-bottom:24px; display:flex; align-items:center; gap:16px; }
+    .auth-banner.connected { background:#E8F5E9; border-color:var(--green); }
+    input[type=password] { width:100%; max-width:280px; padding:10px 12px; border:1px solid var(--border); font-size:14px; }
+    button { background:var(--navy); color:#fff; border:none; padding:10px 22px; font-family:inherit; font-size:14px; font-weight:600; cursor:pointer; }
+    button.gold { background:var(--gold); }
+    button.ghost { background:transparent; color:var(--navy); border:1px solid var(--border); }
+    button.danger { background:var(--red); padding:5px 11px; font-size:12px; }
+    .stats-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:28px; }
+    .stat-card { background:#fff; border:1px solid var(--border); padding:18px; border-left:3px solid var(--gold); }
+    .stat-card .label { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); font-weight:600; margin-bottom:6px; }
+    .stat-card .value { font-size:30px; color:var(--navy); font-weight:600; }
+    h2.sec { font-size:18px; color:var(--navy); margin:26px 0 12px; display:flex; align-items:center; gap:10px; }
+    .badge { display:inline-block; font-size:10px; padding:2px 8px; border-radius:10px; background:#EEE; color:var(--muted); letter-spacing:.5px; text-transform:uppercase; }
+    .item { background:#fff; border:1px solid var(--border); border-left:4px solid var(--gold); padding:13px 16px; margin-bottom:10px; display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
+    .item.matched { border-left-color:var(--green); }
+    .item .nom { font-weight:600; color:var(--navy); min-width:120px; }
+    .item .meta { font-size:13px; color:var(--muted); flex:1; min-width:200px; }
+    .item .meta b { color:var(--text); font-weight:600; }
+    .empty { text-align:center; padding:30px; color:var(--muted); font-style:italic; background:#fff; border:1px solid var(--border); }
+    .toast { position:fixed; bottom:32px; right:32px; background:var(--navy); color:#fff; padding:14px 20px; box-shadow:0 10px 40px rgba(0,0,0,.2); transform:translateX(120%); transition:transform .3s; z-index:9999; }
+    .toast.show { transform:translateX(0); }
+    .toast.success { background:var(--green); } .toast.error { background:var(--red); }
+  </style>
+</head>
+<body>
+<header>
+  <div class="logo"><span class="he">דעת</span> <span class="sub">Admin · Khavroutot</span></div>
+  <nav>
+    <a href="../index.html">← Site</a>
+    <a href="dedicaces.html">Dédicaces</a>
+    <a href="feedback.html">Feedback</a>
+    <a href="index.html">Admin</a>
+  </nav>
+</header>
+<main>
+  <h1>Mise en relation Khavroutot</h1>
+  <p class="lead">Appariement automatique des binômes d'étude. Les profils en attente sont appariés dès qu'un partenaire compatible s'inscrit.</p>
+
+  <div id="auth-banner" class="auth-banner">
+    <div style="flex:1;"><strong>🔒 Authentification requise</strong>
+      <div style="font-size:13px; color:var(--muted); margin-top:4px;">Mot de passe <code>ADMIN_PASSWORD</code>.</div>
+    </div>
+    <input type="password" id="admin-pw" placeholder="Mot de passe admin">
+    <button id="auth-btn" class="gold">Se connecter</button>
+  </div>
+
+  <div id="content" style="display:none;">
+    <div class="stats-grid">
+      <div class="stat-card"><div class="label">Inscrits (total)</div><div class="value" id="s-total">—</div></div>
+      <div class="stat-card"><div class="label">En attente</div><div class="value" id="s-wait">—</div></div>
+      <div class="stat-card"><div class="label">Appariements</div><div class="value" id="s-match">—</div></div>
+    </div>
+    <button class="ghost" id="refresh-btn">↻ Actualiser</button>
+
+    <h2 class="sec">⏳ En attente d'un binôme <span class="badge" id="b-wait">—</span></h2>
+    <div id="pool-list"></div>
+
+    <h2 class="sec">🤝 Appariements réalisés <span class="badge" id="b-match">—</span></h2>
+    <div id="match-list"></div>
+  </div>
+</main>
+<div id="toast" class="toast"></div>
+
+<script>
+const TOKEN_KEY = 'daat-admin-token-v1';
+const J = { dim:'Dim',lun:'Lun',mar:'Mar',mer:'Mer',jeu:'Jeu',ven:'Ven' };
+const M = { matin:'Matin',aprem:'Après-midi',soir:'Soir',nuit:'Nuit' };
+function $(id){ return document.getElementById(id); }
+function tok(){ return sessionStorage.getItem(TOKEN_KEY) || ''; }
+function setTok(t){ if(t) sessionStorage.setItem(TOKEN_KEY,t); else sessionStorage.removeItem(TOKEN_KEY); }
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function toast(m,t){ var e=$('toast'); e.textContent=m; e.className='toast show '+(t||''); setTimeout(function(){e.className='toast '+(t||'');},3000); }
+function list(arr,d){ return (arr||[]).map(function(x){return d[x]||x;}).join(', '); }
+
+$('auth-btn').addEventListener('click', async function(){ var p=$('admin-pw').value.trim(); if(!p) return toast('Saisis un mot de passe','error'); setTok(p); load(); });
+$('admin-pw').addEventListener('keydown', function(e){ if(e.key==='Enter') $('auth-btn').click(); });
+$('refresh-btn').addEventListener('click', load);
+
+async function api(path, opts){
+  opts = opts || {};
+  opts.headers = Object.assign({ 'Authorization':'Bearer '+tok() }, opts.headers||{});
+  return fetch('/api/khavroutha'+path, opts);
+}
+
+async function load(){
+  try {
+    var r = await api('?action=all');
+    if (r.status===401){ setTok(''); return toast('Mot de passe incorrect','error'); }
+    if (!r.ok){ return toast('Erreur '+r.status,'error'); }
+    var data = await r.json();
+    var rm = await (await api('?action=matches')).json();
+
+    $('auth-banner').classList.add('connected');
+    $('auth-banner').innerHTML = '<strong>✓ Connecté</strong><div style="flex:1"></div><button class="ghost" id="logout">Déconnexion</button>';
+    $('logout').addEventListener('click', function(){ setTok(''); location.reload(); });
+    $('content').style.display='';
+
+    var profiles = data.profiles||[];
+    var matches = rm.matches||[];
+    $('s-total').textContent = data.count||0;
+    $('s-wait').textContent = data.waiting||0;
+    $('s-match').textContent = matches.length;
+    $('b-wait').textContent = data.waiting||0;
+    $('b-match').textContent = matches.length;
+
+    var waiting = profiles.filter(function(p){ return p.status==='waiting'; });
+    renderPool(waiting);
+    renderMatches(matches);
+  } catch(e){ toast('Erreur réseau : '+e.message,'error'); }
+}
+
+function renderPool(items){
+  var el = $('pool-list');
+  if (!items.length){ el.innerHTML='<div class="empty">Personne en attente.</div>'; return; }
+  el.innerHTML='';
+  items.forEach(function(p){
+    var d=document.createElement('div'); d.className='item';
+    d.innerHTML =
+      '<div class="nom">'+esc(p.nom)+' <span class="badge">'+esc(p.genre==='f'?'♀':'♂')+' '+esc(p.langue)+'</span></div>'+
+      '<div class="meta"><b>'+esc(p.niveau)+'</b> · '+esc(list(p.jours,J))+' · '+esc(list(p.moments,M))+
+        ' · '+esc(p.format||'')+(p.ville?' · '+esc(p.ville):'')+'<br>📱 '+esc(p.whatsapp)+' · ✉ '+esc(p.email)+'</div>'+
+      '<button class="danger" data-del="'+esc(p.id)+'">Retirer</button>';
+    el.appendChild(d);
+  });
+  el.querySelectorAll('button[data-del]').forEach(function(b){ b.addEventListener('click', function(){ del(b.dataset.del); }); });
+}
+
+function renderMatches(items){
+  var el = $('match-list');
+  if (!items.length){ el.innerHTML='<div class="empty">Aucun appariement pour le moment.</div>'; return; }
+  el.innerHTML='';
+  items.forEach(function(m){
+    var d=document.createElement('div'); d.className='item matched';
+    var date = m.at ? new Date(m.at).toLocaleString('fr-FR') : '';
+    d.innerHTML='<div class="nom">'+esc(m.a&&m.a.nom)+' ↔ '+esc(m.b&&m.b.nom)+'</div>'+
+      '<div class="meta"><b>'+esc(m.niveau)+'</b> · '+esc(m.langue)+' · '+esc(date)+'</div>';
+    el.appendChild(d);
+  });
+}
+
+async function del(id){
+  if (!confirm('Retirer ce profil du vivier ?')) return;
+  try {
+    var r = await api('?id='+encodeURIComponent(id), { method:'DELETE' });
+    if (!r.ok){ var j=await r.json().catch(function(){return{};}); throw new Error(j.error||r.status); }
+    toast('Retiré ✓','success'); load();
+  } catch(e){ toast('Erreur : '+e.message,'error'); }
+}
+
+(async function(){ if (tok()) load(); })();
+</script>
+</body>
+</html>
