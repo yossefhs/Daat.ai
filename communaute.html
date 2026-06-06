@@ -375,13 +375,6 @@
             <input type="text" id="kh-nom" name="nom" required placeholder="Yossef · David · etc." maxlength="80">
           </div>
           <div>
-            <label>Tu es…</label>
-            <div class="kh-choices">
-              <label class="kh-opt"><input type="radio" name="genre" value="h" required> Homme</label>
-              <label class="kh-opt"><input type="radio" name="genre" value="f"> Femme</label>
-            </div>
-          </div>
-          <div>
             <label for="kh-niveau">Ton niveau</label>
             <select id="kh-niveau" name="niveau" required>
               <option value="">Choisir…</option>
@@ -458,10 +451,9 @@
             }
             form.addEventListener('submit', async function (e) {
               e.preventDefault();
-              var genreEl = form.querySelector('input[name="genre"]:checked');
               var payload = {
                 nom: form.nom.value.trim(),
-                genre: genreEl ? genreEl.value : '',
+                genre: 'h',
                 langue: 'fr',
                 niveau: form.niveau.value,
                 jours: checked('jours'),
@@ -470,7 +462,7 @@
                 whatsapp: form.whatsapp.value.trim(),
                 email: form.email.value.trim(),
               };
-              if (!payload.nom || !payload.genre || !payload.niveau) return fail('Renseigne ton prénom, qui tu es et ton niveau.');
+              if (!payload.nom || !payload.niveau) return fail('Renseigne ton prénom et ton niveau.');
               if (!payload.jours.length || !payload.moments.length) return fail('Choisis au moins un jour et un moment.');
               if (!payload.whatsapp || !payload.email) return fail('Numéro WhatsApp et email requis.');
               btn.disabled = true;

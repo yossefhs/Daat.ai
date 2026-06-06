@@ -379,13 +379,6 @@
             <input type="text" id="kh-nom" name="nom" required placeholder="Yossef · David · etc." maxlength="80">
           </div>
           <div>
-            <label>You are…</label>
-            <div class="kh-choices">
-              <label class="kh-opt"><input type="radio" name="genre" value="h" required> Man</label>
-              <label class="kh-opt"><input type="radio" name="genre" value="f"> Woman</label>
-            </div>
-          </div>
-          <div>
             <label for="kh-niveau">Your level</label>
             <select id="kh-niveau" name="niveau" required>
               <option value="">Choose…</option>
@@ -462,10 +455,9 @@
             }
             form.addEventListener('submit', async function (e) {
               e.preventDefault();
-              var genreEl = form.querySelector('input[name="genre"]:checked');
               var payload = {
                 nom: form.nom.value.trim(),
-                genre: genreEl ? genreEl.value : '',
+                genre: 'h',
                 langue: 'en',
                 niveau: form.niveau.value,
                 jours: checked('jours'),
@@ -474,7 +466,7 @@
                 whatsapp: form.whatsapp.value.trim(),
                 email: form.email.value.trim(),
               };
-              if (!payload.nom || !payload.genre || !payload.niveau) return fail('Please enter your name, who you are, and your level.');
+              if (!payload.nom || !payload.niveau) return fail('Please enter your name and your level.');
               if (!payload.jours.length || !payload.moments.length) return fail('Pick at least one day and one time.');
               if (!payload.whatsapp || !payload.email) return fail('WhatsApp number and email are required.');
               btn.disabled = true;
