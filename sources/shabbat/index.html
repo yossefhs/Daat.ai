@@ -107,6 +107,15 @@
       outline: none; border-color: var(--gold);
       box-shadow: 0 0 0 3px rgba(197,165,90,0.12);
     }
+    .search-row { display: flex; gap: 8px; }
+    .search-row .search-input { flex: 1; min-width: 0; }
+    .search-btn {
+      flex: 0 0 auto; padding: 0 22px; font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600;
+      letter-spacing: 0.5px; background: var(--navy); color: #fff; border: none; border-radius: 4px;
+      cursor: pointer; transition: background 0.15s, color 0.15s; white-space: nowrap;
+    }
+    .search-btn:hover { background: var(--gold); color: var(--navy); }
+    @media (max-width: 560px) { .search-btn { padding: 12px 16px; } }
     .search-meta {
       font-family: 'Inter', sans-serif; font-size: 11px;
       color: var(--text-muted); margin-top: 6px; letter-spacing: 0.5px;
@@ -428,13 +437,16 @@
 
   <!-- BARRE DE RECHERCHE -->
   <div class="search-block">
-    <input
-      type="text"
-      class="search-input"
-      id="search-input"
-      placeholder="🔍 Rechercher un siman par numéro, mot-clé, hébreu ou français…"
-      data-i18n-placeholder="shabbat.searchPlaceholder"
-    >
+    <div class="search-row">
+      <input
+        type="text"
+        class="search-input"
+        id="search-input"
+        placeholder="🔍 Rechercher un siman par numéro, mot-clé, hébreu ou français…"
+        data-i18n-placeholder="shabbat.searchPlaceholder"
+      >
+      <button type="button" class="search-btn" id="search-btn" data-i18n="shabbat.searchButton" aria-label="Rechercher">Rechercher</button>
+    </div>
     <div class="search-meta" id="search-meta"></div>
   </div>
 
@@ -2388,6 +2400,9 @@ function searchCards() {
   }
 }
 $searchInput.addEventListener('input', searchCards);
+const $searchBtn = document.getElementById('search-btn');
+if ($searchBtn) $searchBtn.addEventListener('click', () => { searchCards(); $searchInput.blur(); });
+$searchInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); searchCards(); $searchInput.blur(); } });
 
 // =================================================================
 // 3) PROGRESSION — niveaux étudiés par siman
