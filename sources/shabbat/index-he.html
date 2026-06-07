@@ -2400,9 +2400,22 @@ function searchCards() {
   }
 }
 $searchInput.addEventListener('input', searchCards);
+function runSearch() {
+  try { searchCards(); } catch (e) {}
+  const q = $searchInput.value.trim();
+  if (!q) return;
+  const num = (q.match(/\d{2,3}/) || [])[0];
+  if (num) {
+    const card = [...$allCards].find(c => ((c.getAttribute('href') || '').indexOf('siman-' + num + '/') !== -1));
+    if (card) { window.location.href = card.getAttribute('href'); return; }
+  }
+  const visible = [...$allCards].filter(c => c.style.display !== 'none');
+  if (visible.length === 1 && visible[0].getAttribute('href')) { window.location.href = visible[0].getAttribute('href'); return; }
+  $searchInput.blur();
+}
 const $searchBtn = document.getElementById('search-btn');
-if ($searchBtn) $searchBtn.addEventListener('click', () => { searchCards(); $searchInput.blur(); });
-$searchInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); searchCards(); $searchInput.blur(); } });
+if ($searchBtn) $searchBtn.addEventListener('click', runSearch);
+$searchInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); runSearch(); } });
 
 // =================================================================
 // 3) PROGRESSION — niveaux étudiés par siman
