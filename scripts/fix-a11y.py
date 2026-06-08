@@ -280,6 +280,9 @@ def process(path):
     html, did_ls = fix_lang_switcher(html)
     report["lang_switcher"] = did_ls
 
+    html, emoji_n = fix_emoji_links(html)
+    report["emoji_count"] = emoji_n
+
     html, contrast_n = fix_contrast(html)
     report["contrast_count"] = contrast_n
 
@@ -319,6 +322,7 @@ def main():
         summary["main_id"] += int(r["main_id"])
         summary["skip_css"] += int(r["skip_css"])
         summary["lang_switcher"] += int(r["lang_switcher"])
+        summary["emoji_links"] = summary.get("emoji_links", 0) + r["emoji_count"]
         summary["contrast"] += 1 if r["contrast_count"] else 0
         summary["xdefault"] += int(r["xdefault"])
 
@@ -334,6 +338,8 @@ def main():
             flags.append("css")
         if r["lang_switcher"]:
             flags.append("lang-aria")
+        if r["emoji_count"]:
+            flags.append(f"emoji×{r['emoji_count']}")
         if r["contrast_count"]:
             flags.append(f"contrast×{r['contrast_count']}")
         if r["xdefault"]:
