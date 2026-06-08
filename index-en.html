@@ -1122,6 +1122,134 @@
     </div>
   </section>
 
+  <!-- ── BANDEAU DAAT YOMI ──────────────────────────────────────────── -->
+<section class="daat-yomi-banner" id="daat-yomi-banner" data-start="2026-06-08" data-total="124" aria-label="Daat Yomi — daily study">
+  <div class="dy-inner">
+    <div class="dy-tag">Daat Yomi — daily study · <span class="dy-sub">5 days/week · Sun → Thu</span></div>
+    <div class="dy-content" id="dy-content"></div>
+    <div class="dy-cta">
+      <a id="dy-cta-link" class="dy-btn dy-btn-primary" href="/limoud/index-en.html">Study now →</a>
+      <a class="dy-btn dy-btn-secondary" href="/limoud/index-en.html">See the full plan</a>
+    </div>
+  </div>
+</section>
+<style>
+  .daat-yomi-banner{background:linear-gradient(135deg,var(--navy) 0%,#0e2447 100%);color:#fff;padding:48px 40px;border-top:2px solid var(--gold);border-bottom:2px solid var(--gold)}
+  .daat-yomi-banner .dy-inner{max-width:1080px;margin:0 auto;text-align:center}
+  .daat-yomi-banner .dy-tag{font-family:'Inter',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+  .daat-yomi-banner .dy-tag .dy-sub{color:rgba(255,255,255,.7);letter-spacing:2px}
+  .daat-yomi-banner .dy-today{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:8px}
+  .daat-yomi-banner .dy-day{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:600;color:#fff;margin-bottom:6px;line-height:1.1}
+  .daat-yomi-banner .dy-day .dy-day-num{color:var(--gold)}
+  .daat-yomi-banner .dy-siman{font-family:'Frank Ruhl Libre',serif;font-size:18px;color:var(--gold);margin-bottom:6px;letter-spacing:1px}
+  .daat-yomi-banner .dy-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:rgba(255,255,255,.92);margin-bottom:8px;max-width:720px;margin-left:auto;margin-right:auto}
+  .daat-yomi-banner .dy-notice{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold);font-size:15px;margin-top:4px}
+  .daat-yomi-banner .dy-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+  .daat-yomi-banner .dy-btn{padding:14px 26px;text-decoration:none;font-family:'Inter',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;border-radius:3px;transition:.2s;border:1px solid var(--gold)}
+  .daat-yomi-banner .dy-btn-primary{background:var(--gold);color:var(--navy);font-weight:600}
+  .daat-yomi-banner .dy-btn-primary:hover{background:#d9b66e}
+  .daat-yomi-banner .dy-btn-secondary{color:#fff;background:transparent}
+  .daat-yomi-banner .dy-btn-secondary:hover{background:rgba(197,165,90,.15)}
+  @media (max-width:640px){
+    .daat-yomi-banner{padding:36px 20px}
+    .daat-yomi-banner .dy-day{font-size:32px}
+    .daat-yomi-banner .dy-title{font-size:18px}
+  }
+</style>
+<script>
+(function(){
+  var ENTRIES = [[1,"2026-06-08",242,"רמ״ב","The obligation of Oneg and Kavod Shabbat"],[2,"2026-06-09",243,"רמ״ג","Renting one's bath or field to a non-Jew for Shabbat"],[3,"2026-06-10",244,"רמ\"ד","Which labors a non-Jew may perform for a Jew"],[4,"2026-06-11",245,"רמ\"ה","Jew and non-Jew — partnership conduct (שותפות)"],[5,"2026-06-14",246,"רמ״ו","Laws of lending and renting to a non-Jew for Shabbat"],[6,"2026-06-15",247,"247","Sending a letter or object via a non-Jewish carrier"],[7,"2026-06-16",248,"248","Traveling by boat or caravan in the days before Shabbat"],[8,"2026-06-17",249,"249","Specific rules for Friday (erev Shabbat)"],[9,"2026-06-18",250,"250","Preparing the Shabbat meals (rising early on Friday)"],[10,"2026-06-21",251,"251","Not performing melakha on Friday from Minha onward"],[11,"2026-06-22",252,"252","Labors permitted and forbidden to start erev Shabbat to be completed on Shabbat"],[12,"2026-06-23",253,"253","The kira and tannour — placing pots before Shabbat (Shabbat plata, hatmana)"],[13,"2026-06-24",254,"254","Dishes prepared erev Shabbat to be completed on Shabbat"],[14,"2026-06-25",255,"255","Preparing the fire before the entry of Shabbat"],[15,"2026-06-28",256,"256","The 6 shofar blasts before Shabbat"],[16,"2026-06-29",257,"257","The laws of hatmana (wrapping hot dishes) before Shabbat"],[17,"2026-06-30",258,"258","Permitted to place a cold dish on a hot one before Shabbat"],[18,"2026-07-01",259,"259","Additional rules of hatmana and their movement on Shabbat"],[19,"2026-07-02",260,"260","Rules for entering Shabbat (mikve, clothing, nails)"],[20,"2026-07-05",261,"261","The time for lighting Shabbat candles"],[21,"2026-07-06",262,"262","Sanctifying Shabbat with a set table and clean garments"],[22,"2026-07-07",263,"263","Who lights the candles + timing error on a cloudy day"],[23,"2026-07-08",264,"264","Wicks and oils for Shabbat candles"],[24,"2026-07-09",265,"265","Vessels placed beneath the candle (fire safety)"],[25,"2026-07-12",266,"266","The traveler caught by the entry of Shabbat on the road"],[26,"2026-07-13",267,"267","The tefilla of Friday evening (erev Shabbat)"],[27,"2026-07-14",268,"268","Errors and omissions in the Shabbat tefilla"],[28,"2026-07-15",269,"269","The kiddoush at the synagogue (Friday night)"],[29,"2026-07-16",270,"270","Reciting the pereq Bameh madlikin (Mishna Shabbat ch. 2)"],[30,"2026-07-19",271,"271","The kiddoush on wine (Friday night)"],[31,"2026-07-20",272,"272","On which wine to make kiddoush — required qualities"],[32,"2026-07-21",273,"273","Kiddoush must be at the place of the meal"],[33,"2026-07-22",274,"274","Breaking bread (לחם משנה) on Shabbat"],[34,"2026-07-23",275,"275","Things forbidden by candlelight on Shabbat"],[35,"2026-07-26",276,"276","Candle lit by a non-Jew on Shabbat"],[36,"2026-07-27",277,"277","Not causing the candle to be extinguished on Shabbat"],[37,"2026-07-28",278,"278","Permission to extinguish the candle for a sick person"],[38,"2026-07-29",279,"279","Moving the Shabbat candle (mukatze)"],[39,"2026-07-30",280,"280","Marital relations on Shabbat (oneg Shabbat)"],[40,"2026-08-02",281,"281","Zemirot and the Shabbat morning tefilla"],[41,"2026-08-03",282,"282","Torah reading and Maftir on Shabbat"],[42,"2026-08-04",283,"283","Why we do not take out 2 sifrei Torah on Shabbat"],[43,"2026-08-05",284,"284","The haftarah and its berakhot"],[44,"2026-08-06",285,"285","Reading the parasha twice in Hebrew + once in targoum"],[45,"2026-08-09",286,"286","The Mussaf tefilla of Shabbat"],[46,"2026-08-10",287,"287","Visiting the sick and consoling mourners on Shabbat"],[47,"2026-08-11",288,"288","Fasting and fast following a dream on Shabbat"],[48,"2026-08-12",289,"289","The order of the Shabbat morning meal"],[49,"2026-08-13",290,"290","Completing the 100 berakhot on Shabbat with fruits"],[50,"2026-08-16",291,"291","The third Shabbat meal (סעודה שלישית)"],[51,"2026-08-17",292,"292","The Minha tefilla of Shabbat"],[52,"2026-08-18",293,"293","Arvit of motsei Shabbat"],[53,"2026-08-19",294,"294","Avdala within the tefilla"],[54,"2026-08-20",295,"295","Avdala recited by the shliach tsibour in the synagogue"],[55,"2026-08-23",296,"296","Avdala on wine (motsei Shabbat)"],[56,"2026-08-24",297,"297","The besamim (spices) for avdala"],[57,"2026-08-25",298,"298","The avdala candle (motsei Shabbat)"],[58,"2026-08-26",299,"299","Not eating, drinking, or working before avdala"],[59,"2026-08-27",300,"300","Melave Malka — the meal accompanying the Shabbat Queen"],[60,"2026-08-30",301,"301","Going out with clothes and objects on Shabbat"],[61,"2026-08-31",302,"302","Cleaning and folding clothes on Shabbat"],[62,"2026-09-01",303,"303","A woman's jewelry on Shabbat"],[63,"2026-09-02",304,"ש\"ד","On the rest of the servant (Mehaber only)"],[64,"2026-09-03",305,"305","What an animal may go out with on Shabbat"],[65,"2026-09-06",306,"306","On which subjects one may speak on Shabbat"],[66,"2026-09-07",307,"307","Shabbat rules related to speech"],[67,"2026-09-08",308,"308","Mukatze: things permitted and forbidden to move on Shabbat"],[68,"2026-09-09",309,"309","Moving a mukatze object via another object"],[69,"2026-09-10",310,"310","Further laws of mukatze on Shabbat"],[70,"2026-09-13",311,"311","A death on Shabbat — laws of tiltoul"],[71,"2026-09-14",312,"312","Intimate hygiene on Shabbat (toilet paper)"],[72,"2026-09-15",313,"313","Moving doors, windows, locks on Shabbat"],[73,"2026-09-16",314,"314","Boné and Soter (building and demolishing) on Shabbat"],[74,"2026-09-17",315,"315","Making an ohel (tent/cover) on Shabbat"],[75,"2026-09-20",316,"316","Tsida (trapping) — capturing animals on Shabbat"],[76,"2026-09-21",317,"317","Tying and untying (kshira / aniva) on Shabbat"],[77,"2026-09-22",318,"318","Bishoul (cooking) on Shabbat — a melakha de-oraita"],[78,"2026-09-23",319,"319","Borer (selecting) on Shabbat — a melakha de-oraita"],[79,"2026-09-24",320,"320","Shita (squeezing) on Shabbat"],[80,"2026-09-27",321,"321","Tolesh (detaching), Tohen (grinding), Me'abed (tanning), Lash (kneading) on Shabbat"],[81,"2026-09-28",322,"שכ\"ב","An egg laid on Shabbat (Mehaber only)"],[82,"2026-09-29",323,"323","Borrowing, buying, and washing dishes on Shabbat"],[83,"2026-09-30",324,"324","Preparing food for animals on Shabbat"],[84,"2026-10-01",325,"325","A non-Jew who performs work for a Jew on Shabbat"],[85,"2026-10-04",326,"326","Bathing on Shabbat"],[86,"2026-10-05",327,"327","Sikha (anointing) on Shabbat — oils, creams, perfumes"],[87,"2026-10-06",328,"328","The sick person on Shabbat — rules of care"],[88,"2026-10-07",329,"329","For whom to transgress Shabbat — pikuach nefesh"],[89,"2026-10-08",330,"330","The yoledet (woman giving birth) on Shabbat"],[90,"2026-10-11",331,"331","Brit milah on Shabbat (8th day)"],[91,"2026-10-12",332,"332","Not assisting an animal in giving birth on Shabbat"],[92,"2026-10-13",333,"333","Not emptying a storehouse on Shabbat (rearranging)"],[93,"2026-10-14",334,"334","Fire on Shabbat — laws of rescue"],[94,"2026-10-15",335,"335","A barrel of wine or oil broken on Shabbat"],[95,"2026-10-18",336,"336","Walking on grass and climbing trees on Shabbat"],[96,"2026-10-19",337,"337","Sweeping the house + unintentional act (davar she-eino mitkaven)"],[97,"2026-10-20",338,"338","Not making musical sound on Shabbat"],[98,"2026-10-21",339,"339","Several particular Shabbat rules"],[99,"2026-10-22",340,"340","Toldot of the avot melakhot — derived labors forbidden on Shabbat"],[100,"2026-10-25",341,"341","Annulment of vows on Shabbat (hatarat nedarim)"],[101,"2026-10-26",342,"342","During Bein Hashemashot (twilight) — rabbinic acts permitted for a mitzva"],[102,"2026-10-27",343,"343","Children on Shabbat (parental responsibility)"],[103,"2026-10-28",344,"344","Lost in the desert — when does Shabbat begin?"],[104,"2026-10-29",345,"345","The 4 reshuyot (domains) of Shabbat — foundation of hotsaa"],[105,"2026-11-01",346,"346","Eruvin of the Torah — foundation of Shabbat transport"],[106,"2026-11-02",347,"347","For which type of hotsaa one is liable de-oraita"],[107,"2026-11-03",348,"348","Handing an object from one domain to another"],[108,"2026-11-04",349,"349","The personal 4 amot in reshut harabim (itinerant private space)"],[109,"2026-11-05",350,"350","Putting one's head and body out from one domain to another"],[110,"2026-11-08",351,"351","Extending one's hand to a tap in reshut harabim to drink"],[111,"2026-11-09",352,"352","The reader whose book rolls between reshut hayachid and reshut harabim"],[112,"2026-11-10",353,"353","Projections and balconies (zizim) above reshut harabim"],[113,"2026-11-11",354,"354","Pits and refuse heaps in reshut harabim"],[114,"2026-11-12",355,"355","Balcony over water and a garden privy"],[115,"2026-11-15",356,"356","A water channel crossing the courtyard on Shabbat"],[116,"2026-11-16",357,"357","A courtyard less than 4 amot and a drain"],[117,"2026-11-17",358,"358","Places enclosed for residence (mukafin le-dira)"],[118,"2026-11-18",359,"359","Wide space behind the houses"],[119,"2026-11-19",360,"360","Enclosure for Shabbat — creating a temporary reshut hayachid"],[120,"2026-11-22",361,"361","A roof adjacent to reshut harabim"],[121,"2026-11-23",362,"362","Which mechitza is valid to permit transport"],[122,"2026-11-24",363,"363","Mavoy (alley) and Lehi (reference post)"],[123,"2026-11-25",364,"364","A mavoy passing through and shaped like a fishbone"],[124,"2026-11-26",365,"365","A mavoy one of whose walls has been breached — the last siman of Hilkhot Shabbat"]];
+  var T = {"tag":"Daat Yomi — daily study","todayLabel":"Today","jourLabel":"Day","simanLabel":"Siman","cta":"Study now →","indexCta":"See the full plan","shabbat":"Shabbat shalom — resumes Sunday","friday":"Resumes Sunday","beforeStart":"Daat Yomi starts on Monday, June 8, 2026","finished":"Plan completed — mazal tov! 🎉","sub":"5 days/week · Sun → Thu"};
+  var DAYS_FR = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
+  var DAYS_EN = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+  var DAYS_HE = ["ראשון","שני","שלישי","רביעי","חמישי","שישי","שבת"];
+  var LANG = "en";
+
+  function parseISO(s){var p=s.split('-');return new Date(Date.UTC(+p[0],+p[1]-1,+p[2]));}
+  function isStudyDay(d){var w=d.getUTCDay();return w>=0&&w<=4;}
+  function todayUTC(){var n=new Date();return new Date(Date.UTC(n.getFullYear(),n.getMonth(),n.getDate()));}
+  function fmtDate(d){
+    var dow=d.getUTCDay(), day=d.getUTCDate(), m=d.getUTCMonth()+1;
+    if(LANG==='en')return DAYS_EN[dow]+', '+m+'/'+day;
+    if(LANG==='he')return 'יום '+DAYS_HE[dow]+', '+day+'/'+m;
+    return DAYS_FR[dow]+' '+day+'/'+m;
+  }
+  function pad3(n){return ('00'+n).slice(-3);}
+  function dayHref(num){
+    var p=pad3(num);
+    if(LANG==='fr')return '/limoud/jour-'+p+'.html';
+    if(LANG==='en')return '/limoud/jour-'+p+'-en.html';
+    return '/limoud/jour-'+p+'-he.html';
+  }
+  function getCurrentStudyDay(today, startDate){
+    if(today < startDate) return 0;
+    var dayNum=0;
+    var cur=new Date(startDate.getTime());
+    while(cur < today){ if(isStudyDay(cur)) dayNum++; cur.setUTCDate(cur.getUTCDate()+1); }
+    if(isStudyDay(today)) dayNum++;
+    return dayNum;
+  }
+
+  var banner=document.getElementById('daat-yomi-banner');
+  if(!banner) return;
+  var start=parseISO(banner.dataset.start);
+  var total=parseInt(banner.dataset.total,10);
+  var today=todayUTC();
+  var container=document.getElementById('dy-content');
+  var ctaLink=document.getElementById('dy-cta-link');
+
+  // Avant la date de départ
+  if(today < start){
+    container.innerHTML='<div class="dy-notice">'+T.beforeStart+'</div>';
+    return;
+  }
+
+  var dow=today.getUTCDay();
+  var dayNum;
+  var notice='';
+
+  if(dow===5){
+    // Vendredi → prochain jour = dimanche (dans 2 jours)
+    var sun=new Date(today.getTime()); sun.setUTCDate(sun.getUTCDate()+2);
+    dayNum=getCurrentStudyDay(sun, start);
+    notice=T.friday;
+  } else if(dow===6){
+    // Shabbat → prochain jour = dimanche (demain)
+    var sun=new Date(today.getTime()); sun.setUTCDate(sun.getUTCDate()+1);
+    dayNum=getCurrentStudyDay(sun, start);
+    notice=T.shabbat;
+  } else {
+    dayNum=getCurrentStudyDay(today, start);
+  }
+
+  if(dayNum > total){
+    container.innerHTML='<div class="dy-day">'+T.finished+'</div>';
+    return;
+  }
+  if(dayNum < 1){
+    container.innerHTML='<div class="dy-notice">'+T.beforeStart+'</div>';
+    return;
+  }
+
+  var e=ENTRIES[dayNum-1];
+  var entryDate=parseISO(e[1]);
+  var html='';
+  if(notice){
+    html+='<div class="dy-today">'+T.todayLabel+' · '+fmtDate(today)+'</div>';
+    html+='<div class="dy-notice">'+notice+'</div>';
+  } else {
+    html+='<div class="dy-today">'+T.todayLabel+' · '+fmtDate(today)+'</div>';
+  }
+  html+='<div class="dy-day">'+T.jourLabel+' <span class="dy-day-num">'+e[0]+'</span> <span style="opacity:.55">/ '+total+'</span></div>';
+  html+='<div class="dy-siman">'+T.simanLabel+' '+e[2]+' · '+e[3]+'</div>';
+  html+='<div class="dy-title">'+e[4]+'</div>';
+  container.innerHTML=html;
+  ctaLink.href=dayHref(e[0]);
+})();
+</script>
+<!-- ── /BANDEAU DAAT YOMI ───────────────────────────────────────── -->
+
+
   <!-- VISION -->
   <section id="vision" class="vision-bg">
     <div class="section">

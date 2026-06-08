@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@400;500;700&family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="/assets/css/daat.css">
+  <link rel="stylesheet" href="/assets/css/daat-enhance.css">
+  <title>Daat Yomi — Plan d'étude quotidien | Daat Torah</title>
+  <meta name="description" content="Plan d'étude quotidien du Choulhan Aroukh : 124 jours, un siman par jour, 5 jours par semaine (dimanche-jeudi).">
+  <link rel="canonical" href="https://daattorah.com/limoud/index.html">
+  <link rel="alternate" hreflang="fr" href="https://daattorah.com/limoud/index.html">
+  <link rel="alternate" hreflang="en" href="https://daattorah.com/limoud/index-en.html">
+  <link rel="alternate" hreflang="he" href="https://daattorah.com/limoud/index-he.html">
+  <link rel="alternate" hreflang="x-default" href="https://daattorah.com/limoud/index.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Daat Yomi — Plan d'étude quotidien">
+  <meta property="og:description" content="Plan d'étude quotidien du Choulhan Aroukh : 124 jours, un siman par jour, 5 jours par semaine (dimanche-jeudi).">
+  <meta property="og:url" content="https://daattorah.com/limoud/index.html">
+
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Cormorant Garamond',Georgia,serif;background:var(--cream);color:var(--text-dark);line-height:1.65;font-size:18px}
+    header{background:var(--navy);height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;position:sticky;top:0;z-index:100;border-bottom:2px solid var(--gold)}
+    .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+    .logo-hebrew{font-family:'Frank Ruhl Libre',serif;font-size:28px;font-weight:700;color:var(--gold);letter-spacing:2px}
+    .logo-latin{font-family:'Cormorant Garamond',serif;font-size:13px;color:rgba(255,255,255,.85);letter-spacing:4px;text-transform:uppercase}
+    nav{display:flex;gap:24px;align-items:center}
+    nav a{color:rgba(255,255,255,.9);text-decoration:none;font-family:'Inter',sans-serif;font-size:13px;letter-spacing:1px;text-transform:uppercase}
+    nav a:hover,nav a.active{color:var(--gold)}
+    .lang-switcher{display:inline-flex;gap:6px;margin-left:16px}
+    .lang-switcher a{padding:4px 8px;border:1px solid rgba(197,165,90,.4);border-radius:3px;font-size:11px}
+    .lang-switcher a.active{background:var(--gold);color:var(--navy)}
+    main{max-width:1080px;margin:0 auto;padding:60px 24px 80px}
+    .page-tag{font-family:'Inter',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+    h1.page-title{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:600;color:var(--navy);margin-bottom:14px;line-height:1.15}
+    .page-sub{color:var(--text-mid);font-size:18px;font-style:italic;margin-bottom:18px;max-width:760px}
+    .meta-strip{display:flex;flex-wrap:wrap;gap:18px;font-family:'Inter',sans-serif;font-size:12px;color:var(--text-mid);letter-spacing:1px;text-transform:uppercase;padding:14px 0;border-top:1px solid rgba(197,165,90,.25);border-bottom:1px solid rgba(197,165,90,.25);margin-bottom:36px}
+    .meta-strip span{display:inline-flex;align-items:center;gap:6px}
+    .week{margin-bottom:36px;background:#fff;border:1px solid rgba(197,165,90,.2);border-radius:6px;overflow:hidden;box-shadow:0 1px 4px rgba(11,28,58,.04)}
+    .week-head{background:var(--navy);color:#fff;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--gold)}
+    .week-num{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+    .week-range{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:rgba(255,255,255,.85)}
+    .week-days{display:grid;grid-template-columns:repeat(5,1fr)}
+    .day-item{display:flex;flex-direction:column;gap:6px;padding:18px 16px;text-decoration:none;color:var(--text-dark);border-right:1px solid rgba(197,165,90,.18);transition:.18s;background:#fff}
+    .day-item:last-child{border-right:none}
+    .day-item:hover{background:var(--cream)}
+    .day-meta{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:1px;color:var(--text-mid);text-transform:uppercase}
+    .day-meta .day-dow{color:var(--gold);font-weight:600}
+    .day-siman{font-family:'Frank Ruhl Libre',serif;font-size:15px;color:var(--navy)}
+    .day-title{font-size:15px;line-height:1.4;color:var(--text-dark)}
+    [dir="rtl"] .day-item{border-right:none;border-left:1px solid rgba(197,165,90,.18)}
+    [dir="rtl"] .day-item:last-child{border-left:none}
+    @media (max-width:900px){
+      .week-days{grid-template-columns:repeat(2,1fr)}
+      .day-item{border-right:none;border-bottom:1px solid rgba(197,165,90,.18)}
+    }
+    @media (max-width:500px){
+      .week-days{grid-template-columns:1fr}
+      h1.page-title{font-size:34px}
+      main{padding:40px 18px}
+    }
+  </style>
+</head>
+<body>
+<header>
+  <a class="logo" href="/index.html"><span class="logo-hebrew">דעת</span><span class="logo-latin">Daat Torah</span></a>
+  <nav>
+    <a href="/index.html">Accueil</a>
+    <a href="/limoud/index.html" class="active">Daat Yomi</a>
+    <a href="/chat.html">IA Daat</a>
+    <a href="/about.html">À propos</a>
+    <span class="lang-switcher">
+      <a href="index.html" class="active">FR</a>
+      <a href="index-he.html">HE</a>
+      <a href="index-en.html">EN</a>
+    </span>
+  </nav>
+</header>
+<main id="main">
+  <div class="page-tag">Daat Yomi</div>
+  <h1 class="page-title">Daat Yomi — Plan d'étude quotidien</h1>
+  <p class="page-sub">Un siman par jour, 5 jours par semaine (dimanche → jeudi). Pause le vendredi (préparation Shabbat) et le Shabbat.</p>
+  <div class="meta-strip">
+    <span>Début : Lundi 8 juin 2026</span>
+    <span>Fin : Jeudi 26 novembre 2026</span>
+    <span>124 jours d'étude · 5 j/semaine</span>
+  </div>
+
+    <section class="week">
+      <header class="week-head"><div class="week-num">Semaine 1</div><div class="week-range">Lundi 8 juin 2026 au Jeudi 11 juin 2026</div></header>
+      <div class="week-days">
+      <a class="day-item" href="jour-001.html">
+        <span class="day-meta"><span class="day-dow">Lundi</span> · <span class="day-num">Jour 1</span> · <span class="day-date">8/6</span></span>
+        <span class="day-siman"><strong>Siman 242</strong> · רמ״ב</span>
+        <span class="day-title">L'obligation de l'oneg et du kavod du Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-002.html">
+        <span class="day-meta"><span class="day-dow">Mardi</span> · <span class="day-num">Jour 2</span> · <span class="day-date">9/6</span></span>
+        <span class="day-siman"><strong>Siman 243</strong> · רמ״ג</span>
+        <span class="day-title">Louer son bain ou son champ à un non-juif pour Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-003.html">
+        <span class="day-meta"><span class="day-dow">Mercredi</span> · <span class="day-num">Jour 3</span> · <span class="day-date">10/6</span></span>
+        <span class="day-siman"><strong>Siman 244</strong> · רמ"ד</span>
+        <span class="day-title">Quels travaux le non-juif peut faire pour le Juif</span>
+      </a>
+      <a class="day-item" href="jour-004.html">
+        <span class="day-meta"><span class="day-dow">Jeudi</span> · <span class="day-num">Jour 4</span> · <span class="day-date">11/6</span></span>
+        <span class="day-siman"><strong>Siman 245</strong> · רמ"ה</span>
+        <span class="day-title">Juif et non-juif — comment se comporter en associés (שותפות)</span>
+      </a>
+      </div>
+    </section>
+    <section class="week">
+      <header class="week-head"><div class="week-num">Semaine 2</div><div class="week-range">Dimanche 14 juin 2026 au Jeudi 18 juin 2026</div></header>
+      <div class="week-days">
+      <a class="day-item" href="jour-005.html">
+        <span class="day-meta"><span class="day-dow">Dimanche</span> · <span class="day-num">Jour 5</span> · <span class="day-date">14/6</span></span>
+        <span class="day-siman"><strong>Siman 246</strong> · רמ״ו</span>
+        <span class="day-title">Lois du prêt et de la location à un non-juif pour Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-006.html">
+        <span class="day-meta"><span class="day-dow">Lundi</span> · <span class="day-num">Jour 6</span> · <span class="day-date">15/6</span></span>
+        <span class="day-siman"><strong>Siman 247</strong> · 247</span>
+        <span class="day-title">Envoyer une lettre ou un objet par un non-juif transporteur</span>
+      </a>
+      <a class="day-item" href="jour-007.html">
+        <span class="day-meta"><span class="day-dow">Mardi</span> · <span class="day-num">Jour 7</span> · <span class="day-date">16/6</span></span>
+        <span class="day-siman"><strong>Siman 248</strong> · 248</span>
+        <span class="day-title">Voyager en bateau ou en caravane les jours d'avant Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-008.html">
+        <span class="day-meta"><span class="day-dow">Mercredi</span> · <span class="day-num">Jour 8</span> · <span class="day-date">17/6</span></span>
+        <span class="day-siman"><strong>Siman 249</strong> · 249</span>
+        <span class="day-title">Règles spécifiques du vendredi (érev Shabbat)</span>
+      </a>
+      <a class="day-item" href="jour-009.html">
+        <span class="day-meta"><span class="day-dow">Jeudi</span> · <span class="day-num">Jour 9</span> · <span class="day-date">18/6</span></span>
+        <span class="day-siman"><strong>Siman 250</strong> · 250</span>
+        <span class="day-title">La préparation des repas de Shabbat (se lever tôt vendredi)</span>
+      </a>
+      </div>
+    </section>
+    <section class="week">
+      <header class="week-head"><div class="week-num">Semaine 3</div><div class="week-range">Dimanche 21 juin 2026 au Jeudi 25 juin 2026</div></header>
+      <div class="week-days">
+      <a class="day-item" href="jour-010.html">
+        <span class="day-meta"><span class="day-dow">Dimanche</span> · <span class="day-num">Jour 10</span> · <span class="day-date">21/6</span></span>
+        <span class="day-siman"><strong>Siman 251</strong> · 251</span>
+        <span class="day-title">Ne pas faire de mélakha vendredi à partir de Minha</span>
+      </a>
+      <a class="day-item" href="jour-011.html">
+        <span class="day-meta"><span class="day-dow">Lundi</span> · <span class="day-num">Jour 11</span> · <span class="day-date">22/6</span></span>
+        <span class="day-siman"><strong>Siman 252</strong> · 252</span>
+        <span class="day-title">Travaux permis et interdits à commencer érev Shabbat pour qu'ils s'achèvent Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-012.html">
+        <span class="day-meta"><span class="day-dow">Mardi</span> · <span class="day-num">Jour 12</span> · <span class="day-date">23/6</span></span>
+        <span class="day-siman"><strong>Siman 253</strong> · 253</span>
+        <span class="day-title">Le kira et le tannour — placer les marmites avant Shabbat (Shabbat plata, hatmana)</span>
+      </a>
+      <a class="day-item" href="jour-013.html">
+        <span class="day-meta"><span class="day-dow">Mercredi</span> · <span class="day-num">Jour 13</span> · <span class="day-date">24/6</span></span>
+        <span class="day-siman"><strong>Siman 254</strong> · 254</span>
+        <span class="day-title">Plats préparés érev Shabbat pour s'achever Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-014.html">
+        <span class="day-meta"><span class="day-dow">Jeudi</span> · <span class="day-num">Jour 14</span> · <span class="day-date">25/6</span></span>
+        <span class="day-siman"><strong>Siman 255</strong> · 255</span>
+        <span class="day-title">Préparation du feu avant l'entrée de Shabbat</span>
+      </a>
+      </div>
+    </section>
+    <section class="week">
+      <header class="week-head"><div class="week-num">Semaine 4</div><div class="week-range">Dimanche 28 juin 2026 au Jeudi 2 juillet 2026</div></header>
+      <div class="week-days">
+      <a class="day-item" href="jour-015.html">
+        <span class="day-meta"><span class="day-dow">Dimanche</span> · <span class="day-num">Jour 15</span> · <span class="day-date">28/6</span></span>
+        <span class="day-siman"><strong>Siman 256</strong> · 256</span>
+        <span class="day-title">Les 6 sonneries de shofar avant Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-016.html">
+        <span class="day-meta"><span class="day-dow">Lundi</span> · <span class="day-num">Jour 16</span> · <span class="day-date">29/6</span></span>
+        <span class="day-siman"><strong>Siman 257</strong> · 257</span>
+        <span class="day-title">Les règles du hatmana (envelopper les plats chauds) avant Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-017.html">
+        <span class="day-meta"><span class="day-dow">Mardi</span> · <span class="day-num">Jour 17</span> · <span class="day-date">30/6</span></span>
+        <span class="day-siman"><strong>Siman 258</strong> · 258</span>
+        <span class="day-title">Permis de placer un plat froid sur un plat chaud avant Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-018.html">
+        <span class="day-meta"><span class="day-dow">Mercredi</span> · <span class="day-num">Jour 18</span> · <span class="day-date">1/7</span></span>
+        <span class="day-siman"><strong>Siman 259</strong> · 259</span>
+        <span class="day-title">Règles supplémentaires de hatmana et leur déplacement Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-019.html">
+        <span class="day-meta"><span class="day-dow">Jeudi</span> · <span class="day-num">Jour 19</span> · <span class="day-date">2/7</span></span>
+        <span class="day-siman"><strong>Siman 260</strong> · 260</span>
+        <span class="day-title">Règles d'entrée dans Shabbat (mikva, vêtements, ongles)</span>
+      </a>
+      </div>
+    </section>
+    <section class="week">
+      <header class="week-head"><div class="week-num">Semaine 5</div><div class="week-range">Dimanche 5 juillet 2026 au Jeudi 9 juillet 2026</div></header>
+      <div class="week-days">
+      <a class="day-item" href="jour-020.html">
+        <span class="day-meta"><span class="day-dow">Dimanche</span> · <span class="day-num">Jour 20</span> · <span class="day-date">5/7</span></span>
+        <span class="day-siman"><strong>Siman 261</strong> · 261</span>
+        <span class="day-title">Le moment de l'allumage des bougies de Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-021.html">
+        <span class="day-meta"><span class="day-dow">Lundi</span> · <span class="day-num">Jour 21</span> · <span class="day-date">6/7</span></span>
+        <span class="day-siman"><strong>Siman 262</strong> · 262</span>
+        <span class="day-title">Sanctifier Shabbat avec table dressée et habits propres</span>
+      </a>
+      <a class="day-item" href="jour-022.html">
+        <span class="day-meta"><span class="day-dow">Mardi</span> · <span class="day-num">Jour 22</span> · <span class="day-date">7/7</span></span>
+        <span class="day-siman"><strong>Siman 263</strong> · 263</span>
+        <span class="day-title">Qui allume les bougies + erreur de l'horaire jour nuageux</span>
+      </a>
+      <a class="day-item" href="jour-023.html">
+        <span class="day-meta"><span class="day-dow">Mercredi</span> · <span class="day-num">Jour 23</span> · <span class="day-date">8/7</span></span>
+        <span class="day-siman"><strong>Siman 264</strong> · 264</span>
+        <span class="day-title">Mèches et huile pour les bougies de Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-024.html">
+        <span class="day-meta"><span class="day-dow">Jeudi</span> · <span class="day-num">Jour 24</span> · <span class="day-date">9/7</span></span>
+        <span class="day-siman"><strong>Siman 265</strong> · 265</span>
+        <span class="day-title">Récipients placés sous la bougie (sécurité incendie)</span>
+      </a>
+      </div>
+    </section>
+    <section class="week">
+      <header class="week-head"><div class="week-num">Semaine 6</div><div class="week-range">Dimanche 12 juillet 2026 au Jeudi 16 juillet 2026</div></header>
+      <div class="week-days">
+      <a class="day-item" href="jour-025.html">
+        <span class="day-meta"><span class="day-dow">Dimanche</span> · <span class="day-num">Jour 25</span> · <span class="day-date">12/7</span></span>
+        <span class="day-siman"><strong>Siman 266</strong> · 266</span>
+        <span class="day-title">Le voyageur surpris par l'entrée de Shabbat en chemin</span>
+      </a>
+      <a class="day-item" href="jour-026.html">
+        <span class="day-meta"><span class="day-dow">Lundi</span> · <span class="day-num">Jour 26</span> · <span class="day-date">13/7</span></span>
+        <span class="day-siman"><strong>Siman 267</strong> · 267</span>
+        <span class="day-title">La tefilla du vendredi soir (érev Shabbat)</span>
+      </a>
+      <a class="day-item" href="jour-027.html">
+        <span class="day-meta"><span class="day-dow">Mardi</span> · <span class="day-num">Jour 27</span> · <span class="day-date">14/7</span></span>
+        <span class="day-siman"><strong>Siman 268</strong> · 268</span>
+        <span class="day-title">Erreurs et oublis dans la tefilla de Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-028.html">
+        <span class="day-meta"><span class="day-dow">Mercredi</span> · <span class="day-num">Jour 28</span> · <span class="day-date">15/7</span></span>
+        <span class="day-siman"><strong>Siman 269</strong> · 269</span>
+        <span class="day-title">Le kiddoush à la synagogue (vendredi soir)</span>
+      </a>
+      <a class="day-item" href="jour-029.html">
+        <span class="day-meta"><span class="day-dow">Jeudi</span> · <span class="day-num">Jour 29</span> · <span class="day-date">16/7</span></span>
+        <span class="day-siman"><strong>Siman 270</strong> · 270</span>
+        <span class="day-title">Réciter le pereq Bameh madlikin (Mishna Shabbat ch. 2)</span>
+      </a>
+      </div>
+    </section>
+    <section class="week">
+      <header class="week-head"><div class="week-num">Semaine 7</div><div class="week-range">Dimanche 19 juillet 2026 au Jeudi 23 juillet 2026</div></header>
+      <div class="week-days">
+      <a class="day-item" href="jour-030.html">
+        <span class="day-meta"><span class="day-dow">Dimanche</span> · <span class="day-num">Jour 30</span> · <span class="day-date">19/7</span></span>
+        <span class="day-siman"><strong>Siman 271</strong> · 271</span>
+        <span class="day-title">Le kiddoush sur le vin (vendredi soir)</span>
+      </a>
+      <a class="day-item" href="jour-031.html">
+        <span class="day-meta"><span class="day-dow">Lundi</span> · <span class="day-num">Jour 31</span> · <span class="day-date">20/7</span></span>
+        <span class="day-siman"><strong>Siman 272</strong> · 272</span>
+        <span class="day-title">Sur quel vin faire le kiddoush — qualités requises</span>
+      </a>
+      <a class="day-item" href="jour-032.html">
+        <span class="day-meta"><span class="day-dow">Mardi</span> · <span class="day-num">Jour 32</span> · <span class="day-date">21/7</span></span>
+        <span class="day-siman"><strong>Siman 273</strong> · 273</span>
+        <span class="day-title">Le kiddoush doit être au lieu du repas</span>
+      </a>
+      <a class="day-item" href="jour-033.html">
+        <span class="day-meta"><span class="day-dow">Mercredi</span> · <span class="day-num">Jour 33</span> · <span class="day-date">22/7</span></span>
+        <span class="day-siman"><strong>Siman 274</strong> · 274</span>
+        <span class="day-title">La rupture du pain (לחם משנה) à Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-034.html">
+        <span class="day-meta"><span class="day-dow">Jeudi</span> · <span class="day-num">Jour 34</span> · <span class="day-date">23/7</span></span>
+        <span class="day-siman"><strong>Siman 275</strong> · 275</span>
+        <span class="day-title">Choses interdites à la lumière de la bougie Shabbat</span>
+      </a>
+      </div>
+    </section>
+    <section class="week">
+      <header class="week-head"><div class="week-num">Semaine 8</div><div class="week-range">Dimanche 26 juillet 2026 au Jeudi 30 juillet 2026</div></header>
+      <div class="week-days">
+      <a class="day-item" href="jour-035.html">
+        <span class="day-meta"><span class="day-dow">Dimanche</span> · <span class="day-num">Jour 35</span> · <span class="day-date">26/7</span></span>
+        <span class="day-siman"><strong>Siman 276</strong> · 276</span>
+        <span class="day-title">Bougie allumée par un non-juif Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-036.html">
+        <span class="day-meta"><span class="day-dow">Lundi</span> · <span class="day-num">Jour 36</span> · <span class="day-date">27/7</span></span>
+        <span class="day-siman"><strong>Siman 277</strong> · 277</span>
+        <span class="day-title">Ne pas causer l'extinction de la bougie Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-037.html">
+        <span class="day-meta"><span class="day-dow">Mardi</span> · <span class="day-num">Jour 37</span> · <span class="day-date">28/7</span></span>
+        <span class="day-siman"><strong>Siman 278</strong> · 278</span>
+        <span class="day-title">Permission d'éteindre la bougie pour un malade</span>
+      </a>
+      <a class="day-item" href="jour-038.html">
+        <span class="day-meta"><span class="day-dow">Mercredi</span> · <span class="day-num">Jour 38</span> · <span class="day-date">29/7</span></span>
+        <span class="day-siman"><strong>Siman 279</strong> · 279</span>
+        <span class="day-title">Déplacement de la bougie Shabbat (muktsé)</span>
+      </a>
+      <a class="day-item" href="jour-039.html">
+        <span class="day-meta"><span class="day-dow">Jeudi</span> · <span class="day-num">Jour 39</span> · <span class="day-date">30/7</span></span>
+        <span class="day-siman"><strong>Siman 280</strong> · 280</span>
+        <span class="day-title">Les relations conjugales à Shabbat (oneg Shabbat)</span>
+      </a>
+      </div>
+    </section>
+    <section class="week">
+      <header class="week-head"><div class="week-num">Semaine 9</div><div class="week-range">Dimanche 2 août 2026 au Jeudi 6 août 2026</div></header>
+      <div class="week-days">
+      <a class="day-item" href="jour-040.html">
+        <span class="day-meta"><span class="day-dow">Dimanche</span> · <span class="day-num">Jour 40</span> · <span class="day-date">2/8</span></span>
+        <span class="day-siman"><strong>Siman 281</strong> · 281</span>
+        <span class="day-title">Zemirot et tefilla du matin Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-041.html">
+        <span class="day-meta"><span class="day-dow">Lundi</span> · <span class="day-num">Jour 41</span> · <span class="day-date">3/8</span></span>
+        <span class="day-siman"><strong>Siman 282</strong> · 282</span>
+        <span class="day-title">Lecture de la Torah et Maftir Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-042.html">
+        <span class="day-meta"><span class="day-dow">Mardi</span> · <span class="day-num">Jour 42</span> · <span class="day-date">4/8</span></span>
+        <span class="day-siman"><strong>Siman 283</strong> · 283</span>
+        <span class="day-title">Pourquoi on ne sort pas 2 sefer torah Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-043.html">
+        <span class="day-meta"><span class="day-dow">Mercredi</span> · <span class="day-num">Jour 43</span> · <span class="day-date">5/8</span></span>
+        <span class="day-siman"><strong>Siman 284</strong> · 284</span>
+        <span class="day-title">La haftarah et ses brakhot</span>
+      </a>
+      <a class="day-item" href="jour-044.html">
+        <span class="day-meta"><span class="day-dow">Jeudi</span> · <span class="day-num">Jour 44</span> · <span class="day-date">6/8</span></span>
+        <span class="day-siman"><strong>Siman 285</strong> · 285</span>
+        <span class="day-title">Lire la parasha 2 fois en hébreu + 1 fois en targoum</span>
+      </a>
+      </div>
+    </section>
+    <section class="week">
+      <header class="week-head"><div class="week-num">Semaine 10</div><div class="week-range">Dimanche 9 août 2026 au Jeudi 13 août 2026</div></header>
+      <div class="week-days">
+      <a class="day-item" href="jour-045.html">
+        <span class="day-meta"><span class="day-dow">Dimanche</span> · <span class="day-num">Jour 45</span> · <span class="day-date">9/8</span></span>
+        <span class="day-siman"><strong>Siman 286</strong> · 286</span>
+        <span class="day-title">La tefilla de Moussaf Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-046.html">
+        <span class="day-meta"><span class="day-dow">Lundi</span> · <span class="day-num">Jour 46</span> · <span class="day-date">10/8</span></span>
+        <span class="day-siman"><strong>Siman 287</strong> · 287</span>
+        <span class="day-title">Visite des malades et consolation des endeuillés Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-047.html">
+        <span class="day-meta"><span class="day-dow">Mardi</span> · <span class="day-num">Jour 47</span> · <span class="day-date">11/8</span></span>
+        <span class="day-siman"><strong>Siman 288</strong> · 288</span>
+        <span class="day-title">Jeûne et jeûne suite à un rêve à Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-048.html">
+        <span class="day-meta"><span class="day-dow">Mercredi</span> · <span class="day-num">Jour 48</span> · <span class="day-date">12/8</span></span>
+        <span class="day-siman"><strong>Siman 289</strong> · 289</span>
+        <span class="day-title">L'ordre du repas du matin Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-049.html">
+        <span class="day-meta"><span class="day-dow">Jeudi</span> · <span class="day-num">Jour 49</span> · <span class="day-date">13/8</span></span>
+        <span class="day-siman"><strong>Siman 290</strong> · 290</span>
+        <span class="day-title">Compléter les 100 brakhot Shabbat avec des fruits</span>
+      </a>
+      </div>
+    </section>
+    <section class="week">
+      <header class="week-head"><div class="week-num">Semaine 11</div><div class="week-range">Dimanche 16 août 2026 au Jeudi 20 août 2026</div></header>
+      <div class="week-days">
+      <a class="day-item" href="jour-050.html">
+        <span class="day-meta"><span class="day-dow">Dimanche</span> · <span class="day-num">Jour 50</span> · <span class="day-date">16/8</span></span>
+        <span class="day-siman"><strong>Siman 291</strong> · 291</span>
+        <span class="day-title">Le 3e repas de Shabbat (סעודה שלישית)</span>
+      </a>
+      <a class="day-item" href="jour-051.html">
+        <span class="day-meta"><span class="day-dow">Lundi</span> · <span class="day-num">Jour 51</span> · <span class="day-date">17/8</span></span>
+        <span class="day-siman"><strong>Siman 292</strong> · 292</span>
+        <span class="day-title">La tefilla de Minha Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-052.html">
+        <span class="day-meta"><span class="day-dow">Mardi</span> · <span class="day-num">Jour 52</span> · <span class="day-date">18/8</span></span>
+        <span class="day-siman"><strong>Siman 293</strong> · 293</span>
+        <span class="day-title">Arvit du soir de la sortie de Shabbat (motsei Shabbat)</span>
+      </a>
+      <a class="day-item" href="jour-053.html">
+        <span class="day-meta"><span class="day-dow">Mercredi</span> · <span class="day-num">Jour 53</span> · <span class="day-date">19/8</span></span>
+        <span class="day-siman"><strong>Siman 294</strong> · 294</span>
+        <span class="day-title">Avdala dans la tefilla</span>
+      </a>
+      <a class="day-item" href="jour-054.html">
+        <span class="day-meta"><span class="day-dow">Jeudi</span> · <span class="day-num">Jour 54</span> · <span class="day-date">20/8</span></span>
+        <span class="day-siman"><strong>Siman 295</strong> · 295</span>
+        <span class="day-title">Avdala faite par le chliach tsibour à la synagogue</span>
+      </a>
+      </div>
+    </section>
+    <section class="week">
+      <header class="week-head"><div class="week-num">Semaine 12</div><div class="week-range">Dimanche 23 août 2026 au Jeudi 27 août 2026</div></header>
+      <div class="week-days">
+      <a class="day-item" href="jour-055.html">
+        <span class="day-meta"><span class="day-dow">Dimanche</span> · <span class="day-num">Jour 55</span> · <span class="day-date">23/8</span></span>
+        <span class="day-siman"><strong>Siman 296</strong> · 296</span>
+        <span class="day-title">L'avdala sur le vin (motsei Shabbat)</span>
+      </a>
+      <a class="day-item" href="jour-056.html">
+        <span class="day-meta"><span class="day-dow">Lundi</span> · <span class="day-num">Jour 56</span> · <span class="day-date">24/8</span></span>
+        <span class="day-siman"><strong>Siman 297</strong> · 297</span>
+        <span class="day-title">Les besamim (épices) pour l'avdala</span>
+      </a>
+      <a class="day-item" href="jour-057.html">
+        <span class="day-meta"><span class="day-dow">Mardi</span> · <span class="day-num">Jour 57</span> · <span class="day-date">25/8</span></span>
+        <span class="day-siman"><strong>Siman 298</strong> · 298</span>
+        <span class="day-title">La bougie d'avdala (motsei Shabbat)</span>
+      </a>
+      <a class="day-item" href="jour-058.html">
+        <span class="day-meta"><span class="day-dow">Mercredi</span> · <span class="day-num">Jour 58</span> · <span class="day-date">26/8</span></span>
+        <span class="day-siman"><strong>Siman 299</strong> · 299</span>
+        <span class="day-title">Ne pas manger / boire / travailler avant avdala</span>
+      </a>
+      <a class="day-item" href="jour-059.html">
+        <span class="day-meta"><span class="day-dow">Jeudi</span> · <span class="day-num">Jour 59</span> · <span class="day-date">27/8</span></span>
+        <span class="day-siman"><strong>Siman 300</strong> · 300</span>
+        <span class="day-title">Mélavé Malka — le repas d'accompagnement de la Reine Shabbat</span>
+      </a>
+      </div>
+    </section>
+    <section class="week">
+      <header class="week-head"><div class="week-num">Semaine 13</div><div class="week-range">Dimanche 30 août 2026 au Jeudi 3 septembre 2026</div></header>
+      <div class="week-days">
+      <a class="day-item" href="jour-060.html">
+        <span class="day-meta"><span class="day-dow">Dimanche</span> · <span class="day-num">Jour 60</span> · <span class="day-date">30/8</span></span>
+        <span class="day-siman"><strong>Siman 301</strong> · 301</span>
+        <span class="day-title">Sortir avec vêtements et objets Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-061.html">
+        <span class="day-meta"><span class="day-dow">Lundi</span> · <span class="day-num">Jour 61</span> · <span class="day-date">31/8</span></span>
+        <span class="day-siman"><strong>Siman 302</strong> · 302</span>
+        <span class="day-title">Nettoyer et plier les vêtements Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-062.html">
+        <span class="day-meta"><span class="day-dow">Mardi</span> · <span class="day-num">Jour 62</span> · <span class="day-date">1/9</span></span>
+        <span class="day-siman"><strong>Siman 303</strong> · 303</span>
+        <span class="day-title">Les bijoux de la femme Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-063.html">
+        <span class="day-meta"><span class="day-dow">Mercredi</span> · <span class="day-num">Jour 63</span> · <span class="day-date">2/9</span></span>
+        <span class="day-siman"><strong>Siman 304</strong> · ש"ד</span>
+        <span class="day-title">Sur le repos de l'esclave (Mehaber seul)</span>
+      </a>
+      <a class="day-item" href="jour-064.html">
+        <span class="day-meta"><span class="day-dow">Jeudi</span> · <span class="day-num">Jour 64</span> · <span class="day-date">3/9</span></span>
+        <span class="day-siman"><strong>Siman 305</strong> · 305</span>
+        <span class="day-title">Avec quoi un animal peut sortir Shabbat</span>
+      </a>
+      </div>
+    </section>
+    <section class="week">
+      <header class="week-head"><div class="week-num">Semaine 14</div><div class="week-range">Dimanche 6 septembre 2026 au Jeudi 10 septembre 2026</div></header>
+      <div class="week-days">
+      <a class="day-item" href="jour-065.html">
+        <span class="day-meta"><span class="day-dow">Dimanche</span> · <span class="day-num">Jour 65</span> · <span class="day-date">6/9</span></span>
+        <span class="day-siman"><strong>Siman 306</strong> · 306</span>
+        <span class="day-title">Sur quels sujets parler à Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-066.html">
+        <span class="day-meta"><span class="day-dow">Lundi</span> · <span class="day-num">Jour 66</span> · <span class="day-date">7/9</span></span>
+        <span class="day-siman"><strong>Siman 307</strong> · 307</span>
+        <span class="day-title">Règles Shabbat liées à la parole</span>
+      </a>
+      <a class="day-item" href="jour-067.html">
+        <span class="day-meta"><span class="day-dow">Mardi</span> · <span class="day-num">Jour 67</span> · <span class="day-date">8/9</span></span>
+        <span class="day-siman"><strong>Siman 308</strong> · 308</span>
+        <span class="day-title">Muktsé : choses permises et interdites à déplacer Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-068.html">
+        <span class="day-meta"><span class="day-dow">Mercredi</span> · <span class="day-num">Jour 68</span> · <span class="day-date">9/9</span></span>
+        <span class="day-siman"><strong>Siman 309</strong> · 309</span>
+        <span class="day-title">Déplacer un objet muktsé via un autre objet</span>
+      </a>
+      <a class="day-item" href="jour-069.html">
+        <span class="day-meta"><span class="day-dow">Jeudi</span> · <span class="day-num">Jour 69</span> · <span class="day-date">10/9</span></span>
+        <span class="day-siman"><strong>Siman 310</strong> · 310</span>
+        <span class="day-title">Suite des règles de muktsé Shabbat</span>
+      </a>
+      </div>
+    </section>
+    <section class="week">
+      <header class="week-head"><div class="week-num">Semaine 15</div><div class="week-range">Dimanche 13 septembre 2026 au Jeudi 17 septembre 2026</div></header>
+      <div class="week-days">
+      <a class="day-item" href="jour-070.html">
+        <span class="day-meta"><span class="day-dow">Dimanche</span> · <span class="day-num">Jour 70</span> · <span class="day-date">13/9</span></span>
+        <span class="day-siman"><strong>Siman 311</strong> · 311</span>
+        <span class="day-title">Décès à Shabbat — règles de tiltoul</span>
+      </a>
+      <a class="day-item" href="jour-071.html">
+        <span class="day-meta"><span class="day-dow">Lundi</span> · <span class="day-num">Jour 71</span> · <span class="day-date">14/9</span></span>
+        <span class="day-siman"><strong>Siman 312</strong> · 312</span>
+        <span class="day-title">Hygiène intime à Shabbat (papier toilette)</span>
+      </a>
+      <a class="day-item" href="jour-072.html">
+        <span class="day-meta"><span class="day-dow">Mardi</span> · <span class="day-num">Jour 72</span> · <span class="day-date">15/9</span></span>
+        <span class="day-siman"><strong>Siman 313</strong> · 313</span>
+        <span class="day-title">Déplacement de portes, fenêtres, serrures Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-073.html">
+        <span class="day-meta"><span class="day-dow">Mercredi</span> · <span class="day-num">Jour 73</span> · <span class="day-date">16/9</span></span>
+        <span class="day-siman"><strong>Siman 314</strong> · 314</span>
+        <span class="day-title">Construction et démolition à Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-074.html">
+        <span class="day-meta"><span class="day-dow">Jeudi</span> · <span class="day-num">Jour 74</span> · <span class="day-date">17/9</span></span>
+        <span class="day-siman"><strong>Siman 315</strong> · 315</span>
+        <span class="day-title">Faire un אהל (toit/abri) à Shabbat</span>
+      </a>
+      </div>
+    </section>
+    <section class="week">
+      <header class="week-head"><div class="week-num">Semaine 16</div><div class="week-range">Dimanche 20 septembre 2026 au Jeudi 24 septembre 2026</div></header>
+      <div class="week-days">
+      <a class="day-item" href="jour-075.html">
+        <span class="day-meta"><span class="day-dow">Dimanche</span> · <span class="day-num">Jour 75</span> · <span class="day-date">20/9</span></span>
+        <span class="day-siman"><strong>Siman 316</strong> · 316</span>
+        <span class="day-title">Tsida (chasse) — capturer animaux Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-076.html">
+        <span class="day-meta"><span class="day-dow">Lundi</span> · <span class="day-num">Jour 76</span> · <span class="day-date">21/9</span></span>
+        <span class="day-siman"><strong>Siman 317</strong> · 317</span>
+        <span class="day-title">Nouer et dénouer (קשירה / עניבה) Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-077.html">
+        <span class="day-meta"><span class="day-dow">Mardi</span> · <span class="day-num">Jour 77</span> · <span class="day-date">22/9</span></span>
+        <span class="day-siman"><strong>Siman 318</strong> · 318</span>
+        <span class="day-title">Mevashel (cuisson) à Shabbat — mélakha déorayta</span>
+      </a>
+      <a class="day-item" href="jour-078.html">
+        <span class="day-meta"><span class="day-dow">Mercredi</span> · <span class="day-num">Jour 78</span> · <span class="day-date">23/9</span></span>
+        <span class="day-siman"><strong>Siman 319</strong> · 319</span>
+        <span class="day-title">Borer (trier) à Shabbat — mélakha déorayta</span>
+      </a>
+      <a class="day-item" href="jour-079.html">
+        <span class="day-meta"><span class="day-dow">Jeudi</span> · <span class="day-num">Jour 79</span> · <span class="day-date">24/9</span></span>
+        <span class="day-siman"><strong>Siman 320</strong> · 320</span>
+        <span class="day-title">Shita (presser) à Shabbat</span>
+      </a>
+      </div>
+    </section>
+    <section class="week">
+      <header class="week-head"><div class="week-num">Semaine 17</div><div class="week-range">Dimanche 27 septembre 2026 au Jeudi 1 octobre 2026</div></header>
+      <div class="week-days">
+      <a class="day-item" href="jour-080.html">
+        <span class="day-meta"><span class="day-dow">Dimanche</span> · <span class="day-num">Jour 80</span> · <span class="day-date">27/9</span></span>
+        <span class="day-siman"><strong>Siman 321</strong> · 321</span>
+        <span class="day-title">Tolesh (cueillir), Tohen (moudre), Mé'abed (tanner), Lash (pétrir) Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-081.html">
+        <span class="day-meta"><span class="day-dow">Lundi</span> · <span class="day-num">Jour 81</span> · <span class="day-date">28/9</span></span>
+        <span class="day-siman"><strong>Siman 322</strong> · שכ"ב</span>
+        <span class="day-title">Œuf pondu Shabbat (Mehaber seul)</span>
+      </a>
+      <a class="day-item" href="jour-082.html">
+        <span class="day-meta"><span class="day-dow">Mardi</span> · <span class="day-num">Jour 82</span> · <span class="day-date">29/9</span></span>
+        <span class="day-siman"><strong>Siman 323</strong> · 323</span>
+        <span class="day-title">Emprunter, acheter, laver vaisselle Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-083.html">
+        <span class="day-meta"><span class="day-dow">Mercredi</span> · <span class="day-num">Jour 83</span> · <span class="day-date">30/9</span></span>
+        <span class="day-siman"><strong>Siman 324</strong> · 324</span>
+        <span class="day-title">Préparer la nourriture pour les animaux Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-084.html">
+        <span class="day-meta"><span class="day-dow">Jeudi</span> · <span class="day-num">Jour 84</span> · <span class="day-date">1/10</span></span>
+        <span class="day-siman"><strong>Siman 325</strong> · 325</span>
+        <span class="day-title">Non-juif qui travaille pour le Juif Shabbat</span>
+      </a>
+      </div>
+    </section>
+    <section class="week">
+      <header class="week-head"><div class="week-num">Semaine 18</div><div class="week-range">Dimanche 4 octobre 2026 au Jeudi 8 octobre 2026</div></header>
+      <div class="week-days">
+      <a class="day-item" href="jour-085.html">
+        <span class="day-meta"><span class="day-dow">Dimanche</span> · <span class="day-num">Jour 85</span> · <span class="day-date">4/10</span></span>
+        <span class="day-siman"><strong>Siman 326</strong> · 326</span>
+        <span class="day-title">Se laver à Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-086.html">
+        <span class="day-meta"><span class="day-dow">Lundi</span> · <span class="day-num">Jour 86</span> · <span class="day-date">5/10</span></span>
+        <span class="day-siman"><strong>Siman 327</strong> · 327</span>
+        <span class="day-title">Sikha (oindre) à Shabbat — huiles, crèmes, parfums</span>
+      </a>
+      <a class="day-item" href="jour-087.html">
+        <span class="day-meta"><span class="day-dow">Mardi</span> · <span class="day-num">Jour 87</span> · <span class="day-date">6/10</span></span>
+        <span class="day-siman"><strong>Siman 328</strong> · 328</span>
+        <span class="day-title">Le malade à Shabbat — règles de soin</span>
+      </a>
+      <a class="day-item" href="jour-088.html">
+        <span class="day-meta"><span class="day-dow">Mercredi</span> · <span class="day-num">Jour 88</span> · <span class="day-date">7/10</span></span>
+        <span class="day-siman"><strong>Siman 329</strong> · 329</span>
+        <span class="day-title">Pour qui transgresser Shabbat — pikouah nefesh</span>
+      </a>
+      <a class="day-item" href="jour-089.html">
+        <span class="day-meta"><span class="day-dow">Jeudi</span> · <span class="day-num">Jour 89</span> · <span class="day-date">8/10</span></span>
+        <span class="day-siman"><strong>Siman 330</strong> · 330</span>
+        <span class="day-title">La parturiente (yoledet) à Shabbat</span>
+      </a>
+      </div>
+    </section>
+    <section class="week">
+      <header class="week-head"><div class="week-num">Semaine 19</div><div class="week-range">Dimanche 11 octobre 2026 au Jeudi 15 octobre 2026</div></header>
+      <div class="week-days">
+      <a class="day-item" href="jour-090.html">
+        <span class="day-meta"><span class="day-dow">Dimanche</span> · <span class="day-num">Jour 90</span> · <span class="day-date">11/10</span></span>
+        <span class="day-siman"><strong>Siman 331</strong> · 331</span>
+        <span class="day-title">Brit milah à Shabbat (8e jour)</span>
+      </a>
+      <a class="day-item" href="jour-091.html">
+        <span class="day-meta"><span class="day-dow">Lundi</span> · <span class="day-num">Jour 91</span> · <span class="day-date">12/10</span></span>
+        <span class="day-siman"><strong>Siman 332</strong> · 332</span>
+        <span class="day-title">Ne pas faire accoucher un animal Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-092.html">
+        <span class="day-meta"><span class="day-dow">Mardi</span> · <span class="day-num">Jour 92</span> · <span class="day-date">13/10</span></span>
+        <span class="day-siman"><strong>Siman 333</strong> · 333</span>
+        <span class="day-title">Ne pas vider un grenier Shabbat (réorganisation)</span>
+      </a>
+      <a class="day-item" href="jour-093.html">
+        <span class="day-meta"><span class="day-dow">Mercredi</span> · <span class="day-num">Jour 93</span> · <span class="day-date">14/10</span></span>
+        <span class="day-siman"><strong>Siman 334</strong> · 334</span>
+        <span class="day-title">Incendie à Shabbat — règles de sauvetage</span>
+      </a>
+      <a class="day-item" href="jour-094.html">
+        <span class="day-meta"><span class="day-dow">Jeudi</span> · <span class="day-num">Jour 94</span> · <span class="day-date">15/10</span></span>
+        <span class="day-siman"><strong>Siman 335</strong> · 335</span>
+        <span class="day-title">Tonneau de vin / huile cassé Shabbat</span>
+      </a>
+      </div>
+    </section>
+    <section class="week">
+      <header class="week-head"><div class="week-num">Semaine 20</div><div class="week-range">Dimanche 18 octobre 2026 au Jeudi 22 octobre 2026</div></header>
+      <div class="week-days">
+      <a class="day-item" href="jour-095.html">
+        <span class="day-meta"><span class="day-dow">Dimanche</span> · <span class="day-num">Jour 95</span> · <span class="day-date">18/10</span></span>
+        <span class="day-siman"><strong>Siman 336</strong> · 336</span>
+        <span class="day-title">Marcher sur l'herbe et monter aux arbres Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-096.html">
+        <span class="day-meta"><span class="day-dow">Lundi</span> · <span class="day-num">Jour 96</span> · <span class="day-date">19/10</span></span>
+        <span class="day-siman"><strong>Siman 337</strong> · 337</span>
+        <span class="day-title">Balayer la maison + acte non intentionnel (davar she-eino mitkaven)</span>
+      </a>
+      <a class="day-item" href="jour-097.html">
+        <span class="day-meta"><span class="day-dow">Mardi</span> · <span class="day-num">Jour 97</span> · <span class="day-date">20/10</span></span>
+        <span class="day-siman"><strong>Siman 338</strong> · 338</span>
+        <span class="day-title">Pas faire de bruit musical Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-098.html">
+        <span class="day-meta"><span class="day-dow">Mercredi</span> · <span class="day-num">Jour 98</span> · <span class="day-date">21/10</span></span>
+        <span class="day-siman"><strong>Siman 339</strong> · 339</span>
+        <span class="day-title">Plusieurs règles particulières Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-099.html">
+        <span class="day-meta"><span class="day-dow">Jeudi</span> · <span class="day-num">Jour 99</span> · <span class="day-date">22/10</span></span>
+        <span class="day-siman"><strong>Siman 340</strong> · 340</span>
+        <span class="day-title">Toldot des avot mélakhot — dérivés interdits Shabbat</span>
+      </a>
+      </div>
+    </section>
+    <section class="week">
+      <header class="week-head"><div class="week-num">Semaine 21</div><div class="week-range">Dimanche 25 octobre 2026 au Jeudi 29 octobre 2026</div></header>
+      <div class="week-days">
+      <a class="day-item" href="jour-100.html">
+        <span class="day-meta"><span class="day-dow">Dimanche</span> · <span class="day-num">Jour 100</span> · <span class="day-date">25/10</span></span>
+        <span class="day-siman"><strong>Siman 341</strong> · 341</span>
+        <span class="day-title">Annulation des vœux à Shabbat (hatarat nedarim)</span>
+      </a>
+      <a class="day-item" href="jour-101.html">
+        <span class="day-meta"><span class="day-dow">Lundi</span> · <span class="day-num">Jour 101</span> · <span class="day-date">26/10</span></span>
+        <span class="day-siman"><strong>Siman 342</strong> · 342</span>
+        <span class="day-title">Pendant Bein Hashemashot (crépuscule) — actes rabbiniques permis pour mitzva</span>
+      </a>
+      <a class="day-item" href="jour-102.html">
+        <span class="day-meta"><span class="day-dow">Mardi</span> · <span class="day-num">Jour 102</span> · <span class="day-date">27/10</span></span>
+        <span class="day-siman"><strong>Siman 343</strong> · 343</span>
+        <span class="day-title">Les enfants à Shabbat (responsabilité parentale)</span>
+      </a>
+      <a class="day-item" href="jour-103.html">
+        <span class="day-meta"><span class="day-dow">Mercredi</span> · <span class="day-num">Jour 103</span> · <span class="day-date">28/10</span></span>
+        <span class="day-siman"><strong>Siman 344</strong> · 344</span>
+        <span class="day-title">Perdu dans le désert — quand commence Shabbat ?</span>
+      </a>
+      <a class="day-item" href="jour-104.html">
+        <span class="day-meta"><span class="day-dow">Jeudi</span> · <span class="day-num">Jour 104</span> · <span class="day-date">29/10</span></span>
+        <span class="day-siman"><strong>Siman 345</strong> · 345</span>
+        <span class="day-title">Les 4 domaines (reshouyot) Shabbat — fondement de hotsaa</span>
+      </a>
+      </div>
+    </section>
+    <section class="week">
+      <header class="week-head"><div class="week-num">Semaine 22</div><div class="week-range">Dimanche 1 novembre 2026 au Jeudi 5 novembre 2026</div></header>
+      <div class="week-days">
+      <a class="day-item" href="jour-105.html">
+        <span class="day-meta"><span class="day-dow">Dimanche</span> · <span class="day-num">Jour 105</span> · <span class="day-date">1/11</span></span>
+        <span class="day-siman"><strong>Siman 346</strong> · 346</span>
+        <span class="day-title">Eruvin de la Torah — fondement du transport Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-106.html">
+        <span class="day-meta"><span class="day-dow">Lundi</span> · <span class="day-num">Jour 106</span> · <span class="day-date">2/11</span></span>
+        <span class="day-siman"><strong>Siman 347</strong> · 347</span>
+        <span class="day-title">Sur quel type de הוצאה on est responsable déorayta</span>
+      </a>
+      <a class="day-item" href="jour-107.html">
+        <span class="day-meta"><span class="day-dow">Mardi</span> · <span class="day-num">Jour 107</span> · <span class="day-date">3/11</span></span>
+        <span class="day-siman"><strong>Siman 348</strong> · 348</span>
+        <span class="day-title">Tendre un objet d'un domaine à un autre</span>
+      </a>
+      <a class="day-item" href="jour-108.html">
+        <span class="day-meta"><span class="day-dow">Mercredi</span> · <span class="day-num">Jour 108</span> · <span class="day-date">4/11</span></span>
+        <span class="day-siman"><strong>Siman 349</strong> · 349</span>
+        <span class="day-title">Les 4 amot personnelles dans RH (espace privé itinérant)</span>
+      </a>
+      <a class="day-item" href="jour-109.html">
+        <span class="day-meta"><span class="day-dow">Jeudi</span> · <span class="day-num">Jour 109</span> · <span class="day-date">5/11</span></span>
+        <span class="day-siman"><strong>Siman 350</strong> · 350</span>
+        <span class="day-title">Sortir tête et corps d'un domaine à un autre</span>
+      </a>
+      </div>
+    </section>
+    <section class="week">
+      <header class="week-head"><div class="week-num">Semaine 23</div><div class="week-range">Dimanche 8 novembre 2026 au Jeudi 12 novembre 2026</div></header>
+      <div class="week-days">
+      <a class="day-item" href="jour-110.html">
+        <span class="day-meta"><span class="day-dow">Dimanche</span> · <span class="day-num">Jour 110</span> · <span class="day-date">8/11</span></span>
+        <span class="day-siman"><strong>Siman 351</strong> · 351</span>
+        <span class="day-title">Tendre la main vers un robinet de RH pour boire</span>
+      </a>
+      <a class="day-item" href="jour-111.html">
+        <span class="day-meta"><span class="day-dow">Lundi</span> · <span class="day-num">Jour 111</span> · <span class="day-date">9/11</span></span>
+        <span class="day-siman"><strong>Siman 352</strong> · 352</span>
+        <span class="day-title">Le lecteur dont le livre roule entre RY et RH</span>
+      </a>
+      <a class="day-item" href="jour-112.html">
+        <span class="day-meta"><span class="day-dow">Mardi</span> · <span class="day-num">Jour 112</span> · <span class="day-date">10/11</span></span>
+        <span class="day-siman"><strong>Siman 353</strong> · 353</span>
+        <span class="day-title">Avancées et balcons (zizim) au-dessus de RH</span>
+      </a>
+      <a class="day-item" href="jour-113.html">
+        <span class="day-meta"><span class="day-dow">Mercredi</span> · <span class="day-num">Jour 113</span> · <span class="day-date">11/11</span></span>
+        <span class="day-siman"><strong>Siman 354</strong> · 354</span>
+        <span class="day-title">Puits et tas d'ordures en RH</span>
+      </a>
+      <a class="day-item" href="jour-114.html">
+        <span class="day-meta"><span class="day-dow">Jeudi</span> · <span class="day-num">Jour 114</span> · <span class="day-date">12/11</span></span>
+        <span class="day-siman"><strong>Siman 355</strong> · 355</span>
+        <span class="day-title">Balcon au-dessus de l'eau et toilette de jardin</span>
+      </a>
+      </div>
+    </section>
+    <section class="week">
+      <header class="week-head"><div class="week-num">Semaine 24</div><div class="week-range">Dimanche 15 novembre 2026 au Jeudi 19 novembre 2026</div></header>
+      <div class="week-days">
+      <a class="day-item" href="jour-115.html">
+        <span class="day-meta"><span class="day-dow">Dimanche</span> · <span class="day-num">Jour 115</span> · <span class="day-date">15/11</span></span>
+        <span class="day-siman"><strong>Siman 356</strong> · 356</span>
+        <span class="day-title">Canal d'eau qui traverse la cour Shabbat</span>
+      </a>
+      <a class="day-item" href="jour-116.html">
+        <span class="day-meta"><span class="day-dow">Lundi</span> · <span class="day-num">Jour 116</span> · <span class="day-date">16/11</span></span>
+        <span class="day-siman"><strong>Siman 357</strong> · 357</span>
+        <span class="day-title">Cour de moins de 4 amot et égout</span>
+      </a>
+      <a class="day-item" href="jour-117.html">
+        <span class="day-meta"><span class="day-dow">Mardi</span> · <span class="day-num">Jour 117</span> · <span class="day-date">17/11</span></span>
+        <span class="day-siman"><strong>Siman 358</strong> · 358</span>
+        <span class="day-title">Lieux entourés pour résidence (mukafin le-dira)</span>
+      </a>
+      <a class="day-item" href="jour-118.html">
+        <span class="day-meta"><span class="day-dow">Mercredi</span> · <span class="day-num">Jour 118</span> · <span class="day-date">18/11</span></span>
+        <span class="day-siman"><strong>Siman 359</strong> · 359</span>
+        <span class="day-title">Espace large derrière les maisons</span>
+      </a>
+      <a class="day-item" href="jour-119.html">
+        <span class="day-meta"><span class="day-dow">Jeudi</span> · <span class="day-num">Jour 119</span> · <span class="day-date">19/11</span></span>
+        <span class="day-siman"><strong>Siman 360</strong> · 360</span>
+        <span class="day-title">Entourage pour Shabbat — créer une RY temporaire</span>
+      </a>
+      </div>
+    </section>
+    <section class="week">
+      <header class="week-head"><div class="week-num">Semaine 25</div><div class="week-range">Dimanche 22 novembre 2026 au Jeudi 26 novembre 2026</div></header>
+      <div class="week-days">
+      <a class="day-item" href="jour-120.html">
+        <span class="day-meta"><span class="day-dow">Dimanche</span> · <span class="day-num">Jour 120</span> · <span class="day-date">22/11</span></span>
+        <span class="day-siman"><strong>Siman 361</strong> · 361</span>
+        <span class="day-title">Toit adjacent à RH</span>
+      </a>
+      <a class="day-item" href="jour-121.html">
+        <span class="day-meta"><span class="day-dow">Lundi</span> · <span class="day-num">Jour 121</span> · <span class="day-date">23/11</span></span>
+        <span class="day-siman"><strong>Siman 362</strong> · 362</span>
+        <span class="day-title">Quelle clôture est valable pour autoriser le transport</span>
+      </a>
+      <a class="day-item" href="jour-122.html">
+        <span class="day-meta"><span class="day-dow">Mardi</span> · <span class="day-num">Jour 122</span> · <span class="day-date">24/11</span></span>
+        <span class="day-siman"><strong>Siman 363</strong> · 363</span>
+        <span class="day-title">Mavoy (impasse) et Lehi (poteau de référence)</span>
+      </a>
+      <a class="day-item" href="jour-123.html">
+        <span class="day-meta"><span class="day-dow">Mercredi</span> · <span class="day-num">Jour 123</span> · <span class="day-date">25/11</span></span>
+        <span class="day-siman"><strong>Siman 364</strong> · 364</span>
+        <span class="day-title">Mavoy traversant et en forme d'arête de poisson</span>
+      </a>
+      <a class="day-item" href="jour-124.html">
+        <span class="day-meta"><span class="day-dow">Jeudi</span> · <span class="day-num">Jour 124</span> · <span class="day-date">26/11</span></span>
+        <span class="day-siman"><strong>Siman 365</strong> · 365</span>
+        <span class="day-title">Mavoy dont une cloison s'est cassée — dernier siman de Hilkhot Shabbat</span>
+      </a>
+      </div>
+    </section>
+</main>
+</body>
+</html>

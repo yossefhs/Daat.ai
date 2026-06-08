@@ -1122,6 +1122,134 @@
     </div>
   </section>
 
+  <!-- ── BANDEAU DAAT YOMI ──────────────────────────────────────────── -->
+<section class="daat-yomi-banner" id="daat-yomi-banner" data-start="2026-06-08" data-total="124" aria-label="דעת יומי — לימוד יומי">
+  <div class="dy-inner">
+    <div class="dy-tag">דעת יומי — לימוד יומי · <span class="dy-sub">5 ימים בשבוע · ראשון → חמישי</span></div>
+    <div class="dy-content" id="dy-content"></div>
+    <div class="dy-cta">
+      <a id="dy-cta-link" class="dy-btn dy-btn-primary" href="/limoud/index-he.html">ללמוד עכשיו ←</a>
+      <a class="dy-btn dy-btn-secondary" href="/limoud/index-he.html">לתוכנית המלאה</a>
+    </div>
+  </div>
+</section>
+<style>
+  .daat-yomi-banner{background:linear-gradient(135deg,var(--navy) 0%,#0e2447 100%);color:#fff;padding:48px 40px;border-top:2px solid var(--gold);border-bottom:2px solid var(--gold)}
+  .daat-yomi-banner .dy-inner{max-width:1080px;margin:0 auto;text-align:center}
+  .daat-yomi-banner .dy-tag{font-family:'Inter',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+  .daat-yomi-banner .dy-tag .dy-sub{color:rgba(255,255,255,.7);letter-spacing:2px}
+  .daat-yomi-banner .dy-today{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:8px}
+  .daat-yomi-banner .dy-day{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:600;color:#fff;margin-bottom:6px;line-height:1.1}
+  .daat-yomi-banner .dy-day .dy-day-num{color:var(--gold)}
+  .daat-yomi-banner .dy-siman{font-family:'Frank Ruhl Libre',serif;font-size:18px;color:var(--gold);margin-bottom:6px;letter-spacing:1px}
+  .daat-yomi-banner .dy-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:rgba(255,255,255,.92);margin-bottom:8px;max-width:720px;margin-left:auto;margin-right:auto}
+  .daat-yomi-banner .dy-notice{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold);font-size:15px;margin-top:4px}
+  .daat-yomi-banner .dy-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+  .daat-yomi-banner .dy-btn{padding:14px 26px;text-decoration:none;font-family:'Inter',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;border-radius:3px;transition:.2s;border:1px solid var(--gold)}
+  .daat-yomi-banner .dy-btn-primary{background:var(--gold);color:var(--navy);font-weight:600}
+  .daat-yomi-banner .dy-btn-primary:hover{background:#d9b66e}
+  .daat-yomi-banner .dy-btn-secondary{color:#fff;background:transparent}
+  .daat-yomi-banner .dy-btn-secondary:hover{background:rgba(197,165,90,.15)}
+  @media (max-width:640px){
+    .daat-yomi-banner{padding:36px 20px}
+    .daat-yomi-banner .dy-day{font-size:32px}
+    .daat-yomi-banner .dy-title{font-size:18px}
+  }
+</style>
+<script>
+(function(){
+  var ENTRIES = [[1,"2026-06-08",242,"רמ״ב","חובת עונג וכבוד שבת"],[2,"2026-06-09",243,"רמ״ג","השכרת מרחץ ושדה לגוי בשבת"],[3,"2026-06-10",244,"רמ\"ד","אילו מלאכות הגוי יכול לעשות עבור היהודי"],[4,"2026-06-11",245,"רמ\"ה","יהודי וגוי — איך להתנהג כשותפים (שותפות)"],[5,"2026-06-14",246,"רמ״ו","הלכות השאלת והשכרת חפצים לגוי בשבת"],[6,"2026-06-15",247,"247","שליחת מכתב או חפץ ביד גוי נושא"],[7,"2026-06-16",248,"248","הפלגה בספינה או יציאה בשיירה סמוך לשבת"],[8,"2026-06-17",249,"249","דינים מיוחדים של יום שישי (ערב שבת)"],[9,"2026-06-18",250,"250","הכנת סעודות שבת (להשכים בערב שבת)"],[10,"2026-06-21",251,"251","שלא לעשות מלאכה בערב שבת מן המנחה ולמעלה"],[11,"2026-06-22",252,"252","מלאכות המותרות והאסורות להתחיל בערב שבת כדי שייגמרו בשבת"],[12,"2026-06-23",253,"253","הכירה והתנור — הנחת קדרות לפני שבת (פלטה, הטמנה)"],[13,"2026-06-24",254,"254","תבשילים שמכינים בערב שבת ונגמרים בשבת"],[14,"2026-06-25",255,"255","הכנת האש לפני כניסת שבת"],[15,"2026-06-28",256,"256","שש תקיעות שופר לפני שבת"],[16,"2026-06-29",257,"257","דיני הטמנת תבשילים חמים לפני שבת"],[17,"2026-06-30",258,"258","מותר להניח קדרה צוננת על קדרה חמה לפני שבת"],[18,"2026-07-01",259,"259","המשך דיני הטמנה וטלטולם בשבת"],[19,"2026-07-02",260,"260","דיני כניסת שבת (מקווה, בגדים, ציפורניים)"],[20,"2026-07-05",261,"261","זמן הדלקת נרות שבת"],[21,"2026-07-06",262,"262","לקדש את השבת בשולחן ערוך ובגדים נאים"],[22,"2026-07-07",263,"263","מי מדליק נרות + טעות בזמן ביום מעונן"],[23,"2026-07-08",264,"264","פתילות ושמנים לנרות שבת"],[24,"2026-07-09",265,"265","כלים המונחים תחת הנר (בטיחות אש)"],[25,"2026-07-12",266,"266","מי שקדשה עליו השבת בדרך"],[26,"2026-07-13",267,"267","תפילת ערבית של ליל שבת (ערב שבת)"],[27,"2026-07-14",268,"268","טעויות ושכחות בתפילת שבת"],[28,"2026-07-15",269,"269","קידוש בבית הכנסת (ליל שבת)"],[29,"2026-07-16",270,"270","אמירת פרק במה מדליקין (משנה שבת פ\"ב)"],[30,"2026-07-19",271,"271","קידוש על היין (ליל שבת)"],[31,"2026-07-20",272,"272","על איזה יין מקדשים — תכונות נדרשות"],[32,"2026-07-21",273,"273","קידוש במקום סעודה"],[33,"2026-07-22",274,"274","בציעת הפת (לחם משנה) בשבת"],[34,"2026-07-23",275,"275","דברים האסורים לאור הנר בשבת"],[35,"2026-07-26",276,"276","נר שהדליקו גוי בשבת"],[36,"2026-07-27",277,"277","שלא לגרום כיבוי הנר בשבת"],[37,"2026-07-28",278,"278","היתר לכבות את הנר בשביל החולה"],[38,"2026-07-29",279,"279","טלטול הנר בשבת (מוקצה)"],[39,"2026-07-30",280,"280","תשמיש המיטה בשבת (עונג שבת)"],[40,"2026-08-02",281,"281","זמירות ותפילת שחרית של שבת"],[41,"2026-08-03",282,"282","קריאת התורה והמפטיר בשבת"],[42,"2026-08-04",283,"283","למה אין מוציאים שני ספרי תורה בשבת"],[43,"2026-08-05",284,"284","ההפטרה וברכותיה"],[44,"2026-08-06",285,"285","שניים מקרא ואחד תרגום"],[45,"2026-08-09",286,"286","תפילת מוסף של שבת"],[46,"2026-08-10",287,"287","ביקור חולים וניחום אבלים בשבת"],[47,"2026-08-11",288,"288","תענית ותענית חלום בשבת"],[48,"2026-08-12",289,"289","סדר סעודת שחרית של שבת"],[49,"2026-08-13",290,"290","השלמת מאה ברכות בשבת על ידי פירות"],[50,"2026-08-16",291,"291","סעודה שלישית של שבת (סעודה שלישית)"],[51,"2026-08-17",292,"292","תפילת מנחה של שבת"],[52,"2026-08-18",293,"293","ערבית של מוצאי שבת"],[53,"2026-08-19",294,"294","הבדלה בתפילה"],[54,"2026-08-20",295,"295","הבדלה של שליח הציבור בבית הכנסת"],[55,"2026-08-23",296,"296","הבדלה על היין (מוצאי שבת)"],[56,"2026-08-24",297,"297","בשמים להבדלה"],[57,"2026-08-25",298,"298","נר הבדלה (מוצאי שבת)"],[58,"2026-08-26",299,"299","שלא לאכול לשתות ולעשות מלאכה קודם הבדלה"],[59,"2026-08-27",300,"300","מלוה מלכה — סעודת ליווי מלכת השבת"],[60,"2026-08-30",301,"301","יציאה בבגדים ובחפצים בשבת"],[61,"2026-08-31",302,"302","ניקוי וקיפול בגדים בשבת"],[62,"2026-09-01",303,"303","תכשיטי האשה בשבת"],[63,"2026-09-02",304,"ש\"ד","על שביתת העבד (מחבר בלבד)"],[64,"2026-09-03",305,"305","במה בהמה יוצאה בשבת"],[65,"2026-09-06",306,"306","באילו עניינים מותר לדבר בשבת"],[66,"2026-09-07",307,"307","דיני שבת הקשורים לדיבור"],[67,"2026-09-08",308,"308","מוקצה — דברים המותרים והאסורים בטלטול בשבת"],[68,"2026-09-09",309,"309","טלטול מוקצה על ידי דבר אחר"],[69,"2026-09-10",310,"310","המשך דיני מוקצה בשבת"],[70,"2026-09-13",311,"311","מת בשבת — דיני טלטולו"],[71,"2026-09-14",312,"312","קינוח בית הכסא בשבת (נייר טואלט)"],[72,"2026-09-15",313,"313","טלטול דלתות חלונות ומנעולים בשבת"],[73,"2026-09-16",314,"314","בניין וסתירה בשבת"],[74,"2026-09-17",315,"315","עשיית אהל בשבת"],[75,"2026-09-20",316,"316","צידה — לכידת בעלי חיים בשבת"],[76,"2026-09-21",317,"317","קשירה ועניבה בשבת"],[77,"2026-09-22",318,"318","מבשל בשבת — מלאכה דאורייתא"],[78,"2026-09-23",319,"319","בורר בשבת — מלאכה דאורייתא"],[79,"2026-09-24",320,"320","סחיטה בשבת"],[80,"2026-09-27",321,"321","תולש, טוחן, מעבד, לש בשבת"],[81,"2026-09-28",322,"שכ\"ב","ביצה שנולדה בשבת (מחבר בלבד)"],[82,"2026-09-29",323,"323","השאלה, קנייה ושטיפת כלים בשבת"],[83,"2026-09-30",324,"324","הכנת מזון לבהמה בשבת"],[84,"2026-10-01",325,"325","גוי העושה מלאכה עבור היהודי בשבת"],[85,"2026-10-04",326,"326","רחיצה בשבת"],[86,"2026-10-05",327,"327","סיכה בשבת — שמנים, משחות ובשמים"],[87,"2026-10-06",328,"328","החולה בשבת — דיני הטיפול"],[88,"2026-10-07",329,"329","על מי מחללים את השבת — פיקוח נפש"],[89,"2026-10-08",330,"330","היולדת בשבת"],[90,"2026-10-11",331,"331","ברית מילה בשבת (יום שמיני)"],[91,"2026-10-12",332,"332","שלא ליילד בהמה בשבת"],[92,"2026-10-13",333,"333","שלא לפנות אוצר בשבת (סידור מחדש)"],[93,"2026-10-14",334,"334","דליקה בשבת — דיני הצלה"],[94,"2026-10-15",335,"335","חבית של יין או שמן שנשברה בשבת"],[95,"2026-10-18",336,"336","הילוך על עשבים ועלייה על אילנות בשבת"],[96,"2026-10-19",337,"337","כיבוד הבית + דבר שאינו מתכוון"],[97,"2026-10-20",338,"338","שלא להשמיע קול של שיר בשבת"],[98,"2026-10-21",339,"339","כמה דינים פרטיים של שבת"],[99,"2026-10-22",340,"340","תולדות אבות מלאכות — תולדות האסורות בשבת"],[100,"2026-10-25",341,"341","התרת נדרים בשבת"],[101,"2026-10-26",342,"342","בין השמשות — מעשי דרבנן המותרים לצורך מצווה"],[102,"2026-10-27",343,"343","הקטנים בשבת (אחריות ההורים)"],[103,"2026-10-28",344,"344","המהלך במדבר ואינו יודע מתי שבת"],[104,"2026-10-29",345,"345","ארבע רשויות בשבת — יסוד מלאכת הוצאה"],[105,"2026-11-01",346,"346","עירובין מן התורה — יסוד הטלטול בשבת"],[106,"2026-11-02",347,"347","על איזו הוצאה חייבים מן התורה"],[107,"2026-11-03",348,"348","המושיט חפץ מרשות לרשות"],[108,"2026-11-04",349,"349","ארבע אמות של אדם ברשות הרבים (מקום פרטי מטלטל)"],[109,"2026-11-05",350,"350","המוציא ראש וגוף מרשות לרשות"],[110,"2026-11-08",351,"351","פושט ידו לברז ברשות הרבים לשתות"],[111,"2026-11-09",352,"352","הקורא שספרו מתגלגל בין רשות היחיד לרשות הרבים"],[112,"2026-11-10",353,"353","זיזים ומרפסות מעל רשות הרבים"],[113,"2026-11-11",354,"354","בורות ואשפתות ברשות הרבים"],[114,"2026-11-12",355,"355","מרפסת מעל המים ובית הכסא של גינה"],[115,"2026-11-15",356,"356","אמת המים העוברת בחצר בשבת"],[116,"2026-11-16",357,"357","חצר שאינה ארבע אמות וביב"],[117,"2026-11-17",358,"358","מקומות המוקפים לדירה"],[118,"2026-11-18",359,"359","רחבה שאחורי הבתים"],[119,"2026-11-19",360,"360","מחיצה לשבת — יצירת רשות היחיד עראית"],[120,"2026-11-22",361,"361","גג הסמוך לרשות הרבים"],[121,"2026-11-23",362,"362","איזו מחיצה כשרה להתיר הטלטול"],[122,"2026-11-24",363,"363","מבוי ולחי"],[123,"2026-11-25",364,"364","מבוי מפולש ומבוי כעין שלדג"],[124,"2026-11-26",365,"365","מבוי שנפרצה אחת ממחיצותיו — סימן אחרון של הלכות שבת"]];
+  var T = {"tag":"דעת יומי — לימוד יומי","todayLabel":"היום","jourLabel":"יום","simanLabel":"סימן","cta":"ללמוד עכשיו ←","indexCta":"לתוכנית המלאה","shabbat":"שבת שלום — נחזור ביום ראשון","friday":"נחזור ביום ראשון","beforeStart":"דעת יומי מתחיל ב-יום שני, 8 ביוני 2026","finished":"התוכנית הושלמה — מזל טוב! 🎉","sub":"5 ימים בשבוע · ראשון → חמישי"};
+  var DAYS_FR = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
+  var DAYS_EN = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+  var DAYS_HE = ["ראשון","שני","שלישי","רביעי","חמישי","שישי","שבת"];
+  var LANG = "he";
+
+  function parseISO(s){var p=s.split('-');return new Date(Date.UTC(+p[0],+p[1]-1,+p[2]));}
+  function isStudyDay(d){var w=d.getUTCDay();return w>=0&&w<=4;}
+  function todayUTC(){var n=new Date();return new Date(Date.UTC(n.getFullYear(),n.getMonth(),n.getDate()));}
+  function fmtDate(d){
+    var dow=d.getUTCDay(), day=d.getUTCDate(), m=d.getUTCMonth()+1;
+    if(LANG==='en')return DAYS_EN[dow]+', '+m+'/'+day;
+    if(LANG==='he')return 'יום '+DAYS_HE[dow]+', '+day+'/'+m;
+    return DAYS_FR[dow]+' '+day+'/'+m;
+  }
+  function pad3(n){return ('00'+n).slice(-3);}
+  function dayHref(num){
+    var p=pad3(num);
+    if(LANG==='fr')return '/limoud/jour-'+p+'.html';
+    if(LANG==='en')return '/limoud/jour-'+p+'-en.html';
+    return '/limoud/jour-'+p+'-he.html';
+  }
+  function getCurrentStudyDay(today, startDate){
+    if(today < startDate) return 0;
+    var dayNum=0;
+    var cur=new Date(startDate.getTime());
+    while(cur < today){ if(isStudyDay(cur)) dayNum++; cur.setUTCDate(cur.getUTCDate()+1); }
+    if(isStudyDay(today)) dayNum++;
+    return dayNum;
+  }
+
+  var banner=document.getElementById('daat-yomi-banner');
+  if(!banner) return;
+  var start=parseISO(banner.dataset.start);
+  var total=parseInt(banner.dataset.total,10);
+  var today=todayUTC();
+  var container=document.getElementById('dy-content');
+  var ctaLink=document.getElementById('dy-cta-link');
+
+  // Avant la date de départ
+  if(today < start){
+    container.innerHTML='<div class="dy-notice">'+T.beforeStart+'</div>';
+    return;
+  }
+
+  var dow=today.getUTCDay();
+  var dayNum;
+  var notice='';
+
+  if(dow===5){
+    // Vendredi → prochain jour = dimanche (dans 2 jours)
+    var sun=new Date(today.getTime()); sun.setUTCDate(sun.getUTCDate()+2);
+    dayNum=getCurrentStudyDay(sun, start);
+    notice=T.friday;
+  } else if(dow===6){
+    // Shabbat → prochain jour = dimanche (demain)
+    var sun=new Date(today.getTime()); sun.setUTCDate(sun.getUTCDate()+1);
+    dayNum=getCurrentStudyDay(sun, start);
+    notice=T.shabbat;
+  } else {
+    dayNum=getCurrentStudyDay(today, start);
+  }
+
+  if(dayNum > total){
+    container.innerHTML='<div class="dy-day">'+T.finished+'</div>';
+    return;
+  }
+  if(dayNum < 1){
+    container.innerHTML='<div class="dy-notice">'+T.beforeStart+'</div>';
+    return;
+  }
+
+  var e=ENTRIES[dayNum-1];
+  var entryDate=parseISO(e[1]);
+  var html='';
+  if(notice){
+    html+='<div class="dy-today">'+T.todayLabel+' · '+fmtDate(today)+'</div>';
+    html+='<div class="dy-notice">'+notice+'</div>';
+  } else {
+    html+='<div class="dy-today">'+T.todayLabel+' · '+fmtDate(today)+'</div>';
+  }
+  html+='<div class="dy-day">'+T.jourLabel+' <span class="dy-day-num">'+e[0]+'</span> <span style="opacity:.55">/ '+total+'</span></div>';
+  html+='<div class="dy-siman">'+T.simanLabel+' '+e[2]+' · '+e[3]+'</div>';
+  html+='<div class="dy-title">'+e[4]+'</div>';
+  container.innerHTML=html;
+  ctaLink.href=dayHref(e[0]);
+})();
+</script>
+<!-- ── /BANDEAU DAAT YOMI ───────────────────────────────────────── -->
+
+
   <!-- VISION -->
   <section id="vision" class="vision-bg">
     <div class="section">
