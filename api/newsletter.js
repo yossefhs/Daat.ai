@@ -1,17 +1,31 @@
-// /api/newsletter — Newsletter DAAT (signup public + cron de séquence)
+// /api/newsletter — Newsletter DAAT (signup public + cron + daily Daat Yomi)
 //
-// Deux modes selon la méthode HTTP :
-//   POST /api/newsletter        → inscription publique (body { email, source? })
-//   GET  /api/newsletter        → exécution du cron de séquence
-//                                 (auth via header Authorization: Bearer ${CRON_SECRET})
+// Modes selon la méthode HTTP et l'action :
+//   POST /api/newsletter                       → inscription publique (body { email, source? })
+//   GET  /api/newsletter                       → cron (séquence J0-J14 + Daat Yomi quotidien)
+//                                                (auth Bearer ${CRON_SECRET})
+//   GET  /api/newsletter?action=stats          → stats admin (Bearer ${ADMIN_PASSWORD})
+//   GET  /api/newsletter?action=test-daily&to=&date=
+//                                              → envoi manuel d'un daily de test
+//                                                (Bearer ${ADMIN_PASSWORD})
 //
 // Cette fusion permet de rester sous la limite de 12 fonctions Vercel
-// Hobby tout en regroupant le système de séquence email dans un seul
-// fichier (signup envoie J0, cron envoie J3 → J14).
+// Hobby tout en regroupant le système email dans un seul fichier (signup
+// envoie J0, cron envoie J3 → J14 et le Daat Yomi quotidien).
 //
 // Stockage Vercel KV :
-//   - newsletter:{email}      → { email, subscribedAt, source, confirmed, sentSteps[] }
-//   - newsletter:list         → liste des emails (pour le cron)
+//   - newsletter:{email}      → {
+//       email, subscribedAt, source, confirmed, token,
+//       sentSteps: ['j0', 'j3', ...],
+//       dailyEnabled?: boolean,   // opt-in Daat Yomi quotidien (false par défaut)
+//       lang?: 'fr'|'en'|'he',    // réserve future (libellés FR pour MVP)
+//     }
+//   - newsletter:list                         → liste des emails (pour le cron)
+//   - newsletter:daily-sent:{date}:{email}    → marqueur idempotence (TTL 48h)
+//
+// Activation manuelle du daily (MVP, en attendant l'UI d'opt-in) :
+//   # En CLI Redis Upstash :
+//   # SET newsletter:test@example.com '{"...","dailyEnabled":true}'
 //
 // Cron Vercel : pointe vers /api/newsletter (le header Bearer fait le tri).
 
@@ -19,6 +33,7 @@ import { kv } from './_kv.js';
 import { Resend } from 'resend';
 import { randomBytes } from 'node:crypto';
 import { getStepById, getDueSteps } from './_email-sequence.js';
+import { getEntryForDate, buildDailyEmail } from './_daily-limoud.js';
 import { getClientIp } from './_http.js';
 
 function setCors(res) {
@@ -192,16 +207,170 @@ async function handleCron(req, res) {
       }
     }
 
+    // ───── Phase Daat Yomi quotidien ─────
+    // En plus de la séquence J0-J14 (ci-dessus), envoyer chaque jour le lot
+    // Daat Yomi à tous les inscrits qui ont opt-in (`record.dailyEnabled === true`).
+    // Idempotence : un seul daily par jour par utilisateur (clé `newsletter:daily-sent:{date}:{email}`,
+    // TTL 48h — recalculée à chaque run, pas besoin de garder éternellement).
+    const todayISO = new Date().toISOString().slice(0, 10);
+    const entry = getEntryForDate(todayISO);
+
+    let dailySent = 0;
+    let dailySkipped = 0;
+    let dailyErrors = 0;
+    const dailyLog = [];
+
+    if (!entry) {
+      // Aujourd'hui = ven/sam, avant le plan, ou après le plan → on saute
+      dailyLog.push({ reason: 'not_a_study_day', date: todayISO });
+    } else {
+      for (const email of uniqueEmails) {
+        try {
+          const record = await kv.get(`newsletter:${email}`);
+          if (!record || !record.confirmed) continue;
+
+          // Opt-in explicite requis (anti-spam + maîtrise volume Resend)
+          if (!record.dailyEnabled) {
+            dailySkipped++;
+            continue;
+          }
+
+          // Idempotence : un seul daily par jour par utilisateur
+          const dailyKey = `newsletter:daily-sent:${todayISO}:${email}`;
+          const already = await kv.get(dailyKey);
+          if (already) {
+            dailySkipped++;
+            continue;
+          }
+
+          const { subject, html, text } = buildDailyEmail(entry, record.lang || 'fr');
+
+          const result = await resend.emails.send({
+            from: `DAAT <${fromEmail}>`,
+            to: email,
+            subject,
+            html,
+            text,
+          });
+
+          if (result.error) {
+            dailyErrors++;
+            dailyLog.push({ email, error: result.error.message });
+            continue;
+          }
+
+          // Mark sent — TTL 48h (on recalcule chaque jour, inutile de garder plus)
+          await kv.set(
+            dailyKey,
+            { resendId: result.data?.id, sentAt: new Date().toISOString() },
+            { ex: 172800 },
+          );
+          dailySent++;
+          dailyLog.push({ email, dayNumber: entry.dayNumber, ok: true });
+        } catch (e) {
+          dailyErrors++;
+          dailyLog.push({ email, error: e?.message });
+        }
+      }
+    }
+
     return res.status(200).json({
       ok: true,
+      // Séquence J0-J14
       processed,
       sent,
       errors,
       log: log.slice(0, 50),
+      // Daat Yomi quotidien
+      daily: {
+        date: todayISO,
+        entry: entry
+          ? {
+              dayNumber: entry.dayNumber,
+              siman: entry.siman.num,
+              seifRange: entry.seifRange,
+              lotIndex: entry.lotIndex,
+              lotTotal: entry.lotTotal,
+            }
+          : null,
+        sent: dailySent,
+        skipped: dailySkipped,
+        errors: dailyErrors,
+        log: dailyLog.slice(0, 50),
+      },
     });
   } catch (err) {
     console.error('[newsletter/cron] error:', err);
     return res.status(500).json({ error: err?.message || 'Erreur cron' });
+  }
+}
+
+// ---------- GET ?action=test-daily : envoi manuel d'un daily (Bearer ADMIN_PASSWORD) ----------
+async function handleTestDaily(req, res) {
+  const auth = req.headers.authorization || '';
+  const expected = process.env.ADMIN_PASSWORD || process.env.SOUTIEN_ADMIN_SECRET;
+  if (!expected) {
+    return res.status(500).json({ error: 'ADMIN_PASSWORD non configuré' });
+  }
+  if (auth !== `Bearer ${expected}`) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+
+  const url = new URL(req.url, 'http://x');
+  const date = url.searchParams.get('date') || new Date().toISOString().slice(0, 10);
+  const to = url.searchParams.get('to');
+
+  if (!to || !isValidEmail(to)) {
+    return res.status(400).json({ error: 'param "to" requis (email valide)' });
+  }
+
+  const entry = getEntryForDate(date);
+  if (!entry) {
+    return res.status(200).json({
+      ok: true,
+      skipped: true,
+      reason: 'not_a_study_day',
+      date,
+    });
+  }
+
+  if (!process.env.RESEND_API_KEY) {
+    return res.status(500).json({ error: 'RESEND_API_KEY non configuré' });
+  }
+
+  try {
+    const { subject, html, text } = buildDailyEmail(entry, 'fr');
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    const fromEmail = process.env.RESEND_FROM_EMAIL || 'noreply@daattorah.com';
+    const result = await resend.emails.send({
+      from: `DAAT <${fromEmail}>`,
+      to,
+      subject,
+      html,
+      text,
+    });
+
+    if (result.error) {
+      return res.status(500).json({ error: result.error.message });
+    }
+    return res.status(200).json({
+      ok: true,
+      sent: true,
+      to,
+      date,
+      entry: {
+        dayNumber: entry.dayNumber,
+        siman: entry.siman.num,
+        seifRange: entry.seifRange,
+        lotIndex: entry.lotIndex,
+        lotTotal: entry.lotTotal,
+      },
+      subject,
+      resendId: result.data?.id,
+    });
+  } catch (err) {
+    console.error('[newsletter/test-daily] error:', err);
+    return res.status(500).json({ error: err?.message || 'Erreur test-daily' });
   }
 }
 
@@ -266,7 +435,9 @@ export default async function handler(req, res) {
   if (req.method === 'POST') return handleSignup(req, res);
   if (req.method === 'GET') {
     const url = new URL(req.url, 'http://x');
-    if (url.searchParams.get('action') === 'stats') return handleStats(req, res);
+    const action = url.searchParams.get('action');
+    if (action === 'stats') return handleStats(req, res);
+    if (action === 'test-daily') return handleTestDaily(req, res);
     return handleCron(req, res);
   }
   return res.status(405).json({ error: 'GET ou POST uniquement' });
