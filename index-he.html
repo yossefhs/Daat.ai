@@ -13,6 +13,7 @@
   <link rel="alternate" hreflang="fr" href="https://daattorah.com/">
   <link rel="alternate" hreflang="en" href="https://daattorah.com/index-en.html">
   <link rel="alternate" hreflang="he" href="https://daattorah.com/index-he.html">
+  <link rel="alternate" hreflang="x-default" href="https://daattorah.com/">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
@@ -36,6 +37,9 @@
   <link rel="stylesheet" href="/assets/css/daat.css">
   <link rel="stylesheet" href="/assets/css/daat-enhance.css">
   <style>
+    .skip-link { position: absolute; top: -40px; left: 0; background: var(--navy); color: var(--gold); padding: 8px 16px; z-index: 9999; text-decoration: none; font-family: 'Inter', sans-serif; font-size: 13px; }
+    .skip-link:focus { top: 0; }
+
     /* Tokens DAAT (--navy, --gold, --cream, --text-mid…) fournis
        par /assets/css/daat.css importé via daat-enhance.css */
 
@@ -101,7 +105,7 @@
     nav a {
       font-family: 'Inter', sans-serif;
       font-size: 13px;
-      color: rgba(255,255,255,0.7);
+      color: rgba(255,255,255,0.9);
       text-decoration: none;
       letter-spacing: 1px;
       text-transform: uppercase;
@@ -220,7 +224,7 @@
 
     .hero-desc {
       font-size: 20px;
-      color: rgba(255,255,255,0.7);
+      color: rgba(255,255,255,0.9);
       max-width: 600px;
       margin: 0 auto 40px;
       font-weight: 300;
@@ -629,7 +633,7 @@
     }
     .email-capture p {
       font-size: 16px;
-      color: rgba(255,255,255,0.7);
+      color: rgba(255,255,255,0.9);
       margin-bottom: 28px;
       font-style: italic;
     }
@@ -869,7 +873,7 @@
     .rav-name-fr {
       font-family: 'Cormorant Garamond', serif;
       font-size: 16px;
-      color: rgba(255,255,255,0.7);
+      color: rgba(255,255,255,0.9);
       font-style: italic;
       margin-bottom: 4px;
     }
@@ -1056,6 +1060,8 @@
   </script>
 </head>
 <body>
+  <a href="#main" class="skip-link">דלג לתוכן הראשי</a>
+
 
   <!-- HEADER -->
   <header>
@@ -1075,9 +1081,9 @@
       <a href="communaute-he.html">קהילה</a>
       <a href="soutenir-he.html" class="nav-soutenir">♥ תמיכה</a>
       <a href="faq-he.html">שאלות</a><a href="about-he.html">אודות</a><span class="lang-switcher">
-        <a href="index.html">FR</a>
-        <a href="index-he.html" class="active">HE</a>
-        <a href="index-en.html">EN</a>
+        <a href="index.html" hreflang="fr" aria-label="Français">FR</a>
+        <a href="index-he.html" class="active" hreflang="he" aria-label="עברית">HE</a>
+        <a href="index-en.html" hreflang="en" aria-label="English">EN</a>
       </span>
       <a href="sources/shabbat/index-he.html" class="nav-cta">לימוד →</a>
     </nav>

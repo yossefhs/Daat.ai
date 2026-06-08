@@ -11,6 +11,7 @@
   <link rel="alternate" hreflang="fr" href="https://daattorah.com/chat.html">
   <link rel="alternate" hreflang="en" href="https://daattorah.com/chat-en.html">
   <link rel="alternate" hreflang="he" href="https://daattorah.com/chat-he.html">
+  <link rel="alternate" hreflang="x-default" href="https://daattorah.com/chat.html">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
@@ -50,6 +51,9 @@
   <link rel="stylesheet" href="/assets/css/daat.css">
   <link rel="stylesheet" href="/assets/css/daat-enhance.css">
   <style>
+    .skip-link { position: absolute; top: -40px; left: 0; background: var(--navy); color: var(--gold); padding: 8px 16px; z-index: 9999; text-decoration: none; font-family: 'Inter', sans-serif; font-size: 13px; }
+    .skip-link:focus { top: 0; }
+
     :root {
       --navy: #1A1F3A; --gold: #C5A55A; --gold-light: #D4B97A;
       --cream: #FAF6EE; --cream-dark: #F0EAD8;
@@ -483,6 +487,8 @@
 </style>
 </head>
 <body>
+  <a href="#main" class="skip-link">Aller au contenu principal</a>
+
 
 <header>
   <div class="header-left">
@@ -530,7 +536,7 @@
   <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
   <!-- MAIN AREA -->
-  <main class="main-area">
+  <main id="main" class="main-area">
 
     <!-- WELCOME SCREEN -->
     <div class="welcome-screen" id="welcome">

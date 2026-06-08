@@ -64,6 +64,9 @@
   <link rel="stylesheet" href="/assets/css/daat.css">
   <link rel="stylesheet" href="/assets/css/daat-enhance.css">
   <style>
+    .skip-link { position: absolute; top: -40px; left: 0; background: var(--navy); color: var(--gold); padding: 8px 16px; z-index: 9999; text-decoration: none; font-family: 'Inter', sans-serif; font-size: 13px; }
+    .skip-link:focus { top: 0; }
+
     /* =========================================================
        DAAT · Soutenir — Identité visuelle continue avec le site
        ========================================================= */
@@ -767,6 +770,8 @@
   </style>
 </head>
 <body class="lang-fr">
+  <a href="#main" class="skip-link">Aller au contenu principal</a>
+
 
   <!-- Bandeau "Tu viens du chat ?" — affiché si ?from=chat -->
   <div id="from-chat-banner" style="display:none; position:relative; z-index:5; background:linear-gradient(90deg, #1a1a2e 0%, #2a2a4e 100%); color:#FBF7EF; padding:18px 20px; border-bottom:2px solid #B8972A;">

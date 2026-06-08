@@ -12,6 +12,7 @@
   <link rel="alternate" hreflang="fr" href="https://daattorah.com/sources/shabbat/index.html">
   <link rel="alternate" hreflang="en" href="https://daattorah.com/sources/shabbat/index-en.html">
   <link rel="alternate" hreflang="he" href="https://daattorah.com/sources/shabbat/index-he.html">
+  <link rel="alternate" hreflang="x-default" href="https://daattorah.com/sources/shabbat/index.html">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
@@ -65,6 +66,9 @@
   <link rel="stylesheet" href="/assets/css/daat.css">
   <link rel="stylesheet" href="/assets/css/daat-enhance.css">
   <style>
+    .skip-link { position: absolute; top: -40px; left: 0; background: var(--navy); color: var(--gold); padding: 8px 16px; z-index: 9999; text-decoration: none; font-family: 'Inter', sans-serif; font-size: 13px; }
+    .skip-link:focus { top: 0; }
+
     /* Tokens DAAT fournis par /assets/css/daat.css */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -393,6 +397,8 @@
 </style>
 </head>
 <body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+
 
 <header>
   <a href="../../index-en.html" class="logo">
@@ -410,7 +416,7 @@
       <button class="lang-btn" data-lang="he" title="עברית" style="font-family:'Frank Ruhl Libre',serif;">ע</button>
       <button class="lang-btn" data-lang="en" title="English">EN</button>
     </span>
-  <span class="lang-switcher"><a href="index.html">FR</a><a href="index-he.html">HE</a><a href="index-en.html" class="active">EN</a></span></nav>
+  <span class="lang-switcher"><a href="index.html" hreflang="fr" aria-label="Français">FR</a><a href="index-he.html" hreflang="he" aria-label="עברית">HE</a><a href="index-en.html" class="active" hreflang="en" aria-label="English">EN</a></span></nav>
 </header>
 
 <div class="breadcrumb">
@@ -432,7 +438,7 @@
   </div>
 </div>
 
-<div class="content">
+<div id="main" class="content">
 
   <div class="intro-card">
     <p data-i18n="shabbat.intro1">The <strong>Hilkhot Shabbat</strong> of the Choulchan Aroukh, Orah Haim, cover sections <strong>242 to 365</strong>. We progress in the order of the Mechaber. The simanim below are available; others will be added as the study progresses.</p>
@@ -2050,7 +2056,7 @@
       </div>
     </a>
 
-
+  </div>
 
 
 

@@ -12,6 +12,7 @@
   <link rel="alternate" hreflang="fr" href="https://daattorah.com/communaute.html">
   <link rel="alternate" hreflang="en" href="https://daattorah.com/communaute-en.html">
   <link rel="alternate" hreflang="he" href="https://daattorah.com/communaute-he.html">
+  <link rel="alternate" hreflang="x-default" href="https://daattorah.com/communaute.html">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
@@ -50,6 +51,9 @@
   <link rel="stylesheet" href="/assets/css/daat-enhance.css">
 
   <style>
+    .skip-link { position: absolute; top: -40px; left: 0; background: var(--navy); color: var(--gold); padding: 8px 16px; z-index: 9999; text-decoration: none; font-family: 'Inter', sans-serif; font-size: 13px; }
+    .skip-link:focus { top: 0; }
+
     /* Tokens DAAT fournis par /assets/css/daat.css ; on ajoute juste
        ce qui est spécifique à cette page. */
     :root { --green-whatsapp: #25D366; }
@@ -75,7 +79,7 @@
     nav { display: flex; gap: 28px; align-items: center; }
     nav a {
       font-family: 'Inter', sans-serif; font-size: 13px;
-      color: rgba(255,255,255,0.7); text-decoration: none; letter-spacing: 1px;
+      color: rgba(255,255,255,0.9); text-decoration: none; letter-spacing: 1px;
       transition: color 0.2s;
     }
     nav a:hover { color: var(--gold); }
@@ -120,7 +124,7 @@
       color: #fff; margin-bottom: 16px;
     }
     .hero-subtitle {
-      font-size: 18px; color: rgba(255,255,255,0.7); font-style: italic;
+      font-size: 18px; color: rgba(255,255,255,0.9); font-style: italic;
       max-width: 700px; margin: 0 auto;
     }
 
@@ -293,6 +297,8 @@
 </style>
 </head>
 <body>
+  <a href="#main" class="skip-link">Aller au contenu principal</a>
+
 
   <header>
     <a href="index.html" class="logo">
@@ -304,7 +310,7 @@
       <a href="chat.html">💬 IA Daat</a>
       <a href="communaute.html" class="active">Communauté</a>
       <a href="faq.html">FAQ</a><a href="about.html">À propos</a><a href="soutenir.html" class="cta-soutenir">♥ Soutenir</a>
-    <span class="lang-switcher"><a href="communaute.html" class="active">FR</a><a href="communaute-he.html">HE</a><a href="communaute-en.html">EN</a></span></nav>
+    <span class="lang-switcher"><a href="communaute.html" class="active" hreflang="fr" aria-label="Français">FR</a><a href="communaute-he.html" hreflang="he" aria-label="עברית">HE</a><a href="communaute-en.html" hreflang="en" aria-label="English">EN</a></span></nav>
   </header>
 
   <div class="breadcrumb">
@@ -326,7 +332,7 @@
     </div>
   </div>
 
-  <main class="content">
+  <main id="main" class="content">
 
     <div class="community-grid">
 

@@ -12,6 +12,7 @@
   <link rel="alternate" hreflang="fr" href="https://daattorah.com/faq.html">
   <link rel="alternate" hreflang="en" href="https://daattorah.com/faq-en.html">
   <link rel="alternate" hreflang="he" href="https://daattorah.com/faq-he.html">
+  <link rel="alternate" hreflang="x-default" href="https://daattorah.com/faq.html">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Daat Torah">
@@ -121,6 +122,9 @@
   <link rel="stylesheet" href="/assets/css/daat-enhance.css">
 
   <style>
+    .skip-link { position: absolute; top: -40px; left: 0; background: var(--navy); color: var(--gold); padding: 8px 16px; z-index: 9999; text-decoration: none; font-family: 'Inter', sans-serif; font-size: 13px; }
+    .skip-link:focus { top: 0; }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 18px; background: var(--cream); color: var(--text-dark); line-height: 1.7; }
     header { background: var(--navy); padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 70px; position: sticky; top: 0; z-index: 100; border-bottom: 2px solid var(--gold); }
@@ -179,6 +183,8 @@
   </style>
 </head>
 <body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+
 
   <header>
     <a href="index-en.html" class="logo">
@@ -191,7 +197,7 @@
       <a href="communaute-en.html">Community</a>
       <a href="about-en.html">About</a>
       <a href="soutenir.html" class="cta-soutenir">♥ Support</a>
-    <span class="lang-switcher"><a href="faq.html">FR</a><a href="faq-he.html">HE</a><a href="faq-en.html" class="active">EN</a></span></nav>
+    <span class="lang-switcher"><a href="faq.html" hreflang="fr" aria-label="Français">FR</a><a href="faq-he.html" hreflang="he" aria-label="עברית">HE</a><a href="faq-en.html" class="active" hreflang="en" aria-label="English">EN</a></span></nav>
   </header>
 
   <div class="breadcrumb">
@@ -211,7 +217,7 @@
     </div>
   </div>
 
-  <main class="content">
+  <main id="main" class="content">
 
     <div class="faq-intro">
       <p>This page gathers the questions our talmidim ask most often. Don't see your sha'aleh here? The <a href="chat.html"><strong>Daat AI assistant</strong></a> answers any halachic question with mekoros, or post in the <a href="communaute-en.html">WhatsApp group</a> of the kehilla.</p>
