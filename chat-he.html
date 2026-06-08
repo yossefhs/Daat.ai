@@ -1542,6 +1542,16 @@ function showLimitReachedModal(info) {
   overlay.appendChild(modal);
   overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
   modal.querySelector('#daat-close-limit').onclick = () => overlay.remove();
+  const $openLogin = modal.querySelector('#daat-open-login');
+  if ($openLogin) {
+    $openLogin.onclick = (e) => {
+      e.preventDefault();
+      overlay.remove();
+      if (window.daatAuth && typeof window.daatAuth.openLogin === 'function') {
+        window.daatAuth.openLogin();
+      }
+    };
+  }
   document.body.appendChild(overlay);
 }
 
