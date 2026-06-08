@@ -20,14 +20,14 @@
   <meta property="og:title" content="Daat AI — Halachic Assistant in English">
   <meta property="og:description" content="Ask your halacha questions. The AI presents the positions of the sources according to your minhag, with explicit citations.">
   <meta property="og:url" content="https://daattorah.com/chat-en.html">
-  <meta property="og:image" content="https://daattorah.com/api/og">
+  <meta property="og:image" content="https://daattorah.com/assets/img/og/og-default.svg">
   <meta property="og:locale" content="en_US">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Daat AI — Halachic Assistant in English">
   <meta name="twitter:description" content="Ask your halacha questions. Sources cited, positions according to your minhag.">
-  <meta name="twitter:image" content="https://daattorah.com/api/og">
+  <meta name="twitter:image" content="https://daattorah.com/assets/img/og/og-default.svg">
 
   <!-- JSON-LD : WebApplication -->
   <script type="application/ld+json">
@@ -1505,7 +1505,7 @@ function showLimitReachedModal(info) {
     ${isGuest ? `
     <div style="background:#fff;border:1px solid rgba(184,151,42,0.25);padding:14px;margin-bottom:14px;border-radius:4px;">
       <div style="font-size:0.85rem;letter-spacing:1px;text-transform:uppercase;color:#7a6a55;margin-bottom:6px;">Simple option — free</div>
-      <a href="/auth.html" style="display:block;background:#1a1a2e;color:#F5F0E8;padding:12px 20px;text-decoration:none;font-family:'Cormorant Garamond',serif;font-size:1.05rem;letter-spacing:0.5px;">
+      <a href="#" id="daat-open-login" style="display:block;background:#1a1a2e;color:#F5F0E8;padding:12px 20px;text-decoration:none;font-family:'Cormorant Garamond',serif;font-size:1.05rem;letter-spacing:0.5px;cursor:pointer;">
         📧 Create an account → <strong>15 questions/day</strong>
       </a>
     </div>` : ''}
@@ -1525,6 +1525,16 @@ function showLimitReachedModal(info) {
   overlay.appendChild(modal);
   overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
   modal.querySelector('#daat-close-limit').onclick = () => overlay.remove();
+  const $openLogin = modal.querySelector('#daat-open-login');
+  if ($openLogin) {
+    $openLogin.onclick = (e) => {
+      e.preventDefault();
+      overlay.remove();
+      if (window.daatAuth && typeof window.daatAuth.openLogin === 'function') {
+        window.daatAuth.openLogin();
+      }
+    };
+  }
   document.body.appendChild(overlay);
 }
 

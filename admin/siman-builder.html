@@ -569,7 +569,7 @@ function renderPhotos() {
       ? `Photo ${p.sourceId} · bande ${p.partIndex}/${p.partOf}`
       : `Photo ${p.sourceId}`;
     div.innerHTML = `
-      <img src="${p.dataUrl}" alt="${label}">
+      <img src="${p.dataUrl}" alt="${label}" loading="lazy">
       <button class="rm" data-i="${i}" title="Retirer">×</button>
       <div class="idx">${label} · ${p.sizeKB} Ko · ${p.dims || ''}</div>
     `;
