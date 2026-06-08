@@ -104,6 +104,60 @@
   .lang-switcher-float a:hover { color: #1A1F3A; border-color: #C5A55A; }
   @media print { .lang-switcher-float { display: none; } }
 
+
+/* DAAT responsive mobile (auto-injected) */
+@media (max-width: 768px) {
+  body { font-size: 15px; line-height: 1.65; }
+  .container { max-width: 100%; padding: 16px; box-sizing: border-box; overflow-wrap: break-word; }
+  .cover { margin: 1.2cm 0; }
+  .cover h1 { font-size: 24pt; }
+  .cover .he-title { font-size: 22pt; }
+  .cover .subtitle { font-size: 12pt; }
+  h2 { font-size: 15pt; margin: 22pt 0 10pt; }
+  h3 { font-size: 12.5pt; margin: 16pt 0 6pt; }
+  h4 { font-size: 12pt; margin: 12pt 0 6pt; }
+  .he { font-size: 12pt; line-height: 1.85; }
+  .axiome { padding: 12pt 14pt; font-size: 11.5pt; line-height: 1.7; }
+  .axiome strong { font-size: 12.5pt; }
+  .remember, .warning, .mnemonic, .pesak-box, .toc, .schema { padding: 10pt 14pt; margin: 12pt 0; }
+  .schema-step { padding: 6pt 10pt; }
+  table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; white-space: nowrap; font-size: 10pt; }
+  th, td { padding: 8pt; }
+  .toc ol { margin-left: 16pt; }
+}
+@media (max-width: 480px) {
+  body { font-size: 14px; }
+  .container { padding: 12px; }
+  .cover h1 { font-size: 20pt; }
+  .cover .he-title { font-size: 19pt; }
+  h2 { font-size: 14pt; }
+  h3 { font-size: 12pt; }
+  .axiome { font-size: 11pt; }
+  .he { font-size: 11.5pt; }
+}
+
+  /* Niveau navigation (prev/next siman + onglets N1-N4) */
+  .niveau-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 1rem; padding: 1.5rem 0; border-top: 1px solid #d4c89a;
+    margin: 3rem 0 1.5rem; flex-wrap: wrap;
+    font-family: 'Inter', 'Helvetica', sans-serif; font-size: 11pt;
+  }
+  .niveau-nav a {
+    color: #1A1F3A; text-decoration: none;
+    padding: 0.5rem 1rem; border-radius: 4px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .niveau-nav a:hover { background: #FAF6EE; color: #1A1F3A; }
+  .niveau-nav .nav-niveaux { display: flex; gap: 0.5rem; }
+  .niveau-nav .nav-level { border: 1px solid #d4c89a; font-weight: 600; letter-spacing: 1px; }
+  .niveau-nav .nav-level.active { background: #1A1F3A; color: #fff; border-color: #1A1F3A; }
+  .niveau-nav .nav-level.active:hover { background: #1A1F3A; color: #fff; }
+  .niveau-nav .nav-spacer { flex: 1; }
+  @media (max-width: 640px) {
+    .niveau-nav { flex-direction: column; gap: 0.75rem; }
+  }
+  @media print { .niveau-nav { display: none; } }
 </style>
 </head>
 <body>
@@ -312,6 +366,16 @@ To go further: <strong>Level 4 — Daat HaRav</strong> (shitah of the Alter Rebb
   <script src="../../../assets/js/chat-widget.min.js" defer></script>
 <a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="Find a chavrusa for this siman"><span class="icon">📖</span><span class="label-long">Join the chavrusa</span></a>
   <script src="../../../assets/js/daat-progress.js" defer></script>
+<nav class="niveau-nav" aria-label="Navigation between levels">
+  <a href="../siman-276/niveau-3-synthese-en.html" class="nav-prev">← Siman 276</a>
+  <div class="nav-niveaux">
+    <a href="niveau-1-base-en.html" class="nav-level">N1</a>
+    <a href="niveau-2-lamdan-en.html" class="nav-level">N2</a>
+    <a href="niveau-3-synthese-en.html" class="nav-level active">N3</a>
+    <a href="niveau-4-daat-harav-en.html" class="nav-level">N4</a>
+  </div>
+  <a href="../siman-278/niveau-3-synthese-en.html" class="nav-next">Siman 278 →</a>
+</nav>
 </main>
 </body>
 </html>

@@ -104,6 +104,76 @@
   .lang-switcher-float a:hover { color: #1A1F3A; border-color: #C5A55A; }
   @media print { .lang-switcher-float { display: none; } }
 
+
+/* DAAT responsive mobile (auto-injected) */
+@media (max-width: 768px) {
+  header { padding: 0 16px; height: auto; min-height: 60px; flex-wrap: wrap; gap: 8px; padding-top: 8px; padding-bottom: 8px; }
+  .logo-he { font-size: 22px; }
+  .logo-en { font-size: 13px; letter-spacing: 2px; }
+  .breadcrumb { padding: 8px 16px; }
+  .page-hero { padding: 28px 16px; }
+  .hero-title { font-size: 26px; }
+  .hero-subtitle { font-size: 15px; }
+  .main { max-width: 100%; padding: 28px 16px 36px; }
+  .doc-section { margin-bottom: 36px; }
+  .section-title { font-size: 22px; }
+  .hebrew-box { padding: 20px 18px; }
+  .hebrew-text { font-size: 18px; line-height: 1.85; }
+  .rama-text { font-size: 15px; }
+  .translation-box { padding: 18px 18px; }
+  .translation-text { font-size: 16px; line-height: 1.75; }
+  .explanation-box { padding: 18px 18px; }
+  .explanation-box h3 { font-size: 19px; }
+  .explanation-box p { font-size: 15px; line-height: 1.7; }
+  .concept-grid, .practical-grid { grid-template-columns: 1fr; gap: 12px; }
+  .concept-card { padding: 16px; }
+  .pesak-box { padding: 22px 20px; }
+  .pesak-he { font-size: 19px; line-height: 1.7; }
+  .pesak-fr { font-size: 15px; line-height: 1.7; }
+  .ped-box { grid-template-columns: 32px 1fr; }
+  .ped-content { padding: 12px 14px; }
+  .ped-text { font-size: 15px; }
+  .seif-block { margin: 22px 0; }
+  .seif-block h3 { font-size: 16px; }
+  .seif-block p, .seif-block li { font-size: 15px; line-height: 1.65; }
+  .seif-block table, blockquote.text-source { font-size: 14px; }
+  .seif-block table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; white-space: nowrap; }
+  blockquote.text-source { padding: 12px 14px; font-size: 17px; line-height: 1.85; }
+  .translation, .definition, .key-point, .remember, .question-box, .case-card { padding: 12px 14px; }
+  .bottom-nav { flex-direction: column; gap: 12px; align-items: stretch; text-align: center; }
+  footer { padding: 20px 16px; }
+}
+@media (max-width: 480px) {
+  .logo-en { display: none; }
+  .hero-title { font-size: 22px; }
+  .section-title { font-size: 20px; }
+  .hebrew-text { font-size: 17px; }
+  .translation-text { font-size: 15px; }
+  .main { padding: 22px 12px 28px; }
+}
+
+  /* Niveau navigation (prev/next siman + onglets N1-N4) */
+  .niveau-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 1rem; padding: 1.5rem 0; border-top: 1px solid #d4c89a;
+    margin: 3rem 0 1.5rem; flex-wrap: wrap;
+    font-family: 'Inter', 'Helvetica', sans-serif; font-size: 11pt;
+  }
+  .niveau-nav a {
+    color: #1A1F3A; text-decoration: none;
+    padding: 0.5rem 1rem; border-radius: 4px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .niveau-nav a:hover { background: #FAF6EE; color: #1A1F3A; }
+  .niveau-nav .nav-niveaux { display: flex; gap: 0.5rem; }
+  .niveau-nav .nav-level { border: 1px solid #d4c89a; font-weight: 600; letter-spacing: 1px; }
+  .niveau-nav .nav-level.active { background: #1A1F3A; color: #fff; border-color: #1A1F3A; }
+  .niveau-nav .nav-level.active:hover { background: #1A1F3A; color: #fff; }
+  .niveau-nav .nav-spacer { flex: 1; }
+  @media (max-width: 640px) {
+    .niveau-nav { flex-direction: column; gap: 0.75rem; }
+  }
+  @media print { .niveau-nav { display: none; } }
 </style>
 </head>
 <body>
@@ -431,6 +501,16 @@ Si tu veux <strong>approfondir</strong> ce siman :
   <script src="../../../assets/js/daat-progress.js" defer></script>
   <script src="/assets/js/siman-nav.js" defer></script>
 
+<nav class="niveau-nav" aria-label="Navigation entre niveaux">
+  <a href="../siman-319/niveau-1-base.html" class="nav-prev">← Siman 319</a>
+  <div class="nav-niveaux">
+    <a href="niveau-1-base.html" class="nav-level active">N1</a>
+    <a href="niveau-2-lamdan.html" class="nav-level">N2</a>
+    <a href="niveau-3-synthese.html" class="nav-level">N3</a>
+    <a href="niveau-4-daat-harav.html" class="nav-level">N4</a>
+  </div>
+  <a href="../siman-321/niveau-1-base.html" class="nav-next">Siman 321 →</a>
+</nav>
 </main>
 </body>
 </html>

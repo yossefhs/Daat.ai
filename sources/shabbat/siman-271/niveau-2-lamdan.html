@@ -117,6 +117,62 @@
   .lang-switcher-float a:hover { color: #1A1F3A; border-color: #C5A55A; }
   @media print { .lang-switcher-float { display: none; } }
 
+
+/* DAAT responsive mobile (auto-injected) */
+@media (max-width: 768px) {
+  body { font-size: 15px; line-height: 1.65; }
+  main { padding: 16px; max-width: 100%; box-sizing: border-box; overflow-wrap: break-word; }
+  .cover { margin-top: 1.2cm; margin-bottom: 1.2cm; }
+  .cover h1 { font-size: 22pt; }
+  .cover .he-title { font-size: 26pt; }
+  .cover .he-sub { font-size: 14pt; }
+  .cover .he-subject { font-size: 12pt; }
+  .cover .level-badge { font-size: 11pt; padding: 10px 22px; }
+  .cover .subtitle { font-size: 12pt; }
+  h2.section-title { font-size: 14pt; padding: 8px 12px; margin-top: 22px; }
+  h3 { font-size: 12pt; margin-top: 18px; }
+  .he { font-size: 12pt; line-height: 1.85; }
+  .sacred-text { padding: 12px 14px; font-size: 12pt; line-height: 1.85; }
+  .pilpul-box, .kashya-box, .teruts-box, .hakira-box, .nafka-mina-box,
+  .yesod-box, .machloket-box, .rishon-card, .index-box { padding: 10px 14px; margin: 12px 0; }
+  blockquote { margin: 10px 0; padding: 8px 12px; font-size: 12pt; }
+  table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; white-space: nowrap; font-size: 10pt; }
+  th, td { padding: 8px; }
+  .index-box ol { padding-right: 18px; }
+  .index-box[dir="rtl"] ol { padding-right: 18px; }
+}
+@media (max-width: 480px) {
+  body { font-size: 14px; }
+  main { padding: 12px; }
+  .cover h1 { font-size: 19pt; }
+  .cover .he-title { font-size: 22pt; }
+  h2.section-title { font-size: 13pt; }
+  h3 { font-size: 11.5pt; }
+  .sacred-text, .he { font-size: 11.5pt; }
+}
+
+  /* Niveau navigation (prev/next siman + onglets N1-N4) */
+  .niveau-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 1rem; padding: 1.5rem 0; border-top: 1px solid #d4c89a;
+    margin: 3rem 0 1.5rem; flex-wrap: wrap;
+    font-family: 'Inter', 'Helvetica', sans-serif; font-size: 11pt;
+  }
+  .niveau-nav a {
+    color: #1A1F3A; text-decoration: none;
+    padding: 0.5rem 1rem; border-radius: 4px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .niveau-nav a:hover { background: #FAF6EE; color: #1A1F3A; }
+  .niveau-nav .nav-niveaux { display: flex; gap: 0.5rem; }
+  .niveau-nav .nav-level { border: 1px solid #d4c89a; font-weight: 600; letter-spacing: 1px; }
+  .niveau-nav .nav-level.active { background: #1A1F3A; color: #fff; border-color: #1A1F3A; }
+  .niveau-nav .nav-level.active:hover { background: #1A1F3A; color: #fff; }
+  .niveau-nav .nav-spacer { flex: 1; }
+  @media (max-width: 640px) {
+    .niveau-nav { flex-direction: column; gap: 0.75rem; }
+  }
+  @media print { .niveau-nav { display: none; } }
 </style>
 </head>
 <body>
@@ -384,6 +440,16 @@
   <script src="../../../assets/js/chat-widget.min.js" defer></script>
 <a href="../../../communaute-he.html#khavroutha" class="daat-khavroutha-fab" title="מציאת חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">להצטרף לחברותא</span></a>
   <script src="../../../assets/js/daat-progress.js" defer></script>
+<nav class="niveau-nav" aria-label="Navigation entre niveaux">
+  <a href="../siman-270/niveau-2-lamdan.html" class="nav-prev">← Siman 270</a>
+  <div class="nav-niveaux">
+    <a href="niveau-1-base.html" class="nav-level">N1</a>
+    <a href="niveau-2-lamdan.html" class="nav-level active">N2</a>
+    <a href="niveau-3-synthese.html" class="nav-level">N3</a>
+    <a href="niveau-4-daat-harav.html" class="nav-level">N4</a>
+  </div>
+  <a href="../siman-272/niveau-2-lamdan.html" class="nav-next">Siman 272 →</a>
+</nav>
 </main>
 </body>
 </html>

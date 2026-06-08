@@ -85,6 +85,29 @@
 }
 .lang-switcher-float a:hover { color: #1A1F3A; border-color: #C5A55A; }
 @media print { .lang-switcher-float { display: none; } }
+
+  /* Niveau navigation (prev/next siman + onglets N1-N4) */
+  .niveau-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 1rem; padding: 1.5rem 0; border-top: 1px solid #d4c89a;
+    margin: 3rem 0 1.5rem; flex-wrap: wrap;
+    font-family: 'Inter', 'Helvetica', sans-serif; font-size: 11pt;
+  }
+  .niveau-nav a {
+    color: #1A1F3A; text-decoration: none;
+    padding: 0.5rem 1rem; border-radius: 4px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .niveau-nav a:hover { background: #FAF6EE; color: #1A1F3A; }
+  .niveau-nav .nav-niveaux { display: flex; gap: 0.5rem; }
+  .niveau-nav .nav-level { border: 1px solid #d4c89a; font-weight: 600; letter-spacing: 1px; }
+  .niveau-nav .nav-level.active { background: #1A1F3A; color: #fff; border-color: #1A1F3A; }
+  .niveau-nav .nav-level.active:hover { background: #1A1F3A; color: #fff; }
+  .niveau-nav .nav-spacer { flex: 1; }
+  @media (max-width: 640px) {
+    .niveau-nav { flex-direction: column; gap: 0.75rem; }
+  }
+  @media print { .niveau-nav { display: none; } }
 </style>
 </head>
 <body>
@@ -321,6 +344,16 @@
     </div>
   </section>
 
+<nav class="niveau-nav" aria-label="ניווט בין רמות">
+  <a href="../siman-310/niveau-4-daat-harav-he.html" class="nav-prev">סימן 310 →</a>
+  <div class="nav-niveaux">
+    <a href="niveau-1-base-he.html" class="nav-level">N1</a>
+    <a href="niveau-2-lamdan-he.html" class="nav-level">N2</a>
+    <a href="niveau-3-synthese-he.html" class="nav-level">N3</a>
+    <a href="niveau-4-daat-harav-he.html" class="nav-level active">N4</a>
+  </div>
+  <a href="../siman-312/niveau-4-daat-harav-he.html" class="nav-next">← סימן 312</a>
+</nav>
 </main>
 
 <footer>
