@@ -2,19 +2,25 @@
 /**
  * Génère le plan Daat Yomi (5 jours/semaine — dim-jeu, saut ven+sam).
  *
+ * Règle hybride (5 séifim / jour) :
+ *   - Si un siman ≤5 séifim → tout le siman tient sur 1 jour
+ *   - Si un siman >5 séifim → on le découpe en lots de 5 séifim consécutifs
+ *     (1-5, 6-10, 11-N), chaque lot = 1 jour.
+ *
  * Entrées :
  *   - /data/simanim-disponibles.json          (FR)
  *   - /data/simanim-disponibles-en.json       (EN)
  *   - /data/simanim-disponibles-he.json       (HE)
  *
  * Sorties :
- *   - /data/limoud-plan.json                  (plan complet, 1 jour = 1 siman)
+ *   - /data/limoud-plan.json
  *   - /limoud/jour-NNN.html / -en.html / -he.html
  *   - /limoud/index.html / index-en.html / index-he.html
+ *   - bandeau injecté dans /index.html / -en / -he (markers <!-- BANDEAU DAAT YOMI -->)
  *
  * Règle des jours d'étude :
  *   - Étude : dim (0), lun (1), mar (2), mer (3), jeu (4)
- *   - Pause : ven (5), sam (6)  → ces dates sont ignorées
+ *   - Pause : ven (5), sam (6)
  *   - Date de départ : 2026-06-08 (lundi) = Jour 1
  */
 'use strict';
@@ -28,6 +34,29 @@ const DATA_DIR = path.join(ROOT, 'data');
 
 const START_DATE_ISO = '2026-06-08'; // lundi
 const SITE_URL = 'https://daattorah.com';
+const SEIFIM_PER_DAY = 5;
+
+// ─── Nombre de séifim par siman (extrait des niveau-1-base.html) ─────────
+// Compté via le pattern utilisé par scripts/audit-seifim-coverage.py
+// (Seif latin/translit/héb, Séif, סעיף). Régénéré le 2026-06-08.
+const SEIFIM_COUNT = {
+  242: 1,  243: 2,  244: 6,  245: 2,  246: 5,  247: 6,  248: 4,  249: 4,
+  250: 2,  251: 2,  252: 6,  253: 4,  254: 8,  255: 3,  256: 1,  257: 7,
+  258: 4,  259: 6,  260: 2,  261: 4,  262: 3,  263: 9,  264: 8,  265: 4,
+  266: 10, 267: 3,  268: 10, 269: 1,  270: 2,  271: 10, 272: 10, 273: 7,
+  274: 4,  275: 10, 276: 5,  277: 5,  278: 1,  279: 7,  280: 2,  281: 1,
+  282: 7,  283: 1,  284: 7,  285: 7,  286: 5,  287: 1,  288: 10, 289: 2,
+  290: 2,  291: 6,  292: 2,  293: 3,  294: 5,  295: 1,  296: 8,  297: 5,
+  298: 10, 299: 10, 300: 1,  301: 14, 302: 10, 303: 11, 304: 3,  305: 11,
+  306: 10, 307: 11, 308: 14, 309: 5,  310: 9,  311: 9,  312: 10, 313: 10,
+  314: 10, 315: 10, 316: 10, 317: 7,  318: 10, 319: 10, 320: 11, 321: 10,
+  322: 6,  323: 10, 324: 10, 325: 10, 326: 10, 327: 4,  328: 13, 329: 9,
+  330: 10, 331: 10, 332: 4,  333: 3,  334: 11, 335: 5,  336: 10, 337: 4,
+  338: 8,  339: 7,  340: 10, 341: 3,  342: 1,  343: 1,  344: 2,  345: 10,
+  346: 3,  347: 1,  348: 1,  349: 5,  350: 3,  351: 1,  352: 2,  353: 3,
+  354: 2,  355: 5,  356: 2,  357: 3,  358: 10, 359: 1,  360: 3,  361: 2,
+  362: 10, 363: 12, 364: 5,  365: 8
+};
 
 // ─── Helpers date ──────────────────────────────────────────────────────────
 function isStudyDay(date) {
@@ -42,7 +71,6 @@ function addDays(date, n) {
 }
 
 function parseISODate(s) {
-  // Force UTC midnight
   const [y, m, d] = s.split('-').map(Number);
   return new Date(Date.UTC(y, m - 1, d));
 }
@@ -51,9 +79,6 @@ function toISODate(d) {
   return d.toISOString().slice(0, 10);
 }
 
-// Numéro du jour de plan pour `today` à partir de `startDate`
-// (1-based, ne compte que les study days écoulés).
-// Retourne 0 si today < startDate.
 function getCurrentStudyDay(today, startDate) {
   if (today < startDate) return 0;
   let dayNum = 0;
@@ -94,7 +119,6 @@ const simanimFR = loadJSON(path.join(DATA_DIR, 'simanim-disponibles.json'));
 const simanimEN = loadJSON(path.join(DATA_DIR, 'simanim-disponibles-en.json'));
 const simanimHE = loadJSON(path.join(DATA_DIR, 'simanim-disponibles-he.json'));
 
-// Index par num pour EN/HE
 const titleByNum = (idx) => {
   const m = {};
   for (const s of idx.simanim) m[s.num] = s;
@@ -103,9 +127,45 @@ const titleByNum = (idx) => {
 const enByNum = titleByNum(simanimEN);
 const heByNum = titleByNum(simanimHE);
 
+// ─── Construction des "lots" (avant assignation des dates) ────────────────
+// Chaque "lot" = un jour d'étude. Pour un siman de N séifim :
+//   - N ≤ 5  → 1 lot couvrant tout le siman
+//   - N > 5  → ceil(N/5) lots de 5 séifim consécutifs
+const lots = [];
+for (const s of simanimFR.simanim) {
+  const num = s.num;
+  const nbSeifim = SEIFIM_COUNT[num] || 1;
+  if (nbSeifim <= SEIFIM_PER_DAY) {
+    lots.push({
+      siman: s,
+      nbSeifim,
+      seifRange: [1, nbSeifim],
+      lotIndex: 1,
+      lotTotal: 1
+    });
+  } else {
+    const lotTotal = Math.ceil(nbSeifim / SEIFIM_PER_DAY);
+    let start = 1;
+    let lotIndex = 1;
+    while (start <= nbSeifim) {
+      const end = Math.min(start + SEIFIM_PER_DAY - 1, nbSeifim);
+      lots.push({
+        siman: s,
+        nbSeifim,
+        seifRange: [start, end],
+        lotIndex,
+        lotTotal
+      });
+      start = end + 1;
+      lotIndex++;
+    }
+  }
+}
+
+const totalDays = lots.length;
+
 // ─── Calcul des dates des jours d'étude ────────────────────────────────────
 const startDate = parseISODate(START_DATE_ISO);
-const totalDays = simanimFR.simanim.length; // 124
 const dayDates = [];
 {
   let cur = new Date(startDate.getTime());
@@ -116,35 +176,37 @@ const dayDates = [];
 }
 
 // ─── Construction du plan ─────────────────────────────────────────────────
-const entries = simanimFR.simanim.map((s, i) => {
+const entries = lots.map((lot, i) => {
   const date = dayDates[i];
-  const num = s.num;
+  const num = lot.siman.num;
   const enS = enByNum[num] || {};
   const heS = heByNum[num] || {};
-  const siman3 = String(num).padStart(3, '0');
+  const [seifStart, seifEnd] = lot.seifRange;
   return {
     dayNumber: i + 1,
     date: toISODate(date),
     dow: date.getUTCDay(),
     siman: {
       num,
-      numHe: s.numHe,
-      title: s.title,
-      titleEn: enS.title || s.title,
-      titleHe: heS.title || s.title,
-      path: s.path
+      numHe: lot.siman.numHe,
+      title: lot.siman.title,
+      titleEn: enS.title || lot.siman.title,
+      titleHe: heS.title || lot.siman.title,
+      path: lot.siman.path
     },
-    levels: s.levels,
-    status: s.status
+    seifRange: [seifStart, seifEnd],
+    seifCount: seifEnd - seifStart + 1,
+    lotIndex: lot.lotIndex,
+    lotTotal: lot.lotTotal,
+    levels: lot.siman.levels,
+    status: lot.siman.status
   };
 });
 
-// ─── Groupement par "semaine" (5 jours dim→jeu de la même semaine ISO) ────
-// On groupe par dimanche-de-la-semaine. La 1ère semaine commence le lundi
-// 2026-06-08 → on calcule le dimanche correspondant (2026-06-07).
+// ─── Groupement par "semaine" (5 jours dim→jeu) ───────────────────────────
 function getSundayOfWeek(d) {
   const dow = d.getUTCDay();
-  return addDays(d, -dow); // dimanche
+  return addDays(d, -dow);
 }
 
 const weeks = [];
@@ -167,11 +229,13 @@ const weeks = [];
 // ─── Sortie data/limoud-plan.json ──────────────────────────────────────────
 const planJSON = {
   meta: {
-    version: '1.0',
-    description: 'Plan Daat Yomi — 1 siman par jour, 5 jours par semaine (dim-jeu, saut ven+sam).',
+    version: '2.0',
+    description: 'Plan Daat Yomi — 5 séifim/jour max (lots de 5), 5 jours par semaine (dim-jeu).',
     startDate: START_DATE_ISO,
     endDate: entries[entries.length - 1].date,
     totalDays: entries.length,
+    totalSeifim: Object.values(SEIFIM_COUNT).reduce((a, b) => a + b, 0),
+    seifimPerDay: SEIFIM_PER_DAY,
     studyDaysPerWeek: 5,
     studyDows: [0, 1, 2, 3, 4],
     skipDows: [5, 6],
@@ -214,11 +278,15 @@ const PAGE_CSS = `
     .lang-switcher a.active{background:var(--gold);color:var(--navy)}
     main{max-width:860px;margin:0 auto;padding:60px 24px 80px}
     .day-tag{font-family:'Inter',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
-    h1.day-title{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:600;color:var(--navy);margin-bottom:8px;line-height:1.15}
+    h1.day-title{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:600;color:var(--navy);margin-bottom:8px;line-height:1.18}
+    h1.day-title .seif-info{font-size:24px;color:var(--gold);font-style:italic;display:block;margin-top:6px;font-weight:500}
     .day-date{font-style:italic;color:var(--text-mid);margin-bottom:32px;font-size:18px}
     .siman-card{background:#fff;border:1px solid rgba(197,165,90,.25);border-left:4px solid var(--gold);border-radius:6px;padding:28px 32px;margin-bottom:28px;box-shadow:0 2px 8px rgba(11,28,58,.04)}
     .siman-num{font-family:'Frank Ruhl Libre',serif;font-size:14px;color:var(--gold);letter-spacing:2px;margin-bottom:6px}
     .siman-title{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--navy);font-weight:500;margin-bottom:18px}
+    .seif-focus{margin:14px 0 4px;padding:12px 16px;background:rgba(197,165,90,.10);border-left:3px solid var(--gold);border-radius:4px;font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--text-dark);font-style:italic}
+    .seif-focus strong{color:var(--navy);font-style:normal;font-weight:600}
+    [dir="rtl"] .seif-focus{border-left:none;border-right:3px solid var(--gold)}
     .levels-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:16px}
     .level-link{display:block;padding:14px 16px;background:var(--cream);border:1px solid rgba(197,165,90,.3);border-radius:4px;text-decoration:none;color:var(--text-dark);font-family:'Inter',sans-serif;font-size:13px;letter-spacing:1px;text-transform:uppercase;text-align:center;transition:.18s}
     .level-link:hover{background:var(--gold);color:var(--navy);border-color:var(--gold)}
@@ -233,7 +301,8 @@ const PAGE_CSS = `
     [dir="rtl"] .siman-card{border-left:none;border-right:4px solid var(--gold)}
     [dir="rtl"] .nav-days{flex-direction:row-reverse}
     @media (max-width:640px){
-      h1.day-title{font-size:34px}
+      h1.day-title{font-size:30px}
+      h1.day-title .seif-info{font-size:18px}
       main{padding:40px 18px 60px}
       .siman-card{padding:22px 18px}
       header{padding:0 16px;height:60px}
@@ -307,12 +376,12 @@ function siteRelative(p) {
 }
 
 function buildLevelLinks(entry, lang) {
-  const dir = siteRelative(entry.siman.path); // e.g. /sources/shabbat/siman-242/
+  const dir = siteRelative(entry.siman.path);
   const labels = LEVEL_LABELS[lang];
   const suffix = LEVEL_SUFFIX[lang];
   const out = [];
   for (const lvl of ['n1','n2','n3','n4']) {
-    if (!entry.levels[lvl]) continue;
+    if (!entry.levels || !entry.levels[lvl]) continue;
     const href = `${dir}${LEVEL_FILES[lvl]}${suffix}.html`;
     out.push(`<a class="level-link" href="${href}"><span class="ln">${labels.tag} ${lvl.slice(1)}</span>${labels[lvl]}</a>`);
   }
@@ -326,6 +395,59 @@ function dayFileName(dayNum, lang) {
   return `jour-${n}-he.html`;
 }
 
+// ─── Helpers de titre / sous-titre tenant compte des lots ──────────────────
+function buildTitleParts(entry, lang) {
+  const [a, b] = entry.seifRange;
+  const isSplit = entry.lotTotal > 1;
+  const lotSuffix = isSplit ? ` (${entry.lotIndex}/${entry.lotTotal})` : '';
+  const rangeText = a === b ? String(a) : `${a}-${b}`;
+  const seifPart = (label, total) => `(${label} ${rangeText} / ${total})`;
+  const total = SEIFIM_COUNT[entry.siman.num] || entry.seifCount;
+  if (lang === 'fr') {
+    const base = `Jour ${entry.dayNumber} — Siman ${entry.siman.num}`;
+    if (!isSplit) return { titleShort: base, titleHtml: base };
+    return {
+      titleShort: `${base} ${seifPart('séif', total)}${lotSuffix}`,
+      titleHtml: `${base}<span class="seif-info">${seifPart('séif', total)}${lotSuffix}</span>`
+    };
+  }
+  if (lang === 'en') {
+    const base = `Day ${entry.dayNumber} — Siman ${entry.siman.num}`;
+    if (!isSplit) return { titleShort: base, titleHtml: base };
+    return {
+      titleShort: `${base} ${seifPart('seif', total)}${lotSuffix}`,
+      titleHtml: `${base}<span class="seif-info">${seifPart('seif', total)}${lotSuffix}</span>`
+    };
+  }
+  // he
+  const base = `יום ${entry.dayNumber} — סימן ${entry.siman.num}`;
+  if (!isSplit) return { titleShort: base, titleHtml: base };
+  return {
+    titleShort: `${base} ${seifPart('סעיף', total)}${lotSuffix}`,
+    titleHtml: `${base}<span class="seif-info">${seifPart('סעיף', total)}${lotSuffix}</span>`
+  };
+}
+
+function buildFocusLine(entry, lang) {
+  const [a, b] = entry.seifRange;
+  const single = a === b;
+  if (entry.lotTotal === 1 && entry.seifCount === SEIFIM_COUNT[entry.siman.num]) {
+    // Le siman entier tient sur 1 jour : pas besoin du bandeau "concentre-toi"
+    return '';
+  }
+  if (lang === 'fr') {
+    const range = single ? `<strong>${a}</strong>` : `<strong>${a} à ${b}</strong>`;
+    return `<p class="seif-focus">Concentre-toi sur ${single ? 'le séif' : 'les séifim'} ${range} aujourd'hui ${entry.lotTotal > 1 ? `(lot ${entry.lotIndex} sur ${entry.lotTotal})` : ''}.</p>`;
+  }
+  if (lang === 'en') {
+    const range = single ? `<strong>${a}</strong>` : `<strong>${a} to ${b}</strong>`;
+    return `<p class="seif-focus">Focus on ${single ? 'seif' : 'seifim'} ${range} today ${entry.lotTotal > 1 ? `(part ${entry.lotIndex} of ${entry.lotTotal})` : ''}.</p>`;
+  }
+  // he
+  const range = single ? `<strong>${a}</strong>` : `<strong>${a}-${b}</strong>`;
+  return `<p class="seif-focus">התמקד היום ב${single ? 'סעיף' : 'סעיפים'} ${range} ${entry.lotTotal > 1 ? `(חלק ${entry.lotIndex} מתוך ${entry.lotTotal})` : ''}.</p>`;
+}
+
 function renderDayPage(entry, lang) {
   const n = String(entry.dayNumber).padStart(3, '0');
   const dt = parseISODate(entry.date);
@@ -334,7 +456,6 @@ function renderDayPage(entry, lang) {
   const htmlLang = lang === 'fr' ? 'fr' : (lang === 'en' ? 'en' : 'he');
   const dir = isHE ? 'rtl' : 'ltr';
 
-  // Headers + lang switcher
   let header;
   const fileFR = dayFileName(entry.dayNumber, 'fr');
   const fileEN = dayFileName(entry.dayNumber, 'en');
@@ -346,40 +467,55 @@ function renderDayPage(entry, lang) {
   else header = HEADER_HE
     .replace('LANG_FR_LINK', fileFR).replace('LANG_HE_LINK', fileHE).replace('LANG_EN_LINK', fileEN);
 
+  const titleParts = buildTitleParts(entry, lang);
+  const isSplit = entry.lotTotal > 1;
+  const [a, b] = entry.seifRange;
+  const total = SEIFIM_COUNT[entry.siman.num] || entry.seifCount;
+
+  const localTitle = (lang === 'en' ? entry.siman.titleEn : (lang === 'he' ? entry.siman.titleHe : entry.siman.title));
+
+  const descByLang = {
+    fr: isSplit
+      ? `Étude du jour : Siman ${entry.siman.num} séif ${a}-${b} (lot ${entry.lotIndex}/${entry.lotTotal}). ${localTitle}. Plan Daat Yomi (5 séifim/jour max, dim-jeu).`
+      : `Étude du jour : Siman ${entry.siman.num} — ${localTitle}. Plan Daat Yomi (5 séifim/jour max, dim-jeu).`,
+    en: isSplit
+      ? `Today's learning: Siman ${entry.siman.num} seif ${a}-${b} (part ${entry.lotIndex}/${entry.lotTotal}). ${localTitle}. Daat Yomi plan (max 5 seifim/day, Sun-Thu).`
+      : `Today's learning: Siman ${entry.siman.num} — ${localTitle}. Daat Yomi plan (max 5 seifim/day, Sun-Thu).`,
+    he: isSplit
+      ? `לימוד היום: סימן ${entry.siman.num} סעיף ${a}-${b} (חלק ${entry.lotIndex}/${entry.lotTotal}). ${localTitle}. תוכנית דעת יומי (עד 5 סעיפים ליום, ראשון-חמישי).`
+      : `לימוד היום: סימן ${entry.siman.num} — ${localTitle}. תוכנית דעת יומי (עד 5 סעיפים ליום, ראשון-חמישי).`
+  };
+
   const t = {
     fr: {
       tag:'Daat Yomi · Jour ' + entry.dayNumber,
-      title:`Jour ${entry.dayNumber} — Siman ${entry.siman.num}`,
       bcHome:'Accueil', bcLimoud:'Daat Yomi', bcDay:`Jour ${entry.dayNumber}`,
       prev:'← Jour précédent', next:'Jour suivant →', index:'Voir le plan complet',
-      sub:'Daat Yomi (dim-jeu) — un siman par jour',
+      sub:'Daat Yomi (dim-jeu) — 5 séifim/jour max',
       siman:'Siman',
-      pageTitle:`Jour ${entry.dayNumber} — Siman ${entry.siman.num} · Daat Yomi | Daat Torah`,
-      pageDesc:`Étude du jour : Siman ${entry.siman.num} — ${entry.siman.title}. Plan Daat Yomi (5 jours/semaine, dim-jeu).`
+      pageTitle:`${titleParts.titleShort} · Daat Yomi | Daat Torah`,
+      pageDesc:descByLang.fr
     },
     en: {
       tag:'Daat Yomi · Day ' + entry.dayNumber,
-      title:`Day ${entry.dayNumber} — Siman ${entry.siman.num}`,
       bcHome:'Home', bcLimoud:'Daat Yomi', bcDay:`Day ${entry.dayNumber}`,
       prev:'← Previous day', next:'Next day →', index:'See the full plan',
-      sub:'Daat Yomi (Sun-Thu) — one siman per day',
+      sub:'Daat Yomi (Sun-Thu) — max 5 seifim/day',
       siman:'Siman',
-      pageTitle:`Day ${entry.dayNumber} — Siman ${entry.siman.num} · Daat Yomi | Daat Torah`,
-      pageDesc:`Today's learning: Siman ${entry.siman.num} — ${entry.siman.titleEn}. Daat Yomi plan (5 days/week, Sun-Thu).`
+      pageTitle:`${titleParts.titleShort} · Daat Yomi | Daat Torah`,
+      pageDesc:descByLang.en
     },
     he: {
       tag:'דעת יומי · יום ' + entry.dayNumber,
-      title:`יום ${entry.dayNumber} — סימן ${entry.siman.num}`,
       bcHome:'בית', bcLimoud:'דעת יומי', bcDay:`יום ${entry.dayNumber}`,
       prev:'יום קודם →', next:'← יום הבא', index:'לתוכנית המלאה',
-      sub:'דעת יומי (ראשון-חמישי) — סימן ליום',
+      sub:'דעת יומי (ראשון-חמישי) — עד 5 סעיפים ליום',
       siman:'סימן',
-      pageTitle:`יום ${entry.dayNumber} — סימן ${entry.siman.num} · דעת יומי | Daat Torah`,
-      pageDesc:`לימוד היום: סימן ${entry.siman.num} — ${entry.siman.titleHe}. תוכנית דעת יומי (5 ימים בשבוע, ראשון-חמישי).`
+      pageTitle:`${titleParts.titleShort} · דעת יומי | Daat Torah`,
+      pageDesc:descByLang.he
     }
   }[lang];
 
-  const title = (lang === 'en' ? entry.siman.titleEn : (lang === 'he' ? entry.siman.titleHe : entry.siman.title));
   const numHe = entry.siman.numHe;
 
   const prevNum = entry.dayNumber - 1;
@@ -389,6 +525,7 @@ function renderDayPage(entry, lang) {
   const idxHref = lang === 'fr' ? 'index.html' : (lang === 'en' ? 'index-en.html' : 'index-he.html');
 
   const levelLinks = buildLevelLinks(entry, lang);
+  const focusLine = buildFocusLine(entry, lang);
 
   const canonical = `${SITE_URL}/limoud/${dayFileName(entry.dayNumber, lang)}`;
 
@@ -404,7 +541,7 @@ ${COMMON_HEAD}
   <link rel="alternate" hreflang="he" href="${SITE_URL}/limoud/${dayFileName(entry.dayNumber, 'he')}">
   <link rel="alternate" hreflang="x-default" href="${SITE_URL}/limoud/${dayFileName(entry.dayNumber, 'fr')}">
   <meta property="og:type" content="article">
-  <meta property="og:title" content="${t.title}">
+  <meta property="og:title" content="${titleParts.titleShort}">
   <meta property="og:description" content="${t.pageDesc}">
   <meta property="og:url" content="${canonical}">
   <meta property="og:image" content="${SITE_URL}/assets/img/og/og-default.svg">
@@ -417,15 +554,16 @@ ${header}
     <a href="/${lang === 'fr' ? 'index.html' : (lang === 'en' ? 'index-en.html' : 'index-he.html')}">${t.bcHome}</a> · <a href="${idxHref}">${t.bcLimoud}</a> · ${t.bcDay}
   </div>
   <div class="day-tag">${t.tag}</div>
-  <h1 class="day-title">${t.title}</h1>
+  <h1 class="day-title">${titleParts.titleHtml}</h1>
   <div class="day-date">${dateStr} · <span style="opacity:.8">${t.sub}</span></div>
 
   <div class="siman-card">
     <div class="siman-num">${t.siman} ${entry.siman.num} · ${numHe}</div>
-    <div class="siman-title">${title}</div>
+    <div class="siman-title">${localTitle}</div>
     <div class="levels-list">
             ${levelLinks}
     </div>
+    ${focusLine}
   </div>
 
   <nav class="nav-days" aria-label="${lang === 'he' ? 'ניווט בין ימים' : (lang === 'en' ? 'Day navigation' : 'Navigation entre jours')}">
@@ -469,45 +607,48 @@ function renderIndex(lang) {
   const t = {
     fr: {
       title:'Daat Yomi — Plan d\'étude quotidien',
-      sub:'Un siman par jour, 5 jours par semaine (dimanche → jeudi). Pause le vendredi (préparation Shabbat) et le Shabbat.',
+      sub:`Lots de 5 séifim maximum par jour, 5 jours par semaine (dimanche → jeudi). Pause le vendredi (préparation Shabbat) et le Shabbat.`,
       week:'Semaine',
       day:'Jour',
       siman:'Siman',
+      seif:'séif',
       from:'Du',
       to:'au',
       start:`Début : ${fmtDate(parseISODate(entries[0].date), 'fr')}`,
       end:`Fin : ${fmtDate(parseISODate(entries[entries.length-1].date), 'fr')}`,
       total:`${entries.length} jours d'étude · 5 j/semaine`,
       pageTitle:'Daat Yomi — Plan d\'étude quotidien | Daat Torah',
-      pageDesc:`Plan d'étude quotidien du Choulhan Aroukh : ${entries.length} jours, un siman par jour, 5 jours par semaine (dimanche-jeudi).`
+      pageDesc:`Plan d'étude quotidien du Choulhan Aroukh : ${entries.length} jours, 5 séifim/jour maximum, 5 jours par semaine (dimanche-jeudi).`
     },
     en: {
       title:'Daat Yomi — Daily study plan',
-      sub:'One siman per day, 5 days a week (Sunday → Thursday). Friday (Shabbat preparation) and Shabbat are off.',
+      sub:`Up to 5 seifim per day, 5 days a week (Sunday → Thursday). Friday (Shabbat preparation) and Shabbat are off.`,
       week:'Week',
       day:'Day',
       siman:'Siman',
+      seif:'seif',
       from:'From',
       to:'to',
       start:`Start: ${fmtDate(parseISODate(entries[0].date), 'en')}`,
       end:`End: ${fmtDate(parseISODate(entries[entries.length-1].date), 'en')}`,
       total:`${entries.length} study days · 5 days/week`,
       pageTitle:'Daat Yomi — Daily study plan | Daat Torah',
-      pageDesc:`Daily learning plan of the Shulchan Aruch: ${entries.length} days, one siman per day, 5 days a week (Sunday-Thursday).`
+      pageDesc:`Daily learning plan of the Shulchan Aruch: ${entries.length} days, up to 5 seifim/day, 5 days a week (Sunday-Thursday).`
     },
     he: {
       title:'דעת יומי — תוכנית לימוד יומית',
-      sub:'סימן ליום, 5 ימים בשבוע (ראשון → חמישי). שישי (הכנה לשבת) ושבת — אין לימוד.',
+      sub:`עד 5 סעיפים ליום, 5 ימים בשבוע (ראשון → חמישי). שישי (הכנה לשבת) ושבת — אין לימוד.`,
       week:'שבוע',
       day:'יום',
       siman:'סימן',
+      seif:'סעיף',
       from:'מ-',
       to:'עד',
       start:`התחלה: ${fmtDate(parseISODate(entries[0].date), 'he')}`,
       end:`סיום: ${fmtDate(parseISODate(entries[entries.length-1].date), 'he')}`,
       total:`${entries.length} ימי לימוד · 5 ימים בשבוע`,
       pageTitle:'דעת יומי — תוכנית לימוד יומית | Daat Torah',
-      pageDesc:`תוכנית לימוד יומית בשולחן ערוך: ${entries.length} ימים, סימן ליום, 5 ימים בשבוע (ראשון-חמישי).`
+      pageDesc:`תוכנית לימוד יומית בשולחן ערוך: ${entries.length} ימים, עד 5 סעיפים ליום, 5 ימים בשבוע (ראשון-חמישי).`
     }
   }[lang];
 
@@ -521,16 +662,22 @@ function renderIndex(lang) {
     const last = w.days[w.days.length - 1];
     const firstDate = parseISODate(first.date);
     const lastDate = parseISODate(last.date);
-    const rangeFr = `${firstDate.getUTCDate()} → ${lastDate.getUTCDate()}`;
     const rangeStr = `${fmtDate(firstDate, lang)} ${t.to} ${fmtDate(lastDate, lang)}`;
     const days = w.days.map(e => {
       const dt = parseISODate(e.date);
       const dowName = lang === 'en' ? DAYS_EN[dt.getUTCDay()] : (lang === 'he' ? DAYS_HE[dt.getUTCDay()] : DAYS_FR[dt.getUTCDay()]);
       const title = (lang === 'en' ? e.siman.titleEn : (lang === 'he' ? e.siman.titleHe : e.siman.title));
       const numHe = e.siman.numHe;
-      return `      <a class="day-item" href="${dayFileName(e.dayNumber, lang)}">
+      const [a, b] = e.seifRange;
+      const isSplit = e.lotTotal > 1;
+      const rangeText = a === b ? String(a) : `${a}-${b}`;
+      // Cellule "Siman X · séif A-B (K/N)" si split, sinon "Siman X"
+      const simanLine = isSplit
+        ? `<strong>${t.siman} ${e.siman.num}</strong> · ${t.seif} ${rangeText} (${e.lotIndex}/${e.lotTotal})`
+        : `<strong>${t.siman} ${e.siman.num}</strong> · ${numHe}`;
+      return `      <a class="day-item${isSplit ? ' is-split' : ''}" href="${dayFileName(e.dayNumber, lang)}">
         <span class="day-meta"><span class="day-dow">${dowName}</span> · <span class="day-num">${t.day} ${e.dayNumber}</span> · <span class="day-date">${dt.getUTCDate()}/${(dt.getUTCMonth()+1)}</span></span>
-        <span class="day-siman"><strong>${t.siman} ${e.siman.num}</strong> · ${numHe}</span>
+        <span class="day-siman">${simanLine}</span>
         <span class="day-title">${title}</span>
       </a>`;
     }).join('\n');
@@ -570,6 +717,8 @@ ${days}
     .day-item{display:flex;flex-direction:column;gap:6px;padding:18px 16px;text-decoration:none;color:var(--text-dark);border-right:1px solid rgba(197,165,90,.18);transition:.18s;background:#fff}
     .day-item:last-child{border-right:none}
     .day-item:hover{background:var(--cream)}
+    .day-item.is-split{background:linear-gradient(135deg,#fff 70%,rgba(197,165,90,.07))}
+    .day-item.is-split:hover{background:linear-gradient(135deg,var(--cream) 70%,rgba(197,165,90,.12))}
     .day-meta{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:1px;color:var(--text-mid);text-transform:uppercase}
     .day-meta .day-dow{color:var(--gold);font-weight:600}
     .day-siman{font-family:'Frank Ruhl Libre',serif;font-size:15px;color:var(--navy)}
@@ -630,60 +779,66 @@ for (const lang of ['fr','en','he']) {
 console.log(`✓ Index calendrier généré (3 langues) dans /limoud/`);
 
 // ─── Bandeau homepage (snippet inséré dans index.html / -en / -he) ────────
-// On exporte un snippet HTML + JS qui calcule getCurrentStudyDay côté client.
 function bannerSnippet(lang) {
-  const isHE = lang === 'he';
   const t = {
     fr: {
       tag: 'Daat Yomi — étude quotidienne',
       todayLabel: 'Aujourd\'hui',
       jourLabel: 'Jour',
       simanLabel: 'Siman',
+      seifLabel: 'séif',
       cta: 'Étudier maintenant →',
       indexCta: 'Voir le plan complet',
       shabbat: 'Shabbat shalom — reprise dimanche',
       friday: 'Reprise dimanche',
       beforeStart: `Le Daat Yomi commence le ${fmtDate(parseISODate(START_DATE_ISO), 'fr')}`,
       finished: 'Plan terminé — mazal tov ! 🎉',
-      sub: '5 jours/semaine · dim → jeu'
+      sub: '5 séifim/jour max · dim → jeu'
     },
     en: {
       tag: 'Daat Yomi — daily study',
       todayLabel: 'Today',
       jourLabel: 'Day',
       simanLabel: 'Siman',
+      seifLabel: 'seif',
       cta: 'Study now →',
       indexCta: 'See the full plan',
       shabbat: 'Shabbat shalom — resumes Sunday',
       friday: 'Resumes Sunday',
       beforeStart: `Daat Yomi starts on ${fmtDate(parseISODate(START_DATE_ISO), 'en')}`,
       finished: 'Plan completed — mazal tov! 🎉',
-      sub: '5 days/week · Sun → Thu'
+      sub: 'Max 5 seifim/day · Sun → Thu'
     },
     he: {
       tag: 'דעת יומי — לימוד יומי',
       todayLabel: 'היום',
       jourLabel: 'יום',
       simanLabel: 'סימן',
+      seifLabel: 'סעיף',
       cta: 'ללמוד עכשיו ←',
       indexCta: 'לתוכנית המלאה',
       shabbat: 'שבת שלום — נחזור ביום ראשון',
       friday: 'נחזור ביום ראשון',
       beforeStart: `דעת יומי מתחיל ב-${fmtDate(parseISODate(START_DATE_ISO), 'he')}`,
       finished: 'התוכנית הושלמה — מזל טוב! 🎉',
-      sub: '5 ימים בשבוע · ראשון → חמישי'
+      sub: 'עד 5 סעיפים ליום · ראשון → חמישי'
     }
   }[lang];
 
   const indexFile = lang === 'fr' ? 'index.html' : (lang === 'en' ? 'index-en.html' : 'index-he.html');
 
-  // Données : array compact [dayNum,'YYYY-MM-DD',sNum,'numHe','title']
+  // Compact entries:
+  // [dayNum, 'YYYY-MM-DD', sNum, 'numHe', 'title', seifStart, seifEnd, lotIndex, lotTotal]
   const compact = entries.map(e => [
     e.dayNumber,
     e.date,
     e.siman.num,
     e.siman.numHe,
-    (lang === 'en' ? e.siman.titleEn : (lang === 'he' ? e.siman.titleHe : e.siman.title))
+    (lang === 'en' ? e.siman.titleEn : (lang === 'he' ? e.siman.titleHe : e.siman.title)),
+    e.seifRange[0],
+    e.seifRange[1],
+    e.lotIndex,
+    e.lotTotal
   ]);
 
   return `
@@ -707,6 +862,7 @@ function bannerSnippet(lang) {
   .daat-yomi-banner .dy-day{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:600;color:#fff;margin-bottom:6px;line-height:1.1}
   .daat-yomi-banner .dy-day .dy-day-num{color:var(--gold)}
   .daat-yomi-banner .dy-siman{font-family:'Frank Ruhl Libre',serif;font-size:18px;color:var(--gold);margin-bottom:6px;letter-spacing:1px}
+  .daat-yomi-banner .dy-seif{font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,.78);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
   .daat-yomi-banner .dy-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:rgba(255,255,255,.92);margin-bottom:8px;max-width:720px;margin-left:auto;margin-right:auto}
   .daat-yomi-banner .dy-notice{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold);font-size:15px;margin-top:4px}
   .daat-yomi-banner .dy-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:22px}
@@ -763,7 +919,6 @@ function bannerSnippet(lang) {
   var container=document.getElementById('dy-content');
   var ctaLink=document.getElementById('dy-cta-link');
 
-  // Avant la date de départ
   if(today < start){
     container.innerHTML='<div class="dy-notice">'+T.beforeStart+'</div>';
     return;
@@ -774,12 +929,10 @@ function bannerSnippet(lang) {
   var notice='';
 
   if(dow===5){
-    // Vendredi → prochain jour = dimanche (dans 2 jours)
     var sun=new Date(today.getTime()); sun.setUTCDate(sun.getUTCDate()+2);
     dayNum=getCurrentStudyDay(sun, start);
     notice=T.friday;
   } else if(dow===6){
-    // Shabbat → prochain jour = dimanche (demain)
     var sun=new Date(today.getTime()); sun.setUTCDate(sun.getUTCDate()+1);
     dayNum=getCurrentStudyDay(sun, start);
     notice=T.shabbat;
@@ -797,7 +950,10 @@ function bannerSnippet(lang) {
   }
 
   var e=ENTRIES[dayNum-1];
-  var entryDate=parseISO(e[1]);
+  // e = [dayNum, date, simanNum, numHe, title, seifStart, seifEnd, lotIndex, lotTotal]
+  var seifStart=e[5], seifEnd=e[6], lotIdx=e[7], lotTot=e[8];
+  var isSplit = lotTot > 1;
+
   var html='';
   if(notice){
     html+='<div class="dy-today">'+T.todayLabel+' · '+fmtDate(today)+'</div>';
@@ -806,7 +962,13 @@ function bannerSnippet(lang) {
     html+='<div class="dy-today">'+T.todayLabel+' · '+fmtDate(today)+'</div>';
   }
   html+='<div class="dy-day">'+T.jourLabel+' <span class="dy-day-num">'+e[0]+'</span> <span style="opacity:.55">/ '+total+'</span></div>';
-  html+='<div class="dy-siman">'+T.simanLabel+' '+e[2]+' · '+e[3]+'</div>';
+  if(isSplit){
+    var rangeStr = (seifStart===seifEnd) ? String(seifStart) : (seifStart+'-'+seifEnd);
+    html+='<div class="dy-siman">'+T.simanLabel+' '+e[2]+' · '+e[3]+'</div>';
+    html+='<div class="dy-seif">'+T.seifLabel+' '+rangeStr+' · ('+lotIdx+'/'+lotTot+')</div>';
+  } else {
+    html+='<div class="dy-siman">'+T.simanLabel+' '+e[2]+' · '+e[3]+'</div>';
+  }
   html+='<div class="dy-title">'+e[4]+'</div>';
   container.innerHTML=html;
   ctaLink.href=dayHref(e[0]);
@@ -816,7 +978,6 @@ function bannerSnippet(lang) {
 `;
 }
 
-// Écrit les snippets dans des fichiers réutilisables (pour debug / refresh facile)
 const SNIPPET_DIR = path.join(ROOT, 'data', '.banner-snippets');
 fs.mkdirSync(SNIPPET_DIR, { recursive: true });
 const snippetFR = bannerSnippet('fr');
@@ -826,8 +987,6 @@ fs.writeFileSync(path.join(SNIPPET_DIR, 'banner-fr.html'), snippetFR, 'utf8');
 fs.writeFileSync(path.join(SNIPPET_DIR, 'banner-en.html'), snippetEN, 'utf8');
 fs.writeFileSync(path.join(SNIPPET_DIR, 'banner-he.html'), snippetHE, 'utf8');
 
-// Insertion dans les pages index.html / index-en.html / index-he.html
-// Insère le bandeau juste APRÈS </section> qui ferme la "social-proof" (ou hero si non trouvé).
 const MARK_BEGIN = '<!-- ── BANDEAU DAAT YOMI ──────────────────────────────────────────── -->';
 const MARK_END = '<!-- ── /BANDEAU DAAT YOMI ───────────────────────────────────────── -->';
 
@@ -838,7 +997,6 @@ function injectBanner(filePath, snippet) {
   }
   let html = fs.readFileSync(filePath, 'utf8');
 
-  // Si déjà inséré, on remplace le bloc existant
   const startIdx = html.indexOf(MARK_BEGIN);
   if (startIdx !== -1) {
     const endIdx = html.indexOf(MARK_END);
@@ -851,11 +1009,9 @@ function injectBanner(filePath, snippet) {
     }
   }
 
-  // Première insertion : juste après la fermeture de </section> de la social-proof
   const anchor = '<section class="social-proof">';
   const anchorPos = html.indexOf(anchor);
   if (anchorPos !== -1) {
-    // trouve le </section> correspondant
     const closeRel = html.indexOf('</section>', anchorPos);
     if (closeRel !== -1) {
       const insertAt = closeRel + '</section>'.length;
@@ -877,12 +1033,17 @@ console.log('\n──────── RÉSUMÉ ────────');
 console.log('Date début : ' + planJSON.meta.startDate);
 console.log('Date fin   : ' + planJSON.meta.endDate);
 console.log('Total jours étude : ' + planJSON.meta.totalDays);
-console.log('Total semaines : ' + weeks.length);
+console.log('Total séifim      : ' + planJSON.meta.totalSeifim);
+console.log('Total semaines    : ' + weeks.length);
 console.log('\nÉchantillons :');
-for (const n of [1, 4, 5, 6, 9, 10, 30, 60, 124]) {
+const samples = [1, 2, 5, 10, 47, 100, totalDays];
+for (const n of samples) {
   if (n <= entries.length) {
     const e = entries[n-1];
     const dt = parseISODate(e.date);
-    console.log(`  Jour ${String(n).padStart(3,' ')} → ${e.date} (${DAYS_FR[dt.getUTCDay()]}) · Siman ${e.siman.num}`);
+    const seifInfo = e.lotTotal > 1
+      ? ` · séif ${e.seifRange[0]}-${e.seifRange[1]} (${e.lotIndex}/${e.lotTotal})`
+      : '';
+    console.log(`  Jour ${String(n).padStart(3,' ')} → ${e.date} (${DAYS_FR[dt.getUTCDay()]}) · Siman ${e.siman.num}${seifInfo}`);
   }
 }
