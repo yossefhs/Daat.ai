@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@400;500;700&family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="/assets/css/daat.css">
+  <link rel="stylesheet" href="/assets/css/daat-enhance.css">
+  <title>Mon plan — Daat Yomi | Daat Torah</title>
+  <meta name="description" content="Mon plan d'étude personnel du Choulhan Aroukh — calendrier perso, progression, jour courant.">
+  <link rel="canonical" href="https://daattorah.com/limoud/mon-plan.html">
+  <meta name="robots" content="noindex,follow">
+
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Cormorant Garamond',Georgia,serif;background:var(--cream);color:var(--text-dark);line-height:1.65;font-size:18px}
+    header{background:var(--navy);height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;position:sticky;top:0;z-index:100;border-bottom:2px solid var(--gold)}
+    .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+    .logo-hebrew{font-family:'Frank Ruhl Libre',serif;font-size:28px;font-weight:700;color:var(--gold);letter-spacing:2px}
+    .logo-latin{font-family:'Cormorant Garamond',serif;font-size:13px;color:rgba(255,255,255,.85);letter-spacing:4px;text-transform:uppercase}
+    nav{display:flex;gap:24px;align-items:center}
+    nav a{color:rgba(255,255,255,.9);text-decoration:none;font-family:'Inter',sans-serif;font-size:13px;letter-spacing:1px;text-transform:uppercase}
+    nav a:hover,nav a.active{color:var(--gold)}
+    main{max-width:1080px;margin:0 auto;padding:50px 24px 80px}
+    .breadcrumb{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-mid);margin-bottom:22px}
+    .breadcrumb a{color:var(--gold);text-decoration:none}
+    .page-tag{font-family:'Inter',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+    h1.page-title{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:600;color:var(--navy);margin-bottom:12px;line-height:1.15}
+    .page-sub{color:var(--text-mid);font-size:18px;font-style:italic;margin-bottom:30px;max-width:720px}
+
+    /* Bandeau "aujourd'hui" */
+    .today-card{background:linear-gradient(135deg,var(--navy) 0%,#0e2447 100%);color:#fff;padding:36px 32px;border-radius:6px;border:1px solid var(--gold);margin-bottom:30px;text-align:center}
+    .today-card .today-label{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+    .today-card .today-day{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:600;color:#fff;line-height:1.15;margin-bottom:8px}
+    .today-card .today-day .day-num{color:var(--gold)}
+    .today-card .today-siman{font-family:'Frank Ruhl Libre',serif;font-size:20px;color:var(--gold);margin-bottom:6px;letter-spacing:1px}
+    .today-card .today-seif{font-family:'Inter',sans-serif;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.78);margin-bottom:10px}
+    .today-card .today-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:rgba(255,255,255,.92);margin-bottom:20px;max-width:760px;margin-left:auto;margin-right:auto}
+    .today-card .today-notice{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold);font-size:16px;margin-bottom:14px}
+    .today-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+    .btn{padding:14px 26px;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;border-radius:3px;border:1px solid var(--gold);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;transition:.15s}
+    .btn-primary{background:var(--gold);color:var(--navy)}
+    .btn-primary:hover{background:#d9b66e}
+    .btn-secondary{background:transparent;color:#fff}
+    .btn-secondary:hover{background:rgba(197,165,90,.15)}
+    .btn-dark-secondary{background:transparent;color:var(--navy)}
+    .btn-dark-secondary:hover{background:var(--cream-dark)}
+    .btn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+    /* Stats */
+    .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:30px}
+    .stat-card{background:#fff;border:1px solid var(--border);border-radius:6px;padding:22px 24px;box-shadow:0 1px 4px rgba(11,28,58,.04)}
+    .stat-card .stat-label{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-mid);margin-bottom:8px}
+    .stat-card .stat-value{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--navy);font-weight:600;line-height:1.2}
+    .stat-card .stat-sub{font-size:14px;color:var(--text-mid);font-style:italic;margin-top:4px}
+
+    .progress-bar{width:100%;height:8px;background:var(--cream-dark);border-radius:4px;overflow:hidden;margin-top:10px}
+    .progress-bar .fill{height:100%;background:var(--gold);border-radius:4px;transition:width .4s}
+
+    @media (max-width:780px){.stats-row{grid-template-columns:1fr;gap:12px}}
+
+    /* Calendrier perso */
+    .calendar-section{margin-bottom:30px}
+    .section-h2{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--navy);margin-bottom:14px;font-weight:600}
+    .week{margin-bottom:18px;background:#fff;border:1px solid var(--border);border-radius:6px;overflow:hidden;box-shadow:0 1px 4px rgba(11,28,58,.04)}
+    .week-head{background:var(--navy);color:#fff;padding:14px 22px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--gold);flex-wrap:wrap;gap:8px}
+    .week-num{font-family:'Inter',sans-serif;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+    .week-range{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:rgba(255,255,255,.85)}
+    .week-days{display:flex;flex-direction:column}
+    .day-row{display:grid;grid-template-columns:90px 110px 1fr 130px;gap:14px;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);text-decoration:none;color:var(--text-dark);transition:.15s}
+    .day-row:last-child{border-bottom:none}
+    .day-row:hover{background:var(--cream)}
+    .day-row.is-today{background:#FFF8E7;border-left:4px solid var(--gold);padding-left:16px}
+    .day-row.is-completed{opacity:.75}
+    .day-row .dr-dow{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--text-mid)}
+    .day-row .dr-dow .day-num-meta{color:var(--gold);font-weight:600}
+    .day-row .dr-siman{font-family:'Frank Ruhl Libre',serif;font-size:15px;color:var(--navy)}
+    .day-row .dr-content{font-size:15px;color:var(--text-dark)}
+    .day-row .dr-status{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;text-align:right}
+    .badge{display:inline-block;padding:3px 8px;border-radius:3px;font-size:10px;letter-spacing:1px;text-transform:uppercase;font-weight:600}
+    .badge-today{background:var(--gold);color:var(--navy)}
+    .badge-done{background:var(--green);color:#fff}
+    .badge-missed{background:var(--red);color:#fff}
+    .badge-upcoming{background:var(--cream-dark);color:var(--text-mid)}
+    @media (max-width:780px){
+      .day-row{grid-template-columns:1fr;gap:4px;padding:14px 16px}
+      .day-row .dr-status{text-align:left}
+    }
+
+    /* Actions footer */
+    .footer-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px;padding-top:24px;border-top:1px solid var(--border);justify-content:center}
+
+    /* Pas de plan */
+    .no-plan{background:#fff;border:1px solid var(--border);border-radius:6px;padding:50px 32px;text-align:center;box-shadow:0 1px 4px rgba(11,28,58,.04)}
+    .no-plan h2{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--navy);margin-bottom:12px}
+    .no-plan p{color:var(--text-mid);font-size:17px;margin-bottom:24px}
+
+    /* Toast */
+    .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--navy);color:#fff;padding:14px 24px;border-radius:4px;border:1px solid var(--gold);font-family:'Inter',sans-serif;font-size:14px;z-index:9999;opacity:0;transition:.25s;box-shadow:0 8px 32px rgba(0,0,0,.3)}
+    .toast.is-shown{opacity:1;transform:translateX(-50%) translateY(0)}
+
+    /* Nav semaines */
+    .week-nav{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:18px;font-family:'Inter',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase}
+    .week-nav button{padding:7px 14px;background:transparent;border:1px solid var(--gold);color:var(--navy);border-radius:3px;cursor:pointer;font-family:inherit;font-size:inherit;letter-spacing:inherit;text-transform:inherit}
+    .week-nav button:hover{background:var(--gold)}
+    .week-nav button:disabled{opacity:.35;cursor:not-allowed}
+    .week-nav .week-info{color:var(--text-mid);margin:0 12px}
+
+    @media (max-width:540px){
+      h1.page-title{font-size:30px}
+      main{padding:36px 16px 60px}
+      .today-card{padding:28px 20px}
+      .today-card .today-day{font-size:30px}
+      .today-card .today-title{font-size:18px}
+    }
+  </style>
+</head>
+<body>
+<header>
+  <a class="logo" href="/index.html"><span class="logo-hebrew">דעת</span><span class="logo-latin">Daat Torah</span></a>
+  <nav>
+    <a href="/index.html">Accueil</a>
+    <a href="/limoud/index.html" class="active">Daat Yomi</a>
+    <a href="/chat.html">IA Daat</a>
+    <a href="/about.html">À propos</a>
+  </nav>
+</header>
+
+<main id="main">
+  <div class="breadcrumb"><a href="/limoud/index.html">Daat Yomi</a> &nbsp;›&nbsp; Mon plan</div>
+
+  <div id="content-loaded" hidden>
+    <div class="page-tag">📖 Mon plan d'étude personnel</div>
+    <h1 class="page-title" id="page-title">Mon plan</h1>
+    <p class="page-sub" id="page-sub"></p>
+
+    <section class="today-card" id="today-card" aria-live="polite"></section>
+
+    <section class="stats-row" id="stats-row"></section>
+
+    <section class="calendar-section">
+      <h2 class="section-h2">Mon calendrier</h2>
+      <div class="week-nav" id="week-nav"></div>
+      <div id="weeks-container"></div>
+    </section>
+
+    <div class="footer-actions">
+      <a href="/limoud/personnaliser.html" class="btn btn-dark-secondary">Modifier mon plan</a>
+      <a href="/limoud/index.html" class="btn btn-dark-secondary">Voir le plan universel</a>
+    </div>
+  </div>
+
+  <div id="content-empty" hidden>
+    <div class="no-plan">
+      <h2>Tu n'as pas encore créé ton plan personnel</h2>
+      <p>Définis ton rythme, tes jours et ton point de départ — quelques secondes suffisent.</p>
+      <a href="/limoud/personnaliser.html" class="btn btn-primary" style="border-color:var(--gold)">Créer mon plan →</a>
+    </div>
+  </div>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="/assets/js/daat-custom-plan.js"></script>
+<script>
+(function () {
+  'use strict';
+  var DCP = window.DaatCustomPlan;
+
+  var elLoaded = document.getElementById('content-loaded');
+  var elEmpty = document.getElementById('content-empty');
+  var elTodayCard = document.getElementById('today-card');
+  var elStats = document.getElementById('stats-row');
+  var elWeeksContainer = document.getElementById('weeks-container');
+  var elWeekNav = document.getElementById('week-nav');
+  var elPageSub = document.getElementById('page-sub');
+  var elToast = document.getElementById('toast');
+
+  function showToast(msg, ms) {
+    elToast.textContent = msg;
+    elToast.classList.add('is-shown');
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(function () {
+      elToast.classList.remove('is-shown');
+    }, ms || 3000);
+  }
+
+  function pad3(n) { return ('00' + n).slice(-3); }
+  function dayHref(num) { return '/limoud/jour-' + pad3(num) + '.html'; }
+  function escapeHtml(s) {
+    return String(s || '').replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+
+  function groupByWeek(entries) {
+    // Regroupe les jours en semaines (semaine = dimanche → samedi en UTC)
+    var weeks = [];
+    var current = null;
+    var lastWeekStartISO = null;
+    for (var i = 0; i < entries.length; i++) {
+      var d = DCP.parseISO(entries[i].date);
+      // start of week = sunday
+      var dow = d.getUTCDay();
+      var weekStart = DCP.addDays(d, -dow);
+      var iso = DCP.isoDate(weekStart);
+      if (iso !== lastWeekStartISO) {
+        current = { weekStart: iso, weekStartDate: weekStart, days: [] };
+        weeks.push(current);
+        lastWeekStartISO = iso;
+      }
+      current.days.push(entries[i]);
+    }
+    return weeks;
+  }
+
+  // ============================================================
+  // BOOT
+  // ============================================================
+
+  var plan = DCP.readPlan();
+  if (!plan) {
+    elEmpty.hidden = false;
+    return;
+  }
+
+  DCP.loadCatalog().then(function (catalog) {
+    elLoaded.hidden = false;
+    var timeline = DCP.buildTimeline(plan, catalog);
+    var entries = timeline.entries;
+    if (!entries.length) {
+      elTodayCard.innerHTML = '<div class="today-day">Plan vide</div><div class="today-title">Recommence ta configuration.</div>';
+      return;
+    }
+
+    var today = DCP.todayUTC();
+    var cur = DCP.currentDayNumber(timeline, today);
+
+    // ----- BANDEAU "aujourd'hui" -----
+    if (!cur) {
+      // Avant le début du plan
+      var firstDate = timeline.startDate;
+      elTodayCard.innerHTML =
+        '<div class="today-label">Ton plan commence bientôt</div>' +
+        '<div class="today-day">Début : ' + DCP.fmtDateLong(firstDate) + '</div>' +
+        '<div class="today-notice">Reviens à cette date pour démarrer.</div>';
+    } else if (cur.state === 'finished') {
+      elTodayCard.innerHTML =
+        '<div class="today-label">Plan terminé</div>' +
+        '<div class="today-day">🎉 Mazal tov — tu as terminé Hilkhot Shabbat !</div>' +
+        '<div class="today-notice">' + (entries.length) + ' jours d\'étude accomplis.</div>';
+    } else {
+      var e = entries[cur.dayNumber - 1];
+      var sLabel = e.seifStart === e.seifEnd ? 'séif ' + e.seifStart : 'séif ' + e.seifStart + '–' + e.seifEnd;
+      var lotStr = e.lotTotal > 1 ? ' · (' + e.lotIndex + '/' + e.lotTotal + ')' : '';
+      var dateLabel = DCP.fmtDateLong(DCP.parseISO(e.date));
+      var notice = '';
+      if (cur.state === 'next') {
+        notice = '<div class="today-notice">Prochain jour d\'étude : ' + dateLabel + '</div>';
+      }
+      var isDone = plan.completedDays.indexOf(cur.dayNumber) !== -1;
+      elTodayCard.innerHTML =
+        '<div class="today-label">' + (cur.state === 'today' ? "Aujourd'hui" : 'Prochain jour') + '</div>' +
+        '<div class="today-day">Jour <span class="day-num">' + e.dayNumber + '</span> / ' + entries.length + '</div>' +
+        '<div class="today-siman">Siman ' + e.simanNum + ' · ' + escapeHtml(e.numHe) + '</div>' +
+        '<div class="today-seif">' + sLabel + lotStr + '</div>' +
+        '<div class="today-title">' + escapeHtml(e.title) + '</div>' +
+        notice +
+        '<div class="today-cta">' +
+          '<a class="btn btn-primary" href="' + dayHref(e.dayNumber) + '">Étudier maintenant →</a>' +
+          (isDone
+            ? '<button class="btn btn-secondary" id="btn-uncomplete">↺ Annuler "étudié"</button>'
+            : '<button class="btn btn-secondary" id="btn-complete">✓ J\'ai étudié</button>'
+          ) +
+        '</div>';
+
+      var btnDone = document.getElementById('btn-complete');
+      if (btnDone) {
+        btnDone.addEventListener('click', function () {
+          DCP.markDayComplete(cur.dayNumber);
+          showToast('Jour ' + cur.dayNumber + ' marqué étudié ✓');
+          setTimeout(function () { window.location.reload(); }, 600);
+        });
+      }
+      var btnUndo = document.getElementById('btn-uncomplete');
+      if (btnUndo) {
+        btnUndo.addEventListener('click', function () {
+          DCP.unmarkDayComplete(cur.dayNumber);
+          showToast('Marquage annulé.');
+          setTimeout(function () { window.location.reload(); }, 600);
+        });
+      }
+    }
+
+    // ----- STATS -----
+    var completed = plan.completedDays.length;
+    var totalDays = entries.length;
+    var pct = totalDays ? Math.round((completed / totalDays) * 100) : 0;
+    elStats.innerHTML =
+      '<div class="stat-card">' +
+        '<div class="stat-label">Progression</div>' +
+        '<div class="stat-value">' + completed + ' / ' + totalDays + '</div>' +
+        '<div class="stat-sub">' + pct + '% accomplis</div>' +
+        '<div class="progress-bar"><div class="fill" style="width:' + pct + '%"></div></div>' +
+      '</div>' +
+      '<div class="stat-card">' +
+        '<div class="stat-label">Rythme</div>' +
+        '<div class="stat-value">' + (plan.rateUnit === 'siman_per_day' ? '1 siman/j' : plan.rate + ' séifim/j') + '</div>' +
+        '<div class="stat-sub">' + plan.studyDays.length + ' jours/semaine</div>' +
+      '</div>' +
+      '<div class="stat-card">' +
+        '<div class="stat-label">Fin estimée</div>' +
+        '<div class="stat-value">' + DCP.fmtDateLong(timeline.endDate).split(' ').slice(0, 4).join(' ') + '</div>' +
+        '<div class="stat-sub">Siman 365 · fin Hilkhot Shabbat</div>' +
+      '</div>';
+
+    // ----- CALENDRIER PAR SEMAINES (avec navigation) -----
+    var weeks = groupByWeek(entries);
+
+    // Trouve la semaine courante par défaut
+    var curWeekIdx = 0;
+    if (cur && cur.dayNumber) {
+      for (var wi = 0; wi < weeks.length; wi++) {
+        var found = false;
+        for (var di = 0; di < weeks[wi].days.length; di++) {
+          if (weeks[wi].days[di].dayNumber === cur.dayNumber) { curWeekIdx = wi; found = true; break; }
+        }
+        if (found) break;
+      }
+    }
+
+    var displayedWeekIdx = curWeekIdx;
+
+    function renderWeek(idx) {
+      if (idx < 0) idx = 0;
+      if (idx >= weeks.length) idx = weeks.length - 1;
+      displayedWeekIdx = idx;
+      var w = weeks[idx];
+      var endDate = DCP.addDays(w.weekStartDate, 6);
+      var range = DCP.fmtDateLong(w.weekStartDate).split(' ').slice(1).join(' ') + ' → ' +
+                  DCP.fmtDateLong(endDate).split(' ').slice(1).join(' ');
+      var todayISO = DCP.isoDate(today);
+      var html = '<section class="week">' +
+        '<div class="week-head"><div class="week-num">Semaine ' + (idx + 1) + ' / ' + weeks.length + '</div><div class="week-range">' + range + '</div></div>' +
+        '<div class="week-days">';
+      for (var i = 0; i < w.days.length; i++) {
+        var e = w.days[i];
+        var sLabel = e.seifStart === e.seifEnd ? 'séif ' + e.seifStart : 'séif ' + e.seifStart + '–' + e.seifEnd;
+        var lotStr = e.lotTotal > 1 ? ' (' + e.lotIndex + '/' + e.lotTotal + ')' : '';
+        var dateObj = DCP.parseISO(e.date);
+        var dateShort = DCP.fmtDateShort(dateObj);
+        var isToday = e.date === todayISO;
+        var isDone = plan.completedDays.indexOf(e.dayNumber) !== -1;
+        var isPast = e.date < todayISO;
+        var isMissed = isPast && !isDone;
+
+        var badge = '';
+        if (isToday) badge = '<span class="badge badge-today">Aujourd\'hui</span>';
+        else if (isDone) badge = '<span class="badge badge-done">✓ Étudié</span>';
+        else if (isMissed) badge = '<span class="badge badge-missed">Loupé</span>';
+        else badge = '<span class="badge badge-upcoming">À venir</span>';
+
+        var cls = 'day-row';
+        if (isToday) cls += ' is-today';
+        if (isDone) cls += ' is-completed';
+
+        html += '<a class="' + cls + '" href="' + dayHref(e.dayNumber) + '">' +
+          '<div class="dr-dow">' + escapeHtml(DCP.dayName(e.dow)) + ' · <span class="day-num-meta">J' + e.dayNumber + '</span></div>' +
+          '<div class="dr-dow">' + dateShort + '</div>' +
+          '<div class="dr-content"><span class="dr-siman">Siman ' + e.simanNum + '</span> · ' + sLabel + lotStr + ' — ' + escapeHtml(e.title) + '</div>' +
+          '<div class="dr-status">' + badge + '</div>' +
+        '</a>';
+      }
+      html += '</div></section>';
+      elWeeksContainer.innerHTML = html;
+
+      // Nav
+      elWeekNav.innerHTML =
+        '<button id="wk-prev"' + (idx === 0 ? ' disabled' : '') + '>← Précédente</button>' +
+        '<button id="wk-today">Cette semaine</button>' +
+        '<span class="week-info">Semaine ' + (idx + 1) + ' / ' + weeks.length + '</span>' +
+        '<button id="wk-next"' + (idx === weeks.length - 1 ? ' disabled' : '') + '>Suivante →</button>';
+      document.getElementById('wk-prev').addEventListener('click', function () { renderWeek(displayedWeekIdx - 1); });
+      document.getElementById('wk-next').addEventListener('click', function () { renderWeek(displayedWeekIdx + 1); });
+      document.getElementById('wk-today').addEventListener('click', function () { renderWeek(curWeekIdx); });
+    }
+
+    renderWeek(curWeekIdx);
+
+    // Sub-titre récap
+    elPageSub.textContent = 'Plan démarré le ' + DCP.fmtDateLong(timeline.startDate) +
+      ' · Siman ' + plan.startSiman + ' → 365 · ' + entries.length + ' jours.';
+
+  }).catch(function (err) {
+    elEmpty.hidden = false;
+    console.error('[mon-plan] catalog load failed:', err);
+  });
+
+})();
+</script>
+</body>
+</html>

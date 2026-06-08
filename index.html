@@ -1124,12 +1124,13 @@
   <!-- ── BANDEAU DAAT YOMI ──────────────────────────────────────────── -->
 <section class="daat-yomi-banner" id="daat-yomi-banner" data-start="2026-06-08" data-total="194" aria-label="Daat Yomi — étude quotidienne">
   <div class="dy-inner">
-    <div class="dy-tag">Daat Yomi — étude quotidienne · <span class="dy-sub">5 séifim/jour max · dim → jeu</span></div>
+    <div class="dy-tag" id="dy-tag">Daat Yomi — étude quotidienne · <span class="dy-sub">5 séifim/jour max · dim → jeu</span></div>
     <div class="dy-content" id="dy-content"></div>
     <div class="dy-cta">
       <a id="dy-cta-link" class="dy-btn dy-btn-primary" href="/limoud/index.html">Étudier maintenant →</a>
-      <a class="dy-btn dy-btn-secondary" href="/limoud/index.html">Voir le plan complet</a>
+      <a id="dy-cta-secondary" class="dy-btn dy-btn-secondary" href="/limoud/index.html">Voir le plan complet</a>
     </div>
+    <div class="dy-switch" id="dy-switch"></div>
   </div>
 </section>
 <style>
@@ -1150,6 +1151,9 @@
   .daat-yomi-banner .dy-btn-primary:hover{background:#d9b66e}
   .daat-yomi-banner .dy-btn-secondary{color:#fff;background:transparent}
   .daat-yomi-banner .dy-btn-secondary:hover{background:rgba(197,165,90,.15)}
+  .daat-yomi-banner .dy-switch{margin-top:16px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:rgba(255,255,255,.65)}
+  .daat-yomi-banner .dy-switch a{color:var(--gold);text-decoration:none;border-bottom:1px dotted rgba(197,165,90,.5);padding-bottom:1px}
+  .daat-yomi-banner .dy-switch a:hover{color:#e4ca8b;border-bottom-color:#e4ca8b}
   @media (max-width:640px){
     .daat-yomi-banner{padding:36px 20px}
     .daat-yomi-banner .dy-day{font-size:32px}
@@ -1197,6 +1201,51 @@
   var today=todayUTC();
   var container=document.getElementById('dy-content');
   var ctaLink=document.getElementById('dy-cta-link');
+  var ctaSecondary=document.getElementById('dy-cta-secondary');
+  var tagEl=document.getElementById('dy-tag');
+  var switchEl=document.getElementById('dy-switch');
+
+  // === Plan personnel : si présent dans localStorage, on bascule l'affichage ===
+  var customPlanRaw=null;
+  try { customPlanRaw = localStorage.getItem('daat:custom-plan:v1'); } catch(_) {}
+  if (customPlanRaw) {
+    try {
+      var cp = JSON.parse(customPlanRaw);
+      if (cp && cp.startDate && cp.rate) {
+        if (tagEl) tagEl.innerHTML = 'Mon plan personnel · <span class="dy-sub">'+ (cp.rateUnit==='siman_per_day' ? '1 siman/jour' : (cp.rate + ' séifim/jour')) +'</span>';
+        if (ctaLink) { ctaLink.textContent = 'Voir mon plan →'; ctaLink.href = '/limoud/mon-plan.html'; }
+        if (ctaSecondary) { ctaSecondary.textContent = 'Modifier mon plan'; ctaSecondary.href = '/limoud/personnaliser.html'; }
+        if (switchEl) switchEl.innerHTML = 'Préfères revenir au rythme universel ? <a href="/limoud/index.html">Voir le Daat Yomi universel →</a>';
+        // Affichage : où en suis-je dans mon plan ?
+        var startD = parseISO(cp.startDate);
+        var sd = (cp.studyDays && cp.studyDays.length) ? cp.studyDays : [0,1,2,3,4];
+        var studySet = {}; sd.forEach(function(x){ studySet[x]=true; });
+        // Compte les jours d'étude écoulés
+        var dayN = 0;
+        var cur = new Date(startD.getTime());
+        var loops = 0;
+        while (cur <= today && loops < 5000) {
+          if (studySet[cur.getUTCDay()]) dayN++;
+          cur.setUTCDate(cur.getUTCDate()+1);
+          loops++;
+        }
+        var html='';
+        html+='<div class="dy-today">Aujourd\'hui · '+fmtDate(today)+'</div>';
+        if (today < startD) {
+          html+='<div class="dy-day">Ton plan commence le '+fmtDate(startD)+'</div>';
+        } else if (dayN < 1) {
+          html+='<div class="dy-notice">Reprise au prochain jour d\'étude</div>';
+        } else {
+          html+='<div class="dy-day">Jour <span class="dy-day-num">'+dayN+'</span> <span style="opacity:.55">de TON plan</span></div>';
+          html+='<div class="dy-title">'+ (cp.rateUnit==='siman_per_day' ? '1 siman/jour' : (cp.rate + ' séifim/jour')) + ' · '+ sd.length +' jours/sem</div>';
+        }
+        container.innerHTML = html;
+        return;
+      }
+    } catch (_) {}
+  }
+  // Sinon : affichage standard (plan universel)
+  if (switchEl) switchEl.innerHTML = 'Préfères un autre rythme ? <a href="/limoud/personnaliser.html">Crée ton plan personnel →</a>';
 
   if(today < start){
     container.innerHTML='<div class="dy-notice">'+T.beforeStart+'</div>';

@@ -86,7 +86,53 @@
   <div class="page-tag">Daat Yomi</div>
   <h1 class="page-title">Daat Yomi — Plan d'étude quotidien</h1>
   <p class="page-sub">Lots de 5 séifim maximum par jour, 5 jours par semaine (dimanche → jeudi). Pause le vendredi (préparation Shabbat) et le Shabbat.</p>
-  <div class="meta-strip">
+
+  <!-- Choix entre plan universel et plan personnel -->
+  <style>
+    .plan-choice{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:36px}
+    .pc-card{background:#fff;border:1px solid var(--border);border-radius:6px;padding:24px 26px;box-shadow:0 1px 4px rgba(11,28,58,.04);display:flex;flex-direction:column;justify-content:space-between;gap:14px}
+    .pc-card.is-personal{background:linear-gradient(135deg,#fff 70%,rgba(197,165,90,.10))}
+    .pc-icon{font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--gold)}
+    .pc-title{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--navy);font-weight:600;line-height:1.2}
+    .pc-desc{font-size:15px;color:var(--text-mid);font-style:italic;line-height:1.5;margin-bottom:4px}
+    .pc-cta{align-self:flex-start;padding:10px 18px;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;border-radius:3px;text-decoration:none;border:1px solid var(--gold);transition:.15s}
+    .pc-cta-primary{background:var(--gold);color:var(--navy)}
+    .pc-cta-primary:hover{background:#d9b66e}
+    .pc-cta-secondary{background:transparent;color:var(--navy)}
+    .pc-cta-secondary:hover{background:var(--cream)}
+    @media (max-width:780px){.plan-choice{grid-template-columns:1fr}}
+  </style>
+  <div class="plan-choice" id="plan-choice" aria-label="Choisir un plan d'étude">
+    <div class="pc-card">
+      <div>
+        <div class="pc-icon">📅</div>
+        <div class="pc-title">Plan universel Daat Yomi</div>
+        <div class="pc-desc">Tout le monde au même jour. 194 jours, 5 séifim/jour max, dimanche → jeudi. Démarrage automatique le 8 juin 2026.</div>
+      </div>
+      <a class="pc-cta pc-cta-secondary" href="#calendar">Voir le calendrier ↓</a>
+    </div>
+    <div class="pc-card is-personal">
+      <div>
+        <div class="pc-icon">✨</div>
+        <div class="pc-title" id="pc-personal-title">Mon plan personnel</div>
+        <div class="pc-desc" id="pc-personal-desc">À mon rythme, à mes jours, à mon point de départ. Tu choisis 1 séif, 5 séifim ou 1 siman par jour.</div>
+      </div>
+      <a class="pc-cta pc-cta-primary" id="pc-personal-link" href="/limoud/personnaliser.html">Créer mon plan →</a>
+    </div>
+  </div>
+  <script>
+    // Si l'utilisateur a déjà créé un plan personnel, on remplace le CTA.
+    try {
+      if (localStorage.getItem('daat:custom-plan:v1')) {
+        var link = document.getElementById('pc-personal-link');
+        var desc = document.getElementById('pc-personal-desc');
+        if (link) { link.textContent = 'Voir mon plan →'; link.href = '/limoud/mon-plan.html'; }
+        if (desc) { desc.textContent = 'Tu as déjà un plan en cours. Reprends là où tu en es ou modifie tes réglages.'; }
+      }
+    } catch (_) {}
+  </script>
+
+  <div class="meta-strip" id="calendar">
     <span>Début : Lundi 8 juin 2026</span>
     <span>Fin : Jeudi 4 mars 2027</span>
     <span>194 jours d'étude · 5 j/semaine</span>

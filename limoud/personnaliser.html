@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@400;500;700&family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="/assets/css/daat.css">
+  <link rel="stylesheet" href="/assets/css/daat-enhance.css">
+  <title>Mon plan d'étude personnel — Daat Yomi | Daat Torah</title>
+  <meta name="description" content="Crée ton plan d'étude personnel du Choulhan Aroukh : à ton rythme, à tes jours, à ton point de départ.">
+  <link rel="canonical" href="https://daattorah.com/limoud/personnaliser.html">
+  <meta name="robots" content="noindex,follow">
+
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Cormorant Garamond',Georgia,serif;background:var(--cream);color:var(--text-dark);line-height:1.65;font-size:18px}
+    header{background:var(--navy);height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;position:sticky;top:0;z-index:100;border-bottom:2px solid var(--gold)}
+    .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+    .logo-hebrew{font-family:'Frank Ruhl Libre',serif;font-size:28px;font-weight:700;color:var(--gold);letter-spacing:2px}
+    .logo-latin{font-family:'Cormorant Garamond',serif;font-size:13px;color:rgba(255,255,255,.85);letter-spacing:4px;text-transform:uppercase}
+    nav{display:flex;gap:24px;align-items:center}
+    nav a{color:rgba(255,255,255,.9);text-decoration:none;font-family:'Inter',sans-serif;font-size:13px;letter-spacing:1px;text-transform:uppercase}
+    nav a:hover,nav a.active{color:var(--gold)}
+    main{max-width:880px;margin:0 auto;padding:50px 24px 80px}
+    .page-tag{font-family:'Inter',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+    h1.page-title{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:600;color:var(--navy);margin-bottom:12px;line-height:1.15}
+    .page-sub{color:var(--text-mid);font-size:18px;font-style:italic;margin-bottom:36px;max-width:720px}
+
+    .breadcrumb{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-mid);margin-bottom:22px}
+    .breadcrumb a{color:var(--gold);text-decoration:none}
+    .breadcrumb a:hover{text-decoration:underline}
+
+    /* Carte formulaire */
+    .form-card{background:#fff;border:1px solid var(--border);border-radius:6px;padding:30px 32px;margin-bottom:24px;box-shadow:0 1px 4px rgba(11,28,58,.04)}
+    .form-section{margin-bottom:32px}
+    .form-section:last-child{margin-bottom:0}
+    .form-section legend, .form-section .legend{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:6px;display:block}
+    .form-section .help{font-size:15px;color:var(--text-mid);font-style:italic;margin-bottom:16px}
+    fieldset.form-section{border:none;padding:0;margin-bottom:32px}
+
+    /* Radios & checkboxes */
+    .opt-list{display:flex;flex-direction:column;gap:10px}
+    .opt{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:var(--cream);border:1px solid transparent;border-radius:4px;cursor:pointer;transition:.15s}
+    .opt:hover{background:var(--cream-dark)}
+    .opt input{margin-top:4px;cursor:pointer;accent-color:var(--gold)}
+    .opt input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+    .opt-text{flex:1}
+    .opt-title{font-size:17px;color:var(--navy);font-weight:500}
+    .opt-meta{font-family:'Inter',sans-serif;font-size:12px;color:var(--text-mid);letter-spacing:.5px;margin-top:2px}
+    .opt input:checked + .opt-text .opt-title{font-weight:600}
+    .opt:has(input:checked){background:#fff;border-color:var(--gold)}
+
+    .custom-rate{display:flex;align-items:center;gap:8px;margin-top:8px;padding-left:32px}
+    .custom-rate input[type="number"]{width:80px;padding:6px 8px;border:1px solid var(--border);border-radius:3px;font-family:'Inter',sans-serif;font-size:14px}
+    .custom-rate input[type="number"]:focus-visible{outline:2px solid var(--gold);outline-offset:1px;border-color:var(--gold)}
+    .custom-rate label{font-size:14px;color:var(--text-mid)}
+
+    /* Jours de la semaine */
+    .days-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:14px}
+    .day-box{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px 6px;background:var(--cream);border:1px solid transparent;border-radius:4px;cursor:pointer;transition:.15s;text-align:center}
+    .day-box:hover{background:var(--cream-dark)}
+    .day-box input{position:absolute;opacity:0;width:0;height:0}
+    .day-box .dow-short{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:1px;color:var(--text-mid);text-transform:uppercase;margin-bottom:4px}
+    .day-box .dow-name{font-size:14px;color:var(--navy)}
+    .day-box.is-checked{background:var(--navy);border-color:var(--gold)}
+    .day-box.is-checked .dow-short{color:var(--gold)}
+    .day-box.is-checked .dow-name{color:#fff;font-weight:600}
+    .day-box:focus-within{outline:2px solid var(--gold);outline-offset:2px}
+
+    .quick-buttons{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+    .quick-btn{padding:8px 14px;border:1px solid var(--gold);background:transparent;color:var(--navy);font-family:'Inter',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;border-radius:3px;cursor:pointer;transition:.15s}
+    .quick-btn:hover{background:var(--gold);color:var(--navy)}
+    .quick-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+    /* Inputs */
+    .field{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+    .field label{font-family:'Inter',sans-serif;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--navy)}
+    .field input, .field select{padding:10px 12px;border:1px solid var(--border);background:#fff;border-radius:3px;font-family:'Inter',sans-serif;font-size:15px;color:var(--text-dark)}
+    .field input:focus-visible, .field select:focus-visible{outline:2px solid var(--gold);outline-offset:1px;border-color:var(--gold)}
+
+    .field-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    @media (max-width:540px){.field-row{grid-template-columns:1fr}}
+
+    .checkbox-row{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+    .checkbox-row input{accent-color:var(--gold);width:18px;height:18px;cursor:pointer}
+    .checkbox-row label{font-size:16px;cursor:pointer}
+
+    /* Boutons */
+    .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px;padding-top:24px;border-top:1px solid var(--border)}
+    .btn{padding:14px 24px;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;border-radius:3px;border:1px solid var(--gold);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;transition:.15s}
+    .btn-primary{background:var(--gold);color:var(--navy)}
+    .btn-primary:hover{background:#d9b66e}
+    .btn-secondary{background:transparent;color:var(--navy)}
+    .btn-secondary:hover{background:var(--cream-dark)}
+    .btn-danger{background:transparent;color:var(--red);border-color:var(--red)}
+    .btn-danger:hover{background:#fbeae8}
+    .btn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+    /* Aperçu timeline */
+    .preview{background:#fff;border:1px solid var(--border);border-radius:6px;padding:30px 32px;margin-bottom:24px;box-shadow:0 1px 4px rgba(11,28,58,.04)}
+    .preview h2{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--navy);margin-bottom:8px;font-weight:600}
+    .preview .summary{background:linear-gradient(135deg,var(--navy) 0%,#0e2447 100%);color:#fff;padding:22px 24px;border-radius:4px;border:1px solid var(--gold);margin-bottom:24px}
+    .preview .summary-line{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,.85);letter-spacing:1px}
+    .preview .summary .today-day{font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--gold);font-weight:600;margin-bottom:6px;line-height:1.2}
+    .preview .summary .today-sub{font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(255,255,255,.9);font-size:17px;margin-bottom:14px}
+    .preview-days{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+    .preview-day{display:grid;grid-template-columns:90px 90px 1fr;gap:14px;align-items:center;padding:12px 14px;background:var(--cream);border-radius:3px}
+    .preview-day .pd-date{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--text-mid)}
+    .preview-day .pd-num{font-family:'Inter',sans-serif;font-size:12px;color:var(--gold);font-weight:600;letter-spacing:1px}
+    .preview-day .pd-content{font-size:15px;color:var(--text-dark)}
+    .preview-day .pd-content strong{font-family:'Frank Ruhl Libre',serif;color:var(--navy)}
+    @media (max-width:540px){
+      .preview-day{grid-template-columns:1fr;gap:4px}
+    }
+
+    /* Toast */
+    .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--navy);color:#fff;padding:14px 24px;border-radius:4px;border:1px solid var(--gold);font-family:'Inter',sans-serif;font-size:14px;z-index:9999;opacity:0;transition:.25s;box-shadow:0 8px 32px rgba(0,0,0,.3);max-width:90vw;text-align:center}
+    .toast.is-shown{opacity:1;transform:translateX(-50%) translateY(0)}
+
+    /* Erreurs */
+    .error-banner{background:#fbeae8;border:1px solid var(--red);color:var(--red);padding:12px 16px;border-radius:3px;font-size:14px;margin-bottom:18px;display:none}
+    .error-banner.is-shown{display:block}
+
+    /* Notice partage */
+    .shared-notice{background:#FFF8E7;border:1px solid var(--gold);color:var(--navy);padding:14px 18px;border-radius:3px;margin-bottom:24px;font-size:15px;display:none}
+    .shared-notice.is-shown{display:block}
+    .shared-notice strong{color:var(--gold-dark)}
+
+    /* Lien partage */
+    .share-block{background:var(--cream);padding:18px 22px;border-radius:4px;margin-top:14px;border:1px dashed var(--border);font-size:14px}
+    .share-block label{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-mid);display:block;margin-bottom:6px}
+    .share-block .share-url{font-family:'Courier New',monospace;font-size:12px;background:#fff;padding:8px 10px;border-radius:3px;border:1px solid var(--border);word-break:break-all;color:var(--text-dark)}
+    .share-block .share-actions{margin-top:8px}
+    .share-block .share-actions button{font-size:11px;padding:6px 12px;background:transparent;border:1px solid var(--gold);color:var(--navy);border-radius:3px;cursor:pointer;font-family:'Inter',sans-serif;letter-spacing:1px;text-transform:uppercase}
+    .share-block .share-actions button:hover{background:var(--gold)}
+
+    @media (max-width:540px){
+      h1.page-title{font-size:30px}
+      main{padding:36px 16px 60px}
+      .form-card, .preview{padding:22px 18px}
+      .days-grid{grid-template-columns:repeat(4,1fr)}
+    }
+  </style>
+</head>
+<body>
+<header>
+  <a class="logo" href="/index.html"><span class="logo-hebrew">דעת</span><span class="logo-latin">Daat Torah</span></a>
+  <nav>
+    <a href="/index.html">Accueil</a>
+    <a href="/limoud/index.html" class="active">Daat Yomi</a>
+    <a href="/chat.html">IA Daat</a>
+    <a href="/about.html">À propos</a>
+  </nav>
+</header>
+
+<main id="main">
+  <div class="breadcrumb"><a href="/limoud/index.html">Daat Yomi</a> &nbsp;›&nbsp; Mon plan personnel</div>
+
+  <div class="page-tag">Plan personnel</div>
+  <h1 class="page-title">Créer mon plan d'étude</h1>
+  <p class="page-sub">À ton rythme, à tes jours, à ton point de départ. Ton plan reste sur ton appareil — tu peux le partager ou y revenir quand tu veux.</p>
+
+  <div class="shared-notice" id="shared-notice" role="status">
+    <strong>Plan partagé reçu.</strong> Vérifie les réglages ci-dessous, puis clique sur <em>Sauvegarder mon plan</em> pour l'adopter.
+  </div>
+
+  <div class="error-banner" id="error-banner" role="alert" aria-live="polite"></div>
+
+  <form id="plan-form" class="form-card" novalidate>
+    <!-- GRANULARITÉ -->
+    <fieldset class="form-section" id="rate-section">
+      <legend class="legend">📚 Granularité — combien de matière par jour ?</legend>
+      <p class="help">Plus tu prends de matière par jour, plus tu finis vite — mais l'étude est plus rapide. Choisis selon ton temps disponible et la profondeur souhaitée.</p>
+      <div class="opt-list" role="radiogroup" aria-labelledby="rate-section-legend">
+        <label class="opt">
+          <input type="radio" name="rate-preset" value="1-seif">
+          <span class="opt-text">
+            <span class="opt-title">1 séif par jour</span>
+            <span class="opt-meta">~10 ans · étude approfondie, méditative</span>
+          </span>
+        </label>
+        <label class="opt">
+          <input type="radio" name="rate-preset" value="5-seifim" checked>
+          <span class="opt-text">
+            <span class="opt-title">5 séifim par jour</span>
+            <span class="opt-meta">~9 mois · recommandé, comme le Daat Yomi universel</span>
+          </span>
+        </label>
+        <label class="opt">
+          <input type="radio" name="rate-preset" value="1-siman">
+          <span class="opt-text">
+            <span class="opt-title">1 siman par jour</span>
+            <span class="opt-meta">~6 mois · rythme rapide, vue d'ensemble</span>
+          </span>
+        </label>
+        <label class="opt">
+          <input type="radio" name="rate-preset" value="custom">
+          <span class="opt-text">
+            <span class="opt-title">Personnalisé</span>
+            <span class="opt-meta">Choisis le nombre exact de séifim/jour</span>
+          </span>
+        </label>
+      </div>
+      <div class="custom-rate" id="custom-rate-wrap" hidden>
+        <label for="custom-rate">Séifim par jour :</label>
+        <input type="number" id="custom-rate" min="1" max="50" step="1" value="3">
+      </div>
+    </fieldset>
+
+    <!-- JOURS -->
+    <fieldset class="form-section" id="days-section">
+      <legend class="legend">📅 Jours d'étude — quels jours de la semaine ?</legend>
+      <p class="help">Choisis les jours où tu peux étudier. Les autres sont automatiquement sautés.</p>
+      <div class="days-grid" role="group" aria-label="Jours de la semaine">
+        <label class="day-box"><input type="checkbox" data-dow="0" checked><span class="dow-short">Dim</span><span class="dow-name">Dimanche</span></label>
+        <label class="day-box"><input type="checkbox" data-dow="1" checked><span class="dow-short">Lun</span><span class="dow-name">Lundi</span></label>
+        <label class="day-box"><input type="checkbox" data-dow="2" checked><span class="dow-short">Mar</span><span class="dow-name">Mardi</span></label>
+        <label class="day-box"><input type="checkbox" data-dow="3" checked><span class="dow-short">Mer</span><span class="dow-name">Mercredi</span></label>
+        <label class="day-box"><input type="checkbox" data-dow="4" checked><span class="dow-short">Jeu</span><span class="dow-name">Jeudi</span></label>
+        <label class="day-box"><input type="checkbox" data-dow="5"><span class="dow-short">Ven</span><span class="dow-name">Vendredi</span></label>
+        <label class="day-box"><input type="checkbox" data-dow="6"><span class="dow-short">Sam</span><span class="dow-name">Samedi</span></label>
+      </div>
+      <div class="quick-buttons">
+        <button type="button" class="quick-btn" data-preset="5">5 j/sem (dim–jeu)</button>
+        <button type="button" class="quick-btn" data-preset="6">6 j/sem (sauf samedi)</button>
+        <button type="button" class="quick-btn" data-preset="7">7 j/sem</button>
+        <button type="button" class="quick-btn" data-preset="0">Tout désélectionner</button>
+      </div>
+    </fieldset>
+
+    <!-- POINT DE DÉPART -->
+    <fieldset class="form-section">
+      <legend class="legend">🗓️ Point de départ</legend>
+      <p class="help">Choisis le jour où tu veux commencer et le siman par lequel tu démarres.</p>
+      <div class="field-row">
+        <div class="field">
+          <label for="start-date">Date de début</label>
+          <input type="date" id="start-date" required>
+        </div>
+        <div class="field">
+          <label for="start-siman">Siman de départ</label>
+          <select id="start-siman" required></select>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- NOTIFICATIONS -->
+    <fieldset class="form-section">
+      <legend class="legend">📧 Notifications (optionnel)</legend>
+      <p class="help">Tu peux recevoir ton plan quotidien par email. Disponible bientôt.</p>
+      <div class="checkbox-row">
+        <input type="checkbox" id="email-notif">
+        <label for="email-notif">M'envoyer mon plan quotidien par email</label>
+      </div>
+      <div class="field">
+        <label for="email-input">Email</label>
+        <input type="email" id="email-input" autocomplete="email" placeholder="ton-email@example.com">
+      </div>
+    </fieldset>
+
+    <!-- ACTIONS -->
+    <div class="actions">
+      <button type="button" class="btn btn-secondary" id="btn-preview">Voir ma timeline</button>
+      <button type="submit" class="btn btn-primary" id="btn-save">Sauvegarder mon plan</button>
+      <button type="button" class="btn btn-danger" id="btn-reset" hidden>Réinitialiser mon plan</button>
+    </div>
+  </form>
+
+  <!-- APERÇU -->
+  <section class="preview" id="preview" hidden aria-live="polite">
+    <h2>Aperçu de ta timeline</h2>
+    <div class="summary" id="preview-summary"></div>
+    <h3 style="font-family:'Inter',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:14px">Les 7 premiers jours</h3>
+    <div class="preview-days" id="preview-days"></div>
+
+    <div class="share-block">
+      <label>Lien partage de ce plan</label>
+      <div class="share-url" id="share-url"></div>
+      <div class="share-actions">
+        <button type="button" id="btn-copy-share">Copier le lien</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="/assets/js/daat-custom-plan.js"></script>
+<script>
+(function () {
+  'use strict';
+  var DCP = window.DaatCustomPlan;
+
+  // ============================================================
+  // ÉLÉMENTS DOM
+  // ============================================================
+  var form = document.getElementById('plan-form');
+  var rateRadios = form.querySelectorAll('input[name="rate-preset"]');
+  var customRateWrap = document.getElementById('custom-rate-wrap');
+  var customRateInput = document.getElementById('custom-rate');
+  var dayBoxes = form.querySelectorAll('.day-box input[type="checkbox"]');
+  var quickBtns = form.querySelectorAll('.quick-btn');
+  var startDateInput = document.getElementById('start-date');
+  var startSimanSelect = document.getElementById('start-siman');
+  var emailNotifInput = document.getElementById('email-notif');
+  var emailInput = document.getElementById('email-input');
+  var btnPreview = document.getElementById('btn-preview');
+  var btnReset = document.getElementById('btn-reset');
+  var previewBox = document.getElementById('preview');
+  var previewSummary = document.getElementById('preview-summary');
+  var previewDays = document.getElementById('preview-days');
+  var shareUrl = document.getElementById('share-url');
+  var btnCopyShare = document.getElementById('btn-copy-share');
+  var errorBanner = document.getElementById('error-banner');
+  var sharedNotice = document.getElementById('shared-notice');
+  var toast = document.getElementById('toast');
+
+  var catalog = null;
+
+  // ============================================================
+  // INIT
+  // ============================================================
+
+  function showError(msg) {
+    errorBanner.textContent = msg;
+    errorBanner.classList.add('is-shown');
+    errorBanner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function clearError() {
+    errorBanner.classList.remove('is-shown');
+    errorBanner.textContent = '';
+  }
+
+  function showToast(msg, ms) {
+    toast.textContent = msg;
+    toast.classList.add('is-shown');
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(function () {
+      toast.classList.remove('is-shown');
+    }, ms || 3500);
+  }
+
+  function fillSimanSelect() {
+    if (!catalog) return;
+    startSimanSelect.innerHTML = '';
+    catalog.simanim.forEach(function (s) {
+      var opt = document.createElement('option');
+      opt.value = String(s.num);
+      var title = s.title || '';
+      if (title.length > 50) title = title.slice(0, 50) + '…';
+      opt.textContent = 'Siman ' + s.num + ' — ' + title;
+      startSimanSelect.appendChild(opt);
+    });
+  }
+
+  function dayBoxesSync() {
+    dayBoxes.forEach(function (cb) {
+      var box = cb.closest('.day-box');
+      if (cb.checked) box.classList.add('is-checked');
+      else box.classList.remove('is-checked');
+    });
+  }
+
+  function setStudyDays(dows) {
+    var set = {};
+    dows.forEach(function (d) { set[d] = true; });
+    dayBoxes.forEach(function (cb) {
+      var dow = parseInt(cb.dataset.dow, 10);
+      cb.checked = !!set[dow];
+    });
+    dayBoxesSync();
+  }
+
+  function applyPreset(preset) {
+    if (preset === '5') setStudyDays([0, 1, 2, 3, 4]);
+    else if (preset === '6') setStudyDays([0, 1, 2, 3, 4, 5]);
+    else if (preset === '7') setStudyDays([0, 1, 2, 3, 4, 5, 6]);
+    else if (preset === '0') setStudyDays([]);
+  }
+
+  function getSelectedStudyDays() {
+    var out = [];
+    dayBoxes.forEach(function (cb) {
+      if (cb.checked) out.push(parseInt(cb.dataset.dow, 10));
+    });
+    return out;
+  }
+
+  function getRateConfig() {
+    var checked = form.querySelector('input[name="rate-preset"]:checked');
+    var val = checked ? checked.value : '5-seifim';
+    if (val === '1-seif') return { rate: 1, rateUnit: 'seifim_per_day' };
+    if (val === '5-seifim') return { rate: 5, rateUnit: 'seifim_per_day' };
+    if (val === '1-siman') return { rate: 1, rateUnit: 'siman_per_day' };
+    var custom = parseInt(customRateInput.value, 10);
+    if (!isFinite(custom) || custom < 1) custom = 1;
+    if (custom > 50) custom = 50;
+    return { rate: custom, rateUnit: 'seifim_per_day' };
+  }
+
+  function setRateFromPlan(plan) {
+    if (plan.rateUnit === 'siman_per_day' && plan.rate === 1) {
+      form.querySelector('input[value="1-siman"]').checked = true;
+    } else if (plan.rateUnit === 'seifim_per_day' && plan.rate === 1) {
+      form.querySelector('input[value="1-seif"]').checked = true;
+    } else if (plan.rateUnit === 'seifim_per_day' && plan.rate === 5) {
+      form.querySelector('input[value="5-seifim"]').checked = true;
+    } else {
+      form.querySelector('input[value="custom"]').checked = true;
+      customRateInput.value = String(plan.rate);
+    }
+    syncCustomRateVisibility();
+  }
+
+  function syncCustomRateVisibility() {
+    var checked = form.querySelector('input[name="rate-preset"]:checked');
+    customRateWrap.hidden = !(checked && checked.value === 'custom');
+  }
+
+  function buildPlanFromForm() {
+    var rateCfg = getRateConfig();
+    return DCP.normalizePlan({
+      rate: rateCfg.rate,
+      rateUnit: rateCfg.rateUnit,
+      studyDays: getSelectedStudyDays(),
+      startDate: startDateInput.value,
+      startSiman: parseInt(startSimanSelect.value, 10) || DCP.SIMAN_MIN,
+      email: emailInput.value,
+      emailNotif: emailNotifInput.checked,
+      completedDays: [],
+      createdAt: new Date().toISOString(),
+    });
+  }
+
+  function populateForm(plan) {
+    setRateFromPlan(plan);
+    setStudyDays(plan.studyDays);
+    startDateInput.value = plan.startDate;
+    if (catalog) {
+      startSimanSelect.value = String(plan.startSiman);
+    }
+    emailNotifInput.checked = !!plan.emailNotif;
+    emailInput.value = plan.email || DCP.readAuthEmail();
+  }
+
+  function validatePlan(plan) {
+    if (!plan.studyDays.length) {
+      return 'Choisis au moins un jour de la semaine où tu veux étudier.';
+    }
+    if (!DCP.parseISO(plan.startDate)) {
+      return 'Choisis une date de début valide.';
+    }
+    if (plan.startSiman < DCP.SIMAN_MIN || plan.startSiman > DCP.SIMAN_MAX) {
+      return 'Le siman de départ doit être entre ' + DCP.SIMAN_MIN + ' et ' + DCP.SIMAN_MAX + '.';
+    }
+    if (plan.emailNotif && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(plan.email)) {
+      return 'Pour recevoir les emails, renseigne une adresse email valide.';
+    }
+    return null;
+  }
+
+  // ============================================================
+  // APERÇU
+  // ============================================================
+
+  function renderPreview(plan) {
+    var timeline = DCP.buildTimeline(plan, catalog);
+    var entries = timeline.entries;
+    if (!entries.length) {
+      previewBox.hidden = false;
+      previewSummary.innerHTML = '<div class="today-day">Aucun jour à planifier.</div><div class="today-sub">Vérifie le siman de départ et le rythme.</div>';
+      previewDays.innerHTML = '';
+      return;
+    }
+
+    var first = entries[0];
+    var endDate = timeline.endDate;
+    var nWeeks = Math.ceil(timeline.totalDays / Math.max(1, plan.studyDays.length));
+
+    var seifLabel = first.seifStart === first.seifEnd
+      ? 'séif ' + first.seifStart
+      : 'séifim ' + first.seifStart + '–' + first.seifEnd;
+    var lotLabel = first.lotTotal > 1 ? ' (' + first.lotIndex + '/' + first.lotTotal + ')' : '';
+
+    previewSummary.innerHTML =
+      '<div class="today-day">Jour 1 — Siman ' + first.simanNum + ' · ' + seifLabel + lotLabel + '</div>' +
+      '<div class="today-sub">' + escapeHtml(first.title) + '</div>' +
+      '<div class="summary-line">' +
+        '<span>📅 Début : ' + DCP.fmtDateLong(timeline.startDate) + '</span>' +
+        '<span>🏁 Fin estimée : ' + DCP.fmtDateLong(endDate) + '</span>' +
+      '</div>' +
+      '<div class="summary-line" style="margin-top:8px">' +
+        '<span>' + timeline.totalDays + ' jours d\'étude</span>' +
+        '<span>~' + nWeeks + ' semaines · ' + plan.studyDays.length + ' j/sem</span>' +
+      '</div>';
+
+    var html = '';
+    var n = Math.min(7, entries.length);
+    for (var i = 0; i < n; i++) {
+      var e = entries[i];
+      var sLabel = e.seifStart === e.seifEnd ? 'séif ' + e.seifStart : 'séif ' + e.seifStart + '–' + e.seifEnd;
+      var lotStr = e.lotTotal > 1 ? ' <span style="color:var(--text-mid);font-size:13px">(' + e.lotIndex + '/' + e.lotTotal + ')</span>' : '';
+      html += '<div class="preview-day">' +
+        '<div class="pd-num">Jour ' + e.dayNumber + '</div>' +
+        '<div class="pd-date">' + DCP.fmtDateShort(DCP.parseISO(e.date)) + '</div>' +
+        '<div class="pd-content"><strong>Siman ' + e.simanNum + '</strong> · ' + sLabel + lotStr + ' — ' + escapeHtml(e.title) + '</div>' +
+      '</div>';
+    }
+    previewDays.innerHTML = html;
+
+    // Lien partage
+    var token = DCP.encodeShareablePlan(plan);
+    var url = window.location.origin + '/limoud/personnaliser.html?p=' + token;
+    shareUrl.textContent = url;
+
+    previewBox.hidden = false;
+  }
+
+  function escapeHtml(s) {
+    return String(s || '').replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+
+  // ============================================================
+  // SAVE
+  // ============================================================
+
+  function savePlan(plan) {
+    var existing = DCP.readPlan();
+    if (existing && existing.completedDays && existing.completedDays.length) {
+      plan.completedDays = existing.completedDays;
+    }
+    DCP.writePlan(plan);
+    showToast('Plan sauvegardé ✓ — tu peux fermer cette page et revenir quand tu veux.', 4500);
+    btnReset.hidden = false;
+
+    // POST côté serveur si email activé (best-effort, MVP)
+    if (plan.emailNotif && plan.email) {
+      fetch('/api/custom-plan', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: plan.email, plan: plan }),
+      }).catch(function () { /* best-effort */ });
+    }
+  }
+
+  // ============================================================
+  // ÉVÉNEMENTS
+  // ============================================================
+
+  rateRadios.forEach(function (r) { r.addEventListener('change', syncCustomRateVisibility); });
+
+  dayBoxes.forEach(function (cb) {
+    cb.addEventListener('change', dayBoxesSync);
+  });
+
+  quickBtns.forEach(function (b) {
+    b.addEventListener('click', function () { applyPreset(b.dataset.preset); });
+  });
+
+  btnPreview.addEventListener('click', function () {
+    clearError();
+    var plan = buildPlanFromForm();
+    var err = validatePlan(plan);
+    if (err) { showError(err); return; }
+    renderPreview(plan);
+    previewBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    clearError();
+    var plan = buildPlanFromForm();
+    var err = validatePlan(plan);
+    if (err) { showError(err); return; }
+    renderPreview(plan);
+    savePlan(plan);
+  });
+
+  btnReset.addEventListener('click', function () {
+    if (!window.confirm("Réinitialiser ton plan ? Tu perdras ta progression. Cette action est irréversible.")) return;
+    DCP.clearPlan();
+    showToast('Plan réinitialisé.');
+    btnReset.hidden = true;
+    populateForm(DCP.defaultPlan());
+    previewBox.hidden = true;
+  });
+
+  btnCopyShare.addEventListener('click', function () {
+    var url = shareUrl.textContent;
+    if (!url) return;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(function () {
+        showToast('Lien copié ✓');
+      }, function () { fallbackCopy(url); });
+    } else {
+      fallbackCopy(url);
+    }
+  });
+
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); showToast('Lien copié ✓'); }
+    catch (_) { showToast('Impossible de copier — fais ⌘+C / Ctrl+C'); }
+    document.body.removeChild(ta);
+  }
+
+  // ============================================================
+  // BOOT
+  // ============================================================
+
+  DCP.loadCatalog().then(function (cat) {
+    catalog = cat;
+    fillSimanSelect();
+
+    var urlParams = new URLSearchParams(window.location.search);
+    var sharedToken = urlParams.get('p');
+    var existing = DCP.readPlan();
+
+    if (sharedToken) {
+      var shared = DCP.decodeShareablePlan(sharedToken);
+      if (shared) {
+        // Conserve l'email auto s'il y en a un, et la progression existante
+        shared.email = (existing && existing.email) || DCP.readAuthEmail();
+        populateForm(shared);
+        sharedNotice.classList.add('is-shown');
+      } else if (existing) {
+        populateForm(existing);
+      } else {
+        populateForm(DCP.defaultPlan());
+      }
+    } else if (existing) {
+      populateForm(existing);
+      btnReset.hidden = false;
+    } else {
+      populateForm(DCP.defaultPlan());
+    }
+
+    // Pré-remplit l'email depuis daat-auth si pas encore renseigné
+    if (!emailInput.value) {
+      var authEmail = DCP.readAuthEmail();
+      if (authEmail) emailInput.value = authEmail;
+    }
+  }).catch(function (err) {
+    showError('Impossible de charger le catalogue des simanim. Recharge la page.');
+    console.error('[personnaliser] catalog load failed:', err);
+  });
+
+})();
+</script>
+</body>
+</html>
