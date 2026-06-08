@@ -78,8 +78,10 @@ async function handleSignup(req, res) {
       console.warn('[newsletter] kv list push failed:', e?.message);
     }
 
-    // Email de bienvenue J0 (best-effort)
-    if (process.env.RESEND_API_KEY) {
+    // Email de bienvenue J0 (best-effort, le cron rattrape si échec)
+    if (!process.env.RESEND_API_KEY) {
+      console.warn('[newsletter] RESEND_API_KEY absent — J0 non envoyé, cron rattrapera');
+    } else {
       try {
         const resend = new Resend(process.env.RESEND_API_KEY);
         const fromEmail = process.env.RESEND_FROM_EMAIL || 'noreply@daattorah.com';
@@ -93,12 +95,23 @@ async function handleSignup(req, res) {
           text: j0.text,
         });
 
-        if (!result.error) {
+        if (result.error) {
+          console.error('[newsletter] Resend a renvoyé une erreur sur J0:', {
+            email,
+            error: result.error?.message || result.error,
+            name: result.error?.name,
+          });
+        } else {
           record.sentSteps = ['j0'];
           await kv.set(`newsletter:${email}`, record);
+          console.log('[newsletter] J0 envoyé OK', { email, resendId: result.data?.id });
         }
       } catch (e) {
-        console.warn('[newsletter] welcome email failed:', e?.message);
+        console.error('[newsletter] exception lors de l\'envoi J0:', {
+          email,
+          message: e?.message,
+          name: e?.name,
+        });
       }
     }
 
@@ -192,11 +205,69 @@ async function handleCron(req, res) {
   }
 }
 
+// ---------- GET ?action=stats : lecture admin (ADMIN_PASSWORD ou SOUTIEN_ADMIN_SECRET) ----------
+async function handleStats(req, res) {
+  const auth = req.headers.authorization || '';
+  const expected = process.env.ADMIN_PASSWORD || process.env.SOUTIEN_ADMIN_SECRET;
+  if (!expected) {
+    return res.status(500).json({ error: 'ADMIN_PASSWORD non configuré' });
+  }
+  if (auth !== `Bearer ${expected}`) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+
+  try {
+    const emails = (await kv.lrange('newsletter:list', 0, 9999)) || [];
+    const uniqueEmails = [...new Set(emails)];
+
+    const recent = [];
+    let confirmed = 0;
+    let sentJ0 = 0;
+    let sentJ14 = 0;
+    const stepCounts = { j0: 0, j3: 0, j7: 0, j10: 0, j14: 0 };
+
+    for (const email of uniqueEmails) {
+      const r = await kv.get(`newsletter:${email}`);
+      if (!r) continue;
+      if (r.confirmed) confirmed++;
+      const steps = r.sentSteps || [];
+      for (const s of steps) if (s in stepCounts) stepCounts[s]++;
+      if (steps.includes('j0')) sentJ0++;
+      if (steps.includes('j14')) sentJ14++;
+      recent.push({
+        email: email.replace(/^(.)(.*)(@.*)$/, (_, a, b, c) => a + '*'.repeat(b.length) + c),
+        subscribedAt: r.subscribedAt,
+        source: r.source,
+        sentSteps: steps,
+      });
+    }
+
+    recent.sort((a, b) => (b.subscribedAt || '').localeCompare(a.subscribedAt || ''));
+
+    return res.status(200).json({
+      ok: true,
+      total: uniqueEmails.length,
+      confirmed,
+      sentJ0,
+      sentJ14,
+      stepCounts,
+      recent: recent.slice(0, 20),
+    });
+  } catch (err) {
+    console.error('[newsletter/stats] error:', err);
+    return res.status(500).json({ error: err?.message || 'Erreur stats' });
+  }
+}
+
 // ---------- dispatcher ----------
 export default async function handler(req, res) {
   setCors(res);
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method === 'POST') return handleSignup(req, res);
-  if (req.method === 'GET')  return handleCron(req, res);
+  if (req.method === 'GET') {
+    const url = new URL(req.url, 'http://x');
+    if (url.searchParams.get('action') === 'stats') return handleStats(req, res);
+    return handleCron(req, res);
+  }
   return res.status(405).json({ error: 'GET ou POST uniquement' });
 }
