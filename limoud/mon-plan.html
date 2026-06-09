@@ -90,6 +90,36 @@
       .day-row .dr-status{text-align:left}
     }
 
+    /* Email settings (rappels par email) */
+    .email-settings{background:#fff;border:1px solid var(--border);border-radius:6px;padding:24px 28px;margin-bottom:30px;box-shadow:0 1px 4px rgba(11,28,58,.04)}
+    .email-settings h3{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--navy);margin-bottom:14px;font-weight:600}
+    .email-settings .setting-row{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+    .toggle-label{display:flex;align-items:center;gap:14px;cursor:pointer;font-size:16px;color:var(--navy);user-select:none;font-family:'Cormorant Garamond',serif}
+    .toggle-label > span:first-child{flex:1;line-height:1.4}
+    .toggle-label input[type="checkbox"]{position:absolute;opacity:0;width:0;height:0;pointer-events:none}
+    .toggle-track{position:relative;width:48px;height:26px;background:var(--cream-dark);border:1px solid var(--border);border-radius:13px;transition:.2s;flex-shrink:0}
+    .toggle-track::after{content:'';position:absolute;top:2px;left:2px;width:20px;height:20px;background:#fff;border-radius:50%;box-shadow:0 1px 2px rgba(0,0,0,.2);transition:.2s}
+    .toggle-label input[type="checkbox"]:checked + .toggle-track{background:var(--gold);border-color:var(--gold)}
+    .toggle-label input[type="checkbox"]:checked + .toggle-track::after{transform:translateX(22px)}
+    .toggle-label input[type="checkbox"]:focus-visible + .toggle-track{outline:3px solid var(--gold);outline-offset:3px}
+    .toggle-label input[type="checkbox"]:disabled + .toggle-track{opacity:.5;cursor:not-allowed}
+    .toggle-label.is-disabled{cursor:not-allowed;opacity:.7}
+    .status-line{font-family:'Inter',sans-serif;font-size:12px;letter-spacing:1px;color:var(--text-mid);padding-left:62px;margin-top:-4px}
+    .status-line.is-on{color:var(--green)}
+    .status-line.is-off{color:var(--text-mid)}
+    .status-line.is-warn{color:#8C6F1E}
+    .email-line{font-family:'Inter',sans-serif;font-size:13px;color:var(--text-mid);margin:14px 0 6px}
+    .email-line strong{color:var(--navy);font-weight:600}
+    .link-btn{background:none;border:none;color:var(--gold);font-family:'Inter',sans-serif;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;padding:6px 0;text-decoration:underline}
+    .link-btn:hover{color:#8C6F1E}
+    .link-btn:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:3px}
+    .email-form{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px;padding:14px;background:var(--cream);border:1px solid var(--border);border-radius:4px}
+    .email-form input[type="email"]{flex:1;min-width:200px;padding:9px 12px;font-family:'Inter',sans-serif;font-size:14px;border:1px solid var(--border);border-radius:3px;background:#fff;color:var(--navy)}
+    .email-form input[type="email"]:focus{outline:2px solid var(--gold);outline-offset:0;border-color:var(--gold)}
+    .email-form .btn-mini{padding:8px 14px;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;background:var(--gold);color:var(--navy);border:1px solid var(--gold);border-radius:3px;cursor:pointer}
+    .email-form .btn-mini.is-secondary{background:transparent;color:var(--navy)}
+    .email-form .btn-mini:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
     /* Actions footer */
     .footer-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px;padding-top:24px;border-top:1px solid var(--border);justify-content:center}
 
@@ -145,6 +175,26 @@
       <h2 class="section-h2">Mon calendrier</h2>
       <div class="week-nav" id="week-nav"></div>
       <div id="weeks-container"></div>
+    </section>
+
+    <section class="email-settings" id="email-settings" aria-labelledby="email-settings-h3">
+      <h3 id="email-settings-h3">📩 Rappels par email</h3>
+      <div class="setting-row">
+        <label class="toggle-label" id="daily-toggle-label">
+          <span>Recevoir le Daat Yomi du jour par email</span>
+          <input type="checkbox" id="daily-toggle" aria-describedby="daily-status" />
+          <span class="toggle-track" aria-hidden="true"></span>
+        </label>
+        <p class="status-line" id="daily-status" role="status" aria-live="polite">Chargement…</p>
+      </div>
+      <p class="email-line" id="email-display">Email : <em>(non renseigné)</em></p>
+      <button type="button" class="link-btn" id="change-email-btn">Modifier mon email</button>
+      <div class="email-form" id="email-form" hidden>
+        <label for="email-input" class="sr-only" style="position:absolute;left:-9999px">Adresse email</label>
+        <input type="email" id="email-input" placeholder="ton@email.com" autocomplete="email" />
+        <button type="button" class="btn-mini" id="email-save-btn">Enregistrer</button>
+        <button type="button" class="btn-mini is-secondary" id="email-cancel-btn">Annuler</button>
+      </div>
     </section>
 
     <div class="footer-actions">
@@ -394,10 +444,313 @@
     elPageSub.textContent = 'Plan démarré le ' + DCP.fmtDateLong(timeline.startDate) +
       ' · Siman ' + plan.startSiman + ' → 365 · ' + entries.length + ' jours.';
 
+    // ----- TOGGLE "RAPPELS PAR EMAIL" -----
+    initEmailSettings(plan);
+
   }).catch(function (err) {
     elEmpty.hidden = false;
     console.error('[mon-plan] catalog load failed:', err);
   });
+
+  // ============================================================
+  // EMAIL SETTINGS — toggle daily on/off + change email
+  // ============================================================
+  function initEmailSettings(plan) {
+    var elToggle = document.getElementById('daily-toggle');
+    var elToggleLabel = document.getElementById('daily-toggle-label');
+    var elStatus = document.getElementById('daily-status');
+    var elEmailDisplay = document.getElementById('email-display');
+    var elChangeBtn = document.getElementById('change-email-btn');
+    var elEmailForm = document.getElementById('email-form');
+    var elEmailInput = document.getElementById('email-input');
+    var elEmailSave = document.getElementById('email-save-btn');
+    var elEmailCancel = document.getElementById('email-cancel-btn');
+
+    // 1) Récupère un éventuel token transmis via URL (?t=...&e=...) et le
+    //    stocke en sessionStorage. sessionStorage est volontaire : moins
+    //    persistant que localStorage → si le user ferme l'onglet, le token
+    //    disparaît (sécurité contre exfiltration via XSS persistant).
+    try {
+      var qs = new URLSearchParams(window.location.search);
+      var qToken = qs.get('t');
+      var qEmail = qs.get('e');
+      if (qToken && qEmail) {
+        sessionStorage.setItem('daat.optinToken', qToken);
+        sessionStorage.setItem('daat.optinEmail', qEmail.toLowerCase().trim());
+        // Nettoie l'URL pour ne pas exposer le token dans l'historique
+        var clean = window.location.pathname;
+        window.history.replaceState({}, '', clean);
+      }
+    } catch (_) { /* ignore */ }
+
+    var storedToken = '';
+    var storedTokenEmail = '';
+    try {
+      storedToken = sessionStorage.getItem('daat.optinToken') || '';
+      storedTokenEmail = sessionStorage.getItem('daat.optinEmail') || '';
+    } catch (_) { /* ignore */ }
+
+    // 2) Détermine l'email courant : priorité au plan, sinon au token URL.
+    var currentEmail = (plan && plan.email) ? String(plan.email).trim().toLowerCase() : '';
+    if (!currentEmail && storedTokenEmail) {
+      currentEmail = storedTokenEmail;
+    }
+
+    function isValidEmail(s) {
+      return typeof s === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s) && s.length <= 254;
+    }
+
+    function updateEmailDisplay() {
+      if (currentEmail) {
+        elEmailDisplay.innerHTML = 'Email : <strong>' + escapeHtml(currentEmail) + '</strong>';
+      } else {
+        elEmailDisplay.innerHTML = 'Email : <em>(non renseigné — renseigne-le pour activer les rappels)</em>';
+      }
+    }
+
+    function setStatus(text, cls) {
+      elStatus.textContent = text;
+      elStatus.classList.remove('is-on', 'is-off', 'is-warn');
+      if (cls) elStatus.classList.add(cls);
+    }
+
+    function setToggleDisabled(disabled) {
+      elToggle.disabled = !!disabled;
+      if (disabled) elToggleLabel.classList.add('is-disabled');
+      else elToggleLabel.classList.remove('is-disabled');
+    }
+
+    function setToggleChecked(checked) {
+      elToggle.checked = !!checked;
+    }
+
+    function showToast(msg) {
+      elToast.textContent = msg;
+      elToast.classList.add('is-shown');
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(function () {
+        elToast.classList.remove('is-shown');
+      }, 3000);
+    }
+
+    // 3) Rendu initial
+    updateEmailDisplay();
+
+    if (!currentEmail) {
+      setToggleChecked(false);
+      setToggleDisabled(true);
+      setStatus('Renseigne ton email pour activer les rappels.', 'is-warn');
+      bindChangeEmail();
+      return;
+    }
+
+    // 4) Si on a un token, on lit le statut côté serveur ; sinon on tente
+    //    une activation à l'aveugle (POST) quand l'user toggle ON, et on
+    //    bloque le OFF (déléguer au mail).
+    var hasTokenForCurrent = !!(storedToken && storedTokenEmail === currentEmail);
+
+    if (hasTokenForCurrent) {
+      fetchStatusAndBind();
+    } else {
+      // Mode dégradé : on présente le toggle, l'user peut activer mais pas
+      // désactiver. Le toggle commence à OFF par défaut.
+      setToggleChecked(false);
+      setStatus('Active les rappels — clique le lien dans le 1er email pour gérer ensuite.', 'is-warn');
+      bindToggleNoToken();
+    }
+    bindChangeEmail();
+
+    // ---- Helpers réseau ----
+    async function fetchStatus(email, token) {
+      var url = '/api/newsletter?action=status&email=' + encodeURIComponent(email) +
+                '&token=' + encodeURIComponent(token);
+      var r = await fetch(url, { method: 'GET' });
+      var j = await r.json().catch(function () { return {}; });
+      return { ok: r.ok, status: r.status, data: j };
+    }
+
+    async function postSignup(email, enableDaily) {
+      var r = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: email,
+          source: 'mon-plan',
+          enableDaily: !!enableDaily,
+        }),
+      });
+      var j = await r.json().catch(function () { return {}; });
+      return { ok: r.ok, status: r.status, data: j };
+    }
+
+    async function getDisableDaily(email, token) {
+      var url = '/api/newsletter?action=disable-daily&email=' + encodeURIComponent(email) +
+                '&token=' + encodeURIComponent(token);
+      var r = await fetch(url, { method: 'GET' });
+      return { ok: r.ok, status: r.status };
+    }
+
+    function fetchStatusAndBind() {
+      setStatus('Chargement…');
+      setToggleDisabled(true);
+      fetchStatus(currentEmail, storedToken).then(function (res) {
+        if (!res.ok) {
+          if (res.status === 401 || res.status === 404) {
+            // Token périmé ou inscription disparue : mode dégradé
+            try { sessionStorage.removeItem('daat.optinToken'); } catch (_) { /**/ }
+            hasTokenForCurrent = false;
+            setStatus('Active les rappels — clique le lien dans le 1er email pour gérer ensuite.', 'is-warn');
+            setToggleChecked(false);
+            setToggleDisabled(false);
+            bindToggleNoToken();
+            return;
+          }
+          setStatus('Statut indisponible. Réessaie dans un instant.', 'is-warn');
+          setToggleDisabled(false);
+          return;
+        }
+        var d = res.data || {};
+        setToggleChecked(!!d.dailyEnabled);
+        setToggleDisabled(false);
+        if (d.dailyEnabled) {
+          setStatus('Activé · email envoyé chaque jour d\'étude.', 'is-on');
+        } else {
+          setStatus('Désactivé.', 'is-off');
+        }
+        bindToggleWithToken();
+      }).catch(function (err) {
+        console.error('[mon-plan/status]', err);
+        setStatus('Statut indisponible. Réessaie dans un instant.', 'is-warn');
+        setToggleDisabled(false);
+      });
+    }
+
+    function bindToggleWithToken() {
+      elToggle.onchange = function () {
+        var wantOn = elToggle.checked;
+        setToggleDisabled(true);
+        setStatus(wantOn ? 'Activation…' : 'Désactivation…');
+        if (wantOn) {
+          postSignup(currentEmail, true).then(function (res) {
+            setToggleDisabled(false);
+            if (!res.ok) {
+              setToggleChecked(false);
+              setStatus('Erreur — réessaie.', 'is-warn');
+              showToast('Erreur lors de l\'activation.');
+              return;
+            }
+            setStatus('Activé · email envoyé chaque jour d\'étude.', 'is-on');
+            showToast('Rappels quotidiens activés ✓');
+          }).catch(function () {
+            setToggleDisabled(false);
+            setToggleChecked(false);
+            setStatus('Erreur réseau — réessaie.', 'is-warn');
+          });
+        } else {
+          getDisableDaily(currentEmail, storedToken).then(function (res) {
+            setToggleDisabled(false);
+            if (!res.ok) {
+              setToggleChecked(true);
+              setStatus('Erreur — réessaie.', 'is-warn');
+              showToast('Erreur lors de la désactivation.');
+              return;
+            }
+            setStatus('Désactivé.', 'is-off');
+            showToast('Rappels quotidiens désactivés.');
+          }).catch(function () {
+            setToggleDisabled(false);
+            setToggleChecked(true);
+            setStatus('Erreur réseau — réessaie.', 'is-warn');
+          });
+        }
+      };
+    }
+
+    function bindToggleNoToken() {
+      elToggle.onchange = function () {
+        var wantOn = elToggle.checked;
+        if (!wantOn) {
+          // Pas de token → on ne peut pas désactiver côté client.
+          setToggleChecked(true);
+          setStatus(
+            'Pour désactiver, clique le lien "Se désinscrire" en bas de ton dernier email DAAT.',
+            'is-warn',
+          );
+          return;
+        }
+        setToggleDisabled(true);
+        setStatus('Activation…');
+        postSignup(currentEmail, true).then(function (res) {
+          setToggleDisabled(false);
+          if (!res.ok) {
+            setToggleChecked(false);
+            setStatus('Erreur — réessaie.', 'is-warn');
+            showToast('Erreur lors de l\'activation.');
+            return;
+          }
+          setToggleChecked(true);
+          setStatus(
+            'Activé · clique le lien dans ton 1er email pour pouvoir gérer ici ensuite.',
+            'is-on',
+          );
+          showToast('Rappels activés — vérifie ta boîte mail ✓');
+        }).catch(function () {
+          setToggleDisabled(false);
+          setToggleChecked(false);
+          setStatus('Erreur réseau — réessaie.', 'is-warn');
+        });
+      };
+    }
+
+    function bindChangeEmail() {
+      elChangeBtn.onclick = function () {
+        elEmailForm.hidden = false;
+        elEmailInput.value = currentEmail || '';
+        elEmailInput.focus();
+      };
+      elEmailCancel.onclick = function () {
+        elEmailForm.hidden = true;
+      };
+      elEmailSave.onclick = function () {
+        var newEmail = String(elEmailInput.value || '').trim().toLowerCase();
+        if (!isValidEmail(newEmail)) {
+          showToast('Email invalide.');
+          elEmailInput.focus();
+          return;
+        }
+        // Sauve dans le plan localStorage
+        try {
+          plan.email = newEmail;
+          plan.emailNotif = true;
+          DCP.writePlan(plan);
+        } catch (_) { /* ignore */ }
+
+        var changed = (newEmail !== currentEmail);
+        currentEmail = newEmail;
+        updateEmailDisplay();
+        elEmailForm.hidden = true;
+
+        // Si l'email a changé, l'éventuel token stocké ne vaut plus.
+        if (changed) {
+          try { sessionStorage.removeItem('daat.optinToken'); } catch (_) { /**/ }
+          try { sessionStorage.removeItem('daat.optinEmail'); } catch (_) { /**/ }
+          hasTokenForCurrent = false;
+        }
+
+        showToast('Email enregistré.');
+
+        // Ré-initialise le toggle pour le nouvel email
+        setToggleDisabled(false);
+        if (hasTokenForCurrent) {
+          fetchStatusAndBind();
+        } else {
+          setToggleChecked(false);
+          setStatus('Active les rappels — clique le lien dans le 1er email pour gérer ensuite.', 'is-warn');
+          bindToggleNoToken();
+        }
+      };
+    }
+  }
 
 })();
 </script>

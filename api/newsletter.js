@@ -17,6 +17,15 @@
 //                                              → opt-in 1-click depuis email (HTML)
 //   GET  /api/newsletter?action=disable-daily&email=&token=
 //                                              → opt-out 1-click depuis email (HTML)
+//   GET  /api/newsletter?action=unsubscribe&email=&token=
+//                                              → désinscription 1-click depuis email (HTML)
+//                                                Marque record.confirmed=false (RGPD-friendly :
+//                                                on garde l'historique, on retire des envois).
+//   GET  /api/newsletter?action=resubscribe&email=&token=
+//                                              → ré-inscription 1-click (HTML), symétrique
+//   GET  /api/newsletter?action=status&email=&token=
+//                                              → lecture publique authentifiée par token
+//                                                ({ confirmed, dailyEnabled, hasCustomPlan, email })
 //
 // Cette fusion permet de rester sous la limite de 12 fonctions Vercel
 // Hobby tout en regroupant le système email dans un seul fichier (signup
@@ -25,11 +34,13 @@
 // Stockage Vercel KV :
 //   - newsletter:{email}      → {
 //       email, subscribedAt, source, confirmed, token,
-//       optinToken,               // secret 1-click pour enable/disable daily
+//       optinToken,               // secret 1-click pour enable/disable daily + unsubscribe
 //       sentSteps: ['j0', 'j3', ...],
 //       dailyEnabled?: boolean,   // opt-in Daat Yomi quotidien (false par défaut)
 //       dailyEnabledAt?: string,  // ISO de l'activation
 //       dailyDisabledAt?: string, // ISO de la désactivation
+//       unsubscribedAt?: string,  // ISO de la désinscription (confirmed → false)
+//       resubscribedAt?: string,  // ISO d'une éventuelle réinscription
 //       lang?: 'fr'|'en'|'he',    // réserve future (libellés FR pour MVP)
 //     }
 //   - newsletter:list                         → liste des emails (pour le cron)
@@ -85,6 +96,25 @@ async function handleSignup(req, res) {
     // Déjà inscrit ?
     const existing = await kv.get(`newsletter:${email}`);
     if (existing) {
+      // Cas spécial : user a fait unsubscribe puis revient. On le ré-active.
+      if (existing.confirmed === false) {
+        const updated = {
+          ...existing,
+          optinToken: existing.optinToken || randomBytes(32).toString('hex'),
+          confirmed: true,
+          resubscribedAt: new Date().toISOString(),
+          ...(enableDaily ? {
+            dailyEnabled: true,
+            dailyEnabledAt: new Date().toISOString(),
+          } : {}),
+        };
+        await kv.set(`newsletter:${email}`, updated);
+        return res.status(200).json({
+          ok: true,
+          resubscribed: true,
+          dailyEnabled: !!updated.dailyEnabled,
+        });
+      }
       // Si l'utilisateur arrive depuis /limoud/personnaliser avec enableDaily=true,
       // on bascule son record existant en opt-in (idempotent).
       if (enableDaily && existing.confirmed && !existing.dailyEnabled) {
@@ -270,6 +300,17 @@ async function handleCron(req, res) {
         const customRecord = await kv.get(`custom-plan:${email}`);
         if (!customRecord || !customRecord.plan) continue;
 
+        // Respect du unsubscribe global : si l'user a un record newsletter
+        // marqué confirmed=false (désinscription RGPD), on ne lui envoie rien
+        // — pas même son daily perso. S'il n'a pas de record newsletter du
+        // tout, on continue (il a peut-être créé un plan perso sans s'inscrire
+        // à la newsletter, ce qui est légitime).
+        const nlRecord = await kv.get(`newsletter:${email}`);
+        if (nlRecord && nlRecord.confirmed === false) {
+          customSkipped++;
+          continue;
+        }
+
         // Idempotence partagée avec le daily universel : 1 mail/jour/user max,
         // perso prime sur universel (puisqu'on tourne avant).
         const dailyKey = `newsletter:daily-sent:${todayISO}:${email}`;
@@ -286,10 +327,17 @@ async function handleCron(req, res) {
           continue;
         }
 
+        // Si on a un record newsletter avec optinToken, on l'utilise pour
+        // le lien 1-click unsubscribe. Sinon le lien restera mailto (fallback).
+        const customCtx = (nlRecord && nlRecord.optinToken)
+          ? { email, optinToken: nlRecord.optinToken }
+          : undefined;
+
         const { subject, html, text } = buildCustomDailyEmail(
           customEntry,
           customRecord.plan,
           'fr',
+          customCtx,
         );
 
         const result = await resend.emails.send({
@@ -369,7 +417,10 @@ async function handleCron(req, res) {
             continue;
           }
 
-          const { subject, html, text } = buildDailyEmail(entry, record.lang || 'fr');
+          const { subject, html, text } = buildDailyEmail(entry, record.lang || 'fr', {
+            email,
+            optinToken: record.optinToken,
+          });
 
           const result = await resend.emails.send({
             from: `DAAT <${fromEmail}>`,
@@ -475,7 +526,14 @@ async function handleTestDaily(req, res) {
   }
 
   try {
-    const { subject, html, text } = buildDailyEmail(entry, 'fr');
+    // Si le destinataire est un inscrit existant, on injecte son optinToken
+    // pour que le lien "Se désinscrire" soit 1-click (et non un mailto).
+    const toLower = to.toLowerCase().trim();
+    const nlRecord = await kv.get(`newsletter:${toLower}`);
+    const testCtx = (nlRecord && nlRecord.optinToken)
+      ? { email: toLower, optinToken: nlRecord.optinToken }
+      : undefined;
+    const { subject, html, text } = buildDailyEmail(entry, 'fr', testCtx);
     const resend = new Resend(process.env.RESEND_API_KEY);
     const fromEmail = process.env.RESEND_FROM_EMAIL || 'noreply@daattorah.com';
     const result = await resend.emails.send({
@@ -554,7 +612,14 @@ async function handleTestCustomDaily(req, res) {
   }
 
   try {
-    const { subject, html, text } = buildCustomDailyEmail(entry, customRecord.plan, 'fr');
+    // Si le destinataire est un inscrit newsletter existant, on injecte son
+    // optinToken pour que le lien "Désinscription" soit 1-click.
+    const toLower = to.toLowerCase().trim();
+    const nlRecord = await kv.get(`newsletter:${toLower}`);
+    const testCtx = (nlRecord && nlRecord.optinToken)
+      ? { email: toLower, optinToken: nlRecord.optinToken }
+      : undefined;
+    const { subject, html, text } = buildCustomDailyEmail(entry, customRecord.plan, 'fr', testCtx);
     const resend = new Resend(process.env.RESEND_API_KEY);
     const fromEmail = process.env.RESEND_FROM_EMAIL || 'noreply@daattorah.com';
     const result = await resend.emails.send({
@@ -695,8 +760,11 @@ function htmlSuccess(message, email, { mode = 'enabled' } = {}) {
   });
 }
 
-// Variante qui prend le token pour le bouton "Désactiver"
+// Variante qui prend le token pour le bouton "Désactiver". Propose aussi
+// d'aller au plan perso en passant le token via ?t= (mon-plan.html le stocke
+// en sessionStorage et l'utilise pour piloter le toggle daily on/off).
 function htmlSuccessEnabled(message, email, token) {
+  const monPlanUrl = `${SITE_URL}/limoud/mon-plan.html?e=${encodeURIComponent(email)}&t=${encodeURIComponent(token)}`;
   const disableUrl = `${SITE_URL}/api/newsletter?action=disable-daily&email=${encodeURIComponent(email)}&token=${encodeURIComponent(token)}`;
   return htmlPage({
     title: 'Rappels activés',
@@ -705,8 +773,8 @@ function htmlSuccessEnabled(message, email, token) {
     headline: 'Rappels activés',
     message,
     email,
-    primaryHref: `${SITE_URL}/limoud/`,
-    primaryLabel: 'Voir l’étude du jour',
+    primaryHref: monPlanUrl,
+    primaryLabel: 'Aller à mon plan',
     secondaryHref: disableUrl,
     secondaryLabel: 'Désactiver les rappels',
   });
@@ -724,6 +792,25 @@ function htmlError(message) {
     primaryLabel: 'Voir l’étude du jour',
     secondaryHref: null,
     secondaryLabel: null,
+  });
+}
+
+// Page "désinscription confirmée" : bouton "Me ré-inscrire" qui pointe vers
+// ?action=resubscribe avec le token. Lien anchor classique (le serveur fait
+// le travail) — pas besoin de POST côté JS, le token sert d'auth.
+function htmlUnsubscribed(message, email, token) {
+  const resubscribeUrl = `${SITE_URL}/api/newsletter?action=resubscribe&email=${encodeURIComponent(email)}&token=${encodeURIComponent(token)}`;
+  return htmlPage({
+    title: 'Désinscription confirmée',
+    accent: '#0a1f3d',
+    icon: '✓',
+    headline: 'Désinscription confirmée',
+    message,
+    email,
+    primaryHref: resubscribeUrl,
+    primaryLabel: 'Me ré-inscrire',
+    secondaryHref: `${SITE_URL}/`,
+    secondaryLabel: 'Voir le site',
   });
 }
 
@@ -771,6 +858,163 @@ async function handleEnableDaily(req, res) {
   } catch (err) {
     console.error('[newsletter/enable-daily] error:', err);
     return res.status(500).send(htmlError('Une erreur est survenue. Réessaie dans quelques minutes.'));
+  }
+}
+
+// ---------- GET ?action=unsubscribe : 1-click depuis email ----------
+// Désinscription complète : on ne supprime PAS le record (historique RGPD).
+// On marque confirmed=false + unsubscribedAt. Le cron skippe les records
+// non confirmed, donc plus aucun envoi (séquence J0-J14 + daily universel
+// + daily perso indirectement, car custom-plan-engine ne dépend que de
+// custom-plan:{email}).
+async function handleUnsubscribe(req, res) {
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  try {
+    const url = new URL(req.url, 'http://x');
+    const email = String(url.searchParams.get('email') || '').toLowerCase().trim();
+    const token = String(url.searchParams.get('token') || '');
+
+    if (!email || !token || !isValidEmail(email)) {
+      return res.status(400).send(htmlError('Le lien est incomplet ou mal formé.'));
+    }
+
+    const record = await kv.get(`newsletter:${email}`);
+    if (!record) {
+      return res.status(404).send(htmlError('Inscription introuvable. Le lien a peut-être expiré.'));
+    }
+
+    if (!record.optinToken || record.optinToken !== token) {
+      return res.status(401).send(htmlError('Ce lien n’est plus valide. Demande un nouveau lien depuis ton dernier email DAAT.'));
+    }
+
+    // Idempotent : OK si déjà désinscrit
+    if (record.confirmed === false) {
+      return res.status(200).send(htmlUnsubscribed(
+        'Tu étais déjà désinscrit·e. Tu ne recevras plus aucun email DAAT.',
+        email,
+        token,
+      ));
+    }
+
+    const updated = {
+      ...record,
+      confirmed: false,
+      dailyEnabled: false,
+      unsubscribedAt: new Date().toISOString(),
+    };
+    await kv.set(`newsletter:${email}`, updated);
+
+    return res.status(200).send(htmlUnsubscribed(
+      'Tu es désinscrit·e. Tu ne recevras plus aucun email DAAT. Ton historique est conservé au cas où tu changerais d’avis.',
+      email,
+      token,
+    ));
+  } catch (err) {
+    console.error('[newsletter/unsubscribe] error:', err);
+    return res.status(500).send(htmlError('Une erreur est survenue. Réessaie dans quelques minutes.'));
+  }
+}
+
+// ---------- GET ?action=resubscribe : symétrique de unsubscribe ----------
+async function handleResubscribe(req, res) {
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  try {
+    const url = new URL(req.url, 'http://x');
+    const email = String(url.searchParams.get('email') || '').toLowerCase().trim();
+    const token = String(url.searchParams.get('token') || '');
+
+    if (!email || !token || !isValidEmail(email)) {
+      return res.status(400).send(htmlError('Le lien est incomplet ou mal formé.'));
+    }
+
+    const record = await kv.get(`newsletter:${email}`);
+    if (!record) {
+      return res.status(404).send(htmlError('Inscription introuvable. Le lien a peut-être expiré.'));
+    }
+
+    if (!record.optinToken || record.optinToken !== token) {
+      return res.status(401).send(htmlError('Ce lien n’est plus valide. Demande un nouveau lien depuis ton dernier email DAAT.'));
+    }
+
+    // Idempotent : OK si déjà ré-inscrit
+    if (record.confirmed === true) {
+      return res.status(200).send(htmlPage({
+        title: 'Inscription confirmée',
+        accent: '#2E7D52',
+        icon: '✓',
+        headline: 'Tu es bien inscrit·e',
+        message: 'Aucune action supplémentaire n’est nécessaire — tu recevras de nouveau les emails DAAT.',
+        email,
+        primaryHref: `${SITE_URL}/limoud/`,
+        primaryLabel: 'Voir l’étude du jour',
+        secondaryHref: null,
+        secondaryLabel: null,
+      }));
+    }
+
+    const updated = {
+      ...record,
+      confirmed: true,
+      resubscribedAt: new Date().toISOString(),
+    };
+    await kv.set(`newsletter:${email}`, updated);
+
+    return res.status(200).send(htmlPage({
+      title: 'Ré-inscription confirmée',
+      accent: '#2E7D52',
+      icon: '✓',
+      headline: 'Tu es de nouveau inscrit·e',
+      message: 'Bienvenue à nouveau. Tu recevras de nouveau la newsletter DAAT — à toi de réactiver le Daat Yomi quotidien depuis ton plan si tu le souhaites.',
+      email,
+      primaryHref: `${SITE_URL}/limoud/`,
+      primaryLabel: 'Voir l’étude du jour',
+      secondaryHref: null,
+      secondaryLabel: null,
+    }));
+  } catch (err) {
+    console.error('[newsletter/resubscribe] error:', err);
+    return res.status(500).send(htmlError('Une erreur est survenue. Réessaie dans quelques minutes.'));
+  }
+}
+
+// ---------- GET ?action=status : lecture publique authentifiée par token ----------
+// Utilisée par /limoud/mon-plan.html pour piloter le toggle daily on/off.
+// Auth : email + optinToken (même secret que enable/disable-daily). Pas de
+// password admin — c'est le user lui-même qui interroge son propre statut.
+async function handleStatus(req, res) {
+  try {
+    const url = new URL(req.url, 'http://x');
+    const email = String(url.searchParams.get('email') || '').toLowerCase().trim();
+    const token = String(url.searchParams.get('token') || '');
+
+    if (!email || !token || !isValidEmail(email)) {
+      return res.status(400).json({ error: 'email + token requis' });
+    }
+
+    const record = await kv.get(`newsletter:${email}`);
+    if (!record) {
+      return res.status(404).json({ error: 'Inscription introuvable' });
+    }
+    if (!record.optinToken || record.optinToken !== token) {
+      return res.status(401).json({ error: 'Token invalide' });
+    }
+
+    const customPlan = await kv.get(`custom-plan:${email}`);
+
+    // RGPD : on ne renvoie pas l'email en clair, on le masque.
+    const maskedEmail = email.replace(/^(.)(.*)(@.*)$/, (_, a, b, c) =>
+      a + '*'.repeat(Math.max(1, b.length)) + c);
+
+    return res.status(200).json({
+      ok: true,
+      confirmed: !!record.confirmed,
+      dailyEnabled: !!record.dailyEnabled,
+      hasCustomPlan: !!(customPlan && customPlan.plan),
+      email: maskedEmail,
+    });
+  } catch (err) {
+    console.error('[newsletter/status] error:', err);
+    return res.status(500).json({ error: err?.message || 'Erreur status' });
   }
 }
 
@@ -919,6 +1163,9 @@ export default async function handler(req, res) {
     if (action === 'test-custom-daily') return handleTestCustomDaily(req, res);
     if (action === 'enable-daily') return handleEnableDaily(req, res);
     if (action === 'disable-daily') return handleDisableDaily(req, res);
+    if (action === 'unsubscribe') return handleUnsubscribe(req, res);
+    if (action === 'resubscribe') return handleResubscribe(req, res);
+    if (action === 'status') return handleStatus(req, res);
     return handleCron(req, res);
   }
   return res.status(405).json({ error: 'GET ou POST uniquement' });

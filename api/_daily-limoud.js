@@ -168,9 +168,13 @@ function escapeHtml(s) {
  * `lang` peut être 'fr' (défaut), 'en' ou 'he'. Pour le MVP les libellés
  * restent en FR (lang est une réserve future).
  *
+ * `ctx` (optionnel) : `{ email, optinToken }`. Si fourni, le footer affiche
+ * un lien 1-click /api/newsletter?action=unsubscribe au lieu d'un mailto.
+ * Si absent (anciens appels), fallback mailto pour ne pas casser.
+ *
  * @returns {{ subject: string, html: string, text: string }}
  */
-export function buildDailyEmail(entry, lang = 'fr') {
+export function buildDailyEmail(entry, lang = 'fr', ctx) {
   if (!entry || !entry.siman) {
     throw new Error('buildDailyEmail: entry invalide');
   }
@@ -190,9 +194,11 @@ export function buildDailyEmail(entry, lang = 'fr') {
   const simanBase = entry.siman.path.replace(/\/index\.html?$/, '');
   const niveau1Href = `${SITE}/${simanBase}/niveau-1-base.html`;
 
-  const mailtoUnsub =
-    'mailto:noreply@daattorah.com?subject=' +
-    encodeURIComponent('Désinscription Daat Yomi');
+  // Lien 1-click si on a le ctx (email + token), sinon fallback mailto
+  // pour ne pas casser les anciens appels (tests, scripts admin).
+  const unsubHref = (ctx && ctx.email && ctx.optinToken)
+    ? `${SITE}/api/newsletter?action=unsubscribe&email=${encodeURIComponent(ctx.email)}&token=${encodeURIComponent(ctx.optinToken)}`
+    : 'mailto:noreply@daattorah.com?subject=' + encodeURIComponent('Désinscription Daat Yomi');
   const customHref = `${SITE}/limoud/personnaliser.html`;
 
   const html = `<!DOCTYPE html>
@@ -234,7 +240,7 @@ export function buildDailyEmail(entry, lang = 'fr') {
 
     <p style="color:#aaa;font-size:11px;line-height:1.7;margin-top:32px;padding-top:16px;border-top:1px solid #E4DDD0;text-align:center;">
       ${L.sigYou}<br>
-      <a href="${mailtoUnsub}" style="color:#C5A55A;">${L.unsub}</a>
+      <a href="${unsubHref}" style="color:#C5A55A;">${L.unsub}</a>
       &nbsp;·&nbsp;
       <a href="${customHref}" style="color:#C5A55A;">${L.custom}</a>
     </p>
@@ -255,7 +261,7 @@ export function buildDailyEmail(entry, lang = 'fr') {
     `${niveau1Href}\n\n` +
     `—\n` +
     `${L.sigYou}\n` +
-    `Se désinscrire : ${mailtoUnsub}\n` +
+    `Se désinscrire : ${unsubHref}\n` +
     `Préférer un rythme personnel ? ${customHref}\n\n` +
     `— DAAT דעת`;
 

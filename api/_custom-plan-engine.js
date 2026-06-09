@@ -292,9 +292,12 @@ function escapeHtml(s) {
  * @param {Object} entry — sortie de getEntryForUser()
  * @param {Object} planConfig — pour rappel du rythme dans le footer (optionnel)
  * @param {string} lang — 'fr' (défaut), 'en', 'he'
+ * @param {Object} [ctx] — `{ email, optinToken }`. Si fourni, le lien
+ *   "Désinscription" du footer pointe vers /api/newsletter?action=unsubscribe
+ *   plutôt que vers un mailto.
  * @returns {{ subject: string, html: string, text: string }}
  */
-export function buildCustomDailyEmail(entry, planConfig, lang = 'fr') {
+export function buildCustomDailyEmail(entry, planConfig, lang = 'fr', ctx) {
   if (!entry || !entry.siman) {
     throw new Error('buildCustomDailyEmail: entry invalide');
   }
@@ -314,9 +317,10 @@ export function buildCustomDailyEmail(entry, planConfig, lang = 'fr') {
 
   const customHref = `${SITE}/limoud/personnaliser.html`;
   const universalHref = `${SITE}/limoud/index.html`;
-  const mailtoUnsub =
-    'mailto:noreply@daattorah.com?subject=' +
-    encodeURIComponent('Désactiver Daat Yomi personnel');
+  // Lien 1-click si on a le ctx (email + token), sinon fallback mailto.
+  const unsubHref = (ctx && ctx.email && ctx.optinToken)
+    ? `${SITE}/api/newsletter?action=unsubscribe&email=${encodeURIComponent(ctx.email)}&token=${encodeURIComponent(ctx.optinToken)}`
+    : 'mailto:noreply@daattorah.com?subject=' + encodeURIComponent('Désactiver Daat Yomi personnel');
 
   const rate = planConfig && parseInt(planConfig.rate, 10);
   const rateUnit = planConfig && planConfig.rateUnit;
@@ -381,7 +385,7 @@ export function buildCustomDailyEmail(entry, planConfig, lang = 'fr') {
       &nbsp;·&nbsp;
       <a href="${universalHref}" style="color:#C5A55A;">${L.universal}</a>
       &nbsp;·&nbsp;
-      <a href="${mailtoUnsub}" style="color:#C5A55A;">Désinscription</a>
+      <a href="${unsubHref}" style="color:#C5A55A;">Désinscription</a>
     </p>
 
     <p style="color:#bbb;font-size:10px;line-height:1.6;margin-top:12px;text-align:center;letter-spacing:1px;">
@@ -405,7 +409,7 @@ export function buildCustomDailyEmail(entry, planConfig, lang = 'fr') {
     `${L.sigYou}\n` +
     `Modifier mon plan : ${customHref}\n` +
     `Préférer le rythme universel ? ${universalHref}\n` +
-    `Désinscription : ${mailtoUnsub}\n\n` +
+    `Désinscription : ${unsubHref}\n\n` +
     `— DAAT דעת`;
 
   return { subject, html, text };

@@ -4,11 +4,19 @@
 //   - /api/cron/sequence (envoi J3 / J7 / J10 / J14 par cron quotidien)
 //
 // Chaque step.build(ctx?) accepte un context optionnel `{ email, optinToken }`
-// utilisé pour générer un CTA d'opt-in 1-click vers /api/newsletter?action=enable-daily.
-// Si ctx n'est pas fourni (fallback dev/tests), le CTA pointe vers /limoud/ par défaut.
+// utilisé pour générer un CTA d'opt-in 1-click vers /api/newsletter?action=enable-daily
+// ainsi qu'un lien de désinscription 1-click vers /api/newsletter?action=unsubscribe.
+// Si ctx n'est pas fourni (fallback dev/tests), les liens pointent vers /limoud/ par défaut.
 
 const SITE = 'https://daattorah.com';
 const LOGO = `${SITE}/assets/img/og/og-default.svg`;
+
+// Construit l'URL de désinscription 1-click. Retourne null si ctx incomplet
+// (le footer ne renderra pas de lien plutôt qu'un mailto cassé).
+function unsubscribeUrl(ctx) {
+  if (!ctx || !ctx.email || !ctx.optinToken) return null;
+  return `${SITE}/api/newsletter?action=unsubscribe&email=${encodeURIComponent(ctx.email)}&token=${encodeURIComponent(ctx.optinToken)}`;
+}
 
 // Bloc CTA "Activer les rappels quotidiens" — injecté dans J7 et J14
 function buildEnableDailyBlock(ctx) {
@@ -29,13 +37,17 @@ function buildEnableDailyBlock(ctx) {
 </div>`;
 }
 
-function shell(title, bodyHtml, cta, extraHtml) {
+function shell(title, bodyHtml, cta, extraHtml, ctx) {
   const ctaHtml = cta
     ? `<div style="text-align:center;margin:32px 0 16px;">
          <a href="${cta.href}" style="display:inline-block;background:#C5A55A;color:#1A1F3A;padding:14px 28px;text-decoration:none;font-family:'Inter',-apple-system,sans-serif;font-size:14px;font-weight:600;letter-spacing:1px;border-radius:3px;">${cta.label}</a>
        </div>`
     : '';
   const extra = extraHtml || '';
+  const unsubUrl = unsubscribeUrl(ctx);
+  const unsubLine = unsubUrl
+    ? `<p style="color:#aaa;font-size:11px;line-height:1.6;margin-top:18px;text-align:center;"><a href="${unsubUrl}" style="color:#aaa;text-decoration:underline;">Se désinscrire</a></p>`
+    : '';
   return `<!DOCTYPE html>
 <html><body style="font-family:Georgia,'Times New Roman',serif;background:#FAF6EE;margin:0;padding:24px;color:#1A1F3A;">
   <div style="max-width:560px;margin:0 auto;background:#fff;border:1px solid #E4DDD0;border-radius:8px;padding:32px;">
@@ -50,6 +62,7 @@ function shell(title, bodyHtml, cta, extraHtml) {
     <p style="color:#aaa;font-size:11px;line-height:1.6;margin-top:32px;padding-top:16px;border-top:1px solid #E4DDD0;text-align:center;">
       דעת DAAT · <a href="${SITE}/" style="color:#C5A55A;">daattorah.com</a> · initié par le Rav Yossef Haim Samama
     </p>
+    ${unsubLine}
   </div>
 </body></html>`.trim();
 }
@@ -66,17 +79,20 @@ export const SEQUENCE = [
         <p>Chaque dimanche, tu recevras un siman du <strong>Choulhan Aroukh, Orah Haïm</strong> en français : texte hébreu intégral, traduction, et sources des Rishonim et Acharonim.</p>
         <p>Pour te lancer dès maintenant : commence par le <strong>Siman 242 — Kavod et Oneg Shabbat</strong>. C'est le premier siman des Hilkhot Shabbat, et il pose le cadre : pourquoi le Shabbat est central, comment l'honorer, ce que disent les poskim.</p>
       `;
+      const unsubUrl = unsubscribeUrl(ctx);
       return {
         subject: 'Barukh haba dans la communauté Daat',
         html: shell('Barukh haba dans la communauté Daat', body, {
           href: `${SITE}/sources/shabbat/siman-242/`,
           label: 'Étudier le Siman 242 →',
-        }),
+        }, null, ctx),
         text:
           'Barukh haba dans la communauté Daat.\n\n' +
           'Tu recevras chaque dimanche un siman du Choulhan Aroukh — texte hébreu, traduction, sources.\n\n' +
           'Pour commencer : Siman 242 — Kavod et Oneg Shabbat\n' +
-          `${SITE}/sources/shabbat/siman-242/\n\n— DAAT דעת`,
+          `${SITE}/sources/shabbat/siman-242/\n\n` +
+          (unsubUrl ? `Se désinscrire : ${unsubUrl}\n\n` : '') +
+          '— DAAT דעת',
       };
     },
   },
@@ -102,18 +118,21 @@ export const SEQUENCE = [
         <p>Le bon ordre : <strong>Base → Lamdan → Synthèse</strong>. Mais rien ne t'empêche de sauter la Lamdan si tu veux d'abord la pratique.</p>
         <p>Et pour toute question pendant ton étude : <a href="${SITE}/chat.html" style="color:#C5A55A;font-weight:600;">l'IA Daat</a> est là, avec sources citées.</p>
       `;
+      const unsubUrl = unsubscribeUrl(ctx);
       return {
         subject: 'Comment lire un siman Daat — les 3 niveaux',
         html: shell('La pédagogie Daat — 3 niveaux par siman', body, {
           href: `${SITE}/sources/shabbat/siman-242/`,
           label: 'Continuer Siman 242 →',
-        }),
+        }, null, ctx),
         text:
           'La pédagogie DAAT — 3 niveaux par siman :\n' +
           '- Niveau 1 BASE : initiation pédagogique\n' +
           '- Niveau 2 LAMDAN : pilpoul approfondi\n' +
           '- Niveau 3 SYNTHÈSE : récap pour mémoriser\n\n' +
-          `Continuer Siman 242 : ${SITE}/sources/shabbat/siman-242/\n\n— DAAT`,
+          `Continuer Siman 242 : ${SITE}/sources/shabbat/siman-242/\n\n` +
+          (unsubUrl ? `Se désinscrire : ${unsubUrl}\n\n` : '') +
+          '— DAAT',
       };
     },
   },
@@ -131,6 +150,7 @@ export const SEQUENCE = [
       const enableDailyHref = ctx.email && ctx.optinToken
         ? `${SITE}/api/newsletter?action=enable-daily&email=${encodeURIComponent(ctx.email)}&token=${encodeURIComponent(ctx.optinToken)}`
         : `${SITE}/limoud/`;
+      const unsubUrl = unsubscribeUrl(ctx);
       return {
         subject: 'Siman 243 — Louer son champ ou son bain à un non-juif',
         html: shell(
@@ -141,6 +161,7 @@ export const SEQUENCE = [
             label: 'Étudier le Siman 243 →',
           },
           buildEnableDailyBlock(ctx),
+          ctx,
         ),
         text:
           'Siman 243 — Louer son champ ou son bain à un non-juif pour Shabbat.\n\n' +
@@ -149,6 +170,7 @@ export const SEQUENCE = [
           '— — —\n' +
           'Active le Daat Yomi quotidien (dim-jeu, ~20 min) :\n' +
           `${enableDailyHref}\n\n` +
+          (unsubUrl ? `Se désinscrire : ${unsubUrl}\n\n` : '') +
           '— DAAT',
       };
     },
@@ -172,17 +194,20 @@ export const SEQUENCE = [
           <li>« Le Mishna Brura suit-il le Rama ou le Choulhan Aroukh sur Y ? »</li>
         </ul>
       `;
+      const unsubUrl = unsubscribeUrl(ctx);
       return {
         subject: "L'IA Daat — pose tes questions de halakha",
         html: shell("L'IA Daat répond avec sources citées", body, {
           href: `${SITE}/chat.html`,
           label: 'Ouvrir l\'IA Daat →',
-        }),
+        }, null, ctx),
         text:
           'L\'IA Daat — pose tes questions de halakha en français, sources citées.\n\n' +
           'Choisis ton minhag, pose ta question, l\'IA présente les positions.\n' +
           'Pour la halakha lemaasseh : consulte ton Rav.\n\n' +
-          `${SITE}/chat.html\n\n— DAAT`,
+          `${SITE}/chat.html\n\n` +
+          (unsubUrl ? `Se désinscrire : ${unsubUrl}\n\n` : '') +
+          '— DAAT',
       };
     },
   },
@@ -204,6 +229,7 @@ export const SEQUENCE = [
       const enableDailyHref = ctx.email && ctx.optinToken
         ? `${SITE}/api/newsletter?action=enable-daily&email=${encodeURIComponent(ctx.email)}&token=${encodeURIComponent(ctx.optinToken)}`
         : `${SITE}/limoud/`;
+      const unsubUrl = unsubscribeUrl(ctx);
       return {
         subject: 'Issachar et Zévouloun — la part de chacun',
         html: shell(
@@ -214,6 +240,7 @@ export const SEQUENCE = [
             label: 'Devenir bâtisseur →',
           },
           buildEnableDailyBlock(ctx),
+          ctx,
         ),
         text:
           'Issachar & Zévouloun — la tradition de la part partagée.\n\n' +
@@ -223,6 +250,7 @@ export const SEQUENCE = [
           '— — —\n' +
           'Active le Daat Yomi quotidien (dim-jeu, ~20 min) :\n' +
           `${enableDailyHref}\n\n` +
+          (unsubUrl ? `Se désinscrire : ${unsubUrl}\n\n` : '') +
           '— DAAT',
       };
     },
