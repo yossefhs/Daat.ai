@@ -16,11 +16,11 @@ Le cron Vercel (`vercel.json`, `0 9 * * *`, quotidien 09:00 UTC) fait avancer la
 Remplace `SECRET` par la valeur de `CRON_SECRET`. Origine API : `https://daattorah.com` (ou `https://daatai.vercel.app`).
 
 - **Prévisualiser** l'email (HTML, dans le navigateur), sans rien envoyer :
-  `https://daattorah.com/api/newsletter?weekly=preview&secret=SECRET`
+  `https://daattorah.com/api/newsletter?action=weekly-preview&secret=SECRET`
 - **Envoi de test** à une seule adresse (n'avance pas le curseur) :
-  `https://daattorah.com/api/newsletter?weekly=test&to=toi@exemple.com&secret=SECRET`
+  `https://daattorah.com/api/newsletter?action=weekly-test&to=toi@exemple.com&secret=SECRET`
 - **Forcer** la 1re diffusion réelle maintenant (à tous, avance le curseur) :
-  `https://daattorah.com/api/newsletter?weekly=force&secret=SECRET`
+  `https://daattorah.com/api/newsletter?action=weekly-force&secret=SECRET`
 
 > Une fois validé, **rien d'autre à faire** : le cron envoie automatiquement chaque dimanche, en avançant de siman en siman.
 
