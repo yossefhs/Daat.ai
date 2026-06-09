@@ -250,10 +250,10 @@
     <!-- NOTIFICATIONS -->
     <fieldset class="form-section">
       <legend class="legend">📧 Notifications (optionnel)</legend>
-      <p class="help">Tu peux recevoir ton plan quotidien par email. Disponible bientôt.</p>
+      <p class="help">Reçois chaque jour d'étude un email avec le lot du Daat Yomi du jour (~20 min de Choulhan Aroukh HaRav). Tu peux te désinscrire à tout moment depuis chaque email.</p>
       <div class="checkbox-row">
         <input type="checkbox" id="email-notif">
-        <label for="email-notif">M'envoyer mon plan quotidien par email</label>
+        <label for="email-notif">📩 Recevoir le Daat Yomi quotidien par email (dim-jeu, ~20 min)</label>
       </div>
       <div class="field">
         <label for="email-input">Email</label>
@@ -537,16 +537,29 @@
       plan.completedDays = existing.completedDays;
     }
     DCP.writePlan(plan);
-    showToast('Plan sauvegardé ✓ — tu peux fermer cette page et revenir quand tu veux.', 4500);
     btnReset.hidden = false;
 
     // POST côté serveur si email activé (best-effort, MVP)
     if (plan.emailNotif && plan.email) {
+      // 1) Sauvegarde du plan perso (pour cron futur)
       fetch('/api/custom-plan', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: plan.email, plan: plan }),
       }).catch(function () { /* best-effort */ });
+      // 2) Inscription newsletter avec opt-in daily immédiat
+      fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: plan.email,
+          source: 'limoud-personnaliser',
+          enableDaily: true,
+        }),
+      }).catch(function () { /* best-effort */ });
+      showToast('✓ Plan sauvegardé. Tu recevras le Daat Yomi du jour par email (dim-jeu).', 5000);
+    } else {
+      showToast('Plan sauvegardé ✓ — tu peux fermer cette page et revenir quand tu veux.', 4500);
     }
   }
 

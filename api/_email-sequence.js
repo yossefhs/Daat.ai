@@ -2,16 +2,40 @@
 // Utilisés par :
 //   - /api/newsletter (envoi J0 immédiat à l'inscription)
 //   - /api/cron/sequence (envoi J3 / J7 / J10 / J14 par cron quotidien)
+//
+// Chaque step.build(ctx?) accepte un context optionnel `{ email, optinToken }`
+// utilisé pour générer un CTA d'opt-in 1-click vers /api/newsletter?action=enable-daily.
+// Si ctx n'est pas fourni (fallback dev/tests), le CTA pointe vers /limoud/ par défaut.
 
 const SITE = 'https://daattorah.com';
 const LOGO = `${SITE}/assets/img/og/og-default.svg`;
 
-function shell(title, bodyHtml, cta) {
+// Bloc CTA "Activer les rappels quotidiens" — injecté dans J7 et J14
+function buildEnableDailyBlock(ctx) {
+  const href = ctx && ctx.email && ctx.optinToken
+    ? `${SITE}/api/newsletter?action=enable-daily&email=${encodeURIComponent(ctx.email)}&token=${encodeURIComponent(ctx.optinToken)}`
+    : `${SITE}/limoud/`;
+  return `<div style="margin:32px 0;padding:20px;background:#fdf8f3;border:1px solid #e5dcc6;border-radius:8px;text-align:center;">
+  <p style="margin:0 0 12px;color:#5a4a2a;font-size:14px;">
+    📩 <strong>Active le Daat Yomi quotidien</strong>
+  </p>
+  <p style="margin:0 0 16px;color:#6b6b6b;font-size:13px;">
+    Reçois chaque jour d'étude (dim-jeu) un email avec le lot du jour.
+    5 séifim, ~20 min de Choulhan Aroukh HaRav.
+  </p>
+  <a href="${href}" style="display:inline-block;background:#c9a050;color:#0a1f3d;text-decoration:none;padding:12px 24px;border-radius:6px;font-weight:600;font-size:14px;">
+    Activer les rappels quotidiens →
+  </a>
+</div>`;
+}
+
+function shell(title, bodyHtml, cta, extraHtml) {
   const ctaHtml = cta
     ? `<div style="text-align:center;margin:32px 0 16px;">
          <a href="${cta.href}" style="display:inline-block;background:#C5A55A;color:#1A1F3A;padding:14px 28px;text-decoration:none;font-family:'Inter',-apple-system,sans-serif;font-size:14px;font-weight:600;letter-spacing:1px;border-radius:3px;">${cta.label}</a>
        </div>`
     : '';
+  const extra = extraHtml || '';
   return `<!DOCTYPE html>
 <html><body style="font-family:Georgia,'Times New Roman',serif;background:#FAF6EE;margin:0;padding:24px;color:#1A1F3A;">
   <div style="max-width:560px;margin:0 auto;background:#fff;border:1px solid #E4DDD0;border-radius:8px;padding:32px;">
@@ -22,6 +46,7 @@ function shell(title, bodyHtml, cta) {
     <h1 style="font-family:Georgia,serif;color:#1A1F3A;font-size:22px;margin:0 0 16px;line-height:1.3;">${title}</h1>
     <div style="color:#3D4266;font-size:15px;line-height:1.75;">${bodyHtml}</div>
     ${ctaHtml}
+    ${extra}
     <p style="color:#aaa;font-size:11px;line-height:1.6;margin-top:32px;padding-top:16px;border-top:1px solid #E4DDD0;text-align:center;">
       דעת DAAT · <a href="${SITE}/" style="color:#C5A55A;">daattorah.com</a> · initié par le Rav Yossef Haim Samama
     </p>
@@ -35,7 +60,7 @@ export const SEQUENCE = [
     id: 'j0',
     dayOffset: 0,
     subject: 'Barukh haba dans la communauté Daat',
-    build() {
+    build(ctx = {}) {
       const body = `
         <p>Tu viens de rejoindre la newsletter Daat — Barukh haba, on est heureux de t'avoir.</p>
         <p>Chaque dimanche, tu recevras un siman du <strong>Choulhan Aroukh, Orah Haïm</strong> en français : texte hébreu intégral, traduction, et sources des Rishonim et Acharonim.</p>
@@ -59,7 +84,7 @@ export const SEQUENCE = [
     id: 'j3',
     dayOffset: 3,
     subject: 'Comment lire un siman Daat — les 3 niveaux',
-    build() {
+    build(ctx = {}) {
       const body = `
         <p>Tu as peut-être commencé le Siman 242. Si oui, tu as vu que chaque siman est étudié à <strong>3 niveaux</strong>. Voici ce que ça signifie :</p>
         <p style="background:#FAF6EE;border-left:3px solid #C5A55A;padding:14px 18px;margin:16px 0;">
@@ -96,23 +121,35 @@ export const SEQUENCE = [
     id: 'j7',
     dayOffset: 7,
     subject: 'Siman 243 — Louer son champ ou son bain à un non-juif',
-    build() {
+    build(ctx = {}) {
       const body = `
         <p>Une semaine déjà. Si tu as fini le Siman 242 (au moins le Niveau Base), il est temps de passer au <strong>Siman 243</strong>.</p>
         <p>Le sujet est passionnant : <em>peut-on louer un champ, un bain, un four ou un moulin à un non-juif quand celui-ci va y travailler le Shabbat ?</em></p>
         <p>Le Choulhan Aroukh distingue 3 types de contrats — <strong>השכרה</strong> (location), <strong>קבלנות</strong> (forfait), <strong>אריסות</strong> (métayage) — et les conséquences halakhiques sont radicalement différentes selon ce qui est habituel pour le bien.</p>
         <p>C'est aussi la première fois que tu rencontreras les concepts de <em>mar'it ayin</em> (apparence) et d'<em>amira légoy</em> (demande à un non-juif), qui reviennent partout dans Hilkhot Shabbat.</p>
       `;
+      const enableDailyHref = ctx.email && ctx.optinToken
+        ? `${SITE}/api/newsletter?action=enable-daily&email=${encodeURIComponent(ctx.email)}&token=${encodeURIComponent(ctx.optinToken)}`
+        : `${SITE}/limoud/`;
       return {
         subject: 'Siman 243 — Louer son champ ou son bain à un non-juif',
-        html: shell('Siman 243 est en ligne — מרחץ, שדה, תנור, רחיים', body, {
-          href: `${SITE}/sources/shabbat/siman-243/`,
-          label: 'Étudier le Siman 243 →',
-        }),
+        html: shell(
+          'Siman 243 est en ligne — מרחץ, שדה, תנור, רחיים',
+          body,
+          {
+            href: `${SITE}/sources/shabbat/siman-243/`,
+            label: 'Étudier le Siman 243 →',
+          },
+          buildEnableDailyBlock(ctx),
+        ),
         text:
           'Siman 243 — Louer son champ ou son bain à un non-juif pour Shabbat.\n\n' +
           'Distinction השכרה / קבלנות / אריסות. Concepts mar\'it ayin et amira légoy.\n\n' +
-          `${SITE}/sources/shabbat/siman-243/\n\n— DAAT`,
+          `${SITE}/sources/shabbat/siman-243/\n\n` +
+          '— — —\n' +
+          'Active le Daat Yomi quotidien (dim-jeu, ~20 min) :\n' +
+          `${enableDailyHref}\n\n` +
+          '— DAAT',
       };
     },
   },
@@ -120,7 +157,7 @@ export const SEQUENCE = [
     id: 'j10',
     dayOffset: 10,
     subject: "L'IA Daat — pose tes questions de halakha",
-    build() {
+    build(ctx = {}) {
       const body = `
         <p>À ce stade tu as probablement rencontré une question : « Et dans MON cas, qu'est-ce qui s'applique ? »</p>
         <p>L'IA Daat est faite exactement pour ça. Tu peux lui poser des questions précises sur la halakha — elle te répond <strong>en français</strong>, en citant systématiquement ses sources (<em>Mehaber, Rama, Mishna Brura, Yabia Omer, Igrot Moshe…</em>) et en distinguant les niveaux d'autorité.</p>
@@ -153,7 +190,7 @@ export const SEQUENCE = [
     id: 'j14',
     dayOffset: 14,
     subject: 'Issachar et Zévouloun — la part de chacun',
-    build() {
+    build(ctx = {}) {
       const body = `
         <p>Voilà deux semaines que tu reçois Daat. Si tu lis encore — c'est que la plateforme te sert. Et c'est précisément le moment de te parler de ce qui la fait vivre.</p>
         <p style="font-family:'Georgia',serif;font-style:italic;background:#FAF6EE;border-left:3px solid #C5A55A;padding:18px 22px;margin:18px 0;color:#1A1F3A;">
@@ -164,17 +201,29 @@ export const SEQUENCE = [
         <p>DAAT existe parce que des bâtisseurs ont choisi de prendre cette part. Le contenu est et restera <strong>gratuit</strong> — l'étude de la Torah ne se vend pas. Mais sa diffusion a un coût : serveurs, IA, recherche, rédaction.</p>
         <p>Si tu peux soutenir, à toute hauteur — un don ponctuel, une dédicace d'étude, ou un mécénat mensuel (<em>Tomeh Adaat</em>) — ton nom rejoint le Mur des Bâtisseurs et ta part est inscrite dans chaque page étudiée.</p>
       `;
+      const enableDailyHref = ctx.email && ctx.optinToken
+        ? `${SITE}/api/newsletter?action=enable-daily&email=${encodeURIComponent(ctx.email)}&token=${encodeURIComponent(ctx.optinToken)}`
+        : `${SITE}/limoud/`;
       return {
         subject: 'Issachar et Zévouloun — la part de chacun',
-        html: shell('Issachar & Zévouloun — la part de chacun', body, {
-          href: `${SITE}/soutenir.html`,
-          label: 'Devenir bâtisseur →',
-        }),
+        html: shell(
+          'Issachar & Zévouloun — la part de chacun',
+          body,
+          {
+            href: `${SITE}/soutenir.html`,
+            label: 'Devenir bâtisseur →',
+          },
+          buildEnableDailyBlock(ctx),
+        ),
         text:
           'Issachar & Zévouloun — la tradition de la part partagée.\n\n' +
           'DAAT est gratuit pour rester accessible à tous. Il vit grâce à ses bâtisseurs.\n' +
           'Don libre, dédicace d\'étude, ou Tomeh Adaat (mensuel) :\n' +
-          `${SITE}/soutenir.html\n\n— DAAT`,
+          `${SITE}/soutenir.html\n\n` +
+          '— — —\n' +
+          'Active le Daat Yomi quotidien (dim-jeu, ~20 min) :\n' +
+          `${enableDailyHref}\n\n` +
+          '— DAAT',
       };
     },
   },
