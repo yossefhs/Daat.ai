@@ -9,6 +9,10 @@
 //   GET  /api/newsletter?action=test-daily&to=&date=
 //                                              → envoi manuel d'un daily de test
 //                                                (Bearer ${ADMIN_PASSWORD})
+//   GET  /api/newsletter?action=test-custom-daily&to=&date=
+//                                              → envoi manuel d'un daily PERSO
+//                                                de test, en lisant le plan
+//                                                stocké pour {to} (Bearer ${ADMIN_PASSWORD})
 //   GET  /api/newsletter?action=enable-daily&email=&token=
 //                                              → opt-in 1-click depuis email (HTML)
 //   GET  /api/newsletter?action=disable-daily&email=&token=
@@ -42,6 +46,7 @@ import { Resend } from 'resend';
 import { randomBytes } from 'node:crypto';
 import { getStepById, getDueSteps } from './_email-sequence.js';
 import { getEntryForDate, buildDailyEmail } from './_daily-limoud.js';
+import { getEntryForUser, buildCustomDailyEmail } from './_custom-plan-engine.js';
 import { getClientIp } from './_http.js';
 
 function setCors(res) {
@@ -245,12 +250,87 @@ async function handleCron(req, res) {
       }
     }
 
-    // ───── Phase Daat Yomi quotidien ─────
+    const todayISO = new Date().toISOString().slice(0, 10);
+
+    // ───── Phase 2 : Daat Yomi PERSONNEL ─────
+    // Envoie le jour courant du plan perso aux users avec un plan en KV.
+    // S'exécute AVANT le daily universel (phase 3) pour que le perso prime
+    // — l'idempotence partagée (newsletter:daily-sent:{date}:{email}) bloque
+    // le second envoi.
+    const customEmails = (await kv.lrange('custom-plan:list', 0, 9999)) || [];
+    const uniqueCustomEmails = [...new Set(customEmails)];
+
+    let customSent = 0;
+    let customSkipped = 0;
+    let customErrors = 0;
+    const customLog = [];
+
+    for (const email of uniqueCustomEmails) {
+      try {
+        const customRecord = await kv.get(`custom-plan:${email}`);
+        if (!customRecord || !customRecord.plan) continue;
+
+        // Idempotence partagée avec le daily universel : 1 mail/jour/user max,
+        // perso prime sur universel (puisqu'on tourne avant).
+        const dailyKey = `newsletter:daily-sent:${todayISO}:${email}`;
+        const already = await kv.get(dailyKey);
+        if (already) {
+          customSkipped++;
+          continue;
+        }
+
+        const customEntry = getEntryForUser(customRecord.plan, todayISO);
+        if (!customEntry) {
+          // Pas un studyDay du user, ou plan terminé, ou date < startDate.
+          customSkipped++;
+          continue;
+        }
+
+        const { subject, html, text } = buildCustomDailyEmail(
+          customEntry,
+          customRecord.plan,
+          'fr',
+        );
+
+        const result = await resend.emails.send({
+          from: `DAAT <${fromEmail}>`,
+          to: email,
+          subject,
+          html,
+          text,
+        });
+
+        if (result.error) {
+          customErrors++;
+          customLog.push({ email, error: result.error.message });
+          continue;
+        }
+
+        await kv.set(
+          dailyKey,
+          {
+            resendId: result.data?.id,
+            sentAt: new Date().toISOString(),
+            source: 'custom',
+            dayNumber: customEntry.dayNumber,
+          },
+          { ex: 172800 },
+        );
+        customSent++;
+        customLog.push({ email, dayNumber: customEntry.dayNumber, ok: true });
+      } catch (e) {
+        customErrors++;
+        customLog.push({ email, error: e?.message });
+      }
+    }
+
+    // ───── Phase 3 : Daat Yomi UNIVERSEL ─────
     // En plus de la séquence J0-J14 (ci-dessus), envoyer chaque jour le lot
     // Daat Yomi à tous les inscrits qui ont opt-in (`record.dailyEnabled === true`).
     // Idempotence : un seul daily par jour par utilisateur (clé `newsletter:daily-sent:{date}:{email}`,
     // TTL 48h — recalculée à chaque run, pas besoin de garder éternellement).
-    const todayISO = new Date().toISOString().slice(0, 10);
+    // Les users avec un plan perso ont déjà été servis ci-dessus → la clé existe
+    // déjà et ils seront skippés ici.
     const entry = getEntryForDate(todayISO);
 
     let dailySent = 0;
@@ -327,7 +407,17 @@ async function handleCron(req, res) {
       sent,
       errors,
       log: log.slice(0, 50),
-      // Daat Yomi quotidien
+      // Daat Yomi PERSONNEL (phase 2, prime sur le universel via idempotence partagée)
+      custom: {
+        date: todayISO,
+        total: uniqueCustomEmails.length,
+        sent: customSent,
+        skipped: customSkipped,
+        errors: customErrors,
+        log: customLog.slice(0, 50),
+      },
+      // Daat Yomi UNIVERSEL (phase 3, ne touche pas les users avec un plan perso
+      // déjà envoyé ci-dessus grâce à l'idempotence partagée)
       daily: {
         date: todayISO,
         entry: entry
@@ -417,6 +507,86 @@ async function handleTestDaily(req, res) {
   } catch (err) {
     console.error('[newsletter/test-daily] error:', err);
     return res.status(500).json({ error: err?.message || 'Erreur test-daily' });
+  }
+}
+
+// ---------- GET ?action=test-custom-daily : envoi manuel du daily PERSO (Bearer ADMIN_PASSWORD) ----------
+async function handleTestCustomDaily(req, res) {
+  const auth = req.headers.authorization || '';
+  const expected = process.env.ADMIN_PASSWORD || process.env.SOUTIEN_ADMIN_SECRET;
+  if (!expected) {
+    return res.status(500).json({ error: 'ADMIN_PASSWORD non configuré' });
+  }
+  if (auth !== `Bearer ${expected}`) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+
+  const url = new URL(req.url, 'http://x');
+  const date = url.searchParams.get('date') || new Date().toISOString().slice(0, 10);
+  const to = url.searchParams.get('to');
+
+  if (!to || !isValidEmail(to)) {
+    return res.status(400).json({ error: 'param "to" requis (email valide)' });
+  }
+
+  const customRecord = await kv.get(`custom-plan:${to.toLowerCase().trim()}`);
+  if (!customRecord || !customRecord.plan) {
+    return res.status(404).json({
+      ok: false,
+      error: 'Aucun plan personnel trouvé pour cet email',
+      to,
+    });
+  }
+
+  const entry = getEntryForUser(customRecord.plan, date);
+  if (!entry) {
+    return res.status(200).json({
+      ok: true,
+      skipped: true,
+      reason: 'not_a_study_day_or_plan_finished',
+      date,
+      plan: customRecord.plan,
+    });
+  }
+
+  if (!process.env.RESEND_API_KEY) {
+    return res.status(500).json({ error: 'RESEND_API_KEY non configuré' });
+  }
+
+  try {
+    const { subject, html, text } = buildCustomDailyEmail(entry, customRecord.plan, 'fr');
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    const fromEmail = process.env.RESEND_FROM_EMAIL || 'noreply@daattorah.com';
+    const result = await resend.emails.send({
+      from: `DAAT <${fromEmail}>`,
+      to,
+      subject,
+      html,
+      text,
+    });
+
+    if (result.error) {
+      return res.status(500).json({ error: result.error.message });
+    }
+    return res.status(200).json({
+      ok: true,
+      sent: true,
+      to,
+      date,
+      entry: {
+        dayNumber: entry.dayNumber,
+        siman: entry.siman.num,
+        seifRange: entry.seifRange,
+        lotIndex: entry.lotIndex,
+        lotTotal: entry.lotTotal,
+        isLastDay: entry.isLastDay,
+      },
+      subject,
+      resendId: result.data?.id,
+    });
+  } catch (err) {
+    console.error('[newsletter/test-custom-daily] error:', err);
+    return res.status(500).json({ error: err?.message || 'Erreur test-custom-daily' });
   }
 }
 
@@ -690,6 +860,32 @@ async function handleStats(req, res) {
 
     recent.sort((a, b) => (b.subscribedAt || '').localeCompare(a.subscribedAt || ''));
 
+    // ─── Stats des plans personnels ───
+    const customEmails = (await kv.lrange('custom-plan:list', 0, 9999)) || [];
+    const uniqueCustomEmails = [...new Set(customEmails)];
+    const customRecent = [];
+    let customActive = 0;
+    const todayISO = new Date().toISOString().slice(0, 10);
+    for (const cemail of uniqueCustomEmails) {
+      const cr = await kv.get(`custom-plan:${cemail}`);
+      if (!cr || !cr.plan) continue;
+      // "active" = aujourd'hui est un studyDay valide ET le plan n'est pas terminé.
+      try {
+        const entry = getEntryForUser(cr.plan, todayISO);
+        if (entry) customActive++;
+      } catch (_) { /* ignore */ }
+      customRecent.push({
+        email: cemail.replace(/^(.)(.*)(@.*)$/, (_, a, b, c) => a + '*'.repeat(b.length) + c),
+        savedAt: cr.savedAt,
+        rate: cr.plan.rate,
+        rateUnit: cr.plan.rateUnit,
+        startDate: cr.plan.startDate,
+        startSiman: cr.plan.startSiman,
+        studyDays: cr.plan.studyDays,
+      });
+    }
+    customRecent.sort((a, b) => (b.savedAt || '').localeCompare(a.savedAt || ''));
+
     return res.status(200).json({
       ok: true,
       total: uniqueEmails.length,
@@ -698,6 +894,11 @@ async function handleStats(req, res) {
       sentJ14,
       stepCounts,
       recent: recent.slice(0, 20),
+      customPlans: {
+        total: uniqueCustomEmails.length,
+        active: customActive,
+        recent: customRecent.slice(0, 5),
+      },
     });
   } catch (err) {
     console.error('[newsletter/stats] error:', err);
@@ -715,6 +916,7 @@ export default async function handler(req, res) {
     const action = url.searchParams.get('action');
     if (action === 'stats') return handleStats(req, res);
     if (action === 'test-daily') return handleTestDaily(req, res);
+    if (action === 'test-custom-daily') return handleTestCustomDaily(req, res);
     if (action === 'enable-daily') return handleEnableDaily(req, res);
     if (action === 'disable-daily') return handleDisableDaily(req, res);
     return handleCron(req, res);

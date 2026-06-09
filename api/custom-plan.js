@@ -1,19 +1,16 @@
 // /api/custom-plan — Plan personnel DAAT
 //
-// MVP placeholder pour l'envoi quotidien par email (à venir).
-// Pour l'instant, on stocke simplement le plan dans Vercel KV pour pouvoir
-// le retrouver côté serveur quand le cron d'envoi sera ajouté.
+// Stocke un plan personnel d'étude en Vercel KV (avec une liste pour le cron).
+// Les utilisateurs sans email (anonymes) reçoivent 200 OK — leur plan reste
+// dans le localStorage côté client, le serveur ne stocke rien.
 //
 // Méthodes :
-//   POST   { email, plan }          → enregistre / met à jour le plan
+//   POST   { email?, plan }          → enregistre / met à jour le plan
 //   OPTIONS                          → préflight CORS
-//
-// Aucune authentification stricte côté client (single-opt-in). Le rate-limit
-// par IP empêche le spam.
 //
 // Stockage Vercel KV :
 //   - custom-plan:{email}    → { email, plan, savedAt, ip }
-//   - custom-plan:list       → liste des emails (pour le cron futur)
+//   - custom-plan:list       → liste des emails (pour le cron)
 
 import { kv } from './_kv.js';
 import { getClientIp } from './_http.js';
@@ -29,13 +26,17 @@ function isValidEmail(s) {
 }
 
 // Garde-fous : on n'accepte que des plans avec une forme attendue.
-// On accepte un sous-ensemble — pas besoin de tout valider, c'est un MVP.
 function validatePlanShape(p) {
   if (!p || typeof p !== 'object') return 'plan absent';
   const rate = parseInt(p.rate, 10);
   if (!isFinite(rate) || rate < 1 || rate > 50) return 'rate invalide';
   if (p.rateUnit !== 'seifim_per_day' && p.rateUnit !== 'siman_per_day') return 'rateUnit invalide';
   if (!Array.isArray(p.studyDays) || !p.studyDays.length) return 'studyDays vide';
+  // studyDays doit être un sous-ensemble de [0..6]
+  for (const d of p.studyDays) {
+    const dd = parseInt(d, 10);
+    if (!isFinite(dd) || dd < 0 || dd > 6) return 'studyDays hors range';
+  }
   if (!/^\d{4}-\d{2}-\d{2}$/.test(String(p.startDate || ''))) return 'startDate invalide';
   const startSiman = parseInt(p.startSiman, 10);
   if (!isFinite(startSiman) || startSiman < 242 || startSiman > 365) return 'startSiman hors range';
@@ -52,12 +53,23 @@ export default async function handler(req, res) {
     const email = String(body.email || '').trim().toLowerCase();
     const plan = body.plan;
 
-    if (!isValidEmail(email)) {
-      return res.status(400).json({ error: 'Adresse email invalide' });
-    }
+    // Validation stricte du plan dans tous les cas
     const planErr = validatePlanShape(plan);
     if (planErr) {
       return res.status(400).json({ error: 'Plan invalide : ' + planErr });
+    }
+
+    // Sans email → anonyme : on retourne 200 OK, le plan reste en localStorage.
+    if (!email) {
+      return res.status(200).json({
+        ok: true,
+        anonymous: true,
+        notice: 'Plan accepté (anonyme). Pour recevoir le Daat Yomi par email, ajoute ton adresse.',
+      });
+    }
+
+    if (!isValidEmail(email)) {
+      return res.status(400).json({ error: 'Adresse email invalide' });
     }
 
     // Rate-limit IP : 5 saves/heure max
@@ -74,23 +86,38 @@ export default async function handler(req, res) {
       console.warn('[custom-plan] rate-limit KV failed:', e?.message);
     }
 
-    const record = {
-      email,
-      plan: {
-        rate: parseInt(plan.rate, 10),
-        rateUnit: plan.rateUnit,
-        studyDays: plan.studyDays.map((x) => parseInt(x, 10)).filter((x) => x >= 0 && x <= 6),
-        startDate: plan.startDate,
-        startSiman: parseInt(plan.startSiman, 10),
-      },
-      savedAt: new Date().toISOString(),
-      ip,
+    const now = new Date().toISOString();
+    const normalizedPlan = {
+      rate: parseInt(plan.rate, 10),
+      rateUnit: plan.rateUnit,
+      studyDays: plan.studyDays
+        .map((x) => parseInt(x, 10))
+        .filter((x) => x >= 0 && x <= 6)
+        .filter((v, i, a) => a.indexOf(v) === i)
+        .sort((a, b) => a - b),
+      startDate: plan.startDate,
+      startSiman: parseInt(plan.startSiman, 10),
+      createdAt: typeof plan.createdAt === 'string' ? plan.createdAt : now,
     };
 
+    let isUpdate = false;
     try {
+      // Idempotence : si existant, update ; sinon insert + push dans la liste.
+      const existing = await kv.get(`custom-plan:${email}`);
+      isUpdate = !!existing;
+
+      const record = {
+        email,
+        plan: normalizedPlan,
+        savedAt: now,
+        ip,
+      };
       await kv.set(`custom-plan:${email}`, record);
-      await kv.lpush('custom-plan:list', email);
-      await kv.ltrim('custom-plan:list', 0, 9999);
+
+      if (!isUpdate) {
+        await kv.lpush('custom-plan:list', email);
+        await kv.ltrim('custom-plan:list', 0, 9999);
+      }
     } catch (e) {
       console.warn('[custom-plan] KV write failed:', e?.message);
       // Pas d'erreur 500 — le client a déjà localStorage, le MVP fonctionne sans KV.
@@ -98,7 +125,10 @@ export default async function handler(req, res) {
 
     return res.status(200).json({
       ok: true,
-      notice: "Plan enregistré. L'envoi quotidien par email arrive bientôt — tu seras prévenu.",
+      updated: isUpdate,
+      notice: isUpdate
+        ? 'Plan personnel mis à jour. Tu recevras le Daat Yomi du jour selon ce nouveau plan.'
+        : 'Plan personnel enregistré. Tu recevras le Daat Yomi du jour par email aux jours d\'étude choisis.',
     });
   } catch (err) {
     console.error('[custom-plan] error:', err);

@@ -541,13 +541,15 @@
 
     // POST côté serveur si email activé (best-effort, MVP)
     if (plan.emailNotif && plan.email) {
-      // 1) Sauvegarde du plan perso (pour cron futur)
+      // 1) Sauvegarde du plan perso (cron Phase 2 — daily PERSONNEL)
       fetch('/api/custom-plan', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: plan.email, plan: plan }),
       }).catch(function () { /* best-effort */ });
-      // 2) Inscription newsletter avec opt-in daily immédiat
+      // 2) Inscription newsletter (séquence J0-J14) — daily activé pour le
+      //    fallback universel, mais ne s'enverra pas tant qu'un plan perso
+      //    existe (idempotence partagée newsletter:daily-sent côté cron).
       fetch('/api/newsletter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -557,7 +559,7 @@
           enableDaily: true,
         }),
       }).catch(function () { /* best-effort */ });
-      showToast('✓ Plan sauvegardé. Tu recevras le Daat Yomi du jour par email (dim-jeu).', 5000);
+      showToast('✓ Plan personnel enregistré + email quotidien activé.', 5500);
     } else {
       showToast('Plan sauvegardé ✓ — tu peux fermer cette page et revenir quand tu veux.', 4500);
     }
