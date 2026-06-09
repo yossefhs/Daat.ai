@@ -111,6 +111,15 @@
       outline: none; border-color: var(--gold);
       box-shadow: 0 0 0 3px rgba(197,165,90,0.12);
     }
+    .search-row { display: flex; gap: 8px; }
+    .search-row .search-input { flex: 1; min-width: 0; }
+    .search-btn {
+      flex: 0 0 auto; padding: 0 22px; font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600;
+      letter-spacing: 0.5px; background: var(--navy); color: #fff; border: none; border-radius: 4px;
+      cursor: pointer; transition: background 0.15s, color 0.15s; white-space: nowrap;
+    }
+    .search-btn:hover { background: var(--gold); color: var(--navy); }
+    @media (max-width: 560px) { .search-btn { padding: 12px 16px; } }
     .search-meta {
       font-family: 'Inter', sans-serif; font-size: 11px;
       color: var(--text-muted); margin-top: 6px; letter-spacing: 0.5px;
@@ -286,20 +295,7 @@
       padding: 4px 10px; border-radius: 2px;
     }
     .status-ready { background: rgba(46,125,82,0.12); color: var(--green); }
-    .status-soon { background: rgba(0,0,0,0.05); color: var(--text-muted); }
     .siman-card.full-4 { border-top-color: var(--gold); }
-    .siman-card.niveau-4-only { border-top: 3px solid #3851A3; }
-    .siman-card.niveau-4-only:hover { border-color: #3851A3; }
-    .siman-card.placeholder { border-top: 3px solid var(--text-muted); opacity: 0.85; }
-    .siman-card.placeholder:hover { opacity: 1; border-color: var(--gold); }
-    .status-habad { background: rgba(56,81,163,0.10); color: #3851A3; }
-
-    .siman-card.full-4 { border-top-color: var(--gold); }
-    .siman-card.niveau-4-only { border-top: 3px solid #3851A3; }
-    .siman-card.niveau-4-only:hover { border-color: #3851A3; }
-    .siman-card.placeholder { border-top: 3px solid var(--text-muted); opacity: 0.85; }
-    .siman-card.placeholder:hover { opacity: 1; border-color: var(--gold); }
-    .status-habad { background: rgba(56,81,163,0.10); color: #3851A3; }
 
 
     .siman-name-he {
@@ -433,7 +429,7 @@
     <div class="hero-title-he" aria-hidden="true">הלכות שבת</div>
     <h1 class="hero-title-fr" style="margin: 0;">הלכות שבת — לימוד סימן אחר סימן</h1>
     <p class="hero-subtitle">
-      בחר סימן כדי להתחיל. <strong>רמה 4 — דעת הרב</strong> (שיטת אדמו״ר הזקן — שולחן ערוך הרב וקונטרס אחרון) <strong>זמינה בכל 122 הסימנים</strong>. בסימנים <strong>רמ״ב–שנ״ו</strong> (מלבד שד״ם ושכ״ב שלא פותחו) זמינות גם הרמות 1–3 (בסיס, למדן, סיכום).
+      בחר סימן כדי להתחיל. <strong>רמה 4 — דעת הרב</strong> (שיטת אדמו״ר הזקן — שולחן ערוך הרב וקונטרס אחרון) <strong>זמינה בכל 124 הסימנים</strong>. בסימנים <strong>רמ״ב–שנ״ו</strong> זמינות גם הרמות 1–3 (בסיס, למדן, סיכום).
     </p>
   </div>
 </div>
@@ -447,13 +443,16 @@
 
   <!-- BARRE DE RECHERCHE -->
   <div class="search-block">
-    <input
-      type="text"
-      class="search-input"
-      id="search-input"
-      placeholder="🔍 חיפוש סימן לפי מספר, מילת מפתח, בעברית או בצרפתית…"
-      data-i18n-placeholder="shabbat.searchPlaceholder"
-    >
+    <div class="search-row">
+      <input
+        type="text"
+        class="search-input"
+        id="search-input"
+        placeholder="🔍 חיפוש סימן לפי מספר, מילת מפתח, בעברית או בצרפתית…"
+        data-i18n-placeholder="shabbat.searchPlaceholder"
+      >
+      <button type="button" class="search-btn" id="search-btn" data-i18n="shabbat.searchButton" aria-label="חיפוש">חיפוש</button>
+    </div>
     <div class="search-meta" id="search-meta"></div>
   </div>
 
@@ -477,7 +476,7 @@
   <!-- SECTION 1 : Simanim complets (4 niveaux) -->
   <div class="section-header">
     <div class="section-title">סימנים שלמים — ארבע רמות לימוד</div>
-    <div class="section-count">113 סימנים</div>
+    <div class="section-count">122 סימנים</div>
   </div>
 
   <div class="simanim-grid">
@@ -2061,19 +2060,6 @@
 
 
   
-  <!-- SECTION 2 : סימנים עם רמה 4 (דעת הרב) -->
-  <div class="section-header">
-    <div class="section-title">סימנים — רמה 4 (דעת הרב)</div>
-    <div class="section-count">9 סימנים · שולחן ערוך הרב</div>
-  </div>
-
-  <div class="intro-card" style="border-left-color: #3851A3; margin-bottom: 18px;">
-    <p style="font-size: 14px;">
-      בסימנים אלו זמינה <strong>רמה 4 (דעת הרב)</strong> — היינו לימוד <em>שיטת אדמו״ר הזקן</em>: מקור עברי מלא של שולחן ערוך הרב וקונטרס אחרון, תוקף הפסק, חידושו המיוחד של הרב, מראי מקום משיחות ואיגרות הרבי, והנהגה למעשה. הרמות 1–3 (בסיס, למדן, סיכום) יתווספו בהמשך.
-    </p>
-  </div>
-
-  <div class="simanim-grid">
 
 
 
@@ -2097,166 +2083,166 @@
 
 
 
-    <a href="siman-357/index-he.html" class="siman-card available niveau-4-only" style="text-decoration:none; color:inherit;">
+    <a href="siman-357/index-he.html" class="siman-card available full-4" style="text-decoration:none; color:inherit;">
       <div class="siman-card-top">
         <div class="siman-num"><span class="siman-num-fr">סימן 357</span><span class="siman-num-he">סימן שנ"ז</span></div>
-        <span class="siman-status status-habad">דעת הרב</span>
+        <span class="siman-status status-ready">שלם</span>
       </div>
       <div class="siman-name-he">דִּינֵי חָצֵר פָּחוֹת מֵאַרְבַּע אַמּוֹת וּבִיב</div>
       <div class="siman-name-fr">דיני חצר פחות מארבע אמות וביב</div>
       <div class="siman-desc">שיטת אדמו״ר הזקן על 8 הסעיפים המקודדים חצרות קטנות (פחות מארבע אמות) ומעמד הביבים. מקרי גבול לסיווג הרשויות.</div>
       <div class="siman-card-bottom">
-        <span class="siman-levels-info">רמה 4 — <strong style="color:#3851A3;">דעת הרב</strong> (שולחן ערוך הרב)</span>
+        <span class="siman-levels-info">4 רמות: בסיס · למדן · סיכום · <strong style="color:#3851A3;">דעת הרב</strong></span>
         <span class="btn-study">ללמוד ←</span>
       </div>
     </a>
 
-    <a href="siman-358/index-he.html" class="siman-card available niveau-4-only" style="text-decoration:none; color:inherit;">
+    <a href="siman-358/index-he.html" class="siman-card available full-4" style="text-decoration:none; color:inherit;">
       <div class="siman-card-top">
         <div class="siman-num"><span class="siman-num-fr">סימן 358</span><span class="siman-num-he">סימן שנ"ח</span></div>
-        <span class="siman-status status-habad">דעת הרב</span>
+        <span class="siman-status status-ready">שלם</span>
       </div>
       <div class="siman-name-he">דִּין אֵיזֶה מְקוֹמוֹת נִקְרָאִים מֻקָּפִים לְדִירָה</div>
       <div class="siman-name-fr">דין איזה מקומות נקראים מוקפים לדירה</div>
       <div class="siman-desc">שיטת אדמו״ר הזקן על 22 הסעיפים המקודדים את המושג מוקפים לדירה — הבחנה מבנית בין מחיצות לצורך דיור (רה״י)…</div>
       <div class="siman-card-bottom">
-        <span class="siman-levels-info">רמה 4 — <strong style="color:#3851A3;">דעת הרב</strong> (שולחן ערוך הרב)</span>
+        <span class="siman-levels-info">4 רמות: בסיס · למדן · סיכום · <strong style="color:#3851A3;">דעת הרב</strong></span>
         <span class="btn-study">ללמוד ←</span>
       </div>
     </a>
 
-    <a href="siman-359/index-he.html" class="siman-card available niveau-4-only" style="text-decoration:none; color:inherit;">
+    <a href="siman-359/index-he.html" class="siman-card available full-4" style="text-decoration:none; color:inherit;">
       <div class="siman-card-top">
         <div class="siman-num"><span class="siman-num-fr">סימן 359</span><span class="siman-num-he">סימן שנ"ט</span></div>
-        <span class="siman-status status-habad">דעת הרב</span>
+        <span class="siman-status status-ready">שלם</span>
       </div>
       <div class="siman-name-he">דִּין רְחָבָה שֶׁאֲחוֹרֵי הַבָּתִּים</div>
       <div class="siman-name-fr">דין רחבה שאחורי הבתים</div>
       <div class="siman-desc">שיטת אדמו״ר הזקן על 2 הסעיפים המקודדים את מעמד המרחבים הגדולים (יותר מ־5000 אמות²) שמאחורי הבתים — אינם מוקפים לדירה כברירת מחדל, ומכאן בעיה…</div>
       <div class="siman-card-bottom">
-        <span class="siman-levels-info">רמה 4 — <strong style="color:#3851A3;">דעת הרב</strong> (שולחן ערוך הרב)</span>
+        <span class="siman-levels-info">4 רמות: בסיס · למדן · סיכום · <strong style="color:#3851A3;">דעת הרב</strong></span>
         <span class="btn-study">ללמוד ←</span>
       </div>
     </a>
 
-    <a href="siman-360/index-he.html" class="siman-card available niveau-4-only" style="text-decoration:none; color:inherit;">
+    <a href="siman-360/index-he.html" class="siman-card available full-4" style="text-decoration:none; color:inherit;">
       <div class="siman-card-top">
         <div class="siman-num"><span class="siman-num-fr">סימן 360</span><span class="siman-num-he">סימן ש"ס</span></div>
-        <span class="siman-status status-habad">דעת הרב</span>
+        <span class="siman-status status-ready">שלם</span>
       </div>
       <div class="siman-name-he">דִּין הֶקֵּף מְחִצּוֹת לְשַׁבָּת</div>
       <div class="siman-name-fr">דין הקף מחיצות לשבת</div>
       <div class="siman-desc">שיטת אדמו״ר הזקן על 8 הסעיפים המקודדים את האפשרות להקיף בשבת מקום במחיצות כדי לעשותו רה״י לשעה — יישום למחנאות, לפיקניק וכדומה.</div>
       <div class="siman-card-bottom">
-        <span class="siman-levels-info">רמה 4 — <strong style="color:#3851A3;">דעת הרב</strong> (שולחן ערוך הרב)</span>
+        <span class="siman-levels-info">4 רמות: בסיס · למדן · סיכום · <strong style="color:#3851A3;">דעת הרב</strong></span>
         <span class="btn-study">ללמוד ←</span>
       </div>
     </a>
 
-    <a href="siman-361/index-he.html" class="siman-card available niveau-4-only" style="text-decoration:none; color:inherit;">
+    <a href="siman-361/index-he.html" class="siman-card available full-4" style="text-decoration:none; color:inherit;">
       <div class="siman-card-top">
         <div class="siman-num"><span class="siman-num-fr">סימן 361</span><span class="siman-num-he">סימן שס"א</span></div>
-        <span class="siman-status status-habad">דעת הרב</span>
+        <span class="siman-status status-ready">שלם</span>
       </div>
       <div class="siman-name-he">דִּין גַּג הַסָּמוּךְ לִרְשׁוּת הָרַבִּים</div>
       <div class="siman-name-fr">דין גג הסמוך לרשות הרבים</div>
       <div class="siman-desc">שיטת אדמו״ר הזקן על 6 הסעיפים המקודדים את מעמד הגג הסמוך לרשות הרבים — פחות מעשרה טפחים מעליה = יכול להחשב רה״ר; מעליה = רה״י.</div>
       <div class="siman-card-bottom">
-        <span class="siman-levels-info">רמה 4 — <strong style="color:#3851A3;">דעת הרב</strong> (שולחן ערוך הרב)</span>
+        <span class="siman-levels-info">4 רמות: בסיס · למדן · סיכום · <strong style="color:#3851A3;">דעת הרב</strong></span>
         <span class="btn-study">ללמוד ←</span>
       </div>
     </a>
 
-    <a href="siman-362/index-he.html" class="siman-card available niveau-4-only" style="text-decoration:none; color:inherit;">
+    <a href="siman-362/index-he.html" class="siman-card available full-4" style="text-decoration:none; color:inherit;">
       <div class="siman-card-top">
         <div class="siman-num"><span class="siman-num-fr">סימן 362</span><span class="siman-num-he">סימן שס"ב</span></div>
-        <span class="siman-status status-habad">דעת הרב</span>
+        <span class="siman-status status-ready">שלם</span>
       </div>
       <div class="siman-name-he">אֵיזֶה מְחִצָּה קָרוּי מְחִצָּה לְטַלְטֵל</div>
       <div class="siman-name-fr">איזה מחיצה קרויה מחיצה לטלטל</div>
       <div class="siman-desc">שיטת אדמו״ר הזקן על 22 הסעיפים המקודדים את התנאים המבניים של מחיצה כשרה לשבת — גובה עשרה טפחים, רציפות, לבוד, גוד אסיק…</div>
       <div class="siman-card-bottom">
-        <span class="siman-levels-info">רמה 4 — <strong style="color:#3851A3;">דעת הרב</strong> (שולחן ערוך הרב)</span>
+        <span class="siman-levels-info">4 רמות: בסיס · למדן · סיכום · <strong style="color:#3851A3;">דעת הרב</strong></span>
         <span class="btn-study">ללמוד ←</span>
       </div>
     </a>
 
-    <a href="siman-363/index-he.html" class="siman-card available niveau-4-only" style="text-decoration:none; color:inherit;">
+    <a href="siman-363/index-he.html" class="siman-card available full-4" style="text-decoration:none; color:inherit;">
       <div class="siman-card-top">
         <div class="siman-num"><span class="siman-num-fr">סימן 363</span><span class="siman-num-he">סימן שס"ג</span></div>
-        <span class="siman-status status-habad">דעת הרב</span>
+        <span class="siman-status status-ready">שלם</span>
       </div>
       <div class="siman-name-he">דִּינֵי מָבוֹי וְלֶחִי</div>
       <div class="siman-name-fr">דיני מבוי ולחי</div>
       <div class="siman-desc">שיטת אדמו״ר הזקן על 44 הסעיפים המקודדים את הסוגיא הרחבה של <em>מבוי</em> ו<em>לחי</em> (קורה המשלימה את הדופן הרביעית)…</div>
       <div class="siman-card-bottom">
-        <span class="siman-levels-info">רמה 4 — <strong style="color:#3851A3;">דעת הרב</strong> (שולחן ערוך הרב)</span>
+        <span class="siman-levels-info">4 רמות: בסיס · למדן · סיכום · <strong style="color:#3851A3;">דעת הרב</strong></span>
         <span class="btn-study">ללמוד ←</span>
       </div>
     </a>
 
-    <a href="siman-364/index-he.html" class="siman-card available niveau-4-only" style="text-decoration:none; color:inherit;">
+    <a href="siman-364/index-he.html" class="siman-card available full-4" style="text-decoration:none; color:inherit;">
       <div class="siman-card-top">
         <div class="siman-num"><span class="siman-num-fr">סימן 364</span><span class="siman-num-he">סימן שס"ד</span></div>
-        <span class="siman-status status-habad">דעת הרב</span>
+        <span class="siman-status status-ready">שלם</span>
       </div>
       <div class="siman-name-he">דִּין מָבוֹי הַמְּפֻלָּשׁ וְעָשׂוּי כְּנָדָל</div>
       <div class="siman-name-fr">דין מבוי המפולש ועשוי כנדל</div>
       <div class="siman-desc">שיטת אדמו״ר הזקן על 9 הסעיפים המקודדים מקרים של מבוי מפולש משני קצותיו לרה״ר — דינים חמורים יותר, לחי בכל קצה או…</div>
       <div class="siman-card-bottom">
-        <span class="siman-levels-info">רמה 4 — <strong style="color:#3851A3;">דעת הרב</strong> (שולחן ערוך הרב)</span>
+        <span class="siman-levels-info">4 רמות: בסיס · למדן · סיכום · <strong style="color:#3851A3;">דעת הרב</strong></span>
         <span class="btn-study">ללמוד ←</span>
       </div>
     </a>
 
-    <a href="siman-365/index-he.html" class="siman-card available niveau-4-only" style="text-decoration:none; color:inherit;">
+    <a href="siman-365/index-he.html" class="siman-card available full-4" style="text-decoration:none; color:inherit;">
       <div class="siman-card-top">
         <div class="siman-num"><span class="siman-num-fr">סימן 365</span><span class="siman-num-he">סימן שס"ה</span></div>
-        <span class="siman-status status-habad">דעת הרב</span>
+        <span class="siman-status status-ready">שלם</span>
       </div>
       <div class="siman-name-he">דִּין מָבוֹי שֶׁנִּפְרַץ</div>
       <div class="siman-name-fr">דין מבוי שנפרץ — סימן סיום הלכות שבת</div>
       <div class="siman-desc">שיטת אדמו״ר הזקן על 10 הסעיפים החותמים את הלכות שבת — מה דין מחיצה שנפרצה בשבת? הבחנות לפי טבע…</div>
       <div class="siman-card-bottom">
-        <span class="siman-levels-info">רמה 4 — <strong style="color:#3851A3;">דעת הרב</strong> (שולחן ערוך הרב)</span>
+        <span class="siman-levels-info">4 רמות: בסיס · למדן · סיכום · <strong style="color:#3851A3;">דעת הרב</strong></span>
         <span class="btn-study">ללמוד ←</span>
       </div>
     </a>
 
   </div>
 
-  <!-- SECTION 3 : Placeholders (non développés par l'Admour HaZaken) -->
+  <!-- SECTION 3 : Simanim 304 & 322 — niveaux 1-3, sans Niveau 4 (non rédigés par l'Admour HaZaken) -->
   <div class="section-header">
-    <div class="section-title">סימנים שלא פותחו על־ידי אדמו״ר הזקן</div>
-    <div class="section-count">2 סימנים · הפניה למחבר</div>
+    <div class="section-title">סימנים ש״ד ושכ״ב — ללא רמה 4 (דעת הרב)</div>
+    <div class="section-count">2 סימנים · רמות 1-3 · אדמו״ר הזקן לא כתבם</div>
   </div>
 
   <div class="simanim-grid">
-    <a href="siman-304/index-he.html" class="siman-card placeholder" style="text-decoration:none; color:inherit;">
+    <a href="siman-304/index-he.html" class="siman-card available" style="text-decoration:none; color:inherit;">
       <div class="siman-card-top">
         <div class="siman-num"><span class="siman-num-fr">סימן 304</span><span class="siman-num-he">סימן ש"ד</span></div>
-        <span class="siman-status status-soon">לא פותח</span>
+        <span class="siman-status status-ready">רמות 1-3</span>
       </div>
       <div class="siman-name-he">דין שביתת עבד</div>
       <div class="siman-name-fr">דין שביתת עבד (במחבר בלבד)</div>
-      <div class="siman-desc">אדמו״ר הזקן לא פיתח סימן זה בשולחן ערוכו. הדף מבאר את הסיבות ומפנה אל המחבר.</div>
+      <div class="siman-desc">רמות 1-3 (בסיס · למדן · סיכום) על פי המחבר. אדמו״ר הזקן לא כתב סימן זה בשולחן ערוך הרב — לכן אין רמה 4.</div>
       <div class="siman-card-bottom">
-        <span class="siman-levels-info">דף מידע</span>
-        <span class="btn-study" style="background:var(--text-muted);">ראה ←</span>
+        <span class="siman-levels-info">3 רמות: בסיס · למדן · סיכום</span>
+        <span class="btn-study">למד ←</span>
       </div>
     </a>
 
-    <a href="siman-322/index-he.html" class="siman-card placeholder" style="text-decoration:none; color:inherit;">
+    <a href="siman-322/index-he.html" class="siman-card available" style="text-decoration:none; color:inherit;">
       <div class="siman-card-top">
         <div class="siman-num"><span class="siman-num-fr">סימן 322</span><span class="siman-num-he">סימן שכ"ב</span></div>
-        <span class="siman-status status-soon">לא פותח</span>
+        <span class="siman-status status-ready">רמות 1-3</span>
       </div>
       <div class="siman-name-he">דין נולד בשבת</div>
       <div class="siman-name-fr">דין נולד בשבת — ביצה שנולדה (במחבר בלבד)</div>
-      <div class="siman-desc">אדמו״ר הזקן לא פיתח סימן זה בשולחן ערוכו. הדף מבאר את הסיבות ומפנה אל המחבר.</div>
+      <div class="siman-desc">רמות 1-3 (בסיס · למדן · סיכום) על פי המחבר. אדמו״ר הזקן לא כתב סימן זה בשולחן ערוך הרב — לכן אין רמה 4.</div>
       <div class="siman-card-bottom">
-        <span class="siman-levels-info">דף מידע</span>
-        <span class="btn-study" style="background:var(--text-muted);">ראה ←</span>
+        <span class="siman-levels-info">3 רמות: בסיס · למדן · סיכום</span>
+        <span class="btn-study">למד ←</span>
       </div>
     </a>
 
@@ -2420,6 +2406,22 @@ function searchCards() {
   }
 }
 $searchInput.addEventListener('input', searchCards);
+function runSearch() {
+  try { searchCards(); } catch (e) {}
+  const q = $searchInput.value.trim();
+  if (!q) return;
+  const num = (q.match(/\d{2,3}/) || [])[0];
+  if (num) {
+    const card = [...$allCards].find(c => ((c.getAttribute('href') || '').indexOf('siman-' + num + '/') !== -1));
+    if (card) { window.location.href = card.getAttribute('href'); return; }
+  }
+  const visible = [...$allCards].filter(c => c.style.display !== 'none');
+  if (visible.length === 1 && visible[0].getAttribute('href')) { window.location.href = visible[0].getAttribute('href'); return; }
+  $searchInput.blur();
+}
+const $searchBtn = document.getElementById('search-btn');
+if ($searchBtn) $searchBtn.addEventListener('click', runSearch);
+$searchInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); runSearch(); } });
 
 // =================================================================
 // 3) PROGRESSION — niveaux étudiés par siman

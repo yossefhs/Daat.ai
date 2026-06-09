@@ -59,6 +59,7 @@ import { getStepById, getDueSteps } from './_email-sequence.js';
 import { getEntryForDate, buildDailyEmail } from './_daily-limoud.js';
 import { getEntryForUser, buildCustomDailyEmail } from './_custom-plan-engine.js';
 import { getClientIp } from './_http.js';
+import { buildWeeklyEmail, getSiman, nextValidSiman, WEEKLY_DEFAULTS } from './_newsletter-weekly.js';
 
 function setCors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -451,12 +452,25 @@ async function handleCron(req, res) {
       }
     }
 
+    // ───── Phase 4 : Broadcast hebdomadaire (« siman du dimanche ») ─────
+    // Le dimanche UTC, on envoie en plus le « siman du dimanche » à tous
+    // les abonnés confirmés. Anti-doublon journalier dans runWeeklyBroadcast.
+    let weekly = null;
+    if (new Date().getUTCDay() === 0) {
+      try {
+        weekly = await runWeeklyBroadcast(resend, fromEmail, { mode: 'auto' });
+      } catch (e) {
+        weekly = { error: e?.message };
+      }
+    }
+
     return res.status(200).json({
       ok: true,
       // Séquence J0-J14
       processed,
       sent,
       errors,
+      weekly,
       log: log.slice(0, 50),
       // Daat Yomi PERSONNEL (phase 2, prime sur le universel via idempotence partagée)
       custom: {
@@ -1150,6 +1164,98 @@ async function handleStats(req, res) {
   }
 }
 
+// ---------- broadcast hebdomadaire (« siman du dimanche ») ----------
+// Ajouté par main : envoi hebdomadaire d'un siman (242 → 365) le dimanche
+// à tous les abonnés confirmés. Exécuté par handleCron (phase 4) ou via
+// les actions admin ?action=weekly-{preview,test,force}.
+function todayStr() {
+  return new Date().toISOString().slice(0, 10); // YYYY-MM-DD (UTC)
+}
+
+async function getConfirmedEmails() {
+  const emails = (await kv.lrange('newsletter:list', 0, 9999)) || [];
+  const out = [];
+  for (const email of [...new Set(emails)]) {
+    const rec = await kv.get(`newsletter:${email}`);
+    if (rec && rec.confirmed) out.push(email);
+  }
+  return out;
+}
+
+// mode: 'auto' (cron dimanche) · 'force' · 'test' · 'preview'
+async function runWeeklyBroadcast(resend, fromEmail, { mode = 'auto', testTo = null } = {}) {
+  const cursor = Number(await kv.get('newsletter:weekly:cursor')) || WEEKLY_DEFAULTS.FIRST_SIMAN;
+  const num = nextValidSiman(cursor);
+  if (!num) return { ok: true, done: true, message: 'Série terminée (siman 365 atteint).' };
+
+  const mail = buildWeeklyEmail(getSiman(num));
+  if (mode === 'preview') {
+    return { ok: true, preview: true, siman: num, subject: mail.subject, html: mail.html };
+  }
+
+  // Anti-doublon : un seul envoi par jour calendaire (sauf force / test).
+  if (mode === 'auto') {
+    const last = await kv.get('newsletter:weekly:lastSentDate');
+    if (last === todayStr()) return { ok: true, skipped: 'already-sent-today', siman: num };
+  }
+
+  const recipients = mode === 'test' ? (testTo ? [testTo] : []) : await getConfirmedEmails();
+  if (!recipients.length) return { ok: true, siman: num, sent: 0, message: 'Aucun destinataire.' };
+
+  let sent = 0, errors = 0;
+  const log = [];
+  for (const email of recipients) {
+    try {
+      const r = await resend.emails.send({
+        from: `DAAT <${fromEmail}>`,
+        to: email,
+        subject: mail.subject,
+        html: mail.html,
+        text: mail.text,
+      });
+      if (r.error) { errors++; log.push({ email, error: r.error.message }); }
+      else sent++;
+    } catch (e) { errors++; log.push({ email, error: e?.message }); }
+  }
+
+  // En test : on n'avance ni le curseur ni la date.
+  if (mode !== 'test') {
+    await kv.set('newsletter:weekly:lastSentDate', todayStr());
+    const next = nextValidSiman(num + 1);
+    await kv.set('newsletter:weekly:cursor', next || (WEEKLY_DEFAULTS.LAST_SIMAN + 1));
+  }
+
+  return { ok: true, mode, siman: num, recipients: recipients.length, sent, errors, log: log.slice(0, 20) };
+}
+
+// ---------- GET ?action=weekly-{preview,test,force} : actions admin broadcast ----------
+async function handleWeeklyAction(req, res, action) {
+  const expectedSecret = process.env.CRON_SECRET;
+  const auth = req.headers.authorization || '';
+  const url = new URL(req.url, 'http://x');
+  const qSecret = url.searchParams.get('secret') || '';
+  const authorized = !!expectedSecret && (auth === `Bearer ${expectedSecret}` || qSecret === expectedSecret);
+  if (!authorized) return res.status(401).json({ error: 'Unauthorized' });
+  if (!process.env.RESEND_API_KEY) return res.status(500).json({ error: 'RESEND_API_KEY non configuré' });
+  const resend = new Resend(process.env.RESEND_API_KEY);
+  const fromEmail = process.env.RESEND_FROM_EMAIL || 'noreply@daattorah.com';
+
+  if (action === 'weekly-preview') {
+    const r = await runWeeklyBroadcast(resend, fromEmail, { mode: 'preview' });
+    if (r.html) { res.setHeader('Content-Type', 'text/html; charset=utf-8'); return res.status(200).send(r.html); }
+    return res.status(200).json(r);
+  }
+  if (action === 'weekly-test') {
+    const to = url.searchParams.get('to');
+    if (!to) return res.status(400).json({ error: 'Paramètre ?to=email requis' });
+    return res.status(200).json(await runWeeklyBroadcast(resend, fromEmail, { mode: 'test', testTo: String(to) }));
+  }
+  if (action === 'weekly-force') {
+    return res.status(200).json(await runWeeklyBroadcast(resend, fromEmail, { mode: 'force' }));
+  }
+  return res.status(400).json({ error: 'action weekly invalide (weekly-preview | weekly-test | weekly-force)' });
+}
+
 // ---------- dispatcher ----------
 export default async function handler(req, res) {
   setCors(res);
@@ -1166,6 +1272,9 @@ export default async function handler(req, res) {
     if (action === 'unsubscribe') return handleUnsubscribe(req, res);
     if (action === 'resubscribe') return handleResubscribe(req, res);
     if (action === 'status') return handleStatus(req, res);
+    if (action === 'weekly-preview' || action === 'weekly-test' || action === 'weekly-force') {
+      return handleWeeklyAction(req, res, action);
+    }
     return handleCron(req, res);
   }
   return res.status(405).json({ error: 'GET ou POST uniquement' });

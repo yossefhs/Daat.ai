@@ -13,7 +13,7 @@ import { SEFARIA_TOOLS, executeSefariaTool } from './_sefaria.js';
 import { CORPUS_TOOLS, executeCorpusTool, searchCorpus } from './_corpus.js';
 import { searchCorpus as searchShabbatCorpus } from './_corpus-search.js';
 import { MAREH_MEKOMOT_TOOLS, executeMarehMekomotTool } from './_mareh_mekomot.js';
-import { getUserFromRequest } from './_auth.js';
+import { getUserFromRequest, isAllowedOrigin } from './_auth.js';
 import {
   deepSeekAvailable,
   streamMetaQuestion,
@@ -258,10 +258,14 @@ const TOOL_EXECUTORS = {
 };
 
 export default async function handler(req, res) {
-  // CORS — credentials:include nécessite origin spécifique (pas *)
-  const origin = req.headers.origin || '*';
-  res.setHeader('Access-Control-Allow-Origin', origin);
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  // CORS — credentials:include nécessite une origin spécifique autorisée (jamais *).
+  // On ne reflète l'origine + Allow-Credentials que si elle est sur l'allow-list,
+  // sinon un site tiers pourrait dépenser le quota d'un utilisateur connecté.
+  const origin = req.headers.origin;
+  if (isAllowedOrigin(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+  }
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   res.setHeader('Vary', 'Origin');

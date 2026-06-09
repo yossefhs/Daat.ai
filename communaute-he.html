@@ -227,6 +227,16 @@
       box-shadow: 0 0 0 3px rgba(197,165,90,0.15);
     }
     .khavroutha-form textarea { resize: vertical; min-height: 80px; }
+    .kh-choices { display: flex; flex-wrap: wrap; gap: 8px; }
+    .kh-opt {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 14px; font-weight: 400; letter-spacing: 0; text-transform: none;
+      background: var(--cream); border: 1px solid var(--border);
+      border-radius: 6px; padding: 7px 11px; cursor: pointer; margin: 0; color: var(--text-dark);
+    }
+    .kh-opt input { width: auto; padding: 0; margin: 0; }
+    .kh-opt:has(input:checked) { border-color: var(--gold); box-shadow: 0 0 0 2px rgba(197,165,90,0.18); }
+    .kh-consent { font-size: 12px; color: var(--text-muted); line-height: 1.45; margin: 2px 0 0; text-transform: none; letter-spacing: 0; }
     .btn-submit {
       background: var(--navy); color: #fff;
       padding: 14px 26px; border: none; cursor: pointer;
@@ -354,7 +364,7 @@
           <li>שיתוף מקורות ומראי מקומות</li>
           <li>ללא ספאם וללא יציאה מהנושא</li>
         </ul>
-        <a href="https://chat.whatsapp.com/" target="_blank" rel="noopener" class="btn-whatsapp">
+        <a href="https://chat.whatsapp.com/LQT3IMwjNiZEARC7lxqmv1" target="_blank" rel="noopener" class="btn-whatsapp">
           <span>📱</span>
           <span>הצטרפות לקבוצת הוואטסאפ</span>
         </a>
@@ -366,7 +376,7 @@
         <h2>חברותא דעת</h2>
         <div class="community-card-he">חברותא דעת</div>
         <p>
-          מצאו בן זוג ללימוד כדי להתקדם יחד בסימני השולחן ערוך. מלאו את הטופס — צוות דעת ישבץ אתכם עם בן זוג מתאים.
+          מצאו בן זוג ללימוד כדי להתקדם יחד בסימני השולחן ערוך. <strong>שיבוץ אוטומטי</strong>: אם כבר רשום שותף מתאים, תקבלו את פרטי הוואטסאפ שלו <strong>מיד</strong>. אחרת, נודיע לכם ברגע שיירשם.
         </p>
 
         <form class="khavroutha-form" id="khavroutha-form" novalidate>
@@ -385,17 +395,45 @@
             </select>
           </div>
           <div>
-            <label for="kh-dispo">זמינות (ימים / שעות)</label>
-            <input type="text" id="kh-dispo" name="disponibilite" required placeholder="לדוגמה: א'/ד' 21:00–22:00, או מוצאי שבת" maxlength="200">
+            <label>ימים אפשריים</label>
+            <div class="kh-choices">
+              <label class="kh-opt"><input type="checkbox" name="jours" value="dim"> א׳</label>
+              <label class="kh-opt"><input type="checkbox" name="jours" value="lun"> ב׳</label>
+              <label class="kh-opt"><input type="checkbox" name="jours" value="mar"> ג׳</label>
+              <label class="kh-opt"><input type="checkbox" name="jours" value="mer"> ד׳</label>
+              <label class="kh-opt"><input type="checkbox" name="jours" value="jeu"> ה׳</label>
+              <label class="kh-opt"><input type="checkbox" name="jours" value="ven"> ו׳</label>
+            </div>
           </div>
           <div>
-            <label for="kh-contact">איך ניצור איתך קשר</label>
-            <input type="text" id="kh-contact" name="contact" required placeholder="וואטסאפ, אימייל, טלגרם…" maxlength="160">
+            <label>זמנים אפשריים</label>
+            <div class="kh-choices">
+              <label class="kh-opt"><input type="checkbox" name="moments" value="matin"> בוקר</label>
+              <label class="kh-opt"><input type="checkbox" name="moments" value="aprem"> צהריים</label>
+              <label class="kh-opt"><input type="checkbox" name="moments" value="soir"> ערב</label>
+              <label class="kh-opt"><input type="checkbox" name="moments" value="nuit"> לילה</label>
+            </div>
           </div>
+          <div>
+            <label for="kh-format">פורמט (אופציונלי)</label>
+            <select id="kh-format" name="format">
+              <option value="peu-importe">לא משנה</option>
+              <option value="visio">וידאו</option>
+              <option value="tel">טלפון</option>
+              <option value="presentiel">פנים אל פנים</option>
+            </select>
+          </div>
+          <div>
+            <label for="kh-whatsapp">מספר וואטסאפ (פורמט בינלאומי)</label>
+            <input type="tel" id="kh-whatsapp" name="whatsapp" required placeholder="לדוגמה 972541234567" maxlength="20">
+          </div>
+          <div>
+            <label for="kh-email">אימייל</label>
+            <input type="email" id="kh-email" name="email" required placeholder="כדי להודיע לך כשיימצא בן זוג" maxlength="160">
+          </div>
+          <p class="kh-consent">בהרשמה אני מסכים/ה שאשובץ עם בן זוג ללימוד ושפרטיי (שם + וואטסאפ) יימסרו לו.</p>
           <button type="submit" class="btn-submit" id="kh-submit">מציאת בן זוג ללימוד</button>
-          <div class="form-success" id="form-success">
-            ✓ תודה! בקשתך התקבלה — צוות דעת יחזור אליך תוך מספר ימים כדי להציע לך בן זוג ללימוד.
-          </div>
+          <div class="form-success" id="form-success"></div>
         </form>
         <script>
           (function () {
@@ -404,25 +442,42 @@
             var success = document.getElementById('form-success');
             if (!form) return;
             var API = 'https://daatai.vercel.app/api/khavroutha';
+            function checked(name) {
+              return [].slice.call(form.querySelectorAll('input[name="' + name + '"]:checked')).map(function (i) { return i.value; });
+            }
+            function fail(msg) {
+              success.innerHTML = '⚠ ' + msg;
+              success.style.color = '#C0392B';
+              success.style.background = 'rgba(192,57,43,0.08)';
+              success.style.borderColor = '#C0392B';
+              success.classList.add('is-visible');
+            }
+            function ok(html) {
+              success.innerHTML = html;
+              success.style.color = '';
+              success.style.background = '';
+              success.style.borderColor = '';
+              success.classList.add('is-visible');
+            }
             form.addEventListener('submit', async function (e) {
               e.preventDefault();
               var payload = {
                 nom: form.nom.value.trim(),
+                genre: 'h',
+                langue: 'he',
                 niveau: form.niveau.value,
-                disponibilite: form.disponibilite.value.trim(),
-                contact: form.contact.value.trim(),
+                jours: checked('jours'),
+                moments: checked('moments'),
+                format: form.format.value,
+                whatsapp: form.whatsapp.value.trim(),
+                email: form.email.value.trim(),
               };
-              if (!payload.nom || !payload.niveau || !payload.disponibilite || !payload.contact) {
-                success.textContent = '⚠ נא למלא את כל השדות.';
-                success.style.color = '#C0392B';
-                success.style.background = 'rgba(192,57,43,0.08)';
-                success.style.borderColor = '#C0392B';
-                success.classList.add('is-visible');
-                return;
-              }
+              if (!payload.nom || !payload.niveau) return fail('נא למלא שם ורמה.');
+              if (!payload.jours.length || !payload.moments.length) return fail('בחרו לפחות יום אחד וזמן אחד.');
+              if (!payload.whatsapp || !payload.email) return fail('נדרשים מספר וואטסאפ ואימייל.');
               btn.disabled = true;
               var orig = btn.textContent;
-              btn.textContent = 'שולח…';
+              btn.textContent = 'מחפש…';
               try {
                 var r = await fetch(API, {
                   method: 'POST',
@@ -430,26 +485,19 @@
                   body: JSON.stringify(payload),
                 });
                 var data = await r.json().catch(function () { return {}; });
-                if (r.ok && data.ok) {
-                  success.textContent = '✓ תודה ' + payload.nom + '! בקשתך התקבלה — צוות דעת יחזור אליך תוך מספר ימים.';
-                  success.style.color = '';
-                  success.style.background = '';
-                  success.style.borderColor = '';
-                  success.classList.add('is-visible');
+                if (r.ok && data.ok && data.matched) {
+                  var p = (data.partner && data.partner.nom) ? data.partner.nom : 'בן הזוג';
+                  ok('🎉 נמצא בן זוג: <strong>' + p + '</strong>!<br>' +
+                     '<a href="' + data.whatsapp_link + '" target="_blank" rel="noopener" style="display:inline-block;margin-top:10px;background:#25D366;color:#fff;text-decoration:none;padding:11px 22px;border-radius:6px;font-weight:600;">💬 כתבו בוואטסאפ</a>');
+                  form.reset();
+                } else if (r.ok && data.ok) {
+                  ok('✓ נרשמת, ' + payload.nom + '! ברגע שיירשם שותף מתאים, נחבר ביניכם באימייל ובוואטסאפ.');
                   form.reset();
                 } else {
-                  success.textContent = '⚠ ' + (data.error || 'שגיאה בשליחה. נסה שוב או הצטרף לקבוצת הוואטסאפ.');
-                  success.style.color = '#C0392B';
-                  success.style.background = 'rgba(192,57,43,0.08)';
-                  success.style.borderColor = '#C0392B';
-                  success.classList.add('is-visible');
+                  fail(data.error || 'שגיאה בשליחה. נסו שוב או הצטרפו לקבוצת הוואטסאפ.');
                 }
               } catch (err) {
-                success.textContent = '⚠ אין חיבור. עדיף להצטרף לקבוצת הוואטסאפ כדי להציג את עצמך.';
-                success.style.color = '#C0392B';
-                success.style.background = 'rgba(192,57,43,0.08)';
-                success.style.borderColor = '#C0392B';
-                success.classList.add('is-visible');
+                fail('אין חיבור. נסו שוב או הצטרפו לקבוצת הוואטסאפ.');
               } finally {
                 btn.disabled = false;
                 btn.textContent = orig;
@@ -479,6 +527,17 @@
       </p>
     </div>
 
+
+    <section style="background:#1A1F3A;color:#fff;border-radius:8px;padding:32px;margin:32px auto 0;max-width:760px;text-align:center;">
+      <div style="font-family:'Inter',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#C5A55A;font-weight:600;">ניוזלטר</div>
+      <h2 style="font-family:Georgia,serif;font-size:26px;margin:8px 0 6px;color:#fff;">קבלו את סימן יום ראשון</h2>
+      <p style="color:rgba(255,255,255,0.82);margin:0 auto 18px;max-width:460px;">סימן מהשולחן ערוך מדי שבוע, במייל. בחינם, וניתן לבטל בכל עת.</p>
+      <form class="newsletter-box-form" data-daat-newsletter data-source="communaute-he" data-ok-text="תודה! נרשמתם בהצלחה. נתראה ביום ראשון 🕯️" data-ko-text="אירעה שגיאה, נסו שוב." style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+        <input type="email" name="email" required placeholder="your@email.com" aria-label="Email" style="font-family:'Inter',sans-serif;font-size:14px;padding:12px 16px;border:1px solid rgba(255,255,255,0.25);border-radius:3px;background:rgba(255,255,255,0.06);color:#fff;min-width:240px;">
+        <button type="submit" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;padding:12px 22px;border:none;border-radius:3px;background:#C5A55A;color:#1A1F3A;cursor:pointer;">הרשמה</button>
+      </form>
+      <div class="newsletter-box-msg" aria-live="polite" style="font-family:'Inter',sans-serif;font-size:13px;margin-top:12px;min-height:18px;"></div>
+    </section>
   </main>
 
   <footer>
@@ -493,5 +552,6 @@
   <link rel="stylesheet" href="assets/css/chat-widget.css">
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="assets/js/chat-widget.min.js" defer></script>
+  <script src="/assets/js/newsletter-inline.js" defer></script>
 </body>
 </html>

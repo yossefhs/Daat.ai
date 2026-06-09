@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" dir="ltr">
+<html lang="fr" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +13,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Siman רנ״ט · Niveau 2 Lamdan">
 <meta property="og:url" content="https://daattorah.com/oh/259/lamdan">
-<meta property="og:image" content="https://daattorah.com/assets/img/og/og-default.svg">
+<meta property="og:image" content="https://daattorah.com/assets/img/og/siman-259.svg">
 <style>
   @page { size: A4; margin: 2cm 1.8cm; }
   body { font-family: 'Georgia', 'Cambria', serif; font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0; }
@@ -29,7 +29,7 @@
   .cover .credits { margin-top: 2cm; padding-top: 20px; border-top: 1px solid #C5A55A; font-size: 10pt; color: #555; line-height: 1.8; }
   .cover .subtitle { font-size: 14pt; color: #5a4a1a; font-style: italic; margin: 10px 0 30px 0; }
   .cover .badge-top { color: #C5A55A; font-size: 11pt; letter-spacing: 4px; margin-bottom: 10px; }
-  h2.section-title { color: #fff; background: #1A1F3A; font-size: 16pt; padding: 10px 18px; margin-top: 30px; border-left: 6px solid #C5A55A; font-family: 'Cormorant Garamond', serif; }
+  h2.section-title { color: #fff; background: #1A1F3A; font-size: 16pt; padding: 10px 18px; margin-top: 30px; border-right: 6px solid #C5A55A; font-family: 'Cormorant Garamond', serif; }
   h2.section-title.section-title--he { direction: rtl; text-align: right; border-left: none; border-right: 6px solid #C5A55A; }
   h3 { color: #1A1F3A; font-size: 14pt; margin-top: 25px; border-right: 4px solid #C5A55A; padding-right: 10px; font-family: 'Cormorant Garamond', serif; }
   .sacred-text { background: #FAF6EE; border-right: 3px solid #C5A55A; border-left: 3px solid #C5A55A; padding: 15px 20px; margin: 15px 0; font-size: 12.5pt; line-height: 1.9; }
@@ -107,90 +107,31 @@
   .lang-switcher-float a:hover { color: #1A1F3A; border-color: #C5A55A; }
   @media print { .lang-switcher-float { display: none; } }
 
-
-/* DAAT responsive mobile (auto-injected) */
-@media (max-width: 768px) {
-  body { font-size: 15px; line-height: 1.65; }
-  main { padding: 16px; max-width: 100%; box-sizing: border-box; overflow-wrap: break-word; }
-  .cover { margin-top: 1.2cm; margin-bottom: 1.2cm; }
-  .cover h1 { font-size: 22pt; }
-  .cover .he-title { font-size: 26pt; }
-  .cover .he-sub { font-size: 14pt; }
-  .cover .he-subject { font-size: 12pt; }
-  .cover .level-badge { font-size: 11pt; padding: 10px 22px; }
-  .cover .subtitle { font-size: 12pt; }
-  h2.section-title { font-size: 14pt; padding: 8px 12px; margin-top: 22px; }
-  h3 { font-size: 12pt; margin-top: 18px; }
-  .he { font-size: 12pt; line-height: 1.85; }
-  .sacred-text { padding: 12px 14px; font-size: 12pt; line-height: 1.85; }
-  .pilpul-box, .kashya-box, .teruts-box, .hakira-box, .nafka-mina-box,
-  .yesod-box, .machloket-box, .rishon-card, .index-box { padding: 10px 14px; margin: 12px 0; }
-  blockquote { margin: 10px 0; padding: 8px 12px; font-size: 12pt; }
-  table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; white-space: nowrap; font-size: 10pt; }
-  th, td { padding: 8px; }
-  .index-box ol { padding-right: 18px; }
-  .index-box[dir="rtl"] ol { padding-right: 18px; }
-}
-@media (max-width: 480px) {
-  body { font-size: 14px; }
-  main { padding: 12px; }
-  .cover h1 { font-size: 19pt; }
-  .cover .he-title { font-size: 22pt; }
-  h2.section-title { font-size: 13pt; }
-  h3 { font-size: 11.5pt; }
-  .sacred-text, .he { font-size: 11.5pt; }
-}
-
-  /* Niveau navigation (prev/next siman + onglets N1-N4) */
-  .niveau-nav {
-    display: flex; justify-content: space-between; align-items: center;
-    gap: 1rem; padding: 1.5rem 0; border-top: 1px solid #d4c89a;
-    margin: 3rem 0 1.5rem; flex-wrap: wrap;
-    font-family: 'Inter', 'Helvetica', sans-serif; font-size: 11pt;
-  }
-  .niveau-nav a {
-    color: #1A1F3A; text-decoration: none;
-    padding: 0.5rem 1rem; border-radius: 4px;
-    transition: background 0.2s, color 0.2s;
-  }
-  .niveau-nav a:hover { background: #FAF6EE; color: #1A1F3A; }
-  .niveau-nav .nav-niveaux { display: flex; gap: 0.5rem; }
-  .niveau-nav .nav-level { border: 1px solid #d4c89a; font-weight: 600; letter-spacing: 1px; }
-  .niveau-nav .nav-level.active { background: #1A1F3A; color: #fff; border-color: #1A1F3A; }
-  .niveau-nav .nav-level.active:hover { background: #1A1F3A; color: #fff; }
-  .niveau-nav .nav-spacer { flex: 1; }
-  @media (max-width: 640px) {
-    .niveau-nav { flex-direction: column; gap: 0.75rem; }
-  }
-  @media print { .niveau-nav { display: none; } }
 </style>
 </head>
 <body>
+  <script src="/assets/js/dedicace-banner.js" defer></script>
+  <script src="/assets/js/share-text.js" defer></script>
+
 <div class="lang-switcher-float" role="navigation" aria-label="Language"><a href="niveau-2-lamdan.html" class="active">FR</a><a href="niveau-2-lamdan-he.html">HE</a><a href="niveau-2-lamdan-en.html">EN</a></div>
 
 <main>
-<div class="wip-banner" style="background:#FFF8E5;border:1px solid #C5A55A;border-left:4px solid #C5A55A;padding:10px 16px;margin:0 0 12px;font-family:'Frank Ruhl Libre',sans-serif;font-size:14px;color:#5a4a1a;direction:rtl;text-align:right;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
-<span>ℹ️ עמוד זה מתורגם — מקורות עבריים נשמרו במלואם. הסבר ייחודי עשוי להישאר חלקית בצרפתית.</span>
-<span style="font-family:'Inter',sans-serif;font-size:12px;letter-spacing:1px;"><a href="niveau-2-lamdan.html" style="color:#8C6F1E;padding:2px 8px;border:1px solid #C5A55A;text-decoration:none;">FR</a> <a href="#" style="color:#1A1F3A;padding:2px 8px;border:1px solid #1A1F3A;background:#FFF8E5;text-decoration:none;font-weight:600;">HE</a> <a href="niveau-2-lamdan-en.html" style="color:#8C6F1E;padding:2px 8px;border:1px solid #C5A55A;text-decoration:none;">EN</a></span>
-</div>
-
-
 <div class="cover">
   <div class="ornament">✦ ❖ ✦</div>
-  <div class="badge-top">DAAT · NIVEAU 2 — LAMDAN</div>
+  <div class="badge-top">DAAT · רמה 2 — למדן</div>
   <h1>שולחן ערוך · אורח חיים</h1>
-  <div class="subtitle">הלכות שבת — Études approfondies</div>
+  <div class="subtitle">הלכות שבת — עיון מעמיק</div>
   <div class="he-title">סימן רנ״ט</div>
   <div class="he-sub">כמה דיני הטמנה וטלטולם</div>
   <div class="he-subject">חקירה בייחוד, גדר גומא, גורם בישול ברסתימת התנור, מחלוקת ראשונים</div>
   <div class="level-badge">⚡ ללומדים ותלמידי חכמים ⚡</div>
   <div class="ornament">✦ ❖ ✦</div>
-  <h2 style="margin-top:20px; color: #1A1F3A;">Pilpoul approfondi</h2>
+  <h2 style="margin-top:20px; color: #1A1F3A;">פלפול מעמיק</h2>
   <p style="font-size:12pt; color:#555;">סוגיית שבת מ״ח-מ״ט,<br>חקירת ייחוד וגדרי מוקצה,<br>גדר גומא וטלטול מן הצד,<br>גורם בישול ברסתימת התנור</p>
   <div class="credits">
     <p><strong>נושא :</strong> שולחן ערוך אורח חיים סימן רנ״ט · 7 סעיפים</p>
-    <p><strong>Base talmudique :</strong> שבת מ״ח-מ״ט · רמב״ם הל' שבת פ״ד</p>
-    <p><strong>Rédaction :</strong> רב יוסף חיים סממה · DAAT</p>
+    <p><strong>בסיס תלמודי:</strong> שבת מ״ח-מ״ט · רמב״ם הל' שבת פ״ד</p>
+    <p><strong>עריכה:</strong> רב יוסף חיים סממה · DAAT</p>
   </div>
 </div>
 
@@ -220,7 +161,7 @@
 
 <div class="page-break"></div>
 
-<h2 class="section-title">📜 מקור השולחן ערוך — 7 Seifim (extraits)</h2>
+<h2 class="section-title">📜 מקור השולחן ערוך — 7 סעיפים (נבחרים)</h2>
 
 <blockquote>
 מוֹכִין שֶׁטָּמַן בָּהֶן דֶּרֶךְ מִקְרֶה — אָסוּר לְטַלְטְלָן... וְאִם יִחֲדָן לְכָךְ — מֻתָּר לְטַלְטְלָן... הַתַּנּוּר שֶׁמַּנִּיחִין בּוֹ הַחַמִּין וְסוֹתְמִין פִּיו בְּדַף וְשׁוֹרְקִין אוֹתוֹ בְּטִיט — מֻתָּר לִסְתּוֹר אוֹתָהּ סְתִימָה כְּדֵי לְהוֹצִיא הַחַמִּין.
@@ -458,12 +399,12 @@
 
 <hr class="ornament">
 
-<h3>עבור aller plus loin</h3>
+<h3>להעמקה</h3>
 
 <div class="pilpul-box">
 <p>
-<strong>רמה 3 — Synthèse :</strong> récapitulation, mnémonique Y-G-S (Yi'houd · Gouma · Stima), arbre de décision pratique.<br>
-<strong>רמה 4 — Daat HaRav :</strong> chitah de l'Admour HaZaken sur les 8 seifim et 4 entrées de Kountress Aharon — pesika Habad sur le four mode Shabbat, le Crock-Pot, et le rescellement.
+<strong>רמה 3 — סיכום:</strong> ריכוז מובנה עם סימני זיכרון, עצי החלטה וכללי אצבע.<br>
+<strong>רמה 4 — דעת הרב:</strong> שיטת אדמו״ר הזקן (שולחן ערוך הרב).
 </p>
 </div>
 
@@ -471,7 +412,7 @@
 ~ ~ ~ ~ ~<br>
 <strong>DAAT</strong> · <strong>רב יוסף חיים סממה</strong><br>
 <br>
-<em>סימן רנ״ט · רמה 2 — Lamdan</em><br>
+<em>סימן רנ״ט · רמה 2 — למדן</em><br>
 <a href="../../../soutenir-he.html" style="display:inline-block;margin-top:14px;font-size:13px;color:#B8972A;text-decoration:none;border:1px solid rgba(184,151,42,0.5);padding:6px 16px;border-radius:2px;">♥ תמיכה DAAT</a>
 </div>
 
@@ -480,17 +421,7 @@
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="../../../assets/js/chat-widget.min.js" defer></script>
 <a href="../../../communaute-he.html#khavroutha" class="daat-khavroutha-fab" title="מציאת חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">להצטרף לחברותא</span></a>
-  <script src="../../../assets/js/daat-progress.js" defer></script>
-<nav class="niveau-nav" aria-label="Navigation entre niveaux">
-  <a href="../siman-258/niveau-2-lamdan.html" class="nav-prev">← Siman 258</a>
-  <div class="nav-niveaux">
-    <a href="niveau-1-base.html" class="nav-level">N1</a>
-    <a href="niveau-2-lamdan.html" class="nav-level active">N2</a>
-    <a href="niveau-3-synthese.html" class="nav-level">N3</a>
-    <a href="niveau-4-daat-harav.html" class="nav-level">N4</a>
-  </div>
-  <a href="../siman-260/niveau-2-lamdan.html" class="nav-next">Siman 260 →</a>
-</nav>
+  <script src="../../../assets/js/daat-progress.js"></script>
 </main>
 </body>
 </html>

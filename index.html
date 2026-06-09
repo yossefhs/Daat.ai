@@ -18,7 +18,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Daat Torah">
   <meta property="og:title" content="Daat Torah — Halakha en français">
-  <meta property="og:description" content="122 simanim du Choulhan Aroukh en français, 3 niveaux d'étude. Sources des Rishonim et Acharonim, assistant IA halakhique.">
+  <meta property="og:description" content="124 simanim du Choulhan Aroukh en français, 3 niveaux d'étude. Sources des Rishonim et Acharonim, assistant IA halakhique.">
   <meta property="og:url" content="https://daattorah.com/">
   <meta property="og:image" content="https://daattorah.com/assets/img/og/og-default.svg">
   <meta property="og:locale" content="fr_FR">
@@ -26,7 +26,7 @@
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Daat Torah — Halakha en français">
-  <meta name="twitter:description" content="122 simanim du Choulhan Aroukh, 3 niveaux d'étude. Sources et assistant IA.">
+  <meta name="twitter:description" content="124 simanim du Choulhan Aroukh, 3 niveaux d'étude. Sources et assistant IA.">
   <meta name="twitter:image" content="https://daattorah.com/assets/img/og/og-default.svg">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -55,11 +55,11 @@
     /* ── HEADER ── */
     header {
       background: var(--navy);
-      padding: 0 40px;
+      padding: 0 28px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 70px;
+      height: 64px;
       position: sticky;
       top: 0;
       z-index: 100;
@@ -69,46 +69,50 @@
     .logo {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 9px;
       text-decoration: none;
+      flex-shrink: 0;
     }
 
     .logo-hebrew {
       font-family: 'Frank Ruhl Libre', serif;
-      font-size: 28px;
+      font-size: 23px;
       font-weight: 700;
       color: var(--gold);
-      letter-spacing: 2px;
+      letter-spacing: 1px;
     }
 
     .logo-latin {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 13px;
-      color: rgba(255,255,255,0.85);
-      letter-spacing: 4px;
+      font-size: 10.5px;
+      color: rgba(255,255,255,0.8);
+      letter-spacing: 2px;
       text-transform: uppercase;
+      white-space: nowrap;
+      line-height: 1.25;
     }
 
     .logo-divider {
       width: 1px;
-      height: 32px;
+      height: 26px;
       background: rgba(197,165,90,0.4);
     }
 
     nav {
       display: flex;
-      gap: 32px;
+      gap: 16px;
       align-items: center;
     }
 
     nav a {
       font-family: 'Inter', sans-serif;
-      font-size: 13px;
-      color: rgba(255,255,255,0.9);
+      font-size: 12px;
+      color: rgba(255,255,255,0.7);
       text-decoration: none;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       text-transform: uppercase;
       transition: color 0.2s;
+      white-space: nowrap;
     }
 
     nav a:hover { color: var(--gold); }
@@ -116,7 +120,7 @@
     .nav-cta {
       background: var(--gold) !important;
       color: var(--navy) !important;
-      padding: 8px 20px;
+      padding: 6px 14px;
       border-radius: 2px;
       font-weight: 600 !important;
     }
@@ -125,7 +129,7 @@
       background: var(--gold);
       color: var(--navy) !important;
       border: 1px solid var(--gold);
-      padding: 6px 14px;
+      padding: 5px 11px;
       border-radius: 2px;
       font-weight: 700 !important;
       transition: all 0.2s;
@@ -159,7 +163,7 @@
     /* ── HERO ── */
     .hero {
       background: var(--navy);
-      padding: 100px 40px 80px;
+      padding: 72px 40px 60px;
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -230,9 +234,9 @@
     .btn-primary {
       background: var(--gold);
       color: var(--navy);
-      padding: 14px 32px;
+      padding: 11px 24px;
       font-family: 'Inter', sans-serif;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       letter-spacing: 1px;
       text-transform: uppercase;
@@ -247,9 +251,9 @@
     .btn-secondary {
       background: transparent;
       color: var(--white);
-      padding: 14px 32px;
+      padding: 11px 24px;
       font-family: 'Inter', sans-serif;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 500;
       letter-spacing: 1px;
       text-transform: uppercase;
@@ -263,9 +267,9 @@
     .btn-soutenir-hero {
       background: transparent;
       color: var(--gold);
-      padding: 14px 32px;
+      padding: 11px 24px;
       font-family: 'Inter', sans-serif;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       letter-spacing: 1px;
       text-transform: uppercase;
@@ -967,19 +971,19 @@
       .hero h1 { font-size: 48px; }
       .vision-grid, .levels-grid, .ai-features, .masekhtot-grid, .about-grid { grid-template-columns: 1fr; }
       .footer-top { flex-direction: column; gap: 32px; }
-      /* Mobile : on cache les liens textuels, on garde le bouton "Étudier",
-         le sélecteur de langue et le bouton de connexion injecté par auth.js */
-      nav { gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
-      nav a:not(.nav-cta):not(.nav-soutenir) { display: none; }
-      nav .nav-cta { padding: 6px 12px; font-size: 12px; }
-      nav .nav-soutenir { padding: 4px 10px; font-size: 12px; }
+      /* Mobile : header sur 2 lignes, tous les liens restent visibles (dont Communauté). */
+      header { height: auto; min-height: 64px; flex-wrap: wrap; padding: 8px 16px; }
+      nav { gap: 6px 12px; flex-wrap: wrap; justify-content: center; width: 100%; padding-bottom: 4px; }
+      nav a { font-size: 12px; letter-spacing: 0.3px; }
+      nav .nav-cta { padding: 6px 12px; }
+      nav .nav-soutenir { padding: 5px 10px; }
       .section { padding: 48px 20px; }
-      header { padding: 0 16px; }
       .lang-switcher { margin-left: 4px; }
       .lang-switcher a { padding: 2px 5px; font-size: 10px; }
     }
     @media (max-width: 480px) {
-      nav .nav-soutenir { display: none; }
+      nav { gap: 5px 9px; }
+      nav a { font-size: 11px; }
     }
   
     .lang-switcher { display: flex; gap: 6px; align-items: center; margin-left: 12px; }
@@ -1004,7 +1008,7 @@
         "@id": "https://daattorah.com/#website",
         "url": "https://daattorah.com/",
         "name": "Daat Torah — Étude de la halakha en français",
-        "description": "Plateforme d'étude halakhique en français. 122 simanim du Choulhan Aroukh étudiés en 3 niveaux.",
+        "description": "Plateforme d'étude halakhique en français. 124 simanim du Choulhan Aroukh étudiés en 3 niveaux.",
         "inLanguage": "fr-FR",
         "image": "https://daattorah.com/assets/img/og/og-default.svg",
         "publisher": { "@id": "https://daattorah.com/#organization" }
@@ -1015,7 +1019,7 @@
         "name": "Daat Torah",
         "url": "https://daattorah.com/",
         "logo": "https://daattorah.com/assets/img/og/og-default.svg",
-        "description": "Plateforme d'étude halakhique en français avec 122 simanim du Choulhan Aroukh, 3 niveaux d'étude, et assistant IA.",
+        "description": "Plateforme d'étude halakhique en français avec 124 simanim du Choulhan Aroukh, 3 niveaux d'étude, et assistant IA.",
         "founder": { "@id": "https://daattorah.com/#rav-samama" },
         "sameAs": ["https://daattorah.com/"],
         "educationalLevel": ["Débutant", "Intermédiaire", "Avancé"]
@@ -1044,7 +1048,7 @@
             "name": "Combien de simanim sont disponibles?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "122 simanim du Choulhan Aroukh (Orah Haïm) sont disponibles pour étude, avec contenu détaillé pour certains et accès complet au catalogue."
+              "text": "124 simanim du Choulhan Aroukh (Orah Haïm) sont disponibles pour étude, avec contenu détaillé pour certains et accès complet au catalogue."
             }
           },
           {
@@ -1070,20 +1074,19 @@
     <a href="index.html" class="logo">
       <span class="logo-hebrew">דעת</span>
       <div class="logo-divider"></div>
-      <div>
-        <div style="font-family:'Inter',sans-serif; font-size:18px; font-weight:600; color:#fff; letter-spacing:3px;">Daat Torah</div>
+      <div style="line-height:1.1;">
+        <div style="font-family:'Inter',sans-serif; font-size:15px; font-weight:600; color:#fff; letter-spacing:1.5px; white-space:nowrap;">Daat Torah</div>
         <div class="logo-latin">Étude halakhique</div>
       </div>
     </a>
     <nav>
-      <a href="#vision">Vision</a>
       <a href="#niveaux">Niveaux</a>
-      <a href="#contenu">Contenu</a>
       <a href="chat.html" aria-label="IA Daat">💬 IA Daat</a>
       <a href="communaute.html">Communauté</a>
       <a href="soutenir.html" class="nav-soutenir" aria-label="Soutenir">♥ Soutenir</a>
       <a href="sources/shabbat/index.html" class="nav-cta">Étudier →</a>
-    <a href="faq.html">FAQ</a><a href="about.html">À propos</a><span class="lang-switcher"><a href="index.html" class="active" hreflang="fr" aria-label="Français">FR</a><a href="index-he.html" hreflang="he" aria-label="עברית">HE</a><a href="index-en.html" hreflang="en" aria-label="English">EN</a></span></nav>
+      <span class="lang-switcher"><a href="index.html" class="active" hreflang="fr" aria-label="Français">FR</a><a href="index-he.html" hreflang="he" aria-label="עברית">HE</a><a href="index-en.html" hreflang="en" aria-label="English">EN</a></span>
+    </nav>
   </header>
 
   <main id="main">
@@ -1105,7 +1108,7 @@
   <section class="social-proof">
     <div class="social-proof-inner">
       <div class="social-proof-item">
-        <span class="social-proof-num">122</span>
+        <span class="social-proof-num">124</span>
         <span class="social-proof-label">simanim du Choulhan Aroukh</span>
       </div>
       <div class="social-proof-divider"></div>
@@ -1409,7 +1412,7 @@
       <div class="section-label">Bibliothèque de contenus</div>
       <h2 class="section-title">Contenu disponible</h2>
       <div class="divider"></div>
-      <p class="section-subtitle">Nous commençons par les Hilkhot Shabbat — la branche la plus riche et la plus pratique de la Halakha quotidienne. <strong style="color:#3851A3;">Le Niveau 4 Daat HaRav</strong> (chitah de l'Admour HaZaken — Choulhan Aroukh HaRav) est désormais disponible sur les <strong>122 simanim de Hilkhot Shabbat</strong>.</p>
+      <p class="section-subtitle">Nous commençons par les Hilkhot Shabbat — la branche la plus riche et la plus pratique de la Halakha quotidienne. <strong style="color:#3851A3;">Le Niveau 4 Daat HaRav</strong> (chitah de l'Admour HaZaken — Choulhan Aroukh HaRav) est désormais disponible sur <strong>122 des 124 simanim de Hilkhot Shabbat</strong>.</p>
 
       <!-- HIGHLIGHT DAAT HARAV -->
       <div style="background: linear-gradient(135deg, #3851A3 0%, #2A3F7F 100%); color: #fff; padding: 32px 36px; margin: 32px 0; border-radius: 4px; border: 1px solid #C5A55A;">
@@ -1417,11 +1420,11 @@
           <div style="flex: 1; min-width: 280px;">
             <div style="font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #C5A55A; margin-bottom: 8px;">Nouveau · Niveau 4</div>
             <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 30px; color: #C5A55A; margin: 0 0 6px;">דעת הרב — Daat HaRav</h3>
-            <p style="margin: 0 0 8px; font-size: 16px; color: rgba(255,255,255,0.9);">La <em>chitah</em> de l'Admour HaZaken sur les <strong>122 simanim de Hilkhot Shabbat</strong> — texte intégral hébreu du Choulhan Aroukh HaRav (Choulhan Aroukh de l'Admour HaZaken) avec le Kountress Aharon, force du psak, חידוש propre au Rav, références sikhot et igrot du Rabbi, conduite למעשה.</p>
+            <p style="margin: 0 0 8px; font-size: 16px; color: rgba(255,255,255,0.9);">La <em>chitah</em> de l'Admour HaZaken sur <strong>122 des 124 simanim de Hilkhot Shabbat</strong> — texte intégral hébreu du Choulhan Aroukh HaRav (Choulhan Aroukh de l'Admour HaZaken) avec le Kountress Aharon, force du psak, חידוש propre au Rav, références sikhot et igrot du Rabbi, conduite למעשה.</p>
             <p style="margin: 8px 0 0; font-size: 13px; color: rgba(255,255,255,0.85);">Simanim 242 → 365 · Sefaria intégré · Convention de glose hébraïque · Placeholders Hagahot/Mahadoura Batra</p>
           </div>
           <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-            <a href="sources/shabbat/" style="background: #C5A55A; color: #1A1F3A; padding: 12px 24px; text-decoration: none; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1px; border-radius: 2px;">Parcourir les 122 simanim →</a>
+            <a href="sources/shabbat/" style="background: #C5A55A; color: #1A1F3A; padding: 12px 24px; text-decoration: none; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1px; border-radius: 2px;">Parcourir les 124 simanim →</a>
             <a href="chitah-admour-hazaken.html" style="background: transparent; color: #fff; padding: 12px 24px; text-decoration: none; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1px; border: 1px solid rgba(255,255,255,0.4); border-radius: 2px;">Chitah de l'Admour ↗</a>
           </div>
         </div>
@@ -1456,6 +1459,42 @@
             <li><span style="color:var(--text-muted)">Contenu en préparation</span></li>
           </ul>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section id="blog" class="library-bg" style="border-top:1px solid var(--border,#e7e2d6);">
+    <div class="section">
+      <div class="section-label">Blog halakhique</div>
+      <h2 class="section-title">La halakha appliquée à la vie d'aujourd'hui</h2>
+      <p class="section-subtitle">Des questions concrètes du quotidien, remontées à leur source dans le Choulhan Aroukh. Étude rigoureuse, sources citées — pour la pratique, consulte ton Rav.</p>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px; max-width:1100px; margin:36px auto 0;">
+        <a href="blog/rechauffer-plat-shabbat.html" style="display:block; background:#fff; border:1px solid var(--border,#e7e2d6); border-left:4px solid var(--gold,#C5A55A); border-radius:0 6px 6px 0; padding:24px 26px; text-decoration:none;">
+          <div style="font-family:'Inter',sans-serif; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--gold,#C5A55A); font-weight:600;">Siman 318</div>
+          <div style="font-family:'Source Serif 4',serif; font-size:20px; color:var(--navy,#1A1F3A); font-weight:600; margin:8px 0 6px;">Réchauffer un plat le Shabbat ?</div>
+          <div style="font-family:'Cormorant Garamond',serif; font-size:17px; color:var(--text-mid,#555);">Plata, casserole, eau chaude : la mélakha de cuisson expliquée.</div>
+        </a>
+        <a href="blog/muktse-telephone-argent-shabbat.html" style="display:block; background:#fff; border:1px solid var(--border,#e7e2d6); border-left:4px solid var(--gold,#C5A55A); border-radius:0 6px 6px 0; padding:24px 26px; text-decoration:none;">
+          <div style="font-family:'Inter',sans-serif; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--gold,#C5A55A); font-weight:600;">Siman 308</div>
+          <div style="font-family:'Source Serif 4',serif; font-size:20px; color:var(--navy,#1A1F3A); font-weight:600; margin:8px 0 6px;">Toucher son téléphone ou de l'argent ?</div>
+          <div style="font-family:'Cormorant Garamond',serif; font-size:17px; color:var(--text-mid,#555);">Le muktsé décrypté : ce qu'on peut déplacer, et ce qui est interdit.</div>
+        </a>
+        <a href="blog/se-doucher-laver-shabbat.html" style="display:block; background:#fff; border:1px solid var(--border,#e7e2d6); border-left:4px solid var(--gold,#C5A55A); border-radius:0 6px 6px 0; padding:24px 26px; text-decoration:none;">
+          <div style="font-family:'Inter',sans-serif; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--gold,#C5A55A); font-weight:600;">Siman 326</div>
+          <div style="font-family:'Source Serif 4',serif; font-size:20px; color:var(--navy,#1A1F3A); font-weight:600; margin:8px 0 6px;">Se doucher ou se laver le Shabbat ?</div>
+          <div style="font-family:'Cormorant Garamond',serif; font-size:17px; color:var(--text-mid,#555);">Eau chaude vs eau froide, et pourquoi la douche moderne pose question.</div>
+        </a>
+        <a href="blog/livraison-colis-shabbat.html" style="display:block; background:#fff; border:1px solid var(--border,#e7e2d6); border-left:4px solid var(--gold,#C5A55A); border-radius:0 6px 6px 0; padding:24px 26px; text-decoration:none;">
+          <div style="font-family:'Inter',sans-serif; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--gold,#C5A55A); font-weight:600;">Siman 247</div>
+          <div style="font-family:'Source Serif 4',serif; font-size:20px; color:var(--navy,#1A1F3A); font-weight:600; margin:8px 0 6px;">Se faire livrer un colis le Shabbat ?</div>
+          <div style="font-family:'Cormorant Garamond',serif; font-size:17px; color:var(--text-mid,#555);">Amazon, La Poste, Chronopost : les 3 conditions du Choulhan Aroukh.</div>
+        </a>
+      </div>
+
+      <div style="text-align:center; margin-top:32px;">
+        <a href="blog/" style="display:inline-block; background:var(--navy,#1A1F3A); color:#fff; padding:13px 28px; border-radius:2px; font-family:'Inter',sans-serif; font-size:12px; letter-spacing:1px; text-transform:uppercase; font-weight:600; text-decoration:none;">Voir tous les articles →</a>
       </div>
     </div>
   </section>
@@ -1567,7 +1606,7 @@
             <li><a href="sources/shabbat/siman-271/index.html">Siman רע״א — Kiddush</a></li>
             <li><a href="sources/shabbat/siman-308/index.html">Siman ש״ח — Muktsé</a></li>
             <li><a href="sources/shabbat/siman-318/index.html">Siman שי״ח — Mevashel</a></li>
-            <li><a href="sources/shabbat/" style="color:var(--gold); font-weight:600;">→ Voir les 122 simanim</a></li>
+            <li><a href="sources/shabbat/" style="color:var(--gold); font-weight:600;">→ Voir les 124 simanim</a></li>
           </ul>
         </div>
         <div class="footer-links">
@@ -1584,6 +1623,9 @@
           <ul>
             <li><a href="chat.html" aria-label="IA Daat — Plein écran">💬 IA Daat — Plein écran</a></li>
             <li><a href="communaute.html">Communauté</a></li>
+            <li><a href="blog/">Blog halakhique</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="about.html">À propos</a></li>
             <li><a href="#vision">Vision du projet</a></li>
           </ul>
           <a href="soutenir.html" class="footer-soutenir-btn" aria-label="Soutenir le projet">♥ Soutenir le projet</a>

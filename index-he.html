@@ -19,7 +19,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="דעת תורה">
   <meta property="og:title" content="דעת תורה — ההלכה בשפה הצרפתית">
-  <meta property="og:description" content="122 סימני השולחן ערוך, שלוש רמות לימוד. מקורות הראשונים והאחרונים, עוזר בינה מלאכותית הלכתי.">
+  <meta property="og:description" content="124 סימני השולחן ערוך, שלוש רמות לימוד. מקורות הראשונים והאחרונים, עוזר בינה מלאכותית הלכתי.">
   <meta property="og:url" content="https://daattorah.com/index-he.html">
   <meta property="og:image" content="https://daattorah.com/assets/img/og/og-default.svg">
   <meta property="og:locale" content="he_IL">
@@ -27,7 +27,7 @@
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="דעת תורה — ההלכה בשפה הצרפתית">
-  <meta name="twitter:description" content="122 סימני השולחן ערוך, שלוש רמות לימוד. מקורות ועוזר בינה מלאכותית.">
+  <meta name="twitter:description" content="124 סימני השולחן ערוך, שלוש רמות לימוד. מקורות ועוזר בינה מלאכותית.">
   <meta name="twitter:image" content="https://daattorah.com/assets/img/og/og-default.svg">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -56,11 +56,11 @@
     /* ── HEADER ── */
     header {
       background: var(--navy);
-      padding: 0 40px;
+      padding: 0 28px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 70px;
+      height: 64px;
       position: sticky;
       top: 0;
       z-index: 100;
@@ -70,46 +70,50 @@
     .logo {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 9px;
       text-decoration: none;
+      flex-shrink: 0;
     }
 
     .logo-hebrew {
       font-family: 'Frank Ruhl Libre', serif;
-      font-size: 28px;
+      font-size: 23px;
       font-weight: 700;
       color: var(--gold);
-      letter-spacing: 2px;
+      letter-spacing: 1px;
     }
 
     .logo-latin {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 13px;
-      color: rgba(255,255,255,0.85);
-      letter-spacing: 4px;
+      font-size: 10.5px;
+      color: rgba(255,255,255,0.8);
+      letter-spacing: 2px;
       text-transform: uppercase;
+      white-space: nowrap;
+      line-height: 1.25;
     }
 
     .logo-divider {
       width: 1px;
-      height: 32px;
+      height: 26px;
       background: rgba(197,165,90,0.4);
     }
 
     nav {
       display: flex;
-      gap: 32px;
+      gap: 16px;
       align-items: center;
     }
 
     nav a {
       font-family: 'Inter', sans-serif;
-      font-size: 13px;
-      color: rgba(255,255,255,0.9);
+      font-size: 12px;
+      color: rgba(255,255,255,0.7);
       text-decoration: none;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       text-transform: uppercase;
       transition: color 0.2s;
+      white-space: nowrap;
     }
 
     nav a:hover { color: var(--gold); }
@@ -117,7 +121,7 @@
     .nav-cta {
       background: var(--gold) !important;
       color: var(--navy) !important;
-      padding: 8px 20px;
+      padding: 6px 14px;
       border-radius: 2px;
       font-weight: 600 !important;
     }
@@ -126,7 +130,7 @@
       background: var(--gold);
       color: var(--navy) !important;
       border: 1px solid var(--gold);
-      padding: 6px 14px;
+      padding: 5px 11px;
       border-radius: 2px;
       font-weight: 700 !important;
       transition: all 0.2s;
@@ -170,7 +174,7 @@
     /* ── HERO ── */
     .hero {
       background: var(--navy);
-      padding: 100px 40px 80px;
+      padding: 72px 40px 60px;
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -241,9 +245,9 @@
     .btn-primary {
       background: var(--gold);
       color: var(--navy);
-      padding: 14px 32px;
+      padding: 11px 24px;
       font-family: 'Inter', sans-serif;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       letter-spacing: 1px;
       text-transform: uppercase;
@@ -258,9 +262,9 @@
     .btn-secondary {
       background: transparent;
       color: var(--white);
-      padding: 14px 32px;
+      padding: 11px 24px;
       font-family: 'Inter', sans-serif;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 500;
       letter-spacing: 1px;
       text-transform: uppercase;
@@ -274,9 +278,9 @@
     .btn-soutenir-hero {
       background: transparent;
       color: var(--gold);
-      padding: 14px 32px;
+      padding: 11px 24px;
       font-family: 'Inter', sans-serif;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       letter-spacing: 1px;
       text-transform: uppercase;
@@ -978,17 +982,18 @@
       .hero h1 { font-size: 48px; }
       .vision-grid, .levels-grid, .ai-features, .masekhtot-grid, .about-grid { grid-template-columns: 1fr; }
       .footer-top { flex-direction: column; gap: 32px; }
-      nav { gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
-      nav a:not(.nav-cta):not(.nav-soutenir) { display: none; }
-      nav .nav-cta { padding: 6px 12px; font-size: 12px; }
-      nav .nav-soutenir { padding: 4px 10px; font-size: 12px; }
+      header { height: auto; min-height: 64px; flex-wrap: wrap; padding: 8px 16px; }
+      nav { gap: 6px 12px; flex-wrap: wrap; justify-content: center; width: 100%; padding-bottom: 4px; }
+      nav a { font-size: 12px; letter-spacing: 0.3px; }
+      nav .nav-cta { padding: 6px 12px; }
+      nav .nav-soutenir { padding: 5px 10px; }
       .section { padding: 48px 20px; }
-      header { padding: 0 16px; }
       .lang-switcher { margin-left: 4px; margin-right: 4px; }
       .lang-switcher a { padding: 2px 5px; font-size: 10px; }
     }
     @media (max-width: 480px) {
-      nav .nav-soutenir { display: none; }
+      nav { gap: 5px 9px; }
+      nav a { font-size: 11px; }
     }
   </style>
 
@@ -1002,7 +1007,7 @@
         "@id": "https://daattorah.com/#website",
         "url": "https://daattorah.com/index-he.html",
         "name": "דעת תורה — לימוד ההלכה בשפה הצרפתית",
-        "description": "פלטפורמה ללימוד הלכה. 122 סימני השולחן ערוך הנלמדים בשלוש רמות.",
+        "description": "פלטפורמה ללימוד הלכה. 124 סימני השולחן ערוך הנלמדים בשלוש רמות.",
         "inLanguage": "he-IL",
         "image": "https://daattorah.com/assets/img/og/og-default.svg",
         "publisher": { "@id": "https://daattorah.com/#organization" }
@@ -1013,7 +1018,7 @@
         "name": "דעת תורה",
         "url": "https://daattorah.com/",
         "logo": "https://daattorah.com/assets/img/og/og-default.svg",
-        "description": "פלטפורמה ללימוד הלכה עם 122 סימני השולחן ערוך, שלוש רמות לימוד, ועוזר בינה מלאכותית.",
+        "description": "פלטפורמה ללימוד הלכה עם 124 סימני השולחן ערוך, שלוש רמות לימוד, ועוזר בינה מלאכותית.",
         "founder": { "@id": "https://daattorah.com/#rav-samama" },
         "sameAs": ["https://daattorah.com/"],
         "educationalLevel": ["מתחילים", "בינוני", "מתקדם"]
@@ -1042,7 +1047,7 @@
             "name": "כמה סימנים זמינים?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "122 סימני השולחן ערוך (אורח חיים) זמינים ללימוד, עם תוכן מפורט לחלקם וגישה מלאה לקטלוג."
+              "text": "124 סימני השולחן ערוך (אורח חיים) זמינים ללימוד, עם תוכן מפורט לחלקם וגישה מלאה לקטלוג."
             }
           },
           {
@@ -1068,24 +1073,22 @@
     <a href="index-he.html" class="logo">
       <span class="logo-hebrew">דעת</span>
       <div class="logo-divider"></div>
-      <div>
-        <div style="font-family:'Inter',sans-serif; font-size:18px; font-weight:600; color:#fff; letter-spacing:3px;">Daat Torah</div>
+      <div style="line-height:1.1;">
+        <div style="font-family:'Inter',sans-serif; font-size:15px; font-weight:600; color:#fff; letter-spacing:1.5px; white-space:nowrap;">Daat Torah</div>
         <div class="logo-latin">לימוד הלכה</div>
       </div>
     </a>
     <nav>
-      <a href="#vision">החזון</a>
       <a href="#niveaux">רמות</a>
-      <a href="#contenu">תוכן</a>
       <a href="chat-he.html" aria-label="דעת AI">💬 דעת AI</a>
       <a href="communaute-he.html">קהילה</a>
       <a href="soutenir-he.html" class="nav-soutenir" aria-label="תמיכה">♥ תמיכה</a>
-      <a href="faq-he.html">שאלות</a><a href="about-he.html">אודות</a><span class="lang-switcher">
+      <a href="sources/shabbat/index-he.html" class="nav-cta">לימוד →</a>
+      <span class="lang-switcher">
         <a href="index.html" hreflang="fr" aria-label="Français">FR</a>
         <a href="index-he.html" class="active" hreflang="he" aria-label="עברית">HE</a>
         <a href="index-en.html" hreflang="en" aria-label="English">EN</a>
       </span>
-      <a href="sources/shabbat/index-he.html" class="nav-cta">לימוד →</a>
     </nav>
   </header>
 
@@ -1106,7 +1109,7 @@
   <section class="social-proof">
     <div class="social-proof-inner">
       <div class="social-proof-item">
-        <span class="social-proof-num">122</span>
+        <span class="social-proof-num">124</span>
         <span class="social-proof-label">סימני השולחן ערוך</span>
       </div>
       <div class="social-proof-divider"></div>
@@ -1361,7 +1364,7 @@
       <div class="section-label">ספריית התוכן</div>
       <h2 class="section-title">התוכן הזמין</h2>
       <div class="divider"></div>
-      <p class="section-subtitle">אנו פותחים בהלכות שבת — הענף העשיר והמעשי ביותר של ההלכה היומיומית. <strong style="color:#3851A3;">רמה 4 דעת הרב</strong> (שיטת אדמו״ר הזקן — שולחן ערוך הרב) זמינה כעת על <strong>122 סימני הלכות שבת</strong>.</p>
+      <p class="section-subtitle">אנו פותחים בהלכות שבת — הענף העשיר והמעשי ביותר של ההלכה היומיומית. <strong style="color:#3851A3;">רמה 4 דעת הרב</strong> (שיטת אדמו״ר הזקן — שולחן ערוך הרב) זמינה כעת על <strong>122 מתוך 124 סימני הלכות שבת</strong>.</p>
 
       <!-- HIGHLIGHT DAAT HARAV -->
       <div style="background: linear-gradient(135deg, #3851A3 0%, #2A3F7F 100%); color: #fff; padding: 32px 36px; margin: 32px 0; border-radius: 4px; border: 1px solid #C5A55A;">
@@ -1369,11 +1372,11 @@
           <div style="flex: 1; min-width: 280px;">
             <div style="font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #C5A55A; margin-bottom: 8px;">חדש · רמה 4</div>
             <h3 style="font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', serif; font-size: 30px; color: #C5A55A; margin: 0 0 6px;">דעת הרב — Daat HaRav</h3>
-            <p style="margin: 0 0 8px; font-size: 16px; color: rgba(255,255,255,0.9);"><em>שיטת</em> אדמו״ר הזקן על <strong>122 סימני הלכות שבת</strong> — הטקסט העברי המלא של שולחן ערוך הרב (שולחן ערוך אדמו״ר הזקן) עם הקונטרס אחרון, חוזק הפסק, חידוש מיוחד של הרב, מראי מקומות לשיחות ואגרות הרבי, הוראה למעשה.</p>
+            <p style="margin: 0 0 8px; font-size: 16px; color: rgba(255,255,255,0.9);"><em>שיטת</em> אדמו״ר הזקן על <strong>122 מתוך 124 סימני הלכות שבת</strong> — הטקסט העברי המלא של שולחן ערוך הרב (שולחן ערוך אדמו״ר הזקן) עם הקונטרס אחרון, חוזק הפסק, חידוש מיוחד של הרב, מראי מקומות לשיחות ואגרות הרבי, הוראה למעשה.</p>
             <p style="margin: 8px 0 0; font-size: 13px; color: rgba(255,255,255,0.85);">סימנים 242 → 365 · משולב עם ספריא · קונבנציית הגהה בעברית · Placeholders הגהות/מהדורא בתרא</p>
           </div>
           <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-            <a href="sources/shabbat/index-he.html" style="background: #C5A55A; color: #1A1F3A; padding: 12px 24px; text-decoration: none; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1px; border-radius: 2px;">לעיון ב-122 הסימנים →</a>
+            <a href="sources/shabbat/index-he.html" style="background: #C5A55A; color: #1A1F3A; padding: 12px 24px; text-decoration: none; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1px; border-radius: 2px;">לעיון ב-124 הסימנים →</a>
             <a href="chitah-admour-hazaken-he.html" style="background: transparent; color: #fff; padding: 12px 24px; text-decoration: none; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1px; border: 1px solid rgba(255,255,255,0.4); border-radius: 2px;">שיטת אדמו״ר הזקן ↗</a>
           </div>
         </div>
@@ -1517,7 +1520,7 @@
             <li><a href="sources/shabbat/siman-271/index.html">סימן רע״א — קידוש</a></li>
             <li><a href="sources/shabbat/siman-308/index.html">סימן ש״ח — מוקצה</a></li>
             <li><a href="sources/shabbat/siman-318/index.html">סימן שי״ח — מבשל</a></li>
-            <li><a href="sources/shabbat/index-he.html" style="color:var(--gold); font-weight:600;">→ לכל 122 הסימנים</a></li>
+            <li><a href="sources/shabbat/index-he.html" style="color:var(--gold); font-weight:600;">→ לכל 124 הסימנים</a></li>
           </ul>
         </div>
         <div class="footer-links">

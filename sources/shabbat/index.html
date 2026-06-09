@@ -111,6 +111,15 @@
       outline: none; border-color: var(--gold);
       box-shadow: 0 0 0 3px rgba(197,165,90,0.12);
     }
+    .search-row { display: flex; gap: 8px; }
+    .search-row .search-input { flex: 1; min-width: 0; }
+    .search-btn {
+      flex: 0 0 auto; padding: 0 22px; font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600;
+      letter-spacing: 0.5px; background: var(--navy); color: #fff; border: none; border-radius: 4px;
+      cursor: pointer; transition: background 0.15s, color 0.15s; white-space: nowrap;
+    }
+    .search-btn:hover { background: var(--gold); color: var(--navy); }
+    @media (max-width: 560px) { .search-btn { padding: 12px 16px; } }
     .search-meta {
       font-family: 'Inter', sans-serif; font-size: 11px;
       color: var(--text-muted); margin-top: 6px; letter-spacing: 0.5px;
@@ -286,20 +295,7 @@
       padding: 4px 10px; border-radius: 2px;
     }
     .status-ready { background: rgba(46,125,82,0.12); color: var(--green); }
-    .status-soon { background: rgba(0,0,0,0.05); color: var(--text-muted); }
     .siman-card.full-4 { border-top-color: var(--gold); }
-    .siman-card.niveau-4-only { border-top: 3px solid #3851A3; }
-    .siman-card.niveau-4-only:hover { border-color: #3851A3; }
-    .siman-card.placeholder { border-top: 3px solid var(--text-muted); opacity: 0.85; }
-    .siman-card.placeholder:hover { opacity: 1; border-color: var(--gold); }
-    .status-habad { background: rgba(56,81,163,0.10); color: #3851A3; }
-
-    .siman-card.full-4 { border-top-color: var(--gold); }
-    .siman-card.niveau-4-only { border-top: 3px solid #3851A3; }
-    .siman-card.niveau-4-only:hover { border-color: #3851A3; }
-    .siman-card.placeholder { border-top: 3px solid var(--text-muted); opacity: 0.85; }
-    .siman-card.placeholder:hover { opacity: 1; border-color: var(--gold); }
-    .status-habad { background: rgba(56,81,163,0.10); color: #3851A3; }
 
 
     .siman-name-he {
@@ -433,7 +429,7 @@
     <div class="hero-title-he" aria-hidden="true">הלכות שבת</div>
     <h1 class="hero-title-fr" style="margin: 0;">Hilkhot Shabbat — Étude par siman</h1>
     <p class="hero-subtitle">
-      Choisis un siman pour commencer. Le <strong>Niveau 4 Daat HaRav</strong> (chitah de l'Admour HaZaken — Choulhan Aroukh HaRav + Kountress Aharon) est <strong>disponible sur les 122 simanim</strong>. Les <strong>simanim 242-356</strong> (sauf 304 et 322, non développés) ont en plus les niveaux 1-3 (Base, Lamdan, Synthèse).
+      Choisis un siman pour commencer. Le <strong>Niveau 4 Daat HaRav</strong> (chitah de l'Admour HaZaken — Choulhan Aroukh HaRav + Kountress Aharon) est <strong>disponible sur les 124 simanim</strong>. Les <strong>simanim 242-356</strong> ont en plus les niveaux 1-3 (Base, Lamdan, Synthèse).
     </p>
   </div>
 </div>
@@ -447,13 +443,16 @@
 
   <!-- BARRE DE RECHERCHE -->
   <div class="search-block">
-    <input
-      type="text"
-      class="search-input"
-      id="search-input"
-      placeholder="🔍 Rechercher un siman par numéro, mot-clé, hébreu ou français…"
-      data-i18n-placeholder="shabbat.searchPlaceholder"
-    >
+    <div class="search-row">
+      <input
+        type="text"
+        class="search-input"
+        id="search-input"
+        placeholder="🔍 Rechercher un siman par numéro, mot-clé, hébreu ou français…"
+        data-i18n-placeholder="shabbat.searchPlaceholder"
+      >
+      <button type="button" class="search-btn" id="search-btn" data-i18n="shabbat.searchButton" aria-label="Rechercher">Rechercher</button>
+    </div>
     <div class="search-meta" id="search-meta"></div>
   </div>
 
@@ -477,7 +476,7 @@
   <!-- SECTION 1 : Simanim complets (4 niveaux) -->
   <div class="section-header">
     <div class="section-title">Simanim complets — 4 niveaux d'étude</div>
-    <div class="section-count">113 simanim</div>
+    <div class="section-count">122 simanim</div>
   </div>
 
   <div class="simanim-grid">
@@ -2061,19 +2060,6 @@
 
 
   
-  <!-- SECTION 2 : Simanim avec Niveau 4 (Daat HaRav) -->
-  <div class="section-header">
-    <div class="section-title">Simanim — Niveau 4 (Daat HaRav)</div>
-    <div class="section-count">9 simanim · Choulhan Aroukh de l'Admour HaZaken</div>
-  </div>
-
-  <div class="intro-card" style="border-left-color: #3851A3; margin-bottom: 18px;">
-    <p style="font-size: 14px;">
-      Ces simanim ont leur <strong>Niveau 4 (Daat HaRav)</strong> disponible — c'est-à-dire l'étude de la <em>chitah de l'Admour HaZaken</em> : texte intégral hébreu du Choulhan Aroukh HaRav (Choulhan Aroukh de l'Admour HaZaken) avec le Kountress Aharon, force du psak, חידוש propre au Rav, références sikhot et igrot du Rabbi, et conduite למעשה. Les niveaux 1-3 (Base, Lamdan, Synthèse) seront ajoutés progressivement.
-    </p>
-  </div>
-
-  <div class="simanim-grid">
 
 
 
@@ -2097,166 +2083,166 @@
 
 
 
-    <a href="siman-357/index.html" class="siman-card available niveau-4-only" style="text-decoration:none; color:inherit;">
+    <a href="siman-357/index.html" class="siman-card available full-4" style="text-decoration:none; color:inherit;">
       <div class="siman-card-top">
         <div class="siman-num"><span class="siman-num-fr">Siman 357</span><span class="siman-num-he">סימן שנ"ז</span></div>
-        <span class="siman-status status-habad">Daat HaRav</span>
+        <span class="siman-status status-ready">Complet</span>
       </div>
       <div class="siman-name-he">דִּינֵי חָצֵר פָּחוֹת מֵאַרְבַּע אַמּוֹת וּבִיב</div>
       <div class="siman-name-fr">Cour de moins de 4 amot et égout</div>
       <div class="siman-desc">La chitah de l'Admour HaZaken sur les 8 seifim qui codifient les cours minuscules (moins de 4 amot) et le statut des égouts. Cas-limites pour la classification des domaines.</div>
       <div class="siman-card-bottom">
-        <span class="siman-levels-info">Niveau 4 — <strong style="color:#3851A3;">Daat HaRav</strong> (Choulhan Aroukh de l'Admour HaZaken)</span>
+        <span class="siman-levels-info">4 niveaux : Base · Lamdan · Synthèse · <strong style="color:#3851A3;">Daat HaRav</strong></span>
         <span class="btn-study">Étudier →</span>
       </div>
     </a>
 
-    <a href="siman-358/index.html" class="siman-card available niveau-4-only" style="text-decoration:none; color:inherit;">
+    <a href="siman-358/index.html" class="siman-card available full-4" style="text-decoration:none; color:inherit;">
       <div class="siman-card-top">
         <div class="siman-num"><span class="siman-num-fr">Siman 358</span><span class="siman-num-he">סימן שנ"ח</span></div>
-        <span class="siman-status status-habad">Daat HaRav</span>
+        <span class="siman-status status-ready">Complet</span>
       </div>
       <div class="siman-name-he">דִּין אֵיזֶה מְקוֹמוֹת נִקְרָאִים מֻקָּפִים לְדִירָה</div>
       <div class="siman-name-fr">Lieux entourés pour résidence (mukafin le-dira)</div>
       <div class="siman-desc">La chitah de l'Admour HaZaken sur les 22 seifim qui codifient le concept de מוקפים לדירה (entourés pour résidence) — distinction structurelle entre clôtures pour habitation (RY)…</div>
       <div class="siman-card-bottom">
-        <span class="siman-levels-info">Niveau 4 — <strong style="color:#3851A3;">Daat HaRav</strong> (Choulhan Aroukh de l'Admour HaZaken)</span>
+        <span class="siman-levels-info">4 niveaux : Base · Lamdan · Synthèse · <strong style="color:#3851A3;">Daat HaRav</strong></span>
         <span class="btn-study">Étudier →</span>
       </div>
     </a>
 
-    <a href="siman-359/index.html" class="siman-card available niveau-4-only" style="text-decoration:none; color:inherit;">
+    <a href="siman-359/index.html" class="siman-card available full-4" style="text-decoration:none; color:inherit;">
       <div class="siman-card-top">
         <div class="siman-num"><span class="siman-num-fr">Siman 359</span><span class="siman-num-he">סימן שנ"ט</span></div>
-        <span class="siman-status status-habad">Daat HaRav</span>
+        <span class="siman-status status-ready">Complet</span>
       </div>
       <div class="siman-name-he">דִּין רְחָבָה שֶׁאֲחוֹרֵי הַבָּתִּים</div>
       <div class="siman-name-fr">Espace large derrière les maisons</div>
       <div class="siman-desc">La chitah de l'Admour HaZaken sur les 2 seifim qui codifient le statut des espaces larges (plus de 5000 amot²) derrière les maisons — pas mukaf le-dira par défaut, donc problème…</div>
       <div class="siman-card-bottom">
-        <span class="siman-levels-info">Niveau 4 — <strong style="color:#3851A3;">Daat HaRav</strong> (Choulhan Aroukh de l'Admour HaZaken)</span>
+        <span class="siman-levels-info">4 niveaux : Base · Lamdan · Synthèse · <strong style="color:#3851A3;">Daat HaRav</strong></span>
         <span class="btn-study">Étudier →</span>
       </div>
     </a>
 
-    <a href="siman-360/index.html" class="siman-card available niveau-4-only" style="text-decoration:none; color:inherit;">
+    <a href="siman-360/index.html" class="siman-card available full-4" style="text-decoration:none; color:inherit;">
       <div class="siman-card-top">
         <div class="siman-num"><span class="siman-num-fr">Siman 360</span><span class="siman-num-he">סימן ש"ס</span></div>
-        <span class="siman-status status-habad">Daat HaRav</span>
+        <span class="siman-status status-ready">Complet</span>
       </div>
       <div class="siman-name-he">דִּין הֶקֵּף מְחִצּוֹת לְשַׁבָּת</div>
       <div class="siman-name-fr">Entourage pour Shabbat — créer une RY temporaire</div>
       <div class="siman-desc">La chitah de l'Admour HaZaken sur les 8 seifim qui codifient la possibilité d'entourer Shabbat un espace pour le rendre RY temporairement — application au camping, au piquenique.</div>
       <div class="siman-card-bottom">
-        <span class="siman-levels-info">Niveau 4 — <strong style="color:#3851A3;">Daat HaRav</strong> (Choulhan Aroukh de l'Admour HaZaken)</span>
+        <span class="siman-levels-info">4 niveaux : Base · Lamdan · Synthèse · <strong style="color:#3851A3;">Daat HaRav</strong></span>
         <span class="btn-study">Étudier →</span>
       </div>
     </a>
 
-    <a href="siman-361/index.html" class="siman-card available niveau-4-only" style="text-decoration:none; color:inherit;">
+    <a href="siman-361/index.html" class="siman-card available full-4" style="text-decoration:none; color:inherit;">
       <div class="siman-card-top">
         <div class="siman-num"><span class="siman-num-fr">Siman 361</span><span class="siman-num-he">סימן שס"א</span></div>
-        <span class="siman-status status-habad">Daat HaRav</span>
+        <span class="siman-status status-ready">Complet</span>
       </div>
       <div class="siman-name-he">דִּין גַּג הַסָּמוּךְ לִרְשׁוּת הָרַבִּים</div>
       <div class="siman-name-fr">Toit adjacent à RH</div>
       <div class="siman-desc">La chitah de l'Admour HaZaken sur les 6 seifim qui codifient le statut d'un toit adjacent à RH — moins de 10 tefachim au-dessus = peut être considéré comme RH ; au-dessus = RY.</div>
       <div class="siman-card-bottom">
-        <span class="siman-levels-info">Niveau 4 — <strong style="color:#3851A3;">Daat HaRav</strong> (Choulhan Aroukh de l'Admour HaZaken)</span>
+        <span class="siman-levels-info">4 niveaux : Base · Lamdan · Synthèse · <strong style="color:#3851A3;">Daat HaRav</strong></span>
         <span class="btn-study">Étudier →</span>
       </div>
     </a>
 
-    <a href="siman-362/index.html" class="siman-card available niveau-4-only" style="text-decoration:none; color:inherit;">
+    <a href="siman-362/index.html" class="siman-card available full-4" style="text-decoration:none; color:inherit;">
       <div class="siman-card-top">
         <div class="siman-num"><span class="siman-num-fr">Siman 362</span><span class="siman-num-he">סימן שס"ב</span></div>
-        <span class="siman-status status-habad">Daat HaRav</span>
+        <span class="siman-status status-ready">Complet</span>
       </div>
       <div class="siman-name-he">אֵיזֶה מְחִצָּה קָרוּי מְחִצָּה לְטַלְטֵל</div>
       <div class="siman-name-fr">Quelle clôture est valable pour autoriser le transport</div>
       <div class="siman-desc">La chitah de l'Admour HaZaken sur les 22 seifim qui codifient les critères structurels d'une clôture (mehitzah) valable Shabbat — hauteur 10 tefachim, continuité, lavoud, gud…</div>
       <div class="siman-card-bottom">
-        <span class="siman-levels-info">Niveau 4 — <strong style="color:#3851A3;">Daat HaRav</strong> (Choulhan Aroukh de l'Admour HaZaken)</span>
+        <span class="siman-levels-info">4 niveaux : Base · Lamdan · Synthèse · <strong style="color:#3851A3;">Daat HaRav</strong></span>
         <span class="btn-study">Étudier →</span>
       </div>
     </a>
 
-    <a href="siman-363/index.html" class="siman-card available niveau-4-only" style="text-decoration:none; color:inherit;">
+    <a href="siman-363/index.html" class="siman-card available full-4" style="text-decoration:none; color:inherit;">
       <div class="siman-card-top">
         <div class="siman-num"><span class="siman-num-fr">Siman 363</span><span class="siman-num-he">סימן שס"ג</span></div>
-        <span class="siman-status status-habad">Daat HaRav</span>
+        <span class="siman-status status-ready">Complet</span>
       </div>
       <div class="siman-name-he">דִּינֵי מָבוֹי וְלֶחִי</div>
       <div class="siman-name-fr">Mavoy (impasse) et Lehi (poteau de référence)</div>
       <div class="siman-desc">La chitah de l'Admour HaZaken sur les 44 seifim qui codifient le grand corpus du <em>mavoy</em> (rue/impasse partiellement fermée) et du <em>lehi</em> (poteau qui complète la 4e…</div>
       <div class="siman-card-bottom">
-        <span class="siman-levels-info">Niveau 4 — <strong style="color:#3851A3;">Daat HaRav</strong> (Choulhan Aroukh de l'Admour HaZaken)</span>
+        <span class="siman-levels-info">4 niveaux : Base · Lamdan · Synthèse · <strong style="color:#3851A3;">Daat HaRav</strong></span>
         <span class="btn-study">Étudier →</span>
       </div>
     </a>
 
-    <a href="siman-364/index.html" class="siman-card available niveau-4-only" style="text-decoration:none; color:inherit;">
+    <a href="siman-364/index.html" class="siman-card available full-4" style="text-decoration:none; color:inherit;">
       <div class="siman-card-top">
         <div class="siman-num"><span class="siman-num-fr">Siman 364</span><span class="siman-num-he">סימן שס"ד</span></div>
-        <span class="siman-status status-habad">Daat HaRav</span>
+        <span class="siman-status status-ready">Complet</span>
       </div>
       <div class="siman-name-he">דִּין מָבוֹי הַמְּפֻלָּשׁ וְעָשׂוּי כְּנָדָל</div>
       <div class="siman-name-fr">Mavoy traversant et en forme d'arête de poisson</div>
       <div class="siman-desc">La chitah de l'Admour HaZaken sur les 9 seifim qui codifient les cas de mavoy ouvert aux deux extrémités sur RH (mefoulach) — règles plus strictes, lehi à chaque extrémité ou…</div>
       <div class="siman-card-bottom">
-        <span class="siman-levels-info">Niveau 4 — <strong style="color:#3851A3;">Daat HaRav</strong> (Choulhan Aroukh de l'Admour HaZaken)</span>
+        <span class="siman-levels-info">4 niveaux : Base · Lamdan · Synthèse · <strong style="color:#3851A3;">Daat HaRav</strong></span>
         <span class="btn-study">Étudier →</span>
       </div>
     </a>
 
-    <a href="siman-365/index.html" class="siman-card available niveau-4-only" style="text-decoration:none; color:inherit;">
+    <a href="siman-365/index.html" class="siman-card available full-4" style="text-decoration:none; color:inherit;">
       <div class="siman-card-top">
         <div class="siman-num"><span class="siman-num-fr">Siman 365</span><span class="siman-num-he">סימן שס"ה</span></div>
-        <span class="siman-status status-habad">Daat HaRav</span>
+        <span class="siman-status status-ready">Complet</span>
       </div>
       <div class="siman-name-he">דִּין מָבוֹי שֶׁנִּפְרַץ</div>
       <div class="siman-name-fr">Mavoy dont une cloison s'est cassée — dernier siman de Hilkhot Shabbat</div>
       <div class="siman-desc">La chitah de l'Admour HaZaken sur les 10 seifim qui clôturent Hilkhot Shabbat — que faire si une cloison de mavoy s'est cassée Shabbat ? Distinctions selon la nature de la…</div>
       <div class="siman-card-bottom">
-        <span class="siman-levels-info">Niveau 4 — <strong style="color:#3851A3;">Daat HaRav</strong> (Choulhan Aroukh de l'Admour HaZaken)</span>
+        <span class="siman-levels-info">4 niveaux : Base · Lamdan · Synthèse · <strong style="color:#3851A3;">Daat HaRav</strong></span>
         <span class="btn-study">Étudier →</span>
       </div>
     </a>
 
   </div>
 
-  <!-- SECTION 3 : Placeholders (non développés par l'Admour HaZaken) -->
+  <!-- SECTION 3 : Simanim 304 & 322 — niveaux 1-3, sans Niveau 4 (non rédigés par l'Admour HaZaken) -->
   <div class="section-header">
-    <div class="section-title">Simanim non développés par l'Admour HaZaken</div>
-    <div class="section-count">2 simanim · Référence au Mehaber</div>
+    <div class="section-title">Simanim 304 &amp; 322 — sans Niveau 4 (Daat HaRav)</div>
+    <div class="section-count">2 simanim · Niveaux 1-3 · l'Admour HaZaken ne les a pas rédigés</div>
   </div>
 
   <div class="simanim-grid">
-    <a href="siman-304/index.html" class="siman-card placeholder" style="text-decoration:none; color:inherit;">
+    <a href="siman-304/index.html" class="siman-card available" style="text-decoration:none; color:inherit;">
       <div class="siman-card-top">
         <div class="siman-num"><span class="siman-num-fr">Siman 304</span><span class="siman-num-he">סימן ש"ד</span></div>
-        <span class="siman-status status-soon">Non développé</span>
+        <span class="siman-status status-ready">Niveaux 1-3</span>
       </div>
       <div class="siman-name-he">דין שביתת עבד</div>
       <div class="siman-name-fr">Sur le repos de l'esclave</div>
-      <div class="siman-desc">L'Admour HaZaken n'a pas développé ce siman dans son Choulhan Aroukh. La page explique les raisons et oriente vers le Mehaber.</div>
+      <div class="siman-desc">Niveaux 1-3 (Base · Lamdan · Synthèse) selon le Mehaber. L'Admour HaZaken n'a pas rédigé ce siman dans son Choulhan Aroukh HaRav — il n'y a donc pas de Niveau 4.</div>
       <div class="siman-card-bottom">
-        <span class="siman-levels-info">Page d'information</span>
-        <span class="btn-study" style="background:var(--text-muted);">Voir →</span>
+        <span class="siman-levels-info">3 niveaux : Base · Lamdan · Synthèse</span>
+        <span class="btn-study">Étudier →</span>
       </div>
     </a>
 
-    <a href="siman-322/index.html" class="siman-card placeholder" style="text-decoration:none; color:inherit;">
+    <a href="siman-322/index.html" class="siman-card available" style="text-decoration:none; color:inherit;">
       <div class="siman-card-top">
         <div class="siman-num"><span class="siman-num-fr">Siman 322</span><span class="siman-num-he">סימן שכ"ב</span></div>
-        <span class="siman-status status-soon">Non développé</span>
+        <span class="siman-status status-ready">Niveaux 1-3</span>
       </div>
       <div class="siman-name-he">דין נולד בשבת</div>
       <div class="siman-name-fr">Œuf pondu Shabbat (Mehaber seul)</div>
-      <div class="siman-desc">L'Admour HaZaken n'a pas développé ce siman dans son Choulhan Aroukh. La page explique les raisons et oriente vers le Mehaber.</div>
+      <div class="siman-desc">Niveaux 1-3 (Base · Lamdan · Synthèse) selon le Mehaber. L'Admour HaZaken n'a pas rédigé ce siman dans son Choulhan Aroukh HaRav — il n'y a donc pas de Niveau 4.</div>
       <div class="siman-card-bottom">
-        <span class="siman-levels-info">Page d'information</span>
-        <span class="btn-study" style="background:var(--text-muted);">Voir →</span>
+        <span class="siman-levels-info">3 niveaux : Base · Lamdan · Synthèse</span>
+        <span class="btn-study">Étudier →</span>
       </div>
     </a>
 
@@ -2420,6 +2406,25 @@ function searchCards() {
   }
 }
 $searchInput.addEventListener('input', searchCards);
+// « Rechercher » / Entrée : si la requête contient un n° de siman, on ouvre
+// directement sa page ; sinon, si une seule carte reste visible, on y va ;
+// sinon on se contente de filtrer la liste.
+function runSearch() {
+  try { searchCards(); } catch (e) {}
+  const q = $searchInput.value.trim();
+  if (!q) return;
+  const num = (q.match(/\d{2,3}/) || [])[0];
+  if (num) {
+    const card = [...$allCards].find(c => ((c.getAttribute('href') || '').indexOf('siman-' + num + '/') !== -1));
+    if (card) { window.location.href = card.getAttribute('href'); return; }
+  }
+  const visible = [...$allCards].filter(c => c.style.display !== 'none');
+  if (visible.length === 1 && visible[0].getAttribute('href')) { window.location.href = visible[0].getAttribute('href'); return; }
+  $searchInput.blur();
+}
+const $searchBtn = document.getElementById('search-btn');
+if ($searchBtn) $searchBtn.addEventListener('click', runSearch);
+$searchInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); runSearch(); } });
 
 // =================================================================
 // 3) PROGRESSION — niveaux étudiés par siman

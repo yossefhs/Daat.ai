@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Comparatif de polices hébraïques — DAAT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alef:wght@400;700&family=Assistant:wght@300..700&family=Cormorant+Garamond:wght@300;400;500;600&family=David+Libre:wght@400;500;700&family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Heebo:wght@300..700&family=Inter:wght@400;500;600&family=Miriam+Libre:wght@400;700&family=Noto+Serif+Hebrew:wght@300..700&family=Rubik:wght@300..700&family=Suez+One&display=swap" rel="stylesheet">
+  <style>
+    :root{ --navy:#1A1F3A; --gold:#C5A55A; --cream:#FAF6EE; --text-mid:#555; --border:#e7e2d6; }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{ background:var(--cream); color:var(--navy); font-family:'Cormorant Garamond',Georgia,serif; line-height:1.7; }
+    header{ background:var(--navy); color:#fff; padding:40px 24px; text-align:center; border-bottom:3px solid var(--gold); }
+    header .he{ font-family:'Frank Ruhl Libre',serif; color:var(--gold); font-size:40px; }
+    header h1{ font-family:'Cormorant Garamond',serif; font-weight:300; font-size:26px; margin-top:8px; }
+    header p{ font-family:'Inter',sans-serif; font-size:13px; color:rgba(255,255,255,.8); margin-top:10px; letter-spacing:.5px; direction:ltr; }
+    .wrap{ max-width:900px; margin:0 auto; padding:30px 20px 60px; }
+    .note{ background:#fff; border-right:4px solid var(--gold); padding:16px 20px; margin-bottom:28px; font-family:'Inter',sans-serif; font-size:14px; color:var(--text-mid); direction:ltr; text-align:left; }
+    .card{ background:#fff; border:1px solid var(--border); border-radius:8px; padding:0; margin-bottom:22px; overflow:hidden; }
+    .card.current{ border:2px solid var(--gold); box-shadow:0 6px 24px rgba(197,165,90,.18); }
+    .card .label{ background:var(--navy); color:#fff; padding:12px 20px; display:flex; justify-content:space-between; align-items:center; direction:ltr; }
+    .card .label .name{ font-family:'Inter',sans-serif; font-size:15px; font-weight:600; letter-spacing:.5px; }
+    .card .label .name b{ color:var(--gold); }
+    .card .label .desc{ font-family:'Inter',sans-serif; font-size:12px; color:rgba(255,255,255,.75); }
+    .sample{ padding:26px 28px; }
+    .sample .logo{ font-size:48px; color:var(--gold); font-weight:700; line-height:1; }
+    .sample .tagline{ font-size:26px; color:var(--navy); margin-top:6px; }
+    .sample .title{ font-size:24px; color:var(--navy); margin-top:20px; font-weight:500; border-top:1px solid var(--border); padding-top:18px; }
+    .sample .gematria{ font-size:30px; color:var(--gold); margin-top:10px; letter-spacing:2px; }
+    .sample .body{ font-size:20px; color:#2a2f4a; margin-top:14px; }
+    .sample .small{ font-size:16px; color:var(--text-mid); margin-top:10px; }
+    /* familles */
+    .f-frank   .sample, .f-frank   .logo, .f-frank   *[class^="t-"]{ font-family:'Frank Ruhl Libre',serif; }
+    .f-david   .sample{ font-family:'David Libre',serif; }
+    .f-noto    .sample{ font-family:'Noto Serif Hebrew',serif; }
+    .f-suez    .sample{ font-family:'Suez One',serif; }
+    .f-miriam  .sample{ font-family:'Miriam Libre',serif; }
+    .f-heebo   .sample{ font-family:'Heebo',sans-serif; }
+    .f-assist  .sample{ font-family:'Assistant',sans-serif; }
+    .f-rubik   .sample{ font-family:'Rubik',sans-serif; }
+    .f-alef    .sample{ font-family:'Alef',sans-serif; }
+    .reco{ background:var(--navy); color:#fff; border-radius:8px; padding:22px 24px; margin:30px 0; direction:ltr; text-align:left; font-family:'Inter',sans-serif; }
+    .reco h3{ color:var(--gold); font-size:16px; margin-bottom:8px; }
+    .reco p{ font-size:14px; color:rgba(255,255,255,.85); margin-bottom:6px; }
+    .reco b{ color:#fff; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="he">דעת</div>
+    <h1>Comparatif de polices hébraïques</h1>
+    <p>Même contenu DAAT rendu dans chaque police · choisis-en une, je l'applique partout</p>
+  </header>
+
+  <div class="wrap">
+    <div class="note">
+      Chaque carte affiche le logo <b>דעת</b>, la signature, un titre de siman <b>avec nikud</b> (pour tester les voyelles), une guématria et un extrait de halakha. La police actuelle du site est <b>Frank Ruhl Libre</b> (1<sup>re</sup> carte). Toutes sont des Google Fonts libres et gratuites.
+    </div>
+
+    <!-- FRANK RUHL (actuelle) -->
+    <div class="card current f-frank">
+      <div class="label"><span class="name">1 · <b>Frank Ruhl Libre</b> (actuelle)</span><span class="desc">Serif classique · très lisible</span></div>
+      <div class="sample">
+        <div class="logo">דעת</div>
+        <div class="tagline">דַּעַת הַתּוֹרָה לְעָמְקָהּ</div>
+        <div class="title">סִימָן רמ״ז · דִּין נָכְרִים הַמְּבִיאִים כְּתָבִים בְּשַׁבָּת</div>
+        <div class="gematria">רמ״ז · שי״ח · ש״ח · שכ״ו</div>
+        <div class="body">שׁוֹלֵחַ אָדָם אִגֶּרֶת בְּיַד נָכְרִי, וַאֲפִלּוּ בְּעֶרֶב שַׁבָּת עִם חֲשֵׁכָה. וּבִלְבַד שֶׁיִּקְצוֹץ לוֹ דָּמִים.</div>
+        <div class="small">אוֹרַח חַיִּים · שֻׁלְחָן עָרוּךְ הָרַב · קוֹנְטְרֵס אַחֲרוֹן</div>
+      </div>
+    </div>
+
+    <!-- DAVID LIBRE -->
+    <div class="card f-david">
+      <div class="label"><span class="name">2 · <b>David Libre</b></span><span class="desc">Style « sefer » imprimé · chaleureux</span></div>
+      <div class="sample">
+        <div class="logo">דעת</div>
+        <div class="tagline">דַּעַת הַתּוֹרָה לְעָמְקָהּ</div>
+        <div class="title">סִימָן רמ״ז · דִּין נָכְרִים הַמְּבִיאִים כְּתָבִים בְּשַׁבָּת</div>
+        <div class="gematria">רמ״ז · שי״ח · ש״ח · שכ״ו</div>
+        <div class="body">שׁוֹלֵחַ אָדָם אִגֶּרֶת בְּיַד נָכְרִי, וַאֲפִלּוּ בְּעֶרֶב שַׁבָּת עִם חֲשֵׁכָה. וּבִלְבַד שֶׁיִּקְצוֹץ לוֹ דָּמִים.</div>
+        <div class="small">אוֹרַח חַיִּים · שֻׁלְחָן עָרוּךְ הָרַב · קוֹנְטְרֵס אַחֲרוֹן</div>
+      </div>
+    </div>
+
+    <!-- NOTO SERIF HEBREW -->
+    <div class="card f-noto">
+      <div class="label"><span class="name">3 · <b>Noto Serif Hebrew</b></span><span class="desc">Serif moderne, épuré · excellent nikud</span></div>
+      <div class="sample">
+        <div class="logo">דעת</div>
+        <div class="tagline">דַּעַת הַתּוֹרָה לְעָמְקָהּ</div>
+        <div class="title">סִימָן רמ״ז · דִּין נָכְרִים הַמְּבִיאִים כְּתָבִים בְּשַׁבָּת</div>
+        <div class="gematria">רמ״ז · שי״ח · ש״ח · שכ״ו</div>
+        <div class="body">שׁוֹלֵחַ אָדָם אִגֶּרֶת בְּיַד נָכְרִי, וַאֲפִלּוּ בְּעֶרֶב שַׁבָּת עִם חֲשֵׁכָה. וּבִלְבַד שֶׁיִּקְצוֹץ לוֹ דָּמִים.</div>
+        <div class="small">אוֹרַח חַיִּים · שֻׁלְחָן עָרוּךְ הָרַב · קוֹנְטְרֵס אַחֲרוֹן</div>
+      </div>
+    </div>
+
+    <!-- SUEZ ONE -->
+    <div class="card f-suez">
+      <div class="label"><span class="name">4 · <b>Suez One</b></span><span class="desc">Display fort · idéal grands titres / logo</span></div>
+      <div class="sample">
+        <div class="logo">דעת</div>
+        <div class="tagline">דַּעַת הַתּוֹרָה לְעָמְקָהּ</div>
+        <div class="title">סִימָן רמ״ז · דִּין נָכְרִים הַמְּבִיאִים כְּתָבִים בְּשַׁבָּת</div>
+        <div class="gematria">רמ״ז · שי״ח · ש״ח · שכ״ו</div>
+        <div class="body">שׁוֹלֵחַ אָדָם אִגֶּרֶת בְּיַד נָכְרִי, וַאֲפִלּוּ בְּעֶרֶב שַׁבָּת עִם חֲשֵׁכָה. וּבִלְבַד שֶׁיִּקְצוֹץ לוֹ דָּמִים.</div>
+        <div class="small">אוֹרַח חַיִּים · שֻׁלְחָן עָרוּךְ הָרַב · קוֹנְטְרֵס אַחֲרוֹן</div>
+      </div>
+    </div>
+
+    <!-- MIRIAM LIBRE -->
+    <div class="card f-miriam">
+      <div class="label"><span class="name">5 · <b>Miriam Libre</b></span><span class="desc">Semi-serif sobre · moderne-traditionnel</span></div>
+      <div class="sample">
+        <div class="logo">דעת</div>
+        <div class="tagline">דַּעַת הַתּוֹרָה לְעָמְקָהּ</div>
+        <div class="title">סִימָן רמ״ז · דִּין נָכְרִים הַמְּבִיאִים כְּתָבִים בְּשַׁבָּת</div>
+        <div class="gematria">רמ״ז · שי״ח · ש״ח · שכ״ו</div>
+        <div class="body">שׁוֹלֵחַ אָדָם אִגֶּרֶת בְּיַד נָכְרִי, וַאֲפִלּוּ בְּעֶרֶב שַׁבָּת עִם חֲשֵׁכָה. וּבִלְבַד שֶׁיִּקְצוֹץ לוֹ דָּמִים.</div>
+        <div class="small">אוֹרַח חַיִּים · שֻׁלְחָן עָרוּךְ הָרַב · קוֹנְטְרֵס אַחֲרוֹן</div>
+      </div>
+    </div>
+
+    <!-- HEEBO -->
+    <div class="card f-heebo">
+      <div class="label"><span class="name">6 · <b>Heebo</b></span><span class="desc">Sans moderne, neutre</span></div>
+      <div class="sample">
+        <div class="logo">דעת</div>
+        <div class="tagline">דַּעַת הַתּוֹרָה לְעָמְקָהּ</div>
+        <div class="title">סִימָן רמ״ז · דִּין נָכְרִים הַמְּבִיאִים כְּתָבִים בְּשַׁבָּת</div>
+        <div class="gematria">רמ״ז · שי״ח · ש״ח · שכ״ו</div>
+        <div class="body">שׁוֹלֵחַ אָדָם אִגֶּרֶת בְּיַד נָכְרִי, וַאֲפִלּוּ בְּעֶרֶב שַׁבָּת עִם חֲשֵׁכָה. וּבִלְבַד שֶׁיִּקְצוֹץ לוֹ דָּמִים.</div>
+        <div class="small">אוֹרַח חַיִּים · שֻׁלְחָן עָרוּךְ הָרַב · קוֹנְטְרֵס אַחֲרוֹן</div>
+      </div>
+    </div>
+
+    <!-- ASSISTANT -->
+    <div class="card f-assist">
+      <div class="label"><span class="name">7 · <b>Assistant</b></span><span class="desc">Sans doux, contemporain</span></div>
+      <div class="sample">
+        <div class="logo">דעת</div>
+        <div class="tagline">דַּעַת הַתּוֹרָה לְעָמְקָהּ</div>
+        <div class="title">סִימָן רמ״ז · דִּין נָכְרִים הַמְּבִיאִים כְּתָבִים בְּשַׁבָּת</div>
+        <div class="gematria">רמ״ז · שי״ח · ש״ח · שכ״ו</div>
+        <div class="body">שׁוֹלֵחַ אָדָם אִגֶּרֶת בְּיַד נָכְרִי, וַאֲפִלּוּ בְּעֶרֶב שַׁבָּת עִם חֲשֵׁכָה. וּבִלְבַד שֶׁיִּקְצוֹץ לוֹ דָּמִים.</div>
+        <div class="small">אוֹרַח חַיִּים · שֻׁלְחָן עָרוּךְ הָרַב · קוֹנְטְרֵס אַחֲרוֹן</div>
+      </div>
+    </div>
+
+    <!-- RUBIK -->
+    <div class="card f-rubik">
+      <div class="label"><span class="name">8 · <b>Rubik</b></span><span class="desc">Sans géométrique, dynamique</span></div>
+      <div class="sample">
+        <div class="logo">דעת</div>
+        <div class="tagline">דַּעַת הַתּוֹרָה לְעָמְקָהּ</div>
+        <div class="title">סִימָן רמ״ז · דִּין נָכְרִים הַמְּבִיאִים כְּתָבִים בְּשַׁבָּת</div>
+        <div class="gematria">רמ״ז · שי״ח · ש״ח · שכ״ו</div>
+        <div class="body">שׁוֹלֵחַ אָדָם אִגֶּרֶת בְּיַד נָכְרִי, וַאֲפִלּוּ בְּעֶרֶב שַׁבָּת עִם חֲשֵׁכָה. וּבִלְבַד שֶׁיִּקְצוֹץ לוֹ דָּמִים.</div>
+        <div class="small">אוֹרַח חַיִּים · שֻׁלְחָן עָרוּךְ הָרַב · קוֹנְטְרֵס אַחֲרוֹן</div>
+      </div>
+    </div>
+
+    <div class="reco">
+      <h3>Ma recommandation</h3>
+      <p>Pour garder l'esprit « beit midrash » élégant tout en gagnant en finesse :</p>
+      <p>• <b>Corps de texte / titres</b> : <b>Noto Serif Hebrew</b> (très propre, nikud parfait) ou <b>David Libre</b> (chaleur du sefer imprimé).</p>
+      <p>• <b>Option combinée</b> : <b>Suez One</b> pour les grands titres et le logo דעת, + Noto Serif Hebrew pour le corps.</p>
+      <p>Dis-moi le numéro choisi, et je l'applique sur tout le site (variable <code>--daat-font-hebrew</code> + imports + styles inline).</p>
+    </div>
+  </div>
+</body>
+</html>

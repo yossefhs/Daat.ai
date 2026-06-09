@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DAAT Admin — Dédicaces</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap"></noscript>
+  <style>
+    :root {
+      --navy: #1A1F3A; --gold: #C5A55A; --cream: #FAF6EE;
+      --green: #2E7D52; --red: #C0392B; --border: #E4DDD0;
+      --text: #2C2C2C; --muted: #888;
+      --dedic-bg: #1a1a2e; --dedic-gold: #B8972A;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #F4F4F6; color: var(--text); min-height: 100vh; }
+    header {
+      background: var(--navy); color: white; padding: 16px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 2px solid var(--gold);
+    }
+    .logo { display: flex; align-items: center; gap: 12px; }
+    .logo .he { font-family: 'Frank Ruhl Libre', serif; font-size: 26px; color: var(--gold); font-weight: 700; }
+    .logo .sub { font-size: 11px; color: rgba(255,255,255,0.85); letter-spacing: 3px; text-transform: uppercase; }
+    nav a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 13px; margin-left: 20px; }
+    nav a:hover { color: var(--gold); }
+    main { max-width: 1000px; margin: 0 auto; padding: 32px; }
+    h1 { font-size: 26px; color: var(--navy); margin-bottom: 8px; }
+    .lead { color: var(--muted); margin-bottom: 24px; font-size: 14px; line-height: 1.6; }
+
+    .auth-banner {
+      background: #FFF8E5; border: 1px solid var(--gold);
+      padding: 16px 20px; margin-bottom: 24px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .auth-banner.connected { background: #E8F5E9; border-color: var(--green); }
+    label { display: block; font-size: 12px; font-weight: 600; color: var(--navy); margin-bottom: 6px; letter-spacing: 0.5px; }
+    input[type="password"], input[type="text"], input[type="number"], select {
+      width: 100%; padding: 10px 12px;
+      border: 1px solid var(--border); background: white;
+      font-family: inherit; font-size: 14px;
+    }
+    input[type="password"] { max-width: 280px; }
+    .he-input { font-family: 'Frank Ruhl Libre', serif; font-size: 18px; direction: rtl; text-align: right; }
+    button {
+      background: var(--navy); color: white; border: none;
+      padding: 10px 22px; font-family: inherit; font-size: 14px;
+      font-weight: 600; cursor: pointer; transition: background 0.15s;
+    }
+    button:hover { background: #2A2F4A; }
+    button.gold { background: var(--gold); }
+    button.gold:hover { background: #D4B97A; }
+    button.ghost { background: transparent; color: var(--navy); border: 1px solid var(--border); }
+    button.danger { background: var(--red); padding: 6px 12px; font-size: 12px; }
+
+    .card {
+      background: white; border: 1px solid var(--border);
+      border-left: 3px solid var(--gold); padding: 24px; margin-bottom: 28px;
+    }
+    .card h2 { font-size: 18px; color: var(--navy); margin-bottom: 4px; }
+    .card .hint { font-size: 13px; color: var(--muted); margin-bottom: 18px; }
+    .form-grid { display: grid; grid-template-columns: 120px 1fr 200px; gap: 16px; align-items: end; }
+    .form-actions { margin-top: 18px; display: flex; gap: 12px; align-items: center; }
+
+    /* Aperçu du bandeau tel qu'il apparaîtra en haut du siman */
+    .preview-wrap { margin-top: 18px; }
+    .preview-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .preview-banner {
+      background: var(--dedic-bg); color: #f5e9c8;
+      border-bottom: 2px solid var(--dedic-gold);
+      padding: 0.55rem 1rem; text-align: center; direction: rtl;
+      font-family: 'Frank Ruhl Libre', serif; font-size: 1.15rem; line-height: 1.7;
+    }
+    .preview-banner .t { color: var(--dedic-gold); font-weight: 600; }
+
+    .dedic-item {
+      background: white; border: 1px solid var(--border);
+      border-left: 4px solid var(--gold); padding: 14px 18px; margin-bottom: 12px;
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    }
+    .dedic-siman {
+      flex: 0 0 auto; min-width: 70px; text-align: center;
+      font-weight: 700; color: var(--navy); font-size: 14px;
+      border-right: 1px solid var(--border); padding-right: 16px;
+    }
+    .dedic-body { flex: 1; min-width: 200px; }
+    .dedic-nom { font-family: 'Frank Ruhl Libre', serif; font-size: 20px; direction: rtl; text-align: right; }
+    .dedic-meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .dedic-meta .he { font-family: 'Frank Ruhl Libre', serif; color: var(--dedic-gold); font-size: 14px; }
+    .badge { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 10px; background: #EEE; color: var(--muted); letter-spacing: 0.5px; text-transform: uppercase; }
+    .badge.helloasso { background: #E3F2FD; color: #1565C0; }
+    .badge.manual { background: #F3E5F5; color: #6A1B9A; }
+
+    .empty { text-align: center; padding: 40px 20px; color: var(--muted); font-style: italic; background: white; border: 1px solid var(--border); }
+
+    .toast {
+      position: fixed; bottom: 32px; right: 32px;
+      background: var(--navy); color: white; padding: 14px 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      transform: translateX(120%); transition: transform 0.3s;
+      z-index: 9999; max-width: 400px;
+    }
+    .toast.show { transform: translateX(0); }
+    .toast.success { background: var(--green); }
+    .toast.error { background: var(--red); }
+
+    @media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <span class="he">דעת</span>
+    <div>
+      <div style="font-size: 12px; font-weight: 600;">DAAT Admin</div>
+      <div class="sub">Dédicaces</div>
+    </div>
+  </div>
+  <nav>
+    <a href="../index.html">← Site</a>
+    <a href="corpus.html">Corpus</a>
+    <a href="feedback.html">Feedback</a>
+    <a href="dedicaces.html" style="color: var(--gold);">Dédicaces</a>
+    <a href="index.html">Admin</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Dédicaces des simanim</h1>
+  <p class="lead">
+    Ajoute manuellement une dédicace (לעילוי נשמת, רפואה שלמה ou להצלחה) qui s'affichera
+    <strong>en haut de la page du siman concerné</strong>, étudiée chaque jour.
+    Les dédicaces payées via HelloAsso (formulaire « dédicace ») arrivent ici automatiquement par webhook.
+  </p>
+
+  <!-- Auth -->
+  <div id="auth-banner" class="auth-banner">
+    <div style="flex: 1;">
+      <strong>🔒 Authentification requise</strong>
+      <div style="font-size: 13px; color: var(--muted); margin-top: 4px;">
+        Saisis le mot de passe admin (variable <code>ADMIN_PASSWORD</code>).
+      </div>
+    </div>
+    <input type="password" id="admin-pw" placeholder="Mot de passe admin">
+    <button id="auth-btn" class="gold">Se connecter</button>
+  </div>
+
+  <!-- Content (hidden until auth) -->
+  <div id="content" style="display:none;">
+
+    <!-- Formulaire d'ajout -->
+    <div class="card">
+      <h2>Ajouter une dédicace</h2>
+      <div class="hint">Le nom s'affiche en hébreu, précédé du type. Exemple : <span style="font-family:'Frank Ruhl Libre',serif;">לעילוי נשמת משה בן יוסף</span></div>
+      <div class="form-grid">
+        <div>
+          <label for="f-siman">Siman (n°)</label>
+          <input type="number" id="f-siman" min="1" max="999" placeholder="242">
+        </div>
+        <div>
+          <label for="f-nom">Nom hébreu de la personne</label>
+          <input type="text" id="f-nom" class="he-input" placeholder="משה בן יוסף" dir="rtl">
+        </div>
+        <div>
+          <label for="f-type">Type de dédicace</label>
+          <select id="f-type">
+            <option value="ilui">לעילוי נשמת — à la mémoire</option>
+            <option value="refoua">לרפואה שלמה — guérison</option>
+            <option value="hatzlacha">להצלחה — réussite</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="preview-wrap">
+        <div class="preview-label">Aperçu du bandeau en haut du siman</div>
+        <div class="preview-banner" id="preview">
+          <span class="t" id="preview-type">לעילוי נשמת</span>
+          <span id="preview-nom">…</span>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button id="add-btn" class="gold">＋ Ajouter la dédicace</button>
+        <span style="font-size:13px;color:var(--muted);">Elle apparaîtra sous ~2 min en haut de <code id="siman-link-hint">/oh/N/</code></span>
+      </div>
+    </div>
+
+    <!-- Liste -->
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+      <h2 style="font-size:18px;color:var(--navy);">Dédicaces en ligne</h2>
+      <span id="count-badge" class="badge">—</span>
+      <button class="ghost" id="refresh-btn" style="margin-left:auto;">↻ Actualiser</button>
+    </div>
+    <div id="dedic-list"></div>
+  </div>
+</main>
+
+<div id="toast" class="toast"></div>
+
+<script>
+const TOKEN_KEY = 'daat-admin-token-v1';
+const TYPE_HE = { ilui: 'לעילוי נשמת', refoua: 'לרפואה שלמה', hatzlacha: 'להצלחה' };
+let allDedic = [];
+
+function $(id) { return document.getElementById(id); }
+function showToast(msg, type) {
+  const t = $('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + (type || '');
+  setTimeout(() => t.className = 'toast ' + (type || ''), 3500);
+}
+function getToken() { return sessionStorage.getItem(TOKEN_KEY) || ''; }
+function setToken(t) { if (t) sessionStorage.setItem(TOKEN_KEY, t); else sessionStorage.removeItem(TOKEN_KEY); }
+function escapeHtml(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+// ── Aperçu live ──
+function updatePreview() {
+  $('preview-type').textContent = TYPE_HE[$('f-type').value] || '';
+  $('preview-nom').textContent = $('f-nom').value.trim() || '…';
+  const n = $('f-siman').value.trim();
+  $('siman-link-hint').textContent = n ? ('/oh/' + n + '/') : '/oh/N/';
+}
+['f-type', 'f-nom', 'f-siman'].forEach(id => {
+  $(id).addEventListener('input', updatePreview);
+  $(id).addEventListener('change', updatePreview);
+});
+
+// ── Auth ──
+$('auth-btn').addEventListener('click', async () => {
+  const pw = $('admin-pw').value.trim();
+  if (!pw) return showToast('Saisis un mot de passe', 'error');
+  setToken(pw);
+  await loadDedicaces();
+});
+$('admin-pw').addEventListener('keydown', e => { if (e.key === 'Enter') $('auth-btn').click(); });
+$('refresh-btn').addEventListener('click', loadDedicaces);
+
+// ── Ajout ──
+$('add-btn').addEventListener('click', async () => {
+  const siman = $('f-siman').value.trim();
+  const nom = $('f-nom').value.trim();
+  const type = $('f-type').value;
+  if (!siman) return showToast('Indique le n° de siman', 'error');
+  if (!nom) return showToast('Indique le nom hébreu', 'error');
+  try {
+    const res = await fetch('/api/dedicaces', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + getToken(), 'Content-Type': 'application/json' },
+      body: JSON.stringify({ siman, nom, type }),
+    });
+    if (res.status === 401) { setToken(''); return showToast('Mot de passe incorrect', 'error'); }
+    if (!res.ok) {
+      const j = await res.json().catch(() => ({}));
+      return showToast('Erreur : ' + (j.error || res.status), 'error');
+    }
+    showToast('Dédicace ajoutée ✓', 'success');
+    $('f-nom').value = '';
+    updatePreview();
+    loadDedicaces();
+  } catch (err) {
+    showToast('Erreur réseau : ' + err.message, 'error');
+  }
+});
+
+// ── Chargement liste ──
+async function loadDedicaces() {
+  try {
+    // GET est public, mais on l'utilise après connexion pour afficher la console.
+    const res = await fetch('/api/dedicaces?limit=500', {
+      headers: { 'Authorization': 'Bearer ' + getToken() },
+    });
+    if (!res.ok) {
+      const j = await res.json().catch(() => ({}));
+      return showToast('Erreur : ' + (j.error || res.status), 'error');
+    }
+    const data = await res.json();
+    $('auth-banner').classList.add('connected');
+    $('auth-banner').innerHTML =
+      '<strong>✓ Connecté</strong>' +
+      '<div style="flex:1; font-size:13px; color:var(--muted);">' + (data.count || 0) + ' dédicace(s) en ligne.</div>' +
+      '<button class="ghost" id="logout-btn">Déconnexion</button>';
+    $('logout-btn').addEventListener('click', () => { setToken(''); location.reload(); });
+    $('content').style.display = '';
+    allDedic = data.dedicaces || [];
+    renderList();
+  } catch (err) {
+    showToast('Erreur réseau : ' + err.message, 'error');
+  }
+}
+
+function renderList() {
+  const list = $('dedic-list');
+  $('count-badge').textContent = allDedic.length;
+  if (!allDedic.length) {
+    list.innerHTML = '<div class="empty">Aucune dédicace pour le moment.</div>';
+    return;
+  }
+  list.innerHTML = '';
+  allDedic.forEach(d => {
+    const el = document.createElement('div');
+    el.className = 'dedic-item';
+    const date = d.createdAt ? new Date(d.createdAt).toLocaleDateString('fr-FR') : '';
+    const simanHtml = (d.siman != null)
+      ? '<a href="/oh/' + encodeURIComponent(d.siman) + '/" target="_blank" style="color:inherit;text-decoration:none;">Siman<br>' + escapeHtml(d.siman) + '</a>'
+      : '—';
+    el.innerHTML =
+      '<div class="dedic-siman">' + simanHtml + '</div>' +
+      '<div class="dedic-body">' +
+        '<div class="dedic-nom">' + escapeHtml(d.typeHe || TYPE_HE[d.type] || '') + ' ' + escapeHtml(d.nom || '') + '</div>' +
+        '<div class="dedic-meta">' +
+          '<span class="badge ' + (d.source === 'helloasso' ? 'helloasso' : 'manual') + '">' + escapeHtml(d.source || 'manual') + '</span> ' +
+          (date ? ' · ' + date : '') +
+          (d.orderId ? ' · order ' + escapeHtml(d.orderId) : '') +
+        '</div>' +
+      '</div>' +
+      '<button class="danger" data-del="' + escapeHtml(d.id) + '">Supprimer</button>';
+    list.appendChild(el);
+  });
+  list.querySelectorAll('button[data-del]').forEach(btn => {
+    btn.addEventListener('click', () => deleteDedic(btn.dataset.del));
+  });
+}
+
+async function deleteDedic(id) {
+  if (!confirm('Supprimer cette dédicace ?')) return;
+  try {
+    const res = await fetch('/api/dedicaces?id=' + encodeURIComponent(id), {
+      method: 'DELETE',
+      headers: { 'Authorization': 'Bearer ' + getToken() },
+    });
+    if (!res.ok) {
+      const j = await res.json().catch(() => ({}));
+      throw new Error(j.error || 'HTTP ' + res.status);
+    }
+    showToast('Supprimée ✓', 'success');
+    loadDedicaces();
+  } catch (err) {
+    showToast('Erreur : ' + err.message, 'error');
+  }
+}
+
+// Auto-login si token déjà en session
+updatePreview();
+(async () => { if (getToken()) await loadDedicaces(); })();
+</script>
+
+</body>
+</html>

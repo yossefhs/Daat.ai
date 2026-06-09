@@ -227,6 +227,16 @@
       box-shadow: 0 0 0 3px rgba(197,165,90,0.15);
     }
     .khavroutha-form textarea { resize: vertical; min-height: 80px; }
+    .kh-choices { display: flex; flex-wrap: wrap; gap: 8px; }
+    .kh-opt {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 14px; font-weight: 400; letter-spacing: 0; text-transform: none;
+      background: var(--cream); border: 1px solid var(--border);
+      border-radius: 6px; padding: 7px 11px; cursor: pointer; margin: 0; color: var(--text-dark);
+    }
+    .kh-opt input { width: auto; padding: 0; margin: 0; }
+    .kh-opt:has(input:checked) { border-color: var(--gold); box-shadow: 0 0 0 2px rgba(197,165,90,0.18); }
+    .kh-consent { font-size: 12px; color: var(--text-muted); line-height: 1.45; margin: 2px 0 0; text-transform: none; letter-spacing: 0; }
     .btn-submit {
       background: var(--navy); color: #fff;
       padding: 14px 26px; border: none; cursor: pointer;
@@ -354,7 +364,7 @@
           <li>Sharing of sources and mareh mekomot</li>
           <li>No spam, no off-topic discussion</li>
         </ul>
-        <a href="https://chat.whatsapp.com/" target="_blank" rel="noopener" class="btn-whatsapp">
+        <a href="https://chat.whatsapp.com/LQT3IMwjNiZEARC7lxqmv1" target="_blank" rel="noopener" class="btn-whatsapp">
           <span>📱</span>
           <span>Join the WhatsApp group</span>
         </a>
@@ -366,7 +376,7 @@
         <h2>Khavroutha Daat</h2>
         <div class="community-card-he">חברותא דעת</div>
         <p>
-          Find a study partner to advance together through the simanim. Fill out this form — the DAAT team will match you with a compatible student.
+          Find a study partner to advance together through the simanim. <strong>Automatic matching</strong>: if a compatible student is already registered, you get their WhatsApp contact <strong>instantly</strong>. Otherwise, we notify you as soon as one signs up.
         </p>
 
         <form class="khavroutha-form" id="khavroutha-form" novalidate>
@@ -385,17 +395,45 @@
             </select>
           </div>
           <div>
-            <label for="kh-dispo">Availability (days / hours)</label>
-            <input type="text" id="kh-dispo" name="disponibilite" required placeholder="e.g. Sun/Wed 9–10pm, or Motzaei Shabbat" maxlength="200">
+            <label>Available days</label>
+            <div class="kh-choices">
+              <label class="kh-opt"><input type="checkbox" name="jours" value="dim"> Sun</label>
+              <label class="kh-opt"><input type="checkbox" name="jours" value="lun"> Mon</label>
+              <label class="kh-opt"><input type="checkbox" name="jours" value="mar"> Tue</label>
+              <label class="kh-opt"><input type="checkbox" name="jours" value="mer"> Wed</label>
+              <label class="kh-opt"><input type="checkbox" name="jours" value="jeu"> Thu</label>
+              <label class="kh-opt"><input type="checkbox" name="jours" value="ven"> Fri</label>
+            </div>
           </div>
           <div>
-            <label for="kh-contact">How to contact you</label>
-            <input type="text" id="kh-contact" name="contact" required placeholder="WhatsApp, email, Telegram…" maxlength="160">
+            <label>Available times</label>
+            <div class="kh-choices">
+              <label class="kh-opt"><input type="checkbox" name="moments" value="matin"> Morning</label>
+              <label class="kh-opt"><input type="checkbox" name="moments" value="aprem"> Afternoon</label>
+              <label class="kh-opt"><input type="checkbox" name="moments" value="soir"> Evening</label>
+              <label class="kh-opt"><input type="checkbox" name="moments" value="nuit"> Night</label>
+            </div>
           </div>
+          <div>
+            <label for="kh-format">Format (optional)</label>
+            <select id="kh-format" name="format">
+              <option value="peu-importe">No preference</option>
+              <option value="visio">Video</option>
+              <option value="tel">Phone</option>
+              <option value="presentiel">In person</option>
+            </select>
+          </div>
+          <div>
+            <label for="kh-whatsapp">WhatsApp number (international format)</label>
+            <input type="tel" id="kh-whatsapp" name="whatsapp" required placeholder="e.g. 33612345678 · 972541234567" maxlength="20">
+          </div>
+          <div>
+            <label for="kh-email">Email</label>
+            <input type="email" id="kh-email" name="email" required placeholder="so we can notify you when a partner is found" maxlength="160">
+          </div>
+          <p class="kh-consent">By registering, I agree to be matched with a study partner and that my first name + WhatsApp number be shared with them.</p>
           <button type="submit" class="btn-submit" id="kh-submit">Find a partner</button>
-          <div class="form-success" id="form-success">
-            ✓ Thank you! Your request has been received — the DAAT team will get back to you within a few days to suggest a partner.
-          </div>
+          <div class="form-success" id="form-success"></div>
         </form>
         <script>
           (function () {
@@ -404,25 +442,42 @@
             var success = document.getElementById('form-success');
             if (!form) return;
             var API = 'https://daatai.vercel.app/api/khavroutha';
+            function checked(name) {
+              return [].slice.call(form.querySelectorAll('input[name="' + name + '"]:checked')).map(function (i) { return i.value; });
+            }
+            function fail(msg) {
+              success.innerHTML = '⚠ ' + msg;
+              success.style.color = '#C0392B';
+              success.style.background = 'rgba(192,57,43,0.08)';
+              success.style.borderColor = '#C0392B';
+              success.classList.add('is-visible');
+            }
+            function ok(html) {
+              success.innerHTML = html;
+              success.style.color = '';
+              success.style.background = '';
+              success.style.borderColor = '';
+              success.classList.add('is-visible');
+            }
             form.addEventListener('submit', async function (e) {
               e.preventDefault();
               var payload = {
                 nom: form.nom.value.trim(),
+                genre: 'h',
+                langue: 'en',
                 niveau: form.niveau.value,
-                disponibilite: form.disponibilite.value.trim(),
-                contact: form.contact.value.trim(),
+                jours: checked('jours'),
+                moments: checked('moments'),
+                format: form.format.value,
+                whatsapp: form.whatsapp.value.trim(),
+                email: form.email.value.trim(),
               };
-              if (!payload.nom || !payload.niveau || !payload.disponibilite || !payload.contact) {
-                success.textContent = '⚠ Please fill in all the fields.';
-                success.style.color = '#C0392B';
-                success.style.background = 'rgba(192,57,43,0.08)';
-                success.style.borderColor = '#C0392B';
-                success.classList.add('is-visible');
-                return;
-              }
+              if (!payload.nom || !payload.niveau) return fail('Please enter your name and your level.');
+              if (!payload.jours.length || !payload.moments.length) return fail('Pick at least one day and one time.');
+              if (!payload.whatsapp || !payload.email) return fail('WhatsApp number and email are required.');
               btn.disabled = true;
               var orig = btn.textContent;
-              btn.textContent = 'Sending…';
+              btn.textContent = 'Searching…';
               try {
                 var r = await fetch(API, {
                   method: 'POST',
@@ -430,26 +485,19 @@
                   body: JSON.stringify(payload),
                 });
                 var data = await r.json().catch(function () { return {}; });
-                if (r.ok && data.ok) {
-                  success.textContent = '✓ Thank you ' + payload.nom + '! Your request has been received — the DAAT team will get back to you within a few days.';
-                  success.style.color = '';
-                  success.style.background = '';
-                  success.style.borderColor = '';
-                  success.classList.add('is-visible');
+                if (r.ok && data.ok && data.matched) {
+                  var p = (data.partner && data.partner.nom) ? data.partner.nom : 'your partner';
+                  ok('🎉 Partner found: <strong>' + p + '</strong>!<br>' +
+                     '<a href="' + data.whatsapp_link + '" target="_blank" rel="noopener" style="display:inline-block;margin-top:10px;background:#25D366;color:#fff;text-decoration:none;padding:11px 22px;border-radius:6px;font-weight:600;">💬 Message on WhatsApp</a>');
+                  form.reset();
+                } else if (r.ok && data.ok) {
+                  ok('✓ Registered, ' + payload.nom + '! As soon as a compatible partner signs up, we\'ll connect you by email and WhatsApp.');
                   form.reset();
                 } else {
-                  success.textContent = '⚠ ' + (data.error || 'Error during submission. Try again or join the WhatsApp group.');
-                  success.style.color = '#C0392B';
-                  success.style.background = 'rgba(192,57,43,0.08)';
-                  success.style.borderColor = '#C0392B';
-                  success.classList.add('is-visible');
+                  fail(data.error || 'Error during submission. Try again or join the WhatsApp group.');
                 }
               } catch (err) {
-                success.textContent = '⚠ Connection failed. Please join the WhatsApp group to introduce yourself instead.';
-                success.style.color = '#C0392B';
-                success.style.background = 'rgba(192,57,43,0.08)';
-                success.style.borderColor = '#C0392B';
-                success.classList.add('is-visible');
+                fail('Connection failed. Try again or join the WhatsApp group.');
               } finally {
                 btn.disabled = false;
                 btn.textContent = orig;
@@ -479,6 +527,17 @@
       </p>
     </div>
 
+
+    <section style="background:#1A1F3A;color:#fff;border-radius:8px;padding:32px;margin:32px auto 0;max-width:760px;text-align:center;">
+      <div style="font-family:'Inter',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#C5A55A;font-weight:600;">Newsletter</div>
+      <h2 style="font-family:Georgia,serif;font-size:26px;margin:8px 0 6px;color:#fff;">Get the Sunday siman</h2>
+      <p style="color:rgba(255,255,255,0.82);margin:0 auto 18px;max-width:460px;">One siman of the Shulchan Aruch every week, by email. Free, unsubscribe anytime.</p>
+      <form class="newsletter-box-form" data-daat-newsletter data-source="communaute-en" data-ok-text="Thanks! You're subscribed. See you Sunday 🕯️" data-ko-text="Something went wrong. Please try again." style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+        <input type="email" name="email" required placeholder="you@email.com" aria-label="Email" style="font-family:'Inter',sans-serif;font-size:14px;padding:12px 16px;border:1px solid rgba(255,255,255,0.25);border-radius:3px;background:rgba(255,255,255,0.06);color:#fff;min-width:240px;">
+        <button type="submit" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;padding:12px 22px;border:none;border-radius:3px;background:#C5A55A;color:#1A1F3A;cursor:pointer;">Subscribe</button>
+      </form>
+      <div class="newsletter-box-msg" aria-live="polite" style="font-family:'Inter',sans-serif;font-size:13px;margin-top:12px;min-height:18px;"></div>
+    </section>
   </main>
 
   <footer>
@@ -493,5 +552,6 @@
   <link rel="stylesheet" href="assets/css/chat-widget.css">
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="assets/js/chat-widget.min.js" defer></script>
+  <script src="/assets/js/newsletter-inline.js" defer></script>
 </body>
 </html>
