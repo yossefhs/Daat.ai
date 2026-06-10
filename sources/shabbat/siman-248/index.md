@@ -1,6 +1,6 @@
 # Siman 248 — Voyager en bateau ou en caravane les jours d'avant Shabbat
 
-> Choulhan Aroukh, Orah Haïm, Hilkhot Shabbat — Siman 248 (248)
+> Choulhan Aroukh, Orah Haïm, Hilkhot Shabbat — Siman 248 (רמ"ח)
 
 - **Français :** Voyager en bateau ou en caravane les jours d'avant Shabbat
 - **עברית :** דִּין הַמַּפְלִיג בִּסְפִינָה וְהַהוֹלֵךְ בְּשַׁיָּרָא בְּשַׁבָּת
