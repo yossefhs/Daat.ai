@@ -59,6 +59,47 @@
   }
   </script>
 
+  <script type="application/ld+json" data-schema="about-organization">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": ["Organization", "EducationalOrganization"],
+        "@id": "https://daattorah.com/#organization",
+        "name": "DAAT דעת",
+        "alternateName": ["Daat Torah", "דעת תורה"],
+        "url": "https://daattorah.com/",
+        "logo": { "@type": "ImageObject", "url": "https://daattorah.com/assets/img/og/og-default.svg" },
+        "image": "https://daattorah.com/assets/img/og/og-default.svg",
+        "description": "פלטפורמה ללימוד רציני של השולחן ערוך, הלכות שבת, בצרפתית, עברית ואנגלית. 124 סימנים, 4 רמות עומק, עוזר בינה מלאכותית 'דעת'. מקורות הלכתיים מובאים מילה במילה מול מהדורת ספריא הרשמית.",
+        "founder": { "@id": "https://daattorah.com/#rav-samama" },
+        "foundingDate": "2026-01-01",
+        "areaServed": ["FR", "BE", "CH", "CA", "IL", "US", "UK"],
+        "inLanguage": ["fr", "he", "en"],
+        "keywords": "הלכה, שולחן ערוך, הלכות שבת, דעת הרב, אדמו\"ר הזקן, לימוד יהודי בצרפתית",
+        "knowsAbout": [
+          "שולחן ערוך",
+          "הלכות שבת",
+          "מחבר (רבי יוסף קארו)",
+          "רמ\"א (רבי משה איסרליש)",
+          "שולחן ערוך הרב",
+          "משנה ברורה"
+        ],
+        "isAccessibleForFree": true,
+        "publishingPrinciples": "https://daattorah.com/about-he.html#methode",
+        "actionableFeedbackPolicy": "https://daattorah.com/about-he.html#feedback",
+        "correctionsPolicy": "https://daattorah.com/about-he.html#corrections"
+      },
+      {
+        "@type": "Person",
+        "@id": "https://daattorah.com/#rav-samama",
+        "name": "רב יוסף חיים סממה",
+        "worksFor": { "@id": "https://daattorah.com/#organization" }
+      }
+    ]
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Inter:wght@300;400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
@@ -195,7 +236,7 @@
     </div>
 
     <!-- ביוגרפיה -->
-    <div class="bio-section">
+    <div class="bio-section" id="rav-samama-section">
       <div class="bio-header">
         <img src="assets/img/yh-logo-about.png" alt="לוגו YH — הרב יוסף חיים סממה" width="1024" height="1024" loading="lazy">
         <div class="bio-header-text">
@@ -253,6 +294,73 @@
       </ul>
 
       <p>בחירה זו שומרת על קולו של כל רובד: תלמיד הקורא את רמה 4 פוגש את צליל הסגנון הרבני של <em>ארבעה הטורים</em>, בעוד שרמות 1 עד 3 נשארות נגישות בשפה עכשווית.</p>
+    </section>
+
+    <!-- שיטה עריכתית -->
+    <section class="levels-section" id="methode">
+      <h2>שיטת העריכה שלנו</h2>
+      <p>דעת תורה פועלת בקפדנות עריכתית, הניתנת לבדיקה ומתקנת את עצמה. אלו הם הסייגים שאנחנו מטילים על עצמנו:</p>
+
+      <div class="level-card">
+        <h3>מקורות מילה במילה מול ספריא</h3>
+        <p>הטקסט העברי של המחבר, הרמ"א, שולחן ערוך הרב והמשנה ברורה המוצג באתר <strong>נבדק סעיף אחר סעיף</strong> מול המהדורה הרשמית של ספריא. אין פרפראזה שותקת, אין השמטה ללא ציון: לשון המקור נשמרת.</p>
+      </div>
+
+      <div class="level-card">
+        <h3>ביקורת אוטומטית ורצופה</h3>
+        <p>סקריפטים של ביקורת (<code>audit-vs-sefaria.py</code>, <code>audit-vs-harav.py</code>, <code>audit-rama-by-seif.py</code>) רצים ברציפות על כל 124 הסימנים ומדווחים על כל פער בין הגרסה המתפרסמת לבין המקור. שומר עקביות (<code>audit-simanim.py</code>) חוסם כל פרסום עד שהמונה מגיע ל-<strong>124/124 מתאימים</strong>.</p>
+      </div>
+
+      <div class="level-card">
+        <h3>ארבע רמות עומק, לכל אחת תפקיד</h3>
+        <p>כל סימן נלמד ב-<strong>4 רמות נפרדות</strong> — בסיס (לשון + תרגום + ביאור), למדן (פלפול בעברית עם ראשונים ואחרונים), סיכום (תמצית מובנית לחזרה), דעת הרב (שיטת אדמו"ר הזקן). השכבות הללו אוכפות עקביות: מה שנאמר בסיכום חייב להיות מעוגן במקורות שצוטטו ברמת הלמדן.</p>
+      </div>
+
+      <div class="level-card" id="corrections">
+        <h3>מדיניות תיקונים</h3>
+        <p>כשמתגלית טעות הלכתית, השמטת מקור, או חיתוך לא מכוון, היא <strong>מתוקנת מיד</strong> בגרסה המתפרסמת, והתיקון <strong>מתועד בהיסטוריה הציבורית</strong> של הפרויקט. דוגמאות מן הזמן האחרון: השבת הגהות הרמ"א שקוצרו בגרסאות מוקדמות יותר, החזרת סעיפים חסרים שנבדקו מול ספריא. אין תיקונים שקטים — יומן השינויים נשאר פתוח לעיון.</p>
+      </div>
+
+      <div class="level-card">
+        <h3>שלוש שפות במקביל</h3>
+        <p>שינוי לא נחשב גמור עד <strong>שהושת בכל שלוש השפות</strong> (צרפתית, עברית, אנגלית). דפי FR, HE ו-EN נשארים במצב של זהות עריכתית — זוהי דרישה פנימית של הפרויקט, לא תוספת.</p>
+      </div>
+    </section>
+
+    <!-- למה דעת -->
+    <section class="levels-section" id="pourquoi-daat">
+      <h2>למה דעת</h2>
+      <div class="mission-block" style="margin-bottom: 0;">
+        <p>דעת תורה היא <strong>המקור היחיד בצרפתית</strong> המציע את <em>שולחן ערוך הרב</em> של אדמו"ר הזקן בתרגום שלם, סעיף אחר סעיף, עם השמירה על המבנה ההלכתי. עבור שיטה זו, המעצבת את ההלכה למעשה בקהילות חב"ד, לדוברי הצרפתית לא היו עד כה אלא קטעים פזורים או תקצירים בלי מקורות.</p>
+        <p>הגישה שלנו היא <strong>"תשובה תחילה, מקורות נגישים"</strong>: התשובה ההלכתית ניתנת בבהירות ובשפה ברורה, אך תמיד קשורה למקורותיה המצוטטים <em>מילה במילה</em>; ועוזר ה-AI 'דעת' מאפשר לחקור את הסוגיה לעומקה, בתחום מה שהטקסט הנלמד אומר באמת.</p>
+        <p>האתר <strong>חינמי לחלוטין</strong>, <strong>בלי פרסומות</strong>, <strong>בלי מעקב מסחרי</strong>. שום נתון אינו נמכר. הוא מתקיים אך ורק מתרומות הקהילה ומהקדשות סימנים.</p>
+      </div>
+    </section>
+
+    <!-- איך אנחנו מבטיחים איכות -->
+    <section class="levels-section" id="qualite">
+      <h2>איך אנחנו מבטיחים את האיכות</h2>
+
+      <div class="level-card">
+        <h3>ועדה עריכתית</h3>
+        <p><strong>ועדה עריכתית: בהקמה.</strong> הקוראים הם רבנים דוברי צרפתית ואנגלית ממספר זרמים, הנדרשים לבדוק את הקטעים הרגישים לפני הפרסום. שמות הקוראים יפורסמו כאשר הוועדה תקבל את צורתה היציבה. בינתיים, האחריות העריכתית הסופית מוטלת על <a href="#rav-samama-section">הרב יוסף חיים סממה</a>, מייסד הפרויקט.</p>
+      </div>
+
+      <div class="level-card" id="feedback">
+        <h3>לדווח על טעות</h3>
+        <p>טעות הלכתית, שגיאת תעתיק, מקור לא נכון? <strong>דווחו על כך</strong> — זה מה שהופך את הפרויקט למתקן את עצמו. שלושה ערוצים:</p>
+        <ul style="margin-right: 24px; margin-top: 10px; line-height: 1.8; color: var(--text-mid);">
+          <li>כפתור 👎 ישירות תחת כל תשובת AI או כל סימן נלמד</li>
+          <li>אימייל ל-<a href="mailto:Daattorah.com@gmail.com?subject=%D7%93%D7%99%D7%95%D7%95%D7%97%20%D7%A9%D7%92%D7%99%D7%90%D7%94%20%D7%94%D7%9C%D7%9B%D7%AA%D7%99%D7%AA" dir="ltr"><strong>Daattorah.com@gmail.com</strong></a> עם הנושא "דיווח שגיאה הלכתית"</li>
+          <li>שיחה פתוחה בקבוצת הוואטסאפ של ה<a href="communaute-he.html">קהילה</a></li>
+        </ul>
+        <p style="margin-top: 14px;">כל דיווח נבחן. תיקונים הלכתיים שאומתו נכנסים לאוויר בדרך כלל תוך 72 שעות, בכל שלוש השפות בו-זמנית.</p>
+      </div>
+
+      <div class="level-card">
+        <h3>היסטוריית גרסאות</h3>
+        <p>כל האתר (טקסט הסימנים, תרגומים, סקריפטים של ביקורת, פרומפטים של ה-AI) <strong>מנוהל בגרסאות פומביות</strong>. כל תיקון הלכתי מתועד — תאריך, הסעיף הנידון, נימוק התיקון — ונשאר פתוח לעיון. שקיפות זו היא הערבות שלנו ששום דבר לא משתנה בשקט.</p>
+      </div>
     </section>
 
     <!-- מצב הפרויקט -->
