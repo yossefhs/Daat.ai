@@ -157,18 +157,66 @@ def build_jsonld(siman: int, niveau_key: str, lang: str, meta: dict) -> str:
         ],
     }
 
-    graph = {"@context": "https://schema.org", "@graph": [article, breadcrumb]}
+    # Embedded Organization + Person pour que les @id author/publisher
+    # résolvent localement (sinon Google warning "name missing on Thing")
+    organization = {
+        "@type": ["Organization", "EducationalOrganization"],
+        "@id": "https://daattorah.com/#organization",
+        "name": "DAAT דעת",
+        "alternateName": "Daat Torah",
+        "url": "https://daattorah.com/",
+        "logo": "https://daattorah.com/assets/img/og/og-default.svg",
+        "description": "Plateforme d'étude du Choulhan Aroukh (Orah Haïm, Hilkhot Shabbat) en français, hébreu et anglais, 4 niveaux de profondeur, assistant IA Daat.",
+        "founder": {"@id": "https://daattorah.com/#rav-samama"},
+    }
+
+    person = {
+        "@type": "Person",
+        "@id": "https://daattorah.com/#rav-samama",
+        "name": "Rav Yossef Haim Samama",
+        "alternateName": "רב יוסף חיים סממה",
+        "jobTitle": "Rabbin, posek, fondateur de Daat Torah",
+        "worksFor": {"@id": "https://daattorah.com/#organization"},
+    }
+
+    graph = {"@context": "https://schema.org", "@graph": [article, breadcrumb, organization, person]}
     return json.dumps(graph, ensure_ascii=False, indent=2)
 
 
-def inject(html: str, jsonld_str: str) -> str:
-    """Insère <script type='application/ld+json'>...</script> avant </head>."""
-    block = f'\n<script type="application/ld+json">\n{jsonld_str}\n</script>\n'
-    return html.replace("</head>", block + "</head>", 1)
+MARKER = "niveau-jsonld"
+
+
+def inject(html: str, jsonld_str: str) -> tuple:
+    """Replace existing block (by marker) or insert before </head>.
+    Returns (new_html, action) avec action ∈ {'inserted','updated','unchanged'}."""
+    block = (
+        f'<script type="application/ld+json" data-schema="{MARKER}">\n'
+        f"{jsonld_str}\n"
+        "</script>"
+    )
+    pattern = re.compile(
+        r'<script type="application/ld\+json" data-schema="'
+        + re.escape(MARKER)
+        + r'">.*?</script>',
+        re.S,
+    )
+    if pattern.search(html):
+        new_html, _ = pattern.subn(block, html, count=1)
+        return new_html, ("updated" if new_html != html else "unchanged")
+    new_html = html.replace("</head>", "\n" + block + "\n</head>", 1)
+    return new_html, "inserted"
 
 
 def has_existing_jsonld(html: str) -> bool:
-    return 'type="application/ld+json"' in html or "type='application/ld+json'" in html
+    """Vrai si la page a déjà un JSON-LD ANCIEN (sans marker, du premier run)
+    ou un JSON-LD non-niveau (genre Article inline existant). On les laisse en place."""
+    if f'data-schema="{MARKER}"' in html:
+        return False  # géré par inject() qui fait un update
+    # Cherche un JSON-LD sans notre marker
+    pattern = re.compile(
+        r'<script type="application/ld\+json"(?!\s+data-schema="' + re.escape(MARKER) + r'")',
+    )
+    return bool(pattern.search(html))
 
 
 def process_file(path: Path, dry_run=False) -> tuple:
@@ -178,17 +226,31 @@ def process_file(path: Path, dry_run=False) -> tuple:
         return ("skip", "filename non reconnu")
     siman, niveau_key, lang = parsed
     html = path.read_text(encoding="utf-8")
+
+    # Migration v1 → v2 : si un ancien JSON-LD niveau (sans marker mais
+    # avec notre signature "learningResourceType") est présent, le retirer
+    # pour pouvoir injecter le @graph v2 enrichi (Person + Organization).
+    pattern_v1 = re.compile(
+        r'\s*<script type="application/ld\+json">\s*\{[^<]*?"learningResourceType"[^<]*?\}\s*</script>\s*',
+        re.S,
+    )
+    html_after_migration = pattern_v1.sub("\n", html)
+    if html_after_migration != html:
+        html = html_after_migration  # on l'écrit après injection du nouveau bloc
+
+    # has_existing_jsonld() ne flag QUE les JSON-LD étrangers (sans notre marker)
     if has_existing_jsonld(html):
-        return ("skip", "déjà JSON-LD")
+        return ("skip", "JSON-LD étranger")
     meta = extract_meta(html)
     if not meta["title"]:
         return ("skip", "pas de title")
     jsonld_str = build_jsonld(siman, niveau_key, lang, meta)
     if dry_run:
         return ("would-inject", f"{niveau_key}/{lang}")
-    new_html = inject(html, jsonld_str)
-    path.write_text(new_html, encoding="utf-8")
-    return ("inject", f"{niveau_key}/{lang}")
+    new_html, action = inject(html, jsonld_str)
+    if action != "unchanged":
+        path.write_text(new_html, encoding="utf-8")
+    return (action, f"{niveau_key}/{lang}")
 
 
 def main():

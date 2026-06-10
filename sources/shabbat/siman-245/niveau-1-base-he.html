@@ -397,7 +397,7 @@
 </style>
 <link rel="stylesheet" href="/assets/css/intra-links.css">
 
-<script type="application/ld+json">
+<script type="application/ld+json" data-schema="niveau-jsonld">
 {
   "@context": "https://schema.org",
   "@graph": [
@@ -459,6 +459,31 @@
           "item": "https://daattorah.com/oh/245/base/he"
         }
       ]
+    },
+    {
+      "@type": [
+        "Organization",
+        "EducationalOrganization"
+      ],
+      "@id": "https://daattorah.com/#organization",
+      "name": "DAAT דעת",
+      "alternateName": "Daat Torah",
+      "url": "https://daattorah.com/",
+      "logo": "https://daattorah.com/assets/img/og/og-default.svg",
+      "description": "Plateforme d'étude du Choulhan Aroukh (Orah Haïm, Hilkhot Shabbat) en français, hébreu et anglais, 4 niveaux de profondeur, assistant IA Daat.",
+      "founder": {
+        "@id": "https://daattorah.com/#rav-samama"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://daattorah.com/#rav-samama",
+      "name": "Rav Yossef Haim Samama",
+      "alternateName": "רב יוסף חיים סממה",
+      "jobTitle": "Rabbin, posek, fondateur de Daat Torah",
+      "worksFor": {
+        "@id": "https://daattorah.com/#organization"
+      }
     }
   ]
 }
@@ -1295,7 +1320,7 @@
   <link rel="stylesheet" href="../../../assets/css/khavroutha-fab.css">
   <link rel="stylesheet" href="../../../assets/css/chat-widget.css">
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
-  <script src="../../../assets/js/chat-widget.min.js" defer></script>
+  <script src="../../../assets/js/chat-loader.js" defer></script>
   <a href="../../../communaute-he.html#khavroutha" class="daat-khavroutha-fab" title="מצא חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">להצטרף לחברותא</span></a>
   <script src="../../../assets/js/daat-progress.js" defer></script>
   <div class="next-siman-nav" style="margin:40px 0 20px 0;padding:20px 24px;background:linear-gradient(135deg,#1A1F3A 0%,#2a3050 100%);border-radius:8px;display:flex;align-items:center;justify-content:space-between;gap:16px;page-break-inside:avoid;direction:rtl;border-right:6px solid #C5A55A;"><span style="color:#d4c89a;font-size:11pt;font-style:italic;">להמשך הלימוד — הסימן הבא</span><a href="/oh/246/base/he" style="color:#C5A55A;text-decoration:none;font-family:'Frank Ruhl Libre','David',serif;font-size:16pt;font-weight:bold;">סימן רמ״ו ←</a></div>

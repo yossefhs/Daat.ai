@@ -139,3 +139,26 @@ footer a { color: var(--gold); text-decoration: none; margin: 0 6px; }
   nav a { font-size: 11px; letter-spacing: 0.5px; }
   nav a.cta-soutenir { display: none; }
 }
+
+/* Maillage interne — bloc « articles de blog liés » + navigation entre simanim
+   (ajouté par scripts/add-internal-linking.py — idempotent) */
+.related-blog {
+  margin: 32px 0;
+  padding: 18px 22px;
+  background: linear-gradient(to right, #FAF6EE, #FFFFFF);
+  border-left: 4px solid #C5A55A;
+  border-radius: 4px;
+}
+.related-blog h3 { color: #1A1F3A; margin: 0 0 10px; font-size: 1.1em; }
+.related-blog ul { list-style: none; padding: 0; margin: 0; }
+.related-blog li { padding: 4px 0; }
+.related-blog a { color: #1A1F3A; text-decoration: underline dotted #C5A55A; }
+.related-blog a:hover { color: #C5A55A; }
+.siman-neighbors { display: flex; justify-content: space-between; gap: 18px; margin: 28px 0; padding: 14px 0; border-top: 1px solid #C5A55A; }
+.siman-neighbors a { color: #1A1F3A; text-decoration: none; font-size: 0.95em; }
+.siman-neighbors a:hover { color: #C5A55A; }
+.siman-neighbors .prev { text-align: left; }
+.siman-neighbors .next { text-align: right; }
+[dir="rtl"] .related-blog { border-left: none; border-right: 4px solid #C5A55A; }
+[dir="rtl"] .siman-neighbors .prev { text-align: right; }
+[dir="rtl"] .siman-neighbors .next { text-align: left; }
