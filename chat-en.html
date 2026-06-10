@@ -1669,7 +1669,7 @@ function renderSimanim(simanim) {
   }
 
   $simanimList.innerHTML = simanim.map(s => `
-    <a href="sources/shabbat/siman-${s.num}/index.html" style="display:block;padding:10px 14px;text-decoration:none;color:var(--text);font-size:13px;line-height:1.4;border-radius:4px;transition:background 0.15s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background='transparent'">
+    <a href="/oh/${s.num}/" style="display:block;padding:10px 14px;text-decoration:none;color:var(--text);font-size:13px;line-height:1.4;border-radius:4px;transition:background 0.15s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background='transparent'">
       <strong style="color:var(--navy);font-size:14px;font-weight:600;">Siman ${s.num}</strong><br>
       <span style="color:var(--text-muted);font-size:12px;">${escapeHtml(s.title)}</span>
     </a>

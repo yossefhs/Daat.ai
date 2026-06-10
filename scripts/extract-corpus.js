@@ -154,7 +154,7 @@ for (const dir of simanDirs) {
     c.simanTitle = meta.titleFr;
     c.simanTitleHe = meta.titleHe;
     c.simanSubtitle = meta.subtitle || '';
-    c.sourceUrl = `/sources/shabbat/siman-${simanNum}/niveau-1-base.html`;
+    c.sourceUrl = `/oh/${simanNum}/base`;
   });
 
   stats.withChunks++;
@@ -168,7 +168,7 @@ const output = {
     totalSimanim: stats.withChunks,
     totalChunks: allChunks.length,
     skipped: stats.skipped,
-    source: 'sources/shabbat/siman-*/niveau-1-base.html',
+    source: 'sources/shabbat/siman-*/niveau-1-base.html (canonical /oh/N/base)',
   },
   chunks: allChunks,
 };
