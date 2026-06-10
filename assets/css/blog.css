@@ -48,6 +48,32 @@ main.content { max-width: 880px; margin: 0 auto; padding: 60px 40px; }
 
 /* Article body */
 main.article { max-width: 740px; margin: 0 auto; padding: 56px 40px 40px; }
+
+/* Answer-lead — bloc de réponse directe AEO (≤ 60 mots, citable par les LLM) */
+.answer-lead {
+  background: linear-gradient(to right, #FAF6EE, #FFFFFF);
+  border-left: 4px solid #C5A55A;
+  padding: 18px 22px;
+  margin: 24px 0 28px;
+  border-radius: 4px;
+}
+.answer-lead .lead-tldr {
+  font-size: 1.08em;
+  line-height: 1.55;
+  color: #1A1F3A;
+  margin: 0 0 8px;
+}
+.answer-lead .lead-nuance {
+  font-size: 0.95em;
+  color: #555;
+  margin: 0;
+  font-style: italic;
+}
+[dir="rtl"] .answer-lead {
+  border-left: none;
+  border-right: 4px solid #C5A55A;
+}
+
 .tldr { background: white; border-left: 4px solid var(--gold); padding: 24px 28px; margin-bottom: 44px; border-radius: 0 4px 4px 0; }
 .tldr .label { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 10px; }
 .tldr p { font-size: 20px; color: var(--navy); margin: 0; }
