@@ -21,6 +21,12 @@
         { "key": "Cross-Origin-Opener-Policy", "value": "same-origin" },
         { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=(), interest-cohort=()" }
       ]
+    },
+    {
+      "source": "/(.*).md",
+      "headers": [
+        { "key": "Content-Type", "value": "text/markdown; charset=utf-8" }
+      ]
     }
   ],
 
@@ -41,6 +47,8 @@
     { "source": "/oh/siman-:n(\\d+)/pdfs/:file", "destination": "/sources/shabbat/siman-:n/pdfs/:file" },
     { "source": "/oh/:n(\\d+)", "destination": "/sources/shabbat/siman-:n/index.html" },
     { "source": "/oh/:n(\\d+)/", "destination": "/sources/shabbat/siman-:n/index.html" },
+    { "source": "/oh/:n(\\d+).md", "destination": "/sources/shabbat/siman-:n/index.md" },
+    { "source": "/oh/:n(\\d+)/index.md", "destination": "/sources/shabbat/siman-:n/index.md" },
     { "source": "/oh/:n(\\d+)/pdfs/:file", "destination": "/sources/shabbat/siman-:n/pdfs/:file" },
     { "source": "/oh/:n(\\d+)/index-he.html", "destination": "/sources/shabbat/siman-:n/index-he.html" },
     { "source": "/oh/:n(\\d+)/index-en.html", "destination": "/sources/shabbat/siman-:n/index-en.html" },
