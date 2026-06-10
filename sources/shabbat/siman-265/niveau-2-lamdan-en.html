@@ -154,7 +154,7 @@
 </style>
 <link rel="stylesheet" href="/assets/css/intra-links.css">
 
-<script type="application/ld+json">
+<script type="application/ld+json" data-schema="niveau-jsonld">
 {
   "@context": "https://schema.org",
   "@graph": [
@@ -216,6 +216,31 @@
           "item": "https://daattorah.com/oh/265/lamdan/en"
         }
       ]
+    },
+    {
+      "@type": [
+        "Organization",
+        "EducationalOrganization"
+      ],
+      "@id": "https://daattorah.com/#organization",
+      "name": "DAAT דעת",
+      "alternateName": "Daat Torah",
+      "url": "https://daattorah.com/",
+      "logo": "https://daattorah.com/assets/img/og/og-default.svg",
+      "description": "Plateforme d'étude du Choulhan Aroukh (Orah Haïm, Hilkhot Shabbat) en français, hébreu et anglais, 4 niveaux de profondeur, assistant IA Daat.",
+      "founder": {
+        "@id": "https://daattorah.com/#rav-samama"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://daattorah.com/#rav-samama",
+      "name": "Rav Yossef Haim Samama",
+      "alternateName": "רב יוסף חיים סממה",
+      "jobTitle": "Rabbin, posek, fondateur de Daat Torah",
+      "worksFor": {
+        "@id": "https://daattorah.com/#organization"
+      }
     }
   ]
 }
