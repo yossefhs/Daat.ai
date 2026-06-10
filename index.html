@@ -1084,7 +1084,7 @@
       <a href="chat.html" aria-label="IA Daat">💬 IA Daat</a>
       <a href="communaute.html">Communauté</a>
       <a href="soutenir.html" class="nav-soutenir" aria-label="Soutenir">♥ Soutenir</a>
-      <a href="sources/shabbat/index.html" class="nav-cta">Étudier →</a>
+      <a href="/oh/" class="nav-cta">Étudier →</a>
       <span class="lang-switcher"><a href="index.html" class="active" hreflang="fr" aria-label="Français">FR</a><a href="index-he.html" hreflang="he" aria-label="עברית">HE</a><a href="index-en.html" hreflang="en" aria-label="English">EN</a></span>
     </nav>
   </header>
@@ -1424,7 +1424,7 @@
             <p style="margin: 8px 0 0; font-size: 13px; color: rgba(255,255,255,0.85);">Simanim 242 → 365 · Sefaria intégré · Convention de glose hébraïque · Placeholders Hagahot/Mahadoura Batra</p>
           </div>
           <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-            <a href="sources/shabbat/" style="background: #C5A55A; color: #1A1F3A; padding: 12px 24px; text-decoration: none; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1px; border-radius: 2px;">Parcourir les 124 simanim →</a>
+            <a href="/oh/" style="background: #C5A55A; color: #1A1F3A; padding: 12px 24px; text-decoration: none; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1px; border-radius: 2px;">Parcourir les 124 simanim →</a>
             <a href="chitah-admour-hazaken.html" style="background: transparent; color: #fff; padding: 12px 24px; text-decoration: none; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1px; border: 1px solid rgba(255,255,255,0.4); border-radius: 2px;">Chitah de l'Admour ↗</a>
           </div>
         </div>
@@ -1440,7 +1440,7 @@
             <div class="simanim-grid-loading">Chargement des simanim…</div>
           </div>
           <div style="margin-top: 14px; text-align: center;">
-            <a href="sources/shabbat/" style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 1px; color: var(--gold); text-decoration: none;">→ Page complète des simanim</a>
+            <a href="/oh/" style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 1px; color: var(--gold); text-decoration: none;">→ Page complète des simanim</a>
           </div>
         </div>
         <div class="masekhet-card soon">
@@ -1601,12 +1601,12 @@
         <div class="footer-links">
           <h3>Hilkhot Shabbat — Simanim phares</h3>
           <ul>
-            <li><a href="sources/shabbat/siman-242/index.html">Siman רמ״ב — Oneg Shabbat</a></li>
-            <li><a href="sources/shabbat/siman-263/index.html">Siman רס״ג — Hadlakat nerot</a></li>
-            <li><a href="sources/shabbat/siman-271/index.html">Siman רע״א — Kiddush</a></li>
-            <li><a href="sources/shabbat/siman-308/index.html">Siman ש״ח — Muktsé</a></li>
-            <li><a href="sources/shabbat/siman-318/index.html">Siman שי״ח — Mevashel</a></li>
-            <li><a href="sources/shabbat/" style="color:var(--gold); font-weight:600;">→ Voir les 124 simanim</a></li>
+            <li><a href="/oh/242/">Siman רמ״ב — Oneg Shabbat</a></li>
+            <li><a href="/oh/263/">Siman רס״ג — Hadlakat nerot</a></li>
+            <li><a href="/oh/271/">Siman רע״א — Kiddush</a></li>
+            <li><a href="/oh/308/">Siman ש״ח — Muktsé</a></li>
+            <li><a href="/oh/318/">Siman שי״ח — Mevashel</a></li>
+            <li><a href="/oh/" style="color:var(--gold); font-weight:600;">→ Voir les 124 simanim</a></li>
           </ul>
         </div>
         <div class="footer-links">
@@ -1692,7 +1692,7 @@
         }
       } catch (e) {
         console.error('Failed to load simanim index:', e);
-        grid.innerHTML = '<div class="simanim-grid-loading">Liste indisponible. <a href="sources/shabbat/" style="color: var(--gold);">Voir tous les simanim →</a></div>';
+        grid.innerHTML = '<div class="simanim-grid-loading">Liste indisponible. <a href="/oh/" style="color: var(--gold);">Voir tous les simanim →</a></div>';
         if (desc) desc.textContent = 'Tous les simanim 242-365 sont disponibles sur la page Hilkhot Shabbat.';
       }
     })();
