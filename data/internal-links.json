@@ -1,0 +1,36 @@
+{
+  "_doc": "Overrides pour scripts/add-intra-links.py. blacklist : termes jamais liés (par langue). force : liens manuels {siman: [{term, target, lang}]}. skip : ancres à ne pas générer/utiliser {siman: [anchor_id]}.",
+  "blacklist": {
+    "fr": [
+      "Shabbat", "Mehaber", "Rama", "siman", "séif", "Choulhan",
+      "Aroukh", "halakha", "halakhique", "texte", "règle", "règles",
+      "concept", "concept-clé", "étude", "détaillée", "détaillé",
+      "synthèse", "pratique", "moderne", "modernes", "question",
+      "réponse", "exemple", "exemples", "cadre", "général", "générale",
+      "introduction", "conclusion", "résumé", "section", "chapitre",
+      "remarque", "remarques", "note", "notes", "voir", "selon",
+      "vers", "pour", "dans", "avec", "sans", "avant", "après",
+      "Niveau", "Base", "Lamdan", "Synthèse", "Daat", "HaRav",
+      "Plan", "Texte"
+    ],
+    "he": [
+      "שבת", "מחבר", "רמ\"א", "רמא", "סימן", "סעיף", "הלכה", "הגה",
+      "כו'", "וכו'", "סעיפים", "סעיפי", "פירוש", "פירושים",
+      "יסוד", "יסודות", "מבוא", "סיכום", "תוכנית", "תוכן",
+      "כללי", "מעשי", "מעשית", "שאלות", "שאלה", "תשובה",
+      "הקדמה", "הערה", "הערות", "ראה", "לפי", "אצל"
+    ],
+    "en": [
+      "Shabbos", "Shabbat", "Mechaber", "Rema", "siman", "seif",
+      "Shulchan", "Aruch", "halacha", "halachic", "rule", "rules",
+      "concept", "study", "detailed", "synthesis", "practical",
+      "modern", "question", "answer", "example", "examples",
+      "framework", "general", "introduction", "conclusion",
+      "summary", "section", "chapter", "remark", "note", "notes",
+      "see", "according", "Level", "Base", "Lamdan", "Synthesis",
+      "Daat", "HaRav", "Plan", "Text"
+    ]
+  },
+  "force": {},
+  "skip": {}
+}
