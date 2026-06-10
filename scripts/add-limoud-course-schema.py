@@ -51,8 +51,31 @@ def url_for_hub(lang: str) -> str:
 def build_course_jsonld(lang: str, num_days: int, start_date: str, end_date: str) -> str:
     meta = COURSE_META[lang]
     canonical = url_for_hub(lang)
+
+    # Entité Organization (EducationalOrganization), embedded pour que le @id résolve
+    # sur la même page (sinon Google affiche "provider name manquant" comme warning)
+    organization = {
+        "@type": ["Organization", "EducationalOrganization"],
+        "@id": "https://daattorah.com/#organization",
+        "name": "DAAT דעת",
+        "alternateName": "Daat Torah",
+        "url": "https://daattorah.com/",
+        "logo": "https://daattorah.com/assets/img/og/og-default.svg",
+        "description": "Plateforme d'étude du Choulhan Aroukh (Orah Haïm, Hilkhot Shabbat) en français, hébreu et anglais, 4 niveaux de profondeur, assistant IA Daat.",
+        "founder": {"@id": "https://daattorah.com/#rav-samama"},
+    }
+
+    # Entité Person (Rav), embedded pour la même raison
+    person = {
+        "@type": "Person",
+        "@id": "https://daattorah.com/#rav-samama",
+        "name": "Rav Yossef Haim Samama",
+        "alternateName": "רב יוסף חיים סממה",
+        "jobTitle": "Rabbin, posek, fondateur de Daat Torah",
+        "worksFor": {"@id": "https://daattorah.com/#organization"},
+    }
+
     course = {
-        "@context": "https://schema.org",
         "@type": "Course",
         "@id": f"{canonical}#course",
         "name": meta["name"],
@@ -65,7 +88,6 @@ def build_course_jsonld(lang: str, num_days: int, start_date: str, end_date: str
         "teaches": meta["teaches"],
         "educationalLevel": meta["level"],
         "audience": {"@type": "EducationalAudience", "educationalRole": "Étudiant en halakha"},
-        "totalHistoricalEnrollment": None,
         "numberOfCredits": 0,
         "hasCourseInstance": [{
             "@type": "CourseInstance",
@@ -76,24 +98,35 @@ def build_course_jsonld(lang: str, num_days: int, start_date: str, end_date: str
             "startDate": start_date,
             "endDate": end_date,
             "instructor": {"@id": "https://daattorah.com/#rav-samama"},
+            "totalSessionCount": num_days,
         }],
         "image": "https://daattorah.com/assets/img/og/og-default.svg",
         "creator": {"@id": "https://daattorah.com/#rav-samama"},
     }
-    # Le total des sessions
-    course["hasCourseInstance"][0]["totalSessionCount"] = num_days
-    # Retire les nulls (Google n'aime pas)
-    course["hasCourseInstance"][0] = {k: v for k, v in course["hasCourseInstance"][0].items() if v is not None}
-    course = {k: v for k, v in course.items() if v is not None}
-    return json.dumps(course, ensure_ascii=False, indent=2)
+
+    graph = {
+        "@context": "https://schema.org",
+        "@graph": [course, organization, person],
+    }
+    return json.dumps(graph, ensure_ascii=False, indent=2)
 
 
 def inject(html: str, jsonld_str: str, marker: str) -> tuple:
-    """Inject if not present. Returns (new_html, was_injected)."""
-    if marker in html:
-        return html, False
-    block = f'\n<script type="application/ld+json" data-schema="{marker}">\n{jsonld_str}\n</script>\n'
-    return html.replace("</head>", block + "</head>", 1), True
+    """Replace existing schema block (by marker) or insert before </head>.
+    Always idempotent : un re-run met à jour, jamais ne duplique.
+    Returns (new_html, action) où action ∈ {'inserted', 'updated', 'unchanged'}."""
+    block = f'<script type="application/ld+json" data-schema="{marker}">\n{jsonld_str}\n</script>'
+    pattern = re.compile(
+        r'<script type="application/ld\+json" data-schema="'
+        + re.escape(marker)
+        + r'">.*?</script>',
+        re.S,
+    )
+    if pattern.search(html):
+        new_html, n = pattern.subn(block, html, count=1)
+        return new_html, ("updated" if new_html != html else "unchanged")
+    new_html = html.replace("</head>", "\n" + block + "\n</head>", 1)
+    return new_html, "inserted"
 
 
 def main():
@@ -118,12 +151,10 @@ def main():
             continue
         html = p.read_text(encoding="utf-8")
         jsonld_str = build_course_jsonld(lang, num_days, start_date, end_date)
-        new_html, injected = inject(html, jsonld_str, "limoud-course")
-        if injected:
+        new_html, action = inject(html, jsonld_str, "limoud-course")
+        if action != "unchanged":
             p.write_text(new_html, encoding="utf-8")
-            print(f"  ✓ {p.name} : Course schema injecté")
-        else:
-            print(f"  · {p.name} : déjà présent (skip)")
+        print(f"  {'✓' if action != 'unchanged' else '·'} {p.name} : Course schema {action}")
 
 
 if __name__ == "__main__":
