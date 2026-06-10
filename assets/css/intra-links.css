@@ -1,0 +1,76 @@
+/*
+ * intra-links.css — Liens d'ancrage intra-page DAAT
+ *
+ * Les `<a class="intra-ref">` sont des liens internes à la page qui mènent
+ * vers une explication située plus loin (`#anchor`). Visuel : soulignement
+ * pointillé doré + petite flèche ↓. Au clic, le JS scroll en douceur et
+ * fait flasher la cible 1.2 s.
+ *
+ * Palette DAAT : Navy #1A1F3A, Or #C5A55A, Crème #FAF6EE.
+ */
+
+:root {
+  --intra-color: #C5A55A;
+  --intra-flash: rgba(197, 165, 90, 0.45);
+}
+
+a.intra-ref {
+  color: inherit;
+  text-decoration: underline dotted var(--intra-color);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  transition: background 0.2s ease, text-decoration-color 0.2s ease;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+a.intra-ref:hover,
+a.intra-ref:focus-visible {
+  text-decoration-color: #1A1F3A;
+  background: rgba(197, 165, 90, 0.12);
+  outline: none;
+}
+
+a.intra-ref::after {
+  content: " ↓";
+  font-size: 0.78em;
+  color: var(--intra-color);
+  opacity: 0.75;
+  margin-inline-start: 1px;
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+a.intra-ref:hover::after,
+a.intra-ref:focus-visible::after {
+  transform: translateY(2px);
+  opacity: 1;
+}
+
+/* Flash sur la cible quand on arrive dessus via un intra-ref */
+@keyframes intra-flash-anim {
+  0%   { background-color: var(--intra-flash); }
+  100% { background-color: transparent; }
+}
+
+.intra-flash {
+  animation: intra-flash-anim 1.4s ease-out;
+  border-radius: 4px;
+  scroll-margin-top: 80px; /* évite que la cible soit cachée par un header sticky */
+}
+
+/* Préférence utilisateur : pas d'animation */
+@media (prefers-reduced-motion: reduce) {
+  a.intra-ref {
+    transition: none;
+  }
+  a.intra-ref:hover::after,
+  a.intra-ref:focus-visible::after {
+    transform: none;
+  }
+  .intra-flash {
+    animation: none;
+    background-color: var(--intra-flash);
+  }
+}
