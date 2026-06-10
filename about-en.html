@@ -76,6 +76,47 @@
   }
   </script>
 
+  <script type="application/ld+json" data-schema="about-organization">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": ["Organization", "EducationalOrganization"],
+        "@id": "https://daattorah.com/#organization",
+        "name": "DAAT דעת",
+        "alternateName": ["Daat Torah", "דעת תורה"],
+        "url": "https://daattorah.com/",
+        "logo": { "@type": "ImageObject", "url": "https://daattorah.com/assets/img/og/og-default.svg" },
+        "image": "https://daattorah.com/assets/img/og/og-default.svg",
+        "description": "Platform for serious limud halacha on the Shulchan Aruch, Hilchos Shabbos, in English, French and Hebrew. 124 simanim, 4 levels of limud, the Daat AI assistant. Halachic mekoros cited word-for-word against the official Sefaria edition.",
+        "founder": { "@id": "https://daattorah.com/#rav-samama" },
+        "foundingDate": "2026-01-01",
+        "areaServed": ["FR", "BE", "CH", "CA", "IL", "US", "UK"],
+        "inLanguage": ["fr", "he", "en"],
+        "keywords": "halacha, shulchan aruch, hilchos shabbos, daas harav, alter rebbe, english-language torah learning",
+        "knowsAbout": [
+          "Shulchan Aruch",
+          "Hilchos Shabbos",
+          "Mehaber (Rabbi Yosef Karo)",
+          "Rama (Rabbi Moshe Isserles)",
+          "Shulchan Aruch HaRav",
+          "Mishna Berurah"
+        ],
+        "isAccessibleForFree": true,
+        "publishingPrinciples": "https://daattorah.com/about-en.html#methode",
+        "actionableFeedbackPolicy": "https://daattorah.com/about-en.html#feedback",
+        "correctionsPolicy": "https://daattorah.com/about-en.html#corrections"
+      },
+      {
+        "@type": "Person",
+        "@id": "https://daattorah.com/#rav-samama",
+        "name": "Rav Yossef Haim Samama",
+        "worksFor": { "@id": "https://daattorah.com/#organization" }
+      }
+    ]
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Inter:wght@300;400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
@@ -210,7 +251,7 @@
     </div>
 
     <!-- BIOGRAPHY -->
-    <div class="bio-section">
+    <div class="bio-section" id="rav-samama-section">
       <div class="bio-header">
         <img src="assets/img/yh-logo-about.png" alt="YH logo — Rav Yossef Haim Samama" width="1024" height="1024" loading="lazy">
         <div class="bio-header-text">
@@ -268,6 +309,73 @@
       </ul>
 
       <p>This choice preserves each register's voice: a student reading Level 4 finds the tone of the <em>arba'a haturim</em> rabbinic style, while Levels 1 to 3 remain accessible in contemporary language.</p>
+    </section>
+
+    <!-- EDITORIAL METHOD -->
+    <section class="levels-section" id="methode">
+      <h2>Our editorial method</h2>
+      <p>Daat Torah follows a strict editorial discipline that is verifiable, traceable, and self-correcting. These are the safeguards we hold ourselves to:</p>
+
+      <div class="level-card">
+        <h3>Word-for-word sources vs. the Sefaria reference</h3>
+        <p>The Hebrew text of the Mehaber, the Rama, the Shulchan Aruch HaRav and the Mishna Berurah shown on the site is <strong>checked seif by seif</strong> against the official Sefaria edition. No silent paraphrase, no unmarked cuts: the letter of the source text is kept.</p>
+      </div>
+
+      <div class="level-card">
+        <h3>Continuous automated audit</h3>
+        <p>Audit scripts (<code>audit-vs-sefaria.py</code>, <code>audit-vs-harav.py</code>, <code>audit-rama-by-seif.py</code>) run continuously across the 124 simanim and flag any divergence between the published version and the source. A consistency guard (<code>audit-simanim.py</code>) blocks deployment until the counter reads <strong>124/124 conformant</strong>.</p>
+      </div>
+
+      <div class="level-card">
+        <h3>Four levels of depth, each with a defined role</h3>
+        <p>Every siman is learned at <strong>4 distinct levels</strong> — Base (text + translation + biur), Lamdan (pilpul in Hebrew with rishonim and acharonim), Synthesis (a structured chazara), Daas HaRav (the chitta of the Alter Rebbe). The stacking enforces consistency: what is stated at the Synthesis level has to be traceable to the mekoros cited at the Lamdan level.</p>
+      </div>
+
+      <div class="level-card" id="corrections">
+        <h3>Corrections policy</h3>
+        <p>When a halachic error, a missing mekor or an unintended cut is found, it is <strong>corrected immediately</strong> in the published version, and the correction is <strong>traced in the public history</strong> of the project. Recent examples: restoring hagahos of the Rama that had been truncated in earlier versions, reintroducing missing seifim verified against Sefaria. No silent corrections — the change log stays open.</p>
+      </div>
+
+      <div class="level-card">
+        <h3>Strict trilingual parity</h3>
+        <p>A change is not considered finished until it is <strong>reflected in all three languages</strong> (English, French, Hebrew). The FR, HE and EN pages stay in editorial parity — this is an internal requirement of the project, not an option.</p>
+      </div>
+    </section>
+
+    <!-- WHY DAAT -->
+    <section class="levels-section" id="pourquoi-daat">
+      <h2>Why DAAT</h2>
+      <div class="mission-block" style="margin-bottom: 0;">
+        <p>Daat Torah is <strong>one of the very few resources</strong> that offers the <em>Shulchan Aruch HaRav</em> of the Alter Rebbe in full English translation, seif by seif, with its halachic structure preserved. For this chitta in particular, which shapes the halacha lema'aseh of Chabad communities, the English-speaking talmid had until now only scattered fragments or summaries without mekoros.</p>
+        <p>Our approach is <strong>"answer first, mekoros accessible"</strong>: the halachic answer is given clearly in English, but it is always tied back to its mekoros cited <em>word for word</em>; and the Daat AI assistant lets the user explore the sugya in depth, within the limits of what the source text actually says.</p>
+        <p>The site is <strong>fully free</strong>, <strong>ad-free</strong>, and <strong>without commercial tracking</strong>. No data is resold. It runs entirely on the donations of its kehilla and on siman dedications.</p>
+      </div>
+    </section>
+
+    <!-- HOW WE GUARANTEE QUALITY -->
+    <section class="levels-section" id="qualite">
+      <h2>How we guarantee quality</h2>
+
+      <div class="level-card">
+        <h3>Editorial board</h3>
+        <p><strong>Editorial board: in formation.</strong> The reviewers are rabbis from a range of streams, sourced from French- and English-speaking communities, asked to check sensitive passages before publication. The names of the reviewers will be published once the board has reached its stable form. In the meantime, final editorial responsibility is held by <a href="#rav-samama-section">Rav Yossef Haim Samama</a>, founder of the project.</p>
+      </div>
+
+      <div class="level-card" id="feedback">
+        <h3>Report an error</h3>
+        <p>A halachic mistake, a transcription error, a mekor that doesn't match? <strong>Tell us</strong> — that's what makes the project self-correcting. Three channels:</p>
+        <ul style="margin-left: 24px; margin-top: 10px; line-height: 1.8; color: var(--text-mid);">
+          <li>The 👎 button directly under any AI answer or any siman learned</li>
+          <li>Email to <a href="mailto:Daattorah.com@gmail.com?subject=Halachic%20error%20report"><strong>Daattorah.com@gmail.com</strong></a> with the subject "Halachic error report"</li>
+          <li>An open thread in the WhatsApp group on the <a href="communaute-en.html">Community</a> page</li>
+        </ul>
+        <p style="margin-top: 14px;">Every report is reviewed. Verified halachic corrections are usually deployed within 72 hours, in all three languages at once.</p>
+      </div>
+
+      <div class="level-card">
+        <h3>Version history</h3>
+        <p>The entire site (the text of the simanim, the translations, the audit scripts, the AI prompts) is <strong>publicly versioned</strong>. Every halachic correction is tracked — date, the seif involved, the reason for the correction — and stays open to inspection. That transparency is our guarantee that nothing changes in the dark.</p>
+      </div>
     </section>
 
     <!-- STATS -->
