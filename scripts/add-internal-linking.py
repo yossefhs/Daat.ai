@@ -428,6 +428,17 @@ def _insert_before_main_or_footer(html: str, block: str) -> tuple[str, int]:
     return SIMAN_INSERT_BEFORE_FOOTER.subn(block + r"\1", html, count=1)
 
 
+# Patterns pour retirer d'anciens blocs déjà insérés (idempotence + upgrade)
+RELATED_BLOCK_RE = re.compile(
+    r"\s*<aside class=\"related-blog(?:\s+see-also)?\">.*?</aside>",
+    re.DOTALL,
+)
+NEIGHBORS_BLOCK_RE = re.compile(
+    r"\s*<nav class=\"siman-neighbors\".*?</nav>",
+    re.DOTALL,
+)
+
+
 def patch_siman_index(path: Path, catalog: dict[int, dict[str, str]]) -> tuple[bool, int]:
     lang = detect_siman_lang(path.name)
     if lang is None:
@@ -439,33 +450,55 @@ def patch_siman_index(path: Path, catalog: dict[int, dict[str, str]]) -> tuple[b
     siman = int(m.group(1))
 
     html = path.read_text(encoding="utf-8")
+    orig = html
     links_added = 0
-    changed = False
 
-    # 1) Articles de blog liés
-    if 'class="related-blog"' not in html and 'class="related-blog see-also"' not in html:
-        block = build_related_blog_block(siman, lang)
-        if block:
-            new_html, n = _insert_before_main_or_footer(html, block)
-            if n:
-                html = new_html
-                changed = True
-                # Compte le nombre de <li> insérés
-                links_added += block.count("<li>")
+    # 1) Articles de blog liés — calcule le bloc cible
+    target_related = build_related_blog_block(siman, lang) or ""
+    # 2) Voisins — calcule le bloc cible
+    target_neighbors = build_siman_neighbors_block(siman, catalog, lang) or ""
 
-    # 2) Voisins
-    if 'class="siman-neighbors"' not in html:
-        block = build_siman_neighbors_block(siman, catalog, lang)
-        if block:
-            new_html, n = _insert_before_main_or_footer(html, block)
-            if n:
-                html = new_html
-                changed = True
-                links_added += block.count("<a ")
+    # Extrait les blocs existants
+    existing_related_m = RELATED_BLOCK_RE.search(html)
+    existing_neighbors_m = NEIGHBORS_BLOCK_RE.search(html)
+    existing_related = existing_related_m.group() if existing_related_m else ""
+    existing_neighbors = existing_neighbors_m.group() if existing_neighbors_m else ""
 
-    if changed:
+    # Compare en ignorant l'indentation/espaces de fin de bloc
+    def norm(s: str) -> str:
+        return re.sub(r"\s+", " ", s.strip())
+
+    related_ok = norm(existing_related) == norm(target_related.strip())
+    neighbors_ok = norm(existing_neighbors) == norm(target_neighbors.strip())
+
+    if related_ok and neighbors_ok:
+        return False, 0
+
+    # Sinon : retire les blocs existants et ré-insère les corrects
+    if existing_related_m:
+        html = html[: existing_related_m.start()] + html[existing_related_m.end():]
+    # Recompute neighbors match after potential removal of related
+    if existing_neighbors_m:
+        new_m = NEIGHBORS_BLOCK_RE.search(html)
+        if new_m:
+            html = html[: new_m.start()] + html[new_m.end():]
+
+    # Réinsère neighbors d'abord, puis related (ordre logique)
+    if target_neighbors:
+        new_html, n = _insert_before_main_or_footer(html, target_neighbors)
+        if n:
+            html = new_html
+            links_added += target_neighbors.count("<a ")
+    if target_related:
+        new_html, n = _insert_before_main_or_footer(html, target_related)
+        if n:
+            html = new_html
+            links_added += target_related.count("<li>")
+
+    if html != orig:
         path.write_text(html, encoding="utf-8")
-    return changed, links_added
+        return True, links_added
+    return False, 0
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -489,21 +522,34 @@ def patch_blog_article(path: Path, catalog: dict[int, dict[str, str]]) -> tuple[
         return False, 0
 
     html = path.read_text(encoding="utf-8")
-    if 'class="related-blog see-also"' in html or 'class="related-blog"' in html:
+    orig = html
+
+    target = build_blog_see_also_block(slug, lang, catalog)
+    if not target:
         return False, 0
 
-    block = build_blog_see_also_block(slug, lang, catalog)
-    if not block:
+    # Cherche un bloc « see-also » déjà inséré
+    existing_m = RELATED_BLOCK_RE.search(html)
+
+    def norm(s: str) -> str:
+        return re.sub(r"\s+", " ", s.strip())
+
+    if existing_m and norm(existing_m.group()) == norm(target.strip()):
         return False, 0
 
-    new_html, n = BLOG_INSERT_BEFORE_NEWSLETTER.subn(block + r"\1", html, count=1)
+    if existing_m:
+        html = html[: existing_m.start()] + html[existing_m.end():]
+
+    new_html, n = BLOG_INSERT_BEFORE_NEWSLETTER.subn(target + r"\1", html, count=1)
     if not n:
-        new_html, n = BLOG_INSERT_BEFORE_MAIN_CLOSE.subn(block + r"\1", html, count=1)
+        new_html, n = BLOG_INSERT_BEFORE_MAIN_CLOSE.subn(target + r"\1", html, count=1)
     if not n:
         return False, 0
 
-    path.write_text(new_html, encoding="utf-8")
-    return True, block.count("<a ")
+    if new_html != orig:
+        path.write_text(new_html, encoding="utf-8")
+        return True, target.count("<a ")
+    return False, 0
 
 
 # ─────────────────────────────────────────────────────────────────────────────
