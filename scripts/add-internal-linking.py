@@ -86,15 +86,49 @@ def thematic_neighbors(siman: int, max_count: int = 3) -> list[int]:
 # Catalogue siman → titre (court) FR/HE/EN
 # ─────────────────────────────────────────────────────────────────────────────
 
+_HE_HUNDREDS = {1: "ק", 2: "ר", 3: "ש", 4: "ת"}
+_HE_TENS = {
+    1: "י", 2: "כ", 3: "ל", 4: "מ", 5: "נ", 6: "ס", 7: "ע", 8: "פ", 9: "צ"
+}
+_HE_UNITS = {1: "א", 2: "ב", 3: "ג", 4: "ד", 5: "ה", 6: "ו", 7: "ז", 8: "ח", 9: "ט"}
+
+
+def to_gematria(n: int) -> str:
+    """Convertit un nombre 100-499 en gematria avec geresh/gershayim
+    (ex. 247 → רמ״ז, 300 → ש׳)."""
+    if not (100 <= n <= 499):
+        return str(n)
+    h = n // 100
+    rem = n - h * 100
+    # 15 et 16 : conventions טו / טז (au lieu de יה / יו)
+    if rem == 15:
+        tens_units = "טו"
+    elif rem == 16:
+        tens_units = "טז"
+    else:
+        t = rem // 10
+        u = rem - t * 10
+        tens_units = (_HE_TENS.get(t, "") + _HE_UNITS.get(u, ""))
+    letters = _HE_HUNDREDS[h] + tens_units
+    # Gershayim si ≥ 2 lettres, sinon geresh
+    if len(letters) >= 2:
+        return letters[:-1] + "״" + letters[-1]
+    return letters + "׳"
+
+
 def load_catalog() -> dict[int, dict[str, str]]:
     raw = json.loads(CATALOG.read_text(encoding="utf-8"))
     out: dict[int, dict[str, str]] = {}
     for s in raw["simanim"]:
+        num_he = s.get("numHe") or ""
+        # Si le catalogue donne un nombre arabe ou rien, on calcule la gematria
+        if not num_he or num_he.isdigit():
+            num_he = to_gematria(s["num"])
         out[s["num"]] = {
             "fr": s.get("title", f"Siman {s['num']}"),
-            "he": s.get("titleHe", f"סימן {s.get('numHe', s['num'])}"),
+            "he": s.get("titleHe", f"סימן {num_he}"),
             "en": s.get("titleEn", f"Siman {s['num']}"),
-            "numHe": s.get("numHe", str(s["num"])),
+            "numHe": num_he,
         }
     return out
 
@@ -377,8 +411,21 @@ def blog_slug(name: str) -> str:
 # Insertion idempotente dans une page siman
 # ─────────────────────────────────────────────────────────────────────────────
 
-# Marqueur de fin de zone d'insertion sur les pages siman index : juste avant </main>
-SIMAN_INSERT_BEFORE = re.compile(r"\n?(\s*</main>)", re.IGNORECASE)
+# Marqueur de fin de zone d'insertion sur les pages siman index : juste avant </main>.
+# Sur les simanim « legacy » (242-246) la structure n'utilise pas <main> ; on
+# retombe alors sur le </div> qui ferme <div class="content"> (juste avant
+# <footer>).
+SIMAN_INSERT_BEFORE_MAIN = re.compile(r"\n?(\s*</main>)", re.IGNORECASE)
+SIMAN_INSERT_BEFORE_FOOTER = re.compile(
+    r"\n?(\s*</div>\s*\n\s*<footer\b)", re.IGNORECASE
+)
+
+
+def _insert_before_main_or_footer(html: str, block: str) -> tuple[str, int]:
+    new_html, n = SIMAN_INSERT_BEFORE_MAIN.subn(block + r"\1", html, count=1)
+    if n:
+        return new_html, n
+    return SIMAN_INSERT_BEFORE_FOOTER.subn(block + r"\1", html, count=1)
 
 
 def patch_siman_index(path: Path, catalog: dict[int, dict[str, str]]) -> tuple[bool, int]:
@@ -399,7 +446,7 @@ def patch_siman_index(path: Path, catalog: dict[int, dict[str, str]]) -> tuple[b
     if 'class="related-blog"' not in html and 'class="related-blog see-also"' not in html:
         block = build_related_blog_block(siman, lang)
         if block:
-            new_html, n = SIMAN_INSERT_BEFORE.subn(block + r"\1", html, count=1)
+            new_html, n = _insert_before_main_or_footer(html, block)
             if n:
                 html = new_html
                 changed = True
@@ -410,7 +457,7 @@ def patch_siman_index(path: Path, catalog: dict[int, dict[str, str]]) -> tuple[b
     if 'class="siman-neighbors"' not in html:
         block = build_siman_neighbors_block(siman, catalog, lang)
         if block:
-            new_html, n = SIMAN_INSERT_BEFORE.subn(block + r"\1", html, count=1)
+            new_html, n = _insert_before_main_or_footer(html, block)
             if n:
                 html = new_html
                 changed = True

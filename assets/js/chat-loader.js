@@ -64,40 +64,49 @@
 
   function loadWidget(openAfter) {
     if (loaded) {
-      if (openAfter) tryOpen();
+      if (openAfter) tryOpenWhenReady();
       return;
     }
     loaded = true;
     pendingOpen = !!openAfter;
 
-    // On retire notre placeholder AVANT que le vrai widget s'attache au body,
-    // sinon on aurait deux FABs visibles le temps que le script télécharge.
-    // Le vrai widget recrée son propre bouton dans son constructor.
-    if (fab && fab.parentNode) fab.parentNode.removeChild(fab);
+    // On laisse le placeholder en place pendant le download — il sera
+    // retiré dès que le vrai widget s'attache au DOM (cf. tryOpenWhenReady).
+    // Évite un "trou" visuel sans FAB pendant la latence réseau.
 
     var s = document.createElement('script');
     s.src = WIDGET_SRC;
     s.async = true;
     s.onload = function () {
-      if (pendingOpen) tryOpen();
+      tryOpenWhenReady();
     };
     s.onerror = function () {
-      // Échec réseau : restaure le placeholder pour ne pas laisser la page sans FAB.
+      // Échec réseau : on garde le placeholder fonctionnel (clic = retry).
       loaded = false;
-      if (fab && !fab.parentNode) document.body.appendChild(fab);
       console.warn('[daat-chat-loader] Failed to load', WIDGET_SRC);
     };
     document.head.appendChild(s);
   }
 
-  function tryOpen() {
+  function removePlaceholder() {
+    if (fab && fab.parentNode) {
+      fab.parentNode.removeChild(fab);
+      fab = null;
+    }
+  }
+
+  function tryOpenWhenReady() {
     // Le vrai widget s'auto-init sur DOMContentLoaded OU immédiatement
-    // si readyState != 'loading'. On laisse un tick pour qu'il finisse
-    // son `new DaatChatWidget()`.
+    // si readyState != 'loading'. On poll jusqu'à ce qu'il existe, puis
+    // on retire notre placeholder (évite le double-FAB) et on ouvre si demandé.
     var attempts = 0;
     (function poll() {
       if (window.daatChatWidget && typeof window.daatChatWidget.toggle === 'function') {
-        if (!window.daatChatWidget.isOpen) window.daatChatWidget.toggle();
+        removePlaceholder();
+        if (pendingOpen && !window.daatChatWidget.isOpen) {
+          window.daatChatWidget.toggle();
+        }
+        pendingOpen = false;
         return;
       }
       if (++attempts < 40) setTimeout(poll, 25); // ~1 s max
