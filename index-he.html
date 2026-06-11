@@ -999,70 +999,99 @@
 
   <!-- JSON-LD Schema.org : WebSite + Organization + Person + EducationalOrganization + FAQPage -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebSite",
-        "@id": "https://daattorah.com/#website",
-        "url": "https://daattorah.com/index-he.html",
-        "name": "דעת תורה — לימוד ההלכה בשפה הצרפתית",
-        "description": "פלטפורמה ללימוד הלכה. 124 סימני השולחן ערוך הנלמדים בשלוש רמות.",
-        "inLanguage": "he-IL",
-        "image": "https://daattorah.com/assets/img/og/og-default.svg",
-        "publisher": { "@id": "https://daattorah.com/#organization" }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://daattorah.com/#website",
+      "url": "https://daattorah.com/index-he.html",
+      "name": "דעת תורה — לימוד ההלכה בשפה הצרפתית",
+      "description": "פלטפורמה ללימוד הלכה. 124 סימני השולחן ערוך הנלמדים בשלוש רמות.",
+      "inLanguage": "he-IL",
+      "image": "https://daattorah.com/assets/img/og/og-default.svg",
+      "publisher": {
+        "@id": "https://daattorah.com/#organization"
       },
-      {
-        "@type": ["Organization", "EducationalOrganization"],
-        "@id": "https://daattorah.com/#organization",
-        "name": "דעת תורה",
-        "url": "https://daattorah.com/",
-        "logo": "https://daattorah.com/assets/img/og/og-default.svg",
-        "description": "פלטפורמה ללימוד הלכה עם 124 סימני השולחן ערוך, שלוש רמות לימוד, ועוזר בינה מלאכותית.",
-        "founder": { "@id": "https://daattorah.com/#rav-samama" },
-        "sameAs": ["https://daattorah.com/"],
-        "educationalLevel": ["מתחילים", "בינוני", "מתקדם"]
-      },
-      {
-        "@type": "Person",
-        "@id": "https://daattorah.com/#rav-samama",
-        "name": "רב יוסף חיים סממה",
-        "jobTitle": "רב, פוסק",
-        "description": "רב שגדל בצרפת ומתגורר בארץ ישראל, תלמידו של הרב אבישיד, למד בישיבות תומכי תמימים ליובאוויטש (חב״ד). מייסד דעת תורה כדי להנגיש לימוד הלכה רציני לדוברי הצרפתית.",
-        "knowsAbout": ["הלכה", "שולחן ערוך", "הלכות שבת", "חסידות חב״ד ליובאוויטש", "שולחן ערוך אדמו״ר הזקן", "תומכי תמימים", "צמח צדק"]
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "מהן שלוש רמות הלימוד?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "בסיס: טקסט עברי + תרגום צרפתי שוטף. למדן: פלפול מעמיק עם שיטות הראשונים והאחרונים. סיכום: סיכום מובנה לחזרה ולזכירה."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "כמה סימנים זמינים?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "124 סימני השולחן ערוך (אורח חיים) זמינים ללימוד, עם תוכן מפורט לחלקם וגישה מלאה לקטלוג."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "האם ניתן להשתמש בעוזר דעת AI?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "כן, עוזר דעת AI מאפשר לשאול שאלות בהלכה ולקבל תשובות מבוססות מקורות מתוך השולחן ערוך והפוסקים. להלכה למעשה, יש להתייעץ עם רב."
-            }
-          }
-        ]
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://daattorah.com/chat.html?lang=he&q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
       }
-    ]
-  }
-  </script>
+    },
+    {
+      "@type": [
+        "Organization",
+        "EducationalOrganization"
+      ],
+      "@id": "https://daattorah.com/#organization",
+      "name": "דעת תורה",
+      "url": "https://daattorah.com/",
+      "logo": "https://daattorah.com/assets/img/og/og-default.svg",
+      "description": "פלטפורמה ללימוד הלכה עם 124 סימני השולחן ערוך, שלוש רמות לימוד, ועוזר בינה מלאכותית.",
+      "founder": {
+        "@id": "https://daattorah.com/#rav-samama"
+      },
+      "sameAs": [
+        "https://daattorah.com/"
+      ],
+      "educationalLevel": [
+        "מתחילים",
+        "בינוני",
+        "מתקדם"
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://daattorah.com/#rav-samama",
+      "name": "רב יוסף חיים סממה",
+      "jobTitle": "רב, פוסק",
+      "description": "רב שגדל בצרפת ומתגורר בארץ ישראל, תלמידו של הרב אבישיד, למד בישיבות תומכי תמימים ליובאוויטש (חב״ד). מייסד דעת תורה כדי להנגיש לימוד הלכה רציני לדוברי הצרפתית.",
+      "knowsAbout": [
+        "הלכה",
+        "שולחן ערוך",
+        "הלכות שבת",
+        "חסידות חב״ד ליובאוויטש",
+        "שולחן ערוך אדמו״ר הזקן",
+        "תומכי תמימים",
+        "צמח צדק"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "מהן שלוש רמות הלימוד?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "בסיס: טקסט עברי + תרגום צרפתי שוטף. למדן: פלפול מעמיק עם שיטות הראשונים והאחרונים. סיכום: סיכום מובנה לחזרה ולזכירה."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "כמה סימנים זמינים?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "124 סימני השולחן ערוך (אורח חיים) זמינים ללימוד, עם תוכן מפורט לחלקם וגישה מלאה לקטלוג."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "האם ניתן להשתמש בעוזר דעת AI?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "כן, עוזר דעת AI מאפשר לשאול שאלות בהלכה ולקבל תשובות מבוססות מקורות מתוך השולחן ערוך והפוסקים. להלכה למעשה, יש להתייעץ עם רב."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
   <a href="#main" class="skip-link">דלג לתוכן הראשי</a>

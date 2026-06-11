@@ -999,70 +999,99 @@
 
   <!-- JSON-LD Schema.org : WebSite + Organization + Person + EducationalOrganization + FAQPage -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebSite",
-        "@id": "https://daattorah.com/#website",
-        "url": "https://daattorah.com/index-en.html",
-        "name": "Daat Torah — Halakha study for the multilingual world",
-        "description": "Halakha study platform. 124 simanim of the Shulchan Aruch studied on 3 levels.",
-        "inLanguage": "en-US",
-        "image": "https://daattorah.com/assets/img/og/og-default.svg",
-        "publisher": { "@id": "https://daattorah.com/#organization" }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://daattorah.com/#website",
+      "url": "https://daattorah.com/index-en.html",
+      "name": "Daat Torah — Halakha study for the multilingual world",
+      "description": "Halakha study platform. 124 simanim of the Shulchan Aruch studied on 3 levels.",
+      "inLanguage": "en-US",
+      "image": "https://daattorah.com/assets/img/og/og-default.svg",
+      "publisher": {
+        "@id": "https://daattorah.com/#organization"
       },
-      {
-        "@type": ["Organization", "EducationalOrganization"],
-        "@id": "https://daattorah.com/#organization",
-        "name": "Daat Torah",
-        "url": "https://daattorah.com/",
-        "logo": "https://daattorah.com/assets/img/og/og-default.svg",
-        "description": "Halakha study platform with 124 simanim of the Shulchan Aruch, 3 study levels, and AI assistant.",
-        "founder": { "@id": "https://daattorah.com/#rav-samama" },
-        "sameAs": ["https://daattorah.com/"],
-        "educationalLevel": ["Beginner", "Intermediate", "Advanced"]
-      },
-      {
-        "@type": "Person",
-        "@id": "https://daattorah.com/#rav-samama",
-        "name": "Rav Yossef Haim Samama",
-        "jobTitle": "Rabbi, posek",
-        "description": "A Rav who grew up in France and lives in Israel, talmid of Rav Abichid, who studied in the Tomchei Tmimim Lubavitch (Chabad) yeshivot. Founder of Daat Torah to make rigorous Halakha study accessible to Francophones.",
-        "knowsAbout": ["Halakha", "Shulchan Aruch", "Hilkhot Shabbat", "Chabad Lubavitch Chassidut", "Shulchan Aruch HaRav", "Tomchei Tmimim", "Tzemach Tzedek"]
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "What are the 3 study levels?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Base: Hebrew text + fluent translation. Lamdan: in-depth pilpul with the positions of the Rishonim and Acharonim. Synthesis: structured summary for review and memorization."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How many simanim are available?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "124 simanim of the Shulchan Aruch (Orach Chaim) are available for study, with detailed content for some and full access to the catalogue."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Can I use the Daat AI assistant?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes, the Daat AI assistant lets you ask halakha questions and receive answers sourced from the Shulchan Aruch and Poskim. For halakha lema'asseh, consult your Rav."
-            }
-          }
-        ]
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://daattorah.com/chat.html?lang=en&q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
       }
-    ]
-  }
-  </script>
+    },
+    {
+      "@type": [
+        "Organization",
+        "EducationalOrganization"
+      ],
+      "@id": "https://daattorah.com/#organization",
+      "name": "Daat Torah",
+      "url": "https://daattorah.com/",
+      "logo": "https://daattorah.com/assets/img/og/og-default.svg",
+      "description": "Halakha study platform with 124 simanim of the Shulchan Aruch, 3 study levels, and AI assistant.",
+      "founder": {
+        "@id": "https://daattorah.com/#rav-samama"
+      },
+      "sameAs": [
+        "https://daattorah.com/"
+      ],
+      "educationalLevel": [
+        "Beginner",
+        "Intermediate",
+        "Advanced"
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://daattorah.com/#rav-samama",
+      "name": "Rav Yossef Haim Samama",
+      "jobTitle": "Rabbi, posek",
+      "description": "A Rav who grew up in France and lives in Israel, talmid of Rav Abichid, who studied in the Tomchei Tmimim Lubavitch (Chabad) yeshivot. Founder of Daat Torah to make rigorous Halakha study accessible to Francophones.",
+      "knowsAbout": [
+        "Halakha",
+        "Shulchan Aruch",
+        "Hilkhot Shabbat",
+        "Chabad Lubavitch Chassidut",
+        "Shulchan Aruch HaRav",
+        "Tomchei Tmimim",
+        "Tzemach Tzedek"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What are the 3 study levels?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Base: Hebrew text + fluent translation. Lamdan: in-depth pilpul with the positions of the Rishonim and Acharonim. Synthesis: structured summary for review and memorization."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How many simanim are available?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "124 simanim of the Shulchan Aruch (Orach Chaim) are available for study, with detailed content for some and full access to the catalogue."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use the Daat AI assistant?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, the Daat AI assistant lets you ask halakha questions and receive answers sourced from the Shulchan Aruch and Poskim. For halakha lema'asseh, consult your Rav."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to main content</a>
