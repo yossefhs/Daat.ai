@@ -48,13 +48,16 @@
   var T = {
     fr: { title: 'Installer Daat Torah', body: "Ajoutez l'app à votre écran d'accueil pour une étude plus rapide, même hors connexion.",
           install: 'Installer', later: 'Plus tard',
-          ios: 'Appuyez sur  Partager  puis « Sur l’écran d’accueil ».', close: 'Fermer' },
+          ios: 'Appuyez sur  Partager  puis « Sur l’écran d’accueil ».', close: 'Fermer',
+          iosOther: 'Pour installer l’app sur iPhone, ouvrez ce site dans Safari.' },
     he: { title: 'התקנת דעת תורה', body: 'הוסיפו את האפליקציה למסך הבית ללימוד מהיר, גם ללא חיבור לאינטרנט.',
           install: 'התקנה', later: 'אחר כך',
-          ios: 'הקישו על  שיתוף  ואז על «הוספה למסך הבית».', close: 'סגירה' },
+          ios: 'הקישו על  שיתוף  ואז על «הוספה למסך הבית».', close: 'סגירה',
+          iosOther: 'כדי להתקין את האפליקציה באייפון, פתחו את האתר ב-Safari.' },
     en: { title: 'Install Daat Torah', body: 'Add the app to your home screen for faster study, even offline.',
           install: 'Install', later: 'Later',
-          ios: 'Tap  Share  then “Add to Home Screen”.', close: 'Close' }
+          ios: 'Tap  Share  then “Add to Home Screen”.', close: 'Close',
+          iosOther: 'To install the app on iPhone, open this site in Safari.' }
   }[L];
   var RTL = (L === 'he');
 
@@ -99,8 +102,9 @@
 
     var html = '<div class="pwa-row">' + ICON +
       '<div><h3>' + T.title + '</h3><p>' + T.body + '</p></div></div>';
-    if (mode === 'ios') {
-      html += '<div class="pwa-ios">' + iosShareSvg() + ' ' + T.ios + '</div>' +
+    if (mode === 'ios' || mode === 'ios-other') {
+      var note = (mode === 'ios') ? (iosShareSvg() + ' ' + T.ios) : T.iosOther;
+      html += '<div class="pwa-ios">' + note + '</div>' +
         '<div class="pwa-actions"><button class="pwa-later" data-act="later">' + T.close + '</button></div>';
     } else {
       html += '<div class="pwa-actions">' +
@@ -145,10 +149,17 @@
 
   window.addEventListener('appinstalled', function () { markDismissed(); hide(); });
 
-  // iOS / Safari : pas d'événement → on propose les instructions.
-  if (isIOS() && /safari/i.test(navigator.userAgent) && !/crios|fxios/i.test(navigator.userAgent)) {
+  // iOS : pas de beforeinstallprompt.
+  //  - Safari → instructions « Partager → écran d'accueil ».
+  //  - Autres navigateurs (Chrome/Firefox/Edge iOS) → seul Safari peut installer,
+  //    on invite donc à ouvrir le site dans Safari.
+  if (isIOS() && !isStandalone()) {
+    var iosSafari = /safari/i.test(navigator.userAgent) &&
+                    !/crios|fxios|edgios|opios|brave/i.test(navigator.userAgent);
     window.addEventListener('load', function () {
-      setTimeout(function () { if (!isStandalone()) buildBanner('ios'); }, 3000);
+      setTimeout(function () {
+        if (!isStandalone()) buildBanner(iosSafari ? 'ios' : 'ios-other');
+      }, 3000);
     });
   }
 })();
