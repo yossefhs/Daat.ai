@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hors ligne — Daat Torah</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="robots" content="noindex">
+  <style>
+    :root { --navy:#1A1F3A; --gold:#C5A55A; --creme:#FAF6EE; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      background: var(--navy); color: var(--creme); text-align: center; padding: 24px;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+    }
+    .card { max-width: 440px; }
+    .logo {
+      width: 96px; height: 96px; border-radius: 50%; border: 3px solid var(--creme);
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 28px;
+      color: var(--gold); font-size: 38px; font-weight: 700; font-family: 'Frank Ruhl Libre', serif;
+    }
+    h1 { font-size: 30px; margin: 0 0 10px; color: var(--gold); font-weight: 600; }
+    p { font-size: 18px; line-height: 1.55; margin: 6px 0; opacity: .9; }
+    .he { direction: rtl; font-family: 'Frank Ruhl Libre', serif; opacity: .7; font-size: 17px; }
+    button {
+      margin-top: 26px; background: var(--gold); color: var(--navy); border: 0; cursor: pointer;
+      padding: 13px 30px; border-radius: 999px; font-size: 17px; font-weight: 600;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+    button:hover { filter: brightness(1.06); }
+  </style>
+  <!-- PWA / app installable -->
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#1A1F3A">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Daat Torah">
+  <script src="/assets/js/pwa.js" defer></script>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">דעת</div>
+    <h1>Vous êtes hors ligne</h1>
+    <p>Cette page n'est pas encore disponible sans connexion. Reconnectez-vous pour poursuivre l'étude.</p>
+    <p class="he">אינך מחובר לאינטרנט — נסה שוב כשתתחבר.</p>
+    <p style="font-size:16px;opacity:.7">You are offline. Reconnect to continue studying.</p>
+    <button onclick="location.reload()">Réessayer</button>
+  </div>
+</body>
+</html>
