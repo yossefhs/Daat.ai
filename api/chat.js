@@ -61,7 +61,9 @@ function pickModel(messages, hint, plan, previewUsed, aperçuBlocked, forceOpus)
 
   // 1. Méta-questions très courtes — toujours DeepSeek/Haiku (toutes catégories d'users)
   const isFirstQuestion = messages.length <= 1;
-  const halakhicHint = /shab|kasher|kasher|tefil|tznio|mouk|hila|sefer|torah|halakh|halacha|halaha|halaja|seif|siman|guemar|mishna|talmud|cohen|brah|berakh|nidda|kashr|peot|tsitsit|loulav|souka|sukka|mezou|tefil|shem|shabb|peah|maase|mitsv|mitzv/i;
+  // Élargi : ajout des termes de minhag, fêtes, rituels et concepts Habad/hassidiques
+  // qui auparavant tombaient sous le seuil de 40 chars → routés vers Haiku par erreur.
+  const halakhicHint = /shab|kasher|kasher|tefil|tznio|mouk|hila|sefer|torah|halakh|halacha|halaha|halaja|seif|siman|guemar|mishna|talmud|cohen|brah|berakh|nidda|kashr|peot|tsitsit|loulav|souka|sukka|mezou|tefil|shem|shabb|peah|maase|mitsv|mitzv|minhag|minag|habad|chabad|loubavitch|lubavitch|sefarad|séfarad|sfarad|ashken|ashkenaz|yemen|yémen|marocain|breslov|breslav|chitah|shitah|chitta|pesak|psak|posek|havdal|kiddush|kiddoush|qiddush|besamim|chofar|shofar|matza|matzo|hametz|hamets|pessah|pessach|pesah|rosh.?hashana|kippour|kippur|souccot|sukkot|hanouca|hanouka|hanukkah|chavouot|shavuot|pourim|purim|sicha|sichot|sihot|maamar|tanya|rebbe|admour|igrot|nigleh|nistar/i;
   const isMetaQuestion = isFirstQuestion && text.length < 40 && !halakhicHint.test(lower);
   if (isMetaQuestion) {
     return { ...MODELS.haiku, _meta: true };
