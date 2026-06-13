@@ -2424,7 +2424,11 @@ function runSearch() {
   if (!q) return;
   const num = (q.match(/\d{2,3}/) || [])[0];
   if (num) {
-    const card = [...$allCards].find(c => ((c.getAttribute('href') || '').indexOf('siman-' + num + '/') !== -1));
+    const card = [...$allCards].find(c => {
+      const href = c.getAttribute('href') || '';
+      // Tolère les deux formats : ancien `siman-N/...` et nouveau `/oh/N/`
+      return href.includes('siman-' + num + '/') || href.includes('/oh/' + num + '/');
+    });
     if (card) { window.location.href = card.getAttribute('href'); return; }
   }
   const visible = [...$allCards].filter(c => c.style.display !== 'none');
@@ -2454,7 +2458,8 @@ function loadProgress() {
 }
 
 function simanNumOf(card) {
-  const m = (card.getAttribute('href') || '').match(/siman-(\d+)/);
+  // Tolère les deux formats d'URL : ancien `siman-N/...` et nouveau `/oh/N/`
+  const m = (card.getAttribute('href') || '').match(/(?:siman-|\/oh\/)(\d+)/);
   return m ? m[1] : null;
 }
 
