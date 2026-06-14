@@ -125,7 +125,7 @@
   var T = {
     fr: {
       title: '✓ Tu as déjà étudié ' + totalLevels + ' niveaux',
-      body: 'Crée ton compte en 10 secondes pour retrouver ta progression sur tous tes appareils — et recevoir le Daat Yomi chaque matin (optionnel).',
+      body: 'Crée ton compte en 10 secondes pour retrouver ta progression sur tous tes appareils.',
       placeholder: 'ton@email.com',
       send: 'Sauvegarder ma progression',
       sending: 'Envoi…',
@@ -134,13 +134,15 @@
       verify: 'Valider',
       verifying: 'Vérification…',
       success: '✓ Progression sauvegardée sur ton compte. Tu la retrouveras partout.',
+      successLinkText: '📅 Recevoir le Daat Yomi chaque matin →',
+      successLink: '/limoud/personnaliser.html',
       errInvalid: 'Adresse email invalide.',
       err6: 'Le code doit faire 6 chiffres.',
       dismiss: 'Plus tard',
     },
     he: {
       title: '✓ כבר למדת ' + totalLevels + ' רמות',
-      body: 'צור חשבון ב-10 שניות כדי לשמור את ההתקדמות שלך בכל המכשירים — ולקבל את הדעת יומי בכל בוקר (אופציונלי).',
+      body: 'צור חשבון ב-10 שניות כדי לשמור את ההתקדמות שלך בכל המכשירים.',
       placeholder: 'your@email.com',
       send: 'שמור את ההתקדמות שלי',
       sending: 'שולח…',
@@ -149,13 +151,15 @@
       verify: 'אישור',
       verifying: 'מאמת…',
       success: '✓ ההתקדמות נשמרה בחשבונך. תמצא אותה בכל מקום.',
+      successLinkText: '📅 קבל את הדעת יומי בכל בוקר →',
+      successLink: '/limoud/personnaliser.html',
       errInvalid: 'כתובת אימייל לא תקינה.',
       err6: 'הקוד צריך להיות בן 6 ספרות.',
       dismiss: 'אחר כך',
     },
     en: {
       title: '✓ You\'ve already studied ' + totalLevels + ' levels',
-      body: 'Create your account in 10 seconds to keep your progress across all your devices — and receive the Daat Yomi every morning (optional).',
+      body: 'Create your account in 10 seconds to keep your progress across all your devices.',
       placeholder: 'your@email.com',
       send: 'Save my progress',
       sending: 'Sending…',
@@ -164,6 +168,8 @@
       verify: 'Verify',
       verifying: 'Verifying…',
       success: '✓ Progress saved to your account. You\'ll find it everywhere.',
+      successLinkText: '📅 Receive the Daat Yomi every morning →',
+      successLink: '/limoud/personnaliser.html',
       errInvalid: 'Invalid email address.',
       err6: 'The code must be 6 digits.',
       dismiss: 'Later',
@@ -288,7 +294,16 @@
         emailStep.style.display = 'none';
         codeStep.style.display = 'none';
         doneStep.style.display = '';
+        // Message de succès + lien vers l'opt-in Daat Yomi (système newsletter existant).
+        // L'OTP ne fait que créer le compte ; le Daat Yomi quotidien est un opt-in
+        // séparé sur /limoud/personnaliser — on y renvoie pour rester honnête.
         doneStep.textContent = T.success;
+        var link = document.createElement('a');
+        link.href = T.successLink;
+        link.textContent = T.successLinkText;
+        link.style.cssText = 'display:inline-block;margin-top:12px;color:#1A1F3A;font-size:14px;font-weight:600;text-decoration:underline;';
+        doneStep.appendChild(document.createElement('br'));
+        doneStep.appendChild(link);
       })
       .catch(function (err) { codeErr.textContent = err.message; })
       .finally(function () { codeBtn.disabled = false; codeBtn.textContent = orig; });
