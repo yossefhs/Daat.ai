@@ -2361,9 +2361,13 @@ function setLang(lang) {
   document.querySelectorAll('.lang-btn').forEach(b => {
     b.classList.toggle('is-active', b.dataset.lang === lang);
   });
-  // Re-render dynamic UI in the new language
-  if (typeof renderProgress === 'function') renderProgress();
-  if (typeof searchCards === 'function') searchCards();
+  // Re-render dynamic UI in the new language.
+  // try/catch indispensable : setLang() est appelé à l'init AVANT que
+  // les `const` $searchInput, $allCards, $stat, $fill ne soient initialisés.
+  // Sans try/catch, le ReferenceError (TDZ) interrompt tout le script et
+  // les event listeners de la recherche ne sont jamais branchés.
+  if (typeof renderProgress === 'function') { try { renderProgress(); } catch (e) {} }
+  if (typeof searchCards === 'function') { try { searchCards(); } catch (e) {} }
 }
 function applyI18n(lang) {
   const dict = I18N[lang] || I18N.en;
