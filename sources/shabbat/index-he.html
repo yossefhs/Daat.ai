@@ -2361,9 +2361,13 @@ function setLang(lang) {
   document.querySelectorAll('.lang-btn').forEach(b => {
     b.classList.toggle('is-active', b.dataset.lang === lang);
   });
-  // Re-render dynamic UI in the new language
-  if (typeof renderProgress === 'function') renderProgress();
-  if (typeof searchCards === 'function') searchCards();
+  // Re-render dynamic UI in the new language.
+  // try/catch indispensable : setLang() est appelé à l'init AVANT que
+  // les `const` $searchInput, $allCards, $stat, $fill ne soient initialisés.
+  // Sans try/catch, le ReferenceError (TDZ) interrompt tout le script et
+  // les event listeners de la recherche ne sont jamais branchés.
+  if (typeof renderProgress === 'function') { try { renderProgress(); } catch (e) {} }
+  if (typeof searchCards === 'function') { try { searchCards(); } catch (e) {} }
 }
 function applyI18n(lang) {
   const dict = I18N[lang] || I18N.fr;
@@ -2421,7 +2425,11 @@ function runSearch() {
   if (!q) return;
   const num = (q.match(/\d{2,3}/) || [])[0];
   if (num) {
-    const card = [...$allCards].find(c => ((c.getAttribute('href') || '').indexOf('siman-' + num + '/') !== -1));
+    const card = [...$allCards].find(c => {
+      const href = c.getAttribute('href') || '';
+      // Tolère les deux formats : ancien `siman-N/...` et nouveau `/oh/N/`
+      return href.includes('siman-' + num + '/') || href.includes('/oh/' + num + '/');
+    });
     if (card) { window.location.href = card.getAttribute('href'); return; }
   }
   const visible = [...$allCards].filter(c => c.style.display !== 'none');
@@ -2451,7 +2459,8 @@ function loadProgress() {
 }
 
 function simanNumOf(card) {
-  const m = (card.getAttribute('href') || '').match(/siman-(\d+)/);
+  // Tolère les deux formats d'URL : ancien `siman-N/...` et nouveau `/oh/N/`
+  const m = (card.getAttribute('href') || '').match(/(?:siman-|\/oh\/)(\d+)/);
   return m ? m[1] : null;
 }
 
@@ -2510,6 +2519,32 @@ document.getElementById('reset-progress').addEventListener('click', () => {
 });
 
 renderProgress();
+
+// Sync cross-device — fetch + merge avec localStorage si user connecté
+(function syncProgressFromServer() {
+  const API_BASE = (window.DAAT_CHAT_API_URL || '').replace(/\/api\/chat\/?$/, '');
+  if (!API_BASE) return;
+  fetch(API_BASE + '/api/progress', { method: 'GET', credentials: 'include', headers: { 'Accept': 'application/json' } })
+  .then(r => (r.ok ? r.json() : null))
+  .then(data => {
+    if (!data || !data.progress || typeof data.progress !== 'object') return;
+    let local = {};
+    try { local = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}'); } catch (e) {}
+    let changed = false;
+    for (const [siman, levels] of Object.entries(data.progress)) {
+      if (!Array.isArray(levels)) continue;
+      const existing = Array.isArray(local[siman]) ? local[siman] : [];
+      const merged = [...new Set([...existing, ...levels])];
+      if (merged.length !== existing.length) { local[siman] = merged; changed = true; }
+    }
+    if (changed) {
+      try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(local)); } catch (e) {}
+      renderProgress();
+      fetch(API_BASE + '/api/progress', { method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ progress: local }) }).catch(() => {});
+    }
+  })
+  .catch(() => {});
+})();
 </script>
 
 </body>

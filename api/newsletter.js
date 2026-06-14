@@ -1172,12 +1172,27 @@ function todayStr() {
   return new Date().toISOString().slice(0, 10); // YYYY-MM-DD (UTC)
 }
 
-async function getConfirmedEmails() {
+// Retourne les emails des abonnés confirmés.
+//
+// excludeDaily=true : retire les abonnés qui reçoivent DÉJÀ un Daat Yomi
+// quotidien — pour éviter le double envoi du dimanche (le dimanche est un
+// jour d'étude, donc ils reçoivent leur daily + l'hebdo le même matin).
+// Sont exclus :
+//   - opt-in universel : record.dailyEnabled === true  (phase 3 du cron)
+//   - plan personnel    : custom-plan:{email} existe    (phase 2 du cron)
+// Principe : 1 personne = 1 rythme (soit quotidien, soit hebdo, jamais les deux).
+async function getConfirmedEmails({ excludeDaily = false } = {}) {
   const emails = (await kv.lrange('newsletter:list', 0, 9999)) || [];
   const out = [];
   for (const email of [...new Set(emails)]) {
     const rec = await kv.get(`newsletter:${email}`);
-    if (rec && rec.confirmed) out.push(email);
+    if (!rec || !rec.confirmed) continue;
+    if (excludeDaily) {
+      if (rec.dailyEnabled) continue;
+      const customRec = await kv.get(`custom-plan:${email}`);
+      if (customRec && customRec.plan) continue;
+    }
+    out.push(email);
   }
   return out;
 }
@@ -1199,7 +1214,11 @@ async function runWeeklyBroadcast(resend, fromEmail, { mode = 'auto', testTo = n
     if (last === todayStr()) return { ok: true, skipped: 'already-sent-today', siman: num };
   }
 
-  const recipients = mode === 'test' ? (testTo ? [testTo] : []) : await getConfirmedEmails();
+  // Hebdo « siman du dimanche » : on exclut les abonnés au Daat Yomi quotidien
+  // (ils reçoivent déjà leur lot du jour le dimanche — pas de double envoi).
+  const recipients = mode === 'test'
+    ? (testTo ? [testTo] : [])
+    : await getConfirmedEmails({ excludeDaily: true });
   if (!recipients.length) return { ok: true, siman: num, sent: 0, message: 'Aucun destinataire.' };
 
   let sent = 0, errors = 0;

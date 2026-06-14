@@ -9,7 +9,7 @@
  *
  * Bump VERSION pour invalider les anciens caches.
  */
-const VERSION = 'v2';
+const VERSION = 'v4';
 const STATIC_CACHE = `daat-static-${VERSION}`;
 const PAGE_CACHE = `daat-pages-${VERSION}`;
 const OFFLINE_URL = '/offline.html';
