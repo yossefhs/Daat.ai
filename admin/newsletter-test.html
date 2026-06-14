@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DAAT Admin — Test newsletter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap"></noscript>
+  <style>
+    :root {
+      --navy: #1A1F3A; --gold: #C5A55A; --cream: #FAF6EE;
+      --green: #2E7D52; --red: #C0392B; --orange: #D97706;
+      --border: #E4DDD0; --white: #fff; --text: #2C2C2C; --muted: #777;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; background:#F4F4F6; color:var(--text); padding:32px 20px; }
+    .wrap { max-width:920px; margin:0 auto; }
+    .header { background:var(--navy); color:#fff; padding:24px 28px; border-radius:6px 6px 0 0; }
+    .header h1 { font-size:22px; font-weight:600; margin-bottom:4px; }
+    .header h1 .he { font-family:'Frank Ruhl Libre',serif; color:var(--gold); margin-right:8px; }
+    .header p { font-size:13px; color:rgba(255,255,255,0.85); }
+    .header .back { font-size:12px; color:var(--gold); text-decoration:none; }
+    .header .back:hover { text-decoration:underline; }
+
+    .card { background:var(--white); border:1px solid var(--border); border-top:none; padding:24px 28px; }
+    .card + .card { border-top:1px solid var(--border); }
+    .card h2 { font-size:14px; text-transform:uppercase; letter-spacing:2px; color:var(--navy); margin-bottom:14px; font-weight:600; }
+    .card .desc { font-size:13px; color:var(--muted); margin-bottom:16px; line-height:1.6; }
+    .card .desc code { background:#F4F4F6; padding:1px 6px; border-radius:3px; font-size:12px; }
+
+    label { display:block; font-size:11px; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:6px; font-weight:600; }
+    input[type=text], input[type=email], input[type=password], input[type=date] {
+      width:100%; padding:10px 12px; border:1px solid var(--border); border-radius:4px;
+      font-family:inherit; font-size:14px; background:#fff; color:var(--text);
+    }
+    input:focus { outline:none; border-color:var(--gold); box-shadow:0 0 0 3px rgba(197,165,90,0.15); }
+    .row { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+    .row.full { grid-template-columns:1fr; }
+    .row3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-bottom:14px; }
+
+    .btn { display:inline-block; padding:11px 18px; border:none; border-radius:4px; font-family:inherit; font-size:13px; font-weight:600; cursor:pointer; letter-spacing:0.5px; transition:all 0.15s; }
+    .btn-primary { background:var(--navy); color:var(--gold); }
+    .btn-primary:hover { background:#2a3050; }
+    .btn-outline { background:transparent; color:var(--navy); border:1px solid var(--navy); }
+    .btn-outline:hover { background:var(--navy); color:#fff; }
+    .btn-danger { background:var(--red); color:#fff; }
+    .btn-danger:hover { background:#a82c1f; }
+    .btn-row { display:flex; gap:10px; flex-wrap:wrap; }
+
+    .secrets-warn { background:#FFF8E5; border-left:3px solid var(--orange); padding:12px 16px; font-size:12px; color:#5a4a1a; margin-bottom:18px; border-radius:0 4px 4px 0; }
+
+    .output { margin-top:18px; }
+    .output-header { display:flex; justify-content:space-between; align-items:center; font-size:11px; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:6px; }
+    .output-body { background:#1A1F3A; color:#d4c89a; padding:14px 16px; border-radius:4px; font-family:'SF Mono',Menlo,Consolas,monospace; font-size:12px; line-height:1.55; white-space:pre-wrap; word-break:break-word; max-height:380px; overflow-y:auto; }
+    .output-body.error { color:#fca5a5; border-left:3px solid var(--red); }
+    .output-body.ok { border-left:3px solid var(--green); }
+
+    .preview-iframe { width:100%; min-height:420px; border:1px solid var(--border); border-radius:4px; background:#fff; margin-top:12px; }
+
+    .footer-note { font-size:11px; color:var(--muted); text-align:center; margin-top:24px; }
+    .footer-note a { color:var(--gold); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <!-- HEADER -->
+    <div class="header">
+      <h1><span class="he">דעת</span>Test Newsletter — Daat Yomi</h1>
+      <p>Preview, test et déclenchement du broadcast hebdomadaire + envois journaliers. Aucune action n'est exécutée à l'ouverture de la page.</p>
+      <p style="margin-top:8px;"><a href="index.html" class="back">← Retour au tableau de bord admin</a></p>
+    </div>
+
+    <!-- SECTION 1 : SECRETS -->
+    <div class="card">
+      <h2>🔑 Secrets (stockés en localStorage de ce navigateur)</h2>
+      <div class="secrets-warn">
+        ⚠️ Ne partage jamais cette URL avec quelqu'un. Les secrets entrés ici restent sur ton navigateur (localStorage), jamais envoyés ailleurs que vers <code>daatai.vercel.app</code>.
+      </div>
+      <div class="row">
+        <div>
+          <label for="cron-secret">CRON_SECRET (Vercel env)</label>
+          <input type="password" id="cron-secret" placeholder="••••••••" autocomplete="off">
+        </div>
+        <div>
+          <label for="admin-password">ADMIN_PASSWORD (Vercel env)</label>
+          <input type="password" id="admin-password" placeholder="••••••••" autocomplete="off">
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-outline" onclick="saveSecrets()">💾 Sauvegarder dans ce navigateur</button>
+        <button class="btn btn-outline" onclick="clearSecrets()">🗑️ Effacer</button>
+      </div>
+    </div>
+
+    <!-- SECTION 2 : PREVIEW HEBDO -->
+    <div class="card">
+      <h2>👁️ Preview de l'hebdo « siman du dimanche »</h2>
+      <p class="desc">
+        Visualise le prochain email hebdo (subject + HTML rendu), <strong>sans envoyer</strong>. Avance pas le curseur. Anti-doublon (#135) appliqué : le décompte des destinataires exclut les abonnés au Daat Yomi quotidien.
+      </p>
+      <button class="btn btn-primary" onclick="callAction('weekly-preview', 'preview')">Afficher la preview</button>
+      <div id="out-preview" class="output" style="display:none;">
+        <div class="output-header"><span>Résultat JSON</span><button onclick="copyOutput('out-preview-body')" style="background:none;border:none;color:var(--gold);font-size:11px;cursor:pointer;">Copier</button></div>
+        <div id="out-preview-body" class="output-body"></div>
+        <iframe id="preview-iframe" class="preview-iframe" style="display:none;" sandbox="allow-same-origin"></iframe>
+      </div>
+    </div>
+
+    <!-- SECTION 3 : TEST À 1 EMAIL -->
+    <div class="card">
+      <h2>📨 Envoi de test à un email (1 seul destinataire)</h2>
+      <p class="desc">
+        Envoie réellement, mais à <strong>une seule adresse</strong> de ton choix. N'avance pas le curseur. Quota Resend : 1 mail.
+      </p>
+      <div class="row">
+        <div>
+          <label for="test-email">Destinataire</label>
+          <input type="email" id="test-email" placeholder="ton@email.com" autocomplete="email">
+        </div>
+        <div>
+          <label for="test-date">Date (pour daily/custom-daily uniquement, format AAAA-MM-JJ)</label>
+          <input type="date" id="test-date">
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="callAction('weekly-test', 'weekly-test')">📅 Hebdo « siman du dimanche »</button>
+        <button class="btn btn-primary" onclick="callAction('test-daily', 'daily', true)">☀️ Daily universel (cron 9h)</button>
+        <button class="btn btn-primary" onclick="callAction('test-custom-daily', 'custom', true)">🎯 Daily plan personnel</button>
+      </div>
+      <div id="out-test" class="output" style="display:none;">
+        <div class="output-header"><span>Résultat JSON</span><button onclick="copyOutput('out-test-body')" style="background:none;border:none;color:var(--gold);font-size:11px;cursor:pointer;">Copier</button></div>
+        <div id="out-test-body" class="output-body"></div>
+      </div>
+    </div>
+
+    <!-- SECTION 4 : FORCE & STATS -->
+    <div class="card">
+      <h2>🚨 Actions en masse + Stats</h2>
+      <p class="desc">
+        <strong>Force hebdo</strong> envoie l'email du jour à <strong>tous les abonnés éligibles</strong> (hebdo only, exclut les daily — fix PR #135) et avance le curseur. À utiliser quand le cron du dimanche a manqué.
+      </p>
+      <div class="btn-row">
+        <button class="btn btn-outline" onclick="callAction('stats', 'stats', true)">📊 Voir les stats</button>
+        <button class="btn btn-outline" onclick="callStatus()">👤 Status d'un email</button>
+        <button class="btn btn-danger" onclick="forceConfirm()">⚠️ Force envoi hebdo MAINTENANT</button>
+      </div>
+      <div id="out-mass" class="output" style="display:none;">
+        <div class="output-header"><span>Résultat JSON</span><button onclick="copyOutput('out-mass-body')" style="background:none;border:none;color:var(--gold);font-size:11px;cursor:pointer;">Copier</button></div>
+        <div id="out-mass-body" class="output-body"></div>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      Endpoint : <a href="https://daatai.vercel.app/api/newsletter" target="_blank">daatai.vercel.app/api/newsletter</a> · Source : <code>api/newsletter.js</code>
+    </div>
+  </div>
+
+  <script>
+    'use strict';
+    const API_BASE = 'https://daatai.vercel.app';
+    const LS_CRON = 'daat-admin-cron-secret';
+    const LS_ADMIN = 'daat-admin-admin-password';
+
+    // === Secrets persistés en localStorage ===
+    function loadSecrets() {
+      try {
+        document.getElementById('cron-secret').value = localStorage.getItem(LS_CRON) || '';
+        document.getElementById('admin-password').value = localStorage.getItem(LS_ADMIN) || '';
+      } catch (e) {}
+    }
+    function saveSecrets() {
+      try {
+        localStorage.setItem(LS_CRON, document.getElementById('cron-secret').value);
+        localStorage.setItem(LS_ADMIN, document.getElementById('admin-password').value);
+        alert('✓ Secrets sauvegardés dans ce navigateur uniquement.');
+      } catch (e) { alert('localStorage indisponible : ' + e.message); }
+    }
+    function clearSecrets() {
+      if (!confirm('Effacer les secrets stockés dans ce navigateur ?')) return;
+      try {
+        localStorage.removeItem(LS_CRON);
+        localStorage.removeItem(LS_ADMIN);
+        document.getElementById('cron-secret').value = '';
+        document.getElementById('admin-password').value = '';
+        alert('✓ Effacé.');
+      } catch (e) {}
+    }
+    loadSecrets();
+
+    function getCronSecret() { return document.getElementById('cron-secret').value.trim(); }
+    function getAdminPassword() { return document.getElementById('admin-password').value.trim(); }
+
+    function setOutput(slot, ok, data) {
+      const box = document.getElementById('out-' + slot);
+      const body = document.getElementById('out-' + slot + '-body');
+      box.style.display = '';
+      body.className = 'output-body ' + (ok ? 'ok' : 'error');
+      // Pour la preview, on extrait le HTML et on le rend dans l'iframe
+      if (slot === 'preview' && ok && data && data.html) {
+        const dup = { ...data, html: '<' + 'OMITTED — voir iframe ci-dessous>' };
+        body.textContent = JSON.stringify(dup, null, 2);
+        const iframe = document.getElementById('preview-iframe');
+        iframe.style.display = '';
+        iframe.srcdoc = data.html;
+      } else {
+        body.textContent = typeof data === 'string' ? data : JSON.stringify(data, null, 2);
+        if (slot === 'preview') {
+          const iframe = document.getElementById('preview-iframe');
+          if (iframe) iframe.style.display = 'none';
+        }
+      }
+      box.scrollIntoView({ behavior:'smooth', block:'nearest' });
+    }
+
+    function copyOutput(id) {
+      const text = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = event.target;
+        const orig = btn.textContent;
+        btn.textContent = 'Copié ✓';
+        setTimeout(() => { btn.textContent = orig; }, 1200);
+      });
+    }
+
+    // === Appels d'action ===
+    // useAdmin=true → Bearer ADMIN_PASSWORD, sinon ?secret=CRON_SECRET
+    async function callAction(action, slot, useAdmin) {
+      const params = new URLSearchParams();
+      params.set('action', action);
+
+      const email = document.getElementById('test-email').value.trim();
+      const date = document.getElementById('test-date').value.trim();
+
+      // Actions qui ont besoin d'un email destinataire
+      if (action === 'weekly-test' || action === 'test-daily' || action === 'test-custom-daily') {
+        if (!email) { setOutput(slot, false, 'Entre une adresse email destinataire dans le champ ci-dessus.'); return; }
+        params.set('to', email);
+      }
+      if (date && (action === 'test-daily' || action === 'test-custom-daily')) {
+        params.set('date', date);
+      }
+
+      // Auth : Bearer pour les actions admin, ?secret= pour les actions cron
+      const headers = {};
+      if (useAdmin) {
+        const ap = getAdminPassword();
+        if (!ap) { setOutput(slot, false, 'ADMIN_PASSWORD requis (section secrets en haut).'); return; }
+        headers['Authorization'] = 'Bearer ' + ap;
+      } else {
+        const cs = getCronSecret();
+        if (!cs) { setOutput(slot, false, 'CRON_SECRET requis (section secrets en haut).'); return; }
+        params.set('secret', cs);
+      }
+
+      const url = API_BASE + '/api/newsletter?' + params.toString();
+      try {
+        const res = await fetch(url, { method:'GET', headers });
+        const text = await res.text();
+        const ctype = res.headers.get('content-type') || '';
+        // weekly-preview renvoie du HTML brut → on l'injecte directement dans l'iframe
+        if (res.ok && ctype.includes('text/html')) {
+          setOutput(slot, true, { html: text });
+        } else {
+          let json; try { json = JSON.parse(text); } catch { json = { rawResponse: text }; }
+          setOutput(slot, res.ok, json);
+        }
+      } catch (err) {
+        setOutput(slot, false, { error:'Network error', message: err.message });
+      }
+    }
+
+    // Status d'un email — utilise le token optin lu en saisie libre
+    async function callStatus() {
+      const email = document.getElementById('test-email').value.trim();
+      if (!email) { setOutput('mass', false, 'Entre une adresse email dans la section Test ci-dessus.'); return; }
+      const token = prompt('Token optin de cet utilisateur (champ optinToken de son record newsletter) — laisse vide pour tenter sans :') || '';
+      const url = API_BASE + '/api/newsletter?action=status&email=' + encodeURIComponent(email) + '&token=' + encodeURIComponent(token);
+      try {
+        const res = await fetch(url);
+        const text = await res.text();
+        let json; try { json = JSON.parse(text); } catch { json = { rawResponse: text }; }
+        setOutput('mass', res.ok, json);
+      } catch (err) {
+        setOutput('mass', false, { error:'Network error', message: err.message });
+      }
+    }
+
+    function forceConfirm() {
+      if (!confirm('⚠️ ENVOI RÉEL à tous les abonnés hebdo (hors quotidiens — exclusion #135).\nLe curseur sera avancé d\'un siman.\nContinuer ?')) return;
+      if (!confirm('Vraiment ? Cela consommera du quota Resend et envoie réellement.')) return;
+      callAction('weekly-force', 'mass');
+    }
+  </script>
+</body>
+</html>
