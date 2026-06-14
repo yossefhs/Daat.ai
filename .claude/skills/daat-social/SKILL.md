@@ -83,8 +83,8 @@ Après programmation, **journaliser** dans `data/social-log.json` (siman, date, 
 ## Au-delà des réseaux (proposer, ne pas imposer)
 Le même kit nourrit d'autres canaux — le mentionner si pertinent :
 - **Newsletter** (déjà en prod : Resend, `api/newsletter.js`, « un siman/dimanche »).
-- **Blog** `/blog/` (à créer — voir `docs/STRATEGIE-CROISSANCE.md`) : l'article long
-  AEO dont les posts sociaux sont des extraits. C'est le plus gros levier SEO.
+- **Blog** `/blog/` (en prod — 13 articles AEO × 3 langues, voir `docs/STRATEGIE-CROISSANCE.md`) :
+  l'article long AEO dont les posts sociaux sont des extraits. C'est le plus gros levier SEO.
 
 ## Références
 - `references/platform-specs.md` — formats, longueurs, ton et heures par plateforme.
