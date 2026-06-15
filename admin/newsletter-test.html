@@ -94,7 +94,19 @@
       <div class="btn-row">
         <button class="btn btn-outline" onclick="saveSecrets()">💾 Sauvegarder dans ce navigateur</button>
         <button class="btn btn-outline" onclick="clearSecrets()">🗑️ Effacer</button>
+        <button class="btn btn-primary" onclick="verifyAuth()">✓ Vérifier les secrets</button>
       </div>
+      <div id="out-auth" class="output" style="display:none;">
+        <div class="output-header"><span>Résultat de la vérification</span></div>
+        <div id="out-auth-body" class="output-body"></div>
+      </div>
+      <p style="font-size:11px; color:var(--muted); margin-top:14px; line-height:1.55;">
+        <strong>Quel secret va où :</strong><br>
+        · <code>CRON_SECRET</code> → boutons <em>Preview hebdo</em>, <em>Hebdo test</em>, <em>Force hebdo</em><br>
+        · <code>ADMIN_PASSWORD</code> → boutons <em>Daily universel</em>, <em>Daily plan personnel</em>, <em>Stats</em><br>
+        Les deux sont des variables d'env à configurer dans Vercel (Settings → Environment Variables).
+        En cas de 401, le secret entré ici ne correspond pas à celui dans Vercel.
+      </p>
     </div>
 
     <!-- SECTION 2 : PREVIEW HEBDO -->
@@ -195,11 +207,23 @@
     function getCronSecret() { return document.getElementById('cron-secret').value.trim(); }
     function getAdminPassword() { return document.getElementById('admin-password').value.trim(); }
 
-    function setOutput(slot, ok, data) {
+    function setOutput(slot, ok, data, httpStatus) {
       const box = document.getElementById('out-' + slot);
       const body = document.getElementById('out-' + slot + '-body');
       box.style.display = '';
       body.className = 'output-body ' + (ok ? 'ok' : 'error');
+      // Message contextualisé en cas de 401 (cause la plus fréquente)
+      if (!ok && httpStatus === 401) {
+        const errMsg = typeof data === 'object' && data ? (data.error || JSON.stringify(data)) : String(data);
+        const hint = '\n\n🔑 401 Unauthorized — Le secret envoyé ne correspond pas à celui configuré dans Vercel.\n' +
+          '   1. Vérifie la variable d\'env (ADMIN_PASSWORD ou CRON_SECRET) dans Vercel Settings.\n' +
+          '   2. Recopie-la exactement (attention aux espaces invisibles) dans le champ ci-dessus.\n' +
+          '   3. Clique « Sauvegarder dans ce navigateur » puis ressaie.\n' +
+          '   4. Si tu n\'es pas sûr du secret, clique « ✓ Vérifier les secrets » en haut.';
+        body.textContent = errMsg + hint;
+        box.scrollIntoView({ behavior:'smooth', block:'nearest' });
+        return;
+      }
       // Pour la preview, on extrait le HTML et on le rend dans l'iframe
       if (slot === 'preview' && ok && data && data.html) {
         const dup = { ...data, html: '<' + 'OMITTED — voir iframe ci-dessous>' };
@@ -264,14 +288,71 @@
         const ctype = res.headers.get('content-type') || '';
         // weekly-preview renvoie du HTML brut → on l'injecte directement dans l'iframe
         if (res.ok && ctype.includes('text/html')) {
-          setOutput(slot, true, { html: text });
+          setOutput(slot, true, { html: text }, res.status);
         } else {
           let json; try { json = JSON.parse(text); } catch { json = { rawResponse: text }; }
-          setOutput(slot, res.ok, json);
+          setOutput(slot, res.ok, json, res.status);
         }
       } catch (err) {
         setOutput(slot, false, { error:'Network error', message: err.message });
       }
+    }
+
+    // === Vérification rapide des deux secrets ===
+    // Le test admin-password appelle ?action=stats (lecture pure, no-op)
+    // Le test cron-secret appelle ?action=weekly-preview (lecture, sans envoi)
+    async function verifyAuth() {
+      const cs = getCronSecret();
+      const ap = getAdminPassword();
+      const lines = [];
+      lines.push('Vérification des secrets en cours…');
+      const box = document.getElementById('out-auth');
+      const body = document.getElementById('out-auth-body');
+      box.style.display = '';
+      body.className = 'output-body';
+      body.textContent = lines.join('\n');
+
+      // 1. Test ADMIN_PASSWORD via ?action=stats (auth Bearer)
+      if (!ap) {
+        lines.push('· ADMIN_PASSWORD : champ vide → SKIP');
+      } else {
+        try {
+          const r = await fetch(API_BASE + '/api/newsletter?action=stats', {
+            headers: { 'Authorization': 'Bearer ' + ap }
+          });
+          if (r.status === 200) lines.push('· ADMIN_PASSWORD : ✓ VALIDE (200)');
+          else if (r.status === 401) lines.push('· ADMIN_PASSWORD : ✗ INVALIDE — ne correspond pas à Vercel (401)');
+          else lines.push('· ADMIN_PASSWORD : ⚠️ statut inattendu ' + r.status);
+        } catch (e) {
+          lines.push('· ADMIN_PASSWORD : erreur réseau — ' + e.message);
+        }
+      }
+
+      // 2. Test CRON_SECRET via ?action=weekly-preview (auth query-string)
+      if (!cs) {
+        lines.push('· CRON_SECRET : champ vide → SKIP');
+      } else {
+        try {
+          const r = await fetch(API_BASE + '/api/newsletter?action=weekly-preview&secret=' + encodeURIComponent(cs));
+          if (r.status === 200) lines.push('· CRON_SECRET : ✓ VALIDE (200)');
+          else if (r.status === 401) lines.push('· CRON_SECRET : ✗ INVALIDE — ne correspond pas à Vercel (401)');
+          else lines.push('· CRON_SECRET : ⚠️ statut inattendu ' + r.status);
+        } catch (e) {
+          lines.push('· CRON_SECRET : erreur réseau — ' + e.message);
+        }
+      }
+
+      const allOk = lines.filter(l => l.startsWith('·')).every(l => l.includes('✓') || l.includes('SKIP'));
+      body.className = 'output-body ' + (allOk ? 'ok' : 'error');
+      lines[0] = allOk ? '✅ Vérification terminée' : '⚠️ Au moins un secret est invalide';
+      if (!allOk) {
+        lines.push('');
+        lines.push('Pour corriger :');
+        lines.push('  1. Va sur https://vercel.com/yossefhs-projects/daat.ai/settings/environment-variables');
+        lines.push('  2. Copie la valeur exacte (sans espaces) de la variable concernée');
+        lines.push('  3. Colle-la dans le champ ci-dessus, sauvegarde, et ressaie');
+      }
+      body.textContent = lines.join('\n');
     }
 
     // Status d'un email — utilise le token optin lu en saisie libre
