@@ -174,13 +174,18 @@
     "api/admin/stats.js": { "maxDuration": 15 },
     "api/helloasso-webhook.js": { "maxDuration": 10 },
     "api/dedicaces.js": { "maxDuration": 10 },
-    "api/dedicace/[siman].js": { "maxDuration": 10 }
+    "api/dedicace/[siman].js": { "maxDuration": 10 },
+    "api/daily-video.js": { "maxDuration": 300 }
   },
 
   "crons": [
     {
       "path": "/api/newsletter",
       "schedule": "0 9 * * *"
+    },
+    {
+      "path": "/api/daily-video",
+      "schedule": "0 8 * * 0-4"
     }
   ]
 }
