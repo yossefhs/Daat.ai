@@ -22,6 +22,7 @@ PERSON = {
     "alternateName": "הרב יוסף חיים סמאמא",
     "jobTitle": "Rabbin, auteur halakhique",
     "url": f"{BASE}/auteur/{SLUG}.html",
+    "sameAs": ["https://www.wikidata.org/wiki/Q140226680"],
     "description": "Rabbin issu des yechivot et collelim Habad, titulaire de la semikha de Tomhei Tmimim, fondateur de DaatTorah — plateforme d'étude de la halakha.",
     "alumniOf": {"@type": "EducationalOrganization", "name": "Tomhei Tmimim (Habad)"},
     "hasCredential": {
