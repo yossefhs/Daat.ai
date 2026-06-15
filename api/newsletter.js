@@ -1253,7 +1253,12 @@ async function handleWeeklyAction(req, res, action) {
   const auth = req.headers.authorization || '';
   const url = new URL(req.url, 'http://x');
   const qSecret = url.searchParams.get('secret') || '';
-  const authorized = !!expectedSecret && (auth === `Bearer ${expectedSecret}` || qSecret === expectedSecret);
+  // 500 explicite si la variable n'existe pas côté Vercel (cohérent avec
+  // handleStats) → permet de distinguer "variable absente" de "valeur fausse".
+  if (!expectedSecret) {
+    return res.status(500).json({ error: 'CRON_SECRET non configuré côté serveur' });
+  }
+  const authorized = auth === `Bearer ${expectedSecret}` || qSecret === expectedSecret;
   if (!authorized) return res.status(401).json({ error: 'Unauthorized' });
   if (!process.env.RESEND_API_KEY) return res.status(500).json({ error: 'RESEND_API_KEY non configuré' });
   const resend = new Resend(process.env.RESEND_API_KEY);

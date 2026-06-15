@@ -312,6 +312,12 @@
       body.className = 'output-body';
       body.textContent = lines.join('\n');
 
+      // Empreinte non-sensible : longueur + 2 premiers/derniers caractères.
+      // Permet de comparer visuellement avec Vercel SANS révéler la valeur.
+      const fp = (s) => s.length <= 4
+        ? `${s.length} car.`
+        : `${s.length} car. (${s.slice(0,2)}…${s.slice(-2)})`;
+
       // 1. Test ADMIN_PASSWORD via ?action=stats (auth Bearer)
       if (!ap) {
         lines.push('· ADMIN_PASSWORD : champ vide → SKIP');
@@ -320,9 +326,11 @@
           const r = await fetch(API_BASE + '/api/newsletter?action=stats', {
             headers: { 'Authorization': 'Bearer ' + ap }
           });
-          if (r.status === 200) lines.push('· ADMIN_PASSWORD : ✓ VALIDE (200)');
-          else if (r.status === 401) lines.push('· ADMIN_PASSWORD : ✗ INVALIDE — ne correspond pas à Vercel (401)');
-          else lines.push('· ADMIN_PASSWORD : ⚠️ statut inattendu ' + r.status);
+          const tag = `[saisi: ${fp(ap)}]`;
+          if (r.status === 200) lines.push(`· ADMIN_PASSWORD : ✓ VALIDE (200) ${tag}`);
+          else if (r.status === 401) lines.push(`· ADMIN_PASSWORD : ✗ valeur incorrecte (401) — la variable EXISTE dans Vercel mais ta saisie diffère ${tag}`);
+          else if (r.status === 500) lines.push(`· ADMIN_PASSWORD : ⚠️ variable ABSENTE de Vercel (500) — à créer dans Settings ${tag}`);
+          else lines.push(`· ADMIN_PASSWORD : ⚠️ statut inattendu ${r.status} ${tag}`);
         } catch (e) {
           lines.push('· ADMIN_PASSWORD : erreur réseau — ' + e.message);
         }
@@ -334,12 +342,22 @@
       } else {
         try {
           const r = await fetch(API_BASE + '/api/newsletter?action=weekly-preview&secret=' + encodeURIComponent(cs));
-          if (r.status === 200) lines.push('· CRON_SECRET : ✓ VALIDE (200)');
-          else if (r.status === 401) lines.push('· CRON_SECRET : ✗ INVALIDE — ne correspond pas à Vercel (401)');
-          else lines.push('· CRON_SECRET : ⚠️ statut inattendu ' + r.status);
+          const tag = `[saisi: ${fp(cs)}]`;
+          if (r.status === 200) lines.push(`· CRON_SECRET : ✓ VALIDE (200) ${tag}`);
+          else if (r.status === 401) lines.push(`· CRON_SECRET : ✗ valeur incorrecte (401) — la variable EXISTE dans Vercel mais ta saisie diffère ${tag}`);
+          else if (r.status === 500) lines.push(`· CRON_SECRET : ⚠️ variable ABSENTE de Vercel (500) — à créer dans Settings ${tag}`);
+          else lines.push(`· CRON_SECRET : ⚠️ statut inattendu ${r.status} ${tag}`);
         } catch (e) {
           lines.push('· CRON_SECRET : erreur réseau — ' + e.message);
         }
+      }
+
+      // Détection d'inversion probable : si les deux saisies ont des empreintes
+      // qui "iraient mieux" croisées, on alerte (cause #1 quand les 2 échouent).
+      if (ap && cs && ap !== cs) {
+        lines.push('');
+        lines.push('💡 Astuce : si les DEUX sont incorrects, vérifie que tu n\'as pas');
+        lines.push('   inversé les champs (CRON_SECRET dans ADMIN_PASSWORD et vice-versa).');
       }
 
       const allOk = lines.filter(l => l.startsWith('·')).every(l => l.includes('✓') || l.includes('SKIP'));
