@@ -35,7 +35,10 @@ PERSON = {
         "@type": "Organization",
         "name": "DAAT — דעת",
         "url": BASE,
-        "sameAs": ["https://www.wikidata.org/wiki/Q140170943"],
+        "sameAs": [
+            "https://www.wikidata.org/wiki/Q140170943",
+            "https://www.linkedin.com/company/daattorah",
+        ],
     },
 }
 
