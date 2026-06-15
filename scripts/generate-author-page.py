@@ -31,8 +31,12 @@ PERSON = {
     },
     "knowsAbout": ["Halakha", "Choulhan Aroukh", "Hilkhot Shabbat",
                    "Choulhan Aroukh HaRav", "Hassidout Habad"],
-    "worksFor": {"@type": "Organization", "name": "DAAT — דעת", "url": BASE},
-    "sameAs": ["https://www.wikidata.org/wiki/Q140170943"],
+    "worksFor": {
+        "@type": "Organization",
+        "name": "DAAT — דעת",
+        "url": BASE,
+        "sameAs": ["https://www.wikidata.org/wiki/Q140170943"],
+    },
 }
 
 L = {
