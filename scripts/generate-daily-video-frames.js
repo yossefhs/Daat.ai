@@ -38,7 +38,7 @@ function tspans(lines, x, y, lh) {
 
 const FONT = "'Frank Ruhl Libre','Arial Hebrew',serif";
 
-function frame({ kicker, he, title, lines, cta }) {
+export function frame({ kicker, he, title, lines, cta }) {
   const titleLines = title ? wrap(title, 22) : [];
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}">
   <defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
