@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DAAT Admin — Paiements</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&family=Inter:wght@400;500;600;700&display=swap">
+  <style>
+    :root {
+      --navy: #1A1F3A; --gold: #C5A55A; --cream: #FAF6EE;
+      --green: #2E7D52; --red: #C0392B; --border: #E4DDD0;
+      --bg: #F4F4F6; --text: #2C2C2C; --muted: #888;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+    a { color: var(--navy); }
+
+    /* TOP BAR */
+    header { background: var(--navy); padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; }
+    header .brand { display: flex; align-items: baseline; gap: 12px; }
+    header .he { font-family: 'Frank Ruhl Libre', serif; font-size: 22px; color: var(--gold); font-weight: 700; }
+    header .sub { font-size: 11px; letter-spacing: 3px; color: rgba(255,255,255,0.85); text-transform: uppercase; }
+    header .badge { background: rgba(197,165,90,0.15); color: var(--gold); font-size: 10px; padding: 3px 10px; border-radius: 2px; letter-spacing: 1.5px; text-transform: uppercase; }
+    header nav a { color: rgba(255,255,255,0.8); font-size: 12px; margin-left: 18px; text-decoration: none; letter-spacing: 0.5px; }
+    header nav a:hover { color: var(--gold); }
+
+    /* LOGIN GATE */
+    .gate { max-width: 420px; margin: 80px auto; background: white; border: 1px solid var(--border); border-radius: 8px; padding: 28px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
+    .gate h2 { color: var(--navy); font-size: 18px; margin-bottom: 18px; }
+    .gate input { width: 100%; padding: 12px 14px; font-size: 14px; border: 1px solid var(--border); border-radius: 4px; margin-bottom: 12px; }
+    .gate input:focus { outline: none; border-color: var(--gold); }
+    .gate button { width: 100%; padding: 12px; background: var(--navy); color: white; border: none; border-radius: 4px; font-size: 13px; letter-spacing: 1px; cursor: pointer; }
+    .gate button:hover { background: #2A2F4A; }
+    .gate .err { color: var(--red); font-size: 12px; margin-top: 10px; min-height: 16px; }
+
+    /* MAIN */
+    main { max-width: 1280px; margin: 0 auto; padding: 28px 24px; }
+    main.hidden { display: none; }
+
+    h1 { font-family: 'Frank Ruhl Libre', serif; color: var(--navy); font-size: 26px; margin-bottom: 20px; }
+
+    /* STATS CARDS */
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 28px; }
+    .card { background: white; border: 1px solid var(--border); border-radius: 6px; padding: 16px 18px; }
+    .card .label { font-size: 11px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+    .card .value { font-size: 24px; font-weight: 700; color: var(--navy); }
+    .card .sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .card.gold { border-color: var(--gold); background: linear-gradient(to bottom, #FFFBF0, white); }
+    .card.gold .value { color: var(--gold); }
+
+    /* FILTERS */
+    .filters { background: white; border: 1px solid var(--border); border-radius: 6px; padding: 14px 16px; margin-bottom: 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+    .filters label { font-size: 11px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-right: 4px; }
+    .filters select, .filters input { padding: 7px 10px; font-size: 13px; border: 1px solid var(--border); border-radius: 3px; font-family: inherit; }
+    .filters select:focus, .filters input:focus { outline: none; border-color: var(--gold); }
+    .filters .spacer { flex: 1; }
+    .filters button { padding: 7px 14px; background: var(--navy); color: white; border: none; border-radius: 3px; font-size: 12px; letter-spacing: 0.5px; cursor: pointer; }
+    .filters button:hover { background: #2A2F4A; }
+    .filters button.outline { background: white; color: var(--navy); border: 1px solid var(--border); }
+    .filters button.outline:hover { background: var(--cream); border-color: var(--gold); }
+
+    /* TABLE */
+    .table-wrap { background: white; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: var(--cream); padding: 11px 14px; text-align: left; font-size: 11px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid var(--border); font-weight: 600; }
+    td { padding: 11px 14px; font-size: 13px; border-bottom: 1px solid #F1ECDD; vertical-align: middle; }
+    tr:hover td { background: #FCFAF3; }
+    td.amount { font-weight: 600; color: var(--navy); text-align: right; font-variant-numeric: tabular-nums; }
+    td.date { color: var(--muted); white-space: nowrap; font-size: 12px; font-variant-numeric: tabular-nums; }
+    td.email { font-family: monospace; font-size: 12px; }
+    .badge-source { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 10px; letter-spacing: 0.5px; text-transform: uppercase; font-weight: 600; }
+    .badge-source.helloasso { background: #E6F2FA; color: #2A6FB2; }
+    .badge-source.manuel { background: #F0E8F8; color: #6B3FA0; }
+    .badge-plan { display: inline-block; padding: 2px 7px; border-radius: 3px; font-size: 11px; background: var(--cream); color: var(--navy); border: 1px solid var(--border); }
+    .badge-rec { color: var(--green); font-size: 11px; margin-left: 4px; }
+
+    /* EMPTY / LOADING */
+    .empty { text-align: center; padding: 60px 20px; color: var(--muted); }
+    .empty .icon { font-size: 42px; margin-bottom: 14px; opacity: 0.4; }
+    .loading { text-align: center; padding: 40px; color: var(--muted); font-size: 13px; }
+
+    /* MONTHS BAR (visual breakdown) */
+    .months { background: white; border: 1px solid var(--border); border-radius: 6px; padding: 16px 18px; margin-bottom: 20px; }
+    .months h3 { font-size: 12px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; }
+    .month-row { display: grid; grid-template-columns: 90px 1fr 80px; gap: 12px; align-items: center; padding: 4px 0; }
+    .month-row .name { font-size: 12px; color: var(--text); font-variant-numeric: tabular-nums; }
+    .month-row .bar { height: 8px; background: var(--cream); border-radius: 2px; overflow: hidden; }
+    .month-row .bar-inner { height: 100%; background: var(--gold); }
+    .month-row .total { font-size: 12px; font-weight: 600; color: var(--navy); text-align: right; font-variant-numeric: tabular-nums; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <span class="he">דעת</span>
+      <span class="sub">Admin · Paiements</span>
+      <span class="badge">privé</span>
+    </div>
+    <nav>
+      <a href="/admin/">← Retour admin</a>
+      <a href="/soutenir.html" target="_blank">Page soutien</a>
+    </nav>
+  </header>
+
+  <!-- LOGIN GATE -->
+  <div class="gate" id="gate">
+    <h2>🔒 Accès admin</h2>
+    <input type="password" id="pwd" placeholder="Mot de passe admin" autocomplete="current-password">
+    <button id="login-btn">Connecter</button>
+    <div class="err" id="login-err"></div>
+  </div>
+
+  <!-- MAIN DASHBOARD -->
+  <main class="hidden" id="dashboard">
+    <h1>💰 Paiements DAAT</h1>
+
+    <!-- STATS CARDS -->
+    <div class="stats" id="stats"></div>
+
+    <!-- MONTHS BREAKDOWN -->
+    <div class="months" id="months"></div>
+
+    <!-- FILTERS -->
+    <div class="filters">
+      <label>Source</label>
+      <select id="f-source">
+        <option value="all">Toutes</option>
+        <option value="helloasso">HelloAsso</option>
+        <option value="manuel">Manuel</option>
+      </select>
+
+      <label>Plan</label>
+      <select id="f-plan">
+        <option value="">Tous</option>
+      </select>
+
+      <label>Depuis</label>
+      <input type="date" id="f-since">
+
+      <label>Recherche</label>
+      <input type="search" id="f-search" placeholder="email, nom, dédicace…">
+
+      <span class="spacer"></span>
+
+      <button class="outline" id="refresh-btn">↻ Actualiser</button>
+      <button id="export-btn">📥 Export CSV</button>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:140px">Date</th>
+            <th style="width:90px">Source</th>
+            <th>Donateur</th>
+            <th style="width:120px">Plan</th>
+            <th style="text-align:right; width:100px">Montant</th>
+            <th>Détails</th>
+          </tr>
+        </thead>
+        <tbody id="tbody">
+          <tr><td colspan="6" class="loading">Chargement…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+<script>
+const STORE_KEY = 'daat-admin-paiements-token';
+let allItems = [];
+let allStats = null;
+
+function $(id) { return document.getElementById(id); }
+
+function fmtEur(n) {
+  return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n || 0);
+}
+function fmtDate(iso) {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  return d.toLocaleString('fr-FR', { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' });
+}
+function fmtMonth(ym) {
+  const [y, m] = ym.split('-');
+  return new Date(parseInt(y), parseInt(m) - 1).toLocaleString('fr-FR', { month: 'short', year: 'numeric' });
+}
+
+async function fetchData() {
+  const token = sessionStorage.getItem(STORE_KEY);
+  if (!token) return showGate();
+  $('tbody').innerHTML = '<tr><td colspan="6" class="loading">Chargement…</td></tr>';
+  try {
+    const r = await fetch('/api/soutenir?action=admin-all', {
+      headers: { 'Authorization': 'Bearer ' + token }
+    });
+    if (r.status === 401) {
+      sessionStorage.removeItem(STORE_KEY);
+      return showGate('Token expiré ou invalide');
+    }
+    if (!r.ok) {
+      throw new Error('HTTP ' + r.status);
+    }
+    const data = await r.json();
+    allItems = data.items || [];
+    allStats = data.stats;
+    renderStats();
+    renderMonths();
+    populatePlanFilter();
+    applyFilters();
+  } catch (e) {
+    $('tbody').innerHTML = `<tr><td colspan="6" class="empty">❌ Erreur: ${e.message}</td></tr>`;
+  }
+}
+
+function showGate(err) {
+  $('gate').style.display = 'block';
+  $('dashboard').classList.add('hidden');
+  if (err) $('login-err').textContent = err;
+  setTimeout(() => $('pwd').focus(), 100);
+}
+
+function hideGate() {
+  $('gate').style.display = 'none';
+  $('dashboard').classList.remove('hidden');
+}
+
+function renderStats() {
+  if (!allStats) return;
+  const s = allStats;
+  $('stats').innerHTML = `
+    <div class="card gold">
+      <div class="label">Total collecté</div>
+      <div class="value">${fmtEur(s.total_eur)}</div>
+      <div class="sub">${s.total_count} paiements · ${s.unique_donors} donateurs uniques</div>
+    </div>
+    <div class="card">
+      <div class="label">Récurrents actifs</div>
+      <div class="value">${s.recurring_count}</div>
+      <div class="sub">abonnements HelloAsso</div>
+    </div>
+    <div class="card">
+      <div class="label">Via HelloAsso</div>
+      <div class="value">${fmtEur(s.by_source.helloasso || 0)}</div>
+      <div class="sub">prélèvements automatiques</div>
+    </div>
+    <div class="card">
+      <div class="label">Saisies manuelles</div>
+      <div class="value">${fmtEur(s.by_source.manuel || 0)}</div>
+      <div class="sub">virements, espèces, Qonto</div>
+    </div>
+  `;
+}
+
+function renderMonths() {
+  if (!allStats) return;
+  const months = allStats.by_month || {};
+  const entries = Object.entries(months).sort((a, b) => b[0].localeCompare(a[0])).slice(0, 12);
+  if (!entries.length) {
+    $('months').style.display = 'none';
+    return;
+  }
+  const max = Math.max(...entries.map(e => e[1]));
+  $('months').innerHTML = '<h3>Évolution mensuelle (12 derniers mois)</h3>' +
+    entries.map(([m, v]) => `
+      <div class="month-row">
+        <div class="name">${fmtMonth(m)}</div>
+        <div class="bar"><div class="bar-inner" style="width:${(v / max * 100).toFixed(1)}%"></div></div>
+        <div class="total">${fmtEur(v)}</div>
+      </div>
+    `).join('');
+}
+
+function populatePlanFilter() {
+  const plans = [...new Set(allItems.map(it => it.plan).filter(Boolean))].sort();
+  const sel = $('f-plan');
+  const current = sel.value;
+  sel.innerHTML = '<option value="">Tous</option>' +
+    plans.map(p => `<option value="${p}">${p}</option>`).join('');
+  if (current && plans.includes(current)) sel.value = current;
+}
+
+function applyFilters() {
+  const source = $('f-source').value;
+  const plan = $('f-plan').value;
+  const since = $('f-since').value;
+  const search = $('f-search').value.toLowerCase().trim();
+  const sinceTs = since ? new Date(since).getTime() : 0;
+
+  const filtered = allItems.filter(it => {
+    if (source !== 'all' && it.source !== source) return false;
+    if (plan && it.plan !== plan) return false;
+    if (sinceTs && new Date(it.ts).getTime() < sinceTs) return false;
+    if (search) {
+      const blob = [it.email, it.name, it.dedicace, it.orderId].filter(Boolean).join(' ').toLowerCase();
+      if (!blob.includes(search)) return false;
+    }
+    return true;
+  });
+
+  renderTable(filtered);
+}
+
+function renderTable(items) {
+  if (!items.length) {
+    $('tbody').innerHTML = `
+      <tr><td colspan="6" class="empty">
+        <div class="icon">💸</div>
+        Aucun paiement ne correspond à ces filtres.
+      </td></tr>`;
+    return;
+  }
+  $('tbody').innerHTML = items.map(it => {
+    const who = it.email
+      ? `<span class="email">${escapeHtml(it.email)}</span>`
+      : `<strong>${escapeHtml(it.name || '—')}</strong>`;
+    const details = [
+      it.dedicace ? `📜 <em>${escapeHtml(it.dedicace)}</em>` : '',
+      it.orderId ? `<small style="color:#999">#${escapeHtml(it.orderId)}</small>` : '',
+      it.eventType ? `<small style="color:#999">${escapeHtml(it.eventType)}</small>` : '',
+    ].filter(Boolean).join(' · ');
+    return `
+      <tr>
+        <td class="date">${fmtDate(it.ts)}</td>
+        <td><span class="badge-source ${it.source}">${it.source === 'helloasso' ? 'HelloAsso' : 'Manuel'}</span></td>
+        <td>${who}</td>
+        <td>${it.plan ? `<span class="badge-plan">${escapeHtml(it.plan)}</span>` : '—'}${it.recurring ? '<span class="badge-rec" title="abonnement">↻</span>' : ''}</td>
+        <td class="amount">${it.amount_eur > 0 ? fmtEur(it.amount_eur) : '—'}</td>
+        <td>${details || '—'}</td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function exportCsv() {
+  const source = $('f-source').value;
+  const plan = $('f-plan').value;
+  const since = $('f-since').value;
+  const search = $('f-search').value.toLowerCase().trim();
+  const sinceTs = since ? new Date(since).getTime() : 0;
+  const items = allItems.filter(it => {
+    if (source !== 'all' && it.source !== source) return false;
+    if (plan && it.plan !== plan) return false;
+    if (sinceTs && new Date(it.ts).getTime() < sinceTs) return false;
+    if (search) {
+      const blob = [it.email, it.name, it.dedicace, it.orderId].filter(Boolean).join(' ').toLowerCase();
+      if (!blob.includes(search)) return false;
+    }
+    return true;
+  });
+  const rows = [
+    ['Date', 'Source', 'Email', 'Nom', 'Montant_EUR', 'Plan', 'Recurrent', 'Dedicace', 'OrderId', 'EventType'],
+    ...items.map(it => [
+      it.ts,
+      it.source,
+      it.email || '',
+      it.name || '',
+      it.amount_eur || 0,
+      it.plan || '',
+      it.recurring ? 'oui' : 'non',
+      (it.dedicace || '').replace(/[\r\n]+/g, ' '),
+      it.orderId || '',
+      it.eventType || '',
+    ])
+  ];
+  const csv = rows.map(r => r.map(v => {
+    const s = String(v);
+    return /[",;\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+  }).join(';')).join('\n');
+  const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `daat-paiements-${new Date().toISOString().slice(0, 10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// === EVENTS ===
+$('login-btn').addEventListener('click', () => {
+  const pwd = $('pwd').value.trim();
+  if (!pwd) { $('login-err').textContent = 'Mot de passe requis'; return; }
+  sessionStorage.setItem(STORE_KEY, pwd);
+  hideGate();
+  fetchData();
+});
+$('pwd').addEventListener('keydown', e => { if (e.key === 'Enter') $('login-btn').click(); });
+
+['f-source', 'f-plan', 'f-since', 'f-search'].forEach(id => {
+  $(id).addEventListener('input', applyFilters);
+  $(id).addEventListener('change', applyFilters);
+});
+$('refresh-btn').addEventListener('click', fetchData);
+$('export-btn').addEventListener('click', exportCsv);
+
+// === BOOT ===
+if (sessionStorage.getItem(STORE_KEY)) {
+  hideGate();
+  fetchData();
+} else {
+  showGate();
+}
+</script>
+</body>
+</html>

@@ -98,6 +98,112 @@ export default async function handler(req, res) {
       }
     }
 
+    // GET ?action=admin-all → consolidé manuels + HelloAsso (admin)
+    //   ?since=YYYY-MM-DD (optionnel, par défaut 12 mois en arrière)
+    //   ?source=manuel|helloasso (optionnel)
+    if (req.query.action === 'admin-all') {
+      if (!isAuthed(req)) return res.status(401).json({ error: 'Unauthorized' });
+      try {
+        const sinceParam = req.query.since;
+        const sourceFilter = req.query.source || 'all';
+        const since = sinceParam
+          ? new Date(sinceParam)
+          : new Date(Date.now() - 365 * 24 * 60 * 60 * 1000);
+        const sinceTs = since.getTime();
+
+        const items = [];
+
+        // 1. Dons manuels via soutien:list
+        if (sourceFilter === 'all' || sourceFilter === 'manuel') {
+          const ids = (await kv.lrange('soutien:list', 0, 9999)) || [];
+          const recs = await Promise.all(
+            ids.map(async (id) => {
+              try { return await kv.get(`soutien:${id}`); } catch { return null; }
+            })
+          );
+          for (const r of recs) {
+            if (!r) continue;
+            const ts = new Date(r.createdAt).getTime();
+            if (ts < sinceTs) continue;
+            items.push({
+              source: 'manuel',
+              ts: r.createdAt,
+              email: null,
+              name: r.anonymous ? '(anonyme)' : r.name,
+              amount_eur: Number(r.amount) || 0,
+              plan: r.type || '',
+              recurring: false,
+              dedicace: r.dedicace || '',
+              orderId: r.id,
+              eventType: '',
+            });
+          }
+        }
+
+        // 2. Paiements HelloAsso via logs:helloasso
+        if (sourceFilter === 'all' || sourceFilter === 'helloasso') {
+          const logs = (await kv.lrange('logs:helloasso', 0, 9999)) || [];
+          for (const raw of logs) {
+            let entry = raw;
+            if (typeof raw === 'string') {
+              try { entry = JSON.parse(raw); } catch { continue; }
+            }
+            if (!entry || !entry.ts) continue;
+            const ts = new Date(entry.ts).getTime();
+            if (ts < sinceTs) continue;
+            items.push({
+              source: 'helloasso',
+              ts: entry.ts,
+              email: entry.email || '',
+              name: '',
+              amount_eur: Number(entry.amount_eur) || 0,
+              plan: entry.plan || '',
+              recurring: !!entry.recurring,
+              dedicace: '',
+              orderId: entry.orderId || '',
+              eventType: entry.eventType || '',
+            });
+          }
+        }
+
+        // Tri descendant par date
+        items.sort((a, b) => new Date(b.ts) - new Date(a.ts));
+
+        // Stats consolidées
+        const stats = {
+          total_count: items.length,
+          total_eur: 0,
+          by_source: { manuel: 0, helloasso: 0 },
+          by_plan: {},
+          by_month: {},
+          recurring_count: 0,
+          unique_donors: new Set(),
+        };
+        for (const it of items) {
+          stats.total_eur += it.amount_eur;
+          stats.by_source[it.source] = (stats.by_source[it.source] || 0) + it.amount_eur;
+          stats.by_plan[it.plan] = (stats.by_plan[it.plan] || 0) + it.amount_eur;
+          const month = it.ts.slice(0, 7);
+          stats.by_month[month] = (stats.by_month[month] || 0) + it.amount_eur;
+          if (it.recurring) stats.recurring_count++;
+          if (it.email) stats.unique_donors.add(it.email);
+          if (it.name && it.name !== '(anonyme)') stats.unique_donors.add(it.name);
+        }
+        stats.unique_donors = stats.unique_donors.size;
+
+        return res.status(200).json({
+          ok: true,
+          since: since.toISOString(),
+          source_filter: sourceFilter,
+          stats,
+          items,
+        });
+      } catch (err) {
+        console.error('[soutenir] admin-all error:', err);
+        return res.status(500).json({ error: err?.message || 'Erreur serveur' });
+      }
+    }
+
     // GET ?action=stats → objectif mensuel + total collecté + URLs HelloAsso configurées
     if (req.query.action === 'stats') {
       try {
