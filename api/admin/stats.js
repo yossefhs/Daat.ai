@@ -16,13 +16,20 @@ function daysAgo(n) {
 }
 
 export default async function handler(req, res) {
+  // ── CORS (toujours en premier, AVANT toute auth) ─────────────────────────
+  // Sinon le browser fait un preflight OPTIONS qui se prend un 401 et
+  // n'envoie jamais la vraie requête (échec silencieux côté front).
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, x-admin-secret, Authorization');
+  res.setHeader('Access-Control-Max-Age', '86400');
+  if (req.method === 'OPTIONS') return res.status(204).end();
+
   // ── AUTH ADMIN ────────────────────────────────────────────────────────────
   const secret = req.query.secret || req.headers['x-admin-secret'];
   if (!secret || secret !== process.env.ADMIN_PASSWORD) {
     return res.status(401).json({ error: 'Non autorisé' });
   }
-
-  res.setHeader('Access-Control-Allow-Origin', '*');
 
   // ── POST — actions admin ──────────────────────────────────────────────────
   if (req.method === 'POST') {
