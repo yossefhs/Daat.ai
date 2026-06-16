@@ -134,8 +134,28 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../../assets/css/daat.css">
+<style id="daat-langsw-css">
+  .lang-switcher-float {
+    position: fixed; top: 12px; right: 12px; z-index: 9999;
+    display: flex; gap: 4px; background: rgba(255,255,255,0.95);
+    border: 1px solid #C5A55A; padding: 4px 6px; border-radius: 3px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); font-family: 'Inter', sans-serif;
+  }
+  .lang-switcher-float a {
+    font-size: 11px; letter-spacing: 1px; padding: 3px 7px; border-radius: 2px;
+    color: #5a4a1a; text-decoration: none; border: 1px solid transparent;
+  }
+  .lang-switcher-float a.active { color: #1A1F3A; background: #FFF8E5; border-color: #1A1F3A; font-weight: 600; }
+  .lang-switcher-float a:hover { color: #1A1F3A; border-color: #C5A55A; }
+  @media print { .lang-switcher-float { display: none; } }
+</style>
 </head>
 <body class="daat-reset daat-body">
+  <div class="lang-switcher-float" role="navigation" aria-label="Langue / Language">
+    <a href="/yd/90/" hreflang="fr" class="active">FR</a>
+    <a href="/yd/90/he" hreflang="he">HE</a>
+    <a href="/yd/90/en" hreflang="en">EN</a>
+  </div>
 
   <header class="daat-header">
     <a href="../../../index.html" class="daat-logo">

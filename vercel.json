@@ -384,6 +384,170 @@
     {
       "source": "/oh/:n(\\d+)/index.html",
       "destination": "/sources/shabbat/siman-:n/index.html"
+    },
+    {
+      "source": "/yd",
+      "destination": "/sources/yoreh-deah/index.html"
+    },
+    {
+      "source": "/yd/",
+      "destination": "/sources/yoreh-deah/index.html"
+    },
+    {
+      "source": "/yd/index-he.html",
+      "destination": "/sources/yoreh-deah/index-he.html"
+    },
+    {
+      "source": "/yd/index-en.html",
+      "destination": "/sources/yoreh-deah/index-en.html"
+    },
+    {
+      "source": "/yd/he",
+      "destination": "/sources/yoreh-deah/index-he.html"
+    },
+    {
+      "source": "/yd/en",
+      "destination": "/sources/yoreh-deah/index-en.html"
+    },
+    {
+      "source": "/yd/:n(\\d+)",
+      "destination": "/sources/yoreh-deah/siman-:n/index.html"
+    },
+    {
+      "source": "/yd/:n(\\d+)/",
+      "destination": "/sources/yoreh-deah/siman-:n/index.html"
+    },
+    {
+      "source": "/yd/:n(\\d+)/index.html",
+      "destination": "/sources/yoreh-deah/siman-:n/index.html"
+    },
+    {
+      "source": "/yd/:n(\\d+)/index-he.html",
+      "destination": "/sources/yoreh-deah/siman-:n/index-he.html"
+    },
+    {
+      "source": "/yd/:n(\\d+)/index-en.html",
+      "destination": "/sources/yoreh-deah/siman-:n/index-en.html"
+    },
+    {
+      "source": "/yd/:n(\\d+)/he",
+      "destination": "/sources/yoreh-deah/siman-:n/index-he.html"
+    },
+    {
+      "source": "/yd/:n(\\d+)/en",
+      "destination": "/sources/yoreh-deah/siman-:n/index-en.html"
+    },
+    {
+      "source": "/yd/siman-:n(\\d+)/index.html",
+      "destination": "/sources/yoreh-deah/siman-:n/index.html"
+    },
+    {
+      "source": "/yd/siman-:n(\\d+)/index-he.html",
+      "destination": "/sources/yoreh-deah/siman-:n/index-he.html"
+    },
+    {
+      "source": "/yd/siman-:n(\\d+)/index-en.html",
+      "destination": "/sources/yoreh-deah/siman-:n/index-en.html"
+    },
+    {
+      "source": "/yd/:n(\\d+)/base",
+      "destination": "/sources/yoreh-deah/siman-:n/niveau-1-base.html"
+    },
+    {
+      "source": "/yd/:n(\\d+)/base/",
+      "destination": "/sources/yoreh-deah/siman-:n/niveau-1-base.html"
+    },
+    {
+      "source": "/yd/:n(\\d+)/base/he",
+      "destination": "/sources/yoreh-deah/siman-:n/niveau-1-base-he.html"
+    },
+    {
+      "source": "/yd/:n(\\d+)/base/en",
+      "destination": "/sources/yoreh-deah/siman-:n/niveau-1-base-en.html"
+    },
+    {
+      "source": "/yd/:n(\\d+)/lamdan",
+      "destination": "/sources/yoreh-deah/siman-:n/niveau-2-lamdan.html"
+    },
+    {
+      "source": "/yd/:n(\\d+)/lamdan/",
+      "destination": "/sources/yoreh-deah/siman-:n/niveau-2-lamdan.html"
+    },
+    {
+      "source": "/yd/:n(\\d+)/synthese",
+      "destination": "/sources/yoreh-deah/siman-:n/niveau-3-synthese.html"
+    },
+    {
+      "source": "/yd/:n(\\d+)/synthese/",
+      "destination": "/sources/yoreh-deah/siman-:n/niveau-3-synthese.html"
+    },
+    {
+      "source": "/yd/:n(\\d+)/synthese/he",
+      "destination": "/sources/yoreh-deah/siman-:n/niveau-3-synthese-he.html"
+    },
+    {
+      "source": "/yd/:n(\\d+)/synthese/en",
+      "destination": "/sources/yoreh-deah/siman-:n/niveau-3-synthese-en.html"
+    },
+    {
+      "source": "/yd/:n(\\d+)/halakha",
+      "destination": "/sources/yoreh-deah/siman-:n/niveau-4-halakha.html"
+    },
+    {
+      "source": "/yd/:n(\\d+)/halakha/",
+      "destination": "/sources/yoreh-deah/siman-:n/niveau-4-halakha.html"
+    },
+    {
+      "source": "/yd/:n(\\d+)/halakha/he",
+      "destination": "/sources/yoreh-deah/siman-:n/niveau-4-halakha-he.html"
+    },
+    {
+      "source": "/yd/:n(\\d+)/halakha/en",
+      "destination": "/sources/yoreh-deah/siman-:n/niveau-4-halakha-en.html"
+    },
+    {
+      "source": "/yd/:n(\\d+)/niveau-1-base.html",
+      "destination": "/sources/yoreh-deah/siman-:n/niveau-1-base.html"
+    },
+    {
+      "source": "/yd/:n(\\d+)/niveau-1-base-he.html",
+      "destination": "/sources/yoreh-deah/siman-:n/niveau-1-base-he.html"
+    },
+    {
+      "source": "/yd/:n(\\d+)/niveau-1-base-en.html",
+      "destination": "/sources/yoreh-deah/siman-:n/niveau-1-base-en.html"
+    },
+    {
+      "source": "/yd/:n(\\d+)/niveau-2-lamdan.html",
+      "destination": "/sources/yoreh-deah/siman-:n/niveau-2-lamdan.html"
+    },
+    {
+      "source": "/yd/:n(\\d+)/niveau-3-synthese.html",
+      "destination": "/sources/yoreh-deah/siman-:n/niveau-3-synthese.html"
+    },
+    {
+      "source": "/yd/:n(\\d+)/niveau-3-synthese-he.html",
+      "destination": "/sources/yoreh-deah/siman-:n/niveau-3-synthese-he.html"
+    },
+    {
+      "source": "/yd/:n(\\d+)/niveau-3-synthese-en.html",
+      "destination": "/sources/yoreh-deah/siman-:n/niveau-3-synthese-en.html"
+    },
+    {
+      "source": "/yd/:n(\\d+)/niveau-4-halakha.html",
+      "destination": "/sources/yoreh-deah/siman-:n/niveau-4-halakha.html"
+    },
+    {
+      "source": "/yd/:n(\\d+)/niveau-4-halakha-he.html",
+      "destination": "/sources/yoreh-deah/siman-:n/niveau-4-halakha-he.html"
+    },
+    {
+      "source": "/yd/:n(\\d+)/niveau-4-halakha-en.html",
+      "destination": "/sources/yoreh-deah/siman-:n/niveau-4-halakha-en.html"
+    },
+    {
+      "source": "/yd/:n(\\d+)/:page",
+      "destination": "/sources/yoreh-deah/siman-:n/:page"
     }
   ],
   "redirects": [

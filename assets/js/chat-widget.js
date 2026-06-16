@@ -1223,7 +1223,7 @@
         const response = await fetch(API_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ messages: this.messages }),
+          body: JSON.stringify({ messages: this.messages, section: (document.querySelector('meta[name="daat-section"]') || {}).content || 'orach-chaim' }),
         });
 
         if (!response.ok) {

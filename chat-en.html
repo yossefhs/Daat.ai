@@ -1560,7 +1560,7 @@ async function send(userText) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
-      body: JSON.stringify({ messages: state.messages, lang: 'en' }),
+      body: JSON.stringify({ messages: state.messages, lang: 'en', section: new URLSearchParams(location.search).get('section') || 'orach-chaim' }),
     });
 
     if (!response.ok) {

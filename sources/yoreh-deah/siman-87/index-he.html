@@ -138,9 +138,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../../assets/css/daat.css">
+<style id="daat-rtl-css">
+  body.daat-body { direction: rtl; text-align: right; }
+  .daat-breadcrumb-inner .sep { transform: scaleX(-1); display: inline-block; }
+</style>
 <style id="daat-langsw-css">
   .lang-switcher-float {
-    position: fixed; top: 12px; right: 12px; z-index: 9999;
+    position: fixed; top: 12px; left: 12px; z-index: 9999;
     display: flex; gap: 4px; background: rgba(255,255,255,0.95);
     border: 1px solid #C5A55A; padding: 4px 6px; border-radius: 3px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1); font-family: 'Inter', sans-serif;
@@ -153,18 +157,14 @@
   .lang-switcher-float a:hover { color: #1A1F3A; border-color: #C5A55A; }
   @media print { .lang-switcher-float { display: none; } }
 </style>
-<style id="daat-rtl-css">
-  body.daat-body { direction: rtl; text-align: right; }
-  .daat-breadcrumb-inner .sep { transform: scaleX(-1); display: inline-block; }
-</style>
 </head>
 <body class="daat-reset daat-body">
-
-  <div class="lang-switcher-float">
-    <a href="../../../sources/yoreh-deah/siman-87/index.html" hreflang="fr">FR</a>
-    <a href="index-he.html" hreflang="he" class="active">עב</a>
-    <a href="index-en.html" hreflang="en">EN</a>
+  <div class="lang-switcher-float" role="navigation" aria-label="Langue / Language">
+    <a href="/yd/87/" hreflang="fr">FR</a>
+    <a href="/yd/87/he" hreflang="he" class="active">HE</a>
+    <a href="/yd/87/en" hreflang="en">EN</a>
   </div>
+
 
   <header class="daat-header">
     <a href="../../../index.html" class="daat-logo">
