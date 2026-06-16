@@ -1116,27 +1116,88 @@ async function anFetch(path, opts) {
 }
 
 async function anConnect() {
+  // ── Panneau de debug visible (élimine tous les diagnostics à distance) ──
+  let dbg = document.getElementById('an-debug-panel');
+  if (!dbg) {
+    dbg = document.createElement('div');
+    dbg.id = 'an-debug-panel';
+    dbg.style.cssText = 'margin:12px 0;padding:12px 14px;background:#1A1F3A;color:#d4c89a;font-family:Menlo,Consolas,monospace;font-size:12px;line-height:1.6;border-radius:4px;white-space:pre-wrap;word-break:break-word;max-height:280px;overflow-y:auto;border:1px solid #C5A55A;';
+    const bar = document.querySelector('.an-secret-bar');
+    if (bar && bar.parentNode) bar.parentNode.insertBefore(dbg, bar.nextSibling);
+  }
+  const log = (txt, color) => {
+    const t = new Date().toLocaleTimeString('fr');
+    const line = document.createElement('div');
+    if (color) line.style.color = color;
+    line.textContent = `[${t}] ${txt}`;
+    dbg.appendChild(line);
+    dbg.scrollTop = dbg.scrollHeight;
+  };
+  dbg.innerHTML = '';
+  log('▶ anConnect() lancée', '#C5A55A');
+
   anSecret = document.getElementById('an-secret').value.trim();
   anApiUrl = (document.getElementById('an-api-url').value.trim() || 'https://daatai.vercel.app').replace(/\/$/, '');
+  log(`· Clé saisie : ${anSecret.length} caractères`);
+  log(`· URL API    : ${anApiUrl}`);
+  if (!anSecret) {
+    log('✗ Aucune clé saisie — clique dans le champ et tape ton ADMIN_PASSWORD', '#fca5a5');
+    return;
+  }
+
   const status = document.getElementById('an-status');
-  status.textContent = 'Connexion…';
-  status.style.color = 'var(--muted)';
+  if (status) {
+    status.textContent = 'Connexion…';
+    status.style.color = 'var(--muted)';
+  }
+
+  const url = `${anApiUrl}/api/admin/stats?action=overview&days=1&secret=${encodeURIComponent(anSecret)}`;
+  log(`▶ fetch (preflight + GET)…`, '#C5A55A');
   try {
-    await anFetch('/api/admin/stats?action=overview&days=1');
+    const t0 = performance.now();
+    const res = await fetch(url, { headers: { 'Content-Type': 'application/json' } });
+    const dt = Math.round(performance.now() - t0);
+    log(`◀ Réponse en ${dt} ms : HTTP ${res.status} ${res.statusText}`, res.ok ? '#86efac' : '#fca5a5');
+
+    const ctype = res.headers.get('content-type') || '';
+    log(`· Content-Type: ${ctype}`);
+
+    if (!res.ok) {
+      const body = await res.text();
+      log(`✗ Corps : ${body.slice(0, 200)}`, '#fca5a5');
+      if (res.status === 401) {
+        log(`💡 401 = ADMIN_PASSWORD côté Vercel ≠ ce que tu viens de taper.`, '#FCD34D');
+        log(`   Va sur Vercel Settings → Environment Variables, clique l'œil 👁`, '#FCD34D');
+        log(`   à droite de ADMIN_PASSWORD pour révéler la valeur exacte.`, '#FCD34D');
+      }
+      if (status) { status.textContent = `❌ HTTP ${res.status}`; status.style.color = 'var(--red)'; }
+      return;
+    }
+
+    const data = await res.json();
+    log(`◀ JSON OK : ${JSON.stringify(data).slice(0,140)}…`, '#86efac');
+
     localStorage.setItem('daat_admin_secret', anSecret);
     localStorage.setItem('daat_admin_api', anApiUrl);
-    status.textContent = '✅ Connecté à ' + anApiUrl;
-    status.style.color = 'var(--green)';
+    if (status) { status.textContent = '✅ Connecté à ' + anApiUrl; status.style.color = 'var(--green)'; }
     const s2 = document.getElementById('an-status2');
     if (s2) { s2.textContent = '✅ Connecté'; s2.style.color = 'var(--green)'; }
-    anLoadOverview();
-    anLoadUsers();
-    anLoadLogs();
+
+    log('▶ chargement overview…', '#C5A55A');
+    try { await anLoadOverview(); log('✓ anLoadOverview OK', '#86efac'); }
+    catch (e) { log('✗ anLoadOverview: ' + (e && e.message || e), '#fca5a5'); }
+    try { await anLoadUsers(); log('✓ anLoadUsers OK', '#86efac'); }
+    catch (e) { log('✗ anLoadUsers: ' + (e && e.message || e), '#fca5a5'); }
+    try { await anLoadLogs(); log('✓ anLoadLogs OK', '#86efac'); }
+    catch (e) { log('✗ anLoadLogs: ' + (e && e.message || e), '#fca5a5'); }
     anStartAutoRefresh();
     toast('Analytics connecté ✅ — auto-refresh 30s');
+    log('✅ TOUT EST OK — les cartes devraient s\'afficher au-dessus.', '#86efac');
   } catch (e) {
-    status.textContent = '❌ ' + e.message;
-    status.style.color = 'var(--red)';
+    log(`✗ Exception : ${e && e.message || e}`, '#fca5a5');
+    log(`💡 "Failed to fetch" = blocage réseau (uBlock, Brave Shields, DNS, VPN).`, '#FCD34D');
+    log(`   Désactive tes extensions pour daattorah.com, ou teste sur ton téléphone en 4G.`, '#FCD34D');
+    if (status) { status.textContent = '❌ ' + (e.message || 'Erreur réseau'); status.style.color = 'var(--red)'; }
   }
 }
 
