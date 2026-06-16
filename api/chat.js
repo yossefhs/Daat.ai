@@ -8,7 +8,7 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { kv } from './_kv.js';
 import { getClientIp } from './_http.js';
-import { SYSTEM_PROMPT } from './_system-prompt.js';
+import { SYSTEM_PROMPT, buildSystemPrompt } from './_system-prompt.js';
 import { SEFARIA_TOOLS, executeSefariaTool } from './_sefaria.js';
 import { CORPUS_TOOLS, executeCorpusTool, searchCorpus } from './_corpus.js';
 import { searchCorpus as searchShabbatCorpus } from './_corpus-search.js';
@@ -282,6 +282,9 @@ export default async function handler(req, res) {
 
   try {
     const { messages } = req.body || {};
+    // Section halakhique (section-aware) : 'yoreh-deah' active la surcharge YD,
+    // sinon 'orach-chaim' par défaut (prompt de base inchangé).
+    const section = (req.body && req.body.section === 'yoreh-deah') ? 'yoreh-deah' : 'orach-chaim';
 
     // Validation
     if (!Array.isArray(messages) || messages.length === 0) {
@@ -847,7 +850,7 @@ RÈGLES STRICTES :
         system: [
           {
             type: 'text',
-            text: SYSTEM_PROMPT,
+            text: buildSystemPrompt(section),
             cache_control: { type: 'ephemeral', ttl: '1h' },
           },
         ],
