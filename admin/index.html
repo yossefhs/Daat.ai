@@ -1202,39 +1202,42 @@ async function anConnect() {
 }
 
 async function anLoadOverview() {
-  try {
-    const data = await anFetch('/api/admin/stats?action=overview&days=7');
-    const t = data.totals;
-    const today = data.days[data.days.length - 1] || { count: 0, tokens_in: 0, tokens_out: 0, cost_usd: 0 };
-
-    const cardsToday = document.getElementById('an-cards-today');
-    if (cardsToday) {
-      cardsToday.innerHTML = `
-        <div class="an-card"><div class="an-val gold">${today.count.toLocaleString('fr')}</div><div class="an-label">Questions auj.</div></div>
-        <div class="an-card"><div class="an-val">${(today.tokens_in||0).toLocaleString('fr')}</div><div class="an-label">Tokens input auj.</div></div>
-        <div class="an-card"><div class="an-val">${(today.tokens_out||0).toLocaleString('fr')}</div><div class="an-label">Tokens output auj.</div></div>
-        <div class="an-card"><div class="an-val green">$${(today.cost_usd||0).toFixed(4)}</div><div class="an-label">Coût auj.</div></div>
-      `;
-    }
-
-    const cards = document.getElementById('an-cards');
-    cards.innerHTML = `
-      <div class="an-card"><div class="an-val gold">${t.count.toLocaleString('fr')}</div><div class="an-label">Questions (7j)</div></div>
-      <div class="an-card"><div class="an-val">${Math.round(t.tokens_in/1000)}K</div><div class="an-label">Tokens input (7j)</div></div>
-      <div class="an-card"><div class="an-val">${Math.round(t.tokens_out/1000)}K</div><div class="an-label">Tokens output (7j)</div></div>
-      <div class="an-card"><div class="an-val green">$${t.cost_usd.toFixed(3)}</div><div class="an-label">Coût estimé (7j)</div></div>
-    `;
-    anRenderUsageChart(data.days);
-    anRenderCostChart(data.days);
-    anUpdateLastSync();
-  } catch (e) {
-    console.warn('Analytics overview:', e.message);
-    // Afficher l'erreur dans l'UI au lieu de l'avaler silencieusement
-    const cardsToday = document.getElementById('an-cards-today');
-    if (cardsToday) {
-      cardsToday.innerHTML = `<div class="an-card" style="grid-column:1/-1;border:1px solid #C0392B;background:#FFE8E8;color:#C0392B;padding:14px 18px;"><strong>❌ Erreur d'affichage</strong><br><span style="font-size:12px;">${(e.message || e).toString().replace(/</g,'&lt;')}</span><br><small style="opacity:0.8;">Ouvre F12 → Console pour le détail. Si tu vois "Failed to fetch" ou "Network error" ici, c'est une coupure réseau. Si tu vois "Cannot read property", c'est un bug d'affichage côté front (le fix arrive).</small></div>`;
-    }
+  // Pas de try/catch interne : laisse l'exception remonter à anConnect
+  // qui possède un panneau de debug visible pour afficher la cause exacte.
+  const data = await anFetch('/api/admin/stats?action=overview&days=7');
+  if (!data || !data.totals || !Array.isArray(data.days)) {
+    throw new Error('Réponse inattendue: ' + JSON.stringify(data).slice(0, 200));
   }
+  const t = data.totals;
+  const today = data.days[data.days.length - 1] || { count: 0, tokens_in: 0, tokens_out: 0, cost_usd: 0 };
+
+  const cardsToday = document.getElementById('an-cards-today');
+  if (cardsToday) {
+    cardsToday.innerHTML = `
+      <div class="an-card"><div class="an-val gold">${(today.count||0).toLocaleString('fr')}</div><div class="an-label">Questions auj.</div></div>
+      <div class="an-card"><div class="an-val">${(today.tokens_in||0).toLocaleString('fr')}</div><div class="an-label">Tokens input auj.</div></div>
+      <div class="an-card"><div class="an-val">${(today.tokens_out||0).toLocaleString('fr')}</div><div class="an-label">Tokens output auj.</div></div>
+      <div class="an-card"><div class="an-val green">$${(today.cost_usd||0).toFixed(4)}</div><div class="an-label">Coût auj.</div></div>
+    `;
+  }
+
+  const cards = document.getElementById('an-cards');
+  if (cards) {
+    cards.innerHTML = `
+      <div class="an-card"><div class="an-val gold">${(t.count||0).toLocaleString('fr')}</div><div class="an-label">Questions (7j)</div></div>
+      <div class="an-card"><div class="an-val">${Math.round((t.tokens_in||0)/1000)}K</div><div class="an-label">Tokens input (7j)</div></div>
+      <div class="an-card"><div class="an-val">${Math.round((t.tokens_out||0)/1000)}K</div><div class="an-label">Tokens output (7j)</div></div>
+      <div class="an-card"><div class="an-val green">$${(t.cost_usd||0).toFixed(3)}</div><div class="an-label">Coût estimé (7j)</div></div>
+    `;
+  }
+
+  // Charts : si la fonction n'existe pas ou si le canvas manque, on ne crash plus
+  try { if (typeof anRenderUsageChart === 'function') anRenderUsageChart(data.days); }
+  catch (chartErr) { console.warn('[chart usage]', chartErr); }
+  try { if (typeof anRenderCostChart === 'function') anRenderCostChart(data.days); }
+  catch (chartErr) { console.warn('[chart cost]', chartErr); }
+  try { if (typeof anUpdateLastSync === 'function') anUpdateLastSync(); }
+  catch (e) { /* ignore */ }
 }
 
 // ── AUTO-REFRESH temps réel ────────────────────────────────────────────────
