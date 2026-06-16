@@ -1433,13 +1433,17 @@
             <a href="/oh/en" style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 1px; color: var(--gold); text-decoration: none;">→ Full simanim page</a>
           </div>
         </div>
-        <div class="masekhet-card soon">
-          <div class="masekhet-tag tag-soon">Soon</div>
+        <div class="masekhet-card active">
+          <div class="masekhet-tag tag-active">New</div>
           <div class="masekhet-name-he">יורה דעה</div>
           <div class="masekhet-name-fr">Yoreh De'ah — Issur ve-Heter</div>
-          <ul class="siman-list">
-            <li><span style="color:var(--text-muted)">Content in preparation</span></li>
-          </ul>
+          <p id="simanim-desc-counts-yd" style="font-size: 13px; color: var(--text-muted); margin-bottom: 6px;">Loading the list of available simanim…</p>
+          <div id="simanim-grid-yd" class="simanim-grid" aria-live="polite" aria-busy="true">
+            <div class="simanim-grid-loading">Loading simanim…</div>
+          </div>
+          <div style="margin-top: 14px; text-align: center;">
+            <a href="/yd/en" style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 1px; color: var(--gold); text-decoration: none;">→ Full simanim page</a>
+          </div>
         </div>
         <div class="masekhet-card soon">
           <div class="masekhet-tag tag-soon">Future</div>
@@ -1611,6 +1615,7 @@
         const data = await res.json();
         const frag = document.createDocumentFragment();
         for (const s of data.simanim) {
+          if ((s.section || 'shabbat') !== 'shabbat') continue;
           const a = document.createElement('a');
           a.href = s.path.replace(/index\.html$/, 'index-en.html');
           a.className = 'simanim-tile';
@@ -1633,7 +1638,7 @@
         grid.appendChild(frag);
         grid.removeAttribute('aria-busy');
         if (desc) {
-          const c = data.meta.counts;
+          const c = (data.meta.bySection && data.meta.bySection.shabbat && data.meta.bySection.shabbat.counts) || data.meta.counts;
           desc.innerHTML =
             '<strong>' + c.total + ' simanim available</strong> · ' +
             c.complet + ' with all 4 complete levels · ' +
@@ -1643,6 +1648,43 @@
         console.error('Failed to load simanim index:', e);
         grid.innerHTML = '<div class="simanim-grid-loading">List unavailable. <a href="/oh/en" style="color: var(--gold);">See all simanim →</a></div>';
         if (desc) desc.textContent = 'All simanim 242-365 are available on the Hilkhot Shabbat page.';
+      }
+    })();
+  </script>
+  <!-- Auto-rendu liste Yoreh De'ah -->
+  <script>
+    (async function () {
+      const grid = document.getElementById('simanim-grid-yd');
+      const desc = document.getElementById('simanim-desc-counts-yd');
+      if (!grid) return;
+      try {
+        const res = await fetch('data/simanim-disponibles-en.json', { cache: 'no-cache' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        const items = (data.simanim || []).filter((s) => (s.section || 'shabbat') === 'yoreh-deah');
+        const frag = document.createDocumentFragment();
+        for (const s of items) {
+          const a = document.createElement('a');
+          a.href = s.path.replace(/index\.html$/, 'index-en.html');
+          a.className = 'simanim-tile';
+          a.title = 'Siman ' + s.num + ' — ' + s.title;
+          const num = document.createElement('span'); num.className = 'simanim-tile-num'; num.textContent = s.numHe;
+          const numFr = document.createElement('span'); numFr.className = 'siman-num-fr'; numFr.textContent = '\u00b7 ' + s.num;
+          num.appendChild(numFr);
+          const title = document.createElement('span'); title.className = 'simanim-tile-title'; title.textContent = s.title;
+          a.appendChild(num); a.appendChild(title); frag.appendChild(a);
+        }
+        grid.innerHTML = '';
+        if (!items.length) { grid.innerHTML = '<div class="simanim-grid-loading">First simanim coming soon…</div>'; }
+        else { grid.appendChild(frag); }
+        grid.removeAttribute('aria-busy');
+        if (desc) {
+          const c = (data.meta.bySection && data.meta.bySection['yoreh-deah'] && data.meta.bySection['yoreh-deah'].counts) || { total: items.length };
+          desc.innerHTML = '<strong>' + c.total + ' simanim available</strong> · Issur ve-Heter (87-91) · Shach, Taz, Pri Megadim, Pithei Teshuva';
+        }
+      } catch (e) {
+        console.error('Failed to load YD index:', e);
+        grid.innerHTML = '<div class="simanim-grid-loading">List unavailable. <a href="/yd/en" style="color: var(--gold);">See simanim →</a></div>';
       }
     })();
   </script>
