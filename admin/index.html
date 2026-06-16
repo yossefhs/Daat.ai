@@ -1168,6 +1168,11 @@ async function anLoadOverview() {
     anUpdateLastSync();
   } catch (e) {
     console.warn('Analytics overview:', e.message);
+    // Afficher l'erreur dans l'UI au lieu de l'avaler silencieusement
+    const cardsToday = document.getElementById('an-cards-today');
+    if (cardsToday) {
+      cardsToday.innerHTML = `<div class="an-card" style="grid-column:1/-1;border:1px solid #C0392B;background:#FFE8E8;color:#C0392B;padding:14px 18px;"><strong>❌ Erreur d'affichage</strong><br><span style="font-size:12px;">${(e.message || e).toString().replace(/</g,'&lt;')}</span><br><small style="opacity:0.8;">Ouvre F12 → Console pour le détail. Si tu vois "Failed to fetch" ou "Network error" ici, c'est une coupure réseau. Si tu vois "Cannot read property", c'est un bug d'affichage côté front (le fix arrive).</small></div>`;
+    }
   }
 }
 
