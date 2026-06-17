@@ -578,3 +578,92 @@
   .daat-hero-title-he { font-size: 38px; }
   .daat-hero-title-fr { font-size: 24px; }
 }
+
+/* ============================================================
+   SIMANIM GRID + TILES — partagé entre Yoreh De'ah, futures sections
+   (Hilkhot Shabbat utilise son propre style inline)
+   ============================================================ */
+
+.simanim-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 18px;
+  margin-bottom: 40px;
+}
+
+.simanim-grid-loading {
+  grid-column: 1 / -1;
+  padding: 32px;
+  text-align: center;
+  font-style: italic;
+  color: var(--daat-text-muted);
+  background: var(--daat-cream);
+  border: 1px dashed var(--daat-border);
+  border-radius: 3px;
+}
+
+.simanim-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 22px;
+  background: #ffffff;
+  border: 1px solid var(--daat-border);
+  border-left: 4px solid var(--daat-gold);
+  text-decoration: none;
+  color: var(--daat-navy);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  min-height: 110px;
+}
+
+.simanim-tile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(26, 31, 58, 0.10);
+  border-left-color: var(--daat-navy);
+  text-decoration: none;
+}
+
+.simanim-tile:focus-visible {
+  outline: 2px solid var(--daat-gold);
+  outline-offset: 3px;
+}
+
+.simanim-tile-num {
+  font-family: 'Frank Ruhl Libre', 'Times New Roman', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--daat-gold);
+  direction: rtl;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  line-height: 1.1;
+}
+
+.simanim-tile-num .siman-num-fr {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--daat-text-muted);
+  direction: ltr;
+}
+
+.simanim-tile-title {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--daat-navy);
+}
+
+body[dir="rtl"] .simanim-tile { text-align: right; border-left: 0; border-right: 4px solid var(--daat-gold); }
+body[dir="rtl"] .simanim-tile:hover { border-right-color: var(--daat-navy); }
+
+@media (max-width: 640px) {
+  .simanim-grid { grid-template-columns: 1fr; gap: 12px; }
+  .simanim-tile { padding: 16px 18px; min-height: 0; }
+  .simanim-tile-num { font-size: 22px; }
+  .simanim-tile-title { font-size: 16px; }
+}
