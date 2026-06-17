@@ -1246,45 +1246,62 @@
   var tagEl=document.getElementById('dy-tag');
   var switchEl=document.getElementById('dy-switch');
 
-  // === Plan personnel : si présent dans localStorage, on bascule l'affichage ===
-  var customPlanRaw=null;
-  try { customPlanRaw = localStorage.getItem('daat:custom-plan:v1'); } catch(_) {}
-  if (customPlanRaw) {
-    try {
-      var cp = JSON.parse(customPlanRaw);
-      if (cp && cp.startDate && cp.rate) {
-        if (tagEl) tagEl.innerHTML = 'Mon plan personnel · <span class="dy-sub">'+ (cp.rateUnit==='siman_per_day' ? '1 siman/jour' : (cp.rate + ' séifim/jour')) +'</span>';
-        if (ctaLink) { ctaLink.textContent = 'Voir mon plan →'; ctaLink.href = '/limoud/mon-plan.html'; }
-        if (ctaSecondary) { ctaSecondary.textContent = 'Modifier mon plan'; ctaSecondary.href = '/limoud/personnaliser.html'; }
-        if (switchEl) switchEl.innerHTML = 'Préfères revenir au rythme universel ? <a href="/limoud/index.html">Voir le Daat Yomi universel →</a>';
-        // Affichage : où en suis-je dans mon plan ?
-        var startD = parseISO(cp.startDate);
-        var sd = (cp.studyDays && cp.studyDays.length) ? cp.studyDays : [0,1,2,3,4];
-        var studySet = {}; sd.forEach(function(x){ studySet[x]=true; });
-        // Compte les jours d'étude écoulés
-        var dayN = 0;
-        var cur = new Date(startD.getTime());
-        var loops = 0;
-        while (cur <= today && loops < 5000) {
-          if (studySet[cur.getUTCDay()]) dayN++;
-          cur.setUTCDate(cur.getUTCDate()+1);
-          loops++;
-        }
-        var html='';
-        html+='<div class="dy-today">Aujourd\'hui · '+fmtDate(today)+'</div>';
-        if (today < startD) {
-          html+='<div class="dy-day">Ton plan commence le '+fmtDate(startD)+'</div>';
-        } else if (dayN < 1) {
-          html+='<div class="dy-notice">Reprise au prochain jour d\'étude</div>';
-        } else {
-          html+='<div class="dy-day">Jour <span class="dy-day-num">'+dayN+'</span> <span style="opacity:.55">de TON plan</span></div>';
-          html+='<div class="dy-title">'+ (cp.rateUnit==='siman_per_day' ? '1 siman/jour' : (cp.rate + ' séifim/jour')) + ' · '+ sd.length +' jours/sem</div>';
-        }
-        container.innerHTML = html;
-        return;
-      }
-    } catch (_) {}
+  // === Plan personnel — source de vérité commune avec les emails ===========
+  // Le plan perso est stocké côté serveur (KV, clé par email) et utilisé par le
+  // cron pour l'email quotidien. On l'affiche ici (1) instantanément depuis le
+  // localStorage (offline-first) et (2) depuis le serveur si l'utilisateur est
+  // connecté — afin que le SITE et les EMAILS affichent toujours le même jour,
+  // même sur un appareil où le plan n'a jamais été créé localement.
+  function renderPersonalPlan(cp){
+    if (!cp || !cp.startDate || !cp.rate) return false;
+    if (tagEl) tagEl.innerHTML = 'Mon plan personnel · <span class="dy-sub">'+ (cp.rateUnit==='siman_per_day' ? '1 siman/jour' : (cp.rate + ' séifim/jour')) +'</span>';
+    if (ctaLink) { ctaLink.textContent = 'Voir mon plan →'; ctaLink.href = '/limoud/mon-plan.html'; }
+    if (ctaSecondary) { ctaSecondary.textContent = 'Modifier mon plan'; ctaSecondary.href = '/limoud/personnaliser.html'; }
+    if (switchEl) switchEl.innerHTML = 'Préfères revenir au rythme universel ? <a href="/limoud/index.html">Voir le Daat Yomi universel →</a>';
+    var startD = parseISO(cp.startDate);
+    var sd = (cp.studyDays && cp.studyDays.length) ? cp.studyDays : [0,1,2,3,4];
+    var studySet = {}; sd.forEach(function(x){ studySet[x]=true; });
+    var dayN = 0, cur = new Date(startD.getTime()), loops = 0;
+    while (cur <= today && loops < 5000) {
+      if (studySet[cur.getUTCDay()]) dayN++;
+      cur.setUTCDate(cur.getUTCDate()+1); loops++;
+    }
+    var html='';
+    html+='<div class="dy-today">Aujourd\'hui · '+fmtDate(today)+'</div>';
+    if (today < startD) {
+      html+='<div class="dy-day">Ton plan commence le '+fmtDate(startD)+'</div>';
+    } else if (dayN < 1) {
+      html+='<div class="dy-notice">Reprise au prochain jour d\'étude</div>';
+    } else {
+      html+='<div class="dy-day">Jour <span class="dy-day-num">'+dayN+'</span> <span style="opacity:.55">de TON plan</span></div>';
+      html+='<div class="dy-title">'+ (cp.rateUnit==='siman_per_day' ? '1 siman/jour' : (cp.rate + ' séifim/jour')) + ' · '+ sd.length +' jours/sem</div>';
+    }
+    container.innerHTML = html;
+    return true;
   }
+
+  function readLocalPlan(){
+    try { var r = localStorage.getItem('daat:custom-plan:v1'); return r ? JSON.parse(r) : null; }
+    catch(_) { return null; }
+  }
+
+  // (2) Récupération serveur (asynchrone, best-effort). Si connecté et plan
+  // présent : on l'affiche et on le met en cache pour les prochaines visites.
+  // Tout échec (non connecté, hors-ligne) est ignoré silencieusement.
+  try {
+    fetch('https://daatai.vercel.app/api/my-plan', { credentials: 'include' })
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(d){
+        if (!d || !d.plan) return;
+        try { localStorage.setItem('daat:custom-plan:v1', JSON.stringify(d.plan)); } catch(_){}
+        renderPersonalPlan(d.plan);
+      })
+      .catch(function(){});
+  } catch(_) {}
+
+  // (1) Rendu immédiat depuis le localStorage si un plan perso y est déjà.
+  if (renderPersonalPlan(readLocalPlan())) return;
+
   // Sinon : affichage standard (plan universel)
   if (switchEl) switchEl.innerHTML = 'Préfères un autre rythme ? <a href="/limoud/personnaliser.html">Crée ton plan personnel →</a>';
 
