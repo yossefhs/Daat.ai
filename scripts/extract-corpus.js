@@ -50,7 +50,7 @@ function extractChunks(siman, html) {
   const bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
   const body = bodyMatch ? bodyMatch[1] : html;
 
-  const sectionRegex = /<h2 class="section-title">([\s\S]*?)<\/h2>([\s\S]*?)(?=<h2 class="section-title">|$)/g;
+  const sectionRegex = /<h2 class="section-title"[^>]*>([\s\S]*?)<\/h2>([\s\S]*?)(?=<h2 class="section-title"[^>]*>|$)/g;
   let match;
   let sectionIndex = 0;
   while ((match = sectionRegex.exec(body)) !== null) {
@@ -101,7 +101,7 @@ function extractChunks(siman, html) {
     }
 
     // Paragraphes narratifs (h3 + p)
-    const h3Re = /<h3>([\s\S]*?)<\/h3>([\s\S]*?)(?=<h3|<h2|$)/g;
+    const h3Re = /<h3[^>]*>([\s\S]*?)<\/h3>([\s\S]*?)(?=<h3|<h2|$)/g;
     let h3m;
     while ((h3m = h3Re.exec(sectionContent)) !== null) {
       const h3Title = htmlToText(h3m[1]);
