@@ -66,12 +66,18 @@ function sseWrite(res, event, data) {
   res.write(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`);
 }
 
-function buildSystemPrompt(lang) {
+function buildSystemPrompt(lang, section) {
   const langName = lang === 'en' ? 'English' : lang === 'he' ? 'Hebrew' : 'French';
+  const domain = section === 'yoreh-deah'
+    ? "les hilkhot Issour ve-Heter (cacheroute : bassar be-halav, taarovot…)"
+    : 'les hilkhot Shabbat';
+  const terms = section === 'yoreh-deah'
+    ? 'bassar be-halav, taarovet, ben yomo, nat bar nat'
+    : 'borer, bishoul, mouktsé';
   return `Tu es l'assistant de DAAT — site d'étude halakhique du Rav Yossef Haim Samama.
 
 Tu reçois :
-1. Une QUESTION d'utilisateur sur les hilkhot Shabbat
+1. Une QUESTION d'utilisateur sur ${domain}
 2. UN EXTRAIT précis du corpus écrit par le Rav (avec son siman + section)
 
 Ta tâche : répondre à la question en reformulant l'extrait en 2-4 phrases conversationnelles et fluides.
@@ -82,7 +88,7 @@ RÈGLES STRICTES :
 - Termine TOUJOURS par la source au format : « *Source : Siman X §Y — [titre de section]* »
 - Pour les décisions pratiques sensibles ou cas-limites, ajoute : « consulte un Rav pour ton cas précis. »
 - Pas de markdown lourd (pas de listes à puces sauf si vraiment nécessaire), texte naturel.
-- Conserve les termes hébreux en transcription (borer, bishoul, mouktsé) — ne les sur-traduis pas.
+- Conserve les termes hébreux en transcription (${terms}) — ne les sur-traduis pas.
 - Réponds dans la langue de la question (par défaut : ${langName}).
 - Ne mentionne PAS que tu reformules un extrait — réponds DIRECTEMENT comme si tu savais.`;
 }
@@ -126,6 +132,7 @@ export default async function handler(req, res) {
   }
   const question = String(body?.question || '').trim();
   const lang = (body?.lang || 'fr').slice(0, 2);
+  const section = body?.section === 'yoreh-deah' ? 'yoreh-deah' : 'orach-chaim';
 
   if (!question) return res.status(400).json({ error: 'question required' });
   if (question.length > 800) return res.status(400).json({ error: 'question too long (max 800 chars)' });
@@ -139,7 +146,7 @@ export default async function handler(req, res) {
   // ── Recherche corpus ──
   let searchResult;
   try {
-    searchResult = searchCorpus(question, { limit: 3, minScore: 1.5 });
+    searchResult = searchCorpus(question, { limit: 3, minScore: 1.5, section });
   } catch (e) {
     console.error('[chat-corpus] search error:', e);
     return res.status(500).json({ error: 'corpus search failed' });
@@ -175,7 +182,7 @@ export default async function handler(req, res) {
   // ── Cas 2 : match → Haiku reformule ──
   const top = searchResult.results[0];
   const others = searchResult.results.slice(1);
-  const systemPrompt = buildSystemPrompt(lang);
+  const systemPrompt = buildSystemPrompt(lang, section);
   const userMsg = buildUserMessage(question, top, others);
 
   let inputTokens = 0;

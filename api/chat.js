@@ -579,7 +579,9 @@ export default async function handler(req, res) {
       let cs = null;
       if (lastUserText) {
         try {
-          cs = searchShabbatCorpus(lastUserText, { limit: 3, minScore, strict: true });
+          // On restreint la recherche à la section de la conversation pour ne
+          // jamais répondre Shabbat avec un extrait Yoreh De'ah (et inversement).
+          cs = searchShabbatCorpus(lastUserText, { limit: 3, minScore, strict: true, section });
         } catch (err) {
           console.error('[chat.js] corpus search error (continue avec Claude):', err?.message || err);
         }
@@ -589,10 +591,16 @@ export default async function handler(req, res) {
         const top = cs.results[0];
         const others = cs.results.slice(1);
         const subs = top.subsection ? ` · ${top.subsection}` : '';
+        const corpusDomain = section === 'yoreh-deah'
+          ? "les hilkhot Issour ve-Heter (cacheroute : bassar be-halav, taarovot…)"
+          : 'les hilkhot Shabbat';
+        const corpusTerms = section === 'yoreh-deah'
+          ? 'bassar be-halav, taarovet, ben yomo, nat bar nat'
+          : 'borer, bishoul, mouktsé';
         const corpusSystem = `Tu es l'assistant de DAAT — site d'étude halakhique du Rav Yossef Haim Samama.
 
 Tu reçois :
-1. Une QUESTION d'utilisateur sur les hilkhot Shabbat
+1. Une QUESTION d'utilisateur sur ${corpusDomain}
 2. UN EXTRAIT précis du corpus écrit par le Rav (avec son siman + section)
 
 Ta tâche : répondre à la question en reformulant l'extrait en 2-4 phrases conversationnelles et fluides.
@@ -603,7 +611,7 @@ RÈGLES STRICTES :
 - Termine TOUJOURS par la source au format : *Source : Siman X · [titre de section]*
 - Pour décisions pratiques sensibles ou cas-limites, ajoute : « consulte un Rav pour ton cas précis. »
 - Pas de markdown lourd, texte naturel.
-- Conserve les termes hébreux en transcription (borer, bishoul, mouktsé) — ne les sur-traduis pas.
+- Conserve les termes hébreux en transcription (${corpusTerms}) — ne les sur-traduis pas.
 - Ne mentionne PAS que tu reformules un extrait — réponds DIRECTEMENT comme si tu savais.`;
 
         let corpusUserMsg = `QUESTION DE L'UTILISATEUR :\n${lastUserText}\n\n`;

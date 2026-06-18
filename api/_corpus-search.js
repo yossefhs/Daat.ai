@@ -156,6 +156,10 @@ export function searchCorpus(question, opts = {}) {
   const limit = opts.limit || 3;
   const minScore = opts.minScore ?? 1.5;
   const strict = opts.strict === true;
+  // Filtre de section optionnel ('orach-chaim' | 'yoreh-deah'). Absent → tout le
+  // corpus (rétro-compatible). Les anciens chunks sans champ `section` ne sont
+  // jamais exclus, pour éviter toute régression silencieuse.
+  const section = opts.section || null;
   const tokens = tokenize(question);
   if (tokens.length === 0) return { results: [], keyTokens: [], totalChunks: _N };
 
@@ -167,6 +171,7 @@ export function searchCorpus(question, opts = {}) {
   const expanded = expandQuery(tokens);
   const scored = [];
   for (const c of _corpus.chunks) {
+    if (section && c.section && c.section !== section) continue;
     const s = scoreChunk(c, expanded, keyTokens, originalSet, strict);
     if (s >= minScore) scored.push({ chunk: c, score: s });
   }
@@ -174,6 +179,7 @@ export function searchCorpus(question, opts = {}) {
   return {
     results: scored.slice(0, limit).map((r) => ({
       siman: r.chunk.siman,
+      section: r.chunk.section || null,
       simanTitle: r.chunk.simanTitle,
       simanTitleHe: r.chunk.simanTitleHe,
       sectionNum: r.chunk.sectionNum,
