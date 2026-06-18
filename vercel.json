@@ -94,6 +94,22 @@
   ],
   "rewrites": [
     {
+      "source": "/contenu",
+      "destination": "/contenu.html"
+    },
+    {
+      "source": "/contenu/",
+      "destination": "/contenu.html"
+    },
+    {
+      "source": "/contenu/he",
+      "destination": "/contenu-he.html"
+    },
+    {
+      "source": "/contenu/en",
+      "destination": "/contenu-en.html"
+    },
+    {
       "source": "/api/auth/send-code",
       "destination": "/api/auth?action=send-code"
     },

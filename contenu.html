@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tout le contenu — tous les simanim à étudier | DAAT</title>
+  <meta name="description" content="Vue d'ensemble de toute l'étude DAAT : Orah Haïm (Hilkhot Shabbat) et Yoreh De'ah (Issour ve-Heter). Chaque siman se déplie sur ses niveaux d'étude — Base, Lamdan, Synthèse et Halakha / Daat HaRav.">
+  <link rel="canonical" href="https://daattorah.com/contenu">
+  <link rel="alternate" hreflang="fr" href="https://daattorah.com/contenu">
+  <link rel="alternate" hreflang="he" href="https://daattorah.com/contenu/he">
+  <link rel="alternate" hreflang="en" href="https://daattorah.com/contenu/en">
+  <link rel="alternate" hreflang="x-default" href="https://daattorah.com/contenu">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="DAAT דעת">
+  <meta property="og:title" content="Tout le contenu — tous les simanim à étudier">
+  <meta property="og:description" content="Orah Haïm (Hilkhot Shabbat) et Yoreh De'ah (Issour ve-Heter) — chaque siman se déplie sur ses niveaux d'étude.">
+  <meta property="og:url" content="https://daattorah.com/contenu">
+  <meta property="og:image" content="https://daattorah.com/assets/img/og/og-default.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #1A1F3A; --gold: #C5A55A; --gold-light: #d9bd77;
+      --cream: #FAF6EE; --white: #fff; --border: #e7ddc9;
+      --text-dark: #1A1F3A; --text-mid: #5a5645; --text-muted: #8a8470;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--cream); color: var(--text-dark); font-family: 'Inter', sans-serif; }
+    a { color: inherit; }
+    .skip-link { position: absolute; left: -9999px; }
+
+    /* HEADER (même structure que /oh/, version anti-débordement) */
+    header {
+      background: var(--navy); padding: 8px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px 24px; flex-wrap: wrap;
+      min-height: 70px; border-bottom: 2px solid var(--gold);
+    }
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; flex-shrink: 0; }
+    .logo-he { font-family: 'Frank Ruhl Libre', serif; font-size: 26px; font-weight: 700; color: var(--gold); }
+    .logo-en { font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600; color: #fff; letter-spacing: 3px; }
+    nav { display: flex; align-items: center; flex-wrap: wrap; justify-content: flex-end; row-gap: 8px; }
+    nav a { font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(255,255,255,0.85); text-decoration: none; margin-left: 28px; letter-spacing: 1px; }
+    nav a:hover { color: var(--gold); }
+    .lang-switcher { display: flex; gap: 6px; align-items: center; margin-left: 12px; }
+    .lang-switcher a {
+      font-family: 'Inter', sans-serif; font-size: 11px; padding: 3px 7px;
+      border-radius: 2px; letter-spacing: 1px; color: rgba(255,255,255,0.85);
+      border: 1px solid rgba(255,255,255,0.15); text-decoration: none;
+    }
+    .lang-switcher a.active { color: var(--gold); border-color: var(--gold); }
+    .lang-switcher a:hover { color: var(--gold); border-color: var(--gold); }
+
+    .breadcrumb { background: #fff; border-bottom: 1px solid var(--border); padding: 12px 40px; }
+    .breadcrumb-inner { max-width: 1180px; margin: 0 auto; font-size: 13px; color: var(--text-muted); }
+    .breadcrumb a { color: var(--gold); text-decoration: none; }
+    .breadcrumb .sep { margin: 0 8px; }
+
+    .page-hero { background: var(--navy); padding: 44px 40px; }
+    .hero-inner { max-width: 1180px; margin: 0 auto; }
+    .hero-title-he { font-family: 'Frank Ruhl Libre', serif; font-size: 40px; color: var(--gold); direction: rtl; margin-bottom: 6px; }
+    .hero-title-fr { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 600; color: #fff; }
+    .hero-sub { color: rgba(255,255,255,0.75); font-size: 15px; margin-top: 12px; max-width: 760px; line-height: 1.6; }
+
+    .content { max-width: 1180px; margin: 0 auto; padding: 40px; }
+
+    /* Sélecteur de sections */
+    .section-switcher { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 44px; }
+    .section-card {
+      display: block; text-decoration: none; background: #fff; border: 1px solid var(--border);
+      border-left: 4px solid var(--gold); border-radius: 6px; padding: 22px 24px;
+      transition: box-shadow .15s, transform .15s, border-color .15s;
+    }
+    .section-card:hover { box-shadow: 0 8px 24px rgba(26,31,58,.10); transform: translateY(-2px); border-left-color: var(--navy); }
+    .section-card .sc-he { font-family: 'Frank Ruhl Libre', serif; font-size: 22px; color: var(--navy); direction: rtl; }
+    .section-card .sc-fr { font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 600; color: var(--navy); margin: 2px 0 6px; }
+    .section-card .sc-meta { font-size: 13px; color: var(--text-mid); }
+    .section-card .sc-count { display: inline-block; margin-top: 12px; font-size: 12px; letter-spacing: 1px; color: var(--gold); font-weight: 600; }
+
+    .corpus-section { margin-bottom: 56px; scroll-margin-top: 20px; }
+    .corpus-section > h2 {
+      font-family: 'Cormorant Garamond', serif; font-size: 26px; color: var(--navy);
+      border-bottom: 2px solid var(--gold); padding-bottom: 10px; margin-bottom: 6px;
+      display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    }
+    .corpus-section > h2 .he { font-family: 'Frank Ruhl Libre', serif; direction: rtl; font-size: 22px; color: var(--gold); }
+    .corpus-section .sec-intro { font-size: 13px; color: var(--text-mid); margin-bottom: 18px; }
+
+    .siman-list { display: flex; flex-direction: column; gap: 8px; }
+    details.siman {
+      background: #fff; border: 1px solid var(--border); border-radius: 5px; overflow: hidden;
+    }
+    details.siman[open] { border-color: var(--gold); box-shadow: 0 4px 14px rgba(26,31,58,.06); }
+    details.siman > summary {
+      list-style: none; cursor: pointer; padding: 13px 18px; display: flex; align-items: center; gap: 14px;
+      font-family: 'Inter', sans-serif;
+    }
+    details.siman > summary::-webkit-details-marker { display: none; }
+    details.siman > summary::after { content: '▾'; margin-left: auto; color: var(--gold); transition: transform .15s; }
+    details.siman[open] > summary::after { transform: rotate(180deg); }
+    .siman-num { font-family: 'Frank Ruhl Libre', serif; font-size: 20px; color: var(--gold); min-width: 58px; text-align: center; direction: rtl; }
+    .siman-num small { display: block; font-family: 'Inter', sans-serif; font-size: 11px; color: var(--text-muted); direction: ltr; }
+    .siman-title { font-size: 15px; color: var(--navy); font-weight: 500; }
+    .levels { display: flex; flex-wrap: wrap; gap: 10px; padding: 4px 18px 16px 90px; }
+    .level-link {
+      text-decoration: none; font-size: 13px; padding: 7px 14px; border-radius: 3px;
+      border: 1px solid var(--border); color: var(--navy); background: var(--cream);
+      transition: background .15s, border-color .15s, color .15s;
+    }
+    .level-link:hover { background: var(--navy); color: #fff; border-color: var(--navy); }
+    .level-link .ln { color: var(--text-muted); font-size: 11px; margin-right: 4px; }
+    .level-link:hover .ln { color: var(--gold-light); }
+    .siman-open-all { display: inline-block; margin-left: 12px; font-size: 12px; color: var(--gold); cursor: pointer; background: none; border: none; font-family: inherit; }
+
+    .loading, .empty { padding: 30px; text-align: center; color: var(--text-muted); font-size: 14px; }
+
+    footer { background: var(--navy); border-top: 2px solid var(--gold); padding: 28px 40px; text-align: center; margin-top: 40px; }
+    footer p { font-family: 'Inter', sans-serif; font-size: 12px; color: rgba(255,255,255,0.85); }
+    footer a { color: var(--gold); text-decoration: none; }
+
+    @media (max-width: 768px) {
+      header, .breadcrumb, .page-hero, .content { padding-left: 20px; padding-right: 20px; }
+      nav a:not(:last-of-type) { display: none; }
+      .section-switcher { grid-template-columns: 1fr; }
+      .levels { padding-left: 18px; }
+      .hero-title-he { font-size: 32px; }
+    }
+  </style>
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#1A1F3A">
+</head>
+<body>
+  <a href="#main" class="skip-link">Aller au contenu principal</a>
+
+  <header>
+    <a href="/" class="logo">
+      <span class="logo-he">דעת</span>
+      <span class="logo-en">DAAT</span>
+    </a>
+    <nav>
+      <a href="/#vision">Vision</a>
+      <a href="/contenu">Contenu</a>
+      <a href="/chat.html" aria-label="IA Daat">💬 IA Daat</a>
+      <a href="/communaute.html">Communauté</a>
+      <a href="/soutenir.html" style="color:#C5A55A;border:1px solid rgba(197,165,90,0.5);padding:4px 12px;border-radius:2px;">♥ Soutenir</a>
+      <span class="lang-switcher"><a href="/contenu" class="active" hreflang="fr">FR</a><a href="/contenu/he" hreflang="he">HE</a><a href="/contenu/en" hreflang="en">EN</a></span>
+    </nav>
+  </header>
+
+  <div class="breadcrumb">
+    <div class="breadcrumb-inner">
+      <a href="/">Accueil</a>
+      <span class="sep">›</span>
+      <span>Tout le contenu</span>
+    </div>
+  </div>
+
+  <div class="page-hero">
+    <div class="hero-inner">
+      <p class="hero-title-he" aria-hidden="true">כל הסימנים</p>
+      <h1 class="hero-title-fr" style="margin:0;">Tout le contenu — l'étude par siman</h1>
+      <p class="hero-sub">Une vue d'ensemble de toute l'étude DAAT. Choisis ta section, puis déplie n'importe quel siman pour accéder directement à ses niveaux : <strong>Base</strong>, <strong>Lamdan</strong>, <strong>Synthèse</strong> et <strong>Halakha / Daat HaRav</strong>.</p>
+    </div>
+  </div>
+
+  <main class="content" id="main">
+    <div class="section-switcher" id="section-switcher" aria-label="Sections"></div>
+    <div id="corpus-root">
+      <div class="loading">Chargement des simanim…</div>
+    </div>
+  </main>
+
+  <footer>
+    <p>DAAT דעת — © 5786 / 2026 · <a href="/">Retour à l'accueil</a> · Initié par le Rav Yossef Haim Samama</p>
+  </footer>
+
+  <script>
+  (function () {
+    // Configuration de la langue de la page
+    var LANG = 'fr';
+    var DATA_URL = '/data/simanim-disponibles.json';
+    var I18N = {
+      base: 'Base', lamdan: 'Lamdan', synthese: 'Synthèse',
+      daatharav: 'Daat HaRav', halakha: 'Halakha',
+      simanWord: 'Siman', openAll: 'Tout déplier', closeAll: 'Tout replier',
+      sectionsMeta: {
+        'shabbat':     { fr: 'Orah Haïm — Hilkhot Shabbat', he: 'אורח חיים — הלכות שבת', meta: 'Le repos du Shabbat selon le Choulhan Aroukh (simanim 242–365).' },
+        'yoreh-deah':  { fr: "Yoreh De'ah — Issour ve-Heter", he: 'יורה דעה — איסור והיתר', meta: 'La cacheroute : bassar be-halav, taarovot, cachérisation des ustensiles.' }
+      },
+      countWord: function (n) { return n + (n > 1 ? ' simanim disponibles' : ' siman disponible'); },
+      langSuffix: '' // FR = pas de suffixe
+    };
+
+    var SECTION_ORDER = ['shabbat', 'yoreh-deah'];
+
+    function scheme(section) {
+      if (section === 'yoreh-deah') {
+        return { prefix: '/yd', l4: 'halakha', l4label: I18N.halakha };
+      }
+      return { prefix: '/oh', l4: 'daat-harav', l4label: I18N.daatharav };
+    }
+
+    // Construit l'URL d'un niveau (lamdan n'a pas de variante de langue)
+    function levelUrl(sc, num, slug) {
+      var base = sc.prefix + '/' + num + '/' + slug;
+      if (slug === 'lamdan') return base;
+      return base + I18N.langSuffix;
+    }
+
+    function levelLinks(s) {
+      var sc = scheme(s.section || 'shabbat');
+      var L = s.levels || {};
+      var out = [];
+      if (L.n1) out.push(['1', I18N.base, levelUrl(sc, s.num, 'base')]);
+      if (L.n2) out.push(['2', I18N.lamdan, levelUrl(sc, s.num, 'lamdan')]);
+      if (L.n3) out.push(['3', I18N.synthese, levelUrl(sc, s.num, 'synthese')]);
+      if (L.n4) out.push(['4', sc.l4label, levelUrl(sc, s.num, sc.l4)]);
+      return out;
+    }
+
+    function el(tag, cls, html) {
+      var e = document.createElement(tag);
+      if (cls) e.className = cls;
+      if (html != null) e.innerHTML = html;
+      return e;
+    }
+
+    function renderSiman(s) {
+      var d = el('details', 'siman');
+      var sum = el('summary');
+      var num = el('span', 'siman-num');
+      num.innerHTML = (s.numHe || s.num) + '<small>' + I18N.simanWord + ' ' + s.num + '</small>';
+      var title = el('span', 'siman-title', s.title || (I18N.simanWord + ' ' + s.num));
+      sum.appendChild(num); sum.appendChild(title);
+      d.appendChild(sum);
+      var levels = el('div', 'levels');
+      levelLinks(s).forEach(function (lk) {
+        var a = el('a', 'level-link');
+        a.href = lk[2];
+        a.innerHTML = '<span class="ln">' + lk[0] + '</span>' + lk[1];
+        levels.appendChild(a);
+      });
+      d.appendChild(levels);
+      return d;
+    }
+
+    function buildSectionCard(section, count) {
+      var meta = I18N.sectionsMeta[section];
+      var sc = scheme(section);
+      var a = el('a', 'section-card');
+      a.href = section === 'yoreh-deah' ? '/yd/' : '/oh/';
+      a.innerHTML =
+        '<div class="sc-he" dir="rtl">' + meta.he + '</div>' +
+        '<div class="sc-fr">' + meta.fr + '</div>' +
+        '<div class="sc-meta">' + meta.meta + '</div>' +
+        '<div class="sc-count">' + I18N.countWord(count) + ' →</div>';
+      return a;
+    }
+
+    function render(data) {
+      var sims = (data && data.simanim) || [];
+      var bySec = {};
+      sims.forEach(function (s) {
+        var sec = s.section || 'shabbat';
+        (bySec[sec] = bySec[sec] || []).push(s);
+      });
+      SECTION_ORDER.forEach(function (sec) {
+        if (bySec[sec]) bySec[sec].sort(function (a, b) { return a.num - b.num; });
+      });
+
+      var sw = document.getElementById('section-switcher');
+      sw.innerHTML = '';
+      var root = document.getElementById('corpus-root');
+      root.innerHTML = '';
+
+      var anySection = false;
+      SECTION_ORDER.forEach(function (sec) {
+        var list = bySec[sec];
+        if (!list || !list.length) return;
+        anySection = true;
+        var meta = I18N.sectionsMeta[sec];
+
+        sw.appendChild(buildSectionCard(sec, list.length));
+
+        var wrap = el('section', 'corpus-section');
+        wrap.id = 'sec-' + sec;
+        var h2 = el('h2');
+        h2.innerHTML = '<span>' + meta.fr + '</span><span class="he" dir="rtl">' + meta.he + '</span>';
+        wrap.appendChild(h2);
+        var intro = el('p', 'sec-intro', meta.meta + ' — ' + I18N.countWord(list.length) + '.');
+        wrap.appendChild(intro);
+        var ul = el('div', 'siman-list');
+        list.forEach(function (s) { ul.appendChild(renderSiman(s)); });
+        wrap.appendChild(ul);
+        root.appendChild(wrap);
+      });
+
+      if (!anySection) {
+        root.innerHTML = '<div class="empty">Aucun siman disponible pour le moment.</div>';
+      }
+    }
+
+    fetch(DATA_URL, { cache: 'no-cache' })
+      .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+      .then(render)
+      .catch(function (e) {
+        document.getElementById('corpus-root').innerHTML =
+          '<div class="empty">Liste indisponible pour le moment.</div>';
+        if (window.console) console.error('[contenu]', e);
+      });
+  })();
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/chat-widget.css">
+  <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
+  <script src="/assets/js/chat-widget.js" defer></script>
+  <link rel="stylesheet" href="/assets/css/daat-auth.css">
+  <script src="/assets/js/daat-auth.js" defer></script>
+</body>
+</html>
