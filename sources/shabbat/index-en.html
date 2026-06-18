@@ -79,11 +79,13 @@
 
     /* HEADER */
     header {
-      background: var(--navy); padding: 0 40px;
+      background: var(--navy); padding: 8px 40px;
       display: flex; align-items: center; justify-content: space-between;
-      height: 70px; border-bottom: 2px solid var(--gold);
+      gap: 12px 24px; flex-wrap: wrap;
+      min-height: 70px; border-bottom: 2px solid var(--gold);
     }
-    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; flex-shrink: 0; }
+    nav { display: flex; align-items: center; flex-wrap: wrap; justify-content: flex-end; row-gap: 8px; }
     .logo-he { font-family: 'Frank Ruhl Libre', serif; font-size: 26px; font-weight: 700; color: var(--gold); }
     .logo-en { font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600; color: #fff; letter-spacing: 3px; }
     nav a { font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(255,255,255,0.85); text-decoration: none; margin-left: 28px; letter-spacing: 1px; }
