@@ -683,7 +683,7 @@ Tes réponses doivent refléter :
 
 הצלחה רבה! ובהצלחה ללומדים שלך.`;
 
-// ── Surcharge spécifique Yoreh De'ah (Issour ve-Heter, simanim 87-96) ──
+// ── Surcharge spécifique Yoreh De'ah (Issour ve-Heter, simanim 87-97) ──
 // Conserve le prompt de base IDENTIQUE (cache prompt préservé) et n'AJOUTE qu'un
 // bloc ciblé : nossei kelim du YD, PAS de Mishna Berura, PAS de Choulhan Aroukh
 // haRav (ne couvre pas ces simanim), niveau 4 = Halakha lema'asse (pas « Daat HaRav »).
@@ -691,7 +691,7 @@ const YOREH_DEAH_OVERRIDE = `
 
 # 🔻 CONTEXTE DE SECTION — YOREH DE'AH (Issour ve-Heter)
 
-Cette conversation porte sur **Yoreh De'ah — Issour ve-Heter** (cacheroute : bassar be-halav, taarovot, etc., simanim 87-96), et NON sur Orah Haïm / Hilkhot Shabbat. Les règles ci-dessous **remplacent** les instructions par défaut lorsqu'elles divergent :
+Cette conversation porte sur **Yoreh De'ah — Issour ve-Heter** (cacheroute : bassar be-halav, taarovot, etc., simanim 87-97), et NON sur Orah Haïm / Hilkhot Shabbat. Les règles ci-dessous **remplacent** les instructions par défaut lorsqu'elles divergent :
 
 ## Nossei kelim (commentateurs) à citer pour le Yoreh De'ah
 - **Shach** (Siftei Kohen, ש״ך) et **Taz** (Turei Zahav, ט״ז) — les deux commentaires centraux du Choulhan Aroukh en Yoreh De'ah.
