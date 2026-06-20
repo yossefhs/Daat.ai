@@ -23,6 +23,10 @@
   // 1) Append automatique du lien à chaque copie d'une sélection.
   document.addEventListener('copy', function (e) {
     try {
+      // Ne pas interférer avec une copie programmatique depuis un champ
+      // (ex. le textarea temporaire de share-text.js) — évite un double lien.
+      var ae = document.activeElement;
+      if (ae && /^(textarea|input)$/i.test(ae.tagName)) return;
       var sel = window.getSelection ? String(window.getSelection()) : '';
       if (!sel || sel.trim().length < 2) return;            // ignore copie triviale
       if (e.clipboardData) {
