@@ -66,6 +66,26 @@ export default async function handler(req, res) {
       return res.json({ success: true, message: `Compteur Aperçu Premium de ${email} remis à 0 (3 questions Opus offertes restaurées)` });
     }
 
+    // Crédits Opus achetés (1 € = 1 question, permanents) — admin only
+    if (action === 'add-credits' && email) {
+      const delta = parseInt(req.body.amount, 10);
+      if (!Number.isFinite(delta) || delta === 0) {
+        return res.status(400).json({ error: 'amount requis (entier non nul, positif = ajouter, négatif = retirer)' });
+      }
+      const current = parseInt((await kv.get(`credits:${email}`)) || '0', 10);
+      const newTotal = Math.max(0, current + delta);
+      await kv.set(`credits:${email}`, newTotal);
+      return res.json({
+        success: true,
+        email,
+        credits: newTotal,
+        added: delta,
+        message: delta > 0
+          ? `+${delta} crédits Opus pour ${email} (total : ${newTotal})`
+          : `${delta} crédits Opus pour ${email} (total : ${newTotal})`,
+      });
+    }
+
     return res.status(400).json({ error: 'Action inconnue' });
   }
 
@@ -113,8 +133,9 @@ export default async function handler(req, res) {
         const plan = isGuest ? 'anonymous' : ((await kv.get(`user:plan:${id}`)) || 'free');
         const forceOpus = isGuest ? false : Boolean(await kv.get(`user:force_opus:${id}`));
         const planExpires = isGuest ? null : await kv.get(`user:plan_expires:${id}`);
+        const credits = isGuest ? 0 : parseInt((await kv.get(`credits:${id}`)) || '0', 10);
         const label = isGuest ? `Anonyme #${id.slice(-8)}` : id;
-        return { email: id, label, plan, plan_expires: planExpires, force_opus: forceOpus, preview_used: previewUsed, is_guest: isGuest, today_questions: rateCount, month_questions: monthCount, ...usage };
+        return { email: id, label, plan, plan_expires: planExpires, force_opus: forceOpus, preview_used: previewUsed, credits, is_guest: isGuest, today_questions: rateCount, month_questions: monthCount, ...usage };
       })
     );
 

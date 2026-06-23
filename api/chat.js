@@ -132,8 +132,8 @@ const PREVIEW_IP_DAILY_LIMIT = 3;
 const PREVIEW_GLOBAL_DAILY_LIMIT = 100;
 
 const DAILY_LIMITS = {
-  anonymous:         5,        // visiteur sans compte (était 3 → 5 pour mieux convertir)
-  free:              8,        // compte email (OTP)
+  anonymous:         2,        // visiteur sans compte — limite serrée pour pousser à l'inscription
+  free:              5,        // compte email (OTP) — 5 questions/jour Sonnet
   khavroutha:        5,        // soutien 8 €/mois — Opus sur halakhique pointu uniquement
   beit_midrash:     15,        // soutien 25 €/mois — Opus largement
   beit_midrash_plus: 30,       // soutien 50 €/mois — Opus largement, plus de questions
@@ -302,12 +302,17 @@ export default async function handler(req, res) {
     const previewGlobalKey = `preview-global:${today}`;
     const limit = DAILY_LIMITS[plan] || DAILY_LIMITS.anonymous;
     const monthLimit = MONTHLY_LIMITS[plan] || MONTHLY_LIMITS.anonymous;
-    const [currentCount, currentMonthCount, previewIpCount, previewGlobalCount] = await Promise.all([
+    // Crédits Opus achetés (1€/q, 10€/10q) — clé `credits:email`. Anonymes : impossible.
+    const creditsKey = isGuest ? null : `credits:${userId}`;
+    const [currentCount, currentMonthCount, previewIpCount, previewGlobalCount, opusCredits] = await Promise.all([
       kv.get(rateKey).then(v => parseInt(v || '0', 10)),
       kv.get(monthRateKey).then(v => parseInt(v || '0', 10)),
       kv.get(previewIpKey).then(v => parseInt(v || '0', 10)),
       kv.get(previewGlobalKey).then(v => parseInt(v || '0', 10)),
+      creditsKey ? kv.get(creditsKey).then(v => parseInt(v || '0', 10)) : Promise.resolve(0),
     ]);
+    // Flag : true si cette requête sera payée par un crédit (= forcera Opus, décrémentera credits)
+    let usingCredit = false;
     // Caps anti-abus : si l'IP a déjà servi 3 Aperçu aujourd'hui OU si le quota global
     // anonyme du jour est atteint, on désactive l'Aperçu (l'user passe en Sonnet).
     // Les abonnés ne sont pas concernés (Aperçu ne s'applique pas à eux).
@@ -318,26 +323,32 @@ export default async function handler(req, res) {
       res.setHeader('Set-Cookie', guestIdSetCookie);
     }
 
-    // Limite QUOTIDIENNE atteinte
+    // Limite QUOTIDIENNE atteinte → on autorise si crédits Opus disponibles
     if (currentCount >= limit) {
-      const resetTime = new Date();
-      resetTime.setDate(resetTime.getDate() + 1);
-      resetTime.setHours(0, 0, 0, 0);
-      return res.status(429).json({
-        error: 'limit_reached',
-        type: 'limit_reached',
-        scope: 'daily',
-        plan,
-        count: currentCount,
-        limit,
-        is_guest: isGuest,
-        reset_date: resetTime.toISOString(),
-        helloasso_url: HELLOASSO_URL,
-        soutenir_url: SOUTENIR_URL,
-        message: isGuest
-          ? `Tu as utilisé tes ${limit} questions gratuites aujourd'hui. Connecte-toi avec ton email pour ${DAILY_LIMITS.free} questions/jour, ou soutiens DAAT pour débloquer plus.`
-          : `Tu as atteint ta limite quotidienne de ${limit} questions. Reviens demain ou soutiens DAAT.`,
-      });
+      if (opusCredits > 0) {
+        // Cet utilisateur paie cette question avec un crédit → Opus garanti, décrémenté au tracking
+        usingCredit = true;
+      } else {
+        const resetTime = new Date();
+        resetTime.setDate(resetTime.getDate() + 1);
+        resetTime.setHours(0, 0, 0, 0);
+        return res.status(429).json({
+          error: 'limit_reached',
+          type: 'limit_reached',
+          scope: 'daily',
+          plan,
+          count: currentCount,
+          limit,
+          is_guest: isGuest,
+          credits: opusCredits, // 0 = aucun crédit
+          reset_date: resetTime.toISOString(),
+          helloasso_url: HELLOASSO_URL,
+          soutenir_url: SOUTENIR_URL,
+          message: isGuest
+            ? `Tu as utilisé tes ${limit} questions gratuites. Crée ton compte gratuit pour ${DAILY_LIMITS.free} q/jour, ou débloque l'analyse halakhique approfondie avec Opus (1 € = 1 question permanente).`
+            : `Tu as atteint ta limite quotidienne de ${limit} questions. Pour continuer immédiatement avec Opus (analyse halakhique approfondie, qualité maximale) : 1 € = 1 question, 10 € = 10 questions. Les crédits ne s'épuisent jamais.`,
+        });
+      }
     }
 
     // Limite MENSUELLE atteinte (cap protecteur pour l'asso)
@@ -398,7 +409,10 @@ export default async function handler(req, res) {
     }
 
     // Choisir le modèle adapté à la complexité (router cost-optimisé + Aperçu Premium + anti-abus)
-    const model = pickModel(trimmedMessages, req.body?.model_hint, plan, previewUsed, aperçuBlocked, forceOpus);
+    // Si l'utilisateur paie cette question avec un crédit Opus → on force Opus (qualité max)
+    const model = usingCredit
+      ? { ...MODELS.opus, _paid_credit: true }
+      : pickModel(trimmedMessages, req.body?.model_hint, plan, previewUsed, aperçuBlocked, forceOpus);
 
     // En-têtes SSE
     res.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
@@ -1014,6 +1028,19 @@ RÈGLES STRICTES :
       const monthTtl = await kv.ttl(monthRateKey);
       if (monthTtl === -1 || monthTtl === -2) {
         await kv.expire(monthRateKey, 35 * 24 * 60 * 60); // ~35 jours pour couvrir le mois en cours
+      }
+
+      // CRÉDITS OPUS — si cette question a été payée par un crédit (quota gratuit
+      // dépassé mais credits > 0), on décrémente le solde de crédits, et on annule
+      // l'incr quotidien/mensuel qu'on vient de faire (la question n'a pas consommé
+      // le quota gratuit, elle a consommé un crédit acheté).
+      if (usingCredit && creditsKey) {
+        await Promise.all([
+          kv.decr(creditsKey),
+          kv.decr(rateKey),
+          kv.decr(monthRateKey),
+        ]);
+        console.log(`[chat.js] credit consumed: ${userId} (credits left: ${opusCredits - 1})`);
       }
 
       // Incrément Aperçu Premium si on a servi du Opus à un free/anonyme
