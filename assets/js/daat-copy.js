@@ -70,13 +70,54 @@
     if (src) doCopy(textOf(src), btn);
   });
 
+  // 3) Bouton flottant « Imprimer / PDF » — injecté automatiquement.
+  //    Évite le doublon si la page possède déjà un contrôle d'impression
+  //    (bouton .print-btn ou tout onclick=window.print()).
+  function hasExistingPrintControl() {
+    if (document.querySelector('.print-btn, [data-print]')) return true;
+    var els = document.querySelectorAll('[onclick]');
+    for (var i = 0; i < els.length; i++) {
+      var oc = els[i].getAttribute('onclick') || '';
+      if (/window\.print\s*\(/.test(oc)) return true;
+    }
+    return false;
+  }
+  function injectPrintButton() {
+    if (document.getElementById('daat-print-fab')) return;
+    if (hasExistingPrintControl()) return;     // ne pas doubler un bouton existant
+    var rtl = (document.documentElement.getAttribute('dir') === 'rtl');
+    var lang = (document.documentElement.getAttribute('lang') || 'fr').slice(0, 2);
+    var label = lang === 'he' ? '🖨 הדפסה / PDF'
+              : lang === 'en' ? '🖨 Print / PDF'
+              : '🖨 Imprimer / PDF';
+    var btn = document.createElement('button');
+    btn.id = 'daat-print-fab';
+    btn.type = 'button';
+    btn.textContent = label;
+    btn.setAttribute('aria-label', label);
+    btn.style.cssText = 'position:fixed;bottom:18px;' + (rtl ? 'left:18px;' : 'right:18px;')
+      + 'z-index:9990;font-family:Inter,system-ui,sans-serif;font-size:12px;font-weight:600;'
+      + 'letter-spacing:.5px;background:#1A1F3A;color:#C5A55A;padding:9px 16px;'
+      + 'border:1px solid #C5A55A;border-radius:24px;cursor:pointer;'
+      + 'box-shadow:0 2px 10px rgba(26,31,58,.25);opacity:.92;transition:opacity .2s,transform .2s;';
+    btn.onmouseenter = function () { btn.style.opacity = '1'; btn.style.transform = 'translateY(-1px)'; };
+    btn.onmouseleave = function () { btn.style.opacity = '.92'; btn.style.transform = 'none'; };
+    btn.onclick = function () { window.print(); };
+    document.body.appendChild(btn);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', injectPrintButton);
+  } else {
+    injectPrintButton();
+  }
+
   // Style minimal injecté (auto-suffisant).
   var css = '.daat-copy{cursor:pointer;font-family:Inter,system-ui,sans-serif;font-size:11px;'
     + 'letter-spacing:.5px;color:#C5A55A;background:transparent;border:1px solid rgba(197,165,90,.5);'
     + 'border-radius:4px;padding:3px 10px;margin:0 0 0 6px;transition:all .2s;vertical-align:middle;}'
     + '.daat-copy:hover{background:#C5A55A;color:#1A1F3A;}'
     + '.daat-copy.is-copied{background:#2d7a3e;color:#fff;border-color:#2d7a3e;}'
-    + '@media print{.daat-copy{display:none!important;}}';
+    + '@media print{.daat-copy,#daat-print-fab{display:none!important;}}';
   var style = document.createElement('style');
   style.appendChild(document.createTextNode(css));
   document.head.appendChild(style);
