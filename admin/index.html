@@ -1359,8 +1359,8 @@ async function anLoadUsers() {
       <span><strong>${s.guests}</strong> anonymes</span>
     </div>`;
     // Limites alignées sur DAILY_LIMITS dans api/chat.js
-    const newLimits = { anonymous: 5, free: 8, khavroutha: 5, beit_midrash: 15, beit_midrash_plus: 30, yeshiva: 50, lifetime: 15, premium: 9999 };
-    wrap.innerHTML = summary + '<table class="an-table"><thead><tr><th>Utilisateur</th><th>Plan</th><th>Q. auj.</th><th>Q. mois</th><th>Aperçu</th><th>Coût auj.</th><th>Actions</th></tr></thead><tbody>' +
+    const newLimits = { anonymous: 2, free: 5, khavroutha: 5, beit_midrash: 15, beit_midrash_plus: 30, yeshiva: 50, lifetime: 15, premium: 9999 };
+    wrap.innerHTML = summary + '<table class="an-table"><thead><tr><th>Utilisateur</th><th>Plan</th><th>Q. auj.</th><th>Q. mois</th><th>Crédits Opus</th><th>Aperçu</th><th>Coût auj.</th><th>Actions</th></tr></thead><tbody>' +
       data.users.map(u => {
         const lim = newLimits[u.plan] || newLimits[u.plan] === 0 ? newLimits[u.plan] : (limits[u.plan] || 3);
         const pct = Math.min(100, Math.round((u.today_questions / lim) * 100));
@@ -1371,6 +1371,12 @@ async function anLoadUsers() {
         const previewStr = previewUsed >= 3
           ? '<span style="font-size:11px;color:var(--muted);">utilisé</span>'
           : `<strong>${3 - previewUsed}</strong>/3 <span style="font-size:11px;color:var(--muted);">offerts</span>`;
+        const credits = u.credits || 0;
+        const creditsStr = u.is_guest
+          ? '<span style="font-size:11px;color:var(--muted);">—</span>'
+          : (credits > 0
+              ? `<strong style="color:#8B6A00;">${credits}</strong> <span style="font-size:11px;color:var(--muted);">q. Opus</span>`
+              : '<span style="font-size:11px;color:var(--muted);">0</span>');
         return `<tr>
           <td style="font-family:monospace;font-size:12px;${u.is_guest ? 'color:var(--muted);font-style:italic;' : ''}">${label}</td>
           <td><span class="plan-badge ${u.plan}">${u.plan}</span>${opusBadge}${expiresBadge}</td>
@@ -1379,10 +1385,12 @@ async function anLoadUsers() {
             <div class="an-progress"><div class="an-progress-fill ${pct >= 80 ? 'danger' : ''}" style="width:${pct}%"></div></div>
           </td>
           <td><strong>${u.month_questions || 0}</strong></td>
+          <td>${creditsStr}</td>
           <td>${previewStr}</td>
           <td>$${(u.cost_usd||0).toFixed(4)}</td>
           <td style="display:flex;gap:4px;flex-wrap:wrap;">
             ${u.is_guest ? '<span style="font-size:11px;color:var(--muted);">anonyme</span>' : `<button class="btn btn-gold btn-sm" onclick="openAnUpgrade('${u.email}','${u.plan}',${u.force_opus ? 'true' : 'false'},'${u.plan_expires || ''}')">Plan</button>`}
+            ${u.is_guest ? '' : `<button class="btn btn-outline btn-sm" title="Ajouter des crédits Opus achetés (1€ = 1 q.)" onclick="anAddCredits('${u.email}',${credits})">💎 Crédits</button>`}
             <button class="btn btn-outline btn-sm" title="Remettre à 0 le compteur quotidien" onclick="anResetLimit('${u.email}')">↻ jour</button>
             ${u.is_guest || (u.preview_used || 0) === 0 ? '' : `<button class="btn btn-outline btn-sm" title="Restaurer les 3 Aperçu Opus" onclick="anResetPreview('${u.email}')">✨ Aperçu</button>`}
           </td>
@@ -1460,6 +1468,25 @@ async function anResetLimit(email) {
       body: JSON.stringify({ action: 'reset-limit', email })
     });
     toast(`✅ Limite de ${email} réinitialisée`);
+    anLoadUsers();
+  } catch (e) { toast('Erreur : ' + e.message); }
+}
+
+async function anAddCredits(email, currentCredits) {
+  const promptMsg = `Crédits Opus pour ${email}\n\nSolde actuel : ${currentCredits || 0} questions\n\nMontant payé en euros (1€ = 1 question Opus permanente) :\nExemples : 1 → +1 q. · 10 → +10 q. · -3 pour retirer 3 q.`;
+  const input = prompt(promptMsg, '10');
+  if (input === null) return;
+  const amount = parseInt(input.trim(), 10);
+  if (!Number.isFinite(amount) || amount === 0) {
+    toast('Montant invalide (entier non nul)');
+    return;
+  }
+  try {
+    const res = await anFetch('/api/admin/stats', {
+      method: 'POST',
+      body: JSON.stringify({ action: 'add-credits', email, amount })
+    });
+    toast(`💎 ${res.message || `${amount > 0 ? '+' : ''}${amount} crédits → ${email}`}`);
     anLoadUsers();
   } catch (e) { toast('Erreur : ' + e.message); }
 }
