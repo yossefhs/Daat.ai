@@ -1093,8 +1093,11 @@
           </p>
           <p style="font-size:15px;line-height:1.65;margin-bottom:12px;">
             Sans nouveaux soutiens, le projet ne peut pas continuer.
-            <strong>Ta participation, même modeste, permet de réactiver le chat immédiatement</strong>
+            <strong>Ta participation, même modeste, permet de réactiver le chat</strong>
             et de poursuivre la diffusion de la Torah pour tous.
+          </p>
+          <p style="font-size:13.5px;line-height:1.55;color:#5a4e3d;background:rgba(184,151,42,0.10);border-left:3px solid #B8972A;padding:10px 12px;margin:14px 0 8px;">
+            ⏱️ <strong>Un léger délai</strong> peut s'écouler entre ta participation et la réactivation du chat — mais la remise en service est faite <strong>le jour même</strong>.
           </p>
           <p style="font-size:13px;color:#8a847b;font-style:italic;margin-top:14px;">
             Reçu fiscal 66 % déductible · Association loi 1901
