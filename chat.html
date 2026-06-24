@@ -1527,6 +1527,61 @@ function showLimitReachedModal(info) {
   const soutenir = info.soutenir_url || '/soutenir.html?from=chat';
   const isGuest = info.is_guest !== false;
   const limit = info.limit || (isGuest ? 2 : 5);
+  const isAnthropicExhausted = info.scope === 'anthropic_quota';
+
+  // ─────────────────────────────────────────────────────────────────────
+  // CAS SPÉCIAL : quota Anthropic global épuisé — message fort
+  // (chat à l'arrêt pour TOUT le monde, pas juste cet utilisateur)
+  // ─────────────────────────────────────────────────────────────────────
+  if (isAnthropicExhausted) {
+    const overlay2 = document.createElement('div');
+    overlay2.style.cssText = `
+      position: fixed; inset: 0; background: rgba(26,26,46,0.8); z-index: 1000;
+      display: flex; align-items: center; justify-content: center; padding: 20px;
+      backdrop-filter: blur(6px);
+    `;
+    const modal2 = document.createElement('div');
+    modal2.style.cssText = `
+      background: #FBF7EF; max-width: 540px; width: 100%; padding: 38px 34px;
+      border-top: 5px solid #C0392B; border-radius: 4px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.45); text-align: center;
+      font-family: 'Crimson Pro', Georgia, serif; color: #3a2e1f;
+    `;
+    modal2.innerHTML = `
+      <div style="font-family:'Frank Ruhl Libre',serif;font-size:48px;color:#C0392B;margin-bottom:4px;direction:rtl;">דעת</div>
+      <div style="font-size:0.78rem;letter-spacing:2px;text-transform:uppercase;color:#C0392B;font-weight:700;margin-bottom:10px;">🛑 Le chat est en pause</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:500;color:#1a1a2e;margin-bottom:18px;line-height:1.25;">
+        DAAT n'a plus de tokens pour répondre.
+      </h2>
+      <p style="font-size:1.05rem;line-height:1.65;margin-bottom:16px;color:#3a2e1f;">
+        <strong>L'IA Daat fonctionne grâce aux dons de la communauté.</strong>
+        Notre budget mensuel est épuisé — le chat est donc <strong>temporairement à l'arrêt</strong>.
+      </p>
+      <p style="font-size:1.05rem;line-height:1.65;margin-bottom:18px;color:#3a2e1f;">
+        Sans nouveaux soutiens, le projet ne peut pas continuer.
+        <strong>Ta participation, même modeste, permet de réactiver le chat</strong>
+        et de poursuivre la diffusion de la Torah pour tous.
+      </p>
+
+      <p style="font-size:0.95rem;line-height:1.55;color:#5a4e3d;background:rgba(184,151,42,0.10);border-left:3px solid #B8972A;padding:11px 14px;margin-bottom:22px;text-align:left;">
+        ⏱️ Un léger délai peut s'écouler entre ta participation et la réactivation du chat.
+      </p>
+
+      <a href="${soutenir}" target="_blank" rel="noopener" style="display:block;background:linear-gradient(180deg,#B8972A,#8C6F1E);color:#fff;padding:16px 24px;text-decoration:none;font-family:'Cormorant Garamond',serif;font-size:1.2rem;letter-spacing:0.5px;font-weight:600;border-radius:3px;box-shadow:0 8px 18px rgba(140,111,30,0.35);">
+        ❤️ Soutenir pour réactiver le chat →
+      </a>
+
+      <p style="font-size:0.85rem;color:#7a6a55;margin-top:14px;font-style:italic;">
+        Reçu fiscal 66 % déductible · Association loi 1901
+      </p>
+    `;
+    overlay2.appendChild(modal2);
+    overlay2.addEventListener('click', (e) => {
+      if (e.target === overlay2) overlay2.remove();
+    });
+    document.body.appendChild(overlay2);
+    return;
+  }
 
   const overlay = document.createElement('div');
   overlay.style.cssText = `
@@ -1663,7 +1718,34 @@ async function send(userText) {
             appendToolNotice('⏳ ' + parsed.message);
           } else if (parsed.type === 'rate_info') {
             updateRateBanner(parsed);
+          } else if (parsed.type === 'limit_reached') {
+            // Quota Anthropic épuisé (envoyé via SSE après début du stream)
+            if (typingEl && typingEl.parentElement) typingEl.remove();
+            showLimitReachedModal(parsed);
+            state.messages.pop();
+            const lastUB = $log.querySelector('.message-user:last-of-type');
+            if (lastUB) lastUB.remove();
+            persistConversation();
+            return;
           } else if (parsed.type === 'error') {
+            // Filet de sécurité : si le message contient le pattern Anthropic
+            // "API usage limits", on affiche le modal limit_reached.
+            const errStr = String(parsed.error || '');
+            if (/API usage limits|credit balance is too low|invalid_request_error/i.test(errStr)) {
+              if (typingEl && typingEl.parentElement) typingEl.remove();
+              showLimitReachedModal({
+                type: 'limit_reached',
+                scope: 'anthropic_quota',
+                is_guest: false,
+                soutenir_url: '/soutenir.html?from=chat',
+                message: "Le quota mensuel de l'IA est temporairement épuisé. Soutiens DAAT pour rétablir l'accès.",
+              });
+              state.messages.pop();
+              const lastUB = $log.querySelector('.message-user:last-of-type');
+              if (lastUB) lastUB.remove();
+              persistConversation();
+              return;
+            }
             throw new Error(parsed.error || 'Erreur de génération');
           }
         } catch (e) {
@@ -1685,7 +1767,25 @@ async function send(userText) {
     }
   } catch (err) {
     if (typingEl.parentElement) typingEl.remove();
-    renderMessage('assistant', `⚠️ Erreur : ${err.message}`);
+    const msg = String(err?.message || err || '');
+    // Filet de sécurité ultime : si le pattern Anthropic "API usage limits" passe
+    // jusqu'ici, on affiche le modal au lieu d'un message brut anglais dans le chat.
+    if (/API usage limits|credit balance is too low|invalid_request_error/i.test(msg)) {
+      showLimitReachedModal({
+        type: 'limit_reached',
+        scope: 'anthropic_quota',
+        is_guest: false,
+        soutenir_url: '/soutenir.html?from=chat',
+        message: "Le quota mensuel de l'IA est temporairement épuisé. Soutiens DAAT pour rétablir l'accès et permettre à l'étude de continuer.",
+      });
+      state.messages.pop();
+      const lastUB = $log.querySelector('.message-user:last-of-type');
+      if (lastUB) lastUB.remove();
+      persistConversation();
+    } else {
+      // Message d'erreur générique en français (jamais le payload brut)
+      renderMessage('assistant', "⚠️ Une erreur est survenue. Réessaie ou reviens dans un moment.");
+    }
     console.error('[Daat chat]', err);
   } finally {
     setStreaming(false);

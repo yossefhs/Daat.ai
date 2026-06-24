@@ -1081,6 +1081,31 @@
         primaryLabel = 'Découvrir les soutiens';
         secondaryLabel = null;
         ghostLabel = 'Continuer en Sonnet';
+      } else if (reason === 'anthropic_exhausted') {
+        // QUOTA ANTHROPIC ÉPUISÉ — le budget mensuel global est terminé,
+        // le chat est en pause pour TOUS les utilisateurs jusqu'au prochain soutien.
+        eyebrow = '🛑 LE CHAT EST EN PAUSE';
+        title = "DAAT n'a plus de tokens pour répondre.";
+        body = `
+          <p style="font-size:15px;line-height:1.65;margin-bottom:12px;">
+            <strong>L'IA Daat fonctionne grâce aux dons de la communauté.</strong>
+            Notre budget mensuel est épuisé — le chat est donc <strong>temporairement à l'arrêt</strong>.
+          </p>
+          <p style="font-size:15px;line-height:1.65;margin-bottom:12px;">
+            Sans nouveaux soutiens, le projet ne peut pas continuer.
+            <strong>Ta participation, même modeste, permet de réactiver le chat</strong>
+            et de poursuivre la diffusion de la Torah pour tous.
+          </p>
+          <p style="font-size:13.5px;line-height:1.55;color:#5a4e3d;background:rgba(184,151,42,0.10);border-left:3px solid #B8972A;padding:10px 12px;margin:14px 0 8px;">
+            ⏱️ Un léger délai peut s'écouler entre ta participation et la réactivation du chat.
+          </p>
+          <p style="font-size:13px;color:#8a847b;font-style:italic;margin-top:14px;">
+            Reçu fiscal 66 % déductible · Association loi 1901
+          </p>
+        `;
+        primaryLabel = '❤️ Soutenir pour réactiver le chat';
+        secondaryLabel = null;
+        ghostLabel = null; // Pas d'échappatoire facile — l'utilisateur doit comprendre
       } else if (reason === 'limit') {
         // 429 — limite quotidienne ou mensuelle atteinte
         const isMonthly = info && info.scope === 'monthly';
@@ -1095,8 +1120,8 @@
             : `Tu as posé ${limit} questions aujourd'hui.`;
         body = `
           <p>${isGuest
-            ? 'Connecte-toi avec ton email pour <strong>8 questions/jour</strong> et 3 questions Opus offertes en bienvenue.'
-            : 'Reviens demain pour de nouvelles questions, ou rejoins une Khavroutha pour <strong>30 à 300 questions/jour</strong> en qualité Opus.'}</p>
+            ? 'Connecte-toi avec ton email pour <strong>5 questions/jour</strong> et 3 questions Opus offertes en bienvenue.'
+            : 'Reviens demain pour de nouvelles questions, ou soutiens DAAT pour débloquer immédiatement l\'<strong>accès Opus</strong> — l\'analyse halakhique approfondie.'}</p>
           ${isMonthly ? '<p style="font-size:12px;color:#8a847b;">Le quota mensuel protège l\'asso contre les usages excessifs et garantit que DAAT reste accessible à tous.</p>' : ''}
         `;
         primaryLabel = 'Soutenir DAAT';
@@ -1300,7 +1325,30 @@
                 this.appendToolNotice(toolLabel);
               } else if (parsed.type === 'notice') {
                 this.appendToolNotice('⏳ ' + parsed.message);
+              } else if (parsed.type === 'limit_reached') {
+                // Quota Anthropic épuisé (envoyé via SSE après début du stream)
+                assistantEl.remove();
+                const isAnthropic = parsed.scope === 'anthropic_quota';
+                this.showPaywallModal({
+                  reason: isAnthropic ? 'anthropic_exhausted' : 'limit',
+                  info: parsed,
+                });
+                if (typingEl.parentNode) typingEl.remove();
+                this.setStreaming(false);
+                return;
               } else if (parsed.type === 'error') {
+                // Filet de sécurité : si erreur contient pattern Anthropic, paywall
+                const errStr = String(parsed.error || '');
+                if (/API usage limits|credit balance is too low|invalid_request_error/i.test(errStr)) {
+                  assistantEl.remove();
+                  this.showPaywallModal({
+                    reason: 'anthropic_exhausted',
+                    info: { scope: 'anthropic_quota', soutenir_url: '/soutenir.html?from=chat' },
+                  });
+                  if (typingEl.parentNode) typingEl.remove();
+                  this.setStreaming(false);
+                  return;
+                }
                 throw new Error(parsed.error || 'Erreur de génération');
               } else if (parsed.type === 'done') {
                 if (window.DAAT_CHAT_DEBUG) {
@@ -1334,9 +1382,17 @@
       } catch (error) {
         console.error('[Daat chat] error:', error);
         if (typingEl.parentNode) typingEl.remove();
-        // 429 = limite atteinte → paywall, pas un message d'erreur
+        const msg = String(error?.message || error || '');
+        // 429 limite quotidienne/mensuelle (notre cap par utilisateur) → paywall limit
         if (error._isLimitReached) {
           this.showPaywallModal({ reason: 'limit', info: error._info });
+        }
+        // Quota Anthropic global épuisé (pattern dans le message d'erreur) → paywall fort
+        else if (/API usage limits|credit balance is too low|invalid_request_error/i.test(msg)) {
+          this.showPaywallModal({
+            reason: 'anthropic_exhausted',
+            info: { scope: 'anthropic_quota', soutenir_url: '/soutenir.html?from=chat' },
+          });
         } else {
           this.appendError(error.message || 'Erreur de connexion. Vérifie ta connexion internet.');
         }

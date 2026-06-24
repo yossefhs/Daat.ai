@@ -1091,15 +1091,54 @@ RÈGLES STRICTES :
   } catch (error) {
     console.error('[Daat chat API] error:', error);
 
+    // Détection des erreurs Anthropic "quota épuisé côté admin/Anthropic"
+    // - "You have reached your specified API usage limits" (limite mensuelle configurée)
+    // - "rate_limit" / "credit_balance" / "billing"
+    // On transforme en notre format `limit_reached` pour afficher le modal côté UI.
+    const rawMessage = String(error?.message || error || '');
+    const isQuotaExhausted =
+      /reached your specified API usage limits/i.test(rawMessage) ||
+      /credit balance is too low/i.test(rawMessage) ||
+      /quota/i.test(rawMessage) && /exhaust/i.test(rawMessage);
+
+    if (isQuotaExhausted) {
+      const payload = {
+        error: 'limit_reached',
+        type: 'limit_reached',
+        scope: 'anthropic_quota',
+        is_guest: false, // peu importe, le message est le même
+        soutenir_url: SOUTENIR_URL,
+        helloasso_url: HELLOASSO_URL,
+        message: "Le quota mensuel de l'IA est temporairement épuisé. Soutiens DAAT pour rétablir l'accès et permettre à l'étude de continuer.",
+      };
+      if (!res.headersSent) {
+        return res.status(429).json(payload);
+      }
+      // En SSE : on envoie limit_reached au lieu d'error
+      try {
+        res.write(`data: ${JSON.stringify({ type: 'limit_reached', ...payload })}\n\n`);
+        res.end();
+      } catch (_) { /* connection closed */ }
+      return;
+    }
+
     if (!res.headersSent) {
       if (error instanceof Anthropic.AuthenticationError) {
         return res.status(500).json({ error: 'Configuration serveur invalide (clé API)' });
       }
       if (error instanceof Anthropic.RateLimitError) {
-        return res.status(429).json({ error: 'Trop de requêtes. Réessayez dans un instant.' });
+        return res.status(429).json({
+          error: 'rate_limited',
+          type: 'rate_limited',
+          message: 'Trop de requêtes en même temps. Réessaie dans un instant.',
+        });
       }
       if (error instanceof Anthropic.APIError) {
-        return res.status(error.status || 500).json({ error: error.message });
+        // Message générique en français au lieu du payload Anthropic brut en anglais
+        return res.status(error.status || 500).json({
+          error: 'api_error',
+          message: "Une erreur est survenue côté IA. Réessaie ou reviens dans un moment.",
+        });
       }
       return res.status(500).json({ error: 'Erreur interne du serveur' });
     }
@@ -1107,7 +1146,7 @@ RÈGLES STRICTES :
     try {
       const errorPayload = JSON.stringify({
         type: 'error',
-        error: error.message || 'Erreur lors de la génération',
+        error: "Une erreur est survenue côté IA. Réessaie ou reviens dans un moment.",
       });
       res.write(`data: ${errorPayload}\n\n`);
       res.end();

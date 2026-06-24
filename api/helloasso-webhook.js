@@ -79,6 +79,24 @@ function planFromAmount(amountCents, isRecurring) {
 // Le webhook du mois suivant prolongera la date.
 const MONTHLY_GRACE_DAYS = 35;
 
+// ── Crédits Opus en remerciement d'un don ponctuel ─────────────────────────
+// Grille progressive : plus le don est généreux, meilleur le ratio crédits/€.
+// Aligné avec les paliers de la page /soutenir (Hai 18, 36, 72, 180).
+// NB : ces ratios sont ÉCONOMIQUEMENT viables — 1 question Opus coûte ~$0.30
+// à l'asso, donc 40 crédits pour 18€ = 18€ encaissés contre ~€11 max de coût
+// si tout est consommé (et la majorité ne consomment pas tout).
+function creditsForOneTimeDonation(amountCents) {
+  const eur = Math.floor(amountCents / 100);
+  if (eur >= 180) return 500;   // 0,36 €/q — palier mécène
+  if (eur >= 72)  return 200;   // 0,36 €/q
+  if (eur >= 36)  return 90;    // 0,40 €/q
+  if (eur >= 18)  return 40;    // 0,45 €/q — palier Hai (le standard)
+  if (eur >= 10)  return 22;    // 0,45 €/q
+  if (eur >= 5)   return 10;    // 0,50 €/q — palier d'essai
+  if (eur >= 1)   return 2;     // 0,50 €/q — symbolique
+  return 0;
+}
+
 export default async function handler(req, res) {
   // CORS : webhooks viennent du back HelloAsso, pas du navigateur, donc OPTIONS rare.
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -220,8 +238,18 @@ export default async function handler(req, res) {
     plan = planFromAmount(amountCents, isRecurring);
   }
 
-  if (!plan) {
-    console.warn('[helloasso-webhook] cannot map to plan:', { formIdentifier, amountCents, isRecurring });
+  // ── 2bis. Crédits Opus pour les dons ponctuels (non récurrents) ──
+  // Tous les paiements one-time (don libre, dédicace payée, etc.) reçoivent
+  // des crédits Opus selon le montant — quel que soit le plan détecté.
+  // Les Payment events (échéances mensuelles d'abonnement) n'en reçoivent pas
+  // pour éviter le cumul à chaque mois d'abo. isRecurring = true exclut aussi
+  // les memberships (où l'utilisateur a déjà Opus via son plan).
+  const isOneTimeDonation = !isRecurring && eventType !== 'Payment' && amountCents > 0;
+  const creditsToAdd = isOneTimeDonation ? creditsForOneTimeDonation(amountCents) : 0;
+
+  // Si on n'a NI plan NI crédits → vraiment rien à faire
+  if (!plan && creditsToAdd === 0) {
+    console.warn('[helloasso-webhook] cannot map to plan or credits:', { formIdentifier, amountCents, isRecurring });
     // Log quand même pour audit — un humain pourra investiguer dans l'admin
     await kv.lpush('logs:helloasso-unmatched', JSON.stringify({
       ts: new Date().toISOString(),
@@ -261,34 +289,49 @@ export default async function handler(req, res) {
 
   // ── 4. Application de l'upgrade en KV ──
   const ops = [
-    kv.set(`user:plan:${email}`, plan),
     kv.lpush('logs:helloasso', JSON.stringify({
       ts: new Date().toISOString(),
       email, plan, recurring,
       amount_eur: amountCents / 100,
+      credits_added: creditsToAdd,
       formIdentifier, eventType,
       orderId: data?.id || data?.orderId || null,
     })),
     kv.ltrim('logs:helloasso', 0, 199),
     kv.sadd('users:known', email), // au cas où c'est un nouveau compte payeur
   ];
-  if (expiresAt) {
-    ops.push(kv.set(`user:plan_expires:${email}`, expiresAt));
-  } else {
-    ops.push(kv.del(`user:plan_expires:${email}`));
+
+  // Plan : upgrade seulement si on a un plan détecté
+  if (plan) {
+    ops.push(kv.set(`user:plan:${email}`, plan));
+    if (expiresAt) {
+      ops.push(kv.set(`user:plan_expires:${email}`, expiresAt));
+    } else {
+      ops.push(kv.del(`user:plan_expires:${email}`));
+    }
   }
+
+  // Crédits Opus : ajoutés en plus de l'éventuel plan
+  if (creditsToAdd > 0) {
+    ops.push(kv.incrby(`credits:${email}`, creditsToAdd));
+  }
+
   await Promise.all(ops);
 
   // Email masqué dans les logs (audit trail complet en KV)
   const maskedEmail = email.replace(/^(.).*?(@.*)$/, '$1***$2');
-  console.log(`[helloasso-webhook] UPGRADED ${maskedEmail} → ${plan}${expiresAt ? ' (expires ' + expiresAt + ')' : ' (lifetime)'} via ${eventType}`);
+  const parts = [];
+  if (plan) parts.push(`plan=${plan}${expiresAt ? ' exp=' + expiresAt : ' (lifetime)'}`);
+  if (creditsToAdd > 0) parts.push(`+${creditsToAdd} crédits Opus`);
+  console.log(`[helloasso-webhook] ✓ ${maskedEmail} ${parts.join(' · ')} (don ${amountCents / 100} € · ${eventType})`);
 
   return res.status(200).json({
     ok: true,
-    upgraded: true,
+    upgraded: !!plan,
     email,
     plan,
     expires: expiresAt,
+    credits_added: creditsToAdd,
     amount_eur: amountCents / 100,
   });
 }
