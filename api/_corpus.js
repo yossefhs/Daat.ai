@@ -140,7 +140,7 @@ export const CORPUS_TOOLS = [
       properties: {
         query: {
           type: 'string',
-          description: 'Mots-clés à chercher (français, hébreu, ou translittération). Exemples : "shevitat kelim", "siman 246", "prêt non-juif", "sekhar shabbat".',
+          description: 'Mots-clés à chercher (français, hébreu, ou translittération). Le corpus couvre Hilkhot Shabbat (Orah Haim 242-365, 124 simanim) et Yoreh Deah 87-113 (basar bè-halav, taarovot). Exemples : "kiddoush 271", "mouktsé 308", "basar bè-halav YD 87", "shevitat kelim", "prêt non-juif siman 246", "taarovot YD 109".',
         },
         limit: {
           type: 'integer',
