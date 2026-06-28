@@ -502,6 +502,14 @@
       "destination": "/sources/orah-haim/siman-:n/niveau-2-lamdan.html"
     },
     {
+      "source": "/oh-quotidien/:n(\\d+)/lamdan/he",
+      "destination": "/sources/orah-haim/siman-:n/niveau-2-lamdan-he.html"
+    },
+    {
+      "source": "/oh-quotidien/:n(\\d+)/lamdan/en",
+      "destination": "/sources/orah-haim/siman-:n/niveau-2-lamdan-en.html"
+    },
+    {
       "source": "/oh-quotidien/:n(\\d+)/synthese",
       "destination": "/sources/orah-haim/siman-:n/niveau-3-synthese.html"
     },
