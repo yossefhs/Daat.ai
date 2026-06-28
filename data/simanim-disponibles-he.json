@@ -2,12 +2,12 @@
   "meta": {
     "version": "2.0",
     "description": "אינדקס שנוצר אוטומטית של הסימנים הזמינים בדיסק. מתחדש בכל בנייה על ידי scripts/generate-simanim-index.js.",
-    "lastUpdated": "2026-06-16",
+    "lastUpdated": "2026-06-28",
     "counts": {
-      "total": 129,
-      "complet": 127,
+      "total": 174,
+      "complet": 172,
       "daatHarav": 0,
-      "partiel": 2
+      "partiel": 0
     },
     "bySection": {
       "shabbat": {
@@ -15,13 +15,29 @@
           "total": 124,
           "complet": 122,
           "daatHarav": 0,
-          "partiel": 2
+          "partiel": 0
         }
       },
       "yoreh-deah": {
         "counts": {
-          "total": 5,
-          "complet": 5,
+          "total": 32,
+          "complet": 32,
+          "daatHarav": 0,
+          "partiel": 0
+        }
+      },
+      "nida": {
+        "counts": {
+          "total": 18,
+          "complet": 18,
+          "daatHarav": 0,
+          "partiel": 0
+        }
+      },
+      "oh-quotidien": {
+        "counts": {
+          "total": 0,
+          "complet": 0,
           "daatHarav": 0,
           "partiel": 0
         }
@@ -2217,7 +2233,7 @@
       "num": 183,
       "numHe": "קפ״ג",
       "title": "אשה שרואה טיפת דם צריכה לישב שבעה נקיים",
-      "section": "yoreh-deah",
+      "section": "nida",
       "levels": {
         "n1": true,
         "n2": true,
@@ -2231,7 +2247,7 @@
       "num": 184,
       "numHe": "קפ״ד",
       "title": "שצריך לפרוש מהאשה עונה קודם לוסתה",
-      "section": "yoreh-deah",
+      "section": "nida",
       "levels": {
         "n1": true,
         "n2": true,
@@ -2245,7 +2261,7 @@
       "num": 185,
       "numHe": "קפ״ה",
       "title": "דין אשה שאמרה טמאה אני ואחר כך אמרה טהורה אני",
-      "section": "yoreh-deah",
+      "section": "nida",
       "levels": {
         "n1": true,
         "n2": true,
@@ -2259,7 +2275,7 @@
       "num": 186,
       "numHe": "קפ״ו",
       "title": "דיני בדיקת האשה בין לפני תשמיש בין לאחר תשמיש",
-      "section": "yoreh-deah",
+      "section": "nida",
       "levels": {
         "n1": true,
         "n2": true,
@@ -2273,7 +2289,7 @@
       "num": 187,
       "numHe": "קפ״ז",
       "title": "דיני אשה הרואה דם מחמת תשמיש",
-      "section": "yoreh-deah",
+      "section": "nida",
       "levels": {
         "n1": true,
         "n2": true,
@@ -2287,7 +2303,7 @@
       "num": 188,
       "numHe": "קפ״ח",
       "title": "דיני מראות הדם — הטמאים והטהורים",
-      "section": "yoreh-deah",
+      "section": "nida",
       "levels": {
         "n1": true,
         "n2": true,
@@ -2301,7 +2317,7 @@
       "num": 189,
       "numHe": "קפ״ט",
       "title": "דיני וסתות — וסת קבוע ושאינו קבוע",
-      "section": "yoreh-deah",
+      "section": "nida",
       "levels": {
         "n1": true,
         "n2": true,
@@ -2315,7 +2331,7 @@
       "num": 190,
       "numHe": "ק״צ",
       "title": "דיני כתמים ובדיקת האשה",
-      "section": "yoreh-deah",
+      "section": "nida",
       "levels": {
         "n1": true,
         "n2": true,
@@ -2329,7 +2345,7 @@
       "num": 191,
       "numHe": "קצ״א",
       "title": "דין אשה שמצאה דם בהשתנה",
-      "section": "yoreh-deah",
+      "section": "nida",
       "levels": {
         "n1": true,
         "n2": true,
@@ -2343,7 +2359,7 @@
       "num": 192,
       "numHe": "קצ״ב",
       "title": "דיני כלה הנכנסת לחופה",
-      "section": "yoreh-deah",
+      "section": "nida",
       "levels": {
         "n1": true,
         "n2": true,
@@ -2357,7 +2373,7 @@
       "num": 193,
       "numHe": "קצ״ג",
       "title": "דין דם בתולים ובעילת מצוה",
-      "section": "yoreh-deah",
+      "section": "nida",
       "levels": {
         "n1": true,
         "n2": true,
@@ -2371,7 +2387,7 @@
       "num": 194,
       "numHe": "קצ״ד",
       "title": "דיני יולדת ומפלת",
-      "section": "yoreh-deah",
+      "section": "nida",
       "levels": {
         "n1": true,
         "n2": true,
@@ -2385,7 +2401,7 @@
       "num": 195,
       "numHe": "קצ״ה",
       "title": "דברים האסורין בזמן נדותה — דיני ההרחקות",
-      "section": "yoreh-deah",
+      "section": "nida",
       "levels": {
         "n1": true,
         "n2": true,
@@ -2399,7 +2415,7 @@
       "num": 196,
       "numHe": "קצ״ו",
       "title": "דיני הפסק טהרה, שבעה נקיים ובדיקות",
-      "section": "yoreh-deah",
+      "section": "nida",
       "levels": {
         "n1": true,
         "n2": true,
@@ -2413,7 +2429,7 @@
       "num": 197,
       "numHe": "קצ״ז",
       "title": "דיני זמן הטבילה — שלא תטבול האשה ביום",
-      "section": "yoreh-deah",
+      "section": "nida",
       "levels": {
         "n1": true,
         "n2": true,
@@ -2427,7 +2443,7 @@
       "num": 198,
       "numHe": "קצ״ח",
       "title": "דיני טבילה וחציצה — כל גופה בפעם אחת, מה חוצץ, וכלל המקפיד",
-      "section": "yoreh-deah",
+      "section": "nida",
       "levels": {
         "n1": true,
         "n2": true,
@@ -2441,7 +2457,7 @@
       "num": 199,
       "numHe": "קצ״ט",
       "title": "דיני חפיפה ובדיקת בית הסתרים — ההכנה לטבילה",
-      "section": "yoreh-deah",
+      "section": "nida",
       "levels": {
         "n1": true,
         "n2": true,
@@ -2455,7 +2471,7 @@
       "num": 200,
       "numHe": "ר׳",
       "title": "דין ברכת הטבילה — אימתי ועל הכיסוי במים",
-      "section": "yoreh-deah",
+      "section": "nida",
       "levels": {
         "n1": true,
         "n2": true,
