@@ -5,7 +5,7 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tout le contenu — tous les simanim à étudier | DAAT</title>
-  <meta name="description" content="Vue d'ensemble de toute l'étude DAAT : Orah Haïm (Hilkhot Shabbat) et Yoreh De'ah (Issour ve-Heter). Chaque siman se déplie sur ses niveaux d'étude …">
+  <meta name="description" content="Vue d'ensemble de toute l'étude DAAT : Hilkhot Shabbat, Yoreh De'ah, Hilkhot Nida et Orah Haïm quotidien. Chaque siman se déplie sur ses niveaux d'étude.">
   <link rel="canonical" href="https://daattorah.com/contenu">
   <link rel="alternate" hreflang="fr" href="https://daattorah.com/contenu">
   <link rel="alternate" hreflang="he" href="https://daattorah.com/contenu/he">
@@ -15,7 +15,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="DAAT דעת">
   <meta property="og:title" content="Tout le contenu — tous les simanim à étudier">
-  <meta property="og:description" content="Orah Haïm (Hilkhot Shabbat) et Yoreh De'ah (Issour ve-Heter) — chaque siman se déplie sur ses niveaux d'étude.">
+  <meta property="og:description" content="Hilkhot Shabbat, Yoreh De'ah, Hilkhot Nida et Orah Haïm quotidien — chaque siman se déplie sur ses niveaux d'étude.">
   <meta property="og:url" content="https://daattorah.com/contenu">
   <meta property="og:image" content="https://daattorah.com/assets/img/og/og-default.png">
 
@@ -188,17 +188,22 @@
       simanWord: 'Siman', openAll: 'Tout déplier', closeAll: 'Tout replier',
       sectionsMeta: {
         'shabbat':     { fr: 'Orah Haïm — Hilkhot Shabbat', he: 'אורח חיים — הלכות שבת', meta: 'Le repos du Shabbat selon le Choulhan Aroukh (simanim 242–365).' },
-        'yoreh-deah':  { fr: "Yoreh De'ah — Issour ve-Heter", he: 'יורה דעה — איסור והיתר', meta: 'La cacheroute : bassar be-halav, taarovot, cachérisation des ustensiles.' }
+        'yoreh-deah':  { fr: "Yoreh De'ah — Issour ve-Heter", he: 'יורה דעה — איסור והיתר', meta: 'La cacheroute : bassar be-halav, taarovot, cachérisation des ustensiles.' },
+        'nida':        { fr: 'Hilkhot Nida — Taharat haMishpacha', he: 'הלכות נדה — טהרת המשפחה', meta: 'La pureté familiale : hefsek tahara, harhakot, ḥafifa, tevila (simanim 183–200).' },
+        'oh-quotidien':{ fr: 'Orah Haïm — Lois de tous les jours', he: 'אורח חיים — יום-יומי', meta: 'La halakha du quotidien : conduite au lever, netilat yadayim, berakhot, tefila.' }
       },
       countWord: function (n) { return n + (n > 1 ? ' simanim disponibles' : ' siman disponible'); },
       langSuffix: '' // FR = pas de suffixe
     };
 
-    var SECTION_ORDER = ['shabbat', 'yoreh-deah'];
+    var SECTION_ORDER = ['shabbat', 'yoreh-deah', 'nida', 'oh-quotidien'];
 
     function scheme(section) {
-      if (section === 'yoreh-deah') {
+      if (section === 'yoreh-deah' || section === 'nida') {
         return { prefix: '/yd', l4: 'halakha', l4label: I18N.halakha };
+      }
+      if (section === 'oh-quotidien') {
+        return { prefix: '/oh-quotidien', l4: 'daat-harav', l4label: I18N.daatharav };
       }
       return { prefix: '/oh', l4: 'daat-harav', l4label: I18N.daatharav };
     }
@@ -251,7 +256,7 @@
       var meta = I18N.sectionsMeta[section];
       var sc = scheme(section);
       var a = el('a', 'section-card');
-      a.href = section === 'yoreh-deah' ? '/yd/' : '/oh/';
+      a.href = section === 'yoreh-deah' ? '/yd/' : section === 'nida' ? '/nida/' : section === 'oh-quotidien' ? '/oh-quotidien/' : '/oh/';
       a.innerHTML =
         '<div class="sc-he" dir="rtl">' + meta.he + '</div>' +
         '<div class="sc-fr">' + meta.fr + '</div>' +

@@ -5,7 +5,7 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>כל התוכן — כל הסימנים ללימוד | DAAT</title>
-  <meta name="description" content="מבט כולל על כל לימוד DAAT: אורח חיים (הלכות שבת) ויורה דעה (איסור והיתר). כל סימן נפתח לרמות הלימוד שלו — בסיס, למדן, סיכום, והלכה / דעת הרב.">
+  <meta name="description" content="מבט כולל על כל לימוד DAAT: הלכות שבת, יורה דעה, הלכות נדה ואורח חיים יום-יומי. כל סימן נפתח לרמות הלימוד שלו — בסיס, למדן, סיכום, והלכה / דעת הרב.">
   <link rel="canonical" href="https://daattorah.com/contenu/he">
   <link rel="alternate" hreflang="fr" href="https://daattorah.com/contenu">
   <link rel="alternate" hreflang="he" href="https://daattorah.com/contenu/he">
@@ -15,7 +15,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="DAAT דעת">
   <meta property="og:title" content="כל התוכן — כל הסימנים ללימוד">
-  <meta property="og:description" content="אורח חיים (הלכות שבת) ויורה דעה (איסור והיתר) — כל סימן נפתח לרמות הלימוד שלו.">
+  <meta property="og:description" content="הלכות שבת, יורה דעה, הלכות נדה ואורח חיים יום-יומי — כל סימן נפתח לרמות הלימוד שלו.">
   <meta property="og:url" content="https://daattorah.com/contenu/he">
   <meta property="og:image" content="https://daattorah.com/assets/img/og/og-default.png">
 
@@ -188,17 +188,22 @@
       simanWord: 'סימן', openAll: 'פתח הכל', closeAll: 'סגור הכל',
       sectionsMeta: {
         'shabbat':     { fr: 'אורח חיים — הלכות שבת', he: 'אורח חיים — הלכות שבת', meta: 'מנוחת השבת לפי השולחן ערוך (סימנים 242–365).' },
-        'yoreh-deah':  { fr: 'יורה דעה — איסור והיתר', he: 'יורה דעה — איסור והיתר', meta: 'הכשרות: בשר בחלב, תערובות, הגעלת כלים.' }
+        'yoreh-deah':  { fr: 'יורה דעה — איסור והיתר', he: 'יורה דעה — איסור והיתר', meta: 'הכשרות: בשר בחלב, תערובות, הגעלת כלים.' },
+        'nida':        { fr: 'הלכות נדה — טהרת המשפחה', he: 'הלכות נדה — טהרת המשפחה', meta: 'טהרת המשפחה: הפסק טהרה, הרחקות, חפיפה, טבילה (סימנים 183–200).' },
+        'oh-quotidien':{ fr: 'אורח חיים — יום-יומי', he: 'אורח חיים — יום-יומי', meta: 'הלכת היום-יום: השכמת הבוקר, נטילת ידיים, ברכות, תפילה.' }
       },
       countWord: function (n) { return n + ' סימנים זמינים'; },
       langSuffix: '/he'
     };
 
-    var SECTION_ORDER = ['shabbat', 'yoreh-deah'];
+    var SECTION_ORDER = ['shabbat', 'yoreh-deah', 'nida', 'oh-quotidien'];
 
     function scheme(section) {
-      if (section === 'yoreh-deah') {
+      if (section === 'yoreh-deah' || section === 'nida') {
         return { prefix: '/yd', l4: 'halakha', l4label: I18N.halakha };
+      }
+      if (section === 'oh-quotidien') {
+        return { prefix: '/oh-quotidien', l4: 'daat-harav', l4label: I18N.daatharav };
       }
       return { prefix: '/oh', l4: 'daat-harav', l4label: I18N.daatharav };
     }
@@ -251,7 +256,7 @@
       var meta = I18N.sectionsMeta[section];
       var sc = scheme(section);
       var a = el('a', 'section-card');
-      a.href = section === 'yoreh-deah' ? '/yd/he' : '/oh/he';
+      a.href = section === 'yoreh-deah' ? '/yd/he' : section === 'nida' ? '/nida/he' : section === 'oh-quotidien' ? '/oh-quotidien/he' : '/oh/he';
       a.innerHTML =
         '<div class="sc-he" dir="rtl">' + meta.he + '</div>' +
         '<div class="sc-fr">' + meta.fr + '</div>' +
