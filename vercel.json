@@ -934,6 +934,9 @@
     "api/soutenir.js": {
       "maxDuration": 10
     },
+    "api/qonto-sync.js": {
+      "maxDuration": 60
+    },
     "api/admin/corpus.js": {
       "maxDuration": 10
     },
@@ -973,6 +976,10 @@
     {
       "path": "/api/daily-video",
       "schedule": "0 8 * * 0-4"
+    },
+    {
+      "path": "/api/qonto-sync",
+      "schedule": "0 7 * * *"
     }
   ]
 }

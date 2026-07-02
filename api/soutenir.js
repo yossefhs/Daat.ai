@@ -113,8 +113,8 @@ export default async function handler(req, res) {
 
         const items = [];
 
-        // 1. Dons manuels via soutien:list
-        if (sourceFilter === 'all' || sourceFilter === 'manuel') {
+        // 1. Dons manuels + virements Qonto via soutien:list (tagués par r.source)
+        if (sourceFilter === 'all' || sourceFilter === 'manuel' || sourceFilter === 'qonto') {
           const ids = (await kv.lrange('soutien:list', 0, 9999)) || [];
           const recs = await Promise.all(
             ids.map(async (id) => {
@@ -123,10 +123,13 @@ export default async function handler(req, res) {
           );
           for (const r of recs) {
             if (!r) continue;
+            const src = r.source || 'manuel';
+            // filtre explicite manuel|qonto : ne garder que la bonne source
+            if (sourceFilter !== 'all' && src !== sourceFilter) continue;
             const ts = new Date(r.createdAt).getTime();
             if (ts < sinceTs) continue;
             items.push({
-              source: 'manuel',
+              source: src,
               ts: r.createdAt,
               email: null,
               name: r.anonymous ? '(anonyme)' : r.name,
@@ -173,7 +176,7 @@ export default async function handler(req, res) {
         const stats = {
           total_count: items.length,
           total_eur: 0,
-          by_source: { manuel: 0, helloasso: 0 },
+          by_source: { manuel: 0, helloasso: 0, qonto: 0 },
           by_plan: {},
           by_month: {},
           recurring_count: 0,
