@@ -75,6 +75,10 @@
     .badge-source { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 10px; letter-spacing: 0.5px; text-transform: uppercase; font-weight: 600; }
     .badge-source.helloasso { background: #E6F2FA; color: #2A6FB2; }
     .badge-source.manuel { background: #F0E8F8; color: #6B3FA0; }
+    .badge-source.qonto { background: #E8F5EE; color: #2E7D52; }
+    .badge-source.especes { background: #FBF3E0; color: #9A7A1A; }
+    .del-btn { background: transparent; border: 1px solid var(--border); border-radius: 4px; padding: 3px 8px; cursor: pointer; font-size: 14px; line-height: 1; }
+    .del-btn:hover { background: #FDECEA; border-color: var(--red); }
     .badge-plan { display: inline-block; padding: 2px 7px; border-radius: 3px; font-size: 11px; background: var(--cream); color: var(--navy); border: 1px solid var(--border); }
     .badge-rec { color: var(--green); font-size: 11px; margin-left: 4px; }
 
@@ -151,7 +155,20 @@
       <button class="outline" id="qonto-sync-btn" title="Récupère les virements entrants Qonto">🔄 Sync Qonto</button>
       <button class="outline" id="qonto-accounts-btn" title="Lister mes comptes Qonto (pour identifier celui de daattorah)">🏦 Comptes</button>
       <button class="outline" id="qonto-reset-btn" title="Retirer tous les imports Qonto déjà faits (avant de re-synchroniser filtré)">🧹 Purger Qonto</button>
+      <button id="add-payment-btn" style="background:#2d7a3e">➕ Ajouter</button>
       <button id="export-btn">📥 Export CSV</button>
+    </div>
+
+    <!-- FORMULAIRE D'AJOUT MANUEL -->
+    <div id="add-form" style="display:none; background:#fff; border:1px solid var(--border); border-radius:6px; padding:14px 16px; margin-bottom:14px; align-items:end; gap:12px; flex-wrap:wrap;">
+      <div><label style="display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">Donateur</label><input id="add-name" type="text" placeholder="Nom" style="padding:7px 10px;border:1px solid var(--border);border-radius:3px;font-family:inherit;"></div>
+      <div><label style="display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">Montant €</label><input id="add-amount" type="number" step="0.01" min="0" placeholder="0" style="width:100px;padding:7px 10px;border:1px solid var(--border);border-radius:3px;font-family:inherit;"></div>
+      <div><label style="display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">Source</label><select id="add-source" style="padding:7px 10px;border:1px solid var(--border);border-radius:3px;font-family:inherit;"><option value="manuel">Manuel</option><option value="qonto">Qonto</option><option value="especes">Espèces</option></select></div>
+      <div><label style="display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">Type</label><input id="add-type" type="text" placeholder="don" value="don" style="width:110px;padding:7px 10px;border:1px solid var(--border);border-radius:3px;font-family:inherit;"></div>
+      <div><label style="display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">Date</label><input id="add-date" type="date" style="padding:7px 10px;border:1px solid var(--border);border-radius:3px;font-family:inherit;"></div>
+      <div style="flex:1;min-width:160px;"><label style="display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">Note / dédicace</label><input id="add-note" type="text" placeholder="optionnel" style="width:100%;padding:7px 10px;border:1px solid var(--border);border-radius:3px;font-family:inherit;"></div>
+      <button id="add-submit">✓ Enregistrer</button>
+      <button class="outline" id="add-cancel">Annuler</button>
     </div>
 
     <!-- TABLE -->
@@ -165,10 +182,11 @@
             <th style="width:120px">Plan</th>
             <th style="text-align:right; width:100px">Montant</th>
             <th>Détails</th>
+            <th style="width:60px">Actions</th>
           </tr>
         </thead>
         <tbody id="tbody">
-          <tr><td colspan="6" class="loading">Chargement…</td></tr>
+          <tr><td colspan="7" class="loading">Chargement…</td></tr>
         </tbody>
       </table>
     </div>
@@ -197,7 +215,7 @@ function fmtMonth(ym) {
 async function fetchData() {
   const token = sessionStorage.getItem(STORE_KEY);
   if (!token) return showGate();
-  $('tbody').innerHTML = '<tr><td colspan="6" class="loading">Chargement…</td></tr>';
+  $('tbody').innerHTML = '<tr><td colspan="7" class="loading">Chargement…</td></tr>';
   try {
     const r = await fetch('/api/soutenir?action=admin-all', {
       headers: { 'Authorization': 'Bearer ' + token }
@@ -217,7 +235,7 @@ async function fetchData() {
     populatePlanFilter();
     applyFilters();
   } catch (e) {
-    $('tbody').innerHTML = `<tr><td colspan="6" class="empty">❌ Erreur: ${e.message}</td></tr>`;
+    $('tbody').innerHTML = `<tr><td colspan="7" class="empty">❌ Erreur: ${e.message}</td></tr>`;
   }
 }
 
@@ -312,7 +330,7 @@ function applyFilters() {
 function renderTable(items) {
   if (!items.length) {
     $('tbody').innerHTML = `
-      <tr><td colspan="6" class="empty">
+      <tr><td colspan="7" class="empty">
         <div class="icon">💸</div>
         Aucun paiement ne correspond à ces filtres.
       </td></tr>`;
@@ -327,14 +345,19 @@ function renderTable(items) {
       it.orderId ? `<small style="color:#999">#${escapeHtml(it.orderId)}</small>` : '',
       it.eventType ? `<small style="color:#999">${escapeHtml(it.eventType)}</small>` : '',
     ].filter(Boolean).join(' · ');
+    const srcLabel = it.source === 'helloasso' ? 'HelloAsso'
+      : it.source === 'qonto' ? 'Qonto'
+      : it.source === 'especes' ? 'Espèces' : 'Manuel';
+    const deletable = it.orderId && it.source !== 'helloasso';
     return `
       <tr>
         <td class="date">${fmtDate(it.ts)}</td>
-        <td><span class="badge-source ${it.source}">${it.source === 'helloasso' ? 'HelloAsso' : 'Manuel'}</span></td>
+        <td><span class="badge-source ${it.source}">${srcLabel}</span></td>
         <td>${who}</td>
         <td>${it.plan ? `<span class="badge-plan">${escapeHtml(it.plan)}</span>` : '—'}${it.recurring ? '<span class="badge-rec" title="abonnement">↻</span>' : ''}</td>
         <td class="amount">${it.amount_eur > 0 ? fmtEur(it.amount_eur) : '—'}</td>
         <td>${details || '—'}</td>
+        <td>${deletable ? `<button class="del-btn" data-id="${escapeHtml(it.orderId)}" title="Supprimer ce paiement">🗑</button>` : '<span style="color:#ccc">—</span>'}</td>
       </tr>
     `;
   }).join('');
@@ -456,6 +479,70 @@ $('qonto-reset-btn').addEventListener('click', async () => {
     fetchData();
   } catch (e) {
     alert('Erreur (purge Qonto) : ' + e.message);
+  }
+});
+
+// ── Ajout manuel d'un paiement ──
+$('add-payment-btn').addEventListener('click', () => {
+  const f = $('add-form');
+  f.style.display = (f.style.display === 'flex') ? 'none' : 'flex';
+  if (f.style.display === 'flex') $('add-name').focus();
+});
+$('add-cancel').addEventListener('click', () => { $('add-form').style.display = 'none'; });
+$('add-submit').addEventListener('click', async () => {
+  const token = sessionStorage.getItem(STORE_KEY);
+  if (!token) return showGate();
+  const name = $('add-name').value.trim();
+  const amount = parseFloat($('add-amount').value);
+  const source = $('add-source').value;
+  const type = $('add-type').value.trim() || 'don';
+  const date = $('add-date').value;
+  const dedicace = $('add-note').value.trim();
+  if (!name) { alert('Le nom du donateur est requis.'); return; }
+  const btn = $('add-submit'); const lbl = btn.textContent;
+  btn.disabled = true; btn.textContent = '…';
+  try {
+    const r = await fetch('/api/soutenir', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name, amount: isNaN(amount) ? null : amount, type, source,
+        date: date || undefined, dedicace: dedicace || undefined,
+      }),
+    });
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.error || ('HTTP ' + r.status));
+    $('add-name').value = ''; $('add-amount').value = '';
+    $('add-note').value = ''; $('add-date').value = '';
+    $('add-form').style.display = 'none';
+    fetchData();
+  } catch (e) {
+    alert('Erreur ajout : ' + e.message);
+  } finally {
+    btn.disabled = false; btn.textContent = lbl;
+  }
+});
+
+// ── Suppression d'un paiement (délégation sur le tableau) ──
+$('tbody').addEventListener('click', async (e) => {
+  const btn = e.target.closest('.del-btn');
+  if (!btn) return;
+  const id = btn.getAttribute('data-id');
+  if (!id) return;
+  if (!confirm('Supprimer ce paiement ? (irréversible)')) return;
+  const token = sessionStorage.getItem(STORE_KEY);
+  if (!token) return showGate();
+  btn.disabled = true;
+  try {
+    const r = await fetch('/api/soutenir?id=' + encodeURIComponent(id), {
+      method: 'DELETE', headers: { 'Authorization': 'Bearer ' + token },
+    });
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.error || ('HTTP ' + r.status));
+    fetchData();
+  } catch (err) {
+    alert('Erreur suppression : ' + err.message);
+    btn.disabled = false;
   }
 });
 

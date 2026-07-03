@@ -278,6 +278,12 @@ export default async function handler(req, res) {
       const dedicace = clean(body.dedicace, 200) || null;
       const amount = body.amount != null ? Number(body.amount) : null;
       const anonymous = !!body.anonymous;
+      // Source optionnelle (manuel par défaut) + date optionnelle (sinon maintenant).
+      const srcRaw = clean(body.source, 16).toLowerCase();
+      const source = ['qonto', 'especes', 'manuel'].includes(srcRaw) ? srcRaw : null;
+      const createdAt = body.date && /^\d{4}-\d{2}-\d{2}/.test(String(body.date))
+        ? new Date(body.date).toISOString()
+        : new Date().toISOString();
 
       if (!name && !anonymous) {
         return res.status(400).json({ error: 'name requis (ou anonymous: true)' });
@@ -294,8 +300,9 @@ export default async function handler(req, res) {
         customTag,
         amount,
         dedicace,
+        source,
         anonymous,
-        createdAt: new Date().toISOString(),
+        createdAt,
       };
 
       // Audit interne complet
