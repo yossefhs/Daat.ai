@@ -149,6 +149,8 @@
 
       <button class="outline" id="refresh-btn">↻ Actualiser</button>
       <button class="outline" id="qonto-sync-btn" title="Récupère les virements entrants Qonto">🔄 Sync Qonto</button>
+      <button class="outline" id="qonto-accounts-btn" title="Lister mes comptes Qonto (pour identifier celui de daattorah)">🏦 Comptes</button>
+      <button class="outline" id="qonto-reset-btn" title="Retirer tous les imports Qonto déjà faits (avant de re-synchroniser filtré)">🧹 Purger Qonto</button>
       <button id="export-btn">📥 Export CSV</button>
     </div>
 
@@ -424,6 +426,36 @@ $('qonto-sync-btn').addEventListener('click', async () => {
       (/503|configur/i.test(e.message) ? '\n\n→ Configure QONTO_LOGIN et QONTO_SECRET_KEY sur Vercel, puis redéploie.' : ''));
   } finally {
     btn.disabled = false; btn.textContent = label;
+  }
+});
+$('qonto-accounts-btn').addEventListener('click', async () => {
+  const token = sessionStorage.getItem(STORE_KEY);
+  if (!token) return showGate();
+  try {
+    const r = await fetch('/api/qonto-sync?accounts=1', { headers: { 'Authorization': 'Bearer ' + token } });
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.error || ('HTTP ' + r.status));
+    const lines = (d.accounts || []).map(a =>
+      `• ${a.name || '(sans nom)'}\n  IBAN : ${a.iban || '—'}\n  Solde : ${a.balance != null ? a.balance + ' ' + (a.currency || '') : '—'}`
+    ).join('\n\n');
+    alert('Comptes Qonto :\n\n' + (lines || 'aucun') +
+      '\n\n→ Repère celui de daattorah, et mets son IBAN dans la variable QONTO_IBAN sur Vercel (puis redeploy) pour ne synchroniser QUE ce compte.');
+  } catch (e) {
+    alert('Erreur (comptes Qonto) : ' + e.message);
+  }
+});
+$('qonto-reset-btn').addEventListener('click', async () => {
+  const token = sessionStorage.getItem(STORE_KEY);
+  if (!token) return showGate();
+  if (!confirm('Retirer TOUS les paiements importés depuis Qonto (source « qonto ») ?\nLes dons manuels et HelloAsso ne sont pas touchés. Tu pourras re-synchroniser ensuite (filtré).')) return;
+  try {
+    const r = await fetch('/api/qonto-sync?reset=1', { headers: { 'Authorization': 'Bearer ' + token } });
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.error || ('HTTP ' + r.status));
+    alert(`${d.removed} import(s) Qonto retiré(s). Tu peux maintenant re-synchroniser avec le bon filtre.`);
+    fetchData();
+  } catch (e) {
+    alert('Erreur (purge Qonto) : ' + e.message);
   }
 });
 
