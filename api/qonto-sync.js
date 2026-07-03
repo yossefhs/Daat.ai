@@ -10,12 +10,22 @@
 //   - Cron Vercel (quotidien): Authorization: Bearer <CRON_SECRET>
 //   - Test à blanc           : ?dry=1  (compte sans écrire)
 //   - Fenêtre                : ?since=YYYY-MM-DD  (défaut : QONTO_SINCE ou 90 j)
+//   - Lister les comptes     : ?accounts=1  (pour trouver l'IBAN de daattorah)
+//   - Purger les imports     : ?reset=1     (retire tous les q-*, remet à zéro)
+//   - Filtre ponctuel        : ?include=daat,don  (liste blanche à la volée)
+//
+// ➜ Pour n'importer QUE les paiements daattorah (compte Qonto partagé) :
+//     • soit un compte dédié → mettre son IBAN dans QONTO_IBAN ;
+//     • soit un compte unique → QONTO_INCLUDE (mots-clés obligatoires dans le virement).
 //
 // Variables d'environnement Vercel (à définir) :
 //   QONTO_LOGIN            = login API Qonto      (Qonto → Paramètres → Intégrations → API)
 //   QONTO_SECRET_KEY       = clé secrète API Qonto
 //   QONTO_BANK_ACCOUNT_ID  = (optionnel) UUID du compte ; sinon déduit via /organization
-//   QONTO_IBAN             = (optionnel) IBAN pour choisir le bon compte
+//   QONTO_IBAN             = (optionnel) IBAN du compte daattorah — ne synchronise QUE lui
+//   QONTO_INCLUDE          = (optionnel) mots-clés OBLIGATOIRES (libellé+référence+note),
+//                            séparés par des virgules — n'importe QUE les virgules matchant
+//                            (ex. "daat,don,tsedaka,soutien"). Idéal si un seul compte reçoit tout.
 //   QONTO_EXCLUDE          = (optionnel) libellés à ignorer, séparés par des virgules
 //                            (défaut : "helloasso,stripe,remboursement,refund" — évite de
 //                             recompter les reversements HelloAsso déjà suivis par le webhook)
@@ -92,11 +102,64 @@ export default async function handler(req, res) {
   if (req.method !== 'GET') return res.status(405).json({ error: 'GET only' });
   if (!isAuthed(req)) return res.status(401).json({ error: 'Unauthorized' });
 
+  // ── Mode « lister les comptes » (?accounts=1) : pour identifier lequel est
+  //    celui de daattorah (IBAN à mettre dans QONTO_IBAN). ──
+  if (req.query.accounts === '1') {
+    try {
+      const org = await qontoGet('/organization');
+      const accounts = (org?.organization?.bank_accounts || org?.bank_accounts || []).map((a) => ({
+        id: a.id,
+        name: a.name || a.slug || null,
+        iban: a.iban || null,
+        balance: a.balance != null ? a.balance
+          : (a.balance_cents != null ? a.balance_cents / 100 : null),
+        currency: a.currency || 'EUR',
+      }));
+      return res.status(200).json({ ok: true, accounts });
+    } catch (err) {
+      const status = err?.code === 'no_creds' ? 503 : 500;
+      return res.status(status).json({ error: err?.message || 'Erreur serveur' });
+    }
+  }
+
+  // ── Mode « purge » (?reset=1) : retire TOUS les imports Qonto déjà faits
+  //    (id q-*), décrémente les compteurs, et vide le set de dédoublonnage
+  //    pour permettre un ré-import filtré propre. ──
+  if (req.query.reset === '1') {
+    try {
+      const ids = (await kv.lrange('soutien:list', 0, 9999)) || [];
+      let removed = 0;
+      for (const id of ids) {
+        if (!String(id).startsWith('q-')) continue;
+        const rec = await kv.get(`soutien:${id}`);
+        if (rec && rec.amount > 0 && rec.createdAt) {
+          const d = new Date(rec.createdAt);
+          const mk = `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}`;
+          await kv.incrby(`soutien:total:${mk}`, -Math.round(rec.amount * 100));
+          await kv.incrby(`soutien:count:${mk}`, -1);
+        }
+        await kv.lrem('soutien:list', 0, id);
+        await kv.del(`soutien:${id}`);
+        removed++;
+      }
+      try { await kv.del(PROCESSED_SET); } catch (_) {}
+      return res.status(200).json({ ok: true, reset: true, removed });
+    } catch (err) {
+      return res.status(500).json({ error: err?.message || 'Erreur serveur' });
+    }
+  }
+
   const dryRun = req.query.dry === '1';
   const excludes = (process.env.QONTO_EXCLUDE
     ? process.env.QONTO_EXCLUDE.split(',')
     : DEFAULT_EXCLUDE
   ).map((s) => s.trim().toLowerCase()).filter(Boolean);
+
+  // Liste blanche (QONTO_INCLUDE ou ?include=…) : si définie, on n'importe QUE
+  // les crédits dont le texte (libellé + référence + note) contient l'un de ces
+  // mots (ex. "daat,don,tsedaka,soutien"). Idéal quand UN seul compte reçoit tout.
+  const includes = (process.env.QONTO_INCLUDE || req.query.include || '')
+    .split(',').map((s) => s.trim().toLowerCase()).filter(Boolean);
 
   // Fenêtre plancher (évite d'importer des années de crédits au 1er passage)
   let since = req.query.since || process.env.QONTO_SINCE || '';
@@ -137,8 +200,11 @@ export default async function handler(req, res) {
 
     for (const t of all) {
       if (t.side !== 'credit') continue;
-      const label = String(t.label || '').toLowerCase();
-      if (excludes.some((x) => x && label.includes(x))) { excluded++; continue; }
+      // Texte de matching : libellé (nom du payeur) + référence + note du virement.
+      const text = [t.label, t.reference, t.note].map((v) => String(v || '')).join(' ').toLowerCase();
+      if (excludes.some((x) => x && text.includes(x))) { excluded++; continue; }
+      // Liste blanche : si active, tout ce qui NE matche PAS est ignoré.
+      if (includes.length && !includes.some((x) => text.includes(x))) { excluded++; continue; }
 
       // Dédoublonnage par identifiant Qonto (sadd = 1 si nouveau, 0 sinon)
       const isNew = await kv.sadd(PROCESSED_SET, t.id);
@@ -160,7 +226,7 @@ export default async function handler(req, res) {
         type: 'don',
         source: 'qonto',
         amount,
-        dedicace: null,
+        dedicace: t.reference || t.note || null,
         anonymous: false,
         createdAt,
         qonto_operation: t.operation_type || null,
@@ -190,6 +256,7 @@ export default async function handler(req, res) {
       skipped,
       excluded,
       dryRun,
+      filter: { excludes, includes },
       added: added.slice(0, 50),
     });
   } catch (err) {
