@@ -161,6 +161,11 @@ async function handleVerifyCode(req, res) {
     };
     await kv.set(userKey, user);
 
+    // Rendre le compte visible dans l'admin dès l'inscription, même sans avoir
+    // encore chatté (sinon un compte inscrit/payant qui n'a jamais envoyé de
+    // message n'apparaît nulle part — c'était la cause des "adresses manquantes").
+    await kv.sadd('users:known', cleanEmail);
+
     // ── Migration du compteur Aperçu Premium guest → email (anti-gaming) ──
     // Si l'utilisateur a déjà épuisé son Aperçu en tant qu'anonyme, on garde
     // ce compteur sur son compte email. Évite : "anonyme épuise 3 → crée

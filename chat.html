@@ -1528,6 +1528,7 @@ function showLimitReachedModal(info) {
   const isGuest = info.is_guest !== false;
   const limit = info.limit || (isGuest ? 2 : 5);
   const isAnthropicExhausted = info.scope === 'anthropic_quota';
+  const isMonthly = info.scope === 'monthly';
 
   // ─────────────────────────────────────────────────────────────────────
   // CAS SPÉCIAL : quota Anthropic global épuisé — message fort
@@ -1599,12 +1600,14 @@ function showLimitReachedModal(info) {
   modal.innerHTML = `
     <div style="font-family:'Frank Ruhl Libre',serif;font-size:42px;color:#B8972A;margin-bottom:6px;direction:rtl;">דעת</div>
     <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:500;color:#1a1a2e;margin-bottom:14px;">
-      ${isGuest ? 'Continue ton étude avec DAAT' : 'Tu as bien étudié aujourd\'hui'}
+      ${isGuest ? 'Continue ton étude avec DAAT' : (isMonthly ? 'Quota mensuel atteint' : 'Tu as bien étudié aujourd\'hui')}
     </h2>
     <p style="font-size:1.05rem;line-height:1.55;margin-bottom:20px;color:#3a2e1f;">
       ${isGuest
         ? `Tu as utilisé tes <strong>${limit} questions gratuites</strong> du jour.`
-        : `Tu as atteint ta limite quotidienne de <strong>${limit} questions</strong>.`}
+        : (isMonthly
+            ? `Tu as atteint ton quota <strong>mensuel</strong> de <strong>${limit} questions</strong>. Il se réinitialise le mois prochain.`
+            : `Tu as atteint ta limite quotidienne de <strong>${limit} questions</strong>.`)}
     </p>
 
     ${isGuest ? `
@@ -1752,6 +1755,15 @@ async function send(userText) {
           if (e.message && !e.message.includes('JSON')) throw e;
         }
       }
+    }
+
+    // Garde : si le stream s'est terminé sans aucun texte (abort budget-temps
+    // serveur, coupure réseau en cours de tool-use…), ne pas enregistrer une
+    // bulle vide silencieuse — afficher un message clair et permettre le retry.
+    if (!assistantText.trim()) {
+      if (assistantBubble && assistantBubble.parentElement) assistantBubble.remove();
+      renderMessage('assistant', '⚠️ Pas de réponse reçue. Réessaie dans un instant.');
+      return;
     }
 
     state.messages.push({ role: 'assistant', content: assistantText });

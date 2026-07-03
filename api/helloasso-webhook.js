@@ -77,7 +77,10 @@ function planFromAmount(amountCents, isRecurring) {
 
 // Durée de validité d'un abonnement mensuel (35 jours = mois + marge).
 // Le webhook du mois suivant prolongera la date.
-const MONTHLY_GRACE_DAYS = 35;
+// 40j de grâce (mois de 30-31j + marge pour retards bancaires / retries de webhook).
+// Évite qu'un abonné perde Opus juste parce que l'échéance HelloAsso arrive quelques
+// jours en retard. La date est reprolongée à chaque event Payment reçu.
+const MONTHLY_GRACE_DAYS = 40;
 
 // ── Crédits Opus en remerciement d'un don ponctuel ─────────────────────────
 // Grille progressive : plus le don est généreux, meilleur le ratio crédits/€.
@@ -246,6 +249,20 @@ export default async function handler(req, res) {
   // les memberships (où l'utilisateur a déjà Opus via son plan).
   const isOneTimeDonation = !isRecurring && eventType !== 'Payment' && amountCents > 0;
   const creditsToAdd = isOneTimeDonation ? creditsForOneTimeDonation(amountCents) : 0;
+
+  // ── 2ter. Renouvellement d'abonnement même si le re-mapping échoue ──
+  // Une échéance récurrente (event Payment) n'a pas toujours les métadonnées de
+  // formulaire → plan peut rester null. Mais l'utilisateur PAIE bien : on doit
+  // prolonger son plan existant, pas le laisser expirer. On lit donc son plan
+  // courant en KV et on le reconduit.
+  if (!plan && (isRecurring || eventType === 'Payment')) {
+    const existingPlan = await kv.get(`user:plan:${email}`);
+    if (existingPlan && SUBSCRIBER_PLANS.has(existingPlan) && existingPlan !== 'lifetime') {
+      plan = existingPlan;
+      recurring = true;
+      console.log('[helloasso-webhook] renouvellement plan existant (re-mapping échoué):', existingPlan);
+    }
+  }
 
   // Si on n'a NI plan NI crédits → vraiment rien à faire
   if (!plan && creditsToAdd === 0) {

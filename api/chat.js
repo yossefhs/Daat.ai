@@ -145,7 +145,7 @@ const DAILY_LIMITS = {
 const MONTHLY_LIMITS = {
   anonymous:        100,
   free:             150,
-  khavroutha:       100,       // moyenne 3.3 q/jour, cap pour limiter les marges négatives
+  khavroutha:       160,       // > free (150) : un payant ne doit jamais avoir un cap inférieur au gratuit
   beit_midrash:     300,       // moyenne 10 q/jour
   beit_midrash_plus: 600,
   yeshiva:         1000,
@@ -153,14 +153,14 @@ const MONTHLY_LIMITS = {
   premium:        99999,
 };
 
-// Plans qui débloquent la qualité Opus sur les questions halakhiques pointues
+// Plans payants (soutien récurrent ou don unique lifetime)
 const SUBSCRIBER_PLANS = new Set(['khavroutha', 'beit_midrash', 'beit_midrash_plus', 'yeshiva', 'lifetime', 'premium']);
-// Plans qui ont Opus TOUJOURS (sauf méta). Vide intentionnellement — même les abonnés
-// utilisent le routage intelligent Opus/Sonnet (Opus sur halakhique pointu, Sonnet sinon).
-// Économise massivement les coûts sans dégrader la qualité perçue (Sonnet 4.6 est excellent
-// pour les questions non-halakhiques). Maintient les marges positives sur tous les paliers.
-// 'premium' legacy conservé pour les anciens utilisateurs Premium illimité.
-const ALWAYS_OPUS_PLANS = new Set(['premium']);
+// Plans qui reçoivent Opus TOUJOURS (sauf méta-question triviale type "bonjour").
+// PROMESSE PRODUIT : celui qui paie reçoit la meilleure qualité (Opus) pendant toute
+// la durée de son abonnement — c'est ce que promet /soutenir ("accès aux réponses Opus").
+// On y met donc TOUS les plans payants. Un abonné ne doit jamais recevoir du Sonnet sur
+// une question halakhique simplement parce qu'elle ne contient pas de mot-clé "pointu".
+const ALWAYS_OPUS_PLANS = new Set(SUBSCRIBER_PLANS);
 
 const HELLOASSO_URL = 'https://www.helloasso.com/associations/association-hessed/formulaires/9';
 const SOUTENIR_URL = '/soutenir.html';
@@ -212,11 +212,15 @@ async function identifyUser(req) {
       kv.get(`user:preview_used:${user.email}`),
       kv.get(`user:plan_expires:${user.email}`),
     ]);
-    // Vérif expiration : si plan payant expiré → downgrade vers free
+    // Vérif expiration : si plan payant expiré → downgrade vers free.
+    // Comparaison de chaînes YYYY-MM-DD (les deux côtés sont dans ce format) :
+    // indépendante du fuseau horaire et INCLUSIVE du jour d'expiration stocké
+    // (l'abonné garde Opus jusqu'à la fin de son dernier jour, pas ~24h trop tôt).
     let effectivePlan = plan || 'free';
     if (SUBSCRIBER_PLANS.has(effectivePlan) && effectivePlan !== 'lifetime' && expiresRaw) {
-      const expiresAt = new Date(expiresRaw).getTime();
-      if (Date.now() > expiresAt) {
+      const todayStr = new Date().toISOString().slice(0, 10);
+      const expiresStr = String(expiresRaw).slice(0, 10);
+      if (todayStr > expiresStr) {
         effectivePlan = 'free';
       }
     }

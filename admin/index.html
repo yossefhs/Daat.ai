@@ -589,6 +589,17 @@ git commit -m "Initial commit — DAAT.AI Siman 246"
         <button class="btn btn-outline btn-sm" onclick="anLoadUsers()">↻ Actualiser</button>
         <button class="btn btn-gold btn-sm" onclick="openAnUpgrade()">+ Modifier plan</button>
       </div>
+
+      <!-- Recherche par email — fonctionne même si l'utilisateur n'est pas dans la liste -->
+      <div class="card" style="margin-bottom:16px;padding:16px;background:#FBF7EF;">
+        <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:8px;">🔎 Vérifier un compte précis (par email)</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+          <input type="email" id="an-search-email" placeholder="email@exemple.com" style="flex:1;min-width:240px;padding:8px 12px;border:1px solid var(--border);font-size:14px;" onkeydown="if(event.key==='Enter')anSearchUser()">
+          <button class="btn btn-primary btn-sm" onclick="anSearchUser()">Rechercher</button>
+        </div>
+        <div id="an-search-result" style="margin-top:12px;font-size:13px;"></div>
+      </div>
+
       <div class="card" style="padding:0;overflow:hidden;">
         <div id="an-users-wrap" style="padding:24px;color:var(--muted);font-size:14px;">
           Connecte-toi d'abord dans l'onglet "Stats &amp; Tokens".
@@ -1339,6 +1350,48 @@ function anRenderCostChart(days) {
       plugins: { tooltip: { callbacks: { label: c => '$' + c.raw.toFixed(5) } } }
     }
   });
+}
+
+async function anSearchUser() {
+  const out = document.getElementById('an-search-result');
+  const email = (document.getElementById('an-search-email').value || '').trim().toLowerCase();
+  if (!email) { out.innerHTML = '<span style="color:var(--muted)">Saisis un email.</span>'; return; }
+  if (!anSecret) { out.innerHTML = '<span style="color:var(--red)">Connecte-toi d\'abord (onglet Stats).</span>'; return; }
+  out.innerHTML = '<span style="color:var(--muted)">Recherche…</span>';
+  try {
+    const u = await anFetch('/api/admin/stats?action=user-detail&email=' + encodeURIComponent(email));
+    if (!u.exists) {
+      out.innerHTML = `<div style="padding:12px;background:#FCE4EC;border-left:3px solid var(--red);color:#8a1f1f;">
+        ❌ Aucun compte trouvé pour <strong>${email}</strong>.<br>
+        <span style="font-size:12px;color:var(--muted)">Ni compte inscrit, ni plan, ni crédits, ni activité. Vérifie l'orthographe exacte (l'email est sensible aux espaces mais pas à la casse).</span>
+      </div>`;
+      return;
+    }
+    const limits = { anonymous: 2, free: 5, khavroutha: 5, beit_midrash: 15, beit_midrash_plus: 30, yeshiva: 50, lifetime: 15, premium: 9999 };
+    const lim = limits[u.effective_plan] || 5;
+    const planColor = u.effective_plan === 'free' ? 'var(--red)' : 'var(--green)';
+    const expiryLine = u.plan_expires
+      ? `<div>Expiration : <strong style="color:${u.expired ? 'var(--red)' : 'var(--navy)'}">${String(u.plan_expires).slice(0,10)}</strong> ${u.expired ? '⚠️ EXPIRÉ (retombé en gratuit)' : '✓ actif'}</div>`
+      : '';
+    const opusLine = (u.effective_plan !== 'free' && u.effective_plan !== 'anonymous') || u.force_opus || u.credits > 0
+      ? '<span style="color:var(--green);font-weight:600;">✅ reçoit Opus</span>'
+      : '<span style="color:var(--red);font-weight:600;">❌ ne reçoit PAS Opus (Sonnet)</span>';
+    out.innerHTML = `<div style="padding:14px;background:#fff;border:1px solid var(--border);border-left:3px solid ${planColor};line-height:1.7;">
+      <div style="font-family:monospace;font-size:13px;font-weight:600;margin-bottom:6px;">${u.email}</div>
+      <div>Plan enregistré : <span class="plan-badge ${u.plan}">${u.plan}</span> ${u.expired ? '→ plan effectif : <span class="plan-badge free">free</span>' : ''}</div>
+      ${expiryLine}
+      <div>Crédits Opus : <strong>${u.credits}</strong> · Forcer Opus : <strong>${u.force_opus ? 'ON 💎' : 'off'}</strong></div>
+      <div>Questions : <strong>${u.today_questions}</strong>/${lim >= 9999 ? '∞' : lim} auj. · <strong>${u.month_questions}</strong> ce mois</div>
+      <div style="margin-top:6px;">Qualité de réponse : ${opusLine}</div>
+      <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;">
+        <button class="btn btn-gold btn-sm" onclick="openAnUpgrade('${u.email}','${u.plan}',${u.force_opus?'true':'false'},'${u.plan_expires||''}')">Modifier plan</button>
+        <button class="btn btn-outline btn-sm" onclick="anAddCredits('${u.email}',${u.credits})">💎 Crédits</button>
+        <button class="btn btn-outline btn-sm" onclick="anResetLimit('${u.email}')">↻ jour</button>
+      </div>
+    </div>`;
+  } catch (e) {
+    out.innerHTML = `<span style="color:var(--red)">Erreur : ${e.message}</span>`;
+  }
 }
 
 async function anLoadUsers() {

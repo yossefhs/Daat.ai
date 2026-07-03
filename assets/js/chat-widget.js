@@ -1247,6 +1247,11 @@
       try {
         const response = await fetch(API_URL, {
           method: 'POST',
+          // credentials:'include' est INDISPENSABLE : le widget est embarqué sur
+          // daattorah.com mais l'API est sur daatai.vercel.app (cross-site). Sans ça
+          // le cookie daat_session (JWT) n'est jamais envoyé → l'utilisateur connecté
+          // (et payant) est vu comme anonyme et ne reçoit pas Opus.
+          credentials: 'include',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ messages: this.messages, section: (document.querySelector('meta[name="daat-section"]') || {}).content || 'orach-chaim' }),
         });

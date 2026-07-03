@@ -33,10 +33,15 @@ export default async function handler(req, res) {
 
   // ── POST — actions admin ──────────────────────────────────────────────────
   if (req.method === 'POST') {
-    const { action, email, plan, value } = req.body;
+    const { action, plan, value } = req.body;
+    // NORMALISATION EMAIL : le JWT (chat) est toujours en minuscules+trim. Si l'admin
+    // écrit une clé user:plan:{email} avec une autre casse, le chat ne la lira JAMAIS
+    // → l'utilisateur reste 'free' malgré le plan. On normalise donc côté serveur.
+    const email = String(req.body.email || '').trim().toLowerCase();
 
     if (action === 'set-plan' && email && plan) {
       await kv.set(`user:plan:${email}`, plan);
+      await kv.sadd('users:known', email); // rendre visible dans l'admin même sans activité
       // Date d'expiration optionnelle (pour les abonnements mensuels manuels Qonto)
       if (req.body.expires) {
         await kv.set(`user:plan_expires:${email}`, req.body.expires);
@@ -52,6 +57,7 @@ export default async function handler(req, res) {
       } else {
         await kv.del(`user:force_opus:${email}`);
       }
+      await kv.sadd('users:known', email);
       return res.json({ success: true, message: `Forcer Opus pour ${email} : ${value ? 'ON' : 'OFF'}` });
     }
 
@@ -75,6 +81,7 @@ export default async function handler(req, res) {
       const current = parseInt((await kv.get(`credits:${email}`)) || '0', 10);
       const newTotal = Math.max(0, current + delta);
       await kv.set(`credits:${email}`, newTotal);
+      await kv.sadd('users:known', email); // rendre visible dans l'admin
       return res.json({
         success: true,
         email,
@@ -178,9 +185,11 @@ export default async function handler(req, res) {
     });
   }
 
-  // 4. USER DETAIL — stats sur 30 jours pour un utilisateur
+  // 4. USER DETAIL — recherche par email (fonctionne MÊME si l'email n'est pas
+  // dans users:known). C'est l'outil pour vérifier "j'ai payé mais pas d'Opus".
   if (action === 'user-detail') {
-    const email = req.query.email;
+    // Normaliser comme le JWT/webhook pour lire les bonnes clés
+    const email = String(req.query.email || '').trim().toLowerCase();
     if (!email) return res.status(400).json({ error: 'email requis' });
 
     const dateRange = [];
@@ -193,11 +202,43 @@ export default async function handler(req, res) {
       })
     );
 
-    const plan = (await kv.get(`user:plan:${email}`)) || 'free';
-    const forceOpus = Boolean(await kv.get(`user:force_opus:${email}`));
-    const todayRate = (await kv.get(`rate:${email}:${today()}`)) || 0;
+    const d = today();
+    const month = d.slice(0, 7);
+    const [rawPlan, forceOpusRaw, planExpires, creditsRaw, previewRaw, accountRaw, todayRate, monthRate] = await Promise.all([
+      kv.get(`user:plan:${email}`),
+      kv.get(`user:force_opus:${email}`),
+      kv.get(`user:plan_expires:${email}`),
+      kv.get(`credits:${email}`),
+      kv.get(`user:preview_used:${email}`),
+      kv.get(`user:${email}`),
+      kv.get(`rate:${email}:${d}`),
+      kv.get(`rate-month:${email}:${month}`),
+    ]);
 
-    return res.json({ email, plan, force_opus: forceOpus, today_questions: todayRate, days: days30 });
+    const plan = rawPlan || 'free';
+    // L'utilisateur est-il "connu" (a un compte, un plan, des crédits, ou de l'activité) ?
+    const exists = Boolean(accountRaw || rawPlan || (parseInt(creditsRaw || '0', 10) > 0) || parseInt(todayRate || '0', 10) > 0);
+    // Le plan est-il expiré ? (même logique que le chat : comparaison de dates YYYY-MM-DD)
+    let expired = false;
+    if (plan !== 'lifetime' && plan !== 'free' && planExpires) {
+      expired = d > String(planExpires).slice(0, 10);
+    }
+
+    return res.json({
+      email,
+      exists,
+      plan,
+      effective_plan: expired ? 'free' : plan,
+      plan_expires: planExpires || null,
+      expired,
+      credits: parseInt(creditsRaw || '0', 10),
+      force_opus: Boolean(forceOpusRaw),
+      preview_used: parseInt(previewRaw || '0', 10),
+      account: accountRaw || null,
+      today_questions: parseInt(todayRate || '0', 10),
+      month_questions: parseInt(monthRate || '0', 10),
+      days: days30,
+    });
   }
 
   return res.status(400).json({ error: 'action invalide' });
