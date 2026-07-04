@@ -49,8 +49,28 @@ function loadSimanim() {
   return _simanim;
 }
 
+const _details = new Map();
+// Détail fiable par siman (data/simanim/siman-N.json : titleFr complet + numberHe),
+// car simanim-disponibles.json (dérivé des <h1>) peut être tronqué pour certains simanim.
+function loadDetail(num) {
+  if (_details.has(num)) return _details.get(num);
+  let d = null;
+  try {
+    d = JSON.parse(readFileSync(join(__dirname, '..', 'data', 'simanim', `siman-${num}.json`), 'utf-8'));
+  } catch { /* absent → fallback index */ }
+  _details.set(num, d);
+  return d;
+}
+
 export function getSiman(num) {
-  return loadSimanim().get(Number(num)) || null;
+  const n = Number(num);
+  const base = loadSimanim().get(n);
+  if (!base) return null;
+  const detail = loadDetail(n);
+  const numHe = (detail?.numberHe && /[֐-׿]/.test(detail.numberHe) && detail.numberHe)
+    || (/[֐-׿]/.test(base.numHe || '') ? base.numHe : '');
+  const title = detail?.titleFr || base.title || `Siman ${n}`;
+  return { ...base, num: n, numHe, title };
 }
 
 // Renvoie le prochain numéro de siman valide ≥ from (borné à LAST_SIMAN).
