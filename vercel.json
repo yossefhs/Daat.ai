@@ -966,6 +966,9 @@
     },
     "api/daily-video.js": {
       "maxDuration": 300
+    },
+    "api/social.js": {
+      "maxDuration": 60
     }
   },
   "crons": [
@@ -980,6 +983,10 @@
     {
       "path": "/api/qonto-sync",
       "schedule": "0 7 * * *"
+    },
+    {
+      "path": "/api/social",
+      "schedule": "10 9 * * 2"
     }
   ]
 }

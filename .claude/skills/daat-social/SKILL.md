@@ -1,91 +1,71 @@
 ---
 name: daat-social
-description: Moteur de contenu social DAAT — transforme un siman du corpus daattorah.com en kit de publication multi-plateforme (LinkedIn, Instagram, Facebook, X…) dans la voix de DAAT, puis le planifie/publie via OmniSocials (MCP). Utiliser quand l'utilisateur veut « publier le siman de la semaine », « faire un post », « alimenter les réseaux », « le contenu social », ou booster la présence en ligne de DAAT.
+description: Moteur de contenu social DAAT — pilote la publication automatique du site (api/social.js, cron autonome sans service tiers) et génère des kits de posts sur-mesure (LinkedIn, Instagram, Facebook, X, Telegram, WhatsApp) dans la voix de DAAT à partir du corpus daattorah.com. Utiliser quand l'utilisateur veut « publier le siman de la semaine », « faire un post », « alimenter les réseaux », « vérifier les envois sociaux », ou booster la présence en ligne de DAAT.
 ---
 
-# DAAT — Moteur de contenu social
+# DAAT — Moteur de contenu social (v2, autonome)
 
-Transforme **un siman déjà rédigé** (corpus `daattorah.com`, 124 simanim × 4 niveaux ×
-3 langues) en un **kit de publication multi-plateforme** prêt à programmer, dans la
-voix de DAAT, puis le **publie/planifie via OmniSocials**.
+Le site publie **tout seul** : `api/social.js` + cron Vercel (**mardi 09:10 UTC**)
+postent le « siman de la semaine » (série 242 → 365, synchronisée avec la newsletter
+du dimanche) **directement via les APIs officielles** (Facebook, Instagram, LinkedIn,
+X, Telegram). Aucune session Claude ni service tiers requis.
 
-> **Principe fondateur** : on ne *crée* pas de nouveau contenu halakhique. On
-> **reformate** du contenu déjà validé. Claude n'invente **jamais** de psak.
+Ce skill est le **copilote** de ce moteur : vérifier son état, prévisualiser/forcer un
+envoi, et produire des **posts sur-mesure** (campagnes, fêtes, annonces) quand le
+gabarit automatique ne suffit pas.
 
-## Quand utiliser ce skill
-- « Publie le siman de la semaine », « fais un post sur le siman 247 »
-- « Alimente les réseaux », « prépare le contenu social », « planifie la semaine »
-- Toute demande de booster la présence sociale de DAAT.
+> **Principe fondateur inchangé** : on ne crée pas de halakha. On reformule du contenu
+> déjà validé. Jamais de psak ; toujours « pour la pratique, consulte ton Rav ».
 
-## Pré-requis : OmniSocials connecté à Claude
-La publication passe par **OmniSocials** (10 $/mo, 10 plateformes, OAuth). Voir
-`references/omnisocials-setup.md`. Si le MCP OmniSocials n'est **pas** disponible
-dans la session, **générer quand même le kit complet** et le présenter pour copier-
-coller manuel + indiquer comment connecter OmniSocials.
+## Architecture (qui fait quoi)
+- **Automatique** : `api/social.js` (publication) + `api/_social-content.js` (textes
+  par plateforme, générés depuis `data/simanim/…` + `BLOG_BY_SIMAN`). État en KV
+  (`social:weekly:cursor`, `social:log`). Setup des jetons : `references/autopilot.md`
+  (copie de `docs/social/autopilot.md`).
+- **Sur-mesure (ce skill)** : kits artisanaux multi-plateformes, packs de lancement
+  (`docs/social/launch-pack*.md` FR/HE/EN), posts événementiels.
 
-## Workflow (toujours dans cet ordre)
+## Opérations courantes (URLs admin — remplacer SECRET par CRON_SECRET)
+- État / journal : `https://daattorah.com/api/social?action=status&secret=SECRET`
+- Prévisualiser le prochain envoi : `…?action=preview&secret=SECRET`
+- Publier maintenant : `…?action=force&secret=SECRET`
+- Plateformes actives : `…?action=platforms&secret=SECRET`
 
-### 1. Choisir le siman
-- Numéro donné → l'utiliser. Sinon « siman de la semaine » → demander, ou prendre
-  le prochain non encore publié (tenir une trace dans `data/social-log.json` si présent).
-- Lier au **calendrier juif** si pertinent (paracha / fête à venir) pour l'accroche.
+Si l'utilisateur demande « est-ce que ça a été envoyé ? » → lui donner l'URL `status`
+(le skill n'a pas accès au KV depuis une session).
 
-### 2. Lire la source (NE PAS inventer)
-- `data/simanim/siman-{N}.json` → titre, sous-titre, keywords, descriptions des 4 niveaux, URLs.
-- `sources/shabbat/siman-{N}/niveau-1-base.html` → le contenu accessible (traduction,
-  concepts-clés, cas pratiques modernes). C'est la **matière première** des posts.
-- Citer uniquement ce qui est dans la source.
-
-### 3. Générer le kit (français d'abord — voir §Langue)
-Produire **une variante adaptée par plateforme** (jamais le même texte copié-collé —
-best practice 2026). Respecter les formats de `references/platform-specs.md`.
-Toujours inclure :
-- Un **lien** vers la page du siman : `https://daattorah.com/oh/{N}/base` (ou `/lamdan`,
-  `/synthese`, `/daat-harav`, ou `/oh/{N}/` pour la vue d'ensemble).
-- Le **visuel** : `assets/img/og/siman-{N}.svg` (le générer via
-  `node scripts/generate-og-image.js --siman {N}` s'il manque).
-- Un **hashtag set** sobre et pertinent (voir specs).
-
-### 4. Garde-fous halakhiques (NON négociables)
-- **Jamais de psak / décision pratique tranchée.** Toujours présenter « ce que dit la
-  source » et renvoyer à un Rav pour le `lemaasseh`.
-- Inclure, quand un cas pratique est mentionné, une formule du type :
-  *« Pour la pratique, consulte ton Rav. »*
-- Ton : sérieux, respectueux, pédagogique. Pas de putaclic, pas d'émoji à outrance.
-- Translittération cohérente (Shabbat, halakha, Choulhan Aroukh, Admour HaZaken…).
-- Le niveau 4 (Daat HaRav / Habad) : le présenter comme la chitah de l'Admour HaZaken,
-  sans présenter le minhag Habad comme obligatoire pour tous.
-
-### 5. Validation humaine (par défaut)
-Présenter le kit complet à l'utilisateur **avant toute publication**. Attendre un « OK »
-explicite. Ne publier directement (full-auto) **que** si l'utilisateur l'a demandé.
-
-### 6. Publier / planifier via OmniSocials
-Une fois validé, utiliser les outils MCP OmniSocials pour **programmer** (pas forcément
-publier dans l'instant) sur les plateformes choisies, aux **heures optimales** (voir
-specs). Proposer d'étaler sur la semaine (1 plateforme/jour) plutôt que tout d'un coup.
-Après programmation, **journaliser** dans `data/social-log.json` (siman, date, plateformes).
+## Workflow pour un post SUR-MESURE
+1. **Choisir le sujet** : numéro de siman donné, ou lien avec le calendrier juif
+   (paracha / fête) pour l'accroche.
+2. **Lire la source** (ne PAS inventer) : `data/simanim/siman-{N}.json` (titleFr,
+   numberHe) + `sources/shabbat/siman-{N}/niveau-1-base.html` (concepts, cas pratiques).
+   Citer uniquement ce qui est dans la source.
+3. **Générer une variante par plateforme** (jamais de copié-collé inter-réseaux) selon
+   `references/platform-specs.md`. Toujours : lien `https://daattorah.com/oh/{N}/` ou
+   l'article `/blog/…` s'il existe, visuel `assets/img/og/siman-{N}.png`, hashtags sobres.
+4. **Garde-fous** (non négociables) : pas de psak tranché ; disclaimer « consulte ton
+   Rav » sur tout cas pratique ; ton sérieux, pas de putaclic ; niveau 4 = chitah de
+   l'Admour HaZaken, jamais présentée comme obligatoire pour tous.
+5. **Validation humaine** avant toute publication ; puis au choix :
+   - le donner à copier-coller,
+   - ou l'injecter dans le moteur (modifier `api/_social-content.js` / déclencher `force`).
 
 ## Voix & charte DAAT
-- **Identité** : דעת — דעת התורה לעומקה. Initiée par le **Rav Yossef Haim Samama**.
-- **Mission** : rendre l'étude rigoureuse de la halakha accessible en français,
-  du débutant au Talmid Chakham. Choulhan Aroukh par siman, 4 niveaux.
-- **Couleurs** : navy `#1A1F3A`, or `#C5A55A`, crème `#FAF6EE`.
-- **Polices** : Frank Ruhl Libre + Cormorant Garamond.
-- **Signature douce** : renvoyer vers le chat IA Daat et la newsletter (« un siman
-  chaque dimanche ») quand c'est naturel — sans spammer.
+- Identité : דעת — דעת התורה לעומקה · initié par le **Rav Yossef Haim Samama**.
+- Couleurs navy `#1A1F3A` · or `#C5A55A` · crème `#FAF6EE` ; Frank Ruhl Libre + Cormorant Garamond.
+- Signature douce : renvoyer vers le chat IA Daat, la newsletter (« le siman du
+  dimanche ») et le groupe WhatsApp `https://chat.whatsapp.com/LQT3IMwjNiZEARC7lxqmv1` —
+  sans spammer.
+- Langue : **français d'abord** ; HE/EN sur demande (corpus trilingue, packs
+  `launch-pack-he.md` / `launch-pack-en.md`).
 
-## Langue
-- **Français d'abord** (public principal). Rôder le pipeline en FR.
-- HE / EN uniquement si l'utilisateur le demande (le corpus existe en 3 langues :
-  `niveau-1-base-he.html`, `niveau-1-base-en.html`).
-
-## Au-delà des réseaux (proposer, ne pas imposer)
-Le même kit nourrit d'autres canaux — le mentionner si pertinent :
-- **Newsletter** (déjà en prod : Resend, `api/newsletter.js`, « un siman/dimanche »).
-- **Blog** `/blog/` (en prod — 13 articles AEO × 3 langues, voir `docs/STRATEGIE-CROISSANCE.md`) :
-  l'article long AEO dont les posts sociaux sont des extraits. C'est le plus gros levier SEO.
+## Cas particuliers
+- **WhatsApp** : pas d'API de groupe → fournir le texte prêt (vendredi avant Shabbat).
+- **OmniSocials (optionnel, hérité)** : si son MCP est connecté dans la session, il
+  peut servir pour de la programmation fine multi-créneaux — voir
+  `references/omnisocials-setup.md`. Ce n'est **plus** le chemin par défaut.
 
 ## Références
-- `references/platform-specs.md` — formats, longueurs, ton et heures par plateforme.
-- `references/omnisocials-setup.md` — connecter OmniSocials à Claude (MCP / Agent Skill).
+- `references/autopilot.md` — moteur autonome : jetons, URLs admin, sécurité.
+- `references/platform-specs.md` — formats, tons, heures par plateforme.
+- `references/omnisocials-setup.md` — option héritée.
