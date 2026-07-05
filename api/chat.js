@@ -31,7 +31,7 @@ const HISTORY_TURNS = 16;       // 16 derniers tours (plus de contexte = meilleu
 // Vercel Hobby plafonne à ~90s. On force la synthèse (tool_choice: none) dès
 // qu'on dépasse cette durée OU à la dernière itération, garantissant qu'il
 // reste assez de temps pour streamer une réponse textuelle complète.
-const FORCE_SYNTHESIS_AFTER_MS = 50_000;
+const FORCE_SYNTHESIS_AFTER_MS = 40_000; // 40s : laisse ~40s à la synthèse forcée avant le hard abort (80s)
 const HARD_ABORT_MS = 80_000; // dernier recours : abort à 80s (5s avant Vercel)
 const ALL_TOOLS = [...MAREH_MEKOMOT_TOOLS, ...CORPUS_TOOLS, ...SEFARIA_TOOLS];
 
@@ -845,6 +845,9 @@ RÈGLES STRICTES :
     let stopReason = null;
     const startedAt = Date.now();
     let forcedSynthesis = false;
+    let anyTextSent = false; // au moins un text_delta envoyé au client sur TOUTE la requête
+    // Types de blocs qui acceptent cache_control (les blocs thinking n'en acceptent pas)
+    const CACHEABLE_BLOCKS = new Set(['text', 'image', 'tool_use', 'tool_result', 'document']);
 
     // Boucle agentique. À la dernière itération OU si on dépasse FORCE_SYNTHESIS_AFTER_MS,
     // on bascule sur tool_choice:none + thinking désactivé pour FORCER Claude à produire
@@ -869,8 +872,32 @@ RÈGLES STRICTES :
         console.log(`[chat.js] forcing synthesis at iter ${iterations} (elapsed ${elapsedBefore}ms)`);
       }
 
+      // Cache incrémental sur la conversation : sans breakpoint, chaque itération
+      // d'outils repaie TOUT l'input (system + historique + tool_results) — c'est
+      // ce qui épuise le budget input/minute de l'org et étrangle Opus aux heures
+      // de pointe. On déplace un unique breakpoint sur le dernier bloc (max 4
+      // breakpoints par requête : 1 system + 1 messages).
+      for (const m of conversation) {
+        if (Array.isArray(m.content)) {
+          for (const b of m.content) { if (b && b.cache_control) delete b.cache_control; }
+        }
+      }
+      const lastMsg = conversation[conversation.length - 1];
+      if (lastMsg && Array.isArray(lastMsg.content) && lastMsg.content.length) {
+        const lastBlock = lastMsg.content[lastMsg.content.length - 1];
+        if (lastBlock && CACHEABLE_BLOCKS.has(lastBlock.type)) {
+          lastBlock.cache_control = { type: 'ephemeral' };
+        }
+      }
+
+      // Synthèse forcée : si le modèle principal est Opus, on bascule sur Sonnet
+      // (rapide et solide) pour la réponse finale — aux heures de pointe, Opus
+      // peut être étranglé (retries 429/529 silencieux du SDK) et ne produirait
+      // rien avant le hard abort. Mieux vaut une bonne réponse Sonnet qu'un vide.
+      const iterModel = (forceSynthesis && model.id === MODELS.opus.id) ? MODELS.sonnet : model;
+
       const streamParams = {
-        model: model.id,
+        model: iterModel.id,
         max_tokens: forceSynthesis ? 1500 : MAX_TOKENS_OUTPUT,
         tools: ALL_TOOLS,
         system: [
@@ -906,6 +933,7 @@ RÈGLES STRICTES :
         for await (const event of stream) {
           if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
             iterHadText = true;
+            anyTextSent = true;
             res.write(`data: ${JSON.stringify({ type: 'text', delta: event.delta.text })}\n\n`);
           }
         }
@@ -964,6 +992,18 @@ RÈGLES STRICTES :
         if (abortCtrl.signal.aborted) {
           stopReason = 'end_turn';
           console.log(`[chat.js] hard abort caught — iterHadText=${iterHadText}, elapsed=${Date.now() - startedAt}ms`);
+          // Ne JAMAIS terminer en silence : l'utilisateur doit toujours voir quelque chose.
+          if (!anyTextSent) {
+            res.write(`data: ${JSON.stringify({
+              type: 'text',
+              delta: '⏱️ Désolé — le modèle a mis trop de temps à répondre (surcharge momentanée) et la génération a été interrompue avant le premier mot.\n\n**Repose ta question dans un instant** — en général, ça passe au deuxième essai.',
+            })}\n\n`);
+          } else {
+            res.write(`data: ${JSON.stringify({
+              type: 'text',
+              delta: '\n\n---\n_⏱️ Réponse interrompue (temps limite dépassé). Repose la question pour obtenir la suite._',
+            })}\n\n`);
+          }
           break;
         }
         throw err;
