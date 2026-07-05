@@ -24,7 +24,8 @@ import {
 
 const client = new Anthropic();
 
-const MAX_TOOL_ITERATIONS = 6; // 5 itérations outils + 1 synthèse forcée
+const MAX_TOOL_ITERATIONS = parseInt(process.env.MAX_TOOL_ITERATIONS || '5', 10); // rondes d'outils + synthèse forcée
+const MAX_TOOL_CALLS = parseInt(process.env.MAX_TOOL_CALLS || '6', 10);           // plafond DUR de tool calls (parallèle compris) ; le budget temps (FORCE_SYNTHESIS_AFTER_MS) reste le gouverneur principal
 const MAX_TOKENS_OUTPUT = 4096; // cap output ; Claude s'arrête naturellement avant
 const HISTORY_TURNS = 16;       // 16 derniers tours (plus de contexte = meilleure réponse)
 
@@ -78,7 +79,9 @@ function pickModel(messages, hint, plan, previewUsed, aperçuBlocked, forceOpus)
   // 4. Aperçu Premium : free/anonyme avec compteur lifetime < 3 → Opus
   // Bloqué si IP a déjà servi 3 Aperçu aujourd'hui, ou si le quota global du jour est atteint
   if (!SUBSCRIBER_PLANS.has(plan) && previewUsed < PREVIEW_OPUS_LIMIT && !aperçuBlocked) {
-    return { ...MODELS.opus, _aperçu: true };
+    // Aperçu : Opus en effort 'medium' (TTFB plus court). Les abonnés payants
+    // gardent 'high' (promesse « payant = profondeur Opus complète »).
+    return { ...MODELS.opus, _aperçu: true, effort: 'medium' };
   }
 
   // 5. Khavroutha : Opus sur halakhique pointu uniquement
@@ -580,12 +583,14 @@ export default async function handler(req, res) {
     // score ≥ 8 + ≥2 tokens originaux matchés), on demande à Haiku 4.5 de reformuler
     // l'extrait au lieu d'appeler Sonnet/Opus. Coût ~0.002 € vs ~0.05-0.12 € sinon.
     // Kill switch : env CORPUS_FIRST_ENABLED=false → bypass complet.
-    // Skip pour Opus (paid plans / aperçu / forceOpus) ET pour tout abonné payant :
-    // ils paient pour une réponse Sonnet/Opus complète, pas une reformulation Haiku.
+    // Abonnés payants toujours exclus : ils paient une réponse Sonnet/Opus
+    // complète, pas une reformulation Haiku du corpus.
+    // Pour Opus/Aperçu : corpus-first autorisé UNIQUEMENT sur un match TRÈS fort
+    // (seuil élevé) → question bien couverte par le corpus servie en ~2s au lieu
+    // de 10-60s ; sinon on garde la profondeur Opus. Abonnés payants toujours exclus.
+    const corpusStrongOnly = model._aperçu || model.id === MODELS.opus.id;
     if (
       !model._meta &&
-      !model._aperçu &&
-      model.id !== MODELS.opus.id &&
       !SUBSCRIBER_PLANS.has(plan) &&
       process.env.CORPUS_FIRST_ENABLED !== 'false'
     ) {
@@ -593,7 +598,9 @@ export default async function handler(req, res) {
       // un flux « regenerate » peut se terminer par un message assistant).
       const lastUserMsg = [...trimmedMessages].reverse().find((m) => m.role === 'user');
       const lastUserText = lastUserMsg ? lastUserMsg.content : null;
-      const minScore = parseFloat(process.env.CORPUS_MIN_SCORE || '8');
+      const minScore = corpusStrongOnly
+        ? parseFloat(process.env.CORPUS_MIN_SCORE_STRONG || '16')
+        : parseFloat(process.env.CORPUS_MIN_SCORE || '8');
       let cs = null;
       if (lastUserText) {
         try {
@@ -690,6 +697,12 @@ RÈGLES STRICTES :
             iterations: 1,
             usage: { input_tokens: inTok, output_tokens: outTok },
             provider: 'corpus-haiku',
+            // Le corpus a servi SANS consommer d'Aperçu Opus : on corrige la
+            // métadonnée optimiste de rate_info pour que le client n'affiche ni
+            // la fausse modale « Aperçu terminé » ni le badge Opus.
+            is_aperçu: false,
+            aperçu_intercepted: Boolean(model._aperçu),
+            preview_remaining: model._aperçu ? Math.max(0, PREVIEW_OPUS_LIMIT - previewUsed) : null,
             corpus_source: {
               siman: top.siman,
               simanTitle: top.simanTitle,
@@ -843,6 +856,7 @@ RÈGLES STRICTES :
     };
 
     let iterations = 0;
+    let totalToolCalls = 0; // borne dure : plafonne le nombre de recherches avant synthèse
     let stopReason = null;
     const startedAt = Date.now();
     let forcedSynthesis = false;
@@ -859,6 +873,7 @@ RÈGLES STRICTES :
 
       const forceSynthesis =
         iterations === MAX_TOOL_ITERATIONS ||
+        totalToolCalls >= MAX_TOOL_CALLS ||
         elapsedBefore > FORCE_SYNTHESIS_AFTER_MS;
 
       if (forceSynthesis && !forcedSynthesis) {
@@ -953,6 +968,7 @@ RÈGLES STRICTES :
 
         const toolUses = final.content.filter(b => b.type === 'tool_use');
         if (toolUses.length === 0) break;
+        totalToolCalls += toolUses.length;
 
         const toolResults = await Promise.all(
           toolUses.map(async (tu) => {

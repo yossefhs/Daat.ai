@@ -1030,13 +1030,19 @@
     }
 
     // ─── Badge modèle en haut de la bulle assistant ───
-    addModelBadge(assistantEl) {
+    addModelBadge(assistantEl, provider) {
       const r = this.rateInfo;
       if (!r || !assistantEl) return;
       // Pas de badge sur les méta (Haiku/DeepSeek)
       if (r.ux_status === 'meta') return;
       let badge = null;
-      if (r.is_aperçu) {
+      if (provider === 'corpus-haiku') {
+        // Réponse tirée directement du corpus du Rav — badge honnête (pas de l'Opus généré).
+        badge = document.createElement('span');
+        badge.className = 'daat-msg-badge is-corpus';
+        badge.textContent = '📚 CORPUS DU RAV';
+        badge.title = 'Réponse tirée directement du corpus écrit par le Rav';
+      } else if (r.is_aperçu) {
         badge = document.createElement('span');
         badge.className = 'daat-msg-badge is-aperçu';
         badge.textContent = '✨ APERÇU OPUS';
@@ -1280,6 +1286,7 @@
         // réponse n'est créée qu'au tout premier token de texte.
         let assistantEl = null;
         let assistantText = '';
+        let responseProvider = null; // renseigné par l'event 'done' (ex: 'corpus-haiku')
         const ensureBubble = () => {
           if (!assistantEl) {
             if (typingEl.parentNode) typingEl.remove();
@@ -1373,8 +1380,21 @@
                 }
                 throw new Error(parsed.error || 'Erreur de génération');
               } else if (parsed.type === 'done') {
+                responseProvider = parsed.provider || null;
+                // Corpus-first ayant intercepté un Aperçu : aucune consommation
+                // côté serveur → on annule la fausse modale de transition et on
+                // restaure le compteur d'Aperçu client (sinon il « saute » à 0).
+                if (parsed.provider === 'corpus-haiku' && parsed.aperçu_intercepted) {
+                  this.pendingTransitionModal = false;
+                  if (typeof parsed.preview_remaining === 'number' && this.rateInfo) {
+                    this.rateInfo.preview_remaining = parsed.preview_remaining;
+                    this.rateInfo.is_aperçu = false;
+                    this.previousAperçuRemaining = parsed.preview_remaining;
+                    this.updateStatusBanner();
+                  }
+                }
                 if (window.DAAT_CHAT_DEBUG) {
-                  console.log('[Daat] Usage:', parsed.usage, 'Iterations:', parsed.iterations);
+                  console.log('[Daat] Usage:', parsed.usage, 'Iterations:', parsed.iterations, 'Provider:', parsed.provider);
                 }
               }
             } catch (e) {
@@ -1389,7 +1409,7 @@
           this.messages.push({ role: 'assistant', content: assistantText });
           this.persistConversation();
           // Badge modèle (Aperçu / Opus / "aurait été Opus")
-          this.addModelBadge(assistantEl);
+          this.addModelBadge(assistantEl, responseProvider);
           // Attach feedback buttons to the assistant message
           this.attachFeedbackBar(assistantEl, assistantText);
           // Modale de transition Aperçu → Standard après Q3 (semer la conversion)
