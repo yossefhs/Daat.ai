@@ -718,10 +718,11 @@ RÈGLES STRICTES :
               cost_usd: parseFloat((userData.cost_usd + cost).toFixed(6)),
               count: userData.count + 1,
             });
-            // Quota : par défaut, on décompte comme une question normale.
-            // CORPUS_QUOTA_FREE=true → les réponses corpus ne décomptent pas (avantage utilisateurs free).
-            // En cas d'erreur (réponse tronquée), on ne décompte jamais : l'utilisateur n'a pas eu son psak.
-            if (process.env.CORPUS_QUOTA_FREE !== 'true' && !corpusErrored) {
+            // Quota : par défaut, les réponses corpus NE décomptent PAS — le contenu
+            // du corpus (écrit par le Rav) doit rester librement accessible à tous.
+            // CORPUS_QUOTA_FREE=false pour rétablir le décompte si besoin.
+            // En cas d'erreur (réponse tronquée), on ne décompte jamais.
+            if (process.env.CORPUS_QUOTA_FREE === 'false' && !corpusErrored) {
               await kv.incr(rateKey);
               const ttl = await kv.ttl(rateKey);
               if (ttl === -1 || ttl === -2) await kv.expire(rateKey, 24 * 60 * 60);

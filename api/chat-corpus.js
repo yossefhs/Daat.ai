@@ -179,6 +179,13 @@ export default async function handler(req, res) {
     confidence: searchResult.results[0].score >= SCORE_THRESHOLD ? 'high' : 'medium',
   });
 
+  // ── Mode brut (body.raw) : renvoie les extraits du corpus SANS reformulation
+  // IA — zéro coût, zéro modèle. La base doit être consultable telle quelle.
+  if (body?.raw === true || body?.raw === '1' || body?.raw === 1) {
+    sseWrite(res, 'done', { usage: { input_tokens: 0, output_tokens: 0 }, cost_eur: 0, raw: true });
+    return res.end();
+  }
+
   // ── Cas 2 : match → Haiku reformule ──
   const top = searchResult.results[0];
   const others = searchResult.results.slice(1);

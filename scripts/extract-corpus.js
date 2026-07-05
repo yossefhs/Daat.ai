@@ -26,6 +26,11 @@ const OUTPUT_PATH = path.join(ROOT, 'data', 'corpus-shabbat.json');
 // /api/chat (req.body.section) afin que le filtrage soit direct.
 const SECTIONS = [
   { id: 'orach-chaim', dir: path.join(ROOT, 'sources', 'shabbat'), urlPrefix: '/oh', useMetaDir: true },
+  // Orah Haïm quotidien (simanim 1-33+) : même section halakhique que Shabbat
+  // (id 'orach-chaim' pour que le filtre de recherche du chat les couvre), mais
+  // routes /oh-quotidien et titres stockés sous section 'oh-quotidien' dans le
+  // catalogue → dispoId distinct pour la résolution des titres.
+  { id: 'orach-chaim', dir: path.join(ROOT, 'sources', 'orah-haim'), urlPrefix: '/oh-quotidien', useMetaDir: false, dispoId: 'oh-quotidien' },
   { id: 'yoreh-deah', dir: path.join(ROOT, 'sources', 'yoreh-deah'), urlPrefix: '/yd', useMetaDir: false },
 ];
 
@@ -53,8 +58,9 @@ function resolveMeta(section, num) {
       } catch { /* ignore */ }
     }
   }
-  const fr = DISPO_FR[`${section.id}:${num}`];
-  const he = DISPO_HE[`${section.id}:${num}`];
+  const dispoKey = `${section.dispoId || section.id}:${num}`;
+  const fr = DISPO_FR[dispoKey] || DISPO_FR[`${section.id}:${num}`];
+  const he = DISPO_HE[dispoKey] || DISPO_HE[`${section.id}:${num}`];
   return {
     titleFr: (fr && fr.title) || `Siman ${num}`,
     titleHe: (he && he.title) || (fr && fr.numHe) || '',
