@@ -1318,7 +1318,7 @@ function showTyping() {
   avatar.textContent = 'ד';
   const bubble = document.createElement('div');
   bubble.className = 'bubble bubble-assistant';
-  bubble.innerHTML = '<div class="typing"></div>';
+  bubble.innerHTML = '<div class="typing"><span></span><span></span><span></span></div>';
   wrap.appendChild(avatar);
   wrap.appendChild(bubble);
   $messagesInner.appendChild(wrap);
@@ -1682,9 +1682,21 @@ async function send(userText) {
       throw new Error((errData && errData.error) || ('Erreur ' + response.status));
     }
 
-    typingEl.remove();
-    const assistantBubble = renderMessage('assistant', '');
+    // Garder les 3 points animés tant que le 1er mot n'est pas arrivé : pendant
+    // que l'IA réfléchit / consulte les sources (Opus + outils = parfois long),
+    // ça montre qu'une réponse arrive. Bulle créée au 1er token de texte.
+    let assistantBubble = null;
     let assistantText = '';
+    const ensureBubble = () => {
+      if (!assistantBubble) {
+        if (typingEl.parentElement) typingEl.remove();
+        assistantBubble = renderMessage('assistant', '');
+      }
+      return assistantBubble;
+    };
+    const keepTypingLast = () => {
+      if (typingEl.parentElement) { $messagesInner.appendChild(typingEl); scrollToBottom(); }
+    };
 
     const reader = response.body.getReader();
     const decoder = new TextDecoder();
@@ -1705,6 +1717,7 @@ async function send(userText) {
         try {
           const parsed = JSON.parse(data);
           if (parsed.type === 'text' && parsed.delta) {
+            ensureBubble(); // 1er token : retire les points, crée la bulle
             assistantText += parsed.delta;
             assistantBubble.setAttribute('dir', detectMessageDir(assistantText));
             assistantBubble.innerHTML = renderMarkdown(assistantText);
@@ -1717,8 +1730,10 @@ async function send(userText) {
               sefaria_search: `🔍 Recherche dans Sefaria : « ${parsed.input?.query || ''} »`,
             };
             appendToolNotice(toolLabels[parsed.tool] || `🔧 ${parsed.tool}`);
+            keepTypingLast(); // points sous le notice = « je continue à chercher »
           } else if (parsed.type === 'notice') {
             appendToolNotice('⏳ ' + parsed.message);
+            keepTypingLast();
           } else if (parsed.type === 'rate_info') {
             updateRateBanner(parsed);
           } else if (parsed.type === 'limit_reached') {
@@ -1761,6 +1776,7 @@ async function send(userText) {
     // serveur, coupure réseau en cours de tool-use…), ne pas enregistrer une
     // bulle vide silencieuse — afficher un message clair et permettre le retry.
     if (!assistantText.trim()) {
+      if (typingEl && typingEl.parentElement) typingEl.remove();
       if (assistantBubble && assistantBubble.parentElement) assistantBubble.remove();
       renderMessage('assistant', '⚠️ Pas de réponse reçue. Réessaie dans un instant.');
       return;
