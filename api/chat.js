@@ -24,7 +24,8 @@ import {
 
 const client = new Anthropic();
 
-const MAX_TOOL_ITERATIONS = 6; // 5 itérations outils + 1 synthèse forcée
+const MAX_TOOL_ITERATIONS = 4; // 3 rondes d'outils max + 1 synthèse forcée (borne la latence)
+const MAX_TOOL_CALLS = 5;      // plafond DUR du nombre total de tool calls avant synthèse forcée
 const MAX_TOKENS_OUTPUT = 4096; // cap output ; Claude s'arrête naturellement avant
 const HISTORY_TURNS = 16;       // 16 derniers tours (plus de contexte = meilleure réponse)
 
@@ -40,7 +41,7 @@ const ALL_TOOLS = [...MAREH_MEKOMOT_TOOLS, ...CORPUS_TOOLS, ...SEFARIA_TOOLS];
 const MODELS = {
   haiku:  { id: 'claude-haiku-4-5',  thinking: null,                  effort: null,    in: 0.001, out: 0.005 },
   sonnet: { id: 'claude-sonnet-4-6', thinking: { type: 'adaptive' },  effort: null,    in: 0.003, out: 0.015 },
-  opus:   { id: 'claude-opus-4-7',   thinking: { type: 'adaptive' },  effort: 'high',  in: 0.015, out: 0.06  },
+  opus:   { id: 'claude-opus-4-7',   thinking: { type: 'adaptive' },  effort: 'medium', in: 0.015, out: 0.06  },
 };
 
 // Heuristique : qualité d'abord. Routage selon plan + Aperçu Premium pour les nouveaux.
@@ -582,10 +583,12 @@ export default async function handler(req, res) {
     // Kill switch : env CORPUS_FIRST_ENABLED=false → bypass complet.
     // Skip pour Opus (paid plans / aperçu / forceOpus) ET pour tout abonné payant :
     // ils paient pour une réponse Sonnet/Opus complète, pas une reformulation Haiku.
+    // Pour Opus/Aperçu : corpus-first autorisé UNIQUEMENT sur un match TRÈS fort
+    // (seuil élevé) → question bien couverte par le corpus servie en ~2s au lieu
+    // de 10-60s ; sinon on garde la profondeur Opus. Abonnés payants toujours exclus.
+    const corpusStrongOnly = model._aperçu || model.id === MODELS.opus.id;
     if (
       !model._meta &&
-      !model._aperçu &&
-      model.id !== MODELS.opus.id &&
       !SUBSCRIBER_PLANS.has(plan) &&
       process.env.CORPUS_FIRST_ENABLED !== 'false'
     ) {
@@ -593,7 +596,9 @@ export default async function handler(req, res) {
       // un flux « regenerate » peut se terminer par un message assistant).
       const lastUserMsg = [...trimmedMessages].reverse().find((m) => m.role === 'user');
       const lastUserText = lastUserMsg ? lastUserMsg.content : null;
-      const minScore = parseFloat(process.env.CORPUS_MIN_SCORE || '8');
+      const minScore = corpusStrongOnly
+        ? parseFloat(process.env.CORPUS_MIN_SCORE_STRONG || '16')
+        : parseFloat(process.env.CORPUS_MIN_SCORE || '8');
       let cs = null;
       if (lastUserText) {
         try {
@@ -843,6 +848,7 @@ RÈGLES STRICTES :
     };
 
     let iterations = 0;
+    let totalToolCalls = 0; // borne dure : plafonne le nombre de recherches avant synthèse
     let stopReason = null;
     const startedAt = Date.now();
     let forcedSynthesis = false;
@@ -859,6 +865,7 @@ RÈGLES STRICTES :
 
       const forceSynthesis =
         iterations === MAX_TOOL_ITERATIONS ||
+        totalToolCalls >= MAX_TOOL_CALLS ||
         elapsedBefore > FORCE_SYNTHESIS_AFTER_MS;
 
       if (forceSynthesis && !forcedSynthesis) {
@@ -953,6 +960,7 @@ RÈGLES STRICTES :
 
         const toolUses = final.content.filter(b => b.type === 'tool_use');
         if (toolUses.length === 0) break;
+        totalToolCalls += toolUses.length;
 
         const toolResults = await Promise.all(
           toolUses.map(async (tu) => {
