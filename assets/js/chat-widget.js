@@ -1273,10 +1273,24 @@
           throw new Error(errMsg);
         }
 
-        // Remove typing indicator, prepare assistant message bubble
-        typingEl.remove();
-        const assistantEl = this.appendMessage('assistant', '');
+        // On GARDE l'indicateur « ... » (3 points animés) tant que le premier mot
+        // n'est pas arrivé : pendant que l'IA réfléchit / consulte les sources
+        // (Opus + outils = parfois plusieurs dizaines de secondes), les points
+        // continuent de bouger pour montrer qu'une réponse arrive. La bulle de
+        // réponse n'est créée qu'au tout premier token de texte.
+        let assistantEl = null;
         let assistantText = '';
+        const ensureBubble = () => {
+          if (!assistantEl) {
+            if (typingEl.parentNode) typingEl.remove();
+            assistantEl = this.appendMessage('assistant', '');
+          }
+          return assistantEl;
+        };
+        // Garde les 3 points TOUJOURS en bas (après un notice d'outil) = « je continue ».
+        const keepTypingLast = () => {
+          if (typingEl.parentNode) { this.messagesEl.appendChild(typingEl); this.scrollToBottom(); }
+        };
 
         const reader = response.body.getReader();
         const decoder = new TextDecoder();
@@ -1314,6 +1328,7 @@
                 this.rateInfo = parsed;
                 this.updateStatusBanner();
               } else if (parsed.type === 'text' && parsed.delta) {
+                ensureBubble(); // 1er token : retire les points, crée la bulle
                 assistantText += parsed.delta;
                 assistantEl.setAttribute('dir', detectMessageDir(assistantText));
                 assistantEl.innerHTML = renderMarkdown(assistantText);
@@ -1328,11 +1343,13 @@
                 };
                 const toolLabel = toolLabels[parsed.tool] || `🔧 ${parsed.tool}`;
                 this.appendToolNotice(toolLabel);
+                keepTypingLast(); // les points restent sous le notice = « je travaille »
               } else if (parsed.type === 'notice') {
                 this.appendToolNotice('⏳ ' + parsed.message);
+                keepTypingLast();
               } else if (parsed.type === 'limit_reached') {
                 // Quota Anthropic épuisé (envoyé via SSE après début du stream)
-                assistantEl.remove();
+                if (assistantEl) assistantEl.remove();
                 const isAnthropic = parsed.scope === 'anthropic_quota';
                 this.showPaywallModal({
                   reason: isAnthropic ? 'anthropic_exhausted' : 'limit',
@@ -1345,7 +1362,7 @@
                 // Filet de sécurité : si erreur contient pattern Anthropic, paywall
                 const errStr = String(parsed.error || '');
                 if (/API usage limits|credit balance is too low|invalid_request_error/i.test(errStr)) {
-                  assistantEl.remove();
+                  if (assistantEl) assistantEl.remove();
                   this.showPaywallModal({
                     reason: 'anthropic_exhausted',
                     info: { scope: 'anthropic_quota', soutenir_url: '/soutenir.html?from=chat' },
@@ -1381,7 +1398,8 @@
             setTimeout(() => this.showPaywallModal({ reason: 'transition' }), 400);
           }
         } else {
-          assistantEl.remove();
+          if (typingEl.parentNode) typingEl.remove();
+          if (assistantEl) assistantEl.remove();
           this.appendError('Pas de réponse reçue. Réessaie.');
         }
       } catch (error) {

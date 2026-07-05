@@ -1286,7 +1286,7 @@ function showTyping() {
   avatar.textContent = 'ד';
   const bubble = document.createElement('div');
   bubble.className = 'bubble bubble-assistant';
-  bubble.innerHTML = '<div class="typing"></div>';
+  bubble.innerHTML = '<div class="typing"><span></span><span></span><span></span></div>';
   wrap.appendChild(avatar);
   wrap.appendChild(bubble);
   $messagesInner.appendChild(wrap);
@@ -1578,9 +1578,19 @@ async function send(userText) {
       throw new Error((errData && errData.error) || ('Error ' + response.status));
     }
 
-    typingEl.remove();
-    const assistantBubble = renderMessage('assistant', '');
+    // Garder les 3 points animés tant que le 1er mot n'est pas arrivé (réflexion + outils).
+    let assistantBubble = null;
     let assistantText = '';
+    const ensureBubble = () => {
+      if (!assistantBubble) {
+        if (typingEl.parentElement) typingEl.remove();
+        assistantBubble = renderMessage('assistant', '');
+      }
+      return assistantBubble;
+    };
+    const keepTypingLast = () => {
+      if (typingEl.parentElement) { $messagesInner.appendChild(typingEl); scrollToBottom(); }
+    };
 
     const reader = response.body.getReader();
     const decoder = new TextDecoder();
@@ -1601,6 +1611,7 @@ async function send(userText) {
         try {
           const parsed = JSON.parse(data);
           if (parsed.type === 'text' && parsed.delta) {
+            ensureBubble();
             assistantText += parsed.delta;
             assistantBubble.setAttribute('dir', detectMessageDir(assistantText));
             assistantBubble.innerHTML = renderMarkdown(assistantText);
@@ -1613,8 +1624,10 @@ async function send(userText) {
               sefaria_search: `🔍 Searching Sefaria: « ${parsed.input?.query || ''} »`,
             };
             appendToolNotice(toolLabels[parsed.tool] || `🔧 ${parsed.tool}`);
+            keepTypingLast();
           } else if (parsed.type === 'notice') {
             appendToolNotice('⏳ ' + parsed.message);
+            keepTypingLast();
           } else if (parsed.type === 'rate_info') {
             updateRateBanner(parsed);
           } else if (parsed.type === 'error') {
@@ -1626,6 +1639,12 @@ async function send(userText) {
       }
     }
 
+    if (!assistantText.trim()) {
+      if (typingEl && typingEl.parentElement) typingEl.remove();
+      if (assistantBubble && assistantBubble.parentElement) assistantBubble.remove();
+      renderMessage('assistant', '⚠️ No response received. Please try again in a moment.');
+      return;
+    }
     state.messages.push({ role: 'assistant', content: assistantText });
     persistConversation();
     addModelBadge(assistantBubble, state.lastRateInfo);
