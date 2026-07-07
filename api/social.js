@@ -203,9 +203,11 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'GET') return res.status(405).json({ error: 'GET uniquement' });
 
-  const secret = process.env.CRON_SECRET;
-  const auth = req.headers.authorization || '';
-  const authorized = !!secret && (auth === `Bearer ${secret}` || (req.query && req.query.secret) === secret);
+  // Comparaison tolérante aux espaces/retours à la ligne collés dans Vercel.
+  const secret = env('CRON_SECRET');
+  const auth = (req.headers.authorization || '').trim();
+  const qSecret = String((req.query && req.query.secret) || '').trim();
+  const authorized = !!secret && (auth === `Bearer ${secret}` || qSecret === secret);
   if (!authorized) return res.status(401).json({ error: 'Unauthorized' });
 
   const action = (req.query && req.query.action) || '';
