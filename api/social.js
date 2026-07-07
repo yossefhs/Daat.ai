@@ -26,6 +26,10 @@ import { buildSocialPosts } from './_social-content.js';
 
 const GRAPH = 'https://graph.facebook.com/v21.0';
 
+// Valeur d'env nettoyée (les espaces/retours à la ligne collés dans Vercel
+// produisent des URLs invalides → « Not Found » côté Telegram/Meta).
+const env = (k) => (process.env[k] || '').trim();
+
 function todayStr() {
   return new Date().toISOString().slice(0, 10);
 }
@@ -34,20 +38,20 @@ function todayStr() {
 
 function configuredPlatforms() {
   const p = [];
-  if (process.env.FB_PAGE_ID && process.env.FB_PAGE_TOKEN) p.push('facebook');
-  if (process.env.IG_USER_ID && (process.env.IG_ACCESS_TOKEN || process.env.FB_PAGE_TOKEN)) p.push('instagram');
-  if (process.env.LINKEDIN_ACCESS_TOKEN && process.env.LINKEDIN_AUTHOR_URN) p.push('linkedin');
-  if (process.env.X_API_KEY && process.env.X_API_SECRET && process.env.X_ACCESS_TOKEN && process.env.X_ACCESS_SECRET) p.push('x');
-  if (process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID) p.push('telegram');
+  if (env('FB_PAGE_ID') && env('FB_PAGE_TOKEN')) p.push('facebook');
+  if (env('IG_USER_ID') && (env('IG_ACCESS_TOKEN') || env('FB_PAGE_TOKEN'))) p.push('instagram');
+  if (env('LINKEDIN_ACCESS_TOKEN') && env('LINKEDIN_AUTHOR_URN')) p.push('linkedin');
+  if (env('X_API_KEY') && env('X_API_SECRET') && env('X_ACCESS_TOKEN') && env('X_ACCESS_SECRET')) p.push('x');
+  if (env('TELEGRAM_BOT_TOKEN') && env('TELEGRAM_CHAT_ID')) p.push('telegram');
   return p;
 }
 
 async function postFacebook(posts) {
-  const url = `${GRAPH}/${process.env.FB_PAGE_ID}/feed`;
+  const url = `${GRAPH}/${env('FB_PAGE_ID')}/feed`;
   const body = new URLSearchParams({
     message: posts.facebook,
     link: posts.link,
-    access_token: process.env.FB_PAGE_TOKEN,
+    access_token: env('FB_PAGE_TOKEN'),
   });
   const r = await fetch(url, { method: 'POST', body });
   const d = await r.json();
@@ -56,8 +60,8 @@ async function postFacebook(posts) {
 }
 
 async function postInstagram(posts) {
-  const token = process.env.IG_ACCESS_TOKEN || process.env.FB_PAGE_TOKEN;
-  const igUser = process.env.IG_USER_ID;
+  const token = env('IG_ACCESS_TOKEN') || env('FB_PAGE_TOKEN');
+  const igUser = env('IG_USER_ID');
   // 1) container image + caption
   let r = await fetch(`${GRAPH}/${igUser}/media`, {
     method: 'POST',
@@ -79,13 +83,13 @@ async function postLinkedIn(posts) {
   const r = await fetch('https://api.linkedin.com/rest/posts', {
     method: 'POST',
     headers: {
-      Authorization: `Bearer ${process.env.LINKEDIN_ACCESS_TOKEN}`,
+      Authorization: `Bearer ${env('LINKEDIN_ACCESS_TOKEN')}`,
       'Content-Type': 'application/json',
       'X-Restli-Protocol-Version': '2.0.0',
-      'LinkedIn-Version': process.env.LINKEDIN_VERSION || '202406',
+      'LinkedIn-Version': env('LINKEDIN_VERSION') || '202406',
     },
     body: JSON.stringify({
-      author: process.env.LINKEDIN_AUTHOR_URN,
+      author: env('LINKEDIN_AUTHOR_URN'),
       commentary: posts.linkedin,
       visibility: 'PUBLIC',
       distribution: { feedDistribution: 'MAIN_FEED', targetEntities: [], thirdPartyDistributionChannels: [] },
@@ -102,17 +106,17 @@ async function postLinkedIn(posts) {
 function oauth1Header(method, url) {
   const enc = (s) => encodeURIComponent(s).replace(/[!'()*]/g, (c) => '%' + c.charCodeAt(0).toString(16).toUpperCase());
   const oauth = {
-    oauth_consumer_key: process.env.X_API_KEY,
+    oauth_consumer_key: env('X_API_KEY'),
     oauth_nonce: randomBytes(16).toString('hex'),
     oauth_signature_method: 'HMAC-SHA1',
     oauth_timestamp: String(Math.floor(Date.now() / 1000)),
-    oauth_token: process.env.X_ACCESS_TOKEN,
+    oauth_token: env('X_ACCESS_TOKEN'),
     oauth_version: '1.0',
   };
   // Corps JSON → seuls les paramètres oauth entrent dans la base de signature.
   const paramStr = Object.keys(oauth).sort().map((k) => `${enc(k)}=${enc(oauth[k])}`).join('&');
   const base = [method.toUpperCase(), enc(url), enc(paramStr)].join('&');
-  const key = `${enc(process.env.X_API_SECRET)}&${enc(process.env.X_ACCESS_SECRET)}`;
+  const key = `${enc(env('X_API_SECRET'))}&${enc(env('X_ACCESS_SECRET'))}`;
   oauth.oauth_signature = createHmac('sha1', key).update(base).digest('base64');
   return 'OAuth ' + Object.keys(oauth).sort().map((k) => `${enc(k)}="${enc(oauth[k])}"`).join(', ');
 }
@@ -130,10 +134,10 @@ async function postX(posts) {
 }
 
 async function postTelegram(posts) {
-  const r = await fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+  const r = await fetch(`https://api.telegram.org/bot${env('TELEGRAM_BOT_TOKEN')}/sendMessage`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ chat_id: process.env.TELEGRAM_CHAT_ID, text: posts.telegram }),
+    body: JSON.stringify({ chat_id: env('TELEGRAM_CHAT_ID'), text: posts.telegram }),
   });
   const d = await r.json();
   if (!d.ok) throw new Error(d.description || 'telegram error');
