@@ -1,7 +1,27 @@
 # DAAT — Rapport d'audit global (daattorah.com)
 
 > **Statut : audit EN COURS — phase automatique terminée ; revue approfondie = 20 simanim Shabbat sur 124 (lots 1-2).**
-> Ce rapport ne contient que des constats. Seule modification apportée au site (hors audit, sur demande explicite) : l'ordre des sections du catalogue `/contenu`.
+> Ce rapport contient des constats **et** trace les corrections mécaniques déjà appliquées (voir §10). Aucune règle halakhique n'a été modifiée.
+
+## 10. Corrections mécaniques appliquées (sûres, non-halakhiques)
+
+Sur demande explicite (« fais au mieux pour améliorer le site »), après *dry-run* et vérifications :
+
+1. **Ordre du catalogue `/contenu`** : sections réordonnées → Orah Haïm quotidien (1→64) · Yoreh Deah · Nida · Shabbat.
+2. **Gershayim ASCII → typographique ״** (`audit/tools/fix_mechanical.py`, règle A) : 68 542 corrections / ~1699 fichiers. Répare **toutes** les meta/JSON-LD cassées (0 restante) ; citations préservées (`ה"שותף`, `ב"ברוך`…).
+3. **Coquille סיכות → שיחות** (règle B) : 122 simanim (FR+EN) ; usages légitimes (épingles, siman 301) préservés.
+4. **Compteur « 3 niveaux » → « 4 »** (règle C) : 136 index avec 4 cartes ; simanim-pont 304/322 (3 cartes) préservés.
+
+Garde-fous : `audit-simanim.py` **124/124 conformes**, corpus régénéré, `simanim-disponibles.json` préservé (238 simanim — le générateur ne couvre que Shabbat).
+
+**Non corrigé automatiquement (risque) :**
+- **Titres `<title>` tronqués** (196 fichiers, `T-TITRES-TRONQUES`) : `og:title` a un format différent → reconstruction non fiable. À régénérer proprement côté générateur.
+- **112 commentaires `<!-- à vérifier -->`** : laissés en place — ils constituent la liste de travail du Rav (catalogués dans `artefacts-a-verifier.csv`).
+- **Tout le fond halakhique** (Niveau 4, citations, contradictions) : **réservé à la validation du Rav**.
+
+---
+
+*Note historique : la seule modification hors-audit initiale était l'ordre du catalogue `/contenu`.*
 > Date de génération : 2026-07-13. Branche : `claude/daattorah-site-audit-tyhabm`.
 >
 > **Lots 1-2 terminés — simanim 242-258, 261, 263, 293 (20 simanim) → 121 constats de contenu** dans `erreurs-halakha.csv`.
