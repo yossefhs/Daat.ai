@@ -234,6 +234,29 @@
   margin-bottom: var(--daat-space-md);
 }
 
+/* Badge numéro de siman : hébreu (gros) + chiffre (petit) en dessous */
+.daat-hero-siman {
+  margin-bottom: var(--daat-space-md);
+  line-height: 1.05;
+}
+.daat-hero-siman-he {
+  display: block;
+  font-family: var(--daat-font-hebrew);
+  font-size: 40px;
+  font-weight: 900;
+  color: var(--daat-gold);
+  direction: rtl;
+}
+.daat-hero-siman-num {
+  display: block;
+  font-family: var(--daat-font-sans);
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  margin-top: 6px;
+}
+
 .daat-hero-title-he {
   font-family: var(--daat-font-hebrew);
   font-size: 48px;
