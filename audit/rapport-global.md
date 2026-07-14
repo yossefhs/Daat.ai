@@ -1,10 +1,10 @@
 # DAAT — Rapport d'audit global (daattorah.com)
 
-> **Statut : audit EN COURS — phase automatique terminée ; revue approfondie = 12 simanim Shabbat sur 124 (lot 1).**
+> **Statut : audit EN COURS — phase automatique terminée ; revue approfondie = 20 simanim Shabbat sur 124 (lots 1-2).**
 > Ce rapport ne contient que des constats. Seule modification apportée au site (hors audit, sur demande explicite) : l'ordre des sections du catalogue `/contenu`.
 > Date de génération : 2026-07-13. Branche : `claude/daattorah-site-audit-tyhabm`.
 >
-> **Lot 1 (revue sémantique) terminé — simanim 242-250, 261, 263, 293 → 82 constats de contenu** dans `erreurs-halakha.csv`.
+> **Lots 1-2 terminés — simanim 242-258, 261, 263, 293 (20 simanim) → 121 constats de contenu** dans `erreurs-halakha.csv`.
 > Les patterns récurrents sont documentés dans **`erreurs-recurrentes.md`** (à lire en priorité). Constat n°1 : le **Niveau 4 « Daat HaRav »** a un appareil analytique (tableaux/chidoushim/למעשה) systématiquement décorrélé du texte-source reproduit sur la même page (9 des 12 simanim), avec parfois des **inversions halakhiques** (ex. 249 : jeûne érev Shabbat « interdit » vs « recommandé » ; 261 : allumage « même à bein hashmashot »).
 
 ---
