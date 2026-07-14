@@ -20,22 +20,20 @@ Ces corrections mécaniques sont **appliquées et vérifiées** (contenu 124/124
 
 ---
 
-## 🟠 TRANCHE 1 — Corrections éditoriales sûres restantes (je peux les faire, sans le Rav)
+## 🟠 TRANCHE 1 — Corrections éditoriales sûres (EN COURS)
 
-Vérifiables par simple lecture, aucune décision halakhique. Je peux toutes les appliquer sur demande.
+### ✅ Fait (commit `bbba206`)
+1. **Titre + headline « Siman 242 » → 243 / 246** (niveau 4 FR).
+2. **Duplication `סימן (סימן)`** retirée de 13 titres HE.
+3. **Coquilles** : « Yarba » → `barrique (חבית)` (258) ; `איו` → `אינו` (251). *(coquille `סיכות` déjà traitée en Tranche 0.)*
+4. **Meta sujet faux — siman 255** : « eau bouillante / boiling water » → « préparation du feu » (HE + EN).
+5. **Meta EN cassée — siman 293** : guillemets droits autour de « Atah Chonantanu » → typographiques (attribut valide ; le *fond* « Atah Chonantanu » reste un point Rav).
 
-1. **Titre `<title>` « Siman 242 » sur les simanim 243 et 246** (niveau 4, FR) — dans le `<title>` **et** le `headline` JSON-LD. → Remplacer par 243 / 246. *(le contenu, lui, est correct)*
-2. **Titres HE/EN non traduits sur 304 et 322** (restés en français). → Traduire les `<title>`.
-3. **Meta au mauvais sujet — siman 255** : les pages HE/EN du niveau 4 annoncent « eau bouillante / boiling water » au lieu de « préparation du feu ». → Corriger le sujet.
-4. **Meta EN cassée — siman 293** : guillemets droits autour de « Atah Chonantanu » + troncature. → Échapper / compléter.
-5. **196 `<title>` tronqués** (coupés en plein mot). → **À régénérer côté générateur** (og:title n'est pas une source fiable) — je peux préparer le correctif du générateur.
-6. **Coquilles hébraïques ponctuelles** : `חטמנא`→`הַטְמָנָה` (253), « Yarba »→`חבית` (258), `סיכות`(261) déjà couvert, `איו`→`אינו` (251), `בכסף`→formulation (251). → Corriger.
-7. **Résidus de langue** : meta/titres N2 rédigés en français sur pages HE/EN (249, 253, 293) ; mot « séifim »/« Lamdan » latin resté sur pages EN/HE (244, 258). → Traduire.
-8. **Liens de langue** : sur les pages FR de certains niveau 2, les liens « Soutenir/Communauté » pointent vers les pages **HE** (251, 293). → Corriger la cible selon la langue.
-9. **Duplication `סימן (סימן)`** dans 13 titres HE. → Retirer.
-10. **Placeholders vides** « Position classique : — » (257, 263, 293). → Compléter ou masquer.
-
-**👉 Dites « fais la Tranche 1 » et je l'exécute** (dry-run puis application, comme la Tranche 0).
+### ⏳ Restant — nécessite une décision de votre part
+6. **Simanim 304 et 322 non localisés** : leurs pages `-he`/`-en` sont en réalité **majoritairement en français** (corps à ~72-92 %), pas seulement le titre. → **Décision : voulez-vous une traduction complète HE + EN de ces 2 pages index ?** (je peux la rédiger — c'est du contenu, à faire relire.)
+7. **Liens « Soutenir/Communauté » → pages HE sur 120 pages FR** (tous les niveau-2 Lamdan, dont le corps est hébreu par design). → **Décision : bug à corriger (liens FR), ou choix assumé ?** (touche 120 fichiers.)
+8. **196 `<title>` tronqués** : `og:title` n'est pas une source fiable (format différent). → **À régénérer côté générateur de pages** — je peux préparer le correctif si vous m'indiquez le générateur des study-levels.
+9. **Résidus de langue** (meta N2 en français sur pages HE/EN ; « séifim »/« Lamdan » latin) et **placeholders vides** « Position classique : — » : corrections ponctuelles, faisables sur demande.
 
 ---
 
