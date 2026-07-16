@@ -1,6 +1,6 @@
 # DAAT — Rapport d'audit global (daattorah.com)
 
-> **Statut : audit EN COURS — phase automatique terminée ; revue approfondie = 69 simanim Shabbat sur 124 (lots 1-9, simanim 242-310 contigus), 675 constats.**
+> **Statut : audit EN COURS — phase automatique terminée ; revue approfondie = 76 simanim Shabbat sur 124 (lots 1-10, simanim 242-317 contigus), 742 constats.**
 > Ce rapport contient des constats **et** trace les corrections mécaniques déjà appliquées (voir §10). Aucune règle halakhique n'a été modifiée.
 
 ## 10. Corrections mécaniques appliquées (sûres, non-halakhiques)
@@ -24,7 +24,7 @@ Garde-fous : `audit-simanim.py` **124/124 conformes**, corpus régénéré, `sim
 *Note historique : la seule modification hors-audit initiale était l'ordre du catalogue `/contenu`.*
 > Date de génération : 2026-07-13. Branche : `claude/daattorah-site-audit-tyhabm`.
 >
-> **Lots 1-9 terminés — simanim 242-310 (contigus, 69 simanim) → 675 constats de contenu** dans `erreurs-halakha.csv`. Revue en cours vers 311+.
+> **Lots 1-10 terminés — simanim 242-317 (contigus, 76 simanim) → 742 constats de contenu** dans `erreurs-halakha.csv`. Revue en cours vers 318+.
 > Les patterns récurrents sont documentés dans **`erreurs-recurrentes.md`** (à lire en priorité). Constat n°1 : le **Niveau 4 « Daat HaRav »** a un appareil analytique (tableaux/chidoushim/למעשה) systématiquement décorrélé du texte-source reproduit sur la même page, avec parfois des **inversions halakhiques** (ex. 249 : jeûne érev Shabbat « interdit » vs « recommandé » ; 261 : allumage « même à bein hashmashot » + Amora erroné רב נחמן/ר' נחמיה).
 
 ---
@@ -36,7 +36,7 @@ Ce site contient **4 187 pages HTML** dont l'écrasante majorité est du **conte
 | Nature | Ce qu'on peut affirmer | Couverture actuelle |
 |--------|------------------------|---------------------|
 | **Automatique / structurel** (inventaire, liens, SEO, hreflang, numérotation de titre, cohérence des chiffres, parité de fichiers) | Fait **foi** : vérifiable mécaniquement, reproductible. | **100 % des pages** |
-| **Sémantique / halakhique** (exactitude d'une règle, exactitude d'une citation vs source primaire, exactitude d'une traduction, contradiction entre niveaux) | **Ne peut PAS être tranché mécaniquement.** Un outil peut *signaler des candidats* mais **la confirmation exige la lecture des sources primaires et l'œil du Rav.** | **69 simanim Shabbat sur ~238** (revue approfondie en cours, lots 1-9, simanim 242-310) |
+| **Sémantique / halakhique** (exactitude d'une règle, exactitude d'une citation vs source primaire, exactitude d'une traduction, contradiction entre niveaux) | **Ne peut PAS être tranché mécaniquement.** Un outil peut *signaler des candidats* mais **la confirmation exige la lecture des sources primaires et l'œil du Rav.** | **76 simanim Shabbat sur ~238** (revue approfondie en cours, lots 1-10, simanim 242-317) |
 
 **Règle appliquée partout :** aucune règle halakhique n'est déclarée « fausse » sans source précise ; tout point douteux est marqué **« À vérifier par le Rav »**. Là où la vérification dépasse ce qui est mécaniquement prouvable, la mention explicite est : *« Je ne peux pas vérifier automatiquement — validation rabbinique nécessaire. »*
 

@@ -1,6 +1,6 @@
-# DAAT — Erreurs récurrentes (revue approfondie, lots 1-9 : 69 simanim)
+# DAAT — Erreurs récurrentes (revue approfondie, lots 1-10 : 76 simanim)
 
-> Basé sur la revue sémantique des simanim **242-310 (contigus)** (675 constats dans `erreurs-halakha.csv`).
+> Basé sur la revue sémantique des simanim **242-317 (contigus)** (742 constats dans `erreurs-halakha.csv`).
 > Chaque pattern est **vérifiable par lecture croisée** (une page contredit une autre page, ou le texte reproduit sur la même page). La **résolution halakhique** reste « À vérifier par le Rav ».
 
 ---
@@ -71,6 +71,8 @@ Indépendamment du N4, les tableaux récapitulatifs de N1/N2/N3 attribuent à de
 - **310** (grave, trilingue) : les seifim 4-9 y sont décrits comme « œuf/nolad, animaux, cendres » alors que le texte réel = grogrot séchés, hazmana, bitoul keli meheikhano, migo de-itkatzai (lit/pièces), basis, teiva. Systématique N1/N2/N3.
 - **307** : « compter/mesurer = seifim 18-22 » alors que heshbonot = seif 6 ; lectures « permises » 14-17 en réalité restreintes/interdites.
 - **306** : tableau N1 FR décalé (HE/EN corrects) ; **305** : regroupements thématiques faux (cloches, mélanges).
+- **Lot 10 confirme ce pattern comme quasi-universel** dans les simanim « melakha » à nombreux seifim : **311** (« fermer les yeux du défunt » attribué au seif 4 au lieu du 7), **312** (seifim 4-10 étiquetés « Yom Kippour / main » — fabriqués), **313** (seifim 6-7 = « serrures » au lieu de lit démontable / poutre), **315** (parasols/parapluies insérés aux seifim 7-9, absents du Mehaber), **316** (salive ↔ animaux domestiques intervertis), **317** (seifim 6-7 = « lacets » au lieu de corde devant la vache).
+- **Anachronismes modernes épinglés à des seifim précis du SAR** (N4) : RFID/serrure électronique → 313:19-25 ; papier toilette pré-coupé → 312:4-10 ; parapluie → 315:4-10 ; boîtes de conserve → 314:1-7. Le SAR ne code aucun de ces objets.
 
 ## 🟠 PATTERN #9 — Traductions manquantes & navigation
 - **304** (grave) : les pages **Niveau 1 HE et EN ne sont pas traduites** — corps resté en français (pages inutilisables dans ces langues).
