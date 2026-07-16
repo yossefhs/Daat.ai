@@ -1,6 +1,6 @@
 # DAAT — Rapport d'audit global (daattorah.com)
 
-> **Statut : audit EN COURS — phase automatique terminée ; revue approfondie = 20 simanim Shabbat sur 124 (lots 1-2).**
+> **Statut : audit EN COURS — phase automatique terminée ; revue approfondie = 27 simanim Shabbat sur 124 (lots 1-3), lot 4 (268-274) en cours.**
 > Ce rapport contient des constats **et** trace les corrections mécaniques déjà appliquées (voir §10). Aucune règle halakhique n'a été modifiée.
 
 ## 10. Corrections mécaniques appliquées (sûres, non-halakhiques)
@@ -24,8 +24,8 @@ Garde-fous : `audit-simanim.py` **124/124 conformes**, corpus régénéré, `sim
 *Note historique : la seule modification hors-audit initiale était l'ordre du catalogue `/contenu`.*
 > Date de génération : 2026-07-13. Branche : `claude/daattorah-site-audit-tyhabm`.
 >
-> **Lots 1-2 terminés — simanim 242-258, 261, 263, 293 (20 simanim) → 121 constats de contenu** dans `erreurs-halakha.csv`.
-> Les patterns récurrents sont documentés dans **`erreurs-recurrentes.md`** (à lire en priorité). Constat n°1 : le **Niveau 4 « Daat HaRav »** a un appareil analytique (tableaux/chidoushim/למעשה) systématiquement décorrélé du texte-source reproduit sur la même page (9 des 12 simanim), avec parfois des **inversions halakhiques** (ex. 249 : jeûne érev Shabbat « interdit » vs « recommandé » ; 261 : allumage « même à bein hashmashot »).
+> **Lots 1-3 terminés — simanim 242-267 (contigus) + 293 (27 simanim) → 151 constats de contenu** dans `erreurs-halakha.csv`. Lot 4 (268-274) en cours.
+> Les patterns récurrents sont documentés dans **`erreurs-recurrentes.md`** (à lire en priorité). Constat n°1 : le **Niveau 4 « Daat HaRav »** a un appareil analytique (tableaux/chidoushim/למעשה) systématiquement décorrélé du texte-source reproduit sur la même page, avec parfois des **inversions halakhiques** (ex. 249 : jeûne érev Shabbat « interdit » vs « recommandé » ; 261 : allumage « même à bein hashmashot » + Amora erroné רב נחמן/ר' נחמיה).
 
 ---
 
@@ -36,7 +36,7 @@ Ce site contient **4 187 pages HTML** dont l'écrasante majorité est du **conte
 | Nature | Ce qu'on peut affirmer | Couverture actuelle |
 |--------|------------------------|---------------------|
 | **Automatique / structurel** (inventaire, liens, SEO, hreflang, numérotation de titre, cohérence des chiffres, parité de fichiers) | Fait **foi** : vérifiable mécaniquement, reproductible. | **100 % des pages** |
-| **Sémantique / halakhique** (exactitude d'une règle, exactitude d'une citation vs source primaire, exactitude d'une traduction, contradiction entre niveaux) | **Ne peut PAS être tranché mécaniquement.** Un outil peut *signaler des candidats* mais **la confirmation exige la lecture des sources primaires et l'œil du Rav.** | **3 simanim sur ~238** (échantillon en cours) |
+| **Sémantique / halakhique** (exactitude d'une règle, exactitude d'une citation vs source primaire, exactitude d'une traduction, contradiction entre niveaux) | **Ne peut PAS être tranché mécaniquement.** Un outil peut *signaler des candidats* mais **la confirmation exige la lecture des sources primaires et l'œil du Rav.** | **27 simanim Shabbat sur ~238** (revue approfondie en cours, lots 1-4) |
 
 **Règle appliquée partout :** aucune règle halakhique n'est déclarée « fausse » sans source précise ; tout point douteux est marqué **« À vérifier par le Rav »**. Là où la vérification dépasse ce qui est mécaniquement prouvable, la mention explicite est : *« Je ne peux pas vérifier automatiquement — validation rabbinique nécessaire. »*
 
@@ -155,7 +155,7 @@ Traités à part dans le repo (pas de niveau 4 car l'Admour HaZaken ne les a pas
 
 ## 6. Pages non analysées sémantiquement
 
-`audit/pages-non-verifiees.csv` : **4 096 pages de contenu** n'ont reçu que les contrôles automatiques. La revue halakhique/traduction/niveaux en profondeur ne couvre pour l'instant que **3 simanim de Shabbat (261, 263, 293)** — échantillon en cours d'analyse par des agents dédiés.
+`audit/pages-non-verifiees.csv` : le gros des pages de contenu n'a reçu que les contrôles automatiques. La revue halakhique/traduction/niveaux en profondeur couvre à ce stade **27 simanim de Shabbat (242-267 contigus + 293)**, lot 4 (268-274) en cours — analyse par agents dédiés, consignée dans `erreurs-halakha.csv` (151 constats).
 
 ---
 
