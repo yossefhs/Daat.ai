@@ -1,6 +1,6 @@
-# DAAT — Erreurs récurrentes (revue approfondie, lots 1-5 : 41 simanim)
+# DAAT — Erreurs récurrentes (revue approfondie, lots 1-6 : 48 simanim)
 
-> Basé sur la revue sémantique des simanim **242-281 (contigus) + 293** (321 constats dans `erreurs-halakha.csv`).
+> Basé sur la revue sémantique des simanim **242-288 (contigus) + 293** (407 constats dans `erreurs-halakha.csv`).
 > Chaque pattern est **vérifiable par lecture croisée** (une page contredit une autre page, ou le texte reproduit sur la même page). La **résolution halakhique** reste « À vérifier par le Rav ».
 
 ---
@@ -38,6 +38,12 @@ Cas les plus graves (inversions / fabrications) :
 - **278** (haute certitude, trilingue) : les **deux citations « Michna Beroura » du Niveau 1** (s.k.1 et s.k.2) **ne correspondent pas au texte réel du MB 278** (vérifié sur Sefaria) — l'une contient même un non-mot (« לפוס ») et de l'hébreu moderne (« בצורה מהירה ») ; le N3 attribue au MB s.k.1 une phrase « חובה לכבות » inexistante. Source talmudique aussi fausse : « אמר רב יהודה שבת ל׳ ע״א » alors que c'est une **Michna anonyme, Shabbat 29b**.
 - **281** (haute certitude, trilingue) : le **seif unique du Mehaber est mal identifié** dans N1/N2/N3 — reformulé en « **וְאָנוּ אֲנַחְנוּ מוֹדִים** » dans Modim de-Rabbanan / חזרת הש״ץ, alors que le vrai seif (SA OH 281:1, confirmé Sefaria **et** par le N4 seif 5 du site) porte sur « **וּלְךָ אֲנַחְנוּ מוֹדִים** » dans **Nichmat**. La bonne formule survit dans le titre h4 → preuve d'une erreur d'auteur, pas d'une variante.
 - **270** : hébreu corrompu (« אעשרים » pour עשרתם), n° de mishna faux (2:6↔2:7).
+- **283** (trilingue) : le N1 annonce « 4 entrées » de MB + DEUX citations « MB » inventées ; le MB 283 réel n'a qu'**1 ס״ק** (Sefaria). Daf faux (Meguila 21b → **22a**) sur tous les niveaux.
+- **284** (trilingue) : nombre de berakhot de la haftara donné faux (« 7, 2 avant/5 après ») dans N1/N2/N3, alors que le SAR/N4 dit correctement **5 (1 avant, 4 après)**.
+- **287** (trilingue N2) : citation « verbatim » attribuée au **Rambam Hilkhot Avel 14:7** (qui parle de brûler le lit d'un roi) — la vraie source est **Hilkhot Shabbat 24:5** ; dictum « בקושי התירו » attribué à « רבא / שבת י״ב ע״א » alors que c'est « ר' חנינא / שבת י״ב ע״ב ».
+- **288** (trilingue) : sougya de la *taanit halom* mal attribuée à **Berakhot 31b** (= תפילת חנה) au lieu de **Shabbat 11a** ; citation « verbatim » fabriquée attribuée à « Shabbat 24a » ; Taanit 14a → **19a**.
+- **286** : dictum sur Moussaf inventé et attribué à « R. Abbahu, Berakhot 26b » ; Rambam Tefila **3:7 → 3:5**.
+- **282** : חידוש fabriqué « 7 olim = 7 jours de la création » attribué à l'Admour HaZaken (absent du seif 1 reproduit).
 
 ### 2b. Exemples / labels anachroniques (Niveau 4)
 - **Michna Beroura** citée avec exemples anachroniques : « Western Union, Pony Express » (247), « chemins de fer XIXᵉ, bateaux à vapeur 1810-1820 » (248), « Netflix » (249).
