@@ -1,6 +1,6 @@
-# DAAT — Erreurs récurrentes (revue approfondie, lots 1-6 : 48 simanim)
+# DAAT — Erreurs récurrentes (revue approfondie, lots 1-7 : 55 simanim)
 
-> Basé sur la revue sémantique des simanim **242-288 (contigus) + 293** (407 constats dans `erreurs-halakha.csv`).
+> Basé sur la revue sémantique des simanim **242-296 (contigus)** (489 constats dans `erreurs-halakha.csv`).
 > Chaque pattern est **vérifiable par lecture croisée** (une page contredit une autre page, ou le texte reproduit sur la même page). La **résolution halakhique** reste « À vérifier par le Rav ».
 
 ---
@@ -44,6 +44,14 @@ Cas les plus graves (inversions / fabrications) :
 - **288** (trilingue) : sougya de la *taanit halom* mal attribuée à **Berakhot 31b** (= תפילת חנה) au lieu de **Shabbat 11a** ; citation « verbatim » fabriquée attribuée à « Shabbat 24a » ; Taanit 14a → **19a**.
 - **286** : dictum sur Moussaf inventé et attribué à « R. Abbahu, Berakhot 26b » ; Rambam Tefila **3:7 → 3:5**.
 - **282** : חידוש fabriqué « 7 olim = 7 jours de la création » attribué à l'Admour HaZaken (absent du seif 1 reproduit).
+- **289** : pseudo-texte araméen fabriqué de « Pessahim 106a » sur קידושא רבה ; plusieurs dappim faux dans le N2 (Chabbat 119b→119a, etc.).
+- **291** (trilingue N2) : citation « verbatim » de Chabbat 117b fabriquée (« ושמואל אמר שלש » inventé) ; les 3 délivrances mal attribuées à « ר' אבא / 117b » (réel : ר' שמעון בן פזי / **118a**).
+- **292** (trilingue) : חידוש « אתה אחד » fabriqué en N4 (absent des 7 seifim) ; daf faux Berakhot **7b→8a** ; motif de צדקתך à contre-source.
+- **294** (trilingue N2) : citation Berakhot 33a fabriquée (« ר' חייא בר אבא בריה דרבי אבא ») ; résidu de note « ז » collé dans le texte du SAR.
+- **295** (trilingue N2) : deux braïtot « Pessahim 54a » fabriquées ; kiddouch/havdala à la shul mal daffé (104b → **101a**) ; ויהי נעם « avant arvit » au lieu d'après.
+- **296** (trilingue N2) : « תנא דבי שמואל » et « רב הונא בשם רב » inventés à Pessahim 103a ; N4 rattache la bougie tressée à רצ״ו:10-14 (réel : siman 298).
+- **290** : Yerushalmi « סוטה פ״ק ה״א » fabriqué (réel : Chabbat 15:3).
+- **286** : dictum sur Moussaf inventé (« ר' אבהו, Berakhot 26b »).
 
 ### 2b. Exemples / labels anachroniques (Niveau 4)
 - **Michna Beroura** citée avec exemples anachroniques : « Western Union, Pony Express » (247), « chemins de fer XIXᵉ, bateaux à vapeur 1810-1820 » (248), « Netflix » (249).
