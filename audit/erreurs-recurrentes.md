@@ -1,6 +1,6 @@
-# DAAT — Erreurs récurrentes (revue approfondie, lots 1-4 : 34 simanim)
+# DAAT — Erreurs récurrentes (revue approfondie, lots 1-5 : 41 simanim)
 
-> Basé sur la revue sémantique des simanim **242-274 (contigus) + 293** (222 constats dans `erreurs-halakha.csv`).
+> Basé sur la revue sémantique des simanim **242-281 (contigus) + 293** (321 constats dans `erreurs-halakha.csv`).
 > Chaque pattern est **vérifiable par lecture croisée** (une page contredit une autre page, ou le texte reproduit sur la même page). La **résolution halakhique** reste « À vérifier par le Rav ».
 
 ---
@@ -18,6 +18,10 @@ Cas les plus graves (inversions / fabrications) :
 - **271** : « Vayekhulou » renvoyé à 271:14-18 alors qu'il est au **seif 19** ; obligation des femmes renvoyée à 271:19-23 alors qu'elle est aux **seifim 5-6** (les deux vérifiés contre le §1 reproduit).
 - **273** : le critère de la « vue continue » renvoyé à 273:4-7 alors qu'il est au **seif 2** reproduit sur la même page ; découpage 1-3/4-7/8-10/11-12 des למעשה sans correspondance thématique.
 - **274** : le **לחם משנה** renvoyé à 274:3-5 alors qu'il est au **seif 2** ; le choix du pain (dessous/dessus) renvoyé à 274:6-8 alors qu'il est aussi au **seif 2**.
+- **279** (grave, trilingue) : le N4 §2/§5 énonce « la bougie **change de statut mouktsé / devient déplaçable** quand elle s'éteint naturellement » — **inversion** qui contredit le seif א reproduit sur la même page (מיגו דאיתקצאי : reste mouktsé toute la journée) **et** N1/N2/N3.
+- **278** (grave) : un חידוש du N4 affirme que « la présence d'un malade lève les שבותים… aussi les positifs » alors que le §1 SAR reproduit dit **אסור לכבות** pour un חולה שאין בו סכנה (le heter à 278 repose sur pikoua'h nefesh ; le שבות במקום חולה relève du siman 328).
+- **277** : la mise en garde « éloigner des ventilateurs/vent » renvoyée à 277:7-8 (= נר sur un arbre / קערה renversée) alors que le vent est aux **seifim 1 et 4**.
+- **276** : « lumière publique = permis » renvoyée à 276:14-17 (= מדורה/chauffage) alors que le permis est aux **seifim 6-7**.
 - **249** : le tableau attribue au Mehaber « אָסוּר לְהִתְעַנּוֹת בְּעֶרֶב שַׁבָּת » (interdit de jeûner) — or le Mehaber 249:3 dit **l'inverse** (« דרך אנשי מעשה להתענות »). Cite aussi un **seif 5 du Mehaber inexistant** (le siman n'a que 4 seifim).
 - **261** : le point ④ למעשה « allumer **même à bein hashmashot** » contredit N1/N3/blog **et** le texte de l'Admour sur la même page (melakha interdite midéoraïta à בין השמשות).
 - **250** : « 3 repas / choix des plats poisson-viande-vin » plaqués sur des seifim qui traitent en réalité de l'aiguisage du couteau et du moment des achats ; Mehaber 250:2 fabriqué.
@@ -28,13 +32,20 @@ Cas les plus graves (inversions / fabrications) :
 
 ---
 
-## 🔴 PATTERN #2 — Références fabriquées / anachroniques (Niveau 4)
+## 🔴 PATTERN #2 — Références fabriquées / anachroniques
 
-- **Michna Beroura** citée avec des plages de seif-katan précises **et des exemples anachroniques** : « Western Union, Pony Express » (247), « chemins de fer XIXᵉ, Maharsham, bateaux à vapeur 1810-1820 » (248), « Netflix » (249).
-- **« Mahadoura Batra »** invoquée pour des simanim qui n'en ont pas (247, 249).
-- **Mivtza Neshek** (institué par le Rabbi en **1974**) attribué au Choulhan Aroukh de l'**Admour HaZaken** (mort en 1812) — anachronisme (263).
+### 2a. Citations « verbatim » FABRIQUÉES (le plus grave — un étudiant apprend une fausse halakha comme si c'était la source)
+- **278** (haute certitude, trilingue) : les **deux citations « Michna Beroura » du Niveau 1** (s.k.1 et s.k.2) **ne correspondent pas au texte réel du MB 278** (vérifié sur Sefaria) — l'une contient même un non-mot (« לפוס ») et de l'hébreu moderne (« בצורה מהירה ») ; le N3 attribue au MB s.k.1 une phrase « חובה לכבות » inexistante. Source talmudique aussi fausse : « אמר רב יהודה שבת ל׳ ע״א » alors que c'est une **Michna anonyme, Shabbat 29b**.
+- **281** (haute certitude, trilingue) : le **seif unique du Mehaber est mal identifié** dans N1/N2/N3 — reformulé en « **וְאָנוּ אֲנַחְנוּ מוֹדִים** » dans Modim de-Rabbanan / חזרת הש״ץ, alors que le vrai seif (SA OH 281:1, confirmé Sefaria **et** par le N4 seif 5 du site) porte sur « **וּלְךָ אֲנַחְנוּ מוֹדִים** » dans **Nichmat**. La bonne formule survit dans le titre h4 → preuve d'une erreur d'auteur, pas d'une variante.
+- **270** : hébreu corrompu (« אעשרים » pour עשרתם), n° de mishna faux (2:6↔2:7).
 
-➡️ Risque de **source non attestée**. À sourcer ou retirer. « Je ne peux pas vérifier automatiquement — validation rabbinique nécessaire. »
+### 2b. Exemples / labels anachroniques (Niveau 4)
+- **Michna Beroura** citée avec exemples anachroniques : « Western Union, Pony Express » (247), « chemins de fer XIXᵉ, bateaux à vapeur 1810-1820 » (248), « Netflix » (249).
+- **Heter LED/électrique attribué à l'Admour HaZaken** et « sourcé » à un renvoi de seif inexistant (**275** : רע״ה:8-13, qui traitent d'autre chose) — anachronisme (le SAR ne traite pas de l'électricité).
+- **« Mahadoura Batra »** invoquée comme simple étiquette pour des notes modernes, sur des simanim qui n'en ont pas (247, 249, 275).
+- **Mivtza Neshek** (1974) attribué au Choulhan Aroukh de l'**Admour HaZaken** (mort en 1812) — anachronisme (263).
+
+➡️ Risque de **source non attestée / fabriquée**. À sourcer ou retirer. « Je ne peux pas vérifier automatiquement — validation rabbinique nécessaire. »
 
 ---
 
