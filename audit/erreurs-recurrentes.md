@@ -1,6 +1,6 @@
-# DAAT — Erreurs récurrentes (revue approfondie, lots 1-8 : 62 simanim)
+# DAAT — Erreurs récurrentes (revue approfondie, lots 1-9 : 69 simanim)
 
-> Basé sur la revue sémantique des simanim **242-303 (contigus)** (580 constats dans `erreurs-halakha.csv`).
+> Basé sur la revue sémantique des simanim **242-310 (contigus)** (675 constats dans `erreurs-halakha.csv`).
 > Chaque pattern est **vérifiable par lecture croisée** (une page contredit une autre page, ou le texte reproduit sur la même page). La **résolution halakhique** reste « À vérifier par le Rav ».
 
 ---
@@ -62,7 +62,20 @@ Cas les plus graves (inversions / fabrications) :
 Sur certains simanim, la page N4 **FR** n'a pas été resynchronisée après refonte : les versions **HE et EN** ont un appareil §2/§5 corrigé (bons renvois de seif, réserves halakhiques), le **FR** garde l'ancienne version fausse. Comme le FR est la langue par défaut (`lang="fr"`), c'est la moins exacte des trois.
 - **301** : N4 FR = 2 חידושים / 6 points aux renvois flous ; HE/EN = 3 חידושים / 9 points précis. Le FR omet la réserve « bijoux de la femme interdits ברה״ר ».
 - **302** : N4 FR = 1 חידוש / 3 items aux renvois faux (ש״ב:6-12, 13-20) ; HE/EN corrigés (ש״ב:8-9, 11-12).
-➡️ **Régénérer les pages N4 FR à partir des versions HE/EN corrigées.**
+- **307** : cette fois **FR ET EN** sont périmés (HE corrigé) — thème mislabel « vœux/nedarim » (absent du siman) + seif-refs faux.
+- **310** : le bloc למעשה FR du N4 diverge du HE/EN et renvoie à ש״י:13-20 (poubelle) qui relève en réalité du siman 308.
+➡️ **Régénérer les pages N4 FR (et parfois EN) à partir des versions HE/EN corrigées.**
+
+## 🔴 PATTERN #8 — Cartographie des seifim FAUSSE dans les tableaux « Vue d'ensemble » N1/N2/N3 (contredit le §1 reproduit)
+Indépendamment du N4, les tableaux récapitulatifs de N1/N2/N3 attribuent à des seifim un contenu qui n'est pas le leur — contredisant le texte hébreu reproduit sur la même page.
+- **310** (grave, trilingue) : les seifim 4-9 y sont décrits comme « œuf/nolad, animaux, cendres » alors que le texte réel = grogrot séchés, hazmana, bitoul keli meheikhano, migo de-itkatzai (lit/pièces), basis, teiva. Systématique N1/N2/N3.
+- **307** : « compter/mesurer = seifim 18-22 » alors que heshbonot = seif 6 ; lectures « permises » 14-17 en réalité restreintes/interdites.
+- **306** : tableau N1 FR décalé (HE/EN corrects) ; **305** : regroupements thématiques faux (cloches, mélanges).
+
+## 🟠 PATTERN #9 — Traductions manquantes & navigation
+- **304** (grave) : les pages **Niveau 1 HE et EN ne sont pas traduites** — corps resté en français (pages inutilisables dans ces langues).
+- **305** : lien de navigation « ← précédent » pointe vers **303** en sautant le 304 (off-by-one sur les pages de niveaux, 3 langues).
+- Attributions bibliques erronées : **305** « למען ינוח שורך » attribué à Devarim 5:14 au lieu de **Shemot 23:12** (N1 + N3, 3 langues).
 
 ## 🟠 PATTERN #7 — Conflation Mehaber / SAR HaRav dans les pages `index`
 La page-catalogue d'un siman (qui présente surtout N1-N3, basés sur le **Mehaber**) est souvent décrite comme « Choulhan Aroukh HaRav — N seifim », en reprenant le compte du **SAR** (N4). Deux comptes exacts mais fusionnés → le lecteur croit que le siman du Mehaber a le nombre de seifim du SAR.

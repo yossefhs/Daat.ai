@@ -1,6 +1,6 @@
 # DAAT — Rapport d'audit global (daattorah.com)
 
-> **Statut : audit EN COURS — phase automatique terminée ; revue approfondie = 62 simanim Shabbat sur 124 (lots 1-8, simanim 242-303 contigus), 580 constats.**
+> **Statut : audit EN COURS — phase automatique terminée ; revue approfondie = 69 simanim Shabbat sur 124 (lots 1-9, simanim 242-310 contigus), 675 constats.**
 > Ce rapport contient des constats **et** trace les corrections mécaniques déjà appliquées (voir §10). Aucune règle halakhique n'a été modifiée.
 
 ## 10. Corrections mécaniques appliquées (sûres, non-halakhiques)
