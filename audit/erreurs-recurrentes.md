@@ -1,6 +1,6 @@
-# DAAT — Erreurs récurrentes (revue approfondie, lots 1-7 : 55 simanim)
+# DAAT — Erreurs récurrentes (revue approfondie, lots 1-8 : 62 simanim)
 
-> Basé sur la revue sémantique des simanim **242-296 (contigus)** (489 constats dans `erreurs-halakha.csv`).
+> Basé sur la revue sémantique des simanim **242-303 (contigus)** (580 constats dans `erreurs-halakha.csv`).
 > Chaque pattern est **vérifiable par lecture croisée** (une page contredit une autre page, ou le texte reproduit sur la même page). La **résolution halakhique** reste « À vérifier par le Rav ».
 
 ---
@@ -52,6 +52,21 @@ Cas les plus graves (inversions / fabrications) :
 - **296** (trilingue N2) : « תנא דבי שמואל » et « רב הונא בשם רב » inventés à Pessahim 103a ; N4 rattache la bougie tressée à רצ״ו:10-14 (réel : siman 298).
 - **290** : Yerushalmi « סוטה פ״ק ה״א » fabriqué (réel : Chabbat 15:3).
 - **286** : dictum sur Moussaf inventé (« ר' אבהו, Berakhot 26b »).
+- **297** : trois citations talmudiques fabriquées en N2 (Pessahim 102b « תני רב הונא » ; Berakhot 43b mal attribué ; Beitzah 16a faux verbatim) + fragment corrompu « ל-Habad ».
+- **298** : « הרבה מאורות יש באור » attribué à רב יהודה au lieu de **Beit Hillel** ; braïta « Pessahim 54a » fabriquée.
+- **299** : quatre citations Pessahim fabriquées/mal-daffées en N2 (105a, 102b→100a, 107a→106a).
+- **300** : « **Aharon** » au lieu de **David** (Chabbat 30a) en N1 ; PdRE ch. 20 → **34**.
+- **302** : machloket amoraïque fabriquée (Rav Houna vs Abaye/Rava, Chabbat 147a — énoncé unique en réalité) ; « וטוב לחוש » attribué au Mehaber au lieu du **Rama**.
+
+## 🟠 PATTERN #6 — Niveau 4 « Daat HaRav » FRANÇAIS resté sur une version périmée
+Sur certains simanim, la page N4 **FR** n'a pas été resynchronisée après refonte : les versions **HE et EN** ont un appareil §2/§5 corrigé (bons renvois de seif, réserves halakhiques), le **FR** garde l'ancienne version fausse. Comme le FR est la langue par défaut (`lang="fr"`), c'est la moins exacte des trois.
+- **301** : N4 FR = 2 חידושים / 6 points aux renvois flous ; HE/EN = 3 חידושים / 9 points précis. Le FR omet la réserve « bijoux de la femme interdits ברה״ר ».
+- **302** : N4 FR = 1 חידוש / 3 items aux renvois faux (ש״ב:6-12, 13-20) ; HE/EN corrigés (ש״ב:8-9, 11-12).
+➡️ **Régénérer les pages N4 FR à partir des versions HE/EN corrigées.**
+
+## 🟠 PATTERN #7 — Conflation Mehaber / SAR HaRav dans les pages `index`
+La page-catalogue d'un siman (qui présente surtout N1-N3, basés sur le **Mehaber**) est souvent décrite comme « Choulhan Aroukh HaRav — N seifim », en reprenant le compte du **SAR** (N4). Deux comptes exacts mais fusionnés → le lecteur croit que le siman du Mehaber a le nombre de seifim du SAR.
+- Vu sur 271, 280, 285, 287, 289, 290, 295, 297, 299, 301, 303 (et d'autres). *Non-erreur halakhique, mais à clarifier.*
 
 ### 2b. Exemples / labels anachroniques (Niveau 4)
 - **Michna Beroura** citée avec exemples anachroniques : « Western Union, Pony Express » (247), « chemins de fer XIXᵉ, bateaux à vapeur 1810-1820 » (248), « Netflix » (249).
