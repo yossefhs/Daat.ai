@@ -1,6 +1,6 @@
-# DAAT — Erreurs récurrentes (revue approfondie, lot 1 : 12 simanim)
+# DAAT — Erreurs récurrentes (revue approfondie, lots 1-4 : 34 simanim)
 
-> Basé sur la revue sémantique des simanim **242, 243, 244, 245, 246, 247, 248, 249, 250, 261, 263, 293** (82 constats dans `erreurs-halakha.csv`).
+> Basé sur la revue sémantique des simanim **242-274 (contigus) + 293** (222 constats dans `erreurs-halakha.csv`).
 > Chaque pattern est **vérifiable par lecture croisée** (une page contredit une autre page, ou le texte reproduit sur la même page). La **résolution halakhique** reste « À vérifier par le Rav ».
 
 ---
@@ -9,10 +9,15 @@
 
 **Où :** sections §2 (tableau « כח הפסק / Force du psak »), §3 (חידושים) et §5 (למעשה) des pages `niveau-4-daat-harav*`.
 **Quoi :** ces sections citent des **numéros de seif faux**, présentent des **paraphrases entre guillemets comme des citations verbatim**, et attribuent au Mehaber/Rama/Admour HaZaken des textes qui **ne correspondent pas** au texte intégral reproduit en §1 de la **même page**.
-**Observé sur :** 244, 245, 246, 247, 248, 249, 250, 261, 263 (9 des 12 simanim).
+**Observé sur :** 244-250, 261, 263 (lots 1-2) **et confirmé en masse au lot 4 : 268, 271, 272, 273, 274** — dans presque tous les N4 revus.
 **Identique dans les 3 langues** → défaut de **contenu**, pas de traduction.
 
 Cas les plus graves (inversions / fabrications) :
+- **268** (grave, trilingue) : la section למעשה/חידוש greffe sur le siman 268 (**erreurs dans la tefilla** de Chabbat) la loi de l'oubli de **Retsé dans le Birkat Hamazon** (hiérarchie 1er/2e repas = reprise, seouda chlichit = non) — qui relève du **siman 188**, en contradiction avec le §1 de la même page et avec N1/N3.
+- **270** (grave, trilingue) : N1/N2/N3 **fabriquent un « seif 2 = exceptions calendaires »** et **omettent le vrai seif 2** du Mehaber (Kiddouch en synagogue avant Bameh Madlikin), que seule la page N4/SAR reproduit correctement.
+- **271** : « Vayekhulou » renvoyé à 271:14-18 alors qu'il est au **seif 19** ; obligation des femmes renvoyée à 271:19-23 alors qu'elle est aux **seifim 5-6** (les deux vérifiés contre le §1 reproduit).
+- **273** : le critère de la « vue continue » renvoyé à 273:4-7 alors qu'il est au **seif 2** reproduit sur la même page ; découpage 1-3/4-7/8-10/11-12 des למעשה sans correspondance thématique.
+- **274** : le **לחם משנה** renvoyé à 274:3-5 alors qu'il est au **seif 2** ; le choix du pain (dessous/dessus) renvoyé à 274:6-8 alors qu'il est aussi au **seif 2**.
 - **249** : le tableau attribue au Mehaber « אָסוּר לְהִתְעַנּוֹת בְּעֶרֶב שַׁבָּת » (interdit de jeûner) — or le Mehaber 249:3 dit **l'inverse** (« דרך אנשי מעשה להתענות »). Cite aussi un **seif 5 du Mehaber inexistant** (le siman n'a que 4 seifim).
 - **261** : le point ④ למעשה « allumer **même à bein hashmashot** » contredit N1/N3/blog **et** le texte de l'Admour sur la même page (melakha interdite midéoraïta à בין השמשות).
 - **250** : « 3 repas / choix des plats poisson-viande-vin » plaqués sur des seifim qui traitent en réalité de l'aiguisage du couteau et du moment des achats ; Mehaber 250:2 fabriqué.
