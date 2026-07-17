@@ -1,6 +1,6 @@
-# DAAT — Erreurs récurrentes (revue approfondie, lots 1-13 : 97 simanim)
+# DAAT — Erreurs récurrentes (revue approfondie : Hilkhot Shabbat COMPLET 124/124 + Orah Haïm quotidien en cours)
 
-> Basé sur la revue sémantique des simanim **242-338 (contigus)** (899 constats dans `erreurs-halakha.csv`).
+> Basé sur la revue sémantique des **124 simanim de Hilkhot Shabbat (242-365, COMPLET — IDs H-XXX)** et de **28/64 simanim d'Orah Haïm quotidien (1-28 — IDs Q-XXX)** — 1462 constats dans `erreurs-halakha.csv`.
 > Chaque pattern est **vérifiable par lecture croisée** (une page contredit une autre page, ou le texte reproduit sur la même page). La **résolution halakhique** reste « À vérifier par le Rav ».
 
 ---
