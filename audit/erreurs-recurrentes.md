@@ -1,6 +1,6 @@
 # DAAT — Erreurs récurrentes (revue approfondie : Hilkhot Shabbat COMPLET 124/124 + Orah Haïm quotidien en cours)
 
-> Basé sur la revue sémantique des **124 simanim de Hilkhot Shabbat (242-365, COMPLET — IDs H-XXX)** et de **14/64 simanim d'Orah Haïm quotidien (1-14 — IDs Q-XXX)** — 1339 constats dans `erreurs-halakha.csv`.
+> Basé sur la revue sémantique des **124 simanim de Hilkhot Shabbat (242-365, COMPLET — IDs H-XXX)** et de **21/64 simanim d'Orah Haïm quotidien (1-21 — IDs Q-XXX)** — 1395 constats dans `erreurs-halakha.csv`.
 > Chaque pattern est **vérifiable par lecture croisée** (une page contredit une autre page, ou le texte reproduit sur la même page). La **résolution halakhique** reste « À vérifier par le Rav ».
 
 ---
