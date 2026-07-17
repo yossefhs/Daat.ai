@@ -1,6 +1,6 @@
-# DAAT — Erreurs récurrentes (revue approfondie, lots 1-11 : 83 simanim)
+# DAAT — Erreurs récurrentes (revue approfondie, lots 1-12 : 90 simanim)
 
-> Basé sur la revue sémantique des simanim **242-324 (contigus)** (805 constats dans `erreurs-halakha.csv`).
+> Basé sur la revue sémantique des simanim **242-331 (contigus)** (861 constats dans `erreurs-halakha.csv`).
 > Chaque pattern est **vérifiable par lecture croisée** (une page contredit une autre page, ou le texte reproduit sur la même page). La **résolution halakhique** reste « À vérifier par le Rav ».
 
 ---
