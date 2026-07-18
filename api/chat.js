@@ -622,22 +622,26 @@ export default async function handler(req, res) {
         const corpusTerms = section === 'yoreh-deah'
           ? 'bassar be-halav, taarovet, ben yomo, nat bar nat'
           : 'borer, bishoul, mouktsé';
-        const corpusSystem = `Tu es l'assistant de DAAT — site d'étude halakhique du Rav Yossef Haim Samama.
+        const corpusSystem = `Tu es Daat, l'assistant halakhique de DAAT — site d'étude du Rav Yossef Haim Samama.
 
-Tu reçois :
-1. Une QUESTION d'utilisateur sur ${corpusDomain}
-2. UN EXTRAIT précis du corpus écrit par le Rav (avec son siman + section)
+CONTEXTE : tu reçois une question d'utilisateur sur ${corpusDomain} et UN EXTRAIT précis du corpus (écrit par le Rav) qui répond à cette question.
 
-Ta tâche : répondre à la question en reformulant l'extrait en 2-4 phrases conversationnelles et fluides.
+TA MISSION : donner une réponse claire, complète et engageante, fidèle à l'extrait. L'utilisateur doit avoir la réponse dès la première ligne, puis comprendre pourquoi.
+
+STRUCTURE ATTENDUE :
+1. **Phrase d'accroche** (1re ligne) : la réponse directe — permis, interdit, ça dépend — avec l'idée-clé qui résume ("Oui, à condition que…", "Non, car il y a un problème de …", "Ça dépend : si …, alors …"). L'accroche seule doit déjà répondre.
+2. **Raisonnement** en 2-4 phrases : quelle est la mélakha (ou le principe halakhique) en jeu, la logique du psak, les sources ou opinions clés si l'extrait les mentionne.
+3. **Cas particuliers ou nuances** : uniquement s'ils sont dans l'extrait (ne pas extrapoler).
+4. **Source finale** au format exact : *Source : Siman X · [titre de section]*
 
 RÈGLES STRICTES :
 - RESTE FIDÈLE à l'extrait. N'invente AUCUNE halakha qui n'y est pas explicitement.
-- Si l'extrait ne couvre pas vraiment la nuance demandée, dis-le honnêtement : « L'extrait du corpus aborde [le sujet réel de l'extrait], mais pas directement ta question. Pour une réflexion sur ce point précis, repose la question en mode étendu. »
-- Termine TOUJOURS par la source au format : *Source : Siman X · [titre de section]*
-- Pour décisions pratiques sensibles ou cas-limites, ajoute : « consulte un Rav pour ton cas précis. »
-- Pas de markdown lourd, texte naturel.
+- Termine TOUJOURS ta réponse par la ligne source. Ne coupe jamais avant elle — elle est la signature du psak.
+- Si l'extrait n'aborde pas vraiment la question : « L'extrait du corpus traite de [sujet réel], mais ta question porte sur [Y] — pour une réflexion précise sur ce point, repose la question en mode étendu. » (puis source).
+- Pour décision pratique sensible : ajoute « Consulte un Rav pour ton cas précis. » AVANT la source.
 - Conserve les termes hébreux en transcription (${corpusTerms}) — ne les sur-traduis pas.
-- Ne mentionne PAS que tu reformules un extrait — réponds DIRECTEMENT comme si tu savais.`;
+- Ton conversationnel et pédagogique, comme si tu expliquais à un ami curieux. Pas de listes à puces sauf vraie nécessité. Pas de markdown lourd.
+- Ne dis JAMAIS que tu reformules un extrait — parle directement du sujet.`;
 
         let corpusUserMsg = `QUESTION DE L'UTILISATEUR :\n${lastUserText}\n\n`;
         corpusUserMsg += `EXTRAIT DU CORPUS (Siman ${top.siman} — ${top.simanTitle} · ${top.sectionTitle}${subs}) :\n${top.text.trim()}`;
@@ -655,11 +659,16 @@ RÈGLES STRICTES :
         let corpusAnswer = '';
         let inTok = 0, outTok = 0;
         let corpusErrored = false;
+        let corpusStopReason = null;
+        // Budget de sortie : assez large pour accroche + raisonnement + nuances + source
+        // sans jamais tronquer. Haiku 4.5 output ≈ $5/M tokens → 1200 tokens ≈ $0.006,
+        // toujours 20× moins cher qu'Opus. Overridable via env pour ajuster sans deploy.
+        const CORPUS_MAX_TOKENS = parseInt(process.env.CORPUS_MAX_TOKENS || '1200', 10);
 
         try {
           const stream = client.messages.stream({
             model: MODELS.haiku.id,
-            max_tokens: 350,
+            max_tokens: CORPUS_MAX_TOKENS,
             system: corpusSystem,
             messages: [{ role: 'user', content: corpusUserMsg }],
           }, { signal: corpusAbort.signal });
@@ -678,6 +687,10 @@ RÈGLES STRICTES :
             inTok = final.usage.input_tokens || 0;
             outTok = final.usage.output_tokens || 0;
           }
+          corpusStopReason = final?.stop_reason || null;
+          if (corpusStopReason === 'max_tokens') {
+            console.warn(`[chat.js] corpus response TRUNCATED (hit max_tokens=${CORPUS_MAX_TOKENS}) siman-${top.siman} — consider bumping CORPUS_MAX_TOKENS`);
+          }
         } catch (err) {
           corpusErrored = true;
           console.error('[chat.js] corpus Haiku error:', err?.message || err);
@@ -686,14 +699,17 @@ RÈGLES STRICTES :
         // Si la réponse a commencé à streamer, on doit la terminer proprement (impossible de fallback Claude maintenant)
         if (corpusAnswer.length > 0) {
           const cost = (inTok * MODELS.haiku.in / 1000) + (outTok * MODELS.haiku.out / 1000);
-          // Stream interrompu en cours : on signale visiblement la coupure pour que
-          // l'utilisateur ne prenne pas une réponse tronquée pour un psak complet.
+          // Stream interrompu en cours OU cap max_tokens atteint : on signale
+          // visiblement la coupure pour que l'utilisateur ne prenne pas une
+          // réponse tronquée pour un psak complet.
           if (corpusErrored) {
             res.write(`data: ${JSON.stringify({ type: 'text', delta: '\n\n_(Réponse interrompue — repose ta question pour une réponse complète.)_' })}\n\n`);
+          } else if (corpusStopReason === 'max_tokens') {
+            res.write(`data: ${JSON.stringify({ type: 'text', delta: '\n\n_(Réponse tronquée par la limite de longueur — précise ta question pour la suite du raisonnement.)_' })}\n\n`);
           }
           res.write(`data: ${JSON.stringify({
             type: 'done',
-            stop_reason: corpusErrored ? 'error' : 'end_turn',
+            stop_reason: corpusErrored ? 'error' : (corpusStopReason || 'end_turn'),
             iterations: 1,
             usage: { input_tokens: inTok, output_tokens: outTok },
             provider: 'corpus-haiku',

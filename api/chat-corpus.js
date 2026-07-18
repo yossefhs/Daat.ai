@@ -23,7 +23,9 @@ import { getClientIp } from './_http.js';
 const client = new Anthropic();
 
 const HAIKU = { id: 'claude-haiku-4-5', in: 0.001, out: 0.005 }; // €/1000 tokens
-const MAX_OUTPUT_TOKENS = 350;
+// Budget de sortie : assez large pour accroche + raisonnement + nuances + source
+// sans jamais tronquer. 1200 tokens ≈ ~900 mots FR ≈ $0.006 (20× moins qu'Opus).
+const MAX_OUTPUT_TOKENS = parseInt(process.env.CORPUS_MAX_TOKENS || '1200', 10);
 const SCORE_THRESHOLD = 3.0; // en dessous, on considère "match faible"
 
 // ── Anti-abus : endpoint public non authentifié qui appelle l'API payante Haiku.
@@ -74,23 +76,27 @@ function buildSystemPrompt(lang, section) {
   const terms = section === 'yoreh-deah'
     ? 'bassar be-halav, taarovet, ben yomo, nat bar nat'
     : 'borer, bishoul, mouktsé';
-  return `Tu es l'assistant de DAAT — site d'étude halakhique du Rav Yossef Haim Samama.
+  return `Tu es Daat, l'assistant halakhique de DAAT — site d'étude du Rav Yossef Haim Samama.
 
-Tu reçois :
-1. Une QUESTION d'utilisateur sur ${domain}
-2. UN EXTRAIT précis du corpus écrit par le Rav (avec son siman + section)
+CONTEXTE : tu reçois une question d'utilisateur sur ${domain} et UN EXTRAIT précis du corpus (écrit par le Rav) qui répond à cette question.
 
-Ta tâche : répondre à la question en reformulant l'extrait en 2-4 phrases conversationnelles et fluides.
+TA MISSION : donner une réponse claire, complète et engageante, fidèle à l'extrait. L'utilisateur doit avoir la réponse dès la première ligne, puis comprendre pourquoi.
+
+STRUCTURE ATTENDUE :
+1. **Phrase d'accroche** (1re ligne) : la réponse directe — permis, interdit, ça dépend — avec l'idée-clé qui résume ("Oui, à condition que…", "Non, car il y a un problème de …", "Ça dépend : si …, alors …"). L'accroche seule doit déjà répondre.
+2. **Raisonnement** en 2-4 phrases : quelle est la mélakha (ou le principe halakhique) en jeu, la logique du psak, les sources ou opinions clés si l'extrait les mentionne.
+3. **Cas particuliers ou nuances** : uniquement s'ils sont dans l'extrait (ne pas extrapoler).
+4. **Source finale** au format exact : *Source : Siman X · [titre de section]*
 
 RÈGLES STRICTES :
 - RESTE FIDÈLE à l'extrait. N'invente AUCUNE halakha qui n'y est pas explicitement.
-- Si l'extrait ne couvre pas vraiment la nuance demandée, dis-le honnêtement : « L'extrait ne couvre pas directement cette nuance — pour une réflexion contextuelle, repose la question à Daat IA en mode étendu. »
-- Termine TOUJOURS par la source au format : « *Source : Siman X §Y — [titre de section]* »
-- Pour les décisions pratiques sensibles ou cas-limites, ajoute : « consulte un Rav pour ton cas précis. »
-- Pas de markdown lourd (pas de listes à puces sauf si vraiment nécessaire), texte naturel.
+- Termine TOUJOURS ta réponse par la ligne source. Ne coupe jamais avant elle — elle est la signature du psak.
+- Si l'extrait n'aborde pas vraiment la question : « L'extrait du corpus traite de [sujet réel], mais ta question porte sur [Y] — pour une réflexion précise sur ce point, repose la question à Daat IA en mode étendu. » (puis source).
+- Pour décision pratique sensible : ajoute « Consulte un Rav pour ton cas précis. » AVANT la source.
 - Conserve les termes hébreux en transcription (${terms}) — ne les sur-traduis pas.
 - Réponds dans la langue de la question (par défaut : ${langName}).
-- Ne mentionne PAS que tu reformules un extrait — réponds DIRECTEMENT comme si tu savais.`;
+- Ton conversationnel et pédagogique, comme si tu expliquais à un ami curieux. Pas de listes à puces sauf vraie nécessité. Pas de markdown lourd.
+- Ne dis JAMAIS que tu reformules un extrait — parle directement du sujet.`;
 }
 
 function buildUserMessage(question, topResult, otherResults) {
@@ -194,6 +200,7 @@ export default async function handler(req, res) {
 
   let inputTokens = 0;
   let outputTokens = 0;
+  let stopReason = null;
 
   try {
     const stream = client.messages.stream({
@@ -219,6 +226,11 @@ export default async function handler(req, res) {
       inputTokens = final.usage.input_tokens || inputTokens;
       outputTokens = final.usage.output_tokens || outputTokens;
     }
+    stopReason = final?.stop_reason || null;
+    if (stopReason === 'max_tokens') {
+      console.warn(`[chat-corpus] response TRUNCATED (hit max_tokens=${MAX_OUTPUT_TOKENS}) siman-${top.siman}`);
+      sseWrite(res, 'delta', { text: '\n\n_(Réponse tronquée par la limite de longueur — précise ta question pour la suite du raisonnement.)_' });
+    }
   } catch (err) {
     console.error('[chat-corpus] Haiku stream error:', err);
     sseWrite(res, 'error', { message: err?.message || 'Haiku error' });
@@ -230,6 +242,7 @@ export default async function handler(req, res) {
   sseWrite(res, 'done', {
     usage: { input_tokens: inputTokens, output_tokens: outputTokens },
     cost_eur: costEur,
+    stop_reason: stopReason,
     model: HAIKU.id,
   });
   return res.end();
