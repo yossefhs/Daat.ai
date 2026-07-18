@@ -1396,7 +1396,9 @@ function updateRateBanner(info) {
       premium: '💎 Premium',
     };
     const label = planLabels[info.plan] || info.plan;
-    const remain = (info.limit && info.limit < 9999) ? ` · ${info.remaining} questions left today` : '';
+    const mr = info.month_remaining;
+    const remain = (info.month_limit && info.month_limit < 9999 && typeof mr === 'number')
+      ? ` · ${mr} question${mr > 1 ? 's' : ''} left this month` : '';
     msg = `${label} · Opus quality active${remain}`;
   } else {
     bg = 'linear-gradient(90deg, #FBF7EF 0%, #F5F0E8 100%)';

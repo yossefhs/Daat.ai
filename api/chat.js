@@ -138,30 +138,40 @@ const PREVIEW_GLOBAL_DAILY_LIMIT = 100;
 // questions couvertes par le corpus du Rav (corpus-first) sont GRATUITES et
 // ILLIMITÉES pour tout le monde — elles ne décomptent pas ces quotas.
 //
-// CADENCE : le gratuit et l'anonyme sont gouvernés au MOIS (une seule jauge
-// lisible). Leur cap quotidien est neutralisé (9999) → seul le mensuel mord.
-// Les PAYANTS restent sur leur cadence quotidienne actuelle (celle annoncée sur
-// /soutenir) — leurs plafonds seront réajustés séparément (cf. calcul de coût).
+// CADENCE : TOUS les plans sont gouvernés au MOIS (une seule jauge lisible).
+// Le cap quotidien est neutralisé partout (9999) → seul le mensuel mord. Le
+// plafond mensuel borne le coût maximal → c'est lui qui garantit la marge.
+//
+// PROFIT GARANTI + AUCUN ILLIMITÉ : chaque plafond payant est calibré pour que,
+// même si les 100 % des questions étaient les plus lourdes possibles
+// (~0,55 €/question Opus : max outils + thinking), le coût reste SOUS la recette.
+//   khavroutha 8 €   → 12 × 0,55 = 6,60 € (marge garantie ≥ 1,40 €)
+//   beit_midrash 25 €→ 40 × 0,55 = 22,00 € (≥ 3,00 €)
+//   beit_midrash+ 50€→ 80 × 0,55 = 44,00 € (≥ 6,00 €)
+//   yeshiva 100 €    → 160 × 0,55 = 88,00 € (≥ 12,00 €)
+// En usage réel (~0,28 €/question, cap utilisé à moitié) la marge est bien plus
+// grasse. À ajuster à la hausse plus tard avec le coût réel dans /admin.
 const DAILY_LIMITS = {
   anonymous:      9999,        // gouverné au mois (voir MONTHLY_LIMITS)
-  free:           9999,        // gouverné au mois (voir MONTHLY_LIMITS)
-  khavroutha:        5,        // soutien 8 €/mois — Opus sur halakhique pointu
-  beit_midrash:     15,        // soutien 25 €/mois
-  beit_midrash_plus: 30,       // soutien 50 €/mois
-  yeshiva:          50,        // soutien 100 €/mois
-  lifetime:         15,        // don unique 500 € = équivalent Beit Midrash à vie
-  premium:       99999,        // ancien plan, conservé pour compatibilité
+  free:           9999,
+  khavroutha:     9999,
+  beit_midrash:   9999,
+  beit_midrash_plus: 9999,
+  yeshiva:        9999,
+  lifetime:       9999,
+  premium:        9999,
 };
 
 const MONTHLY_LIMITS = {
   anonymous:         3,        // dégustation — pousse à créer un compte
-  free:             10,        // compte email (OTP) — 10 questions IA/mois
-  khavroutha:       160,       // (à réajuster avec le calcul de coût)
-  beit_midrash:     300,
-  beit_midrash_plus: 600,
-  yeshiva:         1000,
-  lifetime:         300,
-  premium:        99999,
+  free:             10,        // compte email (OTP) — 10 questions IA/mois (Sonnet)
+  khavroutha:       12,        // soutien 8 €/mois   — Opus (marge garantie ≥ 1,40 €)
+  beit_midrash:     40,        // soutien 25 €/mois  — Opus (≥ 3 €)
+  beit_midrash_plus: 80,       // soutien 50 €/mois  — Opus (≥ 6 €)
+  yeshiva:         160,        // soutien 100 €/mois — Opus (≥ 12 €)
+  lifetime:         25,        // don unique 500 € — 25 Opus/mois à vie (~3 ans avant
+                               // d'atteindre 500 € même en usage max → jamais illimité)
+  premium:         160,        // ancien plan « illimité » → plafonné au niveau Yeshiva
 };
 
 // Plans payants (soutien récurrent ou don unique lifetime)
@@ -649,9 +659,15 @@ export default async function handler(req, res) {
       }
     }
 
-    // Limite MENSUELLE atteinte (cap protecteur pour l'asso)
+    // Limite MENSUELLE atteinte — c'est LE gate actif (les caps quotidiens sont
+    // neutralisés à 9999, donc le gate quotidien ci-dessus ne se déclenche jamais).
     if (currentMonthCount >= monthLimit) {
-      // Même sauvetage corpus qu'au niveau quotidien.
+      // Crédits Opus achetés (1 € = 1 question, permanents) → on laisse passer en
+      // Opus au lieu de bloquer. Décrémenté au tracking (usingCredit).
+      if (opusCredits > 0) {
+        usingCredit = true;
+      } else {
+      // Sinon : sauvetage corpus (le corpus du Rav reste ouvert malgré le quota).
       if (await tryCorpusRescue({ req, res, messages, section, userId, isGuest, plan, scope: 'monthly' })) {
         return;
       }
@@ -679,6 +695,7 @@ export default async function handler(req, res) {
         helloasso_url: HELLOASSO_URL,
         message: monthlyMessage,
       });
+      }
     }
 
     for (const m of messages) {
