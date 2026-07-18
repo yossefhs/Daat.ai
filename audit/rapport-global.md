@@ -1,6 +1,6 @@
 # DAAT — Rapport d'audit global (daattorah.com)
 
-> **Statut : audit EN COURS — Hilkhot Shabbat TERMINÉ (124/124, IDs H-XXX) ; Orah Haïm quotidien : 56/64 simanim revus (lots 18-25, IDs Q-XXX). Total : 1725 constats.**
+> **Statut : audit EN COURS — Hilkhot Shabbat TERMINÉ (124/124, IDs H-XXX) ; Orah Haïm quotidien TERMINÉ (64/64, lots 18-26, IDs Q-XXX). Total : 1792 constats. Prochaine étape : Yoreh Deah.**
 > Ce rapport contient des constats **et** trace les corrections mécaniques déjà appliquées (voir §10). Aucune règle halakhique n'a été modifiée.
 
 ## 10. Corrections mécaniques appliquées (sûres, non-halakhiques)
@@ -24,7 +24,7 @@ Garde-fous : `audit-simanim.py` **124/124 conformes**, corpus régénéré, `sim
 *Note historique : la seule modification hors-audit initiale était l'ordre du catalogue `/contenu`.*
 > Date de génération : 2026-07-13. Branche : `claude/daattorah-site-audit-tyhabm`.
 >
-> **HILKHOT SHABBAT COMPLET (124 simanim → 1192 constats, IDs H-XXX) + Orah Haïm quotidien lots 18-25 (simanim 1-56 → 533 constats, IDs Q-XXX) = 1725 constats** dans `erreurs-halakha.csv`. Revue en cours vers OH-quotidien 57+ (dernier lot).
+> **HILKHOT SHABBAT COMPLET (124 simanim → 1192 constats, IDs H-XXX) + Orah Haïm quotidien COMPLET lots 18-26 (simanim 1-64 → 600 constats, IDs Q-XXX) = 1792 constats** dans `erreurs-halakha.csv`. Prochaine étape : Yoreh Deah (50 simanim).
 > Les patterns récurrents sont documentés dans **`erreurs-recurrentes.md`** (à lire en priorité). Constat n°1 : le **Niveau 4 « Daat HaRav »** a un appareil analytique (tableaux/chidoushim/למעשה) systématiquement décorrélé du texte-source reproduit sur la même page, avec parfois des **inversions halakhiques** (ex. 249 : jeûne érev Shabbat « interdit » vs « recommandé » ; 261 : allumage « même à bein hashmashot » + Amora erroné רב נחמן/ר' נחמיה).
 
 ---
