@@ -269,6 +269,279 @@ const TOOL_EXECUTORS = {
   sefaria_search: executeSefariaTool,
 };
 
+// ── Service d'une réponse corpus (cache KV → sinon reformulation Haiku) ──────
+// Utilisé à DEUX endroits :
+//  1. corpus-first du flux normal (avant Sonnet/Opus)
+//  2. sauvetage à quota épuisé : le corpus du Rav reste ouvert même quand la
+//     limite quotidienne/mensuelle est atteinte (les quotas ne rationnent que l'IA)
+// `cs` est le résultat (non vide) de searchShabbatCorpus — la recherche reste chez
+// l'appelant car le seuil varie (normal / strongOnly / rescue).
+// Renvoie true si une réponse a été streamée (res.end() fait) ; false si rien n'a
+// été écrit (l'appelant reprend son flux : Claude, ou la réponse 429).
+async function serveCorpusAnswer({ req, res, cs, section, lastUserText, userId, isGuest, plan, rateKey = null, monthRateKey = null, doneExtra = {} }) {
+  const top = cs.results[0];
+  const others = cs.results.slice(1);
+  const subs = top.subsection ? ` · ${top.subsection}` : '';
+  const corpusSource = {
+    siman: top.siman,
+    simanTitle: top.simanTitle,
+    sectionTitle: top.sectionTitle,
+    subsection: top.subsection,
+    sourceUrl: top.sourceUrl,
+    score: parseFloat(top.score.toFixed(2)),
+  };
+  // En mode sauvetage les en-têtes SSE n'ont pas encore été posés (le flux normal
+  // les pose avant rate_info). setHeader est inoffensif tant que rien n'est écrit :
+  // si on ressort en false sans avoir écrit, l'appelant peut encore répondre 429 JSON.
+  const ensureSse = () => {
+    if (!res.headersSent) {
+      res.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
+      res.setHeader('Cache-Control', 'no-cache, no-transform');
+      res.setHeader('Connection', 'keep-alive');
+      res.setHeader('X-Accel-Buffering', 'no');
+    }
+  };
+
+  // ── Cache des reformulations : même question déjà répondue → 0 token LLM ──
+  // Le lookup se fait APRÈS le match BM25 : un hit cache passe donc par les
+  // mêmes garde-fous (strict, minScore, section) que la génération d'origine.
+  const corpusKvKey = corpusCacheKey(lastUserText, { section });
+  let cachedCorpus = null;
+  try {
+    const raw = await kv.get(corpusKvKey);
+    if (raw && typeof raw === 'object' && typeof raw.text === 'string' && raw.text.length > 50) {
+      cachedCorpus = raw;
+    }
+  } catch (_) {}
+
+  if (cachedCorpus) {
+    ensureSse();
+    const CHUNK = 48;
+    for (let i = 0; i < cachedCorpus.text.length; i += CHUNK) {
+      res.write(`data: ${JSON.stringify({ type: 'text', delta: cachedCorpus.text.slice(i, i + CHUNK) })}\n\n`);
+    }
+    res.write(`data: ${JSON.stringify({
+      type: 'done',
+      stop_reason: 'end_turn',
+      iterations: 1,
+      usage: { input_tokens: 0, output_tokens: 0 },
+      provider: 'corpus-cache',
+      ...doneExtra,
+      corpus_source: corpusSource,
+    })}\n\n`);
+    // Gratuit : ni coût, ni décompte de quota. On trace quand même l'usage.
+    try {
+      await kv.lpush('logs:usage', JSON.stringify({
+        ts: new Date().toISOString(),
+        user: userId, is_guest: isGuest, plan,
+        tokens_in: 0, tokens_out: 0, cost_usd: 0,
+        provider: 'corpus-cache', model: 'cache',
+        iterations: 1, stop_reason: 'end_turn',
+        corpus_siman: top.siman, corpus_score: top.score,
+      }));
+      await kv.ltrim('logs:usage', 0, 499);
+      await kv.sadd('users:known', userId);
+      console.log(`[chat.js] corpus-cache HIT: ${userId} siman-${top.siman} "${String(lastUserText).slice(0, 40)}" ($0)`);
+    } catch (err) {
+      console.error('[chat.js] corpus-cache tracking error:', err?.message || err);
+    }
+    res.end();
+    return true;
+  }
+
+  const corpusDomain = section === 'yoreh-deah'
+    ? "les hilkhot Issour ve-Heter (cacheroute : bassar be-halav, taarovot…)"
+    : 'les hilkhot Shabbat';
+  const corpusTerms = section === 'yoreh-deah'
+    ? 'bassar be-halav, taarovet, ben yomo, nat bar nat'
+    : 'borer, bishoul, mouktsé';
+  const corpusSystem = `Tu es Daat, l'assistant halakhique de DAAT — site d'étude du Rav Yossef Haim Samama.
+
+CONTEXTE : tu reçois une question d'utilisateur sur ${corpusDomain} et UN EXTRAIT précis du corpus (écrit par le Rav) qui répond à cette question.
+
+TA MISSION : donner une réponse claire, complète et engageante, fidèle à l'extrait. L'utilisateur doit avoir la réponse dès la première ligne, puis comprendre pourquoi.
+
+STRUCTURE ATTENDUE :
+1. **Phrase d'accroche** (1re ligne) : la réponse directe — permis, interdit, ça dépend — avec l'idée-clé qui résume ("Oui, à condition que…", "Non, car il y a un problème de …", "Ça dépend : si …, alors …"). L'accroche seule doit déjà répondre.
+2. **Raisonnement** en 2-4 phrases : quelle est la mélakha (ou le principe halakhique) en jeu, la logique du psak, les sources ou opinions clés si l'extrait les mentionne.
+3. **Cas particuliers ou nuances** : uniquement s'ils sont dans l'extrait (ne pas extrapoler).
+4. **Source finale** au format exact : *Source : Siman X · [titre de section]*
+
+RÈGLES STRICTES :
+- RESTE FIDÈLE à l'extrait. N'invente AUCUNE halakha qui n'y est pas explicitement.
+- Termine TOUJOURS ta réponse par la ligne source. Ne coupe jamais avant elle — elle est la signature du psak.
+- Si l'extrait n'aborde pas vraiment la question : « L'extrait du corpus traite de [sujet réel], mais ta question porte sur [Y] — pour une réflexion précise sur ce point, repose la question en mode étendu. » (puis source).
+- Pour décision pratique sensible : ajoute « Consulte un Rav pour ton cas précis. » AVANT la source.
+- Conserve les termes hébreux en transcription (${corpusTerms}) — ne les sur-traduis pas.
+- Ton conversationnel et pédagogique, comme si tu expliquais à un ami curieux. Pas de listes à puces sauf vraie nécessité. Pas de markdown lourd.
+- Ne dis JAMAIS que tu reformules un extrait — parle directement du sujet.`;
+
+  let corpusUserMsg = `QUESTION DE L'UTILISATEUR :\n${lastUserText}\n\n`;
+  corpusUserMsg += `EXTRAIT DU CORPUS (Siman ${top.siman} — ${top.simanTitle} · ${top.sectionTitle}${subs}) :\n${top.text.trim()}`;
+  if (others.length > 0) {
+    corpusUserMsg += `\n\nAUTRES EXTRAITS PERTINENTS (en complément, plus faibles) :\n`;
+    others.slice(0, 2).forEach((r, i) => {
+      const ss = r.subsection ? ` · ${r.subsection}` : '';
+      corpusUserMsg += `[${i + 1}] Siman ${r.siman} · ${r.sectionTitle}${ss} — ${r.text.trim().slice(0, 250)}…\n`;
+    });
+  }
+
+  const corpusAbort = new AbortController();
+  req.on('close', () => corpusAbort.abort());
+
+  let corpusAnswer = '';
+  let inTok = 0, outTok = 0;
+  let corpusErrored = false;
+  let corpusStopReason = null;
+  // Budget de sortie : assez large pour accroche + raisonnement + nuances + source
+  // sans jamais tronquer. Haiku 4.5 output ≈ $5/M tokens → 1200 tokens ≈ $0.006,
+  // toujours 20× moins cher qu'Opus. Overridable via env pour ajuster sans deploy.
+  const CORPUS_MAX_TOKENS = parseInt(process.env.CORPUS_MAX_TOKENS || '1200', 10);
+
+  try {
+    const stream = client.messages.stream({
+      model: MODELS.haiku.id,
+      max_tokens: CORPUS_MAX_TOKENS,
+      system: corpusSystem,
+      messages: [{ role: 'user', content: corpusUserMsg }],
+    }, { signal: corpusAbort.signal });
+
+    for await (const event of stream) {
+      if (event.type === 'content_block_delta' && event.delta?.type === 'text_delta') {
+        const text = event.delta.text || '';
+        if (text) {
+          if (!corpusAnswer) ensureSse();
+          corpusAnswer += text;
+          res.write(`data: ${JSON.stringify({ type: 'text', delta: text })}\n\n`);
+        }
+      }
+    }
+    const final = await stream.finalMessage();
+    if (final?.usage) {
+      inTok = final.usage.input_tokens || 0;
+      outTok = final.usage.output_tokens || 0;
+    }
+    corpusStopReason = final?.stop_reason || null;
+    if (corpusStopReason === 'max_tokens') {
+      console.warn(`[chat.js] corpus response TRUNCATED (hit max_tokens=${CORPUS_MAX_TOKENS}) siman-${top.siman} — consider bumping CORPUS_MAX_TOKENS`);
+    }
+  } catch (err) {
+    corpusErrored = true;
+    console.error('[chat.js] corpus Haiku error:', err?.message || err);
+  }
+
+  // Si la réponse a commencé à streamer, on doit la terminer proprement (impossible de fallback maintenant)
+  if (corpusAnswer.length > 0) {
+    const cost = (inTok * MODELS.haiku.in / 1000) + (outTok * MODELS.haiku.out / 1000);
+    // Stream interrompu en cours OU cap max_tokens atteint : on signale
+    // visiblement la coupure pour que l'utilisateur ne prenne pas une
+    // réponse tronquée pour un psak complet.
+    if (corpusErrored) {
+      res.write(`data: ${JSON.stringify({ type: 'text', delta: '\n\n_(Réponse interrompue — repose ta question pour une réponse complète.)_' })}\n\n`);
+    } else if (corpusStopReason === 'max_tokens') {
+      res.write(`data: ${JSON.stringify({ type: 'text', delta: '\n\n_(Réponse tronquée par la limite de longueur — précise ta question pour la suite du raisonnement.)_' })}\n\n`);
+    }
+    res.write(`data: ${JSON.stringify({
+      type: 'done',
+      stop_reason: corpusErrored ? 'error' : (corpusStopReason || 'end_turn'),
+      iterations: 1,
+      usage: { input_tokens: inTok, output_tokens: outTok },
+      provider: 'corpus-haiku',
+      ...doneExtra,
+      corpus_source: corpusSource,
+    })}\n\n`);
+
+    try {
+      const todayKey = new Date().toISOString().slice(0, 10);
+      const globalKey = `usage:global:${todayKey}`;
+      const globalData = (await kv.get(globalKey)) || { tokens_in: 0, tokens_out: 0, cost_usd: 0, count: 0 };
+      await kv.set(globalKey, {
+        tokens_in: globalData.tokens_in + inTok,
+        tokens_out: globalData.tokens_out + outTok,
+        cost_usd: parseFloat((globalData.cost_usd + cost).toFixed(6)),
+        count: globalData.count + 1,
+      });
+      const userKey = `usage:${userId}:${todayKey}`;
+      const userData = (await kv.get(userKey)) || { tokens_in: 0, tokens_out: 0, cost_usd: 0, count: 0 };
+      await kv.set(userKey, {
+        tokens_in: userData.tokens_in + inTok,
+        tokens_out: userData.tokens_out + outTok,
+        cost_usd: parseFloat((userData.cost_usd + cost).toFixed(6)),
+        count: userData.count + 1,
+      });
+      // Quota : par défaut, les réponses corpus NE décomptent PAS — le contenu
+      // du corpus (écrit par le Rav) doit rester librement accessible à tous.
+      // CORPUS_QUOTA_FREE=false pour rétablir le décompte si besoin (dans ce cas
+      // le sauvetage à quota épuisé est désactivé et rateKey est bien fourni).
+      // En cas d'erreur (réponse tronquée), on ne décompte jamais.
+      if (process.env.CORPUS_QUOTA_FREE === 'false' && !corpusErrored && rateKey && monthRateKey) {
+        await kv.incr(rateKey);
+        const ttl = await kv.ttl(rateKey);
+        if (ttl === -1 || ttl === -2) await kv.expire(rateKey, 24 * 60 * 60);
+        await kv.incr(monthRateKey);
+        const mttl = await kv.ttl(monthRateKey);
+        if (mttl === -1 || mttl === -2) await kv.expire(monthRateKey, 35 * 24 * 60 * 60);
+      }
+      await kv.lpush('logs:usage', JSON.stringify({
+        ts: new Date().toISOString(),
+        user: userId, is_guest: isGuest, plan,
+        tokens_in: inTok, tokens_out: outTok, cost_usd: cost,
+        provider: 'corpus-haiku', model: MODELS.haiku.id,
+        iterations: 1, stop_reason: corpusErrored ? 'error' : 'end_turn',
+        corpus_siman: top.siman, corpus_score: top.score,
+      }));
+      await kv.ltrim('logs:usage', 0, 499);
+      await kv.sadd('users:known', userId);
+      // Mise en cache : uniquement les réponses complètes et saines.
+      // Les prochains utilisateurs qui posent la même question → 0 €.
+      if (!corpusErrored && corpusStopReason !== 'max_tokens' && corpusAnswer.length > 80) {
+        await kv.set(corpusKvKey, { text: corpusAnswer, siman: top.siman }, { ex: CORPUS_CACHE_TTL });
+      }
+      console.log(`[chat.js] corpus HIT: ${userId} siman-${top.siman} score=${top.score.toFixed(1)} +${inTok}in/${outTok}out ($${cost.toFixed(5)})`);
+    } catch (err) {
+      console.error('[chat.js] corpus usage tracking error:', err?.message || err);
+    }
+
+    res.end();
+    return true;
+  }
+  // Aucune sortie streamée (erreur Haiku avant le premier token) → l'appelant reprend
+  return false;
+}
+
+// ── Sauvetage corpus à quota épuisé ─────────────────────────────────────────
+// Les quotas ne rationnent que l'IA générative : si la question matche le corpus,
+// on la sert au lieu du 429. Renvoie true si servie. Désactivé si le corpus
+// décompte les quotas (CORPUS_QUOTA_FREE=false) — le 429 redevient légitime.
+async function tryCorpusRescue({ req, res, messages, section, userId, isGuest, plan, scope }) {
+  if (process.env.CORPUS_FIRST_ENABLED === 'false') return false;
+  if (process.env.CORPUS_QUOTA_FREE === 'false') return false;
+  const lastUserMsg = [...messages].reverse().find(
+    (m) => m && m.role === 'user' && typeof m.content === 'string' && m.content.length > 0 && m.content.length <= 2000
+  );
+  if (!lastUserMsg) return false;
+  let cs = null;
+  try {
+    cs = searchShabbatCorpus(lastUserMsg.content, {
+      limit: 3,
+      minScore: parseFloat(process.env.CORPUS_MIN_SCORE || '8'),
+      strict: true,
+      section,
+    });
+  } catch (err) {
+    console.error('[chat.js] corpus rescue search error:', err?.message || err);
+    return false;
+  }
+  if (!cs || cs.results.length === 0) return false;
+  console.log(`[chat.js] corpus RESCUE (${scope}): ${userId} plan=${plan} → siman-${cs.results[0].siman}`);
+  return serveCorpusAnswer({
+    req, res, cs, section,
+    lastUserText: lastUserMsg.content,
+    userId, isGuest, plan,
+    doneExtra: { is_aperçu: false, quota_rescued: scope },
+  });
+}
+
 export default async function handler(req, res) {
   // CORS — credentials:include nécessite une origin spécifique autorisée (jamais *).
   // On ne reflète l'origine + Allow-Credentials que si elle est sur l'allow-list,
@@ -339,6 +612,13 @@ export default async function handler(req, res) {
         // Cet utilisateur paie cette question avec un crédit → Opus garanti, décrémenté au tracking
         usingCredit = true;
       } else {
+        // Sauvetage corpus : les quotas ne rationnent que l'IA générative. Si la
+        // question matche le corpus du Rav, on la sert (cache ou Haiku ~0.002 €)
+        // au lieu du 429 — la promesse « corpus gratuit et illimité » tient
+        // aussi à quota épuisé.
+        if (await tryCorpusRescue({ req, res, messages, section, userId, isGuest, plan, scope: 'daily' })) {
+          return;
+        }
         const resetTime = new Date();
         resetTime.setDate(resetTime.getDate() + 1);
         resetTime.setHours(0, 0, 0, 0);
@@ -363,6 +643,10 @@ export default async function handler(req, res) {
 
     // Limite MENSUELLE atteinte (cap protecteur pour l'asso)
     if (currentMonthCount >= monthLimit) {
+      // Même sauvetage corpus qu'au niveau quotidien.
+      if (await tryCorpusRescue({ req, res, messages, section, userId, isGuest, plan, scope: 'monthly' })) {
+        return;
+      }
       const nextMonth = new Date();
       nextMonth.setMonth(nextMonth.getMonth() + 1);
       nextMonth.setDate(1);
@@ -616,230 +900,19 @@ export default async function handler(req, res) {
       }
 
       if (cs && cs.results.length > 0) {
-        const top = cs.results[0];
-        const others = cs.results.slice(1);
-        const subs = top.subsection ? ` · ${top.subsection}` : '';
-
-        // ── Cache des reformulations : même question déjà répondue → 0 token LLM ──
-        // Le lookup se fait APRÈS le match BM25 : un hit cache passe donc par les
-        // mêmes garde-fous (strict, minScore, section) que la génération d'origine.
-        const corpusKvKey = corpusCacheKey(lastUserText, { section });
-        let cachedCorpus = null;
-        try {
-          const raw = await kv.get(corpusKvKey);
-          if (raw && typeof raw === 'object' && typeof raw.text === 'string' && raw.text.length > 50) {
-            cachedCorpus = raw;
-          }
-        } catch (_) {}
-
-        if (cachedCorpus) {
-          const CHUNK = 48;
-          for (let i = 0; i < cachedCorpus.text.length; i += CHUNK) {
-            res.write(`data: ${JSON.stringify({ type: 'text', delta: cachedCorpus.text.slice(i, i + CHUNK) })}\n\n`);
-          }
-          res.write(`data: ${JSON.stringify({
-            type: 'done',
-            stop_reason: 'end_turn',
-            iterations: 1,
-            usage: { input_tokens: 0, output_tokens: 0 },
-            provider: 'corpus-cache',
+        const served = await serveCorpusAnswer({
+          req, res, cs, section, lastUserText, userId, isGuest, plan,
+          rateKey, monthRateKey,
+          // Le corpus a servi SANS consommer d'Aperçu Opus : on corrige la
+          // métadonnée optimiste de rate_info pour que le client n'affiche ni
+          // la fausse modale « Aperçu terminé » ni le badge Opus.
+          doneExtra: {
             is_aperçu: false,
             aperçu_intercepted: Boolean(model._aperçu),
             preview_remaining: model._aperçu ? Math.max(0, PREVIEW_OPUS_LIMIT - previewUsed) : null,
-            corpus_source: {
-              siman: top.siman,
-              simanTitle: top.simanTitle,
-              sectionTitle: top.sectionTitle,
-              subsection: top.subsection,
-              sourceUrl: top.sourceUrl,
-              score: parseFloat(top.score.toFixed(2)),
-            },
-          })}\n\n`);
-          // Gratuit : ni coût, ni décompte de quota. On trace quand même l'usage.
-          try {
-            await kv.lpush('logs:usage', JSON.stringify({
-              ts: new Date().toISOString(),
-              user: userId, is_guest: isGuest, plan,
-              tokens_in: 0, tokens_out: 0, cost_usd: 0,
-              provider: 'corpus-cache', model: 'cache',
-              iterations: 1, stop_reason: 'end_turn',
-              corpus_siman: top.siman, corpus_score: top.score,
-            }));
-            await kv.ltrim('logs:usage', 0, 499);
-            await kv.sadd('users:known', userId);
-            console.log(`[chat.js] corpus-cache HIT: ${userId} siman-${top.siman} "${String(lastUserText).slice(0, 40)}" ($0)`);
-          } catch (err) {
-            console.error('[chat.js] corpus-cache tracking error:', err?.message || err);
-          }
-          res.end();
-          return;
-        }
-        const corpusDomain = section === 'yoreh-deah'
-          ? "les hilkhot Issour ve-Heter (cacheroute : bassar be-halav, taarovot…)"
-          : 'les hilkhot Shabbat';
-        const corpusTerms = section === 'yoreh-deah'
-          ? 'bassar be-halav, taarovet, ben yomo, nat bar nat'
-          : 'borer, bishoul, mouktsé';
-        const corpusSystem = `Tu es Daat, l'assistant halakhique de DAAT — site d'étude du Rav Yossef Haim Samama.
-
-CONTEXTE : tu reçois une question d'utilisateur sur ${corpusDomain} et UN EXTRAIT précis du corpus (écrit par le Rav) qui répond à cette question.
-
-TA MISSION : donner une réponse claire, complète et engageante, fidèle à l'extrait. L'utilisateur doit avoir la réponse dès la première ligne, puis comprendre pourquoi.
-
-STRUCTURE ATTENDUE :
-1. **Phrase d'accroche** (1re ligne) : la réponse directe — permis, interdit, ça dépend — avec l'idée-clé qui résume ("Oui, à condition que…", "Non, car il y a un problème de …", "Ça dépend : si …, alors …"). L'accroche seule doit déjà répondre.
-2. **Raisonnement** en 2-4 phrases : quelle est la mélakha (ou le principe halakhique) en jeu, la logique du psak, les sources ou opinions clés si l'extrait les mentionne.
-3. **Cas particuliers ou nuances** : uniquement s'ils sont dans l'extrait (ne pas extrapoler).
-4. **Source finale** au format exact : *Source : Siman X · [titre de section]*
-
-RÈGLES STRICTES :
-- RESTE FIDÈLE à l'extrait. N'invente AUCUNE halakha qui n'y est pas explicitement.
-- Termine TOUJOURS ta réponse par la ligne source. Ne coupe jamais avant elle — elle est la signature du psak.
-- Si l'extrait n'aborde pas vraiment la question : « L'extrait du corpus traite de [sujet réel], mais ta question porte sur [Y] — pour une réflexion précise sur ce point, repose la question en mode étendu. » (puis source).
-- Pour décision pratique sensible : ajoute « Consulte un Rav pour ton cas précis. » AVANT la source.
-- Conserve les termes hébreux en transcription (${corpusTerms}) — ne les sur-traduis pas.
-- Ton conversationnel et pédagogique, comme si tu expliquais à un ami curieux. Pas de listes à puces sauf vraie nécessité. Pas de markdown lourd.
-- Ne dis JAMAIS que tu reformules un extrait — parle directement du sujet.`;
-
-        let corpusUserMsg = `QUESTION DE L'UTILISATEUR :\n${lastUserText}\n\n`;
-        corpusUserMsg += `EXTRAIT DU CORPUS (Siman ${top.siman} — ${top.simanTitle} · ${top.sectionTitle}${subs}) :\n${top.text.trim()}`;
-        if (others.length > 0) {
-          corpusUserMsg += `\n\nAUTRES EXTRAITS PERTINENTS (en complément, plus faibles) :\n`;
-          others.slice(0, 2).forEach((r, i) => {
-            const ss = r.subsection ? ` · ${r.subsection}` : '';
-            corpusUserMsg += `[${i + 1}] Siman ${r.siman} · ${r.sectionTitle}${ss} — ${r.text.trim().slice(0, 250)}…\n`;
-          });
-        }
-
-        const corpusAbort = new AbortController();
-        req.on('close', () => corpusAbort.abort());
-
-        let corpusAnswer = '';
-        let inTok = 0, outTok = 0;
-        let corpusErrored = false;
-        let corpusStopReason = null;
-        // Budget de sortie : assez large pour accroche + raisonnement + nuances + source
-        // sans jamais tronquer. Haiku 4.5 output ≈ $5/M tokens → 1200 tokens ≈ $0.006,
-        // toujours 20× moins cher qu'Opus. Overridable via env pour ajuster sans deploy.
-        const CORPUS_MAX_TOKENS = parseInt(process.env.CORPUS_MAX_TOKENS || '1200', 10);
-
-        try {
-          const stream = client.messages.stream({
-            model: MODELS.haiku.id,
-            max_tokens: CORPUS_MAX_TOKENS,
-            system: corpusSystem,
-            messages: [{ role: 'user', content: corpusUserMsg }],
-          }, { signal: corpusAbort.signal });
-
-          for await (const event of stream) {
-            if (event.type === 'content_block_delta' && event.delta?.type === 'text_delta') {
-              const text = event.delta.text || '';
-              if (text) {
-                corpusAnswer += text;
-                res.write(`data: ${JSON.stringify({ type: 'text', delta: text })}\n\n`);
-              }
-            }
-          }
-          const final = await stream.finalMessage();
-          if (final?.usage) {
-            inTok = final.usage.input_tokens || 0;
-            outTok = final.usage.output_tokens || 0;
-          }
-          corpusStopReason = final?.stop_reason || null;
-          if (corpusStopReason === 'max_tokens') {
-            console.warn(`[chat.js] corpus response TRUNCATED (hit max_tokens=${CORPUS_MAX_TOKENS}) siman-${top.siman} — consider bumping CORPUS_MAX_TOKENS`);
-          }
-        } catch (err) {
-          corpusErrored = true;
-          console.error('[chat.js] corpus Haiku error:', err?.message || err);
-        }
-
-        // Si la réponse a commencé à streamer, on doit la terminer proprement (impossible de fallback Claude maintenant)
-        if (corpusAnswer.length > 0) {
-          const cost = (inTok * MODELS.haiku.in / 1000) + (outTok * MODELS.haiku.out / 1000);
-          // Stream interrompu en cours OU cap max_tokens atteint : on signale
-          // visiblement la coupure pour que l'utilisateur ne prenne pas une
-          // réponse tronquée pour un psak complet.
-          if (corpusErrored) {
-            res.write(`data: ${JSON.stringify({ type: 'text', delta: '\n\n_(Réponse interrompue — repose ta question pour une réponse complète.)_' })}\n\n`);
-          } else if (corpusStopReason === 'max_tokens') {
-            res.write(`data: ${JSON.stringify({ type: 'text', delta: '\n\n_(Réponse tronquée par la limite de longueur — précise ta question pour la suite du raisonnement.)_' })}\n\n`);
-          }
-          res.write(`data: ${JSON.stringify({
-            type: 'done',
-            stop_reason: corpusErrored ? 'error' : (corpusStopReason || 'end_turn'),
-            iterations: 1,
-            usage: { input_tokens: inTok, output_tokens: outTok },
-            provider: 'corpus-haiku',
-            // Le corpus a servi SANS consommer d'Aperçu Opus : on corrige la
-            // métadonnée optimiste de rate_info pour que le client n'affiche ni
-            // la fausse modale « Aperçu terminé » ni le badge Opus.
-            is_aperçu: false,
-            aperçu_intercepted: Boolean(model._aperçu),
-            preview_remaining: model._aperçu ? Math.max(0, PREVIEW_OPUS_LIMIT - previewUsed) : null,
-            corpus_source: {
-              siman: top.siman,
-              simanTitle: top.simanTitle,
-              sectionTitle: top.sectionTitle,
-              subsection: top.subsection,
-              sourceUrl: top.sourceUrl,
-              score: parseFloat(top.score.toFixed(2)),
-            },
-          })}\n\n`);
-
-          try {
-            const todayKey = new Date().toISOString().slice(0, 10);
-            const globalKey = `usage:global:${todayKey}`;
-            const globalData = (await kv.get(globalKey)) || { tokens_in: 0, tokens_out: 0, cost_usd: 0, count: 0 };
-            await kv.set(globalKey, {
-              tokens_in: globalData.tokens_in + inTok,
-              tokens_out: globalData.tokens_out + outTok,
-              cost_usd: parseFloat((globalData.cost_usd + cost).toFixed(6)),
-              count: globalData.count + 1,
-            });
-            const userKey = `usage:${userId}:${todayKey}`;
-            const userData = (await kv.get(userKey)) || { tokens_in: 0, tokens_out: 0, cost_usd: 0, count: 0 };
-            await kv.set(userKey, {
-              tokens_in: userData.tokens_in + inTok,
-              tokens_out: userData.tokens_out + outTok,
-              cost_usd: parseFloat((userData.cost_usd + cost).toFixed(6)),
-              count: userData.count + 1,
-            });
-            // Quota : par défaut, les réponses corpus NE décomptent PAS — le contenu
-            // du corpus (écrit par le Rav) doit rester librement accessible à tous.
-            // CORPUS_QUOTA_FREE=false pour rétablir le décompte si besoin.
-            // En cas d'erreur (réponse tronquée), on ne décompte jamais.
-            if (process.env.CORPUS_QUOTA_FREE === 'false' && !corpusErrored) {
-              await kv.incr(rateKey);
-              const ttl = await kv.ttl(rateKey);
-              if (ttl === -1 || ttl === -2) await kv.expire(rateKey, 24 * 60 * 60);
-              await kv.incr(monthRateKey);
-              const mttl = await kv.ttl(monthRateKey);
-              if (mttl === -1 || mttl === -2) await kv.expire(monthRateKey, 35 * 24 * 60 * 60);
-            }
-            await kv.lpush('logs:usage', JSON.stringify({
-              ts: new Date().toISOString(),
-              user: userId, is_guest: isGuest, plan,
-              tokens_in: inTok, tokens_out: outTok, cost_usd: cost,
-              provider: 'corpus-haiku', model: MODELS.haiku.id,
-              iterations: 1, stop_reason: corpusErrored ? 'error' : 'end_turn',
-              corpus_siman: top.siman, corpus_score: top.score,
-            }));
-            await kv.ltrim('logs:usage', 0, 499);
-            await kv.sadd('users:known', userId);
-            // Mise en cache : uniquement les réponses complètes et saines.
-            // Les prochains utilisateurs qui posent la même question → 0 €.
-            if (!corpusErrored && corpusStopReason !== 'max_tokens' && corpusAnswer.length > 80) {
-              await kv.set(corpusKvKey, { text: corpusAnswer, siman: top.siman }, { ex: CORPUS_CACHE_TTL });
-            }
-            console.log(`[chat.js] corpus HIT: ${userId} siman-${top.siman} score=${top.score.toFixed(1)} +${inTok}in/${outTok}out ($${cost.toFixed(5)})`);
-          } catch (err) {
-            console.error('[chat.js] corpus usage tracking error:', err?.message || err);
-          }
-
-          res.end();
-          return;
-        }
+          },
+        });
+        if (served) return;
         // Aucune sortie streamée (erreur Haiku avant le premier token) → fallback transparent vers Claude
       }
     }
