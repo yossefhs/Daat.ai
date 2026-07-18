@@ -16,7 +16,7 @@
 // l'intégration dans /api/chat.
 
 import Anthropic from '@anthropic-ai/sdk';
-import { searchCorpus, getCorpusStats } from './_corpus-search.js';
+import { searchCorpus, getCorpusStats, corpusCacheKey, CORPUS_CACHE_TTL } from './_corpus-search.js';
 import { kv } from './_kv.js';
 import { getClientIp } from './_http.js';
 
@@ -192,15 +192,40 @@ export default async function handler(req, res) {
     return res.end();
   }
 
-  // ── Cas 2 : match → Haiku reformule ──
+  // ── Cas 2 : match → cache d'abord, sinon Haiku reformule ──
   const top = searchResult.results[0];
   const others = searchResult.results.slice(1);
+
+  // Cache des reformulations : même question déjà répondue → 0 token LLM.
+  // Lookup APRÈS le match BM25 → mêmes garde-fous que la génération d'origine.
+  const cacheKey = corpusCacheKey(question, { section, lang });
+  try {
+    const cached = await kv.get(cacheKey);
+    if (cached && typeof cached === 'object' && typeof cached.text === 'string' && cached.text.length > 50) {
+      const CHUNK = 48;
+      for (let i = 0; i < cached.text.length; i += CHUNK) {
+        sseWrite(res, 'delta', { text: cached.text.slice(i, i + CHUNK) });
+      }
+      sseWrite(res, 'done', {
+        usage: { input_tokens: 0, output_tokens: 0 },
+        cost_eur: 0,
+        cached: true,
+        model: 'cache',
+      });
+      console.log(`[chat-corpus] cache HIT: siman-${top.siman} "${question.slice(0, 40)}" ($0)`);
+      return res.end();
+    }
+  } catch (err) {
+    console.error('[chat-corpus] cache read error (continue Haiku):', err?.message || err);
+  }
+
   const systemPrompt = buildSystemPrompt(lang, section);
   const userMsg = buildUserMessage(question, top, others);
 
   let inputTokens = 0;
   let outputTokens = 0;
   let stopReason = null;
+  let answerText = '';
 
   try {
     const stream = client.messages.stream({
@@ -213,7 +238,10 @@ export default async function handler(req, res) {
     for await (const event of stream) {
       if (event.type === 'content_block_delta' && event.delta?.type === 'text_delta') {
         const text = event.delta.text || '';
-        if (text) sseWrite(res, 'delta', { text });
+        if (text) {
+          answerText += text;
+          sseWrite(res, 'delta', { text });
+        }
       } else if (event.type === 'message_start' && event.message?.usage) {
         inputTokens = event.message.usage.input_tokens || 0;
       } else if (event.type === 'message_delta' && event.usage) {
@@ -245,5 +273,15 @@ export default async function handler(req, res) {
     stop_reason: stopReason,
     model: HAIKU.id,
   });
+
+  // Mise en cache : uniquement les réponses complètes et saines.
+  // IMPORTANT serverless : write AVANT res.end() (pas de fire-and-forget).
+  if (stopReason !== 'max_tokens' && answerText.length > 80) {
+    try {
+      await kv.set(cacheKey, { text: answerText, siman: top.siman }, { ex: CORPUS_CACHE_TTL });
+    } catch (err) {
+      console.error('[chat-corpus] cache write error:', err?.message || err);
+    }
+  }
   return res.end();
 }

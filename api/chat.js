@@ -11,7 +11,7 @@ import { getClientIp } from './_http.js';
 import { SYSTEM_PROMPT, buildSystemPrompt } from './_system-prompt.js';
 import { SEFARIA_TOOLS, executeSefariaTool } from './_sefaria.js';
 import { CORPUS_TOOLS, executeCorpusTool, searchCorpus } from './_corpus.js';
-import { searchCorpus as searchShabbatCorpus } from './_corpus-search.js';
+import { searchCorpus as searchShabbatCorpus, corpusCacheKey, CORPUS_CACHE_TTL } from './_corpus-search.js';
 import { MAREH_MEKOMOT_TOOLS, executeMarehMekomotTool } from './_mareh_mekomot.js';
 import { getUserFromRequest, isAllowedOrigin } from './_auth.js';
 import {
@@ -616,6 +616,61 @@ export default async function handler(req, res) {
         const top = cs.results[0];
         const others = cs.results.slice(1);
         const subs = top.subsection ? ` · ${top.subsection}` : '';
+
+        // ── Cache des reformulations : même question déjà répondue → 0 token LLM ──
+        // Le lookup se fait APRÈS le match BM25 : un hit cache passe donc par les
+        // mêmes garde-fous (strict, minScore, section) que la génération d'origine.
+        const corpusKvKey = corpusCacheKey(lastUserText, { section });
+        let cachedCorpus = null;
+        try {
+          const raw = await kv.get(corpusKvKey);
+          if (raw && typeof raw === 'object' && typeof raw.text === 'string' && raw.text.length > 50) {
+            cachedCorpus = raw;
+          }
+        } catch (_) {}
+
+        if (cachedCorpus) {
+          const CHUNK = 48;
+          for (let i = 0; i < cachedCorpus.text.length; i += CHUNK) {
+            res.write(`data: ${JSON.stringify({ type: 'text', delta: cachedCorpus.text.slice(i, i + CHUNK) })}\n\n`);
+          }
+          res.write(`data: ${JSON.stringify({
+            type: 'done',
+            stop_reason: 'end_turn',
+            iterations: 1,
+            usage: { input_tokens: 0, output_tokens: 0 },
+            provider: 'corpus-cache',
+            is_aperçu: false,
+            aperçu_intercepted: Boolean(model._aperçu),
+            preview_remaining: model._aperçu ? Math.max(0, PREVIEW_OPUS_LIMIT - previewUsed) : null,
+            corpus_source: {
+              siman: top.siman,
+              simanTitle: top.simanTitle,
+              sectionTitle: top.sectionTitle,
+              subsection: top.subsection,
+              sourceUrl: top.sourceUrl,
+              score: parseFloat(top.score.toFixed(2)),
+            },
+          })}\n\n`);
+          // Gratuit : ni coût, ni décompte de quota. On trace quand même l'usage.
+          try {
+            await kv.lpush('logs:usage', JSON.stringify({
+              ts: new Date().toISOString(),
+              user: userId, is_guest: isGuest, plan,
+              tokens_in: 0, tokens_out: 0, cost_usd: 0,
+              provider: 'corpus-cache', model: 'cache',
+              iterations: 1, stop_reason: 'end_turn',
+              corpus_siman: top.siman, corpus_score: top.score,
+            }));
+            await kv.ltrim('logs:usage', 0, 499);
+            await kv.sadd('users:known', userId);
+            console.log(`[chat.js] corpus-cache HIT: ${userId} siman-${top.siman} "${String(lastUserText).slice(0, 40)}" ($0)`);
+          } catch (err) {
+            console.error('[chat.js] corpus-cache tracking error:', err?.message || err);
+          }
+          res.end();
+          return;
+        }
         const corpusDomain = section === 'yoreh-deah'
           ? "les hilkhot Issour ve-Heter (cacheroute : bassar be-halav, taarovot…)"
           : 'les hilkhot Shabbat';
@@ -769,6 +824,11 @@ RÈGLES STRICTES :
             }));
             await kv.ltrim('logs:usage', 0, 499);
             await kv.sadd('users:known', userId);
+            // Mise en cache : uniquement les réponses complètes et saines.
+            // Les prochains utilisateurs qui posent la même question → 0 €.
+            if (!corpusErrored && corpusStopReason !== 'max_tokens' && corpusAnswer.length > 80) {
+              await kv.set(corpusKvKey, { text: corpusAnswer, siman: top.siman }, { ex: CORPUS_CACHE_TTL });
+            }
             console.log(`[chat.js] corpus HIT: ${userId} siman-${top.siman} score=${top.score.toFixed(1)} +${inTok}in/${outTok}out ($${cost.toFixed(5)})`);
           } catch (err) {
             console.error('[chat.js] corpus usage tracking error:', err?.message || err);

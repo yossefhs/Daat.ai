@@ -195,6 +195,26 @@ export function searchCorpus(question, opts = {}) {
   };
 }
 
+// ── Cache KV des réponses corpus reformulées ───────────────────────────────
+// La même question revient souvent ("c'est quoi le borer ?"). On cache la
+// reformulation Haiku : 1re personne → ~0.005 €, toutes les suivantes → 0 €.
+// Clé versionnée : bumper CORPUS_CACHE_VERSION invalide tout le cache d'un coup
+// (à faire si on change le system prompt de reformulation).
+// La clé inclut la section pour ne jamais servir une réponse Shabbat sur une
+// conversation Yoreh De'ah (et inversement).
+export const CORPUS_CACHE_VERSION = 'v1';
+export const CORPUS_CACHE_TTL = 30 * 24 * 60 * 60; // 30 jours
+export function corpusCacheKey(text, { section = 'orach-chaim', lang = 'fr' } = {}) {
+  const norm = String(text || '')
+    .toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g, '') // sans accents → meilleur hit rate
+    .replace(/[!?.,;:'"«»()\[\]{}]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim() // en DERNIER : la ponctuation retirée peut laisser un espace final
+    .slice(0, 120);
+  return `corpus-cache:${CORPUS_CACHE_VERSION}:${section}:${lang}:${norm}`;
+}
+
 export function getCorpusStats() {
   loadAndIndex();
   return { totalChunks: _N, totalSimanim: _corpus?.meta?.totalSimanim || 0, avgdl: _avgdl };
