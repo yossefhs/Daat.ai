@@ -1434,7 +1434,9 @@ function updateRateBanner(info) {
       premium: '💎 Premium',
     };
     const label = planLabels[info.plan] || info.plan;
-    const remain = (info.limit && info.limit < 9999) ? ` · ${info.remaining} questions restantes aujourd'hui` : '';
+    const mr = info.month_remaining;
+    const remain = (info.month_limit && info.month_limit < 9999 && typeof mr === 'number')
+      ? ` · ${mr} question${mr > 1 ? 's' : ''} ce mois-ci` : '';
     msg = `${label} · qualité Opus active${remain}`;
   } else {
     // Standard : free/anonyme après Aperçu épuisé — jauge MENSUELLE

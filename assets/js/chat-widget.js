@@ -1007,7 +1007,9 @@
           premium: '💎 Premium',
         };
         const label = planLabels[r.plan] || r.plan;
-        const remain = (r.limit && r.limit < 9999) ? `${r.remaining} questions restantes aujourd'hui` : 'qualité Opus active';
+        const mr = r.month_remaining;
+        const remain = (r.month_limit && r.month_limit < 9999 && typeof mr === 'number')
+          ? `${mr} question${mr > 1 ? 's' : ''} ce mois-ci` : 'qualité Opus active';
         el.setAttribute('data-status', 'premium');
         el.innerHTML = `
           <span class="daat-status-banner-icon">${label.split(' ')[0]}</span>

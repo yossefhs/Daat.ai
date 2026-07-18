@@ -1412,7 +1412,9 @@ function updateRateBanner(info) {
       premium: '💎 פרימיום',
     };
     const label = planLabels[info.plan] || info.plan;
-    const remain = (info.limit && info.limit < 9999) ? ` · נותרו ${info.remaining} שאלות להיום` : '';
+    const mr = info.month_remaining;
+    const remain = (info.month_limit && info.month_limit < 9999 && typeof mr === 'number')
+      ? ` · נותרו ${mr} שאל${mr > 1 ? 'ות' : 'ה'} החודש` : '';
     msg = `${label} · איכות Opus פעילה${remain}`;
   } else {
     bg = 'linear-gradient(90deg, #FBF7EF 0%, #F5F0E8 100%)';
