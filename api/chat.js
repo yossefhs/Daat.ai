@@ -137,25 +137,30 @@ const PREVIEW_GLOBAL_DAILY_LIMIT = 100;
 // NB : ces limites ne s'appliquent qu'aux questions IA (Sonnet/Opus). Les
 // questions couvertes par le corpus du Rav (corpus-first) sont GRATUITES et
 // ILLIMITÉES pour tout le monde — elles ne décomptent pas ces quotas.
+//
+// CADENCE : le gratuit et l'anonyme sont gouvernés au MOIS (une seule jauge
+// lisible). Leur cap quotidien est neutralisé (9999) → seul le mensuel mord.
+// Les PAYANTS restent sur leur cadence quotidienne actuelle (celle annoncée sur
+// /soutenir) — leurs plafonds seront réajustés séparément (cf. calcul de coût).
 const DAILY_LIMITS = {
-  anonymous:         1,        // visiteur sans compte — 1 question IA pour goûter, puis inscription
-  free:              3,        // compte email (OTP) — 3 questions IA/jour (corpus illimité)
-  khavroutha:        5,        // soutien 8 €/mois — Opus sur halakhique pointu uniquement
-  beit_midrash:     15,        // soutien 25 €/mois — Opus largement
-  beit_midrash_plus: 30,       // soutien 50 €/mois — Opus largement, plus de questions
-  yeshiva:          50,        // soutien 100 €/mois — Opus largement, gros usage
+  anonymous:      9999,        // gouverné au mois (voir MONTHLY_LIMITS)
+  free:           9999,        // gouverné au mois (voir MONTHLY_LIMITS)
+  khavroutha:        5,        // soutien 8 €/mois — Opus sur halakhique pointu
+  beit_midrash:     15,        // soutien 25 €/mois
+  beit_midrash_plus: 30,       // soutien 50 €/mois
+  yeshiva:          50,        // soutien 100 €/mois
   lifetime:         15,        // don unique 500 € = équivalent Beit Midrash à vie
   premium:       99999,        // ancien plan, conservé pour compatibilité
 };
 
 const MONTHLY_LIMITS = {
-  anonymous:        100,
-  free:             150,
-  khavroutha:       160,       // > free (150) : un payant ne doit jamais avoir un cap inférieur au gratuit
-  beit_midrash:     300,       // moyenne 10 q/jour
+  anonymous:         3,        // dégustation — pousse à créer un compte
+  free:             10,        // compte email (OTP) — 10 questions IA/mois
+  khavroutha:       160,       // (à réajuster avec le calcul de coût)
+  beit_midrash:     300,
   beit_midrash_plus: 600,
   yeshiva:         1000,
-  lifetime:         300,       // = Beit Midrash
+  lifetime:         300,
   premium:        99999,
 };
 
@@ -634,9 +639,12 @@ export default async function handler(req, res) {
           reset_date: resetTime.toISOString(),
           helloasso_url: HELLOASSO_URL,
           soutenir_url: SOUTENIR_URL,
+          // Gratuit/anonyme sont gouvernés au MOIS (daily neutralisé à 9999) : ce
+          // gate quotidien ne se déclenche donc que pour les payants qui touchent
+          // leur garde-fou anti-rafale. La branche invité reste par sécurité.
           message: isGuest
-            ? `Tu as utilisé tes ${limit} questions gratuites. Crée ton compte gratuit pour ${DAILY_LIMITS.free} q/jour, ou débloque l'analyse halakhique approfondie avec Opus (1 € = 1 question permanente).`
-            : `Tu as atteint ta limite quotidienne de ${limit} questions. Pour continuer immédiatement avec Opus (analyse halakhique approfondie, qualité maximale) : 1 € = 1 question, 10 € = 10 questions. Les crédits ne s'épuisent jamais.`,
+            ? `Tu as utilisé tes questions IA gratuites. Crée un compte gratuit pour ${MONTHLY_LIMITS.free} questions IA/mois — le corpus du Rav reste illimité.`
+            : `Tu as posé beaucoup de questions aujourd'hui (${limit}). Reviens demain, ou continue tout de suite avec des crédits Opus (1 € = 1 question permanente). Le corpus du Rav reste consultable sans limite.`,
         });
       }
     }
@@ -651,6 +659,13 @@ export default async function handler(req, res) {
       nextMonth.setMonth(nextMonth.getMonth() + 1);
       nextMonth.setDate(1);
       nextMonth.setHours(0, 0, 0, 0);
+      // Message adapté au public. Dans tous les cas : le corpus du Rav reste
+      // consultable sans limite, et le compteur repart le 1er du mois prochain.
+      const monthlyMessage = isGuest
+        ? `Tu as utilisé tes ${monthLimit} questions IA gratuites du mois. Crée un compte gratuit pour passer à ${MONTHLY_LIMITS.free} questions IA/mois. Le corpus du Rav, lui, reste consultable sans limite — et le compteur repart le mois prochain.`
+        : SUBSCRIBER_PLANS.has(plan)
+          ? `Tu as atteint ton quota mensuel (${monthLimit} questions IA). Le corpus du Rav reste consultable sans limite ; le compteur repart le mois prochain. Pour un plafond plus élevé, passe à un niveau supérieur.`
+          : `Tu as utilisé tes ${monthLimit} questions IA gratuites du mois. Le corpus du Rav reste consultable sans limite ; le compteur repart le mois prochain. Pour la profondeur (analyse Opus) sans attendre, soutiens DAAT — 1 € = 1 question permanente.`;
       return res.status(429).json({
         error: 'limit_reached',
         type: 'limit_reached',
@@ -661,7 +676,8 @@ export default async function handler(req, res) {
         is_guest: isGuest,
         reset_date: nextMonth.toISOString(),
         soutenir_url: SOUTENIR_URL,
-        message: `Tu as atteint ton quota mensuel (${monthLimit} questions). Reviens le mois prochain, ou passe à un niveau supérieur pour plus de questions.`,
+        helloasso_url: HELLOASSO_URL,
+        message: monthlyMessage,
       });
     }
 
@@ -718,6 +734,8 @@ export default async function handler(req, res) {
     // Premier event : info état de la session (pour bannière + UX progressive)
     const willBeCount = currentCount + 1;
     const remaining = Math.max(0, limit - willBeCount);
+    // Restant mensuel : c'est la jauge affichée au gratuit/anonyme (cadence mois).
+    const monthRemaining = Math.max(0, monthLimit - (currentMonthCount + 1));
     const previewRemaining = Math.max(0, PREVIEW_OPUS_LIMIT - previewUsed - (model._aperçu ? 1 : 0));
     // Statut affiché côté UI :
     //  - "aperçu"  : Free/anon en pleine phase Aperçu Premium (Opus offert)
@@ -738,6 +756,7 @@ export default async function handler(req, res) {
       remaining,
       month_count: currentMonthCount + 1,
       month_limit: monthLimit,
+      month_remaining: monthRemaining,
       ux_status: uxStatus,
       preview_used: previewUsed,
       preview_remaining: previewRemaining,

@@ -1437,13 +1437,13 @@ function updateRateBanner(info) {
     const remain = (info.limit && info.limit < 9999) ? ` · ${info.remaining} questions restantes aujourd'hui` : '';
     msg = `${label} · qualité Opus active${remain}`;
   } else {
-    // Standard : free/anonyme après Aperçu épuisé
+    // Standard : free/anonyme après Aperçu épuisé — jauge MENSUELLE
     bg = 'linear-gradient(90deg, #FBF7EF 0%, #F5F0E8 100%)';
     border = 'rgba(184,151,42,0.35)';
-    const r = info.remaining ?? 0;
+    const r = info.month_remaining ?? 0;
     const aurait = info.would_use_opus
       ? ' Tes réponses sont en qualité standard (Sonnet). Soutenir DAAT débloque Opus en continu.'
-      : ` Il te reste ${r} question${r > 1 ? 's' : ''} aujourd'hui.`;
+      : ` Il te reste ${r} question${r > 1 ? 's' : ''} IA ce mois-ci — le corpus reste illimité.`;
     msg = `📜 Mode standard.${aurait} <a href="${soutenirUrl}" target="_blank" rel="noopener" style="color:#8C6F1E;text-decoration:underline;font-weight:600;">Soutenir →</a>`;
   }
   el.style.cssText = `
@@ -1617,7 +1617,7 @@ function showLimitReachedModal(info) {
     <div style="background:#fff;border:1px solid rgba(184,151,42,0.25);padding:14px;margin-bottom:14px;border-radius:4px;">
       <div style="font-size:0.78rem;letter-spacing:1px;text-transform:uppercase;color:#7a6a55;margin-bottom:6px;">Étape simple — gratuit</div>
       <a href="#" id="daat-open-login" style="display:block;background:#1a1a2e;color:#F5F0E8;padding:12px 20px;text-decoration:none;font-family:'Cormorant Garamond',serif;font-size:1.05rem;letter-spacing:0.5px;cursor:pointer;">
-        📧 Crée ton compte (30 sec) → <strong>3 questions IA/jour</strong>
+        📧 Crée ton compte (30 sec) → <strong>10 questions IA/mois</strong>
       </a>
     </div>` : ''}
 
