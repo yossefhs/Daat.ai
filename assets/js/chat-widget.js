@@ -1014,12 +1014,12 @@
           <span class="daat-status-banner-text">${label.split(' ').slice(1).join(' ')} · ${remain}</span>
         `;
       } else {
-        // Standard : free/anonyme après Aperçu épuisé
-        const remain = r.remaining ?? 0;
+        // Standard : free/anonyme après Aperçu épuisé — jauge MENSUELLE
+        const remain = r.month_remaining ?? 0;
         el.setAttribute('data-status', 'standard');
         el.innerHTML = `
           <span class="daat-status-banner-icon">📜</span>
-          <span class="daat-status-banner-text"><strong>${remain}</strong> question${remain > 1 ? 's' : ''} restante${remain > 1 ? 's' : ''} aujourd'hui · qualité standard</span>
+          <span class="daat-status-banner-text"><strong>${remain}</strong> question${remain > 1 ? 's' : ''} IA ce mois-ci · le corpus reste illimité</span>
           <button class="daat-status-banner-cta" data-action="open-soutenir">Soutenir DAAT →</button>
         `;
       }
@@ -1126,7 +1126,7 @@
             : `Tu as posé ${limit} questions aujourd'hui.`;
         body = `
           <p>${isGuest
-            ? 'Connecte-toi avec ton email pour <strong>3 questions IA/jour</strong> et 3 questions Opus offertes en bienvenue.'
+            ? 'Connecte-toi avec ton email pour <strong>10 questions IA/mois</strong> et 3 questions Opus offertes en bienvenue.'
             : 'Reviens demain pour de nouvelles questions, ou soutiens DAAT pour débloquer immédiatement l\'<strong>accès Opus</strong> — l\'analyse halakhique approfondie.'}</p>
           <p style="font-size:12.5px;color:#8a847b;">Les questions couvertes par le corpus du Rav restent <strong>gratuites et illimitées</strong>.</p>
           ${isMonthly ? '<p style="font-size:12px;color:#8a847b;">Le quota mensuel protège l\'asso contre les usages excessifs et garantit que DAAT reste accessible à tous.</p>' : ''}

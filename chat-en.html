@@ -1401,10 +1401,10 @@ function updateRateBanner(info) {
   } else {
     bg = 'linear-gradient(90deg, #FBF7EF 0%, #F5F0E8 100%)';
     border = 'rgba(184,151,42,0.35)';
-    const r = info.remaining ?? 0;
+    const r = info.month_remaining ?? 0;
     const aurait = info.would_use_opus
       ? ' Your answers are in standard quality (Sonnet). Supporting DAAT unlocks Opus continuously.'
-      : ` You have ${r} question${r > 1 ? 's' : ''} left today.`;
+      : ` You have ${r} AI question${r > 1 ? 's' : ''} left this month — the corpus stays unlimited.`;
     msg = `📜 Standard mode.${aurait} <a href="${soutenirUrl}" target="_blank" rel="noopener" style="color:#8C6F1E;text-decoration:underline;font-weight:600;">Support →</a>`;
   }
   el.style.cssText = `
@@ -1518,7 +1518,7 @@ function showLimitReachedModal(info) {
     <div style="background:#fff;border:1px solid rgba(184,151,42,0.25);padding:14px;margin-bottom:14px;border-radius:4px;">
       <div style="font-size:0.85rem;letter-spacing:1px;text-transform:uppercase;color:#7a6a55;margin-bottom:6px;">Simple option — free</div>
       <a href="#" id="daat-open-login" style="display:block;background:#1a1a2e;color:#F5F0E8;padding:12px 20px;text-decoration:none;font-family:'Cormorant Garamond',serif;font-size:1.05rem;letter-spacing:0.5px;cursor:pointer;">
-        📧 Create an account → <strong>3 AI questions/day</strong>
+        📧 Create an account → <strong>10 AI questions/month</strong>
       </a>
     </div>` : ''}
 
