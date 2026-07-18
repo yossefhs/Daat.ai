@@ -1126,8 +1126,9 @@
             : `Tu as posé ${limit} questions aujourd'hui.`;
         body = `
           <p>${isGuest
-            ? 'Connecte-toi avec ton email pour <strong>5 questions/jour</strong> et 3 questions Opus offertes en bienvenue.'
+            ? 'Connecte-toi avec ton email pour <strong>3 questions IA/jour</strong> et 3 questions Opus offertes en bienvenue.'
             : 'Reviens demain pour de nouvelles questions, ou soutiens DAAT pour débloquer immédiatement l\'<strong>accès Opus</strong> — l\'analyse halakhique approfondie.'}</p>
+          <p style="font-size:12.5px;color:#8a847b;">Les questions couvertes par le corpus du Rav restent <strong>gratuites et illimitées</strong>.</p>
           ${isMonthly ? '<p style="font-size:12px;color:#8a847b;">Le quota mensuel protège l\'asso contre les usages excessifs et garantit que DAAT reste accessible à tous.</p>' : ''}
         `;
         primaryLabel = 'Soutenir DAAT';

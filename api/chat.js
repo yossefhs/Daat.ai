@@ -134,9 +134,12 @@ const PREVIEW_OPUS_LIMIT = 3;
 const PREVIEW_IP_DAILY_LIMIT = 3;
 const PREVIEW_GLOBAL_DAILY_LIMIT = 100;
 
+// NB : ces limites ne s'appliquent qu'aux questions IA (Sonnet/Opus). Les
+// questions couvertes par le corpus du Rav (corpus-first) sont GRATUITES et
+// ILLIMITÉES pour tout le monde — elles ne décomptent pas ces quotas.
 const DAILY_LIMITS = {
-  anonymous:         2,        // visiteur sans compte — limite serrée pour pousser à l'inscription
-  free:              5,        // compte email (OTP) — 5 questions/jour Sonnet
+  anonymous:         1,        // visiteur sans compte — 1 question IA pour goûter, puis inscription
+  free:              3,        // compte email (OTP) — 3 questions IA/jour (corpus illimité)
   khavroutha:        5,        // soutien 8 €/mois — Opus sur halakhique pointu uniquement
   beit_midrash:     15,        // soutien 25 €/mois — Opus largement
   beit_midrash_plus: 30,       // soutien 50 €/mois — Opus largement, plus de questions
