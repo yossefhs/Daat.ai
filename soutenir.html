@@ -10,8 +10,8 @@
 
   <!-- hreflang FR / EN / HE -->
   <link rel="alternate" hreflang="fr" href="https://daattorah.com/soutenir.html">
-  <link rel="alternate" hreflang="en" href="https://daattorah.com/soutenir-en.html">
-  <link rel="alternate" hreflang="he" href="https://daattorah.com/soutenir-he.html">
+  <link rel="alternate" hreflang="en" href="https://daattorah.com/soutenir.html?lang=en">
+  <link rel="alternate" hreflang="he" href="https://daattorah.com/soutenir.html?lang=he">
   <link rel="alternate" hreflang="x-default" href="https://daattorah.com/soutenir.html">
 
   <!-- Open Graph -->
@@ -1483,10 +1483,17 @@
       btn.addEventListener('click', () => setLang(btn.dataset.lang));
     });
 
-    // Restauration de la langue choisie
+    // Choix de la langue : ?lang= dans l'URL (priorité — utilisé par les
+    // redirections depuis /soutenir-en.html et /soutenir-he.html), sinon le
+    // dernier choix mémorisé, sinon FR par défaut.
     try {
-      const saved = localStorage.getItem('daat-lang');
-      if (saved && ['fr','en','he'].includes(saved)) setLang(saved);
+      const urlLang = new URLSearchParams(location.search).get('lang');
+      if (urlLang && ['fr','en','he'].includes(urlLang)) {
+        setLang(urlLang);
+      } else {
+        const saved = localStorage.getItem('daat-lang');
+        if (saved && ['fr','en','he'].includes(saved)) setLang(saved);
+      }
     } catch(e) {}
 
     // Bandeau "Tu viens du chat ?" — affiché si ?from=chat
