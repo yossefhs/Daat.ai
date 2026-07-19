@@ -1,6 +1,6 @@
 # DAAT — Rapport d'audit global (daattorah.com)
 
-> **Statut : audit EN COURS — Hilkhot Shabbat TERMINÉ (124/124, IDs H-XXX) ; Orah Haïm quotidien TERMINÉ (64/64, IDs Q-XXX) ; Yoreh Deah TERMINÉ (50/50 : issour veheter 87-118 + nidda 183-200, lots 27-34, IDs YD-XXX) ; Blog en cours (8/23 articles, lot 35, IDs BL-XXX). Total : 2159 constats.**
+> **Statut : audit EN COURS — Hilkhot Shabbat TERMINÉ (124/124, IDs H-XXX) ; Orah Haïm quotidien TERMINÉ (64/64, IDs Q-XXX) ; Yoreh Deah TERMINÉ (50/50 : issour veheter 87-118 + nidda 183-200, lots 27-34, IDs YD-XXX) ; Blog en cours (16/23 articles, lots 35-36, IDs BL-XXX). Total : 2213 constats.**
 > Ce rapport contient des constats **et** trace les corrections mécaniques déjà appliquées (voir §10). Aucune règle halakhique n'a été modifiée.
 
 ## 10. Corrections mécaniques appliquées (sûres, non-halakhiques)
@@ -24,7 +24,7 @@ Garde-fous : `audit-simanim.py` **124/124 conformes**, corpus régénéré, `sim
 *Note historique : la seule modification hors-audit initiale était l'ordre du catalogue `/contenu`.*
 > Date de génération : 2026-07-13. Branche : `claude/daattorah-site-audit-tyhabm`.
 >
-> **HILKHOT SHABBAT COMPLET (124 simanim → 1192 constats, IDs H-XXX) + Orah Haïm quotidien COMPLET (simanim 1-64 → 600 constats, IDs Q-XXX) + Yoreh Deah lots 27-34 (issour veheter 87-118 + nidda 183-200 COMPLET → 318 constats, IDs YD-XXX) + Blog lot 35 (8/23 articles → 49 constats, IDs BL-XXX) = 2159 constats** dans `erreurs-halakha.csv`. Choulhan Aroukh entièrement audité (238 simanim). Blog en cours (articles rattachés aux simanim Shabbat) ; patterns récurrents du Blog : liens « étudier en profondeur » des pages HE/EN pointant vers les niveaux FR ; sélecteur de langue absent dans la nav FR ; nœuds JSON-LD Quotation paraphrasés/corrompus ; inversions Mehaber↔Rama dans les attributions (ex. 242 Tikkun Ezra, 243 four/moulin, 327 huile de rose). Périmètre restant : Blog (15 articles) puis Limoud.
+> **HILKHOT SHABBAT COMPLET (124 simanim → 1192 constats, IDs H-XXX) + Orah Haïm quotidien COMPLET (simanim 1-64 → 600 constats, IDs Q-XXX) + Yoreh Deah lots 27-34 (issour veheter 87-118 + nidda 183-200 COMPLET → 318 constats, IDs YD-XXX) + Blog lots 35-36 (16/23 articles → 103 constats, IDs BL-XXX) = 2213 constats** dans `erreurs-halakha.csv`. Choulhan Aroukh entièrement audité (238 simanim). Blog en cours (articles rattachés aux simanim Shabbat) ; patterns récurrents du Blog : liens « étudier en profondeur » des pages HE/EN pointant vers les niveaux FR (quasi systématique) ; sélecteur de langue absent dans la nav FR ; résidu « IA » (au lieu de « AI ») dans les pages HE ; hreflang x-default absent en HE/EN ; nœuds JSON-LD Quotation paraphrasés/corrompus ou mal attribués (Mehaber↔Rama) ; inversions d'attribution (242 Tikkun Ezra, 243 four/moulin, 246/327 gloses Rama, 245 seif 2). Périmètre restant : Blog (7 articles) puis Limoud.
 > Les patterns récurrents sont documentés dans **`erreurs-recurrentes.md`** (à lire en priorité). Constat n°1 : le **Niveau 4 « Daat HaRav »** a un appareil analytique (tableaux/chidoushim/למעשה) systématiquement décorrélé du texte-source reproduit sur la même page, avec parfois des **inversions halakhiques** (ex. 249 : jeûne érev Shabbat « interdit » vs « recommandé » ; 261 : allumage « même à bein hashmashot » + Amora erroné רב נחמן/ר' נחמיה).
 
 ---
