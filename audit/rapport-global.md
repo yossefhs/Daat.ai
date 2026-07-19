@@ -1,6 +1,6 @@
 # DAAT — Rapport d'audit global (daattorah.com)
 
-> **Statut : audit EN COURS — Hilkhot Shabbat TERMINÉ (124/124, IDs H-XXX) ; Orah Haïm quotidien : 28/64 simanim revus (lots 18-21, IDs Q-XXX). Total : 1462 constats.**
+> **Statut : audit EN COURS — Hilkhot Shabbat TERMINÉ (124/124, IDs H-XXX) ; Orah Haïm quotidien TERMINÉ (64/64, IDs Q-XXX) ; Yoreh Deah TERMINÉ (50/50 : issour veheter 87-118 + nidda 183-200, lots 27-34, IDs YD-XXX) ; Blog TERMINÉ (23/23 articles, lots 35-37, IDs BL-XXX) ; Limoud TERMINÉ (cycle Daat Yomi 194 jours, audit structurel, lot 38, IDs LM-XXX). PÉRIMÈTRE COMPLET. Total : 2275 constats.**
 > Ce rapport contient des constats **et** trace les corrections mécaniques déjà appliquées (voir §10). Aucune règle halakhique n'a été modifiée.
 
 ## 10. Corrections mécaniques appliquées (sûres, non-halakhiques)
@@ -24,7 +24,9 @@ Garde-fous : `audit-simanim.py` **124/124 conformes**, corpus régénéré, `sim
 *Note historique : la seule modification hors-audit initiale était l'ordre du catalogue `/contenu`.*
 > Date de génération : 2026-07-13. Branche : `claude/daattorah-site-audit-tyhabm`.
 >
-> **HILKHOT SHABBAT COMPLET (124 simanim → 1192 constats, IDs H-XXX) + Orah Haïm quotidien lots 18-21 (simanim 1-28 → 270 constats, IDs Q-XXX) = 1462 constats** dans `erreurs-halakha.csv`. Revue en cours vers OH-quotidien 29+.
+> **HILKHOT SHABBAT COMPLET (124 simanim → 1192 constats, IDs H-XXX) + Orah Haïm quotidien COMPLET (simanim 1-64 → 600 constats, IDs Q-XXX) + Yoreh Deah lots 27-34 (issour veheter 87-118 + nidda 183-200 COMPLET → 318 constats, IDs YD-XXX) + Blog lots 35-37 (23/23 articles COMPLET → 163 constats, IDs BL-XXX) + Limoud lot 38 (cycle 194 jours, audit structurel → 2 constats, IDs LM-XXX) = 2275 constats** dans `erreurs-halakha.csv`. **PÉRIMÈTRE ENTIÈREMENT AUDITÉ** : Choulhan Aroukh (238 simanim) + Blog (23 articles) + Limoud (194 jours × 3 langues).
+
+> **Limoud (audit structurel, non par agent)** : les 194 pages `jour-NNN` × 3 langues sont des pages de navigation « étude du jour » (mapping jour→siman du cycle Daat Yomi 242-365). Vérifié conforme par script : les 194 jours présents et contigus ; séquence monotone couvrant 242-365 exactement (aucun trou, aucun siman hors plage) ; titres de siman traduits dans les 3 langues et concordants avec les pages siman ; liens de niveau correctement localisés (/oh/N/base/he · /en) — contrairement au Blog ; hreflang (dont x-default), inLanguage, lang, prev/next, index (194 jours × 3 langues) tous corrects ; aucun résidu FR dans les pages HE/EN. **Seul défaut** : la `levels-list` VIDE sur les jours 91 (siman 304) et 129-130 (siman 322) — 9 pages sans aucun lien de niveau alors que les niveaux 1-3 existent (LM-304-01, LM-322-01). Patterns récurrents du Blog : liens « étudier en profondeur » des pages HE/EN pointant vers les niveaux FR (quasi systématique sur les 23 articles) ; sélecteur de langue absent dans la nav FR ; résidu « IA » (au lieu de « AI ») dans les pages HE ; hreflang x-default absent en HE/EN ; BreadcrumbList « Blog » non localisé en HE/EN ; nœuds JSON-LD Quotation paraphrasés/corrompus ou mal attribués (Mehaber↔Rama) ; inversions d'attribution (242 Tikkun Ezra, 243 four/moulin, 246/248/319/327 gloses Rama, 245/244 renvois de seif). Périmètre restant : Limoud (cycle 194 jours × 3 langues).
 > Les patterns récurrents sont documentés dans **`erreurs-recurrentes.md`** (à lire en priorité). Constat n°1 : le **Niveau 4 « Daat HaRav »** a un appareil analytique (tableaux/chidoushim/למעשה) systématiquement décorrélé du texte-source reproduit sur la même page, avec parfois des **inversions halakhiques** (ex. 249 : jeûne érev Shabbat « interdit » vs « recommandé » ; 261 : allumage « même à bein hashmashot » + Amora erroné רב נחמן/ר' נחמיה).
 
 ---

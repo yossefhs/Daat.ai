@@ -443,10 +443,10 @@
 <div id="main" class="content">
 <div class="daat-secswitch" role="navigation" aria-label="Study sections" style="max-width:1180px;margin:0 auto 28px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:14px 16px;background:#fff;border:1px solid #e7ddc9;border-radius:6px;">
   <span style="font-family:'Inter',sans-serif;font-size:12px;letter-spacing:1px;color:#8a8470;text-transform:uppercase;">Study</span>
+  <a href="/oh-quotidien/en" style="padding:7px 14px;border-radius:3px;text-decoration:none;font-family:'Cormorant Garamond',serif;font-size:16px;background:#FAF6EE;color:#1A1F3A;border:1px solid #e7ddc9;">Orah Haim — Daily Halacha</a>
   <a href="/oh/en" style="padding:7px 14px;border-radius:3px;text-decoration:none;font-family:'Cormorant Garamond',serif;font-size:16px;background:#1A1F3A;color:#fff;border:1px solid #1A1F3A;">Orah Haim — Hilkhot Shabbat</a>
   <a href="/yd/en" style="padding:7px 14px;border-radius:3px;text-decoration:none;font-family:'Cormorant Garamond',serif;font-size:16px;background:#FAF6EE;color:#1A1F3A;border:1px solid #e7ddc9;">Yoreh De'ah — Issur ve-Heter</a>
   <a href="/nida/en" style="padding:7px 14px;border-radius:3px;text-decoration:none;font-family:'Cormorant Garamond',serif;font-size:16px;background:#FAF6EE;color:#1A1F3A;border:1px solid #e7ddc9;">Hilkhot Nida</a>
-  <a href="/oh-quotidien/en" style="padding:7px 14px;border-radius:3px;text-decoration:none;font-family:'Cormorant Garamond',serif;font-size:16px;background:#FAF6EE;color:#1A1F3A;border:1px solid #e7ddc9;">Orah Haim — Daily Halacha</a>
   <a href="/contenu/en" style="margin-inline-start:auto;font-family:'Inter',sans-serif;font-size:13px;color:#C5A55A;text-decoration:none;font-weight:600;">Overview →</a>
 </div>
 
@@ -488,9 +488,51 @@
     </div>
   </div>
 
+  <!-- SECTION 0 : Orah Haïm — Quotidien (simanim 1-64) -->
+  <div class="section-header">
+    <div class="section-title">Orah Haim — Daily · simanim 1 to 64</div>
+    <div class="section-count" id="ohq-count">64 simanim</div>
+  </div>
+  <div id="ohq-grid" class="simanim-grid" aria-live="polite" aria-busy="true" style="margin-bottom:48px;">
+    <div class="simanim-grid-loading">Loading simanim…</div>
+  </div>
+  <script>
+  (async function () {
+    var grid = document.getElementById('ohq-grid');
+    try {
+      var res = await fetch('/data/simanim-disponibles.json', { cache: 'no-cache' });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      var data = await res.json();
+      var items = (data.simanim || []).filter(function (s) { return (s.section || 'shabbat') === 'oh-quotidien'; });
+      items.sort(function (a, b) { return a.num - b.num; });
+      var frag = document.createDocumentFragment();
+      for (var i = 0; i < items.length; i++) {
+        var s = items[i];
+        var a = document.createElement('a');
+        a.href = '/oh-quotidien/' + s.num + '/en';
+        a.className = 'simanim-tile';
+        a.title = 'Siman {n} — {t}'.replace('{n}', s.num).replace('{t}', s.title);
+        var num = document.createElement('span'); num.className = 'simanim-tile-num';
+        num.textContent = s.numHe || ('Siman ' + s.num);
+        var numFr = document.createElement('span'); numFr.className = 'siman-num-fr'; numFr.textContent = '· ' + s.num;
+        num.appendChild(numFr);
+        var title = document.createElement('span'); title.className = 'simanim-tile-title'; title.textContent = s.title;
+        a.appendChild(num); a.appendChild(title); frag.appendChild(a);
+      }
+      grid.innerHTML = '';
+      grid.appendChild(frag);
+      grid.removeAttribute('aria-busy');
+      var cnt = document.getElementById('ohq-count'); if (cnt) cnt.textContent = items.length + ' simanim';
+    } catch (e) {
+      console.error('OHQ load failed:', e);
+      grid.innerHTML = '<div class="simanim-grid-loading">List unavailable at the moment.</div>';
+    }
+  })();
+  </script>
+
   <!-- SECTION 1: Complete simanim (4 levels) -->
   <div class="section-header">
-    <div class="section-title">Complete simanim — 4 levels of study</div>
+    <div class="section-title">Hilkhot Shabbat · simanim 242 to 365 — 4 levels of study</div>
     <div class="section-count">122 simanim</div>
   </div>
 

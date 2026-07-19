@@ -1,6 +1,6 @@
-# DAAT — Erreurs récurrentes (revue approfondie : Hilkhot Shabbat COMPLET 124/124 + Orah Haïm quotidien en cours)
+# DAAT — Erreurs récurrentes (revue approfondie : périmètre COMPLET — Choulhan Aroukh + Blog + Limoud)
 
-> Basé sur la revue sémantique des **124 simanim de Hilkhot Shabbat (242-365, COMPLET — IDs H-XXX)** et de **28/64 simanim d'Orah Haïm quotidien (1-28 — IDs Q-XXX)** — 1462 constats dans `erreurs-halakha.csv`.
+> Basé sur la revue sémantique des **124 simanim de Hilkhot Shabbat (242-365, COMPLET — IDs H-XXX)** de **64/64 simanim d'Orah Haïm quotidien (COMPLET — IDs Q-XXX)** et de **50/50 simanim de Yoreh Deah COMPLET (issour veheter 87-118 + nidda 183-200 — IDs YD-XXX)**, plus **23/23 articles du Blog COMPLET (IDs BL-XXX)** et du **Limoud (cycle Daat Yomi 194 jours, audit structurel — IDs LM-XXX)** — 2275 constats dans `erreurs-halakha.csv`. **Tout le périmètre du site est désormais audité.**
 > Chaque pattern est **vérifiable par lecture croisée** (une page contredit une autre page, ou le texte reproduit sur la même page). La **résolution halakhique** reste « À vérifier par le Rav ».
 
 ---
