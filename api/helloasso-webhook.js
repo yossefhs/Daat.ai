@@ -83,20 +83,27 @@ function planFromAmount(amountCents, isRecurring) {
 const MONTHLY_GRACE_DAYS = 40;
 
 // ── Crédits Opus en remerciement d'un don ponctuel ─────────────────────────
-// Grille progressive : plus le don est généreux, meilleur le ratio crédits/€.
-// Aligné avec les paliers de la page /soutenir (Hai 18, 36, 72, 180).
-// NB : ces ratios sont ÉCONOMIQUEMENT viables — 1 question Opus coûte ~$0.30
-// à l'asso, donc 40 crédits pour 18€ = 18€ encaissés contre ~€11 max de coût
-// si tout est consommé (et la majorité ne consomment pas tout).
+// Grille progressive : plus le don est généreux, meilleur le ratio crédits/€
+// (1,00 € → 0,69 €/crédit). PROFIT GARANTI même au pire cas : 1 question Opus
+// la plus lourde possible coûte ~0,55 € (max outils + thinking), donc chaque
+// palier encaisse plus qu'il ne peut coûter, même si TOUS les crédits sont
+// consommés en questions lourdes. En usage réel (~0,28 €/q) la marge double.
+//   1 €  → 1  crédit  (pire coût 0,55 € · marge ≥ 0,45 €) — « 1 € = 1 question »
+//   5 €  → 6  crédits (pire 3,30 € · ≥ 1,70 €)
+//   10 € → 13 crédits (pire 7,15 € · ≥ 2,85 €)
+//   18 € → 24 crédits (pire 13,20 € · ≥ 4,80 €) — palier Hai
+//   36 € → 50 crédits (pire 27,50 € · ≥ 8,50 €)
+//   72 € → 100 crédits (pire 55,00 € · ≥ 17,00 €)
+//   180 €→ 260 crédits (pire 143,00 € · ≥ 37,00 €) — palier mécène
 function creditsForOneTimeDonation(amountCents) {
   const eur = Math.floor(amountCents / 100);
-  if (eur >= 180) return 500;   // 0,36 €/q — palier mécène
-  if (eur >= 72)  return 200;   // 0,36 €/q
-  if (eur >= 36)  return 90;    // 0,40 €/q
-  if (eur >= 18)  return 40;    // 0,45 €/q — palier Hai (le standard)
-  if (eur >= 10)  return 22;    // 0,45 €/q
-  if (eur >= 5)   return 10;    // 0,50 €/q — palier d'essai
-  if (eur >= 1)   return 2;     // 0,50 €/q — symbolique
+  if (eur >= 180) return 260;   // 0,69 €/crédit — palier mécène
+  if (eur >= 72)  return 100;   // 0,72 €/crédit
+  if (eur >= 36)  return 50;    // 0,72 €/crédit
+  if (eur >= 18)  return 24;    // 0,75 €/crédit — palier Hai (le standard)
+  if (eur >= 10)  return 13;    // 0,77 €/crédit
+  if (eur >= 5)   return 6;     // 0,83 €/crédit — palier d'essai
+  if (eur >= 1)   return 1;     // 1,00 €/crédit — « 1 € = 1 question »
   return 0;
 }
 
