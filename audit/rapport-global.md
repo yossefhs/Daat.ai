@@ -1,6 +1,6 @@
 # DAAT — Rapport d'audit global (daattorah.com)
 
-> **Statut : audit EN COURS — Hilkhot Shabbat TERMINÉ (124/124, IDs H-XXX) ; Orah Haïm quotidien TERMINÉ (64/64, IDs Q-XXX) ; Yoreh Deah 14/50 revus (bassar behalav + bitoul 87-100, lots 27-28, IDs YD-XXX). Total : 1863 constats.**
+> **Statut : audit EN COURS — Hilkhot Shabbat TERMINÉ (124/124, IDs H-XXX) ; Orah Haïm quotidien TERMINÉ (64/64, IDs Q-XXX) ; Yoreh Deah 21/50 revus (bassar behalav + taarovot 87-107, lots 27-29, IDs YD-XXX). Total : 1910 constats.**
 > Ce rapport contient des constats **et** trace les corrections mécaniques déjà appliquées (voir §10). Aucune règle halakhique n'a été modifiée.
 
 ## 10. Corrections mécaniques appliquées (sûres, non-halakhiques)
@@ -24,7 +24,7 @@ Garde-fous : `audit-simanim.py` **124/124 conformes**, corpus régénéré, `sim
 *Note historique : la seule modification hors-audit initiale était l'ordre du catalogue `/contenu`.*
 > Date de génération : 2026-07-13. Branche : `claude/daattorah-site-audit-tyhabm`.
 >
-> **HILKHOT SHABBAT COMPLET (124 simanim → 1192 constats, IDs H-XXX) + Orah Haïm quotidien COMPLET (simanim 1-64 → 600 constats, IDs Q-XXX) + Yoreh Deah lots 27-28 (simanim 87-100 → 71 constats, IDs YD-XXX) = 1863 constats** dans `erreurs-halakha.csv`. Revue Yoreh Deah en cours (bassar behalav + principes du bitoul terminés, suite : 101-118 puis nidda 183-200).
+> **HILKHOT SHABBAT COMPLET (124 simanim → 1192 constats, IDs H-XXX) + Orah Haïm quotidien COMPLET (simanim 1-64 → 600 constats, IDs Q-XXX) + Yoreh Deah lots 27-29 (simanim 87-107 → 118 constats, IDs YD-XXX) = 1910 constats** dans `erreurs-halakha.csv`. Revue Yoreh Deah en cours (bassar behalav + taarovot terminés, suite : 108-118 puis nidda 183-200).
 > Les patterns récurrents sont documentés dans **`erreurs-recurrentes.md`** (à lire en priorité). Constat n°1 : le **Niveau 4 « Daat HaRav »** a un appareil analytique (tableaux/chidoushim/למעשה) systématiquement décorrélé du texte-source reproduit sur la même page, avec parfois des **inversions halakhiques** (ex. 249 : jeûne érev Shabbat « interdit » vs « recommandé » ; 261 : allumage « même à bein hashmashot » + Amora erroné רב נחמן/ר' נחמיה).
 
 ---
