@@ -1,6 +1,6 @@
 # DAAT — Rapport d'audit global (daattorah.com)
 
-> **Statut : audit EN COURS — Hilkhot Shabbat TERMINÉ (124/124, IDs H-XXX) ; Orah Haïm quotidien TERMINÉ (64/64, IDs Q-XXX) ; Yoreh Deah 28/50 revus (issour veheter 87-114, lots 27-30, IDs YD-XXX). Total : 1946 constats.**
+> **Statut : audit EN COURS — Hilkhot Shabbat TERMINÉ (124/124, IDs H-XXX) ; Orah Haïm quotidien TERMINÉ (64/64, IDs Q-XXX) ; Yoreh Deah 32/50 revus (issour veheter 87-118 COMPLET, lots 27-31, IDs YD-XXX). Total : 1969 constats.**
 > Ce rapport contient des constats **et** trace les corrections mécaniques déjà appliquées (voir §10). Aucune règle halakhique n'a été modifiée.
 
 ## 10. Corrections mécaniques appliquées (sûres, non-halakhiques)
@@ -24,7 +24,7 @@ Garde-fous : `audit-simanim.py` **124/124 conformes**, corpus régénéré, `sim
 *Note historique : la seule modification hors-audit initiale était l'ordre du catalogue `/contenu`.*
 > Date de génération : 2026-07-13. Branche : `claude/daattorah-site-audit-tyhabm`.
 >
-> **HILKHOT SHABBAT COMPLET (124 simanim → 1192 constats, IDs H-XXX) + Orah Haïm quotidien COMPLET (simanim 1-64 → 600 constats, IDs Q-XXX) + Yoreh Deah lots 27-30 (simanim 87-114 → 154 constats, IDs YD-XXX) = 1946 constats** dans `erreurs-halakha.csv`. Revue Yoreh Deah en cours (issour veheter jusqu'au 114 ; suite : 115-118 puis nidda 183-200).
+> **HILKHOT SHABBAT COMPLET (124 simanim → 1192 constats, IDs H-XXX) + Orah Haïm quotidien COMPLET (simanim 1-64 → 600 constats, IDs Q-XXX) + Yoreh Deah lots 27-31 (issour veheter 87-118 COMPLET → 177 constats, IDs YD-XXX) = 1969 constats** dans `erreurs-halakha.csv`. Revue Yoreh Deah en cours (issour veheter 87-118 terminé ; suite : nidda 183-200).
 > Les patterns récurrents sont documentés dans **`erreurs-recurrentes.md`** (à lire en priorité). Constat n°1 : le **Niveau 4 « Daat HaRav »** a un appareil analytique (tableaux/chidoushim/למעשה) systématiquement décorrélé du texte-source reproduit sur la même page, avec parfois des **inversions halakhiques** (ex. 249 : jeûne érev Shabbat « interdit » vs « recommandé » ; 261 : allumage « même à bein hashmashot » + Amora erroné רב נחמן/ר' נחמיה).
 
 ---
