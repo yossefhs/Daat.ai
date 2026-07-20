@@ -27,13 +27,18 @@ const client = new Anthropic();
 const MAX_TOOL_ITERATIONS = parseInt(process.env.MAX_TOOL_ITERATIONS || '5', 10); // rondes d'outils + synthèse forcée
 const MAX_TOOL_CALLS = parseInt(process.env.MAX_TOOL_CALLS || '6', 10);           // plafond DUR de tool calls (parallèle compris) ; le budget temps (FORCE_SYNTHESIS_AFTER_MS) reste le gouverneur principal
 const MAX_TOKENS_OUTPUT = 4096; // cap output ; Claude s'arrête naturellement avant
+// Cap output pour la SYNTHÈSE FORCÉE : doit rester assez haut pour une réponse
+// complète (l'ancien 1500 tronquait les réponses halakhiques détaillées).
+const FORCED_SYNTHESIS_MAX_TOKENS = parseInt(process.env.FORCED_SYNTHESIS_MAX_TOKENS || String(MAX_TOKENS_OUTPUT), 10);
 const HISTORY_TURNS = 16;       // 16 derniers tours (plus de contexte = meilleure réponse)
 
-// Vercel Hobby plafonne à ~90s. On force la synthèse (tool_choice: none) dès
-// qu'on dépasse cette durée OU à la dernière itération, garantissant qu'il
-// reste assez de temps pour streamer une réponse textuelle complète.
-const FORCE_SYNTHESIS_AFTER_MS = 40_000; // 40s : laisse ~40s à la synthèse forcée avant le hard abort (80s)
-const HARD_ABORT_MS = 80_000; // dernier recours : abort à 80s (5s avant Vercel)
+// La fonction api/chat.js a maxDuration: 300 (Vercel Pro) dans vercel.json.
+// On force la synthèse (tool_choice: none) dès qu'on dépasse FORCE_SYNTHESIS_AFTER_MS
+// OU à la dernière itération, puis on laisse jusqu'à HARD_ABORT_MS pour streamer la
+// réponse EN ENTIER avant le dernier filet de sécurité (bien avant le kill Vercel ~300s).
+// Tunables via env sans redéploiement de code.
+const FORCE_SYNTHESIS_AFTER_MS = parseInt(process.env.FORCE_SYNTHESIS_AFTER_MS || '60000', 10); // 60s : arrête la recherche, passe à la synthèse
+const HARD_ABORT_MS = parseInt(process.env.HARD_ABORT_MS || '250000', 10); // 250s : dernier recours (~50s de marge avant le kill Vercel 300s)
 const ALL_TOOLS = [...MAREH_MEKOMOT_TOOLS, ...CORPUS_TOOLS, ...SEFARIA_TOOLS];
 
 // ── Routing modèles — priorité QUALITÉ, économies opportunistes ──
@@ -1102,7 +1107,7 @@ export default async function handler(req, res) {
 
       const streamParams = {
         model: iterModel.id,
-        max_tokens: forceSynthesis ? 1500 : MAX_TOKENS_OUTPUT,
+        max_tokens: forceSynthesis ? FORCED_SYNTHESIS_MAX_TOKENS : MAX_TOKENS_OUTPUT,
         tools: ALL_TOOLS,
         system: [
           {
@@ -1121,7 +1126,7 @@ export default async function handler(req, res) {
         if (model.effort) streamParams.output_config = { effort: model.effort };
       }
 
-      // Hard abort à 80s : dernier filet de sécurité avant le kill Vercel ~90s
+      // Hard abort (HARD_ABORT_MS, déf. 250s) : dernier filet de sécurité avant le kill Vercel (maxDuration 300s)
       const abortCtrl = new AbortController();
       const msUntilHardAbort = HARD_ABORT_MS - (Date.now() - startedAt);
       const abortTimer = setTimeout(() => {
