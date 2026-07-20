@@ -923,9 +923,18 @@ export default async function handler(req, res) {
     // Pour Opus/Aperçu : corpus-first autorisé UNIQUEMENT sur un match TRÈS fort
     // (seuil élevé) → question bien couverte par le corpus servie en ~2s au lieu
     // de 10-60s ; sinon on garde la profondeur Opus. Abonnés payants toujours exclus.
-    const corpusStrongOnly = model._aperçu || model.id === MODELS.opus.id;
+    // Opus et Aperçu sont EXCLUS du corpus-first : ces questions halakhiques
+    // profondes doivent passer par le chemin agentique complet (règle du בד"א,
+    // vérification des séifim voisins sur Sefaria, prompt système entier).
+    // Le corpus rapide est une reformulation Haiku d'UN seul extrait : sûre mais
+    // trop mince pour trancher une sougya. Historique : l'élargissement à Opus
+    // (PR #161, gain de latence) combiné à la hausse des scores de recherche
+    // (PR #191) faisait intercepter massivement ces questions par le chemin
+    // court — donc SANS les garde-fous introduits après l'incident borer.
     if (
       !model._meta &&
+      !model._aperçu &&
+      model.id !== MODELS.opus.id &&
       !SUBSCRIBER_PLANS.has(plan) &&
       process.env.CORPUS_FIRST_ENABLED !== 'false'
     ) {
@@ -933,9 +942,7 @@ export default async function handler(req, res) {
       // un flux « regenerate » peut se terminer par un message assistant).
       const lastUserMsg = [...trimmedMessages].reverse().find((m) => m.role === 'user');
       const lastUserText = lastUserMsg ? lastUserMsg.content : null;
-      const minScore = corpusStrongOnly
-        ? parseFloat(process.env.CORPUS_MIN_SCORE_STRONG || '16')
-        : parseFloat(process.env.CORPUS_MIN_SCORE || '8');
+      const minScore = parseFloat(process.env.CORPUS_MIN_SCORE || '8');
       let cs = null;
       if (lastUserText) {
         try {
