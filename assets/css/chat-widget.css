@@ -843,6 +843,9 @@
   outline: none;
   transition: border-color 0.15s ease;
   line-height: 1.4;
+  /* Sens d'écriture auto : français → gauche (LTR), hébreu → droite (RTL) */
+  text-align: start;
+  unicode-bidi: plaintext;
 }
 
 .daat-chat-input:focus {

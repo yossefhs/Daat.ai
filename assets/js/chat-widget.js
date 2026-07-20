@@ -400,6 +400,7 @@
               id="daat-chat-input"
               placeholder="Pose ta question..."
               rows="1"
+              dir="auto"
               aria-label="Votre message"
             ></textarea>
             <button class="daat-chat-send" id="daat-chat-send" aria-label="Envoyer">→</button>
