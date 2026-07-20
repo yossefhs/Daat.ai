@@ -511,12 +511,12 @@
         var a = document.createElement('a');
         a.href = '/oh-quotidien/' + s.num + '/he';
         a.className = 'simanim-tile';
-        a.title = 'סימן {n} — {t}'.replace('{n}', s.num).replace('{t}', s.title);
+        a.title = 'סימן {n} — {t}'.replace('{n}', s.num).replace('{t}', (s.titleHe || s.title));
         var num = document.createElement('span'); num.className = 'simanim-tile-num';
         num.textContent = s.numHe || ('סימן ' + s.num);
         var numFr = document.createElement('span'); numFr.className = 'siman-num-fr'; numFr.textContent = '· ' + s.num;
         num.appendChild(numFr);
-        var title = document.createElement('span'); title.className = 'simanim-tile-title'; title.textContent = s.title;
+        var title = document.createElement('span'); title.className = 'simanim-tile-title'; title.textContent = (s.titleHe || s.title);
         a.appendChild(num); a.appendChild(title); frag.appendChild(a);
       }
       grid.innerHTML = '';
