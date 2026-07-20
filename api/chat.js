@@ -26,6 +26,11 @@ const client = new Anthropic();
 
 const MAX_TOOL_ITERATIONS = parseInt(process.env.MAX_TOOL_ITERATIONS || '5', 10); // rondes d'outils + synthèse forcée
 const MAX_TOOL_CALLS = parseInt(process.env.MAX_TOOL_CALLS || '6', 10);           // plafond DUR de tool calls (parallèle compris) ; le budget temps (FORCE_SYNTHESIS_AFTER_MS) reste le gouverneur principal
+// Halakha profonde (routée Opus) : budget ÉLARGI. La règle du בד"א impose de
+// vérifier les séifim voisins (n+1) avant toute conclusion — ça coûte plusieurs
+// sefaria_get_text. Sur la halakha, la CORRECTION prime sur la latence.
+const MAX_TOOL_ITERATIONS_HALAKHA = parseInt(process.env.MAX_TOOL_ITERATIONS_HALAKHA || '7', 10);
+const MAX_TOOL_CALLS_HALAKHA = parseInt(process.env.MAX_TOOL_CALLS_HALAKHA || '12', 10);
 const MAX_TOKENS_OUTPUT = 4096; // cap output ; Claude s'arrête naturellement avant
 // Cap output pour la SYNTHÈSE FORCÉE : doit rester assez haut pour une réponse
 // complète (l'ancien 1500 tronquait les réponses halakhiques détaillées).
@@ -382,7 +387,7 @@ CONTEXTE : tu reçois une question d'utilisateur sur ${corpusDomain} et UN EXTRA
 TA MISSION : donner une réponse claire, complète et engageante, fidèle à l'extrait. L'utilisateur doit avoir la réponse dès la première ligne, puis comprendre pourquoi.
 
 STRUCTURE ATTENDUE :
-1. **Phrase d'accroche** (1re ligne) : la réponse directe — permis, interdit, ça dépend — avec l'idée-clé qui résume ("Oui, à condition que…", "Non, car il y a un problème de …", "Ça dépend : si …, alors …"). L'accroche seule doit déjà répondre.
+1. **Phrase d'accroche** (1re ligne) : la réponse directe, ATTRIBUÉE au corpus — ce que le Rav écrit, pas ce que TU autorises ("D'après le corpus du Rav, c'est permis lorsque…", "Non : il y a là un problème de …", "Ça dépend : si …, alors …"). L'accroche seule doit déjà répondre.
 2. **Raisonnement** en 2-4 phrases : quelle est la mélakha (ou le principe halakhique) en jeu, la logique du psak, les sources ou opinions clés si l'extrait les mentionne.
 3. **Cas particuliers ou nuances** : uniquement s'ils sont dans l'extrait (ne pas extrapoler).
 4. **Source finale** au format exact : *Source : Siman X · [titre de section]*
@@ -391,7 +396,9 @@ RÈGLES STRICTES :
 - RESTE FIDÈLE à l'extrait. N'invente AUCUNE halakha qui n'y est pas explicitement.
 - Termine TOUJOURS ta réponse par la ligne source. Ne coupe jamais avant elle — elle est la signature du psak.
 - Si l'extrait n'aborde pas vraiment la question : « L'extrait du corpus traite de [sujet réel], mais ta question porte sur [Y] — pour une réflexion précise sur ce point, repose la question en mode étendu. » (puis source).
-- Pour décision pratique sensible : ajoute « Consulte un Rav pour ton cas précis. » AVANT la source.
+- **JAMAIS d'autorisation personnelle.** Tu peux RAPPORTER ce qu'écrit le corpus (« le Rav écrit que … est permis lorsque … »), mais jamais le convertir en feu vert pour cette personne (« tu peux », « pas de problème pour toi », « tu es dans la zone permissive »). Tu rapportes une source, tu ne donnes pas de psak.
+- **N'extrapole jamais de l'extrait au cas de l'utilisateur** : son cas comporte des détails que l'extrait ne couvre pas. Si sa situation ajoute une condition absente de l'extrait, dis-le au lieu de trancher.
+- Dès que la question porte sur un cas CONCRET, termine (AVANT la ligne source) par : « Pour ton cas précis, c'est à ton Rav de trancher. »
 - Conserve les termes hébreux en transcription (${corpusTerms}) — ne les sur-traduis pas.
 - Ton conversationnel et pédagogique, comme si tu expliquais à un ami curieux. Pas de listes à puces sauf vraie nécessité. Pas de markdown lourd.
 - Ne dis JAMAIS que tu reformules un extrait — parle directement du sujet.`;
@@ -1050,6 +1057,11 @@ export default async function handler(req, res) {
 
     let iterations = 0;
     let totalToolCalls = 0; // borne dure : plafonne le nombre de recherches avant synthèse
+    // Les questions halakhiques profondes (Opus) reçoivent le budget élargi :
+    // mieux vaut une réponse plus lente qu'une halakha non vérifiée.
+    const deepHalakha = model.id === MODELS.opus.id;
+    const maxIterations = deepHalakha ? MAX_TOOL_ITERATIONS_HALAKHA : MAX_TOOL_ITERATIONS;
+    const maxToolCalls = deepHalakha ? MAX_TOOL_CALLS_HALAKHA : MAX_TOOL_CALLS;
     let stopReason = null;
     const startedAt = Date.now();
     let forcedSynthesis = false;
@@ -1060,13 +1072,13 @@ export default async function handler(req, res) {
     // Boucle agentique. À la dernière itération OU si on dépasse FORCE_SYNTHESIS_AFTER_MS,
     // on bascule sur tool_choice:none + thinking désactivé pour FORCER Claude à produire
     // du texte (pas d'autre tool_use possible). Garantit qu'on rend toujours une réponse.
-    while (iterations < MAX_TOOL_ITERATIONS) {
+    while (iterations < maxIterations) {
       iterations++;
       const elapsedBefore = Date.now() - startedAt;
 
       const forceSynthesis =
-        iterations === MAX_TOOL_ITERATIONS ||
-        totalToolCalls >= MAX_TOOL_CALLS ||
+        iterations === maxIterations ||
+        totalToolCalls >= maxToolCalls ||
         elapsedBefore > FORCE_SYNTHESIS_AFTER_MS;
 
       if (forceSynthesis && !forcedSynthesis) {
@@ -1075,7 +1087,7 @@ export default async function handler(req, res) {
           role: 'user',
           content: [{
             type: 'text',
-            text: 'Tu as déjà consulté suffisamment de sources. Synthétise maintenant ta réponse complète et structurée à ma question initiale, en t\'appuyant uniquement sur ce que tu as déjà recueilli. N\'appelle plus aucun outil.',
+            text: 'Ta recherche de sources s\'arrête ici (limite de temps ou d\'outils atteinte). Rédige maintenant ta réponse complète et structurée à ma question initiale, en t\'appuyant UNIQUEMENT sur ce que tu as déjà recueilli. N\'appelle plus aucun outil. IMPORTANT : ta vérification des sources est peut-être INCOMPLÈTE — tu ne dois donc formuler AUCUNE permission pratique. Expose l\'état des sources, signale explicitement ce que tu n\'as pas pu vérifier, et renvoie la conclusion pratique au Rav de l\'utilisateur.',
           }],
         });
         console.log(`[chat.js] forcing synthesis at iter ${iterations} (elapsed ${elapsedBefore}ms)`);
