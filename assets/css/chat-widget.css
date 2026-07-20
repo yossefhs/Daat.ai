@@ -454,6 +454,23 @@
 .daat-chat-message[dir="rtl"] ul,
 .daat-chat-message[dir="rtl"] ol { margin: 8px 22px 8px 0; padding: 0; }
 .daat-chat-message[dir="rtl"] li { text-align: right; }
+/* Bloc hébreu isolé DANS un message français (LTR) : il porte son propre
+   dir="rtl" — la barre de citation doit passer à droite et le texte s'aligner
+   à droite, sinon la citation se lit dans le désordre. */
+.daat-chat-message.is-assistant blockquote[dir="rtl"] {
+  border-left: none;
+  border-right: 3px solid var(--daat-gold);
+  padding: 4px 12px 4px 0;
+  text-align: right;
+}
+.daat-chat-message.is-assistant p[dir="rtl"],
+.daat-chat-message.is-assistant li[dir="rtl"] {
+  text-align: right;
+}
+.daat-chat-message.is-assistant li[dir="rtl"] {
+  direction: rtl;
+}
+
 .daat-chat-message[dir="rtl"] blockquote {
   border-left: none;
   border-right: 3px solid var(--daat-gold);
