@@ -149,7 +149,7 @@
           const a = document.createElement('a');
           a.href = '../../' + s.path;
           a.className = 'simanim-tile';
-          a.title = 'סימן ' + s.num + ' — ' + s.title;
+          a.title = 'סימן ' + s.num + ' — ' + (s.titleHe || s.title);
           const num = document.createElement('span');
           num.className = 'simanim-tile-num';
           num.textContent = s.numHe || ('סימן ' + s.num);
@@ -159,7 +159,7 @@
           num.appendChild(numFr);
           const title = document.createElement('span');
           title.className = 'simanim-tile-title';
-          title.textContent = s.title;
+          title.textContent = (s.titleHe || s.title);
           a.appendChild(num);
           a.appendChild(title);
           frag.appendChild(a);
