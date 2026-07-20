@@ -1,20 +1,18 @@
 # Feuille de relecture — validation par le Rav
 
 > **Document de travail — aucune de ces corrections n'a été appliquée au site.**
-> Chaque ligne est une **proposition à valider ou rejeter par le Rav**. Les sources
-> primaires citées sont fournies pour vérification ; en cas de doute, la mention reste
-> « À vérifier par le Rav ». Aucune source n'a été fabriquée : les références Talmud/
-> Choulhan Aroukh ont été rapprochées de Sefaria lorsque c'était possible.
+> Chaque ligne est une **proposition à valider ou rejeter par le Rav**. Les sources primaires
+> sont fournies pour vérification ; aucune source n'a été fabriquée.
 
-**Total à valider : 1270 constats** (🔴 haute 584 · 🟠 moyenne 478 · 🟡 basse 208).
+**Total à valider : 1264 constats** (🔴 haute 578 · 🟠 moyenne 478 · 🟡 basse 208).
 
-Les constats **factuels/citations déjà corrigés et vérifiés sur Sefaria** (marqués « corrigé (Sefaria) » dans le CSV) sont exclus de cette feuille.
+Les constats déjà corrigés et vérifiés (Sefaria) sont exclus de cette feuille.
 
 ## Sommaire
-- [Orah Haïm — Quotidien](#orah-haïm-quotidien) — 298 constats
-- [Hilkhot Shabbat](#hilkhot-shabbat) — 726 constats
-- [Yoreh Deah](#yoreh-deah) — 191 constats
-- [Blog](#blog) — 55 constats
+- Orah Haïm — Quotidien — 298 constats
+- Hilkhot Shabbat — 720 constats
+- Yoreh Deah — 191 constats
+- Blog — 55 constats
 
 
 ## Orah Haïm — Quotidien
@@ -2600,26 +2598,10 @@ Les constats **factuels/citations déjà corrigés et vérifiés sur Sefaria** (
 
 ## Hilkhot Shabbat
 
-*726 constats — triés par siman puis par certitude.*
+*720 constats — triés par siman puis par certitude.*
 
 
-### Siman 242 — 8 constat(s)
-
-**`H-242-02`** — 🔴 haute — Niveau Index · FR+HE+EN
-
-- *Texte actuel* : Index: «Le Yerushalmi rapporte … לוו עלי ואני פורע»
-- **Problème** : Attribution au Yerushalmi alors que les 4 niveaux citent Beitsa 15b (Bavli). לוו עלי ואני פורע est du Bavli Beitsa 15b
-- **Source** : Bavli Beitsa 15b
-- **Correction proposée** : Corriger l'index: Beitsa 15b (Bavli), aligné sur les niveaux
-- Décision du Rav : ☐ valider  ☐ rejeter  ☐ à revoir — _____________
-
-**`H-242-05`** — 🔴 haute — Niveau Index vs niveaux · FR+HE+EN
-
-- *Texte actuel* : Index: Tikkun Ezra «Bava Kama 113»; niveaux: «Bava Kama 82a»
-- **Problème** : Folio divergent; les 10 תקנות עזרא sont en Bava Kama 82a
-- **Source** : Bavli Bava Kama 82a
-- **Correction proposée** : Corriger l'index en Bava Kama 82a
-- Décision du Rav : ☐ valider  ☐ rejeter  ☐ à revoir — _____________
+### Siman 242 — 6 constat(s)
 
 **`H-242-01`** — 🟠 moyenne — Niveau 4-DaatHaRav · Séif 1 · FR+HE+EN
 
@@ -4296,7 +4278,7 @@ Les constats **factuels/citations déjà corrigés et vérifiés sur Sefaria** (
 - Décision du Rav : ☐ valider  ☐ rejeter  ☐ à revoir — _____________
 
 
-### Siman 283 — 10 constat(s)
+### Siman 283 — 7 constat(s)
 
 **`H-283-01`** — 🔴 haute — Niveau 1 · Séif 1 · fr
 
@@ -4328,30 +4310,6 @@ Les constats **factuels/citations déjà corrigés et vérifiés sur Sefaria** (
 - **Problème** : Même fabrication + compte faux (EN) : 4 entries et 2 citations MB inventées ; réel = 1 ס״ק.
 - **Source** : Mishnah Berurah 283 : 1 ס״ק « שאין בה »
 - **Correction proposée** : « The Mishnah Berurah has 1 entry » + supprimer/corriger les fausses citations
-- Décision du Rav : ☐ valider  ☐ rejeter  ☐ à revoir — _____________
-
-**`H-283-05`** — 🔴 haute — Niveau 1 · Séif 1 · fr/he/en
-
-- *Texte actuel* : Source : Megilla 21b / מקור: מגילה כ״א ע״ב / Source: Megillah 21b
-- **Problème** : Daf erroné : la Michna « הקורא בתורה לא יפחות משלשה פסוקים » (Meguila 4:4) figure sur Meguila 22a, pas 21b (vérifié Sefaria).
-- **Source** : Mishnah Megillah 4:4 = Talmud Bavli Megillah 22a
-- **Correction proposée** : Megilla 22a / מגילה כ״ב ע״א
-- Décision du Rav : ☐ valider  ☐ rejeter  ☐ à revoir — _____________
-
-**`H-283-06`** — 🔴 haute — Niveau 2 · Séif 1 · fr/he/en
-
-- *Texte actuel* : הקדמת הסוגיא — מגילה כ״א ע״ב ... המקור המרכזי הוא מגילה כ״א ע״ב ... רש״י (מגילה כ״א ע״ב)
-- **Problème** : Daf erroné répété (titre, corps, renvoi Rachi) : la source « 3 pesukim » est sur Meguila 22a.
-- **Source** : Talmud Bavli Megillah 22a (Mishnah 4:4)
-- **Correction proposée** : Remplacer « כ״א ע״ב » par « כ״ב ע״א » partout
-- Décision du Rav : ☐ valider  ☐ rejeter  ☐ à revoir — _____________
-
-**`H-283-07`** — 🔴 haute — Niveau 3 · Séif 1 · fr/he/en
-
-- *Texte actuel* : Source : Megilla 21b / מגילה כ״א ע״ב / Megillah 21b
-- **Problème** : Même daf erroné (4 occurrences par langue) : doit être 22a.
-- **Source** : Talmud Bavli Megillah 22a
-- **Correction proposée** : Megilla 22a / מגילה כ״ב ע״א
 - Décision du Rav : ☐ valider  ☐ rejeter  ☐ à revoir — _____________
 
 **`H-283-09`** — 🔴 haute — Niveau 4 · Séif 1 · fr/he/en
@@ -7912,7 +7870,7 @@ Les constats **factuels/citations déjà corrigés et vérifiés sur Sefaria** (
 - *Texte actuel* : « La source talmudique est Shabbat 5a et Eruvin 99b — l'usage des ziz au-dessus du domaine public »
 - **Problème** : Daf erroné : Shabbat 5a traite de la main comme surface 4×4 — rien sur les zizin (vérifié Sefaria). La vraie source du seif 1 est Shabbat 97a (שני בתים בשני צדי רה״ר, citée par le Beit Yossef) ; la michna du ziz est Eruvin 98b, pas 99b.
 - **Source** : Shabbat 97a ; Eruvin 98b ; Beit Yosef OC 353:1
-- **Correction proposée** : Remplacer par « Shabbat 97a et Eruvin 98b » — 3 langues
+- **Correction proposée** : Vérifié Sefaria : la michna « זיז שלפני חלון » est en עירובין צ״ח ע״ב ; « שבת ה ע״א » est erroné. ATTENTION : « Shabbat 97a » (proposé initialement) est SANS RAPPORT (sougya de ויעפילו). Remplacer par עירובין צ״ח ע״ב ; borne exacte (98b–99a) à confirmer par le Rav.
 - Décision du Rav : ☐ valider  ☐ rejeter  ☐ à revoir — _____________
 
 **`H-353-02`** — 🔴 haute — Niveau 2 · fr/he/en
@@ -7920,7 +7878,7 @@ Les constats **factuels/citations déjà corrigés et vérifiés sur Sefaria** (
 - *Texte actuel* : « המקור לסימן הוא בשבת (ה ע״א) ובעירובין (צט ע״ב) »
 - **Problème** : Même daf erroné qu'en N1 : שבת ה ע״א est étranger au sujet ; la michna זיז שלפני חלון et sa guemara sont en צח ע״ב.
 - **Source** : Shabbat 97a ; Eruvin 98b
-- **Correction proposée** : Corriger en « שבת (צז ע״א) ובעירובין (צח ע״ב) »
+- **Correction proposée** : Vérifié Sefaria : la michna « זיז שלפני חלון » est en עירובין צ״ח ע״ב ; « שבת ה ע״א » est erroné. ATTENTION : « Shabbat 97a » (proposé initialement) est SANS RAPPORT (sougya de ויעפילו). Remplacer par עירובין צ״ח ע״ב ; borne exacte (98b–99a) à confirmer par le Rav.
 - Décision du Rav : ☐ valider  ☐ rejeter  ☐ à revoir — _____________
 
 **`H-353-03`** — 🔴 haute — Niveau 3 · fr/he/en
@@ -7928,7 +7886,7 @@ Les constats **factuels/citations déjà corrigés et vérifiés sur Sefaria** (
 - *Texte actuel* : Tableau de synthèse : « Source talmudique : שבת ה ע״א ; עירובין צט ע״ב »
 - **Problème** : Même daf erroné propagé au tableau de synthèse des 3 langues.
 - **Source** : Shabbat 97a ; Eruvin 98b
-- **Correction proposée** : Corriger en « שבת צז ע״א ; עירובין צח ע״ב »
+- **Correction proposée** : Vérifié Sefaria : la michna « זיז שלפני חלון » est en עירובין צ״ח ע״ב ; « שבת ה ע״א » est erroné. ATTENTION : « Shabbat 97a » (proposé initialement) est SANS RAPPORT (sougya de ויעפילו). Remplacer par עירובין צ״ח ע״ב ; borne exacte (98b–99a) à confirmer par le Rav.
 - Décision du Rav : ☐ valider  ☐ rejeter  ☐ à revoir — _____________
 
 **`H-353-04`** — 🔴 haute — Niveau 4 · Séif 1-3 · fr/he/en
@@ -8393,15 +8351,7 @@ Les constats **factuels/citations déjà corrigés et vérifiés sur Sefaria** (
 - Décision du Rav : ☐ valider  ☐ rejeter  ☐ à revoir — _____________
 
 
-### Siman 361 — 8 constat(s)
-
-**`H-361-01`** — 🔴 haute — Niveau 1 · Séif 1 · fr/he/en
-
-- *Texte actuel* : « la source talmudique du seif א est Eruvin 89-90 » (he: עירובין פ״ט-צ׳)
-- **Problème** : Daf erroné : Eruvin 89-90 est la sugya de כל גגות (machloket Rav/Chmouel) ; la source du seif א (gag hasamoukh + soulam kavoua) est Eruvin 84b. Contradiction interne : N2 §1 et N3 donnent correctement עירובין פד-פה.
-- **Source** : Eruvin 84b (Sefaria) : « גג הסמוך לרשות הרבים צריך סולם קבוע להתירו »
-- **Correction proposée** : Remplacer par « Eruvin 84b » (he: עירובין פ״ד ע״ב) — 3 langues
-- Décision du Rav : ☐ valider  ☐ rejeter  ☐ à revoir — _____________
+### Siman 361 — 7 constat(s)
 
 **`H-361-02`** — 🔴 haute — Niveau 4 · Séif 3 · fr/he/en
 
