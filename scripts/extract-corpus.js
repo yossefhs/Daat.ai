@@ -259,10 +259,10 @@ const allChunks = [];
 // totalement invisible. C'est ce qui rendait les réponses « corpus » minces :
 // elles reformulaient une page débutant.
 const LEVELS = [
-  { file: 'niveau-1-base.html',        id: 'base',       label: 'Base',       urlSuffix: 'base',       weight: 1.00 },
-  { file: 'niveau-2-lamdan.html',      id: 'lamdan',     label: 'Lamdan',     urlSuffix: 'lamdan',     weight: 1.00 },
-  { file: 'niveau-3-synthese.html',    id: 'synthese',   label: 'Synthèse',   urlSuffix: 'synthese',   weight: 0.95 },
-  { file: 'niveau-4-daat-harav.html',  id: 'daat-harav', label: 'Daat HaRav', urlSuffix: 'daat-harav', weight: 1.05 },
+  { file: 'niveau-1-base.html',        id: 'base',       label: 'Base',       urlSuffix: 'base' },
+  { file: 'niveau-2-lamdan.html',      id: 'lamdan',     label: 'Lamdan',     urlSuffix: 'lamdan' },
+  { file: 'niveau-3-synthese.html',    id: 'synthese',   label: 'Synthèse',   urlSuffix: 'synthese' },
+  { file: 'niveau-4-daat-harav.html',  id: 'daat-harav', label: 'Daat HaRav', urlSuffix: 'daat-harav' },
 ];
 
 const stats = { totalSimanim: 0, withChunks: 0, skipped: [], chunksPerSiman: {}, perSection: {}, perLevel: {} };
@@ -300,7 +300,6 @@ for (const section of SECTIONS) {
         c.section = section.id;
         c.level = level.id;
         c.levelLabel = level.label;
-        c.levelWeight = level.weight;
         c.simanTitle = meta.titleFr;
         c.simanTitleHe = meta.titleHe;
         c.simanSubtitle = meta.subtitle || '';

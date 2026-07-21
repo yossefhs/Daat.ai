@@ -329,6 +329,8 @@ export function searchCorpus(question, opts = {}) {
     results: scored.slice(0, limit).map((r) => ({
       siman: r.chunk.siman,
       section: r.chunk.section || null,
+      level: r.chunk.level || null,
+      levelLabel: r.chunk.levelLabel || null,
       simanTitle: r.chunk.simanTitle,
       simanTitleHe: r.chunk.simanTitleHe,
       sectionNum: r.chunk.sectionNum,
