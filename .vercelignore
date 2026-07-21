@@ -1,0 +1,12 @@
+# Fichiers exclus du DÉPLOIEMENT (ils restent versionnés sur GitHub).
+#
+# Le projet se déploie tel quel (outputDirectory "."), donc tout fichier du dépôt
+# devient accessible via une URL de daattorah.com. Ce n'est pas souhaitable pour
+# les fichiers de TRAVAIL des chiourim : les transcriptions y sont des sorties
+# brutes de reconnaissance vocale, avec des fautes sur les termes halakhiques
+# eux-mêmes (« הלכות בורך » au lieu de « בורר », mots tronqués, caractères
+# corrompus). Servis depuis le domaine d'autorité du Rav, ils seraient lus comme
+# son enseignement.
+#
+# Objectif : sauvegardés sur GitHub, absents du site.
+chiourim/
