@@ -28,6 +28,35 @@ FIRST, LAST = 242, 365
 # Simanim que l'Admour HaZaken n'a pas rédigés : pas de niveaux 1-4 attendus.
 NO_LEVELS = {304, 322}
 
+# ── SECTIONS AUDITÉES ────────────────────────────────────────────────────────
+# L'audit ne couvrait QUE Hilkhot Shabbat : les 750 pages du Yoreh De'ah
+# n'étaient contrôlées par rien. C'est ce qui a permis au niveau 2 YD de rester
+# monolingue sans que rien ne le signale.
+# Le niveau 4 porte un NOM DIFFÉRENT selon la section : le Choulhan Aroukh HaRav
+# ne couvre pas les simanim de cacheroute, le niveau 4 y est donc la halakha
+# lema'asse (niveau-4-halakha) et non « Daat HaRav ».
+SECTIONS = [
+    {
+        "id": "shabbat",
+        "label": "Hilkhot Shabbat",
+        "dir": os.path.join(os.path.dirname(__file__), "..", "sources", "shabbat"),
+        "simanim": [n for n in range(242, 366)],
+        "no_levels": {304, 322},
+        "n4_file": "niveau-4-daat-harav.html",
+    },
+    {
+        "id": "yoreh-deah",
+        "label": "Yoreh De'ah",
+        "dir": os.path.join(os.path.dirname(__file__), "..", "sources", "yoreh-deah"),
+        "simanim": [n for n in range(87, 119)] + [n for n in range(183, 201)],
+        "no_levels": set(),
+        "n4_file": "niveau-4-halakha.html",
+    },
+]
+
+# Variantes de langue attendues pour CHAQUE page (règle de parité trilingue).
+LANG_SUFFIXES = {"HE": "-he", "EN": "-en"}
+
 # Marqueurs NON ambigus de contenu générique laissé par le générateur.
 BP_N1 = "Traduction structurelle"
 BP_N2 = "מבית מדרשו של ר' יצחק הצרפתי"          # carte Rashi générique
@@ -75,21 +104,47 @@ def toc_desynced(n2_html):
     return not (sec1 and GENERIC_TOC in sec1.group(1))
 
 
-def audit_siman(n):
+def audit_siman(n, section=None):
     """Renvoie un dict {niveau: statut} + liste d'erreurs/avertissements."""
-    d = os.path.join(ROOT, f"siman-{n}")
-    res = {"siman": n, "errors": [], "warnings": [], "levels": {}}
+    section = section or SECTIONS[0]
+    d = os.path.join(section["dir"], f"siman-{n}")
+    res = {"siman": n, "section": section["id"], "errors": [], "warnings": [], "levels": {}}
 
-    if n in NO_LEVELS:
-        res["levels"] = {k: "n/a" for k in LEVELS}
-        res["note"] = "non rédigé par l'Admour HaZaken"
-        return res
+    levels = dict(LEVELS)
+    levels["N4"] = section["n4_file"]
 
-    for lvl, fname in LEVELS.items():
+    # Simanim non rédigés par l'Admour HaZaken (304, 322) : les niveaux 1-3
+    # existent bel et bien et DOIVENT être audités — seul le niveau 4 est une
+    # page-passerelle. L'ancien court-circuit les sortait entièrement de l'audit :
+    # il annonçait « 124/124 conformes » en n'en contrôlant réellement que 122,
+    # et les 24 pages de ces deux simanim (4 niveaux × 3 langues) passaient sous
+    # le radar.
+    is_bridge = n in section["no_levels"]
+    if is_bridge:
+        res["note"] = "niveau 4 : page-passerelle (siman non rédigé par l'Admour HaZaken)"
+
+    # Parité trilingue : chaque page doit exister en -he ET en -en.
+    for lvl, fname in list(levels.items()) + [("IDX", "index.html")]:
+        if not os.path.exists(os.path.join(d, fname)):
+            continue  # l'absence du FR est déjà signalée plus bas
+        for lang, suffix in LANG_SUFFIXES.items():
+            variant = fname.replace(".html", f"{suffix}.html")
+            if not os.path.exists(os.path.join(d, variant)):
+                res["errors"].append(f"{lvl} : variante {lang} absente ({variant})")
+
+    for lvl, fname in levels.items():
         html = read(os.path.join(d, fname))
         if html is None:
             res["levels"][lvl] = "ABSENT"
             res["errors"].append(f"{lvl} : fichier absent")
+            continue
+        if is_bridge and lvl == "N4":
+            # La page doit se déclarer explicitement comme passerelle.
+            if "passerelle" in html or "n'a pas rédigé" in html:
+                res["levels"][lvl] = "bridge"
+            else:
+                res["levels"][lvl] = "ABSENT"
+                res["errors"].append("N4 : page-passerelle attendue mais non déclarée")
             continue
         if lvl == "N1" and BP_N1 in html:
             res["levels"][lvl] = "boilerplate"
@@ -118,7 +173,12 @@ def audit_siman(n):
 def main():
     args = set(sys.argv[1:])
     quiet = "--quiet" in args
-    rows = [audit_siman(n) for n in range(FIRST, LAST + 1)]
+    only = next((a.split("=", 1)[1] for a in args if a.startswith("--section=")), None)
+    rows = []
+    for sec in SECTIONS:
+        if only and sec["id"] != only:
+            continue
+        rows += [audit_siman(n, sec) for n in sec["simanim"]]
 
     n_err = sum(1 for r in rows if r["errors"])
     n_warn = sum(1 for r in rows if r["warnings"] and not r["errors"])
@@ -128,16 +188,21 @@ def main():
             if r["errors"] or r["warnings"]:
                 tag = "ERREUR " if r["errors"] else "avert. "
                 for msg in r["errors"] + r["warnings"]:
-                    print(f"  [{tag}] siman {r['siman']:>3} — {msg}")
+                    print(f"  [{tag}] {r.get('section','shabbat'):<10} siman {r['siman']:>3} — {msg}")
 
     print()
+    for sec in SECTIONS:
+        sub = [r for r in rows if r.get("section") == sec["id"]]
+        if sub:
+            e = sum(1 for r in sub if r["errors"])
+            print(f"{sec['label']:<20}: {len(sub) - e}/{len(sub)} conformes")
     print(f"Simanim audités     : {len(rows)}")
     print(f"Avec erreur(s)      : {n_err}")
     print(f"Avec avertissement  : {n_warn}")
     print(f"Conformes           : {len(rows) - n_err - n_warn}")
 
     if "--write-progress" in args:
-        write_progress(rows)
+        write_progress([r for r in rows if r.get("section") == "shabbat"])
         print("\nPROGRESS.md régénéré.")
 
     return 1 if n_err else 0
@@ -149,7 +214,7 @@ def write_progress(rows):
     sym = {
         "ok": "✅", "bespoke": "✅", "boilerplate": "🔴",
         "toc-désync": "🟠", "structure-générique": "🟡",
-        "ABSENT": "❌", "n/a": "—",
+        "ABSENT": "❌", "n/a": "—", "bridge": "🌉",
     }
     lines = [
         "# Progression — Hilkhot Shabbat (niveaux 1-4)",
@@ -157,7 +222,8 @@ def write_progress(rows):
         "Généré par `scripts/audit-simanim.py --write-progress`. Ne pas éditer à la main.",
         "",
         "✅ réécrit · 🟡 structure générique (à personnaliser) · "
-        "🟠 TOC désynchronisée · 🔴 boilerplate · ❌ absent · — non concerné",
+        "🟠 TOC désynchronisée · 🔴 boilerplate · ❌ absent · — non concerné · "
+        "🌉 page-passerelle (siman non rédigé par l'Admour HaZaken, traité par analogie)",
         "",
         "| Siman | N1 | N2 | N3 | N4 |",
         "|-------|----|----|----|----|",
