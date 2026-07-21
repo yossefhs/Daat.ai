@@ -95,6 +95,86 @@ function htmlToText(html) {
 }
 
 // ── Extraction des chunks d'un fichier ─────────────────────────────────────
+// ── Extracteurs spécifiques aux niveaux 3 et 4 ────────────────────────────
+// Les pages n'ont pas toutes la même structure HTML. Le niveau 1 (et 2) utilise
+// <h2 class="section-title"> ; le niveau 4 utilise <h2 class="section-title-fr">
+// + des <div class="sa-block"> (un par séif du Choulhan Aroukh HaRav) ; le
+// niveau 3 n'a que des <h2 id="…"> nus. Sans ces extracteurs, les niveaux 3 et 4
+// produisaient 0 et 23 chunks — le Daat HaRav restait invisible pour le chat.
+
+// Niveau 4 — Daat HaRav : un chunk par sa-block (texte hébreu du Choulhan Aroukh
+// HaRav + son rendu français). On garde les deux ensemble : le français est ce
+// que l'utilisateur tape, l'hébreu est la citation faisant autorité.
+function extractDaatHaRav(siman, body) {
+  const chunks = [];
+  // Chaque séif est un <details class="seif-details"> contenant :
+  //   <summary> avec <span class="seif-num">סעיף א</span>
+  //   <div class="sa-block"> avec <p class="sa-he"> (texte du Choulhan Aroukh
+  //   HaRav) et <p class="sa-fr"> (rendu français).
+  // On découpe sur <details> plutôt que sur </div> : les blocs sont imbriqués
+  // dans <details>, et un lookahead sur </div> n'en capturait qu'UN sur 30.
+  const secTitles = [];
+  const secRe = /<h2 class="section-title-fr"[^>]*>([\s\S]*?)<\/h2>/g;
+  let sm;
+  while ((sm = secRe.exec(body)) !== null) secTitles.push({ pos: sm.index, title: htmlToText(sm[1]) });
+
+  const parts = body.split(/<details class="seif-details"[^>]*>/).slice(1);
+  let cursor = 0;
+  parts.forEach((part) => {
+    cursor = body.indexOf(part, cursor);
+    const seifNum = (part.match(/<span class="seif-num"[^>]*>([\s\S]*?)<\/span>/) || [])[1];
+    const he = (part.match(/<p class="sa-he"[^>]*>([\s\S]*?)<\/p>/g) || []).map(htmlToText).join(' ').trim();
+    const fr = (part.match(/<p class="sa-fr"[^>]*>([\s\S]*?)<\/p>/g) || []).map(htmlToText).join(' ').trim();
+    const text = [fr, he].filter(Boolean).join('\n\n').trim();
+    if (text.length < 40) return;
+    // Titre de la section la plus proche EN AMONT de ce séif.
+    let sectionTitle = 'Daat HaRav — Choulhan Aroukh HaRav';
+    let sectionNum = 1;
+    secTitles.forEach((st, i) => { if (st.pos < cursor) { sectionTitle = st.title; sectionNum = i + 1; } });
+    chunks.push({
+      id: `siman-${siman.num}-daatharav-${chunks.length + 1}`,
+      siman: siman.num,
+      sectionNum,
+      sectionTitle,
+      subsection: seifNum ? htmlToText(seifNum) : null,
+      text,
+      type: 'daat-harav',
+    });
+  });
+  return chunks;
+}
+
+// Niveau 3 — Synthèse : sections délimitées par des <h2 id="…"> sans classe.
+function extractSynthese(siman, body) {
+  const chunks = [];
+  const re = /<h2[^>]*id="[^"]*"[^>]*>([\s\S]*?)<\/h2>([\s\S]*?)(?=<h2[^>]*id="|<\/section|<\/main|<\/body|$)/g;
+  let m, idx = 0;
+  while ((m = re.exec(body)) !== null) {
+    idx++;
+    const sectionTitle = htmlToText(m[1]);
+    if (/Plan de l'étude|Navigation|Sommaire/i.test(sectionTitle)) continue;
+    const text = htmlToText(m[2]).trim();
+    if (text.length < 60) continue;
+    // Découpe les sections longues en morceaux d'environ 700 caractères,
+    // sur les frontières de phrase, pour rester comparable aux autres niveaux.
+    const parts = text.length <= 900 ? [text] : text.match(/[\s\S]{1,900}(?:\.|$)/g) || [text];
+    parts.forEach((p) => {
+      const t = p.trim();
+      if (t.length < 60) return;
+      chunks.push({
+        id: `siman-${siman.num}-synth-${chunks.length + 1}`,
+        siman: siman.num,
+        sectionNum: idx,
+        sectionTitle,
+        subsection: null,
+        text: t,
+        type: 'synthese',
+      });
+    });
+  }
+  return chunks;
+}
+
 function extractChunks(siman, html) {
   const chunks = [];
   const bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
@@ -173,7 +253,19 @@ function extractChunks(siman, html) {
 
 // ── Scan de tous les simanim, section par section ──────────────────────────
 const allChunks = [];
-const stats = { totalSimanim: 0, withChunks: 0, skipped: [], chunksPerSiman: {}, perSection: {} };
+// Les QUATRE niveaux d'étude sont indexés. Historiquement seul niveau-1-base
+// était scanné : le chat ne voyait donc que 30 % de ce que le Rav a écrit, et
+// le niveau 4 (Daat HaRav — 4,8 M de caractères, l'autorité du site) lui était
+// totalement invisible. C'est ce qui rendait les réponses « corpus » minces :
+// elles reformulaient une page débutant.
+const LEVELS = [
+  { file: 'niveau-1-base.html',        id: 'base',       label: 'Base',       urlSuffix: 'base',       weight: 1.00 },
+  { file: 'niveau-2-lamdan.html',      id: 'lamdan',     label: 'Lamdan',     urlSuffix: 'lamdan',     weight: 1.00 },
+  { file: 'niveau-3-synthese.html',    id: 'synthese',   label: 'Synthèse',   urlSuffix: 'synthese',   weight: 0.95 },
+  { file: 'niveau-4-daat-harav.html',  id: 'daat-harav', label: 'Daat HaRav', urlSuffix: 'daat-harav', weight: 1.05 },
+];
+
+const stats = { totalSimanim: 0, withChunks: 0, skipped: [], chunksPerSiman: {}, perSection: {}, perLevel: {} };
 
 for (const section of SECTIONS) {
   if (!fs.existsSync(section.dir)) continue;
@@ -184,30 +276,47 @@ for (const section of SECTIONS) {
 
   for (const dir of simanDirs) {
     const simanNum = parseInt(dir.slice(6));
-    const htmlPath = path.join(section.dir, dir, 'niveau-1-base.html');
-
-    if (!fs.existsSync(htmlPath)) { stats.skipped.push({ section: section.id, num: simanNum, reason: 'pas de niveau-1-base.html' }); continue; }
-
-    stats.totalSimanim++;
-
     const meta = resolveMeta(section, simanNum);
-    const html = fs.readFileSync(htmlPath, 'utf8');
-    const chunks = extractChunks({ num: simanNum }, html);
+    let simanChunks = 0;
 
-    if (chunks.length === 0) { stats.skipped.push({ section: section.id, num: simanNum, reason: 'aucun chunk extrait' }); continue; }
+    for (const level of LEVELS) {
+      const htmlPath = path.join(section.dir, dir, level.file);
+      if (!fs.existsSync(htmlPath)) {
+        // Absence normale pour certains niveaux (ex. simanim 304 et 322 n'ont pas
+        // de niveau 4 : l'Admour HaZaken ne les a pas écrits — page passerelle).
+        if (level.id === 'base') stats.skipped.push({ section: section.id, num: simanNum, reason: 'pas de niveau-1-base.html' });
+        continue;
+      }
 
-    chunks.forEach((c) => {
-      c.section = section.id;
-      c.simanTitle = meta.titleFr;
-      c.simanTitleHe = meta.titleHe;
-      c.simanSubtitle = meta.subtitle || '';
-      c.sourceUrl = `${section.urlPrefix}/${simanNum}/base`;
-    });
+      const html = fs.readFileSync(htmlPath, 'utf8');
+      const bodyM = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+      const body = bodyM ? bodyM[1] : html;
+      const chunks = level.id === 'daat-harav' ? extractDaatHaRav({ num: simanNum }, body)
+                   : level.id === 'synthese'   ? extractSynthese({ num: simanNum }, body)
+                   : extractChunks({ num: simanNum }, html);
+      if (chunks.length === 0) continue;
 
+      chunks.forEach((c) => {
+        c.section = section.id;
+        c.level = level.id;
+        c.levelLabel = level.label;
+        c.levelWeight = level.weight;
+        c.simanTitle = meta.titleFr;
+        c.simanTitleHe = meta.titleHe;
+        c.simanSubtitle = meta.subtitle || '';
+        c.sourceUrl = `${section.urlPrefix}/${simanNum}/${level.urlSuffix}`;
+      });
+
+      stats.perLevel[level.id] = (stats.perLevel[level.id] || 0) + chunks.length;
+      stats.perSection[section.id] += chunks.length;
+      simanChunks += chunks.length;
+      allChunks.push(...chunks);
+    }
+
+    if (simanChunks === 0) { stats.skipped.push({ section: section.id, num: simanNum, reason: 'aucun chunk extrait' }); continue; }
+    stats.totalSimanim++;
     stats.withChunks++;
-    stats.chunksPerSiman[`${section.id}:${simanNum}`] = chunks.length;
-    stats.perSection[section.id] += chunks.length;
-    allChunks.push(...chunks);
+    stats.chunksPerSiman[`${section.id}:${simanNum}`] = simanChunks;
   }
 }
 
@@ -218,7 +327,8 @@ const output = {
     totalChunks: allChunks.length,
     skipped: stats.skipped,
     perSection: stats.perSection,
-    source: 'sources/{shabbat,yoreh-deah}/siman-*/niveau-1-base.html (routes /oh/N/base et /yd/N/base, champ section par chunk)',
+    perLevel: stats.perLevel,
+    source: 'sources/{shabbat,yoreh-deah}/siman-*/niveau-{1-base,2-lamdan,3-synthese,4-daat-harav}.html — les 4 niveaux ; champs `section` et `level` par chunk',
   },
   chunks: allChunks,
 };
