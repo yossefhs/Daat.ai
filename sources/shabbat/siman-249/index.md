@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 13 seifim qui codifient les conduites obligatoires et les interdits du vendredi : limite des 3 parsaot, jeûne d'érev Shabbat, manger un peu, s'occuper exclusiveme
+La chitah de l'Admour HaZaken sur les 13 seifim qui codifient les conduites obligatoires et les interdits du vendredi : limite des 3 parsaot, jeûne d'érev Shabbat, manger un peu, s'occuper exclusivement des préparatifs de Shabbat.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 
