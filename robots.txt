@@ -45,3 +45,8 @@ Disallow: /data/
 
 Sitemap: https://daattorah.com/sitemap.xml
 Sitemap: https://daattorah.com/sitemap-llm.xml
+
+# Fichiers de travail des chiourim : sauvegardés dans le dépôt,
+# mais hors index (ce ne sont pas des pages du site).
+User-agent: *
+Disallow: /chiourim/
