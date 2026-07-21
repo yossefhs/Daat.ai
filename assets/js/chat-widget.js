@@ -44,6 +44,16 @@
     return heb >= lat ? 'rtl' : 'ltr';
   }
 
+  // Texte nu d'un fragment HTML — pour décider la direction d'un BLOC sans que
+  // les noms de balises/attributs (latins) faussent le comptage.
+  function stripTags(html) {
+    return String(html || '').replace(/<[^>]*>/g, '');
+  }
+  // Attribut dir à poser sur un bloc si son contenu est majoritairement hébreu.
+  function blockDir(html) {
+    return detectMessageDir(stripTags(html)) === 'rtl' ? ' dir="rtl"' : '';
+  }
+
   function renderMarkdown(text) {
     if (!text) return '';
     let s = escapeHtml(text);
@@ -63,7 +73,11 @@
     s = s.replace(/^# (.+)$/gm, '<h1>$1</h1>');
 
     // Blockquote
-    s = s.replace(/^&gt; (.+)$/gm, '<blockquote>$1</blockquote>');
+    // Le bloc porte SA PROPRE direction : une citation hébraïque dans une réponse
+    // française doit être RTL (barre de citation à droite, alignement à droite).
+    s = s.replace(/^&gt; (.+)$/gm, function (_, c) {
+      return '<blockquote' + blockDir(c) + '>' + c + '</blockquote>';
+    });
 
     // Bold then italic (order matters)
     s = s.replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>');
@@ -97,11 +111,17 @@
 
     // Lists (ul/ol)
     s = s.replace(/(?:^[-*] .+(?:\n|$))+/gm, function (block) {
-      const items = block.trim().split('\n').map(line => '<li>' + line.replace(/^[-*] /, '') + '</li>').join('');
+      const items = block.trim().split('\n').map(function (line) {
+        const c = line.replace(/^[-*] /, '');
+        return '<li' + blockDir(c) + '>' + c + '</li>';
+      }).join('');
       return '<ul>' + items + '</ul>';
     });
     s = s.replace(/(?:^\d+\. .+(?:\n|$))+/gm, function (block) {
-      const items = block.trim().split('\n').map(line => '<li>' + line.replace(/^\d+\. /, '') + '</li>').join('');
+      const items = block.trim().split('\n').map(function (line) {
+        const c = line.replace(/^\d+\. /, '');
+        return '<li' + blockDir(c) + '>' + c + '</li>';
+      }).join('');
       return '<ol>' + items + '</ol>';
     });
 
@@ -109,7 +129,7 @@
     // Inclut guillemets ASCII (") et typo + apostrophes pour ne pas casser
     // des abréviations comme אדה"ז, שו"ע, רמב"ם, מג"א, וכו׳, etc.
     s = s.replace(
-      /([\u05D0-\u05EA\u05F0-\u05F2](?:[\u0591-\u05F4\u05D0-\u05EA\u05F0-\u05F2\s"'\u2019\u201C\u201D,.\-()]{0,80}[\u05D0-\u05EA\u05F0-\u05F2])?)/g,
+      /([\u05D0-\u05EA\u05F0-\u05F2](?:[\u0591-\u05F4\u05D0-\u05EA\u05F0-\u05F2\s"'\u2019\u201C\u201D,.\-()?!:;\u2014\u2013\u2026\u00AB\u00BB]{0,2000}[\u05D0-\u05EA\u05F0-\u05F2])?)/g,
       '<span lang="he" dir="rtl" style="unicode-bidi:isolate;">$1</span>'
     );
 
@@ -120,7 +140,7 @@
       if (!trimmed) return '';
       // Skip if already a block-level element
       if (/^<(h[1-6]|ul|ol|pre|blockquote|table)/.test(trimmed)) return trimmed;
-      return '<p>' + trimmed.replace(/\n/g, '<br>') + '</p>';
+      return '<p' + blockDir(trimmed) + '>' + trimmed.replace(/\n/g, '<br>') + '</p>';
     }).join('');
 
     return s;

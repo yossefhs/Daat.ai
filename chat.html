@@ -349,6 +349,9 @@
     .bubble-user code { background: rgba(255,255,255,0.15); }
     .bubble pre { background: rgba(0,0,0,0.05); padding: 10px; border-radius: 6px; overflow-x: auto; }
     .bubble blockquote { border-left: 3px solid var(--gold); padding-left: 12px; margin: 8px 0; color: var(--text-mid); }
+    /* Bloc hébreu isolé DANS une bulle française : barre à droite, aligné à droite. */
+    .bubble blockquote[dir="rtl"] { border-left: none; border-right: 3px solid var(--gold); padding: 4px 12px 4px 0; text-align: right; }
+    .bubble p[dir="rtl"], .bubble li[dir="rtl"] { text-align: right; direction: rtl; }
     .bubble [dir="rtl"], .bubble [lang="he"] {
       font-family: 'Frank Ruhl Libre', serif; direction: rtl; unicode-bidi: isolate;
       display: inline-block; font-size: 1.08em;
@@ -622,10 +625,18 @@ const HISTORY_KEY = 'daat-conversations-v1';
 // ============================================================
 // MARKDOWN RENDERER
 // ============================================================
+// Un bloc (citation, paragraphe, item) majoritairement hébreu doit porter SA
+// PROPRE direction : sans ça, une citation hébraïque dans une réponse française
+// reste alignée à gauche avec la barre du mauvais côté, et se lit en désordre.
+// On retire les balises avant de compter, sinon les attributs latins faussent tout.
+function blockDirAttr(html) {
+  return detectMessageDir(String(html || '').replace(/<[^>]*>/g, '')) === 'rtl' ? ' dir="rtl"' : '';
+}
+
 function renderMarkdown(text) {
   if (!text) return '';
   let html = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  html = html.replace(/([֐-׿][֐-׿\s'""״׳''-]*[֐-׿]|[֐-׿])/g, '<span dir="rtl" lang="he">$1</span>');
+  html = html.replace(/([֐-׿][֐-׿\s'""״׳''\-,.?!:;()—–…«»]*[֐-׿]|[֐-׿])/g, '<span dir="rtl" lang="he">$1</span>');
   html = html.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
   html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
   html = html.replace(/^#### (.+)$/gm, '<h4>$1</h4>');
@@ -635,15 +646,15 @@ function renderMarkdown(text) {
   html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
   html = html.replace(/\*([^*]+)\*/g, '<em>$1</em>');
   html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
-  html = html.replace(/^[\s]*[-*] (.+)$/gm, '<li>$1</li>');
+  html = html.replace(/^[\s]*[-*] (.+)$/gm, (_, c) => '<li' + blockDirAttr(c) + '>' + c + '</li>');
   html = html.replace(/(<li>[\s\S]+?<\/li>)/g, m => m.includes('<ul>') || m.includes('<ol>') ? m : '<ul>' + m + '</ul>');
-  html = html.replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>');
+  html = html.replace(/^> (.+)$/gm, (_, c) => '<blockquote' + blockDirAttr(c) + '>' + c + '</blockquote>');
   const blocks = html.split(/\n\n+/);
   html = blocks.map(b => {
     b = b.trim();
     if (!b) return '';
     if (/^<(h[1-6]|ul|ol|pre|blockquote|li)/.test(b)) return b;
-    return '<p>' + b.replace(/\n/g, '<br>') + '</p>';
+    return '<p' + blockDirAttr(b) + '>' + b.replace(/\n/g, '<br>') + '</p>';
   }).join('\n');
   return html;
 }
