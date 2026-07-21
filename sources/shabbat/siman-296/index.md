@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 19 seifim qui codifient l'avdala sur le vin à la sortie de Shabbat — 4 brakhot (boré pri ha-gefen, besamim, meorei ha-esh, ha-mavdil), structure rituelle, applica
+La chitah de l'Admour HaZaken sur les 19 seifim qui codifient l'avdala sur le vin à la sortie de Shabbat — 4 brakhot (boré pri ha-gefen, besamim, meorei ha-esh, ha-mavdil), structure rituelle, application moderne.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

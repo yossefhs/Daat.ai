@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 30 seifim qui codifient le grand corpus du kiddoush du vendredi soir : mitzva de la Torah, vin (יין) ou pain (לחם משנה), formule, station debout/assis, kiddoush f
+La chitah de l'Admour HaZaken sur les 30 seifim qui codifient le grand corpus du kiddoush du vendredi soir : mitzva de la Torah, vin (יין) ou pain (לחם משנה), formule, station debout/assis, kiddoush féminin, et plus.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

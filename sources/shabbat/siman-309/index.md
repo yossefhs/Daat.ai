@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 11 seifim qui codifient le déplacement <em>indirect</em> d'un objet muktsé — porter un enfant qui tient une pierre, déplacer un objet posé sur un autre. Cadre con
+La chitah de l'Admour HaZaken sur les 11 seifim qui codifient le déplacement <em>indirect</em> d'un objet muktsé — porter un enfant qui tient une pierre, déplacer un objet posé sur un autre. Cadre conceptuel : l'objet permis comme véhicule du muktsé.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

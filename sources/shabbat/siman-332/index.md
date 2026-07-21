@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 3 seifim qui codifient l'interdit d'aider un animal à accoucher Shabbat — gezera, exceptions pour cas où l'animal souffre vraiment, application moderne aux animau
+La chitah de l'Admour HaZaken sur les 3 seifim qui codifient l'interdit d'aider un animal à accoucher Shabbat — gezera, exceptions pour cas où l'animal souffre vraiment, application moderne aux animaux d'élevage.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

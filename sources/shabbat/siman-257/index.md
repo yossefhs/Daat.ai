@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 13 seifim qui prolongent le siman 253 sur le hatmana — comment et avec quels matériaux peut-on envelopper les plats chauds vendredi pour qu'ils restent chauds Sha
+La chitah de l'Admour HaZaken sur les 13 seifim qui prolongent le siman 253 sur le hatmana — comment et avec quels matériaux peut-on envelopper les plats chauds vendredi pour qu'ils restent chauds Shabbat. Application directe au cholent, plats chauds, Yom Tov.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 7 seifim qui codifient le moment précis de l'allumage des bougies de Shabbat — בין השמשות (le crépuscule), tossefet Shabbat (anticipation), 18 minutes avant le co
+La chitah de l'Admour HaZaken sur les 7 seifim qui codifient le moment précis de l'allumage des bougies de Shabbat — בין השמשות (le crépuscule), tossefet Shabbat (anticipation), 18 minutes avant le coucher du soleil. Application directe au calendrier hebdomadaire.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

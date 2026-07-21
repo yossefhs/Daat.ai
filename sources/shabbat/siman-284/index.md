@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 14 seifim qui codifient la haftarah Shabbat : minimum de 21 versets, brakhot avant et après, lecture par le maftir, traduction (selon coutume), application aux Sh
+La chitah de l'Admour HaZaken sur les 14 seifim qui codifient la haftarah Shabbat : minimum de 21 versets, brakhot avant et après, lecture par le maftir, traduction (selon coutume), application aux Shabbat spéciaux.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

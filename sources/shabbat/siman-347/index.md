@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 10 seifim qui codifient les conditions précises pour être responsable déorayta de הוצאה — עקירה (lever) + העברה (transporter) + הנחה (poser). Cadre conceptuel cri
+La chitah de l'Admour HaZaken sur les 10 seifim qui codifient les conditions précises pour être responsable déorayta de הוצאה — עקירה (lever) + העברה (transporter) + הנחה (poser). Cadre conceptuel critique.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 29 seifim qui codifient ce dont on peut parler Shabbat — pas d'affaires, pas de calculs commerciaux, pas de planification de la semaine. Cadre : וְכִבַּדְתּוֹ מֵע
+La chitah de l'Admour HaZaken sur les 29 seifim qui codifient ce dont on peut parler Shabbat — pas d'affaires, pas de calculs commerciaux, pas de planification de la semaine. Cadre : וְכִבַּדְתּוֹ מֵעֲשׂוֹת דְּרָכֶיךָ.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

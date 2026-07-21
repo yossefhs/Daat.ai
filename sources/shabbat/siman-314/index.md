@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 21 seifim qui codifient les actes interdits sous בנין (construction) et סתירה (démolition) Shabbat — visser, dévisser, percer, casser. Application moderne aux meu
+La chitah de l'Admour HaZaken sur les 21 seifim qui codifient les actes interdits sous בנין (construction) et סתירה (démolition) Shabbat — visser, dévisser, percer, casser. Application moderne aux meubles modulaires, jouets de construction.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

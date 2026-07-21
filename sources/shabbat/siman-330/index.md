@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 11 seifim qui codifient les permissions Shabbat pour une femme qui accouche — yoledet = présomption de pikuah nefesh, transport à la maternité, soins, application
+La chitah de l'Admour HaZaken sur les 11 seifim qui codifient les permissions Shabbat pour une femme qui accouche — yoledet = présomption de pikuah nefesh, transport à la maternité, soins, application moderne.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

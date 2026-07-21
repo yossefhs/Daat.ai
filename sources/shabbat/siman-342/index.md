@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur l'unique seif qui codifie : pendant le crépuscule (entrée et sortie de Shabbat), on peut faire des actes <em>rabbiniques</em> pour besoin de mitzva. Période d'incerti
+La chitah de l'Admour HaZaken sur l'unique seif qui codifie : pendant le crépuscule (entrée et sortie de Shabbat), on peut faire des actes <em>rabbiniques</em> pour besoin de mitzva. Période d'incertitude halakhique exploitée pour les nécessités.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

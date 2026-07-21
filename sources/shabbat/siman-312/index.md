@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 15 seifim qui codifient les règles d'hygiène intime Shabbat — pierres, papier, déchirement, application moderne au papier toilette pré-coupé. Cadre conceptuel : k
+La chitah de l'Admour HaZaken sur les 15 seifim qui codifient les règles d'hygiène intime Shabbat — pierres, papier, déchirement, application moderne au papier toilette pré-coupé. Cadre conceptuel : kvod ha-briyot (dignité humaine) prime.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 
