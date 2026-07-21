@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 4 seifim qui codifient le cas où on est dans un domaine et on tend la tête + majorité du corps dans un autre — quel domaine est le sien ? Cadre subtil pour les fe
+La chitah de l'Admour HaZaken sur les 4 seifim qui codifient le cas où on est dans un domaine et on tend la tête + majorité du corps dans un autre — quel domaine est le sien ? Cadre subtil pour les fenêtres, balcons, portes battantes.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

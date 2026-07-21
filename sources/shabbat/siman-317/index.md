@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 11 seifim qui codifient les nœuds (קשירה) Shabbat — distinction entre nœud permanent (interdit), nœud temporaire (permis), nœud d'expert (interdit). Application a
+La chitah de l'Admour HaZaken sur les 11 seifim qui codifient les nœuds (קשירה) Shabbat — distinction entre nœud permanent (interdit), nœud temporaire (permis), nœud d'expert (interdit). Application aux lacets, cravates, éponges.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

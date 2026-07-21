@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 12 seifim qui codifient les conditions strictes pour confier une lettre, un colis ou un objet à un non-juif qui le transportera pendant Shabbat — application dire
+La chitah de l'Admour HaZaken sur les 12 seifim qui codifient les conditions strictes pour confier une lettre, un colis ou un objet à un non-juif qui le transportera pendant Shabbat — application directe aux livraisons modernes (Amazon, Chronopost, La Poste, livreurs Shabbat).
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

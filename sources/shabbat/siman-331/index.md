@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 14 seifim qui codifient les permissions Shabbat pour la circoncision rituelle (brit milah) au 8e jour — מילה בזמנה repousse Shabbat, conditions, application moder
+La chitah de l'Admour HaZaken sur les 14 seifim qui codifient les permissions Shabbat pour la circoncision rituelle (brit milah) au 8e jour — מילה בזמנה repousse Shabbat, conditions, application moderne.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 8 seifim qui codifient le commandement de se lever tôt le vendredi pour préparer les repas de Shabbat. Mitzva positive d'oneg Shabbat. Implication directe : parti
+La chitah de l'Admour HaZaken sur les 8 seifim qui codifient le commandement de se lever tôt le vendredi pour préparer les repas de Shabbat. Mitzva positive d'oneg Shabbat. Implication directe : participation personnelle (même partielle), choix des plats du Shabbat, importance de l'investissement de soi.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

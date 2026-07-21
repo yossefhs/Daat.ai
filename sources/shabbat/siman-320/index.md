@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 28 seifim qui codifient la mélakha de סחיטה (presser) Shabbat — extraire jus de fruits, eau d'éponges. Cadre : déorayta pour 7 espèces, dérabanan pour autres. App
+La chitah de l'Admour HaZaken sur les 28 seifim qui codifient la mélakha de סחיטה (presser) Shabbat — extraire jus de fruits, eau d'éponges. Cadre : déorayta pour 7 espèces, dérabanan pour autres. Application moderne au citron dans le thé, presse-fruits, serpillière.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

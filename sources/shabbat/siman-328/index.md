@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 55 seifim qui codifient le grand corpus du malade Shabbat — gradations de la maladie (mihushé, holé she-ein bo sakana, holé she-yesh bo sakana, pikuah nefesh), pe
+La chitah de l'Admour HaZaken sur les 55 seifim qui codifient le grand corpus du malade Shabbat — gradations de la maladie (mihushé, holé she-ein bo sakana, holé she-yesh bo sakana, pikuah nefesh), permissions et interdits, application moderne aux médicaments, examens, soins.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

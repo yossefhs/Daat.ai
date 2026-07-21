@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 2 seifim qui codifient le cas du voyageur perdu dans le désert qui ne sait plus quel jour est Shabbat — compter 7 jours et faire Shabbat le 7e. Cas-limite intéres
+La chitah de l'Admour HaZaken sur les 2 seifim qui codifient le cas du voyageur perdu dans le désert qui ne sait plus quel jour est Shabbat — compter 7 jours et faire Shabbat le 7e. Cas-limite intéressant pour les voyageurs modernes (pôles).
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

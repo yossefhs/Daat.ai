@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 5 seifim qui codifient la tefilla de Moussaf Shabbat — la 4ème prière du jour, dédiée au sacrifice supplémentaire du Shabbat. Cadre conceptuel : zman, structure d
+La chitah de l'Admour HaZaken sur les 5 seifim qui codifient la tefilla de Moussaf Shabbat — la 4ème prière du jour, dédiée au sacrifice supplémentaire du Shabbat. Cadre conceptuel : zman, structure de la prière, place dans la liturgie.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

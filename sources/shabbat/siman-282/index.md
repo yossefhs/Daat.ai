@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 20 seifim qui codifient le grand corpus de la lecture de la Torah Shabbat : 7 olim (montants), distribution traditionnelle, lecture, hagbaha, gelila, maftir. Prat
+La chitah de l'Admour HaZaken sur les 20 seifim qui codifient le grand corpus de la lecture de la Torah Shabbat : 7 olim (montants), distribution traditionnelle, lecture, hagbaha, gelila, maftir. Nombreux détails pratiques.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 11 seifim qui codifient diverses règles Shabbat — ne pas monter en bétail (gezera תחומין), ne pas danser/sauter (gezera musique), ne pas juger, application modern
+La chitah de l'Admour HaZaken sur les 11 seifim qui codifient diverses règles Shabbat — ne pas monter en bétail (gezera תחומין), ne pas danser/sauter (gezera musique), ne pas juger, application moderne.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 89 seifim qui codifient le grand corpus du muktsé Shabbat — catégories (kli shemelakhto le-issour, mahmat hisaron kis, mahmat me'is, mahmat issour), critères, app
+La chitah de l'Admour HaZaken sur les 89 seifim qui codifient le grand corpus du muktsé Shabbat — catégories (kli shemelakhto le-issour, mahmat hisaron kis, mahmat me'is, mahmat issour), critères, application moderne.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

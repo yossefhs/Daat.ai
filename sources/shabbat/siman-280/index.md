@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 3 seifim qui codifient les relations conjugales à Shabbat — partie intégrante de l'oneg Shabbat. Coutume de Talmidé Hakhamim de la nuit du Shabbat. Mitzva positiv
+La chitah de l'Admour HaZaken sur les 3 seifim qui codifient les relations conjugales à Shabbat — partie intégrante de l'oneg Shabbat. Coutume de Talmidé Hakhamim de la nuit du Shabbat. Mitzva positive.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

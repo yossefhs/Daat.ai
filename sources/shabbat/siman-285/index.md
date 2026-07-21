@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 10 seifim qui codifient la mitzva personnelle de lire la parasha de la semaine 2 fois en hébreu (mikra) + 1 fois en araméen (targoum d'Onkelos) — ou Rachi à la pl
+La chitah de l'Admour HaZaken sur les 10 seifim qui codifient la mitzva personnelle de lire la parasha de la semaine 2 fois en hébreu (mikra) + 1 fois en araméen (targoum d'Onkelos) — ou Rachi à la place du targoum.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

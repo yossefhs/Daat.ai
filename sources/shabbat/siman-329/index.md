@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 10 seifim qui codifient le principe « פיקוח נפש דוחה את השבת » et son application — pour quel type de personne, dans quelles circonstances, qui doit agir, et la f
+La chitah de l'Admour HaZaken sur les 10 seifim qui codifient le principe « פיקוח נפש דוחה את השבת » et son application — pour quel type de personne, dans quelles circonstances, qui doit agir, et la fameuse maxime « zariz haré ze meshoubah ».
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

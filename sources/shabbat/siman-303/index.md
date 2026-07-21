@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 24 seifim qui codifient quels bijoux la femme peut porter Shabbat au domaine public — distinction entre bijoux portés habituellement vs occasionnellement, fils, b
+La chitah de l'Admour HaZaken sur les 24 seifim qui codifient quels bijoux la femme peut porter Shabbat au domaine public — distinction entre bijoux portés habituellement vs occasionnellement, fils, bagues, colliers, application moderne.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

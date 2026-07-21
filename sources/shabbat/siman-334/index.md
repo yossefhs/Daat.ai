@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 29 seifim qui codifient les règles d'incendie Shabbat — gezera générale (ne pas sauver d'objets), exceptions (vie humaine, sefer Torah, nourriture du jour), appli
+La chitah de l'Admour HaZaken sur les 29 seifim qui codifient les règles d'incendie Shabbat — gezera générale (ne pas sauver d'objets), exceptions (vie humaine, sefer Torah, nourriture du jour), application moderne aux pompiers.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

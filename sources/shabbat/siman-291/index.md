@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 8 seifim qui codifient le 3e repas de Shabbat — son timing (entre minha et la fin de Shabbat), son contenu minimal, son importance même sans appétit. Mitzva posit
+La chitah de l'Admour HaZaken sur les 8 seifim qui codifient le 3e repas de Shabbat — son timing (entre minha et la fin de Shabbat), son contenu minimal, son importance même sans appétit. Mitzva positive d'oneg Shabbat structurelle.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

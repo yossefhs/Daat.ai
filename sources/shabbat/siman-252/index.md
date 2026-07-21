@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 20 seifim qui codifient quels travaux on peut commencer vendredi soir avant Shabbat sachant qu'ils continueront pendant Shabbat (lessive, pressoir, machines autom
+La chitah de l'Admour HaZaken sur les 20 seifim qui codifient quels travaux on peut commencer vendredi soir avant Shabbat sachant qu'ils continueront pendant Shabbat (lessive, pressoir, machines automatiques). Cadre central pour les automations modernes.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

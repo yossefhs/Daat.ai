@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 25 seifim qui codifient la mélakha de צידה (capturer un animal vivant) Shabbat. Cadre : avot mélakha du Mishkan, application aux insectes, animaux domestiques, fe
+La chitah de l'Admour HaZaken sur les 25 seifim qui codifient la mélakha de צידה (capturer un animal vivant) Shabbat. Cadre : avot mélakha du Mishkan, application aux insectes, animaux domestiques, fermeture de fenêtres avec mouches.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 
