@@ -104,7 +104,7 @@ RÈGLES STRICTES :
 function buildUserMessage(question, topResult, otherResults) {
   const sec = topResult.subsection ? ` · ${topResult.subsection}` : '';
   let msg = `QUESTION DE L'UTILISATEUR :\n${question}\n\n`;
-  msg += `EXTRAIT DU CORPUS (Siman ${topResult.siman} — ${topResult.simanTitle} · ${topResult.sectionTitle}${sec}) :\n`;
+  msg += `EXTRAIT DU CORPUS (Siman ${topResult.siman} — ${topResult.simanTitle}${topResult.levelLabel ? ` · niveau ${topResult.levelLabel}` : ''} · ${topResult.sectionTitle}${sec}) :\n`;
   msg += topResult.text.trim();
   if (otherResults && otherResults.length > 0) {
     msg += `\n\nAUTRES EXTRAITS PERTINENTS (en complément, plus faibles) :\n`;

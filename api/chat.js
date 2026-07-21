@@ -404,7 +404,7 @@ RÈGLES STRICTES :
 - Ne dis JAMAIS que tu reformules un extrait — parle directement du sujet.`;
 
   let corpusUserMsg = `QUESTION DE L'UTILISATEUR :\n${lastUserText}\n\n`;
-  corpusUserMsg += `EXTRAIT DU CORPUS (Siman ${top.siman} — ${top.simanTitle} · ${top.sectionTitle}${subs}) :\n${top.text.trim()}`;
+  corpusUserMsg += `EXTRAIT DU CORPUS (Siman ${top.siman} — ${top.simanTitle}${top.levelLabel ? ` · niveau ${top.levelLabel}` : ''} · ${top.sectionTitle}${subs}) :\n${top.text.trim()}`;
   if (others.length > 0) {
     corpusUserMsg += `\n\nAUTRES EXTRAITS PERTINENTS (en complément, plus faibles) :\n`;
     others.slice(0, 2).forEach((r, i) => {

@@ -145,7 +145,11 @@ const CONCEPT_RULES = [
 ];
 
 function normalizeToken(s) {
-  return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/['’‘]/g, '').replace(/[^a-z֐-׿0-9]/g, '');
+  return s.toLowerCase().normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')      // diacritiques latins
+    .replace(/[\u0591-\u05C7]/g, '')      // NIKUD + te'amim hébreux : « בַּמֶּה » ≡ « במה »
+    .replace(/['’‘\u05F3\u05F4"״]/g, '')  // apostrophes, geresh, gershayim
+    .replace(/[^a-z\u05d0-\u05ea\u05f0-\u05f20-9]/g, '');
 }
 
 // Pré-normalise la chaîne ENTIÈRE (minuscules, sans accents) puis remplace les
@@ -325,6 +329,8 @@ export function searchCorpus(question, opts = {}) {
     results: scored.slice(0, limit).map((r) => ({
       siman: r.chunk.siman,
       section: r.chunk.section || null,
+      level: r.chunk.level || null,
+      levelLabel: r.chunk.levelLabel || null,
       simanTitle: r.chunk.simanTitle,
       simanTitleHe: r.chunk.simanTitleHe,
       sectionNum: r.chunk.sectionNum,
