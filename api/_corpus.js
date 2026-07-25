@@ -214,12 +214,27 @@ export async function searchCorpus(query, options = {}) {
     }
   }
 
-  // ── Entrées éditoriales (data/corpus.json) + dynamiques (KV). Elles portent la
-  // pédagogie rédigée du Rav et des `sources` explicites → on les place en tête.
+  // ── Entrées éditoriales (data/corpus.json) + dynamiques (KV).
+  // Elles ne couvrent que 3 simanim (242, 243, 246) mais leur champ `content`
+  // est long : n'importe quelle question y trouve 2 mots communs. Placées en
+  // tête sans condition, elles monopolisaient 2 résultats sur 3 et chassaient
+  // le vrai extrait (mesuré : 65 % de rappel top-3 au lieu de 90 %).
+  // On ne les retient donc que si le siman qu'elles traitent est CONFIRMÉ
+  // pertinent — soit par la recherche plein corpus, soit parce que la question
+  // le nomme. Dans ce cas seulement elles passent devant : sur leur siman, la
+  // pédagogie rédigée du Rav vaut mieux qu'un extrait de page.
+  // Uniquement les 2 MEILLEURS résultats plein corpus : un siman qui n'apparaît
+  // qu'au 6ᵉ rang n'est pas le sujet de la question, et promouvoir son entrée
+  // éditoriale en tête reviendrait à reproduire le problème qu'on corrige.
+  const relevantSimanim = new Set(siteHits.slice(0, 2).map(h => h.siman));
+  const namedSiman = simanFromQuery(query);
+  if (namedSiman) relevantSimanim.add(namedSiman);
+
   const entries = await getAllEntries();
   const tokens = tokenize(query);
   const editorial = tokens.length
     ? entries
+        .filter(e => e.siman == null || relevantSimanim.has(parseInt(e.siman, 10)))
         .map(e => ({ entry: e, s: score(e, tokens) }))
         .filter(x => x.s > 0)
         .sort((a, b) => b.s - a.s)
