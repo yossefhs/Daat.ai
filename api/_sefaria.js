@@ -47,7 +47,20 @@ export async function fetchSefariaText(ref) {
     clearTimeout(timeoutId);
 
     if (!response.ok) {
-      return { ref, hebrew: '', english: '', error: `Sefaria HTTP ${response.status}` };
+      // Sefaria répond 404 avec un corps JSON explicite sur les références qui
+      // n'existent pas : « We have no text for Shulchan Arukh, Orach Chayim
+      // 318:99 », « Shulchan Arukh, Orach Chayim ends at Siman 697 ». Transmettre
+      // ce message est décisif : « Sefaria HTTP 404 » se lit comme une panne
+      // passagère, alors que le vrai message dit que LA RÉFÉRENCE EST FAUSSE —
+      // c'est ce qui doit empêcher le modèle de la citer malgré tout.
+      let detail = '';
+      try { detail = (await response.json())?.error || ''; } catch (_) { /* corps non-JSON */ }
+      return {
+        ref, hebrew: '', english: '',
+        error: detail
+          ? `Référence inexistante sur Sefaria — ${detail} Ne cite PAS cette référence et n'en reconstruis pas le texte : vérifie le bon numéro avant de conclure.`
+          : `Sefaria HTTP ${response.status}`,
+      };
     }
 
     const data = await response.json();
@@ -78,6 +91,15 @@ export async function fetchSefariaText(ref) {
       english: english || '',
       title: data.title || data.indexTitle || ref,
     };
+
+    // Réponse 200 mais sans aucun texte : sans ce garde-fou le modèle reçoit un
+    // résultat d'apparence valide et en conclut que la référence est bonne.
+    if (!result.hebrew && !result.english) {
+      return {
+        ...result,
+        error: `Sefaria n'a renvoyé aucun texte pour « ${ref} » — la référence est probablement mal formée ou inexistante. Ne la cite pas et n'en reconstruis pas le contenu.`,
+      };
+    }
 
     // 2. Écriture cache — uniquement si on a vraiment du contenu (pas de réponse vide)
     if (result.hebrew || result.english) {

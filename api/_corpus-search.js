@@ -5,6 +5,7 @@
 // Tokenisation FR + hébreu, stopwords, synonymes halakhiques, garde-fou keyToken.
 
 import { readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
@@ -428,7 +429,13 @@ function scoreWithinSiman(chunk, queryTerms) {
 // (à faire si on change le system prompt de reformulation).
 // La clé inclut la section pour ne jamais servir une réponse Shabbat sur une
 // conversation Yoreh De'ah (et inversement).
-export const CORPUS_CACHE_VERSION = 'v1';
+// v2 : la clé ne se limite plus aux 120 premiers caractères de la question.
+// Deux questions différentes partageant leur début recevaient la MÊME réponse
+// en cache pendant 30 jours — or c'est très souvent la FIN d'une question qui
+// porte le détail décisif (« …en tournant » vs « …en tournant sans rien
+// casser »). Le préfixe reste dans la clé pour rester lisible en debug, mais
+// c'est l'empreinte du texte ENTIER qui identifie la question.
+export const CORPUS_CACHE_VERSION = 'v2';
 export const CORPUS_CACHE_TTL = 30 * 24 * 60 * 60; // 30 jours
 export function corpusCacheKey(text, { section = 'orach-chaim', lang = 'fr' } = {}) {
   const norm = String(text || '')
@@ -436,9 +443,9 @@ export function corpusCacheKey(text, { section = 'orach-chaim', lang = 'fr' } = 
     .normalize('NFD').replace(/[̀-ͯ]/g, '') // sans accents → meilleur hit rate
     .replace(/[!?.,;:'"«»()\[\]{}]/g, '')
     .replace(/\s+/g, ' ')
-    .trim() // en DERNIER : la ponctuation retirée peut laisser un espace final
-    .slice(0, 120);
-  return `corpus-cache:${CORPUS_CACHE_VERSION}:${section}:${lang}:${norm}`;
+    .trim(); // en DERNIER : la ponctuation retirée peut laisser un espace final
+  const fingerprint = createHash('sha1').update(norm).digest('hex').slice(0, 16);
+  return `corpus-cache:${CORPUS_CACHE_VERSION}:${section}:${lang}:${norm.slice(0, 80)}:${fingerprint}`;
 }
 
 export function getCorpusStats() {
