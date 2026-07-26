@@ -68,3 +68,20 @@ python3 scripts/audit-simanim.py --write-progress # régénère PROGRESS.md
 Le script renvoie un **code de sortie non nul** dès qu'une erreur est détectée (boilerplate, fichier absent, TOC désynchronisée). Il peut donc servir de garde-fou — par exemple en hook `SessionStart` ou en pre-commit — pour empêcher de considérer un siman comme « complété » alors qu'il contient encore du contenu générique.
 
 `PROGRESS.md` (racine du dépôt) est le manifeste de progression : il est **généré** par ce script, ne pas l'éditer à la main.
+
+## cout-question.js
+
+Calcule le coût réel d'une question du chat Daat, et la marge de chaque plan payant. Le script **lit les constantes du code** (`api/chat.js` : tarifs des modèles, multiplicateurs de cache, budget d'outils, `MONTHLY_LIMITS` ; `api/_system-prompt.js` : taille du prompt système) — il ne peut donc pas diverger de ce qu'il mesure.
+
+```bash
+node scripts/cout-question.js             # tarifs et plafonds actuels
+node scripts/cout-question.js --eur 1.08  # taux de change €→$ (défaut 1.08)
+```
+
+Il produit deux tableaux : le coût par scénario (corpus-first Haiku, Sonnet standard, Opus typique, Opus cache froid, Opus pire cas) et la marge par plan dans l'hypothèse la plus défavorable.
+
+**À relancer après tout changement** de tarif Anthropic, de modèle dans `MODELS`, de plafond dans `MONTHLY_LIMITS`, ou de taille du prompt système. Les chiffres du commentaire de calibrage dans `api/chat.js` en sont issus — ne pas les recopier à la main.
+
+Deux limites à connaître : la taille du prompt système est une **estimation** (3,5 caractères par token ; pour un compte exact, utiliser l'endpoint `count_tokens` d'Anthropic), et le pire cas suppose que 100 % des questions consomment le budget maximal en repartant d'un cache froid — ce qui n'arrive jamais. Le coût réellement observé est dans `/admin` (champ `cost_usd`).
+
+⚠️ Les coûts sont en **dollars** (les tarifs Anthropic le sont, et le champ KV s'appelle `cost_usd`) ; les recettes des plans sont en **euros**. C'est le seul endroit du projet où les deux unités se rencontrent, d'où le taux de change explicite.

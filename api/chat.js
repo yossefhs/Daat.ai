@@ -220,19 +220,24 @@ const PREVIEW_GLOBAL_DAILY_LIMIT = 100;
 // plafond mensuel borne le coût maximal → c'est lui qui garantit la marge.
 //
 // PROFIT GARANTI + AUCUN ILLIMITÉ : chaque plafond payant est calibré pour que,
-// même si les 100 % des questions étaient les plus lourdes possibles
-// (~0,55 €/question Opus : max outils + thinking), le coût reste SOUS la recette.
-//   khavroutha 8 €   → 12 × 0,55 = 6,60 € (marge garantie ≥ 1,40 €)
-//   beit_midrash 25 €→ 40 × 0,55 = 22,00 € (≥ 3,00 €)
-//   beit_midrash+ 50€→ 80 × 0,55 = 44,00 € (≥ 6,00 €)
-//   yeshiva 100 €    → 160 × 0,55 = 88,00 € (≥ 12,00 €)
+// même si 100 % des questions étaient les plus lourdes possibles, le coût reste
+// SOUS la recette. Pire cas recalculé (07/2026, tarifs corrigés ET tokens de
+// cache comptés) : ~0,43 €/question Opus — 7 itérations, 12 outils, sortie au
+// plafond, cache froid.
+//   khavroutha 8 €   →  12 × 0,43 =  5,18 € (marge garantie ≥  2,82 €)
+//   beit_midrash 25 €→  40 × 0,43 = 17,26 € (≥  7,74 €)
+//   beit_midrash+ 50€→  80 × 0,43 = 34,51 € (≥ 15,49 €)
+//   yeshiva 100 €    → 160 × 0,43 = 69,03 € (≥ 30,97 €)
 //
-// ⚠️ Ce chiffre de 0,55 a été établi avec le tarif Opus erroné ($15/$60 par
-// million au lieu de $5/$25) et SANS compter les tokens de cache. Les deux
-// erreurs jouaient en sens inverse ; le pire cas réel reste du même ordre de
-// grandeur, mais il n'a pas été recalculé ici. Les plafonds sont donc laissés
-// INCHANGÉS — ils restent prudents. À re-dériver des chiffres réels de /admin
-// une fois que la comptabilité corrigée aura accumulé des données.
+// L'estimation précédente (0,55 €) reposait sur un tarif Opus erroné et ignorait
+// les tokens de cache ; les deux erreurs se compensaient et le résultat était
+// PLUS prudent que la réalité. Les plafonds n'ont donc jamais été à risque et
+// restent INCHANGÉS.
+//
+// ⚠️ NE PAS recopier ces chiffres à la main — ils redeviendront faux au prochain
+// changement de tarif. Ils sont recalculés depuis les constantes réelles par :
+//     node scripts/cout-question.js
+// (coûts en $, recettes en €, taux de change explicite via --eur).
 const DAILY_LIMITS = {
   anonymous:      9999,        // gouverné au mois (voir MONTHLY_LIMITS)
   free:           9999,
