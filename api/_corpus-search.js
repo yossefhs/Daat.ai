@@ -5,6 +5,7 @@
 // Tokenisation FR + hébreu, stopwords, synonymes halakhiques, garde-fou keyToken.
 
 import { readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
@@ -327,6 +328,7 @@ export function searchCorpus(question, opts = {}) {
   scored.sort((a, b) => b.score - a.score);
   return {
     results: scored.slice(0, limit).map((r) => ({
+      id: r.chunk.id,
       siman: r.chunk.siman,
       section: r.chunk.section || null,
       level: r.chunk.level || null,
@@ -346,6 +348,80 @@ export function searchCorpus(question, opts = {}) {
   };
 }
 
+// ── Accès direct (utilisé par les OUTILS daat_search_corpus / daat_get_content) ──
+// La recherche BM25 ci-dessus sert au ROUTAGE (décider si Haiku peut répondre
+// seul). Les deux helpers ci-dessous servent au mode APPROFONDI, où le modèle
+// interroge lui-même le corpus : il lui faut alors récupérer un chunk précis
+// par son id, ou tous les chunks d'un siman nommé explicitement.
+
+/**
+ * Récupère un chunk par son id (ex. "siman-318-daatharav-12").
+ * NB : 10 ids du corpus sont dupliqués (niveau synthèse) — on renvoie le premier.
+ */
+export function getChunkById(id) {
+  loadAndIndex();
+  if (!id) return null;
+  return _corpus.chunks.find((c) => c.id === id) || null;
+}
+
+/**
+ * Tous les chunks d'un siman donné, optionnellement filtrés par section/niveau.
+ * Si `question` est fourni, les chunks sont classés par pertinence BM25 ; sinon
+ * ils gardent l'ordre du corpus (niveau puis ordre de lecture de la page).
+ */
+export function getSimanChunks(siman, opts = {}) {
+  loadAndIndex();
+  const num = parseInt(siman, 10);
+  if (!Number.isFinite(num)) return [];
+  const section = opts.section || null;
+  const level = opts.level || null;
+  let chunks = _corpus.chunks.filter((c) => {
+    if (c.siman !== num) return false;
+    if (section && c.section && c.section !== section) return false;
+    if (level && c.level !== level) return false;
+    return true;
+  });
+  const question = String(opts.question || '').trim();
+  if (question) {
+    const tokens = tokenize(question);
+    if (tokens.length) {
+      const expanded = expandQuery(tokens);
+      // Pas de garde-fou keyToken ni de mode strict : le siman est déjà imposé
+      // par l'appelant, le risque de hors-sujet est nul et un filtre supprimerait
+      // des seifim pertinents dont le vocabulaire diffère de la question.
+      chunks = chunks
+        .map((c) => ({ c, s: scoreWithinSiman(c, expanded) }))
+        .sort((a, b) => b.s - a.s)
+        .map((x) => x.c);
+    }
+  }
+  return chunks;
+}
+
+// Pondération par niveau, appliquée UNIQUEMENT à l'intérieur d'un siman imposé.
+// À pertinence comparable, on remonte le texte SOURCE (Daat HaRav = Choulhan
+// Aroukh HaRav seif par seif ; Base = texte du Mehaber) avant les fiches de
+// révision — c'est le texte source qui empêche le modèle de citer de mémoire.
+const LEVEL_WEIGHT = { 'daat-harav': 1.2, base: 1.1, lamdan: 1.0, synthese: 0.9 };
+
+// Score SANS normalisation par la longueur. Dans un siman déjà imposé, la
+// longueur n'est pas un signal de pertinence mais un artefact du niveau : le
+// facteur `b` de BM25 classait systématiquement les seifim du Daat HaRav
+// (3 000 caractères et plus) derrière les fiches courtes du niveau Synthèse.
+function scoreWithinSiman(chunk, queryTerms) {
+  const tf = chunk._tfMap;
+  let s = 0;
+  queryTerms.forEach((boost, term) => {
+    const f = tf.get(term);
+    if (f) s += boost * getIdf(term) * (1 + Math.log(f));
+  });
+  const titleSet = new Set(tokenize(chunk.sectionTitle + ' ' + (chunk.subsection || '')));
+  queryTerms.forEach((boost, term) => {
+    if (titleSet.has(term)) s += boost * getIdf(term) * 0.8;
+  });
+  return s * (LEVEL_WEIGHT[chunk.level] ?? 1.0);
+}
+
 // ── Cache KV des réponses corpus reformulées ───────────────────────────────
 // La même question revient souvent ("c'est quoi le borer ?"). On cache la
 // reformulation Haiku : 1re personne → ~0.005 €, toutes les suivantes → 0 €.
@@ -353,7 +429,13 @@ export function searchCorpus(question, opts = {}) {
 // (à faire si on change le system prompt de reformulation).
 // La clé inclut la section pour ne jamais servir une réponse Shabbat sur une
 // conversation Yoreh De'ah (et inversement).
-export const CORPUS_CACHE_VERSION = 'v1';
+// v2 : la clé ne se limite plus aux 120 premiers caractères de la question.
+// Deux questions différentes partageant leur début recevaient la MÊME réponse
+// en cache pendant 30 jours — or c'est très souvent la FIN d'une question qui
+// porte le détail décisif (« …en tournant » vs « …en tournant sans rien
+// casser »). Le préfixe reste dans la clé pour rester lisible en debug, mais
+// c'est l'empreinte du texte ENTIER qui identifie la question.
+export const CORPUS_CACHE_VERSION = 'v2';
 export const CORPUS_CACHE_TTL = 30 * 24 * 60 * 60; // 30 jours
 export function corpusCacheKey(text, { section = 'orach-chaim', lang = 'fr' } = {}) {
   const norm = String(text || '')
@@ -361,9 +443,9 @@ export function corpusCacheKey(text, { section = 'orach-chaim', lang = 'fr' } = 
     .normalize('NFD').replace(/[̀-ͯ]/g, '') // sans accents → meilleur hit rate
     .replace(/[!?.,;:'"«»()\[\]{}]/g, '')
     .replace(/\s+/g, ' ')
-    .trim() // en DERNIER : la ponctuation retirée peut laisser un espace final
-    .slice(0, 120);
-  return `corpus-cache:${CORPUS_CACHE_VERSION}:${section}:${lang}:${norm}`;
+    .trim(); // en DERNIER : la ponctuation retirée peut laisser un espace final
+  const fingerprint = createHash('sha1').update(norm).digest('hex').slice(0, 16);
+  return `corpus-cache:${CORPUS_CACHE_VERSION}:${section}:${lang}:${norm.slice(0, 80)}:${fingerprint}`;
 }
 
 export function getCorpusStats() {

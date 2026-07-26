@@ -62,6 +62,47 @@ const MODELS = {
 // 5. Free/anonyme après Aperçu → Sonnet (qualité standard)
 // 6. forceOpus = perk admin manuel : Opus sur tout (sauf méta)
 // aperçuBlocked = caps IP ou global atteints (anti-abus) → on dégrade vers Sonnet
+// Liste blanche des ouvertures purement conversationnelles : salutations,
+// remerciements, « tu es qui », « comment ça marche », acquiescements, adieux.
+// Le motif est ANCRÉ (^…$) : la chaîne entière doit correspondre. « bonjour, je
+// peux réchauffer un plat ? » n'est donc PAS méta et suit le chemin normal —
+// c'est le sens de sécurité voulu : un faux négatif coûte quelques centimes,
+// un faux positif fait répondre de la halakha sans aucun garde-fou.
+const META_PATTERNS = new RegExp('^(?:' + [
+  // Salutations
+  '(?:re)?bonjour(?: daat)?', 'bonsoir', 'bonne (?:journee|soiree|nuit)',
+  'salut(?: daat)?', 'coucou', 'hello', 'hi', 'hey', '(?:shalom|chalom|sholom)(?: aleikhem)?',
+  '(?:shabbat|chabbat) (?:shalom|chalom)', 'boker tov', 'erev tov',
+  // Remerciements
+  'merci(?: beaucoup| bien| infiniment| a toi)?', 'todah?(?: raba)?', 'thanks', 'thank you',
+  'yasher koah', 'yaacher koah',
+  // Identité / capacités
+  'qui (?:es|est)[- ]?tu', '(?:tu es|t es|vous etes) qui', 'tu es quoi',
+  "c est quoi (?:daat|daat torah|ce site|ce chat)", 'presente toi', 'tu sers a quoi',
+  'que sais[- ]?tu faire', 'qu est[- ]?ce que tu sais faire', 'tu fais quoi',
+  'qui te supervise', 'tu es une ia', 'tu es un robot',
+  // Fonctionnement
+  'comment (?:ca|cela) (?:marche|fonctionne)', '(?:ca|cela) (?:marche|fonctionne) comment',
+  'comment (?:t|tu) utilise[rs]?', 'comment utiliser', 'comment ca se passe',
+  // Politesse / acquiescement
+  'comment (?:ca va|vas[- ]?tu|allez[- ]?vous)', 'ca va(?: bien)?', 'ca roule',
+  'ok(?:ay)?', 'd ?accord', 'super', 'parfait', 'genial', 'bravo', 'top', 'nickel',
+  'oui', 'non', 'tres bien', 'compris',
+  // Fin de conversation / tests
+  'au revoir', 'a bientot', 'bonne continuation', 'bye', 'test', 'essai',
+].join('|') + ')$');
+
+function isConversationalMeta(text) {
+  const n = String(text || '')
+    .toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9 -]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (!n) return false;
+  return META_PATTERNS.test(n);
+}
+
 function pickModel(messages, hint, plan, previewUsed, aperçuBlocked, forceOpus) {
   // Hint explicite du client (ex: depuis une page Lamdan/Synthèse) — gagne toujours
   if (hint === 'opus' || hint === 'sonnet' || hint === 'haiku') return MODELS[hint];
@@ -75,7 +116,17 @@ function pickModel(messages, hint, plan, previewUsed, aperçuBlocked, forceOpus)
   // Élargi : ajout des termes de minhag, fêtes, rituels et concepts Habad/hassidiques
   // qui auparavant tombaient sous le seuil de 40 chars → routés vers Haiku par erreur.
   const halakhicHint = /shab|kasher|kasher|tefil|tznio|mouk|hila|sefer|torah|halakh|halacha|halaha|halaja|seif|siman|guemar|mishna|talmud|cohen|brah|berakh|nidda|kashr|peot|tsitsit|loulav|souka|sukka|mezou|tefil|shem|shabb|peah|maase|mitsv|mitzv|minhag|minag|habad|chabad|loubavitch|lubavitch|sefarad|séfarad|sfarad|ashken|ashkenaz|yemen|yémen|marocain|breslov|breslav|chitah|shitah|chitta|pesak|psak|posek|havdal|kiddush|kiddoush|qiddush|besamim|chofar|shofar|matza|matzo|hametz|hamets|pessah|pessach|pesah|rosh.?hashana|kippour|kippur|souccot|sukkot|hanouca|hanouka|hanukkah|chavouot|shavuot|pourim|purim|sicha|sichot|sihot|maamar|tanya|rebbe|admour|igrot|nigleh|nistar/i;
-  const isMetaQuestion = isFirstQuestion && text.length < 40 && !halakhicHint.test(lower);
+  // Détection MÉTA par LISTE BLANCHE (voir isConversationalMeta).
+  // Auparavant : « premier message < 40 caractères ET aucun mot-clé halakhique »
+  // — une définition par la NÉGATIVE. Toute question halakhique dont le
+  // vocabulaire manquait à la liste partait vers DeepSeek : sans prompt système,
+  // sans corpus, sans garde-fou, et la réponse était mise en cache 30 jours.
+  // « C'est quoi le borer ? », « Quand allumer les bougies ? », « Trier les
+  // aliments ? » passaient toutes par là. On ne court-circuite désormais que ce
+  // qu'on reconnaît explicitement comme conversationnel ; dans le doute, la
+  // question suit le chemin normal (corpus + prompt système complet).
+  const isMetaQuestion = isFirstQuestion && text.length < 80
+    && isConversationalMeta(text) && !halakhicHint.test(lower);
   if (isMetaQuestion) {
     return { ...MODELS.haiku, _meta: true };
   }
@@ -1239,6 +1290,22 @@ export default async function handler(req, res) {
       } finally {
         clearTimeout(abortTimer);
       }
+    }
+
+    // Réponse coupée net par le plafond de tokens : l'utilisateur DOIT le voir.
+    // Le client n'exploite pas `stop_reason` — sans ce texte, une réponse
+    // interrompue en plein raisonnement s'affiche comme une réponse complète.
+    // C'est précisément là que le danger est maximal en halakha : la nuance
+    // finale (« mais be-di'avad… », « c'est à ton Rav de trancher ») arrive à la
+    // FIN. Une troncature silencieuse transforme une réponse nuancée en psak
+    // tranché. Même logique que le chemin corpus, qui avertit déjà.
+    if (stopReason === 'max_tokens') {
+      res.write(`data: ${JSON.stringify({
+        type: 'text',
+        delta: anyTextSent
+          ? '\n\n---\n_⚠️ Réponse tronquée par la limite de longueur — elle s\'arrête avant sa conclusion. Repose la question de façon plus ciblée pour obtenir la suite, et ne considère pas ce qui précède comme un raisonnement achevé._'
+          : '⚠️ La réponse a été interrompue avant le premier mot. Repose ta question.',
+      })}\n\n`);
     }
 
     // Envoyer le done final (côté UX, la conversation est terminée)
