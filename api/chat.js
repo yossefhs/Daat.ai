@@ -47,12 +47,28 @@ const HARD_ABORT_MS = parseInt(process.env.HARD_ABORT_MS || '250000', 10); // 25
 const ALL_TOOLS = [...MAREH_MEKOMOT_TOOLS, ...CORPUS_TOOLS, ...SEFARIA_TOOLS];
 
 // ── Routing modèles — priorité QUALITÉ, économies opportunistes ──
-// Haiku ($0.001/$0.005) → Sonnet ($0.003/$0.015) → Opus ($0.015/$0.06)
+// Prix en $ par MILLIER de tokens (tarifs publics Anthropic / 1M ÷ 1000) :
+//   Haiku 4.5   $1 / $5   par million → 0.001 / 0.005
+//   Sonnet 4.6  $3 / $15  par million → 0.003 / 0.015
+//   Opus 4.7    $5 / $25  par million → 0.005 / 0.025
+// ⚠️ Opus était facturé ici 0.015 / 0.06, soit le tarif de l'ancien Opus 4.1
+// ($15/$75 par million). Depuis Opus 4.5 le tarif est $5/$25 : le coût Opus
+// enregistré dans /admin était donc surévalué de 3× en entrée et 2,4× en sortie.
 const MODELS = {
   haiku:  { id: 'claude-haiku-4-5',  thinking: null,                  effort: null,    in: 0.001, out: 0.005 },
   sonnet: { id: 'claude-sonnet-4-6', thinking: { type: 'adaptive' },  effort: null,    in: 0.003, out: 0.015 },
-  opus:   { id: 'claude-opus-4-7',   thinking: { type: 'adaptive' },  effort: 'high',  in: 0.015, out: 0.06  },
+  opus:   { id: 'claude-opus-4-7',   thinking: { type: 'adaptive' },  effort: 'high',  in: 0.005, out: 0.025 },
 };
+
+// ── Prompt caching : multiplicateurs appliqués au prix d'ENTRÉE du modèle ──
+// Lecture de cache ≈ 0,1× ; écriture ≈ 1,25× en TTL 5 min et 2× en TTL 1 h.
+// Le prompt système est mis en cache avec ttl:'1h' (voir cache_control plus bas),
+// donc l'écriture se facture 2×.
+// Ces tokens ne sont PAS inclus dans `usage.input_tokens` (qui ne compte que le
+// résidu non caché) : sans les facturer explicitement, le prompt système —
+// l'essentiel de l'entrée — n'apparaissait nulle part dans le coût enregistré.
+const CACHE_READ_MULT = 0.1;
+const CACHE_WRITE_MULT = 2.0; // TTL 1h
 
 // Heuristique : qualité d'abord. Routage selon plan + Aperçu Premium pour les nouveaux.
 // 1. Méta-questions courtes → DeepSeek/Haiku (zéro coût, zéro perte qualité)
@@ -210,8 +226,13 @@ const PREVIEW_GLOBAL_DAILY_LIMIT = 100;
 //   beit_midrash 25 €→ 40 × 0,55 = 22,00 € (≥ 3,00 €)
 //   beit_midrash+ 50€→ 80 × 0,55 = 44,00 € (≥ 6,00 €)
 //   yeshiva 100 €    → 160 × 0,55 = 88,00 € (≥ 12,00 €)
-// En usage réel (~0,28 €/question, cap utilisé à moitié) la marge est bien plus
-// grasse. À ajuster à la hausse plus tard avec le coût réel dans /admin.
+//
+// ⚠️ Ce chiffre de 0,55 a été établi avec le tarif Opus erroné ($15/$60 par
+// million au lieu de $5/$25) et SANS compter les tokens de cache. Les deux
+// erreurs jouaient en sens inverse ; le pire cas réel reste du même ordre de
+// grandeur, mais il n'a pas été recalculé ici. Les plafonds sont donc laissés
+// INCHANGÉS — ils restent prudents. À re-dériver des chiffres réels de /admin
+// une fois que la comptabilité corrigée aura accumulé des données.
 const DAILY_LIMITS = {
   anonymous:      9999,        // gouverné au mois (voir MONTHLY_LIMITS)
   free:           9999,
@@ -1112,6 +1133,10 @@ export default async function handler(req, res) {
       cache_creation: 0,
       cache_read: 0,
     };
+    // Ventilation par modèle réellement appelé. La synthèse forcée bascule
+    // Opus → Sonnet en cours de route (voir iterModel plus bas) : tout facturer
+    // au tarif du modèle routé surévaluerait ces requêtes.
+    const usageByModel = new Map(); // id → { price, input, output, cacheCreate, cacheRead }
 
     let iterations = 0;
     let totalToolCalls = 0; // borne dure : plafonne le nombre de recherches avant synthèse
@@ -1225,6 +1250,14 @@ export default async function handler(req, res) {
         totalUsage.cache_creation += final.usage.cache_creation_input_tokens || 0;
         totalUsage.cache_read += final.usage.cache_read_input_tokens || 0;
 
+        const mu = usageByModel.get(iterModel.id)
+          || { price: iterModel, input: 0, output: 0, cacheCreate: 0, cacheRead: 0 };
+        mu.input += final.usage.input_tokens || 0;
+        mu.output += final.usage.output_tokens || 0;
+        mu.cacheCreate += final.usage.cache_creation_input_tokens || 0;
+        mu.cacheRead += final.usage.cache_read_input_tokens || 0;
+        usageByModel.set(iterModel.id, mu);
+
         conversation.push({ role: 'assistant', content: final.content });
 
         if (stopReason !== 'tool_use') break;
@@ -1322,10 +1355,20 @@ export default async function handler(req, res) {
     try {
       const todayKey = new Date().toISOString().slice(0, 10);
 
-      // Coût Claude (modèle effectivement utilisé)
-      const claudeCost =
-        (totalUsage.input_tokens * model.in / 1000) +
-        (totalUsage.output_tokens * model.out / 1000);
+      // Coût Claude — ventilé par modèle réellement appelé, tokens de cache inclus.
+      // Les tokens du prompt système passent par cache_read (cache chaud) ou
+      // cache_creation (reconstruction à froid) et n'apparaissent PAS dans
+      // `input_tokens` : les omettre revenait à ne pas facturer l'essentiel de
+      // l'entrée. Sur un prompt système de ~15 000 tokens, cela sous-estimait
+      // chaque réponse Opus d'environ 0,008 $ à chaud et 0,15 $ à froid.
+      let claudeCost = 0;
+      for (const u of usageByModel.values()) {
+        claudeCost +=
+          (u.input * u.price.in / 1000) +
+          (u.cacheRead * u.price.in * CACHE_READ_MULT / 1000) +
+          (u.cacheCreate * u.price.in * CACHE_WRITE_MULT / 1000) +
+          (u.output * u.price.out / 1000);
+      }
 
       // Coût DeepSeek (reformulation RAG + résumé d'historique, si activé)
       const dsCost =
@@ -1333,7 +1376,12 @@ export default async function handler(req, res) {
         (deepseekUsage.output_tokens * DEEPSEEK_PRICING.out / 1000);
 
       const costUsd = claudeCost + dsCost;
-      const tokensIn = totalUsage.input_tokens + deepseekUsage.input_tokens;
+      // Tokens d'entrée réels = résidu non caché + lectures de cache + écritures.
+      // `input_tokens` seul ne compte que le résidu : les statistiques de /admin
+      // affichaient donc quelques centaines de tokens d'entrée par question alors
+      // que le prompt système en fait ~15 000.
+      const tokensIn = totalUsage.input_tokens + totalUsage.cache_read
+        + totalUsage.cache_creation + deepseekUsage.input_tokens;
       const tokensOut = totalUsage.output_tokens + deepseekUsage.output_tokens;
 
       // Stats globales
@@ -1413,6 +1461,16 @@ export default async function handler(req, res) {
         cost_usd: costUsd,
         provider: deepseekUsage.input_tokens > 0 ? 'claude+deepseek' : 'claude',
         model: model.id,
+        // Modèles RÉELLEMENT appelés : diffère de `model` quand la synthèse
+        // forcée bascule Opus → Sonnet.
+        models_used: [...usageByModel.keys()],
+        // Diagnostic du prompt caching — c'est ce qui permet de mesurer le taux
+        // de cache réel. cache_read élevé = cache chaud (prompt à 0,1×) ;
+        // cache_creation non nul = reconstruction à froid (2× en TTL 1 h),
+        // ce qui arrive après chaque modification du prompt système.
+        cache_read: totalUsage.cache_read,
+        cache_creation: totalUsage.cache_creation,
+        uncached_input: totalUsage.input_tokens,
         deepseek_tokens: deepseekUsage.input_tokens + deepseekUsage.output_tokens,
         iterations,
         stop_reason: stopReason,
