@@ -100,7 +100,7 @@ python3 scripts/verifier-citations.py --only-absent            # ne liste que le
 python3 scripts/verifier-citations.py --csv audit/citations-verifiees.csv
 ```
 
-Il extrait les fragments hébreux présentés comme des citations (`<span class="he-q">`, `<blockquote>`, guillemets), résout la référence qui les accompagne — daf talmudique en lettres (`ברכות מ״ג ע״ב`) ou en chiffres (`Berakhot 43b`), séif du Choulhan Aroukh (`OH 131:1`, `או״ח קל״א:א`), ס״ק de la Michna Beroura —, récupère le texte réel et compare après normalisation : nikoud, ponctuation, guillemets, noms divins, abréviations à gershayim (`הקב״ה` → `הקדוש ברוך הוא`), marqueurs de coupe (`…`, `וכו׳`).
+Il extrait les fragments hébreux présentés comme des citations (`<blockquote>`, guillemets — **pas** `<span class="he-q">`, qui n'est qu'une classe typographique appliquée aussi bien à une citation qu'à la thèse propre de l'auteur), résout la référence qui les accompagne — daf talmudique en lettres (`ברכות מ״ג ע״ב`) ou en chiffres (`Berakhot 43b`), séif du Choulhan Aroukh (`OH 131:1`, `או״ח קל״א:א`), ס״ק de la Michna Beroura —, récupère le texte réel et compare après normalisation : nikoud, ponctuation, guillemets, noms divins, abréviations à gershayim (`הקב״ה` → `הקדוש ברוך הוא`), marqueurs de coupe (`…`, `וכו׳`).
 
 Quatre verdicts : **OK** (la citation figure telle quelle), **VARIANTE** (≥ 0,86 de similarité — écart orthographique ou coupe), **ABSENT** (introuvable dans la source citée), **NON_RESOLU** (référence non reconnue). Seuls les ABSENT demandent une intervention ; le script sort en code non nul tant qu'il en reste, il peut donc servir de gate au même titre que `audit-simanim.py`.
 

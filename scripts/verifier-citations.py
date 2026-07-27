@@ -10,8 +10,10 @@ Le gate structurel (audit-simanim.py) ne regarde que la forme des pages : il pas
 
 Principe
 --------
-1. Extraire de chaque page les fragments hébreux présentés comme des citations
-   (<span class="he-q">, <blockquote>, ou entre guillemets « … » / " … ").
+1. Extraire de chaque page les fragments hébreux présentés comme des citations :
+   <blockquote>, ou texte entre guillemets « … » / " … ". La classe `he-q` n'en
+   fait pas partie — c'est une classe typographique (RTL + police hébraïque),
+   appliquée aussi bien à une citation qu'à la thèse propre de l'auteur.
 2. Résoudre la référence qui les accompagne (daf talmudique, séif du Choulhan
    Aroukh, ס״ק de la Michna Beroura, Rambam…) en référence Sefaria canonique.
 3. Récupérer le texte réel et comparer après normalisation (nikoud, ponctuation,
@@ -361,8 +363,15 @@ def refs_in(ctx):
 # ─────────────────────────── Extraction des citations ───────────────────────────
 
 TAG = re.compile(r'<[^>]+>')
-# Marqueurs de citation dans le balisage du site
-RE_MARK = re.compile(r'<span class="he-q">(.*?)</span>|<blockquote>(.*?)</blockquote>', re.S)
+# Marqueurs de citation dans le balisage du site.
+#
+# `span.he-q` n'en est PAS un : la feuille de style du site ne lui donne que
+# `direction: rtl` et la police Frank Ruhl Libre. C'est une classe typographique,
+# appliquée aussi bien à une citation qu'à l'amorce d'un paragraphe où l'auteur
+# énonce sa propre thèse (« סומא חייב בציצית — שהראייה גדר בכסות ולא תנאי בגברא »).
+# La traiter comme un marqueur de citation confrontait ces thèses au daf cité à
+# côté et les déclarait fabriquées. Seul <blockquote> encadre une citation.
+RE_MARK = re.compile(r'<blockquote>(.*?)</blockquote>()', re.S)
 # Guillemets typographiques dans le texte rendu (pas dans les attributs : les balises
 # sont supprimées avant extraction, ce qui écarte href="…", class="…", etc.)
 RE_GUILL = re.compile(r'«([^«»]{5,900})»|„([^„”]{5,900})”')
