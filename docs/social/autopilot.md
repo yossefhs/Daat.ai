@@ -58,6 +58,9 @@ Pas d'API officielle pour poster dans un groupe → reste **manuel**
   `https://daattorah.com/api/social?action=force&secret=SECRET`
 - État (curseur, dernier envoi, journal) :
   `https://daattorah.com/api/social?action=status&secret=SECRET`
+- **Le pack du jour** (posts à copier-coller soi-même — angle tournant, appel au
+  soutien en rotation ; à mettre en favori sur le téléphone) :
+  `https://daattorah.com/api/daily-pack?secret=SECRET` (`&siman=N`, `&day=0..6`, `&format=json`)
 
 ## Sécurité & garde-fous
 - Contenu 100 % dérivé du corpus (titre du siman + liens) — **aucun psak généré**,
