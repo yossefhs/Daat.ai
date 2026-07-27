@@ -85,3 +85,30 @@ Il produit deux tableaux : le coût par scénario (corpus-first Haiku, Sonnet st
 Deux limites à connaître : la taille du prompt système est une **estimation** (3,5 caractères par token ; pour un compte exact, utiliser l'endpoint `count_tokens` d'Anthropic), et le pire cas suppose que 100 % des questions consomment le budget maximal en repartant d'un cache froid — ce qui n'arrive jamais. Le coût réellement observé est dans `/admin` (champ `cost_usd`).
 
 ⚠️ Les coûts sont en **dollars** (les tarifs Anthropic le sont, et le champ KV s'appelle `cost_usd`) ; les recettes des plans sont en **euros**. C'est le seul endroit du projet où les deux unités se rencontrent, d'où le taux de change explicite.
+
+## verifier-citations.py
+
+Confronte chaque citation hébraïque « verbatim » du site à sa source réelle sur Sefaria.
+
+`audit-simanim.py` est un gate **structurel** : il vérifie que les pages existent, qu'elles ne contiennent plus de boilerplate, que les tables des matières sont synchronisées. Il passe à 174/174 sur une page truffée de citations inventées, parce qu'il ne regarde jamais le contenu. Ce script est le gate de **contenu** correspondant.
+
+```bash
+python3 scripts/verifier-citations.py                          # tout le site, FR
+python3 scripts/verifier-citations.py --langues fr,he,en
+python3 scripts/verifier-citations.py --path sources/shabbat/siman-297
+python3 scripts/verifier-citations.py --only-absent            # ne liste que les ABSENT
+python3 scripts/verifier-citations.py --csv audit/citations-verifiees.csv
+```
+
+Il extrait les fragments hébreux présentés comme des citations (`<span class="he-q">`, `<blockquote>`, guillemets), résout la référence qui les accompagne — daf talmudique en lettres (`ברכות מ״ג ע״ב`) ou en chiffres (`Berakhot 43b`), séif du Choulhan Aroukh (`OH 131:1`, `או״ח קל״א:א`), ס״ק de la Michna Beroura —, récupère le texte réel et compare après normalisation : nikoud, ponctuation, guillemets, noms divins, abréviations à gershayim (`הקב״ה` → `הקדוש ברוך הוא`), marqueurs de coupe (`…`, `וכו׳`).
+
+Quatre verdicts : **OK** (la citation figure telle quelle), **VARIANTE** (≥ 0,86 de similarité — écart orthographique ou coupe), **ABSENT** (introuvable dans la source citée), **NON_RESOLU** (référence non reconnue). Seuls les ABSENT demandent une intervention ; le script sort en code non nul tant qu'il en reste, il peut donc servir de gate au même titre que `audit-simanim.py`.
+
+Points de méthode :
+
+- L'extraction se fait **ligne par ligne** — le balisage du site place chaque citation sur sa propre ligne, et un guillemet non apparié ailleurs dans la page ne peut donc pas décaler l'appariement de toutes les suivantes.
+- Un bloc marqué contient souvent un préfixe de référence, la citation, puis un commentaire de l'auteur ; seule la portion entre guillemets droits est comparée.
+- Les fragments majoritairement latins sont écartés : ce sont de la prose, pas des citations.
+- Le cache disque (`scripts/.cache-sefaria/`, git-ignoré) rend les passages suivants instantanés. Le supprimer force un rafraîchissement depuis Sefaria.
+
+⚠️ Un verdict **OK** signifie que le texte cité existe à la référence donnée — **pas** que le raisonnement halakhique qui l'entoure est juste, ni que l'attribution (« אמר רבא », « הגהת הרמ״א ») est la bonne. Le script attrape les citations fabriquées et les dafim faux ; il n'attrape pas une citation exacte mise au service d'une conclusion fausse. Cela reste du ressort de la relecture du Rav (`audit/relecture-rav.md`).
