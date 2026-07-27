@@ -68,33 +68,56 @@ def _get(url, tries=3):
             time.sleep(2 * (i + 1))
 
 
-def fetch(ref):
-    """Texte hébreu d'une référence Sefaria canonique, sous forme de liste de segments."""
+def _cached(key, produce):
     os.makedirs(CACHE, exist_ok=True)
-    path = os.path.join(CACHE, hashlib.sha1(ref.encode()).hexdigest()[:20] + '.json')
+    path = os.path.join(CACHE, hashlib.sha1(key.encode()).hexdigest()[:20] + '.json')
     if os.path.exists(path):
-        data = json.load(open(path, encoding='utf-8'))
-    else:
-        url = ('https://www.sefaria.org/api/v3/texts/'
-               + urllib.parse.quote(ref, safe=',._-') + '?return_format=text_only')
-        data = _get(url)
-        json.dump(data, open(path, 'w', encoding='utf-8'), ensure_ascii=False)
-    if 'error' in data:
-        return None
-    versions = data.get('versions') or []
-    if not versions:
-        return None
-    heb = [v for v in versions if v.get('language') == 'he'] or versions
+        return json.load(open(path, encoding='utf-8'))
+    data = produce()
+    json.dump(data, open(path, 'w', encoding='utf-8'), ensure_ascii=False)
+    return data
 
-    def flat(x, out):
-        if isinstance(x, str):
-            out.append(x)
-        elif isinstance(x, list):
-            for y in x:
-                flat(y, out)
-        return out
 
-    segs = flat(heb[0].get('text'), [])
+def hebrew_versions(book):
+    """Titres de toutes les éditions hébraïques d'un ouvrage.
+
+    Indispensable : Sefaria sert par défaut l'édition Davidson du Talmud, dont le
+    texte diffère par endroits du Vilna imprimé auquel se réfèrent les pages du site
+    (ברכות ג׳ ע״א : « אוי שהחרבתי » chez Davidson, « אוי לבנים שבעונותיהם החרבתי »
+    dans le Vilna/Wikisource). Comparer à une seule édition fabrique des faux positifs.
+    """
+    data = _cached('versions::' + book, lambda: _get(
+        'https://www.sefaria.org/api/texts/versions/' + urllib.parse.quote(book, safe=',._-')))
+    if not isinstance(data, list):
+        return []
+    return [v['versionTitle'] for v in data
+            if v.get('language') == 'he' and v.get('versionTitle')]
+
+
+def _flat(x, out):
+    if isinstance(x, str):
+        out.append(x)
+    elif isinstance(x, list):
+        for y in x:
+            _flat(y, out)
+    return out
+
+
+def fetch(ref):
+    """Segments hébreux d'une référence Sefaria, **toutes éditions hébraïques réunies**."""
+    book = re.split(r'[.]\d|[.][א-ת]', ref)[0].replace('_', ' ')
+    titles = hebrew_versions(book)
+    qs = '?return_format=text_only&version=hebrew'
+    for t in titles[:6]:
+        qs += '&version=' + urllib.parse.quote('hebrew|' + t)
+    data = _cached(ref + '::multi', lambda: _get(
+        'https://www.sefaria.org/api/v3/texts/' + urllib.parse.quote(ref, safe=',._-') + qs))
+    if not isinstance(data, dict) or 'error' in data:
+        return None
+    segs = []
+    for v in data.get('versions') or []:
+        if v.get('language') == 'he':
+            segs += _flat(v.get('text'), [])
     return segs or None
 
 
@@ -254,7 +277,19 @@ TAG = re.compile(r'<[^>]+>')
 RE_MARK = re.compile(r'<span class="he-q">(.*?)</span>|<blockquote>(.*?)</blockquote>', re.S)
 # Guillemets typographiques dans le texte rendu (pas dans les attributs : les balises
 # sont supprimées avant extraction, ce qui écarte href="…", class="…", etc.)
-RE_INNER = re.compile(r'«([^«»]{15,700})»|"([^"]{15,700})"|„([^„”]{15,700})”')
+RE_GUILL = re.compile(r'«([^«»]{5,900})»|„([^„”]{5,900})”')
+
+
+def straight_pairs(s):
+    """Contenus entre guillemets droits, appariés **séquentiellement**.
+
+    Un appariement par expression régulière avec longueur minimale saute les paires
+    trop courtes et décale toutes les suivantes : la « citation » extraite devient
+    alors la prose située *entre* deux citations. On apparie donc 1er-2e, 3e-4e, …
+    et on filtre sur la longueur seulement après coup.
+    """
+    pos = [m.start() for m in re.finditer(r'"', s)]
+    return [s[a + 1:b] for a, b in zip(pos[0::2], pos[1::2]) if 0 < b - a - 1 <= 900]
 # Préfixe de référence en tête de citation : « גמ' ברכות (נ״ג ע״א): », « OH 131:1 — », …
 RE_PREFIX = re.compile(r'^[^"«„]{0,90}?[:—–-]\s*(?=["«„])')
 
@@ -288,12 +323,19 @@ def quotes_in(text):
         plain = flatten_html(line)
         if not re.search(r'[א-ת]', plain):
             continue
-        for m in RE_INNER.finditer(plain):
-            block = next(g for g in m.groups() if g is not None).strip()
+        blocks = [next(g for g in m.groups() if g is not None).strip()
+                  for m in RE_GUILL.finditer(plain)]
+        # les guillemets droits hors de tout bloc marqué sont eux aussi des citations
+        outside = plain
+        for b in blocks:
+            outside = outside.replace(b, ' ')
+        blocks += straight_pairs(outside)
+
+        for block in blocks:
             # Un bloc marqué (<blockquote>, span.he-q) contient souvent un préfixe de
             # référence, la citation entre guillemets droits, puis un commentaire de
             # l'auteur. Dans ce cas seule la portion entre guillemets est la citation.
-            inner = [s for s in re.findall(r'"([^"]{15,700})"', block) if is_hebrew_quote(s)]
+            inner = [s for s in straight_pairs(block) if is_hebrew_quote(s)]
             for frag in (inner or [block]):
                 frag = RE_PREFIX.sub('', frag).strip(' —–-:.«»')
                 if not is_hebrew_quote(frag):
