@@ -111,4 +111,12 @@ Points de méthode :
 - Les fragments majoritairement latins sont écartés : ce sont de la prose, pas des citations.
 - Le cache disque (`scripts/.cache-sefaria/`, git-ignoré) rend les passages suivants instantanés. Le supprimer force un rafraîchissement depuis Sefaria.
 
+### Convention de citation (tableaux du Niveau 4)
+
+Les guillemets sont **réservés au texte littéral**. Une condensation d'un séif est annoncée par `<em>résumé</em> :` (`תמצית` en hébreu, `summary` en anglais) et n'est alors pas jugée par le script.
+
+Cette convention n'est pas cosmétique. Avant elle, les cellules des tableaux comparatifs portaient toutes des guillemets, qu'elles citent ou qu'elles résument — et une citation fabriquée ressemblait exactement à ses quarante voisines légitimes. C'est ainsi que `« טוואן עכו״ם פסול »` (une מחלוקת donnée pour un psak) a survécu à toutes les relectures. En réservant les guillemets au verbatim, on rend le verdict sans ambiguïté : **ce qui est entre guillemets doit exister mot pour mot, sinon le gate échoue** ; le reste est un résumé assumé.
+
+Une ellipse à l'intérieur de guillemets reste légitime — `« A… B »` signifie que A et B sont l'un et l'autre littéraux. Le script vérifie chaque tronçon séparément.
+
 ⚠️ Un verdict **OK** signifie que le texte cité existe à la référence donnée — **pas** que le raisonnement halakhique qui l'entoure est juste, ni que l'attribution (« אמר רבא », « הגהת הרמ״א ») est la bonne. Le script attrape les citations fabriquées et les dafim faux ; il n'attrape pas une citation exacte mise au service d'une conclusion fausse. Cela reste du ressort de la relecture du Rav (`audit/relecture-rav.md`).

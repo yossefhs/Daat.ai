@@ -82,6 +82,7 @@ Set in Vercel (never committed; `.env` is git-ignored). Core: `ANTHROPIC_API_KEY
 
 ## Conventions & gotchas
 
+- **Citation convention**: quotation marks are reserved for **verbatim** text. A condensation of a seif is introduced by `<em>résumé</em> :` (`תמצית` / `summary`) and is not judged by `verifier-citations.py`. Anything inside quotes must exist word-for-word in the cited source or the gate fails. This is what makes the gate meaningful — before it, every Level 4 table cell wore quotation marks whether it quoted or paraphrased, and a fabricated citation looked exactly like its forty legitimate neighbours. An ellipsis inside quotes is still fine (`« A… B »` means A and B are each verbatim); each segment is checked separately.
 - **Trilingual parity**: a change is not done until FR, HE, and EN are updated consistently.
 - **Corpus is derived**: after editing siman HTML that should be searchable by the chat, rerun `npm run build` so `data/corpus-shabbat.json` and `data/simanim-disponibles.json` reflect it.
 - **Don't hand-edit generated files**: `PROGRESS.md`, `data/simanim-disponibles*.json`, `data/corpus-shabbat.json`, `assets/js/chat-widget.min.js`, `sitemap.xml` are build outputs.

@@ -388,10 +388,21 @@ def flatten_html(text):
         inner = m.group(1) if m.group(1) is not None else m.group(2)
         return '«' + TAG.sub(' ', inner) + '»'
     out = RE_MARK.sub(repl, text)
-    return html.unescape(TAG.sub(' ', out))
+    # on conserve <em>résumé</em> : c'est le marqueur de convention, il doit
+    # rester visible après suppression des balises
+    out = re.sub(r'<em>\s*(résumé|תמצית|summary)\s*</em>',
+                 lambda m: f'<em>{m.group(1)}</em>', out)
+    return html.unescape(re.sub(r'<(?!/?em\b)[^>]+>', ' ', out))
 
 
 LATIN = re.compile(r'[A-Za-zÀ-ÿ]')
+
+# Convention du site : les guillemets sont réservés au texte littéral. Une
+# condensation d'un séif est annoncée par « résumé / תמצית / summary » et n'est
+# donc pas jugée — c'est ce qui rend le verdict d'une citation guillemetée sans
+# ambiguïté, et ce qui empêche une paraphrase de se faire passer pour la langue
+# d'un auteur. Voir CLAUDE.md et scripts/README.md.
+RESUME = re.compile(r'<em>\s*(?:résumé|תמצית|summary)\s*</em>\s*:?\s*$', re.I)
 
 # Marqueurs qui présentent explicitement ce qui suit comme une citation. Sans l'un
 # d'eux (ou sans référence collée juste avant), des guillemets encadrent tout aussi
@@ -450,6 +461,8 @@ def quotes_in(text):
                 if n_letters(frag) < MIN_CITATION:
                     continue
                 at = plain.find(frag)
+                if at > 0 and RESUME.search(plain[:at]):
+                    continue          # résumé assumé : pas une citation
                 if at > 0 and not (from_marked or has_cue(plain[:at])):
                     continue
                 yield frag, lineno, plain
