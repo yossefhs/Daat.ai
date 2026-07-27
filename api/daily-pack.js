@@ -28,8 +28,12 @@ function parisNow() {
     timeZone: 'Europe/Paris', year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'short',
   }).formatToParts(new Date());
   const get = (t) => parts.find((p) => p.type === t)?.value;
+  const dateFr = new Intl.DateTimeFormat('fr-FR', {
+    timeZone: 'Europe/Paris', weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
+  }).format(new Date());
   return {
     dateISO: `${get('year')}-${get('month')}-${get('day')}`,
+    dateFr,
     day: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(get('weekday')),
   };
 }
@@ -118,7 +122,7 @@ export default async function handler(req, res) {
         }
       : null;
 
-    const pack = buildPack(num, day, { yomi });
+    const pack = buildPack(num, day, { yomi, meta: { dateFr: now.dateFr } });
     if (!pack) return res.status(404).json({ error: `Siman ${num} introuvable (242→365).` });
 
     if (wantsJson) return res.status(200).json({ ok: true, pack });
