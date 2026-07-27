@@ -1,6 +1,6 @@
 ---
 name: daat-social
-description: Moteur de contenu social DAAT — pilote la publication automatique du site (api/social.js, cron autonome sans service tiers) et génère des kits de posts sur-mesure (LinkedIn, Instagram, Facebook, X, Telegram, WhatsApp) dans la voix de DAAT à partir du corpus daattorah.com. Utiliser quand l'utilisateur veut « publier le siman de la semaine », « faire un post », « alimenter les réseaux », « vérifier les envois sociaux », ou booster la présence en ligne de DAAT.
+description: Moteur de contenu social DAAT — donne en une commande le « pack du jour » (posts prêts à copier-coller pour tous les réseaux), pilote la publication automatique du site (api/social.js, cron autonome sans service tiers) et génère des kits sur-mesure (LinkedIn, Instagram, Facebook, X, Telegram, WhatsApp) dans la voix de DAAT à partir du corpus daattorah.com. Utiliser quand l'utilisateur veut « le pack du jour », « quoi poster aujourd'hui », « donne-moi des posts », « publier le siman de la semaine », « faire un post », « alimenter les réseaux », « mettre le blog en avant », « vérifier les envois sociaux », ou booster/monétiser la présence en ligne de DAAT.
 ---
 
 # DAAT — Moteur de contenu social (v2, autonome)
@@ -16,6 +16,33 @@ gabarit automatique ne suffit pas.
 
 > **Principe fondateur inchangé** : on ne crée pas de halakha. On reformule du contenu
 > déjà validé. Jamais de psak ; toujours « pour la pratique, consulte ton Rav ».
+
+## ⚡ Mode « PACK DU JOUR » (le pilote quotidien — à privilégier)
+
+Quand l'utilisateur veut « quoi poster aujourd'hui / le pack du jour / des posts »,
+la voie **rapide et sans gaspiller de tokens** est le générateur déterministe :
+
+```bash
+node scripts/pack-du-jour.js --siman 253                 # pack texte, prêt à copier
+node scripts/pack-du-jour.js --siman 253 --html pack.html # + page mobile, boutons « Copier »
+```
+
+Il produit **7 blocs** ancrés dans la source réelle (titre du siman, numéro hébreu,
+liens canoniques, article de blog si présent) :
+① accroche du jour · ② LinkedIn · ③ fil X/Bluesky · ④ Instagram (caption + carrousel) ·
+⑤ Facebook · ⑥ message communauté WhatsApp/Telegram · ⑦ **appel au soutien qui tourne**
+(dédicace / don 18 € / mécénat / chat / newsletter — jamais deux fois le même d'affilée).
+
+L'**angle du jour** change chaque jour (7 angles) → poster tous les jours ne lasse pas.
+
+**Rôle du skill par-dessus le script :**
+1. Lancer le script pour le siman voulu (par défaut : le prochain non encore promu).
+2. **Enrichir** si demandé : lire `sources/shabbat/siman-{N}/niveau-1-base.html` pour
+   remplacer les accroches génériques par le **vrai concept / cas pratique** du siman
+   (ne jamais inventer — citer la source).
+3. Livrer prêt à copier-coller (ou envoyer le `--html` à l'utilisateur pour poster au doigt).
+
+Détails, angles, rotation monétisation et calendrier : `references/pack-du-jour.md`.
 
 ## Architecture (qui fait quoi)
 - **Automatique** : `api/social.js` (publication) + `api/_social-content.js` (textes
@@ -66,6 +93,7 @@ Si l'utilisateur demande « est-ce que ça a été envoyé ? » → lui donner l
   `references/omnisocials-setup.md`. Ce n'est **plus** le chemin par défaut.
 
 ## Références
+- `references/pack-du-jour.md` — **playbook quotidien** : 7 angles, rotation monétisation, calendrier hebdo, boucle de croissance.
 - `references/autopilot.md` — moteur autonome : jetons, URLs admin, sécurité.
 - `references/platform-specs.md` — formats, tons, heures par plateforme.
 - `references/omnisocials-setup.md` — option héritée.
