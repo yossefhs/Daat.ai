@@ -20,26 +20,38 @@ gabarit automatique ne suffit pas.
 ## ⚡ Mode « PACK DU JOUR » (le pilote quotidien — à privilégier)
 
 Quand l'utilisateur veut « quoi poster aujourd'hui / le pack du jour / des posts »,
-la voie **rapide et sans gaspiller de tokens** est le générateur déterministe :
+la voie **rapide et sans gaspiller de tokens** est le générateur déterministe.
+
+**En production (self-service, zéro session Claude)** — l'URL à mettre en favori sur
+son téléphone (remplacer SECRET par CRON_SECRET) :
+
+```
+https://daattorah.com/api/daily-pack?secret=SECRET            # siman de la semaine, angle du jour
+https://daattorah.com/api/daily-pack?secret=SECRET&siman=253  # siman précis
+…&day=5        # forcer l'angle (0=dim … 6=sam)   ·   …&format=json  # brut
+```
+
+**En local / session** (même moteur, `api/_pack.js`) :
 
 ```bash
 node scripts/pack-du-jour.js --siman 253                 # pack texte, prêt à copier
 node scripts/pack-du-jour.js --siman 253 --html pack.html # + page mobile, boutons « Copier »
 ```
 
-Il produit **7 blocs** ancrés dans la source réelle (titre du siman, numéro hébreu,
-liens canoniques, article de blog si présent) :
+Il produit **8 blocs** ancrés dans la source réelle (titre du siman, numéro hébreu,
+sous-titre et concepts extraits du corpus `data/corpus-shabbat.json`, liens canoniques,
+article de blog si présent) :
 ① accroche du jour · ② LinkedIn · ③ fil X/Bluesky · ④ Instagram (caption + carrousel) ·
 ⑤ Facebook · ⑥ message communauté WhatsApp/Telegram · ⑦ **appel au soutien qui tourne**
 (dédicace / don 18 € / mécénat / chat / newsletter — jamais deux fois le même d'affilée).
 
 L'**angle du jour** change chaque jour (7 angles) → poster tous les jours ne lasse pas.
 
-**Rôle du skill par-dessus le script :**
-1. Lancer le script pour le siman voulu (par défaut : le prochain non encore promu).
-2. **Enrichir** si demandé : lire `sources/shabbat/siman-{N}/niveau-1-base.html` pour
-   remplacer les accroches génériques par le **vrai concept / cas pratique** du siman
-   (ne jamais inventer — citer la source).
+L'enrichissement (sous-titre + concepts réels du siman) est **automatique** — extrait
+du corpus, zéro invention. **Rôle du skill par-dessus le moteur :**
+1. Lancer le script (ou donner l'URL prod) pour le siman voulu.
+2. Aller **plus loin** si demandé : lire `sources/shabbat/siman-{N}/niveau-1-base.html`
+   pour un post événementiel, une fête, une campagne (ne jamais inventer — citer la source).
 3. Livrer prêt à copier-coller (ou envoyer le `--html` à l'utilisateur pour poster au doigt).
 
 Détails, angles, rotation monétisation et calendrier : `references/pack-du-jour.md`.
@@ -53,6 +65,7 @@ Détails, angles, rotation monétisation et calendrier : `references/pack-du-jou
   (`docs/social/launch-pack*.md` FR/HE/EN), posts événementiels.
 
 ## Opérations courantes (URLs admin — remplacer SECRET par CRON_SECRET)
+- **Pack du jour (à poster soi-même)** : `https://daattorah.com/api/daily-pack?secret=SECRET`
 - État / journal : `https://daattorah.com/api/social?action=status&secret=SECRET`
 - Prévisualiser le prochain envoi : `…?action=preview&secret=SECRET`
 - Publier maintenant : `…?action=force&secret=SECRET`

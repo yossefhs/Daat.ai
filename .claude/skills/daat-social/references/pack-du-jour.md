@@ -4,8 +4,10 @@ Objectif : faire connaître daattorah.com **au maximum**, sous ses meilleurs ang
 faire rentrer de quoi payer l'infrastructure (tokens IA, hébergement) — sans jamais
 trahir la rigueur (on ne tranche pas de halakha ; toujours « consulte ton Rav »).
 
-Le générateur `scripts/pack-du-jour.js` fait le déterministe. Ce document dit **comment
-s'en servir intelligemment** et **comment enrichir**.
+Le moteur est `api/_pack.js` (déterministe, enrichi du corpus — zéro token IA), servi
+par **`/api/daily-pack`** en production (page mobile, boutons « Copier », protégée par
+CRON_SECRET) et par `scripts/pack-du-jour.js` en local. Ce document dit **comment s'en
+servir intelligemment** et **comment aller plus loin**.
 
 ---
 
