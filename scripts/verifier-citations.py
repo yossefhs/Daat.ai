@@ -19,20 +19,27 @@ Principe
 
 Verdicts
 --------
-  OK        la citation figure telle quelle dans la source
-  VARIANTE  très proche (≥ SEUIL_VARIANTE) — écart orthographique ou coupe
-  ABSENT    introuvable dans la source citée  ← c'est la liste à traiter
-  NON_RESOLU  référence non reconnue ou source indisponible
+  OK           la citation figure telle quelle dans la source
+  VARIANTE     très proche (≥ SEUIL_VARIANTE) — écart orthographique ou coupe
+  REF_FAUSSE   le texte existe bien, mais pas là où la page le situe (la vraie
+               référence est indiquée) — corriger le renvoi
+  INTROUVABLE  absent de la source citée *et* du reste de Sefaria — citation
+               vraisemblablement fabriquée, à réécrire
+  NON_RESOLU   référence non reconnue ou source indisponible
+
+Un fragment de moins de MIN_CITATION lettres n'est pas jugé : entre guillemets,
+« תשמישי קדושה » ou « אמירה לנכרי שבות » sont des termes techniques, pas des
+citations, et rien n'oblige à les retrouver mot pour mot dans la source voisine.
 
 Usage
 -----
   python3 scripts/verifier-citations.py                    # tout le site, FR
   python3 scripts/verifier-citations.py --langues fr,he,en
   python3 scripts/verifier-citations.py --path sources/shabbat/siman-297
-  python3 scripts/verifier-citations.py --only-absent      # n'affiche que les ABSENT
+  python3 scripts/verifier-citations.py --only-absent      # n'affiche que REF_FAUSSE / INTROUVABLE
   python3 scripts/verifier-citations.py --csv audit/citations-verifiees.csv
 
-Sort non-zéro s'il reste des ABSENT (utilisable comme gate CI).
+Sort non-zéro s'il reste des REF_FAUSSE ou des INTROUVABLE (utilisable comme gate CI).
 Le cache disque (scripts/.cache-sefaria/) rend les passages suivants instantanés.
 """
 
@@ -53,6 +60,12 @@ CACHE = os.path.join(ROOT, 'scripts', '.cache-sefaria')
 
 SEUIL_VARIANTE = 0.86   # ratio difflib au-dessus duquel on parle de variante et non d'absence
 MIN_LETTRES = 12        # en deçà, un fragment est trop court pour conclure quoi que ce soit
+# Une vraie citation est une phrase. En deçà de ce seuil on a affaire à un terme
+# technique mis entre guillemets par l'auteur (« תשמישי קדושה », « אמירה לנכרי שבות »),
+# que rien n'oblige à figurer mot pour mot dans la source voisine.
+MIN_CITATION = 25
+# La référence doit se trouver au voisinage de la citation, pas n'importe où sur la ligne.
+FENETRE_REF = 200
 
 
 # ─────────────────────────────── Sefaria ───────────────────────────────
@@ -92,6 +105,70 @@ def hebrew_versions(book):
         return []
     return [v['versionTitle'] for v in data
             if v.get('language') == 'he' and v.get('versionTitle')]
+
+
+def locate(frag):
+    """Où ce texte se trouve-t-il réellement dans Sefaria ? (recherche exacte)
+
+    Permet de distinguer les deux cas que « absent de la source citée » recouvre :
+    une citation *fabriquée* (introuvable nulle part) et une citation *exacte
+    rattachée à la mauvaise référence* — qui appellent des corrections différentes.
+    """
+    q = re.sub(r'\s+', ' ', re.sub(r'[«»"„”\[\]]', '', frag)).strip()
+    q = max((p.strip() for p in re.split(r'…|\.\.\.', q)), key=len)[:180]
+    if n_letters(q) < MIN_CITATION:
+        return []
+
+    def ask():
+        body = json.dumps({'query': q, 'type': 'text', 'field': 'exact', 'size': 4}).encode()
+        req = urllib.request.Request('https://www.sefaria.org/api/search-wrapper',
+                                     data=body, headers={'Content-Type': 'application/json'})
+        for i in range(3):
+            try:
+                with urllib.request.urlopen(req, timeout=45) as r:
+                    return json.loads(r.read().decode())
+            except Exception as e:
+                if i == 2:
+                    return {'error': str(e)}
+                time.sleep(2 * (i + 1))
+
+    data = _cached('search::' + q, ask)
+    if not isinstance(data, dict) or 'error' in data:
+        return []
+    out = []
+    for h in data.get('hits', {}).get('hits', []):
+        ref = re.sub(r'\s*\(.*$', '', h.get('_id', ''))
+        if ref:
+            out.append(ref)
+    return out
+
+
+def hebrew_title(book):
+    """Titres hébreux d'un ouvrage Sefaria (« Job » → [« איוב »])."""
+    data = _cached('index::' + book, lambda: _get(
+        'https://www.sefaria.org/api/v2/index/' + urllib.parse.quote(book, safe=',._-')))
+    if not isinstance(data, dict):
+        return []
+    return [x for x in ([data.get('heTitle')] + (data.get('heTitleVariants') or [])) if x]
+
+
+def bien_attribuee(frag, window):
+    """La page situe-t-elle correctement ce texte, dans un ouvrage que le
+    résolveur de références ne sait pas lire ?
+
+    Le résolveur couvre le Talmud, le Choulhan Aroukh et la Michna Beroura ; il
+    ignore le Tanakh et les nossei kelim. Un verset correctement attribué — « ועליו
+    נאמר \'לאחז בכנפות הארץ\' (איוב ל״ח) » — se retrouvait donc confronté au daf cité
+    à côté. On demande à Sefaria où le texte se trouve réellement, et si le nom de
+    cet ouvrage figure au voisinage de la citation, l'attribution de la page est juste.
+    """
+    for ref in locate(frag):
+        book = re.split(r'\s+\d|:', ref)[0].strip()
+        if any(he in window for he in hebrew_title(book)):
+            return ref
+        if book and book.lower() in window.lower():
+            return ref
+    return ''
 
 
 def _flat(x, out):
@@ -173,11 +250,22 @@ GEMATRIA = {'א': 1, 'ב': 2, 'ג': 3, 'ד': 4, 'ה': 5, 'ו': 6, 'ז': 7, 'ח':
 
 
 def gem(s):
-    """Valeur numérique d'un nombre écrit en lettres hébraïques (ignore ״ et ׳)."""
+    """Valeur d'un nombre écrit en lettres hébraïques, ou None si ce n'en est pas un.
+
+    Le contrôle de forme est indispensable : sans lui, « ספק ברכות להקל » se lit
+    « Berakhot » + gematria(להקל)=165, et l'outil part chercher un folio 165 dans un
+    traité qui en compte 64. Un numéral hébreu s'écrit par valeurs décroissantes
+    (ק־י־ז), ce que « להקל » (30-5-100-30) ne respecte pas.
+    """
     s = re.sub(r'["\'״׳]', '', s)
-    if not s or any(c not in GEMATRIA for c in s):
+    if not s or len(s) > 3 or any(c not in GEMATRIA for c in s):
         return None
-    return sum(GEMATRIA[c] for c in s)
+    vals = [GEMATRIA[c] for c in s]
+    if vals in ([10, 6], [10, 7]):        # ט״ו / ט״ז s'écrivent ainsi par convention
+        return sum(vals)
+    if any(a < b for a, b in zip(vals, vals[1:])):
+        return None
+    return sum(vals)
 
 
 MASSEKHTOT = {
@@ -305,6 +393,21 @@ def flatten_html(text):
 
 LATIN = re.compile(r'[A-Za-zÀ-ÿ]')
 
+# Marqueurs qui présentent explicitement ce qui suit comme une citation. Sans l'un
+# d'eux (ou sans référence collée juste avant), des guillemets encadrent tout aussi
+# bien un résumé de l'auteur — « הברכה הולכת אחר השמחה » — qu'aucune source n'est
+# censée contenir mot pour mot.
+CUE = re.compile(
+    'גמ[׳\']|תנן|תניא|תנו רבנן|ת[״"]ר|דתניא|דתנן|איתא|ברייתא|במשנה|משנת|'
+    'וז[״"]ל|וזה לשון|לשון ה|כלשון|שנאמר|כתיב|דכתיב|אמרו|ואמר|אמר ר|'
+    'מקור|לשון המחבר|לשון הרמ|ע[״"]פ|כדאיתא|וכלשון|הגמרא|הסוגיא|'
+    r'[א-ת][״"][א-ת]\s*[:.]\s*$|\d\s*[:.]\s*$|[.:]\s*$')
+
+
+def has_cue(before):
+    """Le contexte immédiat annonce-t-il une citation ?"""
+    return bool(CUE.search(before[-90:]))
+
 
 def is_hebrew_quote(frag):
     """Écarte la prose française/anglaise : une citation doit être majoritairement hébraïque."""
@@ -323,15 +426,15 @@ def quotes_in(text):
         plain = flatten_html(line)
         if not re.search(r'[א-ת]', plain):
             continue
-        blocks = [next(g for g in m.groups() if g is not None).strip()
+        marked = [next(g for g in m.groups() if g is not None).strip()
                   for m in RE_GUILL.finditer(plain)]
         # les guillemets droits hors de tout bloc marqué sont eux aussi des citations
         outside = plain
-        for b in blocks:
+        for b in marked:
             outside = outside.replace(b, ' ')
-        blocks += straight_pairs(outside)
+        blocks = [(b, True) for b in marked] + [(b, False) for b in straight_pairs(outside)]
 
-        for block in blocks:
+        for block, from_marked in blocks:
             # Un bloc marqué (<blockquote>, span.he-q) contient souvent un préfixe de
             # référence, la citation entre guillemets droits, puis un commentaire de
             # l'auteur. Dans ce cas seule la portion entre guillemets est la citation.
@@ -342,6 +445,12 @@ def quotes_in(text):
                     continue
                 # écarte les identifiants d'ancre (mots collés par des tirets)
                 if re.fullmatch(r'[\wא-ת֐-׿-]+', frag):
+                    continue
+                # un terme technique entre guillemets n'est pas une citation
+                if n_letters(frag) < MIN_CITATION:
+                    continue
+                at = plain.find(frag)
+                if at > 0 and not (from_marked or has_cue(plain[:at])):
                     continue
                 yield frag, lineno, plain
 
@@ -421,15 +530,20 @@ def main():
     langues = set(args.langues.split(','))
     base = args.path if os.path.isabs(args.path) else os.path.join(ROOT, args.path)
 
-    rows, stats = [], {'OK': 0, 'VARIANTE': 0, 'ABSENT': 0, 'NON_RESOLU': 0, 'SANS_REF': 0}
+    rows, stats = [], {'OK': 0, 'VARIANTE': 0, 'REF_FAUSSE': 0, 'INTROUVABLE': 0,
+                       'NON_RESOLU': 0, 'SANS_REF': 0}
     cache_src = {}
 
     for path in pages(base, langues):
         text = open(path, encoding='utf-8').read()
 
         for frag, lineno, plain in quotes_in(text):
-            # la référence accompagne presque toujours la citation sur la même ligne
-            refs = refs_in(plain)
+            # la référence doit accompagner la citation, pas simplement figurer
+            # quelque part sur la même ligne
+            at = plain.find(frag)
+            window = (plain[max(0, at - FENETRE_REF):at + len(frag) + FENETRE_REF]
+                      if at >= 0 else plain)
+            refs = refs_in(window)
             if not refs:
                 stats['SANS_REF'] += 1
                 continue
@@ -439,8 +553,17 @@ def main():
                     cache_src[r] = fetch(r) or []
                 segs += cache_src[r]
             v, ratio, extract = verdict(frag, segs)
-            stats[v] += 1
-            if v == 'OK' or (args.only_absent and v != 'ABSENT'):
+            ailleurs = ''
+            if v == 'ABSENT':
+                juste = bien_attribuee(frag, window)
+                if juste:
+                    v, ailleurs = 'OK', juste          # la page cite un ouvrage non résolu
+                else:
+                    found = [r for r in locate(frag) if r]
+                    v = 'REF_FAUSSE' if found else 'INTROUVABLE'
+                    ailleurs = ' · '.join(found[:3])
+            stats[v] = stats.get(v, 0) + 1
+            if v == 'OK' or (args.only_absent and v not in ('INTROUVABLE', 'REF_FAUSSE')):
                 continue
 
             rows.append({
@@ -448,6 +571,7 @@ def main():
                 'refs': ' | '.join(refs[:3]), 'verdict': v, 'ratio': f'{ratio:.2f}',
                 'citation': re.sub(r'\s+', ' ', frag)[:400],
                 'source_reelle': re.sub(r'\s+', ' ', extract)[:400],
+                'texte_trouve_en': ailleurs,
             })
 
     if args.csv:
@@ -456,12 +580,13 @@ def main():
         os.makedirs(os.path.dirname(out), exist_ok=True)
         with open(out, 'w', newline='', encoding='utf-8') as fh:
             w = _csv.DictWriter(fh, fieldnames=['fichier', 'ligne', 'refs', 'verdict',
-                                                'ratio', 'citation', 'source_reelle'])
+                                                'ratio', 'citation', 'source_reelle',
+                                                'texte_trouve_en'])
             w.writeheader()
-            w.writerows(sorted(rows, key=lambda r: (r['verdict'] != 'ABSENT', r['fichier'], r['ligne'])))
+            w.writerows(sorted(rows, key=lambda r: (r['verdict'] != 'INTROUVABLE', r['fichier'], r['ligne'])))
 
     if not args.quiet:
-        for r in sorted(rows, key=lambda r: (r['verdict'] != 'ABSENT', r['fichier'])):
+        for r in sorted(rows, key=lambda r: (r['verdict'] != 'INTROUVABLE', r['fichier'])):
             print(f"[{r['verdict']:9}] {r['fichier']}:{r['ligne']}  ← {r['refs']}  (r={r['ratio']})")
             print(f"    page   : {r['citation'][:160]}")
             if r['source_reelle']:
@@ -474,10 +599,11 @@ def main():
     print(f"  Référence non résolue: {stats['NON_RESOLU']}")
     print(f"  Conformes           : {stats['OK']}")
     print(f"  Variantes           : {stats['VARIANTE']}")
-    print(f"  ABSENTES de la source: {stats['ABSENT']}")
+    print(f"  Référence fausse    : {stats['REF_FAUSSE']}  (texte réel, mais pas là où la page le situe)")
+    print(f"  INTROUVABLES        : {stats['INTROUVABLE']}  (absentes de tout Sefaria)")
     if args.csv:
         print(f"  Détail              : {args.csv}")
-    return 1 if stats['ABSENT'] else 0
+    return 1 if (stats['INTROUVABLE'] or stats['REF_FAUSSE']) else 0
 
 
 if __name__ == '__main__':
