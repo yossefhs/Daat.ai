@@ -38,6 +38,12 @@ node scripts/pack-du-jour.js --siman 253                 # pack texte, prêt à 
 node scripts/pack-du-jour.js --siman 253 --html pack.html # + page mobile, boutons « Copier »
 ```
 
+Par défaut la page suit le **Daat Yomi du jour** (programme quotidien, badge
+« jour N/194 · séifim x–y » dans les posts) ; hors programme, le siman de la semaine.
+Le secret n'est saisi **qu'une fois** (mémorisé sur l'appareil). Chaque bloc a
+« Copier » + **partage direct** (WhatsApp/Telegram/X/natif), et le carrousel Instagram
+est généré en **images PNG 1080×1350** téléchargeables (charte navy/or).
+
 Il produit **8 blocs** ancrés dans la source réelle (titre du siman, numéro hébreu,
 sous-titre et concepts extraits du corpus `data/corpus-shabbat.json`, liens canoniques,
 article de blog si présent) :
