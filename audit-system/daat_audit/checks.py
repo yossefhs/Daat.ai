@@ -53,12 +53,20 @@ class Finding:
 
 CheckFn = Callable[[CheckContext], Iterable[Finding]]
 REGISTRY: dict[str, CheckFn] = {}
+# Règles écrites mais NON appliquées, avec la raison. Une règle dont la
+# précision mesurée est nulle ne doit pas tourner : elle noie les signalements
+# utiles et use la patience du relecteur. On la conserve — le code documente
+# ce qui a été essayé — mais on ne l'exécute pas.
+DESACTIVEES: dict[str, str] = {}
 
 
-def check(code: str) -> Callable[[CheckFn], CheckFn]:
+def check(code: str, *, desactivee: str | None = None) -> Callable[[CheckFn], CheckFn]:
     def decorator(fn: CheckFn) -> CheckFn:
-        REGISTRY[code] = fn
         fn.rule_code = code  # type: ignore[attr-defined]
+        if desactivee:
+            DESACTIVEES[code] = desactivee
+        else:
+            REGISTRY[code] = fn
         return fn
     return decorator
 
@@ -71,6 +79,12 @@ def run_all(ctx: CheckContext) -> list[Finding]:
 
 
 # ── Contrôles techniques ─────────────────────────────────────────────────
+
+# Séquence emoji : un liant encadré de pictogrammes.
+_ZWJ_EMOJI = re.compile(
+    r"[\U0001F000-\U0001FAFF\u2600-\u27BF\uFE0F]\u200d"
+    r"[\U0001F000-\U0001FAFF\u2600-\u27BF\uFE0F]"
+)
 
 _INVISIBLE = {
     "​": "espace de largeur nulle (U+200B)",
@@ -116,8 +130,12 @@ def caracteres_invisibles(ctx: CheckContext) -> Iterator[Finding]:
     """Caractères Unicode invisibles — invisibles à la relecture humaine,
     mais ils cassent les comparaisons de citations."""
     for block in ctx.blocks:
+        # Le liant (U+200D) assemble légitimement les séquences emoji :
+        # 👨 + ZWJ + 💼 forme un seul pictogramme. Le retirer casserait
+        # l'affichage au lieu de le réparer.
+        texte = _ZWJ_EMOJI.sub(" ", block.raw_content)
         for char, label in _INVISIBLE.items():
-            if char in block.raw_content:
+            if char in texte:
                 yield Finding(
                     rule_code="TECH-002", category="technique",
                     subcategory="caractere_invisible", block_id=block.stable_id,
@@ -128,14 +146,26 @@ def caracteres_invisibles(ctx: CheckContext) -> Iterator[Finding]:
                 )
 
 
+_MARQUEUR_LISTE = re.compile(r"(?:^|\s)(?:[א-ת]|\d{1,2}|[a-zA-Z])\)")
+
+
 @check("TECH-003")
 def parentheses_desequilibrees(ctx: CheckContext) -> Iterator[Finding]:
     """Parenthèses ou crochets déséquilibrés dans un bloc."""
     pairs = {"(": ")", "[": "]", "{": "}"}
     for block in ctx.blocks:
         text = block.normalized_content
+        # « א) אופן א », « ב) … », « 1) … » : usage courant en hébreu, où la
+        # parenthèse fermante marque une énumération. Elle ne peut créer qu'un
+        # excès de FERMANTES — on ne corrige donc que dans ce sens. Retirer le
+        # marqueur du texte, comme je l'avais d'abord fait, laissait une
+        # ouvrante orpheline : cela fabriquait le défaut qu'on prétendait
+        # filtrer.
+        marqueurs = len(_MARQUEUR_LISTE.findall(text))
         for opener, closer in pairs.items():
             delta = text.count(opener) - text.count(closer)
+            if delta < 0 and opener == "(":
+                delta = min(0, delta + marqueurs)
             if delta:
                 yield Finding(
                     rule_code="TECH-003", category="technique",
@@ -316,9 +346,16 @@ def terminologie_incoherente(ctx: CheckContext) -> Iterator[Finding]:
         )
 
 
-@check("EDIT-002")
+@check("EDIT-002", desactivee=(
+    "précision mesurée nulle : sur 167 signalements produits par les quatre "
+    "niveaux, un échantillon de 12 n'a donné aucune phrase tronquée — que des "
+    "fils d'Ariane, des schémas de décision (→ ↓ ✓), des légendes et des "
+    "libellés de source, tous dépourvus de ponctuation finale à bon droit. "
+    "Sans un seul vrai positif, la règle ne peut pas être réglée : elle est "
+    "conservée en l'état et non exécutée."
+))
 def phrase_inachevee(ctx: CheckContext) -> Iterator[Finding]:
-    """Paragraphe se terminant sans ponctuation finale."""
+    """Paragraphe se terminant sans ponctuation finale. **Désactivée.**"""
     for block in ctx.blocks:
         if block.block_type not in (BlockType.PARAGRAPHE, BlockType.TRADUCTION):
             continue
@@ -335,13 +372,25 @@ def phrase_inachevee(ctx: CheckContext) -> Iterator[Finding]:
         )
 
 
+# Répétitions légitimes en français : « faire faire un travail », « nous nous
+# rendons ». Les signaler serait corriger une tournure correcte.
+_DOUBLES_LEGITIMES = {"faire faire", "nous nous", "vous vous", "si si"}
+
+
 @check("EDIT-003")
 def repetition_de_mot(ctx: CheckContext) -> Iterator[Finding]:
     """Mot répété deux fois de suite (« de de », « la la »)."""
     for block in ctx.blocks:
-        if block.block_type is BlockType.CITATION_HEBRAIQUE:
+        # Tableaux et listes : le texte de deux cellules voisines est accolé
+        # par l'extraction, ce qui fabrique « Permis Permis » là où la page
+        # affiche deux cellules distinctes. Le doublon est dans ma lecture,
+        # pas dans la page.
+        if block.block_type in (BlockType.CITATION_HEBRAIQUE, BlockType.TABLEAU,
+                                BlockType.LISTE):
             continue
         for m in re.finditer(r"\b([A-Za-zÀ-ÿ]{2,})\s+\1\b", block.normalized_content, re.I):
+            if m.group(0).lower() in _DOUBLES_LEGITIMES:
+                continue
             yield Finding(
                 rule_code="EDIT-003", category="editorial", subcategory="repetition",
                 block_id=block.stable_id, current_text=m.group(0),

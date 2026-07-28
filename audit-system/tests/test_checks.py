@@ -10,7 +10,7 @@ import pathlib
 import pytest
 
 from daat_audit.blocks import split_blocks
-from daat_audit.checks import REGISTRY, CheckContext, run_all
+from daat_audit.checks import DESACTIVEES, REGISTRY, CheckContext, run_all
 from daat_audit.models import Risk, Severity
 
 FIXTURE = pathlib.Path(__file__).parent / "fixtures" / "siman-242-base.html"
@@ -119,16 +119,16 @@ def test_tech_008_muet_quand_un_ancetre_porte_dir_rtl():
     assert "TECH-008" not in codes(run_all(contexte(html)))
 
 
-def test_edit_002_phrase_inachevee():
+def test_edit_002_est_desactivee():
+    """Précision mesurée nulle sur le corpus réel : sur 167 signalements, un
+    échantillon de 12 n'a donné aucune phrase tronquée — que des fils
+    d'Ariane, des schémas de décision, des légendes. Sans un seul vrai
+    positif, la règle ne peut pas être réglée ; elle est conservée mais
+    n'est plus exécutée."""
+    assert "EDIT-002" in DESACTIVEES
+    assert "EDIT-002" not in REGISTRY
     html = ("<main><h1>T</h1><p>Cette phrase est suffisamment longue pour être "
             "examinée par le contrôle et se termine brusquement sans</p></main>")
-    assert "EDIT-002" in codes(run_all(contexte(html)))
-
-
-def test_edit_002_muet_sur_une_enumeration():
-    """Un plan « 1. … 2. … » n'est pas une phrase inachevée."""
-    html = ("<main><h1>T</h1><p>1. Le texte du Choul'han Aroukh 2. La question "
-            "de la source 3. Les catégories de personnes 4. La conclusion</p></main>")
     assert "EDIT-002" not in codes(run_all(contexte(html)))
 
 
@@ -192,3 +192,50 @@ def test_tout_signalement_est_qualifie(page):
         assert 0.0 < f.confidence <= 1.0
         assert f.explanation
         assert f.rule_code in REGISTRY
+
+
+# ── Corrections issues du passage sur les quatre niveaux ─────────────────
+
+def test_tech_002_ne_signale_pas_le_liant_dune_sequence_emoji():
+    """👨 + U+200D + 💼 forme un seul pictogramme : retirer le liant casserait
+    l'affichage au lieu de le réparer."""
+    html = "<main><h1>T</h1><p>Le rôle de l'employé 👨‍💼 est ici en cause.</p></main>"
+    assert "TECH-002" not in codes(run_all(contexte(html)))
+
+
+def test_tech_002_signale_toujours_un_liant_parasite():
+    html = "<main><h1>T</h1><p>Un texte avec un liant‍parasite au milieu.</p></main>"
+    assert "TECH-002" in codes(run_all(contexte(html)))
+
+
+def test_tech_003_ne_signale_pas_un_marqueur_denumeration_hebreu():
+    """« א) אופן א » : usage courant en hébreu, pas une parenthèse orpheline."""
+    html = ('<main><h1>T</h1><p dir="rtl">א) אופן א : הקציצה הוצאת הגוי משליחות. '
+            "ב) אופן ב : שינוי הפרספקטיבה הציבורית.</p></main>")
+    assert "TECH-003" not in codes(run_all(contexte(html)))
+
+
+def test_tech_003_signale_toujours_une_parenthese_orpheline():
+    html = ("<main><h1>T</h1><p>Une phrase avec une parenthèse (jamais refermée "
+            "et du texte ensuite.</p></main>")
+    assert "TECH-003" in codes(run_all(contexte(html)))
+
+
+def test_edit_003_ignore_les_tableaux():
+    """Le texte de deux cellules voisines est accolé par l'extraction :
+    « Permis | Permis » devient « Permis Permis ». Le doublon est dans la
+    lecture, pas dans la page."""
+    html = ("<main><h1>T</h1><table><tr><td>Permis</td><td>Permis</td></tr>"
+            "</table></main>")
+    assert "EDIT-003" not in codes(run_all(contexte(html)))
+
+
+def test_edit_003_ignore_les_repetitions_legitimes_du_francais():
+    html = ("<main><h1>T</h1><p>Il est permis de faire faire un travail par un "
+            "non-juif avant Shabbat.</p></main>")
+    assert "EDIT-003" not in codes(run_all(contexte(html)))
+
+
+def test_edit_003_signale_toujours_une_vraie_repetition():
+    html = "<main><h1>T</h1><p>Il faut honorer le le Shabbat selon ses moyens.</p></main>"
+    assert "EDIT-003" in codes(run_all(contexte(html)))
