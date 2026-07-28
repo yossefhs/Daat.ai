@@ -90,7 +90,7 @@ audit-system/
 │       └── terminologie.json    # graphies attestées — GÉNÉRÉ, ne pas éditer
 ├── scripts/build-terminologie.py  # régénère terminologie.json depuis sources/
 ├── alembic/                 # migrations (schéma initial : 14 tables)
-├── tests/                   # 197 tests, réseau entièrement simulé
+├── tests/                   # 212 tests, réseau entièrement simulé
 ├── docker-compose.yml       # PostgreSQL 16 + API (+ service crawler ponctuel)
 └── var/                     # base SQLite locale et artefacts (git-ignoré)
 ```
@@ -156,7 +156,7 @@ Le mot de passe PostgreSQL de développement se surcharge par `AUDIT_DB_PASSWORD
 ### Tests
 
 ```bash
-.venv/bin/python -m pytest tests/ -q          # 197 tests, aucun accès réseau
+.venv/bin/python -m pytest tests/ -q          # 212 tests, aucun accès réseau
 ```
 
 Les handlers HTTP simulés assertent la méthode de chaque requête : toute
@@ -172,7 +172,7 @@ AUDIT_CA_BUNDLE=/chemin/vers/ca-bundle.crt .venv/bin/python -m daat_audit.crawle
 ## Ce qui est vérifié — et ce qui ne l'est pas
 
 **Vérifié dans cet environnement :**
-- les 197 tests (SQLite en mémoire, réseau simulé par `httpx.MockTransport`) ;
+- les 212 tests (SQLite en mémoire, réseau simulé par `httpx.MockTransport`) ;
 - la migration Alembic sur SQLite (14 tables + `alembic_version`) ;
 - un crawl réel complet du périmètre : 28/28 pages archivées (HTML brut, texte
   nettoyé, double empreinte SHA-256), déduplication confirmée en conditions
@@ -407,6 +407,70 @@ supposant — chacune corrigée et mesurée :
 sont toujours confrontées à rien. Le Rama, notamment, est écarté volontairement :
 Sefaria ne le sert pas sous un nom vérifié à ce jour, et inventer une référence
 serait pire que de se taire.
+
+## Premier passage sur les quatre niveaux — ce qu'il a surtout mesuré
+
+112 pages collectées sans échec (les 4 niveaux, simanim 242-269). L'analyse a
+produit, en quatre passes successives :
+
+| | signalements de citation |
+|---|---|
+| premier passage | **408** pour 539 citations — 76 % |
+| les en-têtes et légendes ne sont plus des citations | **352** |
+| la prose hébraïque de l'auteur n'est plus une citation | **123** |
+
+**Aucune de ces baisses n'est une amélioration du site.** Toutes corrigent
+l'instrument. C'est la constante de ce travail : un taux de signalement de
+76 % sur un site qui passe les deux gates du dépôt ne décrit pas le contenu,
+il décrit une règle fausse.
+
+Les trois erreurs, dans l'ordre où elles ont été trouvées — en **regardant les
+signalements** plutôt qu'en supposant :
+
+1. **Un en-tête n'est pas une citation.** « שולחן ערוך אורח חיים סימן רמ״ב
+   סעיף א' » et « עם נושאי כלים: ביאורי שו״ע, ט״ז, מג״א » étaient jugés comme
+   du texte littéral : on demandait à Sefaria de contenir mot pour mot le titre
+   d'un siman.
+2. **La prose hébraïque de l'auteur n'est pas une citation.** Au niveau
+   *lamdan*, la page est très largement rédigée en hébreu — « שורש הסוגיא : … »,
+   « חקירה : … ». Le décompte par conteneur l'a tranché : `p.he` (47), `p` (32),
+   `div.rishon-card` (31) contre `blockquote.text-source` (9) et
+   `div.sacred-text` (16). **25 signalements sur 209 venaient d'un vrai
+   conteneur de source.** L'annonce implicite y est désormais limitée :
+   1715 fragments extraits deviennent 806.
+3. **Le niveau 4 cite l'Admour HaZaken, pas le Mehaber.** La référence déduite
+   pointait le Choulhan Aroukh de Rabbi Yossef Karo : on comparait deux auteurs
+   différents et l'on rendait « variante » sur des pages entières.
+
+### Ce que valent les 123 restants
+
+Six ont été tirés au hasard et vérifiés à la main : **au moins deux sont encore
+des faux positifs** — un sous-titre de l'auteur (« חידוש ב — הדרגה
+תלת-שכבתית »), et du texte de l'Admour rattaché par voisinage à une Guemara
+citée plus haut. Les quatre autres sont plausibles et **non vérifiés**.
+
+Le rendement réel n'est donc pas connu, et il serait malhonnête d'annoncer
+123 anomalies. Sur l'ensemble de ce travail, **un seul signalement a été
+vérifié contre ses sources et tenu pour fondé** : siman 242, `הַבּוֹרֵא` au lieu
+de `הקדוש ברוך הוא` dans un passage donné pour littéral (Beitsa 15b, confirmé
+sur les deux éditions hébraïques de Sefaria). Il n'a pas été corrigé : la
+décision revient au Rav.
+
+### Les règles techniques, mesurées elles aussi
+
+392 signalements hors citations, échantillonnés de la même façon :
+
+| Règle | Constat |
+|---|---|
+| **EDIT-002** (167) | **désactivée** — 0 vrai positif sur 12 tirages |
+| TECH-003 (12) | `א)` est un marqueur d'énumération hébraïque |
+| TECH-002 (1) | le liant appartient à une séquence emoji 👨‍💼 |
+| EDIT-003 (39) | « Permis Permis » = deux cellules de tableau accolées par l'extraction |
+
+Une règle sans un seul vrai positif ne peut pas être *réglée* — la calibrer sur
+ces données serait deviner. `EDIT-002` est donc conservée, documentée, et
+retirée de l'exécution : le registre distingue désormais les règles actives des
+règles désactivées, avec la raison en clair.
 
 ## Limites actuelles
 
