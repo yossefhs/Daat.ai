@@ -74,3 +74,41 @@ class PageVersionOut(BaseModel):
 
 class PageDetailOut(PageOut):
     versions: list[PageVersionOut] = []
+
+
+class FindingOut(BaseModel):
+    """Un signalement. ``proposed_correction`` reste nul pour tout ce qui
+    touche au contenu : le système propose un constat, jamais une réécriture."""
+
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    page_id: int
+    block_id: int | None
+    rule_code: str
+    category: str
+    subcategory: str | None
+    severity: str
+    risk: str
+    status: str
+    confidence: float
+    current_text: str
+    source_text: str | None
+    proposed_correction: str | None
+    explanation: str
+    sources: str | None
+    created_at: dt.datetime | None
+
+
+class RuleStatsOut(BaseModel):
+    """Fiabilité d'une règle. ``precision`` vaut ``null`` tant qu'aucune
+    décision humaine n'a été rendue — jamais 0 ni 1 par défaut."""
+
+    code: str
+    alerts: int
+    judged: int
+    validated: int
+    rejected: int
+    false_positives: int
+    pending: int
+    precision: float | None

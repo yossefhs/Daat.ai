@@ -220,8 +220,11 @@ def _diff_words(part: str, source: str, needle: str, haystack: str
     ratio, window = _best_window(needle, haystack)
 
     q_words = _words(part)
-    # Fenêtre correspondante en mots, pour un diff lisible.
-    s_words = _words(source)
+    # Diff contre la FENÊTRE correspondante, pas contre la source entière : un
+    # folio du Talmud fait quelques milliers de mots, et comparer une citation
+    # de dix mots à tout le folio produit un écart illisible
+    # (« הבורא » → toute la sougya suivante) au lieu du mot réellement changé.
+    s_words = _best_word_window(q_words, _words(source))
     matcher = difflib.SequenceMatcher(None, q_words, s_words, autojunk=False)
     ops = [op for op in matcher.get_opcodes() if op[0] != "equal"]
 
@@ -234,11 +237,19 @@ def _diff_words(part: str, source: str, needle: str, haystack: str
         return Verdict.MOT_AJOUTE, ratio, "la citation ajoute des mots absents de la source"
 
     if ratio >= 0.90:
-        replaced = [
-            f"« {' '.join(q_words[i1:i2])} » → « {' '.join(s_words[j1:j2])} »"
-            for tag, i1, i2, j1, j2 in ops if tag == "replace"
-        ][:2]
-        return Verdict.MOT_REMPLACE, ratio, " ; ".join(replaced) or "mots différents"
+        replaced = []
+        for tag, i1, i2, j1, j2 in ops:
+            if tag != "replace":
+                continue
+            avant, apres = " ".join(q_words[i1:i2]), " ".join(s_words[j1:j2])
+            # Un couple qui ne diffère que par une mère de lecture n'est pas un
+            # mot remplacé : l'annoncer comme tel ferait lire un second défaut
+            # là où il n'y en a qu'un (« קדשת » → « קדושת »).
+            if defective_letters(avant) == defective_letters(apres):
+                continue
+            replaced.append(f"« {avant} » → « {apres} »")
+        return (Verdict.MOT_REMPLACE, ratio,
+                " ; ".join(replaced[:2]) or "mots différents")
 
     if ratio >= 0.75:
         if sorted(q_words) and set(q_words) <= set(s_words):
@@ -246,6 +257,30 @@ def _diff_words(part: str, source: str, needle: str, haystack: str
         return Verdict.VARIANTE_POSSIBLE, ratio, f"proche : « {window[:60]} »"
 
     return Verdict.DIFFERENCE_SUBSTANTIELLE, ratio, "aucune correspondance nette"
+
+
+def _best_word_window(quote_words: list[str], source_words: list[str]) -> list[str]:
+    """Passage de la source qui correspond le mieux à la citation, en mots.
+
+    Sert uniquement à rendre le diff lisible : le verdict, lui, s'appuie sur
+    ``_best_window`` (consonnes). Une marge est laissée de part et d'autre
+    pour qu'un mot ajouté en bordure reste visible.
+    """
+    if not quote_words or not source_words:
+        return source_words
+    taille = len(quote_words)
+    if len(source_words) <= taille:
+        return source_words
+
+    marge = max(2, taille // 4)
+    aiguille = "".join(quote_words)
+    meilleur, debut = -1.0, 0
+    for i in range(0, len(source_words) - taille + 1):
+        fenetre = "".join(source_words[i: i + taille])
+        ratio = difflib.SequenceMatcher(None, aiguille, fenetre).quick_ratio()
+        if ratio > meilleur:
+            meilleur, debut = ratio, i
+    return source_words[max(0, debut - marge): debut + taille + marge]
 
 
 def _best_window(needle: str, haystack: str) -> tuple[float, str]:

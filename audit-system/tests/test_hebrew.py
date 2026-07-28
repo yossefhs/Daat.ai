@@ -126,3 +126,23 @@ def test_troncon_fabrique_dans_une_citation_coupee():
     verdict, _, _ = compare("אמר רבי יוחנן… דבר שלא נאמר מעולם בשום מקום", SOURCE)
     assert verdict is not Verdict.IDENTIQUE
     assert verdict is not Verdict.CITATION_TRONQUEE
+
+
+def test_le_diff_se_limite_au_passage_correspondant():
+    """Un folio du Talmud fait des milliers de mots : comparer une citation de
+    dix mots à tout le folio produisait un écart illisible au lieu du mot
+    réellement changé. Cas réel du siman 242 (Beitsa 15b)."""
+    source = (
+        "מאי כי חדות ה' היא מעוזכם אמר רבי יוחנן משום רבי אליעזר ברבי שמעון "
+        "אמר להם הקדוש ברוך הוא לישראל בני לוו עלי וקדשו קדושת היום והאמינו בי ואני פורע "
+        "בני לא לכם אני אומר אלא להללו שיצאו שמניחים חיי עולם ועוסקים בחיי שעה"
+    )
+    verdict, _, detail = compare(
+        "אמר להם הבורא לישראל בני לוו עלי וקדשו קדשת היום והאמינו בי ואני פורע",
+        source,
+    )
+    assert verdict is Verdict.MOT_REMPLACE
+    assert "« הבורא » → « הקדוש ברוך הוא »" in detail
+    # La seule autre différence est une graphie pleine : elle ne doit pas être
+    # présentée comme un second mot remplacé.
+    assert "קדשת" not in detail

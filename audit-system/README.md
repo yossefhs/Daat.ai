@@ -1,11 +1,12 @@
-# Système d'audit DaatTorah — Phases 1 et 2
+# Système d'audit DaatTorah — Phases 1, 2 et 4
 
 Audit automatique du site public [daattorah.com](https://daattorah.com), en **lecture seule**.
 
 Ce système explore le périmètre défini (simanim 242 à 269, français, niveau *base*),
-archive chaque page et chaque version, détecte les changements, et posera en phases
-suivantes les contrôles de citations, le workflow de validation et l'interface
-d'administration. **Il ne modifie jamais le site public.**
+archive chaque page et chaque version, détecte les changements, découpe les pages en
+blocs identifiés, et **confronte chaque citation hébraïque au texte réel de la source
+qu'elle invoque**. Il ne propose jamais de correction sur du contenu, et
+**ne modifie jamais le site public.**
 
 ## Place dans l'écosystème existant
 
@@ -18,9 +19,10 @@ y existent déjà et restent la référence pour l'audit des fichiers sources :
 | `scripts/verifier-citations.py` | Contenu (chaque citation hébraïque confrontée à Sefaria) |
 | **`audit-system/` (ce système)** | **Ce que les visiteurs voient réellement en production** : rendu, redirections, liens, dérive entre déploiements, historique versionné |
 
-En Phase 4, la couche de comparaison de citations **réutilisera** la logique éprouvée
-de `verifier-citations.py` (résolution de références, normalisation hébraïque,
-multi-éditions Sefaria) plutôt que de la réimplémenter.
+La couche de comparaison de citations **reprend** la logique éprouvée de
+`verifier-citations.py` (résolution de références, normalisation hébraïque,
+multi-éditions Sefaria) plutôt que de la réimplémenter — chacun de ses détails vient
+d'un faux positif constaté sur le site.
 
 ## Garanties de sécurité (§4 du cahier des charges)
 
@@ -28,10 +30,14 @@ multi-éditions Sefaria) plutôt que de la réimplémenter.
   `production_publish`. Voir `daat_audit/config.py`.
 - **Aucune écriture vers le site.** L'unique point de passage prévu pour une future
   publication (`daat_audit/safety.py::ensure_site_write_allowed`) échoue
-  systématiquement en Phase 1 — y compris en mode `production_publish`, car la
-  publication n'est pas implémentée. Un test le verrouille.
+  systématiquement — y compris en mode `production_publish`, car la publication
+  n'est pas implémentée. Un test le verrouille pour les trois modes.
 - **Aucune autocorrection.** Le modèle `AuditRule.autocorrect_allowed` vaut `False`
-  par défaut et rien ne l'active. Le champ `SuggestedCorrection.applied` reste `False`.
+  par défaut et rien ne l'active — pas même une précision mesurée à 100 %. Le champ
+  `SuggestedCorrection.applied` reste `False`.
+- **Aucune correction proposée sur une citation.** Le contrôle `CIT-001` porte la
+  citation, le texte source et le verdict ; il laisse `proposed_correction` à `null`.
+  Réécrire une citation, c'est trancher une question de contenu — cela revient au Rav.
 - **Journal inaltérable** : aucun endpoint de suppression sur `audit_logs`, et le
   durcissement côté base est outillé — `deploy/postgres-harden.sql` crée le rôle
   applicatif sans `UPDATE/DELETE/TRUNCATE` sur cette table (à exécuter après les
@@ -60,6 +66,15 @@ audit-system/
 │   ├── hebrew.py            # normalisation hébraïque + comparaison graduée (§9)
 │   ├── references.py        # moteur de références, gematria validée (§7)
 │   ├── checks.py            # contrôles TECH-001..008 et EDIT-001..003 (§10)
+│   ├── quotes.py            # fragments donnés pour littéraux (convention §8)
+│   ├── citations.py         # confrontation citation ↔ source, verdicts (§8-§9)
+│   ├── analyze.py           # passe de vérification + CLI (python -m daat_audit.analyze)
+│   ├── metrics.py           # fiabilité par règle (§21)
+│   ├── sources/             # fournisseurs de textes (§15)
+│   │   ├── base.py          #   contrat TextSourceProvider
+│   │   ├── sefaria.py       #   Sefaria, multi-éditions, débit limité
+│   │   ├── local.py         #   fournisseur local (tests, hors-ligne)
+│   │   └── cache.py         #   mémorisation en base (table source_texts)
 │   ├── crawler/
 │   │   ├── urls.py          # périmètre : /oh/{242..269}/base
 │   │   ├── fetch.py         # httpx, débit limité, redirections tracées, transport injectable
@@ -72,7 +87,7 @@ audit-system/
 │       └── terminologie.json    # graphies attestées — GÉNÉRÉ, ne pas éditer
 ├── scripts/build-terminologie.py  # régénère terminologie.json depuis sources/
 ├── alembic/                 # migrations (schéma initial : 14 tables)
-├── tests/                   # 109 tests, réseau entièrement simulé
+├── tests/                   # 149 tests, réseau entièrement simulé
 ├── docker-compose.yml       # PostgreSQL 16 + API (+ service crawler ponctuel)
 └── var/                     # base SQLite locale et artefacts (git-ignoré)
 ```
@@ -114,9 +129,11 @@ cp .env.example .env          # ajuster si besoin
 # → http://localhost:8000/docs (OpenAPI)
 ```
 
-Endpoints Phase 1 : `GET /health`, `POST /crawl` (202, tâche de fond),
-`GET /crawl`, `GET /crawl/{id}`, `GET /pages[?siman=&audit_status=]`,
-`GET /pages/{id}[?include_html=&include_text=]`, `GET /stats`.
+Endpoints : `GET /health`, `POST /crawl` (202, tâche de fond), `GET /crawl`,
+`GET /crawl/{id}`, `GET /pages[?siman=&audit_status=]`,
+`GET /pages/{id}[?include_html=&include_text=]`, `GET /stats`,
+`GET /findings[?siman=&rule_code=&severity=&risk=&status=]`,
+`GET /findings/{id}`, `GET /stats/rules`.
 
 ### Avec Docker (PostgreSQL)
 
@@ -132,7 +149,7 @@ Le mot de passe PostgreSQL de développement se surcharge par `AUDIT_DB_PASSWORD
 ### Tests
 
 ```bash
-.venv/bin/python -m pytest tests/ -q          # 109 tests, aucun accès réseau
+.venv/bin/python -m pytest tests/ -q          # 149 tests, aucun accès réseau
 ```
 
 Les handlers HTTP simulés assertent la méthode de chaque requête : toute
@@ -148,7 +165,7 @@ AUDIT_CA_BUNDLE=/chemin/vers/ca-bundle.crt .venv/bin/python -m daat_audit.crawle
 ## Ce qui est vérifié — et ce qui ne l'est pas
 
 **Vérifié dans cet environnement :**
-- les 109 tests (SQLite en mémoire, réseau simulé par `httpx.MockTransport`) ;
+- les 149 tests (SQLite en mémoire, réseau simulé par `httpx.MockTransport`) ;
 - la migration Alembic sur SQLite (14 tables + `alembic_version`) ;
 - un crawl réel complet du périmètre : 28/28 pages archivées (HTML brut, texte
   nettoyé, double empreinte SHA-256), déduplication confirmée en conditions
@@ -219,14 +236,83 @@ pour une page conforme aux deux gates du dépôt. Les tests vérifient donc les
 deux sens : silence sur la page saine, **et** détection dès qu'on y injecte le
 défaut visé. Un contrôle qui ne fait que se taire n'est pas un contrôle.
 
+## Phase 4 — vérification des citations
+
+Le crawl reste hors ligne : il collecte, découpe et applique les contrôles
+techniques. La vérification des citations est une **passe séparée**, parce
+qu'elle interroge un service tiers et peut échouer pour des raisons qui n'ont
+rien à voir avec le site — les mêler ferait dépendre l'archivage de la
+disponibilité de Sefaria.
+
+```bash
+.venv/bin/python -m daat_audit.analyze                  # tout le périmètre
+.venv/bin/python -m daat_audit.analyze --simanim 242-245 --dry-run
+```
+
+### Ce que le contrôle CIT-001 fait, et ce qu'il refuse de faire
+
+| | |
+|---|---|
+| Compare | chaque fragment **donné pour littéral** au texte réel de la source citée |
+| Ignore | nikoud, ponctuation, graphie pleine/défective, abréviations, tronçons littéraux |
+| Signale | mot ajouté, supprimé, remplacé, ordre différent, absence |
+| Ne fait **jamais** | proposer une réécriture, corriger, qualifier une intention |
+
+Une absence est qualifiée, pas accusée : le fragment est recherché ailleurs
+dans le corpus, ce qui distingue une **citation fabriquée** d'une **citation
+exacte mal référencée** — deux défauts qui n'appellent pas la même correction.
+Quand rien n'est trouvé, le signalement dit « introuvable ailleurs dans le
+corpus interrogé — à vérifier par le Rav », et s'arrête là.
+
+### Ce que le premier essai réel a appris
+
+Le pipeline a d'abord rendu **zéro** citation examinée sur une vraie page :
+79 blocs, 5 références, 8 citations, aucune paire. La cause n'était pas un
+bogue mais une hypothèse fausse sur le site — j'appariais citation et
+référence **dans le même bloc**, alors que le site annonce la source depuis la
+prose qui précède :
+
+> `<p>La Guemara (Beitsa 15b) raconte :</p>` puis `<blockquote>` hébreu.
+
+Le rattachement remonte donc les blocs précédents, avec deux garde-fous : un
+**titre de section arrête la remontée** (nouvelle section, nouveau sujet), et
+la fenêtre est bornée. Une référence rattachée par voisinage est une
+inférence, pas une lecture : le signalement le dit et sa confiance baisse.
+
+### Résultat sur une page réelle
+
+Une fois corrigé, le système a trouvé seul, sur le siman 242 niveau 1 — page
+conforme aux deux gates existants (174/174) :
+
+> `אָמַר לָהֶם **הַבּוֹרֵא** לְיִשְׂרָאֵל בָּנַי, לְווּ עָלַי…`
+> alors que Beitsa 15b porte, dans **les deux** éditions hébraïques de Sefaria :
+> `אמר להם **הקדוש ברוך הוא** לישראל בני לוו עלי…`
+
+Une appellation divine substituée dans un passage présenté comme littéral.
+Vérifié à la main contre la source avant d'être rapporté ; **non corrigé** —
+la décision revient au Rav.
+
+### Fiabilité par règle (§21)
+
+`GET /stats/rules` et `daat_audit.metrics` calculent la précision de chaque
+règle à partir des décisions humaines rendues. Deux précautions : une règle
+sans décision affiche `null` et non 100 % — une règle non éprouvée n'a pas de
+précision ; et un signalement classé `SOURCE_UNAVAILABLE` n'est pas compté en
+faux positif, car il ne dit rien sur la règle.
+
 ## Limites actuelles
 
-- **Aucune citation n'est encore comparée à sa source réelle.** `hebrew.py`
-  sait comparer deux textes, mais rien ne va chercher le texte de Sefaria :
-  le fournisseur de sources est en **Phase 4**. Les contrôles actuels sont
-  techniques et éditoriaux — aucun ne juge du contenu halakhique.
-- Pas d'interface d'administration ni d'endpoints d'anomalies : **Phase 3**
-  (les tables et énumérations existent déjà).
+- **Pas d'interface d'administration ni de workflow de validation** :
+  **Phase 3**. Les signalements se lisent par l'API (`GET /findings`) ; les
+  tables, énumérations et transitions du §14 existent déjà, mais aucun
+  endpoint ne permet encore de *décider* (approuver, rejeter, classer en
+  variante éditoriale). Tant que ce workflow manque, la précision des règles
+  reste `null` faute de décisions humaines à compter.
+- **Seul l'hébreu est vérifié.** Les traductions françaises ne sont confrontées
+  à rien : une traduction inexacte d'une citation exacte passe inaperçue.
+- Le rattachement d'une référence par voisinage est une inférence bornée : une
+  citation éloignée de son annonce peut rester non vérifiée (silence), ce qui
+  est le bon sens de l'erreur, mais reste une couverture incomplète.
 - **Faire évoluer une règle ne rejoue pas les pages inchangées** : il faudra
   une commande de réanalyse explicite (Phase 4).
 - La précision des règles n'est pas encore mesurée (`AuditRule.precision`
@@ -245,15 +331,15 @@ défaut visé. Un contrôle qui ne fait que se taire n'est pas un contrôle.
 
 ## Prochaines étapes recommandées
 
-1. **Phase 3 — validation** : endpoints anomalies + interface d'administration
-   (le workflow §14 est déjà modélisé), filtres, détail d'un signalement,
-   actions de validation, historique.
-2. **Phase 4 — sources** : `TextSourceProvider` avec fournisseur Sefaria
-   (multi-éditions — leçon apprise : l'édition Davidson diffère du Vilna) et
-   fournisseur local de test ; branchement de `hebrew.compare` sur les
-   références déjà extraites ; métriques de fiabilité par règle (§21) ;
-   commande de réanalyse à règle modifiée.
-3. **Planification** : un crawl quotidien (cron) pour détecter la dérive entre
+1. **Phase 3 — validation** : actions de décision sur un signalement
+   (approuver, rejeter, classer en variante éditoriale, escalader au Rav) et
+   interface d'administration. C'est ce qui manque pour boucler la mesure de
+   fiabilité : sans décisions humaines, aucune règle n'a de précision.
+2. **Réanalyse à règle modifiée** : faire évoluer une règle ne rejoue pas les
+   pages inchangées ; il faut une commande explicite.
+3. **Élargir le périmètre** : les trois langues et les quatre niveaux, une fois
+   la précision des règles mesurée sur le périmètre actuel.
+4. **Planification** : un crawl quotidien (cron) pour détecter la dérive entre
    déploiements, une fois le système déployé quelque part en continu.
 
 Régénérer le dictionnaire de terminologie après une évolution du contenu :

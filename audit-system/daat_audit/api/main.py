@@ -22,7 +22,19 @@ from ..config import Settings, get_settings
 from ..crawler.crawl import run_crawl
 from ..crawler.urls import parse_simanim_arg
 from ..db import make_engine, make_session_factory
-from ..models import CrawlJob, CrawlJobStatus, Page, PageAuditStatus, PageVersion, utcnow
+from .. import metrics
+from ..models import (
+    AuditFinding,
+    CrawlJob,
+    CrawlJobStatus,
+    FindingStatus,
+    Page,
+    PageAuditStatus,
+    PageVersion,
+    Risk,
+    Severity,
+    utcnow,
+)
 from . import schemas
 
 logger = logging.getLogger("daat_audit.api")
@@ -173,6 +185,69 @@ def create_app(
         return out
 
     # ── Statistiques minimales (le tableau de bord complet arrive en Phase 3) ──
+    @app.get("/findings", response_model=list[schemas.FindingOut], tags=["signalements"])
+    def list_findings(
+        siman: int | None = None,
+        rule_code: str | None = None,
+        severity: str | None = None,
+        risk: str | None = None,
+        status: str | None = None,
+        limit: int = Query(100, ge=1, le=500),
+        offset: int = Query(0, ge=0),
+        db: Session = Depends(get_db),
+    ) -> list[AuditFinding]:
+        """Signalements, filtrables (§14).
+
+        Les filtres énumérés sont validés contre leur énumération : une valeur
+        inconnue renvoie 422 plutôt qu'une liste vide, qui se lirait à tort
+        comme « aucune anomalie ».
+        """
+        query = select(AuditFinding).order_by(AuditFinding.id.desc())
+
+        if siman is not None:
+            query = query.join(Page, AuditFinding.page_id == Page.id).where(Page.siman == siman)
+        if rule_code:
+            query = query.where(AuditFinding.rule_code == rule_code)
+        for valeur, colonne, enumeration, nom in (
+            (severity, AuditFinding.severity, Severity, "severity"),
+            (risk, AuditFinding.risk, Risk, "risk"),
+            (status, AuditFinding.status, FindingStatus, "status"),
+        ):
+            if not valeur:
+                continue
+            try:
+                query = query.where(colonne == enumeration(valeur))
+            except ValueError:
+                raise HTTPException(
+                    422,
+                    f"{nom} invalide : {valeur}. Valeurs admises : "
+                    + ", ".join(e.value for e in enumeration),
+                )
+
+        return list(db.execute(query.offset(offset).limit(limit)).scalars().all())
+
+    @app.get("/findings/{finding_id}", response_model=schemas.FindingOut,
+             tags=["signalements"])
+    def get_finding(finding_id: int, db: Session = Depends(get_db)) -> AuditFinding:
+        finding = db.get(AuditFinding, finding_id)
+        if finding is None:
+            raise HTTPException(404, "signalement introuvable")
+        return finding
+
+    @app.get("/stats/rules", response_model=list[schemas.RuleStatsOut], tags=["système"])
+    def rule_stats(db: Session = Depends(get_db)) -> list[dict]:
+        """Fiabilité par règle (§21). ``precision`` est nulle tant qu'aucune
+        décision humaine n'a été rendue."""
+        return [
+            {
+                "code": s.code, "alerts": s.alerts, "judged": s.judged,
+                "validated": s.validated, "rejected": s.rejected,
+                "false_positives": s.false_positives, "pending": s.pending,
+                "precision": s.precision,
+            }
+            for s in metrics.compute(db)
+        ]
+
     @app.get("/stats", tags=["système"])
     def stats(db: Session = Depends(get_db)) -> dict:
         pages_total = db.execute(select(func.count(Page.id))).scalar_one()

@@ -5,7 +5,7 @@ from __future__ import annotations
 import httpx
 import pytest
 from fastapi.testclient import TestClient
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, select
 
 from daat_audit.api.main import create_app
 from daat_audit.config import Settings
@@ -37,6 +37,7 @@ def client(tmp_path):
     Base.metadata.create_all(create_engine(db_url))
     app = create_app(settings=settings, transport=_mock_transport())
     with TestClient(app) as c:
+        c.db_url = db_url          # pour insérer des données de test en base
         yield c
 
 
@@ -116,3 +117,78 @@ def test_audit_status_invalide_rejete_en_422(client):
     response = client.get("/pages", params={"audit_status": "bogus"})
     assert response.status_code == 422
     assert "audit_status invalide" in response.json()["detail"]
+
+
+# ── Signalements et métriques (Phase 4) ──────────────────────────────────
+
+def _seed_finding(client, **champs):
+    """Insère un signalement directement dans la base de l'application."""
+    from sqlalchemy.orm import sessionmaker
+
+    from daat_audit.models import AuditFinding, Page, Risk, Severity
+
+    with sessionmaker(bind=create_engine(client.db_url))() as db:
+        page = db.execute(select(Page)).scalars().first()
+        if page is None:
+            page = Page(url="https://daattorah.com/oh/242/base", siman=242,
+                        langue="fr", niveau="base")
+            db.add(page)
+            db.commit()
+        defauts = dict(
+            page_id=page.id, category="citation", current_text="טקסט",
+            explanation="écart constaté", confidence=0.9,
+            severity=Severity.P1_MAJOR, risk=Risk.HALAKHIC, rule_code="CIT-001",
+        )
+        defauts.update(champs)
+        db.add(AuditFinding(**defauts))
+        db.commit()
+
+
+def test_findings_vide_au_depart(client):
+    assert client.get("/findings").json() == []
+
+
+def test_findings_liste_et_detail(client):
+    _seed_finding(client)
+    findings = client.get("/findings").json()
+    assert len(findings) == 1
+    assert findings[0]["rule_code"] == "CIT-001"
+    assert findings[0]["risk"] == "HALAKHIC"
+    # Aucune correction proposée sur du contenu (§4).
+    assert findings[0]["proposed_correction"] is None
+
+    detail = client.get(f"/findings/{findings[0]['id']}")
+    assert detail.status_code == 200
+    assert detail.json()["explanation"] == "écart constaté"
+
+
+def test_finding_inconnu_renvoie_404(client):
+    assert client.get("/findings/9999").status_code == 404
+
+
+def test_findings_filtrables(client):
+    from daat_audit.models import Risk
+
+    _seed_finding(client, rule_code="CIT-001")
+    _seed_finding(client, rule_code="TECH-001", risk=Risk.LOW)
+
+    assert len(client.get("/findings?rule_code=CIT-001").json()) == 1
+    assert len(client.get("/findings?siman=242").json()) == 2
+    assert len(client.get("/findings?siman=999").json()) == 0
+
+
+def test_filtre_enumere_invalide_renvoie_422(client):
+    """Une valeur inconnue doit échouer franchement : une liste vide se
+    lirait à tort comme « aucune anomalie »."""
+    reponse = client.get("/findings?severity=P9_INEXISTANT")
+    assert reponse.status_code == 422
+    assert "Valeurs admises" in reponse.json()["detail"]
+
+
+def test_stats_rules_precision_nulle_sans_decision(client):
+    _seed_finding(client)
+    stats = client.get("/stats/rules").json()
+    assert stats[0]["code"] == "CIT-001"
+    assert stats[0]["alerts"] == 1
+    assert stats[0]["precision"] is None, \
+        "une règle jamais jugée ne doit pas afficher de précision"
