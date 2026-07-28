@@ -101,7 +101,13 @@ def is_hebrew_quote(fragment: str) -> bool:
 
 
 def has_cue(before: str) -> bool:
-    return bool(CUE.search(before[-90:]))
+    """Le contexte immédiat annonce-t-il une citation ?
+
+    Le guillemet ouvrant est retiré avant l'examen : il se glisse en fin de
+    contexte et masque le deux-points qui, lui, annonce la citation —
+    « רש״י (שמות כ ח): " … » n'était pas reconnu pour ce seul motif.
+    """
+    return bool(CUE.search(before.rstrip(" \t\"«„'").rstrip()[-90:]))
 
 
 # Un jeton à gershayim est une abréviation d'ouvrage (שו״ע, ט״ז, מג״א), pas un
@@ -195,7 +201,10 @@ def extract_quotes(fragment_html: str, *, marked: bool = False) -> list[Quote]:
                 # conserve encore les <em>, et c'est d'eux que dépendent le
                 # marqueur de condensation et le contexte d'annonce.
                 at = plain.find(brut)
-                avant = plain[:at] if at > 0 else ""
+                # Le guillemet ouvrant est retiré du contexte : il en occupe la
+                # fin et masque aussi bien le deux-points d'annonce que le
+                # marqueur « résumé » qui le précède.
+                avant = (plain[:at] if at > 0 else "").rstrip(" \t\"«„'")
                 if RESUME.search(avant):
                     continue      # condensation annoncée : jamais jugée
                 if at > 0 and not (annonce or has_cue(avant)):

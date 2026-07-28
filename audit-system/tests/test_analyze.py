@@ -273,3 +273,54 @@ def test_une_reference_absente_nest_demandee_quune_fois(session):
     assert source.fetch("Shulchan_Arukh,_Orach_Chayim.253.8") is None
     assert source.fetch("Shulchan_Arukh,_Orach_Chayim.253.8") is None
     assert len(appels) == 1
+
+
+# ── Seul un conteneur de source annonce une citation ─────────────────────
+
+def _bloc(selecteur: str):
+    from daat_audit.models import ContentBlock
+    return ContentBlock(stable_id="X", order_index=1,
+                        block_type=None, raw_content="", normalized_content="",
+                        css_selector=selecteur, sha256="x")
+
+
+def test_conteneur_de_source_reconnu():
+    from daat_audit.analyze import est_conteneur_source
+    for sel in ("body > main > blockquote.text-source",
+                "body > main > div.sacred-text.he",
+                "body > main > p.sa-he"):
+        assert est_conteneur_source(_bloc(sel)), sel
+
+
+def test_prose_hebraique_de_lauteur_nest_pas_un_conteneur_de_source():
+    """Au niveau lamdan la page est largement rédigée en hébreu par l'auteur
+    (« שורש הסוגיא : … », « חקירה : … ») : la traiter comme une citation
+    littérale produisait l'essentiel du bruit — 231 des 352 signalements
+    venaient de ce seul niveau, dont 25 seulement d'un vrai conteneur."""
+    from daat_audit.analyze import est_conteneur_source
+    for sel in ("body > main > p.he", "body > main > div.rishon-card",
+                "body > main > p", "body > main > table.compare-table"):
+        assert not est_conteneur_source(_bloc(sel)), sel
+
+
+def test_la_prose_hebraique_reste_verifiee_si_elle_cite_entre_guillemets():
+    """Écarter le conteneur ne rend pas aveugle : une citation dûment marquée
+    dans cette prose est toujours extraite."""
+    from daat_audit.quotes import extract_quotes
+    html = ('רש״י (שמות כ ח): " תנו לב לזכור תמיד את יום השבת שאם נזדמן לך חפץ יפה "')
+    assert len(extract_quotes(html, marked=False)) == 1
+
+
+def test_le_niveau_4_est_rapporte_au_choulhan_aroukh_harav(session, settings):
+    """Le niveau 4 expose la shita de l'Admour HaZaken : le comparer au texte
+    du Mehaber rendait « variante » sur des pages entières."""
+    from daat_audit.analyze import reference_implicite_du_siman
+    from daat_audit.models import ContentBlock, Page
+
+    bloc = _bloc("p.sa-he")
+    bloc.normalized_content = "Le texte du Choul'han Aroukh, siman 242"
+    for niveau, attendu in (("daat-harav", "Shulchan_Arukh_HaRav,_Orach_Chayim.242"),
+                            ("base", "Shulchan_Arukh,_Orach_Chayim.242")):
+        page = Page(url="u", siman=242, langue="fr", niveau=niveau)
+        ref = reference_implicite_du_siman(page, bloc, [])
+        assert ref is not None and ref.sefaria_ref() == attendu

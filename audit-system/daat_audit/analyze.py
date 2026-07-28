@@ -65,6 +65,20 @@ def _refs_du_bloc(session: Session, bloc: ContentBlock) -> list[ParsedRef]:
 
 _RE_BALISE_FINALE = re.compile(r"(?:^|>\s*)([a-z][a-z0-9]*)[.#:]?[^>]*$")
 
+# Conteneurs que le site réserve au TEXTE D'UNE SOURCE. Un bloc simplement
+# hébreu n'en est pas un : au niveau lamdan, la page est largement rédigée en
+# hébreu par l'auteur — « שורש הסוגיא : … », « חקירה : … » — et traiter cette
+# prose comme une citation littérale produisait l'essentiel du bruit
+# (231 des 352 signalements venaient de ce seul niveau ; 25 seulement
+# provenaient d'un vrai conteneur de source).
+CONTENEURS_SOURCE = ("text-source", "sacred-text", "sa-he")
+
+
+def est_conteneur_source(bloc: ContentBlock) -> bool:
+    """Le bloc est-il un conteneur réservé au texte d'une source ?"""
+    selecteur = (bloc.css_selector or "").rsplit(">", 1)[-1]
+    return any(marqueur in selecteur for marqueur in CONTENEURS_SOURCE)
+
 
 def niveau_de_titre(bloc: ContentBlock) -> int:
     """Rang du titre porté par ce bloc (2 pour h2…), 0 s'il n'en est pas un.
@@ -114,9 +128,15 @@ def reference_implicite_du_siman(
     )
     if _CUE_RAMA.search(voisinage) or not _CUE_MEHABER.search(voisinage):
         return None
+    # Le niveau 4 expose la shita de l'Admour HaZaken : sa source est le
+    # Choulhan Aroukh HaRav, pas le Mehaber. Les confondre comparait le texte
+    # de l'Admour à celui de Rabbi Yossef Karo et rendait « variante » sur des
+    # pages entières.
+    harav = (page.niveau or "") == "daat-harav"
     return ParsedRef(
         raw_text=f"siman {page.siman} (déduit de la page)",
-        work="Choulhan Aroukh", section="Orach Chayim",
+        work="Choulhan Aroukh HaRav" if harav else "Choulhan Aroukh",
+        section="Orach Chayim",
         siman=str(page.siman), confidence=0.6,
     )
 
@@ -235,8 +255,7 @@ def run_analyse(
         for bloc in blocs:
             contexte = precedents.setdefault(bloc.page_version_id, [])
             citations = extract_quotes(
-                bloc.raw_content,
-                marked=bloc.block_type is BlockType.CITATION_HEBRAIQUE,
+                bloc.raw_content, marked=est_conteneur_source(bloc)
             )
             if not citations:
                 contexte.append(bloc)

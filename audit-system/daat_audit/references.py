@@ -193,8 +193,10 @@ class ParsedRef:
             # tirée du siman doit s'y trouver. Moins précis qu'un séif, mais
             # parfaitement valable pour un contrôle de présence.
             return f"Shulchan_Arukh,_{section}.{self.siman}"
-        if self.work == "Choulhan Aroukh HaRav" and self.siman and self.seif:
-            return f"Shulchan_Arukh_HaRav,_Orach_Chayim.{self.siman}.{self.seif}"
+        if self.work == "Choulhan Aroukh HaRav" and self.siman:
+            if self.seif:
+                return f"Shulchan_Arukh_HaRav,_Orach_Chayim.{self.siman}.{self.seif}"
+            return f"Shulchan_Arukh_HaRav,_Orach_Chayim.{self.siman}"
         if self.work == "Michna Beroura" and self.siman and self.seif_katan:
             return f"Mishnah_Berurah.{self.siman}.{self.seif_katan}"
         return None
