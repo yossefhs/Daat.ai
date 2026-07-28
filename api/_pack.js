@@ -228,9 +228,11 @@ export function buildPack(num, day, opts = {}) {
     slides,
     info: infographicFor(num),
     meta: opts.meta || null,
+    style: opts.style === 'navy' ? 'navy' : 'parchemin',
     yomi,
     num: Number(num),
     numHe: s.numHe || '',
+    titleHe: corpusFor(num).find((c) => c.simanTitleHe)?.simanTitleHe || '',
     title: s.title,
     day: ((Number(day) % 7) + 7) % 7,
     jour: JOURS[((Number(day) % 7) + 7) % 7],
@@ -269,6 +271,10 @@ const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
 // définition), message du siman, pied URL. Styles 100 % inline pour l'export
 // PNG côté client (SVG foreignObject → canvas).
 function infographicHtml(pack) {
+  return pack.style === 'navy' ? infographicNavy(pack) : infographicParchemin(pack);
+}
+
+function infographicParchemin(pack) {
   const NAVY = '#1A1F3A', GOLD = '#C5A55A', CREME = '#FAF6EE', INK = '#3D4266';
   const serif = "'Cormorant Garamond',Georgia,serif";
   const hebfont = "'Frank Ruhl Libre',Georgia,serif";
@@ -357,6 +363,133 @@ function infographicHtml(pack) {
 // Studio mobile autonome (charte DAAT) : copier, partager (WhatsApp/Telegram/X/natif),
 // onglets d'angle, navigation simanim, slides Instagram générées en PNG (canvas).
 // Le secret est mémorisé côté navigateur (localStorage) — saisi une seule fois.
+// Variante « navy inversée » du Design System : fond navy, blocs concepts en
+// grille 2×2, bandeau siman crème. Même contenu dynamique.
+function infographicNavy(pack) {
+  const NAVY = '#1A1F3A', GOLD = '#C5A55A', CREME = '#FAF6EE';
+  const serif = "'Cormorant Garamond',Georgia,serif";
+  const hebfont = "'Frank Ruhl Libre',Georgia,serif";
+  const p = pack;
+  const semaine = p.yomi ? Math.ceil(p.yomi.dayNumber / 5) : null;
+  const points = (p.info.points || []).slice(0, 4);
+
+  const splitT = (t) => {
+    const m = /^([\u0590-\u05FF\u05B0-\u05C7\s"'״׳]+?)\s*\(([^)]+)\)\s*$/.exec(String(t).trim());
+    return m ? { he: m[1].trim(), lat: m[2].trim() } : { he: '', lat: String(t).trim() };
+  };
+  const cells = points.map((pt, i) => {
+    const s = splitT(pt.title);
+    return `<div style="border:1px solid rgba(197,165,90,.35);padding:20px 22px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <span style="width:34px;height:34px;border-radius:50%;background:${GOLD};color:${NAVY};display:flex;align-items:center;justify-content:center;font-family:${serif};font-weight:700;font-size:20px;flex:none">${i + 1}</span>
+        ${s.he ? `<span style="font-family:${hebfont};font-size:24px;color:${GOLD};direction:rtl">${esc(s.he)}</span>` : `<span style="font-size:18px;font-weight:700;color:${GOLD}">${esc(s.lat).slice(0, 40)}</span>`}
+      </div>
+      <div style="font-size:17px;line-height:1.45;color:rgba(250,246,238,.9);margin-top:12px">${s.he ? esc(s.lat) + ' — ' : ''}${esc(pt.text)}</div>
+    </div>`;
+  }).join('');
+
+  return `<div id="ig-root" style="width:1080px;height:1350px;display:flex;flex-direction:column;overflow:hidden;box-sizing:border-box;background:radial-gradient(circle at 50% 0%,rgba(197,165,90,.16),transparent 55%),${NAVY};font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif">
+    <div style="padding:52px 58px 0;display:flex;justify-content:space-between;align-items:flex-start;flex:0 0 auto">
+      <div style="border:1px solid rgba(197,165,90,.55);border-radius:14px;padding:18px 24px">
+        <div style="font-family:${serif};font-size:36px;font-weight:600;color:${GOLD};line-height:1">${p.yomi ? `JOUR ${p.yomi.dayNumber}` : `SIMAN ${p.num}`}</div>
+        ${p.meta?.dateFr ? `<div style="font-size:14px;color:rgba(250,246,238,.9);margin-top:6px;text-transform:capitalize">${esc(p.meta.dateFr)}</div>` : ''}
+        ${semaine ? `<div style="font-size:11px;color:rgba(197,165,90,.85);margin-top:6px;letter-spacing:.22em">SEMAINE ${semaine}</div>` : ''}
+      </div>
+      <div style="text-align:right">
+        <div style="font-family:${hebfont};font-weight:700;font-size:48px;color:${GOLD};line-height:1">דעת</div>
+        <div style="font-size:11px;letter-spacing:.2em;color:rgba(250,246,238,.7);margin-top:6px">DAATTORAH</div>
+      </div>
+    </div>
+    <div style="padding:44px 58px 0;flex:0 0 auto">
+      <div style="font-family:${serif};font-size:68px;font-weight:700;letter-spacing:.05em;color:${CREME};line-height:1">DAAT YOMI</div>
+      <div style="font-size:17px;letter-spacing:.18em;text-transform:uppercase;color:rgba(197,165,90,.9);margin-top:12px">Étude quotidienne des lois de Chabbat</div>
+    </div>
+    <div style="margin:32px 58px 0;background:${CREME};padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex:0 0 auto">
+      <div>
+        <div style="display:flex;align-items:baseline;gap:14px">
+          <span style="font-family:${serif};font-size:32px;font-weight:700;color:${NAVY}">SIMAN ${p.num}</span>
+          ${p.numHe ? `<span style="font-family:${hebfont};font-size:30px;color:${GOLD};direction:rtl">${esc(p.numHe)}</span>` : ''}
+        </div>
+        <div style="font-family:${serif};font-style:italic;font-size:20px;color:#3D4266;margin-top:6px">${esc(p.title)}</div>
+      </div>
+      ${p.yomi ? `<div style="flex:0 0 auto;background:${NAVY};color:${GOLD};padding:12px 18px;font-size:14px;letter-spacing:.14em;white-space:nowrap">SÉ'IFIM ${p.yomi.seifRange[0]} À ${p.yomi.seifRange[1]}</div>` : ''}
+    </div>
+    ${p.info.intro ? `<div style="margin:28px 58px 0;background:rgba(250,246,238,.06);border-left:2px solid ${GOLD};padding:22px 26px;display:flex;gap:16px;align-items:flex-start;flex:0 0 auto">
+      <div style="font-size:28px;line-height:1.1">📖</div>
+      <div style="font-size:18px;line-height:1.5;color:rgba(250,246,238,.92)">${esc(p.info.intro)}</div>
+    </div>` : ''}
+    <div style="padding:30px 58px 0;flex:1 1 0;min-height:0">
+      <div style="display:flex;align-items:center;gap:16px">
+        <span style="font-size:13px;letter-spacing:.26em;color:${GOLD};white-space:nowrap">LES POINTS ESSENTIELS</span>
+        <span style="flex:1;height:1px;background:rgba(197,165,90,.4)"></span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px">${cells}</div>
+    </div>
+    <div style="margin:26px 58px 0;background:${CREME};padding:24px 28px;flex:0 0 auto">
+      <div style="font-size:12px;letter-spacing:.26em;color:${GOLD}">LE MESSAGE DU SIMAN</div>
+      <div style="font-family:${serif};font-style:italic;font-size:25px;line-height:1.4;color:${NAVY};margin-top:10px">${esc(p.info.message)}</div>
+    </div>
+    <div style="margin-top:auto;padding:22px 58px 34px;display:flex;align-items:center;justify-content:space-between;gap:20px;border-top:1px solid rgba(197,165,90,.4);flex:0 0 auto">
+      <div style="font:15px ui-monospace,Menlo,monospace;color:${GOLD}">daattorah.com/oh/${p.num}/base</div>
+      <div style="font-size:14px;color:rgba(250,246,238,.75);font-style:italic">Pour la pratique, consulte ton Rav.</div>
+    </div>
+  </div>`;
+}
+
+// Carte citation 1080×1080 (Design System) : l'intitulé hébreu vocalisé réel du
+// siman dans le Choulhan Aroukh + sa traduction française. Aucune invention.
+function citationHtml(pack) {
+  const NAVY = '#1A1F3A', GOLD = '#C5A55A', CREME = '#FAF6EE', INK = '#3D4266';
+  const serif = "'Cormorant Garamond',Georgia,serif";
+  const hebfont = "'Frank Ruhl Libre',Georgia,serif";
+  const he = pack.titleHe;
+  const heSize = he.length > 60 ? 40 : 52;
+  return `<div id="cit-root" style="width:1080px;height:1080px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:96px 100px;text-align:center;box-sizing:border-box;overflow:hidden;background:radial-gradient(circle at 50% 30%,rgba(197,165,90,.13),transparent 58%),${CREME};font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif">
+    <div style="position:absolute;inset:30px;border:1px solid rgba(197,165,90,.6);pointer-events:none"></div>
+    <div style="font-family:${serif};font-size:120px;color:rgba(197,165,90,.45);line-height:.4;height:56px">”</div>
+    ${he ? `<div style="font-family:${hebfont};font-size:${heSize}px;line-height:1.65;color:${NAVY};direction:rtl">${esc(he)}</div>
+    <div style="width:96px;height:1px;background:${GOLD};margin:40px 0"></div>` : ''}
+    <div style="font-family:Georgia,${serif};font-size:${he ? 36 : 46}px;line-height:1.4;color:${INK}">« ${esc(pack.title)} »</div>
+    <div style="margin-top:52px;font-size:16px;letter-spacing:.2em;color:${NAVY}">CHOULHAN AROUKH · ORAH HAÏM · SIMAN ${pack.num}${pack.numHe ? ' · ' + esc(pack.numHe) : ''}</div>
+    <div style="position:absolute;bottom:66px;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:14px">
+      <span style="font-family:${hebfont};font-weight:700;font-size:30px;color:${GOLD}">דעת</span>
+      <span style="width:1px;height:22px;background:rgba(197,165,90,.6)"></span>
+      <span style="font:14px ui-monospace,Menlo,monospace;color:${INK}">daattorah.com</span>
+    </div>
+  </div>`;
+}
+
+// Story 1080×1920 (Design System) : la question du jour en grand + le lien.
+function storyHtml(pack) {
+  const NAVY = '#1A1F3A', GOLD = '#C5A55A', CREME = '#FAF6EE', INK = '#3D4266';
+  const serif = "'Cormorant Garamond',Georgia,serif";
+  const hebfont = "'Frank Ruhl Libre',Georgia,serif";
+  // Question réelle tirée de l'intro du corpus (« que faire … ? ») ; sinon le titre.
+  let q = '';
+  const m = /:\s*([^?]{10,160}\?)/.exec(pack.info.intro || '');
+  if (m) q = m[1].trim();
+  if (!q) q = `${pack.title} : que dit le Choulhan Aroukh ?`;
+  q = q.charAt(0).toUpperCase() + q.slice(1);
+  const qSize = q.length > 90 ? 72 : 96;
+  return `<div id="story-root" style="width:1080px;height:1920px;position:relative;display:flex;flex-direction:column;padding:150px 96px 130px;box-sizing:border-box;overflow:hidden;background:radial-gradient(circle at 50% 22%,rgba(197,165,90,.13),transparent 55%),${CREME};font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif">
+    <div style="position:absolute;inset:40px;border:1px solid rgba(197,165,90,.55);pointer-events:none"></div>
+    <div style="position:relative;text-align:center;flex:0 0 auto">
+      <div style="font-family:${hebfont};font-weight:700;font-size:60px;color:${GOLD};line-height:1">דעת</div>
+      <div style="font-size:14px;letter-spacing:.24em;color:${INK};margin-top:14px">LA QUESTION DU JOUR</div>
+    </div>
+    <div style="position:relative;flex:1 1 0;display:flex;flex-direction:column;justify-content:center;text-align:center">
+      <div style="font-family:${serif};font-size:${qSize}px;font-weight:600;line-height:1.15;color:${NAVY}">${esc(q)}</div>
+      <div style="width:110px;height:1px;background:${GOLD};margin:56px auto"></div>
+      <div style="font-size:15px;letter-spacing:.2em;color:${INK}">SIMAN ${pack.num}${pack.yomi ? ` · SÉ'IFIM ${pack.yomi.seifRange[0]} À ${pack.yomi.seifRange[1]}` : ''}</div>
+    </div>
+    <div style="position:relative;text-align:center;flex:0 0 auto">
+      <div style="font-family:Georgia,${serif};font-style:italic;font-size:44px;color:${NAVY}">La réponse sur daattorah.com</div>
+      <div style="font-size:70px;line-height:1;color:${GOLD};margin-top:26px">↓</div>
+      <div style="display:inline-block;margin-top:26px;background:${NAVY};color:${GOLD};padding:20px 40px;font:20px ui-monospace,Menlo,monospace;border-radius:999px">daattorah.com/oh/${pack.num}</div>
+    </div>
+  </div>`;
+}
+
 export function renderPackHtml(pack) {
   // Partages rapides pertinents par bloc (en plus de Copier + partage natif).
   const share = (b) => {
@@ -395,11 +528,30 @@ export function renderPackHtml(pack) {
     ? `<p class="yomi">📅 Daat Yomi · jour ${pack.yomi.dayNumber}/${pack.yomi.totalDays} · séifim ${pack.yomi.seifRange[0]}–${pack.yomi.seifRange[1]}${pack.yomi.lotTotal > 1 ? ` (${pack.yomi.lotIndex}/${pack.yomi.lotTotal})` : ''}</p>`
     : '';
 
+  const styleTabs = `
+    <a class="tab${pack.style === 'parchemin' ? ' on' : ''}" data-nav data-siman="${pack.num}" data-day="${pack.day}" data-style="parchemin">Parchemin</a>
+    <a class="tab${pack.style === 'navy' ? ' on' : ''}" data-nav data-siman="${pack.num}" data-day="${pack.day}" data-style="navy">Navy</a>`;
+
   const igCard = `
     <section class="card">
       <div class="card-h"><h2>Infographie du jour (PNG 1080×1350 — Instagram / WhatsApp)</h2>
-        <div class="btns"><button id="ig-dl">Télécharger PNG</button></div></div>
+        <div class="btns">${styleTabs}
+          <button data-export="ig-root|1080|1350|daat-yomi-siman-${pack.num}">Télécharger PNG</button></div></div>
       <div class="ig-wrap"><div class="ig-scale">${infographicHtml(pack)}</div></div>
+    </section>`;
+
+  const citCard = `
+    <section class="card">
+      <div class="card-h"><h2>Carte citation (PNG 1080×1080 — feed Instagram / Facebook)</h2>
+        <div class="btns"><button data-export="cit-root|1080|1080|daat-citation-siman-${pack.num}">Télécharger PNG</button></div></div>
+      <div class="ig-wrap"><div class="sq-scale">${citationHtml(pack)}</div></div>
+    </section>`;
+
+  const storyCard = `
+    <section class="card">
+      <div class="card-h"><h2>Story (PNG 1080×1920 — Instagram / WhatsApp status)</h2>
+        <div class="btns"><button data-export="story-root|1080|1920|daat-story-siman-${pack.num}">Télécharger PNG</button></div></div>
+      <div class="ig-wrap"><div class="st-scale">${storyHtml(pack)}</div></div>
     </section>`;
 
   return `<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8">
@@ -434,6 +586,10 @@ export function renderPackHtml(pack) {
   .ig-wrap{padding:14px;background:#fbf7ee;display:flex;justify-content:center;overflow:hidden}
   .ig-scale{width:324px;height:405px;overflow:hidden}
   .ig-scale > div{transform:scale(0.3);transform-origin:top left}
+  .sq-scale{width:324px;height:324px;overflow:hidden}
+  .sq-scale > div{transform:scale(0.3);transform-origin:top left}
+  .st-scale{width:216px;height:384px;overflow:hidden}
+  .st-scale > div{transform:scale(0.2);transform-origin:top left}
   .slides{display:flex;gap:10px;overflow-x:auto;padding:12px 14px;background:#fbf7ee;border-top:1px solid #e6dfcf}
   .slide-w{flex:none;text-align:center}
   .slide-w canvas{width:130px;height:162px;border-radius:8px;box-shadow:0 2px 8px rgba(26,31,58,.18);display:block}
@@ -449,6 +605,8 @@ export function renderPackHtml(pack) {
   <div class="row">${dayTabs}</div>
 </header>
 ${igCard}
+${citCard}
+${storyCard}
 ${cards}
 <footer>Copier → coller, ou partager directement. On ne tranche pas de halakha — « consulte ton Rav ».<br>
 Les vignettes du carrousel se téléchargent en PNG 1080×1350, prêtes pour Instagram.</footer>
@@ -463,7 +621,8 @@ Les vignettes du carrousel se téléchargent en PNG 1080×1350, prêtes pour Ins
   // — navigation (onglets jours + simanim) —
   document.querySelectorAll('[data-nav]').forEach(function(a){a.addEventListener('click',function(ev){
     ev.preventDefault();
-    location.search='?secret='+encodeURIComponent(sec||'')+'&siman='+a.dataset.siman+'&day='+a.dataset.day;
+    var st=a.dataset.style||'${pack.style}';
+    location.search='?secret='+encodeURIComponent(sec||'')+'&siman='+a.dataset.siman+'&day='+a.dataset.day+'&style='+st;
   });});
   // — copier —
   document.querySelectorAll('button[data-i]').forEach(function(b){b.addEventListener('click',async function(){
@@ -503,30 +662,33 @@ Les vignettes du carrousel se téléchargent en PNG 1080×1350, prêtes pour Ins
     var y0=(H/2+40)-((lines.length-1)*(size+18))/2;
     lines.forEach(function(l,i){x.fillText(l,W/2,y0+i*(size+18));});
     x.fillStyle='#C5A55A';x.font='600 32px -apple-system,sans-serif';x.fillText('daattorah.com',W/2,H-110);}
-  // — infographie : export PNG (SVG foreignObject → canvas) —
-  var igBtn=document.getElementById('ig-dl');
-  if(igBtn){igBtn.addEventListener('click',function(){
-    var node=document.getElementById('ig-root');if(!node)return;
-    var clone=node.cloneNode(true);
-    clone.style.transform='none';
-    var xml=new XMLSerializer().serializeToString(clone);
-    var svg='<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350">'+
-      '<foreignObject width="100%" height="100%">'+xml+'</foreignObject></svg>';
-    var img=new Image();
-    img.onload=function(){
-      var c=document.createElement('canvas');c.width=1080;c.height=1350;
-      var x=c.getContext('2d');x.fillStyle='#FAF6EE';x.fillRect(0,0,1080,1350);
-      x.drawImage(img,0,0);
-      try{var a=document.createElement('a');
-        a.download='daat-yomi-siman-${pack.num}.png';
-        a.href=c.toDataURL('image/png');a.click();
-        igBtn.textContent='Téléchargé ✓';igBtn.classList.add('ok');
-        setTimeout(function(){igBtn.textContent='Télécharger PNG';igBtn.classList.remove('ok')},2000);
-      }catch(e){alert('Export impossible sur ce navigateur — fais une capture de l\\'aperçu.');}
-    };
-    img.onerror=function(){alert('Export impossible — fais une capture de l\\'aperçu.');};
-    img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
-  });}
+  // — visuels : export PNG générique (SVG foreignObject → canvas) —
+  document.querySelectorAll('button[data-export]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var p=btn.dataset.export.split('|');
+      var node=document.getElementById(p[0]);if(!node)return;
+      var w=Number(p[1]),h=Number(p[2]),name=p[3];
+      var clone=node.cloneNode(true);
+      clone.style.transform='none';
+      var xml=new XMLSerializer().serializeToString(clone);
+      var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'">'+
+        '<foreignObject width="100%" height="100%">'+xml+'</foreignObject></svg>';
+      var img=new Image();
+      img.onload=function(){
+        var c=document.createElement('canvas');c.width=w;c.height=h;
+        var x=c.getContext('2d');x.fillStyle='#FAF6EE';x.fillRect(0,0,w,h);
+        x.drawImage(img,0,0);
+        try{var a=document.createElement('a');
+          a.download=name+'.png';
+          a.href=c.toDataURL('image/png');a.click();
+          btn.textContent='Téléchargé ✓';btn.classList.add('ok');
+          setTimeout(function(){btn.textContent='Télécharger PNG';btn.classList.remove('ok')},2000);
+        }catch(e){alert('Export impossible sur ce navigateur — fais une capture de l\\'aperçu.');}
+      };
+      img.onerror=function(){alert('Export impossible — fais une capture de l\\'aperçu.');};
+      img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+    });
+  });
   var box=document.getElementById('slides');
   if(box){SLIDES.forEach(function(s,i){
     var w=document.createElement('div');w.className='slide-w';
