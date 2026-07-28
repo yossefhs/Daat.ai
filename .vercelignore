@@ -10,3 +10,7 @@
 #
 # Objectif : sauvegardés sur GitHub, absents du site.
 chiourim/
+
+# Système d'audit interne (audit-system/) : outillage, pas du contenu du site.
+# Sa base de données et son venv ne doivent jamais être servis par daattorah.com.
+audit-system/
