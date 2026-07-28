@@ -262,77 +262,94 @@ function communauteFacebook(fb, yomiLine) {
 
 const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-// Infographie « Daat Yomi » 1080×1350 — reproduction du gabarit de la charte :
-// badge calendrier navy, titre DAAT YOMI, bandeau siman, points essentiels
-// numérotés, message du siman, pied avec l'URL. Styles 100 % inline pour
-// l'export PNG côté client (SVG foreignObject → canvas).
+// Infographie « Daat Yomi » 1080×1350 — gabarit issu du Design System DAAT
+// (variante « typographique parchemin » validée dans Claude Design) : filigrane
+// דעת, cadre or fin, badge JOUR, titre Daat Yomi serif, bandeau siman navy,
+// points essentiels en chiffres romains (hébreu vocalisé + translitération +
+// définition), message du siman, pied URL. Styles 100 % inline pour l'export
+// PNG côté client (SVG foreignObject → canvas).
 function infographicHtml(pack) {
-  const NAVY = '#1A1F3A', GOLD = '#C5A55A', GOLD2 = '#a9863c', CREME = '#FAF6EE', INK = '#3D4266';
-  const serif = "Georgia,'Times New Roman',serif";
-  const sans = "-apple-system,'Segoe UI',Roboto,Arial,sans-serif";
+  const NAVY = '#1A1F3A', GOLD = '#C5A55A', CREME = '#FAF6EE', INK = '#3D4266';
+  const serif = "'Cormorant Garamond',Georgia,serif";
+  const hebfont = "'Frank Ruhl Libre',Georgia,serif";
   const p = pack;
   const semaine = p.yomi ? Math.ceil(p.yomi.dayNumber / 5) : null;
+  const ROMANS = ['I', 'II', 'III', 'IV', 'V'];
   const points = (p.info.points || []).slice(0, 4);
 
-  const badge = p.yomi
-    ? `<div style="background:${NAVY};border:2px solid ${GOLD};border-radius:18px;padding:18px 20px;text-align:center;color:#fff;font-family:${sans};min-width:190px">
-        <div style="font-size:26px;font-weight:800;letter-spacing:1px">JOUR <span style="color:${GOLD}">${p.yomi.dayNumber}</span></div>
-        ${p.meta?.dateFr ? `<div style="font-size:19px;font-weight:600;margin-top:6px;text-transform:uppercase">${esc(p.meta.dateFr)}</div>` : ''}
-        <div style="border-top:1px solid ${GOLD};margin:12px 18px 0;padding-top:10px;font-size:19px;font-weight:700;letter-spacing:2px">SEMAINE ${semaine}</div>
-      </div>`
-    : `<div style="background:${NAVY};border:2px solid ${GOLD};border-radius:18px;padding:18px 20px;text-align:center;color:#fff;font-family:${sans};min-width:190px">
-        <div style="font-size:24px;font-weight:800;letter-spacing:1px">ÉTUDE<br>DU JOUR</div>
+  // « עָקַר רַגְלָיו (Akar Raglav) » → hébreu + translitération séparés.
+  const splitTitle = (t) => {
+    const m = /^([\u0590-\u05FF\u05B0-\u05C7\s"'״׳]+?)\s*\(([^)]+)\)\s*$/.exec(String(t).trim());
+    return m ? { he: m[1].trim(), lat: m[2].trim() } : { he: '', lat: String(t).trim() };
+  };
+
+  const pts = points.map((pt, i) => {
+    const s = splitTitle(pt.title);
+    const last = i === points.length - 1;
+    return `
+      <div style="display:flex;gap:20px;align-items:baseline;padding:12px 0;${last ? '' : `border-bottom:1px solid rgba(197,165,90,.35);`}">
+        <div style="flex:0 0 auto;font-family:${serif};font-size:34px;font-weight:600;color:${GOLD};width:40px;text-align:right">${ROMANS[i] || i + 1}</div>
+        <div>
+          ${s.he ? `<span style="font-family:${hebfont};font-size:26px;color:${NAVY};direction:rtl">${esc(s.he)}</span>` : ''}
+          <span style="font-family:${serif};font-style:italic;font-size:20px;color:${INK};${s.he ? 'margin-left:12px' : ''}">${esc(s.lat)}</span>
+          <div style="font-size:17px;line-height:1.45;color:${INK};margin-top:2px">${esc(pt.text)}</div>
+        </div>
       </div>`;
+  }).join('');
 
-  const pts = points.map((pt, i) => `
-    <div style="display:flex;gap:18px;align-items:flex-start;padding:14px 6px;${i < points.length - 1 ? `border-bottom:1px solid #e6d9b8;` : ''}">
-      <div style="flex:none;width:52px;height:52px;border-radius:50%;background:${NAVY};color:${GOLD};display:flex;align-items:center;justify-content:center;font-family:${sans};font-size:26px;font-weight:800">${i + 1}</div>
-      <div style="flex:1">
-        <div style="font-family:${sans};font-size:24px;font-weight:800;color:${NAVY};letter-spacing:.3px">${esc(pt.title)}</div>
-        <div style="font-family:${sans};font-size:20.5px;color:${INK};line-height:1.42;margin-top:5px">${esc(pt.text)}</div>
-      </div>
-    </div>`).join('');
+  const badge = `<div style="background:${NAVY};border-radius:14px;padding:18px 24px">
+      <div style="font-family:${serif};font-size:36px;font-weight:600;color:${GOLD};line-height:1">${p.yomi ? `JOUR ${p.yomi.dayNumber}` : `SIMAN ${p.num}`}</div>
+      ${p.meta?.dateFr ? `<div style="font-size:14px;color:${CREME};margin-top:6px;text-transform:capitalize">${esc(p.meta.dateFr)}</div>` : ''}
+      ${semaine ? `<div style="font-size:11px;color:rgba(197,165,90,.9);margin-top:6px;letter-spacing:.22em">SEMAINE ${semaine}</div>` : ''}
+    </div>`;
 
-  return `<div id="ig-root" style="width:1080px;height:1350px;box-sizing:border-box;background:linear-gradient(160deg,#FBF7EC 0%,${CREME} 55%,#F3EBD8 100%);padding:38px 44px;display:flex;flex-direction:column;gap:20px;font-family:${sans};overflow:hidden">
-    <div style="display:flex;align-items:stretch;gap:20px">
+  return `<div id="ig-root" style="width:1080px;height:1350px;position:relative;display:flex;flex-direction:column;overflow:hidden;box-sizing:border-box;background:radial-gradient(circle at 22% 10%,rgba(197,165,90,.14),transparent 44%),radial-gradient(circle at 80% 88%,rgba(197,165,90,.1),transparent 50%),${CREME};font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif">
+    <div style="position:absolute;right:-40px;bottom:60px;font-family:${hebfont};font-weight:700;font-size:460px;line-height:.8;color:rgba(197,165,90,.09);pointer-events:none">דעת</div>
+    <div style="position:absolute;inset:28px;border:1px solid rgba(197,165,90,.55);pointer-events:none"></div>
+
+    <div style="position:relative;padding:58px 62px 0;display:flex;justify-content:space-between;align-items:flex-start;flex:0 0 auto">
       ${badge}
-      <div style="flex:1;text-align:center;padding-top:4px">
-        <div style="font-family:${serif};font-size:64px;font-weight:700;color:${NAVY};letter-spacing:2px;line-height:1">DAAT YOMI</div>
-        <div style="color:${GOLD};font-size:20px;margin:6px 0 4px">◆ ─────────── ◆</div>
-        <div style="font-family:${sans};font-size:23px;font-weight:800;color:${GOLD2};letter-spacing:2px">ÉTUDE QUOTIDIENNE</div>
-        <div style="font-family:${sans};font-size:25px;font-weight:800;color:${NAVY};letter-spacing:1px">DES LOIS DE CHABBAT</div>
-      </div>
-      <div style="flex:none;text-align:center;min-width:190px;padding-top:2px">
-        <div style="font-family:${serif};font-size:52px;font-weight:700;color:${GOLD};line-height:1">דעת</div>
-        <div style="font-family:${serif};font-size:30px;font-weight:700;color:${NAVY};margin-top:4px">Daat<span style="color:${GOLD2}">Torah</span></div>
-        <div style="font-family:${sans};font-size:15px;color:${INK}">Étude et compréhension</div>
+      <div style="text-align:right;padding-top:6px">
+        <div style="font-family:${hebfont};font-weight:700;font-size:44px;color:${GOLD};line-height:1">דעת</div>
+        <div style="font-size:11px;letter-spacing:.2em;color:${INK};margin-top:6px">DAATTORAH</div>
       </div>
     </div>
 
-    <div style="background:${NAVY};border-radius:20px;padding:22px 26px;text-align:center;box-shadow:0 6px 18px rgba(26,31,58,.25)">
-      <div style="font-family:${sans};font-size:48px;font-weight:900;color:#fff;letter-spacing:2px">SIMAN ${p.num}${p.numHe ? ` <span style="color:${GOLD}">· ${esc(p.numHe)}</span>` : ''}</div>
-      ${p.yomi ? `<div style="font-family:${sans};font-size:24px;font-weight:800;color:${GOLD};letter-spacing:3px;margin-top:6px">SÉ'IFIM ${p.yomi.seifRange[0]} À ${p.yomi.seifRange[1]}</div>` : ''}
-      <div style="font-family:${sans};font-size:25px;font-weight:700;color:#fff;margin-top:8px;line-height:1.3">${esc(p.title).toUpperCase()}</div>
+    <div style="position:relative;padding:32px 62px 0;text-align:center;flex:0 0 auto">
+      <div style="font-family:${serif};font-size:76px;font-weight:700;letter-spacing:.04em;color:${NAVY};line-height:1">Daat Yomi</div>
+      <div style="width:110px;height:1px;background:${GOLD};margin:20px auto"></div>
+      <div style="font-size:18px;letter-spacing:.18em;text-transform:uppercase;color:${INK}">Étude quotidienne des lois de Chabbat</div>
     </div>
 
-    ${p.info.intro ? `<div style="background:#fff;border:2px solid ${GOLD};border-radius:16px;padding:20px 26px;display:flex;gap:16px;align-items:center">
-      <div style="flex:none;font-size:34px">📖</div>
-      <div style="font-family:${sans};font-size:21.5px;color:${INK};line-height:1.45">${esc(p.info.intro)}</div>
+    <div style="position:relative;margin:34px 62px 0;background:${NAVY};padding:24px 30px;text-align:center;flex:0 0 auto">
+      <div style="display:flex;align-items:baseline;justify-content:center;gap:16px;flex-wrap:wrap">
+        <span style="font-family:${serif};font-size:32px;font-weight:600;color:${GOLD}">SIMAN ${p.num}</span>
+        ${p.numHe ? `<span style="color:rgba(197,165,90,.5)">·</span>
+        <span style="font-family:${hebfont};font-size:30px;color:${GOLD};direction:rtl">${esc(p.numHe)}</span>` : ''}
+        ${p.yomi ? `<span style="color:rgba(197,165,90,.5)">·</span>
+        <span style="font-size:14px;letter-spacing:.14em;color:rgba(250,246,238,.9)">SÉ'IFIM ${p.yomi.seifRange[0]} À ${p.yomi.seifRange[1]}</span>` : ''}
+      </div>
+      <div style="font-family:${serif};font-style:italic;font-size:22px;color:${CREME};margin-top:10px">${esc(p.title)}</div>
+    </div>
+
+    ${p.info.intro ? `<div style="position:relative;margin:28px 62px 0;background:#fff;border:1.5px solid ${GOLD};padding:22px 26px;display:flex;gap:16px;align-items:flex-start;flex:0 0 auto">
+      <div style="font-size:28px;line-height:1.1">📖</div>
+      <div style="font-size:18px;line-height:1.5;color:${INK}">${esc(p.info.intro)}</div>
     </div>` : ''}
 
-    <div style="flex:1;background:#fff;border:1px solid #e6d9b8;border-radius:16px;padding:16px 24px;display:flex;flex-direction:column">
-      <div style="align-self:center;background:${NAVY};color:#fff;font-family:${sans};font-size:22px;font-weight:800;letter-spacing:2px;padding:8px 34px;border-radius:999px;margin:-30px 0 8px">LES POINTS ESSENTIELS</div>
-      ${pts}
+    <div style="position:relative;padding:20px 62px 0;flex:1 1 0;min-height:0">
+      <div style="text-align:center;font-size:13px;letter-spacing:.26em;color:${GOLD}">LES POINTS ESSENTIELS</div>
+      <div style="display:flex;flex-direction:column;margin-top:14px">${pts}</div>
     </div>
 
-    <div style="background:${NAVY};border:2px solid ${GOLD};border-radius:16px;padding:18px 26px;text-align:center">
-      <div style="font-family:${sans};font-size:23px;font-weight:800;color:${GOLD};letter-spacing:2px">LE MESSAGE DU SIMAN</div>
-      <div style="font-family:${sans};font-size:21.5px;color:#fff;line-height:1.45;margin-top:8px">${esc(p.info.message)}</div>
+    <div style="position:relative;margin:0 62px;background:${NAVY};padding:24px 28px;text-align:center;flex:0 0 auto">
+      <div style="font-size:12px;letter-spacing:.26em;color:${GOLD}">LE MESSAGE DU SIMAN</div>
+      <div style="font-family:${serif};font-style:italic;font-size:25px;line-height:1.4;color:${CREME};margin-top:10px">${esc(p.info.message)}</div>
     </div>
 
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:0 6px">
-      <div style="font-family:${sans};font-size:20px;color:${NAVY}">🌐 <b>Étudie le siman complet</b> — <span style="color:${GOLD2};font-weight:700">daattorah.com/oh/${p.num}/base</span></div>
-      <div style="font-family:${sans};font-size:17px;color:${INK}">Pour la pratique, consulte ton Rav.</div>
+    <div style="position:relative;padding:20px 62px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex:0 0 auto">
+      <div style="font:15px ui-monospace,Menlo,monospace;color:${GOLD}">daattorah.com/oh/${p.num}/base</div>
+      <div style="font-size:14px;color:rgba(61,66,102,.8);font-style:italic">Pour la pratique, consulte ton Rav.</div>
     </div>
   </div>`;
 }
@@ -389,6 +406,9 @@ export function renderPackHtml(pack) {
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Pack du jour — siman ${pack.num}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400&family=Frank+Ruhl+Libre:wght@700&display=swap" rel="stylesheet">
 <style>
   :root{--navy:#1A1F3A;--or:#C5A55A;--or2:#a9863c;--creme:#FAF6EE;}
   *{box-sizing:border-box}body{margin:0;background:var(--creme);color:var(--navy);
