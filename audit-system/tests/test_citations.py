@@ -256,3 +256,35 @@ def test_sefaria_indisponible_ne_leve_pas(settings):
                          delay_seconds=0) as provider:
         assert provider.fetch("Berakhot.34a") is None
         assert provider.search("כל המענג את השבת נותנין לו") == []
+
+
+# ── Étiquettes : ni en-tête ni légende ne sont des citations ─────────────
+
+def test_un_entete_de_reference_nest_pas_une_citation():
+    """Le juger comme littéral revenait à demander à Sefaria de contenir mot
+    pour mot le titre d'un siman."""
+    html = ('<blockquote class="text-source" dir="rtl">'
+            "שולחן ערוך אורח חיים סימן רמ״ב סעיף א'</blockquote>")
+    assert extract_quotes(html, marked=True) == []
+
+
+def test_une_legende_bibliographique_nest_pas_une_citation():
+    html = ('<blockquote class="text-source" dir="rtl">'
+            "עם נושאי כלים: ביאורי שו״ע, ט״ז, מג״א, מקורות והערות</blockquote>")
+    assert extract_quotes(html, marked=True) == []
+
+
+def test_une_vraie_citation_survit_au_filtre():
+    """Le filtre doit écarter les étiquettes sans rendre l'outil aveugle."""
+    html = ('<blockquote class="text-source" dir="rtl">'
+            "אָמַר רַבִּי עֲקִיבָא: עֲשֵׂה שַׁבַּתְּךָ חֹל וְאַל תִּצְטָרֵךְ לַבְּרִיּוֹת"
+            "</blockquote>")
+    assert len(extract_quotes(html, marked=True)) == 1
+
+
+def test_une_citation_citant_une_source_reste_une_citation():
+    """Une vraie citation peut nommer un ouvrage sans devenir une étiquette."""
+    html = ('<blockquote class="text-source" dir="rtl">'
+            "כתב המג״א דהא דאמרינן דצריך לכבד את השבת היינו במי שידו משגת ולא באחר"
+            "</blockquote>")
+    assert len(extract_quotes(html, marked=True)) == 1

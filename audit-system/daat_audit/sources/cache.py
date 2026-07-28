@@ -29,8 +29,17 @@ class CachedProvider:
         self.name = provider.name
         self.hits = 0
         self.misses = 0
+        # Références déjà connues comme absentes, pour cette exécution. Un séif
+        # qui n'existe pas ne se met pas à exister ; sans ce garde, la même
+        # requête 404 partait des dizaines de fois vers un service tiers
+        # gratuit. Volontairement en mémoire et non en base : une absence peut
+        # tenir à un incident, et elle ne doit pas se figer d'une session à
+        # l'autre.
+        self._absentes: set[str] = set()
 
     def fetch(self, ref: str) -> SourceDocument | None:
+        if ref in self._absentes:
+            return None
         if not self._refresh:
             ligne = self._session.execute(
                 select(SourceText).where(
@@ -49,6 +58,7 @@ class CachedProvider:
         self.misses += 1
         document = self._provider.fetch(ref)
         if document is None:
+            self._absentes.add(ref)
             return None
 
         contenu = json.dumps(document.segments, ensure_ascii=False)

@@ -257,3 +257,19 @@ def test_un_titre_de_section_h2_coupe_bien_le_lien(session, settings):
     """h2 marque une section numérotée : un vrai changement de sujet."""
     run_crawl(session, settings, transport=_transport(_page_intertitre("h2")))
     assert run_analyse(session, settings, provider=_provider()) == []
+
+
+def test_une_reference_absente_nest_demandee_quune_fois(session):
+    """Un séif qui n'existe pas ne se met pas à exister : sans ce garde, la
+    même requête 404 repartait des dizaines de fois vers Sefaria."""
+    appels = []
+
+    class Comptant(LocalProvider):
+        def fetch(self, ref):
+            appels.append(ref)
+            return super().fetch(ref)
+
+    source = CachedProvider(Comptant({}), session)
+    assert source.fetch("Shulchan_Arukh,_Orach_Chayim.253.8") is None
+    assert source.fetch("Shulchan_Arukh,_Orach_Chayim.253.8") is None
+    assert len(appels) == 1

@@ -104,6 +104,46 @@ def has_cue(before: str) -> bool:
     return bool(CUE.search(before[-90:]))
 
 
+# Un jeton à gershayim est une abréviation d'ouvrage (שו״ע, ט״ז, מג״א), pas un
+# mot de texte cité.
+_ABREV = re.compile(r"[א-ת]{1,4}[\"״][א-ת]")
+_MOT = re.compile(r"[א-ת]+")
+
+
+def est_etiquette(texte: str) -> bool:
+    """Ce fragment est-il une **étiquette** plutôt qu'une citation ?
+
+    Deux formes reviennent constamment sur le site, et toutes deux se logent
+    dans un bloc typé « citation hébraïque » sans guillemets :
+
+    - l'en-tête de référence — « שולחן ערוך אורח חיים סימן רמ״ב סעיף א' » ;
+    - la légende bibliographique — « עם נושאי כלים: ביאורי שו״ע, ט״ז, מג״א ».
+
+    Les juger comme des citations littérales revenait à demander à Sefaria de
+    contenir mot pour mot le titre d'un siman : un premier passage sur les
+    quatre niveaux a produit 408 signalements pour 539 citations, dont une
+    grande part de ce seul défaut.
+
+    Deux critères, tous deux fondés sur ce qui reste une fois retirées les
+    références et les abréviations d'ouvrages : s'il ne subsiste pas de quoi
+    faire une phrase, ce n'était pas une citation.
+    """
+    from .references import extract_references
+
+    reste = texte
+    for ref in extract_references(texte):
+        reste = reste.replace(ref.raw_text, " ")
+    reste = _ABREV.sub(" ", reste)
+    if n_letters(reste) < MIN_CITATION:
+        return True
+
+    # Une légende énumère des ouvrages : forte densité d'abréviations et de
+    # séparateurs, peu de texte suivi.
+    mots = _MOT.findall(texte)
+    abrevs = len(_ABREV.findall(texte))
+    return bool(mots) and abrevs >= 3 and abrevs >= len(mots) / 4
+
+
 def extract_quotes(fragment_html: str, *, marked: bool = False) -> list[Quote]:
     """Fragments hébreux présentés comme des citations littérales.
 
@@ -148,6 +188,8 @@ def extract_quotes(fragment_html: str, *, marked: bool = False) -> list[Quote]:
                     continue      # identifiant d'ancre, pas une phrase
                 if n_letters(brut) < MIN_CITATION:
                     continue      # terme technique entre guillemets
+                if est_etiquette(brut):
+                    continue      # en-tête de référence ou légende, pas une citation
 
                 # Position calculée sur le texte NON nettoyé : ``plain``
                 # conserve encore les <em>, et c'est d'eux que dépendent le
