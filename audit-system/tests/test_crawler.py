@@ -10,7 +10,15 @@ from sqlalchemy import select
 
 from daat_audit.crawler.crawl import run_crawl
 from daat_audit.crawler.urls import parse_simanim_arg, perimeter_urls
-from daat_audit.models import CrawlJobStatus, Page, PageAuditStatus, PageVersion
+from daat_audit.models import (
+    AuditFinding,
+    ContentBlock,
+    CrawlJobStatus,
+    Page,
+    PageAuditStatus,
+    PageVersion,
+    ParsedReference,
+)
 
 
 def _page_html(siman: int, body: str = "contenu initial") -> str:
@@ -245,3 +253,70 @@ def test_bornes_simanim():
     for bad in ("abc", "242-999999", "0", "1-999", "", "242-241"):
         with _pytest.raises(ValueError):
             parse_simanim_arg(bad)
+
+
+# ── Phase 2 : analyse pendant le crawl ───────────────────────────────────
+
+def _real_page_transport(sample_html: str) -> httpx.MockTransport:
+    """Sert la vraie page du site pour les 3 simanim du périmètre de test."""
+    def handler(request: httpx.Request) -> httpx.Response:
+        assert request.method in ("GET", "HEAD")
+        return httpx.Response(200, text=sample_html)
+    return httpx.MockTransport(handler)
+
+
+def test_le_crawl_decoupe_la_page_en_blocs(session, settings, sample_html):
+    run_crawl(session, settings, transport=_real_page_transport(sample_html))
+    blocs = session.execute(select(ContentBlock)).scalars().all()
+    assert blocs, "aucun bloc archivé"
+    assert all(b.stable_id and b.sha256 for b in blocs)
+    # Une PageVersion par page, et des blocs rattachés à chacune.
+    versions = session.execute(select(PageVersion)).scalars().all()
+    assert {b.page_version_id for b in blocs} == {v.id for v in versions}
+
+
+def test_le_crawl_extrait_les_references(session, settings, sample_html):
+    run_crawl(session, settings, transport=_real_page_transport(sample_html))
+    refs = session.execute(select(ParsedReference)).scalars().all()
+    assert refs, "aucune référence extraite d'une page qui en contient"
+    assert all(r.block_id is not None for r in refs)
+    assert all(0.0 < r.confidence <= 1.0 for r in refs)
+
+
+def test_une_page_inchangee_nest_pas_reanalysee(session, settings, sample_html):
+    """Sans cette règle, chaque passage dupliquerait blocs et signalements,
+    et les décisions déjà rendues se détacheraient de leur contenu."""
+    transport = _real_page_transport(sample_html)
+    run_crawl(session, settings, transport=transport)
+    apres_premier = len(session.execute(select(ContentBlock)).scalars().all())
+
+    run_crawl(session, settings, transport=transport)
+    assert len(session.execute(select(ContentBlock)).scalars().all()) == apres_premier
+
+
+def test_une_page_modifiee_est_reanalysee(session, settings, sample_html):
+    run_crawl(session, settings, transport=_real_page_transport(sample_html))
+    avant = len(session.execute(select(ContentBlock)).scalars().all())
+
+    modifie = sample_html.replace("</main>", "<p>Ajout après coup.</p></main>")
+    run_crawl(session, settings, transport=_real_page_transport(modifie))
+    assert len(session.execute(select(ContentBlock)).scalars().all()) > avant
+
+
+def test_les_signalements_sont_rattaches_a_leur_bloc(session, settings, sample_html):
+    """Un défaut injecté doit produire un signalement relié au bon bloc."""
+    abime = sample_html.replace("Le devoir d'", "Le  devoir  d'", 1)
+    run_crawl(session, settings, transport=_real_page_transport(abime))
+
+    findings = session.execute(select(AuditFinding)).scalars().all()
+    assert findings, "aucun signalement sur une page volontairement abîmée"
+    cible = next(f for f in findings if f.rule_code == "TECH-001")
+    assert cible.block_id is not None
+    bloc = session.get(ContentBlock, cible.block_id)
+    assert bloc is not None and bloc.stable_id.startswith("OH-242-BASE-FR-")
+    assert cible.status is not None       # statut initial renseigné (§13)
+
+
+def test_page_saine_naboutit_a_aucun_signalement(session, settings, sample_html):
+    run_crawl(session, settings, transport=_real_page_transport(sample_html))
+    assert session.execute(select(AuditFinding)).scalars().all() == []

@@ -21,19 +21,25 @@ import httpx
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from ..blocks import split_blocks
+from ..checks import CheckContext, run_all
 from ..config import Settings, get_settings
 from ..db import make_engine, make_session_factory
 from ..extract import extract_page
 from ..hashing import sha256_hex, text_fingerprint
 from ..models import (
+    AuditFinding,
     AuditLog,
+    ContentBlock,
     CrawlJob,
     CrawlJobStatus,
     Page,
     PageAuditStatus,
     PageVersion,
+    ParsedReference,
     utcnow,
 )
+from ..references import extract_references
 from .fetch import Fetcher
 from .urls import parse_simanim_arg, perimeter_urls
 
@@ -42,6 +48,90 @@ logger = logging.getLogger("daat_audit.crawler")
 
 def _log_event(session: Session, action: str, **fields) -> None:
     session.add(AuditLog(user=None, action=action, **fields))
+
+
+def _analyser(
+    session: Session,
+    settings: Settings,
+    page: Page,
+    version: PageVersion,
+    html: str,
+    url: str,
+    siman: int,
+) -> int:
+    """Découpe la version en blocs, extrait les références, applique les
+    contrôles. Retourne le nombre de signalements créés.
+
+    N'est appelée que lorsqu'une nouvelle ``PageVersion`` est archivée — donc
+    à la première collecte ou après un changement de contenu. Une page
+    inchangée n'est pas réanalysée : ses blocs et ses signalements restent
+    ceux de la version en cours, et les décisions déjà rendues ne sont pas
+    dupliquées à chaque passage.
+
+    Conséquence assumée, à traiter en Phase 4 : faire évoluer une règle ne
+    rejoue pas d'office les pages inchangées ; il faudra une réanalyse
+    explicite.
+    """
+    blocks = split_blocks(
+        html, section="OH", siman=siman,
+        niveau=settings.niveau, langue=settings.langue,
+    )
+    if not blocks:
+        return 0
+
+    par_stable_id: dict[str, ContentBlock] = {}
+    for bloc in blocks:
+        ligne = ContentBlock(
+            page_version=version,
+            stable_id=bloc.stable_id,
+            order_index=bloc.order_index,
+            block_type=bloc.block_type,
+            raw_content=bloc.raw_content,
+            normalized_content=bloc.normalized_content,
+            css_selector=bloc.css_selector,
+            sha256=bloc.sha256,
+        )
+        session.add(ligne)
+        par_stable_id[bloc.stable_id] = ligne
+
+        for ref in extract_references(bloc.normalized_content):
+            session.add(ParsedReference(
+                block=ligne,
+                raw_text=ref.raw_text,
+                work=ref.work,
+                section=ref.section,
+                siman=ref.siman,
+                seif=ref.seif,
+                seif_katan=ref.seif_katan,
+                daf=ref.daf,
+                amud=ref.amud,
+                confidence=ref.confidence,
+                span_start=ref.span[0],
+                span_end=ref.span[1],
+            ))
+
+    # Les ContentBlock doivent avoir un id avant d'être référencés par un
+    # signalement : on vide la session sans valider la transaction.
+    session.flush()
+
+    findings = run_all(CheckContext(blocks=blocks, html=html, url=url))
+    for f in findings:
+        cible = par_stable_id.get(f.block_id) if f.block_id else None
+        session.add(AuditFinding(
+            page_id=page.id,
+            block_id=cible.id if cible is not None else None,
+            category=f.category,
+            subcategory=f.subcategory,
+            current_text=f.current_text,
+            proposed_correction=f.proposed_correction,
+            explanation=f.explanation,
+            confidence=f.confidence,
+            severity=f.severity,
+            risk=f.risk,
+            rule_code=f.rule_code,
+            rule_version=f.rule_version,
+        ))
+    return len(findings)
 
 
 def run_crawl(
@@ -135,7 +225,7 @@ def run_crawl(
                     page.audit_status = PageAuditStatus.CRAWLED
 
                 if store:
-                    session.add(PageVersion(
+                    version = PageVersion(
                         page=page,
                         http_status=result.status,
                         html_raw=result.html,
@@ -143,8 +233,12 @@ def run_crawl(
                         html_sha256=sha256_hex(result.html),
                         text_sha256=fingerprint,
                         is_change=change,
-                    ))
+                    )
+                    session.add(version)
                     page.current_text_sha256 = fingerprint
+                    entry["findings"] = _analyser(
+                        session, settings, page, version, result.html, url, siman,
+                    )
                 job.pages_ok += 1
 
             entries.append(entry)

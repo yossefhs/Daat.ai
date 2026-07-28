@@ -1,4 +1,4 @@
-# Système d'audit DaatTorah — Phase 1
+# Système d'audit DaatTorah — Phases 1 et 2
 
 Audit automatique du site public [daattorah.com](https://daattorah.com), en **lecture seule**.
 
@@ -56,6 +56,10 @@ audit-system/
 │   ├── db.py                # moteur SQLAlchemy 2 (SQLite dev / PostgreSQL prod)
 │   ├── hashing.py           # SHA-256 html + texte normalisé (détection de changement)
 │   ├── extract.py           # titre, texte visible, liens internes (BeautifulSoup/lxml)
+│   ├── blocks.py            # découpage en blocs typés + identifiants stables (§6)
+│   ├── hebrew.py            # normalisation hébraïque + comparaison graduée (§9)
+│   ├── references.py        # moteur de références, gematria validée (§7)
+│   ├── checks.py            # contrôles TECH-001..008 et EDIT-001..003 (§10)
 │   ├── crawler/
 │   │   ├── urls.py          # périmètre : /oh/{242..269}/base
 │   │   ├── fetch.py         # httpx, débit limité, redirections tracées, transport injectable
@@ -63,9 +67,12 @@ audit-system/
 │   ├── api/
 │   │   ├── main.py          # FastAPI : /health /crawl /pages /stats (+ OpenAPI /docs)
 │   │   └── schemas.py
-│   └── data/works_aliases.json  # amorce de la table d'alias des ouvrages (§7)
+│   └── data/
+│       ├── works_aliases.json   # table d'alias des ouvrages (§7)
+│       └── terminologie.json    # graphies attestées — GÉNÉRÉ, ne pas éditer
+├── scripts/build-terminologie.py  # régénère terminologie.json depuis sources/
 ├── alembic/                 # migrations (schéma initial : 14 tables)
-├── tests/                   # 42 tests, réseau entièrement simulé
+├── tests/                   # 109 tests, réseau entièrement simulé
 ├── docker-compose.yml       # PostgreSQL 16 + API (+ service crawler ponctuel)
 └── var/                     # base SQLite locale et artefacts (git-ignoré)
 ```
@@ -125,7 +132,7 @@ Le mot de passe PostgreSQL de développement se surcharge par `AUDIT_DB_PASSWORD
 ### Tests
 
 ```bash
-.venv/bin/python -m pytest tests/ -q          # 42 tests, aucun accès réseau
+.venv/bin/python -m pytest tests/ -q          # 109 tests, aucun accès réseau
 ```
 
 Les handlers HTTP simulés assertent la méthode de chaque requête : toute
@@ -141,7 +148,7 @@ AUDIT_CA_BUNDLE=/chemin/vers/ca-bundle.crt .venv/bin/python -m daat_audit.crawle
 ## Ce qui est vérifié — et ce qui ne l'est pas
 
 **Vérifié dans cet environnement :**
-- les 42 tests (SQLite en mémoire, réseau simulé par `httpx.MockTransport`) ;
+- les 109 tests (SQLite en mémoire, réseau simulé par `httpx.MockTransport`) ;
 - la migration Alembic sur SQLite (14 tables + `alembic_version`) ;
 - un crawl réel complet du périmètre : 28/28 pages archivées (HTML brut, texte
   nettoyé, double empreinte SHA-256), déduplication confirmée en conditions
@@ -153,12 +160,81 @@ AUDIT_CA_BUNDLE=/chemin/vers/ca-bundle.crt .venv/bin/python -m daat_audit.crawle
 - la migration sur PostgreSQL (testée sur SQLite uniquement) ;
 - le service `crawler` du compose.
 
-## Limites actuelles (Phase 1)
+## Phase 2 — ce qui a été ajouté
 
-- Pas de découpage en blocs (§6), pas de détection de références (§7), pas de
-  comparaison de citations (§8-§9), pas de contrôles (§10) : **Phase 2**.
+Le crawl ne fait plus qu'archiver : chaque nouvelle version de page est
+**découpée, analysée et signalée**. L'analyse ne tourne que lorsqu'une version
+est créée (première collecte ou changement de contenu) ; une page inchangée
+n'est pas réanalysée, sinon chaque passage dupliquerait blocs et signalements.
+
+| Module | Rôle | §  |
+|---|---|---|
+| `blocks.py` | découpage en blocs typés, identifiants stables `OH-268-BASE-FR-P014` | §6 |
+| `references.py` | références FR/HE/translittérées, gematria **validée** | §7 |
+| `hebrew.py` | normalisation + comparaison à verdict gradué | §9 |
+| `checks.py` | 8 contrôles techniques, 3 éditoriaux | §10 |
+
+**Identifiant stable : rang par type, pas index global.** Un index global se
+décale dès qu'un paragraphe est inséré n'importe où dans la page, et toutes les
+décisions déjà rendues se retrouvent rattachées au mauvais bloc. Le rang par
+type ne bouge que si un bloc du *même* type est inséré avant — un test le
+vérifie en insérant un paragraphe et en constatant que les identifiants des
+citations hébraïques ne bougent pas. L'identifiant ne survit pas à une
+réorganisation profonde ; le `sha256` du bloc permet alors de retrouver un
+contenu déplacé.
+
+### Trois faux positifs corrigés, et ce qu'ils apprennent
+
+Ces trois défauts ont la même forme : **une règle écrite d'après une idée du
+site plutôt que d'après le site**. C'est la même erreur que celle traquée dans
+le contenu, commise dans l'instrument.
+
+1. **Le dictionnaire de terminologie était inventé.** Sept de ses dix entrées
+   désignaient comme forme canonique une graphie que le site n'emploie nulle
+   part, et pour מוקצה la forme donnée comme fautive (*Muktzeh*, 75) était plus
+   fréquente que la forme dite correcte (*Mouktsé*, 37). Il est désormais
+   **dérivé** du site par `scripts/build-terminologie.py`, et EDIT-001 ne
+   tranche plus : il signale qu'une page hésite entre deux graphies, donne les
+   comptes du site, et ne propose aucune correction — choisir entre deux
+   translittérations attestées est une décision éditoriale qui revient au Rav.
+2. **TECH-008 et TECH-001 lisaient un champ qui ne pouvait pas contenir le
+   défaut cherché.** TECH-008 cherchait la classe RTL dans `raw_content`, qui
+   est le HTML *intérieur* de la balise et ne contient donc jamais ses propres
+   attributs : 7 signalements sur 7 étaient faux. TECH-001 cherchait des
+   espaces doubles dans `normalized_content`, qui les a déjà réduits : il ne
+   pouvait rien trouver. Les classes qui orientent le texte sont maintenant
+   lues **dans le CSS de la page** (le site oriente par `.he`, `.text-source`
+   et `.he-q` — trois noms qu'aucune liste écrite d'avance n'aurait devinés).
+3. **La graphie pleine passait pour une falsification.** Sefaria vocalise en
+   graphie défective (עֹנֶג, מְכֻבָּד), le site écrit en graphie pleine (עונג,
+   מכובד) : Isaïe 58:13 cité **mot pour mot** ressortait en « mot remplacé ».
+   D'où le verdict `DIFF_ORTHOGRAPHE`. Seul le *vav médian* est neutralisé —
+   le vav initial est la conjonction, le vav final un suffixe, et le yod n'est
+   jamais touché pour que בית ne se confonde pas avec בת : mieux vaut un faux
+   positif qu'une citation fautive déclarée conforme.
+
+Sur la page réelle servant de fixture (siman 242, niveau 1, FR), les onze
+contrôles ne produisent **aucun signalement** — ce qui est le résultat correct
+pour une page conforme aux deux gates du dépôt. Les tests vérifient donc les
+deux sens : silence sur la page saine, **et** détection dès qu'on y injecte le
+défaut visé. Un contrôle qui ne fait que se taire n'est pas un contrôle.
+
+## Limites actuelles
+
+- **Aucune citation n'est encore comparée à sa source réelle.** `hebrew.py`
+  sait comparer deux textes, mais rien ne va chercher le texte de Sefaria :
+  le fournisseur de sources est en **Phase 4**. Les contrôles actuels sont
+  techniques et éditoriaux — aucun ne juge du contenu halakhique.
 - Pas d'interface d'administration ni d'endpoints d'anomalies : **Phase 3**
   (les tables et énumérations existent déjà).
+- **Faire évoluer une règle ne rejoue pas les pages inchangées** : il faudra
+  une commande de réanalyse explicite (Phase 4).
+- La précision des règles n'est pas encore mesurée (`AuditRule.precision`
+  existe mais n'est pas alimenté) : **Phase 4**, §21.
+- EDIT-002 (« phrase inachevée ») reste la règle la plus fragile : sur la page
+  de test, ses deux seuls déclenchements étaient des faux positifs (un sommaire
+  et un filigrane), corrigés en amont par le typage des blocs. Elle est à
+  surveiller sur un corpus plus large.
 - La vérification des liens internes est optionnelle (`--check-links`) et bornée
   (`AUDIT_MAX_LINKS_CHECKED`, 200 par défaut) pour rester respectueuse.
 - `GET /pages/{id}?include_html=true` retourne le HTML complet : prévoir une
@@ -169,15 +245,20 @@ AUDIT_CA_BUNDLE=/chemin/vers/ca-bundle.crt .venv/bin/python -m daat_audit.crawle
 
 ## Prochaines étapes recommandées
 
-1. **Phase 2 — découpage & références** : blocs stables (`OH-268-BASE-FR-P014`)
-   à partir de la structure réelle des pages (sections numérotées, `blockquote`,
-   tableaux) ; moteur de références s'appuyant sur `works_aliases.json` ;
-   portage de la normalisation hébraïque de `scripts/verifier-citations.py`
-   (deux modes : stricte / normalisée, verdicts gradués du §9).
-2. **Phase 3 — validation** : endpoints anomalies + interface d'administration
-   (le workflow §14 est déjà modélisé).
-3. **Phase 4 — sources** : `TextSourceProvider` avec fournisseur Sefaria
+1. **Phase 3 — validation** : endpoints anomalies + interface d'administration
+   (le workflow §14 est déjà modélisé), filtres, détail d'un signalement,
+   actions de validation, historique.
+2. **Phase 4 — sources** : `TextSourceProvider` avec fournisseur Sefaria
    (multi-éditions — leçon apprise : l'édition Davidson diffère du Vilna) et
-   fournisseur local de test ; métriques de fiabilité par règle (§21).
-4. **Planification** : un crawl quotidien (cron) pour détecter la dérive entre
+   fournisseur local de test ; branchement de `hebrew.compare` sur les
+   références déjà extraites ; métriques de fiabilité par règle (§21) ;
+   commande de réanalyse à règle modifiée.
+3. **Planification** : un crawl quotidien (cron) pour détecter la dérive entre
    déploiements, une fois le système déployé quelque part en continu.
+
+Régénérer le dictionnaire de terminologie après une évolution du contenu :
+
+```bash
+.venv/bin/python scripts/build-terminologie.py           # régénère
+.venv/bin/python scripts/build-terminologie.py --check   # échoue si désynchronisé
+```
