@@ -97,6 +97,29 @@ def refs_pour_citation(
     return [], False
 
 
+def _deja_signale(session: Session, page_id: int, finding: Finding) -> bool:
+    """Ce signalement existe-t-il déjà pour cette page ?
+
+    Sans ce contrôle, chaque passe d'analyse recrée les signalements : un
+    signalement **déjà jugé** — écarté, classé faux positif, tranché par le Rav —
+    réapparaîtrait à l'état ``NEW`` à chaque exécution, et le relecteur
+    rejugerait indéfiniment la même chose. Les décisions ne vaudraient plus rien.
+
+    La clé retenue est *(page, règle, texte cité)* et non l'identifiant du bloc :
+    un bloc appartient à une version de page, si bien qu'une simple retouche
+    ailleurs dans la page créerait un nouveau bloc et donc un nouveau
+    signalement. Une décision porte sur **ce texte, à cet endroit** ; tant que ni
+    l'un ni l'autre ne change, il n'y a pas lieu de redemander un avis.
+    """
+    return session.execute(
+        select(AuditFinding.id).where(
+            AuditFinding.page_id == page_id,
+            AuditFinding.rule_code == finding.rule_code,
+            AuditFinding.current_text == finding.current_text,
+        ).limit(1)
+    ).scalar_one_or_none() is not None
+
+
 def blocs_a_verifier(session: Session, simanim: list[int] | None = None,
                      limit: int | None = None) -> list[ContentBlock]:
     """Blocs de la version courante de chaque page, contenant de l'hébreu."""
@@ -129,6 +152,7 @@ def run_analyse(
 
     trouves: list[Finding] = []
     examinees = 0
+    deja_connus = 0
     try:
         blocs = blocs_a_verifier(session, simanim, limit)
         # Les blocs précédents servent à retrouver la référence qui annonce une
@@ -159,10 +183,15 @@ def run_analyse(
                                      par_voisinage=par_voisinage)
                 if finding is None:
                     continue
+
+                page_id = session.get(PageVersion, bloc.page_version_id).page_id
+                if _deja_signale(session, page_id, finding):
+                    deja_connus += 1
+                    continue
+
                 trouves.append(finding)
                 if dry_run:
                     continue
-                page_id = session.get(PageVersion, bloc.page_version_id).page_id
                 session.add(AuditFinding(
                     page_id=page_id,
                     block_id=bloc.id,
@@ -189,13 +218,15 @@ def run_analyse(
         session.add(AuditLog(
             user=None, action="analyse.citations",
             justification=(
-                f"{examinees} citation(s) examinée(s), {len(trouves)} signalement(s), "
+                f"{examinees} citation(s) examinée(s), {len(trouves)} nouveau(x) "
+                f"signalement(s), {deja_connus} déjà connu(s), "
                 f"cache {source.hits} hit / {source.misses} miss"
             ),
         ))
         session.commit()
 
-    logger.info("%s citations examinées, %s signalements", examinees, len(trouves))
+    logger.info("%s citations examinées, %s nouveaux signalements, %s déjà connus",
+                examinees, len(trouves), deja_connus)
     return trouves
 
 
@@ -225,10 +256,11 @@ def main(argv: list[str] | None = None) -> int:
                                limit=args.limit, dry_run=args.dry_run)
 
     if not findings:
-        print("Aucun écart de citation détecté.")
+        print("Aucun NOUVEL écart de citation. Les signalements déjà connus "
+              "conservent leur statut et leurs décisions.")
         return 0
 
-    print(f"{len(findings)} signalement(s) de citation :\n")
+    print(f"{len(findings)} nouveau(x) signalement(s) de citation :\n")
     for f in findings:
         print(f"  [{f.severity.value}] {f.block_id}")
         print(f"      {f.current_text[:90]}")

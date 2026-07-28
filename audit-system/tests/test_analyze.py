@@ -142,3 +142,48 @@ def test_un_titre_de_section_arrete_le_rattachement(session, settings):
     )
     run_crawl(session, settings, transport=_transport(html))
     assert run_analyse(session, settings, provider=_provider()) == []
+
+
+# ── Idempotence ──────────────────────────────────────────────────────────
+
+def test_relancer_lanalyse_ne_duplique_pas_les_signalements(session, settings):
+    """Sans cela, chaque passe recrée les signalements — et un signalement déjà
+    jugé réapparaîtrait à l'état NEW, à rejuger indéfiniment."""
+    faux = VRAI_TEXTE.replace("מכבסים", "אוכלים")
+    run_crawl(session, settings, transport=_transport(_page(faux)))
+
+    premiers = run_analyse(session, settings, provider=_provider())
+    assert premiers
+    total = len(session.execute(select(AuditFinding)).scalars().all())
+
+    seconds = run_analyse(session, settings, provider=_provider())
+    assert seconds == [], "la seconde passe ne doit rien signaler de nouveau"
+    assert len(session.execute(select(AuditFinding)).scalars().all()) == total
+
+
+def test_une_decision_survit_a_une_nouvelle_analyse(session, settings):
+    """Le point qui compte vraiment : le travail du relecteur est préservé."""
+    from daat_audit.workflow import Role, appliquer
+
+    faux = VRAI_TEXTE.replace("מכבסים", "אוכלים")
+    run_crawl(session, settings, transport=_transport(_page(faux)))
+    run_analyse(session, settings, provider=_provider())
+
+    # Le périmètre de test couvre trois simanim et le mock sert la même page
+    # pour chacun : il y a donc un signalement par page, tous légitimes.
+    ligne = session.execute(select(AuditFinding)).scalars().first()
+    appliquer(session, ligne, "escalate", Role.EDITOR, "yossef")
+
+    run_analyse(session, settings, provider=_provider())
+    apres = session.get(AuditFinding, ligne.id)
+    assert apres.status.value == "RABBINIC_REVIEW_REQUIRED"
+
+
+def test_une_page_modifiee_produit_bien_un_nouveau_signalement(session, settings):
+    """La déduplication ne doit pas rendre le système aveugle à un changement."""
+    run_crawl(session, settings, transport=_transport(_page(VRAI_TEXTE)))
+    assert run_analyse(session, settings, provider=_provider()) == []
+
+    faux = VRAI_TEXTE.replace("מכבסים", "אוכלים")
+    run_crawl(session, settings, transport=_transport(_page(faux)))
+    assert run_analyse(session, settings, provider=_provider())

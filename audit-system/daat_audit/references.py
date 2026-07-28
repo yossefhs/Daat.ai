@@ -109,6 +109,27 @@ RE_DAF = re.compile(
     rf"(?:(?P<amud_he>ע[\"'״׳]?[אב])|(?P<amud_lat>[ab])\b|(?P<colon>[.:]))",
     re.IGNORECASE,
 )
+# Forme **canonique du site** : « שולחן ערוך · אורח חיים · סימן רמ״ד · סעיף א ».
+# C'est ainsi que les pages étiquettent le texte du Mehaber, et c'est la
+# référence la plus autoritative qu'elles portent. La forme abrégée « X:Y » que
+# reconnaît RE_SIMAN_SEIF n'y figure jamais : un premier audit du périmètre l'a
+# montré sans appel — 213 citations extraites, 4 seulement rattachées, faute de
+# savoir lire cet en-tête.
+#
+# « סעיף » au singulier est exigé : « סימן רמ״ט · 4 סעיפים » annonce un NOMBRE
+# de séifim, pas un séif — le lire comme une référence serait un contresens.
+RE_SIMAN_SEIF_LABEL = re.compile(
+    rf"(?:(?P<work>שולחן ערוך|שו[\"'״׳]ע)\s*[·|,\-–—]?\s*)?"
+    rf"(?:(?P<section>אורח חיים|או[\"'״׳]ח|יורה דעה|יו[\"'״׳]ד)\s*[·|,\-–—]?\s*)?"
+    rf"סימן\s*(?P<siman>{_NUM})"
+    rf"\s*[·|,\-–—]?\s*סעיף\s*(?P<seif>{_NUM})"
+)
+
+_SECTION_HE = {
+    "אורח חיים": "Orach Chayim", "או״ח": "Orach Chayim", 'או"ח': "Orach Chayim",
+    "יורה דעה": "Yoreh Deah", "יו״ד": "Yoreh Deah", 'יו"ד': "Yoreh Deah",
+}
+
 # Séif katan : « ס״ק י״ב », « s.k. 12 »
 RE_SEIF_KATAN = re.compile(rf"(?:ס[\"'״׳]?ק|s\.?k\.?)\s*(?P<sk>{_NUM})", re.IGNORECASE)
 
@@ -219,6 +240,19 @@ def extract_references(text: str) -> list[ParsedRef]:
             siman=str(siman), seif=str(seif),
             seif_katan=str(seif_katan) if seif_katan is not None else None,
             confidence=0.85, span=m.span(),
+        ))
+
+    for m in RE_SIMAN_SEIF_LABEL.finditer(text):
+        siman, seif = _num(m.group("siman")), _num(m.group("seif"))
+        if siman is None or seif is None:
+            continue
+        section = _SECTION_HE.get((m.group("section") or "").strip())
+        refs.append(ParsedRef(
+            raw_text=m.group(0), work="Choulhan Aroukh",
+            section=section or "Orach Chayim",
+            siman=str(siman), seif=str(seif),
+            # Forme explicite et étiquetée : plus sûre que l'abrégé « X:Y ».
+            confidence=0.92, span=m.span(),
         ))
 
     # Michna Beroura « 268:12 » = siman:séif katan, pas siman:séif.

@@ -98,3 +98,26 @@ def test_reference_sefaria_talmud():
 def test_confiance_renseignee():
     for ref in extract_references("OH 268:3 et ברכות ל״ד ע״א"):
         assert 0.0 < ref.confidence <= 1.0
+
+
+# ── Forme canonique du site ──────────────────────────────────────────────
+
+def test_entete_canonique_du_site_est_reconnu():
+    """« שולחן ערוך · אורח חיים · סימן רמ״ד · סעיף א » est la façon dont les
+    pages étiquettent le texte du Mehaber — la référence la plus autoritative
+    qu'elles portent. Ne pas la lire coûtait 90 % de la couverture : 213
+    citations extraites sur le périmètre, 4 seulement rattachées."""
+    ref = extract_references("שולחן ערוך · אורח חיים · סימן רמ״ד · סעיף א")[0]
+    assert ref.work == "Choulhan Aroukh" and ref.section == "Orach Chayim"
+    assert ref.sefaria_ref() == "Shulchan_Arukh,_Orach_Chayim.244.1"
+
+
+def test_entete_sans_mention_de_section_suppose_orah_haim():
+    ref = extract_references("שולחן ערוך · סימן רמ״ו · סעיף ה")[0]
+    assert ref.sefaria_ref() == "Shulchan_Arukh,_Orach_Chayim.246.5"
+
+
+def test_un_nombre_de_seifim_nest_pas_une_reference():
+    """« סימן רמ״ט · 4 סעיפים » annonce un NOMBRE de séifim, pas un séif :
+    le lire comme une référence serait un contresens."""
+    assert extract_references("שולחן ערוך אורח חיים סימן רמ״ט · 4 סעיפים") == []
