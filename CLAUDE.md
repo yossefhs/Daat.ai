@@ -4,6 +4,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 DAAT (דעת / daattorah.com) is a trilingual halakhic study platform: hand-authored static HTML pages for the Choulhan Aroukh (Orah Haïm, Hilkhot Shabbat) plus Vercel serverless functions powering an AI study assistant. No front-end framework — pages are standalone HTML with inline `<style>`; the API is ESM Node functions under `api/`.
 
+## ⚠️ Clause de vérification obligatoire avant publication (RÈGLE ABSOLUE)
+
+**Avant toute mise en ligne en production (`main`), et à la fin du travail de chaque lot / chaque semaine, il faut RE-VÉRIFIER la totalité du contenu produit et le confronter aux sources originales pour être certain qu'il n'y a aucune erreur.** Cette vérification n'est pas optionnelle : c'est la dernière porte avant publication.
+
+Elle comporte, au minimum :
+1. **Contrôle structurel** de tous les fichiers produits : 15 fichiers/siman ; parité trilingue (FR/HE/EN) ; 0 jeton interdit ; `canonical == og:url` ; geresh/gershayim corrects (jamais d'apostrophe/guillemet ASCII à l'intérieur d'un mot hébreu) ; chaque fichier finit par `</html>` ; nombre de `<details class="seif-details">` = nombre réel de seifim du Choul'han Aroukh HaRav.
+2. **Confrontation aux sources (Sefaria)** : re-télécharger le Mehaber (`Shulchan_Arukh,_Orach_Chayim.N`) et le Choul'han Aroukh HaRav (`Shulchan_Arukh_HaRav,_Orach_Chayim.N`) et **comparer le texte hébreu source du niveau-4** (`.sa-he` dans les blocs `seif-details`) au texte réel — verbatim, consonnes identiques — pour garantir qu'aucun seif n'a été inventé, tronqué, ni altéré, et que le nombre de seifim est exact. En cas de doute halakhique sur un contenu (traduction, explication, psak), **retourner voir la source** avant de publier.
+3. **Ne publier qu'une fois cette vérification entièrement verte**, et n'annoncer « c'est en ligne » qu'après confirmation. Toute divergence détectée doit être corrigée (et re-vérifiée) avant le déploiement.
+
+Le script `scripts/verify-oh-source.py N [N...]` automatise la confrontation aux sources pour le compartiment `oh-quotidien` ; le lancer sur chaque lot avant de proposer la mise en ligne.
+
 ## Commands
 
 ```bash
