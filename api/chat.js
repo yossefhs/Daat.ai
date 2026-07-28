@@ -31,7 +31,9 @@ const MAX_TOOL_CALLS = parseInt(process.env.MAX_TOOL_CALLS || '6', 10);         
 // sefaria_get_text. Sur la halakha, la CORRECTION prime sur la latence.
 const MAX_TOOL_ITERATIONS_HALAKHA = parseInt(process.env.MAX_TOOL_ITERATIONS_HALAKHA || '7', 10);
 const MAX_TOOL_CALLS_HALAKHA = parseInt(process.env.MAX_TOOL_CALLS_HALAKHA || '12', 10);
-const MAX_TOKENS_OUTPUT = 4096; // cap output ; Claude s'arrête naturellement avant
+const MAX_TOKENS_OUTPUT = parseInt(process.env.MAX_TOKENS_OUTPUT || '8192', 10); // cap output. Opus 4.7 / Sonnet 4.6 acceptent 128K ; 4096 (~3000 mots) coupait
+// les psakim détaillés AVANT leur conclusion (renvoi au Rav, clause limitante).
+// Le budget temps (FORCE_SYNTHESIS_AFTER_MS / HARD_ABORT_MS) reste le gouverneur.
 // Cap output pour la SYNTHÈSE FORCÉE : doit rester assez haut pour une réponse
 // complète (l'ancien 1500 tronquait les réponses halakhiques détaillées).
 const FORCED_SYNTHESIS_MAX_TOKENS = parseInt(process.env.FORCED_SYNTHESIS_MAX_TOKENS || String(MAX_TOKENS_OUTPUT), 10);
@@ -500,7 +502,7 @@ RÈGLES STRICTES :
   // Budget de sortie : assez large pour accroche + raisonnement + nuances + source
   // sans jamais tronquer. Haiku 4.5 output ≈ $5/M tokens → 1200 tokens ≈ $0.006,
   // toujours 20× moins cher qu'Opus. Overridable via env pour ajuster sans deploy.
-  const CORPUS_MAX_TOKENS = parseInt(process.env.CORPUS_MAX_TOKENS || '1200', 10);
+  const CORPUS_MAX_TOKENS = parseInt(process.env.CORPUS_MAX_TOKENS || '1600', 10);
 
   try {
     const stream = client.messages.stream({
