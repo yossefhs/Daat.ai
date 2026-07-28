@@ -17,6 +17,7 @@
 
 import Anthropic from '@anthropic-ai/sdk';
 import { searchCorpus, getCorpusStats, corpusCacheKey, CORPUS_CACHE_TTL } from './_corpus-search.js';
+import { expandHalakhicQuery } from './_query-rewrite.js';
 import { kv } from './_kv.js';
 import { getClientIp } from './_http.js';
 
@@ -151,10 +152,24 @@ export default async function handler(req, res) {
     return res.status(429).json({ error: 'Trop de requêtes. Réessaie plus tard.' });
   }
 
+  // ── Réécriture de requête (optionnelle) : Haiku reformule la question en
+  // mots-clés halakhiques AVANT la recherche. Activée par body.rewrite (mesure)
+  // ou par l'env CORPUS_QUERY_REWRITE=true. On AJOUTE les mots-clés à la question
+  // d'origine (jamais on ne substitue) : rien de perdu si la reformulation dérape.
+  const rewriteEnabled =
+    body?.rewrite === true || body?.rewrite === '1' || body?.rewrite === 1 ||
+    process.env.CORPUS_QUERY_REWRITE === 'true';
+  let searchQuery = question;
+  let rewrite = null;
+  if (rewriteEnabled) {
+    rewrite = await expandHalakhicQuery(client, question, { section });
+    if (rewrite?.keywords) searchQuery = `${question} ${rewrite.keywords}`;
+  }
+
   // ── Recherche corpus ──
   let searchResult;
   try {
-    searchResult = searchCorpus(question, { limit: 3, minScore: 1.5, section });
+    searchResult = searchCorpus(searchQuery, { limit: 3, minScore: 1.5, section });
   } catch (e) {
     console.error('[chat-corpus] search error:', e);
     return res.status(500).json({ error: 'corpus search failed' });
@@ -172,6 +187,7 @@ export default async function handler(req, res) {
     sseWrite(res, 'nomatch', {
       keyTokens: searchResult.keyTokens,
       totalChunks: searchResult.totalChunks,
+      rewrite: rewrite?.keywords || null,
       message: 'Aucun extrait pertinent dans le corpus indexé. Fallback Daat IA recommandé.',
     });
     sseWrite(res, 'done', { usage: { input_tokens: 0, output_tokens: 0 }, cost_eur: 0 });
@@ -185,6 +201,7 @@ export default async function handler(req, res) {
     totalChunks: searchResult.totalChunks,
     topScore: searchResult.results[0].score,
     confidence: searchResult.results[0].score >= SCORE_THRESHOLD ? 'high' : 'medium',
+    rewrite: rewrite?.keywords || null,
   });
 
   // ── Mode brut (body.raw) : renvoie les extraits du corpus SANS reformulation
