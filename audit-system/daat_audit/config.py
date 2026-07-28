@@ -68,6 +68,14 @@ class Settings(BaseSettings):
     # Vide → certificats système par défaut.
     ca_bundle: str = ""
 
+    # ── Secrets d'administration (§14) ───────────────────────────────────
+    # Le rôle découle du secret présenté, jamais d'un champ envoyé par le
+    # client : un éditeur ne peut pas se déclarer rav. Vides = décisions
+    # refusées (fail closed) — un outil qui laisse décider sans identifier
+    # qui décide ne trace rien d'utile.
+    admin_secret: str = ""
+    rav_secret: str = ""
+
 
 def get_settings() -> Settings:
     """Instancie la configuration (pas de cache : les tests la surchargent)."""

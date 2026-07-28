@@ -112,3 +112,55 @@ class RuleStatsOut(BaseModel):
     false_positives: int
     pending: int
     precision: float | None
+
+
+class DecisionIn(BaseModel):
+    """Une décision. Le rôle n'y figure pas : il vient du secret présenté."""
+
+    action: str = Field(description="approve, reject, false_positive, escalate…")
+    note: str | None = Field(default=None, max_length=4000)
+    source_attached: str | None = Field(
+        default=None, max_length=4000,
+        description="Source justifiant la décision (§4 : afficher les sources utilisées)",
+    )
+
+
+class DecisionOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    finding_id: int
+    user: str
+    action: str
+    note: str | None
+    source_attached: str | None
+    previous_status: str | None
+    new_status: str | None
+    decided_at: dt.datetime | None
+
+
+class RabbinicAnswerIn(BaseModel):
+    answer: str = Field(min_length=1, max_length=8000)
+    confirme: bool = Field(description="Le Rav confirme-t-il le signalement ?")
+
+
+class RabbinicReviewOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    finding_id: int
+    reviewer: str | None
+    question: str | None
+    answer: str | None
+    status: str
+    asked_at: dt.datetime | None
+    answered_at: dt.datetime | None
+
+
+class FindingDetailOut(FindingOut):
+    """Détail d'un signalement : son état, son historique, et ce qui est
+    possible pour le rôle qui regarde."""
+
+    available_actions: list[str] = []
+    decisions: list[DecisionOut] = []
+    rabbinic_reviews: list[RabbinicReviewOut] = []

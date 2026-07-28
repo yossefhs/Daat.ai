@@ -192,3 +192,181 @@ def test_stats_rules_precision_nulle_sans_decision(client):
     assert stats[0]["alerts"] == 1
     assert stats[0]["precision"] is None, \
         "une règle jamais jugée ne doit pas afficher de précision"
+
+
+# ── Workflow de validation (Phase 3) ─────────────────────────────────────
+
+EDITEUR = {"X-Admin-Secret": "secret-editeur", "X-Admin-User": "yossef"}
+RAV = {"X-Admin-Secret": "secret-rav", "X-Admin-User": "Rav Samama"}
+
+
+@pytest.fixture()
+def client_admin(tmp_path):
+    """Application avec les deux secrets configurés."""
+    db_url = f"sqlite:///{tmp_path}/admin_test.db"
+    settings = Settings(_env_file=None, database_url=db_url,
+                        crawl_delay_seconds=0.0, siman_start=242, siman_end=244,
+                        admin_secret="secret-editeur", rav_secret="secret-rav")
+    Base.metadata.create_all(create_engine(db_url))
+    app = create_app(settings=settings, transport=_mock_transport())
+    with TestClient(app) as c:
+        c.db_url = db_url
+        yield c
+
+
+def _seed(client, risk_halakhic: bool = False) -> int:
+    from daat_audit.models import Risk
+    _seed_finding(client, risk=Risk.HALAKHIC if risk_halakhic else Risk.LOW)
+    return client.get("/findings").json()[0]["id"]
+
+
+def test_decision_sans_secret_refusee(client_admin):
+    fid = _seed(client_admin)
+    assert client_admin.post(f"/findings/{fid}/decision",
+                             json={"action": "approve"}).status_code == 401
+
+
+def test_decision_avec_mauvais_secret_refusee(client_admin):
+    fid = _seed(client_admin)
+    reponse = client_admin.post(f"/findings/{fid}/decision", json={"action": "approve"},
+                                headers={"X-Admin-Secret": "faux"})
+    assert reponse.status_code == 403
+
+
+def test_sans_secret_configure_les_decisions_sont_refusees(client):
+    """Fail closed : décider sans savoir qui décide ne trace rien d'utile."""
+    _seed_finding(client)
+    fid = client.get("/findings").json()[0]["id"]
+    reponse = client.post(f"/findings/{fid}/decision", json={"action": "approve"},
+                          headers={"X-Admin-Secret": "peu importe"})
+    assert reponse.status_code == 503
+    assert "aucun secret d'administration" in reponse.json()["detail"]
+
+
+def test_editeur_approuve_un_signalement_technique(client_admin):
+    fid = _seed(client_admin)
+    reponse = client_admin.post(f"/findings/{fid}/decision",
+                                json={"action": "approve", "note": "vérifié"},
+                                headers=EDITEUR)
+    assert reponse.status_code == 200
+    corps = reponse.json()
+    assert corps["previous_status"] == "NEW" and corps["new_status"] == "EDITOR_APPROVED"
+    assert corps["user"] == "yossef"
+
+
+def test_lapi_refuse_lapprobation_editeur_dun_signalement_halakhique(client_admin):
+    """La garantie doit tenir par l'API, pas seulement dans le module :
+    c'est l'API qu'on pourrait appeler directement."""
+    fid = _seed(client_admin, risk_halakhic=True)
+    reponse = client_admin.post(f"/findings/{fid}/decision", json={"action": "approve"},
+                                headers=EDITEUR)
+    assert reponse.status_code == 422
+    assert "risque halakhique" in reponse.json()["detail"]
+    assert client_admin.get(f"/findings/{fid}").json()["status"] == "NEW"
+
+
+def test_le_rav_ne_peut_pas_etre_usurpe_par_un_entete(client_admin):
+    """Le rôle vient du secret, jamais d'un champ envoyé."""
+    fid = _seed(client_admin, risk_halakhic=True)
+    reponse = client_admin.post(
+        f"/findings/{fid}/decision",
+        json={"action": "approve", "note": "je suis le rav"},
+        headers={"X-Admin-Secret": "secret-editeur", "X-Admin-User": "rav"},
+    )
+    assert reponse.status_code == 422
+
+
+def test_parcours_complet_escalade_puis_avis_du_rav(client_admin):
+    fid = _seed(client_admin, risk_halakhic=True)
+
+    assert client_admin.post(f"/findings/{fid}/decision",
+                             json={"action": "escalate", "note": "avis ?"},
+                             headers=EDITEUR).status_code == 200
+    detail = client_admin.get(f"/findings/{fid}", headers=RAV).json()
+    assert detail["status"] == "RABBINIC_REVIEW_REQUIRED"
+    assert detail["rabbinic_reviews"][0]["status"] == "pending"
+
+    assert client_admin.post(f"/findings/{fid}/rabbinic-answer",
+                             json={"answer": "confirmé", "confirme": True},
+                             headers=RAV).status_code == 200
+
+    final = client_admin.get(f"/findings/{fid}", headers=RAV).json()
+    assert final["status"] == "RABBINIC_APPROVED"
+    assert final["rabbinic_reviews"][0]["reviewer"] == "Rav Samama"
+    assert [d["action"] for d in final["decisions"]] == ["escalate", "rabbinic_approve"]
+
+
+def test_seul_le_rav_repond_aux_questions(client_admin):
+    fid = _seed(client_admin, risk_halakhic=True)
+    client_admin.post(f"/findings/{fid}/decision", json={"action": "escalate"},
+                      headers=EDITEUR)
+    reponse = client_admin.post(f"/findings/{fid}/rabbinic-answer",
+                                json={"answer": "ok", "confirme": True}, headers=EDITEUR)
+    assert reponse.status_code == 403
+
+
+def test_historique_expose_et_ordonne(client_admin):
+    fid = _seed(client_admin)
+    client_admin.post(f"/findings/{fid}/decision", json={"action": "approve"},
+                      headers=EDITEUR)
+    client_admin.post(f"/findings/{fid}/decision", json={"action": "reopen"},
+                      headers=EDITEUR)
+    historique = client_admin.get(f"/findings/{fid}/history").json()
+    assert [d["action"] for d in historique] == ["approve", "reopen"]
+
+
+def test_actions_possibles_selon_le_role(client_admin):
+    fid = _seed(client_admin, risk_halakhic=True)
+    editeur = client_admin.get(f"/findings/{fid}", headers=EDITEUR).json()
+    assert "approve" not in editeur["available_actions"]
+    assert "escalate" in editeur["available_actions"]
+
+    rav = client_admin.get(f"/findings/{fid}", headers=RAV).json()
+    assert "approve" in rav["available_actions"]
+
+    anonyme = client_admin.get(f"/findings/{fid}").json()
+    assert anonyme["available_actions"] == []
+
+
+def test_catalogue_des_transitions(client_admin):
+    actions = client_admin.get("/workflow/actions").json()
+    par_action = {a["action"]: a for a in actions}
+    assert par_action["rabbinic_approve"]["roles"] == ["rav"]
+    assert "PUBLISHED" not in {a["cible"] for a in actions}
+
+
+def test_la_precision_dune_regle_apparait_apres_decision(client_admin):
+    """Le chaînon qui manquait : sans décisions humaines, aucune précision."""
+    fid = _seed(client_admin)
+    assert client_admin.get("/stats/rules").json()[0]["precision"] is None
+
+    client_admin.post(f"/findings/{fid}/decision", json={"action": "approve"},
+                      headers=EDITEUR)
+    assert client_admin.get("/stats/rules").json()[0]["precision"] == 1.0
+
+
+def test_interface_admin_servie_et_autonome(client_admin):
+    """Page autonome : aucune ressource externe, pour fonctionner hors ligne."""
+    reponse = client_admin.get("/admin")
+    assert reponse.status_code == 200
+    page = reponse.text
+    assert "DAAT" in page and "Audit interne" in page
+    assert "http://" not in page.replace("http://www.w3.org", "")
+    assert "cdn" not in page.lower()
+    # Le secret ne doit pas être persisté au-delà de l'onglet. On vise l'usage
+    # réel, pas le mot : il figure dans un commentaire qui explique justement
+    # qu'on ne s'en sert pas.
+    assert "localStorage.setItem" not in page
+    assert "localStorage.getItem" not in page
+    assert "sessionStorage.setItem" in page
+
+
+def test_le_texte_mixte_est_isole_pour_le_bidi(client_admin):
+    """Les guillemets « » sont neutres au sens bidi : contre de l'hébreu, ils
+    basculent et « X » → « Y » s'affiche à l'envers. Dans un outil dont l'objet
+    est de dire QUEL mot a changé, c'est un contresens."""
+    page = client_admin.get("/admin").text
+    assert "unicode-bidi: isolate" in page
+    assert "<bdi dir=\\\"rtl\\\">" in page or '<bdi dir="rtl">' in page
+    # L'explication et les notes passent par l'isolation, pas par le simple échappement.
+    assert "${mixte(f.explanation)}" in page

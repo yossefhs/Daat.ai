@@ -1,4 +1,4 @@
-# Système d'audit DaatTorah — Phases 1, 2 et 4
+# Système d'audit DaatTorah — Phases 1 à 4
 
 Audit automatique du site public [daattorah.com](https://daattorah.com), en **lecture seule**.
 
@@ -70,6 +70,7 @@ audit-system/
 │   ├── citations.py         # confrontation citation ↔ source, verdicts (§8-§9)
 │   ├── analyze.py           # passe de vérification + CLI (python -m daat_audit.analyze)
 │   ├── metrics.py           # fiabilité par règle (§21)
+│   ├── workflow.py          # machine à états des décisions (§13, §14)
 │   ├── sources/             # fournisseurs de textes (§15)
 │   │   ├── base.py          #   contrat TextSourceProvider
 │   │   ├── sefaria.py       #   Sefaria, multi-éditions, débit limité
@@ -80,14 +81,16 @@ audit-system/
 │   │   ├── fetch.py         # httpx, débit limité, redirections tracées, transport injectable
 │   │   └── crawl.py         # orchestration + CLI (python -m daat_audit.crawler.crawl)
 │   ├── api/
-│   │   ├── main.py          # FastAPI : /health /crawl /pages /stats (+ OpenAPI /docs)
-│   │   └── schemas.py
+│   │   ├── main.py          # FastAPI (+ OpenAPI /docs, interface /admin)
+│   │   ├── auth.py          # le rôle découle du secret présenté (§14)
+│   │   ├── schemas.py
+│   │   └── static/admin.html    # interface de validation, autonome (§16)
 │   └── data/
 │       ├── works_aliases.json   # table d'alias des ouvrages (§7)
 │       └── terminologie.json    # graphies attestées — GÉNÉRÉ, ne pas éditer
 ├── scripts/build-terminologie.py  # régénère terminologie.json depuis sources/
 ├── alembic/                 # migrations (schéma initial : 14 tables)
-├── tests/                   # 149 tests, réseau entièrement simulé
+├── tests/                   # 182 tests, réseau entièrement simulé
 ├── docker-compose.yml       # PostgreSQL 16 + API (+ service crawler ponctuel)
 └── var/                     # base SQLite locale et artefacts (git-ignoré)
 ```
@@ -133,7 +136,9 @@ Endpoints : `GET /health`, `POST /crawl` (202, tâche de fond), `GET /crawl`,
 `GET /crawl/{id}`, `GET /pages[?siman=&audit_status=]`,
 `GET /pages/{id}[?include_html=&include_text=]`, `GET /stats`,
 `GET /findings[?siman=&rule_code=&severity=&risk=&status=]`,
-`GET /findings/{id}`, `GET /stats/rules`.
+`GET /findings/{id}`, `GET /findings/{id}/history`, `GET /stats/rules`,
+`POST /findings/{id}/decision`, `POST /findings/{id}/rabbinic-answer`,
+`GET /workflow/actions`, et l'interface `GET /admin`.
 
 ### Avec Docker (PostgreSQL)
 
@@ -149,7 +154,7 @@ Le mot de passe PostgreSQL de développement se surcharge par `AUDIT_DB_PASSWORD
 ### Tests
 
 ```bash
-.venv/bin/python -m pytest tests/ -q          # 149 tests, aucun accès réseau
+.venv/bin/python -m pytest tests/ -q          # 182 tests, aucun accès réseau
 ```
 
 Les handlers HTTP simulés assertent la méthode de chaque requête : toute
@@ -165,7 +170,7 @@ AUDIT_CA_BUNDLE=/chemin/vers/ca-bundle.crt .venv/bin/python -m daat_audit.crawle
 ## Ce qui est vérifié — et ce qui ne l'est pas
 
 **Vérifié dans cet environnement :**
-- les 149 tests (SQLite en mémoire, réseau simulé par `httpx.MockTransport`) ;
+- les 182 tests (SQLite en mémoire, réseau simulé par `httpx.MockTransport`) ;
 - la migration Alembic sur SQLite (14 tables + `alembic_version`) ;
 - un crawl réel complet du périmètre : 28/28 pages archivées (HTML brut, texte
   nettoyé, double empreinte SHA-256), déduplication confirmée en conditions
@@ -300,14 +305,70 @@ sans décision affiche `null` et non 100 % — une règle non éprouvée n'a pas
 précision ; et un signalement classé `SOURCE_UNAVAILABLE` n'est pas compté en
 faux positif, car il ne dit rien sur la règle.
 
+## Phase 3 — validation, rôles et interface
+
+### La règle qui gouverne le workflow
+
+> **Un signalement à risque halakhique ne peut jamais être approuvé par un
+> éditeur seul.** Il doit passer par le Rav.
+
+Ce n'est pas une précaution d'usage : c'est la raison d'être du système. Le
+contrôle n'est donc **pas dans l'interface** — où un appel direct à l'API le
+contournerait — mais dans la transition d'état elle-même, et deux tests le
+verrouillent : un sur le module, un sur l'API.
+
+Le rôle découle **du secret présenté**, jamais d'un champ de la requête :
+
+```bash
+AUDIT_ADMIN_SECRET=…   # → rôle « editor »
+AUDIT_RAV_SECRET=…     # → rôle « rav »
+```
+
+Sans secret configuré, toute décision est refusée (503, *fail closed*) : un
+outil qui laisse décider sans savoir qui décide ne trace rien d'utile.
+
+### Transitions
+
+| Action | Cible | Rôle |
+|---|---|---|
+| `approve` | `EDITOR_APPROVED` | éditeur — **sauf** risque halakhique |
+| `escalate` | `RABBINIC_REVIEW_REQUIRED` | éditeur (ouvre une question au Rav) |
+| `rabbinic_approve` / `rabbinic_reject` | `RABBINIC_APPROVED` / `REJECTED` | **rav seul** |
+| `reject`, `false_positive`, `editorial_variant`, `source_unavailable` | — | éditeur |
+| `ready_for_staging` | `READY_FOR_STAGING` | après approbation uniquement |
+| `reopen` | `ADMIN_REVIEW_REQUIRED` | retour arrière |
+
+`PUBLISHED` **n'est la cible d'aucune transition** : la publication n'est pas
+implémentée, et un test vérifie qu'aucun chemin n'y mène.
+
+### Traçabilité et retour arrière
+
+Chaque décision écrit **deux** traces : une ligne dans `admin_decisions` et une
+entrée au journal `audit_logs`. Aucune décision passée n'est jamais modifiée ni
+supprimée — un retour arrière *ajoute* une ligne. La source justifiant la
+décision est conservée (`source_attached`).
+
+### Interface `/admin`
+
+Page autonome servie par l'API (aucune ressource externe : l'outil doit
+fonctionner hors ligne). Elle présente le **texte de la page et la source
+côte à côte**, pour que l'humain compare lui-même plutôt que de croire le
+verdict, et rappelle explicitement, sur tout signalement halakhique, que la
+décision revient au Rav. Le secret vit en `sessionStorage`, jamais au-delà de
+l'onglet.
+
+Deux détails d'affichage ont été corrigés après avoir regardé le rendu réel :
+
+- les guillemets `« »` sont **neutres** au sens de l'algorithme bidi ; contre
+  de l'hébreu ils basculent, et `« X » → « Y »` s'affichait à l'envers. Dans un
+  outil dont tout l'objet est de dire *quel* mot a changé, c'est un contresens.
+  Les segments cités sont désormais isolés, guillemets compris (vérifié par les
+  positions réelles des éléments dans un navigateur, pas à l'œil) ;
+- un couple ne différant que par une mère de lecture n'est plus listé comme un
+  mot remplacé — il faisait lire deux défauts là où il n'y en a qu'un.
+
 ## Limites actuelles
 
-- **Pas d'interface d'administration ni de workflow de validation** :
-  **Phase 3**. Les signalements se lisent par l'API (`GET /findings`) ; les
-  tables, énumérations et transitions du §14 existent déjà, mais aucun
-  endpoint ne permet encore de *décider* (approuver, rejeter, classer en
-  variante éditoriale). Tant que ce workflow manque, la précision des règles
-  reste `null` faute de décisions humaines à compter.
 - **Seul l'hébreu est vérifié.** Les traductions françaises ne sont confrontées
   à rien : une traduction inexacte d'une citation exacte passe inaperçue.
 - Le rattachement d'une référence par voisinage est une inférence bornée : une
@@ -331,10 +392,9 @@ faux positif, car il ne dit rien sur la règle.
 
 ## Prochaines étapes recommandées
 
-1. **Phase 3 — validation** : actions de décision sur un signalement
-   (approuver, rejeter, classer en variante éditoriale, escalader au Rav) et
-   interface d'administration. C'est ce qui manque pour boucler la mesure de
-   fiabilité : sans décisions humaines, aucune règle n'a de précision.
+1. **Mesurer la précision sur un vrai passage de revue** : le mécanisme est en
+   place, mais aucune règle n'a encore été jugée en nombre. C'est ce qui dira
+   lesquelles méritent d'être gardées.
 2. **Réanalyse à règle modifiée** : faire évoluer une règle ne rejoue pas les
    pages inchangées ; il faut une commande explicite.
 3. **Élargir le périmètre** : les trois langues et les quatre niveaux, une fois
