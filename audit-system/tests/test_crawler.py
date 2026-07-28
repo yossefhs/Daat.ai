@@ -6,6 +6,7 @@ Réseau entièrement simulé par httpx.MockTransport.
 from __future__ import annotations
 
 import httpx
+import pytest
 from sqlalchemy import select
 
 from daat_audit.crawler.crawl import run_crawl
@@ -320,3 +321,39 @@ def test_les_signalements_sont_rattaches_a_leur_bloc(session, settings, sample_h
 def test_page_saine_naboutit_a_aucun_signalement(session, settings, sample_html):
     run_crawl(session, settings, transport=_real_page_transport(sample_html))
     assert session.execute(select(AuditFinding)).scalars().all() == []
+
+
+# ── Périmètre multi-niveaux ──────────────────────────────────────────────
+
+def test_perimetre_couvre_les_quatre_niveaux(settings):
+    from daat_audit.crawler.urls import NIVEAUX
+    settings.niveau = "all"
+    urls = perimeter_urls(settings)
+    assert len(urls) == 3 * len(NIVEAUX)          # 3 simanim de test × 4 niveaux
+    assert {u.rsplit("/", 1)[-1] for _, u in urls} == set(NIVEAUX)
+
+
+def test_niveau_4_absent_pour_304_et_322(settings):
+    """L'Admour HaZaken n'a pas écrit ces simanim : demander la page serait
+    provoquer un 404 attendu, qui se lirait comme une anomalie."""
+    settings.niveau = "all"
+    urls = perimeter_urls(settings, simanim=[304, 322, 305])
+    niveaux_304 = [u.rsplit("/", 1)[-1] for n, u in urls if n == 304]
+    assert "daat-harav" not in niveaux_304
+    assert "daat-harav" in [u.rsplit("/", 1)[-1] for n, u in urls if n == 305]
+
+
+def test_niveau_inconnu_rejete(settings):
+    from daat_audit.crawler.urls import niveaux_demandes
+    settings.niveau = "pilpoul"
+    with pytest.raises(ValueError, match="niveau inconnu"):
+        niveaux_demandes(settings)
+
+
+def test_le_niveau_enregistre_vient_de_lurl(session, settings):
+    """settings.niveau peut valoir « all » : chaque page doit porter SON
+    niveau, sans quoi les identifiants de blocs se collisionneraient."""
+    settings.niveau = "base,lamdan"
+    run_crawl(session, settings, transport=_transport({242: "x", 243: "y", 244: "z"}))
+    pages = session.execute(select(Page)).scalars().all()
+    assert {p.niveau for p in pages} == {"base", "lamdan"}

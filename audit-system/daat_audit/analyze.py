@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import argparse
 import logging
+import re
 import sys
 
 from sqlalchemy import select
@@ -44,7 +45,7 @@ logger = logging.getLogger("daat_audit.analyze")
 
 # Nombre de blocs qu'on remonte pour retrouver la référence d'une citation.
 # Sur le site, une même annonce introduit couramment cinq citations d'affilée.
-FENETRE_BLOCS = 6
+FENETRE_BLOCS = 12
 
 
 def _refs_du_bloc(session: Session, bloc: ContentBlock) -> list[ParsedRef]:
@@ -62,8 +63,67 @@ def _refs_du_bloc(session: Session, bloc: ContentBlock) -> list[ParsedRef]:
     ]
 
 
+_RE_BALISE_FINALE = re.compile(r"(?:^|>\s*)([a-z][a-z0-9]*)[.#:]?[^>]*$")
+
+
+def niveau_de_titre(bloc: ContentBlock) -> int:
+    """Rang du titre porté par ce bloc (2 pour h2…), 0 s'il n'en est pas un.
+
+    Déduit du sélecteur CSS, dont le dernier segment est toujours l'élément
+    lui-même — plutôt que d'ajouter une colonne et une migration pour une
+    information déjà présente.
+    """
+    m = _RE_BALISE_FINALE.search(bloc.css_selector or "")
+    balise = m.group(1) if m else ""
+    return int(balise[1]) if len(balise) == 2 and balise[0] == "h" and balise[1].isdigit() else 0
+
+
+# Le bloc cité est-il annoncé comme le texte du Mehaber pour CE siman ?
+# « Le texte du Choul\'han Aroukh », « Texte original (Mehaber) », « שולחן ערוך ».
+_CUE_MEHABER = re.compile(
+    r"m[ée]haber|choul'?han\s+aroukh|shulchan|שולחן ערוך|texte original", re.I
+)
+# Le Rama est une couche distincte, que Sefaria ne sert pas sous un nom vérifié
+# à ce jour : sur un indice de Rama, on s'abstient plutôt que d'inventer une
+# référence. Le silence est le bon mode d'échec.
+_CUE_RAMA = re.compile(r"\brama\b|\brema\b|רמ[\"'״׳]א|hagaha|הגה", re.I)
+
+
+def reference_implicite_du_siman(
+    page: Page, bloc: ContentBlock, precedents: list[ContentBlock]
+) -> ParsedRef | None:
+    """Référence déduite de l'identité de la page (§7).
+
+    Sur le site, la plupart des citations du Mehaber ne portent aucune
+    référence : la page **est** le siman, et le bloc est simplement annoncé
+    par « Le texte du Choul'han Aroukh » ou « Texte original (Mehaber) ».
+    C'est le motif non rattaché le plus fréquent du périmètre.
+
+    L'inférence est **conditionnée à un indice explicite** : sans mention du
+    Mehaber dans le voisinage immédiat, on ne suppose rien — sinon toute
+    citation de Guemara de la page serait comparée au Choulhan Aroukh et
+    déclarée absente, ce qui fabriquerait des faux positifs en masse.
+
+    Faute de séif, la référence vise le **siman entier** : Sefaria le sert
+    complet, et une citation qui en provient doit s'y trouver.
+    """
+    if page.siman is None:
+        return None
+    voisinage = " ".join(
+        [bloc.normalized_content] + [p.normalized_content for p in precedents[-3:]]
+    )
+    if _CUE_RAMA.search(voisinage) or not _CUE_MEHABER.search(voisinage):
+        return None
+    return ParsedRef(
+        raw_text=f"siman {page.siman} (déduit de la page)",
+        work="Choulhan Aroukh", section="Orach Chayim",
+        siman=str(page.siman), confidence=0.6,
+    )
+
+
 def refs_pour_citation(
-    session: Session, bloc: ContentBlock, precedents: list[ContentBlock]
+    session: Session, bloc: ContentBlock, precedents: list[ContentBlock],
+    page: Page | None = None,
 ) -> tuple[list[ParsedRef], bool]:
     """Références applicables à une citation, et si elles viennent d'un voisin.
 
@@ -89,11 +149,23 @@ def refs_pour_citation(
         return propres, False
 
     for precedent in reversed(precedents[-FENETRE_BLOCS:]):
-        if precedent.block_type in (BlockType.SOUS_TITRE, BlockType.TITRE):
+        # Seul un titre de RANG MAJEUR (h1/h2) arrête la remontée. Le site
+        # emploie h2 pour ses sections numérotées — « 3. Le dilemme central »,
+        # un vrai changement de sujet — et h3 pour les intertitres à
+        # l'intérieur d'une même sougya : « Enseignement A », « Enseignement
+        # B »… Les traiter pareil coupait le lien entre une citation et la
+        # source annoncée juste avant les intertitres, et faisait perdre
+        # l'essentiel des citations de Guemara.
+        if 0 < niveau_de_titre(precedent) <= 2:
             break
         voisines = _refs_du_bloc(session, precedent)
         if voisines:
             return voisines, True
+
+    if page is not None:
+        implicite = reference_implicite_du_siman(page, bloc, precedents)
+        if implicite is not None:
+            return [implicite], True
     return [], False
 
 
@@ -169,7 +241,10 @@ def run_analyse(
             if not citations:
                 contexte.append(bloc)
                 continue
-            refs, par_voisinage = refs_pour_citation(session, bloc, contexte)
+            page_courante = session.get(PageVersion, bloc.page_version_id).page
+            refs, par_voisinage = refs_pour_citation(
+                session, bloc, contexte, page=page_courante
+            )
             contexte.append(bloc)
             if not refs:
                 continue

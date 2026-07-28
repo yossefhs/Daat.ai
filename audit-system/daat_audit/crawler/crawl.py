@@ -41,7 +41,7 @@ from ..models import (
 )
 from ..references import extract_references
 from .fetch import Fetcher
-from .urls import parse_simanim_arg, perimeter_urls
+from .urls import niveau_de_url, parse_simanim_arg, perimeter_urls
 
 logger = logging.getLogger("daat_audit.crawler")
 
@@ -58,6 +58,7 @@ def _analyser(
     html: str,
     url: str,
     siman: int,
+    niveau: str = "base",
 ) -> int:
     """Découpe la version en blocs, extrait les références, applique les
     contrôles. Retourne le nombre de signalements créés.
@@ -74,7 +75,7 @@ def _analyser(
     """
     blocks = split_blocks(
         html, section="OH", siman=siman,
-        niveau=settings.niveau, langue=settings.langue,
+        niveau=niveau, langue=settings.langue,
     )
     if not blocks:
         return 0
@@ -172,9 +173,14 @@ def run_crawl(
             if result.redirect_chain:
                 entry["redirects"] = result.redirect_chain
 
+            niveau = niveau_de_url(url)
+            entry["niveau"] = niveau
             page = session.execute(select(Page).where(Page.url == url)).scalar_one_or_none()
             if page is None:
-                page = Page(url=url, siman=siman, langue=settings.langue, niveau=settings.niveau)
+                # Le niveau vient de l'URL et non de settings.niveau, qui peut
+                # valoir « all » : sinon toutes les pages seraient étiquetées
+                # du même niveau et les identifiants de blocs se collisionneraient.
+                page = Page(url=url, siman=siman, langue=settings.langue, niveau=niveau)
                 session.add(page)
 
             page.last_crawled_at = utcnow()
@@ -237,7 +243,8 @@ def run_crawl(
                     session.add(version)
                     page.current_text_sha256 = fingerprint
                     entry["findings"] = _analyser(
-                        session, settings, page, version, result.html, url, siman,
+                        session, settings, page, version, result.html, url,
+                        siman, niveau,
                     )
                 job.pages_ok += 1
 

@@ -187,3 +187,73 @@ def test_une_page_modifiee_produit_bien_un_nouveau_signalement(session, settings
     faux = VRAI_TEXTE.replace("מכבסים", "אוכלים")
     run_crawl(session, settings, transport=_transport(_page(faux)))
     assert run_analyse(session, settings, provider=_provider())
+
+
+# ── Référence implicite au siman de la page ──────────────────────────────
+
+def _page_mehaber(citation: str, annonce: str = "Le texte du Choul'han Aroukh") -> str:
+    """La page EST le siman : le bloc n'énonce aucune référence, il est
+    seulement annoncé comme le texte du Mehaber. Motif le plus fréquent."""
+    return (
+        "<html><head><title>Siman 242</title></head><body><main>"
+        f"<h1>Siman 242</h1><h3>{annonce}</h3>"
+        f'<blockquote class="text-source" dir="rtl">"{citation}"</blockquote>'
+        "</main></body></html>"
+    )
+
+
+def _siman_entier() -> LocalProvider:
+    return LocalProvider({"Shulchan_Arukh,_Orach_Chayim.242": VRAI_TEXTE})
+
+
+def test_reference_deduite_de_la_page_sur_indice_de_mehaber(session, settings):
+    faux = VRAI_TEXTE.replace("מכבסים", "אוכלים")
+    run_crawl(session, settings, transport=_transport(_page_mehaber(faux)))
+    findings = run_analyse(session, settings, provider=_siman_entier())
+    assert findings, "le texte du Mehaber doit être rattaché au siman de la page"
+    assert findings[0].confidence < 0.6      # inférence : confiance abaissée
+
+
+def test_sans_indice_aucune_reference_nest_supposee(session, settings):
+    """Sans mention du Mehaber, supposer le siman comparerait toute citation
+    de Guemara au Choulhan Aroukh et la déclarerait absente."""
+    faux = VRAI_TEXTE.replace("מכבסים", "אוכלים")
+    html = _page_mehaber(faux, annonce="Une histoire rapportée par la Guemara")
+    run_crawl(session, settings, transport=_transport(html))
+    assert run_analyse(session, settings, provider=_siman_entier()) == []
+
+
+def test_un_indice_de_rama_fait_renoncer(session, settings):
+    """Le Rama est une couche distincte que Sefaria ne sert pas sous un nom
+    vérifié : mieux vaut se taire que d'inventer une référence."""
+    faux = VRAI_TEXTE.replace("מכבסים", "אוכלים")
+    html = _page_mehaber(faux, annonce="Le texte du Rama (הגה) sur le Choul'han Aroukh")
+    run_crawl(session, settings, transport=_transport(html))
+    assert run_analyse(session, settings, provider=_siman_entier()) == []
+
+
+# ── Frontière de section : rang du titre ─────────────────────────────────
+
+def _page_intertitre(balise: str) -> str:
+    faux = VRAI_TEXTE.replace("מכבסים", "אוכלים")
+    return (
+        "<html><head><title>Siman 242</title></head><body><main><h1>S</h1>"
+        "<p>La Guemara (Shabbat 119a) rapporte deux enseignements :</p>"
+        f"<{balise}>Enseignement A</{balise}>"
+        f'<blockquote class="text-source" dir="rtl">"{faux}"</blockquote>'
+        "</main></body></html>"
+    )
+
+
+def test_un_intertitre_h3_ne_coupe_pas_le_lien_avec_lannonce(session, settings):
+    """Le site emploie h3 pour les intertitres d'une même sougya
+    (« Enseignement A », « Enseignement B ») : les traiter comme des frontières
+    faisait perdre l'essentiel des citations de Guemara."""
+    run_crawl(session, settings, transport=_transport(_page_intertitre("h3")))
+    assert run_analyse(session, settings, provider=_provider())
+
+
+def test_un_titre_de_section_h2_coupe_bien_le_lien(session, settings):
+    """h2 marque une section numérotée : un vrai changement de sujet."""
+    run_crawl(session, settings, transport=_transport(_page_intertitre("h2")))
+    assert run_analyse(session, settings, provider=_provider()) == []

@@ -2,7 +2,7 @@
 
 Audit automatique du site public [daattorah.com](https://daattorah.com), en **lecture seule**.
 
-Ce système explore le périmètre défini (simanim 242 à 269, français, niveau *base*),
+Ce système explore le périmètre défini (simanim 242 à 269, français, les **quatre niveaux d'étude**),
 archive chaque page et chaque version, détecte les changements, découpe les pages en
 blocs identifiés, et **confronte chaque citation hébraïque au texte réel de la source
 qu'elle invoque**. Il ne propose jamais de correction sur du contenu, et
@@ -77,7 +77,7 @@ audit-system/
 │   │   ├── local.py         #   fournisseur local (tests, hors-ligne)
 │   │   └── cache.py         #   mémorisation en base (table source_texts)
 │   ├── crawler/
-│   │   ├── urls.py          # périmètre : /oh/{242..269}/base
+│   │   ├── urls.py          # périmètre : /oh/{242..269}/{base|lamdan|synthese|daat-harav}
 │   │   ├── fetch.py         # httpx, débit limité, redirections tracées, transport injectable
 │   │   └── crawl.py         # orchestration + CLI (python -m daat_audit.crawler.crawl)
 │   ├── api/
@@ -90,7 +90,7 @@ audit-system/
 │       └── terminologie.json    # graphies attestées — GÉNÉRÉ, ne pas éditer
 ├── scripts/build-terminologie.py  # régénère terminologie.json depuis sources/
 ├── alembic/                 # migrations (schéma initial : 14 tables)
-├── tests/                   # 182 tests, réseau entièrement simulé
+├── tests/                   # 197 tests, réseau entièrement simulé
 ├── docker-compose.yml       # PostgreSQL 16 + API (+ service crawler ponctuel)
 └── var/                     # base SQLite locale et artefacts (git-ignoré)
 ```
@@ -121,6 +121,8 @@ cp .env.example .env          # ajuster si besoin
 .venv/bin/python -m daat_audit.crawler.crawl       # crawl du périmètre 242-269
 # Variantes :
 #   --simanim 242-245      périmètre restreint
+#   AUDIT_NIVEAU=all       les 4 niveaux (base, lamdan, synthese, daat-harav)
+#   AUDIT_NIVEAU=base,lamdan   une sélection
 #   --check-links          vérifier aussi les liens internes
 #   --verbose              journal détaillé
 ```
@@ -154,7 +156,7 @@ Le mot de passe PostgreSQL de développement se surcharge par `AUDIT_DB_PASSWORD
 ### Tests
 
 ```bash
-.venv/bin/python -m pytest tests/ -q          # 182 tests, aucun accès réseau
+.venv/bin/python -m pytest tests/ -q          # 197 tests, aucun accès réseau
 ```
 
 Les handlers HTTP simulés assertent la méthode de chaque requête : toute
@@ -170,7 +172,7 @@ AUDIT_CA_BUNDLE=/chemin/vers/ca-bundle.crt .venv/bin/python -m daat_audit.crawle
 ## Ce qui est vérifié — et ce qui ne l'est pas
 
 **Vérifié dans cet environnement :**
-- les 182 tests (SQLite en mémoire, réseau simulé par `httpx.MockTransport`) ;
+- les 197 tests (SQLite en mémoire, réseau simulé par `httpx.MockTransport`) ;
 - la migration Alembic sur SQLite (14 tables + `alembic_version`) ;
 - un crawl réel complet du périmètre : 28/28 pages archivées (HTML brut, texte
   nettoyé, double empreinte SHA-256), déduplication confirmée en conditions
@@ -366,6 +368,45 @@ Deux détails d'affichage ont été corrigés après avoir regardé le rendu ré
   positions réelles des éléments dans un navigateur, pas à l'œil) ;
 - un couple ne différant que par une mère de lecture n'est plus listé comme un
   mot remplacé — il faisait lire deux défauts là où il n'y en a qu'un.
+
+## Couverture réelle des citations — la mesure, pas l'intention
+
+Le premier passage sur le périmètre complet a corrigé une impression trop
+flatteuse. Sur 28 pages : **213 citations extraites, 4 confrontées à une
+source.** Deux pour cent. Un exemple isolé avait donné le change ; la mesure,
+non.
+
+Trois causes, trouvées en regardant les pages non appariées plutôt qu'en
+supposant — chacune corrigée et mesurée :
+
+| Correction | Couverture |
+|---|---|
+| point de départ | 4 / 213 — **2 %** |
+| lire l'en-tête canonique `שולחן ערוך · סימן רמ״ד · סעיף א` | 43 — **20 %** |
+| ne couper qu'aux titres de rang majeur (h2), pas aux intertitres (h3) | 56 — **26 %** |
+| référence déduite du siman de la page, sur indice explicite de Mehaber | 74 — **35 %** |
+
+1. **L'en-tête canonique du site.** Les pages étiquettent le texte du Mehaber
+   par `שולחן ערוך · אורח חיים · סימן רמ״ד · סעיף א`, avec des points médians.
+   Le moteur n'acceptait que l'abrégé `X:Y` : il ne pouvait pas lire la
+   référence la plus autoritative des pages.
+2. **Le rang des titres.** Le site emploie `h2` pour ses sections numérotées —
+   « 3. Le dilemme central », un vrai changement de sujet — et `h3` pour les
+   intertitres d'une même sougya : « Enseignement A », « Enseignement B »…
+   Les traiter pareil coupait le lien entre une citation et la source annoncée
+   juste avant.
+3. **La page *est* le siman.** La plupart des citations du Mehaber ne portent
+   aucune référence : le bloc est simplement annoncé par « Le texte du
+   Choul'han Aroukh ». L'inférence est **conditionnée à cet indice explicite** —
+   sans lui, toute citation de Guemara serait comparée au Choulhan Aroukh et
+   déclarée absente, ce qui fabriquerait des faux positifs en masse. Faute de
+   séif, la référence vise le siman entier : Sefaria le sert complet, et une
+   citation qui en provient doit s'y trouver.
+
+**35 %, ce n'est pas « vérifié ».** Deux citations sur trois du périmètre ne
+sont toujours confrontées à rien. Le Rama, notamment, est écarté volontairement :
+Sefaria ne le sert pas sous un nom vérifié à ce jour, et inventer une référence
+serait pire que de se taire.
 
 ## Limites actuelles
 

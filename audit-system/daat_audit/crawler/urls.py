@@ -1,9 +1,21 @@
 # -*- coding: utf-8 -*-
-"""Périmètre du MVP (§2) : /oh/{siman}/base, simanim 242 à 269, français.
+"""Périmètre du crawl (§2) : /oh/{siman}/{niveau}, simanim 242 à 269.
 
 Le français est la langue par défaut du site : /oh/N/base sert la version
 française (les variantes portent /he ou /en). Les URL sont construites, pas
 découvertes : le périmètre est fermé et connu d'avance.
+
+Les quatre niveaux d'étude ne se valent pas du point de vue de l'audit :
+le niveau 2 (*lamdan*) est très largement en hébreu et cite bien plus de
+sources que le niveau 1, et le niveau 4 (*daat-harav*) porte la shita de
+l'Admour HaZaken. C'est là que se trouvent les citations les plus nombreuses,
+donc le plus grand risque d'écart — s'en tenir au niveau 1 revenait à
+n'inspecter que la vitrine.
+
+**Le niveau 4 n'existe pas partout** : les simanim 304 et 322 n'en ont pas —
+l'Admour HaZaken ne les a pas écrits dans le Choulhan Aroukh HaRav, et ces
+pages portent une « page-pont » à la place. Le crawler ne les demande donc
+pas : un 404 attendu n'est pas une anomalie à signaler.
 """
 from __future__ import annotations
 
@@ -17,11 +29,53 @@ SIMAN_MAX = 999
 MAX_SIMANIM_PER_JOB = 200
 
 
-def perimeter_urls(settings: Settings, simanim: list[int] | None = None) -> list[tuple[int, str]]:
-    """Retourne [(siman, url)] pour le périmètre configuré."""
+# Niveaux d'étude, dans l'ordre des URL du site.
+NIVEAUX = ("base", "lamdan", "synthese", "daat-harav")
+
+# Simanim dépourvus de niveau 4 (voir docstring du module).
+SANS_DAAT_HARAV = frozenset({304, 322})
+
+
+def niveaux_demandes(settings: Settings) -> list[str]:
+    """Niveaux à crawler : ``settings.niveau`` peut valoir « base »,
+    une liste séparée par des virgules, ou « all »."""
+    brut = (settings.niveau or "base").strip().lower()
+    if brut in ("all", "tous", "*"):
+        return list(NIVEAUX)
+    demandes = [n.strip() for n in brut.split(",") if n.strip()]
+    inconnus = [n for n in demandes if n not in NIVEAUX]
+    if inconnus:
+        raise ValueError(
+            f"niveau inconnu : {', '.join(inconnus)}. Attendu : {', '.join(NIVEAUX)}"
+        )
+    return demandes or ["base"]
+
+
+def perimeter_urls(
+    settings: Settings,
+    simanim: list[int] | None = None,
+    niveaux: list[str] | None = None,
+) -> list[tuple[int, str]]:
+    """Retourne [(siman, url)] pour le périmètre configuré.
+
+    L'ordre est siman par siman, niveau par niveau : le crawl progresse ainsi
+    de façon lisible, et une interruption laisse des simanim complets.
+    """
     numbers = simanim or list(range(settings.siman_start, settings.siman_end + 1))
+    demandes = niveaux or niveaux_demandes(settings)
     base = settings.base_url.rstrip("/")
-    return [(n, f"{base}/oh/{n}/{settings.niveau}") for n in numbers]
+    return [
+        (n, f"{base}/oh/{n}/{niveau}")
+        for n in numbers
+        for niveau in demandes
+        if not (niveau == "daat-harav" and n in SANS_DAAT_HARAV)
+    ]
+
+
+def niveau_de_url(url: str) -> str:
+    """Niveau porté par une URL du périmètre (« …/oh/242/lamdan » → lamdan)."""
+    dernier = url.rstrip("/").rsplit("/", 1)[-1]
+    return dernier if dernier in NIVEAUX else "base"
 
 
 def parse_simanim_arg(arg: str) -> list[int]:

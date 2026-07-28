@@ -79,6 +79,13 @@ class Block:
     # cherchait là ne pouvait que se tromper — d'où ces deux champs.
     css_classes: tuple[str, ...] = ()
     dir_attr: str | None = None       # ``dir`` propre ou hérité d'un ancêtre
+    # Rang du titre (1 pour h1, 2 pour h2…), 0 si le bloc n'est pas un titre.
+    # Le site distingue nettement les deux usages : h2 pour les sections
+    # numérotées — un vrai changement de sujet —, h3 pour les intertitres
+    # à l'intérieur d'une même sougya (« Enseignement A », « Enseignement B »).
+    # Les confondre coupait le lien entre une citation et la source annoncée
+    # quelques blocs plus haut.
+    heading_level: int = 0
 
 
 def _is_hebrew(text: str, threshold: float = 0.55) -> bool:
@@ -206,6 +213,7 @@ def split_blocks(
             sha256=sha256_hex(normalized),
             css_classes=tuple(tag.get("class") or ()),
             dir_attr=_inherited_dir(tag),
+            heading_level=int(tag.name[1]) if tag.name in ("h1", "h2", "h3", "h4") else 0,
         ))
 
     return blocks
