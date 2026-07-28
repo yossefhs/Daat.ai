@@ -18,11 +18,18 @@ python3 scripts/audit-simanim.py            # full report
 python3 scripts/audit-simanim.py --quiet    # summary only (what the SessionStart hook prints)
 python3 scripts/audit-simanim.py --write-progress   # regenerates PROGRESS.md (never hand-edit PROGRESS.md)
 
+# Content-truth guard — checks every Hebrew "verbatim" quote against its real source on Sefaria.
+# audit-simanim.py is structural only and passes on pages full of invented citations; this is the
+# complementary gate. Exits non-zero while any quote is ABSENT from the source it cites.
+python3 scripts/verifier-citations.py                       # whole site, FR (Hebrew quotes are shared across the 3 languages)
+python3 scripts/verifier-citations.py --only-absent          # just the list to fix
+python3 scripts/verifier-citations.py --path sources/shabbat/siman-297
+
 # Generate a siman's index page from data/simanim/siman-XXX.json (does NOT generate study levels — those are written by hand)
 node scripts/generate-siman.js --siman XXX [--force] [--no-sitemap]
 ```
 
-There is no test suite and no linter. `scripts/audit-simanim.py` is the de-facto correctness gate for content; the SessionStart hook (`.claude/hooks/session-start.sh`, remote-only) runs `npm install` then this audit at the start of every web session.
+There is no test suite and no linter. Two complementary gates stand in for one: `scripts/audit-simanim.py` checks **structure** (boilerplate, missing files, desynced TOC) and `scripts/verifier-citations.py` checks **content** (does each Hebrew quote actually exist at the reference it claims?). Neither subsumes the other — a page can be 174/174 conforme and still cite a Gemara that says nothing of the sort. Run both before declaring content work done; the SessionStart hook (`.claude/hooks/session-start.sh`, remote-only) runs `npm install` then this audit at the start of every web session.
 
 ## Content model — the core of the repo
 
@@ -75,6 +82,7 @@ Set in Vercel (never committed; `.env` is git-ignored). Core: `ANTHROPIC_API_KEY
 
 ## Conventions & gotchas
 
+- **Citation convention**: quotation marks are reserved for **verbatim** text. A condensation of a seif is introduced by `<em>résumé</em> :` (`תמצית` / `summary`) and is not judged by `verifier-citations.py`. Anything inside quotes must exist word-for-word in the cited source or the gate fails. This is what makes the gate meaningful — before it, every Level 4 table cell wore quotation marks whether it quoted or paraphrased, and a fabricated citation looked exactly like its forty legitimate neighbours. An ellipsis inside quotes is still fine (`« A… B »` means A and B are each verbatim); each segment is checked separately.
 - **Trilingual parity**: a change is not done until FR, HE, and EN are updated consistently.
 - **Corpus is derived**: after editing siman HTML that should be searchable by the chat, rerun `npm run build` so `data/corpus-shabbat.json` and `data/simanim-disponibles.json` reflect it.
 - **Don't hand-edit generated files**: `PROGRESS.md`, `data/simanim-disponibles*.json`, `data/corpus-shabbat.json`, `assets/js/chat-widget.min.js`, `sitemap.xml` are build outputs.
