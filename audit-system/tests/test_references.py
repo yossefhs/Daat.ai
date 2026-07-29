@@ -121,3 +121,17 @@ def test_un_nombre_de_seifim_nest_pas_une_reference():
     """« סימן רמ״ט · 4 סעיפים » annonce un NOMBRE de séifim, pas un séif :
     le lire comme une référence serait un contresens."""
     assert extract_references("שולחן ערוך אורח חיים סימן רמ״ט · 4 סעיפים") == []
+
+
+def test_un_geresh_final_marque_une_abreviation_pas_un_numeral():
+    """« כ״ו » (gershayim ENTRE les lettres) vaut 26 ; « כו׳ » (geresh APRÈS)
+    est l'abréviation de וכולי — « etc. ». Les confondre faisait lire
+    « שבת כו׳. » comme « Chabbat 26a » et fabriquait une référence que la page
+    ne revendique nulle part : deux signalements « critiques » du siman 249
+    n'avaient pas d'autre origine."""
+    assert gematria("כ״ו") == 26
+    assert gematria("כו׳") is None
+    assert gematria("כו'") is None
+    assert gematria("א׳") == 1        # une lettre seule + geresh reste un numéral
+    assert extract_references("לאחר שקיבל שבת כו׳. הנה הדרכי משה") == []
+    assert extract_references("שבת כ״ו. ענין אחר")[0].sefaria_ref() == "Shabbat.26a"

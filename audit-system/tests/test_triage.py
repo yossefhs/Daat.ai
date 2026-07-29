@@ -21,9 +21,22 @@ exp = _charger("export-triage")
 
 
 def test_toute_reponse_proposee_a_une_action():
-    """Une réponse offerte à l'écran et non traduisible serait un cul-de-sac."""
+    """Une réponse offerte à l'écran et non traduisible serait un cul-de-sac.
+    L'import accepte en plus d'anciens codes, pour relire un tri déjà rendu."""
     proposees = {code for _, code, _, _ in exp.REPONSES}
-    assert proposees == set(imp.ACTIONS)
+    assert proposees <= set(imp.ACTIONS)
+
+
+def test_les_categories_distinguent_ce_que_le_moteur_confondait():
+    """Le retour de relecture est sans ambiguïté : une erreur de contenu, une
+    référence mal rattachée, une variante et un titre éditorial ne sont pas la
+    même chose. Les confondre présentait 123 artefacts comme 123 erreurs."""
+    codes = [code for _, code, _, _ in exp.REPONSES]
+    assert codes == ["contenu", "reference", "variante", "pas_citation", "rav"]
+    # Une référence fautive est un défaut réel ; un titre ne l'est pas.
+    assert imp.ACTIONS["reference"] == "approve"
+    assert imp.ACTIONS["pas_citation"] == "false_positive"
+    assert imp.ACTIONS["variante"] == "editorial_variant"
 
 
 def test_le_role_vient_de_len_tete():

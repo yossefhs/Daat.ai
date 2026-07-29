@@ -42,7 +42,18 @@ def gematria(token: str) -> int | None:
     Contrôle de forme indispensable (voir docstring du module) : les valeurs
     doivent être non croissantes, avec l'exception conventionnelle ט״ו / ט״ז.
     """
-    token = re.sub(r"[\"'״׳]", "", token).strip()
+    token = token.strip()
+    # Un geresh APRÈS les lettres marque une abréviation ; des gershayim ENTRE
+    # les deux dernières marquent un numéral. « כ״ו » vaut 26 ; « כו׳ » est
+    # l'abréviation de וכולי — « etc. » —, l'une des plus courantes de l'hébreu
+    # rabbinique. Les confondre faisait lire « שבת כו׳. » comme « Chabbat 26a »
+    # et fabriquait de toutes pièces une référence que la page ne revendique
+    # nulle part : deux signalements « critiques » du siman 249 n'avaient pas
+    # d'autre origine.
+    # Un caractère unique suivi d'un geresh reste un numéral (« א׳ » = 1).
+    if re.fullmatch(r"[א-ת]{2,}[\"'״׳]", token):
+        return None
+    token = re.sub(r"[\"'״׳]", "", token)
     if not token or len(token) > 4 or any(c not in GEMATRIA for c in token):
         return None
     values = [GEMATRIA[c] for c in token]

@@ -254,6 +254,13 @@ def run_analyse(
 
         for bloc in blocs:
             contexte = precedents.setdefault(bloc.page_version_id, [])
+            # Un tableau est aplati en un seul bloc : la citation d'une ligne
+            # s'y trouve appariée à la référence d'une autre. C'est ainsi que
+            # la glose du Rama sur OC 256:1 s'est vue attribuer Chabbat 35b,
+            # que la page n'a jamais revendiqué pour elle.
+            if bloc.block_type is BlockType.TABLEAU:
+                contexte.append(bloc)
+                continue
             citations = extract_quotes(
                 bloc.raw_content, marked=est_conteneur_source(bloc)
             )

@@ -288,3 +288,29 @@ def test_une_citation_citant_une_source_reste_une_citation():
             "כתב המג״א דהא דאמרינן דצריך לכבד את השבת היינו במי שידו משגת ולא באחר"
             "</blockquote>")
     assert len(extract_quotes(html, marked=True)) == 1
+
+
+def test_une_reference_fausse_nest_pas_classee_critique():
+    """Le texte existe mot pour mot ailleurs : c'est un défaut de référence,
+    pas une falsification. Les mettre au même niveau P0 confondait « la page
+    invente une source » et « la page se trompe de folio »."""
+    provider = LocalProvider({
+        "Berakhot.34a": BERAKHOT_34A,
+        "Shabbat.118b": "כל המענג את השבת נותנין לו נחלה בלי מצרים ומשביעין אותו",
+    })
+    resultat = verifier_citation(
+        quote("כל המענג את השבת נותנין לו נחלה בלי מצרים"), [ref_berakhot()], provider
+    )
+    assert resultat.found_elsewhere == ["Shabbat.118b"]
+    assert finding_de(resultat, "B1").severity is Severity.P2_SIGNIFICANT
+
+
+def test_une_reference_inferee_ne_fonde_pas_un_signalement_critique():
+    provider = LocalProvider({"Berakhot.34a": BERAKHOT_34A})
+    resultat = verifier_citation(
+        quote("דבר שלא נאמר מעולם בשום מקום ואין לו שום מקור כלל"),
+        [ref_berakhot()], provider,
+    )
+    assert finding_de(resultat, "B1").severity is Severity.P0_CRITICAL
+    par_voisinage = finding_de(resultat, "B1", par_voisinage=True)
+    assert par_voisinage.severity is Severity.P1_MAJOR

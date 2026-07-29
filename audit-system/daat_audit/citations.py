@@ -136,7 +136,16 @@ def finding_de(resultat: CitationResult, block_id: str,
         f"par rapport à {ref_txt} (similarité {resultat.ratio:.0%})"
     )
 
+    severite = GRAVITE.get(resultat.verdict, Severity.P2_SIGNIFICANT)
+
     if resultat.verdict is Verdict.DIFFERENCE_SUBSTANTIELLE:
+        if resultat.found_elsewhere:
+            # Le texte existe, mot pour mot, ailleurs : ce n'est pas une
+            # falsification mais un défaut de référence. Le classer P0 mettait
+            # sur le même plan « la page invente une source » et « la page se
+            # trompe de folio » — deux choses qui n'appellent ni la même
+            # urgence ni la même correction.
+            severite = Severity.P2_SIGNIFICANT
         if resultat.found_elsewhere:
             explication = (
                 f"absente de {ref_txt}, mais retrouvée mot pour mot en "
@@ -151,6 +160,10 @@ def finding_de(resultat: CitationResult, block_id: str,
 
     confiance = min(0.95, resultat.ref.confidence if resultat.ref else 0.5)
     if par_voisinage:
+        # La référence est une inférence, pas une lecture : elle ne peut pas
+        # fonder un signalement critique.
+        if severite is Severity.P0_CRITICAL:
+            severite = Severity.P1_MAJOR
         explication += (
             " — référence rattachée depuis le texte qui annonce la citation, "
             "non depuis le bloc cité lui-même"
@@ -166,7 +179,7 @@ def finding_de(resultat: CitationResult, block_id: str,
         explanation=explication,
         # Jamais de correction proposée sur une citation : voir §1 du module.
         proposed_correction=None,
-        severity=GRAVITE.get(resultat.verdict, Severity.P2_SIGNIFICANT),
+        severity=severite,
         risk=Risk.HALAKHIC,
         confidence=round(confiance, 3),
     )

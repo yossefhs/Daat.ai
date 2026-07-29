@@ -41,11 +41,15 @@ from daat_audit.workflow import (                                # noqa: E402
 
 # Réponse du tri → action du workflow.
 ACTIONS = {
+    "contenu": "approve",              # le texte de la page est fautif
+    "reference": "approve",            # la référence est fausse — défaut réel
+    "variante": "editorial_variant",   # variante d'édition ou d'orthographe
+    "pas_citation": "false_positive",  # paraphrase, titre : la détection a tort
+    "rav": "escalate",
+    # Anciennes réponses, conservées pour relire un tri déjà rendu.
     "erreur": "approve",
-    "variante": "editorial_variant",
     "faux": "false_positive",
     "indecidable": "source_unavailable",
-    "rav": "escalate",
 }
 
 

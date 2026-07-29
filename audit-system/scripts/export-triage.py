@@ -41,11 +41,15 @@ from daat_audit.models import AuditFinding, FindingStatus, Page  # noqa: E402
 # Réponses proposées. Le libellé dit ce que le lecteur constate, pas ce que
 # l'outil doit faire : la traduction en transition du workflow se fait à
 # l'import (scripts/import-triage.py).
+# Les cinq catégories distinguent ce que l'outil confondait : une erreur dans
+# le texte, une référence mal rattachée, une variante d'édition, et ce qui
+# n'était pas une citation. Les mélanger — comme le faisait la première
+# version — revenait à présenter 123 artefacts comme 123 erreurs de Torah.
 REPONSES = [
-    ("1", "erreur",    "Erreur réelle — le texte de la page est fautif", "#9B2C2C"),
-    ("2", "variante",  "Variante d'édition légitime — pas une erreur",   "#B7791F"),
-    ("3", "faux",      "Ce n'est pas une citation / faux positif",       "#276749"),
-    ("4", "indecidable", "Indécidable — source douteuse ou absente",     "#6B7280"),
+    ("1", "contenu",   "Erreur dans le contenu — le texte est fautif",   "#9B2C2C"),
+    ("2", "reference", "Référence erronée ou mal rattachée",             "#B7791F"),
+    ("3", "variante",  "Variante d'édition ou d'orthographe",            "#2C5282"),
+    ("4", "pas_citation", "Paraphrase ou titre — ce n'est pas une citation", "#276749"),
     ("5", "rav",       "À soumettre au Rav",                             "#1A1F3A"),
 ]
 
