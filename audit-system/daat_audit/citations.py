@@ -85,10 +85,10 @@ def verifier_citation(
         document = provider.fetch(ref.sefaria_ref())
         if document is None or not document:
             continue
-        verdict, ratio, detail = compare(quote.text, document.text)
+        verdict, ratio, detail, extrait = _comparer_par_segment(quote.text, document)
         resultat = CitationResult(
             quote=quote, ref=ref, verdict=verdict, ratio=ratio,
-            detail=detail, source_text=document.text[:2000],
+            detail=detail, source_text=extrait,
         )
         if meilleur is None or _meilleur_que(resultat, meilleur):
             meilleur = resultat
@@ -98,6 +98,9 @@ def verifier_citation(
     if meilleur is None:
         return None
 
+    # Chercher dans tout le corpus AVANT de conclure à une absence : une
+    # citation exacte mal référencée et une citation fabriquée n'appellent ni
+    # le même verdict, ni la même correction, ni la même gravité.
     if (chercher_ailleurs and meilleur.verdict is not None
             and meilleur.verdict not in BENINS
             and SEVERITY[meilleur.verdict] >= SEVERITY[Verdict.MOT_REMPLACE]):
@@ -107,6 +110,43 @@ def verifier_citation(
             hits = []
         meilleur.found_elsewhere = [h.ref for h in hits][:4]
 
+    return meilleur
+
+
+def _comparer_par_segment(texte: str, document) -> tuple[Verdict, float, str, str]:
+    """Compare la citation à la **bonne sous-section**, pas au folio entier.
+
+    Sefaria sert un folio en segments. Les fondre en un seul bloc a deux
+    défauts : le taux de similarité devient une moyenne sans signification sur
+    plusieurs milliers de mots, et une correspondance fortuite à cheval sur
+    deux passages sans rapport suffit à produire une « variante possible ».
+
+    On compare donc segment par segment, et l'on retient le meilleur. Les
+    paires de segments voisins sont également essayées, car une citation
+    chevauche souvent une frontière ; le texte entier sert de dernier recours.
+
+    Le quatrième membre du retour est le passage effectivement retenu : c'est
+    lui qui est archivé et montré au relecteur, plutôt que tout le folio.
+    """
+    segments = [s for s in document.segments if s.strip()]
+    candidats: list[str] = list(segments)
+    candidats += [a + " " + b for a, b in zip(segments, segments[1:])]
+    if not candidats:
+        candidats = [document.text]
+
+    meilleur: tuple[Verdict, float, str, str] | None = None
+    for extrait in candidats:
+        verdict, ratio, detail = compare(texte, extrait)
+        courant = (verdict, ratio, detail, extrait[:2000])
+        if meilleur is None or (SEVERITY[verdict], -ratio) < (SEVERITY[meilleur[0]], -meilleur[1]):
+            meilleur = courant
+        if verdict in BENINS:
+            return courant
+
+    # Dernier recours : la citation enjambe peut-être plus de deux segments.
+    verdict, ratio, detail = compare(texte, document.text)
+    if meilleur is None or (SEVERITY[verdict], -ratio) < (SEVERITY[meilleur[0]], -meilleur[1]):
+        return verdict, ratio, detail, document.text[:2000]
     return meilleur
 
 
@@ -170,10 +210,16 @@ def finding_de(resultat: CitationResult, block_id: str,
         )
         confiance *= 0.8
 
+    # Le texte existe ailleurs mot pour mot : le défaut porte sur la
+    # référence, non sur le texte. Le dire dans la catégorie, et pas seulement
+    # dans la phrase, permet de trier les deux séparément.
+    sous_categorie = ("reference_erronee" if resultat.found_elsewhere
+                      else resultat.verdict.value)
+
     return Finding(
         rule_code="CIT-001",
         category="citation",
-        subcategory=resultat.verdict.value,
+        subcategory=sous_categorie,
         block_id=block_id,
         current_text=resultat.quote.text[:600],
         explanation=explication,

@@ -314,3 +314,84 @@ def test_une_reference_inferee_ne_fonde_pas_un_signalement_critique():
     assert finding_de(resultat, "B1").severity is Severity.P0_CRITICAL
     par_voisinage = finding_de(resultat, "B1", par_voisinage=True)
     assert par_voisinage.severity is Severity.P1_MAJOR
+
+
+# ── Comparaison par sous-section, et recherche avant de conclure ─────────
+
+class _DocMulti:
+    """Un folio servi en segments, comme le fait Sefaria."""
+    def __init__(self, segments):
+        self.segments = segments
+    @property
+    def text(self):
+        return "\n".join(self.segments)
+    def __bool__(self):
+        return bool(self.segments)
+
+
+class _ProviderSegments(LocalProvider):
+    def __init__(self, refs):
+        self._refs = refs
+        super().__init__({})
+    def fetch(self, ref):
+        segs = self._refs.get(ref)
+        return _DocMulti(segs) if segs else None
+
+
+def test_la_comparaison_porte_sur_la_bonne_sous_section():
+    """Fondre un folio en un seul bloc rendait le taux de similarité
+    ininterprétable et laissait une correspondance fortuite à cheval sur deux
+    passages sans rapport produire une « variante possible »."""
+    provider = _ProviderSegments({"Shabbat.118b": [
+        "מאי כי חדות ה' היא מעוזכם אמר רבי יוחנן",
+        "כל המענג את השבת נותנין לו נחלה בלי מצרים",
+        "אמר רבי עקיבא עשה שבתך חול ואל תצטרך לבריות",
+    ]})
+    ref = ParsedRef(raw_text="שבת קי״ח:", work="Shabbat", daf="118",
+                    amud="b", confidence=0.9)
+    resultat = verifier_citation(
+        quote("כל המענג את השבת נותנין לו נחלה בלי מצרים"), [ref], provider
+    )
+    assert resultat.verdict in BENINS
+    # Le passage archivé est la sous-section retenue, pas tout le folio.
+    assert "כל המענג" in resultat.source_text
+    assert "חדות" not in resultat.source_text
+
+
+def test_une_citation_a_cheval_sur_deux_segments_reste_reconnue():
+    provider = _ProviderSegments({"Shabbat.118b": [
+        "אמר רבי יוחנן משום רבי יוסי כל המענג את השבת",
+        "נותנין לו נחלה בלי מצרים ומשביעין אותו",
+    ]})
+    ref = ParsedRef(raw_text="שבת קי״ח:", work="Shabbat", daf="118",
+                    amud="b", confidence=0.9)
+    resultat = verifier_citation(
+        quote("כל המענג את השבת נותנין לו נחלה בלי מצרים"), [ref], provider
+    )
+    assert resultat.verdict in BENINS
+
+
+def test_le_texte_retrouve_ailleurs_est_categorise_comme_reference_erronee():
+    """Trier séparément « la page se trompe de folio » et « la page invente
+    une source » : ce sont deux défauts, deux corrections."""
+    provider = LocalProvider({
+        "Berakhot.34a": BERAKHOT_34A,
+        "Shabbat.118b": "כל המענג את השבת נותנין לו נחלה בלי מצרים ומשביעין",
+    })
+    resultat = verifier_citation(
+        quote("כל המענג את השבת נותנין לו נחלה בלי מצרים"), [ref_berakhot()], provider
+    )
+    finding = finding_de(resultat, "B1")
+    assert finding.subcategory == "reference_erronee"
+    assert finding.severity is Severity.P2_SIGNIFICANT
+
+
+def test_une_citation_introuvable_partout_garde_son_verdict():
+    provider = LocalProvider({"Berakhot.34a": BERAKHOT_34A})
+    resultat = verifier_citation(
+        quote("דבר שלא נאמר מעולם בשום מקום ואין לו שום מקור כלל"),
+        [ref_berakhot()], provider,
+    )
+    finding = finding_de(resultat, "B1")
+    assert finding.subcategory == "difference_substantielle"
+    assert finding.severity is Severity.P0_CRITICAL
