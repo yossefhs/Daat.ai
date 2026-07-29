@@ -19,7 +19,7 @@ import logging
 import re
 import sys
 
-from sqlalchemy import select
+from sqlalchemy import delete, func, select
 from sqlalchemy.orm import Session
 
 from .checks import Finding
@@ -36,7 +36,7 @@ from .models import (
     ParsedReference,
 )
 from .quotes import extract_quotes
-from .references import ParsedRef
+from .references import ParsedRef, extract_references
 from .sources import SefariaProvider
 from .sources.cache import CachedProvider
 
@@ -212,6 +212,43 @@ def _deja_signale(session: Session, page_id: int, finding: Finding) -> bool:
     ).scalar_one_or_none() is not None
 
 
+def reextraire_references(session: Session, simanim: list[int] | None = None) -> tuple[int, int]:
+    """Recalcule les références des blocs stockés. Retourne (avant, après).
+
+    Les références sont extraites **au moment du crawl** et conservées en base.
+    Corriger le moteur de références ne corrige donc pas les données déjà
+    écrites : après avoir appris que « כו׳ » est l'abréviation de וכולי et non
+    le numéral 26, les faux « Chabbat 26a » restaient en base et continuaient
+    de produire des signalements. Sans cette passe, une correction du moteur
+    n'a d'effet que sur les pages recollectées.
+    """
+    blocs = blocs_a_verifier(session, simanim)
+    ids = [b.id for b in blocs]
+    avant = session.execute(
+        select(func.count(ParsedReference.id)).where(ParsedReference.block_id.in_(ids))
+    ).scalar() or 0
+
+    session.execute(delete(ParsedReference).where(ParsedReference.block_id.in_(ids)))
+    apres = 0
+    for bloc in blocs:
+        for ref in extract_references(bloc.normalized_content):
+            session.add(ParsedReference(
+                block_id=bloc.id, raw_text=ref.raw_text, work=ref.work,
+                section=ref.section, siman=ref.siman, seif=ref.seif,
+                seif_katan=ref.seif_katan, daf=ref.daf, amud=ref.amud,
+                confidence=ref.confidence,
+                span_start=ref.span[0], span_end=ref.span[1],
+            ))
+            apres += 1
+    session.add(AuditLog(
+        user=None, action="analyse.reextraction_references",
+        justification=f"{len(blocs)} blocs : {avant} référence(s) → {apres}",
+    ))
+    session.commit()
+    logger.info("références réextraites : %s → %s", avant, apres)
+    return avant, apres
+
+
 def blocs_a_verifier(session: Session, simanim: list[int] | None = None,
                      limit: int | None = None) -> list[ContentBlock]:
     """Blocs de la version courante de chaque page, contenant de l'hébreu."""
@@ -338,6 +375,9 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--simanim", help="ex. 242-245 ou 242,250")
     parser.add_argument("--limit", type=int, help="nombre maximal de blocs examinés")
     parser.add_argument("--dry-run", action="store_true", help="n'écrit rien en base")
+    parser.add_argument("--reextraire-refs", action="store_true",
+                        help="recalcule les références avant d'analyser "
+                             "(nécessaire après une correction du moteur de références)")
     parser.add_argument("--verbose", "-v", action="store_true")
     args = parser.parse_args(argv)
 
@@ -353,6 +393,9 @@ def main(argv: list[str] | None = None) -> int:
     simanim = parse_simanim_arg(args.simanim) if args.simanim else None
 
     with factory() as session:
+        if args.reextraire_refs:
+            avant, apres = reextraire_references(session, simanim)
+            print(f"Références recalculées : {avant} → {apres}\n")
         findings = run_analyse(session, settings, simanim=simanim,
                                limit=args.limit, dry_run=args.dry_run)
 

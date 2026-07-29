@@ -324,3 +324,42 @@ def test_le_niveau_4_est_rapporte_au_choulhan_aroukh_harav(session, settings):
         page = Page(url="u", siman=242, langue="fr", niveau=niveau)
         ref = reference_implicite_du_siman(page, bloc, [])
         assert ref is not None and ref.sefaria_ref() == attendu
+
+
+# ── Réextraction des références ──────────────────────────────────────────
+
+def test_reextraire_les_references_corrige_les_donnees_deja_ecrites(session, settings):
+    """Les références sont extraites au CRAWL et conservées. Corriger le moteur
+    ne corrige donc pas ce qui est déjà en base : après avoir appris que « כו׳ »
+    est l'abréviation de וכולי et non le numéral 26, les faux « Chabbat 26a »
+    restaient stockés et continuaient de produire des signalements."""
+    from sqlalchemy import select as _select
+
+    from daat_audit.analyze import reextraire_references
+    from daat_audit.models import ContentBlock, ParsedReference
+
+    run_crawl(session, settings, transport=_transport(_page(VRAI_TEXTE)))
+    bloc = session.execute(_select(ContentBlock)).scalars().first()
+
+    # On simule une référence héritée d'une version fautive du moteur.
+    session.add(ParsedReference(block_id=bloc.id, raw_text="שבת כו'",
+                                work="Shabbat", daf="26", amud="a",
+                                confidence=0.9, span_start=0, span_end=8))
+    session.commit()
+    assert any(r.daf == "26" for r in
+               session.execute(_select(ParsedReference)).scalars())
+
+    reextraire_references(session)
+    assert not any(r.daf == "26" for r in
+                   session.execute(_select(ParsedReference)).scalars()), \
+        "la référence héritée d'un moteur fautif doit disparaître"
+
+
+def test_la_reextraction_est_journalisee(session, settings):
+    from sqlalchemy import select as _select
+
+    from daat_audit.analyze import reextraire_references
+    run_crawl(session, settings, transport=_transport(_page(VRAI_TEXTE)))
+    reextraire_references(session)
+    actions = [a.action for a in session.execute(_select(AuditLog)).scalars()]
+    assert "analyse.reextraction_references" in actions
