@@ -14,3 +14,8 @@ chiourim/
 # Système d'audit interne (audit-system/) : outillage, pas du contenu du site.
 # Sa base de données et son venv ne doivent jamais être servis par daattorah.com.
 audit-system/
+
+# Documents de travail de l'audit (classeur de relecture, passation, relevés).
+# Ils portent des constats sur des erreurs en cours de correction : servis
+# depuis daattorah.com, ils seraient lus comme du contenu du site.
+audit/
