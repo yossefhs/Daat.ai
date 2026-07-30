@@ -45,6 +45,7 @@ ACTIONS = {
     "reference": "approve",            # la référence est fausse — défaut réel
     "variante": "editorial_variant",   # variante d'édition ou d'orthographe
     "pas_citation": "false_positive",  # paraphrase, titre : la détection a tort
+    "aucune_erreur": "false_positive", # texte ET référence justes : signalement infondé
     "rav": "escalate",
     # Anciennes réponses, conservées pour relire un tri déjà rendu.
     "erreur": "approve",

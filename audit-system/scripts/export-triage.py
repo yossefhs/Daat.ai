@@ -50,7 +50,12 @@ REPONSES = [
     ("2", "reference", "Référence erronée ou mal rattachée",             "#B7791F"),
     ("3", "variante",  "Variante d'édition ou d'orthographe",            "#2C5282"),
     ("4", "pas_citation", "Paraphrase ou titre — ce n'est pas une citation", "#276749"),
-    ("5", "rav",       "À soumettre au Rav",                             "#1A1F3A"),
+    # Il manquait cette réponse : un cas où le texte ET la référence sont
+    # justes, et où c'est le signalement lui-même qui est infondé. Sans elle,
+    # il fallait détourner « variante » — ce qui faisait porter au texte un
+    # doute qu'il ne mérite pas.
+    ("5", "aucune_erreur", "Aucune erreur — texte et référence corrects",  "#2F855A"),
+    ("6", "rav",       "À soumettre au Rav",                             "#1A1F3A"),
 ]
 
 _GRAVITE = {"P0_CRITICAL": 0, "P1_MAJOR": 1, "P2_SIGNIFICANT": 2,

@@ -58,6 +58,63 @@ ABBREVIATIONS: dict[str, str] = {
     "וגו׳": "",
 }
 
+# Couples que la relecture a désignés comme des VARIANTES et non des erreurs :
+# abréviations développées, graphies concurrentes, formes morphologiques,
+# manières de nommer un maître, et terminologie éditoriale. Signaler « שלושה »
+# contre « שלשה » comme un mot remplacé était un contresens — et les classer
+# P1_MAJOR faisait porter au texte un soupçon qu'il ne mérite pas.
+VARIANTES_CONNUES: list[tuple[str, str]] = [
+    ("מג׳", "משלשה"), ("מג'", "משלשה"),
+    ("שלושה", "שלשה"), ("שלושים", "שלשים"),
+    ("שרפה", "שריפה"), ("מעטף", "מיעטף"),
+    ("בפניא", "אפניא"), ("ברבי", "בר"),
+    # Terminologie éditoriale : le site modernise, les éditions imprimées non.
+    ("עכו״ם", "גוי"), ('עכו"ם', "גוי"), ("נכרי", "גוי"), ("עכו״ם", "נכרי"),
+]
+
+
+# Forme retenue pour chaque famille de variantes. La canonicalisation a lieu
+# AVANT la comparaison : sinon une variante longue — « מג׳ » contre « משלשה »,
+# « עכו״ם » contre « גוי » — fait chuter le taux de similarité et le verdict
+# tombe dans « variante possible », le même seau que les vraies erreurs. Les
+# ramener à une forme unique dès la normalisation les rend simplement égales.
+_CANON: dict[str, str] = {
+    "מג׳": "משלשה", "מג'": "משלשה",
+    "שלושה": "שלשה", "שלושים": "שלשים",
+    "שרפה": "שריפה", "מעטף": "מיעטף",
+    "בפניא": "אפניא", "ברבי": "בר",
+    "עכו״ם": "גוי", 'עכו"ם': "גוי", "נכרי": "גוי",
+}
+_RE_CANON = re.compile(
+    "(?<![א-ת])(" + "|".join(sorted((re.escape(k) for k in _CANON), key=len, reverse=True)) + ")(?![א-ת])"
+)
+
+
+def canonicaliser(text: str) -> str:
+    """Ramène les variantes connues à une forme unique, pour comparaison."""
+    return _RE_CANON.sub(lambda m: _CANON[m.group(1)], text)
+
+
+def sont_variantes(a: str, b: str) -> bool:
+    """Ces deux mots sont-ils deux graphies d'une même chose ?
+
+    Trois familles, toutes désignées par la relecture : les abréviations
+    développées (מג׳ / משלשה), les graphies concurrentes d'un même mot
+    (שלושה / שלשה, שרפה / שריפה, מעטף / מיעטף), et la terminologie éditoriale
+    (עכו״ם / גוי), que le site modernise là où les éditions imprimées ne le
+    font pas.
+    """
+    a, b = a.strip(), b.strip()
+    if a == b:
+        return True
+    for x, y in VARIANTES_CONNUES:
+        if {a, b} == {x, y}:
+            return True
+    # Graphie pleine/défective d'un même mot : déjà traitée ailleurs, reprise
+    # ici pour que le diff mot à mot en bénéficie aussi.
+    return defective_letters(a) == defective_letters(b) and bool(a) and bool(b)
+
+
 # Marqueurs de coupe : « A… B » signifie que A et B sont chacun littéraux.
 ELLIPSIS = re.compile(r"…|\.\.\.|וכו[׳']|\bכו[׳']")
 
@@ -119,6 +176,7 @@ def normalize(text: str, *, drop_nikud: bool = True, drop_punct: bool = True) ->
     text = unicodedata.normalize("NFC", text)
     text = _apply_equivalents(text)
     text = expand_abbreviations(text)
+    text = canonicaliser(text)
     if drop_nikud:
         text = strip_nikud(text)
     if drop_punct:
@@ -242,14 +300,17 @@ def _diff_words(part: str, source: str, needle: str, haystack: str
             if tag != "replace":
                 continue
             avant, apres = " ".join(q_words[i1:i2]), " ".join(s_words[j1:j2])
-            # Un couple qui ne diffère que par une mère de lecture n'est pas un
-            # mot remplacé : l'annoncer comme tel ferait lire un second défaut
-            # là où il n'y en a qu'un (« קדשת » → « קדושת »).
-            if defective_letters(avant) == defective_letters(apres):
+            # Mère de lecture, abréviation développée, graphie concurrente,
+            # terminologie éditoriale : ce ne sont pas des mots remplacés.
+            if sont_variantes(avant, apres):
                 continue
             replaced.append(f"« {avant} » → « {apres} »")
-        return (Verdict.MOT_REMPLACE, ratio,
-                " ; ".join(replaced[:2]) or "mots différents")
+        if not replaced:
+            # Tous les écarts étaient des variantes connues : le texte est
+            # littéral à la graphie près, et le signaler serait un contresens.
+            return (Verdict.DIFF_ORTHOGRAPHE, ratio,
+                    "variantes de graphie ou de terminologie uniquement")
+        return (Verdict.MOT_REMPLACE, ratio, " ; ".join(replaced[:2]))
 
     if ratio >= 0.75:
         if sorted(q_words) and set(q_words) <= set(s_words):

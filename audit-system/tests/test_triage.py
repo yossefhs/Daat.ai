@@ -32,7 +32,12 @@ def test_les_categories_distinguent_ce_que_le_moteur_confondait():
     référence mal rattachée, une variante et un titre éditorial ne sont pas la
     même chose. Les confondre présentait 123 artefacts comme 123 erreurs."""
     codes = [code for _, code, _, _ in exp.REPONSES]
-    assert codes == ["contenu", "reference", "variante", "pas_citation", "rav"]
+    assert codes == ["contenu", "reference", "variante", "pas_citation",
+                     "aucune_erreur", "rav"]
+    # « aucune erreur » manquait : sans elle, un signalement infondé devait
+    # être rendu en « variante », ce qui faisait porter au texte un doute
+    # qu'il ne mérite pas.
+    assert imp.ACTIONS["aucune_erreur"] == "false_positive"
     # Une référence fautive est un défaut réel ; un titre ne l'est pas.
     assert imp.ACTIONS["reference"] == "approve"
     assert imp.ACTIONS["pas_citation"] == "false_positive"

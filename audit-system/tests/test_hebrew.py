@@ -146,3 +146,25 @@ def test_le_diff_se_limite_au_passage_correspondant():
     # La seule autre différence est une graphie pleine : elle ne doit pas être
     # présentée comme un second mot remplacé.
     assert "קדשת" not in detail
+
+
+def test_les_variantes_designees_par_la_relecture_ne_sont_plus_des_ecarts():
+    """La relecture a listé des couples classés à tort P1_MAJOR : abréviations
+    développées, graphies concurrentes, formes morphologiques, terminologie
+    éditoriale. La canonicalisation a lieu AVANT la comparaison — sinon une
+    variante longue fait chuter le ratio et le verdict tombe dans le même seau
+    que les vraies erreurs."""
+    for q, s in [
+        ("אסור להשהות מג׳ ימים", "אסור להשהות משלשה ימים"),
+        ("הרגיל בנר בנים שלושה", "הרגיל בנר בנים שלשה"),
+        ("רבי חנינא מעטף וקאי בפניא", "רבי חנינא מיעטף וקאי אפניא"),
+        ("אמר רב חסדא ברבי אילעאי", "אמר רב חסדא בר אילעאי"),
+    ]:
+        assert compare(q, s)[0] is Verdict.IDENTIQUE, q
+
+
+def test_une_vraie_substitution_reste_signalee():
+    """Le garde-fou : adoucir les variantes ne doit pas éteindre les erreurs."""
+    verdict, _, _ = compare("ואם בא לומר בסוף כל ברכה",
+                            "ואם בא לשוח בסוף כל ברכה")
+    assert verdict is not Verdict.IDENTIQUE
