@@ -120,3 +120,50 @@ Cette convention n'est pas cosmétique. Avant elle, les cellules des tableaux co
 Une ellipse à l'intérieur de guillemets reste légitime — `« A… B »` signifie que A et B sont l'un et l'autre littéraux. Le script vérifie chaque tronçon séparément.
 
 ⚠️ Un verdict **OK** signifie que le texte cité existe à la référence donnée — **pas** que le raisonnement halakhique qui l'entoure est juste, ni que l'attribution (« אמר רבא », « הגהת הרמ״א ») est la bonne. Le script attrape les citations fabriquées et les dafim faux ; il n'attrape pas une citation exacte mise au service d'une conclusion fausse. Cela reste du ressort de la relecture du Rav (`audit/relecture-rav.md`).
+
+## verifier-traductions.py
+
+Repère les traductions **tronquées** — l'hébreu est intact, le français s'arrête en chemin.
+
+Ni `audit-simanim.py` ni `verifier-citations.py` ne peuvent voir ce défaut : le premier ne regarde pas le contenu, le second conclut « conforme » précisément parce que l'hébreu est parfait. C'est arrivé au siman 271 séif ד, où les trois propositions portant la conclusion pratique sur la répétition de HaMotsi n'avaient aucun équivalent français.
+
+```bash
+python3 scripts/verifier-traductions.py              # tout le site
+python3 scripts/verifier-traductions.py --siman 271
+python3 scripts/verifier-traductions.py --quiet      # totaux seuls
+```
+
+Chaque bloc source est apparié à la traduction qui le suit, et deux choses sont signalées : une **traduction anormalement courte** par rapport à l'hébreu, et des **parenthèses de source non reprises** (`(ב״י)`, `(אורח חיים בשם תוס')` — le Mehaber y attribue ses sources).
+
+Le seuil n'est pas deviné : c'est le **décile inférieur de la distribution réelle du site** (ratio médian lettres latines / lettres hébraïques ≈ 1,30, décile ≈ 0,81). On signale ce qui sort de l'usage constaté, et non ce qui s'écarte d'une idée a priori de ce que devrait être une traduction.
+
+⚠️ Un ratio normal ne veut pas dire que la traduction est fidèle — seulement qu'elle a la longueur attendue. Une traduction de la bonne longueur et du mauvais sens passe.
+
+## verifier-syntheses.py
+
+Cherche les **synthèses qui contredisent le corps de leur propre page**.
+
+Au siman 271, les « règles à retenir » disaient « Mehaber avant — kiddush ; Rama après », alors que SA OH 271:12 porte l'inverse. Le corps de la page était juste ; seule la ligne de synthèse était fausse — celle que le lecteur emporte. Aucune citation n'était fautive, aucune traduction n'était courte : les trois autres gates étaient verts, et il a fallu qu'un lecteur tique.
+
+```bash
+python3 scripts/verifier-syntheses.py
+python3 scripts/verifier-syntheses.py --siman 271
+python3 scripts/verifier-syntheses.py --fichier CHEMIN   # p. ex. une version git antérieure
+```
+
+Le script ne comprend pas le sens. Il exploite une régularité : le Mehaber et le Rama sont souvent opposés sur un couple **ordonné** (avant/après, permis/interdit). Quand une ligne de synthèse attribue un terme à chacun, cette attribution peut être confrontée au corps de la page, où le texte du Mehaber précède la hagaha `הגה :` et où les marqueurs hébreux sont repérables.
+
+Deux précautions, apprises de deux versions qui donnaient un résultat **inversé** :
+
+- **Découpage par séif, jamais par page.** Un siman compte une hagaha par séif ou presque ; prendre la première de la page revient à confronter la synthèse au texte d'un séif sans rapport.
+- **Deux termes contraires ne font pas une opposition.** Au séif 271:5 le Mehaber écrit `קודם שיקדשו` à propos de boire et le Rama `לאחר שבירך` à propos de HaMotsi : mots contraires, sujets différents, aucune divergence — et ce faux couple suffisait à faire taire le vrai. On exige donc un mot substantiel commun au voisinage des deux marqueurs (ici `ידיו`).
+
+Aucun appariement par sujet n'est tenté : une ligne n'est signalée que si **un séif de sa page la contredit exactement** et qu'**aucun autre ne la soutient**. Le silence est le comportement par défaut.
+
+### Sa portée, mesurée et non supposée
+
+Sur 988 pages françaises et 2683 séifim, 281 lignes citent les deux autorités — dont **7** attribuent un terme à chacune, et **1** se trouve dans une page dont un séif oppose les mêmes termes sur le même acte. Le facteur limitant est structurel : **417 séifim seulement sur 2683 reproduisent une hagaha**, faute de quoi il n'y a pas de position du Rama à confronter.
+
+C'est donc un **garde-fou de non-régression**, pas un gate de site — et le script imprime cette portée avec son résultat, pour qu'un « 0 contradiction » ne se lise jamais comme « les synthèses sont vérifiées ». Elles ne le sont pas.
+
+Il a été validé **dans les deux sens** : silencieux sur le siman 271 corrigé, et signalant l'inversion sur la version antérieure du même fichier (`git show 95c9f2e:sources/shabbat/siman-271/niveau-1-base.html`). Les deux premières versions échouaient à ce test en donnant le résultat exactement inverse ; c'est ce qui a imposé les deux précautions ci-dessus.
