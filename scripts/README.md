@@ -177,3 +177,33 @@ Sur 988 pages françaises et 2683 séifim, 281 lignes citent les deux autorités
 C'est donc un **garde-fou de non-régression**, pas un gate de site — et le script imprime cette portée avec son résultat, pour qu'un « 0 contradiction » ne se lise jamais comme « les synthèses sont vérifiées ». Elles ne le sont pas.
 
 Il a été validé **dans les deux sens** : silencieux sur le siman 271 corrigé, et signalant l'inversion sur la version antérieure du même fichier (`git show 95c9f2e:sources/shabbat/siman-271/niveau-1-base.html`). Les deux premières versions échouaient à ce test en donnant le résultat exactement inverse ; c'est ce qui a imposé les deux précautions ci-dessus.
+
+
+## verifier-alignement.py
+
+Confronte l'hébreu de chaque bloc d'une page au Choul'han Aroukh, pour répondre à une question qu'aucun autre gate ne pose : **ce bloc est-il bien le séif qu'on croit ?**
+
+Une traduction peut être irréprochable et rester fausse si elle est posée sous le mauvais séif — le lecteur voit un texte hébreu et un texte français, tous deux justes, qui ne parlent pas de la même chose. `verifier-citations` juge les citations, `verifier-traductions` juge les longueurs ; ni l'un ni l'autre ne sait à quel séif un bloc correspond.
+
+```bash
+python3 scripts/verifier-alignement.py --siman 310
+python3 scripts/verifier-alignement.py --section shabbat
+```
+
+### Trois formulations, dont deux fausses
+
+Le chemin jusqu'à un contrôle utilisable mérite d'être noté, parce que chaque étape produisait un chiffre crédible et faux.
+
+**Comparer le rang du bloc au numéro du séif** → 42 « décalages », aucun réel. Une page peut grouper trois séifim sous un seul bloc — le siman 263 le fait pour ז–ט — et le rang cesse alors de suivre la numérotation sans la moindre erreur.
+
+**Se fier au titre que la page donne au bloc** → 320 faux signalements, pire encore : la plupart des séifim n'ont pas de titre propre, et les blocs héritaient d'un titre lointain.
+
+**Ne rien supposer de la numérotation** — la seule qui tienne. Deux questions auxquelles on peut répondre sans hypothèse : l'hébreu du bloc existe-t-il dans ce siman, et les blocs se suivent-ils dans l'ordre de la source ? Un retour en arrière signale un bloc déplacé ou dupliqué.
+
+Il a fallu en outre écarter ce qui n'est pas un séif mais partage son balisage : Michna Beroura (295 blocs), sugyot ouvrant par `תנו רבנן`, blocs citant leur propre massekhet. Et comparer **par mots et non par chaîne** — la page écrit `אַף עַל פִּי` en toutes lettres là où la source abrège `אע״פ`, et une comparaison littérale échouait dès la première abréviation.
+
+Trajectoire : **436 → 158 → 42 → 320 → 12 → 8**. Chaque baisse est une correction de l'instrument, aucune n'est une amélioration du site.
+
+### Sa portée
+
+8 écarts subsistent dans 4 pages, et les quatre examinés sont légitimes — récapitulations reprenant le séif 1 en fin de page, citations de guemara non filtrées. C'est un **plancher de bruit**, pas une liste d'erreurs : un décalage nouvellement introduit ressortirait au-dessus.
