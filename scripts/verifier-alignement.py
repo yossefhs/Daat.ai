@@ -71,35 +71,6 @@ RE_TAG = re.compile(r"<[^>]*>")
 # franchit l'abréviation, le nikoud et la graphie pleine.
 MOTS_TEMOINS = 14
 SEUIL = 0.55
-RE_TITRE = re.compile(r"<(h[2-5])[^>]*>(?P<t>(?:(?!</?h[2-5]).)*?)</\1>", re.S | re.I)
-_LETTRES = ("alef beit bet guimel gimel daled dalet he hei vav zayin het chet tet yod "
-            "yad yb yg").split()
-_HE = "א ב ג ד ה ו ז ח ט י".split()
-_TRANSLIT = {"alef": 1, "beit": 2, "bet": 2, "guimel": 3, "gimel": 3, "daled": 4,
-             "dalet": 4, "he": 5, "hei": 5, "vav": 6, "zayin": 7, "het": 8,
-             "chet": 8, "tet": 9, "yod": 10}
-_GEM = {c: i + 1 for i, c in enumerate(_HE)}
-
-
-def seifim_du_titre(titre: str) -> set[int]:
-    """Les numéros de séif qu'un titre revendique — chiffres, translittération
-    ou lettres hébraïques, y compris les plages « Seifim Zayin–Tet »."""
-    if not re.search(r"s[eé]if|סעיף", titre, re.I):
-        return set()
-    nums = {int(x) for x in re.findall(r"\b(\d{1,2})\b", titre)}
-    for mot in re.findall(r"[A-Za-zÀ-ÿ]+", titre.lower()):
-        if mot in _TRANSLIT:
-            nums.add(_TRANSLIT[mot])
-    for c in re.findall(r"(?<![א-ת])([א-י])(?![א-ת])", titre):
-        nums.add(_GEM[c])
-    if len(nums) == 2 and re.search(r"[–—-]", titre):
-        a, b = sorted(nums)
-        nums = set(range(a, b + 1))
-    return nums
-# Les pages reproduisent aussi le commentaire, dans le même balisage que les
-# séifim. Le confronter au Choul'han Aroukh n'aurait aucun sens : la Michna
-# Beroura n'y figure évidemment pas. Sans ce filtre, 295 blocs de commentaire
-# ressortaient en « introuvable » et noyaient les vrais décalages.
 # Les pages reproduisent aussi du commentaire et des sugyot, dans le même
 # balisage que les séifim. Deux formes à écarter : l'attribution nommée — qui
 # peut se trouver en fin de bloc autant qu'au début, d'où la recherche libre —
@@ -146,21 +117,10 @@ def seifim(livre: str, n: int) -> list[str] | None:
     return out
 
 
-def blocs(chemin: pathlib.Path) -> list[tuple[str, set]]:
-    """(texte du bloc, séifim revendiqués par le titre qui le précède)."""
+def blocs(chemin: pathlib.Path) -> list[str]:
     html = chemin.read_text(encoding="utf-8")
-    titres = [(m.start(), seifim_du_titre(
-        re.sub(r"\s+", " ", RE_TAG.sub(" ", m.group("t"))).strip()))
-        for m in RE_TITRE.finditer(html)]
-    out = []
-    for m in RE_BLOC.finditer(html):
-        revendique = set()
-        for pos, nums in titres:
-            if pos < m.start() and nums:
-                revendique = nums
-        out.append((re.sub(r"\s+", " ", RE_TAG.sub(" ", m.group("contenu"))).strip(),
-                    revendique))
-    return out
+    return [re.sub(r"\s+", " ", RE_TAG.sub(" ", m.group("contenu"))).strip()
+            for m in RE_BLOC.finditer(html)]
 
 
 def examiner(chemin: pathlib.Path, livre: str, n: int) -> tuple[int, list[str]]:
@@ -168,7 +128,7 @@ def examiner(chemin: pathlib.Path, livre: str, n: int) -> tuple[int, list[str]]:
     if not src:
         return 0, []
     ecarts, vus, dernier = [], 0, 0
-    for i, (b, revendique) in enumerate(blocs(chemin), 1):
+    for i, b in enumerate(blocs(chemin), 1):
         nu = re.sub(r"^[\s\"'«»]+", "", lettres_mots(b))
         if COMMENTAIRE.search(b) or TALMUD.match(nu) or MASSEKHET.search(b):
             continue          # commentaire ou sugya, non séif : hors du périmètre
