@@ -15,11 +15,16 @@ aucun équivalent français. Aucun contrôle automatique ne pouvait le dire.
 Ce script apparie chaque bloc de texte source à la traduction qui le suit et
 signale deux choses :
 
-1. **Traduction anormalement courte** par rapport à l'hébreu. Le seuil n'est
+1. **Séif non traduit du tout** — l'hébreu est reproduit, et la traduction
+   renvoie ailleurs (« Voir l'analyse pratique : ce seif traite de… ») au lieu
+   de rendre le texte. Cela se constate exactement, sans seuil.
+2. **Traduction anormalement courte** par rapport à l'hébreu. Le seuil n'est
    pas deviné : il est calculé sur la distribution réelle du site (décile
    inférieur), de sorte qu'on signale ce qui sort de l'usage constaté et non
-   ce qui s'écarte d'une idée a priori.
-2. **Parenthèses de source non reprises** — « (ב״י) », « (אורח חיים בשם תוס') ».
+   ce qui s'écarte d'une idée a priori. Les lettres hébraïques de la
+   traduction comptent : le site garde en hébreu les termes techniques, et les
+   ignorer pénalisait exactement les pages les plus fidèles à cet usage.
+3. **Parenthèses de source non reprises** — « (ב״י) », « (אורח חיים בשם תוס') ».
    Le Mehaber y attribue ses sources ; les laisser tomber prive le lecteur de
    l'appareil critique.
 
@@ -67,10 +72,25 @@ def paires(chemin: pathlib.Path) -> list[tuple[str, str]]:
     return out
 
 
+# Une « traduction » qui renvoie ailleurs au lieu de rendre le texte. Ce n'est
+# pas une traduction courte : c'est une absence de traduction, et elle se
+# constate exactement — sans seuil ni statistique.
+NON_TRADUIT = re.compile(
+    r"Voir l'analyse pratique|See the practical analysis|ראה הניתוח המעשי"
+    r"|ce seif (?:traite|fait partie)", re.I)
+
+
 def mesurer(source: str, trad: str) -> tuple[int, int, float]:
+    """Longueur de la traduction rapportée à celle de la source.
+
+    Les lettres hébraïques de la *traduction* comptent autant que les latines :
+    l'usage du site est de garder en hébreu les termes techniques — « on dit
+    ברוך שאמר avant les פסוקי דזמרה » traduit tout, et ne pas compter ces
+    lettres faisait chuter le ratio d'une traduction complète. Le biais visait
+    précisément les pages les plus fidèles à cet usage."""
     he = len(HEBREU.findall(source))
-    fr = len(LATIN.findall(trad))
-    return he, fr, (fr / he if he else 0.0)
+    rendu = len(LATIN.findall(trad)) + len(HEBREU.findall(trad))
+    return he, rendu, (rendu / he if he else 0.0)
 
 
 def main() -> int:
@@ -93,7 +113,8 @@ def main() -> int:
                 continue          # trop court pour conclure
             p_src = len(RE_PAREN_HE.findall(src))
             p_trad = trad.count("(")
-            mesures.append((f, i, src, he, fr, ratio, p_src, p_trad))
+            mesures.append((f, i, src, he, fr, ratio, p_src, p_trad,
+                            bool(NON_TRADUIT.search(trad))))
 
     if not mesures:
         print("Aucune paire source/traduction trouvée.", file=sys.stderr)
@@ -102,14 +123,23 @@ def main() -> int:
     ratios = sorted(m[5] for m in mesures)
     seuil = statistics.quantiles(ratios, n=10)[0] if len(ratios) >= 10 else min(ratios)
 
-    courtes = [m for m in mesures if m[5] < seuil]
-    parenth = [m for m in mesures if m[6] > 0 and m[7] < m[6]]
+    absentes = [m for m in mesures if m[8]]
+    courtes = [m for m in mesures if m[5] < seuil and not m[8]]
+    parenth = [m for m in mesures if m[6] > 0 and m[7] < m[6] and not m[8]]
 
     print(f"{len(mesures)} paire(s) source/traduction examinée(s) "
           f"dans {len(fichiers)} page(s)")
-    print(f"Ratio médian lettres latines / lettres hébraïques : "
+    print(f"Ratio médian (lettres rendues / lettres de la source) : "
           f"{statistics.median(ratios):.2f}")
-    print(f"Seuil (décile inférieur, calculé sur le site) : {seuil:.2f}\n")
+    print(f"Seuil (décile inférieur, calculé sur le site) : {seuil:.2f}")
+    if absentes:
+        pages = sorted({m[0].relative_to(RACINE) for m in absentes})
+        print(f"\n⛔ {len(absentes)} séif(s) reproduit(s) en hébreu et NON TRADUIT(s) "
+              f"— la traduction renvoie ailleurs au lieu de rendre le texte")
+        print(f"   dans {len(pages)} page(s) : "
+              + ", ".join(str(p).split('/')[1] for p in pages[:12])
+              + (" …" if len(pages) > 12 else ""))
+    print()
 
     if not args.quiet:
         for titre, lot, detail in (
@@ -128,8 +158,8 @@ def main() -> int:
             print()
 
     total = len({(m[0], m[1]) for m in courtes + parenth})
-    print(f"{total} bloc(s) à revoir.")
-    return 1 if total else 0
+    print(f"{total} bloc(s) à revoir · {len(absentes)} séif(s) non traduit(s).")
+    return 1 if total or absentes else 0
 
 
 if __name__ == "__main__":

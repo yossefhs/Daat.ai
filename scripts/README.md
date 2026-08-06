@@ -133,9 +133,19 @@ python3 scripts/verifier-traductions.py --siman 271
 python3 scripts/verifier-traductions.py --quiet      # totaux seuls
 ```
 
-Chaque bloc source est apparié à la traduction qui le suit, et deux choses sont signalées : une **traduction anormalement courte** par rapport à l'hébreu, et des **parenthèses de source non reprises** (`(ב״י)`, `(אורח חיים בשם תוס')` — le Mehaber y attribue ses sources).
+Chaque bloc source est apparié à la traduction qui le suit, et trois choses sont signalées.
 
-Le seuil n'est pas deviné : c'est le **décile inférieur de la distribution réelle du site** (ratio médian lettres latines / lettres hébraïques ≈ 1,30, décile ≈ 0,81). On signale ce qui sort de l'usage constaté, et non ce qui s'écarte d'une idée a priori de ce que devrait être une traduction.
+**Séif non traduit du tout.** L'hébreu est reproduit et la traduction renvoie ailleurs — « Voir l'analyse pratique : ce seif traite de… » — au lieu de rendre le texte. Cela se constate exactement, sans seuil ni statistique. Au siman 301, **2 séifim sur 51** ont une traduction ; les 49 autres portent ce renvoi.
+
+**Traduction anormalement courte.** Le seuil n'est pas deviné : c'est le **décile inférieur de la distribution réelle du site**. On signale ce qui sort de l'usage constaté, et non ce qui s'écarte d'une idée a priori.
+
+**Parenthèses de source non reprises** — `(ב״י)`, `(אורח חיים בשם תוס')`, où le Mehaber attribue ses sources.
+
+### Un biais corrigé, et ce qu'il enseigne
+
+La première version comptait les **lettres latines** de la traduction contre les lettres hébraïques de la source. Or l'usage du site est de garder en hébreu les termes techniques : « On dit ברוך שאמר avant les פסוקי דזמרה » traduit tout, mais ne marquait presque aucune lettre latine. Le ratio pénalisait donc exactement les pages les plus fidèles à cet usage.
+
+Sur quatre blocs signalés pris au hasard, les quatre étaient des traductions **complètes et correctes**. Les lettres hébraïques de la traduction comptent désormais autant que les latines : 35 blocs ont été blanchis, 35 autres sont apparus — et c'est parmi ces derniers que se trouvaient les séifim purement non traduits.
 
 ⚠️ Un ratio normal ne veut pas dire que la traduction est fidèle — seulement qu'elle a la longueur attendue. Une traduction de la bonne longueur et du mauvais sens passe.
 
