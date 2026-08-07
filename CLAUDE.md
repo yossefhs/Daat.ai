@@ -15,6 +15,12 @@ Elle comporte, au minimum :
 
 Le script `scripts/verify-oh-source.py N [N...]` automatise la confrontation aux sources pour le compartiment `oh-quotidien` ; le lancer sur chaque lot avant de proposer la mise en ligne.
 
+### ⚠️ Lacune du Choul'han Aroukh HaRav dans `oh-quotidien` (niveau-4 = page-pont 🌉)
+
+Le Choul'han Aroukh HaRav (Admour HaZaken) **ne couvre pas tout Orah Haïm** : il y a des blocs entiers qu'il n'a pas rédigés. Dans le compartiment `oh-quotidien`, la première lacune connue est **les simanim 132 à 154** (il s'arrête au 131 et reprend au 155) ; d'autres trous suivent (ex. 157, 170-179, 210, 220, 240, 420…). **AVANT de produire un niveau-4, toujours vérifier le nombre de seifim SA HaRav** : `curl -s "https://www.sefaria.org/api/texts/Shulchan_Arukh_HaRav,_Orach_Chayim.N?context=0&pad=0"` → si `he` est vide (0 seif), l'Admour HaZaken **n'a pas écrit ce siman**.
+
+Dans ce cas, **NE JAMAIS fabriquer de texte SA HaRav** (règle anti-fabrication ABSOLUE). Le niveau-4 devient une **page-passerelle sobre** (🌉), générée par `scripts/gen-bridge.py` (ou `/tmp/gen-bridge.py`) : elle explique honnêtement l'absence, renvoie aux niveaux 1-3 (Mehaber/Rama) et au **Siddour de l'Admour HaZaken** (où sa pratique sur la tefila est consignée), **sans aucune citation reconstruite ni le mot « n'existe pas sur Sefaria »**. Les niveaux 1-3 + index restent des pages normales (contenu Mehaber/Rama). `verify-oh-source.py` passe alors avec 0 seif attendu = 0 bloc `seif-details`. Décision utilisateur (2026) : **page-pont sobre**, pas de reconstruction façon 304/322.
+
 ## Commands
 
 ```bash
