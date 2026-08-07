@@ -35,7 +35,7 @@ L'hébreu est reproduit, et la traduction renvoie ailleurs (« Voir l'analyse pr
 
 ## 2. Classeur du Rav — 40 entrées non closes
 
-Déjà confrontées à la page : **47** — dont 26 déjà-juste, 16 appliqué, 5 non-tranché (registre : `audit/classeur-traite.txt`).
+Déjà confrontées à la page : **48** — dont 26 déjà-juste, 21 appliqué, 1 non-tranché (registre : `audit/classeur-traite.txt`).
 
 | Décision | Nombre |
 |---|---|
@@ -52,10 +52,8 @@ Simanim les plus concernés : 296 (4), 295 (3), 6 (2), 246 (2), 280 (2), 286 (2)
 
 Marqués « À vérifier par le Rav » directement dans les pages :
 
-- **shabbat/siman-273** — … s'ils ne savent pas faire le kiddush eux-mêmes — « אין לו לקדש לאחרים לכתחלה אלא אם כן הם אינם יודעים » (SAR 273:6). La marge en cas de nécessité : à
-- **shabbat/siman-274** — …elle du dessus — jour de Shabbat et nuit de Yom Tov — et, le vendredi soir, de disposer les pains de sorte que celle du dessous soit la plus proche. À
 - **shabbat/siman-274** — …ajouté ne fait pas un lehem michné — lehem michné veut dire deux pains entiers ; et l'on ne coupera pas le pain entier en deux pour en simuler deux. À
-- **shabbat/siman-274** — …ins entiers prêts à être consommés pour chaque repas. En cas d'oubli ou de nécessité, il existe des avis permettant d'y associer une halla congelée. À
+- **shabbat/siman-274** — …'elle décongèlera pendant le repas. En pratique, disposant de deux pains frais entiers, il est préférable de les utiliser. Les poskim précis restent à
 
 ## 4. Non tranchés faute de localisation sûre
 
