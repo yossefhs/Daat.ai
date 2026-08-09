@@ -1,6 +1,6 @@
 # Ce qui reste à corriger
 
-*Généré le 2026-08-07 par `scripts/reste-a-corriger.py` — ne pas éditer à la main.*
+*Généré le 2026-08-09 par `scripts/reste-a-corriger.py` — ne pas éditer à la main.*
 
 Chaque chiffre est relu depuis sa source à l'exécution : les pages du site, le classeur du Rav, les gates. Un inventaire tenu à la main devient faux dès la première correction appliquée, et un inventaire faux est pire que pas d'inventaire — il donne l'impression qu'on sait où l'on en est.
 
@@ -10,7 +10,7 @@ Il inventorie ce que les instruments savent voir. Le siman 273 avait **quatre ga
 
 Quatre simanim sur 174 ont été relus au fond — 271, 272, 273, 274. Les autres ne l'ont jamais été.
 
-## 1. Séifim non traduits — 226
+## 1. Séifim non traduits — 190
 
 L'hébreu est reproduit, et la traduction renvoie ailleurs (« Voir l'analyse pratique : ce seif traite de… ») au lieu de rendre le texte. Le lecteur francophone a le texte hébreu et rien d'autre.
 
@@ -26,10 +26,6 @@ L'hébreu est reproduit, et la traduction renvoie ailleurs (« Voir l'analyse pr
 | 306 | 13 |
 | 320 | 12 |
 | 315 | 11 |
-| 314 | 10 |
-| 316 | 10 |
-| 312 | 8 |
-| 313 | 8 |
 
 **Méthode établie** : vérifier l'alignement bloc↔séif avant d'écrire (`verifier-alignement.py`), traduire depuis l'hébreu de la page, recouper contre la traduction anglaise de Sefaria quand elle existe, vérifier qu'il ne reste aucun renvoi.
 
@@ -68,7 +64,7 @@ La page y **paraphrase au lieu de citer**, de sorte que la comparaison littéral
 | orah-haim/37 | `קרקפתא דלא מנח תפילין` absent du ראש השנה י״ז. de Sefaria, alors que les éditions courantes l'y portent — divergence de découpage probable |
 | orah-haim/66 | `אינו ניזוק כל היום כולו` est la formulation du Yerushalmi ; citation composite portant des guillemets |
 
-## 5. Traductions courtes à échantillonner — 169 blocs
+## 5. Traductions courtes à échantillonner — 226 blocs
 
 Signalées par le décile inférieur de la distribution du site. **Ce ne sont pas des erreurs** : la dernière fois qu'une liste de ce type a été échantillonnée, les quatre blocs tirés étaient corrects et le défaut venait de l'instrument. À échantillonner avant d'en conclure quoi que ce soit.
 
