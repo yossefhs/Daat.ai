@@ -391,6 +391,12 @@ def straight_pairs(s):
 RE_PREFIX = re.compile(r'^[^"«„]{0,90}?[:—–-]\s*(?=["«„])')
 
 
+# Le JSON-LD des pages porte un champ "description" qui résume le siman et cite
+# souvent un fragment entre guillemets. C'est une métadonnée SEO, pas du contenu
+# affiché : elle n'a pas à être jugée comme une citation.
+SCRIPT_LD = re.compile(r'<script[^>]+application/ld\+json[^>]*>.*?</script>', re.S | re.I)
+
+
 def flatten_html(text):
     """Rend le texte visible en conservant les marqueurs de citation sous forme « … »."""
     def repl(m):
@@ -442,6 +448,7 @@ def quotes_in(text):
     citation sur sa propre ligne, et un guillemet non apparié ailleurs dans la page
     ne peut donc pas décaler l'appariement de toutes les suivantes.
     """
+    text = SCRIPT_LD.sub(lambda m: '\n' * m.group(0).count('\n'), text)
     for lineno, line in enumerate(text.split('\n'), 1):
         plain = flatten_html(line)
         if not re.search(r'[א-ת]', plain):

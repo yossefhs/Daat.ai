@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DAAT — Audit interne</title>
+<style>
+  /* Identité visuelle du site : Navy, Or, Crème. Aucune ressource externe :
+     l'outil doit fonctionner hors ligne, derrière un pare-feu. */
+  :root {
+    --navy: #1A1F3A; --or: #C5A55A; --creme: #FAF6EE;
+    --rouge: #9B2C2C; --ambre: #B7791F; --vert: #276749; --gris: #6B7280;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--creme); color: var(--navy);
+    font: 15px/1.55 "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  }
+  header {
+    background: var(--navy); color: var(--creme);
+    padding: 14px 22px; display: flex; gap: 16px; align-items: center;
+    flex-wrap: wrap; position: sticky; top: 0; z-index: 10;
+  }
+  header h1 { font-size: 19px; margin: 0; letter-spacing: .04em; }
+  header .or { color: var(--or); }
+  .grow { flex: 1; }
+  input, select, button, textarea {
+    font: inherit; padding: 6px 9px; border: 1px solid #cfc7b4;
+    border-radius: 4px; background: #fff; color: var(--navy);
+  }
+  header input, header select { background: #2a3050; color: var(--creme); border-color: #3b4269; }
+  button { cursor: pointer; background: var(--navy); color: var(--creme); border-color: var(--navy); }
+  button.ghost { background: transparent; color: var(--navy); border-color: #cfc7b4; }
+  button:disabled { opacity: .45; cursor: not-allowed; }
+  main { display: grid; grid-template-columns: minmax(320px, 400px) 1fr; gap: 0; }
+  @media (max-width: 860px) { main { grid-template-columns: 1fr; } }
+  #liste { border-right: 1px solid #e3dcc9; max-height: calc(100vh - 58px); overflow-y: auto; }
+  .item { padding: 11px 16px; border-bottom: 1px solid #ece5d4; cursor: pointer; }
+  .item:hover { background: #f3ecd9; }
+  .item.actif { background: #fff; border-left: 3px solid var(--or); }
+  .item .meta { font-size: 12.5px; color: var(--gris); display: flex; gap: 8px; flex-wrap: wrap; }
+  .item .txt { margin-top: 3px; font-size: 14px; }
+  .badge {
+    display: inline-block; padding: 1px 7px; border-radius: 10px;
+    font-size: 11.5px; font-family: system-ui, sans-serif; letter-spacing: .02em;
+  }
+  .r-HALAKHIC { background: #fbeaea; color: var(--rouge); font-weight: 600; }
+  .r-HIGH { background: #fdf0dd; color: var(--ambre); }
+  .r-MEDIUM, .r-LOW { background: #eef1f6; color: var(--gris); }
+  .s-P0_CRITICAL, .s-P1_MAJOR { color: var(--rouge); font-weight: 600; }
+  .s-P2_SIGNIFICANT { color: var(--ambre); }
+  #detail { padding: 22px 26px; max-height: calc(100vh - 58px); overflow-y: auto; }
+  .he {
+    direction: rtl; text-align: right;
+    font-family: "Frank Ruhl Libre", "Times New Roman", serif;
+    font-size: 18px; line-height: 1.95;
+  }
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 12px 0; }
+  @media (max-width: 720px) { .compare { grid-template-columns: 1fr; } }
+  .panneau { background: #fff; border: 1px solid #e3dcc9; border-radius: 6px; padding: 12px 14px; }
+  .panneau h3 {
+    margin: 0 0 8px; font-size: 12px; letter-spacing: .09em; text-transform: uppercase;
+    color: var(--gris); font-family: system-ui, sans-serif;
+  }
+  .avis {
+    background: #fff; border-left: 3px solid var(--or);
+    padding: 10px 14px; margin: 14px 0; border-radius: 0 5px 5px 0;
+  }
+  .rappel {
+    font-size: 13px; color: #7a5c1e; background: #fdf8ec;
+    border: 1px solid #e8d9ae; border-radius: 5px; padding: 9px 13px; margin: 14px 0;
+  }
+  .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  table.hist { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-top: 8px; }
+  table.hist th, table.hist td { text-align: left; padding: 5px 9px; border-bottom: 1px solid #ece5d4; }
+  table.hist th { font-family: system-ui, sans-serif; font-size: 11.5px; color: var(--gris); text-transform: uppercase; }
+  .vide { color: var(--gris); padding: 40px 26px; text-align: center; }
+  h2 { font-size: 20px; margin: 0 0 4px; }
+  .sous { color: var(--gris); font-size: 13.5px; margin-bottom: 14px; }
+  .cit { unicode-bidi: isolate; direction: ltr; white-space: nowrap; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>DAAT <span class="or">·</span> Audit interne</h1>
+  <select id="f-regle"><option value="">Toutes les règles</option></select>
+  <select id="f-risque">
+    <option value="">Tous risques</option>
+    <option value="HALAKHIC">Halakhique</option>
+    <option value="HIGH">Élevé</option>
+    <option value="MEDIUM">Moyen</option>
+    <option value="LOW">Faible</option>
+  </select>
+  <select id="f-statut"><option value="">Tous statuts</option></select>
+  <input id="f-siman" type="number" placeholder="Siman" style="width:88px">
+  <span class="grow"></span>
+  <input id="user" placeholder="Votre nom" style="width:130px">
+  <input id="secret" type="password" placeholder="Secret" style="width:130px">
+  <span id="role" style="font-size:12.5px;color:var(--or)"></span>
+</header>
+
+<main>
+  <div id="liste"><p class="vide">Chargement…</p></div>
+  <div id="detail"><p class="vide">Sélectionner un signalement.</p></div>
+</main>
+
+<script>
+const $ = s => document.querySelector(s);
+const STATUTS = ["NEW","AUTOMATICALLY_ANALYZED","ADMIN_REVIEW_REQUIRED","EDITOR_APPROVED",
+  "RABBINIC_REVIEW_REQUIRED","RABBINIC_APPROVED","REJECTED","FALSE_POSITIVE",
+  "EDITORIAL_VARIANT","SOURCE_UNAVAILABLE","READY_FOR_STAGING","CLOSED"];
+let LIBELLES = {}, courant = null;
+
+// Le secret ne quitte pas l'onglet : sessionStorage, jamais localStorage.
+$("#secret").value = sessionStorage.getItem("daat_secret") || "";
+$("#user").value = sessionStorage.getItem("daat_user") || "";
+$("#secret").oninput = e => sessionStorage.setItem("daat_secret", e.target.value);
+$("#user").oninput = e => sessionStorage.setItem("daat_user", e.target.value);
+
+const entetes = () => {
+  const h = {"Content-Type": "application/json"};
+  if ($("#secret").value) h["X-Admin-Secret"] = $("#secret").value;
+  if ($("#user").value) h["X-Admin-User"] = $("#user").value;
+  return h;
+};
+const esc = s => (s ?? "").replace(/[&<>"]/g, c =>
+  ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const estHebreu = s => (s.match(/[א-ת]/g) || []).length > s.length / 4;
+const bloc = s => `<div class="${estHebreu(s || "") ? "he" : ""}">${esc(s)}</div>`;
+// Isolation bidi du texte mixte français/hébreu.
+//
+// Les guillemets « » sont des caractères NEUTRES au sens de l'algorithme bidi :
+// placés contre de l'hébreu, ils basculent de côté, et « X » → « Y » s'affiche
+// à l'envers. Dans un outil dont tout l'objet est de dire QUEL mot a changé,
+// c'est un contresens d'affichage. On isole donc le segment cité *guillemets
+// compris* dans un conteneur LTR, l'hébreu restant RTL à l'intérieur.
+const HEB = "\\u0590-\\u05FF";
+const mixte = s => esc(s)
+  .replace(new RegExp(`«\\s*([^«»]*[${HEB}][^«»]*?)\\s*»`, "g"),
+    (_, inner) => `<span class="cit">«&nbsp;<bdi dir="rtl">${inner}</bdi>&nbsp;»</span>`)
+  .replace(new RegExp(`(?![^<]*>)[${HEB}][${HEB}\\s'׳״-]*`, "g"),
+    m => `<bdi dir="rtl">${m}</bdi>`);
+
+STATUTS.forEach(s => $("#f-statut").insertAdjacentHTML("beforeend",
+  `<option value="${s}">${s}</option>`));
+
+async function init() {
+  const actions = await (await fetch("/workflow/actions")).json();
+  actions.forEach(a => LIBELLES[a.action] = a.libelle);
+  const regles = await (await fetch("/stats/rules")).json();
+  regles.forEach(r => $("#f-regle").insertAdjacentHTML("beforeend",
+    `<option value="${r.code}">${r.code} (${r.alerts})</option>`));
+  charger();
+}
+
+async function charger() {
+  const p = new URLSearchParams();
+  for (const [id, cle] of [["f-regle","rule_code"],["f-risque","risk"],
+                           ["f-statut","status"],["f-siman","siman"]]) {
+    if ($("#"+id).value) p.set(cle, $("#"+id).value);
+  }
+  const r = await fetch("/findings?" + p);
+  const items = r.ok ? await r.json() : [];
+  $("#liste").innerHTML = items.length ? items.map(f => `
+    <div class="item ${courant === f.id ? "actif" : ""}" onclick="ouvrir(${f.id})">
+      <div class="meta">
+        <span class="badge r-${f.risk}">${f.risk}</span>
+        <span class="s-${f.severity}">${f.severity.split("_")[0]}</span>
+        <code>${f.rule_code}</code><span>${f.status}</span>
+      </div>
+      <div class="txt ${estHebreu(f.current_text) ? "he" : ""}">${esc(f.current_text.slice(0,110))}</div>
+    </div>`).join("") : `<p class="vide">Aucun signalement.</p>`;
+}
+
+async function ouvrir(id) {
+  courant = id;
+  const f = await (await fetch(`/findings/${id}`, {headers: entetes()})).json();
+  $("#role").textContent = f.available_actions.length ? "" : "lecture seule";
+  charger();
+
+  const rappel = f.risk === "HALAKHIC" ? `<div class="rappel">
+    <strong>Risque halakhique.</strong> Aucun éditeur ne peut approuver ce
+    signalement seul : il doit être soumis au Rav. L'outil n'affirme rien —
+    il montre un écart, la décision revient au Rav.</div>` : "";
+
+  const revues = (f.rabbinic_reviews || []).map(r => `
+    <div class="avis"><strong>Avis du Rav</strong>
+      ${r.reviewer ? " — " + esc(r.reviewer) : " — <em>en attente</em>"}
+      <div style="margin-top:5px"><em>Question :</em> ${mixte(r.question || "")}</div>
+      ${r.answer ? `<div style="margin-top:5px"><em>Réponse :</em> ${mixte(r.answer)}</div>` : ""}
+    </div>`).join("");
+
+  $("#detail").innerHTML = `
+    <h2>${esc(f.rule_code)} · ${esc(f.subcategory || f.category)}</h2>
+    <div class="sous">
+      <span class="badge r-${f.risk}">${f.risk}</span>
+      <span class="s-${f.severity}">${f.severity}</span> ·
+      statut <strong>${f.status}</strong> · confiance ${(f.confidence*100).toFixed(0)} %
+      ${f.block_id ? " · bloc #" + f.block_id : ""}
+    </div>
+    ${rappel}
+    <p>${mixte(f.explanation)}</p>
+
+    <div class="compare">
+      <div class="panneau"><h3>Texte de la page</h3>${bloc(f.current_text)}</div>
+      <div class="panneau"><h3>Source consultée${f.sources ? " — " + esc(f.sources) : ""}</h3>
+        ${f.source_text ? bloc(f.source_text) : "<em>non renseignée</em>"}</div>
+    </div>
+    <p class="sous">Comparez vous-même les deux colonnes : le verdict de l'outil
+      est une indication, pas une preuve.</p>
+    ${f.proposed_correction ? `<div class="panneau"><h3>Correction proposée</h3>
+        ${bloc(f.proposed_correction)}</div>`
+      : `<p class="sous"><em>Aucune correction proposée</em> — le système constate,
+         il ne réécrit pas.</p>`}
+    ${revues}
+
+    <h3 style="margin-top:20px">Décider</h3>
+    ${f.available_actions.length ? `
+      <textarea id="note" rows="2" style="width:100%" placeholder="Note (motif de la décision)"></textarea>
+      <input id="src" style="width:100%;margin-top:6px" placeholder="Source justifiant la décision">
+      <div class="actions">
+        ${f.available_actions.map(a => `<button class="${a.startsWith("rabbinic")?"":"ghost"}"
+          onclick="decider(${f.id},'${a}')">${esc(LIBELLES[a] || a)}</button>`).join("")}
+      </div>
+      ${f.status === "RABBINIC_REVIEW_REQUIRED" ? `
+        <div style="margin-top:14px">
+          <button onclick="repondre(${f.id}, true)">Le Rav confirme</button>
+          <button class="ghost" onclick="repondre(${f.id}, false)">Le Rav écarte</button>
+        </div>` : ""}`
+      : `<p class="sous">Renseigner un secret valide pour décider.</p>`}
+
+    <h3 style="margin-top:20px">Historique</h3>
+    ${(f.decisions || []).length ? `<table class="hist">
+      <tr><th>Quand</th><th>Qui</th><th>Action</th><th>Transition</th><th>Note</th></tr>
+      ${f.decisions.map(d => `<tr>
+        <td>${(d.decided_at || "").slice(0,16).replace("T"," ")}</td>
+        <td>${esc(d.user)}</td><td><code>${esc(d.action)}</code></td>
+        <td>${esc(d.previous_status)} → ${esc(d.new_status)}</td>
+        <td>${mixte(d.note || "")}</td></tr>`).join("")}
+      </table>` : `<p class="sous">Aucune décision. Rien n'est jamais effacé de cet historique.</p>`}
+  `;
+}
+
+async function decider(id, action) {
+  const r = await fetch(`/findings/${id}/decision`, {
+    method: "POST", headers: entetes(),
+    body: JSON.stringify({action, note: $("#note")?.value || null,
+                          source_attached: $("#src")?.value || null}),
+  });
+  if (!r.ok) { alert((await r.json()).detail); return; }
+  ouvrir(id);
+}
+
+async function repondre(id, confirme) {
+  const answer = $("#note")?.value;
+  if (!answer) { alert("Renseigner la réponse du Rav dans la note."); return; }
+  const r = await fetch(`/findings/${id}/rabbinic-answer`, {
+    method: "POST", headers: entetes(), body: JSON.stringify({answer, confirme}),
+  });
+  if (!r.ok) { alert((await r.json()).detail); return; }
+  ouvrir(id);
+}
+
+["f-regle","f-risque","f-statut","f-siman"].forEach(id => $("#"+id).onchange = charger);
+init();
+</script>
+</body>
+</html>

@@ -120,3 +120,90 @@ Cette convention n'est pas cosmétique. Avant elle, les cellules des tableaux co
 Une ellipse à l'intérieur de guillemets reste légitime — `« A… B »` signifie que A et B sont l'un et l'autre littéraux. Le script vérifie chaque tronçon séparément.
 
 ⚠️ Un verdict **OK** signifie que le texte cité existe à la référence donnée — **pas** que le raisonnement halakhique qui l'entoure est juste, ni que l'attribution (« אמר רבא », « הגהת הרמ״א ») est la bonne. Le script attrape les citations fabriquées et les dafim faux ; il n'attrape pas une citation exacte mise au service d'une conclusion fausse. Cela reste du ressort de la relecture du Rav (`audit/relecture-rav.md`).
+
+## verifier-traductions.py
+
+Repère les traductions **tronquées** — l'hébreu est intact, le français s'arrête en chemin.
+
+Ni `audit-simanim.py` ni `verifier-citations.py` ne peuvent voir ce défaut : le premier ne regarde pas le contenu, le second conclut « conforme » précisément parce que l'hébreu est parfait. C'est arrivé au siman 271 séif ד, où les trois propositions portant la conclusion pratique sur la répétition de HaMotsi n'avaient aucun équivalent français.
+
+```bash
+python3 scripts/verifier-traductions.py              # tout le site
+python3 scripts/verifier-traductions.py --siman 271
+python3 scripts/verifier-traductions.py --quiet      # totaux seuls
+```
+
+Chaque bloc source est apparié à la traduction qui le suit, et trois choses sont signalées.
+
+**Séif non traduit du tout.** L'hébreu est reproduit et la traduction renvoie ailleurs — « Voir l'analyse pratique : ce seif traite de… » — au lieu de rendre le texte. Cela se constate exactement, sans seuil ni statistique. Au siman 301, **2 séifim sur 51** ont une traduction ; les 49 autres portent ce renvoi.
+
+**Traduction anormalement courte.** Le seuil n'est pas deviné : c'est le **décile inférieur de la distribution réelle du site**. On signale ce qui sort de l'usage constaté, et non ce qui s'écarte d'une idée a priori.
+
+**Parenthèses de source non reprises** — `(ב״י)`, `(אורח חיים בשם תוס')`, où le Mehaber attribue ses sources.
+
+### Un biais corrigé, et ce qu'il enseigne
+
+La première version comptait les **lettres latines** de la traduction contre les lettres hébraïques de la source. Or l'usage du site est de garder en hébreu les termes techniques : « On dit ברוך שאמר avant les פסוקי דזמרה » traduit tout, mais ne marquait presque aucune lettre latine. Le ratio pénalisait donc exactement les pages les plus fidèles à cet usage.
+
+Sur quatre blocs signalés pris au hasard, les quatre étaient des traductions **complètes et correctes**. Les lettres hébraïques de la traduction comptent désormais autant que les latines : 35 blocs ont été blanchis, 35 autres sont apparus — et c'est parmi ces derniers que se trouvaient les séifim purement non traduits.
+
+⚠️ Un ratio normal ne veut pas dire que la traduction est fidèle — seulement qu'elle a la longueur attendue. Une traduction de la bonne longueur et du mauvais sens passe.
+
+## verifier-syntheses.py
+
+Cherche les **synthèses qui contredisent le corps de leur propre page**.
+
+Au siman 271, les « règles à retenir » disaient « Mehaber avant — kiddush ; Rama après », alors que SA OH 271:12 porte l'inverse. Le corps de la page était juste ; seule la ligne de synthèse était fausse — celle que le lecteur emporte. Aucune citation n'était fautive, aucune traduction n'était courte : les trois autres gates étaient verts, et il a fallu qu'un lecteur tique.
+
+```bash
+python3 scripts/verifier-syntheses.py
+python3 scripts/verifier-syntheses.py --siman 271
+python3 scripts/verifier-syntheses.py --fichier CHEMIN   # p. ex. une version git antérieure
+```
+
+Le script ne comprend pas le sens. Il exploite une régularité : le Mehaber et le Rama sont souvent opposés sur un couple **ordonné** (avant/après, permis/interdit). Quand une ligne de synthèse attribue un terme à chacun, cette attribution peut être confrontée au corps de la page, où le texte du Mehaber précède la hagaha `הגה :` et où les marqueurs hébreux sont repérables.
+
+Deux précautions, apprises de deux versions qui donnaient un résultat **inversé** :
+
+- **Découpage par séif, jamais par page.** Un siman compte une hagaha par séif ou presque ; prendre la première de la page revient à confronter la synthèse au texte d'un séif sans rapport.
+- **Deux termes contraires ne font pas une opposition.** Au séif 271:5 le Mehaber écrit `קודם שיקדשו` à propos de boire et le Rama `לאחר שבירך` à propos de HaMotsi : mots contraires, sujets différents, aucune divergence — et ce faux couple suffisait à faire taire le vrai. On exige donc un mot substantiel commun au voisinage des deux marqueurs (ici `ידיו`).
+
+Aucun appariement par sujet n'est tenté : une ligne n'est signalée que si **un séif de sa page la contredit exactement** et qu'**aucun autre ne la soutient**. Le silence est le comportement par défaut.
+
+### Sa portée, mesurée et non supposée
+
+Sur 988 pages françaises et 2683 séifim, 281 lignes citent les deux autorités — dont **7** attribuent un terme à chacune, et **1** se trouve dans une page dont un séif oppose les mêmes termes sur le même acte. Le facteur limitant est structurel : **417 séifim seulement sur 2683 reproduisent une hagaha**, faute de quoi il n'y a pas de position du Rama à confronter.
+
+C'est donc un **garde-fou de non-régression**, pas un gate de site — et le script imprime cette portée avec son résultat, pour qu'un « 0 contradiction » ne se lise jamais comme « les synthèses sont vérifiées ». Elles ne le sont pas.
+
+Il a été validé **dans les deux sens** : silencieux sur le siman 271 corrigé, et signalant l'inversion sur la version antérieure du même fichier (`git show 95c9f2e:sources/shabbat/siman-271/niveau-1-base.html`). Les deux premières versions échouaient à ce test en donnant le résultat exactement inverse ; c'est ce qui a imposé les deux précautions ci-dessus.
+
+
+## verifier-alignement.py
+
+Confronte l'hébreu de chaque bloc d'une page au Choul'han Aroukh, pour répondre à une question qu'aucun autre gate ne pose : **ce bloc est-il bien le séif qu'on croit ?**
+
+Une traduction peut être irréprochable et rester fausse si elle est posée sous le mauvais séif — le lecteur voit un texte hébreu et un texte français, tous deux justes, qui ne parlent pas de la même chose. `verifier-citations` juge les citations, `verifier-traductions` juge les longueurs ; ni l'un ni l'autre ne sait à quel séif un bloc correspond.
+
+```bash
+python3 scripts/verifier-alignement.py --siman 310
+python3 scripts/verifier-alignement.py --section shabbat
+```
+
+### Trois formulations, dont deux fausses
+
+Le chemin jusqu'à un contrôle utilisable mérite d'être noté, parce que chaque étape produisait un chiffre crédible et faux.
+
+**Comparer le rang du bloc au numéro du séif** → 42 « décalages », aucun réel. Une page peut grouper trois séifim sous un seul bloc — le siman 263 le fait pour ז–ט — et le rang cesse alors de suivre la numérotation sans la moindre erreur.
+
+**Se fier au titre que la page donne au bloc** → 320 faux signalements, pire encore : la plupart des séifim n'ont pas de titre propre, et les blocs héritaient d'un titre lointain.
+
+**Ne rien supposer de la numérotation** — la seule qui tienne. Deux questions auxquelles on peut répondre sans hypothèse : l'hébreu du bloc existe-t-il dans ce siman, et les blocs se suivent-ils dans l'ordre de la source ? Un retour en arrière signale un bloc déplacé ou dupliqué.
+
+Il a fallu en outre écarter ce qui n'est pas un séif mais partage son balisage : Michna Beroura (295 blocs), sugyot ouvrant par `תנו רבנן`, blocs citant leur propre massekhet. Et comparer **par mots et non par chaîne** — la page écrit `אַף עַל פִּי` en toutes lettres là où la source abrège `אע״פ`, et une comparaison littérale échouait dès la première abréviation.
+
+Trajectoire : **436 → 158 → 42 → 320 → 12 → 8**. Chaque baisse est une correction de l'instrument, aucune n'est une amélioration du site.
+
+### Sa portée
+
+8 écarts subsistent dans 4 pages, et les quatre examinés sont légitimes — récapitulations reprenant le séif 1 en fin de page, citations de guemara non filtrées. C'est un **plancher de bruit**, pas une liste d'erreurs : un décalage nouvellement introduit ressortirait au-dessus.

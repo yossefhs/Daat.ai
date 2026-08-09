@@ -1,0 +1,52 @@
+# Système d'audit DaatTorah — Phase 1.
+#
+# Deux services : PostgreSQL et l'API. Pas de Redis ni de Celery en Phase 1 :
+# le seul travail asynchrone est le crawl (28 pages, ~40 s), porté par les
+# BackgroundTasks de FastAPI. Une file de tâches sera introduite quand la
+# comparaison de citations (Phase 4) créera de vraies charges longues.
+#
+#   docker compose up --build          # API sur http://localhost:8000/docs
+#   docker compose run --rm crawler    # un crawl ponctuel du périmètre
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: daat_audit
+      POSTGRES_USER: daat_audit
+      POSTGRES_PASSWORD: ${AUDIT_DB_PASSWORD:-daat_audit_dev}   # dev par défaut — surcharger via AUDIT_DB_PASSWORD
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U daat_audit"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      AUDIT_MODE: audit_readonly
+      AUDIT_DATABASE_URL: postgresql+psycopg2://daat_audit:${AUDIT_DB_PASSWORD:-daat_audit_dev}@db:5432/daat_audit
+    ports:
+      # Lié à l'interface locale : l'API n'a pas d'authentification (outil
+      # interne) et POST /crawl déclenche des requêtes vers le site public.
+      - "127.0.0.1:8000:8000"
+
+  # Service ponctuel : `docker compose run --rm crawler`
+  crawler:
+    build: .
+    profiles: ["tools"]
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      AUDIT_MODE: audit_readonly
+      AUDIT_DATABASE_URL: postgresql+psycopg2://daat_audit:${AUDIT_DB_PASSWORD:-daat_audit_dev}@db:5432/daat_audit
+    command: sh -c "alembic upgrade head && python -m daat_audit.crawler.crawl --verbose"
+
+volumes:
+  pgdata:

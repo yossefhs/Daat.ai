@@ -1,0 +1,12 @@
+# Exclusions du contexte de build Docker — Docker ne lit PAS .gitignore.
+# Sans ce fichier, « COPY . . » embarquerait dans l'image : le venv local
+# (~140 Mo de paquets pour un autre Python), la base SQLite d'audit, et
+# surtout un éventuel .env contenant des identifiants.
+.venv/
+var/
+*.db
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+.git/

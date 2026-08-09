@@ -1,0 +1,15 @@
+# Système d'audit DaatTorah — Phase 1 (audit_readonly)
+# Python ≥ 3.11 (image Docker : 3.12)
+fastapi>=0.115
+uvicorn[standard]>=0.30
+httpx>=0.27
+beautifulsoup4>=4.12
+lxml>=5.2
+SQLAlchemy>=2.0.30
+alembic>=1.13
+pydantic>=2.7
+pydantic-settings>=2.3
+psycopg2-binary>=2.9 ; python_version >= "3.11"
+
+# Tests
+pytest>=8.2
