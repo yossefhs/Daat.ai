@@ -10,7 +10,7 @@ Il inventorie ce que les instruments savent voir. Le siman 273 avait **quatre ga
 
 Quatre simanim sur 174 ont été relus au fond — 271, 272, 273, 274. Les autres ne l'ont jamais été.
 
-## 1. Séifim non traduits — 190
+## 1. Séifim non traduits — 167
 
 L'hébreu est reproduit, et la traduction renvoie ailleurs (« Voir l'analyse pratique : ce seif traite de… ») au lieu de rendre le texte. Le lecteur francophone a le texte hébreu et rien d'autre.
 
@@ -24,47 +24,27 @@ L'hébreu est reproduit, et la traduction renvoie ailleurs (« Voir l'analyse pr
 | 319 | 15 |
 | 321 | 15 |
 | 306 | 13 |
-| 320 | 12 |
-| 315 | 11 |
 
 **Méthode établie** : vérifier l'alignement bloc↔séif avant d'écrire (`verifier-alignement.py`), traduire depuis l'hébreu de la page, recouper contre la traduction anglaise de Sefaria quand elle existe, vérifier qu'il ne reste aucun renvoi.
 
-## 2. Classeur du Rav — 40 entrées non closes
+## 2. Classeur du Rav — 0 entrées non closes
 
-Déjà confrontées à la page : **48** — dont 26 déjà-juste, 21 appliqué, 1 non-tranché (registre : `audit/classeur-traite.txt`).
+Déjà confrontées à la page : **87** — dont 48 appliqué, 39 déjà-juste (registre : `audit/classeur-traite.txt`).
 
 | Décision | Nombre |
 |---|---|
-| À CORRIGER | 17 |
-| À PRÉCISER | 14 |
-| PARAPHRASE VALABLE | 8 |
-| À CORRIGER IMMÉDIATEMENT | 1 |
 
 ⚠️ **Le classeur a été bâti sur la sortie du moteur d'audit, dont les artefacts s'y sont propagés.** Le moteur rattache une citation au daf le plus proche dans la page, même quand ce daf appartient à une autre proposition — et c'est ce daf que le classeur reproche. Sur les 50 premières entrées vérifiées, **10 décrivaient un défaut réel**. Ne jamais appliquer sans avoir lu la ligne de la page.
 
-Simanim les plus concernés : 296 (4), 295 (3), 6 (2), 246 (2), 280 (2), 286 (2), 338 (2), 198 (2), 22 (1), 61 (1)
-
 ## 3. Points renvoyés à l'arbitrage du Rav
 
-Marqués « À vérifier par le Rav » directement dans les pages :
-
-- **shabbat/siman-274** — …ajouté ne fait pas un lehem michné — lehem michné veut dire deux pains entiers ; et l'on ne coupera pas le pain entier en deux pour en simuler deux. À
-- **shabbat/siman-274** — …'elle décongèlera pendant le repas. En pratique, disposant de deux pains frais entiers, il est préférable de les utiliser. Les poskim précis restent à
+*Aucun point en attente.*
 
 ## 4. Non tranchés faute de localisation sûre
 
-La page y **paraphrase au lieu de citer**, de sorte que la comparaison littérale ne départage pas les dafim proposés. Deviner reviendrait à remplacer un daf incertain par un autre.
+*Aucune entrée actuellement marquée `NON-TRANCHÉ` dans le registre.*
 
-| Endroit | Question |
-|---|---|
-| shabbat/252 | `נותנין חטין לתוך הריחים של מים` donné à או״ח רנ״ב:ה — n'y figure pas verbatim ; Sefaria le situe en שבת י״ח. |
-| shabbat/284:354 | מגילה כ״ג. ou כ״ג: pour les 21 versets de la haftara |
-| shabbat/287:413 | מועד קטן כ״ג: ou כ״ד. pour l'avelout à Chabbat |
-| shabbat/288:456 | תענית י״ד. ou י״ט. pour « על אלו צרות מתריעין » |
-| orah-haim/37 | `קרקפתא דלא מנח תפילין` absent du ראש השנה י״ז. de Sefaria, alors que les éditions courantes l'y portent — divergence de découpage probable |
-| orah-haim/66 | `אינו ניזוק כל היום כולו` est la formulation du Yerushalmi ; citation composite portant des guillemets |
-
-## 5. Traductions courtes à échantillonner — 226 blocs
+## 5. Traductions courtes à échantillonner — 238 blocs
 
 Signalées par le décile inférieur de la distribution du site. **Ce ne sont pas des erreurs** : la dernière fois qu'une liste de ce type a été échantillonnée, les quatre blocs tirés étaient corrects et le défaut venait de l'instrument. À échantillonner avant d'en conclure quoi que ce soit.
 
