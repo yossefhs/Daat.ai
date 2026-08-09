@@ -208,21 +208,16 @@ def main() -> int:
 
     a("## 4. Non tranchés faute de localisation sûre")
     a("")
-    a("La page y **paraphrase au lieu de citer**, de sorte que la comparaison "
-      "littérale ne départage pas les dafim proposés. Deviner reviendrait à "
-      "remplacer un daf incertain par un autre.")
-    a("")
-    a("| Endroit | Question |")
-    a("|---|---|")
-    a("| shabbat/252 | `נותנין חטין לתוך הריחים של מים` donné à או״ח רנ״ב:ה — "
-      "n'y figure pas verbatim ; Sefaria le situe en שבת י״ח. |")
-    a("| shabbat/284:354 | מגילה כ״ג. ou כ״ג: pour les 21 versets de la haftara |")
-    a("| shabbat/287:413 | מועד קטן כ״ג: ou כ״ד. pour l'avelout à Chabbat |")
-    a("| shabbat/288:456 | תענית י״ד. ou י״ט. pour « על אלו צרות מתריעין » |")
-    a("| orah-haim/37 | `קרקפתא דלא מנח תפילין` absent du ראש השנה י״ז. de Sefaria, "
-      "alors que les éditions courantes l'y portent — divergence de découpage probable |")
-    a("| orah-haim/66 | `אינו ניזוק כל היום כולו` est la formulation du Yerushalmi ; "
-      "citation composite portant des guillemets |")
+    non_tranches = sorted(k for k, etat in fait.items() if etat == "NON-TRANCHÉ")
+    if non_tranches:
+        a("Ces entrées sont explicitement marquées `NON-TRANCHÉ` dans "
+          "`audit/classeur-traite.txt`. Elles ne doivent pas être transformées en "
+          "correction certaine sans nouvelle source.")
+        a("")
+        for endroit in non_tranches:
+            a(f"- `{endroit}`")
+    else:
+        a("*Aucune entrée actuellement marquée `NON-TRANCHÉ` dans le registre.*")
     a("")
 
     a(f"## 5. Traductions courtes à échantillonner — {courtes} blocs")
