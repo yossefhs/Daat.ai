@@ -14,6 +14,10 @@ npm run test:rav
 
 `rav:weekly-pack` ouvre la base source SQLite en lecture seule et n’examine que les résultats ciblés. Il ne lance aucune publication et ne traite pas le corpus média en masse. `rav:review` ouvre une interface locale de validation ; les décisions sont enregistrées dans le registre privé.
 
+`rav:review` et `rav:preview` écoutent exclusivement sur `127.0.0.1`. La review permet une transcription validée versionnée, une confirmation explicite de citation et les décisions `APPROVED`, `NEEDS_CORRECTION`, `DEFERRED` ou `REJECTED`. `rav:media` ne traite que les candidats `APPROVED` et écrit uniquement sous `RAV_CONTENT_OUTPUT_PATH`; il ne contacte aucune plateforme sociale.
+
+Les médias sont déterministes : visuels SVG/HTML rendus en PNG, carrousels 1080×1350, stories et covers 1080×1920, plus sous-titres SRT issus de la transcription validée lorsqu’elle existe. L’encodage final MP4 et les uploads restent hors de cette phase.
+
 ## Fiabilité et confidentialité
 
 - GREEN : preuve audio vérifiée ou texte directement validé.

@@ -1,0 +1,4 @@
+import http from 'node:http';
+import { EditorialRegistry } from '../rav-content-engine/registry.js';
+const registry = new EditorialRegistry(); const port = Number(process.env.RAV_PREVIEW_PORT || 4318);
+http.createServer((_, res) => { const rows = registry.db.prepare("SELECT * FROM media_jobs WHERE status IN ('MEDIA_READY','READY_TO_SCHEDULE') ORDER BY updated_at DESC").all(); res.setHeader('content-type','text/html'); res.end(`<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><h1>Prévisualisation — aucun envoi social</h1>${rows.map(j=>`<section><h2>${j.title}</h2><pre>${JSON.stringify(JSON.parse(j.outputs_json||'{}'),null,2)}</pre></section>`).join('') || '<p>Aucun média approuvé prêt.</p>'}`); }).listen(port,'127.0.0.1',()=>console.log(`Preview locale : http://127.0.0.1:${port}`));

@@ -13,6 +13,7 @@ export function toCandidate(row, registry) {
   const topic = topicOf(row); const candidateId = opaqueId(`candidate:ravqa:${row.id}`);
   const candidate = {
     candidate_id: candidateId, candidate_public_id: row.candidate_public_id, source_type: 'ravqa', source_internal_id: row.id,
+    provenance: { system: 'ravqa', source_public_id: row.candidate_public_id, audio_reference_present: provisional.audio_available },
     source_date: row.ts ? new Date(row.ts * 1000).toISOString() : null, topic, subtopic: null, category: parse(row.categories_json), tags: parse(row.topics_json),
     question_anonymized: sanitizeForEditorialUse(row.question_text), rav_exact_text: ravText, rav_clean_text: ravText,
     audio_available: provisional.audio_available, audio_reference: row.audio_m4a_path || row.audio_path || null, audio_start: 0, audio_end: row.audio_seconds || null,

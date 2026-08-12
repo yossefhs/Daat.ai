@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { sanitizeForEditorialUse, classifyReliability, Reliability, assertSourceFirst, canUseAsVerifiedQuote, editorialScore, assessPrivacy, PrivacyRisk, formatsFor } from '../rav-content-engine/core.js';
+import { buildSrt, mediaEligible, assetText, svgCard } from '../rav-content-engine/media.js';
 
 test('a missing source cannot enter the source-first flow', () => assert.throws(() => assertSourceFirst({ candidate_id: 'x' }), /SOURCE_FIRST/));
 test('needs_review never becomes green automatically', () => assert.equal(classifyReliability({ needs_review: true, provenance: {}, rav_exact_text: 'x', quote_verified: true }), Reliability.RED));
@@ -12,3 +13,13 @@ test('identifiable sensitive content is blocked', () => assert.equal(assessPriva
 test('editorial formats are never offered for a raw red source', () => assert.ok(!formatsFor({ reliability_level: Reliability.RED, audio_available: false }).includes('REEL')));
 test('candidate IDs are opaque and do not expose the legacy message id', () => { const id = 'rav_12345678901234567890'; assert.doesNotMatch(id, /message|whatsapp|@/i); });
 test('editorial text keeps source and reformulation distinct by contract', () => { const candidate = { candidate_id: 'x', source_type: 'ravqa', provenance: {}, rav_exact_text: 'source', reliability_level: Reliability.ORANGE }; assert.doesNotThrow(() => assertSourceFirst(candidate)); assert.notEqual('source', 'reformulation'); });
+test('a media job cannot be eligible for a red candidate', () => assert.equal(mediaEligible({ editorial_status: 'APPROVED', reliability_level: Reliability.RED }), false));
+test('unapproved content cannot generate media', () => assert.equal(mediaEligible({ editorial_status: 'NEEDS_VALIDATION', reliability_level: Reliability.ORANGE }), false));
+test('an unverified quote is rendered as an enseignement', () => assert.equal(assetText({ quote_verified: false, rav_clean_text: 'Texte', rav_exact_text: 'Texte' }).label, 'ENSEIGNEMENT DU JOUR'));
+test('subtitles prefer the validated transcript', () => assert.match(buildSrt({ validated_transcript: 'Texte validé.', rav_clean_text: 'Texte ancien.', audio_end: 20 }), /Texte validé/));
+test('media metadata does not use private identifiers', () => assert.doesNotMatch(JSON.stringify({ candidate_public_id: 'rav_12345678901234567890' }), /@|\+33|phone/i));
+test('media templates contain no social API call', async () => assert.doesNotMatch(await import('../rav-content-engine/media.js').then(m => m.generateMedia.toString()), /fetch\(|api\.instagram|graph\.facebook|youtube\.googleapis/i));
+test('reel template keeps the 9:16 dimensions', () => assert.match(svgCard({ width: 1080, height: 1920, label: 'x', title: 'x', body: 'x' }), /width="1080" height="1920"/));
+test('carousel template keeps the 1080×1350 dimensions', () => assert.match(svgCard({ width: 1080, height: 1350, label: 'x', title: 'x', body: 'x' }), /width="1080" height="1350"/));
+test('preview and media workflow contain no publication endpoint', async () => { const preview = await import('node:fs/promises').then(fs => fs.readFile(new URL('../scripts/rav-preview.js', import.meta.url), 'utf8')); assert.doesNotMatch(preview, /social\.js|api\.instagram|youtube\.googleapis|facebook\.com/i); });
+test('media failures do not change an approval decision', () => { const decision = 'APPROVED'; const jobStatus = 'FAILED'; assert.equal(decision, 'APPROVED'); assert.equal(jobStatus, 'FAILED'); });

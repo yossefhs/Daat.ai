@@ -10,6 +10,8 @@
     "build:js": "terser assets/js/chat-widget.js -c passes=2 -m --comments=false -o assets/js/chat-widget.min.js",
     "rav:weekly-pack": "node scripts/rav-weekly-pack.js",
     "rav:review": "node scripts/rav-review.js",
+    "rav:media": "node scripts/rav-media.js",
+    "rav:preview": "node scripts/rav-preview.js",
     "test:rav": "node --test tests/rav-content-engine.test.js"
   },
   "dependencies": {
