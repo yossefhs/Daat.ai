@@ -7,7 +7,10 @@
   "scripts": {
     "build": "node scripts/extract-corpus.js && npm run build:js",
     "vercel-build": "node scripts/extract-corpus.js && npm run build:js",
-    "build:js": "terser assets/js/chat-widget.js -c passes=2 -m --comments=false -o assets/js/chat-widget.min.js"
+    "build:js": "terser assets/js/chat-widget.js -c passes=2 -m --comments=false -o assets/js/chat-widget.min.js",
+    "rav:weekly-pack": "node scripts/rav-weekly-pack.js",
+    "rav:review": "node scripts/rav-review.js",
+    "test:rav": "node --test tests/rav-content-engine.test.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.91.1",
