@@ -121,6 +121,26 @@ Une ellipse à l'intérieur de guillemets reste légitime — `« A… B »` sig
 
 ⚠️ Un verdict **OK** signifie que le texte cité existe à la référence donnée — **pas** que le raisonnement halakhique qui l'entoure est juste, ni que l'attribution (« אמר רבא », « הגהת הרמ״א ») est la bonne. Le script attrape les citations fabriquées et les dafim faux ; il n'attrape pas une citation exacte mise au service d'une conclusion fausse. Cela reste du ressort de la relecture du Rav (`audit/relecture-rav.md`).
 
+## verifier-langues.py
+
+Vérifie que chaque page est écrite dans la **langue qu'elle annonce**.
+
+Le site tient trois versions de chaque page — `X.html` en français, `X-he.html` en hébreu, `X-en.html` en anglais — et rien ne vérifiait que le corps correspondait au suffixe. Une page pouvait donc porter `lang="en"`, servir `/oh/304/base/en`, et afficher un corps **entièrement français** : c'était le cas de quatre pages complètes (simanim 304 et 322, niveaux 1 et 3) et de vingt-cinq blocs isolés dans huit pages hébraïques. Aucun autre gate ne pouvait le voir — `audit-simanim` juge la structure, `verifier-citations` les citations hébraïques, `verifier-traductions` la longueur des traductions par rapport à leur source ; tous trois passent au vert sur une page entière restée dans la mauvaise langue.
+
+```bash
+python3 scripts/verifier-langues.py              # tout le site
+python3 scripts/verifier-langues.py --lignes     # + la liste de travail du traducteur
+python3 scripts/verifier-langues.py --path sources/shabbat
+```
+
+Deux échelles, parce que le défaut se présente sous deux formes.
+
+**La page entière** se voit à la domination : on compte des mots-témoins choisis pour ne jamais apparaître dans l'autre langue ni dans une translittération (`l'akum`, `d'oraisa`), et l'on ne conclut que sur une domination — une page anglaise cite légitimement du français, l'inverse aussi. Pour l'hébreu le test est plus sûr encore : une page `-he` dont le corps compte plus de lettres latines que de lettres hébraïques n'est pas une page hébraïque.
+
+**Le bloc isolé** demande un second test, ligne à ligne — cinq à six paragraphes de séifim restés français au milieu d'une page anglaise complète ne déplacent pas la domination. Trois neutralisations ont été nécessaires pour que le seuil veuille dire quelque chose : les `<script>` (le dictionnaire i18n porte les trois langues dans *chaque* page), les commentaires HTML (`<!-- BANDEAU DE DÉDICACE… -->` est français partout), et le texte des liens sortants (le titre d'un article de Chabad.org reste dans sa langue). Sans elles, le contrôle sortait 464 signalements dont aucun n'était réel ; avec elles, **0 sur les 5 037 pages saines** — et les 32 défauts réels, tous confirmés à la main.
+
+Le seuil a été calibré à l'envers sur les versions d'avant correction, conservées par git : le contrôle devait retrouver les sept pages fautives connues, et n'en inventer aucune sur les autres.
+
 ## verifier-traductions.py
 
 Repère les traductions **tronquées** — l'hébreu est intact, le français s'arrête en chemin.
