@@ -203,6 +203,10 @@ const SYNONYMS = {
   'separation': ['הרחקות','harhakot','perisha'], 'eloignement': ['הרחקות','perisha'],
   'toucher': ['הרחקות','נגיעה'],
   'immersion': ['טבילה','מקוה','tevila'], 'tremper': ['טבילה','מקוה'],
+  // Familles des ANCRES dont le corpus est rédigé en hébreu : sans elles, l'ancre
+  // ne désigne que les rares chunks où le mot est translittéré.
+  'tevila': ['טבילה','מקוה'], 'mikve': ['מקוה','טבילה'], 'nidda': ['נדה','וסת','דם'],
+  'taarovet': ['תערובת','בששים'], 'cacheroute': ['כשר','איסור','היתר'],
   'bassin': ['מקוה','טבילה'], 'sept': ['שבעה','נקיים','chiva'],
   'propres': ['נקיים','שבעה'], 'comptage': ['ספירה','נקיים','שבעה'],
   'examen': ['בדיקה','בדיקות','bedika'], 'verifier': ['בדיקה','בדיקות'],
@@ -529,10 +533,10 @@ function scoreChunk(chunk, queryTerms, keyTokens, originalTokens, strict, concep
 
 // Réglages du portail, pilotables par variable d'environnement pour pouvoir les
 // ajuster sans redéploiement (le corpus grandit toutes les semaines).
-const GATE_IDF_FLOOR = parseFloat(process.env.GATE_IDF_FLOOR || '4.5');
-const GATE_IDF_RATIO = parseFloat(process.env.GATE_IDF_RATIO || '0.75');
 const ANCHOR_MODE = process.env.CORPUS_ANCHOR_MODE || 'and';
-const SHABBAT_GUARD = process.env.CORPUS_SHABBAT_GUARD !== '0';
+// Facteur appliqué au score d'un siman de Hilkhot Shabbat quand la question ne
+// porte aucun marqueur de Shabbat. 1 = garde-fou désactivé, 0 = exclusion pure.
+const SHABBAT_PENALTY = parseFloat(process.env.CORPUS_SHABBAT_PENALTY || '0.35');
 
 // Mots qui situent une question à Shabbat. Volontairement LARGE (mieux vaut
 // laisser passer une question du quotidien vers Shabbat que l'inverse).
@@ -601,15 +605,31 @@ export function searchCorpus(question, opts = {}) {
   // mots de provenance (minhag, nom de posek) et de rapport (« il disait que »).
   const gateCandidates = known.filter((t) => !NON_TOPICAL.has(t));
   const byIdf = [...new Set(gateCandidates)].map((t) => ({ t, idf: getIdf(t) })).sort((a, b) => b.idf - a.idf);
-  // Le 2e token ne devient un « portail » que s'il est réellement DISCRIMINANT.
-  // Auparavant on prenait les 2 meilleurs quoi qu'il arrive : sur une question
-  // dont aucun mot n'est spécifique, le portail s'ouvrait quand même et la
-  // soupape « aucun mot exploitable → ne rien renvoyer » ne servait jamais.
-  const bestIdf = byIdf.length ? byIdf[0].idf : 0;
-  const keyTokens = byIdf
-    .filter((x, i) => i === 0 || (x.idf >= GATE_IDF_FLOOR && x.idf >= bestIdf * GATE_IDF_RATIO))
-    .slice(0, 2)
-    .map((x) => x.t);
+  // Ancres présentes dans la question, avec leur famille de synonymes indexés
+  // (le corpus Yoreh De'ah est rédigé en hébreu : « tevila » doit être satisfait
+  // par טבילה, sans quoi l'ancre ne désigne que les 32 chunks translittérés).
+  const anchorTerms = [];
+  if (ANCHOR_MODE !== 'off') {
+    for (const t of new Set(gateCandidates)) {
+      if (!DOMAIN_ANCHORS.has(t)) continue;
+      anchorTerms.push(t);
+      for (const syn of SYNONYMS[t] || []) {
+        const n = normalizeToken(syn);
+        if (n.length >= 2 && _idf.has(n)) anchorTerms.push(n);
+      }
+    }
+  }
+
+  // QUAND L'UTILISATEUR NOMME SON SUJET, C'EST LE SUJET QUI EST LE PORTAIL.
+  // Sélectionner le portail sur la seule IDF donne le mot le plus RARE, qui est
+  // presque toujours un mot de décor (« au ras du coin », « vernis », « un rêve
+  // horrible ») : sur « un des fils de mes tsitsit s'est coupé au ras du coin »,
+  // le portail devenait `ras` (df=3) et il fallait un chunk contenant à la fois
+  // « ras » et « tsitsit » — il n'en existe aucun, la recherche rendait le vide.
+  // Une ancre n'est jamais un mot de décor : elle passe donc devant l'IDF.
+  const keyTokens = anchorTerms.length
+    ? [...new Set(anchorTerms)]
+    : byIdf.slice(0, 2).map((x) => x.t);
 
   // Synonymes de SECOURS : un synonyme ne pouvait JAMAIS ouvrir le portail (seuls
   // les tokens écrits par l'utilisateur et présents dans l'index le pouvaient),
@@ -628,19 +648,6 @@ export function searchCorpus(question, opts = {}) {
   }
   const conceptKeys = [...conceptTerms(tokens), ...rescueKeys];
 
-  // Ancres : le mot lui-même + ses synonymes indexés (le corpus Yoreh De'ah est
-  // rédigé en hébreu, « viande » doit pouvoir être satisfait par בשר).
-  const anchorTerms = [];
-  if (ANCHOR_MODE !== 'off') {
-    for (const t of new Set(gateCandidates)) {
-      if (!DOMAIN_ANCHORS.has(t)) continue;
-      anchorTerms.push(t);
-      for (const syn of SYNONYMS[t] || []) {
-        const n = normalizeToken(syn);
-        if (n.length >= 2 && _idf.has(n)) anchorTerms.push(n);
-      }
-    }
-  }
 
   // 🛡️ SÉCURITÉ : aucun mot de sujet exploitable ET aucun concept halakhique
   // reconnu → la question n'a rien d'identifiable dans le corpus. Ne RIEN
@@ -661,14 +668,23 @@ export function searchCorpus(question, opts = {}) {
   // Siman 326 » : le mécanisme exact du faux heter borer, une réponse assurée sous
   // une référence fausse. L'inverse n'est PAS filtré : « le tsitsit à Shabbat »
   // doit rester servi par le siman 13 comme par le 301.
-  const shabbatQ = !SHABBAT_GUARD || tokens.some((t) => SHABBAT_MARKERS.has(t));
+  const shabbatQ = tokens.some((t) => SHABBAT_MARKERS.has(t));
 
   const expanded = expandQuery(tokens);
   const scored = [];
   for (const c of _corpus.chunks) {
     if (section && c.section && c.section !== section) continue;
-    if (!shabbatQ && c.section === 'orach-chaim' && +c.siman >= 242 && +c.siman <= 365) continue;
-    const s = scoreChunk(c, expanded, keyTokens, originalSet, strict, conceptKeys, anchorTerms);
+    let s = scoreChunk(c, expanded, keyTokens, originalSet, strict, conceptKeys, anchorTerms);
+    // PÉNALITÉ, pas exclusion. Une première version excluait purement les simanim
+    // de Shabbat : mesuré sur banc indépendant, elle supprimait bien les fuites
+    // (14 → 1) mais faisait passer les réponses vides de 7 à 24 sur 75. Or une
+    // réponse vide renvoie l'utilisateur gratuit au paywall : on échangeait une
+    // mauvaise réponse contre une non-réponse. Le déclassement garde le siman de
+    // Shabbat atteignable quand RIEN d'autre ne répond, tout en le faisant perdre
+    // systématiquement face à un vrai match du domaine de la question.
+    if (s > 0 && !shabbatQ && c.section === 'orach-chaim' && +c.siman >= 242 && +c.siman <= 365) {
+      s *= SHABBAT_PENALTY;
+    }
     if (s >= minScore) scored.push({ chunk: c, score: s });
   }
   scored.sort((a, b) => b.score - a.score);
