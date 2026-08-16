@@ -421,8 +421,19 @@ async function serveCorpusAnswer({ req, res, cs, section, lastUserText, userId, 
     // juste sous une source fausse, ou l'inverse. La clé de cache est dérivée du
     // texte de la question, pas du résultat : les deux peuvent diverger dès que
     // le corpus change (il change à chaque déploiement).
+    // Le cache doit porter sur le MÊME EXTRAIT que la recherche vient de trouver.
+    // La clé est dérivée du TEXTE de la question, pas du résultat : les deux
+    // divergent dès que le corpus ou le moteur changent — c'est-à-dire à chaque
+    // déploiement. Sans ce contrôle, un texte gardé 30 jours était servi sous la
+    // référence « Source : Siman X » calculée maintenant : une réponse juste sous
+    // une source fausse. Contrôler l'id du chunk (et pas seulement le siman)
+    // invalide exactement ce qui a changé, sans purge globale — le corpus est
+    // enrichi en continu, une purge à chaque déploiement coûterait le cache entier.
+    // Les entrées écrites avant ce contrôle n'ont pas de chunkId : on retombe
+    // alors sur le siman seul plutôt que de tout invalider.
     if (raw && typeof raw === 'object' && typeof raw.text === 'string' && raw.text.length > 50
-        && String(raw.siman) === String(top.siman)) {
+        && String(raw.siman) === String(top.siman)
+        && (raw.chunkId === undefined || raw.chunkId === top.id)) {
       cachedCorpus = raw;
     }
   } catch (_) {}
@@ -628,7 +639,7 @@ RÈGLES STRICTES :
       // Mise en cache : uniquement les réponses complètes et saines.
       // Les prochains utilisateurs qui posent la même question → 0 €.
       if (!corpusErrored && corpusStopReason !== 'max_tokens' && corpusAnswer.length > 80) {
-        await kv.set(corpusKvKey, { text: corpusAnswer, siman: top.siman }, { ex: CORPUS_CACHE_TTL });
+        await kv.set(corpusKvKey, { text: corpusAnswer, siman: top.siman, chunkId: top.id }, { ex: CORPUS_CACHE_TTL });
       }
       console.log(`[chat.js] corpus HIT: ${userId} siman-${top.siman} score=${top.score.toFixed(1)} +${inTok}in/${outTok}out ($${cost.toFixed(5)})`);
     } catch (err) {
