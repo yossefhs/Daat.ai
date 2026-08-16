@@ -31,7 +31,12 @@ const SECTIONS = [
   // routes /oh-quotidien et titres stockés sous section 'oh-quotidien' dans le
   // catalogue → dispoId distinct pour la résolution des titres.
   { id: 'orach-chaim', dir: path.join(ROOT, 'sources', 'orah-haim'), urlPrefix: '/oh-quotidien', useMetaDir: false, dispoId: 'oh-quotidien' },
-  { id: 'yoreh-deah', dir: path.join(ROOT, 'sources', 'yoreh-deah'), urlPrefix: '/yd', useMetaDir: false },
+  // sources/yoreh-deah/ héberge DEUX sections du catalogue : 'yoreh-deah'
+  // (issour ve-heter, 87-118) et 'nida' (183-200, physiquement dans le même
+  // dossier). Sans la seconde clé, les 18 simanim de nidah sortaient du corpus
+  // avec le titre générique « Siman 195 » et un titre hébreu VIDE : la recherche
+  // perdait le bonus de titre sur toute la section — 551 chunks aveugles.
+  { id: 'yoreh-deah', dir: path.join(ROOT, 'sources', 'yoreh-deah'), urlPrefix: '/yd', useMetaDir: false, dispoIds: ['yoreh-deah', 'nida'] },
 ];
 
 // Cartes de titres pour les sections sans data/simanim/*.json (ex. Yoreh De'ah),
@@ -47,6 +52,9 @@ function loadDispoMap(file) {
 const DISPO_FR = loadDispoMap('simanim-disponibles.json');
 const DISPO_HE = loadDispoMap('simanim-disponibles-he.json');
 
+// Simanim indexés sans titre résolu : signalés en fin de build (voir plus bas).
+const MISSING_TITLES = [];
+
 // Résout titreFr / titreHe / sous-titre d'un siman selon sa section.
 function resolveMeta(section, num) {
   if (section.useMetaDir) {
@@ -58,12 +66,22 @@ function resolveMeta(section, num) {
       } catch { /* ignore */ }
     }
   }
-  const dispoKey = `${section.dispoId || section.id}:${num}`;
-  const fr = DISPO_FR[dispoKey] || DISPO_FR[`${section.id}:${num}`];
-  const he = DISPO_HE[dispoKey] || DISPO_HE[`${section.id}:${num}`];
+  // Un même répertoire source peut héberger plusieurs sections du catalogue :
+  // on essaie chaque clé candidate avant de retomber sur le libellé générique.
+  const candidates = section.dispoIds || [section.dispoId || section.id];
+  if (!candidates.includes(section.id)) candidates.push(section.id);
+  let fr = null;
+  let he = null;
+  for (const id of candidates) {
+    if (!fr) fr = DISPO_FR[`${id}:${num}`] || null;
+    if (!he) he = DISPO_HE[`${id}:${num}`] || null;
+  }
+  // Un titre manquant doit être VISIBLE au build : sans ce signal, la section
+  // nidah est restée sans titre (et donc mal indexée) pendant tout un chantier.
+  if (!fr) MISSING_TITLES.push(`${section.id}:${num}`);
   return {
     titleFr: (fr && fr.title) || `Siman ${num}`,
-    titleHe: (he && he.title) || (fr && fr.numHe) || '',
+    titleHe: (he && he.title) || (fr && fr.titleHe) || (fr && fr.numHe) || '',
     subtitle: '',
   };
 }
@@ -341,6 +359,10 @@ console.log(`  Chunks totaux       : ${allChunks.length}`);
 console.log(`  Taille JSON         : ${sizeKb} KB`);
 console.log(`  Par section         : ${Object.entries(stats.perSection).map(([k, v]) => `${k}=${v}`).join(', ')}`);
 console.log(`  Skipped (${stats.skipped.length})  : ${stats.skipped.map((s) => `${s.section || ''}#${s.num}`).slice(0, 5).join(',')}${stats.skipped.length > 5 ? '...' : ''}`);
+if (MISSING_TITLES.length) {
+  console.warn(`\n⚠️  ${MISSING_TITLES.length} siman(im) indexés SANS titre (recherche dégradée) : ${MISSING_TITLES.slice(0, 20).join(', ')}${MISSING_TITLES.length > 20 ? '…' : ''}`);
+  console.warn('    → ajouter le siman au catalogue data/simanim-disponibles.json, ou sa clé de section à SECTIONS[].dispoIds.');
+}
 
 // Distribution chunks/siman
 const counts = Object.values(stats.chunksPerSiman);
