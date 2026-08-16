@@ -72,7 +72,7 @@ const SYNONYMS = {
   'cuire': ['bishoul','cuisson'], 'cuisson': ['bishoul'],
   'chauffer': ['bishoul','rechauffer'], 'rechauffer': ['bishoul','ein'],
   'cholent': ['bishoul','hatmana'], 'chamin': ['bishoul','hatmana'],
-  'the': ['iroui','liquide'], 'cafe': ['iroui','liquide'],
+  'theboisson': ['iroui','liquide','eaubouillante'], 'cafe': ['iroui','liquide'],
   'eau': ['liquide','mayim'], 'temperature': ['yad','soledet','chaud'],
   'trier': ['borer','tri'], 'separer': ['borer','separation'],
   'salade': ['aliments','okhel'], 'passoire': ['tamis','crible','instrument'],
@@ -92,8 +92,12 @@ const SYNONYMS = {
   'electricite': ['hashmal','electrique'],
   // ── Vocabulaire réel des utilisateurs (ajouté après l'incident borer 2026-07) ──
   // Le corpus est écrit en langue halakhique ; les gens écrivent en langue courante.
-  'retirer': ['borer','enlever','tri'], 'enlever': ['borer','tri'], 'oter': ['borer','tri'],
-  'melange': ['borer','melanges','tri'], 'melanges': ['borer','tri'], 'melangee': ['borer','tri'],
+  // ⚠️ 'retirer' / 'enlever' / 'oter' N'ONT PLUS de synonyme inconditionnel vers
+  // « borer » : ce sont les verbes les plus banals du français, et ils envoyaient
+  // n'importe quelle question vers le siman 319 (« enlever ses chaussures »,
+  // « retirer les tefilin »). Le borer reste couvert — mais par la RÈGLE de
+  // co-occurrence ci-dessous, qui exige en plus un contexte alimentaire.
+  'melange': ['melanges','tri','תערובת'], 'melanges': ['tri','תערובת'], 'melangee': ['tri','תערובת'],
   'pesolet': ['psolet','dechet'], 'psolet': ['pesolet','dechet'],
   'raper': ['tohen','moudre','broyer'], 'moudre': ['tohen'], 'ecraser': ['tohen','lash','broyer'],
   'hacher': ['tohen','couper'], 'broyer': ['tohen'], 'mixer': ['tohen'],
@@ -107,7 +111,9 @@ const SYNONYMS = {
   'baigner': ['rehitsa','laver','bain'],
   'creme': ['sikha','oindre','huile','pommade'], 'pommade': ['sikha','oindre'],
   'parfum': ['sikha','besamim'], 'oindre': ['sikha'],
-  'bijou': ['bijoux','ornement','takhchit','femme'], 'bijoux': ['ornement','takhchit','femme'],
+  // ⚠️ 'femme' retiré : c'est un mot de CONTEXTE omniprésent (nidah, tsitsit,
+  // tefila…), pas un indice de bijou.
+  'bijou': ['bijoux','ornement','takhchit'], 'bijoux': ['ornement','takhchit'],
   'bague': ['bijoux','ornement','takhchit'], 'collier': ['bijoux','ornement','takhchit'],
   'boucle': ['bijoux','ornement','takhchit'], 'montre': ['bijoux','ornement','takhchit'],
   'incendie': ['feu','dlika','sauvetage'], 'brule': ['feu','incendie'], 'flamme': ['feu'],
@@ -124,6 +130,86 @@ const SYNONYMS = {
   'circoncision': ['mila','brit'], 'sauver': ['pikouah','nefesh','sauvetage'],
   'voyage': ['voyageur','chemin','route'], 'kidouch': ['kiddoush','vin'],
   'havdala': ['avdala','besamim'], 'epices': ['besamim','avdala'],
+
+  // ══ ORAH HAÏM QUOTIDIEN (simanim 1-185) ══════════════════════════════════
+  // Le lexique ci-dessus a été écrit quand le corpus ne couvrait QUE Hilkhot
+  // Shabbat. Le corpus couvre désormais 359 simanim, dont toute la journée du
+  // juif : sans ces entrées, deux tiers du corpus n'étaient atteignables que par
+  // hasard, et les questions correspondantes partaient sur un siman de Shabbat.
+  'reveil': ['lever','matin','hashkamat'], 'lever': ['hashkamat','matin'],
+  'mains': ['yadayim','netilat','netila'], 'main': ['yadayim','netilat'],
+  'ongle': ['yadayim','netilat'],
+  'toilettes': ['bethakisse','asher','yatsar'], 'besoin': ['asher','yatsar'],
+  'chaussure': ['naalayim','habillement'], 'chaussures': ['naalayim','habillement'],
+  'habiller': ['levicha','vetement','tsniout'], 'kippa': ['couvrir','tete','yirat'],
+  'chale': ['talit','tsitsit'], 'franges': ['tsitsit','fils','tsitsiyot'],
+  'fils': ['tsitsit','houtim'], 'coins': ['kanfot','talit','tsitsit'],
+  'phylacteres': ['tefilin','batim','retsouot'], 'boitier': ['tefilin','batim'],
+  'lanieres': ['retsouot','tefilin'], 'bras': ['tefilin','yad'], 'tete': ['tefilin','roch'],
+  'parchemin': ['klaf','parachiot','ecriture'],
+  'priere': ['tefila','amida','chemone'], 'prier': ['tefila','amida'],
+  'office': ['tefila','minyan','tsibbour'], 'offices': ['tefila','minyan'],
+  'matinale': ['chaharit','matin'], 'apresmidi': ['minha'],
+  'benir': ['berakha','bendire'], 'benedicite': ['berakha','hamotsi'],
+  'amen': ['berakha','repondre','ania'],
+  'quorum': ['minyan','tsibbour','dix'], 'assemblee': ['tsibbour','minyan'],
+  'officiant': ['chatz','cheliah','tsibbour'], 'hazan': ['chatz','cheliah'],
+  'lecture': ['keriat','torah','sefer'], 'rouleau': ['sefer','torah','keria'],
+  'monter': ['alia','torah','keria'], 'appele': ['alia','torah'],
+  'silencieuse': ['amida','lahach'], 'repetition': ['hazarat','chatz','amida'],
+  'erreur': ['taout','tromper','hozer'], 'trompe': ['taout','hozer'],
+  'oublie': ['chakhah','taout','hozer'], 'recommencer': ['hozer','taout'],
+  'intention': ['kavana','kaven'], 'concentration': ['kavana'],
+  'interrompre': ['hefsek','hafsaka'], 'parler': ['hefsek','dibbour'],
+  'repas': ['seouda','akhila','pat'], 'pain': ['lehem','pat','hamotsi','michne'],
+  'manger': ['akhila','seouda','okhel'], 'boire': ['chetiya','mayim'],
+  'vin': ['yayin','kos','guefen'], 'fruits': ['peirot','haets'],
+  'legumes': ['yerakot','haadama'], 'gateau': ['mezonot','pat'],
+  'mezouza': ['mezouzot','porte','klaf'], 'porte': ['mezouza','petah'],
+
+  // ══ YOREH DE'AH — CACHEROUTE (87-118) ════════════════════════════════════
+  // Les pages de cette section sont largement rédigées en HÉBREU : le lexique
+  // doit traduire le français de l'utilisateur vers les mots réellement indexés
+  // (mesuré : בששים df=115, נבילה df=101, חריף df=87 ; « taarovet » df=2).
+  'viande': ['בשר','bassar','carne'], 'lait': ['חלב','halav','laitage'],
+  'laitage': ['חלב','halav'], 'fromage': ['גבינה','חלב','halav'],
+  'beurre': ['חמאה','חלב'], 'creme': ['חלב','sikha','oindre'],
+  'melanger': ['תערובת','taarovet','bitoul'], 'melangeant': ['תערובת'],
+  'annuler': ['בטל','bitoul','בששים'], 'annulation': ['בטל','bitoul','בששים'],
+  'soixante': ['בששים','bitoul','chichim'], 'proportion': ['בששים','hechbon'],
+  'tombe': ['נפל','תערובת'], 'gout': ['טעם','נותן','taam'],
+  'attendre': ['שעות','המתנה','attente'], 'attente': ['שעות','המתנה'],
+  'heures': ['שעות','המתנה'], 'ustensile': ['כלי','kli','kelim'],
+  'marmite': ['kira','kedera','plata','קדרה'], 'couteau': ['סכין','sakin','חריף'],
+  'piquant': ['חריף','davar','sakin'], 'oignon': ['חריף','bassal'],
+  'sale': ['מליחה','melicha','salage'], 'saler': ['מליחה','melicha'],
+  'cachere': ['כשר','casher','heter'], 'casher': ['כשר','heter','cacheroute'],
+  'cacheroute': ['כשר','איסור','היתר'], 'traife': ['טרפה','נבילה','איסור'],
+  'interdiction': ['איסור','issour'], 'permission': ['היתר','heter'],
+  'four': ['תנור','tanour','ריחא'], 'odeur': ['ריחא','reiha'],
+  'insecte': ['tsida','capturer','animal','תולעים'],
+  'pain': ['lehem','pat','michne','hamotsi'],
+
+  // ══ YOREH DE'AH — NIDAH / TAHARAT HA-MISHPAHA (183-200) ══════════════════
+  // Section rédigée à ~80 % en hébreu, sans aucune translittération française
+  // (mesuré : « ketamim » df=0, « harhakot » df=0, mais כתמים df=35, הרחקות df=52).
+  // Sans ces traductions, la section était littéralement inatteignable.
+  'regles': ['וסת','וסתות','נדה','veset'], 'periode': ['וסת','וסתות'],
+  'cycle': ['וסת','וסתות','vesatot'], 'menstruation': ['נדה','וסת','דם'],
+  'sang': ['דם','נדה','ראתה'], 'saignement': ['דם','ראתה','נדה'],
+  'tache': ['כתם','כתמים','ketem'], 'taches': ['כתמים','כתם'],
+  'impure': ['טמאה','נדה','touma'], 'pure': ['טהורה','טהרה','tahara'],
+  'purete': ['טהרה','טהורה','tahara'], 'purification': ['טהרה','טבילה'],
+  'separation': ['הרחקות','harhakot','perisha'], 'eloignement': ['הרחקות','perisha'],
+  'toucher': ['הרחקות','נגיעה'],
+  'immersion': ['טבילה','מקוה','tevila'], 'tremper': ['טבילה','מקוה'],
+  'bassin': ['מקוה','טבילה'], 'sept': ['שבעה','נקיים','chiva'],
+  'propres': ['נקיים','שבעה'], 'comptage': ['ספירה','נקיים','שבעה'],
+  'examen': ['בדיקה','בדיקות','bedika'], 'verifier': ['בדיקה','בדיקות'],
+  'linge': ['בדיקה','edim','כתם'], 'sousvetement': ['כתם','בדיקה'],
+  'mari': ['בעל','הרחקות','ichto'], 'epouse': ['אשה','הרחקות'],
+  'grossesse': ['מעוברת','וסת'], 'allaitement': ['מניקה','וסת'],
+  'accouchement': ['יולדת','נדה'],
 };
 
 // ── Règles de CO-OCCURRENCE ──
@@ -139,14 +225,21 @@ const CONCEPT_RULES = [
           'placer','place','deposer','pose','remet','laisser','laisse'],
     ctx: ['plata','plaque','kira','marmite','casserole','four','feu','blech','rechaud'],
     add: ['hazara','kira','plata','hatmana','bishoul'], w: 2.0 },
+  // ⚠️ 'prendre' retiré du ctx : « prendre un médicament » est la formulation par
+  // défaut, la règle se déclenchait donc presque toujours et imposait le siman 328.
   { any: ['mal','douleur','malade','fievre','soigner','medicament','cachet','comprime'],
-    ctx: ['tete','ventre','gorge','dent','enfant','bebe','prendre','maltete','malventre'],
+    ctx: ['tete','ventre','gorge','dent','enfant','bebe','maltete','malventre','sirop','antibiotique'],
     add: ['malade','refoua','soin','maladie'], w: 2.2 },
-  { any: ['deplacer','bouger','toucher','ranger'],
-    ctx: ['objet','mouktse','bougie','bougeoir','chandelier','argent','telephone','outil','casse','inutile'],
+  // ⚠️ ctx resserré : 'objet', 'argent', 'toucher', 'ranger' sont du vocabulaire
+  // générique qui captait des questions de prière et de synagogue.
+  { any: ['deplacer','bouger','ranger'],
+    ctx: ['mouktse','bougie','bougeoir','chandelier','telephone','outil','casse','inutile','portefeuille','stylo'],
     add: ['mouktse','tiltoul','deplacement'], w: 1.8 },
+  // ⚠️ 'femme' retiré du ctx : toute question contenant « femme » + « porter /
+  // mettre / sortir » injectait bijoux/takhchit au poids 2.0 et faisait gagner le
+  // siman 303, quel que soit le domaine réel de la question.
   { any: ['sortir','porter','mettre'],
-    ctx: ['bijoux','bague','collier','boucle','ornement','femme'],
+    ctx: ['bijoux','bijou','bague','collier','boucle','ornement','montre','broche'],
     add: ['bijoux','ornement','takhchit'], w: 2.0 },
   { any: ['allumer','allumage','heure','moment','avant'],
     ctx: ['bougies','bougie','nerot','hadlaka'],
@@ -171,31 +264,133 @@ const NON_TOPICAL = new Set([
   'choulhan','shulchan','aroukh','arouh','admour','hazaken','rav','rabbi','gaon',
   'posek','poskim','rishonim','acharonim',
   // façon de RAPPORTER la question (pas son sujet)
-  'livre','livres','lu','lire','ecrit','ecrire','ecrivait','entendu','entendre',
+  'livres','lu','entendu','entendre',
   'appris','disait','disent','disais','disaient','raconte','explique','expliquait',
   'parait','semble','pense','pensais','crois','croyais','vu','vois','accepte',
   'acceptait','tranche','tranchait','base','basent','selon',
+  // ⚠️ 'ecrire', 'ecrit', 'lire', 'livre' et 'michna' ONT été retirés de cette
+  // liste : écrits pour Hilkhot Shabbat, ils y étaient effectivement des mots de
+  // rapport (« dans le livre que j'ai lu »). Depuis l'entrée d'Orah Haïm 1-185
+  // dans le corpus, ce sont des mots de SUJET : écrire les tefilin (32, 36),
+  // lire la Torah (135-145), lire le Chema (58-88), la michna « éézehou mekoman »
+  // (50). Les bloquer rendait ces simanim inatteignables.
+  // repères de TEMPS et verbes passe-partout : ils SITUENT la question, ils n'en
+  // sont jamais le SUJET. Sans eux dans cette liste, « soir », « mettre » ou
+  // « quelles » suffisait à ouvrir le portail keyToken — la soupape de sécurité
+  // ne s'est donc jamais déclenchée sur une question mal formée.
+  'soir','soiree','matin','matinee','midi','nuit','jour','journee','semaine',
+  'hier','demain','aujourdhui','maintenant','tard','tot','apres','avant','pendant',
+  'quelles','quels','quelle','quel','combien','pourquoi','comment','faut','faudrait',
+  'peut','peux','puis','dois','doit','devrait','veux','veut','voulais',
+  'fais','fait','faire','mettre','met','mets','mis','prendre','pris','donner',
+  'passer','arriver','arrive','oublie','oublier',
 ]);
 
+// ── ANCRES DE DOMAINE ───────────────────────────────────────────────
+// Noms de SUJET sans ambiguïté : quand l'utilisateur en écrit un, il dit de quoi
+// il parle. Le chunk servi DOIT alors en parler aussi (restriction ET, pas un
+// bonus). C'est l'inverse de l'IDF : depuis que le corpus couvre 359 simanim, ces
+// mots sont devenus les PLUS fréquents (tefilin df=1321, chema df=1351), donc les
+// plus faibles — le garde-fou keyToken les écartait au profit du mot incident, et
+// une question sur les tefilin partait sur un siman de Shabbat.
+// L'ancre est satisfaite par le mot LUI-MÊME ou par l'un de ses synonymes indexés
+// (le corpus Yoreh De'ah est rédigé en hébreu : « viande » doit pouvoir être
+// satisfait par בשר).
+const DOMAIN_ANCHORS = new Set([
+  // Orah Haïm quotidien
+  'tefilin','tsitsit','talit','chema','tefila','amida','berakha','birkat',
+  'netilat','netila','yadayim','minha','chaharit','maariv','moussaf','kaddich',
+  'kedoucha','tahanoun','halel','sefer','torah','synagogue','minyan','kohanim',
+  'mezouza','hamotsi','mazon','zimoun','tsedaka',
+  // Shabbat
+  'shabbat','chabbat','borer','bishoul','mouktse','hazara','tohen','hatmana',
+  'kiddoush','havdala','bougies','nerot','erouv','eirouv','plata','kira',
+  // Yoreh De'ah — cacheroute
+  'viande','lait','fromage','cacheroute','casher','taarovet','בשר','חלב',
+  // Yoreh De'ah — nidah
+  'nidda','mikve','tevila','וסת','כתם','הרחקות','נקיים','טבילה',
+]);
+
+// ── Graphies concurrentes de la translittération française ──────────────────
+// Le français n'a pas de translittération unique de l'hébreu : « tefilin » et
+// « tefillin » désignent le MÊME objet. Le corpus n'emploie qu'une graphie ; la
+// variante n'y survit que dans de rares mentions INCIDENTES, à qui BM25 attribue
+// donc une IDF énorme (mesuré sur le corpus réel : tefilin df=1295, tefillin
+// df=12 — soit idf 2,5 contre 7,2). La variante devenait donc le « portail »
+// keyToken et dirigeait la question vers le siman qui la mentionne au passage,
+// jamais vers celui qui l'enseigne. Le filtre `known` ne protège que des mots
+// ABSENTS (df=0) ; le trou est la bande « df petit mais non nul », qui est
+// exactement celle des mentions incidentes.
+// On fusionne les graphies DANS normalizeToken, donc avant l'indexation ET avant
+// la requête (même fonction pour les deux) : l'asymétrie d'IDF disparaît à la
+// racine, ce qu'un synonyme ne saurait faire (un synonyme ne corrige pas l'IDF).
+const SPELLING_CANON = new Map(Object.entries({
+  // tefilin
+  tefillin: 'tefilin', teffilin: 'tefilin', tephilin: 'tefilin', tephillin: 'tefilin',
+  tefiline: 'tefilin', tefilines: 'tefilin', tephilines: 'tefilin', tfilin: 'tefilin',
+  tefilim: 'tefilin', tefillim: 'tefilin', tefillines: 'tefilin', tefilins: 'tefilin',
+  // tsitsit
+  tzitzit: 'tsitsit', tzitzis: 'tsitsit', tsitsis: 'tsitsit', zizith: 'tsitsit',
+  tsitsite: 'tsitsit', tsitsits: 'tsitsit', tzitzith: 'tsitsit', sitsit: 'tsitsit',
+  tsitsith: 'tsitsit',
+  // talit
+  tallit: 'talit', talith: 'talit', tallith: 'talit', taleth: 'talit', talits: 'talit',
+  tallits: 'talit', talleth: 'talit',
+  // chema
+  shema: 'chema', shma: 'chema', sema: 'chema', chma: 'chema', schema: 'chema',
+  // berakha (le mot français aussi : le corpus dit « berakha »)
+  brakha: 'berakha', beracha: 'berakha', bracha: 'berakha', berakhah: 'berakha',
+  berachot: 'berakha', brachot: 'berakha', brakhot: 'berakha', berakhot: 'berakha',
+  berakhote: 'berakha', bendiction: 'berakha',
+  // tefila
+  tefilla: 'tefila', tefillah: 'tefila', tefilah: 'tefila', tfila: 'tefila',
+  tefillot: 'tefila', tefilot: 'tefila', tefillas: 'tefila',
+  // offices
+  mincha: 'minha', minhah: 'minha', minah: 'minha', mincah: 'minha',
+  shaharit: 'chaharit', shacharit: 'chaharit', chacharit: 'chaharit',
+  arvit: 'maariv', arvith: 'maariv', maarive: 'maariv', arbit: 'maariv',
+  // kidouch
+  kidoush: 'kiddoush', kiddush: 'kiddoush', kidouch: 'kiddoush', kiddouch: 'kiddoush',
+  kiddousch: 'kiddoush',
+  // nidah / taharat ha-mishpaha
+  nidah: 'nidda', nida: 'nidda', niddah: 'nidda', niddha: 'nidda',
+  mikve: 'mikve', mikveh: 'mikve', mikva: 'mikve', mikvah: 'mikve', mikwe: 'mikve',
+}));
+
 function normalizeToken(s) {
-  return s.toLowerCase().normalize('NFD')
+  const t = s.toLowerCase().normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')      // diacritiques latins
     .replace(/[\u0591-\u05C7]/g, '')      // NIKUD + te'amim hébreux : « בַּמֶּה » ≡ « במה »
     .replace(/['’‘\u05F3\u05F4"״]/g, '')  // apostrophes, geresh, gershayim
     .replace(/[^a-z\u05d0-\u05ea\u05f0-\u05f20-9]/g, '');
+  return SPELLING_CANON.get(t) || t;
 }
 
 // Pré-normalise la chaîne ENTIÈRE (minuscules, sans accents) puis remplace les
 // expressions multi-mots, avant tout découpage en tokens.
 function preNormalize(text) {
-  let t = String(text || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  let t = String(text || '').toLowerCase().normalize('NFC');
+  // « thé » AVANT le retrait des accents : sans cela il devient « the », avalé par
+  // le stopword ANGLAIS — une question sur le thé perdait son seul mot porteur.
+  t = t.replace(/(^|[^\p{L}])th[éè]s?(?![\p{L}])/gu, '$1 theboisson ');
+  t = t.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  // Variante sans accent, seulement après un déterminant français (« un the »),
+  // pour ne jamais toucher au « the » anglais des questions EN.
+  t = t.replace(/(^|[^\p{L}])(un|une|le|du|de|mon|ma|ce|cette|votre|son|au|mets|verse)\s+thes?(?![\p{L}])/gu, '$1$2 theboisson ');
+  // Élisions FRANÇAISES uniquement (l', d', qu', j'…) : on les efface pour ne pas
+  // coller le déterminant au mot. Les AUTRES apostrophes sont des
+  // translittérations de l'hébreu (Min'ha, Bera'ha, Ta'hanoun, Hala'ha) : le
+  // séparateur les coupait en deux — « min » + « ha », deux débris sans rapport
+  // avec le sujet (mesuré : min df=233, ha df=566 dans le corpus). L'apostrophe a
+  // donc été retirée du séparateur de tokenize(), et normalizeToken la supprime.
+  t = t.replace(/(^|[^\p{L}])(?:[ldjnmtsc]|qu|jusqu|lorsqu|puisqu|quelqu|aujourd)['’‘]/gu, '$1 ');
   for (const [re, rep] of MULTIWORD) t = t.replace(re, rep);
   return t;
 }
 
 export function tokenize(text) {
   return preNormalize(text)
-    .split(/[\s,.;:!?()«»""'‘’\-—–_/]+/)
+    .split(/[\s,.;:!?()«»""\-—–_/]+/)
     .map(normalizeToken)
     .filter((t) => t.length >= 2 && !STOPWORDS.has(t));
 }
@@ -279,9 +474,15 @@ function getIdf(term) {
   return Math.log(1 + (_N + 0.5) / 0.5);
 }
 
-function scoreChunk(chunk, queryTerms, keyTokens, originalTokens, strict, conceptKeys = []) {
+function scoreChunk(chunk, queryTerms, keyTokens, originalTokens, strict, conceptKeys = [], anchorTerms = []) {
   const k1 = 1.5, b = 0.75;
   const tf = chunk._tfMap;
+  // ⛓️ ANCRE DE DOMAINE (restriction ET). Si la question NOMME son sujet, le
+  // chunk doit en parler. C'est le seul garde-fou qui résiste à la croissance du
+  // corpus : il ne dépend pas de l'IDF, donc il ne se dégrade pas quand un mot
+  // de sujet devient fréquent. Sans lui, « à quelle heure mettre les tefilin ? »
+  // était servie par un siman de Shabbat qui mentionne les tefilin en passant.
+  if (anchorTerms.length && !anchorTerms.some((t) => tf.get(t))) return 0;
   // Garde-fou keyToken : au moins un token original à haute IDF doit matcher —
   // OU un terme de concept reconnu par les règles de co-occurrence. Sans cette
   // seconde porte, une question dont le mot le plus rare est un ALIMENT (« pomme
@@ -326,6 +527,24 @@ function scoreChunk(chunk, queryTerms, keyTokens, originalTokens, strict, concep
   return score + titleBonus;
 }
 
+// Réglages du portail, pilotables par variable d'environnement pour pouvoir les
+// ajuster sans redéploiement (le corpus grandit toutes les semaines).
+const GATE_IDF_FLOOR = parseFloat(process.env.GATE_IDF_FLOOR || '4.5');
+const GATE_IDF_RATIO = parseFloat(process.env.GATE_IDF_RATIO || '0.75');
+const ANCHOR_MODE = process.env.CORPUS_ANCHOR_MODE || 'and';
+const SHABBAT_GUARD = process.env.CORPUS_SHABBAT_GUARD !== '0';
+
+// Mots qui situent une question à Shabbat. Volontairement LARGE (mieux vaut
+// laisser passer une question du quotidien vers Shabbat que l'inverse).
+const SHABBAT_MARKERS = new Set([
+  'shabbat','chabbat','chabat','shabat','sabbat','shabbos','chabbath','chabbatot',
+  'vendredi','samedi','motsae','motsaei','motsash','melakha','melakhot','melacha',
+  'mouktse','muktse','mouqtse','borer','bishoul','hatmana','hazara','tohen','lash',
+  'plata','blech','kira','rechaud','eirouv','erouv','havdala','avdala','kiddoush',
+  'nerot','hadlaka','bougies','bougie','tsomet','yomtov','fete','fetes','pessah',
+  'kippour','soucca','chalom',
+]);
+
 export function searchCorpus(question, opts = {}) {
   loadAndIndex();
   const limit = opts.limit || 3;
@@ -348,8 +567,46 @@ export function searchCorpus(question, opts = {}) {
   // mots de provenance (minhag, nom de posek) et de rapport (« il disait que »).
   const gateCandidates = known.filter((t) => !NON_TOPICAL.has(t));
   const byIdf = [...new Set(gateCandidates)].map((t) => ({ t, idf: getIdf(t) })).sort((a, b) => b.idf - a.idf);
-  const keyTokens = byIdf.slice(0, 2).map((x) => x.t);
-  const conceptKeys = [...conceptTerms(tokens)];
+  // Le 2e token ne devient un « portail » que s'il est réellement DISCRIMINANT.
+  // Auparavant on prenait les 2 meilleurs quoi qu'il arrive : sur une question
+  // dont aucun mot n'est spécifique, le portail s'ouvrait quand même et la
+  // soupape « aucun mot exploitable → ne rien renvoyer » ne servait jamais.
+  const bestIdf = byIdf.length ? byIdf[0].idf : 0;
+  const keyTokens = byIdf
+    .filter((x, i) => i === 0 || (x.idf >= GATE_IDF_FLOOR && x.idf >= bestIdf * GATE_IDF_RATIO))
+    .slice(0, 2)
+    .map((x) => x.t);
+
+  // Synonymes de SECOURS : un synonyme ne pouvait JAMAIS ouvrir le portail (seuls
+  // les tokens écrits par l'utilisateur et présents dans l'index le pouvaient),
+  // si bien qu'ajouter des synonymes ne rattrapait PAS un mot absent du corpus —
+  // or c'est précisément à cela qu'ils servent (les pages de nidah sont en
+  // hébreu : וסת / כתם / הרחקות). On n'élargit le portail que pour un mot
+  // que l'index NE CONNAÎT PAS : le garde-fou reste strictement intact dès que le
+  // vocabulaire de la question est déjà couvert.
+  const rescueKeys = [];
+  for (const t of new Set(tokens)) {
+    if (_idf.has(t) || !SYNONYMS[t]) continue;
+    for (const syn of SYNONYMS[t]) {
+      const n = normalizeToken(syn);
+      if (n.length >= 2 && _idf.has(n) && !NON_TOPICAL.has(n)) rescueKeys.push(n);
+    }
+  }
+  const conceptKeys = [...conceptTerms(tokens), ...rescueKeys];
+
+  // Ancres : le mot lui-même + ses synonymes indexés (le corpus Yoreh De'ah est
+  // rédigé en hébreu, « viande » doit pouvoir être satisfait par בשר).
+  const anchorTerms = [];
+  if (ANCHOR_MODE !== 'off') {
+    for (const t of new Set(gateCandidates)) {
+      if (!DOMAIN_ANCHORS.has(t)) continue;
+      anchorTerms.push(t);
+      for (const syn of SYNONYMS[t] || []) {
+        const n = normalizeToken(syn);
+        if (n.length >= 2 && _idf.has(n)) anchorTerms.push(n);
+      }
+    }
+  }
 
   // 🛡️ SÉCURITÉ : aucun mot de sujet exploitable ET aucun concept halakhique
   // reconnu → la question n'a rien d'identifiable dans le corpus. Ne RIEN
@@ -362,11 +619,22 @@ export function searchCorpus(question, opts = {}) {
   // Idem pour le mode strict : n'exiger que des tokens réellement indexables.
   const originalSet = [...new Set(known.length ? known : tokens)];
 
+  // 🛡️ GARDE-FOU SHABBAT. `section` ne sépare PAS le quotidien de Shabbat : les
+  // simanim 1-185 et 242-365 portent TOUS section 'orach-chaim'. Une question sans
+  // le moindre marqueur de Shabbat ne peut donc pas être servie par un siman de
+  // Hilkhot Shabbat — c'est ainsi que « faut-il se laver les mains le matin ? »
+  // recevait le siman 326 (« Se laver à Shabbat ») avec la mention « Source :
+  // Siman 326 » : le mécanisme exact du faux heter borer, une réponse assurée sous
+  // une référence fausse. L'inverse n'est PAS filtré : « le tsitsit à Shabbat »
+  // doit rester servi par le siman 13 comme par le 301.
+  const shabbatQ = !SHABBAT_GUARD || tokens.some((t) => SHABBAT_MARKERS.has(t));
+
   const expanded = expandQuery(tokens);
   const scored = [];
   for (const c of _corpus.chunks) {
     if (section && c.section && c.section !== section) continue;
-    const s = scoreChunk(c, expanded, keyTokens, originalSet, strict, conceptKeys);
+    if (!shabbatQ && c.section === 'orach-chaim' && +c.siman >= 242 && +c.siman <= 365) continue;
+    const s = scoreChunk(c, expanded, keyTokens, originalSet, strict, conceptKeys, anchorTerms);
     if (s >= minScore) scored.push({ chunk: c, score: s });
   }
   scored.sort((a, b) => b.score - a.score);
