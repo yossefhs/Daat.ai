@@ -43,6 +43,8 @@ python3 scripts/verifier-citations.py --only-absent          # just the list to 
 python3 scripts/verifier-citations.py --path sources/shabbat/siman-297
 
 # Garde-fou de langue — chaque page est-elle écrite dans la langue qu'elle annonce ?
+# Trois échelles : la page entière, le bloc isolé, et l'entête (title/og/twitter/JSON-LD),
+# cette dernière étant invisible à la lecture mais lue par Google et les aperçus de partage.
 # Complémentaire des deux autres : une page peut être 174/174 conforme, sans citation
 # fausse, et avoir un corps entièrement français sous un lang="en".
 python3 scripts/verifier-langues.py            # tout le site
@@ -52,7 +54,7 @@ python3 scripts/verifier-langues.py --lignes   # + la liste des blocs à traduir
 node scripts/generate-siman.js --siman XXX [--force] [--no-sitemap]
 ```
 
-There is no test suite and no linter. Three complementary gates stand in for one: `scripts/audit-simanim.py` checks **structure** (boilerplate, missing files, desynced TOC), `scripts/verifier-citations.py` checks **content** (does each Hebrew quote actually exist at the reference it claims?), and `scripts/verifier-langues.py` checks **language** (is the body of `X-en.html` actually English?). None subsumes the others — a page can be 174/174 conforme, carry no false citation, and still be a French page served under `lang="en"`, which is what four pages of simanim 304 and 322 were. Run all three before declaring content work done; the SessionStart hook (`.claude/hooks/session-start.sh`, remote-only) runs `npm install` then this audit at the start of every web session.
+There is no test suite and no linter. Three complementary gates stand in for one: `scripts/audit-simanim.py` checks **structure** (boilerplate, missing files, desynced TOC), `scripts/verifier-citations.py` checks **content** (does each Hebrew quote actually exist at the reference it claims?), and `scripts/verifier-langues.py` checks **language** (is the body of `X-en.html` actually English — and is its `<title>`/`og:title`/`description`?). None subsumes the others — a page can be 174/174 conforme, carry no false citation, and still be a French page served under `lang="en"`, which is what four pages of simanim 304 and 322 were; 212 further pages had a correct body under a French head, which only the third scale of `verifier-langues.py` can see. Run all three before declaring content work done; the SessionStart hook (`.claude/hooks/session-start.sh`, remote-only) runs `npm install` then this audit at the start of every web session.
 
 ## Content model — the core of the repo
 

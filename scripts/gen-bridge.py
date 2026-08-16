@@ -160,11 +160,16 @@ TXT = {
 }
 
 def page(lang, num, numHe, subj):
+    # ``subj`` porte les trois langues. Une seule chaîne partagée — c'est ce que
+    # faisait la version précédente — laissait la glose française dans la page
+    # hébraïque et dans la page anglaise, à quatre endroits chacune (les trois
+    # descriptions et le sous-titre visible du hero) : 62 pages à reprendre.
     t = TXT[lang]
+    sujet = subj[lang]
     N=str(num); NM1=str(num-1); NP1=str(num+1)
     canon=f"https://daattorah.com/oh-quotidien/{N}/daat-harav"+("" if lang=="fr" else "/"+lang)
     title=t["title"](N,numHe)
-    desc=t["meta_desc"](numHe,subj)
+    desc=t["meta_desc"](numHe,sujet)
     jsonld=('<script type="application/ld+json" data-schema="niveau-jsonld">{"@context":"https://schema.org","@graph":['
       '{"@type":["Article","LearningResource"],"@id":"'+canon+'#article","headline":"'+title.replace('"','\\"')+'",'
       '"url":"'+canon+'","inLanguage":"'+("fr-FR" if lang=="fr" else lang)+'","isAccessibleForFree":true,'
@@ -246,7 +251,7 @@ def page(lang, num, numHe, subj):
     <div class="hero-meta">Orah Haïm {numHe} · {t['level4']} · שיטת אדמו״ר הזקן</div>
     <p class="hero-title-he">דעת הרב</p>
     <h1 class="hero-title" style="margin:0;">{t['hero_title'](N)}</h1>
-    <p class="hero-subtitle">{t['hero_sub'](subj)}</p>
+    <p class="hero-subtitle">{t['hero_sub'](sujet)}</p>
 </div></div>
 <main>
   <div class="bridge-banner"{dattr}>
@@ -303,10 +308,17 @@ def gen(num, numHe, subj):
         open(os.path.join(d,f"niveau-4-daat-harav{suf}.html"),"w",encoding="utf-8").write(page(lang,num,numHe,subj))
     print(f"  siman {num} ({numHe}) : 3 pages-pont niveau-4 générées.")
 
-# Simanim du lot courant (132-134) : (num, numHe hébreu, sujet court)
+# Simanim du lot courant : (num, numHe hébreu, sujet court par langue).
+# Le sujet doit être écrit dans les trois langues : la page hébraïque garde le
+# seul intitulé hébreu (une glose y serait redondante), la page française et la
+# page anglaise le glosent chacune dans la sienne.
 SIMANIM=[
- (175,"קע״ה","דיני ברכת הטוב והמטיב על היין — la bénédiction HaTov VeHaMeitiv sur le vin"),
- (176,"קע״ו","שהפת פוטר הפרפרת — le pain exempte les mets d'accompagnement (parperet)"),
+ (175,"קע״ה",{"fr":"דיני ברכת הטוב והמטיב על היין — la bénédiction HaTov VeHaMeitiv sur le vin",
+             "he":"דיני ברכת הטוב והמטיב על היין",
+             "en":"דיני ברכת הטוב והמטיב על היין — the blessing HaTov VeHaMeitiv over wine"}),
+ (176,"קע״ו",{"fr":"שהפת פוטר הפרפרת — le pain exempte les mets d'accompagnement (parperet)",
+             "he":"שהפת פוטר הפרפרת",
+             "en":"שהפת פוטר הפרפרת — bread exempts the accompanying dishes (parperet)"}),
 ]
 if __name__=="__main__":
     args=[int(x) for x in sys.argv[1:]]
