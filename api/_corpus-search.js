@@ -69,7 +69,7 @@ const MULTIWORD = [
 ];
 
 const SYNONYMS = {
-  'cuire': ['bishoul','cuisson'], 'cuisson': ['bishoul'],
+  'cuisson': ['bishoul'],
   'chauffer': ['bishoul','rechauffer'], 'rechauffer': ['bishoul','ein'],
   'cholent': ['bishoul','hatmana'], 'chamin': ['bishoul','hatmana'],
   'theboisson': ['iroui','liquide','eaubouillante'], 'cafe': ['iroui','liquide'],
@@ -109,7 +109,7 @@ const SYNONYMS = {
   'doucher': ['laver','rehitsa','bain'], 'douche': ['laver','rehitsa','bain'],
   'laver': ['rehitsa','bain','ablution'], 'bain': ['rehitsa','laver'], 'sallebain': ['rehitsa','laver'],
   'baigner': ['rehitsa','laver','bain'],
-  'creme': ['sikha','oindre','huile','pommade'], 'pommade': ['sikha','oindre'],
+  'creme': ['sikha','oindre','huile','pommade','חלב'], 'pommade': ['sikha','oindre'],
   'parfum': ['sikha','besamim'], 'oindre': ['sikha'],
   // ⚠️ 'femme' retiré : c'est un mot de CONTEXTE omniprésent (nidah, tsitsit,
   // tefila…), pas un indice de bijou.
@@ -117,14 +117,14 @@ const SYNONYMS = {
   'bague': ['bijoux','ornement','takhchit'], 'collier': ['bijoux','ornement','takhchit'],
   'boucle': ['bijoux','ornement','takhchit'], 'montre': ['bijoux','ornement','takhchit'],
   'incendie': ['feu','dlika','sauvetage'], 'brule': ['feu','incendie'], 'flamme': ['feu'],
-  'pain': ['lehem','michne','pains'], 'pains': ['lehem','michne'],
+  'pain': ['lehem','pat','michne','hamotsi','pains'], 'pains': ['lehem','michne'],
   'bougies': ['bougie','hadlaka','allumage','nerot'], 'bougie': ['hadlaka','allumage','nerot'],
   'bougeoir': ['bougie','chandelier','mouktse','deplacement'], 'chandelier': ['bougie','bougeoir'],
   'heure': ['moment','zman','horaire'], 'moment': ['zman','heure'],
   'cuire': ['bishoul','mevashel','cuisson'], 'cuisiner': ['bishoul','mevashel','cuisson'],
   'plata': ['kira','plaque','hatmana'], 'plaque': ['kira','plata','hatmana'],
-  'marmite': ['kira','kedera','plata'], 'casserole': ['kira','kedera','marmite'],
-  'ongles': ['ongle','preparatifs'], 'insecte': ['tsida','capturer','animal'],
+  'casserole': ['kira','kedera','marmite'],
+  'ongles': ['ongle','preparatifs'],
   'mouche': ['tsida','capturer','insecte'], 'attraper': ['tsida','capturer'],
   'lacets': ['qosher','noeud','nouer'], 'balayer': ['balai','maison','nettoyer'],
   'circoncision': ['mila','brit'], 'sauver': ['pikouah','nefesh','sauvetage'],
@@ -161,7 +161,7 @@ const SYNONYMS = {
   'oublie': ['chakhah','taout','hozer'], 'recommencer': ['hozer','taout'],
   'intention': ['kavana','kaven'], 'concentration': ['kavana'],
   'interrompre': ['hefsek','hafsaka'], 'parler': ['hefsek','dibbour'],
-  'repas': ['seouda','akhila','pat'], 'pain': ['lehem','pat','hamotsi','michne'],
+  'repas': ['seouda','akhila','pat'],
   'manger': ['akhila','seouda','okhel'], 'boire': ['chetiya','mayim'],
   'vin': ['yayin','kos','guefen'], 'fruits': ['peirot','haets'],
   'legumes': ['yerakot','haadama'], 'gateau': ['mezonot','pat'],
@@ -173,7 +173,7 @@ const SYNONYMS = {
   // (mesuré : בששים df=115, נבילה df=101, חריף df=87 ; « taarovet » df=2).
   'viande': ['בשר','bassar','carne'], 'lait': ['חלב','halav','laitage'],
   'laitage': ['חלב','halav'], 'fromage': ['גבינה','חלב','halav'],
-  'beurre': ['חמאה','חלב'], 'creme': ['חלב','sikha','oindre'],
+  'beurre': ['חמאה','חלב'],
   'melanger': ['תערובת','taarovet','bitoul'], 'melangeant': ['תערובת'],
   'annuler': ['בטל','bitoul','בששים'], 'annulation': ['בטל','bitoul','בששים'],
   'soixante': ['בששים','bitoul','chichim'], 'proportion': ['בששים','hechbon'],
@@ -188,7 +188,7 @@ const SYNONYMS = {
   'interdiction': ['איסור','issour'], 'permission': ['היתר','heter'],
   'four': ['תנור','tanour','ריחא'], 'odeur': ['ריחא','reiha'],
   'insecte': ['tsida','capturer','animal','תולעים'],
-  'pain': ['lehem','pat','michne','hamotsi'],
+
 
   // ══ YOREH DE'AH — NIDAH / TAHARAT HA-MISHPAHA (183-200) ══════════════════
   // Section rédigée à ~80 % en hébreu, sans aucune translittération française
@@ -283,7 +283,7 @@ const NON_TOPICAL = new Set([
   'quelles','quels','quelle','quel','combien','pourquoi','comment','faut','faudrait',
   'peut','peux','puis','dois','doit','devrait','veux','veut','voulais',
   'fais','fait','faire','mettre','met','mets','mis','prendre','pris','donner',
-  'passer','arriver','arrive','oublie','oublier',
+  'passer','arriver','arrive',
 ]);
 
 // ── ANCRES DE DOMAINE ───────────────────────────────────────────────
@@ -300,11 +300,11 @@ const DOMAIN_ANCHORS = new Set([
   // Orah Haïm quotidien
   'tefilin','tsitsit','talit','chema','tefila','amida','berakha','birkat',
   'netilat','netila','yadayim','minha','chaharit','maariv','moussaf','kaddich',
-  'kedoucha','tahanoun','halel','sefer','torah','synagogue','minyan','kohanim',
+  'kedoucha','tahanoun','sefer','torah','synagogue','minyan','kohanim',
   'mezouza','hamotsi','mazon','zimoun','tsedaka',
   // Shabbat
   'shabbat','chabbat','borer','bishoul','mouktse','hazara','tohen','hatmana',
-  'kiddoush','havdala','bougies','nerot','erouv','eirouv','plata','kira',
+  'kiddoush','havdala','bougies','nerot','erouv','plata','kira',
   // Yoreh De'ah — cacheroute
   'viande','lait','fromage','cacheroute','casher','taarovet','בשר','חלב',
   // Yoreh De'ah — nidah
