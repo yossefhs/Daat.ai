@@ -103,24 +103,24 @@ def _neutraliser(html: str) -> str:
     return RE_LIEN_EXTERNE.sub(_blanc, RE_TETE.sub(_blanc, html))
 
 
-def _sans_balises(html: str) -> list[str]:
-    """Lignes du document, balises retirées.
+def _sans_balises(html: str) -> tuple[list[str], int]:
+    """Lignes du document sans balises, et l'indice de la première du corps.
 
-    Le retrait doit se faire **avant** la découpe en lignes : une balise qui
-    s'étend sur plusieurs lignes — c'est le cas du champ de recherche des pages
-    d'index — laisserait sinon ses attributs (``data-i18n-placeholder="…"``)
-    dans le texte, et un attribut latin passerait pour un bloc non traduit.
+    Le retrait des balises doit se faire **avant** la découpe en lignes : une
+    balise qui s'étend sur plusieurs lignes — c'est le cas du champ de recherche
+    des pages d'index — laisserait sinon ses attributs
+    (``data-i18n-placeholder="…"``) dans le texte, et un attribut latin
+    passerait pour un bloc non traduit.
+
+    Mais ce retrait efface aussi ``</head>``, et la frontière du corps devient
+    introuvable *après* coup : le contrôle repartait alors de la ligne 1 et
+    lisait l'entête. On calcule donc la frontière sur le texte **avant**
+    suppression des balises, et on la rend avec les lignes.
     """
-    return RE_BALISE.sub(_blanc, _neutraliser(html)).split("\n")
-
-
-def _debut(lignes: list[str]) -> int:
-    """Première ligne du corps : l'entête porte titre et description SEO, qui
-    peuvent légitimement rester dans une autre langue."""
-    for i, l in enumerate(lignes):
-        if "</head>" in l:
-            return i
-    return 0
+    neutre = _neutraliser(html)
+    lignes_brutes = neutre.split("\n")
+    debut = next((i for i, l in enumerate(lignes_brutes) if "</head>" in l), 0)
+    return RE_BALISE.sub(_blanc, neutre).split("\n"), debut
 
 
 def corps(chemin: pathlib.Path) -> str:
@@ -163,8 +163,8 @@ def lignes_fautives(chemin: pathlib.Path, intruse: str, seuil: int = 2) -> list[
     # les trois langues dans **chaque** page : les compter donnerait un faux
     # positif sur tous les index. On neutralise donc scripts et styles avant le
     # balayage, en préservant la numérotation des lignes.
-    lignes = _sans_balises(chemin.read_text(encoding="utf-8"))
-    for i, nu in enumerate(lignes[_debut(lignes):], _debut(lignes) + 1):
+    lignes, debut = _sans_balises(chemin.read_text(encoding="utf-8"))
+    for i, nu in enumerate(lignes[debut:], debut + 1):
         if len(etrangere.findall(nu)) >= seuil and not attendue.search(nu):
             out.append((i, re.sub(r"\s+", " ", nu).strip()[:150]))
     return out
@@ -179,8 +179,8 @@ def blocs_latins(chemin: pathlib.Path) -> list[tuple[int, str]]:
     en français.
     """
     out = []
-    lignes = _sans_balises(chemin.read_text(encoding="utf-8"))
-    for i, nu in enumerate(lignes[_debut(lignes):], _debut(lignes) + 1):
+    lignes, debut = _sans_balises(chemin.read_text(encoding="utf-8"))
+    for i, nu in enumerate(lignes[debut:], debut + 1):
         lat, he = len(LAT.findall(nu)), len(HE.findall(nu))
         if lat >= BLOC_LATIN and lat > 3 * he:
             out.append((i, re.sub(r"\s+", " ", nu).strip()[:150]))
