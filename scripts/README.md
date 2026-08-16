@@ -119,6 +119,18 @@ Cette convention n'est pas cosmétique. Avant elle, les cellules des tableaux co
 
 Une ellipse à l'intérieur de guillemets reste légitime — `« A… B »` signifie que A et B sont l'un et l'autre littéraux. Le script vérifie chaque tronçon séparément.
 
+### La fenêtre de référence, et ce qu'elle a coûté
+
+Une référence n'appartient pas à toute la ligne, mais à la citation qu'elle jouxte. Le script fenêtrait d'abord 200 caractères de part et d'autre, symétriquement — et sur une ligne portant deux citations, le daf de la seconde était attribué à la première :
+
+> « כל הטמאים קורין בתורה וקורין ק״ש ומתפללין » — שאין הטומאה מעכבת בדברי תורה, ד« דברי תורה אינן מקבלין טומאה » (ברכות כ״ב.)
+
+La première citation, qui n'a aucune référence, ressortait en `REF_FAUSSE` contre Berakhot 22a. Un sondage à la main sur cinq signalements en a montré **trois de cette espèce** — et une correction en masse aurait donc introduit des erreurs au lieu d'en retirer.
+
+La fenêtre est désormais bornée par les citations voisines : elle s'arrête avant le `«` suivant et après le `»` précédent. Sur le site : **39 signalements disparus, 2 révélés** (des citations qui se lient maintenant à une référence plus proche, et fausse). `REF_FAUSSE` passe de 81 à 55, `INTROUVABLE` de 40 à 29.
+
+La leçon vaut au-delà de ce script : un compteur de défauts n'est pas une liste de défauts tant qu'on n'a pas mesuré sa précision sur un échantillon.
+
 ⚠️ Un verdict **OK** signifie que le texte cité existe à la référence donnée — **pas** que le raisonnement halakhique qui l'entoure est juste, ni que l'attribution (« אמר רבא », « הגהת הרמ״א ») est la bonne. Le script attrape les citations fabriquées et les dafim faux ; il n'attrape pas une citation exacte mise au service d'une conclusion fausse. Cela reste du ressort de la relecture du Rav (`audit/relecture-rav.md`).
 
 ## verifier-langues.py

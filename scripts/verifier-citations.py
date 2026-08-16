@@ -324,6 +324,36 @@ def _num(tok):
     return gem(tok)
 
 
+def fenetre_ref(plain, at, n):
+    """Contexte d'une citation, borné par les citations voisines.
+
+    La fenêtre symétrique de ``FENETRE_REF`` caractères était trop large : sur
+    une ligne portant deux citations — « כל הטמאים קורין בתורה » … puis
+    « דברי תורה אינן מקבלין טומאה » (ברכות כ״ב.) — le daf de la seconde était
+    attribué à la première, qui n'en avait aucun, et la première ressortait en
+    REF_FAUSSE. Un sondage sur cinq cas en a montré trois de cette espèce.
+
+    Une référence appartient à la citation qu'elle jouxte : on arrête donc la
+    fenêtre avant la citation suivante (``«``) et après la précédente (``»``).
+    """
+    fin = at + n
+    apres = plain[fin:fin + FENETRE_REF]
+    if apres.startswith('»'):
+        apres = apres[1:]
+    coupe = apres.find('«')
+    if coupe >= 0:
+        apres = apres[:coupe]
+
+    avant = plain[max(0, at - FENETRE_REF):at]
+    if avant.endswith('«'):
+        avant = avant[:-1]
+    coupe = avant.rfind('»')
+    if coupe >= 0:
+        avant = avant[coupe + 1:]
+
+    return avant + ' ' + plain[at:fin] + ' ' + apres
+
+
 def refs_in(ctx):
     """Toutes les références Sefaria détectées dans un contexte textuel."""
     out = []
@@ -570,8 +600,7 @@ def main():
             # la référence doit accompagner la citation, pas simplement figurer
             # quelque part sur la même ligne
             at = plain.find(frag)
-            window = (plain[max(0, at - FENETRE_REF):at + len(frag) + FENETRE_REF]
-                      if at >= 0 else plain)
+            window = fenetre_ref(plain, at, len(frag)) if at >= 0 else plain
             refs = refs_in(window)
             if not refs:
                 stats['SANS_REF'] += 1
