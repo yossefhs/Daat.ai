@@ -11,7 +11,7 @@ import { getClientIp } from './_http.js';
 import { SYSTEM_PROMPT, buildSystemPrompt } from './_system-prompt.js';
 import { SEFARIA_TOOLS, executeSefariaTool } from './_sefaria.js';
 import { CORPUS_TOOLS, executeCorpusTool, searchCorpus } from './_corpus.js';
-import { searchCorpus as searchShabbatCorpus, corpusCacheKey, CORPUS_CACHE_TTL, stripProfileBlock } from './_corpus-search.js';
+import { searchCorpus as searchShabbatCorpus, corpusCacheKey, CORPUS_CACHE_TTL, stripProfileBlock, profileSignature } from './_corpus-search.js';
 import { MAREH_MEKOMOT_TOOLS, executeMarehMekomotTool } from './_mareh_mekomot.js';
 import { getUserFromRequest, isAllowedOrigin } from './_auth.js';
 import {
@@ -411,7 +411,13 @@ async function serveCorpusAnswer({ req, res, cs, section, lastUserText, userId, 
   // mêmes garde-fous (strict, minScore, section) que la génération d'origine.
   // La clé ignore le bloc de profil : sinon la même question posée en 1re et en
   // 2e position produit deux clés différentes et le cache ne sert jamais.
-  const corpusKvKey = corpusCacheKey(stripProfileBlock(lastUserText), { section });
+  // Le profil sort de la RECHERCHE mais reste dans le PROMPT : sa signature doit
+  // donc rester dans la clé, sinon un ashkénaze anglophone et un séfarade
+  // francophone partagent la même réponse pendant 30 jours.
+  const corpusKvKey = corpusCacheKey(
+    stripProfileBlock(lastUserText),
+    { section, lang: profileSignature(lastUserText) || 'fr' },
+  );
   let cachedCorpus = null;
   try {
     const raw = await kv.get(corpusKvKey);
@@ -505,7 +511,7 @@ TA MISSION : donner une réponse claire, complète et engageante, fidèle à l'e
 
 STRUCTURE ATTENDUE :
 1. **Phrase d'accroche** (1re ligne) : la réponse directe, ATTRIBUÉE au corpus — ce que le Rav écrit, pas ce que TU autorises ("D'après le corpus du Rav, c'est permis lorsque…", "Non : il y a là un problème de …", "Ça dépend : si …, alors …"). L'accroche seule doit déjà répondre.
-2. **Raisonnement** en 2-4 phrases : quel est ${corpusDom.p} en jeu, la logique du psak, les sources ou opinions clés si l'extrait les mentionne.
+2. **Raisonnement** en 2-4 phrases : ${corpusDom.p === 'la mélakha (ou le principe halakhique)' ? 'quelle est la mélakha (ou le principe halakhique)' : 'quel est le principe halakhique'} en jeu, la logique du psak, les sources ou opinions clés si l'extrait les mentionne.
 3. **Cas particuliers ou nuances** : uniquement s'ils sont dans l'extrait (ne pas extrapoler).
 4. **Source finale** au format exact : *Source : Siman X · [titre de section]*
 

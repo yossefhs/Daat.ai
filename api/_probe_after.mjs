@@ -128,7 +128,7 @@ const SYNONYMS = {
   'mouche': ['tsida','capturer','insecte'], 'attraper': ['tsida','capturer'],
   'lacets': ['qosher','noeud','nouer'], 'balayer': ['balai','maison','nettoyer'],
   'circoncision': ['mila','brit'], 'sauver': ['pikouah','nefesh','sauvetage'],
-  'voyage': ['voyageur','chemin','route'],
+  'voyage': ['voyageur','chemin','route'], 'kidouch': ['kiddoush','vin'],
   'havdala': ['avdala','besamim'], 'epices': ['besamim','avdala'],
 
   // ══ ORAH HAÏM QUOTIDIEN (simanim 1-185) ══════════════════════════════════
@@ -229,17 +229,15 @@ const CONCEPT_RULES = [
           'placer','place','deposer','pose','remet','laisser','laisse'],
     ctx: ['plata','plaque','kira','marmite','casserole','four','feu','blech','rechaud'],
     add: ['hazara','kira','plata','hatmana','bishoul'], w: 2.0 },
-  // 'prendre' RESTE dans le ctx : la règle exige déjà un mot médical dans `any`,
-  // elle ne peut donc pas se déclencher sur « prendre » seul. Sans lui, « prendre
-  // un médicament à Shabbat » — la formulation dominante — tombait sur le siman 308
-  // (mouktsé) au lieu du 328 (le malade à Shabbat) : un faux issour sous une source.
+  // ⚠️ 'prendre' retiré du ctx : « prendre un médicament » est la formulation par
+  // défaut, la règle se déclenchait donc presque toujours et imposait le siman 328.
   { any: ['mal','douleur','malade','fievre','soigner','medicament','cachet','comprime'],
-    ctx: ['tete','ventre','gorge','dent','enfant','bebe','maltete','malventre','sirop','antibiotique','prendre'],
+    ctx: ['tete','ventre','gorge','dent','enfant','bebe','maltete','malventre','sirop','antibiotique'],
     add: ['malade','refoua','soin','maladie'], w: 2.2 },
   // ⚠️ ctx resserré : 'objet', 'argent', 'toucher', 'ranger' sont du vocabulaire
   // générique qui captait des questions de prière et de synagogue.
   { any: ['deplacer','bouger','ranger'],
-    ctx: ['mouktse','bougie','bougeoir','chandelier','telephone','outil','casse','inutile'],
+    ctx: ['mouktse','bougie','bougeoir','chandelier','telephone','outil','casse','inutile','portefeuille','stylo'],
     add: ['mouktse','tiltoul','deplacement'], w: 1.8 },
   // ⚠️ 'femme' retiré du ctx : toute question contenant « femme » + « porter /
   // mettre / sortir » injectait bijoux/takhchit au poids 2.0 et faisait gagner le
@@ -302,27 +300,6 @@ const NON_TOPICAL = new Set([
 // L'ancre est satisfaite par le mot LUI-MÊME ou par l'un de ses synonymes indexés
 // (le corpus Yoreh De'ah est rédigé en hébreu : « viande » doit pouvoir être
 // satisfait par בשר).
-// Équivalents HÉBREUX des ancres. Le corpus est rédigé en grande partie en hébreu :
-// sans cette table, l'ancre « kohanim » ne désigne que les chunks qui écrivent la
-// translittération française et met à ZÉRO les simanim qui écrivent כהנים —
-// c'est-à-dire ceux qui traitent réellement le sujet.
-const ANCHOR_HE = {
-  minha: ['מנחה'], chaharit: ['שחרית'], maariv: ['ערבית','מעריב'], moussaf: ['מוסף'],
-  kedoucha: ['קדושה'], kaddich: ['קדיש'], tahanoun: ['תחנון'], amida: ['עמידה','שמונה'],
-  chema: ['שמע'], tefila: ['תפלה','תפילה'], berakha: ['ברכה','ברכות'], birkat: ['ברכת'],
-  netilat: ['נטילת'], netila: ['נטילה'], yadayim: ['ידים','ידיים'],
-  tefilin: ['תפילין','תפלין'], tsitsit: ['ציצית'], talit: ['טלית'],
-  minyan: ['מנין','מניין'], kohanim: ['כהנים','כפים'], synagogue: ['כנסת'],
-  sefer: ['ספר'], torah: ['תורה'], mezouza: ['מזוזה'], hamotsi: ['המוציא'],
-  mazon: ['מזון'], zimoun: ['זימון'], tsedaka: ['צדקה'],
-  borer: ['בורר'], bishoul: ['בישול'], mouktse: ['מוקצה'], hazara: ['חזרה'],
-  tohen: ['טוחן'], hatmana: ['הטמנה'], kiddoush: ['קידוש'], havdala: ['הבדלה'],
-  nerot: ['נרות'], bougies: ['נרות','הדלקה'], erouv: ['עירוב'], plata: ['פלטה'],
-  kira: ['כירה'], viande: ['בשר'], lait: ['חלב'], fromage: ['גבינה'],
-  casher: ['כשר'], cacheroute: ['כשר'], taarovet: ['תערובת'],
-  nidda: ['נדה'], mikve: ['מקוה'], tevila: ['טבילה'],
-};
-
 const DOMAIN_ANCHORS = new Set([
   // Orah Haïm quotidien
   'tefilin','tsitsit','talit','chema','tefila','amida','berakha','birkat',
@@ -330,11 +307,7 @@ const DOMAIN_ANCHORS = new Set([
   'kedoucha','tahanoun','sefer','torah','synagogue','minyan','kohanim',
   'mezouza','hamotsi','mazon','zimoun','tsedaka',
   // Shabbat
-  // ⚠️ 'shabbat'/'chabbat' NE sont PAS des ancres : ce sont des libellés de
-  // SECTION (27 % du corpus), sans pouvoir discriminant. Comme ancres ils
-  // confisquaient le portail au vrai mot de sujet ET éliminaient les 902 chunks
-  // de 242-365 qui n'écrivent pas le mot — dont 23 % des cas pratiques.
-  'borer','bishoul','mouktse','hazara','tohen','hatmana',
+  'shabbat','chabbat','borer','bishoul','mouktse','hazara','tohen','hatmana',
   'kiddoush','havdala','bougies','nerot','erouv','plata','kira',
   // Yoreh De'ah — cacheroute
   'viande','lait','fromage','cacheroute','casher','taarovet','בשר','חלב',
@@ -368,10 +341,7 @@ const SPELLING_CANON = new Map(Object.entries({
   tallit: 'talit', talith: 'talit', tallith: 'talit', taleth: 'talit', talits: 'talit',
   tallits: 'talit', talleth: 'talit',
   // chema
-  // 'schema' VOLONTAIREMENT absent : « schéma » est un mot français (et anglais)
-  // courant de tout autre sens, et 'chema' est une ANCRE — la fusion ne bruitait
-  // pas seulement le score, elle RESTREIGNAIT la recherche au Chema.
-  shema: 'chema', shma: 'chema', sema: 'chema', chma: 'chema',
+  shema: 'chema', shma: 'chema', sema: 'chema', chma: 'chema', schema: 'chema',
   // berakha (le mot français aussi : le corpus dit « berakha »)
   brakha: 'berakha', beracha: 'berakha', bracha: 'berakha', berakhah: 'berakha',
   berachot: 'berakha', brachot: 'berakha', brakhot: 'berakha', berakhot: 'berakha',
@@ -390,20 +360,6 @@ const SPELLING_CANON = new Map(Object.entries({
   nidah: 'nidda', nida: 'nidda', niddah: 'nidda', niddha: 'nidda',
   mikve: 'mikve', mikveh: 'mikve', mikva: 'mikve', mikvah: 'mikve', mikwe: 'mikve',
 }));
-
-// Une clé de SPELLING_CANON qui est AUSSI une clé de SYNONYMS / DOMAIN_ANCHORS /
-// NON_TOPICAL rend cette entrée INATTEIGNABLE : normalizeToken réécrit le token
-// avant toute consultation de ces tables. L'erreur est silencieuse et se
-// reproduira à chaque graphie ajoutée — on la signale donc au chargement.
-for (const [variant, canon] of SPELLING_CANON) {
-  if (variant === canon) continue;
-  for (const [nom, table] of [['SYNONYMS', SYNONYMS], ['DOMAIN_ANCHORS', DOMAIN_ANCHORS], ['NON_TOPICAL', NON_TOPICAL]]) {
-    const present = table instanceof Set
-      ? table.has(variant)
-      : Object.prototype.hasOwnProperty.call(table, variant);
-    if (present) console.warn(`[corpus-search] entrée inatteignable : '${variant}' est dans ${nom} mais SPELLING_CANON le réécrit en '${canon}'`);
-  }
-}
 
 function normalizeToken(s) {
   const t = s.toLowerCase().normalize('NFD')
@@ -432,11 +388,6 @@ function preNormalize(text) {
   // avec le sujet (mesuré : min df=233, ha df=566 dans le corpus). L'apostrophe a
   // donc été retirée du séparateur de tokenize(), et normalizeToken la supprime.
   t = t.replace(/(^|[^\p{L}])(?:[ldjnmtsc]|qu|jusqu|lorsqu|puisqu|quelqu|aujourd)['’‘]/gu, '$1 ');
-  // Possessif ANGLAIS (« Shabbat's », « the Rambam's ») : l'apostrophe est en FIN
-  // de mot, la règle d'élision française ne la voit pas. Sans cela « Shabbat's »
-  // donnait le token `shabbats` (df=0) : le mot de sujet était détruit. La
-  // lookahead protège les translittérations hébraïques (Ro'sh, Bera'ha).
-  t = t.replace(/(\p{L})['’‘]s(?![\p{L}])/gu, '$1 ');
   for (const [re, rep] of MULTIWORD) t = t.replace(re, rep);
   return t;
 }
@@ -580,16 +531,6 @@ function scoreChunk(chunk, queryTerms, keyTokens, originalTokens, strict, concep
   return score + titleBonus;
 }
 
-// Sujets qui appartiennent SANS AMBIGUÏTÉ à la journée du juif (Orah Haïm 1-185).
-// Ils servent de PREUVE POSITIVE qu'une question ne porte pas sur Shabbat.
-const DAILY_ANCHORS = new Set([
-  'tefilin','tsitsit','talit','chema','tefila','amida','berakha','birkat',
-  'netilat','netila','yadayim','minha','chaharit','maariv','moussaf','kaddich',
-  'kedoucha','tahanoun','synagogue','minyan','kohanim','mezouza','hamotsi',
-  'mazon','zimoun','matin','reveil','lever','prier','priere','benediction',
-  'benedictions','asheryatsar','doukhan',
-]);
-
 // Réglages du portail, pilotables par variable d'environnement pour pouvoir les
 // ajuster sans redéploiement (le corpus grandit toutes les semaines).
 const ANCHOR_MODE = process.env.CORPUS_ANCHOR_MODE || 'and';
@@ -606,18 +547,7 @@ const SHABBAT_MARKERS = new Set([
   'plata','blech','kira','rechaud','eirouv','erouv','havdala','avdala','kiddoush',
   'nerot','hadlaka','bougies','bougie','tsomet','yomtov','fete','fetes','pessah',
   'kippour','soucca','chalom',
-  // graphies latines concurrentes : sans elles, « trier les couverts a Shabbath »
-  // tombait sur le siman 45 au lieu du 319.
-  'shabbath','shabbes','chabbes','shabath','chabos','shabbatot','chabbatoth',
-  'shabes','sabbath',
 ]);
-
-// Graphies HÉBRAÏQUES. Un Set de tokens ne peut pas suffire : le tokeniseur garde
-// les préfixes attachés (ב/ל/מ/ה/ו/כ/ש), « בשבת » est UN token. On teste donc le
-// RADICAL sur la chaîne. chat-he.html poste sur le même /api/chat : sans cela,
-// toute question de Shabbat posée en hébreu était traitée comme hors-Shabbat.
-const SHABBAT_MARKERS_HE =
-  /[בלמהוכש]{0,2}(?:שבת|מלאכ|מוקצ|בורר|בישול|הטמנ|הבדל|קידוש|עירוב|פלטה|מוצאי)/;
 
 // ── Nettoyage du bloc de profil injecté par les interfaces ──────────────────
 // Le widget ET les trois pages de chat plein écran préfixent la 1re question
@@ -641,50 +571,16 @@ export function stripProfileBlock(text) {
   let i = PROFILE_HEADER_RE.test(lines[0]) ? 1 : 0;
   // Puces du profil (« • Niveau : … », « - \u05e8\u05de\u05d4: … ») et lignes vides. Borné à
   // 6 lignes : au-delà, c'est la question de l'utilisateur, on n'y touche pas.
-  // La ligne VIDE qui suit les puces CLÔT le bloc : tout ce qui vient après est la
-  // question, même si elle commence elle aussi par un tiret (sinon « - Puis-je
-  // trier les couverts ? » était avalé et la recherche partait à vide).
   let eaten = 0;
-  while (i < lines.length && eaten < 6) {
-    if (/^\s*$/.test(lines[i])) {
-      if (eaten > 0) break;
-      i++; continue;
-    }
-    if (!/^\s*[\u2022\-\u2013*]\s/.test(lines[i])) break;
-    eaten++; i++;
+  while (i < lines.length && eaten < 6 && (/^\s*$/.test(lines[i]) || /^\s*[\u2022\-\u2013*]\s/.test(lines[i]))) {
+    if (!/^\s*$/.test(lines[i])) eaten++;
+    i++;
   }
   const rest = lines.slice(i).join('\n').trim();
   // Message d'introduction (bouton « Commencer l'étude ») : aucune question réelle
   // → requête vide, la recherche ne renverra rien plutôt qu'un extrait au hasard.
-  // On matche la PHRASE COMPLÈTE émise par buildIntroMessage, jamais son préfixe :
-  // « Je suis prêt à allumer les bougies, à quelle heure ? » est une VRAIE question.
-  // Relevés dans les producteurs eux-mêmes : chat-widget.js et chat.html disent
-  // « Je suis prêt à commencer. », chat-en.html « I am ready to begin. » et
-  // chat-he.html « הנני מוכן להתחיל. » — et non « אני מוכן ». On matche la phrase
-  // entière, pas un préfixe : « Je suis prêt à allumer les bougies, à quelle
-  // heure ? » est une VRAIE question. NB : \b ne fonctionne pas sur l'hébreu en
-  // JS (les lettres ne sont pas des \w) — d'où l'absence de borne sur la 3e.
-  const INTRO_SENTINELS = [
-    /^je suis pr[\u00ea\u00e9]te? [\u00e0a] commencer/i,
-    /^i(?:['\u2019]?m| am) ready to begin/i,
-    /^(?:\u05d0\u05e0\u05d9|\u05d4\u05e0\u05e0\u05d9)\s+\u05de\u05d5\u05db\u05e0?[\u05d4\u05df]?\s+\u05dc\u05d4\u05ea\u05d7\u05d9\u05dc/,
-  ];
-  if (INTRO_SENTINELS.some((re) => re.test(rest))) return '';
+  if (/^(?:Je suis pr[\u00ea e]t|I'?m ready|\u05d0\u05e0\u05d9 \u05de\u05d5\u05db\u05df)/i.test(rest)) return '';
   return rest;
-}
-
-// Le bloc de profil est retiré de la RECHERCHE (il l'empoisonnait) mais il reste
-// dans le PROMPT envoyé au reformulateur. Il doit donc rester dans la CLÉ de
-// cache, sinon deux prompts différents (anglais/ashkénaze vs français/séfarade)
-// partagent une entrée pendant 30 jours. On n'y remet pas le bloc brut — qui
-// empêchait tout partage — mais seulement ses trois champs.
-export function profileSignature(text) {
-  const s = String(text || '');
-  const grab = (re) => (s.match(re)?.[1] || '').toLowerCase().trim().replace(/\s+/g, '-');
-  const niveau = grab(/(?:Niveau(?:\s+d'\u00e9tude)?|(?:Study )?Level|\u05e8\u05de\u05ea \u05dc\u05d9\u05de\u05d5\u05d3|\u05e8\u05de\u05d4)\s*:\s*(.+)/i);
-  const minhag = grab(/(?:Minhag|\u05de\u05e0\u05d4\u05d2)\s*:\s*(.+)/i);
-  const langue = grab(/(?:Langue de r\u00e9ponse souhait\u00e9e|Desired response language|\u05e9\u05e4\u05ea \u05d4\u05de\u05e2\u05e0\u05d4 \u05d4\u05de\u05d1\u05d5\u05e7\u05e9\u05ea)\s*:\s*(.+)/i);
-  return (niveau || minhag || langue) ? `${niveau}|${minhag}|${langue}` : '';
 }
 
 export function searchCorpus(question, opts = {}) {
@@ -717,7 +613,7 @@ export function searchCorpus(question, opts = {}) {
     for (const t of new Set(gateCandidates)) {
       if (!DOMAIN_ANCHORS.has(t)) continue;
       anchorTerms.push(t);
-      for (const syn of [...(SYNONYMS[t] || []), ...(ANCHOR_HE[t] || [])]) {
+      for (const syn of SYNONYMS[t] || []) {
         const n = normalizeToken(syn);
         if (n.length >= 2 && _idf.has(n)) anchorTerms.push(n);
       }
@@ -772,16 +668,7 @@ export function searchCorpus(question, opts = {}) {
   // Siman 326 » : le mécanisme exact du faux heter borer, une réponse assurée sous
   // une référence fausse. L'inverse n'est PAS filtré : « le tsitsit à Shabbat »
   // doit rester servi par le siman 13 comme par le 301.
-  const shabbatQ = tokens.some((t) => SHABBAT_MARKERS.has(t))
-    || SHABBAT_MARKERS_HE.test(preNormalize(question));
-  // ⚠️ La pénalité exige une PREUVE POSITIVE que la question porte sur un AUTRE
-  // domaine — pas seulement l'absence du mot « Shabbat ». Une première version
-  // pénalisait dès que le mot manquait : elle cassait TOUTES les questions
-  // hébraïques (aucun marqueur latin) et déclassait les vraies questions de
-  // Shabbat formulées sans le mot (« peut-on trier les couverts ? », relance dans
-  // une conversation, page /oh/319) — jusqu'à servir un siman du quotidien sous
-  // une source affirmée, c'est-à-dire le mécanisme même du faux heter borer.
-  const otherDomainQ = tokens.some((t) => DAILY_ANCHORS.has(t));
+  const shabbatQ = tokens.some((t) => SHABBAT_MARKERS.has(t));
 
   const expanded = expandQuery(tokens);
   const scored = [];
@@ -795,7 +682,7 @@ export function searchCorpus(question, opts = {}) {
     // mauvaise réponse contre une non-réponse. Le déclassement garde le siman de
     // Shabbat atteignable quand RIEN d'autre ne répond, tout en le faisant perdre
     // systématiquement face à un vrai match du domaine de la question.
-    if (s > 0 && !shabbatQ && otherDomainQ && c.section === 'orach-chaim' && +c.siman >= 242 && +c.siman <= 365) {
+    if (s > 0 && !shabbatQ && c.section === 'orach-chaim' && +c.siman >= 242 && +c.siman <= 365) {
       s *= SHABBAT_PENALTY;
     }
     if (s >= minScore) scored.push({ chunk: c, score: s });
@@ -910,11 +797,7 @@ function scoreWithinSiman(chunk, queryTerms) {
 // porte le détail décisif (« …en tournant » vs « …en tournant sans rien
 // casser »). Le préfixe reste dans la clé pour rester lisible en debug, mais
 // c'est l'empreinte du texte ENTIER qui identifie la question.
-// v3 : le prompt de reformulation cadre désormais le domaine sur le siman servi
-// (et non sur la seule section). Les entrées v2 ont été écrites avec l'ancien
-// cadrage (« les hilkhot Shabbat » annoncé pour une question de tefila) : les
-// resservir 30 jours durant reproduirait exactement le défaut corrigé.
-export const CORPUS_CACHE_VERSION = 'v3';
+export const CORPUS_CACHE_VERSION = 'v2';
 export const CORPUS_CACHE_TTL = 30 * 24 * 60 * 60; // 30 jours
 export function corpusCacheKey(text, { section = 'orach-chaim', lang = 'fr' } = {}) {
   const norm = String(text || '')
@@ -931,3 +814,13 @@ export function getCorpusStats() {
   loadAndIndex();
   return { totalChunks: _N, totalSimanim: _corpus?.meta?.totalSimanim || 0, avgdl: _avgdl };
 }
+
+export const __SYN = typeof SYNONYMS!=='undefined'?SYNONYMS:null;
+export const __CANON = typeof SPELLING_CANON!=='undefined'?SPELLING_CANON:null;
+export const __norm = typeof normalizeToken!=='undefined'?normalizeToken:null;
+export const __expand = typeof expandQuery!=='undefined'?expandQuery:null;
+export const __ANCH = typeof DOMAIN_ANCHORS!=='undefined'?DOMAIN_ANCHORS:null;
+export const __STOP = typeof STOPWORDS!=='undefined'?STOPWORDS:null;
+export const __NONTOP = typeof NON_TOPICAL!=='undefined'?NON_TOPICAL:null;
+export const __CR = typeof CONCEPT_RULES!=='undefined'?CONCEPT_RULES:null;
+export const __MARK = typeof SHABBAT_MARKERS!=='undefined'?SHABBAT_MARKERS:null;
