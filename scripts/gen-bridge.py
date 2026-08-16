@@ -90,18 +90,18 @@ TXT = {
   "meta_desc":lambda he,subj:f"Niveau 4 (Daat HaRav) du Siman {he} — page-passerelle : l’Admour HaZaken n’a pas rédigé ce siman dans son Choul’han Aroukh (certaines portions d’Orah Haïm n’y figurent pas). Renvoi aux Niveaux 1-3 et au Siddour de l’Admour HaZaken. Sujet : {subj}.",
   "hero_sub":lambda subj:f"Ce siman — {subj} — n’a pas été rédigé par l’Admour HaZaken dans son Choul’han Aroukh. Cette page ne reconstruit aucun texte : elle oriente vers l’étude aux Niveaux 1-3 et vers le Siddour de l’Admour HaZaken.",
   "bridge_h":lambda n:f"Siman {n} — page-passerelle",
-  "bridge_p":lambda he:f"<strong>Ce siman n’a pas de Niveau 4 : l’Admour HaZaken ne l’a pas rédigé dans son Choul’han Aroukh.</strong> Le Choul’han Aroukh HaRav ne couvre pas Orah Haïm de façon continue : plusieurs portions n’ont pas été écrites par le Rav, et ce siman en fait partie. Fidèlement à la règle de la maison, <strong>aucun texte du Choul’han Aroukh HaRav n’est reconstruit ni inventé ici</strong>. Étudiez ce siman aux Niveaux 1-3 (texte du Mehaber et du Rama) ; la pratique de l’Admour HaZaken sur la prière est consignée dans son <strong>Siddour</strong> (Seder ha-Tefila et ses Piskei Dinim).",
+  "bridge_p":lambda he:f"<strong>Ce siman n’a pas de Niveau 4 : l’Admour HaZaken ne l’a pas rédigé dans son Choul’han Aroukh.</strong> Le Choul’han Aroukh HaRav ne couvre pas Orah Haïm de façon continue : plusieurs portions n’ont pas été écrites par le Rav, et ce siman en fait partie. Fidèlement à la règle de la maison, <strong>aucun texte du Choul’han Aroukh HaRav n’est reconstruit ni inventé ici</strong>. Étudiez ce siman aux Niveaux 1-3 (texte du Mehaber et du Rama) ; la pratique de l’Admour HaZaken est consignée dans son <strong>Siddour</strong> (Seder ha-Tefila, Seder Birkat HaNehenin et ses Piskei ha-Siddour).",
   "links":lambda n:f'<a href="/oh-quotidien/{n}/base">Niveau 1 — Base</a><a href="/oh-quotidien/{n}/lamdan">Niveau 2 — Lamdan</a><a href="/oh-quotidien/{n}/synthese">Niveau 3 — Synthèse</a><a href="/chitah-admour-hazaken.html">La chitah de l’Admour HaZaken</a>',
   "intro_h":"Pourquoi un Niveau 4 dédié à l’Admour HaZaken ?",
   "intro_p1":"Le <strong>Choul’han Aroukh de l’Admour HaZaken</strong> n’est pas un commentaire sur le Mehaber : c’est un Choul’han Aroukh autonome, qui combine la halakha, les טעמי המצוות et la dimension intérieure. Pour le Habad, l’Admour HaZaken est <strong>הפוסק האחרון</strong>.",
   "intro_p2":"Mais l’ouvrage est <strong>incomplet</strong> : l’Admour HaZaken n’a pas rédigé (ou l’on n’a pas conservé) toute la première partie d’Orah Haïm. Ce siman fait partie de ces portions manquantes. Il n’y a donc pas de texte du Rav à reproduire pour ce siman.",
   "miss_h":lambda he:f'<span class="he">סימן {he}</span> — un siman hors du Choul’han Aroukh HaRav',
   "miss_p1":"Le Choul’han Aroukh de l’Admour HaZaken couvre de larges pans d’Orah Haïm, mais pas de façon continue : plusieurs blocs n’ont pas été rédigés par le Rav, et ce siman en fait partie.",
-  "miss_p2":"Là où le Rav n’a pas écrit de siman, sa <strong>conduite (מנהג) et ses pesakim</strong> sur la prière se retrouvent principalement dans deux sources authentiques : son <strong>Siddour</strong> (le « Siddour de l’Admour HaZaken », avec son Seder ha-Tefila et ses Piskei ha-Siddour) et le <strong>Kountress Aharon</strong> sur les simanim qu’il a effectivement rédigés.",
+  "miss_p2":"Là où le Rav n’a pas écrit de siman, sa <strong>conduite (מנהג) et ses pesakim</strong> se retrouvent principalement dans deux sources authentiques : son <strong>Siddour</strong> (le « Siddour de l’Admour HaZaken », avec son Seder ha-Tefila, son Seder Birkat HaNehenin et ses Piskei ha-Siddour) et le <strong>Kountress Aharon</strong> sur les simanim qu’il a effectivement rédigés.",
   "miss_note":"⚠ <strong>Note méthodologique :</strong> conformément à la règle de vérification du site, cette page ne cite ni ne reconstruit aucun texte du Choul’han Aroukh HaRav pour ce siman — puisqu’aucun n’existe. Pour la halakha de ce siman, référez-vous au Mehaber et au Rama (Niveaux 1-3) et, pour la pratique de l’Admour HaZaken, à son Siddour.",
   "src_h_he":"מקורות לעיון","src_h":"Sources pour approfondir",
   "src":lambda n:f'<li><strong>Mehaber & Rama, ce siman</strong> — <a href="/oh-quotidien/{n}/base">Niveau 1</a>, <a href="/oh-quotidien/{n}/lamdan">Niveau 2</a>, <a href="/oh-quotidien/{n}/synthese">Niveau 3</a>.</li>'
-        '<li><strong>Siddour de l’Admour HaZaken</strong> — Seder ha-Tefila et Piskei ha-Siddour : la source directe de la conduite du Rav sur la prière.</li>'
+        '<li><strong>Siddour de l’Admour HaZaken</strong> — Seder ha-Tefila, Seder Birkat HaNehenin et Piskei ha-Siddour : la source directe de la conduite du Rav.</li>'
         '<li><strong>Choul’han Aroukh HaRav</strong> — les simanim voisins effectivement rédigés par le Rav.</li>'
         f'<li><strong>Préface — la chitah de l’Admour HaZaken</strong> : <a href="/chitah-admour-hazaken.html">présentation générale</a>.</li>',
   "print":"🖨️ Imprimer / Sauver en PDF","prev":lambda n:f"← Siman {n}","next":lambda n:f"Siman {n} →",
@@ -115,18 +115,18 @@ TXT = {
   "meta_desc":lambda he,subj:f"רמה 4 (דעת הרב) לסימן {he} — דף־גשר: אדמו״ר הזקן לא כתב סימן זה בשולחן ערוך שלו (חלק מסימני אורח חיים אינם בשו״ע הרב). הפניה לרמות 1-3 ולסידור אדמו״ר הזקן. נושא: {subj}.",
   "hero_sub":lambda subj:f"סימן זה — {subj} — לא נכתב על ידי אדמו״ר הזקן בשולחן ערוך שלו. דף זה אינו משחזר שום טקסט: הוא מפנה ללימוד ברמות 1-3 ולסידור אדמו״ר הזקן.",
   "bridge_h":lambda n:f"סימן {n} — דף־גשר",
-  "bridge_p":lambda he:"<strong>לסימן זה אין רמה 4: אדמו״ר הזקן לא כתבו בשולחן ערוך שלו.</strong> שולחן ערוך הרב אינו מקיף את אורח חיים ברצף: כמה מקטעים לא נכתבו על ידי הרב, וסימן זה בכללם. על פי כלל הבית, <strong>אין משחזרים ואין ממציאים כאן שום טקסט של שולחן ערוך הרב</strong>. למדו סימן זה ברמות 1-3 (לשון המחבר והרמ״א); הנהגת אדמו״ר הזקן בתפילה מובאת ב<strong>סידורו</strong> (סדר התפילה ופסקי הסידור).",
+  "bridge_p":lambda he:"<strong>לסימן זה אין רמה 4: אדמו״ר הזקן לא כתבו בשולחן ערוך שלו.</strong> שולחן ערוך הרב אינו מקיף את אורח חיים ברצף: כמה מקטעים לא נכתבו על ידי הרב, וסימן זה בכללם. על פי כלל הבית, <strong>אין משחזרים ואין ממציאים כאן שום טקסט של שולחן ערוך הרב</strong>. למדו סימן זה ברמות 1-3 (לשון המחבר והרמ״א); הנהגת אדמו״ר הזקן מובאת ב<strong>סידורו</strong> (סדר התפילה, סדר ברכת הנהנין ופסקי הסידור).",
   "links":lambda n:f'<a href="/oh-quotidien/{n}/base/he">רמה 1 — בסיס</a><a href="/oh-quotidien/{n}/lamdan/he">רמה 2 — למדן</a><a href="/oh-quotidien/{n}/synthese/he">רמה 3 — סיכום</a><a href="/chitah-admour-hazaken.html">שיטת אדמו״ר הזקן</a>',
   "intro_h":"מדוע רמה 4 מוקדשת לאדמו״ר הזקן?",
   "intro_p1":"<strong>שולחן ערוך אדמו״ר הזקן</strong> אינו פירוש על המחבר, אלא שולחן ערוך עצמאי המשלב הלכה, טעמי המצוות והפנימיות. לחב״ד, אדמו״ר הזקן הוא <strong>הפוסק האחרון</strong>.",
   "intro_p2":"אך החיבור <strong>אינו שלם</strong>: אדמו״ר הזקן לא כתב (או שלא נשתמר) את כל חלקו הראשון של אורח חיים. סימן זה נמנה עם המקטעים החסרים. משום כך אין טקסט של הרב לשחזר לסימן זה.",
   "miss_h":lambda he:f'<span class="he">סימן {he}</span> — סימן שאינו בשולחן ערוך הרב',
   "miss_p1":"שולחן ערוך אדמו״ר הזקן מקיף חלקים נרחבים של אורח חיים, אך לא ברצף: כמה מקטעים לא נכתבו על ידי הרב, וסימן זה בכללם.",
-  "miss_p2":"במקום שהרב לא כתב סימן, <strong>הנהגתו ופסקיו</strong> בתפילה מצויים בעיקר בשני מקורות אותנטיים: <strong>סידורו</strong> (סדר התפילה ופסקי הסידור) ו<strong>קונטרס אחרון</strong> על הסימנים שכן כתב.",
+  "miss_p2":"במקום שהרב לא כתב סימן, <strong>הנהגתו ופסקיו</strong> מצויים בעיקר בשני מקורות אותנטיים: <strong>סידורו</strong> (סדר התפילה, סדר ברכת הנהנין ופסקי הסידור) ו<strong>קונטרס אחרון</strong> על הסימנים שכן כתב.",
   "miss_note":"⚠ <strong>הערה מתודית:</strong> על פי כלל הבדיקה של האתר, דף זה אינו מצטט ואינו משחזר שום טקסט של שולחן ערוך הרב לסימן זה — שכן אין כזה. להלכת הסימן עיינו במחבר וברמ״א (רמות 1-3), ולהנהגת אדמו״ר הזקן — בסידורו.",
   "src_h_he":"מקורות לעיון","src_h":"מקורות לעיון",
   "src":lambda n:f'<li><strong>המחבר והרמ״א, סימן זה</strong> — <a href="/oh-quotidien/{n}/base/he">רמה 1</a>, <a href="/oh-quotidien/{n}/lamdan/he">רמה 2</a>, <a href="/oh-quotidien/{n}/synthese/he">רמה 3</a>.</li>'
-        '<li><strong>סידור אדמו״ר הזקן</strong> — סדר התפילה ופסקי הסידור: המקור הישיר להנהגת הרב בתפילה.</li>'
+        '<li><strong>סידור אדמו״ר הזקן</strong> — סדר התפילה, סדר ברכת הנהנין ופסקי הסידור: המקור הישיר להנהגת הרב.</li>'
         '<li><strong>שולחן ערוך הרב</strong> — הסימנים הסמוכים שנכתבו על ידי הרב.</li>'
         f'<li><strong>הקדמה — שיטת אדמו״ר הזקן</strong>: <a href="/chitah-admour-hazaken.html">מבוא כללי</a>.</li>',
   "print":"🖨️ הדפסה / שמירה כ־PDF","prev":lambda n:f"← סימן {n}","next":lambda n:f"סימן {n} →",
@@ -140,18 +140,18 @@ TXT = {
   "meta_desc":lambda he,subj:f"Level 4 (Daat HaRav) of Siman {he} — bridge page: the Alter Rebbe did not write this siman in his Shulchan Aruch (parts of Orach Chayim are absent from Shulchan Aruch HaRav). Pointer to Levels 1-3 and to the Alter Rebbe’s Siddur. Topic: {subj}.",
   "hero_sub":lambda subj:f"This siman — {subj} — was not written by the Alter Rebbe in his Shulchan Aruch. This page reconstructs no text: it points to study at Levels 1-3 and to the Alter Rebbe’s Siddur.",
   "bridge_h":lambda n:f"Siman {n} — bridge page",
-  "bridge_p":lambda he:"<strong>This siman has no Level 4: the Alter Rebbe did not write it in his Shulchan Aruch.</strong> Shulchan Aruch HaRav does not cover Orach Chayim continuously: several portions were not written by the Rav, and this siman is one of them. In keeping with the site’s rule, <strong>no Shulchan Aruch HaRav text is reconstructed or invented here</strong>. Study this siman at Levels 1-3 (the text of the Mechaber and the Rama); the Alter Rebbe’s practice on prayer is recorded in his <strong>Siddur</strong> (Seder ha-Tefillah and its Piskei Dinim).",
+  "bridge_p":lambda he:"<strong>This siman has no Level 4: the Alter Rebbe did not write it in his Shulchan Aruch.</strong> Shulchan Aruch HaRav does not cover Orach Chayim continuously: several portions were not written by the Rav, and this siman is one of them. In keeping with the site’s rule, <strong>no Shulchan Aruch HaRav text is reconstructed or invented here</strong>. Study this siman at Levels 1-3 (the text of the Mechaber and the Rama); the Alter Rebbe’s practice is recorded in his <strong>Siddur</strong> (Seder ha-Tefillah, Seder Birkat ha-Nehenin and its Piskei Dinim).",
   "links":lambda n:f'<a href="/oh-quotidien/{n}/base/en">Level 1 — Base</a><a href="/oh-quotidien/{n}/lamdan/en">Level 2 — Lamdan</a><a href="/oh-quotidien/{n}/synthese/en">Level 3 — Synthesis</a><a href="/chitah-admour-hazaken.html">The Alter Rebbe’s approach</a>',
   "intro_h":"Why a Level 4 dedicated to the Alter Rebbe?",
   "intro_p1":"The <strong>Shulchan Aruch of the Alter Rebbe</strong> is not a commentary on the Mechaber: it is an independent Shulchan Aruch that fuses halacha, the reasons of the mitzvot and the inner dimension. For Chabad, the Alter Rebbe is <strong>ha-posek ha-acharon</strong>.",
   "intro_p2":"But the work is <strong>incomplete</strong>: the Alter Rebbe did not write (or it was not preserved) all of the first part of Orach Chayim. This siman is one of those missing portions. There is therefore no text of the Rav to reproduce for this siman.",
   "miss_h":lambda he:f'<span class="he">סימן {he}</span> — a siman outside Shulchan Aruch HaRav',
   "miss_p1":"The Alter Rebbe’s Shulchan Aruch covers large parts of Orach Chayim, but not continuously: several blocks were not written by the Rav, and this siman is one of them.",
-  "miss_p2":"Where the Rav did not write a siman, his <strong>practice (minhag) and rulings</strong> on prayer are found chiefly in two authentic sources: his <strong>Siddur</strong> (Seder ha-Tefillah and Piskei ha-Siddur) and the <strong>Kuntres Acharon</strong> on the simanim he did write.",
+  "miss_p2":"Where the Rav did not write a siman, his <strong>practice (minhag) and rulings</strong> are found chiefly in two authentic sources: his <strong>Siddur</strong> (Seder ha-Tefillah, Seder Birkat ha-Nehenin and Piskei ha-Siddur) and the <strong>Kuntres Acharon</strong> on the simanim he did write.",
   "miss_note":"⚠ <strong>Methodological note:</strong> in keeping with the site’s verification rule, this page neither cites nor reconstructs any Shulchan Aruch HaRav text for this siman — since none exists. For the halacha of this siman, see the Mechaber and Rama (Levels 1-3), and for the Alter Rebbe’s practice, his Siddur.",
   "src_h_he":"מקורות לעיון","src_h":"Sources for further study",
   "src":lambda n:f'<li><strong>Mechaber & Rama, this siman</strong> — <a href="/oh-quotidien/{n}/base/en">Level 1</a>, <a href="/oh-quotidien/{n}/lamdan/en">Level 2</a>, <a href="/oh-quotidien/{n}/synthese/en">Level 3</a>.</li>'
-        '<li><strong>The Alter Rebbe’s Siddur</strong> — Seder ha-Tefillah and Piskei ha-Siddur: the direct source of the Rav’s practice on prayer.</li>'
+        '<li><strong>The Alter Rebbe’s Siddur</strong> — Seder ha-Tefillah, Seder Birkat ha-Nehenin and Piskei ha-Siddur: the direct source of the Rav’s practice.</li>'
         '<li><strong>Shulchan Aruch HaRav</strong> — the neighbouring simanim actually written by the Rav.</li>'
         f'<li><strong>Preface — the Alter Rebbe’s approach</strong>: <a href="/chitah-admour-hazaken.html">general introduction</a>.</li>',
   "print":"🖨️ Print / Save as PDF","prev":lambda n:f"← Siman {n}","next":lambda n:f"Siman {n} →",
@@ -305,7 +305,9 @@ def gen(num, numHe, subj):
 
 # Simanim du lot courant (132-134) : (num, numHe hébreu, sujet court)
 SIMANIM=[
- (157,"קנ״ז","דיני זמן קביעות לסעודה — le moment fixé pour le repas (du matin)"),
+ (171,"קע״א","שלא לנהוג בזיון באוכלים — ne pas traiter la nourriture avec mépris"),
+ (172,"קע״ב","מי שהכניס אוכלין ומשקין בלא ברכה — mettre en bouche aliments ou boissons sans bénédiction"),
+ (173,"קע״ג","דין מים אמצעים — la loi des eaux intermédiaires (mayim emtza'iyim)"),
 ]
 if __name__=="__main__":
     args=[int(x) for x in sys.argv[1:]]
