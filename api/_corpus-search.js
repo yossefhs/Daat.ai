@@ -42,6 +42,13 @@ const STOPWORDS = new Set([
   'falloir','faudrait','faisant','faites','fais',
   'maintenant','aujourd','hui','hier','demain','alors','ensuite','puisque',
   'merci','bonjour','shalom','svp','question','savoir','explique','expliquer',
+  // Conjugaisons manquantes : la liste ne couvrait que le présent. « pouvait »,
+  // « disait », « fallait » sont rares dans le corpus donc à FORT IDF — ils
+  // devenaient le portail à la place du vrai mot de sujet.
+  'pouvait','pouvaient','pouvais','devait','devaient','devais','fallait','faudra',
+  'avait','avaient','avais','etait','etaient','etais','voulait','voulaient',
+  'faisait','faisaient','mettait','allait','venait','savait','sait','saurait',
+  'aurait','serait','ferait','pourrait','devrait','disait','disaient','disais',
   'vraiment','juste','simplement','peut-etre','environ','sorte',
 ]);
 
@@ -128,8 +135,9 @@ const CONCEPT_RULES = [
   { any: ['retirer','enlever','oter','sortir','separer','trier','choisir','prendre','isoler','ecarter'],
     ctx: ['melange','plat','assiette','salade','parmi','milieu','bol','morceaux','aliments','nourriture','petitspois','pommedeterre','legumes','fruits','poisson','arretes'],
     add: ['borer','berira','okhel','pesolet','tri'], w: 2.4 },
-  { any: ['chaud','rechauffer','remettre','reposer','poser'],
-    ctx: ['plata','plaque','kira','marmite','casserole','four','feu'],
+  { any: ['chaud','rechauffer','remettre','reposer','poser','mettre','met','mets',
+          'placer','place','deposer','pose','remet','laisser','laisse'],
+    ctx: ['plata','plaque','kira','marmite','casserole','four','feu','blech','rechaud'],
     add: ['hazara','kira','plata','hatmana','bishoul'], w: 2.0 },
   { any: ['mal','douleur','malade','fievre','soigner','medicament','cachet','comprime'],
     ctx: ['tete','ventre','gorge','dent','enfant','bebe','prendre','maltete','malventre'],
@@ -144,6 +152,30 @@ const CONCEPT_RULES = [
     ctx: ['bougies','bougie','nerot','hadlaka'],
     add: ['hadlaka','bougies','zman','moment'], w: 1.8 },
 ];
+
+// Mots à FORT IDF mais SANS contenu de sujet. Ils décrivent la PROVENANCE d'un
+// avis (minhag, nom de posek) ou la FAÇON dont l'utilisateur rapporte sa question
+// (« dans le livre que j'ai lu il disait que… ») — jamais le sujet lui-même.
+// Ils peuvent contribuer au SCORE, mais ne doivent JAMAIS servir de « portail »
+// keyToken. Sinon une question sur le poisson sur la plata est gatée par
+// « sefarades » + « disait » et ramène le siman 244 (travaux du non-juif).
+const NON_TOPICAL = new Set([
+  // minhag / provenance
+  'sefarade','sefarades','sefarad','sfarade','sfarades','ashkenaze','ashkenazes',
+  'askenaz','askenaze','askina','habad','chabad','loubavitch','lubavitch','litvak',
+  'marocain','marocaine','yemenite','teimani','mizrah','edot','minhag','minhagim',
+  'communaute','tradition',
+  // noms de poskim : provenance d'un avis, pas le sujet
+  'rama','rema','mehaber','maran','rambam','ramdam','ramban','rachi','rashi',
+  'tossafot','tosafot','chakh','shakh','taz','beroura','berura','michna','mishna',
+  'choulhan','shulchan','aroukh','arouh','admour','hazaken','rav','rabbi','gaon',
+  'posek','poskim','rishonim','acharonim',
+  // façon de RAPPORTER la question (pas son sujet)
+  'livre','livres','lu','lire','ecrit','ecrire','ecrivait','entendu','entendre',
+  'appris','disait','disent','disais','disaient','raconte','explique','expliquait',
+  'parait','semble','pense','pensais','crois','croyais','vu','vois','accepte',
+  'acceptait','tranche','tranchait','base','basent','selon',
+]);
 
 function normalizeToken(s) {
   return s.toLowerCase().normalize('NFD')
@@ -312,9 +344,21 @@ export function searchCorpus(question, opts = {}) {
   // devenait donc le « portail » du garde-fou keyToken et mettait TOUS les chunks
   // à zéro — la recherche ne renvoyait alors plus rien (ex. « râper des carottes »).
   const known = tokens.filter((t) => _idf.has(t));
-  const byIdf = [...new Set(known)].map((t) => ({ t, idf: getIdf(t) })).sort((a, b) => b.idf - a.idf);
+  // Le « portail » ne peut être ouvert que par un mot de SUJET : on écarte les
+  // mots de provenance (minhag, nom de posek) et de rapport (« il disait que »).
+  const gateCandidates = known.filter((t) => !NON_TOPICAL.has(t));
+  const byIdf = [...new Set(gateCandidates)].map((t) => ({ t, idf: getIdf(t) })).sort((a, b) => b.idf - a.idf);
   const keyTokens = byIdf.slice(0, 2).map((x) => x.t);
   const conceptKeys = [...conceptTerms(tokens)];
+
+  // 🛡️ SÉCURITÉ : aucun mot de sujet exploitable ET aucun concept halakhique
+  // reconnu → la question n'a rien d'identifiable dans le corpus. Ne RIEN
+  // renvoyer (le chat bascule alors sur le chemin complet) est infiniment plus
+  // sûr que renvoyer un extrait au hasard : c'est exactement ce qui a produit
+  // une réponse sur la kablanout pour une question sur le poisson sur la plata.
+  if (keyTokens.length === 0 && conceptKeys.length === 0) {
+    return { results: [], keyTokens: [], totalChunks: _N };
+  }
   // Idem pour le mode strict : n'exiger que des tokens réellement indexables.
   const originalSet = [...new Set(known.length ? known : tokens)];
 
