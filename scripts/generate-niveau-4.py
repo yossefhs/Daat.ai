@@ -390,6 +390,8 @@ def generate_niveau4(spec):
     .sa-he {{ font-size: 17px; line-height: 1.85; }}
   }}
 </style>
+<!-- Vercel Web Analytics -->
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 
@@ -656,6 +658,8 @@ def generate_index(spec):
       .levels-grid {{ grid-template-columns: 1fr; }}
     }}
   </style>
+<!-- Vercel Web Analytics -->
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 

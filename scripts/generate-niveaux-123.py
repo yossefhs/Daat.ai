@@ -317,6 +317,8 @@ def build_n1(siman, sf):
 <meta name="twitter:description" content="Initiation pédagogique au Siman {n_he} du Choulhan Aroukh.">
 <meta name="twitter:image" content="https://daattorah.com/assets/img/og/siman-{n}.svg">
 <style>{CSS_N1}</style>
+<!-- Vercel Web Analytics -->
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 
@@ -549,6 +551,8 @@ def build_n2(siman, sf):
 <meta name="twitter:description" content="Pilpoul approfondi.">
 <meta name="twitter:image" content="https://daattorah.com/assets/img/og/siman-{n}.svg">
 <style>{CSS_N2}</style>
+<!-- Vercel Web Analytics -->
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 
@@ -785,6 +789,8 @@ def build_n3(siman, sf):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>{CSS_N3}</style>
+<!-- Vercel Web Analytics -->
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 
