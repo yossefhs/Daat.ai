@@ -11,7 +11,7 @@ import { getClientIp } from './_http.js';
 import { SYSTEM_PROMPT, buildSystemPrompt } from './_system-prompt.js';
 import { SEFARIA_TOOLS, executeSefariaTool } from './_sefaria.js';
 import { CORPUS_TOOLS, executeCorpusTool, searchCorpus } from './_corpus.js';
-import { searchCorpus as searchShabbatCorpus, corpusCacheKey, CORPUS_CACHE_TTL } from './_corpus-search.js';
+import { searchCorpus as searchShabbatCorpus, corpusCacheKey, CORPUS_CACHE_TTL, stripProfileBlock } from './_corpus-search.js';
 import { MAREH_MEKOMOT_TOOLS, executeMarehMekomotTool } from './_mareh_mekomot.js';
 import { getUserFromRequest, isAllowedOrigin } from './_auth.js';
 import {
@@ -409,11 +409,20 @@ async function serveCorpusAnswer({ req, res, cs, section, lastUserText, userId, 
   // ── Cache des reformulations : même question déjà répondue → 0 token LLM ──
   // Le lookup se fait APRÈS le match BM25 : un hit cache passe donc par les
   // mêmes garde-fous (strict, minScore, section) que la génération d'origine.
-  const corpusKvKey = corpusCacheKey(lastUserText, { section });
+  // La clé ignore le bloc de profil : sinon la même question posée en 1re et en
+  // 2e position produit deux clés différentes et le cache ne sert jamais.
+  const corpusKvKey = corpusCacheKey(stripProfileBlock(lastUserText), { section });
   let cachedCorpus = null;
   try {
     const raw = await kv.get(corpusKvKey);
-    if (raw && typeof raw === 'object' && typeof raw.text === 'string' && raw.text.length > 50) {
+    // Le cache doit porter sur le MÊME siman que la recherche vient de trouver.
+    // Sinon un texte mis en cache il y a 30 jours pour un autre siman est servi
+    // sous la référence « Source : Siman X » calculée maintenant — une réponse
+    // juste sous une source fausse, ou l'inverse. La clé de cache est dérivée du
+    // texte de la question, pas du résultat : les deux peuvent diverger dès que
+    // le corpus change (il change à chaque déploiement).
+    if (raw && typeof raw === 'object' && typeof raw.text === 'string' && raw.text.length > 50
+        && String(raw.siman) === String(top.siman)) {
       cachedCorpus = raw;
     }
   } catch (_) {}
@@ -453,12 +462,30 @@ async function serveCorpusAnswer({ req, res, cs, section, lastUserText, userId, 
     return true;
   }
 
-  const corpusDomain = section === 'yoreh-deah'
-    ? "les hilkhot Issour ve-Heter (cacheroute : bassar be-halav, taarovot…)"
-    : 'les hilkhot Shabbat';
-  const corpusTerms = section === 'yoreh-deah'
-    ? 'bassar be-halav, taarovet, ben yomo, nat bar nat'
-    : 'borer, bishoul, mouktsé';
+  // Le corpus couvre QUATRE domaines, pas deux : OH quotidien (1-185), OH Shabbat
+  // (242-365), YD Issour ve-Heter (87-118), YD Nidah (183-200). Cadrer le prompt
+  // sur la seule `section` annonçait « les hilkhot Shabbat » pour les 9 241 chunks
+  // du quotidien et « cacheroute » pour toute la nidah : Haiku reformulait alors
+  // un extrait de tefila comme s'il s'agissait d'une question de Shabbat.
+  // On dérive donc le domaine du siman RÉELLEMENT servi.
+  const topNum = Number(top.siman);
+  const corpusDom = section === 'yoreh-deah'
+    ? (topNum >= 183
+      ? { d: 'les hilkhot Nidah / Taharat haMishpaha (pureté familiale)',
+          t: 'vesatot, ketamim, harhakot, hefsek tahara, chiva nekiyim, tevila',
+          p: 'le principe halakhique' }
+      : { d: 'les hilkhot Issour ve-Heter (cacheroute : bassar be-halav, taarovot…)',
+          t: 'bassar be-halav, taarovet, ben yomo, nat bar nat',
+          p: 'le principe halakhique' })
+    : (topNum >= 242 && topNum <= 365
+      ? { d: 'les hilkhot Shabbat',
+          t: 'borer, bishoul, mouktsé',
+          p: 'la mélakha (ou le principe halakhique)' }
+      : { d: "les hilkhot de la journée du juif (Orah Haïm : netilat yadaïm, tsitsit, tefilin, birkot hachahar, keriat chema, tefila, berakhot, birkat hamazon…)",
+          t: 'tsitsit, tefilin, netilat yadaïm, berakha, kavana',
+          p: 'le principe halakhique' });
+  const corpusDomain = corpusDom.d;
+  const corpusTerms = corpusDom.t;
   const corpusSystem = `Tu es Daat, l'assistant halakhique de DAAT — site d'étude du Rav Yossef Haim Samama.
 
 CONTEXTE : tu reçois une question d'utilisateur sur ${corpusDomain} et UN EXTRAIT précis du corpus (écrit par le Rav) qui répond à cette question.
@@ -467,7 +494,7 @@ TA MISSION : donner une réponse claire, complète et engageante, fidèle à l'e
 
 STRUCTURE ATTENDUE :
 1. **Phrase d'accroche** (1re ligne) : la réponse directe, ATTRIBUÉE au corpus — ce que le Rav écrit, pas ce que TU autorises ("D'après le corpus du Rav, c'est permis lorsque…", "Non : il y a là un problème de …", "Ça dépend : si …, alors …"). L'accroche seule doit déjà répondre.
-2. **Raisonnement** en 2-4 phrases : quelle est la mélakha (ou le principe halakhique) en jeu, la logique du psak, les sources ou opinions clés si l'extrait les mentionne.
+2. **Raisonnement** en 2-4 phrases : quel est ${corpusDom.p} en jeu, la logique du psak, les sources ou opinions clés si l'extrait les mentionne.
 3. **Cas particuliers ou nuances** : uniquement s'ils sont dans l'extrait (ne pas extrapoler).
 4. **Source finale** au format exact : *Source : Siman X · [titre de section]*
 

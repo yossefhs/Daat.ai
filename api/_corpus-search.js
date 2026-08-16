@@ -545,6 +545,40 @@ const SHABBAT_MARKERS = new Set([
   'kippour','soucca','chalom',
 ]);
 
+// ── Nettoyage du bloc de profil injecté par les interfaces ──────────────────
+// Le widget ET les trois pages de chat plein écran préfixent la 1re question
+// d'une conversation par un bloc de profil (niveau, minhag, langue). Ces mots
+// (« débutant », « souhaitée », « profil ») sont des hapax du corpus : ils ont
+// l'IDF MAXIMALE et confisquaient les deux keyTokens du portail, rendant la
+// recherche aveugle à la vraie question. Le nettoyage est fait ici, côté SERVEUR,
+// pour couvrir aussi les widgets déjà en cache chez les visiteurs — le texte
+// COMPLET continue d'être envoyé au modèle, qui a besoin du profil.
+// Quatre formats existent (widget avec « [Ma question] », chat.html sans
+// marqueur, chat-he.html, chat-en.html) : ils sont tous traités.
+const PROFILE_HEADER_RE = /^\s*(?:\[Profil de cette session\]|\[Session profile\]|\[\u05e4\u05e8\u05d5\u05e4\u05d9\u05dc \u05e1\u05e9\u05df \u05d6\u05d4\]|Bonjour Daat\s*!\s*Voici mon profil)/i;
+
+export function stripProfileBlock(text) {
+  const s = String(text || '');
+  // Variante widget : marqueur explicite de la question.
+  const m = s.match(/\[(?:Ma question|My question)\]\s*([\s\S]*)$/i);
+  if (m) return m[1].trim();
+  if (!PROFILE_HEADER_RE.test(s)) return s;
+  const lines = s.split('\n');
+  let i = PROFILE_HEADER_RE.test(lines[0]) ? 1 : 0;
+  // Puces du profil (« • Niveau : … », « - \u05e8\u05de\u05d4: … ») et lignes vides. Borné à
+  // 6 lignes : au-delà, c'est la question de l'utilisateur, on n'y touche pas.
+  let eaten = 0;
+  while (i < lines.length && eaten < 6 && (/^\s*$/.test(lines[i]) || /^\s*[\u2022\-\u2013*]\s/.test(lines[i]))) {
+    if (!/^\s*$/.test(lines[i])) eaten++;
+    i++;
+  }
+  const rest = lines.slice(i).join('\n').trim();
+  // Message d'introduction (bouton « Commencer l'étude ») : aucune question réelle
+  // → requête vide, la recherche ne renverra rien plutôt qu'un extrait au hasard.
+  if (/^(?:Je suis pr[\u00ea e]t|I'?m ready|\u05d0\u05e0\u05d9 \u05de\u05d5\u05db\u05df)/i.test(rest)) return '';
+  return rest;
+}
+
 export function searchCorpus(question, opts = {}) {
   loadAndIndex();
   const limit = opts.limit || 3;
@@ -554,7 +588,7 @@ export function searchCorpus(question, opts = {}) {
   // corpus (rétro-compatible). Les anciens chunks sans champ `section` ne sont
   // jamais exclus, pour éviter toute régression silencieuse.
   const section = opts.section || null;
-  const tokens = tokenize(question);
+  const tokens = tokenize(stripProfileBlock(question));
   if (tokens.length === 0) return { results: [], keyTokens: [], totalChunks: _N };
 
   // Key tokens = les 2 tokens originaux de plus haute IDF, choisis UNIQUEMENT
