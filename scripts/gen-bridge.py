@@ -305,8 +305,9 @@ def gen(num, numHe, subj):
 
 # Simanim du lot courant (132-134) : (num, numHe hébreu, sujet court)
 SIMANIM=[
- (169,"קס״ט","דין שמש הסעודה — le service (chamach) au cours du repas"),
- (170,"ק״ע","דברי מוסר שינהג אדם בסעודה — les règles de bonne conduite (moussar) à table"),
+ (171,"קע״א","שלא לנהוג בזיון באוכלים — ne pas traiter la nourriture avec mépris"),
+ (172,"קע״ב","מי שהכניס אוכלין ומשקין בלא ברכה — mettre en bouche aliments ou boissons sans bénédiction"),
+ (173,"קע״ג","דין מים אמצעים — la loi des eaux intermédiaires (mayim emtza'iyim)"),
 ]
 if __name__=="__main__":
     args=[int(x) for x in sys.argv[1:]]
