@@ -397,6 +397,9 @@ function stripChrome(body) {
 // aurait supprimé du corpus le contenu que ce même commit vient d'y faire entrer.
 const BRIDGE_RE = /<h1[^>]*>[^<]*passerelle[^<]*<\/h1>/i;
 
+// Réserves écrites par le Rav dans le titre d'un tableau ou d'une sous-section.
+const CAVEAT_RE = /hors\s+corpus|[àa]\s+v[ée]rifier|non\s+v[ée]rifi[ée]|sous\s+r[ée]serve/i;
+
 // L'extracteur est choisi d'après la STRUCTURE du fichier — jamais d'après son
 // nom de niveau (c'est ce codage en dur qui avait rendu 100 fichiers invisibles).
 // ⚠️ NE PAS remplacer ce choix par un « meilleur de N » fondé sur la couverture :
@@ -491,6 +494,11 @@ for (const section of SECTIONS) {
         // sert alors le texte d'une AUTRE page sous la référence que la recherche
         // vient de rendre — une source fausse, le mécanisme du faux heter borer.
         c.id = `${section.id === 'yoreh-deah' ? 'yd' : 'oh'}-${c.level}-${c.id}`;
+        // ⚠️ RÉSERVE DE L'AUTEUR. Le Rav marque lui-même certains tableaux
+        // « hors corpus, à vérifier ». Ces passages restent indexés — ils sont
+        // utiles — mais le drapeau voyage AVEC la donnée, pour qu'aucun chemin
+        // d'affichage ne puisse les servir en taisant la mise en garde.
+        if (CAVEAT_RE.test(`${c.subsection || ''} ${c.sectionTitle || ''}`)) c.caveat = true;
       });
 
       stats.perLevel[level.id] = (stats.perLevel[level.id] || 0) + chunks.length;

@@ -28,19 +28,20 @@ const MAX_TOOL_ITERATIONS = parseInt(process.env.MAX_TOOL_ITERATIONS || '5', 10)
 // Compteur mensuel d'IA générative par ADRESSE IP, pour les visiteurs non
 // connectés. Il rend le quota anonyme insensible à l'effacement du cookie.
 //
-// ⚠️ EN OBSERVATION PAR DÉFAUT (0 = compter et journaliser, ne pas bloquer).
-// Une adresse IP ne désigne pas une personne : derrière une seule adresse il y a
-// une famille, une yéchiva, une salle d'étude, ou tout un opérateur mobile
-// (CGNAT). Bloquer à un seuil bas revient à mettre au paywall des gens qui
-// n'ont rien fait — sur un site d'étude, c'est pire que le contournement qu'on
-// veut empêcher. Et la dépense réellement coûteuse (l'Aperçu Opus) est DÉJÀ
-// plafonnée par IP (PREVIEW_IP_DAILY_LIMIT) ; ce qui reste ouvert est Sonnet.
-// Le compteur tourne donc, les dépassements sont journalisés, et le blocage
-// s'active en donnant une valeur à ANON_IP_MONTHLY_LIMIT une fois les chiffres
-// réels connus — c'est un arbitrage coût/accès, il revient au Rav.
-const ANON_IP_MONTHLY_LIMIT = parseInt(process.env.ANON_IP_MONTHLY_LIMIT || '0', 10);
+// SEUIL : 100/mois/IP, soit ~3 par jour et 33 fois le quota individuel anonyme.
+// Une adresse IP ne désigne pas une personne : derrière une seule il y a une
+// famille, une salle d'étude, ou tout un opérateur mobile (CGNAT). Le seuil est
+// donc calé pour ne pouvoir être atteint que par de l'usage AUTOMATISÉ — une
+// yéchiva de 30 personnes posant 3 questions chacune dans le mois reste dessous.
+// Deux amortisseurs le rendent peu risqué :
+//   · la dépense réellement coûteuse (Aperçu Opus) est DÉJÀ plafonnée par IP ;
+//   · tryCorpusRescue s'exécute AVANT le 429, donc même bloqué l'utilisateur
+//     continue de recevoir le corpus du Rav — seule l'IA générative est rationnée.
+// Un compte gratuit affranchit complètement de ce plafond (quota par email).
+// Réglable sans redéploiement ; 0 = observation seule.
+const ANON_IP_MONTHLY_LIMIT = parseInt(process.env.ANON_IP_MONTHLY_LIMIT || '100', 10);
 // Seuil d'ALERTE (journal uniquement) même quand le blocage est désactivé.
-const ANON_IP_ALERT_AT = parseInt(process.env.ANON_IP_ALERT_AT || '40', 10);
+const ANON_IP_ALERT_AT = parseInt(process.env.ANON_IP_ALERT_AT || '60', 10);
 const MAX_TOOL_CALLS = parseInt(process.env.MAX_TOOL_CALLS || '6', 10);           // plafond DUR de tool calls (parallèle compris) ; le budget temps (FORCE_SYNTHESIS_AFTER_MS) reste le gouverneur principal
 // Halakha profonde (routée Opus) : budget ÉLARGI. La règle du בד"א impose de
 // vérifier les séifim voisins (n+1) avant toute conclusion — ça coûte plusieurs
@@ -531,6 +532,11 @@ STRUCTURE ATTENDUE :
 3. **Cas particuliers ou nuances** : uniquement s'ils sont dans l'extrait (ne pas extrapoler).
 4. **Source finale** au format exact : *Source : Siman X · [titre de section]*
 
+${top.caveat ? `
+⚠️ RÉSERVE DE L'AUTEUR — OBLIGATOIRE : le Rav a lui-même marqué cet extrait « hors corpus, à vérifier ». Tu DOIS commencer ta réponse par la ligne exacte :
+> ⚠️ Le Rav signale que ce passage est **hors corpus et à vérifier** — à lire comme une orientation, pas comme une source établie.
+Puis répondre normalement, sans jamais présenter ce contenu comme tranché.
+` : ''}
 RÈGLES STRICTES :
 - RESTE FIDÈLE à l'extrait. N'invente AUCUNE halakha qui n'y est pas explicitement.
 - Termine TOUJOURS ta réponse par la ligne source. Ne coupe jamais avant elle — elle est la signature du psak.
@@ -693,18 +699,21 @@ RÈGLES STRICTES :
 // dire est le seul garde-fou qui reste quand la reformulation est indisponible.
 const RAW_CORPUS_I18N = {
   fr: {
+    caveat: `\n\n> ⚠️ Le Rav a marqué ce passage **hors corpus, à vérifier** — orientation, pas source établie.\n`,
     head: `**Le modèle d'IA est momentanément indisponible.** Je ne peux donc ni lire ces passages ni vérifier qu'ils traitent bien de ton cas : voici, tel quel, ce que la recherche par mots-clés a rapproché de ta question. **Vérifie le titre ci-dessous avant de lire — il arrive que ce ne soit pas le bon sujet.** C'est une citation du corpus, pas une réponse rédigée, et surtout pas un psak.\n\n`,
     about: (h) => `> Cet extrait traite de : **${h.simanTitle || 'Siman ' + h.siman}**${h.sectionTitle ? ` — ${h.sectionTitle}` : ''}\n\n`,
     src: (h) => `\n\n*Source : Siman ${h.siman}${h.levelLabel ? ' · ' + h.levelLabel : ''}*`,
     foot: `\n\nPour toute question **lema'assé**, adresse-toi à ton Rav.`,
   },
   he: {
+    caveat: `\n\n> ⚠️ הרב ציין כי קטע זה **מחוץ לחומר, טעון בדיקה** — כיוון בלבד, לא מקור מבורר.\n`,
     head: `**מנוע הבינה המלאכותית אינו זמין כרגע.** לכן איני יכול לקרוא את הקטעים הללו ולא לוודא שהם אכן עוסקים בשאלתך: לפניך, כמות שהוא, מה שחיפוש המילים העלה. **בדוק את הכותרת שלהלן לפני הקריאה — לעתים אין זה הנושא הנכון.** זהו ציטוט מן החומר, לא תשובה ערוכה, ובוודאי לא פסק הלכה.\n\n`,
     about: (h) => `> קטע זה עוסק ב: **${h.simanTitle || 'סימן ' + h.siman}**${h.sectionTitle ? ` — ${h.sectionTitle}` : ''}\n\n`,
     src: (h) => `\n\n*מקור : סימן ${h.siman}${h.levelLabel ? ' · ' + h.levelLabel : ''}*`,
     foot: `\n\nלכל שאלה **למעשה**, יש לפנות לרב.`,
   },
   en: {
+    caveat: `\n\n> ⚠️ The Rav marked this passage **outside the corpus, to be verified** — an orientation, not an established source.\n`,
     head: `**The AI model is temporarily unavailable.** I therefore cannot read these passages or verify that they address your case: here, as-is, is what the keyword search matched to your question. **Check the heading below before reading — it is sometimes not the right topic.** This is a quotation from the corpus, not a written answer, and certainly not a psak.\n\n`,
     about: (h) => `> This excerpt is about: **${h.simanTitle || 'Siman ' + h.siman}**${h.sectionTitle ? ` — ${h.sectionTitle}` : ''}\n\n`,
     src: (h) => `\n\n*Source: Siman ${h.siman}${h.levelLabel ? ' · ' + h.levelLabel : ''}*`,
@@ -735,6 +744,7 @@ async function serveRawCorpus({ res, cs, ensureSse, doneExtra = {}, userId, plan
   hits.forEach((h, i) => {
     if (i > 0) parts.push('\n\n---\n\n');
     parts.push(L.about(h));
+    if (h.caveat) parts.push(L.caveat);
     // La sous-section porte parfois une réserve écrite par le Rav lui-même
     // (« hors corpus, à vérifier ») : la taire reviendrait à diffuser le tableau
     // sans la mise en garde qui l'accompagne.

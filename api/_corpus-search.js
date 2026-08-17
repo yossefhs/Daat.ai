@@ -939,6 +939,9 @@ export function searchCorpus(question, opts = {}) {
       sectionTitle: r.chunk.sectionTitle,
       subsection: r.chunk.subsection,
       type: r.chunk.type,
+      // Réserve écrite par le Rav (« hors corpus, à vérifier ») : elle doit
+      // parvenir à TOUS les chemins d'affichage, jamais dépendre de l'un d'eux.
+      caveat: r.chunk.caveat === true,
       text: r.chunk.text,
       score: r.score,
       sourceUrl: r.chunk.sourceUrl,
