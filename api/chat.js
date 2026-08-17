@@ -25,6 +25,11 @@ import {
 const client = new Anthropic();
 
 const MAX_TOOL_ITERATIONS = parseInt(process.env.MAX_TOOL_ITERATIONS || '5', 10); // rondes d'outils + synthèse forcée
+// Plafond mensuel d'IA générative par ADRESSE IP pour les visiteurs non connectés.
+// Volontairement large (≈ 5 fois le quota individuel anonyme) : il ne vise que le
+// contournement par effacement du cookie, jamais l'usage partagé légitime.
+// 0 = désactivé.
+const ANON_IP_MONTHLY_LIMIT = parseInt(process.env.ANON_IP_MONTHLY_LIMIT || '15', 10);
 const MAX_TOOL_CALLS = parseInt(process.env.MAX_TOOL_CALLS || '6', 10);           // plafond DUR de tool calls (parallèle compris) ; le budget temps (FORCE_SYNTHESIS_AFTER_MS) reste le gouverneur principal
 // Halakha profonde (routée Opus) : budget ÉLARGI. La règle du בד"א impose de
 // vérifier les séifim voisins (n+1) avant toute conclusion — ça coûte plusieurs
@@ -382,7 +387,7 @@ const TOOL_EXECUTORS = {
 // l'appelant car le seuil varie (normal / strongOnly / rescue).
 // Renvoie true si une réponse a été streamée (res.end() fait) ; false si rien n'a
 // été écrit (l'appelant reprend son flux : Claude, ou la réponse 429).
-async function serveCorpusAnswer({ req, res, cs, section, lastUserText, userId, isGuest, plan, rateKey = null, monthRateKey = null, doneExtra = {} }) {
+async function serveCorpusAnswer({ req, res, cs, section, lastUserText, userId, isGuest, plan, rateKey = null, monthRateKey = null, doneExtra = {}, allowRawFallback = false }) {
   const top = cs.results[0];
   const others = cs.results.slice(1);
   const subs = top.subsection ? ` · ${top.subsection}` : '';
@@ -655,8 +660,58 @@ RÈGLES STRICTES :
     res.end();
     return true;
   }
-  // Aucune sortie streamée (erreur Haiku avant le premier token) → l'appelant reprend
+  // Aucune sortie streamée (erreur avant le premier token). Si l'appelant n'a
+  // aucun autre recours (quota épuisé, budget Anthropic épuisé), on sert le texte
+  // du Rav TEL QUEL, à coût nul : la promesse « le corpus du Rav reste consultable
+  // sans limite » ne peut pas dépendre d'un appel payant. Sinon on rend la main.
+  if (allowRawFallback) return serveRawCorpus({ res, cs, ensureSse, doneExtra, userId, plan });
   return false;
+}
+
+// ── Corpus BRUT, coût 0 € ───────────────────────────────────────────────────
+// Dernier recours : les extraits du Rav, sans reformulation. Le cadrage est
+// explicite — c'est une CITATION du corpus, jamais une réponse du chat, encore
+// moins un psak. C'est ce qui permet au corpus de rester accessible quand plus
+// aucun modèle n'est disponible.
+async function serveRawCorpus({ res, cs, ensureSse, doneExtra = {}, userId, plan }) {
+  const hits = (cs?.results || []).slice(0, 2);
+  if (!hits.length) return false;
+  const top = hits[0];
+  const parts = [];
+  parts.push(`**Le modèle d'IA est momentanément indisponible.** Voici, tel quel, le passage du corpus du Rav qui correspond à ta question — c'est une citation, pas une réponse rédigée, et surtout pas un psak.\n\n`);
+  hits.forEach((h, i) => {
+    if (i > 0) parts.push('\n\n---\n\n');
+    parts.push(`### ${h.simanTitle || 'Siman ' + h.siman}\n`);
+    if (h.sectionTitle) parts.push(`*${h.sectionTitle}*\n\n`);
+    parts.push(h.text);
+    parts.push(`\n\n*Source : Siman ${h.siman}${h.levelLabel ? ' · ' + h.levelLabel : ''}*`);
+  });
+  parts.push(`\n\nPour toute question **lema'assé**, adresse-toi à ton Rav.`);
+  const text = parts.join('');
+  ensureSse();
+  const CH = 64;
+  for (let i = 0; i < text.length; i += CH) {
+    res.write(`data: ${JSON.stringify({ type: 'text', delta: text.slice(i, i + CH) })}\n\n`);
+  }
+  res.write(`data: ${JSON.stringify({
+    type: 'done', stop_reason: 'end_turn', iterations: 1,
+    usage: { input_tokens: 0, output_tokens: 0 },
+    provider: 'corpus-raw',
+    ...doneExtra,
+    corpus_source: { siman: top.siman, simanTitle: top.simanTitle, sourceUrl: top.sourceUrl, score: top.score },
+  })}\n\n`);
+  try {
+    await kv.lpush('logs:usage', JSON.stringify({
+      ts: new Date().toISOString(), user: userId, plan,
+      tokens_in: 0, tokens_out: 0, cost_usd: 0,
+      provider: 'corpus-raw', model: 'none', iterations: 1, stop_reason: 'end_turn',
+      corpus_siman: top.siman, corpus_score: top.score,
+    }));
+    await kv.ltrim('logs:usage', 0, 499);
+  } catch (_) {}
+  console.log(`[chat.js] corpus RAW (0 €): ${userId} siman-${top.siman}`);
+  res.end();
+  return true;
 }
 
 // ── Sauvetage corpus à quota épuisé ─────────────────────────────────────────
@@ -689,6 +744,9 @@ async function tryCorpusRescue({ req, res, messages, section, userId, isGuest, p
     lastUserText: lastUserMsg.content,
     userId, isGuest, plan,
     doneExtra: { is_aperçu: false, quota_rescued: scope },
+    // À quota épuisé, l'appelant n'a aucun autre recours : si Haiku échoue avant
+    // le 1er token, le corpus brut vaut infiniment mieux qu'un paywall.
+    allowRawFallback: true,
   });
 }
 
@@ -732,18 +790,33 @@ export default async function handler(req, res) {
     const rateKey = `rate:${userId}:${today}`;
     const monthRateKey = `rate-month:${userId}:${currentMonth}`;
     const previewIpKey = `preview-ip:${clientIp}:${today}`;
+    // Plafond MENSUEL par IP pour les visiteurs non connectés. Sans lui, un client
+    // qui ne renvoie pas le cookie `daat_guest_id` obtient un quota neuf à chaque
+    // requête : l'IA générative devenait illimitée et gratuite pour qui savait le
+    // faire. Le plafond est volontairement TRÈS supérieur au quota individuel
+    // (3 questions/mois) afin de ne jamais gêner un foyer, une yéchiva ou un
+    // réseau partagé : il ne rattrape que l'effacement répété du cookie.
+    // ⚠️ Il ne ration que l'IA générative : le corpus du Rav reste servi par
+    // tryCorpusRescue, appelé AVANT le 429 — la promesse « corpus illimité » tient.
+    const anonIpMonthKey = `rate-month-ip:${clientIp}:${currentMonth}`;
     const previewGlobalKey = `preview-global:${today}`;
     const limit = DAILY_LIMITS[plan] || DAILY_LIMITS.anonymous;
     const monthLimit = MONTHLY_LIMITS[plan] || MONTHLY_LIMITS.anonymous;
     // Crédits Opus achetés (1€/q, 10€/10q) — clé `credits:email`. Anonymes : impossible.
     const creditsKey = isGuest ? null : `credits:${userId}`;
-    const [currentCount, currentMonthCount, previewIpCount, previewGlobalCount, opusCredits] = await Promise.all([
+    const [currentCount, rawMonthCount, previewIpCount, previewGlobalCount, opusCredits, anonIpMonthCount] = await Promise.all([
       kv.get(rateKey).then(v => parseInt(v || '0', 10)),
       kv.get(monthRateKey).then(v => parseInt(v || '0', 10)),
       kv.get(previewIpKey).then(v => parseInt(v || '0', 10)),
       kv.get(previewGlobalKey).then(v => parseInt(v || '0', 10)),
       creditsKey ? kv.get(creditsKey).then(v => parseInt(v || '0', 10)) : Promise.resolve(0),
+      isGuest && clientIp ? kv.get(anonIpMonthKey).then(v => parseInt(v || '0', 10)) : Promise.resolve(0),
     ]);
+    // Pour un visiteur non connecté, le compteur retenu est le PLUS ÉLEVÉ des deux
+    // (cookie ou IP) : effacer le cookie ne remet donc plus le compteur à zéro.
+    // Un compte connecté est identifié par son email et n'est jamais concerné.
+    const ipQuotaHit = isGuest && ANON_IP_MONTHLY_LIMIT > 0 && anonIpMonthCount >= ANON_IP_MONTHLY_LIMIT;
+    const currentMonthCount = ipQuotaHit ? Math.max(rawMonthCount, monthLimit) : rawMonthCount;
     // Flag : true si cette requête sera payée par un crédit (= forcera Opus, décrémentera credits)
     let usingCredit = false;
     // Caps anti-abus : si l'IP a déjà servi 3 Aperçu aujourd'hui OU si le quota global
@@ -1469,6 +1542,14 @@ export default async function handler(req, res) {
         await kv.expire(monthRateKey, 35 * 24 * 60 * 60); // ~35 jours pour couvrir le mois en cours
       }
 
+      // Compteur mensuel par IP (visiteurs non connectés seulement). Il rend le
+      // quota anonyme insensible à l'effacement du cookie `daat_guest_id`.
+      if (isGuest && clientIp && ANON_IP_MONTHLY_LIMIT > 0) {
+        await kv.incr(anonIpMonthKey);
+        const ipTtl = await kv.ttl(anonIpMonthKey);
+        if (ipTtl === -1 || ipTtl === -2) await kv.expire(anonIpMonthKey, 35 * 24 * 60 * 60);
+      }
+
       // CRÉDITS OPUS — si cette question a été payée par un crédit (quota gratuit
       // dépassé mais credits > 0), on décrémente le solde de crédits, et on annule
       // l'incr quotidien/mensuel qu'on vient de faire (la question n'a pas consommé
@@ -1551,6 +1632,39 @@ export default async function handler(req, res) {
       /quota/i.test(rawMessage) && /exhaust/i.test(rawMessage);
 
     if (isQuotaExhausted) {
+      // Avant le paywall : si la question correspond au corpus du Rav, on sert
+      // l'extrait BRUT à coût nul. Le budget IA épuisé ne doit pas rendre
+      // inaccessible du contenu qui n'a besoin d'aucun modèle pour être lu.
+      if (!res.headersSent) {
+        try {
+          const lastQ = [...(req.body?.messages || [])].reverse().find(
+            (m) => m && m.role === 'user' && typeof m.content === 'string' && m.content.length > 0
+          );
+          if (lastQ) {
+            const sec = req.body?.section === 'yoreh-deah' ? 'yoreh-deah' : 'orach-chaim';
+            const cs = searchShabbatCorpus(lastQ.content, {
+              limit: 3, minScore: parseFloat(process.env.CORPUS_MIN_SCORE || '8'), strict: true, section: sec,
+            });
+            if (cs && cs.results.length) {
+              const ensure = () => {
+                if (res.headersSent) return;
+                res.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
+                res.setHeader('Cache-Control', 'no-cache, no-transform');
+                res.setHeader('Connection', 'keep-alive');
+                res.setHeader('X-Accel-Buffering', 'no');
+              };
+              const served = await serveRawCorpus({
+                res, cs, ensureSse: ensure,
+                doneExtra: { is_aperçu: false, anthropic_quota_exhausted: true },
+                userId: 'unknown', plan: 'anonymous',
+              });
+              if (served) return;
+            }
+          }
+        } catch (e) {
+          console.error('[chat.js] repli corpus brut (quota Anthropic) échoué:', e?.message || e);
+        }
+      }
       const payload = {
         error: 'limit_reached',
         type: 'limit_reached',
