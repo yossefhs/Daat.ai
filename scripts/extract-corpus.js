@@ -162,10 +162,13 @@ function extractDaatHaRav(siman, body) {
   return chunks;
 }
 
-// Niveau 3 — Synthèse : sections délimitées par des <h2 id="…"> sans classe.
+// Niveau 3 — Synthèse : sections délimitées par des <h2> nus.
+// ⚠️ L'ancienne version EXIGEAIT un attribut id : les pages de synthèse du Yoreh
+// De'ah utilisent des <h2> sans id, elles produisaient donc 0 chunk — 50 fichiers
+// entièrement invisibles pour le chat, sans le moindre signal.
 function extractSynthese(siman, body) {
   const chunks = [];
-  const re = /<h2[^>]*id="[^"]*"[^>]*>([\s\S]*?)<\/h2>([\s\S]*?)(?=<h2[^>]*id="|<\/section|<\/main|<\/body|$)/g;
+  const re = /<h2(?![^>]*class="section-title")[^>]*>([\s\S]*?)<\/h2>([\s\S]*?)(?=<h2(?![^>]*class="section-title")|<\/section|<\/main|<\/body|$)/g;
   let m, idx = 0;
   while ((m = re.exec(body)) !== null) {
     idx++;
@@ -178,6 +181,38 @@ function extractSynthese(siman, body) {
     const parts = text.length <= 900 ? [text] : text.match(/[\s\S]{1,900}(?:\.|$)/g) || [text];
     parts.forEach((p) => {
       const t = p.trim();
+      if (t.length < 60) return;
+      chunks.push({
+        id: `siman-${siman.num}-synth-${chunks.length + 1}`,
+        siman: siman.num,
+        sectionNum: idx,
+        sectionTitle,
+        subsection: null,
+        text: t,
+        type: 'synthese',
+      });
+    });
+  }
+  return chunks;
+}
+
+// Troisième structure de synthèse : des <div class="syn-section"> dont le titre
+// est un <div class="syn-title">, sans aucun <h2>. Trouvée sur le siman 246, que
+// l'avertissement « fichier présent mais 0 chunk » a permis de repérer.
+function extractSynSection(siman, body) {
+  const chunks = [];
+  const re = /<div class="syn-section"[^>]*>([\s\S]*?)(?=<div class="syn-section"|<\/main|<\/body|$)/g;
+  let m, idx = 0;
+  while ((m = re.exec(body)) !== null) {
+    idx++;
+    const block = m[1];
+    const titleM = block.match(/<div class="syn-title"[^>]*>([\s\S]*?)<\/div>/);
+    const sectionTitle = titleM ? htmlToText(titleM[1]) : `Synthèse ${idx}`;
+    const text = htmlToText(block).trim();
+    if (text.length < 60) continue;
+    const parts = text.length <= 900 ? [text] : text.match(/[\s\S]{1,900}(?:\.|$)/g) || [text];
+    parts.forEach((pp) => {
+      const t = pp.trim();
       if (t.length < 60) return;
       chunks.push({
         id: `siman-${siman.num}-synth-${chunks.length + 1}`,
@@ -276,12 +311,63 @@ const allChunks = [];
 // le niveau 4 (Daat HaRav — 4,8 M de caractères, l'autorité du site) lui était
 // totalement invisible. C'est ce qui rendait les réponses « corpus » minces :
 // elles reformulaient une page débutant.
+// ⚠️ Un même niveau porte des NOMS DE FICHIER différents selon la section :
+// Hilkhot Shabbat a `niveau-4-daat-harav.html` (route /oh/N/daat-harav) tandis que
+// le Yoreh De'ah a `niveau-4-halakha.html` (route /yd/N/halakha). Le nom était codé
+// en dur : les 50 niveaux 4 du Yoreh De'ah n'étaient JAMAIS ouverts, donc invisibles
+// pour le chat. Chaque niveau déclare donc ses variantes de nom, avec le suffixe
+// d'URL correspondant (vérifié contre les rewrites de vercel.json).
 const LEVELS = [
-  { file: 'niveau-1-base.html',        id: 'base',       label: 'Base',       urlSuffix: 'base' },
-  { file: 'niveau-2-lamdan.html',      id: 'lamdan',     label: 'Lamdan',     urlSuffix: 'lamdan' },
-  { file: 'niveau-3-synthese.html',    id: 'synthese',   label: 'Synthèse',   urlSuffix: 'synthese' },
-  { file: 'niveau-4-daat-harav.html',  id: 'daat-harav', label: 'Daat HaRav', urlSuffix: 'daat-harav' },
+  { id: 'base',       label: 'Base',       variants: [{ file: 'niveau-1-base.html',       urlSuffix: 'base' }] },
+  { id: 'lamdan',     label: 'Lamdan',     variants: [{ file: 'niveau-2-lamdan.html',     urlSuffix: 'lamdan' }] },
+  { id: 'synthese',   label: 'Synthèse',   variants: [{ file: 'niveau-3-synthese.html',   urlSuffix: 'synthese' }] },
+  { id: 'daat-harav', label: 'Daat HaRav', variants: [
+      { file: 'niveau-4-daat-harav.html', urlSuffix: 'daat-harav' },
+      { file: 'niveau-4-halakha.html',    urlSuffix: 'halakha', label: 'Halakha' },
+  ] },
 ];
+
+// L'extracteur est choisi d'après la STRUCTURE RÉELLE du fichier, jamais d'après
+// son nom de niveau : c'est le codage en dur qui a rendu 100 fichiers invisibles.
+// Un futur niveau nommé autrement sera lu correctement sans modifier ce script.
+// ── Retrait du « chrome » de page ──────────────────────────────────────────
+// Filigrane, avertissement, navigation entre niveaux et pied de page sont tous en
+// QUEUE de body : ils étaient donc happés par la DERNIÈRE section de chaque page.
+// Mesuré : 550 chunks sur 16 171 contenaient « © 5786 · Retour à l'accueil ·
+// ♥ Soutenir » — du bruit que BM25 indexait comme du contenu.
+const CHROME_MARKERS = [
+  /<nav[\s>]/i,
+  /<footer[\s>]/i,
+  /<div[^>]*class="yh-watermark"/i,
+  /<div[^>]*class="disclaimer"/i,
+];
+function stripChrome(body) {
+  // Sélecteur de langue et bandeau de dédicace : en TÊTE, retirés isolément.
+  let b = body
+    .replace(/<div[^>]*class="lang-switcher[^"]*"[\s\S]{0,2000}?<\/div>\s*/i, '')
+    .replace(/<div[^>]*id="dedicace-banner"[\s\S]{0,2000}?<\/div>\s*/i, '');
+  let cut = b.length;
+  for (const re of CHROME_MARKERS) {
+    const m = b.match(re);
+    if (m && m.index < cut) cut = m.index;
+  }
+  // Garde-fou : ne jamais tronquer avant la moitié de la page. Un marqueur trouvé
+  // trop tôt signale une structure inattendue — mieux vaut garder du bruit que
+  // perdre de la halakha.
+  return cut >= b.length * 0.5 ? b.slice(0, cut) : b;
+}
+
+function pickExtractor(body) {
+  if (/<details class="seif-details"|<div class="sa-block"/.test(body)) return 'daat-harav';
+  if (/<h2 class="section-title"/.test(body)) return 'sections';
+  if (/<div class="syn-section"/.test(body)) return 'syn-section';
+  return 'synthese';
+}
+
+// Fichiers de niveau PRÉSENTS mais dont l'extraction ne produit aucun chunk :
+// c'est le symptôme d'une structure HTML non reconnue. Le défaut est resté
+// silencieux pendant tout le chantier Yoreh De'ah — on le signale désormais.
+const EMPTY_LEVELS = [];
 
 const stats = { totalSimanim: 0, withChunks: 0, skipped: [], chunksPerSiman: {}, perSection: {}, perLevel: {} };
 
@@ -298,30 +384,36 @@ for (const section of SECTIONS) {
     let simanChunks = 0;
 
     for (const level of LEVELS) {
-      const htmlPath = path.join(section.dir, dir, level.file);
-      if (!fs.existsSync(htmlPath)) {
+      const variant = level.variants.find((v) => fs.existsSync(path.join(section.dir, dir, v.file)));
+      if (!variant) {
         // Absence normale pour certains niveaux (ex. simanim 304 et 322 n'ont pas
         // de niveau 4 : l'Admour HaZaken ne les a pas écrits — page passerelle).
         if (level.id === 'base') stats.skipped.push({ section: section.id, num: simanNum, reason: 'pas de niveau-1-base.html' });
         continue;
       }
+      const htmlPath = path.join(section.dir, dir, variant.file);
 
       const html = fs.readFileSync(htmlPath, 'utf8');
       const bodyM = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
-      const body = bodyM ? bodyM[1] : html;
-      const chunks = level.id === 'daat-harav' ? extractDaatHaRav({ num: simanNum }, body)
-                   : level.id === 'synthese'   ? extractSynthese({ num: simanNum }, body)
-                   : extractChunks({ num: simanNum }, html);
-      if (chunks.length === 0) continue;
+      const body = stripChrome(bodyM ? bodyM[1] : html);
+      const kind = pickExtractor(body);
+      const chunks = kind === 'daat-harav'  ? extractDaatHaRav({ num: simanNum }, body)
+                   : kind === 'synthese'    ? extractSynthese({ num: simanNum }, body)
+                   : kind === 'syn-section' ? extractSynSection({ num: simanNum }, body)
+                   : extractChunks({ num: simanNum }, body);
+      if (chunks.length === 0) {
+        EMPTY_LEVELS.push(`${section.id}:${simanNum}/${level.id} (${variant.file}, structure « ${kind} »)`);
+        continue;
+      }
 
       chunks.forEach((c) => {
         c.section = section.id;
         c.level = level.id;
-        c.levelLabel = level.label;
+        c.levelLabel = variant.label || level.label;
         c.simanTitle = meta.titleFr;
         c.simanTitleHe = meta.titleHe;
         c.simanSubtitle = meta.subtitle || '';
-        c.sourceUrl = `${section.urlPrefix}/${simanNum}/${level.urlSuffix}`;
+        c.sourceUrl = `${section.urlPrefix}/${simanNum}/${variant.urlSuffix}`;
       });
 
       stats.perLevel[level.id] = (stats.perLevel[level.id] || 0) + chunks.length;
@@ -359,6 +451,11 @@ console.log(`  Chunks totaux       : ${allChunks.length}`);
 console.log(`  Taille JSON         : ${sizeKb} KB`);
 console.log(`  Par section         : ${Object.entries(stats.perSection).map(([k, v]) => `${k}=${v}`).join(', ')}`);
 console.log(`  Skipped (${stats.skipped.length})  : ${stats.skipped.map((s) => `${s.section || ''}#${s.num}`).slice(0, 5).join(',')}${stats.skipped.length > 5 ? '...' : ''}`);
+if (EMPTY_LEVELS.length) {
+  console.warn(`\n⚠️  ${EMPTY_LEVELS.length} fichier(s) de niveau présents mais SANS chunk extrait (structure HTML non reconnue) :`);
+  EMPTY_LEVELS.slice(0, 15).forEach((e) => console.warn(`    ${e}`));
+  if (EMPTY_LEVELS.length > 15) console.warn(`    … et ${EMPTY_LEVELS.length - 15} autre(s)`);
+}
 if (MISSING_TITLES.length) {
   console.warn(`\n⚠️  ${MISSING_TITLES.length} siman(im) indexés SANS titre (recherche dégradée) : ${MISSING_TITLES.slice(0, 20).join(', ')}${MISSING_TITLES.length > 20 ? '…' : ''}`);
   console.warn('    → ajouter le siman au catalogue data/simanim-disponibles.json, ou sa clé de section à SECTIONS[].dispoIds.');
