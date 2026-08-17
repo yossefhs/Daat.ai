@@ -456,7 +456,12 @@ async function serveCorpusAnswer({ req, res, cs, section, lastUserText, userId, 
     // alors sur le siman seul plutôt que de tout invalider.
     if (raw && typeof raw === 'object' && typeof raw.text === 'string' && raw.text.length > 50
         && String(raw.siman) === String(top.siman)
-        && (raw.chunkId === undefined || raw.chunkId === top.id)) {
+        // Exigence STRICTE de l'id d'extrait. La clause de compatibilité
+        // « chunkId absent → on accepte » n'a plus d'objet (le préfixage des ids
+        // a rendu toute entrée antérieure non concordante) et constituait un
+        // risque latent : une réponse mise en cache AVANT la propagation de la
+        // réserve « hors corpus, à vérifier » aurait pu être resservie sans elle.
+        && raw.chunkId === top.id) {
       cachedCorpus = raw;
     }
   } catch (_) {}
