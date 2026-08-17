@@ -19,23 +19,46 @@ titre de la page était pire encore : la plupart des séifim n'ont pas de titre
 propre, et les blocs héritaient d'un titre lointain, produisant 320 faux
 signalements.
 
-Ne subsistent donc que deux questions auxquelles on peut répondre sans rien
-supposer :
+Il reste que la plupart des blocs **disent eux-mêmes** de quel séif ils
+relèvent, par le titre qui les surplombe — « Seif 4 — … », « Texte original
+(séifim 5-7) ». Ce titre est une donnée de la page, non une supposition : on
+peut donc poser la question forte — *est-ce bien ce séif-là ?* — au lieu de la
+seule question faible — *est-ce quelque part dans le siman ?* Trois questions,
+selon ce que le bloc annonce :
 
-- **l'hébreu du bloc existe-t-il dans ce siman ?** Sinon, la page reproduit
-  autre chose que ce qu'annonce son titre, ou le texte a été altéré ;
-- **les blocs se suivent-ils dans l'ordre de la source ?** Un retour en
-  arrière signale un bloc déplacé ou dupliqué — et donc une traduction, une
-  glose ou une citation attachée au mauvais texte.
+- **le bloc annoncé « séif N » est-il le séif N ?** S'il ressemble bien
+  davantage à un autre séif, la page l'a mal numéroté ;
+- **le bloc annoncé existe-t-il seulement dans ce siman ?** Sinon le texte
+  affiché n'est pas celui qu'il prétend être ;
+- **pour les blocs sans titre de séif, les blocs se suivent-ils dans l'ordre
+  de la source ?** Un retour en arrière signale un bloc déplacé ou dupliqué.
+
+Deux normalisations, sans lesquelles le contrôle se noie
+--------------------------------------------------------
+Un bloc placé sous un titre de commentateur — « Taz s.k. 1 » — n'est pas un
+séif et sort du périmètre : le chercher dans le Choul'han Aroukh ne produit que
+du bruit, et le critère du titre est plus sûr que de guetter le nom du
+commentateur dans l'hébreu, qui ne s'y trouve pas toujours.
+
+Surtout, les pages vocalisées écrivent en ktiv haser — אֲפִלּוּ — là où
+l'imprimé non vocalisé de Sefaria écrit plein — אפילו. La comparaison
+littérale déclarait « introuvable » des séifim recopiés mot pour mot : c'était
+l'essentiel des signalements de Yoreh De'ah, dont les pages sont vocalisées.
+Retirer les yod et vav met les deux graphies sur le même pied.
 
 Ce qu'il rapporte aujourd'hui
 ------------------------------
-1032 blocs confrontés dans les 124 pages de Hilkhot Shabbat, **8 écarts dans 4
-pages** — et les quatre examinés sont légitimes : des blocs de récapitulation
-qui reprennent le séif 1 en fin de page, et des citations de guemara que les
-filtres n'attrapent pas. Le chiffre est donc un plancher de bruit, non une
-liste d'erreurs. Il vaut comme garde-fou de non-régression : un décalage
-nouvellement introduit ressortirait au-dessus de ce plancher.
+2359 blocs confrontés dans les 359 pages des trois compartiments, **16 écarts
+dans 10 pages**. Avant ces trois ajustements il en rapportait 143 dans 56
+pages, dont l'échantillonnage a montré qu'ils étaient presque tous du bruit
+d'orthographe ou de commentaire ; le contrôle n'y a pourtant rien perdu — c'est
+lui, ainsi ajusté, qui a fait ressortir les deux blocs du siman 79 numérotés
+3 et 4 alors qu'ils sont les séifim 4 et 9, et les deux blocs du siman 101 de
+Yoreh De'ah dont l'hébreu ne se retrouve nulle part dans le siman.
+
+Ce qui subsiste est un plancher de bruit connu : des blocs sans titre de séif
+qui citent une baraïta ou récapitulent, que les filtres de contenu n'attrapent
+pas. Il vaut comme garde-fou de non-régression.
 
 Son intérêt principal est en amont d'un travail de traduction en série. Avant
 d'écrire les traductions des simanim 310, 311, 317 et 323, ce contrôle a établi
@@ -86,6 +109,31 @@ MASSEKHET = re.compile(r"\((?:פסחים|שבת|ברכות|ביצה|עירובי
 LIVRES = {"shabbat": "Shulchan Arukh, Orach Chayim",
           "orah-haim": "Shulchan Arukh, Orach Chayim",
           "yoreh-deah": "Shulchan Arukh, Yoreh De'ah"}
+RE_TITRE = re.compile(r"<h[234][^>]*>(.*?)</h[234]>", re.S)
+# Un bloc placé sous un titre de commentateur n'est pas un séif du Choul'han
+# Aroukh, quoi que dise son contenu — critère plus sûr que de chercher le nom
+# du commentateur dans le texte hébreu, qui ne s'y trouve pas toujours.
+RE_COMMENTATEUR = re.compile(
+    r"Taz|Shach|Chakh|Chach|S'?hakh|Mishna Berura|Michna Beroura|Beour Halakha"
+    r"|Magen Avraham|Baer Heitev|Pri Megadim|Kaf ha|Yalkut|s\.k\."
+    r"|ט״ז|ש״ך|מ״ב", re.I)
+VALEURS = {"א": 1, "ב": 2, "ג": 3, "ד": 4, "ה": 5, "ו": 6, "ז": 7, "ח": 8,
+           "ט": 9, "י": 10, "כ": 20, "ל": 30, "מ": 40, "נ": 50, "ס": 60,
+           "ע": 70, "פ": 80, "צ": 90}
+# Un bloc déclaré « séif 3 » qui ressemble bien davantage au séif 4 est un
+# décalage. Le critère est *relatif* — l'écart entre le meilleur séif et le
+# séif annoncé — et non absolu : une page qui développe les abréviations de
+# l'imprimé (בד״א → במה דברים אמורים) tombe légitimement à 50 % de recouvrement
+# avec son propre séif, et un seuil absolu la condamnerait à tort.
+DECALAGE_MIN = 0.80
+DECALAGE_ECART = 0.30
+# Un bloc annoncé peut aussi ne correspondre à *rien* dans le siman ; le
+# critère relatif ci-dessus ne le voit pas, puisqu'aucun autre séif ne le
+# revendique non plus. Le seuil est placé à distance des deux bords : sur les
+# 2139 blocs annoncés du site, le plus bas des blocs légitimes est à 43 %
+# (une page qui condense trois séifim en un bloc), et les deux seuls blocs
+# au-dessous de 40 % sont à 15 % et 23 %.
+INTROUVABLE_ANNONCE = 0.35
 
 
 def lettres(s: str) -> str:
@@ -117,28 +165,112 @@ def seifim(livre: str, n: int) -> list[str] | None:
     return out
 
 
-def blocs(chemin: pathlib.Path) -> list[str]:
+def squelette(s: str) -> str:
+    """Le texte privé de ses matres lectionis.
+
+    Une page vocalisée écrit en ktiv haser — אֲפִלּוּ — là où l'édition imprimée
+    non vocalisée écrit plein — אפילו. La comparaison littérale déclarait alors
+    « introuvable » un séif recopié mot pour mot : c'est ce qui produisait
+    l'essentiel des signalements de Yoreh De'ah, dont les pages sont vocalisées.
+    Retirer les yod et vav met les deux graphies sur le même pied ; ce qui
+    subsiste d'un écart après cette normalisation n'est plus orthographique.
+    """
+    return re.sub(r"[יו]", "", s)
+
+
+def blocs(chemin: pathlib.Path) -> list[tuple[str, list[int]]]:
+    """Les blocs de la page, chacun avec les séifim que son titre revendique.
+
+    Rattacher un bloc au titre qui le surplombe est ce qui distingue un séif
+    d'un commentaire : un bloc placé sous « Taz s.k. 1 » n'a pas à figurer dans
+    le Choul'han Aroukh, et le chercher n'y produit que du bruit. Le titre dit
+    aussi *quel* séif le bloc prétend être — ce qui permet la vérification forte
+    (est-ce bien celui-là ?) et non la seule vérification faible (est-ce
+    quelque part dans le siman ?).
+    """
     html = chemin.read_text(encoding="utf-8")
-    return [re.sub(r"\s+", " ", RE_TAG.sub(" ", m.group("contenu"))).strip()
-            for m in RE_BLOC.finditer(html)]
+    out = []
+    for m in RE_BLOC.finditer(html):
+        titres = RE_TITRE.findall(html[:m.start()])
+        titre = re.sub(r"\s+", " ", RE_TAG.sub(" ", titres[-1])).strip() if titres else ""
+        texte = re.sub(r"\s+", " ", RE_TAG.sub(" ", m.group("contenu"))).strip()
+        out.append((texte, titre, numeros(titre)))
+    return out
+
+
+def numeros(titre: str) -> list[int] | None:
+    """Les séifim que le titre revendique. ``None`` : le bloc n'est pas un séif.
+
+    Un titre peut couvrir une plage, et même plusieurs — « séifim 6-8, 16-21,
+    23-24 » sur les pages qui regroupent par thème. N'en lire que la première
+    fabriquerait un décalage là où la page est explicite.
+    """
+    if RE_COMMENTATEUR.search(titre):
+        return None
+    m = re.search(r"[Ss][ée]if(?:im)?\s+([\d\s,–—-]+)", titre)
+    if m:
+        out: list[int] = []
+        for part in re.split(r"[,\s]+", m.group(1).strip()):
+            r = re.fullmatch(r"(\d+)[–—-](\d+)", part)
+            if r:
+                out += list(range(int(r.group(1)), int(r.group(2)) + 1))
+            elif part.isdigit():
+                out.append(int(part))
+        if out:
+            return out
+    # « Seif א », « סעיף י״א » : le gershayim précède la dernière lettre, il
+    # faut donc l'inclure dans la capture, sans quoi tout séif ≥ 11 est lu 10.
+    m = (re.search(r"[Ss][ée]if\s+([א-ת][׳״]?[א-ת]?[׳״]?[א-ת]?)", titre)
+         or re.search(r"סעיף\s+([א-ת][׳״]?[א-ת]?[׳״]?[א-ת]?)", titre))
+    if m:
+        g = gematria(m.group(1))
+        if g:
+            return [g]
+    return []
+
+
+def gematria(s: str) -> int | None:
+    s = re.sub(r"[׳״\"']", "", s)
+    return sum(VALEURS[c] for c in s) if s and all(c in VALEURS for c in s) else None
 
 
 def examiner(chemin: pathlib.Path, livre: str, n: int) -> tuple[int, list[str]]:
     src = seifim(livre, n)
     if not src:
         return 0, []
+    sq = [squelette(s) for s in src]
     ecarts, vus, dernier = [], 0, 0
-    for i, b in enumerate(blocs(chemin), 1):
+    for i, (b, titre, annonces) in enumerate(blocs(chemin), 1):
+        if annonces is None:
+            continue          # bloc placé sous un titre de commentateur
         nu = re.sub(r"^[\s\"'«»]+", "", lettres_mots(b))
         if COMMENTAIRE.search(b) or TALMUD.match(nu) or MASSEKHET.search(b):
             continue          # commentaire ou sugya, non séif : hors du périmètre
-        temoins = [m for m in re.findall(r"[א-ת]{3,}", lettres_mots(b))][:MOTS_TEMOINS]
+        temoins = [squelette(m)
+                   for m in re.findall(r"[א-ת]{3,}", lettres_mots(b))][:MOTS_TEMOINS]
+        temoins = [w for w in temoins if len(w) >= 2]
         if len(temoins) < 6:
             continue          # trop court pour être identifié sans ambiguïté
         vus += 1
         scores = [(sum(1 for w in temoins if w in s) / len(temoins), j + 1)
-                  for j, s in enumerate(src)]
+                  for j, s in enumerate(sq)]
         meilleur, place = max(scores)
+        annonces = [k for k in annonces if 1 <= k <= len(src)]
+        if annonces:
+            # Vérification forte : le bloc est-il le séif qu'il annonce ?
+            attendu = max(scores[k - 1][0] for k in annonces)
+            if (place not in annonces and meilleur >= DECALAGE_MIN
+                    and meilleur - attendu >= DECALAGE_ECART):
+                ecarts.append(
+                    f"bloc {i} : annoncé séif {'-'.join(map(str, annonces))}, "
+                    f"mais correspond au séif {place} ({meilleur:.0%} contre "
+                    f"{attendu:.0%}) — « {titre[:60]} »")
+            elif meilleur < INTROUVABLE_ANNONCE:
+                ecarts.append(
+                    f"bloc {i} : annoncé séif {'-'.join(map(str, annonces))}, "
+                    f"introuvable dans le siman {n} (meilleur recouvrement "
+                    f"{meilleur:.0%}, au séif {place}) — « {titre[:60]} »")
+            continue          # l'ordre est déjà dit par le titre : rien à déduire
         if meilleur < SEUIL:
             ecarts.append(f"bloc {i} : introuvable dans le siman {n} "
                           f"(meilleur recouvrement {meilleur:.0%} au séif {place})")
