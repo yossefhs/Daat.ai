@@ -25,11 +25,22 @@ import {
 const client = new Anthropic();
 
 const MAX_TOOL_ITERATIONS = parseInt(process.env.MAX_TOOL_ITERATIONS || '5', 10); // rondes d'outils + synthèse forcée
-// Plafond mensuel d'IA générative par ADRESSE IP pour les visiteurs non connectés.
-// Volontairement large (≈ 5 fois le quota individuel anonyme) : il ne vise que le
-// contournement par effacement du cookie, jamais l'usage partagé légitime.
-// 0 = désactivé.
-const ANON_IP_MONTHLY_LIMIT = parseInt(process.env.ANON_IP_MONTHLY_LIMIT || '15', 10);
+// Compteur mensuel d'IA générative par ADRESSE IP, pour les visiteurs non
+// connectés. Il rend le quota anonyme insensible à l'effacement du cookie.
+//
+// ⚠️ EN OBSERVATION PAR DÉFAUT (0 = compter et journaliser, ne pas bloquer).
+// Une adresse IP ne désigne pas une personne : derrière une seule adresse il y a
+// une famille, une yéchiva, une salle d'étude, ou tout un opérateur mobile
+// (CGNAT). Bloquer à un seuil bas revient à mettre au paywall des gens qui
+// n'ont rien fait — sur un site d'étude, c'est pire que le contournement qu'on
+// veut empêcher. Et la dépense réellement coûteuse (l'Aperçu Opus) est DÉJÀ
+// plafonnée par IP (PREVIEW_IP_DAILY_LIMIT) ; ce qui reste ouvert est Sonnet.
+// Le compteur tourne donc, les dépassements sont journalisés, et le blocage
+// s'active en donnant une valeur à ANON_IP_MONTHLY_LIMIT une fois les chiffres
+// réels connus — c'est un arbitrage coût/accès, il revient au Rav.
+const ANON_IP_MONTHLY_LIMIT = parseInt(process.env.ANON_IP_MONTHLY_LIMIT || '0', 10);
+// Seuil d'ALERTE (journal uniquement) même quand le blocage est désactivé.
+const ANON_IP_ALERT_AT = parseInt(process.env.ANON_IP_ALERT_AT || '40', 10);
 const MAX_TOOL_CALLS = parseInt(process.env.MAX_TOOL_CALLS || '6', 10);           // plafond DUR de tool calls (parallèle compris) ; le budget temps (FORCE_SYNTHESIS_AFTER_MS) reste le gouverneur principal
 // Halakha profonde (routée Opus) : budget ÉLARGI. La règle du בד"א impose de
 // vérifier les séifim voisins (n+1) avant toute conclusion — ça coûte plusieurs
@@ -664,7 +675,7 @@ RÈGLES STRICTES :
   // aucun autre recours (quota épuisé, budget Anthropic épuisé), on sert le texte
   // du Rav TEL QUEL, à coût nul : la promesse « le corpus du Rav reste consultable
   // sans limite » ne peut pas dépendre d'un appel payant. Sinon on rend la main.
-  if (allowRawFallback) return serveRawCorpus({ res, cs, ensureSse, doneExtra, userId, plan });
+  if (allowRawFallback) return serveRawCorpus({ res, cs, ensureSse, doneExtra, userId, plan, question: lastUserText });
   return false;
 }
 
@@ -673,20 +684,66 @@ RÈGLES STRICTES :
 // explicite — c'est une CITATION du corpus, jamais une réponse du chat, encore
 // moins un psak. C'est ce qui permet au corpus de rester accessible quand plus
 // aucun modèle n'est disponible.
-async function serveRawCorpus({ res, cs, ensureSse, doneExtra = {}, userId, plan }) {
+// Cadrage du corpus brut — TRILINGUE. Le site est FR/HE/EN et les trois pages de
+// chat postent sur la même API : servir l'avertissement « ce n'est pas un psak »
+// en français à un lecteur hébréophone revient à ne pas l'avertir du tout, alors
+// que le corps de l'extrait, lui, est souvent en hébreu et parfaitement lisible.
+// ⚠️ Le texte ne promet PAS que l'extrait répond à la question : aucun modèle ne
+// l'a lu. C'est une recherche par mots-clés, elle se trompe de sujet parfois — le
+// dire est le seul garde-fou qui reste quand la reformulation est indisponible.
+const RAW_CORPUS_I18N = {
+  fr: {
+    head: `**Le modèle d'IA est momentanément indisponible.** Je ne peux donc ni lire ces passages ni vérifier qu'ils traitent bien de ton cas : voici, tel quel, ce que la recherche par mots-clés a rapproché de ta question. **Vérifie le titre ci-dessous avant de lire — il arrive que ce ne soit pas le bon sujet.** C'est une citation du corpus, pas une réponse rédigée, et surtout pas un psak.\n\n`,
+    about: (h) => `> Cet extrait traite de : **${h.simanTitle || 'Siman ' + h.siman}**${h.sectionTitle ? ` — ${h.sectionTitle}` : ''}\n\n`,
+    src: (h) => `\n\n*Source : Siman ${h.siman}${h.levelLabel ? ' · ' + h.levelLabel : ''}*`,
+    foot: `\n\nPour toute question **lema'assé**, adresse-toi à ton Rav.`,
+  },
+  he: {
+    head: `**מנוע הבינה המלאכותית אינו זמין כרגע.** לכן איני יכול לקרוא את הקטעים הללו ולא לוודא שהם אכן עוסקים בשאלתך: לפניך, כמות שהוא, מה שחיפוש המילים העלה. **בדוק את הכותרת שלהלן לפני הקריאה — לעתים אין זה הנושא הנכון.** זהו ציטוט מן החומר, לא תשובה ערוכה, ובוודאי לא פסק הלכה.\n\n`,
+    about: (h) => `> קטע זה עוסק ב: **${h.simanTitle || 'סימן ' + h.siman}**${h.sectionTitle ? ` — ${h.sectionTitle}` : ''}\n\n`,
+    src: (h) => `\n\n*מקור : סימן ${h.siman}${h.levelLabel ? ' · ' + h.levelLabel : ''}*`,
+    foot: `\n\nלכל שאלה **למעשה**, יש לפנות לרב.`,
+  },
+  en: {
+    head: `**The AI model is temporarily unavailable.** I therefore cannot read these passages or verify that they address your case: here, as-is, is what the keyword search matched to your question. **Check the heading below before reading — it is sometimes not the right topic.** This is a quotation from the corpus, not a written answer, and certainly not a psak.\n\n`,
+    about: (h) => `> This excerpt is about: **${h.simanTitle || 'Siman ' + h.siman}**${h.sectionTitle ? ` — ${h.sectionTitle}` : ''}\n\n`,
+    src: (h) => `\n\n*Source: Siman ${h.siman}${h.levelLabel ? ' · ' + h.levelLabel : ''}*`,
+    foot: `\n\nFor any practical question (**lema'asse**), please ask your Rav.`,
+  },
+};
+
+// Langue déduite du texte de la question : le client ne transmet pas de champ
+// `lang`, mais l'écriture suffit — hébreu si des lettres hébraïques dominent,
+// anglais si le texte est latin sans aucun signe distinctif du français.
+function detectLang(text) {
+  const t = String(text || '');
+  const he = (t.match(/[\u05d0-\u05ea]/g) || []).length;
+  const lat = (t.match(/[a-zA-ZÀ-ÿ]/g) || []).length;
+  if (he > 3 && he >= lat) return 'he';
+  if (/[àâäéèêëïîôöùûüçœ]|\b(?:est-ce|puis-je|peut-on|quelle?|pourquoi|comment|dois-je|faut-il|je|mon|ma|des|une?)\b/i.test(t)) return 'fr';
+  if (lat > 0 && /\b(?:the|is|are|can|what|when|how|do|does|my|a|an|to|with)\b/i.test(t)) return 'en';
+  return 'fr';
+}
+
+async function serveRawCorpus({ res, cs, ensureSse, doneExtra = {}, userId, plan, question = '' }) {
   const hits = (cs?.results || []).slice(0, 2);
   if (!hits.length) return false;
   const top = hits[0];
+  const L = RAW_CORPUS_I18N[detectLang(question)] || RAW_CORPUS_I18N.fr;
   const parts = [];
-  parts.push(`**Le modèle d'IA est momentanément indisponible.** Voici, tel quel, le passage du corpus du Rav qui correspond à ta question — c'est une citation, pas une réponse rédigée, et surtout pas un psak.\n\n`);
+  parts.push(L.head);
   hits.forEach((h, i) => {
     if (i > 0) parts.push('\n\n---\n\n');
-    parts.push(`### ${h.simanTitle || 'Siman ' + h.siman}\n`);
-    if (h.sectionTitle) parts.push(`*${h.sectionTitle}*\n\n`);
+    parts.push(L.about(h));
+    // La sous-section porte parfois une réserve écrite par le Rav lui-même
+    // (« hors corpus, à vérifier ») : la taire reviendrait à diffuser le tableau
+    // sans la mise en garde qui l'accompagne.
+    const sub = h.subsection ? ` · ${h.subsection}` : '';
+    if (h.sectionTitle || sub) parts.push(`*${(h.sectionTitle || '').trim()}${sub}*\n\n`);
     parts.push(h.text);
-    parts.push(`\n\n*Source : Siman ${h.siman}${h.levelLabel ? ' · ' + h.levelLabel : ''}*`);
+    parts.push(L.src(h));
   });
-  parts.push(`\n\nPour toute question **lema'assé**, adresse-toi à ton Rav.`);
+  parts.push(L.foot);
   const text = parts.join('');
   ensureSse();
   const CH = 64;
@@ -754,6 +811,7 @@ export default async function handler(req, res) {
   // CORS — credentials:include nécessite une origin spécifique autorisée (jamais *).
   // On ne reflète l'origine + Allow-Credentials que si elle est sur l'allow-list,
   // sinon un site tiers pourrait dépenser le quota d'un utilisateur connecté.
+  let anyTextSent = false; // hissé hors du try : le catch en a besoin (repli corpus brut)
   const origin = req.headers.origin;
   if (isAllowedOrigin(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin);
@@ -817,6 +875,11 @@ export default async function handler(req, res) {
     // Un compte connecté est identifié par son email et n'est jamais concerné.
     const ipQuotaHit = isGuest && ANON_IP_MONTHLY_LIMIT > 0 && anonIpMonthCount >= ANON_IP_MONTHLY_LIMIT;
     const currentMonthCount = ipQuotaHit ? Math.max(rawMonthCount, monthLimit) : rawMonthCount;
+    // Journal : sans lui, un faux positif est INVISIBLE en exploitation (les
+    // statistiques admin ne lisent que le compteur par utilisateur).
+    if (isGuest && clientIp && anonIpMonthCount >= ANON_IP_ALERT_AT) {
+      console.warn(`[chat.js] IP ${clientIp} : ${anonIpMonthCount} questions ce mois-ci (cookie: ${rawMonthCount}) — ${ipQuotaHit ? 'BLOQUÉE' : 'observation, non bloquée'}`);
+    }
     // Flag : true si cette requête sera payée par un crédit (= forcera Opus, décrémentera credits)
     let usingCredit = false;
     // Caps anti-abus : si l'IP a déjà servi 3 Aperçu aujourd'hui OU si le quota global
@@ -885,7 +948,13 @@ export default async function handler(req, res) {
       nextMonth.setHours(0, 0, 0, 0);
       // Message adapté au public. Dans tous les cas : le corpus du Rav reste
       // consultable sans limite, et le compteur repart le 1er du mois prochain.
-      const monthlyMessage = isGuest
+      const monthlyMessage = ipQuotaHit
+        // ⚠️ Message DISTINCT quand c'est le compteur par ADRESSE qui a bloqué :
+        // dire « tu as utilisé tes 3 questions » à quelqu'un dont le compteur
+        // personnel est à zéro est faux, et incompréhensible pour un élève d'une
+        // salle d'étude où quelqu'un d'autre a consommé le contingent.
+        ? `Beaucoup de questions ont déjà été posées ce mois-ci depuis ta connexion Internet (elle est peut-être partagée — salle d'étude, famille, réseau mobile). Crée un compte gratuit : ton quota devient personnel et ce plafond ne te concerne plus. Le corpus du Rav, lui, reste consultable sans limite.`
+        : isGuest
         ? `Tu as utilisé tes ${monthLimit} questions IA gratuites du mois. Crée un compte gratuit pour passer à ${MONTHLY_LIMITS.free} questions IA/mois. Le corpus du Rav, lui, reste consultable sans limite — et le compteur repart le mois prochain.`
         : SUBSCRIBER_PLANS.has(plan)
           ? `Tu as atteint ton quota mensuel (${monthLimit} questions IA). Le corpus du Rav reste consultable sans limite ; le compteur repart le mois prochain. Pour un plafond plus élevé, passe à un niveau supérieur.`
@@ -893,9 +962,9 @@ export default async function handler(req, res) {
       return res.status(429).json({
         error: 'limit_reached',
         type: 'limit_reached',
-        scope: 'monthly',
+        scope: ipQuotaHit ? 'monthly_ip' : 'monthly',
         plan,
-        count: currentMonthCount,
+        count: ipQuotaHit ? anonIpMonthCount : currentMonthCount,
         limit: monthLimit,
         is_guest: isGuest,
         reset_date: nextMonth.toISOString(),
@@ -1272,7 +1341,6 @@ export default async function handler(req, res) {
     let stopReason = null;
     const startedAt = Date.now();
     let forcedSynthesis = false;
-    let anyTextSent = false; // au moins un text_delta envoyé au client sur TOUTE la requête
     // Types de blocs qui acceptent cache_control (les blocs thinking n'en acceptent pas)
     const CACHEABLE_BLOCKS = new Set(['text', 'image', 'tool_use', 'tool_result', 'document']);
 
@@ -1635,7 +1703,7 @@ export default async function handler(req, res) {
       // Avant le paywall : si la question correspond au corpus du Rav, on sert
       // l'extrait BRUT à coût nul. Le budget IA épuisé ne doit pas rendre
       // inaccessible du contenu qui n'a besoin d'aucun modèle pour être lu.
-      if (!res.headersSent) {
+      if (!anyTextSent && !res.writableEnded) {
         try {
           const lastQ = [...(req.body?.messages || [])].reverse().find(
             (m) => m && m.role === 'user' && typeof m.content === 'string' && m.content.length > 0
@@ -1656,7 +1724,7 @@ export default async function handler(req, res) {
               const served = await serveRawCorpus({
                 res, cs, ensureSse: ensure,
                 doneExtra: { is_aperçu: false, anthropic_quota_exhausted: true },
-                userId: 'unknown', plan: 'anonymous',
+                userId: 'unknown', plan: 'anonymous', question: lastQ.content,
               });
               if (served) return;
             }
