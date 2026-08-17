@@ -150,6 +150,7 @@ function extractDaatHaRav(siman, body) {
     let sectionNum = 1;
     secTitles.forEach((st, i) => { if (st.pos < cursor) { sectionTitle = st.title; sectionNum = i + 1; } });
     chunks.push({
+      caveat: SECTION_CAVEAT_RE.test(text) || undefined,
       id: `siman-${siman.num}-daatharav-${chunks.length + 1}`,
       siman: siman.num,
       sectionNum,
@@ -230,6 +231,7 @@ function extractSynSection(siman, body) {
 
 function extractChunks(siman, html) {
   const chunks = [];
+  const caveatSections = new Set();
   const bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
   const body = bodyMatch ? bodyMatch[1] : html;
 
@@ -241,6 +243,9 @@ function extractChunks(siman, html) {
     sectionIndex++;
     const sectionTitle = htmlToText(match[1]);
     const sectionContent = match[2];
+    // La réserve de tête vaut pour TOUS les chunks de la section, pas seulement
+    // pour le fragment dans lequel la phrase tombe.
+    if (SECTION_CAVEAT_RE.test(htmlToText(sectionContent))) caveatSections.add(sectionIndex);
 
     // Skip les sections bruyantes
     if (/Plan de l'étude|Le texte du Choul'han Aroukh|Mishnah Berurah — premières entrées|Questions de compréhension/.test(sectionTitle)) {
@@ -310,9 +315,9 @@ function extractChunks(siman, html) {
     // par un extrait de TSITSIT sous « Source : Siman 20 ». Le défaut était
     // invisible : la page produisait 18 chunks, donc aucun avertissement.
     // Mesuré au build : 467 fichiers captaient moins de la moitié de leur texte.
-    if (blockIdx === 0 && h3Count === 0) {
+    if (blockIdx === 0 && h3Count === 0 && !TOC_RE.test(sectionTitle.trim())) {
       const text = htmlToText(sectionContent).trim();
-      if (text.length >= 60) {
+      if (text.length >= 60 && !TOC_RE.test(text)) {
         const parts = text.length <= 900 ? [text] : text.match(/[\s\S]{1,900}(?:\.|$)/g) || [text];
         parts.forEach((pp) => {
           const t = pp.trim();
@@ -327,6 +332,11 @@ function extractChunks(siman, html) {
         });
       }
     }
+  }
+  // Estampillage final : couvre aussi la branche « Cas pratiques modernes », qui
+  // sort de la boucle par `continue`.
+  if (caveatSections.size) {
+    for (const c of chunks) if (caveatSections.has(c.sectionNum)) c.caveat = true;
   }
   return chunks;
 }
@@ -399,6 +409,20 @@ const BRIDGE_RE = /<h1[^>]*>[^<]*passerelle[^<]*<\/h1>/i;
 
 // Réserves écrites par le Rav dans le titre d'un tableau ou d'une sous-section.
 const CAVEAT_RE = /hors\s+corpus|[àa]\s+v[ée]rifier|non\s+v[ée]rifi[ée]|sous\s+r[ée]serve/i;
+
+// Réserve écrite par le Rav en TÊTE DE SECTION, hors de tout titre : « Note de
+// méthode. … Elles ne figurent pas dans le corpus du siman ; … à confirmer
+// auprès d'un Rav avant toute application. » Elle vaut pour TOUTE la section.
+// Le filet découpe la section en fragments de 900 caractères : la note ne tombe
+// que dans le PREMIER, le contenu opératoire part dans les suivants. Mesuré :
+// 137 chunks de ces sections sortaient sans réserve — dont 101 créés par ce
+// même filet — et remontaient en TÊTE sur le chemin gratuit, servis sous
+// « D'après le corpus du Rav », l'exact contraire de ce que la page en dit.
+const SECTION_CAVEAT_RE = /Note de m[ée]thode|ne figurent pas dans le corpus|[àa] confirmer aupr[èe]s d(?:'|\u2019)un Rav|[àa] confirmer aupr[èe]s du Rav/i;
+
+// Tables des matières : le filet les captait comme du contenu (extractSynthese
+// les filtrait déjà). 394 chunks de pure navigation, sans valeur d'étude.
+const TOC_RE = /^(?:\ud83d\udcd1\s*)?(?:Table des mati[èe]res|Sommaire|Plan de l|\u05ea\u05d5\u05db\u05df \u05d4\u05e2\u05e0\u05d9\u05d9\u05e0\u05d9\u05dd|Contents|Navigation)/i;
 
 // L'extracteur est choisi d'après la STRUCTURE du fichier — jamais d'après son
 // nom de niveau (c'est ce codage en dur qui avait rendu 100 fichiers invisibles).
@@ -501,7 +525,7 @@ for (const section of SECTIONS) {
         if (CAVEAT_RE.test(`${c.subsection || ''} ${c.sectionTitle || ''}`)) c.caveat = true;
       });
 
-      stats.perLevel[level.id] = (stats.perLevel[level.id] || 0) + chunks.length;
+      stats.perLevel[variant.id || level.id] = (stats.perLevel[variant.id || level.id] || 0) + chunks.length;
       stats.perSection[section.id] += chunks.length;
       simanChunks += chunks.length;
       allChunks.push(...chunks);

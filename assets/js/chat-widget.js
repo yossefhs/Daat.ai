@@ -1147,7 +1147,10 @@
         ghostLabel = null; // Pas d'échappatoire facile — l'utilisateur doit comprendre
       } else if (reason === 'limit') {
         // 429 — limite quotidienne ou mensuelle atteinte
-        const isMonthly = info && info.scope === 'monthly';
+        // 'monthly_ip' (plafond par adresse) est aussi une limite MENSUELLE : sans
+        // cette reconnaissance, l'interface retombait sur le message QUOTIDIEN
+        // (« reviens demain ») et le message serveur n'était jamais affiché.
+        const isMonthly = info && (info.scope === 'monthly' || info.scope === 'monthly_ip');
         const limit = info?.limit ?? '?';
         const plan = info?.plan || r.plan || 'free';
         const isGuest = info?.is_guest;

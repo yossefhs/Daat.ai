@@ -14,6 +14,7 @@ import { CORPUS_TOOLS, executeCorpusTool, searchCorpus } from './_corpus.js';
 import { searchCorpus as searchShabbatCorpus, corpusCacheKey, CORPUS_CACHE_TTL, stripProfileBlock, profileSignature } from './_corpus-search.js';
 import { MAREH_MEKOMOT_TOOLS, executeMarehMekomotTool } from './_mareh_mekomot.js';
 import { getUserFromRequest, isAllowedOrigin } from './_auth.js';
+import { createHash } from 'node:crypto';
 import {
   deepSeekAvailable,
   streamMetaQuestion,
@@ -686,7 +687,7 @@ RÈGLES STRICTES :
   // aucun autre recours (quota épuisé, budget Anthropic épuisé), on sert le texte
   // du Rav TEL QUEL, à coût nul : la promesse « le corpus du Rav reste consultable
   // sans limite » ne peut pas dépendre d'un appel payant. Sinon on rend la main.
-  if (allowRawFallback) return serveRawCorpus({ res, cs, ensureSse, doneExtra, userId, plan, question: lastUserText });
+  if (allowRawFallback) return serveRawCorpus({ res, cs, ensureSse, doneExtra, userId, plan, question: lastUserText, lang: req?.body?.lang });
   return false;
 }
 
@@ -704,21 +705,23 @@ RÈGLES STRICTES :
 // dire est le seul garde-fou qui reste quand la reformulation est indisponible.
 const RAW_CORPUS_I18N = {
   fr: {
-    caveat: `\n\n> ⚠️ Le Rav a marqué ce passage **hors corpus, à vérifier** — orientation, pas source établie.\n`,
+    caveat: `> ⚠️ Le Rav a marqué ce passage **hors corpus, à vérifier** — orientation, pas source établie.\n\n`,
     head: `**Le modèle d'IA est momentanément indisponible.** Je ne peux donc ni lire ces passages ni vérifier qu'ils traitent bien de ton cas : voici, tel quel, ce que la recherche par mots-clés a rapproché de ta question. **Vérifie le titre ci-dessous avant de lire — il arrive que ce ne soit pas le bon sujet.** C'est une citation du corpus, pas une réponse rédigée, et surtout pas un psak.\n\n`,
     about: (h) => `> Cet extrait traite de : **${h.simanTitle || 'Siman ' + h.siman}**${h.sectionTitle ? ` — ${h.sectionTitle}` : ''}\n\n`,
     src: (h) => `\n\n*Source : Siman ${h.siman}${h.levelLabel ? ' · ' + h.levelLabel : ''}*`,
     foot: `\n\nPour toute question **lema'assé**, adresse-toi à ton Rav.`,
   },
   he: {
-    caveat: `\n\n> ⚠️ הרב ציין כי קטע זה **מחוץ לחומר, טעון בדיקה** — כיוון בלבד, לא מקור מבורר.\n`,
+    caveat: `> ⚠️ הרב ציין כי קטע זה **מחוץ לחומר, טעון בדיקה** — כיוון בלבד, לא מקור מבורר.\n\n`,
     head: `**מנוע הבינה המלאכותית אינו זמין כרגע.** לכן איני יכול לקרוא את הקטעים הללו ולא לוודא שהם אכן עוסקים בשאלתך: לפניך, כמות שהוא, מה שחיפוש המילים העלה. **בדוק את הכותרת שלהלן לפני הקריאה — לעתים אין זה הנושא הנכון.** זהו ציטוט מן החומר, לא תשובה ערוכה, ובוודאי לא פסק הלכה.\n\n`,
-    about: (h) => `> קטע זה עוסק ב: **${h.simanTitle || 'סימן ' + h.siman}**${h.sectionTitle ? ` — ${h.sectionTitle}` : ''}\n\n`,
+    // Titre HÉBREU (simanTitleHe est renseigné pour la totalité du corpus) : le
+    // titre français inséré dans une phrase hébraïque bascule le rendu en LTR.
+    about: (h) => `> קטע זה עוסק ב: **${h.simanTitleHe || h.simanTitle || 'סימן ' + h.siman}**\n\n`,
     src: (h) => `\n\n*מקור : סימן ${h.siman}${h.levelLabel ? ' · ' + h.levelLabel : ''}*`,
     foot: `\n\nלכל שאלה **למעשה**, יש לפנות לרב.`,
   },
   en: {
-    caveat: `\n\n> ⚠️ The Rav marked this passage **outside the corpus, to be verified** — an orientation, not an established source.\n`,
+    caveat: `> ⚠️ The Rav marked this passage **outside the corpus, to be verified** — an orientation, not an established source.\n\n`,
     head: `**The AI model is temporarily unavailable.** I therefore cannot read these passages or verify that they address your case: here, as-is, is what the keyword search matched to your question. **Check the heading below before reading — it is sometimes not the right topic.** This is a quotation from the corpus, not a written answer, and certainly not a psak.\n\n`,
     about: (h) => `> This excerpt is about: **${h.simanTitle || 'Siman ' + h.siman}**${h.sectionTitle ? ` — ${h.sectionTitle}` : ''}\n\n`,
     src: (h) => `\n\n*Source: Siman ${h.siman}${h.levelLabel ? ' · ' + h.levelLabel : ''}*`,
@@ -726,9 +729,17 @@ const RAW_CORPUS_I18N = {
   },
 };
 
-// Langue déduite du texte de la question : le client ne transmet pas de champ
-// `lang`, mais l'écriture suffit — hébreu si des lettres hébraïques dominent,
-// anglais si le texte est latin sans aucun signe distinctif du français.
+// ⚠️ La langue DÉCLARÉE par le client fait foi : chat-he.html et chat-en.html
+// envoient déjà `lang` dans le corps de la requête. La deviner alors qu'elle est
+// transmise produisait des écarts (une question hébraïque courte, une question
+// française contenant une citation en hébreu…). La détection ne sert plus que de
+// repli, pour le widget et chat.html qui n'envoient rien.
+function resolveLang(declared, text) {
+  const d = String(declared || '').toLowerCase().slice(0, 2);
+  if (d === 'he' || d === 'en' || d === 'fr') return d;
+  return detectLang(text);
+}
+
 function detectLang(text) {
   const t = String(text || '');
   const he = (t.match(/[\u05d0-\u05ea]/g) || []).length;
@@ -739,11 +750,11 @@ function detectLang(text) {
   return 'fr';
 }
 
-async function serveRawCorpus({ res, cs, ensureSse, doneExtra = {}, userId, plan, question = '' }) {
+async function serveRawCorpus({ res, cs, ensureSse, doneExtra = {}, userId, plan, question = '', lang = null }) {
   const hits = (cs?.results || []).slice(0, 2);
   if (!hits.length) return false;
   const top = hits[0];
-  const L = RAW_CORPUS_I18N[detectLang(question)] || RAW_CORPUS_I18N.fr;
+  const L = RAW_CORPUS_I18N[resolveLang(lang, question)] || RAW_CORPUS_I18N.fr;
   const parts = [];
   parts.push(L.head);
   hits.forEach((h, i) => {
@@ -892,8 +903,13 @@ export default async function handler(req, res) {
     const currentMonthCount = ipQuotaHit ? Math.max(rawMonthCount, monthLimit) : rawMonthCount;
     // Journal : sans lui, un faux positif est INVISIBLE en exploitation (les
     // statistiques admin ne lisent que le compteur par utilisateur).
-    if (isGuest && clientIp && anonIpMonthCount >= ANON_IP_ALERT_AT) {
-      console.warn(`[chat.js] IP ${clientIp} : ${anonIpMonthCount} questions ce mois-ci (cookie: ${rawMonthCount}) — ${ipQuotaHit ? 'BLOQUÉE' : 'observation, non bloquée'}`);
+    // Journal : sans lui, un faux positif est invisible en exploitation. L'adresse
+    // est HACHÉE — un log Vercel n'a pas à contenir d'adresse en clair — et
+    // l'alerte n'est émise qu'aux passages de seuil, pas à chaque requête.
+    if (isGuest && clientIp && anonIpMonthCount >= ANON_IP_ALERT_AT
+        && (ipQuotaHit || anonIpMonthCount % 10 === 0)) {
+      const ipHash = createHash('sha256').update(String(clientIp)).digest('hex').slice(0, 10);
+      console.warn(`[chat.js] ip:${ipHash} — ${anonIpMonthCount} questions ce mois (cookie ${rawMonthCount}) — ${ipQuotaHit ? 'BLOQUÉE' : 'observation'}`);
     }
     // Flag : true si cette requête sera payée par un crédit (= forcera Opus, décrémentera credits)
     let usingCredit = false;
@@ -1739,7 +1755,7 @@ export default async function handler(req, res) {
               const served = await serveRawCorpus({
                 res, cs, ensureSse: ensure,
                 doneExtra: { is_aperçu: false, anthropic_quota_exhausted: true },
-                userId: 'unknown', plan: 'anonymous', question: lastQ.content,
+                userId: 'unknown', plan: 'anonymous', question: lastQ.content, lang: req.body?.lang,
               });
               if (served) return;
             }

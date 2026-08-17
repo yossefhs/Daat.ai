@@ -1518,6 +1518,10 @@ function showLimitReachedModal(info) {
   const helloasso = info.helloasso_url || '/soutenir-he.html?from=chat';
   const isGuest = info.is_guest !== false;
   const limit = info.limit || (isGuest ? 3 : 15);
+  // 'monthly_ip' : c'est la CONNEXION qui est plafonnée, pas la personne. Dire
+  // « tu as utilisé tes 3 questions » à quelqu'un dont le compteur personnel est
+  // à zéro est faux, et incompréhensible dans un beit midrash partagé.
+  const isIpLimit = info.scope === 'monthly_ip';
 
   const overlay = document.createElement('div');
   overlay.style.cssText = `
@@ -1539,7 +1543,9 @@ function showLimitReachedModal(info) {
       ${isGuest ? 'המשך את לימודך עם DAAT' : 'למדת היטב היום'}
     </h2>
     <p style="font-size:1.1rem;line-height:1.7;margin-bottom:22px;color:#3a2e1f;">
-      ${isGuest
+      ${isIpLimit
+        ? `נשאלו כבר שאלות רבות החודש מחיבור האינטרנט שלך (ייתכן שהוא משותף — בית מדרש, משפחה, רשת סלולרית). פתח חשבון חינם: המכסה תהיה אישית ומגבלה זו לא תחול עליך. חומר הרב נותר זמין ללא הגבלה.`
+        : isGuest
         ? `השתמשת ב-<strong>${limit} השאלות החינמיות</strong> שלך. הבינה המלאכותית דעת משתמשת ב-Claude של Anthropic — לכל תשובה עלות אמיתית עבור העמותה.`
         : `הגעת למגבלה של <strong>${limit} שאלות/יום</strong>. הבינה המלאכותית דעת פועלת בזכות תרומות — כל שיחה עולה כ-0.50&nbsp;€ לעמותה.`}
     </p>

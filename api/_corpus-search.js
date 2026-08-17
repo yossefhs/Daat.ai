@@ -14,6 +14,7 @@ const CORPUS_PATH = join(__dirname, '..', 'data', 'corpus-shabbat.json');
 
 let _corpus = null;
 let _idf = null;
+let _df = null;   // fréquence documentaire brute — sert au plancher du portail
 let _avgdl = 0;
 let _N = 0;
 
@@ -511,6 +512,21 @@ for (const [variant, canon] of SPELLING_CANON) {
 
 // Index token → famille d'ancre. Construit paresseusement car il dépend de
 // normalizeToken, définie juste en dessous.
+// L'hébreu colle ses préfixes au mot : « הפלטה » est UN token, distinct de
+// « פלטה ». Sans dépréfixation, une question hébraïque n'active aucune ancre et
+// la recherche retombe sur le mot le plus rare de la phrase — mesuré :
+// « האם מותר להחזיר סיר על הפלטה בשבת ? » partait sur le siman 318 (bishoul)
+// au lieu du 253 (hazara), le portail étant « סיר » (présent dans UN chunk).
+const HE_PREFIXES = ['ה', 'ב', 'ל', 'מ', 'ו', 'כ', 'ש', 'שה', 'וה', 'כש', 'לכ', 'מה', 'ובה'];
+function heVariants(t) {
+  if (!/^[\u05d0-\u05ea]/.test(t)) return [t];
+  const out = [t];
+  for (const p of HE_PREFIXES) {
+    if (t.length > p.length + 1 && t.startsWith(p)) out.push(t.slice(p.length));
+  }
+  return out;
+}
+
 let _anchorIndex = null;
 function anchorIndex() {
   if (_anchorIndex) return _anchorIndex;
@@ -636,6 +652,7 @@ function loadAndIndex() {
     new Set(tokens).forEach((t) => df.set(t, (df.get(t) || 0) + 1));
   }
   _idf = new Map();
+  _df = df;
   df.forEach((freq, term) => _idf.set(term, Math.log(1 + (_N - freq + 0.5) / (freq + 0.5))));
   _avgdl = totalLen / Math.max(1, _N);
   console.log(`[corpus-search] Indexed ${_N} chunks from ${(_corpus.meta?.totalSimanim) || '?'} simanim`);
@@ -706,6 +723,9 @@ const DAILY_EXTRA = new Set(['matin', 'reveil', 'lever', 'prier', 'priere', 'ben
 // Réglages du portail, pilotables par variable d'environnement pour pouvoir les
 // ajuster sans redéploiement (le corpus grandit toutes les semaines).
 const ANCHOR_MODE = process.env.CORPUS_ANCHOR_MODE || 'and';
+// Un mot doit apparaître dans au moins GATE_MIN_DF chunks pour pouvoir servir de
+// portail. Réglable sans redéploiement.
+const GATE_MIN_DF = parseInt(process.env.GATE_MIN_DF || '3', 10);
 // Facteur appliqué au score d'un siman de Hilkhot Shabbat quand la question ne
 // porte aucun marqueur de Shabbat. 1 = garde-fou désactivé, 0 = exclusion pure.
 const SHABBAT_PENALTY = parseFloat(process.env.CORPUS_SHABBAT_PENALTY || '0.35');
@@ -818,10 +838,20 @@ export function searchCorpus(question, opts = {}) {
   // devenait donc le « portail » du garde-fou keyToken et mettait TOUS les chunks
   // à zéro — la recherche ne renvoyait alors plus rien (ex. « râper des carottes »).
   const known = tokens.filter((t) => _idf.has(t));
+  // Repli : si le plancher ne laisse rien, on reprend les tokens connus — mieux
+  // vaut un portail imparfait qu'une abstention systématique sur les questions
+  // dont tout le vocabulaire est rare.
+
   // Le « portail » ne peut être ouvert que par un mot de SUJET : on écarte les
   // mots de provenance (minhag, nom de posek) et de rapport (« il disait que »).
-  const gateCandidates = known.filter((t) => !NON_TOPICAL.has(t));
-  const byIdf = [...new Set(gateCandidates)].map((t) => ({ t, idf: getIdf(t) })).sort((a, b) => b.idf - a.idf);
+  // Plancher de FRÉQUENCE DOCUMENTAIRE. Un mot présent dans un ou deux chunks sur
+  // 20 000 n'est pas un sujet, c'est un accident de rédaction — et l'IDF en fait
+  // pourtant le mot le plus « discriminant », donc le portail. C'est la fragilité
+  // récurrente de ce moteur : à chaque enrichissement du corpus, un mot passe de
+  // df=0 (ignoré) à df=1 (portail exclusif) et détourne une question entière.
+  const gateCandidates = known.filter((t) => !NON_TOPICAL.has(t) && _df.get(t) >= GATE_MIN_DF);
+  const gatePool = gateCandidates.length ? gateCandidates : known.filter((t) => !NON_TOPICAL.has(t));
+  const byIdf = [...new Set(gatePool)].map((t) => ({ t, idf: getIdf(t) })).sort((a, b) => b.idf - a.idf);
   // Ancres présentes dans la question, avec leur famille de synonymes indexés
   // (le corpus Yoreh De'ah est rédigé en hébreu : « tevila » doit être satisfait
   // par טבילה, sans quoi l'ancre ne désigne que les 32 chunks translittérés).
@@ -833,8 +863,10 @@ export function searchCorpus(question, opts = {}) {
   if (ANCHOR_MODE !== 'off') {
     const idx = anchorIndex();
     for (const t of new Set(gateCandidates)) {
-      const fi = idx.get(t);
-      if (fi !== undefined) activeFamilies.add(fi);
+      for (const v of heVariants(t)) {
+        const fi = idx.get(v);
+        if (fi !== undefined) { activeFamilies.add(fi); break; }
+      }
     }
     for (const fi of activeFamilies) {
       for (const w of ANCHOR_FAMILIES[fi].forms) {
@@ -1023,7 +1055,14 @@ export function getSimanChunks(siman, opts = {}) {
 // À pertinence comparable, on remonte le texte SOURCE (Daat HaRav = Choulhan
 // Aroukh HaRav seif par seif ; Base = texte du Mehaber) avant les fiches de
 // révision — c'est le texte source qui empêche le modèle de citer de mémoire.
-const LEVEL_WEIGHT = { 'daat-harav': 1.2, base: 1.1, lamdan: 1.0, synthese: 0.9 };
+// Pondération EXPLICITE par niveau. Le bonus 1.2 du Daat HaRav se justifie par
+// le fait qu'il remonte le texte SOURCE (Choulhan Aroukh HaRav, séif par séif).
+// Le niveau 4 du Yoreh De'ah ('halakha') n'est PAS ce texte — l'Admour HaZaken
+// n'a pas rédigé de Choulhan Aroukh sur le Yoreh De'ah — il reste donc à 1.0.
+// Mesuré : 1.0, 1.1 et 1.2 donnent le même résultat sur les 75 questions du banc ;
+// la valeur est donc posée sur la raison, pas sur un réglage. Le repli ?? 1.0
+// est conservé mais aucun niveau ne doit s'y appuyer sans intention.
+const LEVEL_WEIGHT = { 'daat-harav': 1.2, base: 1.1, halakha: 1.0, lamdan: 1.0, synthese: 0.9 };
 
 // Score SANS normalisation par la longueur. Dans un siman déjà imposé, la
 // longueur n'est pas un signal de pertinence mais un artefact du niveau : le
