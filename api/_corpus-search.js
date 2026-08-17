@@ -214,6 +214,65 @@ const SYNONYMS = {
   'mari': ['בעל','הרחקות','ichto'], 'epouse': ['אשה','הרחקות'],
   'grossesse': ['מעוברת','וסת'], 'allaitement': ['מניקה','וסת'],
   'accouchement': ['יולדת','נדה'],
+
+  // ══ PONT HÉBREU → FRANÇAIS ═══════════════════════════════════════════════
+  // Le corpus est bilingue, mais chunk par chunk : un même siman a des chunks
+  // français ET des chunks hébreux, rarement les deux dans le même. Une question
+  // posée en hébreu n'atteignait donc que la fraction hébraïque du siman.
+  // Mesuré sur « האם מותר לישון עם תפילין ? » : le siman 44 a 44 chunks, dont
+  // 9 seulement contiennent תפילין et UN SEUL contient לישון — la question
+  // tombait sur le siman 80. Ce pont traduit les mots de question les plus
+  // courants vers leur équivalent français indexé, dans les deux sens.
+  'לישון': ['dormir','sommeil','שינה'], 'לישן': ['dormir','sommeil','שינה'],
+  'שינה': ['dormir','sommeil'], 'ישן': ['dormir','sommeil'],
+  'מותר': ['permis','mutar'], 'אסור': ['interdit','assour'],
+  'זמן': ['heure','moment','temps'], 'מתי': ['heure','moment','quand'],
+  'לאכול': ['manger','akhila'], 'אכילה': ['manger','akhila'],
+  'לשתות': ['boire','chetiya'], 'שתיה': ['boire'],
+  'להדליק': ['allumer','hadlaka'], 'הדלקה': ['allumer','bougies','nerot'],
+  'לכבות': ['eteindre'], 'לרחוץ': ['laver','rehitsa'], 'רחיצה': ['laver','rehitsa','bain'],
+  'לבשל': ['cuire','bishoul'], 'בישול': ['cuire','cuisson'],
+  'לטלטל': ['deplacer','tiltoul'], 'טלטול': ['deplacer','tiltoul'],
+  'להוציא': ['sortir','hotsaa'], 'לשאת': ['porter'],
+  'לברך': ['berakha','benir'], 'ברכה': ['berakha'], 'ברכות': ['berakha'],
+  'להתפלל': ['tefila','prier','priere'], 'תפלה': ['tefila','priere'], 'תפילה': ['tefila','priere'],
+  'לקרוא': ['lire','keriat'], 'קריאה': ['lire','keriat'],
+  'לכתוב': ['ecrire','kotev'], 'כתיבה': ['ecrire','kotev'],
+  'אשה': ['femme'], 'איש': ['homme'], 'ילד': ['enfant'], 'תינוק': ['bebe','enfant'],
+  'חולה': ['malade','refoua'], 'רפואה': ['refoua','medicament','soin'],
+  'בשר': ['viande','bassar'], 'חלב': ['lait','halav'], 'גבינה': ['fromage'],
+  'נר': ['bougie','nerot'], 'נרות': ['bougies','bougie'],
+  'שבת': ['shabbat','chabbat'], 'בשבת': ['shabbat','chabbat'],
+
+  // ══ PONT ANGLAIS → FRANÇAIS ══════════════════════════════════════════════
+  // Les pages -en.html existent mais NE SONT PAS indexées : le corpus est
+  // français + hébreu (mesuré : 38 chunks sur 17 239 contiennent de l'anglais).
+  // Les indexer doublerait le corpus et déplacerait toutes les fréquences, donc
+  // tous les classements. Un pont lexical coûte zéro et suffit au vocabulaire —
+  // borné et prévisible — des questions posées en anglais.
+  'sleep': ['dormir','sommeil'], 'sleeping': ['dormir','sommeil'],
+  'eat': ['manger','akhila'], 'eating': ['manger','akhila'], 'food': ['nourriture','aliments','okhel'],
+  'drink': ['boire'], 'cook': ['cuire','bishoul'], 'cooking': ['cuire','bishoul'],
+  'light': ['allumer','hadlaka'], 'lighting': ['allumer','hadlaka','bougies'],
+  'candles': ['bougies','nerot','hadlaka'], 'candle': ['bougie','nerot'],
+  'wash': ['laver','netilat','rehitsa'], 'washing': ['laver','netilat','rehitsa'],
+  'hands': ['mains','yadayim','netilat'], 'hand': ['mains','yadayim'],
+  'wear': ['porter'], 'wearing': ['porter'], 'carry': ['porter','tiltoul'],
+  'move': ['deplacer','tiltoul'], 'moving': ['deplacer','tiltoul'],
+  'allowed': ['permis','mutar'], 'permitted': ['permis','mutar'],
+  'forbidden': ['interdit','assour'], 'prohibited': ['interdit','assour'],
+  'morning': ['matin'], 'evening': ['soir'], 'night': ['nuit'],
+  'time': ['heure','moment','zman'], 'when': ['heure','moment'],
+  'prayer': ['tefila','priere'], 'pray': ['tefila','prier'],
+  'blessing': ['berakha'], 'bless': ['berakha','benir'],
+  'read': ['lire','keriat'], 'reading': ['lire','keriat'],
+  'write': ['ecrire','kotev'], 'writing': ['ecrire','kotev'],
+  'meat': ['viande','bassar'], 'milk': ['lait','halav'], 'dairy': ['lait','halav'],
+  'cheese': ['fromage'], 'kosher': ['casher','cacheroute'],
+  'sick': ['malade','refoua'], 'medicine': ['medicament','refoua'],
+  'woman': ['femme'], 'wife': ['femme','epouse'], 'child': ['enfant'], 'baby': ['bebe'],
+  'sort': ['trier','borer'], 'sorting': ['trier','borer'], 'separate': ['separer','borer'],
+  'immersion': ['tevila','mikve'], 'stain': ['tache','ketem'],
 };
 
 // ── Règles de CO-OCCURRENCE ──
@@ -306,41 +365,79 @@ const NON_TOPICAL = new Set([
 // sans cette table, l'ancre « kohanim » ne désigne que les chunks qui écrivent la
 // translittération française et met à ZÉRO les simanim qui écrivent כהנים —
 // c'est-à-dire ceux qui traitent réellement le sujet.
-const ANCHOR_HE = {
-  minha: ['מנחה'], chaharit: ['שחרית'], maariv: ['ערבית','מעריב'], moussaf: ['מוסף'],
-  kedoucha: ['קדושה'], kaddich: ['קדיש'], tahanoun: ['תחנון'], amida: ['עמידה','שמונה'],
-  chema: ['שמע'], tefila: ['תפלה','תפילה'], berakha: ['ברכה','ברכות'], birkat: ['ברכת'],
-  netilat: ['נטילת'], netila: ['נטילה'], yadayim: ['ידים','ידיים'],
-  tefilin: ['תפילין','תפלין'], tsitsit: ['ציצית'], talit: ['טלית'],
-  minyan: ['מנין','מניין'], kohanim: ['כהנים','כפים'], synagogue: ['כנסת'],
-  sefer: ['ספר'], torah: ['תורה'], mezouza: ['מזוזה'], hamotsi: ['המוציא'],
-  mazon: ['מזון'], zimoun: ['זימון'], tsedaka: ['צדקה'],
-  borer: ['בורר'], bishoul: ['בישול'], mouktse: ['מוקצה'], hazara: ['חזרה'],
-  tohen: ['טוחן'], hatmana: ['הטמנה'], kiddoush: ['קידוש'], havdala: ['הבדלה'],
-  nerot: ['נרות'], bougies: ['נרות','הדלקה'], erouv: ['עירוב'], plata: ['פלטה'],
-  kira: ['כירה'], viande: ['בשר'], lait: ['חלב'], fromage: ['גבינה'],
-  casher: ['כשר'], cacheroute: ['כשר'], taarovet: ['תערובת'],
-  nidda: ['נדה'], mikve: ['מקוה'], tevila: ['טבילה'],
-};
-
-const DOMAIN_ANCHORS = new Set([
-  // Orah Haïm quotidien
-  'tefilin','tsitsit','talit','chema','tefila','amida','berakha','birkat',
-  'netilat','netila','yadayim','minha','chaharit','maariv','moussaf','kaddich',
-  'kedoucha','tahanoun','sefer','torah','synagogue','minyan','kohanim',
-  'mezouza','hamotsi','mazon','zimoun','tsedaka',
-  // Shabbat
-  // ⚠️ 'shabbat'/'chabbat' NE sont PAS des ancres : ce sont des libellés de
-  // SECTION (27 % du corpus), sans pouvoir discriminant. Comme ancres ils
-  // confisquaient le portail au vrai mot de sujet ET éliminaient les 902 chunks
-  // de 242-365 qui n'écrivent pas le mot — dont 23 % des cas pratiques.
-  'borer','bishoul','mouktse','hazara','tohen','hatmana',
-  'kiddoush','havdala','bougies','nerot','erouv','plata','kira',
-  // Yoreh De'ah — cacheroute
-  'viande','lait','fromage','cacheroute','casher','taarovet','בשר','חלב',
-  // Yoreh De'ah — nidah
-  'nidda','mikve','tevila','וסת','כתם','הרחקות','נקיים','טבילה',
-]);
+// ── FAMILLES D'ANCRES TRILINGUES ────────────────────────────────────────────
+// Une ancre est un nom de SUJET sans ambiguïté : quand l'utilisateur l'écrit, il
+// dit de quoi il parle, et le chunk servi DOIT en parler (restriction ET). C'est
+// le seul garde-fou qui ne dépend pas de la fréquence, donc le seul qui ne se
+// dégrade pas quand le corpus grandit.
+//
+// ⚠️ CHAQUE FAMILLE REGROUPE LES TROIS LANGUES. Une première version ne listait
+// que le français : un visiteur écrivant « תפילין » n'activait aucune ancre, la
+// recherche retombait sur le mot le plus rare, et « האם מותר לישון עם תפילין ? »
+// était servie par le siman 266 (« le voyageur en chemin ») au lieu du 44 —
+// une source fausse sur une réponse halakhique. chat-he.html et chat-en.html
+// postent sur le même /api/chat : la parité trilingue est une règle du dépôt.
+//
+// `daily: true` marque les sujets qui appartiennent à la journée du juif
+// (Orah Haïm 1-185). Ils servent de PREUVE POSITIVE qu'une question ne porte pas
+// sur Shabbat, et déclenchent alors le déclassement des simanim 242-365.
+const ANCHOR_FAMILIES = [
+  // ── Orah Haïm quotidien ──
+  { daily: true,  forms: ['tefilin', 'תפילין', 'תפלין', 'phylacteres', 'phylacteries'] },
+  { daily: true,  forms: ['tsitsit', 'ציצית', 'fringes'] },
+  { daily: true,  forms: ['talit', 'טלית'] },
+  { daily: true,  forms: ['chema', 'שמע'] },
+  { daily: true,  forms: ['tefila', 'תפלה', 'תפילה', 'prayer'] },
+  { daily: true,  forms: ['amida', 'עמידה', 'שמונה'] },
+  { daily: true,  forms: ['berakha', 'ברכה', 'ברכות', 'blessing', 'blessings'] },
+  { daily: true,  forms: ['birkat', 'ברכת'] },
+  { daily: true,  forms: ['netilat', 'netila', 'נטילת', 'נטילה'] },
+  { daily: true,  forms: ['yadayim', 'ידים', 'ידיים'] },
+  { daily: true,  forms: ['minha', 'מנחה'] },
+  { daily: true,  forms: ['chaharit', 'שחרית'] },
+  { daily: true,  forms: ['maariv', 'ערבית', 'מעריב'] },
+  { daily: true,  forms: ['moussaf', 'מוסף'] },
+  { daily: true,  forms: ['kaddich', 'קדיש'] },
+  { daily: true,  forms: ['kedoucha', 'קדושה'] },
+  { daily: true,  forms: ['tahanoun', 'תחנון'] },
+  { daily: true,  forms: ['minyan', 'מנין', 'מניין'] },
+  { daily: true,  forms: ['kohanim', 'כהנים', 'כפים', 'doukhan'] },
+  { daily: true,  forms: ['synagogue', 'כנסת'] },
+  { daily: true,  forms: ['sefer', 'ספר'] },
+  { daily: true,  forms: ['torah', 'תורה'] },
+  { daily: true,  forms: ['mezouza', 'מזוזה', 'mezuzah'] },
+  { daily: true,  forms: ['hamotsi', 'המוציא'] },
+  { daily: true,  forms: ['mazon', 'מזון'] },
+  { daily: true,  forms: ['zimoun', 'זימון'] },
+  { daily: true,  forms: ['tsedaka', 'צדקה'] },
+  // ── Hilkhot Shabbat ── (jamais `daily`)
+  { daily: false, forms: ['borer', 'בורר'] },
+  { daily: false, forms: ['bishoul', 'בישול'] },
+  { daily: false, forms: ['mouktse', 'מוקצה'] },
+  { daily: false, forms: ['hazara', 'חזרה'] },
+  { daily: false, forms: ['tohen', 'טוחן'] },
+  { daily: false, forms: ['hatmana', 'הטמנה'] },
+  { daily: false, forms: ['kiddoush', 'קידוש'] },
+  { daily: false, forms: ['havdala', 'הבדלה'] },
+  { daily: false, forms: ['bougies', 'nerot', 'נרות', 'הדלקה', 'candles', 'candle'] },
+  { daily: false, forms: ['erouv', 'עירוב'] },
+  { daily: false, forms: ['plata', 'פלטה'] },
+  { daily: false, forms: ['kira', 'כירה'] },
+  // ── Yoreh De'ah — cacheroute ──
+  { daily: false, forms: ['viande', 'בשר', 'meat'] },
+  { daily: false, forms: ['lait', 'חלב', 'milk', 'dairy'] },
+  { daily: false, forms: ['fromage', 'גבינה', 'cheese'] },
+  { daily: false, forms: ['casher', 'cacheroute', 'כשר', 'kosher'] },
+  { daily: false, forms: ['taarovet', 'תערובת'] },
+  // ── Yoreh De'ah — nidah ──
+  { daily: false, forms: ['nidda', 'נדה', 'נידה'] },
+  { daily: false, forms: ['mikve', 'מקוה', 'מקווה'] },
+  { daily: false, forms: ['tevila', 'טבילה'] },
+  { daily: false, forms: ['וסת', 'וסתות'] },
+  { daily: false, forms: ['כתם', 'כתמים'] },
+  { daily: false, forms: ['הרחקות'] },
+  { daily: false, forms: ['נקיים'] },
+];
 
 // ── Graphies concurrentes de la translittération française ──────────────────
 // Le français n'a pas de translittération unique de l'hébreu : « tefilin » et
@@ -391,18 +488,33 @@ const SPELLING_CANON = new Map(Object.entries({
   mikve: 'mikve', mikveh: 'mikve', mikva: 'mikve', mikvah: 'mikve', mikwe: 'mikve',
 }));
 
-// Une clé de SPELLING_CANON qui est AUSSI une clé de SYNONYMS / DOMAIN_ANCHORS /
+// Une clé de SPELLING_CANON qui est AUSSI une clé de SYNONYMS ou de NON_TOPICAL
 // NON_TOPICAL rend cette entrée INATTEIGNABLE : normalizeToken réécrit le token
 // avant toute consultation de ces tables. L'erreur est silencieuse et se
 // reproduira à chaque graphie ajoutée — on la signale donc au chargement.
 for (const [variant, canon] of SPELLING_CANON) {
   if (variant === canon) continue;
-  for (const [nom, table] of [['SYNONYMS', SYNONYMS], ['DOMAIN_ANCHORS', DOMAIN_ANCHORS], ['NON_TOPICAL', NON_TOPICAL]]) {
+  for (const [nom, table] of [['SYNONYMS', SYNONYMS], ['NON_TOPICAL', NON_TOPICAL]]) {
     const present = table instanceof Set
       ? table.has(variant)
       : Object.prototype.hasOwnProperty.call(table, variant);
     if (present) console.warn(`[corpus-search] entrée inatteignable : '${variant}' est dans ${nom} mais SPELLING_CANON le réécrit en '${canon}'`);
   }
+}
+
+// Index token → famille d'ancre. Construit paresseusement car il dépend de
+// normalizeToken, définie juste en dessous.
+let _anchorIndex = null;
+function anchorIndex() {
+  if (_anchorIndex) return _anchorIndex;
+  _anchorIndex = new Map();
+  ANCHOR_FAMILIES.forEach((fam, i) => {
+    for (const w of fam.forms) {
+      const n = normalizeToken(w);
+      if (n.length >= 2) _anchorIndex.set(n, i);
+    }
+  });
+  return _anchorIndex;
 }
 
 function normalizeToken(s) {
@@ -580,15 +692,9 @@ function scoreChunk(chunk, queryTerms, keyTokens, originalTokens, strict, concep
   return score + titleBonus;
 }
 
-// Sujets qui appartiennent SANS AMBIGUÏTÉ à la journée du juif (Orah Haïm 1-185).
-// Ils servent de PREUVE POSITIVE qu'une question ne porte pas sur Shabbat.
-const DAILY_ANCHORS = new Set([
-  'tefilin','tsitsit','talit','chema','tefila','amida','berakha','birkat',
-  'netilat','netila','yadayim','minha','chaharit','maariv','moussaf','kaddich',
-  'kedoucha','tahanoun','synagogue','minyan','kohanim','mezouza','hamotsi',
-  'mazon','zimoun','matin','reveil','lever','prier','priere','benediction',
-  'benedictions','asheryatsar','doukhan',
-]);
+// Mots de MOMENT qui situent la question dans la journée sans être un sujet à
+// part entière. Ils complètent les familles marquées `daily`.
+const DAILY_EXTRA = new Set(['matin', 'reveil', 'lever', 'prier', 'priere', 'benediction', 'benedictions']);
 
 // Réglages du portail, pilotables par variable d'environnement pour pouvoir les
 // ajuster sans redéploiement (le corpus grandit toutes les semaines).
@@ -712,14 +818,25 @@ export function searchCorpus(question, opts = {}) {
   // Ancres présentes dans la question, avec leur famille de synonymes indexés
   // (le corpus Yoreh De'ah est rédigé en hébreu : « tevila » doit être satisfait
   // par טבילה, sans quoi l'ancre ne désigne que les 32 chunks translittérés).
+  // Une forme écrite dans N'IMPORTE QUELLE des trois langues active la famille
+  // ENTIÈRE : le chunk peut donc satisfaire l'ancre en hébreu même si la question
+  // est en français, et réciproquement.
   const anchorTerms = [];
+  const activeFamilies = new Set();
   if (ANCHOR_MODE !== 'off') {
+    const idx = anchorIndex();
     for (const t of new Set(gateCandidates)) {
-      if (!DOMAIN_ANCHORS.has(t)) continue;
-      anchorTerms.push(t);
-      for (const syn of [...(SYNONYMS[t] || []), ...(ANCHOR_HE[t] || [])]) {
-        const n = normalizeToken(syn);
+      const fi = idx.get(t);
+      if (fi !== undefined) activeFamilies.add(fi);
+    }
+    for (const fi of activeFamilies) {
+      for (const w of ANCHOR_FAMILIES[fi].forms) {
+        const n = normalizeToken(w);
         if (n.length >= 2 && _idf.has(n)) anchorTerms.push(n);
+        for (const syn of SYNONYMS[n] || []) {
+          const sn = normalizeToken(syn);
+          if (sn.length >= 2 && _idf.has(sn)) anchorTerms.push(sn);
+        }
       }
     }
   }
@@ -781,7 +898,8 @@ export function searchCorpus(question, opts = {}) {
   // Shabbat formulées sans le mot (« peut-on trier les couverts ? », relance dans
   // une conversation, page /oh/319) — jusqu'à servir un siman du quotidien sous
   // une source affirmée, c'est-à-dire le mécanisme même du faux heter borer.
-  const otherDomainQ = tokens.some((t) => DAILY_ANCHORS.has(t));
+  const otherDomainQ = [...activeFamilies].some((fi) => ANCHOR_FAMILIES[fi].daily)
+    || tokens.some((t) => DAILY_EXTRA.has(t));
 
   const expanded = expandQuery(tokens);
   const scored = [];
