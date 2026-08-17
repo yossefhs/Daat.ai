@@ -309,6 +309,13 @@ const CONCEPT_RULES = [
   { any: ['allumer','allumage','heure','moment','avant'],
     ctx: ['bougies','bougie','nerot','hadlaka'],
     add: ['hadlaka','bougies','zman','moment'], w: 1.8 },
+  // דבר חריף — l'aliment piquant coupé au couteau (Yoreh De'ah 96). Une ancre
+  // n'aide pas ici : elle est un OU, donc elle ÉLARGIT (mesuré : aucun effet).
+  // « j'ai coupé un oignon avec le couteau à viande » était happée par le siman
+  // 89 (l'attente entre viande et fromage), qui ne répond pas à la question.
+  { any: ['couteau','coupe','couper','trancher','emince','rape'],
+    ctx: ['oignon','ail','citron','radis','navet','piquant','harif','חריף','sakin','poireau','echalote'],
+    add: ['חריף','סכין','sakin','harif'], w: 2.4 },
 ];
 
 // Mots à FORT IDF mais SANS contenu de sujet. Ils décrivent la PROVENANCE d'un
