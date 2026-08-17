@@ -548,9 +548,7 @@ STRUCTURE ATTENDUE :
 4. **Source finale** au format exact : *Source : Siman X · [titre de section]*
 
 ${top.caveat ? `
-⚠️ RÉSERVE DE L'AUTEUR — OBLIGATOIRE : le Rav a lui-même marqué cet extrait « hors corpus, à vérifier ». Tu DOIS commencer ta réponse par la ligne exacte :
-> ⚠️ Le Rav signale que ce passage est **hors corpus et à vérifier** — à lire comme une orientation, pas comme une source établie.
-Puis répondre normalement, sans jamais présenter ce contenu comme tranché.
+⚠️ RÉSERVE DE L'AUTEUR : le Rav a lui-même marqué cet extrait « hors corpus, à vérifier ». L'avertissement a DÉJÀ été affiché au-dessus de ta réponse — ne le répète pas. Mais n'écris JAMAIS ce contenu comme s'il était tranché : pas de « c'est permis », pas de « d'après le corpus du Rav ». Formule au conditionnel et renvoie au Rav.
 ` : ''}
 RÈGLES STRICTES :
 - RESTE FIDÈLE à l'extrait. N'invente AUCUNE halakha qui n'y est pas explicitement.
@@ -592,6 +590,20 @@ RÈGLES STRICTES :
       system: corpusSystem,
       messages: [{ role: 'user', content: corpusUserMsg }],
     }, { signal: corpusAbort.signal });
+
+    // ⚠️ MISE EN GARDE ÉCRITE PAR LE SERVEUR, jamais confiée au modèle.
+    // La consigne conditionnelle placée dans le prompt a été mesurée INEFFICACE
+    // en production : le chunk portait bien le drapeau, la consigne était bien
+    // dans le prompt, et Haiku répondait quand même « D'après le corpus du Rav…
+    // c'est PERMIS » sans la réserve. Sur un contenu que le Rav a marqué « à
+    // confirmer auprès d'un Rav », la mention ne peut pas dépendre d'un modèle :
+    // on l'écrit nous-mêmes, avant le premier mot, dans la langue du lecteur.
+    if (top.caveat) {
+      const LC = (RAW_CORPUS_I18N[resolveLang(req?.body?.lang, lastUserText)] || RAW_CORPUS_I18N.fr).caveat;
+      ensureSse();
+      corpusAnswer += LC;
+      res.write(`data: ${JSON.stringify({ type: 'text', delta: LC })}\n\n`);
+    }
 
     for await (const event of stream) {
       if (event.type === 'content_block_delta' && event.delta?.type === 'text_delta') {
