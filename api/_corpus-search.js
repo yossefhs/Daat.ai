@@ -961,7 +961,25 @@ export function searchCorpus(question, opts = {}) {
 export function getChunkById(id) {
   loadAndIndex();
   if (!id) return null;
-  return _corpus.chunks.find((c) => c.id === id) || null;
+  // Les ids sont désormais préfixés par section et niveau (oh-base-…, yd-halakha-…)
+  // et donc globalement uniques : mesuré 1 186 collisions avant, 0 après. On
+  // accepte encore les anciens ids nus pour les liens et caches déjà émis, mais
+  // on signale l'ambiguïté au lieu de servir silencieusement le premier venu —
+  // c'est ainsi que daat_get_content rendait le texte d'un AUTRE siman sous la
+  // référence issue de la recherche.
+  const exact = _corpus.chunks.filter((c) => c.id === id);
+  if (exact.length === 1) return exact[0];
+  if (exact.length > 1) {
+    console.warn(`[corpus-search] id ambigu « ${id} » : ${exact.length} chunks — le premier est servi`);
+    return exact[0];
+  }
+  const legacy = _corpus.chunks.filter((c) => c.id.endsWith(`-${id}`));
+  if (legacy.length === 1) return legacy[0];
+  if (legacy.length > 1) {
+    console.warn(`[corpus-search] id hérité ambigu « ${id} » : ${legacy.length} chunks dans ${[...new Set(legacy.map((c) => c.section + '/' + c.level))].join(', ')} — non servi`);
+    return null;
+  }
+  return null;
 }
 
 /**

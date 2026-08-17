@@ -285,6 +285,7 @@ function extractChunks(siman, html) {
     }
 
     // Paragraphes narratifs (h3 + p)
+    let h3Count = 0;
     const h3Re = /<h3[^>]*>([\s\S]*?)<\/h3>([\s\S]*?)(?=<h3|<h2|$)/g;
     let h3m;
     while ((h3m = h3Re.exec(sectionContent)) !== null) {
@@ -292,6 +293,7 @@ function extractChunks(siman, html) {
       const subClean = h3m[2].replace(/<div class="(definition|remember|key-point)"[^>]*>[\s\S]*?<\/div>/g, '');
       const text = htmlToText(subClean);
       if (text.length < 60) continue;
+      h3Count++;
       chunks.push({
         id: `siman-${siman.num}-s${sectionIndex}-h3-${chunks.length}`,
         siman: siman.num,
@@ -299,6 +301,31 @@ function extractChunks(siman, html) {
         sectionTitle, subsection: h3Title,
         text, type: 'narratif',
       });
+    }
+
+    // 🕳️ FILET. Une section sans <h3> ET sans bloc typé ne produisait AUCUN
+    // chunk, silencieusement. Sur la synthèse du siman 243, six sections
+    // disparaissaient ainsi — dont l'axiome central, l'arbre de décision et les
+    // cinq voies de sortie du Séif Beit ; une vraie question était alors servie
+    // par un extrait de TSITSIT sous « Source : Siman 20 ». Le défaut était
+    // invisible : la page produisait 18 chunks, donc aucun avertissement.
+    // Mesuré au build : 467 fichiers captaient moins de la moitié de leur texte.
+    if (blockIdx === 0 && h3Count === 0) {
+      const text = htmlToText(sectionContent).trim();
+      if (text.length >= 60) {
+        const parts = text.length <= 900 ? [text] : text.match(/[\s\S]{1,900}(?:\.|$)/g) || [text];
+        parts.forEach((pp) => {
+          const t = pp.trim();
+          if (t.length < 60) return;
+          chunks.push({
+            id: `siman-${siman.num}-s${sectionIndex}-n${chunks.length + 1}`,
+            siman: siman.num,
+            sectionNum: sectionIndex,
+            sectionTitle, subsection: null,
+            text: t, type: 'narratif',
+          });
+        });
+      }
     }
   }
   return chunks;
@@ -323,7 +350,10 @@ const LEVELS = [
   { id: 'synthese',   label: 'Synthèse',   variants: [{ file: 'niveau-3-synthese.html',   urlSuffix: 'synthese' }] },
   { id: 'daat-harav', label: 'Daat HaRav', variants: [
       { file: 'niveau-4-daat-harav.html', urlSuffix: 'daat-harav' },
-      { file: 'niveau-4-halakha.html',    urlSuffix: 'halakha', label: 'Halakha' },
+      // ⚠️ id PROPRE : ces pages ne sont PAS le Choulhan Aroukh HaRav. Les
+      // étiqueter 'daat-harav' contredisait le prompt système, qui interdit
+      // d'attribuer une chitah de l'Admour HaZaken sur ces simanim.
+      { file: 'niveau-4-halakha.html',    urlSuffix: 'halakha', id: 'halakha', label: 'Halakha' },
   ] },
 ];
 
@@ -357,6 +387,22 @@ function stripChrome(body) {
   return cut >= b.length * 0.5 ? b.slice(0, cut) : b;
 }
 
+// Pages-passerelles : « l'Admour HaZaken n'a pas rédigé ce siman ». Aucun texte
+// du Rav à indexer — leur prose et leur liste « Sources pour approfondir » ne
+// doivent pas sortir sous le label Daat HaRav avec un sourceUrl /N/daat-harav.
+// ⚠️ UNIQUEMENT le marqueur de TITRE. Une première version acceptait aussi la
+// phrase « l'Admour HaZaken n'a pas rédigé… » trouvée n'importe où dans la page :
+// elle happait TOUT le niveau 4 de la cacheroute (Yoreh De'ah 87-118, 30 Ko de
+// halakha chacun), qui ne fait que mentionner ce fait au passage. Le contrôle
+// aurait supprimé du corpus le contenu que ce même commit vient d'y faire entrer.
+const BRIDGE_RE = /<h1[^>]*>[^<]*passerelle[^<]*<\/h1>/i;
+
+// L'extracteur est choisi d'après la STRUCTURE du fichier — jamais d'après son
+// nom de niveau (c'est ce codage en dur qui avait rendu 100 fichiers invisibles).
+// ⚠️ NE PAS remplacer ce choix par un « meilleur de N » fondé sur la couverture :
+// mesuré, l'extracteur le plus grossier gagne alors partout et détruit le typage
+// dont dépend le classement (cas-pratique 473 → 6, synthese 4 776 → 15 201).
+// Le trou réel — des sections captées à vide — se comble DANS extractChunks.
 function pickExtractor(body) {
   if (/<details class="seif-details"|<div class="sa-block"/.test(body)) return 'daat-harav';
   if (/<h2 class="section-title"/.test(body)) return 'sections';
@@ -364,10 +410,28 @@ function pickExtractor(body) {
   return 'synthese';
 }
 
+function bestExtraction(num, body) {
+  const plain = htmlToText(body).length || 1;
+  const kind = pickExtractor(body);
+  const fn = kind === 'daat-harav'  ? extractDaatHaRav
+           : kind === 'syn-section' ? extractSynSection
+           : kind === 'synthese'    ? extractSynthese
+           : extractChunks;
+  let chunks = [];
+  try { chunks = fn({ num }, body) || []; } catch { chunks = []; }
+  const coverage = chunks.reduce((a, c) => a + (c.text ? c.text.length : 0), 0) / plain;
+  return { kind, chunks, coverage };
+}
+
 // Fichiers de niveau PRÉSENTS mais dont l'extraction ne produit aucun chunk :
 // c'est le symptôme d'une structure HTML non reconnue. Le défaut est resté
 // silencieux pendant tout le chantier Yoreh De'ah — on le signale désormais.
 const EMPTY_LEVELS = [];
+// Fichiers dont l'extraction ne capte qu'une fraction du texte : gabarit non
+// reconnu. C'est ce silence-là qui a fait perdre 66 % de la synthèse du siman 243.
+const LOW_COVERAGE = [];
+// Pages-passerelles écartées (aucun texte du Rav à indexer).
+const BRIDGE_SKIPPED = [];
 
 const stats = { totalSimanim: 0, withChunks: 0, skipped: [], chunksPerSiman: {}, perSection: {}, perLevel: {} };
 
@@ -396,24 +460,37 @@ for (const section of SECTIONS) {
       const html = fs.readFileSync(htmlPath, 'utf8');
       const bodyM = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
       const body = stripChrome(bodyM ? bodyM[1] : html);
-      const kind = pickExtractor(body);
-      const chunks = kind === 'daat-harav'  ? extractDaatHaRav({ num: simanNum }, body)
-                   : kind === 'synthese'    ? extractSynthese({ num: simanNum }, body)
-                   : kind === 'syn-section' ? extractSynSection({ num: simanNum }, body)
-                   : extractChunks({ num: simanNum }, body);
-      if (chunks.length === 0) {
-        EMPTY_LEVELS.push(`${section.id}:${simanNum}/${level.id} (${variant.file}, structure « ${kind} »)`);
+      // Page-passerelle : rien à indexer (test limité au niveau 4 — les niveaux
+      // 1-3 des MÊMES simanim citent la phrase sans être des passerelles).
+      if (level.id === 'daat-harav' && BRIDGE_RE.test(body)) {
+        BRIDGE_SKIPPED.push(`${section.id}:${simanNum}`);
         continue;
+      }
+      const { kind, chunks, coverage } = bestExtraction(simanNum, body);
+      if (!chunks.length) {
+        EMPTY_LEVELS.push(`${section.id}:${simanNum}/${level.id} (${variant.file})`);
+        continue;
+      }
+      // Couverture faible = gabarit mal reconnu. Visible au build, jamais muet.
+      if (coverage < 0.5 && htmlToText(body).length > 3000) {
+        LOW_COVERAGE.push(`${section.id}:${simanNum}/${level.id} — ${Math.round(coverage * 100)} % capté (${variant.file}, « ${kind} »)`);
       }
 
       chunks.forEach((c) => {
         c.section = section.id;
-        c.level = level.id;
+        c.level = variant.id || level.id;
         c.levelLabel = variant.label || level.label;
         c.simanTitle = meta.titleFr;
         c.simanTitleHe = meta.titleHe;
         c.simanSubtitle = meta.subtitle || '';
         c.sourceUrl = `${section.urlPrefix}/${simanNum}/${variant.urlSuffix}`;
+        // ID GLOBALEMENT UNIQUE. Le numéro de siman seul est ambigu : /oh-quotidien
+        // et /yd partagent 35 numéros (87-118, 183-185), et deux niveaux d'un même
+        // siman peuvent forger la même suite « s2-b3 ». getChunkById() fait un
+        // .find() : le premier chunk portant l'id gagne, et l'outil daat_get_content
+        // sert alors le texte d'une AUTRE page sous la référence que la recherche
+        // vient de rendre — une source fausse, le mécanisme du faux heter borer.
+        c.id = `${section.id === 'yoreh-deah' ? 'yd' : 'oh'}-${c.level}-${c.id}`;
       });
 
       stats.perLevel[level.id] = (stats.perLevel[level.id] || 0) + chunks.length;
@@ -451,6 +528,14 @@ console.log(`  Chunks totaux       : ${allChunks.length}`);
 console.log(`  Taille JSON         : ${sizeKb} KB`);
 console.log(`  Par section         : ${Object.entries(stats.perSection).map(([k, v]) => `${k}=${v}`).join(', ')}`);
 console.log(`  Skipped (${stats.skipped.length})  : ${stats.skipped.map((s) => `${s.section || ''}#${s.num}`).slice(0, 5).join(',')}${stats.skipped.length > 5 ? '...' : ''}`);
+if (BRIDGE_SKIPPED.length) {
+  console.log(`  Passerelles écartées : ${BRIDGE_SKIPPED.length} (${BRIDGE_SKIPPED.slice(0, 8).join(', ')}${BRIDGE_SKIPPED.length > 8 ? '…' : ''})`);
+}
+if (LOW_COVERAGE.length) {
+  console.warn(`\n⚠️  ${LOW_COVERAGE.length} fichier(s) dont l'extraction capte MOINS DE LA MOITIÉ du texte :`);
+  LOW_COVERAGE.slice(0, 15).forEach((e) => console.warn(`    ${e}`));
+  if (LOW_COVERAGE.length > 15) console.warn(`    … et ${LOW_COVERAGE.length - 15} autre(s)`);
+}
 if (EMPTY_LEVELS.length) {
   console.warn(`\n⚠️  ${EMPTY_LEVELS.length} fichier(s) de niveau présents mais SANS chunk extrait (structure HTML non reconnue) :`);
   EMPTY_LEVELS.slice(0, 15).forEach((e) => console.warn(`    ${e}`));
