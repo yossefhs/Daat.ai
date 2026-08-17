@@ -462,7 +462,16 @@ async function serveCorpusAnswer({ req, res, cs, section, lastUserText, userId, 
         // a rendu toute entrée antérieure non concordante) et constituait un
         // risque latent : une réponse mise en cache AVANT la propagation de la
         // réserve « hors corpus, à vérifier » aurait pu être resservie sans elle.
-        && raw.chunkId === top.id) {
+        && raw.chunkId === top.id
+        // ⚠️ La réserve du Rav est une propriété de la GÉNÉRATION, pas seulement
+        // de l'extrait. Une réponse mise en cache avant que la réserve ne soit
+        // propagée porte le bon extrait mais PAS l'avertissement : mesuré en
+        // production, « c'est permis de manger de la viande et du fromage » a été
+        // resservi sans la mise en garde « à confirmer auprès d'un Rav ». On
+        // n'accepte donc le cache que si son état de réserve est identique — et
+        // jamais du tout pour un extrait sous réserve dont le texte ne la porte pas.
+        && Boolean(raw.caveat) === Boolean(top.caveat)
+        && (!top.caveat || /hors corpus|à vérifier|טעון בדיקה|to be verified/i.test(raw.text))) {
       cachedCorpus = raw;
     }
   } catch (_) {}
@@ -673,7 +682,7 @@ RÈGLES STRICTES :
       // Mise en cache : uniquement les réponses complètes et saines.
       // Les prochains utilisateurs qui posent la même question → 0 €.
       if (!corpusErrored && corpusStopReason !== 'max_tokens' && corpusAnswer.length > 80) {
-        await kv.set(corpusKvKey, { text: corpusAnswer, siman: top.siman, chunkId: top.id }, { ex: CORPUS_CACHE_TTL });
+        await kv.set(corpusKvKey, { text: corpusAnswer, siman: top.siman, chunkId: top.id, caveat: Boolean(top.caveat) }, { ex: CORPUS_CACHE_TTL });
       }
       console.log(`[chat.js] corpus HIT: ${userId} siman-${top.siman} score=${top.score.toFixed(1)} +${inTok}in/${outTok}out ($${cost.toFixed(5)})`);
     } catch (err) {

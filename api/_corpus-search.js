@@ -1099,7 +1099,12 @@ function scoreWithinSiman(chunk, queryTerms) {
 // (et non sur la seule section). Les entrées v2 ont été écrites avec l'ancien
 // cadrage (« les hilkhot Shabbat » annoncé pour une question de tefila) : les
 // resservir 30 jours durant reproduirait exactement le défaut corrigé.
-export const CORPUS_CACHE_VERSION = 'v3';
+// v4 : le contrat de GÉNÉRATION a changé — le prompt impose désormais la réserve
+// du Rav (« hors corpus, à vérifier ») sur les extraits concernés. Les entrées v3
+// portent le bon extrait mais pas l'avertissement ; les resservir 30 jours durant
+// reproduirait exactement le défaut corrigé. Bumper la version les rend
+// inatteignables d'un coup.
+export const CORPUS_CACHE_VERSION = 'v4';
 export const CORPUS_CACHE_TTL = 30 * 24 * 60 * 60; // 30 jours
 export function corpusCacheKey(text, { section = 'orach-chaim', lang = 'fr' } = {}) {
   const norm = String(text || '')
