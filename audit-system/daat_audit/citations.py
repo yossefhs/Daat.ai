@@ -25,7 +25,13 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from .checks import Finding
-from .hebrew import SEVERITY, Verdict, compare
+from .hebrew import (
+    MIN_MOTS_SUIVIS,
+    SEVERITY,
+    Verdict,
+    compare,
+    mots_suivis_en_commun,
+)
 from .models import Risk, Severity
 from .quotes import Quote
 from .references import ParsedRef
@@ -39,6 +45,14 @@ BENINS = {
     Verdict.DIFF_ORTHOGRAPHE,
     Verdict.CITATION_TRONQUEE,
 }
+
+# Sous-catégories qui ne portent pas sur le texte mais sur ce qu'on en sait.
+#: Le texte cité est authentique ; c'est la référence qui est fausse.
+REFERENCE_ERROR = "reference_error"
+#: Le texte n'a été retrouvé nulle part. Cela ne prouve pas qu'il soit
+#: inventé — une base peut être incomplète, un ouvrage absent, une édition
+#: différente. Aucun verdict automatique ne dira « fabriquée ».
+NEEDS_SOURCE_VERIFICATION = "needs_source_verification"
 
 # Gravité du signalement selon le verdict. Le risque est HALAKHIC dans tous les
 # cas : il s'agit du texte d'une source, quel que soit le degré de l'écart.
@@ -61,6 +75,10 @@ class CitationResult:
     detail: str
     source_text: str = ""
     found_elsewhere: list[str] | None = None
+    #: Plus longue suite de mots communs entre la citation et le passage
+    #: retenu. Zéro ou un mot signifie que la citation et cette source n'ont
+    #: aucun texte en commun — donc que la référence n'est pas la sienne.
+    mots_communs: int = 0
 
 
 def verifier_citation(
@@ -89,6 +107,7 @@ def verifier_citation(
         resultat = CitationResult(
             quote=quote, ref=ref, verdict=verdict, ratio=ratio,
             detail=detail, source_text=extrait,
+            mots_communs=mots_suivis_en_commun(quote.text, extrait),
         )
         if meilleur is None or _meilleur_que(resultat, meilleur):
             meilleur = resultat
@@ -171,6 +190,36 @@ def finding_de(resultat: CitationResult, block_id: str,
         return None
 
     ref_txt = resultat.ref.sefaria_ref() if resultat.ref else "?"
+
+    # Référence **inférée** du voisinage, et pas un seul mot suivi en commun
+    # avec le passage : le rattachement lui-même est en cause. Dire « citation
+    # fausse » revient alors à reprocher au texte une erreur du moteur — c'est
+    # ce qui a produit 46 des 123 signalements relus par le Rav. Mais se taire
+    # serait aussi faux : une citation réellement fabriquée se présente de la
+    # même manière. On énonce donc ce qui est constaté, et rien de plus : la
+    # source n'est pas établie, elle reste à vérifier.
+    if par_voisinage and resultat.mots_communs < MIN_MOTS_SUIVIS:
+        return Finding(
+            rule_code="CIT-001",
+            category="citation",
+            subcategory=NEEDS_SOURCE_VERIFICATION,
+            block_id=block_id,
+            current_text=resultat.quote.text[:600],
+            explanation=(
+                f"source non établie : la référence {ref_txt} a été rattachée "
+                "depuis le texte voisin, et la citation ne partage aucun mot "
+                "suivi avec ce passage — le rattachement est probablement "
+                "fautif. Rien n'est constaté sur le texte lui-même."
+            ),
+            proposed_correction=None,
+            # Ni critique — une inférence ne peut pas fonder une accusation —
+            # ni discret au point de disparaître : une citation réellement
+            # fabriquée se présente exactement ainsi, et doit rester sous les
+            # yeux du relecteur.
+            severity=Severity.P2_SIGNIFICANT,
+            risk=Risk.HALAKHIC,
+            confidence=0.25,
+        )
     explication = (
         f"citation donnée pour littérale, mais {resultat.detail or 'différente'} "
         f"par rapport à {ref_txt} (similarité {resultat.ratio:.0%})"
@@ -210,11 +259,22 @@ def finding_de(resultat: CitationResult, block_id: str,
         )
         confiance *= 0.8
 
-    # Le texte existe ailleurs mot pour mot : le défaut porte sur la
-    # référence, non sur le texte. Le dire dans la catégorie, et pas seulement
-    # dans la phrase, permet de trier les deux séparément.
-    sous_categorie = ("reference_erronee" if resultat.found_elsewhere
-                      else resultat.verdict.value)
+    # Trois situations que la sous-catégorie doit séparer, parce qu'elles
+    # n'appellent ni la même correction ni le même relecteur :
+    #
+    #   · REFERENCE_ERROR          — le texte est authentique, la référence non ;
+    #   · NEEDS_SOURCE_VERIFICATION — le texte n'a pas été retrouvé, ce qui ne
+    #     prouve rien : l'absence d'un résultat dans une base n'établit pas
+    #     qu'un texte est inventé, et le mot « fabriquée » n'a pas à figurer
+    #     dans un verdict automatique ;
+    #   · le verdict lui-même pour les écarts de texte ordinaires.
+    if resultat.found_elsewhere:
+        sous_categorie = REFERENCE_ERROR
+    elif (resultat.verdict is Verdict.DIFFERENCE_SUBSTANTIELLE
+          and resultat.found_elsewhere is not None):
+        sous_categorie = NEEDS_SOURCE_VERIFICATION
+    else:
+        sous_categorie = resultat.verdict.value
 
     return Finding(
         rule_code="CIT-001",

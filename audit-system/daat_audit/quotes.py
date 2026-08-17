@@ -115,6 +115,20 @@ def has_cue(before: str) -> bool:
 _ABREV = re.compile(r"[א-ת]{1,4}[\"״][א-ת]")
 _MOT = re.compile(r"[א-ת]+")
 
+# Intertitre rédactionnel du site : un mot d'appareil (« חידוש », « יסוד »,
+# « עיקרון »…), sa lettre d'ordre, puis un tiret et l'énoncé. C'est l'auteur
+# qui numérote son propre exposé — « חידוש ד — הבחנה בין כלים, בהמה, ושדה
+# (246:6-7) ». Comparé à une source, un tel titre en est évidemment absent :
+# sept des soixante-huit faux positifs relus par le Rav n'étaient que cela.
+#
+# Le motif est volontairement étroit : le mot d'appareil, UNE lettre d'ordre
+# isolée, et le tiret. « חידוש גדול בדברי הרמב״ם » — une vraie phrase — ne
+# correspond pas, la lettre y étant suivie d'autres mots hébreux.
+TITRE_REDACTIONNEL = re.compile(
+    r"^(?:חידוש|יסוד|עיקרון|כלל|שלב|נקודה|מבנה|הבחנה|סיכום|מסקנה)"
+    r"\s+[א-י]\s*[—–-]"
+)
+
 
 def est_etiquette(texte: str) -> bool:
     """Ce fragment est-il une **étiquette** plutôt qu'une citation ?
@@ -141,6 +155,11 @@ def est_etiquette(texte: str) -> bool:
         reste = reste.replace(ref.raw_text, " ")
     reste = _ABREV.sub(" ", reste)
     if n_letters(reste) < MIN_CITATION:
+        return True
+
+    # Un intertitre rédactionnel : « חידוש ד — הבחנה בין כלים, בהמה, ושדה
+    # (246:6-7) ». C'est l'auteur qui parle de la source, pas la source.
+    if TITRE_REDACTIONNEL.search(texte.strip()):
         return True
 
     # Une légende énumère des ouvrages : forte densité d'abréviations et de

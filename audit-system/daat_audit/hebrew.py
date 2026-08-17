@@ -286,6 +286,15 @@ def _diff_words(part: str, source: str, needle: str, haystack: str
     matcher = difflib.SequenceMatcher(None, q_words, s_words, autojunk=False)
     ops = [op for op in matcher.get_opcodes() if op[0] != "equal"]
 
+    # Part des mots de la citation retrouvés dans la fenêtre. C'est cette
+    # mesure — et non le taux sur les consonnes — qui dit si l'écart porte sur
+    # des mots identifiables. Le taux sur les consonnes servait seul jusqu'ici,
+    # et il était surévalué : la position retenue pouvait être choisie sur une
+    # borne supérieure aveugle à l'ordre, si bien qu'un cas réel de mot
+    # remplacé était classé à 0,91 alors que sa similarité vraie est 0,875.
+    apparies = sum(b.size for b in matcher.get_matching_blocks())
+    couverture = apparies / len(q_words) if q_words else 0.0
+
     if ratio >= 0.995:
         return Verdict.DIFF_PONCTUATION, ratio, "ponctuation ou espaces"
 
@@ -294,7 +303,7 @@ def _diff_words(part: str, source: str, needle: str, haystack: str
     if ops and all(op[0] == "delete" for op in ops):
         return Verdict.MOT_AJOUTE, ratio, "la citation ajoute des mots absents de la source"
 
-    if ratio >= 0.90:
+    if ratio >= 0.90 or couverture >= COUVERTURE_MOTS:
         replaced = []
         for tag, i1, i2, j1, j2 in ops:
             if tag != "replace":
@@ -315,6 +324,19 @@ def _diff_words(part: str, source: str, needle: str, haystack: str
     if ratio >= 0.75:
         if sorted(q_words) and set(q_words) <= set(s_words):
             return Verdict.ORDRE_DIFFERENT, ratio, "mêmes mots, ordre différent"
+        # « Proche » est une affirmation : elle dit que la citation et ce
+        # passage sont deux états d'un même texte. Un taux calculé sur la
+        # suite des consonnes ne l'établit pas — il monte à 0,75 entre deux
+        # textes étrangers l'un à l'autre. On exige donc une trace au niveau
+        # des mots ; sans elle, la seule chose constatée est que la citation
+        # ne se trouve pas là, et c'est ce que le verdict doit dire.
+        # Sur ``s_words`` — la fenêtre de MOTS — et non sur ``window``, qui est
+        # une suite de consonnes sans espaces où plus aucun mot n'est
+        # discernable.
+        if _plus_longue_suite(q_words, s_words) < MIN_MOTS_SUIVIS:
+            return (Verdict.DIFFERENCE_SUBSTANTIELLE, ratio,
+                    "absente de ce passage — aucun mot suivi en commun, "
+                    "la similarité ne porte que sur la suite des consonnes")
         return Verdict.VARIANTE_POSSIBLE, ratio, f"proche : « {window[:60]} »"
 
     return Verdict.DIFFERENCE_SUBSTANTIELLE, ratio, "aucune correspondance nette"
@@ -345,21 +367,77 @@ def _best_word_window(quote_words: list[str], source_words: list[str]) -> list[s
 
 
 def _best_window(needle: str, haystack: str) -> tuple[float, str]:
-    """Meilleure similarité entre ``needle`` et une fenêtre de ``haystack``."""
+    """Meilleure similarité entre ``needle`` et une fenêtre de ``haystack``.
+
+    ``quick_ratio`` compare des **multi-ensembles de caractères** : il ignore
+    l'ordre. Sur de l'hébreu, dont l'alphabet compte vingt-deux lettres et dont
+    la distribution est très semblable d'un texte à l'autre, deux passages sans
+    aucun rapport atteignent couramment 0,75 à 0,85 — précisément la bande où
+    le verdict « variante possible » se déclenchait. Il ne sert donc qu'à
+    **présélectionner** des positions ; la valeur rendue est toujours un
+    ``ratio`` véritable, qui tient compte de l'ordre.
+    """
     if not needle or not haystack:
         return 0.0, ""
     n = len(needle)
     if n >= len(haystack):
         return difflib.SequenceMatcher(None, needle, haystack).ratio(), haystack
-    best, at = 0.0, 0
+
     step = max(1, n // 6)
-    for i in range(0, len(haystack) - n + 1, step):
-        r = difflib.SequenceMatcher(None, needle, haystack[i:i + n]).quick_ratio()
-        if r > best:
-            best, at = r, i
-    lo, hi = max(0, at - step), min(len(haystack) - n, at + step)
-    for i in range(lo, hi + 1):
+    positions = range(0, len(haystack) - n + 1, step)
+    # Présélection par borne supérieure, puis mesure réelle sur les meilleures
+    # candidates et leur voisinage — le simple ±step autour du meilleur
+    # quick_ratio pouvait ne jamais rencontrer une seule mesure réelle, et la
+    # borne supérieure ressortait alors telle quelle comme « similarité ».
+    grossier = sorted(
+        ((difflib.SequenceMatcher(None, needle, haystack[i:i + n]).quick_ratio(), i)
+         for i in positions),
+        reverse=True,
+    )[:8]
+
+    a_mesurer: set[int] = set()
+    for _, i in grossier:
+        a_mesurer.update(
+            j for j in range(max(0, i - step), min(len(haystack) - n, i + step) + 1)
+        )
+
+    best, at = 0.0, grossier[0][1] if grossier else 0
+    for i in sorted(a_mesurer):
         r = difflib.SequenceMatcher(None, needle, haystack[i:i + n]).ratio()
         if r > best:
             best, at = r, i
     return best, haystack[at:at + n]
+
+
+# Nombre de mots consécutifs partagés en deçà duquel une « proximité »
+# mesurée sur les consonnes n'est pas une preuve. Calibré sur les 123
+# signalements relus par le Rav : les 46 variantes reconnues partagent 7 mots
+# suivis en médiane, les 68 faux positifs en partagent 1.
+MIN_MOTS_SUIVIS = 2
+
+# Part des mots de la citation retrouvés dans la fenêtre au-delà de laquelle
+# l'écart porte sur des **mots identifiables** — donc « mot remplacé » et non
+# « variante possible ». Trois quarts des mots retrouvés, c'est un texte que
+# l'on reconnaît ; en deçà, on ne peut plus nommer le mot changé.
+COUVERTURE_MOTS = 0.75
+
+
+def _plus_longue_suite(q_words: list[str], s_words: list[str]) -> int:
+    """Plus longue suite de mots communs entre deux listes de mots."""
+    q = [w for w in q_words if HEBREW_LETTER.search(w)]
+    s = [w for w in s_words if HEBREW_LETTER.search(w)]
+    if not q or not s:
+        return 0
+    blocs = difflib.SequenceMatcher(None, q, s, autojunk=False).get_matching_blocks()
+    return max((b.size for b in blocs), default=0)
+
+
+def mots_suivis_en_commun(quote: str, source: str) -> int:
+    """Plus longue suite de **mots** communs à la citation et à la source.
+
+    C'est la seule preuve qu'une citation et un passage parlent du même texte.
+    Le taux de similarité sur les consonnes, lui, garde un plancher de bruit
+    élevé : deux textes hébreux sans rapport y atteignent 0,75 sans partager
+    un seul mot suivi.
+    """
+    return _plus_longue_suite(_words(quote), _words(source))
