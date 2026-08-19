@@ -571,7 +571,12 @@ const stats = { totalSimanim: 0, withChunks: 0, skipped: [], chunksPerSiman: {},
 
 for (const section of SECTIONS) {
   if (!fs.existsSync(section.dir)) continue;
-  stats.perSection[section.id] = 0;
+  // Deux entrées de SECTIONS partagent l'id 'orach-chaim' — sources/shabbat et
+  // sources/orah-haim. Remettre le compteur à zéro à chaque entrée effaçait la
+  // contribution de la première : perSection annonçait 9492 (oh-quotidien seul)
+  // là où le corpus en contient 16320. Le corpus était juste, la statistique
+  // fausse — et c'est la statistique qu'on lit pour vérifier la couverture.
+  stats.perSection[section.id] ??= 0;
   const simanDirs = fs.readdirSync(section.dir)
     .filter((d) => /^siman-\d+$/.test(d))
     .sort((a, b) => parseInt(a.slice(6)) - parseInt(b.slice(6)));
@@ -645,9 +650,41 @@ for (const section of SECTIONS) {
   }
 }
 
+// Horodatage stable quand rien n'a changé.
+//
+// Le corpus est un fichier généré que deux chantiers touchent : celui qui
+// édite les pages et celui qui édite le moteur de recherche. Avec un
+// `generated` réécrit à chaque construction, toute construction produit un
+// diff même quand le contenu est identique — et deux branches qui ont
+// simplement lancé `npm run build` entrent en conflit sur ce seul champ, sur
+// un fichier de plusieurs mégaoctets qu'on ne peut pas fusionner à la main.
+// On ne retouche donc l'horodatage que si le contenu a effectivement bougé.
+function horodatage(chunks, meta) {
+  try {
+    const ancien = JSON.parse(fs.readFileSync(OUTPUT_PATH, 'utf8'));
+    const memeMeta = Object.keys(meta).every(
+      (k) => JSON.stringify(ancien.meta?.[k]) === JSON.stringify(meta[k]),
+    );
+    if (memeMeta && JSON.stringify(ancien.chunks) === JSON.stringify(chunks)) {
+      return ancien.meta.generated;
+    }
+  } catch {
+    /* pas de corpus précédent, ou illisible : on horodate maintenant */
+  }
+  return new Date().toISOString();
+}
+
+const metaHorsDate = {
+  totalSimanim: stats.withChunks,
+  totalChunks: allChunks.length,
+  skipped: stats.skipped,
+  perSection: stats.perSection,
+  perLevel: stats.perLevel,
+};
+
 const output = {
   meta: {
-    generated: new Date().toISOString(),
+    generated: horodatage(allChunks, metaHorsDate),
     totalSimanim: stats.withChunks,
     totalChunks: allChunks.length,
     skipped: stats.skipped,
