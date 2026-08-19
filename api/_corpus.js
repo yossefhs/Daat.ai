@@ -149,6 +149,13 @@ function excerpt(text, max) {
 // Un chunk du corpus du site → forme de hit commune. Les clés `title`, `seif`,
 // `summary` et `sources` sont conservées telles quelles : le pré-RAG de chat.js
 // (bloc <contexte_corpus_daat>) les lit déjà sous ces noms.
+// Réserve écrite par le Rav sur son propre contenu (« hors corpus, à vérifier »,
+// « Note de méthode … à confirmer auprès d'un Rav »). Elle DOIT parvenir au
+// modèle : sur le chemin agentique, c'est lui qui rédige la réponse, et sans
+// cette information il présente comme établi un passage que le Rav a écarté.
+// Le champ booléen ne suffit pas — on ajoute une phrase, que le modèle lit.
+const CAVEAT_NOTE = "⚠️ RÉSERVE DE L'AUTEUR : le Rav a marqué ce passage « hors corpus, à vérifier ». Ne le présente JAMAIS comme tranché ni comme « le corpus du Rav dit que » ; formule au conditionnel et renvoie explicitement au Rav.";
+
 function formatChunkHit(c) {
   const full = String(c.text || '');
   return {
@@ -164,6 +171,7 @@ function formatChunkHit(c) {
     tags: [],
     summary: excerpt(full, EXCERPT_CHARS),
     hasMore: full.length > EXCERPT_CHARS,
+    ...(c.caveat ? { caveat: true, caveatNote: CAVEAT_NOTE } : {}),
     sources: [],
     internalLinks: [],
   };
@@ -288,6 +296,7 @@ export async function getEntryById(id) {
     url: chunk.sourceUrl || null,
     summary: excerpt(chunk.text, EXCERPT_CHARS),
     content: chunk.text || '',
+    ...(chunk.caveat ? { caveat: true, caveatNote: CAVEAT_NOTE } : {}),
     sources: [],
     internalLinks: chunk.sourceUrl ? [chunk.sourceUrl] : [],
     tags: [],
@@ -383,6 +392,7 @@ export async function executeCorpusTool(toolName, input) {
       sources: entry.sources || [],
       internalLinks: entry.internalLinks || [],
       tags: entry.tags || [],
+      ...(entry.caveat ? { caveat: true, caveatNote: entry.caveatNote || CAVEAT_NOTE } : {}),
     });
   }
 
