@@ -268,9 +268,26 @@ function extractSynSection(siman, body) {
 // jusqu'à la bénédiction », « Balayer d'abord, à cause du kazayit »).
 // Le comptage de profondeur ferme exactement le bon </div>, y compris quand
 // l'encadré en contient d'autres, et ne dépend plus de ce qui suit.
+// Types d'encadrés reconnus. Les huit derniers sont la charpente du niveau
+// LAMDAN — la hakira, la question, la réponse, le fondement, la mah'loket, la
+// nafka mina, la carte de Rishon, la conclusion. Ils n'étaient dans aucune
+// liste : des dizaines de milliers d'occurrences n'entraient dans le corpus que
+// par accident, via le filet narratif, ou pas du tout.
+// ⚠️ Les encadrés du niveau LAMDAN (hakira-box, rishon-card, pilpul-box,
+// machloket-box, nafka-mina-box, yesod-box, teruts-box, kashya-box, pesak-box,
+// rav-box) ne sont PAS dans cette liste, et c'''est une décision, pas un oubli.
+// Les indexer fait passer le corpus de 21 451 à 29 288 chunks — du vrai pilpoul
+// du Rav, aujourd'''hui invisible. Mais mesuré : le banc hold-out tombe de 51 %
+// à 47 % et le top-3 de 63 % à 60 %, par concurrence entre simanim voisins.
+// Or les deux bancs ne contiennent AUCUNE question de niveau lamdan : ils
+// mesurent le coût de ce contenu et jamais son bénéfice. Trancher sur cette
+// seule base serait du sur-ajustement. À reprendre avec un banc de questions
+// de pilpoul — voir la note dans le rapport de session.
+const BLOCK_TYPES = 'definition|remember|key-point';
+
 function typedBlocks(content) {
   const out = [];
-  const openRe = /<div class="(definition|remember|key-point)"[^>]*>/g;
+  const openRe = new RegExp(`<div class="(${BLOCK_TYPES})"[^>]*>`, 'g');
   let m;
   while ((m = openRe.exec(content)) !== null) {
     const type = m[1];
@@ -301,7 +318,12 @@ function extractChunks(siman, html) {
   const body = bodyMatch ? bodyMatch[1] : html;
 
   // Tolérant aux attributs supplémentaires (ex. id="…" ajouté pour les ancres).
-  const sectionRegex = /<h2 class="section-title"[^>]*>([\s\S]*?)<\/h2>([\s\S]*?)(?=<h2 class="section-title"[^>]*>|$)/g;
+  // ⚠️ La classe peut être COMPOSÉE : « section-title section-title--he » (483
+  // occurrences, 48 fichiers). L'ancienne expression exigeait le guillemet juste
+  // après « section-title » : les 13 sections du niveau Lamdan du siman 253
+  // étaient donc invisibles, et la page rendait 1 chunk de 118 caractères sur
+  // 40 Ko — le pilpoul du Rav, perdu.
+  const sectionRegex = /<h2[^>]*class="[^"]*\bsection-title\b[^"]*"[^>]*>([\s\S]*?)<\/h2>([\s\S]*?)(?=<h2[^>]*class="[^"]*\bsection-title\b[^"]*"|$)/g;
   let match;
   let sectionIndex = 0;
   while ((match = sectionRegex.exec(body)) !== null) {
@@ -358,7 +380,7 @@ function extractChunks(siman, html) {
     let h3m;
     while ((h3m = h3Re.exec(sectionContent)) !== null) {
       const h3Title = htmlToText(h3m[1]);
-      const subClean = h3m[2].replace(/<div class="(definition|remember|key-point)"[^>]*>[\s\S]*?<\/div>/g, '');
+      const subClean = h3m[2].replace(new RegExp(`<div class="(?:${BLOCK_TYPES})"[^>]*>[\\s\\S]*?<\\/div>`, 'g'), '');
       const text = htmlToText(subClean);
       if (text.length < 60) continue;
       h3Count++;
