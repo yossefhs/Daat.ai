@@ -1106,7 +1106,15 @@ function scoreWithinSiman(chunk, queryTerms) {
 // inatteignables d'un coup.
 export const CORPUS_CACHE_VERSION = 'v4';
 export const CORPUS_CACHE_TTL = 30 * 24 * 60 * 60; // 30 jours
-export function corpusCacheKey(text, { section = 'orach-chaim', lang = 'fr' } = {}) {
+// ⚠️ `contract` : empreinte du PROMPT de reformulation. Trois fois de suite, un
+// changement de comportement a été masqué par le cache — la réserve « à
+// vérifier », puis le cadrage du domaine, puis le refus HORS-SUJET : l'entrée
+// portait le bon extrait et un texte produit sous les ANCIENNES règles. Bumper
+// CORPUS_CACHE_VERSION à la main marche, mais suppose de ne jamais l'oublier.
+// En dérivant la clé du prompt lui-même, toute modification du contrat invalide
+// exactement ce qu'elle doit invalider, sans intervention — et deux cadrages
+// différents (Shabbat / nidah) ne partagent plus jamais une entrée.
+export function corpusCacheKey(text, { section = 'orach-chaim', lang = 'fr', contract = '' } = {}) {
   const norm = String(text || '')
     .toLowerCase()
     .normalize('NFD').replace(/[̀-ͯ]/g, '') // sans accents → meilleur hit rate
@@ -1114,7 +1122,8 @@ export function corpusCacheKey(text, { section = 'orach-chaim', lang = 'fr' } = 
     .replace(/\s+/g, ' ')
     .trim(); // en DERNIER : la ponctuation retirée peut laisser un espace final
   const fingerprint = createHash('sha1').update(norm).digest('hex').slice(0, 16);
-  return `corpus-cache:${CORPUS_CACHE_VERSION}:${section}:${lang}:${norm.slice(0, 80)}:${fingerprint}`;
+  const c = contract ? createHash('sha1').update(String(contract)).digest('hex').slice(0, 8) : 'x';
+  return `corpus-cache:${CORPUS_CACHE_VERSION}:${c}:${section}:${lang}:${norm.slice(0, 80)}:${fingerprint}`;
 }
 
 // ── PÉRIMÈTRE RÉEL DU CORPUS ────────────────────────────────────────────────
