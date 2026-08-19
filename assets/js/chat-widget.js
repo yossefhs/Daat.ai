@@ -1059,12 +1059,22 @@
       // Pas de badge sur les méta (Haiku/DeepSeek)
       if (r.ux_status === 'meta') return;
       let badge = null;
-      if (provider === 'corpus-haiku') {
-        // Réponse tirée directement du corpus du Rav — badge honnête (pas de l'Opus généré).
+      // ⚠️ Tester le PRÉFIXE, pas l'égalité : le serveur émet 'corpus-haiku'
+      // (reformulée), 'corpus-cache' (déjà reformulée, resservie) et 'corpus-raw'
+      // (extrait brut, aucun modèle appelé). Ne reconnaître que 'corpus-haiku'
+      // faisait retomber les deux autres sur la branche suivante — une réponse
+      // du corpus s'affichait alors « ✨ APERÇU OPUS ». C'est exactement le
+      // mauvais étiquetage déjà corrigé une fois (PR #161).
+      if (typeof provider === 'string' && provider.startsWith('corpus')) {
         badge = document.createElement('span');
         badge.className = 'daat-msg-badge is-corpus';
-        badge.textContent = '📚 CORPUS DU RAV';
-        badge.title = 'Réponse tirée directement du corpus écrit par le Rav';
+        if (provider === 'corpus-raw') {
+          badge.textContent = '📜 TEXTE DU RAV';
+          badge.title = "Extrait du corpus servi tel quel — aucune reformulation par l'IA";
+        } else {
+          badge.textContent = '📚 CORPUS DU RAV';
+          badge.title = 'Réponse tirée directement du corpus écrit par le Rav';
+        }
       } else if (r.is_aperçu) {
         badge = document.createElement('span');
         badge.className = 'daat-msg-badge is-aperçu';
@@ -1137,7 +1147,10 @@
         ghostLabel = null; // Pas d'échappatoire facile — l'utilisateur doit comprendre
       } else if (reason === 'limit') {
         // 429 — limite quotidienne ou mensuelle atteinte
-        const isMonthly = info && info.scope === 'monthly';
+        // 'monthly_ip' (plafond par adresse) est aussi une limite MENSUELLE : sans
+        // cette reconnaissance, l'interface retombait sur le message QUOTIDIEN
+        // (« reviens demain ») et le message serveur n'était jamais affiché.
+        const isMonthly = info && (info.scope === 'monthly' || info.scope === 'monthly_ip');
         const limit = info?.limit ?? '?';
         const plan = info?.plan || r.plan || 'free';
         const isGuest = info?.is_guest;
@@ -1408,7 +1421,7 @@
                 // Corpus-first ayant intercepté un Aperçu : aucune consommation
                 // côté serveur → on annule la fausse modale de transition et on
                 // restaure le compteur d'Aperçu client (sinon il « saute » à 0).
-                if (parsed.provider === 'corpus-haiku' && parsed.aperçu_intercepted) {
+                if (typeof parsed.provider === 'string' && parsed.provider.startsWith('corpus') && parsed.aperçu_intercepted) {
                   this.pendingTransitionModal = false;
                   if (typeof parsed.preview_remaining === 'number' && this.rateInfo) {
                     this.rateInfo.preview_remaining = parsed.preview_remaining;
