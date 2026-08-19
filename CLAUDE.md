@@ -26,9 +26,10 @@ Dans ce cas, **NE JAMAIS fabriquer de texte SA HaRav** (règle anti-fabrication 
 ```bash
 # Full build (run by Vercel as vercel-build, and locally before commit if you touched content or chat-widget.js)
 npm run build
-#   → generate-simanim-index.js : rebuilds data/simanim-disponibles.json from page <title>/<h1>
-#   → extract-corpus.js         : rebuilds data/corpus-shabbat.json (the BM25 corpus the chat searches)
-#   → build:js                  : terser-minifies assets/js/chat-widget.js → chat-widget.min.js
+#   → generate-simanim-index.js : régénère data/simanim-disponibles.json (titres) — FUSION,
+#                                 ne supprime jamais une entrée, couvre les 4 sections
+#   → extract-corpus.js         : régénère data/corpus-shabbat.json (le corpus BM25 du chat)
+#   → build:js                  : terser sur assets/js/chat-widget.js → chat-widget.min.js
 
 # Content state guard — MUST stay green (124/124 conformes). Exits non-zero on boilerplate / missing files / desynced TOC.
 python3 scripts/audit-simanim.py            # full report
@@ -110,6 +111,7 @@ Set in Vercel (never committed; `.env` is git-ignored). Core: `ANTHROPIC_API_KEY
 - **Citation convention**: quotation marks are reserved for **verbatim** text. A condensation of a seif is introduced by `<em>résumé</em> :` (`תמצית` / `summary`) and is not judged by `verifier-citations.py`. Anything inside quotes must exist word-for-word in the cited source or the gate fails. This is what makes the gate meaningful — before it, every Level 4 table cell wore quotation marks whether it quoted or paraphrased, and a fabricated citation looked exactly like its forty legitimate neighbours. An ellipsis inside quotes is still fine (`« A… B »` means A and B are each verbatim); each segment is checked separately.
 - **Trilingual parity**: a change is not done until FR, HE, and EN are updated consistently.
 - **Corpus is derived**: after editing siman HTML that should be searchable by the chat, rerun `npm run build` so `data/corpus-shabbat.json` and `data/simanim-disponibles.json` reflect it.
+- **`data/corpus-shabbat.json` n'est plus versionné** (34 Mio réécrits à chaque build, et GitHub refuse un fichier >100 Mio). Il est régénéré par `vercel-build` avant le bundling des fonctions et déclaré dans `vercel.json` (`includeFiles`). **Après un clone frais : lancer `npm run build` avant tout script local qui lit le corpus.**
 - **Don't hand-edit generated files**: `PROGRESS.md`, `data/simanim-disponibles*.json`, `data/corpus-shabbat.json`, `assets/js/chat-widget.min.js`, `sitemap.xml` are build outputs.
 - **Visual identity** (used throughout the inline CSS): Navy `#1A1F3A`, Or `#C5A55A`, Crème `#FAF6EE`; fonts Frank Ruhl Libre (Hebrew) + Cormorant Garamond.
 - **README.md is stale** (describes an old single-siman layout with different level names) — trust this file, `vercel.json`, and `scripts/README.md` instead.

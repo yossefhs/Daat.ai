@@ -927,7 +927,8 @@
   ],
   "functions": {
     "api/chat.js": {
-      "maxDuration": 300
+      "maxDuration": 300,
+      "includeFiles": "data/corpus-shabbat.json"
     },
     "api/conversations.js": {
       "maxDuration": 10
@@ -951,7 +952,8 @@
       "maxDuration": 10
     },
     "api/daily-pack.js": {
-      "maxDuration": 10
+      "maxDuration": 10,
+      "includeFiles": "data/corpus-shabbat.json"
     },
     "api/qonto-sync.js": {
       "maxDuration": 60
@@ -988,6 +990,9 @@
     },
     "api/social.js": {
       "maxDuration": 60
+    },
+    "api/chat-corpus.js": {
+      "includeFiles": "data/corpus-shabbat.json"
     }
   },
   "crons": [

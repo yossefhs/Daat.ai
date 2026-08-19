@@ -9,3 +9,9 @@ __pycache__/
 # artefacts de sondage des revues (ne jamais publier : le dépôt se déploie tel quel)
 api/_probe*.mjs
 node_modules
+
+# Sortie de build : 34 Mio réécrits à chaque déploiement, et GitHub REFUSE
+# un fichier de plus de 100 Mio. Régénéré par vercel-build avant le bundling
+# des fonctions ; déclaré dans vercel.json (includeFiles) pour ne pas dépendre
+# du traçage automatique. Après un clone frais : `npm run build`.
+data/corpus-shabbat.json
