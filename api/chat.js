@@ -859,6 +859,11 @@ export default async function handler(req, res) {
   // On ne reflète l'origine + Allow-Credentials que si elle est sur l'allow-list,
   // sinon un site tiers pourrait dépenser le quota d'un utilisateur connecté.
   let anyTextSent = false; // hissé hors du try : le catch en a besoin (repli corpus brut)
+  // Un outil a-t-il rendu, au cours de ce tour, un extrait que le Rav a écarté ?
+  // La règle du prompt système l'exige, mais MESURÉ trois fois : le modèle ne la
+  // relaie pas de façon fiable. Sur un contenu que le Rav a mis à distance, la
+  // mention ne peut pas dépendre d'un modèle — on l'écrit nous-mêmes en fin de flux.
+  let caveatSeen = false;
   const origin = req.headers.origin;
   if (isAllowedOrigin(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin);
@@ -1523,6 +1528,7 @@ export default async function handler(req, res) {
                 };
               }
               const result = await executor(tu.name, tu.input);
+              if (typeof result === 'string' && result.includes('"caveat":true')) caveatSeen = true;
               return { type: 'tool_result', tool_use_id: tu.id, content: result };
             } catch (err) {
               return {
@@ -1583,6 +1589,23 @@ export default async function handler(req, res) {
           ? '\n\n---\n_⚠️ Réponse tronquée par la limite de longueur — elle s\'arrête avant sa conclusion. Repose la question de façon plus ciblée pour obtenir la suite, et ne considère pas ce qui précède comme un raisonnement achevé._'
           : '⚠️ La réponse a été interrompue avant le premier mot. Repose ta question.',
       })}\n\n`);
+    }
+
+    // ⚠️ RÉSERVE DE L'AUTEUR — écrite par le SERVEUR. Le prompt système porte la
+    // règle au rang du psak, et le modèle la relaie souvent ; mais « souvent » ne
+    // suffit pas quand il s'agit de ne pas attribuer au Rav un passage qu'il a
+    // lui-même écarté. On l'ajoute donc systématiquement dès qu'un outil a rendu
+    // un extrait marqué, quelle que soit la façon dont le modèle a rédigé.
+    if (caveatSeen && anyTextSent) {
+      const lastQ = [...(req.body?.messages || [])].reverse()
+        .find((m) => m && m.role === 'user' && typeof m.content === 'string');
+      const lg = resolveLang(req.body?.lang, lastQ ? lastQ.content : '');
+      const NOTE = {
+        fr: "\n\n---\n_⚠️ Certains passages consultés pour cette réponse sont marqués par le Rav « hors corpus, à vérifier » — il les rapporte pour information et demande de les confirmer auprès d'un Rav avant toute application._",
+        he: "\n\n---\n_⚠️ חלק מן הקטעים ששימשו לתשובה זו מסומנים על ידי הרב « מחוץ לחומר, טעון בדיקה » — הוא מביאם לידיעה בלבד ומבקש לברר אצל רב לפני כל יישום למעשה._",
+        en: "\n\n---\n_⚠️ Some passages used for this answer are marked by the Rav as “outside the corpus, to be verified” — he reports them for information and asks that they be confirmed with a Rav before any practical application._",
+      }[lg] || null;
+      if (NOTE) res.write(`data: ${JSON.stringify({ type: 'text', delta: NOTE })}\n\n`);
     }
 
     // Envoyer le done final (côté UX, la conversation est terminée)
