@@ -550,6 +550,12 @@ STRUCTURE ATTENDUE :
 ${top.caveat ? `
 ⚠️ RÉSERVE DE L'AUTEUR : le Rav a lui-même marqué cet extrait « hors corpus, à vérifier ». L'avertissement a DÉJÀ été affiché au-dessus de ta réponse — ne le répète pas. Mais n'écris JAMAIS ce contenu comme s'il était tranché : pas de « c'est permis », pas de « d'après le corpus du Rav ». Formule au conditionnel et renvoie au Rav.
 ` : ''}
+⛔ AVANT TOUT — VÉRIFIE QUE L'EXTRAIT RÉPOND. Si l'extrait porte sur un AUTRE sujet
+que la question (ex. une question sur Pessah et un extrait sur le tri à Shabbat),
+réponds EXACTEMENT par le mot HORS-SUJET, seul, sans rien d'autre. Ne tente pas de
+raccrocher les deux : mieux vaut rendre la main que présenter un extrait d'un autre
+domaine comme la source du Rav. Tu n'es pénalisé d'aucune façon pour ce refus.
+
 RÈGLES STRICTES :
 - RESTE FIDÈLE à l'extrait. N'invente AUCUNE halakha qui n'y est pas explicitement.
 - Termine TOUJOURS ta réponse par la ligne source. Ne coupe jamais avant elle — elle est la signature du psak.
@@ -575,6 +581,8 @@ RÈGLES STRICTES :
   req.on('close', () => corpusAbort.abort());
 
   let corpusAnswer = '';
+  // Le modèle a jugé que l'extrait ne répond pas à la question.
+  let offTopic = false;
   let inTok = 0, outTok = 0;
   let corpusErrored = false;
   let corpusStopReason = null;
@@ -598,22 +606,59 @@ RÈGLES STRICTES :
     // c'est PERMIS » sans la réserve. Sur un contenu que le Rav a marqué « à
     // confirmer auprès d'un Rav », la mention ne peut pas dépendre d'un modèle :
     // on l'écrit nous-mêmes, avant le premier mot, dans la langue du lecteur.
-    if (top.caveat) {
-      const LC = (RAW_CORPUS_I18N[resolveLang(req?.body?.lang, lastUserText)] || RAW_CORPUS_I18N.fr).caveat;
-      ensureSse();
-      corpusAnswer += LC;
-      res.write(`data: ${JSON.stringify({ type: 'text', delta: LC })}\n\n`);
-    }
+    // ⚠️ Elle est PRÉPARÉE ici mais écrite seulement au premier vidage du tampon
+    // ci-dessous : si le modèle juge l'extrait hors-sujet, il ne faut pas avoir
+    // déjà entamé le flux avec un avertissement portant sur une réponse qui ne
+    // viendra pas.
+    const caveatPrefix = top.caveat
+      ? (RAW_CORPUS_I18N[resolveLang(req?.body?.lang, lastUserText)] || RAW_CORPUS_I18N.fr).caveat
+      : '';
 
+    // ── Tampon de décision ──────────────────────────────────────────────────
+    // Le modèle DÉTECTE le hors-sujet (mesuré en production : sur « kitniyot à
+    // Pessah » servi avec le siman 319, il a lui-même écrit que l'extrait « ne
+    // porte pas » sur la question) — mais on ne l'écoutait pas : la réponse
+    // partait quand même sous « Source : Siman 319 ». On retient donc les
+    // premiers caractères, le temps de lire son verdict, avant d'écrire quoi que
+    // ce soit au client. Rien n'est perdu : le tampon est vidé dès la décision.
+    let buffer = '';
+    let decided = false;
     for await (const event of stream) {
       if (event.type === 'content_block_delta' && event.delta?.type === 'text_delta') {
         const text = event.delta.text || '';
         if (text) {
+          if (!decided) {
+            buffer += text;
+            if (/HORS-SUJET/i.test(buffer)) { offTopic = true; break; }
+            // 24 caractères suffisent à voir le marqueur ; en deçà on attend.
+            if (buffer.length < 24) continue;
+            decided = true;
+            ensureSse();
+            const first = caveatPrefix + buffer;
+            corpusAnswer += first;
+            res.write(`data: ${JSON.stringify({ type: 'text', delta: first })}\n\n`);
+            buffer = '';
+            continue;
+          }
           if (!corpusAnswer) ensureSse();
           corpusAnswer += text;
           res.write(`data: ${JSON.stringify({ type: 'text', delta: text })}\n\n`);
         }
       }
+    }
+    // Réponse plus courte que le tampon : la vider avant de conclure.
+    if (!decided && !offTopic && buffer) {
+      decided = true;
+      ensureSse();
+      const first = caveatPrefix + buffer;
+      corpusAnswer += first;
+      res.write(`data: ${JSON.stringify({ type: 'text', delta: first })}\n\n`);
+      buffer = '';
+    }
+    if (offTopic) {
+      try { corpusAbort.abort(); } catch (_) { /* déjà terminé */ }
+      console.log(`[chat.js] corpus HORS-SUJET : siman-${top.siman} écarté pour « ${String(lastUserText).slice(0, 50)} »`);
+      return false;   // l'appelant reprend : chemin complet, ou paywall honnête
     }
     const final = await stream.finalMessage();
     if (final?.usage) {
@@ -708,7 +753,9 @@ RÈGLES STRICTES :
   // aucun autre recours (quota épuisé, budget Anthropic épuisé), on sert le texte
   // du Rav TEL QUEL, à coût nul : la promesse « le corpus du Rav reste consultable
   // sans limite » ne peut pas dépendre d'un appel payant. Sinon on rend la main.
-  if (allowRawFallback) return serveRawCorpus({ res, cs, ensureSse, doneExtra, userId, plan, question: lastUserText, lang: req?.body?.lang });
+  // ⚠️ Pas de repli brut si l'extrait a été jugé HORS-SUJET : servir tel quel un
+  // passage dont le modèle vient de dire qu'il ne répond pas serait pire encore.
+  if (allowRawFallback && !offTopic) return serveRawCorpus({ res, cs, ensureSse, doneExtra, userId, plan, question: lastUserText, lang: req?.body?.lang });
   return false;
 }
 
