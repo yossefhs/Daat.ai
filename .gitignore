@@ -5,3 +5,7 @@ node_modules/
 *.log
 __pycache__/
 *.pyc
+
+# artefacts de sondage des revues (ne jamais publier : le dépôt se déploie tel quel)
+api/_probe*.mjs
+node_modules
