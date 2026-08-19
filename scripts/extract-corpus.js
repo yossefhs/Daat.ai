@@ -334,8 +334,30 @@ function extractChunks(siman, html) {
     // pour le fragment dans lequel la phrase tombe.
     if (SECTION_CAVEAT_RE.test(htmlToText(sectionContent))) caveatSections.add(sectionIndex);
 
-    // Skip les sections bruyantes
-    if (/Plan de l'étude|Le texte du Choul'han Aroukh|Mishnah Berurah — premières entrées|Questions de compréhension/.test(sectionTitle)) {
+    // ── Sections « bruyantes » ────────────────────────────────────────────
+    // Elles contiennent le texte SOURCE brut (Choulhan Aroukh, Mishna Beroura),
+    // qu'on n'indexe pas : le corpus doit rendre ce que le Rav ÉCRIT, pas ce
+    // qu'il recopie. Mais on n'y saute plus le contenu RÉDIGÉ : le Rav y place
+    // désormais ses encadrés « Ce que dit ce séif » — la reformulation pratique
+    // de chaque séif. Cinq d'entre eux au siman 253, six au 291, et toute la
+    // série des lots 8 et 9, n'entraient PAS dans le corpus : ils étaient écrits
+    // dans la seule section que l'extracteur ignorait entièrement.
+    // On y garde donc les encadrés typés, et rien d'autre.
+    const sectionBruyante = /Plan de l'étude|Le texte du Choul'han Aroukh|Mishnah Berurah — premières entrées|Questions de compréhension/.test(sectionTitle);
+    if (sectionBruyante) {
+      let idx = 0;
+      for (const block of typedBlocks(sectionContent)) {
+        const text = htmlToText(block.html);
+        if (text.length < 40) continue;
+        idx++;
+        chunks.push({
+          id: `siman-${siman.num}-s${sectionIndex}-b${idx}`,
+          siman: siman.num,
+          sectionNum: sectionIndex,
+          sectionTitle, subsection: null,
+          text, type: block.type,
+        });
+      }
       continue;
     }
 
