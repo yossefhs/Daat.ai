@@ -523,19 +523,56 @@ def best_ratio(needle, haystack):
     n = len(needle)
     if n > len(haystack):
         return difflib.SequenceMatcher(None, needle, haystack).ratio(), haystack
-    best, at = 0.0, 0
     step = max(1, n // 6)
-    for i in range(0, len(haystack) - n + 1, step):
-        r = difflib.SequenceMatcher(None, needle, haystack[i:i + n]).quick_ratio()
-        if r > best:
-            best, at = r, i
-    # affine autour du meilleur point
-    lo, hi = max(0, at - step), min(len(haystack) - n, at + step)
-    for i in range(lo, hi + 1):
+    # `quick_ratio` compare des multi-ensembles de caractères : il ignore
+    # l'ordre. Sur de l'hébreu — vingt-deux lettres, distribution stable d'un
+    # texte à l'autre — deux passages sans rapport y atteignent couramment 0,80.
+    # S'en servir comme mesure finale faisait ressortir des « similarités » de
+    # 0,79 à 0,85 entre une citation et un folio qui ne la contient pas, avec
+    # pour « source » une suite de consonnes sans le moindre mot commun. Il ne
+    # sert donc qu'à présélectionner des positions ; la valeur rendue est
+    # toujours un ratio mesuré, qui tient compte de l'ordre.
+    grossier = sorted(
+        ((difflib.SequenceMatcher(None, needle, haystack[i:i + n]).quick_ratio(), i)
+         for i in range(0, len(haystack) - n + 1, step)),
+        reverse=True,
+    )[:8]
+    a_mesurer = set()
+    for _, i in grossier:
+        a_mesurer.update(range(max(0, i - step), min(len(haystack) - n, i + step) + 1))
+    best, at = 0.0, (grossier[0][1] if grossier else 0)
+    for i in sorted(a_mesurer):
         r = difflib.SequenceMatcher(None, needle, haystack[i:i + n]).ratio()
         if r > best:
             best, at = r, i
     return best, haystack[at:at + n]
+
+
+# Plus longue suite de mots communs en deçà de laquelle deux textes hébreux
+# n'ont rien à voir. Calibré sur les 123 signalements relus un à un par le Rav :
+# les 46 variantes qu'il a reconnues partagent 7 mots suivis en médiane, les
+# 68 faux positifs 1.
+MIN_MOTS_SUIVIS = 3
+
+
+def mots_he(s):
+    return [w for w in re.sub(r'[^\wא-ת\s]', ' ', s).split() if re.search(r'[א-ת]', w)]
+
+
+def suite_de_mots(frag, sources):
+    """Plus longue suite de mots communs entre la citation et ses sources.
+
+    Le ratio sur les consonnes ne peut pas, seul, décider : il garde un
+    plancher de bruit élevé, et son seuil avait été calibré sur des valeurs
+    surévaluées. Une suite de mots partagée, elle, ne se produit pas par
+    hasard — c'est la trace d'un même texte, à la variante d'édition près.
+    """
+    q = mots_he(frag)
+    s = mots_he(' '.join(sources))
+    if not q or not s:
+        return 0
+    blocs = difflib.SequenceMatcher(None, q, s, autojunk=False).get_matching_blocks()
+    return max((b.size for b in blocs), default=0)
 
 
 def verdict(frag, sources):
@@ -562,6 +599,14 @@ def verdict(frag, sources):
         return 'OK', lo, ''
     if lo >= SEUIL_VARIANTE:
         return 'VARIANTE', lo, worst_extract
+    # Sous le seuil, le ratio ne suffit pas à conclure à une absence : une
+    # citation abrégée, ou reprise d'une autre édition, fait chuter la
+    # similarité sur les consonnes tout en gardant des phrases entières en
+    # commun. « טעה בכל הברכות כולן אין מחזירין אותו » contre « …אין מעלין
+    # אותו » partage neuf mots suivis pour un ratio de 0,83 : c'est une
+    # variante d'édition, pas un texte introuvable.
+    if suite_de_mots(frag, sources) >= MIN_MOTS_SUIVIS:
+        return 'VARIANTE', lo, worst_extract
     return 'ABSENT', lo, worst_extract
 
 
@@ -575,6 +620,44 @@ def pages(base, langues):
             lang = 'he' if f.endswith('-he.html') else 'en' if f.endswith('-en.html') else 'fr'
             if lang in langues:
                 yield os.path.join(dirpath, f)
+
+
+# Une référence talmudique collée à la citation : la page la revendique.
+RE_REF_COLLEE = re.compile(
+    r"^[»\"'\s):.]{0,6}\((?:[^)]{0,30})"
+    r"(ברכות|שבת|מגילה|יבמות|פסחים|חולין|סוכה|ביצה|ר״ה|ראש השנה|בבא|יומא"
+    r"|תענית|כתובות|עירובין|מנחות|סנהדרין|נדרים|גיטין|קידושין|מועד קטן)"
+)
+
+
+def ref_collee(plain, at, n):
+    """La page place-t-elle une référence talmudique juste après la citation ?
+
+    C'est ce qui distingue « la page se trompe de source » — auquel cas
+    l'écart doit ressortir — de « la fenêtre a ramassé une référence voisine
+    qui portait sur autre chose », auquel cas il n'y a rien à signaler.
+    """
+    if at < 0:
+        return False
+    return bool(RE_REF_COLLEE.match(plain[at + n: at + n + 60]))
+
+
+def ref_du_siman(path):
+    """Référence Sefaria de l'ouvrage dont cette page est l'exposé.
+
+    Le niveau 4 expose le Choul'han Aroukh HaRav ; les autres, le Mehaber.
+    """
+    m = re.search(r"siman-(\d+)", path)
+    if not m:
+        return None
+    num = m.group(1)
+    if "/yoreh-deah/" in path.replace(os.sep, "/"):
+        section = "Yoreh_Deah"
+    else:
+        section = "Orach_Chayim"
+    if "niveau-4-daat-harav" in path:
+        return f"Shulchan_Arukh_HaRav,_{section}.{num}"
+    return f"Shulchan_Arukh,_{section}.{num}"
 
 
 def main():
@@ -611,6 +694,29 @@ def main():
                     cache_src[r] = fetch(r) or []
                 segs += cache_src[r]
             v, ratio, extract = verdict(frag, segs)
+
+            # Repli sur l'ouvrage dont la page EST l'exposé. Une page de siman
+            # cite d'abord son propre siman ; si la prose voisine mentionne au
+            # passage un folio de Guemara, la fenêtre le ramasse et la citation
+            # du Mehaber est déclarée absente d'un traité qu'elle n'a jamais
+            # revendiqué. Trente-huit REF_FAUSSE sur cinquante-six venaient de
+            # là, la référence talmudique portant sur une autre proposition de
+            # la même ligne.
+            #
+            # Le repli n'est tenté QUE si aucune référence talmudique ne colle
+            # à la citation : quand la page place elle-même « (ברכות כ״ב.) »
+            # juste après les guillemets, elle revendique ce folio, et l'écart
+            # doit ressortir — c'est le défaut relevé au siman 267.
+            if v == 'ABSENT' and not ref_collee(plain, at, len(frag)):
+                propre = ref_du_siman(path)
+                if propre and propre not in refs:
+                    if propre not in cache_src:
+                        cache_src[propre] = fetch(propre) or []
+                    if cache_src[propre]:
+                        v2, ratio2, extract2 = verdict(frag, cache_src[propre])
+                        if v2 in ('OK', 'VARIANTE'):
+                            v, ratio, extract = v2, ratio2, extract2
+                            refs = refs + [propre + ' (siman de la page)']
             ailleurs = ''
             if v == 'ABSENT':
                 juste = bien_attribuee(frag, window)
