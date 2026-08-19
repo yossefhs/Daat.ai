@@ -52,6 +52,30 @@ function loadDispoMap(file) {
 const DISPO_FR = loadDispoMap('simanim-disponibles.json');
 const DISPO_HE = loadDispoMap('simanim-disponibles-he.json');
 
+// ── RÉPERTOIRES SOURCES NON DÉCLARÉS ────────────────────────────────────────
+// Si le Rav ouvre un domaine dans un NOUVEAU répertoire (sources/pessah/…),
+// SECTIONS ne le connaît pas : rien n'entre dans le corpus, et le build annonce
+// « 359/359 simanim » en sortant au vert, comme si le répertoire n'existait pas.
+// Il pourrait écrire un traité entier sans que rien ne le lui dise. On compare
+// donc ce qui est SUR LE DISQUE à ce qui est DÉCLARÉ, et on crie.
+function unknownSourceDirs(declared) {
+  const base = path.join(ROOT, 'sources');
+  if (!fs.existsSync(base)) return [];
+  const known = new Set(declared.map((sec) => path.resolve(sec.dir)));
+  const out = [];
+  for (const d of fs.readdirSync(base, { withFileTypes: true })) {
+    if (!d.isDirectory()) continue;
+    const full = path.join(base, d.name);
+    if (known.has(path.resolve(full))) continue;
+    let simanim = 0;
+    try {
+      simanim = fs.readdirSync(full).filter((x) => /^siman-\d+$/.test(x)).length;
+    } catch { /* ignore */ }
+    if (simanim > 0) out.push({ dir: `sources/${d.name}`, simanim });
+  }
+  return out;
+}
+
 // Simanim indexés sans titre résolu : signalés en fin de build (voir plus bas).
 const MISSING_TITLES = [];
 
@@ -599,6 +623,15 @@ console.log(`  Chunks totaux       : ${allChunks.length}`);
 console.log(`  Taille JSON         : ${sizeKb} KB`);
 console.log(`  Par section         : ${Object.entries(stats.perSection).map(([k, v]) => `${k}=${v}`).join(', ')}`);
 console.log(`  Skipped (${stats.skipped.length})  : ${stats.skipped.map((s) => `${s.section || ''}#${s.num}`).slice(0, 5).join(',')}${stats.skipped.length > 5 ? '...' : ''}`);
+const UNKNOWN_DIRS = unknownSourceDirs(SECTIONS);
+if (UNKNOWN_DIRS.length) {
+  console.error(`\n⛔ ${UNKNOWN_DIRS.length} répertoire(s) source NON DÉCLARÉ(S) — leur contenu n'entre PAS dans le corpus :`);
+  UNKNOWN_DIRS.forEach((u) => console.error(`    ${u.dir}/ — ${u.simanim} siman(im) ignorés`));
+  console.error('    → déclarer le répertoire dans SECTIONS (scripts/extract-corpus.js) ET dans');
+  console.error('      scripts/generate-simanim-index.js, ajouter les rewrites dans vercel.json,');
+  console.error("      et vérifier que api/chat.js accepte l'identifiant de section correspondant.");
+  console.error('    Sans cela le chat ne verra jamais ce contenu, et rien ne le signalera.\n');
+}
 if (BRIDGE_SKIPPED.length) {
   console.log(`  Passerelles écartées : ${BRIDGE_SKIPPED.length} (${BRIDGE_SKIPPED.slice(0, 8).join(', ')}${BRIDGE_SKIPPED.length > 8 ? '…' : ''})`);
 }
