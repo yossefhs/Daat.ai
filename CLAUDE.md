@@ -57,6 +57,45 @@ node scripts/generate-siman.js --siman XXX [--force] [--no-sitemap]
 
 There is no test suite and no linter. Three complementary gates stand in for one: `scripts/audit-simanim.py` checks **structure** (boilerplate, missing files, desynced TOC), `scripts/verifier-citations.py` checks **content** (does each Hebrew quote actually exist at the reference it claims?), and `scripts/verifier-langues.py` checks **language** (is the body of `X-en.html` actually English — and is its `<title>`/`og:title`/`description`?). None subsumes the others — a page can be 174/174 conforme, carry no false citation, and still be a French page served under `lang="en"`, which is what four pages of simanim 304 and 322 were; 212 further pages had a correct body under a French head, which only the third scale of `verifier-langues.py` can see. Run all three before declaring content work done; the SessionStart hook (`.claude/hooks/session-start.sh`, remote-only) runs `npm install` then this audit at the start of every web session.
 
+## Ce que le corpus indexe — à lire avant d'écrire du contenu
+
+Deux chantiers avancent en parallèle sur ce dépôt : l'un **écrit le contenu**
+(encadrés « Ce que dit ce séif », vérification des citations, audit), l'autre
+**maintient la chaîne d'indexation** (extraction, recherche, API du chat). Ce qui
+suit est le contrat entre les deux : où écrire pour que le chat vous voie.
+
+**Un encadré n'est indexé que s'il est d'un type connu ET dans une section lue.**
+- Types indexés : `definition`, `remember`, `key-point`, plus les tableaux
+  « Cas pratiques modernes » (une ligne = un chunk).
+- Les encadrés du niveau Lamdan (`hakira-box`, `rishon-card`, `pilpul-box`,
+  `machloket-box`, `nafka-mina-box`, `yesod-box`, `teruts-box`, `kashya-box`)
+  ne sont **volontairement pas** indexés à part : mesuré sur un banc de 47
+  questions de niveau lamdan, les indexer n'apporte **aucun gain** et coûte
+  2 à 4 points sur les questions pratiques — leur texte est déjà présent, capté
+  par les chunks narratifs de la même page. Les indexer le fragmenterait en deux
+  chunks concurrents.
+- Les sections « Le texte du Choul'han Aroukh », « Mishnah Berurah — premières
+  entrées », « Plan de l'étude » et « Questions de compréhension » ne sont pas
+  indexées **en tant que texte** — c'est du source recopié. Mais les encadrés
+  RÉDIGÉS qu'on y place le sont : c'est là que vivent les « Ce que dit ce séif ».
+  (Ils ne l'étaient pas avant août 2026 : 158 encadrés des lots 7 à 9 étaient
+  écrits, publiés, et invisibles au chat.)
+
+**Le build vous avertit — lisez sa sortie.** `npm run build` signale désormais :
+un siman indexé sans titre, un fichier de niveau qui ne produit aucun chunk, un
+fichier dont l'extraction capte moins de la moitié du texte, et un répertoire de
+`sources/` non déclaré dans `SECTIONS` (dont le contenu n'entre dans rien).
+
+**`data/corpus-shabbat.json` n'est plus versionné** — c'est une sortie de build de
+34 Mio que GitHub refuserait au-delà de 100 Mio. Il est régénéré par
+`vercel-build` et déclaré dans `vercel.json` (`includeFiles`). Après un clone
+frais : `npm run build`. Cela supprime aussi le conflit récurrent entre branches
+sur ce fichier.
+
+**Le périmètre du corpus n'est plus écrit en dur** dans le prompt système : il est
+calculé depuis le corpus (`corpusPerimeter()`). Inutile de le mettre à jour à la
+main en ajoutant des simanim.
+
 ## Content model — the core of the repo
 
 `sources/shabbat/siman-242/` … `siman-365/` = **124 simanim** of Hilkhot Shabbat. Each siman directory holds an `index.html` plus up to **4 study levels**, and **every page exists in 3 languages**:
