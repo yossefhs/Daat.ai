@@ -229,6 +229,47 @@ function extractSynSection(siman, body) {
   return chunks;
 }
 
+// Encadrés typés (definition / remember / key-point), appariés par COMPTAGE DE
+// PROFONDEUR.
+// ⚠️ L'ancienne expression régulière exigeait, APRÈS le </div> fermant, un
+// élément d'une liste blanche (h2, p, table, autre encadré…). Trois situations
+// très courantes cassaient cet appariement :
+//   · l'encadré est le DERNIER de sa section (rien ne suit) ;
+//   · le Rav insère une bannière de commentaire `<!-- ===== 3. … ===== -->`
+//     entre deux sections, ce qui suffit à faire échouer le lookahead ;
+//   · un <div> non listé suit l'encadré.
+// Mesuré : 927 encadrés sur 4 332 (21 %) étaient perdus, et le texte de 725
+// d'entre eux n'existait NULLE PART dans le corpus — or ce sont précisément les
+// conclusions pratiques que le Rav écrit en fin de section (« Le pain reste
+// jusqu'à la bénédiction », « Balayer d'abord, à cause du kazayit »).
+// Le comptage de profondeur ferme exactement le bon </div>, y compris quand
+// l'encadré en contient d'autres, et ne dépend plus de ce qui suit.
+function typedBlocks(content) {
+  const out = [];
+  const openRe = /<div class="(definition|remember|key-point)"[^>]*>/g;
+  let m;
+  while ((m = openRe.exec(content)) !== null) {
+    const type = m[1];
+    const start = openRe.lastIndex;
+    const tagRe = /<div\b[^>]*>|<\/div\s*>/g;
+    tagRe.lastIndex = start;
+    let depth = 1;
+    let end = content.length;
+    let t;
+    while ((t = tagRe.exec(content)) !== null) {
+      if (t[0][1] === '/') {
+        depth -= 1;
+        if (depth === 0) { end = t.index; break; }
+      } else {
+        depth += 1;
+      }
+    }
+    out.push({ type, html: content.slice(start, end) });
+    openRe.lastIndex = end;
+  }
+  return out;
+}
+
 function extractChunks(siman, html) {
   const chunks = [];
   const caveatSections = new Set();
@@ -273,11 +314,9 @@ function extractChunks(siman, html) {
     }
 
     // Blocs définition/remember/key-point
-    const blockRe = /<div class="(definition|remember|key-point)"[^>]*>([\s\S]*?)<\/div>(?=\s*<(?:div class="(?:definition|remember|key-point|page-break)"|h\d|p\b|table\b|hr\b|\/section|\/body))/g;
-    let block;
     let blockIdx = 0;
-    while ((block = blockRe.exec(sectionContent)) !== null) {
-      const text = htmlToText(block[2]);
+    for (const block of typedBlocks(sectionContent)) {
+      const text = htmlToText(block.html);
       if (text.length < 40) continue;
       blockIdx++;
       chunks.push({
@@ -285,7 +324,7 @@ function extractChunks(siman, html) {
         siman: siman.num,
         sectionNum: sectionIndex,
         sectionTitle, subsection: null,
-        text, type: block[1],
+        text, type: block.type,
       });
     }
 
