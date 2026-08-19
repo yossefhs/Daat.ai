@@ -1117,6 +1117,61 @@ export function corpusCacheKey(text, { section = 'orach-chaim', lang = 'fr' } = 
   return `corpus-cache:${CORPUS_CACHE_VERSION}:${section}:${lang}:${norm.slice(0, 80)}:${fingerprint}`;
 }
 
+// ── PÉRIMÈTRE RÉEL DU CORPUS ────────────────────────────────────────────────
+// Calculé depuis le corpus lui-même, jamais écrit en dur. Le prompt système
+// annonçait « 241 simanim » et « Hilkhot Shabbat 242-365 + Yoreh De'ah » alors
+// que le corpus en contient 359 et couvre aussi tout Orah Haïm 1-185 : le modèle
+// croyait hors corpus 57 % de ce qu'il a sous la main, et y plafonnait sa
+// confiance à 75 %. Une valeur écrite en dur se périme à chaque siman ajouté —
+// c'est la même pathologie que le garde-fou fondé sur la fréquence des mots.
+const SECTION_LABELS = {
+  'orach-chaim': 'Orah Haïm',
+  'yoreh-deah': "Yoreh De'ah",
+};
+let _perimeter = null;
+export function corpusPerimeter() {
+  loadAndIndex();
+  if (_perimeter) return _perimeter;
+  // Plages contiguës de simanim, par section.
+  const bySection = new Map();
+  for (const c of _corpus.chunks) {
+    const sec = c.section || 'orach-chaim';
+    const n = Number(c.siman);
+    if (!Number.isFinite(n)) continue;
+    if (!bySection.has(sec)) bySection.set(sec, new Set());
+    bySection.get(sec).add(n);
+  }
+  const parts = [];
+  let totalSimanim = 0;
+  for (const [sec, set] of [...bySection.entries()].sort()) {
+    const nums = [...set].sort((a, b) => a - b);
+    totalSimanim += nums.length;
+    const ranges = [];
+    let start = nums[0];
+    let prev = nums[0];
+    for (const n of nums.slice(1)) {
+      if (n !== prev + 1) { ranges.push([start, prev]); start = n; }
+      prev = n;
+    }
+    ranges.push([start, prev]);
+    parts.push({
+      section: sec,
+      label: SECTION_LABELS[sec] || sec,
+      ranges,
+      text: ranges.map(([a, b]) => (a === b ? `${a}` : `${a}-${b}`)).join(', '),
+      count: nums.length,
+    });
+  }
+  _perimeter = {
+    totalSimanim,
+    totalChunks: _N,
+    sections: parts,
+    // Phrase prête à insérer dans le prompt système.
+    summary: parts.map((p) => `${p.label} ${p.text} (${p.count} simanim)`).join(' · '),
+  };
+  return _perimeter;
+}
+
 export function getCorpusStats() {
   loadAndIndex();
   return { totalChunks: _N, totalSimanim: _corpus?.meta?.totalSimanim || 0, avgdl: _avgdl };
