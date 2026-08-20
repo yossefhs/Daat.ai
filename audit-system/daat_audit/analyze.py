@@ -24,6 +24,7 @@ from sqlalchemy.orm import Session
 
 from .checks import Finding
 from .citations import finding_de, verifier_citation
+from .decisions import Registre, empreinte
 from .config import Settings, get_settings
 from .db import make_engine, make_session_factory
 from .models import (
@@ -141,6 +142,36 @@ def reference_implicite_du_siman(
     )
 
 
+def reference_de_la_page(page: Page | None) -> ParsedRef | None:
+    """L'ouvrage et le siman dont la page **est** l'exposé.
+
+    Distincte de ``reference_implicite_du_siman`` : celle-ci ne s'emploie qu'à
+    défaut de toute autre référence et exige un indice de Mehaber dans le
+    voisinage. Celle-là est offerte **en plus** des références du voisinage,
+    comme candidate supplémentaire.
+
+    La différence n'est pas de forme. Une page de niveau 4 expose le Choul'han
+    Aroukh HaRav et son Kountress Aharon ; ses blocs hébreux en proviennent. Si
+    la prose voisine mentionne au passage un folio de Guemara, ce folio devient
+    la seule référence essayée, et le texte de l'Admour HaZaken est déclaré
+    absent de Chabbat 26a — ce qu'il est, sans que cela dise rien de lui.
+    Vingt-quatre des soixante-huit faux positifs relus venaient de là.
+
+    L'ajout ne peut pas dégrader un verdict : ``verifier_citation`` retient la
+    référence la plus favorable, si bien qu'une candidate de plus ne fait que
+    donner une chance de retrouver le texte là où il est.
+    """
+    if page is None or page.siman is None:
+        return None
+    harav = (page.niveau or "") == "daat-harav"
+    return ParsedRef(
+        raw_text=f"siman {page.siman} (ouvrage de la page)",
+        work="Choulhan Aroukh HaRav" if harav else "Choulhan Aroukh",
+        section="Orach Chayim",
+        siman=str(page.siman), confidence=0.5,
+    )
+
+
 def refs_pour_citation(
     session: Session, bloc: ContentBlock, precedents: list[ContentBlock],
     page: Page | None = None,
@@ -164,6 +195,22 @@ def refs_pour_citation(
     signalement le mentionne et abaisse sa confiance en conséquence, car un
     rattachement de voisinage est une inférence, pas une lecture.
     """
+    # L'ouvrage de la page ne s'ajoute **que** lorsque le rattachement est déjà
+    # une inférence. Deux abstentions, et elles comptent l'une autant que
+    # l'autre :
+    #
+    #   · quand le bloc porte sa **propre** référence, l'ajouter offrirait au
+    #     moteur une échappatoire — la page annonce Berakhot 11b, le texte
+    #     vient en réalité du Choul'han Aroukh 267, et l'erreur de référence
+    #     passerait inaperçue faute d'écart. C'est exactement le défaut relevé
+    #     au siman 267 ; il doit continuer de ressortir ;
+    #   · quand **aucune** référence n'a été trouvée, supposer le siman
+    #     comparerait toute citation de Guemara au Choul'han Aroukh et la
+    #     déclarerait absente — le garde-fou de ``reference_implicite_du_siman``
+    #     existe pour cela et reste seul juge.
+    de_la_page = reference_de_la_page(page)
+    appoint = [de_la_page] if de_la_page is not None else []
+
     propres = _refs_du_bloc(session, bloc)
     if propres:
         return propres, False
@@ -180,7 +227,7 @@ def refs_pour_citation(
             break
         voisines = _refs_du_bloc(session, precedent)
         if voisines:
-            return voisines, True
+            return voisines + appoint, True
 
     if page is not None:
         implicite = reference_implicite_du_siman(page, bloc, precedents)
@@ -282,6 +329,12 @@ def run_analyse(
     trouves: list[Finding] = []
     examinees = 0
     deja_connus = 0
+    # Décisions de relecture déjà rendues. Un signalement tranché — variante
+    # acceptée, faux positif, erreur corrigée — ne doit pas revenir à chaque
+    # passe : le relecteur reverrait indéfiniment ce qu'il a déjà jugé. Les
+    # cas laissés au Rav, eux, restent produits : le registre ne les clôt pas.
+    registre = Registre.charger()
+    deja_juges = 0
     try:
         blocs = blocs_a_verifier(session, simanim, limit)
         # Les blocs précédents servent à retrouver la référence qui annonce une
@@ -322,6 +375,18 @@ def run_analyse(
                 if finding is None:
                     continue
 
+                # L'empreinte porte la page, la règle, le texte cité et la
+                # source mise en cause : la décision vaut pour ce passage-là.
+                # Le même texte ailleurs, ou confronté à une autre source, a
+                # une autre empreinte et reste examiné.
+                if registre.est_close(empreinte(
+                    siman=page_courante.siman, niveau=page_courante.niveau,
+                    regle=finding.rule_code, citation=citation.text,
+                    ref=resultat.ref.sefaria_ref() if resultat.ref else None,
+                )):
+                    deja_juges += 1
+                    continue
+
                 page_id = session.get(PageVersion, bloc.page_version_id).page_id
                 if _deja_signale(session, page_id, finding):
                     deja_connus += 1
@@ -358,13 +423,15 @@ def run_analyse(
             justification=(
                 f"{examinees} citation(s) examinée(s), {len(trouves)} nouveau(x) "
                 f"signalement(s), {deja_connus} déjà connu(s), "
+                f"{deja_juges} déjà tranché(s) par la relecture, "
                 f"cache {source.hits} hit / {source.misses} miss"
             ),
         ))
         session.commit()
 
-    logger.info("%s citations examinées, %s nouveaux signalements, %s déjà connus",
-                examinees, len(trouves), deja_connus)
+    logger.info("%s citations examinées, %s nouveaux signalements, %s déjà connus, "
+                "%s déjà tranchés par la relecture",
+                examinees, len(trouves), deja_connus, deja_juges)
     return trouves
 
 

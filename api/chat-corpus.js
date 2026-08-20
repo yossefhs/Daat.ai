@@ -148,7 +148,12 @@ export default async function handler(req, res) {
 
   // ── Anti-abus : limite par IP + globale (avant tout appel payant) ──
   if (await isRateLimited(getClientIp(req))) {
-    res.setHeader('Retry-After', '3600');
+    // Les compteurs sont JOURNALIERS (clé :YYYY-MM-DD) : annoncer une heure
+    // renvoyait l'utilisateur vers un nouveau 429. On indique le temps réel
+    // jusqu'à minuit UTC, borné à 60 s pour rester une valeur utile.
+    const _now = new Date();
+    const _minuit = Date.UTC(_now.getUTCFullYear(), _now.getUTCMonth(), _now.getUTCDate() + 1);
+    res.setHeader('Retry-After', String(Math.max(60, Math.ceil((_minuit - _now.getTime()) / 1000))));
     return res.status(429).json({ error: 'Trop de requêtes. Réessaie plus tard.' });
   }
 

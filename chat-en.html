@@ -1502,6 +1502,10 @@ function showLimitReachedModal(info) {
   const helloasso = info.helloasso_url || '/soutenir-en.html?from=chat';
   const isGuest = info.is_guest !== false;
   const limit = info.limit || (isGuest ? 3 : 15);
+  // 'monthly_ip': the CONNECTION is capped, not the person. Telling someone
+  // "you used your 3 questions" when their own counter is at zero is false —
+  // and baffling in a shared beit midrash.
+  const isIpLimit = info.scope === 'monthly_ip';
 
   const overlay = document.createElement('div');
   overlay.style.cssText = `
@@ -1522,7 +1526,9 @@ function showLimitReachedModal(info) {
       ${isGuest ? 'Continue your study with DAAT' : 'You have learned well today'}
     </h2>
     <p style="font-size:1.05rem;line-height:1.6;margin-bottom:22px;color:#3a2e1f;">
-      ${isGuest
+      ${isIpLimit
+        ? `Many questions have already been asked this month from your internet connection — it may be shared (a beit midrash, a family, a mobile network). Create a free account: your quota becomes personal and this cap no longer applies. The Rav's corpus remains available without limit.`
+        : isGuest
         ? `You have used your <strong>${limit} free questions</strong>. Daat AI uses Anthropic's Claude — each answer has a real cost for the association.`
         : `You have reached your limit of <strong>${limit} questions/day</strong>. Daat AI runs on donations — each conversation costs about €0.50 for the association.`}
     </p>

@@ -1544,7 +1544,8 @@ function showLimitReachedModal(info) {
   const isGuest = info.is_guest !== false;
   const limit = info.limit || (isGuest ? 2 : 5);
   const isAnthropicExhausted = info.scope === 'anthropic_quota';
-  const isMonthly = info.scope === 'monthly';
+  // 'monthly_ip' (plafond par adresse) est aussi une limite MENSUELLE.
+  const isMonthly = info.scope === 'monthly' || info.scope === 'monthly_ip';
 
   // ─────────────────────────────────────────────────────────────────────
   // CAS SPÉCIAL : quota Anthropic global épuisé — message fort

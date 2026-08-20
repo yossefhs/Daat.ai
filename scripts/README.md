@@ -153,6 +153,12 @@ Deux échelles, parce que le défaut se présente sous deux formes.
 
 Le seuil a été calibré à l'envers sur les versions d'avant correction, conservées par git : le contrôle devait retrouver les sept pages fautives connues, et n'en inventer aucune sur les autres.
 
+**L'entête** est la troisième échelle, et la plus discrète : le corps peut être irréprochable pendant que le `<title>`, l'`og:title` ou la `description` restent en français. Rien de cela ne se voit en lisant la page — c'est ce que lisent Google et les aperçus de partage. Le site en portait **212 pages** : 31 pages-pont dont la glose du sujet était restée française dans les trois langues (jusque dans le sous-titre visible du hero), 52 simanim de Yoreh De'ah dont le JSON-LD n'avait pas suivi la traduction des metas, 17 `og:title` « Siman כ״ג · Niveau 2 Lamdan », et une page hébraïque intitulée « Siman 178 · Niveau 4 — Daat HaRav (Admour HaZaken) ».
+
+Le test ne porte que dans un sens — du français vers une page `-he`/`-en` — et sur une liste courte de jetons confrontés au site entier. Les mots communs aux trois langues en sont écartés : `Siman`, `Sougya`, `Lamdan`, `pilpoul`, `Base`, `gradation`, `structure`. `pour` n'y figure que sous ses formes composées (`pour la/le/les`), parce que le verbe anglais *to pour* apparaît dans les pages sur la netilat yadayim — un premier jet le retenait et sortait des pages saines. La description de l'éditeur (« Plateforme d'étude du Choulhan Aroukh… »), volontairement française dans les 5 397 pages, est ignorée. Validé des deux côtés comme les autres échelles : **212 pages avant correction, 0 après**.
+
+Un premier prototype cherchait plus simplement « un `<title>` de page `-he` sans lettre hébraïque » : il sortait 300 pages, parce qu'une page française porte légitimement le nom hébreu du siman. Resserré au bon sens de lecture, il en sortait exactement une — le siman 178. La liste de jetons est ce que devient cette règle une fois généralisée.
+
 ## verifier-traductions.py
 
 Repère les traductions **tronquées** — l'hébreu est intact, le français s'arrête en chemin.

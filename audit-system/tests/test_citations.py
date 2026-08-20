@@ -7,7 +7,13 @@ Réseau entièrement simulé : le fournisseur Sefaria est exercé par
 import httpx
 import pytest
 
-from daat_audit.citations import BENINS, finding_de, verifier_citation
+from daat_audit.citations import (
+    BENINS,
+    NEEDS_SOURCE_VERIFICATION,
+    REFERENCE_ERROR,
+    finding_de,
+    verifier_citation,
+)
 from daat_audit.hebrew import Verdict
 from daat_audit.models import Risk, Severity
 from daat_audit.quotes import Quote, extract_quotes
@@ -306,14 +312,25 @@ def test_une_reference_fausse_nest_pas_classee_critique():
 
 
 def test_une_reference_inferee_ne_fonde_pas_un_signalement_critique():
+    """Référence lue dans le bloc : le signalement est critique. Référence
+    seulement inférée du voisinage, et pas un mot suivi en commun : le
+    rattachement est lui-même en cause, et le signalement dit cela — sans
+    disparaître, car une citation fabriquée se présente à l'identique."""
     provider = LocalProvider({"Berakhot.34a": BERAKHOT_34A})
     resultat = verifier_citation(
         quote("דבר שלא נאמר מעולם בשום מקום ואין לו שום מקור כלל"),
         [ref_berakhot()], provider,
     )
     assert finding_de(resultat, "B1").severity is Severity.P0_CRITICAL
+
     par_voisinage = finding_de(resultat, "B1", par_voisinage=True)
-    assert par_voisinage.severity is Severity.P1_MAJOR
+    assert par_voisinage is not None, "un signalement reste dû : rien n'est masqué"
+    assert par_voisinage.subcategory == NEEDS_SOURCE_VERIFICATION
+    assert par_voisinage.severity is not Severity.P0_CRITICAL
+    assert par_voisinage.confidence <= 0.3
+    # Le texte de la page n'est pas mis en cause : seule la source manque.
+    assert "source non établie" in par_voisinage.explanation
+    assert "fabriqu" not in par_voisinage.explanation.lower()
 
 
 # ── Comparaison par sous-section, et recherche avant de conclure ─────────
@@ -382,16 +399,20 @@ def test_le_texte_retrouve_ailleurs_est_categorise_comme_reference_erronee():
         quote("כל המענג את השבת נותנין לו נחלה בלי מצרים"), [ref_berakhot()], provider
     )
     finding = finding_de(resultat, "B1")
-    assert finding.subcategory == "reference_erronee"
+    assert finding.subcategory == REFERENCE_ERROR
     assert finding.severity is Severity.P2_SIGNIFICANT
 
 
-def test_une_citation_introuvable_partout_garde_son_verdict():
+def test_une_citation_introuvable_partout_reste_a_verifier_jamais_fabriquee():
+    """Introuvable ne veut pas dire inventé. Une base peut être incomplète, un
+    ouvrage absent, une édition différente ; le verdict automatique ne peut donc
+    pas conclure. La gravité reste entière — c'est le mot qui change."""
     provider = LocalProvider({"Berakhot.34a": BERAKHOT_34A})
     resultat = verifier_citation(
         quote("דבר שלא נאמר מעולם בשום מקום ואין לו שום מקור כלל"),
         [ref_berakhot()], provider,
     )
     finding = finding_de(resultat, "B1")
-    assert finding.subcategory == "difference_substantielle"
+    assert finding.subcategory == NEEDS_SOURCE_VERIFICATION
     assert finding.severity is Severity.P0_CRITICAL
+    assert "fabriqu" not in finding.explanation.lower()

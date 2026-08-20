@@ -39,6 +39,21 @@ de la langue étrangère et **aucun** de la langue attendue est un bloc non
 traduit. Le seuil est calibré sur la distribution réelle du site : à 4, les
 5 037 pages saines n'en produisent aucun.
 
+Troisième échelle : l'entête
+---------------------------
+Le corps peut être irréprochable et l'entête ne pas l'être. C'est ce que lisent
+Google et les aperçus de partage, et le contrôle du corps ne le voit pas : 190
+pages avaient un ``<title>``, un ``og:title`` ou une ``description`` restés en
+français sous un ``lang="he"`` ou ``lang="en"`` — jusqu'à une page hébraïque
+intitulée « Siman 178 · Niveau 4 — Daat HaRav (Admour HaZaken) ».
+
+Le test ne porte que sur le sens français → page ``-he``/``-en``, et sur une
+liste courte de jetons dont on a vérifié qu'ils n'apparaissent ni en anglais ni
+dans une translittération hébraïque. « Sougya », « Lamdan », « pilpoul »,
+« gradation », « Base » en sont écartés pour cette raison : ce sont des mots des
+trois langues. La description de l'éditeur (« Plateforme d'étude du Choulhan
+Aroukh… »), volontairement française dans les trois versions, est ignorée.
+
     python3 scripts/verifier-langues.py [--path sources] [--lignes]
 
 ``--lignes`` liste, pour chaque page fautive, les lignes concernées : c'est la
@@ -103,24 +118,24 @@ def _neutraliser(html: str) -> str:
     return RE_LIEN_EXTERNE.sub(_blanc, RE_TETE.sub(_blanc, html))
 
 
-def _sans_balises(html: str) -> list[str]:
-    """Lignes du document, balises retirées.
+def _sans_balises(html: str) -> tuple[list[str], int]:
+    """Lignes du document sans balises, et l'indice de la première du corps.
 
-    Le retrait doit se faire **avant** la découpe en lignes : une balise qui
-    s'étend sur plusieurs lignes — c'est le cas du champ de recherche des pages
-    d'index — laisserait sinon ses attributs (``data-i18n-placeholder="…"``)
-    dans le texte, et un attribut latin passerait pour un bloc non traduit.
+    Le retrait des balises doit se faire **avant** la découpe en lignes : une
+    balise qui s'étend sur plusieurs lignes — c'est le cas du champ de recherche
+    des pages d'index — laisserait sinon ses attributs
+    (``data-i18n-placeholder="…"``) dans le texte, et un attribut latin
+    passerait pour un bloc non traduit.
+
+    Mais ce retrait efface aussi ``</head>``, et la frontière du corps devient
+    introuvable *après* coup : le contrôle repartait alors de la ligne 1 et
+    lisait l'entête. On calcule donc la frontière sur le texte **avant**
+    suppression des balises, et on la rend avec les lignes.
     """
-    return RE_BALISE.sub(_blanc, _neutraliser(html)).split("\n")
-
-
-def _debut(lignes: list[str]) -> int:
-    """Première ligne du corps : l'entête porte titre et description SEO, qui
-    peuvent légitimement rester dans une autre langue."""
-    for i, l in enumerate(lignes):
-        if "</head>" in l:
-            return i
-    return 0
+    neutre = _neutraliser(html)
+    lignes_brutes = neutre.split("\n")
+    debut = next((i for i, l in enumerate(lignes_brutes) if "</head>" in l), 0)
+    return RE_BALISE.sub(_blanc, neutre).split("\n"), debut
 
 
 def corps(chemin: pathlib.Path) -> str:
@@ -163,8 +178,8 @@ def lignes_fautives(chemin: pathlib.Path, intruse: str, seuil: int = 2) -> list[
     # les trois langues dans **chaque** page : les compter donnerait un faux
     # positif sur tous les index. On neutralise donc scripts et styles avant le
     # balayage, en préservant la numérotation des lignes.
-    lignes = _sans_balises(chemin.read_text(encoding="utf-8"))
-    for i, nu in enumerate(lignes[_debut(lignes):], _debut(lignes) + 1):
+    lignes, debut = _sans_balises(chemin.read_text(encoding="utf-8"))
+    for i, nu in enumerate(lignes[debut:], debut + 1):
         if len(etrangere.findall(nu)) >= seuil and not attendue.search(nu):
             out.append((i, re.sub(r"\s+", " ", nu).strip()[:150]))
     return out
@@ -179,8 +194,8 @@ def blocs_latins(chemin: pathlib.Path) -> list[tuple[int, str]]:
     en français.
     """
     out = []
-    lignes = _sans_balises(chemin.read_text(encoding="utf-8"))
-    for i, nu in enumerate(lignes[_debut(lignes):], _debut(lignes) + 1):
+    lignes, debut = _sans_balises(chemin.read_text(encoding="utf-8"))
+    for i, nu in enumerate(lignes[debut:], debut + 1):
         lat, he = len(LAT.findall(nu)), len(HE.findall(nu))
         if lat >= BLOC_LATIN and lat > 3 * he:
             out.append((i, re.sub(r"\s+", " ", nu).strip()[:150]))
@@ -194,6 +209,53 @@ def blocs_non_traduits(chemin: pathlib.Path) -> list[tuple[int, str]]:
         return blocs_latins(chemin)
     intruse = "fr" if attendue == "en" else "en"
     return lignes_fautives(chemin, intruse, seuil=BLOC_MINIMUM)
+
+
+# ── Entête ──────────────────────────────────────────────────────────────────
+# Champs examinés : le titre, les métadonnées sociales, et les deux champs
+# textuels du JSON-LD. Le reste du JSON-LD (URL, dates, types) n'a pas de langue.
+CHAMPS_TETE = (
+    ("<title>", re.compile(r"<title>(.*?)</title>", re.S)),
+    ("og:title", re.compile(r'<meta property="og:title" content="(.*?)"')),
+    ("twitter:title", re.compile(r'<meta name="twitter:title" content="(.*?)"')),
+    ("description", re.compile(r'<meta name="description" content="(.*?)"')),
+    ("og:description", re.compile(r'<meta property="og:description" content="(.*?)"')),
+    ("twitter:description", re.compile(r'<meta name="twitter:description" content="(.*?)"')),
+    ("json-ld headline", re.compile(r'"headline": "(.*?)"')),
+    ("json-ld description", re.compile(r'"description": "(.*?)"')),
+)
+
+# Jetons français sans ambiguïté. Chacun a été confronté au site entier : aucun
+# n'apparaît dans une page saine. Les mots communs aux trois langues — Siman,
+# Sougya, Lamdan, pilpoul, Base, gradation, structure — n'y figurent pas, et
+# « pour » y figure sous ses seules formes composées, « pour la/le/les », parce
+# que le verbe anglais « to pour » apparaît dans les pages sur la netilat yadayim.
+TETE_FR = re.compile(
+    r"\b(?:Niveau|Récapitulatif|Synthèse|structuré|mémorisation|révision|français|française"
+    r"|approfondi|approfondie|approfondies|Texte hébreu|page-passerelle|Chitah"
+    r"|pour la|pour le|pour les|sur la|sur le|sur les|dans la|dans le|de la |des "
+    r"|ne pas |les lois|la loi |celui qui|au Siman|du Siman|selon le|selon la"
+    r"|une vraie|le statut|la nature|hiérarchie|débat|opposée|caractère|préparatifs)\b")
+
+# La description de l'éditeur est la même chaîne française dans les 5 397 pages,
+# hébraïques et anglaises comprises : c'est une constante du site, pas un oubli
+# de traduction. On la reconnaît à son début.
+EDITEUR = "Plateforme d"
+
+
+def tete_fautive(chemin: pathlib.Path) -> list[tuple[str, str]]:
+    """Champs d'entête rédigés en français sur une page ``-he`` ou ``-en``."""
+    if langue_attendue(chemin) == "fr":
+        return []
+    html = chemin.read_text(encoding="utf-8")
+    out = []
+    for nom, rx in CHAMPS_TETE:
+        for m in rx.finditer(html):
+            valeur = m.group(1).strip()
+            if valeur.startswith(EDITEUR) or not TETE_FR.search(valeur):
+                continue
+            out.append((nom, re.sub(r"\s+", " ", valeur)[:150]))
+    return out
 
 
 def relatif(p: pathlib.Path) -> str:
@@ -212,8 +274,11 @@ def main() -> int:
 
     base = (RACINE / args.path) if not pathlib.Path(args.path).is_absolute() else pathlib.Path(args.path)
     pages = sorted(base.rglob("*.html"))
-    fautives, partielles = [], []
+    fautives, partielles, entetes = [], [], []
     for p in pages:
+        champs = tete_fautive(p)
+        if champs:
+            entetes.append((p, champs))
         verdict = examiner(p)
         if verdict:
             fautives.append((p, *verdict))
@@ -234,10 +299,17 @@ def main() -> int:
             for n, txt in blocs:
                 print(f"     {n}: {txt}")
 
+    for p, champs in entetes:
+        print(f"⚠ {relatif(p)} — {len(champs)} champ(s) d'entête en français")
+        if args.lignes:
+            for nom, valeur in champs:
+                print(f"     [{nom}] {valeur}")
+
     print(f"\n{len(pages)} page(s) examinée(s) dans {relatif(base)}")
     print(f"→ {len(fautives)} page(s) entièrement dans la mauvaise langue")
     print(f"→ {len(partielles)} page(s) avec des blocs non traduits")
-    return 1 if (fautives or partielles) else 0
+    print(f"→ {len(entetes)} page(s) dont l'entête est dans la mauvaise langue")
+    return 1 if (fautives or partielles or entetes) else 0
 
 
 if __name__ == "__main__":
