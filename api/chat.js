@@ -465,9 +465,11 @@ ${top.caveat ? `
 ` : ''}
 ⛔ AVANT TOUT — VÉRIFIE QUE L'EXTRAIT RÉPOND. Si l'extrait porte sur un AUTRE sujet
 que la question (ex. une question sur Pessah et un extrait sur le tri à Shabbat),
-réponds EXACTEMENT par le mot HORS-SUJET, seul, sans rien d'autre. Ne tente pas de
-raccrocher les deux : mieux vaut rendre la main que présenter un extrait d'un autre
-domaine comme la source du Rav. Tu n'es pénalisé d'aucune façon pour ce refus.
+réponds EXACTEMENT par HORS-SUJET, en PREMIER et sans rien avant — pas de titre,
+pas de salutation, pas de ponctuation. Écris ce mot-là quelle que soit la langue de
+la question. Ne tente pas de raccrocher les deux : mieux vaut rendre la main que
+présenter un extrait d'un autre domaine comme la source du Rav. Tu n'es pénalisé
+d'aucune façon pour ce refus.
 
 RÈGLES STRICTES :
 - RESTE FIDÈLE à l'extrait. N'invente AUCUNE halakha qui n'y est pas explicitement.
@@ -635,7 +637,13 @@ RÈGLES STRICTES :
         if (text) {
           if (!decided) {
             buffer += text;
-            if (/HORS-SUJET/i.test(buffer)) { offTopic = true; break; }
+            // ⚠️ ANCRÉ EN TÊTE, et tolérant aux variantes de langue : le modèle
+            // répond parfois « OFF-TOPIC » ou « מחוץ לנושא » quand la question
+            // est en anglais ou en hébreu — chat-he.html et chat-en.html postent
+            // sur cette même API. Et le test doit être ancré : non ancré, une
+            // réponse LÉGITIME citant la consigne (« je ne suis pas hors-sujet
+            // car… ») était refusée à tort.
+            if (/^\s*(?:HORS[-\s]?SUJET|OFF[-\s]?TOPIC|\u05de\u05d7\u05d5\u05e5 \u05dc\u05e0\u05d5\u05e9\u05d0)/i.test(buffer)) { offTopic = true; break; }
             // 24 caractères suffisent à voir le marqueur ; en deçà on attend.
             if (buffer.length < 24) continue;
             decided = true;

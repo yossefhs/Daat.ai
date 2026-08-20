@@ -305,7 +305,12 @@ function typedBlocks(content) {
         depth += 1;
       }
     }
-    out.push({ type, html: content.slice(start, end) });
+    out.push({
+      type,
+      html: content.slice(start, end),
+      outerStart: m.index,
+      outerEnd: tagRe.lastIndex > end ? tagRe.lastIndex : end,
+    });
     openRe.lastIndex = end;
   }
   return out;
@@ -383,10 +388,12 @@ function extractChunks(siman, html) {
 
     // Blocs définition/remember/key-point
     let blockIdx = 0;
+    const indexedBlocks = [];
     for (const block of typedBlocks(sectionContent)) {
       const text = htmlToText(block.html);
       if (text.length < 40) continue;
       blockIdx++;
+      indexedBlocks.push(block);
       chunks.push({
         id: `siman-${siman.num}-s${sectionIndex}-b${blockIdx}`,
         siman: siman.num,
@@ -422,8 +429,26 @@ function extractChunks(siman, html) {
     // par un extrait de TSITSIT sous « Source : Siman 20 ». Le défaut était
     // invisible : la page produisait 18 chunks, donc aucun avertissement.
     // Mesuré au build : 467 fichiers captaient moins de la moitié de leur texte.
-    if (blockIdx === 0 && h3Count === 0 && !TOC_RE.test(sectionTitle.trim())) {
-      const text = htmlToText(sectionContent).trim();
+    // ⚠️ La condition NE PEUT PAS être `blockIdx === 0`. C'était le cas avant, et
+    // cela tenait par accident : l'ancienne expression n'appariait pas un encadré
+    // placé en DERNIER dans sa section, donc le filet se déclenchait et indexait
+    // tout le corps. Depuis que typedBlocks() apparie correctement, ce même
+    // encadré désarmait le filet — et le tableau ou les paragraphes qui le
+    // précèdent sortaient du corpus. Mesuré : 109 chunks dont le texte
+    // n'existait plus nulle part, ~31 800 caractères, dont « La position du
+    // Rama » (13 320 c.) et « Cas pratiques ». Et le défaut s'aggravait à chaque
+    // encadré ajouté par le chantier de contenu : un « Ce que dit ce séif » posé
+    // en fin de section faisait tomber les 4 gloses du Rama hors du corpus.
+    // On indexe donc le CORPS de la section moins ce qui en est déjà sorti.
+    if (h3Count === 0 && !TOC_RE.test(sectionTitle.trim())) {
+      let rest = '';
+      let cursor = 0;
+      for (const b of indexedBlocks) {
+        rest += sectionContent.slice(cursor, b.outerStart);
+        cursor = b.outerEnd;
+      }
+      rest += sectionContent.slice(cursor);
+      const text = htmlToText(rest).trim();
       if (text.length >= 60 && !TOC_RE.test(text)) {
         const parts = text.length <= 900 ? [text] : text.match(/[\s\S]{1,900}(?:\.|$)/g) || [text];
         parts.forEach((pp) => {

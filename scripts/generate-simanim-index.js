@@ -61,8 +61,24 @@ function levelsLabel(levels) {
 }
 
 // Index des entrées existantes, par section:num — rien n'est jamais perdu.
+// ⚠️ Un catalogue ILLISIBLE (marqueurs de conflit, fichier tronqué, JSON
+// invalide) ne doit JAMAIS faire repartir de zéro en silence : ce script
+// FUSIONNE, et repartir de zéro détruirait les 241 titres hébreux et les 241
+// titres anglais, et remplacerait les titres rédigés par le <h1> des pages.
+// On ne tolère l'absence que si le fichier n'existe pas du tout (premier passage).
 let previous = { simanim: [] };
-try { previous = JSON.parse(fs.readFileSync(OUTPUT, 'utf8')); } catch { /* premier passage */ }
+if (fs.existsSync(OUTPUT)) {
+  try {
+    previous = JSON.parse(fs.readFileSync(OUTPUT, 'utf8'));
+    if (!Array.isArray(previous.simanim)) throw new Error('champ `simanim` absent ou non-tableau');
+  } catch (err) {
+    console.error(`\n⛔ ${OUTPUT} est illisible : ${err.message}`);
+    console.error('   Ce script FUSIONNE : repartir de zéro détruirait les titres hébreux,');
+    console.error('   anglais et rédigés de 359 simanim. Rien n\'a été écrit.');
+    console.error('   → réparer le fichier (conflit de fusion ?) puis relancer le build.\n');
+    process.exit(1);
+  }
+}
 const kept = new Map();
 for (const s of previous.simanim || []) kept.set(`${s.section || 'shabbat'}:${s.num}`, { ...s });
 
@@ -86,7 +102,20 @@ for (const section of SECTIONS) {
 
     const sec = section.sectionFor(num);
     const key = `${sec}:${num}`;
-    const existing = kept.get(key);
+    let existing = kept.get(key);
+    // Le même siman peut avoir été catalogué sous une AUTRE section (règle de
+    // découpage changée, saisie à la main). Sans ce rattrapage, on créerait un
+    // doublon silencieux : deux entrées, même numéro, même chemin physique.
+    if (!existing) {
+      for (const [k, v] of kept) {
+        if (v.num === num && v.path === `${section.rel}/${dirName}/index.html`) {
+          existing = v;
+          kept.delete(k);
+          console.warn(`[warn] ${k} recatalogué en ${key} (même chemin sur disque)`);
+          break;
+        }
+      }
+    }
     const extracted = extractTitle(indexPath);
     const levels = detectLevels(dir);
 
@@ -136,6 +165,9 @@ function countsOf(list) {
     partiel: list.filter((s) => String(s.status).startsWith('partiel')).length,
   };
 }
+const aujourdhui = new Date().toISOString().slice(0, 10);
+const memeContenu = JSON.stringify((previous.simanim || [])) === JSON.stringify(simanim);
+
 const counts = countsOf(simanim);
 // ⚠️ meta.bySection est lu par les TROIS pages d'accueil (index.html, -he, -en)
 // pour afficher « N simanim disponibles » par section. Sans lui, elles retombent
@@ -151,7 +183,12 @@ fs.writeFileSync(OUTPUT, JSON.stringify({
   meta: {
     version: '3.0',
     description: 'Index des simanim présents sur disque. Régénéré au build par scripts/generate-simanim-index.js — FUSION : ce script ne supprime jamais une entrée et ne remplace jamais un titre écrit à la main.',
-    lastUpdated: new Date().toISOString().slice(0, 10),
+    // ⚠️ La date n'est réécrite QUE si le contenu a bougé. Sur un fichier
+    // VERSIONNÉ, un horodatage inconditionnel fait qu'un simple `npm run build`
+    // un autre jour produit un diff — et deux branches qui ont seulement
+    // construit entrent en conflit. C'est le défaut que l'autre session venait
+    // de corriger sur le corpus ; ne pas le réintroduire ici.
+    lastUpdated: memeContenu ? (previous.meta && previous.meta.lastUpdated) || aujourdhui : aujourdhui,
     counts,
     bySection: bySectionMeta,
   },

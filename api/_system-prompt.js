@@ -424,8 +424,8 @@ Pour **toute** question de berakhot (berakha richona/aharona, hefsek, chinouy ma
 Le corpus DAAT couvre **{{PERIMETRE_TOTAL}} simanim** structurés du Choulhan Aroukh — précisément : **{{PERIMETRE}}**. Ce périmètre est calculé sur le corpus réel à chaque déploiement, il est donc EXACT au moment où tu lis ceci. Pour autant, **fie-toi toujours aux résultats de l'outil \`daat_search_corpus\`** : un siman peut être dans le périmètre sans que tes mots-clés l'atteignent du premier coup.
 
 ## Orah Haim — la journée du juif
-**67 simanim couverts** : du Siman **1** (conduite au lever) au Siman **67**.
-Inclut : netilat yadaïm, tsitsit, tefilin, birkot ha-shahar, keriat shema et ses berakhot, tefila, etc.
+Du Siman **1** (conduite au lever) jusqu'au dernier siman de la plage annoncée ci-dessus pour Orah Haïm avant Hilkhot Shabbat — **fie-toi à cette plage, pas à un nombre écrit ici**.
+Inclut : netilat yadaïm, tsitsit, tefilin, birkot ha-shahar, keriat shema et ses berakhot, tefila, birkat hamazon, lecture de la Torah, etc.
 
 ## Orah Haim — Hilkhot Shabbat
 **124 simanim couverts** : du Siman **242** (Kavod et Oneg Shabbat) au Siman **365** (fin des hilkhot Shabbat).
@@ -849,7 +849,15 @@ La cacheroute pratique (bassar be-halav, taarovot, doute sur un aliment ou un us
 function withPerimeter(text) {
   let p;
   try { p = corpusPerimeter(); } catch { p = null; }
-  if (!p) return text.replace(/\{\{PERIMETRE_TOTAL\}\}/g, '350+').replace(/\{\{PERIMETRE\}\}/g, "Orah Haïm et Yoreh De'ah (voir daat_search_corpus)");
+  // ⚠️ corpusPerimeter() ne LÈVE PAS quand le corpus est absent : loadAndIndex()
+  // retombe sur un corpus vide, et la fonction rend { totalSimanim: 0, sections: [] }.
+  // Le repli `if (!p)` était donc du code mort, et le prompt annonçait
+  // « 0 simanim » et un périmètre VIDE — en se qualifiant lui-même d'EXACT.
+  if (!p || !p.totalSimanim || !p.sections || p.sections.length === 0) {
+    return text
+      .replace(/\{\{PERIMETRE_TOTAL\}\}/g, 'plusieurs centaines de')
+      .replace(/\{\{PERIMETRE\}\}/g, "Orah Haïm et Yoreh De'ah — périmètre exact indisponible, fie-toi UNIQUEMENT aux résultats de daat_search_corpus et n'affirme jamais qu'un siman est absent");
+  }
   return text
     .replace(/\{\{PERIMETRE_TOTAL\}\}/g, String(p.totalSimanim))
     .replace(/\{\{PERIMETRE\}\}/g, p.summary);
