@@ -724,6 +724,51 @@
   ],
   "redirects": [
     {
+      "source": "/aujourdhui",
+      "destination": "/limoud/",
+      "permanent": false
+    },
+    {
+      "source": "/aujourdhui/he",
+      "destination": "/limoud/index-he.html",
+      "permanent": false
+    },
+    {
+      "source": "/aujourdhui/en",
+      "destination": "/limoud/index-en.html",
+      "permanent": false
+    },
+    {
+      "source": "/sources/yoreh-deah/siman-:n(\\d+)/index.html",
+      "destination": "/yd/:n/",
+      "permanent": true
+    },
+    {
+      "source": "/sources/yoreh-deah/siman-:n(\\d+)",
+      "destination": "/yd/:n/",
+      "permanent": true
+    },
+    {
+      "source": "/sources/yoreh-deah/siman-:n(\\d+)/",
+      "destination": "/yd/:n/",
+      "permanent": true
+    },
+    {
+      "source": "/sources/orah-haim/siman-:n(\\d+)/index.html",
+      "destination": "/oh-quotidien/:n/",
+      "permanent": true
+    },
+    {
+      "source": "/sources/orah-haim/siman-:n(\\d+)",
+      "destination": "/oh-quotidien/:n/",
+      "permanent": true
+    },
+    {
+      "source": "/sources/orah-haim/siman-:n(\\d+)/",
+      "destination": "/oh-quotidien/:n/",
+      "permanent": true
+    },
+    {
       "source": "/corpus.html",
       "destination": "/admin/corpus.html",
       "permanent": false
