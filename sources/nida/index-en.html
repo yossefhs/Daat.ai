@@ -151,7 +151,7 @@
         const frag = document.createDocumentFragment();
         for (const s of items) {
           const a = document.createElement('a');
-          a.href = '../../' + s.path;
+          a.href = ({'yoreh-deah':'/yd/','nida':'/yd/','oh-quotidien':'/oh-quotidien/','shabbat':'/oh/'}[s.section] || '/oh/') + s.num + '/en';
           a.className = 'simanim-tile';
           a.title = 'Siman ' + s.num + ' — ' + (s.titleEn || s.title);
           const num = document.createElement('span');
