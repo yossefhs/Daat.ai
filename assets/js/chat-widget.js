@@ -4,6 +4,16 @@
 (function () {
   'use strict';
 
+  // === ANALYTICS — events custom Vercel Web Analytics ===
+  // File d'attente sûre : les appels sont mis en queue même si le script
+  // /_vercel/insights n'est pas (encore) chargé ou est bloqué.
+  function vaTrack(name, data) {
+    try {
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+      window.va('event', data ? { name: name, data: data } : { name: name });
+    } catch (_) {}
+  }
+
   // === CONFIGURATION ===
   // Résolution de l'URL API :
   //  1. window.DAAT_CHAT_API_URL si défini (embed daattorah.com par exemple)
@@ -620,6 +630,7 @@
       this.panel.classList.toggle('is-open', this.isOpen);
       this.button.classList.toggle('is-open', this.isOpen);
       if (this.isOpen) {
+        vaTrack('chat_open');
         // À chaque ouverture, on revient sur l'écran d'accueil vierge
         // (l'historique des conversations reste accessible via le bouton 📋)
         if (!this.isStreaming) this.startFreshState();
@@ -1288,6 +1299,8 @@
       this.setStreaming(true);
 
       try {
+        const chatSection = (document.querySelector('meta[name="daat-section"]') || {}).content || 'orach-chaim';
+        vaTrack('chat_question_sent', { section: chatSection });
         const response = await fetch(API_URL, {
           method: 'POST',
           // credentials:'include' est INDISPENSABLE : le widget est embarqué sur
@@ -1296,7 +1309,7 @@
           // (et payant) est vu comme anonyme et ne reçoit pas Opus.
           credentials: 'include',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ messages: this.messages, section: (document.querySelector('meta[name="daat-section"]') || {}).content || 'orach-chaim' }),
+          body: JSON.stringify({ messages: this.messages, section: chatSection }),
         });
 
         if (!response.ok) {
