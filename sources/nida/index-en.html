@@ -194,7 +194,7 @@
         grid.removeAttribute('aria-busy');
         if (desc) {
           const c = (data.meta.bySection && data.meta.bySection['nida'] && data.meta.bySection['nida'].counts) || { total: items.length };
-          desc.textContent = c.total + ' siman' + (c.total > 1 ? 's' : '') + ' available · updated on ' + data.meta.lastUpdated;
+          desc.textContent = c.total + ' simanim available · updated on ' + data.meta.lastUpdated;
         }
       } catch (e) {
         console.error('Failed to load YD index:', e);

@@ -48,7 +48,7 @@ function countText(sectionKeys, lang) {
   const d = DATA.meta.lastUpdated;
   if (lang === 'he') return `${total} סימנים זמינים · עודכן ${d}`;
   if (lang === 'en') return `${total} simanim available · updated ${d}`;
-  return `${total} siman${total > 1 ? 's' : ''} disponible${total > 1 ? 's' : ''} · mis à jour le ${d}`;
+  return total > 1 ? `${total} simanim disponibles · mis à jour le ${d}` : `1 siman disponible · mis à jour le ${d}`;
 }
 
 /** Remplace le contenu d'un <div id="..."> (non imbriqué de div internes autres que les tuiles/loading). */
