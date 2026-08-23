@@ -35,8 +35,8 @@ Acquisition : visiteurs, organique, impressions/clics GSC. Engagement : question
 - [x] CTA hero « Tester l'IA Daat » → « Poser une question de Halakha » ×3 langues (S1)
 - [x] Metas/JSON-LD homepage : « 124 simanim / 3 niveaux » → périmètre réel 4 sections / 4 niveaux ×3 langues (S1)
 - [x] `/aujourdhui` → redirect vers `/limoud/` (S1 ; page dédiée = P2)
-- [ ] Listings `/yd`, `/oh-quotidien`, `/nida` : tuiles **statiques** dans le HTML (SSG au build) — aujourd'hui JS-only, invisibles crawlers. Le JSON source (`data/simanim-disponibles.json`) est PÉRIMÉ (yd 32 vs 50 disque, lastUpdated affiché aux visiteurs) → réconcilier générateur section-aware d'abord.
-- [ ] Teaser hardcodé « 64 simanim / 1 à 64 » dans sources/shabbat/index.html (réel : 197).
+- [x] Listings `/yd`, `/oh-quotidien`, `/nida` : 247 tuiles statiques injectées au build (generate-section-listings.js) ; générateur JSON v2.1 section-aware réintégré au build, zéro perte de titres (S1)
+- [x] Teaser « 64 simanim » → compteur généré au build (197) + 197 tuiles statiques sur /oh/ (S1)
 - [ ] Events analytics custom (chat_open, chat_question_sent, whatsapp_clicked, share_clicked, daat_yomi_started…).
 - [ ] Chat : transmettre `siman` + URL d'origine dans le payload ; CTA « Poser une question sur ce siman » sur les pages siman.
 
@@ -58,6 +58,9 @@ Acquisition : visiteurs, organique, impressions/clics GSC. Engagement : question
 | E1 | Un CTA orienté bénéfice augmente l'usage du chat vs « Tester l'IA » | Hero ×3 langues | chat_open / sessions | inconnu (analytics OFF) | S1 | — | — |
 
 ## Journal des sessions
+
+### S1 (suite)
+SSG livré : commits f1a696f58 + 31a77da2f — 247 tuiles statiques crawlables sur /yd /oh-quotidien /nida, 197 sur /oh/, JSON régénéré (371 simanim, sections exactes), build re-câblé, pluriel « simanim » corrigé. Vérifié en prod.
 
 ### S1
 Audit complet (agent + prod). 9 fichiers index corrigés (hrefs), 9 redirects, CTAs ×3, metas ×3, journal créé. Détails : DAAT_DECISIONS.md.
