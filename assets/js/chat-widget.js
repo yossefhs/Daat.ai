@@ -182,12 +182,55 @@
     en: 'English',
   };
   function getLang() {
-    return localStorage.getItem(LANG_KEY) || 'fr';
+    return localStorage.getItem(LANG_KEY) || pageUiLang();
   }
   function setLang(lang) {
     if (!LANG_LABELS[lang]) lang = 'fr';
     localStorage.setItem(LANG_KEY, lang);
   }
+
+
+  // === I18N DE L'INTERFACE (fr / he / en, selon la langue de la page hôte) ===
+  function pageUiLang() {
+    const l = (document.documentElement.lang || 'fr').slice(0, 2);
+    return (l === 'he' || l === 'en') ? l : 'fr';
+  }
+  const UI_STRINGS = {
+    fr: {
+      welcomeTitle: 'Bienvenue !', welcomeIntro: 'Je suis <strong>Daat</strong>, ton assistant d\'étude pour la Torah et la Halakha.',
+      step1: '\u2460 Quel est ton niveau d\'étude ?', step2: '\u2461 Quel est ton minhag ?', step3: '\u2462 Langue de réponse',
+      nivDebutant: '\ud83c\udf31 Débutant', nivInter: '\ud83d\udcda Bagage moyen', nivYeshiva: '\ud83d\udd6e Élève de Yeshiva', nivLamdan: '\ud83c\udf93 Talmid Hakham',
+      minSef: '\ud83d\udd4e Séfarade', minAshk: '\u2744\ufe0f Ashkénaze', minHabad: '\ud83d\udd35 Habad / Loubavitch', minAutre: '\ud83e\udd37 Autre / pas sûr',
+      start: '\u2713 Commencer l\'étude', placeholder: 'Pose ta question...', sendAria: 'Envoyer', msgAria: 'Votre message',
+      headerSubtitle: 'Assistant d\'étude', historyTitle: 'Historique des conversations', newConv: '\uff0b Nouvelle conversation', newConvTitle: 'Nouvelle conversation',
+      close: 'Fermer', scrollNew: '\u2193 Nouveau', footer: 'Daat peut faire des erreurs. Vérifie auprès de ton Rav.',
+      ctxBadge: function (n, sec, niv) { return 'Tu étudies le <strong>Siman ' + n + '</strong> (' + sec + (niv ? ' · ' + niv : '') + ') — mes réponses en tiendront compte.'; },
+      fabSiman: function (n) { return 'Poser une question sur le Siman ' + n; }, fabDefault: 'Poser une question de Halakha',
+    },
+    he: {
+      welcomeTitle: '\u05d1\u05e8\u05d5\u05da \u05d4\u05d1\u05d0 !', welcomeIntro: '\u05d0\u05e0\u05d9 <strong>\u05d3\u05e2\u05ea</strong>, \u05e2\u05d5\u05d6\u05e8 \u05d4\u05dc\u05d9\u05de\u05d5\u05d3 \u05e9\u05dc\u05da \u05dc\u05ea\u05d5\u05e8\u05d4 \u05d5\u05dc\u05d4\u05dc\u05db\u05d4.',
+      step1: '\u2460 \u05de\u05d4 \u05e8\u05de\u05ea \u05d4\u05dc\u05d9\u05de\u05d5\u05d3 \u05e9\u05dc\u05da ?', step2: '\u2461 \u05de\u05d4 \u05d4\u05de\u05e0\u05d4\u05d2 \u05e9\u05dc\u05da ?', step3: '\u2462 \u05e9\u05e4\u05ea \u05d4\u05ea\u05e9\u05d5\u05d1\u05d4',
+      nivDebutant: '\ud83c\udf31 \u05de\u05ea\u05d7\u05d9\u05dc', nivInter: '\ud83d\udcda \u05e8\u05e7\u05e2 \u05d1\u05d9\u05e0\u05d5\u05e0\u05d9', nivYeshiva: '\ud83d\udd6e \u05d1\u05df \u05d9\u05e9\u05d9\u05d1\u05d4', nivLamdan: '\ud83c\udf93 \u05ea\u05dc\u05de\u05d9\u05d3 \u05d7\u05db\u05dd',
+      minSef: '\ud83d\udd4e \u05e1\u05e4\u05e8\u05d3\u05d9', minAshk: '\u2744\ufe0f \u05d0\u05e9\u05db\u05e0\u05d6\u05d9', minHabad: '\ud83d\udd35 \u05d7\u05d1"\u05d3', minAutre: '\ud83e\udd37 \u05d0\u05d7\u05e8 / \u05dc\u05d0 \u05d1\u05d8\u05d5\u05d7',
+      start: '\u2713 \u05dc\u05d4\u05ea\u05d7\u05d9\u05dc \u05dc\u05dc\u05de\u05d5\u05d3', placeholder: '\u05e9\u05d0\u05dc \u05d0\u05ea \u05e9\u05d0\u05dc\u05ea\u05da...', sendAria: '\u05e9\u05dc\u05d7', msgAria: '\u05d4\u05d4\u05d5\u05d3\u05e2\u05d4 \u05e9\u05dc\u05da',
+      headerSubtitle: '\u05e2\u05d5\u05d6\u05e8 \u05dc\u05d9\u05de\u05d5\u05d3', historyTitle: '\u05d4\u05d9\u05e1\u05d8\u05d5\u05e8\u05d9\u05d9\u05ea \u05e9\u05d9\u05d7\u05d5\u05ea', newConv: '\uff0b \u05e9\u05d9\u05d7\u05d4 \u05d7\u05d3\u05e9\u05d4', newConvTitle: '\u05e9\u05d9\u05d7\u05d4 \u05d7\u05d3\u05e9\u05d4',
+      close: '\u05e1\u05d2\u05d5\u05e8', scrollNew: '\u2193 \u05d7\u05d3\u05e9', footer: '\u05d3\u05e2\u05ea \u05e2\u05dc\u05d5\u05dc \u05dc\u05d8\u05e2\u05d5\u05ea. \u05d1\u05d3\u05d5\u05e7 \u05d0\u05e6\u05dc \u05d4\u05e8\u05d1 \u05e9\u05dc\u05da.',
+      ctxBadge: function (n, sec, niv) { return '\u05d0\u05ea\u05d4 \u05dc\u05d5\u05de\u05d3 \u05db\u05e2\u05ea \u05d0\u05ea <strong>\u05e1\u05d9\u05de\u05df ' + n + '</strong> — \u05d4\u05ea\u05e9\u05d5\u05d1\u05d5\u05ea \u05d9\u05ea\u05d7\u05e9\u05d1\u05d5 \u05d1\u05db\u05da.'; },
+      fabSiman: function (n) { return '\u05dc\u05e9\u05d0\u05d5\u05dc \u05e2\u05dc \u05e1\u05d9\u05de\u05df ' + n; }, fabDefault: '\u05dc\u05e9\u05d0\u05d5\u05dc \u05e9\u05d0\u05dc\u05d4 \u05d1\u05d4\u05dc\u05db\u05d4',
+    },
+    en: {
+      welcomeTitle: 'Welcome!', welcomeIntro: 'I\'m <strong>Daat</strong>, your study assistant for Torah and Halacha.',
+      step1: '\u2460 What is your study level?', step2: '\u2461 What is your minhag?', step3: '\u2462 Answer language',
+      nivDebutant: '\ud83c\udf31 Beginner', nivInter: '\ud83d\udcda Some background', nivYeshiva: '\ud83d\udd6e Yeshiva student', nivLamdan: '\ud83c\udf93 Talmid Chacham',
+      minSef: '\ud83d\udd4e Sephardic', minAshk: '\u2744\ufe0f Ashkenazi', minHabad: '\ud83d\udd35 Chabad', minAutre: '\ud83e\udd37 Other / not sure',
+      start: '\u2713 Start learning', placeholder: 'Ask your question...', sendAria: 'Send', msgAria: 'Your message',
+      headerSubtitle: 'Study assistant', historyTitle: 'Conversation history', newConv: '\uff0b New conversation', newConvTitle: 'New conversation',
+      close: 'Close', scrollNew: '\u2193 New', footer: 'Daat can make mistakes. Check with your Rav.',
+      ctxBadge: function (n, sec, niv) { return 'You are studying <strong>Siman ' + n + '</strong> (' + sec + (niv ? ' \u00b7 ' + niv : '') + ') — my answers will take it into account.'; },
+      fabSiman: function (n) { return 'Ask a question about Siman ' + n; }, fabDefault: 'Ask a Halacha question',
+    },
+  };
+  function uiT() { return UI_STRINGS[pageUiLang()]; }
 
   // === CONTEXTE DE NAVIGATION (siman consulté) ===
   // Détecte depuis l'URL le siman que l'utilisateur étudie, pour que Daat
@@ -427,8 +470,8 @@
       this.button = document.createElement('button');
       this.button.className = 'daat-chat-button';
       const fabCtx = detectSimanContext();
-      this.button.setAttribute('aria-label', fabCtx ? ('Poser une question sur le Siman ' + fabCtx.siman) : 'Ouvrir le chat avec Daat');
-      this.button.title = fabCtx ? ('Poser une question sur le Siman ' + fabCtx.siman) : 'Poser une question de Halakha';
+      this.button.setAttribute('aria-label', fabCtx ? uiT().fabSiman(fabCtx.siman) : uiT().fabDefault);
+      this.button.title = fabCtx ? uiT().fabSiman(fabCtx.siman) : uiT().fabDefault;
       this.button.innerHTML =
         '<span class="daat-chat-button-icon">דעת</span>' +
         '<span class="daat-chat-button-pulse"></span>';
@@ -438,40 +481,41 @@
       this.panel.className = 'daat-chat-panel';
       this.panel.setAttribute('role', 'dialog');
       this.panel.setAttribute('aria-label', 'Chat avec Daat — assistant Torah');
+      if (pageUiLang() === 'he') this.panel.setAttribute('dir', 'rtl');
       this.panel.innerHTML = `
         <div class="daat-chat-header">
-          <button class="daat-chat-history-btn" id="daat-chat-history-btn" title="Historique des conversations" aria-label="Historique des conversations">📋</button>
+          <button class="daat-chat-history-btn" id="daat-chat-history-btn" title="${uiT().historyTitle}" aria-label="${uiT().historyTitle}">📋</button>
           <div class="daat-chat-header-logo">דעת</div>
           <div class="daat-chat-header-info">
             <div class="daat-chat-header-title">Daat</div>
-            <div class="daat-chat-header-subtitle">Assistant d'étude</div>
+            <div class="daat-chat-header-subtitle">${uiT().headerSubtitle}</div>
           </div>
-          <button class="daat-chat-reset" id="daat-chat-reset" title="Nouvelle conversation" aria-label="Nouvelle conversation">↺</button>
+          <button class="daat-chat-reset" id="daat-chat-reset" title="${uiT().newConvTitle}" aria-label="${uiT().newConvTitle}">↺</button>
         </div>
         <div class="daat-chat-messages" id="daat-chat-messages" dir="ltr"></div>
         <div class="daat-chat-history-panel" id="daat-chat-history-panel">
           <div class="daat-chat-history-header">
-            <span>Historique des conversations</span>
-            <button class="daat-chat-history-close" id="daat-chat-history-close" aria-label="Fermer">✕</button>
+            <span>${uiT().historyTitle}</span>
+            <button class="daat-chat-history-close" id="daat-chat-history-close" aria-label="${uiT().close}">✕</button>
           </div>
-          <button class="daat-chat-history-new" id="daat-chat-history-new">＋ Nouvelle conversation</button>
+          <button class="daat-chat-history-new" id="daat-chat-history-new">${uiT().newConv}</button>
           <div class="daat-chat-history-list" id="daat-chat-history-list"></div>
         </div>
-        <button class="daat-chat-scroll-down" id="daat-chat-scroll-down" type="button" aria-label="Aller au dernier message">↓ Nouveau</button>
+        <button class="daat-chat-scroll-down" id="daat-chat-scroll-down" type="button" aria-label="${uiT().scrollNew}">${uiT().scrollNew}</button>
         <div class="daat-status-banner" id="daat-status-banner" data-status="hidden"></div>
         <div class="daat-chat-input-area">
           <div class="daat-chat-input-wrapper">
             <textarea
               class="daat-chat-input"
               id="daat-chat-input"
-              placeholder="Pose ta question..."
+              placeholder="${uiT().placeholder}"
               rows="1"
               dir="auto"
-              aria-label="Votre message"
+              aria-label="${uiT().msgAria}"
             ></textarea>
-            <button class="daat-chat-send" id="daat-chat-send" aria-label="Envoyer">→</button>
+            <button class="daat-chat-send" id="daat-chat-send" aria-label="${uiT().sendAria}">→</button>
           </div>
-          <div class="daat-chat-footer">Daat peut faire des erreurs. Vérifie auprès de ton Rav.</div>
+          <div class="daat-chat-footer">${uiT().footer}</div>
         </div>
       `;
 
@@ -784,38 +828,38 @@
         this.messagesEl.innerHTML = `
           <div class="daat-chat-welcome">
             <span class="heb">דעת</span>
-            <h3>Bienvenue !</h3>
-            <p>Je suis <strong>Daat</strong>, ton assistant d'étude pour la Torah et la Halakha.</p>
+            <h3>${uiT().welcomeTitle}</h3>
+            <p>${uiT().welcomeIntro}</p>
             ${(() => {
               const ctx = detectSimanContext();
               if (!ctx) return '';
               const niveau = ctx.niveauPage ? ' · ' + ctx.niveauPage : '';
               return '<div class="daat-chat-context-badge" style="display:inline-flex;align-items:center;gap:7px;margin:2px 0 10px;padding:7px 14px;background:rgba(197,165,90,0.12);border:1px solid rgba(197,165,90,0.45);border-radius:3px;font-size:13px;color:#5a4a1a;">' +
-                '<span>📖</span><span>Tu étudies le <strong>Siman ' + ctx.siman + '</strong> (' + ctx.sectionName + niveau + ') — mes réponses en tiendront compte.</span></div>';
+                '<span>📖</span><span>' + uiT().ctxBadge(ctx.siman, ctx.sectionName, ctx.niveauPage) + '</span></div>';
             })()}
 
             <div class="daat-chat-step">
-              <div class="daat-chat-step-label">① Quel est ton niveau d'étude ?</div>
+              <div class="daat-chat-step-label">${uiT().step1}</div>
               <div class="daat-chat-chips" data-group="niveau">
-                <button class="daat-chat-chip" data-value="debutant">🌱 Débutant</button>
-                <button class="daat-chat-chip" data-value="intermediaire">📚 Bagage moyen</button>
-                <button class="daat-chat-chip" data-value="yeshiva">🕮 Élève de Yeshiva</button>
-                <button class="daat-chat-chip" data-value="lamdan">🎓 Talmid Hakham</button>
+                <button class="daat-chat-chip" data-value="debutant">${uiT().nivDebutant}</button>
+                <button class="daat-chat-chip" data-value="intermediaire">${uiT().nivInter}</button>
+                <button class="daat-chat-chip" data-value="yeshiva">${uiT().nivYeshiva}</button>
+                <button class="daat-chat-chip" data-value="lamdan">${uiT().nivLamdan}</button>
               </div>
             </div>
 
             <div class="daat-chat-step">
-              <div class="daat-chat-step-label">② Quel est ton minhag ?</div>
+              <div class="daat-chat-step-label">${uiT().step2}</div>
               <div class="daat-chat-chips" data-group="minhag">
-                <button class="daat-chat-chip" data-value="sefarade">🕎 Séfarade</button>
-                <button class="daat-chat-chip" data-value="ashkenaze">❄️ Ashkénaze</button>
-                <button class="daat-chat-chip" data-value="habad">🔵 Habad / Loubavitch</button>
-                <button class="daat-chat-chip" data-value="autre">🤷 Autre / pas sûr</button>
+                <button class="daat-chat-chip" data-value="sefarade">${uiT().minSef}</button>
+                <button class="daat-chat-chip" data-value="ashkenaze">${uiT().minAshk}</button>
+                <button class="daat-chat-chip" data-value="habad">${uiT().minHabad}</button>
+                <button class="daat-chat-chip" data-value="autre">${uiT().minAutre}</button>
               </div>
             </div>
 
             <div class="daat-chat-step">
-              <div class="daat-chat-step-label">③ Langue de réponse</div>
+              <div class="daat-chat-step-label">${uiT().step3}</div>
               <div class="daat-chat-chips" data-group="lang">
                 <button class="daat-chat-chip" data-value="fr">🇫🇷 Français</button>
                 <button class="daat-chat-chip" data-value="he" style="font-family:'Frank Ruhl Libre',serif;">עברית</button>
@@ -823,7 +867,7 @@
               </div>
             </div>
 
-            <button class="daat-chat-start" id="daat-chat-start" disabled>✓ Commencer l'étude</button>
+            <button class="daat-chat-start" id="daat-chat-start" disabled>${uiT().start}</button>
             <div class="signature">דעת התורה לעומקה</div>
           </div>
         `;
