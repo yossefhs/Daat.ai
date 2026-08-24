@@ -38,7 +38,7 @@ Acquisition : visiteurs, organique, impressions/clics GSC. Engagement : question
 - [x] Listings `/yd`, `/oh-quotidien`, `/nida` : 247 tuiles statiques injectées au build (generate-section-listings.js) ; générateur JSON v2.1 section-aware réintégré au build, zéro perte de titres (S1)
 - [x] Teaser « 64 simanim » → compteur généré au build (197) + 197 tuiles statiques sur /oh/ (S1)
 - [x] Events custom v1 : chat_open, chat_question_sent(+section), daat_yomi_started, whatsapp_clicked, chat_cta_hero — vérifiés en prod (POST /event 200) (S2)
-- [ ] Chat : transmettre `siman` + URL d'origine dans le payload ; CTA « Poser une question sur ce siman » sur les pages siman.
+- [x] Chat contextuel : detectSimanContext() (routes + chemins physiques + niveaux, 12 cas testés), contexte injecté dans le 1er message (jamais dans le system prompt caché 1h), FAB « Poser une question sur le Siman N », chat_question_sent enrichi du siman — vérifié en prod sur /oh/318/lamdan (S2)
 
 ### P2
 - [ ] Page `/aujourdhui` réelle (Daat Yomi du jour + question du jour + partage WhatsApp).
@@ -60,6 +60,7 @@ Acquisition : visiteurs, organique, impressions/clics GSC. Engagement : question
 ## Journal des sessions
 
 ### S2
+Chat contextuel livré (commit 2acd3cbb0) : Daat sait quel siman l'utilisateur consulte. Reste v2 : contexte sur les pages /limoud/jour-NNN (siman non présent dans l'URL — à lire dans le DOM).
 Mode quotidien : santé prod OK (tuiles /yd 32, insights 200). Web Analytics activé par le Rav (S1→S2) — première pageview + 2 events custom validés bout en bout via navigateur (POST /view et /event → 200). Livré commit 849496883 : vaTrack() dans chat-widget.js (chat_open, chat_question_sent+section) + listener délégué sur index×3 et communaute×3 (daat_yomi_started, whatsapp_clicked, chat_cta_hero). JS inline validé node --check partout. Reste API MCP get_web_analytics en 404 (propagation) — le dashboard Vercel fait foi.
 
 ### S1 (suite)
