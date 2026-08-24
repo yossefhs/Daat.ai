@@ -786,6 +786,13 @@
             <span class="heb">דעת</span>
             <h3>Bienvenue !</h3>
             <p>Je suis <strong>Daat</strong>, ton assistant d'étude pour la Torah et la Halakha.</p>
+            ${(() => {
+              const ctx = detectSimanContext();
+              if (!ctx) return '';
+              const niveau = ctx.niveauPage ? ' · ' + ctx.niveauPage : '';
+              return '<div class="daat-chat-context-badge" style="display:inline-flex;align-items:center;gap:7px;margin:2px 0 10px;padding:7px 14px;background:rgba(197,165,90,0.12);border:1px solid rgba(197,165,90,0.45);border-radius:3px;font-size:13px;color:#5a4a1a;">' +
+                '<span>📖</span><span>Tu étudies le <strong>Siman ' + ctx.siman + '</strong> (' + ctx.sectionName + niveau + ') — mes réponses en tiendront compte.</span></div>';
+            })()}
 
             <div class="daat-chat-step">
               <div class="daat-chat-step-label">① Quel est ton niveau d'étude ?</div>
