@@ -575,5 +575,19 @@
   <script src="assets/js/chat-widget.min.js" defer></script>
   <script src="/assets/js/newsletter-inline.js" defer></script>
   <script src="/assets/js/daat-copy.js" defer></script>
+
+<script>
+/* DAAT analytics — events custom (delegation, zero dependance) */
+(function(){
+  function t(n){try{window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};window.va('event',{name:n})}catch(_){}}
+  document.addEventListener('click',function(e){
+    var a=e.target&&e.target.closest?e.target.closest('a'):null;if(!a)return;
+    var href=a.getAttribute('href')||'';
+    if(a.id==='dy-cta-link'||a.id==='dy-cta-secondary'){t('daat_yomi_started');}
+    else if(href.indexOf('chat.whatsapp.com')>-1){t('whatsapp_clicked');}
+    else if(a.classList.contains('btn-secondary')&&href.indexOf('chat')>-1){t('chat_cta_hero');}
+  },{capture:true});
+})();
+</script>
 </body>
 </html>

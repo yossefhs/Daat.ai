@@ -19,7 +19,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="דעת תורה">
   <meta property="og:title" content="דעת תורה — ההלכה בשפה הצרפתית">
-  <meta property="og:description" content="124 סימני השולחן ערוך, שלוש רמות לימוד. מקורות הראשונים והאחרונים, עוזר בינה מלאכותית הלכתי.">
+  <meta property="og:description" content="השולחן ערוך בצרפתית: הלכות שבת, יורה דעה, אורח חיים יומי. ארבע רמות לימוד, דעת יומי ועוזר AI הלכתי.">
   <meta property="og:url" content="https://daattorah.com/index-he.html">
   <meta property="og:image" content="https://daattorah.com/assets/img/og/og-default.png">
   <meta property="og:locale" content="he_IL">
@@ -27,7 +27,7 @@
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="דעת תורה — ההלכה בשפה הצרפתית">
-  <meta name="twitter:description" content="124 סימני השולחן ערוך, שלוש רמות לימוד. מקורות ועוזר בינה מלאכותית.">
+  <meta name="twitter:description" content="השולחן ערוך בצרפתית: שבת, יורה דעה, אורח חיים. ארבע רמות לימוד, דעת יומי, עוזר AI.">
   <meta name="twitter:image" content="https://daattorah.com/assets/img/og/og-default.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1031,7 +1031,7 @@
       "name": "דעת תורה",
       "url": "https://daattorah.com/",
       "logo": "https://daattorah.com/assets/img/og/og-default.svg",
-      "description": "פלטפורמה ללימוד הלכה עם 124 סימני השולחן ערוך, שלוש רמות לימוד, ועוזר בינה מלאכותית.",
+      "description": "פלטפורמה ללימוד הלכה: סימני השולחן ערוך (אורח חיים ויורה דעה), ארבע רמות לימוד, דעת יומי ועוזר AI.",
       "founder": {
         "@id": "https://daattorah.com/#rav-samama"
       },
@@ -1142,7 +1142,7 @@
     <p class="hero-desc">לימוד הלכה רציני — בשפה הצרפתית, ב-20 דקות ביום.</p>
     <div class="hero-buttons">
       <a href="/oh/he" class="btn-primary">ללמוד</a>
-      <a href="chat-he.html" class="btn-secondary">לנסות את דעת AI</a>
+      <a href="chat-he.html" class="btn-secondary">לשאול שאלה בהלכה</a>
       <a href="soutenir-he.html" class="btn-soutenir-hero" aria-label="לתמוך בפרויקט">♥ לתמוך בפרויקט</a>
     </div>
   </section>
@@ -1395,7 +1395,7 @@
         <div class="ai-response">
           על פי ההלכה (או״ח רמ״ו:א'), השולחן ערוך והרמ״א מסכימים על האיסור. הרמ״א מבהיר: <em>"וכן עיקר כסברא האחרונה"</em> — הוא פוסק כדעת רבנו יונה, הרא״ש והתוספות האוסרים משום <strong>שכר שבת</strong> ו<strong>נראה כשלוחו</strong>. איסור זה חל אפילו אם היהודי אינו נוכח ביום השבת.
         </div>
-        <a href="chat-he.html" class="ai-coming-soon" style="text-decoration:none; display:inline-block;">✦ לנסות את דעת AI — זמין כעת →</a>
+        <a href="chat-he.html" class="ai-coming-soon" style="text-decoration:none; display:inline-block;">✦ לשאול שאלה בהלכה — דעת מאתר את המקורות →</a>
       </div>
     </div>
   </section>
@@ -1710,5 +1710,19 @@
       }
     })();
   </script>
+
+<script>
+/* DAAT analytics — events custom (delegation, zero dependance) */
+(function(){
+  function t(n){try{window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};window.va('event',{name:n})}catch(_){}}
+  document.addEventListener('click',function(e){
+    var a=e.target&&e.target.closest?e.target.closest('a'):null;if(!a)return;
+    var href=a.getAttribute('href')||'';
+    if(a.id==='dy-cta-link'||a.id==='dy-cta-secondary'){t('daat_yomi_started');}
+    else if(href.indexOf('chat.whatsapp.com')>-1){t('whatsapp_clicked');}
+    else if(a.classList.contains('btn-secondary')&&href.indexOf('chat')>-1){t('chat_cta_hero');}
+  },{capture:true});
+})();
+</script>
 </body>
 </html>

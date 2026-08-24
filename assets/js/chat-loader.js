@@ -55,7 +55,13 @@
     var b = document.createElement('button');
     b.className = 'daat-chat-button';
     b.type = 'button';
-    b.setAttribute('aria-label', 'Ouvrir le chat avec Daat');
+    // Titre contextuel : si on est sur une page siman, le bouton le dit déjà
+    // (le vrai widget affinera à son chargement — même détection).
+    var simanMatch = location.pathname.match(/^\/(?:oh|yd|oh-quotidien)\/(\d+)/) ||
+                     location.pathname.match(/\/siman-(\d+)/);
+    var fabLabel = simanMatch ? ('Poser une question sur le Siman ' + simanMatch[1]) : 'Ouvrir le chat avec Daat';
+    b.setAttribute('aria-label', fabLabel);
+    b.title = fabLabel;
     b.innerHTML =
       '<span class="daat-chat-button-icon">דעת</span>' +
       '<span class="daat-chat-button-pulse"></span>';
