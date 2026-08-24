@@ -189,6 +189,39 @@
     localStorage.setItem(LANG_KEY, lang);
   }
 
+  // === CONTEXTE DE NAVIGATION (siman consulté) ===
+  // Détecte depuis l'URL le siman que l'utilisateur étudie, pour que Daat
+  // ancre ses réponses dedans sans que l'utilisateur ait à le préciser.
+  // Injecté dans le PREMIER MESSAGE (pattern niveau/minhag) — jamais dans le
+  // system prompt, qui est caché 1h côté API et doit rester identique.
+  const PAGE_LEVEL_LABELS = {
+    'base': 'Niveau 1 — Base', 'lamdan': 'Niveau 2 — Lamdan',
+    'synthese': 'Niveau 3 — Synthèse', 'daat-harav': 'Niveau 4 — Daat HaRav',
+    'halakha': 'Niveau 4 — Halakha lemaassé',
+  };
+  const SECTION_NAMES = {
+    'oh': 'Orah Haïm — Hilkhot Shabbat', 'yd': "Yoreh De'ah",
+    'oh-quotidien': 'Orah Haïm — étude quotidienne',
+    'shabbat': 'Orah Haïm — Hilkhot Shabbat', 'yoreh-deah': "Yoreh De'ah", 'orah-haim': 'Orah Haïm — étude quotidienne',
+  };
+  function detectSimanContext() {
+    try {
+      const path = window.location.pathname;
+      let m = path.match(/^\/(oh|yd|oh-quotidien)\/(\d+)(?:\/(base|lamdan|synthese|daat-harav|halakha))?/);
+      if (m) return { siman: Number(m[2]), sectionName: SECTION_NAMES[m[1]] || m[1], niveauPage: m[3] ? PAGE_LEVEL_LABELS[m[3]] : null };
+      m = path.match(/\/sources\/(shabbat|yoreh-deah|orah-haim)\/siman-(\d+)(?:\/niveau-\d-([a-z-]+?))?(?:-he|-en)?\.html/)
+        || path.match(/\/sources\/(shabbat|yoreh-deah|orah-haim)\/siman-(\d+)/);
+      if (m) return { siman: Number(m[2]), sectionName: SECTION_NAMES[m[1]] || m[1], niveauPage: m[3] ? (PAGE_LEVEL_LABELS[m[3]] || null) : null };
+      return null;
+    } catch (_) { return null; }
+  }
+  function simanContextLine() {
+    const ctx = detectSimanContext();
+    if (!ctx) return '';
+    const niveau = ctx.niveauPage ? `, page ${ctx.niveauPage}` : '';
+    return `• Contexte : je consulte actuellement le Siman ${ctx.siman} (${ctx.sectionName}${niveau}) sur daattorah.com — sauf indication contraire, mes questions portent sur ce siman.\n`;
+  }
+
   function buildIntroMessage(niveau, minhag) {
     const niveauTxt = NIVEAU_LABELS[niveau] || niveau;
     const minhagTxt = MINHAG_LABELS[minhag] || minhag;
@@ -198,8 +231,9 @@
       `Bonjour Daat ! Voici mon profil pour cette session :\n` +
       `• Niveau : ${niveauTxt}\n` +
       `• Minhag : ${minhagTxt}\n` +
-      `• Langue de réponse souhaitée : ${langTxt}\n\n` +
-      `Je suis prêt à commencer. Adapte tes réponses à ce profil et réponds dans la langue indiquée.`
+      `• Langue de réponse souhaitée : ${langTxt}\n` +
+      simanContextLine() +
+      `\nJe suis prêt à commencer. Adapte tes réponses à ce profil et réponds dans la langue indiquée.`
     );
   }
 
@@ -392,7 +426,9 @@
       // Floating button
       this.button = document.createElement('button');
       this.button.className = 'daat-chat-button';
-      this.button.setAttribute('aria-label', 'Ouvrir le chat avec Daat');
+      const fabCtx = detectSimanContext();
+      this.button.setAttribute('aria-label', fabCtx ? ('Poser une question sur le Siman ' + fabCtx.siman) : 'Ouvrir le chat avec Daat');
+      this.button.title = fabCtx ? ('Poser une question sur le Siman ' + fabCtx.siman) : 'Poser une question de Halakha';
       this.button.innerHTML =
         '<span class="daat-chat-button-icon">דעת</span>' +
         '<span class="daat-chat-button-pulse"></span>';
@@ -1281,8 +1317,9 @@
             `[Profil de cette session]\n` +
             `• Niveau : ${niveauTxt}\n` +
             `• Minhag : ${minhagTxt}\n` +
-            `• Langue de réponse souhaitée : ${langTxt}\n\n` +
-            `[Ma question]\n${text}`;
+            `• Langue de réponse souhaitée : ${langTxt}\n` +
+            simanContextLine() +
+            `\n[Ma question]\n${text}`;
         }
       }
 
@@ -1300,7 +1337,8 @@
 
       try {
         const chatSection = (document.querySelector('meta[name="daat-section"]') || {}).content || 'orach-chaim';
-        vaTrack('chat_question_sent', { section: chatSection });
+        const vaCtx = detectSimanContext();
+        vaTrack('chat_question_sent', vaCtx ? { section: chatSection, siman: vaCtx.siman } : { section: chatSection });
         const response = await fetch(API_URL, {
           method: 'POST',
           // credentials:'include' est INDISPENSABLE : le widget est embarqué sur
