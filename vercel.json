@@ -727,6 +727,14 @@
     }
   ],
   "redirects": [
+    { "source": "/aujoudhui", "destination": "/aujourdhui", "permanent": false },
+    { "source": "/aujourd-hui", "destination": "/aujourdhui", "permanent": false },
+    { "source": "/aujourdui", "destination": "/aujourdhui", "permanent": false },
+    { "source": "/today", "destination": "/aujourdhui/en", "permanent": false },
+    { "source": "/hayom", "destination": "/aujourdhui/he", "permanent": false },
+    { "source": "/nida/:n(\\d+)", "destination": "/yd/:n/", "permanent": false },
+    { "source": "/nida/:n(\\d+)/", "destination": "/yd/:n/", "permanent": false },
+    { "source": "/nida/:n(\\d+)/:rest*", "destination": "/yd/:n/:rest*", "permanent": false },
     {
       "source": "/sources/yoreh-deah/siman-:n(\\d+)/index.html",
       "destination": "/yd/:n/",

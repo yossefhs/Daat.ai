@@ -9,3 +9,14 @@ __pycache__/
 # artefacts de sondage des revues (ne jamais publier : le dépôt se déploie tel quel)
 api/_probe*.mjs
 node_modules
+
+# Artefacts de transcription à la RACINE (doublons de travail — la sauvegarde
+# organisée et versionnée vit dans chiourim/). Empêche tout git add accidentel.
+/chiour*
+/build_subs*.py
+/apply_fixes*.py
+/description*.txt
+/post-whatsapp-*.txt
+/resume-chiour*.md
+/cours_*.srt
+/*.vtt
