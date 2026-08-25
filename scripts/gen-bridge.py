@@ -313,12 +313,12 @@ def gen(num, numHe, subj):
 # seul intitulé hébreu (une glose y serait redondante), la page française et la
 # page anglaise le glosent chacune dans la sienne.
 SIMANIM=[
- (208,"ר״ח",{"fr":"דין ברכה מעין שלש אחרי ה׳ מיני פירות וה׳ מיני דגן — la berakha meéin chalosh après les cinq espèces de fruits et les cinq espèces de céréales",
-             "he":"דין ברכה מעין שלש אחרי ה׳ מיני פירות וה׳ מיני דגן",
-             "en":"דין ברכה מעין שלש אחרי ה׳ מיני פירות וה׳ מיני דגן — the meéin shalosh blessing after the five species of fruit and the five species of grain"}),
- (209,"ר״ט",{"fr":"דיני טעות וספק בברכת היין — l'erreur et le doute dans la bénédiction sur le vin",
-             "he":"דיני טעות וספק בברכת היין",
-             "en":"דיני טעות וספק בברכת היין — error and doubt in the blessing over wine"}),
+ (210,"ר״י",{"fr":"האוכל פחות מכזית מה דינו — celui qui mange moins d'un kazayit : quelle est sa loi",
+             "he":"האוכל פחות מכזית מה דינו",
+             "en":"האוכל פחות מכזית מה דינו — one who eats less than a kazayit: what is his law"}),
+ (211,"רי״א",{"fr":"דיני קדימה בברכת הפירות — l'ordre de préséance dans la bénédiction sur les fruits",
+             "he":"דיני קדימה בברכת הפירות",
+             "en":"דיני קדימה בברכת הפירות — the order of precedence in the blessing over fruits"}),
 ]
 if __name__=="__main__":
     args=[int(x) for x in sys.argv[1:]]
