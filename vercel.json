@@ -727,6 +727,9 @@
     }
   ],
   "redirects": [
+    { "source": "/nida/:n(\\d+)", "destination": "/yd/:n/", "permanent": false },
+    { "source": "/nida/:n(\\d+)/", "destination": "/yd/:n/", "permanent": false },
+    { "source": "/nida/:n(\\d+)/:rest*", "destination": "/yd/:n/:rest*", "permanent": false },
     {
       "source": "/sources/yoreh-deah/siman-:n(\\d+)/index.html",
       "destination": "/yd/:n/",
