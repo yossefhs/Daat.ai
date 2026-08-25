@@ -28,7 +28,7 @@ Acquisition : visiteurs, organique, impressions/clics GSC. Engagement : question
 
 ### P0
 - [x] Tuiles index YD/OH-quotidien/Nida pointaient vers `/sources/...` physiques → routes propres `/yd/N/`, `/oh-quotidien/N/` (S1)
-- [ ] **Activer Vercel Web Analytics dans le dashboard** (action humaine, 2 clics) — tout le pipeline mesure est prêt et inerte.
+- [x] Web Analytics activé par le Rav (S2) — collecte vérifiée bout en bout.
 
 ### P1
 - [x] Redirects 301 `/sources/yoreh-deah|orah-haim/siman-N` → routes (S1)
@@ -42,7 +42,7 @@ Acquisition : visiteurs, organique, impressions/clics GSC. Engagement : question
 
 ### P2
 - [ ] Page `/aujourdhui` réelle (Daat Yomi du jour + question du jour + partage WhatsApp).
-- [ ] Boutons partage WhatsApp sur jour-NNN, simanim, réponses chat.
+- [x] Partage WhatsApp : bouton flottant trilingue sur toutes les pages de contenu (simanim OH/YD, limoud, blog) via daat-copy.js — partage natif mobile + wa.me desktop, event share_clicked{type,ref} vérifié en prod (S3). Reste : partage des réponses chat (déjà présent dans la barre feedback).
 - [ ] FAQPage JSON-LD homepage sans FAQ visible correspondante → conformité Google à vérifier.
 - [ ] `/nida/:n` routes propres (Nida pointe vers /yd/N en attendant).
 - [ ] Signaler-une-erreur (formulaire + pipeline NEEDS_RABBINIC_VALIDATION).
@@ -58,6 +58,9 @@ Acquisition : visiteurs, organique, impressions/clics GSC. Engagement : question
 | E1 | Un CTA orienté bénéfice augmente l'usage du chat vs « Tester l'IA » | Hero ×3 langues | chat_cta_hero + chat_open / sessions | en cours de collecte | S1 | — | — |
 
 ## Journal des sessions
+
+### S3
+Partage WhatsApp livré (commit 63a6593e0) : module dans daat-copy.js (porteur déjà chargé sur toutes les pages de contenu — zéro édition des 582 pages limoud générées ni des ~5500 pages simanim). Bouton flottant bas-gauche trilingue, navigator.share natif + repli wa.me, event share_clicked{type,ref}. 11 cas d'URL testés + E2E prod sur /limoud/jour-042 (event 200). Rebase sur 17 commits d'une autre session (oh-quotidien 198-200), zéro conflit.
 
 ### S2
 Chat contextuel livré (commit 2acd3cbb0) : Daat sait quel siman l'utilisateur consulte. Reste v2 : contexte sur les pages /limoud/jour-NNN (siman non présent dans l'URL — à lire dans le DOM).
