@@ -122,3 +122,83 @@
   style.appendChild(document.createTextNode(css));
   document.head.appendChild(style);
 })();
+
+/* ===================================================================
+   DAAT — Bouton flottant « Partager » (WhatsApp / partage natif)
+   -------------------------------------------------------------------
+   Présent sur toutes les pages de contenu (simanim, limoud, blog) via
+   daat-copy.js. Bas-gauche (le chat occupe le bas-droit). Utilise le
+   partage natif (navigator.share → feuille iOS/Android avec WhatsApp)
+   avec repli wa.me sur desktop. Event analytics : share_clicked.
+   =================================================================== */
+(function () {
+  function pageLang() {
+    var l = (document.documentElement.lang || 'fr').slice(0, 2);
+    return (l === 'he' || l === 'en') ? l : 'fr';
+  }
+  function shareContext() {
+    var p = location.pathname;
+    var m = p.match(/^\/(?:oh|yd|oh-quotidien)\/(\d+)/) || p.match(/\/siman-(\d+)/);
+    if (m) return { type: 'siman', ref: m[1] };
+    if (p === '/aujourdhui' || p.indexOf('/aujourdhui/') === 0 || p.indexOf('/aujourdhui.') === 0) return { type: 'aujourdhui', ref: 'today' };
+    m = p.match(/\/limoud\/jour-(\d+)/);
+    if (m) return { type: 'limoud', ref: m[1] };
+    if (p.indexOf('/blog/') === 0 && p.length > 6) return { type: 'blog', ref: p.split('/').pop().replace(/\.html$/, '') };
+    return null;
+  }
+  var ctx = shareContext();
+  if (!ctx) return; // pas une page de contenu partageable
+
+  var L = {
+    fr: { label: 'Partager', title: "Partager cette étude sur WhatsApp" },
+    he: { label: 'שתף', title: 'שתף את הלימוד בוואטסאפ' },
+    en: { label: 'Share', title: 'Share this study on WhatsApp' },
+  }[pageLang()];
+
+  function track() {
+    try {
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+      window.va('event', { name: 'share_clicked', data: { type: ctx.type, ref: ctx.ref } });
+    } catch (_) {}
+  }
+  function shareText() {
+    var canon = document.querySelector('link[rel="canonical"]');
+    var url = canon && canon.href ? canon.href : location.href;
+    var title = (document.title || 'DAAT').split('|')[0].trim();
+    return { title: title, url: url, text: '📖 ' + title };
+  }
+
+  var btn = document.createElement('button');
+  btn.id = 'daat-share-fab';
+  btn.type = 'button';
+  btn.title = L.title;
+  btn.setAttribute('aria-label', L.title);
+  btn.innerHTML = '<span aria-hidden="true" style="font-size:15px;">📤</span><span>' + L.label + '</span>';
+  btn.addEventListener('click', function () {
+    track();
+    var s = shareText();
+    if (navigator.share) {
+      navigator.share({ title: s.title, text: s.text, url: s.url }).catch(function () {});
+    } else {
+      window.open('https://wa.me/?text=' + encodeURIComponent(s.text + '\n' + s.url), '_blank', 'noopener');
+    }
+  });
+
+  var css = '#daat-share-fab{position:fixed;bottom:24px;left:24px;z-index:9990;'
+    + 'display:inline-flex;align-items:center;gap:7px;padding:10px 16px;'
+    + 'background:#1faa55;color:#fff;border:none;border-radius:24px;cursor:pointer;'
+    + 'font-family:Inter,system-ui,sans-serif;font-size:13px;font-weight:600;letter-spacing:.3px;'
+    + 'box-shadow:0 4px 14px rgba(0,0,0,.18);transition:transform .15s,box-shadow .15s;}'
+    + '#daat-share-fab:hover{transform:translateY(-2px);box-shadow:0 7px 20px rgba(0,0,0,.25);}'
+    + '@media (max-width:640px){#daat-share-fab{bottom:16px;left:16px;padding:9px 14px;font-size:12px;}}'
+    + '@media print{#daat-share-fab{display:none!important;}}';
+  var style = document.createElement('style');
+  style.appendChild(document.createTextNode(css));
+
+  function mount() {
+    document.head.appendChild(style);
+    document.body.appendChild(btn);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount);
+  else mount();
+})();
