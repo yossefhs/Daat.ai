@@ -43,10 +43,10 @@ Acquisition : visiteurs, organique, impressions/clics GSC. Engagement : question
 ### P2
 - [x] Page `/aujourdhui` réelle ×3 langues : carte Daat Yomi du jour hydratée par api/aujourdhui.js (cache edge minuit Paris), CTA chat/communauté, partage WhatsApp, repli statique crawlable — vérifiée en prod (jour 57/194, siman 282, CTA /limoud/jour-057) (S4)
 - [x] Partage WhatsApp : bouton flottant trilingue sur toutes les pages de contenu (simanim OH/YD, limoud, blog) via daat-copy.js — partage natif mobile + wa.me desktop, event share_clicked{type,ref} vérifié en prod (S3). Reste : partage des réponses chat (déjà présent dans la barre feedback).
-- [ ] FAQPage JSON-LD homepage sans FAQ visible correspondante → conformité Google à vérifier.
-- [ ] `/nida/:n` routes propres (Nida pointe vers /yd/N en attendant).
+- [x] FAQPage retiré du JSON-LD homepage ×3 (non conforme sans FAQ visible ; faq.html garde le sien) — round-trip JSON validé, vérifié en prod (S6)
+- [x] `/nida/:n(/…)` → 302 vers `/yd/:n(/…)` (contenu physique sous yoreh-deah ; passera en rewrite si pages Nida dédiées) — vérifié en prod (S6)
 - [x] Signaler-une-erreur : lien ⚑ + modal trilingue sur toutes les pages de contenu (daat-copy.js), api/signalement.js (rate-limit 5/j/IP, honeypot, zéro donnée perso), back-office admin/signalements.html (stats, filtre, statuts, suppression), pipeline NEW→NEEDS_RABBINIC_VALIDATION→FIXED, event correction_submitted — E2E prod vérifié (S5)
-- [ ] Sortir les artefacts de transcription (~60 fichiers chiour*/build_subs*) de la racine du repo public.
+- [x] Artefacts racine gitignorés (~87 doublons untracked — jamais déployés) ; la sauvegarde organisée chiourim/ (57 fichiers) reste versionnée volontairement (S6)
 
 ### P3
 - Communautés partenaires (kit hebdo), dashboard croissance, veille concurrentielle.
@@ -58,6 +58,9 @@ Acquisition : visiteurs, organique, impressions/clics GSC. Engagement : question
 | E1 | Un CTA orienté bénéfice augmente l'usage du chat vs « Tester l'IA » | Hero ×3 langues | chat_cta_hero + chat_open / sessions | en cours de collecte | S1 | — | — |
 
 ## Journal des sessions
+
+### S6
+Reliquat P2 soldé (commit 122635f39) : FAQPage homepage retiré ×3 (JSON-LD re-validé), redirects /nida/:n → /yd/:n (307 vérifiés en prod), .gitignore des artefacts racine (chiourim/ versionné conservé). Backlog P2 : VIDE — restent les P3 et le premier bilan analytics.
 
 ### S5
 Signaler-une-erreur livré (commit cfa19d3b1) : les lecteurs deviennent relecteurs, aucune halakha modifiée sans validation du Rav. E2E prod : modal 4 champs OK sur /oh/318/lamdan, POST public accepté (signalement test sig_mt8zkjie_x1j9i — à supprimer depuis l'admin), GET sans mot de passe → 401, back-office 200. Note cache : assets JS en max-age=0 must-revalidate → propagation immédiate pour les visiteurs.
