@@ -140,6 +140,7 @@
     var p = location.pathname;
     var m = p.match(/^\/(?:oh|yd|oh-quotidien)\/(\d+)/) || p.match(/\/siman-(\d+)/);
     if (m) return { type: 'siman', ref: m[1] };
+    if (p === '/aujourdhui' || p.indexOf('/aujourdhui/') === 0 || p.indexOf('/aujourdhui.') === 0) return { type: 'aujourdhui', ref: 'today' };
     m = p.match(/\/limoud\/jour-(\d+)/);
     if (m) return { type: 'limoud', ref: m[1] };
     if (p.indexOf('/blog/') === 0 && p.length > 6) return { type: 'blog', ref: p.split('/').pop().replace(/\.html$/, '') };

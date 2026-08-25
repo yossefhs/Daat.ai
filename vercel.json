@@ -93,6 +93,10 @@
     }
   ],
   "rewrites": [
+    { "source": "/aujourdhui", "destination": "/aujourdhui.html" },
+    { "source": "/aujourdhui/", "destination": "/aujourdhui.html" },
+    { "source": "/aujourdhui/he", "destination": "/aujourdhui-he.html" },
+    { "source": "/aujourdhui/en", "destination": "/aujourdhui-en.html" },
     {
       "source": "/contenu",
       "destination": "/contenu.html"
@@ -723,21 +727,6 @@
     }
   ],
   "redirects": [
-    {
-      "source": "/aujourdhui",
-      "destination": "/limoud/",
-      "permanent": false
-    },
-    {
-      "source": "/aujourdhui/he",
-      "destination": "/limoud/index-he.html",
-      "permanent": false
-    },
-    {
-      "source": "/aujourdhui/en",
-      "destination": "/limoud/index-en.html",
-      "permanent": false
-    },
     {
       "source": "/sources/yoreh-deah/siman-:n(\\d+)/index.html",
       "destination": "/yd/:n/",
