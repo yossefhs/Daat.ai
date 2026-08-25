@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Signalements — Admin DAAT</title>
+  <style>
+    :root { --navy:#1A1F3A; --gold:#C5A55A; --creme:#FAF6EE; --border:#e7ddc9; --muted:#8a8578; --red:#a33; --green:#2d7a3e; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:Inter,system-ui,sans-serif; background:var(--creme); color:var(--navy); padding:28px; }
+    h1 { font-size:22px; margin-bottom:4px; }
+    .sub { font-size:13px; color:var(--muted); margin-bottom:20px; }
+    .bar { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:18px; }
+    input[type=password], select { padding:8px 10px; border:1px solid var(--border); border-radius:3px; font-size:13px; }
+    button { padding:8px 16px; border:none; border-radius:3px; background:var(--gold); color:var(--navy); font-weight:600; font-size:12px; letter-spacing:.5px; cursor:pointer; }
+    button.ghost { background:transparent; border:1px solid var(--border); color:var(--muted); }
+    .stats { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; font-size:11.5px; }
+    .stats span { background:#fff; border:1px solid var(--border); padding:5px 10px; border-radius:12px; }
+    table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--border); font-size:13px; }
+    th { text-align:left; padding:9px 10px; background:var(--navy); color:#fff; font-size:10.5px; letter-spacing:1px; text-transform:uppercase; }
+    td { padding:9px 10px; border-top:1px solid var(--border); vertical-align:top; }
+    td .desc { white-space:pre-wrap; max-width:420px; }
+    td .meta { font-size:11px; color:var(--muted); margin-top:3px; }
+    td a { color:var(--gold); text-decoration:none; font-size:11.5px; }
+    .st { font-size:11px; padding:5px 7px; border-radius:3px; border:1px solid var(--border); }
+    .st-NEW { background:#fff6df; }
+    .st-NEEDS_RABBINIC_VALIDATION { background:#ffe9e9; }
+    .st-FIXED { background:#e6f5ea; }
+    .st-REJECTED { background:#f0f0f0; }
+    #msg { margin:12px 0; font-size:13px; }
+    .empty { padding:30px; text-align:center; color:var(--muted); background:#fff; border:1px solid var(--border); }
+  </style>
+</head>
+<body>
+  <h1>⚑ Signalements des lecteurs</h1>
+  <p class="sub">Pipeline : NEW → TRIAGED → NEEDS_RABBINIC_VALIDATION → APPROVED → FIXED / REJECTED. Aucune halakha modifiée sans validation du Rav.</p>
+
+  <div class="bar">
+    <input type="password" id="pw" placeholder="ADMIN_PASSWORD" style="min-width:220px;">
+    <select id="filter">
+      <option value="">Tous les statuts</option>
+      <option>NEW</option><option>TRIAGED</option><option>NEEDS_RABBINIC_VALIDATION</option>
+      <option>APPROVED</option><option>FIXED</option><option>REJECTED</option>
+    </select>
+    <button id="load">Charger</button>
+    <a href="/admin/" style="font-size:12px;color:var(--gold);">← Retour admin</a>
+  </div>
+  <div class="stats" id="stats"></div>
+  <div id="msg"></div>
+  <div id="wrap"><div class="empty">Saisis le mot de passe admin puis « Charger ».</div></div>
+
+  <script>
+  (function () {
+    var API = 'https://daatai.vercel.app/api/signalement';
+    var STATUSES = ['NEW','TRIAGED','NEEDS_RABBINIC_VALIDATION','APPROVED','FIXED','REJECTED'];
+    var TYPE_LABELS = { typo:'Faute de frappe', traduction:'Traduction', source:'Source', halakha:'⚠️ Halakha', affichage:'Affichage', autre:'Autre' };
+    var pwEl = document.getElementById('pw');
+    var msg = document.getElementById('msg');
+    try { pwEl.value = localStorage.getItem('daat-admin-pw') || ''; } catch (_) {}
+
+    function hdrs() { return { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + pwEl.value.trim() }; }
+
+    function load() {
+      var pw = pwEl.value.trim();
+      if (!pw) { msg.textContent = 'Mot de passe requis.'; msg.style.color = '#a33'; return; }
+      try { localStorage.setItem('daat-admin-pw', pw); } catch (_) {}
+      msg.textContent = 'Chargement…'; msg.style.color = '';
+      var f = document.getElementById('filter').value;
+      fetch(API + '?limit=300' + (f ? '&status=' + f : ''), { headers: hdrs() })
+        .then(function (r) { if (r.status === 401) throw new Error('Mot de passe refusé'); return r.json(); })
+        .then(function (d) {
+          if (!d.ok) throw new Error(d.error || '?');
+          msg.textContent = '';
+          var st = document.getElementById('stats'); st.innerHTML = '';
+          STATUSES.forEach(function (s) {
+            if (d.stats[s]) st.innerHTML += '<span><strong>' + d.stats[s] + '</strong> ' + s + '</span>';
+          });
+          render(d.entries);
+        })
+        .catch(function (e) { msg.textContent = '✗ ' + e.message; msg.style.color = '#a33'; });
+    }
+
+    function render(entries) {
+      var wrap = document.getElementById('wrap');
+      if (!entries.length) { wrap.innerHTML = '<div class="empty">Aucun signalement — c\'est bon signe.</div>'; return; }
+      var h = '<table><thead><tr><th>Date</th><th>Page</th><th>Type</th><th>Signalement</th><th>Statut</th><th></th></tr></thead><tbody>';
+      entries.forEach(function (e) {
+        h += '<tr>'
+          + '<td>' + (e.ts || '').slice(0, 16).replace('T', '<br>') + '</td>'
+          + '<td><a href="' + (e.url || '#') + '" target="_blank" rel="noopener">' + (e.siman ? 'Siman ' + e.siman : (e.titre || 'page').slice(0, 30)) + (e.seif ? ' · séif ' + e.seif : '') + ' ↗</a><div class="meta">' + (e.lang || '') + '</div></td>'
+          + '<td>' + (TYPE_LABELS[e.type] || e.type) + '</td>'
+          + '<td><div class="desc">' + String(e.description || '').replace(/</g, '&lt;') + '</div>'
+          + (e.source ? '<div class="meta">Source proposée : ' + String(e.source).replace(/</g, '&lt;') + '</div>' : '') + '</td>'
+          + '<td><select class="st st-' + e.status + '" data-id="' + e.id + '">'
+          + STATUSES.map(function (s) { return '<option' + (s === e.status ? ' selected' : '') + '>' + s + '</option>'; }).join('')
+          + '</select></td>'
+          + '<td><button class="ghost del" data-id="' + e.id + '">✕</button></td>'
+          + '</tr>';
+      });
+      wrap.innerHTML = h + '</tbody></table>';
+
+      wrap.querySelectorAll('select.st').forEach(function (sel) {
+        sel.addEventListener('change', function () {
+          fetch(API, { method: 'POST', headers: hdrs(), body: JSON.stringify({ action: 'set-status', id: sel.dataset.id, status: sel.value }) })
+            .then(function (r) { return r.json(); })
+            .then(function (d) { msg.textContent = d.ok ? '✓ Statut mis à jour' : '✗ ' + (d.error || '?'); msg.style.color = d.ok ? '#2d7a3e' : '#a33'; if (d.ok) load(); })
+            .catch(function () { msg.textContent = '✗ réseau'; msg.style.color = '#a33'; });
+        });
+      });
+      wrap.querySelectorAll('button.del').forEach(function (b) {
+        b.addEventListener('click', function () {
+          if (!confirm('Supprimer ce signalement ?')) return;
+          fetch(API + '?id=' + encodeURIComponent(b.dataset.id), { method: 'DELETE', headers: hdrs() })
+            .then(function (r) { return r.json(); })
+            .then(function (d) { if (d.ok) load(); else { msg.textContent = '✗ ' + (d.error || '?'); msg.style.color = '#a33'; } });
+        });
+      });
+    }
+
+    document.getElementById('load').addEventListener('click', load);
+    document.getElementById('filter').addEventListener('change', load);
+    if (pwEl.value) load();
+  })();
+  </script>
+</body>
+</html>
