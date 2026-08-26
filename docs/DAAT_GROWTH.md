@@ -69,6 +69,9 @@ Google → question → réponse → source → siman → approfondissement → 
 
 ## Journal des sessions
 
+### S9
+Pilote long-tail SEO livré (commit 801c3ab90) : /questions/ + 5 pages (réchauffer 318, plata 253, borer 319, kiddoush 271, bougie 275) — réponses résumées depuis les synthèses N3 publiées, machloket Mehaber/Rama signalée, CTA siman + chat. TOUTES en noindex + bandeau jusqu'à validation du Rav (registre C3). Après validation : retirer noindex, sitemap, liens internes depuis les simanim, puis industrialiser (objectif : dizaines de questions). Incident /partenaires (404 par merge concurrent) réparé + règle D6 appliquée et vérifiée.
+
 ### S8
 Kit communautés partenaires livré (commit f80641ad4), suite directe du bilan S7 (Daat Yomi = moteur, FB/WhatsApp = canaux). /partenaires : self-service pour Beth Habad/synagogues/kollelim/groupes — programme de la semaine auto-généré, message WhatsApp prêt à transférer, QR imprimable (statique — URL /aujourdhui stable), zéro maintenance. E2E prod : 5 jours affichés (j55-59, simanim 281-284 avec titres), message construit, wa.me valide, QR chargé. Liens découverte depuis footers /aujourdhui ×3.
 

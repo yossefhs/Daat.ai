@@ -19,7 +19,9 @@
 import { kv } from './_kv.js';
 
 const STATUSES = ['NEW', 'TRIAGED', 'NEEDS_RABBINIC_VALIDATION', 'APPROVED', 'FIXED', 'REJECTED'];
-const TYPES = ['typo', 'traduction', 'source', 'halakha', 'affichage', 'autre'];
+// Catégories du signalement — distinctes dès la soumission pour que le triage
+// n'ait jamais à deviner si un point de langue est un point de halakha.
+const TYPES = ['halakha', 'traduction', 'langue', 'source', 'pedagogie'];
 const LIST_KEY = 'signalements:list';
 const MAX_PER_DAY = 5;
 
@@ -109,7 +111,7 @@ export default async function handler(req, res) {
     if (description.length < 10) {
       return res.status(400).json({ ok: false, error: 'Décris le problème (au moins 10 caractères).' });
     }
-    const type = TYPES.includes(body.type) ? body.type : 'autre';
+    const type = TYPES.includes(body.type) ? body.type : 'pedagogie';
 
     // Rate-limit par IP (jour) — l'IP ne sert qu'à ça, jamais stockée avec le signalement.
     const today = new Date().toISOString().slice(0, 10);
