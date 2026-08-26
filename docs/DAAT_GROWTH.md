@@ -20,9 +20,16 @@ Google → question → réponse → source → siman → approfondissement → 
 - **Dons** : Qonto (4 montants), HelloAsso (dédicaces + upgrade plan auto via webhook), Tomhei Adaat.
 - **Communauté** : 1 lien WhatsApp unique (communaute×3). Aucun lien WhatsApp sur simanim/limoud/blog.
 
-## KPIs (à activer — bloqué par Web Analytics OFF)
+## KPIs — BASELINE (23→26 août 2026, ~3 jours de collecte)
 
-Acquisition : visiteurs, organique, impressions/clics GSC. Engagement : questions chat, pages/visite. Daat Yomi : J+1, J+7, complétions. Communauté : clics WhatsApp. Soutien : dons.
+| Métrique | Valeur | Lecture |
+|---|---|---|
+| Visiteurs / Pages vues | **107 / 346** | 3,2 pages/visiteur · bounce 55 % |
+| Top pages | / (40) · /oh (24) · **/oh/281/base (13) · /oh/282/base (10) · /oh/279/base (9)** | Les simanim du Daat Yomi en cours dominent → **les visiteurs suivent le programme quotidien** |
+| Référents | **Facebook 13** · Google 9 · Bing 4 · **chatgpt.com 1** | FB mobile = 1er canal externe ; SEO naissant ; 1er référé IA |
+| Pays | Israël 46 % · France 24 % · USA 17 % | |
+| Appareils | **Mobile 65 %** (iOS 33 + Android 32) | Confirme le mobile-first du brief |
+| Events | daat_yomi_started **7/8** · chat_cta_hero 4/4 · chat_open 3/13 · share_clicked 2/2 · correction_submitted 1/1 | Le CTA Daat Yomi convertit ; baseline E1 : chat_cta_hero ≈ 3,7 % des visiteurs |
 
 ## Backlog priorisé
 
@@ -49,15 +56,24 @@ Acquisition : visiteurs, organique, impressions/clics GSC. Engagement : question
 - [x] Artefacts racine gitignorés (~87 doublons untracked — jamais déployés) ; la sauvegarde organisée chiourim/ (57 fichiers) reste versionnée volontairement (S6)
 
 ### P3
-- Communautés partenaires (kit hebdo), dashboard croissance, veille concurrentielle.
+- [x] Kit communautés partenaires : /partenaires — programme hebdo auto-généré (api/aujourdhui?semaine=1), message WhatsApp copier/transférer, QR statique vers /aujourdhui, events partner_kit_* — E2E prod vérifié (S8)
+- [ ] Dashboard croissance consolidé (un écran admin : acquisition, chat, Daat Yomi, partages, signalements, dons)
+- [ ] Veille concurrentielle
+- [ ] /partenaires en HE/EN si demande
 
 ## Expérimentations
 
 | ID | HYPOTHESIS | CHANGE | METRIC | BASELINE | START | RESULT | DECISION |
 |----|-----------|--------|--------|----------|-------|--------|----------|
-| E1 | Un CTA orienté bénéfice augmente l'usage du chat vs « Tester l'IA » | Hero ×3 langues | chat_cta_hero + chat_open / sessions | en cours de collecte | S1 | — | — |
+| E1 | Un CTA orienté bénéfice augmente l'usage du chat vs « Tester l'IA » | Hero ×3 langues | chat_cta_hero / visiteurs | **3,7 % (4/107, S7)** | S1 | — | — |
 
 ## Journal des sessions
+
+### S8
+Kit communautés partenaires livré (commit f80641ad4), suite directe du bilan S7 (Daat Yomi = moteur, FB/WhatsApp = canaux). /partenaires : self-service pour Beth Habad/synagogues/kollelim/groupes — programme de la semaine auto-généré, message WhatsApp prêt à transférer, QR imprimable (statique — URL /aujourdhui stable), zéro maintenance. E2E prod : 5 jours affichés (j55-59, simanim 281-284 avec titres), message construit, wa.me valide, QR chargé. Liens découverte depuis footers /aujourdhui ×3.
+
+### S7
+Premier bilan chiffré (dashboard lu via navigateur — l'API de requête MCP reste 404, dashboard = source de vérité). Enseignement majeur : le Daat Yomi est le moteur réel du site (3 des 5 top pages = simanim du programme en cours, event daat_yomi_started en tête) ; Facebook mobile = 1er canal externe ; mobile 65 %. Décision data-driven : prioriser l'amplification communautaire (kit partenaires P3, canaux FB/WhatsApp) qui renforce ce qui marche, long-tail SEO en chantier de fond (Google = 9 visiteurs seulement).
 
 ### S6
 Reliquat P2 soldé (commit 122635f39) : FAQPage homepage retiré ×3 (JSON-LD re-validé), redirects /nida/:n → /yd/:n (307 vérifiés en prod), .gitignore des artefacts racine (chiourim/ versionné conservé). Backlog P2 : VIDE — restent les P3 et le premier bilan analytics.

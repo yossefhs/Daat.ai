@@ -5,8 +5,11 @@
 // appel IA, aucune écriture KV — lecture du plan + cache edge jusqu'à minuit
 // (Europe/Paris), donc quasi toujours servi depuis le CDN.
 //
-// GET /api/aujourdhui           → { ok, date, isStudyDay, entry|null, next|null }
-// GET /api/aujourdhui?date=ISO  → même chose pour une date donnée (debug)
+// GET /api/aujourdhui             → { ok, date, isStudyDay, entry|null, next|null }
+// GET /api/aujourdhui?date=ISO    → même chose pour une date donnée (debug)
+// GET /api/aujourdhui?semaine=1   → { ok, weekStart, days: [entries dim→jeu de la
+//                                    semaine courante] } — alimente /partenaires
+//                                    (kit hebdo des communautés, zéro maintenance)
 
 import { getEntryForDate, loadPlan } from './_daily-limoud.js';
 
@@ -36,6 +39,26 @@ export default function handler(req, res) {
     const qDate = typeof req.query.date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(req.query.date)
       ? req.query.date : null;
     const date = qDate || parisToday();
+
+    // Mode « semaine » : les entrées du dimanche au jeudi de la semaine courante.
+    if (req.query.semaine) {
+      const [y, m, d] = date.split('-').map(Number);
+      const ref = new Date(Date.UTC(y, m - 1, d));
+      const sunday = new Date(ref);
+      sunday.setUTCDate(ref.getUTCDate() - ref.getUTCDay()); // dimanche de la semaine
+      const days = [];
+      for (let i = 0; i < 5; i++) { // dim → jeu
+        const dt = new Date(sunday);
+        dt.setUTCDate(sunday.getUTCDate() + i);
+        const iso = dt.toISOString().slice(0, 10);
+        const e = getEntryForDate(iso);
+        if (e) days.push(e);
+      }
+      const ttlW = Math.min(secondsUntilParisMidnight(), 21600);
+      res.setHeader('Cache-Control', `public, s-maxage=${ttlW}, stale-while-revalidate=300`);
+      return res.status(200).json({ ok: true, weekStart: sunday.toISOString().slice(0, 10), days });
+    }
+
     const entry = getEntryForDate(date);
 
     // Jour sans étude (vendredi/shabbat/hors plan) → prochaine entrée pour le CTA.
