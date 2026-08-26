@@ -313,12 +313,12 @@ def gen(num, numHe, subj):
 # seul intitulé hébreu (une glose y serait redondante), la page française et la
 # page anglaise le glosent chacune dans la sienne.
 SIMANIM=[
- (216,"רי״ו",{"fr":"דיני ברכת הריח — les lois de la bénédiction sur l'odeur",
-             "he":"דיני ברכת הריח",
-             "en":"דיני ברכת הריח — the laws of the blessing over fragrance"}),
- (217,"רי״ז",{"fr":"ברכת הבשמים והמוגמר — la bénédiction sur les aromates et sur l'encens",
-             "he":"ברכת הבשמים והמוגמר",
-             "en":"ברכת הבשמים והמוגמר — the blessing over spices and over incense"}),
+ (175,"קע״ה",{"fr":"דיני ברכת הטוב והמטיב על היין — la bénédiction HaTov VeHaMeitiv sur le vin",
+             "he":"דיני ברכת הטוב והמטיב על היין",
+             "en":"דיני ברכת הטוב והמטיב על היין — the blessing HaTov VeHaMeitiv over wine"}),
+ (176,"קע״ו",{"fr":"שהפת פוטר הפרפרת — le pain exempte les mets d'accompagnement (parperet)",
+             "he":"שהפת פוטר הפרפרת",
+             "en":"שהפת פוטר הפרפרת — bread exempts the accompanying dishes (parperet)"}),
 ]
 if __name__=="__main__":
     args=[int(x) for x in sys.argv[1:]]

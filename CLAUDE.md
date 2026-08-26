@@ -21,30 +21,6 @@ Le Choul'han Aroukh HaRav (Admour HaZaken) **ne couvre pas tout Orah Haïm** : i
 
 Dans ce cas, **NE JAMAIS fabriquer de texte SA HaRav** (règle anti-fabrication ABSOLUE). Le niveau-4 devient une **page-passerelle sobre** (🌉), générée par `scripts/gen-bridge.py` (ou `/tmp/gen-bridge.py`) : elle explique honnêtement l'absence, renvoie aux niveaux 1-3 (Mehaber/Rama) et au **Siddour de l'Admour HaZaken** (où sa pratique sur la tefila est consignée), **sans aucune citation reconstruite ni le mot « n'existe pas sur Sefaria »**. Les niveaux 1-3 + index restent des pages normales (contenu Mehaber/Rama). `verify-oh-source.py` passe alors avec 0 seif attendu = 0 bloc `seif-details`. Décision utilisateur (2026) : **page-pont sobre**, pas de reconstruction façon 304/322.
 
-## ⚠️ Avant tout push sur `main` : fusionner puis vérifier (RÈGLE ABSOLUE)
-
-Plusieurs sessions travaillent sur ce dépôt depuis des copies distinctes. **Par deux fois**, une
-session a poussé sur `main` un commit construit sur une copie périmée : les commits `7ed67012`
-(« journal S3 ») et `a1311630` (« journal S5 ») ont chacun **supprimé silencieusement des dizaines
-de simanim déjà publiés** et annulé des correctifs appliqués à plus de 1 300 fichiers, sans que le
-message de commit n'en dise un mot. Le site a perdu douze simanim en ligne, deux fois.
-
-Donc, **avant tout push sur `main`, sans exception** :
-
-```bash
-git fetch origin main && git merge origin/main   # jamais publier sur une base périmée
-python3 scripts/verifier-integrite.py            # doit sortir 0
-```
-
-`scripts/verifier-integrite.py` compare l'état local à `origin/main` et **refuse** un état qui
-supprimerait un siman publié, désynchroniserait le catalogue du disque, ou annulerait l'un des deux
-correctifs mécaniques (`scripts/fix-jsonld-lang.py`, `scripts/heb-nums.py` — tous deux idempotents et
-rejouables). Si une suppression est réellement voulue, `--autoriser-suppressions` et **le dire dans le
-message de commit**. Le workflow `.github/workflows/anti-regression.yml` fait le même contrôle après
-coup sur `main` et échoue en rouge si des simanim disparaissent.
-
-Ce contrôle est structurel et ne remplace pas la clause de vérification de contenu ci-dessous.
-
 ## Commands
 
 ```bash
