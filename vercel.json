@@ -722,6 +722,10 @@
       "destination": "/sources/yoreh-deah/siman-:n/niveau-4-halakha-en.html"
     },
     {
+      "source": "/oh-quotidien/:n(\\d+)/:page",
+      "destination": "/sources/orah-haim/siman-:n/:page"
+    },
+    {
       "source": "/yd/:n(\\d+)/:page",
       "destination": "/sources/yoreh-deah/siman-:n/:page"
     }
