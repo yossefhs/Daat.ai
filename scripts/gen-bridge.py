@@ -313,12 +313,21 @@ def gen(num, numHe, subj):
 # seul intitulé hébreu (une glose y serait redondante), la page française et la
 # page anglaise le glosent chacune dans la sienne.
 SIMANIM=[
- (216,"רי״ו",{"fr":"דיני ברכת הריח — les lois de la bénédiction sur l'odeur",
-             "he":"דיני ברכת הריח",
-             "en":"דיני ברכת הריח — the laws of the blessing over fragrance"}),
- (217,"רי״ז",{"fr":"ברכת הבשמים והמוגמר — la bénédiction sur les aromates et sur l'encens",
-             "he":"ברכת הבשמים והמוגמר",
-             "en":"ברכת הבשמים והמוגמר — the blessing over spices and over incense"}),
+ (218,"רי״ח",{"fr":"ברכות הנעשים על הנסים — les bénédictions que l'on dit sur les miracles",
+             "he":"ברכות הנעשים על הנסים",
+             "en":"ברכות הנעשים על הנסים — the blessings recited over miracles"}),
+ (219,"רי״ט",{"fr":"ברכת הודאת היחיד — la bénédiction d'action de grâce de l'individu (HaGomel)",
+             "he":"ברכת הודאת היחיד",
+             "en":"ברכת הודאת היחיד — the individual's blessing of thanksgiving (HaGomel)"}),
+ (220,"ר״כ",{"fr":"הטבת החלום ותעניתו — l'amélioration du rêve et le jeûne qui s'y rapporte",
+             "he":"הטבת החלום ותעניתו",
+             "en":"הטבת החלום ותעניתו — bettering a dream and the fast that attends it"}),
+ (221,"רכ״א",{"fr":"ברכת הודאת הגשמים — la bénédiction d'action de grâce sur les pluies",
+             "he":"ברכת הודאת הגשמים",
+             "en":"ברכת הודאת הגשמים — the blessing of thanksgiving over rainfall"}),
+ (222,"רכ״ב",{"fr":"ברכת הודאת הטוב והרע — bénir sur le bien et sur le mal",
+             "he":"ברכת הודאת הטוב והרע",
+             "en":"ברכת הודאת הטוב והרע — blessing over the good and over the bad"}),
 ]
 if __name__=="__main__":
     args=[int(x) for x in sys.argv[1:]]
