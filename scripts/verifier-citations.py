@@ -372,6 +372,13 @@ def fenetre_ref(plain, at, n):
     coupe = avant.rfind('»')
     if coupe >= 0:
         avant = avant[coupe + 1:]
+        # La citation précédente porte sa référence APRÈS son guillemet fermant :
+        # « … » (מ״ב רכ״ז:יב). Couper au « » » la laissait dans notre fenêtre, et
+        # une citation dont la référence suit — le cas ordinaire ici — se voyait
+        # attribuer celle de sa voisine. Vu sur le siman 227 : le Taz, cité
+        # « … » (ט״ז או״ח רכ״ז), héritait du מ״ב de la citation précédente et
+        # sortait en REF_FAUSSE alors que la page était juste.
+        avant = re.sub(r'^\s*\([^()]*\)', '', avant)
 
     return avant + ' ' + plain[at:fin] + ' ' + apres
 
