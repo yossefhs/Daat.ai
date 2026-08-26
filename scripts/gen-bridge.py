@@ -313,21 +313,21 @@ def gen(num, numHe, subj):
 # seul intitulé hébreu (une glose y serait redondante), la page française et la
 # page anglaise le glosent chacune dans la sienne.
 SIMANIM=[
- (218,"רי״ח",{"fr":"ברכות הנעשים על הנסים — les bénédictions que l'on dit sur les miracles",
-             "he":"ברכות הנעשים על הנסים",
-             "en":"ברכות הנעשים על הנסים — the blessings recited over miracles"}),
- (219,"רי״ט",{"fr":"ברכת הודאת היחיד — la bénédiction d'action de grâce de l'individu (HaGomel)",
-             "he":"ברכת הודאת היחיד",
-             "en":"ברכת הודאת היחיד — the individual's blessing of thanksgiving (HaGomel)"}),
- (220,"ר״כ",{"fr":"הטבת החלום ותעניתו — l'amélioration du rêve et le jeûne qui s'y rapporte",
-             "he":"הטבת החלום ותעניתו",
-             "en":"הטבת החלום ותעניתו — bettering a dream and the fast that attends it"}),
- (221,"רכ״א",{"fr":"ברכת הודאת הגשמים — la bénédiction d'action de grâce sur les pluies",
-             "he":"ברכת הודאת הגשמים",
-             "en":"ברכת הודאת הגשמים — the blessing of thanksgiving over rainfall"}),
- (222,"רכ״ב",{"fr":"ברכת הודאת הטוב והרע — bénir sur le bien et sur le mal",
-             "he":"ברכת הודאת הטוב והרע",
-             "en":"ברכת הודאת הטוב והרע — blessing over the good and over the bad"}),
+ (223,"רכ״ג",{"fr":"מי שילדה אשתו ומת מורישו ובנה בית חדש וקנה כלים חדשים ומה מברך — la naissance, l'héritage, la maison neuve et les objets neufs : que bénit-on ?",
+             "he":"מי שילדה אשתו ומת מורישו ובנה בית חדש וקנה כלים חדשים ומה מברך",
+             "en":"מי שילדה אשתו ומת מורישו ובנה בית חדש וקנה כלים חדשים ומה מברך — birth, inheritance, a new house and new vessels: what does one bless?"}),
+ (224,"רכ״ד",{"fr":"דיני ברכות פרטיות — les bénédictions particulières",
+             "he":"דיני ברכות פרטיות",
+             "en":"דיני ברכות פרטיות — the particular blessings"}),
+ (225,"רכ״ה",{"fr":"דיני ברכת שהחיינו — les lois de la bénédiction chéhé'héyanou",
+             "he":"דיני ברכת שהחיינו",
+             "en":"דיני ברכת שהחיינו — the laws of the shehecheyanu blessing"}),
+ (226,"רכ״ו",{"fr":"הרואה פרחי האילן מה מברך — celui qui voit les arbres en fleur : que bénit-il ?",
+             "he":"הרואה פרחי האילן מה מברך",
+             "en":"הרואה פרחי האילן מה מברך — one who sees trees in blossom: what does he bless?"}),
+ (227,"רכ״ז",{"fr":"ברכת הזיקים — la bénédiction sur les phénomènes du ciel et de la terre",
+             "he":"ברכת הזיקים",
+             "en":"ברכת הזיקים — the blessing over celestial and terrestrial phenomena"}),
 ]
 if __name__=="__main__":
     args=[int(x) for x in sys.argv[1:]]
