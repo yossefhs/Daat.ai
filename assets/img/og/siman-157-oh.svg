@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <style><![CDATA[
+    @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Frank+Ruhl+Libre:wght@500;700;900&family=Inter:wght@400;500;600&display=swap");
+  ]]>
+      .bg          { fill: #F5F0E8; }
+      .border-frame{ fill: none; stroke: #B8972A; stroke-width: 4; }
+      .border-inner{ fill: none; stroke: #B8972A; stroke-width: 1.5; opacity: 0.4; }
+      .label       { font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600;
+                     letter-spacing: 6px; fill: #B8972A; text-transform: uppercase; }
+      .title-fr    { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 60px;
+                     font-weight: 600; fill: #1A1F3A; }
+      .title-he    { font-family: 'Frank Ruhl Libre', serif; font-size: 78px; font-weight: 900;
+                     fill: #B8972A; direction: rtl; }
+      .subtitle    { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 22px;
+                     font-style: italic; fill: #3D4266; }
+      .number      { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 30px;
+                     font-weight: 500; fill: #B8972A; letter-spacing: 2px; }
+      .brand-he    { font-family: 'Frank Ruhl Libre', serif; font-size: 32px; font-weight: 700;
+                     fill: #B8972A; }
+      .brand-en    { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
+                     letter-spacing: 4px; fill: #3D4266; text-transform: uppercase; }
+      .brand-tag   { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 16px;
+                     font-style: italic; fill: #3D4266; }
+    </style>
+
+    <!-- Subtle paper grain -->
+    <pattern id="grain" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+      <rect width="40" height="40" fill="#F5F0E8"/>
+      <circle cx="3" cy="7"  r="0.6" fill="#EDE3CE" opacity="0.3"/>
+      <circle cx="22" cy="18" r="0.4" fill="#EDE3CE" opacity="0.25"/>
+      <circle cx="35" cy="32" r="0.5" fill="#EDE3CE" opacity="0.3"/>
+      <circle cx="11" cy="28" r="0.3" fill="#EDE3CE" opacity="0.2"/>
+    </pattern>
+
+    <!-- Manuscript margin (left) -->
+    <linearGradient id="margin" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"  stop-color="#EDE3CE" stop-opacity="0.55"/>
+      <stop offset="80%" stop-color="#EDE3CE" stop-opacity="0.0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect class="bg" x="0" y="0" width="1200" height="630"/>
+  <rect x="0" y="0" width="1200" height="630" fill="url(#grain)"/>
+
+  <!-- Manuscript margin -->
+  <rect x="0" y="0" width="80" height="630" fill="url(#margin)"/>
+  <line x1="80" y1="0" x2="80" y2="630" stroke="#B8972A" stroke-width="2" opacity="0.6"/>
+
+  <!-- Outer frame -->
+  <rect class="border-frame" x="32" y="32" width="1136" height="566" rx="6"/>
+  <rect class="border-inner" x="48" y="48" width="1104" height="534" rx="3"/>
+
+  <!-- Top label -->
+  <text class="label" x="120" y="110">CHOULHAN AROUKH · ÉTUDE EN FRANÇAIS</text>
+
+  <!-- Hebrew title (sa propre ligne, à droite) -->
+  <text class="title-he" x="1140" y="200" text-anchor="end">דיני זמן קביעות לסעודה</text>
+
+  <!-- Number en français + hébreu (sa propre ligne, sous le label, plus discret) -->
+  <text class="number" x="120" y="160">Siman 157 · קנ״ז</text>
+
+  <!-- Title FR (multi-line) — décalé vers le bas pour aérer -->
+  <text class="title-fr" x="120" y="290">Le moment fixé pour le repas</text>
+  <text class="title-fr" x="120" y="364">(du matin)</text>
+
+  <!-- Subtitle (multi-line) -->
+  <text class="subtitle" x="120" y="475">דיני זמן קביעות לסעודה : כשיגיע שעה רביעית יקבע סעודתו ; le</text>
+  <text class="subtitle" x="120" y="505">talmid 'hakham עוסק בלימודו ימתין עד שעה ששית ; ולא יאחר</text>
+
+  <!-- Footer brand -->
+  <line x1="120" y1="535" x2="1080" y2="535" stroke="#B8972A" stroke-width="1" opacity="0.4"/>
+  <text class="brand-he" x="120" y="575">דעת</text>
+  <text class="brand-en" x="180" y="572">DAAT</text>
+  <text class="brand-tag" x="1080" y="575" text-anchor="end">daattorah.com</text>
+</svg>

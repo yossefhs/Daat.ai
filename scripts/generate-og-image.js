@@ -175,8 +175,20 @@ function renderDefault() {
 
 // -- Process simanim --
 function getSimanFiles() {
+  // --range a-b limite aux simanim d'un compartiment : les numéros d'Orah Haïm
+  // quotidien (1-241) et de Hilkhot Shabbat (242-365) vivent dans le même
+  // répertoire de données, et on ne veut pas régénérer les uns en écrivant les
+  // autres.
+  const range = flag('--range');
+  let lo = -Infinity, hi = Infinity;
+  if (range) {
+    const m = /^(\d+)-(\d+)$/.exec(range);
+    if (!m) { console.error('--range attend la forme 1-241'); process.exit(1); }
+    lo = Number(m[1]); hi = Number(m[2]);
+  }
   return readdirSync(DATA_DIR)
     .filter(f => /^siman-\d+\.json$/.test(f))
+    .filter(f => { const n = Number(f.match(/\d+/)[0]); return n >= lo && n <= hi; })
     .map(f => resolve(DATA_DIR, f));
 }
 
@@ -188,7 +200,9 @@ function generateForSiman(filepath) {
     titleHe: data.titleHe,
     subtitle: data.subtitle || data.description?.slice(0, 100),
   });
-  const svgPath = join(OUT_DIR, `siman-${data.number}.svg`);
+  // --suffix distingue les compartiments qui partagent une même numérotation
+  // (oh-quotidien 1-241 et yoreh-deah 1-403) : siman-233-oh.svg vs siman-233.svg.
+  const svgPath = join(OUT_DIR, `siman-${data.number}${flag('--suffix') || ''}.svg`);
   writeFileSync(svgPath, svg, 'utf8');
   console.log(`✓ ${svgPath} (${(svg.length / 1024).toFixed(1)} KB)`);
 }
@@ -212,6 +226,6 @@ if (onlyDefault) {
   // All simanim + default
   const files = getSimanFiles();
   for (const f of files) generateForSiman(f);
-  writeDefault();
+  if (!flag('--range')) writeDefault();
   console.log(`\n🎨 ${files.length + 1} images OG SVG générées dans ${OUT_DIR}`);
 }
