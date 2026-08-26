@@ -313,21 +313,21 @@ def gen(num, numHe, subj):
 # seul intitulé hébreu (une glose y serait redondante), la page française et la
 # page anglaise le glosent chacune dans la sienne.
 SIMANIM=[
- (223,"רכ״ג",{"fr":"מי שילדה אשתו ומת מורישו ובנה בית חדש וקנה כלים חדשים ומה מברך — la naissance, l'héritage, la maison neuve et les objets neufs : que bénit-on ?",
-             "he":"מי שילדה אשתו ומת מורישו ובנה בית חדש וקנה כלים חדשים ומה מברך",
-             "en":"מי שילדה אשתו ומת מורישו ובנה בית חדש וקנה כלים חדשים ומה מברך — birth, inheritance, a new house and new vessels: what does one bless?"}),
- (224,"רכ״ד",{"fr":"דיני ברכות פרטיות — les bénédictions particulières",
-             "he":"דיני ברכות פרטיות",
-             "en":"דיני ברכות פרטיות — the particular blessings"}),
- (225,"רכ״ה",{"fr":"דיני ברכת שהחיינו — les lois de la bénédiction chéhé'héyanou",
-             "he":"דיני ברכת שהחיינו",
-             "en":"דיני ברכת שהחיינו — the laws of the shehecheyanu blessing"}),
- (226,"רכ״ו",{"fr":"הרואה פרחי האילן מה מברך — celui qui voit les arbres en fleur : que bénit-il ?",
-             "he":"הרואה פרחי האילן מה מברך",
-             "en":"הרואה פרחי האילן מה מברך — one who sees trees in blossom: what does he bless?"}),
- (227,"רכ״ז",{"fr":"ברכת הזיקים — la bénédiction sur les phénomènes du ciel et de la terre",
-             "he":"ברכת הזיקים",
-             "en":"ברכת הזיקים — the blessing over celestial and terrestrial phenomena"}),
+ (228,"רכ״ח",{"fr":"ברכת ימים ונהרות הרים וגבעות — la bénédiction sur les mers, les fleuves, les montagnes et les collines",
+             "he":"ברכת ימים ונהרות הרים וגבעות",
+             "en":"ברכת ימים ונהרות הרים וגבעות — the blessing over seas, rivers, mountains and hills"}),
+ (229,"רכ״ט",{"fr":"ברכת הקשת וחמה בתקופתה — la bénédiction sur l'arc-en-ciel et sur le soleil à son cycle",
+             "he":"ברכת הקשת וחמה בתקופתה",
+             "en":"ברכת הקשת וחמה בתקופתה — the blessing over the rainbow and over the sun at its cycle"}),
+ (230,"ר״ל",{"fr":"דין קצת ברכות פרטיות — quelques bénédictions particulières",
+             "he":"דין קצת ברכות פרטיות",
+             "en":"דין קצת ברכות פרטיות — some particular blessings"}),
+ (231,"רל״א",{"fr":"שכל כוונותיו יהיו לשם שמים — que toutes ses intentions soient au nom du Ciel",
+             "he":"שכל כוונותיו יהיו לשם שמים",
+             "en":"שכל כוונותיו יהיו לשם שמים — that all his intentions be for the sake of Heaven"}),
+ (232,"רל״ב",{"fr":"דברים האסורים בשעת המנחה — ce qui est interdit à l'heure de min'ha",
+             "he":"דברים האסורים בשעת המנחה",
+             "en":"דברים האסורים בשעת המנחה — what is forbidden at the time of minha"}),
 ]
 if __name__=="__main__":
     args=[int(x) for x in sys.argv[1:]]
