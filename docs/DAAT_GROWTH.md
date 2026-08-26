@@ -56,7 +56,10 @@ Google → question → réponse → source → siman → approfondissement → 
 - [x] Artefacts racine gitignorés (~87 doublons untracked — jamais déployés) ; la sauvegarde organisée chiourim/ (57 fichiers) reste versionnée volontairement (S6)
 
 ### P3
-- Communautés partenaires (kit hebdo), dashboard croissance, veille concurrentielle.
+- [x] Kit communautés partenaires : /partenaires — programme hebdo auto-généré (api/aujourdhui?semaine=1), message WhatsApp copier/transférer, QR statique vers /aujourdhui, events partner_kit_* — E2E prod vérifié (S8)
+- [ ] Dashboard croissance consolidé (un écran admin : acquisition, chat, Daat Yomi, partages, signalements, dons)
+- [ ] Veille concurrentielle
+- [ ] /partenaires en HE/EN si demande
 
 ## Expérimentations
 
@@ -65,6 +68,9 @@ Google → question → réponse → source → siman → approfondissement → 
 | E1 | Un CTA orienté bénéfice augmente l'usage du chat vs « Tester l'IA » | Hero ×3 langues | chat_cta_hero / visiteurs | **3,7 % (4/107, S7)** | S1 | — | — |
 
 ## Journal des sessions
+
+### S8
+Kit communautés partenaires livré (commit f80641ad4), suite directe du bilan S7 (Daat Yomi = moteur, FB/WhatsApp = canaux). /partenaires : self-service pour Beth Habad/synagogues/kollelim/groupes — programme de la semaine auto-généré, message WhatsApp prêt à transférer, QR imprimable (statique — URL /aujourdhui stable), zéro maintenance. E2E prod : 5 jours affichés (j55-59, simanim 281-284 avec titres), message construit, wa.me valide, QR chargé. Liens découverte depuis footers /aujourdhui ×3.
 
 ### S7
 Premier bilan chiffré (dashboard lu via navigateur — l'API de requête MCP reste 404, dashboard = source de vérité). Enseignement majeur : le Daat Yomi est le moteur réel du site (3 des 5 top pages = simanim du programme en cours, event daat_yomi_started en tête) ; Facebook mobile = 1er canal externe ; mobile 65 %. Décision data-driven : prioriser l'amplification communautaire (kit partenaires P3, canaux FB/WhatsApp) qui renforce ce qui marche, long-tail SEO en chantier de fond (Google = 9 visiteurs seulement).
