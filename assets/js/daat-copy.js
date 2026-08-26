@@ -223,15 +223,15 @@
 
   var L = {
     fr: { link: '⚑ Signaler une erreur', title: 'Signaler une erreur', intro: 'Merci de nous aider à fiabiliser l\'étude. Chaque signalement est examiné, et rien n\'est modifié sans validation rabbinique.',
-          type: 'Type de problème', types: { typo: 'Faute de frappe', traduction: 'Traduction', source: 'Référence / source', halakha: 'Point de halakha', affichage: 'Affichage', autre: 'Autre' },
+          type: 'Type de problème', types: { halakha: '❌ Erreur halakhique', traduction: '📝 Traduction à améliorer', langue: '✍️ Faute de langue', source: '📚 Source / référence', pedagogie: '💡 Suggestion pédagogique' },
           seif: 'Sé\'if concerné (optionnel)', desc: 'Décris le problème *', src: 'Source correcte, si tu la connais (optionnel)',
           send: 'Envoyer', cancel: 'Annuler', ok: '✓ Merci ! Ton signalement a bien été transmis.', err: 'Envoi impossible : ' },
     he: { link: '⚑ דווח על טעות', title: 'דיווח על טעות', intro: 'תודה שאתה עוזר לדייק את הלימוד. כל דיווח נבדק, ודבר אינו משתנה ללא אישור רבני.',
-          type: 'סוג הבעיה', types: { typo: 'שגיאת הקלדה', traduction: 'תרגום', source: 'מקור / ציון', halakha: 'נקודה הלכתית', affichage: 'תצוגה', autre: 'אחר' },
+          type: 'סוג הבעיה', types: { halakha: '❌ טעות הלכתית', traduction: '📝 תרגום לשיפור', langue: '✍️ טעות לשונית', source: '📚 מקור / ציון', pedagogie: '💡 הצעה פדגוגית' },
           seif: 'סעיף (לא חובה)', desc: 'תאר את הבעיה *', src: 'המקור הנכון, אם ידוע לך (לא חובה)',
           send: 'שלח', cancel: 'ביטול', ok: '✓ תודה! הדיווח נשלח.', err: 'השליחה נכשלה: ' },
     en: { link: '⚑ Report an error', title: 'Report an error', intro: 'Thank you for helping us make the study more reliable. Every report is reviewed; nothing changes without rabbinic validation.',
-          type: 'Problem type', types: { typo: 'Typo', traduction: 'Translation', source: 'Reference / source', halakha: 'Halachic point', affichage: 'Display', autre: 'Other' },
+          type: 'Problem type', types: { halakha: '❌ Halachic error', traduction: '📝 Translation to improve', langue: '✍️ Language mistake', source: '📚 Source / reference', pedagogie: '💡 Teaching suggestion' },
           seif: 'Seif concerned (optional)', desc: 'Describe the problem *', src: 'Correct source, if you know it (optional)',
           send: 'Send', cancel: 'Cancel', ok: '✓ Thank you! Your report was sent.', err: 'Could not send: ' },
   }[pageLang()];

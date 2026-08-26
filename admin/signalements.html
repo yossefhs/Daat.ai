@@ -46,6 +46,14 @@
       <option value="APPROVED">✅ Approuvé — à corriger</option>
       <option value="FIXED">🔧 Corrigé sur le site</option><option value="REJECTED">✖ Rejeté</option>
     </select>
+    <select id="filter-type">
+      <option value="">Tous les types</option>
+      <option value="halakha">❌ Erreur halakhique</option>
+      <option value="traduction">📝 Traduction à améliorer</option>
+      <option value="langue">✍️ Faute de langue</option>
+      <option value="source">📚 Source / référence</option>
+      <option value="pedagogie">💡 Suggestion pédagogique</option>
+    </select>
     <button id="load">Charger</button>
     <a href="/admin/" style="font-size:12px;color:var(--gold);">← Retour admin</a>
   </div>
@@ -58,7 +66,8 @@
     var API = 'https://daatai.vercel.app/api/signalement';
     var STATUSES = ['NEW','TRIAGED','NEEDS_RABBINIC_VALIDATION','APPROVED','FIXED','REJECTED'];
     var STATUS_FR = { NEW:'🆕 Nouveau', TRIAGED:'📋 Trié', NEEDS_RABBINIC_VALIDATION:'🕓 Validation du Rav requise', APPROVED:'✅ Approuvé — à corriger', FIXED:'🔧 Corrigé sur le site', REJECTED:'✖ Rejeté' };
-    var TYPE_LABELS = { typo:'Faute de frappe', traduction:'Traduction', source:'Source', halakha:'⚠️ Halakha', affichage:'Affichage', autre:'Autre' };
+    var TYPE_LABELS = { halakha:'❌ Erreur halakhique', traduction:'📝 Traduction à améliorer', langue:'✍️ Faute de langue', source:'📚 Source / référence', pedagogie:'💡 Suggestion pédagogique',
+      /* rétro-compat des signalements déjà stockés avant ce changement de catégories */ typo:'✍️ Faute de langue (ancien)', affichage:'💡 Suggestion (ancien)', autre:'💡 Suggestion (ancien)' };
     var pwEl = document.getElementById('pw');
     var msg = document.getElementById('msg');
     try { pwEl.value = localStorage.getItem('daat-admin-pw') || ''; } catch (_) {}
@@ -80,7 +89,8 @@
           STATUSES.forEach(function (s) {
             if (d.stats[s]) st.innerHTML += '<span><strong>' + d.stats[s] + '</strong> ' + (STATUS_FR[s] || s) + '</span>';
           });
-          render(d.entries);
+          var ft = document.getElementById('filter-type').value;
+          render(ft ? d.entries.filter(function (e) { return e.type === ft; }) : d.entries);
         })
         .catch(function (e) { msg.textContent = '✗ ' + e.message; msg.style.color = '#a33'; });
     }
@@ -124,6 +134,7 @@
 
     document.getElementById('load').addEventListener('click', load);
     document.getElementById('filter').addEventListener('change', load);
+    document.getElementById('filter-type').addEventListener('change', load);
     if (pwEl.value) load();
   })();
   </script>
