@@ -83,13 +83,35 @@ def _get(url, tries=3):
             time.sleep(2 * (i + 1))
 
 
+def _echec(data):
+    """Une réponse d'erreur réseau, pas un verdict sur le texte."""
+    return isinstance(data, dict) and set(data) == {'error'}
+
+
 def _cached(key, produce):
+    """Cache disque — mais JAMAIS une erreur réseau.
+
+    Un 503/504 de Sefaria mis en cache se comporte ensuite comme un verdict :
+    le daf devient introuvable pour toutes les exécutions suivantes, et des
+    citations parfaitement exactes ressortent INTROUVABLE ou NON_RESOLU. C'est
+    arrivé — 36 entrées d'erreur figées empoisonnaient Berakhot 59a pour tout
+    le dépôt. On relit donc l'erreur à chaque fois plutôt que de la mémoriser,
+    et une entrée d'erreur déjà présente est purgée à la lecture.
+    """
     os.makedirs(CACHE, exist_ok=True)
     path = os.path.join(CACHE, hashlib.sha1(key.encode()).hexdigest()[:20] + '.json')
     if os.path.exists(path):
-        return json.load(open(path, encoding='utf-8'))
+        try:
+            data = json.load(open(path, encoding='utf-8'))
+        except Exception:
+            os.remove(path)
+        else:
+            if not _echec(data):
+                return data
+            os.remove(path)   # entrée empoisonnée héritée d'une exécution précédente
     data = produce()
-    json.dump(data, open(path, 'w', encoding='utf-8'), ensure_ascii=False)
+    if not _echec(data):
+        json.dump(data, open(path, 'w', encoding='utf-8'), ensure_ascii=False)
     return data
 
 
