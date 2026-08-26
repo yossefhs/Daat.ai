@@ -313,21 +313,21 @@ def gen(num, numHe, subj):
 # seul intitulé hébreu (une glose y serait redondante), la page française et la
 # page anglaise le glosent chacune dans la sienne.
 SIMANIM=[
- (228,"רכ״ח",{"fr":"ברכת ימים ונהרות הרים וגבעות — la bénédiction sur les mers, les fleuves, les montagnes et les collines",
-             "he":"ברכת ימים ונהרות הרים וגבעות",
-             "en":"ברכת ימים ונהרות הרים וגבעות — the blessing over seas, rivers, mountains and hills"}),
- (229,"רכ״ט",{"fr":"ברכת הקשת וחמה בתקופתה — la bénédiction sur l'arc-en-ciel et sur le soleil à son cycle",
-             "he":"ברכת הקשת וחמה בתקופתה",
-             "en":"ברכת הקשת וחמה בתקופתה — the blessing over the rainbow and over the sun at its cycle"}),
- (230,"ר״ל",{"fr":"דין קצת ברכות פרטיות — quelques bénédictions particulières",
-             "he":"דין קצת ברכות פרטיות",
-             "en":"דין קצת ברכות פרטיות — some particular blessings"}),
- (231,"רל״א",{"fr":"שכל כוונותיו יהיו לשם שמים — que toutes ses intentions soient au nom du Ciel",
-             "he":"שכל כוונותיו יהיו לשם שמים",
-             "en":"שכל כוונותיו יהיו לשם שמים — that all his intentions be for the sake of Heaven"}),
- (232,"רל״ב",{"fr":"דברים האסורים בשעת המנחה — ce qui est interdit à l'heure de min'ha",
-             "he":"דברים האסורים בשעת המנחה",
-             "en":"דברים האסורים בשעת המנחה — what is forbidden at the time of minha"}),
+ (233,"רל״ג",{"fr":"זמן תפלת המנחה — le temps de la prière de min'ha",
+             "he":"זמן תפלת המנחה",
+             "en":"זמן תפלת המנחה — the time of the minha prayer"}),
+ (234,"רל״ד",{"fr":"הרוצה להתפלל מנחה גדולה ומנחה קטנה — celui qui veut prier min'ha guedola et min'ha ketana",
+             "he":"הרוצה להתפלל מנחה גדולה ומנחה קטנה",
+             "en":"הרוצה להתפלל מנחה גדולה ומנחה קטנה — one who wishes to pray both minha gedola and minha ketana"}),
+ (235,"רל״ה",{"fr":"זמן קריאת שמע של ערבית — le temps du chema du soir",
+             "he":"זמן קריאת שמע של ערבית",
+             "en":"זמן קריאת שמע של ערבית — the time of the evening shema"}),
+ (236,"רל״ו",{"fr":"דין ברכות קריאת שמע של ערבית — les bénédictions du chema du soir",
+             "he":"דין ברכות קריאת שמע של ערבית",
+             "en":"דין ברכות קריאת שמע של ערבית — the blessings of the evening shema"}),
+ (237,"רל״ז",{"fr":"סדר תפלת ערבית — l'ordre de la prière du soir",
+             "he":"סדר תפלת ערבית",
+             "en":"סדר תפלת ערבית — the order of the evening prayer"}),
 ]
 if __name__=="__main__":
     args=[int(x) for x in sys.argv[1:]]
