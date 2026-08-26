@@ -313,21 +313,18 @@ def gen(num, numHe, subj):
 # seul intitulé hébreu (une glose y serait redondante), la page française et la
 # page anglaise le glosent chacune dans la sienne.
 SIMANIM=[
- (233,"רל״ג",{"fr":"זמן תפלת המנחה — le temps de la prière de min'ha",
-             "he":"זמן תפלת המנחה",
-             "en":"זמן תפלת המנחה — the time of the minha prayer"}),
- (234,"רל״ד",{"fr":"הרוצה להתפלל מנחה גדולה ומנחה קטנה — celui qui veut prier min'ha guedola et min'ha ketana",
-             "he":"הרוצה להתפלל מנחה גדולה ומנחה קטנה",
-             "en":"הרוצה להתפלל מנחה גדולה ומנחה קטנה — one who wishes to pray both minha gedola and minha ketana"}),
- (235,"רל״ה",{"fr":"זמן קריאת שמע של ערבית — le temps du chema du soir",
-             "he":"זמן קריאת שמע של ערבית",
-             "en":"זמן קריאת שמע של ערבית — the time of the evening shema"}),
- (236,"רל״ו",{"fr":"דין ברכות קריאת שמע של ערבית — les bénédictions du chema du soir",
-             "he":"דין ברכות קריאת שמע של ערבית",
-             "en":"דין ברכות קריאת שמע של ערבית — the blessings of the evening shema"}),
- (237,"רל״ז",{"fr":"סדר תפלת ערבית — l'ordre de la prière du soir",
-             "he":"סדר תפלת ערבית",
-             "en":"סדר תפלת ערבית — the order of the evening prayer"}),
+ (238,"רל״ח",{"fr":"לקבוע עתים לתורה בלילה — fixer des temps pour la Torah la nuit",
+             "he":"לקבוע עתים לתורה בלילה",
+             "en":"לקבוע עתים לתורה בלילה — setting fixed times for Torah at night"}),
+ (239,"רל״ט",{"fr":"דין קריאת שמע על מטתו — le chema au coucher",
+             "he":"דין קריאת שמע על מטתו",
+             "en":"דין קריאת שמע על מטתו — the shema recited at bedtime"}),
+ (240,"ר״מ",{"fr":"איך יתנהג האדם בתשמיש מטתו — la conduite de l'homme dans la vie conjugale",
+             "he":"איך יתנהג האדם בתשמיש מטתו",
+             "en":"איך יתנהג האדם בתשמיש מטתו — how a man should conduct himself in marital life"}),
+ (241,"רמ״א",{"fr":"שלא להשתין ערום בפני מטתו — la pudeur au coucher",
+             "he":"שלא להשתין ערום בפני מטתו",
+             "en":"שלא להשתין ערום בפני מטתו — modesty at bedtime"}),
 ]
 if __name__=="__main__":
     args=[int(x) for x in sys.argv[1:]]
