@@ -93,6 +93,9 @@
     }
   ],
   "rewrites": [
+    { "source": "/questions", "destination": "/questions/index.html" },
+    { "source": "/questions/", "destination": "/questions/index.html" },
+    { "source": "/questions/:slug([a-z0-9-]+)", "destination": "/questions/:slug.html" },
     { "source": "/partenaires", "destination": "/partenaires.html" },
     { "source": "/partenaires/", "destination": "/partenaires.html" },
     { "source": "/aujourdhui", "destination": "/aujourdhui.html" },
