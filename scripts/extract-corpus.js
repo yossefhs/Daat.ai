@@ -52,6 +52,30 @@ function loadDispoMap(file) {
 const DISPO_FR = loadDispoMap('simanim-disponibles.json');
 const DISPO_HE = loadDispoMap('simanim-disponibles-he.json');
 
+// ── RÉPERTOIRES SOURCES NON DÉCLARÉS ────────────────────────────────────────
+// Si le Rav ouvre un domaine dans un NOUVEAU répertoire (sources/pessah/…),
+// SECTIONS ne le connaît pas : rien n'entre dans le corpus, et le build annonce
+// « 359/359 simanim » en sortant au vert, comme si le répertoire n'existait pas.
+// Il pourrait écrire un traité entier sans que rien ne le lui dise. On compare
+// donc ce qui est SUR LE DISQUE à ce qui est DÉCLARÉ, et on crie.
+function unknownSourceDirs(declared) {
+  const base = path.join(ROOT, 'sources');
+  if (!fs.existsSync(base)) return [];
+  const known = new Set(declared.map((sec) => path.resolve(sec.dir)));
+  const out = [];
+  for (const d of fs.readdirSync(base, { withFileTypes: true })) {
+    if (!d.isDirectory()) continue;
+    const full = path.join(base, d.name);
+    if (known.has(path.resolve(full))) continue;
+    let simanim = 0;
+    try {
+      simanim = fs.readdirSync(full).filter((x) => /^siman-\d+$/.test(x)).length;
+    } catch { /* ignore */ }
+    if (simanim > 0) out.push({ dir: `sources/${d.name}`, simanim });
+  }
+  return out;
+}
+
 // Simanim indexés sans titre résolu : signalés en fin de build (voir plus bas).
 const MISSING_TITLES = [];
 
@@ -229,6 +253,69 @@ function extractSynSection(siman, body) {
   return chunks;
 }
 
+// Encadrés typés (definition / remember / key-point), appariés par COMPTAGE DE
+// PROFONDEUR.
+// ⚠️ L'ancienne expression régulière exigeait, APRÈS le </div> fermant, un
+// élément d'une liste blanche (h2, p, table, autre encadré…). Trois situations
+// très courantes cassaient cet appariement :
+//   · l'encadré est le DERNIER de sa section (rien ne suit) ;
+//   · le Rav insère une bannière de commentaire `<!-- ===== 3. … ===== -->`
+//     entre deux sections, ce qui suffit à faire échouer le lookahead ;
+//   · un <div> non listé suit l'encadré.
+// Mesuré : 927 encadrés sur 4 332 (21 %) étaient perdus, et le texte de 725
+// d'entre eux n'existait NULLE PART dans le corpus — or ce sont précisément les
+// conclusions pratiques que le Rav écrit en fin de section (« Le pain reste
+// jusqu'à la bénédiction », « Balayer d'abord, à cause du kazayit »).
+// Le comptage de profondeur ferme exactement le bon </div>, y compris quand
+// l'encadré en contient d'autres, et ne dépend plus de ce qui suit.
+// Types d'encadrés reconnus. Les huit derniers sont la charpente du niveau
+// LAMDAN — la hakira, la question, la réponse, le fondement, la mah'loket, la
+// nafka mina, la carte de Rishon, la conclusion. Ils n'étaient dans aucune
+// liste : des dizaines de milliers d'occurrences n'entraient dans le corpus que
+// par accident, via le filet narratif, ou pas du tout.
+// ⚠️ Les encadrés du niveau LAMDAN (hakira-box, rishon-card, pilpul-box,
+// machloket-box, nafka-mina-box, yesod-box, teruts-box, kashya-box, pesak-box,
+// rav-box) ne sont PAS dans cette liste, et c'''est une décision, pas un oubli.
+// Les indexer fait passer le corpus de 21 451 à 29 288 chunks — du vrai pilpoul
+// du Rav, aujourd'''hui invisible. Mais mesuré : le banc hold-out tombe de 51 %
+// à 47 % et le top-3 de 63 % à 60 %, par concurrence entre simanim voisins.
+// Or les deux bancs ne contiennent AUCUNE question de niveau lamdan : ils
+// mesurent le coût de ce contenu et jamais son bénéfice. Trancher sur cette
+// seule base serait du sur-ajustement. À reprendre avec un banc de questions
+// de pilpoul — voir la note dans le rapport de session.
+const BLOCK_TYPES = 'definition|remember|key-point';
+
+function typedBlocks(content) {
+  const out = [];
+  const openRe = new RegExp(`<div class="(${BLOCK_TYPES})"[^>]*>`, 'g');
+  let m;
+  while ((m = openRe.exec(content)) !== null) {
+    const type = m[1];
+    const start = openRe.lastIndex;
+    const tagRe = /<div\b[^>]*>|<\/div\s*>/g;
+    tagRe.lastIndex = start;
+    let depth = 1;
+    let end = content.length;
+    let t;
+    while ((t = tagRe.exec(content)) !== null) {
+      if (t[0][1] === '/') {
+        depth -= 1;
+        if (depth === 0) { end = t.index; break; }
+      } else {
+        depth += 1;
+      }
+    }
+    out.push({
+      type,
+      html: content.slice(start, end),
+      outerStart: m.index,
+      outerEnd: tagRe.lastIndex > end ? tagRe.lastIndex : end,
+    });
+    openRe.lastIndex = end;
+  }
+  return out;
+}
+
 function extractChunks(siman, html) {
   const chunks = [];
   const caveatSections = new Set();
@@ -236,7 +323,12 @@ function extractChunks(siman, html) {
   const body = bodyMatch ? bodyMatch[1] : html;
 
   // Tolérant aux attributs supplémentaires (ex. id="…" ajouté pour les ancres).
-  const sectionRegex = /<h2 class="section-title"[^>]*>([\s\S]*?)<\/h2>([\s\S]*?)(?=<h2 class="section-title"[^>]*>|$)/g;
+  // ⚠️ La classe peut être COMPOSÉE : « section-title section-title--he » (483
+  // occurrences, 48 fichiers). L'ancienne expression exigeait le guillemet juste
+  // après « section-title » : les 13 sections du niveau Lamdan du siman 253
+  // étaient donc invisibles, et la page rendait 1 chunk de 118 caractères sur
+  // 40 Ko — le pilpoul du Rav, perdu.
+  const sectionRegex = /<h2[^>]*class="[^"]*\bsection-title\b[^"]*"[^>]*>([\s\S]*?)<\/h2>([\s\S]*?)(?=<h2[^>]*class="[^"]*\bsection-title\b[^"]*"|$)/g;
   let match;
   let sectionIndex = 0;
   while ((match = sectionRegex.exec(body)) !== null) {
@@ -247,8 +339,30 @@ function extractChunks(siman, html) {
     // pour le fragment dans lequel la phrase tombe.
     if (SECTION_CAVEAT_RE.test(htmlToText(sectionContent))) caveatSections.add(sectionIndex);
 
-    // Skip les sections bruyantes
-    if (/Plan de l'étude|Le texte du Choul'han Aroukh|Mishnah Berurah — premières entrées|Questions de compréhension/.test(sectionTitle)) {
+    // ── Sections « bruyantes » ────────────────────────────────────────────
+    // Elles contiennent le texte SOURCE brut (Choulhan Aroukh, Mishna Beroura),
+    // qu'on n'indexe pas : le corpus doit rendre ce que le Rav ÉCRIT, pas ce
+    // qu'il recopie. Mais on n'y saute plus le contenu RÉDIGÉ : le Rav y place
+    // désormais ses encadrés « Ce que dit ce séif » — la reformulation pratique
+    // de chaque séif. Cinq d'entre eux au siman 253, six au 291, et toute la
+    // série des lots 8 et 9, n'entraient PAS dans le corpus : ils étaient écrits
+    // dans la seule section que l'extracteur ignorait entièrement.
+    // On y garde donc les encadrés typés, et rien d'autre.
+    const sectionBruyante = /Plan de l'étude|Le texte du Choul'han Aroukh|Mishnah Berurah — premières entrées|Questions de compréhension/.test(sectionTitle);
+    if (sectionBruyante) {
+      let idx = 0;
+      for (const block of typedBlocks(sectionContent)) {
+        const text = htmlToText(block.html);
+        if (text.length < 40) continue;
+        idx++;
+        chunks.push({
+          id: `siman-${siman.num}-s${sectionIndex}-b${idx}`,
+          siman: siman.num,
+          sectionNum: sectionIndex,
+          sectionTitle, subsection: null,
+          text, type: block.type,
+        });
+      }
       continue;
     }
 
@@ -273,19 +387,19 @@ function extractChunks(siman, html) {
     }
 
     // Blocs définition/remember/key-point
-    const blockRe = /<div class="(definition|remember|key-point)"[^>]*>([\s\S]*?)<\/div>(?=\s*<(?:div class="(?:definition|remember|key-point|page-break)"|h\d|p\b|table\b|hr\b|\/section|\/body))/g;
-    let block;
     let blockIdx = 0;
-    while ((block = blockRe.exec(sectionContent)) !== null) {
-      const text = htmlToText(block[2]);
+    const indexedBlocks = [];
+    for (const block of typedBlocks(sectionContent)) {
+      const text = htmlToText(block.html);
       if (text.length < 40) continue;
       blockIdx++;
+      indexedBlocks.push(block);
       chunks.push({
         id: `siman-${siman.num}-s${sectionIndex}-b${blockIdx}`,
         siman: siman.num,
         sectionNum: sectionIndex,
         sectionTitle, subsection: null,
-        text, type: block[1],
+        text, type: block.type,
       });
     }
 
@@ -295,7 +409,7 @@ function extractChunks(siman, html) {
     let h3m;
     while ((h3m = h3Re.exec(sectionContent)) !== null) {
       const h3Title = htmlToText(h3m[1]);
-      const subClean = h3m[2].replace(/<div class="(definition|remember|key-point)"[^>]*>[\s\S]*?<\/div>/g, '');
+      const subClean = h3m[2].replace(new RegExp(`<div class="(?:${BLOCK_TYPES})"[^>]*>[\\s\\S]*?<\\/div>`, 'g'), '');
       const text = htmlToText(subClean);
       if (text.length < 60) continue;
       h3Count++;
@@ -315,8 +429,26 @@ function extractChunks(siman, html) {
     // par un extrait de TSITSIT sous « Source : Siman 20 ». Le défaut était
     // invisible : la page produisait 18 chunks, donc aucun avertissement.
     // Mesuré au build : 467 fichiers captaient moins de la moitié de leur texte.
-    if (blockIdx === 0 && h3Count === 0 && !TOC_RE.test(sectionTitle.trim())) {
-      const text = htmlToText(sectionContent).trim();
+    // ⚠️ La condition NE PEUT PAS être `blockIdx === 0`. C'était le cas avant, et
+    // cela tenait par accident : l'ancienne expression n'appariait pas un encadré
+    // placé en DERNIER dans sa section, donc le filet se déclenchait et indexait
+    // tout le corps. Depuis que typedBlocks() apparie correctement, ce même
+    // encadré désarmait le filet — et le tableau ou les paragraphes qui le
+    // précèdent sortaient du corpus. Mesuré : 109 chunks dont le texte
+    // n'existait plus nulle part, ~31 800 caractères, dont « La position du
+    // Rama » (13 320 c.) et « Cas pratiques ». Et le défaut s'aggravait à chaque
+    // encadré ajouté par le chantier de contenu : un « Ce que dit ce séif » posé
+    // en fin de section faisait tomber les 4 gloses du Rama hors du corpus.
+    // On indexe donc le CORPS de la section moins ce qui en est déjà sorti.
+    if (h3Count === 0 && !TOC_RE.test(sectionTitle.trim())) {
+      let rest = '';
+      let cursor = 0;
+      for (const b of indexedBlocks) {
+        rest += sectionContent.slice(cursor, b.outerStart);
+        cursor = b.outerEnd;
+      }
+      rest += sectionContent.slice(cursor);
+      const text = htmlToText(rest).trim();
       if (text.length >= 60 && !TOC_RE.test(text)) {
         const parts = text.length <= 900 ? [text] : text.match(/[\s\S]{1,900}(?:\.|$)/g) || [text];
         parts.forEach((pp) => {
@@ -597,6 +729,15 @@ console.log(`  Chunks totaux       : ${allChunks.length}`);
 console.log(`  Taille JSON         : ${sizeKb} KB`);
 console.log(`  Par section         : ${Object.entries(stats.perSection).map(([k, v]) => `${k}=${v}`).join(', ')}`);
 console.log(`  Skipped (${stats.skipped.length})  : ${stats.skipped.map((s) => `${s.section || ''}#${s.num}`).slice(0, 5).join(',')}${stats.skipped.length > 5 ? '...' : ''}`);
+const UNKNOWN_DIRS = unknownSourceDirs(SECTIONS);
+if (UNKNOWN_DIRS.length) {
+  console.error(`\n⛔ ${UNKNOWN_DIRS.length} répertoire(s) source NON DÉCLARÉ(S) — leur contenu n'entre PAS dans le corpus :`);
+  UNKNOWN_DIRS.forEach((u) => console.error(`    ${u.dir}/ — ${u.simanim} siman(im) ignorés`));
+  console.error('    → déclarer le répertoire dans SECTIONS (scripts/extract-corpus.js) ET dans');
+  console.error('      scripts/generate-simanim-index.js, ajouter les rewrites dans vercel.json,');
+  console.error("      et vérifier que api/chat.js accepte l'identifiant de section correspondant.");
+  console.error('    Sans cela le chat ne verra jamais ce contenu, et rien ne le signalera.\n');
+}
 if (BRIDGE_SKIPPED.length) {
   console.log(`  Passerelles écartées : ${BRIDGE_SKIPPED.length} (${BRIDGE_SKIPPED.slice(0, 8).join(', ')}${BRIDGE_SKIPPED.length > 8 ? '…' : ''})`);
 }
