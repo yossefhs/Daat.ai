@@ -355,6 +355,41 @@ RE_SA_LAT = re.compile(r'\b(?P<tour>OH|OC|YD|EH|CM)\s*(?P<siman>\d{1,3})\s*:\s*(
 RE_SA_HE = re.compile(r'(?P<tour>או["״]?ח|יו["״]?ד)\s*'
                       r'(?P<siman>[א-ת]{1,4}["״\'׳]?[א-ת]?)\s*[:׃]\s*'
                       r'(?P<seif>[א-ת]{1,3}["״\'׳]?[א-ת]?)')
+# Rambam : « רמב״ם הלכות מאכלות אסורות פרק י״ב הלכה ב ».
+#
+# Le résolveur ignorait complètement le Mishneh Torah : les ~4 500 références du site
+# ressortaient « sans référence », donc non jugées — alors que les niveaux 4 s'appuient
+# massivement sur lui. Le nom du traité est donné en hébreu et doit être traduit en
+# slug Sefaria ; la table ci-dessous couvre les 21 formes réellement employées sur le
+# site, variantes orthographiques comprises (תפלה / תפילה, et les deux libellés longs
+# des Hilkhot Tefila).
+RAMBAM_TRAITES = {
+    'ברכות': 'Blessings',
+    'קריאת שמע': 'Reading_the_Shema',
+    'תפלה': 'Prayer_and_the_Priestly_Blessing',
+    'תפילה': 'Prayer_and_the_Priestly_Blessing',
+    'תפילה וברכת כהנים': 'Prayer_and_the_Priestly_Blessing',
+    'תפלה וברכת כהנים': 'Prayer_and_the_Priestly_Blessing',
+    'תפלה ונשיאת כפים': 'Prayer_and_the_Priestly_Blessing',
+    'תפילה ונשיאת כפים': 'Prayer_and_the_Priestly_Blessing',
+    'מאכלות אסורות': 'Forbidden_Foods',
+    'דעות': 'Human_Dispositions',
+    'איסורי ביאה': 'Forbidden_Intercourse',
+    'תלמוד תורה': 'Torah_Study',
+    'תעניות': 'Fasts',
+    'תענית': 'Fasts',
+    'תפילין': 'Tefillin,_Mezuzah_and_the_Torah_Scroll',
+    'תפלין': 'Tefillin,_Mezuzah_and_the_Torah_Scroll',
+    'ספר תורה': 'Tefillin,_Mezuzah_and_the_Torah_Scroll',
+    'מזוזה': 'Tefillin,_Mezuzah_and_the_Torah_Scroll',
+    'שכירות': 'Hiring',
+    'שבת': 'Sabbath',
+    'תשובה': 'Repentance',
+}
+RE_RAMBAM = re.compile(
+    r'רמב["״]?ם[^א-ת]{0,12}הלכות\s+(?P<traite>[א-ת]+(?:\s+[א-ת]+){0,3}?)\s+'
+    r'פרק\s+(?P<perek>[\dא-ת"״\'׳]{1,5})\s+הלכה\s+(?P<halakha>[\dא-ת"״\'׳]{1,5})')
+
 # Michna Beroura : « MB 10:11 », « מ״ב י:יא », « ס״ק ג »
 RE_MB = re.compile(r'(?:MB|מ["״]?ב)\s*(?P<siman>[\dא-ת"״\'׳]{1,5})\s*:\s*'
                    r'(?P<sk>[\dא-ת"״\'׳]{1,4})')
@@ -458,6 +493,11 @@ def refs_in(ctx):
         si, sk = _num(m.group('siman')), _num(m.group('sk'))
         if si and sk:
             out.append(f"Mishnah_Berurah.{si}.{sk}")
+    for m in RE_RAMBAM.finditer(ctx):
+        traite = RAMBAM_TRAITES.get(m.group('traite').strip())
+        pe, ha = _num(m.group('perek')), _num(m.group('halakha'))
+        if traite and pe and ha:
+            out.append(f"Mishneh_Torah,_{traite}.{pe}.{ha}")
     # dédoublonne en gardant l'ordre
     seen, uniq = set(), []
     for r in out:
