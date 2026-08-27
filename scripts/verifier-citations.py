@@ -261,10 +261,18 @@ _ABBREV = [(g, dev) for sig, dev in _ABBREV_BASE for g in dict.fromkeys(_graphie
 _ABBREV += [('ה\u05f3', 'ה'), ("ה'", 'ה')]
 
 # Variantes graphiques qui ne changent pas le texte
+# Équivalences graphiques : deux graphies d'un même mot ne doivent pas faire échouer
+# une comparaison. Elles s'appliquent AVANT la suppression des espaces — voir norm().
 _SUBS = [
-    ('יהוה', 'ה'), ('אלהים', 'אלקים'), ('אלוקים', 'אלקים'),
+    ('אלהים', 'אלקים'), ('אלוקים', 'אלקים'),
     ('ירושלים', 'ירושלם'),
 ]
+# Le Tétragramme, lui, doit être borné par des non-lettres. Appliqué sans borne et
+# après suppression des espaces, il mutilait des citations exactes : « …אָסוּר בַּהֲנָיָה.
+# וְהַשּׁוֹתֶה… » se réduisait à `בהניהוהשותה`, où la suite `יהוה` naît de la seule
+# soudure de deux mots — et la citation, amputée, était déclarée absente de sa source.
+# N'importe quel « …יה ו… » produisait le même faux négatif.
+_TETRA = re.compile(r'(?<![א-ת])יהוה(?![א-ת])')
 
 
 def norm(s):
@@ -273,10 +281,11 @@ def norm(s):
     for a, b in _ABBREV:
         s = s.replace(a, b)
     s = NIKUD.sub('', s)
-    s = NONHEB.sub('', s)
+    # tant que les espaces sont là, les frontières de mots ont encore un sens
+    s = _TETRA.sub('ה', s)
     for a, b in _SUBS:
         s = s.replace(a, b)
-    return s
+    return NONHEB.sub('', s)
 
 
 def n_letters(s):
