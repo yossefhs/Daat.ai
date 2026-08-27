@@ -23,3 +23,11 @@ node_modules
 
 # Répertoires de travail des agents (règle 15 : un sous-dossier par agent)
 scratchpad/
+
+
+
+# Sortie de build : 34 Mio réécrits à chaque déploiement, et GitHub REFUSE
+# un fichier de plus de 100 Mio. Régénéré par vercel-build avant le bundling
+# des fonctions ; déclaré dans vercel.json (includeFiles) pour ne pas dépendre
+# du traçage automatique. Après un clone frais : `npm run build`.
+data/corpus-shabbat.json

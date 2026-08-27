@@ -28,6 +28,7 @@ import {
   getChunkById,
   getSimanChunks,
   getCorpusStats,
+  corpusPerimeter,
 } from './_corpus-search.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -360,10 +361,20 @@ export async function executeCorpusTool(toolName, input) {
       // « ce siman n'est pas couvert » et l'annonce à l'utilisateur — ce qui est
       // faux. Un résultat vide veut dire « reformule », jamais « pas couvert ».
       const stats = getCorpusStats();
+      let perimeter = `${stats.totalSimanim} simanim`;
+      try { perimeter = corpusPerimeter().summary; } catch { /* corpus indisponible */ }
       return JSON.stringify({
         results: [],
         count: 0,
-        note: `Aucun extrait ne correspond à ces mots-clés. Cela ne signifie PAS que le sujet est absent du corpus (${stats.totalChunks} extraits, ${stats.totalSimanim} simanim). Reformule avec le vocabulaire halakhique classique, ou rappelle cet outil avec le paramètre "siman" si tu connais le numéro. N'annonce jamais à l'utilisateur qu'un siman n'est pas couvert.`,
+        // ⚠️ Nuance importante : l'ancienne note interdisait TOUJOURS de dire
+        // « non couvert ». C'était juste pour un siman DANS le périmètre (un
+        // mauvais matching n'est pas une absence) mais faux pour un sujet qui
+        // n'y est pas du tout — et c'est ce qui poussait le modèle à servir un
+        // siman d'un autre domaine plutôt que d'avouer l'absence. On donne donc
+        // le périmètre RÉEL et on distingue les deux cas.
+        note: `Aucun extrait ne correspond à ces mots-clés. Périmètre réel du corpus : ${perimeter}. ` +
+          `Si le sujet demandé est DANS ce périmètre, cela ne signifie PAS qu'il est absent : reformule avec le vocabulaire halakhique classique, ou rappelle cet outil avec le paramètre "siman" si tu connais le numéro, et n'annonce jamais à l'utilisateur que ce siman n'est pas couvert. ` +
+          `S'il est HORS de ce périmètre (Pessah, Souccot, Pourim, deuil, mariage…), dis-le simplement et appuie-toi sur Sefaria — c'est honnête, et infiniment préférable à un extrait d'un autre domaine présenté comme la source du Rav.`,
       });
     }
     return JSON.stringify({ results, count: results.length });
