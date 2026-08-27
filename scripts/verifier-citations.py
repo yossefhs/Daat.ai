@@ -14,8 +14,14 @@ Principe
    <blockquote>, ou texte entre guillemets « … » / " … ". La classe `he-q` n'en
    fait pas partie — c'est une classe typographique (RTL + police hébraïque),
    appliquée aussi bien à une citation qu'à la thèse propre de l'auteur.
-2. Résoudre la référence qui les accompagne (daf talmudique, séif du Choulhan
-   Aroukh, ס״ק de la Michna Beroura, Rambam…) en référence Sefaria canonique.
+   Est « présenté comme une citation » ce que précède une formule d'annonce
+   (תניא, וז״ל, כלשון…) **ou une référence nommée** — « רמב״ם (הלכות תפלה פי״ב
+   הי״ג) — "…" ». Nommer sa source revendique le littéral au moins autant qu'une
+   formule ; tant que ce second cas manquait, ces citations n'étaient pas
+   seulement non résolues, elles n'étaient pas extraites.
+2. Résoudre la référence qui les accompagne (daf talmudique — guemara, Rachi ou
+   Tossefot —, séif du Choulhan Aroukh, ס״ק de la Michna Beroura, perek/halakha du
+   Mishné Torah) en référence Sefaria canonique.
 3. Récupérer le texte réel et comparer après normalisation (nikoud, ponctuation,
    guillemets, noms divins, orthographes pleine/défective).
 
@@ -360,6 +366,165 @@ RE_MB = re.compile(r'(?:MB|מ["״]?ב)\s*(?P<siman>[\dא-ת"״\'׳]{1,5})\s*:\s*
                    r'(?P<sk>[\dא-ת"״\'׳]{1,4})')
 
 
+# ─────────────────────────────── Mishné Torah ───────────────────────────────
+#
+# Le résolveur savait lire un daf de guemara et un séif du Choulhan Aroukh, mais
+# n'avait AUCUN motif pour le Rambam : une référence de la forme
+# « (הלכות תפלה פי״ב הי״ג) » ne résolvait rien, et la citation qu'elle porte était
+# rangée en « sans référence — non vérifiable automatiquement ». Le docstring
+# promettait pourtant le Rambam depuis le début.
+#
+# C'est par ce trou qu'est passée, sur le siman 284, une clause entièrement
+# fabriquée prêtée au Rambam — « וצריך שיהא הענין שמפטיר בו דומה למה שקרא בתורה »,
+# absente de tout Sefaria — et sur laquelle la page appuyait sa remarque. Elle a
+# été trouvée à la relecture, pas par ce script.
+#
+# La table est celle de Sefaria elle-même (api/index, 88 livres), pour qu'un
+# titre ne soit jamais deviné.
+HILKHOT_RAMBAM = {
+    'ביכורים ושאר מתנות כהונה שבגבולין': 'First Fruits and other Gifts to Priests Outside the Sanctuary',
+    'סנהדרין והעונשין המסורין להם': 'The Sanhedrin and the Penalties within Their Jurisdiction',
+    'עבודה זרה וחוקות הגויים': 'Foreign Worship and Customs of the Nations',
+    'תפילין ומזוזה וספר תורה': 'Tefillin, Mezuzah and the Torah Scroll',
+    'כלי המקדש והעובדין בו': 'Vessels of the Sanctuary and Those Who Serve Therein',
+    'מסירת תורה שבעל פה': 'Transmission of the Oral Law',
+    'מעשר שני ונטע רבעי': "Second Tithes and Fourth Year's Fruit",
+    'עבודת יום הכפורים': 'Service on the Day of Atonement',
+    'תפילה וברכת כהנים': 'Prayer and the Priestly Blessing',
+    'מטמאי משכב ומושב': 'Those Who Defile Bed or Seat',
+    'שאר אבות הטומאות': 'Other Sources of Defilement',
+    'שופר וסוכה ולולב': 'Shofar, Sukkah and Lulav',
+    'רוצח ושמירת נפש': 'Murderer and the Preservation of Life',
+    'פסולי המוקדשין': 'Sacrifices Rendered Unfit',
+    'שלוחין ושותפין': 'Agents and Partners',
+    'תמידים ומוספין': 'Daily Offerings and Additional Offerings',
+    'מאכלות אסורות': 'Forbidden Foods',
+    'מלכים ומלחמות': 'Kings and Wars',
+    'מצוות לא תעשה': 'Negative Mitzvot',
+    'שביתת יום טוב': 'Rest on a Holiday',
+    'איסורי המזבח': 'Things Forbidden on the Altar',
+    'גזילה ואבידה': 'Robbery and Lost Property',
+    'טומאת אוכלים': 'Defilement of Foods',
+    'מגילה וחנוכה': 'Scroll of Esther and Hanukkah',
+    'מעשה הקרבנות': 'Sacrificial Procedure',
+    'ערכים וחרמין': 'Appraisals and Devoted Property',
+    'שאלה ופיקדון': 'Borrowing and Deposit',
+    'איסורי ביאה': 'Forbidden Intercourse',
+    'זכייה ומתנה': 'Ownerless Property and Gifts',
+    'יבום וחליצה': 'Levirate Marriage and Release',
+    'יסודי התורה': 'Foundations of the Torah',
+    'מחוסרי כפרה': 'Offerings for Those with Incomplete Atonement',
+    'מלווה ולווה': 'Creditor and Debtor',
+    'מתנות עניים': 'Gifts to the Poor',
+    'קידוש החודש': 'Sanctification of the New Month',
+    'שמיטה ויובל': 'Sabbatical Year and the Jubilee',
+    'תוכן החיבור': 'Overview of Mishneh Torah Contents',
+    'בית הבחירה': 'The Chosen Temple',
+    'חובל ומזיק': 'One Who Injures a Person or Property',
+    'טומאת צרעת': 'Defilement by Leprosy',
+    'טוען ונטען': 'Plaintiff and Defendant',
+    'נערה בתולה': 'Virgin Maiden',
+    'סדר התפילה': 'The Order of Prayer',
+    'שביתת עשור': 'Rest on the Tenth of Tishrei',
+    'תלמוד תורה': 'Torah Study',
+    'ביאת מקדש': 'Admission into the Sanctuary',
+    'מצוות עשה': 'Positive Mitzvot',
+    'נזקי ממון': 'Damages to Property',
+    'פרה אדומה': 'Red Heifer',
+    'קריאת שמע': 'Reading the Shema',
+    'חמץ ומצה': 'Leavened and Unleavened Bread',
+    'טומאת מת': 'Defilement by a Corpse',
+    'קרבן פסח': 'Paschal Offering',
+    'גירושין': 'Divorce',
+    'עירובין': 'Eruvin',
+    'בכורות': 'Firstlings',
+    'מעשרות': 'Tithes',
+    'מקואות': 'Immersion Pools',
+    'נזירות': 'Nazariteship',
+    'שבועות': 'Oaths',
+    'שכירות': 'Hiring',
+    'תעניות': 'Fasts',
+    'תרומות': 'Heave Offerings',
+    'אישות': 'Marriage',
+    'ברכות': 'Blessings',
+    'גניבה': 'Theft',
+    'חגיגה': 'Festival Offering',
+    'כלאים': 'Diverse Species',
+    'מכירה': 'Sales',
+    'ממרים': 'Rebels',
+    'מעילה': 'Trespass',
+    'נדרים': 'Vows',
+    'נחלות': 'Inheritances',
+    'עבדים': 'Slaves',
+    'ציצית': 'Fringes',
+    'שגגות': 'Offerings for Unintentional Transgressions',
+    'שחיטה': 'Ritual Slaughter',
+    'שכנים': 'Neighbors',
+    'שקלים': 'Sheqel Dues',
+    'תמורה': 'Substitution',
+    'תשובה': 'Repentance',
+    'דעות': 'Human Dispositions',
+    'כלים': 'Vessels',
+    'מילה': 'Circumcision',
+    'סוטה': 'Woman Suspected of Infidelity',
+    'עדות': 'Testimony',
+    'אבל': 'Mourning',
+    'שבת': 'Sabbath',
+}
+
+# Le site n'écrit pas toujours le titre complet du livre : « הלכות תפלה » pour
+# « הלכות תפילה וברכת כהנים », « הלכות תפילין » pour le livre qui couvre aussi la
+# mezouza et le sefer Torah. Ces alias-là sont sûrs.
+#
+# Ce qui n'y figure PAS est délibéré : « הלכות נדה » n'est pas un livre du Mishné
+# Torah (le Rambam traite la nidda dans הלכות איסורי ביאה) — sur ce site, c'est
+# le Tour ou le Choulhan Aroukh ; « הלכות גדולות » et « הלכות קטנות » sont d'autres
+# ouvrages entièrement ; « הלכות ברכות השחר », « הלכות קריאת התורה », « הלכות
+# נטילת ידים » sont des intitulés du Tour / Choulhan Aroukh, pas du Rambam.
+# Les faire pointer vers le Rambam produirait des REF_FAUSSE contre des pages
+# justes — exactement le défaut que la seconde moitié de ce correctif répare.
+ALIAS_RAMBAM = {
+    'תפילה': 'תפילה וברכת כהנים', 'תפלה': 'תפילה וברכת כהנים',
+    'תפילה ונשיאת כפים': 'תפילה וברכת כהנים',
+    'תפלה ונשיאת כפים': 'תפילה וברכת כהנים',
+    'תפילה וברכת כוהנים': 'תפילה וברכת כהנים',
+    'תפילין': 'תפילין ומזוזה וספר תורה',
+    'תפלין': 'תפילין ומזוזה וספר תורה',
+    'מזוזה': 'תפילין ומזוזה וספר תורה',
+    'ספר תורה': 'תפילין ומזוזה וספר תורה',
+    'ציצית ועטיפתו': 'ציצית',
+    'תמידין ומוספין': 'תמידים ומוספין',
+    'מקוואות': 'מקואות',
+    'שביתת יום טוב': 'שביתת יום טוב',
+    'קריאת שמע': 'קריאת שמע', 'ק״ש': 'קריאת שמע',
+}
+
+# « הלכות תפלה פי״ב הי״ג », « הלכות שבת פרק ג׳ הלכה ה׳ », « הלכות ציצית פ״ג ».
+# Le perek est obligatoire : sans lui, « הלכות ברכות » n'est pas une référence,
+# c'est la locution courante « les lois des berakhot », qui revient 2745 fois sur
+# le site et ne renvoie à rien de précis.
+RE_RAMBAM = re.compile(
+    r'הלכות\s+(?P<livre>[א-ת]+(?:\s+[א-ת]+){0,4}?)\s*'
+    r'(?:פרק\s*(?P<perek1>[א-ת]{1,4}["״\'׳]?[א-ת]?)'
+    r'|פ["״\'׳]?(?P<perek2>[א-ת]{1,3}["״\'׳]?[א-ת]?)'
+    r'|(?P<perek3>[א-ת]{0,3}["״\'׳][א-ת]?)(?![א-ת]))'
+    r'(?:\s*[,\s]\s*(?:הלכה\s*(?P<hal1>[א-ת]{1,4}["״\'׳]?[א-ת]?)'
+    r'|ה["״\'׳]?(?P<hal2>[א-ת]{1,3}["״\'׳]?[א-ת]?)))?')
+
+# Un titre de livre du Mishné Torah revendiqué comme tel : sans cette marque, une
+# référence « הלכות שבת פרק ג הלכה ה » peut aussi bien viser le Tour. On n'exige la
+# marque que lorsque la halakha manque — perek ET halakha ensemble sont la forme
+# de citation propre au Mishné Torah.
+RE_MARQUE_RAMBAM = re.compile(r'רמב["״]?ם|רמבם|Rambam|Ramba"m|Ma[ïi]monide|Mishneh\s+Torah', re.I)
+
+
+def _livre_rambam(nom):
+    """Le nom cité est-il un livre du Mishné Torah ? (titre exact ou alias sûr)"""
+    nom = re.sub(r'\s+', ' ', nom.replace('״', '"').replace('׳', "'")).strip(' "\'')
+    nom = ALIAS_RAMBAM.get(nom, nom)
+    return HILKHOT_RAMBAM.get(nom)
+
+
 def _num(tok):
     """Un jeton numérique, chiffres arabes ou lettres hébraïques."""
     tok = tok.strip()
@@ -458,6 +623,29 @@ def refs_in(ctx):
         si, sk = _num(m.group('siman')), _num(m.group('sk'))
         if si and sk:
             out.append(f"Mishnah_Berurah.{si}.{sk}")
+    marque = bool(RE_MARQUE_RAMBAM.search(ctx))
+    for m in RE_RAMBAM.finditer(ctx):
+        livre = _livre_rambam(m.group('livre'))
+        if not livre:
+            continue
+        # « הלכות תפילין ד׳ » : le perek écrit sans « פרק » ni « פ ». La forme est
+        # ambiguë — un nombre nu après un intitulé peut désigner un siman du Tour —
+        # donc on ne l'accepte que sous la marque « רמב״ם », et seulement écrit avec
+        # un geresh, comme le site l'écrit (117 fois pour les seuls tefillin).
+        nu = m.group('perek3')
+        if nu and not marque:
+            continue
+        perek = _num(m.group('perek1') or m.group('perek2') or nu or '')
+        hal = _num(m.group('hal1') or m.group('hal2') or '')
+        if not perek:
+            continue
+        # perek seul et aucune marque « רמב״ם » : la référence peut viser le Tour
+        # aussi bien que le Mishné Torah. On s'abstient plutôt que de dénoncer une
+        # page juste.
+        if not hal and not marque:
+            continue
+        ref = f"Mishneh_Torah,_{livre.replace(' ', '_')}.{perek}"
+        out.append(f"{ref}.{hal}" if hal else ref)
     # dédoublonne en gardant l'ordre
     seen, uniq = set(), []
     for r in out:
@@ -537,8 +725,22 @@ CUE = re.compile(
 
 
 def has_cue(before):
-    """Le contexte immédiat annonce-t-il une citation ?"""
-    return bool(CUE.search(before[-90:]))
+    """Le contexte immédiat annonce-t-il une citation ?
+
+    Deux façons d'annoncer. La liste ``CUE`` couvre les formules — תניא, וז״ל,
+    כלשון… Mais la façon la plus courante sur ce site n'y figurait pas : **nommer
+    la source**. « רמב״ם (הלכות תפלה פי״ב הי״ג) — "…" » ne porte aucune formule
+    d'annonce ; il porte une référence, ce qui revendique bien plus clairement une
+    citation littérale qu'un « כלשון » ne le ferait.
+
+    Faute de quoi ces citations n'étaient pas seulement non résolues : elles
+    n'étaient **pas extraites du tout**, donc jamais comptées, pas même dans les
+    « sans référence ». C'est le vrai verrou par lequel est passée la clause
+    fabriquée du siman 284 — le défaut de résolution du Rambam n'en était que la
+    seconde moitié.
+    """
+    tail = before[-90:]
+    return bool(CUE.search(tail)) or bool(refs_in(tail))
 
 
 def is_hebrew_quote(frag):
@@ -740,10 +942,23 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--path', default='sources', help='répertoire à parcourir')
     ap.add_argument('--langues', default='fr', help='fr, he, en (séparés par des virgules)')
-    ap.add_argument('--csv', default='audit/citations-verifiees.csv')
+    ap.add_argument('--csv', default=None,
+                    help='fichier de rapport ; par défaut audit/citations-verifiees.csv '
+                         'pour un passage complet, audit/citations-<cible>.csv pour --path')
     ap.add_argument('--only-absent', action='store_true')
     ap.add_argument('--quiet', action='store_true')
     args = ap.parse_args()
+
+    # Un passage ciblé n'écrase plus le rapport du site entier. Deux fois, un
+    # « --path sources/shabbat/siman-284 » a réduit audit/citations-verifiees.csv
+    # à quatre lignes, et le rapport complet — le seul document qui dise ce qui
+    # reste à corriger — a été perdu en silence jusqu'à ce qu'on le remarque.
+    if args.csv is None:
+        cible = os.path.normpath(args.path).strip(os.sep)
+        if cible in ('sources', '.', ''):
+            args.csv = 'audit/citations-verifiees.csv'
+        else:
+            args.csv = 'audit/citations-%s.csv' % re.sub(r'[^\w.-]+', '-', cible).strip('-')
 
     langues = set(args.langues.split(','))
     base = args.path if os.path.isabs(args.path) else os.path.join(ROOT, args.path)
@@ -793,6 +1008,36 @@ def main():
                         if v2 in ('OK', 'VARIANTE'):
                             v, ratio, extract = v2, ratio2, extract2
                             refs = refs + [propre + ' (siman de la page)']
+            # Repli sur les commentaires imprimés sur le daf. Un daf porte la
+            # guemara ET Rachi ET les Tossefot ; le résolveur ne ramenait que la
+            # guemara. Une page qui cite les Tossefot correctement — « פירש
+            # בקונטרס… (עבודה זרה ע״ו ע״א) » — se voyait donc reprocher un texte
+            # verbatim, en REF_FAUSSE, contre un daf où il figure réellement.
+            #
+            # Le mécanisme COMMENTATEURS existant ne couvre que le cas où le nom du
+            # commentateur JOUXTE la référence ; le cas courant est que la page
+            # nomme le commentateur dans sa prose et ne mette que le daf entre
+            # parenthèses. Six signalements sur six, mesurés le 27/08, étaient de
+            # cette espèce — quatre Tossefot sur Avoda Zara, un Rachi, une Michna
+            # dont le chapitre ז׳ avait été lu comme le folio 7b.
+            if v == 'ABSENT':
+                for r in refs[:3]:
+                    if '_on_' in r or '.' not in r:
+                        continue
+                    for pre in ('Rashi_on_', 'Tosafot_on_'):
+                        cand = pre + r
+                        if cand not in cache_src:
+                            cache_src[cand] = fetch(cand) or []
+                        if not cache_src[cand]:
+                            continue
+                        v2, ratio2, extract2 = verdict(frag, cache_src[cand])
+                        if v2 in ('OK', 'VARIANTE'):
+                            v, ratio, extract = v2, ratio2, extract2
+                            refs = refs + [cand + ' (commentaire du daf)']
+                            break
+                    if v != 'ABSENT':
+                        break
+
             ailleurs = ''
             if v == 'ABSENT':
                 juste = bien_attribuee(frag, window)
