@@ -1004,7 +1004,6 @@
     },
     "api/daily-pack.js": {
       "maxDuration": 10,
-      "_comment": "corpus seul : _pack.js le lit directement, sans passer par _corpus-search.js — l'index précalculé y serait 25 Mo jamais ouverts",
       "includeFiles": "data/corpus-shabbat.json"
     },
     "api/qonto-sync.js": {
