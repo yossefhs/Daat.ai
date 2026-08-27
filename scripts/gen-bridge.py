@@ -313,12 +313,18 @@ def gen(num, numHe, subj):
 # seul intitulé hébreu (une glose y serait redondante), la page française et la
 # page anglaise le glosent chacune dans la sienne.
 SIMANIM=[
- (175,"קע״ה",{"fr":"דיני ברכת הטוב והמטיב על היין — la bénédiction HaTov VeHaMeitiv sur le vin",
-             "he":"דיני ברכת הטוב והמטיב על היין",
-             "en":"דיני ברכת הטוב והמטיב על היין — the blessing HaTov VeHaMeitiv over wine"}),
- (176,"קע״ו",{"fr":"שהפת פוטר הפרפרת — le pain exempte les mets d'accompagnement (parperet)",
-             "he":"שהפת פוטר הפרפרת",
-             "en":"שהפת פוטר הפרפרת — bread exempts the accompanying dishes (parperet)"}),
+ (238,"רל״ח",{"fr":"לקבוע עתים לתורה בלילה — fixer des temps pour la Torah la nuit",
+             "he":"לקבוע עתים לתורה בלילה",
+             "en":"לקבוע עתים לתורה בלילה — setting fixed times for Torah at night"}),
+ (239,"רל״ט",{"fr":"דין קריאת שמע על מטתו — le chema au coucher",
+             "he":"דין קריאת שמע על מטתו",
+             "en":"דין קריאת שמע על מטתו — the shema recited at bedtime"}),
+ (240,"ר״מ",{"fr":"איך יתנהג האדם בתשמיש מטתו — la conduite de l'homme dans la vie conjugale",
+             "he":"איך יתנהג האדם בתשמיש מטתו",
+             "en":"איך יתנהג האדם בתשמיש מטתו — how a man should conduct himself in marital life"}),
+ (241,"רמ״א",{"fr":"שלא להשתין ערום בפני מטתו — la pudeur au coucher",
+             "he":"שלא להשתין ערום בפני מטתו",
+             "en":"שלא להשתין ערום בפני מטתו — modesty at bedtime"}),
 ]
 if __name__=="__main__":
     args=[int(x) for x in sys.argv[1:]]

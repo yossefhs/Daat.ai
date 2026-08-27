@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Communautés partenaires — Daat Yomi | Daat Torah</title>
+  <meta name="description" content="Beth Habad, synagogues, kollelim, groupes WhatsApp : votre kit hebdomadaire Daat Yomi prêt à partager — programme de la semaine, texte WhatsApp, QR code. Gratuit, automatique, chaque semaine.">
+  <link rel="canonical" href="https://daattorah.com/partenaires">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="DAAT דעת">
+  <meta property="og:title" content="Communautés partenaires Daat Yomi — le kit hebdo prêt à partager">
+  <meta property="og:description" content="Programme de la semaine, texte WhatsApp prêt à copier, QR code pour votre panneau d'affichage. Gratuit et automatique.">
+  <meta property="og:url" content="https://daattorah.com/partenaires">
+  <meta property="og:image" content="https://daattorah.com/assets/img/og/og-default.png">
+  <meta property="og:locale" content="fr_FR">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Frank+Ruhl+Libre:wght@500;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script defer src="/_vercel/insights/script.js"></script>
+  <style>
+    :root { --navy:#1A1F3A; --gold:#C5A55A; --creme:#FAF6EE; --border:#e7ddc9; --mid:#4a4a5a; --muted:#8a8578; --green:#1faa55; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:var(--creme); font-family:'Cormorant Garamond',Georgia,serif; color:var(--navy); }
+    .hdr { background:var(--navy); padding:14px 24px; display:flex; align-items:center; justify-content:space-between; }
+    .hdr a { text-decoration:none; }
+    .logo { display:flex; align-items:baseline; gap:8px; }
+    .logo .he { font-family:'Frank Ruhl Libre',serif; font-size:24px; font-weight:900; color:var(--gold); }
+    .logo .lat { font-family:'Inter',sans-serif; font-size:11px; letter-spacing:3px; color:#fff; }
+    .hdr nav { display:flex; gap:16px; }
+    .hdr nav a { font-family:'Inter',sans-serif; font-size:12px; letter-spacing:1px; color:rgba(255,255,255,.85); }
+    .hdr nav a:hover { color:var(--gold); }
+    .hero { background:linear-gradient(135deg,var(--navy) 0%,#0e2447 100%); border-bottom:3px solid var(--gold); padding:46px 24px 40px; text-align:center; }
+    .hero .tag { font-family:'Inter',sans-serif; font-size:11px; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:10px; }
+    .hero h1 { font-size:36px; font-weight:500; color:#fff; line-height:1.15; max-width:680px; margin:0 auto; }
+    .hero p { font-size:17px; font-style:italic; color:rgba(255,255,255,.82); margin-top:12px; max-width:640px; margin-left:auto; margin-right:auto; }
+    main { max-width:860px; margin:0 auto; padding:36px 20px 70px; }
+    .card { background:#fff; border:1px solid var(--border); border-top:3px solid var(--gold); padding:26px; margin-bottom:24px; }
+    .card .k { font-family:'Inter',sans-serif; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:14px; }
+    table.prog { width:100%; border-collapse:collapse; font-family:'Inter',sans-serif; font-size:13.5px; margin-bottom:6px; }
+    table.prog th { text-align:left; font-size:10.5px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); padding:7px 8px; border-bottom:1px solid var(--border); }
+    table.prog td { padding:9px 8px; border-bottom:1px solid #f2ecdd; }
+    table.prog td.j { font-weight:600; white-space:nowrap; }
+    table.prog td.s a { color:var(--navy); text-decoration:none; border-bottom:1px dotted var(--gold); }
+    .wa-box { background:#f6fbf7; border:1px solid #cfe8d6; border-radius:4px; padding:16px; font-family:'Inter',sans-serif; font-size:13.5px; white-space:pre-wrap; line-height:1.55; color:#23402c; margin-bottom:14px; }
+    .btnrow { display:flex; gap:10px; flex-wrap:wrap; }
+    .btn { display:inline-flex; align-items:center; gap:8px; padding:12px 22px; text-decoration:none; font-family:'Inter',sans-serif; font-size:12px; font-weight:600; letter-spacing:1.2px; text-transform:uppercase; border-radius:3px; border:none; cursor:pointer; transition:.15s; }
+    .btn-green { background:var(--green); color:#fff; }
+    .btn-green:hover { filter:brightness(1.07); }
+    .btn-gold { background:var(--gold); color:var(--navy); }
+    .btn-line { border:1px solid var(--gold); color:var(--navy); background:transparent; }
+    .grid2 { display:grid; grid-template-columns:1.2fr .8fr; gap:24px; align-items:start; }
+    .qr-wrap { text-align:center; }
+    .qr-wrap img { width:200px; max-width:100%; border:1px solid var(--border); padding:10px; background:#fff; }
+    .qr-wrap .lbl { font-family:'Inter',sans-serif; font-size:11.5px; color:var(--muted); margin-top:8px; }
+    .steps { counter-reset:s; list-style:none; }
+    .steps li { counter-increment:s; position:relative; padding:0 0 14px 44px; font-size:16.5px; color:var(--mid); line-height:1.5; }
+    .steps li::before { content:counter(s); position:absolute; left:0; top:0; width:28px; height:28px; border-radius:50%; background:var(--gold); color:var(--navy); font-family:'Inter',sans-serif; font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center; }
+    .why { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:16px; }
+    .why div { background:#fff; border:1px solid var(--border); padding:18px; }
+    .why h3 { font-size:17px; margin-bottom:6px; }
+    .why p { font-family:'Inter',sans-serif; font-size:13px; color:var(--mid); line-height:1.5; }
+    footer { border-top:1px solid var(--border); padding:22px; text-align:center; font-family:'Inter',sans-serif; font-size:12px; color:var(--muted); }
+    footer a { color:var(--gold); text-decoration:none; }
+    @media (max-width:680px){ .hero h1{font-size:27px} .grid2{grid-template-columns:1fr} }
+  </style>
+</head>
+<body>
+  <header class="hdr">
+    <a href="/" class="logo"><span class="he">דעת</span><span class="lat">DAAT</span></a>
+    <nav>
+      <a href="/aujourdhui">Aujourd'hui</a>
+      <a href="/limoud/">Daat Yomi</a>
+      <a href="/communaute.html">Communauté</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div class="tag">Beth Habad · Synagogues · Kollelim · Groupes WhatsApp</div>
+    <h1>Votre communauté étudie le Choulhan Aroukh — on s'occupe du reste</h1>
+    <p>Chaque semaine, un kit prêt à partager : le programme Daat Yomi, le message WhatsApp, le QR code. Gratuit, automatique, sans engagement.</p>
+  </div>
+
+  <main>
+    <!-- ── LE KIT DE LA SEMAINE (auto-généré) ── -->
+    <section class="card">
+      <div class="k">📅 Le programme de la semaine <span id="week-range" style="color:var(--muted);letter-spacing:0;text-transform:none;"></span></div>
+      <table class="prog" aria-live="polite">
+        <thead><tr><th>Jour</th><th>Étude</th><th>Séifim</th></tr></thead>
+        <tbody id="prog-body"><tr><td colspan="3" style="color:var(--muted);">Chargement du programme…</td></tr></tbody>
+      </table>
+      <div style="font-family:'Inter',sans-serif;font-size:11.5px;color:var(--muted);">≈20 min/jour · dimanche → jeudi · 4 niveaux d'étude par siman</div>
+    </section>
+
+    <section class="card">
+      <div class="k">💬 Le message WhatsApp de la semaine — prêt à transférer</div>
+      <div class="wa-box" id="wa-text">Chargement…</div>
+      <div class="btnrow">
+        <button class="btn btn-gold" id="copy-btn">📋 Copier le message</button>
+        <a class="btn btn-green" id="wa-share" href="#" target="_blank" rel="noopener">Partager sur WhatsApp</a>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="grid2">
+        <div>
+          <div class="k">🖨️ Pour votre panneau d'affichage</div>
+          <ol class="steps">
+            <li>Imprime le QR code ci-contre (clic droit → enregistrer, ou <a href="/assets/img/qr-aujourdhui.png" download style="color:var(--gold)">télécharger</a>).</li>
+            <li>Affiche-le à l'entrée de la synagogue, du Beth Habad, de la salle de cours.</li>
+            <li>Chaque scan ouvre <strong>daattorah.com/aujourdhui</strong> — l'étude du jour, toujours à jour.</li>
+          </ol>
+        </div>
+        <div class="qr-wrap">
+          <img src="/assets/img/qr-aujourdhui.png" alt="QR code vers daattorah.com/aujourdhui" width="200" height="200">
+          <div class="lbl">daattorah.com/aujourdhui</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── POURQUOI ── -->
+    <section style="margin:34px 0;">
+      <div class="why">
+        <div><h3>🕯️ Zéro préparation</h3><p>Le kit se régénère seul chaque semaine depuis le programme Daat Yomi. Vous transférez, c'est tout.</p></div>
+        <div><h3>📖 4 niveaux d'étude</h3><p>Du débutant au talmid hakham : texte, traduction, pilpoul, synthèse et la chitah de l'Admour HaZaken.</p></div>
+        <div><h3>💬 Un assistant pour les questions</h3><p>Chaque membre peut poser sa question de Halakha — Daat cherche la source et le siman.</p></div>
+        <div><h3>🤝 Gratuit, pour la communauté</h3><p>Pas d'abonnement, pas de condition. C'est de la Torah — elle se partage.</p></div>
+      </div>
+    </section>
+
+    <section class="card" style="text-align:center;">
+      <div class="k" style="justify-content:center;">Aller plus loin ensemble</div>
+      <p style="font-size:17px;color:var(--mid);max-width:560px;margin:0 auto 16px;">Vous animez une communauté et voulez un accompagnement (lancement, chiourim, dédicaces) ? Parlons-en.</p>
+      <div class="btnrow" style="justify-content:center;">
+        <a class="btn btn-gold" href="/communaute.html">Rejoindre le groupe WhatsApp DAAT</a>
+        <a class="btn btn-line" href="/soutenir.html">♥ Soutenir l'étude</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    DAAT דעת · <a href="/">Accueil</a> · <a href="/aujourdhui">Aujourd'hui</a> · <a href="/limoud/">Daat Yomi</a>
+  </footer>
+
+  <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
+  <link rel="stylesheet" href="/assets/css/chat-widget.css">
+  <script src="/assets/js/chat-widget.min.js" defer></script>
+  <script>
+  (function () {
+    function track(n) { try { window.va = window.va || function(){(window.vaq=window.vaq||[]).push(arguments)}; window.va('event', {name:n}); } catch(_){} }
+    var JOURS = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Chabbat'];
+    var JOURS_COURT = ['Dim','Lun','Mar','Mer','Jeu'];
+
+    fetch('https://daatai.vercel.app/api/aujourdhui?semaine=1')
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (!d || !d.ok || !d.days || !d.days.length) throw new Error('vide');
+        var body = document.getElementById('prog-body');
+        var rows = '', waLines = [];
+        d.days.forEach(function (e) {
+          var dow = e.dow != null ? e.dow : new Date(e.date + 'T00:00:00Z').getUTCDay();
+          var jour = JOURS[dow] || e.date;
+          var lot = e.lotTotal > 1 ? ' (' + e.lotIndex + '/' + e.lotTotal + ')' : '';
+          var pad = String(e.dayNumber).padStart(3, '0');
+          rows += '<tr><td class="j">' + jour + '</td>'
+            + '<td class="s"><a href="/limoud/jour-' + pad + '.html">Siman ' + e.siman.num + lot + ' — ' + e.siman.title + '</a></td>'
+            + '<td>' + e.seifRange[0] + '–' + e.seifRange[1] + '</td></tr>';
+          waLines.push((JOURS_COURT[dow] || jour) + ' · Siman ' + e.siman.num + lot + ' · séifim ' + e.seifRange[0] + '–' + e.seifRange[1]);
+        });
+        body.innerHTML = rows;
+        var first = d.days[0], last = d.days[d.days.length - 1];
+        document.getElementById('week-range').textContent = '· jours ' + first.dayNumber + '–' + last.dayNumber + ' / 194';
+
+        var waText = '📖 *Daat Yomi — le programme de la semaine*\n'
+          + 'Le Choulhan Aroukh en ≈20 min/jour, en français, sur 4 niveaux :\n\n'
+          + waLines.join('\n')
+          + '\n\n👉 L\'étude du jour : https://daattorah.com/aujourdhui'
+          + '\nחזק וברוך !';
+        document.getElementById('wa-text').textContent = waText;
+        document.getElementById('wa-share').href = 'https://wa.me/?text=' + encodeURIComponent(waText);
+      })
+      .catch(function () {
+        document.getElementById('prog-body').innerHTML = '<tr><td colspan="3" style="color:var(--muted);">Programme indisponible — retrouvez-le sur <a href="/limoud/" style="color:var(--gold)">la page Daat Yomi</a>.</td></tr>';
+        document.getElementById('wa-text').textContent = '📖 Daat Yomi — l\'étude quotidienne du Choulhan Aroukh en français, ≈20 min/jour.\n👉 https://daattorah.com/aujourdhui';
+        document.getElementById('wa-share').href = 'https://wa.me/?text=' + encodeURIComponent('📖 Daat Yomi — l\'étude quotidienne du Choulhan Aroukh en français : https://daattorah.com/aujourdhui');
+      });
+
+    document.getElementById('copy-btn').addEventListener('click', function () {
+      var txt = document.getElementById('wa-text').textContent;
+      (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(function () {
+        track('partner_kit_copied');
+        var b = document.getElementById('copy-btn'); b.textContent = '✓ Copié !';
+        setTimeout(function () { b.textContent = '📋 Copier le message'; }, 2000);
+      }).catch(function () { alert('Sélectionne et copie le texte manuellement.'); });
+    });
+    document.getElementById('wa-share').addEventListener('click', function () { track('partner_kit_shared'); });
+  })();
+  </script>
+</body>
+</html>

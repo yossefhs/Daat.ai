@@ -83,13 +83,35 @@ def _get(url, tries=3):
             time.sleep(2 * (i + 1))
 
 
+def _echec(data):
+    """Une réponse d'erreur réseau, pas un verdict sur le texte."""
+    return isinstance(data, dict) and set(data) == {'error'}
+
+
 def _cached(key, produce):
+    """Cache disque — mais JAMAIS une erreur réseau.
+
+    Un 503/504 de Sefaria mis en cache se comporte ensuite comme un verdict :
+    le daf devient introuvable pour toutes les exécutions suivantes, et des
+    citations parfaitement exactes ressortent INTROUVABLE ou NON_RESOLU. C'est
+    arrivé — 36 entrées d'erreur figées empoisonnaient Berakhot 59a pour tout
+    le dépôt. On relit donc l'erreur à chaque fois plutôt que de la mémoriser,
+    et une entrée d'erreur déjà présente est purgée à la lecture.
+    """
     os.makedirs(CACHE, exist_ok=True)
     path = os.path.join(CACHE, hashlib.sha1(key.encode()).hexdigest()[:20] + '.json')
     if os.path.exists(path):
-        return json.load(open(path, encoding='utf-8'))
+        try:
+            data = json.load(open(path, encoding='utf-8'))
+        except Exception:
+            os.remove(path)
+        else:
+            if not _echec(data):
+                return data
+            os.remove(path)   # entrée empoisonnée héritée d'une exécution précédente
     data = produce()
-    json.dump(data, open(path, 'w', encoding='utf-8'), ensure_ascii=False)
+    if not _echec(data):
+        json.dump(data, open(path, 'w', encoding='utf-8'), ensure_ascii=False)
     return data
 
 
@@ -205,20 +227,38 @@ def fetch(ref):
 NIKUD = re.compile(r'[֑-ׇ]')
 NONHEB = re.compile(r'[^א-ת]')
 
-# Abréviations à gershayim développées avant comparaison : les pages écrivent
-# « הקב״ה » là où l'édition Sefaria imprime « הקדוש ברוך הוא ».
-_ABBREV = [
-    ('הקב״ה', 'הקדוש ברוך הוא'), ('הקב"ה', 'הקדוש ברוך הוא'),
-    ('הקב׳׳ה', 'הקדוש ברוך הוא'),
-    ('ת״ר', 'תנו רבנן'), ('ת"ר', 'תנו רבנן'),
-    ('ב״ש', 'בית שמאי'), ('ב"ש', 'בית שמאי'),
-    ('ב״ה', 'בית הלל'), ('ב"ה', 'בית הלל'),
-    ('רשב״י', 'רבי שמעון בר יוחאי'), ('ריב״ל', 'רבי יהושע בן לוי'),
-    ('רנב״י', 'רב נחמן בר יצחק'), ('ר״ל', 'ריש לקיש'),
-    ('אעפ״י', 'אף על פי'), ('אע״פ', 'אף על פי'), ('אע"פ', 'אף על פי'),
-    ('כ״ש', 'כל שכן'), ('ק״ו', 'קל וחומר'), ('אא״כ', 'אלא אם כן'),
-    ('ה׳', 'ה'), ("ה'", 'ה'),
+# Abréviations développées avant comparaison : les pages écrivent « הקב״ה » là
+# où l'édition Sefaria imprime « הקדוש ברוך הוא ».
+#
+# Les trois graphies du gershayim doivent être couvertes : ״ (U+05F4) que le
+# site emploie, " (ASCII) que Sefaria imprime, et ׳׳ (deux geresh). Elles
+# étaient auparavant listées à la main, et plusieurs sigles n'existaient qu'en
+# U+05F4 — une citation exacte contenant « כ"ש » ou « ר"ל » tel que Sefaria
+# l'imprime ressortait alors en VARIANTE. On dérive donc les variantes.
+_ABBREV_BASE = [
+    ('הקב״ה', 'הקדוש ברוך הוא'),
+    ('ת״ר', 'תנו רבנן'),
+    ('ב״ש', 'בית שמאי'),
+    ('ב״ה', 'בית הלל'),
+    ('רשב״י', 'רבי שמעון בר יוחאי'),
+    ('ריב״ל', 'רבי יהושע בן לוי'),
+    ('רנב״י', 'רב נחמן בר יצחק'),
+    ('ר״ל', 'ריש לקיש'),
+    ('אעפ״י', 'אף על פי'),
+    ('אע״פ', 'אף על פי'),
+    ('כ״ש', 'כל שכן'),
+    ('ק״ו', 'קל וחומר'),
+    ('אא״כ', 'אלא אם כן'),
 ]
+
+
+def _graphies(sigle):
+    """Les trois écritures d'un sigle : ״ (U+05F4), " (ASCII), ׳׳ (deux geresh)."""
+    return [sigle, sigle.replace('\u05f4', '"'), sigle.replace('\u05f4', '\u05f3\u05f3')]
+
+
+_ABBREV = [(g, dev) for sig, dev in _ABBREV_BASE for g in dict.fromkeys(_graphies(sig))]
+_ABBREV += [('ה\u05f3', 'ה'), ("ה'", 'ה')]
 
 # Variantes graphiques qui ne changent pas le texte
 _SUBS = [
@@ -350,6 +390,13 @@ def fenetre_ref(plain, at, n):
     coupe = avant.rfind('»')
     if coupe >= 0:
         avant = avant[coupe + 1:]
+        # La citation précédente porte sa référence APRÈS son guillemet fermant :
+        # « … » (מ״ב רכ״ז:יב). Couper au « » » la laissait dans notre fenêtre, et
+        # une citation dont la référence suit — le cas ordinaire ici — se voyait
+        # attribuer celle de sa voisine. Vu sur le siman 227 : le Taz, cité
+        # « … » (ט״ז או״ח רכ״ז), héritait du מ״ב de la citation précédente et
+        # sortait en REF_FAUSSE alors que la page était juste.
+        avant = re.sub(r'^\s*\([^()]*\)', '', avant)
 
     return avant + ' ' + plain[at:fin] + ' ' + apres
 

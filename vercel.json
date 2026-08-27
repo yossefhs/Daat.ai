@@ -93,6 +93,15 @@
     }
   ],
   "rewrites": [
+    { "source": "/questions", "destination": "/questions/index.html" },
+    { "source": "/questions/", "destination": "/questions/index.html" },
+    { "source": "/questions/:slug([a-z0-9-]+)", "destination": "/questions/:slug.html" },
+    { "source": "/partenaires", "destination": "/partenaires.html" },
+    { "source": "/partenaires/", "destination": "/partenaires.html" },
+    { "source": "/aujourdhui", "destination": "/aujourdhui.html" },
+    { "source": "/aujourdhui/", "destination": "/aujourdhui.html" },
+    { "source": "/aujourdhui/he", "destination": "/aujourdhui-he.html" },
+    { "source": "/aujourdhui/en", "destination": "/aujourdhui-en.html" },
     {
       "source": "/contenu",
       "destination": "/contenu.html"
@@ -718,26 +727,23 @@
       "destination": "/sources/yoreh-deah/siman-:n/niveau-4-halakha-en.html"
     },
     {
+      "source": "/oh-quotidien/:n(\\d+)/:page",
+      "destination": "/sources/orah-haim/siman-:n/:page"
+    },
+    {
       "source": "/yd/:n(\\d+)/:page",
       "destination": "/sources/yoreh-deah/siman-:n/:page"
     }
   ],
   "redirects": [
-    {
-      "source": "/aujourdhui",
-      "destination": "/limoud/",
-      "permanent": false
-    },
-    {
-      "source": "/aujourdhui/he",
-      "destination": "/limoud/index-he.html",
-      "permanent": false
-    },
-    {
-      "source": "/aujourdhui/en",
-      "destination": "/limoud/index-en.html",
-      "permanent": false
-    },
+    { "source": "/aujoudhui", "destination": "/aujourdhui", "permanent": false },
+    { "source": "/aujourd-hui", "destination": "/aujourdhui", "permanent": false },
+    { "source": "/aujourdui", "destination": "/aujourdhui", "permanent": false },
+    { "source": "/today", "destination": "/aujourdhui/en", "permanent": false },
+    { "source": "/hayom", "destination": "/aujourdhui/he", "permanent": false },
+    { "source": "/nida/:n(\\d+)", "destination": "/yd/:n/", "permanent": false },
+    { "source": "/nida/:n(\\d+)/", "destination": "/yd/:n/", "permanent": false },
+    { "source": "/nida/:n(\\d+)/:rest*", "destination": "/yd/:n/:rest*", "permanent": false },
     {
       "source": "/sources/yoreh-deah/siman-:n(\\d+)/index.html",
       "destination": "/yd/:n/",

@@ -32,3 +32,10 @@ Format : décision · date · raison · preuve · conséquences.
 - **Décision** : ne PAS relancer `generate-simanim-index.js` malgré le JSON périmé.
 - **Raison** : le build l'a volontairement retiré (commit `6843dcda8` « préserve l'index section-aware ») — le script courant écraserait l'index section-aware. Risque de casse > gain immédiat.
 - **Conséquences** : P1 backlog — réconcilier le générateur, puis SSG des listings.
+
+## D6 — vercel.json : point chaud de collision entre sessions
+- **Date** : S8
+- **Décision** : toute session qui modifie `vercel.json` doit (1) repartir de la version d'`origin/main` fraîchement fetchée, jamais de sa copie locale ; (2) après tout merge touchant ce fichier, vérifier que les règles récentes des autres sessions y sont encore (grep des sources ajoutées ces derniers jours) ; (3) re-tester les URLs clés en prod après déploiement.
+- **Raison** : le merge de la session « restauration » (f1193d0e2) a silencieusement écrasé les rewrites `/partenaires` ajoutés 30 min plus tôt → 404 en prod signalé par le Rav. Réparé en 6d4a3e28e (base remote + ré-ajout).
+- **Preuve** : `git show f1193d0e2:vercel.json | grep partenaires` → vide, alors que la page HTML était déployée.
+- **Conséquences** : routes clés à re-tester après chaque gros merge : /aujourdhui, /partenaires, /oh-quotidien/:n/:page, /yd/:n, /nida/:n.
