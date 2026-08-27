@@ -411,8 +411,11 @@ def fenetre_ref(plain, at, n):
 # référencée ressortait en REF_FAUSSE. Quatre l'ont fait sur le seul siman 120, et
 # deux agents successifs ont été renvoyés « corriger » du verbatim exact.
 COMMENTATEURS = [
-    (re.compile(r'(?:תוספות|תוס[\'׳])\s*$'), 'Tosafot_on_'),
-    (re.compile(r'(?:רש["״]י)\s*$'),           'Rashi_on_'),
+    # « תוספות על עבודה זרה » est aussi correct que « תוספות עבודה זרה » : le
+    # « על » optionnel évite que la forme la plus naturelle en hébreu casse
+    # silencieusement le résolveur et fasse ressortir du verbatim en VARIANTE.
+    (re.compile(r'(?:תוספות|תוס[\'׳])\s*(?:על\s*)?$'), 'Tosafot_on_'),
+    (re.compile(r'(?:רש["״]י)\s*(?:על\s*)?$'),          'Rashi_on_'),
 ]
 
 
