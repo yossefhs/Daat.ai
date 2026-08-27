@@ -405,6 +405,26 @@ def fenetre_ref(plain, at, n):
     return avant + ' ' + plain[at:fin] + ' ' + apres
 
 
+# Un commentaire du daf est un TEXTE DISTINCT de la guemara. « תוספות עבודה זרה
+# ע״ה ע״ב ד״ה … » citait pourtant, jusqu'ici, le folio de guemara : le texte des
+# Tossefot n'y figurant évidemment pas, toute citation de Tossefot correctement
+# référencée ressortait en REF_FAUSSE. Quatre l'ont fait sur le seul siman 120, et
+# deux agents successifs ont été renvoyés « corriger » du verbatim exact.
+COMMENTATEURS = [
+    (re.compile(r'(?:תוספות|תוס[\'׳])\s*$'), 'Tosafot_on_'),
+    (re.compile(r'(?:רש["״]י)\s*$'),           'Rashi_on_'),
+]
+
+
+def _prefixe_commentateur(ctx, debut):
+    """Le nom d'un commentateur précède-t-il immédiatement la référence de daf ?"""
+    avant = ctx[max(0, debut - 24):debut]
+    for rx, prefixe in COMMENTATEURS:
+        if rx.search(avant):
+            return prefixe
+    return ''
+
+
 def refs_in(ctx):
     """Toutes les références Sefaria détectées dans un contexte textuel."""
     out = []
@@ -416,10 +436,12 @@ def refs_in(ctx):
             ab = 'a' if m.group('amud').endswith('א') else 'b'
         else:
             ab = 'a' if m.group('colon') == '.' else 'b'
-        out.append(f"{MASSEKHTOT[m.group('mass')].replace(' ', '_')}.{d}{ab}")
+        pre = _prefixe_commentateur(ctx, m.start())
+        out.append(f"{pre}{MASSEKHTOT[m.group('mass')].replace(' ', '_')}.{d}{ab}")
     for m in RE_DAF_LAT.finditer(ctx):
         ab = {'a': 'a', 'b': 'b', '.': 'a', ':': 'b'}[m.group('ab').lower()]
-        out.append(f"{MASSEKHTOT[m.group('mass').lower()].replace(' ', '_')}.{int(m.group('num'))}{ab}")
+        pre = _prefixe_commentateur(ctx, m.start())
+        out.append(f"{pre}{MASSEKHTOT[m.group('mass').lower()].replace(' ', '_')}.{int(m.group('num'))}{ab}")
     for m in RE_SA_LAT.finditer(ctx):
         tour = {'oh': 'Orach Chayim', 'oc': 'Orach Chayim', 'yd': 'Yoreh Deah',
                 'eh': 'Even HaEzer', 'cm': 'Choshen Mishpat'}[m.group('tour').lower()]
