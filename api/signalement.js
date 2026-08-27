@@ -25,6 +25,7 @@ const STATUSES = ['NEW', 'TRIAGED', 'NEEDS_RABBINIC_VALIDATION', 'APPROVED', 'FI
 // n'ait jamais à deviner si un point de langue est un point de halakha.
 const TYPES = ['halakha', 'traduction', 'langue', 'source', 'pedagogie'];
 const LIST_KEY = 'signalements:list';
+const CLES_KEY = 'signalements:veilleur:cles'; // clés déjà déposées par le veilleur
 const MAX_PER_DAY = 5;
 
 function clientIp(req) {
@@ -133,12 +134,23 @@ export default async function handler(req, res) {
       }
     }
 
+    // Dédoublonnage du veilleur, côté registre. Il tourne en cron hebdomadaire
+    // et re-trouve chaque semaine les mêmes candidats tant qu'ils ne sont pas
+    // traités : sans ce filtre, le registre du Rav se remplirait de doublons.
+    // `sadd` renvoie 0 si la clé était déjà connue — atomique, contrairement à
+    // un fichier local que le CI perdrait entre deux exécutions.
+    const cle = origine === 'veilleur' ? clip(body.cle, 120) : '';
+    if (cle) {
+      const inedit = await kv.sadd(CLES_KEY, cle);
+      if (!inedit) return res.status(200).json({ ok: true, doublon: true });
+    }
+
     const entry = {
       id: `sig_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`,
       ts: new Date().toISOString(),
       status: origine === 'veilleur' ? 'NEEDS_RABBINIC_VALIDATION' : 'NEW',
       origine,
-      cle: origine === 'veilleur' ? clip(body.cle, 120) : '', // clé de dédoublonnage du veilleur
+      cle,
       url: clip(body.url, 300),
       titre: clip(body.titre, 200),
       siman: clip(body.siman, 10),

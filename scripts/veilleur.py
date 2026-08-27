@@ -196,7 +196,7 @@ def deposer_signalements(findings, api, dry=False):
     except Exception:
         deja = set()
 
-    envoyes = nouveaux = 0
+    envoyes = nouveaux = doublons = 0
     for f in findings:
         k = cle_finding(f)
         if k in deja:
@@ -226,9 +226,15 @@ def deposer_signalements(findings, api, dry=False):
             'Content-Type': 'application/json', 'Authorization': 'Bearer ' + pw})
         try:
             with urllib.request.urlopen(req, timeout=20) as r:
-                if json.loads(r.read().decode()).get('ok'):
+                rep = json.loads(r.read().decode())
+            if rep.get('ok'):
+                deja.add(k)
+                # Le registre tient lui-même la liste des clés déjà déposées :
+                # il refuse le doublon même si le fichier local a été perdu (CI).
+                if rep.get('doublon'):
+                    doublons += 1
+                else:
                     envoyes += 1
-                    deja.add(k)
         except Exception as e:
             print(f"  ✗ dépôt échoué ({e}) — {f['detail'][:60]}")
         time.sleep(0.15)
@@ -238,7 +244,8 @@ def deposer_signalements(findings, api, dry=False):
         ENVOYES.write_text(json.dumps(sorted(deja), ensure_ascii=False, indent=0), encoding='utf-8')
     print(f"\n→ {envoyes} candidat(s) déposé(s) en « Validation du Rav requise »"
           f"{' [essai — rien envoyé]' if dry else ''} · "
-          f"{len(findings) - nouveaux} déjà connu(s), non redéposé(s).")
+          f"{len(findings) - nouveaux} déjà connu(s) localement"
+          f"{f', {doublons} refusé(s) en doublon par le registre' if doublons else ''}.")
     return 0
 
 
