@@ -348,9 +348,13 @@ RE_DAF_LAT = re.compile(
     r'[\s,]*\(?(?P<num>\d{1,3})\s*(?P<ab>[ab.:])', re.I)
 # Choulhan Aroukh : « OH 131:1 », « או״ח קל״א:א », « שו״ע י:א », « YD 89:1 »
 RE_SA_LAT = re.compile(r'\b(?P<tour>OH|OC|YD|EH|CM)\s*(?P<siman>\d{1,3})\s*:\s*(?P<seif>\d{1,3})', re.I)
+# Le groupe `seif` doit accepter le gershayim : sans lui, « ק״כ:ט״ז » s'arrêtait à
+# `ט` et le seif 16 était lu comme le seif 9. Une référence juste ressortait alors en
+# REF_FAUSSE, contre un seif qui n'avait rien à voir. Même défaut pour י״ב lu 10,
+# כ״ו lu 20, etc. — soit tous les seifim à deux lettres, c'est-à-dire la majorité.
 RE_SA_HE = re.compile(r'(?P<tour>או["״]?ח|יו["״]?ד)\s*'
                       r'(?P<siman>[א-ת]{1,4}["״\'׳]?[א-ת]?)\s*[:׃]\s*'
-                      r'(?P<seif>[א-ת]{1,3})')
+                      r'(?P<seif>[א-ת]{1,3}["״\'׳]?[א-ת]?)')
 # Michna Beroura : « MB 10:11 », « מ״ב י:יא », « ס״ק ג »
 RE_MB = re.compile(r'(?:MB|מ["״]?ב)\s*(?P<siman>[\dא-ת"״\'׳]{1,5})\s*:\s*'
                    r'(?P<sk>[\dא-ת"״\'׳]{1,4})')
@@ -401,6 +405,29 @@ def fenetre_ref(plain, at, n):
     return avant + ' ' + plain[at:fin] + ' ' + apres
 
 
+# Un commentaire du daf est un TEXTE DISTINCT de la guemara. « תוספות עבודה זרה
+# ע״ה ע״ב ד״ה … » citait pourtant, jusqu'ici, le folio de guemara : le texte des
+# Tossefot n'y figurant évidemment pas, toute citation de Tossefot correctement
+# référencée ressortait en REF_FAUSSE. Quatre l'ont fait sur le seul siman 120, et
+# deux agents successifs ont été renvoyés « corriger » du verbatim exact.
+COMMENTATEURS = [
+    # « תוספות על עבודה זרה » est aussi correct que « תוספות עבודה זרה » : le
+    # « על » optionnel évite que la forme la plus naturelle en hébreu casse
+    # silencieusement le résolveur et fasse ressortir du verbatim en VARIANTE.
+    (re.compile(r'(?:תוספות|תוס[\'׳])\s*(?:על\s*)?$'), 'Tosafot_on_'),
+    (re.compile(r'(?:רש["״]י)\s*(?:על\s*)?$'),          'Rashi_on_'),
+]
+
+
+def _prefixe_commentateur(ctx, debut):
+    """Le nom d'un commentateur précède-t-il immédiatement la référence de daf ?"""
+    avant = ctx[max(0, debut - 24):debut]
+    for rx, prefixe in COMMENTATEURS:
+        if rx.search(avant):
+            return prefixe
+    return ''
+
+
 def refs_in(ctx):
     """Toutes les références Sefaria détectées dans un contexte textuel."""
     out = []
@@ -412,10 +439,12 @@ def refs_in(ctx):
             ab = 'a' if m.group('amud').endswith('א') else 'b'
         else:
             ab = 'a' if m.group('colon') == '.' else 'b'
-        out.append(f"{MASSEKHTOT[m.group('mass')].replace(' ', '_')}.{d}{ab}")
+        pre = _prefixe_commentateur(ctx, m.start())
+        out.append(f"{pre}{MASSEKHTOT[m.group('mass')].replace(' ', '_')}.{d}{ab}")
     for m in RE_DAF_LAT.finditer(ctx):
         ab = {'a': 'a', 'b': 'b', '.': 'a', ':': 'b'}[m.group('ab').lower()]
-        out.append(f"{MASSEKHTOT[m.group('mass').lower()].replace(' ', '_')}.{int(m.group('num'))}{ab}")
+        pre = _prefixe_commentateur(ctx, m.start())
+        out.append(f"{pre}{MASSEKHTOT[m.group('mass').lower()].replace(' ', '_')}.{int(m.group('num'))}{ab}")
     for m in RE_SA_LAT.finditer(ctx):
         tour = {'oh': 'Orach Chayim', 'oc': 'Orach Chayim', 'yd': 'Yoreh Deah',
                 'eh': 'Even HaEzer', 'cm': 'Choshen Mishpat'}[m.group('tour').lower()]
@@ -787,14 +816,28 @@ def main():
 
     if args.csv:
         import csv as _csv
+        champs = ['fichier', 'ligne', 'refs', 'verdict', 'ratio', 'citation',
+                  'source_reelle', 'texte_trouve_en']
         out = args.csv if os.path.isabs(args.csv) else os.path.join(ROOT, args.csv)
         os.makedirs(os.path.dirname(out), exist_ok=True)
+
+        # Une exécution restreinte par --path FUSIONNE dans le CSV au lieu de l'écraser :
+        # sans cela, vérifier un siman effaçait les constats de tous les autres. Plusieurs
+        # agents travaillant en parallèle se sont ainsi effacé mutuellement leurs relevés.
+        anciennes = []
+        if args.path and os.path.exists(out):
+            portee = os.path.relpath(os.path.abspath(args.path), ROOT).replace(os.sep, '/')
+            with open(out, newline='', encoding='utf-8') as fh:
+                for r in _csv.DictReader(fh):
+                    f = (r.get('fichier') or '').replace(os.sep, '/')
+                    if not (f == portee or f.startswith(portee.rstrip('/') + '/')):
+                        anciennes.append({k: r.get(k, '') for k in champs})
+
         with open(out, 'w', newline='', encoding='utf-8') as fh:
-            w = _csv.DictWriter(fh, fieldnames=['fichier', 'ligne', 'refs', 'verdict',
-                                                'ratio', 'citation', 'source_reelle',
-                                                'texte_trouve_en'])
+            w = _csv.DictWriter(fh, fieldnames=champs)
             w.writeheader()
-            w.writerows(sorted(rows, key=lambda r: (r['verdict'] != 'INTROUVABLE', r['fichier'], r['ligne'])))
+            w.writerows(sorted(anciennes + rows,
+                               key=lambda r: (r['verdict'] != 'INTROUVABLE', r['fichier'], int(r['ligne']))))
 
     if not args.quiet:
         for r in sorted(rows, key=lambda r: (r['verdict'] != 'INTROUVABLE', r['fichier'])):
