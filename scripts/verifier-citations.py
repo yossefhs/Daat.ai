@@ -348,9 +348,13 @@ RE_DAF_LAT = re.compile(
     r'[\s,]*\(?(?P<num>\d{1,3})\s*(?P<ab>[ab.:])', re.I)
 # Choulhan Aroukh : « OH 131:1 », « או״ח קל״א:א », « שו״ע י:א », « YD 89:1 »
 RE_SA_LAT = re.compile(r'\b(?P<tour>OH|OC|YD|EH|CM)\s*(?P<siman>\d{1,3})\s*:\s*(?P<seif>\d{1,3})', re.I)
+# Le groupe `seif` doit accepter le gershayim : sans lui, « ק״כ:ט״ז » s'arrêtait à
+# `ט` et le seif 16 était lu comme le seif 9. Une référence juste ressortait alors en
+# REF_FAUSSE, contre un seif qui n'avait rien à voir. Même défaut pour י״ב lu 10,
+# כ״ו lu 20, etc. — soit tous les seifim à deux lettres, c'est-à-dire la majorité.
 RE_SA_HE = re.compile(r'(?P<tour>או["״]?ח|יו["״]?ד)\s*'
                       r'(?P<siman>[א-ת]{1,4}["״\'׳]?[א-ת]?)\s*[:׃]\s*'
-                      r'(?P<seif>[א-ת]{1,3})')
+                      r'(?P<seif>[א-ת]{1,3}["״\'׳]?[א-ת]?)')
 # Michna Beroura : « MB 10:11 », « מ״ב י:יא », « ס״ק ג »
 RE_MB = re.compile(r'(?:MB|מ["״]?ב)\s*(?P<siman>[\dא-ת"״\'׳]{1,5})\s*:\s*'
                    r'(?P<sk>[\dא-ת"״\'׳]{1,4})')
