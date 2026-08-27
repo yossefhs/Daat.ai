@@ -471,6 +471,21 @@ COMMENTATEURS = [
     # silencieusement le résolveur et fasse ressortir du verbatim en VARIANTE.
     (re.compile(r'(?:תוספות|תוס[\'׳])\s*(?:על\s*)?$'), 'Tosafot_on_'),
     (re.compile(r'(?:רש["״]י)\s*(?:על\s*)?$'),          'Rashi_on_'),
+    # Les Richonim paginés comme leur support : le Rif et le Ran sur ses pages,
+    # le Rachba et le Ritva sur celles de la guemara. Sans eux, « רי״ף עבודה זרה
+    # ל״ד ע״ב » était confronté au folio de guemara homonyme, et un verbatim exact
+    # du Rif ressortait en REF_FAUSSE — le même défaut que pour les Tossefot.
+    # Le Roch et le Mordekhi s'indexent en perek:siman, pas en daf : on ne peut pas
+    # construire leur référence à partir d'un folio. Ils sont donc mis à None —
+    # la citation retombe en « sans référence », donc NON JUGÉE, au lieu d'être
+    # confrontée au folio de guemara homonyme et déclarée fausse. Ne rien dire vaut
+    # mieux que dire faux.
+    (re.compile(r'(?:הרא["״]ש|רא["״]ש)\s*(?:על\s*)?$'), None),
+    (re.compile(r'(?:המרדכי|מרדכי)\s*(?:על\s*)?$'),      None),
+    (re.compile(r'(?:רי["״]ף)\s*(?:על\s*)?$'),          'Rif_'),
+    (re.compile(r'(?:הר["״]ן|ר["״]ן)\s*(?:על\s*)?$'),   'Ran_on_'),
+    (re.compile(r'(?:הרשב["״]א|רשב["״]א)\s*(?:על\s*)?$'), 'Rashba_on_'),
+    (re.compile(r'(?:הריטב["״]א|ריטב["״]א)\s*(?:על\s*)?$'), 'Ritva_on_'),
 ]
 
 
@@ -479,7 +494,7 @@ def _prefixe_commentateur(ctx, debut):
     avant = ctx[max(0, debut - 24):debut]
     for rx, prefixe in COMMENTATEURS:
         if rx.search(avant):
-            return prefixe
+            return prefixe          # peut valoir None : « ne pas construire de référence »
     return ''
 
 
@@ -495,10 +510,14 @@ def refs_in(ctx):
         else:
             ab = 'a' if m.group('colon') == '.' else 'b'
         pre = _prefixe_commentateur(ctx, m.start())
+        if pre is None:      # commentateur non adressable par folio : on n'invente pas
+            continue
         out.append(f"{pre}{MASSEKHTOT[m.group('mass')].replace(' ', '_')}.{d}{ab}")
     for m in RE_DAF_LAT.finditer(ctx):
         ab = {'a': 'a', 'b': 'b', '.': 'a', ':': 'b'}[m.group('ab').lower()]
         pre = _prefixe_commentateur(ctx, m.start())
+        if pre is None:
+            continue
         out.append(f"{pre}{MASSEKHTOT[m.group('mass').lower()].replace(' ', '_')}.{int(m.group('num'))}{ab}")
     for m in RE_SA_LAT.finditer(ctx):
         tour = {'oh': 'Orach Chayim', 'oc': 'Orach Chayim', 'yd': 'Yoreh Deah',
