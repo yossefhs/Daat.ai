@@ -56,7 +56,22 @@ def ancrage(html, sq, n):
         tem = [va.squelette(w) for w in re.findall(r"[א-ת]{3,}", va.lettres_mots(txt))][:14]
         tem = [w for w in tem if len(w) >= 2]
         if len(tem) < 6:
-            continue
+            # Bloc trop court pour le test de recouvrement — mais un séif peut
+            # l'être aussi : « סומא אינו מברך » (רצ״ח:יג) ne fait que trois mots,
+            # et le lot entier était refusé pour lui. Sur un bloc si court, le
+            # recouvrement n'apporte rien de plus qu'une inclusion exacte, et
+            # l'inclusion est plus sûre : on exige que le squelette du bloc soit
+            # contenu dans CE séif et dans aucun autre. Sans unicité, on s'abstient.
+            court = " ".join(tem)
+            if not court:
+                continue
+            dedans = [j + 1 for j, s in enumerate(sq) if court in s]
+            if dedans != [n]:
+                continue
+            suivant = RE_FIN.search(html, m.end())
+            if not suivant:
+                return None, 1.0
+            return suivant.start() + 1, 1.0
         sc = [(sum(1 for w in tem if w in s) / len(tem), j + 1) for j, s in enumerate(sq)]
         best, place = max(sc)
         if place != n or best < SEUIL:
