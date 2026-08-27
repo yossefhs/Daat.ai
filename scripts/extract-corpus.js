@@ -721,7 +721,8 @@ const output = {
   chunks: allChunks,
 };
 
-fs.writeFileSync(OUTPUT_PATH, JSON.stringify(output), 'utf8');
+const corpusJson = JSON.stringify(output);
+fs.writeFileSync(OUTPUT_PATH, corpusJson, 'utf8');
 
 const sizeKb = (fs.statSync(OUTPUT_PATH).size / 1024).toFixed(1);
 
@@ -742,12 +743,15 @@ console.log(`  Taille JSON         : ${sizeKb} KB`);
     c.text + ' ' + (c.subsection || '') + ' ' + c.sectionTitle + ' ' +
     (c.simanTitle || '') + ' ' + (c.simanTitleHe || '')
   ).join(' '));
-  // Signature d'identité : un index PÉRIMÉ mais de même longueur passerait un
-  // simple contrôle de taille et servirait silencieusement de faux tokens —
-  // c'est-à-dire de mauvaises réponses halakhiques sans aucune alarme.
-  const sig = createHash('sha1').update(allChunks.map((c) => c.id).join('|')).digest('hex');
+  // Empreinte du corpus DONT CET INDEX DÉRIVE — sha1 de la chaîne exactement
+  // écrite dans corpus-shabbat.json, celle que la lambda relira. Un index
+  // périmé servirait silencieusement de faux tokens, donc de mauvaises
+  // réponses halakhiques sans aucune alarme ; et une empreinte portant sur
+  // les seuls identifiants de chunks ne l'attraperait pas, puisqu'une
+  // correction de contenu change le texte sans changer les identifiants.
+  const src = createHash('sha1').update(corpusJson).digest('hex');
   const indexPath = path.join(ROOT, 'data', 'corpus-index.json');
-  fs.writeFileSync(indexPath, JSON.stringify({ v: 1, chunks: allChunks.length, sig, tokens }), 'utf8');
+  fs.writeFileSync(indexPath, JSON.stringify({ v: 2, chunks: allChunks.length, src, tokens }), 'utf8');
   const ko = Math.round(fs.statSync(indexPath).size / 1024);
   console.log(`  Index précalculé    : ${tokens.length} entrées, ${ko} Ko`);
 }

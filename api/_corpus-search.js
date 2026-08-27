@@ -627,8 +627,12 @@ function expandQuery(tokens) {
 
 function loadAndIndex() {
   if (_corpus) return;
+  let _srcSig = null;
   try {
     const raw = readFileSync(CORPUS_PATH, 'utf-8');
+    // Empreinte du corpus TEL QU'IL EST SUR LE DISQUE — 54 ms mesurées sur
+    // 45 Mo. C'est ce qui autorise à faire confiance à l'index précalculé.
+    _srcSig = createHash('sha1').update(raw).digest('hex');
     _corpus = JSON.parse(raw);
   } catch (err) {
     console.error('[corpus-search] Failed to load corpus-shabbat.json:', err.message);
@@ -648,15 +652,20 @@ function loadAndIndex() {
   // montrent ~13 appels à /api/chat par jour : la fonction est presque
   // toujours froide, donc PRESQUE CHAQUE visiteur le paie.
   // Le build produit donc data/corpus-index.json (mêmes chunks, même ordre) et
-  // on s'en sert quand il concorde. Le repli sur la tokenisation à chaud est
-  // conservé : si le fichier manque ou ne concorde pas, rien ne casse.
+  // on ne s'en sert QUE si son empreinte est celle du corpus effectivement lu.
+  // Une empreinte portant seulement sur les identifiants de chunks ne suffit
+  // PAS : le 2026-08-27, la correction du siman 320 (ש״כ) a changé le texte de
+  // plusieurs chunks sans changer ni leur nombre (28 333) ni leurs
+  // identifiants. Un index périmé aurait donc passé un tel contrôle et servi
+  // des tokens faux — donc de mauvaises réponses halakhiques, sans alarme.
+  // Le repli sur la tokenisation à chaud est conservé : si le fichier manque
+  // ou ne concorde pas, rien ne casse.
   let pre = null;
   try {
     const rawIdx = readFileSync(INDEX_PATH, 'utf-8');
     const parsed = JSON.parse(rawIdx);
-    const sig = createHash('sha1').update(_corpus.chunks.map((c) => c.id).join('|')).digest('hex');
-    if (parsed && Array.isArray(parsed.tokens) && parsed.tokens.length === _N && parsed.sig === sig) pre = parsed.tokens;
-    else console.warn(`[corpus-search] corpus-index.json ignoré (longueur ${parsed?.tokens?.length} vs ${_N}, sig ${parsed?.sig === sig}) — tokenisation à chaud`);
+    if (parsed && Array.isArray(parsed.tokens) && parsed.tokens.length === _N && parsed.src === _srcSig) pre = parsed.tokens;
+    else console.warn(`[corpus-search] corpus-index.json ignoré (longueur ${parsed?.tokens?.length} vs ${_N}, empreinte ${parsed?.src === _srcSig}) — tokenisation à chaud`);
   } catch { /* absent : tokenisation à chaud */ }
 
   const df = new Map();
