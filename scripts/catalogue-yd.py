@@ -8,6 +8,15 @@ injectés ici, à partir d'un fichier de titres au format :
 
     119|קי״ט|נאמנות החשוד בדברים הנאכלים|The ḥashud — the trustworthiness of one suspected
 
+⚠️ ORDRE OBLIGATOIRE : ce script doit tourner ENTRE deux `npm run build`.
+    npm run build          → découvre les nouveaux simanim sur le disque
+    catalogue-yd.py …      → injecte numHe / titleHe / titleEn
+    npm run build          → régénère les catalogues de section avec ces titres
+Le second build n'est pas facultatif : `generate-section-listings.js` construit les
+trois catalogues de section À PARTIR DU SEUL CATALOGUE FRANÇAIS, en y lisant titleHe
+et titleEn. Sans lui, la page /yd/he affiche les titres FRANÇAIS des simanim neufs —
+défaut invisible à l'œil d'un francophone, et que seul verifier-langues.py attrape.
+
 Usage : python3 scripts/catalogue-yd.py /tmp/p/catalogue-119-122.txt
 Idempotent : réécrit les trois champs, ne touche à rien d'autre.
 """

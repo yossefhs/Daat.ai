@@ -268,9 +268,16 @@ _ABBREV += [('ה\u05f3', 'ה'), ("ה'", 'ה')]
 
 # Variantes graphiques qui ne changent pas le texte
 _SUBS = [
-    ('יהוה', 'ה'), ('אלהים', 'אלקים'), ('אלוקים', 'אלקים'),
+    ('אלהים', 'אלקים'), ('אלוקים', 'אלקים'),
     ('ירושלים', 'ירושלם'),
 ]
+# Le Tétragramme doit être borné par des non-lettres. Appliqué sans borne et APRÈS
+# suppression des espaces, il mutilait des citations exactes : « …אָסוּר בַּהֲנָיָה.
+# וְהַשּׁוֹתֶה… » se réduisait à `בהניהוהשותה`, où la suite `יהוה` naît de la seule
+# soudure de deux mots — et la citation, amputée, était déclarée absente de sa
+# source. N'importe quel « …יה ו… » produisait le même faux négatif : 98 citations
+# du site sont dans ce cas.
+_TETRA = re.compile(r'(?<![א-ת])יהוה(?![א-ת])')
 
 
 def norm(s):
@@ -279,10 +286,11 @@ def norm(s):
     for a, b in _ABBREV:
         s = s.replace(a, b)
     s = NIKUD.sub('', s)
-    s = NONHEB.sub('', s)
+    # tant que les espaces sont là, les frontières de mots ont encore un sens
+    s = _TETRA.sub('ה', s)
     for a, b in _SUBS:
         s = s.replace(a, b)
-    return s
+    return NONHEB.sub('', s)
 
 
 def n_letters(s):
@@ -581,6 +589,17 @@ def fenetre_ref(plain, at, n):
         # sortait en REF_FAUSSE alors que la page était juste.
         avant = re.sub(r'^\s*\([^()]*\)', '', avant)
 
+    # Le garde ci-dessus ne se déclenche que si la fenêtre COMMENCE par « ( ».
+    # Quand la citation précédente est hors de portée des 200 caractères, la
+    # fenêtre s'ouvre au MILIEU de sa parenthèse de référence, et celle-ci était
+    # alors attribuée à notre citation. Une parenthèse fermante rencontrée avant
+    # toute ouvrante appartient nécessairement à ce qui précède la fenêtre : on
+    # coupe jusqu'à elle. Vu au siman 127, où une citation du Chakh, exacte et
+    # correctement référencée, héritait du « (שו״ע יו״ד קכ״ז:א) » de sa voisine.
+    ouvre, ferme = avant.find('('), avant.find(')')
+    if ferme >= 0 and (ouvre < 0 or ferme < ouvre):
+        avant = avant[ferme + 1:]
+
     return avant + ' ' + plain[at:fin] + ' ' + apres
 
 
@@ -595,6 +614,21 @@ COMMENTATEURS = [
     # silencieusement le résolveur et fasse ressortir du verbatim en VARIANTE.
     (re.compile(r'(?:תוספות|תוס[\'׳])\s*(?:על\s*)?$'), 'Tosafot_on_'),
     (re.compile(r'(?:רש["״]י)\s*(?:על\s*)?$'),          'Rashi_on_'),
+    # Le Roch et le Mordekhi s'indexent en perek:siman, pas en daf : aucune
+    # référence ne peut être construite depuis un folio. Ils reçoivent None —
+    # la citation retombe en « sans référence », donc NON JUGÉE, au lieu d'être
+    # confrontée au folio de guemara homonyme et déclarée fausse.
+    # Ne rien dire vaut mieux que dire faux.
+    (re.compile(r'(?:הרא["״]ש|רא["״]ש)\s*(?:על\s*)?$'), None),
+    (re.compile(r'(?:המרדכי|מרדכי)\s*(?:על\s*)?$'),      None),
+    # Les Richonim paginés comme leur support : le Rif et le Ran sur les pages du
+    # Rif, le Rachba et le Ritva sur celles de la guemara. Sans eux, « רי״ף עבודה
+    # זרה ל״ד ע״ב » était confronté au folio de guemara homonyme — même défaut que
+    # pour les Tossefot. Les quatre slugs ont été vérifiés contre l'API.
+    (re.compile(r'(?:רי["״]ף)\s*(?:על\s*)?$'),          'Rif_'),
+    (re.compile(r'(?:הר["״]ן|ר["״]ן)\s*(?:על\s*)?$'),   'Ran_on_'),
+    (re.compile(r'(?:הרשב["״]א|רשב["״]א)\s*(?:על\s*)?$'), 'Rashba_on_'),
+    (re.compile(r'(?:הריטב["״]א|ריטב["״]א)\s*(?:על\s*)?$'), 'Ritva_on_'),
 ]
 
 
@@ -603,7 +637,7 @@ def _prefixe_commentateur(ctx, debut):
     avant = ctx[max(0, debut - 24):debut]
     for rx, prefixe in COMMENTATEURS:
         if rx.search(avant):
-            return prefixe
+            return prefixe          # peut valoir None : « ne pas construire de référence »
     return ''
 
 
@@ -625,10 +659,14 @@ def refs_in(ctx):
         else:
             ab = 'a' if m.group('colon') == '.' else 'b'
         pre = _prefixe_commentateur(ctx, m.start())
+        if pre is None:      # commentateur non adressable par folio : on n'invente pas
+            continue
         out.append(f"{pre}{MASSEKHTOT[m.group('mass')].replace(' ', '_')}.{d}{ab}")
     for m in RE_DAF_LAT.finditer(ctx):
         ab = {'a': 'a', 'b': 'b', '.': 'a', ':': 'b'}[m.group('ab').lower()]
         pre = _prefixe_commentateur(ctx, m.start())
+        if pre is None:
+            continue
         out.append(f"{pre}{MASSEKHTOT[m.group('mass').lower()].replace(' ', '_')}.{int(m.group('num'))}{ab}")
     for m in RE_SA_LAT.finditer(ctx):
         tour = {'oh': 'Orach Chayim', 'oc': 'Orach Chayim', 'yd': 'Yoreh Deah',
