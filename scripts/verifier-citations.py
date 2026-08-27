@@ -920,6 +920,27 @@ def ref_collee(plain, at, n):
     return bool(RE_REF_COLLEE.match(plain[at + n: at + n + 60]))
 
 
+# « המשנ״ב (ס״ק ג) » : sur une page de siman, un ס״ק sans numéro de siman en
+# désigne un du siman de la page — c'est la façon naturelle d'écrire, et la seule
+# que RE_MB ne savait pas lire (elle exige « מ״ב siman:ס״ק »). La citation était
+# alors rapportée au folio de guemara qui traînait dans la même fenêtre : au
+# siman 348, la page attribuait correctement « כדי שלא יתקיים מחשבתו… » au Michna
+# Beroura ס״ק ג, et ressortait en REF_FAUSSE contre Chabbat ו ע״א.
+RE_SK_NU = re.compile(r'(?:ס["״]?ק|סעיף\s*קטן)\s*(?P<sk>[\dא-ת"״\'׳]{1,4})')
+
+
+def ref_mb_du_siman(path, ctx):
+    """Le ס״ק nu d'une page de siman, résolu sur le siman de cette page."""
+    m = re.search(r'siman-(\d+)', path)
+    if not m or '/yoreh-deah/' in path.replace(os.sep, '/'):
+        return None            # la Michna Beroura ne couvre qu'Orah Haim
+    k = RE_SK_NU.search(ctx)
+    if not k:
+        return None
+    sk = _num(k.group('sk'))
+    return f"Mishnah_Berurah.{int(m.group(1))}.{sk}" if sk else None
+
+
 def ref_du_siman(path):
     """Référence Sefaria de l'ouvrage dont cette page est l'exposé.
 
@@ -1020,6 +1041,17 @@ def main():
             # parenthèses. Six signalements sur six, mesurés le 27/08, étaient de
             # cette espèce — quatre Tossefot sur Avoda Zara, un Rachi, une Michna
             # dont le chapitre ז׳ avait été lu comme le folio 7b.
+            if v == 'ABSENT':
+                mb = ref_mb_du_siman(path, window)
+                if mb and mb not in refs:
+                    if mb not in cache_src:
+                        cache_src[mb] = fetch(mb) or []
+                    if cache_src[mb]:
+                        v2, ratio2, extract2 = verdict(frag, cache_src[mb])
+                        if v2 in ('OK', 'VARIANTE'):
+                            v, ratio, extract = v2, ratio2, extract2
+                            refs = refs + [mb + ' (ס״ק du siman de la page)']
+
             if v == 'ABSENT':
                 for r in refs[:3]:
                     if '_on_' in r or '.' not in r:
