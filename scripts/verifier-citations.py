@@ -446,6 +446,17 @@ def fenetre_ref(plain, at, n):
         # sortait en REF_FAUSSE alors que la page était juste.
         avant = re.sub(r'^\s*\([^()]*\)', '', avant)
 
+    # Le garde ci-dessus ne se déclenche que si la fenêtre COMMENCE par « ( ».
+    # Quand la citation précédente est hors de portée des 200 caractères, la
+    # fenêtre s'ouvre au MILIEU de sa parenthèse de référence, et celle-ci était
+    # alors attribuée à notre citation. Une parenthèse fermante rencontrée avant
+    # toute ouvrante appartient nécessairement à ce qui précède la fenêtre : on
+    # coupe jusqu'à elle. Vu au siman 127, où une citation du Chakh, exacte et
+    # correctement référencée, héritait du « (שו״ע יו״ד קכ״ז:א) » de sa voisine.
+    ouvre, ferme = avant.find('('), avant.find(')')
+    if ferme >= 0 and (ouvre < 0 or ferme < ouvre):
+        avant = avant[ferme + 1:]
+
     return avant + ' ' + plain[at:fin] + ' ' + apres
 
 
