@@ -79,3 +79,27 @@ Trois sondages indépendants ont confirmé que la bande 55–69 % de recouvremen
 est du **développement d'abréviations** et non une altération : Chabbat 269:1
 (בבהכ״נ → בית הכנסת), Orah Haïm 154:2 (ב״ה → בית הכנסת), Yoreh De'ah 108:2
 (בד״א → במה דברים אמורים). Dans les trois cas le texte est verbatim.
+
+## Siman 250 (Chabbat) — attribution au Rambam non confirmée · `needs_rav_review`
+
+`sources/shabbat/siman-250/niveau-2-lamdan.html`, ligne 395 (et les deux autres langues).
+
+La page écrit :
+
+> הרמב״ם (הלכות שבת פ״ל ה״ו) : "כיצד מכבדו ? כדי שיהא לו בגדים נקיים והיתה ערוכה
+> לו השלחן ומסודרים מטה ומסבה והכלים הצריכים, וירבה בבשר וביין ומגדנות ככל יכלתו".
+
+**Ce texte n'a pas été retrouvé** dans le Mishné Torah, Hilkhot Chabbat פרק ל׳ —
+ni en ה״ו, ni ailleurs dans le chapitre (les trente segments ont été parcourus).
+Ce que le Rambam écrit sur le sujet, en פ״ל ה״ה, est :
+
+> וצריך לתקן ביתו מבעוד יום מפני כבוד השבת. ויהיה נר דלוק ושולחן ערוך לאכול
+> ומטה מוצעת שכל אלו לכבוד שבת הן.
+
+Le fond est le même ; la langue ne l'est pas. Il se peut que la page cite un autre
+ouvrage — le Tour ou le Choul'han Aroukh sur רמ״ב, ou le Rambam sur les jours de
+fête — mais **je n'ai pas pu l'établir**, et la règle anti-fabrication interdit de
+proposer un remplacement au jugé.
+
+**Aucune modification n'a été faite.** À trancher par le Rav : soit la référence
+exacte, soit le passage en `<em>résumé</em> :` si c'est une condensation.

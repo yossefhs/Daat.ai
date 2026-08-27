@@ -355,7 +355,12 @@ RE_DAF_HE = re.compile(
                                    key=len, reverse=True)) + r')'
     r'[\s‏]*\(?[\s]*'
     r'(?P<daf>[א-ת]{1,4}["״\'׳]?[א-ת]?)'
-    r'[\s]*(?:(?P<amud>ע["״]?[אב])|(?P<colon>[.:]))')
+    # L'amoud ne doit pas etre suivi d'une lettre hebraique : sans cette garde, le
+    # « עב » de « העבודה » se lisait comme « ע״ב ». Au siman 120, « בקשת השבת
+    # העבודה » rendait Shabbat.5b — ה = 5, עב = amoud ב — et la page, qui citait le
+    # texte de la tefila sans pretendre a aucune source, ressortait en REF_FAUSSE
+    # contre un folio tire de sa propre prose.
+    r'[\s]*(?:(?P<amud>ע["״]?[אב])(?![א-ת])|(?P<colon>[.:]))')
 RE_DAF_LAT = re.compile(
     r'\b(?P<mass>' + '|'.join(sorted((k for k in MASSEKHTOT if not re.search(r'[א-ת]', k)),
                                      key=len, reverse=True)) + r')\b'
@@ -644,6 +649,12 @@ def _prefixe_commentateur(ctx, debut):
 def refs_in(ctx):
     """Toutes les références Sefaria détectées dans un contexte textuel."""
     out = []
+    for m in RE_PEREK_MISHNAH.finditer(ctx):
+        pe, mi = _num(m.group('p')), _num(m.group('m'))
+        if pe and mi:
+            livre = MISHNAYOT[m.group('mass')]
+            out.append(f"{livre}.{pe}.{mi}" if livre.startswith('Pirkei')
+                       else f"Mishnah_{livre.replace(' ', '_')}.{pe}.{mi}")
     for m in RE_MISHNAH.finditer(ctx):
         pe, mi = _num(m.group('perek')), _num(m.group('mish'))
         if pe and mi:
@@ -738,6 +749,14 @@ def straight_pairs(s):
     et on filtre sur la longueur seulement après coup.
     """
     pos = [m.start() for m in re.finditer(r'"', s)]
+    # Un nombre IMPAIR décale TOUTES les paires, et ce qu'on extrait alors n'est
+    # pas une citation mais la prose SITUÉE ENTRE deux citations. Au siman 10,
+    # « ש״ארבע" ממעט פחות… » ouvre sur un gershayim et ferme sur un guillemet
+    # droit : trois guillemets droits sur la ligne, et le garde-fou dénonçait
+    # comme citation fabriquée une phrase que la page n'a jamais citée.
+    # Mieux vaut ne rien extraire de cette ligne que d'y inventer une citation.
+    if len(pos) % 2:
+        return []
     return [s[a + 1:b] for a, b in zip(pos[0::2], pos[1::2]) if 0 < b - a - 1 <= 900]
 # Préfixe de référence en tête de citation : « גמ' ברכות (נ״ג ע״א): », « OH 131:1 — », …
 RE_PREFIX = re.compile(r'^[^"«„]{0,90}?[:—–-]\s*(?=["«„])')
@@ -1034,6 +1053,20 @@ OUVRAGES = [
 _OUVRAGES = [(re.compile(sig), oh, yd, n2) for sig, oh, yd, n2 in OUVRAGES]
 
 # « או״ח רמ״ז », « סימן רמ״ז », « סי׳ ק״ל » — le siman explicitement nomme.
+# « אבות פ״ב מי״ג » — perek et michna, la forme classique de renvoi a une michna.
+# Le resolveur ne la lisait pas : le siman 1 ecrivait « מקורו במשנה (אבות פ״ב מי״ג) »,
+# reference parfaitement exacte et collee a la citation, et se voyait tout de meme
+# opposer le « (ברכות ה׳:) » d'une proposition suivante.
+MISHNAYOT = dict(MASSEKHTOT, **{'אבות': 'Pirkei_Avot', 'פאה': 'Peah', 'ידים': 'Yadayim',
+                                'ידיים': 'Yadayim', 'אבות דרבי נתן': 'Pirkei_Avot'})
+RE_PEREK_MISHNAH = re.compile(
+    r'(?P<mass>' + '|'.join(sorted((k for k in MISHNAYOT if re.search(r'[א-ת]', k)),
+                                   key=len, reverse=True)) + r')\s*'
+    r'פ["״\'׳]?(?P<p>[א-ת]{1,3}["״\'׳]?[א-ת]?)\s*,?\s*'
+    r'מ["״\'׳]?(?P<m>[א-ת]{1,3}["״\'׳]?[א-ת]?)(?![א-ת])')
+
+
+RE_VERSET = re.compile(r'(?:שנאמר|ואומר|דכתיב|כדכתיב|וכתיב|כמו שנאמר)\s*[:"«„]?\s*$')
 RE_SIMAN_SEIF = re.compile(r'(?P<s>[\dא-ת"״\'׳]{1,6})\s*[:׃]\s*(?P<n>[\dא-ת"״\'׳]{1,4})')
 RE_SIMAN_NOMME = re.compile(r'(?:או["״]?ח|יו["״]?ד|סימן|סי[\'׳])\s*'
                             r'(?P<s>[\dא-ת"״\'׳]{1,6})')
@@ -1224,6 +1257,37 @@ def main():
                             break
                     if v != 'ABSENT':
                         break
+
+            # LA PAGE A-T-ELLE SEULEMENT REVENDIQUÉ UNE SOURCE POUR CETTE CITATION ?
+            #
+            # La fenêtre de contexte est large : elle ramasse les références de
+            # toute la ligne. Quand la citation n'en porte aucune à son contact,
+            # ce qu'on lui oppose est la référence d'une proposition VOISINE — et
+            # l'accusation vise une page qui n'a rien revendiqué du tout.
+            #
+            # Mesuré sur le tri du 27/08 : douze signalements sur vingt-six
+            # étaient de cette espèce. Le siman 1 écrivait « מקורו במשנה (אבות פ״ב
+            # מי״ג) », parfaitement exact, et se voyait opposer le « (ברכות ה׳:) »
+            # d'une clause suivante. Le 52 et le 116 citaient un verset introduit
+            # par « ואומר », sans renvoi ; le 120 citait le texte de la tefila.
+            #
+            # On exige donc qu'une référence jouxte la citation — trente caractères
+            # avant l'ouverture, soixante après la fermeture. À défaut, la citation
+            # rejoint les « sans référence » : non vérifiable, mais non accusée.
+            # C'est le principe déjà appliqué par ref_collee(), étendu de la seule
+            # guemara à toutes les références que le résolveur sait lire.
+            if v == 'ABSENT' and at >= 0:
+                avant30 = plain[max(0, at - 30):at]
+                proche = avant30 + ' § ' + plain[at + len(frag):at + len(frag) + 60]
+                # « שנאמר … », « ואומר … », « דכתיב … » annoncent un VERSET. La
+                # référence qui traîne à portée est celle d'autre chose : au siman
+                # 52, la page cite « פדה בשלום נפשי מקרב לי כי ברבים היו עמדי » —
+                # Tehilim נ״ה:י״ט, verbatim — et se voyait opposer le renvoi au
+                # Rambam de la proposition suivante. Le résolveur ne lit pas le
+                # Tanakh ; tant qu'il ne le lira pas, il doit se taire ici.
+                if RE_VERSET.search(avant30) or not refs_in(proche):
+                    stats['SANS_REF'] += 1
+                    continue
 
             ailleurs = ''
             if v == 'ABSENT':
