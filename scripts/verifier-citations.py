@@ -941,6 +941,83 @@ def ref_mb_du_siman(path, ctx):
     return f"Mishnah_Berurah.{int(m.group(1))}.{sk}" if sk else None
 
 
+# ───────────────────── Beit Yosef, Tour et Aharonim ─────────────────────
+#
+# Deuxieme tranche de l'angle mort. Apres le Mishne Torah et les commentaires du
+# daf, restaient sans motif les ouvrages que ces pages citent le plus : le Beit
+# Yosef, le Tour, le Magen Avraham, le Taz, le Chakh, le Choulhan Aroukh HaRav,
+# le Kaf HaHaim, le Aroukh HaChoulhan, le Peri Megadim, le Biour Halakha.
+#
+# Ces candidats ne sont essayes QU'EN REPLI, quand la citation est deja declaree
+# absente de ses references resolues. C'est deliberé : un candidat en repli ne
+# peut que RESOUDRE une citation reelle, jamais accuser une page juste — au pire
+# il ne trouve rien et le verdict d'origine tient. Les mettre en references
+# primaires ferait courir le risque inverse, et « ט״ז » est aussi la guematria de
+# 16 : sur ce site, la sigle du Taz et le numero du seif seize s'ecrivent
+# exactement pareil.
+OUVRAGES = [
+    # (sigle, gabarit Orah Haim, gabarit Yoreh Deah, second niveau requis)
+    (r'מג["״]א|מגן אברהם', 'Magen_Avraham.{s}.{n}', None, True),
+    (r'ט["״]ז|טורי זהב', 'Turei_Zahav_on_Shulchan_Arukh,_Orach_Chayim.{s}.{n}',
+     "Turei_Zahav_on_Shulchan_Arukh,_Yoreh_De'ah.{s}.{n}", True),
+    (r'ש["״]ך|שפתי כהן', None,
+     "Siftei_Kohen_on_Shulchan_Arukh,_Yoreh_De'ah.{s}.{n}", True),
+    (r'כה["״]ח|כף החיים', 'Kaf_HaChayim_on_Shulchan_Arukh,_Orach_Chayim.{s}.{n}', None, True),
+    (r'שוע["״]ר|שו["״]ע הרב|שולחן ערוך הרב|אדמו["״]ר הזקן',
+     'Shulchan_Arukh_HaRav,_Orach_Chayim.{s}.{n}', None, True),
+    (r'ערוה["״]ש|ערוך השולחן', 'Arukh_HaShulchan,_Orach_Chaim.{s}.{n}',
+     "Arukh_HaShulchan,_Yoreh_De'ah.{s}.{n}", True),
+    (r'פמ["״]ג|פרי מגדים',
+     'Peri_Megadim_on_Orach_Chayim,_Eshel_Avraham.{s}.{n}', None, True),
+    (r'ב["״]י|בית יוסף', 'Beit_Yosef,_Orach_Chayim.{s}', 'Beit_Yosef,_Yoreh_Deah.{s}', False),
+    (r'(?<![א-ת])טור(?![א-ת])', 'Tur,_Orach_Chayim.{s}', 'Tur,_Yoreh_Deah.{s}', False),
+    (r'ביה["״]ל|ביאור הלכה', 'Biur_Halacha.{s}', None, False),
+]
+_OUVRAGES = [(re.compile(sig), oh, yd, n2) for sig, oh, yd, n2 in OUVRAGES]
+
+# « או״ח רמ״ז », « סימן רמ״ז », « סי׳ ק״ל » — le siman explicitement nomme.
+RE_SIMAN_NOMME = re.compile(r'(?:או["״]?ח|יו["״]?ד|סימן|סי[\'׳])\s*'
+                            r'(?P<s>[\dא-ת"״\'׳]{1,6})')
+
+
+def candidats_ouvrages(path, ctx):
+    """Références de repli pour les ouvrages nommés dans la fenêtre.
+
+    Le siman vient de la fenêtre s'il y est nommé, sinon de la page — une page de
+    siman qui écrit « הט״ז (ס״ק א) » parle du Taz de SON siman. Le second niveau
+    (ס״ק, séif) vient du ס״ק de la fenêtre ou de la forme « siman:séif ».
+    """
+    p = path.replace(os.sep, '/')
+    yd = '/yoreh-deah/' in p
+    m = re.search(r'siman-(\d+)', p)
+    siman_page = int(m.group(1)) if m else None
+
+    m = RE_SIMAN_NOMME.search(ctx)
+    siman = (_num(m.group('s')) if m else None) or siman_page
+    if not siman:
+        return []
+
+    k = RE_SK_NU.search(ctx)
+    n = _num(k.group('sk')) if k else None
+    if n is None:
+        m2 = re.search(r'[\dא-ת"״\'׳]{1,6}\s*[:׃]\s*(?P<n>[\dא-ת"״\'׳]{1,4})', ctx)
+        n = _num(m2.group('n')) if m2 else None
+
+    out = []
+    for rx, oh, ydg, n2 in _OUVRAGES:
+        if not rx.search(ctx):
+            continue
+        gabarit = ydg if yd else oh
+        if not gabarit:
+            continue
+        if n2:
+            if n:
+                out.append(gabarit.format(s=siman, n=n))
+        else:
+            out.append(gabarit.format(s=siman))
+    return out
+
+
 def ref_du_siman(path):
     """Référence Sefaria de l'ouvrage dont cette page est l'exposé.
 
@@ -1042,15 +1119,19 @@ def main():
             # cette espèce — quatre Tossefot sur Avoda Zara, un Rachi, une Michna
             # dont le chapitre ז׳ avait été lu comme le folio 7b.
             if v == 'ABSENT':
-                mb = ref_mb_du_siman(path, window)
-                if mb and mb not in refs:
-                    if mb not in cache_src:
-                        cache_src[mb] = fetch(mb) or []
-                    if cache_src[mb]:
-                        v2, ratio2, extract2 = verdict(frag, cache_src[mb])
-                        if v2 in ('OK', 'VARIANTE'):
-                            v, ratio, extract = v2, ratio2, extract2
-                            refs = refs + [mb + ' (ס״ק du siman de la page)']
+                for cand in ([ref_mb_du_siman(path, window)]
+                             + candidats_ouvrages(path, window)):
+                    if not cand or cand in refs:
+                        continue
+                    if cand not in cache_src:
+                        cache_src[cand] = fetch(cand) or []
+                    if not cache_src[cand]:
+                        continue
+                    v2, ratio2, extract2 = verdict(frag, cache_src[cand])
+                    if v2 in ('OK', 'VARIANTE'):
+                        v, ratio, extract = v2, ratio2, extract2
+                        refs = refs + [cand + ' (ouvrage nommé dans la fenêtre)']
+                        break
 
             if v == 'ABSENT':
                 for r in refs[:3]:
