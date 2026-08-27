@@ -787,14 +787,28 @@ def main():
 
     if args.csv:
         import csv as _csv
+        champs = ['fichier', 'ligne', 'refs', 'verdict', 'ratio', 'citation',
+                  'source_reelle', 'texte_trouve_en']
         out = args.csv if os.path.isabs(args.csv) else os.path.join(ROOT, args.csv)
         os.makedirs(os.path.dirname(out), exist_ok=True)
+
+        # Une exécution restreinte par --path FUSIONNE dans le CSV au lieu de l'écraser :
+        # sans cela, vérifier un siman effaçait les constats de tous les autres. Plusieurs
+        # agents travaillant en parallèle se sont ainsi effacé mutuellement leurs relevés.
+        anciennes = []
+        if args.path and os.path.exists(out):
+            portee = os.path.relpath(os.path.abspath(args.path), ROOT).replace(os.sep, '/')
+            with open(out, newline='', encoding='utf-8') as fh:
+                for r in _csv.DictReader(fh):
+                    f = (r.get('fichier') or '').replace(os.sep, '/')
+                    if not (f == portee or f.startswith(portee.rstrip('/') + '/')):
+                        anciennes.append({k: r.get(k, '') for k in champs})
+
         with open(out, 'w', newline='', encoding='utf-8') as fh:
-            w = _csv.DictWriter(fh, fieldnames=['fichier', 'ligne', 'refs', 'verdict',
-                                                'ratio', 'citation', 'source_reelle',
-                                                'texte_trouve_en'])
+            w = _csv.DictWriter(fh, fieldnames=champs)
             w.writeheader()
-            w.writerows(sorted(rows, key=lambda r: (r['verdict'] != 'INTROUVABLE', r['fichier'], r['ligne'])))
+            w.writerows(sorted(anciennes + rows,
+                               key=lambda r: (r['verdict'] != 'INTROUVABLE', r['fichier'], int(r['ligne']))))
 
     if not args.quiet:
         for r in sorted(rows, key=lambda r: (r['verdict'] != 'INTROUVABLE', r['fichier'])):
