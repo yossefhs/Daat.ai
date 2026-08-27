@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 13 seifim qui codifient les actes interdits à la lumière de la bougie Shabbat — lire (risque d'incliner la mèche), inspecter, examiner. Cadre conceptuel : crainte
+La chitah de l'Admour HaZaken sur les 13 seifim qui codifient les actes interdits à la lumière de la bougie Shabbat — lire (risque d'incliner la lampe), inspecter, examiner. Cadre conceptuel : crainte
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

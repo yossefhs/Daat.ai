@@ -30,9 +30,37 @@ _spec.loader.exec_module(va)
 
 TETES = {"": "Ce que dit ce séif :", "-he": "מה אומר הסעיף:", "-en": "What this seif says:"}
 IDX = {"": 0, "-he": 1, "-en": 2}
-VAL = {c: i + 1 for i, c in enumerate("אבגדהוזחטי")}
-VAL.update({"יא": 11, "יב": 12, "יג": 13, "יד": 14, "טו": 15, "טז": 16, "יז": 17,
-            "יח": 18, "יט": 19, "כ": 20})
+# Valeur d'une lettre-numéro de séif. La table s'arrêtait à כ = 20 : le siman 303
+# en compte vingt-sept, et les séifim כ״א à כ״ז faisaient echouer le lot entier
+# avec « séif hors du siman » — alors qu'ils existent bel et bien. Calculée
+# désormais, jusqu'à quarante, plutôt qu'énumérée.
+_UNITES = {c: i + 1 for i, c in enumerate("אבגדהוזחט")}
+_DIZAINES = {"י": 10, "כ": 20, "ל": 30, "מ": 40}
+
+
+def _val(lettres):
+    """« כ״ז » → 27. Les lettres sont écrites sans geresh dans les clés du lot."""
+    s = lettres.replace("״", "").replace('"', "").replace("׳", "").replace("'", "")
+    if s in ("טו", "טז"):                      # convention : 15 et 16
+        return 9 + _UNITES[s[1]]
+    n = 0
+    for c in s:
+        if c in _DIZAINES:
+            n += _DIZAINES[c]
+        elif c in _UNITES:
+            n += _UNITES[c]
+        else:
+            return None
+    return n or None
+
+
+class _Val(dict):
+    def get(self, k, defaut=None):
+        v = _val(k)
+        return v if v is not None else defaut
+
+
+VAL = _Val()
 RE_TS = re.compile(r'<blockquote class="text-source"[^>]*>(.*?)</blockquote>', re.S)
 RE_FIN = re.compile(r'\n<h3[^>]*>|\n<h2 class="section-title"')
 SEUIL = 0.55
