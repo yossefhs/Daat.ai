@@ -16,6 +16,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
+import zlib from 'node:zlib';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -738,11 +739,22 @@ console.log(`  Taille JSON         : ${sizeKb} KB`);
 // chaud — le fichier peut donc manquer sans rien casser.
 // ⚠️ Doit rester STRICTEMENT la même expression que loadAndIndex().
 {
-  const { tokenize } = await import('../api/_corpus-search.js');
+  const { tokenize, tokenizerSignature } = await import('../api/_corpus-search.js');
   const tokens = allChunks.map((c) => tokenize(
     c.text + ' ' + (c.subsection || '') + ' ' + c.sectionTitle + ' ' +
     (c.simanTitle || '') + ' ' + (c.simanTitleHe || '')
   ).join(' '));
+
+  // L'encodage repose sur l'espace comme séparateur : un token qui en
+  // contiendrait un serait coupé en deux à la relecture, silencieusement. Rien
+  // dans tokenize() ne l'interdit aujourd'hui — on le vérifie donc plutôt que
+  // de le supposer, et on refuse de produire un index abîmé.
+  const fautif = tokens.findIndex((t, i) => t.split(' ').length !== (t ? t.split(' ').filter(Boolean).length : 0));
+  if (fautif !== -1) {
+    console.error(`\n⛔ Index précalculé NON écrit : le chunk ${allChunks[fautif].id} produit un token contenant une espace.`);
+    console.error("    L'encodage join(' ')/split(' ') le couperait en deux. Corriger tokenize() ou changer de séparateur.");
+    process.exit(1);
+  }
   // Empreinte du corpus DONT CET INDEX DÉRIVE — sha1 de la chaîne exactement
   // écrite dans corpus-shabbat.json, celle que la lambda relira. Un index
   // périmé servirait silencieusement de faux tokens, donc de mauvaises
@@ -750,10 +762,28 @@ console.log(`  Taille JSON         : ${sizeKb} KB`);
   // les seuls identifiants de chunks ne l'attraperait pas, puisqu'une
   // correction de contenu change le texte sans changer les identifiants.
   const src = createHash('sha1').update(corpusJson).digest('hex');
-  const indexPath = path.join(ROOT, 'data', 'corpus-index.json');
-  fs.writeFileSync(indexPath, JSON.stringify({ v: 2, chunks: allChunks.length, src, tokens }), 'utf8');
+  // Empreinte du TOKENISEUR : l'index dérive du corpus ET de tokenize(). Sans
+  // elle, retoucher SPELLING_CANON ou STOPWORDS sans relancer le build fait
+  // indexer le corpus avec l'ancien tokeniseur pendant que la question passe
+  // par le nouveau — et l'on règle alors le moteur halakhique à l'aveugle.
+  const tok = tokenizerSignature();
+  const indexPath = path.join(ROOT, 'data', 'corpus-index.br');
+  // COMPRESSÉ. Ce fichier est embarqué dans le bundle de la lambda, dont la
+  // limite Vercel est de 250 Mo décompressés — et le corpus grandit de ~37 %
+  // par semaine. Mesuré : 25,1 Mo bruts contre 4,1 Mo en brotli, pour 26 ms de
+  // décompression au démarrage à froid. Sans cela l'index rapprocherait le mur
+  // de onze jours ; avec, de deux.
+  const payload = zlib.brotliCompressSync(
+    Buffer.from(JSON.stringify({ v: 3, chunks: allChunks.length, src, tok, tokens }), 'utf8'),
+    { params: { [zlib.constants.BROTLI_PARAM_QUALITY]: 5 } }
+  );
+  // Écriture atomique : un fichier écrit en place peut être lu tronqué par un
+  // processus concurrent. Le renommage, lui, est indivisible.
+  const tmpPath = indexPath + '.tmp';
+  fs.writeFileSync(tmpPath, payload);
+  fs.renameSync(tmpPath, indexPath);
   const ko = Math.round(fs.statSync(indexPath).size / 1024);
-  console.log(`  Index précalculé    : ${tokens.length} entrées, ${ko} Ko`);
+  console.log(`  Index précalculé    : ${tokens.length} entrées, ${ko} Ko (tokeniseur ${tok})`);
 }
 
 console.log(`  Par section         : ${Object.entries(stats.perSection).map(([k, v]) => `${k}=${v}`).join(', ')}`);

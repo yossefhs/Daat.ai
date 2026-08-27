@@ -5,6 +5,7 @@
 // Tokenisation FR + hébreu, stopwords, synonymes halakhiques, garde-fou keyToken.
 
 import { readFileSync } from 'node:fs';
+import { brotliDecompressSync } from 'node:zlib';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -12,7 +13,37 @@ import { dirname, join } from 'node:path';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const CORPUS_PATH = join(__dirname, '..', 'data', 'corpus-shabbat.json');
 // Tokenisation précalculée par scripts/extract-corpus.js — sortie de build.
-const INDEX_PATH = join(__dirname, '..', 'data', 'corpus-index.json');
+const INDEX_PATH = join(__dirname, '..', 'data', 'corpus-index.br');
+
+// ── Empreinte du tokeniseur ─────────────────────────────────────────────────
+// L'index précalculé dérive de DEUX choses : le corpus ET tokenize(). L'empreinte
+// du corpus ne dit rien du second. Or SPELLING_CANON, SYNONYMS, MULTIWORD,
+// STOPWORDS, NON_TOPICAL et preNormalize sont retouchés sans arrêt dans ce
+// fichier. Si l'un change sans que le build soit relancé, le corpus reste indexé
+// avec l'ANCIEN tokeniseur pendant que la question de l'utilisateur passe par le
+// NOUVEAU : les deux côtés du BM25 ne parlent plus la même langue, et rien ne le
+// signale. Mesuré : ajouter la graphie « mouktse » sans régénérer fait entrer les
+// simanim 259 (רנ״ט) et 279 (רע״ט) dans les cinq premiers et en chasse le 343
+// (שמ״ג) et le 310 (ש״י).
+//
+// Un TEXTE TÉMOIN passé au tokeniseur ne suffit pas — essayé, et mis en défaut
+// par ce cas même : il ne détecte que les règles qu'il exerce par hasard, et une
+// graphie ajoutée pour un mot absent du témoin reste invisible. On prend donc
+// l'empreinte du FICHIER SOURCE : toute retouche, fût-elle d'un commentaire,
+// invalide l'index. C'est délibérément trop sensible. Le déséquilibre le
+// commande : un faux repli coûte 2 secondes en local et rien en production (où
+// chaque déploiement rebâtit), tandis qu'une fausse acceptation coûte une
+// réponse halakhique fausse servie avec aplomb.
+const SELF_PATH = fileURLToPath(import.meta.url);
+let _tokSig = null;
+export function tokenizerSignature() {
+  if (!_tokSig) {
+    try {
+      _tokSig = createHash('sha1').update(readFileSync(SELF_PATH, 'utf-8')).digest('hex').slice(0, 16);
+    } catch { _tokSig = 'illisible'; }
+  }
+  return _tokSig;
+}
 
 let _corpus = null;
 let _idf = null;
@@ -651,7 +682,7 @@ function loadAndIndex() {
   // par l'utilisateur GRATUIT, sur sa question. Or les journaux de production
   // montrent ~13 appels à /api/chat par jour : la fonction est presque
   // toujours froide, donc PRESQUE CHAQUE visiteur le paie.
-  // Le build produit donc data/corpus-index.json (mêmes chunks, même ordre) et
+  // Le build produit donc data/corpus-index.br (mêmes chunks, même ordre) et
   // on ne s'en sert QUE si son empreinte est celle du corpus effectivement lu.
   // Une empreinte portant seulement sur les identifiants de chunks ne suffit
   // PAS : le 2026-08-27, la correction du siman 320 (ש״כ) a changé le texte de
@@ -662,33 +693,53 @@ function loadAndIndex() {
   // ou ne concorde pas, rien ne casse.
   let pre = null;
   try {
-    const rawIdx = readFileSync(INDEX_PATH, 'utf-8');
-    const parsed = JSON.parse(rawIdx);
-    if (parsed && Array.isArray(parsed.tokens) && parsed.tokens.length === _N && parsed.src === _srcSig) pre = parsed.tokens;
-    else console.warn(`[corpus-search] corpus-index.json ignoré (longueur ${parsed?.tokens?.length} vs ${_N}, empreinte ${parsed?.src === _srcSig}) — tokenisation à chaud`);
+    const parsed = JSON.parse(brotliDecompressSync(readFileSync(INDEX_PATH)).toString('utf-8'));
+    const tokSig = tokenizerSignature();
+    if (parsed && Array.isArray(parsed.tokens) && parsed.tokens.length === _N
+        && parsed.src === _srcSig && parsed.tok === tokSig) pre = parsed.tokens;
+    else console.warn(`[corpus-search] corpus-index.br ignoré (longueur ${parsed?.tokens?.length} vs ${_N}, corpus ${parsed?.src === _srcSig}, tokeniseur ${parsed?.tok === tokSig}) — tokenisation à chaud`);
   } catch { /* absent : tokenisation à chaud */ }
 
-  const df = new Map();
-  let totalLen = 0;
-  for (let i = 0; i < _corpus.chunks.length; i++) {
-    const c = _corpus.chunks[i];
-    const tokens = pre
-      ? (pre[i] ? pre[i].split(' ') : [])
-      : tokenize(
-        c.text + ' ' + (c.subsection || '') + ' ' + c.sectionTitle + ' ' +
-        (c.simanTitle || '') + ' ' + (c.simanTitleHe || '')
-      );
-    c._tokens = tokens;
-    c._tokenCount = tokens.length;
-    c._tfMap = new Map();
-    for (const t of tokens) c._tfMap.set(t, (c._tfMap.get(t) || 0) + 1);
-    totalLen += tokens.length;
-    new Set(tokens).forEach((t) => df.set(t, (df.get(t) || 0) + 1));
+  // Le chemin rapide est PROTÉGÉ. Une seule entrée mal formée dans l'index (un
+  // nombre au lieu d'une chaîne) ferait lever .split hors du try de lecture, et
+  // comme _corpus est déjà posé, le `if (_corpus) return` du haut renverrait
+  // ensuite un module à moitié construit : la lambda servirait des erreurs
+  // jusqu'à sa mort, pour TOUTES les questions. On retombe donc sur la
+  // tokenisation à chaud plutôt que d'empoisonner le processus.
+  const buildIndex = (src) => {
+    const df = new Map();
+    let totalLen = 0;
+    for (let i = 0; i < _corpus.chunks.length; i++) {
+      const c = _corpus.chunks[i];
+      const tokens = src
+        ? (src[i] ? src[i].split(' ') : [])
+        : tokenize(
+          c.text + ' ' + (c.subsection || '') + ' ' + c.sectionTitle + ' ' +
+          (c.simanTitle || '') + ' ' + (c.simanTitleHe || '')
+        );
+      c._tokens = tokens;
+      c._tokenCount = tokens.length;
+      c._tfMap = new Map();
+      for (const t of tokens) c._tfMap.set(t, (c._tfMap.get(t) || 0) + 1);
+      totalLen += tokens.length;
+      new Set(tokens).forEach((t) => df.set(t, (df.get(t) || 0) + 1));
+    }
+    return { df, totalLen };
+  };
+
+  let built;
+  try {
+    built = buildIndex(pre);
+  } catch (err) {
+    console.error(`[corpus-search] index précalculé illisible (${err.message}) — tokenisation à chaud`);
+    pre = null;
+    built = buildIndex(null);
   }
+
   _idf = new Map();
-  _df = df;
-  df.forEach((freq, term) => _idf.set(term, Math.log(1 + (_N - freq + 0.5) / (freq + 0.5))));
-  _avgdl = totalLen / Math.max(1, _N);
+  _df = built.df;
+  built.df.forEach((freq, term) => _idf.set(term, Math.log(1 + (_N - freq + 0.5) / (freq + 0.5))));
+  _avgdl = built.totalLen / Math.max(1, _N);
   console.log(`[corpus-search] Indexed ${_N} chunks from ${(_corpus.meta?.totalSimanim) || '?'} simanim${pre ? ' (index précalculé)' : ' (tokenisation à chaud)'}`);
 }
 

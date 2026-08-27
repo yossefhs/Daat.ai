@@ -979,7 +979,7 @@
   "functions": {
     "api/chat.js": {
       "maxDuration": 300,
-      "includeFiles": "data/corpus-{shabbat,index}.json"
+      "includeFiles": "data/corpus-{shabbat.json,index.br}"
     },
     "api/conversations.js": {
       "maxDuration": 10
@@ -1004,7 +1004,8 @@
     },
     "api/daily-pack.js": {
       "maxDuration": 10,
-      "includeFiles": "data/corpus-{shabbat,index}.json"
+      "_comment": "corpus seul : _pack.js le lit directement, sans passer par _corpus-search.js — l'index précalculé y serait 25 Mo jamais ouverts",
+      "includeFiles": "data/corpus-shabbat.json"
     },
     "api/qonto-sync.js": {
       "maxDuration": 60
@@ -1043,7 +1044,7 @@
       "maxDuration": 60
     },
     "api/chat-corpus.js": {
-      "includeFiles": "data/corpus-{shabbat,index}.json"
+      "includeFiles": "data/corpus-{shabbat.json,index.br}"
     }
   },
   "crons": [
