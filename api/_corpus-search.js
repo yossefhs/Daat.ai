@@ -11,6 +11,8 @@ import { dirname, join } from 'node:path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const CORPUS_PATH = join(__dirname, '..', 'data', 'corpus-shabbat.json');
+// Tokenisation précalculée par scripts/extract-corpus.js — sortie de build.
+const INDEX_PATH = join(__dirname, '..', 'data', 'corpus-index.json');
 
 let _corpus = null;
 let _idf = null;
@@ -637,13 +639,36 @@ function loadAndIndex() {
     return;
   }
   _N = _corpus.chunks.length;
+
+  // ── Tokenisation PRÉCALCULÉE ────────────────────────────────────────────
+  // La tokenisation représente 94 % du démarrage à froid, et elle est refaite
+  // à chaque réveil de la lambda. Mesuré : 2,0 s à 20 741 chunks, 2,7 s à
+  // 28 333 — et le corpus a grandi de 37 % en huit jours. Ce temps est payé
+  // par l'utilisateur GRATUIT, sur sa question. Or les journaux de production
+  // montrent ~13 appels à /api/chat par jour : la fonction est presque
+  // toujours froide, donc PRESQUE CHAQUE visiteur le paie.
+  // Le build produit donc data/corpus-index.json (mêmes chunks, même ordre) et
+  // on s'en sert quand il concorde. Le repli sur la tokenisation à chaud est
+  // conservé : si le fichier manque ou ne concorde pas, rien ne casse.
+  let pre = null;
+  try {
+    const rawIdx = readFileSync(INDEX_PATH, 'utf-8');
+    const parsed = JSON.parse(rawIdx);
+    const sig = createHash('sha1').update(_corpus.chunks.map((c) => c.id).join('|')).digest('hex');
+    if (parsed && Array.isArray(parsed.tokens) && parsed.tokens.length === _N && parsed.sig === sig) pre = parsed.tokens;
+    else console.warn(`[corpus-search] corpus-index.json ignoré (longueur ${parsed?.tokens?.length} vs ${_N}, sig ${parsed?.sig === sig}) — tokenisation à chaud`);
+  } catch { /* absent : tokenisation à chaud */ }
+
   const df = new Map();
   let totalLen = 0;
-  for (const c of _corpus.chunks) {
-    const tokens = tokenize(
-      c.text + ' ' + (c.subsection || '') + ' ' + c.sectionTitle + ' ' +
-      (c.simanTitle || '') + ' ' + (c.simanTitleHe || '')
-    );
+  for (let i = 0; i < _corpus.chunks.length; i++) {
+    const c = _corpus.chunks[i];
+    const tokens = pre
+      ? (pre[i] ? pre[i].split(' ') : [])
+      : tokenize(
+        c.text + ' ' + (c.subsection || '') + ' ' + c.sectionTitle + ' ' +
+        (c.simanTitle || '') + ' ' + (c.simanTitleHe || '')
+      );
     c._tokens = tokens;
     c._tokenCount = tokens.length;
     c._tfMap = new Map();
@@ -655,7 +680,7 @@ function loadAndIndex() {
   _df = df;
   df.forEach((freq, term) => _idf.set(term, Math.log(1 + (_N - freq + 0.5) / (freq + 0.5))));
   _avgdl = totalLen / Math.max(1, _N);
-  console.log(`[corpus-search] Indexed ${_N} chunks from ${(_corpus.meta?.totalSimanim) || '?'} simanim`);
+  console.log(`[corpus-search] Indexed ${_N} chunks from ${(_corpus.meta?.totalSimanim) || '?'} simanim${pre ? ' (index précalculé)' : ' (tokenisation à chaud)'}`);
 }
 
 function getIdf(term) {

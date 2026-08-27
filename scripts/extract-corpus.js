@@ -15,6 +15,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -721,12 +722,36 @@ const output = {
 };
 
 fs.writeFileSync(OUTPUT_PATH, JSON.stringify(output), 'utf8');
+
 const sizeKb = (fs.statSync(OUTPUT_PATH).size / 1024).toFixed(1);
 
 console.log(`\n✓ Corpus généré : ${OUTPUT_PATH}`);
 console.log(`  Simanim avec chunks : ${stats.withChunks}/${stats.totalSimanim}`);
 console.log(`  Chunks totaux       : ${allChunks.length}`);
 console.log(`  Taille JSON         : ${sizeKb} KB`);
+// ── Tokenisation précalculée ─────────────────────────────────────────────────
+// La lambda refaisait cette tokenisation à CHAQUE démarrage à froid : 94 % des
+// 2,7 s de latence initiale, payées par l'utilisateur gratuit sur sa question.
+// On l'écrit ici, dans le même ordre que les chunks. api/_corpus-search.js ne
+// s'en sert que si la longueur concorde, et retombe sinon sur la tokenisation à
+// chaud — le fichier peut donc manquer sans rien casser.
+// ⚠️ Doit rester STRICTEMENT la même expression que loadAndIndex().
+{
+  const { tokenize } = await import('../api/_corpus-search.js');
+  const tokens = allChunks.map((c) => tokenize(
+    c.text + ' ' + (c.subsection || '') + ' ' + c.sectionTitle + ' ' +
+    (c.simanTitle || '') + ' ' + (c.simanTitleHe || '')
+  ).join(' '));
+  // Signature d'identité : un index PÉRIMÉ mais de même longueur passerait un
+  // simple contrôle de taille et servirait silencieusement de faux tokens —
+  // c'est-à-dire de mauvaises réponses halakhiques sans aucune alarme.
+  const sig = createHash('sha1').update(allChunks.map((c) => c.id).join('|')).digest('hex');
+  const indexPath = path.join(ROOT, 'data', 'corpus-index.json');
+  fs.writeFileSync(indexPath, JSON.stringify({ v: 1, chunks: allChunks.length, sig, tokens }), 'utf8');
+  const ko = Math.round(fs.statSync(indexPath).size / 1024);
+  console.log(`  Index précalculé    : ${tokens.length} entrées, ${ko} Ko`);
+}
+
 console.log(`  Par section         : ${Object.entries(stats.perSection).map(([k, v]) => `${k}=${v}`).join(', ')}`);
 console.log(`  Skipped (${stats.skipped.length})  : ${stats.skipped.map((s) => `${s.section || ''}#${s.num}`).slice(0, 5).join(',')}${stats.skipped.length > 5 ? '...' : ''}`);
 const UNKNOWN_DIRS = unknownSourceDirs(SECTIONS);
