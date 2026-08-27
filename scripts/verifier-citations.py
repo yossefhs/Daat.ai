@@ -366,7 +366,10 @@ RE_DAF_LAT = re.compile(
                                      key=len, reverse=True)) + r')\b'
     r'[\s,]*\(?(?P<num>\d{1,3})\s*(?P<ab>[ab.:])', re.I)
 # Choulhan Aroukh : « OH 131:1 », « או״ח קל״א:א », « שו״ע י:א », « YD 89:1 »
-RE_SA_LAT = re.compile(r'\b(?P<tour>OH|OC|YD|EH|CM)\s*(?P<siman>\d{1,3})\s*:\s*(?P<seif>\d{1,3})', re.I)
+# « SAR OH 273:6 » est le Choulhan Aroukh HARAV, pas le Choulhan Aroukh. Sans ce
+# garde, le siman 273 — qui donne la bonne reference — sortait en REF_FAUSSE
+# contre le seif du Mehaber, qui porte tout autre chose.
+RE_SA_LAT = re.compile(r'(?<![A-Za-z])(?<!SAR )(?<!SAH )(?<!Rav )(?P<tour>OH|OC|YD|EH|CM)\s*(?P<siman>\d{1,3})\s*:\s*(?P<seif>\d{1,3})', re.I)
 # Le groupe `seif` doit accepter le gershayim : sans lui, « ק״כ:ט״ז » s'arrêtait à
 # `ט` et le seif 16 était lu comme le seif 9. Une référence juste ressortait alors en
 # REF_FAUSSE, contre un seif qui n'avait rien à voir. Même défaut pour י״ב lu 10,
