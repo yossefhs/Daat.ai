@@ -996,6 +996,7 @@ OUVRAGES = [
 _OUVRAGES = [(re.compile(sig), oh, yd, n2) for sig, oh, yd, n2 in OUVRAGES]
 
 # « או״ח רמ״ז », « סימן רמ״ז », « סי׳ ק״ל » — le siman explicitement nomme.
+RE_SIMAN_SEIF = re.compile(r'(?P<s>[\dא-ת"״\'׳]{1,6})\s*[:׃]\s*(?P<n>[\dא-ת"״\'׳]{1,4})')
 RE_SIMAN_NOMME = re.compile(r'(?:או["״]?ח|יו["״]?ד|סימן|סי[\'׳])\s*'
                             r'(?P<s>[\dא-ת"״\'׳]{1,6})')
 
@@ -1020,21 +1021,36 @@ def candidats_ouvrages(path, ctx):
     k = RE_SK_NU.search(ctx)
     n = _num(k.group('sk')) if k else None
     if n is None:
-        m2 = re.search(r'[\dא-ת"״\'׳]{1,6}\s*[:׃]\s*(?P<n>[\dא-ת"״\'׳]{1,4})', ctx)
+        m2 = RE_SIMAN_SEIF.search(ctx)
         n = _num(m2.group('n')) if m2 else None
 
     out = []
     for rx, oh, ydg, n2 in _OUVRAGES:
-        if not rx.search(ctx):
+        m = rx.search(ctx)
+        if not m:
             continue
         gabarit = ydg if yd else oh
         if not gabarit:
             continue
+        # Les chiffres qui SUIVENT la sigle priment sur ceux qui traînent ailleurs
+        # dans la fenêtre : « (שו״ע הרב קי״ד:א) » désigne le séif א du siman קי״ד,
+        # et non le premier « X:Y » rencontré soixante caractères plus tôt, qui
+        # appartient à une autre proposition de la même ligne.
+        proche = ctx[m.end():m.end() + 60]
+        s_loc = RE_SIMAN_NOMME.search(proche)
+        m_loc = RE_SIMAN_SEIF.search(proche)
+        k_loc = RE_SK_NU.search(proche)
+        si = (_num(s_loc.group('s')) if s_loc else None) \
+             or (_num(m_loc.group('s')) if m_loc else None) or siman
+        ni = (_num(k_loc.group('sk')) if k_loc else None) \
+             or (_num(m_loc.group('n')) if m_loc else None) or n
+        if not si:
+            continue
         if n2:
-            if n:
-                out.append(gabarit.format(s=siman, n=n))
+            if ni:
+                out.append(gabarit.format(s=si, n=ni))
         else:
-            out.append(gabarit.format(s=siman))
+            out.append(gabarit.format(s=si))
     return out
 
 
