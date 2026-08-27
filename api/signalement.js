@@ -8,6 +8,8 @@
 // ADMIN (Authorization: Bearer ADMIN_PASSWORD — même convention que admin/feedback) :
 //   GET    /api/signalement?limit=200[&status=NEW]        → { ok, entries, stats }
 //   POST   /api/signalement  { action:'set-status', id, status }
+//   POST   /api/signalement  { origine:'veilleur', cle, … }  ← dépôt machine, sans
+//          rate-limit, déposé directement en NEEDS_RABBINIC_VALIDATION
 //   DELETE /api/signalement?id=…
 //
 // Pipeline des statuts : NEW → TRIAGED → NEEDS_RABBINIC_VALIDATION → APPROVED → FIXED / REJECTED.
@@ -113,19 +115,30 @@ export default async function handler(req, res) {
     }
     const type = TYPES.includes(body.type) ? body.type : 'pedagogie';
 
-    // Rate-limit par IP (jour) — l'IP ne sert qu'à ça, jamais stockée avec le signalement.
-    const today = new Date().toISOString().slice(0, 10);
-    const rlKey = `signalements:rl:${today}:${clientIp(req)}`;
-    const count = await kv.incr(rlKey);
-    if (count === 1) await kv.expire(rlKey, 86400);
-    if (count > MAX_PER_DAY) {
-      return res.status(429).json({ ok: false, error: 'Limite quotidienne atteinte — merci ! Réessaie demain.' });
+    // Dépôt machine : `scripts/veilleur.py` (cron) verse ses candidats ici avec le
+    // Bearer admin. Il n'est pas rate-limité (un passage hebdomadaire peut lever
+    // plusieurs dizaines de candidats d'un coup) et pose lui-même son statut —
+    // toujours NEEDS_RABBINIC_VALIDATION : la machine repère, elle ne tranche pas.
+    const parAdmin = isAdmin(req);
+    const origine = parAdmin && body.origine === 'veilleur' ? 'veilleur' : 'lecteur';
+
+    if (!parAdmin) {
+      // Rate-limit par IP (jour) — l'IP ne sert qu'à ça, jamais stockée avec le signalement.
+      const today = new Date().toISOString().slice(0, 10);
+      const rlKey = `signalements:rl:${today}:${clientIp(req)}`;
+      const count = await kv.incr(rlKey);
+      if (count === 1) await kv.expire(rlKey, 86400);
+      if (count > MAX_PER_DAY) {
+        return res.status(429).json({ ok: false, error: 'Limite quotidienne atteinte — merci ! Réessaie demain.' });
+      }
     }
 
     const entry = {
       id: `sig_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`,
       ts: new Date().toISOString(),
-      status: 'NEW',
+      status: origine === 'veilleur' ? 'NEEDS_RABBINIC_VALIDATION' : 'NEW',
+      origine,
+      cle: origine === 'veilleur' ? clip(body.cle, 120) : '', // clé de dédoublonnage du veilleur
       url: clip(body.url, 300),
       titre: clip(body.titre, 200),
       siman: clip(body.siman, 10),
