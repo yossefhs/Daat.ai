@@ -525,6 +525,20 @@ def _livre_rambam(nom):
     return HILKHOT_RAMBAM.get(nom)
 
 
+# « משנה סוטה ז׳:א » n'est PAS le folio 7b. Le motif de daf lisait le geresh puis
+# les deux-points comme un amoud, et rendait Sotah.7b : le siman 185 citait
+# correctement « אלו נאמרין בכל לשון … וברכת המזון » de la Michna Sotah ז׳:א —
+# verbatim, reference juste — et ressortait trois fois en INTROUVABLE contre un
+# folio qui n'a rien a voir. C'est la pire espece de signalement : celui qui
+# envoie corriger une page qui a raison.
+RE_MISHNAH = re.compile(
+    r'(?:משנה|מתני[\'׳])\s+(?P<mass>' +
+    '|'.join(sorted((k for k in MASSEKHTOT if re.search(r'[א-ת]', k)), key=len, reverse=True)) +
+    r')\s*(?P<perek>[א-ת]{1,4}["״\'׳]?[א-ת]?)\s*[:׃]\s*(?P<mish>[א-ת]{1,3}["״\'׳]?[א-ת]?)')
+# Un daf precede de « משנה » / « מתני׳ » n'est pas un daf.
+RE_AVANT_MISHNAH = re.compile(r'(?:משנה|מתני[\'׳])\s+[א-ת\s]{0,14}$')
+
+
 def _num(tok):
     """Un jeton numérique, chiffres arabes ou lettres hébraïques."""
     tok = tok.strip()
@@ -596,7 +610,13 @@ def _prefixe_commentateur(ctx, debut):
 def refs_in(ctx):
     """Toutes les références Sefaria détectées dans un contexte textuel."""
     out = []
+    for m in RE_MISHNAH.finditer(ctx):
+        pe, mi = _num(m.group('perek')), _num(m.group('mish'))
+        if pe and mi:
+            out.append(f"Mishnah_{MASSEKHTOT[m.group('mass')].replace(' ', '_')}.{pe}.{mi}")
     for m in RE_DAF_HE.finditer(ctx):
+        if RE_AVANT_MISHNAH.search(ctx[max(0, m.start() - 24):m.start()]):
+            continue
         d = _num(m.group('daf'))
         if not d or d > 180:
             continue
