@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Today — the daily study | Daat Torah</title>
+  <meta name="description" content="Your daily entry point: today's Daat Yomi (siman, seifim, ≈20 min), ask a Halacha question, share the study. Come back every day to daattorah.com/aujourdhui.">
+  <link rel="canonical" href="https://daattorah.com/aujourdhui/en">
+  <link rel="alternate" hreflang="fr" href="https://daattorah.com/aujourdhui">
+  <link rel="alternate" hreflang="he" href="https://daattorah.com/aujourdhui/he">
+  <link rel="alternate" hreflang="en" href="https://daattorah.com/aujourdhui/en">
+  <link rel="alternate" hreflang="x-default" href="https://daattorah.com/aujourdhui">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="DAAT דעת">
+  <meta property="og:title" content="Today — the daily study · Daat Torah">
+  <meta property="og:description" content="Today's Daat Yomi in ≈20 min: siman, seifim, 4 study levels. One address to remember: daattorah.com/aujourdhui">
+  <meta property="og:url" content="https://daattorah.com/aujourdhui/en">
+  <meta property="og:image" content="https://daattorah.com/assets/img/og/og-default.png">
+  <meta property="og:locale" content="en_US">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Frank+Ruhl+Libre:wght@500;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Vercel Web Analytics -->
+  <script defer src="/_vercel/insights/script.js"></script>
+  <style>
+    :root { --navy:#1A1F3A; --gold:#C5A55A; --creme:#FAF6EE; --border:#e7ddc9; --mid:#4a4a5a; --muted:#8a8578; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:var(--creme); font-family:'Cormorant Garamond',Georgia,serif; color:var(--navy); }
+    .hdr { background:var(--navy); padding:14px 24px; display:flex; align-items:center; justify-content:space-between; }
+    .hdr a { text-decoration:none; }
+    .logo { display:flex; align-items:baseline; gap:8px; }
+    .logo .he { font-family:'Frank Ruhl Libre',serif; font-size:24px; font-weight:900; color:var(--gold); }
+    .logo .lat { font-family:'Inter',sans-serif; font-size:11px; letter-spacing:3px; color:#fff; }
+    .hdr nav { display:flex; gap:16px; }
+    .hdr nav a { font-family:'Inter',sans-serif; font-size:12px; letter-spacing:1px; color:rgba(255,255,255,.85); }
+    .hdr nav a:hover { color:var(--gold); }
+    .hero { background:linear-gradient(135deg,var(--navy) 0%,#0e2447 100%); border-bottom:3px solid var(--gold); padding:44px 24px 38px; text-align:center; }
+    .hero .tag { font-family:'Inter',sans-serif; font-size:11px; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:10px; }
+    .hero h1 { font-size:40px; font-weight:500; color:#fff; line-height:1.1; }
+    .hero .date { font-family:'Inter',sans-serif; font-size:13px; letter-spacing:1px; color:rgba(255,255,255,.7); margin-top:8px; }
+    main { max-width:760px; margin:0 auto; padding:36px 20px 70px; }
+    .card { background:#fff; border:1px solid var(--border); border-top:3px solid var(--gold); padding:28px; margin-bottom:22px; }
+    .card .k { font-family:'Inter',sans-serif; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:12px; }
+    #dy-day { font-size:30px; font-weight:600; margin-bottom:4px; }
+    #dy-day .n { color:var(--gold); }
+    #dy-siman { font-family:'Frank Ruhl Libre',serif; font-size:17px; color:#7a6428; margin-bottom:4px; }
+    #dy-title { font-size:21px; font-style:italic; color:var(--mid); margin-bottom:6px; }
+    #dy-meta { font-family:'Inter',sans-serif; font-size:12.5px; color:var(--muted); margin-bottom:18px; }
+    .btnrow { display:flex; gap:12px; flex-wrap:wrap; }
+    .btn { display:inline-block; padding:13px 24px; text-decoration:none; font-family:'Inter',sans-serif; font-size:12px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; border-radius:3px; transition:.15s; }
+    .btn-gold { background:var(--gold); color:var(--navy); }
+    .btn-gold:hover { background:#d9b66e; }
+    .btn-line { border:1px solid var(--gold); color:var(--navy); background:transparent; }
+    .btn-line:hover { background:rgba(197,165,90,.12); }
+    .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+    .mini { background:#fff; border:1px solid var(--border); padding:22px; }
+    .mini h3 { font-size:19px; margin-bottom:8px; }
+    .mini p { font-size:15.5px; color:var(--mid); line-height:1.55; margin-bottom:14px; }
+    .mini a.lnk { font-family:'Inter',sans-serif; font-size:12px; letter-spacing:1px; color:var(--gold); text-decoration:none; font-weight:600; }
+    .about { margin-top:26px; font-size:16.5px; color:var(--mid); line-height:1.65; }
+    .about strong { color:var(--navy); }
+    footer { border-top:1px solid var(--border); padding:22px; text-align:center; font-family:'Inter',sans-serif; font-size:12px; color:var(--muted); }
+    footer a { color:var(--gold); text-decoration:none; }
+    @media (max-width:640px){ .hero h1{font-size:30px} .grid2{grid-template-columns:1fr} main{padding-top:26px} }
+  </style>
+</head>
+<body>
+  <header class="hdr">
+    <a href="/" class="logo"><span class="he">דעת</span><span class="lat">DAAT</span></a>
+    <nav>
+      <a href="/limoud/index-en.html">Daat Yomi</a>
+      <a href="/oh/en">Shabbat</a>
+      <a href="/yd/en">Yoreh De'ah</a>
+      <a href="/soutenir-en.html">♥ Support</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div class="tag">daattorah.com/aujourdhui</div>
+    <h1>Today</h1>
+    <div class="date" id="today-date"></div>
+  </div>
+
+  <main>
+    <!-- ── DAAT YOMI DU JOUR (hydraté par /api/aujourdhui ; contenu statique de repli) ── -->
+    <section class="card" aria-live="polite">
+      <div class="k">📖 Daat Yomi — today's study</div>
+      <div id="dy-day">Day <span class="n" id="dy-num">…</span></div>
+      <div id="dy-siman"></div>
+      <div id="dy-title">The daily Shulchan Aruch program — at most 5 seifim a day, Sunday to Thursday, ≈20 minutes.</div>
+      <div id="dy-meta"></div>
+      <div class="btnrow">
+        <a class="btn btn-gold" id="dy-cta" href="/limoud/" data-va="daat_yomi_started">Study now →</a>
+        <a class="btn btn-line" href="/limoud/personnaliser.html">My own pace</a>
+      </div>
+    </section>
+
+    <div class="grid2">
+      <div class="mini">
+        <h3>💬 A Halacha question?</h3>
+        <p>Daat searches the corpus and helps you find the source and the matching siman.</p>
+        <a class="lnk" href="/chat-en.html" data-va="chat_cta_hero">Ask my question →</a>
+      </div>
+      <div class="mini">
+        <h3>🤝 Learn together</h3>
+        <p>Join the DAAT WhatsApp group: the Sunday siman, mutual help, your chavruta.</p>
+        <a class="lnk" href="/communaute-en.html">Join the community →</a>
+      </div>
+    </div>
+
+    <p class="about">
+      <strong>Daat Yomi</strong> is the Shulchan Aruch studied continuously, a few seifim
+      a day: Hebrew text, translation, explanation and the Alter Rebbe's shita over
+      <a href="/limoud/" style="color:var(--gold)">194 study days</a>. Bookmark this page —
+      it waits for you every morning with the day's study.
+    </p>
+  </main>
+
+  <footer>
+    DAAT דעת · <a href="/">Accueil</a> · <a href="/limoud/">Daat Yomi</a> · <a href="/partenaires">Partner communities</a> · <a href="/aujourdhui">Français</a> · <a href="/aujourdhui/he">עברית</a>
+  </footer>
+
+  <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
+  <link rel="stylesheet" href="/assets/css/chat-widget.css">
+  <script src="/assets/js/chat-widget.min.js" defer></script>
+  <script src="/assets/js/daat-copy.js" defer></script>
+  <script>
+  (function () {
+    function t(n, d) { try { window.va = window.va || function(){(window.vaq=window.vaq||[]).push(arguments)}; window.va('event', d ? {name:n, data:d} : {name:n}); } catch(_){} }
+    document.addEventListener('click', function (e) {
+      var a = e.target && e.target.closest ? e.target.closest('a[data-va]') : null;
+      if (a) t(a.getAttribute('data-va'), { from: 'aujourdhui' });
+    }, { capture: true });
+
+    var mois = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var jours = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Shabbat'];
+    var now = new Date();
+    document.getElementById('today-date').textContent = jours[now.getDay()] + ', ' + mois[now.getMonth()] + ' ' + now.getDate() + ' ' + now.getFullYear();
+
+    fetch('https://daatai.vercel.app/api/aujourdhui').then(function(r){ return r.json(); }).then(function (d) {
+      if (!d || !d.ok) return;
+      var pad = function (n) { return String(n).padStart(3, '0'); };
+      if (d.isStudyDay && d.entry) {
+        var e = d.entry;
+        document.getElementById('dy-num').textContent = e.dayNumber + ' / 194';
+        document.getElementById('dy-siman').textContent = 'Siman ' + e.siman.num + (e.lotTotal > 1 ? ' · part ' + e.lotIndex + '/' + e.lotTotal : '');
+        document.getElementById('dy-title').textContent = e.siman.titleEn || e.siman.title;
+        document.getElementById('dy-meta').textContent = 'Seifim ' + e.seifRange[0] + ' to ' + e.seifRange[1] + ' · ≈20 minutes · 4 study levels';
+        document.getElementById('dy-cta').href = '/limoud/jour-' + pad(e.dayNumber) + '-en.html';
+      } else if (d.next) {
+        document.getElementById('dy-num').textContent = '—';
+        document.getElementById('dy-siman').textContent = '';
+        document.getElementById('dy-title').textContent = (now.getDay() === 6 ? 'Shabbat shalom — ' : 'No study today — ') + 'we resume with Siman ' + d.next.siman.num + '.';
+        document.getElementById('dy-meta').textContent = 'Next study: day ' + d.next.dayNumber + ' / 194';
+        document.getElementById('dy-cta').href = '/limoud/jour-' + pad(d.next.dayNumber) + '-en.html';
+        document.getElementById('dy-cta').textContent = 'Prepare the next study →';
+      }
+    }).catch(function(){ /* le repli statique reste affiché */ });
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+# DAAT — Audit de contenu éditorial & halakhique
+
+Règle : **aucune décision halakhique n'est réécrite sans validation du Rav.**
+Statuts : `NEW` → `TRIAGED` → `NEEDS_RABBINIC_VALIDATION` → `APPROVED` → `FIXED` / `REJECTED`.
+
+| ID | URL / fichier | Siman · Sé'if | Problème | Source contradictoire | Confiance | Statut |
+|----|---------------|---------------|----------|----------------------|-----------|--------|
+| C1 | data/simanim-disponibles.json | — | Compteurs affichés aux visiteurs périmés : `yoreh-deah: 32` (50 sur disque), `nida: 18` (dossiers physiques sous yoreh-deah), `lastUpdated: 2026-06-28` | constat disque | haute | TRIAGED (technique, pas halakhique — voir D5) |
+| C2 | index.html (JSON-LD FAQPage) | — | FAQPage en JSON-LD sur la homepage sans bloc FAQ visible correspondant — risque de non-conformité aux règles Google sur les rich results | Google Search Central | moyenne | NEW |
+
+*(Les incidents halakhiques historiques — ex. borer 2026-07-20 — sont suivis dans la mémoire projet ; les nouveaux cas détectés s'ajoutent ici.)*
+
+| C3 | /questions/* (5 pages pilote) | 318 · 253 · 319 · 271 · 275 | **AUDITÉES UNE PAR UNE PAR LE RAV puis corrigées source par source (Sefaria) et PUBLIÉES** : noindex retiré, bandeau retiré, 6 URLs au sitemap, liens internes depuis les 5 index de siman. Corrections majeures appliquées : machloket Mehaber/Rama inversée (318), « une seule crainte » (253), borer nuancé (319), Torah vs takana + melo lougmav (271), « incliner la lampe » + Bameh Madlikin (275). | — | vérifié | **FIXED** |
+
+| C4 | /questions/trier-borer-chabbat + siman 319 | 319 · seifim 1-3 | **Heter NON PUBLIÉ faute de vérification.** L'audit du Rav propose d'ajouter que, selon les Piskei Dinim du Tzemach Tzedek cités dans l'édition Chabad.org du SA HaRav, de petites arêtes fines peuvent être retirées quand il n'y a pratiquement pas d'autre façon de manger (grosses arêtes : retirer la chair de l'arête). **J'ai cherché עצמות / קוצים dans les 29 seifim de SA HaRav 319 sur Sefaria : absent du texte primaire** — la citation provient des notes éditoriales de Chabad.org, non vérifiables à la source. Conformément à la règle anti-fabrication et à l'incident borer de 2026-07-20 (faux heter publié), l'exemple trop catégorique « l'arête du poisson = borer » a été **retiré**, mais le heter n'a **pas** été ajouté : la page renvoie au Rav sur ces cas. | Piskei Dinim du Tzemach Tzedek (à vérifier sur source primaire) | vérification impossible en l'état | NEEDS_RABBINIC_VALIDATION |
+
+| C5 | /questions/{muktse-chabbat, medicament-chabbat, demander-non-juif-chabbat, presser-citron-chabbat, qui-allume-bougies-chabbat} | 308 · 328 · 307 · 320 · 263 | **Lot 2 du pilote long-tail — en noindex, à auditer.** Nouvelle méthode appliquée après les 3 contradictions du lot 1 : rédigées **depuis les textes primaires vérifiés sur Sefaria**, jamais depuis la synthèse pédagogique. Citations vérifiées : SA 308:1 (כל הכלים נטלים), SA 328:2 (והזריז הרי זה משובח והשואל הרי זה שופך דמים) et 328:17, SA 307:2, SA 320:1 + glose du Rama (ובמקום שנהגו לסחוט... דינו כתותים ורמונים), SA 263:3 (הנשים מוזהרות בו יותר / אין שלום בית בלא נר). Page médicament : bandeau d'urgence vitale prioritaire, aucune règle par cas. | textes primaires Sefaria | haute (citations vérifiées) — conclusions pratiques à valider | NEEDS_RABBINIC_VALIDATION |

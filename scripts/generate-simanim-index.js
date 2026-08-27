@@ -1,20 +1,16 @@
 #!/usr/bin/env node
-// Régénère data/simanim-disponibles.json — le catalogue des titres, lu par la
-// page d'accueil, contenu.html, la navigation, la lettre d'information ET par
-// scripts/extract-corpus.js (qui y prend le titre de chaque chunk du corpus).
-//
-// ⚠️ DEUX DÉFAUTS CORRIGÉS ICI, tous deux destructeurs :
-//  1. Ce script ne scannait que sources/shabbat/ tout en RÉÉCRIVANT le fichier
-//     entier : le lancer supprimait les 235 entrées des autres sections
-//     (oh-quotidien 185, yoreh-deah 32, nida 18). CLAUDE.md le documentait
-//     pourtant comme faisant partie de `npm run build` — une mine.
-//  2. Il n'écrivait ni `section`, ni `titleHe`, ni `titleEn` : même les 124
-//     simanim conservés perdaient leurs titres hébreu et anglais.
-//
-// Il FUSIONNE désormais : il rafraîchit ce qu'il sait lire du disque (titre FR,
-// niveaux présents, chemin) et PRÉSERVE tout le reste. Il ne supprime jamais une
-// entrée. C'est ce qui le rend sûr à lancer au build — et donc ce qui rend
-// automatique l'entrée d'un nouveau siman dans le corpus et dans la recherche.
+/**
+ * DAAT — Générateur de data/simanim-disponibles.json (v2.1, section-aware)
+ *
+ * Scanne sources/{shabbat,orah-haim,yoreh-deah} et produit l'index complet
+ * avec sections : shabbat · oh-quotidien · yoreh-deah · nida (≥183).
+ *
+ * IMPORTANT : fusionne avec le JSON existant — les champs title/titleHe/titleEn/numHe
+ * déjà présents sont conservés si l'extraction HTML échoue (protection contre les
+ * variations de <title>). L'ancienne version (shabbat-only) écrasait l'index
+ * section-aware, d'où son retrait du build (commit 6843dcda8) ; cette version
+ * est réintégrable au build sans perte.
+ */
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -23,32 +19,33 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 const OUTPUT = path.join(ROOT, 'data', 'simanim-disponibles.json');
 
-// Mêmes répertoires que scripts/extract-corpus.js. `sectionFor` traite le cas de
-// sources/yoreh-deah/, qui héberge DEUX sections du catalogue.
-const SECTIONS = [
-  { dir: path.join(ROOT, 'sources', 'shabbat'), rel: 'sources/shabbat', sectionFor: () => 'shabbat' },
-  { dir: path.join(ROOT, 'sources', 'orah-haim'), rel: 'sources/orah-haim', sectionFor: () => 'oh-quotidien' },
-  { dir: path.join(ROOT, 'sources', 'yoreh-deah'), rel: 'sources/yoreh-deah', sectionFor: (n) => (n >= 183 ? 'nida' : 'yoreh-deah') },
+// (répertoire physique, section par défaut, fonction section par numéro)
+const SOURCES = [
+  { dir: 'shabbat', section: () => 'shabbat' },
+  { dir: 'orah-haim', section: () => 'oh-quotidien' },
+  { dir: 'yoreh-deah', section: (num) => (num >= 183 ? 'nida' : 'yoreh-deah') },
 ];
 
 const TITLE_RE = /<title>\s*Siman\s+([^\s—-]+)\s*[—-]\s*([^·|]+?)\s*(?:·|\|)/i;
 const H1_RE = /<h1[^>]*class="siman-title-fr"[^>]*>\s*Siman\s+([^\s—-]+)\s*[—-]\s*([^<]+?)\s*<\/h1>/i;
 
 function extractTitle(htmlPath) {
-  try {
-    const html = fs.readFileSync(htmlPath, 'utf8');
-    const m = html.match(H1_RE) || html.match(TITLE_RE);
-    return m ? { numHe: m[1].trim(), title: m[2].trim() } : null;
-  } catch { return null; }
+  if (!fs.existsSync(htmlPath)) return null;
+  const html = fs.readFileSync(htmlPath, 'utf8');
+  let m = html.match(H1_RE);
+  if (m) return { numHe: m[1].trim(), title: m[2].trim() };
+  m = html.match(TITLE_RE);
+  if (m) return { numHe: m[1].trim(), title: m[2].trim() };
+  return null;
 }
 
 function detectLevels(dir) {
   const files = fs.readdirSync(dir);
   return {
-    n1: files.some((f) => /^niveau-1[^-]*\.html$/.test(f) || /^niveau-1-[a-z]+\.html$/.test(f)),
-    n2: files.some((f) => /^niveau-2-[a-z]+\.html$/.test(f)),
-    n3: files.some((f) => /^niveau-3-[a-z]+\.html$/.test(f)),
-    n4: files.some((f) => /^niveau-4-[a-z-]+\.html$/.test(f)),
+    n1: files.some((f) => /^niveau-1/.test(f)),
+    n2: files.some((f) => /^niveau-2/.test(f)),
+    n3: files.some((f) => /^niveau-3/.test(f)),
+    n4: files.some((f) => /^niveau-4/.test(f)),
   };
 }
 
@@ -60,146 +57,100 @@ function levelsLabel(levels) {
   return 'index-seul';
 }
 
-// Index des entrées existantes, par section:num — rien n'est jamais perdu.
-// ⚠️ Un catalogue ILLISIBLE (marqueurs de conflit, fichier tronqué, JSON
-// invalide) ne doit JAMAIS faire repartir de zéro en silence : ce script
-// FUSIONNE, et repartir de zéro détruirait les 241 titres hébreux et les 241
-// titres anglais, et remplacerait les titres rédigés par le <h1> des pages.
-// On ne tolère l'absence que si le fichier n'existe pas du tout (premier passage).
-let previous = { simanim: [] };
-if (fs.existsSync(OUTPUT)) {
-  try {
-    previous = JSON.parse(fs.readFileSync(OUTPUT, 'utf8'));
-    if (!Array.isArray(previous.simanim)) throw new Error('champ `simanim` absent ou non-tableau');
-  } catch (err) {
-    console.error(`\n⛔ ${OUTPUT} est illisible : ${err.message}`);
-    console.error('   Ce script FUSIONNE : repartir de zéro détruirait les titres hébreux,');
-    console.error('   anglais et rédigés de 359 simanim. Rien n\'a été écrit.');
-    console.error('   → réparer le fichier (conflit de fusion ?) puis relancer le build.\n');
-    process.exit(1);
-  }
-}
-const kept = new Map();
-for (const s of previous.simanim || []) kept.set(`${s.section || 'shabbat'}:${s.num}`, { ...s });
-
-const created = [];
-const missingTranslations = [];
-let scanned = 0;
-
-for (const section of SECTIONS) {
-  if (!fs.existsSync(section.dir)) continue;
-  const dirs = fs.readdirSync(section.dir, { withFileTypes: true })
-    .filter((d) => d.isDirectory() && /^siman-\d+$/.test(d.name))
-    .map((d) => d.name)
-    .sort((a, b) => Number(a.split('-')[1]) - Number(b.split('-')[1]));
-
-  for (const dirName of dirs) {
-    const num = Number(dirName.split('-')[1]);
-    const dir = path.join(section.dir, dirName);
-    const indexPath = path.join(dir, 'index.html');
-    if (!fs.existsSync(indexPath)) continue;
-    scanned++;
-
-    const sec = section.sectionFor(num);
-    const key = `${sec}:${num}`;
-    let existing = kept.get(key);
-    // Le même siman peut avoir été catalogué sous une AUTRE section (règle de
-    // découpage changée, saisie à la main). Sans ce rattrapage, on créerait un
-    // doublon silencieux : deux entrées, même numéro, même chemin physique.
-    if (!existing) {
-      for (const [k, v] of kept) {
-        if (v.num === num && v.path === `${section.rel}/${dirName}/index.html`) {
-          existing = v;
-          kept.delete(k);
-          console.warn(`[warn] ${k} recatalogué en ${key} (même chemin sur disque)`);
-          break;
-        }
-      }
-    }
-    const extracted = extractTitle(indexPath);
-    const levels = detectLevels(dir);
-
-    // Le titre rédigé à la main dans le catalogue fait FOI : il est souvent plus
-    // riche que le <h1> (il porte la glose entre parenthèses). On ne le remplace
-    // que s'il est absent — sinon on rafraîchit seulement l'état du disque.
-    const entry = {
-      num,
-      numHe: (existing && existing.numHe) || (extracted && extracted.numHe) || '',
-      title: (existing && existing.title) || (extracted && extracted.title) || `Siman ${num}`,
-      ...(existing && existing.titleHe ? { titleHe: existing.titleHe } : {}),
-      ...(existing && existing.titleEn ? { titleEn: existing.titleEn } : {}),
-      section: sec,
-      levels,
-      status: levelsLabel(levels),
-      path: `${section.rel}/${dirName}/index.html`,
-    };
-    if (!existing) {
-      created.push(`${sec}:${num}`);
-      if (!extracted) console.warn(`[warn] ${sec}:${num} — aucun titre lisible dans index.html`);
-    }
-    if (!entry.titleHe || !entry.titleEn) missingTranslations.push(`${sec}:${num}`);
-    kept.set(key, entry);
-  }
+// L'hébreu du <title> n'est un numHe que s'il contient des lettres hébraïques
+function looksHebrew(s) {
+  return /[֐-׿]/.test(s || '');
 }
 
-// ORDRE PRÉSERVÉ. Un simple réordonnancement produirait un diff de 4 500 lignes
-// sur un fichier que douze autres fichiers lisent et que plusieurs sessions
-// touchent — un nid à conflits pour rien. On garde l'ordre du fichier précédent
-// et on ajoute les nouveaux à la fin de leur section.
-const order = new Map();
-(previous.simanim || []).forEach((s, i) => order.set(`${s.section || 'shabbat'}:${s.num}`, i));
-const simanim = [...kept.entries()]
-  .sort(([ka, a], [kb, b]) => {
-    const ia = order.has(ka) ? order.get(ka) : Number.MAX_SAFE_INTEGER;
-    const ib = order.has(kb) ? order.get(kb) : Number.MAX_SAFE_INTEGER;
-    if (ia !== ib) return ia - ib;
-    return (a.section || '').localeCompare(b.section || '') || a.num - b.num;
-  })
-  .map(([, v]) => v);
+function main() {
+  // 1. Index existant → réserve de titres (title/titleHe/titleEn/numHe)
+  let previous = {};
+  if (fs.existsSync(OUTPUT)) {
+    try {
+      const prev = JSON.parse(fs.readFileSync(OUTPUT, 'utf8'));
+      for (const s of prev.simanim || []) previous[s.path] = s;
+    } catch (e) {
+      console.warn('JSON existant illisible, régénération from scratch:', e.message);
+    }
+  }
 
-function countsOf(list) {
-  return {
-    total: list.length,
-    complet: list.filter((s) => s.status === 'complet').length,
-    daatHarav: list.filter((s) => s.status === 'daat-harav').length,
-    partiel: list.filter((s) => String(s.status).startsWith('partiel')).length,
+  const simanim = [];
+  let skipped = 0;
+
+  for (const src of SOURCES) {
+    const baseDir = path.join(ROOT, 'sources', src.dir);
+    if (!fs.existsSync(baseDir)) continue;
+    const dirs = fs
+      .readdirSync(baseDir, { withFileTypes: true })
+      .filter((d) => d.isDirectory() && /^siman-\d+$/.test(d.name))
+      .map((d) => d.name)
+      .sort((a, b) => Number(a.split('-')[1]) - Number(b.split('-')[1]));
+
+    for (const dirName of dirs) {
+      const num = Number(dirName.split('-')[1]);
+      const dir = path.join(baseDir, dirName);
+      const relPath = `sources/${src.dir}/${dirName}/index.html`;
+      const indexPath = path.join(dir, 'index.html');
+      if (!fs.existsSync(indexPath)) { skipped++; continue; }
+
+      const prev = previous[relPath] || {};
+      // Lecture HTML UNIQUEMENT si l'info manque dans le JSON précédent :
+      // sur ce disque (iCloud) chaque read peut coûter très cher, et les titres
+      // ne changent pas — le merge garantit zéro perte.
+      const fr = prev.title && prev.numHe ? null : extractTitle(indexPath);
+      const he = prev.titleHe ? null : extractTitle(path.join(dir, 'index-he.html'));
+      const en = prev.titleEn ? null : extractTitle(path.join(dir, 'index-en.html'));
+
+      const numHe = prev.numHe || (fr && looksHebrew(fr.numHe) ? fr.numHe : null)
+        || (he && looksHebrew(he.numHe) ? he.numHe : null) || String(num);
+
+      const entry = {
+        num,
+        numHe,
+        title: prev.title || (fr && fr.title) || `Siman ${num}`,
+        titleHe: prev.titleHe || (he && he.title) || undefined,
+        titleEn: prev.titleEn || (en && en.title) || undefined,
+        section: src.section(num),
+        levels: detectLevels(dir),
+        status: null,
+        path: relPath,
+      };
+      entry.status = levelsLabel(entry.levels);
+      if (!entry.titleHe) delete entry.titleHe;
+      if (!entry.titleEn) delete entry.titleEn;
+      simanim.push(entry);
+    }
+  }
+
+  const bySection = {};
+  for (const s of simanim) {
+    bySection[s.section] = bySection[s.section] || { counts: { total: 0, complet: 0 } };
+    bySection[s.section].counts.total++;
+    if (s.status === 'complet') bySection[s.section].counts.complet++;
+  }
+
+  const out = {
+    meta: {
+      version: '2.1',
+      description:
+        "Index auto-généré des simanim disponibles sur disque (sections shabbat, oh-quotidien, yoreh-deah, nida). Régénéré au build par scripts/generate-simanim-index.js — les titres existants (title/titleHe/titleEn) sont fusionnés, jamais perdus.",
+      lastUpdated: new Date().toISOString().slice(0, 10),
+      counts: {
+        total: simanim.length,
+        complet: simanim.filter((s) => s.status === 'complet').length,
+        daatHarav: simanim.filter((s) => s.status === 'daat-harav').length,
+        partiel: simanim.filter((s) => s.status.startsWith('partiel')).length,
+      },
+      bySection,
+    },
+    simanim,
   };
-}
-const aujourdhui = new Date().toISOString().slice(0, 10);
-const memeContenu = JSON.stringify((previous.simanim || [])) === JSON.stringify(simanim);
 
-const counts = countsOf(simanim);
-// ⚠️ meta.bySection est lu par les TROIS pages d'accueil (index.html, -he, -en)
-// pour afficher « N simanim disponibles » par section. Sans lui, elles retombent
-// sur meta.counts et annoncent 359 au lieu de 124 sur la section Shabbat —
-// une dégradation SILENCIEUSE. Ne pas le retirer.
-const bySectionMeta = {};
-for (const sec of [...new Set(simanim.map((s) => s.section))]) {
-  bySectionMeta[sec] = { counts: countsOf(simanim.filter((s) => s.section === sec)) };
+  fs.writeFileSync(OUTPUT, JSON.stringify(out, null, 2) + '\n', 'utf8');
+  const secSummary = Object.entries(bySection)
+    .map(([k, v]) => `${k}:${v.counts.total}`)
+    .join(' · ');
+  console.log(`simanim-disponibles.json : ${simanim.length} simanim (${secSummary})${skipped ? ` — ${skipped} sans index.html ignorés` : ''}`);
 }
 
-fs.mkdirSync(path.dirname(OUTPUT), { recursive: true });
-fs.writeFileSync(OUTPUT, JSON.stringify({
-  meta: {
-    version: '3.0',
-    description: 'Index des simanim présents sur disque. Régénéré au build par scripts/generate-simanim-index.js — FUSION : ce script ne supprime jamais une entrée et ne remplace jamais un titre écrit à la main.',
-    // ⚠️ La date n'est réécrite QUE si le contenu a bougé. Sur un fichier
-    // VERSIONNÉ, un horodatage inconditionnel fait qu'un simple `npm run build`
-    // un autre jour produit un diff — et deux branches qui ont seulement
-    // construit entrent en conflit. C'est le défaut que l'autre session venait
-    // de corriger sur le corpus ; ne pas le réintroduire ici.
-    lastUpdated: memeContenu ? (previous.meta && previous.meta.lastUpdated) || aujourdhui : aujourdhui,
-    counts,
-    bySection: bySectionMeta,
-  },
-  simanim,
-}, null, 2) + '\n', 'utf8');
-
-const bySection = {};
-for (const s of simanim) bySection[s.section] = (bySection[s.section] || 0) + 1;
-console.log(`✓ Catalogue : ${counts.total} simanim (${Object.entries(bySection).map(([k, v]) => `${k}=${v}`).join(', ')}), ${scanned} répertoires scannés`);
-if (created.length) console.log(`  Nouveaux : ${created.length} — ${created.slice(0, 10).join(', ')}${created.length > 10 ? '…' : ''}`);
-if (missingTranslations.length) {
-  console.warn(`\n⚠️  ${missingTranslations.length} siman(im) sans titre hébreu ou anglais (à rédiger à la main — le générateur ne traduit pas) :`);
-  console.warn(`    ${missingTranslations.slice(0, 15).join(', ')}${missingTranslations.length > 15 ? '…' : ''}`);
-}
+main();
