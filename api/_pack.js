@@ -10,6 +10,12 @@
 // Consommé par api/daily-pack.js (page web) et scripts/pack-du-jour.js (CLI).
 
 import { readFileSync } from 'node:fs';
+// Ce module lit le corpus DIRECTEMENT, sans passer par api/_corpus-search.js :
+// api/daily-pack.js n'a donc pas besoin de data/corpus-index.br, et vercel.json
+// ne le lui embarque pas — ce seraient 4 Mo jamais ouverts. Si un jour ce
+// fichier se met à utiliser searchCorpus, il faudra ajouter l'index à son
+// includeFiles, sinon il paiera la tokenisation à chaud.
+
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { getSiman } from './_newsletter-weekly.js';
