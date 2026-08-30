@@ -48,8 +48,11 @@ Retirer les yod et vav met les deux graphies sur le même pied.
 
 Ce qu'il rapporte aujourd'hui
 ------------------------------
-2359 blocs confrontés dans les 359 pages des trois compartiments, **16 écarts
-dans 10 pages**. Avant ces trois ajustements il en rapportait 143 dans 56
+3513 blocs confrontés dans les 1700 pages des trois compartiments, **16 écarts
+dans 10 pages**. Les 1341 pages et 1154 blocs gagnés en lisant aussi les
+étiquettes inline n'ont produit **aucun signalement nouveau** hormis le seul
+qu'on cherchait : le siman 243, dont la fin du séif א suit encore le séif ב sur
+la page. Avant ces trois ajustements il en rapportait 143 dans 56
 pages, dont l'échantillonnage a montré qu'ils étaient presque tous du bruit
 d'orthographe ou de commentaire ; le contrôle n'y a pourtant rien perdu — c'est
 lui, ainsi ajusté, qui a fait ressortir les deux blocs du siman 79 numérotés
@@ -87,6 +90,29 @@ RE_BLOC = re.compile(
     re.S,
 )
 RE_TAG = re.compile(r"<[^>]*>")
+# Une etiquette de seif ne surplombe pas toujours le bloc : elle peut etre DANS
+# le paragraphe — « <p><strong>סעיף א.</strong> לא ישכיר אדם מרחץ… » ou, sur les
+# pages d'index, « <p><strong>א.</strong> … ». Ces paragraphes n'ont pas de
+# classe et n'etaient donc pas des blocs du tout : le controle ne les voyait
+# meme pas.
+#
+# C'est par la qu'est passe le siman 243, ou le champ, le four, le moulin et la
+# glose du Rama — tous dans le seif א — etaient publies sous « סעיף ב », avec
+# une clause deplacee qui donnait comme raison de PERMETTRE le champ ce que le
+# Choulhan Aroukh donne comme raison d'INTERDIRE le bain. Aucun des quatre
+# garde-fous ne pouvait le voir : les citations etaient reelles, la langue
+# juste, la structure conforme. C'etait le decoupage qui etait faux.
+RE_BLOC_INLINE = re.compile(
+    r"<p[^>]*>\s*(?:<(?!strong)[^>]*>\s*)*<strong>\s*"
+    r"(?P<etq>(?:סעיף|[Ss][ée]if)?\s*[א-ת][׳״]?[א-ת]?[׳״]?[א-ת]?\s*[.:׳']?)\s*</strong>"
+    r"(?P<contenu>.*?)</p>",
+    re.S,
+)
+RE_BLOC_LIGNE = re.compile(
+    r"^\s*<strong>\s*(?P<etq>(?:סעיף|[Ss][ée]if)?\s*[א-ת][׳״]?[א-ת]?[׳״]?[א-ת]?\s*[.:׳']?)\s*</strong>"
+    r"(?P<contenu>[^\n]*?)(?:<br\s*/?>|</div>|$)",
+    re.M,
+)
 # On identifie un bloc par ses premiers mots, non par une chaîne exacte : la
 # page écrit « אַף עַל פִּי » en toutes lettres là où la source abrège « אע״פ »,
 # et une comparaison littérale échouait dès la première abréviation — 158 blocs
@@ -178,7 +204,7 @@ def squelette(s: str) -> str:
     return re.sub(r"[יו]", "", s)
 
 
-def blocs(chemin: pathlib.Path) -> list[tuple[str, list[int]]]:
+def blocs(chemin: pathlib.Path) -> list[tuple[str, str, list[int] | None, bool]]:
     """Les blocs de la page, chacun avec les séifim que son titre revendique.
 
     Rattacher un bloc au titre qui le surplombe est ce qui distingue un séif
@@ -194,7 +220,32 @@ def blocs(chemin: pathlib.Path) -> list[tuple[str, list[int]]]:
         titres = RE_TITRE.findall(html[:m.start()])
         titre = re.sub(r"\s+", " ", RE_TAG.sub(" ", titres[-1])).strip() if titres else ""
         texte = re.sub(r"\s+", " ", RE_TAG.sub(" ", m.group("contenu"))).strip()
-        out.append((texte, titre, numeros(titre)))
+        out.append((texte, titre, numeros(titre), False))
+
+    # Paragraphes dont l'etiquette de seif est inline. On ne leur pose que la
+    # question FORTE — « est-ce bien ce seif-la ? » — et jamais la faible
+    # — « est-ce quelque part dans le siman ? » : ces paragraphes portent
+    # souvent une paraphrase du seif et non son texte, et l'introuvable y serait
+    # du bruit. Le decalage, lui, reste decisif : une paraphrase du seif א ne
+    # ressemble pas au seif ב.
+    vus_inline = set()
+    for m in list(RE_BLOC_INLINE.finditer(html)) + list(RE_BLOC_LIGNE.finditer(html)):
+        etq = re.sub(r"\s+", " ", RE_TAG.sub(" ", m.group("etq"))).strip(" .:")
+        nomme = bool(re.match(r"[Ss][ée]if|סעיף", etq))
+        # Sans le mot « סעיף », une etiquette nue doit etre COURTE pour etre un
+        # numero : « א. », « י״א ». Trois lettres et plus, c'est un mot ou une
+        # sigle — אבל, הב״ח, הב״י — que la guematria lisait 33, 15, 17.
+        if not nomme and len(re.findall(r"[א-ת]", etq)) > 2:
+            continue
+        nums = numeros(etq if nomme else f"סעיף {etq}")
+        if not nums:
+            continue
+        texte = re.sub(r"\s+", " ", RE_TAG.sub(" ", m.group("contenu"))).strip()
+        cle = (tuple(nums), texte[:60])
+        if cle in vus_inline:
+            continue                      # les deux motifs peuvent viser le meme paragraphe
+        vus_inline.add(cle)
+        out.append((texte, f"[inline] {etq}", nums, True))
     return out
 
 
@@ -234,15 +285,18 @@ def gematria(s: str) -> int | None:
     return sum(VALEURS[c] for c in s) if s and all(c in VALEURS for c in s) else None
 
 
-def examiner(chemin: pathlib.Path, livre: str, n: int) -> tuple[int, list[str]]:
+def examiner(chemin: pathlib.Path, livre: str, n: int,
+             inline_seul: bool = False) -> tuple[int, list[str]]:
     src = seifim(livre, n)
     if not src:
         return 0, []
     sq = [squelette(s) for s in src]
     ecarts, vus, dernier = [], 0, 0
-    for i, (b, titre, annonces) in enumerate(blocs(chemin), 1):
+    for i, (b, titre, annonces, inline) in enumerate(blocs(chemin), 1):
         if annonces is None:
             continue          # bloc placé sous un titre de commentateur
+        if inline_seul and not inline:
+            continue          # sur ces pages, seule l'étiquette inline fait foi
         nu = re.sub(r"^[\s\"'«»]+", "", lettres_mots(b))
         if COMMENTAIRE.search(b) or TALMUD.match(nu) or MASSEKHET.search(b):
             continue          # commentaire ou sugya, non séif : hors du périmètre
@@ -256,6 +310,8 @@ def examiner(chemin: pathlib.Path, livre: str, n: int) -> tuple[int, list[str]]:
                   for j, s in enumerate(sq)]
         meilleur, place = max(scores)
         annonces = [k for k in annonces if 1 <= k <= len(src)]
+        if inline and not annonces:
+            continue          # etiquette inline hors du siman : ce n'est pas un seif
         if annonces:
             # Vérification forte : le bloc est-il le séif qu'il annonce ?
             attendu = max(scores[k - 1][0] for k in annonces)
@@ -265,7 +321,7 @@ def examiner(chemin: pathlib.Path, livre: str, n: int) -> tuple[int, list[str]]:
                     f"bloc {i} : annoncé séif {'-'.join(map(str, annonces))}, "
                     f"mais correspond au séif {place} ({meilleur:.0%} contre "
                     f"{attendu:.0%}) — « {titre[:60]} »")
-            elif meilleur < INTROUVABLE_ANNONCE:
+            elif meilleur < INTROUVABLE_ANNONCE and not inline:
                 ecarts.append(
                     f"bloc {i} : annoncé séif {'-'.join(map(str, annonces))}, "
                     f"introuvable dans le siman {n} (meilleur recouvrement "
@@ -288,20 +344,31 @@ def main() -> int:
     ap.add_argument("--section")
     args = ap.parse_args()
 
-    fichiers = [f for f in sorted(RACINE.rglob("niveau-1-base.html"))]
+    # Le niveau 1 porte le texte du seif : on l'examine entierement.
+    # Les autres pages le citent par fragments, sous une etiquette inline —
+    # « סעיף א. », « א. » —, et le reste y est du commentaire : on ne leur pose
+    # donc QUE la question forte, sur ces etiquettes. Sans cela le siman 243,
+    # dont le mauvais decoupage vivait dans l'index et le niveau 2, n'etait
+    # meme pas regarde.
+    ENTIER = ("niveau-1-base.html",)
+    INLINE = ("index.html", "niveau-2-lamdan.html", "niveau-3-synthese.html")
+    fichiers = []
+    for nom in ENTIER + INLINE:
+        fichiers += [(f, nom in INLINE) for f in sorted(RACINE.rglob(nom))]
     if args.section:
-        fichiers = [f for f in fichiers if f.parent.parent.name == args.section]
+        fichiers = [(f, i) for f, i in fichiers if f.parent.parent.name == args.section]
     if args.siman:
-        fichiers = [f for f in fichiers if f.parent.name == f"siman-{args.siman}"]
+        fichiers = [(f, i) for f, i in fichiers if f.parent.name == f"siman-{args.siman}"]
+    fichiers.sort(key=lambda x: str(x[0]))
 
     total_blocs = total_ecarts = pages = 0
-    for f in fichiers:
+    for f, inline_seul in fichiers:
         section = f.parent.parent.name
         livre = LIVRES.get(section)
         m = re.fullmatch(r"siman-(\d+)", f.parent.name)
         if not livre or not m:
             continue
-        vus, ecarts = examiner(f, livre, int(m.group(1)))
+        vus, ecarts = examiner(f, livre, int(m.group(1)), inline_seul=inline_seul)
         total_blocs += vus
         if ecarts:
             pages += 1
