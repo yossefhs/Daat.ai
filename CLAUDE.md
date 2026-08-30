@@ -21,6 +21,33 @@ Le Choul'han Aroukh HaRav (Admour HaZaken) **ne couvre pas tout Orah Haïm** : i
 
 Dans ce cas, **NE JAMAIS fabriquer de texte SA HaRav** (règle anti-fabrication ABSOLUE). Le niveau-4 devient une **page-passerelle sobre** (🌉), générée par `scripts/gen-bridge.py` (ou `/tmp/gen-bridge.py`) : elle explique honnêtement l'absence, renvoie aux niveaux 1-3 (Mehaber/Rama) et au **Siddour de l'Admour HaZaken** (où sa pratique sur la tefila est consignée), **sans aucune citation reconstruite ni le mot « n'existe pas sur Sefaria »**. Les niveaux 1-3 + index restent des pages normales (contenu Mehaber/Rama). `verify-oh-source.py` passe alors avec 0 seif attendu = 0 bloc `seif-details`. Décision utilisateur (2026) : **page-pont sobre**, pas de reconstruction façon 304/322.
 
+## ⚠️ Le Choul'han Aroukh est le repère — ordre compris (RÈGLE ABSOLUE)
+
+**Toute référence doit être exactement celle du Choul'han Aroukh** : le numéro du séif,
+la découpe entre séifim, l'ordre des propositions à l'intérieur d'un séif, et l'ordre dans
+lequel la page les présente. Une page ne réarrange pas la source pour les besoins de son
+exposé ; si un enchaînement pédagogique semble l'exiger, c'est l'exposé qui plie.
+
+Décision de l'utilisateur, août 2026, après le siman 243 : *« Il faut toujours que ce soit
+exactement comme dans le Choul'han Aroukh. Le Choul'han Aroukh est le repère pour toute
+référence. »*
+
+Ce que le 243 a montré, et qu'aucun des garde-fous de contenu ne pouvait voir — les
+citations y étaient réelles, la langue juste, la structure conforme :
+
+- le champ, le four, le moulin et la glose du Rama, tous dans le **séif א**, étaient publiés
+  sous « סעיף ב », et le vrai séif ב n'était cité nulle part ;
+- une clause déplacée d'un raisonnement à l'autre donnait comme raison de **permettre** le
+  champ ce que le Choul'han Aroukh donne comme raison d'**interdire** le bain ;
+- et la page présentait la fin du séif א **après** le séif ב.
+
+`scripts/verifier-alignement.py` est le contrôle qui répond de cette règle. Il lit
+l'étiquette de séif dans le titre **et dans le paragraphe** (`<p><strong>סעיף א.</strong> …`,
+`<strong>א.</strong>` entre `<br>`), sur `niveau-1-base.html` en entier et sur `index.html`,
+`niveau-2-lamdan.html`, `niveau-3-synthese.html` pour les seules étiquettes inline. Il pose
+deux questions : *le bloc annoncé séif N est-il le séif N ?* et *les blocs se suivent-ils
+dans l'ordre de la source ?* Le lancer avant de publier une page de séif.
+
 ## ⚠️ Avant tout push sur `main` : fusionner puis vérifier (RÈGLE ABSOLUE)
 
 Plusieurs sessions travaillent sur ce dépôt depuis des copies distinctes. **Par deux fois**, une
