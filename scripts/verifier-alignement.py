@@ -48,11 +48,17 @@ Retirer les yod et vav met les deux graphies sur le même pied.
 
 Ce qu'il rapporte aujourd'hui
 ------------------------------
-3513 blocs confrontés dans les 1700 pages des trois compartiments, **16 écarts
-dans 10 pages**. Les 1341 pages et 1154 blocs gagnés en lisant aussi les
-étiquettes inline n'ont produit **aucun signalement nouveau** hormis le seul
-qu'on cherchait : le siman 243, dont la fin du séif א suit encore le séif ב sur
-la page. Avant ces trois ajustements il en rapportait 143 dans 56
+3505 blocs confrontés dans les 1700 pages des trois compartiments, **10 écarts
+dans 8 pages** — et **Hilkhot Chabbat en entier, ses 124 simanim, à zéro**. Les
+1341 pages gagnées en lisant aussi les étiquettes inline n'ont produit aucun
+signalement nouveau hormis celui qu'on cherchait, le siman 243, depuis corrigé ;
+et le motif ``SUGYA`` a retiré les cinq sugyot du siman 242 que le contrôle
+cherchait dans un siman qui ne compte qu'un séif.
+
+Ce qui reste tient en deux familles : le siman 101 de Yoreh De'ah, dont deux
+blocs annoncent des séifim dont l'hébreu ne se retrouve nulle part dans le siman
+— consigné dans ``audit/alignement-a-verifier.md`` pour le Rav —, et huit blocs
+sans titre de séif qui récapitulent ou citent un Rishon. Avant ces trois ajustements il en rapportait 143 dans 56
 pages, dont l'échantillonnage a montré qu'ils étaient presque tous du bruit
 d'orthographe ou de commentaire ; le contrôle n'y a pourtant rien perdu — c'est
 lui, ainsi ajusté, qui a fait ressortir les deux blocs du siman 79 numérotés
@@ -131,7 +137,21 @@ TALMUD = re.compile(r"^\s*(?:תנו רבנן|תר|תניא|גמרא|גמ|אמר 
                     r"רב חסדא|רבא|רבה)")
 # Un bloc qui cite lui-même sa massekhet — « (פסחים נ:) » — n'est pas un séif.
 MASSEKHET = re.compile(r"\((?:פסחים|שבת|ברכות|ביצה|עירובין|סוכה|מגילה|יומא|חולין|"
-                       r"קידושין|כתובות|בבא [קמב]|סנהדרין|נדרים|מועד קטן)\s")
+                       r"קידושין|כתובות|בבא [קמב]|סנהדרין|נדרים|מועד קטן|"
+                       r"פאה|דמאי|שביעית|תרומות|מעשרות|חלה|ערלה|ביכורים|"
+                       r"ידים|עדיות|אבות)\s")
+# La formule d'attribution amoraïque n'ouvre pas toujours le bloc : la page cite
+# « בַּמֶּה מְעַנְּגוֹ? אָמַר רַב יְהוּדָה בְּרֵיהּ דְּרַב שְׁמוּאֵל בַּר שִׁילַת מִשְּׁמֵיהּ דְּרַב… »
+# — la guemara commence par sa question, et le nom vient après. Le motif ancré en
+# tête ne la voyait pas, et cinq sugyot du siman 242 ressortaient « introuvables »
+# dans un siman qui ne compte qu'un séif.
+#
+# Ces chaînes-là ne se rencontrent pas dans le Choul'han Aroukh : il tranche, il
+# ne rapporte pas qui a dit quoi à qui. On peut donc les chercher n'importe où
+# dans le bloc sans affaiblir le contrôle.
+SUGYA = re.compile(r"אמר רב |אמר רבי |א״ר |תנו רבנן|ת״ר |תנא דבי|בריה דרב|משמיה ד|"
+                   r"אמר להם הקדוש ברוך הוא|אמר להן הקדוש ברוך הוא|דתניא|דתנן|"
+                   r"אמר שמואל|אמר עולא|אמר אביי|אמר רבא")
 LIVRES = {"shabbat": "Shulchan Arukh, Orach Chayim",
           "orah-haim": "Shulchan Arukh, Orach Chayim",
           "yoreh-deah": "Shulchan Arukh, Yoreh De'ah"}
@@ -298,7 +318,8 @@ def examiner(chemin: pathlib.Path, livre: str, n: int,
         if inline_seul and not inline:
             continue          # sur ces pages, seule l'étiquette inline fait foi
         nu = re.sub(r"^[\s\"'«»]+", "", lettres_mots(b))
-        if COMMENTAIRE.search(b) or TALMUD.match(nu) or MASSEKHET.search(b):
+        if (COMMENTAIRE.search(b) or TALMUD.match(nu) or MASSEKHET.search(b)
+                or SUGYA.search(lettres_mots(b))):
             continue          # commentaire ou sugya, non séif : hors du périmètre
         temoins = [squelette(m)
                    for m in re.findall(r"[א-ת]{3,}", lettres_mots(b))][:MOTS_TEMOINS]
