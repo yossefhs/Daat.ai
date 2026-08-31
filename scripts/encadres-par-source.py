@@ -11,8 +11,15 @@ Mais chaque page affiche l'hébreu du séif, et cet hébreu identifie le séif s
 ambiguïté — c'est le critère du garde-fou d'alignement, appliqué ici à
 l'ancrage. On confronte donc chaque bloc ``<blockquote class="text-source">``
 au Choul'han Aroukh, et l'encadré se pose à la fin de la section du bloc qui
-reproduit le séif visé : juste avant le ``<h3>`` suivant, ou avant le
-``<h2 class="section-title">`` qui ouvre la partie suivante de la page.
+reproduit le séif visé : au titre suivant de rang égal ou supérieur à celui
+qui introduit le bloc.
+
+Le rang compte. Il fut d'abord fixé à ``<h3>`` pour toutes les pages ; mais
+beaucoup ouvrent une seule section « Le texte du Choul'han Aroukh » en ``<h3>``
+et titrent chaque séif en ``<h4>`` dessous. Le ``<h3>`` suivant valait alors
+pour tous les séifim, et les encadrés — justes, dans le bon ordre — s'empilaient
+tous à la fin de la section au lieu de suivre chacun son séif. Vingt-deux
+simanim ont été publiés ainsi avant que ce soit vu.
 
 C'est un ancrage plus sûr que le titre, pas seulement un ancrage de repli :
 un encadré posé sous un titre mal numéroté serait faux ; posé sous le texte
@@ -62,8 +69,27 @@ class _Val(dict):
 
 VAL = _Val()
 RE_TS = re.compile(r'<blockquote class="text-source"[^>]*>(.*?)</blockquote>', re.S)
-RE_FIN = re.compile(r'\n<h3[^>]*>|\n<h2 class="section-title"')
+RE_TITRE = re.compile(r'<h(?P<rang>[1-6])[^>]*>')
 SEUIL = 0.55
+
+
+def fin_de_section(html, apres, depuis):
+    """Où se referme la section du bloc source qui commence à ``depuis``.
+
+    Le terminateur n'est pas toujours le ``<h3>`` suivant. Beaucoup de pages
+    ouvrent une seule section « Le texte du Choul'han Aroukh » en ``<h3>`` et
+    titrent chaque séif en ``<h4>`` dessous : le ``<h3>`` suivant est alors le
+    même pour les dix-neuf séifim, et les dix-neuf encadrés s'empilent à la fin
+    de la section au lieu de suivre chacun son séif — c'est ce qui est arrivé à
+    vingt-deux simanim publiés. On lit donc le rang du titre qui introduit le
+    bloc, et la section se referme au titre suivant de rang égal ou supérieur.
+    """
+    rang = 3
+    for m in RE_TITRE.finditer(html, 0, depuis):
+        rang = int(m.group("rang"))
+    fin = re.compile(r'\n<h[1-%d][^>]*>' % rang)
+    suivant = fin.search(html, apres)
+    return suivant
 
 
 def encadre(etiquette, puces):
@@ -96,7 +122,7 @@ def ancrage(html, sq, n):
             dedans = [j + 1 for j, s in enumerate(sq) if court in s]
             if dedans != [n]:
                 continue
-            suivant = RE_FIN.search(html, m.end())
+            suivant = fin_de_section(html, m.end(), m.start())
             if not suivant:
                 return None, 1.0
             return suivant.start() + 1, 1.0
@@ -104,7 +130,7 @@ def ancrage(html, sq, n):
         best, place = max(sc)
         if place != n or best < SEUIL:
             continue
-        suivant = RE_FIN.search(html, m.end())
+        suivant = fin_de_section(html, m.end(), m.start())
         if not suivant:
             return None, best
         return suivant.start() + 1, best
