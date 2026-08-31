@@ -82,7 +82,9 @@ npm run build
 #   → extract-corpus.js         : régénère data/corpus-shabbat.json (le corpus BM25 du chat)
 #   → build:js                  : terser sur assets/js/chat-widget.js → chat-widget.min.js
 
-# Content state guard — MUST stay green (124/124 conformes). Exits non-zero on boilerplate / missing files / desynced TOC.
+# Content state guard — MUST stay green. The reference count is whatever the script prints,
+# never a value hard-coded here. It covers **Hilkhot Shabbat and Yoreh De'ah only** — Orah Haïm
+# has its own checks. Exits non-zero on boilerplate / missing files / desynced TOC.
 python3 scripts/audit-simanim.py            # full report
 python3 scripts/audit-simanim.py --quiet    # summary only (what the SessionStart hook prints)
 python3 scripts/audit-simanim.py --write-progress   # regenerates PROGRESS.md (never hand-edit PROGRESS.md)
@@ -153,18 +155,21 @@ main en ajoutant des simanim.
 
 ## Content model — the core of the repo
 
-`sources/shabbat/siman-242/` … `siman-365/` = **124 simanim** of Hilkhot Shabbat. Each siman directory holds an `index.html` plus up to **4 study levels**, and **every page exists in 3 languages**:
+`sources/` holds **424 simanim** in three compartments — **Orah Haïm quotidien** (`sources/orah-haim/`, 241), **Hilkhot Shabbat** (`sources/shabbat/siman-242/` … `siman-365/`, 124) and **Yoreh De'ah** (`sources/yoreh-deah/`, 59). The catalogue of record is `data/simanim-disponibles.json` — a build output, never hand-edited; count from it or from disk, never from memory. Each siman directory holds an `index.html` plus up to **4 study levels**, and **every page exists in 3 languages**:
 
 | Level | File stem | Audience |
 |-------|-----------|----------|
 | 1 — Base | `niveau-1-base` | Hebrew text + fluent French translation + explanation |
 | 2 — Lamdan | `niveau-2-lamdan` | In-depth pilpoul (Rishonim/Acharonim, hakira, machloket) — body is largely Hebrew |
 | 3 — Synthèse | `niveau-3-synthese` | Structured recap for revision |
-| 4 — Daat HaRav | `niveau-4-daat-harav` | Shitah of the Admour HaZaken (Choulhan Aroukh HaRav + Kountress Aharon) |
+| 4 — Daat HaRav *(Orah Haïm, Shabbat)* | `niveau-4-daat-harav` | Shitah of the Admour HaZaken (Choulhan Aroukh HaRav + Kountress Aharon) |
+| 4 — Halakha lema'asse *(Yoreh De'ah)* | `niveau-4-halakha` | Psak — the ruling as it is practised |
 
 Language convention (applies site-wide, not just simanim): **`X.html` = French (default, `lang="fr"`)**, **`X-he.html` = Hebrew (`dir`/RTL)**, **`X-en.html` = English**. When you change content in one language you must keep the other two in sync — this is the single most common source of inconsistency. Many `scripts/*.py` exist to propagate edits across the trilingual set (translate, add buttons, fix canonicals, audit Rama gloses); prefer adapting one of those to mass-edits by hand.
 
-Levels 1–3 exist for all 124 simanim; Level 4 exists for **122** of them. **Simanim 304 and 322 have no Level 4** — the Admour HaZaken did not write them in the Choulhan Aroukh HaRav, so they carry a "bridge page" (🌉 in `PROGRESS.md`) instead. Treat "124 simanim" (corpus / Mehaber) and "122 simanim" (Level 4 / Daat HaRav) as distinct counts; do not collapse them.
+**Level 4 carries two file stems**, one per compartment: `niveau-4-daat-harav` for Orah Haïm and Hilkhot Shabbat, `niveau-4-halakha` for Yoreh De'ah. A glob on one stem alone silently misses a whole compartment.
+
+Within Hilkhot Shabbat, levels 1–3 exist for all 124 simanim; Level 4 exists for **122** of them. **Simanim 304 and 322 have no Level 4** — the Admour HaZaken did not write them in the Choulhan Aroukh HaRav, so they carry a "bridge page" (🌉 in `PROGRESS.md`) instead. Treat "124 simanim" (corpus / Mehaber) and "122 simanim" (Level 4 / Daat HaRav) as distinct counts; do not collapse them.
 
 Study-level pages are **artisanal**: `generate-siman.js` only builds the repetitive `index.html` (SEO head, JSON-LD, breadcrumb, hero, FAQ). Do not try to industrialize the level pages — generic generated pilpoul has no value, and the audit flags boilerplate as an error.
 
