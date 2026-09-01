@@ -98,7 +98,20 @@ def encadre(etiquette, puces):
             f'<ul class="compact">\n{lis}\n</ul>\n</div>\n\n')
 
 
-def ancrage(html, sq, n):
+def mots_utiles(texte):
+    """Les mots d'un texte, réduits à leur squelette, tels que l'ancrage les lit.
+
+    Un même texte doit donner la même liste des deux côtés de la comparaison —
+    dans le bloc de la page comme dans le séif de Sefaria. La liste était
+    construite avec ce filtre pour le bloc et sans lui pour le séif : le séif יב
+    du siman 320, « יש ליזהר שלא ישפשף ידיו במלח », gardait un ד que le bloc
+    avait laissé tomber, et le lot entier était refusé pour ce seul mot.
+    """
+    mots = [va.squelette(w) for w in re.findall(r"[א-ת]{3,}", va.lettres_mots(texte))]
+    return [w for w in mots if len(w) >= 2]
+
+
+def ancrage(html, sq, n, courts=None):
     """Fin de la section du PREMIER bloc qui reproduit le séif n, et son score.
 
     Le premier, car plusieurs pages reprennent le texte du séif dans une
@@ -107,8 +120,7 @@ def ancrage(html, sq, n):
     """
     for m in RE_TS.finditer(html):
         txt = re.sub(r"\s+", " ", va.RE_TAG.sub(" ", m.group(1))).strip()
-        tem = [va.squelette(w) for w in re.findall(r"[א-ת]{3,}", va.lettres_mots(txt))][:14]
-        tem = [w for w in tem if len(w) >= 2]
+        tem = mots_utiles(txt)[:14]
         if len(tem) < 6:
             # Bloc trop court pour le test de recouvrement — mais un séif peut
             # l'être aussi : « סומא אינו מברך » (רצ״ח:יג) ne fait que trois mots,
@@ -117,9 +129,9 @@ def ancrage(html, sq, n):
             # l'inclusion est plus sûre : on exige que le squelette du bloc soit
             # contenu dans CE séif et dans aucun autre. Sans unicité, on s'abstient.
             court = " ".join(tem)
-            if not court:
+            if not court or courts is None:
                 continue
-            dedans = [j + 1 for j, s in enumerate(sq) if court in s]
+            dedans = [j + 1 for j, s in enumerate(courts) if court in s]
             if dedans != [n]:
                 continue
             suivant = fin_de_section(html, m.end(), m.start())
@@ -143,6 +155,7 @@ def appliquer(siman, T, ecrire):
         print(f"siman {siman} : source Sefaria indisponible")
         return 1
     sq = [va.squelette(s) for s in src]
+    courts = [" ".join(mots_utiles(s)) for s in src]
     plan, erreurs, n = {}, [], 0
     for suf in ("", "-he", "-en"):
         p = SITE / f"sources/shabbat/siman-{siman}/niveau-1-base{suf}.html"
@@ -157,7 +170,7 @@ def appliquer(siman, T, ecrire):
             if num is None or num > len(src):
                 erreurs.append(f"{p.name} {lettre} : séif hors du siman ({len(src)} séifim)")
                 continue
-            at, score = ancrage(t, sq, num)
+            at, score = ancrage(t, sq, num, courts)
             if at is None:
                 erreurs.append(f"{p.name} {lettre} : aucun bloc ne reproduit le séif {num}"
                                f" (meilleur {score:.0%})")

@@ -103,3 +103,31 @@ proposer un remplacement au jugé.
 
 **Aucune modification n'a été faite.** À trancher par le Rav : soit la référence
 exacte, soit le passage en `<em>résumé</em> :` si c'est une condensation.
+
+---
+
+## Siman 320 — le séif ו (le citron) et la glose du Rama au séif א
+
+`needs_rav_review` — signalé par le veilleur en août 2026, re-constaté en septembre.
+
+Le Choul'han Aroukh écrit au séif ו, sans condition ni réserve :
+
+> מותר לסחוט לימוני״ש
+
+La synthèse (niveau 3) consacre au citron sa section 5, la plus développée du
+niveau — « un seul et même fruit peut être permis ou interdit à presser, non selon
+sa nature, mais selon là où le jus aboutit » — mais **ne cite nulle part le séif ו**,
+c'est-à-dire la permission que le Choul'han Aroukh donne en propre.
+
+En regard, la glose du Rama au séif א pose :
+
+> ובמקום שנהגו לסחוט איזה פירות לשתות מימיו מחמת צמא או תענוג דינו כתותים ורמונים
+
+Le citron d'aujourd'hui est pressé couramment pour en boire le jus. Savoir si cette
+glose l'atteint, et comment elle se compose avec le séif ו, **est une question de
+psak** : elle n'est pas tranchée ici.
+
+**Ce qui a été fait :** l'encadré « Ce que dit ce séif » du séif ו rend la permission
+verbatim et renvoie à la glose du Rama en la donnant à vérifier au Rav.
+**Ce qui n'a pas été fait :** la synthèse n'a pas été touchée — ni son raisonnement,
+ni sa conclusion.
