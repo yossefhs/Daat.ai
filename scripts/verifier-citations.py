@@ -600,7 +600,13 @@ def fenetre_ref(plain, at, n):
     if ferme >= 0 and (ouvre < 0 or ferme < ouvre):
         avant = avant[ferme + 1:]
 
-    return avant + ' ' + plain[at:fin] + ' ' + apres
+    # Le texte de la citation lui-même est EXCLU : une citation peut mentionner un
+    # siman dans ses propres mots — le Chakh écrit « צ״ע … דמה שהוציא הב״י בסימן
+    # קכ״ד מהרמב״ם » — et ce siman n'est pas la référence de la citation, c'est son
+    # contenu. Résolue depuis l'intérieur du verbatim, la citation était confrontée
+    # au Chakh du siman 124 au lieu du 125, et déclarée introuvable alors que la
+    # page portait la bonne référence juste à côté.
+    return avant + '  ' + apres
 
 
 # Un commentaire du daf est un TEXTE DISTINCT de la guemara. « תוספות עבודה זרה
@@ -1132,6 +1138,18 @@ def main():
             at = plain.find(frag)
             window = fenetre_ref(plain, at, len(frag)) if at >= 0 else plain
             refs = refs_in(window)
+            if not refs:
+                # `candidats_ouvrages` n'intervenait qu'en REPLI, après un verdict
+                # ABSENT — donc jamais quand AUCUNE référence primaire n'avait été
+                # résolue. Or la forme conventionnelle du dépôt pour les nossei
+                # kelim, « (ש״ך יו״ד קכ״ח ס״ק ג) », n'en produit aucune : elle n'a
+                # pas de deux-points, que RE_SA_HE exige. Ces citations partaient
+                # donc en « sans référence » et n'étaient JAMAIS vérifiées — 85 des
+                # 221 citations d'un seul siman, et la totalité du Chakh et du Taz
+                # sur les 50 simanim de Yoré Déa déjà en ligne.
+                # L'ouvrage nommé dans la fenêtre devient donc une résolution de
+                # PREMIER rang quand il n'y en a pas d'autre.
+                refs = [c for c in candidats_ouvrages(path, window) if c]
             if not refs:
                 stats['SANS_REF'] += 1
                 continue
