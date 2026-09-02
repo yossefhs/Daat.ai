@@ -1056,6 +1056,32 @@ RE_SIMAN_NOMME = re.compile(r'(?<![א-ת])(?:או["״]?ח|יו["״]?ד|סימן|
                             r'(?P<s>[\dא-ת"״\'׳]{1,6})')
 
 
+def _plus_proche(rx, ctx):
+    """La correspondance la plus proche de la citation, avant ou après elle.
+
+    Une ligne portant plusieurs citations donne plusieurs ס״ק dans la fenêtre, et
+    la référence peut être écrite avant la citation (« Le Chakh (ס״ק נ׳) : “…” »)
+    comme après (« “…” (ס״ק נ׳) »). Le dépôt emploie les deux tournures. Prendre la
+    première correspondance de la fenêtre revenait donc à hériter du ס״ק de la
+    citation voisine — trois fois sur le seul siman 124, contre des pages qui
+    portaient pourtant la bonne référence juste à côté.
+
+    On mesure la distance à la citation : pour ce qui la précède, ce qui reste
+    après la correspondance ; pour ce qui la suit, ce qui la précède.
+    """
+    avant, _, apres = ctx.partition(SENTINELLE)
+    meilleur, distance = None, None
+    for m in rx.finditer(avant):
+        d = len(avant) - m.end()
+        if distance is None or d < distance:
+            meilleur, distance = m, d
+    for m in rx.finditer(apres):
+        d = m.start()
+        if distance is None or d < distance:
+            meilleur, distance = m, d
+    return meilleur
+
+
 def candidats_ouvrages(path, ctx):
     """Références de repli pour les ouvrages nommés dans la fenêtre.
 
@@ -1068,7 +1094,7 @@ def candidats_ouvrages(path, ctx):
     m = re.search(r'siman-(\d+)', p)
     siman_page = int(m.group(1)) if m else None
 
-    m = RE_SIMAN_NOMME.search(ctx.partition(SENTINELLE)[2]) or RE_SIMAN_NOMME.search(ctx)
+    m = _plus_proche(RE_SIMAN_NOMME, ctx)
     siman = (_num(m.group('s')) if m else None) or siman_page
     if not siman:
         return []
@@ -1078,8 +1104,7 @@ def candidats_ouvrages(path, ctx):
     # de toute la fenêtre revenait à hériter du ס״ק de la citation précédente. Vu au
     # siman 127, où « … דנשים עצלניות הן » (ש״ך ס״ק ל) était confronté au ס״ק כ״ט
     # de la clause voisine, et au siman 125 pour le ס״ק ב lu comme ס״ק א.
-    avant_ctx, _, apres_ctx = ctx.partition(SENTINELLE)
-    k = RE_SK_NU.search(apres_ctx) or RE_SK_NU.search(avant_ctx)
+    k = _plus_proche(RE_SK_NU, ctx)
     n = _num(k.group('sk')) if k else None
     if n is None:
         m2 = re.search(r'[\dא-ת"״\'׳]{1,6}\s*[:׃]\s*(?P<n>[\dא-ת"״\'׳]{1,4})', ctx)
