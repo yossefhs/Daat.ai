@@ -1188,11 +1188,23 @@ def main():
     # à quatre lignes, et le rapport complet — le seul document qui dise ce qui
     # reste à corriger — a été perdu en silence jusqu'à ce qu'on le remarque.
     if args.csv is None:
-        cible = os.path.normpath(args.path).strip(os.sep)
+        cible = os.path.normpath(args.path)
+        # Un chemin ABSOLU — vu quand un agent vérifiait une copie de son scratchpad —
+        # produisait un nom de rapport tiré du chemin entier :
+        # « audit/citations-home-user-Daat.ai-scratchpad-yd-128-niveau4-check-siman-128.csv ».
+        # Un CSV parasite dans audit/, aussitôt emporté par le prochain git add -A.
+        # On ramène la cible au dépôt, et hors de sources/ on n'écrit aucun rapport.
+        try:
+            cible = os.path.relpath(os.path.abspath(cible), ROOT)
+        except ValueError:
+            cible = cible
+        cible = cible.strip(os.sep)
         if cible in ('sources', '.', ''):
             args.csv = 'audit/citations-verifiees.csv'
-        else:
+        elif cible.startswith('sources' + os.sep):
             args.csv = 'audit/citations-%s.csv' % re.sub(r'[^\w.-]+', '-', cible).strip('-')
+        else:
+            args.csv = None      # hors du contenu du site : contrôle sans rapport
 
     langues = set(args.langues.split(','))
     base = args.path if os.path.isabs(args.path) else os.path.join(ROOT, args.path)
