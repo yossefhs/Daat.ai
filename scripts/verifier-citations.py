@@ -735,7 +735,20 @@ TAG = re.compile(r'<[^>]+>')
 # énonce sa propre thèse (« סומא חייב בציצית — שהראייה גדר בכסות ולא תנאי בגברא »).
 # La traiter comme un marqueur de citation confrontait ces thèses au daf cité à
 # côté et les déclarait fabriquées. Seul <blockquote> encadre une citation.
-RE_MARK = re.compile(r'<blockquote>(.*?)</blockquote>()', re.S)
+# `blockquote.comment-source` en est un, en revanche : la classe a été créée pour
+# distinguer la citation d'un commentateur du texte source, et c'est donc une
+# revendication de littéralité. `blockquote.text-source` reste exclu : ce sont les
+# seifim, que verify-yd-source.py confronte déjà à la source, mot pour mot.
+#
+# ⚠️ Portée réelle de ce marqueur : l'extraction est LIGNE À LIGNE, si bien qu'un
+# blockquote réparti sur plusieurs lignes n'est jamais reconnu comme un tout. Sur
+# les simanim 123-129, les 564 blocs `comment-source` sont tous multilignes et
+# l'élargissement ci-dessus n'y change donc rien (mesuré : 3 446 citations extraites
+# avant comme après). Ce qui protège réellement ces blocs, c'est la convention :
+# tout hébreu verbatim y est encadré de « … ». Un bloc qui s'en dispense échappe au
+# contrôle, quel que soit ce motif.
+RE_MARK = re.compile(
+    r'<blockquote(?:\s+class="comment-source"[^>]*)?>(.*?)</blockquote>()', re.S)
 # Guillemets typographiques dans le texte rendu (pas dans les attributs : les balises
 # sont supprimées avant extraction, ce qui écarte href="…", class="…", etc.)
 RE_GUILL = re.compile(r'«([^«»]{5,900})»|„([^„”]{5,900})”')
