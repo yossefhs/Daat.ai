@@ -555,6 +555,9 @@ def _num(tok):
     return gem(tok)
 
 
+SENTINELLE = '\x00'
+
+
 def fenetre_ref(plain, at, n):
     """Contexte d'une citation, borné par les citations voisines.
 
@@ -606,7 +609,10 @@ def fenetre_ref(plain, at, n):
     # contenu. Résolue depuis l'intérieur du verbatim, la citation était confrontée
     # au Chakh du siman 124 au lieu du 125, et déclarée introuvable alors que la
     # page portait la bonne référence juste à côté.
-    return avant + '  ' + apres
+    # Le séparateur est un sentinelle : la référence d'une citation suit la citation
+    # (« … » (ש״ך … ס״ק ל)), et les consommateurs doivent pouvoir préférer ce qui la
+    # suit à ce qui la précède quand une ligne porte plusieurs citations.
+    return avant + SENTINELLE + apres
 
 
 # Un commentaire du daf est un TEXTE DISTINCT de la guemara. « תוספות עבודה זרה
@@ -990,7 +996,9 @@ def ref_collee(plain, at, n):
 # alors rapportée au folio de guemara qui traînait dans la même fenêtre : au
 # siman 348, la page attribuait correctement « כדי שלא יתקיים מחשבתו… » au Michna
 # Beroura ס״ק ג, et ressortait en REF_FAUSSE contre Chabbat ו ע״א.
-RE_SK_NU = re.compile(r'(?:ס["״]?ק|סעיף\s*קטן)\s*(?P<sk>[\dא-ת"״\'׳]{1,4})')
+# Les frontières de mot sont obligatoires : sans elles, « ס״ק » se retrouvait à
+# l'intérieur de פוסקים, et le mot était lu comme une référence de sa′if katan.
+RE_SK_NU = re.compile(r'(?<![א-ת])(?:ס["״]?ק|סעיף\s*קטן)(?![א-ת])\s*(?P<sk>[\dא-ת"״\'׳]{1,4})')
 
 
 def ref_mb_du_siman(path, ctx):
@@ -1040,7 +1048,11 @@ OUVRAGES = [
 _OUVRAGES = [(re.compile(sig), oh, yd, n2) for sig, oh, yd, n2 in OUVRAGES]
 
 # « או״ח רמ״ז », « סימן רמ״ז », « סי׳ ק״ל » — le siman explicitement nomme.
-RE_SIMAN_NOMME = re.compile(r'(?:או["״]?ח|יו["״]?ד|סימן|סי[\'׳])\s*'
+# Idem, et le cas est spectaculaire : sans frontière, « יו״ד » sans gershayim
+# matchait les trois premières lettres de יוֹדֵעַ, et la lettre suivante — le ע de
+# יודע — était lue comme le numéro du siman, soit 70. Une citation exacte du Chakh
+# sur le siman 129 ressortait ainsi en REF_FAUSSE contre le Chakh du siman 70.
+RE_SIMAN_NOMME = re.compile(r'(?<![א-ת])(?:או["״]?ח|יו["״]?ד|סימן|סי[\'׳])(?![א-ת])\s*'
                             r'(?P<s>[\dא-ת"״\'׳]{1,6})')
 
 
@@ -1056,12 +1068,18 @@ def candidats_ouvrages(path, ctx):
     m = re.search(r'siman-(\d+)', p)
     siman_page = int(m.group(1)) if m else None
 
-    m = RE_SIMAN_NOMME.search(ctx)
+    m = RE_SIMAN_NOMME.search(ctx.partition(SENTINELLE)[2]) or RE_SIMAN_NOMME.search(ctx)
     siman = (_num(m.group('s')) if m else None) or siman_page
     if not siman:
         return []
 
-    k = RE_SK_NU.search(ctx)
+    # Une ligne portant plusieurs citations donne plusieurs ס״ק dans la fenêtre.
+    # Celui de NOTRE citation est le premier de ce qui la SUIT ; prendre le premier
+    # de toute la fenêtre revenait à hériter du ס״ק de la citation précédente. Vu au
+    # siman 127, où « … דנשים עצלניות הן » (ש״ך ס״ק ל) était confronté au ס״ק כ״ט
+    # de la clause voisine, et au siman 125 pour le ס״ק ב lu comme ס״ק א.
+    avant_ctx, _, apres_ctx = ctx.partition(SENTINELLE)
+    k = RE_SK_NU.search(apres_ctx) or RE_SK_NU.search(avant_ctx)
     n = _num(k.group('sk')) if k else None
     if n is None:
         m2 = re.search(r'[\dא-ת"״\'׳]{1,6}\s*[:׃]\s*(?P<n>[\dא-ת"״\'׳]{1,4})', ctx)
