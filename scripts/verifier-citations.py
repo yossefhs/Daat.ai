@@ -1087,6 +1087,15 @@ OUVRAGES = [
      "Pitchei_Teshuva_on_Shulchan_Arukh,_Yoreh_De'ah.{s}.{n}", True),
     (r'באר היטב|ב["״]ה(?![א-ת])', None,
      "Beer_Hetev_on_Shulchan_Arukh,_Yoreh_De'ah.{s}.{n}", True),
+    # Les Nekoudot HaKessef sont la reponse du Chakh au Taz : sur plusieurs simanim
+    # ce sont elles qui tranchent, et deux agents de production ont du renoncer a
+    # les citer mot a mot faute de reference resolvable — ils sont passes par le
+    # report verbatim du Baer Hetev. Le gabarit s'arrete au SIMAN, sans second
+    # niveau : l'index de Sefaria y est un simple numero d'ordre, pas le sk du Taz
+    # ni le seif du Mehaber (chaque segment nomme lui-meme son ancrage). Un second
+    # niveau produirait donc des references fausses.
+    (r'נקודות הכסף|נקה["״]כ', None,
+     "Nekudot_HaKesef_on_Shulchan_Arukh,_Yoreh_De'ah.{s}", False),
 ]
 _OUVRAGES = [(re.compile(sig), oh, yd, n2) for sig, oh, yd, n2 in OUVRAGES]
 
