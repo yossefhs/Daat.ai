@@ -1211,7 +1211,13 @@ def candidats_ouvrages(path, ctx):
         while fin < len(ctx) and re.match(r'[א-ת"״\'׳]', ctx[fin]):
             fin += 1
         proche = ctx[m.end():fin]
-        s_loc = RE_SIMAN_NOMME.search(proche)
+        # Le siman local ne peut être qu'une forme COMPLÈTE (« יו״ד קכ״ד »), jamais
+        # un « סימן ל״ח » nu : la fenêtre au niveau supérieur a déjà donné priorité
+        # à la forme complète, et un numéro nu cité au passage dans la prose la
+        # renverserait. Vu au siman 124 : « (ש״ך יו״ד קכ״ד ס״ק ע״א) … תשובת מהרי״ל
+        # סימן ל״ח … “citation” » envoyait le Chakh du siman 124 chercher sa
+        # קבלה dans le siman 38.
+        s_loc = RE_TOUR_SIMAN.search(proche)
         m_loc = RE_SIMAN_SEIF.search(proche)
         k_loc = RE_SK_NU.search(proche)
         si = (_num(s_loc.group('s')) if s_loc else None) \
