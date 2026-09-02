@@ -29,6 +29,7 @@
     .st-FIXED { background:#e6f5ea; }
     .st-REJECTED { background:#f0f0f0; }
     #msg { margin:12px 0; font-size:13px; }
+    .orig { font-size:10px; color:var(--muted); margin-top:3px; }
     .empty { padding:30px; text-align:center; color:var(--muted); background:#fff; border:1px solid var(--border); }
   </style>
 </head>
@@ -103,7 +104,8 @@
         h += '<tr>'
           + '<td>' + (e.ts || '').slice(0, 16).replace('T', '<br>') + '</td>'
           + '<td><a href="' + (e.url || '#') + '" target="_blank" rel="noopener">' + (e.siman ? 'Siman ' + e.siman : (e.titre || 'page').slice(0, 30)) + (e.seif ? ' · séif ' + e.seif : '') + ' ↗</a><div class="meta">' + (e.lang || '') + '</div></td>'
-          + '<td>' + (TYPE_LABELS[e.type] || e.type) + '</td>'
+          + '<td>' + (TYPE_LABELS[e.type] || e.type)
+          + (e.origine === 'veilleur' ? '<div class="orig">🤖 veilleur</div>' : '') + '</td>'
           + '<td><div class="desc">' + String(e.description || '').replace(/</g, '&lt;') + '</div>'
           + (e.source ? '<div class="meta">Source proposée : ' + String(e.source).replace(/</g, '&lt;') + '</div>' : '') + '</td>'
           + '<td><select class="st st-' + e.status + '" data-id="' + e.id + '">'

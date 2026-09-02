@@ -979,7 +979,7 @@
   "functions": {
     "api/chat.js": {
       "maxDuration": 300,
-      "includeFiles": "data/corpus-shabbat.json"
+      "includeFiles": "data/corpus-{shabbat.json,index.br}"
     },
     "api/conversations.js": {
       "maxDuration": 10
@@ -1043,7 +1043,7 @@
       "maxDuration": 60
     },
     "api/chat-corpus.js": {
-      "includeFiles": "data/corpus-shabbat.json"
+      "includeFiles": "data/corpus-{shabbat.json,index.br}"
     }
   },
   "crons": [

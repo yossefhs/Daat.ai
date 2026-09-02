@@ -21,6 +21,33 @@ Le Choul'han Aroukh HaRav (Admour HaZaken) **ne couvre pas tout Orah Haïm** : i
 
 Dans ce cas, **NE JAMAIS fabriquer de texte SA HaRav** (règle anti-fabrication ABSOLUE). Le niveau-4 devient une **page-passerelle sobre** (🌉), générée par `scripts/gen-bridge.py` (ou `/tmp/gen-bridge.py`) : elle explique honnêtement l'absence, renvoie aux niveaux 1-3 (Mehaber/Rama) et au **Siddour de l'Admour HaZaken** (où sa pratique sur la tefila est consignée), **sans aucune citation reconstruite ni le mot « n'existe pas sur Sefaria »**. Les niveaux 1-3 + index restent des pages normales (contenu Mehaber/Rama). `verify-oh-source.py` passe alors avec 0 seif attendu = 0 bloc `seif-details`. Décision utilisateur (2026) : **page-pont sobre**, pas de reconstruction façon 304/322.
 
+## ⚠️ Le Choul'han Aroukh est le repère — ordre compris (RÈGLE ABSOLUE)
+
+**Toute référence doit être exactement celle du Choul'han Aroukh** : le numéro du séif,
+la découpe entre séifim, l'ordre des propositions à l'intérieur d'un séif, et l'ordre dans
+lequel la page les présente. Une page ne réarrange pas la source pour les besoins de son
+exposé ; si un enchaînement pédagogique semble l'exiger, c'est l'exposé qui plie.
+
+Décision de l'utilisateur, août 2026, après le siman 243 : *« Il faut toujours que ce soit
+exactement comme dans le Choul'han Aroukh. Le Choul'han Aroukh est le repère pour toute
+référence. »*
+
+Ce que le 243 a montré, et qu'aucun des garde-fous de contenu ne pouvait voir — les
+citations y étaient réelles, la langue juste, la structure conforme :
+
+- le champ, le four, le moulin et la glose du Rama, tous dans le **séif א**, étaient publiés
+  sous « סעיף ב », et le vrai séif ב n'était cité nulle part ;
+- une clause déplacée d'un raisonnement à l'autre donnait comme raison de **permettre** le
+  champ ce que le Choul'han Aroukh donne comme raison d'**interdire** le bain ;
+- et la page présentait la fin du séif א **après** le séif ב.
+
+`scripts/verifier-alignement.py` est le contrôle qui répond de cette règle. Il lit
+l'étiquette de séif dans le titre **et dans le paragraphe** (`<p><strong>סעיף א.</strong> …`,
+`<strong>א.</strong>` entre `<br>`), sur `niveau-1-base.html` en entier et sur `index.html`,
+`niveau-2-lamdan.html`, `niveau-3-synthese.html` pour les seules étiquettes inline. Il pose
+deux questions : *le bloc annoncé séif N est-il le séif N ?* et *les blocs se suivent-ils
+dans l'ordre de la source ?* Le lancer avant de publier une page de séif.
+
 ## ⚠️ Avant tout push sur `main` : fusionner puis vérifier (RÈGLE ABSOLUE)
 
 Plusieurs sessions travaillent sur ce dépôt depuis des copies distinctes. **Par deux fois**, une
@@ -55,7 +82,9 @@ npm run build
 #   → extract-corpus.js         : régénère data/corpus-shabbat.json (le corpus BM25 du chat)
 #   → build:js                  : terser sur assets/js/chat-widget.js → chat-widget.min.js
 
-# Content state guard — MUST stay green (124/124 conformes). Exits non-zero on boilerplate / missing files / desynced TOC.
+# Content state guard — MUST stay green. The reference count is whatever the script prints,
+# never a value hard-coded here. It covers **Hilkhot Shabbat and Yoreh De'ah only** — Orah Haïm
+# has its own checks. Exits non-zero on boilerplate / missing files / desynced TOC.
 python3 scripts/audit-simanim.py            # full report
 python3 scripts/audit-simanim.py --quiet    # summary only (what the SessionStart hook prints)
 python3 scripts/audit-simanim.py --write-progress   # regenerates PROGRESS.md (never hand-edit PROGRESS.md)
@@ -80,6 +109,10 @@ node scripts/generate-siman.js --siman XXX [--force] [--no-sitemap]
 ```
 
 There is no test suite and no linter. Three complementary gates stand in for one: `scripts/audit-simanim.py` checks **structure** (boilerplate, missing files, desynced TOC), `scripts/verifier-citations.py` checks **content** (does each Hebrew quote actually exist at the reference it claims?), and `scripts/verifier-langues.py` checks **language** (is the body of `X-en.html` actually English — and is its `<title>`/`og:title`/`description`?). None subsumes the others — a page can be 174/174 conforme, carry no false citation, and still be a French page served under `lang="en"`, which is what four pages of simanim 304 and 322 were; 212 further pages had a correct body under a French head, which only the third scale of `verifier-langues.py` can see. Run all three before declaring content work done; the SessionStart hook (`.claude/hooks/session-start.sh`, remote-only) runs `npm install` then this audit at the start of every web session.
+
+A fourth gate watches what those three structurally cannot see. The four halakhic errors found in the rabbinic audit of August 2026 (simanim 318, 253, 308, 320) passed all three without a single alert, because **no citation was false** — the Hebrew was verbatim, the structure was sound, the language was right; it was the French reasoning built on top that was wrong. Proof: `verifier-citations.py --path sources/shabbat/siman-320` returned 0 anomalies on a page whose séif 320:6 (ש״כ:ו — `מותר לסחוט לימוני״ש`, the decisive permission on lemon) was never mentioned at all. `scripts/veilleur.py` looks for the shared signature of those four: **A** a séif of the Choulhan Aroukh that no page of the siman ever mentions; **B** an absolute formulation (« une seule crainte », « n'est pas … en soi », a crossed Mehaber/Rama attribution), weighted by observed yield; **C** a concept present in level 1 or level 4 but absent from the level-3 synthesis — the site then holds its own correction without knowing it.
+
+The recurring pattern is worth stating plainly, because it dictates where to look: in every case **levels 1 and 4 were correct** (they translate the primary text) and the error was born in the **pedagogical synthesis**, from where it spread to the derived `/questions/` pages and to the index metadata. The veilleur produces **candidates, never verdicts**, and never writes into a page: `--signalements` files them in the reader-report registry as `NEEDS_RABBINIC_VALIDATION`, deduplicated server-side, so the Rav triages machine findings and reader reports in one place. `.github/workflows/veilleur.yml` runs it every Sunday (needs the `ADMIN_PASSWORD` repo secret to file; without it, it reports only).
 
 ## Ce que le corpus indexe — à lire avant d'écrire du contenu
 
@@ -122,18 +155,21 @@ main en ajoutant des simanim.
 
 ## Content model — the core of the repo
 
-`sources/shabbat/siman-242/` … `siman-365/` = **124 simanim** of Hilkhot Shabbat. Each siman directory holds an `index.html` plus up to **4 study levels**, and **every page exists in 3 languages**:
+`sources/` holds **424 simanim** in three compartments — **Orah Haïm quotidien** (`sources/orah-haim/`, 241), **Hilkhot Shabbat** (`sources/shabbat/siman-242/` … `siman-365/`, 124) and **Yoreh De'ah** (`sources/yoreh-deah/`, 59). The catalogue of record is `data/simanim-disponibles.json` — a build output, never hand-edited; count from it or from disk, never from memory. Each siman directory holds an `index.html` plus up to **4 study levels**, and **every page exists in 3 languages**:
 
 | Level | File stem | Audience |
 |-------|-----------|----------|
 | 1 — Base | `niveau-1-base` | Hebrew text + fluent French translation + explanation |
 | 2 — Lamdan | `niveau-2-lamdan` | In-depth pilpoul (Rishonim/Acharonim, hakira, machloket) — body is largely Hebrew |
 | 3 — Synthèse | `niveau-3-synthese` | Structured recap for revision |
-| 4 — Daat HaRav | `niveau-4-daat-harav` | Shitah of the Admour HaZaken (Choulhan Aroukh HaRav + Kountress Aharon) |
+| 4 — Daat HaRav *(Orah Haïm, Shabbat)* | `niveau-4-daat-harav` | Shitah of the Admour HaZaken (Choulhan Aroukh HaRav + Kountress Aharon) |
+| 4 — Halakha lema'asse *(Yoreh De'ah)* | `niveau-4-halakha` | Psak — the ruling as it is practised |
 
 Language convention (applies site-wide, not just simanim): **`X.html` = French (default, `lang="fr"`)**, **`X-he.html` = Hebrew (`dir`/RTL)**, **`X-en.html` = English**. When you change content in one language you must keep the other two in sync — this is the single most common source of inconsistency. Many `scripts/*.py` exist to propagate edits across the trilingual set (translate, add buttons, fix canonicals, audit Rama gloses); prefer adapting one of those to mass-edits by hand.
 
-Levels 1–3 exist for all 124 simanim; Level 4 exists for **122** of them. **Simanim 304 and 322 have no Level 4** — the Admour HaZaken did not write them in the Choulhan Aroukh HaRav, so they carry a "bridge page" (🌉 in `PROGRESS.md`) instead. Treat "124 simanim" (corpus / Mehaber) and "122 simanim" (Level 4 / Daat HaRav) as distinct counts; do not collapse them.
+**Level 4 carries two file stems**, one per compartment: `niveau-4-daat-harav` for Orah Haïm and Hilkhot Shabbat, `niveau-4-halakha` for Yoreh De'ah. A glob on one stem alone silently misses a whole compartment.
+
+Within Hilkhot Shabbat, levels 1–3 exist for all 124 simanim; Level 4 exists for **122** of them. **Simanim 304 and 322 have no Level 4** — the Admour HaZaken did not write them in the Choulhan Aroukh HaRav, so they carry a "bridge page" (🌉 in `PROGRESS.md`) instead. Treat "124 simanim" (corpus / Mehaber) and "122 simanim" (Level 4 / Daat HaRav) as distinct counts; do not collapse them.
 
 Study-level pages are **artisanal**: `generate-siman.js` only builds the repetitive `index.html` (SEO head, JSON-LD, breadcrumb, hero, FAQ). Do not try to industrialize the level pages — generic generated pilpoul has no value, and the audit flags boilerplate as an error.
 

@@ -1,0 +1,63 @@
+# Veilleur hebdomadaire du contenu.
+#
+# Les trois portes existantes vérifient la forme (audit-simanim), les citations
+# hébraïques (verifier-citations) et la langue (verifier-langues). Les erreurs de
+# fond trouvées lors de l'audit rabbinique les ont toutes franchies : aucune
+# citation n'était fausse, c'est le raisonnement français qui l'était.
+#
+# Ce passage cherche cette quatrième catégorie et dépose ses trouvailles dans le
+# registre de signalements, en « Validation du Rav requise ». Il ne modifie
+# JAMAIS une page : la machine repère, le Rav tranche.
+name: Veilleur du contenu
+
+on:
+  schedule:
+    - cron: '0 4 * * 0'      # chaque dimanche, 04:00 UTC
+  workflow_dispatch:
+    inputs:
+      priorite:
+        description: 'Niveau de priorité à retenir'
+        type: choice
+        options: [haute, moyenne, basse]
+        default: haute
+      essai:
+        description: 'Essai — afficher le rapport sans rien déposer'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  veiller:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # Le cache évite de redemander chaque semaine à Sefaria les mêmes 124
+      # simanim ; il ne change rien au résultat, seulement à la politesse.
+      - uses: actions/cache@v4
+        with:
+          path: audit/.veilleur-cache.json
+          key: veilleur-sefaria-${{ github.run_id }}
+          restore-keys: veilleur-sefaria-
+
+      - name: Rapport
+        run: python3 scripts/veilleur.py --priorite "${PRIORITE:-haute}"
+        env:
+          PRIORITE: ${{ inputs.priorite }}
+
+      - name: Déposer les candidats dans le registre du Rav
+        if: ${{ inputs.essai != true }}
+        env:
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+          PRIORITE: ${{ inputs.priorite }}
+        run: |
+          if [ -z "${ADMIN_PASSWORD}" ]; then
+            echo "::warning::Secret ADMIN_PASSWORD absent — rapport produit ci-dessus, rien déposé."
+            exit 0
+          fi
+          python3 scripts/veilleur.py --priorite "${PRIORITE:-haute}" --signalements
