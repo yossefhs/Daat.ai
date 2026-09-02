@@ -1054,6 +1054,9 @@ _OUVRAGES = [(re.compile(sig), oh, yd, n2) for sig, oh, yd, n2 in OUVRAGES]
 # sur le siman 129 ressortait ainsi en REF_FAUSSE contre le Chakh du siman 70.
 RE_SIMAN_NOMME = re.compile(r'(?<![א-ת])(?:או["״]?ח|יו["״]?ד|סימן|סי[\'׳])(?![א-ת])\s*'
                             r'(?P<s>[\dא-ת"״\'׳]{1,6})')
+# La forme complète, qui nomme le recueil avec le siman.
+RE_TOUR_SIMAN = re.compile(r'(?<![א-ת])(?:או["״]?ח|יו["״]?ד)(?![א-ת])\s*'
+                           r'(?:סימן\s*|סי[\'׳]\s*)?(?P<s>[\dא-ת"״\'׳]{1,6})')
 
 
 def _plus_proche(rx, ctx):
@@ -1094,7 +1097,12 @@ def candidats_ouvrages(path, ctx):
     m = re.search(r'siman-(\d+)', p)
     siman_page = int(m.group(1)) if m else None
 
-    m = _plus_proche(RE_SIMAN_NOMME, ctx)
+    # « ש״ך יו״ד קכ״ד ס״ק ע״א » nomme le recueil ET le siman : c'est une référence
+    # complète. « תשובת מהרי״ל סימן ל״ח », cité au passage dans la prose, n'est
+    # qu'un numéro. À proximité égale la seconde forme l'emportait, et la citation
+    # partait chercher le Chakh du siman 38. La forme complète prime donc, où
+    # qu'elle soit dans la fenêtre.
+    m = _plus_proche(RE_TOUR_SIMAN, ctx) or _plus_proche(RE_SIMAN_NOMME, ctx)
     siman = (_num(m.group('s')) if m else None) or siman_page
     if not siman:
         return []
