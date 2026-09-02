@@ -1129,15 +1129,25 @@ def _plus_proche(rx, ctx):
 
     On mesure la distance à la citation : pour ce qui la précède, ce qui reste
     après la correspondance ; pour ce qui la suit, ce qui la précède.
+
+    La recherche porte sur la fenêtre ENTIÈRE, et non sur les deux moitiés
+    découpées autour de la sentinelle : un appelant qui lit ce qui SUIT la
+    correspondance (`ctx[m.end():…]`, pour y trouver le siman collé à la sigle)
+    a besoin de positions valables dans la fenêtre. Découpée, la moitié d'après
+    rendait des positions décalées de toute la longueur de la moitié d'avant, et
+    « (ט״ז יו״ד קל״א ס״ק ג) » se voyait lire le siman ק״ל d'une phrase précédente.
     """
-    avant, _, apres = ctx.partition(SENTINELLE)
+    pivot = ctx.find(SENTINELLE)
+    if pivot < 0:
+        pivot = len(ctx)
     meilleur, distance = None, None
-    for m in rx.finditer(avant):
-        d = len(avant) - m.end()
-        if distance is None or d < distance:
-            meilleur, distance = m, d
-    for m in rx.finditer(apres):
-        d = m.start()
+    for m in rx.finditer(ctx):
+        if m.start() > pivot:
+            d = m.start() - (pivot + len(SENTINELLE))
+        elif m.end() <= pivot:
+            d = pivot - m.end()
+        else:
+            continue          # à cheval sur la citation : ce n'est pas une référence
         if distance is None or d < distance:
             meilleur, distance = m, d
     return meilleur
@@ -1178,7 +1188,12 @@ def candidats_ouvrages(path, ctx):
 
     out = []
     for rx, oh, ydg, n2 in _OUVRAGES:
-        m = rx.search(ctx)
+        # La sigle à retenir est celle qui accompagne LA citation, pas la première
+        # de la fenêtre. « והש״ך מבאר … : “…” (ש״ך יו״ד קכ״ט ס״ק ל״ד) » nomme le
+        # Chakh deux fois : dans la prose d'abord, dans la référence ensuite. La
+        # première occurrence n'est suivie d'aucun numéro, et c'est pourtant elle
+        # qui fixait la fenêtre où lire le siman.
+        m = _plus_proche(rx, ctx)
         if not m:
             continue
         gabarit = ydg if yd else oh
@@ -1188,7 +1203,14 @@ def candidats_ouvrages(path, ctx):
         # dans la fenêtre : « (שו״ע הרב קי״ד:א) » désigne le séif א du siman קי״ד,
         # et non le premier « X:Y » rencontré soixante caractères plus tôt, qui
         # appartient à une autre proposition de la même ligne.
-        proche = ctx[m.end():m.end() + 60]
+        # La coupure à 60 caractères ne doit pas tomber AU MILIEU d'un numéral
+        # hébreu : « … יו״ד ק|כ״ט … » laissait lire ק seul, soit le siman 100, et
+        # le Chakh du siman 129 était cherché sur le siman 100. On prolonge donc
+        # jusqu'à la fin du mot commencé.
+        fin = min(len(ctx), m.end() + 60)
+        while fin < len(ctx) and re.match(r'[א-ת"״\'׳]', ctx[fin]):
+            fin += 1
+        proche = ctx[m.end():fin]
         s_loc = RE_SIMAN_NOMME.search(proche)
         m_loc = RE_SIMAN_SEIF.search(proche)
         k_loc = RE_SK_NU.search(proche)
