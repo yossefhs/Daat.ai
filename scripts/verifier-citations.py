@@ -661,9 +661,47 @@ def _prefixe_commentateur(ctx, debut):
     return ''
 
 
+# Le Roch, au niveau du PEREK. Son second niveau sur Sefaria ne coïncide pas
+# toujours avec le numéro de siman imprimé (פ״ד de עבודה זרה : 7/12/20 là où les
+# pages citent ט״ו/כ׳/ל״ג) — construire « Rosh_on_X.perek.siman » dirait donc
+# parfois faux. Le perek entier, lui, est sûr : la citation y est cherchée parmi
+# tous ses segments. Les 24 traités ci-dessous ont été vérifiés contre l'API ; les
+# noms de perek ne sont tabulés que pour les traités que les pages citent ainsi.
+ROSH_TRAITES = {'Avodah_Zarah', 'Gittin', 'Chullin', 'Pesachim', 'Shabbat', 'Berakhot',
+                'Bava_Kamma', 'Bava_Metzia', 'Bava_Batra', 'Ketubot', 'Kiddushin',
+                'Yevamot', 'Nedarim', 'Beitzah', 'Megillah', 'Rosh_Hashanah', 'Sukkah',
+                'Taanit', 'Moed_Katan', 'Niddah', 'Bekhorot', 'Eruvin', 'Sanhedrin',
+                'Makkot'}
+ROSH_PERAKIM = {
+    'Avodah_Zarah': {'לפני אידיהן': 1, 'אין מעמידין': 2, 'כל הצלמים': 3,
+                     'רבי ישמעאל': 4, 'ר׳ ישמעאל': 4, 'השוכר את הפועל': 5, 'השוכר': 5},
+    'Gittin': {'המביא גט': 1, 'המביא ראשון': 1, 'המביא שני': 2, 'כל הגט': 3, 'השולח': 4,
+               'הניזקין': 5, 'האומר': 6, 'מי שאחזו': 7, 'הזורק': 8, 'המגרש': 9},
+}
+RE_ROSH = re.compile(
+    r'(?:ה?רא["״]ש)\s*(?:על\s*)?(?:מסכת\s*)?(?P<mass>[א-ת ]{3,20}?)\s*,?\s*'
+    r'פרק\s*(?P<perek>[א-ת]{1,3}["״׳\']?(?![א-ת])|[א-ת ׳]{3,24}?)\s*,?\s*(?=סימן|סי[׳\'])')
+
+
+def refs_rosh(ctx):
+    """« רא״ש על עבודה זרה פרק ד׳ סימן ט״ו » → Rosh_on_Avodah_Zarah.4 (perek entier)."""
+    out = []
+    for m in RE_ROSH.finditer(ctx):
+        nom = m.group('mass').strip()
+        livre = (MASSEKHTOT.get(nom) or '').replace(' ', '_')   # « Avodah Zarah » → slug
+        if not livre or livre not in ROSH_TRAITES:
+            continue
+        pk = m.group('perek').strip()
+        n = _num(pk) if re.fullmatch(r'[א-ת]{1,3}["״׳\']?', pk) else ROSH_PERAKIM.get(livre, {}).get(pk)
+        if n:
+            out.append(f"Rosh_on_{livre}.{n}")
+    return out
+
+
 def refs_in(ctx):
     """Toutes les références Sefaria détectées dans un contexte textuel."""
     out = []
+    out += refs_rosh(ctx)
     for m in RE_PEREK_MISHNAH.finditer(ctx):
         pe, mi = _num(m.group('p')), _num(m.group('m'))
         if pe and mi:
