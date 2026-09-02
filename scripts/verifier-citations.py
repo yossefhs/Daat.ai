@@ -1044,6 +1044,14 @@ OUVRAGES = [
     (r'ב["״]י|בית יוסף', 'Beit_Yosef,_Orach_Chayim.{s}', 'Beit_Yosef,_Yoreh_Deah.{s}', False),
     (r'(?<![א-ת])טור(?![א-ת])', 'Tur,_Orach_Chayim.{s}', 'Tur,_Yoreh_Deah.{s}', False),
     (r'ביה["״]ל|ביאור הלכה', 'Biur_Halacha.{s}', None, False),
+    # Le Pit'hei Techouva et le Baer Hetev sont les deux appareils les plus cités
+    # des niveaux 4 de Yoré Déa, et ils manquaient à cette table : leurs citations
+    # partaient toutes en « sans référence ». Les deux slugs n'existent que pour
+    # Yoré Déa (l'endpoint Orah Haïm renvoie une erreur), d'où le gabarit OH à None.
+    (r'פת["״]ש|פתחי תשובה', None,
+     "Pitchei_Teshuva_on_Shulchan_Arukh,_Yoreh_De'ah.{s}.{n}", True),
+    (r'באר היטב|ב["״]ה(?![א-ת])', None,
+     "Beer_Hetev_on_Shulchan_Arukh,_Yoreh_De'ah.{s}.{n}", True),
 ]
 _OUVRAGES = [(re.compile(sig), oh, yd, n2) for sig, oh, yd, n2 in OUVRAGES]
 
