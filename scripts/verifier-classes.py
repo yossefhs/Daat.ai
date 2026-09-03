@@ -44,6 +44,10 @@ CLASSES = [
     'rishon-card', 'hakira-box', 'pilpul-box', 'machloket-box',
     'nafka-mina-box', 'yesod-box', 'teruts-box', 'kashya-box',
     'rav-box', 'seif-details', 'translation', 'src-paren',
+    # Le codage couleur du verdict dans les tableaux de psak. Six pages des
+    # simanim 149 et 152 l'employaient sans le définir : « Interdit » et
+    # « Permis » s'y affichaient en noir, et rien ne le signalait.
+    'chaud', 'froid',
 ]
 
 RE_LIEN_CSS = re.compile(r'<link[^>]+href="([^"]+\.css)"', re.I)

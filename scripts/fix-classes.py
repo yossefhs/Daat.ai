@@ -34,6 +34,8 @@ REGLES = {
     'key-point':      ".key-point { background: #fff8e1; border-left: 5px solid #C5A55A; padding: 10px 16px; margin: 12px 0; page-break-inside: avoid; }",
     'comment-source': "blockquote.comment-source { font-style: normal; }",
     'src-paren':      ".src-paren { color: #5a4a1a; }",
+    'chaud':          ".chaud { color: #C0392B; font-weight: 700; }",
+    'froid':          ".froid { color: #2E7D52; font-weight: 700; }",
     'translation':    ".translation { background: #f5f5f0; border-left: 3px solid #1A1F3A; padding: 12px 18px; margin: 15px 0; font-style: italic; }",
 }
 
