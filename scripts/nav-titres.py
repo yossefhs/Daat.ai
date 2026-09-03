@@ -50,8 +50,11 @@ def libelle(num, lang, sens):
     if not t:
         return None
     if lang == 'he':
-        # le <h1> hébreu porte déjà « סימן ק״נ — titre » ; on y insère le chiffre
-        m = re.match(r'^(סימן\s+\S+)\s*—\s*(.*)$', t)
+        # Le <h1> hébreu s'écrit sous deux formes : « סימן ק״נ — titre » et
+        # « סימן ק״נ · 150 — titre ». Ne reconnaître que la première faisait
+        # renoncer le script EN SILENCE, et trois index hébreux gardaient un
+        # libellé français sous une URL hébraïque.
+        m = re.match(r'^(סימן\s+\S+)(?:\s*·\s*\d+)?\s*—\s*(.*)$', t)
         if not m:
             return None
         return (f'→ {m.group(1)} · {num} — {m.group(2)}' if sens == 'prev'

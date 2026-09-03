@@ -48,7 +48,7 @@ SECTIONS = [
         "id": "yoreh-deah",
         "label": "Yoreh De'ah",
         "dir": os.path.join(os.path.dirname(__file__), "..", "sources", "yoreh-deah"),
-        "simanim": [n for n in range(87, 153)] + [n for n in range(183, 201)],
+        "simanim": [n for n in range(87, 160)] + [n for n in range(183, 201)],
         "no_levels": set(),
         "n4_file": "niveau-4-halakha.html",
     },
