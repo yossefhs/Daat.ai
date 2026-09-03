@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 3 seifim qui codifient ces deux mitzvot Shabbat avec adaptations : pas de prière pour la guérison (qui contredit l'oneg Shabbat), formules adaptées de consolation
+La chitah de l'Admour HaZaken sur les 3 seifim qui codifient ces deux mitzvot Shabbat avec adaptations : la formule de visite est modifiée — on écarte la demande de la semaine, qui éveille les pleurs du malade — et les formules de consolation le sont aussi
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 
