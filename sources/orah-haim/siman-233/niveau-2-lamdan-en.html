@@ -316,6 +316,24 @@
     .niveau-nav { flex-direction: column; gap: 0.75rem; }
   }
   @media print { .niveau-nav { display: none; } }
+
+  /* Colonne double — recopié de assets/css/daat-enhance.css, que cette page ne
+     charge pas. Sans ces règles le bloc n'est pas mis en page du tout. */
+  .daat-two-col { display: grid; grid-template-columns: 1fr; gap: 24px; margin: 28px 0;
+    background: #FBF7EF; border: 1px solid #E4DDD0; border-radius: 4px; overflow: hidden; }
+  @media (min-width: 980px) { .daat-two-col { grid-template-columns: 1fr 1fr; } }
+  .daat-two-col-he, .daat-two-col-fr { padding: 28px 32px; }
+  .daat-two-col-he { background: linear-gradient(-90deg, #FBF7EF 0%, #FBF7EF 92%, #EDE3CE 100%);
+    font-family: 'Frank Ruhl Libre', 'David', 'Times New Roman', serif; direction: rtl;
+    text-align: right; font-size: 1.18rem; line-height: 1.95; color: #1A1F3A;
+    border-right: 3px solid #B8972A; }
+  .daat-two-col-fr { font-family: 'Source Serif 4', 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.05rem; line-height: 1.75; color: #3D4266;
+    border-left: 3px solid rgba(184, 151, 42, 0.4); }
+  @media (max-width: 979px) {
+    .daat-two-col-he { border-right: 3px solid #B8972A; border-left: none; }
+    .daat-two-col-fr { border-top: 1px solid #E4DDD0; border-left: none; }
+  }
 </style>
 <link rel="stylesheet" href="/assets/css/intra-links.css">
 <script type="application/ld+json" data-schema="niveau-jsonld">
