@@ -701,6 +701,10 @@ def refs_rosh(ctx):
 def refs_in(ctx):
     """Toutes les références Sefaria détectées dans un contexte textuel."""
     out = []
+    for m in RE_PASSOUK.finditer(ctx):
+        ch, v = _num(m.group('ch')), _num(m.group('v'))
+        if ch and v:
+            out.append(f"{TANAKH[m.group('livre')]}.{ch}.{v}")
     out += refs_rosh(ctx)
     for m in RE_PEREK_MISHNAH.finditer(ctx):
         pe, mi = _num(m.group('p')), _num(m.group('m'))
@@ -1151,6 +1155,31 @@ RE_PEREK_MISHNAH = re.compile(
     r'מ["״\'׳]?(?P<m>[א-ת]{1,3}["״\'׳]?[א-ת]?)(?![א-ת])')
 
 
+# Les livres du Tanakh, que le résolveur ne connaissait pas du tout : une citation
+# de verset accompagnée de sa référence — « (שמות ל״ד:ט״ז) » — sortait en « sans
+# référence », donc n'était jamais confrontée à la source. Les pages en citent
+# beaucoup : c'est le socle des simanim d'idolâtrie.
+TANAKH = {
+    'בראשית': 'Genesis', 'שמות': 'Exodus', 'ויקרא': 'Leviticus',
+    'במדבר': 'Numbers', 'דברים': 'Deuteronomy', 'יהושע': 'Joshua',
+    'שופטים': 'Judges', 'שמואל א': 'I_Samuel', 'שמואל ב': 'II_Samuel',
+    'מלכים א': 'I_Kings', 'מלכים ב': 'II_Kings', 'ישעיה': 'Isaiah',
+    'ישעיהו': 'Isaiah', 'ירמיה': 'Jeremiah', 'ירמיהו': 'Jeremiah',
+    'יחזקאל': 'Ezekiel', 'הושע': 'Hosea', 'יואל': 'Joel', 'עמוס': 'Amos',
+    'עובדיה': 'Obadiah', 'יונה': 'Jonah', 'מיכה': 'Micah', 'נחום': 'Nahum',
+    'חבקוק': 'Habakkuk', 'צפניה': 'Zephaniah', 'חגי': 'Haggai',
+    'זכריה': 'Zechariah', 'מלאכי': 'Malachi', 'תהלים': 'Psalms',
+    'משלי': 'Proverbs', 'איוב': 'Job', 'שיר השירים': 'Song_of_Songs',
+    'רות': 'Ruth', 'איכה': 'Lamentations', 'קהלת': 'Ecclesiastes',
+    'אסתר': 'Esther', 'דניאל': 'Daniel', 'עזרא': 'Ezra',
+    'נחמיה': 'Nehemiah', 'דברי הימים א': 'I_Chronicles',
+    'דברי הימים ב': 'II_Chronicles',
+}
+RE_PASSOUK = re.compile(
+    r'(?<![א-ת])(?P<livre>' + '|'.join(sorted(TANAKH, key=len, reverse=True)) + r')'
+    r'\s*(?P<ch>[\dא-ת"״\'׳]{1,6})\s*[:׃]\s*(?P<v>[\dא-ת"״\'׳]{1,5})(?![א-ת])')
+
+
 RE_VERSET = re.compile(r'(?:שנאמר|ואומר|דכתיב|כדכתיב|וכתיב|כמו שנאמר)\s*[:"«„]?\s*$')
 RE_SIMAN_SEIF = re.compile(r'(?P<s>[\dא-ת"״\'׳]{1,6})\s*[:׃]\s*(?P<n>[\dא-ת"״\'׳]{1,4})')
 # Idem, et le cas est spectaculaire : sans frontière, « יו״ד » sans gershayim
@@ -1164,7 +1193,12 @@ RE_TOUR_SIMAN = re.compile(r'(?<![א-ת])(?:או["״]?ח|יו["״]?ד)(?![א-ת]
                            r'(?:סימן\s*|סי[\'׳]\s*)?(?P<s>[\dא-ת"״\'׳]{1,6})')
 
 
-def _plus_proche(rx, ctx):
+def _apres_deux_points(ctx, m):
+    """La correspondance est-elle la seconde moitié d'un « chapitre:verset » ?"""
+    return re.search(r'[:׃]\s*$', ctx[:m.start()]) is not None
+
+
+def _plus_proche(rx, ctx, rejeter=None):
     """La correspondance la plus proche de la citation, avant ou après elle.
 
     Une ligne portant plusieurs citations donne plusieurs ס״ק dans la fenêtre, et
@@ -1189,6 +1223,8 @@ def _plus_proche(rx, ctx):
         pivot = len(ctx)
     meilleur, distance = None, None
     for m in rx.finditer(ctx):
+        if rejeter is not None and rejeter(ctx, m):
+            continue
         if m.start() > pivot:
             d = m.start() - (pivot + len(SENTINELLE))
         elif m.end() <= pivot:
@@ -1240,7 +1276,13 @@ def candidats_ouvrages(path, ctx):
         # Chakh deux fois : dans la prose d'abord, dans la référence ensuite. La
         # première occurrence n'est suivie d'aucun numéro, et c'est pourtant elle
         # qui fixait la fenêtre où lire le siman.
-        m = _plus_proche(rx, ctx)
+        # Un numéral qui SUIT un deux-points n'est pas une sigle : c'est la
+        # seconde moitié d'une référence « livre chapitre:verset ». Sans cette
+        # garde, « (שמות ל״ד:ט״ז) » — Chemot 34:16 — était lu comme la sigle du
+        # Taz, et une citation exacte du verset partait chercher un ס״ק ט״ז qui
+        # n'existe pas. Tout verset dont le numéro s'écrit comme une sigle connue
+        # était dans ce cas.
+        m = _plus_proche(rx, ctx, rejeter=_apres_deux_points)
         if not m:
             continue
         gabarit = ydg if yd else oh
