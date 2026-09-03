@@ -563,6 +563,9 @@ def _num(tok):
     return gem(tok)
 
 
+SENTINELLE = '\x00'
+
+
 def fenetre_ref(plain, at, n):
     """Contexte d'une citation, borné par les citations voisines.
 
@@ -608,7 +611,16 @@ def fenetre_ref(plain, at, n):
     if ferme >= 0 and (ouvre < 0 or ferme < ouvre):
         avant = avant[ferme + 1:]
 
-    return avant + ' ' + plain[at:fin] + ' ' + apres
+    # Le texte de la citation lui-même est EXCLU : une citation peut mentionner un
+    # siman dans ses propres mots — le Chakh écrit « צ״ע … דמה שהוציא הב״י בסימן
+    # קכ״ד מהרמב״ם » — et ce siman n'est pas la référence de la citation, c'est son
+    # contenu. Résolue depuis l'intérieur du verbatim, la citation était confrontée
+    # au Chakh du siman 124 au lieu du 125, et déclarée introuvable alors que la
+    # page portait la bonne référence juste à côté.
+    # Le séparateur est un sentinelle : la référence d'une citation suit la citation
+    # (« … » (ש״ך … ס״ק ל)), et les consommateurs doivent pouvoir préférer ce qui la
+    # suit à ce qui la précède quand une ligne porte plusieurs citations.
+    return avant + SENTINELLE + apres
 
 
 # Un commentaire du daf est un TEXTE DISTINCT de la guemara. « תוספות עבודה זרה
@@ -649,9 +661,47 @@ def _prefixe_commentateur(ctx, debut):
     return ''
 
 
+# Le Roch, au niveau du PEREK. Son second niveau sur Sefaria ne coïncide pas
+# toujours avec le numéro de siman imprimé (פ״ד de עבודה זרה : 7/12/20 là où les
+# pages citent ט״ו/כ׳/ל״ג) — construire « Rosh_on_X.perek.siman » dirait donc
+# parfois faux. Le perek entier, lui, est sûr : la citation y est cherchée parmi
+# tous ses segments. Les 24 traités ci-dessous ont été vérifiés contre l'API ; les
+# noms de perek ne sont tabulés que pour les traités que les pages citent ainsi.
+ROSH_TRAITES = {'Avodah_Zarah', 'Gittin', 'Chullin', 'Pesachim', 'Shabbat', 'Berakhot',
+                'Bava_Kamma', 'Bava_Metzia', 'Bava_Batra', 'Ketubot', 'Kiddushin',
+                'Yevamot', 'Nedarim', 'Beitzah', 'Megillah', 'Rosh_Hashanah', 'Sukkah',
+                'Taanit', 'Moed_Katan', 'Niddah', 'Bekhorot', 'Eruvin', 'Sanhedrin',
+                'Makkot'}
+ROSH_PERAKIM = {
+    'Avodah_Zarah': {'לפני אידיהן': 1, 'אין מעמידין': 2, 'כל הצלמים': 3,
+                     'רבי ישמעאל': 4, 'ר׳ ישמעאל': 4, 'השוכר את הפועל': 5, 'השוכר': 5},
+    'Gittin': {'המביא גט': 1, 'המביא ראשון': 1, 'המביא שני': 2, 'כל הגט': 3, 'השולח': 4,
+               'הניזקין': 5, 'האומר': 6, 'מי שאחזו': 7, 'הזורק': 8, 'המגרש': 9},
+}
+RE_ROSH = re.compile(
+    r'(?:ה?רא["״]ש)\s*(?:על\s*)?(?:מסכת\s*)?(?P<mass>[א-ת ]{3,20}?)\s*,?\s*'
+    r'פרק\s*(?P<perek>[א-ת]{1,3}["״׳\']?(?![א-ת])|[א-ת ׳]{3,24}?)\s*,?\s*(?=סימן|סי[׳\'])')
+
+
+def refs_rosh(ctx):
+    """« רא״ש על עבודה זרה פרק ד׳ סימן ט״ו » → Rosh_on_Avodah_Zarah.4 (perek entier)."""
+    out = []
+    for m in RE_ROSH.finditer(ctx):
+        nom = m.group('mass').strip()
+        livre = (MASSEKHTOT.get(nom) or '').replace(' ', '_')   # « Avodah Zarah » → slug
+        if not livre or livre not in ROSH_TRAITES:
+            continue
+        pk = m.group('perek').strip()
+        n = _num(pk) if re.fullmatch(r'[א-ת]{1,3}["״׳\']?', pk) else ROSH_PERAKIM.get(livre, {}).get(pk)
+        if n:
+            out.append(f"Rosh_on_{livre}.{n}")
+    return out
+
+
 def refs_in(ctx):
     """Toutes les références Sefaria détectées dans un contexte textuel."""
     out = []
+    out += refs_rosh(ctx)
     for m in RE_PEREK_MISHNAH.finditer(ctx):
         pe, mi = _num(m.group('p')), _num(m.group('m'))
         if pe and mi:
@@ -737,7 +787,20 @@ TAG = re.compile(r'<[^>]+>')
 # énonce sa propre thèse (« סומא חייב בציצית — שהראייה גדר בכסות ולא תנאי בגברא »).
 # La traiter comme un marqueur de citation confrontait ces thèses au daf cité à
 # côté et les déclarait fabriquées. Seul <blockquote> encadre une citation.
-RE_MARK = re.compile(r'<blockquote>(.*?)</blockquote>()', re.S)
+# `blockquote.comment-source` en est un, en revanche : la classe a été créée pour
+# distinguer la citation d'un commentateur du texte source, et c'est donc une
+# revendication de littéralité. `blockquote.text-source` reste exclu : ce sont les
+# seifim, que verify-yd-source.py confronte déjà à la source, mot pour mot.
+#
+# ⚠️ Portée réelle de ce marqueur : l'extraction est LIGNE À LIGNE, si bien qu'un
+# blockquote réparti sur plusieurs lignes n'est jamais reconnu comme un tout. Sur
+# les simanim 123-129, les 564 blocs `comment-source` sont tous multilignes et
+# l'élargissement ci-dessus n'y change donc rien (mesuré : 3 446 citations extraites
+# avant comme après). Ce qui protège réellement ces blocs, c'est la convention :
+# tout hébreu verbatim y est encadré de « … ». Un bloc qui s'en dispense échappe au
+# contrôle, quel que soit ce motif.
+RE_MARK = re.compile(
+    r'<blockquote(?:\s+class="comment-source"[^>]*)?>(.*?)</blockquote>()', re.S)
 # Guillemets typographiques dans le texte rendu (pas dans les attributs : les balises
 # sont supprimées avant extraction, ce qui écarte href="…", class="…", etc.)
 RE_GUILL = re.compile(r'«([^«»]{5,900})»|„([^„”]{5,900})”')
@@ -1006,7 +1069,9 @@ def ref_collee(plain, at, n):
 # alors rapportée au folio de guemara qui traînait dans la même fenêtre : au
 # siman 348, la page attribuait correctement « כדי שלא יתקיים מחשבתו… » au Michna
 # Beroura ס״ק ג, et ressortait en REF_FAUSSE contre Chabbat ו ע״א.
-RE_SK_NU = re.compile(r'(?:ס["״]?ק|סעיף\s*קטן)\s*(?P<sk>[\dא-ת"״\'׳]{1,4})')
+# Les frontières de mot sont obligatoires : sans elles, « ס״ק » se retrouvait à
+# l'intérieur de פוסקים, et le mot était lu comme une référence de sa′if katan.
+RE_SK_NU = re.compile(r'(?<![א-ת])(?:ס["״]?ק|סעיף\s*קטן)(?![א-ת])\s*(?P<sk>[\dא-ת"״\'׳]{1,4})')
 
 
 def ref_mb_du_siman(path, ctx):
@@ -1052,6 +1117,23 @@ OUVRAGES = [
     (r'ב["״]י|בית יוסף', 'Beit_Yosef,_Orach_Chayim.{s}', 'Beit_Yosef,_Yoreh_Deah.{s}', False),
     (r'(?<![א-ת])טור(?![א-ת])', 'Tur,_Orach_Chayim.{s}', 'Tur,_Yoreh_Deah.{s}', False),
     (r'ביה["״]ל|ביאור הלכה', 'Biur_Halacha.{s}', None, False),
+    # Le Pit'hei Techouva et le Baer Hetev sont les deux appareils les plus cités
+    # des niveaux 4 de Yoré Déa, et ils manquaient à cette table : leurs citations
+    # partaient toutes en « sans référence ». Les deux slugs n'existent que pour
+    # Yoré Déa (l'endpoint Orah Haïm renvoie une erreur), d'où le gabarit OH à None.
+    (r'פת["״]ש|פתחי תשובה', None,
+     "Pitchei_Teshuva_on_Shulchan_Arukh,_Yoreh_De'ah.{s}.{n}", True),
+    (r'באר היטב|ב["״]ה(?![א-ת])', None,
+     "Beer_Hetev_on_Shulchan_Arukh,_Yoreh_De'ah.{s}.{n}", True),
+    # Les Nekoudot HaKessef sont la reponse du Chakh au Taz : sur plusieurs simanim
+    # ce sont elles qui tranchent, et deux agents de production ont du renoncer a
+    # les citer mot a mot faute de reference resolvable — ils sont passes par le
+    # report verbatim du Baer Hetev. Le gabarit s'arrete au SIMAN, sans second
+    # niveau : l'index de Sefaria y est un simple numero d'ordre, pas le sk du Taz
+    # ni le seif du Mehaber (chaque segment nomme lui-meme son ancrage). Un second
+    # niveau produirait donc des references fausses.
+    (r'נקודות הכסף|נקה["״]כ', None,
+     "Nekudot_HaKesef_on_Shulchan_Arukh,_Yoreh_De'ah.{s}", False),
 ]
 _OUVRAGES = [(re.compile(sig), oh, yd, n2) for sig, oh, yd, n2 in OUVRAGES]
 
@@ -1071,8 +1153,51 @@ RE_PEREK_MISHNAH = re.compile(
 
 RE_VERSET = re.compile(r'(?:שנאמר|ואומר|דכתיב|כדכתיב|וכתיב|כמו שנאמר)\s*[:"«„]?\s*$')
 RE_SIMAN_SEIF = re.compile(r'(?P<s>[\dא-ת"״\'׳]{1,6})\s*[:׃]\s*(?P<n>[\dא-ת"״\'׳]{1,4})')
-RE_SIMAN_NOMME = re.compile(r'(?:או["״]?ח|יו["״]?ד|סימן|סי[\'׳])\s*'
+# Idem, et le cas est spectaculaire : sans frontière, « יו״ד » sans gershayim
+# matchait les trois premières lettres de יוֹדֵעַ, et la lettre suivante — le ע de
+# יודע — était lue comme le numéro du siman, soit 70. Une citation exacte du Chakh
+# sur le siman 129 ressortait ainsi en REF_FAUSSE contre le Chakh du siman 70.
+RE_SIMAN_NOMME = re.compile(r'(?<![א-ת])(?:או["״]?ח|יו["״]?ד|סימן|סי[\'׳])(?![א-ת])\s*'
                             r'(?P<s>[\dא-ת"״\'׳]{1,6})')
+# La forme complète, qui nomme le recueil avec le siman.
+RE_TOUR_SIMAN = re.compile(r'(?<![א-ת])(?:או["״]?ח|יו["״]?ד)(?![א-ת])\s*'
+                           r'(?:סימן\s*|סי[\'׳]\s*)?(?P<s>[\dא-ת"״\'׳]{1,6})')
+
+
+def _plus_proche(rx, ctx):
+    """La correspondance la plus proche de la citation, avant ou après elle.
+
+    Une ligne portant plusieurs citations donne plusieurs ס״ק dans la fenêtre, et
+    la référence peut être écrite avant la citation (« Le Chakh (ס״ק נ׳) : “…” »)
+    comme après (« “…” (ס״ק נ׳) »). Le dépôt emploie les deux tournures. Prendre la
+    première correspondance de la fenêtre revenait donc à hériter du ס״ק de la
+    citation voisine — trois fois sur le seul siman 124, contre des pages qui
+    portaient pourtant la bonne référence juste à côté.
+
+    On mesure la distance à la citation : pour ce qui la précède, ce qui reste
+    après la correspondance ; pour ce qui la suit, ce qui la précède.
+
+    La recherche porte sur la fenêtre ENTIÈRE, et non sur les deux moitiés
+    découpées autour de la sentinelle : un appelant qui lit ce qui SUIT la
+    correspondance (`ctx[m.end():…]`, pour y trouver le siman collé à la sigle)
+    a besoin de positions valables dans la fenêtre. Découpée, la moitié d'après
+    rendait des positions décalées de toute la longueur de la moitié d'avant, et
+    « (ט״ז יו״ד קל״א ס״ק ג) » se voyait lire le siman ק״ל d'une phrase précédente.
+    """
+    pivot = ctx.find(SENTINELLE)
+    if pivot < 0:
+        pivot = len(ctx)
+    meilleur, distance = None, None
+    for m in rx.finditer(ctx):
+        if m.start() > pivot:
+            d = m.start() - (pivot + len(SENTINELLE))
+        elif m.end() <= pivot:
+            d = pivot - m.end()
+        else:
+            continue          # à cheval sur la citation : ce n'est pas une référence
+        if distance is None or d < distance:
+            meilleur, distance = m, d
+    return meilleur
 
 
 def candidats_ouvrages(path, ctx):
@@ -1087,12 +1212,22 @@ def candidats_ouvrages(path, ctx):
     m = re.search(r'siman-(\d+)', p)
     siman_page = int(m.group(1)) if m else None
 
-    m = RE_SIMAN_NOMME.search(ctx)
+    # « ש״ך יו״ד קכ״ד ס״ק ע״א » nomme le recueil ET le siman : c'est une référence
+    # complète. « תשובת מהרי״ל סימן ל״ח », cité au passage dans la prose, n'est
+    # qu'un numéro. À proximité égale la seconde forme l'emportait, et la citation
+    # partait chercher le Chakh du siman 38. La forme complète prime donc, où
+    # qu'elle soit dans la fenêtre.
+    m = _plus_proche(RE_TOUR_SIMAN, ctx) or _plus_proche(RE_SIMAN_NOMME, ctx)
     siman = (_num(m.group('s')) if m else None) or siman_page
     if not siman:
         return []
 
-    k = RE_SK_NU.search(ctx)
+    # Une ligne portant plusieurs citations donne plusieurs ס״ק dans la fenêtre.
+    # Celui de NOTRE citation est le premier de ce qui la SUIT ; prendre le premier
+    # de toute la fenêtre revenait à hériter du ס״ק de la citation précédente. Vu au
+    # siman 127, où « … דנשים עצלניות הן » (ש״ך ס״ק ל) était confronté au ס״ק כ״ט
+    # de la clause voisine, et au siman 125 pour le ס״ק ב lu comme ס״ק א.
+    k = _plus_proche(RE_SK_NU, ctx)
     n = _num(k.group('sk')) if k else None
     if n is None:
         m2 = RE_SIMAN_SEIF.search(ctx)
@@ -1100,7 +1235,12 @@ def candidats_ouvrages(path, ctx):
 
     out = []
     for rx, oh, ydg, n2 in _OUVRAGES:
-        m = rx.search(ctx)
+        # La sigle à retenir est celle qui accompagne LA citation, pas la première
+        # de la fenêtre. « והש״ך מבאר … : “…” (ש״ך יו״ד קכ״ט ס״ק ל״ד) » nomme le
+        # Chakh deux fois : dans la prose d'abord, dans la référence ensuite. La
+        # première occurrence n'est suivie d'aucun numéro, et c'est pourtant elle
+        # qui fixait la fenêtre où lire le siman.
+        m = _plus_proche(rx, ctx)
         if not m:
             continue
         gabarit = ydg if yd else oh
@@ -1110,8 +1250,21 @@ def candidats_ouvrages(path, ctx):
         # dans la fenêtre : « (שו״ע הרב קי״ד:א) » désigne le séif א du siman קי״ד,
         # et non le premier « X:Y » rencontré soixante caractères plus tôt, qui
         # appartient à une autre proposition de la même ligne.
-        proche = ctx[m.end():m.end() + 60]
-        s_loc = RE_SIMAN_NOMME.search(proche)
+        # La coupure à 60 caractères ne doit pas tomber AU MILIEU d'un numéral
+        # hébreu : « … יו״ד ק|כ״ט … » laissait lire ק seul, soit le siman 100, et
+        # le Chakh du siman 129 était cherché sur le siman 100. On prolonge donc
+        # jusqu'à la fin du mot commencé.
+        fin = min(len(ctx), m.end() + 60)
+        while fin < len(ctx) and re.match(r'[א-ת"״\'׳]', ctx[fin]):
+            fin += 1
+        proche = ctx[m.end():fin]
+        # Le siman local ne peut être qu'une forme COMPLÈTE (« יו״ד קכ״ד »), jamais
+        # un « סימן ל״ח » nu : la fenêtre au niveau supérieur a déjà donné priorité
+        # à la forme complète, et un numéro nu cité au passage dans la prose la
+        # renverserait. Vu au siman 124 : « (ש״ך יו״ד קכ״ד ס״ק ע״א) … תשובת מהרי״ל
+        # סימן ל״ח … “citation” » envoyait le Chakh du siman 124 chercher sa
+        # קבלה dans le siman 38.
+        s_loc = RE_TOUR_SIMAN.search(proche)
         m_loc = RE_SIMAN_SEIF.search(proche)
         k_loc = RE_SK_NU.search(proche)
         si = (_num(s_loc.group('s')) if s_loc else None) \
@@ -1162,11 +1315,23 @@ def main():
     # à quatre lignes, et le rapport complet — le seul document qui dise ce qui
     # reste à corriger — a été perdu en silence jusqu'à ce qu'on le remarque.
     if args.csv is None:
-        cible = os.path.normpath(args.path).strip(os.sep)
+        cible = os.path.normpath(args.path)
+        # Un chemin ABSOLU — vu quand un agent vérifiait une copie de son scratchpad —
+        # produisait un nom de rapport tiré du chemin entier :
+        # « audit/citations-home-user-Daat.ai-scratchpad-yd-128-niveau4-check-siman-128.csv ».
+        # Un CSV parasite dans audit/, aussitôt emporté par le prochain git add -A.
+        # On ramène la cible au dépôt, et hors de sources/ on n'écrit aucun rapport.
+        try:
+            cible = os.path.relpath(os.path.abspath(cible), ROOT)
+        except ValueError:
+            cible = cible
+        cible = cible.strip(os.sep)
         if cible in ('sources', '.', ''):
             args.csv = 'audit/citations-verifiees.csv'
-        else:
+        elif cible.startswith('sources' + os.sep):
             args.csv = 'audit/citations-%s.csv' % re.sub(r'[^\w.-]+', '-', cible).strip('-')
+        else:
+            args.csv = None      # hors du contenu du site : contrôle sans rapport
 
     langues = set(args.langues.split(','))
     base = args.path if os.path.isabs(args.path) else os.path.join(ROOT, args.path)
@@ -1184,6 +1349,18 @@ def main():
             at = plain.find(frag)
             window = fenetre_ref(plain, at, len(frag)) if at >= 0 else plain
             refs = refs_in(window)
+            if not refs:
+                # `candidats_ouvrages` n'intervenait qu'en REPLI, après un verdict
+                # ABSENT — donc jamais quand AUCUNE référence primaire n'avait été
+                # résolue. Or la forme conventionnelle du dépôt pour les nossei
+                # kelim, « (ש״ך יו״ד קכ״ח ס״ק ג) », n'en produit aucune : elle n'a
+                # pas de deux-points, que RE_SA_HE exige. Ces citations partaient
+                # donc en « sans référence » et n'étaient JAMAIS vérifiées — 85 des
+                # 221 citations d'un seul siman, et la totalité du Chakh et du Taz
+                # sur les 50 simanim de Yoré Déa déjà en ligne.
+                # L'ouvrage nommé dans la fenêtre devient donc une résolution de
+                # PREMIER rang quand il n'y en a pas d'autre.
+                refs = [c for c in candidats_ouvrages(path, window) if c]
             if not refs:
                 stats['SANS_REF'] += 1
                 continue
