@@ -104,6 +104,31 @@ python3 scripts/verifier-citations.py --path sources/shabbat/siman-297
 python3 scripts/verifier-langues.py            # tout le site
 python3 scripts/verifier-langues.py --lignes   # + la liste des blocs à traduire
 
+# Garde-fou de source pour Yoré Déa — la concaténation des <blockquote class="text-source">
+# du niveau 1 reproduit-elle VERBATIM, et dans l'ordre, la totalité des seifim que
+# Sefaria donne pour ce siman ? Consonnes comparées, nikoud et ponctuation libres.
+# Contrôle aussi la parité FR/HE/EN du texte source. L'équivalent d'Orah Haïm est
+# verify-oh-source.py ; Hilkhot Shabbat n'en a pas encore.
+python3 scripts/verify-yd-source.py 129 130 131
+
+# Garde-fou d'URL et de langue — le nom du FICHIER promet une langue, le lang= en
+# annonce une, et le corps en parle une troisième. verifier-langues.py compare la
+# page à ce qu'elle DÉCLARE ; celui-ci la compare à ce que son URL PROMET, et
+# compare les trois corps entre eux pour repérer une variante jamais traduite.
+python3 scripts/verifier-url-langue.py --path sources/yoreh-deah [--details]
+
+# Garde-fou de liens — rejoue les rewrites et redirects de vercel.json pour savoir
+# si chaque lien interne mène à un fichier réel. Un lien vers /yd/133/ pendant que
+# le siman 133 n'existe pas est un 404 en production que rien d'autre ne voit.
+python3 scripts/verifier-liens.py
+
+# Garde-fou de charpente — la page est-elle un document HTML bien formé ? Un « < »
+# à l'intérieur d'une balise, une balise unique en double, un <style> jamais refermé,
+# un fichier qui ne finit pas par </html>, un <html> sans lang. Le navigateur
+# s'accommode de tout cela en silence : trois index du siman 132 ont été publiés
+# portant <body<body class="…"> sans qu'aucun autre contrôle ne bronche.
+python3 scripts/verifier-balises.py [--path …] [--lignes]
+
 # Generate a siman's index page from data/simanim/siman-XXX.json (does NOT generate study levels — those are written by hand)
 node scripts/generate-siman.js --siman XXX [--force] [--no-sitemap]
 ```
@@ -111,6 +136,15 @@ node scripts/generate-siman.js --siman XXX [--force] [--no-sitemap]
 There is no test suite and no linter. Three complementary gates stand in for one: `scripts/audit-simanim.py` checks **structure** (boilerplate, missing files, desynced TOC), `scripts/verifier-citations.py` checks **content** (does each Hebrew quote actually exist at the reference it claims?), and `scripts/verifier-langues.py` checks **language** (is the body of `X-en.html` actually English — and is its `<title>`/`og:title`/`description`?). None subsumes the others — a page can be 174/174 conforme, carry no false citation, and still be a French page served under `lang="en"`, which is what four pages of simanim 304 and 322 were; 212 further pages had a correct body under a French head, which only the third scale of `verifier-langues.py` can see. Run all three before declaring content work done; the SessionStart hook (`.claude/hooks/session-start.sh`, remote-only) runs `npm install` then this audit at the start of every web session.
 
 A fourth gate watches what those three structurally cannot see. The four halakhic errors found in the rabbinic audit of August 2026 (simanim 318, 253, 308, 320) passed all three without a single alert, because **no citation was false** — the Hebrew was verbatim, the structure was sound, the language was right; it was the French reasoning built on top that was wrong. Proof: `verifier-citations.py --path sources/shabbat/siman-320` returned 0 anomalies on a page whose séif 320:6 (ש״כ:ו — `מותר לסחוט לימוני״ש`, the decisive permission on lemon) was never mentioned at all. `scripts/veilleur.py` looks for the shared signature of those four: **A** a séif of the Choulhan Aroukh that no page of the siman ever mentions; **B** an absolute formulation (« une seule crainte », « n'est pas … en soi », a crossed Mehaber/Rama attribution), weighted by observed yield; **C** a concept present in level 1 or level 4 but absent from the level-3 synthesis — the site then holds its own correction without knowing it.
+
+**Quatre contrôles de plus sont nés en produisant Yoré Déa 119-145, chacun d'un défaut qu'aucun des autres ne pouvait voir.** Ils ne sont pas facultatifs : chacun a trouvé, sur des pages déjà publiées, quelque chose que les trois portes historiques laissaient passer.
+
+- `verify-yd-source.py` — le texte source lui-même. Les 50 simanim de Yoré Déa antérieurs échouent tous : leur niveau 1 développe les abréviations de Sefaria (`ויש אומרים` pour `וי״א`), laisse tomber des parenthèses de sources, remplace des mots par des synonymes. `verifier-citations.py` ne le voyait pas, parce qu'il juge les citations, pas la recopie du texte de base.
+- `verifier-url-langue.py` — l'URL contre le contenu. A trouvé 49 pages dont le `lang=` contredit le nom du fichier et 100 variantes jamais traduites, toutes dans les 50 simanim antérieurs.
+- `verifier-liens.py` — 27 liens morts en production, dont des renvois vers `/oh-quotidien/` pour des simanim qui vivent sous `/oh/`.
+- `verifier-balises.py` — 11 défauts de charpente sur 6 528 pages : `<body<body class="…">` dans trois index du siman 132, un `<li` sans chevron fermant dans un niveau 1 hébreu de Chabbat, des `<em>` à l'intérieur d'un `content=` de meta description.
+
+Deux défauts trouvés à la main pendant ces lots n'ont **toujours pas** de garde-fou, et méritent l'œil du relecteur : (a) une citation dont la référence vit dans un `<p class="src-ref">` à la ligne SUIVANTE échappe entièrement au contrôle, l'extraction étant ligne à ligne — `scripts/plier-citations.py` replie ces blocs, 600 citations des simanim 123-130 n'avaient jamais été confrontées à leur source ; (b) un titre de section en hébreu dans une page française, noyé dans un corps par ailleurs traduit, passe sous le seuil de `verifier-langues.py` — vu sur le niveau 4 du siman 144, dont les huit titres et le sommaire étaient hébreux en FR et en EN. Même chose pour `scripts/fix-two-col.py` : 27 pages employaient les classes `daat-two-col` sans charger la feuille qui les définit, et leur bloc n'était pas mis en page du tout.
 
 The recurring pattern is worth stating plainly, because it dictates where to look: in every case **levels 1 and 4 were correct** (they translate the primary text) and the error was born in the **pedagogical synthesis**, from where it spread to the derived `/questions/` pages and to the index metadata. The veilleur produces **candidates, never verdicts**, and never writes into a page: `--signalements` files them in the reader-report registry as `NEEDS_RABBINIC_VALIDATION`, deduplicated server-side, so the Rav triages machine findings and reader reports in one place. `.github/workflows/veilleur.yml` runs it every Sunday (needs the `ADMIN_PASSWORD` repo secret to file; without it, it reports only).
 
