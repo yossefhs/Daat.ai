@@ -1146,8 +1146,26 @@ _OUVRAGES = [(re.compile(sig), oh, yd, n2) for sig, oh, yd, n2 in OUVRAGES]
 # Le resolveur ne la lisait pas : le siman 1 ecrivait « מקורו במשנה (אבות פ״ב מי״ג) »,
 # reference parfaitement exacte et collee a la citation, et se voyait tout de meme
 # opposer le « (ברכות ה׳:) » d'une proposition suivante.
-MISHNAYOT = dict(MASSEKHTOT, **{'אבות': 'Pirkei_Avot', 'פאה': 'Peah', 'ידים': 'Yadayim',
-                                'ידיים': 'Yadayim', 'אבות דרבי נתן': 'Pirkei_Avot'})
+# MASSEKHTOT ne contient que les traités qui ont un Talmud Bavli. Une michna des
+# ordres Zeraïm ou Tohorot n'y est donc pas, et une citation qui la nomme avec sa
+# référence exacte — « משנה תרומות פ״ח מי״ב », que le Rama nomme au siman 157 —
+# sortait en « sans référence », donc n'était jamais confrontée. On complète ici
+# les traités mishnaïques manquants.
+MISHNAYOT = dict(MASSEKHTOT, **{
+    'אבות': 'Pirkei_Avot', 'אבות דרבי נתן': 'Pirkei_Avot',
+    # Zeraïm
+    'פאה': 'Peah', 'דמאי': 'Demai', 'כלאים': 'Kilayim', 'שביעית': 'Sheviit',
+    'תרומות': 'Terumot', 'מעשרות': 'Maasrot', 'מעשר שני': 'Maaser Sheni',
+    'חלה': 'Challah', 'ערלה': 'Orlah', 'ביכורים': 'Bikkurim', 'בכורים': 'Bikkurim',
+    # Moed, Nezikin, Kodachim sans Bavli
+    'שקלים': 'Shekalim', 'עדיות': 'Eduyot', 'עדויות': 'Eduyot',
+    'מדות': 'Middot', 'מידות': 'Middot', 'קינים': 'Kinnim', 'תמיד': 'Tamid',
+    # Tohorot
+    'כלים': 'Kelim', 'אהלות': 'Oholot', 'נגעים': 'Negaim', 'פרה': 'Parah',
+    'טהרות': 'Tahorot', 'מקואות': 'Mikvaot', 'מכשירין': 'Makhshirin',
+    'זבים': 'Zavim', 'טבול יום': 'Tevul Yom', 'עוקצין': 'Oktzin',
+    'ידים': 'Yadayim', 'ידיים': 'Yadayim',
+})
 RE_PEREK_MISHNAH = re.compile(
     r'(?P<mass>' + '|'.join(sorted((k for k in MISHNAYOT if re.search(r'[א-ת]', k)),
                                    key=len, reverse=True)) + r')\s*'

@@ -48,6 +48,11 @@ CLASSES = [
     # simanim 149 et 152 l'employaient sans le définir : « Interdit » et
     # « Permis » s'y affichaient en noir, et rien ne le signalait.
     'chaud', 'froid',
+    # La glose <small> que Sefaria insère À L'INTÉRIEUR du texte source. Sans
+    # définition, elle s'affiche à la taille du texte principal et ne se
+    # distingue plus de lui : le lecteur prend l'incise de l'éditeur pour la
+    # parole du Mehaber.
+    'sef-small',
 ]
 
 RE_LIEN_CSS = re.compile(r'<link[^>]+href="([^"]+\.css)"', re.I)
