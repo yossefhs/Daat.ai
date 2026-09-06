@@ -111,7 +111,7 @@ def mots_utiles(texte):
     return [w for w in mots if len(w) >= 2]
 
 
-def ancrage(html, sq, n, courts=None):
+def ancrage(html, sq, n, courts=None, src=None):
     """Fin de la section du PREMIER bloc qui reproduit le séif n, et son score.
 
     Le premier, car plusieurs pages reprennent le texte du séif dans une
@@ -138,8 +138,21 @@ def ancrage(html, sq, n, courts=None):
             if not suivant:
                 return None, 1.0
             return suivant.start() + 1, 1.0
-        sc = [(sum(1 for w in tem if w in s) / len(tem), j + 1) for j, s in enumerate(sq)]
-        best, place = max(sc)
+        # Deux scores, et le second départage. Le premier dit quelle part des mots
+        # du bloc se retrouve dans le séif ; à lui seul il met à égalité un séif
+        # court que le bloc reproduit et un séif long qui contient les mêmes mots
+        # parmi cent autres — et l'égalité se tranchait alors par le plus grand
+        # numéro. « אויר רשות היחיד הוא רשות היחיד עד לרקיע » (שמ״ה:ה) marquait
+        # ainsi 100 % sur le séif ה comme sur le séif יט, et partait au séif יט.
+        # Le second score dit quelle part du SÉIF le bloc couvre : il vaut 1 pour
+        # le séif que le bloc reproduit, et peu pour celui qui l'englobe.
+        sc = []
+        for j, s in enumerate(sq):
+            avant = sum(1 for w in tem if w in s) / len(tem)
+            mots = mots_utiles(src[j]) if src else []
+            arriere = (sum(1 for w in mots if w in " ".join(tem)) / len(mots)) if mots else 0.0
+            sc.append((avant, arriere, j + 1))
+        best, _, place = max(sc)
         if place != n or best < SEUIL:
             continue
         suivant = fin_de_section(html, m.end(), m.start())
@@ -170,7 +183,7 @@ def appliquer(siman, T, ecrire):
             if num is None or num > len(src):
                 erreurs.append(f"{p.name} {lettre} : séif hors du siman ({len(src)} séifim)")
                 continue
-            at, score = ancrage(t, sq, num, courts)
+            at, score = ancrage(t, sq, num, courts, src)
             if at is None:
                 erreurs.append(f"{p.name} {lettre} : aucun bloc ne reproduit le séif {num}"
                                f" (meilleur {score:.0%})")
