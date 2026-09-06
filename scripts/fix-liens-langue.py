@@ -27,6 +27,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # propre rapport.
 RE_LIEN = re.compile(r'href="((?:index|niveau-\d-[a-z0-9-]+?))(?<!-he)(?<!-en)\.html((?:#[\w.-]+)?)"')
 SUFFIXES = ('-he', '-en')
+# Forme absolue du même défaut : /yd/160/ depuis une page hébraïque.
+RE_ABS = re.compile(r'href="/yd/(\d+)/"')
 
 
 def main(argv):
@@ -57,6 +59,9 @@ def main(argv):
             return f'href="{stem}{suf}.html{ancre}"'
 
         neuf = RE_LIEN.sub(remplace, html)
+        lang = suf.lstrip('-')
+        neuf, k = RE_ABS.subn(lambda m: 'href="/yd/%s/%s"' % (m.group(1), lang), neuf)
+        n += k
         if n:
             fichiers += 1
             total += n

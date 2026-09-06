@@ -15,6 +15,14 @@ Le même défaut existe sous forme absolue (`/yd/156/` depuis une page hébraïq
 lieu de `/yd/156/he`) : il a été trouvé sur trois index du lot 153-159, et corrigé
 là. Celui-ci est sa forme relative, et il est bien plus répandu.
 
+
+Le défaut existe sous DEUX formes, et le script contrôle les deux :
+  · relative — `href="niveau-2-lamdan.html"` depuis `X-he.html` ;
+  · absolue  — `href="/yd/160/"` depuis `X-he.html`, au lieu de `/yd/160/he`.
+La seconde a été trouvée trois fois sur des index déjà publiés, et une quatrième
+sur le siman 161 pendant sa production. Elle est pire que la première : elle vise
+une URL publique, donc elle survit à toute réorganisation des fichiers.
+
 Ce que le script contrôle : dans toute page `X-he.html` ou `X-en.html`, un lien
 relatif vers `index.html` ou `niveau-N-….html` doit porter le suffixe de langue de
 la page, dès lors que le fichier cible existe. Un lien vers une variante
@@ -43,6 +51,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # propre rapport.
 RE_LIEN = re.compile(r'href="((?:index|niveau-\d-[a-z0-9-]+?))(?<!-he)(?<!-en)\.html((?:#[\w.-]+)?)"')
 SUFFIXES = {'-he': 'he', '-en': 'en'}
+# La forme absolue : /yd/160/ (français) au lieu de /yd/160/he.
+RE_ABS = re.compile(r'href="/yd/(\d+)/"')
 
 
 def defauts(path):
@@ -59,6 +69,11 @@ def defauts(path):
             continue                    # pas de variante : ne rien promettre
         ligne = html.count('\n', 0, m.start()) + 1
         out.append((ligne, m.group(1) + '.html', cible))
+
+    lang = SUFFIXES[suf]
+    for m in RE_ABS.finditer(html):
+        ligne = html.count('\n', 0, m.start()) + 1
+        out.append((ligne, '/yd/%s/' % m.group(1), '/yd/%s/%s' % (m.group(1), lang)))
     return out
 
 
