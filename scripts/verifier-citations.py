@@ -534,11 +534,24 @@ RE_RAMBAM = re.compile(
 RE_MARQUE_RAMBAM = re.compile(r'רמב["״]?ם|רמבם|Rambam|Ramba"m|Ma[ïi]monide|Mishneh\s+Torah', re.I)
 
 
+# La table porte la graphie PLEINE de Sefaria (« הלכות מלווה ולווה »). Le Tour et
+# le Beit Yossef écrivent la défective (« הלכות מלוה ולוה »), et une page qui les
+# suit citait un livre que la table ne reconnaissait pas : la référence tombait
+# alors en « sans référence », donc n'était jamais confrontée — silencieusement.
+# Plutôt que d'énumérer les deux graphies de chaque titre, on compare sur un
+# squelette où les doubles vav et yod sont réduits.
+def _squelette_titre(nom):
+    return nom.replace('וו', 'ו').replace('יי', 'י')
+
+
+_RAMBAM_SQUELETTE = {_squelette_titre(k): v for k, v in HILKHOT_RAMBAM.items()}
+
+
 def _livre_rambam(nom):
     """Le nom cité est-il un livre du Mishné Torah ? (titre exact ou alias sûr)"""
     nom = re.sub(r'\s+', ' ', nom.replace('״', '"').replace('׳', "'")).strip(' "\'')
     nom = ALIAS_RAMBAM.get(nom, nom)
-    return HILKHOT_RAMBAM.get(nom)
+    return HILKHOT_RAMBAM.get(nom) or _RAMBAM_SQUELETTE.get(_squelette_titre(nom))
 
 
 # « משנה סוטה ז׳:א » n'est PAS le folio 7b. Le motif de daf lisait le geresh puis
