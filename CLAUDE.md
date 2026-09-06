@@ -129,6 +129,23 @@ python3 scripts/verifier-liens.py
 # portant <body<body class="…"> sans qu'aucun autre contrôle ne bronche.
 python3 scripts/verifier-balises.py [--path …] [--lignes]
 
+# Garde-fou de mise en page — la classe employée par la page est-elle définie
+# quelque part d'atteignable, son <style> inline ou une feuille qu'elle charge ?
+# Sinon le bloc n'est pas mal mis en page : il ne l'est PAS DU TOUT. 87 pages
+# étaient dans ce cas, dont des tableaux de psak où « Interdit » et « Permis »
+# s'affichaient en noir, et des gloses <small> de Sefaria indistinguables du
+# texte du Mehaber. `fix-classes.py` pose la forme MAJORITAIRE du dépôt.
+python3 scripts/verifier-classes.py [--path …] [--lignes]
+
+# Garde-fou de langue des liens — un lien interne mène-t-il à la page de la MÊME
+# LANGUE ? verifier-liens.py ne juge que l'existence du fichier, et depuis une
+# page -he un lien vers niveau-2-lamdan.html mène à un fichier qui existe très
+# bien : le fichier FRANÇAIS. Deux formes, toutes deux contrôlées — relative
+# (niveau-2-lamdan.html) et absolue (/yd/160/ au lieu de /yd/160/he), la seconde
+# étant la pire puisqu'elle vise une URL publique. 1841 liens étaient fautifs.
+python3 scripts/verifier-liens-langue.py [--path …] [--lignes]
+python3 scripts/fix-liens-langue.py [--dry-run]   # ne réécrit jamais vers une variante absente
+
 # Generate a siman's index page from data/simanim/siman-XXX.json (does NOT generate study levels — those are written by hand)
 node scripts/generate-siman.js --siman XXX [--force] [--no-sitemap]
 ```
@@ -143,6 +160,13 @@ A fourth gate watches what those three structurally cannot see. The four halakhi
 - `verifier-url-langue.py` — l'URL contre le contenu. A trouvé 49 pages dont le `lang=` contredit le nom du fichier et 100 variantes jamais traduites, toutes dans les 50 simanim antérieurs.
 - `verifier-liens.py` — 27 liens morts en production, dont des renvois vers `/oh-quotidien/` pour des simanim qui vivent sous `/oh/`.
 - `verifier-balises.py` — 11 défauts de charpente sur 6 528 pages : `<body<body class="…">` dans trois index du siman 132, un `<li` sans chevron fermant dans un niveau 1 hébreu de Chabbat, des `<em>` à l'intérieur d'un `content=` de meta description.
+
+**Deux autres sont nés en produisant Yoré Déa 146-166**, et ils ne regardent ni le texte ni la langue de la page mais ce qu'elle PROMET au lecteur :
+
+- `verifier-classes.py` — la classe employée est-elle définie quelque part d'atteignable ? 87 pages ne l'avaient pas, dans les trois compartiments. Le bloc n'y était pas mal mis en page, il ne l'était pas du tout : deux colonnes nues avec l'hébreu dans le sens du français, des tableaux de psak où « Interdit » et « Permis » s'affichaient en noir, et — le plus grave — des gloses `<small>` que Sefaria insère À L'INTÉRIEUR des seifim, rendues à la taille du texte principal et donc indistinguables de la parole du Mehaber.
+- `verifier-liens-langue.py` — le lien mène-t-il à la page de la même langue ? **1 841 liens** ne le faisaient pas. `verifier-liens.py` sortait vert : le fichier visé existe parfaitement, c'est le fichier français. Le défaut a deux formes, relative et absolue, et j'ai corrigé trois cas de la seconde à la main sur un lot avant de découvrir qu'il y en avait 224.
+
+La leçon commune à ces deux-là, et elle vaut d'être retenue : **un correctif appliqué à la main sur les cas qu'on a vus n'est pas un correctif**. `fix-two-col.py` a réparé 27 pages ; le même défaut est revenu la semaine suivante sous une autre classe, puis sous la forme d'un lien. Chaque fois qu'un agent signale un défaut « local », mesurer d'abord son étendue réelle — elle a été plus grande que le signalement dans tous les cas sans exception.
 
 Deux défauts trouvés à la main pendant ces lots n'ont **toujours pas** de garde-fou, et méritent l'œil du relecteur : (a) une citation dont la référence vit dans un `<p class="src-ref">` à la ligne SUIVANTE échappe entièrement au contrôle, l'extraction étant ligne à ligne — `scripts/plier-citations.py` replie ces blocs, 600 citations des simanim 123-130 n'avaient jamais été confrontées à leur source ; (b) un titre de section en hébreu dans une page française, noyé dans un corps par ailleurs traduit, passe sous le seuil de `verifier-langues.py` — vu sur le niveau 4 du siman 144, dont les huit titres et le sommaire étaient hébreux en FR et en EN. Même chose pour `scripts/fix-two-col.py` : 27 pages employaient les classes `daat-two-col` sans charger la feuille qui les définit, et leur bloc n'était pas mis en page du tout.
 
