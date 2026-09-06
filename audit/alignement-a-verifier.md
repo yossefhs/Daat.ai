@@ -131,3 +131,39 @@ psak** : elle n'est pas tranchée ici.
 verbatim et renvoie à la glose du Rama en la donnant à vérifier au Rav.
 **Ce qui n'a pas été fait :** la synthèse n'a pas été touchée — ni son raisonnement,
 ni sa conclusion.
+
+---
+
+## Siman 288 — le ta'anit halom : deux affirmations retirées
+
+Signalé par l'utilisateur en septembre 2026, confronté aux sources et corrigé.
+
+**1. « Permis Chabbat — car il sauve une vie ».** Le Choul'han Aroukh HaRav dit
+l'inverse. En רפ״ח:ג il donne deux raisons, et aucune n'est le péril :
+
+> אבל מותר להתענות תענית חלום בשבת כשחלם בו ביום, שיפה תענית לחלום לבטל הגזר דין
+> כאש לנעורת אם מתענה בו ביום, **והתירו לו חכמים בשביל שיקרע גזר דינו**. **ועוד,
+> לפי שאין כאן ביטול עונג שבת לגמרי, כיון שנפשו עגומה עליו בשביל חלומו אם לא
+> יתענה** … אם כן **הרי התענית הזה תענוג הוא לו**.
+
+Et en רפ״ח:ט il écarte le péril nommément :
+
+> שהרי התירו אפילו להתענות על חלום **אף על פי שאין שם סכנת היום**
+
+La page était donc contredite par sa propre source. Les trois langues disent
+maintenant les deux raisons du Choul'han Aroukh HaRav, et non le péril.
+
+**2. « La plupart des poskim contemporains ».** Aucune source du dossier ne
+l'affirme. Le Choul'han Aroukh (רפ״ח:ה) et le Choul'han Aroukh HaRav (רפ״ח:ז)
+donnent tous deux « בזמן הזה אין להתענות » comme **un** יש אומרים parmi plusieurs
+qu'ils énumèrent. Le seul רוב du dossier est dans la Michna Beroura ס״ק ט״ו, et
+il porte sur la pratique du של״ה — *« היה רגיל על הרוב לפסוק שלא להתענות בשבת »*,
+ce que **lui** avait coutume de trancher — non sur le compte des décisionnaires.
+
+Les dix occurrences (trois langues, niveaux 1 et 3) disent maintenant : un avis
+rapporté, avec sa référence, plus la condition que la Michna Beroura pose —
+`אין להתענות בשבת אלא אם כן התענית עונג לו` — et la conduite renvoyée au Rav.
+
+**Ce qui reste à trancher par le Rav :** quelle est, en fait, la conduite reçue
+aujourd'hui. La page ne le dit plus, et ne doit pas le redire sans qu'il l'ait
+établi.
