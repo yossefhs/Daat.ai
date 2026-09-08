@@ -167,3 +167,48 @@ rapporté, avec sa référence, plus la condition que la Michna Beroura pose —
 **Ce qui reste à trancher par le Rav :** quelle est, en fait, la conduite reçue
 aujourd'hui. La page ne le dit plus, et ne doit pas le redire sans qu'il l'ait
 établi.
+
+---
+
+## Chabbat 289 — quatre points signalés par le Rav (septembre 2026)
+
+Le texte hébreu des deux séifim était juste ; les quatre erreurs étaient dans
+l'exposé pédagogique posé dessus. Toutes corrigées, dans les trois langues.
+
+**1. Le jus de raisin n'est pas du hamar medina.** La page le rangeait avec la
+bière, le whisky et le cognac. Or le séif ב ne parle que de
+`שכר ושאר משקין חוץ מהמים` ; le jus de raisin, lui, est du **vin** — berakha
+`בורא פרי הגפן`, apte au Kidoush comme le vin : או״ח רע״ב:ב,
+`וסוחט אדם אשכול של ענבים ואומר עליו קידוש היום`, que notre propre page du
+siman 272 enseigne déjà. Le contresens était pratique : on aurait fait `שהכל`
+sur ce qui appelle `בורא פרי הגפן`. Le défaut vivait aussi au **siman 296**
+(Havdala), où une ligne allait jusqu'à écrire que la berakha du jus de raisin
+« n'est pas boré peri ha-gefen ». 36 remplacements, 15 fichiers.
+
+**2. La quantité du « Kidoush bimkom seuda ».** La page donnait
+« pat ka-beitsa de mezonot, ≈ 56 g de gâteau » comme une règle. Aucune source
+ne parle ainsi ici : le Choul'han Aroukh écrit `אפילו אכל דבר מועט או שתה כוס
+של יין שחייב עליו ברכה`, et `ודוקא אכל לחם או שתה יין אבל אכל פירות לא`
+(רע״ג:ה) ; la Michna Beroura parle d'un `כזית` (רע״ג ס״ק ט). Le `כביצה` avait
+été importé d'une autre halakha — il est bien dans les sources aux simanim 286
+(Rama רפ״ו:ג) et 291, mais pas ici. Tout chiffre fixe est retiré du siman 289.
+
+**3. L'étymologie de `קידושא רבה`.** La page l'attribuait à Pessahim ק״ו ע״א.
+La guemara y emploie bien le nom — `ליקדיש לן מר קידושא רבה` — et y établit que
+le Kidoush du jour n'est que `בורא פרי הגפן`, **mais elle n'explique pas le
+nom**. L'explication est des Rishonim : le Méiri en donne deux,
+`והוא הנקרא קדושא רבה דרך כנוי או שמא על שם שכל הברכות מתעטרות בו`, et le
+Rashbam retient la seconde, `וקרי ליה קידושא רבא דאכולהו קידושי קאמרי ליה`.
+
+**4. L'eau avant la tefila.** La page écrivait que « l'eau ne déclenche pas
+l'obligation ». La raison du Mehaber est nommée dans le séif lui-même :
+`מפני שעדיין לא חל עליו חובת קידוש` — l'obligation ne s'est **pas encore**
+appliquée à lui. Le Choul'han Aroukh HaRav dit de même (רפ״ט:ב).
+
+### Ce qui reste à trancher par le Rav
+
+L'équivalence **`כביצה` ≈ 56 grammes**, employée aux simanim **286** et **291**
+(21 et 6 occurrences). La mesure `כביצה` y est bien dans les sources ; c'est sa
+conversion en grammes qui est donnée sans attribution, alors que les shiourim
+retenus varient d'un décisionnaire à l'autre. Rien n'a été changé là-bas : la
+question est halakhique, pas rédactionnelle.
