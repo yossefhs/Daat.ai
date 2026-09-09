@@ -258,3 +258,47 @@ mots plus loin, donne la raison même de ce siman : `בשבתות וימים ט�
 ומגדי מיני מגדים שטעונים ברכה`. Le récit de Rav Hiya fils de Rav Avya —
 `בשבתא וביומי טבי, טרח וממלי להו באיספרמקי ומגדי` — figure désormais au
 niveau 2 et à la synthèse : c'est la source directe du siman, et elle manquait.
+
+---
+
+## Trois corrections trouvées par le garde-fou de cohérence (10 septembre 2026)
+
+`scripts/verifier-coherence.py` est né de la signature commune aux simanim 288,
+289 et 290 : **un niveau de la page portait déjà la bonne réponse pendant qu'un
+autre en publiait une fausse**. Validé sur le 290 d'avant correction, il y voit
+les deux défauts et sort à zéro une fois corrigés. Il a ensuite trouvé ceci :
+
+**1. Siman 290 — deux chiffres résiduels.** La correction de la veille avait
+retiré le « ≈ 18-22 » mais laissé « Souvent on arrive à 80 — manque ≈ 20 »
+(niveau 1) et « déficit Shabbat ≈ 20 » (niveau 3). Ni 80 ni 20 ne viennent
+d'une source. La méthode de comptage reste ; les totaux inventés s'en vont.
+
+**2. Siman 344 — la mahloket de שבת ס״ט ע״ב.** Le niveau 1 annonçait « une
+discussion célèbre entre Rav Houna et **Rava** ». La guemara oppose רב הונא à
+`חייא בר רב` — `אמר רב הונא… מונה ששה ימים ומשמר יום אחד; חייא בר רב אומר:
+משמר יום אחד ומונה ששה`. Rava figure bien sur la page, mais sur une tout autre
+question. Les niveaux 2 et 3 portaient déjà la bonne paire.
+
+**3. Siman 324 — « מחלוקת רב ושמואל » revenu deux fois.** La correction
+précédente avait rectifié le titre de section mais laissé le sommaire et la
+ligne d'introduction, où un lien intra-ref coupait le nom en deux et le
+soustrayait à toute recherche. La guemara (שבת קנ״ה ע״ב) est sans ambiguïté :
+`אין נותנין מים למורסן, דברי רבי. רבי יוסי בר יהודה אומר: נותנין מים למורסן` —
+et שמואל ne figure ni dans קנ״ה ע״ב ni dans קנ״ו ע״א.
+
+### Ce qui reste à trier, et que je n'ai pas tranché
+
+Le contrôle sort encore des candidats dans les deux autres compartiments, et il
+serait malhonnête de les traiter à la hâte : ce sont des attributions, et elles
+demandent d'ouvrir chaque daf.
+
+  · **Yoré Déa** : 16 références attribuées différemment d'un niveau à l'autre,
+    3 noms attribués à un daf où ils ne figurent pas.
+  · **Orah Haïm** : 3 et 17.
+  · **Chabbat** : 8 noms restants, dont j'ai vérifié un échantillon — le siman
+    287 (רבי מאיר est bien à שבת י״ב ע״א, comme la page le dit) et le siman 292
+    (דוד המלך appartient au midrash que la page nomme, non au daf) sont des
+    artefacts de proximité, non des erreurs.
+
+Aucun de ces candidats n'est un verdict. Le contrôle dit que deux pages ne
+disent pas la même chose, pas laquelle a raison.
