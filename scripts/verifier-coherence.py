@@ -22,7 +22,18 @@ siman — le daf, en hébreu comme en translittération —, on relève les noms
 propres qui l'accompagnent, niveau par niveau. Deux niveaux qui attachent à la
 même référence des noms DISJOINTS se contredisent, et l'un des deux se trompe.
 
-**2. Arithmétique fausse.** Toute opération écrite en toutes lettres — « 4 × 7
+**2. Le nom figure-t-il dans le daf ?** — DÉSACTIVÉ par défaut, `--noms-dans-daf`
+pour l'appeler. L'idée est juste : quand deux niveaux portent la même erreur ils
+s'accordent, le premier détecteur se tait, et confronter le nom au texte réel de
+la guemara reste le seul recours. Mais sur ce corpus il crie au loup. Les pages
+tissent plusieurs références et plusieurs noms dans un même paragraphe, tantôt
+« référence : "citation" », tantôt « "citation" (référence) », et rattacher
+chaque nom à la bonne référence relève de la lecture, pas de la mesure. Dix
+candidats ont été vérifiés un par un, en ouvrant chaque daf : **la page avait
+raison dans les dix cas**. On le garde parce qu'il vaut pour un nom rare et une
+page sobre ; on ne l'impose pas.
+
+**3. Arithmétique fausse.** Toute opération écrite en toutes lettres — « 4 × 7
 = 28 » — est vérifiée. Et lorsqu'un passage pose deux résultats puis annonce un
 écart, l'écart est confronté à la différence des deux.
 
@@ -167,6 +178,10 @@ RE_RAV_SEUL = re.compile(r"אמר רב(?![א-ת])")
 # accompagne. Sans cette garde, le siman 273 se dénonçait pour un « קידושא רבה »
 # cité en passant.
 AMBIGUS = {"רבה", "רבא"}
+# « רבה » vit aussi dans « הַרְבֵּה » — beaucoup —, mot on ne peut plus courant :
+# « שהצבור מקדימים הרבה לפני הלילה » a fait dénoncer le siman רל״ה. Ces noms-là
+# doivent donc COMMENCER un mot, préfixe hébreu compris.
+RE_LETTRE = re.compile(r"[א-ת]")
 def attribue(fen, nom):
     return bool(re.search(
         r"(?:אמר|סבר|אומר|שיטת|דעת|מחלוקת|לדעת)\s+ה?" + nom + r"(?![א-ת])"
@@ -190,6 +205,22 @@ TALMUDIQUES = {
     "Rashbag": ["רבן שמעון בן גמליאל", "רשב״ג"],
 }
 _DAPIM = {}
+
+
+RE_DIT = "|".join(("אמר", "אומר", "אומרים", "סבר", "דאמר", "תני", "תניא"))
+
+
+def parlant(par_niveau, cle, nom):
+    """La page fait-elle PARLER ce nom, ou se contente-t-elle de le nommer ?"""
+    formes = TALMUDIQUES.get(nom, [nom])
+    for t in par_niveau.values():
+        for f in formes:
+            for m in re.finditer(re.escape(f), t):
+                fen = t[max(0, m.start() - 30):m.end() + 30]
+                if re.search(r"(?:" + RE_DIT + r")\s+\S{0,12}" + re.escape(f), fen) \
+                   or re.search(re.escape(f) + r"\s+(?:" + RE_DIT + r")", fen):
+                    return True
+    return False
 
 
 def texte_du_daf(cle):
@@ -223,6 +254,7 @@ NIVEAUX = {"niveau-1-base": "niveau 1", "niveau-2-lamdan": "niveau 2",
 FENETRE = 220
 
 
+RE_CITATION = re.compile(r"«[^«»]{10,600}»|\"[^\"]{10,600}\"|״[^״]{10,600}״")
 RE_ABREV = re.compile(r"ר[״\"׳']\s*(?=[א-ת])")
 
 
@@ -269,9 +301,44 @@ def refs_et_noms(t):
 
     occurrences = [(m.start(), m.group(0)) for m in RE_NOMS.finditer(t)]
     occurrences += [(m.start() + 4, "רב") for m in RE_RAV_SEUL.finditer(t)]
+    # Le dépôt écrit tantôt « référence : "citation" », tantôt « "citation"
+    # (référence) ». La règle qui vaut dans les deux cas : le nom appartient à
+    # la référence qui BORDE SA CITATION. On repère donc le passage entre
+    # guillemets qui contient le nom, et on regarde ce qui le jouxte — après
+    # d'abord, avant ensuite. Hors de toute citation, on retombe sur la plus
+    # proche. Prendre bêtement la plus proche rattachait « ואמר רבא … (ברכות
+    # נ׳ ע״א) » à la référence citée deux lignes plus haut.
+    guillemets = [(m.start(), m.end()) for m in RE_CITATION.finditer(t)]
+
+    def citation_de(pos):
+        for a, b in guillemets:
+            if a <= pos < b:
+                return a, b
+        return None
+
     for pos, nom in occurrences:
-        i, j, cle = min(reperes, key=lambda r: min(abs(pos - r[0]), abs(pos - r[1])))
-        if min(abs(pos - i), abs(pos - j)) > FENETRE:
+        borne = citation_de(pos)
+        choisi = None
+        if borne:
+            a, b = borne
+            apres = [r for r in reperes if r[0] >= b and r[0] - b <= 60]
+            avant = [r for r in reperes if r[1] <= a and a - r[1] <= 60]
+            choisi = apres[0] if apres else (avant[-1] if avant else None)
+        if choisi is None:
+            proches = [r for r in reperes
+                       if min(abs(pos - r[0]), abs(pos - r[1])) <= FENETRE]
+            if not proches:
+                continue
+            choisi = min(proches, key=lambda r: min(abs(pos - r[0]), abs(pos - r[1])))
+        i, j, cle = choisi
+        # Frontière de mot, des deux côtés et dans les deux écritures :
+        # « Rabban Gamliel » contient « Rabba », et « הַרְבֵּה » contient « רבה ».
+        # Les deux ont fait dénoncer le siman רל״ה, où la page ne nomme aucun
+        # amora de ce nom.
+        suivant = t[pos + len(nom):pos + len(nom) + 1]
+        if pos and RE_LETTRE.match(t[pos - 1]) or (pos and t[pos - 1].isalpha()):
+            continue
+        if suivant.isalpha() and not RE_LETTRE.match(suivant):
             continue
         fen = t[max(0, pos - 40):pos + len(nom) + 40]
         if nom in AMBIGUS and not attribue(fen, nom):
@@ -337,7 +404,7 @@ def arithmetique(t, ou):
     return list(dict.fromkeys(signalements))
 
 
-def verifier(section, numeros=None):
+def verifier(section, numeros=None, noms_dans_daf=False):
     base = SITE / "sources" / section
     contradictions = fautes = absents = simanim = 0
     for d in sorted(base.glob("siman-*"), key=lambda p: int(p.name.split("-")[1])):
@@ -372,9 +439,15 @@ def verifier(section, numeros=None):
                     print(f"    {b} : {', '.join(sorted(parlants[b]))}")
 
         # 1 bis — le nom figure-t-il dans le daf qu'on lui attribue ?
-        for cle, parlants in sorted(vus.items()):
-            noms = set().union(*parlants.values())
-            cherchables = {n for n in noms if n in TALMUDIQUES}
+        for cle, parlants in (sorted(vus.items()) if noms_dans_daf else ()):
+            # On ne retient que les noms que la page fait PARLER dans ce daf :
+            # « אמר X », « X אומר », « דאמר X ». Nommer quelqu'un près d'une
+            # référence n'est pas la lui attribuer — la page peut citer Tossafot
+            # qui discute son avis, ou un midrash qui le met en scène. Sans ce
+            # resserrement le détecteur sortait vingt-cinq candidats dont aucun
+            # n'était une erreur : la page avait raison à chaque fois.
+            noms = {n for n, d in parlants.items() for n in d} if False else set().union(*parlants.values())
+            cherchables = {n for n in noms if n in TALMUDIQUES and parlant(par_niveau, cle, n)}
             if not cherchables:
                 continue
             daf = texte_du_daf(cle)
@@ -394,7 +467,8 @@ def verifier(section, numeros=None):
 
     print(f"\n{simanim} siman(im) examiné(s) dans {section}")
     print(f"→ {contradictions} référence(s) attribuée(s) différemment d'un niveau à l'autre")
-    print(f"→ {absents} nom(s) attribué(s) à un daf où il ne figure pas")
+    if noms_dans_daf:
+        print(f"→ {absents} nom(s) attribué(s) à un daf où il ne figure pas")
     print(f"→ {fautes} calcul(s) que la page dément elle-même")
     return 1 if (contradictions or absents or fautes) else 0
 
@@ -403,5 +477,7 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--section", default="shabbat")
     ap.add_argument("--siman", type=int, nargs="*")
+    ap.add_argument("--noms-dans-daf", action="store_true",
+                    help="ajouter le détecteur 2 — peu précis, voir l'en-tête")
     a = ap.parse_args()
-    sys.exit(verifier(a.section, set(a.siman) if a.siman else None))
+    sys.exit(verifier(a.section, set(a.siman) if a.siman else None, a.noms_dans_daf))

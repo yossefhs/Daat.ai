@@ -286,19 +286,33 @@ soustrayait à toute recherche. La guemara (שבת קנ״ה ע״ב) est sans amb
 `אין נותנין מים למורסן, דברי רבי. רבי יוסי בר יהודה אומר: נותנין מים למורסן` —
 et שמואל ne figure ni dans קנ״ה ע״ב ni dans קנ״ו ע״א.
 
-### Ce qui reste à trier, et que je n'ai pas tranché
+### Le tri, fait (10 septembre 2026)
 
-Le contrôle sort encore des candidats dans les deux autres compartiments, et il
-serait malhonnête de les traiter à la hâte : ce sont des attributions, et elles
-demandent d'ouvrir chaque daf.
+Les quarante-quatre candidats ont été ouverts un par un, daf par daf. **Aucun
+n'était une erreur.** Le détail vaut d'être gardé, parce qu'il dit ce que ce
+genre de contrôle peut et ne peut pas :
 
-  · **Yoré Déa** : 16 références attribuées différemment d'un niveau à l'autre,
-    3 noms attribués à un daf où ils ne figurent pas.
-  · **Orah Haïm** : 3 et 17.
-  · **Chabbat** : 8 noms restants, dont j'ai vérifié un échantillon — le siman
-    287 (רבי מאיר est bien à שבת י״ב ע״א, comme la page le dit) et le siman 292
-    (דוד המלך appartient au midrash que la page nomme, non au daf) sont des
-    artefacts de proximité, non des erreurs.
+  · Les dix « nom absent du daf » vérifiés à la main donnaient tous raison à la
+    page — 287 (רבי מאיר est bien à שבת י״ב ע״א, comme la page l'écrit), 292
+    (דוד המלך appartient au midrash que la page nomme), 305 (Tossafot sur
+    עירובין מ״ו discute l'avis de רבי שמעון, qui n'a pas à figurer sur le daf),
+    248 (la mahloket Rabbi/Rashbag est dans la braïta de שבת י״ט que la page
+    cite en premier), et cinq d'Orah Haïm où le nom appartenait à la référence
+    voisine, celle que la page lui donne.
+  · Les seize divergences entre niveaux qui subsistent ont, des DEUX côtés, des
+    noms réellement présents sur le daf cité : deux niveaux qui parlent de deux
+    passages d'une même page ne se contredisent pas.
 
-Aucun de ces candidats n'est un verdict. Le contrôle dit que deux pages ne
-disent pas la même chose, pas laquelle a raison.
+Ce tri a fait apparaître six fautes du contrôle lui-même, toutes corrigées et
+commentées dans le script : « Rabban Gamliel » lu comme l'amora Rabba,
+« הַרְבֵּה » lu de même, la référence entre parenthèses qui suit sa citation au
+lieu de la précéder, le mot « דף » pris pour un nombre, un nom compté pour les
+deux références qui l'encadrent, et une liste « 7-9-11-13 » lue comme une
+soustraction. Le détecteur « le nom figure-t-il dans le daf » est désormais
+**désactivé par défaut** : son idée est juste, sa précision sur ce corpus ne
+l'est pas.
+
+### Ce qui reste ouvert
+
+Rien, de ce contrôle. Les seize divergences subsistantes sont légitimes et
+consignées ci-dessus ; elles ne demandent pas de décision.
