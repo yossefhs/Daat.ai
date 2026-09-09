@@ -11,11 +11,6 @@ Aucun des six autres ne peut le voir. `verifier-liens.py` ne juge que l'existenc
 du fichier ; `verifier-langues.py` et `verifier-url-langue.py` jugent le contenu
 de la page, jamais la destination de ses liens.
 
-Le même défaut existe sous forme absolue (`/yd/156/` depuis une page hébraïque au
-lieu de `/yd/156/he`) : il a été trouvé sur trois index du lot 153-159, et corrigé
-là. Celui-ci est sa forme relative, et il est bien plus répandu.
-
-
 Le défaut existe sous DEUX formes, et le script contrôle les deux :
   · relative — `href="niveau-2-lamdan.html"` depuis `X-he.html` ;
   · absolue  — `href="/yd/160/"` depuis `X-he.html`, au lieu de `/yd/160/he`.
