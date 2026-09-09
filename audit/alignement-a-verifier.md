@@ -212,3 +212,49 @@ L'équivalence **`כביצה` ≈ 56 grammes**, employée aux simanim **286** et
 conversion en grammes qui est donnée sans attribution, alors que les shiourim
 retenus varient d'un décisionnaire à l'autre. Rien n'a été changé là-bas : la
 question est halakhique, pas rédactionnelle.
+
+---
+
+## Chabbat 290 — cinq points signalés par le Rav (9 septembre 2026)
+
+Le texte hébreu des deux séifim était juste, et le **niveau 2 était déjà correct**
+sur l'attribution — ce sont les niveaux 1 et 3 qui s'en écartaient. Le schéma
+habituel du dépôt, une fois de plus : l'erreur naît dans la couche pédagogique.
+
+**1. L'attribution des cent berakhot.** La page donnait « halakha de David
+HaMelekh (Menahot 43b) ». Menahot מ״ג ע״ב l'énonce au nom de **Rabbi Meïr** :
+`תניא, היה רבי מאיר אומר: חייב אדם לברך מאה ברכות בכל יום`. La takana de David
+est ailleurs — le **Tour** או״ח מ״ו la rapporte au nom de **Rav Netronaï Gaon** :
+`והשיב רב נטרונאי… דהע״ה תקן מאה ברכות`. Le niveau 2 renvoyait à « טור ושו״ע
+סי׳ מ״ו » : le Choul'han Aroukh מ״ו:ג ne donne que l'obligation, sans
+l'attribution — `חייב אדם לברך בכל יום מאה ברכות לפחות`.
+
+**2. « Dire ou répondre Amen ».** La baraïta dit `חייב אדם לברך` — prononcer.
+Que des berakhot entendues comptent dans des cas précis est un avis de
+décisionnaires ; la page l'énonçait comme la définition de l'obligation. La
+ligne pratique renvoie désormais la question au Rav.
+
+**3. Le calcul.** La page annonçait « ≈ 18-22 » tout en posant 4 × 7 = 28 contre
+3 × 19 = 57, ce qui fait **29**. Le niveau 2 du même siman écrivait déjà
+`חיסור: כ-29 ברכות`. Aucun chiffre final n'est plus avancé : la Michna Beroura
+(ר״צ ס״ק ב) dit seulement `שנחסר לו כמה ברכות שבתפלת שבת יש רק ז׳ ברכות וע״כ
+ישתדל להשלימם`, sans cadrer de total.
+
+**4. Le raisin.** « raisin (ha-gefen non-Kidoush) » était faux : un raisin frais
+se bénit `בורא פרי העץ`. Michna Berakhot ו׳:א — `על פירות האילן אומר בורא פרי
+העץ, חוץ מן היין, שעל היין אומר בורא פרי הגפן`. `בורא פרי הגפן` est pour le vin
+et le jus de raisin.
+
+**5. « Chaque odeur = une berakha ».** C'est chaque **catégorie**, non chaque
+bouffée. או״ח רי״ז:א — `ישב שם כל היום אינו מברך אלא אחת`, et même en sortant
+et rentrant, `היה דעתו לחזור לא יברך` ; et או״ח רט״ז:א — `אבל לאחריו אין צריך
+לברך`.
+
+**6. Trouvé en vérifiant** (le garde-fou de citations l'a signalé) : le derash
+`אל תקרא מה אלא מאה` était placé À L'INTÉRIEUR de la citation de la guemara.
+Il est de **Rachi** sur place : `מה ה׳ אלהיך וגו׳ — קרי ביה מאה`. Et Rachi, deux
+mots plus loin, donne la raison même de ce siman : `בשבתות וימים טובים — דלא
+מצלו י״ח`, puis `טרח וממלא להו — למאה ברכות`, `באספרמקי ומגדי — אספרמקי בשמים
+ומגדי מיני מגדים שטעונים ברכה`. Le récit de Rav Hiya fils de Rav Avya —
+`בשבתא וביומי טבי, טרח וממלי להו באיספרמקי ומגדי` — figure désormais au
+niveau 2 et à la synthèse : c'est la source directe du siman, et elle manquait.
