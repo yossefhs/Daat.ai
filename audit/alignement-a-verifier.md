@@ -316,3 +316,58 @@ l'est pas.
 
 Rien, de ce contrôle. Les seize divergences subsistantes sont légitimes et
 consignées ci-dessus ; elles ne demandent pas de décision.
+
+---
+
+## Chabbat 291 — six points signalés par le Rav (10 septembre 2026)
+
+**1. « Seouda Chelichit est une mitsva de la Torah ».** Le Mehaber n'écrit que
+`יהא זהיר מאוד לקיים סעודה שלישית`. Le verset de שמות טז:כה n'est pas une
+source biblique au sens propre : la Michna Beroura le dit en toutes lettres —
+`ואסמכוהו אקרא` (רצ״א ס״ק א), ils l'ont *appuyé* sur un verset. Le niveau 2 de
+la même page portait déjà la mahloket (R. Tam contre le Ran et la plupart) ;
+c'est le niveau 1 qui écrivait « source biblique » sans la nuance.
+
+**2. « après 'Hatsot ».** Le Mehaber donne une mesure halakhique :
+`זמנה משיגיע זמן המנחה דהיינו משש שעות ומחצה ולמעלה`, et le Choul'han Aroukh
+HaRav de même (רצ״א:ב). Les pages posaient « ≈ 12h30 » comme un seuil — une
+heure de montre qui change tout au long de l'année. Tous les seuils horaires
+sont remplacés par la mesure elle-même.
+
+**3. Minha avant ou après.** Les niveaux 1 et 3 concluaient déjà juste. Seul le
+titre du niveau 2 posait la question sans la trancher ; il porte désormais la
+conclusion : Minha d'abord, comme le Rama (`וכן נוהגים לכתחלה בכל מדינות אלו`)
+et le Choul'han Aroukh HaRav (רצ״א:ב et רצ״א:ד).
+
+**4. Le lehem michné.** Le Mehaber demande DEUX pains — `אבל צריך לבצוע על שתי
+ככרות`. Le Rama rapporte le minhag d'un seul et **conclut** :
+`אבל יש להחמיר ליקח שנים`. Le Choul'han Aroukh HaRav tranche de même (רצ״א:ז) :
+`אבל יש להחמיר לקחת שנים כסברא הראשונה שהוא עיקר`. Les traductions du séif
+portaient déjà cette conclusion ; ce sont les RÉSUMÉS — quatorze lignes dans
+les trois langues — qui inversaient l'accent, donnant le minhag d'un pain pour
+la pratique et les deux pains pour une option.
+
+**5. L'ordre des aliments.** Vérifié : les pages le donnaient déjà exactement
+comme le séif ה — le pain d'abord, puis les cinq céréales, puis viande et
+poisson, puis les fruits, et `וסברא ראשונה עיקר`. Rien à changer.
+
+**6. Le Oneg.** La règle `ואם אי אפשר לו כלל לאכול אינו חייב לצער את עצמו`
+figurait sans sa raison. La Michna Beroura la donne en cinq mots :
+`דהסעודה לעונג ניתנה ולא לצער` (רצ״א ס״ק ג), désormais citée.
+
+### Trouvé en vérifiant
+
+Le niveau 2 attribuait à **רב חסדא**, entre guillemets et au nom de
+ברכות כ״ו ע״ב, une phrase qui n'est pas de lui : `רב חסדא` ne figure nulle part
+dans ce daf, et la définition y est donnée **anonymement**, dans la baraïta —
+`ואיזו היא מנחה גדולה? משש שעות ומחצה ולמעלה`. C'est la deuxième attribution
+fabriquée de la campagne après le « אמר רב » du siman 289.
+
+Et le niveau 2 rattachait la conclusion « la plupart tiennent דרבנן » à
+`מ״ב סק״ב`, qui traite du כביצה. Le passage utile est au `ס״ק א`.
+
+### Ce qui reste ouvert
+
+Le « ≈ 56 g » du כביצה est laissé tel quel : la mesure est bien dans le séif,
+et sa conversion en grammes est déjà au registre comme question halakhique
+(simanim 286 et 291).
