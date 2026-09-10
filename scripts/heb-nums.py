@@ -8,8 +8,20 @@ Portée : navigation prev/next, renvois internes (.intra-ref), autres liens,
 prose visible, et le libellé de fil d'Ariane JSON-LD (« name »).
 Laissés intacts : les <span class="siman-num-fr"> (déjà accolés à un numéral
 hébreu), les mots-clés (meta keywords / JSON-LD keywords), les « headline »
-JSON-LD (déjà structurées avec ·), et tout texte source verbatim
-(blockquote.text-source, .sa-he).
+JSON-LD (déjà structurées avec ·), tout texte source verbatim
+(blockquote.text-source, .sa-he), et **tout ce qui se trouve entre guillemets
+« … »**.
+
+Cette dernière protection vient du siman 169 de Yoré Déa, dont le Tour tient en
+quatre mots : « ראו סימן 168 » — la seule fois de tout le dépôt où une source
+cite elle-même un numéro de siman en chiffres arabes. La conversion en faisait
+« ראו סימן קס״ח · 168 », c'est-à-dire une citation entre guillemets que la
+source ne porte pas. Le contrôle des citations ne l'a PAS vu (18/18 conformes),
+parce qu'il compare des squelettes consonantiques : le numéral hébreu ajouté
+au milieu d'un verbatim lui est invisible. Et la protection existante ne
+couvrait que le texte de base (text-source, sa-he), pas une citation d'appareil.
+La règle du dépôt est pourtant générale — les guillemets sont réservés au
+verbatim — donc c'est le guillemet, et non le conteneur, qui protège.
 """
 import re, sys, glob
 
@@ -29,7 +41,10 @@ def spans(s, pat):
 def convert(path, apply=False):
     s = open(path, encoding='utf-8').read()
     protect = (spans(s, r'<blockquote class="text-source">.*?</blockquote>')
-               + spans(s, r'<[^>]*class="[^"]*sa-he[^"]*"[^>]*>.*?</[a-z]+>'))
+               + spans(s, r'<[^>]*class="[^"]*sa-he[^"]*"[^>]*>.*?</[a-z]+>')
+               # Les guillemets sont réservés au verbatim : ce qu'ils entourent
+               # est la parole d'une source, et ne se réécrit pas.
+               + spans(s, r'«.*?»'))
     scripts = spans(s, r'<script\b.*?</script>')
     out, n = [], 0
     for m in re.finditer(r'סימן(\s+)(\d{1,3})\b', s):
