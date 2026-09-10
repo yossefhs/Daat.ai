@@ -131,3 +131,188 @@ psak** : elle n'est pas tranchée ici.
 verbatim et renvoie à la glose du Rama en la donnant à vérifier au Rav.
 **Ce qui n'a pas été fait :** la synthèse n'a pas été touchée — ni son raisonnement,
 ni sa conclusion.
+
+---
+
+## Siman 288 — le ta'anit halom : deux affirmations retirées
+
+Signalé par l'utilisateur en septembre 2026, confronté aux sources et corrigé.
+
+**1. « Permis Chabbat — car il sauve une vie ».** Le Choul'han Aroukh HaRav dit
+l'inverse. En רפ״ח:ג il donne deux raisons, et aucune n'est le péril :
+
+> אבל מותר להתענות תענית חלום בשבת כשחלם בו ביום, שיפה תענית לחלום לבטל הגזר דין
+> כאש לנעורת אם מתענה בו ביום, **והתירו לו חכמים בשביל שיקרע גזר דינו**. **ועוד,
+> לפי שאין כאן ביטול עונג שבת לגמרי, כיון שנפשו עגומה עליו בשביל חלומו אם לא
+> יתענה** … אם כן **הרי התענית הזה תענוג הוא לו**.
+
+Et en רפ״ח:ט il écarte le péril nommément :
+
+> שהרי התירו אפילו להתענות על חלום **אף על פי שאין שם סכנת היום**
+
+La page était donc contredite par sa propre source. Les trois langues disent
+maintenant les deux raisons du Choul'han Aroukh HaRav, et non le péril.
+
+**2. « La plupart des poskim contemporains ».** Aucune source du dossier ne
+l'affirme. Le Choul'han Aroukh (רפ״ח:ה) et le Choul'han Aroukh HaRav (רפ״ח:ז)
+donnent tous deux « בזמן הזה אין להתענות » comme **un** יש אומרים parmi plusieurs
+qu'ils énumèrent. Le seul רוב du dossier est dans la Michna Beroura ס״ק ט״ו, et
+il porte sur la pratique du של״ה — *« היה רגיל על הרוב לפסוק שלא להתענות בשבת »*,
+ce que **lui** avait coutume de trancher — non sur le compte des décisionnaires.
+
+Les dix occurrences (trois langues, niveaux 1 et 3) disent maintenant : un avis
+rapporté, avec sa référence, plus la condition que la Michna Beroura pose —
+`אין להתענות בשבת אלא אם כן התענית עונג לו` — et la conduite renvoyée au Rav.
+
+**Ce qui reste à trancher par le Rav :** quelle est, en fait, la conduite reçue
+aujourd'hui. La page ne le dit plus, et ne doit pas le redire sans qu'il l'ait
+établi.
+
+---
+
+## Chabbat 289 — quatre points signalés par le Rav (septembre 2026)
+
+Le texte hébreu des deux séifim était juste ; les quatre erreurs étaient dans
+l'exposé pédagogique posé dessus. Toutes corrigées, dans les trois langues.
+
+**1. Le jus de raisin n'est pas du hamar medina.** La page le rangeait avec la
+bière, le whisky et le cognac. Or le séif ב ne parle que de
+`שכר ושאר משקין חוץ מהמים` ; le jus de raisin, lui, est du **vin** — berakha
+`בורא פרי הגפן`, apte au Kidoush comme le vin : או״ח רע״ב:ב,
+`וסוחט אדם אשכול של ענבים ואומר עליו קידוש היום`, que notre propre page du
+siman 272 enseigne déjà. Le contresens était pratique : on aurait fait `שהכל`
+sur ce qui appelle `בורא פרי הגפן`. Le défaut vivait aussi au **siman 296**
+(Havdala), où une ligne allait jusqu'à écrire que la berakha du jus de raisin
+« n'est pas boré peri ha-gefen ». 36 remplacements, 15 fichiers.
+
+**2. La quantité du « Kidoush bimkom seuda ».** La page donnait
+« pat ka-beitsa de mezonot, ≈ 56 g de gâteau » comme une règle. Aucune source
+ne parle ainsi ici : le Choul'han Aroukh écrit `אפילו אכל דבר מועט או שתה כוס
+של יין שחייב עליו ברכה`, et `ודוקא אכל לחם או שתה יין אבל אכל פירות לא`
+(רע״ג:ה) ; la Michna Beroura parle d'un `כזית` (רע״ג ס״ק ט). Le `כביצה` avait
+été importé d'une autre halakha — il est bien dans les sources aux simanim 286
+(Rama רפ״ו:ג) et 291, mais pas ici. Tout chiffre fixe est retiré du siman 289.
+
+**3. L'étymologie de `קידושא רבה`.** La page l'attribuait à Pessahim ק״ו ע״א.
+La guemara y emploie bien le nom — `ליקדיש לן מר קידושא רבה` — et y établit que
+le Kidoush du jour n'est que `בורא פרי הגפן`, **mais elle n'explique pas le
+nom**. L'explication est des Rishonim : le Méiri en donne deux,
+`והוא הנקרא קדושא רבה דרך כנוי או שמא על שם שכל הברכות מתעטרות בו`, et le
+Rashbam retient la seconde, `וקרי ליה קידושא רבא דאכולהו קידושי קאמרי ליה`.
+
+**4. L'eau avant la tefila.** La page écrivait que « l'eau ne déclenche pas
+l'obligation ». La raison du Mehaber est nommée dans le séif lui-même :
+`מפני שעדיין לא חל עליו חובת קידוש` — l'obligation ne s'est **pas encore**
+appliquée à lui. Le Choul'han Aroukh HaRav dit de même (רפ״ט:ב).
+
+### Ce qui reste à trancher par le Rav
+
+L'équivalence **`כביצה` ≈ 56 grammes**, employée aux simanim **286** et **291**
+(21 et 6 occurrences). La mesure `כביצה` y est bien dans les sources ; c'est sa
+conversion en grammes qui est donnée sans attribution, alors que les shiourim
+retenus varient d'un décisionnaire à l'autre. Rien n'a été changé là-bas : la
+question est halakhique, pas rédactionnelle.
+
+---
+
+## Chabbat 290 — cinq points signalés par le Rav (9 septembre 2026)
+
+Le texte hébreu des deux séifim était juste, et le **niveau 2 était déjà correct**
+sur l'attribution — ce sont les niveaux 1 et 3 qui s'en écartaient. Le schéma
+habituel du dépôt, une fois de plus : l'erreur naît dans la couche pédagogique.
+
+**1. L'attribution des cent berakhot.** La page donnait « halakha de David
+HaMelekh (Menahot 43b) ». Menahot מ״ג ע״ב l'énonce au nom de **Rabbi Meïr** :
+`תניא, היה רבי מאיר אומר: חייב אדם לברך מאה ברכות בכל יום`. La takana de David
+est ailleurs — le **Tour** או״ח מ״ו la rapporte au nom de **Rav Netronaï Gaon** :
+`והשיב רב נטרונאי… דהע״ה תקן מאה ברכות`. Le niveau 2 renvoyait à « טור ושו״ע
+סי׳ מ״ו » : le Choul'han Aroukh מ״ו:ג ne donne que l'obligation, sans
+l'attribution — `חייב אדם לברך בכל יום מאה ברכות לפחות`.
+
+**2. « Dire ou répondre Amen ».** La baraïta dit `חייב אדם לברך` — prononcer.
+Que des berakhot entendues comptent dans des cas précis est un avis de
+décisionnaires ; la page l'énonçait comme la définition de l'obligation. La
+ligne pratique renvoie désormais la question au Rav.
+
+**3. Le calcul.** La page annonçait « ≈ 18-22 » tout en posant 4 × 7 = 28 contre
+3 × 19 = 57, ce qui fait **29**. Le niveau 2 du même siman écrivait déjà
+`חיסור: כ-29 ברכות`. Aucun chiffre final n'est plus avancé : la Michna Beroura
+(ר״צ ס״ק ב) dit seulement `שנחסר לו כמה ברכות שבתפלת שבת יש רק ז׳ ברכות וע״כ
+ישתדל להשלימם`, sans cadrer de total.
+
+**4. Le raisin.** « raisin (ha-gefen non-Kidoush) » était faux : un raisin frais
+se bénit `בורא פרי העץ`. Michna Berakhot ו׳:א — `על פירות האילן אומר בורא פרי
+העץ, חוץ מן היין, שעל היין אומר בורא פרי הגפן`. `בורא פרי הגפן` est pour le vin
+et le jus de raisin.
+
+**5. « Chaque odeur = une berakha ».** C'est chaque **catégorie**, non chaque
+bouffée. או״ח רי״ז:א — `ישב שם כל היום אינו מברך אלא אחת`, et même en sortant
+et rentrant, `היה דעתו לחזור לא יברך` ; et או״ח רט״ז:א — `אבל לאחריו אין צריך
+לברך`.
+
+**6. Trouvé en vérifiant** (le garde-fou de citations l'a signalé) : le derash
+`אל תקרא מה אלא מאה` était placé À L'INTÉRIEUR de la citation de la guemara.
+Il est de **Rachi** sur place : `מה ה׳ אלהיך וגו׳ — קרי ביה מאה`. Et Rachi, deux
+mots plus loin, donne la raison même de ce siman : `בשבתות וימים טובים — דלא
+מצלו י״ח`, puis `טרח וממלא להו — למאה ברכות`, `באספרמקי ומגדי — אספרמקי בשמים
+ומגדי מיני מגדים שטעונים ברכה`. Le récit de Rav Hiya fils de Rav Avya —
+`בשבתא וביומי טבי, טרח וממלי להו באיספרמקי ומגדי` — figure désormais au
+niveau 2 et à la synthèse : c'est la source directe du siman, et elle manquait.
+
+---
+
+## Trois corrections trouvées par le garde-fou de cohérence (10 septembre 2026)
+
+`scripts/verifier-coherence.py` est né de la signature commune aux simanim 288,
+289 et 290 : **un niveau de la page portait déjà la bonne réponse pendant qu'un
+autre en publiait une fausse**. Validé sur le 290 d'avant correction, il y voit
+les deux défauts et sort à zéro une fois corrigés. Il a ensuite trouvé ceci :
+
+**1. Siman 290 — deux chiffres résiduels.** La correction de la veille avait
+retiré le « ≈ 18-22 » mais laissé « Souvent on arrive à 80 — manque ≈ 20 »
+(niveau 1) et « déficit Shabbat ≈ 20 » (niveau 3). Ni 80 ni 20 ne viennent
+d'une source. La méthode de comptage reste ; les totaux inventés s'en vont.
+
+**2. Siman 344 — la mahloket de שבת ס״ט ע״ב.** Le niveau 1 annonçait « une
+discussion célèbre entre Rav Houna et **Rava** ». La guemara oppose רב הונא à
+`חייא בר רב` — `אמר רב הונא… מונה ששה ימים ומשמר יום אחד; חייא בר רב אומר:
+משמר יום אחד ומונה ששה`. Rava figure bien sur la page, mais sur une tout autre
+question. Les niveaux 2 et 3 portaient déjà la bonne paire.
+
+**3. Siman 324 — « מחלוקת רב ושמואל » revenu deux fois.** La correction
+précédente avait rectifié le titre de section mais laissé le sommaire et la
+ligne d'introduction, où un lien intra-ref coupait le nom en deux et le
+soustrayait à toute recherche. La guemara (שבת קנ״ה ע״ב) est sans ambiguïté :
+`אין נותנין מים למורסן, דברי רבי. רבי יוסי בר יהודה אומר: נותנין מים למורסן` —
+et שמואל ne figure ni dans קנ״ה ע״ב ni dans קנ״ו ע״א.
+
+### Le tri, fait (10 septembre 2026)
+
+Les quarante-quatre candidats ont été ouverts un par un, daf par daf. **Aucun
+n'était une erreur.** Le détail vaut d'être gardé, parce qu'il dit ce que ce
+genre de contrôle peut et ne peut pas :
+
+  · Les dix « nom absent du daf » vérifiés à la main donnaient tous raison à la
+    page — 287 (רבי מאיר est bien à שבת י״ב ע״א, comme la page l'écrit), 292
+    (דוד המלך appartient au midrash que la page nomme), 305 (Tossafot sur
+    עירובין מ״ו discute l'avis de רבי שמעון, qui n'a pas à figurer sur le daf),
+    248 (la mahloket Rabbi/Rashbag est dans la braïta de שבת י״ט que la page
+    cite en premier), et cinq d'Orah Haïm où le nom appartenait à la référence
+    voisine, celle que la page lui donne.
+  · Les seize divergences entre niveaux qui subsistent ont, des DEUX côtés, des
+    noms réellement présents sur le daf cité : deux niveaux qui parlent de deux
+    passages d'une même page ne se contredisent pas.
+
+Ce tri a fait apparaître six fautes du contrôle lui-même, toutes corrigées et
+commentées dans le script : « Rabban Gamliel » lu comme l'amora Rabba,
+« הַרְבֵּה » lu de même, la référence entre parenthèses qui suit sa citation au
+lieu de la précéder, le mot « דף » pris pour un nombre, un nom compté pour les
+deux références qui l'encadrent, et une liste « 7-9-11-13 » lue comme une
+soustraction. Le détecteur « le nom figure-t-il dans le daf » est désormais
+**désactivé par défaut** : son idée est juste, sa précision sur ce corpus ne
+l'est pas.
+
+### Ce qui reste ouvert
+
+Rien, de ce contrôle. Les seize divergences subsistantes sont légitimes et
+consignées ci-dessus ; elles ne demandent pas de décision.
