@@ -50,7 +50,27 @@ def main(nums):
     for n in nums:
         sef = fetch_yd(n)
         if not sef:
-            print(f"\n=== Siman {n} — ABSENT de Sefaria ==="); ok = False; continue
+            # Sefaria ne renvoie AUCUN seif. Ce n'est pas forcément une anomalie :
+            # au siman 169, cette édition fond le texte dans le siman 168 (son
+            # chapeau s'intitule « קסח-קסט » et le Tour au 169 porte « ראו סימן 168 »).
+            # Le siman reçoit alors une page-passerelle, qui ne doit contenir AUCUN
+            # bloc text-source. L'invariant à vérifier n'est pas « le texte est
+            # identique » mais « la page ne prétend citer aucun seif » — et le
+            # bail-out précédent l'empêchait de se vérifier du tout, sur les trois
+            # langues. C'est ce que fait déjà verify-oh-source.py pour les
+            # page-ponts d'Orah Haïm.
+            print(f"\n=== Siman {n} — aucun seif sur Sefaria (page-passerelle attendue) ===")
+            for lang, suf in [("FR", ""), ("HE", "-he"), ("EN", "-en")]:
+                path = os.path.join(ROOT, f"sources/yoreh-deah/siman-{n}/niveau-1-base{suf}.html")
+                if not os.path.exists(path):
+                    print(f"  {lang}: FICHIER ABSENT {path}"); ok = False; continue
+                nb, _ = page_source(path)
+                bon = (nb == 0)
+                print(f"  {lang}: {nb} blocs text-source | "
+                      f"{'✅ aucun seif prétendu' if bon else '❌ la page cite un seif que la source ne donne pas'}")
+                if not bon:
+                    ok = False
+            continue
         avec = consonants("".join(sef))
         sans = consonants("".join([CHAPEAU.sub('', sef[0])] + sef[1:]))
         print(f"\n=== Siman {n} — Yoré Déa : {len(sef)} seifim sur Sefaria ===")
