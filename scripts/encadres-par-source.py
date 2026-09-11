@@ -39,10 +39,14 @@ TETES = {"": "Ce que dit ce séif :", "-he": "מה אומר הסעיף:", "-en":
 IDX = {"": 0, "-he": 1, "-en": 2}
 # Valeur d'une lettre-numéro de séif. La table s'arrêtait à כ = 20 : le siman 303
 # en compte vingt-sept, et les séifim כ״א à כ״ז faisaient echouer le lot entier
-# avec « séif hors du siman » — alors qu'ils existent bel et bien. Calculée
-# désormais, jusqu'à quarante, plutôt qu'énumérée.
+# avec « séif hors du siman » — alors qu'ils existent bel et bien. Elle fut alors
+# portée à quarante, et le même mur est revenu au siman 308, qui compte
+# cinquante-deux séifim : נ, נא … נב étaient refusés de la même façon. Les
+# dizaines vont donc désormais jusqu'à צ = 90, au-delà de tout siman du
+# Choul'han Aroukh — la borne ne dépend plus du lot qu'on vient d'écrire.
 _UNITES = {c: i + 1 for i, c in enumerate("אבגדהוזחט")}
-_DIZAINES = {"י": 10, "כ": 20, "ל": 30, "מ": 40}
+_DIZAINES = {"י": 10, "כ": 20, "ל": 30, "מ": 40, "נ": 50,
+             "ס": 60, "ע": 70, "פ": 80, "צ": 90}
 
 
 def _val(lettres):
@@ -69,6 +73,14 @@ class _Val(dict):
 
 VAL = _Val()
 RE_TS = re.compile(r'<blockquote class="text-source"[^>]*>(.*?)</blockquote>', re.S)
+# L'étiquette que le bloc se donne lui-même — « <strong>סעיף יח:</strong> » — n'est
+# pas du texte du Choul'han Aroukh, et l'ancrage la comptait comme un mot du séif.
+# Dans un séif long, un mot sur quatorze ne change rien ; dans un séif de cinq mots,
+# il décide de tout : « סומא אסור לו לצאת במקל » (ש״א:יח) passe alors par le test
+# d'inclusion des blocs courts, où le « סעיף » surnuméraire empêche toute
+# correspondance — et le lot entier était refusé. La page anglaise, dont
+# l'étiquette « Seif יח » s'écrit en lettres latines, ne connaissait pas le défaut.
+RE_ETIQ = re.compile(r'^\s*<strong>\s*(?:סעיפים|סעיף|Seifim|Seif)\b[^<]*</strong>\s*')
 RE_TITRE = re.compile(r'<h(?P<rang>[1-6])[^>]*>')
 SEUIL = 0.55
 
@@ -119,7 +131,7 @@ def ancrage(html, sq, n, courts=None, src=None):
     la traduction et l'explication, et donc celle que l'encadré doit refermer.
     """
     for m in RE_TS.finditer(html):
-        txt = re.sub(r"\s+", " ", va.RE_TAG.sub(" ", m.group(1))).strip()
+        txt = re.sub(r"\s+", " ", va.RE_TAG.sub(" ", RE_ETIQ.sub("", m.group(1)))).strip()
         tem = mots_utiles(txt)[:14]
         if len(tem) < 6:
             # Bloc trop court pour le test de recouvrement — mais un séif peut
