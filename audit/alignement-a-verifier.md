@@ -371,3 +371,56 @@ Et le niveau 2 rattachait la conclusion « la plupart tiennent דרבנן » à
 Le « ≈ 56 g » du כביצה est laissé tel quel : la mesure est bien dans le séif,
 et sa conversion en grammes est déjà au registre comme question halakhique
 (simanim 286 et 291).
+
+---
+
+## Charpente — seize simanim de Chabbat dont le niveau 1 ne reproduit pas le Choul'han Aroukh séif par séif (mesure du 11 septembre 2026)
+
+Constaté en cherchant à y poser les encadrés « Ce que dit ce séif » : le moteur
+n'y trouve pas où les ancrer. La mesure ci-dessous dit pourquoi, et elle ne
+relève pas du même défaut que le siman 301, réparé le même jour.
+
+Au 301, la page portait bien ses cinquante et un séifim, un par `<blockquote
+class="text-source">`, chacun étiqueté « סעיף ח: » ; seuls les titres manquaient
+en hébreu et en anglais, et les rendre n'a déplacé aucun texte. Ici, c'est la
+reproduction du texte source elle-même qui ne suit pas la découpe de la source.
+
+| Siman | Séifim au Choul'han Aroukh | Blocs source FR / HE / EN |
+|---|---|---|
+| 242 | 1 | 3 · 3 · 3 |
+| 243 | 2 | 4 · 4 · 4 |
+| 244 | 6 | 0 · 0 · 0 |
+| 245 | 6 | 0 · 0 · 0 |
+| 246 | 5 | 0 · 0 · 0 |
+| 247 | 6 | 7 · 7 · **9** |
+| 248 | 4 | 10 · 10 · 10 |
+| 249 | 4 | **8** · 4 · 4 |
+| 250 | 2 | 3 · 3 · 3 |
+| 251 | 2 | 3 · 3 · 3 |
+| 256 | 1 | 1 · 1 · 1 |
+| 258 | 1 | 1 · 1 · 1 |
+| 259 | 7 | 6 · 6 · 6 |
+| 260 | 2 | 2 · 2 · 2 |
+| 263 | 17 | 15 · 15 · 15 |
+| 264 | 10 | 6 · 6 · 6 |
+
+Trois choses distinctes s'y lisent :
+
+1. **244, 245 et 246 ne reproduisent pas le texte du Choul'han Aroukh** — aucun
+   bloc source, dans aucune des trois langues, pour dix-sept séifim au total.
+2. **Deux divergences trilingues** : le 247 découpe en neuf blocs en anglais
+   contre sept en français et en hébreu ; le 249 en huit en français contre
+   quatre dans les deux autres. Une même source y est donc découpée
+   différemment selon la langue du lecteur.
+3. **Le reste est une découpe qui n'est pas celle de la source** — le 242
+   fragmente son séif unique en trois, le 248 quatre séifim en dix, tandis que
+   le 259, le 263 et le 264 en publient moins qu'il n'y en a (six blocs pour
+   dix séifim au 264).
+
+Le point 3 touche la règle absolue posée après le siman 243 : *« il faut toujours
+que ce soit exactement comme dans le Choul'han Aroukh »* — la découpe entre
+séifim en fait partie. Mais le réparer demande de reprendre le texte source de
+seize pages publiées dans trois langues, ce qui n'est pas un correctif mécanique
+et n'a pas été entrepris : **décision de l'utilisateur attendue**.
+
+Rien n'a été modifié sur ces seize simanim.
