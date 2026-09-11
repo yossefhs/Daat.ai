@@ -48,7 +48,10 @@ SECTIONS = [
         "id": "yoreh-deah",
         "label": "Yoreh De'ah",
         "dir": os.path.join(os.path.dirname(__file__), "..", "sources", "yoreh-deah"),
-        "simanim": [n for n in range(87, 178)] + [n for n in range(183, 201)],
+        # Continu du 87 au 200 depuis le lot 178-182 : la brèche entre le bloc
+        # de l'intérêt et le bloc de נדה (183-200) est fermée. Les deux plages
+        # séparées qui figuraient ici ne décrivaient plus le disque.
+        "simanim": list(range(87, 201)),
         "no_levels": set(),
         "n4_file": "niveau-4-halakha.html",
     },
