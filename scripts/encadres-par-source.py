@@ -39,10 +39,14 @@ TETES = {"": "Ce que dit ce séif :", "-he": "מה אומר הסעיף:", "-en":
 IDX = {"": 0, "-he": 1, "-en": 2}
 # Valeur d'une lettre-numéro de séif. La table s'arrêtait à כ = 20 : le siman 303
 # en compte vingt-sept, et les séifim כ״א à כ״ז faisaient echouer le lot entier
-# avec « séif hors du siman » — alors qu'ils existent bel et bien. Calculée
-# désormais, jusqu'à quarante, plutôt qu'énumérée.
+# avec « séif hors du siman » — alors qu'ils existent bel et bien. Elle fut alors
+# portée à quarante, et le même mur est revenu au siman 308, qui compte
+# cinquante-deux séifim : נ, נא … נב étaient refusés de la même façon. Les
+# dizaines vont donc désormais jusqu'à צ = 90, au-delà de tout siman du
+# Choul'han Aroukh — la borne ne dépend plus du lot qu'on vient d'écrire.
 _UNITES = {c: i + 1 for i, c in enumerate("אבגדהוזחט")}
-_DIZAINES = {"י": 10, "כ": 20, "ל": 30, "מ": 40}
+_DIZAINES = {"י": 10, "כ": 20, "ל": 30, "מ": 40, "נ": 50,
+             "ס": 60, "ע": 70, "פ": 80, "צ": 90}
 
 
 def _val(lettres):
