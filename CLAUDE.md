@@ -108,8 +108,18 @@ python3 scripts/verifier-langues.py --lignes   # + la liste des blocs à traduir
 # du niveau 1 reproduit-elle VERBATIM, et dans l'ordre, la totalité des seifim que
 # Sefaria donne pour ce siman ? Consonnes comparées, nikoud et ponctuation libres.
 # Contrôle aussi la parité FR/HE/EN du texte source. L'équivalent d'Orah Haïm est
-# verify-oh-source.py ; Hilkhot Shabbat n'en a pas encore.
+# verify-oh-source.py, et pour Hilkhot Shabbat verify-chabbat-source.py.
 python3 scripts/verify-yd-source.py 129 130 131
+
+# Garde-fou de source pour Hilkhot Chabbat — le même invariant que ci-dessus, plus
+# la DÉCOUPE : le nombre de blocs source est-il le nombre de séifim ? Rend deux
+# verdicts distincts, IDENTIQUE et ÉQUIVALENT (égal aux matres lectionis près),
+# parce que le ktiv haser/malé est le faux positif dominant et ne dit rien de la
+# fidélité à la source. Premier balayage, 14 septembre 2026 : 44 des 124 simanim
+# divergent au-delà du ktiv, et c'est un bloc — 242-283 et 309-314 ; tout ce qui
+# a été produit à partir du 284 est conforme, le 309-314 excepté.
+python3 scripts/verify-chabbat-source.py 292 301 308
+python3 scripts/verify-chabbat-source.py --tous --bref
 
 # Garde-fou d'URL et de langue — le nom du FICHIER promet une langue, le lang= en
 # annonce une, et le corps en parle une troisième. verifier-langues.py compare la
