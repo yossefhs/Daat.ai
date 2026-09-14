@@ -424,3 +424,43 @@ seize pages publiées dans trois langues, ce qui n'est pas un correctif mécaniq
 et n'a pas été entrepris : **décision de l'utilisateur attendue**.
 
 Rien n'a été modifié sur ces seize simanim.
+
+---
+
+## Siman 292 — Tsidkatekha n'est pas un psaume, et Ezra n'a pas Rabbi Yohanan (14 septembre 2026)
+
+**1. « Un seul psaume ».** L'encadré du niveau 1 présentait צדקתך צדק comme
+« 3 courts versets formant un seul psaume » — en hébreu
+`שלושה פסוקים קצרים המהווים מזמור אחד`, en anglais « 3 short pesukim forming
+one mizmor ». C'est inexact : les trois versets viennent de **trois Tehilim
+différents**, vérifiés un par un à la source —
+
+- תהלים לו:ז — `צדקתך כהררי־אל משפטיך תהום רבה`
+- תהלים עא:יט — `וצדקתך אלהים עד־מרום אשר־עשית גדלות`
+- תהלים קיט:קמב — `צדקתך צדק לעולם ותורתך אמת`
+
+Les trois encadrés portent désormais la formulation retenue par l'utilisateur :
+trois versets tirés de trois Tehilim différents, avec leurs références. Le verset
+cité comme « Contenu » est celui de קיט:קמב, et il est désormais nommé comme tel
+— il était donné auparavant comme s'il résumait les trois.
+
+La traduction du séif, juste en dessous, donnait déjà les trois références
+correctes (`תהלים לו:ז, עא:יט, קיט:קמב`), et le niveau 2 les attribue une par
+une à Moïse, Yossef et David. C'est encore la synthèse pédagogique seule qui
+portait l'erreur, au-dessus de deux niveaux qui savaient juste — le même motif
+que les simanim 288, 289, 290, 324 et 344.
+
+**2. Trouvé en vérifiant — une attribution fabriquée.** Le niveau 2 citait, entre
+guillemets et au nom de בבא קמא פ״ב ע״א :
+`"עזרא תיקן... שיהו קורין במנחה בשבת. מאי טעמא? אמר ר' יוחנן: משום יושבי קרנות"`.
+
+Le `מאי טעמא? אמר ר' יוחנן` n'existe pas à cet endroit. La guemara y donne la
+takana **sans attribution** : `עשרה תקנות תיקן עזרא: שקורין במנחה בשבת` … puis
+`שיהו קוראין במנחה בשבת – משום יושבי קרנות`. Le `אמר רבי יוחנן` du même daf
+appartient à une tout autre sougya — `כי אתא רבי אבין אמר רבי יוחנן`, sur l'arbre
+penché dans le champ du voisin et les bikourim. Une attribution a donc été prise
+ailleurs sur le daf et soudée à celle-ci.
+
+La citation est remplacée par ses deux segments réellement verbatim. C'est la
+troisième attribution fabriquée de la campagne, après le « אמר רב » du siman 289
+et le « רב חסדא » du siman 291.
