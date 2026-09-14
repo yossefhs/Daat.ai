@@ -16,6 +16,17 @@ Les flèches et la forme des libellés sont conservées telles que le dépôt le
     FR/EN   « ← Siman N — titre »  ·  « Siman N — titre → »
     HE      « → סימן ק״נ · N — titre »  ·  « סימן ק״נ · N — titre ← »
 
+⚠️ LE <h1> EST CANONIQUE POUR L'IDENTITÉ DU SIMAN, PAS POUR SON LIBELLÉ DE NAVIGATION.
+Recopié tel quel, il traîne deux choses qui n'ont rien à faire dans une barre de
+navigation : un SOUS-TITRE après deux-points (le siman 183 s'intitule « La femme qui
+voit du sang compte sept jours propres : מקור, הרגשה et le fondement de la Nidah »,
+le 118 « … (חותמות) : un ou deux sceaux, les signes et la נאמנות »), et, en hébreu,
+la VOCALISATION complète (le 143). Le sous-titre explique, il ne nomme pas ; et le
+nikoud d'un libellé de navigation n'est que du bruit.
+Le libellé retenu est donc le titre COUPÉ à son premier deux-points, et dévocalisé
+en hébreu. C'est ce qui a fait renoncer à réaligner 69 libellés des simanim 119-145 :
+la moitié des réécritures dégradait la navigation au lieu de la corriger.
+
 Usage : python3 scripts/nav-titres.py [--dry-run] [--path sources/yoreh-deah]
 Idempotent : un libellé déjà conforme n'est pas réécrit.
 """
@@ -44,11 +55,35 @@ def titre(num, lang):
     return _titres[cle]
 
 
+# Le nikoud et les te'amim SEULEMENT. Le bloc U+0591-U+05C7 contient aussi de la
+# PONCTUATION qui appartient au mot : le maqaf ־ (U+05BE), le paseq (U+05C0), le
+# sof passouq (U+05C3). Les prendre pour du nikoud faisait de « דף־גשר » un
+# « דףגשר » — un mot qui n'existe pas, dans le libellé du siman 169.
+NIKOUD = re.compile(r'[\u0591-\u05BD\u05BF\u05C1\u05C2\u05C4\u05C5\u05C7]')
+
+
+def _elaguer(t, lang):
+    """Le titre, ramené à ce qui NOMME le siman : sans sous-titre, sans nikoud.
+
+    Le deux-points sépare le nom de son explication — on garde le nom. En français
+    il s'écrit « … : … » (espace insécable comprise), en anglais « …: … » ; dans
+    les deux cas on ne coupe que si les deux moitiés sont substantielles, pour ne
+    pas amputer un titre qui emploierait le signe autrement.
+    """
+    if lang == 'he':
+        return NIKOUD.sub('', t).strip()
+    m = re.search(r'[\s\u00a0]*:[\s\u00a0]+', t)
+    if m and m.start() >= 12 and len(t) - m.end() >= 4:
+        return t[:m.start()].strip()
+    return t
+
+
 def libelle(num, lang, sens):
     """Libellé attendu, flèches comprises."""
     t = titre(num, lang)
     if not t:
         return None
+    t = _elaguer(t, lang)
     if lang == 'he':
         # Le <h1> hébreu s'écrit sous deux formes : « סימן ק״נ — titre » et
         # « סימן ק״נ · 150 — titre ». Ne reconnaître que la première faisait
