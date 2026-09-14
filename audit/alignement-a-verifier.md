@@ -464,3 +464,26 @@ ailleurs sur le daf et soudée à celle-ci.
 La citation est remplacée par ses deux segments réellement verbatim. C'est la
 troisième attribution fabriquée de la campagne, après le « אמר רב » du siman 289
 et le « רב חסדא » du siman 291.
+
+---
+
+## Orah Haïm 56 — une citation à 0,39 de sa source annoncée (14 septembre 2026)
+
+Trouvée en publiant les encadrés du lot 54-58, **antérieure à ce lot** et non
+corrigée : le niveau 1 du siman 56 cite, au nom de שבת קי״ט ע״ב,
+
+> `יְהִי שְׁמוֹ הַגָּדוֹל מְבֹרָךְ לְעוֹלָם וּלְעוֹלְמֵי עוֹלָמִים`
+
+`verifier-citations.py` la mesure à **0,39** de ce que donne ce daf — l'écart le
+plus bas rencontré sur le compartiment. La guemara y porte l'araméen
+`אמן יהא שמיה רבא מברך` ; la forme hébraïque citée est une traduction, qui vit
+ailleurs (Rashi, le Tour, le Zohar selon les éditions). Où exactement, je ne l'ai
+pas établi, et **je ne l'ai pas deviné** : la référence n'est pas remplacée.
+
+Deux corrections possibles, et c'est au Rav de trancher laquelle : rendre la
+citation à sa forme araméenne réelle en שבת קי״ט ע״ב, ou garder la forme
+hébraïque en lui donnant sa vraie source.
+
+Les huit autres variantes du lot (simanim 56 et 58, niveaux 1 à 3) sont toutes
+entre 0,85 et 0,98 et toutes antérieures elles aussi — de l'ordre de la variante
+d'édition. Elles sont laissées telles quelles.
