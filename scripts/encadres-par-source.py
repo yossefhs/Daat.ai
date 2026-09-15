@@ -174,8 +174,23 @@ def ancrage(html, sq, n, courts=None, src=None):
     return None, 0.0
 
 
-def appliquer(siman, T, ecrire):
-    src = va.seifim("Shulchan Arukh, Orach Chayim", siman)
+# Les trois compartiments du site et le répertoire où vit chacun. Le moteur était
+# câblé sur « sources/shabbat » : Hilkhot Chabbat étant à 108 simanim sur 124 et
+# les seize qui restent étant bloqués, la campagne ne pouvait plus avancer nulle
+# part, alors que 212 simanim d'Orah Haïm et les 114 de Yoré Déa attendent. Le
+# paramètre est ajouté avec sa valeur d'origine par défaut : rien ne change pour
+# un lot de Chabbat déjà écrit.
+REPERTOIRES = {"shabbat": "shabbat", "orah-haim": "orah-haim", "yoreh-deah": "yoreh-deah"}
+OUVRAGES = {"shabbat": "Shulchan Arukh, Orach Chayim",
+            "orah-haim": "Shulchan Arukh, Orach Chayim",
+            "yoreh-deah": "Shulchan Arukh, Yoreh De'ah"}
+
+
+def appliquer(siman, T, ecrire, section="shabbat"):
+    if section not in REPERTOIRES:
+        print(f"section inconnue : {section} (attendu {', '.join(REPERTOIRES)})")
+        return 1
+    src = va.seifim(OUVRAGES[section], siman)
     if not src:
         print(f"siman {siman} : source Sefaria indisponible")
         return 1
@@ -183,7 +198,7 @@ def appliquer(siman, T, ecrire):
     courts = [" ".join(mots_utiles(s)) for s in src]
     plan, erreurs, n = {}, [], 0
     for suf in ("", "-he", "-en"):
-        p = SITE / f"sources/shabbat/siman-{siman}/niveau-1-base{suf}.html"
+        p = SITE / f"sources/{REPERTOIRES[section]}/siman-{siman}/niveau-1-base{suf}.html"
         t = p.read_text(encoding="utf-8")
         etiquette = TETES[suf]
         if etiquette in t:
@@ -217,5 +232,5 @@ def appliquer(siman, T, ecrire):
     return 0
 
 
-def lancer(siman, T):
-    raise SystemExit(appliquer(siman, T, "--write" in sys.argv))
+def lancer(siman, T, section="shabbat"):
+    raise SystemExit(appliquer(siman, T, "--write" in sys.argv, section))

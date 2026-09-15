@@ -427,6 +427,270 @@ Rien n'a été modifié sur ces seize simanim.
 
 ---
 
+## Siman 292 — Tsidkatekha n'est pas un psaume, et Ezra n'a pas Rabbi Yohanan (14 septembre 2026)
+
+**1. « Un seul psaume ».** L'encadré du niveau 1 présentait צדקתך צדק comme
+« 3 courts versets formant un seul psaume » — en hébreu
+`שלושה פסוקים קצרים המהווים מזמור אחד`, en anglais « 3 short pesukim forming
+one mizmor ». C'est inexact : les trois versets viennent de **trois Tehilim
+différents**, vérifiés un par un à la source —
+
+- תהלים לו:ז — `צדקתך כהררי־אל משפטיך תהום רבה`
+- תהלים עא:יט — `וצדקתך אלהים עד־מרום אשר־עשית גדלות`
+- תהלים קיט:קמב — `צדקתך צדק לעולם ותורתך אמת`
+
+Les trois encadrés portent désormais la formulation retenue par l'utilisateur :
+trois versets tirés de trois Tehilim différents, avec leurs références. Le verset
+cité comme « Contenu » est celui de קיט:קמב, et il est désormais nommé comme tel
+— il était donné auparavant comme s'il résumait les trois.
+
+La traduction du séif, juste en dessous, donnait déjà les trois références
+correctes (`תהלים לו:ז, עא:יט, קיט:קמב`), et le niveau 2 les attribue une par
+une à Moïse, Yossef et David. C'est encore la synthèse pédagogique seule qui
+portait l'erreur, au-dessus de deux niveaux qui savaient juste — le même motif
+que les simanim 288, 289, 290, 324 et 344.
+
+**2. Trouvé en vérifiant — une attribution fabriquée.** Le niveau 2 citait, entre
+guillemets et au nom de בבא קמא פ״ב ע״א :
+`"עזרא תיקן... שיהו קורין במנחה בשבת. מאי טעמא? אמר ר' יוחנן: משום יושבי קרנות"`.
+
+Le `מאי טעמא? אמר ר' יוחנן` n'existe pas à cet endroit. La guemara y donne la
+takana **sans attribution** : `עשרה תקנות תיקן עזרא: שקורין במנחה בשבת` … puis
+`שיהו קוראין במנחה בשבת – משום יושבי קרנות`. Le `אמר רבי יוחנן` du même daf
+appartient à une tout autre sougya — `כי אתא רבי אבין אמר רבי יוחנן`, sur l'arbre
+penché dans le champ du voisin et les bikourim. Une attribution a donc été prise
+ailleurs sur le daf et soudée à celle-ci.
+
+La citation est remplacée par ses deux segments réellement verbatim. C'est la
+troisième attribution fabriquée de la campagne, après le « אמר רב » du siman 289
+et le « רב חסדא » du siman 291.
+
+---
+
+## Orah Haïm 56 — une citation à 0,39 de sa source annoncée (14 septembre 2026)
+
+Trouvée en publiant les encadrés du lot 54-58, **antérieure à ce lot** et non
+corrigée : le niveau 1 du siman 56 cite, au nom de שבת קי״ט ע״ב,
+
+> `יְהִי שְׁמוֹ הַגָּדוֹל מְבֹרָךְ לְעוֹלָם וּלְעוֹלְמֵי עוֹלָמִים`
+
+`verifier-citations.py` la mesure à **0,39** de ce que donne ce daf — l'écart le
+plus bas rencontré sur le compartiment. La guemara y porte l'araméen
+`אמן יהא שמיה רבא מברך` ; la forme hébraïque citée est une traduction, qui vit
+ailleurs (Rashi, le Tour, le Zohar selon les éditions). Où exactement, je ne l'ai
+pas établi, et **je ne l'ai pas deviné** : la référence n'est pas remplacée.
+
+Deux corrections possibles, et c'est au Rav de trancher laquelle : rendre la
+citation à sa forme araméenne réelle en שבת קי״ט ע״ב, ou garder la forme
+hébraïque en lui donnant sa vraie source.
+
+Les huit autres variantes du lot (simanim 56 et 58, niveaux 1 à 3) sont toutes
+entre 0,85 et 0,98 et toutes antérieures elles aussi — de l'ordre de la variante
+d'édition. Elles sont laissées telles quelles.
+
+---
+
+## Siman 293 — l'Arvit anticipée présentée comme une solution pratique (15 septembre 2026)
+
+Six points repris par l'utilisateur dans le Choul'han Aroukh et la Michna Beroura,
+tous confrontés aux sources avant d'être écrits. Le fond des pages était bon ;
+c'est le §3 qui posait un vrai problème.
+
+**1. Les trois petites étoiles — il manquait le POURQUOI.** La page donnait le
+critère sans la raison. La Michna Beroura la donne : en droit trois étoiles
+*moyennes* suffiraient, mais nous ne savons plus les distinguer des grandes, qui
+se voient de jour — `ומדינא סגי בג׳ כוכבים בינונים אלא שאין אנו בקיאין בזה` (ס״ק ג).
+Et le caractère *rapproché* sert la Tossefet Shabbat — `אלא רצופים — משום תוספת שבת`
+(ס״ק ה). Ajouté aux trois langues.
+
+**2. Le jour couvert.** `ימתין עד שיצא הספק מלבו` était juste. La Michna Beroura
+ajoute qu'on peut se fier à une horloge sûre quand on sait avec certitude qu'à
+cette heure, la veille, il faisait nuit selon la loi (ס״ק ז). Ajouté.
+
+**3. Le cas du אנוס — la correction de fond.** La page écrivait « Critère : ones +
+devar mitzva (force majeure pour une mitzva) », ce qui en faisait une règle
+générale. Le cas de la Michna Beroura est étroit : il part de chez lui avant la
+nuit jusqu'à la limite du tehoum, s'y assied jusqu'au soir, **et il n'y trouvera
+pas de coupe** (ס״ק ח). Et surtout, les A'haronim écrivent qu'on n'agit pas ainsi
+— la chose étonne le public, on risque de s'alléger sur la mélakha — et à notre
+époque, où l'on suit toujours l'avis permettant Min'ha jusqu'au soir,
+`בודאי מדינא אסור להקדים מעריב במו״ש` (ס״ק ט). Le niveau 3 allait plus loin encore
+et **inventait des applications** que ni le Choul'han Aroukh ni la Michna Beroura
+ne donnent : son tableau de cas pratiques portait « Brit Mila ou voyage urgent ».
+Remplacé par le cas réel, avec la restriction.
+
+**4. Mélakha interdite jusqu'à tslet** — était juste, et porte désormais sa
+citation.
+
+**5. Kriat Chema — manquait entièrement.** `ומ״מ ימתין מלקרות ק״ש עד צה״כ` (ס״ק י).
+Les « 2 restrictions » deviennent trois, dans les trois langues et au niveau 3.
+
+**6. Le Rama sur והוא רחום וברכו** — juste, inchangé.
+
+### Un défaut d'indexation trouvé en corrigeant
+
+La restriction des A'haronim, posée d'abord dans un bloc `warning`, était publiée
+et **invisible au chat** : le corpus ne lit que `definition`, `remember`,
+`key-point` et les tableaux de cas pratiques. Le chat aurait donc continué de
+répondre selon l'ancienne présentation. Les trois blocs sont passés en `remember`
+et sont désormais indexés — vérifié dans `data/corpus-shabbat.json`.
+
+### Ce qui reste ouvert
+
+`verifier-citations.py` ne sait pas résoudre une référence Michna Beroura de la
+forme `מ״ב רצ״ג ס״ק ג` : les onze citations posées ici ne sont donc pas couvertes
+par la porte. Elles ont été confrontées à Sefaria une par une par programme avant
+publication, et le sont toutes. Mais **aucun garde-fou ne les surveillera
+ensuite**, et c'est une lacune réelle du dépôt.
+
+---
+
+## Hilkhot Chabbat — le texte source rendu à 26 simanim (15 septembre 2026)
+
+Suite de la mesure du 14 septembre. Le premier balayage de
+`verify-chabbat-source.py` donnait **44 simanim sur 124** dont le niveau 1
+s'écartait du Choul'han Aroukh au-delà du ktiv haser/malé. Vingt-six sont
+désormais rendus à leur source, **sans jugement** : uniquement ceux dont la
+découpe était déjà juste — autant de blocs que de séifim, dans les trois langues
+— où le bloc n° i est sans ambiguïté le séif n° i.
+
+Trois preuves ont été exigées par fichier avant écriture : autant de blocs que de
+séifim ; la concaténation reposée redonne la source consonne pour consonne ; et
+le fichier privé de ses blocs source est identique à l'original privé des siens,
+donc rien d'autre que le texte source n'a bougé.
+
+**Deux choses apprises en le faisant.** Sefaria insère dans son texte des ancres
+de commentateurs — `<i data-commentator=…></i>`, toutes vides, 787 sur six
+simanim échantillonnés. C'est son appareil critique, pas le Choul'han Aroukh :
+les reposer laissait des éléments invisibles dans la page et polluait le corpus.
+Elles sont retirées. Les `<small>`, eux, sont gardés : c'est par eux que Sefaria
+marque les gloses du Rama **à l'intérieur** des séifim, et les perdre rendrait la
+parole du Rama indistinguable de celle du Mehaber.
+
+**État après ce lot : 18 simanim restent** — 242, 243, 245, 246, 247, 248, 249,
+250, 251, 259, 263, 264, 309-314. Et les deux listes du garde-fou sont désormais
+**identiques** : tout ce qui reste est un problème de DÉCOUPE, plus de texte.
+
+Ces dix-huit ne se réparent pas mécaniquement, et je ne les ai pas touchés :
+
+- **245 et 246 n'ont aucun titre de séif.** Leurs sections sont thématiques
+  (« Le cas type : boutique, atelier, fonds commun », « De quoi parle ce séif ? »
+  sans dire lequel). Y placer la source demanderait de décider quel séif va où :
+  c'est exactement le jugement qui a produit l'erreur du siman 243.
+- **242, 248, 250, 251** fragmentent : trois blocs pour le séif unique du 242,
+  dix pour les quatre séifim du 248.
+- **259, 263, 264** en publient moins qu'il n'y en a — six blocs pour les dix
+  séifim du 264.
+- **309-314** : les pages hébraïque et anglaise portent plus de blocs que la
+  française et que la source (huit pour cinq séifim au 309).
+
+**Décision de l'utilisateur attendue** sur ces dix-huit.
+
+### Trouvé en vérifiant, non corrigé
+
+Siman 273, niveau 2 — une phrase entre guillemets au nom d'ישעיהו נ״ח:י״ג :
+`במקום עונג שהוא הסעודה, שם תהא הקריאה של קידוש`. Elle est **absente de tout
+Sefaria** : c'est l'explication du limoud, pas le verset, et le verset de ce
+passage est `וקראת לשבת עונג`. Antérieure à ce lot, et dans un niveau 2 que ce
+travail n'a pas touché. À trancher : rendre la citation au verset réel, ou
+retirer les guillemets puisqu'il s'agit d'une glose.
+
+Quinze variantes subsistent par ailleurs dans neuf de ces simanim (252, 253, 257,
+260, 262, 265, 271, 282), toutes antérieures et toutes de l'ordre de la variante
+d'édition. Laissées telles quelles.
+
+---
+
+## Simanim 309-314 — la Michna Beroura déguisée en Choul'han Aroukh (15 septembre 2026)
+
+Ces six simanim figuraient parmi les dix-huit « problèmes de découpe » restants.
+Ce n'en était pas un. Leurs séifim sont tous présents, justes et dans l'ordre :
+ce que le garde-fou comptait en trop, ce sont **trois entrées de Michna Beroura
+par siman, en hébreu et en anglais, portant `blockquote class="text-source"`** —
+la classe réservée au texte du Choul'han Aroukh.
+
+Deux conséquences, et la première est la plus grave : **pour le lecteur hébreu et
+anglais, la Michna Beroura était rendue exactement comme le Mehaber**, dans le
+même cadre, sans rien qui la distingue. C'est le défaut dont `verifier-classes.py`
+était né en juillet, sous une autre forme — les gloses `<small>` indistinguables
+du texte principal — et il est ici plus net encore, puisqu'il ne s'agit pas d'une
+glose de quelques mots mais d'entrées entières du Hafets Haïm.
+
+La seconde : six simanim déclarés divergents à tort par `verify-chabbat-source.py`.
+
+**Aucun jugement n'a été nécessaire.** La forme juste existait déjà dans le dépôt :
+la page FRANÇAISE des six mêmes simanim porte les mêmes trois entrées dans
+`<div class="sacred-text he">`. L'hébreu et l'anglais sont alignés sur elle, le
+contenu ne bouge pas d'un caractère, et la règle CSS `.sacred-text` — absente de
+ces douze pages — est reprise telle quelle de la page française.
+
+Les six sont désormais IDENTIQUES à la source, découpe et parité comprises.
+Il reste douze simanim sur les quarante-quatre du premier balayage.
+
+### Ce que l'analyse des douze restants a montré, et qui n'est pas encore traité
+
+Une cartographie bloc par bloc, tolérante au ktiv, donne trois familles :
+
+- **248 et 249 répètent leurs séifim** : la suite des correspondances est
+  1-2-3-4 puis 1-2-3-4 à nouveau. Le texte du séif est vraisemblablement repris
+  dans une section d'analyse plus bas, la seconde reprise portant elle aussi
+  `text-source`.
+- **Des blocs qui ne correspondent à aucun séif** (3 à 6 % de recouvrement) aux
+  simanim 242, 243, 247, 248, 259 — probablement le même défaut qu'au 309-314,
+  du commentaire ou des titres portant la classe du texte de base.
+- **Des séifim réellement absents** : le 264 ne couvre que les séifim 1, 2, 3, 5,
+  6 et 9 sur dix ; le 259 saute le 1 et le 4 ; le 263 saute le 7 et le 9.
+
+Les deux premières familles se réparent probablement sans jugement, comme le
+309-314. La troisième demande d'ajouter du texte source là où la page n'en a
+jamais eu, ce qui est additif mais demande de choisir l'emplacement.
+
+---
+
+## ⚠️ Le nikoud contre le verbatim — une décision que j'ai prise sans la voir (15 septembre 2026)
+
+**À signaler d'abord : en rendant leur texte source à 26 simanim, j'ai supprimé le
+nikoud de 22 d'entre eux.** Leur texte était vocalisé ; Sefaria ne l'est pas ; le
+remplacement l'a donc dévocalisé. Je ne l'avais pas vu avant de publier, et je ne
+l'ai donc pas soumis. Les simanim concernés : 252, 253, 254, 255, 256, 257, 260,
+261, 262, 265, 267, 268, 269, 270, 274, 275, 276, 277, 279, 281, 282, 283. Le
+texte d'avant est intact dans l'historique (commit `b891a92~1`) et le retour
+arrière est possible siman par siman.
+
+**Et voici pourquoi les douze simanim restants ne peuvent pas être traités sans
+trancher cette question.** Tous les douze sont vocalisés. Or les deux exigences
+sont incompatibles par nature :
+
+> **On ne peut pas vocaliser une abréviation.** `בע״ש` ne se vocalise qu'en
+> devenant `בְּעֶרֶב שַׁבָּת`. Une page vocalisée DOIT développer les
+> abréviations du Choul'han Aroukh — c'est-à-dire commettre exactement la faute
+> que `verify-yd-source.py` a été écrit pour détecter.
+
+Vérifié : Sefaria ne propose aucune version hébraïque vocalisée de l'ouvrage. Les
+trois disponibles — Maginei Eretz (Lemberg, 1893), Torat Emet, Wikisource — sont
+toutes sans nikoud. Le texte vocalisé du site a donc été produit à la main.
+
+Deux voies, et c'est à l'utilisateur de choisir :
+
+1. **Le verbatim.** Le texte de Sefaria, avec ses abréviations, sans nikoud. C'est
+   ce que demandent la règle absolue (« le Choul'han Aroukh est le repère pour
+   toute référence ») et les trois garde-fous de source. C'est l'état actuel des
+   22.
+2. **Le nikoud.** Le texte vocalisé, plus lisible pour l'étudiant, mais qui
+   développe nécessairement les abréviations et ne peut donc pas passer les
+   garde-fous de source. Il faudrait alors que ces pages **disent** qu'elles
+   donnent une vocalisation et non une recopie — par exemple une classe distincte
+   de `text-source`, que le garde-fou saurait ne pas juger au verbatim.
+
+La seconde voie me paraît la meilleure des deux, parce qu'elle ne sacrifie rien :
+elle garde le service rendu au lecteur ET rend le garde-fou honnête, au prix d'une
+distinction explicite. Mais c'est une décision éditoriale, pas technique, et je ne
+l'ai pas prise.
+
+**Rien n'a été fait sur les douze restants** — 242, 243, 245, 246, 247, 248, 249,
+250, 251, 259, 263, 264 — en attendant cette décision.
+
+---
 ## Yoré Déa 183-200 (bloc נדה) : le niveau 1 ne reproduit pas le texte source
 
 Mesuré le 15 septembre 2026, en produisant le lot 201-208, après qu'un agent de
