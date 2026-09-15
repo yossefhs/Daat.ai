@@ -644,3 +644,48 @@ Une cartographie bloc par bloc, tolérante au ktiv, donne trois familles :
 Les deux premières familles se réparent probablement sans jugement, comme le
 309-314. La troisième demande d'ajouter du texte source là où la page n'en a
 jamais eu, ce qui est additif mais demande de choisir l'emplacement.
+
+---
+
+## ⚠️ Le nikoud contre le verbatim — une décision que j'ai prise sans la voir (15 septembre 2026)
+
+**À signaler d'abord : en rendant leur texte source à 26 simanim, j'ai supprimé le
+nikoud de 22 d'entre eux.** Leur texte était vocalisé ; Sefaria ne l'est pas ; le
+remplacement l'a donc dévocalisé. Je ne l'avais pas vu avant de publier, et je ne
+l'ai donc pas soumis. Les simanim concernés : 252, 253, 254, 255, 256, 257, 260,
+261, 262, 265, 267, 268, 269, 270, 274, 275, 276, 277, 279, 281, 282, 283. Le
+texte d'avant est intact dans l'historique (commit `b891a92~1`) et le retour
+arrière est possible siman par siman.
+
+**Et voici pourquoi les douze simanim restants ne peuvent pas être traités sans
+trancher cette question.** Tous les douze sont vocalisés. Or les deux exigences
+sont incompatibles par nature :
+
+> **On ne peut pas vocaliser une abréviation.** `בע״ש` ne se vocalise qu'en
+> devenant `בְּעֶרֶב שַׁבָּת`. Une page vocalisée DOIT développer les
+> abréviations du Choul'han Aroukh — c'est-à-dire commettre exactement la faute
+> que `verify-yd-source.py` a été écrit pour détecter.
+
+Vérifié : Sefaria ne propose aucune version hébraïque vocalisée de l'ouvrage. Les
+trois disponibles — Maginei Eretz (Lemberg, 1893), Torat Emet, Wikisource — sont
+toutes sans nikoud. Le texte vocalisé du site a donc été produit à la main.
+
+Deux voies, et c'est à l'utilisateur de choisir :
+
+1. **Le verbatim.** Le texte de Sefaria, avec ses abréviations, sans nikoud. C'est
+   ce que demandent la règle absolue (« le Choul'han Aroukh est le repère pour
+   toute référence ») et les trois garde-fous de source. C'est l'état actuel des
+   22.
+2. **Le nikoud.** Le texte vocalisé, plus lisible pour l'étudiant, mais qui
+   développe nécessairement les abréviations et ne peut donc pas passer les
+   garde-fous de source. Il faudrait alors que ces pages **disent** qu'elles
+   donnent une vocalisation et non une recopie — par exemple une classe distincte
+   de `text-source`, que le garde-fou saurait ne pas juger au verbatim.
+
+La seconde voie me paraît la meilleure des deux, parce qu'elle ne sacrifie rien :
+elle garde le service rendu au lecteur ET rend le garde-fou honnête, au prix d'une
+distinction explicite. Mais c'est une décision éditoriale, pas technique, et je ne
+l'ai pas prise.
+
+**Rien n'a été fait sur les douze restants** — 242, 243, 245, 246, 247, 248, 249,
+250, 251, 259, 263, 264 — en attendant cette décision.
