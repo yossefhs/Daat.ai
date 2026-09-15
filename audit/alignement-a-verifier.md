@@ -598,3 +598,49 @@ retirer les guillemets puisqu'il s'agit d'une glose.
 Quinze variantes subsistent par ailleurs dans neuf de ces simanim (252, 253, 257,
 260, 262, 265, 271, 282), toutes antérieures et toutes de l'ordre de la variante
 d'édition. Laissées telles quelles.
+
+---
+
+## Simanim 309-314 — la Michna Beroura déguisée en Choul'han Aroukh (15 septembre 2026)
+
+Ces six simanim figuraient parmi les dix-huit « problèmes de découpe » restants.
+Ce n'en était pas un. Leurs séifim sont tous présents, justes et dans l'ordre :
+ce que le garde-fou comptait en trop, ce sont **trois entrées de Michna Beroura
+par siman, en hébreu et en anglais, portant `blockquote class="text-source"`** —
+la classe réservée au texte du Choul'han Aroukh.
+
+Deux conséquences, et la première est la plus grave : **pour le lecteur hébreu et
+anglais, la Michna Beroura était rendue exactement comme le Mehaber**, dans le
+même cadre, sans rien qui la distingue. C'est le défaut dont `verifier-classes.py`
+était né en juillet, sous une autre forme — les gloses `<small>` indistinguables
+du texte principal — et il est ici plus net encore, puisqu'il ne s'agit pas d'une
+glose de quelques mots mais d'entrées entières du Hafets Haïm.
+
+La seconde : six simanim déclarés divergents à tort par `verify-chabbat-source.py`.
+
+**Aucun jugement n'a été nécessaire.** La forme juste existait déjà dans le dépôt :
+la page FRANÇAISE des six mêmes simanim porte les mêmes trois entrées dans
+`<div class="sacred-text he">`. L'hébreu et l'anglais sont alignés sur elle, le
+contenu ne bouge pas d'un caractère, et la règle CSS `.sacred-text` — absente de
+ces douze pages — est reprise telle quelle de la page française.
+
+Les six sont désormais IDENTIQUES à la source, découpe et parité comprises.
+Il reste douze simanim sur les quarante-quatre du premier balayage.
+
+### Ce que l'analyse des douze restants a montré, et qui n'est pas encore traité
+
+Une cartographie bloc par bloc, tolérante au ktiv, donne trois familles :
+
+- **248 et 249 répètent leurs séifim** : la suite des correspondances est
+  1-2-3-4 puis 1-2-3-4 à nouveau. Le texte du séif est vraisemblablement repris
+  dans une section d'analyse plus bas, la seconde reprise portant elle aussi
+  `text-source`.
+- **Des blocs qui ne correspondent à aucun séif** (3 à 6 % de recouvrement) aux
+  simanim 242, 243, 247, 248, 259 — probablement le même défaut qu'au 309-314,
+  du commentaire ou des titres portant la classe du texte de base.
+- **Des séifim réellement absents** : le 264 ne couvre que les séifim 1, 2, 3, 5,
+  6 et 9 sur dix ; le 259 saute le 1 et le 4 ; le 263 saute le 7 et le 9.
+
+Les deux premières familles se réparent probablement sans jugement, comme le
+309-314. La troisième demande d'ajouter du texte source là où la page n'en a
+jamais eu, ce qui est additif mais demande de choisir l'emplacement.
