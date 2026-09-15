@@ -377,6 +377,28 @@ RE_SA_LAT = re.compile(r'(?<![A-Za-z])(?<!SAR )(?<!SAH )(?<!Rav )(?P<tour>OH|OC|
 RE_SA_HE = re.compile(r'(?P<tour>או["״]?ח|יו["״]?ד)\s*'
                       r'(?P<siman>[א-ת]{1,4}["״\'׳]?[א-ת]?)\s*[:׃]\s*'
                       r'(?P<seif>[א-ת]{1,3}["״\'׳]?[א-ת]?)')
+# L'Aroukh HaChoul'han cité par siman:seif — « ערוך השולחן יורה דעה ר״ב:ג ».
+#
+# Il est resté invisible au contrôle jusqu'au lot 201-208, parce qu'il n'avait
+# jamais été DISPONIBLE : sur les cinquante premiers simanim de Yoré Déa, Sefaria
+# renvoie `he: []` (lacune de numérisation 123-182). Au siman 201 il donne 218
+# seifim, au 202 treize, et il devient d'un coup la source la plus utile du lot.
+#
+# Deux formes circulent, et AUCUNE ne se résolvait :
+#   · « ערוך השולחן יו״ד ר״ב:י »  → RE_SA_HE capturait « יו״ד ר״ב:י » et jugeait la
+#     citation contre le CHOUL'HAN AROUKH — un autre ouvrage, dont le siman 202 n'a
+#     que 9 seifim là où l'Aroukh HaChoul'han en a 13 ;
+#   · « ערוך השולחן יורה דעה ר״ב:ג » → pas reconnu du tout : « sans référence »,
+#     c'est-à-dire NON VÉRIFIÉ. Mesuré sur un cas construit : la citation exacte et
+#     sa jumelle délibérément mal référencée sortaient toutes deux au même verdict.
+#
+# La table OUVRAGES ne pouvait pas rattraper cela : elle n'est essayée QU'EN REPLI,
+# sur une citation déjà déclarée absente — or « sans référence » n'est pas
+# « absente », et rien n'était donc essayé.
+RE_AHS = re.compile(r'(?:ערוה["״]ש|ערוך השולחן)\s*'
+                    r'(?P<tour>או["״]?ח|אורח חיים|יו["״]?ד|יורה דעה)\s*'
+                    r'(?P<siman>[א-ת]{1,4}["״\'׳]?[א-ת]?)\s*[:׃]\s*'
+                    r'(?P<seif>[א-ת]{1,3}["״\'׳]?[א-ת]?)')
 # Michna Beroura : « MB 10:11 », « מ״ב י:יא », « ס״ק ג »
 RE_MB = re.compile(r'(?:MB|מ["״]?ב)\s*(?P<siman>[\dא-ת"״\'׳]{1,5})\s*:\s*'
                    r'(?P<sk>[\dא-ת"״\'׳]{1,4})')
@@ -753,7 +775,19 @@ def refs_in(ctx):
         tour = {'oh': 'Orach Chayim', 'oc': 'Orach Chayim', 'yd': 'Yoreh Deah',
                 'eh': 'Even HaEzer', 'cm': 'Choshen Mishpat'}[m.group('tour').lower()]
         out.append(f"Shulchan_Arukh,_{tour.replace(' ', '_')}.{m.group('siman')}.{m.group('seif')}")
+    # L'Aroukh HaChoul'han AVANT le Choul'han Aroukh, et les positions qu'il a
+    # prises sont retirées à RE_SA_HE : « ערוך השולחן יו״ד ר״ב:י » nomme son
+    # ouvrage, et ce n'est pas le Mehaber.
+    pris_ahs = []
+    for m in RE_AHS.finditer(ctx):
+        pris_ahs.append((m.start(), m.end()))
+        tour = 'Orach_Chaim' if 'ח' in m.group('tour') else "Yoreh_De'ah"
+        si, se = _num(m.group('siman')), _num(m.group('seif'))
+        if si and se:
+            out.append(f"Arukh_HaShulchan,_{tour}.{si}.{se}")
     for m in RE_SA_HE.finditer(ctx):
+        if any(a <= m.start() < b for a, b in pris_ahs):
+            continue
         tour = 'Orach Chayim' if 'ח' in m.group('tour') else 'Yoreh Deah'
         si, se = _num(m.group('siman')), _num(m.group('seif'))
         if si and se:
