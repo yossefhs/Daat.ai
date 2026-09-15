@@ -542,3 +542,59 @@ forme `מ״ב רצ״ג ס״ק ג` : les onze citations posées ici ne sont donc 
 par la porte. Elles ont été confrontées à Sefaria une par une par programme avant
 publication, et le sont toutes. Mais **aucun garde-fou ne les surveillera
 ensuite**, et c'est une lacune réelle du dépôt.
+
+---
+
+## Hilkhot Chabbat — le texte source rendu à 26 simanim (15 septembre 2026)
+
+Suite de la mesure du 14 septembre. Le premier balayage de
+`verify-chabbat-source.py` donnait **44 simanim sur 124** dont le niveau 1
+s'écartait du Choul'han Aroukh au-delà du ktiv haser/malé. Vingt-six sont
+désormais rendus à leur source, **sans jugement** : uniquement ceux dont la
+découpe était déjà juste — autant de blocs que de séifim, dans les trois langues
+— où le bloc n° i est sans ambiguïté le séif n° i.
+
+Trois preuves ont été exigées par fichier avant écriture : autant de blocs que de
+séifim ; la concaténation reposée redonne la source consonne pour consonne ; et
+le fichier privé de ses blocs source est identique à l'original privé des siens,
+donc rien d'autre que le texte source n'a bougé.
+
+**Deux choses apprises en le faisant.** Sefaria insère dans son texte des ancres
+de commentateurs — `<i data-commentator=…></i>`, toutes vides, 787 sur six
+simanim échantillonnés. C'est son appareil critique, pas le Choul'han Aroukh :
+les reposer laissait des éléments invisibles dans la page et polluait le corpus.
+Elles sont retirées. Les `<small>`, eux, sont gardés : c'est par eux que Sefaria
+marque les gloses du Rama **à l'intérieur** des séifim, et les perdre rendrait la
+parole du Rama indistinguable de celle du Mehaber.
+
+**État après ce lot : 18 simanim restent** — 242, 243, 245, 246, 247, 248, 249,
+250, 251, 259, 263, 264, 309-314. Et les deux listes du garde-fou sont désormais
+**identiques** : tout ce qui reste est un problème de DÉCOUPE, plus de texte.
+
+Ces dix-huit ne se réparent pas mécaniquement, et je ne les ai pas touchés :
+
+- **245 et 246 n'ont aucun titre de séif.** Leurs sections sont thématiques
+  (« Le cas type : boutique, atelier, fonds commun », « De quoi parle ce séif ? »
+  sans dire lequel). Y placer la source demanderait de décider quel séif va où :
+  c'est exactement le jugement qui a produit l'erreur du siman 243.
+- **242, 248, 250, 251** fragmentent : trois blocs pour le séif unique du 242,
+  dix pour les quatre séifim du 248.
+- **259, 263, 264** en publient moins qu'il n'y en a — six blocs pour les dix
+  séifim du 264.
+- **309-314** : les pages hébraïque et anglaise portent plus de blocs que la
+  française et que la source (huit pour cinq séifim au 309).
+
+**Décision de l'utilisateur attendue** sur ces dix-huit.
+
+### Trouvé en vérifiant, non corrigé
+
+Siman 273, niveau 2 — une phrase entre guillemets au nom d'ישעיהו נ״ח:י״ג :
+`במקום עונג שהוא הסעודה, שם תהא הקריאה של קידוש`. Elle est **absente de tout
+Sefaria** : c'est l'explication du limoud, pas le verset, et le verset de ce
+passage est `וקראת לשבת עונג`. Antérieure à ce lot, et dans un niveau 2 que ce
+travail n'a pas touché. À trancher : rendre la citation au verset réel, ou
+retirer les guillemets puisqu'il s'agit d'une glose.
+
+Quinze variantes subsistent par ailleurs dans neuf de ces simanim (252, 253, 257,
+260, 262, 265, 271, 282), toutes antérieures et toutes de l'ordre de la variante
+d'édition. Laissées telles quelles.
