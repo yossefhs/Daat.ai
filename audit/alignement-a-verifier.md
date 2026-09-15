@@ -487,3 +487,58 @@ hébraïque en lui donnant sa vraie source.
 Les huit autres variantes du lot (simanim 56 et 58, niveaux 1 à 3) sont toutes
 entre 0,85 et 0,98 et toutes antérieures elles aussi — de l'ordre de la variante
 d'édition. Elles sont laissées telles quelles.
+
+---
+
+## Siman 293 — l'Arvit anticipée présentée comme une solution pratique (15 septembre 2026)
+
+Six points repris par l'utilisateur dans le Choul'han Aroukh et la Michna Beroura,
+tous confrontés aux sources avant d'être écrits. Le fond des pages était bon ;
+c'est le §3 qui posait un vrai problème.
+
+**1. Les trois petites étoiles — il manquait le POURQUOI.** La page donnait le
+critère sans la raison. La Michna Beroura la donne : en droit trois étoiles
+*moyennes* suffiraient, mais nous ne savons plus les distinguer des grandes, qui
+se voient de jour — `ומדינא סגי בג׳ כוכבים בינונים אלא שאין אנו בקיאין בזה` (ס״ק ג).
+Et le caractère *rapproché* sert la Tossefet Shabbat — `אלא רצופים — משום תוספת שבת`
+(ס״ק ה). Ajouté aux trois langues.
+
+**2. Le jour couvert.** `ימתין עד שיצא הספק מלבו` était juste. La Michna Beroura
+ajoute qu'on peut se fier à une horloge sûre quand on sait avec certitude qu'à
+cette heure, la veille, il faisait nuit selon la loi (ס״ק ז). Ajouté.
+
+**3. Le cas du אנוס — la correction de fond.** La page écrivait « Critère : ones +
+devar mitzva (force majeure pour une mitzva) », ce qui en faisait une règle
+générale. Le cas de la Michna Beroura est étroit : il part de chez lui avant la
+nuit jusqu'à la limite du tehoum, s'y assied jusqu'au soir, **et il n'y trouvera
+pas de coupe** (ס״ק ח). Et surtout, les A'haronim écrivent qu'on n'agit pas ainsi
+— la chose étonne le public, on risque de s'alléger sur la mélakha — et à notre
+époque, où l'on suit toujours l'avis permettant Min'ha jusqu'au soir,
+`בודאי מדינא אסור להקדים מעריב במו״ש` (ס״ק ט). Le niveau 3 allait plus loin encore
+et **inventait des applications** que ni le Choul'han Aroukh ni la Michna Beroura
+ne donnent : son tableau de cas pratiques portait « Brit Mila ou voyage urgent ».
+Remplacé par le cas réel, avec la restriction.
+
+**4. Mélakha interdite jusqu'à tslet** — était juste, et porte désormais sa
+citation.
+
+**5. Kriat Chema — manquait entièrement.** `ומ״מ ימתין מלקרות ק״ש עד צה״כ` (ס״ק י).
+Les « 2 restrictions » deviennent trois, dans les trois langues et au niveau 3.
+
+**6. Le Rama sur והוא רחום וברכו** — juste, inchangé.
+
+### Un défaut d'indexation trouvé en corrigeant
+
+La restriction des A'haronim, posée d'abord dans un bloc `warning`, était publiée
+et **invisible au chat** : le corpus ne lit que `definition`, `remember`,
+`key-point` et les tableaux de cas pratiques. Le chat aurait donc continué de
+répondre selon l'ancienne présentation. Les trois blocs sont passés en `remember`
+et sont désormais indexés — vérifié dans `data/corpus-shabbat.json`.
+
+### Ce qui reste ouvert
+
+`verifier-citations.py` ne sait pas résoudre une référence Michna Beroura de la
+forme `מ״ב רצ״ג ס״ק ג` : les onze citations posées ici ne sont donc pas couvertes
+par la porte. Elles ont été confrontées à Sefaria une par une par programme avant
+publication, et le sont toutes. Mais **aucun garde-fou ne les surveillera
+ensuite**, et c'est une lacune réelle du dépôt.
