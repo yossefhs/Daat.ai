@@ -424,3 +424,68 @@ seize pages publiées dans trois langues, ce qui n'est pas un correctif mécaniq
 et n'a pas été entrepris : **décision de l'utilisateur attendue**.
 
 Rien n'a été modifié sur ces seize simanim.
+
+---
+
+## Yoré Déa 183-200 (bloc נדה) : le niveau 1 ne reproduit pas le texte source
+
+Mesuré le 15 septembre 2026, en produisant le lot 201-208, après qu'un agent de
+production eut signalé que le siman 200 échouait au garde-fou de source. Aucune
+de ces dix-huit pages n'a été modifiée : c'est un constat, pas une correction.
+
+**Les dix-huit simanim du bloc échouent à `scripts/verify-yd-source.py`.**
+C'est le seul bloc de Yoré Déa dans ce cas ; les simanim 87 à 182 et 201 à 208
+passent tous. Le garde-fou n'avait jamais été lancé sur 183-200, produits par une
+autre chaîne de travail, et `audit-simanim.py` ne pouvait pas le voir : il juge la
+structure, pas la fidélité du texte.
+
+### Ce que porte la classe `text-source` — 161 blocs, niveau 1 français
+
+| état | blocs | ce que c'est |
+|---|---|---|
+| verbatim | 102 | le texte du Choul'han Aroukh, tel quel |
+| **réécrit** | **41** | la matière du siman, mais les mots changés — vocalisation ajoutée, ponctuation refaite, formulation retouchée |
+| **sans correspondance** | **18** | rien qui réponde au siman cité |
+
+Les trois langues portent les mêmes blocs : l'ordre de grandeur réel est le triple.
+
+### Le cas le plus net, et le plus grave — siman 200
+
+Son niveau 1 porte **trois** blocs `text-source` pour **un** seul seif. Le
+troisième n'est pas une citation du tout :
+
+> שֹׁרֶשׁ הַמַּחֲלֹקֶת: מִצַּד אֶחָד, כָּל הַבְּרָכוֹת מְבָרֵךְ עֲלֵיהֶן עוֹבֵר לַעֲשִׂיָּתָן ; וּמִצַּד שֵׁנִי,
+> אֵין לְבָרֵךְ כְּשֶׁגּוּפָהּ מְגֻלֶּה…
+
+C'est une explication pédagogique — « la racine de la controverse : d'un côté…
+de l'autre… » — composée en hébreu vocalisé et servie sous la classe réservée au
+texte du Mehaber, dans les trois langues. Elle n'est nulle part dans le
+Choul'han Aroukh. Le premier bloc du même siman « corrige » par ailleurs
+l'orthographe de la source (`ותפשט` pour `ותפשוט`).
+
+### Pourquoi cela compte plus qu'un défaut de mise en page
+
+La classe `text-source` est la promesse faite au lecteur que ce qu'il lit est la
+parole de la source. Un encadré pédagogique rendu dans cette classe ne se
+distingue pas d'un seif : le lecteur prend l'exposé de la page pour le texte du
+Choul'han Aroukh. C'est la même famille que le défaut des gloses `<small>` de
+Sefaria rendues à la taille du texte principal — sauf qu'ici le contenu n'est pas
+seulement mal présenté, il n'est pas de la source.
+
+⚠️ **Le siman 200 sert de gabarit.** C'est un siman à seif unique, donc le
+premier que consulte un agent chargé d'un siman court — l'agent du siman 207
+(un seif) s'y est reporté et a signalé le défaut plutôt que de le recopier. Un
+agent moins attentif l'aurait reproduit.
+
+### Ce qui reste à décider
+
+Reprendre ces dix-huit simanim, c'est réécrire le niveau 1 de 270 pages contre
+les sources. Ce n'est pas une correction mécanique : les 41 blocs réécrits
+demandent d'être remplacés par le texte réel, les 18 sans correspondance
+demandent un arbitrage cas par cas (déplacer le contenu hors de la classe
+`text-source`, ou le retirer). **Décision de l'utilisateur attendue.**
+
+En attendant, deux choses sont vraies et doivent être dites ensemble : ces pages
+sont en ligne, et leurs citations d'appareil n'ont jamais été mises en cause —
+c'est la reproduction du texte de base qui est en défaut, pas l'honnêteté des
+références.
