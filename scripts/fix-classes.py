@@ -37,6 +37,12 @@ REGLES = {
     'chaud':          ".chaud { color: #C0392B; font-weight: 700; }",
     'sef-small':      ".sef-small { font-size: 0.93em; }",
     'froid':          ".froid { color: #2E7D52; font-weight: 700; }",
+    'print-btn':     (".print-btn { position: fixed; top: 18px; right: 18px; z-index: 50; "
+                      "background: #1A1F3A; color: #C5A55A; border: 1px solid #C5A55A; "
+                      "border-radius: 4px; padding: 8px 16px; font-family: 'Georgia',serif; "
+                      "font-size: 10pt; cursor: pointer; }\n  "
+                      ".print-btn:hover { background: #2a2a4e; }\n  "
+                      "@media print { .print-btn { display: none; } }"),
     'translation':    ".translation { background: #f5f5f0; border-left: 3px solid #1A1F3A; padding: 12px 18px; margin: 15px 0; font-style: italic; }",
 }
 
