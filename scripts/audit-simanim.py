@@ -51,7 +51,7 @@ SECTIONS = [
         # Continu du 87 au 208. La brèche entre le bloc de l'intérêt et celui
         # de נדה (183-200) a été fermée par le lot 178-182 ; le lot 201-208 a
         # ajouté le mikvé (201-202) puis l'ouverture des נדרים (203-208).
-        "simanim": list(range(87, 223)),
+        "simanim": list(range(87, 229)),
         "no_levels": set(),
         "n4_file": "niveau-4-halakha.html",
     },

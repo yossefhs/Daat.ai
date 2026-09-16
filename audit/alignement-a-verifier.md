@@ -805,6 +805,46 @@ page fausse s'il n'avait pas été vu :**
 Le compte : **44 → 6**.
 
 ---
+## Yoré Déa 228:21 — une frontière Mehaber / Rama que le balisage ne marque pas (16 septembre 2026)
+
+Trouvé en produisant le siman 228 (התרת נדרים, 51 seifim). L'agent a dû trancher,
+l'a fait, et l'a signalé comme le premier point à soumettre au Rav — ce qui est la
+conduite attendue. Vérification faite ici ; la page n'est pas modifiée.
+
+**Le fait.** Le seif 21 porte quatre marques `הגה` dans le texte de Sefaria. Les
+deux clauses `ואין נקראים רבים בפחות מג׳…` et `ויש אומרים שאם נדר בפני ג׳…`
+tombent, selon ce balisage, à l'intérieur d'une région de glose. Mais :
+
+- elles sont les **seules de tout le segment** à ne porter **aucune parenthèse de
+  source** — signature constante des gloses dans ce siman (les 46 autres clauses
+  attribuées au Rama en portent toutes une) ;
+- la clause qui précède se ferme sur sa source, `(ב"י בשם תשובת רשב"א)` ;
+- et la seconde se termine par un **deux-points**, qui est dans cette édition la
+  marque de fin du texte du Mehaber — immédiatement suivi d'un nouveau `הגה`.
+
+**Ce qui a été fait.** Les deux clauses sont rendues au Mehaber
+(`שו״ע יו״ד רכ״ח:כא`), et la page dit au lecteur, dans les trois langues, que la
+frontière n'est pas marquée et que la lecture mérite d'être vérifiée sur une
+édition imprimée.
+
+**Pourquoi aucun garde-fou ne peut le voir.** `verifier-citations.py` résout
+`רמ״א` et `שו״ע` vers le même segment Sefaria : une attribution croisée y est
+invisible. C'est la même famille que les quatre erreurs de l'audit rabbinique
+d'août 2026, où les citations étaient vraies et l'attribution fausse.
+
+**Ce qui reste à décider.** Ce siman compte en outre **27 attributions au Rama
+inférées et non marquées** : sur 48 clauses de glose, 21 seulement s'ouvrent par
+un `הגה` explicite ; les 27 autres sont des propositions parenthésées portant une
+source, ou des suites de gloses déjà ouvertes. C'est la convention imprimée, mais
+Sefaria ne la marque pas, et la décision revient au producteur de la page. Les
+seifim concernés : 15, 16, 17, 20, 21, 31, 33, 43, 45, 50.
+
+⚠️ **Et le siman 43 porte une parenthèse jamais refermée** (3 « ( » pour 2 « ) ») :
+la glose lexicale sur `משודכים` s'ouvre et ne se clôt pas, de sorte que les mots
+du Mehaber `מעשיו פטור הלה משבועתו` tombent à l'intérieur de la parenthèse. C'est
+un défaut de numérisation, recopié tel quel (règle 13) et signalé dans la page —
+il fausserait la lecture de quiconque lirait la parenthèse comme une glose close.
+
 
 ## Hilkhot Chabbat — les 124 simanim reproduisent le Choul'han Aroukh (16 septembre 2026)
 

@@ -53,6 +53,11 @@ CLASSES = [
     # distingue plus de lui : le lecteur prend l'incise de l'éditeur pour la
     # parole du Mehaber.
     'sef-small',
+    # Le bouton d'impression. 114 pages l'émettaient sans qu'aucune règle ne le
+    # définisse — il s'y affichait comme un <button> nu, au fil du texte, au lieu
+    # d'être épinglé en haut à droite. Trouvé en produisant le lot 223-228 ; la
+    # forme majoritaire du dépôt est celle de 792 pages, reprise par fix-classes.py.
+    'print-btn',
 ]
 
 RE_LIEN_CSS = re.compile(r'<link[^>]+href="([^"]+\.css)"', re.I)
