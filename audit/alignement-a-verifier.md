@@ -754,8 +754,57 @@ sont en ligne, et leurs citations d'appareil n'ont jamais été mises en cause �
 c'est la reproduction du texte de base qui est en défaut, pas l'honnêteté des
 références.
 
----
 
+## Voie 1 retenue — le verbatim. Six simanim de plus, six restants (16 septembre 2026)
+
+Décision de l'utilisateur : le verbatim plutôt que le nikoud. Les 22 simanim
+dévocalisés restent en l'état, et les douze qui attendaient sont portés au même
+régime. **Six y sont passés : 243, 247, 248, 249, 250, 251.**
+
+Presque aucun n'était le « problème de découpe » que le premier balayage
+annonçait. C'était, trois fois sur quatre, le défaut déjà vu aux simanim 309-314 :
+des blocs qui n'étaient pas du Choul'han Aroukh portaient sa classe.
+
+- **250 et 251** : une citation de guemara — « L'origine talmudique — Shabbat
+  119a », « — Pesahim 50b » — rendue dans le cadre du texte de base.
+- **247 et 248** : les séifim recopiés une seconde fois dans une section
+  d'analyse plus bas, la reprise portant elle aussi `text-source`. Le 248 y
+  ajoutait une braïta, `תנו רבנן: אין מפליגין בספינה`.
+- **249** : la même reprise, quatre séifim publiés deux fois.
+- **243** : rien d'étranger, seulement le texte à rendre verbatim. Sa découpe en
+  quatre blocs pour deux séifim est délibérée et juste — « texte du Mehaber »
+  puis « texte du Rama » — et l'avertissement du garde-fou est ici sans objet.
+
+**Trois pièges rencontrés en construisant l'outil, et chacun aurait produit une
+page fausse s'il n'avait pas été vu :**
+
+1. La première mesure de correspondance prenait la plus longue suite commune.
+   Elle s'effondre sur une page vocalisée, où chaque abréviation développée hache
+   le texte : le séif א du siman 247 tombait à 6 % alors que c'est mot pour mot
+   le même séif. Remplacée par un recouvrement de mots.
+2. Ce recouvrement est unidirectionnel : un bloc qui ne porte que la part du
+   Mehaber marque 1,0 sur le séif entier, tous ses mots y étant. L'outil lui
+   aurait donné le séif complet — donc **ajouté la glose du Rama que le bloc
+   suivant porte déjà**, et publié la glose deux fois. Remplacé par une moyenne
+   harmonique des deux sens.
+3. Une braïta que le séif recopie partage presque tous ses mots. Aucune mesure de
+   similarité ne l'en distingue ; c'est le titre de la page qui le dit
+   (« origine talmudique ») ou l'ouverture du bloc (`תנו רבנן`, `תניא`).
+
+### Les six qui restent, et pourquoi
+
+- **242** : sa page découpe son unique séif — très long — en parts thématiques
+  que le partage Mehaber/Rama ne capture pas. L'outil a refusé : le texte reposé
+  ne redonnait pas la source.
+- **245 et 246** : aucun titre de séif, sections thématiques. Inchangé depuis le
+  14 septembre.
+- **259, 263, 264** : des séifim **réellement absents** de la page. Le 259 n'a pas
+  le 4, le 263 n'a ni le 7 ni le 9, le 264 ne couvre que 1, 2, 3, 5, 6 et 9 sur
+  dix. Les ajouter est additif, mais demande de choisir où — donc un jugement.
+
+Le compte : **44 → 6**.
+
+---
 ## Yoré Déa 228:21 — une frontière Mehaber / Rama que le balisage ne marque pas (16 septembre 2026)
 
 Trouvé en produisant le siman 228 (התרת נדרים, 51 seifim). L'agent a dû trancher,
