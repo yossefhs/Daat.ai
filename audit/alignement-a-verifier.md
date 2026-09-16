@@ -803,3 +803,51 @@ page fausse s'il n'avait pas été vu :**
   dix. Les ajouter est additif, mais demande de choisir où — donc un jugement.
 
 Le compte : **44 → 6**.
+
+---
+
+## Hilkhot Chabbat — les 124 simanim reproduisent le Choul'han Aroukh (16 septembre 2026)
+
+Le premier balayage du 14 septembre donnait **44 simanim sur 124** dont le niveau 1
+s'écartait de sa source au-delà du ktiv haser/malé. Le compte est **zéro**.
+
+Les six derniers, traités ce jour :
+
+- **259, 263, 264** — des séifim n'avaient jamais été publiés : le ד du 259, le ז
+  et le ט du 263, et quatre des dix du 264. Leur place n'était pas un jugement :
+  elle est fixée par la source, entre le bloc du précédent et celui du suivant.
+  *Un piège au passage* : deux séifim absents qui se posent au même endroit — le ז
+  et le ח du 264 — étaient départagés par leur TEXTE, et le ח passait devant le ז.
+  Le rang du séif départage désormais les ex æquo.
+- **242** — son unique séif, très long, est présenté en trois parts : le début, la
+  takana d'Ezra, la glose du Rama. Les trois sont contiguës et dans l'ordre de la
+  source ; il a suffi de couper le séif aux deux mêmes frontières et de rendre à
+  chaque bloc SA part.
+- **245 et 246** — aucun titre de séif, sections purement thématiques : rien où
+  accrocher chaque séif, et les répartir entre les thèmes aurait été le jugement
+  qui a produit l'erreur du 243. Une section entière, « Le texte du Choul'han
+  Aroukh », est posée AVANT la première section thématique — le lecteur rencontre
+  la source avant l'exposé — avec les séifim dans l'ordre, étiquetés comme au
+  siman 301. Purement additif.
+
+*Un second piège, trouvé par le garde-fou lui-même* : j'avais étiqueté les blocs
+français « Séif א », avec accent. `verify-chabbat-source.py` ne reconnaît comme
+étiquette que `סעיף`, `Seif` et leurs pluriels — le `א` du label comptait donc
+pour du texte, et les pages françaises du 245 et du 246 sortaient divergentes
+quand l'hébreu et l'anglais passaient. Les pages françaises du dépôt écrivent
+« Seif ».
+
+### Ce qui reste, et qui est juste
+
+Deux simanim gardent un **avertissement de découpe**, et il est sans objet dans
+les deux cas : le 242 (trois blocs pour un séif) et le 243 (quatre blocs pour
+deux). Leur découpe est délibérée — « texte du Mehaber » puis « texte du Rama »,
+et pour le 242 les trois parts d'un séif très long — elle suit l'ordre de la
+source, et leur texte est verbatim. L'avertissement signale une découpe qui
+diffère du compte des séifim, ce qui est vrai ; il ne dit pas qu'elle est fautive.
+
+### Bilan des trois compartiments
+
+Hilkhot Chabbat a désormais son garde-fou de source ET le passe entièrement. Yoré
+Déa et Orah Haïm ont les leurs ; l'état de Yoré Déa est suivi par la session qui
+l'écrit (voir l'entrée sur le bloc נדה 183-200).
