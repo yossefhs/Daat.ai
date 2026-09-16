@@ -23,7 +23,13 @@ const OUTPUT = path.join(ROOT, 'data', 'simanim-disponibles.json');
 const SOURCES = [
   { dir: 'shabbat', section: () => 'shabbat' },
   { dir: 'orah-haim', section: () => 'oh-quotidien' },
-  { dir: 'yoreh-deah', section: (num) => (num >= 183 ? 'nida' : 'yoreh-deah') },
+  // La section « nida » est le bloc 183-200, et RIEN d'autre. La règle « >= 183 »
+  // décrivait le disque tant que 200 en était le dernier siman ; le lot 201-208 l'a
+  // prise en défaut et rangé sous « nida » le mikvé (201-202) puis, plus grave, les
+  // NEDARIM (203-208) — un autre traité, qui ne parle ni de pureté ni d'immersion.
+  // La borne suit la découpe du Choul'han Aroukh, qui est le repère : נדה 183-200,
+  // מקוואות 201-202, נדרים à partir du 203.
+  { dir: 'yoreh-deah', section: (num) => (num >= 183 && num <= 200 ? 'nida' : 'yoreh-deah') },
 ];
 
 const TITLE_RE = /<title>\s*Siman\s+([^\s—-]+)\s*[—-]\s*([^·|]+?)\s*(?:·|\|)/i;
