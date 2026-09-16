@@ -82,6 +82,12 @@ RE_TS = re.compile(r'<blockquote class="text-source"[^>]*>(.*?)</blockquote>', r
 # l'étiquette « Seif יח » s'écrit en lettres latines, ne connaissait pas le défaut.
 RE_ETIQ = re.compile(r'^\s*<strong>\s*(?:סעיפים|סעיף|Seifim|Seif)\b[^<]*</strong>\s*')
 RE_TITRE = re.compile(r'<h(?P<rang>[1-6])[^>]*>')
+# Les titres qui n'appartiennent plus à aucun séif : ce que la page ajoute
+# après avoir fini d'exposer la source.
+RE_FIN_DE_PAGE = re.compile(
+    r'\n[ \t]*<h[1-6][^>]*>\s*(?:Pour aller plus loin|Aller plus loin|To go further|'
+    r'Going further|Questions de compréhension|Comprehension questions|'
+    r'להעמיק יותר|שאלות הבנה)')
 SEUIL = 0.55
 
 
@@ -99,9 +105,31 @@ def fin_de_section(html, apres, depuis):
     rang = 3
     for m in RE_TITRE.finditer(html, 0, depuis):
         rang = int(m.group("rang"))
-    fin = re.compile(r'\n<h[1-%d][^>]*>' % rang)
+    # L'espace avant le titre est admis. Le motif exigeait un titre collé au début
+    # de ligne ; les pages du modèle récent — celles des simanim 242 à 264 —
+    # indentent les leurs de six espaces, et la section ne se refermait donc
+    # jamais : le moteur rendait « aucun bloc ne reproduit le séif » avec un score
+    # de 100 %, ce qui désignait le mauvais coupable.
+    fin = re.compile(r'\n[ \t]*<h[1-%d][^>]*>' % rang)
     suivant = fin.search(html, apres)
-    return suivant
+    if suivant:
+        return suivant
+    # Aucun titre ne suit : c'est la DERNIÈRE section de la page, et le séif qui
+    # s'y trouve ne pouvait recevoir aucun encadré — le moteur refusait le lot
+    # entier pour lui, en annonçant « aucun bloc ne reproduit le séif » alors que
+    # le bloc était reconnu à 100 %. On se rabat sur ce qui ferme le contenu.
+    # On s'arrête devant la MATIÈRE DE FIN DE PAGE, pas à la fin du fichier : un
+    # premier essai posait l'encadré tout en bas, après « Pour aller plus loin »,
+    # donc détaché du séif qu'il résume — et le corpus ne l'indexait même pas.
+    fins = RE_FIN_DE_PAGE.search(html, apres)
+    if fins:
+        return fins
+    for marque in ('<div class="next-siman-nav"', '<div class="nav-niveaux"',
+                   '<div class="page-break"', '</main>', '<footer'):
+        i = html.find(marque, apres)
+        if i != -1:
+            return re.compile(re.escape(marque)).search(html, i)
+    return None
 
 
 def encadre(etiquette, puces):
