@@ -891,3 +891,53 @@ diffère du compte des séifim, ce qui est vrai ; il ne dit pas qu'elle est faut
 Hilkhot Chabbat a désormais son garde-fou de source ET le passe entièrement. Yoré
 Déa et Orah Haïm ont les leurs ; l'état de Yoré Déa est suivi par la session qui
 l'écrit (voir l'entrée sur le bloc נדה 183-200).
+
+---
+
+## Le bloc hébreu des pages d'index — un trou de garde, et son étendue réelle (16 septembre 2026)
+
+La session ravabichid.org signale avoir corrigé le siman 246, dont le bloc
+`seif-text-he` de l'index disait **l'inverse** du Choul'han Aroukh : une
+interdiction, « אסור להשכיר… ואסור אפילו להשאיל », là où le Mehaber écrit
+« מותר להשאיל ולהשכיר ». Vérifié ici à la source : leur correction est juste, le
+bloc porte désormais le verbatim.
+
+Elle signale aussi, et c'est le point important, que **ce bloc n'est lu par aucun
+garde-fou**. C'est exact : `verifier-citations.py` juge ce que la page met entre
+guillemets, `verifier-alignement.py` juge les blocs `text-source` des niveaux
+d'étude, et les trois portes de source jugent le niveau 1. La page d'index
+n'était lue par personne — alors que ce bloc est souvent le premier hébreu que le
+lecteur rencontre, et celui que Google indexe.
+
+**Étendue réelle mesurée : 738 pages d'index en portent un.** Le signalement en
+nommait cinq. C'est la leçon que ce fichier tire déjà deux fois — « un correctif
+appliqué à la main sur les cas qu'on a vus n'est pas un correctif » — et elle
+vaut une troisième.
+
+`scripts/verifier-index-source.py` comble le trou. Il lit l'intertitre qui NOMME
+l'ouvrage — « שולחן ערוך, אורח חיים » ou « שולחן ערוך הרב (אדמו״ר הזקן) » — et
+exige que le bloc se retrouve mot pour mot dans cet ouvrage-là, d'un seul tenant.
+Deux verdicts, comme les autres portes de source : IDENTIQUE et ÉQUIVALENT aux
+matres lectionis près.
+
+**Un défaut de mon propre garde-fou, trouvé en le lançant.** Il ne cherchait le
+nom de l'ouvrage qu'en hébreu. Les pages ANGLAISES des simanim 244 et 245
+écrivent « Shulchan Aruch HaRav (the Alter Rebbe), not the Shulchan Aruch » en
+lettres latines : il les lisait donc comme citant le Choul'han Aroukh, et les
+déclarait fautives **à tort**. C'est exactement le défaut du « Séif » accentué de
+la veille — un détecteur qui ne connaît qu'une langue sur trois. Corrigé.
+
+**Hilkhot Chabbat : 15 pages d'index, 0 divergence.** Les simanim 242, 243 et 246
+développaient les abréviations de la source parce que leur bloc est vocalisé —
+on ne peut pas vocaliser « ואע״פ ». C'est la question déjà tranchée le 16
+septembre, voie 1 : le verbatim. La frontière où chaque bloc s'arrête n'a pas été
+devinée mais retrouvée DANS la source, par ses derniers mots.
+
+### À décider avec le Rav
+
+Les simanim 244 et 245 portent en tête, sous un intertitre qui le dit
+explicitement, le texte du **Choul'han Aroukh HaRav** et non celui du Mehaber. La
+session ravabichid.org a corrigé l'étiquette, qui annonçait « שולחן ערוך », et
+laisse ouverte la question de fond : faut-il y mettre le Mehaber ? Le garde-fou
+accepte les deux, puisqu'il juge la fidélité à l'ouvrage nommé, pas le choix de
+l'ouvrage.
