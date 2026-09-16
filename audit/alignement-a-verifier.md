@@ -941,3 +941,50 @@ session ravabichid.org a corrigé l'étiquette, qui annonçait « שולחן ע�
 laisse ouverte la question de fond : faut-il y mettre le Mehaber ? Le garde-fou
 accepte les deux, puisqu'il juge la fidélité à l'ouvrage nommé, pas le choix de
 l'ouvrage.
+
+### Le balayage d'Orah Haïm — ce qu'il dit, et ce qu'il ne dit pas
+
+723 pages d'index portent un bloc hébreu. Le garde-fou les répartit ainsi :
+
+- **460 digests fidèles** — ils abrègent le siman, séif par séif, chacun étiqueté
+  `(סעיף N)` et séparé par « · ». Ils sautent des passages ; ils n'inventent rien.
+- **15 conformes** aux matres lectionis près.
+- **156 pages (54 simanim)** dont le bloc s'éloigne assez des mots de la source
+  pour que la porte ne puisse plus en répondre.
+
+**Ce dernier compte n'est PAS une liste de 54 simanim fautifs, et il ne faut pas
+le lire ainsi.** Vérification faite sur les plus gros écarts : le siman 216, qui
+présente 728 caractères d'affilée introuvables dans sa source, est une
+**réécriture fidèle** — il écrit « ולאחריו אינו מברך » là où le Mehaber écrit
+« אבל לאחריו א״צ לברך », et ajoute « וכיצד מברך » en tête d'énumération. Le sens
+est le même ; les mots ne le sont pas.
+
+C'est le fait central de ce balayage, et il est plus grave que n'importe quel
+chiffre : **le bloc d'index d'Orah Haïm n'est pas une citation, c'est le siman
+rendu dans les mots de la page** — sous un intertitre qui annonce « שולחן ערוך,
+אורח חיים סימן רט״ז ». Et c'est précisément pour cela que l'inversion du siman 246
+avait pu s'y loger sans que rien ne la voie : quand le bloc est dans les mots de
+la page, rien ne distingue une réécriture juste d'une réécriture inversée.
+
+La porte mesure donc, sur Orah Haïm, une DISTANCE et non une vérité. Les 54
+simanim sont une liste à lire, pas un verdict — et je ne les ai pas touchés :
+
+8 9 11 27 45 55 58 61 63 65 66 70 71 75 79 83 90 108 109 110 112 114 117 124 126
+128 135 137 143 149 150 153 154 155 156 168 174 177 178 182 188 190 191 192 193
+201 202 205 208 211 214 216 224 240
+
+### Ce qui rendrait la porte capable de juger
+
+Deux voies, et c'est une décision éditoriale :
+
+1. **Le verbatim** — le bloc porte le texte de la source, comme il le fait
+   désormais sur les quinze pages de Hilkhot Chabbat. La porte devient alors un
+   vrai contrôle de vérité sur les 738 pages.
+2. **Le résumé assumé** — le bloc reste une réécriture, mais la page le DIT, selon
+   la convention du dépôt : un abrégé s'introduit par `<em>résumé</em> :` et n'est
+   pas jugé au verbatim. L'intertitre cesse alors d'annoncer le Choul'han Aroukh
+   comme si le texte suivait.
+
+Aujourd'hui les blocs d'Orah Haïm sont dans le premier régime pour l'apparence et
+dans le second pour le contenu, ce qui est le seul cas où une erreur ne peut être
+vue par personne.

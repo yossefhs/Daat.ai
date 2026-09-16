@@ -20,7 +20,15 @@ Aroukh — « אסור להשכיר… ואסור אפילו להשאיל » là
 en tête de page, dans les trois langues.
 
 Ce contrôle demande une seule chose, et elle est vérifiable : **le bloc doit se
-retrouver mot pour mot dans l'ouvrage qu'il nomme**, d'un seul tenant. Deux
+retrouver mot pour mot dans l'ouvrage qu'il nomme**, d'un seul tenant.
+
+**Ce qu'il ne peut PAS faire, et qu'il ne faut pas lui prêter.** Beaucoup de blocs
+d'Orah Haïm ne sont pas des citations mais la RÉÉCRITURE du siman dans les mots de
+la page — le siman 216 écrit « ולאחריו אינו מברך » là où le Mehaber écrit
+« אבל לאחריו א״צ לברך ». La porte mesure alors une distance, pas une vérité : elle
+ne sait pas séparer une réécriture fidèle d'une réécriture fausse. C'est
+exactement pour cela que l'inversion du siman 246 avait pu s'y loger. Ce qu'elle
+signale sur Orah Haïm est donc une LISTE À LIRE, pas un verdict. Deux
 verdicts, comme pour les autres portes de source : IDENTIQUE (consonnes égales)
 et ÉQUIVALENT (égal aux matres lectionis près), parce que le ktiv haser/malé est
 le faux positif dominant du dépôt et ne dit rien de la fidélité.
@@ -178,8 +186,12 @@ def main():
                     print(f"       …{exemple[:70]}")
 
     print(f"\n{pages} page(s) d'index portant un bloc hébreu")
-    print(f"→ {len(fautes)} portant du texte ABSENT de l'ouvrage qu'elles nomment "
-          f"(plus de {SEUIL_ETRANGER} caractères d'affilée)")
+    print(f"→ {len(fautes)} dont le bloc s'éloigne des MOTS de l'ouvrage qu'il nomme "
+          f"(plus de {SEUIL_ETRANGER} caractères d'affilée introuvables chez lui)")
+    print("   ⚠ ce compte mesure une DISTANCE, pas une vérité : sur Orah Haïm, ces blocs")
+    print("     sont souvent une réécriture fidèle. À lire une par une — c'est justement")
+    print("     parce qu'ils sont dans les mots de la page que l'inversion du siman 246")
+    print("     a pu s'y loger sans que rien ne la voie.")
     if fautes:
         print("   " + " ".join(sorted({f"{x[1]}" for x in fautes}, key=int)))
     print(f"→ {len(equivalents)} conformes aux matres lectionis près")
