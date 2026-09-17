@@ -59,7 +59,13 @@ def mots(s, hebreu):
         return [w for w in re.findall(r'[א-ת״׳"\']+', s) if len(w) > 1]
     s = unicodedata.normalize('NFD', s.lower())
     s = ''.join(c for c in s if unicodedata.category(c) != 'Mn')
-    return [w for w in re.findall(r"[a-z0-9]+", s) if len(w) > 2]
+    # Garder les mots courts. Les jeter — « le », « on », « l' » — rendait le contrôle
+    # aveugle à l'ornement bref logé dans une phrase d'entour différente : « ce que l'on
+    # cite le moins », corrigé au niveau 4 du siman 232 et survivant au niveau 2 sur le
+    # MÊME ס״ק, ne partageait avec sa source aucun n-gramme une fois les mots de deux
+    # lettres écartés. Le contrôle sortait vert sur une survivance réelle — le cas même
+    # pour lequel il a été écrit.
+    return re.findall(r"[a-z0-9']+", s)
 
 def ngrammes(texte):
     """Rend l'ensemble des n-grammes d'un texte — 5 mots en latin, 3 en hébreu."""
@@ -67,7 +73,11 @@ def ngrammes(texte):
     for hebreu, n in ((False, 5), (True, 3)):
         w = mots(texte, hebreu)
         for i in range(len(w) - n + 1):
-            out.add((hebreu, ' '.join(w[i:i + n])))
+            bloc = w[i:i + n]
+            # un n-gramme fait de mots-outils seuls n'identifie rien
+            if not hebreu and sum(1 for x in bloc if len(x) > 3) < 2:
+                continue
+            out.add((hebreu, ' '.join(bloc)))
     return out
 
 def diff(ref, cible):

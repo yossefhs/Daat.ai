@@ -113,7 +113,22 @@ def examiner(dossier):
     justes = inconnus = 0
     ecarts = []
     for p in sorted(glob.glob(os.path.join(dossier, '*.html'))):
-        txt = open(p, encoding='utf-8').read()
+        brut = open(p, encoding='utf-8').read()
+        # Les balises doivent tomber AVANT la recherche. Yoré Déa écrit le séif dans un
+        # <span class="src-ref">[seif N]</span> : lu sur le HTML brut, le motif — qui
+        # interdit le chevron pour ne pas enjamber une phrase — ne pouvait jamais
+        # apparier. Le contrôle sortait « 0 rattachement confronté » sur tout le
+        # compartiment, et ce zéro passait pour un blanc-seing alors qu'il en existe
+        # 140 dans le seul siman 234. Un contrôle qui ne compare rien doit le dire ;
+        # celui-ci le disait, et personne ne lisait la ligne.
+        # …mais les retirer toutes laisse le motif ENJAMBER les blocs : au siman 229,
+        # « Le Taz ס״ק י״א » d'une carte s'appariait au « Verrou 2 — séif 5 » de la
+        # carte suivante, et douze rattachements sur douze paraissaient décalés d'un
+        # cran — la signature même du piège 22-bis, ici entièrement fabriquée par le
+        # contrôle. Les fins de bloc deviennent donc une frontière, pas un espace.
+        txt = re.sub(r'</(?:div|p|li|td|tr|h[1-6]|blockquote|section)>|<br\s*/?>',
+                     ' . ', brut)
+        txt = re.sub(r'<[^>]+>', ' ', txt)
         for m in RX.finditer(txt):
             qui = NOMS.get(m.group('qui'))
             sk = gem(m.group('sk'))
