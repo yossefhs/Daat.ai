@@ -988,3 +988,58 @@ Deux voies, et c'est une décision éditoriale :
 Aujourd'hui les blocs d'Orah Haïm sont dans le premier régime pour l'apparence et
 dans le second pour le contenu, ce qui est le seul cas où une erreur ne peut être
 vue par personne.
+
+---
+
+## Les blocs d'index d'Orah Haïm — décision prise, et deux références fausses trouvées (17 septembre 2026)
+
+### La décision : le résumé assumé
+
+Des deux voies posées au registre, c'est la seconde qui est retenue, et voici
+pourquoi. À Hilkhot Chabbat, les quinze blocs d'index sont courts et peuvent
+porter le verbatim — ils le portent désormais. À Orah Haïm, le bloc résume **tout
+le siman**, séif par séif, avec ses étiquettes « (סעיף N) » : c'est un vrai
+service au lecteur, qu'un préfixe verbatim détruirait. Le défaut n'était donc pas
+le contenu mais **l'étiquette qui le présentait comme le texte** — « Le Siman —
+שולחן ערוך, אורח חיים סימן רט״ז », au-dessus d'une réécriture.
+
+`scripts/etiqueter-resumes-index.py` pose donc la convention du dépôt —
+« <em>résumé séif par séif</em> » / « תמצית סעיף אחר סעיף » / « summary, seif by
+seif » — et **uniquement là où elle est vraie** : 615 pages la reçoivent, 108 dont
+le bloc est une citation réelle gardent leur étiquette telle quelle.
+
+### Ce que la relecture des 54 simanim a donné
+
+Plutôt que de parcourir 54 digests à la main, deux contrôles ciblés ont été écrits
+sur ce qui avait fait le défaut du siman 246.
+
+**`verifier-polarite-index.py`** — le résumé dit-il PERMIS là où la source dit
+INTERDIT ? Il compare non les mots mais le pôle par lequel chacun OUVRE.
+Résultat sur tout Orah Haïm : **aucune inversion**. Il n'y a pas d'autre siman 246.
+
+Trois corrections ont été nécessaires avant d'y arriver, et chacune a été trouvée
+en rejouant le contrôle sur le cas connu plutôt qu'en le croyant sur parole :
+
+1. La première règle cherchait un pôle ABSENT de la source. Elle ne voyait pas le
+   246, dont le résumé ne disait rien que le séif ne dise — il ouvrait par
+   l'inverse et reléguait la permission à une subordonnée.
+2. La table confondait trois axes : elle rangeait « חייב » avec « אסור » et
+   « פטור » avec « מותר ». Obligation, permission et validité sont trois
+   questions distinctes ; le siman 9, qui ne parle que d'obligation, était
+   signalé à tort.
+3. La table était écrite en ktiv malé et les blocs sont en ktiv haser : « מתר »
+   n'était pas reconnu comme « מותר », et le siman 14 — qui ouvre pourtant par
+   « מתר לטל טלית חברו » — était lu comme ouvrant par le « אסור » qui vient plus
+   loin.
+
+**`verifier-etiquettes-index.py`** — le résumé étiqueté « (סעיף ט) » est-il celui
+du séif ט ? C'est la règle absolue appliquée aux pages d'index, qu'aucun contrôle
+ne couvrait. **Deux simanim fautifs, le 25 et le 28**, et la cause est la même :
+le CHAPEAU du siman — « דיני תפלין בפרטות, ובו י״ג סעיפים » — avait reçu
+l'étiquette « (סעיף א) », décalant tout d'un cran. Ce qui était donné comme le
+séif ט était le séif ח, jusqu'au bout du siman. Corrigé : le chapeau perd une
+étiquette qui ne lui revenait pas, les autres reculent d'un rang, aucun texte
+n'est touché.
+
+C'est la faute du siman 243 — une référence qui désigne le mauvais séif — trouvée
+dans un endroit que personne ne regardait.
