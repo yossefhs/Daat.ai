@@ -252,6 +252,22 @@ une colonne de tableau.**
    même lot : remplacer un absolu faux par une énumération fermée également
    fausse n'est pas corriger.
 
+   **Depuis le 17 septembre 2026, une porte les regarde** :
+   `python3 scripts/verifier-denombrements.py --path sources/yoreh-deah/siman-N`.
+   Elle ne te dispense de rien — elle confronte à la source les dénombrements
+   qui se disent des totaux (séifim du siman, ס״ק d'un commentateur nommé), et
+   te REND tous les autres sous « À VÉRIFIER », qui n'est pas un défaut mais une
+   liste de lecture. Sur les 148 simanim déjà publiés, 204 dénombrements sont
+   confrontés et exacts, et 6 104 formulations attendent un œil. Tout ce qu'elle
+   range en « À VÉRIFIER » sur TON siman, mesure-le ou retire-le.
+
+   Ce qu'elle n'examine pas, et pour cause : le contenu entre « … », les
+   `div.translation`, la formule `ובו … סעיפים` (c'est celle du livre), et tout
+   nombre attribué au chapeau. **Une citation n'affirme pas, elle rapporte.** Le
+   chapeau du 234 annonce soixante-douze séifim quand l'édition en découpe
+   soixante-quatorze — recopie-le tel quel (règle 1-bis) et dis l'écart en clair,
+   comme le font déjà les simanim 164 et 234.
+
 5. **Le raisonnement français bâti par-dessus des citations vraies.** C'est le
    défaut qui a produit les quatre erreurs de l'audit rabbinique d'août 2026 :
    les citations étaient exactes, la structure saine, la langue juste. C'est
