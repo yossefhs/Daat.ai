@@ -234,9 +234,13 @@ une colonne de tableau.**
    passer les ס״ק complets qui sont simplement courts.
 2. **Une attribution croisée Mehaber / Rama est invisible** : le vérificateur
    résout `רמ״א` et `שו״ע` vers le même segment Sefaria.
-3. **Les références à חושן משפט ne se résolvent pas du tout** : `RE_SA_HE`
-   n'accepte que `או״ח` et `יו״ד`. Une citation verbatim de CM sort en « sans
-   référence », donc non vérifiée.
+3. ~~Les références à חושן משפט ne se résolvent pas.~~ **Réparé le 17 septembre
+   2026** : `RE_SA_HE` connaît désormais les **quatre** Tourim — `או״ח`, `יו״ד`,
+   `חו״מ` et `אה״ע`, en sigle comme en toutes lettres. Tu peux donc citer un
+   verbatim de חושן משפט avec sa référence hébraïque, il sera vérifié. (Les
+   sigles courts exigent leur gershayim : sans cette garde, `חומרא`, `חומה` et
+   `חומרתם` se lisaient comme `חו״מ` — 2 212 fausses correspondances contre 215
+   vraies.)
 4. **Le raisonnement français bâti par-dessus des citations vraies.** C'est le
    défaut qui a produit les quatre erreurs de l'audit rabbinique d'août 2026 :
    les citations étaient exactes, la structure saine, la langue juste. C'est
