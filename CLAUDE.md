@@ -156,6 +156,16 @@ python3 scripts/verifier-classes.py [--path …] [--lignes]
 python3 scripts/verifier-liens-langue.py [--path …] [--lignes]
 python3 scripts/fix-liens-langue.py [--dry-run]   # ne réécrit jamais vers une variante absente
 
+# Garde-fou de couverture — chaque séif a-t-il son encadré, et la page a-t-elle le séif ?
+# Mesure la PLACE et non l'intitulé : il reprend l'ancrage du moteur d'encadrés et
+# regarde si un encadré se trouve dans l'étendue du séif, quel que soit le mot qui
+# l'introduit. Né d'un chiffre faux — compter « Ce que dit ce séif : » donnait
+# « 38 simanim faits sur 241 » pour Orah Haïm, qui est en réalité servi partout ;
+# un lot entier était prêt pour six simanim qui les avaient déjà. Il a trouvé
+# davantage : 31 simanim dont le niveau 1 ne reproduit qu'une PARTIE du siman
+# (264 séifim absents en Orah Haïm, 104 en Yoré Déa), dont 28 sans le déclarer.
+python3 scripts/verifier-couverture-encadres.py --section orah-haim [--bref] [N …]
+
 # Generate a siman's index page from data/simanim/siman-XXX.json (does NOT generate study levels — those are written by hand)
 node scripts/generate-siman.js --siman XXX [--force] [--no-sitemap]
 ```
