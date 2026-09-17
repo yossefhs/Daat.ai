@@ -938,3 +938,166 @@ pas corrigées : aucune page n'a été modifiée. Elles attendent une décision,
 bloc נדה 183-200. Et les 701 autres comptes de mots n'ont **jamais été mesurés** —
 si la proportion du siman 234 valait ailleurs, il y en aurait beaucoup de faux ; mais
 un siman ne fait pas une mesure, et c'est précisément ce qu'il faudrait établir.
+
+---
+
+## Le bloc hébreu des pages d'index — un trou de garde, et son étendue réelle (16 septembre 2026)
+
+La session ravabichid.org signale avoir corrigé le siman 246, dont le bloc
+`seif-text-he` de l'index disait **l'inverse** du Choul'han Aroukh : une
+interdiction, « אסור להשכיר… ואסור אפילו להשאיל », là où le Mehaber écrit
+« מותר להשאיל ולהשכיר ». Vérifié ici à la source : leur correction est juste, le
+bloc porte désormais le verbatim.
+
+Elle signale aussi, et c'est le point important, que **ce bloc n'est lu par aucun
+garde-fou**. C'est exact : `verifier-citations.py` juge ce que la page met entre
+guillemets, `verifier-alignement.py` juge les blocs `text-source` des niveaux
+d'étude, et les trois portes de source jugent le niveau 1. La page d'index
+n'était lue par personne — alors que ce bloc est souvent le premier hébreu que le
+lecteur rencontre, et celui que Google indexe.
+
+**Étendue réelle mesurée : 738 pages d'index en portent un.** Le signalement en
+nommait cinq. C'est la leçon que ce fichier tire déjà deux fois — « un correctif
+appliqué à la main sur les cas qu'on a vus n'est pas un correctif » — et elle
+vaut une troisième.
+
+`scripts/verifier-index-source.py` comble le trou. Il lit l'intertitre qui NOMME
+l'ouvrage — « שולחן ערוך, אורח חיים » ou « שולחן ערוך הרב (אדמו״ר הזקן) » — et
+exige que le bloc se retrouve mot pour mot dans cet ouvrage-là, d'un seul tenant.
+Deux verdicts, comme les autres portes de source : IDENTIQUE et ÉQUIVALENT aux
+matres lectionis près.
+
+**Un défaut de mon propre garde-fou, trouvé en le lançant.** Il ne cherchait le
+nom de l'ouvrage qu'en hébreu. Les pages ANGLAISES des simanim 244 et 245
+écrivent « Shulchan Aruch HaRav (the Alter Rebbe), not the Shulchan Aruch » en
+lettres latines : il les lisait donc comme citant le Choul'han Aroukh, et les
+déclarait fautives **à tort**. C'est exactement le défaut du « Séif » accentué de
+la veille — un détecteur qui ne connaît qu'une langue sur trois. Corrigé.
+
+**Hilkhot Chabbat : 15 pages d'index, 0 divergence.** Les simanim 242, 243 et 246
+développaient les abréviations de la source parce que leur bloc est vocalisé —
+on ne peut pas vocaliser « ואע״פ ». C'est la question déjà tranchée le 16
+septembre, voie 1 : le verbatim. La frontière où chaque bloc s'arrête n'a pas été
+devinée mais retrouvée DANS la source, par ses derniers mots.
+
+### À décider avec le Rav
+
+Les simanim 244 et 245 portent en tête, sous un intertitre qui le dit
+explicitement, le texte du **Choul'han Aroukh HaRav** et non celui du Mehaber. La
+session ravabichid.org a corrigé l'étiquette, qui annonçait « שולחן ערוך », et
+laisse ouverte la question de fond : faut-il y mettre le Mehaber ? Le garde-fou
+accepte les deux, puisqu'il juge la fidélité à l'ouvrage nommé, pas le choix de
+l'ouvrage.
+
+### Le balayage d'Orah Haïm — ce qu'il dit, et ce qu'il ne dit pas
+
+723 pages d'index portent un bloc hébreu. Le garde-fou les répartit ainsi :
+
+- **460 digests fidèles** — ils abrègent le siman, séif par séif, chacun étiqueté
+  `(סעיף N)` et séparé par « · ». Ils sautent des passages ; ils n'inventent rien.
+- **15 conformes** aux matres lectionis près.
+- **156 pages (54 simanim)** dont le bloc s'éloigne assez des mots de la source
+  pour que la porte ne puisse plus en répondre.
+
+**Ce dernier compte n'est PAS une liste de 54 simanim fautifs, et il ne faut pas
+le lire ainsi.** Vérification faite sur les plus gros écarts : le siman 216, qui
+présente 728 caractères d'affilée introuvables dans sa source, est une
+**réécriture fidèle** — il écrit « ולאחריו אינו מברך » là où le Mehaber écrit
+« אבל לאחריו א״צ לברך », et ajoute « וכיצד מברך » en tête d'énumération. Le sens
+est le même ; les mots ne le sont pas.
+
+C'est le fait central de ce balayage, et il est plus grave que n'importe quel
+chiffre : **le bloc d'index d'Orah Haïm n'est pas une citation, c'est le siman
+rendu dans les mots de la page** — sous un intertitre qui annonce « שולחן ערוך,
+אורח חיים סימן רט״ז ». Et c'est précisément pour cela que l'inversion du siman 246
+avait pu s'y loger sans que rien ne la voie : quand le bloc est dans les mots de
+la page, rien ne distingue une réécriture juste d'une réécriture inversée.
+
+La porte mesure donc, sur Orah Haïm, une DISTANCE et non une vérité. Les 54
+simanim sont une liste à lire, pas un verdict — et je ne les ai pas touchés :
+
+8 9 11 27 45 55 58 61 63 65 66 70 71 75 79 83 90 108 109 110 112 114 117 124 126
+128 135 137 143 149 150 153 154 155 156 168 174 177 178 182 188 190 191 192 193
+201 202 205 208 211 214 216 224 240
+
+### Ce qui rendrait la porte capable de juger
+
+Deux voies, et c'est une décision éditoriale :
+
+1. **Le verbatim** — le bloc porte le texte de la source, comme il le fait
+   désormais sur les quinze pages de Hilkhot Chabbat. La porte devient alors un
+   vrai contrôle de vérité sur les 738 pages.
+2. **Le résumé assumé** — le bloc reste une réécriture, mais la page le DIT, selon
+   la convention du dépôt : un abrégé s'introduit par `<em>résumé</em> :` et n'est
+   pas jugé au verbatim. L'intertitre cesse alors d'annoncer le Choul'han Aroukh
+   comme si le texte suivait.
+
+Aujourd'hui les blocs d'Orah Haïm sont dans le premier régime pour l'apparence et
+dans le second pour le contenu, ce qui est le seul cas où une erreur ne peut être
+vue par personne.
+
+---
+
+## Les blocs d'index d'Orah Haïm — décision prise, et deux références fausses trouvées (17 septembre 2026)
+
+### La décision : le résumé assumé
+
+Des deux voies posées au registre, c'est la seconde qui est retenue, et voici
+pourquoi. À Hilkhot Chabbat, les quinze blocs d'index sont courts et peuvent
+porter le verbatim — ils le portent désormais. À Orah Haïm, le bloc résume **tout
+le siman**, séif par séif, avec ses étiquettes « (סעיף N) » : c'est un vrai
+service au lecteur, qu'un préfixe verbatim détruirait. Le défaut n'était donc pas
+le contenu mais **l'étiquette qui le présentait comme le texte** — « Le Siman —
+שולחן ערוך, אורח חיים סימן רט״ז », au-dessus d'une réécriture.
+
+`scripts/etiqueter-resumes-index.py` pose donc la convention du dépôt —
+« <em>résumé séif par séif</em> » / « תמצית סעיף אחר סעיף » / « summary, seif by
+seif » — et **uniquement là où elle est vraie** : 615 pages la reçoivent, 108 dont
+le bloc est une citation réelle gardent leur étiquette telle quelle.
+
+### Ce que la relecture des 54 simanim a donné
+
+Plutôt que de parcourir 54 digests à la main, deux contrôles ciblés ont été écrits
+sur ce qui avait fait le défaut du siman 246.
+
+**`verifier-polarite-index.py`** — le résumé dit-il PERMIS là où la source dit
+INTERDIT ? Il compare non les mots mais le pôle par lequel chacun OUVRE.
+Résultat sur tout Orah Haïm : **aucune inversion**. Il n'y a pas d'autre siman 246.
+
+Trois corrections ont été nécessaires avant d'y arriver, et chacune a été trouvée
+en rejouant le contrôle sur le cas connu plutôt qu'en le croyant sur parole :
+
+1. La première règle cherchait un pôle ABSENT de la source. Elle ne voyait pas le
+   246, dont le résumé ne disait rien que le séif ne dise — il ouvrait par
+   l'inverse et reléguait la permission à une subordonnée.
+2. La table confondait trois axes : elle rangeait « חייב » avec « אסור » et
+   « פטור » avec « מותר ». Obligation, permission et validité sont trois
+   questions distinctes ; le siman 9, qui ne parle que d'obligation, était
+   signalé à tort.
+3. La table était écrite en ktiv malé et les blocs sont en ktiv haser : « מתר »
+   n'était pas reconnu comme « מותר », et le siman 14 — qui ouvre pourtant par
+   « מתר לטל טלית חברו » — était lu comme ouvrant par le « אסור » qui vient plus
+   loin.
+
+**`verifier-etiquettes-index.py`** — le résumé étiqueté « (סעיף ט) » est-il celui
+du séif ט ? C'est la règle absolue appliquée aux pages d'index, qu'aucun contrôle
+ne couvrait. **Deux simanim fautifs, le 25 et le 28**, et la cause est la même :
+le CHAPEAU du siman — « דיני תפלין בפרטות, ובו י״ג סעיפים » — avait reçu
+l'étiquette « (סעיף א) », décalant tout d'un cran. Ce qui était donné comme le
+séif ט était le séif ח, jusqu'au bout du siman. Corrigé : le chapeau perd une
+étiquette qui ne lui revenait pas, les autres reculent d'un rang, aucun texte
+n'est touché.
+
+C'est la faute du siman 243 — une référence qui désigne le mauvais séif — trouvée
+dans un endroit que personne ne regardait.
+
+### Siman 65 d'Orah Haïm — deux séifim que le moteur ne sait pas départager
+
+Écarté du lot 59-67, et non forcé. Ses séifim ב et ג commencent tous deux par
+« קרא קריאת שמע ונכנס לבית הכנסת ומצא ציבור שקורין קריאת שמע » et ne divergent
+qu'ensuite — l'un sur l'obligation du premier verset, l'autre sur le mérite de
+lire tout le Chema avec eux. Les deux blocs de la page sont aussi proches que les
+deux séifim, et l'ancrage par recouvrement de mots ne peut pas les séparer : le
+moteur a refusé le siman entier plutôt que d'attribuer un encadré au hasard.
+
+C'est le bon comportement. À traiter à la main, en nommant chaque bloc.
