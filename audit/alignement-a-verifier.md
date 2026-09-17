@@ -1043,3 +1043,14 @@ n'est touché.
 
 C'est la faute du siman 243 — une référence qui désigne le mauvais séif — trouvée
 dans un endroit que personne ne regardait.
+
+### Siman 65 d'Orah Haïm — deux séifim que le moteur ne sait pas départager
+
+Écarté du lot 59-67, et non forcé. Ses séifim ב et ג commencent tous deux par
+« קרא קריאת שמע ונכנס לבית הכנסת ומצא ציבור שקורין קריאת שמע » et ne divergent
+qu'ensuite — l'un sur l'obligation du premier verset, l'autre sur le mérite de
+lire tout le Chema avec eux. Les deux blocs de la page sont aussi proches que les
+deux séifim, et l'ancrage par recouvrement de mots ne peut pas les séparer : le
+moteur a refusé le siman entier plutôt que d'attribuer un encadré au hasard.
+
+C'est le bon comportement. À traiter à la main, en nommant chaque bloc.
