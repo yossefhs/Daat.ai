@@ -241,7 +241,18 @@ une colonne de tableau.**
    sigles courts exigent leur gershayim : sans cette garde, `חומרא`, `חומה` et
    `חומרתם` se lisaient comme `חו״מ` — 2 212 fausses correspondances contre 215
    vraies.)
-4. **Le raisonnement français bâti par-dessus des citations vraies.** C'est le
+4. **Les affirmations de DÉNOMBREMENT.** « C'est le seul endroit du siman
+   où… », « l'un des trois plus longs de tout Yoré Déa », « le plus long ס״ק du
+   Taz ». Ce sont des ornements de rédaction, jamais adossés à une source, et
+   ils sont mesurables — donc réfutables. Sur le seul siman 234, cinq d'entre
+   eux étaient faux, dont un que la page elle-même démentait à quatre endroits.
+   **N'écris une affirmation de dénombrement que si tu l'as mesurée**, et
+   préfère toujours la forme ouverte : « le Rama s'en écarte aussi aux seifim
+   25 et 40 » plutôt que « c'est l'un des trois endroits ». Corollaire appris au
+   même lot : remplacer un absolu faux par une énumération fermée également
+   fausse n'est pas corriger.
+
+5. **Le raisonnement français bâti par-dessus des citations vraies.** C'est le
    défaut qui a produit les quatre erreurs de l'audit rabbinique d'août 2026 :
    les citations étaient exactes, la structure saine, la langue juste. C'est
    pourquoi **aucune ligne de psak ne doit être écrite sans une entrée d'appareil
