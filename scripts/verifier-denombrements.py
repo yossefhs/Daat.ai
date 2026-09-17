@@ -165,6 +165,31 @@ RE_SK_NOMME = re.compile(
                                         key=len, reverse=True)) + r")\s+"
     r"(?:" + MOT_SK + r"|remarques|entrées|entries)", re.I)
 
+# ------------------------------- famille M : les comptes de MOTS
+#
+# Seconde forme des affirmations de dénombrement, trouvée le 17 septembre 2026 par
+# l'arbitre du siman 234 alors que les trois tours de correction avaient nettoyé les
+# superlatifs jusqu'au bout. « le dernier séif, qui tient en SEPT MOTS » — il en a
+# neuf, et la page le cite verbatim deux fois ailleurs. « QUATRE MOTS, et aucun
+# commentateur n'y ajoute rien » — le séif 26 est השוטה אינו מפר, TROIS mots, cités
+# deux lignes plus bas ; et l'hébreu dit lui aussi ארבע תיבות, donc aucune lecture ne
+# sauve la phrase. Dix-sept comptes de mots dans ce seul siman, cinq faux.
+#
+# Trois d'entre eux DIVERGEAIENT ENTRE LES LANGUES — le français disait cinq, l'hébreu
+# et l'anglais quatre, la source en donnait trois. Cela, aucune machine n'avait à le
+# deviner : il suffit de comparer. Les trois variantes d'un même niveau étant parallèles
+# à la ligne près dans ce dépôt, la comparaison se fait ligne à ligne, ce qui apparie
+# exactement et ne dépend d'aucune heuristique.
+RE_MOTS_FR = re.compile(r"\b(?:en|de|d\'une?)\s+(?P<n>" + N_LATIN + r")\s+mots?\b", re.I)
+RE_MOTS_EN = re.compile(r"\bin\s+(?P<n>" + N_LATIN + r")\s+words?\b", re.I)
+RE_MOTS_HE = re.compile(r"(?<![א-ת])ב?(?P<n>" + N_HEB + r")\s+תיבות")
+
+def compte_mots_he(fragment):
+    """Nombre de mots hébreux d'un fragment, ponctuation et balises retirées."""
+    t = re.sub(r'<[^>]+>', ' ', fragment)
+    t = re.sub(r'[^\u0590-\u05FF\s]', ' ', t)
+    return len([w for w in t.split() if re.search(r'[א-ת]', w)])
+
 # ------------------------------------------ famille B : ce qu'aucune machine ne tranche
 
 ABSOLUS = [
@@ -399,6 +424,12 @@ def claims(path):
             if v is not None and 1 <= v <= 200 and est_total(nu, m, False) is not None:
                 out.append(dict(kind='A', quoi=cible, valeur=v, ligne=no, siman=0,
                                 txt=txt[max(0, m.start()-40):m.end()+60], lg=lg))
+        rxm = {'fr': RE_MOTS_FR, 'en': RE_MOTS_EN, 'he': RE_MOTS_HE}[lg]
+        for m in rxm.finditer(nu):
+            v = nombre(m.group('n'))
+            if v is not None and 1 <= v <= 60:
+                out.append(dict(kind='M', valeur=v, ligne=no, lg=lg,
+                                txt=txt[max(0, m.start()-90):m.end()+90]))
         for rx, lgp in ABSOLUS:
             if lgp != lg:
                 continue
@@ -420,7 +451,7 @@ def claims(path):
 def verifier(dossier, bref=False):
     comp = compartiment(dossier)
     n = numero(dossier)
-    faux, desaccords, candidats = [], [], []
+    faux, desaccords, candidats, mots = [], [], [], []
     confrontes = 0
     vrais = {}
     if comp and n:
@@ -438,6 +469,9 @@ def verifier(dossier, bref=False):
             if c['kind'] == 'B':
                 candidats.append((path, c))
                 continue
+            if c['kind'] == 'M':
+                mots.append((path, c))
+                continue
             if c.get('siman'):
                 if not comp:
                     continue
@@ -450,6 +484,18 @@ def verifier(dossier, bref=False):
             confrontes += 1
             if c['valeur'] != attendu:
                 faux.append((path, c, attendu))
+
+    # comptes de mots : comparaison LIGNE À LIGNE entre les trois langues
+    for base, entrees in par_niveau.items():
+        parligne = {}
+        for path, cs in entrees:
+            for c in cs:
+                if c['kind'] == 'M':
+                    parligne.setdefault(c['ligne'], {})[c['lg']] = c['valeur']
+        for ligne, v in sorted(parligne.items()):
+            if len(v) > 1 and len(set(v.values())) > 1:
+                desaccords.append((os.path.join(dossier, f"{base} l.{ligne}"),
+                                   'mots', {lg: [x] for lg, x in sorted(v.items())}))
 
     # désaccord trilingue sur un même niveau
     for base, entrees in par_niveau.items():
@@ -464,7 +510,7 @@ def verifier(dossier, bref=False):
             distinctes = {tuple(v) for v in valeurs.values()}
             if len(valeurs) > 1 and len(distinctes) > 1:
                 desaccords.append((os.path.join(dossier, base), quoi, valeurs))
-    return faux, desaccords, candidats, confrontes
+    return faux, desaccords, candidats, confrontes, mots
 
 # ---------------------------------------------------------------- main
 
@@ -483,11 +529,18 @@ def main():
     else:
         racines = sorted(glob.glob(os.path.join(ROOT, 'sources', '*', 'siman-*')))
 
-    tot_faux = tot_des = tot_cand = tot_conf = 0
+    tot_faux = tot_des = tot_cand = tot_conf = tot_mots = 0
     for d in racines:
-        faux, des, cand, conf = verifier(d)
+        faux, des, cand, conf, mts = verifier(d)
         tot_faux += len(faux); tot_des += len(des); tot_cand += len(cand)
         tot_conf += conf
+        tot_mots += len(mts)
+        if montrer:
+            for path, c in mts:
+                print(f"COMPTE-MOTS {os.path.relpath(path, ROOT)}:{c['ligne']} "
+                      f"[{c['lg']}] annonce {c['valeur']} mots")
+                if not bref:
+                    print(f"           … {c['txt']}")
         nom = os.path.relpath(d, ROOT)
         for path, c, attendu in faux:
             print(f"FAUX       {os.path.relpath(path, ROOT)}:{c['ligne']} — "
@@ -509,6 +562,8 @@ def main():
           f"à la source)")
     print(f"FAUX               : {tot_faux}")
     print(f"DÉSACCORD          : {tot_des}")
+    print(f"COMPTES DE MOTS    : {tot_mots}   (« en N mots » — à mesurer un par un ; "
+          f"5 des 17 du siman 234 étaient faux)")
     print(f"À VÉRIFIER         : {tot_cand}"
           + ("" if montrer else "   (--a-verifier pour les lister)"))
     print()

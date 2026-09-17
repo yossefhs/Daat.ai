@@ -891,3 +891,50 @@ diffère du compte des séifim, ce qui est vrai ; il ne dit pas qu'elle est faut
 Hilkhot Chabbat a désormais son garde-fou de source ET le passe entièrement. Yoré
 Déa et Orah Haïm ont les leurs ; l'état de Yoré Déa est suivi par la session qui
 l'écrit (voir l'entrée sur le bloc נדה 183-200).
+
+---
+
+## Les comptes de mots — « en N mots / בN תיבות / in N words » (17 septembre 2026)
+
+Seconde forme des affirmations de dénombrement, trouvée par l'arbitre du siman 234
+alors que trois tours de correction avaient nettoyé les superlatifs jusqu'au bout.
+Sur les dix-sept comptes de mots du siman 234, **cinq étaient faux**, mesurés contre
+la source un par un.
+
+Deux exemples, parce qu'ils disent la nature du défaut :
+
+- « le dernier séif, qui tient en **sept mots** » — le séif 74 est
+  `אשה שנדרה לשתות סם להתעבר אין הבעל יכול להפר`, **neuf** mots, et la page le cite
+  elle-même verbatim à deux autres endroits.
+- « **quatre mots**, et aucun commentateur n'y ajoute rien » — le séif 26 est
+  `השוטה אינו מפר`, **trois** mots, cités deux lignes plus bas ; et l'hébreu dit lui
+  aussi `ארבע תיבות`, donc aucune lecture ne sauve la phrase. (La seconde moitié est
+  exacte : aucun des cinq appareils ne commente ce séif.)
+
+**Étendue mesurée sur les 148 simanim de Yoré Déa publiés : 710 comptes de mots.**
+`scripts/verifier-denombrements.py` les relève tous et tranche mécaniquement le seul
+cas qui se tranche sans lecture — la **divergence entre les trois langues**, les
+variantes d'un niveau étant parallèles à la ligne près dans ce dépôt. Neuf
+divergences dures :
+
+| siman | fichier | ligne | fr | he | en |
+|------:|---|---:|---:|---:|---:|
+| 127 | niveau-3-synthese | 494 | 3 | — | 4 |
+| 133 | niveau-1-base | 669 | 5 | — | 3 |
+| 160 | niveau-1-base | 665 | 3 | — | 2 |
+| 179 | niveau-1-base | 719 | 5 | — | 4 |
+| 220 | niveau-2-lamdan | 618 | — | 3 | 6 |
+| 231 | niveau-1-base | 563 | 5 | 4 | 4 |
+| 234 | niveau-1-base | 578 | 5 | 4 | 4 |
+| 234 | niveau-1-base | 931 | 4 | 3 | 3 |
+| 234 | niveau-1-base | 967 | 4 | 3 | 3 |
+
+Les trois du 234 ont été mesurées contre la source : elle donne **trois** dans les
+trois cas, si bien qu'au l.578 les trois langues se trompent et de trois manières.
+Aux l.931 et 967, l'hébreu et l'anglais sont justes et le français seul est faux.
+
+Les six divergences **hors du lot 229-234** (simanim 127, 133, 160, 179, 220) ne sont
+pas corrigées : aucune page n'a été modifiée. Elles attendent une décision, comme le
+bloc נדה 183-200. Et les 701 autres comptes de mots n'ont **jamais été mesurés** —
+si la proportion du siman 234 valait ailleurs, il y en aurait beaucoup de faux ; mais
+un siman ne fait pas une mesure, et c'est précisément ce qu'il faudrait établir.

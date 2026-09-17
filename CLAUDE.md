@@ -165,6 +165,16 @@ python3 scripts/fix-liens-langue.py [--dry-run]   # ne réécrit jamais vers une
 # en 1 ; À VÉRIFIER liste ce qu'aucune machine ne tranche, et ne bloque jamais.
 python3 scripts/verifier-denombrements.py [--path …] [--a-verifier] [--bref]
 
+# Garde-fou d'ancrage — l'entrée d'appareil est-elle rattachée au BON séif ?
+# « le psak du Taz ס״ק י״ח (seif 7) » promet au lecteur de l'y trouver ; au siman 119
+# ce ס״ק est ancré au séif 19. verifier-citations.py ne le voit pas : il confronte le
+# verbatim, qui est exact, et ne regarde pas où le ס״ק est posé. La vérité est l'ancre
+# <i data-commentator="…" data-order="N"> que Sefaria place DANS le texte du Choul'han
+# Aroukh. Rend des CANDIDATS et sort toujours en 0 — une page peut citer le ס״ק d'un
+# autre séif quand il éclaire le sien. Ce qui compte : l'écart isolé, à ouvrir, et
+# l'écart SYSTÉMATIQUE, tout un siman décalé, qui est le piège de la règle 22-bis.
+python3 scripts/verifier-ancrage.py [N N …] [--path …]
+
 # Generate a siman's index page from data/simanim/siman-XXX.json (does NOT generate study levels — those are written by hand)
 node scripts/generate-siman.js --siman XXX [--force] [--no-sitemap]
 ```
@@ -199,6 +209,13 @@ relecture adversariale — laquelle a trouvé **26 défauts les neuf autres port
   absolue fausse par une énumération fermée également fausse n'est pas une correction.**
   D'où le choix de signaler aussi les énumérations fermées, et de préférer partout une
   forme ouverte (« notamment aux seifim 22, 49, 51 et 57 ») — ou de ne rien écrire.
+- `verifier-ancrage.py` — **le ס״ק cité est-il sur le séif annoncé ?** Portée volontairement
+  étroite, et il faut le dire : les pages énoncent rarement le couple ס״ק/séif, si bien que
+  101 rattachements seulement sont confrontables sur les 424 simanim. 91 sont conformes,
+  **10 ne le sont pas** — dont le Taz ס״ק י״ח du siman 119, donné au séif 7 dans les trois
+  langues quand son ancre le pose au séif 19, et quatre écarts présents dans la seule page
+  HÉBRAÏQUE, c'est-à-dire là où l'hébreu dit ce que le français ne dit pas. Candidats déposés
+  dans `audit/ancrage-candidats.txt` ; aucune page n'a été modifiée.
 
 Ce contrôle a été **beaucoup plus difficile à rendre juste qu'à écrire**, et la leçon vaut
 d'être gardée : son premier essai rendait **118 « FAUX » sur le seul siman 228, tous
