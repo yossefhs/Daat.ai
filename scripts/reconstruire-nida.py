@@ -48,7 +48,23 @@ def source(n):
     return _cache[n]
 
 RX_BLOC = re.compile(r'<blockquote class="text-resume"([^>]*)>(.*?)</blockquote>', re.S)
-RX_SEIF = re.compile(r'Seif\s+(\d+)(?:\s*[-–]\s*(\d+))?', re.I)
+RX_SEIF = re.compile(r'Seif\s+(?P<spec>\d+(?:\s*[-–]\s*\d+)?(?:\s*,\s*\d+(?:\s*[-–]\s*\d+)?)*)',
+                     re.I)
+
+def seifim_de(titre):
+    """Les séifim qu'un titre de bloc annonce : « Seif 3 », « Seif 2-4 », « Seif 9, 11 »."""
+    m = RX_SEIF.match(titre)
+    if not m:
+        return []
+    out = []
+    for part in m.group('spec').split(','):
+        part = part.strip()
+        mr = re.match(r'(\d+)\s*[-–]\s*(\d+)$', part)
+        if mr:
+            out += list(range(int(mr.group(1)), int(mr.group(2)) + 1))
+        elif part.isdigit():
+            out.append(int(part))
+    return out
 
 def titre_avant(s, pos):
     h = re.findall(r'<h[34][^>]*>(.*?)(?:<button|</h)', s[:pos], re.S)
@@ -67,12 +83,8 @@ def plan(n, S):
     s = io.open(p, encoding='utf-8').read()
     out = []
     for m in RX_BLOC.finditer(s):
-        t = titre_avant(s, m.start())
-        mm = RX_SEIF.match(t)
-        if not mm:
-            out.append(None); continue
-        a = int(mm.group(1)); b = int(mm.group(2) or a)
-        out.append((a, b) if 1 <= a <= len(S) and 1 <= b <= len(S) else None)
+        nums = [x for x in seifim_de(titre_avant(s, m.start())) if 1 <= x <= len(S)]
+        out.append(nums or None)
     return out
 
 def traiter(n, dry=False):
@@ -95,8 +107,7 @@ def traiter(n, dry=False):
             if cible is None:
                 ignores += 1
                 continue
-            a, b = cible
-            neuf = ' '.join(S[i - 1] for i in range(a, b + 1))
+            neuf = ' '.join(S[i - 1] for i in cible)
             neuf = re.sub(r'<i data-commentator[^>]*></i>', '', neuf)
             if suf == '':
                 couv_avant += len(cons(m.group(2)))
@@ -120,6 +131,12 @@ def traiter(n, dry=False):
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith('--')]
     dry = '--dry-run' in sys.argv
+    if '--refondre' in sys.argv:
+        for a in args:
+            refondre(int(a), dry)
+        if dry:
+            print("\n(essai à blanc — rien n'a été écrit)")
+        return 0
     if '--monoseif' in sys.argv:
         for a in (args or ['183', '191', '193', '200']):
             traiter_monoseif(int(a), dry)
@@ -236,6 +253,121 @@ def traiter_monoseif(n, dry=False):
     print(f"siman {n} : {len(morceaux)} blocs recoupés sur le séif unique — "
           f"{100*avant//apres} % → 100 %")
     return len(morceaux)
+
+
+
+
+# ─────────────────── refonte d'une section de texte ───────────────────
+#
+# Les simanim 189, 190 et 198 ne se réparent pas bloc à bloc : leurs pages ne portent
+# qu'un cinquième du Choul'han Aroukh (13 blocs pour 34 séifim, 15 pour 54, 10 pour 48),
+# et deux d'entre elles présentent en outre les séifim dans le désordre. Il n'y a pas de
+# texte à remplacer — il y a un texte à POSER.
+#
+# La refonte reconstruit la section entière : un bloc par séif, verbatim, dans l'ordre du
+# livre. Les traductions existantes ne sont pas jetées : chacune est reportée sur le
+# premier séif que son bloc d'origine annonçait, avec une marque disant à quels séifim
+# elle se rapportait — c'est au rédacteur de les répartir, la machine ne sait pas le
+# faire. Les séifim qui n'étaient nulle part reçoivent un bloc verbatim et une traduction
+# vide, marquée.
+#
+# L'hébreu vient toujours du JSON de Sefaria et n'est jamais retapé (règle 29).
+
+RX_H2 = re.compile(r'<h2[ >]')
+
+def _section(s):
+    m = re.search(r'<h2 id="exp-seifim"', s)
+    if not m:
+        return None
+    suite = RX_H2.search(s[m.end():])
+    return m.start(), (m.end() + suite.start() if suite else len(s))
+
+def _unites(s, a, b):
+    deb = [m.start() for m in re.finditer(r'<h4[ >]', s) if a <= m.start() < b]
+    out = []
+    for d in deb:
+        suite = re.search(r'<h[234][ >]', s[d + 4:b])
+        out.append((d, d + 4 + suite.start() if suite else b))
+    return out
+
+A_TRADUIRE = {
+    'fr': ('<div class="translation"><em>traduction à écrire</em> — ce séif n’était '
+           'pas dans la page ; son texte vient d’être posé verbatim.</div>'),
+    'he': ('<div class="translation"><em>תרגום לכתוב</em> — סעיף זה לא היה בדף; לשונו '
+           'הונחה עתה כמות שהיא.</div>'),
+    'en': ('<div class="translation"><em>translation to be written</em> — this seif was '
+           'not in the page; its text has just been laid down verbatim.</div>'),
+}
+REPORTEE = {
+    'fr': 'traduction reportée — elle portait sur les séifim {}, à répartir',
+    'he': 'תרגום שהועבר — הוא נסב על סעיפים {}, יש לחלקו',
+    'en': 'translation carried over — it covered seifim {}, to be redistributed',
+}
+
+def refondre(n, dry=False):
+    S = source(n)
+    p0 = os.path.join(ROOT, f'sources/yoreh-deah/siman-{n}/niveau-1-base.html')
+    s0 = io.open(p0, encoding='utf-8').read()
+    bornes0 = _section(s0)
+    if not bornes0:
+        print(f"siman {n} : section du texte introuvable"); return 0
+    u0 = _unites(s0, *bornes0)
+    # ce que chaque unité annonce, lu sur le français
+    annonce = []
+    for d, f in u0:
+        t = re.sub(r'<[^>]+>', '', s0[d:d + 260])
+        annonce.append([x for x in seifim_de(t.strip()) if 1 <= x <= len(S)])
+    par_seif = {}
+    for i, nums in enumerate(annonce):
+        for x in nums:
+            par_seif.setdefault(x, i)
+
+    neufs = 0
+    for suf in ('', '-he', '-en'):
+        p = os.path.join(ROOT, f'sources/yoreh-deah/siman-{n}/niveau-1-base{suf}.html')
+        s = io.open(p, encoding='utf-8').read()
+        bornes = _section(s)
+        u = _unites(s, *bornes)
+        if len(u) != len(u0):
+            print(f"  ⚠️ {os.path.basename(p)} : {len(u)} unités contre {len(u0)} en "
+                  f"français — parité rompue, fichier laissé intact")
+            continue
+        lg = 'he' if suf == '-he' else 'en' if suf == '-en' else 'fr'
+        # la traduction et les encadrés d'une unité, sans son titre ni ses blocs
+        garde = []
+        for d, f in u:
+            corps = s[d:f]
+            corps = re.sub(r'<h4[^>]*>.*?</h4>', '', corps, flags=re.S)
+            corps = re.sub(r'<blockquote class="text-(?:resume|source|compose)"[^>]*>'
+                           r'.*?</blockquote>', '', corps, flags=re.S)
+            garde.append(corps.strip())
+        titres = [re.sub(r'(?s)<button.*?</button>', '',
+                         re.search(r'<h4[^>]*>(.*?)</h4>', s[d:f], re.S).group(1)).strip()
+                  if re.search(r'<h4[^>]*>(.*?)</h4>', s[d:f], re.S) else ''
+                  for d, f in u]
+        morceaux = []
+        for x in range(1, len(S) + 1):
+            txt = re.sub(r'<i data-commentator[^>]*></i>', '', S[x - 1])
+            i = par_seif.get(x)
+            premier = i is not None and min(annonce[i]) == x
+            titre = titres[i] if premier else f"Seif {x}"
+            bloc = (f'\n<h4>{titre}</h4>\n'
+                    f'<blockquote class="text-source" data-copy-block id="cp-s{x}">\n'
+                    f'{txt}\n</blockquote>\n')
+            if premier:
+                marque = REPORTEE[lg].format(', '.join(str(y) for y in annonce[i]))
+                bloc += f'<p class="src-ref"><em>{marque}</em></p>\n{garde[i]}\n'
+            else:
+                bloc += A_TRADUIRE[lg] + '\n'
+                if suf == '':
+                    neufs += 1
+            morceaux.append(bloc)
+        neuf = s[:u[0][0]] + ''.join(morceaux) + s[u[-1][1]:]
+        if not dry:
+            io.open(p, 'w', encoding='utf-8').write(neuf)
+    print(f"siman {n} : {len(S)} blocs posés dans l'ordre du livre, "
+          f"{neufs} séifim qui n'étaient pas dans la page")
+    return neufs
 
 
 if __name__ == '__main__':
