@@ -72,6 +72,21 @@ MIN_LETTRES = 12        # en deçà, un fragment est trop court pour conclure qu
 # technique mis entre guillemets par l'auteur (« תשמישי קדושה », « אמירה לנכרי שבות »),
 # que rien n'oblige à figurer mot pour mot dans la source voisine.
 MIN_CITATION = 25
+# …MAIS UNE CITATION COURTE MUNIE D'UNE RÉFÉRENCE PRÉCISE SE JUGE QUAND MÊME.
+#
+# Le 19 septembre 2026, quatre citations fabriquées ont été trouvées dans Yoré Déa, sur
+# des pages en ligne et vertes à toutes les portes. La plus grave — « אין אנו נוהגין
+# להוציאה », attribuée au Rama, 136 occurrences, sur une LIGNE DE PSAK du niveau 4
+# référencée « Choul'han Aroukh YD 187:1 » — compte VINGT-DEUX lettres. Le seuil de 25 la
+# couvrait, et avec elle un psak inversé : la glose réelle du Rama au séif 1 est une
+# rigueur (ונאסרה על בעלה), la page en faisait un allègement. La dernière des quatre en
+# compte vingt-trois.
+#
+# Le seuil existe pour ne pas accuser un terme technique mis entre guillemets — et un
+# terme technique ne porte pas de référence. Quand l'auteur ÉCRIT la référence à côté de
+# sa citation, il ne nomme plus un concept : il affirme que la source dit ces mots-là. Ce
+# seuil-ci s'applique alors, et il est bien plus bas.
+MIN_CITATION_REFERENCEE = 12
 # La référence doit se trouver au voisinage de la citation, pas n'importe où sur la ligne.
 FENETRE_REF = 200
 
@@ -146,7 +161,7 @@ def locate(frag):
     """
     q = re.sub(r'\s+', ' ', re.sub(r'[«»"„”\[\]]', '', frag)).strip()
     q = max((p.strip() for p in re.split(r'…|\.\.\.', q)), key=len)[:180]
-    if n_letters(q) < MIN_CITATION:
+    if n_letters(q) < MIN_CITATION_REFERENCEE:
         return []
 
     def ask():
@@ -1002,10 +1017,17 @@ def quotes_in(text):
                 # écarte les identifiants d'ancre (mots collés par des tirets)
                 if re.fullmatch(r'[\wא-ת֐-׿-]+', frag):
                     continue
-                # un terme technique entre guillemets n'est pas une citation
-                if n_letters(frag) < MIN_CITATION:
-                    continue
                 at = plain.find(frag)
+                # Un terme technique entre guillemets n'est pas une citation — sauf si
+                # une référence l'accompagne : alors c'est une affirmation sur la source.
+                nl = n_letters(frag)
+                if nl < MIN_CITATION:
+                    if nl < MIN_CITATION_REFERENCEE:
+                        continue
+                    deb = max(0, (at if at > 0 else 0) - FENETRE_REF)
+                    fin = (at if at > 0 else 0) + len(frag) + FENETRE_REF
+                    if not refs_in(plain[deb:fin]):
+                        continue
                 if at > 0 and RESUME.search(plain[:at]):
                     continue          # résumé assumé : pas une citation
                 if at > 0 and not (from_marked or has_cue(plain[:at])):

@@ -41,7 +41,14 @@ import re, sys, os, io, json, glob, subprocess, unicodedata, time
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CACHE = os.path.join(ROOT, ".cache-fabrications.json")
 
-NIKOUD = re.compile(r'[֑-ׇ]')
+# Plage ÉTROITE, et la raison mérite d'être écrite parce que je l'ai apprise deux fois.
+# La plage large 0591-05C7 contient le MAQAF (U+05BE), le paseq (U+05C0) et le sof pasuq
+# (U+05C3), qui ne sont pas du nikoud mais de la PONCTUATION. Les supprimer soude les
+# mots : לֹא־תַשִּׁיךְ devenait לאתשיך et כָּל־דָּבָר devenait כלדבר, si bien que des versets
+# parfaitement recopiés sortaient « introuvables dans tout Sefaria ». Le maqaf devient
+# une espace, il ne disparaît pas.
+NIKOUD = re.compile('[\u0591-\u05BD\u05BF\u05C1\u05C2\u05C4\u05C5\u05C7]')
+SEPARATEURS = re.compile('[\u05BE\u05C0\u05C3]')
 HEB = re.compile(r'[א-ת]')
 
 # Les citations hébraïques d'une page : le span he-q, et l'hébreu entre guillemets.
@@ -52,7 +59,9 @@ def nettoyer(s):
     s = re.sub(r'<[^>]+>', ' ', s)
     s = (s.replace('&nbsp;', ' ').replace('&amp;', '&')
           .replace('&quot;', '"').replace('&#39;', "'"))
-    s = NIKOUD.sub('', unicodedata.normalize('NFC', s))
+    s = unicodedata.normalize('NFC', s)
+    s = SEPARATEURS.sub(' ', s)
+    s = NIKOUD.sub('', s)
     return re.sub(r'\s+', ' ', s).strip()
 
 def mots_he(s):
