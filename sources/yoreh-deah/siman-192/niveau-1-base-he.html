@@ -232,6 +232,28 @@
   hr.ornament { border: none; text-align: center; margin: 20px 0; }
   hr.ornament::before { content: "✦ ❖ ✦"; color: #C5A55A; font-size: 13pt; }
 
+  blockquote.text-resume {
+    background: #f7f5f2;
+    border-right: 4px dashed #b9a06a;
+    direction: rtl;
+    text-align: right;
+    margin: 10px 0;
+    padding: 10px 15px;
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 12pt;
+    font-style: italic;
+  }
+
+  blockquote.text-resume .resume-marque {
+    display: block;
+    direction: inherit;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: normal;
+    font-size: 10pt;
+    color: #7a6a44;
+    margin-bottom: 6px;
+  }
+
   blockquote.text-source {
     background: #faf8f0;
     border-right: 4px solid #C5A55A;
@@ -502,6 +524,7 @@
 <!-- 1. טקסט המחבר -->
 <!-- ========================================== -->
 <h2 id="exp-seifim" class="section-title">1. טקסט המחבר — חמשת הסעיפים</h2>
+<div class="key-point"><strong>הערת קריאה.</strong> הקטעים העבריים שבפרק זה הם <em>תמציות</em>, ולא לשון השולחן ערוך כמות שהיא: הם מקצרים את העניין ואינם מביאים את כל הבבות. השבת הנוסח המלא, סעיף אחר סעיף וכסדר הספר, נעשית עתה. ללשון המדויקת — עיין במקור.</div>
 
 <p>סימן קצ״ב פותח את דיני ה<strong>כלה</strong> הנכנסת ל<span class="he-q">חופה</span>. המחבר (רבי יוסף קארו) דן בדין עדין במיוחד : הכלה, מחמת התרגשות הבקשה לנישואין, צריכה לספור <strong>שבעה נקיים</strong> קודם הטבילה — זהו <span class="he-q">דם חימוד</span>, דם הנובע מן החימוד. הסימן מבאר <em>מאימתי</em> מתחילה המנייה, <em>מתי</em> לטבול, מה דינו של <em>דחיית</em> הנישואין, וכיצד לנהוג (שמירה) אם הכלה נעשית נדה קודם הביאה הראשונה. הרמ״א (רבי משה איסרליש) מוסיף הגהותיו (<span class="he-q">הגה</span>) על הטבילה ועל השמירה. נעיין בחמשת הסעיפים, אחד לאחד.</p>
 
@@ -512,7 +535,8 @@
   <button class="daat-copy" type="button" data-copy-target="#cp-s1">📋 העתקה</button>
 </h4>
 
-<blockquote class="text-source" data-copy-block id="cp-s1">
+<blockquote class="text-resume" data-copy-block id="cp-s1">
+<span class="resume-marque"><em>תמצית</em> — קיצור, ולא לשון השולחן ערוך במלואה</span>
 תְּבָעוּהָ לִינָּשֵׂא וְנִתְפַּיְּסָה, צְרִיכָה לֵישֵׁב שִׁבְעָה נְקִיִּים, בֵּין גְּדוֹלָה בֵּין קְטַנָּה; וַאֲפִלּוּ בָּדְקָה עַצְמָהּ בִּשְׁעַת תְּבִיעָה וּמָצְאָה טְהוֹרָה, שֶׁמָּא מֵחֲמַת חִמּוּד רָאֲתָה טִפַּת דָּם כְּחַרְדָּל וְלֹא הִרְגִּישָׁה בּוֹ; וּמוֹנָה שִׁבְעָה מִמָּחֳרַת יוֹם הַתְּבִיעָה, וְאֵינָהּ צְרִיכָה הֶפְסֵק טַהֲרָה, שֶׁאַף עַל פִּי שֶׁלֹּא בָּדְקָה בְּיוֹם הַתְּבִיעָה לְהַפְסִיק בְּטַהֲרָה, מוֹנָה מִיּוֹם הַמָּחֳרָת שִׁבְעָה נְקִיִּים.
 </blockquote>
 
@@ -531,7 +555,8 @@
   <button class="daat-copy" type="button" data-copy-target="#cp-s2">📋 העתקה</button>
 </h4>
 
-<blockquote class="text-source" data-copy-block id="cp-s2">
+<blockquote class="text-resume" data-copy-block id="cp-s2">
+<span class="resume-marque"><em>תמצית</em> — קיצור, ולא לשון השולחן ערוך במלואה</span>
 שִׁבְעַת יָמִים הַלָּלוּ מוֹנִים אוֹתָהּ מִשָּׁעָה שֶׁהִיא סוֹמֶכֶת בְּדַעְתָּהּ וּמְכִינָה עַצְמָהּ לַחֻפָּה, אַף עַל פִּי שֶׁלֹּא נִתְקַדְּשָׁה עֲדַיִן. <span class="he-q">(הגה: וְיֵשׁ לִסְמוֹךְ הַטְּבִילָה סָמוּךְ לִבְעִילַת מִצְוָה בְּכָל מַה דְּאֶפְשָׁר, וְהַמִּנְהָג לִטְבּוֹל הַכַּלָּה לֵיל ד׳ אַף עַל פִּי שֶׁלֹּא תִּבָּעֵל קֹדֶם מוֹצָאֵי שַׁבָּת.)</span>
 </blockquote>
 
@@ -550,7 +575,8 @@
   <button class="daat-copy" type="button" data-copy-target="#cp-s3">📋 העתקה</button>
 </h4>
 
-<blockquote class="text-source" data-copy-block id="cp-s3">
+<blockquote class="text-resume" data-copy-block id="cp-s3">
+<span class="resume-marque"><em>תמצית</em> — קיצור, ולא לשון השולחן ערוך במלואה</span>
 אִם דָּחוּ הַנִּשּׂוּאִין מֵחֲמַת אֵיזוֹ סִבָּה, אַף עַל פִּי שֶׁיָּשְׁבָה שִׁבְעָה נְקִיִּים, צְרִיכָה לַחֲזוֹר וְלֵישֵׁב שִׁבְעָה נְקִיִּים (וְלִטְבּוֹל) כְּשֶׁיִּתְפַּשְּׁרוּ לַעֲשׂוֹת הַנִּשּׂוּאִין. <span class="he-q">(אַף עַל פִּי שֶׁבָּדְקָה עַצְמָהּ תָּמִיד בַּיָּמִים שֶׁבֵּינְתַיִם לֹא מַהֲנֵי.)</span>
 </blockquote>
 
@@ -569,7 +595,8 @@
   <button class="daat-copy" type="button" data-copy-target="#cp-s4">📋 העתקה</button>
 </h4>
 
-<blockquote class="text-source" data-copy-block id="cp-s4">
+<blockquote class="text-resume" data-copy-block id="cp-s4">
+<span class="resume-marque"><em>תמצית</em> — קיצור, ולא לשון השולחן ערוך במלואה</span>
 עָבַר וּכְנָסָהּ תּוֹךְ זְמַן זֶה, וְכֵן חָתָן שֶׁפֵּרְסָה כַּלָּתוֹ נִדָּה קֹדֶם שֶׁבָּא עָלֶיהָ, לֹא יִתְיַחֵד עִמָּהּ אֶלָּא הוּא יָשֵׁן בֵּין הָאֲנָשִׁים וְהִיא יְשֵׁנָה בֵּין הַנָּשִׁים. <span class="he-q">(הגה: יֵשׁ אוֹמְרִים אִם הָיְתָה טְהוֹרָה כְּשֶׁנְּשָׂאָהּ וְלֹא בָּא עָלֶיהָ וּפֵרְסָה נִדָּה אַחַר כָּךְ, אֵינָהּ צְרִיכָה שִׁמּוּר עוֹד, וְהַמַּחְמִיר תָּבוֹא עָלָיו בְּרָכָה; וְאֵין לְחַלֵּק בָּזֶה בֵּין בָּחוּר לְאַלְמָן אוֹ בְּתוּלָה לְאַלְמָנָה.)</span>
 </blockquote>
 
@@ -588,7 +615,8 @@
   <button class="daat-copy" type="button" data-copy-target="#cp-s5">📋 העתקה</button>
 </h4>
 
-<blockquote class="text-source" data-copy-block id="cp-s5">
+<blockquote class="text-resume" data-copy-block id="cp-s5">
+<span class="resume-marque"><em>תמצית</em> — קיצור, ולא לשון השולחן ערוך במלואה</span>
 מַחֲזִיר גְּרוּשָׁתוֹ צְרִיכָה לֵישֵׁב שִׁבְעָה נְקִיִּים.
 </blockquote>
 
