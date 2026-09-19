@@ -1101,3 +1101,47 @@ deux séifim, et l'ancrage par recouvrement de mots ne peut pas les séparer : l
 moteur a refusé le siman entier plutôt que d'attribuer un encadré au hasard.
 
 C'est le bon comportement. À traiter à la main, en nommant chaque bloc.
+
+---
+
+## Une citation FABRIQUÉE, en ligne, sur une ligne de psak — siman 187 (19 septembre 2026)
+
+**NEEDS_RABBINIC_VALIDATION.** Le siman 187 de Yoré Déa attribue au Rama, entre
+guillemets, une phrase qui n'existe pas :
+
+> « אין אנו נוהגין להוציאה »
+
+**Vérifié deux fois, par squelette consonantique, sur le texte retéléchargé depuis
+Sefaria : cette phrase n'est nulle part dans le siman 187.** Ni elle, ni même les mots
+`נוהגין` ou `להוציאה` pris isolément — zéro occurrence dans les quatorze séifim.
+
+**113 occurrences** dans les quinze fichiers du siman, dont des meta descriptions, des
+JSON-LD, des sommaires, et une **ligne de psak du niveau 4** qui la référence
+explicitement « Choul'han Aroukh YD 187:1 ».
+
+**Et elle renverse le sens du siman.** La page en fait « l'allègement du Rama » : on ne
+fait plus divorcer. Or le Mehaber au séif 1 écrit
+`אסורה לשמש עם בעל זה אלא תתגרש ותנשא לאחר`, et la glose **réelle** du Rama au même séif
+est une **rigueur** :
+
+> הגה וי״א שאין אנו בקיאין איזה מיקרי מחמת תשמיש כי אין בקיאין בשיעור הנזכר ולכן כל
+> שרואה ג״פ סמוך לתשמיש מקרי לדידן מחמת תשמיש **ונאסרה על בעלה** (ב״י בשם הראב״ד…)
+
+Le Rama **élargit** l'interdit ; le site lui fait dire le contraire.
+
+**Pourquoi aucune porte ne l'a vu.** Le `span.he-q` de la phrase compte **22 lettres
+hébraïques**, sous le seuil de 25 de `verifier-citations.py`. C'est le point aveugle n°1
+du brief — « les citations de moins de 25 lettres ne sont jamais confrontées à leur
+source », 1 204 mesurées dans Yoré Déa dont 319 portant une référence précise — et le
+voici qui coûte un psak inversé, en ligne.
+
+Le seuil existe pour ne pas accuser les termes techniques mis entre guillemets. Ce cas
+montre ce qu'il laisse passer. **À rouvrir comme question d'outil**, indépendamment de la
+réparation du siman 187 : une citation courte MUNIE D'UNE RÉFÉRENCE PRÉCISE devrait être
+jugée quel que soit son nombre de lettres.
+
+L'idée qu'on ne contraindrait plus au divorce de nos jours est une position réelle chez
+des Aharonim. Elle n'est pas dans ce siman, et ce n'est pas au site de décider ce qu'il
+enseigne à la place : la réparation RETIRE la fabrication et rétablit la glose réelle,
+sans substituer un psak à un autre. Ce qui doit être dit de la pratique contemporaine
+revient au Rav.
