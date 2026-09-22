@@ -49,6 +49,14 @@ const DEFAULT_EXCLUDE = ['helloasso', 'stripe', 'remboursement', 'refund'];
 // Un vrai don écarté à tort apparaît dans `excluded_samples` de la réponse :
 // l'admin peut alors l'ajouter à la main ou élargir QONTO_INCLUDE.
 const DEFAULT_INCLUDE = ['daat', 'tsedaka', 'tzedaka', 'soutien', 'dedicace', 'dédicace', 'don', 'torah'];
+
+// Le mot-clé doit apparaître comme MOT ENTIER (bordé par début/fin ou un
+// caractère non alphanumérique) : « don » matche « don daat » ou « DON-2026 »
+// mais pas « Donald », « London » ni « redondance ». Accents conservés.
+function matchesWord(text, keyword) {
+  const esc = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return new RegExp(`(^|[^\\p{L}\\p{N}])${esc}($|[^\\p{L}\\p{N}])`, 'iu').test(text);
+}
 const PROCESSED_SET = 'qonto:processed';
 
 function setCors(res) {
@@ -223,7 +231,9 @@ export default async function handler(req, res) {
       const text = [t.label, t.reference, t.note].map((v) => String(v || '')).join(' ').toLowerCase();
       if (excludes.some((x) => x && text.includes(x))) { excluded++; continue; }
       // Liste blanche : si active, tout ce qui NE matche PAS est ignoré.
-      if (includes.length && !includes.some((x) => text.includes(x))) {
+      // Correspondance en MOTS ENTIERS : « don » ne doit pas matcher « Donald »,
+      // « London » ou « redondance » (cas réel : un virement étranger compté).
+      if (includes.length && !includes.some((x) => matchesWord(text, x))) {
         excluded++;
         if (excludedSamples.length < 20) {
           excludedSamples.push({ label: t.label, amount: Number(t.amount) || 0, at: t.settled_at });
