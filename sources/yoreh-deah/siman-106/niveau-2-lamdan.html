@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="fr" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,8 +23,7 @@
   @page { size: A4; margin: 2cm 1.8cm; }
   body {
     font-family: 'Frank Ruhl Libre', 'David', 'Georgia', 'Cambria', serif;
-    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0;
-    direction: rtl; text-align: right;
+    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0; text-align: left;
   }
   .he {
     direction: rtl; text-align: right;
@@ -72,14 +71,12 @@
   h2.section-title {
     color: #fff; background: #1A1F3A;
     font-size: 16pt; padding: 10px 18px; margin-top: 30px;
-    border-right: 6px solid #C5A55A;
-    direction: rtl; text-align: right;
+    border-left: 6px solid #C5A55A; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3 {
     color: #1A1F3A; font-size: 14pt; margin-top: 25px;
-    border-right: 4px solid #C5A55A; padding-right: 10px;
-    direction: rtl; text-align: right;
+    border-left: 4px solid #C5A55A; padding-left: 10px; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3.he-h3 {
@@ -89,8 +86,7 @@
   }
   h4 {
     color: #5a4a1a; font-size: 12pt;
-    margin-top: 20px; margin-bottom: 8px; font-weight: bold;
-    direction: rtl; text-align: right;
+    margin-top: 20px; margin-bottom: 8px; font-weight: bold; text-align: left;
   }
 
   .sacred-text {
@@ -100,8 +96,8 @@
     font-size: 12.5pt; line-height: 1.9;
   }
   .pilpul-box {
-    background: #eef3fa; border-right: 4px solid #1A1F3A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #eef3fa; border-left: 4px solid #1A1F3A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .pilpul-box::before {
     content: "⚡ פלפול"; display: block;
@@ -110,8 +106,8 @@
     direction: rtl; text-align: right;
   }
   .kashya-box {
-    background: #fef4e4; border-right: 4px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #fef4e4; border-left: 4px solid #C5A55A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .kashya-box::before {
     content: "❓ קושיא"; display: block;
@@ -120,8 +116,8 @@
     direction: rtl; text-align: right;
   }
   .teruts-box {
-    background: #e8f4ea; border-right: 4px solid #2d7a3e;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #e8f4ea; border-left: 4px solid #2d7a3e;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .teruts-box::before {
     content: "✓ תירוץ"; display: block;
@@ -130,8 +126,8 @@
     direction: rtl; text-align: right;
   }
   .hakira-box {
-    background: #f5e9f5; border-right: 4px solid #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #f5e9f5; border-left: 4px solid #6a1b7a;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .hakira-box::before {
     content: "🔍 חקירה"; display: block;
@@ -141,8 +137,7 @@
   }
   .nafka-mina-box {
     background: #fff4e6; border: 2px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; border-radius: 4px; text-align: left;
   }
   .nafka-mina-box::before {
     content: "⚖️ נפקא מינה"; display: block;
@@ -152,8 +147,7 @@
   }
   .yesod-box {
     background: #1A1F3A; color: #fff;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
   .yesod-box::before {
     content: "💎 יסוד"; display: block;
@@ -164,7 +158,7 @@
   .yesod-box .he-q { color: #C5A55A; }
   .machloket-box {
     background: #faf5ff; border: 1.5px dashed #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
 
   table {
@@ -173,10 +167,9 @@
   }
   th {
     background: #1A1F3A; color: #fff;
-    padding: 10px; text-align: right; direction: rtl; font-size: 11pt;
+    padding: 10px; text-align: left; font-size: 11pt;
   }
-  td {
-    direction: rtl; text-align: right;
+  td { text-align: left;
     border: 1px solid #d4c89a; padding: 10px; vertical-align: top;
   }
   tr:nth-child(even) td { background: #FAF6EE; }
@@ -200,9 +193,8 @@
   ol.stylish, ul.stylish { padding-right: 22px; padding-left: 0; }
 
   .rishon-card {
-    background: #f7f3e4; border-right: 4px solid #8a6a1a;
-    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt;
-    direction: rtl; text-align: right;
+    background: #f7f3e4; border-left: 4px solid #8a6a1a;
+    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt; text-align: left;
   }
   .rishon-card strong { color: #1A1F3A; font-size: 11pt; }
 
@@ -217,8 +209,7 @@
 
   .index-box {
     background: #FAF6EE; border: 1px solid #C5A55A;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
   .index-box ol { margin: 5px 0; padding-right: 25px; padding-left: 0; }
   .index-box li { margin-bottom: 5px; }
@@ -237,7 +228,6 @@
     font-size: 12pt;
     text-decoration: none;
     border-bottom: 1px dotted #C5A55A;
-    direction: rtl;
   }
   a.daat-explain:hover { color: #8a6a1a; border-bottom-style: solid; }
 
@@ -273,7 +263,7 @@
   "headline": "Siman ק״ו · Niveau 2 Lamdan — Pilpoul approfondi · היאך מבטלין בששים, לפי חשבון ואפשר לסוחטו אסור",
   "description": "Niveau 2 (Lamdan) du Siman ק״ו (Yoreh De'ah) — Pilpoul approfondi. ביטול לפי חשבון איסור שבה, אפשר לסוחטו אסור, נבלל ונימוח מול יבש, מחלוקת חתיכה נעשית נבילה (מחבר בבב״ח לבד מול רמ״א בכל איסורין), סוגיא דכחל וכל דתיקון רבנן כעין דאורייתא — חקירה et נפקא מינה.",
   "url": "https://daattorah.com/yd/106/lamdan",
-  "inLanguage": "he-IL",
+  "inLanguage": "fr-FR",
   "isAccessibleForFree": true,
   "author": {
     "@id": "https://daattorah.com/#rav-samama"
@@ -382,393 +372,426 @@
 <!-- COUVERTURE -->
 <div class="cover">
   <div class="ornament">✦ ❖ ✦</div>
-  <div class="badge-top">DAAT · רמה ב' — לַמְדָּן</div>
-  <h1>שולחן ערוך · יורה דעה</h1>
-  <div class="subtitle">דין היאך מבטלין בששים — עיון ופלפול</div>
-
-  <div class="he-title">סימן ק״ו</div>
-  <div class="he-sub">לפי חשבון, אפשר לסוחטו אסור, נבלל ונימוח, חתיכה נעשית נבילה</div>
-  <div class="he-subject">עיון, פלפול, שיטות הראשונים והאחרונים</div>
-
-  <div class="level-badge">⚡ ללומדים ותלמידי חכמים ⚡</div>
-
+  <div class="badge-top">DAAT · NIVEAU 2 — LAMDAN</div>
+  <h1>Siman 106 — Niveau Lamdan : un morceau qui a absorbé de l’interdit, et ce contre quoi l’on mesure les soixante</h1>
+  <div class="he-title">יורה דעה · סימן ק״ו</div>
+  <div class="he-sub">דין היאך מבטלין בששים</div>
+  <div class="he-subject">לפי חשבון · אפשר לסוחטו אסור · נבלל ונימוח מול יבש · חתיכה נעשית נבילה</div>
+  <div class="level-badge">📜 רמת הלמדן · Talmid Hakham</div>
   <div class="ornament">✦ ❖ ✦</div>
-
-  <h2 style="margin-top:20px; color: #1A1F3A;">פלפול ועיון מעמיק</h2>
-  <p style="font-size:12pt; color:#555;">
-    סוגיות, מקורות, חקירת היסוד, מחלוקות ראשונים ואחרונים,<br>
-    נפקא מינות להלכה ועיון בשיטות
-  </p>
-
+  <div class="subtitle">Deux seifim, et une seule question qui les tient : soixante contre l’interdit absorbé, ou soixante contre le morceau tout entier ?</div>
   <div class="credits">
-    <p><strong>הנושא :</strong><br>
-    שולחן ערוך יורה דעה סימן ק״ו (ב' סעיפים)<br>
-    עם נושאי כלים: ש״ך (שפתי כהן), ט״ז (טורי זהב), פרי מגדים, פתחי תשובה</p>
-
-    <p><strong>יסוד הסוגיא בש״ס :</strong><br>
-    חולין ק׳. (סוגיא דכחל, נפלה לקדירה אחרת, חתיכה עצמה נאסרת) · חולין ק״ח. (חתיכה נעשית נבילה) · חולין צ״ז:–צ״ח. (טעם כעיקר וביטול בששים)</p>
-
-    <p><strong>עריכה ועיון :</strong><br>
-    הרב יוסף חיים סממה · DAAT</p>
+    <p><strong>Sujet :</strong><br>
+    שולחן ערוך יורה דעה סימן ק״ו · ב׳ סעיפים · avec ש״ך · ט״ז · פתחי תשובה</p>
+    <p><strong>Fondement de la sougya dans le Chas :</strong><br>
+    חולין ק׳ ע״א (la sougya du כחל : « tombé dans une autre marmite », et le כחל lui-même interdit) · חולין ק״ח ע״א (חתיכה נעשית נבילה) · חולין צ״ז ע״ב (טעם כעיקר et l’annulation dans soixante)</p>
+    <p><strong>Rédaction :</strong><br>הרב יוסף חיים סממה · DAAT</p>
   </div>
 </div>
 
 <div class="page-break"></div>
 
 <!-- TABLE DES MATIÈRES -->
-<h2 class="section-title">📑 תוכן העניינים</h2>
+<h2 class="section-title">📑 Table des matières</h2>
 
-<div class="index-box" dir="rtl">
+<div class="index-box">
 <ol>
-  <li><strong>הקדמת הסוגיא</strong> — חתיכה שבלעה איסור ואין בה ששים, שנפלה לקדירה (סעיף א')</li>
-  <li><strong>יסוד "לפי חשבון"</strong> — מבטלין כנגד האיסור הבלוע בלבד, והחתיכה מצטרפת למניין (סעיף א')</li>
-  <li><strong>אפשר לסוחטו אסור</strong> — מדוע החתיכה עצמה נשארת באיסורה, וסוגיא דכחל (ט״ז ס״ק א)</li>
-  <li><strong>נבלל ונימוח מול יבש</strong> — חילוק המחבר בין לח לגוש, והכרעת הרמ״א (ש״ך ס״ק ג–ד)</li>
-  <li><strong>מחלוקת חתיכה נעשית נבילה</strong> — מחבר (חנ״נ בבב״ח לבד, לפי חשבון בשאר) מול רמ״א ומנהגנו (ס' נגד כל החתיכה, עיין סימן צ״ב)</li>
-  <li><strong>הסרת חתיכה מן הקדירה</strong> — הנהגה למעשה, שמא תישאר באחרונה, ותנאי המליחה (סעיף ב'; ט״ז ס״ק ב, ש״ך ס״ק ו)</li>
-  <li><strong>פתחי תשובה</strong> — נודע ביהודה (אפשר לסוחטו מותר במינו ובמליחה) ותפארת צבי (כבוש)</li>
-  <li><strong>חקירה ונפקא מינה למעשה</strong></li>
-  <li><strong>טבלאות סיכום מקיפות</strong></li>
+  <li><strong>Introduction de la sougya</strong> — un morceau qui a absorbé de l’interdit sans avoir soixante contre lui, et qui tombe dans une marmite (seif 1)</li>
+  <li><strong>Le fondement de « לפי חשבון »</strong> — on annule contre l’interdit absorbé seul, et le morceau entre lui-même dans le compte (seif 1)</li>
+  <li><strong>אפשר לסוחטו אסור</strong> — pourquoi le morceau lui-même reste dans son interdit, et la sougya du כחל (ט״ז ס״ק א)</li>
+  <li><strong>נבלל ונימוח contre le sec</strong> — la distinction du Mehaber entre le liquide et la masse, et ce que tranche le Rama (ש״ך ס״ק ג–ד)</li>
+  <li><strong>La ma‘hloket חתיכה נעשית נבילה</strong> — le Mehaber (dans la viande et le lait seulement, לפי חשבון pour le reste) contre le Rama et notre usage (soixante contre le morceau entier, voir siman 92)</li>
+  <li><strong>Retirer le morceau de la marmite</strong> — la conduite pratique, la crainte qu’il reste en dernier, et la condition du salage (seif 2 ; ט״ז ס״ק ב, ש״ך ס״ק ו)</li>
+  <li><strong>Pit’hei Techouva</strong> — le Nodah bi-Yehouda (absorbé de son espèce, et par salage) et le Tiféret Tsvi (כבוש)</li>
+  <li><strong>Hakira et nafka mina lema‘assé</strong></li>
+  <li><strong>Tableaux de synthèse</strong></li>
 </ol>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<!-- לשון השולחן ערוך — סעיף א' -->
-<h2 class="section-title">📜 לשון השולחן ערוך — סעיף א'
-  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 העתק</button>
+<h2 class="section-title">📜 Le texte du Choulhan Aroukh — seif 1
+  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 Copier</button>
 </h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ Explication détaillée (niveau 1)</a>
 
 <div class="sacred-text he" data-copy-block id="cp-1">
-  <p>חֲתִיכָה שֶׁבָּלְעָה אִסּוּר וְאֵין בָּהּ שִׁשִּׁים לְבַטְּלוֹ, שֶׁנָּפְלָה לִקְדֵרָה — אֵינָהּ אוֹסֶרֶת אֶלָּא לְפִי חֶשְׁבּוֹן אִסּוּר שֶׁבָּהּ. שֶׁאִם יֵשׁ בְּמַה שֶּׁבַּקְּדֵרָה, מְצֹרָף עִם הַחֲתִיכָה עַצְמָהּ, שִׁשִּׁים כְּנֶגֶד אִסּוּר הַבָּלוּעַ בָּהּ — מֻתָּר מַה שֶּׁבַּקְּדֵרָה. אֲבָל הַחֲתִיכָה עַצְמָהּ אֲסוּרָה, לְפִי שֶׁאִסּוּר שֶׁבָּהּ אֵינוֹ נִפְלָט מִמֶּנָּה לְגַמְרֵי. מַה שֶּׁאֵין כֵּן בְּדָבָר שֶׁנִּבְלָל וְנִמּוֹחַ: אִם נָפַל דָּם וְכַיּוֹצֵא בּוֹ לְרֹטֶב שֶׁל הֶתֵּר וַאֲסָרוֹ, וְאַחַר כָּךְ נִתְרַבָּה הָרֹטֶב עַד שֶׁיֵּשׁ שִׁשִּׁים לְבַטֵּל כָּל הַדָּם — הַכֹּל מֻתָּר, שֶׁהַכֹּל מְעֹרָב וְנִמּוֹחַ. (הגה: וּלְדִידַן דְּאָמְרִינַן בְּכָל הָאִסּוּרִין חֲתִיכָה נַעֲשֵׂית נְבֵלָה, אֵין חִלּוּק בֵּין לַח לְיָבֵשׁ, רַק שֶׁאִם הַנֶּאֱסָר יָבֵשׁ וְיֵשׁ שִׁשִּׁים כְּנֶגְדּוֹ — הַחֲתִיכָה שֶׁנֶּאֶסְרָה בַּתְּחִלָּה עוֹמֶדֶת בְּאִסּוּרָהּ וְזוֹרְקָהּ אִם מַכִּירָהּ; וְאִם אֵינוֹ מַכִּירָהּ בְּטֵלָה אִם אֵינָהּ רְאוּיָה לְהִתְכַּבֵּד. עיין סימן צ״ב וצ״ט.)</p>
+<p>דין היאך מבטלין בששים. ובו ב׳ סעיפים: חתיכה שבלעה איסור ואין בה ס׳ לבטלו שנפלה לקדרה אינה אוסרת אלא לפי חשבון איסור שבה שאם יש במה שבקדרה מצורף עם החתיכה עצמה ששים כנגד איסור הבלוע בה מותר מה שבקדרה אבל החתיכה עצמה אסורה לפי שאיסור שבה אינו נפלט ממנה לגמרי <small>(רשב״א ותוס׳ פרק ג״ה דף ק׳ ורא״ש ומרדכי שם וסמ״ג דף נ״א ע״ג וסה״ת סי׳ נ״ב וכ״ה בלשון ר׳ אפרים גופיה שבחדושי רשב״א דף קי״ח ושבסוף ספר ראב״ן וכ״כ מהרש״ל פרק ג״ה סי׳ נ״ז וכל האחרונים) (וכן עיקר ודלא כמו שכתב לעיל סימן צ״ב דאף אותה חתיכה מותרת) </small>מה שאין כן בדבר הנבלל ונימוח שאם נפל דם וכיוצא בו לתוך רוטב של היתר ואסרו מחמת מיעוטו ואח״כ נתרבה הרוטב של היתר עד שיש בין כולו ס׳ לבטל הדם כולו מותר שהכל נבלל ונתערב: <small>הגה ולפי מה שנוהגין לומר בכל האסורים חתיכה נעשית נבלה אין חילוק בין דבר לח לדבר יבש אלא לענין זה דאם הנאסר כבר הוא דבר יבש ויש ס׳ כנגדו החתיכה הנאסרת תחילה נשארת באיסורה וצריך להסירה משם אם מכירה ואם אינו מכירה בטילה אם אינה חתיכה הראויה להתכבד ואם הוא דבר לח הכל מותר מאחר דאיכא ס׳ נגד מה שנאסרה תחילה ועיין לעיל סימן צ״ב וצ״ט:</small></p>
 </div>
 
-<!-- ============================================================= -->
-<h2 class="section-title">1. הקדמת הסוגיא — חתיכה שבלעה איסור ואין בה ששים</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<p><em>résumé</em> : un morceau qui a absorbé de l’interdit sans avoir soixante en lui pour l’annuler, et qui tombe ensuite dans une marmite, n’interdit qu’à proportion de l’interdit qu’il porte ; le morceau lui-même entre dans le compte, mais il reste interdit, parce que ce qu’il a absorbé n’en ressort pas entièrement. Dans ce qui se mêle et se dissout, il en va autrement : si le permis s’accroît jusqu’à soixante contre la totalité de l’interdit, tout devient permis. Le Rama, qui suit l’usage de dire dans tous les interdits qu’un morceau devient nevela, supprime cette distinction du liquide et du sec, et ne la maintient que sur un point : ce qui a été rendu interdit alors qu’il était sec demeure dans son interdit et doit être retiré si on le reconnaît.</p>
 
-<h3 class="he-h3">היסוד — חתיכה שבלעה איסור ולא נתבטל בה
-  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 העתק</button>
+<!-- ============================================================= -->
+<h2 class="section-title">1. Introduction de la sougya — un morceau qui a absorbé de l’interdit sans soixante</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ Explication détaillée (niveau 1)</a>
+
+<h3 class="sugya">Le fondement — un morceau qui a absorbé, et en qui rien ne s’est annulé
+  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 Copier</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-2">
-יסוד הסימן: חתיכת היתר ש<strong>בלעה איסור</strong> (כגון טיפת חלב או משהו דם) <strong>ואין בה לבדה ששים</strong> לבטל את האיסור שספגה — נמצאת אותה חתיכה אסורה. ועתה <strong>נפלה לקדירה</strong> אחרת של היתר. וכאן בא חידוש הסימן: אין החתיכה הזו אוסרת את הקדירה כאיסור גמור הצריך ס' נגד <em>כל גופה</em>, אלא <span class="he-q">אינה אוסרת אלא לפי חשבון איסור שבה</span> — שהרי אין בה איסור עצמי, אלא איסור <strong>בלוע</strong> בלבד, ולפיכך משערין ס' כנגד אותו איסור בלוע, והחתיכה עצמה אף היא <strong>מצטרפת למניין</strong> שאר ההיתר שבקדירה.
+<div class="sacred-text" data-copy-block id="cp-2">
+<p>Le siman commence par un morceau permis qui a <strong>absorbé de l’interdit</strong> — une goutte de lait, un peu de sang — et qui <strong>ne contient pas à lui seul soixante</strong> contre ce qu’il a bu. Ce morceau est donc, à ce stade, interdit. Et voici qu’il <strong>tombe dans une autre marmite</strong>, de permis celle-là.</p>
+<p>L’innovation du siman est là : ce morceau n’interdit pas la marmite comme le ferait un interdit plein, qui exigerait soixante contre <em>tout son corps</em>. Il n’y a pas en lui d’interdit propre, mais un interdit <strong>absorbé</strong> ; on mesure donc soixante contre cet absorbé seul, et le morceau, n’étant pas lui-même de l’interdit, <strong>entre dans le compte</strong> du permis qui se trouve dans la marmite.</p>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שיעור "לפי חשבון" :</strong> אם בלעה החתיכה כזית איסור, אין צריך ס' כנגד כל החתיכה אלא ס' כנגד אותו כזית בלבד — ובחשבון זה <em>מצרפין את החתיכה עצמה</em> אל שאר מה שבקדירה. שאם יש בכל מה שבקדירה, יחד עם החתיכה, <span class="he-q">ששים כנגד האיסור הבלוע בה</span> — מותר מה שבקדירה (הרוטב, שאר החתיכות, הירקות). זהו פשט המחבר בעקבות הרמב״ם: בשאר איסורין (זולת בשר בחלב) אין החתיכה כולה נעשית גוף האיסור, ועל כן מודדין נגד הבלוע לבדו.
-</div>
+<div class="sacred-text">«&nbsp;<span class="he-q">חתיכה שבלעה איסור ואין בה ס׳ לבטלו שנפלה לקדרה אינה אוסרת אלא לפי חשבון איסור שבה</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״ו:א)</span></div>
 
-<div class="rishon-card" dir="rtl">
-<strong>שיטת הש״ך (ס״ק א) :</strong> "<span class="he-q">לפי חשבון</span>" הוא לשון המחבר ההולך בשיטת הרמב״ם, שאין אומרים חתיכה נעשית נבילה אלא בבשר בחלב. אבל <strong>לדידן</strong> — שאנו נוהגים חנ״נ בכל איסורין — אין הדין כן, ועיין סימן צ״ט (סעיפים ג', ה') לעניין הצירוף והשיעור לפי מנהגנו. נמצא שכל "לפי חשבון" שבסעיף זה הוא לשיטת המחבר, ולמעשה אצל הרמ״א נשתנה.
-</div>
+<div class="pilpul-box">
+<strong>La mesure de « לפי חשבון ».</strong> Si le morceau a absorbé un kezayit d’interdit, il ne faut pas soixante contre le morceau entier, mais soixante contre ce seul kezayit — et dans ce compte <em>on joint le morceau lui-même</em> au reste de ce qui est dans la marmite. C’est ce que le Mehaber écrit en toutes lettres :
+«&nbsp;<span class="he-q">שאם יש במה שבקדרה מצורף עם החתיכה עצמה ששים כנגד איסור הבלוע בה מותר מה שבקדרה</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״ו:א)</span>
+Telle est la lecture du Mehaber à la suite du Rambam : dans les interdits autres que la viande et le lait, le morceau ne devient pas lui-même le corps de l’interdit, et c’est donc contre l’absorbé seul que l’on mesure. Ce qui est permis par là, c’est <strong>ce qui est dans la marmite</strong> — le bouillon, les autres morceaux, les légumes —, et non le morceau, dont le seif traite aussitôt après.</div>
+
+<div class="rishon-card">
+<strong>La lecture du Chakh (ס״ק א) — « לפי חשבון » est la langue du Mehaber, non la nôtre.</strong> Le Chakh rattache immédiatement la formule à la position du Mehaber, qui ne dit pas qu’un morceau devient nevela dans les autres interdits :
+«&nbsp;<span class="he-q">היינו לדעת המחבר דס״ל דלא אמרינן חנ״נ בשאר איסורים משא״כ לדידן</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ו ס״ק א)</span>
+et il renvoie pour notre usage à un autre siman — <span class="he-q">וע״ל סי׳ צ״ט ס״ג וס״ה</span> <span class="source-ref">(ש״ך יו״ד ק״ו ס״ק א)</span>. Il en résulte que tout ce que ce seif dit « à proportion » est dit selon le Mehaber, et que chez le Rama la mesure change.</div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">2. אפשר לסוחטו אסור — החתיכה עצמה נשארת באיסורה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">2. אפשר לסוחטו אסור — le morceau lui-même reste dans son interdit</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זהו אחד מן החידושים החריפים שבסימן, וכל כובד ידו של הט״ז (ס״ק א) נתון בו.</p>
+<p style="margin:15px 0; font-style:italic;">C’est le point le plus tendu du siman, et le Taz y consacre un long commentaire (ס״ק א).</p>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — אם מותר מה שבקדירה, מדוע החתיכה אסורה :</strong> לכאורה, אם הצטרפה החתיכה למניין הס' ונתבטל האיסור הבלוע נגד הכל — מדוע אין החתיכה עצמה חוזרת אף היא להיתרה ? והלא היא חלק מן הששים שביטלו את האיסור !
-</div>
+<div class="hakira-box">
+<strong>La hakira — si ce qui est dans la marmite est permis, pourquoi le morceau est-il interdit ?</strong> À première vue, si le morceau a été joint au compte des soixante et que l’interdit absorbé s’est annulé contre l’ensemble, pourquoi le morceau ne reviendrait-il pas lui aussi à son état permis ? Il fait partie, après tout, des soixante qui ont annulé l’interdit.</div>
 
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ המחבר — אפשר לסוחטו אסור :</strong> מבאר המחבר ש<span class="he-q">אסור שבה אינו נפלט ממנה לגמרי</span>. אף שנתרבה ההיתר וניתן לשער ס' נגד הבלוע, מכל מקום הבלוע אינו יוצא מן החתיכה <em>כליל</em> אלא נשאר ממנו בגופה. וזהו כלל <span class="he-q">אפשר לסוחטו אסור</span> — דבר שאם היית סוחטו (מוציא ממנו את הבלוע) היה אסור, אף לאחר שנתבטל מה שיצא ממנו, גופו עומד באיסורו. לפיכך: <strong>מה שבקדירה מותר, אבל החתיכה עצמה אסורה</strong>.
-</div>
+<div class="teruts-box">
+<strong>La réponse du Mehaber — אפשר לסוחטו אסור.</strong> Le Mehaber donne la raison : ce que le morceau a absorbé n’en ressort pas entièrement. Le permis a beau s’être accru au point qu’on puisse compter soixante contre l’absorbé, l’absorbé, lui, ne sort pas du morceau <em>jusqu’au bout</em> ; il en demeure dans son corps.
+«&nbsp;<span class="he-q">אבל החתיכה עצמה אסורה לפי שאיסור שבה אינו נפלט ממנה לגמרי</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״ו:א)</span>
+Telle est la règle dite <span class="he-q">אפשר לסוחטו אסור</span> <span class="source-ref">(ש״ך יו״ד ק״ו ס״ק ב)</span> : une chose que l’on interdirait si on la pressait — c’est-à-dire si l’on en faisait sortir l’absorbé — reste interdite dans son corps même après que ce qui en est sorti s’est annulé. D’où le partage : <strong>ce qui est dans la marmite est permis, le morceau lui-même est interdit</strong>.</div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>חידוש הט״ז (ס״ק א) — דווקא בבשר בחלב :</strong> הט״ז (בס״ק הארוך) מביא את קושיית הטור והמקשן מן הסוגיא ד<strong>כחל</strong> (חולין ק׳.) — כחל (הדד) שנתבשל בקדירה ו<span class="he-q">נפלה לקדירה אחרת</span>. ומחדש הט״ז שכל הכלל ד<span class="he-q">אפשר לסוחטו אסור</span> אינו אמור אלא ב<strong>בשר בחלב</strong>, משום ש<span class="he-q">כל דתיקון רבנן כעין דאורייתא תיקון</span> — וכשם שבדאורייתא (בב״ח) החתיכה כולה נעשית גוף האיסור, כך החמירו חכמים שלא יסוחט. אבל בשאר איסורין, ד<span class="he-q">אפשר לסוחטו מותר</span>, קושיית המקשן במקומה עומדת, ואף החתיכה עצמה היתה ראויה להיות מותרת.
-</div>
+<div class="pilpul-box">
+<strong>Le hidouch du Taz (ס״ק א) — la règle serait propre à la viande et au lait.</strong> Le Taz part de la difficulté que le Tour soulève ici, et il montre qu’elle est déjà celle de la guemara dans la sougya du <strong>כחל</strong> (חולין ק׳ ע״א). Là-bas, la guemara objecte : puisque le כחל est compté dans les soixante, c’est donc qu’on ne le tient pas pour un morceau d’interdit — et alors, s’il tombe dans une autre marmite, il ne devrait rien interdire, car tout ce que le lait avait à rendre, il l’a rendu dans la première marmite. La guemara répond que, R. Yits’hak ayant dit que le כחל lui-même est interdit, les Sages l’ont rendu semblable à un morceau de nevela ; et les Tossafot expliquent ce « le כחל lui-même est interdit » par <span class="he-q">אפשר לסוחטו אסור</span> <span class="source-ref">(ט״ז יו״ד ק״ו ס״ק א)</span> — au début de la cuisson, avant que le lait ne fût entièrement sorti, il s’est interdit par le goût de la viande, et il ne redevient donc pas permis quand tout est sorti.
+<br><br>
+Le Taz en tire une conséquence qui retourne l’argument. Le Tour a écrit au siman 92 que l’on ne dit <span class="he-q">אפשר לסוחטו אסור</span> <span class="source-ref">(ט״ז יו״ד ק״ו ס״ק א)</span> que dans la viande et le lait :
+«&nbsp;<span class="he-q">כבר כתב רבינו בסי׳ צ״ב דלא אמרינן אפשר לסוחטו אסור אלא בבשר בחלב</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ו ס״ק א)</span>
+Or le כחל relève précisément de la viande et du lait — rabbiniquement, puisqu’il s’agit du lait d’une bête abattue — et <span class="he-q">כל דתיקון רבנן כעין דאורייתא תיקון</span> <span class="source-ref">(ט״ז יו״ד ק״ו ס״ק א)</span>, les Sages ayant institué à l’image de ce qui est de la Torah. La réponse de la guemara vaudrait donc pour le כחל et pour lui seul. Ici, dans notre siman, qui traite des autres interdits, où l’on dit <span class="he-q">אפשר לסוחטו מותר</span> <span class="source-ref">(ט״ז יו״ד ק״ו ס״ק א)</span>, l’objection reste entière :
+«&nbsp;<span class="he-q">נמצא דכאן בסי׳ זה דמיירי בשאר איסורין ואפשר לסוחטו מותר נשאר הדבר כקושיית המקשן דאפי׳ חתיכה מותרת</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ו ס״ק א)</span>
+Sous cette lecture, le morceau lui-même aurait dû être permis — et la question reste posée telle quelle.</div>
 
-<div class="rishon-card" dir="rtl">
-<strong>לשון הרשב״א (בט״ז) :</strong> ומביא הט״ז לשון אחרת (כשיטת הרשב״א): שאין הטעם משום בב״ח לחוד, אלא ש<span class="he-q">חוששין שמא לא יצא כל החלב</span> הבלוע בבישול הראשון — ולפי זה אין חילוק בין בב״ח לשאר איסורין, ובכולן החתיכה עצמה נשארת באיסורה מספק שמא לא נפלט כל הבלוע. ושתי הקריאות נצרכות להבנת לשון המחבר "אינו נפלט ממנה לגמרי".
-</div>
+<div class="rishon-card">
+<strong>La lecture du Rachba, rapportée par le Taz — et c’est elle qui dénoue.</strong> Le Taz apporte ensuite une autre explication de la même guemara, celle du Rachba (תורת הבית) : si le כחל tombé dans une seconde marmite interdit, ce n’est pas au titre de la viande et du lait, mais parce qu’on craint qu’il n’ait pas rendu tout son lait dans la première.
+«&nbsp;<span class="he-q">שאנו חוששין שלא פלט כל חלבו בקדירה ראשונה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ו ס״ק א)</span>
+Sous cette lecture, il n’y a plus lieu de distinguer la viande et le lait des autres interdits, et le morceau reste interdit partout, par la crainte que tout l’absorbé ne soit pas sorti :
+«&nbsp;<span class="he-q">וא״כ אין חילוק בין בשר בחלב לשאר איסורים ע״כ אוסר החתיכה עצמה נמצא הכל ניחא בס״ד</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ו ס״ק א)</span>
+Les deux lectures sont nécessaires pour entendre la langue du Mehaber : ce que le morceau a absorbé « n’en ressort pas entièrement » se dit soit comme une rigueur instituée à l’image de la Torah, soit comme un doute de fait sur ce qui est réellement sorti.</div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">3. נבלל ונימוח מול יבש — חילוק לח מגוש</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">3. נבלל ונימוח contre le sec — la distinction du liquide et de la masse</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סיפא דסעיף א')
-  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 העתק</button>
+<h3 class="sugya">La langue du Mehaber (fin du seif 1)
+  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-3">
-"<strong>מה שאין כן בדבר שנבלל ונימוח: אם נפל דם וכיוצא בו לרוטב של היתר ואסרוֹ מחמת מיעוטו, ואחר כך נתרבה הרוטב של היתר עד שיש ששים לבטל כל הדם — הכל מותר, שהכל מעורב ונימוח.</strong>"
+<p>מה שאין כן בדבר הנבלל ונימוח שאם נפל דם וכיוצא בו לתוך רוטב של היתר ואסרו מחמת מיעוטו ואח״כ נתרבה הרוטב של היתר עד שיש בין כולו ס׳ לבטל הדם כולו מותר שהכל נבלל ונתערב</p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — מדוע לח שונה מיבש :</strong><br>
-בדבר ה<span class="he-q">נבלל ונימוח</span> (לח), אין כאן "חתיכה" עומדת בפני עצמה שיאמרו עליה אפשר לסוחטו; האיסור (הדם) <em>מתערב ומתפזר</em> בכל הרוטב כאחד. לפיכך כשנתרבה ההיתר עד ששים נגד <strong>כל</strong> הדם — <span class="he-q">הכל מותר</span>, ואין דבר שיישאר באיסורו. אבל ב<strong>יבש</strong> (חתיכה מוצקה) — האיסור הבלוע נספג בגוף החתיכה, ועליה נאמר אפשר לסוחטו אסור, ועל כן היא עצמה עומדת באיסורה אף שנתבטל מה שיצא ממנה.
-</div>
+<p><em>résumé</em> : dans ce qui se mêle et se dissout — du sang tombé dans un bouillon permis et qui l’a interdit parce qu’il y en avait trop peu pour l’annuler —, si le bouillon permis s’accroît ensuite jusqu’à ce qu’il y ait, dans l’ensemble, soixante contre tout le sang, le tout est permis, puisque tout est mêlé et confondu.</p>
 
-<div class="rishon-card" dir="rtl">
-<strong>הכרעת הרמ״א (הגה) — לדידן אין חילוק לח ויבש :</strong> "<span class="he-q">ולדידן דאמרינן בכל האיסורין חתיכה נעשית נבילה, אין חילוק בין לח ליבש</span>". כיוון שאנו נוהגים חנ״נ בכל האיסורין, אף הלח שנאסר נעשה כגוף האיסור. ומכל מקום הוסיף הרמ״א חילוק: אם ה<strong>נאסר יבש</strong> ויש ס' כנגדו — <span class="he-q">החתיכה שנאסרה בתחילה עומדת באיסורה</span>, וזורקה אם מכירה; ואם אינו מכירה — בטלה, אם אינה <strong>חתיכה הראויה להתכבד</strong> (עיין סימן ק״א).
-</div>
+<div class="yesod-box">
+<strong>Le fondement — pourquoi le liquide diffère du sec.</strong> Dans ce qui est <span class="he-q">הנבלל ונימוח</span> <span class="source-ref">(שו״ע יו״ד ק״ו:א)</span>, il n’y a pas de « morceau » qui se tienne à part et dont on puisse dire qu’il est de ceux qu’on presserait : l’interdit — le sang — <em>se mêle et se répand</em> dans tout le bouillon d’un seul tenant. Dès lors, quand le permis s’accroît jusqu’à soixante contre <strong>tout</strong> le sang, il ne reste rien qui puisse demeurer interdit — <span class="he-q">כולו מותר שהכל נבלל ונתערב</span> <span class="source-ref">(שו״ע יו״ד ק״ו:א)</span>. Dans le <strong>sec</strong>, au contraire, l’interdit absorbé s’est fixé dans le corps du morceau, et c’est de lui qu’on dit qu’on pourrait le presser : il demeure donc dans son interdit alors même que ce qui en est sorti s’est annulé.</div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>דקדוק הש״ך (ס״ק ג–ד) :</strong> הש״ך (ס״ק ג) מדקדק שאף בלח בלח אומרים חתיכה נעשית נבילה <em>כשאין הפסד גדול</em> (וכמו שכתב הרמ״א בסימן צ״ב סעיף ד'); ובהפסד גדול יש מקילין בלח. ובס״ק ד מבאר את חילוק לח / יבש שבדברי הרמ״א: ביבש, החתיכה הראשונה שנאסרה ניכרת ועומדת, ולכן זורקה אם מכירה ובטלה ברוב אם אינו מכירה (ובלבד שאינה ראויה להתכבד); ואין כאן היתר גורף כבלח, אלא דין תערובת יבש ביבש שבסימן ק״א.
-</div>
+<div class="rishon-card">
+<strong>Ce que tranche le Rama (glose) — pour nous, il n’y a pas de distinction entre le liquide et le sec.</strong> Puisque nous suivons l’usage de dire qu’un morceau devient nevela dans tous les interdits, le liquide rendu interdit devient lui aussi comme le corps de l’interdit :
+«&nbsp;<span class="he-q">ולפי מה שנוהגין לומר בכל האסורים חתיכה נעשית נבלה אין חילוק בין דבר לח לדבר יבש</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ו:א)</span>
+Le Rama maintient pourtant la distinction sur un point : si ce qui a été rendu interdit était <strong>sec</strong> et qu’il y a soixante contre lui, le premier morceau demeure dans son interdit et doit être retiré si on le reconnaît.
+«&nbsp;<span class="he-q">החתיכה הנאסרת תחילה נשארת באיסורה</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ו:א)</span>
+«&nbsp;<span class="he-q">וצריך להסירה משם אם מכירה ואם אינו מכירה בטילה</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ו:א)</span>
+et cette annulation par la majorité n’a lieu qu’à la condition que ce ne soit pas une <span class="he-q">חתיכה הראויה להתכבד</span> <span class="source-ref">(רמ״א יו״ד ק״ו:א)</span> — un morceau digne d’être présenté à des hôtes (voir le début du siman 101). Si en revanche la chose est <strong>liquide</strong>, le Rama conclut que tout est permis dès lors qu’il y a soixante contre ce qui avait été rendu interdit d’abord.</div>
+
+<div class="pilpul-box">
+<strong>Le détail du Chakh (ס״ק ג–ד) — jusqu’où va « pas de distinction ».</strong> Le Chakh (ס״ק ג) précise que même dans du liquide mêlé à du liquide on dit qu’un morceau devient nevela, mais là où il n’y a pas de grande perte :
+«&nbsp;<span class="he-q">וגם בנתערב איסור לח בהיתר לח אמרינן חנ״נ בשאר איסורים במקום שאין הפסד גדול</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ו ס״ק ג)</span>
+et il renvoie sur ce point à la glose du Rama au siman 92. Puis (ס״ק ד) il reconstruit la phrase du Rama : une fois admis que tous les interdits sont, sur ce point, au régime de la viande et du lait, il n’y a plus de différence entre eux quant au liquide et au sec, sinon quant à ce seul cas —
+«&nbsp;<span class="he-q">בין בבשר בחלב בין בשאר איסורים חתיכה הנאסרת תחלה נשארת באיסורה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ו ס״ק ד)</span>
+et il ajoute, sur le liquide, la borne qui rend au Rama sa mesure :
+«&nbsp;<span class="he-q">אבל במקום הפסד גדול לא אמרינן בכה״ג חנ״נ בשאר איסורים רק בבשר בחלב</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ו ס״ק ד)</span>
+Le Chakh note encore, au passage, une difficulté de lecture : à première vue la clause du morceau digne d’être présenté semblerait se rapporter aux autres interdits dont il est question, ce qui serait malaisé, puisque leur interdit ne leur vient pas d’eux-mêmes ; c’est pourquoi il rattache cette clause au cas de la viande et du lait, comme il est expliqué au début du siman 101.</div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">4. מחלוקת חתיכה נעשית נבילה — מחבר מול רמ״א</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">4. La ma‘hloket חתיכה נעשית נבילה — le Mehaber contre le Rama</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זוהי אחת מן המחלוקות החריפות והנפוצות שבכל הלכות תערובות, והיא העומדת ביסוד כל הסימן.</p>
+<p style="margin:15px 0; font-style:italic;">C’est la ma‘hloket qui commande tout le siman, et elle porte bien au-delà de lui, dans l’ensemble des lois de mélanges.</p>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד החקירתי — שתי דרכים בחתיכה שבלעה :</strong><br>
-חתיכה שבלעה איסור — האם נחשבת כ<em>איסור הבלוע בלבד</em> המונח בתוך גוף היתר, או שכל החתיכה <em>נעשתה</em> איסור (נבילה) ?<br>
-• לדרך הראשונה — מודדין ס' נגד הבלוע לבד (<span class="he-q">לפי חשבון</span>), והחתיכה מצטרפת.<br>
-• לדרך השנייה — מודדין ס' נגד <span class="he-q">כל החתיכה</span>, שכולה נעשתה נבילה.
-</div>
+<div class="yesod-box">
+<strong>Le fondement de la hakira — deux façons de regarder un morceau qui a absorbé.</strong><br>
+Un morceau qui a absorbé de l’interdit : est-il un corps de <em>permis</em> qui porte en lui un interdit absorbé, ou bien le morceau entier est-il <em>devenu</em> interdit — nevela ?<br><br>
+• Selon la première voie, on mesure soixante contre l’absorbé seul — <span class="he-q">לפי חשבון</span> <span class="source-ref">(ש״ך יו״ד ק״ו ס״ק א)</span> — et le morceau se joint au compte.<br>
+• Selon la seconde, on mesure soixante contre <span class="he-q">כל החתיכה</span> <span class="source-ref">(ש״ך יו״ד ק״ו ס״ק ה)</span>, puisqu’elle est devenue tout entière nevela.</div>
 
-<div class="machloket-box" dir="rtl">
-<strong>שורש המחלוקת :</strong>
+<div class="machloket-box">
+<strong>La racine de la ma‘hloket :</strong>
 <table>
-<tr><th>שיטה</th><th>חתיכה שבלעה איסור</th><th>מקור</th></tr>
+<tr><th>Position</th><th>Un morceau qui a absorbé de l’interdit</th><th>Source</th></tr>
 <tr>
-  <td><strong>המחבר (בעקבות הרמב״ם והמגיד משנה)</strong></td>
-  <td><strong>חנ״נ רק בבב״ח</strong>; ובשאר איסורין — לפי חשבון, ס' נגד הבלוע בלבד, והחתיכה מצטרפת</td>
-  <td>מחבר ס״א; ש״ך ס״ק א</td>
+  <td><strong>Le Mehaber (à la suite du Rambam et du Maguid Michné)</strong></td>
+  <td>Un morceau ne devient nevela que dans la viande et le lait ; dans les autres interdits, on mesure à proportion — soixante contre l’absorbé seul —, et le morceau entre dans le compte</td>
+  <td>שו״ע יו״ד ק״ו ס״א ; ש״ך יו״ד ק״ו ס״ק א</td>
 </tr>
 <tr>
-  <td><strong>הרמ״א ומנהגנו (תוס', סמ״ג, סמ״ק, מרדכי)</strong></td>
-  <td>חנ״נ <strong>בכל איסורין</strong> — כל החתיכה נבילה, וצריך ס' כנגד <strong>כל החתיכה</strong> (עיין סימן צ״ב)</td>
-  <td>רמ״א (הגה); ש״ך ס״ק ב</td>
+  <td><strong>Le Rama et notre usage (Tossafot, Semag, Semak, Mordekhi)</strong></td>
+  <td>Un morceau devient nevela <strong>dans tous les interdits</strong> : il est tout entier de l’interdit, et il faut soixante contre <strong>le morceau entier</strong> (voir siman 92)</td>
+  <td>רמ״א יו״ד ק״ו ס״א ; ש״ך יו״ד ק״ו ס״ק ג</td>
 </tr>
 </table>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>נפקא מינה למעשה בין השיטות :</strong> חתיכה שבלעה כזית איסור והיא עצמה במשקל עשרה זיתים, ונפלה לקדירה שיש בה כשלושים זיתי היתר — <strong>לשיטת המחבר</strong>: די בס' נגד הכזית הבלוע (והחתיכה מצטרפת למניין) → הקדירה מותרת ; <strong>לשיטת הרמ״א</strong>: כל החתיכה (עשרה זיתים) נעשתה נבילה, וצריך ס' כנגד כל העשרה → ובשלושים אין ששים נגדם, והקדירה אסורה. הא למדת ש<span class="he-q">חתיכה נעשית נבילה מחמיר טובא</span>, וזהו ההבדל המעשי בין הוראת הספרדים להוראת האשכנזים (ועיין סימן צ״ב לכל פרטי החנ״נ).
-</div>
+<div class="pilpul-box">
+<strong>La nafka mina, chiffrée.</strong> Soit un morceau qui a absorbé un kezayit d’interdit et qui pèse lui-même dix kezayit ; il tombe dans une marmite contenant soixante kezayit de permis. <strong>Selon le Mehaber</strong> : il faut soixante contre le seul kezayit absorbé, et le morceau se joint au compte — soixante-dix contre un, ce qui suffit largement ; ce qui est dans la marmite est donc permis (le morceau, lui, reste interdit, comme le dit la suite du seif). <strong>Selon le Rama</strong> : le morceau entier, dix kezayit, est devenu nevela, et il faut soixante contre ces dix — soit six cents ; les soixante de la marmite n’y suffisent pas, et tout est interdit. On mesure là ce que l’usage de dire qu’un morceau devient nevela ajoute de rigueur, et c’est l’écart pratique entre la décision séfarade et la décision achkénaze (voir le siman 92 pour tout le détail).</div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הש״ך (ס״ק ב) — אפשר לסוחטו אסור אף לרבנו אפרים :</strong> מביא הש״ך שאף לדעת רבנו אפרים (החולק בעלמא בדין אפשר לסוחטו) — כאן החתיכה <strong>לעולם</strong> אסורה, שהרי האיסור בלוע בה ולא נפלט לגמרי. <em>ולדידן</em> דחנ״נ בכל איסורין — כל שכן וקל וחומר שהחתיכה אסורה, שהרי כולה נבילה. נמצא ששני הדרכים מסכימים שהחתיכה עצמה אסורה, אלא שנחלקו בשיעור הביטול של שאר הקדירה.
-</div>
+<div class="rishon-card">
+<strong>Le Chakh (ס״ק ב) — le morceau est interdit même pour Rabbénou Efraïm.</strong> Le Chakh rapporte au nom du Rachba (תורת הבית) que même selon Rabbénou Efraïm et ceux qui le suivent, qui ne disent pas qu’un morceau devient nevela dans les autres interdits, le morceau reste ici interdit :
+«&nbsp;<span class="he-q">דאפי׳ לרבינו אפרים וסייעתו דלא אמרינן חנ״נ בשאר איסורים אפשר לסוחטו אסור והחתיכה עצמה לעולם אסורה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ו ס״ק ב)</span>
+Il signale qu’il y a des poskim pour dire que l’on pourrait aussi le presser et le permettre, mais que la halakha ne suit pas cette voie ; et il conclut que pour nous, qui tenons qu’un morceau devient nevela dans tous les interdits, la chose va de soi :
+«&nbsp;<span class="he-q">מיהו לדידן דקי״ל חנ״נ בכל האיסורים פשיטא דלכ״ע החתיכה לעולם אסורה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ו ס״ק ב)</span>
+Les deux voies s’accordent donc sur le sort du morceau, et ne se séparent que sur la mesure de l’annulation du reste de la marmite.</div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">5. לשון השולחן ערוך — סעיף ב'</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">5. Le texte du Choulhan Aroukh — seif 2</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ב')
-  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 העתק</button>
+<h3 class="sugya">La langue du Mehaber et du Rama (seif 2)
+  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-4">
-"<strong>חתיכה שיש בה חֵלֶב, שנתבשלה בקדירה שיש בה ששים לבטל החֵלֶב — יזהר שלא יוציא כלום מן הקדירה כל זמן שחתיכת האיסור בתוכה, שמא תישאר באחרונה כשאין עוד ששים בקדירה לבטל החֵלֶב. וגם לא יוציא אותה תחילה, שהחֵלֶב שבה אוסרהּ. ומה תקנתו ? שיניחנה עד שתצטנן הקדירה.</strong> (הגה: ולדידן דקיימא לן חתיכה נעשית נבילה — מסיר חתיכת האיסור והשאר מותר.)"
+<p>חתיכה שיש בה חלב שנתבשלה בקדירה שיש בה ס׳ לבטל החלב צריך ליזהר שלא יסיר שום דבר מהקדירה בעוד חתיכת האיסור בתוכה דחיישינן שמא תשאר באחרונה בשעה שאין בקדרה ס׳ לבטל החלב וגם לא יוציאנה תחלה שחלב שבה יאסור אותה ומה תקנתה יניחנה עד שתצטנן הקדירה: <small>הגה ולפי מה דקיימא לן חתיכה נעשית נבילה מסיר החתיכה האסורה משם והשאר מותר (ד״ע):</small></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — הנהגה למעשה בהסרת חתיכה :</strong><br>
-חתיכה ובה חֵלֶב (איסור) המתבשלת בקדירה שיש בה ס' כנגד החֵלֶב — האיסור בטל כל זמן שהקדירה מלאה. אך החשש כפול:<br>
-• <span class="he-q">לא יוציא דבר תחילה</span> — שמא ימעט מן הס' עד שכשתישאר חתיכת האיסור באחרונה לא יהיה כנגדה ששים, ותחזור ותאסור.<br>
-• <span class="he-q">לא יוציא את חתיכת האיסור בראשונה</span> — שהחֵלֶב שבה היה אוסרהּ ביציאתה.<br>
-התקנה: <span class="he-q">יניחנה עד שתצטנן הקדירה</span> — שאז אין בליעה ופליטה.
-</div>
+<p><em>résumé</em> : un morceau portant de la graisse interdite cuit dans une marmite où il y a soixante pour l’annuler ; on prendra garde de ne rien retirer de la marmite tant que le morceau d’interdit s’y trouve, de crainte qu’il ne reste en dernier au moment où il n’y aurait plus soixante contre la graisse ; on ne le retirera pas non plus le premier, car la graisse qu’il porte l’interdirait ; le remède est de le laisser jusqu’à ce que la marmite refroidisse. Le Rama, pour qui un morceau devient nevela, écrit qu’on retire le morceau interdit et que le reste est permis.</p>
 
-<div class="pilpul-box" dir="rtl">
-<strong>חידוש הט״ז (ס״ק ב) — אם הניחה מותר :</strong> מבאר הט״ז שסעיף זה שונה מסעיף א'. בסעיף א' היתה החתיכה <strong>כבר אסורה</strong> מחמת בליעה קודמת (ואין בה ס'), ולכן עומדת באיסורה. אבל כאן ה<strong>חֵלֶב מונח עליה ועדיין לא נבלע</strong> בה כל צרכו, ויש ס' בקדירה — ואם <span class="he-q">יניחנה</span> עד שתצטנן, ה<strong>פליטה מתחלקת בשווה</strong> בכל הקדירה והכל מותר, אף החתיכה. וכל החשש הוא רק שמא יוציאנה בראשונה או יוציא ממנה תחילה וימעט הס'.
-</div>
+<div class="yesod-box">
+<strong>Le fondement — la conduite au moment de retirer.</strong> Un morceau portant de la graisse interdite cuit dans une marmite où il y a soixante contre cette graisse : l’interdit est annulé tant que la marmite est pleine. Mais la crainte est double :<br><br>
+• <strong>Ne rien retirer en premier</strong> — sinon on amoindrit les soixante, et lorsque le morceau d’interdit restera en dernier, il n’y aura plus soixante contre lui : <span class="he-q">דחיישינן שמא תשאר באחרונה בשעה שאין בקדרה ס׳ לבטל החלב</span> <span class="source-ref">(שו״ע יו״ד ק״ו:ב)</span>.<br>
+• <strong>Ne pas retirer le morceau d’interdit en premier</strong> — car, une fois sorti et encore chaud, la graisse qu’il porte l’interdirait, faute de soixante en lui.<br><br>
+Le remède : <span class="he-q">יניחנה עד שתצטנן הקדירה</span> <span class="source-ref">(שו״ע יו״ד ק״ו:ב)</span> — on le laisse jusqu’à ce que la marmite refroidisse, puisqu’alors il n’y a plus ni absorption ni rejet.</div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הש״ך (ס״ק ו) — תנאי המליחה :</strong> מדקדק הש״ך שכל היתר זה (שיש ס' לבטל החֵלֶב) אינו אלא כשנמלחה החתיכה תחילה כדינה, או בחֵלֶב דרבנן ובהמה כחושה ; שאם לא נמלחה כראוי, יש בה דם ושומן יותר. ובס״ק ה–ו (לדידן) מודדין ס' כנגד <strong>כל מקום החתיכה שהחֵלֶב דבוק בו</strong>, והחתיכה עצמה נשארת באיסורה לפי החנ״נ. ובס״ק ז: לפי מנהגנו (חנ״נ) — <span class="he-q">מסיר את חתיכת האיסור</span>, ושוב אינו מזיק כלום לשאר הקדירה.
-</div>
+<div class="pilpul-box">
+<strong>Le hidouch du Taz (ס״ק ב) — si on le laisse, il est permis.</strong> Le Taz explique que ce seif diffère du premier. Au seif 1, le morceau était <strong>déjà interdit</strong> par une absorption antérieure, sans soixante contre elle, et il demeure donc dans son interdit. Ici, au contraire, la graisse est encore <strong>posée sur lui</strong> et n’a pas encore été absorbée ; la marmite a soixante ; et s’il le laisse dans la marmite, la sortie du goût se répartit également dans toute la marmite, en sorte que rien n’est interdit, pas même le morceau :
+«&nbsp;<span class="he-q">משמע דאם יניחנה תהא מותרת</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ו ס״ק ב)</span>
+«&nbsp;<span class="he-q">ובאותה שעה הולכת פליטת הבליעה בכל הקדירה בשוה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ו ס״ק ב)</span>
+Toute la crainte du seif tient donc à ce qu’on le sorte le premier, ou qu’on sorte autre chose avant lui et qu’on amoindrisse les soixante. Le Taz ajoute que ce raisonnement suppose la position selon laquelle on ne dit pas, dans les autres interdits, qu’un morceau devient nevela.</div>
 
-<div class="machloket-box" dir="rtl">
-<strong>הנהגת המחבר מול הנהגת הרמ״א :</strong>
+<div class="rishon-card">
+<strong>Le Chakh (ס״ק ה–ז) — notre mesure, la condition du salage, et le geste pratique.</strong> Au ס״ק ה, le Chakh donne la mesure selon notre usage : puisque nous tenons qu’un morceau devient nevela dans tous les interdits, et de même pour un interdit qui adhère,
+«&nbsp;<span class="he-q">ה״ה הכא צריך ששים נגד כל החתיכה שהחלב דבוק בה ואפי׳ הכי החתיכה עצמה אסורה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ו ס״ק ה)</span>
+— soixante contre le morceau tout entier auquel la graisse adhère, et le morceau lui-même reste malgré cela interdit.
+<br><br>
+Au ס״ק ו, il expose la difficulté qui commande la condition du salage. Le morceau, dit-il, a nécessairement été salé d’abord, sans quoi il serait interdit à cause du sang et il faudrait soixante dans le plat contre lui tout entier (siman 69:11) ; mais s’il a été salé avec la graisse posée sur lui, il aurait été interdit dès le salage et ne reviendrait plus à son état permis. Sa réponse ouvre deux voies :
+«&nbsp;<span class="he-q">י״ל דמיירי שהוא חלב דרבנן או חלב של בהמה כחושה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ו ס״ק ו)</span>
+— une graisse interdite rabbiniquement, ou celle d’une bête maigre, qui au salage n’interdit que l’épaisseur d’une pelure (siman 64:20 et siman 105) ; ou bien le morceau contenait soixante contre la graisse et l’on en a coupé une part avant la cuisson. Et il explique, pour le fond, pourquoi le laisser ne l’interdit pas :
+«&nbsp;<span class="he-q">אבל כשמניחה בקדירה הטעם הולך בכולו בשוה ואין החתיכה נאסרת</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ו ס״ק ו)</span>
+Au ס״ק ז enfin, il donne le geste selon notre usage : ce morceau étant de toute façon interdit, on le retire, et le retirer ne cause aucun dommage au reste —
+«&nbsp;<span class="he-q">שהרי אינו מזיק כלום במה שמסירה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ו ס״ק ז)</span>
+d’où sa conclusion qu’il n’y a pas lieu de le laisser inutilement dans la marmite.</div>
+
+<div class="machloket-box">
+<strong>La conduite du Mehaber et celle du Rama :</strong>
 <table>
-<tr><th>שיטה</th><th>ההנהגה למעשה</th><th>מקור</th></tr>
+<tr><th>Position</th><th>La conduite pratique</th><th>Source</th></tr>
 <tr>
-  <td><strong>המחבר</strong></td>
-  <td>לא יוציא כלום עד שתצטנן הקדירה (שמא תישאר באחרונה בלא ס')</td>
-  <td>מחבר ס״ב; ט״ז ס״ק ב</td>
+  <td><strong>Le Mehaber</strong></td>
+  <td>On ne retire rien jusqu’à ce que la marmite refroidisse, de crainte que le morceau ne reste en dernier sans soixante contre lui</td>
+  <td>שו״ע יו״ד ק״ו ס״ב ; ט״ז יו״ד ק״ו ס״ק ב</td>
 </tr>
 <tr>
-  <td><strong>הרמ״א (חנ״נ)</strong></td>
-  <td><strong>מסיר את חתיכת האיסור</strong> מיד, והשאר מותר</td>
-  <td>רמ״א ס״ב; ש״ך ס״ק ז</td>
+  <td><strong>Le Rama (chez qui un morceau devient nevela)</strong></td>
+  <td><strong>On retire le morceau interdit</strong>, et le reste est permis</td>
+  <td>רמ״א יו״ד ק״ו ס״ב ; ש״ך יו״ד ק״ו ס״ק ז</td>
 </tr>
 </table>
+«&nbsp;<span class="he-q">ולפי מה דקיימא לן חתיכה נעשית נבילה מסיר החתיכה האסורה משם והשאר מותר</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ו:ב)</span>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">6. פתחי תשובה — נודע ביהודה ותפארת צבי</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">6. Pit’hei Techouva — le Nodah bi-Yehouda et le Tiféret Tsvi</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
 
-<div class="rishon-card" dir="rtl">
-<strong>פתחי תשובה ס״ק א — אפשר לסוחטו מותר במינו ובמליחה :</strong> מביא בשם ה<strong>נודע ביהודה</strong> (חלק יורה דעה סימן כ') — שאם בלעה החתיכה איסור <span class="he-q">ממינו</span> (איסור מאותו המין שלה) על ידי <strong>מליחה</strong>, אזי <span class="he-q">אפשר לסוחטו מותר</span>, ואף החתיכה עצמה מותרת — ואף לדידן דאמרינן חנ״נ. שכן בבלוע ממינו אין כאן נתינת טעם של איסור הניכר, ואין החתיכה נעשית נבילה.
-</div>
+<div class="rishon-card">
+<strong>Pit’hei Techouva ס״ק א — une voie où l’on pourrait presser et permettre.</strong> Le Pit’hei Techouva rapporte, au nom du <strong>Nodah bi-Yehouda</strong> (חלק יורה דעה סימן ך׳), qu’il y aurait lieu de dire que si le morceau a absorbé un interdit <em>de sa propre espèce</em>, et qu’il l’a reçu par <strong>salage</strong>, on pourrait le presser et le permettre — et le morceau lui-même serait permis, même pour nous qui tenons qu’un morceau devient nevela :
+«&nbsp;<span class="he-q">אם בלע איסור שהוא מינו וקיבל איסור זה ע״י מליחה יש מקום לומר אפשר לסוחטו מותר ואף אותה חתיכה מותרת</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד ק״ו ס״ק א)</span>
+Le Nodah bi-Yehouda écrit cela comme une voie à considérer, non comme une décision arrêtée, et le Pit’hei Techouva renvoie pour le détail à la techouva elle-même.</div>
 
-<div class="rishon-card" dir="rtl">
-<strong>פתחי תשובה ס״ק ב — תפארת צבי בדין כבוש :</strong> מביא בשם ה<strong>תפארת צבי</strong> דכיוצא בזה בדין <span class="he-q">כבוש</span> — תבשיל שנתבשל עם ס' כנגד האיסור ואחר כך נצטנן ונתמעט ההיתר עד שאין עוד ס', והדבר שרוי (כבוש) בתוכו — חוזר ה<strong>כבוש</strong> ואוסר, כדין כבוש כמבושל. נמצא שאף שעת הבישול אינה מספקת אם אחר כך פוחת ההיתר והדבר עודנו כבוש בתוכו.
-</div>
+<div class="rishon-card">
+<strong>Pit’hei Techouva ס״ק ב — le Tiféret Tsvi, et le כבוש qui revient interdire.</strong> Le Pit’hei Techouva rapporte, au nom du <strong>Tiféret Tsvi</strong> (חלק אורח חיים סימן כ״ד), qu’il en va de même pour ce qui macère : si un interdit a cuit dans une marmite où il y avait soixante, puis que le plat a refroidi et que le permis s’est amoindri au point qu’il n’y a plus soixante, la macération revient interdire dès lors qu’elle a duré la mesure requise.
+«&nbsp;<span class="he-q">דה״ה בכבוש אם נתבשל איסור בקדרה והיה ס׳ ואח״כ נצטנן התבשיל ונתמעט ההיתר שעכשיו אין ס׳ דאם נכבש כשיעור כבישה אוסר עתה התבשיל</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד ק״ו ס״ק ב)</span>
+et il écrit cela contre celui qui voulait dire que la macération n’ajoute plus d’absorption. Le moment de la cuisson ne suffit donc pas à régler l’affaire, si le permis diminue ensuite et que la chose y séjourne encore.</div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שורש שני הדינים :</strong> שניהם נסבים על השאלה <span class="he-q">אימתי החתיכה עצמה מותרת</span>. הנודע ביהודה מחדש צד היתר (מינו במליחה → אפשר לסוחטו מותר), והתפארת צבי מחדש צד חומרא (כבוש לאחר שפחת הס' → חוזר ואוסר). ושניהם יסודם בעיקר הסוגיא של סעיף א'–ב' — מתי האיסור הבלוע "יוצא לגמרי" ומתי לא.
-</div>
+<div class="pilpul-box">
+<strong>La racine commune de ces deux entrées.</strong> L’une et l’autre portent sur la même question : à quel moment le morceau lui-même redevient-il permis, et à quel moment ne le redevient-il pas. Le Nodah bi-Yehouda ouvre une voie d’allègement — absorbé de son espèce, et par salage, on pourrait le presser et le permettre ; le Tiféret Tsvi ouvre une voie de rigueur — une macération survenue après que le permis a diminué revient interdire. Les deux se tiennent au point même où le seif 1 et le seif 2 se rejoignent : quand l’interdit absorbé « sort entièrement », et quand il ne sort pas.</div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">7. חקירה ונפקא מינה למעשה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">7. Hakira et nafka mina lema‘assé</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה הכוללת של הסימן :</strong> כיצד משערים את הביטול בחתיכה שבלעה איסור — נגד הבלוע לבד או נגד כל החתיכה ? ומתי החתיכה עצמה עומדת באיסורה ?
+<div class="hakira-box">
+<strong>La hakira qui tient tout le siman :</strong> comment évalue-t-on l’annulation dans un morceau qui a absorbé de l’interdit — contre l’absorbé seul, ou contre le morceau entier ? Et à quel moment le morceau lui-même demeure-t-il dans son interdit ?
 <ul class="stylish">
-<li><strong>לפי חשבון</strong> — לשיטת המחבר, ס' נגד האיסור הבלוע בלבד, והחתיכה מצטרפת למניין.</li>
-<li><strong>אפשר לסוחטו אסור</strong> — האיסור אינו נפלט לגמרי → החתיכה עצמה אסורה, אף שמה שבקדירה מותר.</li>
-<li><strong>סוגיא דכחל</strong> — הט״ז (ס״ק א): אפשר לסוחטו אסור דווקא בבב״ח (כל דתיקון רבנן כעין דאורייתא); הרשב״א: חוששין שמא לא יצא כל החלב.</li>
-<li><strong>נבלל ונימוח מול יבש</strong> — לח שנתרבה עד ס' → הכל מותר; יבש → החתיכה הראשונה עומדת באיסורה.</li>
-<li><strong>חתיכה נעשית נבילה</strong> — מחבר: רק בבב״ח; רמ״א ומנהגנו: בכל איסורין, ס' נגד כל החתיכה (סימן צ״ב).</li>
+<li><strong>לפי חשבון</strong> — pour le Mehaber, soixante contre l’interdit absorbé seul, et le morceau se joint au compte.</li>
+<li><strong>אפשר לסוחטו אסור</strong> — l’interdit ne ressort pas entièrement, et le morceau lui-même reste interdit, alors même que ce qui est dans la marmite est permis.</li>
+<li><strong>La sougya du כחל</strong> — pour le Taz (ס״ק א), la règle de ce qu’on presserait ne vaudrait que dans la viande et le lait, puisque les Sages ont institué à l’image de la Torah ; pour le Rachba, qu’il rapporte ensuite, la raison est la crainte que tout le lait ne soit pas sorti — et alors il n’y a plus de distinction.</li>
+<li><strong>נבלל ונימוח contre le sec</strong> — un liquide dont le permis s’est accru jusqu’à soixante : tout est permis ; dans le sec, le premier morceau demeure dans son interdit.</li>
+<li><strong>חתיכה נעשית נבילה</strong> — pour le Mehaber, seulement dans la viande et le lait ; pour le Rama et notre usage, dans tous les interdits, et soixante contre le morceau entier (siman 92).</li>
 </ul>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה למעשה (לפי הכרעת רוב האחרונים) :</strong>
+<div class="nafka-mina-box">
+<strong>Nafka mina lema‘assé — les conséquences pratiques, telles que les entrées d’appareil citées ici les posent :</strong>
 <ol class="stylish">
-<li>חתיכה שבלעה איסור ונפלה לקדירה — <strong>לספרדים (מחבר)</strong>: ס' נגד הבלוע לבד, לפי חשבון; <strong>לאשכנזים (רמ״א)</strong>: ס' נגד כל החתיכה (חנ״נ).</li>
-<li>החתיכה עצמה — <span class="he-q">אסורה</span> לכל השיטות (אפשר לסוחטו אסור / חנ״נ), אלא אם בלעה ממינו במליחה (נודע ביהודה, פ״ת ס״ק א).</li>
-<li>בנאסר יבש שיש ס' כנגדו — החתיכה הראשונה עומדת באיסורה; זורקה אם מכירה, ובטלה אם אינו מכירה (ובלבד שאינה ראויה להתכבד, סימן ק״א).</li>
-<li>בסעיף ב' — <strong>למחבר</strong>: לא יוציא כלום עד שתצטנן; <strong>לרמ״א</strong>: מסיר את חתיכת האיסור והשאר מותר.</li>
-<li>כבוש לאחר שפחת ההיתר מששים — חוזר ואוסר (תפארת צבי, פ״ת ס״ק ב).</li>
+<li>Un morceau qui a absorbé de l’interdit et qui tombe dans une marmite — <strong>pour les Séfarades (Mehaber)</strong> : soixante contre l’absorbé seul, à proportion ; <strong>pour les Achkénazes (Rama)</strong> : soixante contre le morceau entier.</li>
+<li>Le morceau lui-même — <span class="he-q">החתיכה עצמה אסורה</span> <span class="source-ref">(שו״ע יו״ד ק״ו:א)</span> selon les deux voies, que ce soit par la règle de ce qu’on presserait ou parce qu’il est devenu nevela ; le Nodah bi-Yehouda rapporté par le Pit’hei Techouva (ס״ק א) ouvre une voie à considérer pour un interdit de son espèce reçu par salage.</li>
+<li>Là où ce qui a été rendu interdit était sec et qu’il y a soixante contre lui — le premier morceau demeure dans son interdit ; on le retire si on le reconnaît, et si on ne le reconnaît pas il s’annule, à la condition qu’il ne soit pas un morceau digne d’être présenté (voir le début du siman 101).</li>
+<li>Au seif 2 — <strong>pour le Mehaber</strong> : on ne retire rien jusqu’à ce que la marmite refroidisse ; <strong>pour le Rama</strong> : on retire le morceau interdit et le reste est permis.</li>
+<li>Une macération survenue après que le permis est descendu en dessous de soixante revient interdire (Tiféret Tsvi, פתחי תשובה ס״ק ב).</li>
 </ol>
-<em>ולמעשה — שאל את רבך.</em>
+<em>Et pour la pratique — demande à ton Rav.</em>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">8. טבלאות סיכום</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">8. Tableaux de synthèse</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">טבלה — אופני החתיכה שבלעה והדין</h3>
-
-<table>
-<tr>
-  <th>המצב</th>
-  <th>התוצאה</th>
-  <th>מקור בקורפוס</th>
-</tr>
-<tr>
-  <td><strong>חתיכה שבלעה איסור, נפלה לקדירה (מחבר)</strong></td>
-  <td>ס' נגד הבלוע לבד (לפי חשבון), והחתיכה מצטרפת</td>
-  <td>מחבר ס״א; ש״ך ס״ק א</td>
-</tr>
-<tr>
-  <td><strong>החתיכה עצמה</strong></td>
-  <td>אסורה — אפשר לסוחטו אסור, אינו נפלט לגמרי</td>
-  <td>מחבר ס״א; ט״ז ס״ק א; ש״ך ס״ק ב</td>
-</tr>
-<tr>
-  <td><strong>נבלל ונימוח (לח), נתרבה עד ס'</strong></td>
-  <td>הכל מותר, שהכל מעורב</td>
-  <td>מחבר ס״א</td>
-</tr>
-<tr>
-  <td><strong>נאסר יבש, יש ס' כנגדו</strong></td>
-  <td>החתיכה הראשונה באיסורה; זורקה אם מכירה</td>
-  <td>רמ״א ס״א; ש״ך ס״ק ד</td>
-</tr>
-<tr>
-  <td><strong>חתיכה שבלעה איסור (רמ״א, חנ״נ)</strong></td>
-  <td>כל החתיכה נבילה; ס' נגד כל החתיכה (עיין סימן צ״ב)</td>
-  <td>רמ״א ס״א; ש״ך ס״ק ג</td>
-</tr>
-<tr>
-  <td><strong>חתיכה ובה חֵלֶב בקדירה שיש בה ס' (מחבר)</strong></td>
-  <td>לא יוציא כלום עד שתצטנן הקדירה</td>
-  <td>מחבר ס״ב; ט״ז ס״ק ב</td>
-</tr>
-<tr>
-  <td><strong>אותו דין לדידן (רמ״א, חנ״נ)</strong></td>
-  <td>מסיר את חתיכת האיסור, והשאר מותר</td>
-  <td>רמ״א ס״ב; ש״ך ס״ק ז</td>
-</tr>
-<tr>
-  <td><strong>בלעה ממינו במליחה</strong></td>
-  <td>אפשר לסוחטו מותר, אף החתיכה מותרת</td>
-  <td>פ״ת ס״ק א (נודע ביהודה)</td>
-</tr>
-<tr>
-  <td><strong>כבוש לאחר שפחת ההיתר מס'</strong></td>
-  <td>חוזר ואוסר (כבוש כמבושל)</td>
-  <td>פ״ת ס״ק ב (תפארת צבי)</td>
-</tr>
-</table>
-
-<h3 class="he-h3">טבלה — מחלוקות מרכזיות בסימן</h3>
+<h3 class="sugya">Tableau — les cas du morceau qui a absorbé, et leur din</h3>
 
 <table>
 <tr>
-  <th>נושא</th>
-  <th>שיטה א'</th>
-  <th>שיטה ב'</th>
+  <th>Le cas</th>
+  <th>Ce qui en résulte</th>
+  <th>Source</th>
 </tr>
 <tr>
-  <td>שיעור הביטול בחתיכה שבלעה</td>
-  <td>המחבר — ס' נגד הבלוע לבד (לפי חשבון)</td>
-  <td>הרמ״א — ס' נגד כל החתיכה (חנ״נ, סימן צ״ב)</td>
+  <td><strong>Un morceau qui a absorbé de l’interdit et tombe dans une marmite (Mehaber)</strong></td>
+  <td>Soixante contre l’absorbé seul, à proportion, et le morceau se joint au compte</td>
+  <td>שו״ע יו״ד ק״ו ס״א ; ש״ך יו״ד ק״ו ס״ק א</td>
 </tr>
 <tr>
-  <td>חתיכה נעשית נבילה בשאר איסורין</td>
-  <td>מחבר — רק בבב״ח</td>
-  <td>רמ״א — בכל איסורין ("וכן נוהגין")</td>
+  <td><strong>Le morceau lui-même</strong></td>
+  <td>Interdit — ce qu’il a absorbé n’en ressort pas entièrement</td>
+  <td>שו״ע יו״ד ק״ו ס״א ; ט״ז יו״ד ק״ו ס״ק א ; ש״ך יו״ד ק״ו ס״ק ב</td>
 </tr>
 <tr>
-  <td>אפשר לסוחטו אסור — היכן</td>
-  <td>ט״ז — דווקא בבב״ח (כעין דאורייתא)</td>
-  <td>רשב״א — בכל איסורין (שמא לא יצא הכל)</td>
+  <td><strong>Ce qui se mêle et se dissout (liquide), le permis s’étant accru jusqu’à soixante</strong></td>
+  <td>Tout est permis, puisque tout est mêlé et confondu</td>
+  <td>שו״ע יו״ד ק״ו ס״א</td>
 </tr>
 <tr>
-  <td>נבלל ונימוח (לח) מול יבש</td>
-  <td>לח שנתרבה עד ס' — הכל מותר</td>
-  <td>יבש — החתיכה הראשונה עומדת באיסורה</td>
+  <td><strong>Ce qui a été rendu interdit alors qu’il était sec, avec soixante contre lui</strong></td>
+  <td>Le premier morceau demeure dans son interdit ; on le retire si on le reconnaît</td>
+  <td>רמ״א יו״ד ק״ו ס״א ; ש״ך יו״ד ק״ו ס״ק ד</td>
 </tr>
 <tr>
-  <td>הנהגה בהסרת חתיכה מן הקדירה</td>
-  <td>מחבר — לא יוציא עד שתצטנן</td>
-  <td>רמ״א — מסיר את חתיכת האיסור והשאר מותר</td>
+  <td><strong>Un morceau qui a absorbé de l’interdit (Rama, un morceau devient nevela)</strong></td>
+  <td>Le morceau entier est nevela ; soixante contre le morceau entier (voir siman 92)</td>
+  <td>רמ״א יו״ד ק״ו ס״א ; ש״ך יו״ד ק״ו ס״ק ג</td>
+</tr>
+<tr>
+  <td><strong>Un morceau portant de la graisse, dans une marmite où il y a soixante (Mehaber)</strong></td>
+  <td>On ne retire rien jusqu’à ce que la marmite refroidisse</td>
+  <td>שו״ע יו״ד ק״ו ס״ב ; ט״ז יו״ד ק״ו ס״ק ב</td>
+</tr>
+<tr>
+  <td><strong>Le même cas selon notre usage (Rama)</strong></td>
+  <td>On retire le morceau interdit, et le reste est permis</td>
+  <td>רמ״א יו״ד ק״ו ס״ב ; ש״ך יו״ד ק״ו ס״ק ז</td>
+</tr>
+<tr>
+  <td><strong>Un interdit de son espèce, absorbé par salage</strong></td>
+  <td>Voie à considérer : on pourrait le presser et le permettre, et le morceau lui-même serait permis</td>
+  <td>פתחי תשובה יו״ד ק״ו ס״ק א (נודע ביהודה)</td>
+</tr>
+<tr>
+  <td><strong>Une macération après que le permis est descendu en dessous de soixante</strong></td>
+  <td>Elle revient interdire, la macération étant comme une cuisson</td>
+  <td>פתחי תשובה יו״ד ק״ו ס״ק ב (תפארת צבי)</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מקורות הסוגיא</h3>
+<h3 class="sugya">Tableau — les ma‘hlokot centrales du siman</h3>
 
-<div class="rishon-card" dir="rtl">
-<strong>גמרא :</strong> חולין ק׳. (סוגיא דכחל, נפלה לקדירה אחרת, חתיכה עצמה נאסרת) · חולין ק״ח. (חתיכה נעשית נבילה) · חולין צ״ז:–צ״ח. (טעם כעיקר וביטול בששים)
-</div>
-<div class="rishon-card" dir="rtl">
-<strong>ראשונים :</strong> רש״י · רבנו תם · רמב״ם · ראב״ד · המגיד משנה · תוספות · רא״ש · רשב״א (תורת הבית) · ר״ן · מרדכי · רבנו אפרים · סמ״ג · סמ״ק · טור · איסור והיתר הארוך
-</div>
-<div class="rishon-card" dir="rtl">
-<strong>אחרונים :</strong> בית יוסף · רמ״א · ש״ך · ט״ז · ב״ח · דרכי משה · תורת חטאת · פרי חדש · פרי מגדים · מנחת יעקב · פתחי תשובה · נודע ביהודה · תפארת צבי
+<table>
+<tr>
+  <th>Sujet</th>
+  <th>Première position</th>
+  <th>Seconde position</th>
+</tr>
+<tr>
+  <td>La mesure de l’annulation dans un morceau qui a absorbé</td>
+  <td>Le Mehaber — soixante contre l’absorbé seul, à proportion</td>
+  <td>Le Rama — soixante contre le morceau entier (siman 92)</td>
+</tr>
+<tr>
+  <td>Un morceau devient-il nevela dans les autres interdits</td>
+  <td>Le Mehaber — dans la viande et le lait seulement</td>
+  <td>Le Rama — dans tous les interdits, selon l’usage</td>
+</tr>
+<tr>
+  <td>Où vaut la règle de ce qu’on presserait</td>
+  <td>Le Taz — dans la viande et le lait, à l’image de ce qui est de la Torah</td>
+  <td>Le Rachba, rapporté par le Taz — partout, par la crainte que tout ne soit pas sorti</td>
+</tr>
+<tr>
+  <td>Le liquide contre le sec</td>
+  <td>Liquide dont le permis s’est accru jusqu’à soixante — tout est permis</td>
+  <td>Sec — le premier morceau demeure dans son interdit</td>
+</tr>
+<tr>
+  <td>La conduite au moment de retirer le morceau</td>
+  <td>Le Mehaber — on ne retire rien jusqu’au refroidissement</td>
+  <td>Le Rama — on retire le morceau interdit et le reste est permis</td>
+</tr>
+</table>
+
+<h3 class="sugya">Tableau — les sources de la sougya</h3>
+
+<div class="rishon-card">
+<strong>Guemara :</strong> חולין ק׳ ע״א (la sougya du כחל : « tombé dans une autre marmite », et le כחל lui-même interdit) · חולין ק״ח ע״א (חתיכה נעשית נבילה) · חולין צ״ז ע״ב (טעם כעיקר et l’annulation dans soixante)</div>
+<div class="rishon-card">
+<strong>Richonim :</strong> רש״י · תוספות · רמב״ם · מגיד משנה · רא״ש · רשב״א (תורת הבית) · מרדכי · רבנו אפרים · סמ״ג · סה״ת · ראב״ן · טור · בית יוסף</div>
+<div class="rishon-card">
+<strong>Aharonim :</strong> רמ״א · ש״ך · ט״ז · מהרש״ל · דרכי משה · פתחי תשובה · נודע ביהודה · תפארת צבי</div>
+
+<div class="rishon-card">
+<strong>Les sources de ce niveau sur Sefaria :</strong>
+<ul>
+  <li><a href="https://www.sefaria.org/Shulchan_Arukh,_Yoreh_De%27ah.106">שולחן ערוך יורה דעה סימן ק״ו</a></li>
+  <li><a href="https://www.sefaria.org/Siftei_Kohen_on_Shulchan_Arukh,_Yoreh_De%27ah.106">שפתי כהן (ש״ך) על יורה דעה ק״ו</a></li>
+  <li><a href="https://www.sefaria.org/Turei_Zahav_on_Shulchan_Arukh,_Yoreh_De%27ah.106">טורי זהב (ט״ז) על יורה דעה ק״ו</a></li>
+  <li><a href="https://www.sefaria.org/Pitchei_Teshuva_on_Shulchan_Arukh,_Yoreh_De%27ah.106">פתחי תשובה על יורה דעה ק״ו</a></li>
+  <li><a href="https://www.sefaria.org/Chullin.100a">חולין ק׳ ע״א</a></li>
+  <li><a href="https://www.sefaria.org/Chullin.108a">חולין ק״ח ע״א</a></li>
+</ul>
 </div>
 
 <hr class="ornament">
 
-  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;direction:rtl;">
-    <a href="niveau-1-base.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">→ רמה א' — יסוד</a>
-    <a href="niveau-3-synthese.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">רמה ג' — סיכום ←</a>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;">
+    <a href="niveau-1-base.html" style="font-family:'Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">← Niveau 1 — Base</a>
+    <a href="niveau-3-synthese.html" style="font-family:'Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">Niveau 3 — Synthèse →</a>
   </div>
 
 <div class="yh-watermark">
 ~ ~ ~ ~ ~<br>
 <strong>DAAT</strong> · <strong>הרב יוסף חיים סממה</strong><br>
 תלמיד חכם · מעביר שיעורים בהלכה ובחסידות<br>
-<em>פלפול ועיון בדין היאך מבטלין בששים · סימן ק״ו · ⚡ רמה ב' — לַמְדָּן</em>
+<em>סימן ק״ו · Niveau 2 — Lamdan · דין היאך מבטלין בששים</em><br>
+<em>daattorah.com</em>
 </div>
 
-  <div class="disclaimer" style="background:#fff8e1;border-right:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;direction:rtl;text-align:right;">
-    ⚠️ תוכן זה נכתב לצורך לימוד ועיון בלבד. לכל הוראה למעשה (לְמַעֲשֶׂה) — שאל את רבך.
+  <div class="disclaimer" style="background:#fff8e1;border-left:4px solid #C5A55A;padding:16px 40px;font-family:'Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;">
+    ⚠️ Ce contenu est écrit pour l’étude et l’approfondissement seulement. Pour toute application pratique (לְמַעֲשֶׂה) — demande à ton Rav.
   </div>
 
   <div style="background:#1A1F3A;border-top:2px solid #C5A55A;padding:24px 40px;text-align:center;margin-top:0;">
-    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;direction:rtl;">
-      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">לעמוד הבית</a> · <a href="index.html" style="color:#C5A55A;text-decoration:none;">סימן ק״ו</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ לתמיכה</a>
+    <p style="font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;">
+      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">Retour à l’accueil</a> · <a href="index.html" style="color:#C5A55A;text-decoration:none;">סימן ק״ו</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ Soutenir</a>
     </p>
   </div>
 
@@ -777,7 +800,7 @@
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="../../../assets/js/chat-widget.js" defer></script>
 <script src="../../../assets/js/daat-copy.js" defer></script>
-<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="מצא חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">הצטרף לחברותא</span></a>
+<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="Rejoindre la khavroutha"><span class="icon">📖</span><span class="label-long">Rejoindre la khavroutha</span></a>
   <script src="/assets/js/share-text.js" defer></script>
 </body>
 </html>

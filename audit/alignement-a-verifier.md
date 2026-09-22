@@ -1164,3 +1164,39 @@ Les huit simanim du lot 95-102 sont corrigés : le sujet est repris de la page `
 même siman, qui l'écrit déjà dans la bonne langue. **Les autres ne le sont pas** et
 attendent un balayage dédié — la correction n'est pas mécanique partout, certains simanim
 n'ayant pas de sujet français disponible ailleurs.
+
+## Niveaux 2 traduits — l'hébreu ne porte pas l'appareil que le français porte
+
+Mesuré le 22 septembre 2026 sur le chantier de traduction des niveaux 2 de Yoré Déa.
+
+Les pages françaises et anglaises produites par ce chantier portent un appareil de
+citations verbatim en `<blockquote>` (Chakh, Taz, Pri Hadach, Pit'hei Techouva…) que la
+page HÉBRAÏQUE du même siman ne porte pas : elle expose les mêmes autorités en prose,
+dans des `rishon-card`, avec de simples lemmes `he-q`.
+
+Relevé (nombre de `<blockquote>` par variante) :
+
+| siman | FR | EN | HE |
+|-------|----|----|----|
+| 95  | 81 | 81 | 0 |
+| 102 | 46 | 46 | 2 |
+| 103 | 51 | 51 | 0 |
+| 109 | 52 | 52 | 0 |
+| 110 | 72 | 72 | 0 |
+
+Pour mémoire, le modèle écrit à la main (siman 234) est à 41 / 41 / 41.
+
+Sur les huit simanim 103-110, **902 citations hébraïques vivent dans le corps FR/EN sans
+équivalent dans le corps HE**. Aucune n'est fausse : `verifier-citations.py` les confronte
+toutes à Sefaria et sort à 0 anomalie sur les huit simanim. Ce n'est donc pas une
+fabrication mais un **déséquilibre de parité** : le lecteur francophone reçoit davantage
+que le lecteur hébréophone, l'inverse du défaut habituel.
+
+Ce n'est pas corrigé ici : le report des mêmes `<blockquote>` dans les pages hébraïques est
+une opération mécanique (le balisage est neutre — citation hébraïque + `source-ref`
+hébraïque), mais elle touche des pages publiées et vaut d'être faite **en une seule passe
+sur les 49 simanim du chantier**, une fois celui-ci achevé, plutôt que lot par lot.
+
+Trois citations du siman 109 étaient par ailleurs **tronquées sur un ס isolé** — le geresh
+de `ס׳` (soixante) avait sauté à l'extraction, en français comme en anglais. Corrigé le
+22 septembre 2026 après confrontation au Chakh ס״ק ד et ט et au Pit'hei Techouva ס״ק ד.

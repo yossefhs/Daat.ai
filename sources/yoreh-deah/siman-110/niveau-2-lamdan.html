@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="fr" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,8 +23,7 @@
   @page { size: A4; margin: 2cm 1.8cm; }
   body {
     font-family: 'Frank Ruhl Libre', 'David', 'Georgia', 'Cambria', serif;
-    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0;
-    direction: rtl; text-align: right;
+    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0; text-align: left;
   }
   .he {
     direction: rtl; text-align: right;
@@ -72,14 +71,12 @@
   h2.section-title {
     color: #fff; background: #1A1F3A;
     font-size: 16pt; padding: 10px 18px; margin-top: 30px;
-    border-right: 6px solid #C5A55A;
-    direction: rtl; text-align: right;
+    border-left: 6px solid #C5A55A; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3 {
     color: #1A1F3A; font-size: 14pt; margin-top: 25px;
-    border-right: 4px solid #C5A55A; padding-right: 10px;
-    direction: rtl; text-align: right;
+    border-left: 4px solid #C5A55A; padding-left: 10px; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3.he-h3 {
@@ -89,8 +86,7 @@
   }
   h4 {
     color: #5a4a1a; font-size: 12pt;
-    margin-top: 20px; margin-bottom: 8px; font-weight: bold;
-    direction: rtl; text-align: right;
+    margin-top: 20px; margin-bottom: 8px; font-weight: bold; text-align: left;
   }
 
   .sacred-text {
@@ -100,8 +96,8 @@
     font-size: 12.5pt; line-height: 1.9;
   }
   .pilpul-box {
-    background: #eef3fa; border-right: 4px solid #1A1F3A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #eef3fa; border-left: 4px solid #1A1F3A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .pilpul-box::before {
     content: "⚡ פלפול"; display: block;
@@ -110,8 +106,8 @@
     direction: rtl; text-align: right;
   }
   .kashya-box {
-    background: #fef4e4; border-right: 4px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #fef4e4; border-left: 4px solid #C5A55A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .kashya-box::before {
     content: "❓ קושיא"; display: block;
@@ -120,8 +116,8 @@
     direction: rtl; text-align: right;
   }
   .teruts-box {
-    background: #e8f4ea; border-right: 4px solid #2d7a3e;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #e8f4ea; border-left: 4px solid #2d7a3e;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .teruts-box::before {
     content: "✓ תירוץ"; display: block;
@@ -130,8 +126,8 @@
     direction: rtl; text-align: right;
   }
   .hakira-box {
-    background: #f5e9f5; border-right: 4px solid #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #f5e9f5; border-left: 4px solid #6a1b7a;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .hakira-box::before {
     content: "🔍 חקירה"; display: block;
@@ -141,8 +137,7 @@
   }
   .nafka-mina-box {
     background: #fff4e6; border: 2px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; border-radius: 4px; text-align: left;
   }
   .nafka-mina-box::before {
     content: "⚖️ נפקא מינה"; display: block;
@@ -152,8 +147,7 @@
   }
   .yesod-box {
     background: #1A1F3A; color: #fff;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
   .yesod-box::before {
     content: "💎 יסוד"; display: block;
@@ -164,7 +158,7 @@
   .yesod-box .he-q { color: #C5A55A; }
   .machloket-box {
     background: #faf5ff; border: 1.5px dashed #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
 
   table {
@@ -173,10 +167,9 @@
   }
   th {
     background: #1A1F3A; color: #fff;
-    padding: 10px; text-align: right; direction: rtl; font-size: 11pt;
+    padding: 10px; text-align: left; font-size: 11pt;
   }
-  td {
-    direction: rtl; text-align: right;
+  td { text-align: left;
     border: 1px solid #d4c89a; padding: 10px; vertical-align: top;
   }
   tr:nth-child(even) td { background: #FAF6EE; }
@@ -200,9 +193,8 @@
   ol.stylish, ul.stylish { padding-right: 22px; padding-left: 0; }
 
   .rishon-card {
-    background: #f7f3e4; border-right: 4px solid #8a6a1a;
-    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt;
-    direction: rtl; text-align: right;
+    background: #f7f3e4; border-left: 4px solid #8a6a1a;
+    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt; text-align: left;
   }
   .rishon-card strong { color: #1A1F3A; font-size: 11pt; }
 
@@ -217,8 +209,7 @@
 
   .index-box {
     background: #FAF6EE; border: 1px solid #C5A55A;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
   .index-box ol { margin: 5px 0; padding-right: 25px; padding-left: 0; }
   .index-box li { margin-bottom: 5px; }
@@ -237,7 +228,6 @@
     font-size: 12pt;
     text-decoration: none;
     border-bottom: 1px dotted #C5A55A;
-    direction: rtl;
   }
   a.daat-explain:hover { color: #8a6a1a; border-bottom-style: solid; }
 
@@ -273,7 +263,7 @@
   "headline": "Siman ק״י · Niveau 2 Lamdan — Pilpoul approfondi · דבר חשוב, קבוע, רוב וספק ספיקא",
   "description": "Niveau 2 (Lamdan) du Siman ק״י (Yoreh De'ah) — Pilpoul approfondi. דבר חשוב ודבר שבמנין, כל קבוע כמחצה על מחצה נגד כל דפריש מרובא פריש, פירש במתכוין וממילא, וספק ספיקא וגבולותיו — חקירה ונפקא מינה.",
   "url": "https://daattorah.com/yd/110/lamdan",
-  "inLanguage": "he-IL",
+  "inLanguage": "fr-FR",
   "isAccessibleForFree": true,
   "author": {
     "@id": "https://daattorah.com/#rav-samama"
@@ -382,33 +372,33 @@
 <!-- COUVERTURE -->
 <div class="cover">
   <div class="ornament">✦ ❖ ✦</div>
-  <div class="badge-top">DAAT · רמה ב' — לַמְדָּן</div>
-  <h1>שולחן ערוך · יורה דעה</h1>
-  <div class="subtitle">דין דבר חשוב, קבוע, רוב וספק ספיקא — עיון ופלפול</div>
+  <div class="badge-top">DAAT · NIVEAU 2 — לַמְדָּן</div>
+  <h1>Siman 110 — Niveau Lamdan : ce qui ne s’annule pas, ce qui reste fixé, ce que la majorité emporte</h1>
+  <div class="subtitle">Quatre mécanismes d’autorisation, et ce qui les neutralise l’un après l’autre</div>
 
   <div class="he-title">סימן ק״י</div>
   <div class="he-sub">דָּבָר חָשׁוּב, כָּל קָבוּעַ כְּמֶחֱצָה, כָּל דְּפָרִישׁ מֵרוּבָּא, וּסְפֵק סְפֵקָא</div>
   <div class="he-subject">עיון, פלפול, שיטות הראשונים והאחרונים</div>
 
-  <div class="level-badge">⚡ ללומדים ותלמידי חכמים ⚡</div>
+  <div class="level-badge">⚡ Pour les lomdim et les talmidei hakhamim ⚡</div>
 
   <div class="ornament">✦ ❖ ✦</div>
 
-  <h2 style="margin-top:20px; color: #1A1F3A;">פלפול ועיון מעמיק</h2>
+  <h2 style="margin-top:20px; color: #1A1F3A;">Pilpoul et étude approfondie</h2>
   <p style="font-size:12pt; color:#555;">
-    סוגיות, מקורות, חקירת היסוד, מחלוקות ראשונים ואחרונים,<br>
-    נפקא מינות להלכה ועיון בשיטות
+    Sougyot, sources, la hakira de fond, les ma’hlokot des Richonim et des Aharonim,<br>
+    les nafka minot pour la halakha et l’examen des chitot
   </p>
 
   <div class="credits">
-    <p><strong>הנושא :</strong><br>
-    שולחן ערוך יורה דעה סימן ק״י (י' סעיפים)<br>
-    עם נושאי כלים: ש״ך (שפתי כהן), ט״ז (טורי זהב), פרי מגדים, פתחי תשובה</p>
+    <p><strong>Le sujet :</strong><br>
+    Choulhan Aroukh, Yoré Déa, siman 110 (dix seifim)<br>
+    avec ses nossei kelim : ש״ך · ט״ז · פתחי תשובה</p>
 
-    <p><strong>יסוד הסוגיא בש״ס :</strong><br>
-    ביצה ג':–ד'. (דבר שבמנין, הביצה, ר' יוחנן וריש לקיש) · בבא קמא מ״ד. (וְאָרַב לוֹ וְקָם — מקור כל קבוע) · חולין צ״ה. (בשר שנתעלם מן העין) · כתובות ט'. (יסוד ספק ספיקא)</p>
+    <p><strong>Le fondement de la sougya dans le Chas, tel que l’appareil du siman le nomme :</strong><br>
+    ביצה ג׳ — דבר שבמנין, R. Yohanan et Rech Lakich (ט״ז ס״ק א ; ש״ך ס״ק ט) · בבא קמא מ״ד ע״ב וכתובות ט״ו ע״א — le verset וארב לו וקם, source de כל קבוע (ש״ך ס״ק ט״ו) · חולין צ״ה — פירש לפנינו, cité par le Rama au séif 3 · זבחים ע״ד — les trois mélanges de la orla (ט״ז ס״ק י׳) · כתובות פרק קמא — ספק תחתיו, le ס״ס d’école (ט״ז ס״ק י״ב)</p>
 
-    <p><strong>עריכה ועיון :</strong><br>
+    <p><strong>Rédaction et étude :</strong><br>
     הרב יוסף חיים סממה · DAAT</p>
   </div>
 </div>
@@ -416,554 +406,690 @@
 <div class="page-break"></div>
 
 <!-- TABLE DES MATIÈRES -->
-<h2 class="section-title">📑 תוכן העניינים</h2>
+<h2 class="section-title">📑 Table des matières</h2>
 
-<div class="index-box" dir="rtl">
+<div class="index-box">
 <ol>
-  <li><strong>הקדמת הסוגיא</strong> — סימן ק״י, יסוד דיני הספק (דבר חשוב, קבוע, רוב, ספק ספיקא)</li>
-  <li><strong>דבר חשוב ודבר שבמנין</strong> — שבעה דברים, ר' יוחנן וריש לקיש, הביצה; דרבנן וספיקו לקולא (סעיף א')</li>
-  <li><strong>בעלי חיים בטלים בשחיטה</strong> — חשיבות שאינה אלא בחיים (סעיף ב')</li>
-  <li><strong>תשע חנויות</strong> — כל קבוע כמחצה על מחצה נגד כל דפריש מרובא פריש (סעיף ג')</li>
-  <li><strong>רוב חנויות ותערובת</strong> — אם מהני ספק ספיקא בקבוע (סעיף ד')</li>
-  <li><strong>בשר מן המקולין</strong> — קודם שנמצאה הטריפה ולאחר מכן (סעיף ה')</li>
-  <li><strong>פירש במתכוין וממילא</strong> — מחלוקת רשב״א ורא״ש, השניים האחרונים, הביצה (סעיף ו')</li>
-  <li><strong>נאכל / נפל לים</strong> — שנים שנים, ולא אדם אחד את הכל (סעיף ז')</li>
-  <li><strong>שתי ושלוש תערובות</strong> — ספק ספיקא של דילול, ודבר שיש לו מתירין (סעיף ח')</li>
-  <li><strong>ספק טריפה שנתערב — ספק בגופו</strong> · <strong>ריאה טריפה שנתערבה</strong> (סעיפים ט'–י')</li>
-  <li><strong>חקירת הספק ספיקא ונפקא מינה למעשה</strong></li>
-  <li><strong>טבלאות סיכום מקיפות</strong></li>
+  <li><strong>Ouverture de la sougya</strong> — le siman 110, fondement des lois du doute (davar hachouv, kavoua, rov, safek sfeka)</li>
+  <li><strong>דבר חשוב ודבר שבמנין</strong> — les sept objets, R. Yohanan et Rech Lakich, l’œuf ; c’est mi-derabbanan, donc son doute va vers la légèreté (séif 1)</li>
+  <li><strong>Les êtres vivants s’annulent une fois abattus</strong> — une importance qui ne tient qu’au vivant (séif 2)</li>
+  <li><strong>Les neuf boutiques</strong> — כל קבוע כמחצה על מחצה contre כל דפריש מרובא פריש (séif 3)</li>
+  <li><strong>Majorité de boutiques et mélange</strong> — un safek sfeka opère-t-il sur du kavoua ? (séif 4)</li>
+  <li><strong>La viande du makoulin</strong> — avant la découverte de la trefa et après (séif 5)</li>
+  <li><strong>פירש במתכוין et פירש ממילא</strong> — le Rachba contre le Roch, les deux derniers, l’œuf (séif 6)</li>
+  <li><strong>Mangé / tombé à la mer</strong> — deux par deux, et pas tout par une seule personne (séif 7)</li>
+  <li><strong>Deux et trois mélanges</strong> — le safek sfeka que produit la dilution, et le דבר שיש לו מתירין (séif 8)</li>
+  <li><strong>Un doute de trefa mélangé — un doute né dans le corps même</strong> · <strong>Un poumon trefa mélangé</strong> (séifim 9–10)</li>
+  <li><strong>La hakira du safek sfeka et sa nafka mina pratique</strong></li>
+  <li><strong>Tableaux de synthèse</strong></li>
 </ol>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<!-- לשון השולחן ערוך — סעיף א' -->
-<h2 class="section-title">📜 לשון השולחן ערוך — סעיף א'
-  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 העתק</button>
+<h2 class="section-title">📜 Le texte du Choulhan Aroukh — séif 1
+  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 Copier</button>
 </h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ Explication détaillée (niveau 1)</a>
 
 <div class="sacred-text he" data-copy-block id="cp-1">
-  <p>דָּבָר חָשׁוּב אוֹסֵר בְּמִינוֹ בְּכָל שֶׁהוּא, וְהֵם שִׁבְעָה דְּבָרִים, וְאֵלּוּ הֵם: אֱגוֹזֵי פֶּרֶךְ, וְרִמּוֹנֵי בָּדָן, וְחָבִיּוֹת סְתוּמוֹת, וַחֲלָפוֹת תְּרָדִין, וְקִלְחֵי כְרוּב, וּדְלַעַת יְוָנִית, וְכִכָּרוֹת שֶׁל בַּעַל הַבַּיִת. וְכֵן בַּעֲלֵי חַיִּים חֲשׁוּבִים הֵם וְאֵינָם בְּטֵלִים. אֲבָל שְׁאָר דְּבָרִים, אַף עַל פִּי שֶׁדַּרְכָּן לִימָּנוֹת, הֲרֵי אֵלּוּ עוֹלִים כְּשִׁעוּרָן. (הגה: יֵשׁ אוֹמְרִים שֶׁכָּל דָּבָר שֶׁבְּמִנְיָן אֵינוֹ בָּטֵל, וְכֵן נוֹהֲגִין; וּמַה שֶּׁאֵין דָּבָר חָשׁוּב בָּטֵל אֵינוֹ אֶלָּא מִדְּרַבָּנָן, וְאַזְלִינַן בִּסְפֵיקוֹ לְקֻלָּא.)</p>
+<p><b>דין ספק טריפות שאירע בבשר. ובו י׳ סעיפים:</b><br> דבר חשוב אוסר במינו בכל שהוא והם ז׳ דברים ואלו הם אגוזי פרך ורמוני בדן וחביות סתומות וחלפות תרדין וקלחי כרוב ודלעת יונית וככרות של בעל הבית וכן בעלי חיים חשובים הם ואינם בטלים אבל שאר דברים אף על פי שדרכן לימנות הרי אלו עולים כשיעורן: <small>הגה ויש אומרים דכל דבר שבמנין דהיינו שדרכו למנותו תמיד אינו בטל (טור בשם ר״י וב״י) וכן נוהגין. הא דדבר חשוב אינו בטיל אינו אלא מדרבנן ואזלינן בספיקו לקולא (ארוך כלל כ״ה והרמב״ם פי״ז דמאכלות אסורות ותוספות דזבחים סוף דף ע״ג ואגודה שם ורא״ש פרק ג״ה ורשב״א בת״ה ונ״י פ׳ הערל ועוד הרבה פוסקים כמו שיתבאר בסי׳ זה בכמה דוכתי): </small>כל דבר שהוא חשוב אצל בני מקו׳ מהמקומות כגון אגוזי פרך ורמוני בדן בארץ ישראל באותם הזמנים הוא אוסר בכל שהוא לפי חשיבותו באותו מקום ובאותו זמן ולא הוזכרו אלו אלא לפי שהן אוסרים בכל שהן בכל מקום וה״ה בכל כיוצא בהן בשאר מקומות:</p>
 </div>
+<p><em>résumé</em> : un objet important interdit, dans son espèce, en quelque quantité que ce soit ; ce sont sept objets nommés, auxquels s’ajoutent les êtres vivants. Tout le reste, même si l’usage est de le compter, s’annule à la mesure ordinaire. Le Rama ajoute que tout objet qu’on a coutume de toujours compter ne s’annule pas, et que telle est la pratique — puis il pose la clef de tout le siman : cette non-annulation n’est que rabbinique, et son doute va donc vers la légèreté. Le siman s’ouvre enfin sur ce que le chapeau annonce, le doute de trefa survenu dans de la viande.</p>
 
 <!-- ============================================================= -->
-<h2 class="section-title">1. הקדמת הסוגיא — סימן ק״י, יסוד דיני הספק</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">1. Ouverture de la sougya — le siman 110, fondement des lois du doute</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">היסוד — סימן המייסד את כללי הספק
-  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 העתק</button>
+<h3>Le fondement — un siman qui fonde les règles du doute
+  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 Copier</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-2">
-סימן ק״י הוא <strong>סימן המייסד</strong> את כללי הספק שבהלכות תערובות. שם הסימן: "<span class="he-q">דין ספק טריפות שאירע בבשר</span>". ארבעה יסודות נדונים בו: (א) <strong>דבר חשוב</strong> — דבר שאינו בטל אף באלף (סעיפים א'–ב'); (ב) <strong>כל קבוע כמחצה על מחצה</strong> מול <strong>כל דפריש מרובא פריש</strong> — דין הרוב והקבוע (סעיפים ג'–ה'); (ג) <strong>פירש</strong> מתערובת חשובה — במתכוין או ממילא (סעיפים ו'–ז'); (ד) <strong>ספק ספיקא</strong> — מתי שני ספיקות מתירין ומתי אינם מצטרפין (סעיפים ח'–י'). היסוד המאחד את הסימן: <span class="he-q">בכל מקום שאין רוב ואין ביטול מועילים — מה דין הספק</span>.
+<div class="index-box" data-copy-block id="cp-2">
+Le siman 110 est le <strong>siman fondateur</strong> des règles du doute dans les lois des mélanges. Son chapeau annonce «&nbsp;<span class="he-q">דין ספק טריפות שאירע בבשר</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י — l’en-tête du siman)</span> — mais ce qu’il traite déborde largement ce titre, et le lecteur doit le savoir d’entrée. Quatre fondements y sont examinés : (a) le <strong>davar hachouv</strong>, ce qui ne s’annule pas même dans mille (séifim 1–2) ; (b) <strong>כל קבוע כמחצה על מחצה</strong> face à <strong>כל דפריש מרובא פריש</strong>, la loi de la majorité et celle du fixé (séifim 3–5) ; (c) ce qui <strong>s’est détaché</strong> d’un mélange important — volontairement ou de soi-même (séifim 6–7) ; (d) le <strong>safek sfeka</strong> — quand deux doutes autorisent et quand ils ne s’additionnent pas (séifim 8–10). Ce qui relie le tout : que devient un doute là où ni la majorité ni l’annulation ne viennent au secours ?
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שלושה כלים נפרדים :</strong> צריך להבחין בין שלושה מנגנונים שונים שאינם זהים — <strong>ביטול ברוב/בששים</strong> (תערובת שהאיסור בטל בתוכה), <strong>רוב</strong> (הליכה אחר הרוב מספק — כל דפריש), ו<strong>ספק ספיקא</strong> (שני ספיקות המתירין מצד שאינם מתבררים). ה<strong>דבר חשוב</strong> מפקיע את כוח הביטול; ה<strong>קבוע</strong> מפקיע את כוח הרוב; וה<strong>ספק בגופו</strong> מפקיע את כוח הספק ספיקא. בשלושתם שורש אחד: גורם הממעט את כוח ההיתר הרגיל.
+<div class="pilpul-box">
+<strong>Trois outils distincts.</strong> Il faut séparer trois mécanismes que rien n’autorise à confondre — l’<strong>annulation</strong> dans une majorité ou dans soixante (l’interdit disparaît dans le mélange), la <strong>majorité</strong> (on suit le grand nombre dans un doute — כל דפריש), et le <strong>safek sfeka</strong> (deux doutes qui autorisent parce qu’aucun des deux ne se tranche). Le <strong>davar hachouv</strong> neutralise la première ; le <strong>kavoua</strong> neutralise la deuxième ; le <strong>doute né dans le corps même</strong> neutralise la troisième. Les trois ont une seule racine : un facteur qui retire à l’autorisation ordinaire sa force.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>מקורות הסוגיא בש״ס :</strong> דבר חשוב ודבר שבמנין — <span class="he-q">ביצה ג':–ד'.</span> (מחלוקת ר' יוחנן וריש לקיש, והביצה שנתערבה); כל קבוע — נדרש מ"<span class="he-q">וְאָרַב לוֹ וְקָם עָלָיו</span>" (<span class="he-q">בבא קמא מ״ד.</span>, בדין ספק נפשות); כל דפריש מרובא פריש — חולין צ״ה.; ספק ספיקא — כתובות ט'. ושאר דוכתי. הראשונים (רשב״א בתורת הבית, רא״ש, ר״ן) ביססו את גדרי הסימן.
+<div class="rishon-card">
+<strong>Les sources de la sougya, telles que l’appareil du siman les nomme.</strong> Pour כל קבוע, le Chakh renvoie à deux endroits précis — Bava Kamma 44b et Ketoubot 15a, que sa phrase nomme entre parenthèses — et à un verset :
 </div>
+<blockquote>«&nbsp;<span class="he-q">הכי ילפינן בב״ק… ובפרק קמא דכתובות… מקרא דוארב לו וקם</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״י ס״ק ט״ו)</span></blockquote>
+<p>Le verset est celui du meurtrier qui guette — «&nbsp;<span class="he-q">וְאָ֤רַב לוֹ֙ וְקָ֣ם עָלָ֔יו</span>&nbsp;» <span class="source-ref">(דברים י״ט:י״א)</span> — d’où les Sages ont tiré, en matière de doute capital, qu’un interdit resté à sa place n’est pas jugé d’après la majorité mais comme moitié-moitié. Et le Chakh précise aussitôt que cette règle joue dans les deux sens, pour alléger comme pour aggraver :</p>
+<blockquote>«&nbsp;<span class="he-q">דהא דקי״ל דכל קבוע כמחצה על מחצה הוא בין לקולא ובין לחומרא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״י ס״ק ט״ו)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">2. דבר חשוב ודבר שבמנין — שבעה דברים והביצה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">2. דבר חשוב ודבר שבמנין — les sept objets et l’œuf</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זהו יסוד הסימן: מהו "דבר חשוב" שאינו בטל אף באלף, ומדוע.</p>
+<p style="margin:15px 0; font-style:italic;">C’est le fondement du siman : qu’est-ce qu’un « objet important » qui ne s’annule pas même dans mille, et pourquoi ?</p>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — מה גדר ה"חשיבות" :</strong> מדוע ייגרע כוח הביטול בדבר חשוב ? והלא רוב היתר מבטל איסור ! ושלוש הבנות: (א) <strong>שבעה דברים</strong> בלבד — רשימה סגורה שגזרו עליהם חכמים (אגוזי פרך, רמוני בדן, חביות סתומות, חלפות תרדין, קלחי כרוב, דלעת יוונית, ככרות של בעל הבית); (ב) כל <strong>בעל חי</strong> — שחשיבותו עצמית; (ג) לדעת הרמ״א — כל <span class="he-q">דבר שבמנין</span>, כל דבר שדרכו להימכר תמיד במניין ולא באומד.
+<div class="hakira-box">
+<strong>La hakira — quel est le gader de cette « importance » ?</strong> Pourquoi la force de l’annulation céderait-elle devant un objet important ? Une majorité de permis annule bien un interdit ! Trois lectures se présentent : (a) <strong>sept objets</strong> seulement — une liste fermée, celle que le Mehaber énumère ; (b) tout <strong>être vivant</strong>, dont l’importance lui est propre ; (c) selon le Rama, tout <strong>דבר שבמנין</strong>, tout ce qu’on a coutume de toujours vendre au compte et non à l’estime. La question n’est pas décorative : elle décide si l’importance est une qualité de la chose ou une qualité de l’usage qu’on en fait.
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>ר' יוחנן וריש לקיש — מקור הביטול בדבר שבמנין (ביצה ג':–ד'., ט״ז ס״ק א, ש״ך ס״ק ט) :</strong>
+<blockquote>«&nbsp;<span class="he-q">דבר חשוב אוסר במינו בכל שהוא</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דכל דבר שבמנין דהיינו שדרכו למנותו תמיד אינו בטל</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:א)</span></blockquote>
+
+<div class="machloket-box">
+<strong>R. Yohanan et Rech Lakich — comment lire « דבר שבמנין » (ט״ז ס״ק א) :</strong>
 <table>
-<tr><th>שיטה</th><th>דבר שבמנין</th><th>מקור</th></tr>
+<tr><th>Chita</th><th>Lecture de la michna</th><th>Ce qui en découle pour l’œuf</th></tr>
 <tr>
-  <td><strong>ר' מאיר</strong></td>
-  <td>כל דבר שבמנין — אפילו דרבנן — אינו בטל</td>
-  <td>ביצה ג':; ט״ז ס״ק א</td>
+  <td><strong>R. Yohanan</strong>, selon R. Méir</td>
+  <td class="he">היינו כרבי יוחנן בגמרא אליבא דרבי מאיר דסבירא ליה את שדרכו למנות שנינו</td>
+  <td>Seul ce qui ne se vend <em>jamais</em> autrement qu’au compte ; l’œuf, qu’on vend parfois au panier plein, <strong>s’annule</strong></td>
 </tr>
 <tr>
-  <td><strong>ר' עקיבא / חכמים</strong></td>
-  <td>אינו בטל רק בדבר שדרכו להימכר תמיד במניין דווקא</td>
-  <td>ביצה ג':; ש״ך ס״ק ט</td>
+  <td><strong>Rech Lakich</strong></td>
+  <td class="he">ולא כריש לקיש דסבירא ליה כל שדרכו למנות שנינו וביצה אסורה אינה בטילה</td>
+  <td>Tout ce qu’on a coutume de compter ; l’œuf <strong>ne s’annule pas</strong></td>
+</tr>
+<tr>
+  <td><strong>Le Mehaber</strong>, au début du siman</td>
+  <td class="he">היינו כר׳ עקיבא בגמרא דפליג עם ר״מ</td>
+  <td>Seul le davar hachouv ne s’annule pas ; le davar shebeminyan, lui, s’annule</td>
+</tr>
+<tr>
+  <td><strong>Le Rama</strong> (« et telle est la pratique »)</td>
+  <td class="he">דכל דבר שבמנין דהיינו שדרכו למנותו תמיד אינו בטל</td>
+  <td>Ce qu’on a coutume de toujours compter ne s’annule pas</td>
 </tr>
 </table>
-<p style="margin-top:8px;">הביצה שנתערבה (ביצה שנולדה ביום טוב באלף) — שורש הדיון: ביצה היא "דבר חשוב" ואינה בטלה, ומכאן למדו הראשונים את גדר דבר שבמנין.</p>
+<p style="margin-top:8px;">Le Taz explique le partage par l’exemple même de l’œuf :</p>
+<blockquote>«&nbsp;<span class="he-q">פירוש שלעולם אין מוכרין אלא במנין מה שאין כן ביצה שפעמים מוכרים סל מלא ביצים זהו בטל</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״י ס״ק א)</span></blockquote>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — דבר חשוב הוא מדרבנן, ולפיכך ספיקו לקולא :</strong><br>
-מחדש הרמ״א (וכן הט״ז ס״ק א והש״ך ס״ק י) יסוד מכריע: מה שאין הדבר החשוב בטל — <span class="he-q">אינו אלא מדרבנן</span>. מן התורה כל דבר בטל ברוב; חכמים הם שהחמירו בחשוב שלא יתבטל. ומאחר שהוא דרבנן — <span class="he-q">אזלינן בספיקו לקולא</span>: כל ספק אם דבר זה "חשוב" אם לאו, או ספק אם דרכו להימכר במניין — הולכים בו להקל. וזהו הש״ך ס״ק י: <span class="he-q">ספק דבר חשוב לקולא</span>.
+<div class="pilpul-box">
+<strong>Le Chakh et le Taz ne concluent pas du même côté.</strong> Le Chakh lit le « toujours » du Rama à la lettre — donc l’œuf s’annulerait ; puis il rapporte que le Maharchal et le Ba’h tiennent au contraire la rigueur, et que tel est l’usage. Le Taz, lui, s’arrête sur le fait que toute l’affaire est rabbinique et en tire une conséquence pratique.
 </div>
+<blockquote>«&nbsp;<span class="he-q">אבל דבר שמוכרים לפעמים ג״כ באומד כמו ביצים שלפעמים מוכרים סל מלא ביצים כדאית׳ בש״ס ריש מסכת ביצה בטל</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״י ס״ק ט׳)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דנהגינן לחומרא כסה״ת</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״י ס״ק ט׳)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ולענין הלכה כיון דמילתא דרבנן היא כדאי הם המתירים לסמוך עליהם במקום הפסד</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״י ס״ק א)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>במינו / שלא במינו (ש״ך ס״ק א) :</strong> לשון המחבר "אוסר <span class="he-q">במינו</span> בכל שהוא". מדקדק הש״ך (ס״ק א) דמשמע דווקא במינו; אבל הרמ״א בסימן ק״א פסק שדבר חשוב אינו בטל <strong>אף שלא במינו</strong>. ונמצא שיש בזה מחלוקת אם החשיבות פוקעת את הביטול רק בתערובת מינו (טעם כעיקר) או אף בשלא במינו (שניכר).
+<div class="yesod-box">
+<strong>Le fondement — le davar hachouv n’est que rabbinique, donc son doute va vers la légèreté.</strong><br>
+C’est le Rama qui pose l’énoncé, et le Chakh qui en dit la portée exacte : ce qui va vers la légèreté, c’est le doute <em>sur l’importance elle-même</em>, et non n’importe quel doute du siman.
 </div>
+<blockquote>«&nbsp;<span class="he-q">הא דדבר חשוב אינו בטיל אינו אלא מדרבנן ואזלינן בספיקו לקולא</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">כלומר אם יש בו ספק אם הוא דבר חשוב או לא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״י ס״ק י׳)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל שאר ספיקות אשכחן דאזלינן לחומרא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״י ס״ק י׳)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>דבר חשוב אסור בהנאה (ש״ך ס״ק ב) :</strong> מחדש הש״ך (ס״ק ב) שדבר חשוב שאינו בטל — אינו בטל אף <span class="he-q">בהנאה</span>: אם נתערב דבר חשוב האסור בהנאה (כעורלה) ברוב היתר, כל התערובת אסורה בהנאה. ותקנתה — <span class="he-q">ימכרנו לנכרי חוץ מדמי האיסור</span> שבו (שלא ייהנה מן האיסור). דין זה מלמד שאיסור הדבר החשוב חמור גם בממון, ולא רק באכילה.
+<div class="rishon-card">
+<strong>במינו ou même שלא במינו (ש״ך ס״ק א).</strong> Le Mehaber écrit que le davar hachouv interdit «&nbsp;<span class="he-q">דבר חשוב אוסר במינו בכל שהוא</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:א)</span> — « dans son espèce ». Le Chakh relève que tout le séif est repris du Rambam, et que le Rama, dans son Torat Hatat et dans sa glose du siman 101, a tranché autrement ; il s’étonne alors que le Rama n’ait rien annoté ici.
 </div>
+<blockquote>«&nbsp;<span class="he-q">ופסק דאפילו שלא במינו אוסר בכל שהוא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״י ס״ק א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">וצ״ע למה לא הגיה כאן כלום אדברי המחבר</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״י ס״ק א)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>החשיבות — מקומית וזמנית :</strong> מסיים הרמ״א: כל דבר ה<span class="he-q">חשוב לבני מקום</span> — כאגוזי פרך ורמוני בדן בארץ ישראל בזמנים ההם — אוסר בכל שהוא <strong>לפי חשיבותו במקום ובזמן</strong>. השבעה לא נמנו אלא לפי שאוסרים בכל שהוא בכל מקום; אבל בכל זמן ומקום נמדדת החשיבות לפי המנהג שם. ומכאן ה<strong>פתחי תשובה</strong> (ס״ק א): מנחת יעקב בשם הט״ז — הביצה מותרת ב<span class="he-q">הפסד מרובה</span> דדרבנן הוא; ותשובה מאהבה חלק וסבר שהביצה לעולם אינה בטלה.
+<div class="rishon-card">
+<strong>Le davar hachouv interdit aussi à la jouissance (ש״ך ס״ק ב).</strong> Le Chakh établit qu’un objet important qui ne s’annule pas ne s’annule pas non plus quant à la jouissance, et rapporte des Tossafot, au nom du Yerouchalmi, le remède : vendre le tout à un non-Juif en défalquant le prix de l’interdit qui s’y trouve — et seulement là où l’on n’a pas à craindre qu’il le revende ensuite à un Juif.
 </div>
+<blockquote>«&nbsp;<span class="he-q">דדברים החשובים האסורים בהנאה אם נתערבו אפילו באלף כולן אסורות בהנאה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״י ס״ק ב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דמותר למכרן לעובד כוכבים חוץ מדמי איסור שבהן</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״י ס״ק ב)</span></blockquote>
+
+<div class="rishon-card">
+<strong>L’importance est locale et datée.</strong> Le Mehaber termine le séif en mesurant l’importance à l’usage du lieu et du temps : les sept objets n’ont été nommés que parce qu’ils interdisaient partout, et il en va de même de tout ce qui leur ressemble ailleurs.
+</div>
+<blockquote>«&nbsp;<span class="he-q">כל דבר שהוא חשוב אצל בני מקו׳ מהמקומות</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">הוא אוסר בכל שהוא לפי חשיבותו באותו מקום ובאותו זמן</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:א)</span></blockquote>
+<p>De là le débat que rapporte le <strong>Pit’hei Techouva</strong> (ס״ק א) sur l’œuf : le Min’hat Yaakov, au nom du Taz, allège en cas de perte importante ; la Techouva Méahava refuse et tient que de nos jours l’œuf reste interdit même là.</p>
+<blockquote>«&nbsp;<span class="he-q">ועיין בספר מנחת יעקב כלל מ״ב סק״ב שכתב בשם הט״ז דיש להקל בהפ״מ דביצה בטילה</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד ק״י ס״ק א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דדברי המ״י בטילים הם דמ״ש הט״ז דבהפ״מ מותר היינו דבר שפעמים במנין אבל ביצה אף בהפ״מ אסור האידנא</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד ק״י ס״ק א)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">3. בעלי חיים בטלים בשחיטה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">3. Les êtres vivants s’annulent une fois abattus</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיף ב')
-  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 העתק</button>
+<h3>Le texte du Choulhan Aroukh — <span class="he-q">סעיף ב׳</span>
+  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-3">
-"<strong>בעלי חיים שנתערבו זה בזה ואחר כך נשחטו — בטלה חשיבותן ובטלים ברוב; והוא שנשחטו בשוגג</strong>, ודווקא בהמות קטנות שאינן ראויות להתכבד בהן אחר השחיטה."
+<p>בעלי חיים שנתערבו באחרים ונשחטו בטל חשיבותן ובטלין והוא שנשחטו בשוגג <small>(ודוקא בעלי חיים קטנים שאינן ראוים להתכבד לאחר שחיטתן) (או״ה כלל כ״ה):</small></p>
 </div>
+<p><em>résumé</em> : des êtres vivants mélangés à d’autres puis abattus perdent leur importance et s’annulent — à condition que l’abattage ait été fait par inadvertance ; et le Rama restreint aux petits animaux, ceux dont on ne fait pas honneur à un hôte une fois abattus.</p>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — חשיבות שאינה אלא בחיים :</strong><br>
-חשיבות בעל החי <span class="he-q">אינה אלא כל זמן שהוא חי</span>: כל בריה שלמה חיה חשובה היא ואינה בטלה. אבל <strong>משנשחט</strong> — שוב אינו "בעל חי" אלא חתיכת בשר, ובטל ברוב (אם אינו ראוי להתכבד ואינו בריה). ומכאן שני תנאים בביטולו: (א) שנשחט <span class="he-q">בשוגג</span> — שלא יהא נראה כמערים לבטל איסור לכתחילה; (ב) <strong>בהמות קטנות</strong> שאינן <span class="he-q">ראויות להתכבד</span> — שאם ראויות להתכבד, חזרו להיות "דבר חשוב" אחר מסוג חתיכה הראויה להתכבד.
+<div class="yesod-box">
+<strong>Le fondement — une importance qui ne tient qu’au vivant.</strong><br>
+L’importance de l’animal tient à ce qu’il est une créature entière et vivante. <strong>Une fois abattu</strong>, il n’est plus « un être vivant » mais un morceau de viande, et il s’annule dans la majorité. D’où les deux conditions que porte le texte : l’abattage «&nbsp;<span class="he-q">בעלי חיים שנתערבו באחרים ונשחטו בטל חשיבותן ובטלין והוא שנשחטו בשוגג</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:ב)</span> — par inadvertance, pour qu’on ne puisse pas s’arranger pour annuler un interdit à dessein ; et la restriction du Rama aux petits animaux.
 </div>
+<blockquote>«&nbsp;<span class="he-q">ודוקא בעלי חיים קטנים שאינן ראוים להתכבד לאחר שחיטתן</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:ב)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שתי חשיבויות נפרדות (ט״ז ס״ק ב) :</strong> מדקדק הט״ז (ס״ק ב) — חשיבות <strong>בעל חי</strong> אינה זהה לחשיבות <strong>חתיכה הראויה להתכבד</strong> (חהל״ה דסימן ק״א): בעל חי חשוב מחמת היותו בריה שלמה חיה, וזו פוקעת בשחיטה; אך אם הבהמה גדולה ושחוטה ראויה להתכבד — חזרה החשיבות מצד אחר (חהל״ה). לפיכך הדגיש המחבר "<span class="he-q">בהמות קטנות</span>" — שאינן ראויות להתכבד אף לאחר שחיטה. נמצא שיש כאן <strong>שני שערי חשיבות</strong>, ובעל חי שחוט קטן יצא משניהם.
+<div class="pilpul-box">
+<strong>Deux importances distinctes (ט״ז ס״ק ב).</strong> Le Taz montre que l’importance de l’<strong>être vivant</strong> n’est pas celle du <strong>morceau dont on fait honneur à un hôte</strong> (la חתיכה הראויה להתכבד du siman 101) : la première tombe avec l’abattage, la seconde peut prendre le relais si la bête est grande. C’est pour cela que la glose précise « petits ». Il y a donc <strong>deux portes d’importance</strong>, et le petit animal abattu est sorti des deux. Le Taz rapporte d’abord la réponse du Maharchal — qui distingue la bête écorchée de celle qui ne l’est pas — puis donne la sienne.
 </div>
+<blockquote>«&nbsp;<span class="he-q">ולי נראה דחשיבות של בעל חי הוא חשיבות בפני עצמו</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״י ס״ק ב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">רק כ״ז שהוא חי יש לו חשיבות מצד שהוא בעל חי</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״י ס״ק ב)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">4. תשע חנויות — כל קבוע כמחצה על מחצה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">4. Les neuf boutiques — כל קבוע כמחצה על מחצה</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיף ג')
-  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 העתק</button>
+<h3>Le texte du Choulhan Aroukh — <span class="he-q">סעיף ג׳</span>
+  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-4">
-"<strong>תשע חנויות מוכרות בשר שחוטה ואחת מוכרת בשר נבילה, ולקח מאחת מהן ואינו יודע מאיזו לקח — אסור, שכל קבוע כמחצה על מחצה דמי. אבל בשר הנמצא בשוק או ביד נכרי — מותר, שכל דפריש מרובא פריש; וזה דין תורה, אלא שחכמים אסרוהו</strong> (הגה: עיין סימן ס״ג. ולא אמרינן כל דפריש מרובא פריש אלא כשלא פירש לפנינו, אבל פירש לפנינו, או שראה הנכרי לוקחו — הוי כאילו נטלו מן הקבוע ביד.)"
+<p>ט׳ חנויות מוכרות בשר שחוטה ואחת מוכרת בשר נבילה ולקח מאחת מהן ואין ידוע מאיזה מהן לקח הרי זה אסור שכל קבוע כמחצה על מחצה דמי אבל בשר הנמצא בשוק או ביד עובד כוכבים מותר כיון שרוב החנויות מוכרו׳ בשר שחוטה דכל דפריש מרובא פריש זהו דין תורה אבל חכמים אסרוהו אף על פי שכל השוחטים וכל המוכרים ישראל: <small>הגה ועיין לעיל סימן ס״ג והא דאמרינן כל דפריש מרובא פריש היינו שלא פירש לפנינו אבל אם פירש לפנינו או שרואה כשהעובד כוכבים לקחו הוי כאילו לקחו משם בידו (טור בשם רשב״א ותוס׳ פרק ג״ה דף צ״ה ור״ן שם והג״א בשם ר״י ותוס׳ ואגודה פ׳ התערובות ורא״ש בתשובה כלל כ׳ סימן ט״ו וסמ״ג סוף דף נ״ב וסמ״ק סימן רי״ד וש״ד סימן מ״ו ור׳ ירוחם נט״ו והמ״מ פ״ה מהמ״א בשם המפרשים):</small></p>
 </div>
+<p><em>résumé</em> : neuf boutiques vendent de la viande abattue rituellement et une vend de la neveila ; il a acheté à l’une d’elles sans savoir laquelle — c’est interdit, car tout ce qui est fixé à sa place compte pour moitié-moitié. Mais la viande trouvée au marché, ou dans la main d’un non-Juif, est permise : ce qui s’est détaché s’est détaché de la majorité. Le Mehaber ajoute que c’est là la loi de la Torah, et que les Sages ont tout de même interdit. Le Rama renvoie au siman 63 et pose la limite du « détaché devant nous ».</p>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — קבוע נגד פריש :</strong><br>
-שני דינים הפוכים בסעיף אחד:<br><br>
-• <span class="he-q">כל קבוע כמחצה על מחצה</span> — איסור הקבוע במקומו (תשע חנויות שלקח מאחת ואינו יודע) נדון <strong>כמחצה על מחצה</strong>, ואין הרוב מבטלו, אף שרוב החנויות כשרות → אסור.<br>
-• <span class="he-q">כל דפריש מרובא פריש</span> — ומה שכבר <strong>פירש</strong> (בשר הנמצא בשוק או ביד נכרי) — הולכים בו אחר הרוב, שמן הרוב פירש → מותר.<br><br>
-זהו <span class="he-q">דין תורה</span>; וחכמים אסרו את ה"בשר שנתעלם מן העין" (סימן ס״ג) אף שכל השוחטים והמוכרים ישראל.
+<div class="yesod-box">
+<strong>Le fondement — le fixé contre le détaché.</strong><br>
+Deux lois inverses tiennent dans un seul séif :<br><br>
+• «&nbsp;<span class="he-q">שכל קבוע כמחצה על מחצה דמי</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:ג)</span> — l’interdit resté à sa place est jugé comme moitié-moitié, et la majorité ne l’emporte pas, si bien que l’achat est interdit alors même que neuf boutiques sur dix sont cacher.<br>
+• «&nbsp;<span class="he-q">דכל דפריש מרובא פריש</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:ג)</span> — ce qui s’est déjà détaché, on le suit d’après la majorité : c’est de la majorité qu’il s’est détaché, donc permis.<br><br>
+Et le Mehaber marque lui-même l’écart entre la loi écrite et l’interdit rabbinique.
 </div>
+<blockquote>«&nbsp;<span class="he-q">זהו דין תורה אבל חכמים אסרוהו אף על פי שכל השוחטים וכל המוכרים ישראל</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:ג)</span></blockquote>
 
-<div class="machloket-box" dir="rtl">
-<strong>מקור כל קבוע — דרשת "וְאָרַב לוֹ וְקָם" (בבא קמא מ״ד., ש״ך ס״ק טו) :</strong>
-<table>
-<tr><th>הגדר</th><th>התוכן</th><th>מקור</th></tr>
-<tr>
-  <td><strong>דרשת הכתוב</strong></td>
-  <td>"<span class="he-q">וְאָרַב לוֹ וְקָם עָלָיו</span>" — עד שיתכוון לו; דרשו חכמים: קבוע במקומו אינו נדון אחר הרוב אלא כמחצה</td>
-  <td>בבא קמא מ״ד.; ש״ך ס״ק טו</td>
-</tr>
-<tr>
-  <td><strong>שורש בספק נפשות</strong></td>
-  <td>תשע צדיקים ואחד שמתחייב מיתה — אין הולכים אחר הרוב בקבוע אלא מחצה; ומשם לכל איסורי תורה</td>
-  <td>סנהדרין; ש״ך ס״ק טו</td>
-</tr>
-</table>
+<div class="pilpul-box">
+<strong>Détaché devant nous ou hors de notre vue (רמ״א ס״ג).</strong> Le Rama restreint : la règle du détaché ne vaut que là où la séparation ne s’est pas faite sous nos yeux. Si nous l’avons vue, ou si nous avons vu le non-Juif prendre le morceau, c’est comme s’il l’avait pris de sa main dans le fixé — et le statut de kavoua revient. Toute la différence entre « la viande trouvée » et « la viande que nous avons vu prendre » tient là.
 </div>
+<blockquote>«&nbsp;<span class="he-q">והא דאמרינן כל דפריש מרובא פריש היינו שלא פירש לפנינו אבל אם פירש לפנינו או שרואה כשהעובד כוכבים לקחו הוי כאילו לקחו משם בידו</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:ג)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>פירש לפנינו / שלא לפנינו (רמ״א ס״ג, ועיין סימן ס״ג) :</strong> מסייג הרמ״א — כל דפריש מרובא פריש אמור דווקא ב<span class="he-q">לא פירש לפנינו</span>: דבר שכבר ניתק ממקומו שלא בידיעתנו, הולכים בו אחר הרוב. אבל אם <span class="he-q">פירש לפנינו</span> — שראינו את הפרישה, או שראה הנכרי לוקחו מן הקבוע — הרי זה <strong>כאילו נטלו מן הקבוע בידו</strong>, ודינו קבוע, אסור. וזהו ההבדל בין "בשר הנמצא" (פריש שלא לפנינו, מותר) ל"בשר שראינוהו ניטל מן הקבוע" (כקבוע, אסור).
-</div>
-
-<div class="rishon-card" dir="rtl">
-<strong>בשר שנתעלם מן העין (עיין סימן ס״ג) :</strong> אף ש"בשר הנמצא" מותר מן התורה (כל דפריש), אסרו חכמים <span class="he-q">בשר שנתעלם מן העין</span> — חתיכת בשר שהונחה ונעלמה ונמצאה, גזירה שמא נתחלפה בנבילה. וזו חומרא דרבנן הנדונה בסימן ס״ג, והרמ״א מפנה לשם. ולמעשה רבים מן הפוסקים הקלו בזה בזמננו (שמיעוט נבילה מצויה), ועיין שם.
+<div class="rishon-card">
+<strong>La viande soustraite au regard (voir siman 63).</strong> Même si « la viande trouvée » est permise par la loi de la Torah, les Sages ont interdit la viande qui a disparu de la vue puis a été retrouvée, de crainte qu’elle n’ait été échangée. C’est une rigueur rabbinique traitée au siman 63, et le Rama y renvoie expressément depuis notre séif. Nous ne tranchons rien ici : voir sur place, et demander à son Rav.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">5. רוב חנויות ותערובת — אם מהני ספק ספיקא בקבוע</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">5. Majorité de boutiques et mélange — un safek sfeka opère-t-il sur du kavoua ?</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זוהי אחת מן המחלוקות החריפות שבסימן: האם הספק ספיקא מתיר כשהספק הראשון הוא קבוע.</p>
+<p style="margin:15px 0; font-style:italic;">C’est l’une des divergences les plus vives du siman : le safek sfeka autorise-t-il lorsque le premier doute est un doute de kavoua ?</p>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ד')
-  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 העתק</button>
+<h3>Le texte du Choulhan Aroukh — <span class="he-q">סעיף ד׳</span>
+  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-5">
-"<strong>רוב חנויות מוכרות בשר שחוטה ומיעוטן בשר נבילה, ולקח מאחת מהן ואינו יודע מאיזו, ונתערבה אותה חתיכה באחרות ואינו מכירה — בטלה ברוב, מטעם ספק ספיקא</strong> (הגה: יש אוסרים בכהאי גוונא, דכל שהאיסור במקומו הוי כמחצה על מחצה, ומאחר שספק הראשון איסור מן התורה — אין כאן ספק שני להתיר, רק תערובת בעלמא, ואין זה נקרא ספק ספיקא; וכן נוהגין.)"
+<p>רוב חנויות מוכרות בשר שחוטה ומיעוט מוכרות בשר נבילה לקח מאחת מהן ואינו יודע מאיזו מהן לקח ונתערבה באחרות ואינה ניכרת בטלה ברוב משום ספק ספיקא: <small>הגה <i data-commentator="Nekudot HaKesef" data-label="♯" data-order="2"></i>ויש אוסרין בכה״ג משום דכל מקום דאיסור במקומו הוי כמחצה על מחצה והואיל וספק הראשון אסור מן התורה ואין כאן עוד ספיקא להתיר רק תערובות לא מקרי ספק ספיקא (ארוך כלל כ״ה) והכי נהוג:</small></p>
 </div>
+<p><em>résumé</em> : la majorité des boutiques vend de la viande abattue rituellement et une minorité de la neveila ; il a acheté à l’une d’elles sans savoir laquelle, puis le morceau s’est mélangé à d’autres et ne se reconnaît plus — pour le Mehaber il s’annule dans la majorité au titre du safek sfeka ; le Rama rapporte ceux qui interdisent, et conclut que telle est la pratique.</p>
 
-<div class="machloket-box" dir="rtl">
-<strong>שורש המחלוקת — ספק ספיקא בקבוע :</strong>
+<div class="machloket-box">
+<strong>La racine de la divergence — un safek sfeka sur du kavoua :</strong>
 <table>
-<tr><th>שיטה</th><th>רוב חנויות + תערובת</th><th>מקור</th></tr>
+<tr><th>Chita</th><th>Majorité de boutiques + mélange</th><th>Source</th></tr>
 <tr>
-  <td><strong>המחבר</strong></td>
-  <td>בטלה ברוב מטעם <span class="he-q">ספק ספיקא</span> — ספק מאיזו חנות לקח, וספק שמא נתערבה זו ולא זו</td>
-  <td>מחבר ס״ד</td>
+  <td><strong>Le Mehaber</strong></td>
+  <td>Le morceau s’annule dans la majorité, au titre du safek sfeka : doute sur la boutique, puis doute sur le morceau</td>
+  <td class="he">בטלה ברוב משום ספק ספיקא (שו״ע יו״ד ק״י:ד)</td>
 </tr>
 <tr>
-  <td><strong>הרמ״א (יש אוסרים, וכן נוהגין)</strong></td>
-  <td>הספק הראשון הוא <strong>קבוע</strong> (כמחצה על מחצה) ואיסור מן התורה; התערובת אינה "ספק שני" אלא תערובת בעלמא — ואינו ספק ספיקא</td>
-  <td>רמ״א ס״ד</td>
+  <td><strong>Le Rama</strong> (« il y a qui interdisent »)</td>
+  <td>Le premier doute est un doute de <strong>kavoua</strong>, donc interdit par la loi de la Torah ; le mélange n’ajoute pas un second doute, ce n’est qu’un mélange — et cela ne s’appelle pas safek sfeka</td>
+  <td class="he">והכי נהוג (שו״ע יו״ד ק״י:ד)</td>
 </tr>
 </table>
 </div>
+<blockquote>«&nbsp;<span class="he-q">ויש אוסרין בכה״ג משום דכל מקום דאיסור במקומו הוי כמחצה על מחצה והואיל וספק הראשון אסור מן התורה ואין כאן עוד ספיקא להתיר רק תערובות לא מקרי ספק ספיקא</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:ד)</span></blockquote>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — מהו "ספק שני" אמיתי :</strong> שורש הפלוגתא: המחבר רואה את שני המאורעות (מאיזו חנות / לאיזו חתיכה נתערבה) כשני ספיקות עצמאיים. אבל הרמ״א חידד: כיוון שהספק הראשון <span class="he-q">איסורו מן התורה</span> (קבוע = ודאי מחצה), שוב אין התערובת מוסיפה ספק בעצם האיסור, אלא רק שאלה היכן הוא — ו<span class="he-q">תערובת בעלמא אינה ספק ספיקא</span>. זהו אותו כלל ששב ומופיע בסעיף ט' (ספק בגופו).
+<div class="hakira-box">
+<strong>La hakira — qu’est-ce qu’un vrai « second doute » ?</strong> Le Mehaber voit dans les deux événements — de quelle boutique, puis quel morceau — deux doutes indépendants. Le Rama objecte que le premier doute est déjà un interdit de la Torah : le mélange n’ajoute alors rien quant à l’<em>existence</em> de l’interdit, il ne fait que demander <em>où</em> il se trouve. C’est exactement la règle qui reviendra au séif 9, sous le nom de doute né dans le corps même.
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>רוב החנויות או רוב הבשר (פתחי תשובה ס״ק ב בשם בית אפרים) :</strong> דן הפתחי תשובה (ס״ק ב) בשאלת בית אפרים — בקבוע ובפריש, האם הולכים אחר <strong>רוב החנויות</strong> (מספר המוכרים) או אחר <strong>רוב הבשר</strong> (כמות הנמכר) ? ונפקא מינה כשחנות אחת מוכרת הרבה. ויש בזה אריכות בפוסקים, ועיקר הדין שהולכים אחר רוב המסייע להיתר במקום שאין חשש מבורר.
+<div class="pilpul-box">
+<strong>Majorité de boutiques ou majorité de viande (פתחי תשובה ס״ק ב, au nom du Beit Efraïm).</strong> L’entrée est posée sur le séif 3, sur les mots « la viande trouvée », et non sur notre séif ; nous la lisons ici parce qu’elle éclaire le même partage. La question est celle-ci : suit-on le nombre des <strong>boutiques</strong> ou la quantité de <strong>viande</strong> vendue ? Le Beit Efraïm ne tranche pas d’un seul côté — il distingue deux cas.
 </div>
+<blockquote>«&nbsp;<span class="he-q">וכל שאר הבשר נשאר במקומו הולכין אחר רוב החנויות</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד ק״י ס״ק ב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל אם יש בא׳ יו״ד בהמות נבלה ובט׳ יש בכל אחד אחת כשירה ומכרו כולם כל הבשר פשיטא דבכה״ג אזלינן בתר רוב הבשר שנמכר היום</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד ק״י ס״ק ב)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">6. בשר מן המקולין — קודם ולאחר</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">6. La viande du makoulin — avant et après</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיף ה')
-  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 העתק</button>
+<h3>Le texte du Choulhan Aroukh — <span class="he-q">סעיף ה׳</span>
+  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-6">
-"<strong>הלוקח בשר מן המקולין, אפילו חתיכה הראויה להתכבד, ונמצאת טריפה במקולין ואין חתיכות הטריפה ניכרות, ואינו יודע מאיזו לקח — כל מה שלקח קודם שנמצאת הטריפה מותר</strong> (שלא נולד הספק אלא לאחר שפירש, והרוב כשר). <strong>אבל ליקח מכאן ואילך — אסור, אפילו חתיכה שאינה ראויה להתכבד, לפי שאין הכל בקיאין</strong> בין ראויה להתכבד לשאינה ראויה."
+<p>מי שלקח בשר מהמקולין <small>(פי׳ בית המטבחים) </small>ואפילו חתיכה הראויה להתכבד ונמצאת טרפה במקולין ולא נודעו חתיכות הטרפה ואינו יודע מאיזו לקח כל מה שלקחו מהמקולין קודם שנמצאת הטרפה <i data-commentator="Be'er HaGolah" data-label="(°)" data-order="8"></i>מותר שלא נפל הספק בקבוע אלא לאחר שפירש וכיון שהרוב כשר מותר אבל ליקח מכאן ואילך אסור ואפילו חתיכה שאינה ראויה להתכבד שאין הכל בקיאין בזה ויטעו בין ראויה להתכבד לשאינה ראויה:</p>
 </div>
+<p><em>résumé</em> : qui a acheté de la viande à l’étal — même un morceau dont on fait honneur à un hôte — et qu’une trefa s’y est trouvée sans que les morceaux de trefa soient reconnaissables, tout ce qu’il a pris avant la découverte est permis ; à partir de là, prendre est interdit, même un morceau dont on ne fait pas honneur.</p>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — קודם / לאחר :</strong><br>
-ה<strong>מקולין</strong> (בית המטבחיים שמוכרים בו) נמצאה בו טריפה, ואינה ניכרת.<br><br>
-• <span class="he-q">קודם שנמצאה הטריפה</span> — מה שכבר לקח, הספק נולד <em>לאחר</em> שכבר פירש ממקום קבוע, והולכים אחר רוב המקולין הכשר → <strong>מותר</strong> (כל דפריש מרובא פריש).<br>
-• <span class="he-q">מכאן ואילך</span> — לאחר שנודעה הטריפה, אם יבוא ליקח עתה הרי הוא נוטל מן הקבוע → <strong>אסור</strong>, ואפילו חתיכה שאינה ראויה להתכבד, גזירה <span class="he-q">שאין הכל בקיאין</span> ויבואו להקל אף בראויה להתכבד.
+<div class="yesod-box">
+<strong>Le fondement — avant / après.</strong><br>
+Une trefa a été trouvée à l’étal, et elle ne se reconnaît pas.<br><br>
+• <strong>Avant</strong> la découverte : le doute n’est pas tombé sur le fixé, il est né <em>après</em> que le morceau s’en était détaché, et la majorité de l’étal est cachère → permis.<br>
+• <strong>À partir de là</strong> : celui qui viendrait prendre maintenant prendrait du fixé → interdit, et même un morceau dont on ne fait pas honneur, parce que tous ne savent pas faire la différence.
 </div>
+<blockquote>«&nbsp;<span class="he-q">כל מה שלקחו מהמקולין קודם שנמצאת הטרפה מותר שלא נפל הספק בקבוע אלא לאחר שפירש וכיון שהרוב כשר מותר</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:ה)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל ליקח מכאן ואילך אסור ואפילו חתיכה שאינה ראויה להתכבד שאין הכל בקיאין בזה ויטעו בין ראויה להתכבד לשאינה ראויה</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:ה)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>הגזירה "שאין הכל בקיאין" (ט״ז ס״ק ג–ז) :</strong> מאריך הט״ז (ס״ק ג–ז) בדיני הקבוע, תשע חנויות, המקולין ופירש, ומבאר את ה<span class="he-q">גזירה שמא יקח מן הקבוע</span> — שורש איסור הלקיחה מכאן ואילך. ומחדש חילוק יסודי בין <strong>קבוע דאורייתא</strong> ל<strong>קבוע דרבנן</strong>: קבוע דאורייתא הוא במקום ש<span class="he-q">האיסור ניכר</span> במקומו (כתשע חנויות, שהנבילה קיימת באחת); אבל באיסור שאינו ניכר, החומרא שיקח מן הקבוע אינה אלא <strong>גזירה דרבנן</strong>. נפקא מינה רבה לספיקות.
+<div class="pilpul-box">
+<strong>Kavoua de la Torah et kavoua rabbinique (ט״ז ס״ק ג).</strong> L’entrée est ancrée sur le séif 4, mais tout son propos porte sur l’étal de notre séif : le Taz commence par s’étonner du Mehaber, puis distingue deux sortes de fixé. Dans le premier, l’interdit est présent et reconnaissable à sa place — ce sont les neuf boutiques, et là כל קבוע vaut par la Torah. Dans le second, tout le contenu de l’étal serait annulé dans la majorité par la loi écrite, et ce sont les Sages qui lui ont donné le statut de fixé. La nafka mina est considérable pour les doutes.
 </div>
+<blockquote>«&nbsp;<span class="he-q">יש כאן תמיה על הש״ע שהרי הרשב״א לא כתב כן דמהני תערובות אלא בלקח ממקולין</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״י ס״ק ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">האחד הוא קבוע דאורייתא דהיינו ט׳ חנויות כשרות וא׳ טריפה שבזה אמרינן מדאורייתא כל קבוע כמחצה כו׳ כיון שהאיסור ניכר במקומו</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״י ס״ק ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">וקבוע דרבנן הוא במקולין אחד שנמצא שם טריפה נתערבה בין הכשירות ואינו יודע מאיזה לקח דמדאורייתא הוה כל בשר שבמקולין כשר דבטל ברוב</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״י ס״ק ג)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>קבוע דאורייתא / קבוע דרבנן (ט״ז) :</strong> בקבוע דאורייתא — האיסור עומד בעין במקומו, ועל כן אינו בטל אף בדיעבד; בקבוע דרבנן — אין כאן איסור בעין אלא חשש (שמא יקח מן הקבוע), והוא גזירה בלבד, ולכן בו אמרינן <span class="he-q">ספיקא דרבנן לקולא</span> ומקילין בו במקום צורך. <strong>ופתחי תשובה</strong> (ס״ק ד–ה) מביא בזה דברי מהרי״ט ותפארת צבי בכמה ציורים מעשיים של מקולין וקבוע.
+<div class="rishon-card">
+<strong>Le Pit’hei Techouva sur ce séif (ס״ק ד–ה).</strong> Il rapporte, sur le mot « permis », le cas très concret du Mahari"t — un boucher qui abat sept bêtes chez lui, en sort deux à l’étal et la moitié d’une troisième, l’autre moitié restant à la maison, puis une aiguille est trouvée et l’on ne sait de quelle bête ; et, sur le mot « interdit », il renvoie au Tiferet Tsvi et au Cheïlat Yaavets. Nous ne tranchons pas ce cas : il est donné comme le lieu où la distinction du Taz se met à l’épreuve.
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">7. פירש במתכוין וממילא — מחלוקת רשב״א ורא״ש</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">7. פירש במתכוין et פירש ממילא — le Rachba contre le Roch</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ו')
-  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 העתק</button>
+<h3>Le texte du Choulhan Aroukh — <span class="he-q">סעיף ו׳</span>
+  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-7">
-"<strong>בעלי חיים ושאר דברים חשובים שנתערבו באחרים ואינם בטלים אפילו באלף — אם פירש אחד מן הרוב לאחר שנודעה התערובת, אסור; והוא שפירש במתכוין, אבל פירש ממילא — מותר</strong> (הגה: ולא אמרינן דאסור בפירש במתכוין אלא כשפירש מקצתן ועדיין נשארו איסורין במקומן, דחיישינן שמא יקח מן הקבוע; אבל אם נתפזרו כולן בבת אחת ובשעת לקיחה פירשו מקצתן — אותן מותרין, חוץ משנים האחרונים שנשארו אסורין. ואם תרנגולת טריפה נתערבה בכשרות ונמצא ביצה ביניהן — הביצה מותרת, שאף שהתרנגולות חשובות ואינן בטלות, הולכין אחר הרוב לענין הביצה.)"
+<p>בעלי חיים ושאר דברים החשובים שנתערבו בהיתר שאינם בטלים אפי׳ באלף אפי׳ אם פירש אחד מן הרוב אחר שנודעה התערובת אסור והוא שהפרישו במתכוין אבל אם פירש ממילא שרי: <small>הגה והא דאסור אם הפרישו במתכוין היינו שלא פירש רק מעט ונשארו מקצת האיסורים במקומם דאז חיישינן שמא יקח מן הקבוע גם כן אבל אם נתפרשו כולן ביחד ולא נשארו במקומן ובשעת עקירתן פירשו קצתן אותן שפירשו אז מותרים (דברי קבלה מחמיו הגאון מהר״ר שכנא ז״ל) רק שנים האחרונים אסורים (טור ס״ס נ״ז) ואם נתערבה תרנגולת טרפה בכשרות ונמצא ביצה ביניהם הביצה מותרת אע״ג דהתרנגולים חשובים ולא מתבטלין לגבי ביצה אזלינן בתר רובא (ארוך כלל כ״ו):</small></p>
 </div>
+<p><em>résumé</em> : des êtres vivants et autres objets importants mélangés à du permis ne s’annulent pas même dans mille ; si l’un s’est détaché de la majorité après que le mélange fut connu, c’est interdit — et cela quand on l’a séparé à dessein, mais s’il s’est détaché de lui-même, c’est permis. Le Rama restreint l’interdit au cas où une partie seulement a été séparée et où des interdits demeurent à leur place, ajoute que les deux derniers restent interdits, et termine sur l’œuf trouvé parmi les poules.</p>
 
-<div class="machloket-box" dir="rtl">
-<strong>פירש ממילא — מחלוקת רשב״א ורא״ש (ש״ך ס״ק לג–לז) :</strong>
+<div class="machloket-box">
+<strong>פירש ממילא — le Rachba contre le Roch (ש״ך ס״ק ל״ג–ל״ז) :</strong>
 <table>
-<tr><th>שיטה</th><th>פירש ממילא מתערובת חשובה</th><th>מקור</th></tr>
+<tr><th>Chita</th><th>Détaché de soi-même d’un mélange important</th><th>Source</th></tr>
 <tr>
-  <td><strong>הרשב״א (תורת הבית)</strong></td>
-  <td><strong>מותר</strong> — כיוון שפירש מאליו ולא ביד, הולכים אחר הרוב כדין כל דפריש</td>
-  <td>ש״ך ס״ק לג–לז</td>
+  <td><strong>Le Rachba</strong></td>
+  <td><strong>Permis</strong> — la fixité est déjà défaite, on suit la majorité comme pour tout détaché ; et il en va de même si tout s’est dispersé, fût-ce sous nos yeux</td>
+  <td class="he">שלא בפנינו או שנתפזרו כולן אפי׳ בפנינו מותר שכבר נתבטל הקביעות (ש״ך יו״ד ק״י ס״ק ל״ה)</td>
 </tr>
 <tr>
-  <td><strong>הרא״ש</strong></td>
-  <td><strong>אסור</strong> — אף בפירש ממילא, דחיישינן <span class="he-q">שמא יקח מן הקבוע</span>; ולא הקילו אלא בנתפזרו כולן</td>
-  <td>ש״ך ס״ק לג–לז</td>
+  <td><strong>Le Roch</strong> et beaucoup de poskim</td>
+  <td><strong>Interdit</strong> — même détaché de soi-même, parce que tout est mêlé et qu’ici l’interdit ne se reconnaît pas à part, à la différence des neuf boutiques</td>
+  <td class="he">והרא״ש והרבה פוסקים פסקו דפירש ממילא אסור (ש״ך יו״ד ק״י ס״ק ל״ו)</td>
 </tr>
 </table>
-<p style="margin-top:8px;">המחבר פסק כרשב״א (פירש ממילא מותר); והרמ״א צירף את סייג הרא״ש — דווקא כשנשארו איסורין במקומן.</p>
+<p style="margin-top:8px;">Le Mehaber a tranché comme le Rachba ; le Rama y a joint la restriction qui vient du Roch — il faut que des interdits soient demeurés à leur place. Et le Chakh rapporte encore, en son nom, que tant que le mélange n’était pas connu, la chose est permise même pour celui qui interdit le détaché de soi-même.</p>
 </div>
+<blockquote>«&nbsp;<span class="he-q">דל״ד לט׳ חנויות דהתם האיסור ניכר בפני עצמו ולא חיישינן שיקח מן הקבוע</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״י ס״ק ל״ו)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל קודם שנודע התערובות מותר</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״י ס״ק ל״ג)</span></blockquote>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — במתכוין נגד ממילא :</strong><br>
-תערובת של דברים חשובים שאינם בטלים. אם פירש אחד <strong>לאחר שנודעה התערובת</strong>:<br>
-• <span class="he-q">פירש במתכוין</span> — נטלוֹ ביד → אסור, דהוי כנוטל מן הקבוע במקומו.<br>
-• <span class="he-q">פירש ממילא</span> — פירש מאליו → מותר, שהולכים אחר הרוב כדין כל דפריש (וזהו דעת הרשב״א שפסק המחבר).<br><br>
-טעם החילוק: בנטילה ביד הוא <strong>מברר</strong> מן הקבוע, וכאילו נטל מן המחצה; אבל בפרישה מאליה — סתם פריש מן הרוב פירש.
+<div class="yesod-box">
+<strong>Le fondement — à dessein contre de soi-même.</strong><br>
+Un mélange d’objets importants, qui ne s’annulent pas. Si l’un s’en détache <strong>après que le mélange fut connu</strong> : séparé à dessein, c’est interdit, car c’est comme prendre du fixé à sa place ; détaché de lui-même, c’est permis, car on suit la majorité. La raison du partage : en prenant de la main, il <strong>choisit</strong> dans le fixé ; dans une séparation spontanée, ce qui se détache se détache ordinairement de la majorité.
 </div>
+<blockquote>«&nbsp;<span class="he-q">והוא שהפרישו במתכוין אבל אם פירש ממילא שרי</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:ו)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>נתפזרו כולן ושנים האחרונים (רמ״א ס״ו, ש״ך) :</strong> מסייג הרמ״א — איסור הפירש במתכוין אינו אלא כשפירש <strong>מקצתן ונשארו איסורין במקומן</strong> (אז חיישינן שמא יקח מן הקבוע). אבל אם <span class="he-q">נתפזרו כולן בבת אחת</span> ובשעת הלקיחה פירשו מקצתן — אותן מותרין, שכבר אין "קבוע" שיקח ממנו, <strong>חוץ משנים האחרונים</strong> שנשארו — שהם בקבוע (מחצה על מחצה ממש). וביאר הש״ך ש<span class="he-q">נתפזרו כולן בפנינו</span> דינו כשלא בפנינו, שכבר אין כאן קביעות.
+<div class="pilpul-box">
+<strong>Tout s’est dispersé, et les deux derniers (רמ״א ס״ו, ש״ך ס״ק ל״ה).</strong> Le Rama restreint : l’interdit du « séparé à dessein » ne vaut que si une partie seulement a été détachée et que des interdits sont restés en place — là on craint qu’il ne prenne du fixé. Mais si tout a été détaché ensemble et que rien n’est demeuré à sa place, ce qui s’est alors détaché est permis : il n’y a plus de fixé où puiser. <strong>Les deux derniers</strong>, eux, restent interdits — ceux-là sont bel et bien moitié-moitié. Et le Chakh explique, au nom du Rachba, que tout se disperser sous nos yeux revient à se détacher hors de notre vue.
 </div>
+<blockquote>«&nbsp;<span class="he-q">אבל אם נתפרשו כולן ביחד ולא נשארו במקומן ובשעת עקירתן פירשו קצתן אותן שפירשו אז מותרים</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:ו)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">רק שנים האחרונים אסורים</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:ו)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דנתפזרו כולן בפנינו חשוב כפירשו שלא בפנינו</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״י ס״ק ל״ה)</span></blockquote>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה — הביצה ורוב התרנגולות :</strong> תרנגולת טריפה שנתערבה בכשרות ונמצאה <span class="he-q">ביצה</span> ביניהן — הביצה <strong>מותרת</strong>: אף שהתרנגולות עצמן חשובות ואינן בטלות (בעלי חיים), הביצה אינה "בעל חי" אלא דבר נפרד הבטל ברוב, והולכים בה <strong>אחר רוב</strong> התרנגולות הכשרות. וזהו חידוש — שהחשיבות של האם אינה עוברת אל הביצה. <em>ולמעשה — שאל את רבך.</em>
+<div class="nafka-mina-box">
+<strong>Nafka mina — l’œuf et la majorité des poules.</strong> Une poule trefa s’est mélangée à des cachères et un œuf est trouvé parmi elles : l’œuf est <strong>permis</strong>. Les poules elles-mêmes sont importantes et ne s’annulent pas, mais l’œuf n’est pas un être vivant : c’est une chose séparée, qui s’annule dans la majorité, et l’on va pour lui d’après la majorité des poules. L’importance de la mère ne passe pas à l’œuf. <em>Et pour la pratique — demande à ton Rav.</em>
 </div>
+<blockquote>«&nbsp;<span class="he-q">ואם נתערבה תרנגולת טרפה בכשרות ונמצא ביצה ביניהם הביצה מותרת אע״ג דהתרנגולים חשובים ולא מתבטלין לגבי ביצה אזלינן בתר רובא</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:ו)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">8. נאכל / נפל לים — שנים שנים</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">8. Mangé / tombé à la mer — deux par deux</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ז')
-  <button class="daat-copy" type="button" data-copy-target="#cp-8">📋 העתק</button>
+<h3>Le texte du Choulhan Aroukh — <span class="he-q">סעיף ז׳</span>
+  <button class="daat-copy" type="button" data-copy-target="#cp-8">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-8">
-"<strong>דבר שאינו בטל מחמת חשיבותו (בעלי חיים, בריה, חתיכה הראויה להתכבד, דבר שיש לו מתירין) שנתערב באחרים, ונאכל אחד מהן בשוגג</strong> (בין שאכלו הוא בעצמו, בין שאכלוהו אחרים בשוגג) <strong>או נפל אחד מהן מאליו לים עד שאבד מן העולם — כל השאר מותרין, שתולין לומר האיסור הלך לו. ואין אוכלין הנשארים אלא שנים שנים, דממה נפשך יש בהן אחד מותר; אבל לאכלן אחד אחד — אסור</strong> (הגה: ואף שנים שנים, אין אדם אחד יכול לאכלן כולן; ואף שני בני אדם לא יאכלו את כולן בבת אחת.)"
+<p>דבר שאינו בטל מחמת חשיבותו כגון בעלי חיים ובריה וחתיכה הראויה להתכבד ודבר שיש לו מתירין שנתערב באחרים ונאכל אחד מהם בשוגג <small>(בין שאכלו עצמו בשוגג בין שאכלוהו אחרים בשוגג) (ת״ה סימן קע״ה) </small>או נפל מעצמו לים בענין שנאבד מן העולם הותרו כל האחרים שאנו תולין לומר האיסור הלך לו ודוקא כשאוכל הנשארות שתים שתים ביחד דממה נפשך איכא חדא דהיתרא אבל לאוכלם אחת אחת אסור: <small>הגה ואפילו לאכלם שתים שתים אסור לאדם אחד לאכול את כולם ואפי׳ ב׳ בני אדם אין לאכלם כולם בבת אחת (ב״י לדעת טור):</small></p>
 </div>
+<p><em>résumé</em> : une chose qui ne s’annule pas à cause de son importance — être vivant, créature entière, morceau dont on fait honneur, chose qui trouvera son permis — s’est mélangée, et l’une d’elles a été mangée par inadvertance, ou est tombée d’elle-même à la mer au point d’être perdue du monde : tout le reste est permis, car on suppose que c’est l’interdit qui est parti. Mais on ne mange le reste que deux par deux ; un par un, c’est interdit. Le Rama ajoute qu’une seule personne ne mangera pas le tout, et que même deux personnes ne le mangeront pas d’un coup.</p>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — "האיסור הלך לו" :</strong><br>
-דבר חשוב שנתערב, ו<strong>אחד</strong> מן התערובת נאכל בשוגג או אבד לים (אבד מן העולם) → תולין ש<span class="he-q">האיסור הוא שהלך לו</span>, וכל השאר מותרין. אבל אכילתם — <span class="he-q">שנים שנים</span> דווקא: שבכל זוג, <strong>ממה נפשך</strong> יש בו אחד מותר (שאי אפשר ששניהם איסור, שהרי איסור אחד בלבד היה); אבל אחד אחד אסור, שמא זה הוא האיסור.
+<div class="yesod-box">
+<strong>Le fondement — « l’interdit est parti ».</strong><br>
+Une chose importante s’est mélangée, et <strong>l’une</strong> du mélange a été mangée par inadvertance ou perdue du monde : on suppose que c’est l’interdit qui s’en est allé, et tout le reste est permis. Mais on ne les mange que <strong>deux par deux</strong> : dans chaque paire, de toute façon, l’un au moins est permis — il n’y avait qu’un seul interdit, les deux ne peuvent pas l’être ensemble. Un par un, c’est interdit : celui-là est peut-être l’interdit.
 </div>
+<blockquote>«&nbsp;<span class="he-q">הותרו כל האחרים שאנו תולין לומר האיסור הלך לו</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:ז)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ודוקא כשאוכל הנשארות שתים שתים ביחד דממה נפשך איכא חדא דהיתרא אבל לאוכלם אחת אחת אסור</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:ז)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>"נאבד מן העולם" דווקא (ש״ך ס״ק מד) :</strong> מדייק הש״ך (ס״ק מד) — דווקא <span class="he-q">נאבד מן העולם</span> (נפל לים) או נאכל; אבל אם נפל למקום שאפשר שיימצא, או נשאר בעולם — <strong>איסורא ברובא איתא</strong>, האיסור עדיין בנמצא, ואין תולין שהלך לו. וזהו תנאי יסודי: ההיתר אינו אלא כשהאיסור יצא מן המציאות לגמרי.
+<div class="pilpul-box">
+<strong>« Perdu du monde », et rien de moins (ש״ך ס״ק מ״ד).</strong> Le Chakh, au nom du Rachba, pose la condition dans sa forme stricte : tant que la chose existe encore dans le monde, pourquoi dirions-nous que c’est celle-là qui était l’interdite ? Au contraire — l’interdit est dans la majorité. L’autorisation ne tient donc que si l’interdit est sorti de l’existence.
 </div>
+<blockquote>«&nbsp;<span class="he-q">או נפל מעצמו לים בענין שנאבד מן העולם</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:ז)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל כל שישנו בעולם ואתה צריך לדון עליה ועל השאר מפני מה נאמר שזו האחת היא האסורה אדרבה י״ל איסורא ברוב איתא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״י ס״ק מ״ד)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שוגג ולא מזיד — חילוק נאכל מנפל לים (ט״ז ס״ק ח) :</strong> מבאר הט״ז (ס״ק ח) שבנאכל הצריכו <span class="he-q">שוגג</span> — שאין קונסין את השוגג כמזיד; אבל אם אכלוֹ במזיד (כדי לבטל האיסור בכוונה) — קונסין ואין מתירין. ובנפל לים אין צריך לזה, שלא נעשה מעשה בידי אדם להערים. נמצא שבנאכל יש חשש הערמה ובנפל לים אין.
+<div class="kashya-box">
+<strong>Le Taz n’accepte pas l’explication reçue (ט״ז ס״ק ח).</strong> Le Beit Yossef expliquait l’écart entre « mangé » et « tombé à la mer » ainsi : on ne pénalise l’inadvertance à cause du délibéré que là où l’homme a agi — donc pour la chute à la mer, non pour ce qui a été mangé. Le Taz s’en déclare troublé, parce que cette explication contredit une réponse du Roch, et il conclut dans l’autre sens : il faut craindre qu’on ne fasse manger l’interdit délibérément à un chien ou à un non-Juif. La question reste ouverte ici comme elle l’est chez lui.
 </div>
+<blockquote>«&nbsp;<span class="he-q">דברים תמוהים נראה לע״ד בכאן</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״י ס״ק ח)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל אם הפילו הוא אפילו שוגג קנסינן שוגג אטו מזיד היינו דוקא בנפל לים</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״י ס״ק ח)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ונ״ל הטעם דחיישינן שמא יאכיל במזיד לכלב או לעובד כוכבים</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״י ס״ק ח)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>שנים שנים / ארבעה ארבעה (ש״ך ס״ק מז–מט) :</strong> מאריך הש״ך (ס״ק מז–מט) — אם נאבדו <strong>שנים</strong> מן התערובת, אוכלין <span class="he-q">ארבעה ארבעה</span> (ממה נפשך אין בכל ארבעה אלא שני איסורין, ויש בהן מותר); וכלל הוא: לפי מנין האבוד מרבים בכל קבוצה. ועוד: אף בשנים שנים <strong>אדם אחד לא יאכל את הכל</strong> — שמא יצרף הכל ויאכל גם האיסור (ועיין סימן ק״מ).
+<div class="rishon-card">
+<strong>Deux par deux, quatre par quatre (ש״ך ס״ק מ״ז, מ״ט).</strong> Le Chakh, appuyé sur Rachi dans Zeva’him, tire la règle générale : si <strong>deux</strong> se sont perdus, on mange quatre par quatre ; si trois, six par six. Le nombre de chaque groupe suit le nombre des disparus. Et il note que d’après le sens simple des Tossafot et du Roch, deux par deux une seule personne pourrait les manger, pourvu qu’elle ne les mange pas tous en une fois — la formulation du Rama vient du Beit Yossef lisant le Tour, et le Chakh la donne pour non contraignante ; voir aussi le siman 140.
 </div>
+<blockquote>«&nbsp;<span class="he-q">דאם נתערבו שתים צריך לאכול ארבע ארבע וכן ג׳ צריך לאכול שש שש</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״י ס״ק מ״ז)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דבשנים שנים מותר לאכלן לאדם אחד רק שלא יאכל כולן כאחד</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״י ס״ק מ״ט)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ואפילו לאכלם שתים שתים אסור לאדם אחד לאכול את כולם ואפי׳ ב׳ בני אדם אין לאכלם כולם בבת אחת</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:ז)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">9. שתי ושלוש תערובות — ספק ספיקא של דילול</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">9. Deux et trois mélanges — le safek sfeka de la dilution</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">כאן מתחיל עיקר העיון בספק ספיקא — כיצד דילול התערובת בורא ספק שני.</p>
+<p style="margin:15px 0; font-style:italic;">Ici commence le cœur de l’étude du safek sfeka : comment la dilution d’un mélange fait naître un second doute.</p>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ח')
-  <button class="daat-copy" type="button" data-copy-target="#cp-9">📋 העתק</button>
+<h3>Le texte du Choulhan Aroukh — <span class="he-q">סעיף ח׳</span>
+  <button class="daat-copy" type="button" data-copy-target="#cp-9">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-9">
-"<strong>דבר שאינו בטל מחמת חשיבותו שנתערב באחרים, ונפל אחד מן התערובת לתוך שתים אחרות, ומן השלוש נפל אחד לתוך שתים אחרות — האחרונות מותרות</strong> (שהאחד שמן התערובת הראשונה בטל ברוב). <strong>אבל אם נפל אחד מן הראשונה לתוך אלף — כולן אסורות; ולא אמרינן 'בטל ברוב' אלא להתיר את ספק ספיקא שלו, שאם יפול אחד מן השני למקום אחר — אינו אוסר</strong> (הגה: ומכל מקום אדם אחד לא יאכל את כולן; ודווקא כשהאיסור המעורב הוא איסור ודאי, אבל ספק איסור שנתערב ונפל אחד למקום אחר — התערובת השנייה מותרת. ויש אומרים דדבר שיש לו מתירין אינו ניתר בספק ספיקא, וטוב להחמיר בו אם לא בשעת הדחק, שהרי יש לו היתר ממילא.)"
+<p>דבר שאינו בטל מחמת חשיבותו שנתערב באחרים ונפל מהתערובות הזאת אחד לשנים אחרים ונפל מן השלשה אחד לשנים אחרים הרי אלו האחרים מותרים שהרי האחד של תערובות הראשונה בטל ברוב ואם נפל אחד מהתערובות הראשונה לאלף כולם אסורים ולא נאמר בטל ברוב אלא להתיר ספק ספיקן שאם יפול מן התערובות השניה למקום אחר אינו אוסר. <small>(לשון רמב״ם פרק ט״ז מהמ״א דין י׳): הגה ומכל מקום אין לאדם אחד לאכול את כולן ודוקא שהאיסור שנתערב הוא ודאי איסור אבל ספק איסור שנתערב ונפל מאותה תערובות למקום אחר התערובות השנית שרי (ארוך כלל כ״ו) יש אומרים דדבר שיש לו מתירין אין להתיר מכח ספק ספיקא (שם כלל כ״ה) וטוב להחמיר אם לא לצורך מאחר שיש לו היתר בלאו הכי:</small></p>
 </div>
+<p><em>résumé</em> : une chose qui ne s’annule pas à cause de son importance s’est mélangée à d’autres ; de ce mélange l’une est tombée dans deux autres, et des trois l’une est tombée dans deux autres — ces dernières sont permises. Mais si l’une du premier mélange est tombée dans mille, toutes sont interdites. Le Rama ajoute qu’une seule personne ne mangera pas le tout, distingue l’interdit certain du doute d’interdit, et rapporte ceux qui refusent le safek sfeka pour une chose qui trouvera son permis.</p>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — שתי / שלוש תערובות :</strong><br>
-איסור חשוב שנתערב, ונפל <strong>אחד</strong> מן התערובת לתוך שתי חתיכות אחרות, ומן השלוש נפל אחד לתוך שתים → <span class="he-q">האחרונות מותרות</span>. הטעם: האחד שמן התערובת הראשונה הוא ספק איסור, ובהיפלוֹ אל הרוב נברא <strong>ספק ספיקא</strong> — ספק אם הוא האיסור, ואם כן ספק אם פירש דווקא הוא. אבל אם נפל אחד מן הראשונה ל<span class="he-q">אלף</span> — כולן אסורות, שאין כאן אלא תערובת, לא ספק שני.
+<div class="yesod-box">
+<strong>Le fondement — deux ou trois mélanges.</strong><br>
+Un interdit important s’est mélangé ; l’une du mélange tombe dans deux autres, et des trois l’une tombe dans deux autres → les dernières sont permises, parce que celle du premier mélange s’est annulée dans la majorité. Mais si l’une du premier mélange tombe dans <strong>mille</strong>, toutes sont interdites : il n’y a là qu’un mélange, pas un second doute.
 </div>
+<blockquote>«&nbsp;<span class="he-q">הרי אלו האחרים מותרים שהרי האחד של תערובות הראשונה בטל ברוב</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:ח)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ואם נפל אחד מהתערובות הראשונה לאלף כולם אסורים</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:ח)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>איסור ודאי — שלוש תערובות; ספק איסור — שתי תערובות (רמ״א ס״ח) :</strong> מחלק הרמ״א — בתערובת של <strong>איסור ודאי</strong> צריך שיתדלל דרך <span class="he-q">שלוש</span> תערובות עד שנברא הספק ספיקא; אבל אם המעורב הוא כבר <strong>ספק איסור</strong> (שכבר יש ספק אחד בגופו) — די ב<span class="he-q">שתי</span> תערובות, שהספק הראשון כבר נתון, ובדילול נברא הספק השני. נמצא שמספר התערובות הדרושות תלוי בכמה ספיקות כבר ישנם בגוף הדבר.
-</div>
-
-<div class="machloket-box" dir="rtl">
-<strong>דבר שיש לו מתירין בספק ספיקא (ש״ך ס״ק נו–נט, פתחי תשובה ס״ק יא) :</strong>
+<div class="machloket-box">
+<strong>D’où vient l’exigence de trois mélanges — Rabbénou Tam contre Rabbénou Yits’hak (ט״ז ס״ק י׳) :</strong>
 <table>
-<tr><th>שיטה</th><th>דשיל״מ בספק ספיקא</th><th>מקור</th></tr>
+<tr><th>Chita</th><th>Ce qu’il tient</th><th>Source</th></tr>
 <tr>
-  <td><strong>יש אומרים (רמ״א)</strong></td>
-  <td>אינו ניתר בספק ספיקא, שיש לו היתר ממילא — וטוב להחמיר אם לא בשעת הדחק</td>
-  <td>רמ״א ס״ח; ש״ך ס״ק נו–נט</td>
+  <td><strong>Rabbénou Tam</strong></td>
+  <td>Le « mélangée dans mille » de la guemara ne parle que de l’œuf <em>certainement</em> pondu à Yom Tov ; si c’est le <em>doute</em> qui s’est mélangé, c’est un safek sfeka et c’est permis — deux mélanges suffisent</td>
+  <td class="he">והקשה ר״ת דהא ספק ספיקא היא כשנתערבה (ט״ז יו״ד ק״י ס״ק י׳)</td>
 </tr>
 <tr>
-  <td><strong>נודע ביהודה (פתחי תשובה ס״ק יא)</strong></td>
-  <td>אף דשיל״מ דרבנן ספיקו אסור, אלא אם כן היה לו <span class="he-q">חזקת היתר</span> (צל״ח, נודע ביהודה)</td>
-  <td>פ״ת ס״ק יא</td>
+  <td><strong>Rabbénou Yits’hak</strong></td>
+  <td>En pareil cas ce n’est pas un safek sfeka ; il faut <strong>trois</strong> mélanges, comme pour la orla dans Zeva’him 74</td>
+  <td class="he">ור״י חולק עליו ביבמות פרק הערל וס״ל דבכהאי גוונא לא הוה ספק ספיקא (ט״ז יו״ד ק״י ס״ק י׳)</td>
 </tr>
 </table>
 </div>
+<blockquote>«&nbsp;<span class="he-q">דהאי אם נתערבה קאי אודאי נולדה בי״ט אבל אם הספק נתערבו ה״ל ספק ספיקא ומותר</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״י ס״ק י׳)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אלא צריך ג׳ תערובות וכדאיתא בזבחים… לענין איסור ערלה שנפל לרבוא איסורין ומרבוא לג׳ ומג׳ למקום אחר מותר ש״מ שצריך ג׳ תערובות</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״י ס״ק י׳)</span></blockquote>
+
+<div class="pilpul-box">
+<strong>Interdit certain : trois mélanges ; doute d’interdit : deux (רמ״א ס״ח).</strong> Le Rama tranche en distinguant : pour un interdit certain il faut que la dilution passe par trois mélanges avant que naisse le safek sfeka ; mais si ce qui s’est mélangé est déjà un <strong>doute</strong> d’interdit — un doute existant déjà dans la chose même — deux mélanges suffisent, le premier doute étant donné et la dilution produisant le second. Le nombre de mélanges nécessaires dépend donc du nombre de doutes déjà présents dans l’objet. C’est exactement la position de Rabbénou Tam que le Taz vient de rapporter.
+</div>
+<blockquote>«&nbsp;<span class="he-q">ודוקא שהאיסור שנתערב הוא ודאי איסור אבל ספק איסור שנתערב ונפל מאותה תערובות למקום אחר התערובות השנית שרי</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:ח)</span></blockquote>
+
+<div class="machloket-box">
+<strong>Une chose qui trouvera son permis, dans un safek sfeka (ש״ך ס״ק נ״ו–נ״ט, ט״ז ס״ק י״א, פתחי תשובה ס״ק י״א) :</strong>
+<table>
+<tr><th>Chita</th><th>דשיל״מ dans un safek sfeka</th><th>Source</th></tr>
+<tr>
+  <td><strong>« Il y a qui disent » — le Rama</strong></td>
+  <td>Le safek sfeka ne l’autorise pas, puisqu’il trouvera son permis de lui-même ; et il est bon d’être rigoureux hors du besoin</td>
+  <td class="he">יש אומרים דדבר שיש לו מתירין אין להתיר מכח ספק ספיקא (שו״ע יו״ד ק״י:ח)</td>
+</tr>
+<tr>
+  <td><strong>Le Taz</strong></td>
+  <td>Il trouve la glose du Rama difficile, et rapporte le Ran, qui autorise le safek sfeka dans un דשיל״מ rabbinique</td>
+  <td class="he">מ״ש רמ״א כאן לענין דבר שיש לו מתירין די״א שלא מועיל ס״ס ומסיק להקל במקום צורך הוא תמוה (ט״ז יו״ד ק״י ס״ק י״א)</td>
+</tr>
+<tr>
+  <td><strong>Le Chakh</strong></td>
+  <td>Hésite à alléger hors d’une perte importante, et tient qu’en matière rabbinique on ne dit pas, pour un דשיל״מ, que le doute va vers la légèreté</td>
+  <td class="he">וצ״ע אם יש להקל בזה שלא במקום הפסד מרובה כיון דגדולי הפוסקים סוברים כן (ש״ך יו״ד ק״י ס״ק נ״ח)</td>
+</tr>
+<tr>
+  <td><strong>Le Tsla’h / Noda BiYehouda</strong> (rapporté par le Pit’hei Techouva)</td>
+  <td>La rigueur ne vaut que pour ce qui n’avait pas de présomption de permis ; ce qui en avait une, son doute rabbinique est permis même en דשיל״מ</td>
+  <td class="he">ולענין ס״ס בדרבנן בדשיל״מ עיין ט״ז ס״ק י״א שדעתו להקל אך הש״ך בנה״כ כתב דאין חילוק (פתחי תשובה יו״ד ק״י ס״ק י״א)</td>
+</tr>
+</table>
+</div>
+<blockquote>«&nbsp;<span class="he-q">וטוב להחמיר אם לא לצורך מאחר שיש לו היתר בלאו הכי</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:ח)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">כתב הר״ן ריש פרק אין צדין דספק ספיקא מותר בדבר שיש לו מתירין כגון ספק ביצה בי״ט שני</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״י ס״ק י״א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל באיסור דרבנן ויש בו ספק אע״ג דבעלמא אמרינן ספק דרבנן לקולא בדשיל״מ לא אמרינן הכי לכ״ע</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״י ס״ק נ״ט)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">שכתב דלא אמרינן דשיל״מ אפילו בדרבנן ספיקו אסור אלא בדבר שלא היה לו חזקת היתר אבל בדבר שהיה לו חזקת היתר ונולד בו ספק איסור דרבנן אפילו הוא דשיל״מ ספיקו מותר</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד ק״י ס״ק י״א)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">10. ספק טריפה שנתערב · ריאה טריפה — ספק בגופו</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">10. Un doute de trefa mélangé · un poumon trefa — le doute né dans le corps même</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ט')
-  <button class="daat-copy" type="button" data-copy-target="#cp-10">📋 העתק</button>
+<h3>Le texte du Choulhan Aroukh — <span class="he-q">סעיף ט׳</span>
+  <button class="daat-copy" type="button" data-copy-target="#cp-10">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-10">
-"<strong>ספק טריפה שנתערב באחרים — כולן אסורין עד שיהיה שם היתר כדי לבטל את האיסור (אם הוא מדברים הבטלים), לפי שהספק הראשון בגופו היה, ואי אפשר להתירו בספק ספיקא</strong> (הגה: יש אומרים הטעם, שהספק הוא איסור דאורייתא ואין לומר ספק אחר שאין כאן איסור, רק שנתערב, ואין זה נקרא ספק ספיקא. אבל אם היו שני ספיקות בעצם האיסור ונודעו כאחד — הספק ספיקא מתיר בכל מקום, אפילו איסור דאורייתא ובגופו, ואפילו בחזקת איסור: כעוף שנשבר אגפו או נשמט, ספק קודם שחיטה ספק לאחריה, ואם קודם שמא לא ניקבה הריאה — מתירין בספק ספיקא, ואפילו אפשר לבדוק הריאה אין חוששין. ועיין סימן נ״ג.)"
+<p>ספק טרפה שנתערב באחרות כולן אסורות עד שיהא בהיתר כדי לבטל האיסור אם הוא מדברים המתבטלים שכיון שספק הראשון היה בגופו אין להתירו מספק ספיקא: <small>הגה ויש אומרים הטעם דאסור הואיל והספק הוא איסור דאורייתא ולא נוכל לומר עוד ספק שאין כאן איסור רק שנתערב באחרים לא מקרי ספק ספיקא ואסור (שם) אבל אם היו ב׳ ספיקות אם היה כאן איסור כלל ונודעו ב׳ הספיקות ביחד מתירין ס״ס בכל מקום אפי׳ באיסור דאורייתא וגופו של איסור ואפילו היה לו חזקת איסור כגון עוף שבחזקת איסור עומד ונשבר או נשמט גפו ספק מחיים או לאחר שחיטה ואם תמצא לומר מחיים שמא לא נקבה הריאה יש להתיר מכח ספק ספיקא אע״פ שיש לברר על ידי בדיקת הריאה אין לחוש ועיין לעיל סימן נ״ג:</small></p>
 </div>
+<p><em>résumé</em> : un doute de trefa qui s’est mélangé à d’autres — toutes sont interdites tant qu’il n’y a pas assez de permis pour annuler l’interdit (si la chose est de celles qui s’annulent), parce que le premier doute était né dans le corps même et qu’on ne peut l’autoriser par un safek sfeka. Le Rama donne une autre raison, puis pose le cas inverse : deux doutes portant sur l’existence même de l’interdit et connus ensemble autorisent partout, même contre une présomption d’interdit.</p>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — ספק בגופו אינו ניתר בספק ספיקא :</strong><br>
-<span class="he-q">ספק טריפה</span> שנתערב — כולן אסורין עד שיהא שם די היתר לבטל. הטעם: <span class="he-q">הספק הראשון בגופו היה</span> — בגוף החתיכה עצמה נולד ספק (טריפה או כשרה), והתערובת אינה מוסיפה ספק <em>בעצם</em> האיסור אלא רק <em>היכן</em> הוא. ולפיכך אין כאן שני ספיקות עצמאיים, ו<span class="he-q">תערובת בעלמא אינה ספק ספיקא</span> (וזה גופו של הכלל שבסעיף ד').
+<div class="yesod-box">
+<strong>Le fondement — un doute né dans le corps même ne se dénoue pas par un safek sfeka.</strong><br>
+Le doute est né dans le morceau lui-même — trefa ou cachère — et le mélange n’ajoute pas un doute sur l’<em>existence</em> de l’interdit, mais seulement sur le lieu où il se trouve. Il n’y a donc pas deux doutes indépendants ; un simple mélange ne fait pas un safek sfeka. C’est la règle même du séif 4.
 </div>
+<blockquote>«&nbsp;<span class="he-q">ספק טרפה שנתערב באחרות כולן אסורות עד שיהא בהיתר כדי לבטל האיסור אם הוא מדברים המתבטלים</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:ט)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">שכיון שספק הראשון היה בגופו אין להתירו מספק ספיקא</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:ט)</span></blockquote>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — שני ספיקות בעצם האיסור (רמ״א ס״ט, ט״ז ס״ק י–טו) :</strong> מחדש הרמ״א — אם היו <strong>שני ספיקות בעצם האיסור</strong> ו<span class="he-q">נודעו כאחד</span>, הספק ספיקא מתיר בכל מקום — אפילו איסור דאורייתא, אפילו בגופו, <strong>ואפילו בחזקת איסור</strong>. דוגמתו: עוף שנשבר אגפו או נשמט, ספק נשבר קודם שחיטה ספק לאחריה, ואם קודם — שמא לא ניקבה הריאה: שני ספיקות, ומתירין. ואפילו <span class="he-q">אפשר לבדוק</span> את הריאה — אין חוששין, שהספק ספיקא מתיר בלא בדיקה.
+<div class="hakira-box">
+<strong>La hakira — deux doutes portant sur l’existence de l’interdit (רמ״א ס״ט).</strong> Le Rama pose le contre-cas : si les deux doutes portent sur le fait même qu’il y ait ici un interdit, et qu’ils ont été connus <em>ensemble</em>, le safek sfeka autorise partout — même en matière de Torah, même dans le corps de l’interdit, et même contre une présomption d’interdit. Son exemple : un oiseau dont l’aile s’est brisée ou déboîtée, doute si c’est avant l’abattage ou après ; et si c’est avant, peut-être le poumon n’a-t-il pas été percé. Deux doutes, donc on autorise.
 </div>
+<blockquote>«&nbsp;<span class="he-q">אבל אם היו ב׳ ספיקות אם היה כאן איסור כלל ונודעו ב׳ הספיקות ביחד מתירין ס״ס בכל מקום אפי׳ באיסור דאורייתא וגופו של איסור ואפילו היה לו חזקת איסור</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:ט)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">כגון עוף שבחזקת איסור עומד ונשבר או נשמט גפו ספק מחיים או לאחר שחיטה ואם תמצא לומר מחיים שמא לא נקבה הריאה יש להתיר מכח ספק ספיקא</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:ט)</span></blockquote>
 
-<div class="machloket-box" dir="rtl">
-<strong>כללי הספק ספיקא (ש״ך ס״ק סג) — מתי שני ספיקות מצטרפין :</strong>
+<div class="machloket-box">
+<strong>Les règles du safek sfeka — quand deux doutes se joignent (ש״ך ס״ק ס״ג, ט״ז ס״ק י״ב) :</strong>
 <table>
-<tr><th>התנאי</th><th>הביאור</th><th>מקור</th></tr>
+<tr><th>La condition</th><th>L’explication</th><th>Source</th></tr>
 <tr>
-  <td><strong>בגוף אחד מענין אחד</strong></td>
-  <td>שני הספיקות צריכים להיות בעצם האיסור, לא ספק בגופו וספק של תערובת בעלמא</td>
-  <td>ש״ך ס״ק סג</td>
+  <td><strong>Un seul corps, un seul sujet</strong></td>
+  <td>Les deux doutes doivent porter sur l’interdit lui-même, et non l’un sur le corps et l’autre sur un simple mélange</td>
+  <td class="he">ובאמת צריך שיהא ס״ס בגוף אחד מענין אחד כמו שתי תערובות (ט״ז יו״ד ק״י ס״ק י״ב)</td>
 </tr>
 <tr>
-  <td><strong>שניהם נודעו כאחד</strong></td>
-  <td>אין הספק ספיקא מתיר אלא כששני הספיקות נולדו ונודעו יחד, ולא שכבר הוכרע האחד</td>
-  <td>ש״ך ס״ק סג</td>
+  <td><strong>Le premier doute n’est pas déjà un interdit de la Torah</strong></td>
+  <td>Le Chakh va plus loin que le Rama : même si les deux doutes sont connus ensemble, dès lors que le premier est un interdit de la Torah ce n’est pas un safek sfeka</td>
+  <td class="he">כיון שהספק הראשון אסור מן התורה לא הוי ספק ספיקא (ש״ך יו״ד ק״י ס״ק ס״ג)</td>
 </tr>
 </table>
+<p style="margin-top:8px;">Et le Chakh donne les deux raisons de fond qui font tomber le ס״ס : les doutes ne sont pas du même sujet, ou ils ne sont pas d’un même corps.</p>
 </div>
+<blockquote>«&nbsp;<span class="he-q">אין הספיקות מענין אחד או מגוף אחד</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״י ס״ק ס״ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">כמו באשה שזינתה ספק תחתיו ספק אינו תחתיו ואת״ל תחתיו ספק באונס ספק ברצון בפ״ק דכתובות</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״י ס״ק י״ב)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>חזקת איסור וספק ספיקא (ש״ך ס״ק סד–סו, רשב״א) :</strong> מביא הש״ך (ס״ק סד–סו) בשם הרשב״א — ספק ספיקא מתיר <strong>אף במקום חזקת איסור</strong>: אף שהעוף בחזקת איסור (אינו זבוח / טריפה), כיוון שיש שני ספיקות בעצם — מתירין. ויותר מזה: הספק ספיקא מתיר <span class="he-q">אף כשאפשר לברר בבדיקה</span> — ולא כמאן דסבר שחייב לבדוק. <strong>ופתחי תשובה</strong> (ס״ק יג–טו) מביא משער המלך ופרי חדש (ס״ק טו) דבאיתחזק איסורא יש מי שאינו אומר ספיקא דרבנן לקולא, ודלא כש״ך — ויש בזה אריכות.
+<div class="pilpul-box">
+<strong>Présomption d’interdit, et l’examen du poumon (ש״ך ס״ק ס״ד, ס״ו).</strong> Sur la présomption d’interdit, le Chakh appuie le Rama au nom d’une responsa du Rachba : le safek sfeka opère même là. Mais sur le dernier mot du Rama — qu’on n’a pas à s’inquiéter de pouvoir vérifier par l’examen du poumon — le Chakh ne suit pas : il rapporte que le Rachba, dans ses ’hiddouchim, exige l’examen partout où l’on peut vérifier, et il écrit que tel lui semble à lui aussi, preuve à l’appui. Il ajoute que si l’on voit un défaut dans les organes internes, aucun safek sfeka ne tient. <em>C’est l’un des endroits du siman où la glose et son commentateur ne vont pas du même côté ; nous ne tranchons pas — demande à ton Rav.</em>
 </div>
+<blockquote>«&nbsp;<span class="he-q">אע״פ שיש לברר על ידי בדיקת הריאה אין לחוש</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:ט)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דהרשב״א כתב בתשובה סימן ת״א דמהני ס״ס אפילו בדבר שהיה לו חזקת איסור</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״י ס״ק ס״ד)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">כלומר וא״צ בדיקה כלל</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״י ס״ק ס״ו)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אכן הרשב״א בחידושיו פא״ט דף נ״ג ע״ד כתב דאפילו היכ׳ דאיכ׳ ס״ס צריך בדיקה היכ׳ דיכולין לברר ע״י בדיקה וכן נלפע״ד להוכיח מן הש״ס</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״י ס״ק ס״ו)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">מ״מ אם רואה ריעותא באברים הפנימים פשיטא דאפילו ס״ס לא מהני</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״י ס״ק ס״ו)</span></blockquote>
 
-<h3 class="he-h3">לשון המחבר (סעיף י')
-  <button class="daat-copy" type="button" data-copy-target="#cp-11">📋 העתק</button>
+<div class="rishon-card">
+<strong>Le Pit’hei Techouva sur les règles du doute rabbinique (ס״ק ט״ו).</strong> La divergence qu’il rapporte est de plein fond, et dans ce sens-ci : le <strong>Pri ’Hadach</strong> conteste le Chakh et allège — même là où la chose a un fondement dans la Torah et où il y a présomption d’interdit, le doute rabbinique va vers la légèreté ; le <strong>Chaar HaMelekh</strong> réfute longuement le Pri ’Hadach et maintient le Chakh dans sa rigueur.
+</div>
+<blockquote>«&nbsp;<span class="he-q">הנה הפר״ח ס״ק ט״ו השיג על הש״ך והעלה דאפילו בשיש לו עיקר מה״ת ואיתחזק איסורא אמרינן סד״ר לקולא</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד ק״י ס״ק ט״ו)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ועיין בשער המלך שם כלל א׳ שהאריך לדחות דברי הפר״ח ולקיים דברי הש״ך</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד ק״י ס״ק ט״ו)</span></blockquote>
+
+<h3>Le texte du Choulhan Aroukh — <span class="he-q">סעיף י׳</span>
+  <button class="daat-copy" type="button" data-copy-target="#cp-11">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-11">
-"<strong>ריאה טריפה שנמצאת בין ריאות כשרות, ואמר הבודק שמכיר אותה סירכא, ונתערבה ריאת הטריפה בטעות בין הכשרות, ולא היה ערבוביא בין הכבשים — הכבשים מותרין.</strong>"
+<p>ריאה טרפה שנמצאת בין ריאות כשרות ואמר הבודק שהי׳ יודע באות׳ סירכא ובשגגה נתערבו אותה ריאה טרפה בין הכשרות ולא היתה בכבשים ערבוביא הכבשים מותרים:</p>
 </div>
+<p><em>résumé</em> : un poumon trefa trouvé parmi des poumons cachers, l’examinateur ayant dit qu’il connaissait cette adhérence, et le poumon trefa s’étant mélangé par erreur parmi les cachers — s’il n’y a pas eu de confusion entre les bêtes, les bêtes sont permises.</p>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — אין ערבוביא בכבשים :</strong><br>
-ריאה טריפה (שהבודק מכיר את הסירכא) נתערבה בטעות בין ריאות כשרות. כל זמן ש<span class="he-q">לא היה ערבוביא בין הכבשים</span> עצמם — כל ריאה עדיין מיוחסת לכבשה שלה, והכבשים מותרין: שהרי הספק אינו אלא בריאות שנתערבו, לא בגופי הכבשים. נמצא שאף ש<strong>הריאות</strong> נתערבו, ה<strong>כבשים</strong> לא נתערבו — וזהו תנאי ההיתר.
+<div class="yesod-box">
+<strong>Le fondement — pas de confusion entre les bêtes.</strong><br>
+Le poumon trefa, que l’examinateur reconnaissait à son adhérence, s’est mélangé par erreur parmi les poumons cachers. Tant qu’il n’y a pas eu de confusion entre les bêtes elles-mêmes, chaque poumon reste rattaché à sa bête et les bêtes sont permises : le doute ne porte que sur les poumons mélangés, non sur les corps. Les <strong>poumons</strong> se sont mêlés, les <strong>bêtes</strong> non — et c’est la condition de l’autorisation.
 </div>
+<blockquote>«&nbsp;<span class="he-q">ולא היתה בכבשים ערבוביא</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״י:י)</span></blockquote>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">11. חקירת הספק ספיקא ונפקא מינה למעשה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">11. La hakira du safek sfeka et sa nafka mina pratique</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ Explication détaillée (niveau 1)</a>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה הכוללת של הסימן :</strong> מתי כוח ההיתר הרגיל (ביטול, רוב, ספק) מתבטל, ומה מחזירו ?
+<div class="hakira-box">
+<strong>La hakira qui tient tout le siman :</strong> quand la force ordinaire d’autorisation — annulation, majorité, doute — se trouve-t-elle neutralisée, et qu’est-ce qui la rend ?
 <ul class="stylish">
-<li><strong>דבר חשוב</strong> — מפקיע את <em>הביטול</em>; אך הוא דרבנן → <span class="he-q">ספיקו לקולא</span>.</li>
-<li><strong>קבוע</strong> — מפקיע את <em>הרוב</em> (כל קבוע כמחצה); אך <em>פירש</em> שלא לפנינו → חוזר הרוב.</li>
-<li><strong>ספק בגופו / קבוע</strong> — מפקיע את <em>הספק ספיקא</em>; אך שני ספיקות בעצם, שנודעו כאחד → מתיר.</li>
-<li><strong>במתכוין נגד ממילא</strong> — נטילה ביד כקבוע; פרישה מאליה כרוב.</li>
-<li><strong>נאכל / נפל לים</strong> — "האיסור הלך לו", שנים שנים, ולא אדם אחד את הכל.</li>
+<li><strong>Le davar hachouv</strong> neutralise l’<em>annulation</em> ; mais il n’est que rabbinique, et le doute sur l’importance va donc vers la légèreté (רמ״א ס״א ; ש״ך ס״ק י׳).</li>
+<li><strong>Le kavoua</strong> neutralise la <em>majorité</em> ; mais ce qui s’est détaché hors de notre vue retrouve la majorité (מחבר ורמ״א ס״ג).</li>
+<li><strong>Le doute né dans le corps, et le kavoua</strong>, neutralisent le <em>safek sfeka</em> ; mais deux doutes portant sur l’existence même de l’interdit et connus ensemble autorisent (רמ״א ס״ד וס״ט).</li>
+<li><strong>À dessein contre de soi-même</strong> — prendre de la main vaut kavoua, se détacher seul vaut majorité (מחבר ס״ו).</li>
+<li><strong>Mangé / tombé à la mer</strong> — on suppose que l’interdit est parti, mais deux par deux, et pas le tout par une seule personne (מחבר ורמ״א ס״ז).</li>
 </ul>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה למעשה (לפי הכרעת רוב האחרונים) :</strong>
+<div class="nafka-mina-box">
+<strong>Ce qui en ressort pour l’étude — et ce qui reste ouvert :</strong>
 <ol class="stylish">
-<li>דבר חשוב / דבר שבמנין אינו בטל (רמ״א ס״א), אך <strong>ספק דבר חשוב לקולא</strong> דדרבנן (ט״ז ס״ק א, ש״ך ס״ק י).</li>
-<li>כל קבוע כמחצה על מחצה (ס״ג); ופירש שלא לפנינו → כל דפריש מרובא פריש, מותר.</li>
-<li>ספק ספיקא אינו מתיר כשהספק הראשון <strong>קבוע או בגופו</strong> (רמ״א ס״ד, ס״ט); אבל שני ספיקות בעצם שנודעו כאחד → מתיר אף בחזקת איסור.</li>
-<li>פירש ממילא — מותר (כרשב״א, המחבר); במתכוין ונשארו איסורין במקומן — אסור, חוץ מנתפזרו כולן.</li>
-<li>דבר שיש לו מתירין אינו ניתר בספק ספיקא (רמ״א ס״ח), וטוב להחמיר אם לא בשעת הדחק.</li>
+<li>Le davar hachouv et le davar shebeminyan ne s’annulent pas (רמ״א ס״א) ; mais le doute sur l’importance elle-même va vers la légèreté, parce que la chose est rabbinique (רמ״א ס״א ; ש״ך ס״ק י׳). Le Taz en tire qu’on peut s’appuyer sur ceux qui autorisent en cas de perte (ט״ז ס״ק א) ; le Chakh rapporte que l’usage est la rigueur (ש״ך ס״ק ט׳), et le Pit’hei Techouva rapporte les deux. <strong>La question n’est pas tranchée ici.</strong></li>
+<li>כל קבוע כמחצה על מחצה (מחבר ס״ג) ; et ce qui s’est détaché hors de notre vue suit la majorité et est permis (מחבר ורמ״א ס״ג).</li>
+<li>Le safek sfeka n’autorise pas lorsque le premier doute est un kavoua ou un doute né dans le corps (רמ״א ס״ד וס״ט) ; mais deux doutes portant sur l’existence de l’interdit et connus ensemble autorisent, même contre une présomption d’interdit (רמ״א ס״ט ; ש״ך ס״ק ס״ד).</li>
+<li>Détaché de soi-même : permis, comme le Rachba, et tel est le Mehaber (מחבר ס״ו) ; séparé à dessein alors que des interdits demeurent en place : interdit, sauf si tout s’est dispersé (רמ״א ס״ו) — et le Roch, avec beaucoup de poskim, interdit même le détaché de soi-même (ש״ך ס״ק ל״ו).</li>
+<li>Pour une chose qui trouvera son permis, le Rama refuse le safek sfeka et conseille la rigueur hors du besoin (רמ״א ס״ח) ; le Taz trouve cela difficile et rapporte le Ran (ט״ז ס״ק י״א) ; le Chakh maintient la rigueur (ש״ך ס״ק נ״ח–נ״ט). <strong>Là non plus rien n’est tranché ici.</strong></li>
+<li>Sur la nécessité d’examiner le poumon quand il y a safek sfeka, la glose du Rama et le Chakh ne vont pas du même côté (רמ״א ס״ט ; ש״ך ס״ק ס״ו).</li>
 </ol>
-<em>ולמעשה — שאל את רבך.</em>
+<em>Et pour la pratique — demande à ton Rav.</em>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">12. טבלאות סיכום</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">12. Tableaux de synthèse</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">טבלה — אופני הספק והדין</h3>
-
-<table>
-<tr>
-  <th>המצב</th>
-  <th>הדין</th>
-  <th>מקור בקורפוס</th>
-</tr>
-<tr>
-  <td><strong>דבר חשוב / דבר שבמנין</strong></td>
-  <td>אינו בטל אף באלף; אך ספיקו לקולא (דרבנן)</td>
-  <td>מחבר ורמ״א ס״א; ט״ז ס״ק א; ש״ך ס״ק ט–י</td>
-</tr>
-<tr>
-  <td><strong>בעלי חיים שנשחטו בשוגג</strong></td>
-  <td>בטלה חשיבותן ובטלים ברוב (בקטנות, לא חהל״ה)</td>
-  <td>מחבר ס״ב; ט״ז ס״ק ב</td>
-</tr>
-<tr>
-  <td><strong>תשע חנויות (לקח מאחת)</strong></td>
-  <td>כל קבוע כמחצה על מחצה → אסור</td>
-  <td>מחבר ס״ג; ש״ך ס״ק טו</td>
-</tr>
-<tr>
-  <td><strong>בשר הנמצא בשוק / פירש שלא לפנינו</strong></td>
-  <td>כל דפריש מרובא פריש → מותר</td>
-  <td>מחבר ס״ג; רמ״א (עיין ס״ג)</td>
-</tr>
-<tr>
-  <td><strong>בשר מן המקולין — קודם הטריפה</strong></td>
-  <td>מותר (כל דפריש); מכאן ואילך — אסור</td>
-  <td>מחבר ס״ה; ט״ז ס״ק ג–ז</td>
-</tr>
-<tr>
-  <td><strong>פירש במתכוין (נשארו איסורין)</strong></td>
-  <td>אסור (שמא יקח מן הקבוע); ממילא — מותר</td>
-  <td>מחבר ורמ״א ס״ו; ש״ך ס״ק לג–לז</td>
-</tr>
-<tr>
-  <td><strong>נאכל בשוגג / נפל לים</strong></td>
-  <td>השאר מותר; אוכלן שנים שנים, לא אדם אחד הכל</td>
-  <td>מחבר ורמ״א ס״ז; ש״ך ס״ק מד, מז–מט</td>
-</tr>
-<tr>
-  <td><strong>שתי/שלוש תערובות (דילול)</strong></td>
-  <td>האחרונות מותרות (ספק ספיקא); אלף — אסור</td>
-  <td>מחבר ורמ״א ס״ח; ט״ז ס״ק י–טו</td>
-</tr>
-<tr>
-  <td><strong>ספק טריפה שנתערב (בגופו)</strong></td>
-  <td>אסור — אין ספק ספיקא; אך שני ספיקות בעצם — מתיר</td>
-  <td>מחבר ורמ״א ס״ט; ש״ך ס״ק סג–סו</td>
-</tr>
-<tr>
-  <td><strong>ריאה טריפה בין כשרות (בלא ערבוביא)</strong></td>
-  <td>הכבשים מותרין</td>
-  <td>מחבר ס״י</td>
-</tr>
-</table>
-
-<h3 class="he-h3">טבלה — מחלוקות מרכזיות בסימן</h3>
+<h3>Tableau — les figures du doute et leur loi</h3>
 
 <table>
 <tr>
-  <th>נושא</th>
-  <th>שיטה א'</th>
-  <th>שיטה ב'</th>
+  <th>La situation</th>
+  <th>La loi</th>
+  <th>La source</th>
 </tr>
 <tr>
-  <td>דבר שבמנין — מה אינו בטל</td>
-  <td>ר' מאיר — כל דבר שבמנין</td>
-  <td>ר' עקיבא / חכמים — דווקא שדרכו במניין</td>
+  <td class="he"><strong>דבר חשוב / דבר שבמנין</strong></td>
+  <td>Ne s’annule pas même dans mille ; mais le doute sur l’importance va vers la légèreté (rabbinique)</td>
+  <td class="he">מחבר ורמ״א ס״א ; ט״ז ס״ק א ; ש״ך ס״ק ט׳–י׳</td>
 </tr>
 <tr>
-  <td>רוב חנויות + תערובת (ספק ספיקא בקבוע)</td>
-  <td>המחבר — בטל מטעם ספק ספיקא</td>
-  <td>רמ״א — קבוע אינו ספק ספיקא ("וכן נוהגין")</td>
+  <td><strong>Êtres vivants abattus par inadvertance</strong></td>
+  <td>Leur importance tombe et ils s’annulent dans la majorité (petits animaux, hors morceau d’honneur)</td>
+  <td class="he">מחבר ורמ״א ס״ב ; ט״ז ס״ק ב</td>
 </tr>
 <tr>
-  <td>פירש ממילא מתערובת חשובה</td>
-  <td>רשב״א — מותר (וכן המחבר)</td>
-  <td>רא״ש — אסור (שמא יקח מן הקבוע)</td>
+  <td><strong>Neuf boutiques (il a acheté à l’une)</strong></td>
+  <td>כל קבוע כמחצה על מחצה → interdit</td>
+  <td class="he">מחבר ס״ג ; ש״ך ס״ק ט״ו</td>
 </tr>
 <tr>
-  <td>דבר שיש לו מתירין בספק ספיקא</td>
-  <td>רמ״א — אינו ניתר (יש לו היתר ממילא)</td>
-  <td>נודע ביהודה — בחזקת היתר מותר (פ״ת ס״ק יא)</td>
+  <td><strong>Viande trouvée au marché / détachée hors de notre vue</strong></td>
+  <td>כל דפריש מרובא פריש → permis</td>
+  <td class="he">מחבר ורמ״א ס״ג</td>
 </tr>
 <tr>
-  <td>חזקת איסור + ספק ספיקא</td>
-  <td>רשב״א/ש״ך — מתיר אף בלא בדיקה (ס״ק סד–סו)</td>
-  <td>פרי חדש — באיתחזק איסורא אין ספ״ד לקולא (פ״ת ס״ק יג–טו)</td>
+  <td><strong>Majorité de boutiques, puis mélange</strong></td>
+  <td>Le Mehaber autorise au titre du safek sfeka ; le Rama rapporte ceux qui interdisent, et telle est la pratique</td>
+  <td class="he">מחבר ורמ״א ס״ד ; ט״ז ס״ק ג</td>
+</tr>
+<tr>
+  <td><strong>Viande de l’étal — avant la trefa</strong></td>
+  <td>Permis (כל דפריש) ; à partir de là — interdit</td>
+  <td class="he">מחבר ס״ה ; ט״ז ס״ק ג ; פ״ת ס״ק ד–ה</td>
+</tr>
+<tr>
+  <td><strong>Séparé à dessein, des interdits demeurant en place</strong></td>
+  <td>Interdit ; détaché de soi-même — permis selon le Mehaber, interdit selon le Roch</td>
+  <td class="he">מחבר ורמ״א ס״ו ; ש״ך ס״ק ל״ג–ל״ז</td>
+</tr>
+<tr>
+  <td><strong>Mangé par inadvertance / tombé à la mer</strong></td>
+  <td>Le reste est permis ; on le mange deux par deux, et pas le tout par une seule personne</td>
+  <td class="he">מחבר ורמ״א ס״ז ; ש״ך ס״ק מ״ד, מ״ז–מ״ט ; ט״ז ס״ק ח</td>
+</tr>
+<tr>
+  <td><strong>Deux ou trois mélanges (dilution)</strong></td>
+  <td>Les dernières sont permises (safek sfeka) ; tombé dans mille — interdit</td>
+  <td class="he">מחבר ורמ״א ס״ח ; ט״ז ס״ק י׳–י״א</td>
+</tr>
+<tr>
+  <td><strong>Doute de trefa mélangé (né dans le corps)</strong></td>
+  <td>Interdit — pas de safek sfeka ; mais deux doutes sur l’existence de l’interdit autorisent</td>
+  <td class="he">מחבר ורמ״א ס״ט ; ש״ך ס״ק ס״ג–ס״ו ; ט״ז ס״ק י״ב</td>
+</tr>
+<tr>
+  <td><strong>Poumon trefa parmi des cachers, sans confusion des bêtes</strong></td>
+  <td>Les bêtes sont permises</td>
+  <td class="he">מחבר ס״י</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מקורות הסוגיא</h3>
+<h3>Tableau — les ma’hlokot centrales du siman</h3>
 
-<div class="rishon-card" dir="rtl">
-<strong>גמרא :</strong> ביצה ג':–ד'. (דבר שבמנין, הביצה, ר' יוחנן וריש לקיש, ר״מ ור״ע) · בבא קמא מ״ד. (וְאָרַב לוֹ וְקָם — מקור כל קבוע) · חולין צ״ה. (בשר שנתעלם מן העין, כל דפריש) · כתובות ט'. (יסוד ספק ספיקא)
+<table>
+<tr>
+  <th>Sujet</th>
+  <th>Première chita</th>
+  <th>Seconde chita</th>
+</tr>
+<tr>
+  <td>דבר שבמנין — comment lire la michna</td>
+  <td>R. Yohanan, selon R. Méir — seulement ce qui se vend toujours au compte (ט״ז ס״ק א)</td>
+  <td>Rech Lakich — tout ce qu’on a coutume de compter (ט״ז ס״ק א)</td>
+</tr>
+<tr>
+  <td>L’œuf, de nos jours</td>
+  <td>Le Taz — on peut s’appuyer sur ceux qui autorisent en cas de perte (ט״ז ס״ק א)</td>
+  <td>Le Maharchal et le Ba’h — l’usage est la rigueur (ש״ך ס״ק ט׳) ; Techouva Méahava, contre le Min’hat Yaakov (פ״ת ס״ק א)</td>
+</tr>
+<tr>
+  <td>במינו ou שלא במינו</td>
+  <td>Le Mehaber, d’après le Rambam — « dans son espèce » (שו״ע יו״ד ק״י:א)</td>
+  <td>Le Rama, au siman 101 — même hors de son espèce (ש״ך ס״ק א)</td>
+</tr>
+<tr>
+  <td>Majorité de boutiques + mélange (safek sfeka sur du kavoua)</td>
+  <td>Le Mehaber — s’annule, au titre du safek sfeka (שו״ע יו״ד ק״י:ד)</td>
+  <td>Le Rama — le kavoua ne fait pas un safek sfeka, והכי נהוג (שו״ע יו״ד ק״י:ד)</td>
+</tr>
+<tr>
+  <td>Détaché de soi-même d’un mélange important</td>
+  <td>Le Rachba — permis, et tel est le Mehaber (ש״ך ס״ק ל״ה)</td>
+  <td>Le Roch et beaucoup de poskim — interdit (ש״ך ס״ק ל״ו)</td>
+</tr>
+<tr>
+  <td>Combien de mélanges pour un safek sfeka</td>
+  <td>Rabbénou Tam — deux suffisent quand c’est un doute qui s’est mélangé (ט״ז ס״ק י׳)</td>
+  <td>Rabbénou Yits’hak — il en faut trois (ט״ז ס״ק י׳)</td>
+</tr>
+<tr>
+  <td>דבר שיש לו מתירין dans un safek sfeka</td>
+  <td>Le Rama — il n’est pas autorisé, il trouvera son permis de lui-même (שו״ע יו״ד ק״י:ח)</td>
+  <td>Le Taz, au nom du Ran — autorisé en matière rabbinique (ט״ז ס״ק י״א) ; le Chakh maintient la rigueur (ש״ך ס״ק נ״ט)</td>
+</tr>
+<tr>
+  <td>Faut-il examiner le poumon malgré le safek sfeka ?</td>
+  <td>Le Rama — on n’a pas à s’en inquiéter (שו״ע יו״ד ק״י:ט)</td>
+  <td>Le Rachba dans ses ’hiddouchim, et le Chakh avec lui — l’examen s’impose là où l’on peut vérifier (ש״ך ס״ק ס״ו)</td>
+</tr>
+<tr>
+  <td>ספק דרבנן לקולא quand il y a présomption d’interdit</td>
+  <td>Le Pri ’Hadach — on l’applique tout de même (פ״ת ס״ק ט״ו)</td>
+  <td>Le Chakh, soutenu par le Chaar HaMelekh — on ne l’applique pas (פ״ת ס״ק ט״ו)</td>
+</tr>
+</table>
+
+<h3>Tableau — les sources de la sougya</h3>
+
+<div class="rishon-card">
+<strong>Guemara, telle que l’appareil du siman la nomme :</strong> ביצה ג׳ — דבר שבמנין, R. Yohanan et Rech Lakich (ט״ז ס״ק א ; ש״ך ס״ק ט) · בבא קמא מ״ד ע״ב et כתובות ט״ו ע״א — le verset וארב לו וקם, source de כל קבוע (ש״ך ס״ק ט״ו) · חולין צ״ה — cité par le Rama au séif 3 · עבודה זרה ע״ד ע״א — les objets importants interdits à la jouissance (ש״ך ס״ק ב) · זבחים ע״ד — les trois mélanges de la orla (ט״ז ס״ק י׳) · כתובות פרק קמא — ספק תחתיו (ט״ז ס״ק י״ב)
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>ראשונים :</strong> ר' יוחנן · ריש לקיש · רש״י · רבנו תם (ר״ת) · רבנו יצחק (ר״י) · רמב״ם · רשב״א (תורת הבית) · רא״ש · ר״ן · מרדכי · טור · איסור והיתר הארוך
+<div class="rishon-card">
+<strong>Richonim nommés dans l’appareil :</strong> רש״י · רבנו תם · רבנו יצחק · רמב״ם · רשב״א (תורת הבית, משמרת הבית, חידושים, תשובות) · רא״ש · ר״ן · תוספות · סמ״ג · סמ״ק · מרדכי · טור · איסור והיתר הארוך · שערי דורא
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>אחרונים :</strong> בית יוסף · רמ״א · ש״ך · ט״ז · פרי חדש · פרי מגדים · מנחת יעקב · פתחי תשובה · נודע ביהודה (צל״ח) · תשובה מאהבה · בית אפרים · שער המלך · מהרי״ט · תפארת צבי
+<div class="rishon-card">
+<strong>Aharonim nommés dans l’appareil :</strong> בית יוסף · רמ״א (תורת חטאת, דרכי משה) · ש״ך (ונקודות הכסף) · ט״ז · מהרש״ל · ב״ח · פרישה · מנחת יעקב · פרי חדש · פרי מגדים · פתחי תשובה · נודע ביהודה (צל״ח) · תשובה מאהבה · בית אפרים · שער המלך · משנה למלך · מהרי״ט · תפארת צבי · שאילת יעב״ץ · משאת בנימין · כנסת יחזקאל
 </div>
 
 <hr class="ornament">
 
-  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;direction:rtl;">
-    <a href="niveau-1-base.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">→ רמה א' — יסוד</a>
-    <a href="niveau-3-synthese.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">רמה ג' — סיכום ←</a>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;">
+    <a href="niveau-1-base.html" style="font-family:'Cormorant Garamond','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">← Niveau 1 — Base</a>
+    <a href="niveau-3-synthese.html" style="font-family:'Cormorant Garamond','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">Niveau 3 — Synthèse →</a>
   </div>
 
 <div class="yh-watermark">
@@ -973,13 +1099,13 @@
 <em>פלפול ועיון בדין דבר חשוב, קבוע, רוב וספק ספיקא · סימן ק״י · ⚡ רמה ב' — לַמְדָּן</em>
 </div>
 
-  <div class="disclaimer" style="background:#fff8e1;border-right:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;direction:rtl;text-align:right;">
-    ⚠️ תוכן זה נכתב לצורך לימוד ועיון בלבד. לכל הוראה למעשה (לְמַעֲשֶׂה) — שאל את רבך.
+  <div class="disclaimer" style="background:#fff8e1;border-left:4px solid #C5A55A;padding:16px 40px;font-family:'Cormorant Garamond','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;">
+    ⚠️ Ce contenu est écrit pour l’étude et l’examen seuls. Pour toute application pratique (לְמַעֲשֶׂה) — demande à ton Rav.
   </div>
 
   <div style="background:#1A1F3A;border-top:2px solid #C5A55A;padding:24px 40px;text-align:center;margin-top:0;">
-    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;direction:rtl;">
-      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">לעמוד הבית</a> · <a href="index.html" style="color:#C5A55A;text-decoration:none;">סימן ק״י</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ לתמיכה</a>
+    <p style="font-family:'Cormorant Garamond','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;">
+      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">Accueil</a> · <a href="index.html" style="color:#C5A55A;text-decoration:none;">Siman 110</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ Soutenir</a>
     </p>
   </div>
 
@@ -988,7 +1114,7 @@
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="../../../assets/js/chat-widget.js" defer></script>
 <script src="../../../assets/js/daat-copy.js" defer></script>
-<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="מצא חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">הצטרף לחברותא</span></a>
+<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="Trouver une khavroutha pour ce siman"><span class="icon">📖</span><span class="label-long">Rejoindre une khavroutha</span></a>
   <script src="/assets/js/share-text.js" defer></script>
 </body>
 </html>
