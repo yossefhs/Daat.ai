@@ -1,12 +1,14 @@
 // api/admin/stats.js — Dashboard admin DAAT
-// GET  /api/admin/stats?secret=XXX&days=7
-// GET  /api/admin/stats?secret=XXX&action=users
-// GET  /api/admin/stats?secret=XXX&action=logs&limit=50
-// POST /api/admin/stats?secret=XXX  { action: 'set-plan', email, plan }
-// POST /api/admin/stats?secret=XXX  { action: 'set-force-opus', email, value: true|false }
-// POST /api/admin/stats?secret=XXX  { action: 'reset-limit', email }
+// Auth : en-tête `X-Admin-Secret: <ADMIN_PASSWORD>` — JAMAIS en query.
+// GET  /api/admin/stats?days=7
+// GET  /api/admin/stats?action=users
+// GET  /api/admin/stats?action=logs&limit=50
+// POST /api/admin/stats  { action: 'set-plan', email, plan }
+// POST /api/admin/stats  { action: 'set-force-opus', email, value: true|false }
+// POST /api/admin/stats  { action: 'reset-limit', email }
 
 import { kv } from '../_kv.js';
+import { corsAdmin, freinage, echecAdmin, reussiteAdmin, refuser } from '../_admin-gate.js';
 
 function today() { return new Date().toISOString().slice(0, 10); }
 function daysAgo(n) {
@@ -18,18 +20,24 @@ function daysAgo(n) {
 export default async function handler(req, res) {
   // ── CORS (toujours en premier, AVANT toute auth) ─────────────────────────
   // Sinon le browser fait un preflight OPTIONS qui se prend un 401 et
-  // n'envoie jamais la vraie requête (échec silencieux côté front).
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, x-admin-secret, Authorization');
-  res.setHeader('Access-Control-Max-Age', '86400');
+  // n'envoie jamais la vraie requête (échec silencieux côté front). L'origine
+  // est désormais comparée à une liste : le 401 n'est plus lisible par une page
+  // quelconque, donc le secret ne peut plus être cherché par les navigateurs
+  // de visiteurs ordinaires.
+  corsAdmin(req, res, 'GET, POST, OPTIONS');
   if (req.method === 'OPTIONS') return res.status(204).end();
 
   // ── AUTH ADMIN ────────────────────────────────────────────────────────────
-  const secret = req.query.secret || req.headers['x-admin-secret'];
+  // Le secret n'est plus accepté en query : dans une URL, il s'écrit dans les
+  // journaux d'accès, dans l'historique du navigateur, et part dans le Referer.
+  const frein = await freinage(req);
+  if (frein.bloque) return refuser(res);
+  const secret = req.headers['x-admin-secret'];
   if (!secret || secret !== process.env.ADMIN_PASSWORD) {
+    await echecAdmin(req);
     return res.status(401).json({ error: 'Non autorisé' });
   }
+  await reussiteAdmin(req);
 
   // ── POST — actions admin ──────────────────────────────────────────────────
   if (req.method === 'POST') {

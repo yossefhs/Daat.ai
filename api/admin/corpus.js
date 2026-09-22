@@ -13,6 +13,7 @@ import {
   deleteDynamicEntry,
   listDynamicEntries,
 } from '../_corpus.js';
+import { corsAdmin, freinage, echecAdmin, reussiteAdmin, refuser } from '../_admin-gate.js';
 
 function checkAuth(req) {
   const expected = process.env.ADMIN_PASSWORD;
@@ -29,19 +30,23 @@ function checkAuth(req) {
 
 export default async function handler(req, res) {
   // CORS
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  // L'origine est comparée à une liste : le 401 n'est plus lisible
+  // par une page quelconque (voir ../_admin-gate.js).
+  corsAdmin(req, res, 'GET, POST, DELETE, OPTIONS', 'Content-Type, Authorization');
 
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
 
   // Auth obligatoire pour toutes les méthodes
+  const frein = await freinage(req);
+  if (frein.bloque) return refuser(res);
   const auth = checkAuth(req);
   if (!auth.ok) {
+    if (auth.status === 401) await echecAdmin(req);
     return res.status(auth.status).json({ error: auth.error });
   }
+  await reussiteAdmin(req);
 
   try {
     if (req.method === 'GET') {

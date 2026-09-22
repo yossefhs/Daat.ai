@@ -19,7 +19,9 @@ function isAuthed(req) {
   const bearer = (req.headers.authorization || '').replace(/^Bearer\s+/i, '');
   if (bearer && bearer === adminPwd) return true;
   if (req.headers['x-admin-secret'] && req.headers['x-admin-secret'] === adminPwd) return true;
-  if (req.query?.secret && req.query.secret === adminPwd) return true;
+  // Le secret n'est plus accepté en query : dans une URL il s'écrit dans les
+  // journaux d'accès, dans l'historique du navigateur, et part dans le Referer.
+  // Les interfaces d'administration envoient déjà « Authorization: Bearer ».
   return false;
 }
 

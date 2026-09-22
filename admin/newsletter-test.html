@@ -339,12 +339,18 @@
         }
       }
 
-      // 2. Test CRON_SECRET via ?action=weekly-preview (auth query-string)
+      // 2. Test CRON_SECRET via ?action=weekly-preview (auth par en-tête)
       if (!cs) {
         lines.push('· CRON_SECRET : champ vide → SKIP');
       } else {
         try {
-          const r = await fetch(API_BASE + '/api/newsletter?action=weekly-preview&secret=' + encodeURIComponent(cs));
+          // L'en-tête, et non la query : cet appel est CROSS-ORIGIN vers
+          // daatai.vercel.app, et un secret dans l'URL part dans les journaux
+          // d'accès et dans le Referer. Le serveur accepte les deux ; l'interface
+          // n'utilise plus que celle qui ne laisse pas de trace.
+          const r = await fetch(API_BASE + '/api/newsletter?action=weekly-preview', {
+            headers: { 'Authorization': 'Bearer ' + cs },
+          });
           const tag = `[saisi: ${fp(cs)}]`;
           if (r.status === 200) lines.push(`· CRON_SECRET : ✓ VALIDE (200) ${tag}`);
           else if (r.status === 401) lines.push(`· CRON_SECRET : ✗ valeur incorrecte (401) — la variable EXISTE dans Vercel mais ta saisie diffère ${tag}`);
