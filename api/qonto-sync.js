@@ -21,6 +21,9 @@
 //     DÉFAUT s'applique (daat, tsedaka, soutien, don, dédicace, torah…) : un
 //     compte partagé ne gonfle plus la barre avec des virements sans rapport.
 //     Les virements écartés sont listés dans `excluded_samples` de la réponse.
+//   ⚠ Le filtre s'applique aussi RÉTROACTIVEMENT : à chaque sync (dont le cron
+//     quotidien), les imports q-* déjà en base qui ne passent plus le filtre
+//     courant sont retirés et la barre est décrémentée (`cleaned` en réponse).
 //
 // Variables d'environnement Vercel (à définir) :
 //   QONTO_LOGIN            = login API Qonto      (Qonto → Paramètres → Intégrations → API)
@@ -115,6 +118,42 @@ async function resolveBankAccountId() {
   return (match || accounts[0]).id;
 }
 
+// Ré-évalue les imports q-* DÉJÀ en base contre le filtre courant et retire
+// ceux qui ne passent plus (compteurs mensuels décrémentés, id rendu au
+// dédoublonnage). Ainsi un durcissement du filtre s'applique aussi à
+// l'historique via le cron quotidien — pas besoin d'un ?reset=1 manuel.
+// Cas fondateur : un virement de 2 780 € sans rapport avec les dons daattorah
+// comptait pour 100 % de la barre de septembre 2026.
+async function cleanupImported(includes, excludes, dryRun) {
+  if (!includes.length) return []; // pas de liste blanche → rien à ré-évaluer
+  const ids = (await kv.lrange('soutien:list', 0, 9999)) || [];
+  const cleaned = [];
+  for (const id of ids) {
+    if (!String(id).startsWith('q-')) continue;
+    const rec = await kv.get(`soutien:${id}`);
+    if (!rec) continue;
+    // Même texte de matching qu'à l'import : libellé (name) + référence/note (dedicace).
+    const text = [rec.name, rec.dedicace].map((v) => String(v || '')).join(' ').toLowerCase();
+    const stillPasses = !excludes.some((x) => x && text.includes(x))
+      && includes.some((x) => matchesWord(text, x));
+    if (stillPasses) continue;
+    cleaned.push({ label: rec.name, amount: Number(rec.amount) || 0, at: rec.createdAt });
+    if (dryRun) continue;
+    if (rec.amount > 0 && rec.createdAt) {
+      const d = new Date(rec.createdAt);
+      const mk = `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}`;
+      await kv.incrby(`soutien:total:${mk}`, -Math.round(rec.amount * 100));
+      await kv.incrby(`soutien:count:${mk}`, -1);
+    }
+    await kv.lrem('soutien:list', 0, id);
+    await kv.del(`soutien:${id}`);
+    // L'id Qonto redevient importable : si l'admin élargit le filtre plus tard,
+    // le virement sera ré-évalué au lieu d'être ignoré par le dédoublonnage.
+    try { await kv.srem(PROCESSED_SET, String(id).slice(2)); } catch (_) {}
+  }
+  return cleaned;
+}
+
 export default async function handler(req, res) {
   setCors(res);
   if (req.method === 'OPTIONS') return res.status(200).end();
@@ -196,6 +235,9 @@ export default async function handler(req, res) {
   const sinceIso = /^\d{4}-\d{2}-\d{2}/.test(since) ? new Date(since).toISOString() : since;
 
   try {
+    // 1. Nettoyage rétroactif : les imports passés doivent passer le filtre COURANT.
+    const cleaned = await cleanupImported(includes, excludes, dryRun);
+
     const bankId = await resolveBankAccountId();
 
     // Récupère les crédits (argent reçu), réglés, depuis la date plancher, paginé.
@@ -292,6 +334,8 @@ export default async function handler(req, res) {
       excluded,
       dryRun,
       filter: { excludes, includes, default_filter: defaultFilterActive },
+      cleaned: cleaned.length,
+      cleaned_samples: cleaned.slice(0, 20),
       excluded_samples: excludedSamples,
       added: added.slice(0, 50),
     });
