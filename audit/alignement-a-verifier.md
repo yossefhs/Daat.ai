@@ -1271,3 +1271,42 @@ Le paramètre a tout de même été posé — c'est la forme qu'emploie `locate(
 point de terminaison — **pour ne pas faire reposer une porte anti-fabrication sur un
 comportement par défaut non documenté**, et non pour réparer un défaut observé. La mesure
 est écrite dans le code, à côté de l'appel, pour que personne ne la refasse.
+
+---
+
+## Six citations INTROUVABLES en Yoré Déa, rendues visibles par la correction du 22 septembre
+
+**NEEDS_RABBINIC_VALIDATION.** La correction des citations courtes (voir l'entrée
+précédente) a fait entrer 1 018 citations de Yoré Déa dans le champ de
+`verifier-citations.py`. Premier passage complet : **22 132 citations examinées, 21 781
+conformes, 31 variantes, et SIX INTROUVABLES** — absentes de tout Sefaria.
+
+Les six mesurent de 13 à 22 lettres. **C'est exactement la classe qui n'était vérifiée par
+rien jusqu'à aujourd'hui.**
+
+| Fichier | Ligne | Citation | Référence annoncée |
+|---|---|---|---|
+| `yoreh-deah/siman-87/niveau-2-lamdan.html` | 778 | `חלב טהור — חיוור [לבן], טמא — ירוק` | Avodah Zarah 35b |
+| `yoreh-deah/siman-112/niveau-2-lamdan.html` | 874 | `ושמן דניאל וחבריו גזור` | Avodah Zarah 35b/36b/37b |
+| `yoreh-deah/siman-160/index.html` | 303 | `ורבית קצוצה…הוא` | SA YD 160:14 |
+| `yoreh-deah/siman-186/niveau-2-lamdan.html` | 545 | `נשים בודקות עצמן` | Niddah 11a |
+| `yoreh-deah/siman-186/niveau-2-lamdan.html` | 811 | `נשים בודקות עצמן` | Niddah 11a/63b/65b |
+| `yoreh-deah/siman-199/niveau-2-lamdan.html` | 668 | `עיון הגוף דבר תורה` | Niddah 66b |
+
+**Ce ne sont pas six inventions pures, et c'est important pour le tri.** Recherche faite
+sur chacune : deux d'entre elles sont bâties autour d'un fragment bien réel —
+
+- `ושמן דניאל` existe (Tossafot sur Avoda Zara 36a:8, Rabbénou Hananel 36a:7) ; c'est la
+  phrase complète `ושמן דניאל וחבריו גזור` qui n'existe pas ;
+- `עיון הגוף` existe, et précisément au **Aroukh haChoulhan, Yoré Déa 199:21** — le siman
+  même de la page ; c'est `עיון הגוף דבר תורה` qui n'existe pas.
+
+Les quatre autres n'ont donné aucune forme voisine.
+
+La famille est donc la même dans les six cas : **un terme réel soudé dans une phrase que la
+source n'a pas écrite, et présentée entre guillemets.** Par la convention du dépôt, les
+guillemets sont réservés au verbatim ; ces passages appellent soit la formule réelle, soit
+la marque `<em>résumé</em>`. **Rien n'a été modifié** : choisir entre les deux demande de
+lire la source et relève du Rav.
+
+Les 31 **variantes** du même passage sont dans `audit/citations-sources-yoreh-deah.csv`.
