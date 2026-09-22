@@ -231,6 +231,28 @@
   hr.ornament { border: none; text-align: center; margin: 20px 0; }
   hr.ornament::before { content: "✦ ❖ ✦"; color: #C5A55A; font-size: 13pt; }
 
+  blockquote.text-resume {
+    background: #f7f5f2;
+    border-right: 4px dashed #b9a06a;
+    direction: rtl;
+    text-align: right;
+    margin: 10px 0;
+    padding: 10px 15px;
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 12pt;
+    font-style: italic;
+  }
+
+  blockquote.text-resume .resume-marque {
+    display: block;
+    direction: inherit;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: normal;
+    font-size: 10pt;
+    color: #7a6a44;
+    margin-bottom: 6px;
+  }
+
   blockquote.text-source {
     background: #faf8f0;
     border-right: 4px solid #C5A55A;
@@ -504,6 +526,7 @@
 <!-- 1. TEXTE DU MEHABER -->
 <!-- ========================================== -->
 <h2 id="exp-seifim" class="section-title">1. Le texte du Mehaber — les 6 seifim</h2>
+<div class="key-point"><strong>Avis de lecture.</strong> Les blocs hébreux de cette section sont des <em>résumés</em>, pas le texte du Choul’han Aroukh dans sa lettre : ils en condensent la substance et n’en reprennent pas toutes les clauses. La restitution du texte intégral, séif par séif et dans l’ordre du livre, est en cours. Pour la lettre exacte, se reporter à la source.</div>
 
 <p>Le Siman 188 ouvre les <span class="he-q">דיני מראות הדם</span> : les <strong>couleurs de sang</strong>. Le Mehaber (Rabbi Yossef Karo) etablit quelles teintes rendent la femme טמאה et lesquelles la laissent טהורה, puis traite de sa <strong>נאמנות</strong> (sa parole), du sang qui ne sort pas de la facon ordinaire (<span class="he-q">שפופרת</span>, <span class="he-q">חתיכה</span>, <span class="he-q">נעקר מקור</span>), et du <strong>test de la שרייה</strong> qui distingue un veritable דם d'une simple <span class="he-q">בריה</span> (formation de matiere). Le Rama (Rabbi Moshe Isserles) ajoute ses gloses (<span class="he-q">הגה</span>). Decouvrons les seifim par groupes. <strong>Sujet sensible</strong> : tout ce qui suit est etude — une בדיקה reelle se montre toujours a un Rav.</p>
 
@@ -515,15 +538,18 @@
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s1">
-כָּל מַרְאֶה אָדֹם, בֵּין אִם הוּא כֵּהֶה הַרְבֵּה אוֹ עָמֹק — טְמֵאִים; וְכֵן כָּל מַרְאֶה שָׁחֹר. וְאֵין טָהוֹר אֶלָּא מַרְאֶה לָבָן, וְכֵן מַרְאֶה יָרֹק אֲפִלּוּ כְּמַרְאֵה הַשַּׁעֲוָה אוֹ הַזָּהָב, וְכָל שֶׁכֵּן הַיָּרֹק כְּכַרְתִּי אוֹ כַּעֲשָׂבִים <span class="he-q">(מָרְדְּכַי)</span> <span class="he-q">(וְכֵן מַרְאֶה שֶׁקּוֹרִין בְּלַעַ״ז בְּלוֹא בִּכְלַל יָרֹק הוּא)</span>. וַאֲפִלּוּ יֵשׁ בּוֹ סְמִיכוּת דָּם וְהוּא עָב הַרְבֵּה, וַאֲפִלּוּ הִרְגִּישָׁה שֶׁנִּפְתַּח מְקוֹרָהּ וּבָדְקָה מִיָּד וּמָצְאָה מַרְאוֹת הַלָּלוּ — טְהוֹרָה. <span class="he-q">(דַּעַת עַצְמוֹ, דְּלֹא כְּתֶרוּמַת הַדֶּשֶׁן)</span>
+<b>דיני מראות הדם. ובו ו' סעיפים:</b><br> כל מראה אדום בין אם היא כהה הרבה או עמוק טמאים וכן כל מראה שחור ואין טהור אלא מראה לבן וכן מראה ירוק אפי' כמראה השעוה או הזהב וכ"ש הירוק ככרתי או כעשבים <small>(מרדכי) </small><small>(וכן מראה שקורין בל"א בלו"א בכלל ירוק הוא) </small>ואפי' יש בו סמיכות דם והוא עב הרבה ואפילו הרגישה שנפתח מקורה ובדקה מיד ומצאה מראות הללו טהורה. <small>(ד"ע דלא כת"ה סימן רמ"ו דמגמגם בזה): </small><small>הגה וכן עיקר (ב"י וטור) דלא כיש מחמירין לטמאה אם יש בו סמיכות והוא עב (ת"ה סימן רמ"ו) (ואם הרגישה שנפתח מקורה ובדקה מיד ולא מצאה כלום ע"ל סימן ק"ץ):</small>
 </blockquote>
 
 <div class="translation">
-<strong>Toute teinte rouge</strong> — qu'elle soit <strong>tres foncee ou profonde</strong> — est <strong>טמא</strong> ; et de meme <strong>toute teinte noire</strong>. <strong>N'est טהור que la teinte blanche</strong>, ainsi que la <strong>teinte verte</strong> (<span class="he-q">ירוק</span>) — meme comme la couleur de la <strong>cire ou de l'or</strong>, et <strong>a plus forte raison</strong> le vert comme le <strong>poireau ou les herbes</strong> (Mordekhi) — et la teinte que l'on nomme en langue vulgaire <span class="he-q">בלוא</span> (bleu) <strong>entre dans la categorie du vert</strong>. Et meme s'il y a en lui de l'<strong>epaisseur de sang</strong> (סמיכות) et qu'il est tres dense, et meme si elle a <strong>senti son מקור s'ouvrir</strong>, a verifie <strong>aussitot</strong> et a trouve ces teintes (blanc/vert) — elle est <strong>טהורה</strong>. (Avis propre du Mehaber, contre le Teroumat haDeshen.)
+<strong>Chapeau du siman — Lois des teintes du sang (דיני מראות הדם) ; et il comporte six séifim.</strong><br>
+<strong>Toute teinte rouge</strong> — qu'elle soit <strong>très foncée ou profonde</strong> — est <strong>טמא</strong> ; et de même <strong>toute teinte noire</strong>. <strong>N'est טהור que la teinte blanche</strong>, ainsi que la <strong>teinte verte</strong> (<span class="he-q">ירוק</span>) — même comme la couleur de la <strong>cire ou de l'or</strong>, et <strong>à plus forte raison</strong> le vert comme le <strong>poireau ou les herbes</strong> (Mordekhi) — et la teinte que l'on nomme en langue vulgaire <span class="he-q">בלוא</span> (bleu) <strong>entre dans la catégorie du vert</strong>. Et même s'il y a en lui de l'<strong>épaisseur de sang</strong> (סמיכות) et qu'il est très dense, et même si elle a <strong>senti son מקור s'ouvrir</strong>, a vérifié <strong>aussitôt</strong> et a trouvé ces teintes (blanc/vert) — elle est <strong>טהורה</strong>. (Avis propre du Mehaber, contre le Teroumat haDeshen, qui hésite sur ce point.)
+<br><br>
+<em>Glose du Rama :</em> et <strong>ainsi est l'essentiel</strong> — <strong>non pas</strong> comme ceux qui sont stricts pour la déclarer טמאה lorsque le sang a de l'<strong>épaisseur</strong> et qu'il est <strong>dense</strong> (Teroumat haDeshen, sim. 246). (Et si elle a <strong>senti son מקור s'ouvrir</strong>, a vérifié aussitôt et <strong>n'a rien trouvé du tout</strong> → voir le siman 190.)
 </div>
 
 <div class="key-point">
-<strong>L'idee centrale :</strong> tout se joue sur la <strong>couleur</strong>. Le cote טמא couvre <strong>toutes les nuances de rouge</strong> (claires comme foncees) <strong>et le noir</strong> (que les Sages tiennent pour du rouge altere). Le cote טהור se limite au <strong>blanc</strong> et au <strong>vert</strong> dans toutes ses nuances (cire, or, poireau, herbe, et le « bleu » assimile au vert). Ni l'epaisseur du sang, ni la rapidite de la verification, ni la sensation d'ouverture du מקור ne changent ce verdict : seule la <em>teinte</em> tranche.
+<strong>L'idée centrale :</strong> tout se joue sur la <strong>couleur</strong>. Le côté טמא couvre <strong>toutes les nuances de rouge</strong> (claires comme foncées) <strong>et le noir</strong> (que les Sages tiennent pour du rouge altéré). Le côté טהור se limite au <strong>blanc</strong> et au <strong>vert</strong> dans toutes ses nuances (cire, or, poireau, herbe, et le « bleu » assimilé au vert). Ni l'épaisseur du sang, ni la rapidité de la vérification, ni la sensation d'ouverture du מקור ne changent ce verdict : seule la <em>teinte</em> tranche — et le Rama scelle ce point en écrivant que <strong>tel est bien l'essentiel</strong>, contre ceux qui rendaient טמא un sang épais et dense.
 </div>
 
 <h4>Seif 2 — נאמנות : « כזה ראיתי ואבדתיו » ; mais « חכם טיהר » ne suffit pas
@@ -531,15 +557,15 @@
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s2">
-נֶאֱמֶנֶת אִשָּׁה לוֹמַר כָּזֶה רָאִיתִי וְאִבַּדְתִּיו; וְאִם הוּא מַרְאֶה לָבָן אוֹ יָרֹק — טָהוֹר. אֲבָל אִם הֵבִיאָה לְפָנֵינוּ דָּם וְהֶחְזַקְנוּהוּ בְּטָמֵא, אוֹ אֲפִלּוּ נִסְתַּפַּקְנוּ אִם הוּא טָמֵא אוֹ טָהוֹר, וְהִיא אוֹמֶרֶת חָכָם פְּלוֹנִי טִיהֵר לִי כַּיּוֹצֵא בָּזֶה — אֵין סוֹמְכִין עָלֶיהָ.
+נאמנת אשה לומר כזה ראיתי ואבדתיו ואם הוא מראה לבן או ירוק טהור אבל אם הביאה לפנינו דם והחזקנוהו בטמא או אפילו נסתפקנו אם הוא טמא או טהור והיא אומרת חכם פלוני טיהר לי כיוצא בזה אין סומכין עליה:
 </blockquote>
 
 <div class="translation">
-La femme est <strong>crue</strong> (נאמנת) de dire « <strong>j'en ai vu une teinte semblable et je l'ai perdue</strong> » (כזה ראיתי ואבדתיו) : si elle decrit une teinte <strong>blanche ou verte</strong> → <strong>טהור</strong>. <strong>Mais</strong> si elle <strong>apporte devant nous un sang</strong> que l'on tient pour <strong>טמא</strong> — ou meme si l'on <strong>doute</strong> s'il est טמא ou טהור — et qu'elle dit « tel חכם m'a declare pur un sang semblable a celui-ci » → <strong>on ne s'appuie pas sur elle</strong> (il faut le montrer a nouveau).
+La femme est <strong>crue</strong> (נאמנת) de dire « <strong>j'en ai vu une teinte semblable et je l'ai perdue</strong> » (כזה ראיתי ואבדתיו) : si elle décrit une teinte <strong>blanche ou verte</strong> → <strong>טהור</strong>. <strong>Mais</strong> si elle <strong>apporte devant nous un sang</strong> que l'on tient pour <strong>טמא</strong> — ou même si l'on <strong>doute</strong> s'il est טמא ou טהור — et qu'elle dit « tel חכם m'a déclaré pur un sang semblable à celui-ci » → <strong>on ne s'appuie pas sur elle</strong> (il faut le montrer à nouveau).
 </div>
 
 <div class="key-point">
-<strong>Deux situations a distinguer.</strong> Tant qu'il n'y a <em>pas</em> de sang devant nous, sa <strong>parole suffit</strong> pour declarer pure une teinte blanche/verte : on la croit sur la couleur qu'elle a vue. Mais des qu'un sang <strong>reel</strong> est la — tenu pour טמא ou seulement douteux — sa parole rapportant qu'« un חכם a permis un cas semblable » <strong>ne renverse pas</strong> le statut : ce sang precis doit etre <strong>montre et juge</strong>, et non ecarte sur un on-dit.
+<strong>Deux situations à distinguer.</strong> Tant qu'il n'y a <em>pas</em> de sang devant nous, sa <strong>parole suffit</strong> pour déclarer pure une teinte blanche ou verte : on la croit sur la couleur qu'elle a vue. Mais dès qu'un sang <strong>réel</strong> est là — tenu pour טמא ou seulement douteux — sa parole rapportant qu'« un חכם a permis un cas semblable » <strong>ne renverse pas</strong> le statut : ce sang précis doit être <strong>montré et jugé</strong>, et non écarté sur un on-dit.
 </div>
 
 <div class="page-break"></div>
@@ -552,15 +578,17 @@ La femme est <strong>crue</strong> (נאמנת) de dire « <strong>j'en ai vu un
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s3">
-הִכְנִיסָה שְׁפוֹפֶרֶת וְהוֹצִיאָה בָּהּ דָּם — טְהוֹרָה; וְכֵן אִם רָאֲתָה דָּם בַּחֲתִיכָה, אֲפִלּוּ הִיא מְבֻקַּעַת וְהַדָּם בַּבְּקָעִים בְּעִנְיָן שֶׁנּוֹגֵעַ בִּבְשָׂרָהּ — טְהוֹרָה, כֵּיוָן שֶׁאֵין דֶּרֶךְ לִרְאוֹת כֵּן. וְכֵן אִשָּׁה שֶׁנֶּעֱקַר מְקוֹר שֶׁלָּהּ וּכְמִין חֲתִיכוֹת בָּשָׂר נוֹפְלִים בַּבַּיִת הַחִיצוֹן — טְהוֹרָה. <span class="he-q">הגה: אֲפִלּוּ רָאֲתָה דָּם, כָּל זְמַן שֶׁהַחֲתִיכוֹת בַּבַּיִת הַחִיצוֹן שֶׁלָּהּ — טְהוֹרָה, דְּתָלִינַן הַדָּם בַּחֲתִיכָה זוֹ הוֹאִיל וְיָדְעִינַן וַדַּאי שֶׁנֶּעֱקַר מְקוֹרָהּ וּמֵחֲמַת מַכָּה הִיא (כֵּן מַשְׁמַע בַּטּוּר וְרַבֵּנוּ יְרוּחָם וְהָרֹא״שׁ).</span>
+הכניסה שפופרת והוציאה בה דם טהורה וכן אם ראתה דם בחתיכה אפי' היא מבוקעת והדם בבקעים בענין שנוגע בבשרה טהורה כיון שאין דרך לראות כן וכן אשה שנעקר מקור שלה וכמין חתיכות בשר נופלים בבית החיצון טהורה: <small>הגה אפילו ראתה דם כל זמן שהחתיכות בבית החיצון שלה טהורה דתלינן הדם בחתיכה זו הואיל וידעינן ודאי שנעקר מקורה ומחמת מכה היא (כן משמע בטור ורבינו ירוחם והרא"ש): </small>והוא שהטילה החתיכות במים פושרין ולא נמוחו ודוקא חתיכות קטנות דומיא דשפופרת אבל חתיכה גדולה טמאה אפילו לא ראתה כלום לפי שאי אפשר לפתיחת הקבר בלא דם אפילו בנפל שלא נגמרה צורתו:
 </blockquote>
 
 <div class="translation">
-Si elle a <strong>introduit un tube (שפופרת) et en a fait sortir du sang</strong> → <strong>טהורה</strong>, car ce n'est <strong>pas la maniere ordinaire</strong> de voir. De meme, si elle a vu du sang <strong>dans un morceau (חתיכה)</strong> — meme fendu, le sang etant <strong>dans les fentes</strong> au point de toucher sa chair → <strong>טהורה</strong>, puisqu'il n'est pas habituel de voir ainsi. De meme, une femme dont le <strong>מקור s'est detache</strong> (נעקר מקור) et dont des <strong>morceaux de chair</strong> tombent dans le <span class="he-q">בית החיצון</span> → <strong>טהורה</strong>. <em>Glose du Rama :</em> <strong>meme si elle voit du sang</strong>, tant que les morceaux sont dans son בית החיצון → <strong>טהורה</strong>, car <strong>on rattache le sang a ce morceau</strong> (תלינן הדם בחתיכה) puisqu'on <strong>sait avec certitude</strong> que son מקור s'est detache et que cela vient d'une <strong>מכה</strong> (plaie) — ainsi ressort-il du Tour, de Rabbenou Yerouham et du Rosh.
+Si elle a <strong>introduit un tube (שפופרת) et en a fait sortir du sang</strong> → <strong>טהורה</strong>, car ce n'est <strong>pas la manière ordinaire</strong> de voir. De même, si elle a vu du sang <strong>dans un morceau (חתיכה)</strong> — même fendu, le sang étant <strong>dans les fentes</strong> au point de toucher sa chair → <strong>טהורה</strong>, puisqu'il n'est pas habituel de voir ainsi. De même, une femme dont le <strong>מקור s'est détaché</strong> (נעקר מקור) et dont des <strong>morceaux de chair</strong> tombent dans le <span class="he-q">בית החיצון</span> → <strong>טהורה</strong>. <em>Glose du Rama :</em> <strong>même si elle voit du sang</strong>, tant que les morceaux sont dans son בית החיצון → <strong>טהורה</strong>, car <strong>on rattache le sang à ce morceau</strong> (תלינן הדם בחתיכה) puisqu'on <strong>sait avec certitude</strong> que son מקור s'est détaché et que cela vient d'une <strong>מכה</strong> (plaie) — ainsi ressort-il du Tour, de Rabbenou Yerouham et du Rosh.
+<br><br>
+Et cela <strong>à condition</strong> qu'elle ait jeté les morceaux dans de l'<strong>eau tiède</strong> et qu'ils <strong>ne se soient pas dissous</strong>. Et cela vaut <strong>précisément pour de petits morceaux</strong>, semblables à ceux du tube ; <strong>mais un gros morceau → טמאה</strong>, <strong>même si elle n'a rien vu du tout</strong>, parce qu'il est <strong>impossible que le col (קבר) s'ouvre sans sang</strong> — et cela <strong>même pour un נפל dont la forme n'est pas achevée</strong>.
 </div>
 
 <div class="key-point">
-<strong>תליה במכה — rattacher a une plaie.</strong> Le sang n'est טמא que lorsqu'il provient du מקור <em>de la facon ordinaire</em>. Trois cas le neutralisent : le sang tire par un <strong>tube</strong> (vu artificiellement), le sang loge <strong>dans un morceau</strong>, et le cas ou l'on <strong>sait</strong> que le מקור s'est detache — alors tout sang vu se <strong>rattache a cette מכה</strong> connue, et non a un flux ordinaire. C'est le prolongement direct des lois de la <span class="he-q">מכה</span> (cf. Siman 187).
+<strong>תליה במכה — rattacher à une plaie.</strong> Le sang n'est טמא que lorsqu'il provient du מקור <em>de la façon ordinaire</em>. Trois cas le neutralisent : le sang tiré par un <strong>tube</strong> (vu artificiellement), le sang logé <strong>dans un morceau</strong>, et le cas où l'on <strong>sait</strong> que le מקור s'est détaché — alors tout sang vu se <strong>rattache à cette מכה</strong> connue, et non à un flux ordinaire. C'est le prolongement direct des lois de la <span class="he-q">מכה</span> (cf. siman 187). Mais le séif pose lui-même sa <strong>limite</strong> : l'allègement ne vaut que pour de <strong>petits</strong> morceaux, non dissous dans l'eau tiède ; un <strong>gros</strong> morceau rend טמאה même sans qu'aucun sang ait été vu, puisque le col ne s'ouvre pas sans sang.
 </div>
 
 <div class="page-break"></div>
@@ -568,36 +596,38 @@ Si elle a <strong>introduit un tube (שפופרת) et en a fait sortir du sang</
 <!-- GROUPE C : seifim 4-5 -->
 <h3>Groupe C — Le sang, la בריה et le test de la שרייה (seifim 4-5)</h3>
 
-<h4>Seif 4 — Tout sang טמא ; la forme de בריה et la שרייה dans l'eau tiede
+<h4>Seif 4 — Tout sang טמא ; la forme de בריה et la שרייה dans l'eau tiède
   <button class="daat-copy" type="button" data-copy-target="#cp-s4">📋 Copier</button>
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s4">
-כָּל דָּם הַיּוֹצֵא מִן הָאִשָּׁה, בֵּין לַח בֵּין יָבֵשׁ — טְמֵאָה. וְלֹא עוֹד אֶלָּא אֲפִלּוּ יָצָא מִמֶּנָּה צוּרַת בְּרִיָּה, כְּמִין קְלִפּוֹת אוֹ כְּמִין שְׂעָרוֹת אוֹ כְּמִין יַבְחוּשִׁים אֲדֻמִּים — טְמֵאָה. וְהוּא שֶׁיִּהְיוּ נִמּוֹחִים בְּתוֹךְ מֵעֵת לְעֵת עַל יְדֵי שֶׁשּׁוֹרִים אוֹתָם בְּמַיִם פּוֹשְׁרִים, וְיִהְיוּ הַמַּיִם פּוֹשְׁרִים כָּל מֶשֶׁךְ מֵעֵת לְעֵת שֶׁהֵם בְּתוֹכוֹ; וְשִׁעוּר הַחִמּוּם כְּמוֹ מַיִם שֶׁנִּשְׁאֲבוּ בַּקַּיִץ מֵהַנָּהָר אוֹ מֵהַמַּעְיָן וְעָמְדוּ בַּבַּיִת שֶׁחֹם הַבַּיִת מְחַמְּמָתָן — וְכַחִמּוּם שֶׁל אֵלּוּ כָּךְ הוּא שִׁעוּר פּוֹשְׁרִים.
+כל דם היוצא מן האשה בין לח בין יבש טמאה ולא עוד אלא אפי' יצא ממנה צורת בריה כמין קליפות או כמין שערות או כמין יבחושים אדומים טמאה והוא שיהיו נמוחים בתוך מעת לעת על ידי ששורים אותם במים פושרים ויהיו המים פושרים כל משך מעת לעת שהם בתוכו ושיעור החימום כמו מים שנשאבו בקיץ מהנהר או מהמעין ועמדו בבית שחום הבית מחממתן וכחימום של אלו כך הוא שיעור פושרים בימות החורף <small>(וסתם פושרים אינן חמין יותר מחמימות הרוק (ב"י בשם ריטב"א פ' המפלת)) </small>ואם הם קשים כל כך שאינם נמוחים בתוך מעת לעת טהורה אפילו הם נמוחים על ידי מיעוך שממעכן בצפרניו <small>(ואם מעכבן בצפרניו ולא נימוחו טהורה ואין צריך לבדוק ע"י שריה). (המ"מ פ"ה וכ"כ הב"י בשם הרשב"א):</small>
 </blockquote>
 
 <div class="translation">
-<strong>Tout sang sortant de la femme</strong>, <strong>humide ou sec</strong>, → <strong>טמאה</strong>. Bien plus : meme s'il sort d'elle une <strong>forme de בריה</strong> (formation de matiere) — comme des <strong>ecorces (קליפות)</strong>, des <strong>poils (שערות)</strong> ou des <strong>יבחושים rouges</strong> (sortes de petits insectes/grumeaux) → <strong>טמאה</strong> — <strong>a condition</strong> qu'ils <strong>se dissolvent au cours d'un מעת לעת (24 h)</strong> lorsqu'on les <strong>trempe dans de l'eau tiede (פושרים)</strong>, l'eau devant <strong>rester tiede tout le long</strong> des 24 heures. Le <strong>שיעור (la mesure) de la tiedeur</strong> : comme une eau puisee en ete a la riviere ou a la source, posee dans une maison dont la chaleur la rechauffe — telle est la mesure du « tiede ».
+<strong>Tout sang sortant de la femme</strong>, <strong>humide ou sec</strong>, → <strong>טמאה</strong>. Bien plus : même s'il sort d'elle une <strong>forme de בריה</strong> (formation de matière) — comme des <strong>écorces (קליפות)</strong>, des <strong>poils (שערות)</strong> ou des <strong>יבחושים rouges</strong> (sortes de petits insectes ou grumeaux) → <strong>טמאה</strong> — <strong>à condition</strong> qu'ils <strong>se dissolvent au cours d'un מעת לעת (24 h)</strong> lorsqu'on les <strong>trempe dans de l'eau tiède (פושרים)</strong>, l'eau devant <strong>rester tiède tout le long</strong> des 24 heures. Le <strong>שיעור (la mesure) de la tiédeur</strong> : comme une eau puisée en été à la rivière ou à la source, posée dans une maison dont la chaleur la réchauffe — telle est la mesure du « tiède » <strong>pour les jours d'hiver</strong>. (Et un « tiède » ordinaire n'est <strong>pas plus chaud que la chaleur de la salive</strong>.)
+<br><br>
+Et s'ils sont <strong>si durs qu'ils ne se dissolvent pas</strong> au cours d'un מעת לעת → <strong>טהורה</strong>, <strong>même s'ils se dissolvent</strong> quand on les <strong>écrase entre les ongles</strong>. (Et si elle les a écrasés entre les ongles et qu'ils <strong>ne se sont pas dissous</strong> → <strong>טהורה</strong>, et il n'est <strong>pas besoin</strong> de vérifier par trempage.)
 </div>
 
 <div class="definition">
-<span class="he-q">שרייה</span> — <strong>le test de la macération</strong> : on <strong>trempe</strong> la matiere suspecte dans de l'<strong>eau tiede (פושרים)</strong> pendant <strong>24 heures</strong>. Si elle <strong>se dissout</strong>, c'est qu'il s'agissait bien de <strong>sang</strong> (un דם prend cette forme mais reste du sang) → טמאה. Si elle <strong>ne se dissout pas</strong>, c'est une autre matiere (une vraie בריה issue d'une מכה) → voir le seif suivant.
+<span class="he-q">שרייה</span> — <strong>le test de la macération</strong> : on <strong>trempe</strong> la matière suspecte dans de l'<strong>eau tiède (פושרים)</strong> pendant <strong>24 heures</strong>. Si elle <strong>se dissout</strong>, c'est qu'il s'agissait bien de <strong>sang</strong> (un דם prend cette forme mais reste du sang) → טמאה. Si elle <strong>ne se dissout pas</strong>, c'est une autre matière (une vraie בריה issue d'une מכה) → voir le séif suivant. Le séif précise que seule compte la <strong>dissolution par trempage</strong> : une matière qui ne cède qu'<strong>écrasée entre les ongles</strong> reste טהורה.
 </div>
 
-<h4>Seif 5 — Non dissous = טהור (sauf לחלוח דם) ; la חזקה apres 3 fois
+<h4>Seif 5 — Non dissous = טהור (sauf לחלוח דם) ; la חזקה après 3 fois
   <button class="daat-copy" type="button" data-copy-target="#cp-s5">📋 Copier</button>
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s5">
-בַּמֶּה דְּבָרִים אֲמוּרִים? שֶׁאִם לֹא נִמּוֹחוּ — טְהוֹרָה, בִּזְמַן שֶׁהֵם יְבֵשִׁים גְּמוּרִים שֶׁאֵין עִמָּהֶם דָּם כְּלָל; אֲבָל אִם יֵשׁ עֲלֵיהֶם שׁוּם לַחְלוּחַ דָּם — טְמֵאָה. <span class="he-q">הגה: וְהוּא הַדִּין אִם נִתְמַעֲכוּ אוֹ נִמּוֹחוּ קְצָתָן וּקְצָתָן לֹא נִמּוֹחוּ — דִּטְמֵאָה (פִּסְקֵי מַהֲרַא״י סִימָן מ״ז). מִיהוּ נִרְאֶה לִי דְּאִם בָּדְקָה ג׳ פְּעָמִים כָּל מַה שֶּׁרָאֲתָה וְלֹא נִמּוֹחוּ כְּלָל — שׁוּב אֵינָהּ צְרִיכָה לִבְדֹּק מַה שֶּׁהִיא רוֹאָה אַחַר כָּךְ כְּדֶרֶךְ זֶה, שֶׁהֲרֵי הֻחְזְקָה שֶׁדְּבָרִים אֵלּוּ אֵינָם דָּם רַק בָּאִים מִמַּכָּה שֶׁבְּגוּפָהּ.</span>
+במה דברים אמורים שאם לא נמוחו טהורה בזמן שהם יבשים גמורים שאין עמהם דם כלל אבל אם יש עליהם שום לחלוח דם טמאה: <small>הגה והוא הדין אם נתמעכו או נימוחו קצתן וקצתן לא נימוחו דטמאה (פסקי מהרא"י סימן מ"ז) מיהו נראה לי דאם בדקה ג"פ כל מה שראתה ולא נימוחו כלל שוב אינה צריכה לבדוק מה שהיא רואה אח"כ כדרך זה שהרי הוחזקה שדברים אלו אינן דם רק באים ממכה שבגופה ודוקא באשה שיש לה וסת ושלא בשעת וסתה כמו שנתבאר גבי מכה לעיל סימן קפ"ז:</small>
 </blockquote>
 
 <div class="translation">
-<strong>Tout ceci a quoi cela s'applique-t-il ?</strong> Que si la matiere <strong>ne s'est pas dissoute</strong> → <strong>טהורה</strong>, <strong>a condition</strong> qu'elle soit <strong>parfaitement seche</strong>, <strong>sans aucun sang</strong> ; mais s'il y a sur elle <strong>le moindre humide de sang (לחלוח דם)</strong> → <strong>טמאה</strong>. <em>Glose du Rama :</em> et il en va de meme <strong>si une partie s'est dissoute</strong> ou ecrasee et l'autre non → <strong>טמאה</strong> (Pisqei Maharai, sim. 47). <strong>Toutefois</strong>, il me semble que <strong>si elle a verifie 3 fois</strong> tout ce qu'elle a vu et que cela <strong>ne s'est pas dissous du tout</strong> → elle <strong>n'a plus besoin de verifier</strong> ensuite ce qu'elle voit de cette maniere, car il s'est <strong>etabli (חזקה)</strong> que ces matieres <strong>ne sont pas du sang</strong>, mais proviennent d'une <strong>מכה (plaie) de son corps</strong>.
+<strong>À quoi tout ceci s'applique-t-il ?</strong> Que si la matière <strong>ne s'est pas dissoute</strong> → <strong>טהורה</strong>, <strong>à condition</strong> qu'elle soit <strong>parfaitement sèche</strong>, <strong>sans aucun sang</strong> ; mais s'il y a sur elle <strong>le moindre humide de sang (לחלוח דם)</strong> → <strong>טמאה</strong>. <em>Glose du Rama :</em> et il en va de même <strong>si une partie s'est dissoute</strong> ou écrasée et l'autre non → <strong>טמאה</strong> (Pisqei Maharai, sim. 47). <strong>Toutefois</strong>, il me semble que <strong>si elle a vérifié trois fois</strong> tout ce qu'elle a vu et que cela <strong>ne s'est pas dissous du tout</strong> → elle <strong>n'a plus besoin de vérifier</strong> ensuite ce qu'elle voit de cette manière, car il s'est <strong>établi (חזקה)</strong> que ces matières <strong>ne sont pas du sang</strong>, mais proviennent d'une <strong>מכה (plaie) de son corps</strong>. Et cela <strong>précisément</strong> chez une femme <strong>qui a un וסת</strong>, et <strong>hors des jours de son וסת</strong>, comme il a été expliqué à propos de la plaie <strong>plus haut, au siman 187</strong>.
 </div>
 
 <div class="key-point">
-<strong>Le verdict du test, et son humidite.</strong> Une matiere qui <strong>ne se dissout pas</strong> apres 24 h de שרייה n'est pas du sang → טהורה — <em>sauf</em> s'il y reste un <strong>לחלוח דם</strong>, le moindre suintement sanguin, qui la rend טמאה. Le Rama ajoute une <strong>simplification</strong> : apres <strong>trois verifications</strong> concordantes (rien ne se dissout), une <strong>חזקה</strong> s'installe — on tient desormais que ces matieres viennent d'une מכה, et l'on cesse d'avoir a refaire le test.
+<strong>Le verdict du test, et son humidité.</strong> Une matière qui <strong>ne se dissout pas</strong> après 24 h de שרייה n'est pas du sang → טהורה — <em>sauf</em> s'il y reste un <strong>לחלוח דם</strong>, le moindre suintement sanguin, qui la rend טמאה. Le Rama ajoute une <strong>simplification</strong> : après <strong>trois vérifications</strong> concordantes (rien ne se dissout), une <strong>חזקה</strong> s'installe — on tient désormais que ces matières viennent d'une מכה, et l'on cesse d'avoir à refaire le test. Mais le Rama <strong>borne lui-même</strong> cet allègement : il ne vaut que pour une femme <strong>qui a un וסת</strong>, et <strong>hors des jours de son וסת</strong> — exactement la condition posée pour la תליה במכה au <strong>siman 187</strong>.
 </div>
 
 <div class="page-break"></div>
@@ -610,15 +640,15 @@ Si elle a <strong>introduit un tube (שפופרת) et en a fait sortir du sang</
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s6">
-בַּמֶּה דְּבָרִים אֲמוּרִים שֶׁצְּרִיכָה בְּדִיקָה בִּשְׁרִיָּה? בְּמַפֶּלֶת כְּמִין קְלִפּוֹת וּשְׂעָרוֹת. אֲבָל חֲתִיכַת דָּם, אַף עַל פִּי שֶׁקָּשָׁה וְאֵינוֹ נִמּוֹחַ — טְמֵאָה. וְיֵשׁ אוֹמְרִים שֶׁגַּם לָזֶה צְרִיכָה בְּדִיקָה בִּשְׁרִיָּה, אִם הִיא חֲתִיכָה קְטַנָּה כְּשִׁעוּר שְׁפוֹפֶרֶת קָנֶה דַּק שֶׁבְּדַקִּים. <span class="he-q">(דַּעַת עַצְמוֹ)</span>
+בד"א שצריך בדיקה בשריה במפלת כמין קליפות ושערות אבל חתיכת דם אע"פ שקשה ואינו נימוח טמאה וי"א שגם לזה צריך בדיקה בשריה אם היא חתיכה קטנה כשיעור שפופרת קנה דק שבדקים <small>(ד"ע):</small>
 </blockquote>
 
 <div class="translation">
-<strong>A quoi s'applique</strong> l'exigence d'une <strong>בדיקה par שרייה</strong> ? A une <strong>מפלת (expulsion)</strong> en forme d'<strong>ecorces et de poils</strong>. <strong>Mais un חתיכת דם (un morceau de sang)</strong>, <strong>meme dur et qui ne se dissout pas</strong>, → <strong>טמאה</strong> (on ne le sauve pas par le test). <strong>Et certains disent (יש אומרים)</strong> que <strong>celui-la aussi</strong> requiert une בדיקה par שרייה, <strong>s'il s'agit d'un petit morceau</strong> de la dimension d'un <strong>tube fin (שפופרת קנה דק)</strong>, le plus fin des fins. (Avis propre du Mehaber.)
+<strong>À quoi s'applique</strong> l'exigence d'une <strong>בדיקה par שרייה</strong> ? À une <strong>מפלת (expulsion)</strong> en forme d'<strong>écorces et de poils</strong>. <strong>Mais un חתיכת דם (un morceau de sang)</strong>, <strong>même dur et qui ne se dissout pas</strong>, → <strong>טמאה</strong> (on ne le sauve pas par le test). <strong>Et certains disent (יש אומרים)</strong> que <strong>celui-là aussi</strong> requiert une בדיקה par שרייה, <strong>s'il s'agit d'un petit morceau</strong> de la dimension d'un <strong>tube fin (שפופרת קנה דק)</strong>, le plus fin des fins. (Avis propre du Mehaber.)
 </div>
 
 <div class="key-point">
-<strong>La frontiere du test.</strong> La שרייה n'a de sens que pour une <strong>מפלת</strong> de matieres qui <em>ressemblent</em> a du sang sans en etre (ecorces, poils) : on verifie alors leur nature. Mais un <strong>vrai morceau de sang</strong> reste <strong>טמא</strong> meme s'il est dur et ne se dissout pas — son origine sanguine est manifeste. Le <strong>יש אומרים</strong> nuance : un <em>tres petit</em> morceau (calibre d'un tube fin) merite tout de meme le test, son statut etant moins evident.
+<strong>La frontière du test.</strong> La שרייה n'a de sens que pour une <strong>מפלת</strong> de matières qui <em>ressemblent</em> à du sang sans en être (écorces, poils) : on vérifie alors leur nature. Mais un <strong>vrai morceau de sang</strong> reste <strong>טמא</strong> même s'il est dur et ne se dissout pas — son origine sanguine est manifeste. Le <strong>יש אומרים</strong> nuance : un <em>très petit</em> morceau (du calibre d'un tube fin) mérite tout de même le test, son statut étant moins évident.
 </div>
 
 <div class="page-break"></div>
@@ -707,7 +737,7 @@ L'idee transversale : <strong>tout est affaire de couleur et d'origine</strong>.
 </div>
 
 <div class="key-point">
-<strong>Deux mots qui reviendront :</strong> <span class="he-q">לחלוח דם</span> (« un humide de sang ») — le moindre suintement sanguin sur la matiere la rend טמאה malgre le test ; et <span class="he-q">חזקה</span> — apres 3 verifications concordantes, on tient acquise l'origine de la מכה et l'on cesse de tester (seif 5).
+<strong>Deux mots qui reviendront :</strong> <span class="he-q">לחלוח דם</span> (« un humide de sang ») — le moindre suintement sanguin sur la matiere la rend טמאה malgre le test ; et <span class="he-q">חזקה</span> — apres 3 verifications concordantes, on tient acquise l'origine de la מכה et l'on cesse de tester — chez une femme qui a un וסת, et hors des jours de son וסת (seif 5).
 </div>
 
 <div class="page-break"></div>
@@ -815,11 +845,11 @@ Glose du Rama : <span class="he-q">אפילו ראתה דם, כל זמן שהח�
 <h4>Sur le seif 5 — partie dissoute → טמא ; mais חזקה apres 3 fois</h4>
 
 <div class="translation">
-Glose du Rama : <span class="he-q">והוא הדין אם נתמעכו או נימוחו קצתן… דטמאה… מיהו נראה לי דאם בדקה ג״פ… שוב אינה צריכה לבדוק</span> — <strong>« il en va de meme si une partie s'est ecrasee ou dissoute… elle est טמאה… toutefois il me semble que si elle a verifie 3 fois… elle n'a plus besoin de verifier »</strong>. Le Rama durcit (la dissolution partielle suffit a rendre טמא) puis allege (la חזקה apres trois tests dispense des suivants).
+Glose du Rama : <span class="he-q">והוא הדין אם נתמעכו או נימוחו קצתן… דטמאה… מיהו נראה לי דאם בדקה ג״פ… שוב אינה צריכה לבדוק</span> — <strong>« il en va de meme si une partie s'est ecrasee ou dissoute… elle est טמאה… toutefois il me semble que si elle a verifie 3 fois… elle n'a plus besoin de verifier »</strong>. Le Rama durcit (la dissolution partielle suffit a rendre טמא) puis allege (la חזקה apres trois tests dispense des suivants) — allegement qu'il borne aussitot, a la fin de la meme glose : « <span class="he-q">ודוקא באשה שיש לה וסת ושלא בשעת וסתה</span> » (רמ״א יו״ד קפ״ח:ה), chez une femme qui a un וסת et hors des jours de son וסת.
 </div>
 
 <div class="remember">
-Le Rama distingue soigneusement le <strong>din de base</strong> (le Mehaber) de la <strong>pratique</strong> : il ancre la תליה במכה (seif 3), durcit la dissolution partielle, mais offre l'allegement de la <strong>חזקה</strong> apres trois verifications concordantes (seif 5).
+Le Rama distingue soigneusement le <strong>din de base</strong> (le Mehaber) de la <strong>pratique</strong> : il ancre la תליה במכה (seif 3), durcit la dissolution partielle, mais offre l'allegement de la <strong>חזקה</strong> apres trois verifications concordantes — pour une femme qui a un וסת, hors des jours de son וסת (seif 5).
 </div>
 
 <div class="page-break"></div>
@@ -870,7 +900,7 @@ Tout repose sur deux questions :
   <td>🔴 טמאה</td>
 </tr>
 <tr>
-  <td>3 verifications sans dissolution</td>
+  <td>3 verifications sans dissolution — et femme qui a un וסת, hors des jours de son וסת</td>
   <td>חזקה (Rama, seif 5)</td>
   <td>🟢 Plus besoin de tester</td>
 </tr>
@@ -932,7 +962,7 @@ Une מפלת — expulsion de matieres, parfois en forme d'ecorces ou de poils (
   <li>La femme est <strong>crue</strong> de dire « כזה ראיתי » (blanc/vert → טהור) ; mais sur un sang reel tenu טמא ou douteux, « חכם טיהר » <strong>ne suffit pas</strong> (seif 2).</li>
   <li>Sang sorti par <strong>שפופרת</strong>, loge dans une <strong>חתיכה</strong>, ou cas de <strong>נעקר מקור</strong> → <strong>טהורה</strong> : on rattache a la מכה (seif 3).</li>
   <li><strong>Tout sang</strong> humide ou sec → טמא ; une <strong>forme de בריה</strong> → טמא <strong>si elle se dissout</strong> en 24 h de שרייה tiede (seif 4).</li>
-  <li><strong>Non dissoute</strong> et seche → טהור, <strong>sauf לחלוח דם</strong> → טמא ; <strong>חזקה</strong> apres 3 verifications (seif 5).</li>
+  <li><strong>Non dissoute</strong> et seche → טהור, <strong>sauf לחלוח דם</strong> → טמא ; <strong>חזקה</strong> apres 3 verifications, chez une femme qui a un וסת et hors de son וסת (seif 5).</li>
   <li>La שרייה ne vaut que pour une <strong>מפלת</strong> d'ecorces/poils ; un <strong>חתיכת דם</strong> → טמא (seif 6).</li>
 </ol>
 </div>

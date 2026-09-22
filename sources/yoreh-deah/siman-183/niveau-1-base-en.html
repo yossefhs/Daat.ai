@@ -232,6 +232,48 @@
   hr.ornament { border: none; text-align: center; margin: 20px 0; }
   hr.ornament::before { content: "✦ ❖ ✦"; color: #C5A55A; font-size: 13pt; }
 
+  blockquote.text-resume {
+    background: #f7f5f2;
+    border-right: 4px dashed #b9a06a;
+    direction: rtl;
+    text-align: right;
+    margin: 10px 0;
+    padding: 10px 15px;
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 12pt;
+    font-style: italic;
+  }
+
+  blockquote.text-resume .resume-marque {
+    display: block;
+    direction: inherit;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: normal;
+    font-size: 10pt;
+    color: #7a6a44;
+    margin-bottom: 6px;
+  }
+
+  blockquote.text-compose {
+    background: #f4f2ee;
+    border-right: 4px dotted #9a8c6a;
+    direction: rtl;
+    text-align: right;
+    margin: 10px 0;
+    padding: 10px 15px;
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 12pt;
+  }
+
+  blockquote.text-compose .compose-marque {
+    display: block;
+    direction: inherit;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10pt;
+    color: #6d6045;
+    margin-bottom: 6px;
+  }
+
   blockquote.text-source {
     background: #faf8f0;
     border-right: 4px solid #C5A55A;
@@ -504,6 +546,7 @@
 <!-- 1. THE MEHABER'S TEXT -->
 <!-- ========================================== -->
 <h2 id="exp-seifim" class="section-title">1. The Mehaber's text — the single seif</h2>
+<div class="key-point"><strong>A note on reading.</strong> The Hebrew blocks in this section are <em>summaries</em>, not the text of the Shulchan Arukh as it stands: they condense the substance and do not carry every clause. The full text is being restored, seif by seif and in the order of the book. For the exact wording, go to the source.</div>
 
 <p>Siman 183 opens the <strong>laws of Niddah</strong> (טהרת המשפחה), which extend through Siman 200. It contains only <strong>one seif</strong> (סעיף אחד) — but this seif is the <strong>foundation</strong> of the whole subject: it sets out <em>when</em> a woman becomes niddah and why she counts <strong>seven clean days</strong>. The Mehaber (Rabbi Yosef Karo) states the basic rule; the Rama (Rabbi Moshe Isserles) adds his gloss (<span class="he-q">הגה</span>) on the universal scope of the prohibition. This is an <strong>intimate and weighty</strong> subject: here we present the sugya and the concepts, never ruling on a personal case.</p>
 
@@ -512,7 +555,7 @@
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s1">
-אִשָּׁה שֶׁיָּצָא דָּם מִמְּקוֹרָהּ — בֵּין בְּאֹנֶס בֵּין בְּרָצוֹן — טְמֵאָה, וְהוּא שֶׁתַּרְגִּישׁ בִּיצִיאָתוֹ; וּמִיהוּ מִשֶּׁתַּרְגִּישׁ בּוֹ שֶׁנֶּעֱקַר מִמְּקוֹמוֹ וְיָצָא — טְמֵאָה, אַף עַל פִּי שֶׁלֹּא יָצָא לַחוּץ; וַאֲפִלּוּ לֹא רָאֲתָה אֶלָּא טִפַּת דָּם כְּחַרְדָּל — יוֹשֶׁבֶת עָלָיו שִׁבְעָה נְקִיִּים. <span class="he-q">(הגה: כַּאֲשֶׁר יִתְבָּאֵר מִשְׁפָּטָן לְקַמָּן סִימָן קצ״ו; וְאֵין חִלּוּק בֵּין פְּנוּיָה לִנְשׂוּאָה לְעִנְיַן אִסּוּר נִדָּה (רִיב״ש סִימָן תכ״ב מְבִיאוֹ ב״י), כִּי כָּל הַבָּא עַל הַנִּדָּה חַיָּב כָּרֵת.)</span>
+<b>אשה שרואה טיפת דם צריכה לישב ז' נקיים. ובו סעיף אחד:</b><br> אשה שיצא דם ממקורה בין באונס בין ברצון טמאה והוא שתרגיש ביציאתו ומיהו משתרגיש בו שנעקר ממקומו ויצא טמאה אע"פ שלא יצא לחוץ ואפי' לא ראתה אלא טיפת דם כחרדל יושבת עליו ז' נקיים: <small>הגה כאשר יתבאר משפטן לקמן סי' קצ"ו ואין חילוק בין פנויה לנשואה לענין איסור נדה (ריב"ש סימן תכ"ב מביאו ב"י) כי כל הבא על הנדה חייב כרת:</small>
 </blockquote>
 
 <div class="translation">
@@ -652,7 +695,8 @@ The distinction <strong>דם המקור / דם מכה</strong> (blood of the sou
 <strong>The Pitchei Teshuva</strong> (פתחי תשובה) — a compilation by Rabbi Avraham Tzvi Hirsch Eisenstadt (19th century) that gathers, in the margins of the Shulchan Aruch, the rulings of the responsa (שו״ת) of the Acharonim. It is a precious guide linking the base text to the later practical literature.
 </div>
 
-<blockquote class="text-source" data-copy-block id="cp-pt1">
+<blockquote class="text-compose" data-copy-block id="cp-pt1">
+<span class="compose-marque"><em>exposition</em> — DAAT’s own teaching formulation, not the words of the Shulchan Arukh</span>
 שָׁלֹשׁ מִינֵי הַרְגָּשׁוֹת הֵן : (א) שֶׁנִּזְדַּעְזַע גּוּפָהּ; (ב) שֶׁנִּפְתַּח מְקוֹרָהּ; (ג) שֶׁתַּרְגִּישׁ דָּבָר לַח זָב מִמֶּנָּה.
 </blockquote>
 

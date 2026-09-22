@@ -166,6 +166,25 @@ python3 scripts/fix-liens-langue.py [--dry-run]   # ne réécrit jamais vers une
 # (264 séifim absents en Orah Haïm, 104 en Yoré Déa), dont 28 sans le déclarer.
 python3 scripts/verifier-couverture-encadres.py --section orah-haim [--bref] [N …]
 
+# Garde-fou de dénombrement — la page COMPTE-t-elle juste ? « c'est le seul séif
+# où… », « l'un des trois plus longs », « son plus long ס״ק ». Cinq de ces phrases
+# étaient fausses sur le seul siman 234, les neuf autres portes vertes : aucune
+# citation n'était fausse, c'est la phrase qui les compte qui l'était. Trois
+# verdicts qui ne se valent pas — FAUX (le nombre annoncé n'est pas celui de la
+# source) et DÉSACCORD (les trois langues ne disent pas le même nombre) sortent
+# en 1 ; À VÉRIFIER liste ce qu'aucune machine ne tranche, et ne bloque jamais.
+python3 scripts/verifier-denombrements.py [--path …] [--a-verifier] [--bref]
+
+# Garde-fou d'ancrage — l'entrée d'appareil est-elle rattachée au BON séif ?
+# « le psak du Taz ס״ק י״ח (seif 7) » promet au lecteur de l'y trouver ; au siman 119
+# ce ס״ק est ancré au séif 19. verifier-citations.py ne le voit pas : il confronte le
+# verbatim, qui est exact, et ne regarde pas où le ס״ק est posé. La vérité est l'ancre
+# <i data-commentator="…" data-order="N"> que Sefaria place DANS le texte du Choul'han
+# Aroukh. Rend des CANDIDATS et sort toujours en 0 — une page peut citer le ס״ק d'un
+# autre séif quand il éclaire le sien. Ce qui compte : l'écart isolé, à ouvrir, et
+# l'écart SYSTÉMATIQUE, tout un siman décalé, qui est le piège de la règle 22-bis.
+python3 scripts/verifier-ancrage.py [N N …] [--path …]
+
 # Generate a siman's index page from data/simanim/siman-XXX.json (does NOT generate study levels — those are written by hand)
 node scripts/generate-siman.js --siman XXX [--force] [--no-sitemap]
 ```
@@ -185,6 +204,51 @@ A fourth gate watches what those three structurally cannot see. The four halakhi
 
 - `verifier-classes.py` — la classe employée est-elle définie quelque part d'atteignable ? 87 pages ne l'avaient pas, dans les trois compartiments. Le bloc n'y était pas mal mis en page, il ne l'était pas du tout : deux colonnes nues avec l'hébreu dans le sens du français, des tableaux de psak où « Interdit » et « Permis » s'affichaient en noir, et — le plus grave — des gloses `<small>` que Sefaria insère À L'INTÉRIEUR des seifim, rendues à la taille du texte principal et donc indistinguables de la parole du Mehaber.
 - `verifier-liens-langue.py` — le lien mène-t-il à la page de la même langue ? **1 841 liens** ne le faisaient pas. `verifier-liens.py` sortait vert : le fichier visé existe parfaitement, c'est le fichier français. Le défaut a deux formes, relative et absolue, et j'ai corrigé trois cas de la seconde à la main sur un lot avant de découvrir qu'il y en avait 224.
+
+**Un dixième est né en produisant Yoré Déa 229-234**, du premier lot jamais soumis à une
+relecture adversariale — laquelle a trouvé **26 défauts les neuf autres portes vertes** :
+
+- `verifier-denombrements.py` — **la page compte-t-elle juste ?** Le siman 234 affirmait
+  cinq dénombrements dont aucun n'était exact : « l'un des trois plus longs de tout Yoré Déa »
+  (il est quatrième, derrière les simanim 331, 267 et 201), « le plus long ס״ק du Taz »
+  (il est troisième), « le seif le plus long après le 5 » (le 5 est quatrième), « l'un des
+  deux endroits où les Nekoudot HaKessef défendent le Rama » (une seule des cinq entrées le
+  fait), « LES deux endroits où l'appareil s'arrête sur un צריך עיון » (il y en a quatorze).
+  Aucune citation n'était fausse ; le verbatim était exact, la langue juste, la structure
+  saine. **Corollaire appris au premier tour de correction : remplacer une affirmation
+  absolue fausse par une énumération fermée également fausse n'est pas une correction.**
+  D'où le choix de signaler aussi les énumérations fermées, et de préférer partout une
+  forme ouverte (« notamment aux seifim 22, 49, 51 et 57 ») — ou de ne rien écrire.
+- `verifier-ancrage.py` — **le ס״ק cité est-il sur le séif annoncé ?** Portée volontairement
+  étroite, et il faut le dire : les pages énoncent rarement le couple ס״ק/séif, si bien que
+  101 rattachements seulement sont confrontables sur les 424 simanim. 91 sont conformes,
+  **10 ne le sont pas** — dont le Taz ס״ק י״ח du siman 119, donné au séif 7 dans les trois
+  langues quand son ancre le pose au séif 19, et quatre écarts présents dans la seule page
+  HÉBRAÏQUE, c'est-à-dire là où l'hébreu dit ce que le français ne dit pas. Candidats déposés
+  dans `audit/ancrage-candidats.txt` ; aucune page n'a été modifiée.
+
+Ce contrôle a été **beaucoup plus difficile à rendre juste qu'à écrire**, et la leçon vaut
+d'être gardée : son premier essai rendait **118 « FAUX » sur le seul siman 228, tous
+imaginaires**. Quatre causes, toutes instructives :
+1. en hébreu, tout mot court devient un nombre si on le lit en guématrie — `בכל` valait 52,
+   `אלו` 37 ; d'où l'exigence du gershayim ;
+2. `ושמונה` contient `מונה` : sans frontière de mot hébraïque, « deux cent dix-huit séifim
+   de l'Aroukh HaChoul'han » passait pour un dénombrement du Choul'han Aroukh ;
+3. **la proximité du mot « siman » ne prouve pas qu'on compte le siman** — « The two seifim
+   say one thing in two ways » était confronté aux six séifim du siman 182 parce que le mot
+   traînait dans la phrase suivante ; seuls un verbe de dénombrement ou un possessif comptent ;
+4. et surtout : **une citation n'affirme pas, elle rapporte**. Le chapeau du siman 234 annonce
+   `ובו ע״ב סעיפים` — soixante-douze — quand l'édition suivie en découpe soixante-quatorze,
+   et la page le dit noir sur blanc. Lui reprocher ce nombre, c'était lui reprocher la source.
+   Sont donc exempts : le contenu entre « … », les `div.translation` et `.comment-source`,
+   la formule `ובו … סעיפים` partout où elle paraît (c'est la formule du livre), et tout
+   nombre attribué au chapeau (« Titre du siman : … et il comporte cinq seifim », siman 164).
+
+Après resserrement : **204 dénombrements réellement confrontés à la source sur les 148
+simanim de Yoré Déa, zéro faux, zéro désaccord entre langues** — et 6 104 formulations
+rendues au relecteur. Le compte des confrontations est imprimé exprès : une porte qui ne
+compare rien et sort verte est pire qu'une porte absente.
+
 
 La leçon commune à ces deux-là, et elle vaut d'être retenue : **un correctif appliqué à la main sur les cas qu'on a vus n'est pas un correctif**. `fix-two-col.py` a réparé 27 pages ; le même défaut est revenu la semaine suivante sous une autre classe, puis sous la forme d'un lien. Chaque fois qu'un agent signale un défaut « local », mesurer d'abord son étendue réelle — elle a été plus grande que le signalement dans tous les cas sans exception.
 

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="daat-section" content="yoreh-deah">
 <title>Siman קפ״ד — Perisha avant la période (וסתות) | DAAT</title>
-<meta name="description" content="Niveau 1 (Base) du Siman קפ״ד de Yoreh De'ah — se séparer une עונה avant la période : le וסת קבוע et la bedika (Rambam, Rama « כל המרבה לבדוק משובחת »), le וסת תלוי בימים et le וסת תלוי בשינוי הגוף, l'exemption grossesse et allaitement, le pokeid avant un voyage. Texte hébreu vocalisé des 12 seifim avec traduction française fluide, concepts-clés et cas pratiques.">
+<meta name="description" content="Niveau 1 (Base) du Siman קפ״ד de Yoreh De'ah — se séparer une עונה avant la période : le וסת קבוע et la bedika (Rambam, Rama « כל המרבה לבדוק הרי זו משובחת »), le וסת תלוי בימים et le וסת תלוי בשינוי הגוף, l'exemption grossesse et allaitement, le pokeid avant un voyage. Texte hébreu vocalisé des 12 seifim avec traduction française fluide, concepts-clés et cas pratiques.">
 <meta name="author" content="Rav Yossef Haim Samama">
 <link rel="canonical" href="https://daattorah.com/yd/184/base">
   <link rel="alternate" hreflang="fr" href="https://daattorah.com/yd/184/base">
@@ -230,6 +230,28 @@
   .page-break { page-break-before: always; }
   hr.ornament { border: none; text-align: center; margin: 20px 0; }
   hr.ornament::before { content: "✦ ❖ ✦"; color: #C5A55A; font-size: 13pt; }
+
+  blockquote.text-resume {
+    background: #f7f5f2;
+    border-right: 4px dashed #b9a06a;
+    direction: rtl;
+    text-align: right;
+    margin: 10px 0;
+    padding: 10px 15px;
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 12pt;
+    font-style: italic;
+  }
+
+  blockquote.text-resume .resume-marque {
+    display: block;
+    direction: inherit;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: normal;
+    font-size: 10pt;
+    color: #7a6a44;
+    margin-bottom: 6px;
+  }
 
   blockquote.text-source {
     background: #faf8f0;
@@ -467,7 +489,7 @@
   <div class="ornament">✦ ❖ ✦</div>
 
   <p style="font-size: 11pt; color: #555; max-width: 500px; margin: 30px auto;">
-  Première approche du Siman 184 : les 12 seifim du Mehaber et les gloses du Rama, texte hébreu vocalisé et traduction française fluide. Pourquoi et comment se séparer une עונה (un demi-jour) avant la période ? Le rôle du וסת קבוע (cycle fixe), de la bedika (Rambam, Rama « כל המרבה לבדוק משובחת »), de la distinction entre le וסת תלוי בימים et le וסת תלוי בשינוי הגוף, de l'exemption pendant la grossesse et l'allaitement (24 mois), et du pokeid (la pekida) avant un voyage. Sujet intime et grave : nous exposons la sougya, sans jamais trancher un cas personnel.
+  Première approche du Siman 184 : les 12 seifim du Mehaber et les gloses du Rama, texte hébreu vocalisé et traduction française fluide. Pourquoi et comment se séparer une עונה (un demi-jour) avant la période ? Le rôle du וסת קבוע (cycle fixe), de la bedika (Rambam, Rama « כל המרבה לבדוק הרי זו משובחת »), de la distinction entre le וסת תלוי בימים et le וסת תלוי בשינוי הגוף, de l'exemption pendant la grossesse et l'allaitement (24 mois), et du pokeid (la pekida) avant un voyage. Sujet intime et grave : nous exposons la sougya, sans jamais trancher un cas personnel.
   </p>
 
   <div class="credits">
@@ -503,6 +525,7 @@
 <!-- 1. TEXTE DU MEHABER -->
 <!-- ========================================== -->
 <h2 id="exp-seifim" class="section-title">1. Le texte du Mehaber — les 12 seifim</h2>
+<div class="key-point"><strong>Avis de lecture.</strong> Les blocs hébreux de cette section sont des <em>résumés</em>, pas le texte du Choul’han Aroukh dans sa lettre : ils en condensent la substance et n’en reprennent pas toutes les clauses. La restitution du texte intégral, séif par séif et dans l’ordre du livre, est en cours. Pour la lettre exacte, se reporter à la source.</div>
 
 <p>Le Siman 184 s'inscrit au cœur des <strong>lois de la Nidah</strong> (טהרת המשפחה) et ouvre la grande matière des <strong>וסתות</strong> — les cycles par lesquels une femme prévoit l'arrivée de sa période. Le principe central : au moment où l'on attend le וסת, il faut <strong>se séparer une עונה</strong> (un demi-jour) auparavant, par crainte que le sang ne survienne pendant le tashmish. Le Mehaber (Rabbi Yossef Karo) énonce la règle et ses cas ; le Rama (Rabbi Moshe Isserles) ajoute ses gloses (<span class="he-q">הגה</span>) pour l'usage. C'est un sujet <strong>intime et grave</strong> : nous exposons ici la sougya et les notions, sans jamais trancher un cas personnel. Découvrons les seifim par groupes.</p>
 
@@ -514,15 +537,17 @@
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s1">
-רֹב הַנָּשִׁים יֵשׁ לָהֶן וְסָתוֹת <span class="he-q">(פֵּרוּשׁ זְמַן קָבוּעַ אֹרַח כְּנָשִׁים)</span> לִרְאוֹת בִּזְמַן יָדוּעַ, כְּגוֹן מֵעֶשְׂרִים לְעֶשְׂרִים יוֹם אוֹ מִשְּׁלֹשִׁים לִשְׁלֹשִׁים יוֹם. וְכָל אִשָּׁה שֶׁיֵּשׁ לָהּ וֶסֶת קָבוּעַ — בָּא עָלֶיהָ שֶׁלֹּא בִּשְׁעַת וִסְתָּהּ, וְאֵינָהּ צְרִיכָה בְּדִיקָה לִפְנֵי תַּשְׁמִישׁ <span class="he-q">(רַמְבַּ״ם)</span>. <span class="he-q">(הגה: גַּם אֵין לָהּ לְהַחְמִיר לִבְדֹּק עַצְמָהּ לֹא לִפְנֵי תַּשְׁמִישׁ וְלֹא לְאַחַר תַּשְׁמִישׁ, שֶׁלֹּא יְהֵא לִבּוֹ נוֹקְפוֹ וּפוֹרֵשׁ (טוּר וּמָרְדְּכַי רֵישׁ הִלְכוֹת נִדָּה וְרֹב הַפּוֹסְקִים); אֲבָל שֶׁלֹּא בִּשְׁעַת תַּשְׁמִישׁ — כָּל הַמַּרְבָּה לִבְדֹּק הֲרֵי זוֹ מְשֻׁבַּחַת.)</span>
+<b>שצריך לפרוש מהאשה עונה קודם לוסתה. ובו י"ב סעיפים:</b><br> רוב הנשים יש להם וסתות <small>(פי' זמן קבוע אורח כנשים) </small>לראות בזמן ידוע כגון מעשרים לעשרים יום או מל' לל' יום וכל אשה שיש לה וסת קבוע בא עליה שלא בשעת וסתה ואינה צריכה בדיקה לפני תשמיש <small>(רמב"ם)</small> :<small>הגה גם אין לה להחמיר לבדוק עצמה לא לפני תשמיש ולא לאחר תשמיש שלא יהא לבו נוקפו ופורש (טור ומרדכי ריש הל' נדה ורוב הפוסקים) </small>אבל שלא בשעת תשמיש כל המרבה לבדוק הרי זו משובחת:
 </blockquote>
 
 <div class="translation">
-<strong>La plupart des femmes ont un וסת</strong> <em>(c'est-à-dire un temps fixe, « l'ordinaire des femmes »)</em> : voir à un moment connu, par exemple <strong>de vingt en vingt jours</strong> ou <strong>de trente en trente jours</strong>. Et toute femme qui a un <strong>וסת קבוע (cycle fixe)</strong> — on peut s'unir à elle <strong>hors du temps de son וסת sans bedika</strong> (vérification) avant le tashmish (Rambam). <em>Glose du Rama :</em> elle <strong>ne doit même pas être stringente</strong> à se vérifier ni avant ni après le tashmish, <strong>pour que le cœur ne lui fasse pas scrupule au point qu'il se sépare</strong> (שלא יהא לבו נוקפו ופורש) ; <strong>mais en dehors du temps du tashmish, « celle qui multiplie les bedikot est louable » (כל המרבה לבדוק הרי זו משובחת)</strong>.
+<em>Chapeau du siman</em> — <strong>Qu'il faut se séparer de la femme une עונה avant son וסת ; et il comporte douze séifim.</strong>
+<br><br>
+<strong>La plupart des femmes ont un וסת</strong> <em>(c'est-à-dire un temps fixe, « l'ordinaire des femmes »)</em> : voir à un moment connu, par exemple <strong>de vingt en vingt jours</strong> ou <strong>de trente en trente jours</strong>. Et toute femme qui a un <strong>וסת קבוע (cycle fixe)</strong> — on peut s'unir à elle <strong>hors du temps de son וסת sans bedika</strong> (vérification) avant le tashmish (Rambam). <em>Glose du Rama :</em> elle <strong>ne doit même pas être stringente</strong> à se vérifier ni avant ni après le tashmish, <strong>pour que le cœur ne lui fasse pas scrupule au point qu'il se sépare</strong> (שלא יהא לבו נוקפו ופורש). <em>Suite de la glose du Rama :</em> <strong>mais en dehors du temps du tashmish, כל המרבה לבדוק הרי זו משובחת</strong> — celle qui multiplie les bedikot est louable.
 </div>
 
 <div class="key-point">
-<strong>L'idée centrale :</strong> un <strong>וסת קבוע</strong> est une présomption fiable — tant qu'on est <em>hors</em> de la date attendue, on n'a pas à craindre un saignement, et le Rambam dispense de bedika avant le tashmish. Le Rama va plus loin : ne pas se vérifier <em>au moment</em> du tashmish, pour préserver la sérénité du couple. Mais <em>en dehors</em> de ce moment, la vérification reste une vertu — « כל המרבה לבדוק משובחת ». Pour la pratique, consulte ton Rav ou une yoetzet.
+<strong>L'idée centrale :</strong> un <strong>וסת קבוע</strong> est une présomption fiable — tant qu'on est <em>hors</em> de la date attendue, on n'a pas à craindre un saignement, et le Rambam dispense de bedika avant le tashmish. Le Rama va plus loin : ne pas se vérifier <em>au moment</em> du tashmish, pour préserver la sérénité du couple. Mais <em>en dehors</em> de ce moment, la vérification reste une vertu — « כל המרבה לבדוק הרי זו משובחת ». Pour la pratique, consulte ton Rav ou une yoetzet.
 </div>
 
 <h4>Seif 2 — בשעת וסתה : se séparer une עונה, du seul tashmish
@@ -530,7 +555,7 @@
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s2">
-בִּשְׁעַת וִסְתָּהּ צָרִיךְ לִפְרֹשׁ מִמֶּנָּה עוֹנָה אַחַת, וְלֹא מִשְּׁאָר קְרִיבוֹת אֶלָּא מִתַּשְׁמִישׁ הַמִּטָּה בִּלְבַד. אִם הוּא בַּיּוֹם — פּוֹרֵשׁ מִמֶּנָּה אוֹתוֹ הַיּוֹם כֻּלּוֹ, אֲפִלּוּ אִם הַוֶּסֶת בְּסוֹפוֹ, וּמֻתָּר מִיָּד בַּלַּיְלָה שֶׁלְּאַחֲרָיו; וְכֵן אִם הוּא בִּתְחִלָּתוֹ — פּוֹרֵשׁ כָּל הַיּוֹם וּמֻתָּר כָּל הַלַּיְלָה שֶׁלְּפָנָיו; וְכֵן הַדִּין אִם הוּא בַּלַּיְלָה — פּוֹרֵשׁ כָּל הַלַּיְלָה וּמֻתָּר בַּיּוֹם שֶׁלְּפָנָיו וּלְאַחֲרָיו; בֵּין שֶׁקָּבְעָה וֶסֶת בְּג׳ פְּעָמִים בֵּין בְּפַעַם אַחַת. <span class="he-q">(הגה: וְכָל זֶה לֹא מַיְירֵי אֶלָּא בְּוֶסֶת הַתָּלוּי בְּיָמִים, אֲבָל לֹא בְּוֶסֶת הַתָּלוּי בְּשִׁנּוּי הַגּוּף (ב״י בְּשֵׁם הָרַאֲבַ״ד), וְעַיֵּן לְעֵיל סִימָן קפ״ט; וְאִשָּׁה שֶׁמְּשַׁנָּה וִסְתָּהּ לְהַקְדִּים ב׳ אוֹ ג׳ יָמִים אוֹ לְאַחֵר — כְּשֶׁמַּגִּיעַ זְמַן וִסְתָּהּ צְרִיכָה לִפְרֹשׁ מִמֶּנָּה ב׳ אוֹ ג׳ יָמִים קֹדֶם אוֹ אַחֲרָיו (הַגָּהוֹת מַיְימוֹנִי פ״א דְּהִלְכוֹת אִסּוּרֵי בִּיאָה), וְעַיֵּן לְעֵיל סִימָן קפ״ט.)</span>
+בשעת וסתה צריך לפרוש ממנה עונה אחת ולא משאר קריבות אלא מתשמיש <small>(המטה) </small>בלבד אם הוא ביום פורש ממנה אותו היום כולו אפי' אם הוסת בסופו ומותר מיד בלילה שלאחריו וכן אם הוא בתחילתו פורש כל היום ומותר כל הלילה שלפניו וכן הדין אם הוא בלילה פורש כל הלילה ומותר ביום שלפניו ולאחריו בין שקבעה וסת בג"פ או בפ"א: <small>הגה וכל זה לא מיירי אלא בוסת התלוי בימים אבל לא בוסת התלוי בשינוי הגוף (ב"י בשם הראב"ד) וע"ל סימן קפ"ט ואשה שמשנית וסתה להקדים ב' או ג' ימים או לאחר כשמגיע זמן וסתה צריך לפרוש ממנה ב' או ג' ימים קודם או אחריו (הגהות מיימוני פ"א דהלכות איסורי ביאה) וע"ל סי' קפ"ט:</small>
 </blockquote>
 
 <div class="translation">
@@ -550,7 +575,7 @@
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s3">
-בַּמֶּה דְּבָרִים אֲמוּרִים — בִּגְדוֹלָה; אֲבָל בִּקְטַנָּה שֶׁלֹּא הִגִּיעָה לִימֵי הַנְּעוּרִים וְלֹא הֵבִיאָה סִימָנִים, אֵין צָרִיךְ לִפְרֹשׁ סָמוּךְ לְוִסְתָּהּ כָּל זְמַן שֶׁלֹּא קְבָעַתּוּ ג׳ פְּעָמִים. וְהוּא הַדִּין לִזְקֵנָה שֶׁנִּסְתַּלְּקוּ דָּמֶיהָ.
+במה דברים אמורים בגדולה אבל בקטנה שלא הגיעה לימי הנעורים ולא הביאה סימנים אין צריך לפרוש סמוך לוסתה כל זמן שלא קבעתו ג"פ והוא הדין לזקנה שנסתלקו דמיה:
 </blockquote>
 
 <div class="translation">
@@ -571,7 +596,7 @@ Tout cela n'est dit que pour une <strong>גדולה</strong> (femme adulte étab
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s4">
-אִם רְגִילָה לִרְאוֹת בְּהָנֵץ הַחַמָּה, וְלֹא קַיְימָא לָן שַׁפִּיר אִי קֹדֶם הָנֵץ הַחַמָּה אוֹ אַחֲרָיו — אֵינָהּ אֲסוּרָה אֶלָּא בַּיּוֹם.
+אם רגילה לראות בהנץ החמה ולא קים לן שפיר אי קודם הנץ החמה או אחריו אינה אסורה אלא ביום:
 </blockquote>
 
 <div class="translation">
@@ -587,7 +612,7 @@ Si elle a coutume de voir <strong>au lever du soleil</strong> (בהנץ החמה
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s5">
-אִם רְגִילָה לִרְאוֹת רְאִיָּה מִקֹּדֶם הָנֵץ הַחַמָּה עַד אַחַר הָנֵץ הַחַמָּה — אֲסוּרָה בַּלַּיְלָה וּבַיּוֹם כְּשִׁעוּר הַנִּמְשָׁךְ בּוֹ.
+אם רגילה לראות ראייה מקודם הנץ החמה עד אחר הנץ החמה אסורה בלילה וביום כשיעור הנמשך בו:
 </blockquote>
 
 <div class="translation">
@@ -603,7 +628,7 @@ Si elle a coutume de voir <strong>une vue (réiya) qui se prolonge d'avant le le
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s6">
-אִם וֶסֶת נִמְשָׁךְ ב׳ אוֹ ג׳ יָמִים, שֶׁשּׁוֹפַעַת אוֹ מְזַלֶּפֶת — אֵינָהּ צְרִיכָה לִפְרֹשׁ אֶלָּא עוֹנָה הָרִאשׁוֹנָה שֶׁל הַוֶּסֶת; וְכֵיוָן שֶׁעָבְרָה עוֹנָה וְלֹא רָאֲתָה — מֻתֶּרֶת.
+אם וסת נמשך ב' או ג' ימים ששופעת או מזלפת אינה צריכה לפרוש אלא עונה הראשונה של הוסת וכיון שעברה עונה ולא ראתה מותרת:
 </blockquote>
 
 <div class="translation">
@@ -624,7 +649,7 @@ Si le וסת <strong>se prolonge sur deux ou trois jours</strong> — qu'elle <s
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s7">
-אִם הִגִּיעַ וִסְתָּהּ בִּימֵי עִבּוּרָהּ — מִשֶּׁהֻכַּר עֻבָּרָהּ — אוֹ בִּימֵי מֵנִקְתָּהּ שֶׁהֵם כ״ד חֳדָשִׁים מִשֶּׁנּוֹלַד הַוָּלָד, אֲפִלּוּ מֵת הַוָּלָד — אֵין צָרִיךְ לִפְרֹשׁ סָמוּךְ לְוִסְתָּהּ, וַאֲפִלּוּ בְּתוֹךְ וִסְתָּהּ מֻתֶּרֶת בְּלֹא בְּדִיקָה <span class="he-q">(וְעַיֵּן לְעֵיל סוֹף סִימָן קפ״ט)</span>.
+אם הגיע וסתה בימי עיבורה משהוכר עוברה או בימי מניקתה שהם כ"ד חדשים משנולד הולד אפי' מת הולד א"צ לפרוש סמוך לוסתה ואפי' בתוך וסתה מותרת בלא בדיקה <small>(וע"ל סוף סי' קפ"ט):</small>
 </blockquote>
 
 <div class="translation">
@@ -644,11 +669,11 @@ Si son וסת arrive <strong>pendant les jours de sa grossesse</strong> — <str
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s8">
-הָיְתָה נֶחְבֵּית בְּמַחֲבֵא מִפְּנֵי פַּחַד, וְהִגִּיעַ שְׁעַת וִסְתָּהּ — אֵינָהּ חוֹשֶׁשֶׁת לוֹ. <span class="he-q">(הגה: וְיֵשׁ אוֹמְרִים דַּוְקָא אִם עָבַר הַוֶּסֶת וְלֹא בָּדְקָה וְלֹא הִרְגִּישָׁה — טְהוֹרָה בְּלֹא בְּדִיקָה; אֲבָל לְכַתְּחִלָּה צְרִיכָה בְּדִיקָה (כָּךְ מַשְׁמַע בְּב״י).)</span>
+היתה נחבית במחבא מפני פחד והגיע שעת וסתה אינה חוששת לו: <small>הגה וי"א דוקא אם עבר הוסת ולא בדקה ולא הרגישה טהורה בלא בדיקה אבל לכתחלה צריכה בדיקה (כך משמע בב"י):</small>
 </blockquote>
 
 <div class="translation">
-Si elle était <strong>cachée dans une cachette par peur (מפני פחד)</strong> et que le temps de son וסת est arrivé — <strong>elle ne s'en inquiète pas</strong> (אינה חוששת לו), car la frayeur peut écarter le sang. <em>Glose du Rama :</em> <strong>certains disent</strong> : seulement <strong>après coup</strong> (bediavad) — si le וסת est passé sans qu'elle se soit vérifiée ni n'ait rien ressenti, elle est טהורה sans bedika ; <strong>mais a priori (לכתחילה) elle doit se vérifier</strong>.
+Si elle était <strong>cachée dans une cachette par peur (מפני פחד)</strong> et que le temps de son וסת est arrivé — <strong>elle ne s'en inquiète pas</strong> (אינה חוששת לו). <em>Glose du Rama :</em> <strong>certains disent</strong> : seulement <strong>après coup</strong> (bediavad) — si le וסת est passé sans qu'elle se soit vérifiée ni n'ait rien ressenti, elle est טהורה sans bedika ; <strong>mais a priori (לכתחילה) elle doit se vérifier</strong>.
 </div>
 
 <div class="key-point">
@@ -660,15 +685,15 @@ Si elle était <strong>cachée dans une cachette par peur (מפני פחד)</str
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s9">
-שְׁאָר נָשִׁים צְרִיכוֹת בְּדִיקָה כְּשֶׁיַּגִּיעַ הַוֶּסֶת. עָבַר הַוֶּסֶת וְלֹא בָּדְקָה וְלֹא הִרְגִּישָׁה — טְהוֹרָה בְּלֹא בְּדִיקָה. <span class="he-q">(וְיֵשׁ אוֹמְרִים שֶׁאֲסוּרָה עַד שֶׁתִּבְדֹּק, אִם יֵשׁ לָהּ וֶסֶת קָבוּעַ אוֹ שֶׁהוּא יוֹם ל׳ אַף עַל פִּי שֶׁאֵינוֹ קָבוּעַ (וְהָכִי נָהוּג, וְכֵן הוּא לְקַמָּן סִימָן קפ״ט).)</span>
+שאר נשים צריכות בדיקה כשיגיע הוסת עבר הוסת ולא בדקה ולא הרגישה טהורה בלא בדיקה וי"א שאסורה עד שתבדוק אם יש לה וסת קבוע או שהוא יום ל' אע"פ שאינו קבוע <small>(והכי נהוג וכן הוא לקמן סימן קפ"ט):</small>
 </blockquote>
 
 <div class="translation">
-<strong>Les autres femmes</strong> (qui ne sont ni enceintes ni allaitantes ni cachées par peur) <strong>doivent une bedika lorsque le וסת arrive</strong>. <strong>Si le וסת est passé sans qu'elle se soit vérifiée ni n'ait rien ressenti — elle est טהורה sans bedika</strong>. <em>Certains disent</em> qu'elle est <strong>interdite jusqu'à ce qu'elle se vérifie</strong>, si elle a un <strong>וסת קבוע</strong> ou si c'est le <strong>jour 30</strong> (יום ל׳), même non fixé — <strong>et tel est l'usage</strong> (והכי נהוג ; cf. Siman 189).
+<strong>Les autres femmes</strong> (qui ne sont ni enceintes ni allaitantes ni cachées par peur) <strong>doivent une bedika lorsque le וסת arrive</strong>. <strong>Si le וסת est passé sans qu'elle se soit vérifiée ni n'ait rien ressenti — elle est טהורה sans bedika</strong>. <em>Certains disent</em> qu'elle est <strong>interdite jusqu'à ce qu'elle se vérifie</strong>, si elle a un <strong>וסת קבוע</strong> ou si c'est le <strong>jour 30</strong> (יום ל׳), même non fixé. <em>Glose du Rama :</em> <strong>et tel est l'usage</strong> (והכי נהוג), et il en va de même plus loin au Siman 189.
 </div>
 
 <div class="key-point">
-<strong>Le point pratique :</strong> au temps du וסת, la bedika est requise. Le Mehaber : si elle l'a oubliée et n'a rien ressenti, elle reste טהורה. L'usage tranché (י״א, והכי נהוג) est plus strict pour un <strong>וסת קבוע</strong> ou le <strong>jour 30</strong> : interdite jusqu'à vérification. Le détail relève du Siman 189 — consulte ton Rav.
+<strong>Le point pratique :</strong> au temps du וסת, la bedika est requise. Le Mehaber : si elle l'a oubliée et n'a rien ressenti, elle reste טהורה ; puis il rapporte un <strong>י״א</strong> plus strict pour un <strong>וסת קבוע</strong> ou le <strong>jour 30</strong> — interdite jusqu'à vérification — et le Rama ajoute que tel est l'usage (והכי נהוג). Le détail relève du Siman 189 — consulte ton Rav.
 </div>
 
 <div class="page-break"></div>
@@ -681,15 +706,15 @@ Si elle était <strong>cachée dans une cachette par peur (מפני פחד)</str
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s10">
-הָרוֹצֶה לָצֵאת לַדֶּרֶךְ — צָרִיךְ לִפְקֹד אֶת אִשְׁתּוֹ אֲפִלּוּ סָמוּךְ לְוִסְתָּהּ. <span class="he-q">(הגה: וַאֲפִלּוּ בְּתַשְׁמִישׁ שָׁרֵי (טוּר בְּשֵׁם י״א וב״י בְּשֵׁם רַשִׁ״י וְרַאֲבַ״ד וְרַשְׁבָּ״א וְר׳ יְרוּחָם), וּמִכָּל מָקוֹם הַמַּחְמִיר שֶׁלֹּא לְפָקְדָהּ רַק בְּדִבְרֵי רִצּוּי תָּבֹא עָלָיו בְּרָכָה (ב״י בְּשֵׁם סְמַ״ג); וּכְבָר נִתְבָּאֵר דְּכָל מִינֵי קֻרְבָה וְאַהֲבָה שָׁרֵי מִלְּבַד תַּשְׁמִישׁ; וְאִם הוֹלֵךְ לִדְבַר מִצְוָה — אֵין צָרִיךְ לִפְקֹד אֶת אִשְׁתּוֹ (הַמ״מ פ״ד דְּאִסּוּרֵי בִּיאָה וּבְהַגָּהוֹת ש״ד); וְיֵשׁ אוֹמְרִים אִם אָדָם רוֹצֶה לֵילֵךְ לַדֶּרֶךְ וְאִשְׁתּוֹ נִדָּה וְתִטְבֹּל תּוֹךְ עוֹנָה אַחַת — צָרִיךְ לְהַמְתִּין (נ״י פֶּרֶק הַבָּא עַל יְבִמְתּוֹ).)</span>
+הרוצה לצאת לדרך צריך לפקוד אשתו אפילו סמוך לוסתה: <small>הגה ואפילו בתשמיש שרי (טור בשם י"א וב"י בשם רש"י וראב"ד ורשב"א ור' ירוחם) ומ"מ המחמיר שלא לפקדה רק בדברי רצוי תע"ב (ב"י בשם סמ"ג) וכבר נתבאר דכל מיני קורבה ואהבה שרי מלבד תשמיש ואם הולך לדבר מצוה א"צ לפקוד אשתו (המ"מ פ"ד דא"ב ובהגהות ש"ד) וי"א אם אדם רוצה לילך לדרך ואשתו נדה ותטבול תוך עונה אחת צריך להמתין (נ"י פרק הבא על יבמתו):</small>
 </blockquote>
 
 <div class="translation">
-<strong>Celui qui veut partir en voyage (לצאת לדרך)</strong> doit <strong>« visiter » sa femme (לפקוד את אשתו)</strong> — c'est-à-dire s'unir à elle avant le départ — <strong>même près de son וסת</strong>. <em>Glose du Rama :</em> et <strong>même le tashmish est permis</strong> (les וסתות sont דרבנן, et « במקום מצוה לא גזרו » : là où il y a mitzvah, on n'a pas décrété) ; <strong>néanmoins, celui qui est stringent</strong> et se contente de <strong>paroles d'apaisement (דברי ריצוי), béni soit-il</strong> (תבוא עליו ברכה) ; toute marque de <strong>proximité et d'affection est permise, hormis le tashmish</strong>. <strong>S'il part pour une mitzvah</strong>, il n'a <strong>pas à « visiter » sa femme</strong>. <strong>Certains disent</strong> : si l'homme veut voyager et que sa femme est <strong>nidda</strong> et pourra <strong>tremper (טובלת) dans l'עונה suivante</strong>, il doit <strong>attendre</strong>.
+<strong>Celui qui veut partir en voyage (לצאת לדרך)</strong> doit <strong>« visiter » sa femme (לפקוד את אשתו)</strong> — c'est-à-dire s'unir à elle avant le départ — <strong>même près de son וסת</strong>. <em>Glose du Rama :</em> et <strong>même le tashmish est permis</strong> ; <strong>néanmoins, celui qui est stringent</strong> et ne la « visite » que par des <strong>paroles d'apaisement (דברי רצוי) — qu'une bénédiction vienne sur lui</strong> (תע״ב, תבוא עליו ברכה). Et <strong>il a déjà été expliqué</strong> que toute marque de <strong>proximité et d'affection est permise, hormis le tashmish</strong>. <strong>S'il part pour une mitzvah</strong>, il n'a <strong>pas à « visiter » sa femme</strong>. <strong>Certains disent</strong> : si l'homme veut voyager et que sa femme est <strong>nidda</strong> et qu'elle <strong>s'immergera dans une עונה</strong> (תוך עונה אחת), il doit <strong>attendre</strong>.
 </div>
 
 <div class="definition">
-<span class="he-q">פוקד אשתו</span> — <strong>« Visiter » sa femme avant un voyage</strong> : il est une mitzvah, pour celui qui part en voyage, de s'unir à sa femme avant le départ (פקידה). C'est l'un des rares cas où, par exception (במקום מצוה לא גזרו), le tashmish est <strong>permis même près du וסת</strong> — car les וסתות sont d'institution rabbinique et l'on n'a pas décrété là où il y a mitzvah.
+<span class="he-q">לפקוד אשתו</span> — <strong>« Visiter » sa femme avant un voyage</strong> : il est une mitzvah, pour celui qui part en voyage, de s'unir à sa femme avant le départ (פקידה). C'est l'un des rares cas où, par exception (במקום מצוה לא גזרו), le tashmish est <strong>permis même près du וסת</strong> — car les וסתות sont d'institution rabbinique et l'on n'a pas décrété là où il y a mitzvah.
 </div>
 
 <div class="key-point">
@@ -701,11 +726,11 @@ Si elle était <strong>cachée dans une cachette par peur (מפני פחד)</str
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s11">
-אִשָּׁה שֶׁיֵּשׁ לָהּ וֶסֶת לְיָמִים לְבַד, וְהִגִּיעַ שְׁעַת וִסְתָּהּ — אָסוּר לָבֹא עָלֶיהָ עַד שֶׁיִּשְׁאָלֶנָּה; וְאִם אֵין לָהּ וֶסֶת — יוֹם ל׳ לִרְאִיָּתָהּ הֲוֵי כְּהִגִּיעַ שְׁעַת וִסְתָּהּ; וְאִם שָׁהֲתָה אַחַר הַוֶּסֶת שִׁעוּר שֶׁתִּסְפֹּר וְתִטְבֹּל — יָבֹא עָלֶיהָ וְאֵין צָרִיךְ לִשְׁאֹל.
+אשה שיש לה וסת לימים לבד והגיע שעת וסת' אסור לבא עליה עד שישאלנ' ואם אין לה וסת יום ל' לראייתה הוי כהגיע שעת וסתה ואם שהתה אחר הוסת שיעור שתספור ותטבול יבא עלי' ואין צריך לשאול:
 </blockquote>
 
 <div class="translation">
-Une femme qui a un <strong>וסת lié aux jours seulement (וסת לימים)</strong>, et dont le temps du וסת est arrivé — il est <strong>interdit de s'unir à elle jusqu'à ce qu'il la consulte (ישאלנה)</strong>, pour savoir si elle s'est vérifiée et est טהורה. <strong>Si elle n'a pas de וסת</strong> fixe — le <strong>jour 30 depuis sa réiya (יום ל׳ לראייתה)</strong> est <strong>comme l'arrivée du temps du וסת</strong>. Mais <strong>si, après le וסת, s'est écoulé le temps de compter (les jours propres) et de tremper</strong>, il peut s'unir à elle <strong>sans avoir à demander</strong>.
+Une femme qui a un <strong>וסת lié aux jours seulement (וסת לימים)</strong>, et dont le temps du וסת est arrivé — il est <strong>interdit de s'unir à elle jusqu'à ce qu'il la consulte (ישאלנה)</strong> — c'est-à-dire qu'il lui demande si elle s'est vérifiée. <strong>Si elle n'a pas de וסת</strong> fixe — le <strong>jour 30 depuis sa réiya (יום ל׳ לראייתה)</strong> est <strong>comme l'arrivée du temps du וסת</strong>. Mais <strong>si, après le וסת, s'est écoulé le temps de compter (les jours propres) et de tremper</strong>, il peut s'unir à elle <strong>sans avoir à demander</strong>.
 </div>
 
 <div class="key-point">
@@ -717,7 +742,7 @@ Une femme qui a un <strong>וסת lié aux jours seulement (וסת לימים)</
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s12">
-הָיָה לָהּ וֶסֶת לְיָמִים <span class="he-q">(טוּר בְּשֵׁם רַשְׁבָּ״א)</span> וְלַוֶּסֶת מִוִּסְתוֹת הַגּוּף <span class="he-q">(ב״י בְּשֵׁם הַגָּהוֹת מַיְימוֹנִי פ״ד בְּשֵׁם רַמְבַּ״ן)</span>, כְּגוֹן קְפִיצָה וְכַיּוֹצֵא בָהּ — כֵּיוָן שֶׁהַוֶּסֶת תָּלוּי בְּמַעֲשֶׂה, אֵימוּר לֹא קָפְצָה וְלֹא רָאֲתָה; אֲבָל חוֹשֶׁשֶׁת לְעוֹנָה בֵּינוֹנִית, שֶׁהִיא ל׳ יוֹם <span class="he-q">(ב״י בְּשֵׁם רַשְׁבָּ״א וְטוּר לְקַמָּן סִימָן קפ״ט)</span>.
+היה לה וסת לימים <small>(טור בשם רשב"א) </small>ולוסת מוסתות הגוף <small>(ב"י בשם הגהות מיי' פ"ד בשם רמב"ן) </small>כגון קפיצה וכיוצא בה כיון שהוסת תלוי במעשה אימור לא קפצה ולא ראתה אבל חוששת לעונה בינונית שהיא ל' יום <small>(ב"י בשם רשב"א וטור לקמן סי' קפ"ט):</small>
 </blockquote>
 
 <div class="translation">
@@ -752,7 +777,7 @@ Si elle avait un <strong>וסת lié aux jours</strong> <em>et</em> un <strong>�
 <tr>
   <td>Faut-il une <strong>bedika</strong> avant le tashmish ?</td>
   <td>Seif 1</td>
-  <td>Non, pour un וסת קבוע hors de sa date (mais « המרבה לבדוק משובחת »)</td>
+  <td>Non, pour un וסת קבוע hors de sa date (mais « כל המרבה לבדוק הרי זו משובחת »)</td>
 </tr>
 <tr>
   <td>Combien de temps <strong>se séparer</strong>, et de quoi ?</td>
@@ -806,7 +831,7 @@ L'idée transversale : tout repose sur des <strong>présomptions (חזקות)</s
 </div>
 
 <div class="definition">
-<span class="he-q">פוקד אשתו</span> — <strong>« Visiter » sa femme avant un voyage</strong> : la mitzvah de pekida (seif 10). Par exception (במקום מצוה לא גזרו), le tashmish y est permis même près du וסת, car les וסתות sont דרבנן.
+<span class="he-q">לפקוד אשתו</span> — <strong>« Visiter » sa femme avant un voyage</strong> : la mitzvah de pekida (seif 10). Par exception (במקום מצוה לא גזרו), le tashmish y est permis même près du וסת, car les וסתות sont דרבנן.
 </div>
 
 <div class="definition">
@@ -890,7 +915,8 @@ L'idée transversale : tout repose sur des <strong>présomptions (חזקות)</s
   <button class="daat-copy" type="button" data-copy-target="#cp-tz">📋 Copier</button>
 </h4>
 
-<blockquote class="text-source" data-copy-block id="cp-tz">
+<blockquote class="text-resume" data-copy-block id="cp-tz">
+<span class="resume-marque"><em>résumé</em> — condensation, non le texte intégral du Choul’han Aroukh</span>
 צָרִיךְ לִפְרֹשׁ מִמֶּנָּה עוֹנָה אַחַת. רוֹצֶה לוֹמַר אוֹתָהּ עוֹנָה שֶׁדַּרְכָּהּ לִרְאוֹת בָּהּ בִּלְבַד, אֲבָל לֹא הָעוֹנָה שֶׁלְּפָנֶיהָ; וְהַיְינוּ בְּוֶסֶת הַתָּלוּי בְּיָמִים.
 </blockquote>
 
@@ -904,7 +930,8 @@ Le Taz précise le sens de « se séparer une עונה » : c'est <strong>l'עו
   <button class="daat-copy" type="button" data-copy-target="#cp-sk14">📋 Copier</button>
 </h4>
 
-<blockquote class="text-source" data-copy-block id="cp-sk14">
+<blockquote class="text-resume" data-copy-block id="cp-sk14">
+<span class="resume-marque"><em>résumé</em> — condensation, non le texte intégral du Choul’han Aroukh</span>
 אֲפִלּוּ בְּתַשְׁמִישׁ שָׁרֵי. דְּהָא וְסָתוֹת דְּרַבָּנַן, וּבִמְקוֹם מִצְוָה לֹא גָזְרוּ; וְהַפְּקִידָה קֹדֶם הַיְּצִיאָה לַדֶּרֶךְ מִצְוָה הִיא.
 </blockquote>
 
@@ -940,7 +967,7 @@ Glose du Rama : <span class="he-q">וכל זה לא מיירי אלא בוסת �
 <h4>Sur le seif 10 — même le tashmish permis pour le partant</h4>
 
 <div class="translation">
-Glose du Rama : <span class="he-q">ואפילו בתשמיש שרי… ומכל מקום המחמיר שלא לפקדה רק בדברי רצוי תבא עליו ברכה… ואם הולך לדבר מצוה אין צריך לפקוד את אשתו</span> — <strong>« même le tashmish est permis… néanmoins celui qui est stringent et se contente de paroles d'apaisement, béni soit-il… et s'il part pour une mitzvah, il n'a pas à visiter sa femme »</strong>. Le Rama équilibre l'indulgence de base (tashmish permis) par une voie de rigueur (דברי ריצוי) et une exception (voyage de mitzvah).
+Glose du Rama : <span class="he-q">ואפילו בתשמיש שרי… ומ״מ המחמיר שלא לפקדה רק בדברי רצוי תע״ב… ואם הולך לדבר מצוה א״צ לפקוד אשתו</span> — <strong>« même le tashmish est permis… néanmoins celui qui est stringent et se contente de paroles d'apaisement, béni soit-il… et s'il part pour une mitzvah, il n'a pas à visiter sa femme »</strong>. Le Rama équilibre l'indulgence de base (tashmish permis) par une voie de rigueur (דברי רצוי) et une exception (voyage de mitzvah).
 </div>
 
 <div class="remember">
@@ -1011,7 +1038,7 @@ Comment savoir quand s'écarter ? Tout repose sur le <strong>suivi du וסת</st
 <h3>Cas 2 — Le pokeid avant un voyage</h3>
 
 <div class="key-point">
-Un mari part en voyage alors que la date du וסת approche (seif 10). La <strong>pekida</strong> — s'unir avant le départ — est une mitzvah, et par exception (במקום מצוה לא גזרו), le tashmish y est <strong>permis même près du וסת</strong>. Mais les limites sont précises : voyage <em>pour une mitzvah</em> (pas de pekida), femme nidda qui trempera bientôt (attendre), voie de rigueur des דברי ריצוי. Avant d'appliquer, consulte ton Rav.
+Un mari part en voyage alors que la date du וסת approche (seif 10). La <strong>pekida</strong> — s'unir avant le départ — est une mitzvah, et par exception (במקום מצוה לא גזרו), le tashmish y est <strong>permis même près du וסת</strong>. Mais les limites sont précises : voyage <em>pour une mitzvah</em> (pas de pekida), femme nidda qui trempera bientôt (attendre), voie de rigueur des דברי רצוי. Avant d'appliquer, consulte ton Rav.
 </div>
 
 <h3>Cas 3 — Grossesse et allaitement</h3>
@@ -1023,7 +1050,7 @@ Une femme enceinte (embryon reconnu) ou qui allaite (dans les 24 mois) est <stro
 <h3>Cas 4 — Les bedikot au temps du וסת</h3>
 
 <div class="key-point">
-Au temps du וסת, une bedika est requise (seif 9), surtout pour un <strong>וסת קבוע</strong> ou le <strong>jour 30</strong> (י״א, והכי נהוג). Hors du tashmish, multiplier les bedikot est une vertu — <strong>« כל המרבה לבדוק הרי זו משובחת »</strong> (seif 1). Mais au <em>moment</em> du tashmish, le Rama décourage l'excès de scrupule, pour la sérénité du couple. Pour savoir quand et comment se vérifier, consulte ton Rav ou une yoetzet.
+Au temps du וסת, une bedika est requise (seif 9), surtout pour un <strong>וסת קבוע</strong> ou le <strong>jour 30</strong> (י״א du Mehaber ; והכי נהוג du Rama). Hors du tashmish, multiplier les bedikot est une vertu — <strong>« כל המרבה לבדוק הרי זו משובחת »</strong> (seif 1). Mais au <em>moment</em> du tashmish, le Rama décourage l'excès de scrupule, pour la sérénité du couple. Pour savoir quand et comment se vérifier, consulte ton Rav ou une yoetzet.
 </div>
 
 <div class="remember">
@@ -1038,7 +1065,7 @@ Au temps du וסת, une bedika est requise (seif 9), surtout pour un <strong>ו�
 <div class="key-point">
 <strong>L'essentiel du Siman 184 en quelques phrases :</strong>
 <ol>
-  <li>La plupart des femmes ont un <strong>וסת</strong> ; pour un <strong>וסת קבוע</strong>, pas de bedika avant le tashmish hors de sa date (seif 1) — mais « כל המרבה לבדוק משובחת » ailleurs.</li>
+  <li>La plupart des femmes ont un <strong>וסת</strong> ; pour un <strong>וסת קבוע</strong>, pas de bedika avant le tashmish hors de sa date (seif 1) — mais « כל המרבה לבדוק הרי זו משובחת » ailleurs.</li>
   <li>Au temps du וסת, on <strong>se sépare une עונה</strong> (jour ou nuit), du <strong>seul tashmish</strong> — חיבוק ונישוק permis (seif 2).</li>
   <li>Le וסת <strong>תלוי בימים</strong> suit la mécanique jour/nuit ; le וסת <strong>תלוי בשינוי הגוף</strong> relève du Siman 189 (Rama, seif 2).</li>
   <li>La perisha ne vaut que pour une <strong>גדולה</strong> ; קטנה et זקנה en sont exemptes tant que le וסת n'est pas fixé 3× (seif 3).</li>
@@ -1046,7 +1073,7 @@ Au temps du וסת, une bedika est requise (seif 9), surtout pour un <strong>ו�
   <li>Un וסת long ne vaut que pour sa <strong>première עונה</strong> (seif 6).</li>
   <li><strong>מעוברת / מניקה</strong> (24 mois, même si l'enfant est mort) : pas de perisha, permise sans bedika même au וסת (seif 7).</li>
   <li>Cachée par <strong>peur</strong> → ne s'en inquiète pas ; י״א bediavad seulement (seif 8).</li>
-  <li>Les <strong>autres femmes</strong> : bedika au וסת ; י״א interdite jusqu'à bedika si וסת קבוע ou jour 30 (והכי נהוג, seif 9).</li>
+  <li>Les <strong>autres femmes</strong> : bedika au וסת ; י״א du Mehaber : interdite jusqu'à bedika si וסת קבוע ou jour 30 — et le Rama : והכי נהוג (seif 9).</li>
   <li>Le <strong>pokeid</strong> avant un voyage : tashmish permis (במקום מצוה לא גזרו) ; voyage de mitzvah → pas de pekida (seif 10).</li>
   <li>וסת לימים : interdit jusqu'à ce qu'<strong>il la consulte (ישאלנה)</strong> ; le jour 30 vaut וסת (seif 11).</li>
   <li>וסת לימים + תלוי בגוף : « אימור לא קפצה », mais on craint l'<strong>עונה בינונית = 30 jours</strong> (seif 12).</li>
@@ -1103,8 +1130,8 @@ Au temps du וסת, une bedika est requise (seif 9), surtout pour un <strong>ו�
   <li>Un וסת qui dure 2-3 jours : de quelle עונה s'écarte-t-on (seif 6) ?</li>
   <li>Pourquoi la <span class="he-q">מעוברת</span> et la <span class="he-q">מניקה</span> sont-elles dispensées (seif 7) ? Jusqu'à quand pour l'allaitement ?</li>
   <li>Que dit le seif 8 sur la femme <strong>cachée par peur</strong> ? Que nuance le Rama (י״א) ?</li>
-  <li>Quelle bedika les <strong>autres femmes</strong> doivent-elles (seif 9) ? Que tranche l'usage (והכי נהוג) ?</li>
-  <li>Qu'est-ce que le <span class="he-q">פוקד אשתו</span> avant un voyage (seif 10) ? Pourquoi le tashmish y est-il permis ?</li>
+  <li>Quelle bedika les <strong>autres femmes</strong> doivent-elles (seif 9) ? Que tranche le Rama (והכי נהוג) ?</li>
+  <li>Qu'est-ce que le <span class="he-q">לפקוד אשתו</span> avant un voyage (seif 10) ? Pourquoi le tashmish y est-il permis ?</li>
   <li>Que signifie <span class="he-q">ישאלנה</span> (seif 11) ? Quand n'a-t-on plus à demander ?</li>
   <li>Explique « <span class="he-q">אימור לא קפצה</span> » et l'<span class="he-q">עונה בינונית</span> de 30 jours (seif 12).</li>
 </ol>

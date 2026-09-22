@@ -234,6 +234,48 @@
   hr.ornament { border: none; text-align: center; margin: 20px 0; }
   hr.ornament::before { content: "✦ ❖ ✦"; color: #C5A55A; font-size: 13pt; }
 
+  blockquote.text-resume {
+    background: #f7f5f2;
+    border-right: 4px dashed #b9a06a;
+    direction: rtl;
+    text-align: right;
+    margin: 10px 0;
+    padding: 10px 15px;
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 12pt;
+    font-style: italic;
+  }
+
+  blockquote.text-resume .resume-marque {
+    display: block;
+    direction: inherit;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: normal;
+    font-size: 10pt;
+    color: #7a6a44;
+    margin-bottom: 6px;
+  }
+
+  blockquote.text-compose {
+    background: #f4f2ee;
+    border-right: 4px dotted #9a8c6a;
+    direction: rtl;
+    text-align: right;
+    margin: 10px 0;
+    padding: 10px 15px;
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 12pt;
+  }
+
+  blockquote.text-compose .compose-marque {
+    display: block;
+    direction: inherit;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10pt;
+    color: #6d6045;
+    margin-bottom: 6px;
+  }
+
   blockquote.text-source {
     background: #faf8f0;
     border-right: 4px solid #C5A55A;
@@ -506,6 +548,7 @@
 <!-- 1. טקסט המחבר -->
 <!-- ========================================== -->
 <h2 id="exp-seifim" class="section-title">1. טקסט המחבר — הסעיף היחיד</h2>
+<div class="key-point"><strong>הערת קריאה.</strong> הקטעים העבריים שבפרק זה הם <em>תמציות</em>, ולא לשון השולחן ערוך כמות שהיא: הם מקצרים את העניין ואינם מביאים את כל הבבות. השבת הנוסח המלא, סעיף אחר סעיף וכסדר הספר, נעשית עתה. ללשון המדויקת — עיין במקור.</div>
 
 <p>סימן קפ״ג · 183 פותח את <strong>הלכות הנדה</strong> (טהרת המשפחה), המשתרעות עד סימן ר׳ · 200. יש בו <strong>סעיף אחד</strong> בלבד (סעיף אחד) — אך סעיף זה הוא <strong>היסוד</strong> של כל החטיבה : הוא קובע <em>מתי</em> אשה נעשית נדה ומדוע היא יושבת <strong>שבעה נקיים</strong>. המחבר (רבי יוסף קארו) מנסח את כלל היסוד ; הרמ״א (רבי משה איסרליש) מוסיף את הגהתו (<span class="he-q">הגה</span>) על היקפו הכללי של האיסור. זהו נושא <strong>אינטימי וחמור</strong> : אנו מציגים כאן את הסוגיא והמושגים, מבלי להכריע לעולם במקרה אישי.</p>
 
@@ -514,7 +557,7 @@
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s1">
-אִשָּׁה שֶׁיָּצָא דָּם מִמְּקוֹרָהּ — בֵּין בְּאֹנֶס בֵּין בְּרָצוֹן — טְמֵאָה, וְהוּא שֶׁתַּרְגִּישׁ בִּיצִיאָתוֹ; וּמִיהוּ מִשֶּׁתַּרְגִּישׁ בּוֹ שֶׁנֶּעֱקַר מִמְּקוֹמוֹ וְיָצָא — טְמֵאָה, אַף עַל פִּי שֶׁלֹּא יָצָא לַחוּץ; וַאֲפִלּוּ לֹא רָאֲתָה אֶלָּא טִפַּת דָּם כְּחַרְדָּל — יוֹשֶׁבֶת עָלָיו שִׁבְעָה נְקִיִּים. <span class="he-q">(הגה: כַּאֲשֶׁר יִתְבָּאֵר מִשְׁפָּטָן לְקַמָּן סִימָן קצ״ו; וְאֵין חִלּוּק בֵּין פְּנוּיָה לִנְשׂוּאָה לְעִנְיַן אִסּוּר נִדָּה (רִיב״ש סִימָן תכ״ב מְבִיאוֹ ב״י), כִּי כָּל הַבָּא עַל הַנִּדָּה חַיָּב כָּרֵת.)</span>
+<b>אשה שרואה טיפת דם צריכה לישב ז' נקיים. ובו סעיף אחד:</b><br> אשה שיצא דם ממקורה בין באונס בין ברצון טמאה והוא שתרגיש ביציאתו ומיהו משתרגיש בו שנעקר ממקומו ויצא טמאה אע"פ שלא יצא לחוץ ואפי' לא ראתה אלא טיפת דם כחרדל יושבת עליו ז' נקיים: <small>הגה כאשר יתבאר משפטן לקמן סי' קצ"ו ואין חילוק בין פנויה לנשואה לענין איסור נדה (ריב"ש סימן תכ"ב מביאו ב"י) כי כל הבא על הנדה חייב כרת:</small>
 </blockquote>
 
 <div class="translation">
@@ -654,7 +697,8 @@
 <strong>הפתחי תשובה</strong> (פתחי תשובה) — לקט של רבי אברהם צבי הירש אייזנשטט (המאה ה־19) המכנס, בשולי השולחן ערוך, את הכרעות שו״ת האחרונים. מורה דרך יקר ערך לחיבור בין טקסט היסוד לספרות המעשית שלאחריו.
 </div>
 
-<blockquote class="text-source" data-copy-block id="cp-pt1">
+<blockquote class="text-compose" data-copy-block id="cp-pt1">
+<span class="compose-marque"><em>ביאור</em> — ניסוח לימודי של דעת, ואינו לשון השולחן ערוך</span>
 שָׁלֹשׁ מִינֵי הַרְגָּשׁוֹת הֵן : (א) שֶׁנִּזְדַּעְזַע גּוּפָהּ; (ב) שֶׁנִּפְתַּח מְקוֹרָהּ; (ג) שֶׁתַּרְגִּישׁ דָּבָר לַח זָב מִמֶּנָּה.
 </blockquote>
 

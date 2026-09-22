@@ -232,6 +232,28 @@
   hr.ornament { border: none; text-align: center; margin: 20px 0; }
   hr.ornament::before { content: "✦ ❖ ✦"; color: #C5A55A; font-size: 13pt; }
 
+  blockquote.text-resume {
+    background: #f7f5f2;
+    border-right: 4px dashed #b9a06a;
+    direction: rtl;
+    text-align: right;
+    margin: 10px 0;
+    padding: 10px 15px;
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 12pt;
+    font-style: italic;
+  }
+
+  blockquote.text-resume .resume-marque {
+    display: block;
+    direction: inherit;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: normal;
+    font-size: 10pt;
+    color: #7a6a44;
+    margin-bottom: 6px;
+  }
+
   blockquote.text-source {
     background: #faf8f0;
     border-right: 4px solid #C5A55A;
@@ -504,6 +526,7 @@
 <!-- 1. TEXT OF THE MEHABER -->
 <!-- ========================================== -->
 <h2 id="exp-seifim" class="section-title">1. The text of the Mehaber — the 5 seifim</h2>
+<div class="key-point"><strong>A note on reading.</strong> The Hebrew blocks in this section are the <em>text of the Shulchan Arukh itself</em>, seif by seif and in the order of the book, word for word from the source. The translation following each block renders its clauses in the same order, and the glosses of the Rama (הגה) are announced as such.</div>
 
 <p>Siman 197 is the <strong>culmination</strong> of the path of טהרה. After the bleeding stops, the stopping bedika and the seven "clean" days of the previous siman, one decisive act remains: the <span class="he-q">טבילה</span> in the mikveh. The Mehaber (Rabbi Yossef Karo) settles here a single question, but an essential one: <strong>when does one immerse?</strong> The title of the siman already gives the main answer — <span class="he-q">שלא תטבול האשה ביום</span>, "that the woman should not immerse by day." The Rama (Rabbi Moshe Isserles) adds his glosses (<span class="he-q">הגה</span>). Let us discover the 5 seifim, one by one.</p>
 
@@ -515,10 +538,11 @@
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s1">
-אֵין הַנִּדָּה וְהַזָּבָה וְהַיּוֹלֶדֶת עוֹלוֹת מִטֻּמְאָתָן בְּלֹא טְבִילָה, שֶׁאֲפִלּוּ אַחַר כַּמָּה שָׁנִים חַיָּב כָּרֵת הַבָּא עַל אַחַת מֵהֶן, אֶלָּא אִם כֵּן טָבְלוּ כָּרָאוּי בַּמִּקְוֶה הָרָאוּי.
+<b>שלא תטבול האשה ביום. ובו ה' סעיפים:</b><br>אין הנדה והזבה והיולדת עולות מטומאתן בלא טבילה שאפילו אחר כמה שנים חייב כרת הבא על אחת מהן אלא אם כן טבלו כראוי במקוה הראוי:
 </blockquote>
 
 <div class="translation">
+<strong>Heading of the siman:</strong> <em>That a woman should not immerse by day. And it contains five seifim.</em><br>
 <strong>The נדה, the זבה and the יולדת do not leave their טומאה without טבילה</strong> (אין… עולות מטומאתן בלא טבילה). So much so that <strong>even after several years</strong> (אפילו אחר כמה שנים), <strong>one who unites with one of them is חייב כרת</strong> as long as they have not <strong>immersed כראוי</strong> (as it should be) <strong>in a מקוה ראוי</strong> (a valid mikveh).
 </div>
 
@@ -531,16 +555,16 @@
 <!-- SEIF 2 -->
 <h3>Seif 2 — To immerse in its time (בזמנה) and the ליל שבת</h3>
 
-<h4>Seif 2 — The mitzvah not to delay, and the permission of Friday night
+<h4>Seif 2 — The mitzvah not to delay, ליל שבת, and the case of the widow
   <button class="daat-copy" type="button" data-copy-target="#cp-s2">📋 Copy</button>
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s2">
-אִם בַּעְלָהּ בָּעִיר, מִצְוָה לִטְבֹּל בִּזְמַנָּהּ שֶׁלֹּא לְבַטֵּל מִפְּרִיָּה וּרְבִיָּה אֲפִלּוּ לַיְלָה אֶחָד. <span class="he-q">הַגָּה: וּמֻתֶּרֶת לִטְבֹּל לֵיל שַׁבָּת אִם לֹא יָכְלָה לִטְבֹּל קֹדֶם לָכֵן, וְדַוְקָא אִם בַּעְלָהּ בָּעִיר, אֲבָל בְּלָאו הָכִי אָסוּר. וְאִם הָיָה אֶפְשָׁר לָהּ לִטְבֹּל קֹדֶם לָכֵן, כְּגוֹן שֶׁהָיָה אַחַר לֵדָה אוֹ שֶׁלֹּא הָיָה בַּעְלָהּ בָּעִיר וּבָא בְּעֶרֶב שַׁבָּת — יֵשׁ אוֹמְרִים שֶׁאֲסוּרָה לִטְבֹּל, וְכֵן נָהֲגוּ בְּמִקְצָת מְקוֹמוֹת; אֲבָל בְּמָקוֹם שֶׁאֵין מִנְהָג אֵין לְהַחְמִיר, וּבְמָקוֹם שֶׁנָּהֲגוּ לְהַחְמִיר גַּם בְּמוֹצָאֵי שַׁבָּת לֹא תִּטְבֹּל, דְּמֵאַחַר שֶׁהָיָה אֶפְשָׁר לָהּ לִטְבֹּל קֹדֶם לָכֵן אֵין מַרְחִיקִין הַטְּבִילָה מִן הַחֲפִיפָה.</span>
+אם בעלה בעיר מצוה לטבול בזמנה שלא לבטל מפריה ורביה אפילו לילה אחד: <small>הגה ומותרת לטבול ליל שבת (ר"ח ור' אליה וא"ז ובה"ג וסה"ת וסמ"ג בשם ר' שמואל שהנהיג כך בתו) אם לא יכלה לטבול קודם לכן (ב"י ומרדכי בשם כמה רבוותא ע"ש) ודוקא אם בעלה בעיר אבל בלא"ה אסור (כן משמע בת"ה סי' רצ"ה) ואם היה אפשר לה לטבול קודם לכן כגון שהיה אחר לידה או שלא היה בעלה בעיר ובא בערב שבת י"א שאסורה לטבול (שם ובמהרי"ו בפסקיו סימן מ"ח כדעת ב"י) וכן נהגו במקצת מקומות אבל במקום שאין מנהג אין להחמיר ובמקום שנהגו להחמיר גם במוצאי שבת לא תטבול דמאחר שהיה אפשר לה לטבול קודם לכן אין מרחיקין הטבילה מן החפיפה (אגור ובמהרי"ל) וכן אלמנה שאסורה לטבול טבילה ראשונה בליל שבת משום דאסור לבא עליה ביאה ראשונה בשבת אסורה לטבול ג"כ במוצאי שבת (מהרי"ל) ויש מקילין ומתירין לטבול במ"ש הואיל שלא טבלה בשבת משום חשש איסור (בית יוסף):</small>
 </blockquote>
 
 <div class="translation">
-<strong>If the husband is in town (אם בעלה בעיר), it is a מצוה to immerse in its time (בזמנה)</strong> — the night on which she is fit — <strong>so as not to neglect פריה ורביה, even for a single night</strong>. <em>Gloss of the Rama:</em> she is <strong>permitted to immerse on ליל שבת (Friday night)</strong> if she could not immerse before, <strong>and only if the husband is in town</strong>; otherwise, it is forbidden. But <strong>if she could have immersed earlier</strong> — for example after childbirth, or if the husband, absent, returned only on Friday — <strong>some (יש אומרים) forbid the immersion</strong>, and such is the custom in some places. Where there is no established custom, <strong>one does not be stringent</strong>; where the custom is to be stringent, <strong>even מוצאי שבת (Saturday night) she does not immerse</strong> — for since she could have immersed earlier, <strong>one does not distance the טבילה from the חפיפה</strong> (אין מרחיקין הטבילה מן החפיפה).
+<strong>If the husband is in town (אם בעלה בעיר), it is a מצוה to immerse in its time (בזמנה)</strong> — the night on which she is fit — <strong>so as not to neglect פריה ורביה, even for a single night</strong>. <em>Gloss of the Rama:</em> she is <strong>permitted to immerse on ליל שבת (Friday night)</strong> if she could not immerse before, <strong>and only if the husband is in town</strong>; otherwise, it is forbidden. But <strong>if she could have immersed earlier</strong> — for example after childbirth, or if the husband, absent, returned only on Friday — <strong>some (יש אומרים) forbid the immersion</strong>, and such is the custom in some places. Where there is no established custom, <strong>one is not stringent</strong>; where the custom is to be stringent, <strong>even on מוצאי שבת (Saturday night) she does not immerse</strong> — for since she could have immersed earlier, <strong>one does not distance the טבילה from the חפיפה</strong> (אין מרחיקין הטבילה מן החפיפה). <strong>Likewise a widow (אלמנה) who may not perform her first טבילה on ליל שבת</strong> — because it is forbidden to have a <strong>first union</strong> (ביאה ראשונה) with her on Shabbat — <strong>may likewise not immerse on מוצאי שבת</strong>. <strong>And some are lenient and permit immersing on מוצאי שבת</strong>, since if she did not immerse on Shabbat it was <strong>out of concern for a prohibition</strong> (משום חשש איסור).
 </div>
 
 <div class="key-point">
@@ -557,7 +581,7 @@
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s3">
-אֲסוּרָה לִטְבֹּל בְּיוֹם שְׁבִיעִי, וַאֲפִלּוּ אִם מַמְתֶּנֶת מִלִּטְבֹּל עַד יוֹם ח' אוֹ ט' — אֵינָהּ יְכוֹלָה לִטְבֹּל בַּיּוֹם, מִשּׁוּם סְרַךְ בִּתָּהּ (פֵּרוּשׁ: דִּבּוּק הַבַּת וְקֻרְבָתָהּ לַעֲשׂוֹת כְּמַעֲשֵׂה הָאֵם שֶׁתִּטְבֹּל בַּיּוֹם כָּמוֹהָ, וְלֹא תַּבְחִין שֶׁאִמָּהּ לְאַחַר שִׁבְעָה טָבְלָה וְלֹא בַּשְּׁבִיעִי עַצְמוֹ). <span class="he-q">הַגָּה: וְהַכַּלּוֹת הַטּוֹבְלוֹת קֹדֶם הַחֻפָּה יְכוֹלוֹת לִטְבֹּל בַּיּוֹם, דְּהָא לֹא בָּאוֹת אֵצֶל הֶחָתָן עַד הַלַּיְלָה; אֲבָל אַחַר הַחֻפָּה דִּינָן כִּשְׁאָר נָשִׁים.</span>
+אסורה לטבול ביום ז' ואפילו אם ממתנת מלטבול עד יום ח' או ט' אינה יכולה לטבול ביום משום סרך בתה <small>(פי' דבוק הבת וקורבתה לעשות כמעשה האם שתטבול ביום כמוה ולא תבחין שאמה לאחר שבעה טבלה ולא בשביעי עצמו): </small><small>הגה והכלות הטובלות קודם החופה יכולות לטבול ביום דהא לא באין אצל החתן עד הלילה אבל אחר החופה דינן כשאר נשים (מהרי"ל):</small>
 </blockquote>
 
 <div class="translation">
@@ -582,7 +606,7 @@
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s4">
-הֵיכָא דְּאִיכָּא אֹנֶס, כְּגוֹן שֶׁיֵּרָא לִטְבֹּל בַּלַּיְלָה מֵחֲמַת צִנָּה אוֹ פַּחַד גַּנָּבִים וְכַיּוֹצֵא בּוֹ, אוֹ שֶׁסּוֹגְרִין שַׁעֲרֵי הָעִיר — יְכוֹלָה לִטְבֹּל בַּשְּׁמִינִי מִבְּעוֹד יוֹם; אֲבָל בַּשְּׁבִיעִי לֹא תִּטְבֹּל מִבְּעוֹד יוֹם, אַף עַל גַּב דְּאִיכָּא אֹנֶס.
+היכא דאיכא אונס כגון שיראה לטבול בלילה מחמת צנה או פחד גנבים וכיוצא בו או שסוגרין שערי העיר יכולה לטבול בשמיני מבעוד יום אבל בשביעי לא תטבול מבעוד יום אף על גב דאיכא אונס:
 </blockquote>
 
 <div class="translation">
@@ -603,11 +627,11 @@
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s5">
-אִם עָבְרָה וְטָבְלָה בְּח' בַּיּוֹם בְּלֹא אֹנֶס — אֲפִלּוּ הָכִי עָלְתָה לָהּ טְבִילָה; וְכֵן אִם עָבְרָה וְטָבְלָה בְּז' בַּיּוֹם — עָלְתָה לָהּ טְבִילָה. <span class="he-q">הַגָּה: וּמִכָּל מָקוֹם לֹא תְּשַׁמֵּשׁ אֲפִלּוּ בַּשְּׁמִינִי עַד הַלַּיְלָה, וְתַסְתִּיר טְבִילָתָהּ מִבַּעְלָהּ עַד הַלַּיְלָה.</span>
+אם עברה וטבלה בח' ביום בלא אונס אפילו הכי עלתה לה טבילה וכן אם עברה וטבלה בז' ביום עלתה לה טבילה: <small>הגה ומכל מקום לא תשמש אפילו בשמיני עד הלילה ותסתיר טבילתה מבעלה עד הלילה (ב"י בשם האגור):</small>
 </blockquote>
 
 <div class="translation">
-<strong>If she transgressed and immersed on the 8th day, by day, without אונס</strong> — <strong>nevertheless, עלתה לה טבילה</strong>: the טבילה is valid. <strong>And likewise if she transgressed and immersed on the 7th day, by day, עלתה לה טבילה</strong>. <em>Gloss of the Rama:</em> in any event, <strong>she does not unite, even on the 8th day, before night</strong> (לא תשמש… עד הלילה), and she <strong>conceals her טבילה from her husband until night</strong> (תסתיר טבילתה), so as not to come to trivialize the daytime טבילה.
+<strong>If she transgressed and immersed on the 8th day, by day, without אונס</strong> — <strong>nevertheless, עלתה לה טבילה</strong>: the טבילה is valid. <strong>And likewise if she transgressed and immersed on the 7th day, by day, עלתה לה טבילה</strong>. <em>Gloss of the Rama:</em> in any event, <strong>she does not unite, even on the 8th day, before night</strong> (לא תשמש אפילו בשמיני עד הלילה), and she <strong>conceals her טבילה from her husband until night</strong> (ותסתיר טבילתה מבעלה עד הלילה).
 </div>
 
 <div class="remember">

@@ -231,6 +231,28 @@
   hr.ornament { border: none; text-align: center; margin: 20px 0; }
   hr.ornament::before { content: "✦ ❖ ✦"; color: #C5A55A; font-size: 13pt; }
 
+  blockquote.text-resume {
+    background: #f7f5f2;
+    border-right: 4px dashed #b9a06a;
+    direction: rtl;
+    text-align: right;
+    margin: 10px 0;
+    padding: 10px 15px;
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 12pt;
+    font-style: italic;
+  }
+
+  blockquote.text-resume .resume-marque {
+    display: block;
+    direction: inherit;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: normal;
+    font-size: 10pt;
+    color: #7a6a44;
+    margin-bottom: 6px;
+  }
+
   blockquote.text-source {
     background: #faf8f0;
     border-right: 4px solid #C5A55A;
@@ -503,6 +525,7 @@
 <!-- 1. TEXT OF THE MEHABER -->
 <!-- ========================================== -->
 <h2 id="exp-seifim" class="section-title">1. The text of the Mehaber — the 4 seifim</h2>
+<div class="key-point"><strong>A note on reading.</strong> The Hebrew blocks in this section are <em>summaries</em>, not the text of the Shulchan Arukh as it stands: they condense the substance and do not carry every clause. The full text is being restored, seif by seif and in the order of the book. For the exact wording, go to the source.</div>
 
 <p>Siman 185 stands at the heart of the <strong>laws of the Niddah</strong> (taharat hamishpacha). Its central idea is luminous: the whole system rests on the <strong>woman's ne'emanut</strong> — her word establishes her own status. So the Torah says: « <strong>וספרה לה</strong> » — <em>she</em> counts for <em>herself</em>. The couple is therefore not in a system of surveillance, but of <strong>trust</strong>: the husband relies on his wife's word. The Mehaber (Rabbi Yossef Karo) sets out its limits and cases; the Rama (Rabbi Moshe Isserles) adds his glosses (<span class="he-q">הגה</span>) for practice. This is an <strong>intimate and weighty</strong> subject: we present here the sugya and the concepts, without ever ruling on a personal case. Let us discover the seifim.</p>
 
@@ -514,10 +537,12 @@
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s1">
-הָאִשָּׁה שֶׁהִיא בְּחֶזְקַת טְמֵאָה — אָסוּר לוֹ לָבֹא עָלֶיהָ עַד שֶׁתֹּאמַר לוֹ טָבַלְתִּי. <span class="he-q">(הגה: וּמֵאַחַר שֶׁעָבְרוּ יָמִים שֶׁאֶפְשָׁר לָהּ לִמְנוֹת וְלִטְבּוֹל (ב״י) נֶאֱמֶנֶת אֲפִלּוּ רוֹאֶה בְּגָדֶיהָ מְלֻכְלָכִים בְּדָם, נֶאֱמֶנֶת לוֹמַר בְּשׁוּק טַבָּחִים עָבַרְתִּי אוֹ נִתְעַסַּקְתִּי בְּצִפּוֹר וְכַדּוֹמֶה לָזֶה (ב״י בְּשֵׁם הָרֹא״שׁ וְרַבֵּנוּ יְרוּחָם).)</span>
+<b>דין אשה שאמרה טמאה אני ואחר כך אמרה טהורה אני. ובו ד' סעיפים:</b><br> האשה שהיא בחזקת טמאה אסור לו לבא עליה עד שתאמר לו טבלתי: <small>הגה ומאחר שעברו ימים שאפשר לה למנות ולטבול (ב"י) נאמנת אפילו רואה בגדיה מלוכלכים בדם נאמנת לומר בשוק טבחים עברתי או נתעסקתי בצפור וכדומה לזה (ב"י בשם הרא"ש ורבינו ירוחם):</small>
 </blockquote>
 
 <div class="translation">
+<em>Heading of the siman</em> — <strong>The law of a woman who said &laquo;&nbsp;I am impure&nbsp;&raquo; and afterward said &laquo;&nbsp;I am pure&nbsp;&raquo;; and it contains four seifim.</strong>
+<br><br>
 A woman who is <strong>presumed impure</strong> (bechezkat teme'ah): it is <strong>forbidden for him to be with her until she says « I have immersed » (טבלתי)</strong>. <em>Gloss of the Rama:</em> once <strong>enough days have elapsed for her to count (the clean days) and to immerse</strong>, she is <strong>believed even if her garments are seen stained with blood</strong>: she is believed to say « <strong>I passed through the butchers' market</strong> » (בשוק טבחים עברתי) or « <strong>I was occupied with a bird</strong> » (נתעסקתי בצפור) or the like.
 </div>
 
@@ -534,7 +559,7 @@ The Shach (s.k. 1) draws out the key phrase of the siman: « <span class="he-q">
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s2">
-וְאִם הֻחְזְקָה נִדָּה בִּשְׁכֵנוֹתֶיהָ שֶׁרָאוּהָ לוֹבֶשֶׁת בְּגָדִים הַמְיֻחָדִים לִימֵי נִדּוּתָהּ — חֲשׁוּבָה כְּוַדַּאי טְמֵאָה.
+ואם הוחזקה נדה בשכנותיה שראוה לובשת בגדים המיוחדים לימי נדותה, חשובה כודאי טמאה:
 </blockquote>
 
 <div class="translation">
@@ -555,11 +580,11 @@ But if she has been <strong>established as niddah among her neighbors</strong> (
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s3">
-אָמְרָה לְבַעְלָהּ טְמֵאָה אֲנִי וְאַחַר כָּךְ אָמְרָה טְהוֹרָה אֲנִי — אֵינָהּ נֶאֱמֶנֶת <span class="he-q">(אִם הוּא לְאַחַר כְּדֵי דִּבּוּר) (ב״י בְּשֵׁם רַבֵּנוּ יְרוּחָם)</span>. וְאִם נָתְנָה אַמַתְלָא לִדְבָרֶיהָ, כְּגוֹן שֶׁאוֹמֶרֶת שֶׁלֹּא אָמְרָה לוֹ כֵּן תְּחִלָּה אֶלָּא מִפְּנֵי שֶׁלֹּא הָיָה בָּהּ כֹּחַ לִסְבּוֹל תַּשְׁמִישׁ אוֹ טַעֲנָה אַחֶרֶת כַּיּוֹצֵא בָּזֶה — נֶאֱמֶנֶת. <span class="he-q">(הגה: וּמִכָּל מָקוֹם מִי שֶׁרוֹצֶה לְהַחְמִיר עַל עַצְמוֹ שֶׁלֹּא לְהַאֲמִין לָהּ — מִדַּת חֲסִידוּת הוּא (ב״י), אֲבָל מִדִּינָא נֶאֱמֶנֶת אֲפִלּוּ בִּשְׁתִיקָה אַחַר כָּךְ, רַק שֶׁהִיא בָּאָה וְשׁוֹכֶבֶת אֵצֶל בַּעְלָהּ וְהוּא יוֹדֵעַ וּמַכִּיר שֶׁמַּה שֶּׁאָמְרָה תְּחִלָּה טְמֵאָה אֲנִי עָשְׂתָה מֵחֲמַת קְטָטָה שֶׁהָיָה לוֹ עִמָּהּ (מהרי״ו סִימָן כ״ב) וְכַדּוֹמֶה לָזֶה. אֲבָל אִם רָאוּהָ לוֹבֶשֶׁת בְּגָדִים הַמְיֻחָדִים לִימֵי נִדּוּתָהּ וְאַחַר כָּךְ אָמְרָה טְהוֹרָה אֲנִי, אַף עַל פִּי שֶׁנָּתְנָה אַמַתְלָא לִדְבָרֶיהָ — אֵינָהּ נֶאֱמֶנֶת. אָמְרָה פְּלוֹנִי חָכָם טִהֵר לִי כֶּתֶם וְהֶחָכָם אוֹמֵר שֶׁהִיא מְשַׁקֶּרֶת — הֶחָכָם נֶאֱמָן וּטְמֵאָה הִיא (ר״ן בְּשֵׁם הָרַמְבַּ״ן וְרַבֵּנוּ יְרוּחָם).)</span>
+אמרה לבעלה טמאה אני ואחר כך אמרה טהורה אני אינה נאמנת <small>(אם הוא לאחר כדי דבור) (ב"י בשם רבינו ירוחם) </small> ואם נתנה אמתלא לדבריה כגון שאומרת שלא אמרה לו כן תחלה אלא מפני שלא היה בה כח לסבול תשמיש או טענה אחרת כיוצא בזה נאמנת: <small>הגה ומכל מקום מי שרוצה להחמיר על עצמו שלא להאמין לה מדת חסידות הוא (ב"י) אבל מדינא נאמנת אפי' בשתיקה אח"כ רק שהיא באה ושוכבת אצל בעלה והוא יודע ומכיר שמה שאמרה תחלה טמאה אני עשתה מחמת קטטה שהיה לו עמה (מהרי"ו סי' כ"ב) וכדומה לזה: </small>אבל אם ראוה לובשת בגדים המיוחדים לימי נדותה ואח"כ אמרה טהורה אני אע"פ שנתנה אמתלא לדבריה אינה נאמנת <small>(אמרה פלוני חכם טהר לי כתם והחכם אומר שהיא משקרת החכם נאמן וטמאה היא) (ר"ן בשם הרמב"ן ורבינו ירוחם):</small>
 </blockquote>
 
 <div class="translation">
-If she said to her husband « <strong>I am impure</strong> » (טמאה אני) and afterward said « <strong>I am pure</strong> » (טהורה אני), she is <strong>not believed</strong> — <em>if it is after the interval of speech</em> (kedei dibbur). But if she gave a <strong>plausible explanation for her words</strong> (natnah amatla li-dvareha), for example that she had only said so at first <strong>because she did not have the strength to bear tashmish</strong>, or another like claim → she is <strong>believed</strong>. <em>Gloss of the Rama:</em> nevertheless, one who wishes to be <strong>stringent upon himself and not believe her — that is a midat chasidut</strong> (a measure of piety); but <strong>by the strict law (midina) she is believed</strong> even by her mere <strong>silence</strong> afterward, once she comes and lies beside her husband and he knows and recognizes that what she said at first (« I am impure ») she did <strong>because of a quarrel (ketatah)</strong> he had with her, or the like. <strong>But</strong> if she was seen <strong>wearing the garments reserved for the days of niddah</strong> and afterward says « I am pure », <strong>even if she gave an amatla for her words, she is not believed</strong>. And if she said « <strong>so-and-so, a chacham, declared a stain pure for me</strong> » and <strong>the chacham says she is lying → the chacham is believed, and she is impure</strong>.
+If she said to her husband « <strong>I am impure</strong> » (טמאה אני) and afterward said « <strong>I am pure</strong> » (טהורה אני), she is <strong>not believed</strong>. <em>Gloss of the Rama:</em> <strong>if it is after the kedei dibbur</strong> (the interval of speech — Beit Yosef in the name of Rabbenu Yeruham). <em>The Mehaber continues:</em> But if she gave a <strong>plausible explanation for her words</strong> (natnah amatla li-dvareha), for example that she had only said so at first <strong>because she did not have the strength to bear tashmish</strong>, or another like claim → she is <strong>believed</strong>. <em>Gloss of the Rama:</em> nevertheless, one who wishes to be <strong>stringent upon himself and not believe her — that is a midat chasidut</strong> (a measure of piety); but <strong>by the strict law (midina) she is believed</strong> even by her mere <strong>silence</strong> afterward, once she comes and lies beside her husband and he knows and recognizes that what she said at first (« I am impure ») she did <strong>because of a quarrel (ketatah)</strong> he had with her, or the like. <em>The Mehaber continues:</em> <strong>but</strong> if she was seen <strong>wearing the garments reserved for the days of niddah</strong> and afterward says « I am pure », <strong>even if she gave an amatla for her words, she is not believed</strong>. <em>Gloss of the Rama:</em> and if she said « <strong>so-and-so, a chacham, declared a stain pure for me</strong> » and <strong>the chacham says she is lying → the chacham is believed, and she is impure</strong>.
 </div>
 
 <div class="key-point">
@@ -580,11 +605,11 @@ If she said to her husband « <strong>I am impure</strong> » (טמאה אני) 
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s4">
-הָיָה מְשַׁמֵּשׁ עִם הַטְּהוֹרָה וְאָמְרָה לוֹ נִטְמֵאתִי וּפֵרֵשׁ מִיָּד — חַיָּב כָּרֵת, שֶׁיְּצִיאָתוֹ הֲנָאָה לוֹ כְּבִיאָתוֹ. כֵּיצַד יַעֲשֶׂה? נוֹעֵץ צִפָּרְנֵי רַגְלָיו בָּאָרֶץ וְשׁוֹהֶה בְּלֹא דִישָׁה עַד שֶׁיָּמוּת הָאֵבֶר, וּפוֹרֵשׁ בְּאֵבֶר מֵת. <span class="he-q">(הגה: וְיִמָּלֵא פַּחַד וּרְתֵת עַל הָעֲבֵרָה שֶׁבָּאָה לְיָדוֹ (ב״י בְּשֵׁם סמ״ג), וְלֹא יִסְמוֹךְ עָלֶיהָ רַק יִסְמוֹךְ עַל רַגְלָיו וְיָדָיו שֶׁלֹּא יֵהָנֶה מִמֶּנָּה. וְאִם פֵּרֵשׁ מִמֶּנָּה בְּקִשּׁוּי וּבְשׁוֹגֵג שֶׁלֹּא יָדַע שֶׁאָסוּר לִפְרוֹשׁ מִמֶּנָּה — יִתְעַנֶּה מ׳ יוֹם, וְאֵינָן צְרִיכִין לִהְיוֹת רְצוּפִים רַק כָּל שָׁבוּעַ שְׁנֵי יָמִים כְּגוֹן שֵׁנִי וַחֲמִישִׁי, וּבְלֵיל הַתַּעֲנִית אָסוּר בְּיַיִן וּבָשָׂר; וְאִם לֹא יוּכַל לְהִתְעַנּוֹת יִפְדֶּה כָּל יוֹם בְּמָמוֹן שֶׁיִּתֵּן לִצְדָקָה כְּפִי עֵרֶךְ מָמוֹן שֶׁיֵּשׁ לוֹ, כִּי עָשִׁיר יִתֵּן יוֹתֵר קְצָת מֵעָנִי; וְיֵשׁ לְהַחְמִיר בִּתְשׁוּבָתוֹ, וְכָל הַמַּרְבֶּה לָשׁוּב זְכוּת הוּא לוֹ (פִּסְקֵי מַהֲרַא״י סִימָן ס׳). וְהָאִשָּׁה אֵינָהּ צְרִיכָה כַּפָּרָה. וְאִם שִׁמְּשָׁה שֶׁלֹּא בִּשְׁעַת וִסְתָּהּ וּמָצְאָה אַחַר הַתַּשְׁמִישׁ דָּם, אֲפִלּוּ נִמְצָא עַל עֵד שֶׁלּוֹ — מִקְרֵי אֹנֶס, אֲפִלּוּ לֹא בָּדְקָה תְּחִלָּה, וְאֵינָם צְרִיכִים כַּפָּרָה לֹא הוּא וְלֹא הִיא (מָרְדְּכַי וְהָרֹא״שׁ כְּלָל כ״ט בְּשֵׁם מַהֲר״ם).)</span>
+היה משמש עם הטהורה ואמרה לו נטמאתי ופירש מיד חייב כרת שיציאתו הנאה לו כביאתו כיצד יעשה נועץ צפרני רגליו בארץ ושוהה בלא דישה עד שימות האבר ופורש באבר מת: <small>הגה וימלא פחד ורתת על העבירה שבאה לידו (ב"י בשם סמ"ג) ולא יסמוך עליה רק יסמוך על רגליו וידיו שלא יהנה ממנה ואם פירש ממנה בקשוי ובשוגג שלא ידע שאסור לפרוש ממנה יתענה מ' יום ואינן צריכין להיות רצופים רק כל שבוע שני ימים כגון שני וחמישי ובליל התענית אסור ביין ובשר ואם לא יוכל להתענות יפדה כל יום בממון שיתן לצדקה כפי ערך ממון שיש לו כי עשיר יתן יותר קצת מעני ויש להחמיר בתשובתו וכל המרבה לשוב זכות הוא לו (פסקי מהרא"י סי' ס') והאשה אינה צריכה כפרה ואם שמשה שלא בשעת וסתה ומצאה אחר התשמיש דם אפי' נמצא על עד שלו מקרי אונס אפי' לא בדקה תחילה ואינם צריכים כפרה לא הוא ולא היא (מרדכי והרא"ש כלל כ"ט בשם מהר"ם):</small>
 </blockquote>
 
 <div class="translation">
-If he was <strong>with a pure woman and she said to him « I have become impure » (נטמאתי)</strong>, and he <strong>withdrew immediately → he incurs karet</strong>, for <strong>his withdrawal is a pleasure to him like his entry</strong> (יציאתו הנאה לו כביאתו). <strong>How shall he act?</strong> He <strong>sinks the nails of his feet into the ground and remains without moving until the organ dies</strong> (עד שימות האבר), then withdraws <strong>with a dead organ</strong> (be-ever met). <em>Gloss of the Rama:</em> let him be <strong>filled with fear and trembling</strong> over the transgression that has come to hand, and let him not lean upon her but upon his feet and his hands so as to <strong>derive no pleasure from her</strong>. If he withdrew <strong>in a state of erection and inadvertently (be-kishui u-ve-shogeg)</strong>, not knowing that it is forbidden to withdraw, he shall <strong>fast 40 days</strong> — not consecutively, but two days each week, for example Monday and Thursday, and on the <strong>eve of the fast he shall abstain from wine and meat</strong>; and if he cannot fast, he shall <strong>redeem each day with money given to tzedakah</strong> according to his means (the wealthy a little more than the poor); one should be stringent in his teshuvah, and « <strong>whoever does more to repent, it is a merit for him</strong> ». <strong>The woman, however, needs no kapparah</strong> (atonement). And if she was with him <strong>not at the time of her veset</strong> and found blood after the relations — even found on his examination cloth — it is deemed an <strong>ones</strong> (a case of compulsion), even if she had not examined herself beforehand, and <strong>neither he nor she needs kapparah</strong>.
+If he was <strong>with a pure woman and she said to him « I have become impure » (נטמאתי)</strong>, and he <strong>withdrew immediately → he incurs karet</strong>, for <strong>his withdrawal is a pleasure to him like his entry</strong> (יציאתו הנאה לו כביאתו). <strong>How shall he act?</strong> He <strong>sinks the nails of his feet into the ground and remains without moving until the organ dies</strong> (עד שימות האבר), then withdraws <strong>with a dead organ</strong> (be-ever met). <em>Gloss of the Rama:</em> let him be <strong>filled with fear and trembling</strong> over the transgression that has come to hand, and let him not lean upon her but upon his feet and his hands so as to <strong>derive no pleasure from her</strong>. If he withdrew <strong>in a state of erection and inadvertently (be-kishui u-ve-shogeg)</strong>, not knowing that it is forbidden to withdraw, he shall <strong>fast 40 days</strong> — not consecutively, but two days each week, for example Monday and Thursday, and on the <strong>eve of the fast he shall abstain from wine and meat</strong>; and if he cannot fast, he shall <strong>redeem each day with money given to tzedakah</strong> according to his means (the wealthy a little more than the poor); one should be stringent in his teshuvah, and <strong>whoever does more to repent, it is a merit for him</strong> (וכל המרבה לשוב זכות הוא לו). <strong>The woman, however, needs no kapparah</strong> (atonement). And if she was with him <strong>not at the time of her veset</strong> and found blood after the relations — even found on his examination cloth — it is deemed an <strong>ones</strong> (a case of compulsion), even if she had not examined herself beforehand, and <strong>neither he nor she needs kapparah</strong>.
 </div>
 
 <div class="key-point">
@@ -625,7 +650,7 @@ The Rama distinguishes the states: if one withdrew <strong>be-kishui be-shogeg</
 <tr>
   <td>May she <strong>retract</strong>?</td>
   <td>Seif 3</td>
-  <td>Not after kedei dibbur — except with an amatla (weakness, ketatah)</td>
+  <td>Not after kedei dibbur (Rama) — except with an amatla (weakness, ketatah)</td>
 </tr>
 <tr>
   <td>The <strong>« nitmeti »</strong> during relations</td>
@@ -695,7 +720,7 @@ The thread running through: <strong>the woman's word governs the taharah of the 
   <th>Result</th>
 </tr>
 <tr>
-  <td>« טמאה אני » then « טהורה אני », <strong>without</strong> explanation (after kedei dibbur)</td>
+  <td>« טמאה אני » then « טהורה אני », <strong>without</strong> explanation (after kedei dibbur — Rama)</td>
   <td>🔴 None</td>
   <td>🔴 <strong>Not believed</strong></td>
 </tr>
@@ -752,7 +777,8 @@ The thread running through: <strong>the woman's word governs the taharah of the 
   <button class="daat-copy" type="button" data-copy-target="#cp-sk1">📋 Copy</button>
 </h4>
 
-<blockquote class="text-source" data-copy-block id="cp-sk1">
+<blockquote class="text-resume" data-copy-block id="cp-sk1">
+<span class="resume-marque"><em>summary</em> — a condensation, not the full text of the Shulchan Arukh</span>
 עַד שֶׁתֹּאמַר לוֹ טָבַלְתִּי. דְּוּסָפְרָה לָהּ — לְעַצְמָהּ, וְהִיא נֶאֱמֶנֶת. וְלָכֵן אִם אֵין הַבַּעַל יוֹדֵעַ אִם עָבְרוּ הַיָּמִים — סוֹמֵךְ עָלֶיהָ.
 </blockquote>
 
@@ -766,7 +792,8 @@ The Shach explains the foundation: « <strong>וספרה לה</strong> » — sh
   <button class="daat-copy" type="button" data-copy-target="#cp-tz">📋 Copy</button>
 </h4>
 
-<blockquote class="text-source" data-copy-block id="cp-tz">
+<blockquote class="text-resume" data-copy-block id="cp-tz">
+<span class="resume-marque"><em>summary</em> — a condensation, not the full text of the Shulchan Arukh</span>
 וְהֶחָכָם אוֹמֵר שֶׁהִיא מְשַׁקֶּרֶת — הֶחָכָם נֶאֱמָן. דַּוְקָא הֶחָכָם עַצְמוֹ הַמַּכְחִישָׁהּ, אֲבָל עֵד אֶחָד הַמֵּעִיד שֶׁשָּׁמַע מֵהֶחָכָם — אֵינוֹ נֶאֱמָן לְהַכְחִישָׁהּ, כִּדְאִיתָא בִּכְתֻבּוֹת כ״ב.
 </blockquote>
 
@@ -913,7 +940,7 @@ If blood is discovered after relations that took place <strong>outside the time 
   <li>Everything rests on the woman's <strong>ne'emanut</strong>: « <strong>וספרה לה</strong> » — she counts for herself, the husband relies on her (seif 1, Shach).</li>
   <li>Presumed impure, she is <strong>believed once she says « טבלתי »</strong>; after the time to count and immerse, even stained — by amatla (seif 1).</li>
   <li>But if she was <strong>seen wearing the bigdei niddah</strong>, she is <strong>certainly impure</strong>: a public deed prevails over the word (seif 2).</li>
-  <li>« טמאה אני » then « טהורה אני » → <strong>not believed</strong> (after kedei dibbur), <strong>except with an amatla</strong> (weakness, ketatah); to be stringent = <strong>midat chasidut</strong> (seif 3).</li>
+  <li>« טמאה אני » then « טהורה אני » → <strong>not believed</strong> (after kedei dibbur — Rama), <strong>except with an amatla</strong> (weakness, ketatah); to be stringent = <strong>midat chasidut</strong> (seif 3).</li>
   <li>The amatla avails <strong>neither after a deed</strong> (the bigdei niddah seen) <strong>nor beyond 30 days</strong>; and if a <strong>chacham</strong> denies it, the chacham is believed (seif 3, Taz s.k. 3).</li>
   <li><strong>« נטמאתי »</strong> during the union: <strong>freeze (ever met)</strong>, for « יציאתו הנאה לו כביאתו »; withdrawing in erection → <strong>karet</strong> (seif 4).</li>
   <li>If <strong>shogeg / kishui</strong>: <strong>teshuvah</strong> (fast 40 d or tzedakah); the <strong>woman needs no kapparah</strong>; and outside the veset → <strong>ones</strong>, neither of them atones (seif 4).</li>

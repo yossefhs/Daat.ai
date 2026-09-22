@@ -231,6 +231,29 @@
   hr.ornament { border: none; text-align: center; margin: 20px 0; }
   hr.ornament::before { content: "✦ ❖ ✦"; color: #C5A55A; font-size: 13pt; }
 
+  blockquote.text-resume {
+    background: #f7f5f2;
+    border-right: 4px dashed #b9a06a;
+    direction: rtl;
+    text-align: right;
+    margin: 10px 0;
+    padding: 10px 15px;
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 12pt;
+    font-style: italic;
+  }
+
+  blockquote.text-resume .resume-marque {
+    display: block;
+    direction: inherit;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: normal;
+    font-size: 10pt;
+    color: #7a6a44;
+    margin-bottom: 6px;
+  }
+
+  .src-ref { text-align: left; font-size: 9.5pt; color: #5a4a1a; margin: -4px 0 14px 0; font-style: italic; }
   blockquote.text-source {
     background: #faf8f0;
     border-right: 4px solid #C5A55A;
@@ -464,7 +487,7 @@
   <div class="ornament">✦ ❖ ✦</div>
 
   <p style="font-size: 11pt; color: #555; max-width: 500px; margin: 30px auto;">
-  A first approach to Siman 189: the 34 seifim of the Mehaber and the glosses of the Rama, the vocalized Hebrew text with a fluent English translation. How does a woman determine her period (veset)? The benchmark day of the onah beinonit (30 days), the establishment of a period by three times, the period based on the interval (haflagah) and the shift (dilug), the periods of the days of the month and week, the uprooting of a period (akirat veset), the bodily periods (וסתות הגוף), and the case of the minor, the elderly, the pregnant and the nursing woman.
+  A first approach to Siman 189: the 34 seifim of the Mehaber and the glosses of the Rama, the verbatim Hebrew text of the Shulchan Arukh with a fluent English translation. How does a woman determine her period (veset)? The benchmark day of the onah beinonit (30 days), the establishment of a period by three times, the period based on the interval (haflagah) and the shift (dilug), the periods of the days of the month and week, the uprooting of a period (akirat veset), the bodily periods (וסתות הגוף), and the case of the minor, the elderly, the pregnant and the nursing woman.
   </p>
 
   <div class="credits">
@@ -483,7 +506,7 @@
 <h2 class="section-title">📑 Study plan</h2>
 
 <div class="quick-recap">
-<div class="toc-item"><span class="toc-num">1.</span> <strong>The Mehaber's text</strong>: the 34 seifim, grouped into 8 thematic families</div>
+<div class="toc-item"><span class="toc-num">1.</span> <strong>The Mehaber's text</strong>: the 34 seifim, one by one, in the order of the book</div>
 <div class="toc-item"><span class="toc-num">2.</span> <strong>Context</strong>: why this siman follows the laws of niddah</div>
 <div class="toc-item"><span class="toc-num">3.</span> <strong>The key concepts</strong>: veset, onah beinonit, fixed / non-fixed, haflagah, dilug…</div>
 <div class="toc-item"><span class="toc-num">4.</span> <strong>How a period is set and uprooted</strong>: the table of the three times</div>
@@ -499,87 +522,76 @@
 <!-- ========================================== -->
 <!-- 1. THE MEHABER'S TEXT -->
 <!-- ========================================== -->
-<h2 id="exp-seifim" class="section-title">1. The Mehaber's text — the 34 seifim in 8 families</h2>
+<h2 id="exp-seifim" class="section-title">1. The Mehaber's text — the 34 seifim in the order of the book</h2>
+<div class="key-point"><strong>A note on reading.</strong> The Hebrew blocks in this section carry the text of the Shulchan Arukh <strong>as it stands</strong>: one block per seif, verbatim, in the order of the book, with its source parentheses and its glosses. The translation that follows each block renders the seif clause by clause; the Rama's glosses are announced there as glosses.</div>
 
-<p>Siman 189 is one of the longest and most technical of all of Yoreh De'ah: <strong>34 seifim</strong> devoted to the <span class="he-q">וְסָתוֹת</span> — a woman's <strong>menstrual periods</strong> and how to anticipate them. After Siman 184 (the mitzvah of <span class="he-q">פרישה</span>, separating as the period approaches), the Mehaber (Rabbi Yosef Karo) here details <strong>how a period is calculated, established and uprooted</strong>. The Rama (Rabbi Moshe Isserles) adds his glosses (<span class="he-q">הגה</span>). Given the number of seifim, we present them <strong>grouped into eight families</strong> that cover the whole content, citing for each the representative vocalized Hebrew text.</p>
+<p>Siman 189 is long and technical: <strong>34 seifim</strong> devoted to the <span class="he-q">וְסָתוֹת</span> — a woman's <strong>menstrual periods</strong> and how to anticipate them. After Siman 184 (the mitzvah of <span class="he-q">פרישה</span>, separating as the period approaches), the Mehaber (Rabbi Yosef Karo) here details <strong>how a period is calculated, established and uprooted</strong>. The Rama (Rabbi Moshe Isserles) adds his glosses (<span class="he-q">הגה</span>). The 34 seifim are given here <strong>one by one, in the order of the book</strong>: each seif sharpens the definition laid down by the one before it, and the order itself carries part of the meaning.</p>
 
-<!-- FAMILY 1 -->
-<h3>Family 1 — Onah beinonit and the fixed veset: the foundation (seifim 1, 4)</h3>
+<!-- SEIFIM 1-34, in the order of the book -->
 
-<h4>Seif 1 — Without a fixed period: the 30th day (onah beinonit)
-  <button class="daat-copy" type="button" data-copy-target="#cp-f1a">📋 Copy</button>
-</h4>
 
-<blockquote class="text-source" data-copy-block id="cp-f1a">
-כָּל אִשָּׁה שֶׁאֵין לָהּ וֶסֶת קָבוּעַ, חוֹשֶׁשֶׁת לְיוֹם שְׁלֹשִׁים לִרְאִיָּתָהּ, שֶׁהִיא עוֹנָה בֵּינוֹנִית לִסְתָם נָשִׁים; וְאִם יֵשׁ לָהּ וֶסֶת קָבוּעַ לִזְמַן יָדוּעַ, מִכ׳ לְכ׳ אוֹ מִכ״ה לְכ״ה — חוֹשֶׁשֶׁת לַזְּמַן הַיָּדוּעַ.
+<h3>The foundation: onah beinonit and the fixed veset (seifim 1 to 4)</h3>
+
+<h4>Seif 1 — The siman's heading; without a fixed period: the 30th day (onah beinonit)</h4>
+<blockquote class="text-source" data-copy-block id="cp-s1">
+<b>דיני אשה שיש לה וסת קבוע ושאין לה וסת קבוע. ובו ל"ד סעיפים:</b><br>כל אשה שאין לה וסת קבוע חוששת ליום ל' לראייתה שהיא עונה בינונית לסתם נשים ואם יש לה וסת קבוע לזמן ידוע מכ' לכ' או מכ"ה לכ"ה חוששת לזמן הידוע:
 </blockquote>
-
 <div class="translation">
-<strong>Every woman who has no fixed period</strong> (veset kavua) <strong>must be concerned for the 30th day</strong> counting from her last sighting, for this is the <strong>onah beinonit</strong> (the "middle period") for women in general (li-stam nashim). And if she has a <strong>fixed period at a known interval</strong> — every 20 days, or every 25 — she is concerned for that <strong>known time</strong>.
+<strong>The siman's heading</strong> (the Shulchan Arukh sets it down himself): "Laws of a woman who has a fixed period and of one who has no fixed period. And it contains thirty-four seifim."
+<br><br>
+<strong>Every woman who has no fixed period</strong> (וסת קבוע) <strong>must be concerned for the 30th day</strong> counting from her sighting, for that is the <strong>onah beinonit</strong> (עונה בינונית), the average interval for women at large (לסתם נשים). <strong>And if she has a fixed period at a known time</strong> — from 20 days to 20, or from 25 to 25 — <strong>she is concerned for that known time</strong>.
 </div>
 
-<h4>Seif 4 — The practical difference between fixed and non-fixed
-  <button class="daat-copy" type="button" data-copy-target="#cp-f1b">📋 Copy</button>
-</h4>
-
-<blockquote class="text-source" data-copy-block id="cp-f1b">
-עוֹד יֵשׁ חִלּוּק בֵּין קְבָעַתּוּ ג׳ פְּעָמִים לְלֹא קְבָעַתּוּ : שֶׁהַקָּבוּעַ, אַף עַל פִּי שֶׁעָבְרָה עוֹנָתָהּ וְלֹא הִרְגִּישָׁה — אֲסוּרָה לְשַׁמֵּשׁ עַד שֶׁתִּבְדּוֹק וְתִמְצָא טְהוֹרָה; וְשֶׁלֹּא קְבָעַתּוּ, אִם הִגִּיעַ זְמַן הַוֶּסֶת וְלֹא בָּדְקָה וְלֹא רָאֲתָה, כֵּיוָן שֶׁעָבְרָה עוֹנָתָהּ — מֻתֶּרֶת; וְעוֹנָה בֵּינוֹנִית שֶׁהִיא לְל׳ יוֹם, דִּינָהּ כְּוֶסֶת קָבוּעַ.
+<h4>Seif 2 — How a period is established; being concerned from the very first time</h4>
+<blockquote class="text-source" data-copy-block id="cp-s2">
+כיצד קובעתו כגון שתראה ד' פעמים וביניהם ג' זמנים שוין כגון שראתה היום ולסוף כ' יום פעם אחרת ועוד לסוף כ' יום ועוד לסוף כ' יום וזה נקרא וסת ההפלגות ולכך צריכה ד' ראיות שראיה ראשונה אינה מן המנין לפי שאינה בהפלגה ואפי' קודם שקבעתו שלש פעמים חוששת שמיד אחר שראתה פעם אחת לסוף כ' חוששת מכאן ואילך כשיגיע כ' וכן בראיית הימי' שהיא לימי' ידועים לחדש מיד אחר שראתה פעם אחת ליום ידוע לחדש כגון כ"א או כ"ה בו חוששת לפעם אחרת לזה היום ואסורה לשמש כל אותה העונה והוא הדין לשאר מיני וסת שצריכה לחוש להם כן חוץ מוסת הדילוג וכמו שיתבאר בסימן זה <small>(ד"ע ופשוט) </small>ולא אמרו שצריך לקובעם ג"פ אלא לענין עקירה שכיון שקבעתו בג"פ אינו נעקר בפחות מג' פעמים שכל זמן שלא עקרתו ג"פ צריכה לחוש לו אבל ליאסר אפילו בפעם אחת חוששת לו פעם שניה ומיהו אע"פ שחוששת לו נעקר בפעם אחת אפילו קבעתו ב' פעמים שאם ראתה ב' פעמים ליום ידוע ובשלישית לא ראתה אינה חוששת לו עוד:
 </blockquote>
-
 <div class="translation">
-There is a further <strong>difference between a period established three times and one that is not</strong>: for a <strong>fixed period</strong>, even if the time (onah) has passed without her feeling anything, she <strong>remains forbidden to her husband until she examines herself</strong> (tivdok) and finds herself pure. For a <strong>non-fixed period</strong>, if the time passed without her examining or seeing, <strong>she is permitted</strong>, since the time has passed. And the <strong>onah beinonit of the 30th day has the status of a fixed period</strong> (dinah ke-veset kavua).
+<strong>How does she establish it?</strong> When she sees <strong>four times</strong> with <strong>three equal intervals</strong> between them: she sees today, another time at the end of 20 days, again at the end of 20, again at the end of 20 — this is called the <strong>veset ha-haflagot</strong> (וסת ההפלגות), the period of the interval. <strong>Four sightings</strong> are needed for this, because <strong>the first does not enter the count</strong>, not being itself an interval (הפלגה).
+<br><br>
+<strong>And even before she has established it three times, she is concerned</strong>: as soon as she has seen once at the end of 20, she is concerned from then on whenever the 20th day arrives. <strong>So too for a sighting on known days of the month</strong>: as soon as she has seen once on a known day of the month — the 21st or the 25th, say — she is concerned for another time on that day, and <strong>she is forbidden to her husband for that whole onah</strong>. And the same applies to the other kinds of veset, which she must be concerned for likewise — <strong>except the veset ha-dilug</strong>, as will be explained in this siman.
+<br><br>
+<strong>The "three times" bear only on uprooting.</strong> If three times were required, it was only as regards <em>uprooting</em> (עקירה): once established over three times, it is not uprooted in fewer than three, and so long as she has not uprooted it three times she must be concerned for it. But <strong>to become forbidden, one time suffices</strong>: she is concerned for it the second time. Yet although she is concerned for it, <strong>such a period is uprooted in a single time</strong>, even if she established it twice: if she saw twice on a known day and on the third did not see, she is no longer concerned for it.
+</div>
+
+<h4>Seif 3 — The period set by hours (veset li-sha'ot)</h4>
+<blockquote class="text-source" data-copy-block id="cp-s3">
+אם קבעה וסת לשעות ולא לימים אינה חוששת אלא שעתה בלבד והוסת הזה הוא נעקר בשעה אחת ואפי' בלא בדיקה:
+</blockquote>
+<div class="translation">
+If she established a period <strong>by hours and not by days</strong>, she is concerned only for <strong>her hour</strong> alone. And such a period <strong>is uprooted in a single hour</strong> that passes without her seeing, <strong>and even without a bedikah</strong> (בדיקה, examination).
+</div>
+
+<div class="key-point">
+<strong>The principle of establishment:</strong> a period becomes "fixed" only after <strong>three identical intervals</strong>. For a period based on the <strong>interval</strong> (ha-haflagot), <strong>four sightings</strong> are needed — because the first bleeding does not yet establish an interval; it is the three following intervals that must be equal. Once fixed, the period is uprooted only after three intervals passing empty (seifim 15 and 16).
+</div>
+
+<div class="page-break"></div>
+
+
+
+<h4>Seif 4 — The practical difference between a fixed and a non-fixed period</h4>
+<blockquote class="text-source" data-copy-block id="cp-s4">
+עוד יש חילוק בין קבעתו ג' פעמים ללא קבעתו ג' פעמים שהקבוע אף על פי שעברה עונתה ולא הרגישה אסורה לשמש עד שתבדוק ותמצא טהורה ושלא קבעתו ג"פ אם הגיע זמן הוסת ולא בדקה ולא ראתה כיון שעברה עונתה מותרת ועונה בינונית שהיא לל' יום דינה כוסת קבוע <small>(הרשב"א):</small>
+</blockquote>
+<div class="translation">
+There is a further <strong>difference between a period established three times and one that is not</strong>: for a <strong>fixed period</strong>, even if her onah has passed and she felt nothing, she <strong>remains forbidden to her husband until she examines herself</strong> (תבדוק) and finds herself clean. For a <strong>non-fixed period</strong>, if the time of the period arrived and she neither examined nor saw, <strong>she is permitted</strong>, since her onah has passed. And the <strong>onah beinonit, which is the 30th day, has the status of a fixed period</strong> (דינה כוסת קבוע) — so the Rashba, whom the Shulchan Arukh names here.
 </div>
 
 <div class="key-point">
 <strong>The central idea:</strong> every woman is "concerned" (choshéshet) for a day on which her period might return, and must abstain then. Without a regular cycle, that benchmark day is the <strong>onah beinonit, the 30th day</strong>. With a regular cycle, it is the known day. The decisive distinction (seif 4): a <strong>fixed</strong> period requires a <strong>bedikah</strong> (examination) even if nothing was felt; a <strong>non-fixed</strong> period, passed without seeing anything, lifts on its own — except the onah beinonit, which carries the stringency of a fixed period.
 </div>
 
-<!-- FAMILY 2 -->
-<h3>Family 2 — How a period is established: the three times (seifim 2-3)</h3>
 
-<h4>Seif 2 — Three equal intervals; four sightings for the veset ha-haflagot
-  <button class="daat-copy" type="button" data-copy-target="#cp-f2a">📋 Copy</button>
-</h4>
 
-<blockquote class="text-source" data-copy-block id="cp-f2a">
-כֵּיצַד קוֹבַעְתּוֹ? כְּגוֹן שֶׁתִּרְאֶה אַרְבַּע פְּעָמִים וּבֵינֵיהֶם שְׁלֹשָׁה זְמַנִּים שָׁוִין — כְּגוֹן שֶׁרָאֲתָה הַיּוֹם, וּלְסוֹף עֶשְׂרִים יוֹם פַּעַם אַחֶרֶת, וְעוֹד לְסוֹף עֶשְׂרִים, וְעוֹד לְסוֹף עֶשְׂרִים — וְזֶה נִקְרָא וֶסֶת הַהַפְלָגוֹת; וּלְכָךְ צְרִיכָה אַרְבַּע רְאִיּוֹת, שֶׁרְאִיָּה רִאשׁוֹנָה אֵינָהּ מִן הַמִּנְיָן, לְפִי שֶׁאֵינָהּ בְּהַפְלָגָה.
+<h3>The dates: days of the month and week, dilug and sirug (seifim 5 to 13)</h3>
+
+<h4>Seif 5 — The interval that shifts at a steady rate (dilug)</h4>
+<blockquote class="text-source" data-copy-block id="cp-s5">
+פעמים שתהיה ההפלגה שקובעת בהם הוסת בדילוג כגון שראתה היום וראתה שנית לסוף ל' ושלישית לל"א ורביעית לל"ב קבעה וסת לדילוג שלהפלגות בין שהרחיקה דילוגה הרבה בין שלא הרחיקה אלא יום אחד קבעה וסת לדילוג השוה שבכל ענין שתהא משוה ראייתה קבעה לה וסת:
 </blockquote>
-
 <div class="translation">
-<strong>How is a period established?</strong> When the woman sees <strong>four times</strong> with, between those sightings, <strong>three equal intervals</strong>: for example she sees today, then after 20 days another time, again after 20, again after 20 — this is called the <strong>veset ha-haflagot</strong> (the period of the interval). It requires <strong>four sightings</strong>, because <strong>the first does not count</strong> in the reckoning, since it is not itself an interval (haflagah).
-</div>
-
-<h4>Seif 3 — The period set by hours (veset li-sha'ot)
-  <button class="daat-copy" type="button" data-copy-target="#cp-f2b">📋 Copy</button>
-</h4>
-
-<blockquote class="text-source" data-copy-block id="cp-f2b">
-אִם קָבְעָה וֶסֶת לְשָׁעוֹת וְלֹא לְיָמִים — אֵינָהּ חוֹשֶׁשֶׁת אֶלָּא שְׁעָתָהּ בִּלְבַד; וְהַוֶּסֶת הַזֶּה נֶעֱקָר בְּשָׁעָה אַחַת, וַאֲפִלּוּ בְּלֹא בְּדִיקָה.
-</blockquote>
-
-<div class="translation">
-If she set a period <strong>by hours and not by days</strong>, she is concerned only for her precise <strong>hour</strong>. And that period <strong>is uprooted in a single hour</strong> (passed without her seeing), <strong>even without a bedikah</strong>.
-</div>
-
-<div class="key-point">
-<strong>The principle of establishment:</strong> a period becomes "fixed" only after <strong>three identical intervals</strong>. For a period based on the <strong>interval</strong> (ha-haflagot), <strong>four sightings</strong> are needed — because the first bleeding does not yet establish an interval; it is the three following intervals that must be equal. Once fixed, the period is uprooted only after three intervals passing empty (see Family 5).
-</div>
-
-<div class="page-break"></div>
-
-<!-- FAMILY 3 -->
-<h3>Family 3 — Veset ha-haflagot and the dilug (seif 5)</h3>
-
-<h4>Seif 5 — The interval that shifts regularly
-  <button class="daat-copy" type="button" data-copy-target="#cp-f3">📋 Copy</button>
-</h4>
-
-<blockquote class="text-source" data-copy-block id="cp-f3">
-פְּעָמִים שֶׁתִּהְיֶה הַהַפְלָגָה שֶׁקּוֹבַעַת בָּהּ הַוֶּסֶת בְּדִלּוּג, כְּגוֹן שֶׁרָאֲתָה הַיּוֹם, וְרָאֲתָה שֵׁנִית לְסוֹף שְׁלֹשִׁים, וּשְׁלִישִׁית לִשְׁלֹשִׁים וְאַחַת, וּרְבִיעִית לִשְׁלֹשִׁים וּשְׁתַּיִם — קָבְעָה וֶסֶת לְדִלּוּג שֶׁל הַפְלָגוֹת; בֵּין שֶׁהִרְחִיקָה דִּלּוּגָהּ הַרְבֵּה בֵּין שֶׁלֹּא הִרְחִיקָה אֶלָּא יוֹם אֶחָד — קָבְעָה לָהּ וֶסֶת.
-</blockquote>
-
-<div class="translation">
-At times the <strong>interval</strong> by which a period is established advances by <strong>shift</strong> (dilug): for example she sees today, a second time after 30 days, a third after 31, a fourth after 32 — she has <strong>established a period by the shift of intervals</strong>. Whether the shift is large or only one single day, as long as it is <strong>regular</strong> (mashveh re'iyatah), <strong>she has established a period</strong>.
+Sometimes the <strong>interval</strong> by which the period is established advances by a <strong>shift</strong> (דילוג): for instance she sees today, a second time at the end of 30 days, a third at the end of 31, a fourth at the end of 32 — <strong>she has established a period by the shifting of intervals</strong>. <strong>Whether her shift has widened greatly or has widened by only a single day</strong>, she has established a period <strong>by an even shift</strong>: in whatever manner she makes her sightings regular (משוה ראייתה), <strong>she has established a period</strong>.
 </div>
 
 <div class="key-point">
@@ -588,52 +600,114 @@ At times the <strong>interval</strong> by which a period is established advances
 
 <div class="page-break"></div>
 
-<!-- FAMILY 4 -->
-<h3>Family 4 — Days of the month and week: dilug, sirug, day and night (seifim 6-13)</h3>
 
-<h4>Seif 6 — Days of the month and week, equal or not
-  <button class="daat-copy" type="button" data-copy-target="#cp-f4a">📋 Copy</button>
-</h4>
-
-<blockquote class="text-source" data-copy-block id="cp-f4a">
-כְּשֵׁם שֶׁקּוֹבַעַת וֶסֶת בְּהַפְלָגָה מִיָּמִים שָׁוִין וְשֶׁאֵינָם שָׁוִין, כָּךְ קוֹבַעַת בִּימֵי הַחֹדֶשׁ וּבִימֵי הַשָּׁבוּעַ, שָׁוִין וְשֶׁאֵינָם שָׁוִין. כֵּיצַד? רָאֲתָה שָׁלֹשׁ פְּעָמִים בְּאֶחָד בַּשַּׁבָּת, אוֹ בַּחֲמִישִׁי בַּשַּׁבָּת, אוֹ בְּאֶחָד בְּנִיסָן וּבְאֶחָד בְּאִיָּיר וּבְאֶחָד בְּסִיוָן — קָבְעָה לָהּ וֶסֶת.
+<h4>Seif 6 — Days of the month and of the week, equal or not</h4>
+<blockquote class="text-source" data-copy-block id="cp-s6">
+כשם שקובעת וסת בהפלגה מימים שוים ושאינם שוים כך קובעת בימי החדש ובימי השבוע שוים ושאינם שוים כיצד ראתה ג"פ באחד בשבת או בה' בשבת או באחד בניסן ובאחד באייר ובאחד בסיון או בה' בניסן ובה' באייר ובה' בסיון קבעה לה וסת באחד בשבת או בה' בו ובאחד בחודש או בה' בו אף על פי שאחד מלא ואחד חסר אין מדקדקין בכך:
 </blockquote>
-
 <div class="translation">
-Just as a woman establishes a period by the <strong>interval</strong> (of equal or unequal days), she also establishes it by the <strong>days of the month</strong> and the <strong>days of the week</strong>, equal or unequal. How? If she sees <strong>three times on Sunday</strong> (echad ba-shabbat), or Thursday, or on the 1st of Nissan, the 1st of Iyar and the 1st of Sivan — <strong>she has established a period</strong> on that day.
+Just as she establishes a period by the <strong>interval</strong> — from days equal or unequal — so she establishes it by the <strong>days of the month</strong> and by the <strong>days of the week</strong>, equal or unequal. How? If she saw <strong>three times</strong> on Sunday (אחד בשבת), or on Thursday, or on 1 Nissan, 1 Iyar and 1 Sivan, or on 5 Nissan, 5 Iyar and 5 Sivan — <strong>she has established a period</strong> on Sunday or on Thursday, on the 1st of the month or on the 5th of it. <strong>And although one month is full and another deficient, we are not particular about that</strong> (אין מדקדקין בכך).
 </div>
 
-<h4>Seif 13 — Always within the same onah: day or night
-  <button class="daat-copy" type="button" data-copy-target="#cp-f4b">📋 Copy</button>
-</h4>
-
-<blockquote class="text-source" data-copy-block id="cp-f4b">
-אֵין הָאִשָּׁה קוֹבַעַת לָהּ וֶסֶת, אֲפִלּוּ רָאֲתָה שְׁלֹשָׁה רָאשֵׁי חֳדָשִׁים זֶה אַחַר זֶה, אֶלָּא אִם כֵּן יִהְיוּ כֻּלָּם בְּעוֹנָה אַחַת — בַּיּוֹם אוֹ בַּלַּיְלָה; וְאִם רָאֲתָה שָׁלֹשׁ פְּעָמִים בַּיּוֹם וְהָרְבִיעִית בַּלַּיְלָה, אוֹ שָׁלֹשׁ בַּלַּיְלָה וְהָרְבִיעִית בַּיּוֹם — חוֹשֶׁשֶׁת בַּיּוֹם וּבַלַּיְלָה.
+<h4>Seif 7 — The dilug by days of the month: the fourth sighting, and the view that dispenses with it</h4>
+<blockquote class="text-source" data-copy-block id="cp-s7">
+כיצד קובעת בימי החדש בדילוג כגון שראתה בט"ו בניסן וט"ז באייר וי"ז בסיון לא קבעה וסת עד שתראה בי"ח בתמוז שאין ראיה ראשונה מצטרפת כיון שאין ההפלגות שוות ומיהו אם היה לה וסת קודם שהתחילה ואח"כ שינתה וראתה בדילוג ג' פעמים קבעה וסת בדילוג לפי שאף הראשונה בדילוג ראתה אותה שדילגה מוסת הקבוע לה <small>(רמב"ם ורמב"ן כשמואל וטור לדעת רא"ש אבל בפרק שור שנגח ד' וה' פסק רא"ש כרב וכן הוא ברמזים שם) </small>וי"א שאע"פ שלא ראתה אלא בט"ו בניסן וט"ז באייר וי"ז בסיון קבעה וסת וחוששת לי"ח בתמוז וי"ט באב וכן לעולם ויש לחוש לדבריהם ולהחמיר:
 </blockquote>
-
 <div class="translation">
-A woman does not establish a period — even if she has seen <strong>three Rosh Chodesh</strong> in a row — <strong>unless all those sightings are within a single onah</strong>: <strong>by day</strong> or <strong>by night</strong>. And if she saw three times by day and the fourth by night (or the reverse), <strong>she is concerned for both day and night</strong>.
+<strong>How does she establish by days of the month through a shift?</strong> For instance she saw on 15 Nissan, 16 Iyar and 17 Sivan: <strong>she has not established a period until she sees on 18 Tammuz</strong>, for <strong>the first sighting does not join</strong> the count, since the intervals are not equal.
+<br><br>
+<strong>However, if she already had a period before she began</strong>, and afterwards changed and saw by shift <strong>three times</strong>, <strong>she has established a period by shift</strong> — because <strong>even the first sighting of the shift was itself a shift</strong>: she saw it as a departure from the period that had been fixed for her. The Shulchan Arukh here points to the Rambam, the Ramban and the Tur.
+<br><br>
+<strong>And some say</strong> (וי״א) that even if she saw only on 15 Nissan, 16 Iyar and 17 Sivan, <strong>she has established a period</strong> and is concerned for 18 Tammuz, then 19 Av, and so forever. <strong>And one should be concerned for their words and be stringent</strong> (ויש לחוש לדבריהם ולהחמיר).
+</div>
+
+<h4>Seif 8 — The shift that comes round in a cycle (dilug chalilah)</h4>
+<blockquote class="text-source" data-copy-block id="cp-s8">
+ראתה ג"פ בג' חדשים בדילוג וחזרה וראתה באותם דילוגים עצמם אם נהגה כן ג"פ הרי זה וסת קבוע לדילוג חלילה כיצד ראתה ט"ו בניסן וט"ז באייר וי"ז בסיון וחזרה חלילה וראתה ט"ו בתמוז וט"ז באב וי"ז באלול ועוד חזרה וראתה ט"ו בתשרי וט"ז בחשוון וי"ז בכסלו קבעה לה וסת לדילוג חלילה וחוששת לעולם ט"ו לחודש זה וט"ז לחודש זה וי"ז לחודש זה:
+</blockquote>
+<div class="translation">
+If she saw <strong>three times in three months by shift</strong>, and then went round again and saw <strong>by those very same shifts</strong>: if she did so <strong>three times</strong>, this is a <strong>fixed period of cyclical shift</strong> (וסת קבוע לדילוג חלילה). How? She saw on 15 Nissan, 16 Iyar and 17 Sivan; then the cycle came round and she saw on 15 Tammuz, 16 Av and 17 Elul; then it came round again and she saw on 15 Tishrei, 16 Cheshvan and 17 Kislev — <strong>she has established a period of cyclical shift</strong>, and she is concerned <strong>forever</strong> for the 15th of this month, the 16th of that month and the 17th of the next.
+</div>
+
+<h4>Seif 9 — Rosh Chodesh every other month</h4>
+<blockquote class="text-source" data-copy-block id="cp-s9">
+ראתה באחד בניסן ובא' בסיון ובא' באב קבעה לה וסת לר"ח לדילוגים אבל ראתה באחד בניסן ובאחד באייר ובאחד בתמוז ובאחד בסיון לא ראתה לא קבעה לה וסת:
+</blockquote>
+<div class="translation">
+If she saw on 1 Nissan, 1 Sivan and 1 Av — <strong>she has established a period for Rosh Chodesh by shifts</strong>. But if she saw on 1 Nissan, 1 Iyar and 1 Tammuz, and <strong>on 1 Sivan she did not see</strong> — <strong>she has not established a period</strong>.
+</div>
+
+<h4>Seif 10 — An uneven shift in the third month establishes nothing</h4>
+<blockquote class="text-source" data-copy-block id="cp-s10">
+ראתה ט"ו בניסן וט"ז באייר וי"ח בסיון לא קבעה וסת כיון שסירגה בחדש השלישי ולא ראתה עד י"ח בו:
+</blockquote>
+<div class="translation">
+If she saw on 15 Nissan, 16 Iyar and the <strong>18th</strong> of Sivan — <strong>she has not established a period</strong>, since she <strong>skipped in the third month</strong> (סירגה) and did not see until the 18th of it.
+</div>
+
+<h4>Seif 11 — One is concerned for a dilug only once it is established</h4>
+<blockquote class="text-source" data-copy-block id="cp-s11">
+דילגה פעם אחת או שתים אינה חוששת לדילוג אע"פ שחוששת לשאר וסתות בפעם אחת אינה חוששת לוסת הדילוג עד שתקבענו:
+</blockquote>
+<div class="translation">
+If she shifted <strong>once or twice, she is not concerned for the shift</strong>. And although she is concerned for the <strong>other kinds of period after a single time</strong>, <strong>she is not concerned for the period of shift until she has established it</strong>.
+</div>
+
+<h4>Seif 12 — The veset ha-sirug: the first sighting counts, yet the concern stays short</h4>
+<blockquote class="text-source" data-copy-block id="cp-s12">
+וסת הסירוג ראיה ראשונה מן המנין לדברי הכל ואע"פ שהרחיקה ראיותיה אלא שלענין חשש וסתה בתחלה הוא שוה לדילוג שאינה חושש' אלא מר"ח לר"ח הסמוך לו כגון שראתה בר"ח ניסן חוששת לר"ח אייר ואם לא ראתה עד ר"ח סיון חוששת לר"ח תמוז הסמוך לו ואם לא ראתה בר"ח תמוז אינה חוששת לר"ח אב אע"פ שהם הפלגת ב' חדשים כעין ההפלגה הראשונה מפני שהפסקת החדש השני ביטלה ראית החודש הראשון וראית החודש השלישי היא התחלת וסת וחוששת לר"ח הסמוך ולא יותר:
+</blockquote>
+<div class="translation">
+In the <strong>period by alternation</strong> (וסת הסירוג), <strong>the first sighting does enter the count, by all opinions</strong>, even though she spaced her sightings out. Only, <strong>as regards the initial concern it is like the shift</strong>: she is concerned only <strong>from one Rosh Chodesh to the Rosh Chodesh immediately following</strong>.
+<br><br>
+For example: she saw on Rosh Chodesh Nissan — she is concerned for Rosh Chodesh Iyar. If she did not see until Rosh Chodesh Sivan — she is concerned for Rosh Chodesh Tammuz, the one following. And if she did not see on Rosh Chodesh Tammuz, <strong>she is not concerned for Rosh Chodesh Av</strong>, even though these are an interval of two months like the first interval — <strong>because the interruption of the second month annulled the sighting of the first month</strong>, and the sighting of the third month is the <em>beginning</em> of a period: she is concerned for the adjacent Rosh Chodesh and no further.
+</div>
+
+<h4>Seif 13 — Always within one and the same onah: day or night; and the Rama's gloss</h4>
+<blockquote class="text-source" data-copy-block id="cp-s13">
+אין האשה קובעת לה וסת אפילו ראתה שלשה ר"ח זה אחר זה אלא אם כן יהיו כולם בעונה אחת ביום או בלילה ואם ראתה שלש פעמים ביום והרביעית בלילה או שלש פעמים בלילה והרביעית ביום חוששת ביום ובלילה מפני חשש הוסת הראשון ומפני חשש השני שהוא האחרון ואם ראתה פעמים ביום ופעמים בלילה שלא על הסדר <small>(ולא קבעה אחד מהן ג"פ) </small>או שתראה הראשונה ביום וג' האחרונות בלילה או הראשונה בלילה והג' אחרונות ביום או שלש בזה ושלש בזה חוששת לאחרונה בלבד: <small>הגה האשה שראתה חוששת לוסת החדש ולהפלגה עד שתקבע וסת החדש בג"פ או וסת הפלגה בד"פ או שתעקר א' מהן כיצד ראתה בא' בניסן וכ' בו חוששת לאחד באייר מפני ר"ח ניסן ראתה בא' באייר או לא ראתה בו חוששת לט' באייר שהוא יום כ' מראיית יום כ' שראתה. ראתה בט' באייר או לא ראתה חוששת לעשרים באייר שמא קבעה לה וסת כ' לחדש שהרי ראתה עשרים לחדש ניסן וכן היא חוששת לעולם עד שתקבע וסת א' כדינו דאז אינה חוששת לשני שלא נקבע או עד שאחד מהן נעקר אז אינה חוששת לו אע"פ שלא נקבע השני (הכל בטור בשם רמב"ן) ואינה חוששת לוסת הדילוגין עד שתקבענו כיצד ראתה ט"ו בניסן חוששת לט"ו באייר לא ראתה בט"ו באייר אינה חוששת לט"ז בו ראתה ט"ז בו חוששת לט"ז בסיון ואינה חוששת לי"ז בו ראתה י"ז בו חוששת לי"ז בתמוז ואינה חוששת לי"ח בו ראתה י"ח בתמוז קבעה לה וסת דילוגין לימי החודש וחוששת לי"ט באב (ג"ז ממשמעות הטור) וכן בדרך זה בהפלגה ודילוגין כי אין חילוק ביניהם רק י"א כי בדילוג חדש הראיה הראשונה מן המנין כמו שנתבאר. ראתה ט"ו בניסן והמשיכה ראייתה ד' ימים וביום ט"ז באייר ראתה והמשיכה ראייתה ג' ימים ובסיון התחילה לראות בי"ז בו י"א שחוששת לדילוג ולוסת שוה שהרי שילשה לראות ג"פ בי"ז לחדש (הטור והרמב"ן) וי"א שאין כאן וסת שוה כלל דהולכין תמיד אחר תחילת הראיה וכן עיקר (בית יוסף בשם הרז"ה והרשב"א והרא"ש והראב"ד בס' בה"נ מביאו ב"ח סוף סעיף כ'):</small>
+</blockquote>
+<div class="translation">
+A woman <strong>does not establish a period</strong> — even if she saw on <strong>three consecutive Roshei Chodashim</strong> — <strong>unless all her sightings fall in one and the same onah</strong>, that is, all <strong>by day</strong> or all <strong>by night</strong>.
+<br><br>
+If she saw <strong>three times by day and the fourth by night</strong>, or three times by night and the fourth by day, <strong>she is concerned both by day and by night</strong>: because of the concern for the first period, and because of the concern for the second, which is the last.
+<br><br>
+But if she saw <strong>sometimes by day and sometimes by night, out of order</strong> (and did not establish either of them three times), or the first by day and the last three by night, or the first by night and the last three by day, or three in one and three in the other — <strong>she is concerned for the last one alone</strong>.
+<br><br>
+<strong>Gloss (Rama):</strong> a woman who has seen <strong>is concerned both for the period of the month and for that of the interval</strong>, until she establishes the period of the month over three times, or that of the interval over four times, or until one of the two is uprooted. How? She saw on 1 Nissan and on the 20th of it: she is concerned for 1 Iyar, because of Rosh Chodesh Nissan. Whether she saw on 1 Iyar or not, she is concerned for 9 Iyar, which is the 20th day from the sighting of the 20th that she had. Whether she saw on 9 Iyar or not, she is concerned for 20 Iyar, lest she have established a period on the 20th of the month, since she saw on 20 Nissan. And so she is concerned forever, until she establishes one of the periods according to its rule — then she is no longer concerned for the second, which was not established — or until one of the two is uprooted: then she is no longer concerned for it, even though the second was not established. <em>(The Rama points to the Tur in the name of the Ramban.)</em>
+<br><br>
+<strong>Gloss (Rama), continued:</strong> and <strong>she is not concerned for the period of shift until she has established it</strong>. How? She saw on 15 Nissan: she is concerned for 15 Iyar. She did not see on 15 Iyar: she is not concerned for the 16th. She saw on the 16th: she is concerned for 16 Sivan, and not for the 17th. She saw on the 17th: she is concerned for 17 Tammuz, and not for the 18th. She saw on 18 Tammuz: <strong>she has established a period of shift by the days of the month</strong> and is concerned for 19 Av. And likewise in this manner for the interval and for shifts, for there is no difference between them — except that <strong>some say</strong> that in a shift of the month <strong>the first sighting enters the count</strong>, as has been explained.
+<br><br>
+<strong>Gloss (Rama), conclusion:</strong> she saw on 15 Nissan and her sighting continued four days; on 16 Iyar she saw and her sighting continued three days; and in Sivan she began to see on the 17th of it. <strong>Some say</strong> that she is concerned for the shift <em>and</em> for an even period, since she saw three times on the 17th of the month <em>(the Tur and the Ramban)</em>. <strong>And some say</strong> that there is no even period here at all, for <strong>we always follow the beginning of the sighting</strong> — <strong>and this is the main view</strong> <em>(the Beit Yosef in the name of the Raza, the Rashba, the Rosh and the Raavad)</em>.
 </div>
 
 <div class="key-point">
-<strong>This family lays out the whole combinatorics of dates:</strong> by day of the month or week, with its variants — the <strong>dilug</strong> (shift: the 15th, 16th, 17th of the month, seifim 7-8), the <strong>sirug</strong> (skipping a month, where, unlike the dilug, the <em>first</em> sighting counts, seif 12), <strong>Rosh Chodesh</strong> (seif 9), and the <strong>day / night</strong> rule (seif 13): the onah is always either diurnal or nocturnal, and a mixture obliges her to be concerned for both. If a woman "skips" a month without regularity (sirgah), she does not establish (seifim 10-11).
+<strong>Seifim 5 to 13 lay out the whole combinatorics of dates:</strong> by day of the month or week, with its variants — the <strong>dilug</strong> (shift: the 15th, 16th, 17th of the month, seifim 7-8), the <strong>sirug</strong> (skipping a month, where, unlike the dilug, the <em>first</em> sighting counts, seif 12), <strong>Rosh Chodesh</strong> (seif 9), and the <strong>day / night</strong> rule (seif 13): the onah is always either diurnal or nocturnal, and a mixture obliges her to be concerned for both. If a woman "skips" a month without regularity (sirgah), she does not establish (seifim 10-11).
 </div>
 
 <div class="page-break"></div>
 
-<!-- FAMILY 5 -->
-<h3>Family 5 — Uprooting a period: the change, the three times (seifim 14-16)</h3>
 
-<h4>Seif 15 — A fixed period is uprooted only over three times
-  <button class="daat-copy" type="button" data-copy-target="#cp-f5">📋 Copy</button>
-</h4>
+<h3>Changing a day, uprooting a period (seifim 14 to 16)</h3>
 
-<blockquote class="text-source" data-copy-block id="cp-f5">
-שִׁנְּתָה רְאִיּוֹתֶיהָ וְלֹא הִשְׁוָה אוֹתָם, כְּגוֹן שֶׁשִּׁנְּתָה פַּעַם אַחַת לְיוֹם שְׁלֹשִׁים, וְהַשֵּׁנִי לִשְׁלֹשִׁים וּשְׁתַּיִם, וְהַשְּׁלִישִׁי לִשְׁלֹשִׁים וְאַרְבַּע — נֶעֱקַר וֶסֶת הָרִאשׁוֹן, וְאֵין לָהּ וֶסֶת כְּלָל. וְאִם חָזְרָה לִרְאוֹת בְּיוֹם הַוֶּסֶת הָרִאשׁוֹן — חוֹזֵר לִקְבִיעוּתוֹ הָרִאשׁוֹן, וְחוֹשֶׁשֶׁת לוֹ תָּמִיד עַד שֶׁיֵּעָקֵר מִמֶּנָּה שָׁלֹשׁ פְּעָמִים.
+<h4>Seif 14 — When she changes her day: both days remain forbidden</h4>
+<blockquote class="text-source" data-copy-block id="cp-s14">
+היתה רגילה לראות יום עשרים <small>(ויש לה בזה וסת קבוע) </small>ושינתה ליום שלשים זה וזה אסורים וכשיגיע יום כ' לראיית שלשים אסורה משום וסת הראשון ואם לא תראה בו חוששת ליום ל' שינתה פעמים ליום ל' זה וזה אסורים שינתה ג"פ ליום ל' הותר יום כ' ונאסר יום ל' ואם לאחר ששינתה פעם או פעמים ליום ל' ראתה לסוף כ' חזר וסת של כ' למקומו והותר שלשים:
 </blockquote>
-
 <div class="translation">
-If she <strong>changed her sightings without making them equal</strong> — once on the 30th day, the second on the 32nd, the third on the 34th — the <strong>old veset is uprooted</strong>, and she has no period at all. But if she <strong>returns to seeing on the day of the old period</strong>, it <strong>resumes its original establishment</strong>, and she is always concerned for it <strong>until it is uprooted from her three times</strong>.
+She was accustomed to see on the <strong>20th day</strong> (and in this she has a fixed period) and she <strong>changed to the 30th</strong>: <strong>both this one and that one are forbidden</strong>. When the 20th day arrives counting from the sighting of the thirtieth, she is forbidden <strong>because of the first period</strong>; and if she does not see on it, <strong>she is concerned for the 30th day</strong>.
+<br><br>
+Did she change <strong>twice</strong> to the 30th day: <strong>both remain forbidden</strong>. Did she change <strong>three times</strong> to the 30th: <strong>the 20th becomes permitted and the 30th forbidden</strong>. And if, after changing once or twice to the 30th, <strong>she saw at the end of 20</strong> — <strong>the period of the 20th has returned to its place</strong>, and the 30th became permitted again.
+</div>
+
+<h4>Seif 15 — A fixed period is uprooted only over three times</h4>
+<blockquote class="text-source" data-copy-block id="cp-s15">
+שינתה ראיותיה ולא השוה אותם כגון ששינתה פעם אחת ליום ל' והשני לל"ב והג' לל"ד נעקר וסת הראשון ואין לה וסת כלל ואם חזרה לראות ביום הוסת הראשון חוזר לקביעותו הראשון וחוששת לו תמיד עד שיעקר ממנה שלש פעמים וה"ה להפסיקה מלראות שלש עונות ואחר כך חזרה לראות ביום הוסת הראשון:
+</blockquote>
+<div class="translation">
+If she <strong>changed her sightings without making them even</strong> — once on the 30th day, the second on the 32nd, the third on the 34th — <strong>the first period is uprooted</strong>, and she has no period at all. But if she <strong>returns to see on the day of the first period</strong>, it <strong>returns to its original establishment</strong>, and she is concerned for it <strong>always, until it is uprooted from her three times</strong>.
+<br><br>
+<strong>And the same law applies</strong> if she <strong>ceased seeing for three onot</strong> and afterwards <strong>returned to see on the day of the first period</strong>.
 </div>
 
 <div class="key-point">
@@ -642,19 +716,25 @@ If she <strong>changed her sightings without making them equal</strong> — once
 
 <div class="page-break"></div>
 
-<!-- FAMILY 6 -->
-<h3>Family 6 — The period from oness and the leap (kefitzah) (seifim 17-18)</h3>
 
-<h4>Seif 17 — A period set by oness alone is not a period
-  <button class="daat-copy" type="button" data-copy-target="#cp-f6">📋 Copy</button>
-</h4>
-
-<blockquote class="text-source" data-copy-block id="cp-f6">
-כָּל וֶסֶת שֶׁנִּקְבַּע מֵחֲמַת אֹנֶס (כְּגוֹן שֶׁקָּפְצָה וְרָאֲתָה), אֲפִלּוּ רָאֲתָה בּוֹ כַּמָּה פְּעָמִים — אֵינוֹ וֶסֶת, שֶׁמִּפְּנֵי הָאֹנֶס רָאֲתָה <span class="he-q">(וּמִכָּל מָקוֹם חוֹשֶׁשֶׁת לוֹ כְּמוֹ לְוֶסֶת שֶׁאֵינוֹ קָבוּעַ)</span>. קָפְצָה וְרָאֲתָה, קָפְצָה וְרָאֲתָה, קָפְצָה וְרָאֲתָה — קָבְעָה לָהּ וֶסֶת.
+<h4>Seif 16 — The uprooting of the Rosh Chodesh period</h4>
+<blockquote class="text-source" data-copy-block id="cp-s16">
+כיוצא בזה דין עקירת וסת ר"ח כיצד היתה רגילה לראות בראשי חדשים ועבר עליה ר"ח ולא ראתה חוששת לר"ח עד שיעברו עליה שלשה ר"ח עברו עליה שלשה ר"ח ולא ראתה אינה חוששת להם חזרה וראתה בר"ח חזר הוסת למקומו:
 </blockquote>
-
 <div class="translation">
-Any period established <strong>through a constraint</strong> (oness) — for example because she <strong>leapt and saw</strong> (kaftzah ve-ra'atah) — even if she has seen this way several times, <strong>is not a period</strong>, because it is <strong>on account of the constraint that she saw</strong>. <em>Gloss of the Rama:</em> nevertheless she <strong>is concerned for it like a non-fixed period</strong>. But if she <strong>leapt and saw</strong>, leapt and saw, leapt and saw — <strong>she has established a period</strong> (to the leap itself).
+<strong>Like this is the law of uprooting the Rosh Chodesh period.</strong> How? She was accustomed to see on Roshei Chodashim, and a Rosh Chodesh passed without her seeing: <strong>she is still concerned for Rosh Chodesh</strong>, until <strong>three Roshei Chodashim</strong> have passed over her. Have those three passed without her seeing — <strong>she is no longer concerned for them</strong>. Has she <strong>returned to see on Rosh Chodesh</strong> — <strong>the period has returned to its place</strong>.
+</div>
+
+<h3>Constraint: kaftzah ve-ra'atah (seifim 17 and 18)</h3>
+
+<h4>Seif 17 — A period established by oness alone is not a period</h4>
+<blockquote class="text-source" data-copy-block id="cp-s17">
+כל וסת שנקבע מחמת אונס <small>(כגון שקפצה וראתה) </small>אפילו ראתה בו כמה פעמים <small>(אם לא קבעה אותן לימים) (תוס' ורשב"א ור"ח ופשוט הוא לקמן סעיף י"ח) </small>אינו וסת שמפני האונס ראתה <small>(ומ"מ חוששת לו כמו לוסת שאינו קבוע) (הג"מ פ"ח)</small> קפצה וראתה קפצה וראתה קבעה לה וסת לימים בלא קפיצות כיצד קפצה בא' בשבת וראתה דם ולאחר כ' יום קפצה באחד בשבת וראתה דם ולאחר י"ט יום קפצה ביום השבת ולא ראתה דם ולאחר השבת ראתה בלא קפיצה הרי נקבע אחד בשבת אחר כ' שהרי נודע שהיום גרם לה ולא הקפיצה וכבר נקבע יום זה ג"פ וכן כל כיוצא בזה:
+</blockquote>
+<div class="translation">
+<strong>Any period established because of a constraint</strong> (מחמת אונס) — for instance because she <strong>jumped and saw</strong> (קפצה וראתה) — <strong>even if she saw thereby several times</strong> (so long as she did not fix them to days) — <strong>is not a period</strong>, for it is <strong>because of the constraint that she saw</strong>. <strong>Gloss (Rama):</strong> and nevertheless <strong>she is concerned for it as for a non-fixed period</strong>.
+<br><br>
+<strong>Did she jump and see, jump and see — she has established a period by days, without the jumps.</strong> How? She jumped on a Sunday and saw blood; <strong>after 20 days</strong> she jumped on a Sunday and saw blood; <strong>after 19 days</strong> she jumped on Shabbat and <strong>did not see</strong> blood; and <strong>after that Shabbat</strong> she saw <strong>without jumping</strong>. Behold, <strong>Sunday at the end of 20 is established</strong> — for it has become known that <strong>the day caused it and not the jump</strong>, and this day has already been established three times. And so in every like case.
 </div>
 
 <div class="key-point">
@@ -663,31 +743,73 @@ Any period established <strong>through a constraint</strong> (oness) — for exa
 
 <div class="page-break"></div>
 
-<!-- FAMILY 7 -->
-<h3>Family 7 — The bodily periods (וסתות הגוף) (seifim 19-26)</h3>
 
-<h4>Seif 19 — Yawns, sneezes, pains: a period set by a symptom
-  <button class="daat-copy" type="button" data-copy-target="#cp-f7a">📋 Copy</button>
-</h4>
-
-<blockquote class="text-source" data-copy-block id="cp-f7a">
-יֵשׁ קוֹבַעַת וֶסֶת עַל יְדֵי מִקְרִים שֶׁיֶּאֶרְעוּ בְּגוּפָהּ, כְּגוֹן שֶׁמְּפַהֶקֶת — דְּהַיְנוּ כְּאָדָם שֶׁפּוֹשֵׁט זְרוֹעוֹתָיו מֵחֲמַת כֹּבֶד, אוֹ כְּאָדָם שֶׁפּוֹתֵחַ פִּיו מֵחֲמַת כֹּבֶד; וְכֵן אִם מִתְעַטֶּשֶׁת, אוֹ חוֹשֶׁשֶׁת בְּפִי כְּרֵסָהּ וּבְשִׁפּוּלֵי מֵעֶיהָ, אוֹ שֶׁאֲחָזוּהָ צִירֵי הַקַּדַּחַת, אוֹ שֶׁרֹאשָׁהּ וְאֵיבָרֶיהָ כְּבֵדִים עָלֶיהָ.
+<h4>Seif 18 — Jumping on a fixed day: a period bound to that day's jump</h4>
+<blockquote class="text-source" data-copy-block id="cp-s18">
+קפצה ביום ידוע כגון בר"ח או בא' בשבת וראתה בו ואירע כן בג' ר"ח או בג' א' בשבת קבעה לה וסת וחוששת לכל פעם שתקפוץ באותו זמן ואם אח"כ הגיע א' בשבת ולא קפצה או שקפצה בשני בשבת אינה חוששת שהרי לא קבעה אלא לקפיצות של א' בשבת:
 </blockquote>
-
 <div class="translation">
-A woman may establish a period by <strong>phenomena that occur in her body</strong>: for example she <strong>yawns</strong> (mefahéket) — like someone stretching the arms from weariness, or opening the mouth from fatigue — or she <strong>sneezes</strong> (mit'atéshet), or feels a <strong>pain in the lower abdomen</strong> (pi keresah u-shifulei me'eha), or is seized by <strong>feverish shivers</strong> (tzirei ha-kadachat), or feels her <strong>head and limbs heavy</strong>. Each of these signs may become the herald of her period.
+She <strong>jumped on a known day</strong> — for instance on Rosh Chodesh or on a Sunday — <strong>and saw on it</strong>; and this happened on <strong>three Roshei Chodashim</strong> or on <strong>three Sundays</strong>: <strong>she has established a period</strong>, and <strong>she is concerned every time she jumps at that time</strong>.
+<br><br>
+And if <strong>afterwards Sunday came and she did not jump</strong>, or she <strong>jumped on a Monday</strong>, <strong>she is not concerned</strong> — for <strong>she established only for the jumps of Sunday</strong>.
 </div>
 
-<h4>Seif 23 (gloss) — Eating garlic, onion, pepper (the Rama)
-  <button class="daat-copy" type="button" data-copy-target="#cp-f7b">📋 Copy</button>
-</h4>
+<h3>The body: veset ha-guf (seifim 19 to 26)</h3>
 
-<blockquote class="text-source" data-copy-block id="cp-f7b">
-כָּל אֵלּוּ הַוְּסָתוֹת שֶׁנִּקְבָּעִים עַל יְדֵי מִקְרֶה — אֵין אֶחָד קוֹבֵעַ עִם חֲבֵרוֹ, אֶלָּא כָּל שֶׁפִּהֲקָה שָׁלֹשׁ פְּעָמִים וְרָאֲתָה — קָבְעָה וֶסֶת. <span class="he-q">(הגה: אָכְלָה שׁוּם וְרָאֲתָה, אָכְלָה בָּצָל וְרָאֲתָה, אָכְלָה פִּלְפְּלִין וְרָאֲתָה — יֵשׁ אוֹמְרִים שֶׁקָּבְעָה לָהּ וֶסֶת לִרְאוֹת עַל יְדֵי כָּל אֲכִילַת דְּבָרִים חֲרִיפִים.)</span>
+<h4>Seif 19 — The period set by a bodily symptom (veset ha-guf)</h4>
+<blockquote class="text-source" data-copy-block id="cp-s19">
+יש קובעת וסת על ידי מקרים שיארעו בגופה כגון שמפהקת דהיינו כאדם שפושט זרועותיו מחמת כובד או כאדם שפותח פיו מחמת כובד או כאדם שמוציא קול דרך הגרון וכן אם מתעטשת דרך מטה או חוששת בפי כריסה ובשפולי מעיה או שאחזוה צירי הקדחות או שראשה ואיבריה כבדים עליה בכל א' מאלו אם יארע לה שלשה פעמים וראתה קבעה לה וסת שבכל פעם שהיא חוששת מהם אסורה לשמש ומיהו בפיהוק או עיטוש של פעם א' אין הוסת נקבע אלא כשעושה כן הרבה פעמי' זה אחר זה ואם אירע לה שלשה פעמים שבכל פעם עשתה כן הרבה פעמים הרי זה וסת וכל אלו הוסתות שבגופה אין להם זמן ידוע אלא בכל פעם שיקרה לה זה המקרה הוא וסת ואם בא וסת הגוף לזמן ידוע כגון מר"ח לר"ח או מכ' יום לכ' יום קבעה לה וסת לזמן ולמיחוש הוסת ואינה חוששת אלא לשניהם ביחד ואם הגיע העת ולא בא המיחוש או שבא המיחוש בלא עתו אינה חוששת: <small>הגה ודוקא שקבעה לה וסת לשניהם ביחד אבל מתחילה חוששת לכל א' בפ"ע כי אינה יודעת איזה מהן תקבע וכמו שנתבאר לעיל גבי וסת הדילוג וימים או בהפלגה ובימים וכן יתבאר בסמוך:</small>
 </blockquote>
-
 <div class="translation">
-All these periods established by a <strong>phenomenon do not combine with one another</strong>: only one same sign repeated <strong>three times</strong> (for example yawning three times and seeing) establishes a period. <em>Gloss of the Rama:</em> if she <strong>ate garlic and saw, ate onion and saw, ate pepper and saw</strong> — <strong>some say she has established a period</strong> of seeing upon every consumption of <strong>pungent foods</strong> (devarim charifim).
+There is a woman who <strong>establishes a period through occurrences that befall her body</strong>: for instance that she <strong>yawns</strong> (מפהקת) — that is, like one who stretches out his arms from heaviness, or like one who opens his mouth from heaviness, or like one who brings out a sound through the throat; or that she <strong>sneezes downward</strong> (מתעטשת דרך מטה), or feels pain <strong>at the mouth of her stomach and in the lower parts of her bowels</strong>, or is seized by <strong>feverish pangs</strong> (צירי הקדחות), or that her <strong>head and limbs are heavy upon her</strong>.
+<br><br>
+<strong>For each of these signs</strong>: if it befalls her <strong>three times</strong> and she saw, <strong>she has established a period</strong> — so that <strong>every time she feels them she is forbidden to her husband</strong>.
+<br><br>
+<strong>However, a single yawn or sneeze does not establish the period</strong>: it establishes it only when she does so <strong>many times in succession</strong>; and if it befell her <strong>three times</strong> that on each occasion she did so many times, <strong>this is a period</strong>.
+<br><br>
+<strong>And all these bodily periods have no known time</strong>: <strong>every time this occurrence befalls her, that is the period</strong>. But if the bodily period came <strong>at a known time</strong> — from Rosh Chodesh to Rosh Chodesh, or from 20 days to 20 days — <strong>she has established a period bound to the time and to the symptom together</strong>, and <strong>she is concerned only for the two of them together</strong>: if the time arrived and the symptom did not come, or the symptom came out of its time, <strong>she is not concerned</strong>.
+<br><br>
+<strong>Gloss (Rama):</strong> and this holds specifically <strong>where she established the period for both together</strong>; but <strong>at the outset she is concerned for each one by itself</strong>, since she does not know which of the two will become established — as was explained above regarding the period of shift and days, or interval and days; and as will be explained shortly.
+</div>
+
+<h4>Seif 20 — Isolating the cause: the symptom or the date?</h4>
+<blockquote class="text-source" data-copy-block id="cp-s20">
+פיהקה ב' פעמים בר"ח וראתה ואחר כך פיהקה שלא בר"ח וראתה הוברר הדבר שאין ר"ח גורם אלא הפיהוק וכן אם בפעם השלישית ראתה בר"ח בלא פיהוק הוברר הדבר שאין הפיהוק גורם אלא הר"ח אבל אם פיהקה ב' פעמים בר"ח ובפעם הג' פיהקה בכ"ט לחדש ולא ראתה ובר"ח ראתה בלא פיהוק קבעה לה וסת לפיהוק של ר"ח שפיהוק של אתמול גרם לראיה של ר"ח:
+</blockquote>
+<div class="translation">
+She <strong>yawned twice on Rosh Chodesh and saw</strong>, and afterwards she <strong>yawned not on Rosh Chodesh and saw</strong>: <strong>the matter became clear that it is not Rosh Chodesh that causes it but the yawn</strong>. And likewise, if <strong>on the third occasion she saw on Rosh Chodesh without yawning</strong>, <strong>the matter became clear that it is not the yawn that causes it but Rosh Chodesh</strong>.
+<br><br>
+But if she <strong>yawned twice on Rosh Chodesh</strong>, and <strong>the third time she yawned on the 29th of the month and did not see</strong>, and <strong>on Rosh Chodesh she saw without yawning</strong> — <strong>she has established a period for the yawn of Rosh Chodesh</strong>, for <strong>the previous day's yawn caused the sighting of Rosh Chodesh</strong>.
+</div>
+
+<h4>Seif 21 — A yawn outside its day: concern from a single time</h4>
+<blockquote class="text-source" data-copy-block id="cp-s21">
+פיהקה בר"ח וראתה וחזרה ופיהקה בתוך ימי החדש חוששת לאותו הפיהוק ואסורה לשמש עד שתבדוק שכל וסת בין של ימים בין של הגוף חוששת לו בפעם אחת ויש לחוש שמא תקבע וסת לפיהוק בלא זמן ידוע ואם בדקה ונמצאת שלא ראתה אינה חוששת עוד לפיהוק גרידא אבל חוששת לראש חדש שמא תקבע לראש חדש:
+</blockquote>
+<div class="translation">
+She <strong>yawned on Rosh Chodesh and saw</strong>, and then she <strong>yawned again within the days of the month</strong>: <strong>she is concerned for that yawn</strong> and <strong>is forbidden to her husband until she examines herself</strong> — for <strong>every period, whether of days or of the body, is a matter of concern from a single time</strong>, and there is reason to fear <strong>lest she establish a period for the yawn with no known time</strong>.
+<br><br>
+<strong>And if she examined herself and was found not to have seen</strong> — <strong>she is no longer concerned for the bare yawn</strong>; <strong>but she is concerned for Rosh Chodesh</strong>, lest she establish a period for Rosh Chodesh.
+</div>
+
+<h4>Seif 22 — The same reasoning applied to days</h4>
+<blockquote class="text-source" data-copy-block id="cp-s22">
+וכן הדין בימים אם פיהקה היום ופיהקה לסוף ל' אם תפהק אפילו שלא ביום שלשים חוששת לאותו פיהוק שמא תקבע לפיהוק גרידא פיהק' בתוך שלשים ולא ראתה אינה צריכה לחוש עוד לפיהוק גרידא אבל צריכה לחוש לסוף שלשים וכן צריכה לחוש ליום הקבוע בחדש שפיהקה בו שמא תקבע וסת לימים:
+</blockquote>
+<div class="translation">
+<strong>And such is the law with days too</strong>: if she <strong>yawned today</strong> and <strong>yawned at the end of 30 days</strong>, then <strong>if she yawns, even not on the 30th day, she is concerned for that yawn</strong>, lest she establish a period <strong>for the bare yawn</strong>.
+<br><br>
+<strong>Did she yawn within the thirty days and not see</strong> — <strong>she need no longer be concerned for the bare yawn</strong>; <strong>but she must be concerned for the end of the thirty</strong>, <strong>and likewise for the fixed day of the month on which she yawned</strong>, lest she establish a period <strong>for days</strong>.
+</div>
+
+<h4>Seif 23 — Each symptom is established on its own; the Rama's gloss: garlic, onion, pepper</h4>
+<blockquote class="text-source" data-copy-block id="cp-s23">
+כל אלו הוסתות שנקבעים על ידי מקרה אין אחד קובע עם חבירו אלא כל שפיהקה שלש פעמים וראתה קבעה וסת אבל אם פיהקה פעם אחת ונתעטשה שתי פעמים אין מצטרפים: <small>הגה אכלה שום וראתה אכלה בצל וראתה אכלה פלפלין וראתה יש אומרים שקבעה לה וסת לראות ע"י כל אכילת דברים חמים (הרא"ש פרק האשה ומרדכי ריש שבועות) וי"א שכל זה שתראה ע"י מאכל דינו כמו שתראה ע"י קפיצה ושאר מעשה שהיא עושה שמקרי ראיה ע"י אונס ואינה קובעת וסת אלא עם הימים (ב"י לדעת הרשב"א) וי"א שדינו כוסת שתראה על ידי מקרה שבגופה וקובעת אותו אפילו בלא ימים שוים (ב"י בשם תוספות):</small>
+</blockquote>
+<div class="translation">
+<strong>All these periods established through an occurrence: one does not combine with another.</strong> It is only where she <strong>yawned three times and saw</strong> that she has established a period. But if she <strong>yawned once and sneezed twice — they do not combine</strong>.
+<br><br>
+<strong>Gloss (Rama):</strong> she ate garlic and saw, ate onion and saw, ate peppers and saw. <strong>Some say</strong> that she has established a period to see <strong>through any eating of hot foods</strong> <em>(the Rosh, chapter "HaIshah", and the Mordechai)</em>. <strong>And some say</strong> that all this, that she sees through a food, has the <strong>status of what she sees through a jump</strong> and the other acts she performs, which is called a sighting through constraint (אונס): <strong>she then establishes a period only together with days</strong> <em>(the Beit Yosef according to the Rashba)</em>. <strong>And some say</strong> that its status is that of a <strong>period seen through an occurrence in her body</strong>, and that she establishes it <strong>even without equal days</strong> <em>(the Beit Yosef in the name of Tosafot)</em>.
 </div>
 
 <div class="key-point">
@@ -696,31 +818,113 @@ All these periods established by a <strong>phenomenon do not combine with one an
 
 <div class="page-break"></div>
 
-<!-- FAMILY 8 -->
-<h3>Family 8 — Minor, elderly, pregnant, nursing and veset within a veset (seifim 27-34)</h3>
 
-<h4>Seif 28 — The elderly woman: three intervals empty = mesuleket damim
-  <button class="daat-copy" type="button" data-copy-target="#cp-f8a">📋 Copy</button>
-</h4>
-
-<blockquote class="text-source" data-copy-block id="cp-f8a">
-זְקֵנָה שֶׁעָבְרוּ עָלֶיהָ שָׁלֹשׁ עוֹנוֹת מִשֶּׁהִזְקִינָה וְלֹא רָאֲתָה — הֲרֵי זוֹ מְסֻלֶּקֶת דָּמִים, וְאֵינָהּ חוֹשֶׁשֶׁת לְוִסְתָּהּ הָרִאשׁוֹן <span class="he-q">(וּקְטַנָּה וּזְקֵנָה אֵינָן חוֹשְׁשׁוֹת לְוֶסֶת שֶׁאֵינוֹ קָבוּעַ)</span>.
+<h4>Seif 24 — The reach of the prohibition: the start, the end, or beyond the onah</h4>
+<blockquote class="text-source" data-copy-block id="cp-s24">
+וכולם אין חוששין להם אלא לשעת' כיצד היתה רגילה לראות עם התחלת הוסת מיד אסורה כל זמן המשכת הוסת היתה רגילה לראות בסופו אינה אסור' אלא בסופו במה דברים אמורים בזמן שכל הראיה מובלעת בתוך הוסת אבל אם אין כל הראיה מובלעת בתוך הוסת אלא נמשכת גם אחר הוסת אסורה מתחלת הוסת עד סוף עונה אחת:
 </blockquote>
-
 <div class="translation">
-An <strong>elderly woman</strong> (zekenah) over whom <strong>three intervals have passed since she aged without her seeing</strong> is called <strong>mesuleket damim</strong> ("removed from bloods"): she <strong>is no longer concerned for her old period</strong>. <em>Gloss of the Rama:</em> the minor (ketanah) and the elderly woman are also not concerned for a non-fixed period.
+<strong>And for all of them, one is concerned only for their own moment</strong> (לשעתן). How? If she was accustomed to see <strong>at the beginning of the period</strong>, she is <strong>forbidden immediately, for the whole duration of the period</strong>. If she was accustomed to see <strong>at its end</strong>, she is <strong>forbidden only at its end</strong>.
+<br><br>
+<strong>Of what case is this said?</strong> Where <strong>the whole sighting is absorbed within the period</strong>. But if the whole sighting is not absorbed within it and <strong>continues also beyond the period</strong>, she is <strong>forbidden from the beginning of the period until the end of one onah</strong>.
 </div>
 
-<h4>Seif 34 — Pregnant and nursing: suspension then resumption of the period
-  <button class="daat-copy" type="button" data-copy-target="#cp-f8b">📋 Copy</button>
-</h4>
-
-<blockquote class="text-source" data-copy-block id="cp-f8b">
-מְעֻבֶּרֶת מִשֶּׁהֻכַּר עֻבָּרָהּ, וּמְנִיקָה כָּל כ״ד חֹדֶשׁ — אֵינָהּ חוֹשֶׁשֶׁת לַוֶּסֶת הָרִאשׁוֹן; אֲפִלּוּ הָיָה לָהּ וֶסֶת קָבוּעַ וְהִגִּיעַ תּוֹךְ הַזְּמַן הַזֶּה — אֵינָהּ צְרִיכָה בְּדִיקָה, וּמֻתֶּרֶת לְבַעְלָהּ... עָבְרוּ יְמֵי הָעִבּוּר וְהַהֲנָקָה — חוֹזְרוֹת לַחֲשׁוֹשׁ לַוֶּסֶת הָרִאשׁוֹן.
+<h4>Seif 25 — A symptom coming at a known time forbids the whole onah</h4>
+<blockquote class="text-source" data-copy-block id="cp-s25">
+אם אחד מאלו בא לזמן ידוע אז ודאי אסורה כל עונת הוסת כמו וסת ימים גרידא:
 </blockquote>
-
 <div class="translation">
-A <strong>pregnant woman, once her pregnancy is recognized</strong> (mi-she-hukar ubarah), and a <strong>nursing woman, throughout the 24 months</strong> (kaf-dalet chodesh) after the birth, <strong>are no longer concerned for the old period</strong>: even if she had a fixed period whose time falls within this span, <strong>she needs no bedikah and remains permitted to her husband</strong> — for they are <strong>mesuleket damim</strong>. But <strong>once the days of pregnancy and nursing have passed, they return to being concerned for the old period</strong>.
+<strong>If one of these came at a known time</strong>, then <strong>she is certainly forbidden for the whole onah of the period</strong>, just as with a period of days alone.
+</div>
+
+<h4>Seif 26 — The veset ha-guf follows in every respect the regime of the period of days</h4>
+<blockquote class="text-source" data-copy-block id="cp-s26">
+כשם שחוששת לוסת הימים בפעם אחת כך חוששת לוסת הגוף בפעם אחת כיצד הית' מפהקת פעם א' וראתה כשתפהק פעם אחרת חוששת לו וכשם שוסת הימים שאינו קבוע נעקר בפעם א' שאפילו ראתה שתי פעמים ליום ידוע אם הגיע זמן שלישי ולא ראתה נעקר לגמרי כן הוא וסת הגוף וכשם שוסת הימים הקבוע בג' פעמים צריך עקירה ג' פעמי' ובדיקה כן הוא וסת הקבוע בגוף ומאימתי עקירתו משיקרה מקרה ולא תראה היה המקרה לזמן ידוע אינו נעקר אלא אם כן בא המקרה שלש פעמים בזמנו ולא ראתה אבל במקרה לבדו או זמן לבדו שלא ראתה בהם אינו נעקר:
+</blockquote>
+<div class="translation">
+<strong>Just as she is concerned for the period of days from a single time, so she is concerned for the bodily period from a single time.</strong> How? She was yawning once and saw: when she yawns another time, <strong>she is concerned for it</strong>.
+<br><br>
+<strong>And just as a non-fixed period of days is uprooted in a single time</strong> — for even if she saw twice on a known day, if the third term arrived and she did not see, <strong>it is uprooted entirely</strong> — <strong>so it is with the bodily period</strong>. And just as a period of days <strong>established over three times requires three times to be uprooted, and a bedikah</strong>, <strong>so it is with the fixed bodily period</strong>.
+<br><br>
+<strong>And from when is it uprooted?</strong> From when <strong>the occurrence befalls and she does not see</strong>. If the occurrence was at a known time, <strong>it is uprooted only if the occurrence came three times at its time and she did not see</strong>; but <strong>by the occurrence alone, or by the time alone, in which she did not see, it is not uprooted</strong>.
+</div>
+
+<h3>Mesuleket damim: the minor, the elderly, the pregnant and the nursing woman (seifim 27 to 34)</h3>
+
+<h4>Seif 27 — The young girl whose time to see has not come</h4>
+<blockquote class="text-source" data-copy-block id="cp-s27">
+תינוקת שלא הגיע זמנה לראות והיא קטנה שלא הגיעה לימי הנעורים אפילו הביאה שתי שערות וכן אפילו הגיעה לימי הנעורים אם בדקוה ולא הביאה שתי שערות היא קובעת וסת כשאר נשים בשלש ראיות בשאר הוסתות ובארבעה בוסת ההפלגות אלא שיש הפרש בינה לגדולה שאף על פי שהוחזקה רואה וקבעה לה וסת אם פסקה ג' עונות בינוניות שהם צ' יום ולא ראתה אינה חושש' לוסת הא' כלל וחזרה לקדמותה ואפילו חזרה לראות באותן עונות שהיתה למודה <small>(פי' נהוגה) </small>לראות בהן אינה חוששת עד שתחזור ותקבענו ג' פעמים לפי שאינה בת דמים ונתגלה שדמים הראשונים מקרה היה ראתה ג' ראיות מג' עונות מכוונות שלא פיחתה ולא הותירה נתגלה שדילוג הראשון אינו סילוק דמים אלא שינוי וסת לפיכך ראיה ראשונה שממנה התחילה <small>(לדלג) </small>מצטרפת לג' ראיות אחרונות ונמצאו ד' ראיות וג' הפלגות ביניהם מצ' לצ' אבל אם פיחתה או הותירה שלא היו הראיות מכוונות אז אי אפשר לראשונות להצטרף ועד שתראה ד' ראיות מכוונות אינה קובעת וסת להפלגות:
+</blockquote>
+<div class="translation">
+A <strong>young girl whose time to see has not come</strong> — that is, a minor who has not reached the years of maidenhood, <strong>even if she has brought forth two hairs</strong>; and likewise, <strong>even if she has reached the years of maidenhood</strong>, if she was examined and had not brought forth two hairs — <strong>establishes a period like other women</strong>: <strong>with three sightings</strong> for the other kinds of period, and <strong>with four</strong> for the period of the interval.
+<br><br>
+<strong>But there is a difference between her and an adult</strong>: although she has become established as one who sees and has fixed a period, <strong>if she ceased for three average onot — which are 90 days — and did not see, she is not concerned for the first period at all</strong>, and she has <strong>returned to her former state</strong>. <strong>And even if she returns to see in those onot in which she was accustomed</strong> (למודה, that is, habituated) <strong>to see, she is not concerned until she once more establishes it three times</strong> — <strong>because she is not a bat damim</strong>, and it has become apparent that the first bloods were an accident.
+<br><br>
+<strong>Did she see three sightings from three exactly matching onot</strong>, neither falling short nor exceeding — <strong>it has become apparent that the first skip was not a cessation of blood but a change of period</strong>: therefore <strong>the first sighting, from which she began</strong> (to skip), <strong>joins with the three last ones</strong>, and there are found <strong>four sightings and three intervals</strong> between them, from 90 to 90. <strong>But if she fell short or exceeded</strong>, so that the sightings were not exact — <strong>then it is impossible for the first ones to join</strong>: <strong>until she sees four exact sightings she does not establish a period by intervals</strong>.
+</div>
+
+<h4>Seif 28 — The elderly woman: three onot empty = mesuleket damim</h4>
+<blockquote class="text-source" data-copy-block id="cp-s28">
+וכן זקנה שעברו עליה שלש עונות משהזקינה ולא ראתה הרי זו מסולקת דמים ואינה חוששת לוסתה הראשון <small>(וקטנה וזקנה אינן חוששות לוסת שאינו קבוע) (ב"י בשם הרשב"א):</small>
+</blockquote>
+<div class="translation">
+<strong>And likewise an elderly woman</strong> (זקנה) over whom <strong>three onot have passed since she aged without her seeing</strong> — <strong>she is mesuleket damim</strong> ("removed from blood") and <strong>she is no longer concerned for her first period</strong>. <strong>Gloss (Rama):</strong> and <strong>a minor and an elderly woman are likewise not concerned for a period that is not fixed</strong> <em>(the Beit Yosef in the name of the Rashba)</em>.
+</div>
+
+<h4>Seif 29 — Who is an elderly woman?</h4>
+<blockquote class="text-source" data-copy-block id="cp-s29">
+איזו היא זקנה כל <small>(שזקנה כל כך שראויה) (טור) </small>שקורין לה אימא בפניה מחמת זקנותה ואינה חוששת:
+</blockquote>
+<div class="translation">
+<strong>Who is called an elderly woman?</strong> Any woman (so aged that it is fitting) — so the Tur — <strong>that they call her "Ima" (mother) to her face because of her old age</strong>: <strong>and she is not concerned</strong>.
+</div>
+
+<h4>Seif 30 — If she returns to see: the regime of the young girl</h4>
+<blockquote class="text-source" data-copy-block id="cp-s30">
+חזרה וראתה דינה כדין תינוקת שלא הגיע זמנה לראות:
+</blockquote>
+<div class="translation">
+<strong>Has she returned to see — her law is the law of a young girl whose time to see has not come</strong> (seif 27).
+</div>
+
+<h4>Seif 31 — The elderly woman's return to her former establishment</h4>
+<blockquote class="text-source" data-copy-block id="cp-s31">
+חזרה לראות בעונות קטנות שהיתה למודה להיות רואה בהן חזרה לקביעותה הראשון אם וסת ההפלגות חזרה לקדמותה אם תהיה ההפלגה כמו שהיתה למודה תחלה ואם בשאר הוסתות אפי' בפעם א' חוזרת לקדמותה שהרי נתגלה שדילוג הראשון לא סילוק דמיה הי' אלא מקרה. ובזה חמור דין הזקנה מדין הקטנה שלא הגיע זמנה לראות:
+</blockquote>
+<div class="translation">
+<strong>Has she returned to see in the small onot in which she was accustomed to see — she has returned to her original establishment.</strong> If it was a <strong>period of the interval</strong>, she returns to her former state <strong>if the interval is the one to which she was accustomed at first</strong>; and if it is in the <strong>other kinds of period</strong>, <strong>even in a single time she returns to her former state</strong> — for <strong>it has become apparent that the first skip was not a cessation of her blood but an accident</strong>.
+<br><br>
+<strong>And in this the law of the elderly woman is more stringent than the law of the minor whose time to see has not come.</strong>
+</div>
+
+<h4>Seif 32 — A period within a period (veset be-tokh veset)</h4>
+<blockquote class="text-source" data-copy-block id="cp-s32">
+פעמי' שהאשה קובעת לה וסת בתוך וסת כיצד ראתה שלש פעמים בראש חודש ורביעית בב' לחודש ובר"ח וכן בחמישית ובששית הרי קבעה שתי וסתות:
+</blockquote>
+<div class="translation">
+<strong>Sometimes a woman establishes a period within a period.</strong> How? She saw <strong>three times on Rosh Chodesh</strong>, and <strong>the fourth time on the 2nd of the month and on Rosh Chodesh</strong>, and likewise <strong>the fifth and the sixth</strong>: <strong>behold, she has established two periods</strong>.
+</div>
+
+<h4>Seif 33 — The pregnant and the nursing woman do not establish a period</h4>
+<blockquote class="text-source" data-copy-block id="cp-s33">
+מעוברת לאחר ג' חדשים לעיבורה ומניקה כל כ"ד חדש אחר לידת הולד אינה קובעת וסת אפי' מת הולד או גמלתו דמים מסולקים מהן כל זמן עיבורה וכל כ"ד חדש ומ"מ חוששת לראיה שתראה כדרך שחושש' לוסת שאינו קבוע:
+</blockquote>
+<div class="translation">
+A <strong>pregnant woman after three months of her pregnancy</strong>, and a <strong>nursing woman throughout the 24 months following the child's birth</strong>, <strong>do not establish a period</strong> — <strong>and even if the child died or she weaned him</strong> — for <strong>the bloods are removed from them</strong> the whole time of her pregnancy and the whole 24 months.
+<br><br>
+<strong>And nevertheless she is concerned for a sighting she may see</strong>, in the manner one is concerned for <strong>a period that is not fixed</strong>.
+</div>
+
+<h4>Seif 34 — The pregnant and the nursing woman: the period suspended, then resumed</h4>
+<blockquote class="text-source" data-copy-block id="cp-s34">
+מעובר' משהוכר עוברה ומניקה כל כ"ד חדש אינה חוששת לוסת הראשון אפילו היה לה וסת קבוע והגיע תוך הזמן הזה אינה צריכה בדיקה ומותרת לבעלה ואפילו שופעו' ורואו' דם באותן עונו' שהן למודו' לראו' בהן אינו אלא במקרה עברו ימי העיבור וההנקה חוזרות לחוש לוסתן הראשון כיצד היה לה וסת לימים אם למודה לראשי חדשים חוששת לר"ח ראשון שהיא פוגעת בו וכן כל כיוצא בזה וכן הדין אם היה לה וסת הגוף או לזמן ידוע אבל אם היה וסתה וסת ההפלגה אי אפשר לחוש עד שתחזור לראות חזרה לראות אפילו פעם א' חוששת יום ההפלגה שהיתה למודה להפליג:
+</blockquote>
+<div class="translation">
+A <strong>pregnant woman from when her pregnancy is recognized</strong> (משהוכר עוברה), and a <strong>nursing woman throughout the 24 months</strong>, <strong>are not concerned for the first period</strong>: <strong>even if she had a fixed period</strong> whose term falls within this span, <strong>she needs no bedikah and is permitted to her husband</strong>; <strong>and even if they flow and see blood</strong> at the onot in which they are accustomed to see, <strong>it is only an accident</strong>.
+<br><br>
+<strong>Once the days of pregnancy and nursing have passed, they return to being concerned for their first period.</strong> How? If she had a <strong>period by days</strong>: if she was accustomed to Roshei Chodashim, <strong>she is concerned for the first Rosh Chodesh she encounters</strong>; and so in every like case. <strong>And such is the law too if she had a bodily period</strong>, or a period at a known time.
+<br><br>
+<strong>But if her period was a period of the interval</strong>, <strong>it is impossible to be concerned until she returns to see</strong>: <strong>has she returned to see even a single time, she is concerned for the day of the interval to which she was accustomed</strong>.
 </div>
 
 <div class="key-point">
@@ -823,7 +1027,7 @@ The cross-cutting idea: <strong>everything is a matter of chazakah (presumption)
 </div>
 
 <div class="definition">
-<span class="he-q">וֶסֶת הַגּוּף</span> (veset haguf) — <strong>The bodily period</strong>: established not by a date but by a <strong>physical symptom</strong> (yawn, sneeze, pain, pungent food). The same counting rules apply, but one is concerned from <strong>a single occurrence</strong> (seifim 19-26).
+<span class="he-q">וֶסֶת הַגּוּף</span> (veset haguf) — <strong>The bodily period</strong>: established not by a date but by a <strong>physical symptom</strong> (yawn, sneeze, pain, hot food). The same counting rules apply, but one is concerned from <strong>a single occurrence</strong> (seifim 19-26).
 </div>
 
 <div class="definition">
@@ -925,23 +1129,23 @@ The Taz and the Shach stress, regarding the veset haguf, the principle <span cla
 <h4>On seif 17 — the period from oness</h4>
 
 <div class="translation">
-Gloss of the Rama: <span class="he-q">ומכל מקום חוששת לו כמו לוסת שאינו קבוע</span> — <strong>"nevertheless she is concerned for it like a non-fixed period."</strong> The Mehaber states that a period established by constraint alone is not a true period; the Rama clarifies that it is not thereby ignored: one is concerned for it at least as for a <em>non-</em>fixed period.
+Gloss of the Rama: <span class="he-q">ומ"מ חוששת לו כמו לוסת שאינו קבוע</span> (יו״ד קפ״ט:י״ז) — <strong>"nevertheless she is concerned for it like a non-fixed period."</strong> The Mehaber states that a period established by constraint alone is not a true period; the Rama clarifies that it is not thereby ignored: one is concerned for it at least as for a <em>non-</em>fixed period.
 </div>
 
-<h4>On seif 23 — the pungent foods</h4>
+<h4>On seif 23 — the hot foods</h4>
 
 <div class="translation">
-Gloss of the Rama: <span class="he-q">אכלה שום וראתה… יש אומרים שקבעה לה וסת לראות על ידי כל אכילת דברים חריפים</span> — <strong>"if she ate garlic and saw… some say she has established a period of seeing through every consumption of pungent foods."</strong> The Rama thus broadens the notion of veset haguf to <strong>dietary causes</strong> (garlic, onion, pepper) that regularly bring on the sighting.
+Gloss of the Rama: <span class="he-q">אכלה שום וראתה… יש אומרים שקבעה לה וסת לראות ע״י כל אכילת דברים חמים</span> (יו״ד קפ״ט:כ״ג) — <strong>"she ate garlic and saw… some say she has established a period of seeing through every eating of hot foods."</strong> The Rama thus broadens the notion of veset haguf to <strong>dietary causes</strong> (garlic, onion, pepper) that bring on the sighting. He then reports two further views: one that likens the food to a constraint (so that a period is established only together with days), and one that likens it to a bodily occurrence (so that it is established even without equal days).
 </div>
 
 <h4>On seif 28 — minor and elderly</h4>
 
 <div class="translation">
-Gloss of the Rama (in the name of the Rashba): <span class="he-q">וקטנה וזקנה אינן חוששות לוסת שאינו קבוע</span> — <strong>"the minor girl and the elderly woman are not concerned for a non-fixed period."</strong> The Rama thereby lightens the regime for these two categories, whose cycle is not (or no longer) regular.
+Gloss of the Rama (in the name of the Rashba): <span class="he-q">וקטנה וזקנה אינן חוששות לוסת שאינו קבוע</span> (יו״ד קפ״ט:כ״ח) — <strong>"the minor girl and the elderly woman are not concerned for a non-fixed period."</strong> The Rama thereby lightens the regime for these two categories, whose cycle is not (or no longer) regular.
 </div>
 
 <div class="remember">
-The Rama carefully distinguishes the <strong>baseline law</strong> (the Mehaber) from <strong>Ashkenazi practice</strong>: he <em>tightens</em> in places (one is concerned even for the oness-period as a non-fixed one; he adds the pungent foods) and <em>lightens</em> elsewhere (minor and elderly exempt from the non-fixed). In every case, these nuances confirm that a real case is not decided alone.
+The Rama carefully distinguishes the <strong>baseline law</strong> (the Mehaber) from <strong>Ashkenazi practice</strong>: he <em>tightens</em> in places (one is concerned even for the oness-period as a non-fixed one; he adds the hot foods) and <em>lightens</em> elsewhere (minor and elderly exempt from the non-fixed). In every case, these nuances confirm that a real case is not decided alone.
 </div>
 
 <div class="page-break"></div>
@@ -954,7 +1158,7 @@ The Rama carefully distinguishes the <strong>baseline law</strong> (the Mehaber)
 <p>Seifim 27-34 step outside the ordinary regime: they deal with women whose cycle is suspended. The central concept is <span class="he-q">מְסֻלֶּקֶת דָּמִים</span> — "removed from bloods."</p>
 
 <div class="sacred-text he">
-"מְעֻבֶּרֶת מִשֶּׁהֻכַּר עֻבָּרָהּ, וּמְנִיקָה כָּל כ״ד חֹדֶשׁ — אֵינָהּ חוֹשֶׁשֶׁת לַוֶּסֶת הָרִאשׁוֹן."
+<span class="he-q">מעובר׳ משהוכר עוברה ומניקה כל כ״ד חדש אינה חוששת לוסת הראשון</span> (יו״ד קפ״ט:ל״ד)
 </div>
 
 <div class="key-point">
@@ -1041,14 +1245,14 @@ During <strong>pregnancy</strong> (once the fetus is recognized) and <strong>nur
 <div class="key-point">
 <strong>The essence of Siman 189 in a few sentences:</strong>
 <ol>
-  <li>Without a fixed cycle, one is concerned for the <strong>onah beinonit</strong> — the 30th day; with a fixed cycle, the known day (Family 1).</li>
-  <li>A period is <strong>established over three equal intervals</strong>; the veset ha-haflagot requires <strong>four sightings</strong> (Family 2).</li>
-  <li>The <strong>veset ha-haflagot</strong> may advance by a regular <strong>dilug</strong> — 30, 31, 32… (Family 3).</li>
-  <li>One also establishes by the <strong>days of the month / week</strong>, with dilug, <strong>sirug</strong> and the <strong>day / night</strong> rule (Family 4).</li>
-  <li>A fixed period is <strong>uprooted only over three intervals empty</strong>; the return restores it (Family 5).</li>
-  <li>A period established by <strong>oness alone</strong> is not a true period, but one is concerned for it as a non-fixed one (Family 6).</li>
-  <li>The <strong>bodily periods</strong> (yawn, sneeze, pains, pungent foods) are established over three times; one is concerned from one (Family 7).</li>
-  <li>The <strong>minor, the elderly, the pregnant and the nursing woman</strong> are <strong>mesuleket damim</strong>; the veset within a veset interlocks two periods (Family 8).</li>
+  <li>Without a fixed cycle, one is concerned for the <strong>onah beinonit</strong> — the 30th day; with a fixed cycle, the known day (seifim 1 and 4).</li>
+  <li>A period is <strong>established over three equal intervals</strong>; the veset ha-haflagot requires <strong>four sightings</strong> (seif 2).</li>
+  <li>The <strong>veset ha-haflagot</strong> may advance by a regular <strong>dilug</strong> — 30, 31, 32… (seif 5).</li>
+  <li>One also establishes by the <strong>days of the month / week</strong>, with dilug, <strong>sirug</strong> and the <strong>day / night</strong> rule (seifim 6 to 13).</li>
+  <li>A fixed period is <strong>uprooted only over three intervals empty</strong>; the return restores it (seifim 14 to 16).</li>
+  <li>A period established by <strong>oness alone</strong> is not a true period, but one is concerned for it as a non-fixed one (seifim 17 and 18).</li>
+  <li>The <strong>bodily periods</strong> (yawn, sneeze, pains, hot foods) are established over three times; one is concerned from one (seifim 19 to 26).</li>
+  <li>The <strong>minor, the elderly, the pregnant and the nursing woman</strong> are <strong>mesuleket damim</strong>; the veset within a veset interlocks two periods (seifim 27 to 34).</li>
 </ol>
 </div>
 

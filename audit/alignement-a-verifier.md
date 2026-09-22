@@ -894,6 +894,53 @@ l'écrit (voir l'entrée sur le bloc נדה 183-200).
 
 ---
 
+## Les comptes de mots — « en N mots / בN תיבות / in N words » (17 septembre 2026)
+
+Seconde forme des affirmations de dénombrement, trouvée par l'arbitre du siman 234
+alors que trois tours de correction avaient nettoyé les superlatifs jusqu'au bout.
+Sur les dix-sept comptes de mots du siman 234, **cinq étaient faux**, mesurés contre
+la source un par un.
+
+Deux exemples, parce qu'ils disent la nature du défaut :
+
+- « le dernier séif, qui tient en **sept mots** » — le séif 74 est
+  `אשה שנדרה לשתות סם להתעבר אין הבעל יכול להפר`, **neuf** mots, et la page le cite
+  elle-même verbatim à deux autres endroits.
+- « **quatre mots**, et aucun commentateur n'y ajoute rien » — le séif 26 est
+  `השוטה אינו מפר`, **trois** mots, cités deux lignes plus bas ; et l'hébreu dit lui
+  aussi `ארבע תיבות`, donc aucune lecture ne sauve la phrase. (La seconde moitié est
+  exacte : aucun des cinq appareils ne commente ce séif.)
+
+**Étendue mesurée sur les 148 simanim de Yoré Déa publiés : 710 comptes de mots.**
+`scripts/verifier-denombrements.py` les relève tous et tranche mécaniquement le seul
+cas qui se tranche sans lecture — la **divergence entre les trois langues**, les
+variantes d'un niveau étant parallèles à la ligne près dans ce dépôt. Neuf
+divergences dures :
+
+| siman | fichier | ligne | fr | he | en |
+|------:|---|---:|---:|---:|---:|
+| 127 | niveau-3-synthese | 494 | 3 | — | 4 |
+| 133 | niveau-1-base | 669 | 5 | — | 3 |
+| 160 | niveau-1-base | 665 | 3 | — | 2 |
+| 179 | niveau-1-base | 719 | 5 | — | 4 |
+| 220 | niveau-2-lamdan | 618 | — | 3 | 6 |
+| 231 | niveau-1-base | 563 | 5 | 4 | 4 |
+| 234 | niveau-1-base | 578 | 5 | 4 | 4 |
+| 234 | niveau-1-base | 931 | 4 | 3 | 3 |
+| 234 | niveau-1-base | 967 | 4 | 3 | 3 |
+
+Les trois du 234 ont été mesurées contre la source : elle donne **trois** dans les
+trois cas, si bien qu'au l.578 les trois langues se trompent et de trois manières.
+Aux l.931 et 967, l'hébreu et l'anglais sont justes et le français seul est faux.
+
+Les six divergences **hors du lot 229-234** (simanim 127, 133, 160, 179, 220) ne sont
+pas corrigées : aucune page n'a été modifiée. Elles attendent une décision, comme le
+bloc נדה 183-200. Et les 701 autres comptes de mots n'ont **jamais été mesurés** —
+si la proportion du siman 234 valait ailleurs, il y en aurait beaucoup de faux ; mais
+un siman ne fait pas une mesure, et c'est précisément ce qu'il faudrait établir.
+
+---
+
 ## Le bloc hébreu des pages d'index — un trou de garde, et son étendue réelle (16 septembre 2026)
 
 La session ravabichid.org signale avoir corrigé le siman 246, dont le bloc
@@ -1129,3 +1176,44 @@ langues : la page ouvre par `מקום הנחת תפילין` là où Sefaria don
 L'écart porte sur le mot `דין` de l'intitulé du siman, non sur le texte d'un séif. À trancher :
 soit l'intitulé doit être repris tel quel, soit le garde-fou doit l'exclure comme il exclut
 déjà `ובו ב סעיפים` ailleurs. En l'état, ce siman fait échouer le contrôle de source.
+## Une citation FABRIQUÉE, en ligne, sur une ligne de psak — siman 187 (19 septembre 2026)
+
+**NEEDS_RABBINIC_VALIDATION.** Le siman 187 de Yoré Déa attribue au Rama, entre
+guillemets, une phrase qui n'existe pas :
+
+> « אין אנו נוהגין להוציאה »
+
+**Vérifié deux fois, par squelette consonantique, sur le texte retéléchargé depuis
+Sefaria : cette phrase n'est nulle part dans le siman 187.** Ni elle, ni même les mots
+`נוהגין` ou `להוציאה` pris isolément — zéro occurrence dans les quatorze séifim.
+
+**113 occurrences** dans les quinze fichiers du siman, dont des meta descriptions, des
+JSON-LD, des sommaires, et une **ligne de psak du niveau 4** qui la référence
+explicitement « Choul'han Aroukh YD 187:1 ».
+
+**Et elle renverse le sens du siman.** La page en fait « l'allègement du Rama » : on ne
+fait plus divorcer. Or le Mehaber au séif 1 écrit
+`אסורה לשמש עם בעל זה אלא תתגרש ותנשא לאחר`, et la glose **réelle** du Rama au même séif
+est une **rigueur** :
+
+> הגה וי״א שאין אנו בקיאין איזה מיקרי מחמת תשמיש כי אין בקיאין בשיעור הנזכר ולכן כל
+> שרואה ג״פ סמוך לתשמיש מקרי לדידן מחמת תשמיש **ונאסרה על בעלה** (ב״י בשם הראב״ד…)
+
+Le Rama **élargit** l'interdit ; le site lui fait dire le contraire.
+
+**Pourquoi aucune porte ne l'a vu.** Le `span.he-q` de la phrase compte **22 lettres
+hébraïques**, sous le seuil de 25 de `verifier-citations.py`. C'est le point aveugle n°1
+du brief — « les citations de moins de 25 lettres ne sont jamais confrontées à leur
+source », 1 204 mesurées dans Yoré Déa dont 319 portant une référence précise — et le
+voici qui coûte un psak inversé, en ligne.
+
+Le seuil existe pour ne pas accuser les termes techniques mis entre guillemets. Ce cas
+montre ce qu'il laisse passer. **À rouvrir comme question d'outil**, indépendamment de la
+réparation du siman 187 : une citation courte MUNIE D'UNE RÉFÉRENCE PRÉCISE devrait être
+jugée quel que soit son nombre de lettres.
+
+L'idée qu'on ne contraindrait plus au divorce de nos jours est une position réelle chez
+des Aharonim. Elle n'est pas dans ce siman, et ce n'est pas au site de décider ce qu'il
+enseigne à la place : la réparation RETIRE la fabrication et rétablit la glose réelle,
+sans substituer un psak à un autre. Ce qui doit être dit de la pratique contemporaine
+revient au Rav.

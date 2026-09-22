@@ -72,6 +72,21 @@ MIN_LETTRES = 12        # en deçà, un fragment est trop court pour conclure qu
 # technique mis entre guillemets par l'auteur (« תשמישי קדושה », « אמירה לנכרי שבות »),
 # que rien n'oblige à figurer mot pour mot dans la source voisine.
 MIN_CITATION = 25
+# …MAIS UNE CITATION COURTE MUNIE D'UNE RÉFÉRENCE PRÉCISE SE JUGE QUAND MÊME.
+#
+# Le 19 septembre 2026, quatre citations fabriquées ont été trouvées dans Yoré Déa, sur
+# des pages en ligne et vertes à toutes les portes. La plus grave — « אין אנו נוהגין
+# להוציאה », attribuée au Rama, 136 occurrences, sur une LIGNE DE PSAK du niveau 4
+# référencée « Choul'han Aroukh YD 187:1 » — compte VINGT-DEUX lettres. Le seuil de 25 la
+# couvrait, et avec elle un psak inversé : la glose réelle du Rama au séif 1 est une
+# rigueur (ונאסרה על בעלה), la page en faisait un allègement. La dernière des quatre en
+# compte vingt-trois.
+#
+# Le seuil existe pour ne pas accuser un terme technique mis entre guillemets — et un
+# terme technique ne porte pas de référence. Quand l'auteur ÉCRIT la référence à côté de
+# sa citation, il ne nomme plus un concept : il affirme que la source dit ces mots-là. Ce
+# seuil-ci s'applique alors, et il est bien plus bas.
+MIN_CITATION_REFERENCEE = 12
 # La référence doit se trouver au voisinage de la citation, pas n'importe où sur la ligne.
 FENETRE_REF = 200
 
@@ -146,7 +161,7 @@ def locate(frag):
     """
     q = re.sub(r'\s+', ' ', re.sub(r'[«»"„”\[\]]', '', frag)).strip()
     q = max((p.strip() for p in re.split(r'…|\.\.\.', q)), key=len)[:180]
-    if n_letters(q) < MIN_CITATION:
+    if n_letters(q) < MIN_CITATION_REFERENCEE:
         return []
 
     def ask():
@@ -374,9 +389,36 @@ RE_SA_LAT = re.compile(r'(?<![A-Za-z])(?<!SAR )(?<!SAH )(?<!Rav )(?P<tour>OH|OC|
 # `ט` et le seif 16 était lu comme le seif 9. Une référence juste ressortait alors en
 # REF_FAUSSE, contre un seif qui n'avait rien à voir. Même défaut pour י״ב lu 10,
 # כ״ו lu 20, etc. — soit tous les seifim à deux lettres, c'est-à-dire la majorité.
-RE_SA_HE = re.compile(r'(?P<tour>או["״]?ח|יו["״]?ד)\s*'
+# Les quatre Tourim, et non deux. חושן משפט manquait : `RE_SA_HE` n'acceptait que
+# או״ח et יו״ד, si bien qu'une citation verbatim de « חו״מ שס״ז:ה » sortait « sans
+# référence » — donc NON VÉRIFIÉE, ce qui est pire qu'un refus. Trouvé au siman 223,
+# où l'agent a préféré remplacer deux verbatim par un résumé plutôt que de publier
+# de l'hébreu que le contrôle ne pouvait pas confronter. Mesuré : 215 renvois à
+# חושן משפט dans les pages françaises, tous en Yoré Déa — ce traité renvoie sans
+# cesse au droit monétaire.
+# ⚠️ Les sigles courts EXIGENT leur gershayim et refusent une lettre hébraïque
+# derrière : sans cette garde, « חומרא », « חומה » et « חומרתם » se lisaient comme
+# « חו״מ » (2 212 fausses correspondances mesurées avant la garde, contre 215 vraies).
+RE_SA_HE = re.compile(r'(?P<tour>או["״]?ח(?![א-ת])|אורח חיים|יו["״]?ד(?![א-ת])|יורה דעה'
+                      r'|חו["״]מ(?![א-ת])|ח["״]מ(?![א-ת])|חושן משפט'
+                      r'|אה["״]ע(?![א-ת])|אבן העזר)\s*(?:סימן\s*)?'
                       r'(?P<siman>[א-ת]{1,4}["״\'׳]?[א-ת]?)\s*[:׃]\s*'
+                      r'(?:ס(?:עיף)?["״\'׳]?\s*)?'
                       r'(?P<seif>[א-ת]{1,3}["״\'׳]?[א-ת]?)')
+# Du sigle au nom de section Sefaria. L'ancien code devinait par « 'ח' in tour »,
+# ce qui ne pouvait pas survivre à l'arrivée de חו״מ (qui contient aussi un ח).
+_TOUR_SEFARIA = [('חושן משפט', 'Choshen_Mishpat'), ('חו', 'Choshen_Mishpat'),
+                 ('אבן העזר', 'Even_HaEzer'), ('אה', 'Even_HaEzer'),
+                 ('אורח חיים', 'Orach_Chayim'), ('או', 'Orach_Chayim'),
+                 ('יורה דעה', 'Yoreh_Deah'), ('יו', 'Yoreh_Deah'),
+                 ('ח', 'Choshen_Mishpat')]
+
+
+def _section_sefaria(sigle):
+    for prefixe, nom in _TOUR_SEFARIA:
+        if sigle.startswith(prefixe):
+            return nom
+    return 'Yoreh_Deah'
 # L'Aroukh HaChoul'han cité par siman:seif — « ערוך השולחן יורה דעה ר״ב:ג ».
 #
 # Il est resté invisible au contrôle jusqu'au lot 201-208, parce qu'il n'avait
@@ -788,10 +830,10 @@ def refs_in(ctx):
     for m in RE_SA_HE.finditer(ctx):
         if any(a <= m.start() < b for a, b in pris_ahs):
             continue
-        tour = 'Orach Chayim' if 'ח' in m.group('tour') else 'Yoreh Deah'
+        tour = _section_sefaria(m.group('tour'))
         si, se = _num(m.group('siman')), _num(m.group('seif'))
         if si and se:
-            out.append(f"Shulchan_Arukh,_{tour.replace(' ', '_')}.{si}.{se}")
+            out.append(f"Shulchan_Arukh,_{tour}.{si}.{se}")
     for m in RE_MB.finditer(ctx):
         si, sk = _num(m.group('siman')), _num(m.group('sk'))
         if si and sk:
@@ -975,10 +1017,17 @@ def quotes_in(text):
                 # écarte les identifiants d'ancre (mots collés par des tirets)
                 if re.fullmatch(r'[\wא-ת֐-׿-]+', frag):
                     continue
-                # un terme technique entre guillemets n'est pas une citation
-                if n_letters(frag) < MIN_CITATION:
-                    continue
                 at = plain.find(frag)
+                # Un terme technique entre guillemets n'est pas une citation — sauf si
+                # une référence l'accompagne : alors c'est une affirmation sur la source.
+                nl = n_letters(frag)
+                if nl < MIN_CITATION:
+                    if nl < MIN_CITATION_REFERENCEE:
+                        continue
+                    deb = max(0, (at if at > 0 else 0) - FENETRE_REF)
+                    fin = (at if at > 0 else 0) + len(frag) + FENETRE_REF
+                    if not refs_in(plain[deb:fin]):
+                        continue
                 if at > 0 and RESUME.search(plain[:at]):
                     continue          # résumé assumé : pas une citation
                 if at > 0 and not (from_marked or has_cue(plain[:at])):

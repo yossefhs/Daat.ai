@@ -248,6 +248,28 @@
   hr.ornament { border: none; text-align: center; margin: 20px 0; }
   hr.ornament::before { content: "✦ ❖ ✦"; color: #C5A55A; font-size: 13pt; }
 
+  blockquote.text-resume {
+    background: #f7f5f2;
+    border-right: 4px dashed #b9a06a;
+    direction: rtl;
+    text-align: right;
+    margin: 10px 0;
+    padding: 10px 15px;
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 12pt;
+    font-style: italic;
+  }
+
+  blockquote.text-resume .resume-marque {
+    display: block;
+    direction: inherit;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: normal;
+    font-size: 10pt;
+    color: #7a6a44;
+    margin-bottom: 6px;
+  }
+
   blockquote.text-source {
     background: #faf8f0;
     border-right: 4px solid #C5A55A;
@@ -529,6 +551,7 @@ This siman touches some of the most intimate, and at times the most painful, mom
 <!-- 1. THE MEHABER'S TEXT -->
 <!-- ========================================== -->
 <h2 id="exp-seifim" class="section-title">1. The Mehaber's text — the 14 seifim</h2>
+<div class="key-point"><strong>A note on reading.</strong> The Hebrew blocks in this section are <em>summaries</em>, not the text of the Shulchan Arukh as it stands: they condense the substance and do not carry every clause. The full text is being restored, seif by seif and in the order of the book. For the exact wording, go to the source.</div>
 
 <p>Siman 194 belongs to the laws of <span class="he-q">נדה</span> (Hilchot Niddah). After the simanim on ordinary niddah (menstrual blood, stains/ketamim, the count of the seven clean days), the Mehaber (Rabbi Yosef Karo) deals here with a special case of tum'ah: that of the <strong>yoledet</strong>, the woman who gives birth, and the <strong>mappelet</strong>, the one who miscarries. The Torah sets for the new mother <strong>days of tum'ah</strong> followed by <strong>days of tahara</strong>, and they differ depending on whether the child is a boy (zachar) or a girl (nekevah). Let us discover the seifim by groups, in a spirit of calm and respectful study.</p>
 
@@ -540,11 +563,15 @@ This siman touches some of the most intimate, and at times the most painful, mom
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s1">
-יוֹלֶדֶת, אֲפִלּוּ לֹא רָאֲתָה דָּם — טְמֵאָה כְּנִדָּה, בֵּין יָלְדָה חַי בֵּין יָלְדָה מֵת, וַאֲפִלּוּ נֵפֶל. וְכַמָּה הֵם יְמֵי טֻמְאָתָהּ : עַכְשָׁו בַּזְּמַן הַזֶּה כָּל הַיּוֹלְדוֹת חֲשׁוּבוֹת יוֹלְדוֹת בְּזוֹב, וּצְרִיכוֹת לִסְפּוֹר שִׁבְעָה נְקִיִּים. נִמְצֵאת אוֹמֵר שֶׁיּוֹלֶדֶת זָכָר יוֹשֶׁבֶת שִׁבְעָה לַלֵּדָה וְשִׁבְעָה נְקִיִּים, וְיוֹלֶדֶת נְקֵבָה אַרְבָּעָה עָשָׂר לַלֵּדָה וְשִׁבְעָה נְקִיִּים.
+<b>דיני יולדת ומפלת. ובו י"ד סעיפים:</b><br> יולדת אפילו לא ראתה דם טמאה כנדה בין ילדה חי בין ילדה מת ואפילו נפל וכמה הם ימי טומאתה עכשיו בזמן הזה כל היולדות חשובות יולדות בזוב וצריכות לספור שבעה נקיים נמצאת אומר שיולדת זכר יושבת ז' ללידה וז' לנקיים לזיבה והיולדת נקבה יושבת שבועים ללידה וז' נקיים לזיבה ימי לידה שהם ז' לזכר וי"ד לנקבה אם לא ראתה בהן עולים לספירת זיבתה ואם שלמו ז' נקיים בתוך י"ד לנקבה הרי זו אסורה עד ליל ט"ו ואם טבלה קודם לכן לא עלתה לה טבילה: <small>הגה ולאחר ז' לזכר וי"ד לנקבה מותרת לבעלה מיד מאחר שספרה ז' נקיים ולא חזרה וראתה מיהו יש מקומות שנוהגין שאין טובלין תוך מ' לזכר ושמונים לנקבה (בית יוסף בשם מהרי"ק שהביא התניא ובאגודה פרק ע"פ ובמהרי"ל) ואין להתיר במקום שנהגו להחמיר (ריב"ש) אבל במקום שאין מנהג אין להחמיר כלל רק מיד שלא ראתה דם אחר ז' לזכר וי"ד לנקבה וספרה ז' נקיים מותרת לבעלה (ת"ה סימן רנ"ה) אבל אם חזרה וראתה אפילו טפת דם כחרדל טמאה אע"ג דמדאורייתא דם טהור הוא כבר פשט המנהג בכל ישראל שאין בועלין על דם טהור (ב"י ואגור וטור ופוסקים בשם הגאונים) ודינו כשאר דם לכל דבר:</small>
 </blockquote>
 
 <div class="translation">
-A <strong>woman who gives birth</strong> (yoledet), <strong>even without having seen blood</strong>, is <strong>tamei like a niddah</strong> — whether she bore a child <strong>alive or dead</strong>, and even a <strong>nefel</strong> (non-viable fetus). How many are her days of tum'ah? <strong>Today, all who give birth are considered "yoledot bezov"</strong> (giving birth in a state akin to zov) and <strong>must count seven clean days</strong> (shivah neki'im) before immersion. It follows that <strong>one who bears a boy (zachar)</strong> observes seven days for the birth plus seven clean days; <strong>one who bears a girl (nekevah)</strong>, fourteen days for the birth plus seven clean days.
+<em>Heading of the siman</em> — <strong>The laws of the yoledet (a woman who gives birth) and of the mapelet (a woman who miscarries); and it contains fourteen seifim.</strong>
+<br><br>
+A <strong>woman who gives birth</strong> (yoledet), <strong>even without having seen blood</strong>, is <strong>tamei like a niddah</strong> — whether she bore a child <strong>alive or dead</strong>, and even a <strong>nefel</strong> (non-viable fetus). How many are her days of tum'ah? <strong>Today, all who give birth are considered "yoledot bezov"</strong> (giving birth in a state akin to zov) and <strong>must count seven clean days</strong> (shivah neki'im) before immersion. It follows that <strong>one who bears a boy (zachar)</strong> observes seven days for the birth plus seven clean days; <strong>one who bears a girl (nekevah)</strong>, fourteen days for the birth plus seven clean days. <strong>The days of the birth</strong> — which are seven for a boy and fourteen for a girl — <strong>if she saw no blood during them, count toward her zivah count</strong> (עולים לספירת זיבתה). <strong>And if her seven clean days are completed within the fourteen of a girl, she remains forbidden until the night of the fifteenth</strong> (ליל ט״ו); <strong>and if she immersed before then, her immersion does not count for her</strong>.
+<br><br>
+<em>Gloss of the Rama:</em> and <strong>after the seven days for a boy and the fourteen for a girl, she is permitted to her husband immediately</strong>, since she has counted her seven clean days and has not seen again. <strong>However, there are places whose custom is not to immerse within forty days for a boy and eighty for a girl</strong> (שאין טובלין תוך מ׳ לזכר ושמונים לנקבה); <strong>and one does not come to permit where the custom has been to be stringent</strong>. <strong>But where there is no such custom, one is not stringent at all</strong>: as soon as she has seen no blood after the seven for a boy or the fourteen for a girl and has counted her seven clean days, she is permitted to her husband. <strong>But if she saw again, even a drop of blood like a mustard seed</strong> (טפת דם כחרדל), <strong>she is tamei</strong> — although by Torah law this is dam tahor (blood deemed pure), <strong>the custom has already spread throughout all Israel not to cohabit upon dam tahor</strong>, <strong>and its status is that of any other blood in every respect</strong>.
 </div>
 
 <div class="key-point">
@@ -556,7 +583,7 @@ A <strong>woman who gives birth</strong> (yoledet), <strong>even without having 
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s2">
-הַמַּפֶּלֶת בְּתוֹךְ אַרְבָּעִים יוֹם — אֵינָהּ חוֹשֶׁשֶׁת לְוָלָד, אֲבָל חוֹשֶׁשֶׁת מִשּׁוּם נִדָּה אֲפִלּוּ לֹא רָאֲתָה. <span class="he-q">(הגה: מִפְּנֵי שֶׁאִי אֶפְשָׁר לִפְתִיחַת הַקֶּבֶר בְּלֹא דָּם, וְנָפְקָא מִינַּהּ דְּמִיָּד לְאַחַר שֶׁסָּפְרָה שִׁבְעָה נְקִיִּים מֻתֶּרֶת וְאֵינָהּ חוֹשֶׁשֶׁת לְוָלָד (דֵּעָה).)</span>
+המפלת בתוך מ' אינה חוששת לולד אבל חוששת משום נדה אפילו לא ראתה: <small>הגה מפני שא"א לפתיחת הקבר בלא דם ונפקא מינה דמיד לאחר שספרה ז' נקיים מותרת ואינה חוששת לולד (ד"ע):</small>
 </blockquote>
 
 <div class="translation">
@@ -581,7 +608,7 @@ A miscarriage is a real ordeal, often silent and painful. The halachic text rema
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s3">
-הַמַּפֶּלֶת כְּמִין בְּהֵמָה חַיָּה וָעוֹף, אוֹ כְּמִין דָּגִים וַחֲגָבִים וּשְׁקָצִים וּרְמָשִׂים, וְכָל צוּרַת וָלָד, אוֹ שָׁפִיר, אוֹ שִׁלְיָא, אוֹ חֲתִיכָה שֶׁקְּרָעוּהָ וְיֵשׁ בָּהּ עֶצֶם — עַכְשָׁו שֶׁאֵין אָנוּ בְּקִיאִין בַּצּוּרוֹת, חוֹשֶׁשֶׁת לְוָלָד; וְאִם כָּלוּ שִׁבְעָה נְקִיִּים בְּתוֹךְ אַרְבָּעָה עָשָׂר יוֹם, אִם טָבְלָה קוֹדֶם לֵיל חֲמִשָּׁה עָשָׂר — לֹא עָלְתָה לָהּ טְבִילָה.
+המפלת כמין בהמה חיה ועוף או כמין דגים וחגבים ושקצים ורמשים וכל צורת ולד או שפיר או שליא או חתיכה שקרעוה ויש בה עצם עכשיו שאין אנו בקיאין בצורות חוששת לולד ואם כלו ז' נקיים בתוך י"ד יום אם טבלה קודם ליל ט"ו לא עלתה לה טבילה:
 </blockquote>
 
 <div class="translation">
@@ -597,7 +624,7 @@ One who passes something in the <strong>form of an animal, beast, bird, fish, in
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s4">
-יָלְדָה וָלָד חַי וְאַחַר כָּךְ הִפִּילָה שִׁלְיָא — אֵינָהּ חוֹשֶׁשֶׁת לְוָלָד אַחֵר, אֶלָּא תּוֹלָה אוֹתָהּ בַּוָּלָד שֶׁיָּלְדָה כְּבָר, עַד עֶשְׂרִים וּשְׁלֹשָׁה יוֹם; אֲבָל אִם הִפִּילָה נֵפֶל תְּחִלָּה — אֵין תּוֹלִין בּוֹ הַשִּׁלְיָא שֶׁהִפִּילָה אַחַר כָּךְ, וְחוֹשֶׁשֶׁת לַשִּׁלְיָא לִתֵּן לָהּ יְמֵי טֻמְאָה שֶׁל נְקֵבָה.
+ילדה ולד חי ואח"כ הפילה שליא אינה חוששת לולד אחר אלא תולה אותה בולד שילדה כבר עד כ"ג יום אבל אם הפילה נפל תחילה אין תולין בו השליא שהפילה אחר כך וחוששת לשליא ליתן לה ימי טומאה של נקבה:
 </blockquote>
 
 <div class="translation">
@@ -613,7 +640,7 @@ If she <strong>bore a living child, and afterward passed a placenta (shilya)</st
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s5">
-יָצְאָה הַשִּׁלְיָא תְּחִלָּה — אֵין תּוֹלִין אוֹתָהּ בְּוָלָד שֶׁתֵּלֵד אַחַר כָּךְ, אֲפִלּוּ הוּא בֶּן קַיָּמָא, וְחוֹשֶׁשֶׁת לַשִּׁלְיָא לִתֵּן לָהּ יְמֵי טֻמְאָה שֶׁל נְקֵבָה.
+יצאה השליא תחילה אין תולין אותה בולד שתלד אחר כך אפילו הוא בן קיימא וחוששת לשליא ליתן לה ימי טומאה של נקבה:
 </blockquote>
 
 <div class="translation">
@@ -625,7 +652,7 @@ If the <strong>placenta emerged first</strong>, we <strong>do not attribute it</
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s6">
-יָצְאָה מִקְצָת שִׁלְיָא בְּיוֹם רִאשׁוֹן וְלֹא נִגְמְרָה יְצִיאָתָהּ עַד יוֹם שֵׁנִי — חוֹשֶׁשֶׁת מִיּוֹם רִאשׁוֹן, אֲבָל אֵינָהּ מוֹנָה אֶלָּא מִיּוֹם שֵׁנִי.
+יצאה מקצת שליא ביום ראשון ולא נגמרה יציאתה עד יום ב' חוששת מיום ראשון אבל אינה מונה אלא מיום שני:
 </blockquote>
 
 <div class="translation">
@@ -641,7 +668,7 @@ If <strong>part of the placenta emerged on the first day</strong> and its emerge
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s7">
-הַמַּפֶּלֶת דְּמוּת בְּהֵמָה חַיָּה וָעוֹף וְשִׁלְיָא קְשׁוּרָה בָּהּ — אֵינָהּ חוֹשֶׁשֶׁת לְוָלָד אַחֵר; וְאִם אֵינָהּ קְשׁוּרָה בָּהּ — חוֹשֶׁשֶׁת לְוָלָד אַחֵר. וְאַף עַל פִּי שֶׁהַוָּלָד הַנִּדְמֶה זָכָר — חוֹשְׁשִׁין לִתֵּן לָהּ יְמֵי טֻמְאָה שֶׁל נְקֵבָה בִּשְׁבִיל הַשִּׁלְיָא.
+המפלת דמות בהמה חיה ועוף ושליא קשורה בה אינה חוששת לולד אחר ואם אינה קשורה בה חוששת לולד אחר ואף על פי שהולד הנדמה זכר חוששין ליתן לה ימי טומאה של נקבה בשביל השליא:
 </blockquote>
 
 <div class="translation">
@@ -653,7 +680,7 @@ One who passes a <strong>form of an animal</strong> with a <strong>placenta atta
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s8">
-הַיּוֹלֶדֶת טֻמְטוּם אוֹ אַנְדְּרוֹגִינוֹס — נוֹתְנִין לָהּ יְמֵי טֻמְאָה שֶׁל נְקֵבָה.
+היולדת טומטום או אנדרוגינוס נותנין לה ימי טומאה של נקבה:
 </blockquote>
 
 <div class="translation">
@@ -669,7 +696,7 @@ One who bears a <strong>tumtum</strong> (whose sex cannot be determined) or an <
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s9">
-הִרְגִּישָׁה שֶׁהִפִּילָה וְאֵינָהּ יוֹדַעַת מַה — אֲפִלּוּ לֹא הָיְתָה בְּחֶזְקַת מְעֻבֶּרֶת — הֲרֵי זוֹ טְמֵאָה לֵדָה, וְחוֹשֶׁשֶׁת שֶׁמָּא נְקֵבָה הָיְתָה.
+הרגישה שהפילה ואינה יודעת מה אפילו לא היתה בחזקת מעוברת הרי זו טמאה לידה וחוששת שמא נקבה היתה:
 </blockquote>
 
 <div class="translation">
@@ -690,11 +717,11 @@ This seif addresses a bewildering and distressing situation: the woman perceived
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s10">
-נֶחְתַּךְ הַוָּלָד בְּמֵעֶיהָ וְיָצָא אֵבֶר אֵבֶר, בֵּין שֶׁיָּצָא עַל סֵדֶר הָאֵבָרִים — כְּגוֹן שֶׁיָּצָא הָרֶגֶל וְאַחֲרָיו הַשּׁוֹק וְאַחֲרָיו הַיָּרֵךְ — בֵּין שֶׁיָּצָא שֶׁלֹּא עַל הַסֵּדֶר, אֵינָהּ טְמֵאָה לֵדָה עַד שֶׁיֵּצֵא רֻבּוֹ; וְאִם יָצָא רֹאשׁוֹ כֻּלּוֹ כְּאֶחָד — הֲרֵי זֶה כְּרֻבּוֹ; וְאִם לֹא נִתְחַתֵּךְ וְיָצָא כְּדַרְכּוֹ — מִשֶּׁתֵּצֵא פַּדַּחְתּוֹ הֲרֵי זֶה כְּיִלּוֹד.
+נחתך הולד במעיה ויצא אבר אבר בין שיצא על סדר האברים כגון שיצא הרגל ואחריה השוק ואחריה הירך בין שיצא שלא על הסדר אינה טמאה לידה עד שיצא רובו ואם יצא ראשו כולו כאחד הרי זה כרובו ואם לא נתחתך ויצא כדרכו משתצא פדחתו ה"ז כילוד אף על פי שנחתך אח"כ ולא סוף דבר שיצא לחוץ ממש אלא אפילו משיצא חוץ לפרוזדור:
 </blockquote>
 
 <div class="translation">
-If the <strong>valad was cut up in the womb</strong> and emerges <strong>limb by limb</strong> — whether in the order of the limbs (the foot, then the calf, then the thigh) or not — she is <strong>tamei lentah only when the majority (rubo)</strong> of the body has emerged; and if <strong>the entire head emerges at once</strong>, it is <strong>like the majority</strong>. But if the valad <strong>was not cut up and emerges normally</strong>, <strong>once its forehead (padachat) emerges</strong>, it is <strong>considered born (keyalud)</strong>.
+If the <strong>valad was cut up in the womb</strong> and emerges <strong>limb by limb</strong> — whether in the order of the limbs (the foot, then the calf, then the thigh) or not — she is <strong>tamei leleidah only when the majority (rubo)</strong> of the body has emerged; and if <strong>the entire head emerges at once</strong>, it is <strong>like the majority</strong>. But if the valad <strong>was not cut up and emerges normally</strong>, <strong>once its forehead (padachat) emerges</strong>, it is <strong>considered born (keyalud)</strong> — <strong>even though it was cut up afterwards</strong> (אף על פי שנחתך אח״כ). <strong>And it need not have emerged fully outside</strong>: it suffices that it <strong>has emerged beyond the פְּרוֹזְדּוֹר</strong> (the &laquo;&nbsp;vestibule&nbsp;&raquo;, the birth passage).
 </div>
 
 <div class="key-point">
@@ -706,7 +733,7 @@ If the <strong>valad was cut up in the womb</strong> and emerges <strong>limb by
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s11">
-הוֹצִיא הָעֻבָּר אֶת יָדוֹ וְהֶחֱזִירָהּ — אִמּוֹ טְמֵאָה לֵדָה.
+הוציא העובר את ידו והחזירה אמו טמאה לידה:
 </blockquote>
 
 <div class="translation">
@@ -718,7 +745,7 @@ If the <strong>fetus put out its hand and then withdrew it</strong>, its <strong
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s12">
-הָיְתָה מַקְשָׁה לֵילֵד וְשָׁמְעָה קוֹלוֹ שֶׁל וָלָד — חָשׁוּב כְּיִלּוֹד, שֶׁאִי אֶפְשָׁר שֶׁלֹּא הוֹצִיא רֹאשׁוֹ חוּץ לַפְּרוֹזְדּוֹר.
+היתה מקשה לילד ושמעה קולו של ולד חשוב כילוד שאי אפשר שלא הוציא ראשו חוץ לפרוזדור:
 </blockquote>
 
 <div class="translation">
@@ -734,7 +761,7 @@ If the woman was in <strong>difficult labor (makshah leiled)</strong> and the <s
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s13">
-הַיּוֹלֶדֶת תְּאוֹמִים וְשָׁהָה וָלָד אַחַר חֲבֵרוֹ — כְּגוֹן הָאֶחָד קוֹדֶם שְׁקִיעַת הַחַמָּה וְהָאַחֵר אַחַר שְׁקִיעַת הַחַמָּה — מִשֶּׁיָּצָא הָרִאשׁוֹן טְמֵאָה לֵדָה, וּמוֹנִין יְמֵי טֻמְאָה מִשֶּׁיָּצָא הָאַחֲרוֹן. וְאִם הָרִאשׁוֹן נִכָּר שֶׁהוּא זָכָר וְהַשֵּׁנִי נִכָּר שֶׁהוּא נְקֵבָה, אוֹ שֶׁאֵינוֹ נִכָּר שֵׁנִי זֶה אִם הוּא זָכָר אוֹ נְקֵבָה — מוֹנֶה מִשֶּׁיָּצָא הָאַחֲרוֹן.
+היולדת תאומים ושהה ולד אחר חבירו כגון האחד קודם שקיעת החמה והאחר אחר שקיעת החמה משיצא הראשון טמאה לידה ומונין ימי טומאה משיצא האחרון ואם הראשון ניכר שהוא זכר והשני ניכר שהוא נקבה או שאינו ניכר שני זה אם הוא זכר או נקבה מונה משיצא השני ימי טומאה לנקבה:
 </blockquote>
 
 <div class="translation">
@@ -755,7 +782,7 @@ A woman who bears <strong>twins (te'omim)</strong>, one emerging some time after
 </h4>
 
 <blockquote class="text-source" data-copy-block id="cp-s14">
-יוֹצֵא דֹּפֶן — אִם לֹא יָצָא דָּם אֶלָּא דֶּרֶךְ דֹּפֶן, אִמּוֹ טְהוֹרָה מִלֵּדָה וּמִנִּדָּה וּמִזִּיבָה.
+יוצא דופן אם לא יצא דם אלא דרך דופן אמו טהורה מלידה ומנדה ומזיבה:
 </blockquote>
 
 <div class="translation">
