@@ -37,6 +37,18 @@ HEBREU = re.compile(r'\.he\b|\.he-q\b|he-h3|he-title|he-sub|he-subject|::before'
 
 RE_REGLE = re.compile(r'([^{}]+)\{([^}]*)\}')
 
+# Les propriétés dont le côté doit basculer quand la page passe en LTR.
+COTES = ('padding', 'margin', 'border')
+
+def permuter_cotes(corps):
+    """Bascule la géométrie latérale d'une règle hébraïque vers le sens LTR."""
+    def swap(m):
+        prop, cote = m.group(1), m.group(2)
+        if prop not in COTES:
+            return m.group(0)
+        return f"{prop}-{'left' if cote == 'right' else 'right'}"
+    return re.sub(r'\b(' + '|'.join(COTES) + r')-(right|left)\b', swap, corps)
+
 def convertir(css):
     """Rend (css, nombre de règles dépouillées de leur RTL)."""
     out, pos, n = [], 0, 0
@@ -48,6 +60,18 @@ def convertir(css):
             continue
         neuf = re.sub(r'\s*direction\s*:\s*rtl\s*;?', '', corps)
         neuf = re.sub(r'text-align\s*:\s*right', 'text-align: left', neuf)
+        # Retirer le RTL ne suffit pas : le gabarit hébreu met le retrait des listes
+        # à DROITE — `ol.stylish { padding-right: 22px; padding-left: 0 }`. En LTR, le
+        # sommaire et les listes numérotées perdent alors tout retrait à gauche et les
+        # puces débordent. Un arbitre l'a vu là où le script ne regardait pas : il
+        # corrigeait la direction du texte et laissait la géométrie hébraïque.
+        # …mais SEULEMENT si la règle portait le RTL. Sans cette borne, le script
+        # n'est pas idempotent et retourne la géométrie d'une page DÉJÀ en LTR : l'essai
+        # à blanc sur le siman 234, qui est le modèle, annonçait dix règles modifiées —
+        # il aurait renvoyé ses encadrés de border-left à border-right. Une règle
+        # convertie ne porte plus de direction:rtl, donc un second passage ne fait rien.
+        if 'rtl' in corps:
+            neuf = permuter_cotes(neuf)
         if neuf == corps:
             continue          # ne compter que ce qui change réellement
         out.append(css[pos:m.start(2)]); out.append(neuf)

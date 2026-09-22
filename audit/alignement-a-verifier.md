@@ -1145,3 +1145,22 @@ des Aharonim. Elle n'est pas dans ce siman, et ce n'est pas au site de décider 
 enseigne à la place : la réparation RETIRE la fabrication et rétablit la glose réelle,
 sans substituer un psak à un autre. Ce qui doit être dit de la pratique contemporaine
 revient au Rav.
+
+---
+
+## Les sujets d'entête restés en hébreu sur des pages traduites (22 septembre 2026)
+
+Mesuré sur les 263 pages de niveau 2 déjà traduites du compartiment Yoré Déa : **47 titres
+français et 33 titres anglais** portent encore un sujet **entièrement hébreu**, là où le
+reste de l'entête est bien dans la langue de la page. Exemple :
+
+> `<title>Siman צ״ה · Niveau 2 Lamdan — Pilpoul approfondi · דגים וביצה שנתבשלו בקדרה של בשר…`
+
+Le défaut touche le `<title>`, l'`og:title`, le `twitter:title` et la `meta description`.
+Il est invisible à la lecture de la page — c'est l'entête — mais c'est ce que Google
+indexe et ce que montre un aperçu de partage.
+
+Les huit simanim du lot 95-102 sont corrigés : le sujet est repris de la page `index` du
+même siman, qui l'écrit déjà dans la bonne langue. **Les autres ne le sont pas** et
+attendent un balayage dédié — la correction n'est pas mécanique partout, certains simanim
+n'ayant pas de sujet français disponible ailleurs.

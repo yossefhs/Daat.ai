@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,8 +23,7 @@
   @page { size: A4; margin: 2cm 1.8cm; }
   body {
     font-family: 'Frank Ruhl Libre', 'David', 'Georgia', 'Cambria', serif;
-    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0;
-    direction: rtl; text-align: right;
+    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0; text-align: left;
   }
   .he {
     direction: rtl; text-align: right;
@@ -72,14 +71,12 @@
   h2.section-title {
     color: #fff; background: #1A1F3A;
     font-size: 16pt; padding: 10px 18px; margin-top: 30px;
-    border-right: 6px solid #C5A55A;
-    direction: rtl; text-align: right;
+    border-left: 6px solid #C5A55A; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3 {
     color: #1A1F3A; font-size: 14pt; margin-top: 25px;
-    border-right: 4px solid #C5A55A; padding-right: 10px;
-    direction: rtl; text-align: right;
+    border-left: 4px solid #C5A55A; padding-left: 10px; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3.he-h3 {
@@ -89,8 +86,7 @@
   }
   h4 {
     color: #5a4a1a; font-size: 12pt;
-    margin-top: 20px; margin-bottom: 8px; font-weight: bold;
-    direction: rtl; text-align: right;
+    margin-top: 20px; margin-bottom: 8px; font-weight: bold; text-align: left;
   }
 
   .sacred-text {
@@ -100,8 +96,8 @@
     font-size: 12.5pt; line-height: 1.9;
   }
   .pilpul-box {
-    background: #eef3fa; border-right: 4px solid #1A1F3A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #eef3fa; border-left: 4px solid #1A1F3A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .pilpul-box::before {
     content: "⚡ פלפול"; display: block;
@@ -110,8 +106,8 @@
     direction: rtl; text-align: right;
   }
   .kashya-box {
-    background: #fef4e4; border-right: 4px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #fef4e4; border-left: 4px solid #C5A55A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .kashya-box::before {
     content: "❓ קושיא"; display: block;
@@ -120,8 +116,8 @@
     direction: rtl; text-align: right;
   }
   .teruts-box {
-    background: #e8f4ea; border-right: 4px solid #2d7a3e;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #e8f4ea; border-left: 4px solid #2d7a3e;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .teruts-box::before {
     content: "✓ תירוץ"; display: block;
@@ -130,8 +126,8 @@
     direction: rtl; text-align: right;
   }
   .hakira-box {
-    background: #f5e9f5; border-right: 4px solid #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #f5e9f5; border-left: 4px solid #6a1b7a;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .hakira-box::before {
     content: "🔍 חקירה"; display: block;
@@ -141,8 +137,7 @@
   }
   .nafka-mina-box {
     background: #fff4e6; border: 2px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; border-radius: 4px; text-align: left;
   }
   .nafka-mina-box::before {
     content: "⚖️ נפקא מינה"; display: block;
@@ -152,8 +147,7 @@
   }
   .yesod-box {
     background: #1A1F3A; color: #fff;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
   .yesod-box::before {
     content: "💎 יסוד"; display: block;
@@ -164,7 +158,7 @@
   .yesod-box .he-q { color: #C5A55A; }
   .machloket-box {
     background: #faf5ff; border: 1.5px dashed #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
 
   table {
@@ -173,10 +167,9 @@
   }
   th {
     background: #1A1F3A; color: #fff;
-    padding: 10px; text-align: right; direction: rtl; font-size: 11pt;
+    padding: 10px; text-align: left; font-size: 11pt;
   }
-  td {
-    direction: rtl; text-align: right;
+  td { text-align: left;
     border: 1px solid #d4c89a; padding: 10px; vertical-align: top;
   }
   tr:nth-child(even) td { background: #FAF6EE; }
@@ -197,12 +190,11 @@
   }
 
   ol.stylish li, ul.stylish li { margin-bottom: 8px; }
-  ol.stylish, ul.stylish { padding-right: 22px; padding-left: 0; }
+  ol.stylish, ul.stylish { padding-left: 22px; padding-right: 0; }
 
   .rishon-card {
-    background: #f7f3e4; border-right: 4px solid #8a6a1a;
-    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt;
-    direction: rtl; text-align: right;
+    background: #f7f3e4; border-left: 4px solid #8a6a1a;
+    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt; text-align: left;
   }
   .rishon-card strong { color: #1A1F3A; font-size: 11pt; }
 
@@ -217,15 +209,14 @@
 
   .index-box {
     background: #FAF6EE; border: 1px solid #C5A55A;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
-  .index-box ol { margin: 5px 0; padding-right: 25px; padding-left: 0; }
+  .index-box ol { margin: 5px 0; padding-left: 25px; padding-right: 0; }
   .index-box li { margin-bottom: 5px; }
 
   h3.sugya {
     background: #1A1F3A; color: #fff;
-    padding: 8px 15px; border-left: none; border-right: 6px solid #C5A55A;
+    padding: 8px 15px; border-right: none; border-left: 6px solid #C5A55A;
   }
 
   /* ── חץ אל ההסבר המפורט (רמה 1) ── */
@@ -237,7 +228,6 @@
     font-size: 12pt;
     text-decoration: none;
     border-bottom: 1px dotted #C5A55A;
-    direction: rtl;
   }
   a.daat-explain:hover { color: #8a6a1a; border-bottom-style: solid; }
 
@@ -382,33 +372,33 @@
 <!-- COUVERTURE -->
 <div class="cover">
   <div class="ornament">✦ ❖ ✦</div>
-  <div class="badge-top">DAAT · רמה ב' — לַמְדָּן</div>
-  <h1>שולחן ערוך · יורה דעה</h1>
-  <div class="subtitle">דין דגים וביצה שנתבשלו בקדרה של בשר — עיון ופלפול</div>
+  <div class="badge-top">DAAT · LEVEL 2 — LAMDAN</div>
+  <h1>Shulchan Arukh · Yoreh De'ah — Siman 95</h1>
+  <div class="subtitle">Fish and egg cooked in a meat pot — study and pilpul</div>
 
   <div class="he-title">סימן צ״ה</div>
   <div class="he-sub">נותן טעם בר נותן טעם דהיתרא, מחלוקת המחבר והרמ״א, דבר חריף, הדחת כלים</div>
   <div class="he-subject">עיון, פלפול, שיטות הראשונים והאחרונים</div>
 
-  <div class="level-badge">⚡ ללומדים ותלמידי חכמים ⚡</div>
+  <div class="level-badge">⚡ For lamdanim and talmidei chakhamim ⚡</div>
 
   <div class="ornament">✦ ❖ ✦</div>
 
-  <h2 style="margin-top:20px; color: #1A1F3A;">פלפול ועיון מעמיק</h2>
+  <h2 style="margin-top:20px; color: #1A1F3A;">In-depth pilpul and study</h2>
   <p style="font-size:12pt; color:#555;">
-    סוגיות, מקורות, חקירת היסוד, מחלוקות ראשונים ואחרונים,<br>
-    נפקא מינות להלכה ועיון בשיטות
+    Sugyos, sources, the underlying chakira, machlokos of Rishonim and Acharonim,<br>
+    nafka minos for halakha and examination of the shitos
   </p>
 
   <div class="credits">
-    <p><strong>הנושא :</strong><br>
-    שולחן ערוך יורה דעה סימן צ״ה (ז' סעיפים)<br>
-    עם נושאי כלים: ש״ך (שפתי כהן), ט״ז (טורי זהב), פרי מגדים, פתחי תשובה</p>
+    <p><strong>The subject:</strong><br>
+    Shulchan Arukh Yoreh De'ah siman 95 (seven seifim)<br>
+    with its nosei kelim: Shach (Siftei Kohen), Taz (Turei Zahav), Peri Megadim, Pitchei Teshuva</p>
 
-    <p><strong>יסוד הסוגיא בש״ס :</strong><br>
-    חולין קי״א:–קי״ב. (דגים שעלו בקערה, נותן טעם בר נותן טעם) · חולין צ״ז:–צ״ח. (טעם כעיקר, ביטול בששים) · ע״ז ל״ח:–ל״ט. (כותח, נ״ט בר נ״ט)</p>
+    <p><strong>The foundation of the sugya in Shas:</strong><br>
+    Chullin 111b–112a (fish set down in a dish, נותן טעם בר נותן טעם) · Chullin 97b–98a (טעם כעיקר, nullification in sixty) · Avodah Zarah 38b–39a (kutach, נ״ט בר נ״ט)</p>
 
-    <p><strong>עריכה ועיון :</strong><br>
+    <p><strong>Written and edited by:</strong><br>
     הרב יוסף חיים סממה · DAAT</p>
   </div>
 </div>
@@ -416,500 +406,622 @@
 <div class="page-break"></div>
 
 <!-- TABLE DES MATIÈRES -->
-<h2 class="section-title">📑 תוכן העניינים</h2>
+<h2 class="section-title">📑 Table of contents</h2>
 
-<div class="index-box" dir="rtl">
+<div class="index-box">
 <ol>
-  <li><strong>הקדמת הסוגיא</strong> — דגים שנתבשלו בקדרה של בשר, ויסוד נ״ט בר נ״ט דהיתרא (סעיף א')</li>
-  <li><strong>יסוד נ״ט בר נ״ט דהיתרא</strong> — חידוש הט״ז (ס״ק א), טעם קלוש, וחילוק היתר ואיסור</li>
-  <li><strong>חקירת הכלי והאוכל</strong> — נ״ט בר נ״ט בכלי או באוכל, וכמה נ״ט בבישול ובצלייה (פ״ת ס״ק א–ב)</li>
-  <li><strong>ביצה ומחלוקת המחבר והרמ״א</strong> — עלו לעומת נתבשלו, יש מחמירין בצלייה ובישול (סעיף ב')</li>
-  <li><strong>דבר חריף</strong> — מבטל את הנ״ט בר נ״ט, רובו ככולו, ומחלוקת מקום שמואל (פ״ת ס״ק ד)</li>
-  <li><strong>הדחת כלים</strong> — בני יומן בכלי ראשון, חזקת שומן, עירוי וכלי שני (סעיף ג')</li>
-  <li><strong>אפר ונותן טעם לפגם</strong> — והדחת הכלים בנותן טעם לפגם (סעיף ד')</li>
-  <li><strong>קירוב וסמיכה · מליחה</strong> — כותח אצל מלח וחומץ, כד בשר אצל חלב, ומלח (סעיפים ה'–ז')</li>
-  <li><strong>חקירה ונפקא מינה למעשה</strong></li>
-  <li><strong>טבלאות סיכום מקיפות</strong></li>
+  <li><strong>Opening the sugya</strong> — fish cooked in a meat pot, and the foundation of נ״ט בר נ״ט דהיתרא (seif 1)</li>
+  <li><strong>The foundation of נ״ט בר נ״ט דהיתרא</strong> — the Taz's chiddush (ס״ק א), the weakened taste, and the line between permitted and forbidden</li>
+  <li><strong>The chakira of vessel and food</strong> — נ״ט בר נ״ט in a vessel or in food, and how many נ״ט in cooking and in roasting (פת״ש ס״ק א–ב)</li>
+  <li><strong>The egg and the machlokes of the Mechaber and the Rama</strong> — עלו against נתבשלו, יש מחמירין for roasting and cooking (seif 2)</li>
+  <li><strong>The דבר חריף</strong> — it undoes the נ״ט בר נ״ט, רובו ככולו, and the Makom Shmuel's objection (פת״ש ס״ק ד)</li>
+  <li><strong>Washing the dishes</strong> — בני יומן in a kli rishon, the presumption of grease, irui and kli sheni (seif 3)</li>
+  <li><strong>Ash and נותן טעם לפגם</strong> — and washing the dishes through a spoiled taste (seif 4)</li>
+  <li><strong>Proximity and adjacency · salting</strong> — kutach beside salt and vinegar, a meat jar beside a milk jar, and salt (seifim 5–7)</li>
+  <li><strong>Chakira and nafka mina for practice</strong></li>
+  <li><strong>Summary tables</strong></li>
 </ol>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<!-- לשון השולחן ערוך — סעיף א' -->
-<h2 class="section-title">📜 לשון השולחן ערוך — סעיף א'
-  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 העתק</button>
+<!-- The text of the Shulchan Arukh — seif א' -->
+<h2 class="section-title">📜 The text of the Shulchan Arukh — seif א'
+  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 Copy</button>
 </h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ Detailed explanation (Level 1)</a>
 
 <div class="sacred-text he" data-copy-block id="cp-1">
-  <p>דָּגִים שֶׁנִּתְבַּשְּׁלוּ אוֹ שֶׁנִּצְלוּ בִּקְדֵרָה שֶׁל בָּשָׂר רְחוּצָה יָפֶה שֶׁאֵין שׁוּם שֻׁמָּן דָּבוּק בָּהּ — מֻתָּר לְאָכְלָם בְּכוּתָח, מִשּׁוּם דַּהֲוֵי נוֹתֵן טַעַם בַּר נוֹתֵן טַעַם דְּהֶתֵּרָא; וְאִם לֹא הָיְתָה רְחוּצָה יָפֶה — אִם יֵשׁ מַמָּשׁוּת שֻׁמָּן עַל פְּנֵי הַקְּדֵרָה יוֹתֵר מֵאֶחָד מִשִּׁשִּׁים בַּדָּגִים — אָסוּר לְאָכְלָם בְּכוּתָח.</p>
+  <p>דגים וביצה שנתבשלו בקדירה של בשר אם מותר לאכלן עם גבינה. ובו ז׳ סעיפים: דגים שנתבשלו או שנצלו בקדירה של בשר רחוצה יפה שאין שום שומן דבוק בה מותר לאכלם בכותח משום דהוי נותן טעם בר נותן טעם דהיתירא ואם לא היתה רחוצה יפה אם יש בממש שעל פי הקדירה יותר מאחד בששים בדגים אסור לאכלם בכותח:</p>
 </div>
+<p style="font-size:10pt;color:#555;"><em>The siman's heading is copied together with the seif, exactly as the source gives it.</em></p>
 
 <!-- ============================================================= -->
-<h2 class="section-title">1. הקדמת הסוגיא — דגים שנתבשלו בקדרה של בשר</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">1. Opening the sugya — fish cooked in a meat pot</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ Detailed explanation (Level 1)</a>
 
-<h3 class="he-h3">היסוד — נותן טעם בר נותן טעם דהיתרא
-  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 העתק</button>
+<h3>The foundation — נותן טעם בר נותן טעם דהיתרא
+  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 Copy</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-2">
-יסוד הסימן: דגים שנתבשלו או שנצלו בקדרה של בשר <strong>רחוצה יפה</strong> שאין שום שומן דבוק בה — מותר לאכלם אף ב<strong>כותח</strong> (מאכל חלבי), משום דהוי <span class="he-q">נותן טעם בר נותן טעם דהתירא</span>. ביאור הדבר: טעם הבשר נכנס תחילה בקדרה (נותן טעם ראשון), ומן הקדרה אל הדגים (נותן טעם שני), ובכל מהלך זה לא נטמע בו שום <em>איסור</em>, אלא טעם <strong>היתר</strong> בלבד — שהרי בשר כשר הוא, ואין בו איסור אלא כשיתחבר אל החלב בפועל. וכל זמן שלא נתחבר הבשר ממש אל החלב, אלא נשאר טעמו קלוש בדגים — אין כאן אלא טעם של היתר, ומותר.
+<div class="sacred-text" data-copy-block id="cp-2">
+The foundation of the siman: fish cooked or roasted in a meat pot that was <strong>well washed</strong>, with no grease clinging to it, may be eaten even with <strong>kutach</strong> (a dairy dish), because we have here a <span class="he-q">נותן טעם בר נותן טעם דהיתירא</span> <span class="source-ref">(שו״ע יו״ד צ״ה:א)</span>. Here is what that means. The taste of the meat first enters the pot (a first giving of taste), and from the pot into the fish (a second giving of taste); and along that whole path nothing <em>forbidden</em> was ever mixed in, only a <strong>permitted</strong> taste — for it is kosher meat, and it becomes forbidden only once it actually joins with milk. As long as the meat itself has not joined the milk, but only its taste has remained, weakened, in the fish, there is nothing here but a permitted taste, and it is permitted.
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>תנאי הניקיון — "רחוצה יפה" :</strong> כל היתר נ״ט בר נ״ט אמור דווקא כשהקדרה <em>רחוצה יפה</em> ואין שום שומן דבוק בה; כי אם נשתייר שומן בעין על פני הקדרה, שוב אין כאן טעם קלוש בלבד אלא <span class="he-q">ממשות בשר</span> ממש, והדגים בלעו גוף בשר. ולפיכך אם יש ממשות שומן על פני הקדרה <strong>יותר מאחד מששים בדגים</strong> — אסור לאכלם בכותח, שהרי בלעו בשר ממש שאינו בטל בס'.
-</div>
+<div class="pilpul-box">
+<strong>The condition of cleanliness — "well washed":</strong> the whole permission of נ״ט בר נ״ט is stated only where the pot is <em>well washed</em> and no grease clings to it; for if grease remains in substance on the pot, there is no longer merely a weakened taste but meat in substance, and the fish have absorbed the body of the meat itself.</div>
+<blockquote>«&nbsp;<span class="he-q">רחוצה יפה שאין שום שומן דבוק בה</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד צ״ה:א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אם יש בממש שעל פי הקדירה יותר מאחד בששים בדגים</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד צ״ה:א)</span></blockquote>
+<p>The Shulchan Arukh sets the threshold itself: once the substance on the face of the pot exceeds one part in sixty relative to the fish, it is not nullified, and it is forbidden to eat them with kutach.</p>
 
-<div class="rishon-card" dir="rtl">
-<strong>חזקת השומן (ש״ך ס״ק א) :</strong> מדקדק הש״ך מלשון "<span class="he-q">רחוצה יפה</span>" — שב<strong>קדרה שבישלו בה</strong> אין מחזיקין שיש שומן דבוק (אדרבה, מן הסתם רחוצה היא), ולפיכך נקטינן להקל; מה שאין כן בהדחת כלים שבסעיף ג', שם <strong>מחזיקין שומן דבוק</strong> בכלים השמנים. וזהו חילוק יסודי בין סעיף א' (חזקת ניקיון) לבין סעיף ג' (חזקת שומן), ועליו תתבונן בהמשך.
-</div>
+<div class="rishon-card">
+<strong>The presumption about grease (Shach ס״ק א):</strong> the Shach at once rules out an over-heavy reading of the words "well washed". One should not understand that every pot in which one cooked is <em>presumed</em> to carry clinging grease: the truth is the opposite.</div>
+<blockquote>«&nbsp;<span class="he-q">אבל כשנתבשלה בקדרה אמרינן מסתמא דלא היה שומן דבוק בהן</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ה ס״ק א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דדוקא גבי הדח׳ אמרינן מסתמא שומן דבוק בהן דהא השתא הוא דמדיחן</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ה ס״ק א)</span></blockquote>
+<p>Here is a foundational distinction between seif א', where cleanliness is presumed, and seif ג' on washing dishes, where grease is presumed precisely because one is in the act of washing. The Shach adds that the Mechaber's words "well washed" serve only to exclude the case where it is known for certain that it was not.</p>
 
 <!-- ============================================================= -->
-<h2 class="section-title">2. יסוד נ״ט בר נ״ט דהיתרא — חידוש הט״ז</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">2. The foundation of נ״ט בר נ״ט דהיתרא — the Taz's chiddush</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (Level 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זהו יסוד הסימן כולו, וכל כובד ידו של הט״ז (ס״ק א) נתון בו.</p>
+<p style="margin:15px 0; font-style:italic;">This is the foundation of the entire siman, and the Taz puts his full weight on it in his very first ס״ק.</p>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — מדוע נ״ט בר נ״ט דהיתר מותר ובאיסור אסור :</strong> לכאורה אם טעם הבשר עובר אל הדגים, מדוע יהיו מותרים בכותח ? והלא טעם כעיקר, וטעם בשר בדגים, ואחר כך בכותח — הרי כאן בשר בחלב ! ומאידך — מדוע באיסור (כגון טעם נבילה) <em>לא</em> מהני שיעבור פעמיים ושלוש, ואינו ניתר ?
-</div>
+<div class="hakira-box"><strong>The chakira — why the נ״ט בר נ״ט of a permitted thing is permitted, while that of a forbidden thing stays forbidden:</strong> at first glance, if the taste of the meat passes into the fish, why should they be permitted with kutach? Taste counts as substance; and there is meat-taste in the fish, and then in the kutach — that is meat in milk! And conversely: why, with something forbidden (the taste of a nevelah, say), does passing through two or three relays <em>not</em> render it permitted?</div>
 
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ הט״ז (ס״ק א) — טעם קלוש שהיה היתר :</strong> מבאר הט״ז שני יסודות המבדילים בין נ״ט בר נ״ט <strong>דהיתר</strong> לבין נ״ט בר נ״ט <strong>דאיסור</strong>:
-<ul class="stylish">
-<li><strong>(א) טעם קלוש</strong> — כל מעבר של טעם מחליש ומקליש אותו; לאחר שני מעברים (בשר → קדרה → דגים) נחלש הטעם עד שאינו <span class="he-q">טעם בשר</span> ממש אלא רשמו בלבד.</li>
-<li><strong>(ב) היתר בכל שלב</strong> — בכל מהלך המעברים לא היה כאן איסור כלל, שהרי הבשר היתר, והקדרה היתר, והדגים היתר; ורק עכשיו, בצירוף הכותח, מבקשים לאסור — ובטעם קלוש שהיה היתר לא גזרו.</li>
-</ul>
-מה שאין כן ב<strong>איסור</strong> (טעם נבילה וכיוצא): שם הטעם היה <span class="he-q">איסור מתחילתו</span>, ולפיכך אף לאחר כמה מעברים — כל זמן שיש בו טעם — אסור, ואין הקלישות מתירתו.
-</div>
+<div class="teruts-box"><strong>The Taz's answer (ס״ק א) — a weakened taste that was permitted:</strong> the Taz sets down two things, and they stand together.</div>
+<blockquote>«&nbsp;<span class="he-q">דתחילה אין ממשות של בשר רק טעם</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ה ס״ק א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ועדיין כולו היתר וטעם קלוש כזה אין בו איסור</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ה ס״ק א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ובאיסור אפילו כמה פעמים נ״ט בר נ״ט אסור הכל</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ה ס״ק א)</span></blockquote>
+<p>Read them in order. First, <strong>there is no substance of meat at all from the outset, only taste</strong>: the meat gave its taste to the dish, and the dish to the fish. Second, <strong>everything remained permitted</strong> along the way, and a weakened taste of that kind carries no prohibition. Third, the counter-test: with something <strong>forbidden</strong>, even several successive נ״ט בר נ״ט release nothing, and the whole remains forbidden. The number of relays is therefore not, by itself, what permits; it permits only because nothing forbidden was ever involved.</p>
 
-<div class="machloket-box" dir="rtl">
-<strong>נ״ט בר נ״ט במין אחר — שני אופנים :</strong>
+<div class="machloket-box">
+<strong>נ״ט בר נ״ט according to what one does with it — two cases not to be confused:</strong>
 <table>
-<tr><th>אופן</th><th>הדין</th><th>מקור</th></tr>
+<tr><th>Case</th><th>The din</th><th>Source</th></tr>
 <tr>
-  <td><strong>לאכלם בכליהם (מין במינו)</strong></td>
-  <td>דגים שעלו בקערת בשר — מותר לאכלם בכלי בשר אחר לכולי עלמא</td>
-  <td>ט״ז ס״ק א; רמ״א ס״ב</td>
+  <td><strong>Eating them in vessels of their own kind</strong></td>
+  <td>Fish set down in a meat dish: putting them into another meat vessel is permitted lechatchila</td>
+  <td>רמ״א יו״ד צ״ה:ב ; ט״ז יו״ד צ״ה ס״ק ה</td>
 </tr>
 <tr>
-  <td><strong>לאכלם עם המין השני (בשר בחלב)</strong></td>
-  <td>לאכלם עם כותח / חלב — כאן יסוד ההיתר דנ״ט בר נ״ט, ובו מחלוקת המחבר והרמ״א</td>
-  <td>מחבר ס״א–ב; רמ״א</td>
+  <td><strong>Eating them with the opposite kind</strong></td>
+  <td>Eating them with kutach or milk — here the permission of נ״ט בר נ״ט applies, and here the Mechaber and the Rama part ways</td>
+  <td>שו״ע יו״ד צ״ה:א–ב ; רמ״א יו״ד צ״ה:ב</td>
 </tr>
 </table>
 </div>
+<blockquote>«&nbsp;<span class="he-q">אבל ליתנן בכלי שלהם מותר לכתחלה</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד צ״ה:ב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דבזה אנו סומכים על המתירין גם בבישול וצלייה נ״ט בר נ״ט</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ה ס״ק ה)</span></blockquote>
+<p>The Taz explains this second point plainly: if we permit pouring them into vessels of their own kind, it is because there we rely on those who permit נ״ט בר נ״ט even after cooking and roasting.</p>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שורש הענין :</strong> כל עיקר ההיתר אינו אלא משום ש<span class="he-q">הטעם קלוש והיה היתר</span>; ומכאן יתבארו כל פרטי הסימן — שכל מקום שנתחזק הטעם (שומן דבוק, דבר חריף, כלי ראשון בהדחה) — בטל ההיתר, וחוזר הדין שכל שיש בו טעם בשר אסור עם החלב אלא בס'. וכן יתבאר מדוע <strong>עלו</strong> קל מ<strong>נתבשלו</strong>, ומדוע <strong>בישול</strong> (ג' נ״ט) קל מ<strong>צלייה</strong> (ב' נ״ט) — כל אלו מדרגות בקלישות הטעם.
+<div class="pilpul-box">
+<strong>The root of the matter:</strong> the whole permission rests on the taste being weakened and having been permitted. From this all the details of the siman follow: wherever the taste grows strong again — clinging grease, a דבר חריף, a kli rishon at the washing — the permission falls away, and we return to the principle that whatever carries a taste of meat is forbidden with milk short of sixty. From this too one understands why <strong>עלו</strong> is lighter than <strong>נתבשלו</strong>, and why <strong>cooking</strong> is lighter than <strong>roasting</strong> — these are so many degrees in the weakening of the taste.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">3. חקירת הכלי והאוכל — וכמה נ״ט צריך</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">3. The chakira of vessel and food — and how many נ״ט are needed</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (Level 1)</a>
 
-<div class="hakira-box" dir="rtl">
-<strong>חקירה — נ״ט בר נ״ט בכלי דווקא או אף באוכל (פתחי תשובה ס״ק א) :</strong> יש לחקור: האם דין נ״ט בר נ״ט דהיתר נאמר דווקא ב<strong>כלי</strong> (טעם הבלוע בדופן הכלי שעובר אל האוכל), או אף ב<strong>אוכל</strong> עצמו (טעם בשר שבדגים העובר אל הכותח) ? מביא הפתחי תשובה (ס״ק א) דנחלקו בזה: ה<strong>פרי מגדים ושערי דורה</strong> סוברים דאף באוכל אמרינן נ״ט בר נ״ט; וה<strong>פני אריה</strong> מצדד שאינו אלא בכלי. והעיקר להקל — דכל שכן הוא: אם בכלי, שהטעם בלוע ומובלע, מהני — כל שכן באוכל, שהטעם גלוי וקלוש יותר.
-</div>
+<div class="hakira-box"><strong>Chakira — does נ״ט בר נ״ט apply to a vessel only, or to food as well (Pitchei Teshuva ס״ק א)?</strong> There is room to ask: is the rule of נ״ט בר נ״ט said properly of a <strong>vessel</strong> — a taste absorbed in its wall that passes from there into food — or does it hold of <strong>food</strong> itself, the meat-taste in the fish that passes into the kutach? The Pitchei Teshuva reports that the matter is disputed, and one must read carefully who says what.</div>
+<blockquote>«&nbsp;<span class="he-q">שכתב בשם שערי דורא</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ה ס״ק א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דאין נ״ט בר נ״ט אלא בכלי אבל לא באוכל</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ה ס״ק א)</span></blockquote>
+<p>Thus the <strong>Peri Megadim</strong>, in the name of <strong>Shaarei Dura</strong>, holds that there is נ״ט בר נ״ט only in a vessel and not in food. It is the <strong>Pnei Aryeh</strong> who disputes this: he shows at length that the text of Shaarei Dura cited by the Peri Megadim is a corrupt reading, and he sets down the opposite.</p>
+<blockquote>«&nbsp;<span class="he-q">ובאמת הדין דבאוכל נמי אמרינן נ״ט בר נ״ט וק״ו הוא מכלי</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ה ס״ק א)</span></blockquote>
+<p>For the Pnei Aryeh, then, food too falls under נ״ט בר נ״ט, and it is a <em>kal vachomer</em> from a vessel. But — and here the reading demands attention — the Pnei Aryeh himself lays down a limit that runs in the stringent direction.</p>
+<blockquote>«&nbsp;<span class="he-q">שלא התירו נ״ט בר נ״ט אלא בכלי או בחתיכה שבלעה בשר או חלב שהבלוע נאחז ונדבק בו</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ה ס״ק א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל ברוטב דלא שייך בו בליעה כלל אלא תערובת אין כאן נ״ט בר נ״ט</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ה ס״ק א)</span></blockquote>
+<p>That is: he extended נ״ט בר נ״ט only to a <em>piece</em> that absorbed meat or milk, where what is absorbed is held and clings; in a <strong>sauce</strong>, where there is no absorption but merely a mixture, there is no נ״ט בר נ״ט at all. The Pitchei Teshuva for his own part permits the case he examines — but by another route, the Taz's proportional reckoning at siman 92, and not through נ״ט בר נ״ט. The question therefore remains open, and we do not decide it.</p>
 
-<div class="machloket-box" dir="rtl">
-<strong>כמה נ״ט צריך — בישול לעומת צלייה (פתחי תשובה ס״ק ב בשם הש״ך) :</strong>
+<div class="machloket-box">
+<strong>How many נ״ט are needed — cooking and roasting (Pitchei Teshuva ס״ק ב in the name of the Shach):</strong>
 <table>
-<tr><th>אופן הבישול</th><th>מספר מעברי הטעם</th><th>הדין</th></tr>
+<tr><th>Mode</th><th>Number of relays of taste</th><th>The din</th></tr>
 <tr>
-  <td><strong>בישול (דרך מים / רוטב)</strong></td>
-  <td><span class="he-q">שלושה נ״ט</span> — בשר → קדרה → מים → דגים</td>
-  <td>קל יותר, ומתירים בדיעבד</td>
+  <td><strong>Cooking (through water / gravy)</strong></td>
+  <td>Three נ״ט — meat → pot → water → fish</td>
+  <td>Lighter, and permitted bedieved</td>
 </tr>
 <tr>
-  <td><strong>צלייה (בלא מים)</strong></td>
-  <td><span class="he-q">שני נ״ט</span> בלבד — בשר → קדרה → דגים</td>
-  <td>חמור יותר, והרוטב הנפלט אסור כצלי</td>
+  <td><strong>Roasting (without water)</strong></td>
+  <td>Only two נ״ט — meat → vessel → fish</td>
+  <td>Heavier, and the Shach forbids it</td>
 </tr>
 </table>
 </div>
+<blockquote>«&nbsp;<span class="he-q">ודוקא נתבשלו שיש ג׳ נ״ט שעיקר הטעם הולך באמצעית המים אבל נצלו אסור ש״ך</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ה ס״ק ב)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>דקדוק הש״ך (פ״ת ס״ק ב) :</strong> מבאר הש״ך שעיקר ההיתר בדיעבד נאמר דווקא ב<strong>בישול</strong>, שבו <em>שלושה</em> מעברי טעם (האמצעות המים מוסיפה נ״ט ומקלישה עוד), ולפיכך קל וניתר; אבל ב<strong>צלייה</strong>, שאין בה אלא <em>שני</em> נ״ט, חמור הדבר, ו<span class="he-q">הרוטב הנפלט מן הצלי אסור כצלי עצמו</span>. ומוסיף ה<strong>חמודי דניאל</strong>: סכין שחתך בה את הדגים החמים — דינה כצלי (ב' נ״ט בלבד), שאין שם אמצעות מים, ולפיכך יש להחמיר בה. ונמצא שכל מדרגת הקלישות נמדדת ב<strong>מספר מעברי הטעם</strong>.
-</div>
+<div class="pilpul-box">
+<strong>What the Pitchei Teshuva adds, and what must not be confused with it:</strong> the Shach's distinction concerns the fish themselves. But the Peri Megadim and the Chamudei Daniel draw from it a consequence the Shach had not written — one that bears on <em>the gravy, even in a cooking</em>.</div>
+<blockquote>«&nbsp;<span class="he-q">ולפ״ז גם בנתבשלו אף דהדגים מותרים מ״מ הרוטב אסור דהוי כמו נצלו</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ה ס״ק ב)</span></blockquote>
+<p>The gravy had no water as an intermediary with respect to itself: it is like a roast, and it is forbidden even where the fish are permitted. The Chamudei Daniel then draws one distinction that is lenient and another that is stringent.</p>
+<blockquote>«&nbsp;<span class="he-q">אבל אם צלה דגים בקדרה שבישל בו בשר מותר כיון שטעם בשר נבלע בכלי ע״י בישול חשיב מעיקרא כמו ג׳ נ״ט</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ה ס״ק ב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ואם חתך דגים רותחים בסכין שחתך בשר הוי כנצלו דדוחקא ורותח מבשל</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ה ס״ק ב)</span></blockquote>
+<p>The lenient one: roasting fish in a pot in which meat was <em>cooked</em> is permitted, since the meat-taste entered it through cooking and counts from the outset as three נ״ט — unlike a spit or vessel in which the meat itself was roasted. The stringent one: cutting hot fish with a knife that cut meat counts as roasting, <em>because pressure together with heat cooks</em>. This second point is not accepted without dispute.</p>
+<blockquote>«&nbsp;<span class="he-q">שחולק עליו וכתב דאין לחוש לו גם הפמ״ג בסי׳ צ״ז במשבצות אות ג׳ הניח דין זה בצ״ע</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ה ס״ק ב)</span></blockquote>
+<p>The Peri Tevuah disputes it and holds there is no need to be concerned; and the Peri Megadim, at siman 97, leaves that din <span class="he-q">בצ״ע</span>. We report it as it stands, and we do not decide.</p>
 
 <!-- ============================================================= -->
-<h2 class="section-title">4. ביצה ומחלוקת המחבר והרמ״א</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">4. The egg and the machlokes of the Mechaber and the Rama</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ Detailed explanation (Level 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">כאן עיקר המחלוקת בין הוראת המחבר לספרדים להוראת הרמ״א לאשכנזים.</p>
+<p style="margin:15px 0; font-style:italic;">Here lies the principal machlokes between the Mechaber's ruling for Sephardim and the Rama's for Ashkenazim.</p>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ב')
-  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 העתק</button>
+<h3>The text of the Mechaber and the Rama (seif ב')
+  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-3">
-"<strong>ביצה שנתבשלה במים בקדרה של חלב — מותר לתת אותה בתבשיל של בשר אפילו לכתחילה; אבל אם נתבשלה בקדרה עם בשר ממש, אפילו כדי קליפה — אסור לאכלה בכותח.</strong> (הגה: ויש מחמירין בצלייה ובישול לאסור הנ״ט בר נ״ט, ונהגו לאסור לכתחילה ולהתיר בדיעבד בכל ענין; ודווקא לאכלם עם המין השני, אבל ליתנם בכליהם — מותר לכתחילה. וכן אם לא נתבשלו ולא נצלו רק <span class="he-q">עלו</span> בכלי בשר — מותר לאכלם עם חלב עצמו, וכן להפך. ואם הכלי שנתבשלו או נצלו בו היה <span class="he-q">לפגם</span> — נהגו להתיר לכתחילה לאכלם עם המין השני. וכל זה כשאינו דבר חריף; אבל בדבר חריף — אסור אף בדיעבד.)"
+  <p>ביצה שנתבשלה במים בקדירה חולבת מותר לתת אותה בתוך התרנגולת אפילו לכתחלה אבל אם נתבשלה בקדרה עם בשר ואפילו בקליפה אסור לאכלה בכותח: הגה ויש מחמירים בצלייה ובישול לאסור נותן טעם בר נותן טעם (ריב״ן בשם רש״י ובארוך כלל ל״ד הביא המרדכי וא״ז) והמנהג לאסור לכתחילה ובדיעבד מותר בכל ענין (ארוך) ודוקא לאכול עם חלב והבשר עצמו אבל ליתנן בכלי שלהם מותר לכתחלה (באיסור והיתר הארוך) וכן נהגו וכן אם לא נתבשלו או נצלו תחילה רק עלו בכלי של בשר מותר לאכלן עם חלב עצמו וכן להפך (סברת עצמו) וכן אם היה הכלי שנתבשלו או נצלו בו לפגם שלא היה בן יומו נוהגין היתר לכתחילה לאכלן עם המין השני (שם בארוך) וכל זה כשהמאכל אינו דבר חריף אבל אם היה דבר חריף כגון שבשלו דברים חריפים בכלי של בשר אפי׳ אינו בן יומו או שדכו תבלין במדוך של בשר אם אכלו בחלב אוסר אפילו בדיעבד עד דאיכא ס׳ נגד הבשר הבלוע בהם (בארוך כלל כ״ד וכן משמע בתשובת הרשב״א סי׳ תמ״ט וב״י סי׳ צ״ו בשם סה״ת והגהו׳ ש״ד סי׳ ס״ב בשם מהר״ש ואגור בשם מרדכי) ומכל מקום לא מקרא מאכל דבר חריף משום מעט תבלין שבו רק אם כולו הוא דבר חריף ורובו ככולו וע״ל סימן צ״ו:</p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — עלו לעומת נתבשלו ונצלו :</strong><br>
-שלוש מדרגות בעוצמת מעבר הטעם, ובהן נחלקו המחבר והרמ״א:<br><br>
-• <span class="he-q">עלו</span> — דבר חם שעלה (הונח) בכלי השני בלא בישול ובלא צלייה → קלישות גמורה → מותר אף לכתחילה לאכלם עם המין השני (ט״ז ס״ק ד בשם ספר התרומות).<br>
-• <span class="he-q">נתבשלו / נצלו</span> → נ״ט בר נ״ט גמור → לדעת המחבר מותר אף לכתחילה, ולדעת הרמ״א <span class="he-q">יש מחמירין</span> לאסור לכתחילה ולהתיר בדיעבד.<br>
-• <span class="he-q">בשר ממש</span> (אפילו כדי קליפה) → אין כאן נ״ט בר נ״ט אלא טעם בשר ממש → אסור בכותח.
+<div class="yesod-box">
+<strong>The foundation — עלו against נתבשלו and נצלו:</strong><br>
+Three degrees in the force with which taste passes, and it is over the middle degree that the Mechaber and the Rama separate.<br><br>
+• <strong>עלו</strong> — a hot food merely <em>set down</em> in the vessel of the other kind, with neither cooking nor roasting: complete weakening, permitted even lechatchila to be eaten with the opposite kind.<br>
+• <strong>נתבשלו / נצלו</strong> — a full נ״ט בר נ״ט: permitted even lechatchila for the Mechaber; for the Rama there are those who forbid lechatchila and permit bedieved.<br>
+• <strong>Meat itself</strong>, even to the thickness of a peel: there is no longer a נ״ט בר נ״ט here but a meat-taste in its own right, and it is forbidden with kutach.
 </div>
+<blockquote>«&nbsp;<span class="he-q">וכן אם לא נתבשלו או נצלו תחילה רק עלו בכלי של בשר מותר לאכלן עם חלב עצמו וכן להפך</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד צ״ה:ב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דבזה הוה כמו ממש של בשר בדגים ולא התירו נ״ט בר נ״ט אלא עלו לחוד</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ה ס״ק ג)</span></blockquote>
+<p>The Taz explains the stringent camp by this same scale: in cooking and roasting the taste has become <em>as though it were substance</em> of meat in the fish, and they permitted נ״ט בר נ״ט only in the single case of עלו. And the Shach specifies exactly what that word covers.</p>
+<blockquote>«&nbsp;<span class="he-q">פי׳ שאחד מהן הכלי או הדגים חמים</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ה ס״ק ו)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל אם שניהם חמים הביא הב״י בשם מ״כ דה״ל כנצלו</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ה ס״ק ו)</span></blockquote>
+<p>עלו therefore presupposes that <em>only one of the two</em> is hot — the vessel or the fish. If both are, the Beis Yosef reports that it counts as a roasting, and the leniency falls away.</p>
 
-<div class="machloket-box" dir="rtl">
-<strong>שורש המחלוקת :</strong>
+<div class="machloket-box">
+<strong>The root of the machlokes:</strong>
 <table>
-<tr><th>שיטה</th><th>נ״ט בר נ״ט לאכלם עם המין השני</th><th>מקור</th></tr>
+<tr><th>Shita</th><th>נ״ט בר נ״ט for eating them with the opposite kind</th><th>Source</th></tr>
 <tr>
-  <td><strong>המחבר (ספרד)</strong></td>
-  <td><strong>מותר אף לכתחילה</strong> — נ״ט בר נ״ט דהיתר, ואף לאכלם עם הכותח</td>
-  <td>מחבר ס״א–ב</td>
+  <td><strong>The Mechaber (Sefarad)</strong></td>
+  <td><strong>Permitted even lechatchila</strong> — נ״ט בר נ״ט of a permitted thing, and even to eat them with the kutach</td>
+  <td>שו״ע יו״ד צ״ה:א–ב</td>
 </tr>
 <tr>
-  <td><strong>הרמ״א (אשכנז)</strong></td>
-  <td><strong>יש מחמירין בצלייה ובישול</strong> — אסור לכתחילה, מותר בדיעבד (ובעלו / לפגם — מקילים לכתחילה)</td>
-  <td>רמ״א ס״ב (ריב״א בשם רש״י, מרדכי, אור זרוע)</td>
+  <td><strong>The Rama (Ashkenaz)</strong></td>
+  <td><strong>There are those who forbid for roasting and cooking</strong> — forbidden lechatchila, permitted bedieved (and for עלו or a spoiled vessel, lenient even lechatchila)</td>
+  <td>רמ״א יו״ד צ״ה:ב (ריב״ן בשם רש״י ובארוך כלל ל״ד הביא המרדכי וא״ז)</td>
 </tr>
 </table>
 </div>
+<blockquote>«&nbsp;<span class="he-q">ויש מחמירים בצלייה ובישול לאסור נותן טעם בר נותן טעם</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד צ״ה:ב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">והמנהג לאסור לכתחילה ובדיעבד מותר בכל ענין</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד צ״ה:ב)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>הכרעת הרמ״א ופרטיה :</strong> אף לרמ״א דמחמיר, אין החומרא אלא לכתחילה, ובכמה תנאים מקילים אף לכתחילה: (א) <strong>ליתנם בכליהם</strong> — אינו "עם המין השני", ומותר לכתחילה; (ב) <strong>עלו</strong> בלא בישול וצלייה — מותר לאכלם עם החלב עצמו וכן להפך; (ג) <strong>כלי לפגם</strong> (אינו בן יומו) — נהגו להתיר לכתחילה לאכלם עם המין השני, שהרי גם נ״ט בר נ״ט וגם פגם. ונמצא שעיקר חומרת הרמ״א מצטמצמת ל<span class="he-q">צלייה ובישול בכלי בן יומו, לאכלם ממש עם המין השני, לכתחילה</span>.
-</div>
+<div class="pilpul-box">
+<strong>The Rama's ruling and its details:</strong> even for the Rama who is stringent, the stringency bears only on lechatchila, and several situations remain permitted even lechatchila: (a) <strong>putting them into vessels of their own kind</strong> — that is not "with the opposite kind"; (b) <strong>עלו</strong>, without cooking or roasting — permitted to be eaten with milk itself, and conversely; (c) a <strong>spoiled vessel</strong> that is not ben yomo — the custom permits lechatchila to eat them with the opposite kind, since there is both נ״ט בר נ״ט and a spoiled taste. The Rama's stringency thus narrows to one precise case: cooking or roasting, in a vessel that is ben yomo, to eat them actually with the opposite kind, and lechatchila.</div>
+<blockquote>«&nbsp;<span class="he-q">וכן אם היה הכלי שנתבשלו או נצלו בו לפגם שלא היה בן יומו נוהגין היתר לכתחילה לאכלן עם המין השני</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד צ״ה:ב)</span></blockquote>
+
+<div class="rishon-card">
+<strong>Two qualifications the commentators add, which tighten the permission:</strong> the Shach first marks that the Mechaber's own permission does not extend to bringing the situation about on purpose.</div>
+<blockquote>«&nbsp;<span class="he-q">אבל לבשלן לכתחלה בקדרה של בשר כדי לאכלן בכותח אסור אפי׳ להמחבר וסייעתו</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ה ס״ק ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל אסור לכתחילה להעלותם בכלי בשר כדי לאכול אח״כ בכותח</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ה ס״ק ד)</span></blockquote>
+<p>Cooking fish lechatchila in a meat pot <em>in order</em> to eat them afterwards with kutach is forbidden even for the Mechaber and those who follow him; and the Taz says the same for עלו — one does not set them down in a meat vessel on purpose in order to eat them afterwards with kutach, even though the result would be permitted. Then the Shach reports a greater stringency in the Maharshal.</p>
+<blockquote>«&nbsp;<span class="he-q">ומהרש״ל באו״ש ובספרו פכ״ה סימן ס״ג אוסר אפי׳ בדיעבד בנצלו מדינא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ה ס״ק ד)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">משמע דבלא בישלו אלא עלו לחוד מותר אפילו לכתחילה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ה ס״ק ד)</span></blockquote>
+<p>The Maharshal forbids, as a matter of law, even bedieved where there was roasting; the Taz, for his part, reads in the Rama's own words that for עלו alone, without cooking, it is permitted even lechatchila — and the Rama will go on to write this explicitly.</p>
 
 <!-- ============================================================= -->
-<h2 class="section-title">5. דבר חריף — מבטל את הנ״ט בר נ״ט</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">5. The דבר חריף — it undoes the נ״ט בר נ״ט</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (Level 1)</a>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — מדוע דבר חריף מבטל את ההיתר :</strong><br>
-כל היתר נ״ט בר נ״ט תלוי בכך ש<em>הטעם קלוש</em>. אבל ב<span class="he-q">דבר חריף</span> (דבר חד וחריף, כבצל ושום ותבלין כתושים) — חריפותו <strong>מחזקת את הטעם ומחדדתו</strong>, עד שהוא נושא את טעם הבשר <span class="he-q">כמו ממש</span> ולא כטעם קלוש. ולפיכך, דבר חריף שנתבשל או נכתש בכלי בשר — אסור לאכלו עם חלב <strong>אף בדיעבד</strong>, אלא אם כן יש ששים כנגד הבשר הבלוע (סוף הסעיף; ועיין סימן צ״ו).
+<div class="yesod-box">
+<strong>The foundation — why a דבר חריף undoes the permission:</strong><br>
+The whole permission of נ״ט בר נ״ט rests on the taste being <em>weakened</em>. But a דבר חריף — a sharp, biting thing — carries in itself what overturns that weakening. The Shach gives the reason in a single sentence, and it is that sentence, rather than an approximate formula, that should be held on to.
 </div>
+<blockquote>«&nbsp;<span class="he-q">דחורפי׳ דתבלין משוי ליה כאלו האיסור בעין ומשוי ליה בן יומו</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ה ס״ק ז)</span></blockquote>
+<p>The sharpness of the spice makes what is forbidden <em>as though it were present in substance</em>, and it makes the vessel <em>as though it were ben yomo</em>. So it is not merely that the taste "grows stronger": two of the conditions of the permission fall away at once — the weakening and the staleness. The Shulchan Arukh draws the consequence.</p>
+<blockquote>«&nbsp;<span class="he-q">אבל אם היה דבר חריף כגון שבשלו דברים חריפים בכלי של בשר אפי׳ אינו בן יומו</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד צ״ה:ב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אם אכלו בחלב אוסר אפילו בדיעבד עד דאיכא ס׳ נגד הבשר הבלוע בהם</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד צ״ה:ב)</span></blockquote>
+<p>A sharp thing cooked in a meat vessel — even one not ben yomo — or spices pounded in a meat mortar: if they were eaten with milk, this forbids even bedieved, until there is sixty against the meat absorbed in them.</p>
 
-<div class="pilpul-box" dir="rtl">
-<strong>רובו ככולו — מתי נחשב "חריף" :</strong> מסיים הרמ״א שאין דבר נעשה "חריף" מחמת <em>מעט</em> תבלין שבו, אלא דווקא כשהוא <span class="he-q">חריף כולו או רובו ככולו</span>. כלומר: צריך שעצם המאכל יהא חריף, ולא די בקצת חידוד. וזהו תנאי המצמצם — שלא תיאסר כל קדרה שיש בה מעט פלפל או מלח. (ועיין סימן צ״ו בכל פרטי דין דבר חריף, מדוך ובצל.)
-</div>
+<div class="pilpul-box">
+<strong>רובו ככולו — when is a thing "sharp":</strong> the Rama himself closes the door on an unbounded extension.</div>
+<blockquote>«&nbsp;<span class="he-q">ומכל מקום לא מקרא מאכל דבר חריף משום מעט תבלין שבו רק אם כולו הוא דבר חריף ורובו ככולו</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד צ״ה:ב)</span></blockquote>
+<p>A dish does not become "sharp" on account of the <em>little</em> spice in it: the dish itself must be sharp, wholly or for the greater part. This is a restricting condition — without it every pot containing a little pepper or salt would become forbidden. (See siman 96 for all the details of the דבר חריף, the mortar and the onion.) <em>A note on copying:</em> the edition followed here reads <span class="he-q">לא מקרא</span> where the expected reading is <span class="he-q">לא מיקרי</span>; we copy the source as it stands and do not restore it.</p>
 
-<div class="machloket-box" dir="rtl">
-<strong>השגת מקום שמואל (פתחי תשובה ס״ק ד) :</strong>
+<div class="machloket-box">
+<strong>The Makom Shmuel's objection (Pitchei Teshuva ס״ק ד):</strong>
 <table>
-<tr><th>שיטה</th><th>דבר חריף בנ״ט בר נ״ט</th><th>מקור</th></tr>
+<tr><th>Shita</th><th>A דבר חריף within a נ״ט בר נ״ט</th><th>Source</th></tr>
 <tr>
-  <td><strong>הרמ״א (וכן עיקר למנהג)</strong></td>
-  <td>דבר חריף נושא הטעם כממש — אסור אף בדיעבד</td>
-  <td>רמ״א ס״ב</td>
+  <td><strong>The Rama (and this is the established custom)</strong></td>
+  <td>The דבר חריף carries the taste as a substance — forbidden even bedieved</td>
+  <td>רמ״א יו״ד צ״ה:ב</td>
 </tr>
 <tr>
-  <td><strong>מקום שמואל (חולק)</strong></td>
-  <td>בחריף יש רק <strong>שני נ״ט</strong>; אבל בבישול דאיכא <strong>שלושה נ״ט</strong> — מותר אף בחריף</td>
-  <td>פ״ת ס״ק ד</td>
+  <td><strong>The Makom Shmuel (who disputes)</strong></td>
+  <td>In the mortar there are only <strong>two נ״ט</strong>; but in a cooking, where there are <strong>three</strong>, even a דבר חריף would be permitted</td>
+  <td>פת״ש יו״ד צ״ה ס״ק ד</td>
 </tr>
 </table>
 </div>
+<blockquote>«&nbsp;<span class="he-q">רק משום דאין כאן רק ב׳ נ״ט</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ה ס״ק ד)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ולפ״ז בנתבשל דאיכא ג׳ נ״ט אפילו בדבר חריף מותר ולא כמו שמדמה הרמ״א דין בישול בדברים חריפים לדין תבלין שנדוכו</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ה ס״ק ד)</span></blockquote>
+<p>The Makom Shmuel's argument is exactly that of section 3: when the Issur veHeter requires sixty against all the spices, that is not because a דבר חריף would know no נ״ט בר נ״ט, but only because there are there just two relays of taste — as in a roasting. Accordingly, in a cooking with three relays, the Rama should not have likened the case of cooking sharp foods to that of spices pounded in a mortar.</p>
 
-<div class="pilpul-box" dir="rtl">
-<strong>ביאור מחלוקתם :</strong> מקום שמואל סובר שעיקר חומרת החריף אינה אלא היכן שאין אלא <em>שני</em> מעברי טעם (כצלייה ומדוך); אבל בבישול דרך מים, שיש בו <em>שלושה</em> נ״ט, הקלישות מרובה עד שאף החריף אינו מחזיר את הטעם לכלל ממשות, ומותר. אך למעשה, בדבר חריף <strong>גמור</strong> — נקטינן כהרמ״א ולמנהג להחמיר. ונמצא ששתי המחלוקות (כמה נ״ט · דבר חריף) שורש אחד להן: <span class="he-q">עד כמה נקלש הטעם</span>.
-</div>
+<div class="pilpul-box">
+<strong>Where the Makom Shmuel stops himself:</strong> he does not draw a general permission from his objection.</div>
+<blockquote>«&nbsp;<span class="he-q">ומסיק דבדבר חריף גמור אין לזוז מפסק הרמ״א מאחר שכן פשט המנהג</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ה ס״ק ד)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל במקום שיש להסתפק אי מקרי דבר חריף</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ה ס״ק ד)</span></blockquote>
+<p>For a <strong>complete</strong> דבר חריף he concludes that one must not move from the Rama's ruling, the custom having spread accordingly; his leniency holds only where there is doubt about the very qualification "sharp". And the Pitchei Teshuva adds that the Acharonim differ even on the standing of this principle — from the Torah or rabbinic — without his deciding. We report, and we do not decide.</p>
 
-<div class="page-break"></div>
+<div class="page-break"></div><!-- ============================================================= -->
+<h2 class="section-title">6. Washing the dishes — בני יומן, the presumption of grease, and irui</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (Level 1)</a>
 
-<!-- ============================================================= -->
-<h2 class="section-title">6. הדחת כלים — בני יומן, חזקת שומן ועירוי</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
-
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ג')
-  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 העתק</button>
+<h3>The text of the Mechaber and the Rama (seif ג')
+  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-4">
-"<strong>קערות של בשר שהודחו ביורה של חלב במים רותחין שהיד סולדת בהם, אפילו שניהם בני יומן — מותר, משום נ״ט בר נ״ט דהיתרא, והוא שיכול לומר 'ברי לי שלא היה שום שומן דבוק בהן'. ואם היה שומן דבוק — צריך ששים במים כנגד ממשות השומן שעל פני הקערה.</strong> (הגה: ויש אוסרין אף בלא שומן דבוק, אלא אם כן אחד מהן אינו בן יומו — דאז הכל מותר והמים אסורים לכתחילה; אבל שניהם בני יומן והודחו יחד בכלי ראשון — הכל אסור, וכן נוהגין ואין לשנות. ודווקא שהודחו יחד ובכלי ראשון, אבל זה אחר זה, או בכלי שני אפילו יחד — הכל מותר. ואם עירה מכלי ראשון של בשר על כלי של חלב — הרי הוא כעירוי וכלי ראשון; אבל אם עירה מים רותחין שאינם לא בשר ולא חלב על כלי בשר וחלב יחד — אפילו שומן דבוק הכל מותר, שאין העירוי ככלי ראשון ממש. ואם מצא קערת חלב בין כלי בשר — אין חוששין שנדחו יחד.)"
+  <p>קערות של בשר שהודחו ביורה חולבת בחמין שהיד סולדת בהן אפילו שניהם בני יומן מותר משום דהוה ליה נותן טעם בר נותן טעם דהתירא והוא שיאמר ברי לי שלא היה שום שומן דבוק בהן ואם היה שומן דבוק בהן צריך שיהא במים ס׳ כנגד ממשות שומן שעל פי הקערה: הגה ויש אוסרים אפילו אין שומן דבוק בהן (טור בשם סה״ת וסמ״ג וסמ״ק וש״ד והר״ף ותוס׳ ומרדכי ור״ן והגמ״יי ופסקי מהרא״י ואו״ה) אלא א״כ אחד מן הכלים אינן בני יומן מבליעת כלי ראשון ואז כל הכלים מותרים והמים נוהגין בהן איסור לכתחילה אבל אם שניהם בני יומן והדיח אותן ביחד בכלי ראשון הכל אסור והכי נוהגין ואין לשנות ודוקא שהודחו ביחד ובכלי ראשון אבל אם הודחו זה אחר זה או בכלי שני אפילו ביחד הכל שרי (בארוך כלל ל״ד) ואם עירה מכלי ראשון של בשר על כלי חלב דינו ככלי ראשון ואוסר אם היה בן יומו אבל אם עירה מים רותחים שאינן של בשר ולא של חלב על כלים של בשר ושל חלב ביחד ואפילו שומן דבוק בהם הכל שרי דאין עירוי ככלי ראשון ממש שיעשה שהכלים שמערה עליהם יבלעו זה מזה (שם) . ואם נמצא קערה חולבת בין כלי בשר לא חיישינן שמא הודחו ביחד בדרך שנאסרים (הגהות ש״ד ואו״ה):</p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — מדוע יש אוסרין בהדחה (ט״ז ס״ק ח) :</strong><br>
-לכאורה הדחת קערות בשר וחלב יחד אינה אלא נ״ט בר נ״ט דהיתר, ויש להתיר; ומדוע יש אוסרין ? מבאר הט״ז (ס״ק ח, בעקבות התוספות והר״ן):<br><br>
-• ה<strong>קערות נוגעות במחבת</strong> (ביורה) — והטעם נבלע ישר בלא אמצעות.<br>
-• ועיקר הטעם — <span class="he-q">טעם הבשר וטעם החלב מתערבין במים</span>: המים בלעו טעם בשר מקערת הבשר וטעם חלב מקערת החלב, ונמצא ה<strong>בשר והחלב מעורבין במים</strong> כבשר בחלב ממש → ושוב אין כאן נ״ט בר נ״ט דהיתר, אלא איסור הנעשה בתוך כלי אחד. וזה הופך את ההיתר לאיסור.
+<div class="yesod-box">
+<strong>The foundation — why some forbid at the washing (Taz ס״ק ח):</strong><br>
+At first glance, washing meat and milk dishes together is only a נ״ט בר נ״ט of permitted things, and it ought to be permitted. Why then do some forbid? The Taz brings the two reasons of Tosafos, and then the Ran's, which is the decisive one.
 </div>
+<blockquote>«&nbsp;<span class="he-q">דשאני הכא שהקערות נוגעות במחבת ונפלט טעם מזה לזה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ה ס״ק ח)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דהא כשהטעם הב׳ של בשר ושל חלב נכנס במים מיד נאסרו המים וחוזרים ואוסרין הקערות והמחבת</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ה ס״ק ח)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דמאן לימא לן שלא יתערבו פליטת הבשר ופליטת החלב בעצמן בלא אמצעית המים</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ה ס״ק ח)</span></blockquote>
+<p>The first reason: the dishes <strong>touch the pan</strong>, and taste passes directly from one to the other — this is already only a second taste, and it falls into what is forbidden. The second reason, which the Ran develops: as soon as the second taste of meat and that of milk enter the water, the water becomes forbidden, and it turns back to forbid the dishes and the pan. The Ran presses further: who is to tell us that the discharge of the meat and the discharge of the milk will not mix <em>with each other</em>, without the water as intermediary at all? Then there is no נ״ט בר נ״ט here whatever, but a prohibition coming into being inside a single vessel.</p>
 
-<div class="rishon-card" dir="rtl">
-<strong>"ברי לי" — וחזקת שומן (ש״ך ס״ק א; ט״ז ס״ק ז) :</strong> דווקא בהדחה הצריך המחבר תנאי "<span class="he-q">ברי לי שלא היה שומן דבוק</span>", שכן בכלים שמנים שאוכלים בהם — <strong>מחזיקין שיש שומן דבוק</strong> (בניגוד לסעיף א' שמחזיקין ניקיון). ומבאר הט״ז (ס״ק ז) שאין זה דומה לתנור כלי חרס דר״ת (סימן צ״ז) שאי אפשר להכשירו — שהקערה נקייה היטב ביד, ולפיכך אפשר לומר עליה "ברי לי".
-</div>
+<div class="rishon-card">
+<strong>"ברי לי" — and the presumption of grease (Shulchan Arukh seif ג'; Shach ס״ק א; Taz ס״ק ז):</strong> it is at the washing, and there alone, that the Mechaber sets a condition of certainty.</div>
+<blockquote>«&nbsp;<span class="he-q">והוא שיאמר ברי לי שלא היה שום שומן דבוק בהן</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד צ״ה:ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דדוקא גבי הדח׳ אמרינן מסתמא שומן דבוק בהן דהא השתא הוא דמדיחן</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ה ס״ק א)</span></blockquote>
+<p>For greasy vessels in which one eats, grease is presumed to cling — the reverse of seif א', where cleanliness is presumed — and the reason is simple: it is now that one is washing them. One may object: how can anyone say "I am certain"? Tosafos, the Rosh and the Ran at siman 97 hold with Rabbenu Tam that an oven cannot be cleaned well. The Taz answers.</p>
+<blockquote>«&nbsp;<span class="he-q">די״ל דהתם קאי אתנור שאי אפשר לשלוט בו כ״כ בידים</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ה ס״ק ז)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">מה שאין כן כאן בקערה וכן בקדירה שפיר שולטות בו הידים בקינוח רב</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ה ס״ק ז)</span></blockquote>
+<p>There the subject is an oven, where the hand cannot reach everywhere for the thorough scouring earthenware requires; here, in a dish as in a pot, the hands have full command. One may therefore say of them "I am certain", and the difficulty falls away.</p>
 
-<div class="machloket-box" dir="rtl">
-<strong>פרטי הדין — מתי מותר ומתי אסור (לרמ״א) :</strong>
+<div class="machloket-box">
+<strong>The details of the din — when it is permitted and when forbidden (for the Rama):</strong>
 <table>
-<tr><th>המצב</th><th>הדין</th><th>מקור</th></tr>
+<tr><th>The situation</th><th>The din</th><th>Source</th></tr>
 <tr>
-  <td><strong>שניהם בני יומן, יחד, בכלי ראשון</strong></td>
-  <td>הכל אסור — "<span class="he-q">וכן נוהגין ואין לשנות</span>"</td>
-  <td>רמ״א ס״ג</td>
+  <td><strong>Both ben yomo, together, in a kli rishon</strong></td>
+  <td>Everything is forbidden — "and so is the practice, and it is not to be changed"</td>
+  <td>רמ״א יו״ד צ״ה:ג</td>
 </tr>
 <tr>
-  <td><strong>אחד מהן אינו בן יומו</strong></td>
-  <td>הכלים מותרים, והמים אסורים לכתחילה (ט״ז ס״ק ט)</td>
-  <td>רמ״א ס״ג</td>
+  <td><strong>One of the two is not ben yomo</strong></td>
+  <td>All the vessels are permitted, and the water carries a prohibition lechatchila</td>
+  <td>רמ״א יו״ד צ״ה:ג ; ט״ז יו״ד צ״ה ס״ק ט ; ט״ז יו״ד צ״ה ס״ק י</td>
 </tr>
 <tr>
-  <td><strong>זה אחר זה (לא יחד)</strong></td>
-  <td>הכל מותר</td>
-  <td>רמ״א ס״ג</td>
+  <td><strong>One after the other (not together)</strong></td>
+  <td>Everything is permitted, even in a kli rishon</td>
+  <td>רמ״א יו״ד צ״ה:ג ; ט״ז יו״ד צ״ה ס״ק י״א</td>
 </tr>
 <tr>
-  <td><strong>בכלי שני, אפילו יחד</strong></td>
-  <td>הכל מותר (ואף מלוכלך — ט״ז ס״ק יב; ורש״ל חולק)</td>
-  <td>רמ״א ס״ג; ט״ז ס״ק יב</td>
+  <td><strong>In a kli sheni, even together</strong></td>
+  <td>Everything is permitted (and even if soiled — Taz; the Maharshal disputes)</td>
+  <td>רמ״א יו״ד צ״ה:ג ; ט״ז יו״ד צ״ה ס״ק י״ב</td>
 </tr>
 <tr>
-  <td><strong>עירוי מכלי ראשון של בשר על כלי חלב</strong></td>
-  <td>הרי הוא ככלי ראשון — אוסר (ט״ז ס״ק יג)</td>
-  <td>רמ״א ס״ג</td>
+  <td><strong>Irui from a meat kli rishon onto a milk vessel</strong></td>
+  <td>It has the status of a kli rishon — it forbids, if it is ben yomo</td>
+  <td>רמ״א יו״ד צ״ה:ג ; ט״ז יו״ד צ״ה ס״ק י״ג</td>
 </tr>
 <tr>
-  <td><strong>עירוי מים רותחין נֵטרליים על שניהם</strong></td>
-  <td>אף שומן דבוק — הכל מותר</td>
-  <td>רמ״א ס״ג</td>
+  <td><strong>Irui of neutral boiling water onto both</strong></td>
+  <td>Even with clinging grease — everything is permitted</td>
+  <td>רמ״א יו״ד צ״ה:ג</td>
+</tr>
+<tr>
+  <td><strong>A milk dish found among the meat vessels</strong></td>
+  <td>We do not suspect that they were washed together in a forbidding manner</td>
+  <td>רמ״א יו״ד צ״ה:ג</td>
 </tr>
 </table>
 </div>
+<blockquote>«&nbsp;<span class="he-q">והכי נוהגין ואין לשנות</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד צ״ה:ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אלא א״כ אחד מן הכלים אינן בני יומן מבליעת כלי ראשון ואז כל הכלים מותרים והמים נוהגין בהן איסור לכתחילה</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד צ״ה:ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל אם הודחו זה אחר זה או בכלי שני אפילו ביחד הכל שרי</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד צ״ה:ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ואם עירה מכלי ראשון של בשר על כלי חלב דינו ככלי ראשון ואוסר אם היה בן יומו</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד צ״ה:ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל אם עירה מים רותחים שאינן של בשר ולא של חלב על כלים של בשר ושל חלב ביחד ואפילו שומן דבוק בהם הכל שרי</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד צ״ה:ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ואם נמצא קערה חולבת בין כלי בשר לא חיישינן שמא הודחו ביחד בדרך שנאסרים</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד צ״ה:ג)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>טעם ההיתר באינו בן יומו (ט״ז ס״ק ט) :</strong> מבאר הט״ז שכאשר אחד מן הכלים <span class="he-q">אינו בן יומו</span> — הרי הטעם שבו פגום, וטעם פגום אינו אוסר; ולפיכך אף שנתערב במים — הכלים מותרים, והמים בלבד אסורים לכתחילה (שמא יבוא לבשל בהם). וזהו חידוש: שכלי אחד פגום מציל את כל ההדחה. ובעירוי (ס״ק יג) — סובר הט״ז ש<strong>עירוי ככלי ראשון</strong> לאסור כדי קליפה, ולפיכך עירוי בשר על חלב אוסר; אבל מים נטרליים שאינם לא בשר ולא חלב, אף בעירוי — מתבטל כל אחד בנפרד ואין כאן בשר וחלב מעורבין.
-</div>
+<div class="pilpul-box">
+<strong>Why one vessel that is not ben yomo saves the whole washing (Taz ס״ק ט and ס״ק י):</strong> the Taz takes the case apart piece by piece.</div>
+<blockquote>«&nbsp;<span class="he-q">אותו שהוא בן יומו מותר דהא פגם הוא מקבל ואותו שאינו בן יומו גם כן אינו נאסר מן אותו שהוא בן יומו דנותן טעם בר נותן טעם הוא</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ה ס״ק ט)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דהא בלעי עתה מפגם בשר בחלב ואין שייך דיעבד במים גרידא</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ה ס״ק י)</span></blockquote>
+<p>The one that is ben yomo is permitted, because what it receives is a spoiled taste; and the one that is not ben yomo is no more forbidden by the one that is, because what it receives from it is a נ״ט בר נ״ט, and it is still permitted. There is the chiddush: a single spoiled vessel saves the whole washing. The water remains, and the Taz gives its own reason — it has just absorbed a spoiled taste of meat in milk, and one does not speak of "bedieved" for water alone, which is not a dish. As for irui, the Taz ties it to the same reason as the prohibition of the washing.</p>
+<blockquote>«&nbsp;<span class="he-q">דכיון שאנו אוסרים לעיל כיש אוסרים שהביא רמ״א סעיף זה מטעם דהוה כטעם בשר וחלב מעורבים יחד</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ה ס״ק י״ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל אם זה הכלי שמערה עליו אינו בן יומו לא נאסר</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ה ס״ק י״ג)</span></blockquote>
+<p>Since we forbid here because the two tastes mix in a single vessel, we treat the poured stream as though it were still in the vessel from which one pours — and it therefore forbids the vessel onto which one pours, provided that this one too is ben yomo. But if the vessel poured upon is not ben yomo, it is not forbidden.</p>
 
-<div class="rishon-card" dir="rtl">
-<strong>כלי שני מלוכלך — ט״ז ורש״ל (ט״ז ס״ק יב) :</strong> סובר הט״ז שבכלי שני הכל מותר <span class="he-q">אפילו מלוכלך</span> בשומן, שאין כלי שני מבליע; ואילו ה<strong>רש״ל (ים של שלמה)</strong> חולק ומחמיר במלוכלך אף בכלי שני, שמא ה<em>לכלוך</em> עצמו (ממשות) עובר. ולמעשה — שאל את רבך.
-</div>
+<div class="pilpul-box">
+<strong>Two qualifications from the commentators that must not be omitted:</strong> the Mechaber writes "even both ben yomo — permitted". The Shach at once bounds that permission.</div>
+<blockquote>«&nbsp;<span class="he-q">היינו בדיעבד אבל לכתחלה אין להדיחן אפילו להמחבר</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ה ס״ק ט)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">פי׳ אפי׳ היה רק שומן דבוק באחד מהן הכל אסור</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ה ס״ק י)</span></blockquote>
+<p>It is said <em>bedieved</em>: lechatchila one does not wash them together, even according to the Mechaber. And as to clinging grease, the Shach widens in the other direction — even if the grease was on only one of the two, everything is forbidden. The Shach, finally, leaves the question of irui open.</p>
+<blockquote>«&nbsp;<span class="he-q">ומ״מ לענין דינא צ״ע כיון דהרבה פוסקים</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ה ס״ק ה)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">נראה דאם עירה מכלי ראשון של בשר על כלי של חלב דשרי דהוו דיעבד</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ה ס״ק ה)</span></blockquote>
+<p>He notes that the Rama permits pouring the foods into vessels of their own kind, which seems to contradict what he writes in seif ג' about irui; he holds for his own part that pouring from a meat kli rishon onto a milk vessel ought to be permitted, because it is a bedieved — but he leaves the din <span class="he-q">בצ״ע</span>. We report it so.</p>
+
+<div class="rishon-card">
+<strong>A soiled kli sheni — Taz and Maharshal (Taz ס״ק י״ב):</strong> the Taz holds that in a kli sheni everything is permitted even if the vessels were soiled, since a kli sheni does not cause absorption.</div>
+<blockquote>«&nbsp;<span class="he-q">פירוש אפילו אם היו מלוכלכות</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ה ס״ק י״ב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דיש לחוש דהלכלוך יתמחה בתוך המים ויהיו נחשבים כגוף האיסור</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ה ס״ק י״ב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל בכלי שני אין אוסר שיורי מאכל</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ה ס״ק י״ב)</span></blockquote>
+<p>The Maharshal disputes and is stringent where there is soiling, even in a kli sheni: he is concerned that the soiling itself dissolve in the water and become like the body of the forbidden thing. The Taz, having weighed the matter, rules for practice by dividing — in <strong>irui</strong> one must forbid both if there were food remnants on both; but in a <strong>kli sheni</strong> food remnants do not forbid, since we hold that a kli sheni, even at scalding heat, neither causes absorption nor discharge. And in practice — ask your Rav.</p>
 
 <!-- ============================================================= -->
-<h2 class="section-title">7. אפר ונותן טעם לפגם</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">7. Ash and נותן טעם לפגם</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ Detailed explanation (Level 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיף ד')
-  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 העתק</button>
+<h3>The text of the Mechaber (seif ד')
+  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-5">
-"<strong>יראה לי שאם נתן אפר בתוך המים החמים שביורה קודם שהדיח בהם הכלים — אפילו שומן דבוק, הכל מותר; משום שעל ידי האפר הוי נותן טעם לפגם.</strong>"
+  <p>יראה לי שאם נתנו אפר במים חמין שביורה קודם שהניחו הקדירות בתוכה אע״פ שהשומן דבוק בהן מותר דע״י האפר הוא נותן טעם לפגם:</p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — אפר ונותן טעם לפגם :</strong><br>
-ה<strong>אפר</strong> פוגם את טעם השומן הנפלט אל המים; וכל טעם הנפלט דרך דבר פוגם — הרי הוא <span class="he-q">נותן טעם לפגם</span>, וטעם פגום אינו אוסר. ולפיכך אף אם היה שומן דבוק בקערות — מאחר שנפלט לתוך מים מאופרים, פגום הוא ואינו אוסר את שאר הכלים. וזהו חידושו של המחבר ("יראה לי" — לשון הכרעה משלו, שאינה מן הראשונים).
+<div class="yesod-box">
+<strong>The foundation — ash and a spoiled taste:</strong><br>
+<strong>Ash</strong> spoils the taste of the grease that comes out into the water; and any taste that comes out through something that spoils it is a spoiled taste, which does not forbid. Hence, even if grease was clinging to the dishes, once it has come out into ashed water it is spoiled and does not forbid the rest of the vessels. And this is a chiddush of the Mechaber himself — he opens the seif with "it appears to me", which in his usage marks a ruling of his own rather than a teaching received from the Rishonim.
 </div>
+<blockquote>«&nbsp;<span class="he-q">דע״י האפר הוא נותן טעם לפגם</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד צ״ה:ד)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>השגות על האפר (פתחי תשובה ס״ק ו; ש״ך) :</strong> ה<strong>ש״ך</strong> השיג על דין האפר וצידד שאין לסמוך עליו לכתחילה, שמא אין האפר פוגם דיו, או שמא נפגם רק לאחר שכבר נבלע הטעם; ומביא הפתחי תשובה (ס״ק ו) את חילוקי האחרונים בזה. ולמעשה — בורית (סבון) העשוי משומן ושאר חומרי ניקוי פוגמים אף הם (ט״ז ס״ק טו), ובהם נדון ניקוי הכלים בזמננו. ולמעשה — שאל את רבך.
-</div>
+<div class="rishon-card">
+<strong>The Shach's objection (ס״ק כ״א):</strong> the Shach disputes this din, and one must say exactly what his objection rests on, for it is not the one usually reported.</div>
+<blockquote>«&nbsp;<span class="he-q">דין זה לא נמצא בשום פוסק ולא שום א׳ מהאחרונים הזכירוהו גם בב״י לא הזכירו</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ה ס״ק כ״א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ואדרבה משמע מדברי הפוסקים דאין שום תקנה להגעיל כלי בן יומו אם לא שיש במים ס׳ נגד הכלי</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ה ס״ק כ״א)</span></blockquote>
+<p>His objection is twofold. First, this din is found in no posek: none of the Acharonim mentioned it, and the Beis Yosef himself did not bring it. Second, and this is the substance, the words of the poskim imply the opposite — there is no remedy for kashering a vessel that is ben yomo other than that there be sixty in the water against the vessel. The Shach supports this from Tosafos and the Rosh and closes his ס״ק with <span class="he-q">וצ״ע</span>. The Pitchei Teshuva takes up the debate and offers a reading that saves the Mechaber.</p>
+<blockquote>«&nbsp;<span class="he-q">עש״ך שהשיג על דין זה</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ה ס״ק ו)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דנראה שאין כוונת המחבר דאפר יכול לפגום את האיסור אלא כוונתו דוקא הכא בבשר בחלב מהני אפר להקליש טעם שלא יחול עליו אח״כ שם בב״ח</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ה ס״ק ו)</span></blockquote>
+<p>According to him the Mechaber does not mean that ash can spoil what is forbidden: it is here, and here only, in meat and milk, that ash serves to <em>weaken</em> the taste so that the name "meat in milk" should not afterwards settle upon it — as we find at siman 87 concerning rennet. He notes that several Acharonim objected to the Shach, and he holds his reading to be the answer. We report both, and we do not decide.</p>
+
+<div class="rishon-card">
+<strong>Soap, and what the Taz does with it (Taz ס״ק ט״ו):</strong> the question is raised within the siman itself, and the Taz does not close it.</div>
+<blockquote>«&nbsp;<span class="he-q">ולפי זה אין איסור אם נפל בורית שקורין זיי״ף העשוי מחלב לתוך תבשיל</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ה ס״ק ט״ו)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">משמע דבודאי נפל אוסר הבורית והא בורית עשויה מאפר עם חלב ונותן טעם לפגם הוא וצ״ע למעשה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ה ס״ק ט״ו)</span></blockquote>
+<p>On the one hand, if the din of ash is accepted, there would be no prohibition when a soap made of animal fat falls into a dish, since that soap contains ash. On the other, the Taz cites the Maharil, from whom it emerges that if the matter is certain the soap <em>does</em> forbid — even though it is made of ash and fat and is a spoiled taste — and he concludes <span class="he-q">וצ״ע למעשה</span>. The din of soap is therefore not settled here, and it should not be presented as though it were. And in practice — ask your Rav.</p>
 
 <!-- ============================================================= -->
-<h2 class="section-title">8. קירוב וסמיכה · מליחה</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">8. Proximity and adjacency · salting</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ Detailed explanation (Level 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיפים ה'–ז')
-  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 העתק</button>
+<h3>The text of the Mechaber and the Rama (seifim ה'–ז')
+  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-6">
-"<strong>(ה') אין נותנין כלי של כותח אצל כלי של מלח; אבל מותר ליתנו אצל כלי של חומץ</strong> (הגה: ודווקא כשהכלים מגולים; ואפילו הכי, אם עבר ונתנם יחד — מותר, ואין חוששין שמא נפל לתוך המלח). <strong>(ו') מותר ליתן בתיבה כד של בשר אצל כד של חלב</strong> (הגה: ויש מחמירין לכתחילה, וטוב ליזהר במקום שאין צריך). <strong>(ז') מלח שמונח בקערה של בשר — מותר ליתנו בחלב</strong> (הגה: ומי שמחמיר בזה גם כן — תבוא עליו ברכה, שיש אוסרין לכתחילה — תוספות, סמ״ג, אור זרוע)."
+  <p>אין מניחין כלי שיש בו כותח אצל כלי שיש בו מלח אבל מותר להניחו אצל כלי שיש בו חומץ: הגה ודוקא אם הכלים מגולים ואפי׳ הכי אם עבר ונתנן ביחד מותר ולא חיישינן שמא נפל אל המלח (הגהות ש״ד וארוך):</p>
+  <p>מותר ליתן בתוך תיבה כד של בשר אצל של חלב: הגה ויש מחמירין לכתחילה (הגהות אשיר״י בשם א״ז) וטוב ליזהר לכתחילה במקום שאינו צריך:</p>
+  <p>מלח הנתון בקערה של בשר מותר ליתנו בחלב: הגה והמחמיר גם בזה תבא עליו ברכה כי יש מחמירין לכתחילה (תוס׳ וסמ״ג ואו״ה):</p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — מלח לעומת חומץ :</strong><br>
-שורש החילוק שבסעיף ה': ה<span class="he-q">מלח</span> דבר חזק הוא, ואם תיפול ממנו לכותח — נשאר ניכר ואינו בטל; ולפיכך אין מקרבין כלי כותח אצל כלי מלח, שמא יתערב מלח של בשר בכותח. אבל ה<span class="he-q">חומץ</span> — אם יפול מעט, בטל הוא בששים ואינו ניכר, ולפיכך מותר לקרבו. וזהו טעם הסמיכות: מה בטל ומה אינו בטל.
+<div class="yesod-box">
+<strong>The foundation — salt against vinegar:</strong><br>
+The root of the distinction in seif ה' is not the one usually assumed. What is feared is not that meat-salt should mix into the kutach: it is the reverse, and the Shach and the Taz say so in the same sense.
 </div>
+<blockquote>«&nbsp;<span class="he-q">הטעם דבמלח הכותח הנופל עליו הוי בעין ולא בטיל וחיישינן שמא ימלח בו בשר</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ה ס״ק כ״ב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דאם יפול שם כותח במלח נראה וניכר ולא בטיל ושמא לא ידע וימלח ממנו בשר</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ה ס״ק ט״ז)</span></blockquote>
+<p>If <strong>kutach</strong> falls into the <strong>salt</strong>, it remains there in substance, visible and recognisable, and it is not nullified; we then fear that one will not know of it and will afterwards salt meat with that very salt. So one does not set a vessel of kutach beside a vessel of salt. But in <strong>vinegar</strong>, what falls in does not remain in substance and is nullified in sixty — and it may be set beside it. That is the sense of adjacency: what is nullified and what is not. The Rama narrows further: this holds only where the vessels are uncovered, and if one transgressed and set them together it is permitted, for we do not fear that it fell into the salt.</p>
+<blockquote>«&nbsp;<span class="he-q">אין מניחין כלי שיש בו כותח אצל כלי שיש בו מלח אבל מותר להניחו אצל כלי שיש בו חומץ</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד צ״ה:ה)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">מותר ליתן בתוך תיבה כד של בשר אצל של חלב</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד צ״ה:ו)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דבשר עם חלב זהירי אינשי שלא יפול מזה לזה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ה ס״ק י״ז)</span></blockquote>
+<p>For a meat jar beside a milk jar (seif ו'), the Taz gives the reason for the permission: with meat and milk people are careful, and nothing will fall from one into the other. The Rama nonetheless adds that some are stringent lechatchila, and that it is good to be careful where there is no need.</p>
 
-<div class="rishon-card" dir="rtl">
-<strong>מליחה — מלח שבקערת בשר (סעיף ז') :</strong> מלח שהונח בקערת בשר — מותר ליתנו בחלב, שאין המליחה מבליעה בקערה כל כך עד שיֵאסר המלח, ועוד דהוי נ״ט בר נ״ט. ומכל מקום הרמ״א מסיים "<span class="he-q">מי שמחמיר תבוא עליו ברכה</span>", שיש אוסרין לכתחילה (תוספות, סמ״ג, אור זרוע); ומביא הפתחי תשובה (ס״ק ח) בשם הרדב״ז דעיקר ההחמרה בכלי חרס, שבולע יותר.
-</div>
+<div class="rishon-card">
+<strong>Salting — salt placed in a meat dish (seif ז'):</strong> here one must guard against a false reason. One might suppose the salt is permitted in milk because there would be a נ״ט בר נ״ט here; the Shach expressly rejects that reason.</div>
+<blockquote>«&nbsp;<span class="he-q">אין הטעם משום דהוי נ״ט בר נ״ט דהא מלח דבר חריף הוא ומשוי ליה בעין</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ה ס״ק כ״ה)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אלא הטעם דאין כח למלח להפליט טעם מכלי</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ה ס״ק כ״ה)</span></blockquote>
+<p>Salt is itself a דבר חריף, and its sharpness makes what is absorbed as though it were present in substance — precisely what the Rama wrote at seif ב' and the Mechaber at siman 96. The true reason is altogether different: <strong>salt has not the power to draw a taste out of a vessel</strong>, as is stated at siman 105. And the Shach draws the consequence himself: on that reckoning it would be permitted even in a dish that is forbidden.</p>
+<blockquote>«&nbsp;<span class="he-q">מלח הנתון בקערה של בשר מותר ליתנו בחלב</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד צ״ה:ז)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">והמחמיר גם בזה תבא עליו ברכה כי יש מחמירין לכתחילה</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד צ״ה:ז)</span></blockquote>
+<p>The Rama concludes that one who is stringent even in this, a blessing will come upon him, for there are those who forbid lechatchila. But the Taz disputes that reading forcefully.</p>
+<blockquote>«&nbsp;<span class="he-q">והוא תמוה מאד</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ה ס״ק י״ח)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל בזה המלח אין שום סברא לאסור אפי׳ לכתחלה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ה ס״ק י״ח)</span></blockquote>
+<p>For the Taz, the Rama attached the formula "one who is stringent, a blessing will come upon him" to the wrong clause of Tosafos: it bears on the cheese moulds of gentiles, not on salt. He judges this reading <em>most astonishing</em> — for Tosafos were resting on a constant practice of learned men, who cannot be counted among those who exclude themselves from the blessing — and he concludes that in this salt there is no reason whatever to forbid, even lechatchila. The Maharshal, whom he cites, likewise permits; and the Pitchei Teshuva reports a further limitation.</p>
+<blockquote>«&nbsp;<span class="he-q">דמשמע דדוקא בכלי חרס ראוי להחמיר ולא בשאר כלים</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ה ס״ק ח)</span></blockquote>
+<p>In the name of the Radbaz: the stringency would fit only earthenware vessels, which absorb more, and not others. We report the machlokes as it stands — the Rama recommends the stringency, the Taz judges it groundless, the Pitchei Teshuva bounds it — and we do not decide.</p>
 
-<div class="machloket-box" dir="rtl">
-<strong>סיכום הסמיכות (סעיפים ה'–ז') :</strong>
+<div class="machloket-box">
+<strong>Summary of the adjacency rules (seifim ה'–ז'):</strong>
 <table>
-<tr><th>המצב</th><th>הדין</th><th>הגהת הרמ״א</th></tr>
+<tr><th>The situation</th><th>The din</th><th>The Rama's gloss</th></tr>
 <tr>
-  <td><strong>כותח אצל מלח</strong></td>
-  <td>אסור — שמא יפול ולא יתבטל</td>
-  <td>בכלים מגולים; עבר — מותר</td>
+  <td><strong>Kutach beside salt</strong></td>
+  <td>Forbidden — lest it fall in without being nullified</td>
+  <td>Only where the vessels are uncovered; if one transgressed — permitted</td>
 </tr>
 <tr>
-  <td><strong>כותח אצל חומץ</strong></td>
-  <td>מותר — חומץ בטל בס'</td>
+  <td><strong>Kutach beside vinegar</strong></td>
+  <td>Permitted — the vinegar nullifies it in sixty</td>
   <td>—</td>
 </tr>
 <tr>
-  <td><strong>כד בשר אצל כד חלב</strong></td>
-  <td>מותר</td>
-  <td>יש מחמירין לכתחילה</td>
+  <td><strong>A meat jar beside a milk jar</strong></td>
+  <td>Permitted — people are careful</td>
+  <td>Some are stringent lechatchila, and it is good to be careful where unnecessary</td>
 </tr>
 <tr>
-  <td><strong>מלח שבקערת בשר בחלב</strong></td>
-  <td>מותר</td>
-  <td>המחמיר תבוא עליו ברכה</td>
+  <td><strong>Salt placed in a meat dish, then put into milk</strong></td>
+  <td>Permitted — salt does not draw taste out of a vessel (Shach)</td>
+  <td>One who is stringent, a blessing will come upon him; the Taz disputes</td>
 </tr>
 </table>
 </div>
 
-<div class="page-break"></div>
+<div class="page-break"></div><!-- ============================================================= -->
+<h2 class="section-title">9. Chakira and nafka mina for practice</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ Detailed explanation (Level 1)</a>
 
-<!-- ============================================================= -->
-<h2 class="section-title">9. חקירה ונפקא מינה למעשה</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
-
-<div class="hakira-box" dir="rtl">
-<strong>החקירה הכוללת של הסימן :</strong> עד כמה נקלש הטעם — ומתי חוזר ומתחזק עד כדי איסור ?
+<div class="hakira-box">
+<strong>The chakira that runs through the whole siman:</strong> how far does the taste weaken — and when does it grow strong enough again to forbid?
 <ul class="stylish">
-<li><strong>נ״ט בר נ״ט דהיתר</strong> — טעם קלוש שהיה היתר, ולפיכך מותר; ובאיסור — אף לאחר כמה מעברים אסור (ט״ז ס״ק א).</li>
-<li><strong>כלי או אוכל</strong> — לפרי מגדים ושערי דורה אף באוכל; ולפני אריה דווקא בכלי (פ״ת ס״ק א).</li>
-<li><strong>כמה נ״ט</strong> — בישול ג' נ״ט (קל), צלייה ב' נ״ט (חמור, ורוטב הצלי אסור) (פ״ת ס״ק ב).</li>
-<li><strong>מחבר ורמ״א</strong> — מחבר מתיר אף לאכלם עם המין השני לכתחילה; רמ״א מחמיר בצלייה ובישול לכתחילה, ומתיר בדיעבד / בעלו / בלפגם.</li>
-<li><strong>דבר חריף</strong> — נושא הטעם כממש, ואוסר אף בדיעבד (רובו ככולו); מקום שמואל מקיל בבישול (פ״ת ס״ק ד).</li>
-<li><strong>הדחת כלים</strong> — בני יומן יחד בכלי ראשון אסור; אינו בן יומו / זה אחר זה / כלי שני / עירוי נטרלי — מותר.</li>
+<li><strong>נ״ט בר נ״ט of a permitted thing</strong> — a weakened taste that was permitted, and that is why it is permitted; with something forbidden, even after several relays it is forbidden (ט״ז יו״ד צ״ה ס״ק א).</li>
+<li><strong>Vessel or food</strong> — for the Peri Megadim in the name of Shaarei Dura, in a vessel only; for the Pnei Aryeh, in food too, by kal vachomer — but he himself excludes a sauce (פת״ש יו״ד צ״ה ס״ק א).</li>
+<li><strong>How many נ״ט</strong> — cooking has three (lighter), roasting two (heavier, and the Shach forbids it); and the gravy, even in a cooking, is like a roast for the Peri Megadim and the Chamudei Daniel (פת״ש יו״ד צ״ה ס״ק ב).</li>
+<li><strong>Mechaber and Rama</strong> — the Mechaber permits eating them with the opposite kind even lechatchila; the Rama is stringent for roasting and cooking lechatchila, and lenient bedieved, in עלו and in a spoiled vessel (שו״ע יו״ד צ״ה:א–ב ; רמ״א יו״ד צ״ה:ב).</li>
+<li><strong>דבר חריף</strong> — its sharpness makes what is absorbed like a substance and the vessel like one that is ben yomo, and it forbids even bedieved, provided the dish is sharp wholly or for the greater part; the Makom Shmuel disputes for cooking, then concludes not to move from the Rama for a complete דבר חריף (ש״ך יו״ד צ״ה ס״ק ז ; פת״ש יו״ד צ״ה ס״ק ד).</li>
+<li><strong>Washing the dishes</strong> — both ben yomo together in a kli rishon: forbidden; one not ben yomo, one after the other, a kli sheni, irui of neutral water: permitted; and lechatchila one does not wash them together even according to the Mechaber (רמ״א יו״ד צ״ה:ג ; ש״ך יו״ד צ״ה ס״ק ט).</li>
 </ul>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה למעשה (לפי הכרעת רוב האחרונים) :</strong>
+<div class="nafka-mina-box">
+<strong>Nafka mina for practice, as the siman gives it:</strong>
 <ol class="stylish">
-<li>דגים שנתבשלו בקדרת בשר רחוצה — לספרדים מותר אף לכתחילה בכותח; לאשכנזים <strong>לכתחילה אסור ובדיעבד מותר</strong> (מחבר ורמ״א ס״א–ב).</li>
-<li>בקדרה שבישלו בה — אין מחזיקין שומן דבוק; בהדחת כלים — מחזיקין שומן ("ברי לי") (ש״ך ס״ק א).</li>
-<li>הדחת כלי בשר וחלב <strong>בני יומן יחד בכלי ראשון — אסור</strong> ("ואין לשנות"); אחד אינו בן יומו / כלי שני / עירוי נטרלי — מותר (רמ״א ס״ג).</li>
-<li>דבר חריף (רובו ככולו) שנתבשל / נכתש בכלי בשר — <strong>אסור אף בדיעבד</strong> אלא בס' (רמ״א ס״ב; ועיין סי' צ״ו).</li>
-<li>סמיכות: כותח אסור אצל מלח, מותר אצל חומץ; כד בשר אצל חלב — מותר ויש מחמירין (ס״ה–ז').</li>
+<li>Fish cooked in a well-washed meat pot: for Sephardim, permitted even lechatchila with kutach; for Ashkenazim, <strong>forbidden lechatchila and permitted bedieved</strong> (שו״ע יו״ד צ״ה:א–ב ; רמ״א יו״ד צ״ה:ב).</li>
+<li>But one does not cook them in a meat pot on purpose <em>in order</em> to eat them afterwards with kutach — and that even according to the Mechaber (ש״ך יו״ד צ״ה ס״ק ג ; ט״ז יו״ד צ״ה ס״ק ד).</li>
+<li>In a pot in which one cooked, clinging grease is not presumed; at the washing of dishes it is presumed, whence the condition "I am certain" (ש״ך יו״ד צ״ה ס״ק א).</li>
+<li>Washing meat and milk vessels <strong>both ben yomo, together, in a kli rishon — forbidden</strong>, "and it is not to be changed"; one not ben yomo, one after the other, in a kli sheni, or an irui of neutral water — permitted (רמ״א יו״ד צ״ה:ג).</li>
+<li>A דבר חריף (wholly or for the greater part) cooked or pounded in a meat vessel — <strong>forbidden even bedieved</strong>, short of sixty (רמ״א יו״ד צ״ה:ב; see siman 96).</li>
+<li>Adjacency: kutach is forbidden beside salt, permitted beside vinegar; a meat jar beside a milk jar — permitted, and some are stringent (שו״ע יו״ד צ״ה:ה–ו).</li>
 </ol>
-<em>ולמעשה — שאל את רבך.</em>
+<em>And in practice — ask your Rav.</em>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">10. טבלאות סיכום</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">10. Summary tables</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (Level 1)</a>
 
-<h3 class="he-h3">טבלה — אופני המגע והדין</h3>
-
-<table>
-<tr>
-  <th>אופן המגע</th>
-  <th>התוצאה</th>
-  <th>מקור בקורפוס</th>
-</tr>
-<tr>
-  <td><strong>דגים בקדרת בשר רחוצה יפה</strong></td>
-  <td>נ״ט בר נ״ט דהיתר → מותר בכותח (לרמ״א לכתחילה אסור)</td>
-  <td>מחבר ס״א; ט״ז ס״ק א</td>
-</tr>
-<tr>
-  <td><strong>שומן דבוק יותר מ-1/60</strong></td>
-  <td>ממשות בשר → אסור בכותח</td>
-  <td>מחבר ס״א; ש״ך ס״ק א</td>
-</tr>
-<tr>
-  <td><strong>ביצה במים בקדרת חלב</strong></td>
-  <td>מותר ליתנה בתבשיל בשר אף לכתחילה</td>
-  <td>מחבר ס״ב</td>
-</tr>
-<tr>
-  <td><strong>עלו (בלא בישול / צלייה)</strong></td>
-  <td>מותר לאכלם עם המין השני אף לכתחילה</td>
-  <td>רמ״א ס״ב; ט״ז ס״ק ד</td>
-</tr>
-<tr>
-  <td><strong>דבר חריף (רובו ככולו)</strong></td>
-  <td>נושא הטעם כממש → אסור אף בדיעבד</td>
-  <td>רמ״א ס״ב; פ״ת ס״ק ד; סי' צ״ו</td>
-</tr>
-<tr>
-  <td><strong>הדחת כלים בני יומן יחד בכ״ר</strong></td>
-  <td>הכל אסור ("ואין לשנות")</td>
-  <td>רמ״א ס״ג; ט״ז ס״ק ח</td>
-</tr>
-<tr>
-  <td><strong>אחד אינו בן יומו / כלי שני</strong></td>
-  <td>הכלים מותרים (מים אסורים לכתחילה)</td>
-  <td>רמ״א ס״ג; ט״ז ס״ק ט,יב</td>
-</tr>
-<tr>
-  <td><strong>אפר במים שביורה</strong></td>
-  <td>נ״ט לפגם → אף שומן דבוק מותר</td>
-  <td>מחבר ס״ד; פ״ת ס״ק ו</td>
-</tr>
-<tr>
-  <td><strong>כותח אצל מלח / חומץ</strong></td>
-  <td>אצל מלח אסור; אצל חומץ מותר</td>
-  <td>מחבר ס״ה</td>
-</tr>
-</table>
-
-<h3 class="he-h3">טבלה — מחלוקות מרכזיות בסימן</h3>
+<h3>Table — modes of contact and their din</h3>
 
 <table>
 <tr>
-  <th>נושא</th>
-  <th>שיטה א'</th>
-  <th>שיטה ב'</th>
+  <th>The mode of contact</th>
+  <th>The outcome</th>
+  <th>Source</th>
 </tr>
 <tr>
-  <td>נ״ט בר נ״ט לאכלם עם המין השני</td>
-  <td>המחבר (ספרד) — מותר אף לכתחילה</td>
-  <td>הרמ״א (אשכנז) — לכתחילה אסור, בדיעבד מותר</td>
+  <td><strong>Fish in a well-washed meat pot</strong></td>
+  <td>נ״ט בר נ״ט of a permitted thing → permitted with kutach (for the Rama, forbidden lechatchila)</td>
+  <td>שו״ע יו״ד צ״ה:א ; ט״ז יו״ד צ״ה ס״ק א</td>
 </tr>
 <tr>
-  <td>נ״ט בר נ״ט — בכלי או באוכל</td>
-  <td>פרי מגדים / שערי דורה — אף באוכל</td>
-  <td>פני אריה — דווקא בכלי (פ״ת ס״ק א)</td>
+  <td><strong>Substance on the face of the pot beyond one sixtieth</strong></td>
+  <td>Meat in substance → forbidden with kutach</td>
+  <td>שו״ע יו״ד צ״ה:א ; ש״ך יו״ד צ״ה ס״ק א</td>
 </tr>
 <tr>
-  <td>כמה נ״ט צריך</td>
-  <td>בישול — ג' נ״ט (קל, מותר בדיעבד)</td>
-  <td>צלייה — ב' נ״ט (חמור, רוטב אסור) (פ״ת ס״ק ב)</td>
+  <td><strong>An egg cooked in water in a dairy pot</strong></td>
+  <td>Permitted to put it into the fowl, even lechatchila</td>
+  <td>שו״ע יו״ד צ״ה:ב</td>
 </tr>
 <tr>
-  <td>דבר חריף בנ״ט בר נ״ט</td>
-  <td>הרמ״א — אסור אף בדיעבד</td>
-  <td>מקום שמואל — בבישול ג' נ״ט מותר (פ״ת ס״ק ד)</td>
+  <td><strong>עלו (no cooking or roasting), only one of the two hot</strong></td>
+  <td>Permitted to eat them with the opposite kind, even lechatchila</td>
+  <td>רמ״א יו״ד צ״ה:ב ; ט״ז יו״ד צ״ה ס״ק ד ; ש״ך יו״ד צ״ה ס״ק ו</td>
 </tr>
 <tr>
-  <td>הדחת כלים בני יומן יחד בכ״ר</td>
-  <td>המחבר — מותר (נ״ט בר נ״ט, ברי לי)</td>
-  <td>הרמ״א / יש אוסרין — אסור ("ואין לשנות")</td>
+  <td><strong>דבר חריף (wholly or for the greater part)</strong></td>
+  <td>Its sharpness makes what is absorbed like a substance → forbidden even bedieved</td>
+  <td>רמ״א יו״ד צ״ה:ב ; ש״ך יו״ד צ״ה ס״ק ז ; פת״ש יו״ד צ״ה ס״ק ד ; siman 96</td>
+</tr>
+<tr>
+  <td><strong>Washing ben-yomo vessels together in a kli rishon</strong></td>
+  <td>Everything is forbidden ("and it is not to be changed")</td>
+  <td>רמ״א יו״ד צ״ה:ג ; ט״ז יו״ד צ״ה ס״ק ח</td>
+</tr>
+<tr>
+  <td><strong>One not ben yomo / a kli sheni</strong></td>
+  <td>The vessels are permitted (the water carries a prohibition lechatchila)</td>
+  <td>רמ״א יו״ד צ״ה:ג ; ט״ז יו״ד צ״ה ס״ק ט ; ט״ז יו״ד צ״ה ס״ק י ; ט״ז יו״ד צ״ה ס״ק י״ב</td>
+</tr>
+<tr>
+  <td><strong>Ash in the water of the cauldron</strong></td>
+  <td>נ״ט לפגם → even with clinging grease, permitted; the Shach disputes this din</td>
+  <td>שו״ע יו״ד צ״ה:ד ; ש״ך יו״ד צ״ה ס״ק כ״א ; פת״ש יו״ד צ״ה ס״ק ו</td>
+</tr>
+<tr>
+  <td><strong>Kutach beside salt / beside vinegar</strong></td>
+  <td>Beside salt, forbidden; beside vinegar, permitted</td>
+  <td>שו״ע יו״ד צ״ה:ה ; ש״ך יו״ד צ״ה ס״ק כ״ב ; ט״ז יו״ד צ״ה ס״ק ט״ז</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מקורות הסוגיא</h3>
+<h3>Table — the central machlokos of the siman</h3>
 
-<div class="rishon-card" dir="rtl">
-<strong>גמרא :</strong> חולין קי״א:–קי״ב. (דגים שעלו בקערה, נותן טעם בר נותן טעם) · חולין צ״ז:–צ״ח. (טעם כעיקר, ביטול בששים) · ע״ז ל״ח:–ל״ט. (כותח ונ״ט בר נ״ט) · פסחים ע״ו. (תתאה גבר, עירוי)
+<table>
+<tr>
+  <th>The subject</th>
+  <th>First shita</th>
+  <th>Second shita</th>
+</tr>
+<tr>
+  <td>נ״ט בר נ״ט for eating them with the opposite kind</td>
+  <td>The Mechaber (Sefarad) — permitted even lechatchila</td>
+  <td>The Rama (Ashkenaz) — forbidden lechatchila, permitted bedieved</td>
+</tr>
+<tr>
+  <td>נ״ט בר נ״ט — in the vessel or in the food</td>
+  <td>Peri Megadim in the name of Shaarei Dura — in the vessel only (פת״ש יו״ד צ״ה ס״ק א)</td>
+  <td>Pnei Aryeh — in food too, by kal vachomer, but not in a sauce (פת״ש יו״ד צ״ה ס״ק א)</td>
+</tr>
+<tr>
+  <td>How many נ״ט are needed</td>
+  <td>Cooking — three נ״ט (lighter, permitted bedieved)</td>
+  <td>Roasting — two נ״ט (heavier); and the gravy is like a roast (פת״ש יו״ד צ״ה ס״ק ב)</td>
+</tr>
+<tr>
+  <td>A knife that cut scalding fish</td>
+  <td>Chamudei Daniel — like a roasting, since pressure and heat cook</td>
+  <td>Peri Tevuah — there is no need to be concerned; the Peri Megadim leaves it בצ״ע (פת״ש יו״ד צ״ה ס״ק ב)</td>
+</tr>
+<tr>
+  <td>A דבר חריף within a נ״ט בר נ״ט</td>
+  <td>The Rama — forbidden even bedieved</td>
+  <td>The Makom Shmuel — in a cooking with three נ״ט, permitted; but he concludes not to move from the Rama for a complete דבר חריף (פת״ש יו״ד צ״ה ס״ק ד)</td>
+</tr>
+<tr>
+  <td>A kli sheni with food remnants</td>
+  <td>The Taz — permitted, even soiled</td>
+  <td>The Maharshal — forbidden, since the soiling dissolves in the water (ט״ז יו״ד צ״ה ס״ק י״ב)</td>
+</tr>
+<tr>
+  <td>Ash in the water of the cauldron</td>
+  <td>The Mechaber — "it appears to me": it is a נ״ט לפגם, and all is permitted</td>
+  <td>The Shach — this din is found in no posek, and the poskim imply the opposite; the Pitchei Teshuva offers a reading that saves it (ש״ך יו״ד צ״ה ס״ק כ״א ; פת״ש יו״ד צ״ה ס״ק ו)</td>
+</tr>
+<tr>
+  <td>Salt placed in a meat dish</td>
+  <td>The Rama — one who is stringent, a blessing will come upon him</td>
+  <td>The Taz — the reading is astonishing, and there is no reason to forbid, even lechatchila; the Radbaz admits it only for earthenware (ט״ז יו״ד צ״ה ס״ק י״ח ; פת״ש יו״ד צ״ה ס״ק ח)</td>
+</tr>
+</table>
+
+<h3>Table — the sources of the sugya</h3>
+
+<div class="rishon-card">
+<strong>Gemara:</strong> Chullin 111b–112a (fish set down in a dish, נותן טעם בר נותן טעם) · Chullin 97b–98a (טעם כעיקר, nullification in sixty) · Avodah Zarah 38b–39a (kutach and נ״ט בר נ״ט) · Pesachim 76a (תתאה גבר, irui)
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>ראשונים :</strong> רש״י · ר״ת · ריב״א · רמב״ם · רא״ש · תוספות · רשב״א (תורת הבית) · ר״ן · מרדכי (פרק כ״ה) · סמ״ג · אור זרוע · ספר התרומות · שערי דורה · טור · איסור והיתר הארוך
+<div class="rishon-card">
+<strong>Rishonim:</strong> רש״י · ר״ת · ריב״ן · רמב״ם · רא״ש · תוספות · רשב״א (תורת הבית) · ר״ן · מרדכי · סמ״ג · סמ״ק · או״ז · ספר התרומה · שערי דורא · טור · איסור והיתר הארוך
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>אחרונים :</strong> בית יוסף · רמ״א · ש״ך · ט״ז · ב״ח · דרכי משה · תורת חטאת · מהרש״ל (ים של שלמה פכ״ה) · פרי חדש · פרי מגדים · מנחת יעקב · פתחי תשובה · מקום שמואל · פני אריה · חמודי דניאל · רדב״ז
+<div class="rishon-card">
+<strong>Acharonim:</strong> בית יוסף · רמ״א · ש״ך · ט״ז · ב״ח · דרכי משה · תורת חטאת · מהרש״ל (ים של שלמה) · פרי חדש · פרי מגדים · מנחת יעקב · פתחי תשובה · מקום שמואל · פני אריה · חמודי דניאל · פרי תבואה · רדב״ז
 </div>
 
 <hr class="ornament">
 
-  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;direction:rtl;">
-    <a href="niveau-1-base-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">→ רמה א' — יסוד</a>
-    <a href="niveau-3-synthese-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">רמה ג' — סיכום ←</a>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;">
+    <a href="niveau-1-base-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">← Level 1 — Base</a>
+    <a href="niveau-3-synthese-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">Level 3 — Synthesis →</a>
   </div>
 
 <div class="yh-watermark">
 ~ ~ ~ ~ ~<br>
-<strong>DAAT</strong> · <strong>הרב יוסף חיים סממה</strong><br>
-תלמיד חכם · מעביר שיעורים בהלכה ובחסידות<br>
-<em>פלפול ועיון בדין דגים וביצה שנתבשלו בקדרה של בשר · סימן צ״ה · ⚡ רמה ב' — לַמְדָּן</em>
+<strong>DAAT</strong> · <strong>Rav Yossef Haim Samama</strong><br>
+Talmid chakham · gives shiurim in halakha and chassidus<br>
+<em>Pilpul and study on fish and egg cooked in a meat pot · Siman 95 · ⚡ Level 2 — Lamdan</em>
 </div>
 
-  <div class="disclaimer" style="background:#fff8e1;border-right:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;direction:rtl;text-align:right;">
-    ⚠️ תוכן זה נכתב לצורך לימוד ועיון בלבד. לכל הוראה למעשה (לְמַעֲשֶׂה) — שאל את רבך.
+  <div class="disclaimer" style="background:#fff8e1;border-left:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;">
+    ⚠️ This content is written for study and examination only. For any practical ruling (לְמַעֲשֶׂה) — ask your Rav.
   </div>
 
   <div style="background:#1A1F3A;border-top:2px solid #C5A55A;padding:24px 40px;text-align:center;margin-top:0;">
-    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;direction:rtl;">
-      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">לעמוד הבית</a> · <a href="index-en.html" style="color:#C5A55A;text-decoration:none;">סימן צ״ה</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ לתמיכה</a>
+    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;">
+      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">Home</a> · <a href="index-en.html" style="color:#C5A55A;text-decoration:none;">Siman 95</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ Support</a>
     </p>
   </div>
 
