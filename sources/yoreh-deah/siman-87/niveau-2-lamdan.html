@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="fr" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,8 +23,7 @@
   @page { size: A4; margin: 2cm 1.8cm; }
   body {
     font-family: 'Frank Ruhl Libre', 'David', 'Georgia', 'Cambria', serif;
-    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0;
-    direction: rtl; text-align: right;
+    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0; text-align: left;
   }
   .he {
     direction: rtl; text-align: right;
@@ -72,14 +71,12 @@
   h2.section-title {
     color: #fff; background: #1A1F3A;
     font-size: 16pt; padding: 10px 18px; margin-top: 30px;
-    border-right: 6px solid #C5A55A;
-    direction: rtl; text-align: right;
+    border-right: 6px solid #C5A55A; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3 {
     color: #1A1F3A; font-size: 14pt; margin-top: 25px;
-    border-right: 4px solid #C5A55A; padding-right: 10px;
-    direction: rtl; text-align: right;
+    border-right: 4px solid #C5A55A; padding-right: 10px; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3.sugya {
@@ -169,9 +166,9 @@
   }
   th {
     background: #1A1F3A; color: #fff;
-    padding: 10px; text-align: right; direction: rtl; font-size: 11pt;
+    padding: 10px; text-align: left; font-size: 11pt;
   }
-  td { direction: rtl; text-align: right; }
+  td { text-align: left; }
   td {
     border: 1px solid #d4c89a; padding: 10px; vertical-align: top;
   }
@@ -224,8 +221,7 @@
 
   /* ── RTL global (כל הדף בלשון הקודש) ── */
   .pilpul-box, .kashya-box, .teruts-box, .hakira-box,
-  .nafka-mina-box, .yesod-box, .machloket-box, .rishon-card, .index-box {
-    direction: rtl; text-align: right;
+  .nafka-mina-box, .yesod-box, .machloket-box, .rishon-card, .index-box { text-align: left;
   }
   /* תיבות פלפול וכו' — הקו הצבעוני בצד ימין */
   .pilpul-box   { border-left: none; border-right: 4px solid #1A1F3A; }
@@ -241,8 +237,8 @@
   .index-box ol { padding-right: 25px; padding-left: 0; }
   ol.stylish, ul.stylish { padding-right: 22px; padding-left: 0; }
   h3.sugya { border-left: none; border-right: 6px solid #C5A55A; }
-  h4 { direction: rtl; text-align: right; }
-  .cover, .cover h1, .cover h2 { direction: rtl; }
+  h4 { text-align: left; }
+  .cover, .cover h1, .cover h2 { }
   blockquote { unicode-bidi: embed; }
 
   /* ── חץ אל ההסבר המפורט (רמה 1) ── */
@@ -254,7 +250,6 @@
     font-size: 12pt;
     text-decoration: none;
     border-bottom: 1px dotted #C5A55A;
-    direction: rtl;
   }
   a.daat-explain:hover { color: #8a6a1a; border-bottom-style: solid; }
 
@@ -275,6 +270,44 @@
   }
   button.daat-copy:hover { background: #C5A55A; color: #fff; }
   @media print { button.daat-copy, a.daat-explain { display: none; } }
+
+  /* ─────────────────────────────────────────────────────────────
+     Mise en page de gauche à droite : cette page-ci est rédigée en
+     langue vernaculaire ; seuls les fragments hébreux restent RTL.
+     (Le gabarit d'origine, commun à la variante hébraïque, pose un
+     sens de lecture RTL sur tout le corps.)
+     ───────────────────────────────────────────────────────────── */
+  body { direction: ltr; text-align: left; }
+  .cover, .cover h1, .cover h2 { direction: ltr; }
+  h2.section-title { direction: ltr; text-align: left;
+    border-right: none; border-left: 6px solid #C5A55A; }
+  h3, h3.he-h3 { direction: ltr; text-align: left;
+    border-right: none; border-left: 4px solid #C5A55A;
+    padding-right: 0; padding-left: 10px; }
+  h3.sugya { border-right: none; border-left: 6px solid #C5A55A; }
+  h4 { direction: ltr; text-align: left; }
+  th, td { direction: ltr; text-align: left; }
+  td.he, th.he { direction: rtl; text-align: right; }
+  .pilpul-box, .kashya-box, .teruts-box, .hakira-box,
+  .nafka-mina-box, .yesod-box, .machloket-box, .rishon-card, .index-box,
+  .sacred-text { direction: ltr; text-align: left; }
+  .pilpul-box   { border-right: none; border-left: 4px solid #1A1F3A; }
+  .kashya-box   { border-right: none; border-left: 4px solid #C5A55A; }
+  .teruts-box   { border-right: none; border-left: 4px solid #2d7a3e; }
+  .hakira-box   { border-right: none; border-left: 4px solid #6a1b7a; }
+  .rishon-card  { border-right: none; border-left: 4px solid #8a6a1a; }
+  .yesod-box    { border-right: none; border-left: 4px solid #8a6a1a; }
+  .pilpul-box::before, .kashya-box::before, .teruts-box::before,
+  .hakira-box::before, .nafka-mina-box::before, .yesod-box::before {
+    direction: rtl; text-align: left; }
+  .index-box ol, .index-box[dir="rtl"] ol { padding-left: 25px; padding-right: 0; }
+  ol.stylish, ul.stylish { padding-left: 22px; padding-right: 0; }
+  blockquote { direction: ltr; text-align: left;
+    border-right: none; border-left: 3px solid #C5A55A;
+    margin: 10px 0 10px 15px; }
+  a.daat-explain { direction: ltr; }
+  button.daat-copy { direction: ltr; margin: 0 0 0 10px; }
+  .source-ref { direction: rtl; unicode-bidi: embed; }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/daat-enhance.css">
@@ -290,7 +323,7 @@
   "headline": "Siman פ״ז · Niveau 2 Lamdan — Pilpoul approfondi · בשר בחלב, Houlin 113-116",
   "description": "Niveau 2 (Lamdan) du Siman פ״ז (Yoreh De'ah) — Pilpoul approfondi. La sougya de Houlin 113-116, la דרשה des 3 versets, le statut de la volaille, la définition de דרך בישול, une vraie מחלוקת Shach/Taz, חקירה et נפקא מינה.",
   "url": "https://daattorah.com/yd/87/lamdan",
-  "inLanguage": "he-IL",
+  "inLanguage": "fr-FR",
   "isAccessibleForFree": true,
   "author": {
     "@id": "https://daattorah.com/#rav-samama"
@@ -401,33 +434,33 @@
 <!-- COUVERTURE -->
 <div class="cover">
   <div class="ornament">✦ ❖ ✦</div>
-  <div class="badge-top">DAAT · רמה ב' — לַמְדָּן</div>
-  <h1>שולחן ערוך · יורה דעה</h1>
-  <div class="subtitle">הלכות בשר בחלב — עיון ופלפול</div>
+  <div class="badge-top">DAAT · NIVEAU 2 — LAMDAN</div>
+  <h1>Choulhan Aroukh · Yoré Déa — Siman 87 : quelle viande, quel lait, et ce que veut dire « cuire »</h1>
+  <div class="subtitle">Hilkhot bassar be-halav — étude et pilpoul</div>
 
   <div class="he-title">סימן פ״ז</div>
   <div class="he-sub">באיזו בשר נוהג דין בשר בחלב והיאך נקרא בישול</div>
-  <div class="he-subject">עיון, פלפול, שיטות הראשונים והאחרונים</div>
+  <div class="he-subject">Sougya, pilpoul, shitot des Richonim et des Aharonim</div>
 
-  <div class="level-badge">⚡ ללומדים ותלמידי חכמים ⚡</div>
+  <div class="level-badge">⚡ Pour les lamdanim et les talmidé hakhamim ⚡</div>
 
   <div class="ornament">✦ ❖ ✦</div>
 
-  <h2 style="margin-top:20px; color: #1A1F3A;">פלפול ועיון מעמיק</h2>
+  <h2 style="margin-top:20px; color: #1A1F3A;">Pilpoul et étude approfondie</h2>
   <p style="font-size:12pt; color:#555;">
-    סוגיות, מקורות, חקירת היסוד, מחלוקות ראשונים ואחרונים,<br>
-    נפקא מינות להלכה ועיון בשיטות
+    Sougyot, sources, hakira de fond, ma'hlokot des Richonim et des Aharonim,<br>
+    nafka minot pour la halakha, et examen des shitot
   </p>
 
   <div class="credits">
-    <p><strong>הנושא :</strong><br>
-    שולחן ערוך יורה דעה סימן פ״ז (י״א סעיפים)<br>
-    עם נושאי כלים: ש״ך (שפתי כהן), ט״ז (טורי זהב), פרי מגדים, פתחי תשובה</p>
+    <p><strong>Le sujet :</strong><br>
+    שולחן ערוך יורה דעה סימן פ״ז — onze seifim<br>
+    avec l'appareil : ש״ך (Siftei Kohen) · ט״ז (Turei Zahav) · פרי מגדים · פתחי תשובה</p>
 
-    <p><strong>יסוד הסוגיא בש״ס :</strong><br>
+    <p><strong>Le fond de la sougya dans le Chass :</strong><br>
     חולין קי״ג. — קט״ז. · עבודה זרה ל״ה: · קידושין נ״ז: · בכורות ו'.</p>
 
-    <p><strong>עריכה ועיון :</strong><br>
+    <p><strong>Rédaction et étude :</strong><br>
     הרב יוסף חיים סממה · DAAT</p>
   </div>
 </div>
@@ -435,607 +468,687 @@
 <div class="page-break"></div>
 
 <!-- TABLE DES MATIÈRES -->
-<h2 class="section-title">📑 תוכן העניינים</h2>
+<h2 class="section-title">📑 Table des matières</h2>
 
-<div class="index-box" dir="rtl">
+<div class="index-box">
 <ol>
-  <li><strong>הקדמת הסוגיא</strong> — שלושה פסוקים ושלושה איסורים (חולין קט״ו:)</li>
-  <li><strong>דרשת חז״ל</strong> — בישול, אכילה, הנאה — וכיצד נלמדו</li>
-  <li><strong>חקירת היסוד</strong> — מהו "דרך בישול" ומה דינו של כבוש ומליחה</li>
-  <li><strong>"גדי" לאו דווקא</strong> — דבר הכתוב בהווה ותחומי האיסור</li>
-  <li><strong>שיטת המחבר</strong> — בשר חיה ועוף בחלב: דרבנן (חולין קי״ג.)</li>
-  <li><strong>מחלוקת המחבר עם רש״ל והב״ח</strong> — האם עוף בחלב דאורייתא</li>
-  <li><strong>פלוגתת בשר וחלב בהנאה</strong> — המחבר/ש״ך נגד הט״ז</li>
-  <li><strong>מחלוקת הש״ך והט״ז</strong> — האם רבנן גזרו במין אחד טמא</li>
-  <li><strong>סוגיית מראית העין</strong> — חלב שקדים, חלב אשה, חלב טמאה</li>
-  <li><strong>חלב זכר וחלב מתה</strong> — דאורייתא, דרבנן, או פטור גמור</li>
-  <li><strong>חקירה ונפקא מינה למעשה</strong></li>
-  <li><strong>טבלאות סיכום מקיפות</strong></li>
+  <li><strong>Ouverture de la sougya</strong> — trois versets, trois interdits (Houlin 115b)</li>
+  <li><strong>La derasha de nos Sages</strong> — cuisson, consommation, profit : comment chacune se déduit</li>
+  <li><strong>La hakira de fond</strong> — qu'est-ce que « la voie de la cuisson », et que valent le saumurage et le salage</li>
+  <li><strong>« Chevreau » n'est pas restrictif</strong> — l'Écriture parle du cas courant, et l'étendue de l'interdit</li>
+  <li><strong>La shita du Mehaber</strong> — bête sauvage et volaille dans du lait : déraboanan (Houlin 113a)</li>
+  <li><strong>Le Mehaber contre le Rachal et le Bah</strong> — la volaille dans du lait est-elle déoraïta ?</li>
+  <li><strong>Le débat sur le profit</strong> — le Mehaber et le Chakh face au Rachal, et où se range le Taz</li>
+  <li><strong>Ma'hloket du Chakh et du Taz</strong> — les Sages ont-ils décrété quand l'une des deux espèces est impure ?</li>
+  <li><strong>La sougya de la mar'it ha-ayin</strong> — lait d'amandes, lait de femme, lait d'animal impur</li>
+  <li><strong>Lait de mâle et lait de bête morte</strong> — déoraïta, déraboanan, ou exemption pure et simple</li>
+  <li><strong>Hakira et nafka mina pour la pratique</strong></li>
+  <li><strong>Tableaux de synthèse</strong></li>
 </ol>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<!-- לשון השולחן ערוך — סעיף א' -->
-<h2 class="section-title">📜 לשון השולחן ערוך — סעיף א'
-  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 העתק</button>
+<h2 class="section-title">📜 Le texte du Choulhan Aroukh — séif א
+  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 Copier</button>
 </h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ Explication détaillée (niveau 1)</a>
 
 <div class="sacred-text he" data-copy-block id="cp-1">
-  <p>כָּתוּב בַּתּוֹרָה &quot;לֹא תְבַשֵּׁל גְּדִי בַּחֲלֵב אִמּוֹ&quot; ג' פְּעָמִים: אֶחָד לְאִסּוּר בִּשּׁוּל, וְאֶחָד לְאִסּוּר אֲכִילָה, וְאֶחָד לְאִסּוּר הֲנָאָה.</p>
-  <p style="margin-top:14px;">וְהוֹצִיא אֲכִילָה בִּלְשׁוֹן בִּשּׁוּל, לוֹמַר שֶׁאֵינוֹ אָסוּר מִן הַתּוֹרָה אֶלָּא דֶּרֶךְ בִּשּׁוּל, אֲבָל מִדְּרַבָּנָן אָסוּר בְּכָל עִנְיָן.</p>
-  <p style="margin-top:14px;">(כָּל בָּשָׂר בְּחָלָב שֶׁאֵינוֹ אָסוּר מִן הַתּוֹרָה — מֻתָּר בַּהֲנָאָה. <span class="source-ref">[הגה: טור וארוך כלל ל']</span>)</p>
+<p style="margin-top:10px;">&laquo;&nbsp;<span class="he-q">ג׳ פעמים אחד לאיסור בישול ואחד לאיסור אכילה ואחד לאיסור הנאה</span>&nbsp;&raquo; <span class="source-ref">(שו״ע יו״ד פ״ז:א)</span></p>
+<p style="margin-top:10px;">&laquo;&nbsp;<span class="he-q">והוציא אכילה בלשון בישול לומר שאינו אסור מן התורה אלא דרך בישול אבל מדרבנן אסור בכל ענין</span>&nbsp;&raquo; <span class="source-ref">(שו״ע יו״ד פ״ז:א)</span></p>
+<p style="margin-top:10px;">&laquo;&nbsp;<span class="he-q">כל בשר בחלב שאינו אסור מן התורה מותר בהנאה</span>&nbsp;&raquo; <span class="source-ref">(רמ״א יו״ד פ״ז:א)</span></p>
 </div>
 
-<!-- ============================================================= -->
-<h2 class="section-title">1. הקדמת הסוגיא — שלושה פסוקים, שלושה איסורים</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<p>Le séif ouvre le siman par le verset, puis par la raison pour laquelle il est écrit trois fois, puis par la conséquence de forme qui commande tout le reste : la Torah a dit l'interdit de <em>manger</em> avec le mot <em>cuire</em>. La glose ajoute le corollaire du côté du profit : tout mélange de viande et de lait que la Torah n'interdit pas est permis au profit.</p>
 
-<h3 class="he-h3">המקור הבסיסי
-  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 העתק</button>
+<!-- ============================================================= -->
+<h2 class="section-title">1. Ouverture de la sougya — trois versets, trois interdits</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ Explication détaillée (niveau 1)</a>
+
+<h3>La source de base
+  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-2">
-שלוש פעמים כתבה התורה <strong>"לֹא תְבַשֵּׁל גְּדִי בַּחֲלֵב אִמּוֹ"</strong> (שמות כג יט; שמות לד כו; דברים יד כא). ודרשו חז״ל בחולין (קט״ו:) שאין מקרא בא ללמד על עצמו אלא להוסיף, ולכן אחד לְאִסּוּר בִּשּׁוּל, אחד לְאִסּוּר אֲכִילָה, ואחד לְאִסּוּר הֲנָאָה — שלושתם <strong>מן התורה</strong>. וכך פתח המחבר את הסימן.
+<p>Trois fois la Torah écrit <span class="he-q">לא תבשל גדי בחלב אמו</span> — Chemot 23:19, Chemot 34:26, Devarim 14:21. Nos Sages en ont tiré, dans Houlin 115b, qu'un verset ne vient pas se répéter mais ajouter : l'un pour l'interdit de la cuisson, l'un pour celui de la consommation, l'un pour celui du profit — et tous les trois <strong>de la Torah</strong>. C'est par là que le Mehaber ouvre le siman.</p>
+<p style="margin-top:10px;">&laquo;&nbsp;<span class="he-q">ג׳ פעמים אחד לאיסור בישול ואחד לאיסור אכילה ואחד לאיסור הנאה</span>&nbsp;&raquo; <span class="source-ref">(שו״ע יו״ד פ״ז:א)</span></p>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>הערה יסודית :</strong> הלשון "<span class="he-q">לא תבשל</span>" הוא לשון <em>בישול</em>, ובכל זאת דרשו ממנו גם <em>אכילה</em>. לשון המחבר: "<span class="he-q">והוציא אכילה בלשון בישול</span>". מכאן יסוד כל הסימן — שעצם זה שהתורה ביטאה את איסור האכילה בלשון בישול מלמד שכל גדרי האיסור מן התורה כפופים לְ"<span class="he-q">דרך בישול</span>".
+<div class="pilpul-box">
+<strong>Remarque de fond.</strong> Le verset est une formule de <em>cuisson</em>, et c'est pourtant de lui que l'on tire aussi la <em>consommation</em>. Le Mehaber le dit en propres termes : l'Écriture a fait sortir la consommation sous le mot de cuisson. De là sort tout le siman — ce choix de mot enseigne que, pour ce qui est de la Torah, l'interdit ne porte que sur ce qui a été fait « par la voie de la cuisson ».
 </div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">והוציא אכילה בלשון בישול לומר שאינו אסור מן התורה אלא דרך בישול אבל מדרבנן אסור בכל ענין</span>&nbsp;&raquo; <span class="source-ref">(שו״ע יו״ד פ״ז:א)</span></div>
 
-<h3 class="he-h3">שלושת האיסורים — היקפם</h3>
+<h3>Les trois interdits — leur portée</h3>
 
-<div class="rishon-card" dir="rtl">
-<strong>הפתחי תשובה</strong> (ס״ק א) מביא בשם <strong>הרמב״ם</strong> (סוף פי״ד מהלכות מאכלות אסורות, הובא בפר״מ בפתיחה):<br>
-שבשר בחלב — <strong>אף שלא כדרך אכילה והנאה אסור</strong> ולוקה עליו, מה שאין כן בשאר איסורים (חוץ מכלאי הכרם). מכאן חומרה מיוחדת בבשר בחלב.
+<div class="rishon-card">
+<strong>Le Pit'hei Techouva</strong> (ס״ק א) rapporte au nom du <strong>Rambam</strong> (fin du chapitre 14 des Hilkhot Maakhalot Assourot, cité par le Peri Megadim dans sa petiha) que le mélange de viande et de lait est interdit <strong>même consommé d'une manière qui n'est pas la manière ordinaire de manger ou de tirer profit</strong>, et qu'on en est passible de malkot — ce qui n'est pas le cas des autres interdits, hormis le kilaé ha-kerem. De là une sévérité propre à bassar be-halav.
 </div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">ואף שלא כדרך אכילה והנאה אסור והיה לוקה עליו משא״כ בשאר איסורים חוץ מכלאי הכרם</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד פ״ז ס״ק א)</span></div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הפתחי תשובה</strong> (ס״ק ב, על "<span class="he-q">לאיסור הנאה</span>"):<br>
-האם לוקין על ההנאה? <strong>דעת הרמב״ם — אינו לוקה</strong>, ושאר פוסקים סוברים שלוקה. ומוסיף שם בשם <strong>הפרי מגדים</strong> (בפתיחה) שנסתפק אם חצי שיעור (חצי כזית) אסור בבישול ובהנאה מן התורה: שבאכילה קיימא לן חצי שיעור אסור מן התורה, אבל בבישול והנאה — צ״ע. ובשר בחלב הנאסר בהנאה — <strong>קוברין אותו</strong>, ואם שרפו, גם אפרו אסור בהנאה מן התורה.
+<div class="rishon-card">
+<strong>Le Pit'hei Techouva</strong> (ס״ק ב), sur les mots « pour l'interdit du profit » : y a-t-il malkot pour le profit ? Le <strong>Rambam</strong> tient qu'il n'y a pas de malkot, les autres poskim qu'il y en a. Il ajoute, au nom du <strong>Peri Megadim</strong> (petiha), un doute resté ouvert : la demi-mesure (un demi-kazayit) est-elle interdite de la Torah pour la cuisson et pour le profit ? Pour la consommation, il est établi qu'elle l'est ; pour la cuisson et le profit, la question reste en tsarikh iyoun. Et un mélange devenu interdit au profit : on l'enterre ; s'il a été brûlé, sa cendre elle-même reste interdite au profit, de la Torah.
 </div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">דעת הרמב״ם דאינו לוקה ושאר פוסקים סוברים דלוקה</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד פ״ז ס״ק ב)</span></div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">שנסתפק אי אסור ח״ש בבישול והנאה מה״ת. דבאכילה קיי״ל ח״ש אסור מה״ת ובישול והנאה צ״ע</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד פ״ז ס״ק ב)</span></div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">ובשר בחלב הנאסר בהנאה קוברין אותו. ואם שרפו גם אפרו אסור בהנאה מה״ת</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד פ״ז ס״ק ב)</span></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">2. דרשת חז״ל — בישול, אכילה, הנאה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">2. La derasha de nos Sages — cuisson, consommation, profit</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">סדר הדרשה לפי הסוגיא בחולין קט״ה:
-  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 העתק</button>
+<h3>L'ordre de la derasha selon la sougya de Houlin 115b
+  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-3">
-שלושת המקראות נדרשים: מקרא ראשון אוסר את עצם מעשה הַ<strong>בִּישּׁוּל</strong> (אף שלא יאכל). מקרא שני — אוסר את הַ<strong>אֲכִילָה</strong>, ובחר הכתוב ללמדה דווקא בלשון בישול. מקרא שלישי — אוסר את הַ<strong>הֲנָאָה</strong>.
+<p>Les trois versets se lisent ainsi : le premier interdit l'<strong>acte de cuisson</strong> lui-même, même sans consommation ; le deuxième interdit la <strong>consommation</strong>, et l'Écriture a choisi de l'enseigner précisément sous le mot de cuisson ; le troisième interdit le <strong>profit</strong>.</p>
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה :</strong> מה תפקיד לשון "בישול" בכל אחד מהמקראות ?
+<div class="hakira-box">
+<strong>La hakira.</strong> Quelle fonction remplit le mot « cuisson » dans chacun des trois versets ?
 <ul class="stylish">
-  <li>(א) המקרא של <span class="he-q">בישול</span> — לשונו כפשוטו: מעשה הבישול עצמו אסור.</li>
-  <li>(ב) המקרא של <span class="he-q">אכילה</span> — לשון בישול בא <strong>לצמצם</strong>: רק מה שנעשה דרך בישול אסור באכילה מן התורה.</li>
-  <li>(ג) המקרא של <span class="he-q">הנאה</span> — תלוי במה שנאסר בתורה (ראה סעיף 7 להלן).</li>
+  <li>(a) Le verset de la <em>cuisson</em> — le mot y est pris au sens propre : c'est l'acte même de cuire qui est interdit.</li>
+  <li>(b) Le verset de la <em>consommation</em> — le mot de cuisson y vient <strong>restreindre</strong> : seul ce qui a été fait par la voie de la cuisson est interdit à la consommation de la Torah.</li>
+  <li>(c) Le verset du <em>profit</em> — sa portée dépend de ce que la Torah a interdit, et c'est l'objet de la section 7 ci-dessous.</li>
 </ul>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד החקירתי :</strong><br>
-מדוע התורה דווקא <span class="he-q">"הוציאה אכילה בלשון בישול"</span> ?<br><br>
-• לפי המחבר — כדי ללמד שאיסור האכילה <strong>דאורייתא</strong> מצומצם לְ<em>דרך בישול</em> בלבד.<br>
-• ומה שאסור באכילה דרך מליחה, כבוש או עישון — <strong>דרבנן</strong> ("אבל מדרבנן אסור בכל עניין").
+<div class="yesod-box">
+<strong>Le yessod de la hakira.</strong><br>
+Pourquoi la Torah a-t-elle justement fait sortir la consommation sous le mot de cuisson ?<br><br>
+• Selon le Mehaber — pour enseigner que l'interdit <strong>de la Torah</strong> de consommer se restreint à la seule <em>voie de la cuisson</em>.<br>
+• Et ce qui est consommé après salage, saumurage ou fumage reste interdit, mais <strong>des Sages</strong> : le séif le dit en toutes lettres, « mais des Sages c'est interdit de toute manière ».
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">3. חקירת היסוד — מהו "דרך בישול" ?</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">3. La hakira de fond — qu'est-ce que « la voie de la cuisson » ?</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">דברי הש״ך — שלילת כבוש ומליחה
-  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 העתק</button>
+<h3>Les mots du Chakh — le saumurage et le salage sont exclus
+  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-4">
-<strong>הש״ך</strong> (ס״ק א) על "<span class="he-q">שאינו אסור מן התורה אלא דרך בישול כו'</span>":<br>
-"<strong>כלומר אבל לא על ידי כבוש ומליחה שאינו דרך בישול.</strong>"
+<p>Le <strong>Chakh</strong> (ס״ק א) commente les mots du Mehaber « il n'est interdit de la Torah que par la voie de la cuisson » :</p>
+<p style="margin-top:10px;">&laquo;&nbsp;<span class="he-q">כלומר אבל לא ע״י כבוש ומליחה שאינו דרך בישול</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק א)</span></p>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-הש״ך מגדיר את גבול "<span class="he-q">דרך בישול</span>" בשלילה: <strong>כבוש</strong> (השריה ממושכת) ו<strong>מליחה</strong> אינם בכלל בישול, ולכן בשר בחלב שנאסר בדרך זו — דרבנן בלבד. וכן בלשון המחבר עצמו בסעיף ו': "<span class="he-q">המעושן והמבושל בחמי טבריה אין לוקין עליו</span>" — כי חמי טבריה אינם תולדת האור, ועישון אינו דרך בישול.
+<div class="pilpul-box">
+Le Chakh fixe la limite de « la voie de la cuisson » par la négative : le <strong>saumurage</strong> (un trempage prolongé) et le <strong>salage</strong> ne sont pas de la cuisson, et ce qui devient interdit par cette voie ne l'est donc que des Sages. Le Mehaber lui-même le dit au séif ו, à propos du fumé et de ce qui a cuit dans les sources chaudes de Tibériade : on n'en est pas passible de malkot — les sources chaudes ne sont pas une dérivée du feu, et le fumage n'est pas la voie de la cuisson.
+</div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">המעושן והמבושל בחמי טבריה אין לוקין עליו</span>&nbsp;&raquo; <span class="source-ref">(שו״ע יו״ד פ״ז:ו)</span></div>
+
+<h3>L'élargissement de la définition chez le Pit'hei Techouva</h3>
+
+<div class="rishon-card">
+<strong>Le Pit'hei Techouva</strong> (ס״ק ג), sur les mots « la voie de la cuisson », rapporte que le <strong>Peri Hadach</strong> tient que la <strong>friture entre dans la cuisson</strong>, tandis que le <strong>Min'hat Yaakov</strong> et le <strong>Maharam Schiff</strong> ont penché pour alléger : la friture ne serait pas de la cuisson et n'entraînerait pas l'interdit de profit. En cas de perte importante, il y a matière à alléger. Il rapporte encore, au nom du <strong>Rachal</strong>, que le contact du chaud avec le chaud <strong>sans sauce</strong> n'est pas la voie de la cuisson et reste permis au profit.
+</div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">ועיין פר״ח דגם טיגון בכלל בישול אך המ״י בסל״מ כלל פ״ה ומהר״ם שיף בסוף הספר על חולין צידדו להקל דטיגון לא הוי בכלל בישול ואינו אסור בהנאה</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד פ״ז ס״ק ג)</span></div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">וחם בחם בלא רוטב כתב הפמ״ג בפתיחה בשם רש״ל דלא הוי דרך בישול ומותר בהנאה</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד פ״ז ס״ק ג)</span></div>
+
+<div class="kashya-box">
+<strong>Kouchia.</strong> Si la friture reste douteuse, que faire en pratique — et surtout, cette allégation sur le profit tient-elle jusqu'au bout ?
 </div>
 
-<h3 class="he-h3">הרחבת הגדר אצל הפתחי תשובה</h3>
-
-<div class="rishon-card" dir="rtl">
-<strong>הפתחי תשובה</strong> (ס״ק ג, על "<span class="he-q">דרך בישול</span>") :<br>
-מביא ש<strong>הפרי חדש</strong> סובר ש<strong>גם טיגון בכלל בישול</strong>, אך ה<strong>מנחת יעקב</strong> (סל״מ כלל פ״ה) ו<strong>מהר״ם שיף</strong> צידדו להקל שטיגון אינו בכלל בישול ואינו אסור בהנאה. ובמקום הפסד יש להקל (פמ״ג). ועוד מביא שם בשם <strong>הרש״ל</strong>: <strong>חם בחם בלא רוטב</strong> — אינו דרך בישול ומותר בהנאה.
+<div class="teruts-box">
+<strong>Le Pit'hei Techouva</strong> rapporte, au nom du <strong>Hatam Sofer</strong> (responsum 97), que même pour les cas qui ne sont interdits que des Sages et qui restent permis au profit, il faut <strong>donner l'aliment tel quel</strong> au non-juif, et non le cuire d'abord : en le cuisant on transgresse l'interdit de cuisson, et l'aliment devient interdit au profit de la Torah — car « même si le morceau a absorbé autrement que par la voie de la cuisson, il reste qu'ensuite la viande a cuit avec le lait absorbé en elle ». Ainsi également le Noda bi-Yehouda (Yoré Déa, responsum 26). Autrement dit : un aliment qui a absorbé l'interdit hors de la voie de la cuisson redevient interdit de la Torah si on le cuit après coup.
 </div>
-
-<div class="kashya-box" dir="rtl">
-<strong>קושיא :</strong> אם טיגון ספק אם הוא דרך בישול, מה הדין למעשה ?
-</div>
-
-<div class="teruts-box" dir="rtl">
-<strong>הפתחי תשובה</strong> מביא בשם <strong>החתם סופר</strong> (סי' צ״ז): גם באלו שאינם אסורים אלא מדרבנן ומותרים בהנאה — <strong>צריך ליתנם לגוי כך</strong> ולא לבשל מתחילה, שאם כן עובר על הבישול ואסור בהנאה מן התורה; "<span class="he-q">דאף דהחתיכה בלעה שלא כדרך בישול, מכל מקום הרי אחר כך נתבשל הבשר עם החלב הבלוע בו</span>". וכן בנודע ביהודה (חיו״ד סי' כ״ו). כלומר: אף מאכל שנבלע בו האיסור שלא בדרך בישול — חוזר ונאסר מן התורה אם מבשלים אותו אחר כך.
-</div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">ומ״מ אף באלו שאינם אלא דרבנן ומותר בהנאה צריך ליתנם לעובד כוכבים כך ולא יבשל מתחלה דא״כ עובר על הבישול ואסור בהנאה מה״ת</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד פ״ז ס״ק ג)</span></div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">דאף דהחתיכה בלעה שלא כדרך בישול מ״מ הרי אח״כ נתבשל הבשר עם החלב הבלוע בו</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד פ״ז ס״ק ג)</span></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">4. "גדי" לאו דווקא — דבר הכתוב בהווה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">4. « Chevreau » n'est pas restrictif — l'Écriture parle du cas courant</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיף ב')
-  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 העתק</button>
+<h3>Les mots du Mehaber (séif ב)
+  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-5">
-"<strong>גְּדִי לָאו דַּוְקָא, דְּהוּא הַדִּין שׁוֹר שֶׂה וָעֵז, וְלֹא שְׁנָא בַּחֲלֵב אֵם, לֹא שְׁנָא בַּחֲלֵב אַחֶרֶת — אֶלָּא שֶׁדִּבֵּר הַכָּתוּב בַּהוֹוֶה.</strong>"
+<p>&laquo;&nbsp;<span class="he-q">גדי לאו דוקא דהוא הדין שור שה ועז ולא שנא בחלב אם לא שנא בחלב אחרת אלא שדבר הכתוב בהווה</span>&nbsp;&raquo; <span class="source-ref">(שו״ע יו״ד פ״ז:ב)</span></p>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-שני חידושים בסעיף זה:
+<div class="pilpul-box">
+Deux nouveautés tiennent dans ce séif :
 <ol class="stylish">
-<li><strong>"גדי" כולל שור, שה ועז</strong> — כל בהמה טהורה, ולא דווקא עז קטן.</li>
-<li><strong>"בחלב אמו" אינו מעכב</strong> — אסור בחלב כל בהמה טהורה, לא רק חלב אִמּוֹ ממש.</li>
+<li><strong>« Chevreau » englobe le bœuf, l'agneau et la chèvre</strong> — toute bête domestique pure, et non le seul cabri.</li>
+<li><strong>« Dans le lait de sa mère » n'est pas une condition</strong> — l'interdit vaut avec le lait de n'importe quelle bête domestique pure, et non du seul lait maternel.</li>
 </ol>
-שני אלו נלמדים מהכלל "<span class="he-q">דבר הכתוב בהווה</span>" — שהתורה דיברה בלשון המצוי, אך הדין רחב יותר.
+Les deux se déduisent du principe énoncé par le séif lui-même — <span class="he-q">שדבר הכתוב בהווה</span> : la Torah a parlé du cas ordinaire, mais la règle est plus large.
 </div>
 
-<h3 class="he-h3">תחומי האיסור הדאורייתא (סעיף ג')
-  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 העתק</button>
+<h3>L'étendue de l'interdit de la Torah (séif ג)
+  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-6">
-"<strong>אֵינוֹ נוֹהֵג אֶלָּא בִּבְשַׂר בְּהֵמָה טְהוֹרָה בַּחֲלֵב בְּהֵמָה טְהוֹרָה.</strong> אֲבָל בְּשַׂר טְהוֹרָה בַּחֲלֵב טְמֵאָה, אוֹ בְּשַׂר טְמֵאָה בַּחֲלֵב טְהוֹרָה — מֻתָּרִים בְּבִישּׁוּל וּבַהֲנָאָה. וּבְשַׂר חַיָּה וָעוֹף אֲפִלּוּ בַּחֲלֵב טְהוֹרָה מֻתָּר בְּבִישּׁוּל וּבַהֲנָאָה, וְאַף בַּאֲכִילָה אֵינוֹ אָסוּר אֶלָּא מִדְּרַבָּנָן. אֲבָל דָּגִים וַחֲגָבִים אֵין בָּהֶם אִסּוּר אֲפִלּוּ מִדְּרַבָּנָן."
+<p>&laquo;&nbsp;<span class="he-q">אינו נוהג אלא בבשר בהמה טהורה בחלב בהמה טהורה אבל בשר טהורה בחלב טמאה או בשר טמאה בחלב טהורה מותרי׳ בבישול ובהנאה ובשר חיה ועוף אפילו בחלב טהורה מותר בבישול ובהנאה ואף באכילה אינו אסור אלא מדרבנן אבל דגים וחגבים אין בהם איסור אפילו מדרבנן</span>&nbsp;&raquo; <span class="source-ref">(שו״ע יו״ד פ״ז:ג)</span></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד :</strong><br>
-האיסור הדאורייתא הוא <span class="he-q">צירוף שני טהורים</span> — בשר בהמה טהורה + חלב בהמה טהורה. כל סטייה מהצירוף הזה (טמא + טהור, או חיה/עוף + חלב) מוציאה מן האיסור הדאורייתא.
+<div class="yesod-box">
+<strong>Le yessod.</strong><br>
+L'interdit de la Torah tient à la rencontre de <em>deux espèces pures</em> — viande de bête domestique pure et lait de bête domestique pure. Tout écart par rapport à cette rencontre (impur avec pur, ou bête sauvage et volaille avec du lait) sort de l'interdit de la Torah.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">5. שיטת המחבר — בשר חיה ועוף בחלב דרבנן</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">5. La shita du Mehaber — bête sauvage et volaille dans du lait sont déraboanan</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">המקור במשנה (חולין קי״ג.)
-  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 העתק</button>
+<h3>La source dans la michna (Houlin 113a)
+  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-7">
-תנן (חולין קי״ג., פרק כל הבשר, "<span class="he-q">פכ״ה</span>" בלשון הש״ך): בשר חיה ועוף בחלב <strong>מותר בבישול ובהנאה</strong>, ונאסר באכילה רק <strong>מדרבנן</strong>. וכן פסק המחבר בסעיף ג'.
+<p>La michna de Houlin 113a — le chapitre <span class="he-q">כל הבשר</span>, que le Chakh désigne par <span class="he-q">פכ״ה</span> — enseigne que la viande de bête sauvage et de volaille avec du lait est <strong>permise à la cuisson et au profit</strong>, et n'est interdite à la consommation que <strong>des Sages</strong>. C'est ainsi que tranche le Mehaber au séif ג.</p>
 </div>
 
-<h4>לשון הש״ך (ס״ק ד) <button class="daat-copy" type="button" data-copy-target="#cp-8">📋 העתק</button></h4>
+<h4>Les mots du Chakh (ס״ק ד) <button class="daat-copy" type="button" data-copy-target="#cp-8">📋 Copier</button></h4>
 <div class="sacred-text he" data-copy-block id="cp-8">
-<strong>הש״ך</strong> (ס״ק ד) על "<span class="he-q">ובשר חיה ועוף... ואף באכילה כו'</span>" :<br>
-"דעת המחבר דבשר חיה ועוף אינו אסור באכילה אפילו דרך בישול אלא מדרבנן, ומותר בהנאה ובבישול לגמרי... ובספרי החזקתי דברי האומרים שהוא מדרבנן מן הש״ס, והבאתי שם שכן דעת הרבה פוסקים מאד."
+<p>Le <strong>Chakh</strong> (ס״ק ד) commente les mots « et la viande de bête sauvage et de volaille… et même à la consommation » :</p>
+<p style="margin-top:10px;">&laquo;&nbsp;<span class="he-q">דעת המחבר דבשר חיה ועוף אינו אסור באכילה אפילו דרך בישול אלא מדרבנן ומותר בהנאה ובבישול לגמרי</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ד)</span></p>
+<p style="margin-top:10px;">&laquo;&nbsp;<span class="he-q">ובספרי החזקתי דברי האומרים שהוא מדרבנן מן הש״ס והבאתי שם שכן דעת הרבה פוסקים מאד</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ד)</span></p>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-הש״ך תומך במפורש בשיטת המחבר שבשר עוף בחלב דרבנן, ומפרש שאף <strong>מהרא״י</strong> (בעל תרומת הדשן, בהגהת שערי דורא) — שלכאורה החמיר — לא אמר אלא ש"<span class="he-q">קשה להקל נגד התוס'</span>" שלא לאכול גבינה אחר בשר עוף מיד, אבל <strong>לדינא מודה שבשר עוף בחלב דרבנן</strong>. וראיה: בשערי דורא (סי' ס״ט) התיר ביצים גמורות בחלב "<span class="he-q">משום דבשר עוף בחלב דרבנן הקילו</span>".
+<div class="pilpul-box">
+Le Chakh soutient expressément la shita du Mehaber — la volaille dans du lait est déraboanan — et explique que même le <strong>Mahara'i</strong> (auteur du Teroumat ha-Dechen, dans ses gloses au Chaaré Doura), qui paraissait tenir la rigueur, n'a dit que ceci : il est difficile d'alléger contre les Tossafot sur le fait de ne pas manger de fromage immédiatement après de la volaille. Mais pour la règle elle-même, il concède que la volaille dans du lait est déraboanan. Et la preuve : dans le Chaaré Doura (§69), il permet les œufs complètement formés avec du lait, justement parce que, la volaille dans du lait étant déraboanan, les Sages ont allégé.
 </div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">ומהרש״ל והב״ח תלו עצמן בדברי מהרא״י בהגהת ש״ד סי׳ ע״ו במ״ש קשה להקל נגד התוס׳ לכך פסקו דבשר חיה ועוף בחלב דאורייתא</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ד)</span></div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">אבל מודה לדינא דבשר עוף בחלב דרבנן</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ד)</span></div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">דביצים גמורים מותר לאכלן בחלב משום דבשר עוף בחלב דרבנן הקילו</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ד)</span></div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>חיזוק מן הסברה :</strong> הש״ך (ס״ק ג) מסביר מדוע <em>דווקא</em> בעוף גזרו רבנן ולא בצירוף טמא: "<span class="he-q">דבשלמא בבשר עוף שייך שפיר גזירה, שאם היו אוכלים בשר עוף בחלב היו אוכלים גם כן בשר בהמה בחלב</span>" — חשש דמיון. מה שאין כן בבשר טמא, שניכר לעין שאינו בשר בהמה טהורה.
+<div class="nafka-mina-box">
+<strong>L'appui de la sevara.</strong> Le Chakh (ס״ק ג) explique pourquoi le décret porte <em>précisément</em> sur la volaille et non sur la rencontre d'une espèce impure : pour la volaille, un décret se comprend bien — si l'on mangeait de la volaille dans du lait, on finirait par manger de la viande de bête domestique dans du lait. C'est un risque de ressemblance. Il n'en va pas de même pour une viande impure, dont l'œil voit bien que ce n'est pas de la viande de bête domestique pure.
 </div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">דבשלמא בבשר עוף שייך שפיר גזירה שאם היו אוכלי׳ בשר עוף בחלב היו אוכלים ג״כ בשר בהמה בחלב</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ג)</span></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">6. מחלוקת המחבר עם רש״ל והב״ח — האם עוף בחלב דאורייתא</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">6. Le Mehaber contre le Rachal et le Bah — la volaille dans du lait est-elle déoraïta ?</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">שתי השיטות</h3>
+<h3>Les deux shitot</h3>
 
-<div class="machloket-box" dir="rtl">
+<div class="machloket-box">
 <table>
-<tr><th>שיטה</th><th>בשר חיה ועוף בחלב</th><th>מקור</th></tr>
+<tr><th>Shita</th><th>Bête sauvage et volaille dans du lait</th><th>Source</th></tr>
 <tr>
-  <td><strong>המחבר, הש״ך, הרמב״ם, הרא״ה (חינוך), המרדכי</strong></td>
-  <td><strong>מדרבנן</strong> בלבד — מותר בבישול ובהנאה לגמרי</td>
-  <td>חולין קי״ג. במשנה; ש״ך ס״ק ד</td>
+  <td><strong>Le Mehaber, le Chakh, le Rambam, le Raa (Hinoukh), le Mordekhi</strong></td>
+  <td><strong>Des Sages</strong> seulement — permis à la cuisson et au profit, entièrement</td>
+  <td>Houlin 113a, dans la michna ; ש״ך ס״ק ד</td>
 </tr>
 <tr>
-  <td><strong>הרש״ל (ים של שלמה פכ״ה), הב״ח</strong></td>
-  <td>נטו להחמיר ש<strong>דאורייתא</strong> (כשיטת רבי עקיבא בברייתא)</td>
-  <td>"תלו עצמן בדברי מהרא״י... קשה להקל נגד התוס'" (ש״ך ס״ק ד)</td>
+  <td><strong>Le Rachal</strong> (Yam chel Chelomo, chap. 25), <strong>le Bah</strong></td>
+  <td>Ont penché pour la rigueur : <strong>de la Torah</strong></td>
+  <td>ש״ך ס״ק ד, qui rapporte sur quoi ils se sont appuyés</td>
 </tr>
 </table>
 </div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">ומהרש״ל והב״ח תלו עצמן בדברי מהרא״י בהגהת ש״ד סי׳ ע״ו במ״ש קשה להקל נגד התוס׳ לכך פסקו דבשר חיה ועוף בחלב דאורייתא</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ד)</span></div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>הכרעת הש״ך :</strong> דוחה את הרש״ל והב״ח ומוכיח מן הש״ס שעוף בחלב דרבנן. ומביא ראיה מכרעת מן <strong>הרמב״ם</strong> (סוף פ״ב מהלכות ממרים): "<span class="he-q">שהאומר בשר עוף בחלב אסור מן התורה — עובר בבל תוסיף</span>". כלומר, לדעת הרמב״ם, מי שמכריז שעוף בחלב דאורייתא <em>מוסיף</em> על מצוות התורה. זו ראיה חזקה שעוף בחלב דרבנן.
+<div class="pilpul-box">
+<strong>La décision du Chakh.</strong> Il écarte le Rachal et le Bah et prouve depuis le Chass que la volaille dans du lait est déraboanan. Sa preuve la plus forte vient du <strong>Rambam</strong> (fin du chapitre 2 des Hilkhot Mamrim) : celui qui déclare que la volaille dans du lait est interdite de la Torah transgresse « tu n'ajouteras pas ». Autrement dit, pour le Rambam, proclamer déoraïta ce qui est déraboanan, c'est <em>ajouter</em> aux mitsvot de la Torah — ce qui n'aurait aucun sens si la chose était déjà déoraïta.
 </div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">שהאומר בשר עוף בחלב אסור מן התורה עובר בבל תוסיף</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ד)</span></div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הפתחי תשובה</strong> (ס״ק ז) מוסיף בשם <strong>התפארת למשה</strong>:<br>
-"<span class="he-q">והוא הדין איפכא — בשר בהמה טהורה בחלב חיה טהורה אינו אסור מן התורה</span>." כלומר, אף הצד ההפוך (בשר בהמה + חלב חיה) דרבנן בלבד, שהרי החלב אינו של בהמה.
+<div class="rishon-card">
+<strong>Le Pit'hei Techouva</strong> (ס״ק ז) ajoute, au nom du <strong>Tiferet le-Moché</strong>, que la règle vaut aussi en sens inverse : la viande d'une bête domestique pure avec du lait d'une bête sauvage pure n'est pas non plus interdite de la Torah — car le lait n'est pas celui d'une bête domestique.
 </div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">וה״ה איפכא בשר בהמה טהורה בחלב חיה טהורה אינו אסור מה״ת</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד פ״ז ס״ק ז)</span></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">7. פלוגתת בשר בחלב בהנאה — המחבר/ש״ך נגד הט״ז</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">7. Le débat sur le profit — le Mehaber et le Chakh face au Rachal</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">דברי המחבר והרמ״א
-  <button class="daat-copy" type="button" data-copy-target="#cp-9">📋 העתק</button>
+<h3>Les mots du Mehaber et du Rama
+  <button class="daat-copy" type="button" data-copy-target="#cp-9">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-9">
-המחבר (בלשון הרמ״א בסעיף א'): "<span class="he-q">כל בשר בחלב שאינו אסור מן התורה — מותר בהנאה</span>" (טור ואיסור והיתר כלל ל'). כלומר, בשר עוף בחלב, שאיסורו באכילה רק דרבנן — <strong>מותר בהנאה אף מדרבנן</strong>.
+<p>La glose du séif א pose la règle générale : tout mélange de viande et de lait que la Torah n'interdit pas est permis au profit. La volaille dans du lait, dont l'interdit de consommation n'est que des Sages, est donc <strong>permise au profit, même des Sages</strong>.</p>
+<p style="margin-top:10px;">&laquo;&nbsp;<span class="he-q">כל בשר בחלב שאינו אסור מן התורה מותר בהנאה</span>&nbsp;&raquo; <span class="source-ref">(רמ״א יו״ד פ״ז:א)</span></p>
 </div>
 
-<h4>לשון הש״ך (ס״ק ב) <button class="daat-copy" type="button" data-copy-target="#cp-10">📋 העתק</button></h4>
+<h4>Les mots du Chakh (ס״ק ב) <button class="daat-copy" type="button" data-copy-target="#cp-10">📋 Copier</button></h4>
 <div class="sacred-text he" data-copy-block id="cp-10">
-<strong>הש״ך</strong> (ס״ק ב) מאריך לבסס דעה זו: "<span class="he-q">דבשר עוף בחלב שאינו אסור באכילה אלא מדרבנן — מותר בהנאה אף מדרבנן. וכן דעת הרא״ה בספר החינוך מצוה קי״ג, וכן דעת הרמב״ם פ״ט מהמ״א ד״ד להדיא... וכן כתב המרדכי ב'פרק אין מעמידין' מאור זרוע, דעל ידי כבוש או על ידי מליחה מותר בהנאה</span>."
+<p>Le <strong>Chakh</strong> (ס״ק ב) s'étend longuement pour fonder cet avis :</p>
+<p style="margin-top:10px;">&laquo;&nbsp;<span class="he-q">דבשר עוף בחלב שאינו אסור באכילה אלא מדרבנן מותר בהנאה אף מדרבנן וכן דעת הרא״ה בס׳ החינוך מצוה קי״ג וכן דעת הרמב״ם פ״ט מהמ״א ד״ד להדיא</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ב)</span></p>
+<p style="margin-top:10px;">&laquo;&nbsp;<span class="he-q">וכ״כ המרדכי פ׳ אין מעמידין והגהת אשר״י פ׳ בתרא דע״ז מא״ז דעל ידי כבוש או ע״י מליחה מותר בהנא׳</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ב)</span></p>
 </div>
 
-<h3 class="he-h3">השגת הט״ז — מחלוקת אמיתית מן הקורפוס
-  <button class="daat-copy" type="button" data-copy-target="#cp-11">📋 העתק</button>
+<h3>La remarque du Taz — une ma'hloket réelle, prise dans le corpus
+  <button class="daat-copy" type="button" data-copy-target="#cp-11">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-11">
-<strong>הט״ז</strong> (ס״ק א) על "<span class="he-q">שאינו אסור מן התורה מותר בהנאה</span>" :<br>
-"<strong>רש״ל פרק כ״ה סימן ק' חולק על זה, ועל מה שכתב הרמב״ם והמרדכי, וסבירא ליה מסברא להחמיר בהנאה. וְאָנוּ אֵין לָנוּ אֶלָּא דִּבְרֵי הָרִאשׁוֹנִים וְהָאַחֲרוֹנִים.</strong>"
+<p>Le <strong>Taz</strong> (ס״ק א), sur les mots « ce qui n'est pas interdit de la Torah est permis au profit » :</p>
+<p style="margin-top:10px;">&laquo;&nbsp;<span class="he-q">רש״ל פ׳ כ״ה סי׳ ק׳ חולק על זה ועל מ״ש הרמב״ם והמרדכי וס״ל מסברא להחמיר בהנאה. ואנו אין לנו אלא דברי הראשונים והאחרונים</span>&nbsp;&raquo; <span class="source-ref">(ט״ז יו״ד פ״ז ס״ק א)</span></p>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>ניתוח הפלוגתא :</strong> כאן מצינו שלוש דעות מתוך הקורפוס עצמו —
+<div class="pilpul-box">
+<strong>Analyse du débat.</strong> Trois positions sortent ici du corpus lui-même :
 <ul class="stylish">
-<li><strong>הרש״ל</strong> (ים של שלמה פכ״ה סי' ק') — מחמיר <em>מסברה</em> לאסור אף בהנאה את בשר עוף בחלב.</li>
-<li><strong>הש״ך</strong> (ס״ק ב) — מתיר בהנאה, ומבסס על רוב הראשונים (רמב״ם, רא״ה, מרדכי).</li>
-<li><strong>הט״ז</strong> (ס״ק א) — <em>מכריע כמו הש״ך</em>: "<span class="he-q">אנו אין לנו אלא דברי הראשונים</span>" — ודוחה את סברת הרש״ל מפני שאין לה מקור בראשונים.</li>
+<li><strong>Le Rachal</strong> (Yam chel Chelomo, chap. 25 §100) — tient la rigueur <em>par raisonnement</em> et interdit au profit même la volaille dans du lait.</li>
+<li><strong>Le Chakh</strong> (ס״ק ב) — permet le profit, et s'appuie sur le Rambam, le Raa et le Mordekhi.</li>
+<li><strong>Le Taz</strong> (ס״ק א) — écarte le Rachal et conclut comme le Chakh : nous n'avons que les paroles des Richonim et des Aharonim.</li>
 </ul>
-כאן הט״ז והש״ך <strong>מסכימים</strong> נגד הרש״ל — וזו דוגמה שבה שני נושאי הכלים העיקריים מאוחדים.
+Ici, le Taz et le Chakh <strong>se rejoignent</strong> contre le Rachal — c'est un endroit où les deux nossé kelim principaux disent la même chose.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הפתחי תשובה</strong> (ס״ק ד) מאריך בנפקא מינה למעשה: <strong>חמאה שנתבשלה בקדרה של בשר בת יומה</strong> — האם מותר להדליק בה נר? בשם <strong>שער אפרים</strong> (סי' ל״ח): אסור להדליק בה, אף לנר חנוכה, "<span class="he-q">כיון דאסור בהנאה כתותי מכתת שיעורא</span>". וראה שם אריכות ופלוגתת אחרונים. <em>למעשה — שאל את רבך.</em>
+<div class="rishon-card">
+<strong>Le Pit'hei Techouva</strong> (ס״ק ד) s'étend sur une nafka mina pratique : du <strong>beurre cuit dans une marmite à viande utilisée le jour même</strong> — peut-on l'employer pour allumer une lampe ? Au nom du <strong>Chaar Efraïm</strong> (responsum 38) : il est interdit de s'en éclairer, et même pour les lumières de Hanouka — car là une mesure est requise, et ce qui est interdit au profit est tenu pour pulvérisé, comme sans mesure. Le Pit'hei Techouva rapporte sur place une longue discussion des Aharonim. <em>Pour la pratique — demandez à votre Rav.</em>
 </div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">שפסק בחמאה שנתבשלה בקדרה של בשר ב״י אסור להדליק בה להאיר הבית מטעם שאסור בהנאה</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד פ״ז ס״ק ד)</span></div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">כיון שאסור בהנאה כתותי מכתת שיעורא</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד פ״ז ס״ק ד)</span></div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">8. מחלוקת הש״ך והט״ז — האם רבנן גזרו במין אחד טמא</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">8. Ma'hloket du Chakh et du Taz — les Sages ont-ils décrété quand l'une des espèces est impure ?</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
 
-<p style="margin: 15px 0; font-style: italic; direction: rtl; text-align: right;">זוהי המחלוקת המרכזית של הסימן בין הש״ך לט״ז, ונציג תחילה את לשון שניהם מן הקורפוס, ואחר כך את הניתוח.</p>
+<p style="margin: 15px 0; font-style: italic;">C'est la ma'hloket centrale du siman entre le Chakh et le Taz. On donne d'abord les mots de l'un et de l'autre, pris dans le corpus, et l'analyse vient ensuite.</p>
 
-<h3 class="he-h3">רקע הקושיא של הב״י
-  <button class="daat-copy" type="button" data-copy-target="#cp-12">📋 העתק</button>
+<h3>Le point de départ : la difficulté du Beit Yossef
+  <button class="daat-copy" type="button" data-copy-target="#cp-12">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-12">
-לשון הטור: "<span class="he-q">אבל בשר טהורה בחלב טמאה או בשר טמאה בחלב טהורה ובשר חיה ועוף אפילו בחלב טהורה — אינו אלא מדרבנן ומותר בבישול ובהנאה</span>". והקשה <strong>הב״י</strong>: הלשון "אינו אלא מדרבנן" אינו מכוון, שהרי בבשר טמא או חלב טמא — <strong>כבר אסור מן התורה</strong> משום טומאה, ומה ענין לגזור עליו דרבנן משום בשר בחלב ?
+<p>Les mots du Tour, tels que le Chakh les rapporte :</p>
+<p style="margin-top:10px;">&laquo;&nbsp;<span class="he-q">אבל בשר טהורה בחלב בהמה טמאה או בשר טמאה בחלב טהורה ובשר חיה ועוף אפילו בחלב טהורה אינו אלא מדרבנן ומותר בבישול ובהנאה</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ג)</span></p>
+<p style="margin-top:10px;">Le <strong>Beit Yossef</strong> objecte que la formule « ce n'est que des Sages » ne tombe pas juste : quand la viande ou le lait est impur, la chose est <strong>déjà interdite de la Torah</strong> au titre de l'impureté, et il n'y avait aucune raison d'y ajouter un décret des Sages au titre de bassar be-halav.</p>
+<p style="margin-top:10px;">&laquo;&nbsp;<span class="he-q">דמ״ש אינו אלא מדרבנן לא מצי קאי אלא לחיה ועוף בחלב טהורה</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ג)</span></p>
+<p style="margin-top:10px;">&laquo;&nbsp;<span class="he-q">וגם לא היה ענין לאסרו מדבריהם אחר שכבר הוא אסור ועומד מן התורה משום בשר טמא או חלב טמא</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ג)</span></p>
 </div>
 
-<h3 class="he-h3">לשון הש״ך (ס״ק ג)
-  <button class="daat-copy" type="button" data-copy-target="#cp-13">📋 העתק</button>
+<h3>Les mots du Chakh (ס״ק ג)
+  <button class="daat-copy" type="button" data-copy-target="#cp-13">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-13">
-"<strong>לכך תיקן כאן הלשון [המחבר] ויפה כיון</strong>, אלא שהב״ח השיג עליו ופירש דהטור אתא לאשמועינן דמכל מקום מדרבנן אסורה משום בשר בחלב, ונפקא מינה לענין <strong>חתיכה נעשית נבילה</strong>... <strong>ולפענ״ד זה אינו</strong>, דודאי לא אשכחן בשום דוכתא... וגם מפרש״י והר״ן משמע להדיא דלית בהו איסור משום בשר בחלב כלל אפילו מדרבנן... אבל מה ענין לגזור שבשר בהמה טהורה בחלב טמאה או איפכא יֵאסר משום בשר בחלב, דהא בלאו הכי ליכא למיחש למידי כיון דבלאו הכי אסור משום בשר או חלב טמאה."
+<p style="margin-top:10px;">&laquo;&nbsp;<span class="he-q">לכך תיקן כאן הלשון ויפה כוון</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ג)</span></p>
+<p style="margin-top:10px;">&laquo;&nbsp;<span class="he-q">אלא שהב״ח השיג עליו ופי׳ דהטור אתא לאשמועינן דמ״מ מדרבנן אסור׳ משום בשר בחלב ונ״מ לענין חתיכה נעשית נבילה</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ג)</span></p>
+<p style="margin-top:10px;">&laquo;&nbsp;<span class="he-q">ולפע״ד ז״א דודאי לא אשכחן בשום דוכתא</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ג)</span></p>
+<p style="margin-top:10px;">&laquo;&nbsp;<span class="he-q">משמע להדיא דלית בהו איסור משום בשר בחלב כלל אפילו מדרבנן</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ג)</span></p>
+<p style="margin-top:10px;">&laquo;&nbsp;<span class="he-q">אבל מה ענין לגזור שבשר בהמה טהורה בחלב טמאה או איפכא יאסר משום בשר בחלב דהא בלאו הכי ליכא למיחש למידי כיון דבלאו הכי אסור משום בשר או חלב טמאה</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ג)</span></p>
 </div>
 
-<h3 class="he-h3">לשון הט״ז (ס״ק ב)
-  <button class="daat-copy" type="button" data-copy-target="#cp-14">📋 העתק</button>
+<p>Le Chakh dit donc trois choses : le Mehaber a bien fait de reformuler la phrase du Tour ; le Bah l'a contesté en soutenant que le Tour voulait précisément nous apprendre qu'un interdit des Sages subsiste, avec pour conséquence la règle du <span class="he-q">חתיכה נעשית נבילה</span> ; et lui-même, le Chakh, le refuse — on ne trouve cela nulle part, Rachi et le Ran montrent le contraire, et il n'y a même aucune raison de décréter là où l'aliment est de toute façon interdit.</p>
+
+<h3>Les mots du Taz (ס״ק ב)
+  <button class="daat-copy" type="button" data-copy-target="#cp-14">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-14">
-"<strong>הקשה ב״י דאם מין אחד טמא הא אסור באכילה מדאורייתא, ולמה להו למיגזר עליו איסור בשר בחלב לאכילה. ובדרישה ומו״ח [=הב״ח] ז״ל מתרצים דיש נפקא מינה בגזרה זו, דלהוי בו דין חתיכה עצמה נעשית נבילה... ולא דקו רבנן בזה</strong>... אלא ברור דמה שכתב הטור שאינו אלא מדרבנן — לא קאי רק אבשר עוף, ולא כלל בשר טמא או חלב טמא עמו, רק לענין שיהא מותר בהנאה ובבישול כמו שכתב ב״י. ומשום הכי <strong>יפה עשה בשלחן ערוך שלא העתיק זה</strong>, ומו״ח ז״ל כתב דאינו נכון, ולי נראה שהדין עמו בבירור."
+<p style="margin-top:10px;">&laquo;&nbsp;<span class="he-q">הקשה ב״י דאם מין אחד טמא הא אסור באכילה מדאורייתא ולמה להו למיגזר עליו איסור בשר בחלב לאכילה</span>&nbsp;&raquo; <span class="source-ref">(ט״ז יו״ד פ״ז ס״ק ב)</span></p>
+<p style="margin-top:10px;">&laquo;&nbsp;<span class="he-q">ובדרישה ומו״ח ז״ל מתרצים דיש נ״מ בגזרה זו דלהוי בו דין חתיכה עצמה נעשית נבילה</span>&nbsp;&raquo; <span class="source-ref">(ט״ז יו״ד פ״ז ס״ק ב)</span></p>
+<p style="margin-top:10px;">&laquo;&nbsp;<span class="he-q">ולא דקו רבנן בזה כבודם במקומם מונח</span>&nbsp;&raquo; <span class="source-ref">(ט״ז יו״ד פ״ז ס״ק ב)</span></p>
+<p style="margin-top:10px;">&laquo;&nbsp;<span class="he-q">ומ״ה יפה עשה בש״ע שלא העתיק זה ומו״ח ז״ל כתב דאינו נכון ולי נראה שהדין עמו בבירור</span>&nbsp;&raquo; <span class="source-ref">(ט״ז יו״ד פ״ז ס״ק ב)</span></p>
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה המדויקת :</strong> כשמין אחד מן השניים טמא (בשר טמא + חלב טהור, או להפך) —
+<p>Le Taz ajoute une raison que le Chakh ne donne pas, et elle mérite d'être relevée : si Rabbenou Efraïm est plus sévère pour bassar be-halav, c'est parce que chacun des deux composants est permis à part et que l'interdit ne naît que du mélange, les deux devenant un seul corps. Cela ne vaut pas là où l'une des espèces est impure, puisqu'un interdit de la Torah y est déjà présent sans aucun mélange.</p>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">דהא עיקר הטעם לרבינו אפרים דמחמיר בבשר בחלב הוא מטעם שכל אחד בפני עצמו מותר רק בתערובות אסורים ונעשים גוף אחד</span>&nbsp;&raquo; <span class="source-ref">(ט״ז יו״ד פ״ז ס״ק ב)</span></div>
+
+<div class="hakira-box">
+<strong>La hakira, énoncée exactement.</strong> Quand l'une des deux espèces est impure — viande impure avec lait pur, ou l'inverse :
 <ul class="stylish">
-<li>(א) האם רבנן <strong>גם גזרו</strong> עליו איסור בשר בחלב נוסף (כדעת הב״ח ובעל הדרישה), כך שתחול עליו חומרת "<span class="he-q">חתיכה נעשית נבילה</span>" המיוחדת לבשר בחלב ?</li>
-<li>(ב) או שאין כאן <strong>שום</strong> שייכות לאיסור בשר בחלב, וכל איסורו אך משום טומאה (כדעת הב״י, הש״ך והט״ז) ?</li>
+<li>(a) Les Sages ont-ils <strong>décrété en outre</strong> un interdit de bassar be-halav, de sorte que s'y applique la rigueur propre à ce domaine, <span class="he-q">חתיכה נעשית נבילה</span> — telle est la lecture du Bah et de la Derisha ?</li>
+<li>(b) Ou bien n'y a-t-il <strong>aucun</strong> rapport avec bassar be-halav, tout l'interdit venant de l'impureté seule — telle est la lecture du Beit Yossef, du Chakh et du Taz ?</li>
 </ul>
 </div>
 
-<div class="teruts-box" dir="rtl">
-<strong>הכרעה :</strong> <em>הש״ך והט״ז מאוחדים נגד הב״ח.</em> שניהם פוסקים שבמין אחד טמא <strong>אין שום</strong> איסור בשר בחלב, אלא רק איסור טומאה. הט״ז אף מדייק מן המשנה: "<span class="he-q">במתני' תנן בבהמה טמאה מותר בבישול והנאה, ופירש רש״י — אבל אכילה לא הזכיר דמותר, כיון דיש איסור מחמת טומאה. שמע מינה דבלאו טומאה אין שום שייכות איסור בזה</span>". ומסקנת הט״ז: "<span class="he-q">פשוט דבמין אחד טמא הוי כשאר איסורין ממש</span>".
+<div class="teruts-box">
+<strong>Où cela aboutit.</strong> <em>Le Chakh et le Taz sont du même côté contre le Bah.</em> L'un comme l'autre tiennent que, lorsqu'une espèce est impure, il n'y a <strong>aucun</strong> interdit de bassar be-halav, mais seulement l'interdit d'impureté. Le Taz le déduit en outre de la michna : elle enseigne que, pour une bête impure, la cuisson et le profit sont permis, et Rachi remarque qu'elle n'a pas mentionné la consommation comme permise, parce qu'un interdit d'impureté demeure — signe que, l'impureté mise à part, aucun interdit ne s'attache ici. Sa conclusion : quand l'une des espèces est impure, la chose relève des interdits ordinaires, purement et simplement.
 </div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">במתני׳ תנן בבהמה טמאה מותר בבישול והנאה ופירש״י אבל אכילה לא הזכיר דמותר כיון דיש איסור מחמת טומאה ש״מ דבלאו טומאה אין שום שייכות איסור בזה</span>&nbsp;&raquo; <span class="source-ref">(ט״ז יו״ד פ״ז ס״ק ב)</span></div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">אלא פשוט דבמין אחד טמא הוי כשאר איסורין ממש</span>&nbsp;&raquo; <span class="source-ref">(ט״ז יו״ד פ״ז ס״ק ב)</span></div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה (לפי הב״ח שנדחה) :</strong> "<span class="he-q">חתיכה הראויה להתכבד</span>" (סי' ק״א) ו"<span class="he-q">חתיכה נעשית נבילה</span>" (סי' צ״ב) חלות באיסור בשר בחלב בצורה מיוחדת. אילו היה כאן איסור דרבנן של בשר בחלב, היו חלות גם כאן. אך לפי המסקנה (ש״ך + ט״ז) — אין כאן בשר בחלב כלל, ודינו <strong>כשאר איסורים</strong>. <em>למעשה — שאל את רבך.</em>
+<div class="nafka-mina-box">
+<strong>La nafka mina — selon le Bah, dont l'avis est écarté.</strong> Les règles du <span class="he-q">חתיכה הראויה להתכבד</span> (siman 101) et du <span class="he-q">חתיכה נעשית נבילה</span> (siman 92) s'appliquent à bassar be-halav d'une manière particulière. S'il y avait ici un interdit des Sages de bassar be-halav, elles s'y appliqueraient aussi. Mais selon la conclusion du Chakh et du Taz, il n'y a ici pas de bassar be-halav du tout, et la chose suit le régime des <strong>autres interdits</strong>. <em>Pour la pratique — demandez à votre Rav.</em>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">9. סוגיית מראית העין — חלב שקדים, חלב אשה, חלב טמאה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-rama">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">9. La sougya de la mar'it ha-ayin — lait d'amandes, lait de femme, lait d'animal impur</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-rama">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון הרמ״א (סעיף ג')
-  <button class="daat-copy" type="button" data-copy-target="#cp-15">📋 העתק</button>
+<h3>Les mots du Rama (séif ג)
+  <button class="daat-copy" type="button" data-copy-target="#cp-15">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-15">
-<strong>הגה (הרמ״א)</strong>: "<span class="he-q">ונהגו לעשות חלב משקדים ומניחים בה בשר עוף, הואיל ואינו רק מדרבנן. אבל בשר בהמה — יש להניח אצל החלב שקדים, משום מראית העין</span>" (כמו שנתבאר לעיל סי' ס״ו לענין דם).
+<p>&laquo;&nbsp;<span class="he-q">ונהגו לעשות חלב משקדים ומניחים בה בשר עוף הואיל ואינו רק מדרבנן אבל בשר בהמה יש להניח אצל החלב שקדים משום מראית העין</span>&nbsp;&raquo; <span class="source-ref">(רמ״א יו״ד פ״ז:ג)</span></p>
 </div>
 
-<h3 class="he-h3">פלוגתת הש״ך והמהרש״ל בבשר עוף</h3>
+<h3>Le débat du Chakh et du Maharchal sur la volaille</h3>
 
-<div class="machloket-box" dir="rtl">
+<div class="machloket-box">
 <table>
-<tr><th>שיטה</th><th>בשר עוף בחלב שקדים — צריך להניח שקדים ?</th></tr>
+<tr><th>Shita</th><th>Volaille avec du lait d'amandes — faut-il poser des amandes à côté ?</th></tr>
 <tr>
-  <td><strong>הרמ״א (פשט)</strong></td>
-  <td>בבשר בהמה — כן; בבשר עוף — <strong>אין צריך</strong>, "הואיל ואינו רק מדרבנן".</td>
+  <td><strong>Le Rama, au sens simple</strong></td>
+  <td>Pour la viande de bête domestique, oui ; pour la volaille, <strong>ce n'est pas nécessaire</strong>, « puisque ce n'est que des Sages ».</td>
 </tr>
 <tr>
-  <td><strong>המהרש״ל</strong> (פכ״ה סי' נ״ב)</td>
-  <td><strong>אף בעוף צריך</strong> להניח שקדים, "<span class="he-q">דאיכא למיחש טפי שלא ידמו לומר בשר עוף בחלב שרי אפילו מדרבנן כרבי יוסי הגלילי</span>".</td>
+  <td><strong>Le Maharchal</strong> (chap. 25 §52)</td>
+  <td><strong>Même pour la volaille il le faut</strong> : il y a même davantage à craindre qu'on n'en vienne à dire que la volaille dans du lait est permise même des Sages, comme l'opinion de Rabbi Yossé ha-Guelili.</td>
 </tr>
 <tr>
-  <td><strong>הש״ך</strong> (ס״ק ו)</td>
-  <td>מסכים עם המהרש״ל: "<span class="he-q">וכן הסכימו האחרונים וכן נראה לפענ״ד, דהא אפילו במידי דרבנן חיישינן למראית העין בכמה דוכתי</span>" — ומביא ראיה משבת נ״ד (זוג פקוק).</td>
+  <td><strong>Le Chakh</strong> (ס״ק ו)</td>
+  <td>Se range au Maharchal : ainsi ont conclu les Aharonim, et ainsi lui paraît-il — car même pour une chose des Sages on prend garde à la mar'it ha-ayin en bien des endroits. Il l'appuie sur Chabbat 54b (la clochette bouchée).</td>
 </tr>
 </table>
 </div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">ובפרט גבי בשר עוף דאיכא למיחש טפי שלא ידמו לומר בשר עוף בחלב שרי אפי׳ מדרבנן כר״י הגלילי</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ו)</span></div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">וכן הסכימו האחרונים וכן נלפע״ד</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ו)</span></div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">דהא אפילו במידי דרבנן חיישינן למראית העין בכמה דוכתי</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ו)</span></div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>דיוק הש״ך (ס״ק ז) :</strong> כל דין מראית עין שייך <em>דווקא בבישול לאכילה</em>. שכן בבישול לחוד (לרפואה וכדומה) — אין מראית עין, שהרי יתכן שמבשל לצורך אחר. ולכן לשון המחבר "<span class="he-q">אסור לבשלם</span>" (בחלב אשה, סעיף ד') פירושו <strong>"לאכלם"</strong>, וכלשונו: "<span class="he-q">וכהאי גוונא מצינו במקרא ומשנה דאפקיה לאכילה בלשון בישול</span>" — שוב היסוד מסעיף א'.
+<div class="pilpul-box">
+<strong>La précision du Chakh (ס״ק ז).</strong> Toute la question de la mar'it ha-ayin ne se pose <em>que lorsque la cuisson est faite pour être mangée</em>. Pour la cuisson seule — à fin de remède, par exemple — il n'y a pas de mar'it ha-ayin, puisqu'il se peut fort bien qu'on cuise pour un autre usage. C'est pourquoi, lorsque le Mehaber écrit « il est interdit de les cuire » (à propos du lait de femme, séif ד, et des œufs, séif ה), il faut l'entendre au sens de « de les manger » — et le Chakh ajoute que l'Écriture et la michna ont déjà, ailleurs, dit la consommation sous le mot de cuisson. C'est le yessod du séif א qui revient.
 </div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">דודאי בבישול לחודיה ליכא משום מראית העין דהא יכול להיות שמבשל לצורך רפואה או שאר דברים</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ז)</span></div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">והאי אסור לבשל היינו לאכול</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ז)</span></div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">וכה״ג מצינו במקרא ומשנה דאפקיה לאכילה בלשון בישול</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ז)</span></div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">אלא האי לבשלם ר״ל לאכלם</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק י״א)</span></div>
 
-<h3 class="he-h3">חלב טמאה — מדוע אין בו מראית עין (ט״ז ס״ק ה / ש״ך ס״ק ז)</h3>
+<h3>Lait d'animal impur — pourquoi il n'y a pas là de mar'it ha-ayin (ש״ך ס״ק ז · ט״ז ס״ק ה)</h3>
 
-<div class="rishon-card" dir="rtl">
-<strong>הש״ך</strong> (ס״ק ז) מבחין: בחלב טמאה או בשר טמא אין מראית עין, "<span class="he-q">דניכר לעין שהוא בשר טמא</span>", ומביא מעבודה זרה (ל״ה:): "<span class="he-q">חלב טהור — חיוור [לבן], טמא — ירוק</span>". אבל חלב אשה וחלב שקדים אינם ניכרים — ולכן אסורים משום מראית העין.
+<div class="rishon-card">
+<strong>Le Chakh</strong> (ס״ק ז) fait la distinction : pour un lait ou une viande impurs, il n'y a pas de mar'it ha-ayin, parce que l'œil voit bien qu'il s'agit de viande impure ; et il cite Avoda Zara 35b — le lait pur est blanc, l'impur est verdâtre. Le lait de femme et le lait d'amandes, eux, ne se reconnaissent pas : ils tombent donc sous la mar'it ha-ayin.
 </div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">בבשר טמא ליכא למיחש למראית העין דניכר לעין שהוא בשר טמא</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ז)</span></div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">חלב טהור חיור טמא ירוק</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ז)</span></div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">אבל חלב אשה וחלב שקדים לא מינכר ואסור משום מראית העין</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ז)</span></div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הט״ז</strong> (ס״ק ה, בקטע הארוך על דברי הרשב״א ב"ונראה לפי זה") חולק על הרמ״א ומחמיר אף יותר: "<span class="he-q">פשוט בעיני דכל שכן שיש לאסור מפני מראית העין לבשל בשר עוף בחלב, שגזרו בו רבנן בהדיא איסור בשר וחלב, ולחד תנא הוי באמת דאורייתא</span>". כלומר, לדעת הט״ז בעוף יש לחוש למראית עין <em>יותר</em> מבטמאה, מפני פלוגתת רבי יוסי הגלילי.
+<div class="rishon-card">
+<strong>Le Taz</strong> (ס״ק ה, dans le long développement sur les mots du Rachba « et il apparaît d'après cela ») raisonne autrement et va plus loin que le Rama. Pour lui, le décret de mar'it ha-ayin ne porte que sur ce dont chaque composant, pris à part, est propre à être mangé — car alors seulement la chose ressemble à de la viande pure avec du lait pur. Quand la viande ou le lait est impur, il n'y a pas de ressemblance, et c'est pour cela qu'on n'y a pas décrété. Mais, précisément d'après cela, il lui paraît évident qu'il y a d'autant plus lieu d'interdire, au titre de la mar'it ha-ayin, de cuire de la volaille dans du lait : les Sages y ont expressément décrété un interdit de viande et de lait, et pour un tanna la chose est même déoraïta.
 </div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">דנראה דלא גזרו משום מראית עין אלא במידי דכשר לאכילה כל אחד לחוד דאז דומה לבשר טהור וחלב טהור</span>&nbsp;&raquo; <span class="source-ref">(ט״ז יו״ד פ״ז ס״ק ה)</span></div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">משא״כ באם החלב טמא או הבשר טמא אין דומה לבשר בחלב של טהורים וע״כ לא גזרו שם מפני מראית עין</span>&nbsp;&raquo; <span class="source-ref">(ט״ז יו״ד פ״ז ס״ק ה)</span></div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">פשוט בעיני דלפי זה כל שכן שיש לאסור מפני מראית עין לבשל בשר עוף בחלב שגזרו בו רבנן בהדיא איסור בשר וחלב ולחד תנא הוי באמת דאוריי׳</span>&nbsp;&raquo; <span class="source-ref">(ט״ז יו״ד פ״ז ס״ק ה)</span></div>
 
-<h3 class="he-h3">חלב אשה (סעיף ד')
-  <button class="daat-copy" type="button" data-copy-target="#cp-16">📋 העתק</button>
+<div class="pilpul-box">
+Le Taz l'écrit d'ailleurs déjà à son ס״ק ד : il convient a priori de poser des amandes aussi à côté de la volaille, mais là où l'on n'en a pas, on n'interdira pas pour autant le plat.
+</div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">נראה שיש להניח לכתחלה שקדים גם אצל בשר עוף אלא במקום שאין לו שקדים אין לאסור בשביל זה האכילה</span>&nbsp;&raquo; <span class="source-ref">(ט״ז יו״ד פ״ז ס״ק ד)</span></div>
+
+<h3>Le lait de femme (séif ד)
+  <button class="daat-copy" type="button" data-copy-target="#cp-16">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-16">
-"<span class="he-q">אסור לבשל בחלב אשה מפני מראית העין, ואם נפל לתוך התבשיל בטל ואין צריך שיעור</span>". <strong>הגה</strong>: "<span class="he-q">ונראה לפי זה דכל שכן דאסור לבשל לכתחילה בחלב טמאה או בשר טמא בחלב טהור, ודוקא בשר בהמה, אבל בעוף דרבנן אין לחוש</span>".
+<p style="margin-top:10px;">&laquo;&nbsp;<span class="he-q">אסור לבשל בחלב אשה מפני מראית העין ואם נפל לתוך התבשיל בטל ואין צריך שיעור</span>&nbsp;&raquo; <span class="source-ref">(שו״ע יו״ד פ״ז:ד)</span></p>
+<p style="margin-top:10px;">&laquo;&nbsp;<span class="he-q">ונראה לפי זה דכל שכן דאסור לבשל לכתחלה בחלב טמאה או בשר טמא בחלב טהור</span>&nbsp;&raquo; <span class="source-ref">(רמ״א יו״ד פ״ז:ד)</span></p>
+<p style="margin-top:10px;">&laquo;&nbsp;<span class="he-q">ודוקא בשר בהמה אבל בעוף דרבנן אין לחוש</span>&nbsp;&raquo; <span class="source-ref">(רמ״א יו״ד פ״ז:ד)</span></p>
 </div>
 
-<div class="kashya-box" dir="rtl">
-<strong>הש״ך (ס״ק ח) :</strong> "<span class="he-q">אבל בעוף דרבנן אין לחוש — נמשך לשיטתו בסעיף ג', אבל לפי מה שכתבתי בס״ק ו' [כדעת המהרש״ל] אף בעוף יש לחוש</span>". כלומר, לפי הכרעת הש״ך עצמו, גם בעוף יש מראית עין, ודלא כפשט הרמ״א.
+<div class="kashya-box">
+<strong>Le Chakh (ס״ק ח)</strong> relève que le « mais pour la volaille, qui n'est que des Sages, il n'y a pas lieu de craindre » du Rama suit sa propre position du séif ג ; mais que, d'après ce que lui-même a écrit au ס״ק ו — c'est-à-dire avec le Maharchal —, il y a lieu de craindre même pour la volaille. Autrement dit : selon la décision du Chakh, la mar'it ha-ayin vaut aussi pour la volaille, et non comme le sens simple du Rama.
 </div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">נמשך לשיטתו בסעיף ג׳ אבל לפי מ״ש בס״ק ו׳ אף בעוף יש לחוש</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ח)</span></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">10. חלב זכר וחלב מתה — דאורייתא, דרבנן או פטור</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">10. Lait de mâle et lait de bête morte — déoraïta, déraboanan, ou exemption</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ו')
-  <button class="daat-copy" type="button" data-copy-target="#cp-17">📋 העתק</button>
+<h3>Les mots du Mehaber et du Rama (séif ו)
+  <button class="daat-copy" type="button" data-copy-target="#cp-17">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-17">
-המחבר: "<span class="he-q">המבשל בשר במי חלב, או בחלב מתה, או בחלב זכר, או שבישל דם בחלב — פטור, ואין לוקין על אכילתו משום בשר בחלב</span>". <strong>הגה</strong>: "<span class="he-q">וחלב זכר לא מיקרי חלב כלל, ואם נפל לתוך קדירה של בשר אינו אוסר. אבל חלב מתה ומי חלב — אוסרים המאכל כמו חלב עצמה, ואפילו בבישול יש לאסור לכתחילה</span>".
+<p style="margin-top:10px;">&laquo;&nbsp;<span class="he-q">וכן המבשל בשר במי חלב או בחלב מתה או בחלב זכר או שבישל דם בחלב פטור ואין לוקין על אכילתו משום בשר בחלב</span>&nbsp;&raquo; <span class="source-ref">(שו״ע יו״ד פ״ז:ו)</span></p>
+<p style="margin-top:10px;">&laquo;&nbsp;<span class="he-q">וחלב זכר לא מיקרי חלב כלל ואם נפל לתוך קדירה של בשר אינו אוסר אבל חלב מתה ומי חלב אוסרים המאכל כמו חלב עצמה ואפילו בבישול יש לאסור לכתחלה</span>&nbsp;&raquo; <span class="source-ref">(רמ״א יו״ד פ״ז:ו)</span></p>
 </div>
 
-<h3 class="he-h3">דיוק "פטור אבל אסור"</h3>
+<h3>La précision : « exempt » ne veut pas dire « permis »</h3>
 
-<div class="pilpul-box" dir="rtl">
-<strong>הש״ך</strong> (ס״ק יג) על "<span class="he-q">אין לוקין עליו</span>": "<span class="he-q">אבל איסורא מיהא איכא</span>". וכן בחלב מתה (ס״ק יד): "<span class="he-q">חלב שיצא ממנה לאחר מיתתה, ולא שנא מתה מעצמה או נשחטה</span>". <strong>הכלל :</strong> "פטור" אינו "מותר" — אלא <em>פטור ממלקות אבל אסור מדרבנן</em>.
+<div class="pilpul-box">
+Le <strong>Chakh</strong> (ס״ק י״ג), sur les mots « on n'en est pas passible de malkot », précise qu'un interdit demeure malgré tout. Et sur le lait d'une bête morte (ס״ק י״ד) : il s'agit du lait sorti d'elle après sa mort, sans distinction entre une bête morte d'elle-même et une bête abattue. <strong>La règle :</strong> « exempt » n'est pas « permis » — c'est exempt de malkot, mais interdit.
 </div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">אבל איסורא מיהא איכא</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק י״ג)</span></div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">כלומר חלב שיצא ממנה לאחר מיתתה ול״ש מתה מעצמה או נשחטה</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק י״ד)</span></div>
 
-<h3 class="he-h3">מחלוקת בדין חלב זכר (ש״ך ס״ק טז)</h3>
+<h3>Le débat sur le lait de mâle (ש״ך ס״ק ט״ז)</h3>
 
-<div class="machloket-box" dir="rtl">
+<div class="machloket-box">
 <table>
-<tr><th>שיטה</th><th>חלב זכר</th></tr>
+<tr><th>Shita</th><th>Lait de mâle</th></tr>
 <tr>
-  <td><strong>הרמ״א</strong> (סעיף ו')</td>
-  <td>"<span class="he-q">לא מיקרי חלב כלל</span>" — <strong>אינו אוסר</strong> אפילו מדרבנן.</td>
+  <td><strong>Le Rama</strong> (séif ו)</td>
+  <td>« Il n'a pas même le nom de lait » — il <strong>ne rend rien interdit</strong>, pas même des Sages.</td>
 </tr>
 <tr>
-  <td><strong>הרב המגיד</strong> (פ״ט מהמ״א), בשם הרמב״ם</td>
-  <td>חלב זכר <strong>אסור מדרבנן</strong>.</td>
+  <td><strong>Le Maggid Michné</strong> (Maakhalot Assourot, chap. 9), lisant le Rambam</td>
+  <td>Le lait de mâle est <strong>interdit des Sages</strong>.</td>
 </tr>
 </table>
 </div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">ומדברי הרב המגיד פ״ט מהמ״א נראה דחלב זכר אסור מדרבנן</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ט״ז)</span></div>
 
-<div class="teruts-box" dir="rtl">
-<strong>יישוב הש״ך (ס״ק טז) :</strong> מביא ראיה מן הש״ס (חולין קי״ג:): "<span class="he-q">אמר שמואל... 'בחלב אמו' ולא בחלב זכר, 'בחלב אמו' ולא בחלב שחוטה</span>". וכיון ששניהם נדרשים מאותו מקרא, וחלב שחוטה אסור מדרבנן — הוא הדין חלב זכר. ומיישב: <strong>הרב המגיד מדבר בחלב זכר של בהמה</strong> (כפירוש רש״י: זכר שהיה לו חלב מועט מן הדדים), <strong>אבל בחלב זכר של אדם — פשיטא דלא גרע מחלב אשה</strong>. ולפי זה "<span class="he-q">המחבר... והרב בהג״ה לא פליגי</span>" — אינם חולקים, כל אחד מדבר במקרה אחר.
+<div class="teruts-box">
+<strong>La résolution du Chakh (ס״ק ט״ז).</strong> Il apporte d'abord une preuve du Chass (Houlin 113b) : Chemouel y dit « dans le lait de sa mère » — et non dans le lait d'un mâle ; « dans le lait de sa mère » — et non dans le lait d'une bête abattue. Puisque les deux se tirent du même verset et que le lait d'une bête abattue est interdit des Sages, il en va de même du lait de mâle. Puis il concilie : <strong>le Maggid Michné parle du lait de mâle d'un animal</strong> — comme l'explique Rachi, un mâle qui avait un peu de lait aux mamelles —, <strong>tandis que pour le lait d'un homme il va de soi que ce n'est pas moins que le lait de femme</strong>. Et d'après cela, conclut-il, le Mehaber et le Rama dans sa glose ne sont pas en désaccord : chacun parle d'un cas différent.
 </div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">דאמר שמואל התם בחלב אמו ולא בחלב זכר בחלב אמו ולא בחלב שחוטה</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ט״ז)</span></div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">ונראה דהרב המגיד מיירי בחלב זכר של בהמה</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ט״ז)</span></div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">אבל בחלב זכר דאדם פשיטא דלא גרע מחלב אשה</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ט״ז)</span></div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">והרב בהג״ה לא פליגי</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ט״ז)</span></div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הפתחי תשובה</strong> (ס״ק יג) מעיר על דיוק זה בשם <strong>מהרי״ט</strong> ומעמיד: "<span class="he-q">הרמ״א מיירי בשל אדם והמחבר מיירי בשל בהמה</span>" — בדיוק כדברי הש״ך.
+<div class="rishon-card">
+<strong>Le Pit'hei Techouva</strong> (ס״ק י״ג) reprend cette distinction, en corrigeant une citation qu'il juge inexacte chez le Baer Hetev : c'est le Rama qui parle du lait d'un homme et le Mehaber du lait d'un animal — exactement comme le Chakh.
 </div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">דהרמ״א מיירי בשל אדם והמחבר מיירי בשל בהמה</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד פ״ז ס״ק י״ג)</span></div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הפתחי תשובה</strong> (ס״ק יד) מביא חקירה מפורסמת של <strong>רבי עקיבא איגר</strong>: המבשל בשר בחלב של <strong>בת פקועה</strong> (עובר שנמצא חי במעי אמו השחוטה, שאינו טעון שחיטה) — מהו? האם כחלב שחוטה (דרבנן), או "<span class="he-q">כיון דראויה לילד מקרי שפיר בחלב אמו</span>" (דאורייתא)? והביא ראיה מבכורות (ו'.). ומסיק שם בשם הנודע ביהודה שיש בו <strong>איסור תורה</strong> "כיון שראויה להיות אם". <em>למעשה — שאל את רבך.</em>
+<div class="rishon-card">
+<strong>Le Pit'hei Techouva</strong> (ס״ק י״ד) rapporte une hakira célèbre au nom de <strong>Rabbi Akiva Eiger</strong> : celui qui cuit de la viande dans le lait d'une <strong>bat pekoua</strong> — le fœtus trouvé vivant dans la matrice de sa mère abattue, et qui ne requiert pas d'abattage — qu'en est-il ? Faut-il dire que, ne requérant pas d'abattage, elle est comme une bête abattue, et l'on est exempt ; ou bien que, étant propre à enfanter, on peut bien l'appeler « le lait de sa mère » ? Il en tire une preuve de Bekhorot 6a. Le Pit'hei Techouva rapporte enfin que le Noda bi-Yehouda tient au contraire qu'il y a là un interdit de la Torah, puisqu'elle est propre à devenir mère. <em>Pour la pratique — demandez à votre Rav.</em>
 </div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">שנסתפק המבשל בשר בחלב של בת פקועה מהו מי אמרינן דכיון דאינו טעון שחיטה כדלעיל סימן י״ג הוי כחלב שחוטה ופטור</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד פ״ז ס״ק י״ד)</span></div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">או דילמא כיון דראויה לילד מקרי שפיר בחלב אמו</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד פ״ז ס״ק י״ד)</span></div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">ותופס עיקר להיפך שיש בו איסור תורה כיון שראויה להיות אם</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד פ״ז ס״ק י״ד)</span></div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">11. חקירה ונפקא מינה למעשה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">11. Hakira et nafka mina pour la pratique</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<div class="hakira-box" dir="rtl">
-<strong>חקירת היסוד של הסימן :</strong> מהו טבע איסור <span class="he-q">"דרך בישול"</span> ?
+<div class="hakira-box">
+<strong>La hakira de fond du siman.</strong> Quelle est la nature de la condition « par la voie de la cuisson » ?
 <ul class="stylish">
-<li><strong>צד א — גדר במעשה :</strong> "דרך בישול" הוא תנאי בְּדֶרֶךְ החלת האיסור. רק בישול ממש (תולדת האור, ברוטב) יוצר את האיסור הדאורייתא; מליחה, כבוש, עישון — אינם "מעשה בישול" ולכן דרבנן.</li>
-<li><strong>צד ב — גדר בתוצאה :</strong> "דרך בישול" הוא תנאי בְּ<em>חפצא</em> — שיהיה תערובת מבושלת המהווה "גוף אחד". כל עוד לא נתבשלו יחד, אין "בשר בחלב" בעצם, ולכן דרבנן.</li>
+<li><strong>Premier côté — une condition dans l'acte.</strong> « La voie de la cuisson » est une condition portant sur la <em>manière</em> dont l'interdit se forme. Seule une cuisson véritable — dérivée du feu, avec du liquide — fait naître l'interdit de la Torah ; le salage, le saumurage et le fumage ne sont pas un acte de cuisson, et ne donnent donc qu'un interdit des Sages.</li>
+<li><strong>Second côté — une condition dans le résultat.</strong> « La voie de la cuisson » est une condition portant sur l'objet : il faut un mélange cuit, devenu un seul corps. Tant qu'ils n'ont pas cuit ensemble, il n'y a pas de « viande dans du lait » dans la chose même, et l'interdit ne peut être que des Sages.</li>
 </ul>
+Le siman ne tranche pas cette hakira ; les deux côtés se lisent l'un et l'autre dans l'appareil.
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה לחקירה (מעוגן בקורפוס) :</strong>
+<div class="nafka-mina-box">
+<strong>Nafka minot de la hakira, prises dans le corpus :</strong>
 <ol class="stylish">
-<li><strong>חם בחם בלא רוטב</strong> — אם הגדר במעשה, זהו "חום" ולא "בישול" (רש״ל בפת״ש ס״ק ג: מותר בהנאה). אם הגדר בתוצאה — תלוי אם נעשו גוף אחד.</li>
-<li><strong>טיגון</strong> — פלוגתת הפר״ח (בישול) ומהר״ם שיף (אינו בישול) — פת״ש ס״ק ג.</li>
-<li><strong>בלוע שלא בדרך בישול שחזר ונתבשל</strong> — לפי הח״ס (פת״ש ס״ק ג): "<span class="he-q">אחר כך נתבשל הבשר עם החלב הבלוע בו</span>" — נאסר מן התורה. ראיה חזקה שהגדר אינו רק בדרך הבליעה הראשונה.</li>
+<li><strong>Chaud contre chaud, sans sauce.</strong> Si la condition porte sur l'acte, il y a là de la chaleur et non de la cuisson — et le Rachal, cité par le Pit'hei Techouva ס״ק ג, permet le profit. Si elle porte sur le résultat, tout dépend de savoir s'ils sont devenus un seul corps.</li>
+<li><strong>La friture.</strong> Le Peri Hadach y voit une cuisson, le Maharam Schiff non — Pit'hei Techouva ס״ק ג.</li>
+<li><strong>Un goût absorbé hors de la voie de la cuisson, puis cuit.</strong> Selon le Hatam Sofer (Pit'hei Techouva ס״ק ג), la viande a alors cuit avec le lait absorbé en elle, et la chose devient interdite de la Torah. C'est un appui fort pour dire que la condition ne porte pas seulement sur la manière de la première absorption.</li>
 </ol>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<h4>טבלת מעשה — היקף האיסור לפי הצירוף</h4>
+<div class="nafka-mina-box">
+<h4>Tableau pratique — l'étendue de l'interdit selon la rencontre</h4>
 
 <table>
 <tr>
-  <th>צירוף</th>
-  <th>בישול</th>
-  <th>אכילה</th>
-  <th>הנאה</th>
+  <th>Rencontre</th>
+  <th>Cuisson</th>
+  <th>Consommation</th>
+  <th>Profit</th>
 </tr>
 <tr>
-  <td>בשר בהמה טהורה + חלב בהמה טהורה</td>
-  <td>אסור דאורייתא</td>
-  <td>אסור דאורייתא (דרך בישול)</td>
-  <td>אסור דאורייתא</td>
+  <td>Viande de bête domestique pure + lait de bête domestique pure</td>
+  <td>Interdit de la Torah</td>
+  <td>Interdit de la Torah (par la voie de la cuisson)</td>
+  <td>Interdit de la Torah</td>
 </tr>
 <tr>
-  <td>בשר טהורה + חלב טמאה (או להפך)</td>
-  <td>מותר משום בב״ח (אסור משום טומאה)</td>
-  <td>אסור משום טומאה בלבד</td>
-  <td>מותר משום בב״ח</td>
+  <td>Viande pure + lait impur (ou l'inverse)</td>
+  <td>Permis au titre de bassar be-halav (interdit au titre de l'impureté)</td>
+  <td>Interdit au seul titre de l'impureté</td>
+  <td>Permis au titre de bassar be-halav</td>
 </tr>
 <tr>
-  <td>בשר חיה/עוף + חלב טהורה</td>
-  <td>מותר מן התורה</td>
-  <td>אסור מדרבנן</td>
-  <td>מותר (אף מדרבנן — ש״ך, ט״ז)</td>
+  <td>Viande de bête sauvage ou de volaille + lait pur</td>
+  <td>Permis selon la Torah</td>
+  <td>Interdit des Sages</td>
+  <td>Permis, même des Sages — Chakh et Taz</td>
 </tr>
 <tr>
-  <td>דגים וחגבים + חלב</td>
-  <td>אין איסור בב״ח</td>
-  <td>אין איסור בב״ח*</td>
-  <td>אין איסור בב״ח</td>
+  <td>Poissons et sauterelles + lait</td>
+  <td>Pas d'interdit de bassar be-halav</td>
+  <td>Pas d'interdit de bassar be-halav*</td>
+  <td>Pas d'interdit de bassar be-halav</td>
 </tr>
 </table>
-<p style="font-size:9.5pt; margin-top:8px;">* בענין דגים בחלב יש דיון נפרד של אחרונים מטעם <strong>סכנה/בריאות</strong> — לא מטעם בשר בחלב. הש״ך (ס״ק ה) דוחה את הסברה לאסור: "<span class="he-q">וכל יומא ויומא נהגינן הכי לבשל דגים בחלב ולאכול</span>", והט״ז (ס״ק ג) קובע שלשון הב״י "דגים בחלב" הוא <strong>טעות סופר</strong> וצריך לומר "דגים <em>עם בשר</em>". מנגד, הפת״ש (ס״ק ח) מביא מחמירים (חינוך בית יהודה, אדני פז) — ומסיק: "<span class="he-q">האידנא שכל העולם מבשלים גם עם חלב — שרי</span>". <em>למעשה — שאל את רבך.</em></p>
+<p style="font-size:9.5pt; margin-top:8px;">* Sur le poisson avec du lait, les Aharonim discutent à part, au titre du <strong>danger pour la santé</strong> et non de bassar be-halav. Le Chakh (ס״ק ה) écarte cette crainte en constatant l'usage : chaque jour on cuit du poisson dans du lait et on le mange. Le Taz (ס״ק ג) tient que les mots du Beit Yossef « du poisson dans du lait » sont une faute de copiste et qu'il faut lire « du poisson <em>avec de la viande</em> ». À l'inverse, le Pit'hei Techouva (ס״ק ט) rapporte des avis rigoureux — le Hinoukh Beit Yehouda et le Adné Paz — et conclut qu'aujourd'hui, tout le monde cuisant aussi avec du lait, la chose est permise. <em>Pour la pratique — demandez à votre Rav.</em></p>
 </div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">וכל יומא ויומא נהגינן הכי לבשל דגים בחלב ולאכול</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק ה)</span></div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">בב״י כתוב ומ״מ אין לאכול דגים בחלב מפני הסכנה והוא ט״ס וצ״ל עם בשר</span>&nbsp;&raquo; <span class="source-ref">(ט״ז יו״ד פ״ז ס״ק ג)</span></div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">ונ״ל דהאידנא שכל העולם מבשלים גם עם חלב שרי דכיון דדשו בה רבים</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד פ״ז ס״ק ט)</span></div>
 
-<div class="nafka-mina-box" dir="rtl">
-<h4>נפקא מינה נוספות מן הקורפוס</h4>
+<div class="nafka-mina-box">
+<h4>Autres nafka minot prises dans le corpus</h4>
 
 <table>
-<tr><th>נושא</th><th>הלכה למעשה (לעיון בלבד)</th></tr>
+<tr><th>Sujet</th><th>Ce que dit l'appareil (pour l'étude seulement)</th></tr>
 <tr>
-  <td>בשר עוף בחלב שקדים בסעודה</td>
-  <td>נכון להניח שקדים אצלו משום מראית עין (ש״ך ס״ק ו, מהרש״ל). בביתו, כשאי אפשר — אין לאסור האכילה (פת״ש ס״ק י, בשם נקודות הכסף).</td>
+  <td>Volaille avec du lait d'amandes, à un repas</td>
+  <td>Il convient de poser des amandes à côté, au titre de la mar'it ha-ayin (ש״ך ס״ק ו, d'après le Maharchal). Chez soi, quand ce n'est pas possible, le Pit'hei Techouva (ס״ק י) écrit, en renvoyant à son propre ouvrage (נ״צ), qu'on n'interdira pas le plat pour autant : la crainte vaut devant des regards, comme dans les grands repas.</td>
 </tr>
 <tr>
-  <td>בישול לרפואה בחלב טמאה/אשה</td>
-  <td>במקום צורך לרפואה, אף שאין סכנה — יש להתיר בישול במה שאיסור אכילתו דרבנן (ט״ז ס״ק ה).</td>
+  <td>Cuire à fin de remède avec du lait impur ou du lait de femme</td>
+  <td>Là où il y a besoin d'un remède, même sans danger, le Taz (ס״ק ה) écrit qu'il y a lieu de permettre la cuisson dans ce dont l'interdit de consommation n'est que des Sages.</td>
 </tr>
 <tr>
-  <td>חמאה שנתבשלה בקדרה של בשר בת יומה</td>
-  <td>אסורה בהנאה לדעת שער אפרים; פלוגתת אחרונים בנר חנוכה (פת״ש ס״ק ד).</td>
+  <td>Beurre cuit dans une marmite à viande utilisée le jour même</td>
+  <td>Interdit au profit selon le Chaar Efraïm ; les Aharonim discutent pour les lumières de Hanouka (פת״ש ס״ק ד).</td>
 </tr>
 <tr>
-  <td>ביצים גמורות (חלמון + חלבון)</td>
-  <td>מותר לאכלן בחלב (סעיף ה'); אך לכתחילה החמירו הנשים אפילו נגמרו (ש״ך ס״ק י, בשם מהרא״י).</td>
+  <td>Œufs complètement formés (jaune et blanc)</td>
+  <td>Il est permis de les manger avec du lait (séif ה) ; mais le Chakh (ס״ק י) rapporte au nom du Mahara'i que les femmes ont eu l'usage de s'en abstenir même complètement formés.</td>
 </tr>
 </table>
 </div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">דמ״מ אין לאסור להניח בשר עוף בחלב שקדים בלי שיניח שקדים אצלו אלא אם הוא בפני הרואים כמו בסעודות גדולות דאיכא מ״ע גמור אבל בביתו מותר</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד פ״ז ס״ק י)</span></div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">אבל במקום צורך לרפואה אף שאין סכנה בדבר יש להתיר בישול בחלב במה שאין האיסור אכילה אלא מדרבנן</span>&nbsp;&raquo; <span class="source-ref">(ט״ז יו״ד פ״ז ס״ק ה)</span></div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">שפסק בחמאה שנתבשלה בקדרה של בשר ב״י אסור להדליק בה להאיר הבית מטעם שאסור בהנאה</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד פ״ז ס״ק ד)</span></div>
+<div class="sacred-text">&laquo;&nbsp;<span class="he-q">וכמדומה שאין הנשים נוהגות היתר אפי׳ נגמרו לגמרי</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד פ״ז ס״ק י)</span></div>
 
-<div class="yesod-box" dir="rtl">
-<strong>סיכום היסוד :</strong><br>
-כל הסימן סובב סביב <span class="he-q">"והוציא אכילה בלשון בישול"</span>. מילים אלו יוצרות שלוש מדרגות:
-<br>• <strong>דאורייתא</strong> — שני טהורים, דרך בישול.<br>• <strong>דרבנן</strong> — עוף/חיה, או דרך מליחה/כבוש/עישון.<br>• <strong>אין איסור בב״ח</strong> — דגים, חגבים, מין אחד טמא (שאיסורו רק מטעם אחר).
+<div class="yesod-box">
+<strong>Le yessod, en résumé.</strong><br>
+Tout le siman tourne autour des mots <span class="he-q">והוציא אכילה בלשון בישול</span>. Ils produisent trois degrés :
+<br>• <strong>De la Torah</strong> — deux espèces pures, par la voie de la cuisson.<br>• <strong>Des Sages</strong> — bête sauvage ou volaille, ou bien par salage, saumurage ou fumage.<br>• <strong>Pas d'interdit de bassar be-halav</strong> — poissons, sauterelles, et le cas où l'une des espèces est impure, dont l'interdit tient à un autre titre.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">12. סיכום השיטות בטבלה מקיפה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">12. Synthèse des shitot en tableaux</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">טבלה — שלוש דרגות האיסור</h3>
+<h3>Tableau — les trois degrés de l'interdit</h3>
 
 <table>
 <tr>
-  <th>דרגה</th>
-  <th>הגדרה</th>
-  <th>מקור בקורפוס</th>
+  <th>Degré</th>
+  <th>Définition</th>
+  <th>Source dans le corpus</th>
 </tr>
 <tr>
-  <td><strong>דאורייתא</strong></td>
-  <td>בשר בהמה טהורה + חלב בהמה טהורה, דרך בישול</td>
-  <td>מחבר ס״ג; ש״ך ס״ק א</td>
+  <td><strong>De la Torah</strong></td>
+  <td>Viande de bête domestique pure + lait de bête domestique pure, par la voie de la cuisson</td>
+  <td>Mehaber séif ג ; ש״ך ס״ק א</td>
 </tr>
 <tr>
-  <td><strong>דרבנן — מצד הדרך</strong></td>
-  <td>אותו צירוף אך ע״י כבוש, מליחה, עישון, חמי טבריה</td>
-  <td>מחבר ס״א, ס״ו; ש״ך ס״ק א, יז</td>
+  <td><strong>Des Sages — du fait de la voie</strong></td>
+  <td>La même rencontre, mais par saumurage, salage, fumage, ou dans les sources chaudes de Tibériade</td>
+  <td>Mehaber séifim א et ו ; ש״ך ס״ק א</td>
 </tr>
 <tr>
-  <td><strong>דרבנן — מצד המין</strong></td>
-  <td>בשר חיה ועוף + חלב טהורה (אכילה בלבד)</td>
-  <td>מחבר ס״ג; ש״ך ס״ק ד; חולין קי״ג.</td>
+  <td><strong>Des Sages — du fait de l'espèce</strong></td>
+  <td>Viande de bête sauvage ou de volaille + lait pur (consommation seulement)</td>
+  <td>Mehaber séif ג ; ש״ך ס״ק ד ; Houlin 113a</td>
 </tr>
 <tr>
-  <td><strong>אין איסור בב״ח</strong></td>
-  <td>מין אחד טמא (רק טומאה); דגים וחגבים</td>
-  <td>מחבר ס״ג; ש״ך ס״ק ג; ט״ז ס״ק ב</td>
+  <td><strong>Pas d'interdit de bassar be-halav</strong></td>
+  <td>Une des espèces impure (l'interdit tient à l'impureté seule) ; poissons et sauterelles</td>
+  <td>Mehaber séif ג ; ש״ך ס״ק ג ; ט״ז ס״ק ב</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מחלוקות מרכזיות הש״ך / ט״ז / אחרים</h3>
+<h3>Tableau — les ma'hlokot centrales : Chakh, Taz, et ceux qui divergent</h3>
 
 <table>
 <tr>
-  <th>נושא</th>
-  <th>הש״ך</th>
-  <th>הט״ז</th>
-  <th>חולק</th>
+  <th>Sujet</th>
+  <th>Le Chakh</th>
+  <th>Le Taz</th>
+  <th>Qui diverge</th>
 </tr>
 <tr>
-  <td>עוף בחלב בהנאה</td>
-  <td>מותר (ס״ק ב)</td>
-  <td>מותר — "אין לנו אלא דברי הראשונים" (ס״ק א)</td>
-  <td>רש״ל — מחמיר מסברה</td>
+  <td>Volaille dans du lait, quant au profit</td>
+  <td>Permis (ס״ק ב)</td>
+  <td>Permis — « nous n'avons que les paroles des Richonim » (ס״ק א)</td>
+  <td>Le Rachal — rigueur par raisonnement</td>
 </tr>
 <tr>
-  <td>מין אחד טמא — איסור בב״ח דרבנן ?</td>
-  <td>אין כלל (ס״ק ג)</td>
-  <td>אין כלל — "כשאר איסורין ממש" (ס״ק ב)</td>
-  <td>ב״ח, דרישה — יש נפקא מינה</td>
+  <td>Une espèce impure — y a-t-il un interdit des Sages de bassar be-halav ?</td>
+  <td>Aucun (ס״ק ג)</td>
+  <td>Aucun — « comme les autres interdits, purement et simplement » (ס״ק ב)</td>
+  <td>Le Bah et la Derisha — il y a une nafka mina</td>
 </tr>
 <tr>
-  <td>עוף בחלב שקדים — מראית עין ?</td>
-  <td>יש לחוש (ס״ק ו, ז) — כמהרש״ל</td>
-  <td>יש לחוש <em>טפי</em> (ס״ק ה)</td>
-  <td>פשט הרמ״א — אין צריך בעוף</td>
+  <td>Volaille avec du lait d'amandes — mar'it ha-ayin ?</td>
+  <td>Il y a lieu de craindre (ס״ק ו et ז) — comme le Maharchal</td>
+  <td>Il y a <em>d'autant plus</em> lieu de craindre (ס״ק ה)</td>
+  <td>Le sens simple du Rama — ce n'est pas nécessaire pour la volaille</td>
 </tr>
 <tr>
-  <td>עוף בחלב — דאורייתא או דרבנן ?</td>
-  <td>דרבנן (ס״ק ד) — כרמב״ם</td>
+  <td>Volaille dans du lait — de la Torah ou des Sages ?</td>
+  <td>Des Sages (ס״ק ד) — comme le Rambam</td>
   <td>—</td>
-  <td>רש״ל, ב״ח — נטו לדאורייתא</td>
+  <td>Le Rachal et le Bah — ont penché pour la Torah</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מקורות הסוגיא</h3>
+<h3>Tableau — les sources de la sougya</h3>
 
-<div class="rishon-card" dir="rtl">
-<strong>גמרא :</strong> חולין קי״ג. (משנת "כל הבשר") · חולין קט״ו: (דרשת ג' פסוקים) · חולין קי״ג: (חלב אמו / זכר / שחוטה) · עבודה זרה ל״ה: (חלב טהור חיוור) · בכורות ו'. (בת פקועה — בפת״ש)
+<div class="rishon-card">
+<strong>Guemara :</strong> חולין קי״ג. (la michna de כל הבשר) · חולין קט״ו: (la derasha des trois versets) · חולין קי״ג: (חלב אמו, lait de mâle, lait de bête abattue) · עבודה זרה ל״ה: (le lait pur est blanc) · בכורות ו'. (la bat pekoua, dans le Pit'hei Techouva)
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>פסוקים :</strong> שמות כ״ג י״ט · שמות ל״ד כ״ו · דברים י״ד כ״א
+<div class="rishon-card">
+<strong>Versets :</strong> שמות כ״ג י״ט · שמות ל״ד כ״ו · דברים י״ד כ״א
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>ראשונים :</strong> רש״י · ר״ן · תוספות · רא״ש · ר״ת · רשב״א · רמב״ם (פ״ט מהמ״א, פ״ב מהל' ממרים) · רא״ה (חינוך מצוה קי״ג) · מרדכי (אור זרוע) · הגהות אשר״י · טור
+<div class="rishon-card">
+<strong>Richonim :</strong> רש״י · ר״ן · תוספות · רא״ש · ר״ת · רשב״א · רמב״ם (פ״ט מהמ״א, פ״ב מהל' ממרים) · רא״ה (חינוך מצוה קי״ג) · מרדכי (אור זרוע) · הגהות אשר״י · טור
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>אחרונים :</strong> בית יוסף · רמ״א · ש״ך · ט״ז · ב״ח · דרישה ופרישה · מהרש״ל (ים של שלמה פכ״ה) · מהרא״י (תרומת הדשן, הגהת שערי דורא) · עטרת זקנים · לבוש · פרי חדש · מהר״ם שיף · פרי מגדים · פתחי תשובה · נודע ביהודה · חתם סופר · רבי עקיבא איגר · שער אפרים · תפארת למשה · שער המלך
+<div class="rishon-card">
+<strong>Aharonim :</strong> בית יוסף · רמ״א · ש״ך · ט״ז · ב״ח · דרישה ופרישה · מהרש״ל (ים של שלמה פכ״ה) · מהרא״י (תרומת הדשן, הגהת שערי דורא) · עטרת זקנים · לבוש · פרי חדש · מהר״ם שיף · פרי מגדים · פתחי תשובה · נודע ביהודה · חתם סופר · רבי עקיבא איגר · שער אפרים · תפארת למשה · שער המלך
 </div>
 
 <hr class="ornament">
 
-  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;direction:rtl;">
-    <a href="niveau-1-base.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">→ רמה א' — יסוד</a>
-    <a href="niveau-3-synthese.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">רמה ג' — סיכום ←</a>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;">
+    <a href="niveau-1-base.html" style="font-family:'Cormorant Garamond','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">← Niveau 1 — Base</a>
+    <a href="niveau-3-synthese.html" style="font-family:'Cormorant Garamond','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">Niveau 3 — Synthèse →</a>
   </div>
 
 <div class="yh-watermark">
 ~ ~ ~ ~ ~<br>
-<strong>DAAT</strong> · <strong>הרב יוסף חיים סממה</strong><br>
-תלמיד חכם · מעביר שיעורים בהלכה ובחסידות<br>
-<em>פלפול ועיון בהלכות בשר בחלב · סימן פ״ז · ⚡ רמה ב' — לַמְדָּן</em>
+<strong>DAAT</strong> · <strong>Rav Yossef Haim Samama</strong><br>
+Talmid hakham · cours de halakha et de hassidout<br>
+<em>Pilpoul et étude sur les hilkhot bassar be-halav · Siman 87 · ⚡ Niveau 2 — Lamdan</em>
 </div>
 
-  <div class="disclaimer" style="background:#fff8e1;border-right:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;direction:rtl;text-align:right;">
-    ⚠️ תוכן זה נכתב לצורך לימוד ועיון בלבד. לכל הוראה למעשה (לְמַעֲשֶׂה) — שאל את רבך.
+  <div class="disclaimer" style="background:#fff8e1;border-left:4px solid #C5A55A;padding:16px 40px;font-family:'Cormorant Garamond','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;">
+    ⚠️ Ce contenu est rédigé pour l'étude et l'examen seulement. Pour toute application pratique (לְמַעֲשֶׂה) — demandez à votre Rav.
   </div>
 
   <div style="background:#1A1F3A;border-top:2px solid #C5A55A;padding:24px 40px;text-align:center;margin-top:0;">
-    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;direction:rtl;">
-      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">לעמוד הבית</a> · <a href="index.html" style="color:#C5A55A;text-decoration:none;">סימן פ״ז</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ לתמיכה</a>
+    <p style="font-family:'Cormorant Garamond','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;">
+      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">Accueil</a> · <a href="index.html" style="color:#C5A55A;text-decoration:none;">Siman 87</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ Soutenir</a>
     </p>
   </div>
 
@@ -1044,7 +1157,7 @@
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="../../../assets/js/chat-widget.js" defer></script>
 <script src="../../../assets/js/daat-copy.js" defer></script>
-<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="מצא חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">הצטרף לחברותא</span></a>
+<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="Trouver une hevrouta sur ce siman"><span class="icon">📖</span><span class="label-long">Rejoindre une hevrouta</span></a>
   <script src="/assets/js/share-text.js" defer></script>
 </body>
 </html>

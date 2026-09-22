@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="fr" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,9 +22,8 @@
 <style>
   @page { size: A4; margin: 2cm 1.8cm; }
   body {
-    font-family: 'Frank Ruhl Libre', 'David', 'Georgia', 'Cambria', serif;
+    font-family: 'Georgia', 'Cambria', serif;
     font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0;
-    direction: rtl; text-align: right;
   }
   .he {
     direction: rtl; text-align: right;
@@ -72,15 +71,13 @@
   h2.section-title {
     color: #fff; background: #1A1F3A;
     font-size: 16pt; padding: 10px 18px; margin-top: 30px;
-    border-right: 6px solid #C5A55A;
-    direction: rtl; text-align: right;
-    font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
+    border-left: 6px solid #C5A55A;
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
   }
   h3 {
     color: #1A1F3A; font-size: 14pt; margin-top: 25px;
-    border-right: 4px solid #C5A55A; padding-right: 10px;
-    direction: rtl; text-align: right;
-    font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
+    border-left: 4px solid #C5A55A; padding-left: 10px;
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
   }
   h3.sugya {
     background: #1A1F3A; color: #fff;
@@ -169,9 +166,9 @@
   }
   th {
     background: #1A1F3A; color: #fff;
-    padding: 10px; text-align: right; direction: rtl; font-size: 11pt;
+    padding: 10px; text-align: left; font-size: 11pt;
   }
-  td { direction: rtl; text-align: right; }
+  td { text-align: left; }
   td {
     border: 1px solid #d4c89a; padding: 10px; vertical-align: top;
   }
@@ -202,7 +199,7 @@
 
   blockquote {
     border-right: 3px solid #C5A55A;
-    margin: 10px 15px 10px 0; padding: 8px 15px;
+    margin: 10px 0 10px 15px; padding: 8px 15px;
     background: #faf8f0; font-style: italic;
     direction: rtl; text-align: right;
     font-family: 'Frank Ruhl Libre', serif; font-size: 11.5pt;
@@ -212,30 +209,38 @@
     background: #FAF6EE; border: 1px solid #C5A55A;
     padding: 15px 20px; margin: 20px 0; border-radius: 4px;
   }
-  .index-box ol { margin: 5px 0; padding-right: 25px; }
+  .index-box ol { margin: 5px 0; padding-left: 25px; }
   .index-box li { margin-bottom: 5px; }
 
-  /* ── RTL global (כל הדף בלשון הקודש) ── */
-  .pilpul-box, .kashya-box, .teruts-box, .hakira-box,
-  .nafka-mina-box, .yesod-box, .machloket-box, .rishon-card, .index-box {
-    direction: rtl; text-align: right;
-  }
-  .pilpul-box   { border-left: none; border-right: 4px solid #1A1F3A; }
-  .kashya-box   { border-left: none; border-right: 4px solid #C5A55A; }
-  .teruts-box   { border-left: none; border-right: 4px solid #2d7a3e; }
-  .hakira-box   { border-left: none; border-right: 4px solid #6a1b7a; }
-  .yesod-box    { border-left: none; }
-  .rishon-card  { border-left: none; border-right: 4px solid #8a6a1a; }
-  .pilpul-box::before, .kashya-box::before, .teruts-box::before,
-  .hakira-box::before, .nafka-mina-box::before, .yesod-box::before {
-    direction: rtl; text-align: right;
-  }
-  .index-box ol { padding-right: 25px; padding-left: 0; }
-  ol.stylish, ul.stylish { padding-right: 22px; padding-left: 0; }
-  h3.sugya { border-left: none; border-right: 6px solid #C5A55A; }
-  h4 { direction: rtl; text-align: right; }
-  .cover, .cover h1, .cover h2 { direction: rtl; }
+  /* ── Page en écriture latine : seuls les blocs hébreux passent en RTL ── */
   blockquote { unicode-bidi: embed; }
+  .he-title, .he-sub, .he-subject { direction: rtl; unicode-bidi: embed; }
+  .rishon-card[dir="rtl"]  { border-left: none; border-right: 4px solid #8a6a1a; direction: rtl; text-align: right; }
+  .hakira-box[dir="rtl"]   { border-left: none; border-right: 4px solid #6a1b7a; direction: rtl; text-align: right; }
+  .kashya-box[dir="rtl"]   { border-left: none; border-right: 4px solid #C5A55A; direction: rtl; text-align: right; }
+  .teruts-box[dir="rtl"]   { border-left: none; border-right: 4px solid #2d7a3e; direction: rtl; text-align: right; }
+  .pilpul-box[dir="rtl"]   { border-left: none; border-right: 4px solid #1A1F3A; direction: rtl; text-align: right; }
+  .machloket-box[dir="rtl"], .nafka-mina-box[dir="rtl"], .yesod-box[dir="rtl"], .index-box[dir="rtl"] {
+    direction: rtl; text-align: right;
+  }
+  .index-box[dir="rtl"] ol { padding-right: 25px; padding-left: 0; }
+  [dir="rtl"] th, [dir="rtl"] td { text-align: right; direction: rtl; }
+  ol.stylish, ul.stylish { padding-left: 22px; padding-right: 0; }
+
+  /* ── Citation d'un commentateur : hébreu RTL dans une page latine ── */
+  blockquote.comment-source {
+    background: #f7f3e4; border-right: 3px solid #8a6a1a; border-left: none;
+    font-style: normal; margin: 10px 0; padding: 8px 15px;
+    direction: rtl; text-align: right;
+    font-family: 'Frank Ruhl Libre', serif; font-size: 11.5pt;
+  }
+  blockquote.comment-source .src-ref {
+    display: inline-block; margin-top: 6px; color: #6a5a1a;
+    font-style: italic; font-size: 0.88em;
+    font-family: 'Georgia', 'Cambria', serif;
+  }
+  .src-ref { font-size: 0.85em; color: #5a4a1a; font-style: italic; }
+  .sacred-text .src-ref { direction: ltr; unicode-bidi: embed; }
 
   /* ── חץ אל ההסבר המפורט (רמה 1) ── */
   a.daat-explain {
@@ -246,7 +251,6 @@
     font-size: 12pt;
     text-decoration: none;
     border-bottom: 1px dotted #C5A55A;
-    direction: rtl;
   }
   a.daat-explain:hover { color: #8a6a1a; border-bottom-style: solid; }
 
@@ -282,7 +286,7 @@
   "headline": "Siman פ״ח · Niveau 2 Lamdan — Pilpoul approfondi · viande et fromage à table, Houlin / Nedarim",
   "description": "Niveau 2 (Lamdan) du Siman פ״ח (Yoreh De'ah) — Pilpoul approfondi. La גזירה לגזירה du Taz, la limite « דווקא בשר בחלב » du Shach, la מחלוקת Shach/Taz contre le Maharshal et le Bach, le גדר du היכר, חקירה et נפקא מינה.",
   "url": "https://daattorah.com/yd/88/lamdan",
-  "inLanguage": "he-IL",
+  "inLanguage": "fr-FR",
   "isAccessibleForFree": true,
   "author": {
     "@id": "https://daattorah.com/#rav-samama"
@@ -391,33 +395,33 @@
 <!-- COUVERTURE -->
 <div class="cover">
   <div class="ornament">✦ ❖ ✦</div>
-  <div class="badge-top">DAAT · רמה ב' — לַמְדָּן</div>
-  <h1>שולחן ערוך · יורה דעה</h1>
-  <div class="subtitle">שלא להעלות בשר על השלחן שאוכלין עליו גבינה — עיון ופלפול</div>
+  <div class="badge-top">DAAT · NIVEAU 2 — LAMDAN</div>
+  <h1>Siman 88 — Niveau Lamdan : viande et fromage sur une même table</h1>
+  <div class="subtitle">Ce que la haie protège, et jusqu'où elle s'étend</div>
 
   <div class="he-title">סימן פ״ח</div>
   <div class="he-sub">בשר וגבינה על שלחן אחד — היכר ומראית העין</div>
   <div class="he-subject">עיון, פלפול, שיטות הראשונים והאחרונים</div>
 
-  <div class="level-badge">⚡ ללומדים ותלמידי חכמים ⚡</div>
+  <div class="level-badge">⚡ Pour les étudiants et les talmidei hakhamim ⚡</div>
 
   <div class="ornament">✦ ❖ ✦</div>
 
-  <h2 style="margin-top:20px; color: #1A1F3A;">פלפול ועיון מעמיק</h2>
+  <h2 style="margin-top:20px; color: #1A1F3A;">Pilpoul et étude approfondie</h2>
   <p style="font-size:12pt; color:#555;">
-    סוגיות, מקורות, חקירת היסוד, מחלוקות ראשונים ואחרונים,<br>
-    נפקא מינות להלכה ועיון בשיטות
+    Sougyot, sources, la hakira de fond, ma'hlokot de Richonim et d'A'haronim,<br>
+    nafka minot pour la halakha et examen des chitot
   </p>
 
   <div class="credits">
-    <p><strong>הנושא :</strong><br>
-    שולחן ערוך יורה דעה סימן פ״ח (ב' סעיפים)<br>
-    עם נושאי כלים: ש״ך (שפתי כהן), ט״ז (טורי זהב), פרי מגדים, פתחי תשובה</p>
+    <p><strong>Sujet :</strong><br>
+    שולחן ערוך יורה דעה סימן פ״ח — deux seifim<br>
+    avec l'appareil : ש״ך (שפתי כהן), ט״ז (טורי זהב), פרי מגדים, פתחי תשובה</p>
 
-    <p><strong>יסוד הסוגיא בש״ס :</strong><br>
+    <p><strong>Fondement de la sougya dans le Chas :</strong><br>
     חולין ק״ג: — ק״ד: · חולין ק״ז: · נדרים מ״א: · עבודה זרה ל״ז:</p>
 
-    <p><strong>עריכה ועיון :</strong><br>
+    <p><strong>Rédaction et étude :</strong><br>
     הרב יוסף חיים סממה · DAAT</p>
   </div>
 </div>
@@ -425,472 +429,523 @@
 <div class="page-break"></div>
 
 <!-- TABLE DES MATIÈRES -->
-<h2 class="section-title">📑 תוכן העניינים</h2>
+<h2 class="section-title">📑 Table des matières</h2>
 
-<div class="index-box" dir="rtl">
+<div class="index-box">
 <ol>
-  <li><strong>לשון השולחן ערוך</strong> — שני הסעיפים</li>
-  <li><strong>טעם האיסור</strong> — שלא יבוא לאכלם יחד (חשש תקלה)</li>
-  <li><strong>חקירת היסוד</strong> — גזירה לגזירה (ט״ז ס״ק א)</li>
-  <li><strong>"וה״ה איפכא"</strong> — האיסור בשני הכיוונים (ש״ך ס״ק א)</li>
-  <li><strong>גדר "דווקא בשר בחלב"</strong> — ולא שאר איסורין (ש״ך ס״ק ב)</li>
-  <li><strong>מודר הנאה ושאר איסורין</strong> — דיוק מן הרא״ש והרשב״א</li>
-  <li><strong>מקפידים זה על זה</strong> — מחלוקת הש״ך והט״ז עם הרש״ל</li>
-  <li><strong>גדר ההיכר</strong> — מפה, פת, כלי, מנורה, מלח</li>
-  <li><strong>פלוגתת הב״ח בכלי ששותין ממנו</strong> — ש״ך ס״ק ו</li>
-  <li><strong>"שהמאכל נדבק בכלי"</strong> — אפילו בשני שלחנות (ש״ך ס״ק ח)</li>
-  <li><strong>חקירה ונפקא מינה למעשה</strong></li>
-  <li><strong>טבלאות סיכום מקיפות</strong></li>
+  <li><strong>Le texte du Choulhan Aroukh</strong> — les deux seifim</li>
+  <li><strong>Le motif de l'interdit</strong> — qu'il n'en vienne pas à les manger ensemble</li>
+  <li><strong>La hakira de fond</strong> — un décret sur un décret (Taz ס״ק א)</li>
+  <li><strong>« Et il en va de même à l'inverse »</strong> — l'interdit dans les deux sens (Chakh ס״ק א)</li>
+  <li><strong>Pourquoi la viande et le lait, et non les autres interdits</strong> (Chakh ס״ק ב)</li>
+  <li><strong>Le vœu de non-bénéfice et les autres interdits</strong> — ce que le Chakh tire du Roch et du Rachba</li>
+  <li><strong>Ils se tiennent sur la réserve</strong> — le Chakh et le Taz contre le Maharchal</li>
+  <li><strong>Ce qui fait un signe</strong> — nappe, pain, récipient, chandelier, sel</li>
+  <li><strong>La contestation du Ba'h sur le récipient dont on boit</strong> — Chakh ס״ק ו</li>
+  <li><strong>« Parce que la nourriture colle au récipient »</strong> — même à deux tables (Chakh ס״ק ח)</li>
+  <li><strong>Hakira et nafka mina pour la pratique</strong></li>
+  <li><strong>Tableaux de synthèse</strong></li>
 </ol>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<!-- לשון השולחן ערוך — סעיף א' -->
-<h2 class="section-title">📜 לשון השולחן ערוך — סעיף א'
-  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 העתק</button>
+<h2 class="section-title">📜 Le texte du Choulhan Aroukh — seif א
+  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 Copier</button>
 </h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ Explication détaillée (niveau 1)</a>
 
 <div class="sacred-text he" data-copy-block id="cp-1">
-  <p>אֲפִלּוּ בְּשַׂר חַיָּה וָעוֹף — אָסוּר לְהַעֲלוֹתוֹ עַל שֻׁלְחָן שֶׁאוֹכֵל עָלָיו גְּבִינָה, <strong>שֶׁלֹּא יָבֹא לְאָכְלָם יַחַד</strong>. אֲבָל בְּשֻׁלְחָן שֶׁסּוֹדֵר עָלָיו הַתַּבְשִׁיל — מֻתָּר לִתֵּן זֶה בְּצַד זֶה.</p>
+  <p>«&nbsp;<span class="he-q">אפילו בשר חיה ועוף אסור להעלותו על שלחן שאוכל עליו גבינה שלא יבא לאכלם יחד אבל בשלחן שסודר עליו התבשיל מותר ליתן זה בצד זה:</span>&nbsp;» <span class="src-ref">(שו״ע יו״ד פ״ח:א)</span></p>
 </div>
 
-<h3 class="he-h3">לשון השולחן ערוך — סעיף ב'
-  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 העתק</button>
+<p><em>résumé</em> : même la viande de bête sauvage et de volaille — dont la cuisson avec du lait n'est pas interdite par la Torah — ne se monte pas sur une table où l'on mange du fromage, <strong>pour qu'il n'en vienne pas à les manger ensemble</strong>. Mais une table de service, celle sur laquelle on dispose les plats, n'est pas visée : on peut y poser l'un à côté de l'autre.</p>
+
+<h3>Le texte du Choulhan Aroukh — seif ב
+  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-2">
-  <p>הָא דְּאָסוּר לְהַעֲלוֹתוֹ עַל הַשֻּׁלְחָן — דַּוְקָא בִּשְׁנֵי בְּנֵי אָדָם הַמַּכִּירִים זֶה אֶת זֶה, <strong>אֲפִלּוּ הֵם מַקְפִּידִים זֶה עַל זֶה</strong>; אֲבָל אַכְסְנָאִים שֶׁאֵין מַכִּירִין זֶה אֶת זֶה — מֻתָּר. וַאֲפִלּוּ הַמַּכִּירִים, אִם עָשׂוּ שׁוּם הֶיכֵּר — כְּגוֹן שֶׁכָּל אֶחָד אוֹכֵל עַל מַפָּה שֶׁלּוֹ, אוֹ אֲפִלּוּ אוֹכְלִים עַל מַפָּה אַחַת וְנוֹתְנִים בֵּינֵיהֶם פַּת לְהֶיכֵּר — מֻתָּר.</p>
-  <p style="margin-top:14px;"><strong>הַגָּה:</strong> וְדַוְקָא שֶׁאֵין אוֹכְלִין מִן הַפַּת הַמֻּנָּח בֵּינֵיהֶם לְהֶיכֵּר, אֲבָל אִם אוֹכְלִין מִמֶּנּוּ — לֹא הָוֵי הֶיכֵּר, דִּבְלָאו הָכִי הַפַּת שֶׁאוֹכְלִין מִמֶּנּוּ מֻנָּח עַל הַשֻּׁלְחָן. אֲבָל אִם נָתְנוּ בֵּינֵיהֶם כְּלִי שֶׁשּׁוֹתִין מִמֶּנּוּ וּבְלָאו הָכִי אֵין דַּרְכּוֹ לִהְיוֹת עַל הַשֻּׁלְחָן — הָוֵי הֶיכֵּר אַף עַל פִּי שֶׁשּׁוֹתִין מִן הַכְּלִי. וְכָל שֶׁכֵּן אִם נָתְנוּ שָׁם מְנוֹרָה אוֹ שְׁאָר דְּבָרִים שֶׁעַל הַשֻּׁלְחָן דְּהָוֵי הֶיכֵּר; וְיִהְיוּ זְהִירִים שֶׁלֹּא לִשְׁתּוֹת מִכְּלִי אֶחָד מִשּׁוּם שֶׁהַמַּאֲכָל נִדְבָּק בַּכְּלִי. וְכָל שֶׁכֵּן שֶׁלֹּא יֹאכְלוּ מִפַּת אֶחָד. וְכֵן נוֹהֲגִין לְיַחֵד כְּלִי שֶׁל מֶלַח לְכָל אֶחָד בִּפְנֵי עַצְמוֹ, כִּי לִפְעָמִים טוֹבְלִים בַּמֶּלַח וְנִשְׁאֲרוּ שְׁיוּרֵי מַאֲכָל בַּמֶּלַח.</p>
+  <p>«&nbsp;<span class="he-q">הא דאסור להעלותו על השלחן דוקא בשני בני אדם המכירים זה את זה אפילו הם מקפידים זה על זה אבל אכסנאים שאין מכירין זה את זה מותר ואפי׳ המכירים אם עשו שום היכר כגון שכל אחד אוכל על מפה שלו או אפילו אוכלים על מפה אחת ונותנים ביניהם פת להיכירא מותר:</span>&nbsp;» <span class="src-ref">(שו״ע יו״ד פ״ח:ב)</span></p>
+  <p style="margin-top:14px;"><strong>הגה —</strong> «&nbsp;<span class="he-q">הגה ודוקא שאין אוכלין מן הפת המונח ביניהם להיכר אבל אם אוכלין ממנו לא הוי היכר דבלאו הכי הפת שאוכלין ממנו מונח על השלחן</span>&nbsp;» <span class="src-ref">(רמ״א יו״ד פ״ח:ב)</span></p>
+  <p>«&nbsp;<span class="he-q">אבל אם נתנו ביניהם כלי ששותין ממנו ובלאו הכי אין דרכו להיות על השלחן הוי היכר אעפ״י ששותין מן הכלי</span>&nbsp;» <span class="src-ref">(רמ״א יו״ד פ״ח:ב)</span></p>
+  <p>«&nbsp;<span class="he-q">וכל שכן אם נתנו שם מנורה או שאר דברים שעל השלחן דהוי היכר ויהיו זהירים שלא לשתות מכלי אחד משום שהמאכל נדבק בכלי</span>&nbsp;» <span class="src-ref">(רמ״א יו״ד פ״ח:ב)</span></p>
+  <p>«&nbsp;<span class="he-q">וכל שכן שלא יאכלו מפת אחד וכן נוהגין ליחד כלי של מלח לכל אחד בפני עצמו כי לפעמים טובלים במלח ונשארו שיורי מאכל במלח:</span>&nbsp;» <span class="src-ref">(רמ״א יו״ד פ״ח:ב)</span></p>
 </div>
+
+<p><em>résumé</em> : l'interdit de monter les deux sur une même table ne vise que deux personnes qui se connaissent — et même si elles sont sur la réserve l'une envers l'autre ; des hôtes de passage qui ne se connaissent pas sont dispensés. Et même entre gens qui se connaissent, un signe distinctif lève l'interdit : chacun sur sa nappe, ou un pain posé entre eux. Le Rama précise ensuite ce qui fait un signe et ce qui n'en fait pas, puis ajoute deux prescriptions d'un autre ordre : ne pas boire d'un même récipient ni manger d'un même pain, parce que la nourriture y adhère — et l'usage d'assigner à chacun sa salière.</p>
 
 <!-- ============================================================= -->
-<h2 class="section-title">1. טעם האיסור — שלא יבוא לאכלם יחד</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">1. Le motif de l'interdit — qu'il n'en vienne pas à les manger ensemble</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ Explication détaillée (niveau 1)</a>
 
-<div class="pilpul-box" dir="rtl">
-האיסור בסימן זה אינו איסור בשר בחלב עצמו (שכבר נתבאר בסימן פ״ז), אלא <strong>סייג והרחקה</strong>: אסרו חכמים להעלות בשר וגבינה על שלחן אחד שאוכלים עליו, "<span class="he-q">שלא יבוא לאכלם יחד</span>". כלומר, מתוך שהשניים מונחים יחד וקרובים, חוששים שמא בהיסח הדעת יאכלם יחד. וזהו מסוג גזירות ההרחקה שגזרו חכמים סביב איסור בשר בחלב.
+<div class="pilpul-box">
+L'interdit de ce siman n'est pas celui de la viande et du lait eux-mêmes — celui-là a été exposé au siman 87. C'est une <strong>haie, une mise à distance</strong> : les Sages ont interdit de monter viande et fromage sur une même table où l'on mange, «&nbsp;<span class="he-q">שלא יבא לאכלם יחד</span>&nbsp;» <span class="src-ref">(שו״ע יו״ד פ״ח:א)</span>. Parce que les deux sont posés là, proches l'un de l'autre, on craint que par inadvertance il ne les mange ensemble. C'est l'une de ces mises à distance que les Sages ont dressées autour de l'interdit de la viande et du lait.
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה הראשונה :</strong> מהו טבע האיסור — חשש תקלה ממש (שמא יבלע בלא דעת) או מראית עין (שיראה כמערב בשר בחלב) ?
+<div class="hakira-box">
+<strong>Première hakira.</strong> Quelle est la nature de cet interdit — une crainte de faute réelle (qu'il en avale sans y prendre garde) ou une affaire d'apparence (qu'on le voie mêlant viande et lait) ?
 <ul class="stylish">
-<li>(א) מלשון "<span class="he-q">שלא יבוא לאכלם יחד</span>" משמע <strong>חשש תקלה</strong> — שמא יבוא לאכול את שניהם בפועל.</li>
-<li>(ב) מאידך, הב״י (או״ח סי' קע״ג) דן בזה בדמיון לדין חמץ בפסח, ושם שייך גם עניין ההרחקה מפני קירוב הדעת.</li>
+<li>(a) Le motif que donne le Mehaber — «&nbsp;<span class="he-q">שלא יבא לאכלם יחד</span>&nbsp;» <span class="src-ref">(שו״ע יו״ד פ״ח:א)</span> — dit une <strong>crainte de faute</strong> : qu'il n'en vienne à manger effectivement les deux.</li>
+<li>(b) Mais le Chakh, en examinant le cas du hamets de Pessa'h, met en jeu un second registre : il y a des aliments dont l'homme ne se tient pas à l'écart de lui-même, et l'éloignement y est plus large. Nous y reviendrons à la section 5.</li>
 </ul>
-ונפקא מינה: אם הטעם משום תקלה — שני אכסנאים שאין מכירים זה את זה אין חשש שיאכלו משל חבירו, ולכן מותר (וכמפורש בסעיף ב').
+Et la nafka mina est dans le seif suivant : si le motif est la crainte de la faute, deux hôtes de passage qui ne se connaissent pas n'ont pas à craindre de manger dans le plat de l'autre — et le Mehaber les permet en effet.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">2. חקירת היסוד — גזירה לגזירה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">2. La hakira de fond — un décret sur un décret</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון הט״ז (ס״ק א)
-  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 העתק</button>
+<h3>Le texte du Taz (ס״ק א)
+  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-3">
-<strong>הט״ז</strong> (ס״ק א) על "<span class="he-q">שלא יבוא לאכלם יחד</span>":<br>
-"וְאַף עַל פִּי דִּכְשֶׁאוֹכְלָם יַחַד נַמִי לֵיכָּא אִיסּוּר דְּאוֹרַיְתָא — שֶׁאֵין אִיסּוּר אֶלָּא דַּוְקָא דֶּרֶךְ בִּישּׁוּל יַחַד — וְנִמְצָא דְּהָוֵי גְּזֵרָה לִגְזֵרָה, בַּגְּמָרָא אַמְרִינָן דִּבְכַהַאי גַּוְנָא גָּזְרִינַן גְּזֵרָה לִגְזֵרָה."
+<p><strong>הט״ז</strong> (ס״ק א), sur les mots «&nbsp;<span class="he-q">שלא יבוא לאכלם יחד</span>&nbsp;» <span class="src-ref">(ט״ז יו״ד פ״ח ס״ק א)</span></p>
+<p>«&nbsp;<span class="he-q">ואע״פ דכשאוכלם יחד נמי ליכא איסור דאורייתא שאין איסור אלא דוקא דרך בישול יחד ונמצא דהוי גזירה לגזירה בגמרא אמרי׳ דבכה״ג גזרינן גזירה לגזירה:</span>&nbsp;» <span class="src-ref">(ט״ז יו״ד פ״ח ס״ק א)</span></p>
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה :</strong> כלל גדול בידינו "<span class="he-q">אין גוזרין גזירה לגזירה</span>". והנה כאן: אכילת בשר וגבינה יחד (בלא בישול) אינה אלא <strong>דרבנן</strong> (שאיסור התורה רק דרך בישול, כסימן פ״ז ס״א). ואיסור להעלותם על שלחן אחד הוא גזירה <em>שמא יאכלם</em> — נמצא גוזרים שלא יעלם שמא יאכלם, והאכילה עצמה כבר גזירה. אם כן <strong>הרי זו גזירה לגזירה</strong> — וכיצד גזרו ?
+<div class="hakira-box">
+<strong>La hakira.</strong> Nous tenons pour règle qu'on ne décrète pas un décret par-dessus un décret. Or voici ce que l'on a ici : manger viande et fromage ensemble <em>sans les avoir cuits ensemble</em> n'est déjà qu'un interdit rabbinique — la Torah n'interdit que ce qui a été cuit ensemble, comme l'expose le siman 87. Interdire de les monter sur une même table, c'est donc décréter <em>de peur qu'il ne les mange</em>, alors que cette consommation-là est elle-même déjà un décret. <strong>Un décret sur un décret</strong> — comment donc l'a-t-on décrété ?
 </div>
 
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ הט״ז :</strong> "<span class="he-q">בגמרא אמרינן דבכה״ג גזרינן גזירה לגזירה</span>". כלומר, אף שבדרך כלל אין גוזרין גזירה לגזירה, יש מקומות שבהם חכמים <strong>כן</strong> גזרו — וכאן הוא אחד מהם, משום שהכל נחשב כ"חדא גזירה" (גוף אחד של הרחקה מבשר בחלב), או משום שקרבת הבשר והגבינה על שלחן אחד היא חשש תקלה מצוי וקרוב. (הט״ז סתם "בגמרא אמרינן" ולא פירש מקום, ועיין בכללי "גזירה לגזירה" בכמה דוכתי בש״ס.)
+<div class="teruts-box">
+<strong>La réponse du Taz.</strong> Le Taz ne nie pas la difficulté : il l'énonce lui-même, puis il répond que la guemara admet qu'en pareil cas on décrète bien un décret sur un décret. Il écrit <span class="he-q">גזירה לגזירה</span> et renvoie à la guemara <em>sans nommer l'endroit</em> — <span class="he-q">בגמרא</span>, sans plus. Nous rapportons son mot tel qu'il est et n'ajoutons pas de référence qu'il n'a pas donnée.
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד החקירתי :</strong><br>
-לדעת הט״ז, סימן פ״ח אינו "גזירה חדשה" נפרדת אלא <strong>המשך גוף הגזירה</strong> של בשר בחלב — וכל ההרחקות סביב האיסור נחשבות כמקשה אחת. וזהו ההיתר ל"גזור" כאן אף שלכאורה הוי גזירה לגזירה.
+<div class="yesod-box">
+<strong>Le fondement.</strong><br>
+Ce que le Taz suppose, c'est que le siman 88 n'est pas un décret <em>nouveau</em> venu se poser sur un premier : les mises à distance dressées autour de la viande et du lait forment un seul corps. C'est ce qui autorise à décréter ici, alors que la forme du raisonnement ressemble à un décret sur un décret.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">3. "וה״ה איפכא" — האיסור בשני הכיוונים</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">3. « Et il en va de même à l'inverse » — l'interdit dans les deux sens</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון הש״ך (ס״ק א)
-  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 העתק</button>
+<h3>Le texte du Chakh (ס״ק א)
+  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-4">
-<strong>הש״ך</strong> (ס״ק א) על "<span class="he-q">אפילו בשר כו' אסור כו'</span>":<br>
-"וְהוּא הַדִּין אִיפְּכָא — גְּבִינָה אָסוּר לְהַעֲלוֹת עַל שֻׁלְחָן שֶׁאוֹכֵל עָלָיו בְּשַׂר בְּהֵמָה וְחַיָּה וָעוֹף, וּפָשׁוּט."
+<p><strong>הש״ך</strong> (ס״ק א), sur les mots «&nbsp;<span class="he-q">אפילו בשר כו׳ אסור כו׳</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד פ״ח ס״ק א)</span></p>
+<p>«&nbsp;<span class="he-q">וה״ה איפכא גבינה אסור להעלות על שלחן שאוכל עליו בשר בהמה וחיה ועוף ופשוט:</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד פ״ח ס״ק א)</span></p>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-לשון המחבר נקט "בשר על שלחן שאוכלין גבינה", והוצרך הש״ך להדגיש ש<strong>אין כאן קפידא בכיוון</strong> — אף הגבינה אסורה להעלות על שלחן בשר. ולמה פשוט לו ? כי הטעם "שלא יבוא לאכלם יחד" שייך בשווה לשני הכיוונים: בין שהבשר קדם ובין שהגבינה קדמה — החשש זהה. ולכן "ופשוט".
+<div class="pilpul-box">
+Le Mehaber a formulé son seif dans un seul sens — la viande que l'on monte sur une table où l'on mange du fromage. Le Chakh a jugé nécessaire de souligner qu'<strong>il n'y a pas ici de préséance</strong> : le fromage aussi est interdit sur une table où l'on mange de la viande. Et pourquoi cela lui est-il évident ? Parce que le motif donné par le Mehaber vaut également dans les deux sens : que la viande ait été posée la première ou que le fromage l'ait été, la crainte est exactement la même. D'où son dernier mot — <span class="he-q">ופשוט</span>.
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה :</strong> אדם האוכל גבינה על שלחנו, ובא חבירו עם בשר — אף הוא אסור להעלות, ולא רק האוכל הבשר. וכן בכל סדר עריכת השלחן בסעודה: אין להניח בשר במקום שמיועד לאכילת חלב, ואף לא חלב במקום בשר.
+<div class="nafka-mina-box">
+<strong>Nafka mina.</strong> Un homme mange du fromage à sa table et son compagnon arrive avec de la viande : c'est à celui-là aussi qu'il est interdit de la monter, et non seulement à celui qui mange la viande. De même dans la manière de dresser une table : on ne pose pas de la viande à l'endroit destiné au laitage, ni du laitage à l'endroit destiné à la viande.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">4. גדר "דווקא בשר בחלב" — ולא שאר איסורין</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">4. Pourquoi la viande et le lait, et non les autres interdits</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון הש״ך (ס״ק ב)
-  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 העתק</button>
+<h3>Le texte du Chakh (ס״ק ב)
+  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-5">
-<strong>הש״ך</strong> (ס״ק ב) על "<span class="he-q">אסור להעלות על השלחן</span>":<br>
-"וְנִרְאֶה דְּדַוְקָא בָּשָׂר אָסוּר לְהַעֲלוֹת עַל שֻׁלְחָן שֶׁאוֹכֵל חָלָב אוֹ אִיפְּכָא, <strong>מִשּׁוּם דְּלֹא בְּדִילִי אֱינָשֵׁי מִינֵּיהּ מִפְּנֵי שֶׁכָּל אֶחָד הֶיתֵּר בִּפְנֵי עַצְמוֹ</strong>; אֲבָל מֻתָּר לְהַעֲלוֹת בְּשַׂר נְבֵלָה עַל הַשֻּׁלְחָן שֶׁאוֹכֵל עָלָיו בְּשַׂר כְּשֵׁרָה, וְכֵן מְבוּאָר בְּדִבְרֵי הָר״ן וּמְבִיאוֹ ב״י בְּסִימָן צ״ז."
+<p><strong>הש״ך</strong> (ס״ק ב), sur les mots «&nbsp;<span class="he-q">אסור להעלות על השלחן</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד פ״ח ס״ק ב)</span></p>
+<p>«&nbsp;<span class="he-q">ונראה דוקא בשר אסור להעלות על השלחן שאוכל חלב או איפכא משום דלא בדילי אינשי מיניה מפני שכל אחד היתר בפני עצמו</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד פ״ח ס״ק ב)</span></p>
+<p>«&nbsp;<span class="he-q">אבל מותר להעלות בשר נבילה על השלחן שאוכל עליו בשר כשירה וכן מבואר בדברי הר״ן ומביאו ב״י בסימן צ״ז</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד פ״ח ס״ק ב)</span></p>
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה המדויקת :</strong> מהו גדר הגזירה — האם כל שני איסורין שעלולים להתערב, או דווקא בשר בחלב ?
+<div class="hakira-box">
+<strong>La hakira, dans ses termes exacts.</strong> Quelle est la portée du décret — vise-t-il deux aliments quelconques qui risquent de se mêler, ou bien la viande et le lait en propre ?
 <ul class="stylish">
-<li>(א) <strong>טעם הש״ך :</strong> "<span class="he-q">דלא בדילי אינשי מיניה מפני שכל אחד היתר בפני עצמו</span>" — כיון שגם הבשר וגם החלב מותרים בפני עצמם, אין אדם נזהר מהם, ולכן חוששים שיאכלם יחד.</li>
-<li>(ב) משא״כ <strong>בשר נבילה אצל בשר כשרה</strong> — הנבילה אסורה בעצמה, ובדיל אינש מיניה (נזהר ממנה), ולכן אין חשש שיאכלנה, ומותר להעלותה אף על שלחן בשר כשר.</li>
+<li>(a) <strong>Le motif du Chakh</strong> : «&nbsp;<span class="he-q">לא בדילי אינשי מיניה</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד פ״ח ס״ק ב)</span> — puisque la viande et le lait sont chacun permis pris séparément, l'homme ne s'en tient pas spontanément à l'écart, et c'est pourquoi l'on craint qu'il ne les mange ensemble.</li>
+<li>(b) Il n'en va pas de même de la <strong>viande de nevela auprès de la viande cachère</strong> : la nevela est interdite en elle-même, l'homme s'en tient à l'écart de lui-même, il n'y a donc pas à craindre qu'il en mange — et il est permis de la monter même sur une table de viande cachère. Le Chakh le tire du Ran, que le Beit Yossef rapporte au siman 97.</li>
 </ul>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד :</strong><br>
-גדר הגזירה תלוי ב"<span class="he-q">בדילי אינשי</span>" — האם בני אדם נזהרים מן הדבר מאליהם. בבשר וחלב, ששניהם היתר בנפרד — אין אדם נזהר, ולכן גזרו. בדבר האסור בעצמו — אדם נזהר מאליו, ואין צורך בגזירה. זהו שורש החילוק שבין סימן פ״ח לשאר איסורין.
+<div class="yesod-box">
+<strong>Le fondement.</strong><br>
+La portée du décret tient à un seul critère : l'homme se tient-il de lui-même à l'écart de la chose ? Pour la viande et le lait, tous deux permis séparément, il ne s'en garde pas — et l'on a décrété. Pour une chose interdite en elle-même, il s'en garde tout seul — et le décret n'a pas lieu d'être. C'est la racine de la distinction entre le siman 88 et les autres interdits.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">5. מודר הנאה ושאר איסורין — דיוק מן הרא״ש והרשב״א</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">5. Le vœu de non-bénéfice et les autres interdits — ce que le Chakh tire du Roch et du Rachba</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">המשך לשון הש״ך (ס״ק ב)
-  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 העתק</button>
+<h3>La suite du Chakh (ס״ק ב)
+  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-6">
-<strong>הש״ך</strong> (ס״ק ב, בהמשך): "מִיהוּ מִמַּה שֶּׁכָּתַב הָרֹא״שׁ בְּפֵרוּשׁוֹ לִנְדָרִים (סוֹף דַּף מ״א) גַּבֵּי הַמּוּדָּר הֲנָאָה מֵחֲבֵרוֹ אוֹכֵל עִמּוֹ עַל הַשֻּׁלְחָן... 'דְּכֵיוָן שֶׁהִדִּירוֹ מִסְּתָמָא שׂוֹנְאִים זֶה אֶת זֶה טְפֵי מִשְּׁנֵי אַכְסְנָאִים הָאוֹכְלִים עַל שֻׁלְחָן אֶחָד זֶה בָּשָׂר וְזֶה גְּבִינָה' — מַשְׁמַע דַּאֲפִלּוּ בִּשְׁאָר אִיסּוּרִים נַמִי דִּינָא הָכִי."
+<p><strong>הש״ך</strong> (ס״ק ב, suite) :</p>
+<p>«&nbsp;<span class="he-q">מיהו ממ״ש הרא״ש בפירושו לנדרים סוף דף מ״א גבי המודר הנאה מחבירו אוכל עמו על השלחן</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד פ״ח ס״ק ב)</span></p>
+<p>«&nbsp;<span class="he-q">ולא חיישינן שמא יאכל עמו דכיון שהדירו מסתמא שונאים זא״ז טפי מב׳ אכסנאים האוכלים על שלחן א׳ זה בשר וזה גבינה</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד פ״ח ס״ק ב)</span></p>
+<p>«&nbsp;<span class="he-q">משמע דאפילו בשאר איסורים נמי דינא הכי</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד פ״ח ס״ק ב)</span></p>
 </div>
 
-<div class="kashya-box" dir="rtl">
-<strong>קושיא על הש״ך :</strong> אם דווקא בשר בחלב גזרו (כס״ק ב לעיל), מדוע הרא״ש בנדרים השווה <strong>מודר הנאה</strong> (שהוא שאר איסור) ל"שני אכסנאים זה בשר וזה גבינה" ? משמע שגם בשאר איסורין יש דין העלאה על השלחן !
+<div class="kashya-box">
+<strong>Kachya sur le Chakh.</strong> Si le décret ne vise que la viande et le lait, comme il vient de l'établir, pourquoi le Roch, dans son commentaire sur Nedarim, compare-t-il <strong>celui à qui l'on a interdit par vœu de tirer bénéfice de son compagnon</strong> — qui relève des autres interdits — à « deux hôtes de passage, l'un avec de la viande, l'autre avec du fromage » ? Il en ressort que la règle de la table vaudrait aussi pour les autres interdits.
 </div>
 
-<div class="teruts-box" dir="rtl">
-<strong>יישוב הש״ך :</strong> "וי״ל דנדרים — כיון שאינו אסור אלא מצד נדרו — חשוב כבשר וחלב, שכל אחד היתר בפני עצמו; אבל בשאר איסורים י״ל דמודה הרא״ש". כלומר, <strong>מודר הנאה</strong> אינו ככל איסור: החפצא עצמו (האוכל) היתר גמור, והאיסור רק מחמת הנדר — ולכן "לא בדילי אינשי מיניה" כמו בשר וחלב. ובשאר איסורין (כנבילה) — אף הרא״ש מודה שמותר להעלות.
+<div class="teruts-box">
+<strong>La réponse du Chakh.</strong>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">וי״ל דנדרים כיון שאינו אסור אלא מצד נדרו חשוב כבשר וחלב שכל א׳ היתר בפני עצמו אבל בשאר איסורים י״ל דמודה הרא״ש</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד פ״ח ס״ק ב)</span></blockquote>
+Autrement dit : celui qui est lié par un vœu n'est pas dans le cas d'un interdit ordinaire. La chose elle-même reste entièrement permise, et l'interdit ne tient qu'au vœu — de sorte que l'homme ne s'en tient pas à l'écart, exactement comme pour la viande et le lait. Pour les autres interdits en revanche, tels la nevela, le Chakh tient que le Roch lui-même concède qu'il est permis de les monter.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הפתחי תשובה</strong> (ס״ק ב, על "<span class="he-q">המכירים</span>") מביא בשם הש״ך: "<span class="he-q">והמודר הנאה מדבר, או אוסר אכילה עליו — אסור להעלות על השולחן</span>". הרי שהשווה דין מודר הנאה לבשר וחלב לעניין העלאה על השלחן, כדברי הש״ך כאן.
+<div class="rishon-card">
+<strong>Le Pit'hei Techouva</strong> (ס״ק ב, sur le mot <span class="he-q">המכירים</span>) rapporte au nom du Chakh la même chose, et en fait une règle :
+<blockquote class="comment-source">«&nbsp;<span class="he-q">והמודר הנאה מדבר או אוסר אכילה עליו אסור להעלות על השולחן כן משמע בש״ך</span>&nbsp;» <span class="src-ref">(פתחי תשובה יו״ד פ״ח ס״ק ב)</span></blockquote>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>דיוק נוסף בש״ך :</strong> הש״ך מביא מן הרשב״א (תשו' סי' קע״ז) ומן הש״ע (או״ח סי' ת״מ) דעובד כוכבים הבא עם חמצו אסור להעלותו עם ישראל על השלחן בפסח — ומסיק ש<strong>התם שאני</strong>, "<span class="he-q">משום חומרא דחמץ... דחמץ במשהו</span>", וכן "<span class="he-q">דעל הלחם יחיה האדם ולא בדילי אינשי מיניה</span>" — ולכן בלחם החמירו טפי. אבל בעיקר הדין, "<span class="he-q">דברי הר״ן נראים וכן משמעות כל הפוסקים שלא כתבו איסור זה אלא גבי בשר בחלב</span>".
+<div class="pilpul-box">
+<strong>Le second membre de la réponse — le hamets de Pessa'h.</strong> Le Chakh se heurte encore à une responsa du Rachba, que le Beit Yossef rapporte et que le Choulhan Aroukh reprend en או״ח ת״מ : un non-juif entrant avec son hamets dans la maison d'un juif, il est interdit de le faire monter avec lui à table.
+<blockquote class="comment-source">«&nbsp;<span class="he-q">והא דכתב הרשב״א בתשובה ס״ס קע״ז ומביאו ב״י בא״ח סימן ת״מ דעובד כוכבים הבא עם חמצו לבית ישראל אסור להעלותו עמו על השלחן</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד פ״ח ס״ק ב)</span></blockquote>
+Et le Chakh écarte cette objection par deux raisons distinctes. La première tient à la sévérité propre du hamets, qui rend interdit dans la moindre quantité :
+<blockquote class="comment-source">«&nbsp;<span class="he-q">נראה דהתם משום חומרא דחמץ שאני דכיון דחמץ במשהו</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד פ״ח ס״ק ב)</span></blockquote>
+La seconde tient au pain lui-même, dont l'homme ne se tient pas à l'écart parce qu'il en vit et y est habitué toute l'année :
+<blockquote class="comment-source">«&nbsp;<span class="he-q">דשאני התם דעל הלחם יחיה האדם ורגיל בו כל השנה ולא בדילי אינשי מיניה</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד פ״ח ס״ק ב)</span></blockquote>
+Sur le fond, cependant, le Chakh conclut en faveur du Ran :
+<blockquote class="comment-source">«&nbsp;<span class="he-q">ומ״מ דברי הר״ן נראים וכן משמעות כל הפוסקים שלא כתבו איסור זה אלא גבי בשר וחלב</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד פ״ח ס״ק ב)</span></blockquote>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">6. מקפידים זה על זה — מחלוקת הש״ך והט״ז עם הרש״ל</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">6. Ils se tiennent sur la réserve — le Chakh et le Taz contre le Maharchal</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
 
-<p style="margin: 15px 0; font-style: italic; direction: rtl; text-align: right;">זוהי אחת המחלוקות המרכזיות של הסימן: האם המכירים זה את זה אך מקפידים זה על זה (אינם אוהבים לאכול משל חבירו) — מותרים או אסורים. נציג תחילה את לשון הש״ך והט״ז מן הקורפוס, ואחר כך את הניתוח.</p>
+<p style="margin: 15px 0; font-style: italic;">C'est l'une des ma'hlokot centrales du siman : deux hommes qui se connaissent mais se tiennent sur la réserve l'un envers l'autre — chacun n'aimant pas manger de ce qui est à l'autre — sont-ils permis ou interdits ? Voici d'abord le texte du Chakh et celui du Taz, l'analyse ensuite.</p>
 
-<h3 class="he-h3">לשון הש״ך (ס״ק ד)
-  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 העתק</button>
+<h3>Le texte du Chakh (ס״ק ד)
+  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-7">
-<strong>הש״ך</strong> (ס״ק ד) על "<span class="he-q">אפילו הם מקפידין</span>":<br>
-"כָּךְ כָּתַב הַטּוּר, וְכָךְ כָּתַב בָּרְמָזִים, וְכָךְ כָּתַב ב״י בְּאו״ח סִימָן קע״ג, וְזֶה דַּעַת הָאַחֲרוֹנִים; <strong>וּדְלֹא כְּמַהֲרְשַׁ״ל</strong> שָׁם שֶׁמַּתִּיר בִּשְׁנֵי בְּנֵי אָדָם שֶׁאֵינָן אַחִין אֲפִלּוּ מַכִּירִין זֶה אֶת זֶה אִם מַקְפִּידִין."
+<p><strong>הש״ך</strong> (ס״ק ד), sur les mots «&nbsp;<span class="he-q">אפילו הם מקפידין</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד פ״ח ס״ק ד)</span></p>
+<p>«&nbsp;<span class="he-q">כ״כ הטור וכ״כ ברמזים וכ״כ ב״י בא״ח סי׳ קע״ג וזה דעת האחרונים ודלא כמהרש״ל שם שמתיר בשני ב״א שאינן אחין אפילו מכירין זא״ז אם מקפידין:</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד פ״ח ס״ק ד)</span></p>
 </div>
 
-<h3 class="he-h3">לשון הט״ז (ס״ק ב)
-  <button class="daat-copy" type="button" data-copy-target="#cp-8">📋 העתק</button>
+<h3>Le texte du Taz (ס״ק ב)
+  <button class="daat-copy" type="button" data-copy-target="#cp-8">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-8">
-<strong>הט״ז</strong> (ס״ק ב) על "<span class="he-q">אפילו הם מקפידים זה על זה</span>":<br>
-"רַשַׁ״ל בְּפֶרֶק כ״ה סִימָן מ״ג כָּתַב עַל זֶה וְלֹא נְהִירָא, דְּהָא אִיתָא בַּגְּמָרָא 'אֲמַר לֵיהּ רַב יֵימָר לְאַבָּיֵי: אַחִין וּמַקְפִּידִין זֶה עַל זֶה מַהוּ? וּפָשַׁט לֵיהּ דְּאָסוּר'... <strong>וְלֹא נִלְעַ״ד כֵּן</strong>, דְּהָא בִּשְׁנֵי אַחִין וּמַקְפִּידִין הָיָה גַּם כֵּן הַסְּבָרָא לְהַתִּיר בַּגְּמָרָא אֶלָּא מִשּׁוּם 'לֹא פְּלוּג רַבָּנָן' אָסְרוּ... אִם כֵּן הָכָא נַמִי בִּשְׁאָר הַמַּכִּירִים זֶה אֶת זֶה אַמְרִינָן 'לֹא פְּלוּג'."
+<p><strong>הט״ז</strong> (ס״ק ב), sur les mots «&nbsp;<span class="he-q">אפי׳ הם מקפידים זה על זה</span>&nbsp;» <span class="src-ref">(ט״ז יו״ד פ״ח ס״ק ב)</span></p>
+<p>«&nbsp;<span class="he-q">רש״ל בפ׳ כ״ה סי׳ מ״ג כתב ע״ז ולא נהירא דהא איתא בגמרא א״ל רב יימר לאביי אחין ומקפידין זע״ז מהו ופשט ליה דאסור</span>&nbsp;» <span class="src-ref">(ט״ז יו״ד פ״ח ס״ק ב)</span></p>
+<p>«&nbsp;<span class="he-q">ולא מבעיא ליה בשאר בני אדם מכירין זא״ז ומקפידין אלא ש״מ דוקא אחין שמקפידין אבל בשאר בני אדם אין שייך מכירין ומקפידין דלשון מכירין משמע שאוהבין זא״ז בלא הקפדה</span>&nbsp;» <span class="src-ref">(ט״ז יו״ד פ״ח ס״ק ב)</span></p>
+<p>«&nbsp;<span class="he-q">ולא נלע״ד כן דהא בשני אחין ומקפידין היה ג״כ הסברא להתיר בגמרא אלא משום לא פלוג רבנן אסרו מטעם שלא יאמרו כל הסריקין כו׳</span>&nbsp;» <span class="src-ref">(ט״ז יו״ד פ״ח ס״ק ב)</span></p>
+<p>«&nbsp;<span class="he-q">א״כ ה״נ בשאר המכירים זא״ז אמרי׳ לא פלוג א״כ מ״ש הטור בא״ח אפי׳ מקפידין קאי גם ארישא דהיינו מכירין זא״ז וכדבריו כאן וזה ברור:</span>&nbsp;» <span class="src-ref">(ט״ז יו״ד פ״ח ס״ק ב)</span></p>
 </div>
 
-<div class="machloket-box" dir="rtl">
+<div class="machloket-box">
 <table>
-<tr><th>שיטה</th><th>מכירים זה את זה ומקפידים</th><th>מקור</th></tr>
+<tr><th>Chitah</th><th>Ils se connaissent et sont sur la réserve</th><th>Source</th></tr>
 <tr>
-  <td><strong>המחבר, הטור, הש״ך, הט״ז, האחרונים</strong></td>
-  <td><strong>אסור</strong> — "אפילו הם מקפידין"; לא פלוג רבנן</td>
-  <td>מחבר ס״ב; ש״ך ס״ק ד; ט״ז ס״ק ב</td>
+  <td><strong>Le Mehaber, le Tour, le Chakh, le Taz, les A'haronim</strong></td>
+  <td><strong>Interdit</strong> — « même s'ils sont sur la réserve » ; les Sages n'ont pas fait de partage</td>
+  <td>Mehaber seif ב ; Chakh ס״ק ד ; Taz ס״ק ב</td>
 </tr>
 <tr>
-  <td><strong>המהרש״ל</strong> (ים של שלמה פכ״ה סי' מ״ג)</td>
-  <td><strong>מתיר</strong> בשאינן אחין, אם מקפידין (מדייק "אחין" מן הגמרא)</td>
-  <td>מובא בש״ך ס״ק ד, ט״ז ס״ק ב</td>
+  <td><strong>Le Maharchal</strong> (ים של שלמה, פרק כ״ה סימן מ״ג)</td>
+  <td><strong>Permet</strong> entre gens qui ne sont pas frères, s'ils sont sur la réserve — il tire le mot « frères » de la guemara</td>
+  <td>Rapporté par le Chakh ס״ק ד et le Taz ס״ק ב</td>
 </tr>
 </table>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>ניתוח הפלוגתא :</strong>
+<div class="pilpul-box">
+<strong>L'analyse de la divergence.</strong>
 <ul class="stylish">
-<li><strong>סברת הרש״ל :</strong> הגמרא (חולין ק״ז:) שאל רב יימר לאביי דווקא ב"<span class="he-q">אחין ומקפידין</span>" — מכלל שבשאר בני אדם, אם מקפידין, פשיטא דמותר. ולשון "מכירין" משמע שאוהבין זה את זה בלא הקפדה; אבל מכירין <em>ומקפידין</em> — מותר.</li>
-<li><strong>דחיית הט״ז :</strong> אדרבה — אף ב"אחין ומקפידין" היה מקום לסברה להתיר, ובכל זאת אסרו "<span class="he-q">משום לא פלוג רבנן... שלא יאמרו כל הסריקין</span>". אם כן הוא הדין בשאר מכירים: אמרינן לא פלוג, ואין מועיל מה שמקפידין. ומה שכתב הטור (או״ח) "אפילו מקפידין" — קאי <em>גם</em> ארישא (מכירין), כדבריו כאן בס״ב.</li>
-<li><strong>הכרעת הש״ך והט״ז מאוחדים :</strong> שניהם דוחים את הרש״ל ופוסקים כפשט המחבר — אסור אף במקפידין.</li>
+<li><strong>Le raisonnement du Maharchal.</strong> Dans la guemara, Rav Yeimar n'interroge Abayé que sur des <span class="he-q">אחין ומקפידין</span> — des frères qui se tiennent sur la réserve. S'il a fallu poser la question pour des frères, c'est que pour d'autres hommes, dès lors qu'ils sont sur la réserve, la permission allait de soi. Et le mot « se connaissent » désigne, selon lui, ceux qui s'aiment, sans réserve entre eux ; mais ceux qui se connaissent <em>et</em> se tiennent sur la réserve seraient permis.</li>
+<li><strong>Le rejet du Taz.</strong> Tout au contraire : pour des frères aussi qui se tiennent sur la réserve, il y avait matière à permettre, et l'on a pourtant interdit — au titre du refus de partager la règle, <span class="he-q">לא פלוג</span>, pour qu'on ne dise pas que tel cas est permis et tel autre non. Il en va donc de même pour les autres personnes qui se connaissent : on applique ici aussi le refus de partager, et la réserve ne sert de rien. Quant à ce que le Tour écrit en או״ח — « même s'ils sont sur la réserve » — le Taz tient que cela porte <em>aussi</em> sur le premier membre, ceux qui se connaissent, conformément à ses propres mots ici au seif ב.</li>
+<li><strong>Le Chakh et le Taz vont ensemble.</strong> L'un et l'autre écartent le Maharchal et tranchent selon le sens simple du Mehaber : interdit, même sur la réserve. Le Chakh y ajoute le poids du Tour, des Remazim, du Beit Yossef en או״ח קע״ג et des A'haronim.</li>
 </ul>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הפתחי תשובה</strong> (ס״ק ג, על "<span class="he-q">מקפידים</span>") מביא: מדברי הרא״ש (שהביא הש״ך ס״ק ב) מבואר ש<strong>אם נדרו הנאה זה מזה</strong> ושונאים זה את זה — מותרים לאכול בשר וגבינה, וכן כתב הפמ״ג. ומביא בשם הב״ח בשם הרש״ל: "<span class="he-q">ביושבים רחוקים זה מזה בכדי שאין יכול האחד לפשוט ידו ולאכול ממה שאוכל חבירו — שרי לדברי הכל בלא היכרא</span>". והוא צד נוסף להקל ברחוקים ממש.
+<div class="rishon-card">
+<strong>Le Pit'hei Techouva</strong> (ס״ק ג, sur le mot <span class="he-q">מקפידים</span>) apporte deux allègements. Le premier vient du Roch que le Chakh a rapporté à son ס״ק ב, et le Pri Megadim l'a écrit aussi :
+<blockquote class="comment-source">«&nbsp;<span class="he-q">מדברי הרא״ש שהביא הש״ך בס״ק ב׳ מבואר דאם נדרו הנאה זה זה מותרים לאכול בשר וגבינה ששונאים זה את זה</span>&nbsp;» <span class="src-ref">(פתחי תשובה יו״ד פ״ח ס״ק ג)</span></blockquote>
+Le second vient du Ba'h au nom du Maharchal, et porte sur la distance physique :
+<blockquote class="comment-source">«&nbsp;<span class="he-q">וכתב הב״ח בשם רש״ל דביושבים רחוקים זה מזה בכדי שאין יכול האחד לפשוט ידו ולאכול ממה שאוכל חבירו שרי לד״ה בלא הכירא:</span>&nbsp;» <span class="src-ref">(פתחי תשובה יו״ד פ״ח ס״ק ג)</span></blockquote>
+<em>Note de lecture</em> : le texte de Sefaria porte ici <span class="he-q">זה זה</span> là où le sens appelle « l'un de l'autre ». Nous recopions ce que donne la source et ne restaurons rien.
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">7. גדר ההיכר — מפה, פת, כלי, מנורה, מלח</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-rama">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">7. Ce qui fait un signe — nappe, pain, récipient, chandelier, sel</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-rama">↩ Explication détaillée (niveau 1)</a>
 
-<div class="hakira-box" dir="rtl">
-<strong>חקירת היסוד בהיכר :</strong> מהו גדרו של "היכר" המתיר ?
+<div class="hakira-box">
+<strong>La hakira sur le signe.</strong> Qu'est-ce donc qu'un <span class="he-q">היכר</span>, ce signe qui lève l'interdit ?
 <ul class="stylish">
-<li><strong>צד א — היכר של זכירה :</strong> ההיכר נועד <em>להזכיר</em> לאדם שעליו להיזהר. ולכן צריך דבר <strong>בלתי רגיל</strong> על השלחן (שמושך את העין), ואין מועיל פת שרגיל להיות שם.</li>
-<li><strong>צד ב — היכר של הפרדה :</strong> ההיכר נועד <em>להפריד</em> ממש בין הבשר לגבינה (כמחיצה). ולכן מפה נפרדת לכל אחד מועילה — שהיא הפרדה ממשית.</li>
+<li><strong>Premier côté — un signe qui rappelle.</strong> Le signe est là pour <em>rappeler</em> à l'homme qu'il doit prendre garde. Il faut donc une chose <strong>inhabituelle</strong> sur la table, qui accroche l'œil ; et un pain, qui s'y trouve de toute façon, n'y suffit pas.</li>
+<li><strong>Second côté — un signe qui sépare.</strong> Le signe est là pour <em>séparer</em> réellement la viande du fromage, à la manière d'une cloison. Une nappe distincte pour chacun y suffirait alors, puisqu'elle sépare en fait.</li>
 </ul>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>הנפקא מינה בין הצדדים — מן הרמ״א עצמו :</strong> מדוע <strong>פת</strong> שאוכלין ממנו אינו היכר, אבל <strong>כלי</strong> ששותין ממנו כן היכר ? לשון הרמ״א: בפת — "<span class="he-q">דבלאו הכי הפת שאוכלין ממנו מונח על השלחן</span>", כלומר פת רגיל להיות על השלחן ואינו ניכר; משא״כ כלי ששותין ממנו — "<span class="he-q">ובלאו הכי אין דרכו להיות על השלחן</span>" — ואף ששותין ממנו, עצם נוכחותו הבלתי-רגילה היא היכר. <strong>מוכח שהגדר הוא של זכירה (צד א)</strong> — תלוי ברגילות הדבר על השלחן, ולא בהפרדה הפיזית.
+<div class="pilpul-box">
+<strong>La nafka mina entre les deux côtés — et elle est dans le Rama lui-même.</strong> Pourquoi un <strong>pain</strong> dont on mange ne fait-il pas signe, tandis qu'un <strong>récipient</strong> dont on boit en fait un ? Le Rama donne la raison dans les deux cas. Pour le pain : «&nbsp;<span class="he-q">דבלאו הכי הפת שאוכלין ממנו מונח על השלחן</span>&nbsp;» <span class="src-ref">(רמ״א יו״ד פ״ח:ב)</span> — le pain a sa place ordinaire sur la table et ne se remarque pas. Pour le récipient : «&nbsp;<span class="he-q">ובלאו הכי אין דרכו להיות על השלחן</span>&nbsp;» <span class="src-ref">(רמ״א יו״ד פ״ח:ב)</span> — et même si l'on y boit, sa seule présence inhabituelle fait signe. <strong>Il en ressort que le critère est celui du rappel</strong> — il tient à l'habitude de la chose sur la table, non à une séparation matérielle.
 </div>
 
-<div class="machloket-box" dir="rtl">
+<div class="machloket-box">
 <table>
-<tr><th>ההיכר</th><th>מועיל ?</th><th>הטעם</th></tr>
-<tr><td>מפה נפרדת לכל אחד</td><td>כן</td><td>הפרדה ניכרת</td></tr>
-<tr><td>פת מונח ביניהם — ואין אוכלין ממנו</td><td>כן</td><td>בלתי רגיל ונשאר כסימן</td></tr>
-<tr><td>פת מונח ביניהם — ואוכלין ממנו</td><td><strong>לא</strong></td><td>"בלאו הכי הפת מונח על השלחן" (רמ״א)</td></tr>
-<tr><td>כלי ששותין ממנו (שאין דרכו על השלחן)</td><td>כן</td><td>בלתי רגיל — אף ששותין ממנו (רמ״א)</td></tr>
-<tr><td>מנורה או שאר דברים בלתי רגילים</td><td>כל שכן כן</td><td>היכר גמור (רמ״א; ט״ז ס״ק ד)</td></tr>
-<tr><td>כלי מלח מיוחד לכל אחד</td><td>נוהגין כן</td><td>"נשארו שיורי מאכל במלח" (רמ״א)</td></tr>
+<tr><th>Le signe</th><th>Vaut-il ?</th><th>La raison</th></tr>
+<tr><td>Une nappe distincte pour chacun</td><td>Oui</td><td>Une séparation visible (Mehaber seif ב)</td></tr>
+<tr><td>Un pain posé entre eux — dont on ne mange pas</td><td>Oui</td><td>Inhabituel, il demeure comme un repère (Mehaber seif ב)</td></tr>
+<tr><td>Un pain posé entre eux — dont on mange</td><td><strong>Non</strong></td><td>Le pain dont on mange est de toute façon sur la table (Rama)</td></tr>
+<tr><td>Un récipient dont on boit, qui n'a pas sa place sur la table</td><td>Oui</td><td>Inhabituel — même si l'on y boit (Rama)</td></tr>
+<tr><td>Un chandelier ou d'autres objets inhabituels</td><td>À plus forte raison oui</td><td>Un signe entier (Rama ; Taz ס״ק ד ; Chakh ס״ק ז)</td></tr>
+<tr><td>Une salière propre à chacun</td><td>C'est l'usage</td><td>Des restes de nourriture demeurent dans le sel (Rama)</td></tr>
 </table>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הט״ז</strong> (ס״ק ד) על "<span class="he-q">וכל שכן אם נתנו שם מנורה</span>": "<span class="he-q">היינו גם כן במקום שבלאו הכי לא היתה המנורה עומדת שם, דאל״כ הוי היכר דבכל שלחן צריכה המנורה להיות עומדת על השלחן</span>". ומוסיף בשם או״ה (בד״מ) "<span class="he-q">שצריך שתהא המנורה גבוה קצת</span>". הרי גם הט״ז תולה את ההיכר ב<strong>אי-רגילות</strong> — מנורה שדרכה לעמוד שם אינה היכר.
+<div class="rishon-card">
+<strong>Le Taz</strong> (ס״ק ד), sur les mots «&nbsp;<span class="he-q">וכ״ש אם נתנו שם מנורה כו׳</span>&nbsp;» <span class="src-ref">(ט״ז יו״ד פ״ח ס״ק ד)</span> :
+<blockquote class="comment-source">«&nbsp;<span class="he-q">היינו ג״כ במקו׳ שבלאו הכי לא הית׳ המנורה עומדת שם דאל״כ הוי היכר דבכל שלחן צריכה המנורה להיות עומדת על השלחן</span>&nbsp;» <span class="src-ref">(ט״ז יו״ד פ״ח ס״ק ד)</span></blockquote>
+Et il ajoute, au nom du Darkei Moché citant le Issour veHeter :
+<blockquote class="comment-source">«&nbsp;<span class="he-q">שצריך שתהא המנורה גבוה קצת.</span>&nbsp;» <span class="src-ref">(ט״ז יו״ד פ״ח ס״ק ד)</span></blockquote>
+Le Taz aussi, donc, fait tenir le signe à l'<strong>inhabituel</strong> : un chandelier dont la place est là ne fait pas signe. <em>Note de lecture</em> : le texte de Sefaria porte ici <span class="he-q">דאל״כ הוי היכר</span> là où la suite de la phrase demande le contraire. Le Chakh dit la même chose en clair, et c'est lui qui lève le doute :
+<blockquote class="comment-source">«&nbsp;<span class="he-q">היינו כשאין דרכה להיות שם כגון ביום ובכה״ג אבל אם דרכה להיות בלילה במקום הזה לא הוי היכר:</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד פ״ח ס״ק ז)</span></blockquote>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">8. פלוגתת הב״ח בכלי ששותין ממנו</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-rama">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">8. La contestation du Ba'h sur le récipient dont on boit</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-rama">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון הש״ך (ס״ק ו)
-  <button class="daat-copy" type="button" data-copy-target="#cp-9">📋 העתק</button>
+<h3>Le texte du Chakh (ס״ק ו)
+  <button class="daat-copy" type="button" data-copy-target="#cp-9">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-9">
-<strong>הש״ך</strong> (ס״ק ו) על "<span class="he-q">כלי ששותין ממנו וכו'</span>":<br>
-"וּבְב״ח פָּסַק דְּאִם שׁוֹתִין מִמֶּנּוּ — לֹא הָוֵי הֶיכֵּר, אַף עַל פִּי שֶׁאֵין דַּרְכּוֹ לִהְיוֹת עַל הַשֻּׁלְחָן; <strong>וְדִבְרֵי הב״י וְהָרַב עִיקָּר</strong>."
+<p><strong>הש״ך</strong> (ס״ק ו), sur les mots «&nbsp;<span class="he-q">כלי ששותין ממנו וכו׳</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד פ״ח ס״ק ו)</span></p>
+<p>«&nbsp;<span class="he-q">ובב״ח פסק דאם שותין ממנו לא הוי היכר אע״פ שאין דרכו להיות על השלחן ודברי הב״י והרב עיקר:</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד פ״ח ס״ק ו)</span></p>
 </div>
 
-<div class="machloket-box" dir="rtl">
+<div class="machloket-box">
 <table>
-<tr><th>שיטה</th><th>כלי ששותין ממנו (שאין דרכו על השלחן)</th></tr>
+<tr><th>Chitah</th><th>Un récipient dont on boit, qui n'a pas sa place sur la table</th></tr>
 <tr>
-  <td><strong>הב״ח</strong></td>
-  <td>אם שותין ממנו — <strong>לא הוי היכר</strong> (אף שאין דרכו שם), שהשתייה מבטלת את ההיכר</td>
+  <td><strong>Le Ba'h</strong></td>
+  <td>Si l'on y boit — <strong>ce n'est pas un signe</strong>, même si sa place n'est pas là : l'usage qu'on en fait défait le signe</td>
 </tr>
 <tr>
-  <td><strong>הב״י, הרמ״א, הש״ך</strong></td>
-  <td><strong>הוי היכר</strong> אף ששותין ממנו — "ודברי הב״י והרב עיקר"</td>
+  <td><strong>Le Beit Yossef, le Rama, le Chakh</strong></td>
+  <td><strong>C'est un signe</strong> même si l'on y boit — « les paroles du Beit Yossef et du Rav sont l'essentiel »</td>
 </tr>
 </table>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שורש הפלוגתא :</strong> לדעת הב״ח, כלי ששותין ממנו דומה לפת שאוכלין ממנו — השימוש בו מכניסו לכלל "תשמיש רגיל" ומבטל את ההיכר. ולדעת הב״י והרמ״א — יש לחלק: פת רגיל בעצם להיות על השלחן (ולכן אכילתו מבטלת), אבל כלי שתייה <strong>אין דרכו להיות על השלחן כלל</strong>, ואף ששותין ממנו עצם נוכחותו הבלתי-רגילה נשארת היכר. והש״ך הכריע כב״י וכרמ״א.
+<div class="pilpul-box">
+<strong>La racine de la divergence.</strong> Pour le Ba'h, un récipient dont on boit est semblable à un pain dont on mange : l'usage qu'on en fait le range parmi les ustensiles ordinaires du repas et défait le signe. Pour le Beit Yossef et le Rama, il y a lieu de distinguer : le pain a sa place sur la table par nature, de sorte qu'en manger achève de le banaliser ; mais un récipient à boire <strong>n'a pas du tout sa place sur la table</strong>, et sa présence inhabituelle demeure un signe quand bien même on y boit. Le Chakh tranche comme le Beit Yossef et le Rama.
+</div>
+
+<div class="rishon-card">
+<strong>Une divergence voisine, sur la dépense commune.</strong> Le Chakh (ס״ק ה) rapporte le Tour :
+<blockquote class="comment-source">«&nbsp;<span class="he-q">ז״ל הטור וי״א שאם יש להם הוצאה אחת שאין להם היתר ע״י היכר שעושין ביניהן</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד פ״ח ס״ק ה)</span></blockquote>
+et il montre ensuite que le Tour en או״ח, le Mehaber ici et les décisionnaires n'en tiennent pas ainsi :
+<blockquote class="comment-source">«&nbsp;<span class="he-q">מיהו מדברי הטור בא״ח ס״ס קע״ג ומדברי המחבר כאן משמע דאפילו יש להם הוצאה אחת מהני היכר</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד פ״ח ס״ק ה)</span></blockquote>
+Le Taz (ס״ק ג) lit ce passage du Tour autrement : selon lui, l'opinion citée ne fait pas dépendre la permission du signe mais de la dépense.
+<blockquote class="comment-source">«&nbsp;<span class="he-q">אבל אם יש להם שני הוצאות מותר אפילו בלא היכר שעושין כל שאין הם עצמן מכירין זא״ז</span>&nbsp;» <span class="src-ref">(ט״ז יו״ד פ״ח ס״ק ג)</span></blockquote>
+Et il conclut contre le Ba'h, qui laissait les paroles du Tour en suspens :
+<blockquote class="comment-source">«&nbsp;<span class="he-q">והש״ע פוסק כפירוש הראשון של הטור דאפי׳ במכירין יש היתר ע״י היכר שעושין:</span>&nbsp;» <span class="src-ref">(ט״ז יו״ד פ״ח ס״ק ג)</span></blockquote>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">9. "שהמאכל נדבק בכלי" — אפילו בשני שלחנות</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-rama">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">9. « Parce que la nourriture colle au récipient » — même à deux tables</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-rama">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון הש״ך (ס״ק ח)
-  <button class="daat-copy" type="button" data-copy-target="#cp-10">📋 העתק</button>
+<h3>Le texte du Chakh (ס״ק ח)
+  <button class="daat-copy" type="button" data-copy-target="#cp-10">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-10">
-<strong>הש״ך</strong> (ס״ק ח) על "<span class="he-q">משום שהמאכל נדבק בכלי</span>":<br>
-"וְהִלְכָּךְ <strong>אֲפִלּוּ הֵם בִּשְׁתֵּי שֻׁלְחָנוֹת, וַאֲפִלּוּ שְׁנֵי אַכְסְנָאִים — אָסוּר</strong> [לשתות מכלי אחד], וְכֵן כָּתוּב בְּאו״ה כְּלָל א' דִּין י״ד."
+<p><strong>הש״ך</strong> (ס״ק ח), sur les mots «&nbsp;<span class="he-q">משום שהמאכל נדבק בכלי</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד פ״ח ס״ק ח)</span></p>
+<p>«&nbsp;<span class="he-q">והלכך אפי׳ הם בשתי שולחנות ואפי׳ שני אכסנאים אסור וכן כתוב באו״ה כלל א׳ דין י״ד:</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד פ״ח ס״ק ח)</span></p>
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>חידוש גדול בש״ך :</strong> דין "<span class="he-q">לא לשתות מכלי אחד</span>" אינו מדין ההעלאה על השלחן (שתלוי במכירים / היכר), אלא <strong>דין נפרד</strong> מצד שהמאכל ממש <em>נדבק</em> בכלי ועובר מזה לזה. ולכן:
+<div class="hakira-box">
+<strong>Un grand hidouch du Chakh.</strong> L'interdit de boire d'un même récipient ne relève pas de la règle de la table — laquelle dépend de ce qu'ils se connaissent et du signe — mais constitue une <strong>règle à part</strong>, du fait que la nourriture <em>adhère</em> réellement au récipient et passe de l'un à l'autre. D'où :
 <ul class="stylish">
-<li>אף ב<strong>שני שלחנות</strong> — שאין בהם דין ההעלאה כלל — אסור לשתות מכלי אחד.</li>
-<li>אף ב<strong>שני אכסנאים</strong> — שמותרים בהעלאה בלא היכר — אסור לשתות מכלי אחד.</li>
+<li>même à <strong>deux tables</strong>, où la règle de la table ne s'applique pas du tout, il est interdit de boire d'un même récipient ;</li>
+<li>même entre <strong>deux hôtes de passage</strong>, à qui la table est permise sans aucun signe, il est interdit de boire d'un même récipient.</li>
 </ul>
-שהרי כאן אין החשש "שמא יאכלם יחד" אלא תערובת ממש של שיורי בשר וחלב בכלי.
+Car il n'y a plus ici la crainte qu'il ne les mange ensemble, mais un mélange effectif de restes de viande et de laitage dans le récipient.
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד :</strong><br>
-יש לחלק בין שני דינים בסימן: <span class="he-q">(א) דין ההעלאה על השלחן</span> — גזירת הרחקה התלויה במכירים, מקפידים והיכר. <span class="he-q">(ב) דין שתייה מכלי אחד ואכילה מפת אחד</span> — דין תערובת ממשית, חמור יותר, ואינו תלוי כלל בשלחן או בהיכר.
+<div class="yesod-box">
+<strong>Le fondement.</strong><br>
+Il faut distinguer deux règles dans ce siman. <strong>(a) La règle de la table</strong> — un décret d'éloignement, qui dépend de ce qu'ils se connaissent, de leur réserve et du signe. <strong>(b) La règle du récipient commun et du pain commun</strong> — une règle de mélange réel, plus grave, et qui ne dépend ni de la table ni du signe.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">10. חקירה ונפקא מינה למעשה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">10. Hakira et nafka mina pour la pratique</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<div class="hakira-box" dir="rtl">
-<strong>חקירת היסוד של הסימן :</strong> מהו גדר איסור ההעלאה ?
+<div class="hakira-box">
+<strong>La hakira de fond du siman.</strong> Quelle est la nature de l'interdit de monter à table ?
 <ul class="stylish">
-<li><strong>צד א — איסור על השלחן (חפצא של מקום) :</strong> השלחן שאוכלין עליו הוא "מקום סעודה", ואסרו להניח עליו שני המינים. ולכן בשלחן שסודר עליו התבשיל (אינו מקום אכילה) — מותר.</li>
-<li><strong>צד ב — איסור על הגברא (חשש תקלה) :</strong> האיסור מצד חשש שהאדם יאכלם; ולכן תלוי במכירים (שיש חשש) ולא באכסנאים (שאין חשש).</li>
+<li><strong>Premier côté — un interdit qui porte sur la table.</strong> La table où l'on mange est le lieu du repas, et l'on a interdit d'y poser les deux espèces. C'est pourquoi la table de service, qui n'est pas un lieu où l'on mange, échappe à la règle.</li>
+<li><strong>Second côté — un interdit qui porte sur l'homme.</strong> L'interdit vient de la crainte que l'homme ne les mange ; il dépend donc de ce qu'ils se connaissent — où la crainte existe — et tombe pour des hôtes de passage, où elle n'existe pas.</li>
 </ul>
-ושני הצדדים אמת: סעיף א' מלמד את גדר ה<em>מקום</em> (שלחן אכילה מול סידור), וסעיף ב' את גדר ה<em>גברא</em> (מכירים, היכר).
+Et les deux côtés sont vrais : le seif א enseigne la règle du <em>lieu</em> (table où l'on mange contre table de service), le seif ב celle de l'<em>homme</em> (se connaître, le signe).
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה לחקירה (מעוגן בקורפוס) :</strong>
+<div class="nafka-mina-box">
+<strong>Les nafka minot, appuyées sur le texte :</strong>
 <ol class="stylish">
-<li><strong>שלחן שסודר עליו התבשיל</strong> — מותר ליתן זה בצד זה (מחבר ס״א). מוכח שיש גדר של "מקום אכילה" דווקא.</li>
-<li><strong>שני אכסנאים</strong> — מותר בלא היכר (מחבר ס״ב). מוכח שיש גדר של "חשש גברא" דווקא.</li>
-<li><strong>שתייה מכלי אחד</strong> — אסור אף בשני שלחנות ואף באכסנאים (ש״ך ס״ק ח). מוכח שזהו דין שלישי — תערובת ממשית — ואינו תלוי לא במקום ולא בחשש.</li>
+<li><strong>La table sur laquelle on dispose les plats</strong> — il est permis d'y poser l'un à côté de l'autre : «&nbsp;<span class="he-q">אבל בשלחן שסודר עליו התבשיל מותר ליתן זה בצד זה:</span>&nbsp;» <span class="src-ref">(שו״ע יו״ד פ״ח:א)</span>. Preuve qu'il existe une règle du lieu.</li>
+<li><strong>Deux hôtes de passage</strong> — permis sans aucun signe (Mehaber seif ב). Preuve qu'il existe une règle de l'homme.</li>
+<li><strong>Boire d'un même récipient</strong> — interdit même à deux tables et même entre hôtes de passage (Chakh ס״ק ח). Preuve que c'est une troisième règle — le mélange réel — qui ne dépend ni du lieu ni de la crainte.</li>
 </ol>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<h4>נפקא מינה נוספות מן הקורפוס</h4>
+<div class="nafka-mina-box">
+<h4>Autres nafka minot tirées de l'appareil</h4>
 <table>
-<tr><th>נושא</th><th>הלכה למעשה (לעיון בלבד)</th></tr>
+<tr><th>Cas</th><th>Ce que disent les sources (pour l'étude seulement)</th></tr>
 <tr>
-  <td>גבינה על שלחן בשר</td>
-  <td>אסור — "וה״ה איפכא" (ש״ך ס״ק א).</td>
+  <td>Du fromage sur une table de viande</td>
+  <td>Interdit — <span class="he-q">וה״ה איפכא</span> <span class="src-ref">(ש״ך יו״ד פ״ח ס״ק א)</span></td>
 </tr>
 <tr>
-  <td>בשר נבילה על שלחן בשר כשרה</td>
-  <td>מותר — דבדיל אינש מאיסורא (ש״ך ס״ק ב, ר״ן).</td>
+  <td>De la viande de nevela sur une table de viande cachère</td>
+  <td>Permis — l'homme se tient de lui-même à l'écart de ce qui est interdit (Chakh ס״ק ב, au nom du Ran)</td>
 </tr>
 <tr>
-  <td>מודר הנאה / אוסר אכילה על עצמו</td>
-  <td>אסור להעלות עמו, כבשר וחלב (ש״ך ס״ק ב; פת״ש ס״ק ב).</td>
+  <td>Celui qui est lié par un vœu de non-bénéfice, ou qui s'est interdit cet aliment</td>
+  <td>Interdit de le monter avec lui, comme pour la viande et le lait (Chakh ס״ק ב ; Pit'hei Techouva ס״ק ב)</td>
 </tr>
 <tr>
-  <td>הדלקה בחמאה אצל בשר</td>
-  <td>יש מזהירים שלא להדליק בחמאה גזירה שמא ינטף על הבשר; הפמ״ג מחלק בין נר חמאה מהותך לנר שומן (פת״ש ס״ק א). למעשה — שאל את רבך.</td>
+  <td>S'éclairer au beurre auprès de viande</td>
+  <td>Le Pit'hei Techouva rapporte l'avertissement de ne pas allumer au beurre, de peur qu'il n'en goutte sur la viande ; le Beit Le'hem Yehouda étend la crainte aux bougies de graisse, et le Pri Megadim distingue entre les deux (ס״ק א). Pour la pratique — demande à ton rav.</td>
 </tr>
 <tr>
-  <td>אחרים אוכלים על אותו שלחן</td>
-  <td>במשאת בנימין (סי' קי״ב) משמע שאם גם אחרים אוכלים על שלחן זה — מותר אף בלא היכר, דעדיף מהיכר (פת״ש ס״ק ד).</td>
+  <td>D'autres mangent à la même table</td>
+  <td>Le Pit'hei Techouva tire de la responsa Massat Binyamin (סימן קי״ב) que si d'autres mangent aussi à cette table, c'est permis même sans signe (ס״ק ד)</td>
 </tr>
 </table>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>סיכום היסוד :</strong><br>
-כל הסימן סובב סביב <span class="he-q">"שלא יבוא לאכלם יחד"</span>. ומכאן שלושה גדרים:
-<br>• <strong>איסור ההעלאה</strong> — גזירה לגזירה (ט״ז ס״ק א), דווקא בבשר בחלב שלא בדילי אינשי (ש״ך ס״ק ב), בשני הכיוונים (ש״ך ס״ק א).<br>• <strong>תנאי הגברא</strong> — מכירים אף מקפידים אסור (ש״ך ס״ק ד, ט״ז ס״ק ב), אכסנאים מותר, והיכר מתיר.<br>• <strong>דין כלי משותף</strong> — איסור נפרד מצד שהמאכל נדבק, אף בשני שלחנות (ש״ך ס״ק ח).
+<div class="rishon-card">
+<strong>Le Pit'hei Techouva</strong> (ס״ק א), sur la bougie de beurre :
+<blockquote class="comment-source">«&nbsp;<span class="he-q">שכתב בשם א״ז להזהיר שלא להדליק בחמאה דגזרינן שמא ינטף ממנה על הבשר</span>&nbsp;» <span class="src-ref">(פתחי תשובה יו״ד פ״ח ס״ק א)</span></blockquote>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">והפמ״ג כתב ולדידי מהא לא איריא דחמאה מהותך בנר שקורין קרוזו״ל יש לחוש ע״י נענוע ישפוך משח״כ נר שומן עשוי כעין פתילה לא חיישינן שמא יטיף</span>&nbsp;» <span class="src-ref">(פתחי תשובה יו״ד פ״ח ס״ק א)</span></blockquote>
+Et <strong>le Pit'hei Techouva</strong> (ס״ק ד), sur le Massat Binyamin :
+<blockquote class="comment-source">«&nbsp;<span class="he-q">ועיין בתשובת משאת בנימין סימן קי״ב באמצע התשובה דמשמע שם דאם גם אחרים אוכלים על שלחן זה מותר אף בלא היכר דזה עדיף מאם עשו שום היכר</span>&nbsp;» <span class="src-ref">(פתחי תשובה יו״ד פ״ח ס״ק ד)</span></blockquote>
+</div>
+
+<div class="yesod-box">
+<strong>Résumé du fondement.</strong><br>
+Tout le siman tourne autour du motif donné par le Mehaber — «&nbsp;<span class="he-q">שלא יבא לאכלם יחד</span>&nbsp;» <span class="src-ref">(שו״ע יו״ד פ״ח:א)</span>. De là, trois règles :
+<br>• <strong>L'interdit de monter à table</strong> — un décret sur un décret (Taz ס״ק א), visant la viande et le lait en propre, dont l'homme ne se garde pas (Chakh ס״ק ב), et valant dans les deux sens (Chakh ס״ק א).<br>• <strong>Les conditions tenant à l'homme</strong> — interdit entre gens qui se connaissent, fût-ce sur la réserve (Chakh ס״ק ד, Taz ס״ק ב) ; permis entre hôtes de passage ; et le signe lève l'interdit.<br>• <strong>La règle du récipient commun</strong> — un interdit distinct, du fait que la nourriture y adhère, valant même à deux tables (Chakh ס״ק ח).
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">11. סיכום השיטות בטבלה מקיפה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">11. Tableaux de synthèse</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">טבלה — שלושת הגדרים בסימן</h3>
+<h3>Les trois règles du siman</h3>
 
 <table>
 <tr>
-  <th>הגדר</th>
-  <th>הגדרה</th>
-  <th>מקור בקורפוס</th>
+  <th>La règle</th>
+  <th>Sa définition</th>
+  <th>Où elle est écrite</th>
 </tr>
 <tr>
-  <td><strong>גוף הגזירה</strong></td>
-  <td>אין להעלות בשר וגבינה על שלחן אכילה אחד; גזירה לגזירה</td>
-  <td>מחבר ס״א; ט״ז ס״ק א</td>
+  <td><strong>Le corps du décret</strong></td>
+  <td>On ne monte pas viande et fromage sur une même table où l'on mange ; un décret sur un décret</td>
+  <td>Mehaber seif א ; Taz ס״ק א</td>
 </tr>
 <tr>
-  <td><strong>היקף הגזירה</strong></td>
-  <td>בשני הכיוונים; דווקא בשר בחלב ולא שאר איסורין</td>
-  <td>ש״ך ס״ק א, ב</td>
+  <td><strong>La portée du décret</strong></td>
+  <td>Dans les deux sens ; la viande et le lait en propre, non les autres interdits</td>
+  <td>Chakh ס״ק א et ס״ק ב</td>
 </tr>
 <tr>
-  <td><strong>תנאי הגברא</strong></td>
-  <td>מכירים אסור (אף מקפידים); אכסנאים מותר; היכר מתיר</td>
-  <td>מחבר ס״ב; ש״ך ס״ק ג, ד, ה; ט״ז ס״ק ב</td>
+  <td><strong>Les conditions tenant à l'homme</strong></td>
+  <td>Interdit entre gens qui se connaissent, fût-ce sur la réserve ; permis entre hôtes de passage ; le signe lève l'interdit</td>
+  <td>Mehaber seif ב ; Chakh ס״ק ג, ד, ה ; Taz ס״ק ב</td>
 </tr>
 <tr>
-  <td><strong>גדר ההיכר</strong></td>
-  <td>מפה, פת (שאין אוכלין), כלי, מנורה, מלח — דבר בלתי רגיל</td>
-  <td>מחבר ורמ״א ס״ב; ש״ך ס״ק ו, ז; ט״ז ס״ק ג, ד</td>
+  <td><strong>Ce qui fait un signe</strong></td>
+  <td>Nappe, pain dont on ne mange pas, récipient, chandelier, sel — une chose inhabituelle</td>
+  <td>Mehaber et Rama seif ב ; Chakh ס״ק ו, ז ; Taz ס״ק ג, ד</td>
 </tr>
 <tr>
-  <td><strong>דין כלי משותף</strong></td>
-  <td>אסור לשתות מכלי אחד אף בשני שלחנות ואכסנאים</td>
-  <td>רמ״א ס״ב; ש״ך ס״ק ח</td>
+  <td><strong>La règle du récipient commun</strong></td>
+  <td>Interdit de boire d'un même récipient, même à deux tables et entre hôtes de passage</td>
+  <td>Rama seif ב ; Chakh ס״ק ח</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מחלוקות מרכזיות</h3>
+<h3>Les ma'hlokot centrales</h3>
 
 <table>
 <tr>
-  <th>נושא</th>
-  <th>הש״ך</th>
-  <th>הט״ז</th>
-  <th>חולק</th>
+  <th>Le point</th>
+  <th>Le Chakh</th>
+  <th>Le Taz</th>
+  <th>Qui conteste</th>
 </tr>
 <tr>
-  <td>מכירים ומקפידים</td>
-  <td>אסור (ס״ק ד) — דלא כמהרש״ל</td>
-  <td>אסור (ס״ק ב) — "לא פלוג"</td>
-  <td>מהרש״ל — מתיר בשאינן אחין</td>
+  <td>Se connaître et se tenir sur la réserve</td>
+  <td>Interdit (ס״ק ד) — contre le Maharchal</td>
+  <td>Interdit (ס״ק ב) — les Sages n'ont pas fait de partage</td>
+  <td>Le Maharchal — permet entre gens qui ne sont pas frères</td>
 </tr>
 <tr>
-  <td>כלי ששותין ממנו — היכר ?</td>
-  <td>הוי היכר (ס״ק ו) — כב״י וכרמ״א</td>
-  <td>(כרמ״א, ס״ק ג)</td>
-  <td>ב״ח — לא הוי היכר אם שותין</td>
+  <td>Un récipient dont on boit fait-il signe ?</td>
+  <td>Oui (ס״ק ו) — comme le Beit Yossef et le Rama</td>
+  <td>Comme le Rama (ס״ק ג)</td>
+  <td>Le Ba'h — pas de signe si l'on y boit</td>
 </tr>
 <tr>
-  <td>טעם "ונותנים פת להיכר"</td>
-  <td>(כפשט)</td>
-  <td>תלוי בהוצאה אחת (ס״ק ג) — ומכריע כפירוש הראשון של הטור</td>
-  <td>מו״ח (ב״ח) — העמיד בצ״ע</td>
+  <td>La portée de « ils posent un pain entre eux »</td>
+  <td>Le signe vaut même s'ils ont une dépense commune (ס״ק ה)</td>
+  <td>La chose dépend de la dépense (ס״ק ג) — et il tranche comme la première lecture du Tour</td>
+  <td>Le Ba'h — laissait les paroles du Tour en suspens</td>
 </tr>
 <tr>
-  <td>שאר איסורין — דין העלאה ?</td>
-  <td>דווקא בב״ח ומודר הנאה (ס״ק ב)</td>
+  <td>Les autres interdits relèvent-ils de la règle de la table ?</td>
+  <td>Seulement la viande et le lait, et le vœu de non-bénéfice (ס״ק ב)</td>
   <td>—</td>
   <td>—</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מקורות הסוגיא</h3>
+<h3>Les sources de la sougya</h3>
 
 <div class="rishon-card" dir="rtl">
 <strong>גמרא :</strong> חולין ק״ג: — ק״ד: (פרק כל הבשר; חלת חו״ל ק״ד: — מובא בש״ך ס״ק ב) · חולין ק״ז: (אחין ומקפידין — לשון הט״ז) · נדרים מ״א: (מודר הנאה אוכל עמו על השלחן — הרא״ש) · עבודה זרה, פרק אין מעמידין ל״ז: (לחם — מובא בש״ך ס״ק ב)
 </div>
 <div class="rishon-card" dir="rtl">
-<strong>ראשונים :</strong> ר״ן (נדרים) · רא״ש (פירוש נדרים סוף דף מ״א) · רשב״א (תשו' סי' קע״ז) · תוספות · הגהות אשר״י · ארוך (איסור והיתר הארוך) · טור
+<strong>ראשונים :</strong> ר״ן (נדרים) · רא״ש (פירוש נדרים סוף דף מ״א) · רשב״א (תשו׳ סי׳ קע״ז) · תוספות · הגהות אשר״י · ארוך (איסור והיתר הארוך) · טור
 </div>
 <div class="rishon-card" dir="rtl">
-<strong>אחרונים :</strong> בית יוסף (יו״ד פ״ח; או״ח קע״ג, ת״מ; וסי' צ״ז) · רמ״א · ש״ך · ט״ז · ב״ח · דרישה · מהרש״ל (ים של שלמה פכ״ה) · משאת בנימין (סי' קי״ב) · פרי מגדים · פתחי תשובה · בית לחם יהודה · מהרי״ט (בבאר היטב) בשם א״ז
+<strong>אחרונים :</strong> בית יוסף (יו״ד פ״ח; או״ח קע״ג, ת״מ; וסי׳ צ״ז) · רמ״א · ש״ך · ט״ז · ב״ח · דרישה · מהרש״ל (ים של שלמה פכ״ה) · משאת בנימין (סי׳ קי״ב) · פרי מגדים · פתחי תשובה · בית לחם יהודה · באר היטב
 </div>
 
 <hr class="ornament">
 
-  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;direction:rtl;">
-    <a href="niveau-1-base.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">→ רמה א' — יסוד</a>
-    <a href="niveau-3-synthese.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">רמה ג' — סיכום ←</a>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;">
+    <a href="niveau-1-base.html" style="font-family:'Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">← Niveau 1 — Base</a>
+    <a href="niveau-3-synthese.html" style="font-family:'Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">Niveau 3 — Synthèse →</a>
   </div>
 
 <div class="yh-watermark">
 ~ ~ ~ ~ ~<br>
-<strong>DAAT</strong> · <strong>הרב יוסף חיים סממה</strong><br>
-תלמיד חכם · מעביר שיעורים בהלכה ובחסידות<br>
-<em>פלפול ועיון בדין בשר וגבינה על שלחן אחד · סימן פ״ח · ⚡ רמה ב' — לַמְדָּן</em>
+<strong>DAAT</strong> · <strong>Rav Yossef Haim Samama</strong><br>
+Talmid hakham · enseignant en halakha et en hassidout<br>
+<em>Pilpoul et étude sur la viande et le fromage à une même table · Siman 88 · ⚡ Niveau 2 — Lamdan</em>
 </div>
 
-  <div class="disclaimer" style="background:#fff8e1;border-right:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;direction:rtl;text-align:right;">
-    ⚠️ תוכן זה נכתב לצורך לימוד ועיון בלבד. לכל הוראה למעשה (לְמַעֲשֶׂה) — שאל את רבך.
+  <div class="disclaimer" style="background:#fff8e1;border-left:4px solid #C5A55A;padding:16px 40px;font-family:'Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;">
+    ⚠️ Ce contenu est écrit pour l'étude et l'examen seulement. Pour toute application pratique (לְמַעֲשֶׂה) — demande à ton rav.
   </div>
 
   <div style="background:#1A1F3A;border-top:2px solid #C5A55A;padding:24px 40px;text-align:center;margin-top:0;">
-    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;direction:rtl;">
-      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">לעמוד הבית</a> · <a href="index.html" style="color:#C5A55A;text-decoration:none;">סימן פ״ח</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ לתמיכה</a>
+    <p style="font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;">
+      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">Accueil</a> · <a href="index.html" style="color:#C5A55A;text-decoration:none;">Siman 88</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ Soutenir</a>
     </p>
   </div>
 

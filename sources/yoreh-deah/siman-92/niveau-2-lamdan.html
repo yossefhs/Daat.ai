@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="fr" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,9 +22,8 @@
 <style>
   @page { size: A4; margin: 2cm 1.8cm; }
   body {
-    font-family: 'Frank Ruhl Libre', 'David', 'Georgia', 'Cambria', serif;
+    font-family: 'Georgia', 'Cambria', serif;
     font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0;
-    direction: rtl; text-align: right;
   }
   .he {
     direction: rtl; text-align: right;
@@ -36,19 +35,14 @@
     font-family: 'Frank Ruhl Libre', 'David', serif;
     font-weight: 600; color: #1A1F3A;
   }
-
-  .cover {
-    text-align: center; margin-top: 2.5cm; margin-bottom: 2cm;
-  }
+  .cover { text-align: center; margin-top: 2.5cm; margin-bottom: 2cm; }
   .cover h1 {
-    font-size: 30pt; color: #1A1F3A; margin: 5px 0;
+    font-size: 28pt; color: #1A1F3A; margin: 5px 0;
     font-family: 'Cormorant Garamond', 'Georgia', serif;
   }
   .cover .he-title { font-size: 38pt; color: #1A1F3A; margin: 15px 0 5px 0; }
   .cover .he-sub { font-size: 18pt; color: #C5A55A; margin-bottom: 20px; }
-  .cover .he-subject {
-    font-size: 15pt; color: #5a4a1a; margin: 15px 0; font-style: italic;
-  }
+  .cover .he-subject { font-size: 15pt; color: #5a4a1a; margin: 15px 0; font-style: italic; }
   .cover .ornament { color: #C5A55A; font-size: 22pt; margin: 15px 0; }
   .cover .level-badge {
     display: inline-block;
@@ -62,202 +56,164 @@
     margin-top: 2cm; padding-top: 20px; border-top: 1px solid #C5A55A;
     font-size: 10pt; color: #555; line-height: 1.8;
   }
-  .cover .subtitle {
-    font-size: 14pt; color: #5a4a1a; font-style: italic; margin: 10px 0 30px 0;
-  }
-  .cover .badge-top {
-    color: #C5A55A; font-size: 11pt; letter-spacing: 4px; margin-bottom: 10px;
-  }
-
+  .cover .subtitle { font-size: 14pt; color: #5a4a1a; font-style: italic; margin: 10px 0 30px 0; }
+  .cover .badge-top { color: #C5A55A; font-size: 11pt; letter-spacing: 4px; margin-bottom: 10px; }
   h2.section-title {
     color: #fff; background: #1A1F3A;
     font-size: 16pt; padding: 10px 18px; margin-top: 30px;
-    border-right: 6px solid #C5A55A;
-    direction: rtl; text-align: right;
-    font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
+    border-left: 6px solid #C5A55A;
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
   }
   h3 {
     color: #1A1F3A; font-size: 14pt; margin-top: 25px;
-    border-right: 4px solid #C5A55A; padding-right: 10px;
-    direction: rtl; text-align: right;
-    font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
+    border-left: 4px solid #C5A55A; padding-left: 10px;
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
   }
   h3.he-h3 {
-    direction: rtl; text-align: right;
-    border-right: none; border-left: 4px solid #C5A55A;
-    padding-right: 0; padding-left: 10px;
+    direction: ltr; text-align: left;
+    border-left: 4px solid #C5A55A; border-right: none;
+    padding-left: 10px; padding-right: 0;
   }
-  h4 {
-    color: #5a4a1a; font-size: 12pt;
-    margin-top: 20px; margin-bottom: 8px; font-weight: bold;
-    direction: rtl; text-align: right;
-  }
-
+  h4 { color: #5a4a1a; font-size: 12pt; margin-top: 20px; margin-bottom: 8px; font-weight: bold; }
   .sacred-text {
     background: #FAF6EE;
     border-right: 3px solid #C5A55A; border-left: 3px solid #C5A55A;
     padding: 15px 20px; margin: 15px 0;
     font-size: 12.5pt; line-height: 1.9;
   }
-  .pilpul-box {
-    background: #eef3fa; border-right: 4px solid #1A1F3A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
-  }
+  .pilpul-box { background: #eef3fa; border-left: 4px solid #1A1F3A; padding: 12px 18px; margin: 15px 0; }
   .pilpul-box::before {
-    content: "⚡ פלפול"; display: block;
+    content: "\26A1 \05E4\05DC\05E4\05D5\05DC"; display: block;
     color: #1A1F3A; font-weight: bold; font-size: 10pt;
-    margin-bottom: 5px; letter-spacing: 1px;
-    direction: rtl; text-align: right;
+    margin-bottom: 5px; letter-spacing: 1px; direction: rtl; text-align: left;
   }
-  .kashya-box {
-    background: #fef4e4; border-right: 4px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
-  }
+  .kashya-box { background: #fef4e4; border-left: 4px solid #C5A55A; padding: 12px 18px; margin: 15px 0; }
   .kashya-box::before {
-    content: "❓ קושיא"; display: block;
+    content: "\2753 \05E7\05D5\05E9\05D9\05D0"; display: block;
     color: #8a6a1a; font-weight: bold; font-size: 10pt;
-    margin-bottom: 5px; letter-spacing: 1px;
-    direction: rtl; text-align: right;
+    margin-bottom: 5px; letter-spacing: 1px; direction: rtl; text-align: left;
   }
-  .teruts-box {
-    background: #e8f4ea; border-right: 4px solid #2d7a3e;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
-  }
+  .teruts-box { background: #e8f4ea; border-left: 4px solid #2d7a3e; padding: 12px 18px; margin: 15px 0; }
   .teruts-box::before {
-    content: "✓ תירוץ"; display: block;
+    content: "\2713 \05EA\05D9\05E8\05D5\05E5"; display: block;
     color: #2d7a3e; font-weight: bold; font-size: 10pt;
-    margin-bottom: 5px; letter-spacing: 1px;
-    direction: rtl; text-align: right;
+    margin-bottom: 5px; letter-spacing: 1px; direction: rtl; text-align: left;
   }
-  .hakira-box {
-    background: #f5e9f5; border-right: 4px solid #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
-  }
+  .hakira-box { background: #f5e9f5; border-left: 4px solid #6a1b7a; padding: 12px 18px; margin: 15px 0; }
   .hakira-box::before {
-    content: "🔍 חקירה"; display: block;
+    content: "\1F50D \05D7\05E7\05D9\05E8\05D4"; display: block;
     color: #6a1b7a; font-weight: bold; font-size: 10pt;
-    margin-bottom: 5px; letter-spacing: 1px;
-    direction: rtl; text-align: right;
+    margin-bottom: 5px; letter-spacing: 1px; direction: rtl; text-align: left;
   }
   .nafka-mina-box {
     background: #fff4e6; border: 2px solid #C5A55A;
     padding: 12px 18px; margin: 15px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
   }
   .nafka-mina-box::before {
-    content: "⚖️ נפקא מינה"; display: block;
+    content: "\2696 \05E0\05E4\05E7\05D0 \05DE\05D9\05E0\05D4"; display: block;
     color: #1A1F3A; font-weight: bold; font-size: 10pt;
-    margin-bottom: 5px; letter-spacing: 1px;
-    direction: rtl; text-align: right;
+    margin-bottom: 5px; letter-spacing: 1px; direction: rtl; text-align: left;
   }
-  .yesod-box {
-    background: #1A1F3A; color: #fff;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
-  }
+  .yesod-box { background: #1A1F3A; color: #fff; padding: 15px 20px; margin: 20px 0; border-radius: 4px; }
   .yesod-box::before {
-    content: "💎 יסוד"; display: block;
+    content: "\1F48E \05D9\05E1\05D5\05D3"; display: block;
     color: #C5A55A; font-weight: bold; font-size: 10pt;
-    margin-bottom: 8px; letter-spacing: 2px;
-    direction: rtl; text-align: right;
+    margin-bottom: 8px; letter-spacing: 2px; direction: rtl; text-align: left;
   }
   .yesod-box .he-q { color: #C5A55A; }
-  .machloket-box {
-    background: #faf5ff; border: 1.5px dashed #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
-  }
-
-  table {
-    width: 100%; border-collapse: collapse;
-    margin: 20px 0; font-size: 10pt;
-  }
-  th {
-    background: #1A1F3A; color: #fff;
-    padding: 10px; text-align: right; direction: rtl; font-size: 11pt;
-  }
-  td {
-    direction: rtl; text-align: right;
-    border: 1px solid #d4c89a; padding: 10px; vertical-align: top;
-  }
+  .yesod-box a { color: #C5A55A; }
+  .machloket-box { background: #faf5ff; border: 1.5px dashed #6a1b7a; padding: 12px 18px; margin: 15px 0; }
+  table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 10pt; }
+  th { background: #1A1F3A; color: #fff; padding: 10px; text-align: left; font-size: 11pt; }
+  td { border: 1px solid #d4c89a; padding: 10px; vertical-align: top; }
   tr:nth-child(even) td { background: #FAF6EE; }
   td.he, th.he { text-align: right; direction: rtl; font-size: 11.5pt; }
-
   .page-break { page-break-before: always; }
   hr.ornament { border: none; text-align: center; margin: 25px 0; }
-  hr.ornament::before { content: "✦ ❖ ✦"; color: #C5A55A; font-size: 14pt; }
-
-  .source-ref {
-    color: #6a5a1a; font-style: italic; font-size: 0.95em;
+  hr.ornament::before { content: "\2726 \2756 \2726"; color: #C5A55A; font-size: 14pt; }
+  .source-ref { color: #6a5a1a; font-style: italic; font-size: 0.95em; }
+  .src-ref { font-size: 0.82em; color: #5a4a1a; font-style: italic; font-family: 'Georgia', 'Cambria', serif; }
+  .translation {
+    background: #fbfaf6; border-left: 3px solid #C5A55A;
+    padding: 10px 16px; margin: 10px 0 18px 0; font-size: 10.8pt; line-height: 1.7;
   }
-
+  .translation::before {
+    content: attr(data-label); display: block;
+    color: #8a6a1a; font-weight: bold; font-size: 9pt;
+    letter-spacing: 1px; margin-bottom: 5px; text-transform: uppercase;
+  }
   .yh-watermark {
     text-align: center; font-size: 9pt; color: #8a7a4a;
     margin-top: 40px; padding-top: 15px;
     border-top: 1px solid #C5A55A; font-style: italic;
   }
-
   ol.stylish li, ul.stylish li { margin-bottom: 8px; }
-  ol.stylish, ul.stylish { padding-right: 22px; padding-left: 0; }
-
+  ol.stylish, ul.stylish { padding-left: 22px; padding-right: 0; }
   .rishon-card {
-    background: #f7f3e4; border-right: 4px solid #8a6a1a;
+    background: #f7f3e4; border-left: 4px solid #8a6a1a;
     padding: 10px 15px; margin: 10px 0; font-size: 10.5pt;
-    direction: rtl; text-align: right;
   }
   .rishon-card strong { color: #1A1F3A; font-size: 11pt; }
-
   blockquote {
-    border-right: 3px solid #C5A55A;
-    margin: 10px 0 10px 15px; padding: 8px 15px;
+    border-right: 3px solid #C5A55A; border-left: none;
+    margin: 10px 0; padding: 8px 15px;
     background: #faf8f0; font-style: italic;
     direction: rtl; text-align: right;
     font-family: 'Frank Ruhl Libre', serif; font-size: 11.5pt;
     unicode-bidi: embed;
   }
-
+  blockquote.comment-source {
+    background: #f7f3e4; border-right: 3px solid #8a6a1a; border-left: none;
+    font-style: normal; margin: 10px 0; padding: 8px 15px;
+    direction: rtl; text-align: right; font-family: 'Frank Ruhl Libre', serif; font-size: 11.5pt;
+  }
+  blockquote.comment-source .src-ref {
+    display: inline-block; margin-top: 6px; color: #6a5a1a; font-style: italic; font-size: 0.88em;
+  }
   .index-box {
     background: #FAF6EE; border: 1px solid #C5A55A;
     padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
   }
-  .index-box ol { margin: 5px 0; padding-right: 25px; padding-left: 0; }
+  .index-box ol { margin: 5px 0; padding-left: 25px; padding-right: 0; }
   .index-box li { margin-bottom: 5px; }
-
-  h3.sugya {
-    background: #1A1F3A; color: #fff;
-    padding: 8px 15px; border-left: none; border-right: 6px solid #C5A55A;
-  }
-
-  /* ── חץ אל ההסבר המפורט (רמה 1) ── */
+  .disclaimer { background: #fff8e1; border-left: 4px solid #C5A55A; }
   a.daat-explain {
-    display: inline-block;
-    margin: 4px 0 14px 0;
-    color: #C5A55A;
-    font-family: 'Frank Ruhl Libre', 'David', serif;
-    font-size: 12pt;
-    text-decoration: none;
-    border-bottom: 1px dotted #C5A55A;
-    direction: rtl;
+    display: inline-block; margin: 4px 0 14px 0; color: #C5A55A;
+    font-family: 'Georgia', 'Cambria', serif; font-size: 10.5pt;
+    text-decoration: none; border-bottom: 1px dotted #C5A55A;
   }
   a.daat-explain:hover { color: #8a6a1a; border-bottom-style: solid; }
-
-  /* ── כפתור העתקה ── */
   button.daat-copy {
-    display: inline-block;
-    margin: 0 10px 0 0;
-    padding: 3px 12px;
-    font-family: 'Frank Ruhl Libre', 'David', serif;
-    font-size: 10.5pt;
-    color: #1A1F3A;
-    background: #FAF6EE;
-    border: 1px solid #C5A55A;
-    border-radius: 4px;
-    cursor: pointer;
-    vertical-align: middle;
-    direction: rtl;
+    display: inline-block; margin: 0 0 0 10px; padding: 3px 12px;
+    font-family: 'Georgia', 'Cambria', serif; font-size: 10pt;
+    color: #1A1F3A; background: #FAF6EE;
+    border: 1px solid #C5A55A; border-radius: 4px;
+    cursor: pointer; vertical-align: middle; direction: ltr;
   }
   button.daat-copy:hover { background: #C5A55A; color: #fff; }
+  .rishon-card[dir="rtl"] { border-left: none; border-right: 4px solid #8a6a1a; text-align: right; }
+  .hakira-box[dir="rtl"] { border-left: none; border-right: 4px solid #6a1b7a; text-align: right; }
+  .kashya-box[dir="rtl"] { border-left: none; border-right: 4px solid #C5A55A; text-align: right; }
+  .teruts-box[dir="rtl"] { border-left: none; border-right: 4px solid #2d7a3e; text-align: right; }
+  .pilpul-box[dir="rtl"] { border-left: none; border-right: 4px solid #1A1F3A; text-align: right; }
+  .machloket-box[dir="rtl"], .nafka-mina-box[dir="rtl"], .yesod-box[dir="rtl"] { text-align: right; }
+  .index-box[dir="rtl"] ol { padding-right: 25px; padding-left: 0; }
+  [dir="rtl"] th, [dir="rtl"] td { text-align: right; direction: rtl; }
   @media print { button.daat-copy, a.daat-explain { display: none; } }
+  .lang-switcher-float {
+    position: fixed; top: 12px; right: 12px; z-index: 9999;
+    display: flex; gap: 4px; background: rgba(255,255,255,0.95);
+    border: 1px solid #C5A55A; padding: 4px 6px; border-radius: 3px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); font-family: 'Inter', sans-serif;
+    direction: ltr;
+  }
+  .lang-switcher-float a {
+    font-size: 11px; letter-spacing: 1px; padding: 3px 7px; border-radius: 2px;
+    color: #5a4a1a; text-decoration: none; border: 1px solid transparent;
+  }
+  .lang-switcher-float a.active { color: #1A1F3A; background: #FFF8E5; border-color: #1A1F3A; font-weight: 600; }
+  .lang-switcher-float a:hover { color: #1A1F3A; border-color: #C5A55A; }
+  @media print { .lang-switcher-float { display: none; } }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/daat-enhance.css">
@@ -273,7 +229,7 @@
   "headline": "Siman צ״ב · Niveau 2 Lamdan — Pilpoul approfondi · חלב שנפל לקדירה של בשר, טעימת קפילא וביטול בששים",
   "description": "Niveau 2 (Lamdan) du Siman צ״ב (Yoreh De'ah) — Pilpoul approfondi. Les deux interdits du seif 1 (Taz sk1), טעימת קפילא et ביטול בס׳, ניער/כיסה כצירוף, חתיכה נעשית נבילה, טיפה על הדופן ומפעפע, זיעה et נר של חלב — חקירה et נפקא מינה.",
   "url": "https://daattorah.com/yd/92/lamdan",
-  "inLanguage": "he-IL",
+  "inLanguage": "fr-FR",
   "isAccessibleForFree": true,
   "author": {
     "@id": "https://daattorah.com/#rav-samama"
@@ -381,525 +337,616 @@
 
 <!-- COUVERTURE -->
 <div class="cover">
-  <div class="ornament">✦ ❖ ✦</div>
-  <div class="badge-top">DAAT · רמה ב' — לַמְדָּן</div>
-  <h1>שולחן ערוך · יורה דעה</h1>
-  <div class="subtitle">דין חלב שנפל לקדירה של בשר — עיון ופלפול</div>
+  <div class="ornament">&#10022; &#10070; &#10022;</div>
+  <div class="badge-top">DAAT &middot; NIVEAU 2 &mdash; LAMDAN</div>
+  <h1>Siman 92 &mdash; Niveau Lamdan : le lait tomb&eacute; dans une marmite de viande</h1>
+  <div class="subtitle">Ce qu&rsquo;il faut annuler, et ce qui se joint pour l&rsquo;annuler</div>
 
-  <div class="he-title">סימן צ״ב</div>
+  <div class="he-title">&#1505;&#1497;&#1502;&#1503; &#1510;&#1524;&#1489;</div>
   <div class="he-sub">טעימת קפילא, ביטול בששים, ניער וכיסה, חתיכה נעשית נבילה</div>
-  <div class="he-subject">עיון, פלפול, שיטות הראשונים והאחרונים</div>
+  <div class="he-subject">&Eacute;tude et pilpoul &mdash; Richonim, A&rsquo;haronim, &rsquo;hakirot et nafka minot</div>
 
-  <div class="level-badge">⚡ ללומדים ותלמידי חכמים ⚡</div>
+  <div class="level-badge">&#9889; Pour lamdanim et talmidei &rsquo;hakhamim &#9889;</div>
 
-  <div class="ornament">✦ ❖ ✦</div>
+  <div class="ornament">&#10022; &#10070; &#10022;</div>
 
-  <h2 style="margin-top:20px; color: #1A1F3A;">פלפול ועיון מעמיק</h2>
+  <h2 style="margin-top:20px; color: #1A1F3A;">Pilpoul et &eacute;tude approfondie</h2>
   <p style="font-size:12pt; color:#555;">
-    סוגיות, מקורות, חקירת היסוד, מחלוקות ראשונים ואחרונים,<br>
-    נפקא מינות להלכה ועיון בשיטות
+    Sougyot, sources, &rsquo;hakira de fond, ma&rsquo;hlokot des Richonim et des A&rsquo;haronim,<br>
+    nafka minot pour la halakha et examen des chitot
   </p>
 
   <div class="credits">
-    <p><strong>הנושא :</strong><br>
-    שולחן ערוך יורה דעה סימן צ״ב (ט' סעיפים)<br>
-    עם נושאי כלים: ש״ך (שפתי כהן), ט״ז (טורי זהב), פרי מגדים, פתחי תשובה</p>
+    <p><strong>Le sujet :</strong><br>
+    Choul&rsquo;han Aroukh, Yor&eacute; D&eacute;a, siman 92 (9 seifim)<br>
+    avec l&rsquo;appareil : Chakh (Siftei Kohen), Taz (Tourei Zahav), Pri M&eacute;gadim, Pit&rsquo;h&eacute; Techouva</p>
 
-    <p><strong>יסוד הסוגיא בש״ס :</strong><br>
-    חולין צ״ז:–צ״ח. (טעם כעיקר, קפילא, ביטול בששים) · חולין ק״ח. (חתיכה נעשית נבילה) · חולין קי״א:–קי״ב. (זיעה, תתאה גבר)</p>
+    <p><strong>Le fondement de la sougya dans le Chass :</strong><br>
+    &rsquo;Houlin 97b&ndash;98a (go&ucirc;t comme substance, קפילא, annulation par soixante) &middot; &rsquo;Houlin 108a (&rsquo;hatikha naassit n&eacute;v&eacute;la) &middot; &rsquo;Houlin 111b&ndash;112a (vapeur, tata&rsquo;a gavar)</p>
 
-    <p><strong>עריכה ועיון :</strong><br>
-    הרב יוסף חיים סממה · DAAT</p>
+    <p><strong>R&eacute;daction et &eacute;tude :</strong><br>
+    Rav Yossef &rsquo;Ha&iuml;m Samama &middot; DAAT</p>
   </div>
 </div>
 
 <div class="page-break"></div>
 
 <!-- TABLE DES MATIÈRES -->
-<h2 class="section-title">📑 תוכן העניינים</h2>
+<h2 class="section-title">&#128209; Table des mati&egrave;res</h2>
 
-<div class="index-box" dir="rtl">
+<div class="index-box">
 <ol>
-  <li><strong>הקדמת הסוגיא</strong> — כזית בשר שנפל ליורה של חלב, וטעימת הקפילא (סעיף א')</li>
-  <li><strong>שני האיסורים שבסעיף א'</strong> — חידוש הט״ז (ס״ק א), מין במינו, ריב״א ור״ת</li>
-  <li><strong>יסוד הצירוף</strong> — ניער / כיסה ומחלוקת אם מהני אלא לאלתר (סעיף ב')</li>
-  <li><strong>חתיכה נעשית נבילה</strong> — מהו היסוד דחנ״נ דווקא בבב״ח (סעיף ג')</li>
-  <li><strong>הכרעת הרמ״א</strong> — חנ״נ בכל איסורין מדרבנן, ותנאי דבוק / לח בלח / יבש ביבש (סעיף ד')</li>
-  <li><strong>טיפת חלב על הדופן</strong> — מפעפע, כנגד הרוטב וכנגד הריקן (סעיפים ה'–ו')</li>
-  <li><strong>שעת הדחק · תתאה גבר · עירוי וקלוח</strong> — וטיפה על הכיסוי (סעיף ז')</li>
-  <li><strong>חקירת הזיעה</strong> — זיעת אוכלין וזיעת משקין, יד סולדת ומכוסה (סעיף ח')</li>
-  <li><strong>נר של חלב</strong> — חֵלֶב ולא חָלָב, גרידה והגעלה (סעיף ט')</li>
-  <li><strong>חקירה ונפקא מינה למעשה</strong></li>
-  <li><strong>טבלאות סיכום מקיפות</strong></li>
+  <li><strong>Introduction &agrave; la sougya</strong> &mdash; un kazayit de viande tomb&eacute; dans une chaudi&egrave;re de lait, et le go&ucirc;t du קפילא (seif 1)</li>
+  <li><strong>Les deux interdits du seif 1</strong> &mdash; le &rsquo;hidouch du Taz (ס״ק א), min b&eacute;mino, le Rivа&rsquo; et Rabb&eacute;nou Tam</li>
+  <li><strong>Le fondement du tseirouf</strong> &mdash; remuer / couvrir, et la question de savoir si cela ne vaut qu&rsquo;imm&eacute;diatement (seif 2)</li>
+  <li><strong>&rsquo;Hatikha naassit n&eacute;v&eacute;la</strong> &mdash; pourquoi ce principe appartient d&rsquo;abord &agrave; la viande et au lait (seif 3)</li>
+  <li><strong>La d&eacute;cision du Rama</strong> &mdash; &rsquo;h.n.n. dans tous les interdits, mid&eacute;rabanan, et les conditions de l&rsquo;adh&eacute;rence, du liquide dans le liquide, du sec dans le sec (seif 4)</li>
+  <li><strong>La goutte de lait sur la paroi</strong> &mdash; מפעפע, en face du bouillon et en face du vide (seifim 5&ndash;6)</li>
+  <li><strong>Moment press&eacute; &middot; תתאה גבר &middot; versement et filet</strong> &mdash; et la goutte sur le couvercle (seif 7)</li>
+  <li><strong>La &rsquo;hakira de la vapeur</strong> &mdash; vapeur de boisson et vapeur d&rsquo;aliment, main qui se retire, r&eacute;cipient couvert (seif 8)</li>
+  <li><strong>La chandelle de suif</strong> &mdash; חֵלֶב et non חָלָב, raclage et hag&rsquo;ala (seif 9)</li>
+  <li><strong>&rsquo;Hakira et nafka mina pour la pratique</strong></li>
+  <li><strong>Tableaux de synth&egrave;se</strong></li>
 </ol>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<!-- לשון השולחן ערוך — סעיף א' -->
-<h2 class="section-title">📜 לשון השולחן ערוך — סעיף א'
-  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 העתק</button>
+<h2 class="section-title">&#128220; Le texte du Choul&rsquo;han Aroukh &mdash; seif 1
+  <button class="daat-copy" type="button" data-copy-target="#cp-1">&#128203; Copier</button>
 </h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<a class="daat-explain" href="niveau-1-base.html#exp-seifim">&#8617; Explication d&eacute;taill&eacute;e (niveau 1)</a>
 
 <div class="sacred-text he" data-copy-block id="cp-1">
-  <p>כְּזַיִת בָּשָׂר שֶׁנָּפַל לְתוֹךְ יוֹרָה שֶׁל חָלָב רוֹתֵחַ — טוֹעֵם הָעוֹבֵד כּוֹכָבִים הַקְּדֵרָה; אִם אָמַר שֶׁיֵּשׁ בָּהּ טַעַם בָּשָׂר אֲסוּרָה, וְאִם לָאו מֻתֶּרֶת — אֲפִלּוּ בְּפָחוֹת מִשִּׁשִּׁים; וְאוֹתָהּ חֲתִיכָה אֲסוּרָה. וְהוּא שֶׁהֵסִיר הַחֲתִיכָה קֹדֶם שֶׁתִּפְלוֹט הֶחָלָב שֶׁבָּלְעָה, דְּהַיְינוּ קֹדֶם שֶׁתָּנוּחַ הַיּוֹרָה מֵרְתִיחָתָהּ. (הגה: וְאֵין אָנוּ נוֹהֲגִין לִסְמוֹךְ אַטְעִימַת עוֹבֵד כּוֹכָבִים, וּבָעֵינַן שִׁשִּׁים בְּכָל עִנְיָן.)</p>
+  <p>דינין אם נפל חלב לקדירה של בשר. ובו ט׳ סעיפים: כזית בשר שנפל לתוך יורה של חלב רותח טועם העובד כוכבים הקדירה אם אמר שיש בה טעם בשר אסורה ואם לאו מותרת אפי׳ בפחות מששים ואותה חתיכה אסורה במה דברים אמורים בשקדם והוציא החתיכה קודם שתפלוט חלב שבלעה דהיינו קודם שתנוח היורה מרתיחה אבל אם לא הספיק לסלקו עד שתוכל לפלוט החלב שבלעה אע״פ שטעמו עובד כוכבים ואין בו טעם כלל אסור אא״כ יש בו ס׳: הגה וע״ל סימן צ״ח דאין אנו נוהגין לסמוך אטעימת עובד כוכבים ובעינן ס׳ בכל ענין:</p>
+</div>
+<div class="translation" data-label="Traduction">
+  <p><em>R&eacute;sum&eacute; du chapeau</em> : le siman s&rsquo;ouvre sur son intitul&eacute; &mdash; r&egrave;gles du lait tomb&eacute; dans une marmite de viande &mdash; et annonce neuf seifim ; l&rsquo;&eacute;dition suivie ici en d&eacute;coupe bien neuf.</p>
+  <p>Un kazayit de viande est tomb&eacute; dans une chaudi&egrave;re de lait bouillant : le non-juif go&ucirc;te la marmite. S&rsquo;il dit qu&rsquo;il s&rsquo;y trouve un go&ucirc;t de viande, elle est interdite ; sinon elle est permise, <strong>m&ecirc;me s&rsquo;il y a moins de soixante</strong> &mdash; et ce morceau-l&agrave;, lui, est interdit. De quoi parle-t-on ? De ce qu&rsquo;on a devanc&eacute; et retir&eacute; le morceau avant qu&rsquo;il ne rejette le lait qu&rsquo;il avait absorb&eacute;, c&rsquo;est-&agrave;-dire avant que la chaudi&egrave;re ne cesse de bouillir. Mais si l&rsquo;on n&rsquo;a pas eu le temps de l&rsquo;&ocirc;ter, au point qu&rsquo;il ait pu rejeter le lait absorb&eacute;, alors m&ecirc;me que le non-juif y ait go&ucirc;t&eacute; et n&rsquo;y trouve aucun go&ucirc;t, c&rsquo;est interdit &mdash; sauf s&rsquo;il y a soixante. <em>Glose du Rama</em> : et voir plus loin au siman 98, que nous n&rsquo;avons pas coutume de nous fier au go&ucirc;t du non-juif, et qu&rsquo;il faut soixante en tout &eacute;tat de cause.</p>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">1. הקדמת הסוגיא — כזית בשר שנפל ליורה של חלב</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">1. Introduction &agrave; la sougya &mdash; un kazayit de viande dans une chaudi&egrave;re de lait</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-seifim">&#8617; Explication d&eacute;taill&eacute;e (niveau 1)</a>
 
-<h3 class="he-h3">היסוד — טעימת קפילא וזמן ההסרה
-  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 העתק</button>
+<h3 class="he-h3">Le fondement &mdash; le go&ucirc;t du קפילא et le moment du retrait
+  <button class="daat-copy" type="button" data-copy-target="#cp-2">&#128203; Copier</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-2">
-יסוד הסימן: כזית בשר שנפל ליורה של חלב רותח — מאחר שאיסור בשר בחלב תלוי ב<strong>טעם</strong>, התירה הגמרא (חולין צ״ז:) לסמוך על <strong>טעימת קפילא</strong>, אומן עובד כוכבים שמלאכתו בכך, להעיד אם יש טעם בשר בחלב. אם אמר שיש טעם — אסור; אם אמר שאין טעם — מותר אף ב<span class="he-q">פחות מששים</span>, שהרי טעם כעיקר תלוי בטעם ולא במדידה. אבל <strong>אותה חתיכה אסורה</strong> — שהרי היא בלעה חלב, והוא איסור הנמצא בגופה.
+<div class="sacred-text" data-copy-block id="cp-2">
+<p>Tout le siman tient dans une remarque simple : l&rsquo;interdit de la viande avec le lait est un interdit de <strong>go&ucirc;t</strong>. Ce n&rsquo;est pas une quantit&eacute; qu&rsquo;il faut mesurer, c&rsquo;est une saveur qu&rsquo;il faut constater. De l&agrave; la permission de la guemara (&rsquo;Houlin 97b) de s&rsquo;en remettre au <strong>קפילא</strong>, l&rsquo;artisan non juif dont c&rsquo;est le m&eacute;tier, pour dire s&rsquo;il y a ou non un go&ucirc;t de viande dans le lait. S&rsquo;il dit qu&rsquo;il y en a, c&rsquo;est interdit ; s&rsquo;il dit qu&rsquo;il n&rsquo;y en a pas, c&rsquo;est permis <em>m&ecirc;me avec moins de soixante</em>. Mais le morceau lui-m&ecirc;me reste interdit : il a absorb&eacute; du lait, et cet interdit-l&agrave; se trouve dans son corps &mdash; aucun go&ucirc;t ext&eacute;rieur ne l&rsquo;en lave.</p>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>תנאי הזמן — "קודם שתנוח היורה" :</strong> כל היתר הקפילא אמור דווקא כשהוסרה החתיכה <em>קודם שתפלוט החלב שבלעה</em>, דהיינו <span class="he-q">קודם שתנוח היורה מרתיחתה</span>. כי כל זמן שהיא רותחת — אין הבשר פולט מה שבלע (איידי דבלע לא פליט), אבל משנחה הרתיחה — חוזר הבשר ופולט את החלב הבלוע לתוך שאר החלב. ולפיכך, אם לא הספיק להסירה ופלטה את החלב הבלוע, <strong>אפילו אין הנכרי מרגיש טעם — אסור אלא אם כן יש ששים</strong>.
-</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">כזית בשר שנפל לתוך יורה של חלב רותח טועם העובד כוכבים הקדירה</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1493;&#1524;&#1506; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1488;&#1524;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ואם לאו מותרת אפי׳ בפחות מששים ואותה חתיכה אסורה</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1493;&#1524;&#1506; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1488;&#1524;)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>הכרעת הרמ״א (הגה) :</strong> "<span class="he-q">ואין אנו נוהגין לסמוך אטעימת עובד כוכבים, ובעינן ששים בכל ענין</span>" (ועיין סימן צ״ח). למעשה, בטל היתר הקפילא בזמננו, וכל הסוגיא נדונה ב<strong>שיעור ששים</strong> בלבד — וזהו השינוי המכריע בין פשט המחבר לבין ההוראה לאשכנזים ולרבים מן הספרדים.
-</div>
+<div class="pilpul-box">
+<strong>La condition de temps.</strong> Toute la permission du קפילא n&rsquo;est dite que si le morceau a &eacute;t&eacute; retir&eacute; <em>avant</em> de rendre le lait qu&rsquo;il avait bu &mdash; et le Choul&rsquo;han Aroukh donne &agrave; ce &laquo;&nbsp;avant&nbsp;&raquo; une mesure physique : avant que la chaudi&egrave;re ne se repose de son bouillonnement. Pass&eacute; ce moment, m&ecirc;me le t&eacute;moignage du go&ucirc;t ne sert plus, et il faut soixante.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">במה דברים אמורים בשקדם והוציא החתיכה קודם שתפלוט חלב שבלעה</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1493;&#1524;&#1506; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1488;&#1524;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דהיינו קודם שתנוח היורה מרתיחה</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1493;&#1524;&#1506; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1488;&#1524;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אע״פ שטעמו עובד כוכבים ואין בו טעם כלל אסור אא״כ יש בו ס׳</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1493;&#1524;&#1506; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1488;&#1524;)</span></blockquote>
+
+<div class="rishon-card">
+<strong>La d&eacute;cision du Rama (glose).</strong> Le Rama renvoie au siman 98 et retire la permission du go&ucirc;t : on ne s&rsquo;y fie pas, et il faut soixante en tout &eacute;tat de cause. Pratiquement, la permission du קפילא a cess&eacute; de fonctionner, et toute la sougya se rejoue dans la seule mesure des soixante &mdash; c&rsquo;est l&agrave; l&rsquo;&eacute;cart d&eacute;cisif entre la lettre du Me&rsquo;haber et la conduite re&ccedil;ue.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דאין אנו נוהגין לסמוך אטעימת עובד כוכבים ובעינן ס׳ בכל ענין</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1488;&#1524;)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">2. שני האיסורים שבסעיף א' — חידוש הט״ז</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">2. Les deux interdits du seif 1 &mdash; le &rsquo;hidouch du Taz</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">&#8617; Explication d&eacute;taill&eacute;e (niveau 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זהו אחד מן החידושים החריפים שבסימן, וכל כובד ידו של הט״ז (ס״ק א) נתון בו.</p>
+<p style="margin:15px 0; font-style:italic;">C&rsquo;est l&rsquo;un des passages les plus aigus du siman, et tout le poids du Taz (ס״ק א) y est engag&eacute;.</p>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — מהו "החלב שבלעה" :</strong> לכאורה אם הנכרי טעם ולא הרגיש טעם בשר, מדוע יש לחוש שמא תפלוט החלב הבלוע ? והלא הבשר אינו אוסר אלא בטעמו, וכבר נטעם ולא נמצא בו טעם !
-</div>
+<div class="hakira-box">
+<strong>La &rsquo;hakira.</strong> Si le non-juif a go&ucirc;t&eacute; et n&rsquo;a rien senti, pourquoi craindre encore que le morceau rende le lait qu&rsquo;il a bu ? La viande n&rsquo;interdit que par son go&ucirc;t &mdash; et l&rsquo;on vient pr&eacute;cis&eacute;ment de go&ucirc;ter, sans rien trouver. Que reste-t-il &agrave; interdire ?</div>
 
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ הט״ז (ס״ק א) — שני איסורים נפרדים :</strong> מבאר הט״ז דבסעיף זה גלומים <strong>שני איסורים שונים</strong>:
-<ul class="stylish">
-<li><strong>(א) טעם הבשר</strong> שהחתיכה פולטת מיד אל החלב — וזה נדון בטעימת הקפילא (או בששים), <span class="he-q">ובטל בששים לכולי עלמא</span>.</li>
-<li><strong>(ב) החלב שהבשר בלע</strong> תחילה ו<em>חוזר ופולטו</em> אל שאר החלב לאחר שתנוח הרתיחה — ואיסור זה אינו ניכר בטעימה כלל, שכן מין במינו הוא (חלב בחלב).</li>
-</ul>
-זהו שורש התנאי "קודם שתנוח היורה": כדי שלא יבוא לידי האיסור השני.
-</div>
+<div class="teruts-box">
+<strong>La r&eacute;ponse du Taz.</strong> Le Taz r&eacute;pond que ce seif ne contient pas un interdit mais <strong>deux</strong>, et que la question ne portait que sur le premier. Le premier est le go&ucirc;t de viande que le morceau rejette aussit&ocirc;t dans le lait &mdash; celui-l&agrave; se juge au go&ucirc;t, ou &agrave; soixante, et tout le monde l&rsquo;accorde. Le second est le <em>lait</em> que la viande a d&rsquo;abord absorb&eacute;, et qu&rsquo;elle rend ensuite au reste du lait de la chaudi&egrave;re : celui-l&agrave; est du lait dans du lait, et aucune d&eacute;gustation au monde ne peut le rep&eacute;rer.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ויש כאן ב׳ איסורין האחד מצד טעם בשר שמפליט להחלב תכף אחר הנפילה לשם ולזה מהני ששים בחלב לכ״ע</span>&nbsp;&raquo; <span class="src-ref">(&#1496;&#1524;&#1494; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1488;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ויש איסור אחר דהיינו החלב שבולע הבשר לתוכו חוזר ואוסר שאר החלב שביורה</span>&nbsp;&raquo; <span class="src-ref">(&#1496;&#1524;&#1494; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1488;)</span></blockquote>
 
-<div class="machloket-box" dir="rtl">
-<strong>מין במינו — ריב״א (רש״י) ורבנו תם :</strong>
+<p>On tient l&agrave; la racine de la condition de temps : le second interdit n&rsquo;existe pas tant que la chaudi&egrave;re bout, parce que la viande, tant qu&rsquo;elle bout, ne rend pas ce qu&rsquo;elle a bu. Il na&icirc;t &agrave; l&rsquo;instant o&ugrave; le bouillonnement cesse.</p>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ואיסור זה אינו שייך אלא אחר שתנוח היורה אז חוזר הבשר ומפליט החלב שבלע ולא קודם לזה</span>&nbsp;&raquo; <span class="src-ref">(&#1496;&#1524;&#1494; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1488;)</span></blockquote>
+
+<div class="machloket-box">
+<strong>Min b&eacute;mino &mdash; le Rivа&rsquo; (Rachi) et Rabb&eacute;nou Tam.</strong> Le second interdit est du lait m&ecirc;l&eacute; &agrave; du lait : une esp&egrave;ce dans son esp&egrave;ce. Sur ce point, le Taz oppose deux chitot, et c&rsquo;est de leur issue que d&eacute;pend la lisibilit&eacute; de tout le seif.
 <table>
-<tr><th>שיטה</th><th>חלב בחלב (מין במינו)</th><th>מקור</th></tr>
+<tr><th>Chita</th><th>Du lait dans du lait (min b&eacute;mino)</th><th>Source</th></tr>
 <tr>
-  <td><strong>רש״י (ושיטת ריב״א)</strong></td>
-  <td><strong>במשהו</strong> — מין במינו אינו בטל, ולפיכך ס' לא יועיל נגד החלב הבלוע</td>
-  <td>ט״ז ס״ק א</td>
+  <td><strong>Rachi (et la chita du Rivа&rsquo;)</strong></td>
+  <td><strong>M&ecirc;me pour une quantit&eacute; infime</strong> &mdash; une esp&egrave;ce dans son esp&egrave;ce ne s&rsquo;annule pas ; soixante ne servirait donc &agrave; rien contre le lait absorb&eacute;</td>
+  <td>Taz ס״ק א</td>
 </tr>
 <tr>
-  <td><strong>רבנו תם (וקיימא לן כוותיה)</strong></td>
-  <td><strong>בטל בששים</strong> — אף מין במינו, וכן עיקר להלכה</td>
-  <td>ט״ז ס״ק א</td>
+  <td><strong>Rabb&eacute;nou Tam (et c&rsquo;est ce que nous tenons)</strong></td>
+  <td><strong>Annul&eacute; par soixante</strong> &mdash; m&ecirc;me une esp&egrave;ce dans son esp&egrave;ce</td>
+  <td>Taz ס״ק א</td>
 </tr>
 </table>
 </div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ובזה לא מהני ס׳ לרש״י דס״ל מין במינו במשהו</span>&nbsp;&raquo; <span class="src-ref">(&#1496;&#1524;&#1494; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1488;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אבל אנן קיימא לן כר״ת דאפי׳ מין במינו בטל בס׳</span>&nbsp;&raquo; <span class="src-ref">(&#1496;&#1524;&#1494; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1488;)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שורש הענין :</strong> אלמלא קיימא לן כרבנו תם, היה החלב הבלוע (מין במינו) אוסר במשהו ולא היה לו תקנה אף בששים. אבל מאחר שאנו פוסקים <span class="he-q">מין במינו בטל בששים</span> כרבנו תם — אף האיסור השני (החלב החוזר ונפלט) מתבטל בששים, וזהו שאמר המחבר "אסור אלא אם כן יש ששים". ועתה מובן מדוע הרמ״א מצריך ששים בכל ענין: שהרי נגד שני האיסורים גם יחד מודדים בס'.
-</div>
+<div class="pilpul-box">
+<strong>La racine.</strong> Si nous ne tenions pas comme Rabb&eacute;nou Tam, le lait absorb&eacute; &mdash; une esp&egrave;ce dans son esp&egrave;ce &mdash; interdirait pour une quantit&eacute; infime, et rien, pas m&ecirc;me soixante, n&rsquo;y pourrait. C&rsquo;est parce que nous tenons qu&rsquo;une esp&egrave;ce s&rsquo;annule dans son esp&egrave;ce par soixante que le second interdit redevient mesurable &mdash; et c&rsquo;est pourquoi le Me&rsquo;haber peut &eacute;crire, pour ce cas-l&agrave;, que c&rsquo;est interdit &laquo;&nbsp;sauf s&rsquo;il y a soixante&nbsp;&raquo;. On comprend du m&ecirc;me coup l&rsquo;exigence du Rama : les soixante qu&rsquo;il r&eacute;clame en tout &eacute;tat de cause valent contre les deux interdits &agrave; la fois.</div>
+
+<div class="rishon-card">
+<strong>Le kazayit n&rsquo;est pas une mesure ici.</strong> Le Taz ach&egrave;ve son ס״ק par une pr&eacute;cision de lecture qu&rsquo;il faut entendre : si le Choul&rsquo;han Aroukh parle d&rsquo;un kazayit, ce n&rsquo;est pas que la r&egrave;gle en d&eacute;pende &mdash; il en irait de m&ecirc;me pour moins qu&rsquo;un kazayit. Le kazayit ne commande que la question de la flagellation.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">וכזית דנקט כאן לאו דוקא אלא ה״ה פחות מכזית רק לענין מלקות יש חילוק</span>&nbsp;&raquo; <span class="src-ref">(&#1496;&#1524;&#1494; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1488;)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">3. יסוד הצירוף — ניער וכיסה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">3. Le fondement du tseirouf &mdash; remuer et couvrir</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">&#8617; Explication d&eacute;taill&eacute;e (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיף ב')
-  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 העתק</button>
+<h3 class="he-h3">Le texte du Me&rsquo;haber et du Rama (seif 2)
+  <button class="daat-copy" type="button" data-copy-target="#cp-3">&#128203; Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-3">
-"<strong>נפל חלב לתוך קדירה של בשר — טועם החתיכה שנפל עליה החלב; אם אין בה טעם חלב — הכל מותר, ואם יש בה טעם חלב — אותה חתיכה אסורה</strong> (הגה: ואנו שאין סומכין על הטעימה, צריך ששים בחתיכה נגד החלב, ואם לאו — הכל אסור). ומשערים נגד כל מה שבקדירה — חתיכות, ירקות, רוטב ותבלין: אם יש בכולן ששים כנגד אותה חתיכה — אותה חתיכה לבדה אסורה והשאר מותר. <strong>והוא שלא ניער הקדירה בתחילה אלא בסוף, ולא כיסה אותה; אבל אם ניער מתחילה ועד סוף, או כיסה אותה מעת שנפל בה החלב עד גמר בישולה — הכל מצטרף</strong> לבטל טעם החלב."
+  <p>נפל חלב לתוך קדירה של בשר טועמין החתיכה שנפל עליה החלב אם אין בה טעם חלב הכל מותר ואם יש בחתיכה מטעימת חלב נאסרה אותה חתיכה (ולדידן דאין סומכין אעובדי כוכבים בעינן ששים בחתיכה ואם לאו כולה אסורה) ומשערין בכולה אם היה בכל מה שיש בקדירה מהחתיכת והירק והמרק והתבלין כדי שתהא חתיכה זו אחד מששים מהכל החתיכה אסורה והשאר מותר במה דברים אמורים בשלא ניער הקדרה בתחילה כשנפל החלב אלא לבסוף ולא כיסה אבל אם ניער מתחילה ועד סוף או שכיסה משעת נפילה ועד סוף הכל מצטרף לבטל טעם החלב: הגה וכן אם לא ניער כלל לא בתחילה ולא בסוף ולא כיסה כלל אם יש ס׳ בקדירה נגד טיפת חלב שנפל אינו אסור רק החתיכה לבד ושאר הקדירה מותר (בית יוסף בשם הראב״ד והמגיד משנה בשם הרמב״ם) וכן אם ניער בתחלה או כסה מיד אע״ג דלא ניער ולא כיסה לבסוף כל הקדירה מצטרף והוא שניער וכיסה מיד שנפל שם האיסור (טור וב״י בשם ר״י ן׳ חביב): וכן אם נפל לתוך המרק או לחתיכות ולא נודע לאיזו חתיכה נפל נוער את הקדירה כולה עד שישוב ויתערב הכל אם יש בקדירה כולה טעם חלב אסורה ואם לאו מותרת ואם לא נמצא עובד כוכבים שיטעום ונסמוך עליו משערים בששים (עכ״ל רמב״ם): הגה ויש חולקין וסבירא להו דאינו מועיל מה שנוער הקדירה אם לא שניער מיד שנפל האיסור (טור) והכי נהוג:</p>
+</div>
+<div class="translation" data-label="Traduction">
+  <p>Du lait est tomb&eacute; dans une marmite de viande : on go&ucirc;te le morceau sur lequel le lait est tomb&eacute;. S&rsquo;il n&rsquo;a pas de go&ucirc;t de lait, tout est permis ; s&rsquo;il a pris du go&ucirc;t de lait, ce morceau-l&agrave; est interdit <em>(et pour nous, qui ne nous fions pas aux non-juifs, il faut soixante dans le morceau, et sinon il est enti&egrave;rement interdit)</em>. Et l&rsquo;on mesure dans le tout : s&rsquo;il y a dans tout ce que contient la marmite &mdash; les morceaux, le l&eacute;gume, le bouillon et les &eacute;pices &mdash; de quoi faire que ce morceau soit un soixanti&egrave;me de l&rsquo;ensemble, ce morceau est interdit et le reste permis. De quoi parle-t-on ? De ce qu&rsquo;on n&rsquo;a pas remu&eacute; la marmite au d&eacute;but, quand le lait est tomb&eacute;, mais seulement &agrave; la fin, et qu&rsquo;on ne l&rsquo;a pas couverte. Mais si l&rsquo;on a remu&eacute; du d&eacute;but jusqu&rsquo;&agrave; la fin, ou couvert depuis l&rsquo;instant de la chute jusqu&rsquo;&agrave; la fin, tout se joint pour annuler le go&ucirc;t du lait.</p>
+  <p><em>Glose du Rama</em> : de m&ecirc;me, si l&rsquo;on n&rsquo;a pas remu&eacute; du tout, ni au d&eacute;but ni &agrave; la fin, et qu&rsquo;on n&rsquo;a pas couvert du tout &mdash; s&rsquo;il y a soixante dans la marmite contre la goutte de lait tomb&eacute;e, seul le morceau est interdit et le reste de la marmite est permis (Beit Yossef au nom du Raavad, et le Maguid Michn&eacute; au nom du Rambam). Et de m&ecirc;me, si l&rsquo;on a remu&eacute; au d&eacute;but ou couvert imm&eacute;diatement, bien qu&rsquo;on n&rsquo;ait ni remu&eacute; ni couvert &agrave; la fin, toute la marmite se joint &mdash; &agrave; condition d&rsquo;avoir remu&eacute; ou couvert d&egrave;s l&rsquo;instant o&ugrave; l&rsquo;interdit y est tomb&eacute; (Tour, et Beit Yossef au nom de Rabbi Yossef ibn &rsquo;Haviv).</p>
+  <p>De m&ecirc;me, si le lait est tomb&eacute; dans le bouillon ou sur les morceaux sans qu&rsquo;on sache sur lequel, on remue toute la marmite jusqu&rsquo;&agrave; ce que le tout se m&eacute;lange de nouveau : s&rsquo;il y a dans toute la marmite un go&ucirc;t de lait, elle est interdite, sinon elle est permise ; et si l&rsquo;on ne trouve pas de non-juif pour go&ucirc;ter et s&rsquo;en remettre &agrave; lui, on mesure par soixante <em>(fin des mots du Rambam)</em>. <em>Glose</em> : et il y a qui contestent, et tiennent que remuer la marmite ne sert &agrave; rien si l&rsquo;on n&rsquo;a pas remu&eacute; d&egrave;s l&rsquo;instant o&ugrave; l&rsquo;interdit est tomb&eacute; (Tour) &mdash; et c&rsquo;est ainsi que l&rsquo;on se conduit.</p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — מהו "צירוף" :</strong><br>
-טעם החלב מתפשט בכל הקדירה רק במקום שיש <em>ערבוב</em>. כל זמן שלא ניערו ולא כיסו — נשאר טעם החלב מרוכז באותה חתיכה, ואין שאר הקדירה <span class="he-q">מצטרף</span> לבטלו, על כן רק אותה חתיכה אסורה (אם אין בה לבדה ס'). אבל אם <span class="he-q">ניער מתחילה ועד סוף</span> או כיסה — מתערב הטעם בכל, וכל מה שבקדירה מצטרף לששים. ניעור וכיסוי הם איפוא ה<strong>מנגנון המוליך</strong> את הטעם.
-</div>
+<div class="yesod-box">
+<strong>Ce qu&rsquo;est un &laquo;&nbsp;tseirouf&nbsp;&raquo;.</strong> Le go&ucirc;t du lait ne se r&eacute;pand dans toute la marmite que l&agrave; o&ugrave; quelque chose le transporte. Tant qu&rsquo;on n&rsquo;a ni remu&eacute; ni couvert, le go&ucirc;t reste concentr&eacute; dans le seul morceau qui l&rsquo;a re&ccedil;u, et le reste de la marmite ne se <em>joint</em> pas pour l&rsquo;annuler : d&rsquo;o&ugrave; l&rsquo;interdiction de ce morceau seul, s&rsquo;il ne contient pas &agrave; lui seul soixante. Remuer et couvrir sont donc, dans ce siman, le <strong>m&eacute;canisme conducteur</strong> du go&ucirc;t &mdash; et le Chakh, expliquant le seif, le dit dans ces termes.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דכשנפל על חתיכה א׳ אין השאר שבקדירה מצטרף לבטל החלב אלא צריך שיהא בחתיכה עצמה ששים לבטל הטעם</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1524;&#1498; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1490;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אבל ניער מיד בשעת נפילת הטיפה הרי נכנסה החתיכה מיד בכלל הקדרה וכל הקדרה מצטרף</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1524;&#1498; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1490;)</span></blockquote>
 
-<div class="machloket-box" dir="rtl">
-<strong>מחלוקת אימתי מהני ניעור — לאלתר או בכל גוונא :</strong>
+<div class="machloket-box">
+<strong>Quand le fait de remuer joint-il ?</strong> Le Rama rapporte, dans le m&ecirc;me seif, deux positions qui ne disent pas la m&ecirc;me chose du moment.
 <table>
-<tr><th>שיטה</th><th>ניעור / כיסוי</th><th>מקור</th></tr>
+<tr><th>Chita</th><th>Remuer / couvrir</th><th>Source</th></tr>
 <tr>
-  <td><strong>הראב״ד והמגיד משנה בשם הרמב״ם</strong></td>
-  <td>אף שלא ניער כלל — אם יש ס' בקדירה כנגד הטיפה, אותה חתיכה לבדה אסורה והשאר מותר</td>
-  <td>ב״י; רמ״א ס״ב</td>
+  <td><strong>Le Raavad, et le Maguid Michn&eacute; au nom du Rambam</strong></td>
+  <td>M&ecirc;me sans avoir remu&eacute; du tout : s&rsquo;il y a soixante dans la marmite contre la goutte, seul ce morceau est interdit et le reste permis</td>
+  <td>Rama, seif 2</td>
 </tr>
 <tr>
-  <td><strong>הטור (וב״י בשם ר״י אבן חביב)</strong></td>
-  <td>ניעור וכיסוי מצרפין דווקא כשניער/כיסה <strong>לאלתר</strong> משעת נפילת האיסור — <span class="he-q">והכי נהוג</span></td>
-  <td>רמ״א ס״ב</td>
+  <td><strong>Le Tour, et le Beit Yossef au nom de R. Yossef ibn &rsquo;Haviv</strong></td>
+  <td>Remuer et couvrir ne joignent que si on l&rsquo;a fait <strong>d&egrave;s l&rsquo;instant</strong> de la chute &mdash; et c&rsquo;est ainsi que l&rsquo;on se conduit</td>
+  <td>Rama, seif 2</td>
 </tr>
 </table>
 </div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">וכן אם לא ניער כלל לא בתחילה ולא בסוף ולא כיסה כלל אם יש ס׳ בקדירה נגד טיפת חלב שנפל אינו אסור רק החתיכה לבד ושאר הקדירה מותר</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1489;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">וכן אם ניער בתחלה או כסה מיד אע״ג דלא ניער ולא כיסה לבסוף כל הקדירה מצטרף והוא שניער וכיסה מיד שנפל שם האיסור</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1489;)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>הכרעת הרמ״א :</strong> מביא הרמ״א שתי הדעות, ומכריע: "<span class="he-q">ויש חולקין וסבירא להו דלא מהני ניעור רק אם ניער משעה שנפל האיסור — והכי נהוג</span>". כלומר: ניעור באמצע או בסוף אינו מצרף את כל הקדירה אלא אם כן ניער <em>מיד</em> בשעת הנפילה. וטעם הדבר: אם שהה האיסור במקומו עד שנבלע באותה חתיכה לבדה — שוב אין הניעור המאוחר מועיל להחזיר ולפזר את הבלוע. ובנפל החלב לרוטב או על חתיכות ואינו יודע להיכן (סיפא דסעיף) — מנער הכל עד שיחזור ויתערב, ומשערים בס'.
-</div>
+<p>Le Chakh ajoute ici une lecture qui vaut d&rsquo;&ecirc;tre retenue : selon le Tour, il n&rsquo;est m&ecirc;me pas requis de continuer &agrave; remuer &mdash; il suffit d&rsquo;avoir remu&eacute; ou couvert &agrave; l&rsquo;instant de la chute, quand bien m&ecirc;me on aurait cess&eacute; ensuite. Et il conclut que c&rsquo;est l&agrave; le principal.</p>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ונראה שאין צריך רק שינער או יכסה מיד בשעת נפילה ואפי׳ פסק אחר כך מלנער</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1524;&#1498; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1492;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ומ״מ דעת מהר״י ן׳ חביב והרב עיקר</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1524;&#1498; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1492;)</span></blockquote>
+
+<div class="pilpul-box">
+<strong>La d&eacute;cision du Rama.</strong> Le Rama rapporte les deux positions, puis tranche : remuer au milieu ou &agrave; la fin ne joint pas toute la marmite, &agrave; moins d&rsquo;avoir remu&eacute; <em>d&egrave;s</em> la chute. La raison suit le m&eacute;canisme d&eacute;crit par le Chakh : si l&rsquo;interdit est rest&eacute; en place jusqu&rsquo;&agrave; &ecirc;tre absorb&eacute; par ce morceau seul, le morceau est devenu ce qu&rsquo;il est devenu, et remuer apr&egrave;s coup ne le d&eacute;fait pas &mdash; cela ne fait qu&rsquo;introduire dans la marmite un morceau d&eacute;sormais interdit. Et lorsque le lait est tomb&eacute; dans le bouillon, ou sur des morceaux sans qu&rsquo;on sache lequel, le Rambam &eacute;crit qu&rsquo;on remue le tout jusqu&rsquo;&agrave; ce qu&rsquo;il se m&eacute;lange de nouveau, et l&rsquo;on mesure par soixante.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ויש חולקין וסבירא להו דאינו מועיל מה שנוער הקדירה אם לא שניער מיד שנפל האיסור</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1489;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">וכן אם נפל לתוך המרק או לחתיכות ולא נודע לאיזו חתיכה נפל נוער את הקדירה כולה עד שישוב ויתערב הכל</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1493;&#1524;&#1506; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1489;)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">4. חתיכה נעשית נבילה — היסוד</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">4. &rsquo;Hatikha naassit n&eacute;v&eacute;la &mdash; le fondement</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">&#8617; Explication d&eacute;taill&eacute;e (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיף ג')
-  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 העתק</button>
+<h3 class="he-h3">Le texte du Me&rsquo;haber (seif 3)
+  <button class="daat-copy" type="button" data-copy-target="#cp-4">&#128203; Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-4">
-"<strong>כשנאסרה אותה חתיכה מחמת החלב — נעשית כל החתיכה נבילה; ואם נתבשלה אחר כך עם חתיכות אחרות, צריך ששים לבטל את כל החתיכה. ואם מכירה — זורקה והשאר מותר; ואם אינו מכירה — הרוטב מותר, אבל כל החתיכות אסורות אם החתיכה האסורה ראויה להתכבד</strong> (עיין סימן ק״א)."
+  <p>כשנאסרה החתיכה מחמת החלב נעשית כל החתיכה איסור ואם בשלה עם אחרות צריך ששים לבטל כולה ואם מכירה משליכה והאחרות מותרות ואם אינו מכירה הרוטב מותר וכל החתיכות אסורות אם חתיכת האיסור ראויה להתכבד:</p>
+</div>
+<div class="translation" data-label="Traduction">
+  <p>Lorsque ce morceau a &eacute;t&eacute; interdit &agrave; cause du lait, le morceau <strong>tout entier</strong> devient interdit ; et si on l&rsquo;a cuit ensuite avec d&rsquo;autres morceaux, il faut soixante pour annuler le morceau entier. Si on le reconna&icirc;t, on le jette et les autres sont permis ; si on ne le reconna&icirc;t pas, le bouillon est permis, et tous les morceaux sont interdits d&egrave;s lors que le morceau interdit est de ceux dont on fait honneur &agrave; ses h&ocirc;tes.</p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד החקירתי — מדוע "כל החתיכה" נבילה :</strong><br>
-המגיד משנה נתן טעם נפלא לחנ״נ דבשר בחלב: ב<span class="he-q">איסור בשר בחלב</span> אין שם איסור על הבשר לבדו ולא על החלב לבדו — <strong>האיסור אינו אלא לאחר התערובת</strong>. נמצא ש<em>כל החתיכה כולה</em> היא "גופו של איסור", שהרי כולה ספגה והיתה לבשר־בחלב. לפיכך אין משערים ס' נגד החלב הבלוע בלבד, אלא נגד <strong>כל החתיכה</strong> — שכולה נעשתה נבילה.
-</div>
+<div class="yesod-box">
+<strong>Pourquoi le morceau &laquo;&nbsp;tout entier&nbsp;&raquo;.</strong> La raison, telle que le Chakh la rapporte au nom des poskim, tient &agrave; ce qui fait la singularit&eacute; de cet interdit : la viande seule est permise, le lait seul est permis, et c&rsquo;est leur rencontre qui interdit. Il s&rsquo;ensuit qu&rsquo;il n&rsquo;y a pas, dans ce morceau, un corps &eacute;tranger interdit log&eacute; dans un corps permis &mdash; <em>le morceau lui-m&ecirc;me</em> est devenu l&rsquo;interdit. On ne mesure donc pas soixante contre le lait absorb&eacute;, mais contre le morceau entier.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">הטעם כתבו הפוסקים משום דבשר וחלב כל חד באפיה נפשיה שרי וכי איתנהו בהדי הדדי אסור הלכך הבשר עצמו נעשה איסור משא״כ בשאר איסורים</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1524;&#1498; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1497;)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>ראויה להתכבד (עיין סימן ק״א) :</strong> אם אינו מכיר את החתיכה האסורה והיא חתיכה <span class="he-q">ראויה להתכבד</span> בה לפני האורחים — דבר חשוב הוא ואינו בטל ברוב, ולפיכך אף שיש שם רוב חתיכות היתר — כולן אסורות (והרוטב מותר, שאינו "חשוב"). וכל זה מדין דבר שבמנין / דבר חשוב המבואר בסימן ק״א.
-</div>
+<div class="rishon-card">
+<strong>&laquo;&nbsp;De ceux dont on fait honneur&nbsp;&raquo; (voir siman 101).</strong> Si l&rsquo;on ne reconna&icirc;t pas le morceau interdit et qu&rsquo;il est de ceux qu&rsquo;on pr&eacute;senterait &agrave; des h&ocirc;tes, c&rsquo;est une chose d&rsquo;importance, qui ne s&rsquo;annule pas dans la majorit&eacute; : m&ecirc;me entour&eacute; d&rsquo;une majorit&eacute; de morceaux permis, tous sont interdits &mdash; et le bouillon, lui, reste permis, n&rsquo;&eacute;tant pas une &laquo;&nbsp;chose d&rsquo;importance&nbsp;&raquo;. Le Chakh rattache cela au siman 101 et en donne la raison : la viande avec le lait est un interdit par lui-m&ecirc;me.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דקי״ל לקמן ר״ס ק״א דבשר בחלב הוי איסור מחמת עצמו ואם היא ראוי׳ להתכבד לא בטיל באלף</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1524;&#1498; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1496;)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">5. הכרעת הרמ״א — חנ״נ בכל האיסורין</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">5. La d&eacute;cision du Rama &mdash; &rsquo;h.n.n. dans tous les interdits</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">&#8617; Explication d&eacute;taill&eacute;e (niveau 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זוהי אחת מן המחלוקות החריפות והנפוצות שבכל הלכות תערובות.</p>
+<p style="margin:15px 0; font-style:italic;">C&rsquo;est l&rsquo;une des ma&rsquo;hlokot les plus vives et les plus &eacute;tendues de tout le trait&eacute; des m&eacute;langes.</p>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ד')
-  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 העתק</button>
+<h3 class="he-h3">Le texte du Me&rsquo;haber et du Rama (seif 4)
+  <button class="daat-copy" type="button" data-copy-target="#cp-5">&#128203; Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-5">
-"<strong>לא אמרינן 'נעשית החתיכה עצמה נבילה' אלא בבשר בחלב, אבל בשאר איסורין לא.</strong> כיצד ? כזית חֵלֶב שנבלע בחתיכה ואין בה ששים לבטלו — אסורה החתיכה; ואם נתבשלה אחר כך עם אחרות, די בששים כנגד כזית החֵלֶב, ואז אף אותה חתיכה חוזרת להיתרה." (הגה: ויש אומרים דבכל האיסורין אמרינן חתיכה נעשית נבילה, <span class="he-q">וכן נוהגין ואין לשנות</span>; ומיהו דווקא כשהאיסור דבוק בחתיכת ההיתר, או כשהחתיכה כולה חוץ לרוטב; אבל מקצת החתיכה ברוטב ואין האיסור דבוק — לא אמרינן חנ״נ, רק הכל מצטרף, ויש להחמיר באותה חתיכה.)
+  <p>לא אמרו חתיכה עצמה נעשית נבילה אלא בבשר בחלב אבל לא בשאר איסורים כגון כזית חלב שנבלע בחתיכה ואין בה ששים לבטלו ונאסרה ואחר כך בישלה עם אחרות אין צריך אלא ששים כדי כזית חלב ואז אפילו חתיכה עצמה חוזרת להיות מותרת: הגה וי״א דאמרינן בכל האסורים חתיכה נעשית נבילה (תוס׳ וסמ״ג וסמ״ק ומרדכי והאחרוני׳) וכן המנהג פשוט ואין לשנות ודוקא אם האסור דבוק בחתיכת היתר או שהחתיכה כולה חוץ לרוטב ונפל עליה איסור אבל אם מקצת החתיכה תוך הרוטב ואין האיסור דבוק בו לא אמרינן חתיכה נעשית נבילה ומצטרף כל הקדירה לבטל האיסור ומכל מקום יש להחמיר לאסור אותה חתיכה (ארוך כלל כ״ח) וכל זה בשאר איסורים אבל בבשר בחלב אע״פ שאין האסור דבוק ומקצת החתיכה תוך הרוטב אמרינן חתיכה נעשית נבילה יש אומרים דלא אמרינן חתיכה נעשית נבילה אם נתערב איסור לח בהיתר לח ואחר כך נתערב הכל בהיתר אחר ואין צריכים רק ששים נגד האיסור שנפל (מרדכי פכ״ה ורשב״א ור״ן בשם ראב״ד) ויש לסמוך על זה בשאר אסורים לצורך הפסד גדול אבל לא בבשר בחלב ואם נתערב יבש ביבש לא אמרינן בשום איסור חתיכה נעשית נבילה. וע״ל סימן צ״ט ס״ק ט״ו מדין חתיכה נעשית נבילה כלי הנאסר מבליעת איסור לא אמרינן ביה חתיכה נעשית נבילה ולא בעינן ס׳ רק נגד האיסור שבלע (מרדכי פג״ה וע״ל סימן צ״ח):</p>
+</div>
+<div class="translation" data-label="Traduction">
+  <p>On n&rsquo;a dit que le morceau lui-m&ecirc;me devient n&eacute;v&eacute;la que pour la viande avec le lait, mais non pour les autres interdits. Par exemple : un kazayit de graisse interdite absorb&eacute; dans un morceau, sans qu&rsquo;il y ait soixante pour l&rsquo;annuler, et le morceau a &eacute;t&eacute; interdit ; si on le cuit ensuite avec d&rsquo;autres, il ne faut que soixante contre le kazayit de graisse &mdash; et alors m&ecirc;me le morceau lui-m&ecirc;me redevient permis.</p>
+  <p><em>Glose du Rama</em> : et il y a qui disent que pour tous les interdits on dit que le morceau devient n&eacute;v&eacute;la (Tossafot, Semag, Semak, Mordekhai et les derniers), et tel est l&rsquo;usage r&eacute;pandu, qu&rsquo;il ne faut pas changer. Mais cela seulement si l&rsquo;interdit adh&egrave;re au morceau permis, ou si le morceau est tout entier hors du bouillon et que l&rsquo;interdit est tomb&eacute; dessus ; en revanche, si une partie du morceau est dans le bouillon et que l&rsquo;interdit n&rsquo;y adh&egrave;re pas, on ne dit pas que le morceau devient n&eacute;v&eacute;la, et toute la marmite se joint pour annuler l&rsquo;interdit &mdash; et malgr&eacute; tout il y a lieu d&rsquo;&ecirc;tre rigoureux et d&rsquo;interdire ce morceau-l&agrave; (Arokh, r&egrave;gle 28). Et tout cela pour les autres interdits ; mais pour la viande avec le lait, m&ecirc;me si l&rsquo;interdit n&rsquo;adh&egrave;re pas et qu&rsquo;une partie du morceau est dans le bouillon, on dit que le morceau devient n&eacute;v&eacute;la.</p>
+  <p>Il y a qui disent qu&rsquo;on ne dit pas &laquo;&nbsp;le morceau devient n&eacute;v&eacute;la&nbsp;&raquo; lorsqu&rsquo;un interdit liquide s&rsquo;est m&ecirc;l&eacute; &agrave; du permis liquide, puis que le tout s&rsquo;est m&ecirc;l&eacute; &agrave; un autre permis : il ne faut alors que soixante contre l&rsquo;interdit qui est tomb&eacute; (Mordekhai, chap. 25, Rachba et Ran au nom du Raavad) ; et l&rsquo;on peut s&rsquo;appuyer sur cela pour les autres interdits en cas de grande perte, mais non pour la viande avec le lait. Et s&rsquo;il s&rsquo;agit d&rsquo;un m&eacute;lange de sec dans du sec, on ne dit pour aucun interdit que le morceau devient n&eacute;v&eacute;la ; voir plus loin siman 99. Un r&eacute;cipient rendu interdit par ce qu&rsquo;il a absorb&eacute; &mdash; on n&rsquo;y dit pas que le morceau devient n&eacute;v&eacute;la, et il ne faut soixante que contre l&rsquo;interdit qu&rsquo;il a absorb&eacute; (Mordekhai ; voir plus loin siman 98).</p>
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>שורש המחלוקת :</strong>
+<div class="machloket-box">
+<strong>La racine de la ma&rsquo;hloket.</strong>
 <table>
-<tr><th>שיטה</th><th>חנ״נ בשאר איסורין</th><th>מקור</th></tr>
+<tr><th>Chita</th><th>&rsquo;h.n.n. dans les autres interdits</th><th>Source</th></tr>
 <tr>
-  <td><strong>המחבר (בעקבות הרמב״ם והמגיד משנה)</strong></td>
-  <td><strong>רק בבב״ח</strong> — דשם כל החתיכה גופו של איסור; ובשאר איסורין ס' נגד האיסור הבלוע בלבד</td>
-  <td>מחבר ס״ד</td>
+  <td><strong>Le Me&rsquo;haber</strong></td>
+  <td><strong>Seulement pour la viande avec le lait</strong> &mdash; l&agrave;, le morceau entier est le corps de l&rsquo;interdit ; ailleurs, soixante contre le seul interdit absorb&eacute;</td>
+  <td>Me&rsquo;haber, seif 4</td>
 </tr>
 <tr>
-  <td><strong>הרמ״א (תוס', סמ״ג, סמ״ק, מרדכי)</strong></td>
-  <td>חנ״נ <strong>בכל איסורין</strong> (מדרבנן) — "<span class="he-q">וכן נוהגין ואין לשנות</span>"</td>
-  <td>רמ״א ס״ד</td>
+  <td><strong>Le Rama</strong> (Tossafot, Semag, Semak, Mordekhai)</td>
+  <td><strong>Dans tous les interdits</strong> &mdash; et le Chakh rappelle que, de l&rsquo;avis de tous, ce n&rsquo;est l&agrave; que mid&eacute;rabanan</td>
+  <td>Rama, seif 4 ; Chakh ס״ק י״ב</td>
 </tr>
 </table>
 </div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">לא אמרו חתיכה עצמה נעשית נבילה אלא בבשר בחלב אבל לא בשאר איסורים</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1493;&#1524;&#1506; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1491;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">וי״א דאמרינן בכל האסורים חתיכה נעשית נבילה</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1491;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">וכן המנהג פשוט ואין לשנות</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1491;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">וכ״כ הר״ן דבשאר איסורים הוי מדרבנן</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1524;&#1498; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1497;&#1524;&#1489;)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>תנאי הרמ״א — דבוק / חוץ לרוטב / מקצתה ברוטב :</strong> אף לדעת הרמ״א דחנ״נ בכל איסורין, אין זה אלא בשני אופנים — (א) שה<strong>איסור דבוק</strong> בחתיכת ההיתר; (ב) או שהחתיכה <strong>כולה חוץ לרוטב</strong> והאיסור נפל עליה. אבל אם <strong>מקצת החתיכה ברוטב</strong> ואין האיסור דבוק — <span class="he-q">לא אמרינן חנ״נ</span>, אלא הכל מצטרף לבטל, ומכל מקום ראוי להחמיר באותה חתיכה (איסור והיתר הארוך כלל כ״ח). וכל זה בשאר איסורין; אבל ב<strong>בשר בחלב</strong> — אף שאינו דבוק ואף שמקצתה ברוטב — אמרינן חנ״נ בכל גוונא, שזהו דין מיוחד שבו.
-</div>
+<div class="pilpul-box">
+<strong>Les conditions du Rama.</strong> M&ecirc;me pour le Rama, qui &eacute;tend le principe &agrave; tous les interdits, l&rsquo;extension ne vaut que dans deux configurations : ou bien l&rsquo;interdit <strong>adh&egrave;re</strong> au morceau permis, ou bien le morceau est <strong>tout entier hors du bouillon</strong> et l&rsquo;interdit lui est tomb&eacute; dessus. Si une partie du morceau baigne dans le bouillon et que l&rsquo;interdit n&rsquo;adh&egrave;re pas, le principe ne joue pas : toute la marmite se joint pour annuler, et il reste seulement une rigueur sur ce morceau. Tout cela pour les autres interdits ; pour la viande avec le lait, le Rama &eacute;crit que le principe joue dans tous les cas.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ודוקא אם האסור דבוק בחתיכת היתר או שהחתיכה כולה חוץ לרוטב ונפל עליה איסור</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1491;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אבל אם מקצת החתיכה תוך הרוטב ואין האיסור דבוק בו לא אמרינן חתיכה נעשית נבילה ומצטרף כל הקדירה לבטל האיסור</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1491;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ומכל מקום יש להחמיר לאסור אותה חתיכה</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1491;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">וכל זה בשאר איסורים אבל בבשר בחלב אע״פ שאין האסור דבוק ומקצת החתיכה תוך הרוטב אמרינן חתיכה נעשית נבילה</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1491;)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>לח בלח (מרדכי פכ״ה, רשב״א, ר״ן בשם הראב״ד) :</strong> איסור <em>לח</em> שנתערב בהיתר <em>לח</em> ואחר כך נפל לתוך היתר אחר — אין אומרים חנ״נ, אלא די בס' נגד האיסור עצמו שנפל; ואפשר לסמוך עליו בשאר איסורין ב<span class="he-q">הפסד גדול</span>, <strong>אבל לא בבשר בחלב</strong>. והפתחי תשובה (ס״ק ב) מביא בשם מהרש״ל דאם נעשה <span class="he-q">דרך בישול</span> אמרינן חנ״נ אף בלח, ובשם הנודע ביהודה (תניינא יו״ד מ״ט) דיש להקל בהפסד גדול.
-</div>
+<div class="kashya-box">
+<strong>Le Chakh ne re&ccedil;oit pas cette pesh&aring;ra en silence.</strong> Derri&egrave;re la condition &laquo;&nbsp;une partie dans le bouillon&nbsp;&raquo; se tient une vieille divergence, que le Chakh expose d&egrave;s le seif 2 : pour Rabb&eacute;nou Yits&rsquo;hak, le morceau ne fait obstacle au tseirouf que s&rsquo;il est tout entier hors du bouillon ; pour Rachi, m&ecirc;me une partie dans le bouillon n&rsquo;y change rien. Le Rama a construit sa r&eacute;gle comme un compromis entre ces deux lectures &mdash; et le Chakh le dit en toutes lettres, puis marque un צ״ע sur la seconde moiti&eacute; de la glose, celle qui &eacute;tend le principe &agrave; la viande avec le lait m&ecirc;me lorsqu&rsquo;une partie baigne dans le bouillon. <strong>Nous rapportons, et nous ne tranchons pas.</strong></div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דר״י סובר דוקא שכל החתיכה חוץ לרוטב</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1524;&#1498; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1491;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ורש״י פי׳ אפי׳ מקצתה ברוטב אין הכל מצטרף לבטל החלב</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1524;&#1498; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1491;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">הרב הכריע כן הכל מסברתו כעין פשר</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1524;&#1498; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1497;&#1524;&#1490;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ומ״ש דבבשר בחלב אפילו מקצת החתיכה תוך הרוטב חנ״נ ג״כ צ״ע דהוא נגד כל הפוסקים</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1524;&#1498; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1497;&#1524;&#1490;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ונראה דמ״ש הרב דבבשר בחלב אפילו מקצתה תוך הרוטב חנ״נ היינו בשניער אח״כ עד שנכנסה כולה לתוך הרוטב</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1524;&#1498; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1497;&#1524;&#1490;)</span></blockquote>
+<p>Et le Chakh ne laisse pas son צ״ע sans réponse : il propose lui-même un yichouv — ce que le Rama écrit de la viande avec le lait, même lorsqu’une partie baigne dans le bouillon, vaut <strong>lorsqu’on a remué ensuite</strong> (<span class="he-q">בשניער</span>) au point que le morceau est entré tout entier dans le bouillon. Nous rapportons la difficulté et sa réponse, sans trancher entre elles.</p>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה — יבש ביבש וכלי :</strong> ב<strong>יבש ביבש</strong> (חתיכת איסור יבשה שנתערבה בחתיכות יבשות) — <span class="he-q">אין שום איסור עושה חנ״נ</span> (ועיין סימן צ״ט סט״ו). וכן <strong>כלי</strong> שבלע איסור — <span class="he-q">לא אמרינן ביה חנ״נ</span>, אלא די בששים נגד האיסור הבלוע בלבד (מרדכי; ועיין סימן צ״ח). <em>ולמעשה — שאל את רבך.</em>
-</div>
+<div class="rishon-card">
+<strong>Liquide dans du liquide.</strong> Un interdit <em>liquide</em> m&ecirc;l&eacute; &agrave; du permis <em>liquide</em>, puis tomb&eacute; dans un autre permis : on ne dit pas que le tout devient n&eacute;v&eacute;la, et il suffit de soixante contre l&rsquo;interdit lui-m&ecirc;me. Le Chakh en donne la raison : le principe se fonde sur l&rsquo;<em>importance</em> du morceau, qui suppose qu&rsquo;il soit reconnaissable et distinct &mdash; ce qu&rsquo;un liquide dans un liquide n&rsquo;est pas. Le Rama permet de s&rsquo;y appuyer pour les autres interdits en cas de grande perte, mais non pour la viande avec le lait. Le Pit&rsquo;h&eacute; Techouva (ס״ק ב) rapporte au nom du Maharchal que si le m&eacute;lange s&rsquo;est fait par voie de cuisson, le principe s&rsquo;applique m&ecirc;me au liquide, et au nom du Nod&aacute; BiY&eacute;houda (Tiniana, Yor&eacute; D&eacute;a 49) qu&rsquo;il y a de quoi &ecirc;tre indulgent en cas de grande perte.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">יש אומרים דלא אמרינן חתיכה נעשית נבילה אם נתערב איסור לח בהיתר לח ואחר כך נתערב הכל בהיתר אחר ואין צריכים רק ששים נגד האיסור שנפל</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1491;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דדוקא כשנתערב איסור לח בהיתר יבש אמרינן חנ״נ מטעם חשיבות כי החתיכות איסור ניכר ומובדל נ״נ הוא</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1524;&#1498; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1497;&#1524;&#1491;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ויש לסמוך על זה בשאר אסורים לצורך הפסד גדול אבל לא בבשר בחלב</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1491;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דווקא שנתערב שלא כדרך בישול אבל אם הוא דרך בישול אמרינן חנ״נ</span>&nbsp;&raquo; <span class="src-ref">(&#1508;&#1524;&#1514; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1489;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">וכתב להתיר במקום הפסד גדול ואף שרש״ל אוסר אם הוא דרך בישול</span>&nbsp;&raquo; <span class="src-ref">(&#1508;&#1524;&#1514; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1489;)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>הפתחי תשובה</strong> (ס״ק א) מביא בשם הר״ן (וש״ך ס״ק ג) דחתיכה הנמצאת בקדירה, מחמת חום ולחלוחית, החלב <span class="he-q">מתפשט בכל החתיכה</span> אף במקצתה שחוץ לרוטב; והנודע ביהודה (תניינא) דק דדווקא כשאין האיסור דבוק וכבר נתבשל בה, וצריך לדמותו לדין איסור גוש / איסור צלול שבסימן ק״ה.
-</div>
+<div class="nafka-mina-box">
+<strong>L&agrave; o&ugrave; le principe ne joue pas.</strong> Le sec m&ecirc;l&eacute; au sec : aucun interdit n&rsquo;y fait devenir le morceau n&eacute;v&eacute;la (et voir siman 99). Et le r&eacute;cipient qui a absorb&eacute; un interdit : on n&rsquo;y applique pas le principe, et il suffit de soixante contre ce qu&rsquo;il a absorb&eacute; (Mordekhai ; voir siman 98). <em>Et pour la pratique &mdash; demande &agrave; ton rav.</em></div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ואם נתערב יבש ביבש לא אמרינן בשום איסור חתיכה נעשית נבילה</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1491;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">כלי הנאסר מבליעת איסור לא אמרינן ביה חתיכה נעשית נבילה ולא בעינן ס׳ רק נגד האיסור שבלע</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1491;)</span></blockquote>
+
+<div class="rishon-card">
+<strong>Le Pit&rsquo;h&eacute; Techouva (ס״ק א) et la partie hors du bouillon.</strong> Il rapporte, au nom du Ran cit&eacute; par le Chakh, qu&rsquo;un morceau qui se tient dans la marmite, par la vapeur et l&rsquo;humidit&eacute; qui y r&egrave;gnent, voit le lait se r&eacute;pandre dans <em>tout</em> son corps, m&ecirc;me dans la partie qui &eacute;merge du bouillon. Et il rapporte le Nod&aacute; BiY&eacute;houda, qui pr&eacute;cise la port&eacute;e de la distinction du Chakh entre un interdit fluide et un interdit compact : lorsque l&rsquo;interdit adh&egrave;re au morceau d&egrave;s l&rsquo;origine et a cuit avec lui, la vapeur et l&rsquo;humidit&eacute; de la marmite le font se r&eacute;pandre dans le tout. Il y a l&agrave; mati&egrave;re &agrave; comparaison avec les r&egrave;gles du siman 105 sur l&rsquo;interdit compact.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דחתיכה שעומדת בקדרה מתוך שיש בה הבל ולחלוחית החלב מתפשט בכולה אף שהיא חוץ לרוטב</span>&nbsp;&raquo; <span class="src-ref">(&#1508;&#1524;&#1514; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1488;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אבל כשדבוק האיסור באותה חתיכה בתולדתו ונתבשל עמו בקדרה אז ע״י הבל הקדרה ולחלוחית גורם שמתפשט בכולו</span>&nbsp;&raquo; <span class="src-ref">(&#1508;&#1524;&#1514; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1488;)</span></blockquote>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">6. טיפת חלב על הדופן — מפעפע, כנגד הרוטב וכנגד הריקן</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">6. La goutte de lait sur la paroi &mdash; מפעפע, face au bouillon et face au vide</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">&#8617; Explication d&eacute;taill&eacute;e (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיפים ה'–ו')
-  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 העתק</button>
+<h3 class="he-h3">Le texte du Me&rsquo;haber et du Rama (seifim 5&ndash;6)
+  <button class="daat-copy" type="button" data-copy-target="#cp-6">&#128203; Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-6">
-"<strong>טיפת חלב שנפלה על הקדירה של בשר מבחוץ, סמוך לאש: אם נפלה כנגד הרוטב — די בששים כנגד הטיפה, שהיא מפעפעת לפנים והרי היא כאילו נפלה לתוך התבשיל. ואם נפלה כנגד הריקן ופעפעה בעובי הדופן עד סמוך לרוטב, ואין ששים כנגדה באותו מקום — נאסר אותו מקום שבקדירה; ואם עירה התבשיל דרך אותו מקום שנאסר — נאסר התבשיל.</strong> תקנתו: שיניחנה כך ולא יגע בה עד שתצטנן." (הגה: ודווקא בקדירה ישנה, אבל בחדשה בכל ענין די בששים כנגד הטיפה — עיין סימן צ״ד.) — סעיף ו': "<strong>נהגו לאסור כנגד הריקן, ודווקא שלא כנגד האש; אבל כנגד האש — מותר, שהאש שורפו ומייבשו, ואז גם הקדירה מותרת. ודווקא מעט (טיפה), אבל נפל הרבה — אין היתר אף כנגד האש, אלא כנגד הרוטב ובששים.</strong>"
+  <p>טיפת חלב שנפלה על הקדירה שאצל האש מבחוץ אם נפלה כנגד התבשיל אין צריך אלא ס׳ כנגד הטיפה שמפעפעת לפנים והוי כאילו נפלה בתבשיל ואם נפלה במקום הריקן והיא מפעפעת בדופן הקדירה עד סמוך לרוטב כל כך שאין ס׳ כנגד הטיפה הרי נאסר אותו מקום הקדירה ואם יערה התבשיל דרך מקום הקדירה שנאסר הרי יאסר התבשיל וזה תקנתו שיניחנה כך ולא יגע בה עד שתצטנן: הגה ודוקא אם הקדרה ישנה אבל אם היא חדשה בכל ענין א״צ ס׳ רק נגד הטיפה שנפל עליה כדלקמן סי׳ צ״ד גבי כף:</p>
+  <p>נהגו העולם לאסור כשנפלה על הדופן שלא כנגד הרוטב ודוקא כשנופל באותו צד שאינו כנגד האש אבל אם נפל כנגד האש מותר שהאש שורפו ומייבשו (ואז הקדירה נמי שרי) (הגהות ש״ד וארוך כלל ל״א) ודוקא בדבר מועט כגון טיפה אבל אם נפל הרבה אין להתיר אפי׳ אם נפל כנגד האש אא״כ כנגד הרוטב וע״י ס׳: הגה ואז הקדירה הוי אסורה אפילו יש ס׳ בתבשיל נגד הטיפה שנפלה ויערה מיד התבשיל ממנו בצד אחר שלא כנגד הטיפה ואם בשלו בקדירה תבשיל אחר דינו כמו בפעם הראשון (ארוך כלל ל״א):</p>
+</div>
+<div class="translation" data-label="Traduction">
+  <p><strong>Seif 5.</strong> Une goutte de lait tomb&eacute;e de l&rsquo;ext&eacute;rieur sur une marmite plac&eacute;e pr&egrave;s du feu : si elle est tomb&eacute;e en face du mets, il ne faut que soixante contre la goutte, car elle traverse vers l&rsquo;int&eacute;rieur et c&rsquo;est comme si elle &eacute;tait tomb&eacute;e dans le mets. Mais si elle est tomb&eacute;e &agrave; l&rsquo;endroit vide et qu&rsquo;elle traverse l&rsquo;&eacute;paisseur de la paroi jusqu&rsquo;&agrave; proximit&eacute; du bouillon, au point qu&rsquo;il n&rsquo;y ait pas l&agrave; soixante contre la goutte, cet endroit de la marmite est interdit ; et si l&rsquo;on verse le mets par l&rsquo;endroit qui a &eacute;t&eacute; interdit, le mets sera interdit. Le rem&egrave;de : qu&rsquo;on la laisse ainsi et qu&rsquo;on n&rsquo;y touche pas jusqu&rsquo;&agrave; ce qu&rsquo;elle refroidisse. <em>Glose</em> : et cela seulement si la marmite est ancienne ; mais si elle est neuve, il ne faut en tout &eacute;tat de cause que soixante contre la goutte tomb&eacute;e dessus, comme il est dit plus loin au siman 94 &agrave; propos de la cuiller.</p>
+  <p><strong>Seif 6.</strong> Le monde a pris l&rsquo;usage d&rsquo;interdire quand elle est tomb&eacute;e sur la paroi, hors de la face du bouillon &mdash; et cela seulement quand elle tombe du c&ocirc;t&eacute; qui n&rsquo;est pas face au feu ; mais si elle est tomb&eacute;e face au feu, c&rsquo;est permis, car le feu la br&ucirc;le et la dess&egrave;che (et alors la marmite aussi est permise). Et cela seulement pour une chose minime, telle qu&rsquo;une goutte ; mais s&rsquo;il en est tomb&eacute; beaucoup, il n&rsquo;y a pas de permission m&ecirc;me face au feu, sinon face au bouillon et par soixante. <em>Glose</em> : et alors la marmite est interdite m&ecirc;me s&rsquo;il y a soixante dans le mets contre la goutte tomb&eacute;e ; on en versera aussit&ocirc;t le mets par l&rsquo;autre c&ocirc;t&eacute;, non en face de la goutte. Et si l&rsquo;on y a cuit un autre mets, son r&eacute;gime est celui de la premi&egrave;re fois.</p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — מפעפע ושני אופני הנפילה :</strong><br>
-שומן ולחות חמה <em>מפעפעים</em>, מתפשטים בעובי הדופן ונבלעים פנימה. ומכאן שני אופנים:<br><br>
-• <span class="he-q">כנגד הרוטב</span> — הטיפה מפעפעת מיד אל תוך התבשיל, וכאילו נפלה לתוכו → די בס' כנגד הטיפה.<br>
-• <span class="he-q">כנגד הריקן</span> — מפעפעת בעובי הדופן עד סמוך לרוטב; ואם אין שם ס' באותו מקום — נאסר אותו מקום בדופן, וכשמערה דרכו נאסר התבשיל.<br><br>
-התקנה: <span class="he-q">לא יגע בה עד שתצטנן</span> — שלא יסחוט את הטיפה פנימה בעודה חמה.
-</div>
+<div class="yesod-box">
+<strong>Le fondement &mdash; ce que &laquo;&nbsp;traverser&nbsp;&raquo; veut dire.</strong> La graisse et l&rsquo;humidit&eacute; chaudes <em>traversent</em> : elles p&eacute;n&egrave;trent l&rsquo;&eacute;paisseur de la paroi et passent vers l&rsquo;int&eacute;rieur. De l&agrave; deux cas, et deux r&eacute;gimes.<br><br>
+&bull; <strong>Face au bouillon</strong> &mdash; la goutte traverse aussit&ocirc;t jusqu&rsquo;au mets, comme si elle y &eacute;tait tomb&eacute;e : soixante contre la goutte suffisent.<br>
+&bull; <strong>Face au vide</strong> &mdash; elle traverse l&rsquo;&eacute;paisseur jusqu&rsquo;&agrave; proximit&eacute; du bouillon ; s&rsquo;il n&rsquo;y a pas l&agrave; soixante, cet endroit de la paroi est interdit, et verser par l&agrave; interdit le mets.<br><br>
+Le rem&egrave;de que donne le Me&rsquo;haber est un rem&egrave;de d&rsquo;abstention : ne pas y toucher jusqu&rsquo;au refroidissement.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">טיפת חלב שנפלה על הקדירה שאצל האש מבחוץ אם נפלה כנגד התבשיל אין צריך אלא ס׳ כנגד הטיפה שמפעפעת לפנים והוי כאילו נפלה בתבשיל</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1493;&#1524;&#1506; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1492;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ואם נפלה במקום הריקן והיא מפעפעת בדופן הקדירה עד סמוך לרוטב כל כך שאין ס׳ כנגד הטיפה הרי נאסר אותו מקום הקדירה</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1493;&#1524;&#1506; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1492;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">וזה תקנתו שיניחנה כך ולא יגע בה עד שתצטנן</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1493;&#1524;&#1506; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1492;)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>"ממה נפשך" של הט״ז (ס״ק יז) :</strong> מביא הט״ז את לשון האיסור והיתר (כלל ל״א בשם הסמ״ק) ב<span class="he-q">מפעפעת</span>: ממה נפשך — אם הטיפה מפעפעת ומגעת אל הרוטב, הרי בטלה בס' שבתבשיל; ואם אינה מפעפעת כל כך, אינה אוסרת אלא כדי קליפת מקומה. ולפי זה כל החומרא היא דווקא במקום שאין ס' כנגד הטיפה בעובי הדופן עצמו.
-</div>
+<div class="pilpul-box">
+<strong>Le &laquo;&nbsp;de toute fa&ccedil;on&nbsp;&raquo; du Taz (ס״ק י״ז).</strong> Le Taz rapporte le raisonnement de l&rsquo;Issour V&eacute;H&eacute;ter (r&egrave;gle 31, au nom du Semak), qui proc&egrave;de par &eacute;limination : ou bien la goutte traverse jusqu&rsquo;au bouillon, et elle s&rsquo;y annule dans les soixante ; ou bien elle ne traverse pas jusque-l&agrave;, et alors par quoi la marmite serait-elle interdite ? Mais le Taz en tire aussit&ocirc;t une cons&eacute;quence restrictive : ce raisonnement ne permet que le <em>mets</em> &mdash; la marmite, elle, reste interdite, et l&rsquo;on ne consid&egrave;re pas la goutte comme tomb&eacute;e dans le mets &agrave; tous &eacute;gards.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אי מפעפע לתוך הרוטב הרי נתבטל הטיפה בששים ואם אינו מפעפע לתוכה ממה יאסר</span>&nbsp;&raquo; <span class="src-ref">(&#1496;&#1524;&#1494; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1497;&#1524;&#1494;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">מבואר מזה דהקדירה אסורה ולא חשבינן כאילו נפלה לתבשיל אלא לענין היתר התבשיל לחוד</span>&nbsp;&raquo; <span class="src-ref">(&#1496;&#1524;&#1494; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1497;&#1524;&#1494;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ורש״ל כ׳ פ׳ גיד הנשה סימן ל״ז בזה אף הקדירה מותר מן הדין לבשל בה בשר עוד אלא שלכתחלה אסורה להשתמש בה אפילו בשר שנראה כאילו נאסר בחלב כו׳ עכ״ל וכן נראה עיקר כמו שאזכיר בסמוך</span>&nbsp;&raquo; <span class="src-ref">(&#1496;&#1524;&#1494; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1497;&#1524;&#1494;)</span></blockquote>
+<p>Mais le Taz ne s’arrête pas là : il rapporte aussitôt le Maharchal (<em>Pereq Gid ha-Nasheh</em>, siman 37), pour qui la marmite elle-même est <strong>permise מן הדין</strong> — on peut y cuire de la viande encore — et n’est interdite que <strong>לכתחילה</strong>, parce qu’elle paraîtrait interdite par le lait. Et le Taz conclut qu’il se range à cet avis : <span class="he-q">וכן נראה עיקר</span>.</p>
 
-<div class="machloket-box" dir="rtl">
-<strong>קדירה ישנה וחדשה · צד האש :</strong>
+<div class="machloket-box">
+<strong>Marmite ancienne et marmite neuve &middot; le c&ocirc;t&eacute; du feu.</strong>
 <table>
-<tr><th>המצב</th><th>הדין</th></tr>
+<tr><th>Le cas</th><th>Le r&eacute;gime</th></tr>
 <tr>
-  <td><strong>קדירה ישנה, כנגד הריקן, שלא כנגד האש</strong></td>
-  <td>נהגו לאסור אותו מקום (אם אין ס' כנגד הטיפה שם)</td>
+  <td><strong>Marmite ancienne, face au vide, hors de la face du feu</strong></td>
+  <td>L&rsquo;usage a &eacute;t&eacute; d&rsquo;interdire cet endroit (s&rsquo;il n&rsquo;y a pas l&agrave; soixante contre la goutte)</td>
 </tr>
 <tr>
-  <td><strong>כנגד האש</strong></td>
-  <td>מותר — <span class="he-q">האש שורפו ומייבשו</span>, וגם הקדירה מותרת</td>
+  <td><strong>Face au feu</strong></td>
+  <td>Permis &mdash; le feu la br&ucirc;le et la dess&egrave;che, et alors la marmite aussi est permise</td>
 </tr>
 <tr>
-  <td><strong>קדירה חדשה</strong></td>
-  <td>בכל ענין די בס' כנגד הטיפה (כדין הכף בסי' צ״ד)</td>
+  <td><strong>Marmite neuve</strong></td>
+  <td>En tout &eacute;tat de cause, soixante contre la goutte suffisent (comme pour la cuiller, siman 94)</td>
 </tr>
 <tr>
-  <td><strong>נפל הרבה (לא טיפה)</strong></td>
-  <td>אין היתר אף כנגד האש — אלא כנגד הרוטב ובס'</td>
+  <td><strong>Il en est tomb&eacute; beaucoup (non une goutte)</strong></td>
+  <td>Pas de permission m&ecirc;me face au feu &mdash; sinon face au bouillon et par soixante</td>
 </tr>
 </table>
 </div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ודוקא אם הקדרה ישנה אבל אם היא חדשה בכל ענין א״צ ס׳ רק נגד הטיפה שנפל עליה</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1492;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אבל אם נפל כנגד האש מותר שהאש שורפו ומייבשו</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1493;&#1524;&#1506; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1493;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ודוקא בדבר מועט כגון טיפה אבל אם נפל הרבה אין להתיר אפי׳ אם נפל כנגד האש אא״כ כנגד הרוטב וע״י ס׳</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1493;&#1524;&#1506; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1493;)</span></blockquote>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה בעירוי :</strong> הרמ״א מוסיף (סוף ס״ו) — כשנפל הרבה, אף שיש ס' בתבשיל כנגד הטיפה, <strong>הקדירה אסורה</strong>; ומערה התבשיל מיד דרך הצד האחר, <span class="he-q">ולא כנגד</span> מקום הטיפה; ובישול שני באותה קדירה — דינו כראשון. <em>ולמעשה — שאל את רבך.</em>
-</div>
+<div class="nafka-mina-box">
+<strong>Nafka mina dans le versement.</strong> Le Rama ajoute, &agrave; la fin du seif 6 : lorsqu&rsquo;il en est tomb&eacute; beaucoup, m&ecirc;me s&rsquo;il y a soixante dans le mets contre la goutte, <strong>la marmite est interdite</strong> ; on en versera aussit&ocirc;t le mets par l&rsquo;autre c&ocirc;t&eacute;, non en face de la goutte &mdash; et une seconde cuisson dans cette marmite rel&egrave;ve du m&ecirc;me r&eacute;gime que la premi&egrave;re. <em>Et pour la pratique &mdash; demande &agrave; ton rav.</em></div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ואז הקדירה הוי אסורה אפילו יש ס׳ בתבשיל נגד הטיפה שנפלה ויערה מיד התבשיל ממנו בצד אחר שלא כנגד הטיפה</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1493;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ואם בשלו בקדירה תבשיל אחר דינו כמו בפעם הראשון</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1493;)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">7. שעת הדחק · תתאה גבר · עירוי וקלוח</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">7. Moment press&eacute; &middot; תתאה גבר &middot; versement et filet</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">&#8617; Explication d&eacute;taill&eacute;e (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ז')
-  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 העתק</button>
+<h3 class="he-h3">Le texte du Me&rsquo;haber et du Rama (seif 7)
+  <button class="daat-copy" type="button" data-copy-target="#cp-7">&#128203; Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-7">
-"<strong>יש מי שמתיר בשעת הדחק, כגון בערב שבת, אפילו שלא כנגד הרוטב ואפילו שלא כנגד האש — על ידי ששים.</strong> (הגה: וכן נוהגין.) — חלב (או שאר איסור) רותח שנשפך על הקרקע והניחו עליו קדירה חמה: אם אין הנשפך סמוך לאש — אינו אלא <strong>כלי שני</strong>, והקדירה אסורה (שבולעת מעט) אבל התבשיל שבתוכה מותר משום <span class="he-q">תתאה גבר</span>. וקלוח היורד מקדירה רותחת לקדירה צוננת: אם נפסק הקלוח קודם שהגיע — כלי שני; ואם לא נפסק — הרי הוא כעירוי, והקדירה הצוננת אסורה אם יד סולדת בקלוח בשעת המגע, אבל התבשיל שבתוכה מותר, שאין עירוי אוסר אלא כדי קליפה. אבל אם הקדירה חמה / כלי ראשון, וכל שכן סמוך לאש — הכל אסור אף שהקלוח צונן, משום תתאה גבר, כצונן לתוך חם."
+  <p>יש מי שמתיר בשעת הדחק כגון בערב שבת אפי׳ שלא כנגד הרוטב אפילו שלא כנגד האש על ידי ס׳: הגה והכי נהוג (ארוך) ואם נשפך חלב או שאר איסור רותח על גבי קרקע והעמידו עליו קדירה חמה אם מה שנשפך אינו אצל האש לא הוי רק כלי שני ולכן הקדירה אסורה דבולע קצת והתבשיל מותר דתתאה גבר (הגהת ש״ד סימן כ״ה) וקלוח מן הקדירה רותחת שהלך אל קדירה צוננת אם נפסק הקלוח מן הקדירה הרותחת קודם שהגיע אל הצונן הוי נמי ככלי שני (כך משמע בשערים מתשובת מוהר״ם) ואם לא נפסק הוי כעירוי והקדירה הצוננת נאסרה אם היד סולדת בקלוח הנוגע בקדירה (ת״ה סי׳ קפ״ה) והתבשיל שבתוכה שרי דאין עירוי אוסר רק כדי קליפה אבל אם הקדירה היא חמה והוא כלי ראשון וכ״ש עומד אצל האש אפי׳ הקלוח הוא צונן הכל אסור דתתאה גבר והוי כצונן לתוך חם דכולו אסור (כך משמע מב״י) כמו שנתבאר לעיל סי׳ צ״א. טפה הנופל׳ על גבי כיסוי קדירה דינה כנפלה על גבי קדירה נגד הרוטב והוא שהתחיל הקדירה להרתיח דאז עולה הזיעה תמיד ומגיע אל הכיסוי ויורד משם אל הרוטב (ארוך כלל ל״א וש״ד):</p>
+</div>
+<div class="translation" data-label="Traduction">
+  <p>Il y a qui permet, dans un moment press&eacute; &mdash; par exemple la veille de Chabbat &mdash; m&ecirc;me hors de la face du bouillon et m&ecirc;me hors de la face du feu, au moyen de soixante. <em>Glose</em> : et c&rsquo;est ainsi que l&rsquo;on se conduit.</p>
+  <p>Et si du lait, ou un autre interdit bouillant, s&rsquo;est r&eacute;pandu sur le sol et qu&rsquo;on y a pos&eacute; une marmite chaude : si ce qui s&rsquo;est r&eacute;pandu n&rsquo;est pas pr&egrave;s du feu, ce n&rsquo;est qu&rsquo;un r&eacute;cipient second ; la marmite est donc interdite, car elle absorbe un peu, mais le mets qui s&rsquo;y trouve est permis, car le dessous l&rsquo;emporte.</p>
+  <p>Un filet qui coule d&rsquo;une marmite bouillante vers une marmite froide : s&rsquo;il s&rsquo;est interrompu avant d&rsquo;atteindre le froid, c&rsquo;est aussi un r&eacute;cipient second ; s&rsquo;il ne s&rsquo;est pas interrompu, c&rsquo;est comme un versement, et la marmite froide est interdite si la main se retire au contact du filet &mdash; mais le mets qui s&rsquo;y trouve est permis, car un versement n&rsquo;interdit que l&rsquo;&eacute;paisseur d&rsquo;une pelure. En revanche, si la marmite est chaude et qu&rsquo;elle est un r&eacute;cipient premier, et a fortiori si elle se tient pr&egrave;s du feu, alors m&ecirc;me que le filet soit froid, tout est interdit : car le dessous l&rsquo;emporte, et c&rsquo;est comme du froid vers&eacute; dans du chaud, o&ugrave; tout est interdit &mdash; comme il a &eacute;t&eacute; expliqu&eacute; plus haut au siman 91.</p>
+  <p>Une goutte qui tombe sur le couvercle d&rsquo;une marmite a le r&eacute;gime de celle qui tombe sur la marmite face au bouillon &mdash; &agrave; condition que la marmite ait commenc&eacute; &agrave; bouillir, car alors la vapeur monte sans cesse, atteint le couvercle et en redescend vers le bouillon.</p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — תתאה גבר ומדרגות החום :</strong><br>
-שורש הדינים שבסעיף זה הוא <span class="he-q">תתאה גבר</span> (פסחים ע״ו., ועיין סימן צ״א) — התחתון גובר. ומכאן:<br><br>
-• <strong>נשפך על הקרקע</strong> שלא סמוך לאש → כלי שני → אינו מבליע אלא מעט → הקדירה אסורה והתבשיל מותר (תתאה — הקדירה החמה — גבר).<br>
-• <strong>קלוח שנפסק</strong> → כלי שני; <strong>לא נפסק</strong> → עירוי, ואוסר רק <span class="he-q">כדי קליפה</span> (אם יד סולדת), והתבשיל שבפנים מותר.<br>
-• <strong>כלי ראשון / סמוך לאש</strong> → אף בקלוח צונן הכל אסור, דתתאה (החם) גבר כצונן לתוך חם.
-</div>
+<div class="yesod-box">
+<strong>Le fondement &mdash; &laquo;&nbsp;le dessous l&rsquo;emporte&nbsp;&raquo; et les degr&eacute;s de chaleur.</strong> Toute la racine de ce seif est le principe &eacute;tudi&eacute; au siman 91 : dans un contact entre un chaud et un froid, c&rsquo;est le <em>dessous</em> qui l&rsquo;emporte. De l&agrave; les trois cas.<br><br>
+&bull; <strong>R&eacute;pandu sur le sol</strong>, loin du feu : r&eacute;cipient second, qui ne fait absorber qu&rsquo;un peu &mdash; la marmite est interdite, le mets permis.<br>
+&bull; <strong>Filet interrompu</strong> : r&eacute;cipient second ; <strong>filet ininterrompu</strong> : un versement, qui n&rsquo;interdit que l&rsquo;&eacute;paisseur d&rsquo;une pelure, si la main s&rsquo;y retire.<br>
+&bull; <strong>R&eacute;cipient premier, ou pr&egrave;s du feu</strong> : m&ecirc;me un filet froid interdit tout, car le dessous chaud l&rsquo;emporte.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ואם נשפך חלב או שאר איסור רותח על גבי קרקע והעמידו עליו קדירה חמה אם מה שנשפך אינו אצל האש לא הוי רק כלי שני ולכן הקדירה אסורה דבולע קצת והתבשיל מותר דתתאה גבר</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1494;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ואם לא נפסק הוי כעירוי והקדירה הצוננת נאסרה אם היד סולדת בקלוח הנוגע בקדירה</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1494;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">והתבשיל שבתוכה שרי דאין עירוי אוסר רק כדי קליפה</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1494;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אבל אם הקדירה היא חמה והוא כלי ראשון וכ״ש עומד אצל האש אפי׳ הקלוח הוא צונן הכל אסור דתתאה גבר והוי כצונן לתוך חם דכולו אסור</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1494;)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>טיפה על הכיסוי :</strong> טיפה שנפלה על <span class="he-q">כיסוי</span> הקדירה — הרי היא כנופלת כנגד הרוטב, ובלבד שכבר התחילה הקדירה להרתיח; שאז ה<strong>זיעה</strong> עולה אל הכיסוי וחוזרת ונוטפת לתבשיל, ונמצא הכיסוי כמחובר לרוטב. (וכאן שורש המעבר לדין הזיעה שבסעיף ח'.)
-</div>
+<div class="rishon-card">
+<strong>La goutte sur le couvercle.</strong> Une goutte tomb&eacute;e sur le couvercle est trait&eacute;e comme tomb&eacute;e face au bouillon &mdash; &agrave; la condition que la marmite ait d&eacute;j&agrave; commenc&eacute; &agrave; bouillir : la vapeur monte alors au couvercle et en redescend vers le mets, de sorte que le couvercle est, pour ce calcul, en continuit&eacute; avec le bouillon. C&rsquo;est par ce membre de phrase que le siman passe au seif suivant, celui de la vapeur.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">טפה הנופל׳ על גבי כיסוי קדירה דינה כנפלה על גבי קדירה נגד הרוטב והוא שהתחיל הקדירה להרתיח דאז עולה הזיעה תמיד ומגיע אל הכיסוי ויורד משם אל הרוטב</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1494;)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>דקדוק הפתחי תשובה :</strong> מביא הפתחי תשובה (ס״ק ג) בשם מגן אברהם (סי' תנ״ב) — קדירת מתכת שנאסרה, אין די למלאותה מים ולהרתיח להכשירה, אלא צריך להטבילה כולה ביורה גדולה יותר; ובס״ק ד מביא מלבושי שרד שאין לסמוך על נתינת <span class="he-q">אפר</span> תחת הקלוח להפסיקו. <em>ולמעשה — שאל את רבך.</em>
-</div>
+<div class="pilpul-box">
+<strong>Deux pr&eacute;cisions du Pit&rsquo;h&eacute; Techouva.</strong> &Agrave; son ס״ק ג, il note que partout o&ugrave; ce siman dit &laquo;&nbsp;la marmite est interdite&nbsp;&raquo;, s&rsquo;il s&rsquo;agit d&rsquo;une marmite de m&eacute;tal, la remplir d&rsquo;eau et la faire bouillir ne suffit pas &agrave; la rendre &mdash; car la face ext&eacute;rieure ne serait pas trait&eacute;e ; il faut la plonger tout enti&egrave;re dans une chaudi&egrave;re plus grande (Maguen Avraham, Ora&rsquo;h &rsquo;Ha&iuml;m 452). &Agrave; son ס״ק ד, il rapporte les Levouch&eacute; S&eacute;rad contre ceux qui permettaient au moyen de la cendre plac&eacute;e sous le filet : puisque la r&egrave;gle de la cendre est elle-m&ecirc;me disput&eacute;e, il n&rsquo;y a pas &agrave; s&rsquo;y appuyer, sinon pour un interdit l&eacute;ger. <em>Et pour la pratique &mdash; demande &agrave; ton rav.</em></div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אם היא של מתכות ובא להגעילה לא מהני כשימלאנה מים וירתיחנה דא״כ צד החיצון לא נגעל אלא צריך להכניסה כולה ליורה</span>&nbsp;&raquo; <span class="src-ref">(&#1508;&#1524;&#1514; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1490;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">מאחר שדין אפר גופיה הוא מחלוקת לכן ח״ו לסמוך ע״ז אלא באיסור קל</span>&nbsp;&raquo; <span class="src-ref">(&#1508;&#1524;&#1514; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1491;)</span></blockquote>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">8. חקירת הזיעה — זיעת אוכלין וזיעת משקין</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">8. La &rsquo;hakira de la vapeur &mdash; vapeur de boisson, vapeur d&rsquo;aliment</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">&#8617; Explication d&eacute;taill&eacute;e (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ח')
-  <button class="daat-copy" type="button" data-copy-target="#cp-8">📋 העתק</button>
+<h3 class="he-h3">Le texte du Me&rsquo;haber et du Rama (seif 8)
+  <button class="daat-copy" type="button" data-copy-target="#cp-8">&#128203; Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-8">
-"<strong>מחבת של חלב שהניחה בכירה תחת קדירה של בשר — הזיעה עולה ונבלעת בקדירה ואוסרתה</strong> (הגה: ואם היה חלב במחבת, צריך ששים בתבשיל הקדירה כנגד החלב שבמחבת). <strong>ודווקא שהמחבת מגולה, והזיעה עולה מן המאכל עצמו, וסמוכים כל כך עד שיד סולדת בזיעה במקום המגע; אבל אם רחוקים — הכל מותר. ולכן תולין בשר לייבש על קדירות של חלב ואין חוששין לזיעה. וכן אם המחבת מכוסה — הכל מותר, כשתי קדירות הנוגעות זו בזו</strong> (מרדכי פכ״ה). ומכל מקום לכתחילה יש ליזהר."
+  <p>מחבת של חלב שנתנו בכירה תחת קדירה של בשר הזיעה עולה ונבלע בקדיר׳ ואוסרת׳: הגה אם היה חלב במחבת בעינן ס׳ בתבשיל שבקדירה נגד החלב שבמחבת (ד״ע) וכל זה מיירי שהמחבת מגולה והזיעה עולה מן המאכל עצמו לקדירה שעליה (ארוך) וגם מיירי שהוא בקרוב כל כך שהיד סולדת בזיעה במקום שנוגע בקדירה אבל אם אין היד סולדת בזיעה הכל שרי ולכן תולין בשר לייבש על קדירות של חלב ולא חיישינן לזיעה שעולה (פסקי מהרא״י סימן ק״ג) וכן אם המחבת מכוסה הכל שרי מידי דהוי אשתי קדירות נוגעות זו בזו דאין אוסרין זו את זו בנגיעה כל שכן בזיעה (מרדכי פרק כ״ה) מיהו לכתחלה יש ליזהר בכל זה (הגהות ש״ד):</p>
+</div>
+<div class="translation" data-label="Traduction">
+  <p>Une po&ecirc;le de lait qu&rsquo;on a pos&eacute;e dans le foyer, sous une marmite de viande : la vapeur monte, est absorb&eacute;e par la marmite et l&rsquo;interdit. <em>Glose</em> : s&rsquo;il y avait du lait dans la po&ecirc;le, il faut soixante dans le mets de la marmite contre le lait de la po&ecirc;le (avis propre). Et tout cela ne parle que d&rsquo;une po&ecirc;le d&eacute;couverte, la vapeur montant de l&rsquo;aliment lui-m&ecirc;me vers la marmite qui est au-dessus (Arokh) ; et l&rsquo;on parle aussi d&rsquo;une proximit&eacute; telle que la main se retire de la vapeur &agrave; l&rsquo;endroit o&ugrave; elle touche la marmite &mdash; mais si la main ne s&rsquo;y retire pas, tout est permis. C&rsquo;est pourquoi l&rsquo;on suspend de la viande &agrave; s&eacute;cher au-dessus de marmites de lait sans craindre la vapeur qui monte (Piskei Mahara&iuml;, 103). Et de m&ecirc;me, si la po&ecirc;le est couverte, tout est permis &mdash; comme deux marmites qui se touchent l&rsquo;une l&rsquo;autre sans s&rsquo;interdire par le contact, et a fortiori par la vapeur (Mordekhai, chap. 25). Toutefois, il y a lieu d&rsquo;&ecirc;tre prudent en tout cela a priori.</p>
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>חקירה — מהי "זיעה" ומה כוחה :</strong> זיעה היא האד החם העולה מן התבשיל. וחקרו האחרונים: האם דין הזיעה תלוי ב<strong>חום</strong> בלבד (יד סולדת), או גם בטיב המתאדה ? והמחבר תלאהּ בשני תנאים: (א) <span class="he-q">מגולה</span> — שתעלה הזיעה מן המאכל עצמו; (ב) <span class="he-q">יד סולדת בזיעה</span> במקום המגע — וברחוקים, שאין יד סולדת, הכל מותר.
-</div>
+<div class="hakira-box">
+<strong>La &rsquo;hakira &mdash; qu&rsquo;est-ce que la vapeur, et quelle est sa force ?</strong> La question que ce seif ouvre est de savoir &agrave; quoi tient le pouvoir de la vapeur d&rsquo;interdire. Le texte du Rama y met deux conditions, et elles ne sont pas de m&ecirc;me nature : l&rsquo;une tient &agrave; la <em>provenance</em> &mdash; la po&ecirc;le doit &ecirc;tre d&eacute;couverte, la vapeur montant de l&rsquo;aliment lui-m&ecirc;me ; l&rsquo;autre tient &agrave; la <em>chaleur</em> &mdash; la main doit se retirer de la vapeur &agrave; l&rsquo;endroit du contact. De l&agrave; la question : la vapeur est-elle comme le corps de l&rsquo;aliment d&rsquo;o&ugrave; elle monte, ou bien n&rsquo;est-elle qu&rsquo;un v&eacute;hicule de chaleur ?</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">וכל זה מיירי שהמחבת מגולה והזיעה עולה מן המאכל עצמו לקדירה שעליה</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1495;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">וגם מיירי שהוא בקרוב כל כך שהיד סולדת בזיעה במקום שנוגע בקדירה אבל אם אין היד סולדת בזיעה הכל שרי</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1495;)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>חידוש הפרי מגדים — זיעת אוכלין וזיעת משקין (פתחי תשובה ס״ק ו) :</strong> מחלק הפרי מגדים בין <span class="he-q">זיעת משקין</span> — אד העולה ממשקה (כחלב נוזלי), שדינו כמשקה עצמו ואוסר — לבין <span class="he-q">זיעת אוכלין</span> — אד העולה ממאכל מוצק (כחֵלֶב מהותך או בשר), שמא <em>אינו</em> כגוף המאכל ואינו אוסר כמותו. נמצא שעצם החקירה — אם הזיעה "כגוף האיסור" — תלויה בטיב המתאדה, ולא בחום בלבד.
-</div>
+<div class="pilpul-box">
+<strong>La distinction du Pri M&eacute;gadim, rapport&eacute;e par le Pit&rsquo;h&eacute; Techouva (ס״ק ו).</strong> Le Pri M&eacute;gadim tire du Rambam (Toum&rsquo;at Okhlin 7:4) que la vapeur d&rsquo;une <em>boisson</em> est comme la boisson elle-m&ecirc;me, tandis que celle d&rsquo;un <em>aliment</em> ne l&rsquo;est pas. La &rsquo;hakira ne porte donc pas seulement sur la chaleur, mais sur la nature de ce qui s&rsquo;&eacute;vapore. Le Pit&rsquo;h&eacute; Techouva en tire lui-m&ecirc;me la cons&eacute;quence, et il la formule prudemment : dans un tel cas, m&ecirc;me si la main se retire de la vapeur, <em>il est possible</em> qu&rsquo;il y ait de quoi permettre. Il ne tranche pas, et nous non plus.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דדוקא זיעת משקין כמוהו אבל אוכלין כמו חלב המהותך אין זיעתו כמוהו</span>&nbsp;&raquo; <span class="src-ref">(&#1508;&#1524;&#1514; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1493;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אם היה מחבת מחלב למטה חם ולמעלה סמוך דבר כשר והזיעה עולה אפי׳ יד סולדת בזיעה אפשר יש להתיר</span>&nbsp;&raquo; <span class="src-ref">(&#1508;&#1524;&#1514; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1493;)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>מכוסה — קל וחומר משתי קדירות :</strong> אם המחבת <span class="he-q">מכוסה</span> — הכל מותר, שהרי אף שתי קדירות הנוגעות זו בזו אין מבליעות זו מזו בלא רוטב (סימן צ״ב הוא, ועיין מרדכי פכ״ה), וכל שכן הזיעה הנחסמת בכיסוי. ומכאן ההיתר לתלות בשר לייבוש מעל קדירות חלב. ומכל מקום מסיים המחבר: "<span class="he-q">לכתחילה יש ליזהר</span>".
-</div>
+<div class="rishon-card">
+<strong>Couvert &mdash; un a fortiori tir&eacute; des deux marmites.</strong> Si la po&ecirc;le est couverte, tout est permis : deux marmites qui se touchent ne s&rsquo;interdisent pas l&rsquo;une l&rsquo;autre par le seul contact, et la vapeur, arr&ecirc;t&eacute;e par le couvercle, fait moins encore. C&rsquo;est de ce m&ecirc;me raisonnement que sort la permission de suspendre de la viande &agrave; s&eacute;cher au-dessus de marmites de lait. Et le Rama ach&egrave;ve pourtant sur une r&eacute;serve : a priori, il y a lieu d&rsquo;&ecirc;tre prudent en tout cela.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">וכן אם המחבת מכוסה הכל שרי מידי דהוי אשתי קדירות נוגעות זו בזו דאין אוסרין זו את זו בנגיעה כל שכן בזיעה</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1495;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ולכן תולין בשר לייבש על קדירות של חלב ולא חיישינן לזיעה שעולה</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1495;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">מיהו לכתחלה יש ליזהר בכל זה</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1495;)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">9. נר של חלב — חֵלֶב ולא חָלָב</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">9. La chandelle de suif &mdash; חֵלֶב et non חָלָב</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">&#8617; Explication d&eacute;taill&eacute;e (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיף ט')
-  <button class="daat-copy" type="button" data-copy-target="#cp-9">📋 העתק</button>
+<h3 class="he-h3">Le texte du Me&rsquo;haber (seif 9)
+  <button class="daat-copy" type="button" data-copy-target="#cp-9">&#128203; Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-9">
-"<strong>נר של חֵלֶב, שעשאוֹ כעין נר של שעוה, שנטפה ממנו טיפה על הכלי — די בגרידה. אבל חֵלֶב מהותך חם שנטפה ממנו טיפה על הכלי — צריך הגעלה.</strong>"
+  <p>נר של חלב עשוי כנר של שעוה שנטף ממנו טפה על כלי אין צריך כי אם גרידה אבל חלב מהותך חם שנפל ממנו טפה על כלי צריך הגעלה:</p>
+</div>
+<div class="translation" data-label="Traduction">
+  <p>Une chandelle de suif faite comme une chandelle de cire, dont une goutte est tomb&eacute;e sur un ustensile : il ne faut que racler. Mais du suif fondu et chaud dont une goutte est tomb&eacute;e sur un ustensile : il faut une hag&rsquo;ala.</p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — חֵלֶב (סוּיף) ולא חָלָב (לבן) :</strong><br>
-שים לב: כאן <span class="he-q">חֵלֶב</span> (בצירי, סוּיף) — שומן אסור של בהמה, ולא <span class="he-q">חָלָב</span> (בקמץ, לבן) של הסעיפים הקודמים. ושני אופנים:<br>
-• נר של חֵלֶב <strong>קרוש</strong>, שנטף כשעוה צוננת → אין בליעה אלא בפניו → <span class="he-q">גרידה</span> בלבד.<br>
-• חֵלֶב מהותך <strong>חם</strong> → רותח שמבליע → <span class="he-q">הגעלה</span> ככל איסור חם.
-</div>
+<div class="yesod-box">
+<strong>Le fondement &mdash; חֵלֶב et non חָלָב.</strong> Un avertissement de lecture, avant toute halakha : le texte imprim&eacute; n&rsquo;est pas vocalis&eacute;, et les m&ecirc;mes trois lettres portent ici un autre mot que dans tous les seifim pr&eacute;c&eacute;dents. Le mot se lit <strong>חֵלֶב</strong> &mdash; le suif, graisse interdite de l&rsquo;animal &mdash; et non <strong>חָלָב</strong>, le lait. Deux cas s&rsquo;ensuivent :<br>
+&bull; Une chandelle de suif <strong>fig&eacute;</strong>, qui goutte comme de la cire froide &rarr; il n&rsquo;y a pas d&rsquo;absorption dans l&rsquo;&eacute;paisseur, seulement un corps pos&eacute; &agrave; la surface &rarr; racler suffit.<br>
+&bull; Du suif <strong>fondu et chaud</strong> &rarr; c&rsquo;est du bouillant qui fait absorber &rarr; une hag&rsquo;ala est requise.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">נר של חלב עשוי כנר של שעוה שנטף ממנו טפה על כלי אין צריך כי אם גרידה</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1493;&#1524;&#1506; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1496;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אבל חלב מהותך חם שנפל ממנו טפה על כלי צריך הגעלה</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1493;&#1524;&#1506; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1496;)</span></blockquote>
 
-<div class="hakira-box" dir="rtl">
-<strong>חקירה — גרידה כנגד הגעלה :</strong> שורש החילוק הוא חוֹם המגע: בקרוש אין הפלטה ובליעה ממש (כצונן), על כן די בהסרת הגוף שעל פני הכלי (גרידה); ובמהותך חם — דין רותח לו, ומבליע בעובי הכלי, על כן בעי הגעלה. והפתחי תשובה (ס״ק ז–ח) דן בהדלקה מנר של חֵלֶב ובחֵלֶב שעל הכלי, ומדמהו לדיני בליעה דלעיל.
-</div>
+<div class="hakira-box">
+<strong>&rsquo;Hakira &mdash; racler contre hag&rsquo;ala.</strong> La racine de la distinction est la chaleur du contact, non la nature de la mati&egrave;re. Dans le fig&eacute;, il n&rsquo;y a ni rejet ni absorption r&eacute;els, comme pour du froid : il suffit donc d&rsquo;&ocirc;ter le corps pos&eacute; &agrave; la surface. Dans le fondu et chaud, le r&eacute;gime est celui du bouillant, qui fait absorber dans l&rsquo;&eacute;paisseur de l&rsquo;ustensile : d&rsquo;o&ugrave; la hag&rsquo;ala. Le Pit&rsquo;h&eacute; Techouva (ס״ק ז&ndash;ח) prolonge ces deux cas : l&rsquo;un sur le fait d&rsquo;allumer &agrave; une chandelle de suif, l&rsquo;autre sur la m&egrave;che tomb&eacute;e sur un ustensile.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אם מותר להדליק שפופרת של טובאק מנר של חלב</span>&nbsp;&raquo; <span class="src-ref">(&#1508;&#1524;&#1514; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1494;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אם נפל ראש הפתילה שכבר נשרף ונעשה אפר אינו אוסר</span>&nbsp;&raquo; <span class="src-ref">(&#1508;&#1524;&#1514; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1495;)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">10. חקירה ונפקא מינה למעשה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">10. &rsquo;Hakira et nafka mina pour la pratique</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">&#8617; Explication d&eacute;taill&eacute;e (niveau 1)</a>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה הכוללת של הסימן :</strong> מהו השיעור לבטל את טעם החלב, ומתי כל הקדירה מצטרפת ?
+<div class="hakira-box">
+<strong>La &rsquo;hakira d&rsquo;ensemble du siman.</strong> Quelle est la mesure qui annule le go&ucirc;t du lait, et &agrave; quelle condition toute la marmite s&rsquo;y joint ?
 <ul class="stylish">
-<li><strong>טעימת קפילא</strong> — היתר עיוני (טעם), אך <span class="he-q">אין אנו סומכין עליו</span> ובעינן ס' בכל ענין.</li>
-<li><strong>שני האיסורים</strong> — טעם הבשר הנפלט (בטל בס' לכו״ע) והחלב הבלוע החוזר ונפלט (כר״ת, בטל בס').</li>
-<li><strong>ניער / כיסה</strong> — מצרפין את כל הקדירה, ולמנהג דווקא <em>לאלתר</em>.</li>
-<li><strong>חתיכה נעשית נבילה</strong> — בבב״ח מדאורייתא (כל החתיכה גופו של איסור); ולמנהג הרמ״א — בכל איסורין מדרבנן.</li>
-<li><strong>טיפה על הדופן · עירוי · זיעה</strong> — מפעפע, תתאה גבר, ויד סולדת.</li>
+<li><strong>Le go&ucirc;t du קפילא</strong> &mdash; une permission de principe, fond&eacute;e sur le go&ucirc;t ; mais nous ne nous y fions pas, et il faut soixante en tout &eacute;tat de cause.</li>
+<li><strong>Les deux interdits</strong> &mdash; le go&ucirc;t de viande rejet&eacute; (annul&eacute; par soixante de l&rsquo;avis de tous) et le lait absorb&eacute; puis restitu&eacute; (annul&eacute; par soixante, selon Rabb&eacute;nou Tam).</li>
+<li><strong>Remuer / couvrir</strong> &mdash; ce qui joint toute la marmite, et, selon l&rsquo;usage, seulement si on l&rsquo;a fait d&egrave;s la chute.</li>
+<li><strong>&rsquo;Hatikha naassit n&eacute;v&eacute;la</strong> &mdash; pour la viande avec le lait selon le Me&rsquo;haber ; pour tous les interdits selon le Rama, et de l&rsquo;avis de tous mid&eacute;rabanan (Chakh ס״ק י״ב).</li>
+<li><strong>Goutte sur la paroi &middot; versement &middot; vapeur</strong> &mdash; la travers&eacute;e de la paroi, la r&egrave;gle du dessous qui l&rsquo;emporte, et la main qui se retire.</li>
 </ul>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה למעשה (לפי הכרעת רוב האחרונים) :</strong>
+<div class="nafka-mina-box">
+<strong>Nafka mina pour la pratique, selon ce que le siman &eacute;nonce.</strong>
 <ol class="stylish">
-<li>אין סומכין על טעימת נכרי → <strong>בעינן ששים בכל ענין</strong> (רמ״א ס״א).</li>
-<li>ניעור/כיסוי מצרפין את כל הקדירה <strong>דווקא לאלתר</strong> משעת הנפילה (רמ״א ס״ב — "והכי נהוג").</li>
-<li>חתיכה נעשית נבילה — נוהגין בכל איסורין (רמ״א ס״ד), בתנאי דבוק / כולה חוץ לרוטב.</li>
-<li>טיפה כנגד הריקן שלא כנגד האש — נהגו לאסור; כנגד האש — האש שורפו; קדירה חדשה — די בס'.</li>
-<li>זיעה — אוסרת רק במגולה ויד סולדת; מכוסה או רחוק — מותר, ולכתחילה יש ליזהר.</li>
+<li>On ne se fie pas au go&ucirc;t du non-juif &rarr; <strong>soixante sont requis en tout &eacute;tat de cause</strong> (Rama, seif 1).</li>
+<li>Remuer ou couvrir ne joint toute la marmite que si on l&rsquo;a fait <strong>d&egrave;s l&rsquo;instant de la chute</strong> (Rama, seif 2 &mdash; &laquo;&nbsp;et c&rsquo;est ainsi que l&rsquo;on se conduit&nbsp;&raquo;).</li>
+<li>&rsquo;Hatikha naassit n&eacute;v&eacute;la &mdash; l&rsquo;usage l&rsquo;applique &agrave; tous les interdits (Rama, seif 4), sous les conditions de l&rsquo;adh&eacute;rence ou du morceau tout entier hors du bouillon &mdash; le Chakh (ס״ק י״ג) marquant un צ״ע sur la fin de la glose.</li>
+<li>Goutte face au vide, hors de la face du feu : l&rsquo;usage a &eacute;t&eacute; d&rsquo;interdire ; face au feu, le feu la br&ucirc;le ; marmite neuve, soixante suffisent.</li>
+<li>Vapeur &mdash; elle n&rsquo;interdit que si la po&ecirc;le est d&eacute;couverte et que la main se retire ; couverte ou &eacute;loign&eacute;e, c&rsquo;est permis, et a priori il y a lieu d&rsquo;&ecirc;tre prudent.</li>
 </ol>
-<em>ולמעשה — שאל את רבך.</em>
-</div>
+<em>Et pour la pratique &mdash; demande &agrave; ton rav.</em></div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">11. טבלאות סיכום</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">11. Tableaux de synth&egrave;se</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">&#8617; Explication d&eacute;taill&eacute;e (niveau 1)</a>
 
-<h3 class="he-h3">טבלה — אופני נפילת החלב והדין</h3>
-
-<table>
-<tr>
-  <th>אופן המגע</th>
-  <th>התוצאה</th>
-  <th>מקור בקורפוס</th>
-</tr>
-<tr>
-  <td><strong>כזית בשר ביורה של חלב</strong></td>
-  <td>קפילא / ס'; ואותה חתיכה אסורה</td>
-  <td>מחבר ס״א; ט״ז ס״ק א</td>
-</tr>
-<tr>
-  <td><strong>נפל חלב לקדירה — לא ניער</strong></td>
-  <td>ס' באותה חתיכה; אם לאו — היא לבדה אסורה</td>
-  <td>מחבר ס״ב; רמ״א</td>
-</tr>
-<tr>
-  <td><strong>ניער/כיסה לאלתר</strong></td>
-  <td>הכל מצטרף לששים</td>
-  <td>מחבר ס״ב; רמ״א — "והכי נהוג"</td>
-</tr>
-<tr>
-  <td><strong>חתיכה שנאסרה (חנ״נ)</strong></td>
-  <td>כל החתיכה נבילה; ס' נגד כולה</td>
-  <td>מחבר ס״ג–ד'; מגיד משנה</td>
-</tr>
-<tr>
-  <td><strong>טיפה כנגד הרוטב</strong></td>
-  <td>מפעפע → ס' כנגד הטיפה</td>
-  <td>מחבר ס״ה; ט״ז ס״ק יז</td>
-</tr>
-<tr>
-  <td><strong>טיפה כנגד הריקן (שלא כנגד האש)</strong></td>
-  <td>נהגו לאסור אותו מקום</td>
-  <td>מחבר ס״ה–ו'</td>
-</tr>
-<tr>
-  <td><strong>עירוי / קלוח לא נפסק</strong></td>
-  <td>אוסר כדי קליפה; תבשיל מותר (תתאה גבר)</td>
-  <td>מחבר ס״ז</td>
-</tr>
-<tr>
-  <td><strong>זיעה (מגולה, יד סולדת)</strong></td>
-  <td>נבלעת ואוסרת; מכוסה/רחוק — מותר</td>
-  <td>מחבר ס״ח; פמ״ג בפ״ת ס״ק ו</td>
-</tr>
-<tr>
-  <td><strong>נר של חֵלֶב</strong></td>
-  <td>קרוש — גרידה; מהותך חם — הגעלה</td>
-  <td>מחבר ס״ט; פ״ת ס״ק ז–ח</td>
-</tr>
-</table>
-
-<h3 class="he-h3">טבלה — מחלוקות מרכזיות בסימן</h3>
+<h3>Tableau &mdash; les modes de chute du lait et leur r&eacute;gime</h3>
 
 <table>
 <tr>
-  <th>נושא</th>
-  <th>שיטה א'</th>
-  <th>שיטה ב'</th>
+  <th>Le mode de contact</th>
+  <th>Le r&eacute;sultat</th>
+  <th>La source</th>
 </tr>
 <tr>
-  <td>סמיכה על טעימת נכרי</td>
-  <td>המחבר — סומכין על הקפילא (אף בפחות מס')</td>
-  <td>הרמ״א — אין סומכין, ובעינן ס' בכל ענין</td>
+  <td><strong>Kazayit de viande dans une chaudi&egrave;re de lait</strong></td>
+  <td>Go&ucirc;t du קפילא, ou soixante ; et ce morceau-l&agrave; est interdit</td>
+  <td>Me&rsquo;haber, seif 1 ; Taz ס״ק א</td>
 </tr>
 <tr>
-  <td>חלב בחלב (מין במינו) — האיסור הבלוע</td>
-  <td>רש״י/ריב״א — במשהו</td>
-  <td>רבנו תם — בטל בס' (וקיי״ל)</td>
+  <td><strong>Lait tomb&eacute; dans la marmite &mdash; sans avoir remu&eacute;</strong></td>
+  <td>Soixante dans le morceau lui-m&ecirc;me ; &agrave; d&eacute;faut, il est seul interdit</td>
+  <td>Me&rsquo;haber et Rama, seif 2</td>
 </tr>
 <tr>
-  <td>אימתי ניעור מצרף</td>
-  <td>ראב״ד/מ״מ — אף בלא ניעור די בס'</td>
-  <td>טור/רמ״א — דווקא ניער לאלתר ("והכי נהוג")</td>
+  <td><strong>Remu&eacute; ou couvert d&egrave;s la chute</strong></td>
+  <td>Tout se joint pour les soixante</td>
+  <td>Me&rsquo;haber et Rama, seif 2</td>
 </tr>
 <tr>
-  <td>חתיכה נעשית נבילה</td>
-  <td>מחבר — רק בבב״ח</td>
-  <td>רמ״א — בכל איסורין ("ואין לשנות")</td>
+  <td><strong>Morceau devenu interdit (&rsquo;h.n.n.)</strong></td>
+  <td>Le morceau entier est n&eacute;v&eacute;la ; soixante contre lui tout entier</td>
+  <td>Me&rsquo;haber, seifim 3&ndash;4 ; Chakh ס״ק י</td>
 </tr>
 <tr>
-  <td>לח בלח שנפל להיתר</td>
-  <td>מרדכי/רשב״א/ר״ן — די בס', לא חנ״נ</td>
-  <td>מהרש״ל — דרך בישול אמרינן חנ״נ (פ״ת ס״ק ב)</td>
+  <td><strong>Goutte face au bouillon</strong></td>
+  <td>Elle traverse &rarr; soixante contre la goutte</td>
+  <td>Me&rsquo;haber, seif 5 ; Taz ס״ק י״ז</td>
+</tr>
+<tr>
+  <td><strong>Goutte face au vide, hors de la face du feu</strong></td>
+  <td>L&rsquo;usage a &eacute;t&eacute; d&rsquo;interdire cet endroit</td>
+  <td>Me&rsquo;haber, seifim 5&ndash;6</td>
+</tr>
+<tr>
+  <td><strong>Versement / filet ininterrompu</strong></td>
+  <td>Interdit l&rsquo;&eacute;paisseur d&rsquo;une pelure ; le mets reste permis (le dessous l&rsquo;emporte)</td>
+  <td>Rama, seif 7</td>
+</tr>
+<tr>
+  <td><strong>Vapeur (po&ecirc;le d&eacute;couverte, main qui se retire)</strong></td>
+  <td>Absorb&eacute;e et interdisante ; couverte ou &eacute;loign&eacute;e &mdash; permis</td>
+  <td>Me&rsquo;haber et Rama, seif 8 ; Pri M&eacute;gadim dans le P&rsquo;T ס״ק ו</td>
+</tr>
+<tr>
+  <td><strong>Chandelle de suif</strong></td>
+  <td>Fig&eacute; &mdash; racler ; fondu et chaud &mdash; hag&rsquo;ala</td>
+  <td>Me&rsquo;haber, seif 9 ; P&rsquo;T ס״ק ז&ndash;ח</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מקורות הסוגיא</h3>
+<h3>Tableau &mdash; les ma&rsquo;hlokot centrales du siman</h3>
 
-<div class="rishon-card" dir="rtl">
-<strong>גמרא :</strong> חולין צ״ז:–צ״ח. (טעם כעיקר, קפילא, ביטול בששים) · חולין ק״ח. (חתיכה נעשית נבילה) · חולין קי״א:–קי״ב. (זיעה, דגים שעלו בקערה) · פסחים ע״ו. (כיצד צולין — תתאה גבר)
+<table>
+<tr>
+  <th>Le sujet</th>
+  <th>Premi&egrave;re chita</th>
+  <th>Seconde chita</th>
+</tr>
+<tr>
+  <td>Se fier au go&ucirc;t du non-juif</td>
+  <td>Le Me&rsquo;haber &mdash; on s&rsquo;en remet au קפילא, m&ecirc;me avec moins de soixante</td>
+  <td>Le Rama &mdash; on ne s&rsquo;y fie pas, et il faut soixante en tout &eacute;tat de cause</td>
+</tr>
+<tr>
+  <td>Du lait dans du lait &mdash; l&rsquo;interdit absorb&eacute;</td>
+  <td>Rachi et le Rivа&rsquo; &mdash; pour une quantit&eacute; infime</td>
+  <td>Rabb&eacute;nou Tam &mdash; annul&eacute; par soixante (et c&rsquo;est ce que nous tenons)</td>
+</tr>
+<tr>
+  <td>Quand remuer joint-il ?</td>
+  <td>Raavad et Maguid Michn&eacute; &mdash; m&ecirc;me sans avoir remu&eacute;, soixante suffisent</td>
+  <td>Tour et Rama &mdash; seulement si l&rsquo;on a remu&eacute; d&egrave;s la chute</td>
+</tr>
+<tr>
+  <td>&rsquo;Hatikha naassit n&eacute;v&eacute;la</td>
+  <td>Le Me&rsquo;haber &mdash; seulement pour la viande avec le lait</td>
+  <td>Le Rama &mdash; dans tous les interdits, et mid&eacute;rabanan selon le Chakh</td>
+</tr>
+<tr>
+  <td>Le morceau, tout entier ou en partie hors du bouillon</td>
+  <td>R. Yits&rsquo;hak &mdash; seulement tout entier hors du bouillon</td>
+  <td>Rachi &mdash; m&ecirc;me une partie dans le bouillon (Chakh ס״ק ד)</td>
+</tr>
+<tr>
+  <td>Liquide dans du liquide tomb&eacute; dans du permis</td>
+  <td>Mordekhai, Rachba et Ran &mdash; soixante suffisent, pas de &rsquo;h.n.n.</td>
+  <td>Maharchal &mdash; par voie de cuisson, on dit &rsquo;h.n.n. (P&rsquo;T ס״ק ב)</td>
+</tr>
+</table>
+
+<h3>Tableau &mdash; les sources de la sougya</h3>
+
+<div class="rishon-card">
+<strong>Guemara :</strong> &rsquo;Houlin 97b&ndash;98a (go&ucirc;t comme substance, קפילא, annulation par soixante) &middot; &rsquo;Houlin 108a (&rsquo;hatikha naassit n&eacute;v&eacute;la) &middot; &rsquo;Houlin 111b&ndash;112a (vapeur, poissons servis dans un plat) &middot; Pessa&rsquo;him 76a (le dessous l&rsquo;emporte)
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>ראשונים :</strong> רש״י · ר״ת · ריב״א · רמב״ם · ראב״ד · המגיד משנה · תוספות · רא״ש · רשב״א (תורת הבית) · ר״ן · מרדכי (פרק כ״ה) · סמ״ג · סמ״ק · ר״י אבן חביב · טור · איסור והיתר הארוך (כלל כ״ח, ל״א)
+<div class="rishon-card">
+<strong>Richonim :</strong> Rachi &middot; Rabb&eacute;nou Tam &middot; le Rivа&rsquo; &middot; Rambam &middot; Raavad &middot; Maguid Michn&eacute; &middot; Tossafot &middot; Roch &middot; Rachba &middot; Ran &middot; Mordekhai (chap. 25) &middot; Semag &middot; Semak &middot; R. Yossef ibn &rsquo;Haviv &middot; Tour &middot; Issour V&eacute;H&eacute;ter HaArokh (r&egrave;gles 28 et 31)
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>אחרונים :</strong> בית יוסף · רמ״א · ש״ך · ט״ז · ב״ח · דרכי משה · תורת חטאת · מהרש״ל (ים של שלמה פכ״ה) · פרי חדש · פרי מגדים · מנחת יעקב · מגן אברהם (סי' תנ״ב) · פתחי תשובה · נודע ביהודה · לבושי שרד
+<div class="rishon-card">
+<strong>A&rsquo;haronim :</strong> Beit Yossef &middot; Rama &middot; Chakh &middot; Taz &middot; Ba&rsquo;h &middot; Darkh&eacute; Moch&eacute; &middot; Torat &rsquo;Hatat &middot; Maharchal (Yam chel Chlomo, chap. 25) &middot; Pri &rsquo;Hadach &middot; Pri M&eacute;gadim &middot; Min&rsquo;hat Yaakov &middot; Maguen Avraham (Ora&rsquo;h &rsquo;Ha&iuml;m 452) &middot; Pit&rsquo;h&eacute; Techouva &middot; Nod&aacute; BiY&eacute;houda &middot; Levouch&eacute; S&eacute;rad
 </div>
 
 <hr class="ornament">
 
-  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;direction:rtl;">
-    <a href="niveau-1-base.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">→ רמה א' — יסוד</a>
-    <a href="niveau-3-synthese.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">רמה ג' — סיכום ←</a>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;">
+    <a href="niveau-1-base.html" style="font-family:'Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">&larr; Niveau 1 &mdash; Base</a>
+    <a href="niveau-3-synthese.html" style="font-family:'Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">Niveau 3 &mdash; Synth&egrave;se &rarr;</a>
   </div>
 
 <div class="yh-watermark">
 ~ ~ ~ ~ ~<br>
-<strong>DAAT</strong> · <strong>הרב יוסף חיים סממה</strong><br>
-תלמיד חכם · מעביר שיעורים בהלכה ובחסידות<br>
-<em>פלפול ועיון בדין חלב שנפל לקדירה של בשר · סימן צ״ב · ⚡ רמה ב' — לַמְדָּן</em>
+<strong>DAAT</strong> &middot; <strong>Rav Yossef &rsquo;Ha&iuml;m Samama</strong><br>
+Talmid &rsquo;hakham &middot; donne des cours de halakha et de &rsquo;hassidout<br>
+<em>Pilpoul et &eacute;tude du lait tomb&eacute; dans une marmite de viande &middot; Siman 92 &middot; &#9889; Niveau 2 &mdash; Lamdan</em>
 </div>
 
-  <div class="disclaimer" style="background:#fff8e1;border-right:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;direction:rtl;text-align:right;">
-    ⚠️ תוכן זה נכתב לצורך לימוד ועיון בלבד. לכל הוראה למעשה (לְמַעֲשֶׂה) — שאל את רבך.
+  <div class="disclaimer" style="padding:16px 40px;font-family:'Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;">
+    &#9888;&#65039; Ce contenu est destin&eacute; &agrave; l&rsquo;&eacute;tude et &agrave; l&rsquo;examen seulement. Pour toute d&eacute;cision pratique (&#1500;&#1456;&#1502;&#1463;&#1506;&#1458;&#1513;&#1462;&#1474;&#1492;) &mdash; demande &agrave; ton rav.
   </div>
 
   <div style="background:#1A1F3A;border-top:2px solid #C5A55A;padding:24px 40px;text-align:center;margin-top:0;">
-    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;direction:rtl;">
-      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">לעמוד הבית</a> · <a href="index.html" style="color:#C5A55A;text-decoration:none;">סימן צ״ב</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ לתמיכה</a>
+    <p style="font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;">
+      DAAT &#1491;&#1506;&#1514; &mdash; &copy; 5786 / 2026 &middot; <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">Accueil</a> &middot; <a href="index.html" style="color:#C5A55A;text-decoration:none;">Siman 92</a> &middot; <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">&hearts; Soutenir</a>
     </p>
+  </div>
+
   </div>
 
   <link rel="stylesheet" href="../../../assets/css/khavroutha-fab.css">
@@ -907,7 +954,7 @@
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="../../../assets/js/chat-widget.js" defer></script>
 <script src="../../../assets/js/daat-copy.js" defer></script>
-<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="מצא חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">הצטרף לחברותא</span></a>
+<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="Trouver une havrouta pour ce siman"><span class="icon">📖</span><span class="label-long">Rejoindre une havrouta</span></a>
   <script src="/assets/js/share-text.js" defer></script>
 </body>
 </html>

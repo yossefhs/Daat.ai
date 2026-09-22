@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="fr" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,9 +22,8 @@
 <style>
   @page { size: A4; margin: 2cm 1.8cm; }
   body {
-    font-family: 'Frank Ruhl Libre', 'David', 'Georgia', 'Cambria', serif;
+    font-family: 'Georgia', 'Cambria', serif;
     font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0;
-    direction: rtl; text-align: right;
   }
   .he {
     direction: rtl; text-align: right;
@@ -37,18 +36,14 @@
     font-weight: 600; color: #1A1F3A;
   }
 
-  .cover {
-    text-align: center; margin-top: 2.5cm; margin-bottom: 2cm;
-  }
+  .cover { text-align: center; margin-top: 2.5cm; margin-bottom: 2cm; }
   .cover h1 {
     font-size: 30pt; color: #1A1F3A; margin: 5px 0;
     font-family: 'Cormorant Garamond', 'Georgia', serif;
   }
   .cover .he-title { font-size: 38pt; color: #1A1F3A; margin: 15px 0 5px 0; }
   .cover .he-sub { font-size: 18pt; color: #C5A55A; margin-bottom: 20px; }
-  .cover .he-subject {
-    font-size: 15pt; color: #5a4a1a; margin: 15px 0; font-style: italic;
-  }
+  .cover .he-subject { font-size: 15pt; color: #5a4a1a; margin: 15px 0; font-style: italic; }
   .cover .ornament { color: #C5A55A; font-size: 22pt; margin: 15px 0; }
   .cover .level-badge {
     display: inline-block;
@@ -62,37 +57,28 @@
     margin-top: 2cm; padding-top: 20px; border-top: 1px solid #C5A55A;
     font-size: 10pt; color: #555; line-height: 1.8;
   }
-  .cover .subtitle {
-    font-size: 14pt; color: #5a4a1a; font-style: italic; margin: 10px 0 30px 0;
-  }
-  .cover .badge-top {
-    color: #C5A55A; font-size: 11pt; letter-spacing: 4px; margin-bottom: 10px;
-  }
-
+  .cover .subtitle { font-size: 14pt; color: #5a4a1a; font-style: italic; margin: 10px 0 30px 0; }
+  .cover .badge-top { color: #C5A55A; font-size: 11pt; letter-spacing: 4px; margin-bottom: 10px; }
   h2.section-title {
     color: #fff; background: #1A1F3A;
     font-size: 16pt; padding: 10px 18px; margin-top: 30px;
-    border-right: 6px solid #C5A55A;
-    direction: rtl; text-align: right;
-    font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
+    border-left: 6px solid #C5A55A;
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
   }
   h3 {
     color: #1A1F3A; font-size: 14pt; margin-top: 25px;
-    border-right: 4px solid #C5A55A; padding-right: 10px;
-    direction: rtl; text-align: right;
-    font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
+    border-left: 4px solid #C5A55A; padding-left: 10px;
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
   }
   h3.he-h3 {
     direction: rtl; text-align: right;
-    border-right: none; border-left: 4px solid #C5A55A;
-    padding-right: 0; padding-left: 10px;
+    border-left: none; border-right: 4px solid #C5A55A;
+    padding-left: 0; padding-right: 10px;
   }
   h4 {
     color: #5a4a1a; font-size: 12pt;
     margin-top: 20px; margin-bottom: 8px; font-weight: bold;
-    direction: rtl; text-align: right;
   }
-
   .sacred-text {
     background: #FAF6EE;
     border-right: 3px solid #C5A55A; border-left: 3px solid #C5A55A;
@@ -100,83 +86,76 @@
     font-size: 12.5pt; line-height: 1.9;
   }
   .pilpul-box {
-    background: #eef3fa; border-right: 4px solid #1A1F3A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #eef3fa; border-left: 4px solid #1A1F3A;
+    padding: 12px 18px; margin: 15px 0; 
   }
   .pilpul-box::before {
     content: "⚡ פלפול"; display: block;
     color: #1A1F3A; font-weight: bold; font-size: 10pt;
     margin-bottom: 5px; letter-spacing: 1px;
-    direction: rtl; text-align: right;
+    direction: rtl; text-align: left;
   }
   .kashya-box {
-    background: #fef4e4; border-right: 4px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #fef4e4; border-left: 4px solid #C5A55A;
+    padding: 12px 18px; margin: 15px 0; 
   }
   .kashya-box::before {
     content: "❓ קושיא"; display: block;
     color: #8a6a1a; font-weight: bold; font-size: 10pt;
     margin-bottom: 5px; letter-spacing: 1px;
-    direction: rtl; text-align: right;
+    direction: rtl; text-align: left;
   }
   .teruts-box {
-    background: #e8f4ea; border-right: 4px solid #2d7a3e;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #e8f4ea; border-left: 4px solid #2d7a3e;
+    padding: 12px 18px; margin: 15px 0; 
   }
   .teruts-box::before {
     content: "✓ תירוץ"; display: block;
     color: #2d7a3e; font-weight: bold; font-size: 10pt;
     margin-bottom: 5px; letter-spacing: 1px;
-    direction: rtl; text-align: right;
+    direction: rtl; text-align: left;
   }
   .hakira-box {
-    background: #f5e9f5; border-right: 4px solid #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #f5e9f5; border-left: 4px solid #6a1b7a;
+    padding: 12px 18px; margin: 15px 0; 
   }
   .hakira-box::before {
     content: "🔍 חקירה"; display: block;
     color: #6a1b7a; font-weight: bold; font-size: 10pt;
     margin-bottom: 5px; letter-spacing: 1px;
-    direction: rtl; text-align: right;
+    direction: rtl; text-align: left;
   }
   .nafka-mina-box {
     background: #fff4e6; border: 2px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; border-radius: 4px; 
   }
   .nafka-mina-box::before {
     content: "⚖️ נפקא מינה"; display: block;
     color: #1A1F3A; font-weight: bold; font-size: 10pt;
     margin-bottom: 5px; letter-spacing: 1px;
-    direction: rtl; text-align: right;
+    direction: rtl; text-align: left;
   }
   .yesod-box {
     background: #1A1F3A; color: #fff;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; 
   }
   .yesod-box::before {
     content: "💎 יסוד"; display: block;
     color: #C5A55A; font-weight: bold; font-size: 10pt;
     margin-bottom: 8px; letter-spacing: 2px;
-    direction: rtl; text-align: right;
+    direction: rtl; text-align: left;
   }
   .yesod-box .he-q { color: #C5A55A; }
   .machloket-box {
     background: #faf5ff; border: 1.5px dashed #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; 
   }
-
-  table {
-    width: 100%; border-collapse: collapse;
-    margin: 20px 0; font-size: 10pt;
-  }
+  table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 10pt; }
   th {
     background: #1A1F3A; color: #fff;
-    padding: 10px; text-align: right; direction: rtl; font-size: 11pt;
+    padding: 10px; text-align: left; font-size: 11pt;
   }
   td {
-    direction: rtl; text-align: right;
     border: 1px solid #d4c89a; padding: 10px; vertical-align: top;
   }
   tr:nth-child(even) td { background: #FAF6EE; }
@@ -186,9 +165,7 @@
   hr.ornament { border: none; text-align: center; margin: 25px 0; }
   hr.ornament::before { content: "✦ ❖ ✦"; color: #C5A55A; font-size: 14pt; }
 
-  .source-ref {
-    color: #6a5a1a; font-style: italic; font-size: 0.95em;
-  }
+  .source-ref { color: #6a5a1a; font-style: italic; font-size: 0.95em; }
 
   .yh-watermark {
     text-align: center; font-size: 9pt; color: #8a7a4a;
@@ -197,12 +174,10 @@
   }
 
   ol.stylish li, ul.stylish li { margin-bottom: 8px; }
-  ol.stylish, ul.stylish { padding-right: 22px; padding-left: 0; }
-
+  ol.stylish, ul.stylish { padding-left: 22px; padding-right: 0; }
   .rishon-card {
-    background: #f7f3e4; border-right: 4px solid #8a6a1a;
+    background: #f7f3e4; border-left: 4px solid #8a6a1a;
     padding: 10px 15px; margin: 10px 0; font-size: 10.5pt;
-    direction: rtl; text-align: right;
   }
   .rishon-card strong { color: #1A1F3A; font-size: 11pt; }
 
@@ -218,17 +193,14 @@
   .index-box {
     background: #FAF6EE; border: 1px solid #C5A55A;
     padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
   }
-  .index-box ol { margin: 5px 0; padding-right: 25px; padding-left: 0; }
+  .index-box ol { margin: 5px 0; padding-left: 25px; padding-right: 0; }
   .index-box li { margin-bottom: 5px; }
-
   h3.sugya {
     background: #1A1F3A; color: #fff;
     padding: 8px 15px; border-left: none; border-right: 6px solid #C5A55A;
   }
 
-  /* ── חץ אל ההסבר המפורט (רמה 1) ── */
   a.daat-explain {
     display: inline-block;
     margin: 4px 0 14px 0;
@@ -237,11 +209,9 @@
     font-size: 12pt;
     text-decoration: none;
     border-bottom: 1px dotted #C5A55A;
-    direction: rtl;
   }
   a.daat-explain:hover { color: #8a6a1a; border-bottom-style: solid; }
 
-  /* ── כפתור העתקה ── */
   button.daat-copy {
     display: inline-block;
     margin: 0 10px 0 0;
@@ -257,7 +227,57 @@
     direction: rtl;
   }
   button.daat-copy:hover { background: #C5A55A; color: #fff; }
+  .rishon-card[dir="rtl"] { border-left: none; border-right: 4px solid #8a6a1a; text-align: right; }
+  .hakira-box[dir="rtl"] { border-left: none; border-right: 4px solid #6a1b7a; text-align: right; }
+  .kashya-box[dir="rtl"] { border-left: none; border-right: 4px solid #C5A55A; text-align: right; }
+  .teruts-box[dir="rtl"] { border-left: none; border-right: 4px solid #2d7a3e; text-align: right; }
+  .pilpul-box[dir="rtl"] { border-left: none; border-right: 4px solid #1A1F3A; text-align: right; }
+  .machloket-box[dir="rtl"], .nafka-mina-box[dir="rtl"], .yesod-box[dir="rtl"] { text-align: right; }
+  .index-box[dir="rtl"] ol { padding-right: 25px; padding-left: 0; }
+  [dir="rtl"] th, [dir="rtl"] td { text-align: right; direction: rtl; }
   @media print { button.daat-copy, a.daat-explain { display: none; } }
+
+  .lang-switcher-float {
+    position: fixed; top: 12px; right: 12px; z-index: 9999;
+    display: flex; gap: 4px; background: rgba(255,255,255,0.95);
+    border: 1px solid #C5A55A; padding: 4px 6px; border-radius: 3px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); font-family: 'Inter', sans-serif;
+    direction: ltr;
+  }
+  .lang-switcher-float a {
+    font-size: 11px; letter-spacing: 1px; padding: 3px 7px; border-radius: 2px;
+    color: #5a4a1a; text-decoration: none; border: 1px solid transparent;
+  }
+  .lang-switcher-float a.active { color: #1A1F3A; background: #FFF8E5; border-color: #1A1F3A; font-weight: 600; }
+  .lang-switcher-float a:hover { color: #1A1F3A; border-color: #C5A55A; }
+  @media print { .lang-switcher-float { display: none; } }
+
+  blockquote.comment-source {
+    background: #f7f3e4; border-right: 3px solid #8a6a1a; border-left: none;
+    font-style: normal; margin: 10px 0; padding: 8px 15px;
+    direction: rtl; text-align: right; font-family: 'Frank Ruhl Libre', serif; font-size: 11.5pt;
+  }
+  blockquote.comment-source .src-ref {
+    display: inline-block; margin-top: 6px; color: #6a5a1a; font-style: italic; font-size: 0.88em;
+    font-family: 'Georgia', 'Cambria', serif;
+  }
+
+  /* Classes employées par cette page et définies nulle part ailleurs.
+     Formes majoritaires du dépôt — cf. scripts/fix-classes.py. */
+  .remember { background: #e8f4ea; border: 1.5px solid #2d7a3e; padding: 12px 18px; margin: 12px 0; border-radius: 4px; }
+
+  /* Classes employées par cette page et définies nulle part ailleurs.
+     Formes majoritaires du dépôt — cf. scripts/fix-classes.py. */
+  .print-btn { position: fixed; top: 18px; right: 18px; z-index: 50; background: #1A1F3A; color: #C5A55A; border: 1px solid #C5A55A; border-radius: 4px; padding: 8px 16px; font-family: 'Georgia',serif; font-size: 10pt; cursor: pointer; }
+  .print-btn:hover { background: #2a2a4e; }
+  @media print { .print-btn { display: none; } }
+
+  /* Classes employees par cette page et definies nulle part ailleurs.
+     Formes majoritaires du depot — cf. scripts/fix-classes.py. */
+  .translation { margin: 6px 0 16px 0; padding: 0 2px; color: #2a2a2a; font-size: 11pt; line-height: 1.7; }
+  .disclaimer { background: #fff8e1; border-left: 4px solid #C5A55A; padding: 16px 40px;
+    font-family: 'Georgia','Cambria',serif; font-size: 14px; color: #5a4a1a; margin: 40px 0 0 0; }
+  ul.compact li { margin-bottom: 6px; }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/daat-enhance.css">
@@ -273,7 +293,7 @@
   "headline": "Siman צ״א · Niveau 2 Lamdan — Pilpoul approfondi · בשר וחלב שנתערבו, תתאה גבר",
   "description": "Niveau 2 (Lamdan) du Siman צ״א (Yoreh De'ah) — Pilpoul approfondi. Le yesod de תתאה גבר (Pessahim 76a), la קליפה, la מחלוקת Shach/Taz sur la salaison et le ציר, le débat ריב״א (60 contre la pelure ?), חקירה et נפקא מינה.",
   "url": "https://daattorah.com/yd/91/lamdan",
-  "inLanguage": "he-IL",
+  "inLanguage": "fr-FR",
   "isAccessibleForFree": true,
   "author": {
     "@id": "https://daattorah.com/#rav-samama"
@@ -382,519 +402,617 @@
 <!-- COUVERTURE -->
 <div class="cover">
   <div class="ornament">✦ ❖ ✦</div>
-  <div class="badge-top">DAAT · רמה ב' — לַמְדָּן</div>
-  <h1>שולחן ערוך · יורה דעה</h1>
-  <div class="subtitle">דין בשר וחלב שנתערבו — עיון ופלפול</div>
-
-  <div class="he-title">סימן צ״א</div>
+  <div class="badge-top">DAAT · NIVEAU 2 — LAMDAN</div>
+  <h1>Siman 91 — Niveau Lamdan : ce qui traverse une paroi quand rien ne bout</h1>
+  <div class="he-title">יורה דעה · סימן צ״א</div>
   <div class="he-sub">בשר וגבינה שנגעו, מליחה, תתאה גבר וכבוש</div>
   <div class="he-subject">עיון, פלפול, שיטות הראשונים והאחרונים</div>
-
-  <div class="level-badge">⚡ ללומדים ותלמידי חכמים ⚡</div>
-
+  <div class="level-badge">⚡ Pour ceux qui étudient · תלמידי חכמים ⚡</div>
   <div class="ornament">✦ ❖ ✦</div>
-
-  <h2 style="margin-top:20px; color: #1A1F3A;">פלפול ועיון מעמיק</h2>
-  <p style="font-size:12pt; color:#555;">
-    סוגיות, מקורות, חקירת היסוד, מחלוקות ראשונים ואחרונים,<br>
-    נפקא מינות להלכה ועיון בשיטות
-  </p>
-
+  <div class="subtitle">Douze pas de pilpoul sur le passage du goût sans cuisson : le contact, le sel, la saumure, le gras</div>
   <div class="credits">
-    <p><strong>הנושא :</strong><br>
-    שולחן ערוך יורה דעה סימן צ״א (ח' סעיפים)<br>
-    עם נושאי כלים: ש״ך (שפתי כהן), ט״ז (טורי זהב), פרי מגדים, פתחי תשובה</p>
-
-    <p><strong>יסוד הסוגיא בש״ס :</strong><br>
-    חולין צ״ו: · חולין קי״א:–קי״ב. · פסחים ע״ו. (כיצד צולין — תתאה גבר)</p>
-
-    <p><strong>עריכה ועיון :</strong><br>
+    <p><strong>Sujet :</strong><br>
+    שולחן ערוך יורה דעה סימן צ״א (huit seifim)<br>
+    avec l'appareil : ש״ך (שפתי כהן), ט״ז (טורי זהב), פרי מגדים, פתחי תשובה</p>
+    <p><strong>Le fond de la sougya dans le Chas :</strong><br>
+    Houlin 96b · Houlin 111b–112a · Pessahim 76a (chapitre Keitsad Tsolin — תתאה גבר)</p>
+    <p><strong>Rédaction et étude :</strong><br>
     הרב יוסף חיים סממה · DAAT</p>
   </div>
 </div>
-
 <div class="page-break"></div>
-
-<!-- TABLE DES MATIÈRES -->
-<h2 class="section-title">📑 תוכן העניינים</h2>
-
-<div class="index-box" dir="rtl">
+<h2 class="section-title">📑 Table des matières</h2>
+<div class="index-box">
 <ol>
-  <li><strong>הקדמת הסוגיא</strong> — נגיעה בצונן, ויסוד "אין צונן מפליט בצונן"</li>
-  <li><strong>בשר היתר בכלי איסור</strong> — גזירת שמא יאכל בלא הדחה (סעיף ב')</li>
-  <li><strong>יסוד תתאה גבר</strong> — פסחים ע״ו., וטעם הקליפה (סעיף ד')</li>
-  <li><strong>מחלוקת ריב״א</strong> — האם צריך ס' נגד הקליפה (ט״ז)</li>
-  <li><strong>חקירת המליח</strong> — "אינו נאכל מחמת מלחו" כרותח (סעיף ה')</li>
-  <li><strong>כלל המליח</strong> — מבליע בתפל ואינו בולע ממנו</li>
-  <li><strong>דין הציר</strong> — מחלוקת והכרעת הרמ״א (סעיף ה')</li>
-  <li><strong>פלוגתת הש״ך והט״ז</strong> — מליח עליון/תחתון, שמן וכחוש</li>
-  <li><strong>צלי רותח שנפל למליח</strong> — שלוש שיטות (סעיף ז')</li>
-  <li><strong>מליחה וכבוש — אכילה ולא הנאה</strong> (סעיף ח')</li>
-  <li><strong>חקירה ונפקא מינה למעשה</strong></li>
-  <li><strong>טבלאות סיכום מקיפות</strong></li>
+  <li>Ouverture de la sougya — le contact à froid, et le yesod « le froid ne fait rien sortir dans le froid »</li>
+  <li>Viande permise dans un ustensile interdit — le décret « de peur qu'il mange sans rincer » (seif 2)</li>
+  <li>Le yesod de תתאה גבר — Pessahim 76a, et la raison de la pelure (seif 4)</li>
+  <li>La ma'hloket du ריב״א — faut-il soixante contre la pelure ? (Taz)</li>
+  <li>La 'hakira du salé — « non consommable à cause de son sel » vaut bouillant (seif 5)</li>
+  <li>La règle du salé — il fait entrer dans le fade et ne prend rien de lui</li>
+  <li>Le din du ציר — ma'hloket et tranchant du Rama (seif 5)</li>
+  <li>La plougta du Chakh et du Taz — salé dessus / salé dessous, gras et maigre</li>
+  <li>Rôti bouillant tombé dans du salé — trois chitot (seif 7)</li>
+  <li>Salaison et saumure — l'interdit porte sur la consommation, non sur le profit (seif 8)</li>
+  <li>'Hakira d'ensemble et nafka mina pour la pratique</li>
+  <li>Tableaux de synthèse</li>
 </ol>
 </div>
-
 <div class="page-break"></div>
-
-<!-- ============================================================= -->
-<!-- לשון השולחן ערוך — סעיף א' -->
-<h2 class="section-title">📜 לשון השולחן ערוך — סעיף א'
-  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 העתק</button>
-</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
-
+<h2 class="section-title">📜 Le texte du Choulhan Aroukh — seif 1  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 Copier</button></h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ Explication détaillée (niveau 1)</a>
 <div class="sacred-text he" data-copy-block id="cp-1">
-  <p>בָּשָׂר וּגְבִינָה שֶׁנָּגְעוּ זֶה בָּזֶה — מֻתָּרִים, אֶלָּא שֶׁצָּרִיךְ לְהָדִיחַ מְקוֹם נְגִיעָתָן; וּמֻתָּר לָצוּר אוֹתָם בְּמִטְפַּחַת אַחַת, וְלֹא חָיְישִׁינַן שֶׁמָּא יִגְּעוּ זֶה בָּזֶה.</p>
+  <p>&laquo;&nbsp;<span class="he-q">בשר וגבינה שנגעו זה בזה מותרים אלא שצריך להדיח מקום נגיעתן ומותר לצור אותם במטפחת אחת ולא חיישינן שמא יגעו זה בזה</span>&nbsp;&raquo; <span class="src-ref">(שו״ע יו״ד צ״א:א)</span></p>
 </div>
-
-<!-- ============================================================= -->
-<h2 class="section-title">1. הקדמת הסוגיא — נגיעה בצונן</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
-
-<h3 class="he-h3">היסוד — אין צונן מפליט בצונן
-  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 העתק</button>
-</h3>
-
-<div class="sacred-text he" data-copy-block id="cp-2">
-יסוד הסימן: בצונן אין הפלטה ובליעה ממש, שכן <strong>אין צונן מפליט בצונן</strong>. ולכן בשר וגבינה שנגעו זה בזה בצונן — מותרים, ולא בעי אלא הדחת מקום הנגיעה משום השמנונית שעל פניהם, ולא משום בליעה. וכן התירו חז״ל (כמובא בט״ז ס״ק א מן המשנה) לצרור בשר וגבינה במטפחת אחת, "<span class="he-q">ובלבד שלא יהו נוגעים זה בזה</span>", ובנגעו — סגי בהדחה.
+<div class="translation">De la viande et du fromage qui se sont touchés l'un l'autre sont permis ; simplement, il faut rincer l'endroit de leur contact. Et il est permis de les envelopper dans un même linge, et l'on ne craint pas qu'ils se touchent.</div>
+<h2 class="section-title">1. Ouverture de la sougya — le contact à froid</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ Explication détaillée (niveau 1)</a>
+<h3>Le yesod — le froid ne fait rien sortir dans le froid  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 Copier</button></h3>
+<div class="sacred-text" data-copy-block id="cp-2">
+Le yesod du siman tient en une phrase : à froid il n'y a ni expulsion ni absorption véritables, car <strong>אין צונן מפליט בצונן</strong> — le froid ne fait rien sortir dans le froid. De là, viande et fromage qui se sont touchés à froid sont permis, et l'on n'exige que le rinçage de l'endroit du contact : à cause du gras resté en surface, et non à cause d'une absorption. C'est aussi pourquoi nos Sages ont permis de les envelopper dans un même linge — le Taz, à sa première entrée, rappelle les mots de la michna sur lesquels la question du Tour se pose.
 </div>
-
-<div class="pilpul-box" dir="rtl">
-<strong>דיוק הש״ך (ס״ק א) בשם הב״ח :</strong> אף ההדחה עצמה אינה לעיכובא אלא כשהאחד מהן <em>לח</em>: "<span class="he-q">דדוקא כשהאחד מהן לח, אבל אם שניהם יבשים אפילו הדחה אין צריך</span>". והטעם פשוט — הדחה זו אינה אלא להעביר שמנונית הדבוקה, וביבש לגמרי אין שמנונית עוברת. ועיין בפתחי תשובה (ס״ק א) שחילק: הדחה בעלמא בלא שפשוף — לסתם נגיעה; אבל נגע באיסור <em>שמן</em> — בעי שפשוף עד שיסור השמנונית (כדעת הפמ״ג בשפתי דעת), והחוות דעת ובית אפרים חולקים דדוקא דוחקא דסכינא <em>עם</em> שמנונית בעי שפשוף.
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ובלבד שלא יהיו נוגעים זה בזה</span>&nbsp;&raquo; <span class="src-ref">(ט״ז יו״ד צ״א ס״ק א)</span></blockquote>
+<p>Deux choses sont donc à distinguer dès le départ, et tout le siman en vit : ce qui adhère <em>en surface</em> — que l'eau emporte — et ce qui est <em>entré</em> dans l'épaisseur, que seule la pelure ou les soixante peuvent traiter. Tant qu'il n'y a ni chaleur, ni sel, ni gras, rien n'entre ; et c'est l'absence d'entrée, non une quelconque annulation, qui permet.</p>
+<div class="pilpul-box">
+<strong>Le dioukk du Chakh (ס״ק א), au nom du Bayit Hadach.</strong> Le rinçage lui-même n'est pas indispensable : il ne l'est que si l'un des deux est <em>humide</em>.
 </div>
-
-<div class="rishon-card" dir="rtl">
-<strong>הפתחי תשובה</strong> (ס״ק א) מביא חילוקי דברים חריף ויבש:<br>
-"<span class="he-q">דבר חריף אפילו יבש כצונן לח דמי ובעי הדחה</span>" (כמבואר בסעיף ה' לענין דבר חריף), ודבר רך כקישואין — בעי <strong>גרידה</strong>, ודבר שאי אפשר בהדחה כלל (כגון מים) — דינו מבואר בסמוך.
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דדוקא כשהאחד מהן לח אבל אם שניהם יבשים אפילו הדחה א״צ</span>&nbsp;&raquo; <span class="src-ref">(ש״ך יו״ד צ״א ס״ק א)</span></blockquote>
+<p>La raison en est simple, et elle confirme la lecture donnée plus haut : ce rinçage ne sert qu'à faire passer le gras collé à la surface ; là où tout est parfaitement sec, il n'y a pas de gras qui passe, et il n'y a donc rien à rincer.</p>
+<div class="rishon-card">
+<strong>Le Pit'hei Techouva (ס״ק א)</strong> apporte deux distinctions qui commandent la pratique. La première tient au <em>caractère piquant</em> de l'aliment : un דבר חריף, même sec, est traité comme un aliment froid et humide, et demande donc le rinçage.
 </div>
-
-<!-- ============================================================= -->
-<h2 class="section-title">2. בשר היתר בכלי איסור — גזירת שמא יאכל בלא הדחה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
-
-<h3 class="he-h3">לשון המחבר (סעיף ב')
-  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 העתק</button>
-</h3>
-
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ומיהו דבר חריף אפילו יבש כצונן לח דמי ובעי הדחה</span>&nbsp;&raquo; <span class="src-ref">(פתחי תשובה יו״ד צ״א ס״ק א)</span></blockquote>
+<p>La seconde porte sur la <em>manière</em> de rincer, et elle n'est pas tranchée. Pour le Peri Megadim (dans les Chiftei Daat), un rinçage ordinaire, sans frottement, suffit pour un contact banal ; mais ce qui a touché un interdit <em>gras</em> demande un frottement jusqu'à ce que le gras soit parti.</p>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אבל היתר שנגע באיסור שמן בעי שפשוף עד שידע באומד הדעת שסר ממנו השמנונית</span>&nbsp;&raquo; <span class="src-ref">(פתחי תשובה יו״ד צ״א ס״ק א)</span></blockquote>
+<p>Le Havot Daat conteste ce partage, et le Beit Efraim va dans son sens : le frottement ne s'impose que lorsque la pression du couteau et le gras se rencontrent.</p>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אך הח״ד כתב דדוקא דוחקא דסכינא ושמנונית בעי שפשוף כגון שחתך בשר בסכין שחתך בו חלב אבל דוחקא בלא שמנונית או שמנונית בלא דוחקא סגי בהדחה בעלמא</span>&nbsp;&raquo; <span class="src-ref">(פתחי תשובה יו״ד צ״א ס״ק א)</span></blockquote>
+<p>Le Pit'hei Techouva ajoute encore, au même endroit, qu'un aliment tendre comme le concombre demande non un rinçage mais un raclage (גרידה), et que le cas de ce qui ne peut pas être rincé du tout — l'eau, par exemple — est traité à l'entrée suivante. <em>Ces trois avis restent en présence ; pour la pratique — demande à ton Rav.</em></p>
+<h2 class="section-title">2. Viande permise dans un ustensile interdit — le décret « de peur qu'il mange sans rincer »</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ Explication détaillée (niveau 1)</a>
+<h3>Le texte du Mehaber et la glose du Rama (seif 2)  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 Copier</button></h3>
 <div class="sacred-text he" data-copy-block id="cp-3">
-"<strong>כל מידי דבעי הדחה, כגון להניח בשר היתר צונן בקערה של איסור צונן — אסור לכתחילה, דילמא אכיל בלא הדחה; ודוקא מבושל דלאו אורחיה בהדחה, אבל מידי דאורחיה בהדחה כגון בשר חי וכיוצא בו — שרי לכתחילה.</strong>" (הגה: ודוקא דבר שיש בו לחלוחית קצת, אבל דבר יבש ממש, אם לא בלע הכלי רק בצונן — מותר להניח בו דבר יבש בלא הדחה כלל.)
+  <p>&laquo;&nbsp;<span class="he-q">כל מידי דבעי הדחה כגון להניח בשר היתר צונן בקערה של איסור צונן אסור לכתחלה דילמא אכיל בלא הדחה ודוקא מבושל דלאו אורחי׳ בהדחה אבל מידי דאורחיה בהדחה כגון בשר חי וכיוצא בו שרי לכתחילה</span>&nbsp;&raquo; <span class="src-ref">(שו״ע יו״ד צ״א:ב)</span></p>
+  <p>&laquo;&nbsp;<span class="he-q">ודוקא דבר שיש בו לחלוחית קצת אבל דבר יבש ממש אם לא בלע הכלי רק בצונן מותר להניח בו דבר יבש בלא הדחה כלל</span>&nbsp;&raquo; <span class="src-ref">(רמ״א יו״ד צ״א:ב)</span></p>
 </div>
-
-<div class="hakira-box" dir="rtl">
-<strong>החקירה :</strong> כיון דבדיעבד שרי (דצונן אינו מבליע), מדוע אסור לכתחילה ? והלא קיימא לן (ב״י ר״ס ב') דכל מידי דבדיעבד שרי — לא חיישינן לכתחילה שמא ישכח.
+<div class="translation">Tout ce qui demande un rinçage — par exemple poser de la viande permise froide dans une écuelle d'interdit froide — est défendu <em>a priori</em>, de peur qu'il ne la mange sans l'avoir rincée. Et cela ne vaut que du cuit, qui n'a pas coutume d'être rincé ; mais ce qu'on a coutume de rincer, comme la viande crue et ce qui lui ressemble, est permis a priori. Glose du Rama : cela ne vaut que d'une chose qui garde un peu d'humidité ; mais une chose franchement sèche, si l'ustensile n'a absorbé qu'à froid, on peut l'y poser sans aucun rinçage.</div>
+<div class="hakira-box">
+<strong>La 'hakira.</strong> Puisque <em>a posteriori</em> c'est permis — le froid ne fait rien pénétrer —, pourquoi le défendre <em>a priori</em> ? Nous tenons en effet, du Beit Yossef au début du siman 2, que partout où la chose est permise a posteriori, on ne craint pas a priori qu'il oublie.
 </div>
-
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ הט״ז (ס״ק א) :</strong> חילוק יסודי — "<span class="he-q">בכל מקום דאין איסור ברור לפנינו אלא ספק... אמרינן כיון דדיעבד שרי מותר לסמוך לכתחלה על הדרישה; משא״כ כאן שיש איסור ברור במה שישים בשר כשר בכלי של איסור, אלא שיש לו תקנה בהדחה — בזה לא סמכינן על הדחה שאחר כך דשמא ישכח</span>". כלומר: כאן יש <em>מעשה איסור ודאי</em> (נתינה בכלי איסור) שיש לו תקנה, ולא ספק בעלמא.
+<div class="teruts-box">
+<strong>La réponse du Taz (ס״ק א).</strong> Il pose une distinction de fond : ce principe ne vaut que là où aucun interdit certain n'est devant nous, mais seulement un doute qui appelle une vérification.
 </div>
-
-<div class="pilpul-box" dir="rtl">
-<strong>אריכות הש״ך (ס״ק ג) ודרכו של הרב :</strong> הש״ך מאריך טובא (הוא הס״ק הארוך בסימן) ליישב דברי הרמ״א בתורת חטאת ובדרכי משה. ומסיק היסוד: <strong>כלי שנשתמש בו איסור בצונן (כגון מליחה או כבוש) — מותר להשתמש בו היתר צונן לכתחילה</strong>, ולהכי התיר הרשב״א למלוח בשר בכלי של יין נסך; ודוקא כלי שנבלע בו ע״י <em>חמין</em> אסור. ומדמה לכלי חמץ שנשתמש בצונן דמותר במצה. ומסיק להלכה: בקינוח יפה — אין צריך אפילו הדחה, "<span class="he-q">דהא לא נגע באיסור ומה שבלע בו אינו מפליט בצונן</span>".
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דבכ״מ דאין איסור ברור לפנינו אלא ספק אם יש כאן איסור וצריך דרישה אחר זה בזה אמרי׳ כיון דדיעבד שרי מותר לסמוך לכתחלה על הדרישה שיעשה אחר זה</span>&nbsp;&raquo; <span class="src-ref">(ט״ז יו״ד צ״א ס״ק א)</span></blockquote>
+<p>Ici, au contraire, l'acte lui-même est un acte d'interdit certain — poser de la viande cachère dans un ustensile d'interdit — auquel le rinçage apporte un remède. Sur un remède <em>à venir</em>, on ne s'appuie pas.</p>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">משא״כ כאן שיש איסור ברור במה שישים בשר כשר בכלי של איסור אלא שיש לו תקנה בהדחה בזה לא סמכינן על הדחה שאח״כ דשמא ישכח</span>&nbsp;&raquo; <span class="src-ref">(ט״ז יו״ד צ״א ס״ק א)</span></blockquote>
+<div class="pilpul-box">
+<strong>Le Chakh (ס״ק ג) — sa plus longue entrée sur ce siman, et de loin : elle fait une fois et demie la suivante.</strong> Elle ne sert pas à établir la glose du Rama : elle sert à dire que son auteur ne la suit pas. Le Chakh commence par rapporter la voie du Rama, telle qu'elle est écrite dans le Torat 'Hatat et dans le Darkei Moché — un ustensile dans lequel un interdit n'a servi qu'à froid peut recevoir a priori du permis froid.
 </div>
-
-<!-- ============================================================= -->
-<h2 class="section-title">3. יסוד תתאה גבר — וטעם הקליפה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
-
-<h3 class="he-h3">לשון המחבר (סעיף ד')
-  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 העתק</button>
-</h3>
-
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אמנם אם נשתמשו בו איסור צונן מותר להשתמש בו היתר צונן לכתחלה</span>&nbsp;&raquo; <span class="src-ref">(ש״ך יו״ד צ״א ס״ק ג)</span></blockquote>
+<p>C'est de cette distinction que le Rama tirait la permission donnée par le Rachba de saler de la viande dans un ustensile de יין נסך, et le rapprochement avec les ustensiles de 'hametz dont on n'a usé qu'à froid et où l'on peut mettre de la matsa. Puis le Chakh, après avoir tout repris pièce à pièce, écrit en toutes lettres qu'il n'y arrive pas.</p>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אבל כל דבריו מתחילתן ועד סופן אינם מובנים לי</span>&nbsp;&raquo; <span class="src-ref">(ש״ך יו״ד צ״א ס״ק ג)</span></blockquote>
+<div class="teruts-box">
+<strong>Sa propre conclusion.</strong> Le Chakh tient que la source de tout cela, l'Or'hot 'Hayim, parlait d'ustensiles dont on <em>sait</em> qu'ils ont été bien rincés, et que l'auteur du 'Ittour parlait d'un ustensile <em>non essuyé</em> ; car si on l'a essuyé au point qu'il n'y reste aucun gras, il n'y a aucune raison d'exiger même un rinçage.
+</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דודאי אם קינח הכלי בענין שאין בו שמנונית כלל אין סברא כלל להצריכו הדח׳ דהא לא נגע באיסור ומה שבלע בו אינו מפליט בצונן</span>&nbsp;&raquo; <span class="src-ref">(ש״ך יו״ד צ״א ס״ק ג)</span></blockquote>
+<div class="machloket-box">
+<strong>Où passe exactement le désaccord.</strong> La distinction que le Chakh déclare ne pas comprendre est précisément celle que le Taz, à son ס״ק ג, tient pour juste et claire : il la reçoit, l'appuie sur plusieurs endroits, et s'en sert pour lire la glose du Rama. Les deux ne se répondent pas l'un à l'autre — chacun lit le Rama — mais le lecteur doit savoir qu'il n'y a pas ici une position unique de l'appareil.
+</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">והחילוק שכתב תחלה בין נשתמש בו תחלה בצונן או בחמין הוא נכון וברור</span>&nbsp;&raquo; <span class="src-ref">(ט״ז יו״ד צ״א ס״ק ג)</span></blockquote>
+<h2 class="section-title">3. Le yesod de תתאה גבר — et la raison de la pelure</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
+<h3>Le texte du Mehaber (seif 4)  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 Copier</button></h3>
 <div class="sacred-text he" data-copy-block id="cp-4">
-"<strong>בשר וחלב רותחין שנתערבו יחד, ואפילו בשר צונן לתוך חלב רותח או חלב צונן לתוך בשר רותח — הכל אסור, משום דתתאה גבר.</strong> אבל חלב רותח שנפל על בשר צונן או בשר רותח שנפל לתוך חלב צונן — קולף הבשר ושאר הבשר מותר (ובמקום שהבשר צריך קליפה, אם לא קלפוהו ובשלו כך — מותר בדיעבד) (ארוך כלל כ״ט), והחלב מותר כולו (רמב״ם ור״ח ור״י). ואם נפלו זה לתוך זה צוננין — מדיח הבשר ומותר."
+  <p>&laquo;&nbsp;<span class="he-q">בשר וחלב רותחין שנתערבו יחד ואפי׳ בשר צונן לתוך חלב רותח או חלב צונן לתוך בשר רותח הכל אסור משום דתתאה גבר אבל חלב רותח שנפל על בשר צונן או בשר רותח שנפל לתוך חלב צונן קולף הבשר ושאר הבשר מותר</span>&nbsp;&raquo; <span class="src-ref">(שו״ע יו״ד צ״א:ד)</span></p>
+  <p>&laquo;&nbsp;<span class="he-q">(ובמקום שהבשר צריך קליפה אם לא קלפוהו ובשלו כך מותר בדיעבד)</span>&nbsp;&raquo; <span class="src-ref">(רמ״א יו״ד צ״א:ד)</span></p>
+  <p>&laquo;&nbsp;<span class="he-q">והחלב מותר כולו</span>&nbsp;&raquo; <span class="src-ref">(שו״ע יו״ד צ״א:ד)</span></p>
+  <p>&laquo;&nbsp;<span class="he-q">ואם נפלו זה לתוך זה צוננין מדיח הבשר ומותר</span>&nbsp;&raquo; <span class="src-ref">(שו״ע יו״ד צ״א:ד)</span></p>
 </div>
-
-<div class="yesod-box" dir="rtl">
-<strong>היסוד החקירתי — שורש תתאה גבר :</strong><br>
-מקור הדין בפסחים (ע״ו.) "כיצד צולין". הש״ך (ס״ק ה–ז) מפרש את המנגנון בשני אגפיו:<br><br>
-• <span class="he-q">תתאה רותח</span> — "<span class="he-q">שהתחתון שהוא רותח מחמם העליון הצונן</span>" → הכל אסור (דבלע טובא ואין ס').<br>
-• <span class="he-q">תתאה צונן</span> — "<span class="he-q">דהתחתון הוא צונן הוא מקרר העליון, אלא דאדמיקר ליה בלע פורתא, לכך צריך קליפה</span>".<br><br>
-היינו: ברגע המפגש, התחתון <em>גובר</em> בכוחו על העליון; וכל הספק הוא רק בקליפה הדקה שנבלעה <em>קודם</em> שגבר התחתון לקררו.
+<div class="translation">De la viande et du lait bouillants qui se sont mélangés — et même de la viande froide tombée dans du lait bouillant, ou du lait froid tombé dans de la viande bouillante — tout est interdit, parce que « celui du dessous l'emporte ». Mais du lait bouillant tombé sur de la viande froide, ou de la viande bouillante tombée dans du lait froid : on pèle la viande, et le reste de la viande est permis. (Glose du Rama : et là où la viande demande une pelure, si on ne l'a pas pelée et qu'on a cuit ainsi, c'est permis a posteriori.) Et le lait est permis en entier — le Choulhan Aroukh en donne pour garants le Rambam, Rabbenou Hananel et Rabbenou Yits'haq. Et s'ils sont tombés l'un dans l'autre froids, on rince la viande et c'est permis.</div>
+<div class="yesod-box">
+<strong>Le yesod, et ses deux flancs.</strong> La source du din est dans Pessahim 76a, au chapitre Keitsad Tsolin. Le Chakh en expose le mécanisme en deux entrées consécutives. Lorsque le dessous est bouillant, il <em>chauffe</em> le dessus qui est froid — et alors tout est interdit, car l'absorption est massive et il n'y a pas de soixante.
 </div>
-
-<div class="rishon-card" dir="rtl">
-<strong>הט״ז (ס״ק על "הכל אסור") :</strong> מדייק דתתאה גבר הוא "<span class="he-q">דוקא באיסור מחמת עצמו, אבל אם הוא איסור בלוע — אינו יוצא מחתיכה לחתיכה בלא רוטב</span>" (כן כתב בתורת חטאת כלל כ״ג). חידוש גדול: בלוע אינו עובר בנגיעה גרידא אף ברותח.
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">כלומר שהתחתון שהוא רותח מחמם העליון הצונן</span>&nbsp;&raquo; <span class="src-ref">(ש״ך יו״ד צ״א ס״ק ו)</span></blockquote>
+<p>Lorsque le dessous est froid, il <em>refroidit</em> le dessus ; simplement, le temps que le froid le gagne, une mince épaisseur a déjà absorbé — et c'est pour elle seule qu'il faut peler.</p>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">משום דכאן דהתחתון הוא צונן הוא מקרר העליון אלא דאדמיקר ליה בלע פורתא לכך צריך קליפה</span>&nbsp;&raquo; <span class="src-ref">(ש״ך יו״ד צ״א ס״ק ז)</span></blockquote>
+<p>Autrement dit : à l'instant de la rencontre, c'est celui du dessous qui impose sa condition ; et tout le litige ne porte que sur la fine pelure absorbée <em>avant</em> que le dessous n'ait refroidi le dessus. Le principe n'est donc pas une règle de préséance abstraite — c'est une description physique, et c'est pourquoi on peut lui opposer des cas où rien ne se transmet.</p>
+<div class="rishon-card">
+<strong>Le Taz (ס״ק ה) restreint le principe.</strong> תתאה גבר ne vaut que pour un interdit qui l'est <em>par lui-même</em> ; un goût seulement absorbé dans une pièce ne passe pas d'une pièce à l'autre sans jus. C'est un 'hidouch considérable : un בלוע ne se transmet pas par le seul contact, même bouillant.
 </div>
-
-<div class="pilpul-box" dir="rtl">
-<strong>טעם הקליפה — לא "כבולעו כך פולטו" :</strong> הט״ז (על "צריך לקלוף") מדגיש: "<span class="he-q">ולא אמרינן כבולעו כך פולטו אלא בדם</span>" (מרדכי פכ״ה). כלומר, בשאר איסורים הבלוע נשאר ואינו נפלט מאליו, ולכן אין תקנה אלא בקליפה. וכן הש״ך (ס״ק יב) דחה את האו״ה שרצה לומר "איידי דטריד למיפלט לא בלע" — "<span class="he-q">דדוקא גבי דם אמרינן הכי ולא בשאר איסורים</span>".
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">והיינו דוקא באיסור מחמת עצמו אבל אם הוא איסור בלוע אינו יוצא מחתיכ׳ לחתיכ׳ בלא רוטב</span>&nbsp;&raquo; <span class="src-ref">(ט״ז יו״ד צ״א ס״ק ה)</span></blockquote>
+<div class="pilpul-box">
+<strong>Pourquoi une pelure, et non « comme il l'a absorbé il le rejette ».</strong> Le Taz, à son ס״ק י, souligne que le principe כבולעו כך פולטו ne se dit qu'à propos du sang.
 </div>
-
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה — עירוי וקילוח :</strong> הש״ך (ס״ק ז) מוסיף: "<span class="he-q">אפילו נפל החלב רותח על בשר צונן ע״י עירוי שלא נפסק הקילוח — סגי בקליפה, וכן אפילו נפסק הקילוח בעי קליפה</span>", ועיין ק״ה ס״ג. <em>ולמעשה — שאל את רבך.</em>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ולא אמרינן כבולעו כך פולטו אלא בדם</span>&nbsp;&raquo; <span class="src-ref">(ט״ז יו״ד צ״א ס״ק י)</span></blockquote>
+<p>Dans les autres interdits, ce qui est entré reste et ne ressort pas de soi-même ; il n'y a donc d'autre remède que la pelure. Le Chakh dit la même chose en écartant le Issour veHeter, qui voulait appliquer ici le raisonnement « occupé à expulser, il n'absorbe pas ».</p>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דדוקא גבי דם אמרינן הכי ולא בשאר איסורים</span>&nbsp;&raquo; <span class="src-ref">(ש״ך יו״ד צ״א ס״ק י״ג)</span></blockquote>
+<div class="nafka-mina-box">
+<strong>Nafka mina — le versement et le filet continu.</strong> Le Chakh, à son ס״ק ז, ajoute que même dans le cas d'un versement, une pelure suffit — et cela que le filet ait été rompu ou non.
 </div>
-
-<!-- ============================================================= -->
-<h2 class="section-title">4. מחלוקת ריב״א — האם צריך ס' נגד הקליפה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
-
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זוהי אחת המחלוקות החריפות שבסימן, וכל כובד ידו של הט״ז (ס״ק על "והחלב מותר כולו") נתון בה.</p>
-
-<h3 class="he-h3">שתי השיטות בחלב הנופל</h3>
-
-<div class="machloket-box" dir="rtl">
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דאפי׳ נפל החלב רותח על בשר צונן ע״י עירוי שלא נפסק הקלוח סגי בקליפה וכן אפילו נפסק הקלוח בעי קליפה</span>&nbsp;&raquo; <span class="src-ref">(ש״ך יו״ד צ״א ס״ק ז)</span></blockquote>
+<p>Il renvoie pour le détail au siman 105 §3. <em>Et pour la pratique — demande à ton Rav.</em></p>
+<h2 class="section-title">4. La ma'hloket du ריב״א — faut-il soixante contre la pelure ?</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
+<p style="margin:15px 0; font-style:italic;">C'est l'une des discussions les plus vives du siman, et le Taz y engage tout son poids.</p>
+<h3>Les deux chitot sur le lait qui tombe</h3>
+<div class="machloket-box">
 <table>
-<tr><th>שיטה</th><th>החלב שנאסרה בו קליפת הבשר</th><th>מקור</th></tr>
+<tr><th>Chita</th><th>Le lait dans lequel la pelure de la viande a été interdite</th><th>Source</th></tr>
 <tr>
-  <td><strong>הרמב״ם, ר״ח, ר״י, והמחבר</strong></td>
-  <td><strong>החלב מותר כולו</strong> — אין צריך ס' נגד הקליפה</td>
-  <td>מחבר ס״ד; ט״ז שם</td>
+  <td><strong>Le Rambam, Rabbenou Hananel, Rabbenou Yits'haq, et le Mehaber</strong></td>
+  <td><strong>Le lait est permis en entier</strong> — il n'est pas besoin de soixante contre la pelure</td>
+  <td>Mehaber, seif 4 ; Taz au même endroit</td>
 </tr>
 <tr>
-  <td><strong>ריב״א (ומהרא״י, ומהרש״ל פכ״ה)</strong></td>
-  <td>צריך <strong>ס' נגד הקליפה</strong> שנאסרה תחילה</td>
-  <td>טור בשם ריב״א; ט״ז שם</td>
+  <td><strong>Le ריב״א (et le Mahara"i, et le Maharchal au chapitre 25)</strong></td>
+  <td>Il faut <strong>soixante contre la pelure</strong> qui a été interdite la première</td>
+  <td>Tour au nom du ריב״א ; Taz au même endroit</td>
 </tr>
 </table>
 </div>
-
-<div class="pilpul-box" dir="rtl">
-<strong>הכרעת הט״ז :</strong> אף שהמחבר פסק כרמב״ם דהחלב מותר כולו, <strong>הט״ז מכריע להחמיר כריב״א</strong> ומביא לכך שורת ראיות: "<span class="he-q">וכיון שגם הרשב״א הכי ס״ל, כן יש לנו לפסוק כריב״א להחמיר, ובכל מקום בעינן ששים נגד הקליפה</span>". ומסייע ממעשה דמרדכי (פרק כל הבשר, רבינו יהודה בעיסה), ומקורט של חילתית (ר״ס צ״ו), ומדין ציר שנפל על הכלי (סוף ס״ה) דצריך הגעלה — "<span class="he-q">אלמא דבעינן לבטל אף דיעבד מה שאסרו כדי קליפה</span>". ומסיים: "<span class="he-q">וכן ראיתי בהגהה שבסוף או״ה בשם מהרא״י דהכי נהוג כריב״א להצריך ששים, וכן הלכה למעשה</span>".
+<div class="pilpul-box">
+<strong>Le tranchant du Taz (ס״ק ז, sur « et le lait est permis en entier »).</strong> Bien que le Mehaber
+ait tranché comme le Rambam, le Taz relève que le Rama lui-même, au siman 69 §16, exige soixante contre la
+pelure dans un liquide bouillant — ce qui est la position du ריב״א. De cette tension il tire sa décision.
 </div>
-
-<div class="teruts-box" dir="rtl">
-<strong>דעת הש״ך (ס״ק ח) מנגד :</strong> הש״ך מיישב את לשון הרמ״א ("מותר בדיעבד") שלא יסתור לריב״א — דהיתר הדיעבד הוא דוקא <strong>בנבלל</strong>, היכא דלא שייך קליפה: "<span class="he-q">דהיינו שהוא דבר הנבלל והקליפה נתערבה... אבל כשנתבשל ועדיין מכירו בענין דשייך ביה קליפה — צריך ס'</span>". נמצא הש״ך והט״ז מסכימים למעשה דבמקום דמכירו ושייך קליפה — בעינן ס', ודלא כפשט הרמב״ם.
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">וכיון שגם הרשב״א הכי ס״ל כן יש לנו לפסוק כריב״א להחמיר ובכ״מ בעינן ששים נגד הקליפה</span>&nbsp;&raquo; <span class="src-ref">(ט״ז יו״ד צ״א ס״ק ז)</span></blockquote>
+<p>Il l'appuie ensuite sur une série de preuves qu'il vaut la peine de suivre, parce qu'elles ne
+sont pas de même nature : le fait rapporté par le Mordekhi au chapitre <em>Kol haBassar</em>, où l'on
+exigea soixante contre la pelure de l'écuelle dans l'affaire de la pâte pétrie devant Rabbenou Yehouda ;
+le grain d'assa fœtida coupé au couteau d'interdit, au début du siman 96, où l'impossibilité de peler
+fait interdire le tout ; et enfin, dans notre siman même, la saumure tombée sur un ustensile, à la fin du
+seif 5, qui demande le ébouillantage.</p>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אלמא דבעינן לבטל אף דיעבד מה שאסרו כדי קליפה</span>&nbsp;&raquo; <span class="src-ref">(ט״ז יו״ד צ״א ס״ק ז)</span></blockquote>
+<p>Et il conclut en s'appuyant sur l'usage reçu.</p>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">וכן ראיתי בהג״ה שבסוף או״ה כתב בשם מהרא״י דהכי נהוג כריב״א להצריך ששים וכן הלכה למעשה</span>&nbsp;&raquo; <span class="src-ref">(ט״ז יו״ד צ״א ס״ק ז)</span></blockquote>
+<div class="teruts-box">
+<strong>Le Chakh (ס״ק ח) prend un autre chemin — et arrive presque au même endroit.</strong> Il ne
+conteste pas le ריב״א ; il explique la permission <em>a posteriori</em> que le Rama vient d'écrire, de
+façon qu'elle ne le contredise pas. Cette permission ne vaut, dit-il, que d'une chose <em>mêlée</em>,
+où la pelure elle-même s'est fondue dans la masse et où l'on ne peut plus parler de peler.
 </div>
-
-<div class="rishon-card" dir="rtl">
-<strong>הפתחי תשובה</strong> (ס״ק על "בדיעבד") מביא מתשואות חן (סי' י״א): "<span class="he-q">כל היכא דלא נפסק הקילוח — אסור מדינא, ובעינן ס' נגד הקליפה; אבל בעירוי שנפסק הקילוח יש להקל, ובפרט בבשר בחלב דכל היכא דליכא בישול הוא מדרבנן</span>" — ובשאר איסורים אין להקל אלא בהפסד מרובה.
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דהיינו שהוא דבר הנבלל והקליפה נתערבה</span>&nbsp;&raquo; <span class="src-ref">(ש״ך יו״ד צ״א ס״ק ח)</span></blockquote>
+<p>Mais dès que la pièce reste reconnaissable et qu'une pelure a un sens, il faut soixante.</p>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אבל כשנתבשל ועדיין מכירו בענין דשייך ביה קליפה צריך ס׳</span>&nbsp;&raquo; <span class="src-ref">(ש״ך יו״ד צ״א ס״ק ח)</span></blockquote>
+<p>Et il en tire lui-même la conséquence pratique.</p>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ולפ״ז אין להקל במקום דמכירו ושייך קליפה</span>&nbsp;&raquo; <span class="src-ref">(ש״ך יו״ד צ״א ס״ק ח)</span></blockquote>
+<p>Il se trouve donc que le Chakh et le Taz se rejoignent pour le cas où la pièce est reconnaissable
+et où la pelure est possible : il y faut soixante. Ils ne se rejoignent pas sur le chemin, ni sur le cas
+du mélange indistinct, où le Chakh permet et où le Taz, lui, avait conclu <em>en tout lieu</em>.</p>
+<div class="rishon-card">
+<strong>Le Pit'hei Techouva (ס״ק ה, sur « a posteriori »)</strong> rapporte la Techouvat Techouot Hen, §11,
+qui distingue selon le filet : là où il n'a pas été rompu, la sévérité est de droit ; dans un versement
+où le filet a été rompu, il y a de quoi alléger — et d'autant plus en viande et lait, où en l'absence de
+cuisson l'interdit n'est que rabbinique.
 </div>
-
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דכל היכא דלא נפסק הקילוח דאסור מדינא אין להקל ובעינן ס׳ נגד הקליפה אבל בעירוי שנפסק הקילוח יש להקל ובפרט בבשר בחלב דכל היכא דליכא בישול הוא מדרבנן</span>&nbsp;&raquo; <span class="src-ref">(פתחי תשובה יו״ד צ״א ס״ק ה)</span></blockquote>
+<p>Dans les autres interdits, il ne permet d'alléger qu'en cas de perte importante.
+<em>Et pour la pratique — demande à ton Rav.</em></p>
 <div class="page-break"></div>
-
-<!-- ============================================================= -->
-<h2 class="section-title">5. חקירת המליח — "אינו נאכל מחמת מלחו" כרותח</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
-
-<h3 class="he-h3">לשון המחבר (סעיף ה')
-  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 העתק</button>
-</h3>
-
+<h2 class="section-title">5. La 'hakira du salé — « non consommable à cause de son sel » vaut bouillant</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
+<h3>Le texte du Mehaber (seif 5)  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 Copier</button></h3>
 <div class="sacred-text he" data-copy-block id="cp-5">
-"<strong>מליח שאינו יכול ליאכל מחמת מלחו, דהיינו כעין מליח שמולחים לקדירה, ושהה כדי מליחה לקדירה — כל זמן שלא הדיחו מיקרי אינו נאכל מחמת מלחו</strong>... ומליח כעין מליח דבעי לה לארחא, אפילו לאחר שהדיחו הוי אינו נאכל מחמת מלחו, וכל זמן שלא שראו במים — דינו כרותח לאסור כדי קליפה."
+  <p>&laquo;&nbsp;<span class="he-q">מליח שאינו יכול ליאכל מחמת מלחו דהיינו כעין מליח שמולחים לקדירה ושהה כדי מליחה לקדירה כל זמן שלא הדיחו מיקרי אינו נאכל מחמת מלחו</span>&nbsp;&raquo; <span class="src-ref">(שו״ע יו״ד צ״א:ה)</span></p>
+  <p>&laquo;&nbsp;<span class="he-q">ומליח כעין מליח דבעי לה לארחא אפי׳ לאחר שהדיחו הוי אינו נאכל מחמת מלחו וכל זמן שלא שראו במים דינו כרותח לאסור כדי קליפה</span>&nbsp;&raquo; <span class="src-ref">(שו״ע יו״ד צ״א:ה)</span></p>
 </div>
-
-<div class="hakira-box" dir="rtl">
-<strong>חקירה — מאימתי "אינו נאכל מחמת מלחו" :</strong> הש״ך (ס״ק יא) מדייק שהמחבר פסק כר״ן: "<span class="he-q">דהיינו כששהה שיעור מליחה לקדירה הוי רותח, ומקמי הכי לא</span>". והקשה דבסי' ס״ט (ס״ך) משמע דאפילו מקמי הכי הוי רותח! ומתרץ: "<span class="he-q">דשאני התם דאיירי באיסור דם, והלכך הדם והמלח רותחין הם בשעת המליחה... אבל הכא מיירי באיסור בשר וגבינה דכל כמה דלא נמלח כהוגן אין הבשר רותח</span>".
+<div class="translation">Du salé qui ne peut être mangé à cause de son sel — c'est-à-dire de l'ordre de ce qu'on sale pour
+la marmite, et qui a séjourné le temps d'une salaison pour la marmite : tant qu'on ne l'a pas rincé, il est
+dit « non consommable à cause de son sel ». Et du salé de l'ordre de ce que l'on sale pour le voyage :
+même après l'avoir rincé, il reste « non consommable à cause de son sel », et tant qu'on ne l'a pas trempé
+dans l'eau, son statut est celui du bouillant, pour interdire l'épaisseur d'une pelure.</div>
+<div class="hakira-box">
+<strong>La 'hakira — à partir de quand le sel vaut-il chaleur ?</strong> Le Chakh (ס״ק י״א) relève que le
+Mehaber a tranché comme le Ran : c'est le séjour, et lui seul, qui fait passer le seuil.
 </div>
-
-<div class="machloket-box" dir="rtl">
-<strong>פלוגתת ת״ה והש״ך — האם פוקע כח המלח לאחר שיעור מליחה :</strong>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דהיינו כששהה שיעור מליחה לקדירה הוי רותח ומקמי הכי לא</span>&nbsp;&raquo; <span class="src-ref">(ש״ך יו״ד צ״א ס״ק י״א)</span></blockquote>
+<p>Il objecte aussitôt qu'au siman 69 §20 il ressort du même auteur que même <em>avant</em> ce
+délai la chose vaut bouillant. Sa réponse tient à la nature de l'interdit en cause.</p>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דשאני התם דאיירי באיסו׳ דם והלכך הדם והמלח רותחין הם בשעת המליחה</span>&nbsp;&raquo; <span class="src-ref">(ש״ך יו״ד צ״א ס״ק י״א)</span></blockquote>
+<p>Là-bas il s'agit de l'interdit du sang : le sang et le sel sont l'un et l'autre en pleine
+activité au moment de la salaison. Ici il s'agit de l'interdit de viande et fromage, et tant que la
+salaison n'est pas faite comme il faut, la viande n'est pas dite bouillante.</p>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אבל הכא מיירי באיסור בשר וגבינה דכל כמה דלא נמלח כהוגן אין הבשר רותח</span>&nbsp;&raquo; <span class="src-ref">(ש״ך יו״ד צ״א ס״ק י״א)</span></blockquote>
+<div class="machloket-box">
+<strong>La plougta : la force du sel tombe-t-elle une fois le délai passé ?</strong>
 <table>
-<tr><th>שיטה</th><th>לאחר שיעור מליחה</th></tr>
+<tr><th>Chita</th><th>Après le délai de salaison</th></tr>
 <tr>
-  <td><strong>תרומת הדשן (סי' קנ״ט), בעקבות תוס' והרא״ש פכ״ה (חד שינויא)</strong></td>
-  <td>פסק כח המלח (כיון שהפליט כל הדם) → להקל בהפסד מרובה וסעודת מצוה</td>
+  <td><strong>Terumat haDechen §159</strong>, à la suite des Tossafot, du Roch (chapitre 25) et du Semag,
+  selon l'un de leurs teroutsim</td>
+  <td>La force du sel est tombée, puisqu'il a fait sortir tout le sang → il y a de quoi alléger en cas de
+  perte importante et pour un repas de mitsva</td>
 </tr>
 <tr>
-  <td><strong>סה״ת, ש״ד, או״ז</strong></td>
-  <td>בשר וגבינה מלוחים אפילו לאחר שיעור מליחה — <strong>אסורים</strong></td>
+  <td><strong>Sefer haTerouma, Chaarei Doura, Or Zaroua</strong></td>
+  <td>Viande et fromage salés, même après le délai, sont <strong>interdits</strong></td>
 </tr>
 <tr>
-  <td><strong>הכרעת הש״ך (ס״ק יא)</strong></td>
-  <td>"<span class="he-q">דלא אמרינן שפסק כח המלח אלא היכא שהפליט דם... משא״כ שאר דברים</span>" — ובבשר וגבינה (לא דם) <strong>לעולם בתקפו</strong></td>
+  <td><strong>Le Chakh (ס״ק י״א)</strong></td>
+  <td>La force du sel ne tombe que là où il y avait du sang à faire sortir ; en viande et lait, où il n'y
+  a rien à expulser, elle demeure</td>
+</tr>
+<tr>
+  <td><strong>Le Taz (ס״ק ח)</strong></td>
+  <td>Sur ce point précis il ne tranche pas ici : il renvoie à ce qu'il a exposé au siman 69 §20</td>
 </tr>
 </table>
 </div>
-
-<div class="pilpul-box" dir="rtl">
-<strong>חידוש הש״ך :</strong> הוא מחלק חילוק יסודי — כח המלח פוקע <em>רק</em> ביחס לדם, "<span class="he-q">כי דרך המלח להפליט דם ולא שאר דברים</span>"; אבל באיסור בשר בחלב (שאין כאן דם להפליט) — המלח לעולם בתוקפו אף לאחר שיעור מליחה, וכמו שכתב האו״ה (כלל נ״ח). ומביא שהציע דבריו "<span class="he-q">לפני הגאון אמ״ו ז״ל ושאר גדולי המורים... והסכימו לדברי</span>". ומכל מקום מסיק להלכה דאין להקל אלא בהפסד מרובה וסעודת מצוה, מפני הגהת סמ״ק (ריב״א) דאף לאחר שיעור מליחה נחשב רותח.
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">לעיל סי׳ ס״ט סעיף כ׳ ביארנו הדברים האלו</span>&nbsp;&raquo; <span class="src-ref">(ט״ז יו״ד צ״א ס״ק ח)</span></blockquote>
+<div class="pilpul-box">
+<strong>Le 'hidouch du Chakh.</strong> Sa distinction ne porte pas sur le temps mais sur la <em>matière</em>
+que le sel travaille : le sel a pour office de faire sortir le sang, et non autre chose.
 </div>
-
-<!-- ============================================================= -->
-<h2 class="section-title">6. כלל המליח — מבליע בתפל ואינו בולע ממנו</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
-
-<h3 class="he-h3">לשון המחבר (סעיף ה')
-  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 העתק</button>
-</h3>
-
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דלא אמרינן שפסק כח המלח אלא היכא שהפליט דם כי דרך המלח להפליט דם ולא שאר דברים</span>&nbsp;&raquo; <span class="src-ref">(ש״ך יו״ד צ״א ס״ק י״א)</span></blockquote>
+<p>D'où il suit que c'est dans ce cas seulement que l'on dit la force du sel tombée — parce
+qu'elle a fait son ouvrage — et non ailleurs.</p>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">א״כ דוקא בכה״ג אמרינן דלאחר ששהה שיעור מליחה פסק כח המלח הואיל והפליט דם משא״כ שאר דברים</span>&nbsp;&raquo; <span class="src-ref">(ש״ך יו״ד צ״א ס״ק י״א)</span></blockquote>
+<p>Il rapporte à l'appui le Issour veHeter (כלל נ״ח), et il ajoute avoir soumis son raisonnement à
+son maître et aux grands décisionnaires de son temps.</p>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">והצעתי דבר זה לפני הגאון אמ״ו ז״ל ושאר גדולי המורים ונשאו ונתנו בדבר והסכימו לדברי</span>&nbsp;&raquo; <span class="src-ref">(ש״ך יו״ד צ״א ס״ק י״א)</span></blockquote>
+<p>Et pourtant il ne va pas jusqu'au bout de sa propre logique. Ce qui l'arrête est la glose du
+Semak au nom du ריב״א : même après le délai, la saumure garde le statut du bouillant pour interdire les
+fromages.</p>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דציר היוצא מן הבשר לאחר שיעור מליחה אין עליו דין דם רותח אבל יש עליו דין בשר רותח לאסור הגבינות</span>&nbsp;&raquo; <span class="src-ref">(ש״ך יו״ד צ״א ס״ק י״א)</span></blockquote>
+<p>Aussi conclut-il, pour la pratique, à ne pas alléger hors du cas d'une perte importante et d'un
+repas de mitsva.</p>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ואין להקל אלא במקום הפסד מרובה וסעודת מצוה</span>&nbsp;&raquo; <span class="src-ref">(ש״ך יו״ד צ״א ס״ק י״א)</span></blockquote>
+<h2 class="section-title">6. La règle du salé — il fait entrer dans le fade et ne prend rien de lui</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
+<h3>Le texte du Mehaber (seif 5, suite)  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 Copier</button></h3>
 <div class="sacred-text he" data-copy-block id="cp-6">
-"<strong>ואין חילוק בין מליח עליון ותפל תחתון, למליח תחתון ותפל עליון — לעולם המליח מבליע בתפל ואינו בולע ממנו. הילכך בשר וגבינה המלוחים שנגעו זה בזה — צריך לקלוף שניהם מקום נגיעתם; ואם אחד מהם מלוח והשני תפל — המלוח מותר בהדחה והתפל צריך קליפה.</strong>"
+  <p>&laquo;&nbsp;<span class="he-q">ואין חילוק בין מליח עליון ותפל תחתון למליח תחתון ותפל עליון לעולם המליח מבליע בתפל ואינו בולע ממנו</span>&nbsp;&raquo; <span class="src-ref">(שו״ע יו״ד צ״א:ה)</span></p>
+  <p>&laquo;&nbsp;<span class="he-q">הילכך בשר וגבינה המלוחים שנגעו זה בזה צריך לקלוף שניהם מקום נגיעתם ואם אחד מהם מלוח והשני תפל המלוח מותר בהדחה והתפל צריך קליפה</span>&nbsp;&raquo; <span class="src-ref">(שו״ע יו״ד צ״א:ה)</span></p>
+  <p>&laquo;&nbsp;<span class="he-q">ואם הם יבשים אפילו הם מלוחים או לחים ולא מחמת מליחה סגי בהדחה</span>&nbsp;&raquo; <span class="src-ref">(שו״ע יו״ד צ״א:ה)</span></p>
 </div>
-
-<div class="yesod-box" dir="rtl">
-<strong>היסוד :</strong> במליחה לא אמרינן תתאה גבר כלל — אין הבדל עליון ותחתון. הכלל הוא חד־כיווני: <span class="he-q">המליח מבליע בתפל ואינו בולע ממנו</span>. הילכך —<br>
-• שניהם מלוחים → שניהם בולעים זה מזה → קליפת שניהם.<br>
-• אחד מלוח ואחד תפל → המלוח מבליע בתפל; המלוח עצמו לא בלע → סגי לו בהדחה, והתפל בעי קליפה.
+<div class="translation">Et il n'y a pas de différence entre le salé au-dessus et le fade au-dessous, ou le salé au-dessous
+et le fade au-dessus : toujours, c'est le salé qui fait entrer dans le fade, et il ne prend rien de lui.
+Par conséquent, viande et fromage salés qui se sont touchés : il faut les peler tous deux à l'endroit de
+leur contact ; et si l'un est salé et l'autre fade, le salé est quitte par un rinçage et le fade demande
+une pelure. Et s'ils sont secs — même s'ils sont salés, ou humides mais non du fait de la salaison —
+un rinçage suffit.</div>
+<div class="yesod-box">
+<strong>Le yesod.</strong> Dans la salaison, on ne dit pas du tout תתאה גבר : le dessus et le dessous n'y
+font rien. La règle y est à sens unique.
 </div>
-
-<div class="pilpul-box" dir="rtl">
-<strong>דקדוק הש״ך (ס״ק יג) :</strong> "<span class="he-q">ולא שייך כאן למימר איידי דטריד למיפלט לא בלע, אי נמי כבכ״ע — דדוקא גבי דם אמרינן הכי ולא בשאר איסורים</span>", ודלא כאו״ה (כלל י״ב). שוב היסוד מסעיף ד': בשאר איסורים אין הפליטה "מגנה" על הבליעה.
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">לעולם המליח מבליע בתפל ואינו בולע ממנו</span>&nbsp;&raquo; <span class="src-ref">(שו״ע יו״ד צ״א:ה)</span></blockquote>
+<p>De là les deux cas du seif, et leur asymétrie est tout le propos :</p>
+<ul class="stylish">
+  <li>les deux sont salés → chacun fait entrer dans l'autre → il faut peler les deux ;</li>
+  <li>l'un salé, l'autre fade → le salé fait entrer dans le fade, mais lui-même n'a rien absorbé →
+      un rinçage lui suffit, et c'est le fade qui demande la pelure.</li>
+</ul>
+<div class="pilpul-box">
+<strong>Le dikdouk du Chakh (ס״ק י״ג).</strong> On ne peut pas dire ici « occupé à expulser, il n'absorbe
+pas », ni « comme il l'a absorbé il le rejette » : ces raisonnements sont réservés au sang.
 </div>
-
-<div class="rishon-card" dir="rtl">
-<strong>הערת הט״ז (ס״ק על "הלכך בשר וגבינה המלוחין") :</strong> מגיה את הלשון — "<span class="he-q">לחין כן צריך לומר</span>" — דמיירי במלוחים <em>לחים</em>; דאם יבשים לגמרי, אפילו מלוחים, סגי בהדחה (כמבואר בסיפא דסעיף ה' ובש״ך ס״ק יז).
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ולא שייך כאן למימר איידי דטריד למיפלט לא בלע א״נ כבכ״ע דדוקא גבי דם אמרינן הכי ולא בשאר איסורים</span>&nbsp;&raquo; <span class="src-ref">(ש״ך יו״ד צ״א ס״ק י״ג)</span></blockquote>
+<p>C'est le même yesod qu'au seif 4, et il porte loin : dans les autres interdits, l'expulsion ne
+protège pas de l'absorption. Le Chakh écarte à ce titre le Issour veHeter (כלל י״ב).</p>
+<div class="rishon-card">
+<strong>La remarque du Taz (ס״ק ט, sur « par conséquent, viande et fromage salés »).</strong> Il corrige
+le mot du texte : il faut lire « humides ».
 </div>
-
-<!-- ============================================================= -->
-<h2 class="section-title">7. דין הציר — מחלוקת והכרעת הרמ״א</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-rama">↩ הסבר מפורט (רמה 1)</a>
-
-<h3 class="he-h3">לשון הרמ״א (סעיף ה')
-  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 העתק</button>
-</h3>
-
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">לחין כן צ״ל</span>&nbsp;&raquo; <span class="src-ref">(ט״ז יו״ד צ״א ס״ק ט)</span></blockquote>
+<p>Il s'agit donc de salés <em>humides</em> ; car s'ils sont entièrement secs, fussent-ils salés,
+un rinçage suffit — c'est ce que dit la fin du même seif, et le Chakh l'explique à son ס״ק י״ז.</p>
+<h2 class="section-title">7. Le din du ציר — ma'hloket et tranchant du Rama</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-rama">↩ Explication détaillée (niveau 1)</a>
+<h3>Le texte du Rama (seif 5)  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 Copier</button></h3>
 <div class="sacred-text he" data-copy-block id="cp-7">
-<strong>הגה (הרמ״א)</strong>: "<span class="he-q">כל ציר מבשר שנמלח, אפילו לא נמלח רק לצלי — חשוב רותח, ולכן אם נפלה ציר על הגבינה או על כלי — אוסר... וציר של בשר שאוסר שנפל על הכלי — צריך הגעלה, ואם הוא כלי חרס צריך שבירה; ואם לא נפל רק על מקום אחד בכלי עץ וכיוצא בו — קולף מקומו ודיו.</span>"
+  <p>&laquo;&nbsp;<span class="he-q">כל ציר מבשר שנמלח אפילו לא נמלח רק לצלי חשוב רותח</span>&nbsp;&raquo; <span class="src-ref">(רמ״א יו״ד צ״א:ה)</span></p>
+  <p>&laquo;&nbsp;<span class="he-q">ולכן אם נפלה ציר על הגבינה או על כלי אוסר</span>&nbsp;&raquo; <span class="src-ref">(רמ״א יו״ד צ״א:ה)</span></p>
+  <p>&laquo;&nbsp;<span class="he-q">מכל מקום הציר חשיב אינו נאכל מחמת מלחו</span>&nbsp;&raquo; <span class="src-ref">(רמ״א יו״ד צ״א:ה)</span></p>
+  <p>&laquo;&nbsp;<span class="he-q">וציר של בשר שאוסר שנפל על הכלי צריך הגעלה ואם הוא כלי חרס צריך שבירה</span>&nbsp;&raquo; <span class="src-ref">(רמ״א יו״ד צ״א:ה)</span></p>
+  <p>&laquo;&nbsp;<span class="he-q">ואם לא נפל רק על מקום אחד בכלי עץ וכיוצא בו קולף מקומו ודיו</span>&nbsp;&raquo; <span class="src-ref">(רמ״א יו״ד צ״א:ה)</span></p>
 </div>
-
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — מדוע הציר חמור מן הבשר עצמו :</strong> הש״ך (ס״ק יא, בסופו) מבאר ע״פ הגהת סמ״ק (ריב״א): "<span class="he-q">ציר היוצא מן הבשר לאחר שיעור מליחה — אין עליו דין דם רותח, אבל יש עליו דין בשר רותח לאסור הגבינות</span>". הציר הוא תמצית המלח והלחות, ולעולם נדון כרותח אף במקום שהבשר עצמו אינו רותח — "<span class="he-q">מכל מקום הציר חשיב אינו נאכל מחמת מלחו</span>".
+<div class="translation">Glose du Rama : toute saumure sortie d'une viande qui a été salée — même salée seulement en vue
+d'un rôti — est réputée bouillante ; aussi, si de la saumure est tombée sur du fromage ou sur un ustensile,
+elle interdit. Et cela même là où la viande, elle, n'interdirait pas faute d'être réputée bouillante :
+la saumure, elle, est en tout état de cause tenue pour non consommable à cause de son sel. Et une saumure
+de viande qui interdit et qui est tombée sur l'ustensile demande un ébouillantage ; si c'est un ustensile
+de terre, il demande d'être brisé. Et si elle n'est tombée que sur un seul endroit d'un ustensile de bois
+ou d'un ustensile semblable, on pèle l'endroit et cela suffit.</div>
+<div class="hakira-box">
+<strong>La 'hakira — pourquoi la saumure est-elle plus grave que la viande elle-même ?</strong> Le Chakh,
+à la fin de son ס״ק י״א, l'explique par la glose du Semak au nom du ריב״א : après le délai de salaison, la
+saumure perd le statut de <em>sang</em> bouillant, mais garde celui de <em>viande</em> bouillante.
 </div>
-
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה בכלי :</strong> ציר שנפל על כלי — <strong>הגעלה</strong>; כלי חרס — <strong>שבירה</strong>; נפל על מקום אחד בכלי עץ — <strong>קליפת מקומו</strong>. והש״ך (ס״ק יח) מחלק מסי' קכ״א: "<span class="he-q">התם מיירי בדבר שנבלע בו ע״י חמין... אבל ציר מלוח אינו נבלע אלא כדי קליפה, לכך די בקליפה</span>". והפתחי תשובה (ס״ק קולף מקומו) מוסיף בשם מהר״ר דניאל: אם נפל ציר ואין יודע מקומו והוא מיעוט הכלי — <strong>בטל ברוב</strong>. <em>ולמעשה — שאל את רבך.</em>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דציר היוצא מן הבשר לאחר שיעור מליחה אין עליו דין דם רותח אבל יש עליו דין בשר רותח לאסור הגבינות</span>&nbsp;&raquo; <span class="src-ref">(ש״ך יו״ד צ״א ס״ק י״א)</span></blockquote>
+<p>La saumure est ce qui reste quand le sel et l'humidité se sont concentrés ; elle est donc jugée
+bouillante là même où la viande dont elle sort ne l'est pas. Le Rama le dit dans la glose elle-même.</p>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">מכל מקום הציר חשיב אינו נאכל מחמת מלחו</span>&nbsp;&raquo; <span class="src-ref">(רמ״א יו״ד צ״א:ה)</span></blockquote>
+<div class="nafka-mina-box">
+<strong>Nafka mina dans l'ustensile.</strong> Saumure tombée sur un ustensile : <strong>ébouillantage</strong> ;
+ustensile de terre : <strong>brisure</strong> ; tombée sur un seul endroit d'un ustensile de bois :
+<strong>pelure de l'endroit</strong>. Le Chakh (ס״ק י״ח) explique pourquoi cela ne contredit pas le siman 121,
+où une pelure ne remplace jamais un ébouillantage.
 </div>
-
-<!-- ============================================================= -->
-<h2 class="section-title">8. פלוגתת הש״ך והט״ז — מליח עליון/תחתון, שמן וכחוש</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
-
-<h3 class="he-h3">לשון הש״ך (ס״ק יב)
-  <button class="daat-copy" type="button" data-copy-target="#cp-8">📋 העתק</button>
-</h3>
-
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">התם מיירי בדבר שנבלע בו ע״י חמין וכה״ג דנבלע בכל הכלי אבל ציר מלוח אינו נבלע אלא כדי קליפה וכמ״ש בסי׳ ס״ט לכך די בקליפה</span>&nbsp;&raquo; <span class="src-ref">(ש״ך יו״ד צ״א ס״ק י״ח)</span></blockquote>
+<p>Là-bas il s'agit de ce qui a été absorbé par la chaleur, et donc dans toute l'épaisseur de
+l'ustensile ; ici la saumure salée n'entre que de l'épaisseur d'une pelure, et la pelure suffit donc.</p>
+<p>Le Pit'hei Techouva (ס״ק ט, sur « on pèle l'endroit ») ajoute, au nom du Rav Maharar Daniel,
+un cas que le Rama ne traite pas : celui où l'on ne sait plus où la saumure est tombée.</p>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אם נפל ציר או חלב מהותך חם בכלי ואין יודע באיזה מקום והוא מיעוט הכלי בטל ברוב</span>&nbsp;&raquo; <span class="src-ref">(פתחי תשובה יו״ד צ״א ס״ק ט)</span></blockquote>
+<p>Mais il ne s'en tient pas là, et sa propre remarque va en sens inverse de l'allègement.</p>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ונראה דאם הוא כלי שאפשר בהגעלה צריך הגעלה</span>&nbsp;&raquo; <span class="src-ref">(פתחי תשובה יו״ד צ״א ס״ק ט)</span></blockquote>
+<p><em>Et pour la pratique — demande à ton Rav.</em></p>
+<h2 class="section-title">8. La plougta du Chakh et du Taz — salé dessus / salé dessous, gras et maigre</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
+<h3>Le texte du Chakh (ס״ק י״ב)  <button class="daat-copy" type="button" data-copy-target="#cp-8">📋 Copier</button></h3>
 <div class="sacred-text he" data-copy-block id="cp-8">
-<strong>הש״ך</strong> (ס״ק יב, על "ואין חילוק"): "<span class="he-q">ולעיל סי' ע' ס״ד ולקמן סי' ק״ה סי״א פסק כסברת הרשב״א לחלק במליח בין עליון לתחתון! וצריך לומר: דדוקא לאסור כולה — דהיינו בשמן — יש חילוק, אבל לאסור כדי קליפה כגון בכחוש — אין חילוק. דנהי דתתאה גבר, מכל מקום קליפה מיהא בעי כמו בסעיף ד'.</span>"
+  <p>&laquo;&nbsp;<span class="he-q">ולעיל סי׳ ע׳ ס״ד ולקמן סי׳ ק״ה סי״א פסק כסברת הרשב״א לחלק במליח בין עליון לתחתון וצ״ל דדוקא לאסור כולה דהיינו בשמן יש חילוק אבל לאסור כ״ק כגון בכחוש אין חילוק דנהי דתתאה גבר מ״מ קליפה מיהא בעי כמו בסעיף ד׳</span>&nbsp;&raquo; <span class="src-ref">(ש״ך יו״ד צ״א ס״ק י״ב)</span></p>
 </div>
-
-<div class="hakira-box" dir="rtl">
-<strong>החקירה המדויקת :</strong> סתירה לכאורה בין סימננו (אין חילוק עליון/תחתון במליח) לסי' ק״ה (יש חילוק כרשב״א). הש״ך מחלק שני מישורים:
+<div class="translation">Et plus haut, au siman 70 §4, et plus loin au siman 105 §11, il a tranché comme le raisonnement du
+Rachba, qui distingue dans le salé entre le dessus et le dessous ; et il faut dire que ce n'est que pour
+interdire la pièce entière — c'est-à-dire dans le gras — qu'il y a une différence ; mais pour interdire
+l'épaisseur d'une pelure, comme dans le maigre, il n'y a pas de différence : car même si celui du dessous
+l'emporte, une pelure est tout de même requise, comme au seif 4.</div>
+<div class="hakira-box">
+<strong>La 'hakira exacte.</strong> Il y a contradiction apparente entre notre siman, qui refuse toute
+différence entre dessus et dessous dans le salé, et le siman 105, qui l'admet avec le Rachba. Le Chakh ne
+choisit pas entre les deux textes : il les répartit sur deux plans distincts.
 <ul class="stylish">
-<li><strong>לאסור כולה</strong> (בחתיכה <em>שמינה</em>, שהשומן מפעפע) — שם <em>יש</em> חילוק עליון/תחתון, וכרשב״א.</li>
-<li><strong>לאסור כדי קליפה</strong> (בחתיכה <em>כחושה</em>) — אין חילוק; קליפה מיהא בעי בכל גוונא, דנהי דתתאה גבר מכל מקום אדמקרר בלע פורתא.</li>
+<li><strong>Interdire la pièce entière</strong> — dans une pièce <em>grasse</em>, où le gras se répand :
+    là <em>il y a</em> une différence entre dessus et dessous, comme le tient le Rachba.</li>
+<li><strong>Interdire l'épaisseur d'une pelure</strong> — dans une pièce <em>maigre</em> : là il n'y en a
+    pas ; une pelure est requise dans tous les cas, car même quand le dessous l'emporte, le temps qu'il
+    refroidisse, un peu a déjà été absorbé.</li>
 </ul>
-ומסיים: "<span class="he-q">וצ״ע בב״י בסימן זה</span>".
+Et il ne cache pas que le Beit Yossef, dans ce même siman, ne semble pas dire cela.
 </div>
-
-<div class="pilpul-box" dir="rtl">
-<strong>שורש שמן וכחוש (סעיף ו') :</strong> "<span class="he-q">היכא דאמרינן דאינו אוסר אלא כדי קליפה — כשאין שום אחת מהחתיכות שמינה; שאם היתה שמינה, כולה אסורה... מפני שהשומן מפעפע</span>". והש״ך (ס״ק יט): "<span class="he-q">דאם היתה אחת מהן שמינה — או הגבינה או הבשר — הכל אסור, דאזיל האי ומפטם להאי, והוי כאילו הכל שמן</span>". זהו היסוד לכל חילוקי הש״ך לעיל: הפעפוע הוא שמכריע בין "כולה" ל"כדי קליפה".
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">(וצ״ע בב״י בסי׳ זה ד״ה ואינו תלוי כו׳ דלא משמע הכי)</span>&nbsp;&raquo; <span class="src-ref">(ש״ך יו״ד צ״א ס״ק י״ב)</span></blockquote>
+<div class="pilpul-box">
+<strong>La racine du gras et du maigre (seif 6).</strong> Le Mehaber pose lui-même la condition sous
+laquelle tout ce qui précède ne coûte qu'une pelure.
 </div>
-
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">היכא אמרינן דאינו אוסר אלא כדי קליפה כשאין שום אחת מהחתיכות שמינה שאם היתה שמינה כולה אסורה</span>&nbsp;&raquo; <span class="src-ref">(שו״ע יו״ד צ״א:ו)</span></blockquote>
+<p>Et il donne la raison pour laquelle le gras change tout.</p>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">וכן חברתה אסורה כולה מפני שהשומן מפעפע</span>&nbsp;&raquo; <span class="src-ref">(שו״ע יו״ד צ״א:ו)</span></blockquote>
+<p>Le Chakh (ס״ק י״ט) précise que peu importe lequel des deux est gras.</p>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דאם היתה אחת מהן שמינה או הגבינה או הבשר הכל אסור דאזיל האי ומפטם להאי והוי כאילו הכל שמן</span>&nbsp;&raquo; <span class="src-ref">(ש״ך יו״ד צ״א ס״ק י״ט)</span></blockquote>
+<p>C'est là le yesod de toutes les distinctions du Chakh rapportées plus haut : c'est le
+<em>pi'poua'h</em>, la diffusion du gras, qui décide entre « la pièce entière » et « l'épaisseur d'une
+pelure ».</p>
 <div class="page-break"></div>
-
-<!-- ============================================================= -->
-<h2 class="section-title">9. צלי רותח שנפל למליח — שלוש שיטות</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
-
-<h3 class="he-h3">לשון המחבר (סעיף ז')
-  <button class="daat-copy" type="button" data-copy-target="#cp-9">📋 העתק</button>
-</h3>
-
+<h2 class="section-title">9. Rôti bouillant tombé dans du salé — trois chitot</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
+<h3>Le texte du Mehaber et du Rama (seif 7)  <button class="daat-copy" type="button" data-copy-target="#cp-9">📋 Copier</button></h3>
 <div class="sacred-text he" data-copy-block id="cp-9">
-"<strong>הא דמפלגינן בין נאכל מחמת מלחו לאינו נאכל מחמת מלחו — הני מילי בבשר חי; אבל צלי רותח שנפל למליח, אפילו נאכל מחמת מלחו — בעי קליפה. ואם יש בו בקעים או שהוא מתובל בתבלין והוא צלי רותח — כולו אסור.</strong>" (הגה: והוא הדין אפוי ומבושל; וי״א דאפילו הם צוננים דינא הכי, וכן יש לנהוג אם אין הפסד מרובה.)
+  <p>&laquo;&nbsp;<span class="he-q">הא דמפלגינן בין נאכל מחמת מלחו לאינו נאכל מחמת מלחו הני מילי בבשר חי אבל צלי רותח שנפל למליח אפילו נאכל מחמת מלחו בעי קליפה</span>&nbsp;&raquo; <span class="src-ref">(שו״ע יו״ד צ״א:ז)</span></p>
+  <p>&laquo;&nbsp;<span class="he-q">ואם יש בו בקעים או שהוא מתובל בתבלין והוא צלי רותח כולו אסור</span>&nbsp;&raquo; <span class="src-ref">(שו״ע יו״ד צ״א:ז)</span></p>
+  <p>&laquo;&nbsp;<span class="he-q">וה״ה אפוי ומבושל</span>&nbsp;&raquo; <span class="src-ref">(רמ״א יו״ד צ״א:ז)</span></p>
+  <p>&laquo;&nbsp;<span class="he-q">וי״א דאפילו הם צוננים דינא הכי</span>&nbsp;&raquo; <span class="src-ref">(רמ״א יו״ד צ״א:ז)</span></p>
+  <p>&laquo;&nbsp;<span class="he-q">וכן יש לנהוג אם אין הפסד מרובה</span>&nbsp;&raquo; <span class="src-ref">(רמ״א יו״ד צ״א:ז)</span></p>
 </div>
-
-<div class="machloket-box" dir="rtl">
-<strong>שלוש שיטות (ש״ך ס״ק כא) :</strong>
+<div class="translation">Ce partage entre « consommable à cause de son sel » et « non consommable à cause de son sel » ne
+vaut que de la viande crue ; mais un rôti bouillant tombé dans du salé demande une pelure, même si ce
+salé-là est consommable. Et s'il a des fentes, ou s'il est relevé d'épices, et qu'il est rôti bouillant —
+le tout est interdit. Glose du Rama : il en va de même du cuit au four et du bouilli ; et il y a qui disent
+qu'il en va ainsi même s'ils sont froids ; et c'est ainsi qu'il faut se conduire s'il n'y a pas de perte
+importante.</div>
+<div class="machloket-box">
+<strong>Les trois chitot, telles que le Chakh les range à son ס״ק כ״א :</strong>
 <table>
-<tr><th>שיטה</th><th>צלי צונן שנפל לחלב</th><th>צלי רותח</th></tr>
+<tr><th>Chita</th><th>Rôti froid tombé dans du lait</th><th>Rôti bouillant, fentes et épices</th></tr>
 <tr>
-  <td><strong>סה״ת, שערים, רא״ש, טור, מהרי״ל</strong></td>
-  <td>אפילו נאכל מחמת מלחו — <strong>בעי קליפה</strong>; ובבקעים/תבלין אפילו חי — כולו אסור</td>
-  <td>—</td>
+  <td><strong>Sefer haTerouma, Chearim, Roch, Tour, Maharil</strong></td>
+  <td>Même consommable à cause de son sel — <strong>il faut peler</strong></td>
+  <td>Avec fentes ou épices, le tout est interdit même si la viande est <em>crue</em></td>
 </tr>
 <tr>
-  <td><strong>הראב״ד, הרשב״א, הר״ן (וכן דעת רש״י)</strong></td>
-  <td>צלי צונן — סגי <strong>בהדחה</strong></td>
-  <td>רותח — בעי קליפה; ובבקעים/תבלין — כולו אסור</td>
+  <td><strong>Le Raavad, le Rachba, le Ran</strong> (et, selon le Rachba, telle est aussi l'opinion de Rachi)</td>
+  <td>Rôti froid — un <strong>rinçage</strong> suffit</td>
+  <td>Bouillant : une pelure ; avec fentes ou épices et bouillant : le tout est interdit</td>
 </tr>
 <tr>
-  <td><strong>או״ז, הגמ״ר בשם מהר״ף, סמ״ק, סמ״ג</strong></td>
-  <td>צלי צונן — <strong>בעי קליפה</strong>; בבקעים/תבלין צונן — כולו אסור, אבל בחי לא</td>
-  <td>—</td>
+  <td><strong>Or Zaroua, Hagahot Mordekhi au nom du Mahar"f, Semak, Semag</strong></td>
+  <td>Rôti froid — il <strong>faut peler</strong></td>
+  <td>Avec fentes ou épices et froid : le tout est interdit ; mais non si la viande est crue</td>
 </tr>
 </table>
 </div>
-
-<div class="pilpul-box" dir="rtl">
-<strong>קושיית הרשב״א ויישובה (ש״ך ס״ק כג) :</strong> "<span class="he-q">היאך סגי בקליפה? והלא החלב רך וחזר הצלי שנפל לתוכו כמתבשל בתוכו!</span>" ותירוץ הרשב״א: "<span class="he-q">כיון שנפל לתוך החלב הוי ליה כחם לתוך צונן... וכל שהוא במקומו גובר ומקרר הצלי שנפל לתוכו, הלכך בקליפה סגי</span>". והש״ך מדייק דהרשב״א אתא עלה <em>מטעם צלי רותח</em> (חם לתוך צונן) ולא מכח מליחה.
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דע שיש בענין זה ג׳ שיטות</span>&nbsp;&raquo; <span class="src-ref">(ש״ך יו״ד צ״א ס״ק כ״א)</span></blockquote>
+<div class="pilpul-box">
+<strong>La question du Rachba et sa réponse (Chakh ס״ק כ״ג).</strong> Si le lait est mou et que le rôti
+s'y enfonce, pourquoi ne dit-on pas qu'il y cuit — auquel cas une pelure ne suffirait pas ?
 </div>
-
-<div class="rishon-card" dir="rtl">
-<strong>הכרעת הט״ז (ס״ק על "וי״א דאפי' הם צוננים") :</strong> מחמיר — דעת הרא״ש שפירש מעשה דגוזל שנפל לחלב; ומביא מהרש״ל (פכ״ה סי' ס״ט) דבצלי <em>צונן</em> שיש בו בקעים יש לאסור אפילו בנמלח קצת. ומסיק הט״ז: "<span class="he-q">תרי קולי לא מקלינן בשביל הפסד מרובה</span>" — אין לצרף קולא דמליחת צלי לקולא דדעה ראשונה.
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">היאך סגי בקליפה והלא החלב רך וחזר הצלי שנפל לתוכו כמתבשל בתוכו</span>&nbsp;&raquo; <span class="src-ref">(ש״ך יו״ד צ״א ס״ק כ״ג)</span></blockquote>
+<p>La réponse du Rachba fait du lait le « dessous » quoiqu'il flotte : c'est lui qui est chez lui,
+et c'est donc lui qui refroidit.</p>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">כיון שנפל לתוך החלב ה״ל כחם לתוך צונן ואף על פי שהצלי שוקע לתוך החלב והחלב צף על הצלי אינו כצונן לתוך חם וכל שהוא במקומו גובר ומקרר הצלי שנפל לתוכו הלכך בקליפה סגי</span>&nbsp;&raquo; <span class="src-ref">(ש״ך יו״ד צ״א ס״ק כ״ג)</span></blockquote>
+<p>Le Chakh en tire une précision qui n'est pas mince : le Rachba n'a pas répondu depuis la
+salaison mais depuis le rôti bouillant, c'est-à-dire depuis le cas ordinaire du chaud dans du froid.</p>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אלא ודאי דהרשב״א לאו מכח מליחה אתא עלה</span>&nbsp;&raquo; <span class="src-ref">(ש״ך יו״ד צ״א ס״ק כ״ג)</span></blockquote>
+<div class="rishon-card">
+<strong>Le tranchant du Taz (ס״ק י״ב, sur « et il y a qui disent que même froids »).</strong> Il est
+sévère : cette glose est l'opinion du Roch, qui a expliqué en ce sens le fait du pigeonneau tombé dans du
+kouta'h ; et il rapporte le Maharchal (chapitre 25, §69) selon qui un rôti <em>froid</em> qui a des fentes
+est à interdire même s'il n'a été que peu salé. Aussi refuse-t-il de cumuler deux allègements.
 </div>
-
-<div class="rishon-card" dir="rtl">
-<strong>הפתחי תשובה</strong> (ס״ק "צלי רותח") מביא דהגמ״י ואו״ה סוברים דבצלי רותח לא סגי בקליפה ובעי <strong>נטילה</strong>, "<span class="he-q">ולא קיימא לן הכי לדינא, ולכן השמיט שיטה זו</span>" (וכ״כ הפר״ח שאינו מחוור); ובית אפרים (חי״ד ל״ח) נתן טעם דרותח דצלי מבליע טפי מחמת כח רב. <em>ולמעשה — שאל את רבך.</em>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דתרי קולי לא מקלינן בשביל הפסד מרובה</span>&nbsp;&raquo; <span class="src-ref">(ט״ז יו״ד צ״א ס״ק י״ב)</span></blockquote>
+<p>Autrement dit : on ne peut à la fois tenir que la salaison d'un rôti ne le rend pas « non
+consommable à cause de son sel », et s'appuyer sur la première opinion de notre seif, qui ne se montre
+sévère pour les fentes que dans un rôti bouillant.</p>
+<div class="rishon-card">
+<strong>Le Pit'hei Techouva (ס״ק י, sur « rôti bouillant »)</strong> rappelle qu'une quatrième position
+existe, celle des Hagahot Maïmoniot et du Issour veHeter, pour qui un rôti bouillant demande non une
+pelure mais un prélèvement d'épaisseur (נטילה).
 </div>
-
-<!-- ============================================================= -->
-<h2 class="section-title">10. מליחה וכבוש — אכילה ולא הנאה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
-
-<h3 class="he-h3">לשון המחבר (סעיף ח')
-  <button class="daat-copy" type="button" data-copy-target="#cp-10">📋 העתק</button>
-</h3>
-
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דהגמי״י ואו״ה סוברים דבצלי רותח לא סגי בקליפה אם נפל לחלב ובעי נטילה</span>&nbsp;&raquo; <span class="src-ref">(פתחי תשובה יו״ד צ״א ס״ק י)</span></blockquote>
+<p>Il rapporte que le Chakh ne l'a pas retenue, et que le Peri Hadach non plus ne la tient pas
+pour établie.</p>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ולא קיי״ל הכי לדינא ולכן השמיט שיטה זו</span>&nbsp;&raquo; <span class="src-ref">(פתחי תשובה יו״ד צ״א ס״ק י)</span></blockquote>
+<p>Le Beit Efraim (Yoré Déa §38) en a pourtant donné la raison : la chaleur d'un rôti fait entrer
+davantage que celle d'une viande chaude.</p>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דרותח דצלי מבליע טפי מרותח דבשר חם מחמת כ״ר</span>&nbsp;&raquo; <span class="src-ref">(פתחי תשובה יו״ד צ״א ס״ק י)</span></blockquote>
+<p><em>Et pour la pratique — demande à ton Rav.</em></p>
+<h2 class="section-title">10. Salaison et saumure — l'interdit porte sur la consommation, non sur le profit</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ Explication détaillée (niveau 1)</a>
+<h3>Le texte du Mehaber (seif 8)  <button class="daat-copy" type="button" data-copy-target="#cp-10">📋 Copier</button></h3>
 <div class="sacred-text he" data-copy-block id="cp-10">
-"<strong>אין בשר בחלב נאסר על ידי מליחה או על ידי כבוש — אלא באכילה, אבל לא בהנאה.</strong>"
+  <p>&laquo;&nbsp;<span class="he-q">אין בשר בחלב נאסר ע״י מליחה או ע״י כבוש אלא באכילה אבל לא בהנאה</span>&nbsp;&raquo; <span class="src-ref">(שו״ע יו״ד צ״א:ח)</span></p>
 </div>
-
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — חזרה לסימן פ״ז :</strong> בשר בחלב נאסר בהנאה <em>רק</em> כשנעשה <span class="he-q">דרך בישול</span>, שהוא איסור תורה. מליחה וכבוש אינם דרך בישול, ולהכי אף שאוסרים באכילה (מדרבנן) — מותרים בהנאה. הש״ך (ס״ק כז, האחרון) מציין: "<span class="he-q">עיין בריש סימן פ״ז ובמה שכתבתי שם</span>".
+<div class="translation">Viande et lait ne sont pas interdits par la salaison ni par la saumure autrement que pour la
+consommation ; ils ne le sont pas pour le profit.</div>
+<div class="yesod-box">
+<strong>Le yesod — le renvoi au siman 87.</strong> Viande et lait ne sont interdits de profit que lorsque
+la chose s'est faite <em>par voie de cuisson</em>, qui est l'interdit de la Torah. La salaison et la
+saumure ne sont pas une voie de cuisson ; aussi, bien qu'elles interdisent à la consommation, elles
+laissent le profit permis. Le Chakh, à sa dernière entrée du siman, ne fait rien d'autre que nous y
+renvoyer.
 </div>
-
-<div class="hakira-box" dir="rtl">
-<strong>חקירה — וכבוש מאי שנא :</strong> כבוש (השריה מעת לעת) הוקש למבושל לענין הבלעת טעם ("<span class="he-q">כבוש כמבושל</span>") — ובכל זאת אינו אוסר בהנאה. מוכח דהיקש "כבוש כמבושל" הוא לענין <em>חוזק הבליעה</em> (שנדון כבישול), אך לא לענין <em>שם בישול</em> שבתורה לאיסור הנאה — דבעינן בישול ממש באור. ועיין פתחי תשובה (ס״ק "אפוי ומבושל") שהסתפק במנחת יעקב אי נכבש מעת לעת דינו כמבושל אף לחומרא זו.
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">עיין בר״ס פ״ז ובמ״ש שם</span>&nbsp;&raquo; <span class="src-ref">(ש״ך יו״ד צ״א ס״ק כ״ז)</span></blockquote>
+<div class="hakira-box">
+<strong>'Hakira — et la saumure, en quoi diffère-t-elle ?</strong> La saumure — un trempage de
+vingt-quatre heures — a été assimilée à la cuisson pour le passage du goût : <span class="he-q">כבוש כמבושל</span>
+(rapporté par le Pit'hei Techouva en notre siman, ס״ק י״א). Et pourtant elle n'interdit pas le profit.
+Il faut donc dire que cette assimilation porte sur la <em>force de la pénétration</em>, et non sur le
+<em>nom</em> de cuisson que la Torah exige pour l'interdit de profit. Le Pit'hei Techouva laisse d'ailleurs
+la chose en doute, au nom du Min'hat Yaakov.
 </div>
-
-<!-- ============================================================= -->
-<h2 class="section-title">11. חקירה ונפקא מינה למעשה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
-
-<div class="hakira-box" dir="rtl">
-<strong>החקירה הכוללת של הסימן :</strong> מהו שיעור "מעבר הטעם" בלא בישול ?
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דיש להסתפק אם נכבש הבשר תחלה תוך המים מעל״ע דקיי״ל כבוש כמבושל אי לענין זה נמי דינו כמבושל</span>&nbsp;&raquo; <span class="src-ref">(פתחי תשובה יו״ד צ״א ס״ק י״א)</span></blockquote>
+<p><em>La question reste ouverte telle que l'appareil la laisse ; elle n'est pas tranchée ici.</em></p>
+<h2 class="section-title">11. 'Hakira d'ensemble et nafka mina pour la pratique</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ Explication détaillée (niveau 1)</a>
+<div class="hakira-box">
+<strong>La 'hakira qui traverse tout le siman :</strong> quelle est la mesure du passage du goût lorsqu'il
+n'y a pas de cuisson ?
 <ul class="stylish">
-<li><strong>צונן בצונן</strong> — אין מעבר כלל (הדחה בלבד, ואין צריך אף זו ביבשים).</li>
-<li><strong>חם בצונן (תתאה צונן)</strong> — מעבר שטחי בלבד → קליפה.</li>
-<li><strong>חם בחם / צונן בחם (תתאה רותח)</strong> — מעבר גמור → הכל אסור (בלא ס').</li>
-<li><strong>מליח / ציר</strong> — דין רותח חד־כיווני → קליפה (והמלוח עצמו בהדחה).</li>
-<li><strong>שמן</strong> — מפעפע בכל → הכל אסור אף בלא בישול.</li>
+<li><strong>Froid dans froid</strong> — aucun passage : un rinçage, et pas même lui lorsque tout est sec.</li>
+<li><strong>Chaud dans froid</strong> (le dessous est froid) — un passage de surface seulement : une pelure.</li>
+<li><strong>Chaud dans chaud, ou froid dans chaud</strong> (le dessous est bouillant) — passage complet :
+    tout est interdit, faute de soixante.</li>
+<li><strong>Salé et saumure</strong> — statut du bouillant, mais à sens unique : une pelure pour le fade,
+    et un rinçage pour le salé lui-même.</li>
+<li><strong>Gras</strong> — il se répand partout : le tout est interdit, même sans cuisson.</li>
 </ul>
 </div>
-
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה למעשה (לפי הכרעת רוב האחרונים) :</strong>
+<div class="nafka-mina-box">
+<strong>Nafka mina pour la pratique, telle que ce niveau les rassemble — sans rien trancher :</strong>
 <ol class="stylish">
-<li>במקום דשייך קליפה ומכירו — בעינן <strong>ס' נגד הקליפה</strong> (ט״ז כריב״א; ש״ך ס״ק ח בנבלל בלבד מיקל).</li>
-<li>הרמ״א: "<span class="he-q">בכל מליחה אנו משערין בס'</span>" — וכן נוהגין (ועיין ק״ה).</li>
-<li>ציר תמיד כרותח → כלי בהגעלה, חרס בשבירה, עץ בקליפת מקומו.</li>
-<li>צלי רותח (ואפוי ומבושל, ולרמ״א אף צונן) — בעי קליפה; בבקעים/תבלין — כולו אסור.</li>
+<li>Là où une pelure a un sens et où la pièce reste reconnaissable, il faut <strong>soixante contre la
+    pelure</strong> : ainsi le Taz, à la suite du ריב״א, et ainsi le Chakh à son ס״ק ח, qui n'allège que
+    dans le mélange indistinct.</li>
+<li>Le Rama rapporte, au nom de la plupart des décisionnaires, une manière uniforme de mesurer :</li>
 </ol>
-<em>ולמעשה — שאל את רבך.</em>
 </div>
-
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">וי״א דבכל מליחה אנו משערין בס׳</span>&nbsp;&raquo; <span class="src-ref">(רמ״א יו״ד צ״א:ה)</span></blockquote>
+<div class="nafka-mina-box">
+<ol class="stylish" start="3">
+<li>Et il renvoie lui-même au siman 105 pour l'usage reçu.</li>
+<li>La saumure est toujours traitée comme bouillante : ustensile par ébouillantage, terre par brisure,
+    bois par la pelure de l'endroit.</li>
+<li>Un rôti bouillant — et de même le cuit au four et le bouilli, et pour le Rama même froids — demande
+    une pelure ; avec fentes ou épices, le tout est interdit.</li>
+</ol>
+<em>Et pour la pratique — demande à ton Rav.</em>
+</div>
 <div class="page-break"></div>
-
-<!-- ============================================================= -->
-<h2 class="section-title">12. טבלאות סיכום</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
-
-<h3 class="he-h3">טבלה — דרגות מעבר הטעם</h3>
-
+<h2 class="section-title">12. Tableaux de synthèse</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
+<h3>Tableau — les degrés du passage du goût</h3>
 <table>
-<tr>
-  <th>אופן המגע</th>
-  <th>התוצאה</th>
-  <th>מקור בקורפוס</th>
-</tr>
-<tr>
-  <td><strong>צונן בצונן</strong></td>
-  <td>הדחה (וביבשים — כלום)</td>
-  <td>מחבר ס״א; ש״ך ס״ק א</td>
-</tr>
-<tr>
-  <td><strong>תתאה צונן</strong> (חם על צונן)</td>
-  <td>קליפה; והנוזל מותר כולו</td>
-  <td>מחבר ס״ד; ש״ך ס״ק ז</td>
-</tr>
-<tr>
-  <td><strong>תתאה רותח</strong> (צונן בחם)</td>
-  <td>הכל אסור (בלא ס')</td>
-  <td>מחבר ס״ד; ש״ך ס״ק ה–ו</td>
-</tr>
-<tr>
-  <td><strong>מליח כרותח</strong></td>
-  <td>קליפה (המליח מבליע בתפל)</td>
-  <td>מחבר ס״ה; ש״ך ס״ק יא–יג</td>
-</tr>
-<tr>
-  <td><strong>ציר</strong></td>
-  <td>כרותח; כלי בהגעלה/שבירה</td>
-  <td>רמ״א ס״ה; ש״ך ס״ק יח</td>
-</tr>
-<tr>
-  <td><strong>שמן (מפעפע)</strong></td>
-  <td>כולה אסורה</td>
-  <td>מחבר ס״ו; ש״ך ס״ק יט</td>
-</tr>
-<tr>
-  <td><strong>צלי רותח / בקעים / תבלין</strong></td>
-  <td>קליפה / כולו אסור</td>
-  <td>מחבר ס״ז; ש״ך ס״ק כא</td>
-</tr>
-<tr>
-  <td><strong>מליחה וכבוש — הנאה</strong></td>
-  <td>מותר (אכילה בלבד נאסרת)</td>
-  <td>מחבר ס״ח; ש״ך ס״ק כז</td>
-</tr>
+<tr><th>Mode du contact</th><th>Conséquence</th><th>Où cela se lit</th></tr>
+<tr><td><strong>Froid dans froid</strong></td><td>Rinçage (et rien du tout si tout est sec)</td>
+    <td>Mehaber, seif 1 ; Chakh ס״ק א</td></tr>
+<tr><td><strong>Le dessous est froid</strong> (chaud tombé sur froid)</td>
+    <td>Pelure ; et le liquide est permis en entier</td><td>Mehaber, seif 4 ; Chakh ס״ק ז</td></tr>
+<tr><td><strong>Le dessous est bouillant</strong> (froid tombé dans chaud)</td>
+    <td>Tout est interdit, faute de soixante</td><td>Mehaber, seif 4 ; Chakh ס״ק ו–ז</td></tr>
+<tr><td><strong>Le salé vaut bouillant</strong></td>
+    <td>Pelure (le salé fait entrer dans le fade)</td><td>Mehaber, seif 5 ; Chakh ס״ק י״א–י״ג</td></tr>
+<tr><td><strong>La saumure</strong></td>
+    <td>Comme bouillante ; ustensile par ébouillantage ou brisure</td><td>Rama, seif 5 ; Chakh ס״ק י״ח</td></tr>
+<tr><td><strong>Le gras, qui se répand</strong></td><td>La pièce entière est interdite</td>
+    <td>Mehaber, seif 6 ; Chakh ס״ק י״ט</td></tr>
+<tr><td><strong>Rôti bouillant, fentes, épices</strong></td><td>Pelure, ou tout interdit</td>
+    <td>Mehaber, seif 7 ; Chakh ס״ק כ״א</td></tr>
+<tr><td><strong>Salaison et saumure — le profit</strong></td>
+    <td>Permis (seule la consommation est interdite)</td><td>Mehaber, seif 8 ; Chakh ס״ק כ״ז</td></tr>
 </table>
-
-<h3 class="he-h3">טבלה — מחלוקות מרכזיות הש״ך / ט״ז</h3>
-
+<h3>Tableau — les points où le Chakh et le Taz ne disent pas la même chose</h3>
 <table>
-<tr>
-  <th>נושא</th>
-  <th>הש״ך</th>
-  <th>הט״ז</th>
-</tr>
-<tr>
-  <td>ס' נגד הקליפה (חלב הנופל)</td>
-  <td>במכירו ושייך קליפה — בעי ס'; בנבלל — מותר (ס״ק ח)</td>
-  <td>כריב״א להחמיר — לעולם בעי ס' (ס״ק על "והחלב")</td>
-</tr>
-<tr>
-  <td>פקיעת כח המלח לאחר שיעור מליחה</td>
-  <td>רק בדם פקע; בבב״ח לעולם בתקפו (ס״ק יא)</td>
-  <td>(הביא ת״ה — להקל בהפסד מרובה וסעודת מצוה)</td>
-</tr>
-<tr>
-  <td>מליח עליון/תחתון</td>
-  <td>בשמן יש חילוק (כרשב״א); בכחוש אין (ס״ק יב)</td>
-  <td>מגיה "לחין" — מיירי במלוחים לחים</td>
-</tr>
-<tr>
-  <td>צלי רותח שנפל למליח/חלב</td>
-  <td>שלוש שיטות (ס״ק כא); ולא כגמ״י דבעי נטילה (ס״ק כו)</td>
-  <td>מחמיר אף בצלי צונן בבקעים; תרי קולי לא מקלינן</td>
-</tr>
+<tr><th>Sujet</th><th>Le Chakh</th><th>Le Taz</th></tr>
+<tr><td>Viande permise dans un ustensile où l'interdit n'a servi qu'à froid (seif 2)</td>
+    <td>Il rapporte la voie du Rama et écrit qu'elle ne lui est pas intelligible ; sa propre conclusion
+        est qu'un ustensile bien essuyé ne demande même pas de rinçage (ס״ק ג)</td>
+    <td>Il tient la distinction du Rama pour juste et claire (ס״ק ג)</td></tr>
+<tr><td>Soixante contre la pelure, dans le lait qui tombe</td>
+    <td>Là où la pièce est reconnaissable et où la pelure a un sens, il faut soixante ; dans le mélange
+        indistinct, c'est permis (ס״ק ח)</td>
+    <td>Comme le ריב״א, par sévérité — et il conclut « en tout lieu » (ס״ק ז)</td></tr>
+<tr><td>La force du sel tombe-t-elle après le délai de salaison ?</td>
+    <td>Elle ne tombe qu'à l'égard du sang ; en viande et lait elle demeure (ס״ק י״א)</td>
+    <td>Il ne tranche pas ici et renvoie au siman 69 §20 (ס״ק ח)</td></tr>
+<tr><td>Salé dessus / salé dessous</td>
+    <td>Dans le gras il y a une différence, comme le Rachba ; dans le maigre il n'y en a pas (ס״ק י״ב)</td>
+    <td>Il corrige le mot du texte en « humides » (ס״ק ט)</td></tr>
+<tr><td>Rôti tombé dans du salé ou du lait</td>
+    <td>Trois chitot (ס״ק כ״א) ; et non comme les Hagahot Maïmoniot qui exigent un prélèvement (ס״ק כ״ו)</td>
+    <td>Sévère même pour un rôti froid qui a des fentes ; on ne cumule pas deux allègements (ס״ק י״ב)</td></tr>
 </table>
-
-<h3 class="he-h3">טבלה — מקורות הסוגיא</h3>
-
-<div class="rishon-card" dir="rtl">
-<strong>גמרא :</strong> חולין צ״ו: (טעם כעיקר וקליפה) · חולין קי״א:–קי״ב. (מליח כרותח, דגים שעלו בקערה) · פסחים ע״ו. (כיצד צולין — תתאה גבר) · עבודה זרה (כלי איסור)
+<h3>Tableau — les sources de la sougya</h3>
+<div class="rishon-card">
+<strong>Guemara :</strong> Houlin 96b (le goût comme la substance, et la pelure) · Houlin 111b–112a
+(le salé comme le bouillant, les poissons montés dans une écuelle) · Pessahim 76a (chapitre Keitsad
+Tsolin — תתאה גבר) · Avoda Zara (les ustensiles d'interdit)
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>ראשונים :</strong> רש״י · ר״ח · ר״י · רמב״ם · תוספות · רא״ש · ראב״ד · רשב״א (תורת הבית, משמרת הבית) · ר״ן · ריב״א · מרדכי · הגהות אשר״י · המרדכי · בעל העיטור · אורחות חיים · טור · איסור והיתר הארוך (כלל כ״ט–ל')
+<div class="rishon-card">
+<strong>Richonim :</strong> רש״י · ר״ח · ר״י · רמב״ם · תוספות · רא״ש · ראב״ד · רשב״א (תורת הבית, משמרת הבית) · ר״ן · ריב״א · מרדכי · הגהות אשר״י · המרדכי · בעל העיטור · אורחות חיים · טור · איסור והיתר הארוך (כלל כ״ט–ל')
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>אחרונים :</strong> בית יוסף · רמ״א · ש״ך · ט״ז · ב״ח · דרכי משה · תורת חטאת · מהרש״ל (ים של שלמה פכ״ה) · מהרא״י (תרומת הדשן סי' קנ״ט, הגהת ש״ד) · פרי חדש · פרי מגדים · פתחי תשובה · תשואות חן · חתם סופר · נודע ביהודה · בית אפרים · חוות דעת
+<div class="rishon-card">
+<strong>Aharonim :</strong> בית יוסף · רמ״א · ש״ך · ט״ז · ב״ח · דרכי משה · תורת חטאת · מהרש״ל (ים של שלמה פכ״ה) · מהרא״י (תרומת הדשן סי' קנ״ט, הגהת ש״ד) · פרי חדש · פרי מגדים · פתחי תשובה · תשואות חן · חתם סופר · נודע ביהודה · בית אפרים · חוות דעת
 </div>
-
+<h3>Pour aller plus loin</h3>
+<div class="remember">
+Ce siman se lit à quatre niveaux, et chacun répond à une question différente :
+<ul class="compact">
+  <li>📚 <a href="niveau-1-base.html"><strong>Niveau 1 — Base</strong> : les huit seifim traduits clause
+      par clause, avec l'appareil cité entrée par entrée</a></li>
+  <li>📚 <a href="niveau-3-synthese.html"><strong>Niveau 3 — Synthèse</strong> : les huit seifim rangés par
+      mécanisme, dans l'ordre du livre</a></li>
+  <li>📚 <a href="niveau-4-halakha.html"><strong>Niveau 4 — Halakha lema'assé</strong> : la conduite,
+      adossée chaque fois à une entrée d'appareil citée</a></li>
+</ul>
+</div>
+<div class="remember">
+Les sources de ce niveau sont consultables sur Sefaria :
+<ul class="compact">
+  <li><a href="https://www.sefaria.org/Shulchan_Arukh,_Yoreh_De%27ah.91">שולחן ערוך יורה דעה סימן צ״א</a></li>
+  <li><a href="https://www.sefaria.org/Siftei_Kohen_on_Shulchan_Arukh,_Yoreh_De%27ah.91">שפתי כהן (ש״ך) על יורה דעה צ״א</a></li>
+  <li><a href="https://www.sefaria.org/Turei_Zahav_on_Shulchan_Arukh,_Yoreh_De%27ah.91">טורי זהב (ט״ז) על יורה דעה צ״א</a></li>
+  <li><a href="https://www.sefaria.org/Beer_Hetev_on_Shulchan_Arukh,_Yoreh_De%27ah.91">באר היטב על יורה דעה צ״א</a></li>
+  <li><a href="https://www.sefaria.org/Pitchei_Teshuva_on_Shulchan_Arukh,_Yoreh_De%27ah.91">פתחי תשובה על יורה דעה צ״א</a></li>
+  <li><a href="https://www.sefaria.org/Pesachim.76a">פסחים ע״ו ע״א</a></li>
+  <li><a href="https://www.sefaria.org/Chullin.111b">חולין קי״א ע״ב</a></li>
+</ul>
+</div>
 <hr class="ornament">
-
-  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;direction:rtl;">
-    <a href="niveau-1-base.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">→ רמה א' — יסוד</a>
-    <a href="niveau-3-synthese.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">רמה ג' — סיכום ←</a>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;">
+    <a href="niveau-1-base.html" style="font-family:'Georgia',serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">← Niveau 1 — Base</a>
+    <a href="niveau-3-synthese.html" style="font-family:'Georgia',serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">Niveau 3 — Synthèse →</a>
   </div>
-
 <div class="yh-watermark">
 ~ ~ ~ ~ ~<br>
 <strong>DAAT</strong> · <strong>הרב יוסף חיים סממה</strong><br>
-תלמיד חכם · מעביר שיעורים בהלכה ובחסידות<br>
-<em>פלפול ועיון בדין בשר וחלב שנתערבו · סימן צ״א · ⚡ רמה ב' — לַמְדָּן</em>
+Rav et maître d'étude — halakha et hassidout<br>
+<em>Siman 91 · Niveau 2 — Lamdan · בשר וגבינה שנגעו, מליחה, תתאה גבר וכבוש</em><br>
+<em>daattorah.com</em>
 </div>
-
-  <div class="disclaimer" style="background:#fff8e1;border-right:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;direction:rtl;text-align:right;">
-    ⚠️ תוכן זה נכתב לצורך לימוד ועיון בלבד. לכל הוראה למעשה (לְמַעֲשֶׂה) — שאל את רבך.
+  <div class="disclaimer">
+    ⚠️ Ce contenu est écrit pour l'étude et l'examen seuls. Pour toute conduite pratique — demande à ton Rav.
   </div>
-
   <div style="background:#1A1F3A;border-top:2px solid #C5A55A;padding:24px 40px;text-align:center;margin-top:0;">
-    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;direction:rtl;">
-      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">לעמוד הבית</a> · <a href="index.html" style="color:#C5A55A;text-decoration:none;">סימן צ״א</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ לתמיכה</a>
+    <p style="font-family:'Georgia',serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;">
+      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">Retour à l'accueil</a> · <a href="index.html" style="color:#C5A55A;text-decoration:none;">Siman 91</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ Soutenir</a>
     </p>
   </div>
-
   <link rel="stylesheet" href="../../../assets/css/khavroutha-fab.css">
 <link rel="stylesheet" href="../../../assets/css/chat-widget.css">
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="../../../assets/js/chat-widget.js" defer></script>
 <script src="../../../assets/js/daat-copy.js" defer></script>
-<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="מצא חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">הצטרף לחברותא</span></a>
+<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="Trouver une khavroutha pour ce siman"><span class="icon">📖</span><span class="label-long">Rejoindre la khavroutha</span></a>
   <script src="/assets/js/share-text.js" defer></script>
 </body>
 </html>
