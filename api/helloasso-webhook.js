@@ -18,6 +18,21 @@ import { kv } from './_kv.js';
 import crypto from 'node:crypto';
 import { getRedis, K_ORDERS, makeDedicace, saveDedicace } from './_dedicaces.js';
 
+// Barre de soutien (/soutenir.html) : tout paiement HelloAsso validé alimente le
+// total mensuel — mêmes clés que les dons manuels (soutenir.js) et les virements
+// Qonto (qonto-sync.js). Pas de double comptage : les reversements HelloAsso qui
+// arrivent ensuite en banque sont exclus de la sync Qonto (DEFAULT_EXCLUDE).
+async function bumpSoutienBar(amountCents) {
+  if (!(Number(amountCents) > 0)) return 0;
+  const now = new Date();
+  const mk = `${now.getUTCFullYear()}-${String(now.getUTCMonth() + 1).padStart(2, '0')}`;
+  await Promise.all([
+    kv.incrby(`soutien:total:${mk}`, Math.round(Number(amountCents))),
+    kv.incr(`soutien:count:${mk}`),
+  ]);
+  return Number(amountCents) / 100;
+}
+
 // Comparaison à temps constant — évite les attaques temporelles sur le secret.
 function safeEqual(a, b) {
   const x = Buffer.from(String(a || ''));
@@ -176,6 +191,10 @@ export default async function handler(req, res) {
       }
 
       const fields = collectCustomFields(data);
+      // Un don-dédicace est un paiement : il alimente la barre de soutien
+      // (le dédoublonnage par orderId vient de passer, pas de double comptage).
+      const dedicaceCents = parseInt(data?.amount?.total || data?.amount || data?.totalAmount || 0, 10);
+      await bumpSoutienBar(dedicaceCents);
       const nom = findField(fields, /nom|name|h[ée]breu|hebrew|שם|niftar|d[ée]di/);
       const type = findField(fields, /type|cat[ée]gorie|category|nature|כוונה|לעילוי|רפואה|הצלחה/);
       const simanRaw = findField(fields, /siman|simane|chapitre|chapter|סימן|page/);
@@ -342,6 +361,10 @@ export default async function handler(req, res) {
 
   await Promise.all(ops);
 
+  // Barre de soutien : après le dédoublonnage et l'audit trail, avant res.end
+  // (pas de fire-and-forget en serverless).
+  const barEur = await bumpSoutienBar(amountCents);
+
   // Email masqué dans les logs (audit trail complet en KV)
   const maskedEmail = email.replace(/^(.).*?(@.*)$/, '$1***$2');
   const parts = [];
@@ -357,5 +380,6 @@ export default async function handler(req, res) {
     expires: expiresAt,
     credits_added: creditsToAdd,
     amount_eur: amountCents / 100,
+    soutien_bar_eur: barEur,
   });
 }
