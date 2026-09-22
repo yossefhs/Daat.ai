@@ -17,6 +17,10 @@
 // ➜ Pour n'importer QUE les paiements daattorah (compte Qonto partagé) :
 //     • soit un compte dédié → mettre son IBAN dans QONTO_IBAN ;
 //     • soit un compte unique → QONTO_INCLUDE (mots-clés obligatoires dans le virement).
+//   ⚠ Si NI QONTO_IBAN NI QONTO_INCLUDE ne sont définis, une liste blanche PAR
+//     DÉFAUT s'applique (daat, tsedaka, soutien, don, dédicace, torah…) : un
+//     compte partagé ne gonfle plus la barre avec des virements sans rapport.
+//     Les virements écartés sont listés dans `excluded_samples` de la réponse.
 //
 // Variables d'environnement Vercel (à définir) :
 //   QONTO_LOGIN            = login API Qonto      (Qonto → Paramètres → Intégrations → API)
@@ -38,6 +42,13 @@ import { kv } from './_kv.js';
 
 const QONTO_BASE = 'https://thirdparty.qonto.com/v2';
 const DEFAULT_EXCLUDE = ['helloasso', 'stripe', 'remboursement', 'refund'];
+// Liste blanche PAR DÉFAUT quand le compte est partagé (ni QONTO_IBAN ni
+// QONTO_INCLUDE définis) : on n'importe que les virements qui se déclarent
+// don/DAAT dans leur libellé, référence ou note. Sans ce garde-fou, n'importe
+// quel crédit du compte Hessed gonflerait la barre de soutien daattorah.
+// Un vrai don écarté à tort apparaît dans `excluded_samples` de la réponse :
+// l'admin peut alors l'ajouter à la main ou élargir QONTO_INCLUDE.
+const DEFAULT_INCLUDE = ['daat', 'tsedaka', 'tzedaka', 'soutien', 'dedicace', 'dédicace', 'don', 'torah'];
 const PROCESSED_SET = 'qonto:processed';
 
 function setCors(res) {
@@ -158,8 +169,15 @@ export default async function handler(req, res) {
   // Liste blanche (QONTO_INCLUDE ou ?include=…) : si définie, on n'importe QUE
   // les crédits dont le texte (libellé + référence + note) contient l'un de ces
   // mots (ex. "daat,don,tsedaka,soutien"). Idéal quand UN seul compte reçoit tout.
-  const includes = (process.env.QONTO_INCLUDE || req.query.include || '')
+  const explicitIncludes = (process.env.QONTO_INCLUDE || req.query.include || '')
     .split(',').map((s) => s.trim().toLowerCase()).filter(Boolean);
+  // Compte dédié (QONTO_IBAN) → tout crédit est un don, pas de filtre nécessaire.
+  // Compte partagé sans filtre explicite → liste blanche par défaut (garde-fou).
+  const dedicatedAccount = !!(process.env.QONTO_IBAN || '').trim();
+  const includes = explicitIncludes.length
+    ? explicitIncludes
+    : (dedicatedAccount ? [] : DEFAULT_INCLUDE);
+  const defaultFilterActive = !explicitIncludes.length && !dedicatedAccount;
 
   // Fenêtre plancher (évite d'importer des années de crédits au 1er passage)
   let since = req.query.since || process.env.QONTO_SINCE || '';
@@ -197,6 +215,7 @@ export default async function handler(req, res) {
     let skipped = 0;
     let excluded = 0;
     const added = [];
+    const excludedSamples = [];
 
     for (const t of all) {
       if (t.side !== 'credit') continue;
@@ -204,7 +223,13 @@ export default async function handler(req, res) {
       const text = [t.label, t.reference, t.note].map((v) => String(v || '')).join(' ').toLowerCase();
       if (excludes.some((x) => x && text.includes(x))) { excluded++; continue; }
       // Liste blanche : si active, tout ce qui NE matche PAS est ignoré.
-      if (includes.length && !includes.some((x) => text.includes(x))) { excluded++; continue; }
+      if (includes.length && !includes.some((x) => text.includes(x))) {
+        excluded++;
+        if (excludedSamples.length < 20) {
+          excludedSamples.push({ label: t.label, amount: Number(t.amount) || 0, at: t.settled_at });
+        }
+        continue;
+      }
 
       // Dédoublonnage par identifiant Qonto (sadd = 1 si nouveau, 0 sinon)
       const isNew = await kv.sadd(PROCESSED_SET, t.id);
@@ -256,7 +281,8 @@ export default async function handler(req, res) {
       skipped,
       excluded,
       dryRun,
-      filter: { excludes, includes },
+      filter: { excludes, includes, default_filter: defaultFilterActive },
+      excluded_samples: excludedSamples,
       added: added.slice(0, 50),
     });
   } catch (err) {
