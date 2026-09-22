@@ -985,8 +985,11 @@ def is_hebrew_quote(frag):
     return h >= MIN_LETTRES and h >= 2 * l
 
 
-def quotes_in(text):
+def quotes_in(text, path=None):
     """Chaque fragment hébreu présenté comme une citation, avec son numéro de ligne.
+
+    ``path`` sert au repli d'ouvrage sur les citations COURTES : sans lui, le
+    filtre ci-dessous les écarte avant que le site d'appel puisse les résoudre.
 
     L'extraction se fait **ligne par ligne** : le balisage du site place chaque
     citation sur sa propre ligne, et un guillemet non apparié ailleurs dans la page
@@ -1026,7 +1029,17 @@ def quotes_in(text):
                         continue
                     deb = max(0, (at if at > 0 else 0) - FENETRE_REF)
                     fin = (at if at > 0 else 0) + len(frag) + FENETRE_REF
-                    if not refs_in(plain[deb:fin]):
+                    # `refs_in` ne reconnaît pas la forme conventionnelle du dépôt
+                    # pour les nossei kelim — « (ט״ז יורה דעה קפ״ז ס״ק ב) » — qui n'a
+                    # pas de deux-points. Le site d'appel le sait et se rabat sur
+                    # `candidats_ouvrages` ; mais la citation COURTE était écartée
+                    # ici, en amont, et n'y parvenait jamais. Le repli était donc
+                    # sans effet sur elle. 1 200 citations de 12 à 24 lettres
+                    # portant une référence d'ouvrage n'étaient vérifiées par rien
+                    # — 1 018 en Yoré Déa, la classe même où la clause fabriquée du
+                    # siman 187 a été trouvée le 19 septembre.
+                    if not refs_in(plain[deb:fin]) and not (
+                            path and candidats_ouvrages(path, plain[deb:fin])):
                         continue
                 if at > 0 and RESUME.search(plain[:at]):
                     continue          # résumé assumé : pas une citation
@@ -1499,7 +1512,7 @@ def main():
     for path in pages(base, langues):
         text = open(path, encoding='utf-8').read()
 
-        for frag, lineno, plain in quotes_in(text):
+        for frag, lineno, plain in quotes_in(text, path):
             # la référence doit accompagner la citation, pas simplement figurer
             # quelque part sur la même ligne
             at = plain.find(frag)

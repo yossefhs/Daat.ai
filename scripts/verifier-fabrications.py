@@ -88,7 +88,16 @@ def hits(phrase):
     """Combien de fois cette suite de mots paraît-elle dans TOUT Sefaria ?"""
     if phrase in _C:
         return _C[phrase]
-    corps = json.dumps({"query": phrase, "type": "text", "size": 3},
+    # `field: "exact"` est la forme employée par `locate()` dans
+    # verifier-citations.py, sur ce même point de terminaison. Mesuré le
+    # 22 septembre 2026, il ne change RIEN au résultat : cinq essais — un
+    # verbatim contigu, les mêmes mots dans l'ordre inverse, des mots du même
+    # séif non contigus, un verbatim court et sa permutation — rendent le même
+    # compte avec et sans lui, la recherche se comportant déjà comme une
+    # recherche de séquence. Il est donc posé pour ne pas faire reposer une
+    # porte anti-fabrication sur un comportement par défaut non documenté, et
+    # non pour réparer un défaut observé.
+    corps = json.dumps({"query": phrase, "type": "text", "field": "exact", "size": 3},
                        ensure_ascii=False)
     for essai in range(3):
         try:
