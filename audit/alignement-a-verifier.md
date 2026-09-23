@@ -1302,3 +1302,44 @@ les dix-huit variantes hébraïques et dix variantes anglaises des simanim 183-2
 
 Les deux valeurs manquantes vivaient dans le `<title>` du même fichier, correct partout :
 `scripts/fix-meta-vide.py` les y prend, ne les invente pas, et est idempotent.
+
+## Siman 197 — ce qui bloque sa publication est dans son `-he`, pas dans le niveau 2 traduit
+
+L'arbitre du 197 a accepté les deux fichiers rendus et refusé le SIMAN, et il a raison de
+distinguer. Ce qui suit est dans `niveau-2-lamdan-he.html`, que ce lot n'avait pas à
+toucher, et je l'ai revérifié sur les sources :
+
+- **quatre des cinq blocs source sur cinq sont altérés** : `cp-1` porte une vocalisation
+  retapée qui change le ktiv (מטמאתן pour מטומאתן, חיב pour חייב) ; `cp-3` développe les
+  abréviations (בלא״ה → בלאו הכי, י״א → יש אומרים), supprime deux parenthèses de source, et
+  **omet sans ellipse toute la clause du Rama sur l'almana** ; `cp-4` remplace ז׳/ח׳/ט׳ par
+  השביעי/שמיני/תשיעי ; `cp-6` remplace בח׳/בז׳ par בשמיני/בשביעי. Seul `cp-5` est exact ;
+- le §4 enseigne que la tevila du septième jour **אינה כשרה מעיקר הדין**. Le ט״ז ס״ק ח dit
+  le contraire mot pour mot — `אבל זבה שסופרת ז׳ נקיים בספירה אמרינן מקצת היום ככולו…
+  וילפינן לה מקרא דואחר תטהר` — et précise que l'interdit n'est qu'un décret, `אלא שחכמים
+  אסרו`. Le §5 est bâti sur la même prémisse fausse ;
+- **trois renvois d'appareil sur quatre sont faux** : les ancres de Sefaria posent ט״ז ס״ק א
+  au séif א, ס״ק ב–ז au séif ב, ס״ק ח au séif ג, et aucun Taz aux séifim ד et ה ; le `-he`
+  annonce ס״ק ה–ו au séif ג, ס״ק ז au séif ד et ס״ק ח au séif ה ;
+- son `<head>` porte encore « סימן · רמה 2 למדן — » et un headline JSON-LD vide.
+
+Par ailleurs, et hors du niveau 2 : les **trois** `niveau-4-halakha` du 197 citent entre
+guillemets **« אין טהרה אלא בטבילה »**, introuvable dans tout Sefaria, et s'en servent comme
+intitulé d'une ligne halakhique. Étendue mesurée comme l'exige la règle 16 : **15 fichiers,
+tous dans le seul siman 197** — elle ne s'est pas répandue ailleurs. Les traducteurs l'ont
+retirée de leurs pages ; elle vit encore dans les treize autres.
+
+## Un lien de langue que `verifier-liens-langue.py` ne regarde pas : 17 861 occurrences
+
+Signalé par l'arbitre du 197 sur une page : `href="../../../communaute.html#khavroutha"`
+depuis la page HÉBRAÏQUE et depuis la page ANGLAISE. `verifier-liens.py` sort vert, le
+fichier existe ; `verifier-liens-langue.py` aussi, parce qu'il ne connaît que deux formes,
+`href="niveau-N-….html"` et `href="/yd/N/"`.
+
+Or `communaute-he.html`, `about-he.html`, `faq-he.html`, `chat-he.html` et `soutenir-he.html`
+existent tous, et leurs équivalents `-en` aussi. Mesuré sur tout le dépôt : **17 861 liens
+dans 3 954 fichiers** mènent un lecteur hébréophone ou anglophone vers la page FRANÇAISE.
+
+C'est le même défaut que les 1 841 liens déjà corrigés, sous une troisième forme que la
+porte ne couvrait pas. À reprendre en un lot dédié : étendre `verifier-liens-langue.py` à
+cette forme, puis `fix-liens-langue.py`, qui ne réécrit jamais vers une variante absente.

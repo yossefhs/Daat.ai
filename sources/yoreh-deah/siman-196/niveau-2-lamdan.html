@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="fr" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,8 +23,7 @@
   @page { size: A4; margin: 2cm 1.8cm; }
   body {
     font-family: 'Frank Ruhl Libre', 'David', 'Georgia', 'Cambria', serif;
-    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0;
-    direction: rtl; text-align: right;
+    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0; text-align: left;
   }
   .he {
     direction: rtl; text-align: right;
@@ -72,14 +71,12 @@
   h2.section-title {
     color: #fff; background: #1A1F3A;
     font-size: 16pt; padding: 10px 18px; margin-top: 30px;
-    border-right: 6px solid #C5A55A;
-    direction: rtl; text-align: right;
+    border-left: 6px solid #C5A55A; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3 {
     color: #1A1F3A; font-size: 14pt; margin-top: 25px;
-    border-right: 4px solid #C5A55A; padding-right: 10px;
-    direction: rtl; text-align: right;
+    border-left: 4px solid #C5A55A; padding-left: 10px; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3.he-h3 {
@@ -89,8 +86,7 @@
   }
   h4 {
     color: #5a4a1a; font-size: 12pt;
-    margin-top: 20px; margin-bottom: 8px; font-weight: bold;
-    direction: rtl; text-align: right;
+    margin-top: 20px; margin-bottom: 8px; font-weight: bold; text-align: left;
   }
 
   .sacred-text {
@@ -100,8 +96,8 @@
     font-size: 12.5pt; line-height: 1.9;
   }
   .pilpul-box {
-    background: #eef3fa; border-right: 4px solid #1A1F3A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #eef3fa; border-left: 4px solid #1A1F3A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .pilpul-box::before {
     content: "⚡ פלפול"; display: block;
@@ -110,8 +106,8 @@
     direction: rtl; text-align: right;
   }
   .kashya-box {
-    background: #fef4e4; border-right: 4px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #fef4e4; border-left: 4px solid #C5A55A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .kashya-box::before {
     content: "❓ קושיא"; display: block;
@@ -120,8 +116,8 @@
     direction: rtl; text-align: right;
   }
   .teruts-box {
-    background: #e8f4ea; border-right: 4px solid #2d7a3e;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #e8f4ea; border-left: 4px solid #2d7a3e;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .teruts-box::before {
     content: "✓ תירוץ"; display: block;
@@ -130,8 +126,8 @@
     direction: rtl; text-align: right;
   }
   .hakira-box {
-    background: #f5e9f5; border-right: 4px solid #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #f5e9f5; border-left: 4px solid #6a1b7a;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .hakira-box::before {
     content: "🔍 חקירה"; display: block;
@@ -141,8 +137,7 @@
   }
   .nafka-mina-box {
     background: #fff4e6; border: 2px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; border-radius: 4px; text-align: left;
   }
   .nafka-mina-box::before {
     content: "⚖️ נפקא מינה"; display: block;
@@ -152,8 +147,7 @@
   }
   .yesod-box {
     background: #1A1F3A; color: #fff;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
   .yesod-box::before {
     content: "💎 יסוד"; display: block;
@@ -164,7 +158,7 @@
   .yesod-box .he-q { color: #C5A55A; }
   .machloket-box {
     background: #faf5ff; border: 1.5px dashed #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
 
   table {
@@ -173,10 +167,9 @@
   }
   th {
     background: #1A1F3A; color: #fff;
-    padding: 10px; text-align: right; direction: rtl; font-size: 11pt;
+    padding: 10px; text-align: left; font-size: 11pt;
   }
-  td {
-    direction: rtl; text-align: right;
+  td { text-align: left;
     border: 1px solid #d4c89a; padding: 10px; vertical-align: top;
   }
   tr:nth-child(even) td { background: #FAF6EE; }
@@ -197,12 +190,11 @@
   }
 
   ol.stylish li, ul.stylish li { margin-bottom: 8px; }
-  ol.stylish, ul.stylish { padding-right: 22px; padding-left: 0; }
+  ol.stylish, ul.stylish { padding-left: 22px; padding-right: 0; }
 
   .rishon-card {
-    background: #f7f3e4; border-right: 4px solid #8a6a1a;
-    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt;
-    direction: rtl; text-align: right;
+    background: #f7f3e4; border-left: 4px solid #8a6a1a;
+    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt; text-align: left;
   }
   .rishon-card strong { color: #1A1F3A; font-size: 11pt; }
 
@@ -217,10 +209,9 @@
 
   .index-box {
     background: #FAF6EE; border: 1px solid #C5A55A;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
-  .index-box ol { margin: 5px 0; padding-right: 25px; padding-left: 0; }
+  .index-box ol { margin: 5px 0; padding-left: 25px; padding-right: 0; }
   .index-box li { margin-bottom: 5px; }
 
   h3.sugya {
@@ -237,7 +228,6 @@
     font-size: 12pt;
     text-decoration: none;
     border-bottom: 1px dotted #C5A55A;
-    direction: rtl;
   }
   a.daat-explain:hover { color: #8a6a1a; border-bottom-style: solid; }
 
@@ -289,7 +279,7 @@
   "headline": "Siman קצ״ו · Niveau 2 Lamdan — Pilpoul approfondi · הפסק טהרה, ז' נקיים ובדיקות",
   "description": "Niveau 2 (Lamdan) du Siman קצ״ו (Yoreh De'ah) — Pilpoul approfondi sur le hefsek tahara et les sept jours propres. Nature du hefsek tahara et sa proximité de בין השמשות, מוך דחוק et מחלוקת הרשב״א והרמב״ן, mesure de la בדיקה et son tissu, רצופים et סתירה, פולטת שכבת זרע et ו' עונות, et le אין אנו בקיאין du Rama — חקירה et נפקא מינה.",
   "url": "https://daattorah.com/yd/196/lamdan",
-  "inLanguage": "he-IL",
+  "inLanguage": "fr-FR",
   "isAccessibleForFree": true,
   "author": {
     "@id": "https://daattorah.com/#rav-samama"
@@ -314,7 +304,7 @@
     <a href="/yd/196/lamdan/he" hreflang="he">HE</a>
     <a href="/yd/196/lamdan/en" hreflang="en">EN</a>
   </div>
-<button class="print-btn" onclick="window.print()">🖨️ הדפסה</button>
+<button class="print-btn" onclick="window.print()">🖨️ Imprimer</button>
 <!-- ═══════════════════════════════════════════════════════════════
      BANDEAU DE DÉDICACE — injecté automatiquement en haut du <body>
      de chaque page de siman (index / niveau-1..4) par
@@ -399,33 +389,33 @@
 <!-- COUVERTURE -->
 <div class="cover">
   <div class="ornament">✦ ❖ ✦</div>
-  <div class="badge-top">DAAT · רמה ב' — לַמְדָּן</div>
-  <h1>שולחן ערוך · יורה דעה</h1>
-  <div class="subtitle">דיני הפסק טהרה, שבעה נקיים ובדיקות — עיון ופלפול</div>
+  <div class="badge-top">DAAT · NIVEAU 2 — LAMDAN</div>
+  <h1>Choulhan Aroukh · Yoré Déa</h1>
+  <div class="subtitle">Le hefsek tahara, les sept jours propres et les bedikot — étude et pilpoul</div>
 
   <div class="he-title">סימן קצ״ו</div>
   <div class="he-sub">הפסק טהרה, מוך דחוק, שיעור הבדיקה, רצופים וסתירה, ופולטת שכבת זרע</div>
   <div class="he-subject">עיון, פלפול, שיטות הראשונים והאחרונים</div>
 
-  <div class="level-badge">⚡ ללומדים ותלמידי חכמים ⚡</div>
+  <div class="level-badge">⚡ Pour lamdanim et talmidei hakhamim ⚡</div>
 
   <div class="ornament">✦ ❖ ✦</div>
 
-  <h2 style="margin-top:20px; color: #1A1F3A;">פלפול ועיון מעמיק</h2>
+  <h2 style="margin-top:20px; color: #1A1F3A;">Pilpoul et étude approfondie</h2>
   <p style="font-size:12pt; color:#555;">
-    סוגיות, מקורות, חקירת היסוד, מחלוקות ראשונים ואחרונים,<br>
-    נפקא מינות להלכה ועיון בשיטות
+    Sougyot, sources, la ’hakira de fond, ma’hlokot de Richonim et d’A’haronim,<br>
+    nafka minot pour la halakha et examen des chitot
   </p>
 
   <div class="credits">
-    <p><strong>הנושא :</strong><br>
-    שולחן ערוך יורה דעה סימן קצ״ו (י״ג סעיפים)<br>
-    עם נושאי כלים: ש״ך (שפתי כהן), ט״ז (טורי זהב), פתחי תשובה</p>
+    <p><strong>Le sujet :</strong><br>
+    שולחן ערוך יורה דעה סימן קצ״ו — treize seifim<br>
+    avec l’appareil : ש״ך (שפתי כהן) · ט״ז (טורי זהב) · פתחי תשובה</p>
 
-    <p><strong>יסוד הסוגיא בש״ס :</strong><br>
-    נדה ס״ח–ס״ט (ספירת שבעה נקיים, "תספור בטהרה") · נדה י״א–י״ב (בדיקות וחורין וסדקין) · שבת פ״ו. (פולטת שכבת זרע, "אין אשה מטהרת") · יסוד "וספרה לה" שתהא ספירה לטהרה</p>
+    <p><strong>Le fond de la sougya dans le Chas :</strong><br>
+    נדה ס״ח ע״ב — le compte des sept jours propres, et la michna de Rabbi Yehouda sur celle qui <span class="he-q">הִפְרִישָׁה בְּטָהֳרָה</span> ; נדה י״א–י״ב — les bedikot ; שבת פ״ו ע״א — <span class="he-q">פוֹלֶטֶת שִׁכְבַת זֶרַע</span> ; et le verset <span class="he-q">וְסָפְרָה לָּהּ שִׁבְעַת יָמִים</span> (ויקרא ט״ו:כ״ח), que la guemara lit <span class="he-q">לְעַצְמָהּ</span> (כתובות ע״ב ע״א) : elle compte pour elle-même</p>
 
-    <p><strong>עריכה ועיון :</strong><br>
+    <p><strong>Rédaction et étude :</strong><br>
     הרב יוסף חיים סממה · DAAT</p>
   </div>
 </div>
@@ -433,445 +423,469 @@
 <div class="page-break"></div>
 
 <!-- TABLE DES MATIÈRES -->
-<h2 class="section-title">📑 תוכן העניינים</h2>
+<h2 class="section-title">📑 Table des matières</h2>
 
-<div class="index-box" dir="rtl">
+<div class="index-box">
 <ol>
-  <li><strong>הקדמת הסוגיא</strong> — "תפסוק בטהרה", מנין השבעה ממחרת, ויסוד "ספירה לטהרה" (סעיף א')</li>
-  <li><strong>הפסק טהרה ומהותו</strong> — סמוך לבין השמשות; מוך דחוק ביום אחד, ומחלוקת הרשב״א והרמב״ן, ובדיעבד דרמ״א (סעיפים א'–ב')</li>
-  <li><strong>לבישת לבנים והתחלת המנין</strong> — חלוק בדוק, סדינים, ומנהג הרחיצה והלבנים (סעיף ג')</li>
-  <li><strong>בדיקות השבעה ושיעורן</strong> — שתיים ביום לכתחילה, אחת בדיעבד, ובחזקת טמאה עד הפסק; וריבוי בדיקות (סעיפים ד'–ה', ט')</li>
-  <li><strong>הכלי והכשרת הבדיקה</strong> — פשתן ישן, חורין וסדקין "עד מקום שהשמש דש"; סומא, חרשת ושוטה (סעיפים ו'–ח')</li>
-  <li><strong>רצופים, סתירה ופולטת שכבת זרע</strong> — ראייה סותרת אפילו ביום ז'; קולת הרמ״א בכתם; ו' עונות ומנין יום ה'; טעות במנין; ואין אנו בקיאין (סעיפים י'–י״ג)</li>
-  <li><strong>חקירה ונפקא מינה למעשה</strong></li>
-  <li><strong>טבלאות סיכום מקיפות</strong></li>
+  <li><strong>Introduction de la sougya</strong> — <span class="he-q">שתפסוק בטהרה</span>, le compte des sept à partir du lendemain, et le principe d’un compte ouvert sur une pureté établie (seif 1)</li>
+  <li><strong>Le hefsek tahara et sa nature</strong> — au plus près de בין השמשות ; le מוך דחוק quand elle n’a vu qu’un seul jour, la ma’hloket du Rachba et du Ramban, et le bedieved du Rama (seifim 1–2)</li>
+  <li><strong>Les lbanim et le début du compte</strong> — chemise vérifiée, draps vérifiés, et l’usage du lavage et des vêtements blancs (seif 3)</li>
+  <li><strong>Les bedikot des sept jours et leur mesure</strong> — deux par jour lekhat’hila, une seule bedieved, et בחזקת טמאה tant qu’il n’y a pas eu de hefsek ; multiplier les bedikot (seifim 4–5, 9)</li>
+  <li><strong>Le tissu et ce qui rend la bedika valable</strong> — lin blanc usé, recoins et replis <span class="he-q">עד מקום שהשמש דש</span> ; l’aveugle, la sourde-muette et la choteh (seifim 6–8)</li>
+  <li><strong>Jours consécutifs, setira et פולטת שכבת זרע</strong> — une vue annule même au soir du septième jour ; le ketem dans les trois premiers jours selon le Rama ; les six onot et le compte à partir du cinquième jour ; l’erreur de compte ; et אין אנו בקיאין (seifim 10–13)</li>
+  <li><strong>’Hakira et nafka mina pour la pratique</strong></li>
+  <li><strong>Tableaux récapitulatifs</strong></li>
 </ol>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<!-- לשון השולחן ערוך — סעיף א' -->
-<h2 class="section-title">📜 לשון השולחן ערוך — סעיף א'
-  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 העתק</button>
+<!-- Le texte du Choulhan Aroukh — seif 1 -->
+<h2 class="section-title">📜 Le texte du Choulhan Aroukh — seif 1
+  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 Copier</button>
 </h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ Explication détaillée (niveau 1)</a>
 
 <div class="sacred-text he" data-copy-block id="cp-1">
-  <p>שִׁבְעַת יָמִים שֶׁהָאִשָּׁה סוֹפֶרֶת מַתְחִילִין מִמָּחֳרַת יוֹם שֶׁפָּסְקָה בּוֹ. וְכָךְ מִשְׁפָּטָהּ: אִם תִּרְאֶה שְׁנֵי יָמִים אוֹ שְׁלֹשָׁה וּפָסְקָה מִלִּרְאוֹת — בּוֹדֶקֶת בַּיּוֹם שֶׁפָּסְקָה כְּדֵי <span class="he-q">שֶׁתִּפְסוֹק בְּטָהֳרָה</span>; וּבְדִיקָה זוֹ תְּהֵא <span class="he-q">סָמוּךְ לְבֵין הַשְּׁמָשׁוֹת</span> (וְכֵן נוֹהֲגִין לְכַתְּחִלָּה).</p>
+<p><strong>שבעת ימים שהזבה סופרת מתחילין ממחרת יום שפסקה בו וכך משפטה אם תראה ב׳ ימים או ג׳ ופסקה מלראות בודקת ביום שפסקה כדי <span class="he-q">שתפסוק בטהרה</span> <span class="he-q">ובדיקה זו תהיה סמוך לבין השמשות</span></strong> <small>(וכן נוהגין לכתחלה ובדיעבד אפילו לא בדקה עצמה רק שחרית ומצאה עצמה טהורה סגי בכך …) </small> <strong>ולעולם ילמד אדם</strong> <small>(להחמיר לכתחלה) </small> <strong>בתוך ביתו שתהא בודקת ביום הפסק טהרתה במוך דחוק ושיהא שם כל בין השמשות שזו הבדיקה מוציאה מידי כל ספק</strong></p>
 </div>
+<p style="font-size:10pt;color:#5a4a1a;"><em>Les passages en petits caractères sont les gloses que Sefaria insère à l’intérieur du seif : elles sont du Rama, non du Mehaber.</em></p>
 
 <!-- ============================================================= -->
-<h2 class="section-title">1. הקדמת הסוגיא — "תפסוק בטהרה" ויסוד ספירה לטהרה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">1. Introduction de la sougya — <span class="he-q">שתפסוק בטהרה</span> et le principe d’un compte ouvert sur la pureté</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">היסוד — מנין ממחרת ו"שתפסוק בטהרה"
-  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 העתק</button>
+<h3>Le fondement — le compte à partir du lendemain, et <span class="he-q">שתפסוק בטהרה</span>
+  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 Copier</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-2">
-יסוד הסימן: כדי שתעלה לה ספירת <strong>שבעה נקיים</strong> ותהא ראויה לטבילה, שני תנאים יסודיים: (א) המנין <span class="he-q">מתחיל ממחרת יום שפסקה</span> — לא מיום הפסיקה עצמו, שאותו יום אינו עולה למנין; (ב) קודם המנין צריכה <strong>הפסק טהרה</strong> — בדיקה ביום שפסקה <span class="he-q">שתפסוק בטהרה</span>, שתדע בבירור שכלתה הראייה. ולמדנו: אין הספירה ספירה אלא אם נפתחה בטהרה ידועה — וזהו שורש כל פרשת הבדיקות שבסימן.
+<div data-copy-block id="cp-2">
+<p>Fondement du siman : pour que le compte des <strong>sept jours propres</strong> lui soit acquis et qu’elle soit apte à la tevila, deux conditions. <strong>(a)</strong> Le compte <span class="he-q">מתחילין ממחרת יום שפסקה בו</span> <span class="source-ref">(שו״ע יו״ד קצ״ו:א)</span> — c’est-à-dire à partir du lendemain, le jour de l’arrêt lui-même n’entrant pas dans le compte. <strong>(b)</strong> Avant le compte il faut un <strong>hefsek tahara</strong> : une bedika, le jour où elle a cessé, <span class="he-q">שתפסוק בטהרה</span> <span class="source-ref">(שו״ע יו״ד קצ״ו:א)</span> — afin qu’elle sache avec certitude que la vue a pris fin.</p>
+<p>De là ce que tout le siman déploie : il n’y a de compte que s’il s’ouvre sur une pureté établie — et c’est la racine de toute la série des bedikot qui suit.</p>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שורש "ספירה לטהרה" :</strong> דרשו חכמים (נדה ס״ט; ספרא) "<span class="he-q">וספרה לה</span>" — שתהא <em>סופרת לעצמה</em> ימים נקיים, ובעינן שתהא הספירה לטהרה; ומכאן ש<strong>בדיקת ההפסק</strong> אינה רק זהירות בעלמא אלא <span class="he-q">מכשירת הספירה</span>: בלא הפסק בטהרה, אין כאן התחלת מנין כלל (וכמפורש בס״ה — בחזקת טמאה עד שתפסוק). הרי שהבדיקה הראשונה היא <strong>תנאי במנין</strong>, ושאר הבדיקות (של השבעה) הן קיום הספירה ושמירתה.
+<div class="pilpul-box">
+<strong>La racine d’un <em>compte pour la pureté</em>.</strong> Le verset dit <span class="he-q">וְסָפְרָה לָּהּ שִׁבְעַת יָמִים</span> <span class="source-ref">(ויקרא ט״ו:כ״ח)</span>, et la guemara le lit <span class="he-q">לְעַצְמָהּ</span> <span class="source-ref">(כתובות ע״ב ע״א)</span> : c’est elle qui compte, pour elle-même. Les poskim en tirent que la bedika du hefsek n’est pas une simple précaution mais ce qui <strong>rend le compte possible</strong> : sans un arrêt constaté dans la pureté, il n’y a pas de commencement de compte du tout. Le Choulhan Aroukh le dit lui-même au seif 5 — <span class="he-q">בחזקת טמאה עד שתפסוק בטהרה</span> <span class="source-ref">(שו״ע יו״ד קצ״ו:ה)</span>. La première bedika est donc une <strong>condition du compte</strong> ; celles des sept jours en sont l’accomplissement et la garde.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>מקור הסוגיא — נדה ס״ח–ס״ט :</strong> דין ספירת שבעה נקיים והפסק טהרה יסודו בש״ס נדה (פרק "בנות כותים" וסביבותיו), ובדברי הראשונים (רא״ש, רשב״א בתורת הבית, רמב״ן בהלכות נדה, טור) — שביארו שיעור הבדיקות, הכלי, והסמיכות לבין השמשות. הבית יוסף ליקט שיטותיהם, וקבע המחבר ש<strong>בדיקה זו תהא סמוך לבין השמשות</strong> — לכתחילה — כדי שתתברר טהרתה עד סוף היום ממש.
+<div class="rishon-card">
+<strong>Source de la sougya — נדה ס״ח ע״ב.</strong> Le din du compte des sept jours propres et du hefsek tahara a sa racine dans la guemara de נדה, autour de la michna de Rabbi Yehouda sur celle qui <span class="he-q">הִפְרִישָׁה בְּטָהֳרָה</span> ; puis dans les Richonim — Roch, Rachba dans תורת הבית, Ramban, Tour — qui ont précisé la mesure des bedikot, le tissu et la proximité de בין השמשות. Le Beit Yossef a rassemblé leurs chitot, et le Mehaber a tranché : «&nbsp;<span class="he-q">ובדיקה זו תהיה סמוך לבין השמשות</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קצ״ו:א)</span>, au plus près de la fin du jour, pour que sa pureté soit établie jusqu’au bout.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">2. הפסק טהרה ומהותו — סמוך לבין השמשות והמוך הדחוק</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">2. Le hefsek tahara et sa nature — סמוך לבין השמשות et le מוך דחוק</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זהו לב הסימן: מהותו של ה"הפסק טהרה", זמנו הראוי, ודין המוך הדחוק כשראתה יום אחד בלבד.</p>
+<p style="margin:15px 0; font-style:italic;">C’est le cœur du siman : ce qu’est au juste le <em>hefsek tahara</em>, son moment propre, et le din du מוך דחוק lorsqu’elle n’a vu qu’un seul jour.</p>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ב')
-  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 העתק</button>
+<h3>Le texte du Mehaber et du Rama (seif 2)
+  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-3">
-"<strong>ראתה יום אחד בלבד ופסקה בו ביום — צריכה לבדוק עצמה במוך דחוק, ושיהא שם כל בין השמשות</strong> (הגה: ובדיעבד, אם בדקה עצמה סמוך לבין השמשות ומצאה עצמה טהורה — אף על פי שלא היה המוך אצלה כל בין השמשות — סגי. טור בשם הרשב״א, וה״ה בשם הרמב״ן, וב״י)."
+<p><strong>ראתה יום אחד בלבד ופסקה בו ביום צריכה לבדוק עצמה במוך דחוק ושיהא שם כל בין השמשות</strong> <small>(הגה: ובדיעבד אם בדקה עצמה סמוך לבין השמשות ומצאה עצמה טהורה אע״פ שלא היה המוך אצלה כל בין השמשות סגי (טור בשם הרשב״א וה״ה בשם רמב״ן וב״י להרמב״ם וכ״מ בש״ס) … אבל בדיקת שחרית לא מהני הואיל ולא ראתה רק יום אחד)</small></p>
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — מהו "הפסק טהרה" :</strong> האם בדיקת ההפסק היא <strong>בירור</strong> בעלמא (שמברר שכבר אין דם), או <strong>מעשה המכשיר</strong> שבלעדיו אין התחלת מנין ? מן הסעיף הראשון (סמוך לבין השמשות) ומן הסעיף החמישי (בחזקת טמאה עד שתפסוק) משמע שהיא <span class="he-q">מכשירה</span> ולא רק מבררת; ולפיכך הצריכו שתהא <strong>סמוך לבין השמשות</strong> — בסוף היום ממש — שלא תיכשל בראייה שלאחריה באותו יום.
+<div class="hakira-box">
+<strong>La ’hakira — qu’est-ce qu’un <em>hefsek tahara</em> ?</strong> La bedika du hefsek est-elle une <strong>constatation</strong> (elle établit qu’il n’y a plus de sang), ou un <strong>acte qui rend apte</strong>, sans lequel aucun compte ne commence ? Du seif 1 — la bedika doit être «&nbsp;<span class="he-q">ובדיקה זו תהיה סמוך לבין השמשות</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קצ״ו:א)</span> — et du seif 5 — <span class="he-q">בחזקת טמאה עד שתפסוק בטהרה</span> <span class="source-ref">(שו״ע יו״ד קצ״ו:ה)</span> — il ressort qu’elle rend apte et ne fait pas que constater. C’est pourquoi on l’a exigée à la toute fin du jour : pour qu’une vue survenant plus tard ce même jour ne vienne pas la démentir.
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>שורש המחלוקת — מוך דחוק כל בין השמשות (הרשב״א והרמב״ן) :</strong>
+<div class="machloket-box">
+<strong>La racine de la ma’hloket — le מוך דחוק pendant tout בין השמשות :</strong>
 <table>
-<tr><th>שיטה</th><th>שיעור הבדיקה ביום אחד</th><th>מקור</th></tr>
+<tr><th>Chita</th><th>La mesure de la bedika quand elle n’a vu qu’un jour</th><th>Source</th></tr>
 <tr>
-  <td><strong>המחבר (עיקר הדין)</strong></td>
-  <td>הראתה יום אחד ופסקה בו ביום — צריכה <strong>מוך דחוק כל בין השמשות</strong>, שהוא ספק יום ספק לילה, ובעינן בירור גמור</td>
+  <td><strong>Le Mehaber (le din lui-même)</strong></td>
+  <td>Elle a vu un seul jour et a cessé le jour même : il lui faut un <strong>מוך דחוק</strong> qui demeure <strong>pendant tout בין השמשות</strong> — temps de doute, jour ou nuit, où l’on exige une clarification entière</td>
   <td>מחבר ס״ב</td>
 </tr>
 <tr>
-  <td><strong>הרשב״א והרמב״ן (בדיעבד, רמ״א)</strong></td>
-  <td>בדקה <strong>סמוך לבין השמשות</strong> ומצאה טהורה — <span class="he-q">סגי</span> אף בלא מוך כל בין השמשות</td>
-  <td>טור בשמם; רמ״א ס״ב</td>
+  <td><strong>Rachba et Ramban (bedieved, selon le Rama)</strong></td>
+  <td>Elle a fait la bedika <strong>au plus près de בין השמשות</strong> et s’est trouvée pure — <span class="he-q">סגי</span>, cela suffit, même sans מוך pendant tout בין השמשות</td>
+  <td>טור בשמם ; רמ״א ס״ב</td>
 </tr>
 </table>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>סברת המוך הדחוק :</strong> מי שראתה יום אחד בלבד טעונה זהירות יתרה — שמא הדם מצוי עדיין, ולפיכך הצריכוה <span class="he-q">מוך דחוק</span> (תחוב היטב) <strong>הנשאר כל בין השמשות</strong>, שהוא זמן הספק; שאם תמצא טהורה לאחר כל בין השמשות, נתברר למפרע שפסקה. אבל הרשב״א והרמב״ן סברו (וכן פסק הרמ״א ב<strong>דיעבד</strong>) שדי בבדיקת <em>הפסק</em> סמוך לבין השמשות, שהיא עצמה מבררת; ולא הצריכו את שהיית המוך אלא לכתחילה. ונמצא ההבדל ביניהם: אם המוך הוא <strong>עיקר הבירור</strong> (מחבר) או <strong>חיזוק לכתחילה</strong> (רמ״א בדיעבד).
+<div class="pilpul-box">
+<p><strong>Le raisonnement du מוך דחוק.</strong> Celle qui n’a vu qu’un seul jour appelle une vigilance supplémentaire — le sang peut encore se trouver là — et c’est pourquoi on lui a demandé un <span class="he-q">במוך דחוק</span> <span class="source-ref">(שו״ע יו״ד קצ״ו:ב)</span>, bien enfoncé, <strong>demeurant pendant tout בין השמשות</strong>, qui est le temps du doute : si elle se trouve pure au terme de tout בין השמשות, il est établi rétroactivement qu’elle avait cessé. Le Rachba et le Ramban ont tenu — et le Rama l’a retenu <strong>bedieved</strong> — qu’une bedika de <em>hefsek</em> au plus près de בין השמשות clarifie déjà par elle-même ; ils n’ont exigé le séjour du מוך que lekhat’hila. La différence est donc celle-ci : le מוך est-il <strong>l’essentiel de la clarification</strong> (Mehaber) ou un <strong>renfort lekhat’hila</strong> (Rama, bedieved) ?</p>
+<p>Mais le Rama ajoute aussitôt une limite, et elle est décisive pour la lecture de la ma’hloket : <span class="he-q">אבל בדיקת שחרית לא מהני הואיל ולא ראתה רק יום אחד</span> <span class="source-ref">(רמ״א יו״ד קצ״ו:ב)</span>. La bedika du matin, qui suffit bedieved au seif 1 <span class="source-ref">(רמ״א יו״ד קצ״ו:א)</span>, ne suffit pas ici. Le Taz en donne la raison — <span class="he-q">הטעם הואיל ומעיינה פתוח ביום ההוא</span> <span class="source-ref">(ט״ז יו״ד קצ״ו ס״ק ב)</span> — et le Chakh écrit de même <span class="he-q">ומעיינה פתוח</span> <span class="source-ref">(ש״ך יו״ד קצ״ו ס״ק ו)</span> : ce jour-là, la source est encore ouverte. Le Pit’hei Techouva rapporte au nom du Dagoul Merevava que ce n’est pas la bedika du matin en particulier : <span class="he-q">דלאו דוקא בדיקת שחרית אלא כל שהיתה קודם מנחה קטנה לא מהני ביום הראשון</span> <span class="source-ref">(פת״ש יו״ד קצ״ו ס״ק ב)</span>.
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה :</strong> ראתה יום אחד ופסקה, ובדקה סמוך לבין השמשות ומצאה טהורה אך לא הניחה מוך כל בין השמשות — לפי עיקר דין המחבר (לכתחילה) חסר, ולפי הרמ״א <strong>בדיעבד סגי</strong>. ועוד: בראתה שניים או שלושה ימים ופסקה — לכל השיטות די בבדיקת הפסק סמוך לבין השמשות, ואין צורך במוך כל בין השמשות (שהוא חומרת יום אחד דווקא). <em>ולמעשה — שאל את רבך / מורת כלה.</em>
+<div class="nafka-mina-box">
+<strong>Nafka mina.</strong> Elle a vu un seul jour et a cessé ; elle a fait la bedika au plus près de בין השמשות et s’est trouvée pure, mais n’a pas laissé de מוך pendant tout בין השמשות : selon le din du Mehaber il manque quelque chose lekhat’hila, et selon le Rama <strong>bedieved cela suffit</strong>. En outre : lorsqu’elle a vu deux ou trois jours puis a cessé, une bedika de hefsek au plus près de בין השמשות suffit pour toutes les chitot, sans מוך pendant tout בין השמשות — cette rigueur ne vise que le cas du jour unique. <em>Et pour la pratique — demandez à votre rav / à la morat kala.</em>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>אחרונים בגדר ההפסק (ט״ז ס״ק א–ג; ש״ך ס״ק א) :</strong> הט״ז דקדק בשיעור "סמוך לבין השמשות" ובדין המוך הדחוק, וכן הסדרי טהרה (ס״ק ב–ה) האריך בגדרי הבדיקה הזאת. הש״ך והפתחי תשובה הביאו דברי האחרונים — שראוי לבדוק קודם שקיעה ממש, ושאם עבר זמן בין השמשות ולא בדקה, יש לדון בכל מקרה לגופו. <em>ולמעשה — שאל את רבך / מורת כלה.</em>
+<div class="rishon-card">
+<strong>L’appareil sur la nature du hefsek.</strong> Le Chakh, au ס״ק א, glose les mots <span class="he-q">שתפסוק בטהרה</span> du Mehaber en deux mots — <span class="he-q">בין השמשות</span> <span class="source-ref">(ש״ך יו״ד קצ״ו ס״ק א)</span> : c’est là que la bedika doit tomber. Sur le seif 2, le Taz <span class="source-ref">(ט״ז יו״ד קצ״ו ס״ק ב)</span> et le Chakh <span class="source-ref">(ש״ך יו״ד קצ״ו ס״ק ו)</span> donnent la même raison à la rigueur du jour unique, et le Chakh ajoute, au nom du מעדני מלך, que la nafka mina se trouve surtout quand elle revient à voir au milieu des jours du compte : «&nbsp;<span class="he-q">דכיון שלא ראתה רק יום א׳ בימי הספירה בדיקת שחרית לא מהני אפילו בדיעבד</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קצ״ו ס״ק ו)</span>. Le Pit’hei Techouva <span class="source-ref">(פת״ש יו״ד קצ״ו ס״ק ב)</span> élargit la limite au nom du Dagoul Merevava. Les Sidrei Tahara développent longuement les gedarim de cette bedika. <em>Et pour la pratique — demandez à votre rav / à la morat kala.</em>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">3. לבישת לבנים והתחלת המנין</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">3. Les lbanim et le début du compte</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ג')
-  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 העתק</button>
+<h3>Le texte du Mehaber et du Rama (seif 3)
+  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-4">
-"<strong>ביום שפסקה מלראות ובודקת עצמה כאמור — תלבש חלוק הבדוק לה שאין בו כתם, ובלילה תשים סדינים הבדוקים מכתמים, ומיום המחרת תתחיל לספור שבעה נקיים</strong> (הגה: ומנהג כשר הוא, כשהאשה פוסקת בטהרה — שתרחץ ולובשת לבנים; אמנם אם לא רחצה רק פניה של מטה — די בכך)."
+<p><strong>ביום שפסקה מלראות ובודקת עצמה כאמור תלבש חלוק הבדוק לה שאין בו כתם ובלילה תשים סדינים הבדוקים מכתמים ומיום המחרת תתחיל לספור שבעה נקיים</strong> <small>(הגה: ומנהג כשר הוא כשהאשה פוסקת בטהרה שתרחץ ולובשת לבנים אמנם אם לא רחצה רק פניה של מטה די בכך (מרדכי בשם רוקח) וכן נוהגין ואין לשנות…)</small></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — שמירת המנין מספק כתם :</strong><br>
-לאחר הפסק טהרה, צריכה לשמור שלא יִוָּצֵר ספק שיסתור את הספירה. ולכך:<br><br>
-• <span class="he-q">חלוק בדוק</span> — שלא יהא בו כתם קודם, שמא תתלה בו ספק ראייה.<br>
-• <span class="he-q">סדינים בדוקים</span> בלילה — שלא יבוא כתם לסתור.<br>
-• <span class="he-q">לבנים ורחיצה</span> (מנהג כשר, רמ״א) — שעל בגד לבן יתברר כל מראה, ואין בו לתלות; והרחיצה (ואם לא רחצה רק "פניה של מטה" די בכך — רמ״א יו״ד קצ״ו:ג) מסירה שיירי הדם.<br><br>
-והמנין עצמו <strong>מתחיל ממחרת</strong> — שיום ההפסק אינו עולה.
+<div class="yesod-box">
+<strong>Le fondement — garder le compte à l’abri d’un doute de ketem :</strong><br>
+Après le hefsek tahara, il faut veiller à ce que ne naisse pas un doute qui viendrait défaire le compte. D’où :<br><br>
+• <span class="he-q">חלוק הבדוק לה שאין בו כתם</span> <span class="source-ref">(שו״ע יו״ד קצ״ו:ג)</span> — une chemise vérifiée, sans ketem antérieur qu’elle pourrait prendre pour une vue.<br>
+• <span class="he-q">סדינים הבדוקים מכתמים</span> <span class="source-ref">(שו״ע יו״ד קצ״ו:ג)</span> — des draps vérifiés pour la nuit, qu’aucun ketem ne vienne défaire le compte.<br>
+• <span class="he-q">ומנהג כשר הוא</span> <span class="source-ref">(רמ״א יו״ד קצ״ו:ג)</span> — le lavage et les vêtements blancs : sur un tissu blanc toute teinte se voit et rien ne se prête à être attribué à autre chose ; et le lavage ôte les restes de sang. Le Rama ajoute que <span class="he-q">אם לא רחצה רק פניה של מטה די בכך</span> <span class="source-ref">(רמ״א יו״ד קצ״ו:ג)</span>.<br><br>
+Et le compte lui-même <strong>commence le lendemain</strong> : le jour du hefsek n’y entre pas.
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>מנהג הלבנים — תקנה או חובה :</strong> לשון הרמ״א "<span class="he-q">מנהג כשר</span>" מורה שאינו מעיקר הדין אלא מנהג טוב — ללבוש לבנים ולרחוץ בשעת ההפסק. וטעמו כפול: (א) ה<strong>לבן</strong> מעמיד את הבדיקה, שכל מראה יֵרָאֶה בו; (ב) ה<strong>רחיצה</strong> מסירה שיירי דם שעלולים להיראות אחר כך ולעורר ספק. ולפיכך, אף שהוא מנהג, נהגו בו כל בית ישראל, ורבים מן האחרונים (סדרי טהרה, חכמת אדם) הורו שלא להקל בו אלא בשעת הדחק. <em>ולמעשה — שאל את רבך / מורת כלה.</em>
+<div class="pilpul-box">
+<strong>L’usage des lbanim — coutume ou obligation ?</strong> Le mot du Rama, <span class="he-q">ומנהג כשר הוא</span> <span class="source-ref">(רמ״א יו״ד קצ״ו:ג)</span>, indique que la chose ne relève pas du din lui-même mais d’un bon usage : se laver et revêtir du blanc au moment du hefsek. Sa raison est double — <strong>le blanc</strong> soutient la bedika, car toute teinte s’y voit ; <strong>le lavage</strong> ôte les restes de sang susceptibles d’apparaître ensuite et d’éveiller un doute. Le Rama n’en fait pas pour autant une chose facultative : il écrit <span class="he-q">וכן נוהגין ואין לשנות</span> <span class="source-ref">(רמ״א יו״ד קצ״ו:ג)</span>. Et il donne lui-même la limite, dans le texte même du seif : en cas de שעת הדחק — une femme en voyage qui n’a pas de vêtements — elle peut compter ses sept jours propres pourvu que la chemise soit propre et vérifiée de sang. <em>Et pour la pratique — demandez à votre rav / à la morat kala.</em>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>אחרונים בדין הלבנים (פתחי תשובה ס״ק ד–ו; ש״ך) :</strong> הפתחי תשובה הביא דברי האחרונים בגדרי הרחיצה והלבנים — אם הרחיצה מעכבת או מנהג בעלמא, ומה דינה אם לא רחצה אלא פניה של מטה. הסדרי טהרה והחכמת אדם (הלכות נדה) הרחיבו, ונקטו שהרחיצה התחתונה לפחות ראויה לכתחילה. וערוך השולחן (ס״ג) ביאר שכל עיקרה לברר את הטהרה ולמנוע ספיקות. <em>ולמעשה — שאל את רבך / מורת כלה.</em>
+<div class="rishon-card">
+<strong>L’appareil sur les lbanim.</strong> Le Chakh, au ס״ק ז, renvoie ailleurs pour la question du jour où l’on revêt les lbanim : «&nbsp;<span class="he-q">וע״ל סי׳ קצ״ט ס״ק י״ב מדין לבישת לבנים בשבת ויו״ט וט״ב ואבילות ויוה״כ</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קצ״ו ס״ק ז)</span>. Le Pit’hei Techouva, au ס״ק ג, rapporte au nom du מעיל צדקה le cas d’une femme qui trouve un ketem pendant ses jours de libboun et refait un hefsek tahara <span class="source-ref">(פת״ש יו״ד קצ״ו ס״ק ג)</span>. L’Aroukh HaChoulhan traite le lavage et les lbanim à son seif 22 <span class="source-ref">(ערוך השולחן יו״ד קצ״ו:כ״ב)</span>. <em>Et pour la pratique — demandez à votre rav / à la morat kala.</em>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">4. בדיקות השבעה ושיעורן — לכתחילה ובדיעבד</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">4. Les bedikot des sept jours et leur mesure — lekhat’hila et bedieved</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיפים ד'–ה', ט')
-  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 העתק</button>
+<h3>Le texte du Mehaber (seifim 4–5, 9)
+  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-5">
-"<strong>בכל יום מז' ימי הספירה צריכה להיות בודקת — לכתחילה פעמיים בכל יום: אחת שחרית ואחת סמוך לבין השמשות. ואם לא בדקה בכל השבעה אלא פעם אחת — לא שנא בדקה ביום ראשון של השבעה או ביום השביעי או באחד מהאמצעים — מאחר שבדקה, עלתה לה הספירה.</strong> (ס״ה: בדקה עצמה ביום שפסקה ומצאה טמאה, ובדקה לאחר שלושה או ארבעה ימים ומצאה טהורה — הרי זו בחזקת טמאה עד שתפסוק בטהרה, שלעולם אינה סופרת עד שתבדוק אם פסקה, ואז מונה למחרתו. ס״ט: האשה שמרבה לבדוק — בין בימי ספירתה בין בימים שלא ראתה — הרי זו משובחת, אף על פי שיש לה וסת קבוע.)"
+<p><strong>בכל יום מז׳ ימי הספירה צריכה להיות בודקת לכתחלה פעמים בכל יום אחת שחרית וא׳ סמוך לבין השמשות ואם לא בדקה בכל השבעה אלא פעם אחת לא שנא בדקה ביום ראשון של השבעה או ביום השביעי או בא׳ מהאמצעים מאחר שבדקה ביום שקודם השביעי ומצאה טהורה עלו לה אבל אם לא בדקה בכל הז׳ וביום השמיני בדקה ומצאה טהורה אין לה אלא יום ח׳ בלבד ומשלמת עליו וי״א שצריך שתבדוק ביום ראשון מהשבעה וביום השביעי ואין להקל</strong> <small>(הגה: והבדיקה תהיה לאור היום ולא לאור הנר … ובדיעבד מהני אפילו לאור הנר)</small></p><p><strong>ס״ה.</strong> בדקה עצמה ביום שפסקה מלראות ומצאה טמאה ובדקה לאחר שלשה או ד׳ ימים ומצאה טהורה ה״ז בחזקת טמאה עד שתפסוק בטהרה שלעולם אינה סופרת עד שתבדוק אם פסקה ואז מונה למחרתו</p><p><strong>ס״ט.</strong> האשה שמרבה לבדוק בין בימי ספירתה בין בימים שלא ראתה בהם הרי זו משובחת אף על פי שיש לה וסת קבוע</p>
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>שיעור הבדיקות — לכתחילה ובדיעבד :</strong>
+<div class="machloket-box">
+<strong>La mesure des bedikot — lekhat’hila et bedieved :</strong>
 <table>
-<tr><th>אופן</th><th>הדין</th><th>מקור</th></tr>
+<tr><th>Cas</th><th>Le din</th><th>Source</th></tr>
 <tr>
-  <td><strong>לכתחילה</strong></td>
-  <td>שתי בדיקות בכל יום — שחרית וסמוך לבין השמשות</td>
+  <td><strong>Lekhat’hila</strong></td>
+  <td>Deux bedikot chaque jour — une le matin, une au plus près de בין השמשות</td>
   <td>מחבר ס״ד (טור בשם סה״ת)</td>
 </tr>
 <tr>
-  <td><strong>בדיעבד</strong></td>
-  <td>בדיקה אחת בלבד בכל השבעה (ראשון / שביעי / אמצעי) — עלתה הספירה</td>
+  <td><strong>Bedieved</strong></td>
+  <td>Une seule bedika dans les sept jours — premier, septième, ou l’un des jours intermédiaires — <em>à la condition que le Choulhan Aroukh énonce lui-même</em> : <span class="he-q">מאחר שבדקה ביום שקודם השביעי ומצאה טהורה עלו לה</span></td>
   <td>מחבר ס״ד</td>
 </tr>
 <tr>
-  <td><strong>מרבה לבדוק</strong></td>
-  <td>הרי זו <span class="he-q">משובחת</span>, אף בעלת וסת קבוע</td>
+  <td><strong>Une opinion plus exigeante, dans le texte même du Mehaber</strong></td>
+  <td><span class="he-q">וי״א שצריך שתבדוק ביום ראשון מהשבעה וביום השביעי ואין להקל</span></td>
+  <td>מחבר ס״ד</td>
+</tr>
+<tr>
+  <td><strong>Celle qui multiplie les bedikot</strong></td>
+  <td><span class="he-q">הרי זו משובחת</span>, même si elle a un וסת קבוע</td>
   <td>מחבר ס״ט</td>
 </tr>
 </table>
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>חקירה — מהו עיקר הבדיקה הנדרשת :</strong> אם בדיעבד די בבדיקה <em>אחת</em> בכל השבעה, נמצא שאין הבדיקה היומית מעכבת את הספירה אלא לכתחילה; ומכל מקום צריכה בדיקה <strong>בתחילת השבעה ובסופן</strong> לכל הפחות (וכמבואר בש״ך ובאחרונים). וצריך עיון: מהו השורש — האם הבדיקה <span class="he-q">מבררת</span> שלא ראתה (וביום שלא בדקה תולין שלא ראתה), או <span class="he-q">מכשירה</span> כל יום ? ומלשון "מאחר שבדקה עלתה לה הספירה" משמע שהבירור היחיד מעמיד את כולן בחזקת נקיים.
+<div class="hakira-box">
+<strong>’Hakira — quelle est au juste la bedika requise ?</strong> Si, bedieved, <em>une seule</em> bedika dans les sept jours suffit, il apparaît que la bedika quotidienne n’est pas me‘akev le compte mais seulement lekhat’hila. Reste la question de fond : la bedika <strong>constate</strong> qu’elle n’a pas vu — et les jours non vérifiés se tiennent alors sur une présomption — ou bien <strong>rend apte</strong> chaque jour pris à part ? Le Choulhan Aroukh ne pose pas la question en ces termes, mais sa formule oriente : <span class="he-q">מאחר שבדקה ביום שקודם השביעי ומצאה טהורה עלו לה</span> <span class="source-ref">(שו״ע יו״ד קצ״ו:ד)</span> — ce n’est pas une bedika quelconque qui vaut, c’en est une placée <em>avant le septième</em> et qui a trouvé la pureté ; une seule constatation, bien placée, établit l’ensemble. Et le Mehaber rapporte aussitôt, dans le même seif, une opinion qui exige le premier et le septième jour — <span class="he-q">וי״א שצריך שתבדוק ביום ראשון מהשבעה וביום השביעי ואין להקל</span> <span class="source-ref">(שו״ע יו״ד קצ״ו:ד)</span>. <strong>Nous rapportons, et nous ne tranchons pas.</strong>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>"בחזקת טמאה עד שתפסוק" (ס״ה) — אין מנין בלא הפסק :</strong> בדקה ביום שפסקה ומצאה <strong>טמאה</strong>, ולאחר ימים מצאה טהורה — אינה מצרפת את הימים שביניהם, אלא <span class="he-q">בחזקת טמאה</span> עד שתעשה הפסק טהרה אמיתי, ואז מונה ממחרתו. וזה מחזק את היסוד שאמרנו (§1): <strong>אין ספירה בלא הפסק בטהרה</strong> — שכל המנין נפתח בהפסק, ובלעדיו לא חל מנין כלל, ואין הימים שבין טמא לטהור מצטרפין. ולפיכך אף "מרבה לבדוק משובחת" (ס״ט) — לרווחא דמילתא, להוסיף בירור, לא לעכב.
+<div class="pilpul-box">
+<strong><span class="he-q">בחזקת טמאה עד שתפסוק בטהרה</span> (seif 5) — pas de compte sans hefsek.</strong> Elle a fait la bedika le jour où elle a cessé et s’est trouvée <strong>impure</strong>, puis s’est trouvée pure quelques jours plus tard : elle n’additionne pas les jours qui séparent les deux, mais demeure <span class="he-q">בחזקת טמאה עד שתפסוק בטהרה</span> <span class="source-ref">(שו״ע יו״ד קצ״ו:ה)</span> jusqu’à ce qu’elle fasse un véritable hefsek tahara, et elle compte alors à partir du lendemain. Cela renforce le fondement posé au §1 : <strong>il n’y a pas de compte sans un arrêt constaté dans la pureté</strong> — tout le compte s’ouvre sur le hefsek, sans lui il ne s’ouvre pas du tout, et les jours situés entre l’impur et le pur ne se joignent pas. C’est aussi pourquoi <em>celle qui multiplie les bedikot est louable</em> (seif 9) relève du surcroît de clarification, non de ce qui retient le compte.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>אחרונים בשיעור הבדיקות (ש״ך ס״ק ו–ז; ט״ז; פתחי תשובה ס״ק ז–ט) :</strong> הש״ך והט״ז דנו בבדיקה האחת שבדיעבד — שצריכה להיות סמוכה לסוף, ושראוי לכתחילה לבדוק בראשון ובשביעי. הסדרי טהרה והחכמת אדם (הלכות נדה) נקטו שלכל הפחות תבדוק ביום הראשון וביום השביעי; וכן פסקו פוסקי זמננו (ערוך השולחן ס״ד–ה). ובבעלת מכה או מי שקשה לה — דנו האחרונים בהקלות. <em>ולמעשה — שאל את רבך / מורת כלה.</em>
+<div class="rishon-card">
+<strong>L’appareil sur la mesure des bedikot.</strong> Le Chakh, au ס״ק ח, précise de quelle bedika unique il s’agit : <span class="he-q">תוך הז׳ נקיים מלבד הבדיק׳ דהפסק טהרה דלעיל סעיף א׳</span> <span class="source-ref">(ש״ך יו״ד קצ״ו ס״ק ח)</span> — elle est <em>dans</em> les sept, en plus de celle du hefsek tahara. Au ס״ק ט il étend le din du seif 5 : <span class="he-q">וה״ה אם ראתה ולא בדקה עצמה ביום שפסקה מלראות ובדקה לאחר ג׳ או ד׳ ימים ומצאה טהורה ה״ה בחזקת טמאה</span> <span class="source-ref">(ש״ך יו״ד קצ״ו ס״ק ט)</span>. Sur le seif 9 il renvoie ailleurs — <span class="he-q">וע״ל סימן קפ״ד ס״ק ד׳</span> <span class="source-ref">(ש״ך יו״ד קצ״ו ס״ק י״א)</span>. Le Pit’hei Techouva rapporte au ס״ק ו le Dagoul Merevava, <span class="he-q">דאפילו לא בדקה ביום ראשון ובדקה באחד מימים אמצעים וגם ביום שביעי גם הסמ״ג מודה שעלו לה</span>, puis, du même auteur dans ses תשובות, la position inverse — <span class="he-q">דדוקא ראשון ושביעי בעינן</span> <span class="source-ref">(פת״ש יו״ד קצ״ו ס״ק ו)</span> — et au ס״ק ז le ’Hatam Sofer sur le bedieved. L’appareil du Taz ne s’arrête pas sur ces seifim : ses entrées voisines portent sur les seifim 1 et 2, puis reprennent au seif 10. L’Aroukh HaChoulhan traite les bedikot des sept jours à ses seifim 23 à 26 <span class="source-ref">(ערוך השולחן יו״ד קצ״ו:כ״ג–כ״ו)</span>. <em>Et pour la pratique — demandez à votre rav / à la morat kala.</em>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">5. הכלי והכשרת הבדיקה — פשתן ישן וחורין וסדקין</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">5. Le tissu et ce qui rend la bedika valable — פשתן ישן et חורין וסדקין</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיפים ו'–ח')
-  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 העתק</button>
+<h3>Le texte du Mehaber (seifim 6–8)
+  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-6">
-"<strong>כל בדיקות אלו — בין בדיקת הפסק טהרה בין בדיקת כל השבעה — צריכות להיות בבגד פשתן לבן ישן, או בצמר גפן, או בצמר לבן נקי ורך; ותכניסנו באותו מקום בעומק, לחורים ולסדקים, עד מקום שהשמש דש, ותראה אם יש בו שום מראה אדמומית.</strong> (ס״ז: הסומא בודקת עצמה ומראה לחברתה. ס״ח: החרשת — אם שומעת ואינה מדברת או מדברת ואינה שומעת — הרי הן כפקחות; אבל אינה שומעת ואינה מדברת, וכן השוטה או שנטרפה דעתה מחמת חולי — צריכות פקחות לבדוק אותן ולקבוע להן וסתות, כדי שתהיינה מותרות לבעליהן.)"
+<p><strong>כל בדיקות אלו בין בדיקת הפסק טהרה בין בדיקת כל השבעה צריכות להיות בבגד פשתן לבן ישן או בצמר גפן או בצמר לבן נקי ורך ותכניסנו באותו מקום בעומק לחורים ולסדקים עד מקום שהשמש דש ותראה אם יש בו שום מראה אדמומית ולא שתכניסהו מעט לקנח עצמה ואם יקשה בעיניה מאד להכניסו כל כך בעומק לפחות בדיקה של יום הפסק טהרה ובדיקה של יום ראשון מהשבעה תהיינה עד מקום שהשמש דש</strong> <small>(הגה: מיהו בדיעבד אם לא עשתה כן כלל רק שבדקה עצמה יפה בחורין ובסדקין בעומק היטב כפי כחה אע״פ שלא הגיע למקום שהשמש דש סגי לה)</small></p><p><strong>ס״ז.</strong> הסומא בודקת עצמה ומראה לחבירתה</p><p><strong>ס״ח.</strong> החרשת ששומעת ואינה מדברת או שמדברת ואינה שומעת הרי הן כפקחות אבל אם אינה שומעת ואינה מדברת וכן השוטה או שנטרפה דעתה מחמת חולי צריכות פקחות לבדוק אותן ולקבוע להן וסתות כדי שתהיינה מותרות לבעליהן הוקבע להן וסת הרי הן כשאר כל הנשים לא הוקבע להן חוששות משלשים יום לשלשים יום ובודקות על ידי פקחות</p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — שלושה תנאים בכלי הבדיקה :</strong><br>
-• <span class="he-q">לבן וישן ורך</span> — פשתן ישן (שהוא רך ומגלה כל מראה), או צמר גפן, או צמר לבן נקי; <strong>הלובן</strong> מעמיד את הבדיקה, שכל אדמומית תֵּרָאֶה.<br>
-• <span class="he-q">עומק — עד מקום שהשמש דש</span> — שתכניסנו לחורין ולסדקין עד המקום שאיבר הזכר מגיע, שלא יישאר דם נסתר.<br>
-• <span class="he-q">בירור המראה</span> — תראה אם יש בו מראה אדמומית; ונבדק לאור היום (כמבואר באחרונים), שלא תטעה במראה.
+<div class="yesod-box">
+<strong>Le fondement — trois conditions dans l’instrument de la bedika :</strong><br>
+• <strong>Blanc, usé, doux</strong> — <span class="he-q">בבגד פשתן לבן ישן</span>, <span class="he-q">או בצמר גפן או בצמר לבן נקי ורך</span> <span class="source-ref">(שו״ע יו״ד קצ״ו:ו)</span> : c’est <strong>le blanc</strong> qui soutient la bedika, car toute rougeur s’y voit.<br>
+• <strong>La profondeur</strong> — <span class="he-q">לחורים ולסדקים</span>, <span class="he-q">עד מקום שהשמש דש</span> <span class="source-ref">(שו״ע יו״ד קצ״ו:ו)</span> : elle l’introduit jusqu’au lieu qu’atteint le rapport, afin qu’il ne reste pas de sang caché ; et le Mehaber précise <span class="he-q">ולא שתכניסהו מעט לקנח עצמה</span> <span class="source-ref">(שו״ע יו״ד קצ״ו:ו)</span>.<br>
+• <strong>L’examen de la teinte</strong> — elle regarde s’il s’y trouve quelque rougeur ; et cela se fait au jour : «&nbsp;<span class="he-q">והבדיקה תהיה לאור היום ולא לאור הנר</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד קצ״ו:ד)</span>, <span class="he-q">ובדיעבד מהני אפילו לאור הנר</span> <span class="source-ref">(רמ״א יו״ד קצ״ו:ד)</span>.
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>"עד מקום שהשמש דש" — שיעור העומק :</strong> שיעור זה (לשון הגמרא בנדה) הוא <strong>מידת חדירת הבדיקה</strong>: עד המקום שדרך תשמיש להגיע. וטעמו: דם הנמצא במקום שאינו נבדק — אינו "ראייה" שתסתור, שאינו במקום הראוי; ולפיכך הבדיקה צריכה להגיע <span class="he-q">עד שם</span> דווקא — לא פחות (שתחסר) ולא במשיכה כלאחר יד. ומכאן שהבדיקה דין מדוד יש לה, והאחרונים (ט״ז ס״ק ו; סדרי טהרה) האריכו בשיעור הכלי ובאופן ההכנסה.
+<div class="pilpul-box">
+<p><strong><span class="he-q">עד מקום שהשמש דש</span> — la mesure de la profondeur.</strong> Cette mesure, empruntée à la langue de la guemara de נדה, est <strong>la mesure de pénétration de la bedika</strong> : jusqu’au lieu où le rapport atteint. Sa raison : un sang qui se trouve en un lieu que la bedika n’atteint pas n’est pas une <em>vue</em> susceptible de défaire le compte, n’étant pas au lieu qui compte ; et c’est pourquoi la bedika doit arriver <em>jusque-là</em> précisément — ni moins, ni d’un geste superficiel, ce que le Mehaber dit en toutes lettres : <span class="he-q">ולא שתכניסהו מעט לקנח עצמה</span> <span class="source-ref">(שו״ע יו״ד קצ״ו:ו)</span>.</p>
+<p>Mais le Choulhan Aroukh pose lui-même la limite de l’exigence, dans le seif même : si cela lui est très difficile, <span class="he-q">לפחות בדיקה של יום הפסק טהרה ובדיקה של יום ראשון מהשבעה תהיינה עד מקום שהשמש דש</span> <span class="source-ref">(שו״ע יו״ד קצ״ו:ו)</span> — au moins celle du jour du hefsek et celle du premier des sept. Et le Rama ajoute le bedieved : <span class="he-q">מיהו בדיעבד אם לא עשתה כן כלל רק שבדקה עצמה יפה בחורין ובסדקין בעומק היטב כפי כחה אע״פ שלא הגיע למקום שהשמש דש סגי לה</span> <span class="source-ref">(רמ״א יו״ד קצ״ו:ו)</span>. La bedika a donc bien une mesure, mais la mesure a son propre bedieved.</p>
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>הבודקות שאינן יכולות לבדוק (ס״ז–ח) :</strong>
+<div class="machloket-box">
+<strong>Celles qui ne peuvent pas faire elles-mêmes la bedika (seifim 7–8) :</strong>
 <table>
-<tr><th>המקרה</th><th>הדין</th><th>הטעם</th></tr>
+<tr><th>Le cas</th><th>Le din</th><th>La raison</th></tr>
 <tr>
-  <td><strong>סומא</strong></td>
-  <td>בודקת עצמה ו<span class="he-q">מראה לחברתה</span></td>
-  <td>היא חשה ומכניסה, אך אינה רואה המראה</td>
+  <td><strong>L’aveugle (סומא)</strong></td>
+  <td>«&nbsp;<span class="he-q">הסומא בודקת עצמה ומראה לחבירתה</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קצ״ו:ז)</span></td>
+  <td>Elle sent et peut introduire, mais ne voit pas la teinte</td>
 </tr>
 <tr>
-  <td><strong>חרשת (שומעת/מדברת לבד)</strong></td>
-  <td>כפקחות — בודקת בעצמה</td>
-  <td>דעתה שלמה לבדוק ולהבחין</td>
+  <td><strong>La sourde ou la muette (l’un des deux seulement)</strong></td>
+  <td>הרי הן כפקחות — elle fait la bedika elle-même</td>
+  <td>Sa דעת est entière pour vérifier et discerner</td>
 </tr>
 <tr>
-  <td><strong>חרשת גמורה / שוטה / נטרפה דעתה</strong></td>
-  <td>פקחות בודקות אותן וקובעות להן וסתות</td>
-  <td>אין בהן דעת לבדוק ולשמור</td>
+  <td><strong>Sourde-muette / שוטה / שנטרפה דעתה מחמת חולי</strong></td>
+  <td>Des femmes en pleine possession de leur דעת les vérifient et leur fixent des וסתות</td>
+  <td>Il n’y a pas en elles la דעת de vérifier et de garder</td>
 </tr>
 </table>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>אחרונים בכלי ובבדיקה (ט״ז ס״ק ו; ש״ך; פתחי תשובה ס״ק י–י״ג) :</strong> הט״ז דקדק בתנאי הכלי (לבן, רך, ישן) ובשיעור החורין וסדקין; הש״ך וסדרי טהרה האריכו בעומק ההכנסה ובמראות. הפתחי תשובה הביא דברי האחרונים בבדיקה לאור היום ובמי שקשה לה לבדוק כראוי. ובדין הסומא והשוטה — ערוך השולחן (ס״ו–ח) והחכמת אדם ביארו את חובת ההשגחה עליהן. <em>ולמעשה — שאל את רבך / מורת כלה.</em>
+<div class="rishon-card">
+<strong>L’appareil sur l’instrument et sur la bedika.</strong> Sur le seif 8, le Chakh renvoie au siman des וסתות : <span class="he-q">ע״ל סי׳ קפ״ט מקביעות הוסתות</span> <span class="source-ref">(ש״ך יו״ד קצ״ו ס״ק י)</span>. Le Pit’hei Techouva rapporte sur le seif 6 le Noda BiYehouda, à deux reprises : au ס״ק ח, «&nbsp;<span class="he-q">דאם כואב לה הרבה אינה צריכה בדיקה כלל בשאר ימים חוץ מיום ראשון ויום שביעי</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד קצ״ו ס״ק ח)</span>, et au ס״ק ט sur la portée de l’allègement dans la bedika. L’appareil du Taz ne s’arrête pas sur les seifim 6 à 8. L’Aroukh HaChoulhan traite l’instrument et les bedikot à ses seifim 27 à 30 <span class="source-ref">(ערוך השולחן יו״ד קצ״ו:כ״ז–ל׳)</span>. <em>Et pour la pratique — demandez à votre rav / à la morat kala.</em>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">6. רצופים, סתירה ופולטת שכבת זרע</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">6. Jours consécutifs, setira et פולטת שכבת זרע</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיפים י'–י״ג)
-  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 העתק</button>
+<h3>Le texte du Mehaber et du Rama (seifim 10–13)
+  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-7">
-"<strong>השבעה נקיים צריך שיהיו רצופים, שלא תראה דם בהם; שאם ראתה דם — אפילו בסוף יום השביעי — סתרה כל הימים, וצריכה לפסוק בטהרה ולחזור ולמנות שבעה נקיים</strong> (הגה: יש אומרים דבשלושה ימים ראשונים של ימי הספירה, אם מצאה כתם — אין תולין אותו להקל כבימים שלאחריהם). <strong>הפולטת שכבת זרע בימי ספירתה — אם הוא תוך ו' עונות לשימושה — סותרת אותו יום; לפיכך המשמשת מטתה וראתה אחר כך ופסקה, אינה מתחלת לספור עד יום ה' לשימושה.</strong> (ס״י״ב: טעתה במנין יום אחד וטבלה ושמשה — צריכה להמתין שש עונות שלמות ואחר כך תמנה. ס״י״ג: ששמשה וראתה ופסקה ורוצה לספור — תקנח יפה יפה במוך או בבגד, או תרחץ במים חמין, להפליט כל הזרע. הגה: ויש אומרים דאין אנו בקיאין בזמן הזה ואין לסמוך על זה.)"
+<p><strong>השבעה נקיים צריך שיהיו רצופים שלא תראה דם בהם שאם ראתה דם אפילו בסוף יום השביעי סתרה כל הימים וצריכה לפסוק בטהרה ולחזור ולמנות שבעה נקיים</strong> <small>(הגה: יש אומרים דבשלשה ימים ראשונים של ימי הספירה אם מצאה כתם אין תולין אותו להקל כמו שתולין שאר כתמים דג׳ ימים ראשונים צריכים להיות נקיים לגמרי … אבל אח״כ דינו כשאר כתם וכן נוהגין ודוקא כתם שהוא יותר מכגריס ועוד אבל פחות מכגריס ועוד תולה בכינה אפילו ג׳ ימים ראשונים … כמבואר לעיל סימן ק״צ)</small></p><p><strong>ס״י״א.</strong> <strong>הפולטת שכבת זרע בימי ספירתה אם הוא תוך ו׳ עונות לשמושה סותרת אותו יום לפיכך המשמשת מטתה וראתה אחר כך ופסקה אינה מתחלת לספור ז׳ נקיים עד שיעברו עליה ו׳ עונות שלימות שמא תפלוט לפיכך אינה מתחלת לספור עד יום ה׳ לשמושה דקי״ל אין שכבת זרע מסריח עד שיעברו עליו שש עונות שלימות מעת לעת</strong> <small>(הגה: ותפסוק יום ד׳ לעת ערב ויום ה׳ עולה למנין ויש שכתבו שיש להמתין עוד יום א׳ דהיינו שלא תתחיל למנות עד יום הששי והוא יהיה יום ראשון לספירתה … וכן נוהגין בכל מדינות אלו ואין לשנות … וכל אשה שרואה אפי׳ כתם צריכה להמתין ה׳ ימים עם יום שראתה בו ותפסוק לעת ערב ותספור ז׳ נקיים)</small></p><p><strong>ס״י״ב.</strong> <strong>אם טעתה במנין יום א׳ וטבלה ושמשה צריכה להמתין ששה עונות שלימות ואחר כך תמנה יום אחד נקי ותטבול אך סתירה שלאחר שבעה כגון שלא טבלה כראוי ושמשה ה״ז טובלת בכל עת</strong></p><p><strong>ס״י״ג.</strong> <strong>האשה ששמשה מטתה וראתה אחר כך ופסקה ורוצה לספור מיום מחרת ראייתה תקנח יפה יפה אותו מקום במוך או בבגד להפליט כל הזרע או תרחוץ במים חמין והם יפליטו כל הזרע</strong> <small>(הגה: ויש אומרים דאין אנו בקיאין בזמן הזה ואין לסמוך על זה … והכי נהוג דהרי כבר נתבאר שאנו נוהגין להמתין אפילו לא שמשה כלל כדי שלא לחלק בין ספירה לספירה)</small></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — שלמות רצופה של שבעה נקיים :</strong><br>
-שני יסודות בפרשה זו:<br><br>
-• <span class="he-q">רצופים</span> — השבעה צריכים להיות שבעה <strong>נקיים רצופים</strong>; כל ראייה ביניהם — <span class="he-q">סותרת כל הימים</span>, אפילו בסוף יום השביעי, וחוזרת להפסק ולמנין מחדש.<br>
-• <span class="he-q">פולטת שכבת זרע = ראייה</span> — הזרע הנפלט אחר תשמיש דינו כראייה הסותרת אותו יום, כל זמן שהוא בתוך <strong>ו' עונות</strong> (שלושה ימים) לשימושה; ולכן אחר תשמיש אינה מתחילה למנות עד <strong>יום ה' לשימושה</strong>.
+<div class="yesod-box">
+<strong>Le fondement — sept jours propres, entiers et consécutifs :</strong><br>
+Deux principes dans cette partie :<br><br>
+• <span class="he-q">צריך שיהיו רצופים</span> <span class="source-ref">(שו״ע יו״ד קצ״ו:י)</span> — les sept doivent être <strong>propres et consécutifs</strong> ; toute vue survenant entre eux <span class="he-q">סתרה כל הימים</span> <span class="source-ref">(שו״ע יו״ד קצ״ו:י)</span>, même au soir du septième jour, et elle revient au hefsek puis à un compte recommencé.<br>
+• <strong>La פולטת שכבת זרע est traitée comme une vue</strong> — la semence émise après un rapport défait ce jour-là tant qu’elle est <span class="he-q">ו׳ עונות שלימות</span> <span class="source-ref">(שו״ע יו״ד קצ״ו:י״א)</span> — six onot, l’onah étant, selon le Chakh, <span class="he-q">ועונה הוא י״ב שעות</span> <span class="source-ref">(ש״ך יו״ד קצ״ו ס״ק י״ד)</span> — et c’est pourquoi, après un rapport, «&nbsp;<span class="he-q">אינה מתחלת לספור עד יום ה׳ לשמושה</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קצ״ו:י״א)</span>.
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>קולת הרמ״א בכתם בשלושת הימים הראשונים :</strong>
+<div class="machloket-box">
+<strong>La rigueur du Rama sur le ketem dans les trois premiers jours :</strong>
 <table>
-<tr><th>הזמן</th><th>דין הכתם</th><th>מקור</th></tr>
+<tr><th>Le moment</th><th>Le din du ketem</th><th>Source</th></tr>
 <tr>
-  <td><strong>שלושה ימים ראשונים של הספירה</strong></td>
-  <td>אם מצאה כתם — <span class="he-q">אין תולין להקל</span> (מחמירין יותר)</td>
-  <td>רמ״א ס״י (י״א)</td>
+  <td><strong>Les trois premiers jours du compte</strong></td>
+  <td>Si elle a trouvé un ketem — <span class="he-q">אין תולין אותו להקל כמו שתולין שאר כתמים</span> ; <span class="he-q">דג׳ ימים ראשונים צריכים להיות נקיים לגמרי</span></td>
+  <td>רמ״א ס״י</td>
 </tr>
 <tr>
-  <td><strong>שאר ימי הספירה</strong></td>
-  <td>תולין בכתם להקל ככל דיני כתמים (סי' ק״צ)</td>
+  <td><strong>Ensuite</strong></td>
+  <td><span class="he-q">אבל אח״כ דינו כשאר כתם וכן נוהגין</span> — le ketem suit les règles ordinaires des ketamim</td>
+  <td>רמ״א ס״י, <span class="source-ref">(ועיין סימן ק״צ)</span></td>
+</tr>
+<tr>
+  <td><strong>La limite que le Rama pose lui-même</strong></td>
+  <td><span class="he-q">ודוקא כתם שהוא יותר מכגריס ועוד אבל פחות מכגריס ועוד תולה בכינה אפילו ג׳ ימים ראשונים</span></td>
   <td>רמ״א ס״י</td>
 </tr>
 </table>
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>חקירת הפולטת — גזירה או ראייה ממש :</strong> מהו טעם הפולטת הסותרת ? אם הזרע הנפלט <span class="he-q">ראייה ממש</span> הוא (שמתערב בו דם), או <strong>גזירה</strong> שמא תפלוט ותחשוב שטהורה ? נפקא מינה בשיעור ה<span class="he-q">ו' עונות</span>: לפי שזרע מסריח ובטל לאחר שלושה ימים (כמבואר בשבת פ״ו ובנדה), קבעו ו' עונות — שלאחריהן שוב אינה פולטת זרע ראוי; ולפיכך <strong>אינה מתחלת לספור עד יום ה' לשימושה</strong>, שאז עברו ו' עונות ושוב לא תפלוט. וזה מקשר את סימננו לדין <strong>בעילת מצוה</strong> (סי' קצ״ג) — ששם נתבאר אימתי מותרת לבעול וכיצד נמנות העונות.
+<div class="hakira-box">
+<p><strong>La ’hakira de la פולטת — décret ou vue véritable ?</strong> Quel est le motif de la פולטת qui défait le compte ? La semence émise est-elle <strong>une vue au sens propre</strong> — du sang s’y mêlant — ou bien y a-t-il là un <strong>décret</strong>, de crainte qu’elle n’émette sans s’en apercevoir ? La nafka mina est dans la mesure même des <span class="he-q">ו׳ עונות שלימות</span> : le Choulhan Aroukh en donne la raison — «&nbsp;<span class="he-q">אין שכבת זרע מסריח עד שיעברו עליו שש עונות שלימות מעת לעת</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קצ״ו:י״א)</span> — d’où le compte à partir du cinquième jour, une fois les six onot écoulées.</p>
+<p>Deux entrées de l’appareil font ici tout le travail. Le Taz, au ס״ק ה, explique ce que change le fait qu’elle soit devenue מסריח : <span class="he-q">ואחר שהוא מסריח אע״פ שפולטת אותו הרי היא כפולטת מיא בעלמא</span> <span class="source-ref">(ט״ז יו״ד קצ״ו ס״ק ה)</span> — ce n’est plus alors une émission qui compte ; et il donne la mesure de l’onah : <span class="he-q">היינו כל עונה היא כשיעור יום או לילה דהיינו י״ב שעות</span> <span class="source-ref">(ט״ז יו״ד קצ״ו ס״ק ה)</span>. Puis, au ס״ק י, il pose la distinction qui tranche la ’hakira dans un sens précis : <span class="he-q">דפליטת שכבת זרע אין סותר למפרע כדם אלא דאותן ימים עצמן אינן נחשבים לנקיים</span> <span class="source-ref">(ט״ז יו״ד קצ״ו ס״ק י)</span> — l’émission ne défait pas rétroactivement comme le sang ; seuls les jours eux-mêmes ne comptent pas comme propres. Le Chakh dit de même la raison de l’attente : <span class="he-q">דעד אותו היום חיישינן לכל יום ויום שמא תפלוט</span> <span class="source-ref">(ש״ך יו״ד קצ״ו ס״ק ט״ז)</span>. Ce même Taz renvoie, dans son ס״ק ה, à ce qu’il a écrit au סימן קצ״ג sur la בעילת מצוה — c’est là que se noue le lien entre notre siman et celui-là.</p>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>"אין אנו בקיאין" — קולא שהפכה לחומרא :</strong> המחבר (ס״י״ג) הורה דרך לנקות הזרע (מוך, בגד, או מים חמין) ואז למנות מיד למחרת; אך הרמ״א הגיה "<span class="he-q">יש אומרים דאין אנו בקיאין בזמן הזה ואין לסמוך על זה</span>". כלומר: אין אנו בקיאין לנקות את כל הזרע בבירור, ולפיכך <strong>אין סומכין על הקינוח</strong> אלא ממתינים ו' עונות (יום ה'). הרי שה"אין אנו בקיאין" אינו קולא אלא <strong>חומרא</strong>: מתוך חוסר הבקיאות, נקטינן לחוש ולהמתין. וזה אופן רגיל בדברי הרמ״א — "אין אנו בקיאין" המוליד הנהגה אחידה ומחמירה (וכעין זה במראות הדמים סי' קפ״ח, ובמנין ימי הוסת).
+<div class="pilpul-box">
+<p><strong><span class="he-q">ויש אומרים דאין אנו בקיאין בזמן הזה ואין לסמוך על זה</span> — une remarque qui produit une rigueur.</strong> Le Mehaber, au seif 13, indique une voie pour nettoyer la semence — <span class="he-q">תקנח יפה יפה אותו מקום במוך או בבגד להפליט כל הזרע</span> <span class="source-ref">(שו״ע יו״ד קצ״ו:י״ג)</span>, ou l’eau chaude — et compter dès le lendemain. Le Rama glose : <span class="he-q">ויש אומרים דאין אנו בקיאין בזמן הזה ואין לסמוך על זה</span> <span class="source-ref">(רמ״א יו״ד קצ״ו:י״ג)</span>. Autrement dit : nous ne sommes pas experts à nettoyer entièrement, et l’on ne s’appuie donc pas sur le nettoyage. Le <em>nous ne sommes pas experts</em> n’est pas ici un allègement mais une <strong>rigueur</strong> : de l’absence d’expertise on tire qu’il faut craindre et attendre.</p>
+<p>Le Chakh ne laisse pas passer le rapprochement que le Rama fait ensuite. Sur les mots <span class="he-q">והכי נהוג</span> il objecte : <span class="he-q">לא ידענא מאי ענין זה לזה דהתם לא שייך בקיאות כלל</span> <span class="source-ref">(ש״ך יו״ד קצ״ו ס״ק כ״ה)</span> — les deux choses ne relèvent pas du même motif, car là il n’est pas question d’expertise du tout. Et pourtant il conclut lui-même dans le sens de la rigueur : <span class="he-q">כיון דהסמ״ק והג״מ כתבו דאין אנו בקיאין אין להקל לכתחלה</span> <span class="source-ref">(ש״ך יו״ד קצ״ו ס״ק כ״ה)</span>. La question de fond — pourquoi la non-expertise s’applique ici — reste donc posée par le Chakh, et le din, lui, ne bouge pas.</p>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה :</strong>
+<div class="nafka-mina-box">
+<strong>Nafka mina :</strong>
 <ol class="stylish">
-<li>ראתה דם <strong>בסוף יום השביעי</strong> — סותרת הכל; חוזרת להפסק ולשבעה (מחבר ס״י).</li>
-<li>כתם ב<strong>שלושת הימים הראשונים</strong> — אין מקילין בו כבשאר הימים (רמ״א ס״י).</li>
-<li>אחר תשמיש — אינה מתחלת למנות עד <strong>יום ה' לשימושה</strong> (ו' עונות; מחבר ס״י״א), ואין סומכין על הקינוח (רמ״א ס״י״ג).</li>
-<li><strong>סתירת הכתמים</strong> תלויה בדיני סימן ק״צ; ולמעשה — מראֶה / כתם בימי הספירה → <strong>שאלה לרב</strong>, ואין לתלות מדעתה.</li>
+<li>Elle a vu du sang <strong>au soir du septième jour</strong> — tout est défait ; elle revient au hefsek et aux sept jours <span class="source-ref">(שו״ע יו״ד קצ״ו:י)</span>.</li>
+<li>Un ketem dans <strong>les trois premiers jours</strong> — on n’y allège pas comme dans les autres jours ; mais le Rama pose lui-même deux limites, celle du כגריס ועוד et celle de la מכה connue pour saigner <span class="source-ref">(רמ״א יו״ד קצ״ו:י)</span>.</li>
+<li>Après un rapport — elle ne commence pas à compter avant le <strong>cinquième jour</strong> selon le texte du Mehaber <span class="source-ref">(שו״ע יו״ד קצ״ו:י״א)</span> ; et le Rama y rapporte l’usage d’attendre <strong>un jour de plus</strong> — <span class="he-q">שיש להמתין עוד יום א׳ דהיינו שלא תתחיל למנות עד יום הששי והוא יהיה יום ראשון לספירתה</span> — en ajoutant <span class="he-q">וכן נוהגין בכל מדינות אלו ואין לשנות</span> <span class="source-ref">(רמ״א יו״ד קצ״ו:י״א)</span>. On ne s’appuie pas sur le nettoyage <span class="source-ref">(רמ״א יו״ד קצ״ו:י״ג)</span>.</li>
+<li>Elle s’est <strong>trompée d’un jour dans le compte</strong>, a fait la tevila et a eu un rapport : «&nbsp;<span class="he-q">צריכה להמתין ששה עונות שלימות ואחר כך תמנה יום אחד נקי ותטבול</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קצ״ו:י״ב)</span> — et non le seul délai d’attente.</li>
+<li>La setira par un ketem relève des règles du סימן ק״צ ; et pour la pratique, une teinte ou un ketem pendant les jours du compte → <strong>une question à un rav</strong>, et non une appréciation personnelle.</li>
 </ol>
-<em>ולמעשה — שאל את רבך / מורת כלה.</em>
+<em>Et pour la pratique — demandez à votre rav / à la morat kala.</em>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>אחרונים בסתירה ובפולטת (ט״ז ס״ק ח–י״א; ש״ך; פתחי תשובה ס״ק י״ד–י״ח) :</strong> הט״ז והש״ך דנו בסתירת הראייה ביום השביעי ובגדרי הכתם בשלושת הימים. בענין הפולטת ו"אין אנו בקיאין" — הפתחי תשובה הביא דברי האחרונים (סדרי טהרה; חכמת אדם; ונודע ביהודה וחתם סופר בתשובותיהם בעניני נדה) בגדרי ו' עונות, יום ה', וטעות במנין. וערוך השולחן (ס״י–י״ג) ביאר את ההנהגה הנוהגת. <em>ולמעשה — שאל את רבך / מורת כלה.</em>
+<div class="rishon-card">
+<strong>L’appareil sur la setira et sur la פולטת.</strong> C’est ici que l’appareil est le plus dense. Le Taz commente les seifim 10 à 12 de ses ס״ק ג à י״א — au ס״ק ג il demande quelle nafka mina subsiste aujourd’hui à la règle des jours consécutifs et répond : <span class="he-q">דחזקת טומאה עליה עד שיכלו ז׳ רצופין</span> <span class="source-ref">(ט״ז יו״ד קצ״ו ס״ק ג)</span>. Le Chakh couvre les seifim 10 à 13 de ses ס״ק י״ב à כ״ה — au ס״ק י״ב : <span class="he-q">וה״ה ביום הח׳ דלעולם צריכה לישב ז׳ נקיים סמוך לטבילתה</span> <span class="source-ref">(ש״ך יו״ד קצ״ו ס״ק י״ב)</span> ; au ס״ק כ״ב il délimite l’attente des cinq jours : <span class="he-q">היינו מתחלתה ומשום טעמא דש״ז</span> <span class="source-ref">(ש״ך יו״ד קצ״ו ס״ק כ״ב)</span>. Le Pit’hei Techouva y range ses ס״ק י à י״ח, où l’on trouve notamment le ’Hatam Sofer et le Dagoul Merevava sur le ketem des trois premiers jours et sur la פולטת. L’Aroukh HaChoulhan traite cette partie à ses seifim 31 à 42 <span class="source-ref">(ערוך השולחן יו״ד קצ״ו:ל״א–מ״ב)</span>. <em>Et pour la pratique — demandez à votre rav / à la morat kala.</em>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">7. חקירה ונפקא מינה למעשה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">7. ’Hakira et nafka mina pour la pratique</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ Explication détaillée (niveau 1)</a>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה הכוללת של הסימן :</strong> מהו שורש הבדיקות, ומה מידתן בכל מצב ?
+<div class="hakira-box">
+<strong>La ’hakira d’ensemble du siman :</strong> quelle est la racine des bedikot, et quelle en est la mesure selon les cas ?
 <ul class="stylish">
-<li><strong>הפסק טהרה</strong> — מכשיר את הספירה (לא בירור בעלמא); סמוך לבין השמשות, ומוך דחוק ביום אחד (מחלוקת הרשב״א/רמב״ן ובדיעבד דרמ״א).</li>
-<li><strong>שיעור הבדיקות</strong> — שתיים ביום לכתחילה, אחת בדיעבד; אין מנין בלא הפסק (בחזקת טמאה עד שתפסוק).</li>
-<li><strong>הכלי</strong> — פשתן לבן ישן / צמר גפן, "עד מקום שהשמש דש", ובירור המראה לאור היום.</li>
-<li><strong>רצופים וסתירה</strong> — ראייה סותרת אף ביום ז'; וקולת הרמ״א בכתם בשלושת הימים.</li>
-<li><strong>פולטת שכבת זרע</strong> — ו' עונות, מנין יום ה' (קשר לסי' קצ״ג); ו"אין אנו בקיאין" המחמיר.</li>
+<li><strong>Le hefsek tahara</strong> — il rend le compte possible, et n’est pas une simple constatation ; au plus près de בין השמשות, et מוך דחוק quand elle n’a vu qu’un jour (ma’hloket Rachba / Ramban, et le bedieved du Rama).</li>
+<li><strong>La mesure des bedikot</strong> — deux par jour lekhat’hila, une seule bedieved, à la condition que le Mehaber énonce ; et pas de compte sans hefsek — <span class="he-q">בחזקת טמאה עד שתפסוק בטהרה</span>.</li>
+<li><strong>L’instrument</strong> — lin blanc usé ou coton, <span class="he-q">עד מקום שהשמש דש</span>, et l’examen de la teinte au jour.</li>
+<li><strong>Consécutifs et setira</strong> — une vue défait même au septième jour ; et la rigueur du Rama sur le ketem des trois premiers jours, avec les limites qu’il pose lui-même.</li>
+<li><strong>La פולטת שכבת זרע</strong> — six onot, et le compte à partir du cinquième jour selon le Mehaber, l’usage rapporté par le Rama étant d’attendre un jour de plus ; et le <span class="he-q">דאין אנו בקיאין בזמן הזה</span> du Rama, qui va vers la rigueur — objecté par le Chakh dans son motif, non dans son din.</li>
 </ul>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה למעשה (לפי הכרעת רוב הפוסקים) :</strong>
+<div class="nafka-mina-box">
+<strong>Ce qui s’en dégage pour la pratique — chaque ligne adossée à sa source :</strong>
 <ol class="stylish">
-<li>המנין מתחיל <strong>ממחרת</strong> יום הפסיקה; ובלא <strong>הפסק טהרה</strong> אין ספירה (מחבר ס״א, ה').</li>
-<li>בדיקת ההפסק <strong>סמוך לבין השמשות</strong>; ראתה יום אחד — מוך דחוק (ובדיעבד סמוך לבה״ש סגי, רמ״א) (מחבר ורמ״א ס״א–ב').</li>
-<li>חלוק וסדינים בדוקים; ומנהג כשר ל<strong>רחוץ וללבוש לבנים</strong> בהפסק (מחבר ורמ״א ס״ג).</li>
-<li>בדיקות השבעה — <strong>שתיים ביום</strong> לכתחילה, אחת בדיעבד; ומרבה לבדוק משובחת (מחבר ס״ד, ט').</li>
-<li>הכלי — <strong>פשתן לבן ישן / צמר גפן</strong>, "עד מקום שהשמש דש" (מחבר ס״ו).</li>
-<li>השבעה <strong>רצופים</strong>; ראייה סותרת אף ביום ז'; כתם בג' הראשונים — אין מקילין (מחבר ורמ״א ס״י).</li>
-<li>אחר תשמיש — מונה מ<strong>יום ה' לשימושה</strong> (ו' עונות), ואין סומכין על הקינוח (מחבר ורמ״א ס״י״א, י״ג).</li>
+<li>Le compte commence <strong>le lendemain</strong> du jour de l’arrêt, et sans <strong>hefsek tahara</strong> il n’y a pas de compte <span class="source-ref">(שו״ע יו״ד קצ״ו:א, ה)</span>.</li>
+<li>La bedika du hefsek se fait <strong>au plus près de בין השמשות</strong> ; elle n’a vu qu’un jour — מוך דחוק, et bedieved une bedika au plus près de בין השמשות suffit selon le Rama, mais non celle du matin <span class="source-ref">(שו״ע יו״ד קצ״ו ורמ״א ס״א–ב)</span>.</li>
+<li>Chemise et draps vérifiés ; et un <strong>מנהג כשר</strong> de se laver et de revêtir du blanc au hefsek <span class="source-ref">(שו״ע יו״ד קצ״ו ורמ״א ס״ג)</span>.</li>
+<li>Les bedikot des sept — <strong>deux par jour</strong> lekhat’hila ; et le Mehaber rapporte lui-même l’opinion qui exige le premier et le septième jour, <span class="he-q">ואין להקל</span> ; celle qui multiplie les bedikot est louable <span class="source-ref">(שו״ע יו״ד קצ״ו:ד, ט)</span>.</li>
+<li>L’instrument — <strong>lin blanc usé / coton</strong>, <span class="he-q">עד מקום שהשמש דש</span>, avec le bedieved du Rama <span class="source-ref">(שו״ע יו״ד קצ״ו ורמ״א ס״ו)</span>.</li>
+<li>Les sept sont <strong>consécutifs</strong> ; une vue défait même au septième jour ; un ketem dans les trois premiers jours ne s’allège pas comme les autres <span class="source-ref">(שו״ע יו״ד קצ״ו ורמ״א ס״י)</span>.</li>
+<li>Après un rapport — le Mehaber compte à partir du <strong>cinquième jour</strong>, et le Rama rapporte l’usage d’attendre jusqu’au <strong>sixième</strong>, <span class="he-q">וכן נוהגין בכל מדינות אלו ואין לשנות</span> ; et l’on ne s’appuie pas sur le nettoyage <span class="source-ref">(שו״ע יו״ד קצ״ו ורמ״א ס״י״א, י״ג)</span>.</li>
 </ol>
-<em>ולמעשה — שאל את רבך / מורת כלה.</em>
+<em>Et pour la pratique — demandez à votre rav / à la morat kala.</em>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">8. טבלאות סיכום</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">8. Tableaux récapitulatifs</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">טבלה — הסימן לפי משפחות</h3>
+<h3>Tableau — le siman par familles</h3>
 
 <table>
 <tr>
-  <th>המשפחה</th>
-  <th>הדין</th>
-  <th>מקור</th>
+  <th>La famille</th>
+  <th>Le din</th>
+  <th>Source</th>
 </tr>
 <tr>
-  <td><strong>הפסק טהרה</strong></td>
-  <td>בדיקה ביום שפסקה, סמוך לבין השמשות, "שתפסוק בטהרה"; המנין ממחרת</td>
+  <td><strong>Hefsek tahara</strong></td>
+  <td>Une bedika le jour de l’arrêt, au plus près de בין השמשות, <span class="he-q">שתפסוק בטהרה</span> ; le compte commence le lendemain</td>
   <td>מחבר ס״א</td>
 </tr>
 <tr>
-  <td><strong>מוך דחוק (יום אחד)</strong></td>
-  <td>ראתה יום אחד — מוך דחוק כל בה״ש; בדיעבד סמוך לבה״ש סגי</td>
+  <td><strong>מוך דחוק (un seul jour)</strong></td>
+  <td>Elle n’a vu qu’un jour — מוך דחוק pendant tout בין השמשות ; bedieved, une bedika au plus près de בין השמשות suffit, mais non celle du matin</td>
   <td>מחבר ורמ״א ס״ב</td>
 </tr>
 <tr>
-  <td><strong>לבנים והתחלה</strong></td>
-  <td>חלוק וסדינים בדוקים; מנהג כשר לרחוץ וללבוש לבנים</td>
+  <td><strong>Lbanim et début du compte</strong></td>
+  <td>Chemise et draps vérifiés ; מנהג כשר de se laver et de revêtir du blanc, avec la limite de la שעת הדחק</td>
   <td>מחבר ורמ״א ס״ג</td>
 </tr>
 <tr>
-  <td><strong>בדיקות השבעה</strong></td>
-  <td>שתיים ביום לכתחילה, אחת בדיעבד; מרבה לבדוק משובחת; בחזקת טמאה עד הפסק</td>
-  <td>מחבר ס״ד–ה', ט'</td>
+  <td><strong>Les bedikot des sept</strong></td>
+  <td>Deux par jour lekhat’hila ; bedieved une seule, à la condition du texte ; et une opinion exige le premier et le septième. בחזקת טמאה tant qu’il n’y a pas eu de hefsek ; multiplier les bedikot est louable</td>
+  <td>מחבר ס״ד–ה׳, ט׳</td>
 </tr>
 <tr>
-  <td><strong>הכלי והבדיקות שאינן יכולות</strong></td>
-  <td>פשתן לבן ישן / צמר גפן, "עד מקום שהשמש דש"; סומא, חרשת ושוטה</td>
-  <td>מחבר ס״ו–ח'</td>
+  <td><strong>L’instrument, et celles qui ne peuvent vérifier</strong></td>
+  <td>Lin blanc usé / coton, <span class="he-q">עד מקום שהשמש דש</span>, avec le bedieved du Rama ; סומא, חרשת, שוטה</td>
+  <td>מחבר ורמ״א ס״ו–ח׳</td>
 </tr>
 <tr>
-  <td><strong>רצופים וסתירה</strong></td>
-  <td>השבעה רצופים; ראייה סותרת אף ביום ז'; כתם בג' הראשונים — אין מקילין</td>
+  <td><strong>Consécutifs et setira</strong></td>
+  <td>Les sept sont consécutifs ; une vue défait même au septième jour ; le ketem des trois premiers jours ne s’allège pas, avec les limites du Rama</td>
   <td>מחבר ורמ״א ס״י</td>
 </tr>
 <tr>
   <td><strong>פולטת שכבת זרע</strong></td>
-  <td>ו' עונות; מונה מיום ה' לשימושה; אין אנו בקיאין בקינוח</td>
+  <td>Six onot ; le Mehaber compte à partir du cinquième jour, le Rama rapporte l’usage du sixième ; on ne s’appuie pas sur le nettoyage</td>
   <td>מחבר ורמ״א ס״י״א–י״ג</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מחלוקות וקולות מרכזיות בסימן</h3>
+<h3>Tableau — ma’hlokot et allègements centraux du siman</h3>
 
 <table>
 <tr>
-  <th>נושא</th>
-  <th>שיטה א'</th>
-  <th>שיטה ב'</th>
+  <th>Sujet</th>
+  <th>Première chita</th>
+  <th>Seconde chita</th>
 </tr>
 <tr>
-  <td>מוך דחוק בראתה יום אחד</td>
-  <td>מחבר — מוך דחוק כל בין השמשות</td>
-  <td>רשב״א/רמב״ן (רמ״א) — בדיעבד סמוך לבה״ש סגי</td>
+  <td>מוך דחוק quand elle n’a vu qu’un jour</td>
+  <td>Mehaber — מוך דחוק pendant tout בין השמשות</td>
+  <td>Rachba / Ramban (Rama) — bedieved, au plus près de בין השמשות, cela suffit</td>
 </tr>
 <tr>
-  <td>שיעור בדיקות השבעה</td>
-  <td>לכתחילה — שתיים בכל יום</td>
-  <td>בדיעבד — אחת בכל השבעה עלתה</td>
+  <td>La mesure des bedikot des sept</td>
+  <td>Lekhat’hila — deux chaque jour</td>
+  <td>Bedieved — une seule, <span class="he-q">מאחר שבדקה ביום שקודם השביעי ומצאה טהורה עלו לה</span></td>
 </tr>
 <tr>
-  <td>רחיצה ולבנים בהפסק</td>
-  <td>מנהג כשר — לרחוץ וללבוש לבנים</td>
-  <td>לא רחצה אלא פניה של מטה — די בכך</td>
+  <td>Premier et septième jour</td>
+  <td>Le din rapporté en premier — n’importe lequel des sept convient bedieved</td>
+  <td>La יש אומרים du Mehaber — <span class="he-q">וי״א שצריך שתבדוק ביום ראשון מהשבעה וביום השביעי ואין להקל</span></td>
 </tr>
 <tr>
-  <td>כתם בשלושת הימים הראשונים</td>
-  <td>רמ״א — אין תולין להקל</td>
-  <td>שאר הימים — תולין ככתמים (סי' ק״צ)</td>
+  <td>Lavage et lbanim au hefsek</td>
+  <td>מנהג כשר — se laver et revêtir du blanc</td>
+  <td><span class="he-q">אם לא רחצה רק פניה של מטה די בכך</span> ; et en שעת הדחק, une chemise propre et vérifiée</td>
 </tr>
 <tr>
-  <td>קינוח הזרע אחר תשמיש</td>
-  <td>מחבר — תקנח ותמנה למחרת</td>
-  <td>רמ״א — אין אנו בקיאין; ממתינים יום ה'</td>
+  <td>Le ketem dans les trois premiers jours</td>
+  <td>Rama — <span class="he-q">אין תולין אותו להקל כמו שתולין שאר כתמים</span></td>
+  <td>Les autres jours — on l’allège comme les ketamim ordinaires <span class="source-ref">(סימן ק״צ)</span></td>
+</tr>
+<tr>
+  <td>Le nettoyage de la semence après un rapport</td>
+  <td>Mehaber — elle nettoie, et compte dès le lendemain</td>
+  <td>Rama — <span class="he-q">דאין אנו בקיאין בזמן הזה</span> ; et le Chakh objecte sur le motif tout en concluant à la rigueur</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מקורות הסוגיא</h3>
+<h3>Tableau — les sources de la sougya</h3>
 
-<div class="rishon-card" dir="rtl">
-<strong>גמרא :</strong> נדה ס״ח–ס״ט (ספירת שבעה נקיים, "תספור בטהרה") · נדה י״א–י״ב (בדיקות, חורין וסדקין) · שבת פ״ו. (פולטת שכבת זרע, שיעור ג' ימים) · ספרא "וספרה לה" (שתהא ספירה לטהרה)
+<div class="rishon-card">
+<strong>Guemara et verset :</strong> נדה ס״ח ע״ב — le compte des sept jours propres, et la michna de Rabbi Yehouda sur celle qui <span class="he-q">הִפְרִישָׁה בְּטָהֳרָה</span> · נדה י״א–י״ב — les bedikot · שבת פ״ו ע״א — <span class="he-q">פוֹלֶטֶת שִׁכְבַת זֶרַע</span> · et le verset <span class="he-q">וְסָפְרָה לָּהּ שִׁבְעַת יָמִים</span> <span class="source-ref">(ויקרא ט״ו:כ״ח)</span>, que la guemara lit <span class="he-q">לְעַצְמָהּ</span> <span class="source-ref">(כתובות ע״ב ע״א)</span>
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>ראשונים :</strong> רש״י · רמב״ם (הל' איסורי ביאה פ״ו) · רמב״ן (הלכות נדה) · רשב״א (תורת הבית, שער "הספירה והטבילה") · רא״ש · מרדכי · טור · בית יוסף
+<div class="rishon-card">
+<strong>Richonim :</strong> רש״י ותוספות (בסוגיא דנדה) · רמב״ם — הלכות איסורי ביאה פרק ו׳, tel que le Rama le cite au seif 2 · רמב״ן · רשב״א (תורת הבית) · רא״ש · מרדכי — cité par le Rama aux seifim 3 et 10 · טור · בית יוסף
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>אחרונים :</strong> רמ״א · ש״ך · ט״ז · פתחי תשובה · סדרי טהרה · חכמת אדם · ערוך השולחן · נודע ביהודה · חתם סופר
+<div class="rishon-card">
+<strong>A’haronim :</strong> רמ״א · ש״ך · ט״ז · באר היטב · פתחי תשובה — qui rapporte ici le דגול מרבבה, le נודע ביהודה, le ’Hatam Sofer et le מעיל צדקה · סדרי טהרה · חכמת אדם · ערוך השולחן
 </div>
 
 <hr class="ornament">
 
-  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;direction:rtl;">
-    <a href="niveau-1-base.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">→ רמה א' — יסוד</a>
-    <a href="niveau-3-synthese.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">רמה ג' — סיכום ←</a>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;">
+    <a href="niveau-1-base.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">← Niveau 1 — Base</a>
+    <a href="niveau-3-synthese.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">Niveau 3 — Synthèse →</a>
   </div>
 
 <div class="yh-watermark">
 ~ ~ ~ ~ ~<br>
 <strong>DAAT</strong> · <strong>הרב יוסף חיים סממה</strong><br>
 תלמיד חכם · מעביר שיעורים בהלכה ובחסידות<br>
-<em>פלפול ועיון בדיני הפסק טהרה, שבעה נקיים ובדיקות · סימן קצ״ו · ⚡ רמה ב' — לַמְדָּן</em>
+<em>סימן קצ״ו · Niveau 2 — Lamdan · פלפול ועיון בדיני הפסק טהרה, שבעה נקיים ובדיקות</em><br>
+<em>daattorah.com</em>
 </div>
 
-  <div class="disclaimer" style="background:#fff8e1;border-right:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;direction:rtl;text-align:right;">
-    ⚠️ תוכן זה נכתב לצורך לימוד ועיון בלבד. לכל הוראה למעשה (לְמַעֲשֶׂה) — שאל את רבך / מורת כלה.
+  <div class="disclaimer" style="background:#fff8e1;border-left:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;">
+    ⚠️ Ce contenu est écrit pour l’étude et l’examen seulement. Pour toute conduite pratique (לְמַעֲשֶׂה) — demandez à votre rav / à la morat kala.
   </div>
 
   <div style="background:#1A1F3A;border-top:2px solid #C5A55A;padding:24px 40px;text-align:center;margin-top:0;">
-    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;direction:rtl;">
-      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">לעמוד הבית</a> · <a href="index.html" style="color:#C5A55A;text-decoration:none;">סימן קצ״ו</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ לתמיכה</a>
+    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;">
+      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">Retour à l’accueil</a> · <a href="index.html" style="color:#C5A55A;text-decoration:none;">סימן קצ״ו</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ Soutenir</a>
     </p>
   </div>
+
 
   <link rel="stylesheet" href="../../../assets/css/khavroutha-fab.css">
 <link rel="stylesheet" href="../../../assets/css/chat-widget.css">
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="../../../assets/js/chat-widget.js" defer></script>
 <script src="../../../assets/js/daat-copy.js" defer></script>
-<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="מצא חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">הצטרף לחברותא</span></a>
+<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="Trouver une khavroutha pour ce siman"><span class="icon">📖</span><span class="label-long">Rejoindre la khavroutha</span></a>
   <script src="/assets/js/share-text.js" defer></script>
 </body>
 </html>
