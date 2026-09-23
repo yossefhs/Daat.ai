@@ -40,6 +40,31 @@ def spans(s, pat):
     return [(m.start(), m.end()) for m in re.finditer(pat, s, re.S)]
 
 RE_SK = re.compile(r'ס״ק(\s+)(\d{1,3})\b')
+# Second défaut, de la même famille : le numéral hébreu écrit SANS gershayim —
+# « ס״ק יב » au lieu de « ס״ק י״ב ». 1 476 occurrences dans 164 fichiers, tous
+# compartiments confondus. Ce n'est pas une coquille d'affichage : le gershayim est
+# ce qui distingue un NOMBRE d'un mot, et c'est déjà sur cette distinction que
+# reposait la refonte de verifier-denombrements.py.
+RE_SK_HEB = re.compile(r'ס״ק(\s+)([\u05D0-\u05EA]{2,3})(?![\u05D0-\u05EA\u05F3\u05F4])')
+
+def nu(s_):
+    """La forme sans gershayim du numéral, pour l'aller-retour de contrôle."""
+    return s_.replace('\u05F4', '').replace('\u05F3', '')
+
+def valeur(mot):
+    """Le nombre que ce mot vaut s'il EST un numéral canonique, sinon None.
+
+    Le contrôle se fait par aller-retour : on essaie tous les nombres de 1 à 499 et
+    l'on ne retient que celui dont la forme canonique, gershayim retirés, est
+    exactement le mot lu. « שם » (là-bas) ne vaut donc rien, et « כו » — qui est
+    aussi l'abréviation de « וכו׳ » — ne passe que s'il est écrit tel quel, ce qui
+    est la forme de 26. Le doute restant est traité par les protections de
+    guillemets, comme pour les chiffres arabes.
+    """
+    for n in range(1, 500):
+        if nu(heb(n)) == mot:
+            return n
+    return None
 
 def convert(path, apply=False):
     s = io.open(path, encoding='utf-8').read()
@@ -55,6 +80,15 @@ def convert(path, apply=False):
             continue
         out.append((m.start(), m.end(), f'ס״ק{m.group(1)}{heb(num)}'))
         n += 1
+    for m in RE_SK_HEB.finditer(s):
+        num = valeur(m.group(2))
+        if num is None:
+            continue
+        if any(a <= m.start() < b for a, b in protect):
+            continue
+        out.append((m.start(), m.end(), f'ס״ק{m.group(1)}{heb(num)}'))
+        n += 1
+    out.sort(key=lambda x: x[0])
     if apply and out:
         for deb, fin, txt in reversed(out):
             s = s[:deb] + txt + s[fin:]

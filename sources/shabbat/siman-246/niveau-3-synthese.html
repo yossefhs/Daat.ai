@@ -194,6 +194,9 @@
     .niveau-nav { flex-direction: column; gap: 0.75rem; }
   }
   @media print { .niveau-nav { display: none; } }
+    /* he-q : une locution hébraïque citée à l'intérieur d'une phrase. La classe est
+       employée partout dans le dépôt ; elle manquait à la feuille de cette page. */
+    .he-q { font-family: 'Frank Ruhl Libre', serif; direction: rtl; unicode-bidi: isolate; }
 </style>
 
 <script type="application/ld+json" data-schema="niveau-jsonld">
@@ -362,7 +365,7 @@
         <div class="timeline-item">
           <div class="timeline-author">הרמ״א — XVIe s.</div>
           <div class="timeline-period">Acharonim — Cracovie (Ashkénazes)</div>
-          <div class="timeline-opinion op-pesak">Confirme l'opinion ② et <strong>étend</strong> : interdit même le <em>prêt gratuit</em> (השאלה), car נראה כשלוחו s'applique même sans rémunération.</div>
+          <div class="timeline-opinion op-pesak">Tranche comme le second avis pour la <em>location</em> — et <strong>permet expressément le prêt gratuit</strong> (השאלה) la veille de Chabbat : <span class="he-q">וכן עיקר כסברא האחרונה ומותר להשאיל לו בערב שבת</span> (רמ״א או״ח רמ״ו:א).</div>
         </div>
       </div>
     </div>
@@ -417,8 +420,8 @@
         </div>
         <div class="rule-card">
           <div class="rule-num">③</div>
-          <div class="rule-he">שכירות ≤ השאלה (רמ״א)</div>
-          <div class="rule-fr"><strong>Rama : même le prêt gratuit est interdit.</strong> L'interdiction n'est pas limitée à la location — un prêt gratuit en sachant que l'objet sera utilisé le Shabbat est aussi interdit.</div>
+          <div class="rule-he">השכרה אסורה · השאלה מותרת (רמ״א)</div>
+          <div class="rule-fr"><strong>Rama : le prêt gratuit reste permis.</strong> L'interdiction porte sur la <em>location</em> d'un outil de travail la veille de Chabbat ; le prêt gratuit est permis, et la Michna Beroura précise qu'il l'est même pour le seul jour de Chabbat et même pour un outil de travail, <em>parce que</em> le juif n'en tire aucun profit — donc on n'y voit pas un mandat.</div>
         </div>
         <div class="rule-card">
           <div class="rule-num">④</div>
@@ -440,8 +443,8 @@
             <div class="dt-branch-label">OUI — je sais qu'il l'utilisera le Shabbat</div>
             <div class="dt-result">
               <span class="result-interdit">INTERDIT</span> pour tous.<br>
-              Raison : שכר שבת (location) + נראה כשלוחו (prêt selon Rama).<br>
-              <em>Ne pas louer ni prêter.</em>
+              Raison : שכר שבת — c'est la <em>location</em> qui est en cause.<br>
+              <em>Ne pas louer.</em>
             </div>
           </div>
           <div class="dt-branch no">
@@ -465,8 +468,8 @@
           <div class="dt-branch no">
             <div class="dt-branch-label">PRÊT GRATUIT (השאלה)</div>
             <div class="dt-result">
-              <strong>Séfarades :</strong> <span style="color:orange;">Débat — certains permettent</span>.<br>
-              <strong>Ashkénazes (Rama) :</strong> <span class="result-interdit">INTERDIT</span> — נראה כשלוחו.<br>
+              <strong>Mehaber et Rama :</strong> <span class="result-permis">PERMIS</span>, même la veille de Chabbat — <span class="he-q">ולהשאיל לו מותר אפי׳ בערב שבת</span> (שו״ע) et <span class="he-q">וכן עיקר כסברא האחרונה ומותר להשאיל לו בערב שבת</span> (רמ״א).<br>
+              <strong>Michna Beroura ס״ק ד :</strong> permis même pour le seul jour de Chabbat et même un outil de travail.<br>
               <span class="result-rav">En pratique : consulter un Rav.</span>
             </div>
           </div>
@@ -524,9 +527,9 @@
           <div class="trap-correction">✓ La date du contrat n'a pas d'importance. Ce qui compte : le Juif <em>sait-il</em> au moment de la transaction que l'objet sera utilisé le Shabbat ?</div>
         </div>
         <div class="trap-card">
-          <div class="trap-title">⚠️ Piège 2 — "C'est un prêt gratuit, donc permis"</div>
-          <div class="trap-text">Confusion : croire que seule la location payante est interdite, et que le prêt gratuit est toujours permis.</div>
-          <div class="trap-correction">✓ Pour les Ashkénazes (Rama) : même le prêt gratuit est interdit en raison de נראה כשלוחו. Les Séfarades sont moins stricts, mais c'est quand même débattu.</div>
+          <div class="trap-title">⚠️ Piège 2 — "Prêter, c'est comme louer"</div>
+          <div class="trap-text">Confusion : croire que le prêt gratuit suit le régime de la location, et qu'il est interdit la veille de Chabbat.</div>
+          <div class="trap-correction">✓ Le Mehaber et le Rama permettent l'un et l'autre le prêt gratuit, même la veille de Chabbat ; et c'est précisément l'absence de profit qui l'autorise — <span class="he-q">דכיון שאין ריוח לישראל במלאכת הא״י לא יאמרו שלוחו הוא לזה וע״כ מותר להשאיל לו אפילו ליום השבת לחוד אפילו כלים שיעשה הא״י מלאכה בהן</span> (משנה ברורה ס״ק ד). Ce qui est en cause, c'est la location d'un outil de travail.</div>
         </div>
         <div class="trap-card">
           <div class="trap-title">⚠️ Piège 3 — "La baraïta est selon Beit Chammaï"</div>
@@ -556,7 +559,7 @@
       <div class="memory-box" style="background:#1E2847; margin-top:16px;">
         <div class="memory-label">Les 3 raisons — résumé mnémotechnique</div>
         <div class="memory-he">שביתה · שכר · שליח — שלוש ש׳</div>
-        <div class="memory-fr">Les "trois Shin" : שביתת כלים (débat Beit Hillel/Chammaï), שכר שבת (raison principale — location), שלוחו = נראה כשלוחו (prêt gratuit selon Rama).</div>
+        <div class="memory-fr">Les "trois Shin" : שביתת כלים (débat Beit Hillel/Chammaï), שכר שבת (raison principale — location), שלוחו = נראה כשלוחו — l'apparence de mandat, qui vise la location et que le prêt gratuit, sans profit, n'encourt pas.</div>
       </div>
     </div>
 
@@ -674,11 +677,11 @@
       <div class="divider"></div>
       <ol style="font-size:17px; color:var(--text-mid); line-height:2; padding-left:24px;">
         <li>Quelle est la différence entre l'opinion du Rambam et celle de Rabbénou Yona sur la baraïta talmudique ?</li>
-        <li>Pourquoi le Rama étend-il l'interdiction au prêt gratuit alors que le Shulchan Aroukh ne mentionne que la location ?</li>
+        <li>Pourquoi le prêt gratuit échappe-t-il à l'interdit qui pèse sur la location — et que dit la Michna Beroura ס״ק ד de la raison ?</li>
         <li>Que signifie "יודע" dans ce contexte — faut-il une certitude ou une forte présomption ?</li>
         <li>Quelle est la nafka mina entre שכר שבת et נראה כשלוחו comme raison principale ?</li>
         <li>Si je loue mon appartement pour un an à un non-juif, y a-t-il un problème de שכר שבת pour les Shabbatot inclus ?</li>
-        <li>Le Taz et le Magen Avraham sont-ils en accord sur la raison de l'interdiction du prêt gratuit ?</li>
+        <li>Le Taz et le Magen Avraham sont-ils en accord sur la raison de l'interdit de la location d'un outil de travail ?</li>
       </ol>
     </div>
 
