@@ -3,7 +3,7 @@
   "outputDirectory": ".",
   "headers": [
     {
-      "source": "/api/(.*)",
+      "source": "/api/((?!admin/).*)",
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
