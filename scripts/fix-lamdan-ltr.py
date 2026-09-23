@@ -49,6 +49,34 @@ def permuter_cotes(corps):
         return f"{prop}-{'left' if cote == 'right' else 'right'}"
     return re.sub(r'\b(' + '|'.join(COTES) + r')-(right|left)\b', swap, corps)
 
+RE_LISTE = re.compile(r'(?:^|[\s,>])(?:ol|ul)\b')
+RE_GEOM_HE = re.compile(r'padding-right(\s*:\s*)([1-9]\d*px)(\s*;\s*)padding-left(\s*:\s*)0')
+
+def redresser_listes(sel, corps):
+    """`ol.stylish { padding-right: 22px; padding-left: 0 }` → l'inverse.
+
+    La borne `if 'rtl' in corps` de `convertir` protège l'idempotence, mais elle
+    laisse passer tout un genre de règle : celles qui posent la géométrie
+    hébraïque SANS déclarer `direction: rtl`. Le retrait des listes y est à
+    droite, et en LTR le sommaire et les listes numérotées n'ont plus de retrait
+    du tout. Un arbitre l'a relevé sur le siman 118 ; mesuré ensuite sur tout le
+    dépôt, c'étaient 129 règles dans 68 pages non hébraïques — les 24 simanim
+    traduits du chantier et le bloc נדה, c'est-à-dire précisément ce que ce
+    script avait touché. Un correctif local n'en aurait réparé que deux.
+
+    Deux bornes, et elles comptent : le sélecteur doit viser une LISTE (jamais
+    une bordure d'encadré — la permutation non bornée aurait renvoyé le modèle
+    du siman 234 de border-left à border-right), et il ne doit pas être déjà
+    porté par un `[dir="rtl"]`, qui vise du contenu hébreu et a raison de garder
+    sa géométrie. Idempotent : après coup `padding-right` vaut 0, le motif ne
+    s'applique plus.
+    """
+    if 'dir="rtl"' in sel or not RE_LISTE.search(sel):
+        return corps
+    return RE_GEOM_HE.sub(
+        lambda m: f'padding-left{m.group(1)}{m.group(2)}{m.group(3)}padding-right{m.group(4)}0',
+        corps)
+
 def convertir(css):
     """Rend (css, nombre de règles dépouillées de leur RTL)."""
     out, pos, n = [], 0, 0
@@ -72,6 +100,8 @@ def convertir(css):
         # convertie ne porte plus de direction:rtl, donc un second passage ne fait rien.
         if 'rtl' in corps:
             neuf = permuter_cotes(neuf)
+        else:
+            neuf = redresser_listes(sel_net, neuf)
         if neuf == corps:
             continue          # ne compter que ce qui change réellement
         out.append(css[pos:m.start(2)]); out.append(neuf)
@@ -81,6 +111,34 @@ def convertir(css):
 
 def traiter(path, dry=False):
     s = io.open(path, encoding='utf-8').read()
+    # ⚠️ NE JAMAIS CONVERTIR UNE PAGE QUI EST ENCORE HÉBRAÏQUE. Ce script suppose
+    # qu'un traducteur est passé avant lui : il retire le RTL d'une prose devenue
+    # française ou anglaise. Lancé sur un `niveau-2-lamdan.html` qui sert encore
+    # la page hébraïque sous une URL française — ce qu'étaient encore les dix-huit
+    # simanim 183-200 — il aligne à gauche un corps hébreu et déclare fr-FR un
+    # JSON-LD qui décrit de l'hébreu : il AGGRAVE la page au lieu de la réparer.
+    # J'ai fait exactement cela, sur trente-six fichiers, avant de m'en apercevoir
+    # par `verifier-url-langue.py`. Le `lang=` du fichier est le témoin le plus
+    # sûr : tant qu'il dit `he`, le corps n'a pas été traduit.
+    #
+    # Le `lang=` ne suffit PAS à le dire : les variantes `-en.html` de ces mêmes
+    # simanim déclaraient déjà `lang="en"` tout en servant le corps hébreu. Ce
+    # qui tranche, c'est le corps lui-même — et la séparation est nette, sans
+    # zone grise : une page traduite porte environ 70 % de lettres latines
+    # (0,696 au siman 118, 0,713 au modèle 234), une page encore hébraïque 1 %
+    # (0,014 au siman 190). Le seuil est posé très bas, à 25 %, pour ne jamais
+    # refuser une page réellement traduite.
+    corps = re.search(r'(?s)<body.*?</body>', s)
+    if corps:
+        txt = re.sub(r'(?s)<(script|style)\b.*?</\1>', '', corps.group(0))
+        txt = re.sub(r'<[^>]+>', ' ', txt)
+        heb = len(re.findall(r'[\u05D0-\u05EA]', txt))
+        lat = len(re.findall(r'[A-Za-z\u00C0-\u00FF]', txt))
+        if lat / (heb + lat + 1) < 0.25:
+            print(f'  {path} : IGNORÉ — le corps est encore hébraïque '
+                  f'({lat} lettres latines pour {heb} hébraïques) ; '
+                  f'traduire la page avant de la redresser')
+            return 0, 0
     total = 0
     def rendre(m):
         nonlocal total

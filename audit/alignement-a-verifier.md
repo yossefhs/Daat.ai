@@ -1200,3 +1200,79 @@ sur les 49 simanim du chantier**, une fois celui-ci achevé, plutôt que lot par
 Trois citations du siman 109 étaient par ailleurs **tronquées sur un ס isolé** — le geresh
 de `ס׳` (soixante) avait sauté à l'extraction, en français comme en anglais. Corrigé le
 22 septembre 2026 après confrontation au Chakh ס״ק ד et ט et au Pit'hei Techouva ס״ק ד.
+
+## Siman 118 — חבי״ת et חמפ״ג : une inversion de psak vivante hors du niveau 2
+
+Trouvé le 23 septembre 2026 en traduisant le niveau 2, et **corrigé au seul niveau 2**
+(les trois langues). Le reste est ici, avec ses références, parce qu'il touche des niveaux
+que ce chantier n'avait pas à réécrire — mais c'est une **contradiction interne au siman**,
+et elle se lit.
+
+Ce que disent les sources, retéléchargées et confrontées :
+
+- **Rav** (עבודה זרה ל״ט ע״א) : `חבי״ת אסור בחותם אחד … חלב, בשר, יין, תכלת` — sa liste
+  commence bien par le **lait** ;
+- **Rav Kahana** (ל״ט ע״ב) amende **la liste de Rav** : `אפיק חלב, ועייל חתיכת דג שאין בה סימן` ;
+- **Chemouel** (ל״ט ע״ב) pose un partage parallèle, `בי״ת` contre `מח״ג`, où le lait ne
+  figure pas, et la guemara précise qu'à sa différence il n'a pas à faire entrer le poisson ;
+- **חמפ״ג** est `חילתית, מורייס, פת, גבינה` (ל״ט ע״ב), **jamais חומץ** ;
+- et le **Mehaber**, au séif א du siman 118, range explicitement le lait avec le sceau
+  unique : `וכן החומץ וחלב ומורייס ופת וגבינה … מותר בחותם אחד`.
+
+Ce qui était publié, et qui dit l'inverse :
+
+| fichier | ligne | ce qui est écrit | pourquoi c'est faux |
+|---|---|---|---|
+| `niveau-2-lamdan.html` / `-en` | §2 | l'amendement de Rav Kahana rattaché à la liste de **Chemouel** | Chemouel n'a pas de lait à retirer ; l'amendement porte sur Rav — **corrigé** |
+| `niveau-2-lamdan{,-en}.html` | §2 | `חמפ״ג — חומץ, מורייס, פת, גבינה` | le ח est חילתית — **corrigé** |
+| `niveau-2-lamdan-he.html` | 474, 758, 782 | `חבי״ת — חלב, בשר, יין, חתיכת דג` | garde le lait que Rav Kahana retire ET perd תכלת ; la page hébraïque exigeait donc **deux sceaux pour le lait** — **corrigé** |
+| `niveau-1-base-he.html` | 528 | `חבי״ת = חמרא, בשׂר, יין מבושל…` | le **vin cuit** est au contraire un article à sceau unique chez le Mehaber — **non corrigé** |
+| `niveau-1-base-he.html` | 844 | `חומץ, מורייס, פת, גבינה…` donné pour חמפ״ג | le ח est חילתית — **non corrigé** |
+| `niveau-3-synthese-he.html` | 385 | `חבי״ת = חמרא / בשׂר / יין נסך / תירוש` | aucune de ces quatre n'est la liste — **non corrigé** |
+| `niveau-4-halakha{,-he,-en}.html` | ~469 | `חבי״ת (חלב נכרי / בשר / יין / תכלת)` sous « deux sceaux » | c'est la liste de Rav **avant** Rav Kahana ; présentée comme la règle, elle contredit le séif א du même siman — **non corrigé** |
+
+À reprendre en un lot dédié, les trois langues des niveaux 1, 3 et 4 ensemble, et à relire
+par le Rav : ce qui est en jeu est la question pratique « le lait envoyé par un non-Juif
+demande-t-il un sceau ou deux ? ».
+
+## Le chantier des niveaux 2 : où il en est, et un faux pas de ma part
+
+Au 23 septembre 2026, les simanim **87-118 sont traduits** (32). **Restent les dix-huit
+simanim 183-200** : leur `niveau-2-lamdan.html` et `-en.html` servent encore, mot pour mot,
+la page hébraïque — `verifier-url-langue.py` les rend, et eux seuls, en 17 pages dont le
+`lang=` contredit le nom du fichier et 36 variantes non traduites.
+
+J'ai lancé `fix-lamdan-ltr.py` sur ces trente-six fichiers **avant** de les avoir traduits,
+et le script a fait exactement ce qu'on lui demandait : il a aligné à gauche un corps
+hébreu et déclaré `fr-FR` un JSON-LD qui décrit de l'hébreu. Les trente-six fichiers ont
+été rendus à `HEAD`. Le script porte désormais une garde qui mesure la part de lettres
+latines du corps et refuse toute page encore hébraïque — le `lang=` seul ne suffisait pas,
+les variantes `-en.html` déclarant déjà `lang="en"` sur un corps hébreu.
+
+## Géométrie des listes : 129 règles, 68 pages, un seul chantier
+
+`ol.stylish, ul.stylish { padding-right: 22px; padding-left: 0 }` et `.index-box ol` de
+même : le retrait des listes à droite, hérité du gabarit hébreu, sur des pages devenues
+françaises ou anglaises. Aucune porte ne le voit, et ces règles ne portent pas
+`direction: rtl` — c'est pourquoi la borne d'idempotence de `fix-lamdan-ltr.py` les
+laissait passer. Signalé sur le seul siman 118 par un arbitre ; mesuré sur tout le dépôt,
+**129 règles dans 68 pages non hébraïques**, soit exactement les pages que ce script avait
+touchées. Corrigé pour les 24 simanim traduits ; les 36 fichiers de 183-200 le seront
+quand ils seront traduits.
+
+Une règle de liste **portée par un `[dir="rtl"]`** garde au contraire sa géométrie : elle
+vise du contenu hébreu et a raison. C'est la forme du modèle, le siman 234, qui pose les
+deux — la règle nue en LTR et son `[dir="rtl"]` en RTL.
+
+Reste un cas isolé, **hors Yoré Déa et non corrigé** : `sources/orah-haim/siman-171/niveau-2-lamdan-en.html`
+porte une règle `.index-box ol { padding-right: 25px; padding-left: 0 }` que sa variante
+française ne porte pas — une divergence entre deux langues d'une même page.
+
+## « ס״ק 12 » — le séif katan en chiffres arabes
+
+230 références écrivaient le séif katan en chiffres au milieu d'une référence hébraïque —
+`(ש״ך יו״ד קי״ג ס״ק 1)` — quand la prose de la même page écrit `ס״ק א׳`. 134 au seul siman
+113 ; les 96 autres dans neuf simanim déjà publiés (158, 173-176, 190, 216, 228, 231), dont
+le 228 où l'anglais écrivait `ס״ק 111` là où le français écrit `ס״ק קי״א`. 226 converties
+par `scripts/fix-sk-nums.py` ; les 4 restantes sont à l'intérieur de guillemets, donc du
+verbatim, et le script les protège.
