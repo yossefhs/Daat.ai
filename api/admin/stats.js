@@ -8,7 +8,7 @@
 // POST /api/admin/stats  { action: 'reset-limit', email }
 
 import { kv } from '../_kv.js';
-import { corsAdmin, freinage, echecAdmin, reussiteAdmin, refuser } from '../_admin-gate.js';
+import { corsAdmin, origineRefusee, refuserOrigine, freinage, echecAdmin, reussiteAdmin, refuser } from '../_admin-gate.js';
 
 function today() { return new Date().toISOString().slice(0, 10); }
 function daysAgo(n) {
@@ -30,6 +30,7 @@ export default async function handler(req, res) {
   // ── AUTH ADMIN ────────────────────────────────────────────────────────────
   // Le secret n'est plus accepté en query : dans une URL, il s'écrit dans les
   // journaux d'accès, dans l'historique du navigateur, et part dans le Referer.
+  if (origineRefusee(req)) return refuserOrigine(res);
   const frein = await freinage(req);
   if (frein.bloque) return refuser(res);
   const secret = req.headers['x-admin-secret'];

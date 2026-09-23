@@ -16,7 +16,7 @@
 // Auth : header Authorization: Bearer <ADMIN_PASSWORD>
 
 import { kv } from '../_kv.js';
-import { corsAdmin, freinage, echecAdmin, reussiteAdmin, refuser } from '../_admin-gate.js';
+import { corsAdmin, origineRefusee, refuserOrigine, freinage, echecAdmin, reussiteAdmin, refuser } from '../_admin-gate.js';
 
 function checkAuth(req) {
   const expected = process.env.ADMIN_PASSWORD;
@@ -37,6 +37,7 @@ export default async function handler(req, res) {
   corsAdmin(req, res, 'GET, DELETE, OPTIONS', 'Content-Type, Authorization');
   if (req.method === 'OPTIONS') return res.status(200).end();
 
+  if (origineRefusee(req)) return refuserOrigine(res);
   const frein = await freinage(req);
   if (frein.bloque) return refuser(res);
   const auth = checkAuth(req);

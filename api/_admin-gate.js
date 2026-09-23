@@ -40,6 +40,31 @@ export function originesAutorisees() {
   return [...ORIGINES_PAR_DEFAUT, ...sup];
 }
 
+/**
+ * L'origine est-elle refusée ? À appeler APRÈS le préflight, AVANT tout le reste.
+ *
+ * La liste d'origines a d'abord été posée par le seul CORS, et cela NE SUFFIT PAS —
+ * mesuré en production le 23 septembre 2026 : sur quatorze requêtes venues d'une
+ * origine étrangère, DIX recevaient encore « Access-Control-Allow-Origin: * ».
+ * `vercel.json` pose cet en-tête sur /api/ au niveau de la plateforme, et l'exclusion
+ * de /api/admin/ par expression régulière n'est pas appliquée de façon fiable.
+ *
+ * Mais la vraie leçon n'est pas de syntaxe : **le CORS est un contrôle de navigateur**.
+ * Il demande au navigateur de ne pas laisser LIRE la réponse ; il n'empêche jamais la
+ * requête d'arriver, et il ne protège rien de ce qui n'est pas un navigateur. Faire
+ * reposer une porte d'administration dessus, c'était la construction faible.
+ *
+ * On refuse donc côté SERVEUR. Une page hébergée ailleurs qui tente un mot de passe
+ * reçoit 403 sans que la comparaison ait lieu : elle n'apprend rien, quel que soit
+ * l'en-tête que la plateforme ajoute ensuite. Une requête sans `Origin` — même origine,
+ * ou appel serveur à serveur — passe et retombe sur le mot de passe, comme avant.
+ */
+export function origineRefusee(req) {
+  const origine = req.headers.origin;
+  return Boolean(origine) && !originesAutorisees().includes(origine);
+}
+
+
 export function corsAdmin(req, res, methodes = 'GET, POST, OPTIONS',
                           entetes = 'Content-Type, Authorization, X-Admin-Secret') {
   const origine = req.headers.origin;
@@ -106,6 +131,11 @@ export async function echecAdmin(req) {
 export async function reussiteAdmin(req) {
   try { await kv.del(cleIp(req)); } catch { /* sans effet sur la requête */ }
 }
+
+export function refuserOrigine(res) {
+  return res.status(403).json({ error: 'Origine non autorisée' });
+}
+
 
 export function refuser(res) {
   res.setHeader('Retry-After', String(FENETRE));
