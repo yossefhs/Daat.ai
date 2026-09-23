@@ -29,6 +29,10 @@ RE_LIEN = re.compile(r'href="((?:index|niveau-\d-[a-z0-9-]+?))(?<!-he)(?<!-en)\.
 SUFFIXES = ('-he', '-en')
 # Forme absolue du même défaut : /yd/160/ depuis une page hébraïque.
 RE_ABS = re.compile(r'href="/yd/(\d+)/"')
+# Forme remontante : ../../../communaute.html depuis une page hébraïque. Aucune
+# liste de pages n'est codée en dur — la cible est résolue sur le disque, et le
+# lien n'est réécrit que si la variante de langue existe à côté d'elle.
+RE_REMONTE = re.compile(r'href="((?:\.\./)+[A-Za-z0-9_./-]+?)(?<!-he)(?<!-en)\.html((?:#[\w.-]+)?)"')
 
 
 def main(argv):
@@ -58,7 +62,18 @@ def main(argv):
             n += 1
             return f'href="{stem}{suf}.html{ancre}"'
 
+        def remonte(m):
+            nonlocal n, sautes
+            chemin, ancre = m.group(1), m.group(2)
+            if not os.path.exists(os.path.normpath(
+                    os.path.join(rep, chemin + suf + '.html'))):
+                sautes += 1
+                return m.group(0)
+            n += 1
+            return f'href="{chemin}{suf}.html{ancre}"'
+
         neuf = RE_LIEN.sub(remplace, html)
+        neuf = RE_REMONTE.sub(remonte, neuf)
         lang = suf.lstrip('-')
         neuf, k = RE_ABS.subn(lambda m: 'href="/yd/%s/%s"' % (m.group(1), lang), neuf)
         n += k

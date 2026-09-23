@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="fr" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,9 +22,9 @@
 <style>
   @page { size: A4; margin: 2cm 1.8cm; }
   body {
-    font-family: 'Frank Ruhl Libre', 'David', 'Georgia', 'Cambria', serif;
+    font-family: 'Georgia', 'Cambria', 'Source Serif 4', serif;
     font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0;
-    direction: rtl; text-align: right;
+    direction: ltr; text-align: left;
   }
   .he {
     direction: rtl; text-align: right;
@@ -73,24 +73,24 @@
     color: #fff; background: #1A1F3A;
     font-size: 16pt; padding: 10px 18px; margin-top: 30px;
     border-right: 6px solid #C5A55A;
-    direction: rtl; text-align: right;
-    font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
+    direction: ltr; text-align: left;
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
   }
   h3 {
     color: #1A1F3A; font-size: 14pt; margin-top: 25px;
     border-right: 4px solid #C5A55A; padding-right: 10px;
-    direction: rtl; text-align: right;
-    font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
+    direction: ltr; text-align: left;
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
   }
   h3.he-h3 {
-    direction: rtl; text-align: right;
+    direction: ltr; text-align: left;
     border-right: none; border-left: 4px solid #C5A55A;
     padding-right: 0; padding-left: 10px;
   }
   h4 {
     color: #5a4a1a; font-size: 12pt;
     margin-top: 20px; margin-bottom: 8px; font-weight: bold;
-    direction: rtl; text-align: right;
+    direction: ltr; text-align: left;
   }
 
   .sacred-text {
@@ -98,73 +98,75 @@
     border-right: 3px solid #C5A55A; border-left: 3px solid #C5A55A;
     padding: 15px 20px; margin: 15px 0;
     font-size: 12.5pt; line-height: 1.9;
+    direction: ltr; text-align: left;
   }
+  .sacred-text.he { direction: rtl; text-align: right; }
   .pilpul-box {
     background: #eef3fa; border-right: 4px solid #1A1F3A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; direction: ltr; text-align: left;
   }
   .pilpul-box::before {
     content: "⚡ פלפול"; display: block;
     color: #1A1F3A; font-weight: bold; font-size: 10pt;
     margin-bottom: 5px; letter-spacing: 1px;
-    direction: rtl; text-align: right;
+    direction: rtl; unicode-bidi: isolate; text-align: left;
   }
   .kashya-box {
     background: #fef4e4; border-right: 4px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; direction: ltr; text-align: left;
   }
   .kashya-box::before {
     content: "❓ קושיא"; display: block;
     color: #8a6a1a; font-weight: bold; font-size: 10pt;
     margin-bottom: 5px; letter-spacing: 1px;
-    direction: rtl; text-align: right;
+    direction: rtl; unicode-bidi: isolate; text-align: left;
   }
   .teruts-box {
     background: #e8f4ea; border-right: 4px solid #2d7a3e;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; direction: ltr; text-align: left;
   }
   .teruts-box::before {
     content: "✓ תירוץ"; display: block;
     color: #2d7a3e; font-weight: bold; font-size: 10pt;
     margin-bottom: 5px; letter-spacing: 1px;
-    direction: rtl; text-align: right;
+    direction: rtl; unicode-bidi: isolate; text-align: left;
   }
   .hakira-box {
     background: #f5e9f5; border-right: 4px solid #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; direction: ltr; text-align: left;
   }
   .hakira-box::before {
     content: "🔍 חקירה"; display: block;
     color: #6a1b7a; font-weight: bold; font-size: 10pt;
     margin-bottom: 5px; letter-spacing: 1px;
-    direction: rtl; text-align: right;
+    direction: rtl; unicode-bidi: isolate; text-align: left;
   }
   .nafka-mina-box {
     background: #fff4e6; border: 2px solid #C5A55A;
     padding: 12px 18px; margin: 15px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    direction: ltr; text-align: left;
   }
   .nafka-mina-box::before {
     content: "⚖️ נפקא מינה"; display: block;
     color: #1A1F3A; font-weight: bold; font-size: 10pt;
     margin-bottom: 5px; letter-spacing: 1px;
-    direction: rtl; text-align: right;
+    direction: rtl; unicode-bidi: isolate; text-align: left;
   }
   .yesod-box {
     background: #1A1F3A; color: #fff;
     padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    direction: ltr; text-align: left;
   }
   .yesod-box::before {
     content: "💎 יסוד"; display: block;
     color: #C5A55A; font-weight: bold; font-size: 10pt;
     margin-bottom: 8px; letter-spacing: 2px;
-    direction: rtl; text-align: right;
+    direction: rtl; unicode-bidi: isolate; text-align: left;
   }
   .yesod-box .he-q { color: #C5A55A; }
   .machloket-box {
     background: #faf5ff; border: 1.5px dashed #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; direction: ltr; text-align: left;
   }
 
   table {
@@ -173,10 +175,10 @@
   }
   th {
     background: #1A1F3A; color: #fff;
-    padding: 10px; text-align: right; direction: rtl; font-size: 11pt;
+    padding: 10px; text-align: left; direction: ltr; font-size: 11pt;
   }
   td {
-    direction: rtl; text-align: right;
+    direction: ltr; text-align: left;
     border: 1px solid #d4c89a; padding: 10px; vertical-align: top;
   }
   tr:nth-child(even) td { background: #FAF6EE; }
@@ -197,30 +199,29 @@
   }
 
   ol.stylish li, ul.stylish li { margin-bottom: 8px; }
-  ol.stylish, ul.stylish { padding-right: 22px; padding-left: 0; }
+  ol.stylish, ul.stylish { padding-left: 22px; padding-right: 0; }
 
   .rishon-card {
     background: #f7f3e4; border-right: 4px solid #8a6a1a;
     padding: 10px 15px; margin: 10px 0; font-size: 10.5pt;
-    direction: rtl; text-align: right;
+    direction: ltr; text-align: left;
   }
   .rishon-card strong { color: #1A1F3A; font-size: 11pt; }
 
   blockquote {
-    border-right: 3px solid #C5A55A;
-    margin: 10px 0 10px 15px; padding: 8px 15px;
+    border-left: 3px solid #C5A55A;
+    margin: 10px 15px 10px 0; padding: 8px 15px;
     background: #faf8f0; font-style: italic;
-    direction: rtl; text-align: right;
-    font-family: 'Frank Ruhl Libre', serif; font-size: 11.5pt;
-    unicode-bidi: embed;
+    direction: ltr; text-align: left;
+    font-family: 'Georgia', serif; font-size: 11.5pt;
   }
 
   .index-box {
     background: #FAF6EE; border: 1px solid #C5A55A;
     padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    direction: ltr; text-align: left;
   }
-  .index-box ol { margin: 5px 0; padding-right: 25px; padding-left: 0; }
+  .index-box ol { margin: 5px 0; padding-left: 25px; padding-right: 0; }
   .index-box li { margin-bottom: 5px; }
 
   h3.sugya {
@@ -237,14 +238,14 @@
     font-size: 12pt;
     text-decoration: none;
     border-bottom: 1px dotted #C5A55A;
-    direction: rtl;
+    direction: ltr;
   }
   a.daat-explain:hover { color: #8a6a1a; border-bottom-style: solid; }
 
   /* ── כפתור העתקה ── */
   button.daat-copy {
     display: inline-block;
-    margin: 0 10px 0 0;
+    margin: 0 0 0 10px;
     padding: 3px 12px;
     font-family: 'Frank Ruhl Libre', 'David', serif;
     font-size: 10.5pt;
@@ -254,7 +255,7 @@
     border-radius: 4px;
     cursor: pointer;
     vertical-align: middle;
-    direction: rtl;
+    direction: ltr;
   }
   button.daat-copy:hover { background: #C5A55A; color: #fff; }
   @media print { button.daat-copy, a.daat-explain { display: none; } }
@@ -273,7 +274,7 @@
   "headline": "Siman צ״ג · Niveau 2 Lamdan — Pilpoul approfondi · קדרה שבישלו בה בשר לא יבשלו בה חלב, בן יומו ונותן טעם לפגם",
   "description": "Niveau 2 (Lamdan) du Siman צ״ג (Yoreh De'ah) — Pilpoul approfondi du seif unique. בן יומו ונותן טעם vs נותן טעם לפגם, לשער נגד כל הקדרה (ש״ך ס״ק א), כלי חרס דפסחים ל' (ט״ז), דין הכיסוי וחומרת בן יומו, תתאה גבר וקליפה — חקירה et נפקא מינה.",
   "url": "https://daattorah.com/yd/93/lamdan",
-  "inLanguage": "he-IL",
+  "inLanguage": "fr-FR",
   "isAccessibleForFree": true,
   "author": {
     "@id": "https://daattorah.com/#rav-samama"
@@ -382,33 +383,33 @@
 <!-- COUVERTURE -->
 <div class="cover">
   <div class="ornament">✦ ❖ ✦</div>
-  <div class="badge-top">DAAT · רמה ב' — לַמְדָּן</div>
-  <h1>שולחן ערוך · יורה דעה</h1>
-  <div class="subtitle">דין קדרה שבישלו בה בשר — עיון ופלפול</div>
+  <div class="badge-top">DAAT · NIVEAU 2 — LAMDAN</div>
+  <h1>Siman 93 — Niveau Lamdan : ce que devient un goût absorbé dans une paroi</h1>
+  <div class="subtitle">La marmite où l'on a cuit de la viande — étude et pilpoul</div>
 
   <div class="he-title">סימן צ״ג</div>
   <div class="he-sub">בן יומו ונותן טעם, נותן טעם לפגם, לשער נגד כל הקדרה, דין הכיסוי, תתאה גבר</div>
-  <div class="he-subject">עיון, פלפול, שיטות הראשונים והאחרונים</div>
+  <div class="he-subject">Étude, pilpoul, shitot des Richonim et des A'haronim</div>
 
-  <div class="level-badge">⚡ ללומדים ותלמידי חכמים ⚡</div>
+  <div class="level-badge">⚡ Pour les étudiants et les talmidé 'hakhamim ⚡</div>
 
   <div class="ornament">✦ ❖ ✦</div>
 
-  <h2 style="margin-top:20px; color: #1A1F3A;">פלפול ועיון מעמיק</h2>
+  <h2 style="margin-top:20px; color: #1A1F3A;">Pilpoul et étude approfondie</h2>
   <p style="font-size:12pt; color:#555;">
-    סוגיות, מקורות, חקירת היסוד, מחלוקות ראשונים ואחרונים,<br>
-    נפקא מינות להלכה ועיון בשיטות
+    Sougyot, sources, hakira de fond, ma'hlokot de Richonim et d'A'haronim,<br>
+    nafka minot pour la halakha et examen des shitot
   </p>
 
   <div class="credits">
-    <p><strong>הנושא :</strong><br>
-    שולחן ערוך יורה דעה סימן צ״ג (סעיף אחד)<br>
-    עם נושאי כלים: ש״ך (שפתי כהן), ט״ז (טורי זהב), פרי מגדים, פתחי תשובה</p>
+    <p><strong>Sujet :</strong><br>
+    שולחן ערוך יורה דעה סימן צ״ג — un seul seif<br>
+    avec les nossé kelim : ש״ך (Sifté Kohen), ט״ז (Touré Zahav), פרי מגדים, פתחי תשובה</p>
 
-    <p><strong>יסוד הסוגיא בש״ס :</strong><br>
-    עבודה זרה ע״ה:–ע״ו. (גיעולי נכרים, נותן טעם לפגם, בן יומו) · פסחים ל'. (כלי חרס — אינו יוצא מידי דופיו לעולם) · פסחים ע״ו. (תתאה גבר)</p>
+    <p><strong>Racine de la sougya dans le Chas :</strong><br>
+    עבודה זרה ע״ה:–ע״ו. (ustensiles rachetés aux non-juifs, goût qui gâte, ustensile du jour) · פסחים ל'. (le vase de terre, dont la Torah atteste qu'il ne sort jamais de son défaut) · פסחים ע״ו. (le dessous l'emporte)</p>
 
-    <p><strong>עריכה ועיון :</strong><br>
+    <p><strong>Rédaction et étude :</strong><br>
     הרב יוסף חיים סממה · DAAT</p>
   </div>
 </div>
@@ -416,21 +417,21 @@
 <div class="page-break"></div>
 
 <!-- TABLE DES MATIÈRES -->
-<h2 class="section-title">📑 תוכן העניינים</h2>
+<h2 class="section-title">📑 Table des matières</h2>
 
-<div class="index-box" dir="rtl">
+<div class="index-box">
 <ol>
-  <li><strong>הקדמת הסוגיא</strong> — קדרה שבישלו בה בשר לא יבשלו בה חלב (סעיף אחד)</li>
-  <li><strong>בן יומו ונותן טעם</strong> — מדוע כלי בן יומו אוסר, וגדר הבליעה החיה</li>
-  <li><strong>נותן טעם לפגם</strong> — לאחר מעת לעת, ויסוד "סתם כלים אינן בני יומן"</li>
-  <li><strong>הקדרה אסורה לעולם</strong> — אף שהתבשיל מותר, מדוע נשארת אסורה לכתחילה</li>
-  <li><strong>לשער נגד כל הקדרה</strong> — חידוש הש״ך (ס״ק א), ויודע שיעור הבלוע (צ״ד:ו', צ״ב:ה')</li>
-  <li><strong>כלי חרס — סוגיית פסחים ל'</strong> — חידוש הט״ז (ס״ק א) ובעל העיטור</li>
-  <li><strong>דין הכיסוי</strong> — חומרת בן יומו, רש״ל מול הלבוש (ט״ז ס״ק ב)</li>
-  <li><strong>קולות בכיסוי</strong> — שבות יעקב (לאחר חודשיים) ובני חייא (פתחי תשובה)</li>
-  <li><strong>תתאה גבר בכיסוי וקדרה</strong> — קליפה ושתי קדירות שנגעו</li>
-  <li><strong>חקירה ונפקא מינה למעשה</strong></li>
-  <li><strong>טבלאות סיכום מקיפות</strong></li>
+  <li><strong>Ouverture de la sougya</strong> — une marmite où l'on a cuit de la viande, on n'y cuira pas de lait (un seul seif)</li>
+  <li><strong>L'ustensile du jour et le goût qu'il donne</strong> — pourquoi c'est lui qui interdit, et ce qu'est une absorption encore vive</li>
+  <li><strong>Le goût qui gâte</strong> — après vingt-quatre heures, et la racine de notre usage : nos ustensiles ne sont pas réputés du jour</li>
+  <li><strong>La marmite reste interdite</strong> — alors même que le plat est permis, pourquoi elle ne redevient pas utilisable</li>
+  <li><strong>Évaluer contre la marmite entière</strong> — le ס״ק א du Chakh, et le cas où l'on sait ce qui a été absorbé (צ״ד:ו', צ״ב:ה')</li>
+  <li><strong>Le vase de terre — la sougya de Pessa'him 30</strong> — le Tour s'étonne du Baal haIttour, le Taz (ס״ק א) le justifie</li>
+  <li><strong>Le couvercle</strong> — la rigueur de le tenir pour « du jour », le Maharchal contre le Levouch (ט״ז ס״ק ב)</li>
+  <li><strong>Allègements sur le couvercle</strong> — le Chevout Yaakov (après deux mois) et le Bené 'Hiya (Pit'hé Techouva)</li>
+  <li><strong>Le dessous l'emporte, entre couvercle et marmite</strong> — la pelure, et deux marmites qui se touchent</li>
+  <li><strong>'Hakira et nafka mina pour la pratique</strong></li>
+  <li><strong>Tableaux récapitulatifs</strong></li>
 </ol>
 </div>
 
@@ -438,401 +439,411 @@
 
 <!-- ============================================================= -->
 <!-- לשון השולחן ערוך — סעיף א' -->
-<h2 class="section-title">📜 לשון השולחן ערוך — סעיף א'
-  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 העתק</button>
+<h2 class="section-title">📜 Le texte du Choulhan Aroukh — seif א'
+  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 Copier</button>
 </h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ Explication détaillée (niveau 1)</a>
 
-<div class="sacred-text he" data-copy-block id="cp-1">
-  <p>קְדֵרָה שֶׁבִּשְּׁלוּ בָּהּ בָּשָׂר — לֹא יְבַשְּׁלוּ בָּהּ חָלָב; וְאִם בִּשֵּׁל בָּהּ בְּתוֹךְ מֵעֵת לְעֵת — אָסוּר בְּנוֹתֵן טַעַם. (הגה: וְצָרִיךְ לְשַׁעֵר נֶגֶד כָּל הַקְּדֵרָה.) אֲבָל אִם שָׁהָה מֵעֵת לְעֵת קֹדֶם שֶׁבִּשֵּׁל בָּהּ — הֲוֵי לֵיהּ נוֹתֵן טַעַם לִפְגָם וּמֻתָּר הַתַּבְשִׁיל, אֲבָל הַקְּדֵרָה אֲסוּרָה. (הגה: וּמֻתֶּרֶת לְבַשֵּׁל בָּהּ שְׁאָר דְּבָרִים. וְדִין כִּסּוּי הַקְּדֵרָה כְּדִין הַקְּדֵרָה עַצְמָהּ. וְיֵשׁ מַחְמִירִין בַּכִּסּוּי לַחֲשׁוֹב אוֹתוֹ כְּבֶן יוֹמוֹ אַף עַל פִּי שֶׁאֵינוֹ בֶּן יוֹמוֹ; וְכֵן נוֹהֲגִין בְּמִקְצָת מְקוֹמוֹת, וְכֵן אֲנִי נוֹהֵג מֵחֲמַת הַמִּנְהָג, וְהוּא חֻמְרָא בְּלֹא טַעַם; וּמִכָּל מָקוֹם בִּמְקוֹם שֶׁיֵּשׁ צַד הֶתֵּר אַחֵר, אוֹ לְצֹרֶךְ שַׁבָּת, אוֹ בִּמְקוֹם הֶפְסֵד — מַתִּירִין הַכִּסּוּי כְּשֶׁאֵינוֹ בֶּן יוֹמוֹ, כְּמוֹ הַקְּדֵרָה עַצְמָהּ.)</p>
+<div class="sacred-text he" data-copy-block id="cp-1" dir="rtl">
+  <p>קדירה שבשלו בה בשר לא יבשלו בה חלב. ובו סעיף אחד: קדירה שבשל בה בשר לא יבשל בה חלב ואם בישל בה בתוך מעת לעת אסור בנותן טעם (וצריך לשער נגד כל הקדירה) אבל אם שהה מעת לעת קודם שבישל בה הוי ליה נותן טעם לפגם ומותר התבשיל אבל הקדרה אסורה לבשל בה לא בשר ולא חלב: הגה אבל שאר דברים מותר (ריב"ש סימן קכ"ו בשם סמ"ק ובהגמי"י פ"ו) ודין כסוי קדרה כדין קדירה עצמה (ד"ע ואו"ה) ויש מחמירים בכיסוי לומר דאע"פ שאינו בן יומו דינו כאילו היה בן יומו (בהגהות ש"ד בשם קובץ) וכן נוהגין בקצת מקומות וכן אני נוהג מפני המנהג והוא חומרא בלא טעם (ד"ע) ומכל מקום במקום שיש שום צד להתיר בלאו הכי או שהוא לצורך שבת או הפסד יש להתיר אם אין הכיסוי בן יומו כמו בקדירה עצמה ואם לקחו כיסוי רותח מקדירה של בשר ונתנו אותו על קדירה של חלב אם שניהם חמים שניהם אסורים אם יש מאכל בקדירה של בשר וחלב ואם הכיסוי צונן והקדירה חמה נמי שניהם אסורים אם התחיל להזיע תחת הכיסוי דתתאה גבר (או"ה) ואם הכיסוי חם והקדירה צוננת הכל שרי (שם) רק המאכל צריך קליפה (לדעת הגהת ש"ד ולא כאו"ה שם) אם אפשר לקלפו ואם לאו הכל שרי ואם לא היה מאכל בקדירה הכל שרי דהוי כשתי קדירות שנגעו זו בזו (הכל ד"ע לסברת הארוך):</p>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">1. הקדמת הסוגיא — קדרה שבישלו בה בשר</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">1. Ouverture de la sougya — une marmite où l'on a cuit de la viande</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">היסוד — הבלוע החוזר ונפלט בבישול שני
-  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 העתק</button>
+<h3 class="he-h3">Le fondement — ce qui a été absorbé revient et ressort à la cuisson suivante
+  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 Copier</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-2">
-יסוד הסימן: קדרה שבישלו בה בשר — בלע דופן הקדרה מטעם הבשר. לפיכך אם יבשל בה <strong>חלב</strong>, יחזור הבלוע ויפלוט מן הדופן אל החלב, ונמצא מבשל בשר בחלב. ועל כן <span class="he-q">לא יבשלו בה חלב</span> מעיקרא. וכל דין הסימן תלוי ב<strong>גדר הבלוע</strong>: אם עודנו "חי" וטעמו טוב — אוסר; ואם נפגם הטעם בשהותו — שוב אינו אוסר את התבשיל. בכך תלוי כל החילוק שבין <span class="he-q">בן יומו</span> ל<span class="he-q">אינו בן יומו</span>.
+<div class="sacred-text" data-copy-block id="cp-2">
+<p>Le siman tient tout entier dans un fait matériel et dans ce que la halakha en tire. Une marmite dans laquelle on a cuit de la viande a <em>absorbé</em> dans sa paroi le goût de cette viande. Si l'on y cuit ensuite du lait, ce goût ressort de la paroi vers le lait : on se retrouve, sans l'avoir voulu, à cuire de la viande avec du lait. De là l'interdiction dès le départ — <span class="he-q">לא יבשלו בה חלב</span> <span class="source-ref">(שולחן ערוך יורה דעה צ״ג:א)</span>.</p>
+<p>Tout le reste du siman dépend alors d'une seule question : <strong>dans quel état se trouve ce goût absorbé ?</strong> S'il est encore vif et bon, il interdit ; si le temps l'a gâté, il n'interdit plus le plat. C'est là toute la ligne de partage entre l'ustensile du jour, <span class="he-q">בן יומו</span>, et celui qui ne l'est plus, <span class="he-q">אינו בן יומו</span> <span class="source-ref">(שולחן ערוך יורה דעה צ״ג:א)</span>.</p>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>סעיף אחד — ועומק רב :</strong> אף שאין בסימן זה אלא <span class="he-q">סעיף אחד</span>, גלומים בו כמה מן היסודות החריפים שבכל הלכות תערובות: גדר נותן טעם לפגם (מקורו בעבודה זרה ע״ה:–ע״ו.), היסוד שעליו נשען מנהגנו ש"כל הקדרות אינן בני יומן", החילוק בין דין התבשיל לדין הכלי, שיעור הביטול נגד כל הקדרה, וסוגיית כלי חרס דפסחים ל'. ולפיכך ראוי הסימן לפלפול ארוך אף שלשונו קצרה.
+<div class="pilpul-box">
+<strong>Un seul seif, et une profondeur considérable.</strong> Le siman ne comporte qu'un seif — <span class="he-q">ובו סעיף אחד</span> <span class="source-ref">(שולחן ערוך יורה דעה צ״ג, chapeau)</span> — et pourtant plusieurs des fondements les plus aigus de toutes les lois de mélanges y sont ramassés : la définition du goût qui gâte, dont la racine est en עבודה זרה ע״ה:–ע״ו. ; le principe sur lequel repose notre usage que les ustensiles ne sont pas réputés du jour ; la séparation entre le sort du <em>plat</em> et celui de l'<em>ustensile</em> ; la mesure de l'annulation ; et la sougya du vase de terre de פסחים ל'. Un siman court peut demander une longue étude.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>סדר הדינים בסעיף :</strong> (א) קדרה של בשר — לא יבשלו בה חלב לכתחילה. (ב) בישל בה בתוך מעת לעת (בן יומו) — התבשיל אסור בנותן טעם. (ג) שהה מעת לעת קודם (אינו בן יומו) — נותן טעם לפגם, התבשיל מותר. (ד) ואף על פי כן <span class="he-q">הקדרה אסורה</span>. ובהגה: מותרת לשאר דברים; דין הכיסוי כקדרה; חומרת בן יומו בכיסוי וצדדי ההיתר.
-</div>
-
-<!-- ============================================================= -->
-<h2 class="section-title">2. בן יומו ונותן טעם — גדר הבליעה החיה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
-
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זהו השער לכל הסימן: מהו "בן יומו" ומדוע דווקא הוא אוסר.</p>
-
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — בן יומו אוסר בנותן טעם :</strong><br>
-כלי <span class="he-q">בן יומו</span> — שבישלו בו בשר בתוך מעת לעת (כ״ד שעות) — הבלוע שבדופנו עודנו "חי" וטעמו <em>טוב</em>. כשמבשל בו חלב, פולט הדופן את הבשר הבלוע אל החלב ב<span class="he-q">נותן טעם</span>, ואוסר את התבשיל מן הדין (טעם כעיקר), שהרי טעם בשר אמיתי מתערב בחלב. וזהו "אסור בנותן טעם" של המחבר.
-</div>
-
-<div class="hakira-box" dir="rtl">
-<strong>חקירה — בליעת טעם או בליעת ממש :</strong> מהו אותו "בלוע" החוזר ונפלט ? האם הוא <strong>ממשות</strong> דקה של בשר שספג הדופן, או רק <strong>טעם</strong> מופשט בלא גוף ? נפקא מינה גדולה: אם בליעת ממש — שייך בו "אינו יוצא מידי דופיו" שבכלי חרס; ואם טעם בלבד — קל יותר לעקרו בהגעלה. והפתחי תשובה (ס״ק ה, וכן בחוות יאיר) דן בשורש זה, ויסודו במחלוקת הראשונים בגדר "בלע" ובהבנת לשון רש״י בפסחים.
-</div>
-
-<div class="pilpul-box" dir="rtl">
-<strong>מקור הדין בש״ס :</strong> שורש "בן יומו" בעבודה זרה (ע״ה:–ע״ו.) גבי גיעולי נכרים, ששנינו דכלי תשמישן ברותחין צריך הגעלה; ודנו אם בן יומו אוסר במשהו או בנותן טעם, ואם אינו בן יומו פוטרו לגמרי או רק מקילו. ומכאן למד המחבר לסימננו: בן יומו — נותן טעם; שעבר עליו מעת לעת — נותן טעם <strong>לפגם</strong>.
+<div class="rishon-card">
+<strong>L'ordre des règles dans le seif.</strong> (a) Marmite de viande — on n'y cuit pas de lait, dès le départ. (b) On y a cuit dans les vingt-quatre heures — le plat est interdit par le goût donné. (c) Vingt-quatre heures se sont écoulées avant la cuisson — c'est un goût qui gâte, et le plat est permis. (d) Malgré cela la marmite demeure interdite : <span class="he-q">אבל הקדרה אסורה לבשל בה לא בשר ולא חלב</span> <span class="source-ref">(שולחן ערוך יורה דעה צ״ג:א)</span>. Puis, dans la glose du Rama : les autres aliments y restent permis ; le couvercle suit la marmite ; la rigueur de le tenir pour « du jour », et les cas où elle cède.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">3. נותן טעם לפגם — לאחר מעת לעת</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">2. L'ustensile du jour et le goût qu'il donne — une absorption encore vive</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סיפא דסעיף א')
-  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 העתק</button>
+<p style="margin:15px 0; font-style:italic;">C'est la porte de tout le siman : qu'est-ce qu'un ustensile « du jour », et pourquoi est-ce lui, précisément, qui interdit ?</p>
+
+<div class="yesod-box">
+<strong>Le fondement — l'ustensile du jour interdit par le goût qu'il donne.</strong><br>
+Un ustensile <span class="he-q">בן יומו</span> — dans lequel on a cuit de la viande il y a moins de vingt-quatre heures — porte dans sa paroi un goût encore vif, et <em>bon</em>. Quand on y cuit du lait, la paroi rend ce goût de viande au lait en quantité suffisante pour se faire sentir, et le plat est interdit de plein droit, puisqu'un goût réel de viande s'est mêlé au lait. C'est ce que dit le Me'haber : <span class="he-q">אסור בנותן טעם</span> <span class="source-ref">(שולחן ערוך יורה דעה צ״ג:א)</span>.
+</div>
+
+<div class="hakira-box">
+<strong>'Hakira — absorption d'un goût, ou absorption d'une matière ?</strong> Qu'est-ce donc que ce « goût absorbé » qui revient et ressort ? Est-ce une <strong>matière</strong> ténue de viande dont la paroi s'est imprégnée, ou seulement un <strong>goût</strong>, sans corps ? La conséquence est grande : s'il s'agit d'une matière, le principe du vase de terre qui ne sort jamais de son défaut s'y applique pleinement ; s'il ne s'agit que d'un goût, il se laisse bien plus facilement extraire par l'ébouillantage. Le Pit'hé Techouva pose exactement cette distinction, au nom du 'Havot Yaïr : <span class="he-q">שיש חילוק בין בליעת טעם הדבר לבליעת ממשו</span> <span class="source-ref">(פתחי תשובה יו״ד צ״ג ס״ק ה)</span>.
+</div>
+
+<div class="pilpul-box">
+<strong>La source de la règle dans le Chas.</strong> La racine de la notion d'ustensile du jour est en עבודה זרה ע״ה:–ע״ו., à propos des ustensiles rachetés aux non-juifs, où il est enseigné que celui qui a servi avec de l'eau bouillante demande l'ébouillantage ; la guemara y examine ce qu'interdit un ustensile du jour et ce que devient celui qui ne l'est plus. C'est de là que le Me'haber transpose à notre siman : dans les vingt-quatre heures, un goût qui se fait sentir ; passé ce délai, un goût qui <strong>gâte</strong>.
+</div>
+
+<!-- ============================================================= -->
+<h2 class="section-title">3. Le goût qui gâte — après vingt-quatre heures</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
+
+<h3 class="he-h3">Les mots du Me'haber (fin du seif א')
+  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 Copier</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-3">
-"<strong>אבל אם שהה מעת לעת קודם שבישל בה — הוי ליה נותן טעם לפגם, ומותר התבשיל</strong>; אבל הקדרה אסורה." — כלומר: משעבר מעת לעת על הבלוע, נפגם טעמו, ופליטתו אל החלב היא <span class="he-q">נותן טעם לפגם</span>, וקיימא לן נותן טעם לפגם מותר (חולין צ״ח:; עבודה זרה ס״ז:). על כן <strong>התבשיל מותר</strong> בדיעבד.
+<div class="sacred-text" data-copy-block id="cp-3">
+<p>«&nbsp;<span class="he-q">אבל אם שהה מעת לעת קודם שבישל בה הוי ליה נותן טעם לפגם ומותר התבשיל אבל הקדרה אסורה</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ג:א)</span></p>
+<p>Autrement dit : une fois écoulées vingt-quatre heures sur le goût absorbé, ce goût s'est gâté ; ce que la paroi rend au lait est alors un goût qui gâte, et la règle reçue est qu'un goût qui gâte ne rend pas interdit (חולין צ״ח: ; עבודה זרה ס״ז:). Le <strong>plat</strong>, par conséquent, est permis après coup.</p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — נותן טעם לפגם מותר :</strong><br>
-טעם בלוע שעבר עליו מעת לעת אינו עוד טעם משובח אלא <span class="he-q">פגום</span>. וקיימא לן: <strong>נותן טעם לפגם — מותר</strong>, שהתורה לא אסרה אלא טעם הנותן טעם לשבח. נמצא שאף שיש כאן תערובת בשר וחלב — מאחר שפליטת הקדרה פגומה, אין כאן איסור תורה, והתבשיל מותר בדיעבד.
+<div class="yesod-box">
+<strong>Le fondement — un goût qui gâte ne rend pas interdit.</strong><br>
+Un goût absorbé sur lequel vingt-quatre heures ont passé n'est plus un goût de qualité : il est gâté. Et la règle reçue est qu'un tel goût est permis, parce que la Torah n'a interdit que le goût qui améliore. Il y a donc bien, ici, mélange de viande et de lait — mais puisque ce que rend la marmite est gâté, il n'y a pas d'interdit de la Torah, et le plat est permis après coup.
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>יסוד מנהגנו — "סתם כלים אינן בני יומן" :</strong><br>
-על דין זה נשען כל מנהגנו בכלים: <span class="he-q">סתם כלים אינן בני יומן</span> — מן הסתם עבר עליהם מעת לעת מאז תשמישם, ולכן פליטתם פגומה ואינה אוסרת בדיעבד. וזהו שמתירין בדיעבד מאכל שנתבשל בכלי שאינו בן יומו (ועיין סימן קכ״ב). אבל לכתחילה — אסור להעמיד פליטה זו, ולכן הקדרה אסורה.
+<div class="yesod-box">
+<strong>La racine de notre usage — nos ustensiles ne sont pas réputés « du jour ».</strong><br>
+C'est sur cette règle que repose tout notre usage en matière d'ustensiles : on présume que vingt-quatre heures ont passé depuis leur dernier emploi, de sorte que ce qu'ils rendent est gâté et n'interdit pas après coup. Le Choulhan Aroukh l'écrit ailleurs en toutes lettres : «&nbsp;<span class="he-q">כשם שסתם כליהם של עובדי כוכבים אינם בני יומן כך סתם כלים שלנו בחזקת שאינן בני יומן</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה קכ״ב:ז)</span>. Mais cela ne vaut qu'après coup : au départ, on n'installe pas une telle situation — et c'est pourquoi la marmite, elle, reste interdite.
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>דקדוק — "מותר התבשיל" ולא הקדרה :</strong> דייק המחבר בלשונו: ה<strong>תבשיל</strong> מותר, אבל ה<strong>קדרה אסורה</strong>. ההיתר של נותן טעם לפגם הוא רק לתוצאה (התבשיל שכבר נתבשל), שהרי בדיעבד פליטה פגומה אינה אוסרת. אך הכלי עצמו אינו "ניתר" בכך — כי בעצם בישול בשר אחר־כך חלב בכלי אחד עברנו על מה שאמרה הברייתא "לא יבשל", ולכתחילה אין מעמידין מצב של פליטת בשר לתוך חלב. בכך עוברים לדין הקדרה.
+<div class="pilpul-box">
+<strong>Une précision de langue — « le plat est permis », et non la marmite.</strong> Le Me'haber pèse ses mots : c'est le <strong>plat</strong> qui est permis, la <strong>marmite</strong> qui demeure interdite. La permission du goût qui gâte ne porte que sur le résultat — le plat déjà cuit —, parce qu'après coup un rejet gâté n'interdit pas. Mais l'ustensile, lui, n'en devient pas permis pour autant : en cuisant de la viande puis du lait dans le même ustensile on fait justement ce qu'il ne fallait pas faire, et au départ on n'installe pas un rejet de viande dans du lait. De là on passe au sort de la marmite.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">4. הקדרה אסורה — אף שהתבשיל מותר</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">4. La marmite reste interdite — alors même que le plat est permis</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — מדוע נשארת הקדרה אסורה :</strong> אם נותן טעם לפגם מותר, ופליטת הקדרה (שאינה בת יומה) פגומה — מדוע אין מתירין לבשל בה לכתחילה חלב אחר שבישלו בה בשר ? והרי בכל מקרה הפליטה פגומה !
+<div class="hakira-box">
+<strong>La 'hakira — pourquoi la marmite ne redevient-elle pas utilisable ?</strong> Si un goût qui gâte est permis, et que ce que rend une marmite qui n'est plus du jour est gâté, pourquoi ne pas autoriser d'emblée à y cuire du lait après y avoir cuit de la viande ? Dans tous les cas, ce qu'elle rend est gâté.
 </div>
 
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ — אין מבטלין איסור לכתחילה / מעמידין פגם :</strong> שני יסודות בדבר:
+<div class="teruts-box">
+<strong>Réponse — on n'annule pas un interdit d'emblée, et l'on n'installe pas une situation de viande et de lait.</strong> Deux fondements se joignent :
 <ul class="stylish">
-<li><strong>(א)</strong> אסור <span class="he-q">לבטל איסור לכתחילה</span> ולהעמיד מציאות של בשר בחלב, אף שבדיעבד הוא פגום ומותר.</li>
-<li><strong>(ב)</strong> חששו שמא יבשל פעם בכלי בן יומו, או בכמות הפוגמת לשבח, ולא יבחין. לפיכך גזרו על הכלי לעולם — <span class="he-q">לא יבשלו בה לא בשר ולא חלב</span>.</li>
+<li><strong>(a)</strong> Il est défendu d'annuler un interdit d'emblée, quand bien même, après coup, le goût gâté rendrait la chose permise : «&nbsp;<span class="he-q">אין מבטלין איסור לכתחלה</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ט:ה)</span>.</li>
+<li><strong>(b)</strong> On craint qu'une fois ou l'autre on cuise dans un ustensile qui est, lui, du jour, ou dans une quantité où le goût n'aurait pas gâté, sans y prendre garde. Aussi la défense porte-t-elle sur l'ustensile lui-même, et pour les deux espèces à la fois : <span class="he-q">אבל הקדרה אסורה לבשל בה לא בשר ולא חלב</span> <span class="source-ref">(שולחן ערוך יורה דעה צ״ג:א)</span>.</li>
 </ul>
-ולכן הקדרה <strong>אסורה לכתחילה</strong> לבשר וחלב כאחד, אף שעבר עליה מעת לעת.
+La marmite est donc <strong>interdite d'emblée</strong>, pour la viande comme pour le lait, même passées vingt-quatre heures.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>שאר דברים מותרין (הגה — ריב״ש סי' קכ״ו בשם הסמ״ק) :</strong> כל האיסור אינו אלא לבשל בקדרה זו את ה<em>מין השני</em> (חלב לאחר בשר), שבזה מצרף את שני המינים. אבל לבשל בה <span class="he-q">שאר דברים</span> פרווה — מותר לגמרי, שאין כאן צירוף בשר וחלב כלל. וזהו דין מצוי למעשה: קדרת בשר ששהתה מעת לעת — מותרת לבשל בה תפוחי אדמה או ירק פרווה.
+<div class="rishon-card">
+<strong>Les autres aliments restent permis (glose du Rama, au nom du Rivach et du Semak) — mais le Chakh signale une tension.</strong> L'interdiction ne vise que la cuisson, dans cette marmite, de l'<em>autre espèce</em>, car c'est cela qui réunit les deux ; y cuire des aliments neutres est permis : «&nbsp;<span class="he-q">אבל שאר דברים שאינן לא של בשר ולא של חלב כגון ירקות ודגים וכה"ג מותר לבשל בה אפילו לכתחלה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ג ס״ק ג)</span>. Le Chakh oppose aussitôt à cela ce que le Rama écrit ailleurs : «&nbsp;<span class="he-q">ולקמן סי' צ"ד ס"ה כתב הרב דנוהגין לאסור הכלי שאינו בן יומו אפילו לשאר דברים</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ג ס״ק ג)</span> — et il raisonne a fortiori : si l'on interdit là où seule une cuiller du jour a été plongée, à plus forte raison ici, où de la viande a été réellement cuite. Sa résolution est que notre siman a énoncé les choses telles quelles quant au din, et il renvoie à ce qu'il écrit au siman 94. <strong>Nous rapportons, et nous ne tranchons pas.</strong>
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>אפשרות הכשרת הקדרה :</strong> אף שהקדרה אסורה לכתחילה, אינה אסורה לעולם — אפשר ל<span class="he-q">הכשירה</span> בהגעלה ולחזור ולבשל בה ככל מין שירצה. והפתחי תשובה (סי' צ״ב ס״ק ג, בשם מגן אברהם תנ״ב) מדגיש שקדרת מתכת שנאסרה אין די למלאותה מים ולהרתיח, אלא צריך להטבילה כולה ביורה גדולה ממנה — שלא ישאר חלק בלא הגעלה. <em>ולמעשה — שאל את רבך.</em>
+<div class="machloket-box">
+<strong>Rendre la marmite à l'usage.</strong> Interdite d'emblée ne veut pas dire interdite pour toujours : l'ébouillantage la rend à l'usage, et l'on peut ensuite y cuire l'espèce que l'on veut. Le Pit'hé Techouva précise, pour une marmite de métal devenue interdite, qu'il ne suffit pas de la remplir d'eau et de la faire bouillir — la face extérieure ne serait pas traitée — mais qu'il faut la plonger tout entière dans un récipient plus grand : «&nbsp;<span class="he-q">אם היא של מתכות ובא להגעילה לא מהני כשימלאנה מים וירתיחנה דא"כ צד החיצון לא נגעל אלא צריך להכניסה כולה ליורה</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד צ״ב ס״ק ג)</span>, et il renvoie pour cela au Maguen Avraham (או״ח סי' תנ״ב ס״ק י״א). <em>Et pour la pratique — demande à ton Rav.</em>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">5. לשער נגד כל הקדרה — חידוש הש״ך</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">5. Évaluer contre la marmite entière — le ס״ק א du Chakh</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זוהי הוספת הרמ״א "וצריך לשער נגד כל הקדרה", שהש״ך (ס״ק א) הוא עמוד התווך לבארה.</p>
+<p style="margin:15px 0; font-style:italic;">C'est ici l'ajout du Rama, « et il faut évaluer contre la marmite entière », dont le Chakh, à son ס״ק א, est le pilier explicatif.</p>
 
-<h3 class="he-h3">לשון הרמ״א
-  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 העתק</button>
+<h3 class="he-h3">Les mots du Rama
+  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 Copier</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-5">
-(הגה:) "<strong>וצריך לשער נגד כל הקדרה.</strong>" — כלומר: כשבישל חלב בקדרת בשר בת יומה, ובא לבטל את פליטת הבשר בששים, אין משערין נגד <em>שיעור הבלוע</em> (שאין אנו יודעים כמותו), אלא נגד <strong>כל גוף הקדרה</strong> — וכמעט אי אפשר שיהא בתבשיל ששים כנגד כל הקדרה, ונמצא התבשיל בן־יומו אסור למעשה.
+<div class="sacred-text" data-copy-block id="cp-5">
+<p>«&nbsp;<span class="he-q">וצריך לשער נגד כל הקדירה</span>&nbsp;» <span class="source-ref">(רמ״א יורה דעה צ״ג:א)</span></p>
+<p>Autrement dit : lorsqu'on a cuit du lait dans une marmite de viande qui est du jour, et qu'on vient annuler dans soixante ce que la marmite a rendu, on ne mesure pas contre la <em>quantité absorbée</em> — dont nous ignorons le volume — mais contre le <strong>corps entier de la marmite</strong>.</p>
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — "נותן טעם" של מי, ובמה משערין :</strong> לשון המחבר "אסור בנותן טעם" — לכאורה משמע שתולין בטעם, וכמדומה ב<span class="he-q">טעימת קפילא</span> (ועיין ריש סימן צ״ב וסימן צ״ח). אך הרמ״א, נאמן לשיטתו שאין סומכין על טעימת נכרי, מה נעשה — אם אין טועמין, כיצד נדע אם יש נותן טעם ?
+<div class="hakira-box">
+<strong>La 'hakira — de quel « goût » parle-t-on, et à quoi le mesure-t-on ?</strong> Les mots du Me'haber, <span class="he-q">אסור בנותן טעם</span> <span class="source-ref">(שולחן ערוך יורה דעה צ״ג:א)</span>, laissent entendre qu'on s'en remet au goût effectif, et le Chakh le dit explicitement : «&nbsp;<span class="he-q">יטעימנו קפילא אם יש בו טעם</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ג ס״ק א)</span> — on le fait goûter à un cuisinier. Mais le Rama, fidèle à sa position, ne s'appuie pas sur la dégustation d'un non-juif. Alors, si l'on ne goûte pas, comment saura-t-on s'il y a goût donné ?
 </div>
 
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ הש״ך (ס״ק א) — לשער נגד כל הקדרה :</strong> מבאר הש״ך: מאחר שאין סומכין על טעימת נכרי, ואין אנו יודעים <strong>כמה בלעה הקדרה</strong> — אנו משערין ל<span class="he-q">חומרא נגד כל הקדרה</span> כולה. כל גוף הדופן נחשב כאילו כולו פלט אל התבשיל, וצריך ששים בתבשיל כנגד כל הקדרה. ומפני שמציאות זו רחוקה — יוצא ש<strong>קדרה בת יומה אוסרת התבשיל למעשה</strong>.
+<div class="teruts-box">
+<strong>La réponse du Chakh (ס״ק א) — et sa seconde voie.</strong> Le Chakh relie lui-même les deux bouts : «&nbsp;<span class="he-q">דאין נוהגים לסמוך אטעימת עובד כוכבים לכך כתב וצריך לשער נגד כל הקדרה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ג ס״ק א)</span>. Puisqu'on ne se fie pas à la dégustation, et qu'on ignore ce que la marmite a bu, on évalue par rigueur contre son corps entier : toute la paroi est traitée comme si elle avait tout rendu dans le plat. Le Chakh en tire d'abord la conséquence que c'est une mesure qu'on n'atteint pas, et donc que le plat est interdit ; puis il donne une seconde voie, qui la rend parfois praticable — «&nbsp;<span class="he-q">משכחת לפעמים שיהא רוחב הקדרה גדול כ"כ שיחזיק מים שיהיו ששים נגדו כגון שנחושתה דק ורחבה גדול</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ג ס״ק א)</span> : une paroi mince et une large ouverture peuvent contenir soixante fois le corps de la marmite. C'est cette seconde voie que le Pit'hé Techouva reprend en renvoyant au Merkévet haMichné, qui l'établit par le calcul <span class="source-ref">(פתחי תשובה יו״ד צ״ג ס״ק א)</span>.
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה — כשיודע שיעור הבלוע :</strong> מסיק הש״ך — כל זה כשאין אנו יודעים כמה בלעה. אבל אם <span class="he-q">יודעין שיעור הבלוע</span> (כגון שבישלו בה דבר מועט, או באומדן ברור) — אין משערין אלא נגד <strong>הבלוע בלבד</strong>, וכדין הכף שבסימן צ״ד (ס״ו) ודין שבסימן צ״ב (ס״ה הגה). ועוד נפקא מינה (פתחי תשובה ס״ק א בשם מרכבת המשנה) — <span class="he-q">נחושתה דק ורחבה גדול</span>: קדרה שדופנה דק ושטחה גדול, שאז מיעוט הבלוע ידוע יותר.
+<div class="nafka-mina-box">
+<strong>Nafka mina — lorsqu'on sait ce qui a été absorbé.</strong> Le Chakh conclut que toute cette rigueur ne vaut que pour une marmite ancienne, dont on ignore ce qu'elle a bu : «&nbsp;<span class="he-q">הא דצריך לשער נגד כל הקדרה היינו בקדרה ישנה דלא ידעינן כמה בלע אבל אי ידעינן כמה בלע א"צ לשער אלא כנגד הבלוע בו</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ג ס״ק א)</span>. Il renvoie pour cela à deux endroits précis — צ״ב:ה' dans la glose, et צ״ד:ו' — où les mesures de l'absorbé sont exposées.
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שורש החילוק :</strong> כל החומרא ד"נגד כל הקדרה" אינה אלא מחמת ה<strong>ספק בכמות</strong>, לא מעצם הדין. במקום שאנו יודעין כמה נבלע — חוזרין לדין הרגיל ומשערין נגד הבלוע. נמצא ש"לשער נגד כל הקדרה" הוא דין <em>אומדן</em> לחומרא, לא הלכה מהותית בעצם הביטול. וזהו שמדמה הש״ך לדיני סימן צ״ד וצ״ב, ששם נתבארו שיעורי הבלוע.
+<div class="pilpul-box">
+<strong>La racine de la distinction — et une précision du ס״ק ב.</strong> Toute la rigueur d'« évaluer contre la marmite entière » ne vient pas du fond de la règle, mais de notre <strong>ignorance de la quantité</strong>. Là où l'on sait combien a été absorbé, on revient à la règle ordinaire et l'on mesure contre l'absorbé seul : c'est donc une règle d'<em>estimation</em> par rigueur, non une règle de fond sur l'annulation elle-même — et c'est bien pourquoi le Chakh la rattache aux simanim 92 et 94. On pourrait croire, en outre, qu'elle ne vise que le vase de terre, qui absorbe davantage ; le Chakh écrit le contraire à son ס״ק ב : «&nbsp;<span class="he-q">ולקמן סי' צ"ח יתבאר דאין חילוק בין קדרה של מתכת או של חרס לעולה צריך לשער נגד כל הקדרה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ג ס״ק ב)</span>.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">6. כלי חרס — סוגיית פסחים ל' (חידוש הט״ז)</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">6. Le vase de terre — la sougya de Pessa'him 30 (le ס״ק א du Taz)</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">כאן מביא הט״ז (ס״ק א) את שיטת בעל העיטור שהביא הטור, ומיישבה מסוגיית כלי חרס.</p>
+<p style="margin:15px 0; font-style:italic;">Ici le Taz reprend l'avis du Baal haIttour rapporté par le Tour — dont le Tour lui-même s'étonne — et entreprend de le justifier par la sougya du vase de terre.</p>
 
-<div class="kashya-box" dir="rtl">
-<strong>קושיית / שיטת בעל העיטור (הובא בטור) :</strong> בעל העיטור סבר שאם בישלו בקדרה בת יומה מין אחד (בשר) ויש בתבשיל ששים נגד הבלוע — מותר אחר־כך לבשל בה את המין השני (חלב), שהרי כבר נתבטל הבלוע בששים. ולכאורה לפי זה אין הקדרה נאסרת בנקל.
+<div class="kashya-box">
+<strong>La position du Baal haIttour, l'étonnement du Tour, et la difficulté que le Taz soulève à son tour.</strong> Le Taz ouvre en rapportant l'état du dossier : «&nbsp;<span class="he-q">הטור כתב בשם בעל העיטור</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ג ס״ק א)</span> — si l'on a cuit du lait dans une marmite de viande qui était du jour et qu'il y avait soixante, on pourra ensuite y cuire l'espèce que l'on veut, puisque l'absorbé s'est trouvé annulé. Et le Tour, ajoute le Taz, s'en étonne : <span class="he-q">ותמה עליו</span> <span class="source-ref">(ט״ז יו״ד צ״ג ס״ק א)</span>. Le Taz soulève alors sa propre difficulté sur la sougya du vase de terre : puisque c'est <em>à propos des choses consacrées</em> que la Torah a prescrit le bris, on en déduirait plutôt que les choses ordinaires sont plus légères — «&nbsp;<span class="he-q">וקשה אדרבה נימא מדגלי רחמנא גבי קדשים דאמרינן ישבר ש"מ דחולין הוה קיל מזה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ג ס״ק א)</span>. Les Tossafot, note-t-il, posaient une autre difficulté et y répondaient ; leur réponse ne règle pas celle-ci.
 </div>
 
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ הט״ז (ס״ק א) — דין כלי חרס דפסחים ל' :</strong> מיישב הט״ז: דין זה תלוי בכלי חרס, שאמרו עליו בפסחים (ל'.) <span class="he-q">"אינו יוצא מידי דופיו לעולם"</span> (וכפירוש רש״י) — שכלי חרס בולע ואינו פולט לעולם את כל בלעו, ולכן אין לו תקנה בהגעלה אלא בשבירה. ולפיכך אף שנתבטל הבלוע בתבשיל אחד — נשאר בדופן החרס ממשות בלוע שתחזור ותפלוט במין השני. נמצא טעם החילוק נעוץ בגדר הבליעה של כלי חרס דווקא.
+<div class="teruts-box">
+<strong>Le Taz vient justifier le Baal haIttour.</strong> Le Taz annonce son propos en toutes lettres : «&nbsp;<span class="he-q">ונראה לתרץ דעת בעל העיטור על נכון</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ג ס״ק א)</span>. Son point d'appui est ce que la Torah atteste du vase de terre — «&nbsp;<span class="he-q">התורה העידה על כלי חרס שאינו יוצא מידי דופיו לעולם</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ג ס״ק א, פסחים ל'.)</span> —, que Rachi explique ainsi : puisqu'il rend du liquide par sa paroi extérieure, il a bel et bien absorbé, et il ne rendra plus jamais tout ce qu'il a bu. Et c'est de la difficulté précédente, dit le Taz, que le Baal haIttour a tiré sa position : «&nbsp;<span class="he-q">דבחרס בחולין אה"נ דמן התורה מותר בהגעלה אלא דוקא בקדשים אמרה תורה אינו יוצא מידי דופיו ורבנן אמרו דגם בחולין אמרינן כן</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ג ס״ק א)</span>. Dès lors tout s'ordonne : pour le Baal haIttour, le goût de viande a déjà été chassé par l'ébouillantage qu'a constitué la cuisson du lait ; il ne reste qu'un interdit rabbinique ; et comme le maintenir rendrait l'ustensile définitivement inutilisable — <span class="he-q">יבוא לידי פסידא דא"א להשתמש בו עוד</span> <span class="source-ref">(ט״ז יו״ד צ״ג ס״ק א)</span> —, on est dans le cas d'un « après coup », où les Sages n'ont pas décrété sur un goût gâté. Le Taz conclut : <span class="he-q">כנ"ל נכון דעת בה"ע</span> <span class="source-ref">(ט״ז יו״ד צ״ג ס״ק א)</span>, et il renvoie au siman 121, où le Tour rapporte que le Baal haIttour allège pareillement pour un vase de terre qui n'est pas du jour, l'interdit n'y étant que rabbinique.
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>חקירה — בליעת ממש מול בליעת טעם (פתחי תשובה ס״ק ה) :</strong> מסוגיית כלי חרס מתחדדת החקירה דלעיל: "אינו יוצא מידי דופיו" מורה שיש בדופן <strong>ממשות</strong> בלועה, ולא טעם בלבד. ובחוות יאיר (וכן בפתחי תשובה ס״ק ה) דנו עד כמה לדמות בליעת מתכת לבליעת חרס, ומה דין בלוע שנתבטל פעם אחת אם חוזר וניעור.
+<div class="hakira-box">
+<strong>'Hakira — matière absorbée ou goût absorbé (Pit'hé Techouva ס״ק ה).</strong> La sougya du vase de terre aiguise la question posée plus haut : « il ne sort pas de son défaut » suggère qu'il reste dans la paroi une <strong>matière</strong>, et non un goût seul. Le Pit'hé Techouva rapporte que le 'Havot Yaïr, précisément, refuse sur ce point le raisonnement du Taz et fonde la chose sur la distinction entre les deux : <span class="he-q">שיש חילוק בין בליעת טעם הדבר לבליעת ממשו</span> <span class="source-ref">(פתחי תשובה יו״ד צ״ג ס״ק ה)</span>. Ce qu'un ustensile saturé n'absorbe plus, c'est le corps de la chose ; son goût, il continue de le prendre.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הפתחי תשובה (ס״ק ב) — חתם סופר :</strong> מביא הפתחי תשובה בשם החתם סופר (יו״ד סי' פ״ד) שדן בדברי בעל העיטור הללו, ובגדר הביטול בכלי שאינו חרס. ולמעשה אנו מחמירין כפשט הסוגיא — קדרת בשר בת יומה אסורה לבשל בה חלב, ואין סומכין על קולת העיטור. <em>ולמעשה — שאל את רבך.</em>
+<div class="rishon-card">
+<strong>Le Pit'hé Techouva (ס״ק ב) — le 'Hatam Sofer.</strong> Sur ces mots mêmes du Me'haber, le Pit'hé Techouva renvoie à une responsa qui reprend l'explication des paroles du Baal haIttour : «&nbsp;<span class="he-q">ועיין בתשובת חתם סופר סימן פ"ד מ"ש הוא ז"ל בביאור דברי העיטור בזה</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד צ״ג ס״ק ב)</span>. La discussion sur la position du Baal haIttour reste donc ouverte chez les A'haronim ; la lettre du seif, elle, ne bouge pas, et la marmite demeure interdite. <em>Et pour la pratique — demande à ton Rav.</em>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">7. דין הכיסוי — חומרת בן יומו</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">7. Le couvercle — la rigueur de le tenir pour « du jour »</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון הרמ״א (הגה)
-  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 העתק</button>
+<h3 class="he-h3">Les mots du Rama (glose)
+  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 Copier</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-7">
-(הגה:) "<strong>ודין כיסוי הקדרה כדין הקדרה עצמה; ויש מחמירין בכיסוי לחשוב אותו כבן יומו אף על פי שאינו בן יומו, וכן נוהגין במקצת מקומות, וכן אני נוהג מחמת המנהג, והוא חומרא בלא טעם; ומכל מקום במקום שיש צד היתר אחר, או לצורך שבת, או במקום הפסד — מתירין הכיסוי כשאינו בן יומו, כמו הקדרה עצמה.</strong>"
+<div class="sacred-text" data-copy-block id="cp-7">
+<p>«&nbsp;<span class="he-q">ודין כסוי קדרה כדין קדירה עצמה</span>&nbsp;» <span class="source-ref">(רמ״א יורה דעה צ״ג:א)</span></p>
+<p>«&nbsp;<span class="he-q">ויש מחמירים בכיסוי לומר דאע"פ שאינו בן יומו דינו כאילו היה בן יומו</span>&nbsp;» <span class="source-ref">(רמ״א יורה דעה צ״ג:א)</span></p>
+<p>«&nbsp;<span class="he-q">וכן נוהגין בקצת מקומות וכן אני נוהג מפני המנהג והוא חומרא בלא טעם</span>&nbsp;» <span class="source-ref">(רמ״א יורה דעה צ״ג:א)</span></p>
+<p>«&nbsp;<span class="he-q">ומכל מקום במקום שיש שום צד להתיר בלאו הכי או שהוא לצורך שבת או הפסד יש להתיר אם אין הכיסוי בן יומו כמו בקדירה עצמה</span>&nbsp;» <span class="source-ref">(רמ״א יורה דעה צ״ג:א)</span></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — הכיסוי כקדרה :</strong><br>
-ה<span class="he-q">כיסוי</span> בולע מן הזיעה העולה מן התבשיל הרותח, ולפיכך דינו ככלי שבישלו בו — <strong>כדין הקדרה עצמה</strong>: בן יומו אוסר, אינו בן יומו פליטתו פגומה. זהו עיקר הדין. אלא שעל זה באה חומרת המנהג: לחשוב את הכיסוי תמיד <span class="he-q">כבן יומו</span>, אף כשעבר עליו מעת לעת.
+<div class="yesod-box">
+<strong>Le fondement — le couvercle suit la marmite.</strong><br>
+Le <span class="he-q">כיסוי</span> absorbe la vapeur qui monte du plat bouillant ; son statut est donc celui d'un ustensile dans lequel on a cuit — le même que celui de la marmite. Du jour, il interdit ; passées vingt-quatre heures, ce qu'il rend est gâté. Voilà la règle de fond. C'est sur elle que vient se poser la rigueur de l'usage : tenir le couvercle pour « du jour » en toute occasion, même quand il ne l'est plus.
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>מחלוקת בטעם חומרת הכיסוי :</strong>
+<div class="machloket-box">
+<strong>Ma'hloket sur le motif de cette rigueur (ט״ז ס״ק ב) :</strong>
 <table>
-<tr><th>שיטה</th><th>חומרת הכיסוי (ט״ז ס״ק ב)</th><th>מקור</th></tr>
+<tr><th>Position</th><th>Ce qu'elle tient de la rigueur sur le couvercle</th><th>Source</th></tr>
 <tr>
-  <td><strong>מהרש״ל (ים של שלמה, כל הבשר סי' מ״ז)</strong></td>
-  <td>החומרא רק בכיסויין <strong>צרים וחלולים</strong> שאי אפשר לקנחם יפה — ויש בהם חשש <span class="he-q">איסור בעין</span>; אבל כיסוי רחב הניתן לקינוח — אינו בן יומו וכקדרה</td>
+  <td><strong>Maharchal (ים של שלמה, פרק כל הבשר סי' מ״ז)</strong></td>
+  <td>La rigueur ne vaut que pour les couvercles <strong>étroits et creux</strong>, qu'on ne peut essuyer correctement : il s'y trouve de l'interdit en nature, et là on ne dit pas qu'un goût gâte. Un couvercle large, que la main peut nettoyer, suit la marmite dès lors qu'il n'est pas du jour</td>
   <td>ט״ז ס״ק ב</td>
 </tr>
 <tr>
-  <td><strong>הלבוש</strong></td>
-  <td>אין שום מקום לחומרא זו כלל — הכיסוי כקדרה לכל דבר, ואין לחושבו בן יומו</td>
+  <td><strong>Le Levouch</strong></td>
+  <td>Cette rigueur n'a aucune place : le couvercle est comme la marmite en tout, et il n'y a pas à le tenir pour « du jour »</td>
   <td>ט״ז ס״ק ב</td>
 </tr>
 </table>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>"חומרא בלא טעם" — דקדוק לשון הרמ״א :</strong> הרמ״א עצמו מודה שאין לחומרא זו <span class="he-q">טעם</span> מצד הדין, ואינו נוהגה אלא <strong>מחמת המנהג</strong>. ומכאן שתי תוצאות: (א) במקום שיש <strong>צד היתר אחר</strong>, או <strong>צורך שבת</strong>, או <strong>הפסד</strong> — מתירין הכיסוי שאינו בן יומו ככל קדרה; (ב) הט״ז (ס״ק ב) מצדד כמהרש״ל, ומציע לשער אם יש ששים בתבשיל כנגד מקום הצר שאי אפשר לקנחו. נמצא שאף בעלי החומרא מודים שזו זהירות יתרה ולא עיקר דין.
+<div class="pilpul-box">
+<strong>« Une rigueur sans raison » — la précision de langue du Rama, et ce que les deux nossé kelim en font.</strong> Le Rama reconnaît lui-même que cette rigueur n'a pas de raison du côté du din, et qu'il ne la suit qu'à cause de l'usage : <span class="he-q">והוא חומרא בלא טעם</span> <span class="source-ref">(רמ״א יורה דעה צ״ג:א)</span>. Deux conséquences en découlent. (a) Là où il existe un autre motif de permettre, ou un besoin de Chabbat, ou une perte, on permet le couvercle qui n'est pas du jour, comme la marmite elle-même. (b) Le Taz penche du côté du Maharchal, dont il cite la position en propres termes — «&nbsp;<span class="he-q">שעיקר החומרא דוקא באותן כיסויים שהן קצרים למעלה ויש בהם חלל וא"א לקנחם יפה מן הרתיחה שעולה לשם דכל שיש איסור בעין לא אמרינן ביה נותן טעם לפגם</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ג ס״ק ב)</span> — puis propose une mesure praticable : «&nbsp;<span class="he-q">ונלע"ד לנהוג בזה שיש לשער אם יש בתבשיל ס' נגד מקום הקצר שבכיסוי</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ג ס״ק ב)</span>. Il rapporte encore le Levouch — «&nbsp;<span class="he-q">גם רמ"י בלבוש כתב שאין לחומרא של כיסוי מקום כלל</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ג ס״ק ב)</span> — et referme sur une formule de méthode : «&nbsp;<span class="he-q">וכל מי שאומר סברות להחמיר בזה מה שלא נמצא בתלמוד ובפוסקים עליו הראייה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ג ס״ק ב)</span>. Le Chakh va dans le même sens — «&nbsp;<span class="he-q">ומ"מ ודאי דאין להחמיר כ"כ בכיסוי</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ג ס״ק ד)</span> — et cite la fin du Darké Moché, parmi les mots les plus vifs du siman : «&nbsp;<span class="he-q">ואי איישר חילי אבטל המנהג כי הוא מנהג טעות ואין לו טעם לסמוך עליו</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ג ס״ק ד)</span>. Ceux-là mêmes qui suivent la rigueur reconnaissent donc que c'est une précaution ajoutée, et non le fond de la règle.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">8. קולות בכיסוי — שבות יעקב ובני חייא</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">8. Allègements sur le couvercle — Chevout Yaakov et Bené 'Hiya</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
 
-<div class="rishon-card" dir="rtl">
-<strong>שבות יעקב (פתחי תשובה ס״ק ג) — לאחר חודשיים :</strong> אף לנוהגין להחמיר בכיסוי כבן יומו — אם עברו עליו <span class="he-q">שני חדשים</span> שלא נשתמש בו, מודים כולם שאין בו עוד בלוע משובח, ומתירין אותו אף לכתחילה. שאין החומרא אלא בקרוב לתשמיש, ולא בעבר זמן מרובה.
+<div class="rishon-card">
+<strong>Chevout Yaakov (Pit'hé Techouva ס״ק ג) — après deux mois.</strong> Même pour qui suit la rigueur de tenir le couvercle pour « du jour », si deux mois ont passé sans qu'on s'en soit servi, il y a lieu de permettre : «&nbsp;<span class="he-q">דאף המחמיר בכיסוי קדרה אעפ"י שאינו ב"י מ"מ אחר שני חדשים יש להתיר</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד צ״ג ס״ק ג)</span>. Le Pit'hé Techouva pose aussitôt la limite de cet allègement : «&nbsp;<span class="he-q">ולכתחלה בכל איסורים אסור להשתמש בכלים אף שלא נשתמש בהם שנים הרבה</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד צ״ג ס״ק ג)</span>, et il renvoie à ce qu'il écrit au siman 122.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>בני חייא (פתחי תשובה ס״ק ד) — כיסוי מיוחד מול קערה :</strong> מחלק הבני חייא — כל חומרת הכיסוי אינה אלא ב<span class="he-q">כיסוי המיוחד</span> לקדרה, המשמש לה תמיד. אבל <strong>קערה</strong> (צלחת) של חלב שכיסו בה דרך עראי קדרת בשר (או הניחוה עליה) — מותרת <strong>לכולי עלמא</strong> כשאינה בת יומה, שלא גזרו עליה כלל את חומרת הכיסוי.
+<div class="rishon-card">
+<strong>Bené 'Hiya (Pit'hé Techouva ס״ק ד) — le couvercle attitré et l'assiette posée là.</strong> La distinction porte sur l'ustensile : toute la rigueur du couvercle ne vise que celui qui est <em>destiné à cet usage</em>. Une assiette de lait posée sur une marmite de viande est permise de l'avis de tous dès lors qu'elle n'est pas du jour : «&nbsp;<span class="he-q">דאף לדברי המחמירים דוקא כיסוי מיוחד לכך אבל אם נתן קערה של חלב על קדרה של בשר מותר לדברי הכל כשאינו בן יומו</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד צ״ג ס״ק ד)</span>.
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה למעשה :</strong> נמצאו שלושה צדדי קולא אף לנוהגי החומרא בכיסוי: (א) ל<strong>צורך שבת או הפסד</strong> (הרמ״א); (ב) לאחר <strong>חודשיים</strong> (שבות יעקב); (ג) ב<strong>קערה עראית</strong> שאינה כיסוי מיוחד (בני חייא). ובכולם — כיסוי/קערה שאינם בני יומן מותרין כקדרה. <em>ולמעשה — שאל את רבך.</em>
+<div class="nafka-mina-box">
+<strong>Nafka mina pour la pratique.</strong> Il y a donc, même pour qui suit la rigueur sur le couvercle, plusieurs côtés d'allègement : un autre motif de permettre, le besoin de Chabbat ou une perte (Rama) ; deux mois écoulés (Chevout Yaakov) ; une assiette posée là, qui n'est pas un couvercle attitré (Bené 'Hiya). Dans tous ces cas, couvercle ou assiette qui ne sont pas du jour suivent la marmite. <em>Et pour la pratique — demande à ton Rav.</em>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>חוות יאיר (סי' ק״א) ופלוגתת הב״ח/לבוש (פתחי תשובה ס״ק ה) :</strong> בענין "אין מאכל בקדרה" שבסיפא דהגה (ראה למטה), מאריך הט״ז (בסי' זה), והחוות יאיר (סי' ק״א) מסכים עם הט״ז כנגד הב״ח והלבוש. וגדר הדבר — אימתי נחשבים הכיסוי והקדרה כ"שתי קדירות שנגעו" ואימתי כצירוף.
+<div class="rishon-card">
+<strong>'Havot Yaïr (סי' ק״א) et la divergence Ba'h / Levouch (Pit'hé Techouva ס״ק ה).</strong> Sur le cas où il n'y a pas d'aliment dans la marmite — la fin de la glose, examinée plus bas —, le Taz développe longuement, et le Pit'hé Techouva rapporte que le 'Havot Yaïr le rejoint contre le Ba'h et le Levouch : «&nbsp;<span class="he-q">שגם הוא ז"ל הסכים עם הט"ז ודלא כהב"ח והלבוש</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד צ״ג ס״ק ה)</span> — mais non pour le motif du Taz, précise-t-il : pour le 'Havot Yaïr, la guemara indique qu'un ustensile saturé n'absorbe pas du tout le corps de la chose, et la distinction à faire est celle du goût et de la matière.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">9. תתאה גבר בכיסוי וקדרה — קליפה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">9. Le dessous l'emporte, entre couvercle et marmite — et la pelure</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">סיפא דהגה — דיני כיסוי חם של מין אחד על קדרת המין השני, ויסודם בתתאה גבר (פסחים ע״ו., ועיין סימן צ״א).</p>
+<p style="margin:15px 0; font-style:italic;">Fin de la glose — le couvercle chaud d'une espèce posé sur la marmite de l'autre, dont le fondement est le principe « le dessous l'emporte » (פסחים ע״ו., et voir le siman 91).</p>
 
-<div class="sacred-text he" data-copy-block id="cp-9">
-(הגה — סיפא:) "<strong>כיסוי חם של בשר שכיסה בו קדרת חלב (וכן להפך): אם שניהם חמין ובשניהם מאכל — שניהם אסורים. כיסוי צונן וקדרה חמה שהתחילה להזיע תחת הכיסוי — שניהם אסורים, דתתאה גבר. כיסוי חם וקדרה צוננת — הכל מותר, אלא שצריך המאכל קליפה אם אפשר. ואם אין מאכל בקדרה — הכל מותר, כשתי קדירות שנגעו זו בזו.</strong>"
+<div class="sacred-text" data-copy-block id="cp-9">
+<p>«&nbsp;<span class="he-q">ואם לקחו כיסוי רותח מקדירה של בשר ונתנו אותו על קדירה של חלב אם שניהם חמים שניהם אסורים אם יש מאכל בקדירה של בשר וחלב</span>&nbsp;» <span class="source-ref">(רמ״א יורה דעה צ״ג:א)</span></p>
+<p>«&nbsp;<span class="he-q">ואם הכיסוי צונן והקדירה חמה נמי שניהם אסורים אם התחיל להזיע תחת הכיסוי דתתאה גבר</span>&nbsp;» <span class="source-ref">(רמ״א יורה דעה צ״ג:א)</span></p>
+<p>«&nbsp;<span class="he-q">ואם הכיסוי חם והקדירה צוננת הכל שרי</span>… <span class="he-q">רק המאכל צריך קליפה</span>… <span class="he-q">אם אפשר לקלפו ואם לאו הכל שרי</span>&nbsp;» <span class="source-ref">(רמ״א יורה דעה צ״ג:א)</span></p>
+<p>«&nbsp;<span class="he-q">ואם לא היה מאכל בקדירה הכל שרי דהוי כשתי קדירות שנגעו זו בזו</span>&nbsp;» <span class="source-ref">(רמ״א יורה דעה צ״ג:א)</span></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — תתאה גבר ומדרגות החום :</strong><br>
-שורש הדינים הוא <span class="he-q">תתאה גבר</span> (פסחים ע״ו.) — התחתון גובר. ומכאן:<br><br>
-• <strong>שניהם חמין ובהם מאכל</strong> → <span class="he-q">שניהם אסורים</span>, ששניהם מבליעים זה בזה.<br>
-• <strong>כיסוי צונן, קדרה חמה</strong> (ומזיעה) → התחתון (הקדרה החמה) גובר, מבליע בכיסוי, ובחזרה → <span class="he-q">שניהם אסורים</span>.<br>
-• <strong>כיסוי חם, קדרה צוננת</strong> → התחתון (הצונן) גובר ואינו מבליע אלא כדי <span class="he-q">קליפה</span> → הכל מותר, ובמאכל סגי בקליפה.
+<div class="yesod-box">
+<strong>Le fondement — « le dessous l'emporte » et les degrés de chaleur.</strong><br>
+La racine de ces règles est le principe <span class="he-q">תתאה גבר</span> <span class="source-ref">(רמ״א יורה דעה צ״ג:א)</span> — c'est le dessous qui l'emporte. De là :<br><br>
+• <strong>Les deux chauds, et de l'aliment dans la marmite</strong> → <span class="he-q">שניהם אסורים</span> <span class="source-ref">(שם)</span>, chacun faisant absorber à l'autre.<br>
+• <strong>Couvercle froid, marmite chaude</strong> qui s'est mise à transpirer sous lui → le dessous, qui est chaud, l'emporte → <span class="he-q">שניהם אסורים</span> <span class="source-ref">(שם)</span>.<br>
+• <strong>Couvercle chaud, marmite froide</strong> → le dessous, qui est froid, l'emporte et ne laisse pénétrer que l'épaisseur d'une pelure → tout est permis, et pour l'aliment une <span class="he-q">קליפה</span> <span class="source-ref">(שם)</span> suffit.
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>קליפה — כדי גובר התחתון :</strong> בכיסוי חם על קדרה צוננת, אף שתתאה (הצונן) גבר ואינו מבליע בכולו — מכל מקום נכנס מעט חום אל פני המאכל העליון, ולכן צריך <span class="he-q">קליפה</span> בפני המאכל (אם אפשר ליטלה); ובמקום שאי אפשר — הכל מותר, שאין כאן אלא חום מועט בכדי קליפה. וזהו דין רגיל בכל "צונן לתוך חם" ו"חם לתוך צונן".
+<div class="pilpul-box">
+<strong>La pelure — la mesure de ce que le dessous laisse passer.</strong> Quand le couvercle chaud est posé sur une marmite froide, bien que le dessous froid l'emporte et n'absorbe pas dans toute son épaisseur, un peu de chaleur atteint tout de même la surface de l'aliment : d'où la pelure, quand elle est possible à prendre ; et là où elle ne l'est pas, tout est permis, puisqu'il n'y a eu qu'une faible chaleur, de l'épaisseur d'une pelure. C'est la règle ordinaire du froid dans du chaud et du chaud dans du froid. Le Chakh ajoute, pour le cas du couvercle froid sur la marmite chaude, une condition de degré : «&nbsp;<span class="he-q">ונראה שצריך שתהא היד סולדת</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ג ס״ק ה)</span> — il faut que la main se rétracte au contact de la vapeur, et il renvoie pour ce degré au siman 92.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>אין מאכל בקדרה — שתי קדירות שנגעו (מרדכי פכ״ה) :</strong> אם <span class="he-q">אין מאכל בקדרה</span> כלל אלא הכלים ריקים הנוגעים זה בזה — הכל מותר, שאין כלי מבליע בכלי בלא רוטב, והוא דין <span class="he-q">שתי קדירות שנגעו זו בזו</span> שאינן אוסרות. ובזה מאריך הט״ז, והחוות יאיר (סי' ק״א) עמו, כנגד הב״ח והלבוש (פתחי תשובה ס״ק ה) — אימתי נחשב כ"נגיעה" בעלמא ואימתי כצירוף ופליטה.
+<div class="rishon-card">
+<strong>Pas d'aliment dans la marmite — deux marmites qui se touchent ; et un צ״ע du Chakh.</strong> S'il n'y a aucun aliment dans la marmite et que seuls les ustensiles se touchent, tout est permis : un ustensile ne fait pas absorber à un autre sans liquide. Le Choulhan Aroukh rattache lui-même toute cette fin de glose à l'avis propre du Rama suivant le raisonnement de l'Issour veHetter haArokh <span class="source-ref">(רמ״א יורה דעה צ״ג:א — הכל ד״ע לסברת הארוך)</span>, et c'est là-dessus que le Taz développe, rejoint par le 'Havot Yaïr contre le Ba'h et le Levouch <span class="source-ref">(פתחי תשובה יו״ד צ״ג ס״ק ה)</span>. Le Chakh, lui, rapporte le Darké Moché au nom de l'Arokh, qui permet jusqu'à la marmite elle-même lorsqu'on l'essuie à l'endroit du contact — «&nbsp;<span class="he-q">ואפי' הקדרה עצמה שרי לכתחלה כשמקנחה או מדיחה למעלה במקום שנוגעת בכסוי</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ג ס״ק ו)</span> —, puis la contestation des Hagahot Cha'aré Doura, et il s'arrête sur deux mots : <span class="he-q">וצ"ע במה שמתיר גם הקדרה</span> <span class="source-ref">(ש״ך יו״ד צ״ג ס״ק ו)</span>. <strong>Nous rapportons, et nous ne tranchons pas.</strong>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">10. חקירה ונפקא מינה למעשה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">10. 'Hakira et nafka mina pour la pratique</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ Explication détaillée (niveau 1)</a>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה הכוללת של הסימן :</strong> מה גדר הבלוע, ומתי הוא אוסר ?
+<div class="hakira-box">
+<strong>La 'hakira d'ensemble du siman.</strong> Qu'est-ce qu'un goût absorbé, et quand interdit-il ?
 <ul class="stylish">
-<li><strong>בן יומו</strong> — הבלוע "חי" וטעמו טוב → <span class="he-q">נותן טעם</span>, אוסר התבשיל.</li>
-<li><strong>אינו בן יומו</strong> — נפגם הטעם → <span class="he-q">נותן טעם לפגם</span>, התבשיל מותר; ועליו נשען מנהגנו "סתם כלים אינן בני יומן".</li>
-<li><strong>הקדרה עצמה</strong> — אסורה לכתחילה אף שהתבשיל מותר; ומותרת לשאר דברים; וניתרת בהגעלה.</li>
-<li><strong>שיעור הביטול</strong> — נגד כל הקדרה (ש״ך ס״ק א) כשאין יודעין הבלוע; ונגד הבלוע כשיודעין (צ״ד:ו', צ״ב:ה').</li>
-<li><strong>הכיסוי</strong> — כקדרה; וחומרת בן יומו (חומרא בלא טעם) הנדחית לצורך שבת/הפסד; ותתאה גבר וקליפה.</li>
+<li><strong>Ustensile du jour</strong> — l'absorbé est vif et son goût bon → il donne goût, et interdit le plat.</li>
+<li><strong>Ustensile qui n'est plus du jour</strong> — le goût s'est gâté → le plat est permis ; c'est là-dessus que repose notre usage, que nos ustensiles ne sont pas réputés du jour.</li>
+<li><strong>La marmite elle-même</strong> — interdite d'emblée bien que le plat soit permis ; permise pour les aliments neutres, avec la réserve que le Chakh signale au nom du siman 94 ; rendue à l'usage par l'ébouillantage.</li>
+<li><strong>La mesure de l'annulation</strong> — contre la marmite entière (ש״ך ס״ק א) lorsqu'on ignore ce qui a été absorbé ; contre l'absorbé seul lorsqu'on le sait (צ״ד:ו', צ״ב:ה').</li>
+<li><strong>Le couvercle</strong> — il suit la marmite ; la rigueur de le tenir pour « du jour » est une rigueur sans raison, que le besoin de Chabbat ou la perte font céder ; puis « le dessous l'emporte » et la pelure.</li>
 </ul>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה למעשה (לפי הכרעת רוב האחרונים) :</strong>
+<div class="nafka-mina-box">
+<strong>Nafka mina pour la pratique (selon la ligne qui se dégage chez les A'haronim) :</strong>
 <ol class="stylish">
-<li>קדרת בשר בת יומה → אסור לבשל בה חלב, והתבשיל אסור (משערין נגד כל הקדרה — ש״ך ס״ק א).</li>
-<li>שהה מעת לעת (אינו בן יומו) → <strong>התבשיל מותר</strong> בדיעבד; אבל לבשל לכתחילה — אסור.</li>
-<li>הקדרה (שאינה בת יומה) — מותרת לבשל בה <strong>שאר דברים פרווה</strong> (ריב״ש קכ״ו).</li>
-<li>כיסוי שאינו בן יומו — נוהגין להחמיר; ומקילין לצורך <strong>שבת / הפסד</strong>, לאחר <strong>חודשיים</strong> (שבות יעקב), ובקערה עראית (בני חייא).</li>
-<li>כיסוי/קדרה חם וצונן — נדון בתתאה גבר; חם על צונן → קליפה; אין מאכל → כשתי קדירות שנגעו, מותר.</li>
+<li>Marmite de viande qui est du jour → on n'y cuit pas de lait, et le plat est interdit, puisqu'on évalue contre la marmite entière (ש״ך ס״ק א).</li>
+<li>Vingt-quatre heures écoulées → <strong>le plat est permis</strong> après coup ; mais cuire ainsi d'emblée reste interdit.</li>
+<li>La marmite, qui n'est plus du jour, reste permise pour les <strong>aliments neutres</strong> (ריב״ש קכ״ו) — le Chakh signalant cependant l'usage rapporté au siman 94 d'interdire même cela (ש״ך ס״ק ג).</li>
+<li>Couvercle qui n'est plus du jour — l'usage est de faire la rigueur ; on allège pour le <strong>besoin de Chabbat ou la perte</strong>, après <strong>deux mois</strong> (Chevout Yaakov), et pour une assiette posée là (Bené 'Hiya).</li>
+<li>Couvercle et marmite, chaud et froid — la chose se juge par « le dessous l'emporte » ; chaud sur froid → pelure ; pas d'aliment → deux marmites qui se touchent, permis.</li>
 </ol>
-<em>ולמעשה — שאל את רבך.</em>
+<em>Et pour la pratique — demande à ton Rav.</em>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">11. טבלאות סיכום</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">11. Tableaux récapitulatifs</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">טבלה — מצב הקדרה והדין</h3>
+<h3 class="he-h3">Tableau — l'état de la marmite et la règle</h3>
 
 <table>
 <tr>
-  <th>מצב הקדרה</th>
-  <th>התוצאה</th>
-  <th>מקור בקורפוס</th>
+  <th>État de la marmite</th>
+  <th>Ce qu'il en résulte</th>
+  <th>Source</th>
 </tr>
 <tr>
-  <td><strong>קדרת בשר — לבשל בה חלב לכתחילה</strong></td>
-  <td>אסור (לא יבשלו בה חלב)</td>
-  <td>מחבר ס״א</td>
+  <td><strong>Marmite de viande — y cuire du lait d'emblée</strong></td>
+  <td>Interdit</td>
+  <td>Me'haber ס״א</td>
 </tr>
 <tr>
-  <td><strong>בן יומו (בתוך מעת לעת)</strong></td>
-  <td>אסור בנותן טעם; משערין נגד כל הקדרה</td>
-  <td>מחבר ס״א; ש״ך ס״ק א</td>
+  <td><strong>Du jour (dans les vingt-quatre heures)</strong></td>
+  <td>Interdit par le goût donné ; on évalue contre la marmite entière</td>
+  <td>Me'haber ס״א ; ש״ך ס״ק א</td>
 </tr>
 <tr>
-  <td><strong>אינו בן יומו (שהה מעת לעת)</strong></td>
-  <td>נותן טעם לפגם → התבשיל מותר</td>
-  <td>מחבר ס״א</td>
+  <td><strong>Plus du jour (vingt-quatre heures écoulées)</strong></td>
+  <td>Goût qui gâte → le plat est permis</td>
+  <td>Me'haber ס״א</td>
 </tr>
 <tr>
-  <td><strong>הקדרה עצמה (אינה בת יומה)</strong></td>
-  <td>אסורה לכתחילה לבשר ולחלב; ניתרת בהגעלה</td>
-  <td>מחבר ס״א; פ״ת ס״ק ג (סי' צ״ב)</td>
+  <td><strong>La marmite elle-même (qui n'est plus du jour)</strong></td>
+  <td>Interdite d'emblée pour la viande comme pour le lait ; rendue à l'usage par l'ébouillantage</td>
+  <td>Me'haber ס״א ; פ״ת ס״ק ג (סי' צ״ב)</td>
 </tr>
 <tr>
-  <td><strong>שאר דברים (פרווה) בקדרה</strong></td>
-  <td>מותר</td>
-  <td>רמ״א; ריב״ש קכ״ו</td>
+  <td><strong>Aliments neutres dans la marmite</strong></td>
+  <td>Permis — avec la réserve que le Chakh rapporte au nom du siman 94</td>
+  <td>רמ״א ; ריב״ש קכ״ו ; ש״ך ס״ק ג</td>
 </tr>
 <tr>
-  <td><strong>יודעין שיעור הבלוע</strong></td>
-  <td>משערין נגד הבלוע בלבד, לא כל הקדרה</td>
+  <td><strong>On sait ce qui a été absorbé</strong></td>
+  <td>On évalue contre l'absorbé seul, non contre la marmite entière</td>
   <td>ש״ך ס״ק א (צ״ד:ו', צ״ב:ה')</td>
 </tr>
 <tr>
-  <td><strong>כיסוי הקדרה</strong></td>
-  <td>כדין הקדרה; ויש מחמירין כבן יומו</td>
-  <td>רמ״א; ט״ז ס״ק ב</td>
+  <td><strong>Le couvercle de la marmite</strong></td>
+  <td>Il suit la marmite ; certains font la rigueur de le tenir pour « du jour »</td>
+  <td>רמ״א ; ט״ז ס״ק ב</td>
 </tr>
 <tr>
-  <td><strong>כיסוי חם על קדרה צוננת</strong></td>
-  <td>מותר; המאכל צריך קליפה (אם אפשר)</td>
+  <td><strong>Couvercle chaud sur marmite froide</strong></td>
+  <td>Permis ; l'aliment demande une pelure, si elle est possible</td>
   <td>רמ״א (תתאה גבר)</td>
 </tr>
 <tr>
-  <td><strong>אין מאכל בקדרה</strong></td>
-  <td>מותר — כשתי קדירות שנגעו</td>
-  <td>רמ״א; מרדכי פכ״ה; ט״ז</td>
+  <td><strong>Pas d'aliment dans la marmite</strong></td>
+  <td>Permis — comme deux marmites qui se touchent</td>
+  <td>רמ״א (ד״ע לסברת הארוך) ; ט״ז</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מחלוקות מרכזיות בסימן</h3>
+<h3 class="he-h3">Tableau — les ma'hlokot centrales du siman</h3>
 
 <table>
 <tr>
-  <th>נושא</th>
-  <th>שיטה א'</th>
-  <th>שיטה ב'</th>
+  <th>Objet</th>
+  <th>Première position</th>
+  <th>Seconde position</th>
 </tr>
 <tr>
-  <td>במה משערין בבן יומו</td>
-  <td>המחבר — בנותן טעם (טעימת קפילא)</td>
-  <td>הרמ״א/ש״ך — נגד כל הקדרה (אין סומכין על טעימה)</td>
+  <td>À quoi mesure-t-on, pour une marmite du jour</td>
+  <td>Le Me'haber — au goût donné, que l'on fait goûter à un cuisinier (ש״ך ס״ק א)</td>
+  <td>Le Rama et le Chakh — contre la marmite entière, faute de se fier à la dégustation</td>
 </tr>
 <tr>
-  <td>בישל מין א' בששים — לבשל מין ב'</td>
-  <td>בעל העיטור — מותר (נתבטל הבלוע)</td>
-  <td>ט״ז — אסור, דכלי חרס אינו יוצא מידי דופיו (פסחים ל')</td>
+  <td>Après une cuisson où il y avait soixante, cuire l'autre espèce</td>
+  <td>Le Baal haIttour — permis, l'absorbé ayant été annulé ; et le Taz vient justifier sa position (ט״ז ס״ק א)</td>
+  <td>Le Tour — s'en étonne ; la lettre du seif maintient la marmite interdite</td>
 </tr>
 <tr>
-  <td>חומרת הכיסוי (כבן יומו)</td>
-  <td>מהרש״ל — רק בצרים וחלולים (איסור בעין)</td>
-  <td>הלבוש — אין מקום לחומרא כלל</td>
+  <td>La rigueur sur le couvercle</td>
+  <td>Maharchal — seulement pour les couvercles étroits et creux (interdit en nature)</td>
+  <td>Le Levouch — cette rigueur n'a aucune place ; et le Taz comme le Chakh inclinent à ne pas y ajouter</td>
 </tr>
 <tr>
-  <td>כיסוי שאינו בן יומו לאחר זמן</td>
-  <td>מנהג להחמיר תמיד</td>
-  <td>שבות יעקב — לאחר חודשיים מתירין (פ״ת ס״ק ג)</td>
+  <td>Couvercle qui n'est plus du jour, après un long temps</td>
+  <td>L'usage de faire la rigueur en toute occasion</td>
+  <td>Chevout Yaakov — après deux mois, il y a lieu de permettre (פ״ת ס״ק ג)</td>
 </tr>
 <tr>
-  <td>חומרת הכיסוי — באיזה כלי</td>
-  <td>בכיסוי מיוחד לקדרה</td>
-  <td>בני חייא — קערה עראית מותרת לכ״ע (פ״ת ס״ק ד)</td>
+  <td>La rigueur sur le couvercle — pour quel ustensile</td>
+  <td>Pour le couvercle attitré de la marmite</td>
+  <td>Bené 'Hiya — une assiette posée là est permise de l'avis de tous (פ״ת ס״ק ד)</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מקורות הסוגיא</h3>
+<h3 class="he-h3">Tableau — les sources de la sougya</h3>
 
-<div class="rishon-card" dir="rtl">
-<strong>גמרא :</strong> עבודה זרה ע״ה:–ע״ו. (גיעולי נכרים, נותן טעם לפגם, בן יומו) · עבודה זרה ס״ז:–ס״ח. (נותן טעם לפגם מותר) · חולין צ״ז:–צ״ח. (טעם כעיקר, ביטול בששים) · פסחים ל'. (כלי חרס — אינו יוצא מידי דופיו לעולם) · פסחים ע״ו. (כיצד צולין — תתאה גבר)
+<div class="rishon-card">
+<strong>Guemara :</strong> עבודה זרה ע״ה:–ע״ו. (ustensiles rachetés aux non-juifs, goût qui gâte, ustensile du jour) · עבודה זרה ס״ז:–ס״ח. (un goût qui gâte est permis) · חולין צ״ז:–צ״ח. (le goût vaut la substance, annulation dans soixante) · פסחים ל'. (le vase de terre, cité par le Taz) · פסחים ע״ו. (כיצד צולין — le dessous l'emporte)
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>ראשונים :</strong> רש״י (פסחים ל') · רמב״ם · ראב״ד · רא״ש · רשב״א (תורת הבית) · ר״ן · מרדכי (פרק כ״ה) · סמ״ק · בעל העיטור · טור · ריב״ש (סי' קכ״ו) · איסור והיתר הארוך
+<div class="rishon-card">
+<strong>Richonim :</strong> רש״י (פסחים ל', cité par le Taz) · רמב״ם · רא״ש · רשב״א · ר״ן · מרדכי · סמ״ק · בעל העיטור · טור · ריב״ש (סי' קכ״ו) · איסור והיתר הארוך
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>אחרונים :</strong> בית יוסף · רמ״א · ש״ך · ט״ז · ב״ח · לבוש · מהרש״ל (ים של שלמה, כל הבשר מ״ז) · פרי מגדים · פתחי תשובה · חתם סופר (יו״ד פ״ד) · שבות יעקב · בני חייא · חוות יאיר (סי' ק״א) · מגן אברהם (סי' תנ״ב) · מרכבת המשנה
+<div class="rishon-card">
+<strong>A'haronim :</strong> בית יוסף · רמ״א (ובדרכי משה) · ש״ך · ט״ז · ב״ח · לבוש · מהרש״ל (ים של שלמה, כל הבשר מ״ז) · פרי מגדים · פתחי תשובה · חתם סופר (יו״ד פ״ד) · שבות יעקב · בני חייא · חוות יאיר (סי' ק״א) · מגן אברהם (סי' תנ״ב) · מרכבת המשנה
 </div>
 
 <hr class="ornament">
 
-  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;direction:rtl;">
-    <a href="niveau-1-base.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">→ רמה א' — יסוד</a>
-    <a href="niveau-3-synthese.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">רמה ג' — סיכום ←</a>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;">
+    <a href="niveau-1-base.html" style="font-family:'Georgia','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">← Niveau 1 — Base</a>
+    <a href="niveau-3-synthese.html" style="font-family:'Georgia','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">Niveau 3 — Synthèse →</a>
   </div>
 
 <div class="yh-watermark">
 ~ ~ ~ ~ ~<br>
 <strong>DAAT</strong> · <strong>הרב יוסף חיים סממה</strong><br>
-תלמיד חכם · מעביר שיעורים בהלכה ובחסידות<br>
-<em>פלפול ועיון בדין קדרה שבישלו בה בשר · סימן צ״ג · ⚡ רמה ב' — לַמְדָּן</em>
+Talmid hakham · enseignant en halakha et en hassidout<br>
+<em>סימן צ״ג · Niveau 2 — Lamdan · דין קדרה שבישלו בה בשר</em><br>
+<em>daattorah.com</em>
 </div>
 
-  <div class="disclaimer" style="background:#fff8e1;border-right:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;direction:rtl;text-align:right;">
-    ⚠️ תוכן זה נכתב לצורך לימוד ועיון בלבד. לכל הוראה למעשה (לְמַעֲשֶׂה) — שאל את רבך.
+  <div class="disclaimer" style="background:#fff8e1;border-left:4px solid #C5A55A;padding:16px 40px;font-family:'Georgia','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;">
+    ⚠️ Ce contenu est écrit pour l'étude et l'examen seulement. Pour toute application pratique (לְמַעֲשֶׂה) — demande à ton Rav.
   </div>
 
   <div style="background:#1A1F3A;border-top:2px solid #C5A55A;padding:24px 40px;text-align:center;margin-top:0;">
-    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;direction:rtl;">
-      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">לעמוד הבית</a> · <a href="index.html" style="color:#C5A55A;text-decoration:none;">סימן צ״ג</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ לתמיכה</a>
+    <p style="font-family:'Georgia','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;">
+      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">Retour à l'accueil</a> · <a href="index.html" style="color:#C5A55A;text-decoration:none;">Siman צ״ג</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ Soutenir</a>
     </p>
   </div>
 
@@ -841,7 +852,7 @@
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="../../../assets/js/chat-widget.js" defer></script>
 <script src="../../../assets/js/daat-copy.js" defer></script>
-<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="מצא חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">הצטרף לחברותא</span></a>
+<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="Trouver une khavroutha pour ce siman"><span class="icon">📖</span><span class="label-long">Rejoindre la khavroutha</span></a>
   <script src="/assets/js/share-text.js" defer></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="fr" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,9 +22,8 @@
 <style>
   @page { size: A4; margin: 2cm 1.8cm; }
   body {
-    font-family: 'Frank Ruhl Libre', 'David', 'Georgia', 'Cambria', serif;
+    font-family: 'Georgia', 'Cambria', serif;
     font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0;
-    direction: rtl; text-align: right;
   }
   .he {
     direction: rtl; text-align: right;
@@ -37,18 +36,14 @@
     font-weight: 600; color: #1A1F3A;
   }
 
-  .cover {
-    text-align: center; margin-top: 2.5cm; margin-bottom: 2cm;
-  }
+  .cover { text-align: center; margin-top: 2.5cm; margin-bottom: 2cm; }
   .cover h1 {
     font-size: 30pt; color: #1A1F3A; margin: 5px 0;
     font-family: 'Cormorant Garamond', 'Georgia', serif;
   }
   .cover .he-title { font-size: 38pt; color: #1A1F3A; margin: 15px 0 5px 0; }
   .cover .he-sub { font-size: 18pt; color: #C5A55A; margin-bottom: 20px; }
-  .cover .he-subject {
-    font-size: 15pt; color: #5a4a1a; margin: 15px 0; font-style: italic;
-  }
+  .cover .he-subject { font-size: 15pt; color: #5a4a1a; margin: 15px 0; font-style: italic; }
   .cover .ornament { color: #C5A55A; font-size: 22pt; margin: 15px 0; }
   .cover .level-badge {
     display: inline-block;
@@ -62,37 +57,28 @@
     margin-top: 2cm; padding-top: 20px; border-top: 1px solid #C5A55A;
     font-size: 10pt; color: #555; line-height: 1.8;
   }
-  .cover .subtitle {
-    font-size: 14pt; color: #5a4a1a; font-style: italic; margin: 10px 0 30px 0;
-  }
-  .cover .badge-top {
-    color: #C5A55A; font-size: 11pt; letter-spacing: 4px; margin-bottom: 10px;
-  }
-
+  .cover .subtitle { font-size: 14pt; color: #5a4a1a; font-style: italic; margin: 10px 0 30px 0; }
+  .cover .badge-top { color: #C5A55A; font-size: 11pt; letter-spacing: 4px; margin-bottom: 10px; }
   h2.section-title {
     color: #fff; background: #1A1F3A;
     font-size: 16pt; padding: 10px 18px; margin-top: 30px;
     border-right: 6px solid #C5A55A;
-    direction: rtl; text-align: right;
-    font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
   }
   h3 {
     color: #1A1F3A; font-size: 14pt; margin-top: 25px;
     border-right: 4px solid #C5A55A; padding-right: 10px;
-    direction: rtl; text-align: right;
-    font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
   }
   h3.he-h3 {
     direction: rtl; text-align: right;
-    border-right: none; border-left: 4px solid #C5A55A;
-    padding-right: 0; padding-left: 10px;
+    border-left: none; border-right: 4px solid #C5A55A;
+    padding-left: 0; padding-right: 10px;
   }
   h4 {
     color: #5a4a1a; font-size: 12pt;
     margin-top: 20px; margin-bottom: 8px; font-weight: bold;
-    direction: rtl; text-align: right;
   }
-
   .sacred-text {
     background: #FAF6EE;
     border-right: 3px solid #C5A55A; border-left: 3px solid #C5A55A;
@@ -101,82 +87,75 @@
   }
   .pilpul-box {
     background: #eef3fa; border-right: 4px solid #1A1F3A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; 
   }
   .pilpul-box::before {
     content: "⚡ פלפול"; display: block;
     color: #1A1F3A; font-weight: bold; font-size: 10pt;
     margin-bottom: 5px; letter-spacing: 1px;
-    direction: rtl; text-align: right;
+    direction: rtl; text-align: left;
   }
   .kashya-box {
     background: #fef4e4; border-right: 4px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; 
   }
   .kashya-box::before {
     content: "❓ קושיא"; display: block;
     color: #8a6a1a; font-weight: bold; font-size: 10pt;
     margin-bottom: 5px; letter-spacing: 1px;
-    direction: rtl; text-align: right;
+    direction: rtl; text-align: left;
   }
   .teruts-box {
     background: #e8f4ea; border-right: 4px solid #2d7a3e;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; 
   }
   .teruts-box::before {
     content: "✓ תירוץ"; display: block;
     color: #2d7a3e; font-weight: bold; font-size: 10pt;
     margin-bottom: 5px; letter-spacing: 1px;
-    direction: rtl; text-align: right;
+    direction: rtl; text-align: left;
   }
   .hakira-box {
     background: #f5e9f5; border-right: 4px solid #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; 
   }
   .hakira-box::before {
     content: "🔍 חקירה"; display: block;
     color: #6a1b7a; font-weight: bold; font-size: 10pt;
     margin-bottom: 5px; letter-spacing: 1px;
-    direction: rtl; text-align: right;
+    direction: rtl; text-align: left;
   }
   .nafka-mina-box {
     background: #fff4e6; border: 2px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; border-radius: 4px; 
   }
   .nafka-mina-box::before {
     content: "⚖️ נפקא מינה"; display: block;
     color: #1A1F3A; font-weight: bold; font-size: 10pt;
     margin-bottom: 5px; letter-spacing: 1px;
-    direction: rtl; text-align: right;
+    direction: rtl; text-align: left;
   }
   .yesod-box {
     background: #1A1F3A; color: #fff;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; 
   }
   .yesod-box::before {
     content: "💎 יסוד"; display: block;
     color: #C5A55A; font-weight: bold; font-size: 10pt;
     margin-bottom: 8px; letter-spacing: 2px;
-    direction: rtl; text-align: right;
+    direction: rtl; text-align: left;
   }
   .yesod-box .he-q { color: #C5A55A; }
   .machloket-box {
     background: #faf5ff; border: 1.5px dashed #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; 
   }
-
-  table {
-    width: 100%; border-collapse: collapse;
-    margin: 20px 0; font-size: 10pt;
-  }
+  table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 10pt; }
   th {
     background: #1A1F3A; color: #fff;
-    padding: 10px; text-align: right; direction: rtl; font-size: 11pt;
+    padding: 10px; text-align: left; font-size: 11pt;
   }
   td {
-    direction: rtl; text-align: right;
     border: 1px solid #d4c89a; padding: 10px; vertical-align: top;
   }
   tr:nth-child(even) td { background: #FAF6EE; }
@@ -186,9 +165,7 @@
   hr.ornament { border: none; text-align: center; margin: 25px 0; }
   hr.ornament::before { content: "✦ ❖ ✦"; color: #C5A55A; font-size: 14pt; }
 
-  .source-ref {
-    color: #6a5a1a; font-style: italic; font-size: 0.95em;
-  }
+  .source-ref { color: #6a5a1a; font-style: italic; font-size: 0.95em; }
 
   .yh-watermark {
     text-align: center; font-size: 9pt; color: #8a7a4a;
@@ -197,12 +174,10 @@
   }
 
   ol.stylish li, ul.stylish li { margin-bottom: 8px; }
-  ol.stylish, ul.stylish { padding-right: 22px; padding-left: 0; }
-
+  ol.stylish, ul.stylish { padding-left: 22px; padding-right: 0; }
   .rishon-card {
     background: #f7f3e4; border-right: 4px solid #8a6a1a;
     padding: 10px 15px; margin: 10px 0; font-size: 10.5pt;
-    direction: rtl; text-align: right;
   }
   .rishon-card strong { color: #1A1F3A; font-size: 11pt; }
 
@@ -218,17 +193,14 @@
   .index-box {
     background: #FAF6EE; border: 1px solid #C5A55A;
     padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
   }
-  .index-box ol { margin: 5px 0; padding-right: 25px; padding-left: 0; }
+  .index-box ol { margin: 5px 0; padding-left: 25px; padding-right: 0; }
   .index-box li { margin-bottom: 5px; }
-
   h3.sugya {
     background: #1A1F3A; color: #fff;
-    padding: 8px 15px; border-left: none; border-right: 6px solid #C5A55A;
+    padding: 8px 15px; border-right: none; border-left: 6px solid #C5A55A;
   }
 
-  /* ── חץ אל ההסבר המפורט (רמה 1) ── */
   a.daat-explain {
     display: inline-block;
     margin: 4px 0 14px 0;
@@ -237,11 +209,9 @@
     font-size: 12pt;
     text-decoration: none;
     border-bottom: 1px dotted #C5A55A;
-    direction: rtl;
   }
   a.daat-explain:hover { color: #8a6a1a; border-bottom-style: solid; }
 
-  /* ── כפתור העתקה ── */
   button.daat-copy {
     display: inline-block;
     margin: 0 10px 0 0;
@@ -257,7 +227,50 @@
     direction: rtl;
   }
   button.daat-copy:hover { background: #C5A55A; color: #fff; }
+  .rishon-card[dir="rtl"] { border-left: none; border-right: 4px solid #8a6a1a; text-align: right; }
+  .hakira-box[dir="rtl"] { border-left: none; border-right: 4px solid #6a1b7a; text-align: right; }
+  .kashya-box[dir="rtl"] { border-left: none; border-right: 4px solid #C5A55A; text-align: right; }
+  .teruts-box[dir="rtl"] { border-left: none; border-right: 4px solid #2d7a3e; text-align: right; }
+  .pilpul-box[dir="rtl"] { border-left: none; border-right: 4px solid #1A1F3A; text-align: right; }
+  .machloket-box[dir="rtl"], .nafka-mina-box[dir="rtl"], .yesod-box[dir="rtl"] { text-align: right; }
+  .index-box[dir="rtl"] ol { padding-right: 25px; padding-left: 0; }
+  [dir="rtl"] th, [dir="rtl"] td { text-align: right; direction: rtl; }
   @media print { button.daat-copy, a.daat-explain { display: none; } }
+
+  .lang-switcher-float {
+    position: fixed; top: 12px; right: 12px; z-index: 9999;
+    display: flex; gap: 4px; background: rgba(255,255,255,0.95);
+    border: 1px solid #C5A55A; padding: 4px 6px; border-radius: 3px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); font-family: 'Inter', sans-serif;
+    direction: ltr;
+  }
+  .lang-switcher-float a {
+    font-size: 11px; letter-spacing: 1px; padding: 3px 7px; border-radius: 2px;
+    color: #5a4a1a; text-decoration: none; border: 1px solid transparent;
+  }
+  .lang-switcher-float a.active { color: #1A1F3A; background: #FFF8E5; border-color: #1A1F3A; font-weight: 600; }
+  .lang-switcher-float a:hover { color: #1A1F3A; border-color: #C5A55A; }
+  @media print { .lang-switcher-float { display: none; } }
+
+  blockquote.comment-source {
+    background: #f7f3e4; border-right: 3px solid #8a6a1a; border-left: none;
+    font-style: normal; margin: 10px 0; padding: 8px 15px;
+    direction: rtl; text-align: right; font-family: 'Frank Ruhl Libre', serif; font-size: 11.5pt;
+  }
+  blockquote.comment-source .src-ref {
+    display: inline-block; margin-top: 6px; color: #6a5a1a; font-style: italic; font-size: 0.88em;
+    font-family: 'Georgia', 'Cambria', serif;
+  }
+
+  /* Classes employées par cette page et définies nulle part ailleurs.
+     Formes majoritaires du dépôt — cf. scripts/fix-classes.py. */
+  .remember { background: #e8f4ea; border: 1.5px solid #2d7a3e; padding: 12px 18px; margin: 12px 0; border-radius: 4px; }
+
+  /* Classes employées par cette page et définies nulle part ailleurs.
+     Formes majoritaires du dépôt — cf. scripts/fix-classes.py. */
+  .print-btn { position: fixed; top: 18px; right: 18px; z-index: 50; background: #1A1F3A; color: #C5A55A; border: 1px solid #C5A55A; border-radius: 4px; padding: 8px 16px; font-family: 'Georgia',serif; font-size: 10pt; cursor: pointer; }
+  .print-btn:hover { background: #2a2a4e; }
+  @media print { .print-btn { display: none; } }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/daat-enhance.css">
@@ -273,7 +286,7 @@
   "headline": "Siman צ״ד · Niveau 2 Lamdan — Pilpoul approfondi · התוחב כף חולבת בקדרה של בשר, לשער נגד מה שנתחב ונותן טעם בר נותן טעם",
   "description": "Niveau 2 (Lamdan) du Siman צ״ד (Yoreh De'ah) — Pilpoul approfondi. לשער נגד מה שנתחב (ש״ך ס״ק א), בן יומו, חם מקצתו חם כולו, נותן טעם בר נותן טעם דהיתרא, דין הסכין — קליפה הגעלה ונעיצה, איסור הנאה — חקירה et נפקא מינה.",
   "url": "https://daattorah.com/yd/94/lamdan",
-  "inLanguage": "he-IL",
+  "inLanguage": "fr-FR",
   "isAccessibleForFree": true,
   "author": {
     "@id": "https://daattorah.com/#rav-samama"
@@ -382,536 +395,595 @@
 <!-- COUVERTURE -->
 <div class="cover">
   <div class="ornament">✦ ❖ ✦</div>
-  <div class="badge-top">DAAT · רמה ב' — לַמְדָּן</div>
-  <h1>שולחן ערוך · יורה דעה</h1>
-  <div class="subtitle">דין התוחב כף חולבת בקדרה של בשר — עיון ופלפול</div>
+  <div class="badge-top">DAAT · NIVEAU 2 — LAMDAN</div>
+  <h1>Choul'han Aroukh · Yoré Déa</h1>
+  <div class="subtitle">La cuiller lactée plongée dans une marmite carnée — étude et pilpoul</div>
 
   <div class="he-title">סימן צ״ד</div>
-  <div class="he-sub">לשער נגד מה שנתחב, בן יומו, נותן טעם בר נותן טעם, דין הסכין</div>
-  <div class="he-subject">עיון, פלפול, שיטות הראשונים והאחרונים</div>
+  <div class="he-sub">Mesurer contre ce qui a été plongé · ben yomo · noten taam bar noten taam · le din du couteau</div>
+  <div class="he-subject">Étude, pilpoul, positions des Richonim et des Aharonim</div>
 
-  <div class="level-badge">⚡ ללומדים ותלמידי חכמים ⚡</div>
+  <div class="level-badge">⚡ POUR LES LAMDANIM ET LES TALMIDEI HAKHAMIM ⚡</div>
 
   <div class="ornament">✦ ❖ ✦</div>
 
-  <h2 style="margin-top:20px; color: #1A1F3A;">פלפול ועיון מעמיק</h2>
+  <h2 style="margin-top:20px; color: #1A1F3A;">Pilpoul et étude approfondie</h2>
   <p style="font-size:12pt; color:#555;">
-    סוגיות, מקורות, חקירת היסוד, מחלוקות ראשונים ואחרונים,<br>
-    נפקא מינות להלכה ועיון בשיטות
+    Sougyot, sources, hakira de fond, ma’hlokot des Richonim et des Aharonim,<br>
+    nafka minot pour la pratique et examen des chitot
   </p>
 
   <div class="credits">
-    <p><strong>הנושא :</strong><br>
-    שולחן ערוך יורה דעה סימן צ״ד (ט' סעיפים)<br>
-    עם נושאי כלים: ש״ך (שפתי כהן), ט״ז (טורי זהב), פרי מגדים, פתחי תשובה</p>
+    <p><strong>Le sujet :</strong><br>
+    Choul'han Aroukh, Yoré Déa, siman צ״ד (neuf seifim)<br>
+    avec ses nossei kelim : Chakh (Siftei Kohen), Taz (Tourei Zahav), Peri Megadim, Pit’hei Techouva</p>
 
-    <p><strong>יסוד הסוגיא בש״ס :</strong><br>
-    חולין ק״ח.–ק״ט. (טעם כעיקר, ביטול בששים, נותן טעם בר נותן טעם) · עבודה זרה ע״ו. (כלי בן יומו ושאינו בן יומו, נעיצת הסכין) · פסחים ע״ו. (חם מקצתו, כלי ראשון ושני)</p>
+    <p><strong>Le fondement de la sougya dans le Chas :</strong><br>
+    ’Houlin ק״ח.–ק״ט. (taam ke‘ikar, annulation dans soixante, noten taam bar noten taam) · Avoda Zara ע״ו. (ustensile ben yomo et non ben yomo, neïtsat hassakin) · Pessa’him ע״ו. (’ham miktsato, keli richon et keli cheni)</p>
 
-    <p><strong>עריכה ועיון :</strong><br>
-    הרב יוסף חיים סממה · DAAT</p>
+    <p><strong>Rédaction et étude :</strong><br>
+    Rav Yossef Haïm Samama · DAAT</p>
   </div>
 </div>
 
 <div class="page-break"></div>
 
 <!-- TABLE DES MATIÈRES -->
-<h2 class="section-title">📑 תוכן העניינים</h2>
+<h2 class="section-title">📑 Table des matières</h2>
 
-<div class="index-box" dir="rtl">
+<div class="index-box">
 <ol>
-  <li><strong>הקדמת הסוגיא</strong> — התוחב כף חולבת בקדרה של בשר, לשער נגד מה שנתחב (סעיף א')</li>
-  <li><strong>חם מקצתו חם כולו</strong> — מחלוקת הכף של מתכת, חקירת בליעה ופליטה (סעיף א')</li>
-  <li><strong>תחב פעמיים</strong> — שני פעמים ששים, וטעם תרומת הדשן (סעיף ב')</li>
-  <li><strong>יש ששים לבטל הכף</strong> — איסור הנאה, מכירה לנכרי, ומחלוקת הכלב (סעיף ג')</li>
-  <li><strong>כף שאינה בת יומה</strong> — לכתחילה אסור ובדיעבד מותר (סעיף ד')</li>
-  <li><strong>נותן טעם בר נותן טעם דהיתרא</strong> — קדרה חדשה ושתי כפות (סעיפים ה'–ט')</li>
-  <li><strong>ירקות הבלועים מבשר</strong> — אין כאן חתיכה נעשית נבילה (סעיף ו')</li>
-  <li><strong>דין הסכין</strong> — נגד המקום או כל הסכין, קליפה הגעלה ונעיצה (סעיף ז')</li>
-  <li><strong>גבינה וקליפה · דבש ונ״ט בר נ״ט</strong> — תנור פנאד״ש ועירוי דהיתרא (סעיפים ח'–ט')</li>
-  <li><strong>חקירה ונפקא מינה למעשה</strong></li>
-  <li><strong>טבלאות סיכום מקיפות</strong></li>
+  <li><strong>Introduction de la sougya</strong> — la cuiller lactée plongée dans une marmite carnée, mesurer contre ce qui a été plongé (seif א')</li>
+  <li><strong>’Ham miktsato ’ham koulo</strong> — la ma’hloket sur la cuiller de métal, hakira sur l’absorption et le rejet (seif א')</li>
+  <li><strong>Il a plongé deux fois</strong> — deux fois soixante, et la raison du Teroumat haDéchen (seif ב')</li>
+  <li><strong>Il y a soixante pour annuler la cuiller</strong> — interdit de jouissance, vente au non-juif, et la ma’hloket du chien (seif ג')</li>
+  <li><strong>Une cuiller qui n’est pas bat yoma</strong> — interdit lekhathila, permis bediavad (seif ד')</li>
+  <li><strong>Noten taam bar noten taam de permis</strong> — marmite neuve et deux cuillers (seifim ה'–ט')</li>
+  <li><strong>Des légumes imprégnés de viande</strong> — il n’y a pas ici de ’hatikha na‘assit nevela (seif ו')</li>
+  <li><strong>Le din du couteau</strong> — contre l’endroit ou contre tout le couteau, kelipa, hag‘ala et neïtsa (seif ז')</li>
+  <li><strong>Fromage et kelipa · miel et noten taam bar noten taam</strong> — four à pnadach et versement de permis (seifim ח'–ט')</li>
+  <li><strong>Hakira et nafka mina pour la pratique</strong></li>
+  <li><strong>Tableaux de synthèse</strong></li>
 </ol>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<!-- לשון השולחן ערוך — סעיף א' -->
-<h2 class="section-title">📜 לשון השולחן ערוך — סעיף א'
-  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 העתק</button>
+<!-- Le texte du Choul'han Aroukh — seif א' -->
+<h2 class="section-title">📜 Le texte du Choul'han Aroukh — seif א'
+  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 Copier</button>
 </h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ Explication détaillée (niveau 1)</a>
 
-<div class="sacred-text he" data-copy-block id="cp-1">
-  <p>הַתּוֹחֵב כַּף חוֹלֶבֶת בִּקְדֵרָה שֶׁל בָּשָׂר, אוֹ אִיפְּכָא — מְשַׁעֲרִים בְּכָל מַה שֶּׁנִּתְחַב מִמֶּנּוּ בַּקְּדֵרָה, אִם הַכַּף בֶּן יוֹמוֹ, דְּהַיְינוּ שֶׁשִּׁמְּשׁוּ בּוֹ בִּכְלִי רִאשׁוֹן תּוֹךְ מֵעֵת לְעֵת. (הגה: וְיֵשׁ אוֹמְרִים דְּאִם הַכַּף שֶׁל מַתֶּכֶת מְשַׁעֲרִים נֶגֶד כֻּלָּהּ, מִשּׁוּם דְּחַם מִקְצָתוֹ חַם כֻּלּוֹ; וְהַסְּבָרָא הָרִאשׁוֹנָה עִקָּר, וְכֵן נוֹהֲגִין — וְעַיֵּן סִימָן צ״ח.)</p>
+<div class="sacred-text" data-copy-block id="cp-1">
+<blockquote class="comment-source">«&nbsp;<span class="he-q">התוחב כף חולבת בקדרה של בשר או איפכא משערים בכל מה שנתחב ממנו בקדירה…ויש מי שאומר שאם הכף של מתכת משערים בכולו משום דחם מקצתו חם כולו</span>&nbsp;» <span class="src-ref">(שו״ע יו״ד צ״ד:א)</span></blockquote>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">וסברא ראשונה עיקר וכן נוהגין</span>&nbsp;» <span class="src-ref">(רמ״א יו״ד צ״ד:א)</span></blockquote>
+  <p><em>Traduction</em> : celui qui plonge une cuiller lactée dans une marmite de viande, ou l’inverse — on mesure [les soixante] contre tout ce qui en a été plongé dans la marmite (si la cuiller est <em>ben yomo</em>, c’est-à-dire qu’on s’en est servi dans un keli richon dans les vingt-quatre heures) (Aroukh, klal ל״ז) ; et il en est un qui dit que si la cuiller est de métal, on mesure contre elle tout entière, parce que « chaud en partie, chaud en tout ». (Glose du Rama : et la première opinion est l’essentiel, et ainsi fait-on) (Mordekhaï, Chaarei Doura et ses gloses, et Aroukh) (et voir siman צ״ח).</p>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">1. הקדמת הסוגיא — לשער נגד מה שנתחב</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">1. Introduction de la sougya — mesurer contre ce qui a été plongé</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">היסוד — כף שבלעה ומדידת השיעור
-  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 העתק</button>
+<h3>Le fondement — une cuiller qui a absorbé, et la mesure du chiour
+  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 Copier</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-2">
-יסוד הסימן: כף (תרווד) חולבת בלועה מחלב, שתחבוה לתוך קדרה רותחת של בשר — מאחר שהכף חמה ובלועה, היא <strong>פולטת את החלב הבלוע</strong> אל תוך תבשיל הבשר, וצריך ביטול בששים כדרך כל פליטת איסור. אלא שכאן עיקר הדין במ<strong>שערים</strong>: כנגד מה מודדים את הששים ? משיב המחבר: <span class="he-q">משערין בכל מה שנתחב ממנו בקדרה</span> — דהיינו נגד אותו חלק הכף שהוטבל בתבשיל, ולא נגד התבשיל כולו ולא נגד כל הכף. וכל זה דווקא כשהכף <strong>בן יומו</strong>, דהיינו ששמשו בו בכלי ראשון תוך מעת לעת (כ״ד שעות), שאז בלעו עדיין נותן טעם לשבח.
+<div class="sacred-text" data-copy-block id="cp-2">
+<p>Le fondement du siman : une cuiller lactée, imprégnée de lait, que l’on plonge dans une marmite bouillante de viande. La cuiller étant chaude et imprégnée, elle <strong>rejette le lait absorbé</strong> dans le mets carné, et il faut l’annuler dans soixante, comme pour tout rejet d’interdit. Mais le vrai din du siman est dans la <strong>mesure</strong> : contre quoi compte-t-on les soixante ? Le Mehaber répond <span class="he-q">משערים בכל מה שנתחב ממנו בקדירה</span> <span class="src-ref">(שו״ע יו״ד צ״ד:א)</span> — c’est-à-dire contre la part de la cuiller qui a été trempée dans le mets, et non contre le mets entier ni contre la cuiller entière.</p>
+<p>Et tout cela seulement lorsque la cuiller est <strong>ben yomo</strong> : on s’en est servi dans un keli richon dans les vingt-quatre heures, de sorte que ce qu’elle a absorbé donne encore un goût qui améliore (noten taam lechevah).</p>
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>חקירת הש״ך (ס״ק א) — מדוע נגד מה שנתחב ?</strong> לכאורה היה ראוי לשער נגד <em>מה שפלט</em> הכף בלבד, ולא נגד נפח הברזל שנתחב ! אלא מבאר הש״ך: <span class="he-q">לא ידעינן כמה נפיק מיניה</span> — אין אנו יודעים כמה פלטה הכף בפועל; על כן נקטינן לחומרא ומשערים נגד כל גוף המתכת שהוטבל, כאילו כולו פלט. (וכן הוא בסברת הראשונים, שכל בלוע אין לו שיעור מדויק.)
+<div class="hakira-box">
+<strong>La hakira du Chakh (ס״ק א) — pourquoi contre ce qui a été plongé ?</strong> À première vue, il aurait fallu mesurer contre ce que la cuiller a <em>rejeté</em>, et non contre le volume de métal qui a été plongé. Le Chakh répond que la mesure est prise à la rigueur, faute de savoir :
+<blockquote class="comment-source">«&nbsp;<span class="he-q">דלא ידעינן כמה נפיק מיניה</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ״ד ס״ק א)</span></blockquote>
+<p>Nous ne savons pas combien la cuiller a réellement rejeté ; on prend donc la rigueur et l’on mesure contre tout le corps de métal qui a été trempé, comme s’il avait tout rejeté.</p>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>עד היכן נתחב — "עד ראש הכף" (ש״ך ס״ק א בשם רש״ל) :</strong> ומה הדין כשאינו יודע <em>עד היכן</em> תחב את הכף בקדרה ? כתב הש״ך בשם המהרש״ל (ים של שלמה): כל ספק נדון לחומרא — <span class="he-q">משערים עד ראש הכף</span>, כאילו תחבהּ כולה. ומיהו אם <strong>יודע ודאי</strong> כמה נתחב (וכן כשיודע כמה נבלע — עיין סימן צ״ח ס״ה) — משערים נגד אותו שיעור בלבד, ולא יותר. נמצא ששורש "מה שנתחב" הוא <strong>ספק שאינו ידוע</strong>, ולא הלכה נחרצת בכל גוונא.
+<div class="pilpul-box">
+<strong>Jusqu’où a-t-il plongé — « jusqu’au haut de la cuiller » (Chakh ס״ק א au nom du Maharchal) :</strong> et quel est le din lorsqu’il ne sait pas <em>jusqu’où</em> il a plongé la cuiller dans la marmite ? Le Chakh écrit au nom du Maharchal que tout doute se juge à la rigueur :
+<blockquote class="comment-source">«&nbsp;<span class="he-q">דאם אינו ברור לו עד כמה תחב משערי׳ בסתם דרך לתחוב דהיינו עד ראש הכף</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ״ד ס״ק א)</span></blockquote>
+<p>Mais s’il <strong>sait avec certitude</strong> jusqu’où il a plongé — et de même lorsqu’on sait combien a été absorbé, le Chakh renvoyant lui-même à <span class="he-q">וע״ל סימן צ״ח ס״ה אי ידעינן כמה בלע</span> <span class="src-ref">(ש״ך יו״ד צ״ד ס״ק א)</span> — on ne mesure que contre cette quantité-là. La racine de « ce qui a été plongé » est donc un <strong>doute non levé</strong>, et non un din tranché en toute circonstance.</p>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הפתחי תשובה (ס״ק א) — נאמנות התוחב :</strong> מביא בשם הנודע ביהודה (תניינא יו״ד סי' ט״ז) — אדם <span class="he-q">נאמן</span> לומר עד היכן תחב את כפו, ואין זה כעדות שצריך בה כשרות, שהרי <strong>"דבר שהאדם עצמו עושה"</strong> — מילתא דעביד לגלויי, ונאמן עליו אף שאינו מומחה (לאפוקי שוחט וכיוצא בו, ששם החמירו). וזהו יסוד מעשי גדול בהוראת הסימן.
+<div class="rishon-card">
+<strong>Le Pit’hei Techouva (ס״ק א) — la crédibilité de celui qui a plongé :</strong> il rapporte au nom du Noda BiYehouda (tinyana, Yoré Déa, fin du siman ט״ז) que l’homme est cru lorsqu’il dit jusqu’où il a plongé sa cuiller, et qu’on n’applique pas ici la règle du « détail auquel on ne prête pas attention » :
+<blockquote class="comment-source">«&nbsp;<span class="he-q">דבדבר שהאדם עצמו עושה ל״ש לומר כן</span>&nbsp;» <span class="src-ref">(פתחי תשובה יו״ד צ״ד ס״ק א)</span></blockquote>
+<p>La raison : ce que l’homme <em>fait lui-même</em>, il sait comment il le fait — à la différence du cho’het qui n’avait pas appris les hilkhot chehita au moment de l’acte. Mais il faut dire la suite du Pit’hei Techouva, que la page ne doit pas taire : il objecte lui-même au Noda BiYehouda depuis le siman י״ח, et conclut <span class="he-q">ולע״ד דבריו צ״ע</span> <span class="src-ref">(פתחי תשובה יו״ד צ״ד ס״ק א)</span> ; il rapporte ensuite le Peri Megadim, qui hésite pareillement, puis le ’Hatam Sofer qui soutient le Noda BiYehouda. La question reste donc ouverte dans l’appareil.</p>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">2. חם מקצתו חם כולו — מחלוקת הכף של מתכת</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">2. ’Ham miktsato ’ham koulo — la ma’hloket sur la cuiller de métal</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זהו אחד מן החידושים החריפים שבסימן, וכל כובד עיונם של הש״ך והט״ז נתון בו.</p>
+<p style="margin:15px 0; font-style:italic;">C’est l’un des points les plus aigus du siman, et c’est là que se concentre le poids de l’étude du Chakh et du Taz.</p>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — האם המתכת חמה כולה :</strong> כף של מתכת — כשתוחבים מקצתה ברותח, הרי המתכת <em>מוליכה חום</em> ומתחממת אף בחלקה העליון שמחוץ לקדרה. וחקרו: האם מועיל חום זה ל<strong>פלוט</strong> את הבלוע שבכל גוף הכף, ולפיכך נשער נגד כולה; או שמא חום המתכת מועיל רק לעניין <strong>בליעה</strong> ולא לעניין פליטה ?
+<div class="hakira-box">
+<strong>La hakira — le métal est-il chaud tout entier :</strong> une cuiller de métal dont on plonge une partie dans un liquide bouillant conduit la chaleur et s’échauffe jusque dans la partie restée hors de la marmite. D’où la question : cette chaleur suffit-elle à lui faire <strong>rejeter</strong> ce qui est absorbé dans tout le corps de la cuiller — et alors on mesurerait contre elle tout entière ; ou bien la chaleur du métal ne vaut-elle que pour l’<strong>absorption</strong>, et non pour le rejet ?
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>שתי הדעות שבמחבר וברמ״א :</strong>
+<div class="machloket-box">
+<strong>Les deux opinions du Mehaber et du Rama :</strong>
 <table>
-<tr><th>שיטה</th><th>כף של מתכת — נגד מה משערים</th><th>מקור</th></tr>
+<tr><th>Position</th><th>Cuiller de métal — contre quoi mesure-t-on</th><th>Source</th></tr>
 <tr>
-  <td><strong>הדעה הראשונה (סתם מחבר)</strong></td>
-  <td><strong>נגד מה שנתחב</strong> בלבד — אין חם מקצתו חם כולו לעניין פליטה; <span class="he-q">וכן נוהגין</span></td>
-  <td>מחבר ס״א; רמ״א</td>
+  <td><strong>La première opinion (stam du Mehaber)</strong></td>
+  <td><strong>Contre ce qui a été plongé</strong> seulement — on ne dit pas « chaud en partie, chaud en tout » pour le rejet</td>
+  <td>Mehaber ס״א</td>
 </tr>
 <tr>
-  <td><strong>יש אומרים (הביאם הרמ״א)</strong></td>
-  <td><strong>נגד כל הכף</strong> — דחם מקצתו חם כולו, וכל המתכת כחמה לפלוט</td>
-  <td>רמ״א ס״א</td>
+  <td><strong>Yech mi cheomer (rapporté par le Mehaber, tranché par le Rama)</strong></td>
+  <td><strong>Contre la cuiller entière</strong> — car chaud en partie, chaud en tout, et tout le métal est comme chaud pour rejeter</td>
+  <td>Mehaber ס״א ; Rama ס״א</td>
 </tr>
 </table>
-<strong>והכרעת הרמ״א:</strong> "<span class="he-q">והסברא הראשונה עיקר וכן נוהגין</span>" — דלא אמרינן חם מקצתו חם כולו לעניין הפלטת הבלוע.
+<strong>Et la décision du Rama :</strong>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">וסברא ראשונה עיקר וכן נוהגין</span>&nbsp;» <span class="src-ref">(רמ״א יו״ד צ״ד:א)</span></blockquote>
+<p>On ne dit donc pas « chaud en partie, chaud en tout » pour faire rejeter ce qui est absorbé.</p>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>חידוד הש״ך (ס״ק ג) והפתחי תשובה (ס״ק ג) — בליעה לחוד ופליטה לחוד :</strong> מדקדקים האחרונים שיש לחלק: <span class="he-q">חם מקצתו חם כולו אמרינן לעניין לבלוע</span> — שאם נגעה טיפת איסור במקצת המתכת החמה, נבלע בכולה; <strong>אבל לעניין לפלוט</strong> — אין אומרים כן, ולפיכך משערים רק נגד מה שנתחב בפועל. ובזה נחלקו: הבית הלל והמגן אברהם (או״ח סי' תנ״א) סוברים דחם מקצתו חם כולו אף לפלוט; והש״ך חולק, וזו הסברא הנוהגת בסימננו.
+<div class="pilpul-box">
+<strong>Le tranchant du Chakh (ס״ק ג) et du Pit’hei Techouva (ס״ק ג) — absorber d’un côté, rejeter de l’autre :</strong> le Pit’hei Techouva rapporte le Beit Hillel, qui avait entendu du Magen Avraham (Ora’h ’Haïm סי׳ תנ״א) la distinction suivante :
+<blockquote class="comment-source">«&nbsp;<span class="he-q">אע״ג דחם מקצתו חם כולו היינו לבלוע אבל לא לפלוט</span>&nbsp;» <span class="src-ref">(פתחי תשובה יו״ד צ״ד ס״ק ג)</span></blockquote>
+<p>Pour le Beit Hillel et le Magen Avraham, « chaud en partie, chaud en tout » vaut donc pour <strong>absorber</strong> et non pour <strong>rejeter</strong>, et c’est pourquoi on ne mesure que contre ce qui a été plongé. Le Chakh, lui, va plus loin : selon lui on ne le dit <strong>pas même pour l’absorption</strong>, puisque le raisonnement de la première opinion est <span class="he-q">אינו מוליך בליעתו בכולו</span> <span class="src-ref">(ש״ך יו״ד צ״ד ס״ק ג)</span> — le métal ne conduit pas ce qu’il a absorbé dans tout son corps.</p>
+<p>Le Pit’hei Techouva le dit expressément : <span class="he-q">אכן דעת הש״ך כאן סק״ג לא נראה כן</span> <span class="src-ref">(פתחי תשובה יו״ד צ״ד ס״ק ג)</span>, et renvoie au Chakh du siman קכ״א. Les deux chemins aboutissent ici au même din pratique, mais pour des raisons différentes — et la différence porte ailleurs, comme le montre la nafka mina qui suit.</p>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה — בקתא (ידית) של הכף :</strong> ומכאן יוצא דין ה<strong>קתא</strong> (ידית הכף): כף מתכת בת יומה שתחב את <span class="he-q">ידיתהּ</span> בתבשיל — לדידן שאין חם מקצתו חם כולו לפלוט, משערים נגד הידית שנתחבה ולא נגד כל הכף; וכל זה כשהיא בת יומה. <em>ולמעשה — שאל את רבך.</em>
+<div class="nafka-mina-box">
+<strong>Nafka mina — le manche (la קתא) de la cuiller :</strong> de là sort le din du manche. Une cuiller de métal bat yoma dont on a plongé le <em>manche</em> dans le mets : pour le Beit Hillel, rapporté par le Pit’hei Techouva, il faut soixante dans la marmite contre le manche qui y a été plongé —
+<blockquote class="comment-source">«&nbsp;<span class="he-q">אם תחבו הקתא של הכף של מתכת ב״י בקדרה צריך ס׳ בקדרה נגד הקתא שנתחב בו</span>&nbsp;» <span class="src-ref">(פתחי תשובה יו״ד צ״ד ס״ק ג)</span></blockquote>
+<p>Le Pit’hei Techouva ajoute, au nom du Solet laMin’ha (klal פ״ה) et de son propre ouvrage sur les hilkhot Pessa’h, que bediavad il n’y a rien à annuler du tout en pareil cas, et que la divergence avec le Beit Hillel demeure ; mais que la cuiller, elle, est interdite à l’usage jusqu’à hag‘ala. Enfin il rapporte le Panim Meïrot, qui distingue selon que tout l’ustensile est ou non chaud au point que la main s’y rétracte. <em>Et pour la pratique — demande à ton Rav.</em></p>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">3. תחב פעמיים — שני פעמים ששים</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">3. Il a plongé deux fois — deux fois soixante</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיף ב')
-  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 העתק</button>
+<h3>Le texte du Mehaber (seif ב')
+  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 Copier</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-3">
-"<strong>תחב הכף בקדרה שתי פעמים, ולא נודע לו בינתיים — צריך שני פעמים ששים</strong> (הגה: ויש אומרים דדי בפעם אחת ששים, וכן נוהגים — תרומת הדשן סימן קפ״ג)."
+<div class="sacred-text" data-copy-block id="cp-3">
+<blockquote class="comment-source">«&nbsp;<span class="he-q">אם תחב הכף בקדירה שני פעמים ולא נודע בנתים צריך ב׳ פעמים ששים</span>&nbsp;» <span class="src-ref">(שו״ע יו״ד צ״ד:ב)</span></blockquote>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">דסגי בפעם א׳ ששים</span>&nbsp;» <span class="src-ref">(רמ״א יו״ד צ״ד:ב)</span></blockquote>
+  <p><em>Traduction</em> : s’il a plongé la cuiller dans la marmite deux fois et qu’il ne l’a pas su entre-temps, il faut deux fois soixante. (Glose du Rama : et il en est qui disent qu’une seule fois soixante suffit, et ainsi fait-on) (Teroumat haDéchen siman קפ״ג, gloses de Chaarei Doura, et Aroukh).</p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — מדוע יעלה על הדעת שני פעמים ששים :</strong><br>
-לכאורה כיון שתחב הכף פעם ופעמיים, פלטה בכל פעם מה שבלועה, ונמצא שיש כאן <span class="he-q">שתי פליטות</span>. הצד לחומרא: בכל תחיבה צריך ביטול ששים בפני עצמו, וביחד — מאה ועשרים. כך הצד הראשון שבמחבר.
+<div class="yesod-box">
+<strong>Le yessod — pourquoi songerait-on à exiger deux fois soixante :</strong><br>
+Le Chakh donne la raison de la rigueur, au nom des Haggahot Mordekhaï, du Maharil et du Teroumat haDéchen : il faut d’abord soixante contre le lait, et l’on craint qu’il soit resté un peu de lait dans la cuiller ; lorsqu’on l’a retirée de la marmite, toute la cuiller est devenue nevela de bassar be’halav, et il faut donc l’annuler une seconde fois —
+<blockquote class="comment-source">«&nbsp;<span class="he-q">וחיישינן דלמא נשאר בו מעט חלב וכשהוציאו מן הקדרה נעשה כל הכף נבילה מבשר בחלב ולכך צריך לבטל הכף בפעם הב׳</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ״ד ס״ק ד)</span></blockquote>
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>הכרעת תרומת הדשן (סימן קפ״ג) — די בפעם אחת :</strong>
+<div class="machloket-box">
+<strong>La décision du Teroumat haDéchen (siman קפ״ג) — une seule fois suffit :</strong>
 <table>
-<tr><th>שיטה</th><th>שתי תחיבות</th><th>מקור</th></tr>
+<tr><th>Position</th><th>Deux plongements</th><th>Source</th></tr>
 <tr>
-  <td><strong>הדעה הראשונה (מחבר)</strong></td>
-  <td>שני פעמים ששים — דכל תחיבה פליטה בפני עצמה</td>
-  <td>מחבר ס״ב</td>
+  <td><strong>La première opinion (Mehaber)</strong></td>
+  <td>Deux fois soixante — chaque plongement est un rejet en soi</td>
+  <td>Mehaber ס״ב</td>
 </tr>
 <tr>
-  <td><strong>יש אומרים (רמ״א בשם תה״ד)</strong></td>
-  <td>די בפעם אחת ששים — <span class="he-q">וכן נוהגים</span></td>
-  <td>רמ״א ס״ב; תה״ד קפ״ג</td>
-</tr>
-</table>
-</div>
-
-<div class="pilpul-box" dir="rtl">
-<strong>טעם תרומת הדשן (ט״ז ס״ק ב) — היתר בלוע שאינו נעשה נבילה :</strong> מבאר הט״ז שורש הקולא: בתחיבה הראשונה, אם היה ששים בקדרה — נתבטל החלב שפלטה הכף, ושוב אין כאן איסור כלל; ומה שבלוע עוד בכף — <span class="he-q">היתר בלוע</span> הוא (שכבר נתבטל ברוב), <strong>ואינו נעשה נבילה</strong>. נמצא שבתחיבה השנייה אין הכף פולטת איסור חדש, אלא היתר שכבר נתבטל, ועל כן די בפעם אחת ששים. (וזהו יסוד גדול: בלוע שנתבטל אינו חוזר ואוסר.)
-</div>
-
-<!-- ============================================================= -->
-<h2 class="section-title">4. יש ששים לבטל הכף — איסור הנאה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
-
-<h3 class="he-h3">לשון המחבר (סעיף ג')
-  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 העתק</button>
-</h3>
-
-<div class="sacred-text he" data-copy-block id="cp-4">
-"<strong>אם יש בקדרה ששים לבטל הכף — הקדרה והתבשיל מותרים, אבל הכף אסורה, בין לבשר בין לחלב, שהרי היא בלועה מבשר בחלב; ואפילו בדיעבד אוסרת אם חזר ותחבהּ (לבשר או לחלב) כל זמן שהיא בת יומה. ואם אין ששים — הכל אסור אפילו בהנאה, ואף הקדרה; ומכל מקום מותר ליתן בה פירות או דבר צונן.</strong>"
-</div>
-
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — שלוש מדרגות בכף שנאסרה :</strong><br>
-• <strong>יש ששים</strong> → התבשיל מותר (נתבטל מה שפלטה), אבל <span class="he-q">הכף עצמה אסורה</span> — שהרי בלועה מבשר בחלב, ופולטת לכל קדרה שתחזור ותתחב בה (בשר או חלב) כל זמן שהיא בת יומה.<br>
-• <strong>אין ששים</strong> → נעשה התבשיל <span class="he-q">בשר בחלב</span> ממש, ו<strong>אסור בהנאה</strong> — שכן בישולי בב״ח אסורין בהנאה מן התורה, אף הקדרה הבלועה.<br>
-• ומכל מקום מותר ליתן בה <strong>פירות או צונן</strong> — שאינו נהנה מגוף האיסור הבלוע, אלא מן הכלי בלבד.
-</div>
-
-<div class="pilpul-box" dir="rtl">
-<strong>חקירת איסור הנאה והכלב (פתחי תשובה ס״ק ה) :</strong> מאחר שבב״ח אסור בהנאה, נסתפקו האחרונים אם מותר להאכיל את התבשיל ל<span class="he-q">כלב</span>. דעת הט״ז — אסור, שהאכלת הכלב הנאה היא; ואילו מקור חיים והגר״א — מותר להאכיל לכלב, דלא חמיר בב״ח אלא כשאר איסורי הנאה, ולא כחמץ בפסח. נמצא שהמחלוקת תלויה בגדר איסור ההנאה דבב״ח.
-</div>
-
-<div class="rishon-card" dir="rtl">
-<strong>מכירת הקדרה לנכרי (פתחי תשובה ס״ק ו בשם חתם סופר סי' צ״ח) :</strong> הקדרה הבלועה מבשר בחלב — אף שאסורה בהנאה, התיר ה<span class="he-q">חתם סופר</span> ל<strong>מוכרה לנכרי</strong>, ואפילו בעודה בת יומה; שאין כאן הנאה מגוף האיסור אלא מן הכלי, ובמכירת הכלי עצמו אין משום הנאת איסור. (וזו קולא מעשית חשובה בהפסד מרובה.)
-</div>
-
-<!-- ============================================================= -->
-<h2 class="section-title">5. כף שאינה בת יומה — לכתחילה ובדיעבד</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
-
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">כאן עיקר החילוק בין נותן טעם לשבח לנותן טעם לפגם, וכל גדרי "בן יומו".</p>
-
-<h3 class="he-h3">לשון המחבר (סעיף ד')
-  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 העתק</button>
-</h3>
-
-<div class="sacred-text he" data-copy-block id="cp-5">
-"<strong>אם אין הכף בת יומה — הקדרה והתבשיל מותרים, והכף אסורה לכתחילה (בין לבשר בין לחלב); ומכל מקום בדיעבד אינה אוסרת, הואיל ואינה בת יומה.</strong>"
-</div>
-
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — נותן טעם לפגם בכלי שאינו בן יומו :</strong><br>
-כלי שאינו בן יומו — הבלוע שבו כבר <span class="he-q">נפגם</span> (עמד מעת לעת), ופליטתו אינה נותן טעם לשבח אלא לפגם, ו<strong>נותן טעם לפגם מותר</strong>. אלא שגזרו חכמים שלא להשתמש בו <strong>לכתחילה</strong> (שמא יבוא להשתמש בבן יומו). על כן: לכתחילה אסור — והכף נחשבת "אינה בת יומה"; אבל <span class="he-q">בדיעבד אינה אוסרת</span>, שהרי טעם פגום אינו אוסר.
-</div>
-
-<div class="machloket-box" dir="rtl">
-<strong>השוואת ארבעת הסעיפים (א'–ד') — מצב הכף :</strong>
-<table>
-<tr><th>מצב</th><th>התבשיל</th><th>הכף</th></tr>
-<tr>
-  <td><strong>בת יומה, יש ששים (ס״ג)</strong></td>
-  <td>מותר</td>
-  <td>אסורה (בלועה בב״ח)</td>
-</tr>
-<tr>
-  <td><strong>בת יומה, אין ששים (ס״ג)</strong></td>
-  <td>אסור בהנאה אף הקדרה</td>
-  <td>אסורה; פירות/צונן מותר</td>
-</tr>
-<tr>
-  <td><strong>אינה בת יומה (ס״ד)</strong></td>
-  <td>מותר</td>
-  <td>אסורה לכתחילה, ובדיעבד אינה אוסרת</td>
+  <td><strong>Yech omrim (Rama au nom du Teroumat haDéchen)</strong></td>
+  <td>Une seule fois soixante suffit — et ainsi fait-on</td>
+  <td>Rama ס״ב ; Teroumat haDéchen קפ״ג</td>
 </tr>
 </table>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>כלי ראשון חוץ לאש (ט״ז ס״ק א; פתחי תשובה ס״ק ב בשם חוות יאיר סי' ק״א) :</strong> כל דין הכף בכלי ראשון — ואף שהוסר מן האש, כל זמן ש<span class="he-q">היד סולדת בו</span> דין כלי ראשון לו ומבליע (ירושלמי; חוות יאיר). והרש״ל הוסיף: בלא יד סולדת אין הבלעה, ומכל מקום צריך <strong>הרחקה</strong> מכלי ראשון העומד אצל האש.
+<div class="pilpul-box">
+<strong>La raison du Teroumat haDéchen (Taz ס״ק ב) — un permis absorbé ne devient pas nevela :</strong> le Taz expose la racine de la mesure d’allègement. Le Teroumat haDéchen avait d’abord donné la raison de la rigueur, puis l’a repoussée lui-même :
+<blockquote class="comment-source">«&nbsp;<span class="he-q">ואח״כ דחה זה דאין היתר בלוע נאסר מאיסור בלוע</span>&nbsp;» <span class="src-ref">(ט״ז יו״ד צ״ד ס״ק ב)</span></blockquote>
+<p>Un permis absorbé n’est pas rendu interdit par un interdit absorbé. Au second plongement, la cuiller ne rejette donc pas un interdit nouveau. Le Taz rappelle que le Maharchal, au chapitre Guid haNaché siman מ׳, fut strict et exigea deux fois soixante, et il conclut : <span class="he-q">ואין לנו אלא המנהג שכתב רמ״א להקל הן בבשר בחלב הן בשאר איסורים</span> <span class="src-ref">(ט״ז יו״ד צ״ד ס״ק ב)</span>.</p>
+</div>
+
+<!-- ============================================================= -->
+<h2 class="section-title">4. Il y a soixante pour annuler la cuiller — l’interdit de jouissance</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
+
+<h3>Le texte du Mehaber (seif ג')
+  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 Copier</button>
+</h3>
+
+<div class="sacred-text" data-copy-block id="cp-4">
+<blockquote class="comment-source">«&nbsp;<span class="he-q">אם יש ס׳ לבטל הכף הקדירה והתבשיל מותרים אבל הכף אסור בין עם בשר בין עם חלב לפי שהיא בלועה מבשר בחלב ואפילו בדיעבד אוסרת אם חזרו ותחבוה בין בבשר בין בחלב כל זמן שהיא בת יומא ואם אין ס׳ הכל אסור בהנאה אפי׳ הקדרה אך מותר לתת לתוכה פירות או צונן כיון שאינו נהנה מגוף האיסור</span>&nbsp;» <span class="src-ref">(שו״ע יו״ד צ״ד:ג)</span></blockquote>
+  <p><em>Traduction</em> : s’il y a soixante pour annuler la cuiller, la marmite et le mets sont permis, mais la cuiller est interdite, aussi bien avec de la viande qu’avec du lait, parce qu’elle est imprégnée de bassar be’halav ; et même bediavad elle interdit si on l’a replongée, dans de la viande comme dans du lait, tant qu’elle est bat yoma. Et s’il n’y a pas soixante, tout est interdit à la jouissance, même la marmite ; mais il est permis d’y mettre des fruits ou une chose froide, puisqu’il ne tire pas jouissance du corps de l’interdit.</p>
+</div>
+
+<div class="yesod-box">
+<strong>Le yessod — trois degrés dans la cuiller devenue interdite :</strong><br>
+• <strong>Il y a soixante</strong> → le mets est permis, mais la cuiller ne l’est pas : <span class="he-q">אבל הכף אסור בין עם בשר בין עם חלב</span> <span class="src-ref">(שו״ע יו״ד צ״ד:ג)</span>, puisqu’elle est imprégnée de bassar be’halav et rejettera dans toute marmite où on la replongera, tant qu’elle est bat yoma.<br>
+• <strong>Il n’y a pas soixante</strong> → le mets devient bassar be’halav, et il est <strong>interdit à la jouissance</strong>, la marmite avec lui.<br>
+• <strong>Et malgré cela</strong>, il est permis d’y mettre des fruits ou une chose froide, la raison étant donnée par le Mehaber lui-même : <span class="he-q">כיון שאינו נהנה מגוף האיסור</span> <span class="src-ref">(שו״ע יו״ד צ״ד:ג)</span>.
+</div>
+
+<div class="pilpul-box">
+<strong>L’interdit de jouissance et le chien (Pit’hei Techouva ס״ק ה) :</strong> puisque le bassar be’halav est interdit à la jouissance, les Aharonim se sont demandé s’il est permis de donner le mets à manger à un chien. Le Taz l’interdit, au nom du Issour veHeter, du Maharchal et du Torat ’Hatat — et le Pit’hei Techouva écrit que le Mekor ’Haïm (סי׳ תמ״ח) et le Biour haGra ne sont pas de cet avis :
+<blockquote class="comment-source">«&nbsp;<span class="he-q">אכן אין כן דעת הגאון בעל מקור חיים בסי׳ תמ״ח סק״י דדוקא בחמץ בפסח</span>&nbsp;» <span class="src-ref">(פתחי תשובה יו״ד צ״ד ס״ק ה)</span></blockquote>
+<p>Pour eux, c’est le ’hamets à Pessa’h qui est l’exception, et non le bassar be’halav. Le Pit’hei Techouva ajoute lui-même une réserve sur la preuve du Mekor ’Haïm tirée des Tossafot de Pessa’him ד׳ כ״ב, et renvoie encore au Pnei Yehochoua et au Baer Yaakov. La ma’hloket tient donc au gader de l’interdit de jouissance du bassar be’halav.</p>
+</div>
+
+<div class="rishon-card">
+<strong>Vendre la marmite à un non-juif (Pit’hei Techouva ס״ק ו au nom du ’Hatam Sofer סי׳ צ״ח) :</strong> la marmite imprégnée de bassar be’halav, quoique interdite à la jouissance, le ’Hatam Sofer permet de la vendre à un non-juif, et même tant qu’elle est bat yoma :
+<blockquote class="comment-source">«&nbsp;<span class="he-q">דלמכור לעובד כוכבים קדרה הבלועה מבשר בחלב אין בו בית מיחוש כלל אפילו ביומיה</span>&nbsp;» <span class="src-ref">(פתחי תשובה יו״ד צ״ד ס״ק ו)</span></blockquote>
+<p>Le Pit’hei Techouva ouvre cette entrée en renvoyant d’abord à la techouva du Radbaz (’helek א׳ siman כ״ד).</p>
+</div>
+
+<!-- ============================================================= -->
+<h2 class="section-title">5. Une cuiller qui n’est pas bat yoma — lekhathila et bediavad</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
+
+<p style="margin:15px 0; font-style:italic;">Ici se tient la distinction principale entre un goût qui améliore et un goût qui gâte, et tous les gedarim de « ben yomo ».</p>
+
+<h3>Le texte du Mehaber (seif ד')
+  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 Copier</button>
+</h3>
+
+<div class="sacred-text" data-copy-block id="cp-5">
+<blockquote class="comment-source">«&nbsp;<span class="he-q">אם אין הכף בן יומו הקדרה והתבשיל מותרים והכף אסור לכתחלה בין עם בשר בין עם חלב ומ״מ בדיעבד אינה אוסרת כיון שלא היתה בת יומא</span>&nbsp;» <span class="src-ref">(שו״ע יו״ד צ״ד:ד)</span></blockquote>
+  <p><em>Traduction</em> : si la cuiller n’est pas ben yomo, la marmite et le mets sont permis, et la cuiller est interdite lekhathila, avec de la viande comme avec du lait ; et néanmoins bediavad elle n’interdit pas, puisqu’elle n’était pas bat yoma.</p>
+</div>
+
+<div class="yesod-box">
+<strong>Le yessod — un goût qui gâte, dans un ustensile qui n’est pas ben yomo :</strong><br>
+Un ustensile qui n’est pas ben yomo a déjà un contenu absorbé <em>gâté</em> : il est resté plus de vingt-quatre heures, et son rejet ne donne plus un goût qui améliore mais un goût qui gâte, et un goût qui gâte ne rend pas interdit. Mais les Sages ont interdit d’en user <strong>lekhathila</strong>. Et bediavad, le Mehaber écrit : <span class="he-q">ומ״מ בדיעבד אינה אוסרת כיון שלא היתה בת יומא</span> <span class="src-ref">(שו״ע יו״ד צ״ד:ד)</span>.
+</div>
+
+<div class="machloket-box">
+<strong>Comparaison des quatre premiers seifim (א'–ד') — l’état de la cuiller :</strong>
+<table>
+<tr><th>Situation</th><th>Le mets</th><th>La cuiller</th></tr>
+<tr>
+  <td><strong>Bat yoma, il y a soixante (ס״ג)</strong></td>
+  <td>Permis</td>
+  <td>Interdite (imprégnée de bassar be’halav)</td>
+</tr>
+<tr>
+  <td><strong>Bat yoma, il n’y a pas soixante (ס״ג)</strong></td>
+  <td>Interdit à la jouissance, la marmite avec lui</td>
+  <td>Interdite ; fruits et choses froides permis</td>
+</tr>
+<tr>
+  <td><strong>Pas bat yoma (ס״ד)</strong></td>
+  <td>Permis</td>
+  <td>Interdite lekhathila ; bediavad elle n’interdit pas</td>
+</tr>
+</table>
+</div>
+
+<div class="rishon-card">
+<strong>Un keli richon retiré du feu (Taz ס״ק א ; Pit’hei Techouva ס״ק ב au nom du ’Havot Yaïr סי׳ ק״א) :</strong> tout le din de la cuiller se joue dans un keli richon. Le Taz rapporte le Maharchal (פכ״ה סי׳ ע״א), pour qui un keli richon dont la main ne se rétracte pas n’a plus la force de faire absorber :
+<blockquote class="comment-source">«&nbsp;<span class="he-q">דמסתבר דכלי ראשון כל זמן שאין היד סולדת בו אין בו כח להבליע כלל</span>&nbsp;» <span class="src-ref">(ט״ז יו״ד צ״ד ס״ק א)</span></blockquote>
+<p>Le Maharchal craint néanmoins d’alléger pour un keli richon posé auprès du feu, « car on a fait une haré’haka au keli richon, comme il est dit dans le Yerouchalmi ». Mais le Taz conclut contre lui, au nom du Torat ’Hatat (klal נ״ז), du Beit Yossef et du Issour veHeter : <span class="he-q">דאפילו בכלי ראשון שעל האש אינו אוסר אם אין היד סולדת בו וכן עיקר</span> <span class="src-ref">(ט״ז יו״ד צ״ד ס״ק א)</span>. Le Pit’hei Techouva ajoute le ’Havot Yaïr : un ustensile refroidi garde le nom de keli richon tant qu’il est plus que tiède, et il faut un mea‘t-le‘et à compter du moment où il est descendu au tiède.</p>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">6. נותן טעם בר נותן טעם דהיתרא — קדרה חדשה ושתי כפות</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">6. Noten taam bar noten taam de permis — marmite neuve et deux cuillers</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ה')
-  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 העתק</button>
+<h3>Le texte du Mehaber et du Rama (seif ה')
+  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 Copier</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-6">
-"<strong>בישל מים בקדרה חדשה ותחב בה כף חולבת, וחזר ובישל מים ותחב בה כף של בשר — ושתיהן בנות יומן, ולא היה בשום פעם ששים במים — אסור להשתמש באותה קדרה לבשר ולחלב; אבל מותר לבשל בה דברים אחרים, הואיל וחדשה היתה.</strong> (הגה: ומכל מקום אם עבר ובישל בה בשר או חלב — מותר, דהווי נותן טעם בר נותן טעם — הגהות מיימוניות.) <strong>קדרה שבישלו בה ירקות או מים, ותחבו בה כף בן יומו והקדרה אינה בת יומה (או איפכא), או שיש ששים בתבשיל — הכל מותר; ונהגו להחמיר לאכול התבשיל מצד הכלי שהוא בן יומו ולאסור הכלי שאינו בן יומו, ואינו אלא חומרא, דמדינא הכל מותר.</strong>"
+<div class="sacred-text" data-copy-block id="cp-6">
+<blockquote class="comment-source">«&nbsp;<span class="he-q">אם בשלו מים בקדרה חדשה ותחבו בה כף חולבת ואחר כך חזרו ובשלו בה מים פעם אחרת ותחבו בה כף של בשר ושתי הכפות היו בני יומן ובשום אחד מהפעמים לא היו במים ששים אסור להשתמש בקדירה לא בשר ולא חלב אבל שאר דברים מותר לבשל מאחר שהיתה חדשה שלא בשלו בה מעולם</span>&nbsp;» <span class="src-ref">(שו״ע יו״ד צ״ד:ה)</span></blockquote>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">מיהו אם עבר ובישל בה בשר או חלב מותר דהוי נותן טעם בר נותן טעם</span>&nbsp;» <span class="src-ref">(רמ״א יו״ד צ״ד:ה)</span></blockquote>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">קדרה שבשלו בה ירקות או מים ותחבו בה כף בן יומו והקדירה אינה בת יומה או להפך או שיש במאכל ששים הכל שרי ונוהגין להחמיר לאכול המאכל כמין הכלי שהוא בן יומו ולאסור הכלי שאינו בן יומו</span>&nbsp;» <span class="src-ref">(רמ״א יו״ד צ״ד:ה)</span></blockquote>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">ואינו אלא חומרא בעלמא כי מדינא הכל שרי</span>&nbsp;» <span class="src-ref">(רמ״א יו״ד צ״ד:ה)</span></blockquote>
+  <p><em>Traduction</em> : s’ils ont cuit de l’eau dans une marmite neuve et y ont plongé une cuiller lactée, puis ont de nouveau cuit de l’eau une autre fois et y ont plongé une cuiller carnée, les deux cuillers étant bnot yoman, et qu’à aucune des deux fois il n’y avait dans l’eau soixante — il est interdit d’user de cette marmite ni pour la viande ni pour le lait ; mais il est permis d’y cuire d’autres choses, puisqu’elle était neuve et qu’on n’y avait jamais rien cuit. Glose du Rama : toutefois, s’il a transgressé et y a cuit de la viande ou du lait, c’est permis, car c’est un noten taam bar noten taam (Haggahot Maïmoniot פ״ט). Une marmite où l’on a cuit des légumes ou de l’eau et où l’on a plongé une cuiller ben yomo alors que la marmite n’est pas bat yoma, ou l’inverse, ou bien s’il y a dans le mets soixante — tout est permis ; et l’usage est d’être strict, de manger le mets du côté de l’ustensile qui est ben yomo et de tenir pour interdit l’ustensile qui ne l’est pas (Aroukh klal ל״ז) — et ce n’est qu’une stringence, car de droit tout est permis.</p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — מהו "נותן טעם בר נותן טעם דהיתרא" :</strong><br>
-טעם של היתר שעבר דרך <em>אמצעי ניטרלי</em> (מים, קדרה, כלי) קודם שהגיע אל המין השני — <strong>אינו אוסר בדיעבד</strong>. כך כאן: טעם החלב עבר מן <span class="he-q">הכף → המים → הקדרה</span>, וטעם הבשר עבר מן <span class="he-q">כף הבשר → המים → אותה קדרה</span>; כל אחד טעם רחוק, ו"נותן טעם בר נותן טעם" של היתר אינו עושה את הקדרה בשר בחלב גמור. לפיכך אם עבר ובישל בה — מותר.
+<div class="yesod-box">
+<strong>Le yessod — qu’est-ce qu’un « noten taam bar noten taam de permis » :</strong><br>
+Un goût permis qui a traversé un <em>intermédiaire neutre</em> — de l’eau, une marmite, un ustensile — avant d’atteindre l’autre espèce ne rend pas interdit bediavad. Ici : le goût du lait est passé de la cuiller à l’eau, et de l’eau à la marmite ; le goût de la viande de l’autre cuiller à l’eau, et de l’eau à la même marmite. Chacun est un goût éloigné, et le Rama tranche <span class="he-q">מיהו אם עבר ובישל בה בשר או חלב מותר דהוי נותן טעם בר נותן טעם</span> <span class="src-ref">(רמ״א יו״ד צ״ד:ה)</span>, au nom des Haggahot Maïmoniot.
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>חידוד הט״ז (ס״ק ו) — מדוע לכתחילה אסור :</strong> אם נ״ט בר נ״ט דהיתרא מותר, מדוע אסר המחבר להשתמש בקדרה לבשר ולחלב לכתחילה ? מבאר הט״ז: מדינא אכן מותר, אלא ש<span class="he-q">אסרו לכתחילה מחמת המנהג</span> — דלכתחילה החמירו שלא לערב טעמי בשר וחלב אף ברחוק. אבל בדיעבד, "עבר ובישל", חזר הדין למקומו ומותר, דנ״ט בר נ״ט דהיתרא הוא.
+<div class="pilpul-box">
+<strong>Le tranchant du Taz (ס״ק ו) — pourquoi est-ce interdit lekhathila :</strong> si un noten taam bar noten taam de permis est permis, pourquoi le Mehaber interdit-il d’user de la marmite pour la viande et pour le lait ? Le Taz explique que de droit c’est bien permis, et que l’interdiction lekhathila tient à l’usage qui s’est répandu :
+<blockquote class="comment-source">«&nbsp;<span class="he-q">והא דאסור לכתחלה הוא מטעם כיון שנתפשט המנהג לאסור אותו שאינו בן יומא</span>&nbsp;» <span class="src-ref">(ט״ז יו״ד צ״ד ס״ק ו)</span></blockquote>
+<p>Le Taz ajoute sa propre explication : on a été strict pour la marmite parce qu’on verse le mets dans un ustensile de l’espèce qui est ben yomo, et il n’est donc pas juste de permettre celui qui ne l’est pas, puisque c’est de lui qu’on verse. Il pose ensuite une kouchia sur le Tour, qu’il dit avoir résolue plus haut. Mais bediavad — « s’il a transgressé et y a cuit » — le din revient à sa place et c’est permis, car c’est un noten taam bar noten taam de permis.</p>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>מנהג ההחמרה — לאכול מצד בן יומו (ט״ז ס״ק ח בשם רש״ל) :</strong> במקום שהדין שווה (כף בן יומו וקדרה שאינה, או יש ששים) — מדינא הכל מותר; ונהגו ל<span class="he-q">אכול התבשיל מצד הכלי שהוא בן יומו</span> ולהחזיק את הכלי שאינו בן יומו כאסור. וכתב הרש״ל דעצה זו דווקא ב<strong>כף חדשה</strong>, שלא נבלע בה היתר וגם איסור. ומסיים המחבר: <span class="he-q">"אינו אלא חומרא, דמדינא הכל מותר"</span>.
+<div class="rishon-card">
+<strong>L’usage d’être strict — manger du côté de ce qui est ben yomo (Taz ס״ק ח au nom du Torat ’Hatat et du Maharchal) :</strong> là où le din est égal, tout est permis de droit ; et l’usage, écrit le Rama dans sa glose, est <span class="he-q">ונוהגין להחמיר לאכול המאכל כמין הכלי שהוא בן יומו</span> <span class="src-ref">(רמ״א יו״ד צ״ד:ה)</span>. Le Taz rapporte le Torat ’Hatat (klal נ״ז), pour qui il vaut mieux ne manger ce mets ni avec de la viande ni avec du lait, et le Maharchal (Guid haNaché סי׳ מ״ג), qui conseille de le manger de la marmite avec une cuiller neuve. Et le Mehaber lui-même conclut :
+<blockquote class="comment-source">«&nbsp;<span class="he-q">ואינו אלא חומרא בעלמא כי מדינא הכל שרי</span>&nbsp;» <span class="src-ref">(רמ״א יו״ד צ״ד:ה)</span></blockquote>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">7. ירקות הבלועים מבשר — אין כאן חנ״נ</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">7. Des légumes imprégnés de viande — il n’y a pas ici de ’hatikha na‘assit nevela</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ו')
-  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 העתק</button>
+<h3>Le texte du Mehaber et du Rama (seif ו')
+  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 Copier</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-7">
-"<strong>בצלים או ירקות שנתבשלו עם בשר ונבלע בהם טעם בשר, וחזרו ובישלום בקדרה של חלב: אם יודע כמה בשר נבלע בהם — אין צריך אלא ששים כנגד הבשר הבלוע, ולא כנגד הכל.</strong> (הגה: ולא אמרינן כאן חתיכה נעשית נבילה, הואיל והכל היתר, ואין משערים אלא נגד מה שנבלע. וכן קדרה של חלב בת יומה שבישלו בה מים ואחר כך בשר — אין משערים אלא נגד החלב הבלוע בקדרה, ולא נגד כל המים — טור ובית יוסף.)"
+<div class="sacred-text" data-copy-block id="cp-7">
+<blockquote class="comment-source">«&nbsp;<span class="he-q">בצלים או ירקות שבלועים מבשר ובשלם בקדרה חולבת אם ידוע כמה בשר בלוע בבצלים ובירקות אין צריך ס׳ אלא כנגד הבשר</span>&nbsp;» <span class="src-ref">(שו״ע יו״ד צ״ד:ו)</span></blockquote>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">דלא שייך לומר חתיכה נעשית נבילה הואיל ועדיין כולו היתר ולכן אין צריך לשער רק נגד מה שבלע וכל שכן בקדירה של חלב שבשלו בה מים תוך מעת לעת ואח״כ בשלו בה בשר לא אמרינן דצריך לשער נגד כל המים רק נגד החלב שבלע הקדירה</span>&nbsp;» <span class="src-ref">(רמ״א יו״ד צ״ד:ו)</span></blockquote>
+  <p><em>Traduction</em> : des oignons ou des légumes imprégnés de viande, qu’on a cuits dans une marmite lactée — si l’on sait quelle quantité de viande est imprégnée dans les oignons et les légumes, il ne faut soixante que contre la viande. Glose du Rama : car il n’y a pas lieu de dire « le morceau devient nevela », puisque tout est encore permis, et il ne faut donc mesurer que contre ce qui a été absorbé. Et a fortiori pour une marmite lactée dans laquelle on a cuit de l’eau dans les vingt-quatre heures et ensuite de la viande : on ne dit pas qu’il faille mesurer contre toute l’eau, mais seulement contre le lait qu’a absorbé la marmite (sens du Tour et du Beit Yossef).</p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — חתיכה נעשית נבילה אינה שייכת כשהכל היתר :</strong><br>
-דין <span class="he-q">חתיכה נעשית נבילה</span> (סימן צ״ב ס״ד) — שכל החתיכה נחשבת איסור ומשערים נגד כולה — שייך דווקא כשהיה שם <strong>איסור</strong> שאסר את החתיכה. אבל כאן הבצלים בלועים מ<strong>בשר היתר</strong>, ולא נאסרו כלל; על כן <span class="he-q">אין אומרים חנ״נ</span>, אלא משערים נגד <em>הבשר הבלוע בלבד</em> (אם יודעים כמותו), ולא נגד גוף הבצלים. וזהו חידוש גדול: היכן שהכל היתר — אין כאן "נבילה".
+<div class="yesod-box">
+<strong>Le yessod — « le morceau devient nevela » ne s’applique pas quand tout est permis :</strong><br>
+Le din de ’hatikha na‘assit nevela — le morceau entier est compté comme interdit et l’on mesure contre lui tout entier — ne vaut que là où un <strong>interdit</strong> a rendu le morceau interdit. Ici, les oignons sont imprégnés d’une <strong>viande permise</strong> et n’ont jamais été interdits ; le Rama écrit donc <span class="he-q">דלא שייך לומר חתיכה נעשית נבילה הואיל ועדיין כולו היתר</span> <span class="src-ref">(רמ״א יו״ד צ״ד:ו)</span>, et l’on ne mesure que contre ce qui a été absorbé.
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>קל וחומר הקדרה (טור ובית יוסף) :</strong> ומכאן למד הרמ״א קל וחומר: קדרה של חלב בת יומה שבישלו בה <span class="he-q">מים</span> ואחר כך בשר — אין משערים נגד כל המים, אלא נגד <strong>החלב הבלוע בקדרה</strong> בלבד; שהרי המים היתר הם, והחלב הבלוע אינו עושה את כל המים "נבילה". וזהו לעומת סימן צ״ב, שם דנו בחתיכה שנאסרה ממש; וכאן — הכל היתר, ואין משערים אלא נגד הבלוע.
+<div class="pilpul-box">
+<strong>Le kal va’homer de la marmite (sens du Tour et du Beit Yossef) :</strong> de là le Rama tire un kal va’homer. Une marmite lactée bat yoma dans laquelle on a cuit de l’eau puis de la viande : on ne mesure pas contre toute l’eau, mais seulement contre le lait absorbé dans la marmite —
+<blockquote class="comment-source">«&nbsp;<span class="he-q">לא אמרינן דצריך לשער נגד כל המים רק נגד החלב שבלע הקדירה</span>&nbsp;» <span class="src-ref">(רמ״א יו״ד צ״ד:ו)</span></blockquote>
+<p>L’eau est permise, et le lait absorbé ne fait pas de toute l’eau une « nevela ». C’est là le contraste avec le siman צ״ב, où l’on traite d’un morceau réellement devenu interdit ; ici tout est permis, et l’on ne mesure que contre ce qui a été absorbé.</p>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">8. דין הסכין — נגד המקום או כל הסכין</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">8. Le din du couteau — contre l’endroit, ou contre tout le couteau</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ז')
-  <button class="daat-copy" type="button" data-copy-target="#cp-8">📋 העתק</button>
+<h3>Le texte du Mehaber et du Rama (seif ז')
+  <button class="daat-copy" type="button" data-copy-target="#cp-8">📋 Copier</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-8">
-"<strong>חתך בשר רותח בסכין חולבת — כל החתיכה אסורה אם אין ששים כנגד מקום הסכין שחתך; ואם אין הסכין בן יומו, או שאינו יודע — אינו אוסר אלא כדי קליפה.</strong> (הגה: וכל זה בבשר רותח בכלי ראשון; ואז אם הסכין בן יומו ואין ששים — הכל אסור, וגם הסכין צריך הגעלה. אבל בכלי שני — הבשר צריך קליפה והסכין נעיצה (תוחבו בקרקע); ואפילו אין הסכין בן יומו — צריך לקלוף מעט הבשר מחמת שמנונית הסכין — טור וסמ״ק.)"
+<div class="sacred-text" data-copy-block id="cp-8">
+<blockquote class="comment-source">«&nbsp;<span class="he-q">בשר רותח שחתכו בסכין חולבת כל החתיכה אסורה אם אין בה ששים כנגד מקום הסכין שחתך הבשר אבל אם אינו בן יומו או אם אינו יודע שהוא בן יומו אינו אוסר אלא כדי קליפה</span>&nbsp;» <span class="src-ref">(שו״ע יו״ד צ״ד:ז)</span></blockquote>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">וכל זה בבשר רותח בכלי ראשון ואז אם הסכין בן יומו ואין ס׳ בבשר נגד הסכין הכל אסור ואף הסכין צריך הגעלה אבל אם הוא כלי שני הבשר צריך קליפה והסכין נעיצה בקרקע</span>&nbsp;» <span class="src-ref">(רמ״א יו״ד צ״ד:ז)</span></blockquote>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">ואפילו אין הסכין בן יומו יש לקלוף הבשר מעט משום שמנונית הסכין</span>&nbsp;» <span class="src-ref">(רמ״א יו״ד צ״ד:ז)</span></blockquote>
+  <p><em>Traduction</em> : de la viande brûlante qu’on a coupée avec un couteau lacté — tout le morceau est interdit s’il n’y a pas en lui soixante contre l’endroit du couteau qui a coupé la viande ; mais s’il n’est pas ben yomo, ou s’il ne sait pas qu’il l’est, il n’interdit qu’une kelipa. Glose du Rama : et tout ceci pour de la viande brûlante dans un keli richon ; alors, si le couteau est ben yomo et qu’il n’y a pas dans la viande soixante contre le couteau, tout est interdit et le couteau lui-même requiert une hag‘ala. Mais si c’est un keli cheni, la viande requiert une kelipa et le couteau une neïtsa dans le sol (Aroukh klal ל״ז), et ainsi fait-on. Et même si le couteau n’est pas ben yomo, il faut peler un peu la viande à cause du gras du couteau (Tour et Beit Yossef au nom du Semak).</p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — נגד מקום הסכין, וקליפה כשאינו בן יומו :</strong><br>
-• <strong>סכין בן יומו, כלי ראשון, אין ששים</strong> → כל החתיכה אסורה (וגם הסכין בעי הגעלה).<br>
-• <strong>אינו בן יומו / מסופק</strong> → אינו אוסר אלא <span class="he-q">כדי קליפה</span> — דנותן טעם לפגם הוא; ואף על פי כן יש לקלוף מעט מחמת <strong>שמנונית</strong> ממשית שעל פני הסכין.<br>
-• <strong>כלי שני</strong> → אין בליעה גמורה — הבשר צריך <span class="he-q">קליפה</span> בלבד, והסכין <span class="he-q">נעיצה</span> (תחיבה בקרקע קשה) ולא הגעלה.
+<div class="yesod-box">
+<strong>Le yessod — contre l’endroit du couteau, et une kelipa quand il n’est pas ben yomo :</strong><br>
+• <strong>Couteau ben yomo, keli richon, pas de soixante</strong> → tout le morceau est interdit, et le couteau requiert une hag‘ala.<br>
+• <strong>Pas ben yomo, ou l’on ne sait pas</strong> → il n’interdit qu’une kelipa, car son goût est un goût qui gâte ; et malgré cela il faut peler un peu, à cause du <strong>gras</strong> réel qui se tient sur la lame.<br>
+• <strong>Keli cheni</strong> → il n’y a pas d’absorption pleine : la viande requiert une kelipa, et le couteau une neïtsa — on le plante dans un sol dur — et non une hag‘ala.
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>מחלוקת — נגד המקום או נגד כל הסכין (ט״ז ס״ק יב) :</strong>
+<div class="machloket-box">
+<strong>Ma’hloket — contre l’endroit ou contre tout le couteau (Taz ס״ק י״ב) :</strong>
 <table>
-<tr><th>שיטה</th><th>שיעור הששים</th><th>מקור</th></tr>
+<tr><th>Position</th><th>La mesure des soixante</th><th>Source</th></tr>
 <tr>
-  <td><strong>הטור (בשם ר״ף) והרש״ל</strong></td>
-  <td>נגד <strong>כל הסכין</strong> — דלא ידעינן כמה חתך, ולחומרא משערים נגד כולו</td>
-  <td>ט״ז ס״ק יב; ים של שלמה</td>
+  <td><strong>Le Tour au nom du Rabbenou Pérets, et le Maharchal</strong></td>
+  <td>Contre <strong>tout le couteau</strong> — c’est-à-dire la lame hors du manche</td>
+  <td>Taz ס״ק י״ב ; Yam chel Chelomo, Guid haNaché סי׳ מ״ב</td>
 </tr>
 <tr>
-  <td><strong>השולחן ערוך</strong></td>
-  <td>נגד <strong>מקום הסכין</strong> שחתך בלבד — דלא אמרינן חם מקצתו חם כולו</td>
-  <td>מחבר ס״ז</td>
+  <td><strong>Le Choul'han Aroukh</strong></td>
+  <td>Contre <strong>l’endroit du couteau</strong> qui a coupé, seulement</td>
+  <td>Mehaber ס״ז</td>
+</tr>
+</table>
+<p>Le Taz donne la raison de l’omission : <span class="he-q">והש״ע לא העתיקו לפי שר״פ אזיל לטעמי׳ דס״ל ריש סי׳ זה במתכת חם מקצתו חם כולו ולא קי״ל כן</span> <span class="src-ref">(ט״ז יו״ד צ״ד ס״ק י״ב)</span>. Le Rabbenou Pérets suit son propre raisonnement du début du siman, que nous ne tenons pas.</p>
+</div>
+
+<div class="pilpul-box">
+<strong>« Un détail auquel on ne prête pas attention » (Taz ס״ק י״ב au nom du Maharchal) :</strong> la raison de ceux qui mesurent contre tout le couteau est que celui qui coupe ne fait pas attention à la profondeur de sa coupe ; et même s’il dit « je suis certain de n’avoir coupé qu’à cet endroit », il n’est pas cru :
+<blockquote class="comment-source">«&nbsp;<span class="he-q">דכל חותך בסכין אינו מדקדק כמה חתך בסכין ואף אם יאמר ברי לי שלא חתכתי רק במקום זה אינו נאמן דכל מלתא דלא רמיא עליה דאינש לאו אדעתי׳</span>&nbsp;» <span class="src-ref">(ט״ז יו״ד צ״ד ס״ק י״ב)</span></blockquote>
+<p>C’est la règle même que le Noda BiYehouda écartait au seif א׳ pour la cuiller, et que le Pit’hei Techouva ס״ק א tient pour צריך עיון. Le Mehaber, lui, mesure contre l’endroit, puisque nous ne disons pas « chaud en partie, chaud en tout ».</p>
+</div>
+
+<div class="rishon-card">
+<strong>Une kelipa à cause du gras (Taz ס״ק י״ג) :</strong> même un couteau qui n’est pas ben yomo — permis de droit puisque son goût gâte — le Tour exige d’en peler un peu la viande, au nom du Rabbenou Pérets. Le Taz donne la raison, tirée des Haggahot Semak : <span class="he-q">משום שמנונית שעל הסכין שסתם סכין יש עליו שמנונית</span> <span class="src-ref">(ט״ז יו״ד צ״ד ס״ק י״ג)</span>.</p>
+<p>Il y a donc ici deux dinim distincts : ce qui est absorbé, qui est gâté, et le gras réel, qui ne se gâte pas en restant. Le Taz développe longuement la kouchia et conclut, contre le Ba’h, que s’il n’y a pas soixante contre le gras du couteau tout est interdit, <span class="he-q">והמיקל בזה אינו אלא מן המתמיהים</span> <span class="src-ref">(ט״ז יו״ד צ״ד ס״ק י״ג)</span>.</p>
+</div>
+
+<div class="rishon-card">
+<strong>Keli chelichi et yad soledet (Pit’hei Techouva ס״ק ז au nom du ’Hatam Sofer סי׳ צ״ה) :</strong> le ’Hatam Sofer écrit que l’usage est d’être strict dans tous les ustensiles :
+<blockquote class="comment-source">«&nbsp;<span class="he-q">דאנו רגילים להחמיר בכל הכלים אפילו כלי שלישי כ״ז שהיד סולדת בו</span>&nbsp;» <span class="src-ref">(פתחי תשובה יו״ד צ״ד ס״ק ז)</span></blockquote>
+<p>— sauf en cas de perte importante, où il permet d’alléger après avoir fait tout ce qui est possible. Mais le Pit’hei Techouva ajoute aussitôt sa propre réserve : <span class="he-q">המורים שלנו אין נוהגים כן</span> <span class="src-ref">(פתחי תשובה יו״ד צ״ד ס״ק ז)</span>, et renvoie au Taz et au Chakh du siman ק״ה. Il met encore en doute le kal va’homer du ’Hatam Sofer vers les autres interdits.</p>
+</div>
+
+<!-- ============================================================= -->
+<h2 class="section-title">9. Fromage et kelipa · miel et noten taam bar noten taam</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ Explication détaillée (niveau 1)</a>
+
+<h3>Le texte du Mehaber (seifim ח'–ט')
+  <button class="daat-copy" type="button" data-copy-target="#cp-9">📋 Copier</button>
+</h3>
+
+<div class="sacred-text" data-copy-block id="cp-9">
+<blockquote class="comment-source">«&nbsp;<span class="he-q">אם נפל לתנור פנאד״ש גבינה אפי׳ לחה וכן גבינה חמה בקערת בשר בת יומא אינו אוסר אלא כדי קליפה</span>&nbsp;» <span class="src-ref">(שו״ע יו״ד צ״ד:ח)</span></blockquote>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">בשלו דבש במחבת של בשר בת יומא והריקוהו חם בקערה של חלב בת יומא מותר משום דהוי נותן טעם בר נותן טעם דהיתירא</span>&nbsp;» <span class="src-ref">(שו״ע יו״ד צ״ד:ט)</span></blockquote>
+  <p><em>Traduction</em> : (ח) s’il est tombé du fromage, même humide, dans un four à פנאד״ש, et de même du fromage chaud dans une écuelle de viande bat yoma — cela n’interdit qu’une kelipa. (ט) s’ils ont cuit du miel dans une poêle de viande bat yoma et l’ont versé chaud dans une écuelle de lait bat yoma — c’est permis, car c’est un noten taam bar noten taam de permis (opinion propre du Mehaber).</p>
+</div>
+
+<div class="yesod-box">
+<strong>Le yessod — une kelipa pour le fromage, un noten taam bar noten taam pour le miel :</strong><br>
+• <strong>Du fromage dans un four à פנאד״ש, ou dans une écuelle de viande</strong> → <span class="he-q">אינו אוסר אלא כדי קליפה</span> <span class="src-ref">(שו״ע יו״ד צ״ד:ח)</span> : il n’y a pas de sauce pour conduire le goût partout, mais un contact partiel — ôter la kelipa suffit.<br>
+• <strong>Du miel d’une poêle carnée à une écuelle lactée</strong> → <span class="he-q">מותר משום דהוי נותן טעם בר נותן טעם דהיתירא</span> <span class="src-ref">(שו״ע יו״ד צ״ד:ט)</span> : le goût de la viande est passé de la poêle au miel, et du miel à l’écuelle lactée ; chacun est permis, et le miel ne devient pas bassar be’halav.
+</div>
+
+<div class="machloket-box">
+<strong>La racine de la permission du miel — deux chemins (Taz ס״ק י״ז) :</strong>
+<table>
+<tr><th>Position</th><th>Pourquoi le miel est permis</th><th>Source</th></tr>
+<tr>
+  <td><strong>Le Mordekhaï</strong></td>
+  <td>Parce que c’est un <strong>goût qui gâte</strong> — le gras dans le miel gâte</td>
+  <td>Taz ס״ק י״ז au nom du Mordekhaï</td>
+</tr>
+<tr>
+  <td><strong>Le Beit Yossef</strong></td>
+  <td>Parce que c’est un <strong>noten taam bar noten taam</strong></td>
+  <td>Taz ס״ק י״ז ; Beit Yossef</td>
 </tr>
 </table>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>"מילתא דלא רמיא אדעתיה" (ט״ז ס״ק יב בשם רש״ל) :</strong> טעם הסוברים נגד כל הסכין: אדם החותך אינו שם לבו <span class="he-q">עד היכן הגיע</span> הסכין בבשר — "<span class="he-q">מילתא דלא רמיא עליה דאינש לאו אדעתיה</span>" — ולפיכך אין לסמוך על אומדן המקום ומחמירים נגד כל הסכין. אבל המחבר נקט נגד המקום, משום דלא אמרינן חם מקצתו חם כולו (כדלעיל ס״א), והמקום ניכר.
-</div>
-
-<div class="rishon-card" dir="rtl">
-<strong>קליפה מחמת שמנונית (ט״ז ס״ק יג) :</strong> אף בסכין שאינו בן יומו — שמדינא נותן טעם לפגם ומותר — מכל מקום מצריך הטור ל<span class="he-q">קלוף מעט</span> מן הבשר, לא מחמת הבלוע (שכבר נפגם), אלא מחמת <strong>שמנונית</strong> ממשית של חלב הדבוקה על להב הסכין, שאינה נפגמת בעמידה. נמצא שני דינים נפרדים: בלוע (פגום) ושמנונית (ממשית).
-</div>
-
-<div class="rishon-card" dir="rtl">
-<strong>כלי שלישי ויד סולדת (פתחי תשובה ס״ק ז בשם חתם סופר סי' צ״ה) :</strong> מחמירים בכל הכלים — אף <span class="he-q">כלי שלישי</span> — כל זמן שהיד סולדת בו, חוץ מהפסד מרובה. ובחמת״ס שם דן בגדרי כלי ראשון/שני/שלישי לעניין בליעה ופליטה בסכין ובבשר רותח.
-</div>
-
-<!-- ============================================================= -->
-<h2 class="section-title">9. גבינה וקליפה · דבש ונותן טעם בר נותן טעם</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
-
-<h3 class="he-h3">לשון המחבר (סעיפים ח'–ט')
-  <button class="daat-copy" type="button" data-copy-target="#cp-9">📋 העתק</button>
-</h3>
-
-<div class="sacred-text he" data-copy-block id="cp-9">
-"<strong>(ח) גבינה, אפילו לחה, שנפלה לתוך תנור פנאד״ש (תנור של בשר), וכן גבינה חמה שנפלה לקערה של בשר בת יומה — אינה אוסרת אלא כדי קליפה. (ט) דבש שבישלוֹ בקדרה (מחבת) של בשר בת יומה, ושפכוֹ חם לתוך קערה של חלב בת יומה — מותר, משום נותן טעם בר נותן טעם דהיתרא.</strong>"
-</div>
-
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — קליפה בגבינה ונ״ט בר נ״ט בדבש :</strong><br>
-• <strong>גבינה בתנור פנאד״ש / בקערת בשר</strong> → אינה אוסרת אלא <span class="he-q">כדי קליפה</span>, שאין כאן רוטב המוליך את הטעם בכל, אלא מגע מקצתי → הסרת הקליפה דייה.<br>
-• <strong>דבש מן מחבת בשר לקערת חלב</strong> → <span class="he-q">נותן טעם בר נותן טעם דהיתרא</span>: טעם הבשר עבר מן <em>המחבת → הדבש → הקערה החלבית</em>, וכל אחד היתר, ואין הדבש נעשה בשר בחלב.
-</div>
-
-<div class="machloket-box" dir="rtl">
-<strong>שורש ההיתר בדבש — שתי דרכים (ט״ז ס״ק יז) :</strong>
-<table>
-<tr><th>שיטה</th><th>מדוע הדבש מותר</th><th>מקור</th></tr>
-<tr>
-  <td><strong>המרדכי</strong></td>
-  <td>מטעם <strong>נותן טעם לפגם</strong> — דבש בקדרת בשר פוגם</td>
-  <td>ט״ז ס״ק יז</td>
-</tr>
-<tr>
-  <td><strong>הבית יוסף</strong></td>
-  <td>מטעם <strong>נותן טעם בר נותן טעם</strong> דהיתרא</td>
-  <td>ט״ז ס״ק יז; ב״י</td>
-</tr>
-</table>
-</div>
-
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה — אם יש בשר בעין (ט״ז ס״ק יז; עיין סימן צ״ה) :</strong> ההפרש בין שתי הדרכים: אם נשאר <span class="he-q">בשר בעין</span> בדבש או במחבת — לטעם נ״ט בר נ״ט אסור (שאין כאן נ״ט בר נ״ט אלא איסור ממש), ולטעם נ״ט לפגם תלוי אם פוגם. וכאן שורש החילוק שבסימן צ״ה (ביצה שנתבשלה עם בשר): נ״ט בר נ״ט דהיתרא מותר רק כשאין <strong>איסור או בשר בעין</strong> מעורב. <em>ולמעשה — שאל את רבך.</em>
+<div class="nafka-mina-box">
+<strong>Nafka mina — s’il reste de la viande en nature (Taz ס״ק י״ז ; voir siman צ״ה) :</strong> la différence entre les deux chemins apparaît lorsqu’il reste de la viande en nature dans le miel ou dans la poêle :
+<blockquote class="comment-source">«&nbsp;<span class="he-q">דאפילו היה בשר בעין במחבת שבשלו הדבש דאז הוה אסור ולא הוה נ״ט בר נ״ט</span>&nbsp;» <span class="src-ref">(ט״ז יו״ד צ״ד ס״ק י״ז)</span></blockquote>
+<p>Pour le chemin du noten taam bar noten taam ce serait alors interdit — comme au siman צ״ה, pour l’œuf cuit avec de la viande ; pour le chemin du Mordekhaï, ce serait encore permis, puisque le gras gâte. Et le Taz conclut en reprochant au Mehaber son omission : <span class="he-q">לא היה לו לש״ע להשמיט טעמו של המרדכי בזה</span> <span class="src-ref">(ט״ז יו״ד צ״ד ס״ק י״ז)</span>. <em>Et pour la pratique — demande à ton Rav.</em></p>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">10. חקירה ונפקא מינה למעשה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">10. Hakira et nafka mina pour la pratique</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ Explication détaillée (niveau 1)</a>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה הכוללת של הסימן :</strong> נגד מה משערים את הששים, ומתי בלוע אינו אוסר ?
+<div class="hakira-box">
+<strong>La hakira d’ensemble du siman :</strong> contre quoi mesure-t-on les soixante, et quand ce qui est absorbé cesse-t-il de rendre interdit ?
 <ul class="stylish">
-<li><strong>לשער נגד מה שנתחב</strong> — דלא ידעינן כמה נפיק; ובספק עד ראש הכף (ש״ך ס״ק א).</li>
-<li><strong>חם מקצתו חם כולו</strong> — לבלוע אמרינן, לפלוט לא; הסברא הראשונה עיקר (רמ״א ס״א).</li>
-<li><strong>תחב פעמיים</strong> — די בפעם אחת ששים, דהיתר בלוע אינו נעשה נבילה (תה״ד; ט״ז ס״ק ב).</li>
-<li><strong>בן יומו / שאינו בן יומו</strong> — נותן טעם לשבח אוסר, לפגם מותר ובדיעבד אינו אוסר.</li>
-<li><strong>נותן טעם בר נותן טעם דהיתרא</strong> — אמצעי ניטרלי אינו אוסר (סעיפים ה', ט').</li>
-<li><strong>הסכין · קליפה · הגעלה · נעיצה</strong> — נגד המקום (מחבר) או כל הסכין (רש״ל); ושמנונית.</li>
+<li><strong>Mesurer contre ce qui a été plongé</strong> — parce que nous ne savons pas combien a été rejeté ; et dans le doute, jusqu’au haut de la cuiller (Chakh ס״ק א).</li>
+<li><strong>’Ham miktsato ’ham koulo</strong> — pour le Beit Hillel, on le dit pour absorber et non pour rejeter ; pour le Chakh, pas même pour absorber. Dans les deux cas la première opinion est l’essentiel (Rama ס״א ; Chakh ס״ק ג ; Pit’hei Techouva ס״ק ג).</li>
+<li><strong>Il a plongé deux fois</strong> — une seule fois soixante suffit, car un permis absorbé n’est pas rendu interdit par un interdit absorbé (Teroumat haDéchen ; Taz ס״ק ב).</li>
+<li><strong>Ben yomo / non ben yomo</strong> — un goût qui améliore rend interdit, un goût qui gâte est permis et n’interdit pas bediavad.</li>
+<li><strong>Noten taam bar noten taam de permis</strong> — un intermédiaire neutre ne rend pas interdit (seifim ה' et ט').</li>
+<li><strong>Le couteau · kelipa · hag‘ala · neïtsa</strong> — contre l’endroit (Mehaber) ou contre tout le couteau (Maharchal) ; et le gras, qui est un din à part.</li>
 </ul>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה למעשה (לפי הכרעת רוב האחרונים) :</strong>
+<div class="nafka-mina-box">
+<strong>Nafka mina pour la pratique (selon la ligne qui se dégage de l’appareil cité ci-dessus) :</strong>
 <ol class="stylish">
-<li>משערים נגד מה שנתחב; ובספק עד היכן — עד ראש הכף; וביודע — נגד הידוע (ש״ך ס״ק א; עיין צ״ח ס״ה).</li>
-<li>אין חם מקצתו חם כולו לעניין פליטה — נגד מה שנתחב בלבד, אף בכף מתכת (רמ״א ס״א — "וכן נוהגין").</li>
-<li>תחב פעמיים ולא נודע — די בפעם אחת ששים (רמ״א ס״ב — תה״ד קפ״ג).</li>
-<li>אין ששים → אסור בהנאה אף הקדרה; ומכל מקום מותר פירות/צונן, ומותר למוכרה לנכרי (פ״ת ס״ק ו — חת״ס).</li>
-<li>נותן טעם בר נותן טעם דהיתרא — בדיעבד מותר, ולכתחילה אסרו מחמת מנהג (ט״ז ס״ק ו).</li>
-<li>סכין: בן יומו וכלי ראשון אין ששים → הכל אסור והסכין הגעלה; אינו בן יומו → קליפה מחמת שמנונית; כלי שני → קליפה ונעיצה.</li>
+<li>On mesure contre ce qui a été plongé ; dans le doute, jusqu’au haut de la cuiller ; et lorsqu’on sait, contre ce que l’on sait (Chakh ס״ק א ; voir siman צ״ח ס״ה).</li>
+<li>On ne dit pas « chaud en partie, chaud en tout » pour le rejet — donc contre ce qui a été plongé seulement, même pour une cuiller de métal (Rama ס״א).</li>
+<li>Il a plongé deux fois sans l’avoir su entre-temps — une seule fois soixante suffit (Rama ס״ב, au nom du Teroumat haDéchen קפ״ג).</li>
+<li>Pas de soixante → interdit à la jouissance, la marmite avec lui ; et malgré cela, fruits et choses froides sont permis, et le ’Hatam Sofer permet de la vendre à un non-juif (Pit’hei Techouva ס״ק ו).</li>
+<li>Noten taam bar noten taam de permis — permis bediavad, et interdit lekhathila à cause de l’usage (Taz ס״ק ו).</li>
+<li>Couteau : ben yomo, keli richon, pas de soixante → tout est interdit et le couteau requiert une hag‘ala ; pas ben yomo → une kelipa à cause du gras ; keli cheni → kelipa et neïtsa (Mehaber et Rama ס״ז).</li>
 </ol>
-<em>ולמעשה — שאל את רבך.</em>
+<em>Et pour la pratique — demande à ton Rav.</em>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">11. טבלאות סיכום</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">11. Tableaux de synthèse</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">טבלה — מצבי הכף והסכין והדין</h3>
-
-<table>
-<tr>
-  <th>המצב</th>
-  <th>התוצאה</th>
-  <th>מקור בקורפוס</th>
-</tr>
-<tr>
-  <td><strong>כף בת יומה, יש ששים</strong></td>
-  <td>תבשיל מותר; הכף אסורה (בלועה בב״ח)</td>
-  <td>מחבר ס״ג; ש״ך ס״ק א</td>
-</tr>
-<tr>
-  <td><strong>כף בת יומה, אין ששים</strong></td>
-  <td>הכל אסור בהנאה אף הקדרה; פירות/צונן מותר</td>
-  <td>מחבר ס״ג</td>
-</tr>
-<tr>
-  <td><strong>כף שאינה בת יומה</strong></td>
-  <td>תבשיל מותר; הכף אסורה לכתחילה, בדיעבד אינה אוסרת</td>
-  <td>מחבר ס״ד</td>
-</tr>
-<tr>
-  <td><strong>תחב פעמיים, לא נודע</strong></td>
-  <td>די בפעם אחת ששים</td>
-  <td>רמ״א ס״ב; תה״ד קפ״ג</td>
-</tr>
-<tr>
-  <td><strong>קדרה חדשה, שתי כפות (נ״ט בר נ״ט)</strong></td>
-  <td>לכתחילה אסור לבב״ח; בדיעבד מותר</td>
-  <td>מחבר ורמ״א ס״ה; ט״ז ס״ק ו</td>
-</tr>
-<tr>
-  <td><strong>ירקות בלועים מבשר בקדרת חלב</strong></td>
-  <td>ששים נגד הבשר הבלוע בלבד; אין חנ״נ</td>
-  <td>מחבר ורמ״א ס״ו; ב״י</td>
-</tr>
-<tr>
-  <td><strong>סכין בן יומו, כלי ראשון, אין ששים</strong></td>
-  <td>כל החתיכה אסורה; סכין הגעלה</td>
-  <td>מחבר ורמ״א ס״ז; ט״ז ס״ק יב</td>
-</tr>
-<tr>
-  <td><strong>סכין כלי שני / אינו בן יומו</strong></td>
-  <td>קליפה לבשר ונעיצה לסכין; קליפה לשמנונית</td>
-  <td>רמ״א ס״ז; ט״ז ס״ק יג</td>
-</tr>
-<tr>
-  <td><strong>דבש ממחבת בשר לקערת חלב</strong></td>
-  <td>מותר — נותן טעם בר נותן טעם דהיתרא</td>
-  <td>מחבר ס״ט; ט״ז ס״ק יז</td>
-</tr>
-</table>
-
-<h3 class="he-h3">טבלה — מחלוקות מרכזיות בסימן</h3>
+<h3>Tableau — les états de la cuiller et du couteau, et leur din</h3>
 
 <table>
 <tr>
-  <th>נושא</th>
-  <th>שיטה א'</th>
-  <th>שיטה ב'</th>
+  <th>La situation</th>
+  <th>Le résultat</th>
+  <th>Source dans le corpus</th>
 </tr>
 <tr>
-  <td>כף מתכת — נגד מה משערים</td>
-  <td>סתם מחבר — נגד מה שנתחב (אין חם כולו לפלוט)</td>
-  <td>יש אומרים — נגד כל הכף (חם מקצתו חם כולו)</td>
+  <td><strong>Cuiller bat yoma, il y a soixante</strong></td>
+  <td>Mets permis ; la cuiller interdite (imprégnée de bassar be’halav)</td>
+  <td>Mehaber ס״ג ; Chakh ס״ק א</td>
 </tr>
 <tr>
-  <td>תחב פעמיים</td>
-  <td>מחבר — שני פעמים ששים</td>
-  <td>תה״ד / רמ״א — די בפעם אחת ("וכן נוהגים")</td>
+  <td><strong>Cuiller bat yoma, pas de soixante</strong></td>
+  <td>Tout interdit à la jouissance, la marmite avec ; fruits et froid permis</td>
+  <td>Mehaber ס״ג</td>
 </tr>
 <tr>
-  <td>חם מקצתו חם כולו</td>
-  <td>ב״ה / מג״א — אף לפלוט</td>
-  <td>ש״ך / פ״ת ס״ק ג — לבלוע ולא לפלוט</td>
+  <td><strong>Cuiller qui n’est pas bat yoma</strong></td>
+  <td>Mets permis ; la cuiller interdite lekhathila, bediavad elle n’interdit pas</td>
+  <td>Mehaber ס״ד</td>
 </tr>
 <tr>
-  <td>סכין — שיעור הששים</td>
-  <td>טור (ר״ף) / רש״ל — נגד כל הסכין</td>
-  <td>מחבר — נגד מקום החיתוך</td>
+  <td><strong>Plongée deux fois, sans l’avoir su</strong></td>
+  <td>Une seule fois soixante suffit</td>
+  <td>Rama ס״ב ; Teroumat haDéchen קפ״ג</td>
 </tr>
 <tr>
-  <td>היתר הדבש (ס״ט)</td>
-  <td>מרדכי — נותן טעם לפגם</td>
-  <td>ב״י — נותן טעם בר נותן טעם (פ״ת)</td>
+  <td><strong>Marmite neuve, deux cuillers (noten taam bar noten taam)</strong></td>
+  <td>Interdit lekhathila pour la viande et le lait ; permis bediavad</td>
+  <td>Mehaber et Rama ס״ה ; Taz ס״ק ו</td>
+</tr>
+<tr>
+  <td><strong>Légumes imprégnés de viande dans une marmite lactée</strong></td>
+  <td>Soixante contre la viande absorbée seulement ; pas de ’hatikha na‘assit nevela</td>
+  <td>Mehaber et Rama ס״ו</td>
+</tr>
+<tr>
+  <td><strong>Couteau ben yomo, keli richon, pas de soixante</strong></td>
+  <td>Tout le morceau interdit ; le couteau requiert une hag‘ala</td>
+  <td>Mehaber et Rama ס״ז ; Taz ס״ק י״ב</td>
+</tr>
+<tr>
+  <td><strong>Couteau en keli cheni, ou qui n’est pas ben yomo</strong></td>
+  <td>Kelipa pour la viande et neïtsa pour le couteau ; kelipa pour le gras</td>
+  <td>Rama ס״ז ; Taz ס״ק י״ג</td>
+</tr>
+<tr>
+  <td><strong>Miel d’une poêle carnée vers une écuelle lactée</strong></td>
+  <td>Permis — noten taam bar noten taam de permis</td>
+  <td>Mehaber ס״ט ; Taz ס״ק י״ז</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מקורות הסוגיא</h3>
+<h3>Tableau — les ma’hlokot centrales du siman</h3>
 
-<div class="rishon-card" dir="rtl">
-<strong>גמרא :</strong> חולין ק״ח.–ק״ט. (טעם כעיקר, ביטול בששים, נותן טעם בר נותן טעם) · עבודה זרה ע״ו. (כלי בן יומו ושאינו בן יומו, נעיצת הסכין בקרקע) · פסחים ע״ו. (חם מקצתו, כלי ראשון ושני, תתאה גבר)
+<table>
+<tr>
+  <th>Sujet</th>
+  <th>Première position</th>
+  <th>Seconde position</th>
+</tr>
+<tr>
+  <td>Cuiller de métal — contre quoi mesure-t-on</td>
+  <td>Stam du Mehaber — contre ce qui a été plongé</td>
+  <td>Yech mi cheomer — contre toute la cuiller (chaud en partie, chaud en tout)</td>
+</tr>
+<tr>
+  <td>Il a plongé deux fois</td>
+  <td>Mehaber — deux fois soixante</td>
+  <td>Teroumat haDéchen et Rama — une seule fois suffit</td>
+</tr>
+<tr>
+  <td>Jusqu’où porte « chaud en partie, chaud en tout »</td>
+  <td>Beit Hillel et Magen Avraham — pour absorber, non pour rejeter</td>
+  <td>Chakh ס״ק ג — pas même pour absorber</td>
+</tr>
+<tr>
+  <td>Donner le mets interdit à un chien</td>
+  <td>Taz — interdit</td>
+  <td>Mekor ’Haïm et Biour haGra — permis, seul le ’hamets à Pessa’h fait exception</td>
+</tr>
+<tr>
+  <td>Couteau — la mesure des soixante</td>
+  <td>Tour au nom du Rabbenou Pérets, et Maharchal — contre tout le couteau</td>
+  <td>Mehaber — contre l’endroit de la coupe</td>
+</tr>
+<tr>
+  <td>La permission du miel (ס״ט)</td>
+  <td>Mordekhaï — un goût qui gâte</td>
+  <td>Beit Yossef — un noten taam bar noten taam</td>
+</tr>
+</table>
+
+<h3>Tableau — les sources de la sougya</h3>
+
+<div class="rishon-card">
+<strong>Guemara :</strong> ’Houlin ק״ח.–ק״ט. (taam ke‘ikar, annulation dans soixante, noten taam bar noten taam) · Avoda Zara ע״ו. (ustensile ben yomo et non ben yomo, neïtsa du couteau dans le sol) · Pessa’him ע״ו. (’ham miktsato, keli richon et keli cheni, tataa gavar)
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>ראשונים :</strong> רש״י · רמב״ם · רא״ש · רשב״א (תורת הבית) · ר״ן · מרדכי (פרק כ״ה) · ר״ף · סמ״ק · טור · בית יוסף · איסור והיתר הארוך
+<div class="rishon-card">
+<strong>Richonim :</strong> Rachi · Rambam · Roch · Rachba (Torat haBayit) · Ran · Mordekhaï · Rabbenou Pérets · Semak · Tour · Beit Yossef · Issour veHeter haAroukh · Haggahot Maïmoniot · Chaarei Doura
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>אחרונים :</strong> רמ״א · ש״ך · ט״ז · ב״ח · בית הלל · פרי מגדים · מגן אברהם (סי' תנ״א) · פתחי תשובה · תרומת הדשן (סי' קפ״ג) · מהרש״ל (ים של שלמה פכ״ה) · חוות יאיר (סי' ק״א) · נודע ביהודה (תניינא יו״ד ט״ז) · חתם סופר (סי' צ״ה, צ״ח) · מקור חיים · הגר״א
+<div class="rishon-card">
+<strong>Aharonim :</strong> Rama · Chakh · Taz · Ba’h · Beit Hillel · Peri Megadim · Magen Avraham (Ora’h ’Haïm סי׳ תנ״א) · Pit’hei Techouva · Teroumat haDéchen (סי׳ קפ״ג) · Maharchal (Yam chel Chelomo) · ’Havot Yaïr (סי׳ ק״א) · Noda BiYehouda (tinyana, Yoré Déa ט״ז) · ’Hatam Sofer (סי׳ פ״ב, צ״ה, צ״ח) · Mekor ’Haïm · Biour haGra · Solet laMin’ha · Panim Meïrot · Radbaz
 </div>
 
 <hr class="ornament">
 
-  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;direction:rtl;">
-    <a href="niveau-1-base.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">→ רמה א' — יסוד</a>
-    <a href="niveau-3-synthese.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">רמה ג' — סיכום ←</a>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;">
+    <a href="niveau-1-base.html" style="font-family:'Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">← Niveau 1 — Base</a>
+    <a href="niveau-3-synthese.html" style="font-family:'Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">Niveau 3 — Synthèse →</a>
   </div>
 
 <div class="yh-watermark">
 ~ ~ ~ ~ ~<br>
-<strong>DAAT</strong> · <strong>הרב יוסף חיים סממה</strong><br>
-תלמיד חכם · מעביר שיעורים בהלכה ובחסידות<br>
-<em>פלפול ועיון בדין התוחב כף חולבת בקדרה של בשר · סימן צ״ד · ⚡ רמה ב' — לַמְדָּן</em>
+<strong>DAAT</strong> · <strong>Rav Yossef Haïm Samama</strong><br>
+Talmid ’hakham · maggid chiour en halakha et en ’hassidout<br>
+<em>Pilpoul et étude sur la cuiller lactée plongée dans une marmite carnée · סימן צ״ד · ⚡ Niveau 2 — Lamdan</em><br>
+<em>daattorah.com</em>
 </div>
 
-  <div class="disclaimer" style="background:#fff8e1;border-right:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;direction:rtl;text-align:right;">
-    ⚠️ תוכן זה נכתב לצורך לימוד ועיון בלבד. לכל הוראה למעשה (לְמַעֲשֶׂה) — שאל את רבך.
+  <div class="disclaimer" style="background:#fff8e1;border-left:4px solid #C5A55A;padding:16px 40px;font-family:'Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;">
+    ⚠️ Ce contenu est écrit pour l’étude et l’examen seulement. Pour toute application pratique (לְמַעֲשֶׂה) — demande à ton Rav.
   </div>
 
-  <div style="background:#1A1F3A;border-top:2px solid #C5A55A;padding:24px 40px;text-align:center;margin-top:0;">
-    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;direction:rtl;">
-      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">לעמוד הבית</a> · <a href="index.html" style="color:#C5A55A;text-decoration:none;">סימן צ״ד</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ לתמיכה</a>
+<div style="background:#1A1F3A;border-top:2px solid #C5A55A;padding:24px 40px;text-align:center;margin-top:0;">
+    <p style="font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;">
+      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">Retour à l’accueil</a> · <a href="index.html" style="color:#C5A55A;text-decoration:none;">סימן צ״ד</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ Soutenir</a>
     </p>
   </div>
 
@@ -920,7 +992,7 @@
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="../../../assets/js/chat-widget.js" defer></script>
 <script src="../../../assets/js/daat-copy.js" defer></script>
-<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="מצא חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">הצטרף לחברותא</span></a>
+<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="Rejoindre la khavroutha"><span class="icon">📖</span><span class="label-long">Rejoindre la khavroutha</span></a>
   <script src="/assets/js/share-text.js" defer></script>
 </body>
 </html>

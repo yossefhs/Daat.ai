@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,8 +23,7 @@
   @page { size: A4; margin: 2cm 1.8cm; }
   body {
     font-family: 'Frank Ruhl Libre', 'David', 'Georgia', 'Cambria', serif;
-    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0;
-    direction: rtl; text-align: right;
+    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0; text-align: left;
   }
   .he {
     direction: rtl; text-align: right;
@@ -72,14 +71,12 @@
   h2.section-title {
     color: #fff; background: #1A1F3A;
     font-size: 16pt; padding: 10px 18px; margin-top: 30px;
-    border-right: 6px solid #C5A55A;
-    direction: rtl; text-align: right;
+    border-left: 6px solid #C5A55A; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3 {
     color: #1A1F3A; font-size: 14pt; margin-top: 25px;
-    border-right: 4px solid #C5A55A; padding-right: 10px;
-    direction: rtl; text-align: right;
+    border-left: 4px solid #C5A55A; padding-left: 10px; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3.he-h3 {
@@ -89,8 +86,7 @@
   }
   h4 {
     color: #5a4a1a; font-size: 12pt;
-    margin-top: 20px; margin-bottom: 8px; font-weight: bold;
-    direction: rtl; text-align: right;
+    margin-top: 20px; margin-bottom: 8px; font-weight: bold; text-align: left;
   }
 
   .sacred-text {
@@ -100,8 +96,8 @@
     font-size: 12.5pt; line-height: 1.9;
   }
   .pilpul-box {
-    background: #eef3fa; border-right: 4px solid #1A1F3A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #eef3fa; border-left: 4px solid #1A1F3A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .pilpul-box::before {
     content: "⚡ פלפול"; display: block;
@@ -110,8 +106,8 @@
     direction: rtl; text-align: right;
   }
   .kashya-box {
-    background: #fef4e4; border-right: 4px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #fef4e4; border-left: 4px solid #C5A55A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .kashya-box::before {
     content: "❓ קושיא"; display: block;
@@ -120,8 +116,8 @@
     direction: rtl; text-align: right;
   }
   .teruts-box {
-    background: #e8f4ea; border-right: 4px solid #2d7a3e;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #e8f4ea; border-left: 4px solid #2d7a3e;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .teruts-box::before {
     content: "✓ תירוץ"; display: block;
@@ -130,8 +126,8 @@
     direction: rtl; text-align: right;
   }
   .hakira-box {
-    background: #f5e9f5; border-right: 4px solid #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #f5e9f5; border-left: 4px solid #6a1b7a;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .hakira-box::before {
     content: "🔍 חקירה"; display: block;
@@ -141,8 +137,7 @@
   }
   .nafka-mina-box {
     background: #fff4e6; border: 2px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; border-radius: 4px; text-align: left;
   }
   .nafka-mina-box::before {
     content: "⚖️ נפקא מינה"; display: block;
@@ -152,8 +147,7 @@
   }
   .yesod-box {
     background: #1A1F3A; color: #fff;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
   .yesod-box::before {
     content: "💎 יסוד"; display: block;
@@ -164,7 +158,7 @@
   .yesod-box .he-q { color: #C5A55A; }
   .machloket-box {
     background: #faf5ff; border: 1.5px dashed #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
 
   table {
@@ -173,10 +167,9 @@
   }
   th {
     background: #1A1F3A; color: #fff;
-    padding: 10px; text-align: right; direction: rtl; font-size: 11pt;
+    padding: 10px; text-align: left; font-size: 11pt;
   }
-  td {
-    direction: rtl; text-align: right;
+  td { text-align: left;
     border: 1px solid #d4c89a; padding: 10px; vertical-align: top;
   }
   tr:nth-child(even) td { background: #FAF6EE; }
@@ -197,12 +190,11 @@
   }
 
   ol.stylish li, ul.stylish li { margin-bottom: 8px; }
-  ol.stylish, ul.stylish { padding-right: 22px; padding-left: 0; }
+  ol.stylish, ul.stylish { padding-left: 22px; padding-right: 0; }
 
   .rishon-card {
-    background: #f7f3e4; border-right: 4px solid #8a6a1a;
-    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt;
-    direction: rtl; text-align: right;
+    background: #f7f3e4; border-left: 4px solid #8a6a1a;
+    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt; text-align: left;
   }
   .rishon-card strong { color: #1A1F3A; font-size: 11pt; }
 
@@ -217,10 +209,9 @@
 
   .index-box {
     background: #FAF6EE; border: 1px solid #C5A55A;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
-  .index-box ol { margin: 5px 0; padding-right: 25px; padding-left: 0; }
+  .index-box ol { margin: 5px 0; padding-left: 25px; padding-right: 0; }
   .index-box li { margin-bottom: 5px; }
 
   h3.sugya {
@@ -237,7 +228,6 @@
     font-size: 12pt;
     text-decoration: none;
     border-bottom: 1px dotted #C5A55A;
-    direction: rtl;
   }
   a.daat-explain:hover { color: #8a6a1a; border-bottom-style: solid; }
 
@@ -378,474 +368,494 @@
     .catch(function () { /* erreur réseau → on n'affiche rien */ });
 })();
 </script>
-
 <!-- COUVERTURE -->
 <div class="cover">
   <div class="ornament">✦ ❖ ✦</div>
-  <div class="badge-top">DAAT · רמה ב' — לַמְדָּן</div>
-  <h1>שולחן ערוך · יורה דעה</h1>
-  <div class="subtitle">דברים האסורים משום גילוי וסכנה — עיון ופלפול</div>
+  <div class="badge-top">DAAT · LEVEL 2 — LAMDAN</div>
+  <h1>Shulchan Arukh · Yoreh De’ah</h1>
+  <div class="subtitle">The things forbidden because of gilui and of danger — study and pilpul</div>
 
   <div class="he-title">סימן קט״ז</div>
   <div class="he-sub">גילוי, בשר ודג, סכנתא חמירא מאיסורא, בל תשקצו, מסוכנת</div>
-  <div class="he-subject">עיון, פלפול, שיטות הראשונים והאחרונים</div>
+  <div class="he-subject">Study, pilpul, shitos of the Rishonim and the Acharonim</div>
 
-  <div class="level-badge">⚡ ללומדים ותלמידי חכמים ⚡</div>
+  <div class="level-badge">⚡ For lamdanim and talmidei chachamim ⚡</div>
 
   <div class="ornament">✦ ❖ ✦</div>
 
-  <h2 style="margin-top:20px; color: #1A1F3A;">פלפול ועיון מעמיק</h2>
+  <h2 style="margin-top:20px; color: #1A1F3A;">Pilpul and in-depth study</h2>
   <p style="font-size:12pt; color:#555;">
-    סוגיות, מקורות, חקירת היסוד, מחלוקות ראשונים ואחרונים,<br>
-    נפקא מינות להלכה ועיון בשיטות
+    Sugyos, sources, the underlying chakira, machlokos of Rishonim and Acharonim,<br>
+    nafka minos for halacha and examination of the shitos
   </p>
 
   <div class="credits">
-    <p><strong>הנושא :</strong><br>
-    שולחן ערוך יורה דעה סימן קט״ז (ז' סעיפים)<br>
-    עם נושאי כלים: ט״ז (טורי זהב), ש״ך (שפתי כהן), פתחי תשובה</p>
+    <p><strong>Subject:</strong><br>
+    Shulchan Arukh, Yoreh De’ah, siman 116 (7 seifim)<br>
+    with the Taz (טורי זהב), the Shach (שפתי כהן), the Nekudos HaKesef and the Pischei Teshuva</p>
 
-    <p><strong>יסוד הסוגיא בש״ס :</strong><br>
-    עבודה זרה ל׳. (גילוי וסכנת ארס נחש) · חולין ק״ג: (כיצד צולין, בשר ודג, ריחא) · ברכות נ״ד:–נ״ה. (שמירת הגוף, סכנתא חמירא) · מכות ט״ז: (בל תשקצו)</p>
+    <p><strong>The sugya’s footing in Shas:</strong><br>
+    עבודה זרה ל׳ ע״א (gilui and snake venom) · פסחים ע״ו ע״ב (perek כיצד צולין: meat and fish, ריחא, Mar bar Rav Ashi) · פסחים קי״ב ע״א (food under the bed, רוח רעה) · מכות ט״ז ע״ב (bal teshaktzu) · ביצה ה׳ ע״א (דבר שבמנין)</p>
 
-    <p><strong>עריכה ועיון :</strong><br>
-    הרב יוסף חיים סממה · DAAT</p>
+    <p><strong>Written and edited by:</strong><br>
+    Rav Yossef Haim Samama · DAAT</p>
   </div>
 </div>
 
 <div class="page-break"></div>
 
 <!-- TABLE DES MATIÈRES -->
-<h2 class="section-title">📑 תוכן העניינים</h2>
+<h2 class="section-title">📑 Table of contents</h2>
 
-<div class="index-box" dir="rtl">
+<div class="index-box">
 <ol>
-  <li><strong>הקדמת הסוגיא</strong> — שמירת הנפש כיסוד הסימן (ז' סעיפים)</li>
-  <li><strong>גזרה התלויה בטעמה</strong> — גילוי שבטל "עכשיו שאין נחשים", ולא נאסר במנין (סעיף א', ט״ז ס״ק א)</li>
-  <li><strong>בטל הטעם בטלה הגזרה</strong> — חקירה כנגד החלב דסימן קט״ו "שנמנה במנין", וזהירות השל״ה והגר״א</li>
-  <li><strong>סכנה חמורה מאיסור</strong> — בשר ודג, ריחא לעומת בישול ממש, וצריך ששים אפילו ביבש במינו (סעיפים ב'–ג', ט״ז ס״ק ב–ג)</li>
-  <li><strong>ביטול הסכנה בששים</strong> — מחלוקת חוות יאיר ושבות יעקב, וארס נחש שאינו בטל (פ״ת ס״ק ג)</li>
-  <li><strong>סכנתא חמירא מאיסורא</strong> — שומר נפשו ירחק, ספק סכנה לעומת ספק איסור, ואיסור הסמיכה על הנס (סעיף ה', ועיין חו״מ סי' תכ״ז)</li>
-  <li><strong>לכתחילה ובדיעבד בדיני הסכנה</strong> — תחת המטה, אוכלין חיים ו"דדשים בה רבים" (פ״ת ס״ק ד–ה)</li>
-  <li><strong>בל תשקצו</strong> — לאו שבכללות, מכת מרדות ולא מלקות (סעיף ו', ט״ז ס״ק ו, פולמוס מהרש״ל)</li>
-  <li><strong>מסוכנת</strong> — מדקדקים, בעל נפש, והיתר מסברא (סעיף ז', פ״ת ס״ק י)</li>
-  <li><strong>חקירה ונפקא מינה למעשה</strong></li>
-  <li><strong>טבלאות סיכום מקיפות</strong></li>
+  <li><strong>Entering the sugya</strong> — the preservation of life as the siman’s foundation (7 seifim)</li>
+  <li><strong>A gezeirah hanging on its reason</strong> — gilui, lapsed “since there are no more snakes”, which was never forbidden by a count (seif 1; Taz ס״ק א)</li>
+  <li><strong>The reason gone, the measure goes</strong> — a chakira set against the milk of siman 115, and the caution of the Shelah and the Gaon (Pischei Teshuva ס״ק א)</li>
+  <li><strong>Danger graver than prohibition</strong> — meat and fish, smell against actual cooking, and sixty even dry within its own kind (seifim 2 and 3; Taz ס״ק ב–ג; Shach ס״ק א)</li>
+  <li><strong>Nullifying danger in sixty</strong> — Chavos Yair, Shevus Yaakov and Chut HaShani, and the Nekudos HaKesef’s resolution (Pischei Teshuva ס״ק ג)</li>
+  <li><strong>סכנתא חמירא מאיסורא</strong> — he who guards his life keeps far from it, a doubt of danger against a doubt of prohibition, and the ban on relying on a miracle (seif 5; and see חו״מ סי׳ תכ״ז)</li>
+  <li><strong>Lechatchilah and bedi’eved in the laws of danger</strong> — under the bed, raw foods and “דדשים בה רבים” (Pischei Teshuva ס״ק ד–ה)</li>
+  <li><strong>בל תשקצו</strong> — a lav shebichlalus, makkas mardus and not malkus, and the Taz’s dispute with the Maharshal (seif 6; Taz ס״ק ו; Pischei Teshuva ס״ק ט)</li>
+  <li><strong>מסוכנת</strong> — the scrupulous, the ba’al nefesh, and how far a voluntary stringency reaches (seif 7; Shach ס״ק ח; Pischei Teshuva ס״ק י)</li>
+  <li><strong>Chakira and nafka mina for practice</strong></li>
+  <li><strong>Summary tables</strong></li>
 </ol>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">1. הקדמת הסוגיא — שמירת הנפש כיסוד הסימן</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">1. Entering the sugya — the preservation of life as the siman’s foundation</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">היסוד — איסור מחמת סכנה ולא מחמת טומאה
-  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 העתק</button>
+<h3>The foundation: a prohibition born of danger, not of impurity
+  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 Copy</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-1">
-יסוד הסימן: לבד מאיסורי המאכלות התלויים ב<strong>טומאה</strong> ובחפצא של האיסור, גזרו חכמים על דברים מחמת <strong>סכנה</strong> או מחמת <strong>שיקוץ הנפש</strong>. שורש הדבר בחיוב התורה לשמור את הגוף והנפש, ועליו בנה הרמ״א את הכלל הגדול שבסעיף ה': <span class="he-q">סכנתא חמירא מאיסורא</span> — סכנה חמורה מאיסור, ויש לחוש יותר לספק סכנה מלספק איסור. הסימן כולל איפוא שלושה ראשי דינים: דיני <strong>גילוי</strong> (סעיף א'), דיני <strong>סכנה</strong> שבמאכל ובהנהגה (סעיפים ב'–ה'), ודין <strong>בל תשקצו</strong> ו<strong>מסוכנת</strong> (סעיפים ו'–ז').
+<div class="sacred-text" data-copy-block id="cp-1">
+The siman’s foundation: alongside the food prohibitions that turn on <strong>tum’ah</strong> and on the forbidden object itself, the Sages forbade things because of <strong>danger</strong> or because of the <strong>soul’s revulsion</strong>. Its root is the duty to guard one’s body and one’s life; upon it the Rama built the great rule of seif 5 — <span class="he-q">סכנתא חמירא מאיסורא</span> — and he draws the consequence at once: a doubt of danger is feared more than a doubt of prohibition. The siman therefore holds three heads: <strong>gilui</strong> (seif 1), <strong>danger</strong> in food and in conduct (seifim 2 to 5), and finally <strong>bal teshaktzu</strong> and the <strong>mesukenes</strong> (seifim 6 and 7).
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שני אבות החשש בסימן :</strong> יש להבחין בין שני יסודות שונים שבסימן. <strong>(א) סכנה</strong> — חשש נזק לגוף ולנפש (גילוי, בשר ודג, זיעה, רוח רעה). <strong>(ב) שיקוץ</strong> — מאכל שנפש האדם קצה בו (סעיף ו'). הראשון יסודו ב<span class="he-q">ונשמרתם מאוד לנפשותיכם</span>, והשני ב<span class="he-q">אל תשקצו את נפשותיכם</span>. ונפקא מינה גדולה ביניהם: דין הסכנה חמור מן האיסור הרגיל (כדלהלן), ואילו בל תשקצו אינו אלא לאו שבכללות, שאין לוקין עליו.
+<blockquote>&laquo;&nbsp;<span class="he-q">כי סכנתא חמירא מאיסורא ויש לחוש יותר לספק סכנה מלספק איסור</span>&nbsp;&raquo; <span class="source-ref">(רמ״א יו״ד קט״ז:ה)</span></blockquote>
+
+<div class="pilpul-box">
+<strong>The two fathers of concern in this siman.</strong> Two foundations must be told apart. <strong>(a) Danger</strong> — fear of harm to body and life: gilui (seif 1), meat and fish (seifim 2 and 3), sweat (seif 4), ruach ra’ah and dangerous conduct (seif 5). <strong>(b) Revulsion</strong> — food from which a person’s soul recoils (seif 6). The first is rooted in the verse of guarding oneself, the second in the verse forbidding a man to make his soul detestable. And the nafka mina between them is large: the law of danger is heavier than an ordinary prohibition, whereas bal teshaktzu, as the Taz will show, is only a לאו שבכללות, for which one does not receive malkus.
+<blockquote>&laquo;&nbsp;<span class="he-q">וְנִשְׁמַרְתֶּ֥ם מְאֹ֖ד לְנַפְשֹׁתֵיכֶ֑ם</span>&nbsp;&raquo; <span class="source-ref">(דברים ד׳:ט״ו)</span></blockquote>
+<blockquote>&laquo;&nbsp;<span class="he-q">אַל־תְּשַׁקְּצוּ֙ אֶת־נַפְשֹׁ֣תֵיכֶ֔ם</span>&nbsp;&raquo; <span class="source-ref">(ויקרא י״א:מ״ג)</span></blockquote>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>מקור הדברים בש״ס וברמב״ם :</strong> רוב דיני הסימן הם מן הברייתות שבעבודה זרה (ל׳.) ובברכות (נ״ד:–נ״ה.), והרמב״ם (רוצח ושמירת הנפש פי״א–פי״ב) קבעם להלכה. הבית יוסף ליקטם כאן בשם הש״ס, והרמ״א הוסיף עליהם נופך וכלל. וכל הסימן כולו הוא <span class="he-q">סוגיית שמירת הגוף</span> שבשולחן ערוך.
+<div class="rishon-card">
+<strong>The source in Shas and in the Rambam.</strong> Most of the dinim of this siman come from the beraisos of Avodah Zarah (the chapter of gilui) and of Pesachim, and the Rambam fixed them as halacha in Hilchos Rotzeach u’Shmiras HaNefesh (chapters 11 and 12). The Beis Yosef gathered them here, and the Rama says so himself at the head of his gloss on seif 5, where he refers to the Beis Yosef in the name of Shas. The food placed under the bed, which seif 5 forbids, is read as such in the gemara:
+<blockquote>&laquo;&nbsp;<span class="he-q">אוֹכָלִין וּמַשְׁקִין תַּחַת הַמִּטָּה, אֲפִילּוּ מְחוּפִּין בִּכְלִי בַּרְזֶל — רוּחַ רָעָה שׁוֹרָה עֲלֵיהֶן</span>&nbsp;&raquo; <span class="source-ref">(פסחים קי״ב ע״א)</span></blockquote>
+And seif 4, which the rest of this page will not take up again, holds in one line: a man’s sweat is a poison, except that of the face — and the Shach attaches to it a mnemonic drawn from the verse.
+<blockquote>&laquo;&nbsp;<span class="he-q">צריך ליזהר מזיעת האדם שכל זיעת האדם סם המות חוץ מזיעת הפנים</span>&nbsp;&raquo; <span class="source-ref">(שו״ע יו״ד קט״ז:ד)</span></blockquote>
+<blockquote>&laquo;&nbsp;<span class="he-q">וסימן לדבר בזעת אפיך תאכל לחם</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד קט״ז ס״ק ב)</span></blockquote>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">2. גזרה התלויה בטעמה — גילוי שבטל</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">2. A gezeirah hanging on its reason — the gilui that lapsed</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיף א')
-  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 העתק</button>
+<h3>The Mechaber’s text (seif 1)
+  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-2">
-"<strong>משקים שנתגלו — אסרום חכמים, דחיישינן שמא שתה נחש מהם והטיל בהם ארס. ועכשיו שאין נחשים מצויים בינינו — מותר.</strong>"
+<p>&laquo;&nbsp;<strong>משקים שנתגלו אסרום חכמים דחיישינן שמא שתה נחש מהם והטיל בהם ארס</strong>&nbsp;&raquo; <span class="source-ref">(שו״ע יו״ד קט״ז:א)</span></p>
+<p>&laquo;&nbsp;<strong>ועכשיו שאין נחשים מצויים בינינו מותר</strong>&nbsp;&raquo; <span class="source-ref">(שו״ע יו״ד קט״ז:א)</span></p>
 </div>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זהו אחד היסודות החשובים בהבנת דרכי הגזרות — מתי גזרה בטלה עם טעמה ומתי לא.</p>
-
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — מהי גזרת הגילוי, ומדוע בטלה :</strong> חכמים אסרו משקים מגולים מחשש <span class="he-q">ארס נחש</span> שהוטל בהם. והנה המחבר עצמו פסק שבזמן הזה <span class="he-q">מותר</span>, "שאין נחשים מצויים בינינו". ויש לחקור: וכי גזרת חכמים בטלה מאליה ? והלא קיימא לן שדבר שנאסר במנין צריך מנין אחר להתירו !
+<p><em>Translation</em>: liquids that were left uncovered the Sages forbade, for we fear a snake drank from them and cast its venom into them; and nowadays, when snakes are not found among us, it is permitted.</p>
+<p><em>This is one of the most important foundations for understanding how gezeiros hold: when a decree lapses together with its reason, and when it does not.</em></p>
+<div class="hakira-box">
+<strong>The chakira — what is the gezeirah of gilui, and why did it lapse?</strong> The Sages forbade uncovered liquids out of fear of a snake’s venom. Yet the Mechaber himself writes that nowadays it is permitted, since snakes are no longer found among us. There is room to ask: does a decree of the Sages simply lapse of itself? For we hold it settled that what was forbidden by a count requires another count to permit it.
+<blockquote>&laquo;&nbsp;<span class="he-q">הָוֵי דָּבָר שֶׁבְּמִנְיָן, וְכׇל דָּבָר שֶׁבְּמִנְיָן — צָרִיךְ מִנְיָן אַחֵר לְהַתִּירוֹ</span>&nbsp;&raquo; <span class="source-ref">(ביצה ה׳ ע״א)</span></blockquote>
 </div>
 
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ הט״ז (ס״ק א) — לא נאסר במנין :</strong> מבאר הט״ז יסוד גדול: גזרת הגילוי <strong>לא נאסרה במנין</strong> כשאר גזרות חכמים, אלא כל עיקרה אינה אלא <span class="he-q">מפני הסכנה</span> — חשש מציאותי שיש בו ארס. וכלל הוא: דבר שלא נאסר בעצם מחמת גזרה אלא מפני חשש סכנה שבמציאות, <strong>בטל הטעם בטלה הגזרה</strong>. לפיכך כיון שאין נחשים מצויים בינינו, פקע החשש מאליו, ואין כאן צורך במנין אחר להתיר — שמעולם לא נאסר במנין.
+<div class="teruts-box">
+<strong>The Taz’s answer (ס״ק א) — this was never forbidden by a count.</strong> The Taz says one thing, and all the rest follows from it: there is no « דבר שנאסר במנין » here, because this was forbidden only on account of snakes. A measure that bears not on the object but on a factual fear is not a prohibition standing on its own; once the fear is gone there is nothing left to permit, and no fresh count is required.
+<blockquote>&laquo;&nbsp;<span class="he-q">ואין בזה משום דבר שנאסר במנין כו׳ דלא נאסר אלא מפני נחשים</span>&nbsp;&raquo; <span class="source-ref">(ט״ז יו״ד קט״ז ס״ק א)</span></blockquote>
+And the Taz himself refers, for the comparison, to what he wrote in siman 115 — to its séif ב, on the Semak, the comparison that follows bearing on séif א:
+<blockquote>&laquo;&nbsp;<span class="he-q">ועמ״ש בסי׳ קט״ו סעיף ב׳ בשם סמ״ק</span>&nbsp;&raquo; <span class="source-ref">(ט״ז יו״ד קט״ז ס״ק א)</span></blockquote>
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>חקירה משווה — גילוי לעומת חלב דסימן קט״ו :</strong> הקדמונים העמידו את הגילוי כדוגמה מובהקת ל<span class="he-q">גזרה התלויה בטעמה</span> שבטלה, אל מול גזרת ה<strong>חלב</strong> שבסימן קט״ו. שם אסרו חכמים חלב שחלבו נכרי ואין ישראל רואהו, מחשש תערובת חלב טמא — ואף שבמקומות רבים אין חלב טמא מצוי כלל, <strong>לא בטלה הגזרה</strong>, "<span class="he-q">שדבר שנאסר במנין צריך מנין אחר להתירו</span>". מהו אם כן ההבדל ?
+<div class="hakira-box">
+<strong>A comparative chakira — gilui set against the milk of siman 115.</strong> In siman 115 the Sages forbade milk milked by a non-Jew with no Jew watching, for fear of an admixture of non-kosher milk:
+<blockquote>&laquo;&nbsp;<span class="he-q">חלב שחלבו עובד כוכבים ואין ישראל רואהו אסור שמא עירב בו חלב טמא</span>&nbsp;&raquo; <span class="source-ref">(שו״ע יו״ד קט״ו:א)</span></blockquote>
+And there the Rama upholds the prohibition even in a case where it is known that there is no non-kosher animal in the herd:
+<blockquote>&laquo;&nbsp;<span class="he-q">הוי כחלב שחלבו עובד כוכבים דאסור׳ אע״פ שאין דבר טמא בעדרו</span>&nbsp;&raquo; <span class="source-ref">(רמ״א יו״ד קט״ו:א)</span></blockquote>
+What then is the difference?
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שורש החילוק — נאסר במנין או לא :</strong> החלב דסימן קט״ו <strong>נמנה במנין</strong> ונאסר כ<em>חפצא</em>, וגזרתו עומדת אף במקום שבטל טעמה, שכן אין בית דין יכול לבטל דברי בית דין חבירו אלא בגדול ממנו בחכמה ובמנין. אבל הגילוי <strong>לא נמנה במנין</strong> — אין כאן איסור חפצא כלל, אלא חשש מציאותי גרידא, ולפיכך <span class="he-q">בטל הטעם בטלה הגזרה</span>. נמצא שעצם השאלה אם גזרה בטלה תלויה לא בעצם הטעם בלבד, אלא ב<strong>אופן ההיתחקקות</strong> — אם נמנתה כאיסור עומד, או אינה אלא הרחקה מסכנה שבמציאות.
+<div class="pilpul-box">
+<strong>The root of the distinction — forbidden by a count, or not.</strong> What the Taz points to is not the strength of the reason but the <em>manner</em> in which the prohibition was laid down. The milk of siman 115 was enacted as a standing prohibition, and it holds even where its reason is no longer met — not through the force of its motive, but because one court does not undo the words of another court unless it is greater than it in wisdom and in number:
+<blockquote>&laquo;&nbsp;<span class="he-q">שֶׁאֵין בֵּית דִּין יָכוֹל לְבַטֵּל דִּבְרֵי בֵית דִּין חֲבֵרוֹ עַד שֶׁיִּהְיֶה גָדוֹל מִמֶּנּוּ בְחָכְמָה וּבְמִנְיָן</span>&nbsp;&raquo; <span class="source-ref">(עדויות א׳:ה׳)</span></blockquote>
+A measure taken by a count is therefore lifted only by another count, however far its reason may have receded; gilui was never enacted in that way, and was never more than a factual fear. Whether a decree lapses therefore depends not on its reason alone but on how it was inscribed. And it must be added, so as not to press the point harder than the source does: the Rama himself, in that very seif of siman 115, is lenient in the case where the Jew arrived only midway through the milking, and he is lenient precisely by the argument of the present time —
+<blockquote>&laquo;&nbsp;<span class="he-q">עכשיו בזמן הזה שאין חלב דבר טמא מצוי כלל מותר</span>&nbsp;&raquo; <span class="source-ref">(רמ״א יו״ד קט״ו:א)</span></blockquote>
+The dividing line therefore runs inside siman 115 itself, and not between two simanim that would stand opposed as wholes.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>זהירות השל״ה והגר״א (פתחי תשובה ס״ק א) :</strong> אף שמדינא הגילוי בטל, מביא הפתחי תשובה (בשם ה<span class="he-q">של״ה</span> וה<span class="he-q">גר״א</span>) שיש מן הגדולים שנהגו זהירות גם בזמן הזה, ולא הקילו לגמרי במשקים שנתגלו. ויסוד דבריהם: שמא לא נעקר החשש לחלוטין, או משום מעלת ההרחקה מספק סכנה. ולמדנו מכאן שאף ב<em>גזרה התלויה בטעמה</em> שבטלה מדינא — נשתיירה מדת חסידות וזהירות במקום שיש בו צד סכנה.
+<div class="rishon-card">
+<strong>The caution of the Shelah and the Gaon (Pischei Teshuva ס״ק א).</strong> Although the din of gilui itself has lapsed, the Pischei Teshuva reports that great men kept up caution in this matter to the present day:
+<blockquote>&laquo;&nbsp;<span class="he-q">עיין בשל״ה דף ע״ט ע״ב שכתב דמ״מ שומר נפשו ירחק מזה</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד קט״ז ס״ק א)</span></blockquote>
+<blockquote>&laquo;&nbsp;<span class="he-q">ובהנהגת החסיד הגר״א ז״ל כתוב ג״כ שהיה נזהר מאד בדבר זה</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד קט״ז ס״ק א)</span></blockquote>
+We learn from here that even a measure that lapsed with its reason leaves standing a measure of caution wherever a side of danger remains.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">3. סכנה חמורה מאיסור — בשר ודג</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">3. Danger graver than prohibition — meat and fish</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיפים ב'–ג')
-  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 העתק</button>
+<h3>The text of the Mechaber and the Rama (seifim 2 and 3)
+  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-3">
-"<strong>צריך ליזהר שלא לאכול בשר ודג ביחד, מפני שקשה לצרעת.</strong> (הגה: וכן אין לצלות בשר עם דג משום ריחא, מיהו בדיעבד אינו אסור.) <strong>ירחוץ ידיו בין בשר לדג, ויאכל פת שרוי בנתים כדי לרחוץ פיו.</strong> (הגה: ויש אומרים דאין לחוש לזה רק כשמבשלם יחד ואכלן, אבל לאכלן זה אחר זה אין לחוש; וכן נוהגין שלא לרחוץ הפה ולא הידים ביניהם, ומכל מקום יש לאכול דבר ביניהם ולשתות, דהוי קינוח והדחה.)"
+<p>&laquo;&nbsp;<strong>צריך ליזהר שלא לאכול בשר ודג ביחד מפני שקשה לצרעת</strong>&nbsp;&raquo; <span class="source-ref">(שו״ע יו״ד קט״ז:ב)</span></p>
+<p>&laquo;&nbsp;<strong>וכן אין לצלות בשר עם דג משום ריחא מיהו בדיעבד אינו אסור (ארוך כלל ל״ט דין כ״ה)</strong>&nbsp;&raquo; <span class="source-ref">(רמ״א יו״ד קט״ז:ב)</span></p>
+<p>&laquo;&nbsp;<strong>ירחוץ ידיו בין בשר לדג ויאכל פת שרוי בנתים כדי לרחוץ פיו</strong>&nbsp;&raquo; <span class="source-ref">(שו״ע יו״ד קט״ז:ג)</span></p>
+<p>&laquo;&nbsp;<strong>ויש אומרים דאין לחוש לזה רק כשמבשלם יחד ואכלן אבל לאכלן זה אחר זה אין לחוש (הגהות מרדכי)</strong>&nbsp;&raquo; <span class="source-ref">(רמ״א יו״ד קט״ז:ג)</span></p>
+<p>&laquo;&nbsp;<strong>וכן נוהגין שלא לרחוץ הפה ולא הידים ביניהם ומ״מ יש לאכול דבר ביניהם ולשתות דהוי קנוח והדחה (הגהות ש״ד סי׳ ע״ה ומביאו בגליון או״ה שם)</strong>&nbsp;&raquo; <span class="source-ref">(רמ״א יו״ד קט״ז:ג)</span></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — דרגות החשש בבשר ודג :</strong><br>
-שלוש מדרגות בדבר, מן הקל אל החמור:<br><br>
-• <span class="he-q">ריחא</span> בלבד (צלייה זה בצד זה) — לכתחילה אסור משום הריח, אך <strong>בדיעבד אינו אסור</strong> (רמ״א, ש״ך ס״ק א).<br>
-• <span class="he-q">קינוח והדחה</span> — בין אכילת בשר לדג, מנהג לאכול ולשתות דבר ביניהם.<br>
-• <span class="he-q">בישול ממש זה עם זה</span> — שניהם נתבשלו יחד, ובו דין הסכנה החמור (כדלהלן).
+<p><em>Translation</em>: one must take care not to eat meat and fish together, because it leads to leprosy. (Gloss: likewise one does not roast meat with fish, on account of the smell; nevertheless, after the fact, it is not forbidden.) He should wash his hands between meat and fish, and eat soaked bread in between, in order to rinse his mouth. (Gloss: some say there is cause for concern only when they were cooked together and eaten so, but eating them one after the other calls for no concern; and such is the custom, not to rinse either the mouth or the hands between them; in any case one should eat and drink something in between, which counts as kinuach and hadachah.)</p>
+<div class="yesod-box">
+<strong>The three degrees of concern in “meat and fish”.</strong><br>From the lightest to the gravest:<br><br>• <span class="he-q">ריחא</span> alone — roasting one beside the other: forbidden lechatchilah because of the smell, but permitted bedi’eved.<br>• <span class="he-q">קנוח והדחה</span> — between meat and fish, the custom is to eat and drink something in between (Rama, seif 3).<br>• actual cooking of the one with the other — and here the law of danger bears its full weight.<br><br>
+The Shach, at his ס״ק א, reports not one opinion but three, and it is worth holding them together. The first is that of the Issur veHetter, which the Rama follows:
+<blockquote>&laquo;&nbsp;<span class="he-q">דלכתחלה אסור לצלות בשר עם דגים משום ריחא מילתא אבל בדיעבד שרי</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד קט״ז ס״ק א)</span></blockquote>
+But that same opinion tightens at once: if the two are close enough for the fat to run from one to the other, it is forbidden even bedi’eved.
+<blockquote>&laquo;&nbsp;<span class="he-q">ואם הם סמוכים שהשומן זב מאחד לחבירו אסורים ואף דיעבד</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד קט״ז ס״ק א)</span></blockquote>
+The Maharshal is more lenient — he permits roasting fish and meat in one oven even lechatchilah — while the Be’er Sheva, on the contrary, forbids even bedi’eved:
+<blockquote>&laquo;&nbsp;<span class="he-q">ופסק דאפילו בדיעבד אסורים משום ריחא מילתא</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד קט״ז ס״ק א)</span></blockquote>
+We report, and we do not decide.
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>חקירה — מדוע ריחא לחוד מותר בדיעבד, ובישול ממש אסור אף בדיעבד :</strong> בכל איסורי התורה, <span class="he-q">ריחא לאו מילתא היא</span> בדיעבד (חולין ק״ג:, כיצד צולין), ולפיכך הצולה בשר עם דג — בדיעבד מותר. ואם כן בבשר ודג, שכל איסורם מחמת סכנה, מדוע כשנתבשלו ממש יחד אסורים <strong>אף בדיעבד</strong> ?
+<div class="hakira-box">
+<strong>Chakira — why is smell alone permitted bedi’eved, while actual cooking is forbidden even bedi’eved?</strong> In all the prohibitions of the Torah we hold that smell is not a thing, and this is the gemara’s own language in perek כיצד צולין:
+<blockquote>&laquo;&nbsp;<span class="he-q">רֵיחָא בְּעָלְמָא הוּא, וְרֵיחָא לָאו מִילְּתָא הִיא</span>&nbsp;&raquo; <span class="source-ref">(פסחים ע״ו ע״ב)</span></blockquote>
+And if so, in meat and fish — whose whole prohibition rests on danger — why, once truly cooked together, are they forbidden <strong>even bedi’eved</strong>?
 </div>
 
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ הט״ז (ס״ק ב–ג) — דין סכנה חמור מדין איסור :</strong> מחדש הט״ז שדבר שיש בו <strong>סכנה</strong> אינו נדון ככל איסור. באיסור רגיל, ריחא בלבד אינו אוסר בדיעבד; אבל ב<em>סכנה</em>, כיון שעלולה לבוא לידי נזק לגוף, מחמירים בה <strong>יותר</strong> מאיסור. לפיכך כשהריח לבדו — אין כאן סכנה ממשית, ובדיעבד מותר; אבל כשנתבשלו ממש יחד — הטעם והסכנה מעורבים בגוף המאכל, ואסור אף בדיעבד. ומביא הט״ז (ס״ק ג) מן הגמרא (כיצד צולין) דברי <span class="he-q">מר בר רב אשי</span> — "<span class="he-q">אסרה אפילו במילחא</span>" — שאף במליחה (לא בבישול) החמירו בדגים ובשר, משום שדין הסכנה חמור.
+<div class="teruts-box">
+<strong>The Taz’s answer (ס״ק ב and ג) — the law of danger is heavier than the law of prohibition.</strong> The Taz first draws the line: the gloss’s leniency covers smell alone.
+<blockquote>&laquo;&nbsp;<span class="he-q">היינו בריחא לחוד אבל אם נתבשלו יחד אסורין אף דיעבד</span>&nbsp;&raquo; <span class="source-ref">(ט״ז יו״ד קט״ז ס״ק ב)</span></blockquote>
+He then extends the stringency to roasting done truly one with the other, and supports it from the gemara:
+<blockquote>&laquo;&nbsp;<span class="he-q">וה״ה אם נצלו כא׳ ממש זה עם זה</span>&nbsp;&raquo; <span class="source-ref">(ט״ז יו״ד קט״ז ס״ק ג)</span></blockquote>
+<blockquote>&laquo;&nbsp;<span class="he-q">דאמר מר בר רב אשי אסרה אפילו במילחא</span>&nbsp;&raquo; <span class="source-ref">(ט״ז יו״ד קט״ז ס״ק ג)</span></blockquote>
+The gemara’s own words, of which the Taz here gives the substance, are these:
+<blockquote>&laquo;&nbsp;<span class="he-q">מָר בַּר רַב אָשֵׁי אָמַר: אֲפִילּוּ בְּמִילְחָא נָמֵי אֲסוּרָה, מִשּׁוּם דְּקַשְׁיָא לְרֵיחָא וּלְדָבָר אַחֵר</span>&nbsp;&raquo; <span class="source-ref">(פסחים ע״ו ע״ב)</span></blockquote>
+Mar bar Rav Ashi thus forbids even in salt — that is, outside any cooking — and it is from there that the Taz draws that the regime of danger is not measured by that of prohibition.
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה — סכנה צריך ששים אפילו ביבש במינו :</strong> מחדש הט״ז (ס״ק ב) חומרא יתירה: דבר שיש בו סכנה, כשמערבים אותו, <strong>צריך ששים לבטלו — ואפילו ביבש במינו</strong>. והוא חידוש גדול, שהרי באיסור רגיל <span class="he-q">יבש ביבש במינו בטל ברוב</span> (עיין סימן ק״ט), ואילו כאן, מפני הסכנה, אין הרוב מבטל, אלא בעינן ששים דווקא. נמצא ש<strong>סכנה חמורה מאיסור</strong> אף בשיעור הביטול. <em>ולמעשה — שאל את רבך.</em>
+<div class="nafka-mina-box">
+<strong>Nafka mina — danger requires sixty, even dry within its own kind.</strong> The Taz reports in the name of the Issur veHetter HaAruch a considerable stringency:
+<blockquote>&laquo;&nbsp;<span class="he-q">דבר שיש בו משום סכנה דינו כאיסור לבטלו בס׳ ויותר חמור דאפילו ביבש במינו צריך ששים</span>&nbsp;&raquo; <span class="source-ref">(ט״ז יו״ד קט״ז ס״ק ב)</span></blockquote>
+This is a great chiddush: in an ordinary prohibition, dry within dry and within its own kind is nullified by a majority (see siman 109); here, because of the danger, a majority does not nullify and sixty is required. And the Taz at once reports, in the name of the Darkei Moshe, an objection that goes further still:
+<blockquote>&laquo;&nbsp;<span class="he-q">דהא איתא בטור דחיישינן לגילוי אפילו במאה סאה מים</span>&nbsp;&raquo; <span class="source-ref">(ט״ז יו״ד קט״ז ס״ק ב)</span></blockquote>
+<blockquote>&laquo;&nbsp;<span class="he-q">משמע דלא מהני ס׳ דחמירא סכנתא מאיסורא</span>&nbsp;&raquo; <span class="source-ref">(ט״ז יו״ד קט״ז ס״ק ב)</span></blockquote>
+In other words: on that reading, sixty would not even suffice. This is precisely the point the next section will take up. <em>And for practice — ask your Rav.</em>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>שומן עוף בדג, וגדרי המנהג (פתחי תשובה ס״ק ב) :</strong> מביא הפתחי תשובה בשם <span class="he-q">שבות יעקב</span> דשומן אווז שנפל לתבשיל של דג — דינו כבשר ודג, ויש בו חשש סכנה, <strong>ואין לחלק בין עוף לבהמה</strong> בענין זה. ולמדנו שדין בשר ודג נוהג בכל מיני בשר, אף בעוף ובשומנו, וכל שכן בבישול ממש.
+<div class="rishon-card">
+<strong>Poultry fat in a fish dish (Pischei Teshuva ס״ק ב).</strong> The Pischei Teshuva reports a question put to the Shevus Yaakov: does goose fat fallen into a fish dish fall under the law of danger, or does danger attach only to the meat of an animal?
+<blockquote>&laquo;&nbsp;<span class="he-q">שנשאל על שומן אווז שנתערב תוך תבשיל של דגים אם יש חשש סכנה בדבר או לא</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד קט״ז ס״ק ב)</span></blockquote>
+<blockquote>&laquo;&nbsp;<span class="he-q">והשיב דאין חילוק</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד קט״ז ס״ק ב)</span></blockquote>
+We learn from here that the law of “meat and fish” applies to every kind of meat, poultry and its fat included.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">4. ביטול הסכנה בששים — מחלוקת האחרונים</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">4. Nullifying danger in sixty — a machlokes of the Acharonim</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">לאחר שנתבאר שסכנה חמורה מאיסור — נחלקו האחרונים אם בכל זאת היא בטלה בששים.</p>
-
-<div class="machloket-box" dir="rtl">
-<strong>שורש המחלוקת — האם דבר סכנה בטל בששים (פתחי תשובה ס״ק ג) :</strong>
+<p><em>Once it is established that danger is heavier than prohibition, the Acharonim divided over whether it is nonetheless nullified in sixty.</em></p>
+<div class="machloket-box">
+<strong>The root of the machlokes — is a dangerous substance nullified in sixty? (Pischei Teshuva ס״ק ג)</strong>
 <table>
-<tr><th>שיטה</th><th>ביטול הסכנה</th><th>מקור</th></tr>
-<tr>
-  <td><strong>חוות יאיר ושבות יעקב (להקל)</strong></td>
-  <td>דבר שיש בו סכנה — <strong>בטל בששים</strong> ככל איסור; אין הסכנה חמורה לענין הביטול</td>
-  <td>פ״ת ס״ק ג</td>
-</tr>
-<tr>
-  <td><strong>ארס נחש (לחומרא)</strong></td>
-  <td><span class="he-q">אינו בטל</span> כלל — שאני ארס שסכנתו ודאית וחמורה ביותר</td>
-  <td>פ״ת ס״ק ג</td>
-</tr>
+<tr><th>Shitah</th><th>Nullification of the danger</th><th>Source</th></tr>
+<tr><td><strong>Chavos Yair (lenient)</strong></td><td class="he">&laquo;&nbsp;<span class="he-q">ועיין בתשובת חוות יאיר סי׳ ס״ד שפסק להקל דבטל</span>&nbsp;&raquo;</td><td>פת״ש יו״ד קט״ז ס״ק ג</td></tr>
+<tr><td><strong>Shevus Yaakov (lenient)</strong></td><td class="he">&laquo;&nbsp;<span class="he-q">וכן כתב בתשובת שבות יעקב ח״ב סוס״י ק״ד ושאין להחמיר כלל</span>&nbsp;&raquo;</td><td>פת״ש יו״ד קט״ז ס״ק ג</td></tr>
+<tr><td><strong>Chut HaShani (stringent for venom)</strong></td><td class="he">&laquo;&nbsp;<span class="he-q">וכ״כ בתשובת חוט השני סי׳ ס״ז דדוקא ארס נחש אינו בטל</span>&nbsp;&raquo;</td><td>פת״ש יו״ד קט״ז ס״ק ג</td></tr>
 </table>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>יישוב הסתירה — שני סוגי סכנה :</strong> לכאורה סותרים דברי הט״ז (סכנה חמורה, צריך ששים אף ביבש במינו) לדברי החוות יאיר והשבות יעקב (סכנה בטלה בששים). אך באמת אין כאן סתירה אלא <strong>שתי מדרגות בסכנה</strong>:<br><br>
-• <span class="he-q">סכנה רחוקה</span> (כבשר ודג, שאינה אלא חשש "קשה לצרעת") — בטלה בששים, אלא שמחמירים בה יותר מאיסור רגיל לענין יבש במינו.<br>
-• <span class="he-q">סכנה ודאית וחמורה</span> (כארס נחש ממש) — <strong>אינה בטלה כלל</strong>, שאין מבטלים סכנת נפשות ודאית בששים.<br><br>
-ולפי זה דברי הכל אמת, וכל אחד מדבר בסוג סכנה אחר.
+<div class="pilpul-box">
+<strong>How the contradiction is resolved — and it is resolved in the Nekudos HaKesef, not under our own pen.</strong> The stringency reported by the Taz (sixty would not help, since gilui is feared even in a hundred se’ah of water) seems to contradict the responsa that are lenient. The Nekudos HaKesef answer precisely on that ס״ק ב of the Taz, and in two steps. First, snake venom is another matter:
+<blockquote>&laquo;&nbsp;<span class="he-q">ול״נ דלק״מ דשאני זיהרא דנחש דמקלי קלי טובא</span>&nbsp;&raquo; <span class="source-ref">(נקודות הכסף יו״ד קט״ז)</span></blockquote>
+Second, and this is the general principle: the stringency of danger over prohibition holds only in <strong>doubt</strong>, and not where sixty is actually present.
+<blockquote>&laquo;&nbsp;<span class="he-q">דלא מחמרינן בסכנתא טפי מבאיסורא אלא בספקא אבל היכא דאיכא ששים דנתבטל בודאי לא מסתבר כלל לחלק בין איסור לסכנתא</span>&nbsp;&raquo; <span class="source-ref">(נקודות הכסף יו״ד קט״ז)</span></blockquote>
+These are therefore two registers and not two opposed views: doubt, where danger prevails, and established nullification, where it is not distinguished from prohibition.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הכרעה למעשה :</strong> רוב האחרונים נקטו דבכל הנוגע ל<strong>בשר ודג</strong> — אם נתערב בששים, מותר בדיעבד (כדעת חוות יאיר ושבות יעקב), אך לכתחילה יש להחמיר בכל ענין משום שדין הסכנה חמור. ואילו ב<strong>ארס ממש</strong> — אין מקילים כלל. <em>ולמעשה — שאל את רבך.</em>
+<div class="rishon-card">
+<strong>What the Pischei Teshuva retains, and the order in which he says it.</strong> The Pischei Teshuva first defends the Taz’s proof and concludes that it would be forbidden even where there is sixty:
+<blockquote>&laquo;&nbsp;<span class="he-q">א״ו דאף באיכא ששים אסור</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד קט״ז ס״ק ג)</span></blockquote>
+Then, for the halacha, he sides with the responsa:
+<blockquote>&laquo;&nbsp;<span class="he-q">ומ״מ לדינא העיקר כהתשובות הנ״ל דבטל</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד קט״ז ס״ק ג)</span></blockquote>
+Both must be held together: the argument explains the Taz’s text, the conclusion settles the case. And the leniency bears on nullification that is <em>established</em> in sixty: where the count remains in doubt the rule of the ס״ק resumes, and the Chut HaShani holds the line for snake venom itself. <em>And for practice — ask your Rav.</em>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">5. סכנתא חמירא מאיסורא — הכלל הגדול</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-rama">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">5. סכנתא חמירא מאיסורא — the great rule</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-rama">↩ Detailed explanation (level 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זהו לב הסימן וההלכה החיה ביותר שבו — היסוד לכל הנהגת הזהירות בפיקוח נפש.</p>
-
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ה')
-  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 העתק</button>
+<p><em>This is the heart of the siman and its most living part — the foundation of the whole conduct of caution in matters of danger to life.</em></p>
+<h3>The text of the Mechaber and the Rama (seif 5)
+  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-5">
-"<strong>צריך ליזהר מליתן מעות בפיו, שמא יש עליהן רוק יבש של מוכי שחין; ולא יתן פס ידו תחת שחיו, שמא נגע ידו במצורע או בסם רע; ולא יתן ככר לחם תחת השחי מפני הזיעה; ולא יתן תבשיל ולא משקים תחת המטה, מפני שרוח רעה שורה עליהם; ולא ינעוץ סכין בתוך אתרוג או בתוך צנון, שמא יפול אדם על חודה וימות.</strong> (הגה: וכן יזהר מכל דברים המביאים לידי סכנה, כי <span class="he-q">סכנתא חמירא מאיסורא</span>, ויש לחוש יותר לספק סכנה מלספק איסור; ולכן אסרו לילך בכל מקום סכנה, כמו תחת קיר נטוי או יחידי בלילה; וכל אלו הדברים הם משום סכנה, ושומר נפשו ירחק מהם, ואסור לסמוך אנס או לסכן נפשו בכל כיוצא בזה; ועיין בחושן משפט סימן תכ״ז.)"
+<p>&laquo;&nbsp;<strong>צריך ליזהר מליתן מעות בפיו שמא יש עליהן רוק יבש של מוכי שחין</strong>&nbsp;&raquo; <span class="source-ref">(שו״ע יו״ד קט״ז:ה)</span></p>
+<p>&laquo;&nbsp;<strong>ולא יתן פס ידו תחת שחיו שמא נגע ידו במצורע או בסם רע</strong>&nbsp;&raquo; <span class="source-ref">(שו״ע יו״ד קט״ז:ה)</span></p>
+<p>&laquo;&nbsp;<strong>ולא יתן ככר לחם תחת השחי מפני הזיעה</strong>&nbsp;&raquo; <span class="source-ref">(שו״ע יו״ד קט״ז:ה)</span></p>
+<p>&laquo;&nbsp;<strong>ולא יתן תבשיל ולא משקים תחת המטה מפני שרוח רעה שורה עליהם</strong>&nbsp;&raquo; <span class="source-ref">(שו״ע יו״ד קט״ז:ה)</span></p>
+<p>&laquo;&nbsp;<strong>ולא ינעוץ סכין בתוך אתרוג או בתוך צנון שמא יפול אדם על חודה וימות</strong>&nbsp;&raquo; <span class="source-ref">(שו״ע יו״ד קט״ז:ה)</span></p>
+<p>&laquo;&nbsp;<strong>וכן יזהר מכל דברים המביאים לידי סכנה</strong>&nbsp;&raquo; <span class="source-ref">(רמ״א יו״ד קט״ז:ה)</span></p>
+<p>&laquo;&nbsp;<strong>כי סכנתא חמירא מאיסורא ויש לחוש יותר לספק סכנה מלספק איסור (ב״י בשם הש״ס)</strong>&nbsp;&raquo; <span class="source-ref">(רמ״א יו״ד קט״ז:ה)</span></p>
+<p>&laquo;&nbsp;<strong>ולכן אסרו לילך בכל מקום סכנה כמו תחת קיר נטוי או יחידי בלילה (שם)</strong>&nbsp;&raquo; <span class="source-ref">(רמ״א יו״ד קט״ז:ה)</span></p>
+<p>&laquo;&nbsp;<strong>וכן אסרו לשתות מים מן הנהרות בלילה או להניח פיו על קלוח המים לשתות כי דברים אלו יש בהן חשש סכנה (רמב״ם)</strong>&nbsp;&raquo; <span class="source-ref">(רמ״א יו״ד קט״ז:ה)</span></p>
+<p>&laquo;&nbsp;<strong>ומנהג פשוט שלא לשתות מים בשעת התקופה וכן כתבו הקדמונים ואין לשנות (אבודרהם ומרדכי ס״פ כל שעה רוקח סימן ער״ה ומהרי״ל ומנהגים)</strong>&nbsp;&raquo; <span class="source-ref">(רמ״א יו״ד קט״ז:ה)</span></p>
+<p>&laquo;&nbsp;<strong>עוד כתבו שיש לברוח מן העיר כשדבר בעיר ויש לצאת מן העיר בתחילת הדבר ולא בסופו (תשובת מהרי״ל סי׳ ל״ה)</strong>&nbsp;&raquo; <span class="source-ref">(רמ״א יו״ד קט״ז:ה)</span></p>
+<p>&laquo;&nbsp;<strong>וכל אלו הדברים הם משום סכנה ושומר נפשו ירחק מהם</strong>&nbsp;&raquo; <span class="source-ref">(רמ״א יו״ד קט״ז:ה)</span></p>
+<p>&laquo;&nbsp;<strong>ואסור לסמוך אנס או לסכן נפשו בכל כיוצא בזה ועיין בחושן משפט סימן תכ״ז</strong>&nbsp;&raquo; <span class="source-ref">(רמ״א יו״ד קט״ז:ה)</span></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — סכנתא חמירא מאיסורא ושומר נפשו ירחק :</strong><br>
-הכלל הגדול שחידש הרמ״א (בשם הש״ס) הוא ש<span class="he-q">סכנה חמורה מאיסור</span>, ושני ראשים לו:<br><br>
-• ב<strong>ספק</strong> — חוששים יותר לספק סכנה מלספק איסור. שבעוד שספק איסור דרבנן לקולא, ספק סכנה — לחומרא.<br>
-• ב<strong>הרחקה</strong> — <span class="he-q">שומר נפשו ירחק</span> מכל המביא לידי סכנה (קיר נטוי, יחידי בלילה, מי הנהרות בלילה).<br><br>
-ויסוד הכל בחיוב <span class="he-q">ונשמרתם מאוד לנפשותיכם</span>.
+<p><em>Translation</em>: one must take care not to put coins in his mouth, for the dried saliva of a person afflicted with sores may be on them; not to put the palm of his hand under his armpit, for his hand may have touched a leper or an evil drug; not to put a loaf of bread under the armpit, because of sweat; not to place a cooked dish or drinks under the bed, because an evil spirit rests upon them; and not to stick a knife into an esrog or into a radish, for a man might fall on its point and die. (Gloss: likewise he should guard himself from everything that leads to danger, for danger is graver than prohibition, and one must fear a doubt of danger more than a doubt of prohibition; therefore they forbade going to any place of danger, such as under a leaning wall or alone at night… and all these things are because of danger, and he who guards his life keeps far from them; and it is forbidden to rely on a miracle or to endanger one’s life in anything of the kind — and see Choshen Mishpat, siman 427.)</p>
+<div class="yesod-box">
+<strong>The foundation — סכנתא חמירא מאיסורא and שומר נפשו ירחק.</strong><br>The great rule the Rama lays down here in the name of Shas has two heads:<br><br>• in <strong>doubt</strong> — a doubt of danger is feared more than a doubt of prohibition: where a doubt of a rabbinic prohibition is treated leniently, a doubt of danger is treated stringently.<br>• in <strong>distancing</strong> — he who guards his life keeps far from everything that leads to danger: a leaning wall, walking alone at night, river water at night.<br><br>And the whole has its root in the obligation of the verse:
+<blockquote>&laquo;&nbsp;<span class="he-q">וְנִשְׁמַרְתֶּ֥ם מְאֹ֖ד לְנַפְשֹׁתֵיכֶ֑ם</span>&nbsp;&raquo; <span class="source-ref">(דברים ד׳:ט״ו)</span></blockquote>
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>חקירה — איסור הסמיכה על הנס :</strong> מסיים הרמ״א "<span class="he-q">ואסור לסמוך אנס או לסכן נפשו</span>". ויש לחקור ביסוד האיסור: האם הוא מצד <em>גזל מן השמים</em> — שמנכים לו מזכויותיו (כמ״ש בש״ס, "אין סומכין על הנס"), או מצד עצם החיוב לשמור הגוף, שהמכניס עצמו לסכנה עובר על "ונשמרתם". ונפקא מינה אם ההסתכנות נעשתה לצורך מצוה, ובגדרי "שלוחי מצוה אינן ניזוקין".
+<div class="hakira-box">
+<strong>Chakira — the prohibition of relying on a miracle.</strong> The Rama closes his gloss with these words:
+<blockquote>&laquo;&nbsp;<span class="he-q">ואסור לסמוך אנס או לסכן נפשו בכל כיוצא בזה ועיין בחושן משפט סימן תכ״ז</span>&nbsp;&raquo; <span class="source-ref">(רמ״א יו״ד קט״ז:ה)</span></blockquote>
+The foundation of this prohibition must be sought. Is it on the side of what the tradition expresses by saying that one does not rely on a miracle — and a man’s merits are then deducted? Or on the side of the very duty to guard one’s body, one who endangers himself transgressing the verse of self-preservation? The nafka mina appears where the risk is taken for a mitzvah, and it touches the parameters of the rule:
+<blockquote>&laquo;&nbsp;<span class="he-q">שְׁלוּחֵי מִצְוָה אֵינָן נִיזּוֹקִין</span>&nbsp;&raquo; <span class="source-ref">(פסחים ח׳ ע״ב)</span></blockquote>
+This page poses the chakira and does not decide it.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הפניית הרמ״א לחושן משפט סימן תכ״ז :</strong> מסיים הרמ״א "<span class="he-q">ועיין בחושן משפט סימן תכ״ז</span>" — שם נתבארו דיני מעקה ושמירת הגוף מנזק (מצוות עשה ולא תעשה דמעקה, "ולא תשים דמים בביתך"). נמצא שדין הסכנה שביורה דעה מצטרף לדין שבחושן משפט, ושניהם יסודם בחיוב התורה לשמור הנפש מכל נזק.
+<div class="rishon-card">
+<strong>The Rama’s cross-reference to Choshen Mishpat 427.</strong> The Rama ends by referring elsewhere, and that reference is part of the din. Siman 427 of Choshen Mishpat is that of the parapet and of guarding the body from harm — the positive command of the ma’akeh, and the prohibition of the verse:
+<blockquote>&laquo;&nbsp;<span class="he-q">וְלֹֽא־תָשִׂ֤ים דָּמִים֙ בְּבֵיתֶ֔ךָ</span>&nbsp;&raquo; <span class="source-ref">(דברים כ״ב:ח)</span></blockquote>
+The law of danger in Yoreh De’ah therefore joins with that of Choshen Mishpat, and both rest on the same obligation of the Torah.
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>היישום בזמן הזה :</strong> הכלל "סכנתא חמירא מאיסורא" ו"שומר נפשו ירחק" שימש לאחרונים יסוד להוראות רבות בענייני בריאות וזהירות הגוף. רבים מפוסקי דורנו (כ<span class="he-q">אגרות משה</span>, <span class="he-q">ציץ אליעזר</span> ו<span class="he-q">יביע אומר</span>) דנו על פיו בעניינים שיש בהם חשש נזק לגוף, וקבעו שאסור להכניס עצמו לידי סכנה ולסמוך על הנס. וכן הוא יסוד הנהגת הזהירות מ<strong>עישון</strong>, מנהיגה פרועה ומכל מעשה מסוכן. <em>ולמעשה — שאל את רבך.</em>
+<div class="pilpul-box">
+<strong>Application in our own time.</strong> The rule that danger is graver than prohibition, and the rule of distancing, have served the Acharonim and the poskim of the last generations as a footing for questions of health and of guarding the body; the discussion is found in the Igros Moshe, the Tzitz Eliezer and the Yabia Omer. This paragraph points to where to look: it cites no particular teshuvah here, and it decides nothing. <em>And for practice — ask your Rav.</em>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">6. לכתחילה ובדיעבד בדיני הסכנה</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">6. Lechatchilah and bedi’eved in the laws of danger</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ Detailed explanation (level 1)</a>
 
-<div class="hakira-box" dir="rtl">
-<strong>חקירה — האם איסורי הסכנה לכתחילה בלבד או אף בדיעבד :</strong> דיני הסכנה שבסעיף ה' חמורים מאיסור, ולכאורה אין בהם היתר בדיעבד כלל. אך האחרונים דקדקו שיש בהם <span class="he-q">מדרגות</span> — יש שאסורים אף בדיעבד (סכנה ממשית), ויש שלא נאמרו אלא לכתחילה, ובדיעבד הקילו.
+<div class="hakira-box">
+<strong>Chakira — are the prohibitions of danger only lechatchilah, or do they hold bedi’eved as well?</strong> The dinim of seif 5 are heavier than a prohibition, and one would at first think that no leniency after the fact applies to them. But the Acharonim showed that they do not all carry the same weight: some hold even bedi’eved, others were said only lechatchilah.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>תבשיל שתחת המטה — בדיעבד מותר (פתחי תשובה ס״ק ד) :</strong> תבשיל ומשקים שהונחו <span class="he-q">תחת המטה</span> נאסרו "מפני שרוח רעה שורה עליהם". ומביא הפתחי תשובה בשם <span class="he-q">שבות יעקב</span> שבדיעבד, בהפסד מרובה או בשעת הדחק, יש להקל ולא לאסור את התבשיל. נמצא שאיסור הרוח רעה אינו אלא הרחקה לכתחילה, ולא איסור גמור בחפצא של המאכל.
+<div class="rishon-card">
+<strong>The dish under the bed — permitted bedi’eved (Pischei Teshuva ס״ק ד).</strong> A dish and drinks placed under the bed are forbidden, seif 5 says, <em>because an evil spirit rests upon them</em>. The Pischei Teshuva here reports the conclusion of the Shevus Yaakov, who establishes it from the sugya:
+<blockquote>&laquo;&nbsp;<span class="he-q">והעלה דאין בזה רק אזהרה לכתחלה אבל בדיעבד אין כאן חשש איסור</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד קט״ז ס״ק ד)</span></blockquote>
+It emerges from here that the prohibition of the evil spirit is only a distancing lechatchilah, and not a prohibition attaching to the substance of the dish itself.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הגר״א — אף באוכלין חיים, ו"דדשים בה רבים" (פתחי תשובה ס״ק ה) :</strong> מביא הפתחי תשובה בשם ה<span class="he-q">גר״א</span> שדין רוח רעה (תחת המטה) נוהג אף באוכלין <em>חיים</em>, ולא רק בתבשיל. ומאידך מביא הסברא ש<span class="he-q">האידנא דדשים בה רבים</span> — כיון שרבים דשים ורגילים בכך, ואין הנזק מצוי, יש בו צד להקל. וזהו אותו יסוד עצמו של "בטל הטעם בטלה הגזרה" שראינו בגילוי. <em>ולמעשה — שאל את רבך.</em>
+<div class="rishon-card">
+<strong>The Gaon — even for raw foods; and “דדשים בה רבים” (Pischei Teshuva ס״ק ה).</strong> The Pischei Teshuva reports, from the Binas Adam, in the name of the Vilna Gaon, that the law of the evil spirit applies also to <em>raw</em> foods, and not only to a cooked dish:
+<blockquote>&laquo;&nbsp;<span class="he-q">כתב בשם הגר״א ז״ל דה״ה אוכלין חיין כמו צנון</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד קט״ז ס״ק ה)</span></blockquote>
+And the Gaon adds a stringency, which the Pischei Teshuva reports as it stands — note in passing that the printed text here has ועם for ואם, a typographical error of the edition, which we copy without correcting:
+<blockquote>&laquo;&nbsp;<span class="he-q">ועם עשה כן יזרקם במקום שלא ימצא אותם אדם</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד קט״ז ס״ק ה)</span></blockquote>
+There follows, upon those very words, the reason to be lenient at the present time. Whose is it? The פת״ש writes « והוא ז״ל כתב ע״ז » — and the ז״ל just before it is the Gaon’s, which would give the sentence to the Gaon, while the ע״ז, “upon this”, argues for a third party commenting. We report the ambiguity without settling it:
+<blockquote>&laquo;&nbsp;<span class="he-q">דהאידנא כיון דדשים בה רבים</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד קט״ז ס״ק ה)</span></blockquote>
+And this is exactly the foundation we saw in gilui: a fear that is no longer met no longer holds the prohibition up. <em>And for practice — ask your Rav.</em>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>הכלל העולה — שלוש מדרגות בסכנה :</strong> מן הסוגיא כולה עולות שלוש מדרגות: <strong>(א) סכנה ודאית</strong> (ארס, קיר נטוי) — אסורה לגמרי, אף בדיעבד, ואין לה ביטול. <strong>(ב) סכנה רחוקה</strong> (בשר ודג) — בטלה בששים, ולכתחילה מחמירים. <strong>(ג) הרחקה והנהגה</strong> (תחת המטה, רוח רעה) — לכתחילה בלבד, ובדיעבד או ב"דדשים בה רבים" יש מקום להקל. ובזה מתיישבת כל הסוגיא.
+<div class="pilpul-box">
+<strong>The rule that emerges — three degrees in danger.</strong> From the whole sugya three degrees arise, and each has its cited source. <strong>(a) Certain danger</strong> — venom itself: the Nekudos HaKesef say it is another matter, because it “thins” exceedingly, and the Chut HaShani, reported by the Pischei Teshuva, holds that it is not nullified. <strong>(b) Remote danger</strong> — meat and fish: it is nullified in sixty according to the responsa the Pischei Teshuva follows for the halacha, and one is more stringent than in a prohibition as regards dry within its own kind, according to the Taz. <strong>(c) Distancing and conduct</strong> — the dish under the bed: lechatchilah only, and bedi’eved the Shevus Yaakov finds no concern of prohibition at all.
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">7. בל תשקצו — לאו שבכללות</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">7. בל תשקצו — a lav shebichlalus</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיף ו')
-  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 העתק</button>
+<h3>The Mechaber’s text (seif 6)
+  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-6">
-"<strong>אסור לאכול מאכלים ומשקים שנפשו של אדם קצה בהם, כגון משקים ואוכלים שנתערבו בהם קיא או צואה וליחה סרוחה וכיוצא בהם; וכן אסור לאכול ולשתות בכלים הצואים שנפשו של אדם קצה בהם, כגון כלים של בית הכסא וכלי זכוכית שמקיזים בהם; וכן לא יאכל בידים מזוהמות ועל גבי כלים מלוכלכים — שכל אלו בכלל אַל תְּשַׁקְּצוּ אֶת נַפְשֹׁתֵיכֶם.</strong>"
+<p>&laquo;&nbsp;<strong>אסור לאכול מאכלים ומשקים שנפשו של אדם קצה בהם כגון משקים ואוכלים שנתערבו בהם קיא או צואה וליחה סרוחה וכיוצא בהם</strong>&nbsp;&raquo; <span class="source-ref">(שו״ע יו״ד קט״ז:ו)</span></p>
+<p>&laquo;&nbsp;<strong>וכן אסור לאכול ולשתות בכלים הצואים שנפשו של אדם קצה בהם כגון כלים של בית הכסא וכלי זכוכית שמקיזים בהם וכיוצא בהם</strong>&nbsp;&raquo; <span class="source-ref">(שו״ע יו״ד קט״ז:ו)</span></p>
+<p>&laquo;&nbsp;<strong>וכן לא יאכל בידים מזוהמות ועל גבי כלים מלוכלכים שכל אלו בכלל אל תשקצו את נפשותיכם</strong>&nbsp;&raquo; <span class="source-ref">(שו״ע יו״ד קט״ז:ו)</span></p>
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>חקירה — מהו טיב הלאו ד"בל תשקצו" :</strong> פסוק "אל תשקצו את נפשותיכם" (ויקרא י״א) נאמר בעיקרו על אכילת שרצים. וחקרו: האם איסור אכילת דבר מאוס הוא <strong>לאו דאורייתא</strong> גמור (ולוקין עליו), או שאינו אלא <span class="he-q">לאו שבכללות</span> — שכולל דברים רבים בלשון אחת, שאין לוקין עליו ?
+<p><em>Translation</em>: it is forbidden to eat foods and drink liquids from which a person’s soul recoils, such as drinks and foods into which vomit, excrement, putrid discharge and the like have become mixed; likewise it is forbidden to eat and drink from soiled vessels from which a person’s soul recoils, such as the vessels of a privy and the glass vessels used for bloodletting, and the like; likewise he should not eat with soiled hands or upon filthy vessels — for all these are included in “do not make your souls detestable”.</p>
+<div class="hakira-box">
+<strong>Chakira — what is the nature of the lav of “bal teshaktzu”?</strong> The verse was said in the first place regarding the eating of creeping creatures. The gemara nevertheless extends it well beyond food:
+<blockquote>&laquo;&nbsp;<span class="he-q">הַמְשַׁהֶה אֶת נְקָבָיו עוֹבֵר מִשּׁוּם ״לֹא תְשַׁקְּצוּ״</span>&nbsp;&raquo; <span class="source-ref">(מכות ט״ז ע״ב)</span></blockquote>
+Hence the question: is eating something repulsive a complete <strong>lav of the Torah</strong>, for which one receives malkus, or is it only a <span class="he-q">לאו שבכללות</span> — a single lav embracing many things, for which one does not receive malkus?
 </div>
 
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ הט״ז (ס״ק ו) — לאו שבכללות, מכת מרדות ולא מלקות :</strong> מכריע הט״ז ש"בל תשקצו" הוא <strong>לאו שבכללות</strong> — לאו אחד הכולל ענייני שיקוץ רבים (שרצים, דברים מאוסים, השהיית נקביו) — וקיימא לן ש<span class="he-q">אין לוקין על לאו שבכללות</span>. לפיכך האוכל דבר מאוס אינו לוקה <strong>מלקות</strong> דאורייתא, אלא <strong>מכת מרדות</strong> מדרבנן בלבד. ויסוד הדבר ש<em>איסור עצמותו דרבנן</em> או לכל הפחות אינו לאו פרטי שחל עליו מלקות.
+<div class="teruts-box">
+<strong>The Taz’s decision (ס״ק ו) — a lav shebichlalus: makkas mardus and not malkus.</strong> The Taz begins from the Tur, which reports in the name of the Rashba the penalty actually imposed:
+<blockquote>&laquo;&nbsp;<span class="he-q">בטור כ׳ בשם רשב״א בזה היו מכין אותו מכת מרדות</span>&nbsp;&raquo; <span class="source-ref">(ט״ז יו״ד קט״ז ס״ק ו)</span></blockquote>
+He then asks why it should not be full malkus, and he answers:
+<blockquote>&laquo;&nbsp;<span class="he-q">נראה משום דהוי לאו שבכללות שדברים הרבה נכללים בו וכל לאו שבכללות אין לוקין עליו</span>&nbsp;&raquo; <span class="source-ref">(ט״ז יו״ד קט״ז ס״ק ו)</span></blockquote>
+One who eats something repulsive therefore does not receive the malkus of the Torah, but a makkas mardus.
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>פולמוס הט״ז והמהרש״ל (פתחי תשובה ס״ק ט) :</strong>
+<div class="machloket-box">
+<strong>The Taz and the Maharshal — and what their dispute is actually about (Pischei Teshuva ס״ק ט).</strong> The Pischei Teshuva, on this seif, refers to the Taz’s astonishment at the Maharshal. It must be said exactly what is at issue: that astonishment does not bear on the parameters of revulsion, but on a practice of prohibition adopted because of danger, whose custom the Maharshal reports — and which the Taz calls into question from siman 60.
 <table>
-<tr><th>שיטה</th><th>גדר בל תשקצו</th><th>מקור</th></tr>
-<tr>
-  <td><strong>הט״ז (ס״ק ו)</strong></td>
-  <td>לאו שבכללות, מכת מרדות בלבד; ונחלק על דברי המהרש״ל בגדרי האיסור</td>
-  <td>ט״ז ס״ק ו; פ״ת ס״ק ט</td>
-</tr>
-<tr>
-  <td><strong>המהרש״ל (ים של שלמה)</strong></td>
-  <td>החמיר בגדרי השיקוץ; והפתחי תשובה (ס״ק ט) מביא הפולמוס ביניהם</td>
-  <td>פ״ת ס״ק ט</td>
-</tr>
+<tr><th>Who</th><th>What is said</th><th>Source</th></tr>
+<tr><td><strong>The Taz (ס״ק ו)</strong></td><td>בל תשקצו is a לאו שבכללות: makkas mardus, not malkus</td><td>ט״ז יו״ד קט״ז ס״ק ו</td></tr>
+<tr><td><strong>The Maharshal (Yam shel Shlomo)</strong></td><td class="he">&laquo;&nbsp;<span class="he-q">ומכאן נהגו לאסור הכבשים שגדל בהם מין שחין של נגע שרגילין למות בהן</span>&nbsp;&raquo;</td><td>ט״ז יו״ד קט״ז ס״ק ו</td></tr>
+<tr><td><strong>The Taz’s objection</strong></td><td class="he">&laquo;&nbsp;<span class="he-q">ויש לתמוה הרי אמרינן בסי׳ ס׳ דאפי׳ אכלתה הבהמה סם המות שלה כשרה</span>&nbsp;&raquo;</td><td>ט״ז יו״ד קט״ז ס״ק ו</td></tr>
+<tr><td><strong>The Pischei Teshuva’s reference</strong></td><td class="he">&laquo;&nbsp;<span class="he-q">עט״ז סק״ו מה שתמה על מהרש״ל</span>&nbsp;&raquo;</td><td>פת״ש יו״ד קט״ז ס״ק ט</td></tr>
 </table>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה — בין מלקות למכת מרדות :</strong> אם בל תשקצו לאו גמור — לוקין עליו, ובספקו הולכים לחומרא דאורייתא; ואם אינו אלא לאו שבכללות (מכת מרדות) — הקילו בו טפי, ובספקו אפשר להקל כדין דרבנן. ועוד נפקא מינה לענין <span class="he-q">חולה</span> או צורך גדול, שבדרבנן יש מקום להקל יותר. <em>ולמעשה — שאל את רבך.</em>
+<div class="nafka-mina-box">
+<strong>Nafka mina — between malkus and makkas mardus.</strong> If bal teshaktzu were a full lav, one would receive malkus, and a doubt in it would be settled by the stringency of a Torah doubt. If it is only a לאו שבכללות carrying a makkas mardus, greater leniency has been shown in it, and a doubt in it may be handled as a rabbinic doubt. A further nafka mina touches the sick person or a pressing need, where a rabbinic matter leaves more room for leniency. <em>And for practice — ask your Rav.</em>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">8. מסוכנת — מדקדקים, בעל נפש, והיתר מסברא</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">8. מסוכנת — the scrupulous, the ba’al nefesh, and a heter drawn from a sevara</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ז')
-  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 העתק</button>
+<h3>The text of the Mechaber and the Rama (seif 7)
+  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-7">
-"<strong>מסוכנת, אף על פי שניתרת בשחיטה — המדקדקים מחמירים על עצמם שלא לאכלה.</strong> (הגה: בהמה שהורה בה חכם מסברא ולא נמצא הדין בפירוש שהיא מותרת — בעל נפש לא יאכל ממנה.)"
+<p>&laquo;&nbsp;<strong>מסוכנת אף על פי שניתרת בשחיטה המדקדקים מחמירים על עצמם שלא לאכלה</strong>&nbsp;&raquo; <span class="source-ref">(שו״ע יו״ד קט״ז:ז)</span></p>
+<p>&laquo;&nbsp;<strong>בהמה שהורה בה חכם מסברא ולא נמצא הדין בפירוש שהיא מותרת בעל נפש לא יאכל ממנה (גמ׳ פ׳ א״ט והג״א שם)</strong>&nbsp;&raquo; <span class="source-ref">(רמ״א יו״ד קט״ז:ז)</span></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — היתר גמור ומדת חסידות :</strong><br>
-<span class="he-q">מסוכנת</span> — בהמה הנוטה למות — אם נשחטה כדין, <strong>מותרת מעיקר הדין</strong>. ואף על פי כן:<br>
-• ה<span class="he-q">מדקדקים</span> מחמירים על עצמם שלא לאוכלה.<br>
-• וכן (הרמ״א) בהמה שהותרה ב<span class="he-q">סברת חכם</span> ולא נמצא הדין בפירוש — <span class="he-q">בעל נפש</span> לא יאכל ממנה.<br><br>
-הרי שאין כאן איסור, אלא מדת זהירות וחסידות לבעלי הנפש.
+<p><em>Translation</em>: an animal at the point of death, although it becomes permitted through shechitah, the scrupulous take upon themselves the stringency of not eating it. (Gloss: an animal about which a sage ruled from his own reasoning, the din not being found written explicitly as permitted — a man of soul will not eat of it.)</p>
+<div class="yesod-box">
+<strong>The foundation — a full heter, and a measure of chassidus.</strong><br>The <span class="he-q">מסוכנת</span> — an animal failing toward death — is, if it was slaughtered according to the din, <strong>permitted by the din itself</strong>. And even so:<br><br>• the <span class="he-q">מדקדקים</span> take upon themselves not to eat of it;<br>• and likewise (Rama) an animal permitted by a sage’s reasoning alone, the din not being found written explicitly — a <span class="he-q">בעל נפש</span> will not eat of it.<br><br>There is therefore no prohibition here, but a measure of caution. The Shach, at his ס״ק ח, marks its limit exactly:
+<blockquote>&laquo;&nbsp;<span class="he-q">לא יאכל בעל נפש ממנה אבל אם יש לו קבלה שהיא מותרת מותר</span>&nbsp;&raquo; <span class="source-ref">(ש״ך יו״ד קט״ז ס״ק ח)</span></blockquote>
+Where the sage has a received tradition, and not his own reasoning alone, the ba’al nefesh himself has no further reason to abstain.
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>חקירה — מהו מעמדו של היתר מסברא (פתחי תשובה ס״ק י) :</strong> חידש הרמ״א שבעל נפש יחמיר בדבר ש<span class="he-q">הותר מסברא</span> בלבד. ויש לחקור: הלא סברת חכם אף היא בכלל ההוראה, וכמ״ש "אם אינו דין — נעשנו דין" ? ומדוע יחוש בעל הנפש להחמיר ? אלא שהיכן שאין לדבר מקור מפורש אלא הכרעת הדעת בלבד, נשתייר בו צד חשש, ועל כן בעל הנפש מחמיר במקום שיש בו שמץ סכנה לגוף או לנפש.
+<div class="hakira-box">
+<strong>Chakira — what is the status of a heter drawn from a sevara?</strong> The Rama asks the ba’al nefesh to hold back before what was permitted only by a sage’s reasoning. There is room to ask: is a sage’s reasoning not itself full hora’ah? Why would the ba’al nefesh be wary of it? One must say that where the matter has no written source but only the decision of a judgment, a side of doubt remains in it, and it is for that side that the ba’al nefesh holds back. This chakira is the page’s own; it is ascribed to no one, and it remains open.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הבחנת הדינים (פתחי תשובה ס״ק י) :</strong> מדקדק הפתחי תשובה בין שני דינים שבסעיף: <span class="he-q">מדקדקים</span> — לענין מסוכנת ממש (חשש בריאות הבהמה), ו<span class="he-q">בעל נפש</span> — לענין היתר מסברא (חשש בעצם ההוראה). שניהם <strong>אינם איסור</strong> אלא מדת חסידות, ואין למחות ביד הנוהג היתר; אבל ראוי לבעל נפש להחמיר. <em>ולמעשה — שאל את רבך.</em>
+<div class="rishon-card">
+<strong>What the Pischei Teshuva (ס״ק י) actually discusses.</strong> His entry on this seif does not divide the מדקדקים from the בעל נפש: it asks how far voluntary stringency reaches. He first reports, in the name of the Issur veHetter, that keeping away from anything unseemly is a mitzvah:
+<blockquote>&laquo;&nbsp;<span class="he-q">ולהרחיק עצמו מכל דבר כיעור מצוה היא</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד קט״ז ס״ק י)</span></blockquote>
+He then reads the Rama’s gloss: what it says is that there is no obligation, not that there is no merit.
+<blockquote>&laquo;&nbsp;<span class="he-q">היינו שאין החיוב על בעל נפש להחמיר</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד קט״ז ס״ק י)</span></blockquote>
+<blockquote>&laquo;&nbsp;<span class="he-q">אבל מ״מ אם רוצה להחמיר גם בזה מצוה היא</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד קט״ז ס״ק י)</span></blockquote>
+And he finally reports the exactly opposite view — not directly, but through the Soles LaMincha, who has it from the Toras HaAsham:
+<blockquote>&laquo;&nbsp;<span class="he-q">שוב ראיתי בסולת למנחה כלל ע״ו דין ח׳ שכתב בשם תורת האשם</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד קט״ז ס״ק י׳)</span></blockquote>
+That view holds that a stringency adopted where the Amoraim were not stringent is a fault and not a merit:
+<blockquote>&laquo;&nbsp;<span class="he-q">דמי שרוצה להחמיר לנהוג איסור בדבר שלא מצינו שהחמירו אמוראי כגון מה שנתבטל בששים או בכלי שני הוי כמו אפיקורסות ויצא שכרו בהפסדו</span>&nbsp;&raquo; <span class="source-ref">(פת״ש יו״ד קט״ז ס״ק י)</span></blockquote>
+The Pischei Teshuva leaves the two sides facing one another. We report, and we do not decide. <em>And for practice — ask your Rav.</em>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">9. חקירה ונפקא מינה למעשה</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">9. Chakira and nafka mina for practice</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ Detailed explanation (level 1)</a>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה הכוללת של הסימן :</strong> מה דין הסכנה לעומת דין האיסור, ומתי הגזרה בטלה עם טעמה ?
+<div class="hakira-box">
+<strong>The chakira running through the whole siman:</strong> what is the regime of danger set against the regime of prohibition, and when does a gezeirah lapse with its reason?
 <ul class="stylish">
-<li><strong>גילוי</strong> — גזרה התלויה בטעמה, ש<span class="he-q">בטל הטעם בטלה הגזרה</span> (לא נאסרה במנין), כנגד חלב סי' קט״ו "שנמנה במנין".</li>
-<li><strong>בשר ודג</strong> — סכנה חמורה מאיסור: ריחא לחוד מותר בדיעבד, בישול ממש אסור אף בדיעבד, וצריך ששים אף ביבש במינו.</li>
-<li><strong>ביטול הסכנה</strong> — בטל בששים (חוות יאיר/שבות יעקב), אך ארס נחש אינו בטל.</li>
-<li><strong>סכנתא חמירא מאיסורא</strong> — ספק סכנה חמור מספק איסור, שומר נפשו ירחק, ואסור לסמוך על הנס.</li>
-<li><strong>בל תשקצו</strong> — לאו שבכללות, מכת מרדות ולא מלקות (ט״ז).</li>
-<li><strong>מסוכנת</strong> — מדת חסידות לבעל נפש, לא איסור.</li>
+<li><strong>Gilui</strong> — a measure never enacted by a count, and which therefore lapses with the fear that carried it (Taz ס״ק א), set against the milk of siman 115, which the Rama upholds even with no non-kosher animal in the herd.</li>
+<li><strong>Meat and fish</strong> — danger heavier than prohibition: smell alone permitted bedi’eved, actual cooking forbidden even bedi’eved, and sixty required even in dry within its own kind (Taz ס״ק ב–ג).</li>
+<li><strong>Nullifying the danger</strong> — nullified in sixty according to the Chavos Yair and the Shevus Yaakov, snake venom excepted according to the Chut HaShani (Pischei Teshuva ס״ק ג); the Nekudos HaKesef confine the stringency of danger to doubt alone.</li>
+<li><strong>סכנתא חמירא מאיסורא</strong> — a doubt of danger weighs more than a doubt of prohibition, he who guards his life keeps far, and one does not rely on a miracle (Rama, seif 5).</li>
+<li><strong>בל תשקצו</strong> — a lav shebichlalus: makkas mardus and not malkus (Taz ס״ק ו).</li>
+<li><strong>מסוכנת</strong> — not a prohibition but a measure of caution for the ba’al nefesh; and the Shach (ס״ק ח) confines that measure to what has no received tradition.</li>
 </ul>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה למעשה (לפי הכרעת רוב האחרונים) :</strong>
+<div class="nafka-mina-box">
+<strong>Nafka mina for practice</strong> (as the sources cited above give it, each in its place):
 <ol class="stylish">
-<li>גילוי — <strong>מותר בזמן הזה</strong> שאין נחשים מצויים (מחבר ס״א), ויש מן הגדולים שנהגו זהירות (פ״ת ס״ק א).</li>
-<li>בשר ודג — אין לבשלם או לאוכלם יחד; <strong>קינוח והדחה</strong> (אכילה ושתייה) בין זה לזה (רמ״א ס״ג).</li>
-<li>סכנה — צריך <strong>ששים אף ביבש במינו</strong> (ט״ז ס״ק ב); ארס ממש אינו בטל (פ״ת ס״ק ג).</li>
-<li>סכנתא חמירא מאיסורא — <strong>שומר נפשו ירחק</strong> מכל סכנה, ואסור לסמוך על הנס (רמ״א ס״ה; ועיין חו״מ תכ״ז).</li>
-<li>בל תשקצו — מכת מרדות, לא מלקות (ט״ז ס״ק ו); מסוכנת — חסידות לבעל נפש (רמ״א ס״ז).</li>
+<li>Gilui — <strong>permitted at the present time</strong>, snakes not being found among us (Mechaber, seif 1); and great men kept up caution (Pischei Teshuva ס״ק א).</li>
+<li>Meat and fish — one does not cook or eat them together; <strong>kinuach and hadachah</strong> — eating and drinking something in between (Rama, seif 3).</li>
+<li>Roasting side by side — forbidden lechatchilah, permitted bedi’eved; but forbidden even bedi’eved if the fat runs from one to the other (Shach ס״ק א).</li>
+<li>A dangerous substance — <strong>sixty even dry within its own kind</strong> (Taz ס״ק ב); for the halacha the Pischei Teshuva follows the responsa that nullify in sixty, venom itself excepted (Pischei Teshuva ס״ק ג).</li>
+<li>סכנתא חמירא מאיסורא — <strong>he who guards his life keeps far</strong> from every danger, and it is forbidden to rely on a miracle (Rama, seif 5; and see חו״מ סי׳ תכ״ז).</li>
+<li>The dish under the bed — a distancing lechatchilah; bedi’eved the Shevus Yaakov finds no concern of prohibition (Pischei Teshuva ס״ק ד).</li>
+<li>בל תשקצו — makkas mardus and not malkus (Taz ס״ק ו); מסוכנת — a measure of caution for the ba’al nefesh, not a prohibition (Rama, seif 7).</li>
 </ol>
-<em>ולמעשה — שאל את רבך.</em>
+<em>And for practice — ask your Rav.</em>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">10. טבלאות סיכום</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">10. Summary tables</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">טבלה — הדינים שבסימן והכרעתם</h3>
-
-<table>
-<tr>
-  <th>הנושא</th>
-  <th>הדין</th>
-  <th>מקור</th>
-</tr>
-<tr>
-  <td><strong>גילוי (משקים מגולים)</strong></td>
-  <td>מותר בזמן הזה — בטל הטעם בטלה הגזרה (לא נאסר במנין)</td>
-  <td>מחבר ס״א; ט״ז ס״ק א</td>
-</tr>
-<tr>
-  <td><strong>בשר ודג — ריחא (צלייה)</strong></td>
-  <td>לכתחילה אסור, בדיעבד מותר</td>
-  <td>רמ״א ס״ב; ש״ך ס״ק א</td>
-</tr>
-<tr>
-  <td><strong>בשר ודג — בישול ממש</strong></td>
-  <td>אסור אף בדיעבד; צריך ששים אף ביבש במינו</td>
-  <td>מחבר ס״ב; ט״ז ס״ק ב–ג</td>
-</tr>
-<tr>
-  <td><strong>בין בשר לדג</strong></td>
-  <td>קינוח והדחה — לאכול ולשתות דבר ביניהם</td>
-  <td>רמ״א ס״ג</td>
-</tr>
-<tr>
-  <td><strong>ביטול דבר סכנה</strong></td>
-  <td>בטל בששים; אך ארס נחש אינו בטל</td>
-  <td>פ״ת ס״ק ג</td>
-</tr>
-<tr>
-  <td><strong>סכנתא חמירא מאיסורא</strong></td>
-  <td>ספק סכנה חמור מספק איסור; שומר נפשו ירחק</td>
-  <td>רמ״א ס״ה; ב״י בשם הש״ס</td>
-</tr>
-<tr>
-  <td><strong>תחת המטה (רוח רעה)</strong></td>
-  <td>לכתחילה אסור; בדיעבד יש מקילין</td>
-  <td>מחבר ס״ה; פ״ת ס״ק ד–ה</td>
-</tr>
-<tr>
-  <td><strong>בל תשקצו</strong></td>
-  <td>לאו שבכללות — מכת מרדות, אין לוקין</td>
-  <td>מחבר ס״ו; ט״ז ס״ק ו</td>
-</tr>
-<tr>
-  <td><strong>מסוכנת / היתר מסברא</strong></td>
-  <td>מותר מן הדין; מדקדק ובעל נפש מחמיר</td>
-  <td>מחבר ורמ״א ס״ז; פ״ת ס״ק י</td>
-</tr>
-</table>
-
-<h3 class="he-h3">טבלה — מחלוקות וחקירות מרכזיות בסימן</h3>
+<h3>Table — the dinim of the siman and their decision</h3>
 
 <table>
-<tr>
-  <th>נושא</th>
-  <th>צד א'</th>
-  <th>צד ב'</th>
-</tr>
-<tr>
-  <td>גזרה התלויה בטעמה</td>
-  <td>גילוי — בטל הטעם בטלה הגזרה (לא נמנה)</td>
-  <td>חלב סי' קט״ו — נמנה במנין, לא בטל</td>
-</tr>
-<tr>
-  <td>גילוי בזמן הזה</td>
-  <td>המחבר — מותר לגמרי</td>
-  <td>של״ה והגר״א — זהירות (פ״ת ס״ק א)</td>
-</tr>
-<tr>
-  <td>ריחא בבשר ודג</td>
-  <td>בדיעבד מותר (כשאר ריחא)</td>
-  <td>בישול ממש — אסור אף בדיעבד (סכנה)</td>
-</tr>
-<tr>
-  <td>ביטול דבר סכנה בששים</td>
-  <td>חוות יאיר/שבות יעקב — בטל בס'</td>
-  <td>ארס נחש — אינו בטל (פ״ת ס״ק ג)</td>
-</tr>
-<tr>
-  <td>גדר בל תשקצו</td>
-  <td>הט״ז — לאו שבכללות, מכת מרדות</td>
-  <td>פולמוס המהרש״ל (פ״ת ס״ק ט)</td>
-</tr>
+<tr><th>Subject</th><th>The din</th><th>Source</th></tr>
+<tr><td><strong>Gilui (uncovered liquids)</strong></td><td>Permitted at the present time — the fear gone, the measure goes: it was never enacted by a count</td><td>מחבר ס״א; ט״ז ס״ק א</td></tr>
+<tr><td><strong>Meat and fish — smell (roasting)</strong></td><td>Forbidden lechatchilah, permitted bedi’eved; forbidden even bedi’eved if the fat runs from one to the other</td><td>רמ״א ס״ב; ש״ך ס״ק א</td></tr>
+<tr><td><strong>Meat and fish — actual cooking</strong></td><td>Forbidden even bedi’eved; and sixty is required even in dry within its own kind</td><td>מחבר ס״ב; ט״ז ס״ק ב–ג</td></tr>
+<tr><td><strong>Between meat and fish</strong></td><td>Kinuach and hadachah — eating and drinking something in between</td><td>רמ״א ס״ג</td></tr>
+<tr><td><strong>Sweat (seif 4)</strong></td><td>All human sweat is a poison, except that of the face</td><td>מחבר ס״ד; ש״ך ס״ק ב</td></tr>
+<tr><td><strong>Nullification of a dangerous substance</strong></td><td>Nullified in sixty according to the responsa the Pischei Teshuva follows; snake venom excepted</td><td>פ״ת ס״ק ג; נקודות הכסף</td></tr>
+<tr><td><strong>סכנתא חמירא מאיסורא</strong></td><td>A doubt of danger weighs more than a doubt of prohibition; he who guards his life keeps far</td><td>רמ״א ס״ה; ב״י בשם הש״ס</td></tr>
+<tr><td><strong>Under the bed (ruach ra’ah)</strong></td><td>Forbidden lechatchilah; bedi’eved, the Shevus Yaakov finds no concern of prohibition</td><td>מחבר ס״ה; פ״ת ס״ק ד–ה</td></tr>
+<tr><td><strong>בל תשקצו</strong></td><td>A lav shebichlalus — makkas mardus, one does not receive malkus</td><td>מחבר ס״ו; ט״ז ס״ק ו</td></tr>
+<tr><td><strong>מסוכנת / a heter drawn from a sevara</strong></td><td>Permitted by the din; the scrupulous and the ba’al nefesh take the stringency upon themselves — except where there is a received tradition</td><td>מחבר ורמ״א ס״ז; ש״ך ס״ק ח</td></tr>
 </table>
 
-<h3 class="he-h3">טבלה — מקורות הסוגיא</h3>
+<h3>Table — the siman’s central machlokos and chakiros</h3>
 
-<div class="rishon-card" dir="rtl">
-<strong>גמרא :</strong> עבודה זרה ל׳. (גילוי וארס נחש) · חולין ק״ג: (כיצד צולין, בשר ודג, ריחא; מר בר רב אשי) · ברכות נ״ד:–נ״ה. (שמירת הגוף, סכנתא חמירא) · מכות ט״ז: (בל תשקצו)
+<table>
+<tr><th>Subject</th><th>First side</th><th>Second side</th></tr>
+<tr><td>A gezeirah hanging on its reason</td><td>Gilui — never enacted by a count, hence lapsed (Taz ס״ק א)</td><td>The milk of siman 115 — upheld even with no non-kosher animal in the herd (Rama, יו״ד קט״ו:א)</td></tr>
+<tr><td>Gilui at the present time</td><td>The Mechaber — permitted (seif 1)</td><td>The Shelah and the Gaon — caution (Pischei Teshuva ס״ק א)</td></tr>
+<tr><td>Smell in meat and fish</td><td>The Issur veHetter and the Maharshal — permitted bedi’eved, and the Maharshal even lechatchilah in one oven (Shach ס״ק א)</td><td>The Be’er Sheva — forbidden even bedi’eved (Shach ס״ק א)</td></tr>
+<tr><td>Nullifying a dangerous substance in sixty</td><td>Chavos Yair and Shevus Yaakov — nullified (Pischei Teshuva ס״ק ג)</td><td>Chut HaShani — snake venom is not nullified (Pischei Teshuva ס״ק ג)</td></tr>
+<tr><td>What the Taz’s dispute with the Maharshal is about</td><td>The Maharshal reports the custom of forbidding lambs afflicted with a sore, because of danger (Taz ס״ק ו)</td><td>The Taz is astonished at it from siman 60, and the Pischei Teshuva (ס״ק ט) refers to that astonishment</td></tr>
+<tr><td>Voluntary stringency where the din permits</td><td>The Issur veHetter — keeping away from anything unseemly is a mitzvah (Pischei Teshuva ס״ק י)</td><td>The Toras HaAsham — a stringency adopted where the Amoraim were not stringent is a fault (Pischei Teshuva ס״ק י)</td></tr>
+</table>
+
+<h3>Table — the sources of the sugya</h3>
+
+<div class="rishon-card">
+<strong>Gemara:</strong> עבודה זרה ל׳ ע״א (gilui and snake venom) · פסחים ע״ו ע״ב (perek כיצד צולין: ריחא לאו מילתא, and Mar bar Rav Ashi) · פסחים קי״ב ע״א (food under the bed) · מכות ט״ז ע״ב (בל תשקצו) · ביצה ה׳ ע״א (דבר שבמנין)
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>ראשונים :</strong> רמב״ם (מאכלות אסורות; רוצח ושמירת הנפש פי״א–פי״ב) · רשב״א (תורת הבית) · טור · בית יוסף · איסור והיתר הארוך (כלל ל״ט) · מרדכי · הגהות שערי דורא
+<div class="rishon-card">
+<strong>Rishonim:</strong> רמב״ם (מאכלות אסורות; רוצח ושמירת הנפש, chapters 11 and 12) · רשב״א (reported by the Tur on seif 6) · טור · בית יוסף · איסור והיתר הארוך (כלל ל״ט, and כלל כ״ג quoted by the Taz) · הגהות מרדכי · הגהות שערי דורא
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>אחרונים :</strong> רמ״א · ט״ז (טורי זהב) · ש״ך (שפתי כהן) · פרי חדש · מהרש״ל (ים של שלמה) · חוות יאיר · שבות יעקב · הגר״א (ביאור הגר״א) · של״ה · פתחי תשובה · אגרות משה · ציץ אליעזר · יביע אומר · ערוך השולחן
+<div class="rishon-card">
+<strong>Acharonim:</strong> רמ״א · ט״ז · ש״ך · נקודות הכסף · מהרש״ל (ים של שלמה) · באר שבע · של״ה · חוות יאיר · שבות יעקב · חוט השני · הגר״א · בינת אדם · תורת האשם · פתחי תשובה
 </div>
 
 <hr class="ornament">
 
-  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;direction:rtl;">
-    <a href="niveau-1-base-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">→ רמה א' — יסוד</a>
-    <a href="niveau-3-synthese-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">רמה ג' — סיכום ←</a>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;">
+    <a href="niveau-1-base-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">← Level 1 — Base</a>
+    <a href="niveau-3-synthese-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">Level 3 — Synthesis →</a>
   </div>
 
 <div class="yh-watermark">
 ~ ~ ~ ~ ~<br>
-<strong>DAAT</strong> · <strong>הרב יוסף חיים סממה</strong><br>
-תלמיד חכם · מעביר שיעורים בהלכה ובחסידות<br>
-<em>פלפול ועיון בדברים האסורים משום גילוי וסכנה · סימן קט״ז · ⚡ רמה ב' — לַמְדָּן</em>
+<strong>DAAT</strong> · <strong>Rav Yossef Haim Samama</strong><br>
+Talmid chacham · gives shiurim in halacha and chassidus<br>
+<em>Pilpul and study on the things forbidden because of gilui and of danger · siman 116 · ⚡ level 2 — Lamdan</em>
 </div>
 
-  <div class="disclaimer" style="background:#fff8e1;border-right:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;direction:rtl;text-align:right;">
-    ⚠️ תוכן זה נכתב לצורך לימוד ועיון בלבד. לכל הוראה למעשה (לְמַעֲשֶׂה) — שאל את רבך.
+  <div class="disclaimer" style="background:#fff8e1;border-left:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;">
+    ⚠️ This content is written for study and examination only. For any practical ruling (לְמַעֲשֶׂה) — ask your Rav.
   </div>
 
   <div style="background:#1A1F3A;border-top:2px solid #C5A55A;padding:24px 40px;text-align:center;margin-top:0;">
-    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;direction:rtl;">
-      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">לעמוד הבית</a> · <a href="index-en.html" style="color:#C5A55A;text-decoration:none;">סימן קט״ז</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ לתמיכה</a>
+    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;">
+      DAAT דעת — © 5786 / 2026 · <a href="../../../index-en.html" style="color:#C5A55A;text-decoration:none;">Home</a> · <a href="index-en.html" style="color:#C5A55A;text-decoration:none;">Siman 116</a> · <a href="../../../soutenir-en.html" style="color:#C5A55A;text-decoration:none;">♥ Support</a>
     </p>
   </div>
 
@@ -854,7 +864,7 @@
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="../../../assets/js/chat-widget.js" defer></script>
 <script src="../../../assets/js/daat-copy.js" defer></script>
-<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="מצא חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">הצטרף לחברותא</span></a>
+<a href="../../../communaute-en.html#khavroutha" class="daat-khavroutha-fab" title="Find a chavrusa for this siman"><span class="icon">📖</span><span class="label-long">Join a chavrusa</span></a>
   <script src="/assets/js/share-text.js" defer></script>
 </body>
 </html>

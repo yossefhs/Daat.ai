@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="fr" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,8 +23,7 @@
   @page { size: A4; margin: 2cm 1.8cm; }
   body {
     font-family: 'Frank Ruhl Libre', 'David', 'Georgia', 'Cambria', serif;
-    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0;
-    direction: rtl; text-align: right;
+    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0; text-align: left;
   }
   .he {
     direction: rtl; text-align: right;
@@ -72,14 +71,12 @@
   h2.section-title {
     color: #fff; background: #1A1F3A;
     font-size: 16pt; padding: 10px 18px; margin-top: 30px;
-    border-right: 6px solid #C5A55A;
-    direction: rtl; text-align: right;
+    border-left: 6px solid #C5A55A; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3 {
     color: #1A1F3A; font-size: 14pt; margin-top: 25px;
-    border-right: 4px solid #C5A55A; padding-right: 10px;
-    direction: rtl; text-align: right;
+    border-left: 4px solid #C5A55A; padding-left: 10px; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3.he-h3 {
@@ -89,8 +86,7 @@
   }
   h4 {
     color: #5a4a1a; font-size: 12pt;
-    margin-top: 20px; margin-bottom: 8px; font-weight: bold;
-    direction: rtl; text-align: right;
+    margin-top: 20px; margin-bottom: 8px; font-weight: bold; text-align: left;
   }
 
   .sacred-text {
@@ -100,8 +96,8 @@
     font-size: 12.5pt; line-height: 1.9;
   }
   .pilpul-box {
-    background: #eef3fa; border-right: 4px solid #1A1F3A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #eef3fa; border-left: 4px solid #1A1F3A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .pilpul-box::before {
     content: "⚡ פלפול"; display: block;
@@ -110,8 +106,8 @@
     direction: rtl; text-align: right;
   }
   .kashya-box {
-    background: #fef4e4; border-right: 4px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #fef4e4; border-left: 4px solid #C5A55A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .kashya-box::before {
     content: "❓ קושיא"; display: block;
@@ -120,8 +116,8 @@
     direction: rtl; text-align: right;
   }
   .teruts-box {
-    background: #e8f4ea; border-right: 4px solid #2d7a3e;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #e8f4ea; border-left: 4px solid #2d7a3e;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .teruts-box::before {
     content: "✓ תירוץ"; display: block;
@@ -130,8 +126,8 @@
     direction: rtl; text-align: right;
   }
   .hakira-box {
-    background: #f5e9f5; border-right: 4px solid #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #f5e9f5; border-left: 4px solid #6a1b7a;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .hakira-box::before {
     content: "🔍 חקירה"; display: block;
@@ -141,8 +137,7 @@
   }
   .nafka-mina-box {
     background: #fff4e6; border: 2px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; border-radius: 4px; text-align: left;
   }
   .nafka-mina-box::before {
     content: "⚖️ נפקא מינה"; display: block;
@@ -152,8 +147,7 @@
   }
   .yesod-box {
     background: #1A1F3A; color: #fff;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
   .yesod-box::before {
     content: "💎 יסוד"; display: block;
@@ -164,7 +158,7 @@
   .yesod-box .he-q { color: #C5A55A; }
   .machloket-box {
     background: #faf5ff; border: 1.5px dashed #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
 
   table {
@@ -173,10 +167,9 @@
   }
   th {
     background: #1A1F3A; color: #fff;
-    padding: 10px; text-align: right; direction: rtl; font-size: 11pt;
+    padding: 10px; text-align: left; font-size: 11pt;
   }
-  td {
-    direction: rtl; text-align: right;
+  td { text-align: left;
     border: 1px solid #d4c89a; padding: 10px; vertical-align: top;
   }
   tr:nth-child(even) td { background: #FAF6EE; }
@@ -197,12 +190,11 @@
   }
 
   ol.stylish li, ul.stylish li { margin-bottom: 8px; }
-  ol.stylish, ul.stylish { padding-right: 22px; padding-left: 0; }
+  ol.stylish, ul.stylish { padding-left: 22px; padding-right: 0; }
 
   .rishon-card {
-    background: #f7f3e4; border-right: 4px solid #8a6a1a;
-    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt;
-    direction: rtl; text-align: right;
+    background: #f7f3e4; border-left: 4px solid #8a6a1a;
+    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt; text-align: left;
   }
   .rishon-card strong { color: #1A1F3A; font-size: 11pt; }
 
@@ -217,10 +209,9 @@
 
   .index-box {
     background: #FAF6EE; border: 1px solid #C5A55A;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
-  .index-box ol { margin: 5px 0; padding-right: 25px; padding-left: 0; }
+  .index-box ol { margin: 5px 0; padding-left: 25px; padding-right: 0; }
   .index-box li { margin-bottom: 5px; }
 
   h3.sugya {
@@ -237,7 +228,6 @@
     font-size: 12pt;
     text-decoration: none;
     border-bottom: 1px dotted #C5A55A;
-    direction: rtl;
   }
   a.daat-explain:hover { color: #8a6a1a; border-bottom-style: solid; }
 
@@ -273,7 +263,7 @@
   "headline": "Siman ק״ט · Niveau 2 Lamdan — Pilpoul approfondi · יבש ביבש שנתערב, חד בתרי בטיל וביטול בששים",
   "description": "Niveau 2 (Lamdan) du Siman ק״ט (Yoreh De'ah) — Pilpoul approfondi. חד בתרי בטיל (אחרי רבים להטות, ט״ז ס״ק א), סברת ממה נפשך (רשב״א, ש״ך ס״ק ז), מין במינו מול שלא במינו (ס׳ מחשש בישול, ר״ן, ט״ז ס״ק ב), דרבנן ודאורייתא, ובישול התערובת — חקירה et נפקא מינה.",
   "url": "https://daattorah.com/yd/109/lamdan",
-  "inLanguage": "he-IL",
+  "inLanguage": "fr-FR",
   "isAccessibleForFree": true,
   "author": {
     "@id": "https://daattorah.com/#rav-samama"
@@ -382,33 +372,34 @@
 <!-- COUVERTURE -->
 <div class="cover">
   <div class="ornament">✦ ❖ ✦</div>
-  <div class="badge-top">DAAT · רמה ב' — לַמְדָּן</div>
-  <h1>שולחן ערוך · יורה דעה</h1>
-  <div class="subtitle">דין יבש ביבש שנתערב — עיון ופלפול</div>
+  <div class="badge-top">DAAT · NIVEAU 2 — LAMDAN</div>
+  <h1>Siman 109 — Niveau Lamdan : un morceau interdit qu’on ne reconnaît plus</h1>
+  <div class="subtitle">Le sec mêlé au sec — annulation par la majorité, et ce que la cuisson défait — étude et pilpoul</div>
 
   <div class="he-title">סימן ק״ט</div>
   <div class="he-sub">חד בתרי בטיל, ממה נפשך, מין במינו מול שלא במינו, ובישול התערובת</div>
-  <div class="he-subject">עיון, פלפול, שיטות הראשונים והאחרונים</div>
+  <div class="he-subject">Sougya, chakiroth, shitoth des Richonim et des Aharonim, nafka minoth</div>
 
-  <div class="level-badge">⚡ ללומדים ותלמידי חכמים ⚡</div>
+  <div class="level-badge">⚡ Pour les lomdim et les talmidei hakhamim ⚡</div>
 
   <div class="ornament">✦ ❖ ✦</div>
 
-  <h2 style="margin-top:20px; color: #1A1F3A;">פלפול ועיון מעמיק</h2>
+  <h2 style="margin-top:20px; color: #1A1F3A;">Pilpoul et étude approfondie</h2>
   <p style="font-size:12pt; color:#555;">
-    סוגיות, מקורות, חקירת היסוד, מחלוקות ראשונים ואחרונים,<br>
-    נפקא מינות להלכה ועיון בשיטות
+    Sougyoth, sources, hakira de fond, ma’hlokoth des Richonim et des Aharonim,<br>
+    nafka minoth pour la halakha et examen des shitoth
   </p>
 
   <div class="credits">
-    <p><strong>הנושא :</strong><br>
+    <p><strong>Sujet :</strong><br>
     שולחן ערוך יורה דעה סימן ק״ט (ב׳ סעיפים)<br>
-    עם נושאי כלים: ש״ך (שפתי כהן), ט״ז (טורי זהב), פרי מגדים, פתחי תשובה</p>
+    avec ש״ך (שפתי כהן), ט״ז (טורי זהב), פתחי תשובה</p>
 
-    <p><strong>יסוד הסוגיא בש״ס :</strong><br>
-    ביצה ג׳:–ד׳. וזבחים ע״ג: (חד בתרי בטיל, אחרי רבים להטות) · חולין ק׳. וחולין ק״ח. (מין במינו ושלא במינו, נותן טעם) · גיטין נ״ד: (תרי ותרי, ממה נפשך)</p>
+    <p><strong>Racine de la sougya dans le Chas :</strong><br>
+    חולין ק׳. וק״ח. (מין במינו ושלא במינו) · גיטין נ״ד: (חד בתרי) · ביצה ג׳: (ביטול ברוב, דבר שיש לו מתירין) · זבחים ע״ג (ביטול ברוב)<br>
+    et, cités par le Chakh ס״ק ג : תוספות זבחים ע״ג ע״א ומנחות כ״ב ע״ב (קמח בקמח)</p>
 
-    <p><strong>עריכה ועיון :</strong><br>
+    <p><strong>Rédaction :</strong><br>
     הרב יוסף חיים סממה · DAAT</p>
   </div>
 </div>
@@ -416,421 +407,496 @@
 <div class="page-break"></div>
 
 <!-- TABLE DES MATIÈRES -->
-<h2 class="section-title">📑 תוכן העניינים</h2>
+<h2 class="section-title">📑 Table des matières</h2>
 
-<div class="index-box" dir="rtl">
+<div class="index-box">
 <ol>
-  <li><strong>הקדמת הסוגיא</strong> — יבש ביבש שאינה ראויה להתכבד, וחד בתרי בטיל (סעיף א')</li>
-  <li><strong>שורש הביטול ברוב</strong> — אחרי רבים להטות, ט״ז ס״ק א, וקושיית מ״ט אין צריך ס'</li>
-  <li><strong>סברת ממה נפשך</strong> — הרשב״א (ש״ך ס״ק ז), אכילה אחת אחת ושנים כאחד, ואיסור שלשתן יחד</li>
-  <li><strong>מין במינו מול שלא במינו</strong> — מ״ט מין במינו אין צריך ס' (98:2), ושלא במינו בעי ס' מחשש בישול (ר״ן, ט״ז ס״ק ב)</li>
-  <li><strong>דרבנן ודאורייתא</strong> — ב״י אין חילוק; ש״ך ס״ק ט–י דשלא במינו דרבנן אין צריך ס', וגליון הא״ז</li>
-  <li><strong>דקדוקי הש״ך</strong> — קמח בקמח = לח בלח (ס״ק ג), והאיסור עומד בעצמו אף מבושל (ס״ק ד)</li>
-  <li><strong>החקירה הגדולה דסעיף ב'</strong> — בישול התערובת, ט״ז ס״ק ב — מ״ט חוזר ונאסר מן התורה</li>
-  <li><strong>להרבות עד ס' ואין מבטל איסור</strong> (ט״ז ס״ק ג) · נודע קודם — שם היתר, שתי קדירות (ש״ך ס״ק יב)</li>
-  <li><strong>פתחי תשובה</strong> — רוב מנין וכפל (ס״ק א), הריב״ש והנוב״י (ס״ק ב), ר׳ עקיבא איגר בנאבד (ס״ק ג), מליחה כבישול (ס״ק ד)</li>
-  <li><strong>חקירה ונפקא מינה למעשה</strong></li>
-  <li><strong>טבלאות סיכום מקיפות</strong></li>
+  <li><strong>Introduction à la sougya</strong> — le sec mêlé au sec, la pièce qui n’est pas digne d’être servie, et חד בתרי בטיל (séif 1)</li>
+  <li><strong>La racine de l’annulation par la majorité</strong> — אחרי רבים להטות, le Taz ס״ק א, et pourquoi soixante n’est pas requis</li>
+  <li><strong>La sevara de ממה נפשך</strong> — le Rashba rapporté par le Chakh ס״ק ז, manger une à une, et l’interdit des trois ensemble</li>
+  <li><strong>מין במינו contre שלא במינו</strong> — pourquoi le même genre se passe de soixante, et pourquoi l’autre genre l’exige même à sec (le Ran, le Taz ס״ק ב)</li>
+  <li><strong>Dérabanan et déoraïta</strong> — le Beit Yossef ne distingue pas ; le Chakh ס״ק ט–י et le Ran distinguent, et la glose de l’Or Zaroua’</li>
+  <li><strong>Les précisions du Chakh</strong> — קמח בקמח vaut du liquide dans du liquide (ס״ק ג), et l’interdit reste entier même cuit (ס״ק ד)</li>
+  <li><strong>La grande hakira du séif 2</strong> — la cuisson du mélange, le Taz ס״ק ב : comment l’interdit revient-il de la Torah ?</li>
+  <li><strong>Ajouter jusqu’à soixante, sans annuler d’interdit</strong> (ט״ז ס״ק ג) · su avant la cuisson — le nom de permis, et les deux marmites (ש״ך ס״ק יב)</li>
+  <li><strong>Pitchei Techouva</strong> — majorité de nombre et double (ס״ק א), le Noda’ biYehouda (ס״ק ב), Rabbi Akiva Eiger sur la part perdue (ס״ק ג), la salaison (ס״ק ד)</li>
+  <li><strong>Hakira et nafka mina pour la pratique</strong></li>
+  <li><strong>Tableaux récapitulatifs</strong></li>
 </ol>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<!-- לשון השולחן ערוך — סעיף א' -->
-<h2 class="section-title">📜 לשון השולחן ערוך — סעיף א'
-  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 העתק</button>
+<!-- Texte du Choulhan Aroukh — séif 1 -->
+<h2 class="section-title">📜 Le texte du Choulhan Aroukh — séif 1
+  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 Copier</button>
 </h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ Explication détaillée (niveau 1)</a>
 
 <div class="sacred-text he" data-copy-block id="cp-1">
-  <p>חֲתִיכָה שֶׁאֵינָהּ רְאוּיָה לְהִתְכַּבֵּד שֶׁנִּתְעָרְבָה בַּאֲחֵרוֹת, מִין בְּמִינָהּ, יָבֵשׁ בְּיָבֵשׁ (כְּלוֹמַר שֶׁאֵין נִבְלָל וְהָאִסּוּר עוֹמֵד בִּפְנֵי עַצְמוֹ אֶלָּא שֶׁנִּתְעָרֵב וְאֵינוֹ נִכָּר) — חַד בִּתְרֵי בָּטֵל, וּמֻתָּר לְאָכְלָן אָדָם אֶחָד כָּל אַחַת בִּפְנֵי עַצְמָהּ, אֲבָל לֹא יֹאכַל שְׁלָשְׁתָּן יַחַד; וְיֵשׁ אוֹסְרִין שֶׁיֹּאכְלֵם אָדָם אֶחָד אֲפִלּוּ זֶה אַחַר זֶה. (הגה: וְכֵן רָאוּי לִנְהֹג לְכַתְּחִלָּה, וְיֵשׁ מַחְמִירִין לְהַשְׁלִיךְ אֶחָד אוֹ לִתְּנוֹ לְעוֹבֵד כּוֹכָבִים, וְאֵינוֹ אֶלָּא חֻמְרָא בְּעָלְמָא. וְכָל זֶה בְּמִינוֹ, אֲבָל שֶׁלֹּא בְּמִינוֹ וְאֵינוֹ נִכָּר — אֲפִלּוּ יָבֵשׁ בְּיָבֵשׁ בָּעֵינַן שִׁשִּׁים. וְאֵין חִלּוּק בְּכָל זֶה בֵּין אִסּוּר דְּרַבָּנָן לְאִסּוּר דְּאוֹרָיְתָא. עַיֵּן סִימָן קכ״ב אִם נִתְעָרְבוּ כֵּלִים.)</p>
+<p>דין יבש ביבש שנתערב. ובו ב׳ סעיפים</p>
+<p>חתיכה שאינה ראויה להתכבד שנתערבה באחרות מין במינה יבש ביבש (דהיינו שאין נבלל והאיסור עומד בעצמו אלא שנתערב ואינו מכירו) (ב״י בשם תשובת הרשב״א והרמב״ן וסה״ת) חד בתרי בטיל ומותר לאכלן אדם אחד כל אחת בפני עצמה אבל לא יאכל שלשתם יחד ויש מי שאוסר לאכלם אדם אחד אפילו זה אחר זה</p>
+<p>הגה וכן יש לנהוג לכתחילה ויש מחמירין להשליך אחד או ליתן לעובד כוכבים (הגהות ש״ד בשם מוהר״ם ורש״י בעבודת כוכבים דף ע״ד ע״א) ואינו אלא חומרא בעלמא וכל זה כשנתערב במינו אבל שלא במינו ואין מכירו אפילו יבש ביבש צריך ששים (טור בשם בעל התרומה ועוד הרבה פוסקים) ואין חלוק בכל זה בין אם האיסור מדרבנן או מדאורייתא (בית יוסף בשם הפוסקים דלא כהגהת ש״ד) וע״ל סימן קכ״ב אם נתערבו כלים ביחד</p>
+<span class="source-ref">(שו״ע יו״ד ק״ט:א)</span>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">1. הקדמת הסוגיא — יבש ביבש שאינה ראויה להתכבד</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">1. Introduction à la sougya — le sec mêlé au sec, et la pièce qui n’est pas digne d’être servie</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">היסוד — מהו "יבש ביבש"
-  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 העתק</button>
+<h3>Le fondement — qu’est-ce que « le sec dans le sec » ?
+  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 Copier</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-2">
-יסוד הסימן: חתיכת איסור <strong>יבשה</strong> — שאינה נימוחה ולא נבללת בהיתר אלא <span class="he-q">עומדת בפני עצמה</span> וניכרת בגופה, אלא שנתערבה בחתיכות היתר <strong>של מינה</strong> ואין אנו יודעים איזו היא האסורה — דין מיוחד לה: אינה נדונה ב<strong>טעם</strong> (כלח בלח שמתפשט) אלא ב<strong>רוב מנין</strong>. ולפיכך <span class="he-q">חד בתרי בטיל</span> — חתיכה אחת בטלה בשתים, ברוב, בלא צורך בששים כלל. ותנאי הוא ש<strong>אינה ראויה להתכבד</strong> בה לפני האורחים, שאם ראויה להתכבד — דבר חשוב הוא ואינו בטל אף באלף (עיין סימנים ק״א, ק״י).
+<div class="sacred-text" data-copy-block id="cp-2">
+Le siman part d’une situation précise. Un morceau <strong>sec</strong> d’interdit — qui ne s’est pas délité et ne s’est pas fondu dans le permis, mais qui, selon la parenthèse même du Mehaber, <span class="he-q">שאין נבלל והאיסור עומד בעצמו אלא שנתערב ואינו מכירו</span>, « ne se mêle pas, l’interdit se tient de lui-même, seulement il s’est mélangé et on ne le reconnaît plus » — est tombé parmi des morceaux permis <strong>de son propre genre</strong>, et nul ne sait lequel des trois est l’interdit. Un tel mélange ne se juge pas au <strong>goût</strong>, comme le liquide répandu dans le liquide, mais au <strong>nombre</strong>. De là : <span class="he-q">חד בתרי בטיל</span> — un morceau est annulé dans deux, à la simple majorité, sans qu’il faille soixante. Et tout cela à une condition : que la pièce ne soit pas <strong>digne d’être servie</strong> à des hôtes ; car une pièce importante ne s’annule pas, fût-ce dans mille (voir les simanim 101 et 110).
 </div>
+<blockquote>«&nbsp;<span class="he-q">חתיכה שאינה ראויה להתכבד שנתערבה באחרות מין במינה יבש ביבש</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״ט:א)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>למה דווקא יבש ולא לח :</strong> ב<em>לח בלח</em> האיסור נימוח ומתפשט בכל ההיתר, ואין דנים אלא בטעמו — שיעורו ששים. אבל ב<em>יבש ביבש</em> כל חתיכה שלמה בעינה, גוף האיסור עומד בפני עצמו ולא נתן טעם בחבירו; כל החיסרון הוא שאיננו <span class="he-q">מכירים</span> איזו אסורה. וחיסרון זה אינו ענין לטעם אלא לבירור — ולבירור די ב<strong>רוב</strong>, אחרי רבים להטות. וכבר דקדק הש״ך (ס״ק ג) ד<span class="he-q">קמח בקמח</span> אינו "יבש" אלא דינו כ<strong>לח בלח</strong> (רשב״א, ותוספות זבחים ומנחות), שהרי הדקין מתערבים זה בזה כדבר הנימוח.
+<div class="pilpul-box">
+<strong>Pourquoi le sec et non le liquide :</strong> dans le <em>liquide mêlé au liquide</em>, le corps de l’interdit se défait et se répand dans tout le permis ; on ne juge plus que son goût, et la mesure en est soixante. Dans le <em>sec mêlé au sec</em>, chaque morceau demeure entier, le corps de l’interdit se tient de lui-même et n’a pas donné de goût à son voisin ; tout le manque est que l’on ne <em>reconnaît</em> plus lequel est interdit. Or ce manque-là n’est pas affaire de goût mais de discernement — et pour discerner, la <strong>majorité</strong> suffit, selon le verset אחרי רבים להטות. Le Chakh précise dès son ס״ק ג que <span class="he-q">קמח בקמח</span> ne relève pas du sec : la farine se mêle, et son din est celui du liquide dans le liquide. Il l’apporte au nom du Bah, puis l’appuie sur le Rashba et sur les Tossafoth de Zevahim et de Menahoth.
 </div>
+<blockquote>«&nbsp;<span class="he-q">דקמח בקמח כיון דנבלל מיקרי לח בלח</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ט ס״ק ג)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>הש״ך ס״ק א — ראויה להתכבד :</strong> "<span class="he-q">ראויה להתכבד אינה בטלה אפילו באלף</span>", בין במינה בין שלא במינה (ועיין סימנים ק״א, ק״י). ולפיכך כל סימן זה אינו אמור אלא ב<strong>שאינה ראויה להתכבד</strong>; דאם ראויה להתכבד — אף יבש ביבש במינו אינה בטלה ברוב.
+<div class="rishon-card">
+<strong>Le Chakh ס״ק א — « digne d’être servie » :</strong> le Chakh pose la borne du siman tout entier. Une pièce digne d’être servie ne s’annule pas, <em>ni dans son genre ni hors de son genre</em>, fût-ce dans mille, et il renvoie au siman 101 plus haut et au siman 110 plus bas. Tout ce qui suit n’est donc dit que d’une pièce qui <strong>n’est pas</strong> digne d’être servie ; car si elle l’est, même le sec dans le sec et dans son genre ne s’annule pas par la majorité.
 </div>
+<blockquote>«&nbsp;<span class="he-q">ראויה להתכבד בין במינה בין שלא במינה לא בטלה אפילו באלף</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ט ס״ק א)</span></blockquote>
+
+<div class="rishon-card">
+<strong>Le Chakh ס״ק ב — la seconde borne :</strong> le lemme du Chakh porte sur les mots מין במינה du Mehaber, et il annonce d’avance ce que la glose du Rama dira plus bas : hors de son genre, soixante sont requis. Les deux ס״ק qui ouvrent le siman posent donc ensemble son champ exact — pièce non honorable, et mélange dans son propre genre.
+</div>
+<blockquote>«&nbsp;<span class="he-q">אבל שלא במינה צריך ס׳ כדבסמוך בהג״ה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ט ס״ק ב)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">2. שורש הביטול ברוב — אחרי רבים להטות</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">2. La racine de l’annulation par la majorité — אחרי רבים להטות</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זהו שורש כל הסימן, וכל כובד ידו של הט״ז (ס״ק א) נתון בו.</p>
+<p style="margin:15px 0; font-style:italic;">C’est la racine de tout le siman, et c’est là que le Taz met le poids de son ס״ק א.</p>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — מ״ט יבש ביבש אין צריך ששים :</strong> בכל איסורין שנתערבו דרך טעם בעינן <span class="he-q">ששים</span>; ומדוע כאן די ב<strong>רוב</strong> — אף שנים כנגד אחד (חד בתרי) ?
+<div class="hakira-box">
+<strong>La hakira — pourquoi le sec dans le sec ne demande-t-il pas soixante ?</strong> Partout où des interdits se mêlent par le goût, il faut soixante. Pourquoi ici la <strong>majorité</strong> suffit-elle — deux morceaux seulement contre un ?
 </div>
 
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ הט״ז (ס״ק א) — דין רוב מן התורה :</strong> מבאר הט״ז דחד בתרי בטיל הוא מדין <span class="he-q">אחרי רבים להטות</span> — בירור הרוב מן התורה. שיעור ששים אינו אלא במקום שיש <strong>טעם</strong> ממשי המתפשט (לח, או שלא במינו), ושם צריך לבטל את הטעם. אבל ביבש במינו אין טעם כלל — האיסור עומד בעצמו ולא נתן טעם בהיתר; כל החיסרון הוא בידיעה איזו חתיכה אסורה, ולזה די ב<strong>רוב חתיכות היתר</strong> שנלך אחריו. והוסיף הט״ז: לא הצריכו חכמים אף ס' מאחר שהחתיכה <span class="he-q">אינה ראויה להתכבד</span>, ולא העמידוה חכמים אלא על <strong>חומרא</strong> שלא יאכל שלשתן יחד.
+<div class="teruts-box">
+<strong>La réponse du Taz (ס״ק א) — c’est le din de la majorité, de la Torah :</strong> le Taz explique que חד בתרי בטיל tient au verset <span class="he-q">אחרי רבים להטות</span>. La mesure de soixante n’a sa place que là où un <strong>goût</strong> réel se répand — dans le liquide, ou hors du genre —, et il faut alors annuler ce goût. Dans le sec et dans son genre il n’y a pas de goût du tout : l’interdit se tient de lui-même et n’a rien donné au permis ; tout le manque est de savoir quel morceau est interdit, et la majorité des morceaux permis y suffit. Le Taz ajoute deux choses qu’il faut lire ensemble : les Sages <em>n’ont pas</em> exigé soixante <strong>parce que la pièce n’est pas digne d’être servie</strong> ; et ce qu’ils ont exigé, à titre de rigueur, c’est seulement qu’on ne mange pas les trois en une fois — car alors, de quelque côté qu’on se tourne, on mange l’interdit dans cette bouchée même.
+</div>
+<blockquote>«&nbsp;<span class="he-q">דכתיב אחרי רבים להטות ולא החמירו רבנן להצריך ס׳ כיון שאינה ראוייה להתכבד</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ט ס״ק א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">רק שהחמירו שלא יאכל שלשתן כא׳ דהא ממה נפשך אוכל האיסור באותה אכילה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ט ס״ק א)</span></blockquote>
+
+<div class="pilpul-box">
+<strong>Un point de méthode à ne pas manquer :</strong> chez le Taz, la sevara de <strong>ממה נפשך</strong> sert à <em>interdire</em> — elle montre que celui qui avale les trois d’un coup avale l’interdit à coup sûr. Chez le Rashba, que le Chakh rapporte au ס״ק ז, le même raisonnement sert à <em>permettre</em> — celui qui mange un morceau peut dire de chacun qu’il est le permis. Ce n’est pas une contradiction : c’est le même calcul lu dans les deux sens, et c’est ce qui explique que le séif permette une chose et interdise l’autre dans la même phrase.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הש״ך ס״ק ו — אף חתיכה גדולה בטלה ברוב :</strong> אין הביטול תלוי בגודל החתיכות אלא ב<span class="he-q">מנין</span>: אף חתיכת איסור גדולה בטלה בשתי חתיכות היתר קטנות ממנה, כשאין אנו מכירים איזו האסורה — שהכל הולך אחר רוב המנין (אחרי רבים להטות), לא אחר רוב המשקל.
+<div class="rishon-card">
+<strong>Le Chakh ס״ק ו — la majorité se compte, elle ne se pèse pas :</strong> le Chakh glose les mots בתרי בטיל : cela veut dire <em>par la majorité</em>, selon le verset ; et même s’il n’y a de majorité que dans ces deux morceaux-là <strong>alors qu’ils sont plus petits que l’interdit</strong>, c’est annulé. Le Chakh ajoute entre parenthèses la condition du cas : qu’on ne sache pas lequel est interdit, comme il l’expliquera au ס״ק ח.
 </div>
+<blockquote>«&nbsp;<span class="he-q">ברוב כדכתיב אחרי רבים להטות ואפילו ליכא רוב אלא בהנך תרי שהם קטנים מהאיסור</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ט ס״ק ו)</span></blockquote>
+
+<div class="rishon-card">
+<strong>Le Chakh ס״ק ה — ce que le Mehaber a laissé de côté :</strong> le Chakh relève que le Tour rapportait ici une ma’hloketh des poskim sur les <em>interdits dont on ne peut tirer profit</em>, tel le hametz à Pessah, et que le Mehaber l’a omise à cet endroit — parce qu’il s’est appuyé sur ce qu’il écrit à Orah Haïm 447, que même dans mille cela ne s’annule pas, et qu’il y a des avis pour qui le hametz est comme les autres interdits. Il renvoie encore à son propre ס״ק יב du siman 102.
+</div>
+<blockquote>«&nbsp;<span class="he-q">הטור הביא מחלוקת הפוסקים גבי אסורי הנאה כגון חמץ בפסח</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ט ס״ק ה)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">3. סברת ממה נפשך — הרשב״א</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">3. La sevara de ממה נפשך — le Rashba</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — אכילה אחת אחת מותרת, שלשתן יחד אסורה :</strong><br>
-מאחר שהביטול הוא בירור הרוב — מותר לאדם <span class="he-q">לאכלן כל אחת בפני עצמה</span>, מטעם <strong>ממה נפשך</strong>: בכל חתיכה שיאכל יש לתלות שהיא ההיתר (הרוב). אבל אם יאכל <span class="he-q">שלשתן יחד</span> — בודאי יאכל גם את חתיכת האיסור, ואין כאן ספק כלל. לפיכך אסר המחבר את אכילת שלשתן כאחת, והתיר אכילתן אחת אחת.
+<div class="yesod-box">
+<strong>Le fondement — manger une à une est permis, les trois ensemble est interdit :</strong><br>
+Puisque l’annulation n’est ici qu’un discernement par la majorité, il est permis de manger les morceaux <strong>un à un</strong>. Le Chakh donne la parole du Rashba : quand il mange le premier, il dit « celui-ci est le permis » ; et ainsi de chacun ; et même du dernier il peut dire que ce qui a été mangé en premier était l’interdit, qu’il s’en est allé, et que celui-ci est du permis — ce qu’on ne peut plus dire des choses qui se mêlent. Mais s’il les mange <strong>tous les trois ensemble</strong>, il n’y a plus rien à dire : il avale l’interdit avec certitude. C’est pourquoi le Mehaber interdit la bouchée des trois et permet de les manger séparément.
 </div>
+<blockquote>«&nbsp;<span class="he-q">דכשאוכל הא׳ אני אומר זהו של היתר</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ט ס״ק ז)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">חד בתרי בטיל ומותר לאכלן אדם אחד כל אחת בפני עצמה אבל לא יאכל שלשתם יחד</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״ט:א)</span></blockquote>
 
-<div class="machloket-box" dir="rtl">
-<strong>אדם אחד — אחת אחת או שתים כאחת :</strong>
+<div class="machloket-box">
+<strong>Une seule personne — un à un, ou deux d’un coup ?</strong>
 <table>
-<tr><th>שיטה</th><th>אכילת אדם אחד</th><th>מקור</th></tr>
+<tr><th>Shita</th><th>Ce qu’une seule personne peut manger</th><th>Source</th></tr>
 <tr>
-  <td><strong>הרשב״א (ועיקר, ש״ך ס״ק ז)</strong></td>
-  <td>אוכל <strong>כל אחת בפני עצמה</strong>, ואף <span class="he-q">שתים כאחת</span> מותר — דאכתי איכא חדא דנימא בה ממה נפשך; ולא נאסר אלא שלשתן יחד</td>
+  <td><strong>Le Rashba, rapporté et retenu par le Chakh</strong></td>
+  <td>Chacun séparément ; et le Chakh en déduit qu’il est de même permis d’en manger <strong>un puis deux, ou deux puis un</strong> — il reste toujours de quoi dire « l’interdit est celui-là » —, à l’exclusion des trois ensemble. Il appuie cette déduction sur ce qu’il expliquera au ס״ק יב, qu’il est permis de les cuire en deux marmites.</td>
   <td>ש״ך ס״ק ז</td>
 </tr>
 <tr>
-  <td><strong>ויש אוסרין (סוף ס״א)</strong></td>
-  <td>אדם אחד לא יאכלם <strong>אף זה אחר זה</strong> — שמא יצרף את הכל לאכילה אחת בצירוף הכרס</td>
+  <td><strong>Le « il y a qui interdit » (fin du séif 1)</strong></td>
+  <td>Une seule personne ne les mangera pas, <strong>même l’un après l’autre</strong></td>
   <td>מחבר ס״א</td>
 </tr>
 </table>
 </div>
+<blockquote>«&nbsp;<span class="he-q">דה״ה דמותר לאכול א׳ וב׳ או ב׳ וא׳ לאפוקי שלשתן יחד דלא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ט ס״ק ז)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ויש מי שאוסר לאכלם אדם אחד אפילו זה אחר זה</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״ט:א)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>הכרעת הש״ך (ס״ק ז) :</strong> מביא הש״ך את לשון הרשב״א ש<span class="he-q">שנים יאכל זה אחר זה</span> — שאף בשתי חתיכות איכא ממה נפשך, שכן עדיין נשארה אחת שאפשר לתלות בה את האיסור. ולפי זה אין האיסור אלא ב<strong>שלשתן יחד דווקא</strong>, שאז ודאי אכל את האיסור ואין מקום לתלות. והרמ״א הכריע ש<span class="he-q">לכתחילה</span> ראוי לנהוג כדעת ה"יש אוסרין" שלא יאכלם אדם אחד אף זה אחר זה, ויש מחמירין להשליך אחת או לתתה לנכרי — <strong>ואינו אלא חומרא בעלמא</strong>.
+<div class="pilpul-box">
+<strong>Ce que le Chakh retient, et ce que le Rama en fait :</strong> pour le Chakh, l’interdit ne porte que sur les <strong>trois ensemble</strong>, parce que là seulement il n’y a plus rien à supposer. Le Rama, lui, tranche l’usage : il est bon de se conduire <em>a priori</em> comme le « il y a qui interdit », et une seule personne ne les mangera pas même l’un après l’autre. Quant à ceux qui sont plus rigoureux encore et jettent un morceau ou le donnent à un non-juif, le Rama écrit en toutes lettres que <strong>ce n’est qu’une rigueur</strong>, rien de plus.
 </div>
+<blockquote>«&nbsp;<span class="he-q">וכן יש לנהוג לכתחילה ויש מחמירין להשליך אחד או ליתן לעובד כוכבים</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״ט:א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ואינו אלא חומרא בעלמא</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״ט:א)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">4. מין במינו מול שלא במינו — חשש הבישול</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">4. מין במינו contre שלא במינו — la crainte de la cuisson</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זוהי אחת מן ההבחנות החריפות שבסימן, ושורש לדין סעיף ב'.</p>
+<p style="margin:15px 0; font-style:italic;">C’est la distinction la plus aiguë du séif 1, et c’est d’elle que tout le séif 2 dépendra.</p>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — מ״ט שלא במינו בעי ששים אף ביבש :</strong> אם ביבש ביבש <em>במינו</em> די ברוב (חד בתרי) — מדוע ביבש ביבש <strong>שלא במינו</strong> (חתיכת איסור שנתערבה בחתיכות היתר ממין אחר, ואינה ניכרת) הצריכו <span class="he-q">ששים</span>, והלא אף כאן האיסור עומד בעצמו ולא נתן טעם ?
+<div class="hakira-box">
+<strong>La hakira — pourquoi soixante hors du genre, alors même que c’est sec ?</strong> Si, dans le sec et dans son genre, la majorité suffit, pourquoi le Rama exige-t-il <strong>soixante</strong> quand le morceau interdit est tombé parmi des morceaux d’un <em>autre</em> genre et qu’on ne le reconnaît plus ? Là aussi l’interdit se tient de lui-même et n’a donné aucun goût.
 </div>
+<blockquote>«&nbsp;<span class="he-q">וכל זה כשנתערב במינו אבל שלא במינו ואין מכירו אפילו יבש ביבש צריך ששים</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״ט:א)</span></blockquote>
 
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ הר״ן (ט״ז ס״ק ב) — גזירה שמא יבשלם :</strong> החילוק הוא ב<strong>שורש הביטול מן התורה</strong>:
+<div class="teruts-box">
+<strong>La réponse — la mesure du sec est prise sur ce qu’il deviendrait cuit (le Ran, chez le Chakh ס״ק ט ; le Taz ס״ק ב) :</strong> la distinction tient à la <strong>racine de l’annulation dans la Torah</strong>.
 <ul class="stylish">
-<li><strong>מין במינו</strong> — בטל מן התורה <span class="he-q">ברוב</span> אף בלח בלח (סימן צ״ח ס״ב), שאין טעמו ניכר כלל; לפיכך הקלו חכמים אף ביבש שלא להצריך ס'.</li>
-<li><strong>שלא במינו</strong> — מן התורה אינו בטל אלא ב<strong>ששים</strong> (לח בלח), שטעמו ניכר; ולפיכך אף ביבש הצריכוהו ס', <span class="he-q">גזירה שמא יבשלם</span> — שאם יבשל את התערובת יצא הטעם ויתפשט, ויבוא לידי איסור <strong>דאורייתא</strong> בפחות מששים.</li>
+<li><strong>Dans son genre</strong> — le Taz écrit que même le liquide dans le liquide n’y demande soixante que <em>rabbiniquement</em>, et il renvoie pour cela au siman 98 ; les Sages n’ont donc pas alourdi le sec, même rabbiniquement.</li>
+<li><strong>Hors de son genre</strong> — là, le liquide dans le liquide exige soixante <em>de la Torah</em>, puisqu’il y a don de goût ; les Sages ont donc étendu la rigueur au sec lui-même, <strong>pour qu’on n’en vienne pas à un interdit de la Torah par la cuisson</strong>.</li>
 </ul>
 </div>
+<blockquote>«&nbsp;<span class="he-q">דבמינו אפי׳ בלח בלח אין צריך ס׳ רק מדרבנן כמ״ש סי׳ צ״ח ס״ח ביבש אפי׳ מדרבנן לא החמירו</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ט ס״ק ב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל באינו מינו שמן התורה צריך בלח בלח ששים כיון שיש נתינת טעם</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ט ס״ק ב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ע״כ החמירו רבנן גם ביבש להצריך ס׳ שלא יבוא לידי איסור דאורייתא בבישול</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ט ס״ק ב)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שורש הענין :</strong> נמצא שכל ההבחנה תלויה בדין ה<strong>לח</strong>: ביבש לעולם אין טעם ממשי, אך חכמים תקנו את דין היבש על פי מה שיהיה אם יתבשל. במינו — אף אם יתבשל יישאר ברוב (98:2), על כן הקלו; שלא במינו — אם יתבשל בעי ס' מן התורה, על כן החמירו אף ביבש לכתחילה. וזהו יסוד גדול שעליו בנוי כל <strong>סעיף ב'</strong>: עיקר החשש הוא ה<span class="he-q">בישול</span> שיוציא את הטעם הכמוס.
+<div class="pilpul-box">
+<strong>La racine de l’affaire :</strong> toute la distinction se prend donc sur le <strong>liquide</strong>. Dans le sec, il n’y a jamais de goût réel ; mais les Sages ont réglé le din du sec sur ce qu’il serait <em>s’il venait à être cuit</em>. Dans son genre — même cuit, la majorité suffirait ; on n’a donc rien alourdi. Hors du genre — cuit, il faudrait soixante de la Torah ; on a donc alourdi dès l’état sec. Et c’est le fondement sur lequel le <strong>séif 2</strong> est bâti tout entier : ce qu’on redoute, c’est la <strong>cuisson</strong>, qui fera sortir le goût enfermé. Le Chakh dit la même chose en rapportant la langue du Ran, et sa parenthèse à lui renvoie au siman 98 séif 2 — là où le Taz, au même endroit, renvoie au séif 8. Les deux renvois ne visent pas la même chose, et il vaut de les lire séparément.
 </div>
+<blockquote>«&nbsp;<span class="he-q">מין בשאינו מינו דבלח בלח אזלינן בתר טעמא אפילו ביבש נמי בעינן ס׳</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ט ס״ק ט)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>הש״ך ס״ק ח — מהו "שלא במינו" :</strong> מבאר הש״ך דשלא במינו היינו כשהאיסור <span class="he-q">נתרסק דק דק</span> ונתערב, או כמה מיני חתיכות שאחת מהן טריפה ואינה ניכרת בין השאר; ובכל אלו אף יבש ביבש בעי ששים, מן הטעם הנ״ל דחיישינן לבישול.
+<div class="rishon-card">
+<strong>Le Chakh ס״ק ח — qu’appelle-t-on « hors de son genre » ?</strong> Le Chakh donne deux figures. Celle du Tour : l’interdit s’est <em>émietté en morceaux fins</em> qu’on ne distingue plus les uns des autres. Et celle qu’il ajoute lui-même : deux ou trois genres sont en présence, on sait que l’un d’eux est interdit et on ignore lequel — par exemple plusieurs bêtes abattues dont l’une l’a été irrégulièrement. Dans tous ces cas, même le sec dans le sec demande soixante. Le Chakh discute encore, et laisse sur un צריך עיון, la formule d’autres Aharonim qui parlent de genres <em>distincts par leur graisse et semblables d’aspect</em> : à son sens, ce qui importe est qu’ils soient distincts <strong>par le goût</strong>, puisque c’est le goût qui interdit, et il incline à voir là une erreur de copiste.
 </div>
+<blockquote>«&nbsp;<span class="he-q">כגון שנפרך לחתיכות דקות שאין ניכר בין זה לזה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ט ס״ק ח)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">5. דרבנן ודאורייתא — דקדוקי הש״ך</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">5. Dérabanan et déoraïta — le Rama ne distingue pas, le Chakh distingue</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">הכרעת הב״י — אין חילוק
-  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 העתק</button>
+<h3>La glose du Rama (fin du séif 1) — « aucune différence »
+  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 Copier</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-3">
-"<strong>ואין חילוק בכל זה בין איסור דרבנן לאיסור דאורייתא</strong> (ב״י). כלומר: בין באיסור תורה בין באיסור מדרבנן — מין במינו יבש בטל ב<span class="he-q">רוב</span> (חד בתרי) ולא בעי ס'; ושלא במינו בעי ששים. ולא אמרינן דאיסור דרבנן בטל אף בחד בחד (אחד באחד), אלא לעולם בעינן <strong>רוב</strong>."
+<div class="sacred-text" data-copy-block id="cp-3">
+Le Rama ferme le séif par une phrase que le Beit Yossef lui a donnée : il n’y a, en tout cela, aucune différence entre un interdit rabbinique et un interdit de la Torah. Autrement dit : dans les deux cas, dans son genre, le sec est annulé par la <strong>majorité</strong> et non par soixante ; et l’on ne dira pas qu’un interdit rabbinique s’annulerait déjà un contre un — il faut toujours une majorité.
 </div>
+<blockquote>«&nbsp;<span class="he-q">ואין חלוק בכל זה בין אם האיסור מדרבנן או מדאורייתא</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״ט:א)</span></blockquote>
 
-<div class="machloket-box" dir="rtl">
-<strong>שלא במינו דרבנן — אם בעי ששים :</strong>
+<div class="machloket-box">
+<strong>Hors de son genre et rabbinique — faut-il soixante ?</strong>
 <table>
-<tr><th>שיטה</th><th>שלא במינו יבש, איסור דרבנן</th><th>מקור</th></tr>
+<tr><th>Shita</th><th>Sec, hors du genre, interdit rabbinique</th><th>Source</th></tr>
 <tr>
-  <td><strong>הב״י (פשט הרמ״א)</strong></td>
-  <td><strong>אין חילוק</strong> — אף דרבנן בעי ס' כדאורייתא</td>
-  <td>רמ״א ס״א; ב״י</td>
+  <td><strong>La lecture large de la glose (Beit Yossef)</strong></td>
+  <td><strong>Aucune différence</strong> — le rabbinique aussi demande soixante</td>
+  <td>רמ״א ס״א ; ב״י</td>
 </tr>
 <tr>
-  <td><strong>הש״ך (ס״ק ט–י) בשם הר״ן</strong></td>
-  <td>שלא במינו <strong>דרבנן אין צריך ס'</strong> — שכל הששים אינו אלא <span class="he-q">גזירה שמא יבשלם</span> ויבוא לדאורייתא, ובדרבנן ליכא דאורייתא לבא לידו; ומיישב בזה את גליון הא״ז (אור זרוע)</td>
+  <td><strong>Le Chakh, au nom du Ran (ס״ק ט–י)</strong></td>
+  <td>Hors du genre, un interdit <strong>rabbinique n’exige pas soixante</strong> dans le sec — puisque tout ce soixante n’est là que pour qu’on n’en vienne pas à un interdit de la Torah, et qu’ici il n’y a aucun interdit de la Torah à craindre. Le Chakh s’en sert pour accorder entre elles les deux gloses contradictoires de l’Or Zaroua’ rapportées aux Hagahot Cha’arei Doura.</td>
   <td>ש״ך ס״ק ט–י</td>
 </tr>
 </table>
 </div>
+<blockquote>«&nbsp;<span class="he-q">דדבר שאינו אסור אלא מדרבנן אף שלא במינו א״צ ס׳ ביבש</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ט ס״ק ט)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ועל פי זה נ״ל ליישב מה שנמצא בהגהת ש״ד סי׳ ל״ט שני הגהות מא״ז דסתרי אהדדי</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ט ס״ק ט)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שורש מחלוקת הש״ך והב״י :</strong> כל הנידון תלוי ב<strong>טעם הששים שלא במינו</strong>. אם הששים הוא משום שכבר עכשיו האיסור היבש "נחשב" כנותן טעם — אין חילוק בין דרבנן לדאורייתא (ב״י). אבל אם הששים אינו אלא <span class="he-q">גזירה שמא יבשלם</span> ויגיע לאיסור תורה — הרי באיסור דרבנן אין דאורייתא שיבוא לידו, ולפיכך אין צריך ס' (ש״ך בשם הר״ן). והש״ך מסיק דהששים הוא <strong>מדרבנן</strong> בלבד (לא מן התורה), ובזה מיישב את הסתירה שבגליוני הא״ז. <em>וצ״ע למעשה.</em>
+<div class="pilpul-box">
+<strong>La racine du désaccord :</strong> tout dépend du <em>motif</em> des soixante hors du genre. Si les soixante sont là parce que l’interdit sec « compte » déjà comme donnant du goût, alors il n’y a pas à distinguer le rabbinique du biblique. Mais si les soixante ne sont qu’une garde, pour qu’on n’arrive pas à un interdit de la Torah, alors un interdit rabbinique n’a rien vers quoi arriver, et soixante ne sont pas requis. Le Chakh tient la seconde branche, et il établit au ס״ק י que ces soixante ne sont que <strong>rabbiniques</strong> et non de la Torah, contre ce qu’on pourrait déduire des Tossafoth. Il faut dire ici tout net ce que le Chakh écrit de son côté : sur la phrase du Rama « aucune différence », il pose lui-même un <em>צריך עיון</em> et demande d’où elle est tirée ; puis il propose que le Rama ne parle que du début de la phrase — qu’il faut une majorité et qu’un contre un ne suffit pas. <strong>La question reste ouverte dans le Chakh, et nous la laissons ouverte.</strong>
 </div>
+<blockquote>«&nbsp;<span class="he-q">וא״כ צריך עיון על מ״ש הרב ואין חילוק בכל זה בין אם האיסור מדרבנן</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ט ס״ק ט)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ולי נראה כדברי הרב כדמשמע בסה״ת וטור להדיא דלא הוי אלא מדרבנן</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ט ס״ק י)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>הש״ך ס״ק ד — האיסור עומד בעצמו אף מבושל :</strong> אף שנתבשל האיסור היבש במים — כל זמן שהוא <span class="he-q">עומד בפני עצמו</span> ולא נימוח, עדיין דין "יבש" לו. אלא שאם נתבשל בעי <strong>ששים</strong> (החתיכות והמים) כנגד האיסור, <strong>וגם</strong> רוב במנין החתיכות — דאם אין רוב, אף בששים כולן אסורות (כדין דבר שאינו בטל מחמת חשיבותו או מחמת חוסר רוב).
+<div class="rishon-card">
+<strong>Le Chakh ס״ק ד — l’interdit se tient de lui-même, même cuit :</strong> même si le morceau interdit a été cuit dans de l’eau ou dans d’autres liquides, il garde le nom de « sec ». Mais le Chakh ajoute aussitôt la conséquence, et elle est double : une fois cuit, il faut <strong>soixante</strong> — les morceaux et l’eau ensemble — contre l’interdit ; <strong>et</strong> il faut encore que les morceaux soient en majorité, car s’ils ne le sont pas, tous les morceaux sont interdits <em>même s’il y a soixante</em>.
 </div>
+<blockquote>«&nbsp;<span class="he-q">אע״פ שהוא מבושל במים או משקים אחרים מקרי יבש</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ט ס״ק ד)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ואם אין בחתיכות רוב כל החתיכות אסורות אע״פ שיש ס׳</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ט ס״ק ד)</span></blockquote>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<!-- לשון השולחן ערוך — סעיף ב' -->
-<h2 class="section-title">📜 לשון השולחן ערוך — סעיף ב'
-  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 העתק</button>
+<!-- Texte du Choulhan Aroukh — séif 2 -->
+<h2 class="section-title">📜 Le texte du Choulhan Aroukh — séif 2
+  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 Copier</button>
 </h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ Explication détaillée (niveau 1)</a>
 
 <div class="sacred-text he" data-copy-block id="cp-4">
-  <p>יָבֵשׁ בְּיָבֵשׁ שֶׁנִּתְבַּטֵּל חַד בִּתְרֵי, אִם בִּשְּׁלָן כֻּלָּן יַחַד — אֲפִלּוּ לְאָכְלָן כָּל אַחַת בִּפְנֵי עַצְמָהּ, אָסוּר אִם אֵין שָׁם שִׁשִּׁים, מִפְּנֵי שֶׁהָרֹטֶב נוֹתֵן טַעַם וְנִבְלָע בַּחֲתִיכוֹת. וְאִם רוֹצֶה לְבַשְּׁלָן יַחַד וְאֵין שָׁם שִׁשִּׁים — יָכוֹל לְהַרְבּוֹת עֲלֵיהֶם עַד שֶׁיִּהְיֶה שָׁם שִׁשִּׁים וִיבַשְּׁלֵם, וְאֵין כָּאן מִשּׁוּם מְבַטֵּל אִסּוּר. (הגה: יֵשׁ אוֹמְרִים שֶׁאִם נוֹדַע הַתַּעֲרֹבֶת קֹדֶם שֶׁנִּתְבַּשְּׁלוּ יַחַד — הַכֹּל מֻתָּר, שֶׁאֵינָם חוֹזְרִים וְנֶאֱסָרִים מֵאַחַר שֶׁכְּבָר נִתְבַּטְּלוּ בְּיָבֵשׁ (טוּר בְּשֵׁם הָרֹא״שׁ, וְרַבֵּנוּ יְרוּחָם בְּשֵׁם הַתּוֹסָפוֹת, וְכָתַב שֶׁכֵּן עִקָּר); וּבְמָקוֹם הֶפְסֵד יֵשׁ לִסְמֹךְ עַל הַמְּקִלִּין וּלְהַתִּיר.)</p>
+<p>יבש ביבש שנתבטל חד בתרי אם בשלן כולן כאחד ואפי׳ לאכול כל א׳ בפני עצמו אסור אם אין שם ששים מפני שהרוטב בנותן טעם ונבלע בחתיכות ואם רוצה לבשלן יחד ואין שם ס׳ מותר להרבות עליהם כדי שיעור ששים ולבשלן ואין בו משום מבטל איסור</p>
+<p>הגה וי״א דאם נודע התערובת קודם שנתבשלו ביחד הכל שרי דאין חוזרין ונאסרים מאחר שנתבטל ביבש (טור בשם הרא״ש ור׳ ירוחם בשם התוספות וכתב שכן עיקר) ובמקום הפסד יש לסמוך אדברי המקילין ולהתיר</p>
+<span class="source-ref">(שו״ע יו״ד ק״ט:ב)</span>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">6. החקירה הגדולה דסעיף ב' — בישול התערובת</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">6. La grande hakira du séif 2 — la cuisson du mélange</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — מ״ט בישול אוסר מה שכבר נתבטל :</strong><br>
-תערובת יבש ביבש שכבר <span class="he-q">נתבטלה חד בתרי</span> והותרה — אם בישלם כולם יחד, <strong>חוזרת ונאסרת</strong> (אם אין ס'), אף לאכלן אחת אחת. וטעם המחבר: <span class="he-q">הרוטב נותן טעם ונבלע בחתיכות</span> — בבישול יוצא טעם האיסור אל הרוטב ומתפשט בכל החתיכות, ושוב אין כאן בירור ברוב אלא איסור טעם, ובעי ששים.
+<div class="yesod-box">
+<strong>Le fondement — comment une cuisson interdit-elle ce qui était déjà annulé ?</strong><br>
+Un mélange de sec dans le sec, déjà annulé un dans deux et permis, s’il est cuit tout entier ensemble, <strong>redevient interdit</strong> s’il n’y a pas soixante — et cela même pour les manger un à un. Le motif est dans le Mehaber : le bouillon donne du goût et se fait absorber dans les morceaux. Par la cuisson, le goût de l’interdit sort dans le bouillon et se répand dans tous les morceaux ; il n’y a plus là un discernement par la majorité, mais un interdit de goût — et un interdit de goût demande soixante.
 </div>
+<blockquote>«&nbsp;<span class="he-q">מפני שהרוטב בנותן טעם ונבלע בחתיכות</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״ט:ב)</span></blockquote>
 
-<div class="hakira-box" dir="rtl">
-<strong>קושיית הט״ז (ס״ק ב) — איך חוזר ונאסר מן התורה :</strong> מקשה הט״ז קושיא עצומה: הלא כבר נתבטל האיסור <strong>ברוב מן התורה</strong> והותר! ואם כן כשמבשלו, הרי זה כמבשל <em>היתר גמור</em> — ומנין יחזור הטעם להיות איסור דאורייתא בפחות מששים ? והלא בסימן צ״ח (ס״ב) קיימא לן דמין במינו שנתבטל ברוב, אם נפל אחר כך לתבשיל — <span class="he-q">מינו רבה עליו</span> ובטל, ולא חיישינן ?
+<div class="hakira-box">
+<strong>La question du Taz (ס״ק ב) — d’où l’interdit de la Torah reviendrait-il ?</strong> Le Taz pose la difficulté en son nom propre. Avant la cuisson, l’interdit était annulé par la majorité ; s’il l’avait voulu, il aurait pu le manger de par la Torah, et la chose était devenue du <em>permis achevé</em>. Pourquoi donc serait-elle interdite ensuite, <strong>de la Torah</strong>, par la cuisson ? Et en quoi diffère-t-elle du cas du siman 98 séif 2, où l’interdit tombé dans son genre et hors de son genre est dit <em>débordé par son genre</em>, de sorte qu’on ne se soucie pas du goût qu’il donnera ensuite à ce qui n’est pas son genre — puisqu’il est déjà devenu du permis, et que la Torah n’y exige pas soixante ?
 </div>
+<blockquote>«&nbsp;<span class="he-q">וקשה לי קודם הבישול נתבטל ברוב ואי בעי שרי למיכליה מדאורייתא ונעשה כהיתר גמור ולמה יאסר אח״כ מן התורה בבישול</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ט ס״ק ב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ומ״ש מההיא דסי׳ צ״ח בסעיף ב׳ בנתערב במינו ואינו מינו דאמרינן מינו רבה עליו</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ט ס״ק ב)</span></blockquote>
 
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ הט״ז — הטעם נרגש בפני עצמו :</strong> מחלק הט״ז חילוק יסודי: בסימן צ״ח (ס״ב) המדובר באיסור שכבר <strong>נימוח ונתערב</strong> בהיתר ו<span class="he-q">מינו רבה עליו</span> — אין טעמו נרגש לעולם. אבל כאן, ביבש ביבש, האיסור <strong>עומד בפני עצמו</strong> בחתיכה שלמה, וכשמבשלו <span class="he-q">טעם האיסור נרגש בפני עצמו</span> — יוצא מן החתיכה האסורה אל הרוטב כדבר העומד בעינו. ולפיכך חוזר ואוסר מן התורה (בלא ס'), שאין זה כסימן צ״ח שמינו כבר רבה עליו, אלא כאיסור חדש היוצא ומתפשט.
+<div class="teruts-box">
+<strong>La réponse du Taz — le goût se fait sentir pour lui-même :</strong> le Taz distingue, et la distinction porte sur le goût, non sur le statut. Au siman 98, l’interdit a beau donner du goût à ce qui n’est pas son genre, <strong>ce goût ne se fait jamais sentir pour lui-même</strong>, car son propre genre l’a déjà débordé. Ici, dans le sec mêlé au sec, l’interdit se tient entier dans son morceau ; et quand on le cuit, <em>le goût de l’interdit se fait sentir pour lui-même</em>. C’est la différence, et c’est elle qui fait revenir l’interdit.
 </div>
+<blockquote>«&nbsp;<span class="he-q">דשם אע״פ שגם האיסור נ״ט לאינו מינו מ״מ אין הטעם נרגש בפני עצמו משא״כ בדין זה שטעם האיסור נרגש בפני עצמו</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ט ס״ק ב)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>עומק היסוד :</strong> נמצא ש<strong>הביטול ברוב</strong> ביבש אינו "מבטל" את גוף האיסור — אלא רק פוטר מאיסור <em>הספק</em> (איזו חתיכה אסורה), כל זמן שעומדות יבשות זו לצד זו. אבל גוף החתיכה האסורה <span class="he-q">איסורא בעיניה קאי</span> — האיסור עומד בעינו בתוכה. ולפיכך כשבא הבישול ומוציא את טעמה — חוזר האיסור להתפשט, ובעי ששים. וזהו ההבדל המכריע מ"לח בלח" של סימן צ״ח, שם נימוח גוף האיסור ואין לו עוד עמידה בפני עצמו.
+<div class="pilpul-box">
+<strong>La profondeur du fondement :</strong> il ressort de là que l’annulation par la majorité, dans le sec, n’a pas fait disparaître le corps de l’interdit — elle a seulement levé l’interdit du <em>doute</em>, tant que les morceaux restent secs côte à côte. Le morceau interdit est toujours là, entier, dans le tas ; c’est notre ignorance qui a été traitée, non sa matière. Vient la cuisson, qui fait sortir son goût : l’interdit se répand pour de bon, et il faut soixante. C’est en cela que le cas diffère du liquide dans le liquide du siman 98, où le corps de l’interdit s’est défait et n’a plus aucune tenue propre. <em>Jusqu’où va cette lecture — si l’annulation du sec est un vrai ביטול ou seulement un היתר ספק — le Taz ne le tranche pas en ces termes, et nous ne le tranchons pas pour lui.</em>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">7. להרבות עד ששים · נודע קודם — שם היתר</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">7. Ajouter jusqu’à soixante · su avant la cuisson — le nom de permis</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<div class="machloket-box" dir="rtl">
-<strong>להרבות עליהם עד ששים — ואין כאן מבטל איסור :</strong>
+<div class="machloket-box">
+<strong>Ajouter par-dessus jusqu’à soixante — et ce n’est pas annuler un interdit :</strong>
 <table>
-<tr><th>הנידון</th><th>הדין</th><th>מקור</th></tr>
+<tr><th>Le cas</th><th>Le din</th><th>Source</th></tr>
 <tr>
-  <td><strong>רוצה לבשלם ואין ס'</strong></td>
-  <td>מותר <span class="he-q">להרבות עליהם</span> חתיכות היתר עד שיהיה ס' ויבשלם</td>
+  <td><strong>Il veut les cuire et il n’y a pas soixante</strong></td>
+  <td>Il lui est permis d’<em>ajouter par-dessus</em> des morceaux permis jusqu’à la mesure de soixante, puis de les cuire</td>
   <td>מחבר ס״ב</td>
 </tr>
 <tr>
-  <td><strong>חשש מבטל איסור לכתחילה</strong></td>
-  <td><strong>אין כאן מבטל איסור</strong> — שהרי כל אחת כבר היתר היא בעצמה (חד בתרי), ואינו אלא מוסיף היתר על היתר</td>
-  <td>ט״ז ס״ק ג</td>
+  <td><strong>La crainte d’annuler un interdit a priori</strong></td>
+  <td><strong>Il n’y a là aucun interdit</strong> — puisque chaque morceau est déjà permis par lui-même</td>
+  <td>ט״ז ס״ק ג ; ש״ך ס״ק יג בשם הר״ן</td>
 </tr>
 </table>
 </div>
+<blockquote>«&nbsp;<span class="he-q">מותר להרבות עליהם כדי שיעור ששים ולבשלן ואין בו משום מבטל איסור</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״ט:ב)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>חידוש הט״ז (ס״ק ג) :</strong> לכאורה אסור לבטל איסור לכתחילה! אלא מבאר הט״ז: כאן <span class="he-q">אין כאן מבטל איסור</span>, לפי שכבר נתבטל האיסור מקודם ברוב, וכל חתיכה <strong>היתר גמור</strong> היא; ובמרבה עליהן אינו מבטל איסור אלא מוסיף היתר על היתר כדי שלא יחזור הבישול ויוציא טעם. ולפי זה — אילו לא נתבטל מקודם, היה אסור להרבות; וכל ההיתר בנוי על כך שכבר <strong>נתבטל חד בתרי</strong>.
+<div class="pilpul-box">
+<strong>Le hiddouch du Taz (ס״ק ג) :</strong> à première vue, on n’annule pas un interdit a priori. Le Taz répond en une ligne, et le Chakh dit la même chose au nom du Ran : puisque chaque morceau est permis pour lui-même, <em>il n’y a pas ici d’interdit</em>. Celui qui ajoute n’annule donc rien — il ajoute du permis à du permis, afin que la cuisson ne fasse pas ressortir le goût. Et il suit de là que tout ce heter est bâti sur l’annulation <strong>antérieure</strong> : si le mélange n’avait pas déjà été annulé un dans deux, il serait interdit d’ajouter.
 </div>
+<blockquote>«&nbsp;<span class="he-q">כיון שכל אחד בפני עצמו מותר אין כאן איסור</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ט ס״ק ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">כיון שכל אחד מותר בפני עצמו ר״ן שם</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ט ס״ק יג)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>הרמ״א — נודע קודם הבישול, הכל מותר (הרא״ש והתוספות) :</strong> אם <span class="he-q">נודעה התערובת קודם</span> שנתבשלו יחד — הכל מותר, ואינם חוזרים ונאסרים מאחר שכבר נתבטלו ביבש (טור בשם הרא״ש, ורבנו ירוחם בשם התוספות, וכתב שכן עיקר). דכיון שעמד עליו <strong>שם היתר</strong> בעודו יבש, שוב אין הבישול מחזירו לאיסור (ט״ז ס״ק ד — "כבר חל עליו שם היתר"). ובמקום <strong>הפסד</strong> יש לסמוך על המקילין ולהתיר.
+<div class="rishon-card">
+<strong>Le Rama — su avant la cuisson, tout est permis (le Rosh et les Tossafoth) :</strong> si le mélange a été connu <em>avant</em> qu’on ne les cuise ensemble, tout est permis : ils ne redeviennent pas interdits, puisqu’ils ont déjà été annulés à l’état sec. Le Rama l’apporte du Tour au nom du Rosh, et de Rabbenou Yerouham au nom des Tossafoth, en écrivant que c’est là le principal. Le Taz donne le motif d’une ligne : <strong>le nom de permis avait déjà été appelé sur lui</strong>. Et en cas de <strong>perte</strong>, on peut s’appuyer sur les paroles de ceux qui allègent et permettre.
 </div>
+<blockquote>«&nbsp;<span class="he-q">דאם נודע התערובת קודם שנתבשלו ביחד הכל שרי דאין חוזרין ונאסרים מאחר שנתבטל ביבש</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״ט:ב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">משום דכבר נקרא עליו שם היתר</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ט ס״ק ד)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ובמקום הפסד יש לסמוך אדברי המקילין ולהתיר</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״ט:ב)</span></blockquote>
 
-<div class="machloket-box" dir="rtl">
-<strong>הש״ך ס״ק יב — שתי קדירות, וספק דאורייתא :</strong>
+<div class="machloket-box">
+<strong>Le Chakh ס״ק יב — les deux marmites, et le doute de la Torah :</strong>
 <ul class="stylish">
-<li><strong>חילקן לשתי קדירות וביַשׁל</strong> — מותר, דבכל קדירה איכא רוב היתר; וכשהוא <span class="he-q">ספק דרבנן</span> מקילין.</li>
-<li><strong>עדיין לא נודע</strong> איזו אסורה ובישלן — חיישינן ל<span class="he-q">ספק דאורייתא</span>, ושתי הקדירות <strong>מצטרפות</strong> לששים (ועיין סימן קי״א בדין שתי קדירות המצטרפות).</li>
+<li><strong>Il les a partagés en deux marmites et cuits ainsi</strong> — c’est permis, et le Chakh montre pourquoi : ce qui interdit la cuisson en une seule marmite, c’est que l’interdit y est redevenu mêlé au permis comme les autres interdits qui se délient ; en deux marmites cela n’arrive pas, et devant chaque marmite on peut dire que l’interdit est dans l’autre. Et même si l’on voulait dire qu’un doute demeure — c’est un <em>doute rabbinique</em>, et le doute rabbinique s’allège.</li>
+<li><strong>Le mélange n’avait pas encore été connu quand il les a cuits</strong> — l’interdit n’avait alors été annulé en rien, et sur chaque marmite on peut dire que l’interdit y est : c’est un <em>doute de la Torah</em>, et l’on va vers la rigueur, ce qui est interdit de l’avis de tous. Le Chakh conclut que son din est celui de la fin du siman 111 : deux marmites d’un même homme se joignent pour annuler en soixante.</li>
 </ul>
 </div>
+<blockquote>«&nbsp;<span class="he-q">מיהו לבשלן בב׳ קדרות שרי</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ט ס״ק יב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ה״ל ספיקא דרבנן לקולא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ט ס״ק יב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ה״ל ספיקא דאורייתא ולחומרא ואסור לכ״ע</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ט ס״ק יב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ודינו כדלקמן ס״ס קי״א דב׳ קדרות של אדם אחד מצטרפים לבטל בס</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ט ס״ק יב)</span></blockquote>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה — נודע מול לא נודע :</strong> כל ההיתר של "נודע קודם" תלוי בכך שחל <strong>שם היתר</strong> קודם הבישול. נמצא: (א) נודע וביטל ביבש → בישל → מותר (ואף לחומרא יש מרבין עד ס'). (ב) לא נודע כלל ובישל → ספק דאורייתא → בעי ס', ואף שתי קדירות מצטרפות. <em>ולמעשה — שאל את רבך.</em>
+<div class="nafka-mina-box">
+<strong>Nafka mina — su ou non su :</strong> tout le heter du « su avant » tient à ce que le <strong>nom de permis</strong> soit tombé sur le mélange avant la cuisson. D’où : (a) su, annulé à l’état sec, puis cuit → permis, et qui veut être rigoureux ajoute jusqu’à soixante ; (b) jamais su, puis cuit → doute de la Torah, il faut soixante, et deux marmites d’un même homme se joignent pour le compte. <em>Et pour la pratique — demande à ton Rav.</em>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">8. פתחי תשובה — רוב מנין, כפל, נאבד ומליחה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">8. Pitchei Techouva — majorité de nombre, double, part perdue et salaison</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ Explication détaillée (niveau 1)</a>
 
-<div class="rishon-card" dir="rtl">
-<strong>פ״ת ס״ק א — רוב מנין וכפל :</strong> מביא הפתחי תשובה בשם ה<span class="he-q">פרי חדש</span> דסגי ב<strong>רוב מנין</strong> כל דהו — אף <em>חתיכה אחת ומשהו</em> יותר על חציין; ומביא נידון ה<span class="he-q">כפל</span> (פי שנים) — אם צריך שיהיו חתיכות ההיתר כפל מן האיסור — מדרבנן (מנחת יעקב, פרי מגדים, חתם סופר סי' צ״ט); וכן חתיכת היתר גדולה שנתבטלה בחתיכות איסור קטנות ממנה — שאף זה הולך אחר המנין.
+<div class="rishon-card">
+<strong>פ״ת ס״ק א — quelle majorité, et le « double » :</strong> le Pitchei Techouva ouvre par le Peri Hadach, qui conclut qu’un <em>rien de plus que la moitié</em> suffit. Il rapporte ensuite le Minhat Yaakov, pour qui il faut rabbiniquement le <strong>double</strong> ; puis le Peri Megadim, qui écrit que dans un interdit rabbinique le Minhat Yaakov lui-même l’admet, et que dans un interdit de la Torah on ne gronde pas celui qui allège comme le Peri Hadach. Il renvoie encore au Hatam Sofer, responsum 99.<br>
+Vient alors la partie la plus instructive du ס״ק, et elle demande d’être lue jusqu’au bout. Un certain savant avait lu le Chakh ס״ק ו comme disant qu’il suffit d’une <em>majorité de nombre</em> — deux parts contre une — sans majorité de masse. Le Chinoukh Beit Yehouda <strong>le réfute</strong> et lit le Chakh autrement : les deux morceaux, chez le Chakh, sont ensemble plus grands que l’interdit, et ce qu’on ne réclame pas, c’est seulement le <em>double</em>. Sa conclusion pratique suit sa lecture : on ne dit pas que le morceau interdit s’annule en six, ni en soixante, dès lors qu’il est à lui seul plus grand en quantité que tous les soixante réunis. <strong>Nous ne tranchons pas entre ces deux lectures du Chakh ; nous signalons seulement que la seconde est celle que le Pitchei Techouva rapporte en dernier, et que la première y est donnée comme réfutée.</strong>
 </div>
+<blockquote>«&nbsp;<span class="he-q">עיין פר״ח דמסיק דכל דהו טפי ממחצה סגי</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד ק״ט ס״ק א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ועי׳ בספר מנ״י כלל ל״א וכלל ל״ט דעתו דמדרבנן בעינן דווקא כפל</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד ק״ט ס״ק א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ופירש דר״ל דבהנך תרי יש גם רוב בנין שהב׳ יותר גדולים מן הא׳ אלא דא״צ כפל</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד ק״ט ס״ק א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">לא אמרינן שתתבטל בששה ולא בס׳ אם הגדולה גדולה בכמות מכל הס</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד ק״ט ס״ק א)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>פ״ת ס״ק ב — השליך אחת, אוכל השאר :</strong> בשם ה<span class="he-q">נודע ביהודה</span> (תניינא יו״ד מ״ז) — אם השליך אחת מן השלוש, מותר לאכול את <strong>השתים הנותרות</strong> (אף יחד), ולא אמרינן <span class="he-q">איסורא ברובא אישתייר</span> (שהאיסור נשאר ברוב הנותר); דמאחר שכבר נתבטל ברוב, אין האיסור "נתפס" באחת מן הנותרות.
+<div class="rishon-card">
+<strong>פ״ת ס״ק ב — il en a jeté un, il mange le reste :</strong> le lemme est celui de la rigueur du Rama, « jeter un morceau ». Le Pitchei Techouva apporte le Noda’ biYehouda (Tinyana, Yoré Déa 47) : dès lors qu’on en a jeté un, <em>même une seule personne</em> peut manger des deux qui restent, et l’on ne dit pas ici que « l’interdit est resté dans la majorité ». Le motif est clair : puisque l’annulation a déjà eu lieu par la majorité, l’interdit ne se rattrape pas sur l’un des restants.
 </div>
+<blockquote>«&nbsp;<span class="he-q">דשוב אפילו אדם אחד יכול לאכול משנים הנותרים ולא אמרינן בהא איסורא ברובא אישתייר</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד ק״ט ס״ק ב)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>פ״ת ס״ק ג — ר׳ עקיבא איגר בנאבד שלא במינו :</strong> מביא בשם <span class="he-q">ר׳ עקיבא איגר</span> (סי' פ״ב) — שלא במינו יבש שנתערב ו<strong>נאבד</strong> מקצתו בלא שנודע אם היה שם ששים → <strong>מחמירין</strong> (≠ דין לח בלח / נשפך שמקילין בו), לפי שביבש אין ההיתר נעשה איסור, ה<span class="he-q">חזקת איסור</span> במקומה עומדת, ועוד דאיכא <strong>גזירה שמא יבשלם</strong>. ולפיכך אין תולין להקל בנאבד.
+<div class="rishon-card">
+<strong>פ״ת ס״ק ג — Rabbi Akiva Eiger, une part perdue hors du genre :</strong> le lemme est « il faut soixante ». Rabbi Akiva Eiger (responsum 82) est interrogé sur un mélange hors du genre, à sec, dont une part s’est <strong>perdue</strong> sans qu’on sache s’il y avait soixante : allège-t-on par présomption, comme on le fait pour un mélange dans son genre qui s’est répandu ? Il répond en deux temps. D’abord la différence de fond : dans le liquide mêlé au liquide, faute de soixante le permis devient lui-même interdit par ce qu’il a absorbé — il y a donc présomption contre présomption, et le doute s’allège ; dans le sec, le permis ne se change jamais en interdit, il est seulement défendu parce qu’on ne sait plus reconnaître l’interdit — on ne sort donc pas le permis de son état, et <em>la présomption d’interdit demeure</em> pour dire qu’il n’a pas été annulé. Ensuite, un second motif : puisque le motif des soixante est la crainte qu’on ne les cuise, cette crainte vaut ici aussi. Et Rabbi Akiva Eiger termine en indiquant lui-même que <strong>les paroles du Chakh au siman 102 ס״ק יד ne semblent pas aller dans ce sens</strong> — la question reste donc ouverte chez lui, et nous la laissons telle.
 </div>
+<blockquote>«&nbsp;<span class="he-q">וקיימא חזקת האיסור לומר דלא נתבטל</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד ק״ט ס״ק ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ועוד כיון דטעמא שמא יבשלם ממילא גם בזה שייך הגזירה שמא יבשלם</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד ק״ט ס״ק ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אולם מדברי הש״ך סימן ק״ב ס״ק י״ד לא משמע כן</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד ק״ט ס״ק ג)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>פ״ת ס״ק ד — מליחה כבישול :</strong> בשם ה<span class="he-q">חנוך בית יהודה</span> וה<span class="he-q">נודע ביהודה</span> — <strong>מליחה</strong> דינה כבישול לענין זה: אם נודעה התערובת רק <em>לאחר המליחה</em> — שוב אין הביטול ביבש מועיל, אלא בעי ששים, שהרי המלח כבר הוציא והבליע את הטעם כבישול.
+<div class="rishon-card">
+<strong>פ״ת ס״ק ד — la salaison est-elle comme la cuisson ?</strong> Le lemme est « il est permis d’ajouter ». Le Pitchei Techouva y rapporte d’abord le Chinoukh Beit Yehouda (responsum 41) : de même que le salé vaut le bouillant, si le mélange n’a été connu qu’<em>après</em> la salaison, le nom de permis n’était pas encore tombé sur lui et cette annulation ne sert de rien — il faut soixante. Le Noda’ biYehouda écrit de même. <strong>Mais le Pitchei Techouva poursuit</strong>, et c’est ce qu’il ne faut pas laisser tomber : le même Chinoukh Beit Yehouda, à la fin de son responsum 97 et au nom de son grand-père, écrit l’inverse — pour le sec mêlé au sec, la salaison ne vaut pas la cuisson, puisque ce qui fait ici la différence est que la graisse fonde. Et le Pitchei Techouva ajoute pour son propre compte que <em>ces paroles-là lui paraissent surprenantes</em>, et il les discute à la lumière du Chakh ס״ק ד. <strong>Il y a donc ici une ma’hloketh, et nous ne la tranchons pas.</strong>
 </div>
+<blockquote>«&nbsp;<span class="he-q">דקיי״ל מליח כרותח אם לא נודע עד אחר מליחה דעדיין לא נקרא עליו שם היתר לא מהני ביטול זה אלא צריך ס׳</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד ק״ט ס״ק ד)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אמנם בתשובת חב״י הנ״ל גופיה סוס״י צ״ז בשם זקינו מבואר דבמליחה לא אמרינן הכי</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד ק״ט ס״ק ד)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ולע״ד דבריו תמוהים</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד ק״ט ס״ק ד)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">9. חקירה ונפקא מינה למעשה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">9. Hakira et nafka mina pour la pratique</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ Explication détaillée (niveau 1)</a>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה הכוללת של הסימן :</strong> מהו טיב הביטול של חד בתרי — ביטול גמור או היתר ספק, ומה כוחו של בישול ?
+<div class="hakira-box">
+<strong>La hakira qui traverse le siman :</strong> de quelle nature est l’annulation de חד בתרי — une annulation achevée, ou la levée d’un doute — et quelle force la cuisson a-t-elle contre elle ?
 <ul class="stylish">
-<li><strong>חד בתרי בטיל</strong> — ביטול ברוב מן התורה (אחרי רבים להטות, ט״ז ס״ק א), בלא צורך בס'.</li>
-<li><strong>ממה נפשך</strong> — אוכל אחת אחת (ואף שתים), ולא שלשתן יחד (רשב״א, ש״ך ס״ק ז).</li>
-<li><strong>מין במינו מול שלא במינו</strong> — במינו אין צריך ס'; שלא במינו בעי ס', שמא יבשלם → דאורייתא (ר״ן, ט״ז ס״ק ב).</li>
-<li><strong>בישול</strong> — חוזר ונאסר, שהטעם נרגש בפני עצמו (≠ צ״ח ס״ב); ונודע קודם → שם היתר → מותר (רא״ש/תוספות).</li>
-<li><strong>מליחה</strong> — כבישול (פ״ת ס״ק ד); <strong>נאבד שלא במינו</strong> — מחמירין (רעק״א, פ״ת ס״ק ג).</li>
+<li><strong>חד בתרי בטיל</strong> — annulation par la majorité, du verset אחרי רבים להטות, sans qu’il faille soixante (ט״ז ס״ק א ; ש״ך ס״ק ו).</li>
+<li><strong>ממה נפשך</strong> — il en mange un à un, et le Chakh ajoute un puis deux ou deux puis un ; jamais les trois ensemble (רשב״א chez ש״ך ס״ק ז). Chez le Taz, la même sevara sert à interdire la bouchée des trois.</li>
+<li><strong>Dans son genre contre hors du genre</strong> — dans son genre, pas de soixante ; hors du genre, soixante même à sec, pour qu’on n’en vienne pas à un interdit de la Torah par la cuisson (ר״ן chez ש״ך ס״ק ט ; ט״ז ס״ק ב).</li>
+<li><strong>La cuisson</strong> — redevient interdit, parce que le goût de l’interdit s’y fait sentir pour lui-même, ce qui n’est pas le cas du siman 98 ; et si le mélange a été su avant, le nom de permis était tombé et il reste permis (רא״ש ותוספות chez le Rama).</li>
+<li><strong>La salaison</strong> — deux avis chez le Pitchei Techouva ס״ק ד ; <strong>la part perdue hors du genre</strong> — Rabbi Akiva Eiger est rigoureux, en notant lui-même que le Chakh 102 ס״ק יד semble dire autrement (פ״ת ס״ק ג).</li>
 </ul>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה למעשה (לפי הכרעת רוב האחרונים) :</strong>
+<div class="nafka-mina-box">
+<strong>Nafka mina pour la pratique, telle que le siman la donne :</strong>
 <ol class="stylish">
-<li>חתיכת איסור שאינה ראויה להתכבד, יבש במינו → <strong>חד בתרי בטיל</strong>, ומותר לאכלן אחת אחת (ולכתחילה לא יאכלם אדם אחד אף זה אחר זה — חומרא).</li>
-<li><strong>שלא במינו</strong> (או נתרסק דק) → בעינן <strong>ששים</strong> אף ביבש.</li>
-<li>אין חילוק בין דרבנן לדאורייתא לענין הרוב; ולענין ס' שלא במינו — נחלקו ב״י וש״ך (ס״ק ט–י).</li>
-<li>בישלן כולם יחד בלא ס' → <strong>אסור</strong> (הרוטב נותן טעם); ורוצה לבשל → <strong>מרבה עד ס'</strong> בלא חשש מבטל איסור.</li>
-<li><strong>נודע קודם</strong> הבישול → הכל מותר (שם היתר); לא נודע → ספק דאורייתא, שתי קדירות מצטרפות (סי' קי״א).</li>
+<li>Un morceau interdit qui n’est pas digne d’être servi, sec et dans son genre → <strong>חד בתרי בטיל</strong>, et il est permis de les manger séparément ; a priori, le Rama veut qu’une seule personne ne les mange pas même l’un après l’autre, et il nomme « rigueur » le fait d’en jeter un.</li>
+<li><strong>Hors du genre</strong> — ou émietté en morceaux fins qu’on ne distingue plus → il faut <strong>soixante</strong> même à sec.</li>
+<li>Quant à la majorité, aucune différence entre rabbinique et biblique ; quant aux soixante hors du genre dans un interdit rabbinique, le Chakh ס״ק ט–י allège au nom du Ran et pose un צריך עיון sur la formule du Rama. <em>La question reste ouverte.</em></li>
+<li>Cuits tous ensemble sans soixante → <strong>interdit</strong> (le bouillon donne du goût) ; et qui veut les cuire <strong>ajoute jusqu’à soixante</strong>, sans crainte d’annuler un interdit.</li>
+<li><strong>Su avant</strong> la cuisson → tout est permis (le nom de permis) ; non su → doute de la Torah, et deux marmites se joignent (siman 111).</li>
 </ol>
-<em>ולמעשה — שאל את רבך.</em>
+<em>Et pour la pratique — demande à ton Rav.</em>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">10. טבלאות סיכום</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">10. Tableaux récapitulatifs</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">טבלה — אופני התערובת והדין</h3>
-
-<table>
-<tr>
-  <th>אופן התערובת</th>
-  <th>התוצאה</th>
-  <th>מקור בקורפוס</th>
-</tr>
-<tr>
-  <td><strong>יבש במינו, אינה ראויה להתכבד</strong></td>
-  <td>חד בתרי בטיל ברוב; אחת אחת מותר, שלשתן יחד אסור</td>
-  <td>מחבר ס״א; ט״ז ס״ק א</td>
-</tr>
-<tr>
-  <td><strong>אכילת אדם אחד</strong></td>
-  <td>אחת אחת (ואף שתים) — ממה נפשך; ולכתחילה לא אף זה אחר זה</td>
-  <td>רשב״א; ש״ך ס״ק ז; רמ״א</td>
-</tr>
-<tr>
-  <td><strong>שלא במינו (או נתרסק דק)</strong></td>
-  <td>בעי ששים אף יבש — גזירה שמא יבשלם</td>
-  <td>טור בשם סה״ת; ט״ז ס״ק ב; ש״ך ס״ק ח</td>
-</tr>
-<tr>
-  <td><strong>קמח בקמח</strong></td>
-  <td>דינו כלח בלח, לא כיבש</td>
-  <td>ש״ך ס״ק ג; רשב״א</td>
-</tr>
-<tr>
-  <td><strong>בישלן כולם יחד בלא ס'</strong></td>
-  <td>אסור — הרוטב נותן טעם ונבלע</td>
-  <td>מחבר ס״ב; ט״ז ס״ק ב</td>
-</tr>
-<tr>
-  <td><strong>רוצה לבשל ואין ס'</strong></td>
-  <td>מרבה עד ששים; אין מבטל איסור</td>
-  <td>מחבר ס״ב; ט״ז ס״ק ג</td>
-</tr>
-<tr>
-  <td><strong>נודע קודם הבישול</strong></td>
-  <td>הכל מותר — שם היתר; הפסד — מקילין</td>
-  <td>רמ״א ס״ב; רא״ש/תוס'; ש״ך ס״ק יב</td>
-</tr>
-<tr>
-  <td><strong>נאבד מקצת שלא במינו</strong></td>
-  <td>מחמירין (חזקת איסור, שמא יבשלם)</td>
-  <td>רעק״א; פ״ת ס״ק ג</td>
-</tr>
-<tr>
-  <td><strong>נודע רק אחר המליחה</strong></td>
-  <td>אין הביטול מועיל; בעי ששים</td>
-  <td>נוב״י; פ״ת ס״ק ד</td>
-</tr>
-</table>
-
-<h3 class="he-h3">טבלה — מחלוקות מרכזיות בסימן</h3>
+<h3>Tableau — les figures du mélange et leur din</h3>
 
 <table>
 <tr>
-  <th>נושא</th>
-  <th>שיטה א'</th>
-  <th>שיטה ב'</th>
+  <th>Figure du mélange</th>
+  <th>Ce qui en résulte</th>
+  <th>Source</th>
 </tr>
 <tr>
-  <td>אכילת אדם אחד</td>
-  <td>הרשב״א — אחת אחת ואף שתים (ש״ך ס״ק ז)</td>
-  <td>יש אוסרין — אף זה אחר זה; ולכתחילה כן ראוי</td>
+  <td><strong>Sec dans son genre, pièce non digne d’être servie</strong></td>
+  <td>חד בתרי בטיל par la majorité ; un à un permis, les trois ensemble interdits</td>
+  <td>מחבר ס״א ; ט״ז ס״ק א</td>
 </tr>
 <tr>
-  <td>שלא במינו דרבנן — אם בעי ס'</td>
-  <td>הב״י — אין חילוק, בעי ס'</td>
-  <td>הש״ך (בשם הר״ן) — דרבנן אין צריך ס' (ס״ק ט–י)</td>
+  <td><strong>Ce qu’une seule personne peut manger</strong></td>
+  <td>Un à un, et selon le Chakh un puis deux ou deux puis un ; a priori le Rama ne le veut pas même l’un après l’autre</td>
+  <td>רשב״א ; ש״ך ס״ק ז ; רמ״א ס״א</td>
 </tr>
 <tr>
-  <td>בישול תערובת שנתבטלה</td>
-  <td>מחבר — חוזר ונאסר (הטעם נרגש; ≠ צ״ח)</td>
-  <td>רא״ש/תוס' (רמ״א) — נודע קודם → לא חוזר ונאסר</td>
+  <td><strong>Hors du genre, ou émietté en morceaux fins</strong></td>
+  <td>Soixante requis même à sec — pour qu’on n’en vienne pas à un interdit de la Torah par la cuisson</td>
+  <td>רמ״א ס״א בשם בעל התרומה ; ט״ז ס״ק ב ; ש״ך ס״ק ח–ט</td>
 </tr>
 <tr>
-  <td>רוב הנדרש</td>
-  <td>פרי חדש — אף חתיכה ומשהו (פ״ת ס״ק א)</td>
-  <td>יש המצריכין כפל מדרבנן (מנחת יעקב/פמ״ג)</td>
+  <td><strong>Farine dans de la farine</strong></td>
+  <td>Son din est celui du liquide dans le liquide, non du sec</td>
+  <td>ש״ך ס״ק ג בשם הב״ח ; רשב״א ותוספות</td>
 </tr>
 <tr>
-  <td>נאבד שלא במינו בלא ס'</td>
-  <td>רעק״א — מחמירין (חזקת איסור)</td>
-  <td>בלח בלח / נשפך — מקילין (≠ יבש)</td>
+  <td><strong>Cuit alors qu’il était déjà sec et annulé, sans soixante</strong></td>
+  <td>Interdit — le bouillon donne du goût et se fait absorber</td>
+  <td>מחבר ס״ב ; ט״ז ס״ק ב</td>
+</tr>
+<tr>
+  <td><strong>Il veut cuire et il n’y a pas soixante</strong></td>
+  <td>Il ajoute jusqu’à soixante ; il n’y a là aucun interdit à annuler</td>
+  <td>מחבר ס״ב ; ט״ז ס״ק ג ; ש״ך ס״ק יג</td>
+</tr>
+<tr>
+  <td><strong>Su avant la cuisson</strong></td>
+  <td>Tout permis — le nom de permis était tombé ; en cas de perte, on allège</td>
+  <td>רמ״א ס״ב ; ט״ז ס״ק ד ; ש״ך ס״ק יב</td>
+</tr>
+<tr>
+  <td><strong>Cuit en deux marmites</strong></td>
+  <td>Permis si le mélange était su ; s’il ne l’était pas, doute de la Torah et les deux marmites se joignent (siman 111)</td>
+  <td>ש״ך ס״ק יב</td>
+</tr>
+<tr>
+  <td><strong>Une part perdue, hors du genre</strong></td>
+  <td>Rabbi Akiva Eiger est rigoureux, en notant que le Chakh 102 ס״ק יד semble dire autrement</td>
+  <td>רעק״א סי׳ פ״ב ; פ״ת ס״ק ג</td>
+</tr>
+<tr>
+  <td><strong>Su seulement après la salaison</strong></td>
+  <td>Deux avis : l’annulation ne sert de rien et il faut soixante ; ou bien la salaison ne vaut pas ici la cuisson</td>
+  <td>פ״ת ס״ק ד (חינוך ב״י סי׳ מ״א ונוב״י מול חינוך ב״י סוס״י צ״ז)</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מקורות הסוגיא</h3>
+<h3>Tableau — les ma’hlokoth centrales du siman</h3>
 
-<div class="rishon-card" dir="rtl">
-<strong>גמרא :</strong> ביצה ג׳:–ד׳. (חד בתרי בטיל, דבר שיש לו מתירין) · זבחים ע״ג: (אחרי רבים להטות, ביטול ברוב) · חולין ק׳. וחולין ק״ח. (מין במינו ושלא במינו, נותן טעם) · גיטין נ״ד: (ממה נפשך, תרי ותרי)
+<table>
+<tr>
+  <th>Sujet</th>
+  <th>Première shita</th>
+  <th>Seconde shita</th>
+</tr>
+<tr>
+  <td>Ce qu’une seule personne peut manger</td>
+  <td>Le Rashba — un à un, et un puis deux (ש״ך ס״ק ז)</td>
+  <td>Le « il y a qui interdit » — même l’un après l’autre ; et le Rama veut qu’on s’y conduise a priori</td>
+</tr>
+<tr>
+  <td>Hors du genre, interdit rabbinique — faut-il soixante ?</td>
+  <td>La lecture large de la glose du Rama (ב״י) — aucune différence</td>
+  <td>Le Chakh au nom du Ran — le rabbinique n’exige pas soixante, et il pose un צריך עיון sur la formule du Rama (ס״ק ט–י)</td>
+</tr>
+<tr>
+  <td>Cuisson d’un mélange déjà annulé</td>
+  <td>Le Mehaber — il redevient interdit (le goût se fait sentir pour lui-même ; à la différence du siman 98)</td>
+  <td>Le Rosh et les Tossafoth, chez le Rama — su avant, il ne redevient pas interdit</td>
+</tr>
+<tr>
+  <td>Quelle majorité est requise</td>
+  <td>Le Peri Hadach — un rien de plus que la moitié (פ״ת ס״ק א)</td>
+  <td>Le Minhat Yaakov — le double, rabbiniquement ; et le Chinoukh Beit Yehouda lit dans le Chakh une majorité de masse sans double</td>
+</tr>
+<tr>
+  <td>Une part perdue hors du genre, sans soixante</td>
+  <td>Rabbi Akiva Eiger — rigoureux (la présomption d’interdit demeure)</td>
+  <td>Le liquide dans le liquide qui s’est répandu — on y allège ; et Rabbi Akiva Eiger note que le Chakh 102 ס״ק יד semble ne pas distinguer</td>
+</tr>
+</table>
+
+<h3>Tableau — les sources de la sougya</h3>
+
+<div class="rishon-card">
+<strong>Guemara :</strong> חולין ק׳. וק״ח. (מין במינו ושלא במינו) · גיטין נ״ד: (חד בתרי) · ביצה ג׳: (ביטול ברוב, דבר שיש לו מתירין) · זבחים ע״ג (ביטול ברוב) · et, cités par le Chakh ס״ק ג et ס״ק י : תוספות זבחים ע״ג ע״א, מנחות כ״ב ע״ב, פסחים מ״ד ע״א, חולין צ״ט
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>ראשונים :</strong> רש״י · רבנו תם · רשב״א (תורת הבית) · ר״ן · רא״ש · תוספות (זבחים ומנחות) · רבנו ירוחם · רמב״ם · טור · ספר התרומה · אור זרוע · איסור והיתר הארוך
+<div class="rishon-card">
+<strong>Richonim :</strong> רש״י · רשב״א (חידושים ותורת הבית ותשובות) · רמב״ן · ר״ן · רא״ש · תוספות · רבנו ירוחם · טור · ספר התרומה · אור זרוע · איסור והיתר הארוך · הגהות שערי דורא
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>אחרונים :</strong> בית יוסף · רמ״א · ש״ך · ט״ז · פרי חדש · פרי מגדים · מנחת יעקב · פתחי תשובה · נודע ביהודה · ר׳ עקיבא איגר · חתם סופר · חנוך בית יהודה
+<div class="rishon-card">
+<strong>Aharonim :</strong> בית יוסף · רמ״א · ב״ח · ש״ך · ט״ז · מהרש״ל · פרי חדש · פרי מגדים · מנחת יעקב · פתחי תשובה · נודע ביהודה · רבי עקיבא איגר · חתם סופר · חינוך בית יהודה
 </div>
 
 <hr class="ornament">
 
-  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;direction:rtl;">
-    <a href="niveau-1-base.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">→ רמה א' — יסוד</a>
-    <a href="niveau-3-synthese.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">רמה ג' — סיכום ←</a>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;">
+    <a href="niveau-1-base.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">← Niveau 1 — Base</a>
+    <a href="niveau-3-synthese.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">Niveau 3 — Synthèse →</a>
   </div>
 
 <div class="yh-watermark">
 ~ ~ ~ ~ ~<br>
 <strong>DAAT</strong> · <strong>הרב יוסף חיים סממה</strong><br>
-תלמיד חכם · מעביר שיעורים בהלכה ובחסידות<br>
-<em>פלפול ועיון בדין יבש ביבש שנתערב · סימן ק״ט · ⚡ רמה ב' — לַמְדָּן</em>
+Talmid hakham · donne des cours de halakha et de hassidout<br>
+<em>Pilpoul et étude sur le sec mêlé au sec · סימן ק״ט · ⚡ Niveau 2 — Lamdan</em>
 </div>
 
-  <div class="disclaimer" style="background:#fff8e1;border-right:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;direction:rtl;text-align:right;">
-    ⚠️ תוכן זה נכתב לצורך לימוד ועיון בלבד. לכל הוראה למעשה (לְמַעֲשֶׂה) — שאל את רבך.
+  <div class="disclaimer" style="background:#fff8e1;border-left:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;">
+    ⚠️ Ce contenu est écrit pour l’étude et l’examen seulement. Pour toute application pratique (לְמַעֲשֶׂה) — demande à ton Rav.
   </div>
 
   <div style="background:#1A1F3A;border-top:2px solid #C5A55A;padding:24px 40px;text-align:center;margin-top:0;">
-    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;direction:rtl;">
-      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">לעמוד הבית</a> · <a href="index.html" style="color:#C5A55A;text-decoration:none;">סימן ק״ט</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ לתמיכה</a>
+    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;">
+      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">Accueil</a> · <a href="index.html" style="color:#C5A55A;text-decoration:none;">Siman 109</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ Soutenir</a>
     </p>
   </div>
 
@@ -839,7 +905,7 @@
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="../../../assets/js/chat-widget.js" defer></script>
 <script src="../../../assets/js/daat-copy.js" defer></script>
-<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="מצא חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">הצטרף לחברותא</span></a>
+<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="Rejoindre la khavroutha"><span class="icon">📖</span><span class="label-long">Rejoindre la khavroutha</span></a>
   <script src="/assets/js/share-text.js" defer></script>
 </body>
 </html>

@@ -11,9 +11,15 @@ Aucun des six autres ne peut le voir. `verifier-liens.py` ne juge que l'existenc
 du fichier ; `verifier-langues.py` et `verifier-url-langue.py` jugent le contenu
 de la page, jamais la destination de ses liens.
 
-Le défaut existe sous DEUX formes, et le script contrôle les deux :
+Le défaut existe sous TROIS formes, et le script contrôle les trois :
   · relative — `href="niveau-2-lamdan.html"` depuis `X-he.html` ;
-  · absolue  — `href="/yd/160/"` depuis `X-he.html`, au lieu de `/yd/160/he`.
+  · absolue  — `href="/yd/160/"` depuis `X-he.html`, au lieu de `/yd/160/he` ;
+  · remontante — `href="../../../communaute.html"` depuis `X-he.html`, au lieu de
+    `communaute-he.html`. C'est la plus nombreuse des trois et la dernière trouvée :
+    un arbitre l'a vue sur UNE page du siman 197, et le dépôt en portait 18 412 dans
+    3 954 fichiers. Elle vise l'accueil, soutenir, communaute, chat et la chitah de
+    l'Admour HaZaken — les pages que le lecteur atteint par la navigation, donc les
+    plus cliquées du site.
 La seconde a été trouvée trois fois sur des index déjà publiés, et une quatrième
 sur le siman 161 pendant sa production. Elle est pire que la première : elle vise
 une URL publique, donc elle survit à toute réorganisation des fichiers.
@@ -48,6 +54,10 @@ RE_LIEN = re.compile(r'href="((?:index|niveau-\d-[a-z0-9-]+?))(?<!-he)(?<!-en)\.
 SUFFIXES = {'-he': 'he', '-en': 'en'}
 # La forme absolue : /yd/160/ (français) au lieu de /yd/160/he.
 RE_ABS = re.compile(r'href="/yd/(\d+)/"')
+# La forme remontante : ../../../communaute.html au lieu de ../../../communaute-he.html.
+# On ne code AUCUNE liste de pages : la cible est résolue sur le disque, et le lien
+# n'est signalé que si la variante de langue existe réellement à côté d'elle.
+RE_REMONTE = re.compile(r'href="((?:\.\./)+[A-Za-z0-9_./-]+?)(?<!-he)(?<!-en)\.html((?:#[\w.-]+)?)"')
 
 
 def defauts(path):
@@ -64,6 +74,14 @@ def defauts(path):
             continue                    # pas de variante : ne rien promettre
         ligne = html.count('\n', 0, m.start()) + 1
         out.append((ligne, m.group(1) + '.html', cible))
+
+    for m in RE_REMONTE.finditer(html):
+        cible = os.path.normpath(os.path.join(os.path.dirname(path),
+                                              m.group(1) + suf + '.html'))
+        if not os.path.exists(cible):
+            continue                    # pas de variante : ne rien promettre
+        ligne = html.count('\n', 0, m.start()) + 1
+        out.append((ligne, m.group(1) + '.html', m.group(1) + suf + '.html'))
 
     lang = SUFFIXES[suf]
     for m in RE_ABS.finditer(html):

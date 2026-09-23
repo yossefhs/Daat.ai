@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,8 +23,7 @@
   @page { size: A4; margin: 2cm 1.8cm; }
   body {
     font-family: 'Frank Ruhl Libre', 'David', 'Georgia', 'Cambria', serif;
-    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0;
-    direction: rtl; text-align: right;
+    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0; text-align: left;
   }
   .he {
     direction: rtl; text-align: right;
@@ -72,14 +71,12 @@
   h2.section-title {
     color: #fff; background: #1A1F3A;
     font-size: 16pt; padding: 10px 18px; margin-top: 30px;
-    border-right: 6px solid #C5A55A;
-    direction: rtl; text-align: right;
+    border-left: 6px solid #C5A55A; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3 {
     color: #1A1F3A; font-size: 14pt; margin-top: 25px;
-    border-right: 4px solid #C5A55A; padding-right: 10px;
-    direction: rtl; text-align: right;
+    border-left: 4px solid #C5A55A; padding-left: 10px; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3.he-h3 {
@@ -89,8 +86,7 @@
   }
   h4 {
     color: #5a4a1a; font-size: 12pt;
-    margin-top: 20px; margin-bottom: 8px; font-weight: bold;
-    direction: rtl; text-align: right;
+    margin-top: 20px; margin-bottom: 8px; font-weight: bold; text-align: left;
   }
 
   .sacred-text {
@@ -100,8 +96,8 @@
     font-size: 12.5pt; line-height: 1.9;
   }
   .pilpul-box {
-    background: #eef3fa; border-right: 4px solid #1A1F3A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #eef3fa; border-left: 4px solid #1A1F3A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .pilpul-box::before {
     content: "⚡ פלפול"; display: block;
@@ -110,8 +106,8 @@
     direction: rtl; text-align: right;
   }
   .kashya-box {
-    background: #fef4e4; border-right: 4px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #fef4e4; border-left: 4px solid #C5A55A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .kashya-box::before {
     content: "❓ קושיא"; display: block;
@@ -120,8 +116,8 @@
     direction: rtl; text-align: right;
   }
   .teruts-box {
-    background: #e8f4ea; border-right: 4px solid #2d7a3e;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #e8f4ea; border-left: 4px solid #2d7a3e;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .teruts-box::before {
     content: "✓ תירוץ"; display: block;
@@ -130,8 +126,8 @@
     direction: rtl; text-align: right;
   }
   .hakira-box {
-    background: #f5e9f5; border-right: 4px solid #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #f5e9f5; border-left: 4px solid #6a1b7a;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .hakira-box::before {
     content: "🔍 חקירה"; display: block;
@@ -141,8 +137,7 @@
   }
   .nafka-mina-box {
     background: #fff4e6; border: 2px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; border-radius: 4px; text-align: left;
   }
   .nafka-mina-box::before {
     content: "⚖️ נפקא מינה"; display: block;
@@ -152,8 +147,7 @@
   }
   .yesod-box {
     background: #1A1F3A; color: #fff;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
   .yesod-box::before {
     content: "💎 יסוד"; display: block;
@@ -164,7 +158,7 @@
   .yesod-box .he-q { color: #C5A55A; }
   .machloket-box {
     background: #faf5ff; border: 1.5px dashed #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
 
   table {
@@ -173,10 +167,9 @@
   }
   th {
     background: #1A1F3A; color: #fff;
-    padding: 10px; text-align: right; direction: rtl; font-size: 11pt;
+    padding: 10px; text-align: left; font-size: 11pt;
   }
-  td {
-    direction: rtl; text-align: right;
+  td { text-align: left;
     border: 1px solid #d4c89a; padding: 10px; vertical-align: top;
   }
   tr:nth-child(even) td { background: #FAF6EE; }
@@ -197,12 +190,11 @@
   }
 
   ol.stylish li, ul.stylish li { margin-bottom: 8px; }
-  ol.stylish, ul.stylish { padding-right: 22px; padding-left: 0; }
+  ol.stylish, ul.stylish { padding-left: 22px; padding-right: 0; }
 
   .rishon-card {
-    background: #f7f3e4; border-right: 4px solid #8a6a1a;
-    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt;
-    direction: rtl; text-align: right;
+    background: #f7f3e4; border-left: 4px solid #8a6a1a;
+    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt; text-align: left;
   }
   .rishon-card strong { color: #1A1F3A; font-size: 11pt; }
 
@@ -217,10 +209,9 @@
 
   .index-box {
     background: #FAF6EE; border: 1px solid #C5A55A;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
-  .index-box ol { margin: 5px 0; padding-right: 25px; padding-left: 0; }
+  .index-box ol { margin: 5px 0; padding-left: 25px; padding-right: 0; }
   .index-box li { margin-bottom: 5px; }
 
   h3.sugya {
@@ -237,7 +228,6 @@
     font-size: 12pt;
     text-decoration: none;
     border-bottom: 1px dotted #C5A55A;
-    direction: rtl;
   }
   a.daat-explain:hover { color: #8a6a1a; border-bottom-style: solid; }
 
@@ -382,33 +372,33 @@
 <!-- COUVERTURE -->
 <div class="cover">
   <div class="ornament">✦ ❖ ✦</div>
-  <div class="badge-top">DAAT · רמה ב' — לַמְדָּן</div>
-  <h1>שולחן ערוך · יורה דעה</h1>
-  <div class="subtitle">דין נותן טעם לפגם — עיון ופלפול</div>
+  <div class="badge-top">DAAT · LEVEL 2 — LAMDAN</div>
+  <h1>Shulchan Arukh · Yoreh De'ah</h1>
+  <div class="subtitle">The דין נותן טעם לפגם — study and pilpul</div>
 
   <div class="he-title">סימן ק״ג</div>
   <div class="he-sub">נבילה הראויה לגר, טעם וממשות, בת יומה, שמן ודבש, וחתיכה נעשית נבילה</div>
   <div class="he-subject">עיון, פלפול, שיטות הראשונים והאחרונים</div>
 
-  <div class="level-badge">⚡ ללומדים ותלמידי חכמים ⚡</div>
+  <div class="level-badge">⚡ For lamdanim and talmidei chachamim ⚡</div>
 
   <div class="ornament">✦ ❖ ✦</div>
 
-  <h2 style="margin-top:20px; color: #1A1F3A;">פלפול ועיון מעמיק</h2>
+  <h2 style="margin-top:20px; color: #1A1F3A;">In-depth pilpul and iyun</h2>
   <p style="font-size:12pt; color:#555;">
-    סוגיות, מקורות, חקירת היסוד, מחלוקות ראשונים ואחרונים,<br>
-    נפקא מינות להלכה ועיון בשיטות
+    Sugyot, sources, the chakira of the yesod, machlokot of Rishonim and Acharonim,<br>
+    practical nafka minot and examination of the shitot
   </p>
 
   <div class="credits">
-    <p><strong>הנושא :</strong><br>
-    שולחן ערוך יורה דעה סימן ק״ג (ז' סעיפים)<br>
-    עם נושאי כלים: ש״ך (שפתי כהן), ט״ז (טורי זהב), פרי מגדים, פתחי תשובה</p>
+    <p><strong>Subject:</strong><br>
+    שולחן ערוך יורה דעה סימן ק״ג (7 seifim)<br>
+    with the commentaries: ש״ך (Shach) · ט״ז (Taz) · פרי מגדים (Peri Megadim) · פתחי תשובה (Pitchei Teshuva)</p>
 
-    <p><strong>יסוד הסוגיא בש״ס :</strong><br>
-    עבודה זרה ס״ז:–ס״ח. (נותן טעם לפגם, נבילה הראויה לגר) · עבודה זרה ל״ח:–ל״ט. (שמן ודבש של נכרי) · חולין צ״ז:–צ״ח. (טעם כעיקר, ביטול בששים)</p>
+    <p><strong>The sugya in Shas:</strong><br>
+    עבודה זרה ס״ז: — ס״ח. (נותן טעם לפגם, נבילה הראויה לגר) · עבודה זרה ל״ח: — ל״ט. (שמן ודבש של נכרי) · חולין צ״ז: — צ״ח. (טעם כעיקר, ביטול בששים) · ירושלמי תרומות פ״י ה״ו (לא לשבח ולא לפגם)</p>
 
-    <p><strong>עריכה ועיון :</strong><br>
+    <p><strong>Written and edited by:</strong><br>
     הרב יוסף חיים סממה · DAAT</p>
   </div>
 </div>
@@ -416,20 +406,20 @@
 <div class="page-break"></div>
 
 <!-- TABLE DES MATIÈRES -->
-<h2 class="section-title">📑 תוכן העניינים</h2>
+<h2 class="section-title">📑 Table of contents</h2>
 
-<div class="index-box" dir="rtl">
+<div class="index-box">
 <ol>
-  <li><strong>הקדמת הסוגיא</strong> — נותן טעם לפגם מותר, ולימודו מן הגר (סעיף א')</li>
-  <li><strong>שורש החקירה</strong> — מדוע טעם פגום אינו "טעם", וטעם כעיקר דאורייתא (ש״ך ס״ק ג)</li>
-  <li><strong>שיעור הפגם</strong> — פוגם קצת, טעם מול ממשות, איסור מרובה, וצירו כגופו (סעיף ב', ט״ז ס״ק ג)</li>
-  <li><strong>החוכך, משביח ולבסוף פוגם, והקדירה</strong> — הנאת הריבוי, ונ״ט בר נ״ט דהיתרא (סעיף ב', ט״ז ס״ק ד–ו)</li>
-  <li><strong>איסור הפוגם בסיוע</strong> — מלח ותבלין, ולא לשבח ולא לפגם אסור (סעיף ג', ש״ך ס״ק ב)</li>
-  <li><strong>שמן ודבש של נכרי</strong> — שמן נטל״ש ודבש נטל״פ, וביין (סעיף ד', ש״ך ס״ק יג–יד)</li>
-  <li><strong>בת יומה ומעת לעת</strong> — מודחת, שומן בעין, וחורפא משוי לשבח (סעיפים ה'–ו')</li>
-  <li><strong>קדירת בשר וחלב ומים</strong> — חתיכה נעשית נבילה ולינה (סעיף ז', ט״ז ס״ק י–יא)</li>
-  <li><strong>חקירה ונפקא מינה למעשה</strong></li>
-  <li><strong>טבלאות סיכום מקיפות</strong></li>
+  <li><strong>Opening the sugya</strong> — נותן טעם לפגם מותר, and how it is derived from the גר (seif 1)</li>
+  <li><strong>The root of the chakira</strong> — why a spoiled taste is not a "taste", and טעם כעיקר דאורייתא (Shach ס״ק ג)</li>
+  <li><strong>The measure of spoiling</strong> — spoiling slightly, taste against ממשות, a majority of issur, and ציר as the body itself (seif 2, Taz ס״ק ג)</li>
+  <li><strong>The חוכך, השביח ולבסוף פוגם, and the pot</strong> — the benefit of added quantity, and נ״ט בר נ״ט דהיתרא (seif 2, Taz ס״ק ד–ו)</li>
+  <li><strong>An issur that spoils only with help</strong> — salt and spices, and לא לשבח ולא לפגם which is forbidden (seif 3, Shach ס״ק ב and י״ב)</li>
+  <li><strong>Oil and honey of a non-Jew</strong> — oil נטל״ש and honey נטל״פ, and meat in wine (seif 4, Shach ס״ק י״ג–י״ד)</li>
+  <li><strong>בת יומה and מעת לעת</strong> — a rinsed pot, fat on the surface, and חורפא משוי לשבח (seifim 5 and 6)</li>
+  <li><strong>A pot of meat and milk, then water</strong> — חתיכה נעשית נבילה and the night that passes (seif 7, Taz ס״ק י–י״א)</li>
+  <li><strong>Chakira and practical nafka mina</strong></li>
+  <li><strong>Summary tables</strong></li>
 </ol>
 </div>
 
@@ -437,485 +427,573 @@
 
 <!-- ============================================================= -->
 <!-- לשון השולחן ערוך — סעיף א' -->
-<h2 class="section-title">📜 לשון השולחן ערוך — סעיף א'
-  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 העתק</button>
+<h2 class="section-title">📜 The text of the Shulchan Arukh — seif 1
+  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 Copy</button>
 </h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ Detailed explanation (level 1)</a>
 
 <div class="sacred-text he" data-copy-block id="cp-1">
-  <p>כָּל דָּבָר שֶׁטַּעְמוֹ פָּגוּם — אֵינוֹ אוֹסֵר תַּעֲרֻבְתּוֹ. וַאֲפִלּוּ אֵין טַעְמוֹ פָּגוּם מֵחֲמַת עַצְמוֹ, שֶׁבִּפְנֵי עַצְמוֹ הוּא מֻטְעָם וּמְשֻׁבָּח, אֶלָּא שֶׁפּוֹגֵם תַּעֲרֻבְתּוֹ — מֻתָּר. (הגה: מִיהוּ דְּבָרִים חֲשׁוּבִים כְּגוֹן בְּרִיָּה וְכַיּוֹצֵא בָהּ, אִם אֵינָם פְּגוּמִים מֵחֲמַת עַצְמָם, אַף עַל פִּי שֶׁפּוֹגְמִים הַמַּאֲכָל — אֵינָם בְּטֵלִים אֲפִלּוּ בְּאֶלֶף [או״ה כלל ל״ב].)</p>
+  <p>«&nbsp;<span class="he-q">כל דבר שטעמו פגום אינו אוסר תערובתו ואפילו אין טעמו פגום מחמת עצמו שבפני עצמו הוא מוטעם ומשובח אלא שפוגם תערובתו מותר</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה ק״ג:א)</span></p>
+  <p><small>«&nbsp;<span class="he-q">מיהו דברים החשובים כבריה או כיוצא בה אם אינן פגומים בעצמן אע״פ שפוגמין התבשיל אינן בטלים אפילו באלף</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ג:א)</span></small></p>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">1. הקדמת הסוגיא — נותן טעם לפגם מותר</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">1. Opening the sugya — נותן טעם לפגם מותר</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">היסוד — לימוד נטל״פ מן הגר
-  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 העתק</button>
+<h3>The yesod — נטל״פ derived from the גר
+  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 Copy</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-2">
-יסוד הסימן: <strong>נותן טעם לפגם מותר</strong> — איסור שאינו מקנה לתערובת אלא <strong>טעם פגום</strong> אינו אוסרהּ. ומקורו (ט״ז ס״ק א) מן הכתוב במיתת הנבילה: "<span class="he-q">לֹא תֹאכְלוּ כָל נְבֵלָה לַגֵּר אֲשֶׁר בִּשְׁעָרֶיךָ תִּתְּנֶנָּה</span>" — נבילה ה<strong>ראויה לגֵר</strong> (תושב) נקראת נבילה ואסורה, וזו שאינה ראויה לו, שכבר נפסלה מאכילת אדם, אינה בכלל נבילה. ומכאן: טעם ה<strong>פוגם</strong> את התערובת — דינו כנבילה שאינה ראויה, ואינו אוסר. ואין צריך שתיפסל ממש מאכילה, אלא די שטעמהּ נפגם בתערובת.
+<div class="sacred-text" data-copy-block id="cp-2">
+The yesod of the siman is the principle <strong>נותן טעם לפגם מותר</strong>: an issur that imparts to the mixture nothing but a <strong>spoiled taste</strong> does not render it forbidden. The Taz gives its source in his very first ס״ק, from the verse that speaks of neveila: a neveila still <strong>fit to be given to the גר</strong> (the resident) is called neveila and is forbidden; one no longer fit for him, already unfit for a person to eat, is not included in the term. Hence: a taste that <strong>spoils</strong> the mixture has the status of a neveila that has become unfit, and it does not forbid. Nor is it required that the mixture actually become inedible: it is enough that its taste is spoiled there.
+<blockquote>«&nbsp;<span class="he-q">לא תאכלו כל נבלה לגר אשר בשעריך תתננה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ג ס״ק א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">נבילה הראויה לגר קרויה נבילה ושאינה ראויה לגר לא</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ג ס״ק א)</span></blockquote>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שני אופני הפגם :</strong> שני ציורים בלשון המחבר — (א) דבר ש<span class="he-q">טעמו פגום</span> מחמת עצמו, שאף בפני עצמו אינו ראוי; (ב) דבר שאף שבפני עצמו הוא <em>מוטעם ומשובח</em>, מכל מקום כשנפל לתערובת זו הוא <span class="he-q">פוגם תערבותו</span>. ובשני האופנים מותר, שאין הולכין אלא אחר פעולתו בפועל בתערובת: מאחר שהמסקנה היא טעם פגום — אין כאן "טעם" האוסר.
+<div class="pilpul-box">
+<strong>The two figures of spoiling:</strong> two pictures in the language of the Mehaber — (a) a thing whose taste is spoiled <em>of itself</em>, which is not fit to be eaten even on its own; (b) a thing which, on its own, is <span class="he-q">מוטעם ומשובח</span> — tasty and improved — yet which, having fallen into <em>this</em> mixture, spoils its taste. In both cases it is permitted, for we follow only the effect actually produced in the mixture: once the outcome is a spoiled taste, there is no "taste" here that forbids.
+<blockquote>«&nbsp;<span class="he-q">ואפילו אין טעמו פגום מחמת עצמו שבפני עצמו הוא מוטעם ומשובח אלא שפוגם תערובתו מותר</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה ק״ג:א)</span></blockquote>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הגהת הרמ״א — בריה ודבר חשוב :</strong> "<span class="he-q">מיהו דברים חשובים כגון בריה וכיוצא בה, אם אינם פגומים מחמת עצמם — אינם בטלים אפילו באלף</span>" (איסור והיתר הארוך כלל ל״ב). כלומר: היתר נטל״פ מועיל רק בדבר שאין בו <strong>חשיבות</strong> מצד עצמו; אבל בריה (וכל דבר שאינו בטל — סימן ק׳, ק״א), אם היא שלמה ובלתי פגומה <em>בעצמה</em>, אף שהיא פוגמת את המאכל — אינה בטלה כלל, שחשיבותהּ מעכבת את הביטול אף באלף.
+<div class="rishon-card">
+<strong>The gloss of the Rama — בריה and דבר חשוב:</strong> the heter of נטל״פ holds only for a thing that has no חשיבות of its own. But a בריה — and everything that is not nullified, in simanim ק׳ and ק״א — if it is not spoiled <em>in itself</em>, is not nullified at all, not even in a thousand, even though it spoils the dish: its חשיבות blocks the nullification.
+<blockquote>«&nbsp;<span class="he-q">מיהו דברים החשובים כבריה או כיוצא בה אם אינן פגומים בעצמן אע״פ שפוגמין התבשיל אינן בטלים אפילו באלף</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ג:א)</span></blockquote>
+The Rama himself refers, in parentheses, to the איסור והיתר הארוך כלל ל״ב. The Shach names the cases intended, and the Taz says why חשיבות here weighs more than the spoiling.
+<blockquote>«&nbsp;<span class="he-q">כגון חה״ל ודבר שבמנין וכה״ג דגופו לא בטיל באלף אפי׳ אינו נ״ט</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ג ס״ק א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל אם הם בעצמם מושבחים אע״פ שנ״ט לפגם במאכל זה גופו לא בטיל אפילו באלף כיון שהוא בריה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ג ס״ק ב)</span></blockquote>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">2. שורש החקירה — מדוע טעם פגום אינו "טעם"</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">2. The root of the chakira — why a spoiled taste is not a "taste"</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זוהי חקירת היסוד של כל הסימן, ובה תלויות כל הסתעפויותיו.</p>
+<p style="margin:15px 0; font-style:italic;">This is the foundational chakira of the whole siman, and all its branches depend on it.</p>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — טעם כעיקר דאורייתא, ופגום מהו :</strong> קיימא לן <span class="he-q">טעם כעיקר דאורייתא</span> — טעם האיסור הבלוע בהיתר אוסר כאילו האיסור עצמו בעין. ואם כן, מדוע טעם <em>פגום</em> אינו אוסר ? והלא טעם הוא ! יש לחקור: האם נטל״פ הוא <strong>גילוי</strong> שאין כאן שֵם איסור כלל (שכבר נפסל מתורת אוכל), או שהוא <strong>היתר</strong> חיצוני המתיר טעם הקיים ?
+<div class="hakira-box">
+<strong>The chakira — טעם כעיקר דאורייתא, and what of a spoiled taste?</strong> We hold that <span class="he-q">טעם כעיקר דאורייתא</span>: the taste of the issur absorbed in the permitted forbids as though the issur itself were present in substance. Why, then, does a <em>spoiled</em> taste not forbid? It is a taste nonetheless. There is room to inquire: is נטל״פ a <strong>disclosure</strong> that there is no name of issur here at all — the thing having left the category of food — or an external <strong>heter</strong> that permits a taste which genuinely exists? The question stands open; what follows shows which way the Shach leans.
 </div>
 
-<div class="teruts-box" dir="rtl">
-<strong>הכרעת הש״ך (ס״ק ג) :</strong> מבאר הש״ך שאין לחלק בין <span class="he-q">נמחה</span> האיסור ללא נמחה, ושאף שטעם כעיקר דאורייתא — מכל מקום <strong>טעם פגום אינו בכלל "טעם" האוסר</strong>. שורש הדבר: התורה אסרה רק טעם המשביח או הראוי, אבל טעם המקלקל יצא מגדר "נתינת טעם" — שאין זו נתינת טעם אלא נטילת טעם. נמצא שאין נטל״פ "היתר" על טעם קיים, אלא <span class="he-q">אין כאן טעם אוסר כלל</span>.
+<div class="teruts-box">
+<strong>The Shach's resolution (ס״ק ג):</strong> the Shach writes, in the name of the תורת חטאת, that there is no room to distinguish between an issur that is <span class="he-q">נמחה</span> — dissolved — and one that is not, since טעם כעיקר דאורייתא; but that a spoiled taste is not reckoned a taste at all.
+<blockquote>«&nbsp;<span class="he-q">דאין לחלק בין נמחה ללא נמחה דהא טעם כעיקר דאורייתא אלא דטעם פגום לא חשיב טעם ובטל</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ג ס״ק ג)</span></blockquote>
+And he draws the consequence at once: if the taste does not count, the body of the issur itself is nullified in a majority.
+<blockquote>«&nbsp;<span class="he-q">אם כן ה״ה גוף האיסור נמי בטל ברוב</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ג ס״ק ג)</span></blockquote>
+נטל״פ is therefore not a heter laid over a taste that exists: rather, the Torah forbade only a taste that improves or that remains edible, and a taste that ruins has left the category of "imparting taste" altogether.
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>קצה החקירה — "לא לשבח ולא לפגם" :</strong>
+<div class="machloket-box">
+<strong>The edge of the chakira — "neither improving nor spoiling":</strong>
 <table>
-<tr><th>המצב</th><th>הדין</th><th>מקור</th></tr>
+<tr><th>The case</th><th>The din</th><th>Source</th></tr>
 <tr>
-  <td><strong>פוגם (קצת או הרבה)</strong></td>
-  <td><strong>מותר</strong> — אינו אוסר תערובתו</td>
-  <td>מחבר ס״א–ב'</td>
+  <td><strong>It spoils (slightly or greatly)</strong></td>
+  <td><strong>Permitted</strong> — it does not forbid its mixture</td>
+  <td>Mehaber seifim 1 and 2</td>
 </tr>
 <tr>
-  <td><strong>משביח</strong></td>
-  <td>אוסר — צריך ששים</td>
+  <td><strong>It improves</strong></td>
+  <td>It forbids — sixty are required</td>
   <td>טעם כעיקר</td>
 </tr>
 <tr>
-  <td><strong>לא לשבח ולא לפגם</strong> (בלא טעם כלל)</td>
-  <td><strong>אסור</strong> — וצריך ששים</td>
-  <td>ש״ך ס״ק ב (ירושלמי תרומות)</td>
+  <td><strong>Neither improving nor spoiling</strong> (no taste at all)</td>
+  <td><strong>Forbidden</strong> — and sixty are required</td>
+  <td>Shach ס״ק ב (ירושלמי תרומות פ״י ה״ו)</td>
 </tr>
 </table>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>ראיית הש״ך (ס״ק ב) :</strong> מוכיח הש״ך מן ה<span class="he-q">גיד הנשה</span> — שאין בו טעם כלל ("אין בגידין בנותן טעם"), ואף על פי כן צריך ששים לבטלו ! משמע שדבר שאינו לא משביח ולא פוגם — אינו בכלל נטל״פ ו<strong>אסור</strong> עד ששים. למדנו: היתר נטל״פ אינו "העדר טעם", אלא דווקא טעם ה<em>פוגם</em> בפועל; וזה שורשו בירושלמי (תרומות).
+<div class="pilpul-box">
+<strong>The Shach's proof (ס״ק ב):</strong> the Shach first states the rule, then proves it from the sinew — the גיד — which we hold imparts no taste at all, and which nonetheless requires sixty to be nullified once it has dissolved.
+<blockquote>«&nbsp;<span class="he-q">אבל דבר שאינו נ״ט לא לשבח ולא לפגם אסור</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ג ס״ק ב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דאין בגידין בנ״ט</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ג ס״ק ב)</span></blockquote>
+We learn from this that the heter of נטל״פ is not the <em>absence</em> of taste, but precisely a taste that <em>spoils</em> in fact; and its root is in the Yerushalmi, which the Shach quotes in its own words.
+<blockquote>«&nbsp;<span class="he-q">הדא אמרת לא לשבח ולא לפגם אסור</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ג ס״ק ב)</span></blockquote>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>שיטת הרשב״א (ש״ך ס״ק ה) :</strong> כשאין באיסור אלא <span class="he-q">טעם בלבד</span> ולא ממשות, אף שנפל למיעוט היתר — <strong>זורקו</strong> את גוף האיסור, והרוטב הנותר מותר, שטעם פגום שבו אינו אוסר. וזהו יסוד דברי המחבר בסיפא דסעיף ב' (להלן): "אם אין שם ממש האיסור אלא טעמו בלבד — מותר".
+<div class="rishon-card">
+<strong>The shita of the Rashba (Shach ס״ק ה):</strong> where the issur leaves only <span class="he-q">אלא טעמו בלבד</span> — its taste alone, without substance — then even if it fell into a smaller quantity of permitted food, one <em>discards</em> the body of the issur and the remaining broth is permitted, since the spoiled taste within it does not forbid.
+<blockquote>«&nbsp;<span class="he-q">ונראה שאפי׳ נפל לתוך היתר מועט והכירו זורקו והרוטב מותר לפי שאין כאן אלא טעמו ולא ממשו</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ג ס״ק ה)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">והלכך כשהאיסור פגום אין משערין בכולו אלא בטעמו וטעמו כמי שאינו שהרי פגום הוא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ג ס״ק ה)</span></blockquote>
+This is the yesod of the end of seif 2 in the Mehaber, to be read in the next section.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">3. שיעור הפגם — טעם מול ממשות וצירו כגופו</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">3. The measure of spoiling — taste against ממשות, and ציר as the body</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיף ב')
-  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 העתק</button>
+<h3>The text of the Mehaber (seif 2)
+  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-3">
-"<strong>פגם זה אין צריך שיהא פוגם לגמרי עד שלא יהא ראוי לאכילה; אלא אפילו פוגם קצת — אינו אוסר. ויש מי שאומר: דווקא איסור מועט שנתערב בהיתר מרובה; אבל איסור מרובה והיתר מועט, ואפילו מחצה על מחצה — אין אומרים נותן טעם לפגם מותר, עד שיפגום לגמרי שאינו ראוי לאכילה. ואם אין שם ממש האיסור אלא טעמו בלבד — אפילו איסור מרובה והיתר מועט, אם פוגם קצת — מותר.</strong>"
+  <p>«&nbsp;<span class="he-q">פגם זה אין צריך שיפגום לגמרי עד שיהא קץ לאכלו אלא אפילו פוגם קצת אינו אוסר תערובתו ויש מי שאומר דהיינו דוקא כשנתערב איסור מועט עם היתר מרובה אבל איסור מרובה לתוך היתר מועט ואפילו מחצה על מחצה אין אומרים נותן טעם לפגם מותר עד שיפגום לגמרי שאינו ראוי למאכל אדם ואם אין שם ממשו של איסור אלא טעמו בלבד אפילו איסור מרובה והיתר מועט מותר אם פוגם קצת</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה ק״ג:ב)</span></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — טעם מול ממשות :</strong><br>
-הבחנה יסודית בשיעור הנדרש:<br><br>
-• כשיש לאיסור <span class="he-q">ממש (ממשות)</span> והוא <strong>מרובה</strong> (או אף מחצה על מחצה) — לא די בפגם קצת, אלא צריך שיפגום <em>לגמרי</em> עד שאינו ראוי לאכילה.<br>
-• כשאין באיסור אלא <span class="he-q">טעמו בלבד</span> בלא ממש — די ב<strong>פגם קצת</strong> אף באיסור מרובה והיתר מועט.<br><br>
-שורש החילוק: ממשות האיסור מצטרפת לאוסרהּ אף בלא טעם פגום מספיק; אבל טעם בלא גוף — כל כולו תלוי בפעולת הטעם, ופגם כלשהו מבטלו.
+<div class="yesod-box">
+<strong>The yesod — taste against substance:</strong><br>
+A foundational distinction, bearing on the measure of spoiling required:<br><br>
+• When the issur has a <span class="he-q">ממשו של איסור</span> — a substance — and is <strong>the larger part</strong> (or even half against half), slight spoiling does not suffice: it must spoil <em>completely</em>, until it is no longer fit for a person to eat.<br>
+• When there is nothing of the issur but <span class="he-q">אלא טעמו בלבד</span>, with no substance, <strong>slight spoiling</strong> suffices, even where the issur is the larger part and the permitted the smaller.<br><br>
+The root of the distinction: the substance of the issur joins in forbidding, without depending entirely on the quality of the taste; but a taste without a body rests wholly on the working of the taste, and the least spoiling undoes it.
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>צירו כגופו — דקדוק הט״ז (ס״ק ג) :</strong> מדקדק הט״ז שה<span class="he-q">ציר</span> (הנוזל הנפלט מן האיסור, כדמעת בשר ושאר ליחות) נחשב <strong>כגוף האיסור (כממשות)</strong> ולא כ"טעם בלבד". ונפקא מינה: אם נפל ציר מרובה — דינו כאיסור מרובה בעל ממש, שצריך שיפגום לגמרי, ולא די בפגם קצת. הרי שאין "ממשות" דווקא חתיכה, אלא אף נוזל היוצא ממנה.
+<div class="pilpul-box">
+<strong>ציר counts as the body — the Taz's dikduk (ס״ק ג):</strong> the Taz notes that <span class="he-q">ציר</span> — the liquid that issues from the issur — counts as <strong>the body of the issur</strong>, not as "taste alone". The Shach records the same, in the name of the Tur in the name of the Rashba.
+<blockquote>«&nbsp;<span class="he-q">ומבואר בטור דציר של איסור חשוב כגופו</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ג ס״ק ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">וכן צירו של איסור טור בשם הרשב״א</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ג ס״ק ד)</span></blockquote>
+And the nafka mina is stated by the Taz himself: ציר of issur mixed into the permitted requires either complete spoiling or a majority of permitted food.
+<blockquote>«&nbsp;<span class="he-q">אם נתערב ציר בעין של איסור להיתר צריך שיהא פוגם לגמרי או שיהא רוב היתר</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ג ס״ק ג)</span></blockquote>
+"Substance", then, is not only a piece: it is also the liquid that comes out of it.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">4. החוכך, משביח ולבסוף פוגם, והקדירה</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">4. The חוכך, השביח ולבסוף פוגם, and the pot</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ Detailed explanation (level 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">שלושה דקדוקים חריפים מסתעפים מהמשך סעיף ב' ומהגהת הרמ״א.</p>
+<p style="margin:15px 0; font-style:italic;">Three sharp dikdukim branch out of the continuation of seif 2 and of the Rama's gloss.</p>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (המשך סעיף ב')
-  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 העתק</button>
+<h3>The text of the Mehaber and the Rama (continuation of seif 2)
+  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-4">
-"<strong>ויש מי שחוכך לומר: אם השביח האיסור את מידת ההיתר כל כך, עד שנהנה ממנו בריבוי המידה יותר ממה שפגם בטעם — אסור, עד שיפגום לגמרי. וכל זה כשפוגם מתחילתו ועד סופו; אבל אם השביח ולבסוף פגם, או פגם ולבסוף השביח — אסור.</strong> (הגה: ויש אומרים אף על פי שהאיסור נותן טעם לפגם והמאכל מותר — מכל מקום הקדירה אסורה; ואם בישל בה תוך מעת לעת מאכל שהאיסור הראשון משביחו — המאכל השני אסור אם אין ששים נגד האיסור הראשון. אבל אם הגיס המאכל הראשון בכף ותחב הכף למאכל שני שהוא גם כן פוגמו — הקדירה אינה נאסרת. וכן דבר שאין בו טעם כלל, כגון יורה שמתיכין בה הדבש, אף על פי שיש בה רגלי הדבורים — אינה נאסרת [או״ה כלל ל״ב].)"
+  <p>«&nbsp;<span class="he-q">ויש מי שחוכך … לומר שאם הגדיל האיסור מדתו של היתר עד שהוא משביח יותר כשאוכלו בגודל מדתו ממה שהוא פוגם בהפסד טעמו אסור עד שיפסל מלאכול אדם במה דברים אמורים שפוגם מתחילתו ועד סופו אבל אם השביח ולבסוף פוגם או פוגם ולבסוף השביח אסור</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה ק״ג:ב)</span></p>
+  <p><small>«&nbsp;<span class="he-q">י״א אף על גב דהאיסור … לפגם והמאכל מותר מ״מ הקדירה אסורה ואם בשלו בה אח״כ תוך מעת לעת תבשיל שהאיסור הראשון נותן בו טעם לשבח נאסר התבשיל השני אם לא היה בו ס׳ נגד האיסור הראשון אבל אם נערו התבשיל הראשון בכף ותחבו אח״כ הכף לתבשיל שני שהוא ג״כ פוגם לא נאסרה הקדרה וכן בדבר שאין לו טעם כלל כגון היורה שמתיכין בו הדבש אע״פ שיש שם רגלי הדבורים לא נאסרה היורה וכל כיוצא בזה</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ג:ב)</span></small></p>
+  <p><small>The break marked by "…" stands, in the source, for the gloss [נ״ט] at the first point, and for the citation (שם בארוך) at the end — the איסור והיתר הארוך, from which the Rama draws this gloss.</small></p>
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>החוכך — הנאת הריבוי (ט״ז ס״ק ד) :</strong> "יש מי שחוכך" — הוא ה<span class="he-q">חוכך להחמיר</span>: אף שהאיסור פוגם את ה<em>טעם</em>, אם הוסיף בכמות ההיתר עד שהנהנה נהנה מן ה<strong>ריבוי</strong> יותר ממה שהפסיד בטעם — נמצא שבמכלול הוא משביח, ואסור. וחקירתו: האם "פגם" נמדד ב<em>טעם</em> בלבד, או גם ב<em>הנאת הכמות</em> ? לדעת החוכך — הנאת הריבוי מצטרפת ומבטלת את שם "הפוגם".
+<div class="hakira-box">
+<strong>The חוכך — the benefit of added quantity (Taz ס״ק ד):</strong> "יש מי שחוכך" denotes one who inclines <em>toward stringency</em>: even though the issur spoils the <em>taste</em>, if it has increased the quantity of the permitted food to the point that the one eating gains more from the <strong>added measure</strong> than he loses in taste, then on balance he improves — and it is forbidden. The chakira is here: is "spoiling" measured by <em>taste</em> alone, or also by the <em>benefit of quantity</em>? For the חוכך, the benefit of the added measure joins in and undoes the name of "one that spoils".
+<blockquote>«&nbsp;<span class="he-q">דהא נהנה מגוף האיסור במה שיש לו טפי לאכילה ויהיה נהנה טפי מרבוי אכילה שמחמת האיסור יותר מן הקלקול שמקלקל לו קצת בטעם אסור</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ג ס״ק ד)</span></blockquote>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>מתחילתו ועד סופו — דקדוק הט״ז (ס״ק ה) :</strong> "וכל זה כשפוגם מתחילתו ועד סופו" — אבל <span class="he-q">משביח ולבסוף פוגם</span> (כגון חומץ של יין נסך שנפל לגריסין, שבתחילה משביח ובסוף, מרוב שהותו, פוגם) או <span class="he-q">פוגם ולבסוף משביח</span> — אסור. שהרי בשעה שהשביח כבר <em>נבלע ונאסר</em> המאכל, ושוב אין הפגם המאוחר מחזירו להיתרו. נמצא ש"נטל״פ" צריך פגם <strong>רצוף</strong> מראשיתו.
+<div class="pilpul-box">
+<strong>From beginning to end — the Taz's dikduk (ס״ק ה):</strong> <span class="he-q">במה דברים אמורים שפוגם מתחילתו ועד סופו</span> <span class="source-ref">(שולחן ערוך יורה דעה ק״ג:ב)</span> — all this holds only where it spoils throughout. But if it improved first and spoiled only at the end, or the reverse, it is forbidden. The Taz brings the Tur's example: vinegar of יין נסך that fell into <em>cold</em> groats, improving them at first, then heating them and spoiling them.
+<blockquote>«&nbsp;<span class="he-q">דהשביח ולבסוף פוגם כגון חומץ יין נסך שנפל לתוך גריסין צונן והשביחן והרתיחן ופוגמן</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ג ס״ק ה)</span></blockquote>
+And the reverse case — spoiling first and improving at the end — is vinegar falling into boiling groats and cooling them; that one is forbidden all the more.
+<blockquote>«&nbsp;<span class="he-q">ממילא פירושא דפוגם ולבסוף השביח הוא איפכא דנפל לתוך רותחין וציננן וזה אסור בכל שכן מהשביח ולבסוף פוגם</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ג ס״ק ה)</span></blockquote>
+The sense of the din is that at the moment the issur improved, the dish was already caught, and the spoiling that came afterwards does not restore it to its permitted state: נטל״פ requires <strong>continuous</strong> spoiling from the outset.
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>הקדירה והכף — נ״ט בר נ״ט דהיתרא (ט״ז ס״ק ו) :</strong>
+<div class="machloket-box">
+<strong>The pot and the spoon — נ״ט בר נ״ט דהיתרא (Taz ס״ק ו):</strong>
 <table>
-<tr><th>המצב</th><th>הדין</th><th>טעם</th></tr>
+<tr><th>The case</th><th>The din</th><th>The reason</th></tr>
 <tr>
-  <td><strong>האיסור פגם המאכל ישירות</strong></td>
-  <td>המאכל מותר אך <span class="he-q">הקדירה אסורה</span></td>
-  <td>הקדירה בלעה את האיסור עצמו</td>
+  <td><strong>The issur spoiled the dish directly</strong></td>
+  <td>The dish is permitted, but <span class="he-q">הקדירה אסורה</span></td>
+  <td>The pot absorbed the issur itself</td>
 </tr>
 <tr>
-  <td><strong>הגיס בכף ותחב הכף למאכל שני (שגם פוגמו)</strong></td>
-  <td>הקדירה (השנייה) <strong>אינה נאסרת</strong></td>
+  <td><strong>He stirred with a spoon, then put the spoon into a second dish (which it also spoils)</strong></td>
+  <td>The pot is <strong>not forbidden</strong></td>
   <td><span class="he-q">נ״ט בר נ״ט דהיתרא</span></td>
 </tr>
 <tr>
-  <td><strong>יורה שמתיכין בה דבש + רגלי דבורים</strong></td>
-  <td>אינה נאסרת</td>
-  <td>אין בה טעם כלל</td>
+  <td><strong>The cauldron in which honey is melted, with the bees' legs</strong></td>
+  <td>It is not forbidden</td>
+  <td>There is no taste in it at all</td>
 </tr>
 </table>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>ביאור — נ״ט בר נ״ט (ט״ז ס״ק ו, או״ה כלל ל״ב) :</strong> כשהאיסור פגם ישירות את המאכל הראשון, הקדירה בלעה ממנו ונאסרת. אבל כש<strong>הכף</strong> בלעה את הטעם הפגום ואחר כך נתנתו במאכל שני (שאף הוא נפגם) — הרי זה טעם <em>שני</em> של פגם, <span class="he-q">נותן טעם בר נותן טעם דהיתרא</span> — קלוש שבקלוש, ואינו אוסר את הקדירה השנייה. והט״ז מדייק בלשון הרמ״א ומבקרהּ, שאין הקפידא ב"כף" דווקא אלא בכל כלי שני שבלע טעם פגום של פגום. וביורת הדבש — שאין שם <em>טעם</em> כלל (רגלי הדבורים אינם נותנים טעם) — פשיטא שאינה נאסרת.
+<div class="pilpul-box">
+<strong>Explanation — נ״ט בר נ״ט (Taz ס״ק ו):</strong> when the issur spoiled the first dish directly, the pot absorbed from it and becomes forbidden. But when it is the <strong>spoon</strong> that absorbed the spoiled taste and then gave it to a second dish, which it likewise spoils, we have a <em>second</em> taste of spoiling — the faintest of the faint — and the pot is not caught by it.
+<blockquote>«&nbsp;<span class="he-q">דהואיל והתבשיל שרי הקדרה נמי שרי דה״ל נ״ט בר נ״ט דהיתרא</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ג ס״ק ו)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">הוה ליה נותן טעם בר נותן טעם דהיתירא כיון שמתחלה בא הטעם של האיסור על ידי פגם</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ג ס״ק ו)</span></blockquote>
+The Taz indeed wonders at the Rama's wording, which required two spoilings where one would do: even had the spoon been caught by an outright issur, once it spoils the dish into which it is put we have נ״ט בר נ״ט.
+<blockquote>«&nbsp;<span class="he-q">ותמהני דלמה נקיט רמ״א כאן שהכף נאסר תחלה מאיסור פגום</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ג ס״ק ו)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ולענין דינא להלכה ודאי שרי אפילו בחד נ״ט לפגם</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ג ס״ק ו)</span></blockquote>
+As for the honey cauldron — where there is no <em>taste</em> at all, the bees' legs imparting none — it goes without saying that it is not caught.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">5. איסור הפוגם בסיוע — מלח ותבלין</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">5. An issur that spoils only with help — salt and spices</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיף ג')
-  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 העתק</button>
+<h3>The text of the Mehaber (seif 3)
+  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-5">
-"<strong>אפילו אין כוח באיסור עצמו לפגום, אלא על ידי סיוע של דבר אחר — כגון איסור שנפל לקדירה שיש בה מלח או תבלין כתושים הרבה, ולולא המלח והתבלין לא היה כוח באיסור לפגום — אף על פי כן מותר.</strong>"
+  <p>«&nbsp;<span class="he-q">אפילו אין כח באיסור לבדו לפגום אלא על ידי דבר אחר שמסייעו כגון שנפל איסור לקדרה שיש בה מלח או תבלין מדוכין … ואלמלא המלח והתבלין שבה לא היה כח באיסור לפגום אפילו הכי מותר</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה ק״ג:ג)</span></p>
+  <p><small>The break stands, in the source, for the variant (בטור מרובין): the Tur reads מרובין — "in quantity" — where the Shulchan Arukh reads מדוכין, "pounded".</small></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — הולכין אחר התוצאה :</strong><br>
-חידוש הסעיף: אין מסתכלין על כוח האיסור <em>בפני עצמו</em>, אלא על ה<strong>תוצאה בפועל</strong> בקדירה זו. מאחר שבצירוף המלח והתבלין הרבים נמצא האיסור <span class="he-q">פוגם בפועל</span> — מותר, אף שלולא הסיוע היה משביח. הרי ש"נותן טעם לפגם" נמדד לפי המכלול שלפנינו, לא לפי כוחו המופשט של האיסור.
+<div class="yesod-box">
+<strong>The yesod — we follow the outcome:</strong><br>
+The chidush of the seif: we do not look at the power of the issur <em>taken by itself</em>, but at the <strong>actual outcome</strong> in this pot. Since, joined to the salt and to the abundant pounded spices, the issur turns out to spoil in fact — it is permitted, even though without that help it would have improved. "נותן טעם לפגם" is therefore measured by the whole that lies before us, not by the abstract power of the issur.
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>והוא הדין להפך — הש״ך (ס״ק יב) :</strong> מוסיף הש״ך שאף ה<em>היפך</em> אמת: אם האיסור פוגם רק מחמת סיוע, ובלעדיו היה משביח — וכן אם משביח רק מחמת סיוע — לעולם הולכין אחר ה<strong>פעולה בפועל</strong>. וזהו שורש אחד עם דין סעיף א': כל ענין נטל״פ נמדד בתוצאה הממשית בתערובת, ולא בכוח האיסור לבדו.
+<div class="pilpul-box">
+<strong>And likewise in reverse — the Shach (ס״ק י״ב):</strong> the Shach adds the symmetrical case — where the issur spoils only <em>because</em> there is no salt or spice present, and would not have spoiled had the seasoning been as it should. That too is permitted, since as things stand it spoils.
+<blockquote>«&nbsp;<span class="he-q">וה״ה איפכא כשהוא פוגם מפני שאין שם מלח או תבלין ואלו היה שם מלח או תבלין כראוי לא היה פוגם מותר כיון דהשתא מיהא פוגם</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ג ס״ק י״ב)</span></blockquote>
+This is one root with the din of seif 1: the whole matter of נטל״פ is measured by the real outcome in the mixture, and not by the power of the issur taken apart.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>חיבור לחקירת ה"לא לשבח ולא לפגם" :</strong> ודייק: כל זה כשהמסקנה היא <span class="he-q">פגם</span>; אבל אם הסיוע הביא לידי "לא לשבח ולא לפגם" — חוזר הדין דס״ק ב' (לעיל סעיף 2), שאסור עד ששים, שאין כאן פגם המתיר.
+<div class="rishon-card">
+<strong>Connection to the chakira of "neither improving nor spoiling":</strong> and one must look closely — all this holds only where the conclusion is <strong>spoiling</strong>. But if the help produces "neither improving nor spoiling", the din of ס״ק ב returns (section 2 above): it is forbidden until sixty, there being no spoiling here to permit.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">6. שמן ודבש של נכרי — שמן נטל״ש ודבש נטל״פ</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">6. Oil and honey of a non-Jew — oil נטל״ש, honey נטל״פ</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ Detailed explanation (level 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">סעיף קצר שבו תלויה מחלוקת ארוכה ועמוקה בש״ך.</p>
+<p style="margin:15px 0; font-style:italic;">A short seif on which a long and deep machloket in the Shach depends.</p>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ד')
-  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 העתק</button>
+<h3>The text of the Mehaber and the Rama (seif 4)
+  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-6">
-"<strong>שמן ודבש של נכרי, אף על פי שבישלום — מותרים, מפני שהבשר פוגם את השמן ומסריחו, וכן הדבש.</strong> (הגה: יש אומרים דאין הבשר פוגם הדבש עצמו, אלא משקה הנעשה מדבש [מהרי״ל]; ובמקום שאין הפסד מרובה — יש להחמיר. בשר או חלב שנפלו ליין — הוי נותן טעם לפגם, ומותר.)"
+  <p>«&nbsp;<span class="he-q">שמן ודבש של עובד כוכבים אע״פ שהם מבושלים מותרים מפני שהבשר פוגם את השמן ומסריחו וכן לדבש</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה ק״ג:ד)</span></p>
+  <p><small>«&nbsp;<span class="he-q">ויש אומרים דבשר אינו פוגם דבש עצמו רק משקה הנעשה מדבש … ובמקום שאין הפסד גדול יש להחמיר. בשר או חלב ביין הוי לפגם ומותר</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ג:ד)</span></small></p>
+  <p><small>The break carries the source of the "יש אומרים" — (מהרי״ל בהגהת ש״ד סימן כ״ב ועוד הרבה פוסקים עיין ס״ק י״ג); and the end of the seif refers to the (הגהות אשיר״י פ״ב דעבודת כוכבים).</small></p>
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>שורש הש״ך הארוך (ס״ק יג–יד) — שמן נטל״ש, דבש נטל״פ :</strong>
+<div class="machloket-box">
+<strong>The root of the long Shach (ס״ק י״ג–י״ד) — oil נטל״ש, honey נטל״פ:</strong>
 <table>
-<tr><th>הדבר</th><th>פעולת הבשר</th><th>הדין</th></tr>
+<tr><th>The thing</th><th>What the meat does</th><th>The din</th></tr>
 <tr>
-  <td><strong>שמן</strong></td>
-  <td>נותן טעם <span class="he-q">לשבח</span> (נטל״ש) — לכולי עלמא</td>
-  <td>היתרו מטעם אחר (סילוק / שאינו אוסר)</td>
+  <td><strong>Oil</strong></td>
+  <td>It imparts a taste <span class="he-q">לשבח</span> — one that improves</td>
+  <td>Its permission rests on another ground</td>
 </tr>
 <tr>
-  <td><strong>דבש</strong></td>
-  <td>נותן טעם <span class="he-q">לפגם</span> (נטל״פ) — מסריחו</td>
-  <td>מותר משום נטל״פ</td>
+  <td><strong>Honey</strong></td>
+  <td>It imparts a taste <span class="he-q">לפגם</span> — it makes it rancid</td>
+  <td>Permitted on the ground of נטל״פ</td>
 </tr>
 <tr>
-  <td><strong>שמן שלוק (מבושל)</strong></td>
-  <td>אף הוא נטל״ש</td>
-  <td>אינו נאסר</td>
+  <td><strong>Boiled oil</strong></td>
+  <td>There too the taste improves</td>
+  <td>It does not become forbidden</td>
 </tr>
 </table>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>הדקדוק שבש״ך (ס״ק יג–יד) :</strong> מאריך הש״ך (על פי תוספות, הרא״ש והמרדכי, ואיסור והיתר) לחלק בין <strong>שמן</strong> ל<strong>דבש</strong>: ב<span class="he-q">שמן</span> הכל מודים שהבשר נותן בו טעם <em>לשבח</em> (ולא יתכן להתירו מטעם פגם), והיתרו מטעם אחר; ואילו ב<span class="he-q">דבש</span> הבשר <em>מסריחו</em> ופוגמו, ולכן היתרו הוא ממש מדין נותן טעם לפגם. ובזה מתיישבת לשון המחבר שכרכם יחד אף שטעמיהם חלוקים.
+<div class="pilpul-box">
+<strong>The Shach's dikduk (ס״ק י״ג–י״ד):</strong> the Shach goes at length — following Tosafot, the Rosh, the Mordechai and the איסור והיתר — to distinguish <strong>oil</strong> from <strong>honey</strong>. In oil, all agree that the meat imparts a taste that <em>improves</em>, so it cannot be permitted on the ground of spoiling: its permission rests on another ground, for the vessels of a non-Jew are not presumed בני יומן.
+<blockquote>«&nbsp;<span class="he-q">וצ״ל דלא הביא כאן דברי הרמב״ם אלא ללמוד דבשר פוגם שמן ודבש</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ג ס״ק י״ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ובתשובת ר״י במרדכי שם מוכח להדיא דבשמן מודה דמשביח</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ג ס״ק י״ד)</span></blockquote>
+In honey, by contrast, the meat makes it rancid and spoils it: its permission is therefore literally that of נותן טעם לפגם. And so it is even for boiled oil.
+<blockquote>«&nbsp;<span class="he-q">אבל בדבש הוי נטל״פ לגמרי</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ג ס״ק י״ד)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דכ״ש בשמן הוי לשבח אפילו כשנתבשל</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ג ס״ק י״ד)</span></blockquote>
+This settles the wording of the Mehaber, who bound the two together although their grounds differ.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הגהת הרמ״א — דבש עצמו או משקה הדבש (מהרי״ל) :</strong> "<span class="he-q">יש אומרים דאין הבשר פוגם הדבש עצמו, אלא משקה הנעשה מדבש</span>". כלומר: מחלוקת אם הבשר מסריח את הדבש <em>הגולמי</em>, או דווקא משקה העשוי ממנו; ולכן <strong>במקום שאין הפסד מרובה — יש להחמיר</strong>. ועיין ט״ז (ס״ק ז) המביא קושיית הבית יוסף — שמבשלין דבש עם בשר והוא מעולה — ומיישב שהשבח מן ה<em>תבלין והבצלים</em>, ומחלוקת מרדכי ומהרי״ל בזה.
+<div class="rishon-card">
+<strong>The Rama's gloss — the honey itself, or the drink made from honey (מהרי״ל):</strong>
+<blockquote>«&nbsp;<span class="he-q">ויש אומרים דבשר אינו פוגם דבש עצמו רק משקה הנעשה מדבש</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ג:ד)</span></blockquote>
+That is: there is a dispute whether the meat makes the <em>raw</em> honey rancid, or only the drink made from it; and therefore, where there is no great loss, one should be stringent.
+<blockquote>«&nbsp;<span class="he-q">ובמקום שאין הפסד גדול יש להחמיר</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ג:ד)</span></blockquote>
+The Taz (ס״ק ז) brings here the Beit Yosef's question — honey is commonly cooked with meat and the result is excellent — and his answer, that the improvement comes from the spices and the onions; he then holds the מהרי״ל's distinction to be the main position.
+<blockquote>«&nbsp;<span class="he-q">תמה ב״י שהרי העולם מבשלין דבש עם בשר והוא משובח מאד ותירץ דע״י התבלין והבצלים הוא משביח</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ג ס״ק ז)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דיש חילוק בין דבש עצמו דמיירי בי׳ המרדכי למשקה העשוי בדבש וכן עיקר</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ג ס״ק ז)</span></blockquote>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>בשר או חלב ביין (רמ״א, פתחי תשובה ס״ק ו) :</strong> "<span class="he-q">בשר או חלב שנפלו ליין — הוי נותן טעם לפגם ומותר</span>", שהיין פוגמן. ובפתחי תשובה (ס״ק ו) מביא בשם בית יהודה דאף לדעת ה<strong>צירה</strong> (שמחמיר) וה<strong>קמץ</strong> — בחלב ביין שניהם מודים שהוא נטל״פ ומותר.
+<div class="rishon-card">
+<strong>Meat or milk in wine (Rama; Pitchei Teshuva ס״ק ו):</strong>
+<blockquote>«&nbsp;<span class="he-q">בשר או חלב ביין הוי לפגם ומותר</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ג:ד)</span></blockquote>
+for the wine spoils them. The Pitchei Teshuva records the discussion over the word חלב — is it to be read with a tsere, meaning fat, or with a kamats, meaning milk? — and brings the בית יהודה, for whom both readings impart a taste that spoils.
+<blockquote>«&nbsp;<span class="he-q">והיותר נ״ל דשניהם הן חלב בקמץ והן חלב בציר״ה נותנים טעם לפגם</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד ק״ג ס״ק ו)</span></blockquote>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">7. בת יומה ומעת לעת — מודחת, שומן בעין, וחורפא</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">7. בת יומה and מעת לעת — a rinsed pot, fat on the surface, and חורפא</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיפים ה'–ו')
-  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 העתק</button>
+<h3>The text of the Mehaber and the Rama (seifim 5 and 6)
+  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-7">
-"<strong>כל קדירה שאינה בת יומה — טעמה פגום ואינה אוסרת. ומאימתי קרויה בת יומה ? כל זמן שלא עברו מעת לעת (כ״ד שעות) מששעה שבישלו בה האיסור; אבל לאחר מעת לעת — אינה בת יומה, ואם בישל בה אז התבשיל מותר (נותן טעם לפגם), ובלבד שתהא מודחת ואין שומן עליה; שאם לא הדיחה — אוסרת, שהשומן שעל פניה הוא כחתיכת איסור שאינה פגומה. ויש מתירין אף אם בישל קודם שהדיח.</strong> (הגה: ואם יש ששים נגד מה שנדבק עליה — הכל מתירין, מאחר שאינה בת יומה, וכן נוהגין [או״ה].) — סעיף ו': <strong>יש מי שאומר שאם נתן פלפלין בקדירה של איסור שאינה בת יומה — הכל אסור, שחריפותם משוי ליה לשבח</strong> (וכן הכריע הבית יוסף)."
+  <p>«&nbsp;<span class="he-q">כל קדירה שאינה בת יומה חשיבה טעמה לפגם ואינה אוסרת ונקראת בת יומה כל זמן שלא שהתה מעת לעת אחר שנתבשל בה האיסור וכיון שעבר עליה מעת לעת אחר שנתבשל בה האיסור אינה נקראת בת יומה ואם בישל בה כשאינה בת יומה התבשיל מותר דהוי נותן טעם לפגם והוא שתהיה מודחת שלא יהיה שומן על פניה שאם לא הדיחה אוסר והרי היא כחתיכת איסור שלא נפגמה ויש מתירין אפילו בישל בה קודם שהדיחה</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה ק״ג:ה)</span></p>
+  <p><small>«&nbsp;<span class="he-q">ואם יש ס׳ נגד מה שדבוק עליו לכולי עלמא שרי מאחר דהקדירה אינה בת יומא והכי נהוג</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ג:ה)</span></small></p>
+  <p><small>The Rama gives his source in parentheses: (או״ה).</small></p>
+  <p>«&nbsp;<span class="he-q">יש מי שאומר שאם שמו פלפלין בקדרה של איסור שאינה בת יומא הכל אסור דחורפיה משויא ליה לשבח</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה ק״ג:ו)</span></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — בת יומה ומעת לעת :</strong><br>
-טעם הבלוע בכלי <em>מתקלקל</em> בעמדו; ולפיכך:<br><br>
-• בתוך <span class="he-q">מעת לעת (כ״ד שעות)</span> מן הבישול — הכלי <strong>בן יומו</strong>, וטעמו עדיין משובח ואוסר.<br>
-• לאחר מעת לעת — <span class="he-q">אינו בן יומו</span>, וטעמו פגום ואינו אוסר (נטל״פ).<br><br>
-ותנאי: שתהא הקדירה <strong>מודחת</strong> בלא שומן בעין על פניה.
+<div class="yesod-box">
+<strong>The yesod — בת יומה and מעת לעת:</strong><br>
+Taste absorbed in a vessel <em>degrades</em> as it stands there; hence:<br><br>
+• within the <span class="he-q">מעת לעת</span> — the twenty-four hours — following the cooking, the vessel is <strong>בת יומה</strong>, its taste is still good and it forbids;<br>
+• after that period it is no longer בת יומה, its taste is spoiled and it does not forbid.<br><br>
+And there is a condition: that the pot be <strong>rinsed</strong>, with no fat remaining on its surface.
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שומן בעין אינו נפגם — דקדוק הט״ז (ס״ק ח) :</strong> מדקדק הט״ז (ובו מחלוקת <strong>הרשב״א והר״ן</strong>, ונקטינן כרשב״א) שה<span class="he-q">שומן שעל פני הכלי בעין</span> — <em>אינו נפגם</em> אף לאחר ימים, אלא רק הטעם ה<em>בלוע</em> בעובי הכלי הוא שמתקלקל. ולכן צריך <strong>הדחה</strong> דווקא, שהבעין כחתיכת איסור שלמה ואינה פגומה. וזהו תנאי "ובלבד שתהא מודחת".
+<div class="pilpul-box">
+<strong>Fat on the surface does not spoil — the Taz's dikduk (ס״ק ח):</strong> what is <em>on the surface</em> does not spoil, even after several days; only the taste <em>absorbed</em> in the thickness of the vessel degrades. This is the shita of the Rashba, and it is why rinsing is required: what lies on the surface counts as a whole piece of issur that has not been spoiled.
+<blockquote>«&nbsp;<span class="he-q">דמה שהוא בעין אינו נפגם אפילו נשתהה כמה ימים וזהו דעת רשב״א בטור סימן קכ״ב</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ג ס״ק ח)</span></blockquote>
+The "יש מתירין" of the Mehaber is the Ran, for whom even what lies on the surface spoils; and we hold like the first view.
+<blockquote>«&nbsp;<span class="he-q">והיש מתירין הוא הר״ן ס״ל דאפילו מה שבעין על הכלי נפגם ואנן קי״ל כסברא ראשונה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ג ס״ק ח)</span></blockquote>
+The Shach (ס״ק ט״ו) draws the same division, and adds that the requirement of rinsing applies only where it is known for certain that the pot was not clean.
+<blockquote>«&nbsp;<span class="he-q">וקמ״ל דהשומן הדבוק אינו נטל״פ אחר מעל״ע</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ג ס״ק ט״ו)</span></blockquote>
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>בישל קודם שהדיח · ששים נגד הנדבק :</strong>
+<div class="machloket-box">
+<strong>Cooking before rinsing · sixty against what is stuck on:</strong>
 <table>
-<tr><th>שיטה</th><th>הדין</th><th>מקור</th></tr>
+<tr><th>The shita</th><th>The din</th><th>Source</th></tr>
 <tr>
-  <td><strong>סתם המחבר</strong></td>
-  <td>אם לא הדיח ובישל — אוסר (השומן בעין)</td>
-  <td>מחבר ס״ה</td>
+  <td><strong>The Mehaber (unattributed)</strong></td>
+  <td>If he did not rinse and cooked — it is forbidden (the fat on the surface)</td>
+  <td>Mehaber seif 5</td>
 </tr>
 <tr>
   <td><strong>יש מתירין</strong></td>
-  <td>מותר אף אם בישל קודם שהדיח</td>
-  <td>מחבר ס״ה</td>
+  <td>Permitted even if he cooked before rinsing</td>
+  <td>Mehaber seif 5</td>
 </tr>
 <tr>
-  <td><strong>הרמ״א (או״ה) — יש ס' נגד הנדבק</strong></td>
-  <td><span class="he-q">הכל מתירין</span> — שאינה בת יומה, "וכן נוהגין"</td>
-  <td>רמ״א ס״ה; ש״ך ס״ק טו–טז</td>
+  <td><strong>The Rama (או״ה) — there is sixty against what is stuck on</strong></td>
+  <td><span class="he-q">לכולי עלמא שרי</span> — all permit, the pot not being בת יומה, "וכן נוהגין"</td>
+  <td>Rama seif 5; Shach ס״ק ט״ז</td>
 </tr>
 </table>
+The Shach notes that the מהרש״ל disputes this last point, and he rejects his reasoning.
+<blockquote>«&nbsp;<span class="he-q">ואין דבריו נראין</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ג ס״ק ט״ז)</span></blockquote>
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>חורפא משוי לשבח (סעיף ו', ט״ז ס״ק ט) :</strong> "יש מי שאומר" — אם נתן <span class="he-q">פלפלין</span> (גוף חריף) בקדירה שאינה בת יומה, <strong>הכל אסור</strong>, ש<em>חריפותם</em> משיבה את הטעם הפגום ועושהו <strong>לשבח</strong>. וחקירת הדבר: החריף אינו רק "מתבל", אלא <span class="he-q">מהפך</span> את הפגם לשבח. ומדקדק הט״ז (ס״ק ט) שצריך <strong>רוב חריף</strong> דווקא להפוך הפגם (ועיין סימן צ״ה ס״ב וסימן צ״ו). וכן הכריע הבית יוסף להחמיר.
+<div class="hakira-box">
+<strong>חורפא משוי לשבח (seif 6; Taz ס״ק ט):</strong> "יש מי שאומר" — if one put <span class="he-q">שאם שמו פלפלין</span>, pepper, into a pot of issur that is not בת יומה, <strong>everything is forbidden</strong>, for its sharpness restores to the spoiled taste the quality of a taste that <strong>improves</strong>.
+<blockquote>«&nbsp;<span class="he-q">דחורפיה משויא ליה לשבח</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה ק״ג:ו)</span></blockquote>
+The matter calls for examination: sharpness does not merely season, it <em>turns</em> the spoiled into an improvement. And the Taz specifies that a majority of sharp matter is needed to effect that turn, referring to siman צ״ה and siman צ״ו.
+<blockquote>«&nbsp;<span class="he-q">ומבואר בסימן צ״ה ס״ב דדוקא רובו דבר חריף בעינן</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ג ס״ק ט)</span></blockquote>
+The Mehaber adds, in parentheses, that this is the ruling the Beit Yosef reached on his own in his בית יוסף.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">8. קדירת בשר וחלב ומים — חתיכה נעשית נבילה</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">8. A pot of meat and milk, then water — חתיכה נעשית נבילה</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ז')
-  <button class="daat-copy" type="button" data-copy-target="#cp-8">📋 העתק</button>
+<h3>The text of the Mehaber and the Rama (seif 7)
+  <button class="daat-copy" type="button" data-copy-target="#cp-8">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-8">
-"<strong>קדירה שבלעה בשר וחלב, שנתבשלו בה זה אחר זה (או יחד), וקודם שלָנָה לילה אחד חזרו והרתיחו בה מים — הרי היא בת יומה עד שיעברו מעת לעת משעה שהרתיחו בה המים.</strong> (הגה: אבל אם לָנָה לילה אחד — מותר. וכן אם לָנָה לילה בין בישול הבשר לבישול החלב, אף שחזר והרתיח בה מים מיד — דינו שווה. והוא הדין לשאר איסורין, לפי הכלל שבידינו חתיכה נעשית נבילה [עיין סימן צ״ב]; ובמקום הפסד יש להתיר בכהאי גוונא בשאר איסורין על כל פנים, ובלבד שיהא מעת לעת מששעה שנתבשל בה האיסור.)"
+  <p>«&nbsp;<span class="he-q">קדרה שהיא בלועה מבשר וחלב שנתבשל בה ביחד או בזה אחר זה וקודם שעבר לילה אח׳ הוחמו בה מים חשיבה בת יומא עד שתשהה מעת לעת משעה שהוחמו בה המים</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה ק״ג:ז)</span></p>
+  <p><small>«&nbsp;<span class="he-q">אבל אם עברה לילה מותר וכן אם עברה לילה בין בישול בשר לחלב אע״ג דאח״כ הוחמו המים מיד נמי דינא הכי וה״ה בכל האיסורים לפי מאי דקיימא לן בכל האיסורים חתיכה נעשית נבילה … וע״ל סימן צ״ב ובמקום הפסד יש להתיר בכה״ג בשאר איסורים בכל ענין רק שיהא מעת לעת מזמן בישול האיסור</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ג:ז)</span></small></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — חתיכה נעשית נבילה והמים :</strong><br>
-בקדירת <span class="he-q">בשר וחלב</span> נעשתה הבליעה עצמה לאיסור גמור — "נבילה". ולפיכך כשהרתיחו בה <strong>מים</strong> בתוך מעת לעת, נעשו ה<em>מים עצמם</em> כנבילה (חנ״נ), ונמצא שמונים מעת לעת חדש <span class="he-q">משעת הרתחת המים</span> — שהם האיסור החדש. וזהו חידוש הסעיף: המים אינם רק "בולעים" אלא נעשים נבילה.
+<div class="yesod-box">
+<strong>The yesod — חתיכה נעשית נבילה and the water:</strong><br>
+In a pot that has absorbed <span class="he-q">בשר וחלב</span>, the absorption itself has become an outright issur — a "neveila". Therefore, when water was heated in it within the twenty-four hours, the <em>water itself</em> became like a neveila, and a new מעת לעת is counted <strong>from the hour the water was heated</strong> — for it is now the fresh issur. This is the chidush of the seif: the water does not merely absorb, it becomes a neveila.
+<blockquote>«&nbsp;<span class="he-q">כיון שכבר נאסרה הקדירה מבליעת בשר בחלב נחשבים המים שבישל תוך מעל״ע כנבילה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ג ס״ק י)</span></blockquote>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>לינה מפיגה — ר״ת (ט״ז ס״ק י–יא, ש״ך ס״ק יט) :</strong> "אבל אם לנה לילה אחד — מותר". מבאר הט״ז (ס״ק י–יא) שה<span class="he-q">לינה (לילה אחד)</span> מַפְגֶת ומחלישה את הטעם הבלוע — ולכן אם לן הכלי קודם הרתחת המים, או שלן בין בישול הבשר לבישול החלב, שוב אין כאן בת יומה. והש״ך (ס״ק יט) דייק: <strong>הלינה</strong> היא המפיגה את הטעם, ולא עצם מעבר הזמן בלבד.
+<div class="pilpul-box">
+<strong>A night that passes dissipates — ר״ת (Taz ס״ק י; Shach ס״ק י״ט):</strong> <span class="he-q">אבל אם עברה לילה מותר</span> — but if a night has passed, it is permitted. The Taz explains that we rely here on the decisors who hold like רבנו תם, for whom standing overnight spoils the taste: so if the vessel stood a night before the water was heated in it, or if a night passed between the cooking of the meat and that of the milk, there is no בת יומה here any longer.
+<blockquote>«&nbsp;<span class="he-q">דיש פוסקים כר״ת דלינה אח׳ פוגמת</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ג ס״ק י)</span></blockquote>
+And the Shach makes the point precise: it is the <strong>night</strong> that dissipates the taste, not the mere passage of time.
+<blockquote>«&nbsp;<span class="he-q">דוקא לילה לפי שהלילה גורם להפיג הטעם כדאיתא בפוסקים</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ג ס״ק י״ט)</span></blockquote>
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>חנ״נ דבב״ח — האם מיוחד הוא ? (ש״ך ס״ק יח) :</strong>
+<div class="machloket-box">
+<strong>The חנ״נ of meat and milk — is it peculiar to them? (Shach ס״ק י״ח):</strong>
 <table>
-<tr><th>שיטה</th><th>המים נעשים נבילה ?</th><th>מקור</th></tr>
+<tr><th>The shita</th><th>Does the water become a neveila?</th><th>Source</th></tr>
 <tr>
-  <td><strong>הט״ז (ס״ק י–יא)</strong></td>
-  <td>בבב״ח <span class="he-q">חתיכה נעשית נבילה</span> — והמים כנבילה; בשאר איסורין מחלוקת (סי' צ״ב)</td>
-  <td>ט״ז ס״ק י–יא</td>
+  <td><strong>The Taz (ס״ק י–י״א)</strong></td>
+  <td>In meat and milk, <span class="he-q">בכל האיסורים חתיכה נעשית נבילה</span> <span class="source-ref">(רמ״א יו״ד ק״ג:ז)</span> — and the water is like a neveila; for other issurim it is a machloket at siman צ״ב</td>
+  <td>Taz ס״ק י–י״א</td>
 </tr>
 <tr>
-  <td><strong>הש״ך (ס״ק יח)</strong></td>
-  <td><strong>אינו מודה</strong> לחנ״נ מיוחד לבב״ח; ומצריך מעת לעת מהרתחת המים לכל האיסורין</td>
-  <td>ש״ך ס״ק יח</td>
+  <td><strong>The Shach (ס״ק י״ח)</strong></td>
+  <td><strong>He does not concede</strong> a חנ״נ peculiar to meat and milk, and requires the מעת לעת from the heating of the water for all issurim</td>
+  <td>Shach ס״ק י״ח</td>
 </tr>
 </table>
+<blockquote>«&nbsp;<span class="he-q">ומ״מ בעיקר הדין שס״ל להמחבר והרב דקדרה שבלוע מבשר בחלב דאמרינן חנ״נ איני מודה להם</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ג ס״ק י״ח)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ונלע״ד דאין לחלק בזה בין בשר בחלב לשאר איסורים</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ג ס״ק י״ח)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דהיא גופיה דהמים יהיו נחשבים כנבילה בשאר איסורים הוא פלוגתא בסי׳ צ״ב ובכהאי גוונא סמכינן אמקילין</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ג ס״ק י״א)</span></blockquote>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה — שאר איסורין ובמקום הפסד :</strong> הרמ״א פושט (סוף ס״ז) ש<strong>הוא הדין לשאר איסורין</strong> מכוח הכלל "חתיכה נעשית נבילה" (סימן צ״ב); ו<span class="he-q">במקום הפסד</span> יש להתיר בכהאי גוונא בשאר איסורין על כל פנים, ובלבד שיהא מעת לעת משעה שנתבשל בה האיסור. והש״ך (ס״ק כ) מצרף ההיתר דלח בלח חנ״נ במקום הפסד (סימן צ״ב ס״ד). <em>ולמעשה — שאל את רבך.</em>
+<div class="nafka-mina-box">
+<strong>Nafka mina — other issurim, and the case of loss:</strong> the Rama rules, at the end of seif 7, that the same din holds for <strong>all issurim</strong>, by force of the rule "חתיכה נעשית נבילה" (siman צ״ב); and where there is <strong>loss</strong>, there is room to permit in such a case for other issurim, provided a מעת לעת has passed since the cooking of the issur.
+<blockquote>«&nbsp;<span class="he-q">ובמקום הפסד יש להתיר בכה״ג בשאר איסורים בכל ענין רק שיהא מעת לעת מזמן בישול האיסור</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ג:ז)</span></blockquote>
+The parenthesis cut from the source text gives there the provenance of the gloss — ב״י וסברת הרב.
+The Shach (ס״ק כ) specifies which loss is meant — a <em>slight</em> loss — since in a case of great loss it is permitted in any event, on the ground of those who do not say חנ״נ for a liquid absorbed in a liquid (siman צ״ב seif 4 in the gloss).
+<blockquote>«&nbsp;<span class="he-q">פי׳ במקום הפסד קצת דאילו במקום הפסד גדול בלאו הכי מותר</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ג ס״ק כ)</span></blockquote>
+<em>And in practice — ask your Rav.</em>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הפתחי תשובה (ס״ק ב–ג) — המאכל השני :</strong> נחלקו בדין ה<strong>מאכל השני</strong> המתבשל בקדירה האסורה: <span class="he-q">כנסת יחזקאל</span> אוסר (חתיכה נעשית נבילה), ואילו <span class="he-q">גבעת שאול</span> מתיר — שאין הנאסר חמור מן האוסר; והפתחי תשובה מכריע <strong>להתיר</strong>. ובס״ק ג מביא הנודע ביהודה (ל״א) ביין שנתבשל בקדירת בב״ח בת יומה ונתגלגל בכף חולבת.
+<div class="rishon-card">
+<strong>The Pitchei Teshuva (ס״ק ב–ג) — the second dish:</strong> there is a dispute about the <strong>second dish</strong> cooked in the pot that has become forbidden: the <span class="he-q">כנסת יחזקאל</span> forbids it, on the ground of חתיכה נעשית נבילה, while the <span class="he-q">גבעת שאול</span> permits it — what is rendered forbidden being no more severe than what forbade it; and the Pitchei Teshuva himself concludes to permit.
+<blockquote>«&nbsp;<span class="he-q">ועיין בתשובת ש״ב גבעת שאול סי׳ י״ח שהשיג עליו והעלה דתבשיל שני שרי דאין הנאסר חמור מהאוסר</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד ק״ג ס״ק ב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">והעליתי ג״כ להתיר</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד ק״ג ס״ק ב)</span></blockquote>
+And at ס״ק ג he brings the נודע ביהודה (חלק יורה דעה סימן ל״א), on wine cooked in a meat vessel בן יומו and then stirred with a dairy spoon בת יומה.
+<blockquote>«&nbsp;<span class="he-q">ביין שבשלו בכלי בשר ב״י והגיסו בכף חולבת ב״י וכתב דהיין יש להתיר</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד ק״ג ס״ק ג)</span></blockquote>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">9. חקירה ונפקא מינה למעשה</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">9. Chakira and practical nafka mina</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ Detailed explanation (level 1)</a>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה הכוללת של הסימן :</strong> מהו "נותן טעם לפגם", ומתי הטעם הפגום אינו אוסר ?
+<div class="hakira-box">
+<strong>The overall chakira of the siman:</strong> what is a "נותן טעם לפגם", and when does a spoiled taste not forbid?
 <ul class="stylish">
-<li><strong>לימוד מן הגר</strong> — נבילה שאינה ראויה לגר אינה נבילה; וטעם פגום כמותה (ט״ז ס״ק א).</li>
-<li><strong>טעם פגום ≠ טעם</strong> — אף שטעם כעיקר דאורייתא, פגום יצא מגדר נתינת טעם (ש״ך ס״ק ג); אבל <em>לא לשבח ולא לפגם</em> אסור (ש״ך ס״ק ב).</li>
-<li><strong>טעם מול ממשות</strong> — בטעם בלבד די בפגם קצת אף במרובה; בממש (וכן ציר) — צריך פגם גמור.</li>
-<li><strong>החוכך · משביח ולבסוף פוגם</strong> — הנאת הריבוי, וצורך פגם רצוף מתחילתו ועד סופו.</li>
-<li><strong>הקדירה · נ״ט בר נ״ט · שמן ודבש · בת יומה · חורפא · חנ״נ</strong> — הסתעפויות הסימן.</li>
+<li><strong>Derived from the גר</strong> — a neveila no longer fit for the גר is not a neveila; and a spoiled taste is like it (Taz ס״ק א).</li>
+<li><strong>A spoiled taste is not a taste</strong> — although טעם כעיקר דאורייתא, the spoiled has left the category of imparting taste (Shach ס״ק ג); but "neither improving nor spoiling" is forbidden (Shach ס״ק ב).</li>
+<li><strong>Taste against substance</strong> — for taste alone, slight spoiling suffices even where the issur is the larger part; with substance, and likewise for ציר, complete spoiling is required.</li>
+<li><strong>The חוכך · השביח ולבסוף פוגם</strong> — the benefit of added quantity, and the requirement of continuous spoiling from beginning to end.</li>
+<li><strong>The pot · נ״ט בר נ״ט · oil and honey · בת יומה · חורפא · חנ״נ</strong> — the branches of the siman.</li>
 </ul>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה למעשה (לפי הכרעת רוב האחרונים) :</strong>
+<div class="nafka-mina-box">
+<strong>Practical nafka mina (following the line of the Acharonim brought here):</strong>
 <ol class="stylish">
-<li>נותן טעם לפגם — <strong>מותר</strong>, ואף פוגם קצת; אבל <em>בריה ודבר חשוב</em> שאינם פגומים בעצמם — אינם בטלים (רמ״א ס״א).</li>
-<li>איסור מרובה <strong>בעל ממש</strong> (וכן ציר) — צריך פגם גמור; בטעם בלבד — די בפגם קצת (מחבר ס״ב; ט״ז ס״ק ג).</li>
-<li>משביח ולבסוף פוגם, או פוגם ולבסוף משביח — <strong>אסור</strong>; וכן לדעת החוכך כשנהנה מן הריבוי.</li>
-<li>קדירה <span class="he-q">אינה בת יומה</span> (מעת לעת) — אינה אוסרת, ובלבד שתהא מודחת בלא שומן בעין (ט״ז ס״ק ח).</li>
-<li>חורפא (רוב פלפלין) משוי לשבח → אוסר; וקדירת בב״ח + מים → מונים מעת לעת מהרתחת המים, ולינה מפיגה.</li>
+<li>נותן טעם לפגם — <strong>permitted</strong>, even if it spoils only slightly; but a <em>בריה</em> or an important thing not spoiled in itself is not nullified (Rama seif 1).</li>
+<li>An issur that is the larger part and <strong>has substance</strong> — and likewise ציר — requires complete spoiling; for taste alone, slight spoiling suffices (Mehaber seif 2; Taz ס״ק ג).</li>
+<li>Improving and then spoiling, or spoiling and then improving — <strong>forbidden</strong>; and so too, for the חוכך, where one benefits from the added quantity.</li>
+<li>A pot that is not <span class="he-q">בת יומה</span> — past the מעת לעת — does not forbid, provided it is rinsed and free of fat on its surface (Taz ס״ק ח).</li>
+<li>Sharpness, in the majority, turns the spoiled into an improvement and forbids; and for a pot of meat and milk in which water was heated, the מעת לעת is counted from the heating of the water, a night that passes dissipating the taste.</li>
 </ol>
-<em>ולמעשה — שאל את רבך.</em>
+<em>And in practice — ask your Rav.</em>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">10. טבלאות סיכום</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">10. Summary tables</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">טבלה — אופני הפגם והדין</h3>
-
-<table>
-<tr>
-  <th>המצב</th>
-  <th>התוצאה</th>
-  <th>מקור בקורפוס</th>
-</tr>
-<tr>
-  <td><strong>טעם פגום (אף פוגם קצת)</strong></td>
-  <td>מותר — אינו אוסר תערובתו</td>
-  <td>מחבר ס״א–ב'; ט״ז ס״ק א</td>
-</tr>
-<tr>
-  <td><strong>בריה / דבר חשוב שאינו פגום בעצמו</strong></td>
-  <td>אינו בטל אף באלף</td>
-  <td>רמ״א ס״א; פ״ת ס״ק א</td>
-</tr>
-<tr>
-  <td><strong>איסור מרובה בעל ממש (וציר)</strong></td>
-  <td>צריך פגם גמור שאינו ראוי לאכילה</td>
-  <td>מחבר ס״ב; ט״ז ס״ק ג</td>
-</tr>
-<tr>
-  <td><strong>טעם בלבד (בלא ממש)</strong></td>
-  <td>די בפגם קצת אף במרובה</td>
-  <td>מחבר ס״ב; ש״ך ס״ק ה</td>
-</tr>
-<tr>
-  <td><strong>השביח ולבסוף פגם / להפך</strong></td>
-  <td>אסור — צריך פגם רצוף</td>
-  <td>מחבר ס״ב; ט״ז ס״ק ה</td>
-</tr>
-<tr>
-  <td><strong>הגיס בכף ותחב למאכל שני</strong></td>
-  <td>נ״ט בר נ״ט דהיתרא — הקדירה אינה נאסרת</td>
-  <td>רמ״א ס״ב; ט״ז ס״ק ו</td>
-</tr>
-<tr>
-  <td><strong>שמן / דבש של נכרי</strong></td>
-  <td>שמן נטל״ש, דבש נטל״פ — מותרים</td>
-  <td>מחבר ס״ד; ש״ך ס״ק יג–יד</td>
-</tr>
-<tr>
-  <td><strong>קדירה אינה בת יומה (מודחת)</strong></td>
-  <td>טעמה פגום — אינה אוסרת</td>
-  <td>מחבר ס״ה; ט״ז ס״ק ח</td>
-</tr>
-<tr>
-  <td><strong>פלפלין (רוב חריף) בקדירה שאינה בת יומה</strong></td>
-  <td>חורפא משוי לשבח — אסור</td>
-  <td>מחבר ס״ו; ט״ז ס״ק ט</td>
-</tr>
-<tr>
-  <td><strong>קדירת בב״ח + מים בתוך מעת לעת</strong></td>
-  <td>חנ״נ — מונים מעת לעת מהרתחת המים; לינה מפיגה</td>
-  <td>מחבר ס״ז; ט״ז ס״ק י–יא</td>
-</tr>
-</table>
-
-<h3 class="he-h3">טבלה — מחלוקות מרכזיות בסימן</h3>
+<h3>Table — the figures of spoiling and their din</h3>
 
 <table>
 <tr>
-  <th>נושא</th>
-  <th>שיטה א'</th>
-  <th>שיטה ב'</th>
+  <th>The case</th>
+  <th>The result</th>
+  <th>Source</th>
 </tr>
 <tr>
-  <td>בריה פגומה — בטלה ?</td>
-  <td>הרמ״א — אם אינה פגומה בעצמה, אינה בטלה</td>
-  <td>פנים מאירות / חות יאיר (פ״ת ס״ק א) — אף פגומה לא בטלה</td>
+  <td><strong>A spoiled taste (even if it spoils only slightly)</strong></td>
+  <td>Permitted — it does not forbid its mixture</td>
+  <td>Mehaber seifim 1–2; Taz ס״ק א</td>
 </tr>
 <tr>
-  <td>שמן ודבש — מאיזה טעם הותרו</td>
-  <td>שמן נותן טעם לשבח (היתר אחר)</td>
-  <td>דבש נותן טעם לפגם (מסריחו) — ש״ך ס״ק יג–יד</td>
+  <td><strong>בריה / an important thing not spoiled in itself</strong></td>
+  <td>Not nullified, not even in a thousand</td>
+  <td>Rama seif 1; פת״ש ס״ק א</td>
 </tr>
 <tr>
-  <td>דבש — עצמו או משקהו</td>
-  <td>הבשר פוגם הדבש עצמו</td>
-  <td>מהרי״ל — רק משקה הנעשה מדבש; ובמקום שאין הפסד יש להחמיר</td>
+  <td><strong>An issur that is the larger part and has substance (and ציר)</strong></td>
+  <td>Complete spoiling is required, until it is unfit to eat</td>
+  <td>Mehaber seif 2; Taz ס״ק ג</td>
 </tr>
 <tr>
-  <td>קדירת בב״ח + מים — המים נבילה ?</td>
-  <td>הט״ז — חנ״נ, ומונים מהרתחת המים</td>
-  <td>הש״ך ס״ק יח — אינו מודה לחנ״נ מיוחד</td>
+  <td><strong>Taste alone (without substance)</strong></td>
+  <td>Slight spoiling suffices, even where the issur is the larger part</td>
+  <td>Mehaber seif 2; Shach ס״ק ה</td>
 </tr>
 <tr>
-  <td>המאכל השני בקדירה האסורה</td>
-  <td>כנסת יחזקאל — אסור (חנ״נ)</td>
-  <td>גבעת שאול — מותר (אין הנאסר חמור מהאוסר); פ״ת מתיר</td>
+  <td><strong>It improved and then spoiled, or the reverse</strong></td>
+  <td>Forbidden — continuous spoiling is required</td>
+  <td>Mehaber seif 2; Taz ס״ק ה</td>
+</tr>
+<tr>
+  <td><strong>He stirred with a spoon and put it into a second dish</strong></td>
+  <td>נ״ט בר נ״ט דהיתרא — the pot is not forbidden</td>
+  <td>Rama seif 2; Taz ס״ק ו</td>
+</tr>
+<tr>
+  <td><strong>Oil / honey of a non-Jew</strong></td>
+  <td>Oil נטל״ש, honey נטל״פ — both permitted</td>
+  <td>Mehaber seif 4; Shach ס״ק י״ג–י״ד</td>
+</tr>
+<tr>
+  <td><strong>A pot that is not בת יומה (and rinsed)</strong></td>
+  <td>Its taste is spoiled — it does not forbid</td>
+  <td>Mehaber seif 5; Taz ס״ק ח</td>
+</tr>
+<tr>
+  <td><strong>Pepper (a majority of sharpness) in a pot that is not בת יומה</strong></td>
+  <td>חורפא משוי לשבח — forbidden</td>
+  <td>Mehaber seif 6; Taz ס״ק ט</td>
+</tr>
+<tr>
+  <td><strong>A pot of meat and milk, then water, within twenty-four hours</strong></td>
+  <td>חנ״נ — the מעת לעת is counted from the heating of the water; a night that passes dissipates</td>
+  <td>Mehaber seif 7; Taz ס״ק י–י״א</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מקורות הסוגיא</h3>
+<h3>Table — the central machlokot of the siman</h3>
 
-<div class="rishon-card" dir="rtl">
-<strong>גמרא :</strong> עבודה זרה ס״ז:–ס״ח. (נותן טעם לפגם מותר, נבילה הראויה לגר) · עבודה זרה ל״ח:–ל״ט. (שמן ודבש של נכרי) · חולין צ״ז:–צ״ח. (טעם כעיקר, ביטול בששים) · ירושלמי תרומות (לא לשבח ולא לפגם)
+<table>
+<tr>
+  <th>Subject</th>
+  <th>First shita</th>
+  <th>Second shita</th>
+</tr>
+<tr>
+  <td>Is a spoiled בריה nullified?</td>
+  <td>The Rama — if it is not spoiled in itself, it is not nullified</td>
+  <td>פנים מאירות and חות יאיר (פת״ש ס״ק א) — even spoiled, it is not nullified</td>
+</tr>
+<tr>
+  <td>Oil and honey — on what ground are they permitted</td>
+  <td>Oil receives a taste that improves (a permission of another order)</td>
+  <td>Honey receives a taste that spoils — it turns rancid (Shach ס״ק י״ג–י״ד)</td>
+</tr>
+<tr>
+  <td>Honey — itself, or its drink</td>
+  <td>The meat spoils the honey itself</td>
+  <td>מהרי״ל — only the drink made from honey; and where there is no great loss, be stringent</td>
+</tr>
+<tr>
+  <td>Pot of meat and milk + water — does the water become a neveila?</td>
+  <td>The Taz — חנ״נ, and one counts from the heating of the water</td>
+  <td>The Shach ס״ק י״ח — he does not concede a חנ״נ peculiar to meat and milk</td>
+</tr>
+<tr>
+  <td>The second dish cooked in the forbidden pot</td>
+  <td>כנסת יחזקאל — forbidden (חנ״נ)</td>
+  <td>גבעת שאול — permitted; the Pitchei Teshuva permits</td>
+</tr>
+</table>
+
+<h3>Table — the sources of the sugya</h3>
+
+<div class="rishon-card">
+<strong>Gemara:</strong> עבודה זרה ס״ז: — ס״ח. (נותן טעם לפגם מותר, נבילה הראויה לגר) · עבודה זרה ל״ח: — ל״ט. (שמן ודבש של נכרי) · חולין צ״ז: — צ״ח. (טעם כעיקר, ביטול בששים) · ירושלמי תרומות פ״י ה״ו (לא לשבח ולא לפגם)
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>ראשונים :</strong> רש״י · תוספות · רמב״ם · רשב״א (תורת הבית) · ר״ן · רא״ש · מרדכי · ר״ת · מהרי״ל · טור · איסור והיתר הארוך (כלל ל״ב)
+<div class="rishon-card">
+<strong>Rishonim:</strong> רש״י · תוספות · רמב״ם · רשב״א · ר״ן · רא״ש · מרדכי · ר״ת · מהרי״ל · טור · איסור והיתר הארוך (כלל ל״ב)
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>אחרונים :</strong> בית יוסף · רמ״א · ש״ך · ט״ז · פרי מגדים · פתחי תשובה · נודע ביהודה (ל״א) · כנסת יחזקאל · גבעת שאול · פנים מאירות · חות יאיר · תפארת למשה · לבושי שרד · בית יהודה
+<div class="rishon-card">
+<strong>Acharonim:</strong> בית יוסף · רמ״א · ש״ך · ט״ז · פרי מגדים · פתחי תשובה · נודע ביהודה · כנסת יחזקאל · גבעת שאול · פנים מאירות · חות יאיר · תפארת למשה · לבושי שרד · בית יהודה · מהרש״ל
 </div>
 
 <hr class="ornament">
 
-  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;direction:rtl;">
-    <a href="niveau-1-base-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">→ רמה א' — יסוד</a>
-    <a href="niveau-3-synthese-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">רמה ג' — סיכום ←</a>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;">
+    <a href="niveau-1-base-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">← Level 1 — Base</a>
+    <a href="niveau-3-synthese-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">Level 3 — Synthesis →</a>
   </div>
 
 <div class="yh-watermark">
 ~ ~ ~ ~ ~<br>
 <strong>DAAT</strong> · <strong>הרב יוסף חיים סממה</strong><br>
 תלמיד חכם · מעביר שיעורים בהלכה ובחסידות<br>
-<em>פלפול ועיון בדין נותן טעם לפגם · סימן ק״ג · ⚡ רמה ב' — לַמְדָּן</em>
+<em>Pilpul and iyun on the דין נותן טעם לפגם · Siman ק״ג · ⚡ Level 2 — Lamdan</em>
 </div>
 
-  <div class="disclaimer" style="background:#fff8e1;border-right:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;direction:rtl;text-align:right;">
-    ⚠️ תוכן זה נכתב לצורך לימוד ועיון בלבד. לכל הוראה למעשה (לְמַעֲשֶׂה) — שאל את רבך.
+  <div class="disclaimer" style="background:#fff8e1;border-left:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;">
+    ⚠️ This content is written for study and iyun only. For any practical ruling (לְמַעֲשֶׂה) — ask your Rav.
   </div>
 
   <div style="background:#1A1F3A;border-top:2px solid #C5A55A;padding:24px 40px;text-align:center;margin-top:0;">
-    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;direction:rtl;">
-      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">לעמוד הבית</a> · <a href="index-en.html" style="color:#C5A55A;text-decoration:none;">סימן ק״ג</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ לתמיכה</a>
+    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;">
+      DAAT דעת — © 5786 / 2026 · <a href="../../../index-en.html" style="color:#C5A55A;text-decoration:none;">Home</a> · <a href="index-en.html" style="color:#C5A55A;text-decoration:none;">Siman ק״ג</a> · <a href="../../../soutenir-en.html" style="color:#C5A55A;text-decoration:none;">♥ Support</a>
     </p>
   </div>
 
@@ -924,7 +1002,7 @@
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="../../../assets/js/chat-widget.js" defer></script>
 <script src="../../../assets/js/daat-copy.js" defer></script>
-<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="מצא חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">הצטרף לחברותא</span></a>
+<a href="../../../communaute-en.html#khavroutha" class="daat-khavroutha-fab" title="Find a chavruta for this siman"><span class="icon">📖</span><span class="label-long">Join a chavruta</span></a>
   <script src="/assets/js/share-text.js" defer></script>
 </body>
 </html>
