@@ -1276,3 +1276,29 @@ française ne porte pas — une divergence entre deux langues d'une même page.
 le 228 où l'anglais écrivait `ס״ק 111` là où le français écrit `ס״ק קי״א`. 226 converties
 par `scripts/fix-sk-nums.py` ; les 4 restantes sont à l'intérieur de guillemets, donc du
 verbatim, et le script les protège.
+
+## Règle 30 — deux citations hébraïques sur une même ligne physique : 240 lignes
+
+Mesuré le 23 septembre 2026, à la suite d'un signalement de l'arbitre du siman 184, qui en
+comptait sept. La règle existe parce que deux citations partageant une ligne partagent la
+fenêtre de résolution de `verifier-citations.py` et risquent d'être jugées chacune contre
+la référence de l'autre — c'est ce qui était arrivé au siman 142.
+
+**240 lignes dans 22 fichiers**, et le gros n'est pas dans le chantier en cours : simanim
+145 (31 lignes par variante), 148 (21), 120 (19), 144 (17), tous publiés de longue date,
+puis 189 (9), 184 (7), 119 (6), 93 (6).
+
+Non corrigé, et volontairement : la porte des citations passe aujourd'hui sur tous ces
+fichiers — aucune citation n'est effectivement mal jugée —, et la plupart de ces lignes
+sont des cellules de tableau où la scission mécanique changerait le rendu. C'est une
+question de forme, pas de fond ; elle mérite une passe à elle, avec un œil sur le rendu.
+
+## Meta descriptions à trous — 28 fichiers, corrigé
+
+`<meta name="description" content="Level 2 (Lamdan) of Siman  in Yoreh De'ah — . …">` :
+l'emplacement du numéro et celui du sujet, vides. Le lecteur ne le voit pas — Google et
+les aperçus de partage, si. Signalé par un arbitre sur un siman ; il y en avait **28** —
+les dix-huit variantes hébraïques et dix variantes anglaises des simanim 183-200.
+
+Les deux valeurs manquantes vivaient dans le `<title>` du même fichier, correct partout :
+`scripts/fix-meta-vide.py` les y prend, ne les invente pas, et est idempotent.
