@@ -17,6 +17,13 @@
 // ➜ Pour n'importer QUE les paiements daattorah (compte Qonto partagé) :
 //     • soit un compte dédié → mettre son IBAN dans QONTO_IBAN ;
 //     • soit un compte unique → QONTO_INCLUDE (mots-clés obligatoires dans le virement).
+//   ⚠ Si NI QONTO_IBAN NI QONTO_INCLUDE ne sont définis, une liste blanche PAR
+//     DÉFAUT s'applique (daat, tsedaka, soutien, don, dédicace, torah…) : un
+//     compte partagé ne gonfle plus la barre avec des virements sans rapport.
+//     Les virements écartés sont listés dans `excluded_samples` de la réponse.
+//   ⚠ Le filtre s'applique aussi RÉTROACTIVEMENT : à chaque sync (dont le cron
+//     quotidien), les imports q-* déjà en base qui ne passent plus le filtre
+//     courant sont retirés et la barre est décrémentée (`cleaned` en réponse).
 //
 // Variables d'environnement Vercel (à définir) :
 //   QONTO_LOGIN            = login API Qonto      (Qonto → Paramètres → Intégrations → API)
@@ -38,6 +45,21 @@ import { kv } from './_kv.js';
 
 const QONTO_BASE = 'https://thirdparty.qonto.com/v2';
 const DEFAULT_EXCLUDE = ['helloasso', 'stripe', 'remboursement', 'refund'];
+// Liste blanche PAR DÉFAUT quand le compte est partagé (ni QONTO_IBAN ni
+// QONTO_INCLUDE définis) : on n'importe que les virements qui se déclarent
+// don/DAAT dans leur libellé, référence ou note. Sans ce garde-fou, n'importe
+// quel crédit du compte Hessed gonflerait la barre de soutien daattorah.
+// Un vrai don écarté à tort apparaît dans `excluded_samples` de la réponse :
+// l'admin peut alors l'ajouter à la main ou élargir QONTO_INCLUDE.
+const DEFAULT_INCLUDE = ['daat', 'tsedaka', 'tzedaka', 'soutien', 'dedicace', 'dédicace', 'don', 'torah'];
+
+// Le mot-clé doit apparaître comme MOT ENTIER (bordé par début/fin ou un
+// caractère non alphanumérique) : « don » matche « don daat » ou « DON-2026 »
+// mais pas « Donald », « London » ni « redondance ». Accents conservés.
+function matchesWord(text, keyword) {
+  const esc = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return new RegExp(`(^|[^\\p{L}\\p{N}])${esc}($|[^\\p{L}\\p{N}])`, 'iu').test(text);
+}
 const PROCESSED_SET = 'qonto:processed';
 
 function setCors(res) {
@@ -94,6 +116,42 @@ async function resolveBankAccountId() {
     ? accounts.find((a) => String(a.iban || '').replace(/\s/g, '') === wantedIban)
     : null;
   return (match || accounts[0]).id;
+}
+
+// Ré-évalue les imports q-* DÉJÀ en base contre le filtre courant et retire
+// ceux qui ne passent plus (compteurs mensuels décrémentés, id rendu au
+// dédoublonnage). Ainsi un durcissement du filtre s'applique aussi à
+// l'historique via le cron quotidien — pas besoin d'un ?reset=1 manuel.
+// Cas fondateur : un virement de 2 780 € sans rapport avec les dons daattorah
+// comptait pour 100 % de la barre de septembre 2026.
+async function cleanupImported(includes, excludes, dryRun) {
+  if (!includes.length) return []; // pas de liste blanche → rien à ré-évaluer
+  const ids = (await kv.lrange('soutien:list', 0, 9999)) || [];
+  const cleaned = [];
+  for (const id of ids) {
+    if (!String(id).startsWith('q-')) continue;
+    const rec = await kv.get(`soutien:${id}`);
+    if (!rec) continue;
+    // Même texte de matching qu'à l'import : libellé (name) + référence/note (dedicace).
+    const text = [rec.name, rec.dedicace].map((v) => String(v || '')).join(' ').toLowerCase();
+    const stillPasses = !excludes.some((x) => x && text.includes(x))
+      && includes.some((x) => matchesWord(text, x));
+    if (stillPasses) continue;
+    cleaned.push({ label: rec.name, amount: Number(rec.amount) || 0, at: rec.createdAt });
+    if (dryRun) continue;
+    if (rec.amount > 0 && rec.createdAt) {
+      const d = new Date(rec.createdAt);
+      const mk = `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}`;
+      await kv.incrby(`soutien:total:${mk}`, -Math.round(rec.amount * 100));
+      await kv.incrby(`soutien:count:${mk}`, -1);
+    }
+    await kv.lrem('soutien:list', 0, id);
+    await kv.del(`soutien:${id}`);
+    // L'id Qonto redevient importable : si l'admin élargit le filtre plus tard,
+    // le virement sera ré-évalué au lieu d'être ignoré par le dédoublonnage.
+    try { await kv.srem(PROCESSED_SET, String(id).slice(2)); } catch (_) {}
+  }
+  return cleaned;
 }
 
 export default async function handler(req, res) {
@@ -158,8 +216,15 @@ export default async function handler(req, res) {
   // Liste blanche (QONTO_INCLUDE ou ?include=…) : si définie, on n'importe QUE
   // les crédits dont le texte (libellé + référence + note) contient l'un de ces
   // mots (ex. "daat,don,tsedaka,soutien"). Idéal quand UN seul compte reçoit tout.
-  const includes = (process.env.QONTO_INCLUDE || req.query.include || '')
+  const explicitIncludes = (process.env.QONTO_INCLUDE || req.query.include || '')
     .split(',').map((s) => s.trim().toLowerCase()).filter(Boolean);
+  // Compte dédié (QONTO_IBAN) → tout crédit est un don, pas de filtre nécessaire.
+  // Compte partagé sans filtre explicite → liste blanche par défaut (garde-fou).
+  const dedicatedAccount = !!(process.env.QONTO_IBAN || '').trim();
+  const includes = explicitIncludes.length
+    ? explicitIncludes
+    : (dedicatedAccount ? [] : DEFAULT_INCLUDE);
+  const defaultFilterActive = !explicitIncludes.length && !dedicatedAccount;
 
   // Fenêtre plancher (évite d'importer des années de crédits au 1er passage)
   let since = req.query.since || process.env.QONTO_SINCE || '';
@@ -170,6 +235,9 @@ export default async function handler(req, res) {
   const sinceIso = /^\d{4}-\d{2}-\d{2}/.test(since) ? new Date(since).toISOString() : since;
 
   try {
+    // 1. Nettoyage rétroactif : les imports passés doivent passer le filtre COURANT.
+    const cleaned = await cleanupImported(includes, excludes, dryRun);
+
     const bankId = await resolveBankAccountId();
 
     // Récupère les crédits (argent reçu), réglés, depuis la date plancher, paginé.
@@ -197,6 +265,7 @@ export default async function handler(req, res) {
     let skipped = 0;
     let excluded = 0;
     const added = [];
+    const excludedSamples = [];
 
     for (const t of all) {
       if (t.side !== 'credit') continue;
@@ -204,7 +273,15 @@ export default async function handler(req, res) {
       const text = [t.label, t.reference, t.note].map((v) => String(v || '')).join(' ').toLowerCase();
       if (excludes.some((x) => x && text.includes(x))) { excluded++; continue; }
       // Liste blanche : si active, tout ce qui NE matche PAS est ignoré.
-      if (includes.length && !includes.some((x) => text.includes(x))) { excluded++; continue; }
+      // Correspondance en MOTS ENTIERS : « don » ne doit pas matcher « Donald »,
+      // « London » ou « redondance » (cas réel : un virement étranger compté).
+      if (includes.length && !includes.some((x) => matchesWord(text, x))) {
+        excluded++;
+        if (excludedSamples.length < 20) {
+          excludedSamples.push({ label: t.label, amount: Number(t.amount) || 0, at: t.settled_at });
+        }
+        continue;
+      }
 
       // Dédoublonnage par identifiant Qonto (sadd = 1 si nouveau, 0 sinon)
       const isNew = await kv.sadd(PROCESSED_SET, t.id);
@@ -256,7 +333,10 @@ export default async function handler(req, res) {
       skipped,
       excluded,
       dryRun,
-      filter: { excludes, includes },
+      filter: { excludes, includes, default_filter: defaultFilterActive },
+      cleaned: cleaned.length,
+      cleaned_samples: cleaned.slice(0, 20),
+      excluded_samples: excludedSamples,
       added: added.slice(0, 50),
     });
   } catch (err) {

@@ -1104,6 +1104,78 @@ C'est le bon comportement. À traiter à la main, en nommant chaque bloc.
 
 ---
 
+## Couverture des encadrés et pages partielles — mesure du 17 septembre 2026
+
+**Correction d'un chiffre que j'employais moi-même.** Je suivais l'avancement de la
+campagne d'encadrés en comptant dans le niveau 1 la chaîne exacte « Ce que dit ce séif : ».
+J'obtenais ainsi « 38 simanim faits sur 241 » pour Orah Haïm, et « 204 restants ». Le compte
+était faux de bout en bout : les pages plus anciennes écrivent la même chose autrement —
+« Trois idées dans ce séif », « Ce que dit le séif — pas à pas »,
+« מה אומר הסעיף — צעד אחר צעד », « What this séif says: » avec l'accent français. Le siman 17
+était compté vide dans les trois langues alors qu'il est servi dans les trois.
+
+Un lot d'encadrés était écrit, prêt, pour les simanim 15, 17, 19, 20, 21 et 23 — six simanim
+qui les ont déjà. Posé, il aurait donné au lecteur **deux encadrés par séif**. Il n'a pas été
+posé : la mesure a été refaite avant d'écrire.
+
+`scripts/verifier-couverture-encadres.py` mesure désormais la chose et non la chaîne : il
+reprend l'ancrage du moteur — le bloc source qui reproduit le séif n — et regarde si un
+encadré se trouve dans l'étendue de ce séif, quel que soit son intitulé. État réel :
+
+| Compartiment | Séifim | Portant un encadré | Simanim en manque |
+|---|---|---|---|
+| Hilkhot Chabbat | 1053 | 1053 (100 %) | aucun |
+| Orah Haïm | 1453 | 1178 (81 %) | aucun |
+| Yoré Déa | 1346 | 1061 (79 %) | 180, 181, 198, 201 |
+
+Les 19 % d'Orah Haïm ne sont pas des encadrés manquants : ce sont des séifim que la page
+**ne reproduit pas**.
+
+### Ce que la mesure a trouvé, et qui n'est pas une affaire d'encadrés — À VÉRIFIER PAR LE RAV
+
+**Vingt-six simanim d'Orah Haïm et cinq de Yoré Déa ont un niveau 1 qui ne reproduit qu'une
+partie du siman — 264 séifim du Choul'han Aroukh absents en Orah Haïm, 104 en Yoré Déa.**
+
+Un seul les déclare. Le siman 32 annonce sa sélection au lecteur — « Plan de l'étude — les
+8 familles des נ״ב סעיפים », et chaque bloc s'intitule « **Texte représentatif** (séif 1) » :
+la page dit ce qu'elle fait, et ne trompe personne. Les **vingt-cinq autres** présentent sous
+« Le texte du Choul'han Aroukh » un texte partiel **sans l'annoncer**.
+
+C'est la même famille de défaut que les blocs d'index corrigés cette semaine : une matière
+donnée au lecteur pour davantage que ce qu'elle est. Le lecteur du siman 128 y lit onze
+séifim sur quarante-cinq ; celui du siman 90, cinq sur vingt-sept ; celui du siman 150, un
+sur cinq.
+
+Orah Haïm — `blocs/séifim` : 3 (10/17) · 4 (13/23) · 8 (5/17) · 27 (10/11) · 32 (8/52, déclaré)
+· 39 (8/10) · 40 (5/8) · 43 (5/9) · 46 (7/9) · 47 (7/14) · 53 (6/26) · 55 (13/22) · 61 (10/26)
+· 63 (4/9) · 66 (6/10) · 79 (4/9) · 90 (5/27) · 94 (4/9) · 113 (6/9) · 128 (11/45) · 150 (1/5)
+· 153 (8/22) · 158 (5/13) · 159 (7/20) · 160 (6/15) · 219 (9/10).
+
+Yoré Déa : 87 (10/11) · 189 (13/34, déclaré) · 190 (15/54, déclaré) · 198 (10/48) · 199 (8/13).
+
+**Deux voies, et le choix revient au Rav** : soit compléter le texte source de ces pages —
+travail de contenu, séif par séif, dans les trois langues ; soit déclarer la sélection comme
+le fait le siman 32, ce qui ne coûte qu'un intitulé mais engage à dire au lecteur qu'il ne lit
+pas tout le siman. **Rien n'a été écrit dans ces pages.** Fabriquer les séifim manquants est
+exclu par la règle anti-fabrication, et les résumer sans le dire reproduirait le défaut.
+
+### Deux faux positifs de ma propre mesure, gardés ici pour mémoire
+
+- Les simanim **238 et 239** rassemblent leurs encadrés dans la section d'analyse qui suit les
+  deux blocs source : mesuré sur l'étendue du séif, leur séif א paraissait nu alors qu'il est
+  servi. Le contrôle ne signale donc un siman que si la page compte **moins** d'encadrés que
+  de séifim.
+- Le séif א des simanim **1 à 5** paraissait nu pour une autre raison : ces pages titrent
+  « Traduction française » en `<h3>` sous l'hébreu, de sorte que la *section* du bloc se
+  referme avant l'encadré. L'étendue retenue va désormais d'un bloc source au suivant.
+
+### Un signalement distinct, non résolu
+
+`verify-oh-source.py` rend **DIVERGENCE** sur le niveau 4 du **siman 27** dans les trois
+langues : la page ouvre par `מקום הנחת תפילין` là où Sefaria donne `דין מקום הנחת תפילין`.
+L'écart porte sur le mot `דין` de l'intitulé du siman, non sur le texte d'un séif. À trancher :
+soit l'intitulé doit être repris tel quel, soit le garde-fou doit l'exclure comme il exclut
+déjà `ובו ב סעיפים` ailleurs. En l'état, ce siman fait échouer le contrôle de source.
 ## Une citation FABRIQUÉE, en ligne, sur une ligne de psak — siman 187 (19 septembre 2026)
 
 **NEEDS_RABBINIC_VALIDATION.** Le siman 187 de Yoré Déa attribue au Rama, entre
@@ -1355,3 +1427,55 @@ mort. Son total de liens examinés passe de 142 212 à 142 199 — il compte les
 par page, et treize pages portaient déjà les deux formes, la française et la leur ; les
 rendre à leur langue en a fusionné deux en une. Vérifié fichier par fichier, rien n'est
 perdu.
+
+## Les trois suggestions de Codex sur la PR #234 — vérifiées une par une (22 septembre 2026)
+
+La PR #234 a été fusionnée le 19 septembre à 23 h 35. Les trois suggestions que Codex y
+avait déposées sont restées **non résolues**, et sont donc en production. Vérifiées ici
+dans le code, pas sur parole : deux sont justes, une ne se reproduit pas.
+
+### P1 — CONFIRMÉ et corrigé : 1 200 citations courtes n'étaient vérifiées par rien
+
+`verifier-citations.py` écarte les citations de moins de 25 lettres, sauf si une référence
+les accompagne. Mais le test employait `refs_in()`, qui **ne reconnaît pas la forme
+conventionnelle du dépôt pour les nossei kelim** — `(ט״ז יורה דעה קפ״ז ס״ק ב)`, sans
+deux-points. Le site d'appel, lui, sait se rabattre sur `candidats_ouvrages()` ; une
+session précédente l'y avait ajouté. Mais la citation courte était écartée **en amont**,
+dans `quotes_in`, et n'atteignait jamais ce repli.
+
+Mesuré : **1 200 citations de 12 à 24 lettres portant une référence d'ouvrage n'étaient
+vérifiées par rien** — 1 018 en Yoré Déa, 171 en Orah Haïm, 11 en Chabbat.
+
+Et c'est exactement la classe où la fabrication a été trouvée. La docstring de
+`verifier-fabrications.py` le dit : la clause inventée `אין כל האצבעות שוות`, attribuée au
+Taz au siman 187, avait été remplacée le 19 par la formule réelle
+`לפי שאין כל אצבעו׳ שוו׳` — dix-sept lettres, donc invisible à la porte qui venait de la
+démasquer. Au siman 187, la correction fait passer les citations examinées de 16 à 19.
+
+### P2 — CONFIRMÉ et corrigé : l'avis de lecture disait le contraire du texte
+
+Quinze simanim du bloc נדה portent en tête de leur niveau 1 un « Avis de lecture ». Dix
+d'entre eux — **183, 184, 185, 186, 187, 188, 191, 193, 194, 199** — annonçaient encore au
+lecteur que les blocs hébreux sont des « résumés » dont « la restitution est en cours »,
+alors que la PR #234 venait d'y reposer le texte du Choul'han Aroukh **verbatim**, vérifié
+✅ IDENTIQUE dans les trois langues. Cinq simanim (189, 192, 195, 196, 197) avaient vu leur
+avis corrigé au passage ; ces dix ne l'avaient pas vu. Le défaut était bien dans les trois
+langues, sous trois rédactions (`Avis de lecture`, `הערת קריאה`, `A note on reading`).
+
+L'avis retenu est celui qui était déjà en place au siman 192. **Le siman 199 a reçu une
+rédaction à lui** : son texte est verbatim, mais la page ne porte que **8 de ses 13
+séifim** — le dire est le seul moyen de ne pas remplacer un avis faux par un autre.
+
+### P1 — NON REPRODUIT : la recherche de fabrication cherche déjà une séquence
+
+Codex tenait que `hits()`, sans `"field": "exact"`, peut compter un document contenant les
+mots sans la séquence, ce qui étoufferait un verdict INTROUVABLE. **Cinq essais sur le
+point de terminaison de Sefaria n'ont montré aucun écart** : un verbatim contigu (1 et 1),
+les mêmes mots dans l'ordre inverse (0 et 0), des mots du même séif non contigus (0 et 0),
+un verbatim court (61 et 61) et sa permutation (0 et 0). Avec `type: text`, la recherche se
+comporte déjà comme une recherche de séquence.
+
+Le paramètre a tout de même été posé — c'est la forme qu'emploie `locate()` sur le même
+point de terminaison — **pour ne pas faire reposer une porte anti-fabrication sur un
+comportement par défaut non documenté**, et non pour réparer un défaut observé. La mesure
+est écrite dans le code, à côté de l'appel, pour que personne ne la refasse.
