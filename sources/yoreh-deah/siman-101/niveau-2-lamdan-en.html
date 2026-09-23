@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,8 +23,7 @@
   @page { size: A4; margin: 2cm 1.8cm; }
   body {
     font-family: 'Frank Ruhl Libre', 'David', 'Georgia', 'Cambria', serif;
-    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0;
-    direction: rtl; text-align: right;
+    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0; text-align: left;
   }
   .he {
     direction: rtl; text-align: right;
@@ -72,14 +71,12 @@
   h2.section-title {
     color: #fff; background: #1A1F3A;
     font-size: 16pt; padding: 10px 18px; margin-top: 30px;
-    border-right: 6px solid #C5A55A;
-    direction: rtl; text-align: right;
+    border-left: 6px solid #C5A55A; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3 {
     color: #1A1F3A; font-size: 14pt; margin-top: 25px;
-    border-right: 4px solid #C5A55A; padding-right: 10px;
-    direction: rtl; text-align: right;
+    border-left: 4px solid #C5A55A; padding-left: 10px; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3.he-h3 {
@@ -89,8 +86,7 @@
   }
   h4 {
     color: #5a4a1a; font-size: 12pt;
-    margin-top: 20px; margin-bottom: 8px; font-weight: bold;
-    direction: rtl; text-align: right;
+    margin-top: 20px; margin-bottom: 8px; font-weight: bold; text-align: left;
   }
 
   .sacred-text {
@@ -100,8 +96,8 @@
     font-size: 12.5pt; line-height: 1.9;
   }
   .pilpul-box {
-    background: #eef3fa; border-right: 4px solid #1A1F3A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #eef3fa; border-left: 4px solid #1A1F3A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .pilpul-box::before {
     content: "⚡ פלפול"; display: block;
@@ -110,8 +106,8 @@
     direction: rtl; text-align: right;
   }
   .kashya-box {
-    background: #fef4e4; border-right: 4px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #fef4e4; border-left: 4px solid #C5A55A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .kashya-box::before {
     content: "❓ קושיא"; display: block;
@@ -120,8 +116,8 @@
     direction: rtl; text-align: right;
   }
   .teruts-box {
-    background: #e8f4ea; border-right: 4px solid #2d7a3e;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #e8f4ea; border-left: 4px solid #2d7a3e;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .teruts-box::before {
     content: "✓ תירוץ"; display: block;
@@ -130,8 +126,8 @@
     direction: rtl; text-align: right;
   }
   .hakira-box {
-    background: #f5e9f5; border-right: 4px solid #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #f5e9f5; border-left: 4px solid #6a1b7a;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .hakira-box::before {
     content: "🔍 חקירה"; display: block;
@@ -141,8 +137,7 @@
   }
   .nafka-mina-box {
     background: #fff4e6; border: 2px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; border-radius: 4px; text-align: left;
   }
   .nafka-mina-box::before {
     content: "⚖️ נפקא מינה"; display: block;
@@ -152,8 +147,7 @@
   }
   .yesod-box {
     background: #1A1F3A; color: #fff;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
   .yesod-box::before {
     content: "💎 יסוד"; display: block;
@@ -164,7 +158,7 @@
   .yesod-box .he-q { color: #C5A55A; }
   .machloket-box {
     background: #faf5ff; border: 1.5px dashed #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
 
   table {
@@ -173,10 +167,9 @@
   }
   th {
     background: #1A1F3A; color: #fff;
-    padding: 10px; text-align: right; direction: rtl; font-size: 11pt;
+    padding: 10px; text-align: left; font-size: 11pt;
   }
-  td {
-    direction: rtl; text-align: right;
+  td { text-align: left;
     border: 1px solid #d4c89a; padding: 10px; vertical-align: top;
   }
   tr:nth-child(even) td { background: #FAF6EE; }
@@ -197,12 +190,11 @@
   }
 
   ol.stylish li, ul.stylish li { margin-bottom: 8px; }
-  ol.stylish, ul.stylish { padding-right: 22px; padding-left: 0; }
+  ol.stylish, ul.stylish { padding-left: 22px; padding-right: 0; }
 
   .rishon-card {
-    background: #f7f3e4; border-right: 4px solid #8a6a1a;
-    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt;
-    direction: rtl; text-align: right;
+    background: #f7f3e4; border-left: 4px solid #8a6a1a;
+    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt; text-align: left;
   }
   .rishon-card strong { color: #1A1F3A; font-size: 11pt; }
 
@@ -217,15 +209,14 @@
 
   .index-box {
     background: #FAF6EE; border: 1px solid #C5A55A;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
-  .index-box ol { margin: 5px 0; padding-right: 25px; padding-left: 0; }
+  .index-box ol { margin: 5px 0; padding-left: 25px; padding-right: 0; }
   .index-box li { margin-bottom: 5px; }
 
   h3.sugya {
     background: #1A1F3A; color: #fff;
-    padding: 8px 15px; border-left: none; border-right: 6px solid #C5A55A;
+    padding: 8px 15px; border-right: none; border-left: 6px solid #C5A55A;
   }
 
   /* ── חץ אל ההסבר המפורט (רמה 1) ── */
@@ -237,7 +228,6 @@
     font-size: 12pt;
     text-decoration: none;
     border-bottom: 1px dotted #C5A55A;
-    direction: rtl;
   }
   a.daat-explain:hover { color: #8a6a1a; border-bottom-style: solid; }
 
@@ -379,513 +369,577 @@
 })();
 </script>
 
-<!-- COUVERTURE -->
+<!-- COVER -->
 <div class="cover">
   <div class="ornament">✦ ❖ ✦</div>
-  <div class="badge-top">DAAT · רמה ב' — לַמְדָּן</div>
-  <h1>שולחן ערוך · יורה דעה</h1>
-  <div class="subtitle">דין חתיכה הראויה להתכבד — עיון ופלפול</div>
+  <div class="badge-top">DAAT · LEVEL 2 — LAMDAN</div>
+  <h1>Shulchan Arukh · Yoreh De'ah</h1>
+  <div class="subtitle">The piece fit to be served — study and pilpul</div>
 
   <div class="he-title">סימן ק״א</div>
   <div class="he-sub">חשיבות דרבנן, מחמת עצמה, שלם דווקא, ממה נפשך ואין תולין</div>
   <div class="he-subject">עיון, פלפול, שיטות הראשונים והאחרונים</div>
 
-  <div class="level-badge">⚡ ללומדים ותלמידי חכמים ⚡</div>
+  <div class="level-badge">⚡ For students and talmidei chakhamim ⚡</div>
 
   <div class="ornament">✦ ❖ ✦</div>
 
-  <h2 style="margin-top:20px; color: #1A1F3A;">פלפול ועיון מעמיק</h2>
+  <h2 style="margin-top:20px; color: #1A1F3A;">Pilpul and in-depth study</h2>
   <p style="font-size:12pt; color:#555;">
-    סוגיות, מקורות, חקירת היסוד, מחלוקות ראשונים ואחרונים,<br>
-    נפקא מינות להלכה ועיון בשיטות
+    Sugyot, sources, the chakira of the yesod, machlokot of Rishonim and Acharonim,<br>
+    nafka minot for halakhah and examination of the shitot
   </p>
 
   <div class="credits">
-    <p><strong>הנושא :</strong><br>
-    שולחן ערוך יורה דעה סימן ק״א (ט' סעיפים)<br>
-    עם נושאי כלים: ש״ך (שפתי כהן), ט״ז (טורי זהב), פרי מגדים, פתחי תשובה</p>
+    <p><strong>Subject:</strong><br>
+    שולחן ערוך יורה דעה סימן ק״א — nine se'ifim<br>
+    with the commentaries: ש״ך (Shakh) · ט״ז (Taz) · באר היטב · פתחי תשובה</p>
 
-    <p><strong>יסוד הסוגיא בש״ס :</strong><br>
-    ביצה ג':–ד'. (דבר שבמנין ודבר חשוב אינו בטל) · חולין ק'. (בריה וחתיכה הראויה להתכבד) · זבחים ע״ב.–ע״ג. (דבר חשוב מין החשובים)</p>
+    <p><strong>Root of the sugya in Shas:</strong><br>
+    ביצה ג׳:–ד׳. (דבר שבמנין ודבר חשוב) · חולין ק׳. (בריה וחתיכה הראויה להתכבד) · עבודה זרה ע״ד. (איסורי הנאה in a mixture)</p>
 
-    <p><strong>עריכה ועיון :</strong><br>
+    <p><strong>Written and edited by:</strong><br>
     הרב יוסף חיים סממה · DAAT</p>
   </div>
 </div>
 
 <div class="page-break"></div>
 
-<!-- TABLE DES MATIÈRES -->
-<h2 class="section-title">📑 תוכן העניינים</h2>
+<!-- TABLE OF CONTENTS -->
+<h2 class="section-title">📑 Table of contents</h2>
 
-<div class="index-box" dir="rtl">
+<div class="index-box">
 <ol>
-  <li><strong>הקדמת הסוגיא</strong> — חתיכה הראויה להתכבד כדבר חשוב שאינו בטל (סעיף א')</li>
-  <li><strong>יסוד החשיבות וספיקא דרבנן</strong> — חידוש הט״ז (ס״ק א–ב), מן התורה בטלה, ספק להקל</li>
-  <li><strong>מחמת עצמה ולא טעם בלוע</strong> — נבילה ובב״ח נגד כדי קליפה (סעיף ב', ט״ז ס״ק ד)</li>
-  <li><strong>מחוסר מעשה ומנהג המקום</strong> — תרנגולת בנוצותיה, טלה שלם וחתיכה גדולה (סעיף ג', ט״ז ס״ק ה–ו)</li>
-  <li><strong>שומן הקנה והעור</strong> — והכרעת הרמ״א בשומן עור האווז (סעיף ד')</li>
-  <li><strong>קורקבן ובני מעיים</strong> — ויש חולקין בקורקבן אווז לפי מקום וזמן (סעיף ה', ט״ז ס״ק ט–יא)</li>
-  <li><strong>שלם דווקא — נחתך ונתרסק</strong> — בטלה ברוב, וחומרת המתכוון לבטל (סעיף ו')</li>
-  <li><strong>אין תולין — ממה נפשך</strong> — נחתכה אחת מן התערובת (סעיף ז', ט״ז ס״ק יג–יד)</li>
-  <li><strong>זיהוי האיסור בסימנים</strong> — קורקבן וראש טריפה בשומנם ובחתכם (סעיפים ח'–ט', ט״ז ס״ק טו)</li>
-  <li><strong>חקירה ונפקא מינה למעשה</strong></li>
-  <li><strong>טבלאות סיכום מקיפות</strong></li>
+  <li><strong>Opening the sugya</strong> — the piece fit to be served as an “important thing” that is not nullified (se'if 1)</li>
+  <li><strong>The basis of chashivut and safek derabbanan</strong> — the position of the Taz and the Shakh (ס״ק א–ב), and the limit the Shakh sets on it</li>
+  <li><strong>Forbidden of itself, not by an absorbed taste</strong> — nevelah and basar be-chalav against kedei kelipah (se'if 2)</li>
+  <li><strong>Mechusar ma'aseh and local custom</strong> — an unplucked hen, a whole lamb, an oversized piece, and the Rama's “וכן נוהגין” (se'if 3)</li>
+  <li><strong>The mesentery fat and the goose skin</strong> — the Rama's gloss on se'if 4</li>
+  <li><strong>Gizzard and innards</strong> — the Shakh's reading against that of the Maharshal and the Taz (se'if 5)</li>
+  <li><strong>Whole only — cut or crushed</strong> — and one who crushed in order to nullify (se'if 6)</li>
+  <li><strong>We do not assume — mimah nafshakh</strong> — when one piece of the mixture has been cut (se'if 7)</li>
+  <li><strong>Identifying the forbidden piece by signs</strong> — gizzard and lamb's head, the fat and the cut (se'ifim 8–9)</li>
+  <li><strong>Chakira and nafka mina for practice</strong></li>
+  <li><strong>Summary tables</strong></li>
 </ol>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<!-- לשון השולחן ערוך — סעיף א' -->
-<h2 class="section-title">📜 לשון השולחן ערוך — סעיף א'
-  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 העתק</button>
+<!-- The text of the Shulchan Arukh — se'if 1 -->
+<h2 class="section-title">📜 The text of the Shulchan Arukh — se'if 1
+  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 Copy</button>
 </h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ Detailed explanation (level 1)</a>
 
 <div class="sacred-text he" data-copy-block id="cp-1">
-  <p>חֲתִיכָה הָרְאוּיָה לְהִתְכַּבֵּד בָּהּ לִפְנֵי הָאוֹרְחִים — כְּמוֹ בְּרִיָּה, אֲפִלּוּ בְּאֶלֶף לֹא בְּטֵלָה, וַאֲפִלּוּ הִיא אֲסוּרָה בַּהֲנָאָה, וַאֲפִלּוּ אֵין אִסּוּרָהּ אֶלָּא מִדְּרַבָּנָן. אֲבָל אִם נוֹלַד סָפֵק בַּדָּבָר — מְקִלִּין, מִשּׁוּם דַּהֲוֵי סְפֵקָא דְּרַבָּנָן.</p>
+  <p><span class="he-q">«&nbsp;דין חתיכה הראויה להתכבד. ובו ט׳ סעיפים: חתיכה הראויה להתכבד דינה כבריה דאפילו באלף לא בטלה ואפי׳ אם היא אסורה בהנאה כיון שאם תתבטל היתה מותרת וראויה להתכבד:&nbsp;»</span> <span class="source-ref">(שולחן ערוך יורה דעה ק״א:א)</span></p>
+  <p><small><strong>הגה —</strong> <span class="he-q">«&nbsp;ואפילו אינה אסורה רק מדרבנן אינה בטילה (ב״י בשם הרמב״ן) ואם הוא ספק אם היא ראויה להתכבד או לא אזלינן לקולא (ארוך כלל כ״ה) אפילו היא אסורה מדאורייתא:&nbsp;»</span> <span class="source-ref">(רמ״א יורה דעה ק״א:א)</span></small></p>
 </div>
 
-<!-- ============================================================= -->
-<h2 class="section-title">1. הקדמת הסוגיא — חתיכה הראויה להתכבד כדבר חשוב</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<p><strong>Translation of the se'if.</strong> <em>The law of a piece fit to be served; it contains nine se'ifim.</em> A piece with which one may honour one's guests has the same status as a <em>beriyah</em>: even in a thousand it is not nullified, and even if it is forbidden in benefit — since, were it to be nullified, it would be permitted and fit to be served. <strong>Rama's gloss:</strong> and even if it is forbidden only rabbinically it is not nullified (Beit Yosef in the name of the Ramban); and if there is a doubt whether it is fit to be served or not, we follow the lenient side (Issur ve-Heter he-Arokh, klal 25) — <em>even if it is forbidden by Torah law</em>.</p>
 
-<h3 class="he-h3">היסוד — חשיבות שאינה בטלה
-  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 העתק</button>
+<!-- ============================================================= -->
+<h2 class="section-title">1. Opening the sugya — the piece fit to be served as an “important thing”</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ Detailed explanation (level 1)</a>
+
+<h3>The yesod — an importance that blocks nullification
+  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 Copy</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-2">
-יסוד הסימן: דין כללי בהלכות תערובות הוא שאיסור שנתערב ברוב היתר — בטל. אך מכלל זה הוציאו חכמים <strong>דברים חשובים</strong> שאינם בטלים, כדרך שאמרו בבריה (סימן ק') ובדבר שבמנין (ביצה ג':–ד'). אחד מהם הוא <strong>חתיכה הראויה להתכבד בה לפני האורחים</strong> — חתיכה נכבדה שאדם מתכבד בה כשמגישהּ לאורחיו. מחמת <span class="he-q">חשיבותהּ</span> אינה בטלה אפילו <span class="he-q">באלף</span>, ואפילו היא אסורה בהנאה, ואפילו אין איסורהּ אלא מדרבנן.
+<div class="sacred-text" data-copy-block id="cp-2">
+The general rule of the laws of mixtures is that a forbidden item falling into a majority of permitted matter is nullified. The Sages excluded from this rule certain <strong>important things</strong>, which are not nullified — such as the <em>beriyah</em> (siman 100) and a <em>davar she-be-minyan</em> (Beitzah 3b–4a). One of them is a <strong>piece fit to be served before guests</strong>: a piece of standing, with which one honours one's guests. The Mechaber does not merely say that it is not nullified; he gives its status by comparison — <span class="he-q">«&nbsp;דינה כבריה&nbsp;»</span> — <em>its law is that of a beriyah</em>, and from there: even in a thousand it is not nullified. <span class="source-ref">(שולחן ערוך יורה דעה ק״א:א)</span>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>בריה וחתיכה הראויה להתכבד — חשיבות ולא מנין :</strong> שני הדינים — בריה (סימן ק') וחתיכה הראויה להתכבד (סימן ק״א) — שניהם דברים חשובים שאינם בטלים, אך אינם שווים בטעם. <span class="he-q">בריה</span> חשובה מצד עצם הוויתהּ — שלמותהּ הטבעית של נברא בפני עצמו; ואילו <strong>חתיכה הראויה להתכבד</strong> חשובה מחמת <span class="he-q">חשיבות מקרית וחברתית</span> — שראויה היא להגיש לפני אורחים. ונפקא מינה גדולה: דין הבריה אינו תלוי במנהג, ואילו חתיכה הראויה להתכבד <strong>תלויה במנהג המקום והזמן</strong> (כמבואר בסעיף ג').
-</div>
+<div class="pilpul-box">
+<strong>Beriyah and a piece fit to be served — two importances that do not match.</strong> Both laws — the <em>beriyah</em> (siman 100) and the piece fit to be served (siman 101) — are “important things” that are not nullified, but their importance has a different root. The <em>beriyah</em> is important by its very being: the natural wholeness of a creature. The piece fit to be served is important because <em>it is served</em> — an importance of usage, not of nature. The siman itself shows this, since the commentaries make it depend on place and time, pointing to the Shulchan Arukh at the opening of siman 110: <span class="he-q">«&nbsp;וכבר כתב השולחן ערוך ריש סי׳ ק״י דהכל לפי המקום והזמן&nbsp;»</span> <span class="source-ref">(ט״ז יו״ד ק״א ס״ק ט)</span></div>
 
-<div class="rishon-card" dir="rtl">
-<strong>אסורה בהנאה (ש״ך ס״ק א) :</strong> מדייק הש״ך שאף חתיכה הראויה להתכבד ה<span class="he-q">אסורה בהנאה</span> אינה בטלה — ואוסרת את כל התערובת אף לעניין הנאה, אפילו באלף. ולמעשה <strong>מוכרין את הכל לנכרי חוץ מדמי האיסור שבתערובת</strong>, כדרך שהתבאר בדיני הנאה (ועיין סימן ק״י). נמצא שאף שאי אפשר לאכול את התערובת, אין מפסידין את כל ההיתר, אלא מנכין מן המכירה את שווי החתיכה האסורה.
-</div>
+<div class="rishon-card">
+<strong>Forbidden in benefit (Shakh ס״ק א).</strong> The Shakh establishes from the gemara in Avodah Zarah (74a) that prohibitions of benefit — such as basar be-chalav — render their mixture forbidden in benefit as well, even in a thousand, once it is a piece fit to be served. But he immediately adds the practical consequence, and it saves the whole of the permitted matter from loss: <span class="he-q">«&nbsp;מיהו מותר למכרן לעובד כוכבים חוץ מדמי איסור שבהן&nbsp;»</span> <span class="source-ref">(ש״ך יו״ד ק״א ס״ק א)</span> — one may sell the whole to a non-Jew, deducting from the price the value of the forbidden item in it, as the Shakh writes in siman 110 (ס״ק ב).</div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">2. יסוד החשיבות וספיקא דרבנן — חידוש הט״ז</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">2. The basis of chashivut and safek derabbanan</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זהו אחד מן היסודות החריפים שבסימן, וכל כובד ידו של הט״ז (ס״ק א–ב) נתון בו.</p>
+<p style="margin:15px 0; font-style:italic;">This is one of the sharpest foundations in the siman, and both the Taz and the Shakh commit their ס״ק ב to it.</p>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — מאיזה דין אינה בטלה :</strong> חתיכה הראויה להתכבד שאינה בטלה — האם הוא דין <strong>מן התורה</strong> (שהחשיבות מעכבת את הביטול ככל גוף שאינו מתבטל), או <strong>מדרבנן</strong> (שמן התורה בטלה ברוב, אלא שחכמים החמירו בדבר חשוב) ? נפקא מינה גדולה לדינא, ובפרט לעניין הספק.
-</div>
+<div class="hakira-box">
+<strong>The chakira — on what authority is it not nullified?</strong> That a piece fit to be served is not nullified: is this a law <strong>of the Torah</strong> (importance itself blocking nullification), or a law <strong>of the Sages</strong> (by Torah law it would be nullified in a majority, and the Sages were stringent with an important thing)? The nafka mina bears first of all on the case of doubt.</div>
 
-<div class="teruts-box" dir="rtl">
-<strong>הכרעת הט״ז (ס״ק א–ב) — דרבנן :</strong> מבאר הט״ז ש<span class="he-q">"אינה בטלה" של חתיכה הראויה להתכבד הוא מדרבנן</span> — שמן התורה אף חתיכה חשובה בטלה ברוב, ולא החמירו בה אלא חכמים מחמת חשיבותהּ. ומכאן יסוד הסיפא של המחבר:
+<div class="teruts-box">
+<strong>The position of the Taz and the Shakh (ס״ק ב) — rabbinic.</strong> Both write it, and in the same terms. The Taz: <span class="he-q">«&nbsp;דחומרא זו דחתיכה הראויה אינה בטילה היא מדרבנן&nbsp;»</span> <span class="source-ref">(ט״ז יו״ד ק״א ס״ק ב)</span><br>
+And the Shakh draws the rule of doubt directly from it: <span class="he-q">«&nbsp;דחה״ל דלא בטלה ברוב הוא מדרבנן וספק דרבנן להקל&nbsp;»</span> <span class="source-ref">(ש״ך יו״ד ק״א ס״ק ב)</span>
 <ul class="stylish">
-<li><strong>מן התורה</strong> — בטלה ברוב ככל איסור.</li>
-<li><strong>מדרבנן</strong> — אינה בטלה אפילו באלף, מחמת חשיבותהּ.</li>
-<li><strong>בספק</strong> — <span class="he-q">ספקא דרבנן לקולא</span>, על כן מקילין.</li>
+<li><strong>By Torah law</strong> — it is nullified in a majority, like any prohibition.</li>
+<li><strong>By rabbinic law</strong> — it is not nullified even in a thousand, because of its importance.</li>
+<li><strong>In doubt</strong> — <em>safek derabbanan lekula</em>, therefore we are lenient.</li>
 </ul>
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>דאורייתא או דרבנן — מחלוקת האחרונים :</strong>
+<div class="machloket-box">
+<strong>Torah or rabbinic — what the commentaries say:</strong>
 <table>
-<tr><th>שיטה</th><th>"אינה בטלה"</th><th>מקור</th></tr>
+<tr><th>Shitah</th><th>“It is not nullified”</th><th>Source</th></tr>
 <tr>
-  <td><strong>הט״ז (וכן עיקר)</strong></td>
-  <td><strong>מדרבנן</strong> — מן התורה בטלה, וחכמים החמירו בדבר חשוב; על כן ספק להקל</td>
-  <td>ט״ז ס״ק א–ב</td>
+  <td><strong>Taz and Shakh</strong></td>
+  <td><strong>Rabbinic</strong> — by Torah law it is nullified, the Sages were stringent with an important thing; hence the leniency in doubt</td>
+  <td>ט״ז ס״ק ב · ש״ך ס״ק ב</td>
 </tr>
 <tr>
-  <td><strong>יש אומרים (הובא בפתחי תשובה ס״ק א)</strong></td>
-  <td>נדון אם בקצת אופנים החשיבות מעכבת אף <strong>מדאורייתא</strong></td>
-  <td>פ״ת ס״ק א</td>
+  <td><strong>The Pitchei Teshuvah points to the question</strong></td>
+  <td>The She'ilat Ya'avetz treats at length whether “an important thing is not nullified” is by Torah law or only rabbinic</td>
+  <td>פ״ת ס״ק א (שאילת יעב״ץ ח״א סי׳ קנ״ח)</td>
 </tr>
 </table>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה — הספק (סיפא דסעיף א') :</strong> מאחר ש"אינה בטלה" אינו אלא <strong>מדרבנן</strong>, הרי כל <span class="he-q">ספק בדבר</span> — בין ספק אם החתיכה ראויה להתכבד, ובין ספק אם נתערבה כאן חתיכה אסורה — נדון כ<span class="he-q">ספקא דרבנן ומקילין</span>. וזהו לשון המחבר: "אבל אם נולד ספק בדבר — מקילין, משום דהוי ספקא דרבנן". <em>ולמעשה — שאל את רבך.</em>
-</div>
+<div class="nafka-mina-box">
+<strong>Nafka mina — the doubt, and its limit.</strong> Three points the text imposes, and which it is worth not blurring into one another.<br>
+<strong>(a)</strong> The leniency in doubt is not a statement of the Mechaber: it lies in the <strong>Rama's gloss</strong>, drawn from the Issur ve-Heter he-Arokh — <span class="he-q">«&nbsp;ואם הוא ספק אם היא ראויה להתכבד או לא אזלינן לקולא&nbsp;»</span> <span class="source-ref">(רמ״א יורה דעה ק״א:א)</span><br>
+<strong>(b)</strong> The Rama adds a decisive clause — <em>even if it is forbidden by Torah law</em> — which shows that the leniency does not rest on the weight of the prohibition but on the fact that the rule of non-nullification is itself rabbinic.<br>
+<strong>(c)</strong> And the Shakh at once restricts the scope of that doubt, on a point easily lost: <span class="he-q">«&nbsp;ודוקא ספק אם הוא חה״ל אבל אם הוא ודאי חה״ל וספק אם הוא אסור לא בטיל&nbsp;»</span> <span class="source-ref">(ש״ך יו״ד ק״א ס״ק ב)</span> — the leniency applies to a doubt about the <em>character</em> of the piece; if the piece is certainly fit to be served and the doubt is about its <em>prohibition</em>, it is not nullified, and the Shakh refers to siman 110, se'if 9. <em>And for practice — ask your Rav.</em></div>
+
+<div class="pilpul-box">
+<strong>The Taz's cross-reference in ס״ק א.</strong> The Taz's first ס״ק is not on the yesod but on the Rama's words <em>רק מדרבנן</em>, and there he refers to what he wrote in siman 102, se'if 8: <span class="he-q">«&nbsp;דאפילו בספק איסור דרבנן יש חומרא בדבר שיש לו מתירין דוקא ולא בשאר דברים שאינם מתבטלים&nbsp;»</span> <span class="source-ref">(ט״ז יו״ד ק״א ס״ק א)</span> — the stringency maintained even in a doubt of a rabbinic prohibition belongs to <em>davar she-yesh lo matirin</em>, and not to the other things that are not nullified. A piece fit to be served is therefore treated, in doubt, differently from that whose prohibition will in any case lapse of itself.</div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">3. מחמת עצמה ולא טעם בלוע</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">3. Forbidden of itself, not by an absorbed taste</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיף ב')
-  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 העתק</button>
+<h3>The text of the Mechaber and the Rama (se'if 2)
+  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-3">
-"<strong>לא אמרו שחתיכה הראויה להתכבד אינה בטלה אלא בחתיכה האסורה מחמת עצמה</strong>, כגון נבילה, או בשר שנתבשל בחלב (שנעשה איסור מחמת עצמו). <strong>אבל אם אין האיסור אלא מחמת טעם שבלעה מאיסור אחר</strong> — כגון חתיכת היתר שבלעה איסור, או חתיכה שאינה אסורה אלא כדי קליפה — <strong>בטלה</strong>, ואין בה דין חתיכה הראויה להתכבד."
+  <p><span class="he-q">«&nbsp;אין לה דין חתיכה הראויה להתכבד אלא אם כן איסורה מחמת עצמה כגון נבילה ובשר בחלב אבל אם נאסרה מחמת שקבלה טעם מאיסור ולא היה בה ס׳ לבטלו אפילו למי שסובר חתיכה עצמה נעשית נבילה אין לה דין חתיכה הראויה להתכבד:&nbsp;»</span> <span class="source-ref">(שולחן ערוך יורה דעה ק״א:ב)</span></p>
+  <p><small><strong>הגה —</strong> <span class="he-q">«&nbsp;ואפילו חתיכה שלא נמלחה בטלה דאין איסורה מחמת עצמה רק מחמת דם הבלוע בה (שם ות״ה סי׳ ק״ע) כל חתיכה שלא נאסרה רק כדי קליפה בטלה דהרי הקליפה אינה ראויה להתכבד (סברת התוספות ובהגהות ש״ד):&nbsp;»</span> <span class="source-ref">(רמ״א יורה דעה ק״א:ב)</span></small></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — חשיבות בגוף, לא בטעם :</strong><br>
-דין "אינה בטלה" נובע מ<span class="he-q">חשיבות החתיכה עצמה</span> — שגופהּ נכבד וראוי להתכבד בו. על כן אין הדין נוהג אלא כשה<strong>איסור בגופהּ ממש</strong> — נבילה (שכל בשרהּ אסור) או בשר בחלב (שכל החתיכה נעשתה איסור, וכמבואר בסימן צ״ב). אבל חתיכת היתר שבלעה <span class="he-q">טעם</span> של איסור — אין כאן חתיכה אסורה חשובה, אלא היתר חשוב שבלע מעט איסור, וטעם זה <strong>בטל</strong> ככל טעם בלוע.
-</div>
+<p><strong>Translation of the se'if.</strong> A piece has the status of “fit to be served” only if its prohibition comes from itself — such as a <em>nevelah</em> or <em>basar be-chalav</em>. But if it became forbidden because it absorbed the taste of something forbidden without there being sixty to nullify it, it does not have this status — <em>even according to the view that the piece itself becomes nevelah</em>. <strong>Rama's gloss:</strong> and even a piece that was not salted is nullified, for its prohibition does not come from itself but from the blood absorbed in it; every piece that became forbidden only to the depth of a peel is nullified, for the peel itself is not fit to be served.</p>
 
-<div class="rishon-card" dir="rtl">
-<strong>כדי קליפה אינה "ראויה להתכבד" (ט״ז ס״ק ד) :</strong> מבאר הט״ז שאף חתיכה שאינה אסורה אלא <span class="he-q">כדי קליפה</span> — כלל אינה בכלל "ראויה להתכבד", שהרי אין האיסור פושט בכל גופהּ אלא בקליפה החיצונה בלבד, ואין <strong>גוף האיסור</strong> חשוב. נמצא שטעם בלוע וכדי קליפה — שניהם איסור שאינו ב<em>עצם</em> החתיכה, ולפיכך בטלים.
-</div>
+<div class="yesod-box">
+<strong>The yesod — importance in the body, not in the taste.</strong><br>
+The rule rests on the importance of the piece <em>itself</em>. It therefore applies only where the prohibition is in its body: a <em>nevelah</em>, whose whole flesh is forbidden, or <em>basar be-chalav</em>. A permitted piece that absorbed the taste of something forbidden is not an important forbidden piece: it is an important permitted piece that absorbed a little of the forbidden — and that taste is nullified. The Mechaber goes further: this holds <em>even</em> for the view that the piece itself becomes nevelah.</div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שורש הענין — חזרה לבשר בחלב (סימן צ״ב) :</strong> מדוע מנה המחבר בשר בחלב בכלל ה"מחמת עצמה" ? לפי שבבשר בחלב <span class="he-q">חתיכה נעשית נבילה</span> — כל החתיכה כולה נעשתה גוף של איסור (כלשון המגיד משנה שם), ולא טעם בלוע גרידא. על כן בשר בחלב נדון כנבילה ממש לעניין זה. אבל שאר איסורין הבלועים בטעם בלבד — אף לרמ״א דאמר חתיכה נעשית נבילה בכל איסורין מדרבנן — אין בהם חשיבות גוף לעניין חתיכה הראויה להתכבד.
-</div>
+<div class="rishon-card">
+<strong>Why basar be-chalav is “of itself” (Taz ס״ק ג, Shakh ס״ק ג).</strong> Both give the same reason, and it is not that of <em>chatikhah na'asit nevelah</em>: in basar be-chalav each component was permitted on its own and it is their joining that forbade them — the whole has therefore become <strong>one body</strong>. The Shakh: <span class="he-q">«&nbsp;דכיון דכל חד באפי נפשיה שרי וע״י חבורן יחד נאסרו חזר הכל להיות כגוף אחד&nbsp;»</span> <span class="source-ref">(ש״ך יו״ד ק״א ס״ק ג)</span><br>
+And the Taz adds a proof from the liability to lashes: <span class="he-q">«&nbsp;לפי ששניהם נעשו גוף אחד וראייה דהי׳ לוקה מן התורה אפי׳ לא אכל רק כחצי זית מחלב וחצי זית מבשר&nbsp;»</span> <span class="source-ref">(ט״ז יו״ד ק״א ס״ק ג)</span></div>
+
+<div class="rishon-card">
+<strong>Why the absorbed is not important (Taz ס״ק ד, Shakh ס״ק ד).</strong> The Taz says it in one line — <span class="he-q">«&nbsp;דהא אין הבלוע ראוי להתכבד&nbsp;»</span> <span class="source-ref">(ט״ז יו״ד ק״א ס״ק ד)</span> — and the Shakh brings the formulation of the Rishonim, of the Sha'arei Durah, the Rashba and the Ran: <span class="he-q">«&nbsp;אין האיסור הנבלע בה חשיב&nbsp;»</span> <span class="source-ref">(ש״ך יו״ד ק״א ס״ק ד)</span> — the absorbed prohibition is, in any event, not the thing that is important.</div>
+
+<div class="machloket-box">
+<strong>Kedei kelipah — where the Shakh does not follow the Rama.</strong> That a piece forbidden only “to the depth of a peel” is nullified is the <strong>Rama's</strong> statement, which he attributes to a reasoning of Tosafot and to the Hagahot Sha'arei Durah. The Shakh devotes his longest ס״ק of the series to it, and does two things there. First he sets aside the difficulty of the Lechem Chamudot — whence would a prohibition to the depth of a peel come, if not from a received taste? — answering that it is found in basar be-chalav. Then he questions the source itself: <span class="he-q">«&nbsp;ומכל מקום מה שהוציא כן הרב מתוס׳ לא מצאתיו&nbsp;»</span> <span class="source-ref">(ש״ך יו״ד ק״א ס״ק ו)</span><br>
+He then brings the Ra'avyah (through the Mordekhai), the Kol Bo and Rabbeinu Yerucham, for whom even at the depth of a peel a piece fit to be served is not nullified, and he does not leave the contradiction open: he proposes that the Ra'avyah and those with him speak of a case where, once the peel is removed, a piece fit to be served would remain. <em>The machloket stands; the Shakh's reading closes it without ruling against the Rama.</em></div>
+
+<div class="pilpul-box">
+<strong>Where the distinction leads — the Taz's cheese.</strong> The Taz applies the criterion to a case that occupied the Acharonim: cheese set with the milk of a <em>tereifah</em> animal, then mixed with others. He concludes, with the Darkei Moshe and the Torat Chatat (klal 40), that it is not a piece fit to be served, <span class="he-q">«&nbsp;שהאיסור בה בלוע הוא&nbsp;»</span> <span class="source-ref">(ט״ז יו״ד ק״א ס״ק ד)</span> — the prohibition in it is merely absorbed — against the Issur ve-Heter he-Arokh, who was stringent there. The whole ס״ק consists in distinguishing cheese <em>set</em> in forbidden milk, where the prohibition is absorbed, from cheese into which forbidden milk was <em>mixed</em>, where it is in the body.</div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">4. מחוסר מעשה ומנהג המקום</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">4. Mechusar ma'aseh and local custom</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ג')
-  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 העתק</button>
+<h3>The text of the Mechaber and the Rama (se'if 3)
+  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-4">
-"<strong>תרנגולת שנתערבה בנוצותיה אינה ראויה להתכבד</strong> — שאין מתכבדין באורחים בעוף שאינו מרוט — <strong>ובטלה</strong>. וכן <strong>טלה שלם</strong>, או חתיכה גדולה יותר מדאי שאין מגישין אותה כמות שהיא — אינה חשובה ראויה להתכבד. (הגה: והכל לפי מנהג המקום והזמן — יש חתיכות שדרכן להתכבד בהן במקום אחד ולא במקום אחר; ופרסות וראשים שמהבהבין אותם — תלוי במנהג; ואווז שלם ראוי להתכבד במקום שאין מתכבדין בו בשאר עופות.)"
+  <p><span class="he-q">«&nbsp;תרנגולת בנוצתה שנתערבה באחרות בטלה שהרי אינה ראויה להתכבד לפני האורחים כמות שהיא ואף על פי שאחר שנתערבה הסירו הנוצה וכן לא חשיבה ראויה להתכבד אלא אם כן היא מבושלת וכן כבש שלם או חתיכה גדולה יותר מדאי לא חשיבה ראויה להתכבד שאין דרך ליתן לפני האורח כבש שלם או חתיכה גדולה יותר מדאי ויש חולקים בכל זה:&nbsp;»</span> <span class="source-ref">(שולחן ערוך יורה דעה ק״א:ג)</span></p>
+  <p><small><strong>הגה —</strong> <span class="he-q">«&nbsp;וכן נוהגין מלבד תרנגולת בנוצתה דמחוסרת מעשה גדול דנוהגין בה שהיא בטילה (טור בשם י״א ובמרדכי וש״ד) וכן רגלים או ראש שלא נחרכו משערן אבל אם כבר נחרכו חשיבי חתיכה הראויה להתכבד אפילו לא נמלחו עדיין ואפילו כבש שלם אינו בטל (בהגהות ש״ד) מיהו רגלים של עופות מלבד רגלי אווז וכן רגלי בהמה דקה במדינות אלו לא חשיבי כלל ובטלים ראש של עופות אינו חשוב ובטל (ארוך כלל כ״ה):&nbsp;»</span> <span class="source-ref">(רמ״א יורה דעה ק״א:ג)</span></small></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — מחוסר מעשה גדול (ט״ז ס״ק ו) :</strong><br>
-תרנגולת <span class="he-q">בנוצותיה</span> אינה ראויה להתכבד <em>עכשיו</em> — לפי שהיא <strong>מחוסרת מעשה גדול</strong>: עדיין צריך למרטהּ עד שתהא ראויה להגשה. וכלל גדול הוא בכל הסימן: "ראויה להתכבד" — בהווה, כמות שהיא; וכל שחסר בה מעשה ניכר (מריטה, חיתוך) — אינה ראויה <em>עתה</em>, ובטלה.
-</div>
+<p><strong>Translation of the se'if.</strong> A hen still in its feathers that became mixed with others is nullified, for it is not, <em>as it stands</em>, fit to be served before guests — and this even if the feathers were removed after the mixture. Likewise it is not held fit to be served unless it is cooked. Likewise a whole lamb, or an excessively large piece, are not held fit to be served, for it is not the way to set before a guest a whole lamb or an excessively large piece. <strong>And there are those who dispute all this.</strong> <strong>Rama's gloss:</strong> and so is the practice [like those who dispute], except for a hen in its feathers, which lacks a major act, and for which the practice is that it is nullified (Tur in the name of “some say”, Mordekhai, Sha'arei Durah). Likewise feet or a head whose hair has not been singed; but if they have already been singed they are held to be a piece fit to be served even if they have not yet been salted — and even a whole lamb is not nullified (Hagahot Sha'arei Durah). However the feet of fowl, apart from those of a goose, as well as the feet of small cattle, in these lands do not count at all and are nullified; the head of fowl is not important and is nullified (Issur ve-Heter he-Arokh, klal 25).</p>
 
-<div class="machloket-box" dir="rtl">
-<strong>מהי "ראויה" — לאחר בישול או כמות שהיא (ט״ז ס״ק ה) :</strong>
+<div class="yesod-box">
+<strong>The yesod — mechusar ma'aseh gadol.</strong><br>
+A hen in its feathers is not fit to be served <em>now</em>: an act is still lacking, and a major one. It is the Rama who sets the term, and the Taz who explains it: <span class="he-q">«&nbsp;לפי שהיא מחוסר מעשה גדול&nbsp;»</span> <span class="source-ref">(ט״ז יו״ד ק״א ס״ק ו)</span> — and the Taz at once draws the measure of the criterion: if the feathers have already been removed but the innards have not been taken out and the belly has not been opened, that is not a major lack and the piece is not nullified; whereas a lamb that has not been flayed is nullified <em>a fortiori</em> compared with the hen.</div>
+
+<div class="machloket-box">
+<strong>What does “fit” mean — as it stands, or by size? (Taz ס״ק ה):</strong>
 <table>
-<tr><th>שיטה</th><th>אמת המידה של "ראויה"</th><th>מקור</th></tr>
+<tr><th>Shitah</th><th>The measure of “fit to be served”</th><th>Source</th></tr>
 <tr>
-  <td><strong>פשטות המחבר</strong></td>
-  <td>ראויה להגיש <strong>כמות שהיא</strong>; גדולה מדאי או טלה שלם — לאו</td>
+  <td><strong>The Mechaber</strong></td>
+  <td>What may be set <strong>as it stands</strong> before a guest; a whole lamb and an oversized piece — no</td>
   <td>מחבר ס״ג</td>
 </tr>
 <tr>
-  <td><strong>יש חולקין (ט״ז ס״ק ה)</strong></td>
-  <td>"ראויה" = חתיכה בשיעור הראוי להגשה <strong>לאחר בישול</strong></td>
+  <td><strong>The “יש חולקים”, as the Taz explains them</strong></td>
+  <td><span class="he-q">«&nbsp;לאו שתהא ראויה כמו שהיא עתה אלא משום שיעור נקט ליה דגדול כי האי שראוי ליתן לפני אורח אחר שנתבשל&nbsp;»</span> <span class="source-ref">(ט״ז יו״ד ק״א ס״ק ה)</span> — not “fit as it now is”, but a matter of <strong>size</strong>: large enough to be set before a guest once cooked</td>
   <td>ט״ז ס״ק ה</td>
 </tr>
 </table>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>הכרעת הרמ״א — תלוי במנהג המקום והזמן :</strong> מוסיף הרמ״א יסוד מכריע: אין "ראויה להתכבד" שיעור קבוע אחד לכל המקומות, אלא <span class="he-q">הכל לפי מנהג המקום והזמן</span>. יש חתיכות שדרכן להתכבד בהן במקום אחד ולא במקום אחר; פרסות וראשים שמהבהבין אותם — לפי המנהג; ו<strong>אווז שלם</strong> ראוי להתכבד במקום שאין מתכבדין בו בשאר עופות. ומכאן שעצם הגדר — "חשיבות" — הוא גדר <em>חברתי</em> המשתנה לפי הנוהג, ולא גדר טבעי קבוע (וכאן ההבדל המכריע מן הבריה שבסימן ק').
-</div>
+<div class="pilpul-box">
+<strong>The Rama's ruling — and the sense of his “וכן נוהגין”.</strong> The Mechaber closes his se'if with four words that reopen everything — <span class="he-q">«&nbsp;ויש חולקים בכל זה&nbsp;»</span> <span class="source-ref">(שולחן ערוך יורה דעה ק״א:ג)</span> — and the Rama opens his gloss by saying that the practice follows those who dispute, <em>except</em> for the hen in its feathers. In other words, for the practice the Rama reports, a whole lamb and an oversized piece <strong>are</strong> fit to be served and are not nullified, while the unplucked hen is nullified. The exception is not a detail: it is there that the criterion of “a lacking act” overrides that of size — and the Rama joins to it, further on in his gloss, feet and a head whose hair has not been singed.</div>
+
+<div class="rishon-card">
+<strong>Why removing the feathers afterwards changes nothing (Shakh ס״ק ח).</strong> The Mechaber writes that the hen remains nullified even if the feathers were removed after the mixture. The Shakh gives the reason, in the name of the Semak: <span class="he-q">«&nbsp;מ״מ כיון דבתחלת התערובו׳ נתבטל אין חוזר וניעור&nbsp;»</span> <span class="source-ref">(ש״ך יו״ד ק״א ס״ק ח)</span> — once nullification took effect at the beginning of the mixture, the prohibition does not “reawaken”.</div>
+
+<div class="rishon-card">
+<strong>Two further points of the Shakh on this se'if.</strong> (a) A hen in its feathers is also not a <em>davar she-be-minyan</em> — the Shakh establishes this from the Maharshal and the Mordekhai, and writes that the Bach rules as he does, against the Torat Chatat, who held that it is nullified as regards the piece fit to be served but not as regards davar she-be-minyan <span class="source-ref">(ש״ך יו״ד ק״א ס״ק ז)</span>. (b) On “a whole lamb” he adds three words: <span class="he-q">«&nbsp;אפי׳ הופשט עורו&nbsp;»</span> <span class="source-ref">(ש״ך יו״ד ק״א ס״ק ט)</span> — even once its hide has been flayed.</div>
+
+<div class="pilpul-box">
+<strong>Where “everything follows place and time” actually comes from.</strong> The phrase is not a gloss of the Rama on this se'if. It comes from elsewhere, and the commentaries bring it three times: the Taz draws it from the Shulchan Arukh at the opening of siman 110 <span class="source-ref">(ט״ז יו״ד ק״א ס״ק ט)</span>, then from the Rambam <span class="source-ref">(ט״ז יו״ד ק״א ס״ק יא)</span>, and the Shakh writes it in his own name when concluding his discussion of the goose skin <span class="source-ref">(ש״ך יו״ד ק״א ס״ק יג)</span>. What varies with place and time is therefore what one <em>serves</em> — and that is exactly where the conceptual gain lies: the importance this siman speaks of is not a property of the thing, but of the use made of it.</div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">5. שומן הקנה והעור — הכרעת הרמ״א</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">5. The mesentery fat and the goose skin</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ד')
-  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 העתק</button>
+<h3>The text of the Mechaber and the Rama (se'if 4)
+  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-5">
-"<strong>השומן שעל הקנה אינו ראוי להתכבד</strong> — שאין מתכבדין בו לפני אורחים — <strong>ובטל</strong>. (הגה: אבל שומן שעל עור האווז ראוי להתכבד, ואינו בטל.)"
+  <p><span class="he-q">«&nbsp;שומן הכנתא אינו ראוי להתכבד&nbsp;»</span> <span class="source-ref">(שולחן ערוך יורה דעה ק״א:ד)</span></p>
+  <p><small><strong>הגה —</strong> <span class="he-q">«&nbsp;אבל עור שומן אווז מקרי ראוי להתכבד ואינו בטל&nbsp;»</span> <span class="source-ref">(רמ״א יורה דעה ק״א:ד)</span></small></p>
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>שורש החילוק — שומן הקנה ושומן העור :</strong>
+<p><strong>Translation of the se'if.</strong> The fat of the <em>kanta</em> — the fat enveloping the innards — is not fit to be served. <em>(Gloss: but the fatty skin of a goose is called fit to be served and is not nullified.)</em></p>
+
+<div class="machloket-box">
+<strong>The root of the distinction:</strong>
 <table>
-<tr><th>הדבר</th><th>הדין</th><th>מקור</th></tr>
+<tr><th>The item</th><th>The law</th><th>Source</th></tr>
 <tr>
-  <td><strong>שומן שעל הקנה</strong></td>
-  <td>אינו ראוי להתכבד → <strong>בטל</strong></td>
+  <td><strong>שומן הכנתא</strong> — the fat of the innards</td>
+  <td>Not fit to be served → <strong>nullified</strong></td>
   <td>מחבר ס״ד</td>
 </tr>
 <tr>
-  <td><strong>שומן שעל עור האווז</strong></td>
-  <td>ראוי להתכבד → <strong>אינו בטל</strong></td>
+  <td><strong>עור שומן אווז</strong> — the fatty skin of a goose</td>
+  <td>Called fit to be served → <strong>not nullified</strong></td>
   <td>רמ״א ס״ד</td>
 </tr>
 </table>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>הכל בכלל "מנהג המקום" :</strong> חילוק זה שבין שומן הקנה (שאין מתכבדין בו) לשומן עור האווז (שכן מתכבדין בו) הוא יישום ישיר של יסוד הרמ״א שבסעיף ג': <span class="he-q">"ראויה להתכבד" תלויה במנהג</span>. שומן עור האווז נחשב מאכל נכבד שמגישין אותו, ועל כן יש בו חשיבות שאינה בטלה; ושומן הקנה — אין דרך להגישו, ועל כן בטל ככל איסור.
-</div>
+<div class="pilpul-box">
+<strong>The Taz and the Shakh on the kanta.</strong> The Taz brings the Maharshal, for whom the <em>hadra de-kanta</em> of a calf is important although the other innards are not, and it is here that he sets the measuring rule: <span class="he-q">«&nbsp;וכבר כתב השולחן ערוך ריש סי׳ ק״י דהכל לפי המקום והזמן ובינינו הדרא דכנתא של עגל חשוב&nbsp;»</span> <span class="source-ref">(ט״ז יו״ד ק״א ס״ק ט)</span><br>
+The Shakh, for his part, starts from the Piskei Tosafot on Nedarim, who leave the question open — <span class="he-q">«&nbsp;וצ״ע בהדרא דכנתא עם שמנה שמא ראויה היא להתכבד&nbsp;»</span> <span class="source-ref">(ש״ך יו״ד ק״א ס״ק יב)</span> — and concludes in the same way that everything follows the time and the place. <em>Both therefore leave the matter to observation, not to a list.</em></div>
+
+<div class="machloket-box">
+<strong>Goose skin cut into strips — a machloket the Rama did not bring.</strong> The Issur ve-Heter he-Arokh, in a marginal note, holds that if the goose skin is cut into strips it loses its importance. The Maharshal wonders in one direction — why should it be important whole if it is not important cut? — and the <strong>Taz wonders in the other</strong>, from what he sees: <span class="he-q">«&nbsp;דעיקר כיבוד בעור האווזא אחר שחותכין אותו לחתיכות לטגנם&nbsp;»</span> <span class="source-ref">(ט״ז יו״ד ק״א ס״ק י)</span> — the honour done with goose skin is precisely after cutting it into pieces to fry them. The Taz concludes that it remains fit to be served even cut, and that this is why the Rama did not bring this distinction into the Shulchan Arukh.</div>
+
+<div class="rishon-card">
+<strong>What the Shakh takes from it (ס״ק יג).</strong> The Shakh notes that the Maharshal disputes regarding the goose skin, then refuses to settle the matter by a list — and this is one of the most useful lines of the siman: <span class="he-q">«&nbsp;והכל תלוי בראות עיני המורה אם הוא חשוב להתכבד באותו מקום לא בטיל ואם לאו בטל ואם יש ספק אזלינן לקולא&nbsp;»</span> <span class="source-ref">(ש״ך יו״ד ק״א ס״ק יג)</span> — everything depends on what the Moreh has before his eyes; and in doubt we are lenient, as the Rama wrote in his gloss on se'if 1. <em>And for practice — ask your Rav.</em></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">6. קורקבן ובני מעיים — ויש חולקין</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">6. Gizzard and innards</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ה')
-  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 העתק</button>
+<h3>The text of the Mechaber (se'if 5)
+  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-6">
-"<strong>הקורקבן ושאר בני מעיים אינם ראויים להתכבד</strong> — שאין מתכבדין בהם לפני אורחים — <strong>ובטלים</strong>. (הגה: ויש חולקין וסבירא להו דקורקבן גדול של אווז ראוי להתכבד בו לפי מנהג המקום, ואינו בטל.)"
+  <p><span class="he-q">«&nbsp;קורקבן וכן שאר בני מעיים אינם ראויים להתכבד:&nbsp;»</span> <span class="source-ref">(שולחן ערוך יורה דעה ק״א:ה)</span></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — אברים פנימיים אינם נכבדים :</strong><br>
-ה<span class="he-q">קורקבן</span> (בית הכוסות של העוף) ושאר <span class="he-q">בני מעיים</span> — אברים פנימיים שאין דרך להגישם בכבוד לפני אורחים, ועל כן אין בהם חשיבות, ובטלים ברוב ככל איסור. וכאן שוב מתגלה הכלל: <strong>חשיבות תלויה בדרך ההגשה</strong> — ואברים פנימיים, על פי רוב, אין דרכם בכך.
-</div>
+<p><strong>Translation of the se'if.</strong> A gizzard, as well as the other innards, are not fit to be served. — <em>The Rama does not gloss this se'if; everything that follows is the work of the commentaries.</em></p>
 
-<div class="machloket-box" dir="rtl">
-<strong>קורקבן אווז — מחלוקת התלויה במנהג (ט״ז ס״ק ט–יא) :</strong>
+<div class="yesod-box">
+<strong>The yesod — internal organs do not do honour.</strong><br>
+The gizzard and the other innards are internal organs that it is not the way to present with honour before guests; they therefore have no importance and are nullified in a majority, like any prohibition. The se'if is short and unglossed: it is the commentaries that turn it into a machloket, and it is worth seeing by what road.</div>
+
+<div class="machloket-box">
+<strong>A goose gizzard — the machloket is among the Acharonim, not in the text:</strong>
 <table>
-<tr><th>שיטה</th><th>קורקבן אווז</th><th>מקור</th></tr>
+<tr><th>Shitah</th><th>Goose gizzard</th><th>Source</th></tr>
 <tr>
-  <td><strong>פשטות המחבר</strong></td>
-  <td>כל קורקבן ובני מעיים — אינם ראויים, ובטלים</td>
-  <td>מחבר ס״ה</td>
+  <td><strong>The Mechaber, as the Shakh reads him</strong></td>
+  <td><span class="he-q">«&nbsp;מסתימת לשון המחבר משמע אפי׳ קורקבן של אווז&nbsp;»</span> <span class="source-ref">(ש״ך יו״ד ק״א ס״ק יד)</span> — from the Mechaber's unqualified wording it follows that even a goose gizzard is nullified, and so it appears from the other poskim</td>
+  <td>מחבר ס״ה · ש״ך ס״ק יד</td>
 </tr>
 <tr>
-  <td><strong>יש חולקין (רמ״א; ט״ז ס״ק ט–יא)</strong></td>
-  <td><strong>קורקבן גדול של אווז</strong> חשוב וראוי להתכבד <span class="he-q">לפי מנהג המקום והזמן</span>; אך קורקבן תרנגולת — לא</td>
-  <td>רמ״א ס״ה; ט״ז ס״ק ט–יא</td>
+  <td><strong>The Maharshal, followed by the Bach and the Taz</strong></td>
+  <td>In most places a goose gizzard is held fit to be served; and since the Rambam writes that everything follows the time, it is important and not nullified — a hen's gizzard is not</td>
+  <td>ט״ז ס״ק יא (רש״ל פג״ה סי׳ נ׳)</td>
 </tr>
 </table>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>דקדוק הט״ז (ס״ק ט–יא) :</strong> מדקדק הט״ז שאף ב"יש חולקין" אין הדבר אחיד: דווקא <span class="he-q">קורקבן גדול של אווז</span> חשוב, מחמת גודלו וחשיבות האווז, ו<strong>משתנה לפי המקום והזמן</strong>; אבל קורקבן של תרנגולת — אינו ראוי להתכבד, ובטל לכולי עלמא. נמצא שגם בתוך גדר אחד (קורקבן) יש לחלק לפי טיב הבהמה ולפי הנוהג, וזהו עומקו של גדר "מנהג המקום והזמן".
-</div>
+<div class="pilpul-box">
+<strong>How the Shakh dismantles the proof.</strong> The Maharshal rested his position on a ruling of the Maharam concerning a needle found in a gizzard. The Shakh answers that the reading is inaccurate: <span class="he-q">«&nbsp;דלא קאי אלא אאווזא שנתערבה בשאר אווזות דחשיב לאווזות חה״ל אלא שהטריפות של האווזא היה בקורקבן שלה שנמצא בה מחט&nbsp;»</span> <span class="source-ref">(ש״ך יו״ד ק״א ס״ק יד)</span> — the Maharam is speaking of a <em>goose</em> mixed with other geese, geese themselves being fit to be served; the tereifut was merely located in its gizzard. Nothing about the gizzard itself follows from there, and the Shakh concludes that everything depends on the place and the time.</div>
+
+<div class="machloket-box">
+<strong>Goose breast meat — and a machloket that continues among the Acharonim.</strong> The sages of Cracow had ruled that goose breast meat remains fit to be served even once the goose has been flayed. The Maharshal contradicted them, holding that once the skin is removed the importance falls away. The Taz rejects that reading with rare force: <span class="he-q">«&nbsp;ותמה אני אם יצאו דברים אלו מפי רש״ל שמאד תמוהים הם&nbsp;»</span> <span class="source-ref">(ט״ז יו״ד ק״א ס״ק יא)</span> — a large piece from which a little has been taken does not lose its importance, and the following se'if says so itself by requiring that the form be lost; the case does not resemble the <em>beriyah</em>, whose identity falls away as soon as anything is removed from it. The Taz concludes that one should hold by the ruling of the sages of Cracow. The Pitchei Teshuvah reports that the Peri Chadash disputes the Taz and inclines like the Maharshal, while the Bekhor Shor holds that one should be stringent like the Taz <span class="source-ref">(פתחי תשובה יו״ד ק״א ס״ק ו)</span>. <em>The question remains open; for practice — ask your Rav.</em></div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">7. שלם דווקא — נחתך ונתרסק</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">7. Whole only — cut or crushed</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיף ו')
-  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 העתק</button>
+<h3>The text of the Mechaber and the Rama (se'if 6)
+  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-7">
-"<strong>לא אמרו שחתיכה הראויה להתכבד אינה בטלה אלא כשהיא שלמה</strong>; אבל אם <strong>נחתכה או נתרסקה — בטלה</strong> ברוב, ואפילו אירע לה כן לאחר שנתערבה, ואפילו מכירהּ עדיין. <strong>אבל אם חתכהּ או ריסקהּ כדי לבטלהּ — אינה בטלה</strong>, שאין מבטלין איסור לכתחילה."
+  <p><span class="he-q">«&nbsp;הא דבריה וחתיכה הראויה להתכבד לא בטלי דוקא בעודם שלימים אבל אם נחתכו או נתרסקו עד שנאבדה צורתן בטלי דתו לא חשיבי ואפילו אם נתרסקו לאחר שנתערבו עם ההיתר&nbsp;»</span> <span class="source-ref">(שולחן ערוך יורה דעה ק״א:ו)</span></p>
+  <p><small><strong>הגה —</strong> <span class="he-q">«&nbsp;(ואפי׳ לאחר שנודע התערובת) (הגהת ש״ד וד״ע לאפוקי או״ה)&nbsp;»</span> <span class="source-ref">(רמ״א יורה דעה ק״א:ו)</span></small></p>
+  <p><span class="he-q">«&nbsp;והוא שנתרסקו שלא במתכוין לבטל האיסור אבל אם נתכוין לכך אסור למרסק אם הוא שלו וכן למי שנתרסק בשבילו&nbsp;»</span> <span class="source-ref">(שולחן ערוך יורה דעה ק״א:ו)</span></p>
+  <p><small><strong>הגה —</strong> <span class="he-q">«&nbsp;(ואין חילוק בין נתערבו במינם או שלא במינם) (ד״ע ומשמעות הפוסקים ולאפוקי או״ה):&nbsp;»</span> <span class="source-ref">(רמ״א יורה דעה ק״א:ו)</span></small></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — חשיבות תלויה בשלמות :</strong><br>
-חשיבות החתיכה — להתכבד בה — תלויה ב<span class="he-q">שלמותהּ</span>; משנחתכה או נתרסקה, פקעה חשיבותהּ ושוב אינה "ראויה להתכבד", ובטלה ברוב. וחידוש המחבר: <strong>אפילו נחתכה לאחר שנתערבה, ואפילו עודנו מכירהּ</strong> — אף על פי כן בטלה, שהרי בשעת הביטול (משנחתכה) כבר אין בה חשיבות. (ויש לדמותו לבריה שנתרסקה — סימן ק' ס״ב — שאף היא בטלה משאבדה צורתהּ.)
-</div>
+<p><strong>Translation of the se'if.</strong> That a <em>beriyah</em> and a piece fit to be served are not nullified — that is only while they are whole; but if they were cut or crushed <strong>until their form was lost</strong>, they are nullified, for they are no longer important — and even if they were crushed after they had been mixed with the permitted matter. <em>(Gloss: and even after the mixture had become known.)</em> And this, provided they were crushed <strong>without intent to nullify the prohibition</strong>; but if one intended this, it is forbidden <strong>to the one who crushed, if the thing is his, and to the one for whom it was crushed</strong>. <em>(Gloss: and there is no difference between a mixture in its own kind and one not in its own kind.)</em></p>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — אימתי נמדדת החשיבות :</strong> האם החשיבות נמדדת <strong>בשעת התערובת</strong> (ואז, מאחר שבשעת נפילה היתה שלמה — שוב לא תתבטל), או <strong>בשעת הביטול</strong> בפועל ? והכריע המחבר כצד השני: נמדדת <span class="he-q">בשעת הביטול</span> — על כן נחתכה לאחר התערובת, בטלה; ואף שמכירהּ, אין בכך כלום, שכבר אבדה חשיבותהּ.
-</div>
+<div class="yesod-box">
+<strong>The yesod — importance depends on form, and its loss is a threshold.</strong><br>
+The importance of the piece depends on its wholeness; cut or crushed, it is no longer fit to be served and is nullified. But the Mechaber does not say “cut” plainly: he sets a threshold — <span class="he-q">«&nbsp;עד שנאבדה צורתן&nbsp;»</span> <span class="source-ref">(שולחן ערוך יורה דעה ק״א:ו)</span> — until their <em>form</em> is lost. That threshold is what prevents reading the se'if as though it were enough to break into the piece, and it is exactly what the Taz holds against the Maharshal in the preceding se'if.</div>
 
-<div class="teruts-box" dir="rtl">
-<strong>חומרת "כדי לבטלהּ" — אין מבטלין איסור לכתחילה :</strong> אם חתך או ריסק את החתיכה <strong>במתכוון כדי לבטלהּ</strong> — אף שמצד עצם הדין נחתכה ובטלה — <span class="he-q">אינה בטלה</span>, משום הכלל <strong>"אין מבטלין איסור לכתחילה"</strong>. שאין מתירין לאדם לעשות מעשה (חיתוך) שכל מגמתו לבטל איסור בידים; ואם עבר ועשה כן בכוונה זו — קנסוהו, ולא הועיל מעשהו.
-</div>
+<div class="hakira-box">
+<strong>The chakira — at what moment is importance measured?</strong> At the moment of the mixture (in which case, having been whole when it fell in, it would never be nullified), or at the moment nullification operates? The Mechaber decides by the second, and he carries it through: even crushed <em>after</em> the mixture, and — by the Rama's gloss — even after the mixture had become known.</div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שני דינים בסעיף אחד :</strong> נמצא שבסעיף זה גלומים שני יסודות מנוגדים: (א) מצד <span class="he-q">גדר החשיבות</span> — נחתכה בטלה, שכן פקעה שלמותהּ; (ב) מצד <span class="he-q">תקנת חכמים</span> — אם נתכוון לבטל, קנסוהו ואינה בטלה, גזירה שמא ירבה לבטל איסורין בידים. וההבחנה היחידה ביניהם היא ה<strong>כוונה</strong>: נחתכה מאליה או שלא לשם ביטול — בטלה; נחתכה בכוונה לבטל — אינה בטלה.
-</div>
+<div class="rishon-card">
+<strong>The threshold as the Shakh sees it (ס״ק טו).</strong> The Shakh brings from the Torat Chatat a qualification that redoubles the Mechaber's threshold: <span class="he-q">«&nbsp;הא דבטל אם נתרסק היינו שלא נשאר שם דבר חשוב אבל נשאר חה״ל אף על גב דבטיל מטעם בריה מ״מ עדיין חשוב ואינו בטל מטעם חה״ל&nbsp;»</span> <span class="source-ref">(ש״ך יו״ד ק״א ס״ק טו)</span> — if, after the crushing, something important still remains, the piece may well have lost its status as a <em>beriyah</em>, yet it keeps that of a piece fit to be served and is not nullified. The Shakh adds: <em>and it is a sound reasoning</em>.</div>
+
+<div class="teruts-box">
+<strong>One who crushed in order to nullify — and to whom exactly it is forbidden.</strong> This is where a quick reading goes wrong. The Mechaber does not write that the piece “is not nullified”: he writes that deliberate crushing makes the thing <strong>forbidden to determinate persons</strong> — <span class="he-q">«&nbsp;אסור למרסק אם הוא שלו וכן למי שנתרסק בשבילו&nbsp;»</span> <span class="source-ref">(שולחן ערוך יורה דעה ק״א:ו)</span> — to the one who crushed if the thing belongs to him, and to the one for whom it was crushed. This is the usual form of the penalty attached to <em>ein mevatlin issur lekhatchilah</em>: a personal prohibition, and not a return of the prohibition into the mixture for everyone.</div>
+
+<div class="pilpul-box">
+<strong>The Rama's gloss on “in its kind or not in its kind” — and the Taz who moves it.</strong> Two readings stand opposed, and they bear not on the halakhah but on the <em>place</em> of the gloss. The Shakh explains it in its straightforward sense: <span class="he-q">«&nbsp;כלומר דחה״ל אפי׳ שלא במינו לא בטיל באלף ולאפוקי או״ה דכתב דחה״ל דוקא במינו לא בטיל&nbsp;»</span> <span class="source-ref">(ש״ך יו״ד ק״א ס״ק יח)</span> — a piece fit to be served is not nullified even out of its kind, against the Issur ve-Heter he-Arokh. The Taz, for his part, confesses that he does not see what this gloss is doing here, in the middle of a discussion of crushing, and proposes that a printing error lies behind it: <span class="he-q">«&nbsp;ולפי הנראה דט״ס יש כאן ומקומה בראש הסי׳ במ״ש הש״ע שאין בטילה וכאן אין מקומה כלל&nbsp;»</span> <span class="source-ref">(ט״ז יו״ד ק״א ס״ק יב)</span> — its place would be at the head of the siman, where the Shulchan Arukh states that it is not nullified.</div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">8. אין תולין — ממה נפשך</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">8. We do not assume — mimah nafshakh</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיף ז')
-  <button class="daat-copy" type="button" data-copy-target="#cp-8">📋 העתק</button>
+<h3>The text of the Mechaber (se'if 7)
+  <button class="daat-copy" type="button" data-copy-target="#cp-8">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-8">
-"<strong>חתיכה אסורה הראויה להתכבד שנתערבה באחרות (של היתר), ונחתכה אחת מן התערובת ואין ידוע אם האסורה היא או של היתר — אין תולין לומר שהאסורה היא שנחתכה ובטלה</strong>, אלא הכל אסור; שאם האסורה נחתכה — נתבטלה, אבל אם של היתר נחתכה — האסורה עדיין שלמה ואינה בטלה."
+  <p><span class="he-q">«&nbsp;אם נחתכה חתיכה א׳ אין תולין לומר של איסור נחתך ומתבטל ויהיו כולן מותרות אלא אותה שנחתכה בלבד מותר׳ ממה נפשך אם היא של איסור אף כולן מותרות ואם אינה של איסור הרי היא מותרת ואפילו נחתכו רובן אין תולין לומר שהאיסור מהרוב שנחתכו אלא כל הנחתכות מותרות והשלימות אסורות:&nbsp;»</span> <span class="source-ref">(שולחן ערוך יורה דעה ק״א:ז)</span></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — ממה נפשך אין הספק מתיר :</strong><br>
-משנחתכה אחת מן התערובת ואין ידוע אם האסורה היא — אין אומרים "תלינו שהאסורה נחתכה ובטלה, והשאר מותר". והטעם: <span class="he-q">ממה נפשך</span> — אם האסורה היא שנחתכה, אכן נתבטלה; אבל אם אחת מן ה<strong>היתר</strong> נחתכה, הרי האסורה עדיין <span class="he-q">שלמה</span> וקיימת בתערובת ו<strong>אינה בטלה</strong>. ומאחר שאין הספק מכריע לקולא בכל צד — אין תולין, והכל אסור.
-</div>
+<p><strong>Translation of the se'if.</strong> If one of the pieces was cut, we do not assume that it was the forbidden one that was cut — and thus nullified — so that all would be permitted. Only the cut piece itself is permitted, <em>mimah nafshakh</em>: if it is the forbidden one, all are permitted; and if it is not the forbidden one, it is permitted in its own right. And even if most of them were cut, we do not assume that the forbidden one is among the cut majority: all the cut pieces are permitted, and the whole ones are forbidden.</p>
 
-<div class="pilpul-box" dir="rtl">
-<strong>אין תולין (ט״ז ס״ק יג–יד) :</strong> מבאר הט״ז שאין כאן הקלת ספק כלל: ה<strong>חתיכה החתוכה לבדה</strong> — מותרת היא ממה נפשך (אם היא האסורה, נתבטלה בשעת החיתוך; ואם היתר, מותרת מאליה). אבל <span class="he-q">אין תולין</span> את החיתוך באיסור כדי להתיר את <em>שאר</em> החתיכות השלמות — שכן שמא ההיתר נחתך, והאסורה השלמה עומדת ואינה בטלה. נמצא שהיתר ה"ממה נפשך" נוגע אך ורק לחתיכה החתוכה, ולא לשאר.
-</div>
+<div class="yesod-box">
+<strong>The yesod — the mimah nafshakh permits the cut piece, and it alone.</strong><br>
+The reasoning bears not on the whole set but on one piece. The cut piece is permitted on both branches: if it is the forbidden one, it was nullified when it lost its form; if it is not, it was permitted from the start. But that double outcome does not extend to the other pieces — for on the second branch, the forbidden one remained <em>whole</em> among them, and a piece fit to be served is not nullified. Hence the conclusion the Mechaber presses to its limit: even if the majority were cut, the cut ones are permitted and the whole ones forbidden.</div>
 
-<div class="kashya-box" dir="rtl">
-<strong>קושיא — מדוע לא נתלה ברוב :</strong> והלא רוב התערובת היתר ! ומדוע לא נתלה שהחתוכה היא מן הרוב (היתר), והאסורה השלמה תתבטל ברוב ההיתר ?
-</div>
+<div class="pilpul-box">
+<strong>What the Taz adds on the first branch (ס״ק יג).</strong> The Taz explains the phrase “if it is the forbidden one, all are permitted” as the second half of a reasoning — if you wish to say that the forbidden piece too enters this doubt of “perhaps it was cut” — and he brings from the Issur ve-Heter he-Arokh a condition the se'if does not state: <span class="he-q">«&nbsp;דדין זה היינו ביש ששים באיסור נגד ההיתר&nbsp;»</span> <span class="source-ref">(ט״ז יו״ד ק״א ס״ק יג)</span> — this rule applies where there is sixty of permitted matter against the forbidden.</div>
 
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ — חתיכה הראויה להתכבד אינה בטלה ברוב :</strong> זהו עומק הסוגיא: מאחר שמדובר ב<strong>חתיכה הראויה להתכבד</strong>, היא <span class="he-q">אינה בטלה ברוב כלל</span> — אפילו באלף (סעיף א'). על כן כל זמן שהאסורה שלמה — היא אוסרת את כולן, ואין הרוב מועיל לבטלהּ. ורק אם נתברר שהיא עצמה נחתכה — פקעה חשיבותהּ ואז בטלה. ובספק — אין תולין, והכל אסור.
-</div>
+<div class="kashya-box">
+<strong>Kashya — why not follow the majority?</strong> Everywhere else we attribute a doubt to the majority. Here the permitted matter is the majority: why not say that the cut piece comes from the majority — hence from the permitted — and, better still in the converse case, that the forbidden one is among the cut pieces?</div>
+
+<div class="teruts-box">
+<strong>The Taz's terutz, in the name of the Mahara’i (ס״ק יד).</strong> The Taz does not answer that the majority is inoperative here: he turns the argument from the majority against itself. <span class="he-q">«&nbsp;יראה דהכא איכא למימר אדרבה כל שנשתנה מקדמותו מן הרוב הוא והוה כמו כל דפריש מרובא קא פריש ונמצא שהאיסור שהוא המועט לא נשתנה והופרש מקדמותו&nbsp;»</span> <span class="source-ref">(ט״ז יו״ד ק״א ס״ק יד)</span> — what has <em>changed</em> from its earlier state comes, precisely, from the majority, just as whatever separates separates from the majority; whence it follows that the forbidden one, which is the minority, remained as it was. The Taz explicitly sets aside the other explanation one might be tempted to give — <em>kavua ke-mechetzah al mechetzah</em> — because there are here two fixed sets, that of the cut and that of the whole, and it would lead to the contrary result. He concludes that one must hold by the Mahara’i's reasoning.</div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">9. זיהוי האיסור בסימנים — קורקבן וראש טריפה</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">9. Identifying the forbidden piece by signs</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיפים ח'–ט')
-  <button class="daat-copy" type="button" data-copy-target="#cp-9">📋 העתק</button>
+<h3>The text of the Mechaber (se'ifim 8–9)
+  <button class="daat-copy" type="button" data-copy-target="#cp-9">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-9">
-"<strong>קורקבנים שנתערבו ואחד מהם טריפה — יכול להכיר את הקורקבן האסור על ידי השומן (חלב) שלו</strong>, שכל קורקבן ושומנו עמו, ומשיב כל שומן לקורקבן שממנו נחתך. (סעיף ט':) <strong>וכן ראשי טלאים שנתערבו ואחד מהם טריפה — מכירוֹ על ידי החתך</strong>, שמתאים את חתך הראש הטריפה למקום שממנו נחתך."
+  <p><span class="he-q">«&nbsp;קורקבן שנמצא נקוב ונתערבה אותה תרנגולת עם אחרות מדמין שומן שבקורקבן לשומן התרנגולת של מקום חיבור הקורקבן ואם דומים לגמרי מכשירים האחרות&nbsp;»</span> <span class="source-ref">(שולחן ערוך יורה דעה ק״א:ח)</span></p>
+  <p><span class="he-q">«&nbsp;ראש כבש שנמצא טריפה ולא נודע מאיזה כבש הוא והקיפו הראש לצוארו של אחד מהכבשים ונמצאו החתיכות דומות ומכוונות יפה יש לסמוך על זה להתיר האחרות:&nbsp;»</span> <span class="source-ref">(שולחן ערוך יורה דעה ק״א:ט)</span></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — זיהוי בסימן מובהק :</strong><br>
-משנתערבו דברים חשובים (קורקבנים, ראשי טלאים) ואחד מהם איסור — אין כאן ביטול, שהרי חשובים הם ואינם בטלים. אך אם אפשר <span class="he-q">לזהות</span> את האיסור בסימן מובהק — מותר השאר. ושני סימנים:<br>
-• <strong>קורקבן</strong> — כל קורקבן ו<span class="he-q">שומנו עמו</span>; משיב כל שומן למקומו ומכיר את האסור.<br>
-• <strong>ראש</strong> — מתאים את ה<span class="he-q">חתך</span> של הראש הטריפה למקום שממנו נחתך.
-</div>
+<p><strong>Translation of the se'ifim.</strong> <strong>(8)</strong> A gizzard found perforated, and that hen became mixed with others: one compares the fat of the gizzard with the fat of the hen at the place where the gizzard is attached; if they are entirely alike, the others are declared permitted. <strong>(9)</strong> A lamb's head found <em>tereifah</em>, without it being known from which lamb it came: one holds the head up to the neck of one of the lambs; if the sections are found alike and fit well together, one may rely on this to permit the others.</p>
 
-<div class="rishon-card" dir="rtl">
-<strong>סימני זיהוי (ט״ז ס״ק טו) :</strong> מבאר הט״ז שהיתר זה הוא מדין <span class="he-q">סימן מובהק</span> — שהתאמת השומן לקורקבן והחתך לראש מבררת בבירור גמור איזהו האסור. ומשנתברר האיסור בעין — שוב אין כל התערובת אסורה, אלא מסלקין את האסור והשאר מותר. נמצא שזהו ההיפך מסעיף ז': שם הספק לא נתברר ("אין תולין"), וכאן הסימן מברר ומתיר.
-</div>
+<div class="yesod-box">
+<strong>The yesod — identification, not nullification.</strong><br>
+When important things have become mixed and one of them is forbidden, no nullification is available, since they are not nullified. The road the Mechaber opens is <em>identification</em>: if the forbidden one can be pointed out, it is removed and the rest is permitted. The Mechaber gives two ways — the fat, which matches its own gizzard; and the cut, which fits its own neck. This is the exact inverse of se'if 7: there the doubt was not resolved and nothing was assumed; here the sign resolves the doubt.</div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>הרדב״ז — טריפה שנעשתה חתיכה הראויה להתכבד (פתחי תשובה ס״ק ה) :</strong> מביא הפתחי תשובה בשם ה<span class="he-q">רדב״ז</span> דין נוסף: בהמה שנמצאה <strong>טריפה לאחר</strong> שכבר נעשתה חתיכה הראויה להתכבד — <span class="he-q">אינה בטלה</span>, שכבר חלה עליה חשיבות הראויה להתכבד. וזהו עומק גדר החשיבות: משחלה — אינה פוקעת מאליה אף כשנודע האיסור אחר כך. <em>ולמעשה — שאל את רבך.</em>
-</div>
+<div class="rishon-card">
+<strong>The Taz requires more for the head (ס״ק טו).</strong> The Taz notes that the Mechaber writes, in se'if 9, <em>alike and well fitted</em>, and infers that the colour too must correspond: <span class="he-q">«&nbsp;משמע במראה ג״כ יהיו שוות&nbsp;»</span> <span class="source-ref">(ט״ז יו״ד ק״א ס״ק טו)</span>. For the gizzard the colour of the fat alone suffices; for the head, since it is still possible to verify by the fit of the cut, one must verify by that as well. He then brings the Issur ve-Heter he-Arokh: <span class="he-q">«&nbsp;עתה שאין אנו בקיאין כל כך אין לנו להתיר בכה״ג אם לא שיהיה הפרש גדול וניכר&nbsp;»</span> <span class="source-ref">(ט״ז יו״ד ק״א ס״ק טו)</span> — now that we are no longer so expert, one should not permit in such a case unless the difference is large and evident.</div>
+
+<div class="pilpul-box">
+<strong>A tradition the Taz refuses — and his reason.</strong> The Taz brings from the Bach a tradition received from a sage: when water has been found in a lamb's head, one may examine the spinal cord of the lambs, for the one whose head contains water will have water also in the cord running down from the brain. The Taz refuses to rely on it, and his reason is a principle of method rather than of fact: <span class="he-q">«&nbsp;כיון שלא נמצא בתלמוד ובפוסקים&nbsp;»</span> <span class="source-ref">(ט״ז יו״ד ק״א ס״ק טו)</span> — a sign found neither in the Talmud nor among the poskim does not suffice to resolve a doubt of tereifut.</div>
+
+<div class="rishon-card">
+<strong>A difficulty left open by the Pitchei Teshuvah (ס״ק ז).</strong> The Shemesh Tzedakah notes that the Mechaber's words appear to contradict one another: here and in the following se'if it emerges that if the pieces do <em>not</em> match, the others remain forbidden — yet whole lambs are at issue, and the hen spoken of must be raw, since after cooking the fat can no longer be matched; whereas in se'if 3 the Mechaber wrote that a piece is held fit to be served only if it is cooked. The Pitchei Teshuvah refers to the many resolutions proposed there, without adopting one <span class="source-ref">(פתחי תשובה יו״ד ק״א ס״ק ז)</span>. <em>The difficulty remains open.</em></div>
+
+<div class="pilpul-box">
+<strong>The Radvaz — a tereifut discovered afterwards (Pitchei Teshuvah ס״ק ה, on se'if 3).</strong> The Pitchei Teshuvah brings from the Radvaz's new responsa (siman 267) a rule that extends the chakira of se'if 6 from the other end: <span class="he-q">«&nbsp;דאם לא נמצאת הטריפה עד אחר שנעשה ראויה להתכבד לא בטיל&nbsp;»</span> <span class="source-ref">(פתחי תשובה יו״ד ק״א ס״ק ה)</span> — if the animal was found to be tereifah only after it had become a piece fit to be served, it is not nullified. The importance, once acquired, does not fall away merely because the prohibition came to light afterwards. <em>And for practice — ask your Rav.</em></div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">10. חקירה ונפקא מינה למעשה</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">10. Chakira and nafka mina for practice</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ Detailed explanation (level 1)</a>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה הכוללת של הסימן :</strong> מהו גדר ה"חשיבות" שאינה בטלה, ובאיזה תנאים הוא חל ?
+<div class="hakira-box">
+<strong>The chakira that runs through the siman:</strong> what is the “chashivut” that blocks nullification, and under what conditions does it apply?
 <ul class="stylish">
-<li><strong>חשיבות דרבנן</strong> — מן התורה בטלה ברוב, וחכמים החמירו בדבר חשוב; <span class="he-q">בספק — להקל</span> (ט״ז ס״ק א–ב).</li>
-<li><strong>מחמת עצמה</strong> — דווקא איסור בגוף החתיכה (נבילה, בב״ח); טעם בלוע וכדי קליפה — בטלים.</li>
-<li><strong>ראויה ושלמה</strong> — תלוי במנהג המקום והזמן; מחוסר מעשה או נחתך/נתרסק — בטלה.</li>
-<li><strong>מתכוון לבטל</strong> — אינה בטלה, משום אין מבטלין איסור לכתחילה.</li>
-<li><strong>ספק וזיהוי</strong> — ממה נפשך אין תולין (ס״ז); אך סימן מובהק מברר ומתיר (ס״ח–ט').</li>
+<li><strong>A rabbinic stringency</strong> — by Torah law it is nullified in a majority; the Sages were stringent with an important thing, and in doubt we are lenient (ט״ז ס״ק ב · ש״ך ס״ק ב), with the Shakh's restriction on the nature of the doubt.</li>
+<li><strong>Of itself</strong> — only where the prohibition lies in the body of the piece (nevelah, basar be-chalav); an absorbed taste, or a prohibition only to the depth of a peel, is nullified (מחבר ס״ב · רמ״א ס״ב), the Shakh showing that the source of this last point is disputed.</li>
+<li><strong>Fit, and whole</strong> — what counts as “fit” depends on place and time; what lacks a major act, or whose form has been lost, is nullified (מחבר ס״ג · רמ״א ס״ג · מחבר ס״ו).</li>
+<li><strong>Crushed in order to nullify</strong> — the resulting prohibition is personal: it falls on the one who crushed and on the one for whom it was crushed (מחבר ס״ו).</li>
+<li><strong>Doubt and identification</strong> — nothing is assumed in se'if 7, but a sign that resolves the doubt permits the rest (מחבר ס״ז–ט׳).</li>
 </ul>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה למעשה (לפי הכרעת רוב האחרונים) :</strong>
+<div class="nafka-mina-box">
+<strong>Nafka minot — what the study yields, as the text and the commentaries set them out:</strong>
 <ol class="stylish">
-<li>חתיכה הראויה להתכבד אינה בטלה אפילו באלף; ואסורה בהנאה — מוכרין לנכרי חוץ מדמי האיסור (ש״ך ס״ק א; ועיין סימן ק״י).</li>
-<li><strong>ספק</strong> אם ראויה להתכבד או אם נתערבה — ספקא דרבנן <span class="he-q">להקל</span> (מחבר ס״א; ט״ז ס״ק א–ב).</li>
-<li>טעם בלוע / כדי קליפה — <strong>בטלים</strong>; רק "מחמת עצמה" אינה בטלה (מחבר ס״ב; ט״ז ס״ק ד).</li>
-<li>נחתכה/נתרסקה אף לאחר התערובת — בטלה; אבל חתכהּ <strong>כדי לבטלהּ</strong> — אינה בטלה (מחבר ס״ו).</li>
-<li>נחתכה אחת ואין ידוע — <strong>אין תולין</strong>, הכל אסור (מחבר ס״ז); אך מזהין בסימן מובהק (ס״ח–ט').</li>
+<li>A piece fit to be served is not nullified even in a thousand; if it is forbidden in benefit, the Shakh indicates selling the whole to a non-Jew while deducting the value of the forbidden part (ש״ך ס״ק א, referring to siman 110 ס״ק ב).</li>
+<li><strong>Doubt</strong> as to whether the piece is fit to be served — we are lenient, and the Rama specifies: even if the prohibition is by Torah law (רמ״א ס״א). But if the piece is certainly fit to be served and the doubt bears on its prohibition, the Shakh writes that it is not nullified (ש״ך ס״ק ב).</li>
+<li>An absorbed taste, or a prohibition only to the depth of a peel — <strong>nullified</strong>; only a prohibition “of itself” is not nullified (מחבר ס״ב · רמ״א ס״ב).</li>
+<li>The Mechaber excludes a whole lamb and an oversized piece from the status, then reports that <em>there are those who dispute all this</em>; the Rama writes that the practice follows the latter, except for the unplucked hen (מחבר ס״ג · רמ״א ס״ג).</li>
+<li>Cut or crushed until the form is lost — nullified, even after the mixture; but if something important remains, the Shakh writes that it is not nullified (מחבר ס״ו · ש״ך ס״ק טו).</li>
+<li>One piece cut, without knowing which — the cut ones are permitted, the whole ones forbidden, even if the majority were cut (מחבר ס״ז · ט״ז ס״ק יג–יד).</li>
+<li>Identification by the gizzard fat or by the fit of the cut (מחבר ס״ח–ט׳); the Taz requires for the head a match of colour as well, and reports that we are no longer expert enough to permit thus except where the difference is evident (ט״ז ס״ק טו).</li>
 </ol>
-<em>ולמעשה — שאל את רבך.</em>
-</div>
+<em>And for practice — ask your Rav.</em></div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">11. טבלאות סיכום</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">11. Summary tables</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">טבלה — אופני החתיכה והדין</h3>
-
-<table>
-<tr>
-  <th>המצב</th>
-  <th>הדין</th>
-  <th>מקור בקורפוס</th>
-</tr>
-<tr>
-  <td><strong>חתיכה ראויה להתכבד, שלמה, מחמת עצמה</strong></td>
-  <td>אינה בטלה אפילו באלף, ואף אסורה בהנאה ואף דרבנן</td>
-  <td>מחבר ס״א; ש״ך ס״ק א</td>
-</tr>
-<tr>
-  <td><strong>ספק אם ראויה / אם נתערבה</strong></td>
-  <td>ספקא דרבנן → מקילין</td>
-  <td>מחבר ס״א; ט״ז ס״ק א–ב</td>
-</tr>
-<tr>
-  <td><strong>אסורה רק מטעם בלוע / כדי קליפה</strong></td>
-  <td>בטלה — אין בה דין חהל״ה</td>
-  <td>מחבר ס״ב; ט״ז ס״ק ד</td>
-</tr>
-<tr>
-  <td><strong>תרנגולת בנוצותיה / חתיכה גדולה מדאי</strong></td>
-  <td>מחוסר מעשה → אינה ראויה → בטלה</td>
-  <td>מחבר ס״ג; ט״ז ס״ק ה–ו</td>
-</tr>
-<tr>
-  <td><strong>שומן הקנה / קורקבן ובני מעיים</strong></td>
-  <td>אינם ראויים → בטלים (קורקבן אווז — לפי המנהג)</td>
-  <td>מחבר ס״ד–ה; רמ״א; ט״ז ס״ק ט–יא</td>
-</tr>
-<tr>
-  <td><strong>נחתכה / נתרסקה (אף לאחר תערובת)</strong></td>
-  <td>בטלה ברוב — אף שמכירהּ</td>
-  <td>מחבר ס״ו</td>
-</tr>
-<tr>
-  <td><strong>חתכהּ כדי לבטלהּ</strong></td>
-  <td>אינה בטלה — אין מבטלין איסור לכתחילה</td>
-  <td>מחבר ס״ו</td>
-</tr>
-<tr>
-  <td><strong>נחתכה אחת ואין ידוע אם האסורה</strong></td>
-  <td>אין תולין → הכל אסור (ממה נפשך)</td>
-  <td>מחבר ס״ז; ט״ז ס״ק יג–יד</td>
-</tr>
-<tr>
-  <td><strong>קורקבן / ראש טריפה שנתערב</strong></td>
-  <td>מזהין בשומן ובחתך — והשאר מותר</td>
-  <td>מחבר ס״ח–ט'; ט״ז ס״ק טו</td>
-</tr>
-</table>
-
-<h3 class="he-h3">טבלה — מחלוקות מרכזיות בסימן</h3>
+<h3>Table — the cases of the siman and their law</h3>
 
 <table>
 <tr>
-  <th>נושא</th>
-  <th>שיטה א'</th>
-  <th>שיטה ב'</th>
+  <th>The case</th>
+  <th>The law</th>
+  <th>Where it is stated</th>
 </tr>
 <tr>
-  <td>"אינה בטלה" — מקורו</td>
-  <td>הט״ז — מדרבנן (מן התורה בטלה; ספק להקל)</td>
-  <td>יש דנין אם בקצת אופנים מדאורייתא (פ״ת ס״ק א)</td>
+  <td><strong>A piece fit to be served, whole, forbidden of itself</strong></td>
+  <td>Not nullified even in a thousand, and even when forbidden in benefit; the Rama adds: even if the prohibition is only rabbinic</td>
+  <td>מחבר ס״א · רמ״א ס״א · ש״ך ס״ק א</td>
 </tr>
 <tr>
-  <td>אמת המידה של "ראויה"</td>
-  <td>המחבר — כמות שהיא עתה</td>
-  <td>ט״ז ס״ק ה — בשיעור הראוי לאחר בישול</td>
+  <td><strong>Doubt whether it is fit to be served</strong></td>
+  <td>We are lenient, even if the prohibition is by Torah law; but not where the doubt bears on the prohibition of a piece that is certainly fit</td>
+  <td>רמ״א ס״א · ט״ז ס״ק ב · ש״ך ס״ק ב</td>
 </tr>
 <tr>
-  <td>קורקבן אווז</td>
-  <td>המחבר — בני מעיים בטלים</td>
-  <td>רמ״א / ט״ז ס״ק ט–יא — קורקבן גדול של אווז ראוי לפי המנהג</td>
+  <td><strong>Forbidden only by a received taste / to the depth of a peel</strong></td>
+  <td>Nullified — no status of a piece fit to be served</td>
+  <td>מחבר ס״ב · רמ״א ס״ב · ט״ז ס״ק ד · ש״ך ס״ק ד, ס״ק ו</td>
 </tr>
 <tr>
-  <td>נחתכה — אימתי נמדדת החשיבות</td>
-  <td>בשעת הביטול — נחתכה אף לאחר תערובת, בטלה</td>
-  <td>חומרת מתכוון לבטל — אינה בטלה (מחבר ס״ו)</td>
+  <td><strong>A hen in its feathers</strong></td>
+  <td>Lacks a major act → nullified; and removing the feathers after the mixture does not bring it back</td>
+  <td>מחבר ס״ג · רמ״א ס״ג · ט״ז ס״ק ו · ש״ך ס״ק ח</td>
 </tr>
 <tr>
-  <td>טריפה שנעשתה חהל״ה</td>
-  <td>פשטות — אם נחתכה בטלה</td>
-  <td>הרדב״ז (פ״ת ס״ק ה) — חלה חשיבות, אינה בטלה</td>
+  <td><strong>A whole lamb / an oversized piece</strong></td>
+  <td>Not fit according to the Mechaber; “there are those who dispute”, and the Rama writes that the practice follows them</td>
+  <td>מחבר ס״ג · רמ״א ס״ג · ט״ז ס״ק ה</td>
+</tr>
+<tr>
+  <td><strong>Mesentery fat / fatty goose skin</strong></td>
+  <td>The first is nullified; the second is called fit to be served and is not nullified</td>
+  <td>מחבר ס״ד · רמ״א ס״ד · ט״ז ס״ק ט–י · ש״ך ס״ק יב–יג</td>
+</tr>
+<tr>
+  <td><strong>Gizzard and innards</strong></td>
+  <td>Not fit to be served; on the goose gizzard, the Shakh reads the Mechaber as including it, the Taz reports the contrary practice</td>
+  <td>מחבר ס״ה · ט״ז ס״ק יא · ש״ך ס״ק יד</td>
+</tr>
+<tr>
+  <td><strong>Cut or crushed until the form is lost (even after the mixture)</strong></td>
+  <td>Nullified; unless something important still remains</td>
+  <td>מחבר ס״ו · רמ״א ס״ו · ש״ך ס״ק טו</td>
+</tr>
+<tr>
+  <td><strong>Crushed with intent to nullify</strong></td>
+  <td>Forbidden to the one who crushed, if the thing is his, and to the one for whom it was crushed</td>
+  <td>מחבר ס״ו</td>
+</tr>
+<tr>
+  <td><strong>One piece cut, without knowing which</strong></td>
+  <td>We do not assume: the cut ones are permitted <em>mimah nafshakh</em>, the whole ones forbidden — even if the majority were cut</td>
+  <td>מחבר ס״ז · ט״ז ס״ק יג–יד</td>
+</tr>
+<tr>
+  <td><strong>A perforated gizzard / a tereifah lamb's head in a mixture</strong></td>
+  <td>One identifies by the fat and by the fit of the cut, and the rest is permitted</td>
+  <td>מחבר ס״ח–ט׳ · ט״ז ס״ק טו · פ״ת ס״ק ז</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מקורות הסוגיא</h3>
+<h3>Table — the machlokot of the siman</h3>
 
-<div class="rishon-card" dir="rtl">
-<strong>גמרא :</strong> ביצה ג':–ד'. (דבר שבמנין ודבר חשוב אינו בטל) · חולין ק'. (בריה וחתיכה הראויה להתכבד) · זבחים ע״ב.–ע״ג. (דבר חשוב מין החשובים, מי שדרכו להימנות)
+<table>
+<tr>
+  <th>Subject</th>
+  <th>First reading</th>
+  <th>Second reading</th>
+</tr>
+<tr>
+  <td>“It is not nullified” — its status</td>
+  <td>Taz and Shakh (ס״ק ב) — rabbinic; by Torah law it is nullified, hence the leniency in doubt</td>
+  <td>The Pitchei Teshuvah (ס״ק א) points to the She'ilat Ya'avetz, who treats at length whether it is Torah or rabbinic</td>
+</tr>
+<tr>
+  <td>The measure of “fit to be served”</td>
+  <td>The Mechaber — what may be set as it stands before a guest</td>
+  <td>The “יש חולקים” according to the Taz (ס״ק ה) — a matter of size, once the piece is cooked; and the Rama writes that the practice follows them</td>
+</tr>
+<tr>
+  <td>Kedei kelipah</td>
+  <td>The Rama (ס״ב) — nullified, for the peel is not fit to be served</td>
+  <td>The Shakh (ס״ק ו) — he did not find this in Tosafot, and brings the Ra'avyah and Rabbeinu Yerucham to the contrary, whom he reconciles</td>
+</tr>
+<tr>
+  <td>A goose gizzard</td>
+  <td>The Shakh (ס״ק יד) — the Mechaber's wording includes even a goose gizzard</td>
+  <td>The Maharshal, the Bach and the Taz (ס״ק יא) — in most places it is fit to be served</td>
+</tr>
+<tr>
+  <td>Goose skin cut into strips</td>
+  <td>The Issur ve-Heter he-Arokh — once cut, it loses its importance</td>
+  <td>The Taz (ס״ק י) — the honour is done precisely with the cut and fried pieces</td>
+</tr>
+<tr>
+  <td>Breast meat of a flayed goose</td>
+  <td>The Maharshal — once the skin is removed, the importance falls away; and the Peri Chadash inclines thus (פ״ת ס״ק ו)</td>
+  <td>The sages of Cracow and the Taz (ס״ק יא); the Bekhor Shor writes that one should be stringent like the Taz</td>
+</tr>
+<tr>
+  <td>The gloss “in its kind or not in its kind” (ס״ו)</td>
+  <td>The Shakh (ס״ק יח) — it teaches that it is not nullified even out of its kind</td>
+  <td>The Taz (ס״ק יב) — it is out of place here, and would stem from a printing error</td>
+</tr>
+</table>
+
+<h3>Table — the sources of the sugya</h3>
+
+<div class="rishon-card">
+<strong>Gemara:</strong> ביצה ג׳:–ד׳. (דבר שבמנין ודבר חשוב) · חולין ק׳. (בריה וחתיכה הראויה להתכבד) · עבודה זרה ע״ד. (prohibitions of benefit in a mixture, cited by the Shakh ס״ק א)
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>ראשונים :</strong> רש״י · תוספות · רמב״ם (מאכלות אסורות ט״ז) · המגיד משנה · רא״ש · רשב״א (תורת הבית) · ר״ן · מרדכי · טור · איסור והיתר הארוך
+<div class="rishon-card">
+<strong>Rishonim and works cited in the siman:</strong> הרמב״ן (through the Beit Yosef, in the Rama's gloss on se'if 1) · תוספות (invoked by the Rama on se'if 2, and discussed by the Shakh) · הרשב״א · הר״ן · שערי דורה והגהותיו · המרדכי · ראבי״ה · רבינו ירוחם · כל בו · תרומת הדשן · הטור · איסור והיתר הארוך (klal 25)
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>אחרונים :</strong> בית יוסף · רמ״א · ש״ך · ט״ז · ב״ח · פרי חדש · פרי מגדים · מנחת יעקב · פתחי תשובה · חתם סופר (סי' צ״א) · נודע ביהודה · רדב״ז
+<div class="rishon-card">
+<strong>Acharonim:</strong> רמ״א · ש״ך (nineteen ס״ק on this siman) · ט״ז (fifteen ס״ק) · ב״ח · מהרש״ל · לבוש · פרי חדש · פתחי תשובה (seven ס״ק) · שאילת יעב״ץ · נודע ביהודה · רדב״ז · בכור שור · שמש צדקה
 </div>
 
 <hr class="ornament">
 
-  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;direction:rtl;">
-    <a href="niveau-1-base-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">→ רמה א' — יסוד</a>
-    <a href="niveau-3-synthese-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">רמה ג' — סיכום ←</a>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;">
+    <a href="niveau-1-base-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">← Level 1 — Base</a>
+    <a href="niveau-3-synthese-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">Level 3 — Synthesis →</a>
   </div>
 
 <div class="yh-watermark">
 ~ ~ ~ ~ ~<br>
 <strong>DAAT</strong> · <strong>הרב יוסף חיים סממה</strong><br>
 תלמיד חכם · מעביר שיעורים בהלכה ובחסידות<br>
-<em>פלפול ועיון בדין חתיכה הראויה להתכבד · סימן ק״א · ⚡ רמה ב' — לַמְדָּן</em>
+<em>סימן ק״א · Level 2 — Lamdan · דין חתיכה הראויה להתכבד</em><br>
+<em>daattorah.com</em>
 </div>
 
-  <div class="disclaimer" style="background:#fff8e1;border-right:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;direction:rtl;text-align:right;">
-    ⚠️ תוכן זה נכתב לצורך לימוד ועיון בלבד. לכל הוראה למעשה (לְמַעֲשֶׂה) — שאל את רבך.
+  <div class="disclaimer" style="background:#fff8e1;border-left:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;">
+    ⚠️ This content is written for study and analysis only. For any practical ruling (לְמַעֲשֶׂה) — ask your Rav.
   </div>
 
   <div style="background:#1A1F3A;border-top:2px solid #C5A55A;padding:24px 40px;text-align:center;margin-top:0;">
-    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;direction:rtl;">
-      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">לעמוד הבית</a> · <a href="index-en.html" style="color:#C5A55A;text-decoration:none;">סימן ק״א</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ לתמיכה</a>
+    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;">
+      DAAT דעת — © 5786 / 2026 · <a href="../../../index-en.html" style="color:#C5A55A;text-decoration:none;">Back to home</a> · <a href="index-en.html" style="color:#C5A55A;text-decoration:none;">סימן ק״א</a> · <a href="../../../soutenir-en.html" style="color:#C5A55A;text-decoration:none;">♥ Support</a>
     </p>
   </div>
 
@@ -894,7 +948,7 @@
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="../../../assets/js/chat-widget.js" defer></script>
 <script src="../../../assets/js/daat-copy.js" defer></script>
-<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="מצא חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">הצטרף לחברותא</span></a>
+<a href="../../../communaute-en.html#khavroutha" class="daat-khavroutha-fab" title="Find a chavruta for this siman"><span class="icon">📖</span><span class="label-long">Join the chavruta</span></a>
   <script src="/assets/js/share-text.js" defer></script>
 </body>
 </html>

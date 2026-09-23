@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,8 +23,7 @@
   @page { size: A4; margin: 2cm 1.8cm; }
   body {
     font-family: 'Frank Ruhl Libre', 'David', 'Georgia', 'Cambria', serif;
-    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0;
-    direction: rtl; text-align: right;
+    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0; text-align: left;
   }
   .he {
     direction: rtl; text-align: right;
@@ -72,14 +71,12 @@
   h2.section-title {
     color: #fff; background: #1A1F3A;
     font-size: 16pt; padding: 10px 18px; margin-top: 30px;
-    border-right: 6px solid #C5A55A;
-    direction: rtl; text-align: right;
+    border-left: 6px solid #C5A55A; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3 {
     color: #1A1F3A; font-size: 14pt; margin-top: 25px;
-    border-right: 4px solid #C5A55A; padding-right: 10px;
-    direction: rtl; text-align: right;
+    border-left: 4px solid #C5A55A; padding-left: 10px; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3.he-h3 {
@@ -89,8 +86,7 @@
   }
   h4 {
     color: #5a4a1a; font-size: 12pt;
-    margin-top: 20px; margin-bottom: 8px; font-weight: bold;
-    direction: rtl; text-align: right;
+    margin-top: 20px; margin-bottom: 8px; font-weight: bold; text-align: left;
   }
 
   .sacred-text {
@@ -100,8 +96,8 @@
     font-size: 12.5pt; line-height: 1.9;
   }
   .pilpul-box {
-    background: #eef3fa; border-right: 4px solid #1A1F3A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #eef3fa; border-left: 4px solid #1A1F3A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .pilpul-box::before {
     content: "⚡ פלפול"; display: block;
@@ -110,8 +106,8 @@
     direction: rtl; text-align: right;
   }
   .kashya-box {
-    background: #fef4e4; border-right: 4px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #fef4e4; border-left: 4px solid #C5A55A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .kashya-box::before {
     content: "❓ קושיא"; display: block;
@@ -120,8 +116,8 @@
     direction: rtl; text-align: right;
   }
   .teruts-box {
-    background: #e8f4ea; border-right: 4px solid #2d7a3e;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #e8f4ea; border-left: 4px solid #2d7a3e;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .teruts-box::before {
     content: "✓ תירוץ"; display: block;
@@ -130,8 +126,8 @@
     direction: rtl; text-align: right;
   }
   .hakira-box {
-    background: #f5e9f5; border-right: 4px solid #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #f5e9f5; border-left: 4px solid #6a1b7a;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .hakira-box::before {
     content: "🔍 חקירה"; display: block;
@@ -141,8 +137,7 @@
   }
   .nafka-mina-box {
     background: #fff4e6; border: 2px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; border-radius: 4px; text-align: left;
   }
   .nafka-mina-box::before {
     content: "⚖️ נפקא מינה"; display: block;
@@ -152,8 +147,7 @@
   }
   .yesod-box {
     background: #1A1F3A; color: #fff;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
   .yesod-box::before {
     content: "💎 יסוד"; display: block;
@@ -164,7 +158,7 @@
   .yesod-box .he-q { color: #C5A55A; }
   .machloket-box {
     background: #faf5ff; border: 1.5px dashed #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
 
   table {
@@ -173,10 +167,9 @@
   }
   th {
     background: #1A1F3A; color: #fff;
-    padding: 10px; text-align: right; direction: rtl; font-size: 11pt;
+    padding: 10px; text-align: left; font-size: 11pt;
   }
-  td {
-    direction: rtl; text-align: right;
+  td { text-align: left;
     border: 1px solid #d4c89a; padding: 10px; vertical-align: top;
   }
   tr:nth-child(even) td { background: #FAF6EE; }
@@ -197,12 +190,11 @@
   }
 
   ol.stylish li, ul.stylish li { margin-bottom: 8px; }
-  ol.stylish, ul.stylish { padding-right: 22px; padding-left: 0; }
+  ol.stylish, ul.stylish { padding-left: 22px; padding-right: 0; }
 
   .rishon-card {
-    background: #f7f3e4; border-right: 4px solid #8a6a1a;
-    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt;
-    direction: rtl; text-align: right;
+    background: #f7f3e4; border-left: 4px solid #8a6a1a;
+    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt; text-align: left;
   }
   .rishon-card strong { color: #1A1F3A; font-size: 11pt; }
 
@@ -217,10 +209,9 @@
 
   .index-box {
     background: #FAF6EE; border: 1px solid #C5A55A;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
-  .index-box ol { margin: 5px 0; padding-right: 25px; padding-left: 0; }
+  .index-box ol { margin: 5px 0; padding-left: 25px; padding-right: 0; }
   .index-box li { margin-bottom: 5px; }
 
   h3.sugya {
@@ -237,7 +228,6 @@
     font-size: 12pt;
     text-decoration: none;
     border-bottom: 1px dotted #C5A55A;
-    direction: rtl;
   }
   a.daat-explain:hover { color: #8a6a1a; border-bottom-style: solid; }
 
@@ -271,7 +261,7 @@
   ],
   "@id": "https://daattorah.com/yd/111/lamdan/en#article",
   "headline": "Siman קי״א · Level 2 (Lamdan) — Attribution (tolin / shani omer) and mixtures that combine in doubt (hakol nichnas be-safek) | Yoreh De'ah",
-  "description": "Level 2 (Lamdan) of Siman קי״א in Yoreh De'ah — In-depth pilpul. דין תולין ושאני אומר (יבמות פ״ב, ספק דרבנן לקולא, ט״ז ס״ק א), שיעור דרבנן, מין במינו ואינו מינו (ט״ז ס״ק ג), חתיכה הראויה להתכבד בספק, שתי קדרות מאי חזית, הכל נכנס בספק וצירוף, ומחלוקת רמב״ן ורשב״א בשני בני אדם — חקירה et נפקא מינה.",
+  "description": "Level 2 (Lamdan) of Siman קי״א in Yoreh De'ah — In-depth pilpul. דין תולין ושאני אומר (יבמות פ״ב, ספק דרבנן לקולא, ט״ז ס״ק א), שיעור דרבנן, מין במינו ואינו מינו (ט״ז ס״ק ג), חתיכה הראויה להתכבד בספק, שתי קדרות מאי חזית, הכל נכנס בספק וצירוף, ומחלוקת רמב״ן ורשב״א בשני בני אדם — חקירה and נפקא מינה.",
   "url": "https://daattorah.com/yd/111/lamdan/en",
   "inLanguage": "en-US",
   "isAccessibleForFree": true,
@@ -284,8 +274,8 @@
   "isPartOf": {
     "@id": "https://daattorah.com/yd/#webpage"
   },
-  "educationalLevel": "Avancé",
-  "learningResourceType": "Cours d'étude halakhique (niveau 2 — Lamdan)"
+  "educationalLevel": "Advanced",
+  "learningResourceType": "Halachic study course (level 2 — Lamdan)"
 }
   </script>
 <!-- Vercel Web Analytics. Le script n'est servi qu'une fois Web Analytics activé
@@ -379,36 +369,37 @@
 })();
 </script>
 
+
 <!-- COUVERTURE -->
 <div class="cover">
   <div class="ornament">✦ ❖ ✦</div>
-  <div class="badge-top">DAAT · רמה ב' — לַמְדָּן</div>
-  <h1>שולחן ערוך · יורה דעה</h1>
-  <div class="subtitle">דין תולין להקל וצירוף בספק — עיון ופלפול</div>
+  <div class="badge-top">DAAT · LEVEL 2 — LAMDAN</div>
+  <h1>Shulchan Aruch · Yoreh De’ah</h1>
+  <div class="subtitle">Attributing leniently in doubt (תולין להקל) and the joining of pots — study and pilpul</div>
 
   <div class="he-title">סימן קי״א</div>
-  <div class="he-sub">תולין, שאני אומר, ספק דרבנן לקולא, הכל נכנס בספק</div>
+  <div class="he-sub">תולין, שאני אומר, ספק דרבנן לקולא, צירוף הקדרות</div>
   <div class="he-subject">עיון, פלפול, שיטות הראשונים והאחרונים</div>
 
-  <div class="level-badge">⚡ ללומדים ותלמידי חכמים ⚡</div>
+  <div class="level-badge">⚡ For lamdanim and talmidei chachamim ⚡</div>
 
   <div class="ornament">✦ ❖ ✦</div>
 
-  <h2 style="margin-top:20px; color: #1A1F3A;">פלפול ועיון מעמיק</h2>
+  <h2 style="margin-top:20px; color: #1A1F3A;">Pilpul and in-depth study</h2>
   <p style="font-size:12pt; color:#555;">
-    סוגיות, מקורות, חקירת היסוד, מחלוקות ראשונים ואחרונים,<br>
-    נפקא מינות להלכה ועיון בשיטות
+    Sugyos, sources, the underlying chakira, machlokos of Rishonim and Acharonim,<br>
+    nafka minos for practice and study of the shitos
   </p>
 
   <div class="credits">
-    <p><strong>הנושא :</strong><br>
-    שולחן ערוך יורה דעה סימן קי״א (ז' סעיפים)<br>
-    עם נושאי כלים: ש״ך (שפתי כהן), ט״ז (טורי זהב), פרי מגדים, פתחי תשובה</p>
+    <p><strong>The subject:</strong><br>
+    שולחן ערוך יורה דעה סימן קי״א (ז׳ סעיפים)<br>
+    with its apparatus: ש״ך (שפתי כהן) · ט״ז (טורי זהב) · פתחי תשובה</p>
 
-    <p><strong>יסוד הסוגיא בש״ס :</strong><br>
-    יבמות פ״ב. (שתי קופות חולין ותרומה, תרומה לתוך תרומה) · פסחים י'. (תולין בזה אחר זה, תשע חנויות) · כתובות כ״ו. (שני בני אדם וצירוף)</p>
+    <p><strong>The root of the sugya in Shas:</strong><br>
+    יבמות פ״ב ע״א — the braisa of the two baskets of chullin and terumah, the source of שאני אומר · פסחים י׳ ע״א — the two paths, the source of the leniency when they ask one after the other · and the Shach (ס״ק י״ט) further refers to כתובות כ״ו</p>
 
-    <p><strong>עריכה ועיון :</strong><br>
+    <p><strong>Editing and study:</strong><br>
     הרב יוסף חיים סממה · DAAT</p>
   </div>
 </div>
@@ -416,467 +407,585 @@
 <div class="page-break"></div>
 
 <!-- TABLE DES MATIÈRES -->
-<h2 class="section-title">📑 תוכן העניינים</h2>
+<h2 class="section-title">📑 Table of contents</h2>
 
-<div class="index-box" dir="rtl">
+<div class="index-box">
 <ol>
-  <li><strong>הקדמת הסוגיא</strong> — יסוד התולין ושאני אומר, יבמות פ״ב (סעיף א')</li>
-  <li><strong>שלושת המקרים שבסעיף א'</strong> — שתי קדרות, קדרה אחת, חתיכה אחת; ספק דרבנן לקולא (ט״ז ס״ק א, ש״ך ס״ק א–ב)</li>
-  <li><strong>שיעור דרבנן ושאני אומר</strong> — מדוע ספק דאורייתא דשיעור דרבנן מותר, קל מסימן ס״ו (ט״ז ס״ק א)</li>
-  <li><strong>תנאי התולין</strong> — אין האיסור מרובה (סעיף ב'); דאורייתא וביטול ברוב (סעיף ג'); מין במינו ואינו מינו (סעיף ד', ט״ז ס״ק ג)</li>
-  <li><strong>חתיכה הראויה להתכבד בספק</strong> — קולא דט״ז ס״ק ה ושיטת הר״ן</li>
-  <li><strong>שתי קדרות של היתר</strong> — מאי חזית ושתיהן אסורות (סעיף ה', ש״ך ס״ק יא)</li>
-  <li><strong>נפילות בזה אחר זה</strong> — ידוע / אינו ידוע (סעיף ו', ש״ך ס״ק יד–טו)</li>
-  <li><strong>הכל נכנס בספק וצירוף</strong> — אחת בבית ואחת בעלייה (סעיף ז')</li>
-  <li><strong>מחלוקת רמב״ן ורשב״א בשני בני אדם</strong> — חנ״נ וצירוף, כאלו כבר מעורב (ש״ך ס״ק יג–כ, ט״ז ס״ק ו, ח, י)</li>
-  <li><strong>חקירה ונפקא מינה למעשה</strong></li>
-  <li><strong>טבלאות סיכום מקיפות</strong></li>
+  <li><strong>Introduction to the sugya</strong> — the foundation of תולין and שאני אומר, יבמות פ״ב (seif א׳)</li>
+  <li><strong>The three cases of seif א׳</strong> — two pots, one pot, a single piece; ספק דרבנן לקולא (ט״ז ס״ק א׳, ש״ך ס״ק א׳–ו׳)</li>
+  <li><strong>A rabbinic measure and שאני אומר</strong> — why a doubt about a Torah prohibition is permitted here — lighter than siman 66 (ט״ז ס״ק א׳)</li>
+  <li><strong>The conditions of תולין</strong> — the prohibition does not predominate (seif ב׳); Torah prohibition and nullification in the majority (seif ג׳); מין במינו and אינו מינו (seif ד׳, ט״ז ס״ק ג׳)</li>
+  <li><strong>A piece fit to be served, in doubt</strong> — the kula of ט״ז ס״ק ה׳ and the shita of the ר״ן</li>
+  <li><strong>Two permitted pots</strong> — מאי חזית, and both are forbidden (seif ה׳, ש״ך ס״ק י״א–י״ב)</li>
+  <li><strong>Successive falls</strong> — known / unknown (seif ו׳, ש״ך ס״ק י״ד–ט״ו)</li>
+  <li><strong>Everything enters the doubt, and the pots join</strong> — one in the house and one in the upper storey (seif ז׳, ש״ך ס״ק ט״ז–י״ח)</li>
+  <li><strong>Machlokes of the רמב״ן and the רשב״א for two people</strong> — חנ״נ and joining, “as though already mixed” (ש״ך ס״ק י״ג, י״ז, י״ט–כ׳; ט״ז ס״ק ו׳, ח׳, י׳)</li>
+  <li><strong>Chakira and nafka mina for practice</strong></li>
+  <li><strong>Summary tables</strong></li>
 </ol>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<!-- לשון השולחן ערוך — סעיף א' -->
-<h2 class="section-title">📜 לשון השולחן ערוך — סעיף א'
-  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 העתק</button>
+<!-- לשון השולחן ערוך — סעיף א׳ -->
+<h2 class="section-title">📜 The text of the Shulchan Aruch — seif א׳
+  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 Copy</button>
 </h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ Detailed explanation (level 1)</a>
 
 <div class="sacred-text he" data-copy-block id="cp-1">
-  <p>שְׁתֵּי קְדֵרוֹת, אַחַת שֶׁל הֶתֵּר וְאַחַת שֶׁל אִסּוּר, וּלְפָנָיו שְׁתֵּי חֲתִיכוֹת, אַחַת שֶׁל הֶתֵּר וְאַחַת שֶׁל אִסּוּר — אִם הַחֲתִיכָה הִיא מֵאִסּוּר דְּרַבָּנָן, כְּגוֹן שׁוּמָּנוֹ שֶׁל גִּיד, וְנָפְלוּ אֵלּוּ לְתוֹךְ אֵלּוּ — מֻתָּרִים, שֶׁאָנוּ תּוֹלִין לוֹמַר הָאִסּוּר נָפַל לְתוֹךְ הָאִסּוּר וְהַהֶתֵּר לְתוֹךְ שֶׁל הֶתֵּר; וַאֲפִלּוּ אֵין הַהֶתֵּר שֶׁבַּקְּדֵרָה רַבָּה עַל הַחֲתִיכָה. וְכֵן אִם לֹא הָיְתָה כָּאן אֶלָּא קְדֵרָה אַחַת שֶׁל שְׁחוּטָה, וְנָפְלָה אַחַת מִשְּׁתֵּי הַחֲתִיכוֹת וְאֵינוֹ יוֹדֵעַ אֵיזוֹ — תּוֹלִין שֶׁהַהֶתֵּר נָפַל, אַף עַל פִּי שֶׁאֵין הַהֶתֵּר רַבָּה עַל הָאִסּוּר. אוֹ אִם לֹא הָיְתָה אֶלָּא חֲתִיכָה אַחַת שֶׁל אִסּוּר דְּרַבָּנָן וּשְׁתֵּי קְדֵרוֹת, וְאֵינוֹ יוֹדֵעַ לְאֵיזוֹ נָפְלָה — אַף בָּזֶה תּוֹלִין לְהָקֵל.</p>
+  <p>«&nbsp;<span class="he-q">שתי קדרות אחת של היתר ואחת של איסור ולפניו שתי חתיכות אחת של היתר ואחת של איסור אם החתיכה היא מאיסור דרבנן כגון שומנו של גיד ונפלו אלו לתוך אלו מותרים שאנו תולין לומר האיסור נפל לתוך האיסור וההיתר לתוך של היתר ואפילו אם ההיתר שבקדרה אינה רבה על שלפניה וכן הדין אם לא היה כאן אלא קדירה אחת של בשר שחוטה ונפל בה אחת מאלו השתי החתיכות ואין ידוע איזו היא אנו תולין דשל היתר נפלה אפילו אין ההיתר רבה על האיסור או אם לא היה כאן אלא חתיכה אחת מאיסור דרבנן ויש שתי קדרות אחת של היתר ואחת של איסור ואין ידוע לאיזו נפלה גם בזו תולין להקל</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״א:א)</span></p>
 </div>
 
-<!-- ============================================================= -->
-<h2 class="section-title">1. הקדמת הסוגיא — יסוד התולין ושאני אומר</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<p><em>Translation</em>: two pots, one permitted and one forbidden, and before him two pieces, one permitted and one forbidden — if the piece is of a rabbinic prohibition, such as the fat over the sciatic nerve, and they fell into one another, they are permitted, for we attribute and say that the forbidden fell into the forbidden and the permitted into the permitted; and this even if the permitted in the pot does not exceed what lay before it. And likewise if there was only one pot of ritually slaughtered meat, and one of those two pieces fell into it and it is unknown which — we attribute that the permitted one fell, even if the permitted does not exceed the forbidden. Or if there was only one piece of a rabbinic prohibition and two pots, one permitted and one forbidden, and it is unknown into which it fell — here too we attribute leniently.</p>
 
-<h3 class="he-h3">היסוד — תולין ושאני אומר, ומקורו ביבמות פ״ב
-  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 העתק</button>
+<!-- ============================================================= -->
+<h2 class="section-title">1. Introduction to the sugya — the foundation of תולין and שאני אומר</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ Detailed explanation (level 1)</a>
+
+<h3>The foundation — תולין and שאני אומר, and its source in יבמות פ״ב
+  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 Copy</button>
 </h3>
 
+<p>The foundation of the siman is the din of <strong>תולין</strong> — to attribute: when a forbidden piece and a permitted piece fell into two pots, one permitted and one forbidden, or when a single piece fell into one of two pots, we <em>attribute</em> the fall and say that the forbidden went to the side of the forbidden. The root of the din is the braisa the gemara cites concerning terumah:</p>
+
 <div class="sacred-text he" data-copy-block id="cp-2">
-יסוד הסימן הוא דין <strong>תולין</strong> (שאני אומר): כאשר חתיכת איסור וחתיכת היתר נפלו לשתי קדרות (אחת של היתר ואחת של איסור), או שחתיכה אחת נפלה לאחת משתי קדרות, אנו <span class="he-q">תולין</span> ואומרים שהאיסור נפל לצד האיסור (או "לא לכאן נפל"). שורש הדין הוא ב<strong>יבמות פ״ב.</strong> — <span class="he-q">שתי קופות, אחת של חולין ואחת של תרומה, ולפניהם שתי סאין, אחת של חולין ואחת של תרומה, ונפלו אלו לתוך אלו — מותרין, שאני אומר תרומה לתוך תרומה נפלה וחולין לתוך חולין</span>. ויסוד ההיתר הוא <strong>ספק דרבנן לקולא</strong> בצירוף סברת <span class="he-q">שאני אומר</span>.
+  <p>«&nbsp;<span class="he-q">שְׁתֵּי קוּפּוֹת, אַחַת שֶׁל חוּלִּין וְאַחַת שֶׁל תְּרוּמָה, וְלִפְנֵיהֶם שְׁתֵּי סְאִין, אַחַת שֶׁל חוּלִּין וְאַחַת שֶׁל תְּרוּמָה, וְנָפְלוּ אֵלּוּ בְּתוֹךְ אֵלּוּ — הֲרֵי אֵלּוּ מוּתָּרִים, שֶׁאֲנִי אוֹמֵר: תְּרוּמָה לְתוֹךְ תְּרוּמָה נָפְלָה, וְחוּלִּין בְּתוֹךְ חוּלִּין נָפְלוּ</span>&nbsp;» <span class="source-ref">(יבמות פ״ב ע״א)</span></p>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>למה דווקא איסור דרבנן (ש״ך ס״ק א) :</strong> כל ההיתר של תולין אמור דווקא ב<span class="he-q">איסור דרבנן</span>, כגון <strong>שומנו של גיד</strong> (חלב שעל הגיד, שהוא אסור מדרבנן). וטעם הדבר: שהרי כל יסוד התולין הוא <strong>ספק דרבנן לקולא</strong> — ומאחר שהאיסור מצד עצמו דרבנן, ספיקו לקולא. אבל באיסור דאורייתא — ספיקו לחומרא, ואין תולין להקל אלא אם כן יש רוב היתר (כדלקמן בסעיף ג'). וכתב הש״ך (ס״ק ב) דאף איסור ש<strong>עיקרו מן התורה</strong>, כגון <span class="he-q">גבינת עובד כוכבים</span>, מאחר שגזירה דרבנן היא — דינו כספק דרבנן ותולין בו (רשב״א).
+<p><em>Translation</em>: two baskets, one of chullin and one of terumah, and before them two se’ah, one of chullin and one of terumah; they fell into one another — they are permitted, for I say: the terumah fell into the terumah and the chullin into the chullin. The basis of the leniency is therefore <strong>ספק דרבנן לקולא</strong>, together with the sevara of שאני אומר, “for I say”.</p>
+
+<div class="pilpul-box">
+<strong>Why specifically a rabbinic prohibition (ש״ך ס״ק א׳–ב׳):</strong> the whole leniency of תולין is said only for a rabbinic prohibition — such as the fat over the sciatic nerve, the very example the Mechaber gives. The Shach states the reason:
+«&nbsp;<span class="he-q">דספק דרבנן קי״ל לקולא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק א׳)</span>
+For a Torah prohibition, by contrast, the doubt goes toward stringency, and one attributes leniently only if there is a majority of permitted matter — that will be seif ג׳. And the Shach adds that a prohibition whose root is in the Torah, such as the cheese of non-Jews, also falls under this rule:
+«&nbsp;<span class="he-q">וגבינה של עובד כוכבים וכיוצא בו אפילו איסור שיש להם עיקר בדאורייתא כ״כ הרשב״א בת״ה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק ב׳)</span>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>גדר "שאני אומר" (ט״ז ס״ק א) :</strong> אין זה ביטול ברוב, אלא הנהגת ספק. אנו <span class="he-q">תולין</span> — מסבירים את מצב הספק לקולא, ואומרים שמן הסתם נפל האיסור למקום שבו הוא ממילא אסור (לקדרת האיסור), וההיתר למקום ההיתר. וכל כוחה של סברה זו הוא ב<strong>איסור דרבנן</strong>, שבו הולכים בספק לקולא.
+<div class="rishon-card">
+<strong>The gader of שאני אומר (ט״ז ס״ק א׳):</strong> This is not nullification in a majority, but a way of conducting a doubt: we attribute, that is, we read the state of doubt leniently, saying that the forbidden piece presumably went where it is forbidden in any case. The Taz returns to this at the end of that same ס״ק, to say that any doubt in which one can say שאני אומר is <em>lighter</em> than an ordinary doubt — his words are quoted in section 3.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">2. שלושת המקרים שבסעיף א' — ספק דרבנן לקולא</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">2. The three cases of seif א׳ — ספק דרבנן לקולא</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">המחבר מונה שלושה מקרים, וכולם מותרים באיסור דרבנן אף בלא רוב היתר.</p>
+<p style="margin:15px 0; font-style:italic;">The Mechaber counts three cases, and all three are permitted in a rabbinic prohibition, even without a majority of permitted matter.</p>
 
-<div class="machloket-box" dir="rtl">
-<strong>שלושת המקרים :</strong>
+<div class="machloket-box">
+<strong>The three cases:</strong>
 <table>
-<tr><th>המקרה</th><th>הציור</th><th>הדין</th></tr>
+<tr><th>The case</th><th>The picture</th><th>The din</th></tr>
 <tr>
-  <td><strong>(א) שתי קדרות + שתי חתיכות</strong></td>
-  <td>קדרת היתר וקדרת איסור, וחתיכת היתר וחתיכת איסור נפלו לתוכן</td>
-  <td>מותר — תולין שהאיסור לאיסור וההיתר להיתר</td>
+  <td><strong>(א) Two pots + two pieces</strong></td>
+  <td>A permitted pot and a forbidden pot; a permitted piece and a forbidden piece fell into them</td>
+  <td>Permitted — we attribute the forbidden to the forbidden and the permitted to the permitted</td>
 </tr>
 <tr>
-  <td><strong>(ב) קדרה אחת של היתר + שתי חתיכות</strong></td>
-  <td>נפלה אחת מן השתים ואינו יודע איזו</td>
-  <td>מותר — תולין שההיתר נפל</td>
+  <td><strong>(ב) One pot of shechted meat + two pieces</strong></td>
+  <td>One of the two pieces fell in, and it is unknown which</td>
+  <td>Permitted — we attribute that the permitted one fell</td>
 </tr>
 <tr>
-  <td><strong>(ג) חתיכת איסור אחת + שתי קדרות</strong></td>
-  <td>איסור דרבנן אחד, אינו יודע לאיזו קדרה נפל</td>
-  <td>מותר — תולין להקל</td>
+  <td><strong>(ג) A single forbidden piece + two pots</strong></td>
+  <td>A single piece of rabbinic prohibition; two pots, <strong>one permitted and one forbidden</strong>, and it is unknown into which it fell</td>
+  <td>Permitted — here too we attribute leniently</td>
 </tr>
 </table>
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>חקירה — שתי קדרות קל או חמור (ש״ך ס״ק ו, ב״י בשם רשב״א) :</strong> מבחין הב״י בין הציורים: ב<strong>שתי קדרות</strong> (מקרה א) בעינן <span class="he-q">חד בחד</span> — שלא יהא האיסור מרובה, וזהו דין רבי יוחנן ביבמות; אבל ב<strong>קדרה אחת ושתי חתיכות</strong> (מקרה ב) — תולין להקל <em>אף אם האיסור מרובה</em> על ההיתר, כדין <span class="he-q">שתי מדוכות</span> שבתוספתא תרומות. וה<strong>ראה</strong> מיקל עוד יותר.
+<div class="hakira-box">
+<strong>Two pots: lighter or heavier? (ש״ך ס״ק ו׳, anchored on the בד״א of seif ב׳)</strong> The Shach first observes that the Tur’s wording comes from the Toras HaBayis HaKatzar, and that the רשב״א, in Toras HaBayis HaArokh, does not appear to say so:
+«&nbsp;<span class="he-q">כל זה הוא לשון הטור מת״ה אבל קשה לי דמדברי הרשב״א בתה״א לא משמע כן</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק ו׳)</span>
+From this he draws the distinction: in the case of <strong>two pots</strong>, where it is certain that a prohibition fell there and only the “which” is unknown, one needs at least חד בחד according to רבי יוחנן —
+«&nbsp;<span class="he-q">אלמא דדוקא בב׳ קדרות משום דבודאי נפל שם איסור אלא שאין ידוע לאיזו בעינן חד בחד לר׳ יוחנן</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק ו׳)</span>
+— whereas in the case of <strong>two pieces and one pot</strong>, where one may say nothing fell into the pot at all, it is permitted even if the forbidden predominates, like the two mortars of the תוספתא (its text is quoted in section 9). And the רא״ה, in Bedek HaBayis, is more lenient still:
+«&nbsp;<span class="he-q">והרא״ה בב״ה שם חולק על הרשב״א וס״ל דאפילו בב׳ קדרות שרי אפילו האיסור רבה על ההיתר משום ספיקא דרבנן לקולא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק ו׳)</span>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>איסורי משהו (ש״ך ס״ק ג, נמוקי יוסף) :</strong> ביאר הנמוקי יוסף דב<strong>איסורי משהו</strong> החמורים (כחמץ בפסח, יין נסך) — אין אומרים בהם תולין ושאני אומר אף שהם דרבנן, כל זמן שאין רוב היתר; שכל קולת התולין היא באיסור דרבנן <em>קל</em> שבטל ברוב או בשישים, ולא במה שאוסר במשהו.
+<div class="pilpul-box">
+<strong>Prohibitions that forbid in the least amount (ש״ך ס״ק ג׳, in the name of the נמוקי יוסף):</strong> the נמוקי יוסף writes that regarding severe prohibitions that are not nullified, one does not say שאני אומר even in a rabbinic prohibition, so long as there is no majority of permitted matter:
+«&nbsp;<span class="he-q">דאפשר דלענין איסורי משהו החמורים לא אמרינן שאני אומר אפילו באיסורי דרבנן בפחות מרוב</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק ג׳)</span>
 </div>
 
-<!-- ============================================================= -->
-<h2 class="section-title">3. שיעור דרבנן ושאני אומר — קל מסימן ס״ו</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
-
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זהו אחד מן החידושים החריפים שבסימן, וכל כובד ידו של הט״ז (ס״ק א) נתון בו.</p>
-
-<div class="kashya-box" dir="rtl">
-<strong>קושיית הט״ז (ס״ק א) :</strong> בסעיף ג' יתבאר שאף איסור <strong>דאורייתא</strong> — כשהוא בטל ברוב מן התורה (ורק מדרבנן בעי ששים) — תולין בו להקל. ולכאורה תקשה: והלא <span class="he-q">ספק איסור דאורייתא לחומרא</span> (סימן ס״ו), ואיך נתיר כאן בספק היכן נפל ?
-</div>
-
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ הט״ז — שאני אומר אינו כספק דאורייתא רגיל :</strong> מחדש הט״ז דכאן הספק הוא ב<strong>שיעור דרבנן</strong> בלבד: עצם האיסור כבר <em>בטל ברוב מן התורה</em>, ואין הספק אלא על השיעור שהוסיפו חכמים (ששים). וכיון שכן — הספק כולו <span class="he-q">דרבנן</span>, ולקולא. ועוד: סברת <span class="he-q">שאני אומר</span> (שלא לכאן נפל) קלה מספק רגיל, שהרי יש לנו על מה לתלות — ולפיכך מקילים כאן אף יותר ממה שהקילו בספק דאורייתא דשיעורא של סימן ס״ו.
-</div>
-
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — שני רובדי האיסור :</strong><br>
-בכל איסור שבטל ברוב יש להבחין בין:<br><br>
-• <strong>עצם האיסור</strong> — שבטל ברוב מן התורה (ב<span class="he-q">מין במינו</span>, או ביבש ביבש).<br>
-• <strong>שיעור הביטול</strong> — שהוסיפו חכמים (ששים) להחמיר.<br><br>
-וכשהספק הוא רק על השיעור הדרבנני — <span class="he-q">ספק דרבנן לקולא</span>, ומכאן כל היתר התולין. וזהו שורש דברי הט״ז דקל מסימן ס״ו.
+<div class="rishon-card">
+<strong>Recognisable pieces or not (ש״ך ס״ק ד׳):</strong> the Shach specifies how case (ב) is to be read — the two pieces were distinct and recognisable before they fell:
+«&nbsp;<span class="he-q">נראה דכאן מיירי דהב׳ חתיכות היו ניכרות בפני עצמן קודם נפילתן איזה מהן של היתר ואיזה מהן של איסור</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק ד׳)</span>
+for had they first been mixed with one another, each would already be treated as a body of prohibition, and one would no longer say ספק דרבנן לקולא:
+«&nbsp;<span class="he-q">דאי נתערבו מתחלה חד בחד א״כ כיון דאתחזק איסור בב׳ חתיכות כל א׳ וא׳ דיינינן ליה כגופו של איסור ותו לא אמרינן ספקא דרבנן לקולא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק ד׳)</span>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">4. תנאי התולין — אין איסור מרובה, דאורייתא, מין במינו</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">3. A rabbinic measure and שאני אומר — lighter than siman 66</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיפים ב'–ד')
-  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 העתק</button>
+<p style="margin:15px 0; font-style:italic;">This is one of the sharpest chiddushim of the siman, and it is the Taz, at ס״ק א׳, who carries its whole weight.</p>
+
+<div class="kashya-box">
+<strong>The Taz’s question (ס״ק א׳):</strong> seifim ג׳ and ד׳ will teach that a <strong>Torah</strong> prohibition, once it is already nullified in the majority by Torah law and only the threshold of sixty remains rabbinic, also admits of תולין. Yet in siman 66 the Taz laid down the opposite rule: in such a doubt one is not lenient, and the matter is treated as a certain Torah prohibition. He raises the contradiction himself:
+«&nbsp;<span class="he-q">ולכאורה יש להקשות על מה שכ׳ בסימן זה דאם ספק נפל איסור דאוריית׳ מותר בשיעור דרבנן וזה סותר הכלל שאמרנו בסי׳ ס״ו ס״ד דבזה א״א מקילין אלא הוה כודאי דאורייתא</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״א ס״ק א׳)</span>
+</div>
+
+<div class="teruts-box">
+<strong>The Taz’s answer — שאני אומר is not an ordinary doubt:</strong> he answers that the leniency here does not come from the doubt as such but from the sevara of שאני אומר, and that the gemara in פרק הערל says so expressly: a doubt in which one can say “no prohibition fell here at all” is lighter.
+«&nbsp;<span class="he-q">דכאן ההיתר מכח שאני אומר ובהדיא אמרינן בפ׳ הערל שזכרתי בסמוך דכל ספק שיש בו לומר שאני אומר לא נפל כאן איסור קיל טפי</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״א ס״ק א׳)</span>
+</div>
+
+<div class="yesod-box">
+<strong>The yesod — the two layers of the prohibition:</strong><br>
+In every prohibition that is nullified in a majority one must distinguish:
+<br><br>
+• <strong>the body of the prohibition</strong> — nullified in a majority by Torah law, in מין במינו as in dry with dry;<br>
+• <strong>the measure of nullification</strong> — the sixty which the Sages required as a stringency.<br><br>
+When the doubt bears only on that rabbinic measure, it remains a ספק דרבנן and goes toward leniency: that is where the whole permission of תולין comes from, and it is the root of the Taz’s words about siman 66.
+</div>
+
+<!-- ============================================================= -->
+<h2 class="section-title">4. The conditions of תולין — the prohibition does not predominate, Torah prohibition, מין במינו</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ Detailed explanation (level 1)</a>
+
+<h3>The text of the Mechaber (seifim ב׳–ד׳)
+  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-3">
-"<strong>(ב) כָּל זֶה אֵינוֹ אֶלָּא כְּשֶׁאֵין הָאִסּוּר רַבֶּה עַל הַהֶתֵּר; אֲבָל אִם הָאִסּוּר רַבֶּה עַל הַהֶתֵּר — אֵין תּוֹלִין לְהָקֵל.</strong> (ג) <strong>וְאִם הָיָה הָאִסּוּר שֶׁל תּוֹרָה — אֵין תּוֹלִין לְהָקֵל עַד שֶׁיְּהֵא הַהֶתֵּר רַבֶּה עַל הָאִסּוּר כְּדֵי לְבַטְּלוֹ מִן הַתּוֹרָה.</strong> (ד) <strong>וְאִם הָיָה הַהֶתֵּר רַבֶּה כְּדֵי לְבַטְּלוֹ מִן הַתּוֹרָה — תּוֹלִין לְהָקֵל. כֵּיצַד ? שְׁתֵּי קְדֵרוֹת, אַחַת שֶׁל שְׁחוּטָה וְאַחַת שֶׁל נְבֵילָה, וְנָפְלָה חֲתִיכַת נְבֵילָה לְאַחַת מֵהֶן — אִם הַהֶתֵּר רַבֶּה עָלֶיהָ מְעַט, תּוֹלִין לְהָקֵל, שֶׁמִּן הַתּוֹרָה מִין בְּמִינוֹ בָּטֵל בְּרוֹב; וְאִם הָיוּ שְׁתֵּי הַקְּדֵרוֹת מִין אֶחָד וְהָאִסּוּר מִין אַחֵר — אֵין תּוֹלִין עַד שֶׁיְּהֵא בַּהֶתֵּר שִׁשִּׁים.</strong>"
+  <p><strong>סעיף ב׳.</strong> «&nbsp;<span class="he-q">במה דברים אמורים שתולין בכל אלו להקל אפי׳ אין ההיתר רבה על האיסור שאין האיסור גם כן רבה על ההיתר אבל אם האיסור רבה על ההיתר אין תולין להקל:</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״א:ב)</span></p>
+  <p><strong>סעיף ג׳.</strong> «&nbsp;<span class="he-q">היה האיסור של תורה אין תולין להקל לומר לתוך האיסור נפל עד שיהא ההיתר רבה על האיסור כדי שיתבטל בתוכו מדברי תורה:</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״א:ג)</span></p>
+  <p><strong>סעיף ד׳.</strong> «&nbsp;<span class="he-q">היה ההיתר רבה על האיסור כדי שיתבטל בתוכו מד״ת תולין להקל כיצד שתי קדרות אחת של בשר שחוטה ואחת של נבילה ונפלה חתיכת נבילה לתוך אחת מהן אם ההיתר שבקדרת ההיתר רבה קצת על חתיכת הנבילה תולין להקל לפי שדבר תורה מין במינו בטל ברוב אלא שחכמים הצריכו ששים היו שתי הקדירות ממין אחד והאיסור ממין אחר אין תולין להקל עד שירבה ההיתר ששים על האיסור:</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״א:ד)</span></p>
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>שלוש מדרגות התנאי :</strong>
+<p><em>Translation</em>: <strong>ב׳</strong> — all the foregoing, in which one attributes leniently even without the permitted predominating over the forbidden, holds only where the forbidden likewise does not predominate over the permitted; but if the forbidden predominates over the permitted, one does not attribute leniently. <strong>ג׳</strong> — if the prohibition was of the Torah, one does not attribute leniently to say it fell into the forbidden, until the permitted predominates over the forbidden enough to nullify it within itself by Torah law. <strong>ד׳</strong> — if the permitted predominates over the forbidden enough to nullify it by Torah law, one attributes leniently. How so? Two pots, one of ritually slaughtered meat and one of neveilah, and a piece of neveilah fell into one of them: if the permitted in the permitted pot slightly exceeds the piece of neveilah, one attributes leniently, since by Torah law a kind in its own kind is nullified in a majority, and it is the Sages who required sixty. If the two pots were of one kind and the prohibition of another kind, one does not attribute leniently until the permitted exceeds the forbidden by sixty.</p>
+
+<div class="machloket-box">
+<strong>The three degrees of the condition:</strong>
 <table>
-<tr><th>המצב</th><th>השיעור הנדרש</th><th>מקור</th></tr>
+<tr><th>The situation</th><th>The measure required</th><th>Source</th></tr>
 <tr>
-  <td><strong>איסור דרבנן, אין האיסור מרובה (ס״ב)</strong></td>
-  <td>תולין אף בלא רוב היתר (חד בחד)</td>
-  <td>מחבר ס״א–ב'</td>
+  <td><strong>Rabbinic prohibition, the forbidden does not predominate (seif ב׳)</strong></td>
+  <td>One attributes even without a majority of permitted (חד בחד)</td>
+  <td class="he">מחבר ס״א–ב׳</td>
 </tr>
 <tr>
-  <td><strong>איסור דאורייתא (ס״ג)</strong></td>
-  <td>צריך רוב היתר לבטלו מן התורה</td>
-  <td>מחבר ס״ג</td>
+  <td><strong>Torah prohibition (seif ג׳)</strong></td>
+  <td>A majority of permitted is required, enough to nullify it by Torah law</td>
+  <td class="he">מחבר ס״ג · ש״ך ס״ק ח׳</td>
 </tr>
 <tr>
-  <td><strong>מין במינו (ס״ד)</strong></td>
-  <td>רוב כל שהוא — דמן התורה מב״מ בטל ברוב</td>
-  <td>מחבר ס״ד; ט״ז ס״ק ג</td>
+  <td><strong>מין במינו (seif ד׳)</strong></td>
+  <td>Any majority at all — for by Torah law a kind in its own kind is nullified in a majority</td>
+  <td class="he">מחבר ס״ד · ט״ז ס״ק ג׳</td>
 </tr>
 <tr>
-  <td><strong>אינו מינו (ס״ד)</strong></td>
-  <td>ששים</td>
-  <td>מחבר ס״ד; ועיין סימן צ״ח</td>
+  <td><strong>אינו מינו (seif ד׳)</strong></td>
+  <td>Sixty</td>
+  <td class="he">מחבר ס״ד · ועיין סימן צ״ח</td>
 </tr>
 </table>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>מין במינו ואינו מינו (ט״ז ס״ק ג) :</strong> מבאר הט״ז ש<span class="he-q">מין במינו</span> בטל מן התורה ברוב (שאין בו טעם להעיד), ולפיכך כיון שהאיסור כבר בטל מן התורה — תולין אף ברוב מועט. אבל ב<span class="he-q">אינו מינו</span> — האיסור נותן טעם, ואינו בטל מן התורה ברוב אלא בששים (כדין סימן צ״ח), ולכן בעינן ששים בהיתר כדי לתלות. וזהו ההבדל בין שתי קדרות מין אחד (אינו מינו) הצריכות ששים, לבין שחוטה ונבילה (מין במינו) הצריכות רוב כל שהוא.
+<div class="pilpul-box">
+<strong>מין במינו and אינו מינו (ט״ז ס״ק ג׳):</strong> the Taz explains that the same rule holds where there is both like and unlike: one mentally removes what is not of the kind, as though it were not there, and the kind then predominates over the prohibition and nullifies it, as at siman 98:
+«&nbsp;<span class="he-q">הוא הדין מין במינו ואינו מינו דאמרינן סליק שאינו מינו כאלו אינו ומינו רבה עליו ומבטלו כדאיתא סי׳ צ״ח</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״א ס״ק ג׳)</span>
+And the Shach says the same on seif ג׳: a bare majority suffices only in מין במינו.
+«&nbsp;<span class="he-q">כלומר במין במינו דוקא סגי ברוב לחוד כדבסמוך ס״ד</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק ח׳)</span>
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>חקירת "האיסור מרובה" (ט״ז ס״ק ב) :</strong> דקדק הט״ז בלשון "אם האיסור מרובה על ההיתר" — היאך נצייר זאת ? שהרי בשתי חתיכות שוות אין כאן רוב לכאן ולכאן. ומבאר דמיירי בשהחתיכות אינן שוות, או שיש חתיכות איסור מרובות — שאז אזלינן בתר הרוב, ואין תולין להקל אלא כשאין האיסור מרובה.
+<div class="hakira-box">
+<strong>How is “the forbidden predominates” to be pictured? (ט״ז ס״ק ב׳, ש״ך ס״ק ז׳)</strong> The Taz asks: since one knows the amount of permitted matter in the pot and the amount of the prohibition, let us look whether the pot’s contents have increased — we would then know for certain that the prohibition fell in!
+«&nbsp;<span class="he-q">אין להקשות כיון שיודע שיעור ההיתר שבקדירה והאיסור א״כ נחזי אם נתרבה ההיתר שבקדירה מכמות שהיה בודאי שם נפל האיסור</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״א ס״ק ב׳)</span>
+His answer: the one who knows that the forbidden was the larger heard it from another, and he himself does not know how much permitted matter there was to begin with.
+«&nbsp;<span class="he-q">י״ל שזה יודע בבירור שהיה באיסור יותר כגון ששמע מאחר דבר זה אבל הוא אינו יודע כמה הוא שיעור ההיתר בעצמו אם היה כ״כ הרבה כמו שיעור ההיתר עכשיו או אם פחות מזה עד שעם האיסור שנפל שם נעשה כ״כ הרבה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״א ס״ק ב׳)</span>
+And the דרישה pictures it otherwise, in dry matter: two pieces, one large and one small, of which one at least knows that the small one is not the forbidden piece.
+«&nbsp;<span class="he-q">ובדרישה מפרש לה על ב׳ חתיכות ביבש דהיינו שיודע שיעור האיסור ולא שיעור ההיתר ועכשיו מוצא ב׳ חתיכות אחת גדולה ואחת קטנה וידוע לו שעכ״פ אין הקטנה של איסור ואין ידוע אם הגדולה היא של איסור ממילא יש בה רוב על ההיתר או גם הגדולה היא של היתר והאיסור נפל לקדירת איסור</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״א ס״ק ב׳)</span>
+The Shach raises the same difficulty on the third case — one piece and two pots — and answers that the case is met with where the forbidden had been removed beforehand:
+«&nbsp;<span class="he-q">אין להקשות בחתיכה א׳ וב׳ קדירות היכי משכחת לה שיהא האיסור מרובה על ההיתר דאי ידעינן שהאיסור הוא רוב נבדוק בקדרה של היתר י״ל דמשכחת לה שפיר כשקדם וסלק האיסור קודם לכן</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק ז׳)</span>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">5. חתיכה הראויה להתכבד בספק — קולת הט״ז</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">5. A piece fit to be served, in doubt — the kula of the Taz</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<div class="kashya-box" dir="rtl">
-<strong>קושיא — חתיכה הראויה להתכבד אינה בטלה :</strong> חתיכה הראויה להתכבד (חהל״ה) — דבר חשוב היא ואינה בטלה אף באלף (סימן ק״א). ולכאורה אף כאן, בספק היכן נפלה, לא יועיל הביטול ולא התולין, שהרי דבר חשוב לפנינו !
+<div class="kashya-box">
+<strong>The question:</strong> a piece fit to be served to guests is an important item, and it is not nullified even in a thousand — that is siman 101. Here too, in the doubt as to which pot it fell into, neither nullification nor תולין should help: an important item is before us!
 </div>
 
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ הט״ז (ס״ק ה) בשם הר״ן — בספק מקילים :</strong> אף שחהל״ה אינה בטלה ברוב (ואף לא בששים מדרבנן), מכל מקום ב<span class="he-q">ספק</span> — היכן נפלה — מקילין. שכל החומרא של דבר שאינו בטל היא ב<strong>ודאי תערובת</strong> (שהאיסור החשוב לפנינו ודאי מעורב); אבל בספק אם בכלל נפל לכאן — תולין להקל, דספק דרבנן לקולא, ואין החשיבות מעכבת. וכן דעת הר״ן.
+<div class="teruts-box">
+<strong>The Taz’s answer (ס״ק ה׳, in the name of the ר״ן) — in doubt one is lenient:</strong> the Taz writes, on the words “until the permitted exceeds by sixty” of seif ד׳, that the matter speaks precisely of a piece fit to be served: the Sages did not apply its stringency in a doubt.
+«&nbsp;<span class="he-q">זה מיירי בחתיכה הראוייה לכבד שמדרבנן לא מהני ס׳ מכל מקום כאן בספק הקילו כן הוא בר״ן סוף פרק הערל</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״א ס״ק ה׳)</span>
+The Shach says the same at ס״ק ה׳, in the name of the פרישה:
+«&nbsp;<span class="he-q">אפי׳ אם החתיכות ראויות להתכבד דמה״ת גם היא בטילה אלא דרבנן אמרו שהחה״ל אינה בטלה ובספק כזה שהקדרה א׳ של נבלה לא אמרו</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק ה׳)</span>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — חשיבות מול ספק :</strong><br>
-דין <span class="he-q">דבר שאינו בטל</span> (חהל״ה, בריה, דבר שבמנין) פועל ב<strong>תערובת ודאית</strong>: כיון שהחשוב מעורב, אינו מתבטל. אבל בסימן זה הספק אינו על הביטול אלא על <strong>עצם הנפילה</strong> — ובזה גובר כלל <span class="he-q">ספק דרבנן לקולא</span>, ואף החשוב נידון להיתר (ט״ז ס״ק ה, ר״ן).
+<div class="yesod-box">
+<strong>The yesod — importance against doubt:</strong><br>
+The rule of an item that is not nullified — a piece fit to be served, a בריה, an item that is counted — operates in a <strong>certain</strong> mixture: since the important item is mixed in, it does not dissolve. But in our siman the doubt does not bear on the nullification; it bears on <strong>the fall itself</strong>. There the rule ספק דרבנן לקולא prevails, and even the important item is judged permitted.
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">6. שתי קדרות של היתר — מאי חזית</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">6. Two permitted pots — מאי חזית</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיף ה')
-  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 העתק</button>
+<h3>The text of the Mechaber (seif ה׳)
+  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-4">
-"<strong>הָיוּ כָּאן שְׁתֵּי קְדֵרוֹת שֶׁל הֶתֵּר וּלְפָנֵיהֶן שְׁתֵּי חֲתִיכוֹת, אַחַת שֶׁל הֶתֵּר וְאַחַת שֶׁל אִסּוּר, וְנָפְלָה זוֹ לְאַחַת וְזוֹ לְאַחַת — שְׁתֵּיהֶן אֲסוּרוֹת, וַאֲפִלּוּ בְּאִסּוּר דְּרַבָּנָן, אִם אֵין בְּאַחַת מֵהֶן כְּדֵי לְבַטֵּל הָאִסּוּר; אֲבָל אִם יֵשׁ בְּאַחַת מֵהֶן כְּדֵי לְבַטֵּל הָאִסּוּר — שְׁתֵּיהֶן מֻתָּרוֹת.</strong>"
+  <p>«&nbsp;<span class="he-q">היו כאן שתי קדרות של היתר ולפניהם שתי חתיכות אחת של היתר ואחת של איסור ונפלה אחת לתוך זו ואחת לתוך זו אסורות שתיהן אפילו באיסור דרבנן אם אין בשום אחת כדי לבטל האיסור אבל אם יש באחת מהן לבטל האיסור שתיהן מותרות:</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״א:ה)</span></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — מאי חזית :</strong><br>
-כאן <strong>שתי קדרות של היתר</strong>, וחתיכת איסור נפלה לאחת מהן. ולכאורה נתלה ונאמר באחת שהיא מותרת ; אבל אי אפשר, שהרי <span class="he-q">מאי חזית</span> דתלית בהא טפי מהא — מה ראית לתלות שזו מותרת והאיסור בחברתה ? ולפיכך <strong>שתיהן אסורות</strong>, שאין כאן צד היתר לתלות בו (להבדיל מסעיף א', ששם הייתה קדרת איסור שהאיסור "ממילא" נופל לתוכה).
+<p><em>Translation</em>: there were two permitted pots, and before them two pieces, one permitted and one forbidden; one fell into this pot and one into that — both are forbidden, even in a rabbinic prohibition, if neither of them contains enough to nullify the prohibition; but if one of them contains enough to nullify the prohibition, both are permitted.</p>
+
+<div class="yesod-box">
+<strong>The yesod — מאי חזית:</strong><br>
+Here <strong>both pots are permitted</strong>, and a forbidden piece fell into one of them. One would like to attribute and declare one of them permitted; but that is impossible, for by permitting one you forbid the other out of what was permitted to it — and the Shach puts the question in the gemara’s own terms:
+«&nbsp;<span class="he-q">מאי חזית דאסרת להאי דלמא איפכא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק י״א)</span>
+Both are therefore forbidden: unlike seif א׳, there is here no side of prohibition to which the fall can be attached.
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>אף כשהאחת קטנה (ש״ך ס״ק יא נגד או״ה) :</strong> חולק הש״ך על האיסור והיתר, וסובר ש<strong>שתיהן אסורות</strong> אף כשאחת הקדרות קטנה מחברתה. שאין הולכים כאן בתר הרוב לומר שהאיסור נפל דווקא לגדולה, אלא <span class="he-q">מאי חזית</span> — וכל אחת בספק שמא בה נפל. ורק כשיש ב<strong>אחת מהן</strong> כדי לבטל (ששים) — שתיהן מותרות, שאז ממה נפשך: אם נפל לזו שיש בה ששים — בטל ; ואם נפל לחברתה — לא נפל כלל לזו.
+<div class="pilpul-box">
+<strong>Even when one is smaller (ש״ך ס״ק י״א, against the או״ה):</strong> the או״ה held that one may attribute the fall to the <em>small</em> pot and thereby permit the large one. The Shach refuses: either way you forbid one of them out of what was permitted to it, and מאי חזית.
+«&nbsp;<span class="he-q">אין בידינו להתיר הגדולה ולומר דהאיסור לתוך הקטנה נפל</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק י״א)</span>
+And when one of the two contains enough to nullify, the reason for the leniency is not a ממה נפשך but, once again, שאני אומר — the Shach says so at ס״ק י״ב:
+«&nbsp;<span class="he-q">שאני אומר האיסור נפל לתוך אותו שיש בה כדי לבטל</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק י״ב)</span>
+He immediately draws the limit, and it holds for the whole siman:
+«&nbsp;<span class="he-q">והיינו דוקא באיסור דרבנן אבל בדאורייתא לא אמרינן שאני אומר דהספק דאורייתא לחומרא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק י״ב)</span>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">7. נפילות בזה אחר זה — ידוע ואינו ידוע</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">7. Successive falls — known and unknown</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ו')
-  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 העתק</button>
+<h3>The text of the Mechaber and the Rama (seif ו׳)
+  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-5">
-"<strong>הָיוּ שְׁתֵּי קְדֵרוֹת שֶׁל הֶתֵּר, וְנָפַל אִסּוּר לְאַחַת מֵהֶן וְיוֹדֵעַ לְאֵיזוֹ, וְחָזַר וְנָפַל אִסּוּר לְאַחַת מֵהֶן וְאֵינוֹ יוֹדֵעַ לְאֵיזוֹ — אוֹמֵר אֲנִי: הַשֵּׁנִי נָפַל לְמָקוֹם שֶׁנָּפַל הָרִאשׁוֹן</strong> [וְהָאַחֶרֶת מֻתֶּרֶת]. <strong>אֲבָל אִם נָפַל לְאַחַת וְאֵינוֹ יוֹדֵעַ לְאֵיזוֹ, וְחָזַר וְנָפַל אִסּוּר לְאַחַת וְיוֹדֵעַ לְאֵיזוֹ — שְׁתֵּיהֶן אֲסוּרוֹת.</strong> (הגה: וְכָל זֶה כְּשֶׁאֵין בָּהֶן שִׁשִּׁים לְבַטֵּל הָאִסּוּר הַנּוֹפֵל; אֲבָל אִם הָיָה בָּהֶן שִׁשִּׁים לְבַטְּלוֹ — הֲרֵי הוּא כְּאִלּוּ לֹא נָפַל בָּהֶן אִסּוּר כְּלָל [ב״י בשם הרשב״א].)"
+  <p>«&nbsp;<span class="he-q">היו כאן שתי קדרות של היתר ונפל איסור לתוך אחת מהן וידוע לאיזו נפל וחזר ונפל איסור לתוך אחת מהן ואין ידוע לאיזו נפל אני אומר למקום איסור הראשון נפל גם השני אבל אם נפל איסור לתוך אחת מהן ואין ידוע לאיזו נפל ואחר כך נפל איסור לתוך אחת מהן וידוע לאיזו נפל שתיהן אסורות:</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״א:ו)</span></p>
+  <p><small><strong>הגה.</strong> «&nbsp;<span class="he-q">ודוקא שאין ס׳ לבטל האיסור שנפל שם אבל אם היה ס׳ לבטל האיסור שנפל שם הוי כאילו לא נפל שם איסור כלל</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״א:ו — הגהת הרמ״א, ב״י בשם הרשב״א)</span></small></p>
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>שני הציורים :</strong>
+<p><em>Translation</em>: there were two permitted pots, a prohibition fell into one of them and it is known into which, and then a prohibition again fell into one of them and it is unknown into which — I say: the second fell into the place of the first prohibition. But if a prohibition fell into one of them and it is unknown into which, and afterwards a prohibition fell into one of them and it is known into which — both are forbidden. <em>Rama’s gloss</em>: and this specifically where there is not sixty to nullify the prohibition that fell there; but if there was sixty to nullify it, it is as though no prohibition fell there at all (Beis Yosef in the name of the Rashba).</p>
+
+<div class="machloket-box">
+<strong>The two pictures:</strong>
 <table>
-<tr><th>הסדר</th><th>הדין</th><th>הטעם</th></tr>
+<tr><th>The order</th><th>The din</th><th>The reason</th></tr>
 <tr>
-  <td><strong>ידוע ואחר כך אינו ידוע</strong></td>
-  <td>השנייה מותרת; האחרת בלבד אסורה</td>
-  <td>אומר אני: השני נפל למקום הראשון (ש״ך ס״ק יד)</td>
+  <td><strong>Known, then unknown</strong></td>
+  <td>The second pot stays permitted; only the one already affected is forbidden</td>
+  <td>I say: the second fell where the first fell (מחבר ס״ו)</td>
 </tr>
 <tr>
-  <td><strong>אינו ידוע ואחר כך ידוע</strong></td>
-  <td>שתיהן אסורות</td>
-  <td>הראשון כבר הטיל ספק בשתיהן (ש״ך ס״ק טו)</td>
+  <td><strong>Unknown, then known</strong></td>
+  <td>Both are forbidden</td>
+  <td>The first had already cast doubt on both (ש״ך ס״ק ט״ו)</td>
 </tr>
 </table>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>הטעם לחילוק (ש״ך ס״ק יד–טו) :</strong> כשהראשון <strong>ידוע</strong> — הרי קדרה אחת כבר אסורה בודאי, וכשבא השני בספק, אנו <span class="he-q">תולין</span> שהשני נפל לאותה קדרה שכבר נאסרה (שאין מקום לחדש איסור בשנייה) — והשנייה נשארת בהיתרה. אבל כש<strong>הראשון בספק</strong> — כבר הוטל ספק בשתי הקדרות, ושוב כשבא השני הידוע ומצטרף — אין במה לתלות, ושתיהן אסורות. והרמ״א מסייג: כל זה כשאין ששים ; אבל <span class="he-q">יש ששים</span> — כאילו לא נפל כלל (רשב״א).
+<div class="pilpul-box">
+<strong>The reason for the distinction (ש״ך ס״ק ט״ו):</strong> when the second fall is uncertain but the first is known, one pot is already certainly forbidden, and the second fall is attached to it. When the order is reversed, the Shach refuses the symmetrical reasoning:
+«&nbsp;<span class="he-q">ואין אומרים למקום שנפל האיסור האחרון נפל גם הראשון</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק ט״ו)</span>
+</div>
+
+<div class="hakira-box">
+<strong>How far does this leniency reach? (ש״ך ס״ק י״ד)</strong> The ב״ח wished to extend the seif even to a Torah prohibition. The Shach is astonished, for the gemara in the first chapter of פסחים is explicit: one does not say שאני אומר in a Torah prohibition.
+«&nbsp;<span class="he-q">ואני תמה היאך אפשר לומר בדאורייתא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק י״ד)</span>
+He ends by explaining what the seif really teaches — a Torah prohibition whose threshold alone is rabbinic — and concludes:
+«&nbsp;<span class="he-q">אבל באיסור דאורייתא ממש ודאי אין תולין להקל</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק י״ד)</span>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">8. הכל נכנס בספק — צירוף הקדרות</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">8. Everything enters the doubt — the joining of the pots</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ז')
-  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 העתק</button>
+<h3>The text of the Mechaber and the Rama (seif ז׳)
+  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-6">
-"<strong>הָיוּ שְׁתֵּי קְדֵרוֹת שֶׁל הֶתֵּר, וְנָפַל אִסּוּר לְאַחַת מֵהֶן וְאֵינוֹ יוֹדֵעַ לְאֵיזוֹ, וְאֵין בְּאַחַת מֵהֶן כְּדֵי לְבַטֵּל הָאִסּוּר, אֲבָל בִּשְׁתֵּיהֶן יַחַד יֵשׁ — מִצְטָרְפוֹת לְבַטְּלוֹ. וְלֹא עוֹד אֶלָּא אֲפִלּוּ אַחַת בַּבַּיִת וְאַחַת בָּעֲלִיָּה — מִצְטָרְפוֹת. וְכֵן עַד מֵאָה. וְהוּא שֶׁיִּהְיוּ שֶׁל אָדָם אֶחָד, שֶׁכָּל שֶׁל אָדָם אֶחָד עָתִיד לְהִתְעָרֵב; אֲבָל אִם הֵן שֶׁל שְׁנֵי בְּנֵי אָדָם — אֵין מִצְטָרְפוֹת.</strong> (הגה: יֵשׁ מַחְמִירִין שֶׁאַף בְּאָדָם אֶחָד אֵין לְהָקֵל; וּבְמָקוֹם הֶפְסֵד מַתִּירִין בְּאָדָם אֶחָד, וְאֵינוֹ אוֹכֵל עַד שֶׁיְּעָרֵב אוֹתָן יַחַד, שֶׁאָז הָאִסּוּר בָּטֵל.)"
+  <p>«&nbsp;<span class="he-q">היו כאן שתי קדרות של היתר ונפל איסור לתוך אחת מהן ואין ידוע לאיזו נפל ואין באחת כדי לבטל האיסור ויש בשתיהן כדי לבטלו שתיהן מצטרפות לבטלו ולא עוד אלא אפי׳ אחת בבית וא׳ בעליה מצטרפות. והוא הדין אפילו למאה בד״א בששתיהן של אדם א׳ לפי שכל שהן של אדם אחד עתיד להתערב אבל אם הם של שני בני אדם אין מצטרפות:</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״א:ז)</span></p>
+  <p><small><strong>הגה.</strong> «&nbsp;<span class="he-q">ויש מחמירים דאפי׳ באדם א׳ אין להקל ולצורך הפסד יש להתיר באדם א׳ ומיהו אין לאכלו אלא לאחר שיערבנו יחד דאז כבר נתבטל האיסור</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״א:ז — הגהת הרמ״א, בארוך כלל כ״ו בשם מהרי״ש)</span></small></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — "הכל נכנס בספק" :</strong><br>
-מאחר שאיני יודע לאיזו קדרה נפל האיסור — <span class="he-q">הכל נכנס בספק</span>: שתי הקדרות כאחת נתונות בספק האיסור. וכיון שכולן בספק שוה, הרי הן <strong>מצטרפות</strong> זו עם זו לבטל את האיסור בששים, אף שאין באחת מהן לבדה כדי לבטל. ולא עוד, אלא <span class="he-q">אחת בבית ואחת בעלייה</span> מצטרפות, וכן עד מאה — ובלבד שיהיו של אדם אחד, ש<span class="he-q">כל של אדם אחד עתיד להתערב</span>.
+<p><em>Translation</em>: there were two permitted pots, a prohibition fell into one of them and it is unknown into which, neither of them contains enough to nullify the prohibition but the two together do — both join to nullify it. And more: even one in the house and one in the upper storey, they join; and the same holds up to a hundred. In what case? When both belong to one man, for whatever belongs to one man is destined to become mixed; but if they belong to two men, they do not join. <em>Rama’s gloss</em>: there are those who are stringent and hold that even with one man one should not be lenient; and where there is loss there is room to permit with one man, but he shall not eat it until he has mixed them together, for then the prohibition is already nullified (in the name of the Maharish, in Issur ve-Hetter HaArokh, rule 26).</p>
+
+<div class="yesod-box">
+<strong>The yesod — whatever has entered the doubt:</strong><br>
+Since I do not know into which pot the prohibition fell, both pots are taken together into the doubt of the prohibition. And the Shach states the rule in a line:
+«&nbsp;<span class="he-q">שכל שנכנס בספק מחמת איסור מצטרף לבטלו</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק ט״ז)</span>
+They therefore join one another to nullify the prohibition in sixty, although neither can do so alone — and up to a hundred, and even one in the house and one in the upper storey, as the seif says.
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>תנאי "אדם אחד" — עתיד להתערב :</strong> כל הצירוף תלוי בכך ש<strong>עתיד להתערב</strong>: כיון שהכל של אדם אחד, סופן לבוא לכלל תערובת (יאכל זו וזו), ולפיכך כבר עכשיו דנים בהן כמעורבות ומצטרפות. אבל ב<strong>שני בני אדם</strong> — אין סופן להתערב, וכל אחד מחזיק בשלו, ולכן <span class="he-q">אין מצטרפות</span> (וזו עיקר מחלוקת הראשונים שבסעיף הבא).
+<div class="pilpul-box">
+<strong>The condition “one man” — destined to become mixed:</strong> the whole joining depends on the pots being <strong>destined to become mixed</strong>: since all belongs to one man, they will in the end come to be mixed, and we judge them now as though they already were. The Taz says so in so many words:
+«&nbsp;<span class="he-q">דכיון שעתידים להתערב חשבינן כאלו כבר נתערבו</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״א ס״ק י׳)</span>
+With two men, by contrast, they are not destined to become mixed, each keeping his own — and that is the knot of the machlokes of the Rishonim treated in the next section.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הכרעת הרמ״א — יש מחמירין והפסד (ט״ז ס״ק ט) :</strong> מביא הרמ״א <span class="he-q">יש מחמירין</span> שאף באדם אחד לא יקילו בצירוף ; ובמקום <strong>הפסד</strong> מתירין באדם אחד, אך אינו אוכל עד <span class="he-q">שיערב אותן יחד</span> — שאז ודאי האיסור בטל בששים שבכולן. ומקור ההחמרה במהרי״ש (ט״ז ס״ק ט).
+<div class="rishon-card">
+<strong>The Rama’s ruling — יש מחמירין and the case of loss (ט״ז ס״ק ט׳):</strong> the Rama brings those who are stringent and do not permit even with one man; where there is loss one permits with one man, but he shall not eat until he has mixed the pots. The Taz gives its provenance:
+«&nbsp;<span class="he-q">בד״מ כ״כ בשם או״ה סוף כלל כ״ו בשם מהרי״ש</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״א ס״ק ט׳)</span>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">9. מחלוקת רמב״ן ורשב״א — שני בני אדם וצירוף</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">9. Machlokes of the רמב״ן and the רשב״א — two people and the joining</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ Detailed explanation (level 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זוהי אחת מן המחלוקות החריפות שבכל דיני התערובות, ובה האריך הש״ך (ס״ק יג–כ).</p>
+<p style="margin:15px 0; font-style:italic;">This is one of the tightest machlokos in the whole law of mixtures, and the Shach returns to it from ס״ק י״ג to ס״ק כ׳.</p>
 
-<div class="machloket-box" dir="rtl">
-<strong>שורש המחלוקת (ש״ך ס״ק יג–יט) :</strong>
+<div class="machloket-box">
+<strong>The root of the machlokes:</strong>
 <table>
-<tr><th>שיטה</th><th>תולין וצירוף בשני בני אדם</th><th>מקור</th></tr>
+<tr><th>Shita</th><th>Two people coming one after the other</th><th>Source</th></tr>
 <tr>
-  <td><strong>הרמב״ן</strong></td>
-  <td>תולין בזה אחר זה, וכעיקר ההלכה — דנין בכל אחד בפני עצמו</td>
-  <td>ש״ך ס״ק יג, יח (פסחים י', כתובות כ״ו)</td>
+  <td class="he"><strong>הרמב״ן</strong></td>
+  <td>One permits each of them and attributes that the prohibition fell into the other’s pot, even if neither contains enough to nullify</td>
+  <td class="he">ש״ך ס״ק י״ג · ס״ק י״ט</td>
 </tr>
 <tr>
-  <td><strong>הרשב״א</strong></td>
-  <td>חולק בפרטי הצירוף והתולין</td>
-  <td>ש״ך ס״ק טז–יז</td>
+  <td class="he"><strong>הרשב״א</strong></td>
+  <td>Even with two men there is no leniency except through nullification; without it, to forbid one of them out of what was permitted to him is a מאי חזית</td>
+  <td class="he">ש״ך ס״ק י״ג · ס״ק י״ט</td>
 </tr>
 </table>
-<p style="margin-top:8px;">והעיקר להלכה כ<strong>רמב״ן</strong> (ש״ך), ושורש הסוגיא ב<span class="he-q">פסחים י'.</span> (תשע חנויות, תולין בזה אחר זה) וב<span class="he-q">כתובות כ״ו.</span>.</p>
+<p style="margin-top:8px;">The Shach first sets out the position of the רמב״ן —</p>
+«&nbsp;<span class="he-q">דס״ל דבשל ב׳ בני אדם ובאו לישאל בזה אחר זה אפילו אין בשום אחד מהן לבטל אנו מתירין לכל א׳ וא׳ ותולין דבשל חבירו נפל</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק י״ג)</span>
+<p>— and he rules, in that same ס״ק, referring forward to ס״ק י״ט:</p>
+«&nbsp;<span class="he-q">העיקר כהרמב״ן</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק י״ג)</span>
+<p>At ס״ק י״ט he gives the proof: so it emerges from the first chapter of פסחים (the case of the two paths, where one is lenient when each asks separately) and from the end of the chapter האשה שנתארמלה in כתובות.</p>
+«&nbsp;<span class="he-q">דאפילו בשניהם של היתר תולין להקל באיסור דרבנן כשבאו זא״ז</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק י״ט)</span>
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — חנ״נ מול הצירוף (ש״ך ס״ק יז, ט״ז ס״ק י) :</strong> לכאורה, אם החתיכה שנפל בה האיסור <span class="he-q">נעשית נבילה</span> (חנ״נ), שוב אין דרך לצרף את שאר הקדרות לבטלה ! וכיצד אומר המחבר שמצטרפות ?
+<div class="rishon-card">
+<strong>The gemara of the two paths (פסחים י׳ ע״א):</strong> this is the mishna the gemara compares with the heap of chametz and the two searched houses:
+«&nbsp;<span class="he-q">שְׁנֵי שְׁבִילִין. דִּתְנַן: שְׁנֵי שְׁבִילִין, אֶחָד טָמֵא וְאֶחָד טָהוֹר, וְהָלַךְ בְּאֶחָד מֵהֶן וְעָשָׂה טְהָרוֹת</span>&nbsp;» <span class="source-ref">(פסחים י׳ ע״א)</span>
+And there lies the distinction between one who asks separately and those who ask together:
+«&nbsp;<span class="he-q">אִם נִשְׁאֲלוּ זֶה בִּפְנֵי עַצְמוֹ וְזֶה בִּפְנֵי עַצְמוֹ — טְהוֹרִין. שְׁנֵיהֶן בְּבַת אַחַת — טְמֵאִין</span>&nbsp;» <span class="source-ref">(פסחים י׳ ע״א)</span>
 </div>
 
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ — "כאלו כבר מעורב" (ש״ך ס״ק יז בשם מגיד משנה) :</strong> כיון ש<strong>אין יודעים היכן נפל</strong> האיסור, אין כאן חתיכה מסוימת שנעשתה נבילה ; אדרבה — מאחר שהכל בספק שוה, דנים בכל הקדרות <span class="he-q">כאלו כבר מעורב</span> הכל יחד, ובמעורב אין חנ״נ מעכב את הצירוף (שהרי הצירוף קודם, כביכול, לחלות שם נבילה על חתיכה אחת). וכן כתב הט״ז (ס״ק י) להדיא: דהיתר הצירוף נאמר אף בלא עירוב בפועל, שהספק עצמו עושה אותן כמעורבות.
+<div class="hakira-box">
+<strong>The chakira — חתיכה נעשית נבילה against the joining (ש״ך ס״ק י״ז):</strong> the ב״ח objects: for us, who hold חתיכה נעשית נבילה in all prohibitions, the affected piece itself becomes forbidden, and the joining can no longer help.
+«&nbsp;<span class="he-q">כתב הב״ח דהיינו דוקא למ״ד דלא אמרינן חנ״נ רק בבשר וחלב ולא בשאר איסורים אבל לדידן דקי״ל חנ״נ בכל האיסורים אין מועיל צירוף</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק י״ז)</span>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>דחיית חילוק "שתי נפילות / נפילה אחת" (ט״ז ס״ק ו) :</strong> הדרישה והב״ח רצו לחלק בין נפילה אחת לשתי נפילות. ודוחה הט״ז (ס״ק ו) חילוק זה מן ה<span class="he-q">תוספתא בתרומות</span> (דין שתי מדוכות), ומוכיח שאין מקור לחלק, אלא הכל תלוי בגדרי התולין והצירוף בלבד.
+<div class="teruts-box">
+<strong>The Shach’s answer — “as though it were already mixed” (ס״ק י״ז):</strong> since it is <strong>unknown</strong> where the prohibition fell, no determinate piece has become neveilah; everything being equally in doubt and destined to be mixed, one views the whole as already mixed — and the Shach brings a proof for this from the מגיד משנה.
+«&nbsp;<span class="he-q">דלא אמרינן חנ״נ אלא היכא דידוע להיכן נפל אבל כאן דלא ידענו להיכן נפל א״כ כל שנכנס הכל לספק והוא עתיד להתערב רואין אותו כאלו הוא כבר מעורב</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק י״ז)</span>
+The Taz says the same at ס״ק י׳, and expressly infers that the joining holds even without an actual mixing:
+«&nbsp;<span class="he-q">שאף אם לא נתערבו כיון שמן התורה מותר ע״י ביטול ברוב רק מדרבנן צריך ס׳ וכיון שיש ספק לאיזה נפל ונכנסו שניהם בספק שניהם מצטרפים לבטל ומותר כל אחד בפני עצמו</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״א ס״ק י׳)</span>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>"עתיד להתערב" — שני מינים (ט״ז ס״ק ח) :</strong> מסייג הט״ז (ס״ק ח) דכל הצירוף ב<strong>עתיד להתערב</strong> דווקא ; אבל שני מינים <span class="he-q">שאינם ראויים להתערב</span> זה בזה (כבשר וגבינה, או דברים שדרכם להיאכל לחוד) — אין מצטרפים, שאינם עתידים לבוא לכלל תערובת. וכן הביא בשם מהרש״ל. <em>ולמעשה — שאל את רבך.</em>
+<div class="pilpul-box">
+<strong>The rejection of the “one fall / two falls” distinction (ט״ז ס״ק ו׳):</strong> the פרישה, in the name of the מהרש״ל, and the ב״ח wished to distinguish between seif ה׳, where there are two falls, and seif ז׳, where there is only one:
+«&nbsp;<span class="he-q">ובפרישה כתב בשם רש״ל דהכא שאני שיש ב׳ נפילות אחד היתר ואחד איסור וזה גרע טפי מהא דלקמן שאין שם אלא נפילה אחת</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״א ס״ק ו׳)</span>
+The Taz sets this distinction aside on the strength of the תוספתא of the two mortars, which the רשב״א himself raises against the case of two falls — proof that in his eyes the two pictures do not differ:
+«&nbsp;<span class="he-q">היו לפניו שתי מדוכות אחת של חולין ואחת של תרומה ונתן מאחת מהן ואין ידוע מאיזה מהן נתן הריני אומר משל חולין נתן</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״א ס״ק ו׳)</span>
+His conclusion is plain:
+«&nbsp;<span class="he-q">אלא ודאי שאין חילוק זה כלל ועיקר לפי האמת</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״א ס״ק ו׳)</span>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>השגת הראה — צירוף דווקא בלא טעם (ש״ך ס״ק כ) :</strong> מביא הש״ך (ס״ק כ) שהראה משיג על הצירוף במקום שיש <span class="he-q">טעם</span> : כל הצירוף נאמר דווקא ב<strong>איסור דרבנן</strong>, או ב<strong>שיעור דרבנן</strong>, או ב<strong>יבש ביבש</strong> ; אבל כשהאיסור <span class="he-q">ראוי ליתן טעם</span> (אינו מינו, או לח בלח שנותן טעם) — אין הקדרות מצטרפות, שהטעם כבר נתפשט ואינו "נכנס בספק". ובמקום <strong>הפסד</strong> יש לצדד בזה.
+<div class="nafka-mina-box">
+<strong>“Destined to become mixed” — two kinds (ט״ז ס״ק ח׳):</strong> the Taz limits the joining: when the two permitted foods are forbidden with one another — one of meat, the other of cheese — they do not join.
+«&nbsp;<span class="he-q">דאם הב׳ מיני היתר אסורים בתערובות כגון הא׳ בשר והב׳ גבינה אין מצטרפין לבטלו</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״א ס״ק ח׳)</span>
+And he adds, in the name of the מהרש״ל, that the same holds of two foods that are simply not destined to be mixed:
+«&nbsp;<span class="he-q">וכתב רש״ל דאם הם אינם עומדים להתערב כגון שהא׳ נתבשל במתיקות והב׳ בקיוהא אינם מצטרפים</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״א ס״ק ח׳)</span>
+<p style="margin-top:8px;"><em>And for practice — ask your Rav.</em></p>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הפתחי תשובה — שמן רוקח, שלוש קדרות (פ״ת ס״ק ב) :</strong> מביא הפתחי תשובה בשם ה<strong>שמן רוקח</strong> ציור של <span class="he-q">שלוש קדרות</span> וספיקות בזה אחר זה ; ואם הספק הראשון לא נודע אלא לאחר הספק השני — ב<strong>הפסד מרובה</strong> יש להקל, וצריך עיון בכל ציור לגופו. ובס״ק א מביא בשם ה<strong>שער המלך</strong> דהחתיכות ה<span class="he-q">ניכרות</span> הוו <span class="he-q">איתחזק איסורא</span> (דלא כפרי חדש), אלא שכנגדן <span class="he-q">חזקת היתר</span> של הקדרה, ולפיכך תולין להקל, ודנים בו כדיני ספק ספיקא.
+<div class="rishon-card">
+<strong>The objection of the רא״ה — joining only where there is no taste (ש״ך ס״ק כ׳):</strong> the Shach brings the רא״ה in Bedek HaBayis: these leniencies were said only in a rabbinic prohibition, or in a Torah prohibition whose measure is rabbinic, or in dry with dry, where there is no taste.
+«&nbsp;<span class="he-q">לא נאמרו קולות הללו אלא באיסורי דרבנן או באיסור תורה ושיעורי דרבנן וכן יבש ביבש דלית בה טעמא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק כ׳)</span>
+But where the prohibition gives taste, or is apt to give taste, the pots do not join — and that even in a rabbinic prohibition:
+«&nbsp;<span class="he-q">אבל היכא דאית בה טעמא ודאי כל היכא דיהיב טעמא או שראוי ליתן טעם כגון לח בלח במין במינו ואין ס׳ לא אמרינן ביה הני קולי אפילו באיסורי דרבנן</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק כ׳)</span>
+That is why the Shach, commenting on the Rama’s words “and where there is loss”, concludes that one should permit only where the loss is great, precisely because the רא״ה disputes the matter:
+«&nbsp;<span class="he-q">וכן נראה בדין דאין להתיר אלא במקו׳ הפ״מ דהא הרא״ה בבדק הבית… חולק על הרשב״א בזה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק כ׳)</span>
+</div>
+
+<div class="rishon-card">
+<strong>The פתחי תשובה — the שמן רוקח and the three pots (פ״ת ס״ק ב׳):</strong> the פתחי תשובה brings from the שמן רוקח that one attributes even to a pot that is forbidden only by doubt, and gives the picture:
+«&nbsp;<span class="he-q">שהיו עומדים ג׳ קדרות של היתר ונפל איסור דרבנן לאחד מב׳ קדרות מהם ובקדרה שלישית עדיין לא היה שום ספק ואח״ז נפל איסור דרבנן לאחד מהקדרות ונולד לנו ספק בקדרה שלישית ועל אחד מהראשונות</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד קי״א ס״ק ב׳)</span>
+But if the first doubt became known only after the second, the matter requires deliberation, and he is lenient only where the loss is great:
+«&nbsp;<span class="he-q">אך אם לא נודע הספק הראשון עד אחר שנולד השני יש להתיישב בדבר ובהפ״מ יש להקל</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד קי״א ס״ק ב׳)</span>
+</div>
+
+<div class="rishon-card">
+<strong>The פתחי תשובה — the שער המלך on the chazaka (פ״ת ס״ק א׳):</strong> on the words “the pieces” of seif א׳, the פתחי תשובה brings the שער המלך, who parts from the פרי חדש on two points and from the Shach on one. Against the פרי חדש, who held that even recognisable pieces constitute an איתחזק איסורא, he sides with the Shach:
+«&nbsp;<span class="he-q">דמה שכתב הפר״ח דאף בשהחתיכות ניכרות בפ״ע מיקרי איתחזק איסורא בזה נראה עיקר כהש״ך</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד קי״א ס״ק א׳)</span>
+But he is more lenient than the Shach: even where the pieces are not recognisable and there is therefore איתחזק איסורא, he attributes leniently, because the pot itself retains a chazaka of permission.
+«&nbsp;<span class="he-q">דאפילו בשאין החתיכות ניכרות דאיתחזק איסורא תלינן לקולא</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד קי״א ס״ק א׳)</span>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">10. חקירה ונפקא מינה למעשה</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">10. Chakira and nafka mina for practice</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ Detailed explanation (level 1)</a>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה הכוללת של הסימן :</strong> מתי תולין להקל, ומתי הקדרות מצטרפות לבטל ?
+<div class="hakira-box">
+<strong>The overall chakira of the siman: when does one attribute leniently, and when do the pots join to nullify?</strong>
 <ul class="stylish">
-<li><strong>תולין / שאני אומר</strong> — היתר ספק דרבנן לקולא ; דווקא באיסור דרבנן (או דאורייתא בטל ברוב).</li>
-<li><strong>שלושת המקרים</strong> — שתי קדרות, קדרה אחת, חתיכה אחת ; כולם בדרבנן אף בלא רוב.</li>
-<li><strong>שיעור דרבנן</strong> — ספק בשיעור בלבד, קל מסימן ס״ו (ט״ז ס״ק א).</li>
-<li><strong>מין במינו / אינו מינו</strong> — רוב כל שהוא מול ששים (ס״ד, סימן צ״ח).</li>
-<li><strong>שתי קדרות של היתר</strong> — מאי חזית, שתיהן אסורות (ס״ה).</li>
-<li><strong>הכל נכנס בספק</strong> — צירוף עד מאה, באדם אחד שעתיד להתערב (ס״ז).</li>
+<li><strong>תולין / שאני אומר</strong> — the leniency of ספק דרבנן לקולא; specifically in a rabbinic prohibition, or in a Torah prohibition already nullified in the majority.</li>
+<li><strong>The three cases</strong> — two pots, one pot, a single piece; all permitted in the rabbinic, even without a majority (seif א׳).</li>
+<li><strong>The rabbinic measure</strong> — a doubt bearing only on the threshold is lighter than the doubt of siman 66 (ט״ז ס״ק א׳).</li>
+<li><strong>מין במינו / אינו מינו</strong> — any majority on one side, sixty on the other (seif ד׳, and see siman 98).</li>
+<li><strong>Two permitted pots</strong> — מאי חזית — both are forbidden (seif ה׳).</li>
+<li><strong>The joining</strong> — up to a hundred, with one man, whose pots are destined to become mixed (seif ז׳).</li>
 </ul>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה למעשה (לפי הכרעת רוב האחרונים) :</strong>
+<div class="nafka-mina-box">
+<strong>Nafka minos for practice, as the Mechaber and his apparatus set them out:</strong>
 <ol class="stylish">
-<li>איסור <strong>דרבנן</strong> (כשומנו של גיד או רכיב אסור מדרבנן) שנפל לאחת משתי קדרות ואינו יודע לאיזו → תולין להקל (מחבר ס״א).</li>
-<li><strong>אינו מרובה</strong> תנאי הוא ; ובאיסור דאורייתא בעי רוב היתר לבטלו מן התורה (ס״ב–ג').</li>
-<li><strong>מין במינו</strong> — רוב כל שהוא ; <strong>אינו מינו</strong> — ששים (ס״ד).</li>
-<li><strong>שתי קדרות של היתר</strong> — מאי חזית, שתיהן אסורות, אלא אם כן יש באחת ששים (ס״ה).</li>
-<li><strong>צירוף</strong> — שתי קדרות (אף בבית ובעלייה) מצטרפות לששים באדם אחד ; ולמחמירין מערב תחילה (ס״ז, ט״ז ס״ק י).</li>
+<li>A <strong>rabbinic</strong> prohibition that fell into one of two pots, one permitted and one forbidden, without knowing which: one attributes leniently (Mechaber seif א׳).</li>
+<li>That the forbidden <strong>does not predominate</strong> is a condition; and in a Torah prohibition a majority of permitted is required to nullify it by Torah law (seifim ב׳–ג׳).</li>
+<li><strong>מין במינו</strong> — any majority; <strong>אינו מינו</strong> — sixty (seif ד׳).</li>
+<li><strong>Two permitted pots</strong> — מאי חזית, both forbidden, unless one of them contains sixty (seif ה׳).</li>
+<li><strong>The joining</strong> — two pots, even one in the house and one in the upper storey, join for the sixty with one man; and according to those who are stringent, he first mixes them (seif ז׳, ט״ז ס״ק י׳).</li>
 </ol>
-<em>ולמעשה — שאל את רבך.</em>
+<em>And for practice — ask your Rav.</em>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">11. טבלאות סיכום</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">11. Summary tables</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">טבלה — מקרי הספק והדין</h3>
+<h3>Table — the pictures of doubt and their din</h3>
 
 <table>
 <tr>
-  <th>אופן הספק</th>
-  <th>התוצאה</th>
-  <th>מקור בקורפוס</th>
+  <th>The picture of doubt</th>
+  <th>The outcome</th>
+  <th>Source</th>
 </tr>
 <tr>
-  <td><strong>שתי קדרות (היתר ואיסור) + שתי חתיכות, דרבנן</strong></td>
-  <td>מותר — תולין האיסור לאיסור</td>
-  <td>מחבר ס״א; ט״ז ס״ק א</td>
+  <td><strong>Two pots (permitted and forbidden) + two pieces, rabbinic prohibition</strong></td>
+  <td>Permitted — one attributes the forbidden to the forbidden</td>
+  <td class="he">מחבר ס״א · ט״ז ס״ק א׳</td>
 </tr>
 <tr>
-  <td><strong>קדרה אחת של היתר + שתי חתיכות</strong></td>
-  <td>מותר — תולין שההיתר נפל</td>
-  <td>מחבר ס״א; ש״ך ס״ק ו</td>
+  <td><strong>One permitted pot + two pieces</strong></td>
+  <td>Permitted — one attributes that the permitted one fell</td>
+  <td class="he">מחבר ס״א · ש״ך ס״ק ד׳–ה׳</td>
 </tr>
 <tr>
-  <td><strong>איסור מרובה על ההיתר</strong></td>
-  <td>אין תולין להקל</td>
-  <td>מחבר ס״ב; ט״ז ס״ק ב</td>
+  <td><strong>The forbidden predominates over the permitted</strong></td>
+  <td>One does not attribute leniently</td>
+  <td class="he">מחבר ס״ב · ט״ז ס״ק ב׳</td>
 </tr>
 <tr>
-  <td><strong>איסור דאורייתא, מין במינו</strong></td>
-  <td>תולין ברוב כל שהוא</td>
-  <td>מחבר ס״ג–ד'; ט״ז ס״ק ג</td>
+  <td><strong>Torah prohibition, מין במינו</strong></td>
+  <td>One attributes as soon as there is any majority</td>
+  <td class="he">מחבר ס״ג–ד׳ · ט״ז ס״ק ג׳</td>
 </tr>
 <tr>
   <td><strong>אינו מינו</strong></td>
-  <td>צריך ששים</td>
-  <td>מחבר ס״ד; סימן צ״ח</td>
+  <td>Sixty are required</td>
+  <td class="he">מחבר ס״ד · ועיין סימן צ״ח</td>
 </tr>
 <tr>
-  <td><strong>חתיכה הראויה להתכבד בספק</strong></td>
-  <td>מקילין — דספק דרבנן לקולא</td>
-  <td>ט״ז ס״ק ה; ר״ן</td>
+  <td><strong>A piece fit to be served, in doubt</strong></td>
+  <td>One is lenient — ספק דרבנן לקולא</td>
+  <td class="he">ט״ז ס״ק ה׳ · ש״ך ס״ק ה׳ · ר״ן</td>
 </tr>
 <tr>
-  <td><strong>שתי קדרות של היתר</strong></td>
-  <td>מאי חזית → שתיהן אסורות</td>
-  <td>מחבר ס״ה; ש״ך ס״ק יא</td>
+  <td><strong>Two permitted pots</strong></td>
+  <td>מאי חזית → both forbidden</td>
+  <td class="he">מחבר ס״ה · ש״ך ס״ק י״א</td>
 </tr>
 <tr>
-  <td><strong>נפילות בזה אחר זה (ידוע ואז אינו ידוע)</strong></td>
-  <td>השנייה מותרת — השני למקום הראשון</td>
-  <td>מחבר ס״ו; ש״ך ס״ק יד–טו</td>
+  <td><strong>Successive falls (known then unknown)</strong></td>
+  <td>The second stays permitted — the second fell where the first fell</td>
+  <td class="he">מחבר ס״ו · ש״ך ס״ק י״ד–ט״ו</td>
 </tr>
 <tr>
-  <td><strong>הכל נכנס בספק (אדם אחד)</strong></td>
-  <td>מצטרפות לששים, אף עד מאה</td>
-  <td>מחבר ס״ז; ש״ך ס״ק יז; ט״ז ס״ק י</td>
+  <td><strong>Everything has entered the doubt (one man)</strong></td>
+  <td>They join for the sixty, even up to a hundred</td>
+  <td class="he">מחבר ס״ז · ש״ך ס״ק ט״ז–י״ז · ט״ז ס״ק י׳</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מחלוקות מרכזיות בסימן</h3>
+<h3>Table — the central machlokos of the siman</h3>
 
 <table>
 <tr>
-  <th>נושא</th>
-  <th>שיטה א'</th>
-  <th>שיטה ב'</th>
+  <th>Subject</th><th>First shita</th><th>Second shita</th>
 </tr>
 <tr>
-  <td>שתי קדרות מול קדרה אחת</td>
-  <td>ב״י/רשב״א — בשתי קדרות בעי חד בחד</td>
-  <td>הראה — מיקל אף ביותר (ש״ך ס״ק ו)</td>
+  <td>Two pots as against one pot</td>
+  <td>רשב״א in Toras HaBayis — in two pots one needs at least חד בחד (ש״ך ס״ק ו׳)</td>
+  <td>רא״ה in Bedek HaBayis — permitted even if the forbidden predominates (ש״ך ס״ק ו׳)</td>
 </tr>
 <tr>
-  <td>שיעור דרבנן ושאני אומר</td>
-  <td>ט״ז — קל מספק דאורייתא דסימן ס״ו</td>
-  <td>נמוקי יוסף — באיסורי משהו אין תולין (ש״ך ס״ק ג)</td>
+  <td>A rabbinic measure and שאני אומר</td>
+  <td>ט״ז — lighter than the Torah doubt of siman 66 (ס״ק א׳)</td>
+  <td>נמוקי יוסף — in prohibitions that forbid in the least amount one does not attribute (ש״ך ס״ק ג׳)</td>
 </tr>
 <tr>
-  <td>צירוף בשני בני אדם</td>
-  <td>רמב״ן — וכעיקר ההלכה (ש״ך)</td>
-  <td>רשב״א — חולק בפרטי הצירוף</td>
+  <td>Two people coming one after the other</td>
+  <td>רמב״ן — one attributes and permits each; and that is the essence of the halakha (ש״ך ס״ק י״ג, י״ט)</td>
+  <td>רשב״א — without nullification there is no leniency (ש״ך ס״ק י״ג, י״ט)</td>
 </tr>
 <tr>
-  <td>חנ״נ מול הצירוף</td>
-  <td>ש״ך/ט״ז — כאלו כבר מעורב, ולא מעכב</td>
-  <td>הראה — בטעם אין מצטרפות (ש״ך ס״ק כ)</td>
+  <td>חתיכה נעשית נבילה as against the joining</td>
+  <td>ב״ח — since we hold חנ״נ everywhere, joining no longer helps (ש״ך ס״ק י״ז)</td>
+  <td>ש״ך and ט״ז — one views the whole as already mixed, and חנ״נ does not prevent it (ש״ך ס״ק י״ז; ט״ז ס״ק י׳)</td>
 </tr>
 <tr>
-  <td>צירוף באדם אחד</td>
-  <td>מחבר — מצטרפות בכל ענין</td>
-  <td>רמ״א — יש מחמירין, ובהפסד מערב תחילה</td>
+  <td>The joining with one man</td>
+  <td>מחבר — they join, even one in the house and one in the upper storey (ס״ז)</td>
+  <td>רמ״א — יש מחמירין; and where there is loss he first mixes them (ס״ז, ט״ז ס״ק ט׳)</td>
+</tr>
+<tr>
+  <td>The joining where there is taste</td>
+  <td>מחבר / רשב״א — they join</td>
+  <td>רא״ה — not where the prohibition gives or may give taste (ש״ך ס״ק כ׳)</td>
+</tr>
+<tr>
+  <td>Pieces that are not recognisable</td>
+  <td>ש״ך — there is איתחזק איסורא and one is not lenient (ס״ק ד׳)</td>
+  <td>שער המלך — one attributes nonetheless, since the pot has a chazaka of permission (פ״ת ס״ק א׳)</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מקורות הסוגיא</h3>
+<h3>Table — the sources of the sugya</h3>
 
-<div class="rishon-card" dir="rtl">
-<strong>גמרא :</strong> יבמות פ״ב. (שתי קופות חולין ותרומה, שאני אומר תרומה לתוך תרומה) · פסחים י'. (תשע חנויות, תולין בזה אחר זה) · כתובות כ״ו. (שני בני אדם וצירוף)
+<div class="rishon-card">
+<strong>Gemara:</strong> יבמות פ״ב ע״א — the two baskets of chullin and terumah, the source of שאני אומר · פסחים י׳ ע״א — the two paths and the heap of chametz, the source of the leniency where each asks separately · and the Shach further refers to כתובות כ״ו (ס״ק י״ט).
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>ראשונים :</strong> רש״י · תוספות · רמב״ם · המגיד משנה · רמב״ן · רשב״א (תורת הבית) · ר״ן · הראה (בדק הבית) · נמוקי יוסף · טור · בית יוסף
+<div class="rishon-card">
+<strong>Rishonim named in the siman:</strong> רמב״ן · רשב״א (תורת הבית הארוך והקצר) · ר״ן · רא״ה (בדק הבית) · נמוקי יוסף · רבינו שמשון · מגיד משנה · טור · בית יוסף
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>אחרונים :</strong> מרן המחבר · רמ״א · ש״ך · ט״ז · ב״ח · דרישה · פרי חדש · פרי מגדים · פתחי תשובה · שער המלך · שמן רוקח · מהרי״ש
+<div class="rishon-card">
+<strong>Acharonim named in the siman:</strong> מרן המחבר · רמ״א · ש״ך · ט״ז · ב״ח · פרישה ודרישה · מהרש״ל · איסור והיתר הארוך · מהרי״ש · עטרת זהב · דרכי משה · פרי חדש · שער המלך · שמן רוקח · פתחי תשובה
 </div>
 
 <hr class="ornament">
 
-  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;direction:rtl;">
-    <a href="niveau-1-base-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">→ רמה א' — יסוד</a>
-    <a href="niveau-3-synthese-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">רמה ג' — סיכום ←</a>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;direction:ltr;">
+    <a href="niveau-1-base-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">← Level 1 — Base</a>
+    <a href="niveau-3-synthese-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">Level 3 — Synthesis →</a>
   </div>
 
 <div class="yh-watermark">
 ~ ~ ~ ~ ~<br>
-<strong>DAAT</strong> · <strong>הרב יוסף חיים סממה</strong><br>
-תלמיד חכם · מעביר שיעורים בהלכה ובחסידות<br>
-<em>פלפול ועיון בדין תולין להקל וצירוף בספק · סימן קי״א · ⚡ רמה ב' — לַמְדָּן</em>
+<strong>DAAT</strong> · <strong>Rav Yossef Haim Samama</strong><br>
+Talmid chacham · shiurim in halacha and chassidus<br>
+<em>Pilpul and study on the din of תולין להקל and joining in doubt · siman קי״א · ⚡ Level 2 — Lamdan</em>
 </div>
 
-  <div class="disclaimer" style="background:#fff8e1;border-right:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;direction:rtl;text-align:right;">
-    ⚠️ תוכן זה נכתב לצורך לימוד ועיון בלבד. לכל הוראה למעשה (לְמַעֲשֶׂה) — שאל את רבך.
+  <div class="disclaimer" style="background:#fff8e1;border-left:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;direction:ltr;text-align:left;">
+    ⚠️ This content is written for study and analysis only. For any practical ruling (לְמַעֲשֶׂה) — ask your Rav.
   </div>
 
   <div style="background:#1A1F3A;border-top:2px solid #C5A55A;padding:24px 40px;text-align:center;margin-top:0;">
-    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;direction:rtl;">
-      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">לעמוד הבית</a> · <a href="index-en.html" style="color:#C5A55A;text-decoration:none;">סימן קי״א</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ לתמיכה</a>
+    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;direction:ltr;">
+      DAAT דעת — © 5786 / 2026 · <a href="../../../index-en.html" style="color:#C5A55A;text-decoration:none;">Home</a> · <a href="index-en.html" style="color:#C5A55A;text-decoration:none;">Siman קי״א</a> · <a href="../../../soutenir-en.html" style="color:#C5A55A;text-decoration:none;">♥ Support</a>
     </p>
   </div>
 
@@ -885,7 +994,7 @@
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="../../../assets/js/chat-widget.js" defer></script>
 <script src="../../../assets/js/daat-copy.js" defer></script>
-<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="מצא חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">הצטרף לחברותא</span></a>
+<a href="../../../communaute-en.html#khavroutha" class="daat-khavroutha-fab" title="Find a chavrusa for this siman"><span class="icon">📖</span><span class="label-long">Join a chavrusa</span></a>
   <script src="/assets/js/share-text.js" defer></script>
 </body>
 </html>

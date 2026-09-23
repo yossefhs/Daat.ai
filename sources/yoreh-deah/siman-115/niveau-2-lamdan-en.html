@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,8 +23,7 @@
   @page { size: A4; margin: 2cm 1.8cm; }
   body {
     font-family: 'Frank Ruhl Libre', 'David', 'Georgia', 'Cambria', serif;
-    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0;
-    direction: rtl; text-align: right;
+    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0; text-align: left;
   }
   .he {
     direction: rtl; text-align: right;
@@ -72,14 +71,12 @@
   h2.section-title {
     color: #fff; background: #1A1F3A;
     font-size: 16pt; padding: 10px 18px; margin-top: 30px;
-    border-right: 6px solid #C5A55A;
-    direction: rtl; text-align: right;
+    border-left: 6px solid #C5A55A; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3 {
     color: #1A1F3A; font-size: 14pt; margin-top: 25px;
-    border-right: 4px solid #C5A55A; padding-right: 10px;
-    direction: rtl; text-align: right;
+    border-left: 4px solid #C5A55A; padding-left: 10px; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3.he-h3 {
@@ -89,8 +86,7 @@
   }
   h4 {
     color: #5a4a1a; font-size: 12pt;
-    margin-top: 20px; margin-bottom: 8px; font-weight: bold;
-    direction: rtl; text-align: right;
+    margin-top: 20px; margin-bottom: 8px; font-weight: bold; text-align: left;
   }
 
   .sacred-text {
@@ -100,8 +96,8 @@
     font-size: 12.5pt; line-height: 1.9;
   }
   .pilpul-box {
-    background: #eef3fa; border-right: 4px solid #1A1F3A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #eef3fa; border-left: 4px solid #1A1F3A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .pilpul-box::before {
     content: "⚡ פלפול"; display: block;
@@ -110,8 +106,8 @@
     direction: rtl; text-align: right;
   }
   .kashya-box {
-    background: #fef4e4; border-right: 4px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #fef4e4; border-left: 4px solid #C5A55A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .kashya-box::before {
     content: "❓ קושיא"; display: block;
@@ -120,8 +116,8 @@
     direction: rtl; text-align: right;
   }
   .teruts-box {
-    background: #e8f4ea; border-right: 4px solid #2d7a3e;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #e8f4ea; border-left: 4px solid #2d7a3e;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .teruts-box::before {
     content: "✓ תירוץ"; display: block;
@@ -130,8 +126,8 @@
     direction: rtl; text-align: right;
   }
   .hakira-box {
-    background: #f5e9f5; border-right: 4px solid #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #f5e9f5; border-left: 4px solid #6a1b7a;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .hakira-box::before {
     content: "🔍 חקירה"; display: block;
@@ -141,8 +137,7 @@
   }
   .nafka-mina-box {
     background: #fff4e6; border: 2px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; border-radius: 4px; text-align: left;
   }
   .nafka-mina-box::before {
     content: "⚖️ נפקא מינה"; display: block;
@@ -152,8 +147,7 @@
   }
   .yesod-box {
     background: #1A1F3A; color: #fff;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
   .yesod-box::before {
     content: "💎 יסוד"; display: block;
@@ -164,7 +158,7 @@
   .yesod-box .he-q { color: #C5A55A; }
   .machloket-box {
     background: #faf5ff; border: 1.5px dashed #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
 
   table {
@@ -173,10 +167,9 @@
   }
   th {
     background: #1A1F3A; color: #fff;
-    padding: 10px; text-align: right; direction: rtl; font-size: 11pt;
+    padding: 10px; text-align: left; font-size: 11pt;
   }
-  td {
-    direction: rtl; text-align: right;
+  td { text-align: left;
     border: 1px solid #d4c89a; padding: 10px; vertical-align: top;
   }
   tr:nth-child(even) td { background: #FAF6EE; }
@@ -197,12 +190,11 @@
   }
 
   ol.stylish li, ul.stylish li { margin-bottom: 8px; }
-  ol.stylish, ul.stylish { padding-right: 22px; padding-left: 0; }
+  ol.stylish, ul.stylish { padding-left: 22px; padding-right: 0; }
 
   .rishon-card {
-    background: #f7f3e4; border-right: 4px solid #8a6a1a;
-    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt;
-    direction: rtl; text-align: right;
+    background: #f7f3e4; border-left: 4px solid #8a6a1a;
+    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt; text-align: left;
   }
   .rishon-card strong { color: #1A1F3A; font-size: 11pt; }
 
@@ -217,10 +209,9 @@
 
   .index-box {
     background: #FAF6EE; border: 1px solid #C5A55A;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
-  .index-box ol { margin: 5px 0; padding-right: 25px; padding-left: 0; }
+  .index-box ol { margin: 5px 0; padding-left: 25px; padding-right: 0; }
   .index-box li { margin-bottom: 5px; }
 
   h3.sugya {
@@ -237,7 +228,6 @@
     font-size: 12pt;
     text-decoration: none;
     border-bottom: 1px dotted #C5A55A;
-    direction: rtl;
   }
   a.daat-explain:hover { color: #8a6a1a; border-bottom-style: solid; }
 
@@ -284,8 +274,8 @@
   "isPartOf": {
     "@id": "https://daattorah.com/yd/#webpage"
   },
-  "educationalLevel": "Avancé",
-  "learningResourceType": "Cours d'étude halakhique (niveau 2 — Lamdan)"
+  "educationalLevel": "Advanced",
+  "learningResourceType": "Halakhic study course (Level 2 — Lamdan)"
 }
   </script>
 <!-- Vercel Web Analytics. Le script n'est servi qu'une fois Web Analytics activé
@@ -379,505 +369,574 @@
 })();
 </script>
 
-<!-- COUVERTURE -->
+<!-- COVER -->
 <div class="cover">
   <div class="ornament">✦ ❖ ✦</div>
-  <div class="badge-top">DAAT · רמה ב' — לַמְדָּן</div>
-  <h1>שולחן ערוך · יורה דעה</h1>
-  <div class="subtitle">דין חלב וגבינה וחמאה של עכו״ם — עיון ופלפול</div>
+  <div class="badge-top">DAAT · LEVEL 2 — LAMDAN</div>
+  <h1>Siman 115 — Lamdan level: milk, cheese and butter made by a non-Jew</h1>
+  <div class="subtitle">Three prohibitions born of the same milk, and three different gedarim — study and pilpul</div>
 
   <div class="he-title">סימן קט״ו</div>
   <div class="he-sub">חלב עכו״ם, מרתת ושמא יעמוד ויראהו, גבינת עכו״ם ולא פלוג, וטעם החמאה</div>
-  <div class="he-subject">עיון, פלפול, שיטות הראשונים והאחרונים</div>
+  <div class="he-subject">The sugya, chakiros, shitos of Rishonim and Acharonim, nafka minos</div>
 
-  <div class="level-badge">⚡ ללומדים ותלמידי חכמים ⚡</div>
+  <div class="level-badge">⚡ For lomdim and talmidei chachamim ⚡</div>
 
   <div class="ornament">✦ ❖ ✦</div>
 
-  <h2 style="margin-top:20px; color: #1A1F3A;">פלפול ועיון מעמיק</h2>
+  <h2 style="margin-top:20px; color: #1A1F3A;">Pilpul and in-depth study</h2>
   <p style="font-size:12pt; color:#555;">
-    סוגיות, מקורות, חקירת היסוד, מחלוקות ראשונים ואחרונים,<br>
-    נפקא מינות להלכה ועיון בשיטות
+    Sugyos, sources, the underlying chakira, machlokos of Rishonim and Acharonim,<br>
+    nafka minos for halakha, and a look at the shitos
   </p>
 
   <div class="credits">
-    <p><strong>הנושא :</strong><br>
-    שולחן ערוך יורה דעה סימן קט״ו (ג' סעיפים)<br>
-    עם נושאי כלים: ש״ך (שפתי כהן), ט״ז (טורי זהב), פרי חדש, פתחי תשובה</p>
+    <p><strong>Subject:</strong><br>
+    שולחן ערוך יורה דעה סימן קט״ו (ג׳ סעיפים)<br>
+    with the ש״ך (שפתי כהן), ט״ז (טורי זהב), פרי חדש and פתחי תשובה</p>
 
-    <p><strong>יסוד הסוגיא בש״ס :</strong><br>
-    עבודה זרה ל״ה:–ל״ו: (חלב שחלבו עכו״ם, גבינת העכו״ם, ודבר שנמנה במנין) · חולין ג׳: (שחיטת כותי — יוצא ונכנס)</p>
+    <p><strong>Root of the sugya in Shas:</strong><br>
+    עבודה זרה ל״ה ע״ב (the mishna, and חלב טהור עומד חלב טמא אינו עומד) ·
+    עבודה זרה ל״ה ע״א (the reasons for the decree on cheese) ·
+    עבודה זרה ל״ו ע״א (אין בית דין יכול לבטל … אלא אם כן גדול הימנו בחכמה ובמנין) ·
+    עבודה זרה ל״ט ע״ב (the beraisa יושב ישראל בצד עדרו) ·
+    חולין ג׳ ע״א (שחיטת כותי — יוצא ונכנס)</p>
 
-    <p><strong>עריכה ועיון :</strong><br>
+    <p><strong>Written by:</strong><br>
     הרב יוסף חיים סממה · DAAT</p>
   </div>
 </div>
 
 <div class="page-break"></div>
 
-<!-- TABLE DES MATIÈRES -->
-<h2 class="section-title">📑 תוכן העניינים</h2>
+<!-- TABLE OF CONTENTS -->
+<h2 class="section-title">📑 Table of contents</h2>
 
-<div class="index-box" dir="rtl">
+<div class="index-box">
 <ol>
-  <li><strong>הקדמת הסוגיא</strong> — שלושה מינים: חלב, גבינה וחמאה (סעיף א')</li>
-  <li><strong>חקירת היסוד</strong> — מדוע נאסר החלב ? ספק עירוב או דבר שנמנה במנין כיין נסך</li>
-  <li><strong>מרתת — שמא יעמוד ויראהו</strong> — מנגנון ההיתר, וחילוקי הט״ז (ס״ק א–ג)</li>
-  <li><strong>הכרעת הרמ״א</strong> — לכתחילה ודיעבד, שפחות, קטן, ובזמן הזה (שורש חלב סתם)</li>
-  <li><strong>איסור הכלים, התערובת, והפיכה לגבינה או חמאה</strong> — סוף סעיף א'</li>
-  <li><strong>גבינת עכו״ם</strong> — טעם הגזרה, אפילו העמידוה בעשבים, ולא פלוג (סעיף ב')</li>
-  <li><strong>למה אין הגבינה בטלה בששים</strong> — ריב״ם / ט״ז ס״ק ט, ומה שאינו בב״ח דאורייתא</li>
-  <li><strong>הכרעת הרמ״א בגבינה</strong> — ר״ת בדיעבד, נודע ביהודה, וקושיית הט״ז (ס״ק יא)</li>
-  <li><strong>חמאה</strong> — טעם ההיתר, בישול וביטול במיעוטו, וחומרי המקום של ההולך (סעיף ג')</li>
-  <li><strong>חקירה ונפקא מינה למעשה</strong></li>
-  <li><strong>טבלאות סיכום מקיפות</strong></li>
+  <li><strong>Introduction to the sugya</strong> — three foods: milk, cheese, butter (seif 1)</li>
+  <li><strong>The underlying chakira</strong> — why was the milk forbidden? a doubt of admixture, or a thing forbidden במנין like יין נסך</li>
+  <li><strong>מרתת — “lest he stand up and see him”</strong> — the mechanism of the heter, and the Taz’s distinctions (ס״ק א–ג)</li>
+  <li><strong>The Rama’s ruling</strong> — לכתחילה and בדיעבד, maidservants, a child, and “nowadays” (the root of חלב סתם)</li>
+  <li><strong>Vessels, admixture, and turning the milk into cheese or butter</strong> — the end of seif 1</li>
+  <li><strong>The cheese of a non-Jew</strong> — the reason for the decree, “even if he set it with herbs”, and לא פלוג (seif 2)</li>
+  <li><strong>Why the cheese is not nullified in sixty</strong> — Ri Ibn Migash / Taz ס״ק ט, and the absence of Torah-level בשר בחלב</li>
+  <li><strong>The Rama’s ruling on cheese</strong> — Rabbenu Tam בדיעבד, the Noda BiYehuda, and the Taz’s objection (ס״ק יא)</li>
+  <li><strong>Butter</strong> — the reason for the leniency, boiling and nullification in the minority, and the stringencies of the place (seif 3)</li>
+  <li><strong>Chakira and nafka mina for practice</strong></li>
+  <li><strong>Summary tables</strong></li>
 </ol>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<!-- לשון השולחן ערוך — סעיף א' -->
-<h2 class="section-title">📜 לשון השולחן ערוך — סעיף א'
-  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 העתק</button>
+<!-- The text of the Shulchan Aruch — seif 1 -->
+<h2 class="section-title">📜 The text of the Shulchan Aruch — seif 1
+  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 Copy</button>
 </h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ Detailed explanation (level 1)</a>
 
 <div class="sacred-text he" data-copy-block id="cp-1">
-  <p>חָלָב שֶׁחֲלָבוֹ עוֹבֵד כּוֹכָבִים וְאֵין יִשְׂרָאֵל רוֹאֵהוּ — אָסוּר, שֶׁמָּא עֵרֵב בּוֹ חָלָב טָמֵא. הָיָה חוֹלֵב בְּבֵיתוֹ וְיִשְׂרָאֵל יוֹשֵׁב מִבַּחוּץ: אִם יָדוּעַ שֶׁאֵין לוֹ דָּבָר טָמֵא בְּעֶדְרוֹ — מֻתָּר, אֲפִלּוּ אֵין הַיִּשְׂרָאֵל יָכוֹל לִרְאוֹתוֹ בְּשָׁעָה שֶׁהוּא חוֹלֵב. הָיָה לוֹ דָּבָר טָמֵא בְּעֶדְרוֹ וְהָעוֹבֵד כּוֹכָבִים חוֹלֵב לְצֹרֶךְ יִשְׂרָאֵל — אִם יָכוֹל לִרְאוֹתוֹ כְּשֶׁהוּא עוֹמֵד, מֻתָּר, שֶׁיָּרֵא שֶׁמָּא יַעֲמוֹד וְיִרְאֵהוּ. (הגה: וְלַכַּתְּחִלָּה צָרִיךְ לִהְיוֹת הַיִּשְׂרָאֵל בִּתְחִלַּת הַחֲלִיבָה … וּשְׁפָחוֹת הַחוֹלְבוֹת בְּבֵית יִשְׂרָאֵל מֻתָּר אֲפִלּוּ לְכַתְּחִלָּה … וַאֲפִלּוּ יִשְׂרָאֵל קָטָן אוֹ קְטַנָּה מוֹעִילִים … וְעַכְשָׁו בִּזְמַן הַזֶּה שֶׁאֵין חָלָב דָּבָר טָמֵא מָצוּי כְּלָל — מֻתָּר.) … חָלָב שֶׁל עוֹבֵד כּוֹכָבִים שֶׁנֶּאֱסַר — אוֹסֵר כֵּלִים, וְכֵן גְּבִינוֹתֵיהֶם; אֲבָל לֹא חֶמְאָה שֶׁלָּהֶם.</p>
+  <p>חלב שחלבו עובד כוכבים ואין ישראל רואהו אסור שמא עירב בו חלב טמא היה חולב בביתו וישראל יושב מבחוץ אם ידוע שאין לו דבר טמא בעדרו מותר אפילו אין הישראל יכול לראותו בשעה שהוא חולב היה לו דבר טמא בעדרו והישראל יושב מבחוץ והעובד כוכבים חולב לצורך ישראל אפילו אינו יכול לראותו כשהוא יושב אם יכול לראותו כשהוא עומד מותר שירא שמא יעמוד ויראהו והוא שיודע שחלב טמא אסור לישראל:</p>
+  <span class="source-ref">(שו״ע יו״ד קט״ו:א — לשון המחבר)</span>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">1. הקדמת הסוגיא — שלושה מינים בסימן אחד</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">1. Introduction to the sugya — three foods in one siman</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">מבנה הסימן — חלב, גבינה, חמאה
-  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 העתק</button>
+<h3>The frame of the siman — milk, cheese, butter
+  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 Copy</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-2">
-יסוד הסימן: שלושה מיני מאכל היוצאים מן הבהמה ונעשים ביד העכו״ם, וכל אחד גזרתו וטעמו בפני עצמו. <strong>חלב</strong> (סעיף א') — נאסר <span class="he-q">שמא עירב בו חלב טמא</span>, ויש לו היתר על ידי ראייה או מרתת. <strong>גבינה</strong> (סעיף ב') — נאסרה בגזרה קדומה ב<span class="he-q">מנין</span>, ואין לה הביטול הרגיל. <strong>חמאה</strong> (סעיף ג') — קלה שבשלושתם, ותלויה במנהג המקום ובבישול. שלושת המינים נדונים בעבודה זרה ל״ה:–ל״ו:, וכל הסוגיא הענפה של <span class="he-q">חלב ישראל</span> וחלב סתם נולדת מתוך החקירה ביסוד איסור החלב.
+<div class="sacred-text" data-copy-block id="cp-2">
+The siman gathers three foods that all come out of the same animal and all pass through the hand of a non-Jew; yet each carries its own decree and its own reason. <strong>Milk</strong> (seif 1) is forbidden out of a fear — <span class="he-q">שמא עירב בו חלב טמא</span>, lest he mixed into it the milk of a non-kosher animal — and it is permitted by sight, or by what stands in the place of sight, the <span class="he-q">מרתת</span>. <strong>Cheese</strong> (seif 2) was forbidden by an ancient decree taken <span class="he-q">במנין</span>, and it does not have the ordinary nullification. <strong>Butter</strong> (seif 3) is the lightest of the three: it depends on the custom of the place and on boiling. The root of all three is in tractate Avodah Zarah, and the whole modern discussion of <span class="he-q">חלב ישראל</span> and חלב סתם is born out of the chakira into the basis of the milk prohibition.
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שלוש דרגות חומרא :</strong> שׂים לב לסולם — ה<strong>גבינה</strong> חמורה מן ה<strong>חלב</strong> (גזרה במנין, אין לה ביטול בס׳ ואוסרת אף בעשבים), וה<strong>חמאה</strong> קלה מן ה<strong>חלב</strong> (אינה אוסרת כלים ולא תערובתה). נמצא שלמרות ששלושתם יוצאים מאותו חלב, אין דינם שווה כלל — וההבדל אינו במהות החומר אלא ב<em>גדר הגזרה</em> שגזרו חכמים על כל אחד.
+<div class="pilpul-box">
+<strong>Three degrees of stringency:</strong> notice the ladder — <strong>cheese</strong> is heavier than <strong>milk</strong> (a decree taken במנין, no nullification in sixty, forbidden even when set with herbs), and <strong>butter</strong> is lighter than <strong>milk</strong> (it does not forbid the vessels, nor its admixture). So although all three come from the same milk, their din is not the same — and the difference does not lie in the substance but in the <em>geder of the decree</em> the Sages placed on each one.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">2. חקירת היסוד — מדוע נאסר החלב ?</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">2. The underlying chakira — why was the milk forbidden?</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זוהי החקירה המכרעת שכל הדיון המודרני בחלב סתם תלוי בה.</p>
+<p style="margin:15px 0; font-style:italic;">This is the decisive chakira: the entire contemporary discussion of חלב סתם hangs upon it.</p>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — טעם איסור החלב :</strong> לשון המחבר "אסור <span class="he-q">שמא עירב בו חלב טמא</span>" — האם זהו (א) <strong>ספק בעלמא</strong>, חשש שמא נתערב חלב בהמה טמאה (כגמל ונאקה) ? או (ב) <strong>גזרה קבועה</strong> שגזרו חכמים ב<span class="he-q">מנין</span>, ככל דבר שנמנה, ואינה תלויה כלל בקיום החשש ?
+<div class="hakira-box">
+<strong>The chakira — the reason for the milk prohibition:</strong> the Mechaber writes that it is forbidden <span class="he-q">שמא עירב בו חלב טמא</span>. Is this (a) a <strong>plain doubt</strong> — an actual fear that the milk of a non-kosher animal (a camel, a she-camel) was mixed in? Or (b) a <strong>fixed decree</strong> taken by the Sages <span class="he-q">במנין</span>, like everything counted by vote, which no longer depends at all on whether the fear still exists?
 </div>
+<blockquote>«&nbsp;<span class="he-q">שמא עירב בו חלב טמא</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קט״ו:א)</span></blockquote>
 
-<div class="machloket-box" dir="rtl">
-<strong>שתי לשונות ביסוד האיסור :</strong>
+<div class="machloket-box">
+<strong>Two ways of understanding the basis of the prohibition:</strong>
 <table>
-<tr><th>שיטה</th><th>גדר האיסור</th><th>מקור</th></tr>
+<tr><th>Shita</th><th>Geder of the prohibition</th><th>Source</th></tr>
 <tr>
-  <td><strong>הרדב״ז והפרי חדש</strong></td>
-  <td><span class="he-q">ספק עירוב חלב טמא</span> בלבד — ובמקום שאין כלל חלב טמא מצוי, פקע החשש ואין לאסור</td>
-  <td>רדב״ז; פר״ח; ועיין סוף הגהת הרמ״א "בזמן הזה … מותר"</td>
+  <td><strong>The Radbaz and the Pri Chadash</strong></td>
+  <td>a doubt of admixture and nothing more — where there is no non-kosher milk to fear, the fear lapses and there is no reason to forbid</td>
+  <td>reported (in order to be rejected) in פתחי תשובה ס״ק ג; and see the end of the Rama’s gloss, “nowadays … it is permitted”</td>
 </tr>
 <tr>
-  <td><strong>החתם סופר</strong></td>
-  <td><span class="he-q">דבר שנמנה במנין כיין נסך</span> — האיסור קבוע ועומד אף בלא חשש, כל זמן שאין ישראל רואה</td>
-  <td>חתם סופר יו״ד ק״ז (פ״ת ס״ק ג)</td>
+  <td><strong>The Chasam Sofer</strong></td>
+  <td>the milk was forbidden <span class="he-q">במנין</span> like יין נסך — the prohibition stands even without the fear, so long as no Jew sees</td>
+  <td>חתם סופר יו״ד סימן ק״ז, brought in פתחי תשובה ס״ק ג</td>
 </tr>
 </table>
 </div>
+<blockquote>«&nbsp;<span class="he-q">שהאריך להביא ראיות דחלב נאסר במנין כיין נסך</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד קט״ו ס״ק ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ומש״ה גם במקומות דאין שום חשש חלב טמא כל שאין ישראל רואהו אסור ודלא כהרדב״ז ופר״ח</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד קט״ו ס״ק ג)</span></blockquote>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — "דבר שנמנה במנין" :</strong><br>
-כלל גדול הוא: כל דבר שאסרוהו חכמים <span class="he-q">במנין</span> (בכינוס ובהצבעה), אין מתירין אותו אלא במנין אחר ובית דין גדול ממנו — אף אם בטל הטעם שבגללו נאסר. לפי החתם סופר, חלב עכו״ם כיין נסך: גם אם אין שום חלב טמא בעולם, האיסור עומד בעינו עד שיראהו ישראל. ולפי הרדב״ז והפר״ח — אין זו גזרה קבועה אלא חשש מציאותי, וכשפקע החשש פקע האיסור.
+<div class="yesod-box">
+<strong>The yesod — “a thing forbidden במנין”:</strong><br>
+This is a general rule: something the Sages forbade <span class="he-q">במנין</span> — in assembly and by count of votes — can be released only by another count, before a greater beis din, even if the reason for which it was forbidden has disappeared. The mishna states it in so many words, and the gemara returns to it inside our own sugya.
 </div>
+<blockquote>«&nbsp;<span class="he-q">אֵין בֵּית דִּין יָכוֹל לְבַטֵּל דִּבְרֵי בֵּית דִּין חֲבֵירוֹ, אֶלָּא אִם כֵּן גָּדוֹל הֵימֶנּוּ בְּחָכְמָה וּבְמִנְיָן</span>&nbsp;» <span class="source-ref">(עבודה זרה ל״ו ע״א)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שורש הענין למעשה :</strong> כל מחלוקת <span class="he-q">חלב ישראל</span> וחלב סתם תלויה בחקירה זו. אם כפר״ח — הרי במקום פיקוח ממשלתי שאי אפשר לערב בו חלב טמא (קנס וכדומה), כבר אין חשש ומותר. אבל אם כחתם סופר — צריך ראיית ישראל ממש או "כאילו ישראל רואה", שאם לא כן עומד האיסור במקומו. ולפיכך נחלקו האחרונים: יש שצירפו את פיקוח המדינה כ<span class="he-q">מרתת</span> מודרני (היצרן ירא מן הקנס כשם שהעכו״ם ירא שמא יעמוד ויראהו), ויש שהצריכו חלב ישראל בפועל. <em>ולמעשה — שאל את רבך.</em>
+<div class="pilpul-box">
+<strong>The root of the matter for practice:</strong> the entire discussion of <span class="he-q">חלב ישראל</span> and חלב סתם hangs on this chakira. If one holds like the Pri Chadash, then where public supervision makes an admixture of non-kosher milk impossible in fact, the fear is gone and there is no reason to forbid. If one holds like the Chasam Sofer, the sight of a Jew — or something that counts as that sight — is required, and failing that the prohibition remains in place. From here the poskim of our time set out: some treat state supervision as the equivalent of sight, others require חלב ישראל in fact; the discussion is gathered, among other places, in אגרות משה יו״ד ח״א סימנים מ״ז–מ״ט. The Pischei Teshuva notes, moreover, that another question in the siman — is a child who watched the milking believed? — likewise depends on this very chakira. <em>And for practice — ask your Rav.</em>
 </div>
+<blockquote>«&nbsp;<span class="he-q">ולענ״ד דזה תליא באם חלב נאסר במנין</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד קט״ו ס״ק ב)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">3. מרתת — שמא יעמוד ויראהו</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">3. מרתת — “lest he stand up and see him”</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">היסוד — מנגנון ההיתר
-  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 העתק</button>
+<h3>The mechanism of the heter
+  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 Copy</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-3">
-המחבר בונה שלוש מדרגות של היתר: (א) <strong>ישראל יושב מבחוץ ואין דבר טמא בעדר</strong> — מותר אף אם אינו רואה כלל בשעת החליבה, שאין מה לחוש. (ב) <strong>יש דבר טמא בעדר והעכו״ם חולב לצורך ישראל</strong> — מותר רק אם <span class="he-q">יכול לראותו כשהוא עומד</span>, שאז העכו״ם <span class="he-q">מרתת — שמא יעמוד ויראהו</span>. (ג) ובלבד <strong>שיודע העכו״ם שחלב טמא אסור לישראל</strong>, שאם אינו יודע — אינו ירא ואין כאן מרתת.
+<div class="sacred-text" data-copy-block id="cp-3">
+The Mechaber builds three degrees of heter. (a) <strong>The Jew sits outside and there is no non-kosher animal in the herd</strong> — permitted even if he sees nothing at all during the milking, since there is nothing to fear. (b) <strong>There is a non-kosher animal in the herd and the non-Jew is milking for the Jew’s need</strong> — permitted only if he could see him were he to stand up; the non-Jew is then <span class="he-q">מרתת</span>, afraid that he will stand and see him. (c) And all of this <strong>on condition that the non-Jew knows that non-kosher milk is forbidden to a Jew</strong>: if he does not know, he fears nothing, and there is no מרתת at all.
 </div>
+<blockquote>«&nbsp;<span class="he-q">אם יכול לראותו כשהוא עומד מותר שירא שמא יעמוד ויראהו</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קט״ו:א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">והוא שיודע שחלב טמא אסור לישראל</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קט״ו:א)</span></blockquote>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — "מרתת" כראייה בכוח :</strong><br>
-אין צורך בראייה בפועל ; די ב<span class="he-q">אפשרות הראייה</span> המטילה אימה. כל זמן שהעכו״ם יודע שישראל עלול לקום ולהציץ — ירא לערב ונמנע. וזהו הדגם הנמשך אל כל הסימן: השפחה החולבת בבית ישראל, הקטן העומד על גביו, ובזמננו אף המשגיח והפיקוח — כולם פועלים מכוח <span class="he-q">מרתת</span>, לא מכוח ראייה רצופה.
+<div class="yesod-box">
+<strong>The yesod — מרתת is sight in potential:</strong><br>
+Actual sight is not required; the <em>possibility</em> of sight is enough, because it instils fear. So long as the non-Jew knows that a Jew may rise and look, he is afraid to mix and refrains. This is the pattern that runs through the whole siman: the maidservant milking in the Jew’s house, the child standing by — all of them work by force of מרתת, not by continuous watching. The beraisa the gemara brings is the source of the Mechaber’s case.
 </div>
+<blockquote>«&nbsp;<span class="he-q">יוֹשֵׁב יִשְׂרָאֵל בְּצַד עֶדְרוֹ שֶׁל גּוֹי, וְגוֹי חוֹלֵב וּמֵבִיא לוֹ, וְאֵינוֹ חוֹשֵׁש</span>&nbsp;» <span class="source-ref">(עבודה זרה ל״ט ע״ב)</span></blockquote>
 
-<div class="machloket-box" dir="rtl">
-<strong>חילוקי הט״ז ביסוד ההיתר :</strong>
+<div class="machloket-box">
+<strong>The Taz’s distinctions in the basis of the heter:</strong>
 <table>
-<tr><th>ס״ק</th><th>חידוש הט״ז</th><th>הערה</th></tr>
+<tr><th>ס״ק</th><th>What the Taz establishes</th><th>Reference</th></tr>
 <tr>
   <td><strong>ס״ק א</strong></td>
-  <td>בין שחלבו העכו״ם <span class="he-q">לצרכו</span> ובין <span class="he-q">לצורך ישראל</span> — <strong>שניהם אסורים</strong> בלא ראייה, ואין לחלק</td>
-  <td>ט״ז ס״ק א</td>
+  <td>whether he milked <span class="he-q">לצרכו</span> or <span class="he-q">לצורך ישראל</span>, <strong>both are forbidden</strong> without sight; one might have thought that milking for himself he would not spoil his own milk, and even so it is forbidden</td>
+  <td>ט״ז ס״ק א; and likewise ש״ך ס״ק א in the name of the Tur</td>
 </tr>
 <tr>
   <td><strong>ס״ק ב</strong></td>
-  <td>אין די בישיבה סתם — צריך <span class="he-q">שישב בצד עדרו</span>, כלשון הברייתא, באופן שיוכל לראות בעמידה</td>
-  <td>ט״ז ס״ק ב (הברייתא)</td>
+  <td>sitting anywhere is not enough — in the words of the beraisa he must sit <em>outside, beside the herd</em>, such that he could see if he stood</td>
+  <td>ט״ז ס״ק ב</td>
 </tr>
 <tr>
   <td><strong>ס״ק ג</strong></td>
-  <td><span class="he-q">יוצא ונכנס</span> סגי — אין צריך עמידה רצופה, כדין שחיטת כותי (חולין ג׳:)</td>
-  <td>ט״ז ס״ק ג</td>
+  <td>going in and out suffices — continuous presence is not required, just as with the shechita of a Kuti</td>
+  <td>ט״ז ס״ק ג; ש״ך ס״ק ד</td>
 </tr>
 </table>
 </div>
+<blockquote>«&nbsp;<span class="he-q">לא שנא חלבו לצרכו או לצורך ישראל</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קט״ו ס״ק א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">לא שנא חלבו לצרכו או לצורך ישראל טור והסכמת הפוסקים ופשוט הוא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קט״ו ס״ק א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל עכ״פ בעינן שישב מבחוץ בצד עדרו</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קט״ו ס״ק ב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">נראה דכ״ש דמהני כשהוא יוצא ונכנס דהא אפילו גבי שחיטת כותי מהני כשישראל יוצא ונכנס</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קט״ו ס״ק ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ולפ״ז נראה דאפילו יוצא ונכנס מותר כיון דטעמא הוא משום דמירתת</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קט״ו ס״ק ד)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>הדמיון לשחיטת כותי (חולין ג׳:) :</strong> מביא הט״ז (ס״ק ג) דדין החלב כדין השחיטה — התם נמי <span class="he-q">ישראל יוצא ונכנס</span> מכשיר את שחיטת הכותי, שהמרתת אינו צריך עמידה תמידית אלא חשש פתע. ומכאן יסוד גדול: <strong>מרתת מועיל אף בהיסח חלקי</strong>, ובלבד שתהא אפשרות הפתעה קיימת. ולעומת זה מדקדק הט״ז (ס״ק ב) דבעינן עכ״פ <span class="he-q">שישב בצד עדרו</span>, שאם הוא רחוק לגמרי ואין בידו לקום ולראות — בטל המרתת לגמרי.
+<div class="pilpul-box">
+<strong>The analogy of the Kuti’s shechita:</strong> the Taz (ס״ק ג) holds the din of milk to be the din of shechita — there too a Jew who <em>goes in and out</em> renders the Kuti’s shechita fit, for מרתת does not demand a continuous stand but the fear of a sudden appearance. From here a great yesod: <strong>מרתת works even when attention is intermittent</strong>, provided that surprise remains possible. Against that, the Taz (ס״ק ב) requires at the very least that he sit outside beside the herd: if he is altogether far off and unable to rise and see, מרתת is abolished.
 </div>
+<blockquote>«&nbsp;<span class="he-q">הַכֹּל שׁוֹחֲטִין, וַאֲפִילּוּ כּוּתִי. בַּמֶּה דְּבָרִים אֲמוּרִים? כְּשֶׁיִּשְׂרָאֵל יוֹצֵא וְנִכְנָס</span>&nbsp;» <span class="source-ref">(חולין ג׳ ע״א)</span></blockquote>
+
+<div class="rishon-card">
+<strong>A limit the Shach sets (ס״ק ג):</strong> in his view this whole mechanism of מרתת applies only when the non-Jew is milking <em>for the Jew’s need</em>. When he milks <em>for himself</em>, and there is a non-kosher animal in his herd, the Shach requires actual sight, at the very time of the milking.
+</div>
+<blockquote>«&nbsp;<span class="he-q">אבל לצורך עצמו צריך לראות ממש בשעה שהוא חולב שלא יערב בו דבר טמא כיון שיש דבר טמא עמו בעדרו</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קט״ו ס״ק ג)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">4. הכרעת הרמ״א — שפחות, קטן, ובזמן הזה</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">4. The Rama’s ruling — maidservants, a child, and “nowadays”</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ Detailed explanation (level 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">בהגהת הרמ״א שבסעיף א' מונחים זרעי כל הדיון בחלב סתם.</p>
+<p style="margin:15px 0; font-style:italic;">In the Rama’s gloss to seif 1 lie the seeds of the whole discussion of חלב סתם.</p>
 
-<h3 class="he-h3">לשון הרמ״א (הגה — סעיף א')
-  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 העתק</button>
+<h3>The text of the Rama (gloss to seif 1)
+  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-4">
-"ולכתחילה צריך להיות הישראל בתחילת החליבה ויראה בכלי שלא יהיה בו דבר טמא … מיהו <strong>בדיעבד אין לחוש לכל זה</strong>. ושפחות החולבות בבית ישראל או בדיר שלהם, כל מקום שאין בית עכו״ם מפסיק — <strong>מותר אפילו לכתחילה</strong> אף שאין שם ישראל כלל … ואפילו ישראל <strong>קטן או קטנה</strong> מועילים, דהעכו״ם מרתת לפניהם … ועכשיו <span class="he-q">בזמן הזה שאין חלב דבר טמא מצוי כלל — מותר</span>."
+  <p>הגה ולכתחלה צריך להיות הישראל בתחילת החליבה ויראה בכלי שלא יהיה בכלי שחולבין בו דבר טמא (א״ו הארוך כלל מ״ה ונהגו להחמיר שלא יחלוב בכלי שדרכו של עובד כוכבים לחלוב בו שמא נשארו בו צחצוחי חלב של עובד כוכבים (שם) מיהו בדיעבד אין לחוש לכל זה (ש״ד ועס״ק ח׳) ושפחות שחולבות הבהמות בבית ישראל או בדיר שלהם כל מקום שאין בית עובד כוכבים מפסיק ואין לחוש לדבר טמא מותר אפילו לכתחילה להניח אותן לחלוב אע״פ שאין שם ישראל כלל דמאחר שהוא בבית ישראל או בשכונתו אין לחוש לדבר טמא (ש״ד סימן פ״ב בשם ר״ת ומהרא״י שם) אבל אם בית עובד כוכבים מפסיק צריך להיות ישראל שם כאילו חולבות בבית עובד כוכבים (או״ה שם) ואפי׳ ישראל קטן או קטנה מועילים דהעובד כוכבים מרתת לפניהם (ג״ז שם) ואם חלבו עובד כוכבים מקצת בהמות ולא היה שם ישראל ואח״כ בא ישראל אל האחרים עכשיו בזמן הזה שאין חלב דבר טמא מצוי כלל מותר (הגהות ש״ד) מיהו אם לא בא שם הישראל עד לאחר שנחלבו כולם הוי כחלב שחלבו עובד כוכבים דאסור׳ אע״פ שאין דבר טמא בעדרו (ב״י בשם הר״ף ובשם סמ״ק)</p>
+  <span class="source-ref">(רמ״א יו״ד קט״ו:א)</span>
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>שלושה חידושים בהגהה :</strong>
+<div class="machloket-box">
+<strong>What the gloss adds:</strong>
 <table>
-<tr><th>הדין</th><th>הטעם</th><th>מקור / ס״ק</th></tr>
+<tr><th>The din</th><th>The reason</th><th>Source / ס״ק</th></tr>
 <tr>
-  <td><strong>שפחות בבית ישראל</strong> — מותר לכתחילה בלא ישראל</td>
-  <td>כל שהוא בבית ישראל או בשכונתו אין לחוש לדבר טמא</td>
-  <td>רמ״א בשם ר״ת ומהרא״י; ט״ז ס״ק ו</td>
+  <td><strong>Maidservants milking in a Jew’s house</strong> — permitted לכתחילה with no Jew present</td>
+  <td>since it is in the Jew’s house or in his neighbourhood, there is no reason to fear a non-kosher animal; but if a non-Jew’s house intervenes, a Jew must be there</td>
+  <td>Rama, in the name of the שערי דורא, Rabbenu Tam and the Mahara’i</td>
 </tr>
 <tr>
-  <td><strong>קטן או קטנה</strong> מועילים</td>
-  <td>העכו״ם מרתת אף לפני קטן (בן ט׳)</td>
-  <td>רמ״א; ט״ז ס״ק ה (בן ט׳)</td>
+  <td><strong>A child, boy or girl</strong>, suffices</td>
+  <td>the non-Jew is מרתת even before a child</td>
+  <td>Rama; ט״ז ס״ק ה, who specifies the age of nine in the name of the או״ה</td>
 </tr>
 <tr>
-  <td><strong>בזמן הזה</strong> — מותר</td>
-  <td>אין חלב טמא מצוי כלל, ופקע החשש</td>
-  <td>הגהות שערי דורא</td>
+  <td><strong>“Nowadays”</strong> — permitted</td>
+  <td>non-kosher milk is not found at all, and the fear has lapsed</td>
+  <td>Rama, in the name of the הגהות שערי דורא</td>
 </tr>
 </table>
 </div>
+<blockquote>«&nbsp;<span class="he-q">בד״מ כתב בשם או״ה דהיינו בן ט׳ שנים</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קט״ו ס״ק ה)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">עכשיו בזמן הזה שאין חלב דבר טמא מצוי כלל מותר</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד קט״ו:א)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>דקדוק הט״ז (ס״ק ו) :</strong> מחלק הט״ז בין החולב את בהמות <strong>ישראל</strong> אחורי ביתו — שמותר, כי אין שם דבר טמא — לבין החולב בהמה <strong>של העכו״ם</strong> עצמו, שאינו מותר אלא אם ישראל רואה ממש (מהרא״י). וביסוד: כל שהמקום בחזקת היתר (בית ישראל), המרתת מועיל מאליו; אבל בית העכו״ם הוא בחזקת חשש, ושם בעינן ראייה ממש.
+<div class="rishon-card">
+<strong>The Taz’s distinction (ס״ק ו):</strong> the Taz reads the Rama’s clause about a partial milking as speaking of milking <strong>the Jew’s own animals</strong>, in the enclosure behind his house; there it is permitted, because nothing non-kosher is present. But as for milk the non-Jew draws from <strong>his own animal</strong>, the Taz brings in the name of the Mahara’i that we permit nothing at all unless a Jew sees him. At bottom: where the place itself carries a presumption of permission (a Jew’s house), מרתת works on its own; a non-Jew’s house carries a presumption of concern, and there sight is required.
 </div>
+<blockquote>«&nbsp;<span class="he-q">אמנם חלב שחלבו עובד כוכבים מבהמה שלו לא שרינן כלל אלא א״כ ישראל רואהו</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קט״ו ס״ק ו)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>זרע מחלוקת חלב סתם :</strong> סיום הרמ״א "בזמן הזה … מותר" הוא לכאורה תנא דמסייע לרדב״ז ולפר״ח — שהאיסור תלוי בחשש, וכשפקע החשש פקע האיסור. אך החתם סופר (פ״ת ס״ק ג) דחה: גם אם פקע החשש המקומי, האיסור <span class="he-q">נמנה במנין</span> ועומד עד שיראהו ישראל. ומכאן הסתעפו פוסקי זמננו — מהם שצירפו את הפיקוח הממשלתי כ"כאילו ישראל רואה" (דהמיוצר ירא מן המדינה כמרתת), ומהם שהחמירו לחלב ישראל בפועל. <em>ולמעשה — שאל את רבך.</em>
+<div class="pilpul-box">
+<strong>The seed of the חלב סתם discussion:</strong> the end of the gloss — “nowadays … it is permitted” — appears at first sight to support the Radbaz and the Pri Chadash: the prohibition rests on the fear, and once the fear is gone the prohibition is gone. The Chasam Sofer rejected this: even if the local fear has vanished, the prohibition was taken במנין and stands until a Jew sees. It must be added that the Rama’s “בדיעבד אין לחוש” was not received without reservation: the Taz concludes for halakha that one should be stringent even בדיעבד so long as the Jew did not see the beginning of the milking, and the Shach, after a long examination of the או״ה, comes to say that even בדיעבד we require that the Jew first looked into the vessel. <em>And for practice — ask your Rav.</em>
 </div>
+<blockquote>«&nbsp;<span class="he-q">ולענין הלכה נראה דיש להחמיר ולאסור אפילו דיעבד כל שאין רואה הישראל תחילת החליבה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קט״ו ס״ק ד)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אלמא דאפילו דיעבד בעינן שראה ישראל מתחלה בכלי</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קט״ו ס״ק ח)</span></blockquote>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">5. איסור הכלים, התערובת, וההפיכה לגבינה</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">5. Vessels, admixture, and turning the milk into cheese</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סוף סעיף א')
-  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 העתק</button>
+<h3>The text of the Rama (end of seif 1)
+  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-5">
-"חלב של עכו״ם שנאסרה — <strong>אוסרת כלים</strong> שנתבשלה בהם כשאר איסור, אף על פי שאינו רק ספק שמא עירב בה דבר טמא, <strong>וכן גבינותיהם</strong>. אבל <strong>לא חמאה שלהם</strong> — אפילו במקום שנהגו בה איסור אינה אוסרת הכלים שנתבשלה בה, ולא תערובת שלה, שאם נתערבה בהיתר הכל שרי (כדלעיל גבי פת של עכו״ם, ועיין לעיל סימן קי״ב). חלב של עכו״ם שנאסרה — אינו מועיל אם יעשו אחר כך גבינות או חמאה ממנה, אלא <strong>נשארת באיסורה</strong>, וכל מה שנעשה ממנה אסור."
+  <p>חלב של עובד כוכבים אוסרת כלים שנתבשלה בהם כשאר איסור אע״פ שאינו רק ספק שמא עירב בה דבר טמא וכן גבינותיהם (תשובת הרשב״א סי׳ קמ״ג ובארוך) אבל לא חמאה שלהם אפילו במקום שנהגו בה איסור אינה אוסרת הכלים שנתבשלה בה ולא תערובות שלה שאם נתערבה בהיתר הכל שרי (בארוך) כדלעיל גבי פת של עובד כוכבים ועיין לעיל סי׳ קי״ב (תשובו׳ מהרי״ל ל״ח ואו״ה שם) חלב של עובד כוכבי׳ שנאסרה אינו מועיל אם יעשו אח״כ גבינות או חמאה ממנה אלא נשארת באיסורה וכל מה שנעשה ממנה אסור (מרדכי פא״מ ואגודה שם ותשובת מהר״מ סי׳ רי״ו ואו״ה ורשב״א וב״י ונ״ל שכ״ד הרמב״ם ודלא כהר׳ המגיד):</p>
+  <span class="source-ref">(רמ״א יו״ד קט״ו:א)</span>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — ספק האוסר כודאי :</strong><br>
-חידוש גדול: אף שאיסור החלב אינו אלא <span class="he-q">ספק</span> שמא עירב — בכל זאת אוסר את הכלים <strong>ככל איסור ודאי</strong>. שמשנאסר, דנים בו כאיסור גמור לכל חומרותיו. ולעומתו ה<strong>חמאה</strong> — אף במקום שנהגו בה איסור — אינה אוסרת כלים ולא תערובתה, כדין <span class="he-q">פת של עכו״ם</span> (סימן קי״ב) שבטֵל ברוב; שכל איסורם מנהג קל הוא.
+<div class="yesod-box">
+<strong>The yesod — a doubt that forbids like a certainty:</strong><br>
+A considerable chiddush: although the prohibition of the milk is only a <span class="he-q">ספק</span> — perhaps he mixed — it nevertheless renders the vessels forbidden <strong>like any established prohibition</strong>; once forbidden, it is treated as a full prohibition with all its stringencies. Opposite it stands <strong>butter</strong> — even in a place where the custom is to refrain — which renders neither the vessels in which it was cooked nor its admixture forbidden: if it became mixed into permitted food, the whole is permitted, as with the bread of a non-Jew, and the Rama refers for this to siman 112.
 </div>
+<blockquote>«&nbsp;<span class="he-q">חלב של עובד כוכבים אוסרת כלים שנתבשלה בהם כשאר איסור</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד קט״ו:א)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>"נשארת באיסורה" — אין היתר בהפיכת צורה :</strong> מי שנאסר חלבו ועשה ממנו אחר כך גבינה או חמאה — <strong>לא הועיל כלום</strong>, והכל אסור. ומכאן ש<em>שינוי הצורה אינו מתיר את הבלוע</em>: האיסור דבק בחומר ולא בצורתו. (וזה הפך הטעם שיתבאר בסעיף ב' להיתר גבינה שראה עשייתה — דהתם ההיתר מצד שאי אפשר שנתערב חלב טמא, ולא מצד שינוי הצורה.)
+<div class="pilpul-box">
+<strong>“It remains in its prohibition” — a change of form does not release:</strong> one whose milk became forbidden and who then made cheese or butter from it <strong>has gained nothing</strong>: it is all forbidden. From here we learn that <em>a change of form does not permit what is absorbed</em> — the prohibition adheres to the substance, not to its shape. And this does not contradict the heter of seif 2 for one who watched the cheese being made: there the heter comes from its being established that no non-kosher milk was mixed in, and not from a change of form.
 </div>
+<blockquote>«&nbsp;<span class="he-q">אלא נשארת באיסורה וכל מה שנעשה ממנה אסור</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד קט״ו:א)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">6. גבינת עכו״ם — לא פלוג</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">6. The cheese of a non-Jew — לא פלוג</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיף ב')
-  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 העתק</button>
+<h3>The text of the Mechaber and the Rama (seif 2)
+  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-6">
-"<strong>גבינות העכו״ם אסרום</strong> מפני שמעמידים אותם בעור קיבת שחיטתם שהיא נבלה, <strong>ואפילו העמידוה בעשבים אסורה</strong>. (הגה: וכן המנהג, ואין לפרוץ גדר, אם לא במקום שנהגו בהם היתר מקדמונים. ואם הישראל רואה עשיית הגבינות והחליבה — מותר … ואם ראה עשיית הגבינות ולא ראה החליבה — יש להתיר <strong>בדיעבד</strong>, כי אין לחוש שמא עירב בו דבר טמא מאחר שעשה גבינות מן החלב, כי דבר טמא אינו עומד … ומכל מקום אסור לאכול החלב כך.)"
+  <p>גבינות העובדי כוכבים אסרום מפני שמעמידים אותם בעור קיבת שחיטתם שהיא נבלה ואפילו העמידוה בעשבים אסורה:</p>
+  <p>הגה וכן המנהג ואין לפרוץ גדר (ב״י) אם לא במקום שנהגו בהם היתר מקדמונים ואם הישראל רואה עשיית הגבינות והחליבה מותר (אגור פ׳ שואל) וכן המנהג פשוט בכל מדינות אלו ואם ראה עשיית הגבינות ולא ראה החליבה יש להתיר בדיעבד כי אין לחוש שמא עירב בו דבר טמא מאחר שעשה גבינות מן החלב כי דבר טמא אינו עומד ובודאי לא עירב בו העובד כוכבים מאחר שדעתו לעשות גבינות (הגהות אשיר״י פא״מ ובארוך) . ומכל מקום אסור לאכול החלב כך (שם):</p>
+  <span class="source-ref">(שו״ע יו״ד קט״ו:ב)</span>
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>חקירה — טעם גזרת הגבינה :</strong> נחלקו במשנה (ע״ז ל״ה.) בטעם הגזרה — יש אומרים משום <span class="he-q">עור קיבת שחיטתם</span> (מעמידים בקיבת נבלה), ויש אומרים טעמים אחרים. ולכאורה אם הכל משום הקיבה, מדוע <strong>"אפילו העמידוה בעשבים אסורה"</strong>, והרי כאן אין נבלה כלל ?
+<div class="hakira-box">
+<strong>Chakira — the reason for the decree on cheese:</strong> the amoraim differed in the gemara over the reason for the prohibition — Rabbi Chanina says that cheese cannot be made without a residue of milk, and Shmuel says it is because they set it with the skin of the stomach of an animal they slaughtered, which is a נבלה. And if everything turns on the rennet, why is it that <strong>“even if he set it with herbs, it is forbidden”</strong>, where there is no נבלה at all?
 </div>
+<blockquote>«&nbsp;<span class="he-q">אָמַר רַבִּי חֲנִינָא: לְפִי שֶׁאִי אֶפְשָׁר לָהּ בְּלֹא צִחְצוּחֵי חָלָב, וּשְׁמוּאֵל אָמַר: מִפְּנֵי שֶׁמַּעֲמִידִין אוֹתָהּ בְּעוֹר קֵיבַת נְבֵילָה</span>&nbsp;» <span class="source-ref">(עבודה זרה ל״ה ע״א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ואפילו העמידוה בעשבים אסורה</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קט״ו:ב)</span></blockquote>
 
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ — לא פלוג (ט״ז ס״ק י) :</strong> מבאר הט״ז דכיון שגזרו על גבינת עכו״ם <strong>בכלל</strong>, גזרו על כל גבינה שלהם — <span class="he-q">לא פלוג רבנן</span>, ולא חילקו בין מעמיד למעמיד. ולפיכך אף שהעמידוה בעשבים (שאין בהם חשש נבלה כלל) — אסורה, שהגזרה כוללת. וזהו ההפך מן ה<span class="he-q">גילוי</span> (סימן קי״ו), שהיה משום סכנת נחשים ונשתנו הטבעים והותר; אבל גבינה — גזרה שאינה תלויה בטעם, ולא פלוג, ולא ניתרה.
+<div class="teruts-box">
+<strong>The Taz’s answer (ס״ק י) — לא פלוג:</strong> the Taz explains that the cheese of a non-Jew is named in the mishna explicitly as forbidden; the Sages therefore did not distinguish according to what sets it — <span class="he-q">לא פלוג רבנן</span> — all the more so since there are still those today who set it with the skin of a נבלה. This is the opposite of גילוי (siman 116), which rested on the danger of snakes: since reality changed, it is permitted today. Cheese, by contrast, belongs to a decree that does not follow its reason, and it was never released.
 </div>
+<blockquote>«&nbsp;<span class="he-q">דגבינות נזכר במשנה בהדיא לאיסור ולא פלוג רבנן כיון דאיכא שמעמידין אותה גם עכשיו בעור נבילה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קט״ו ס״ק י)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">משא״כ במידי דגזרו בה משום גילוי בסימן קי״ו דמותר האידנא דאין שייך גילוי כלל שאין מצוי בינינו נחשים</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קט״ו ס״ק י)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>גבינה לעומת גילוי (ניגוד הט״ז ס״ק י) :</strong> חידוד חשוב — <strong>גילוי</strong> נאסר משום <em>סכנה</em>; וכיון שבטל החשש (אין נחשים מצויים) — הותר אף לכתחילה. אבל <strong>גבינה</strong> נאסרה ב<em>גזרה</em> כוללת, ואף שטעם הקיבה אינו שייך בעשבים — לא פלוג, ועומדת באיסורה. נמצא ההבדל לא בטעם אלא ב<span class="he-q">גדר</span>: סכנה תלויה במציאות, גזרה אינה תלויה במציאות. ומכאן שאף כיום, גבינה טעונה תמיד הכשר — אף בהעמדה מיקרוביאלית או צמחית — מטעם לא פלוג.
-</div>
-
-<!-- ============================================================= -->
-<h2 class="section-title">7. למה אין הגבינה בטלה בששים</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
-
-<div class="kashya-box" dir="rtl">
-<strong>קושיא — הקיבה היא מיעוט מבוטל :</strong> אם הגבינה נאסרה משום מעט עור קיבת נבלה שמעמידים בו — והלא הקיבה בטֵלה בששים בגבינה ! מדוע אפוא אוסרת, ואינה <span class="he-q">בטֵלה ברוב היתר</span> ככל איסור הבלוע ?
-</div>
-
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ הט״ז (ס״ק ט) בשם ר״י אבן מיגאש :</strong> כלל הוא — דבר האסור <strong>מחמת נתינת טעם</strong> בטֵל בששים, שהרי בששים אין טעמו ניכר. אבל גבינה זו <strong>אינה אסורה מחמת טעם הקיבה</strong> כלל — שאין בה טעם נבלה — אלא <span class="he-q">מצד אחר</span>: שהקיבה היא ה<em>מעמיד</em>, ו<strong>דבר המעמיד אינו בטל</strong> אף באלף, שכל הגבינה קיימת ועומדת מכוחו. ועוד מבאר הט״ז: אין כאן בשר בחלב דאורייתא — שהקיבה <strong>צוננת</strong> כשמעמידים בה, ובב״ח אינו אוסר בצונן ; אלא כל האיסור מדרבנן ומצד דבר המעמיד.
-</div>
-
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — מעמיד מול נותן טעם :</strong><br>
-שני אופנים שונים לחלוטין שבהם איסור פועל בתערובת:<br><br>
-• <span class="he-q">נותן טעם</span> — האיסור פועל ב<em>טעמו</em> ; וכיון שבטל הטעם בששים, בטל גם האיסור.<br>
-• <span class="he-q">מעמיד</span> — האיסור פועל ב<em>כוחו המעמיד</em>, לא בטעמו ; ומאחר שכל הגבינה קיימת מכוחו, <strong>אין לו ביטול כלל</strong> — אף באלף.<br><br>
-ולפיכך אין הגבינה דומה לשאר תערובות הנדונות בדיני ביטול (ועיין סימן קל״ד) — שאלו בטֵלים בס׳ מחמת טעם, וזו אינה בטֵלה כלל מחמת העמדה.
+<div class="pilpul-box">
+<strong>Cheese against גילוי:</strong> here is the sharp point — <strong>גילוי</strong> was forbidden out of <em>danger</em>, and once the fear ceased it was permitted. <strong>Cheese</strong> was forbidden by a <em>decree</em> that covers the whole species; the reason of the rennet does not apply to herbs, and yet לא פלוג, it remains in its prohibition. The difference is not in the reason but in the <span class="he-q">גדר</span>: a danger depends on reality, a decree does not. The Taz adds further, in the name of the Beis Yosef citing the Semak, that according to Rabbenu Tam — who holds the prohibition of cheese to be a case of גילוי — it remains forbidden even today. Hence cheese always requires certification, even when set by a microbial or vegetable coagulant.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">8. הכרעת הרמ״א בגבינה — ר״ת בדיעבד</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">7. Why the cheese is not nullified in sixty</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ Detailed explanation (level 1)</a>
 
-<div class="machloket-box" dir="rtl">
-<strong>שלוש מדרגות בהיתר הגבינה (רמ״א) :</strong>
+<div class="kashya-box">
+<strong>The kashya — the rennet is a negligible minority:</strong> if the cheese was forbidden because of the small amount of נבלה rennet skin that sets it — but the rennet is nullified in sixty by the cheese! Why then does it forbid, instead of being nullified in the majority of permitted matter, like every absorbed prohibition?
+</div>
+
+<div class="teruts-box">
+<strong>The Taz’s answer (ס״ק ט), in the name of Rabbi Yosef Ibn Migash:</strong> the rule is that a thing forbidden <strong>because it imparts taste</strong> is nullified in sixty, since at sixty its taste is no longer perceptible. But this cheese is not forbidden by the taste of the rennet: the rennet is what <em>sets</em> it, and a מעמיד forbids in any quantity whatsoever. The Taz further explains that there is no Torah-level בשר בחלב here, because the rennet acts cold; the whole prohibition is therefore rabbinic, and it rests on the מעמיד. He also brings a second answer, that of the Raavad: whatever the Sages forbade in what belongs to non-Jews, nullification in the majority does not help, so that people should not break through the fence.
+</div>
+<blockquote>«&nbsp;<span class="he-q">שכל האסור מחמת נתינת טעם כמו בשר בחלב אין אוסר יותר מן ס׳ אבל כאן בעור נבילה הוה איסור מעמיד ואוסר בכל שהוא</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קט״ו ס״ק ט)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל משום בשר בחלב אין איסור דאוריית׳ דצונן הוא ואע״ג דקא מעמיד אין איסור אלא מדרבנן</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קט״ו ס״ק ט)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דכל שאסרו חכמים בשל עובדי כוכבים אינו מועיל ביטול ברוב כדי שלא יפרצו</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קט״ו ס״ק ט)</span></blockquote>
+
+<div class="yesod-box">
+<strong>The yesod — מעמיד against נותן טעם:</strong><br>
+Two entirely distinct ways in which a prohibition acts within a mixture:<br><br>
+• <span class="he-q">נותן טעם</span> — the prohibition acts through its <em>taste</em>; once the taste is nullified in sixty, so is the prohibition.<br>
+• <span class="he-q">מעמיד</span> — the prohibition acts through its <em>setting power</em>, not through taste; and since the whole cheese stands by that power, <strong>there is no nullification</strong>.<br><br>
+This is why cheese is unlike the mixtures treated in the laws of nullification (see siman 134): those are nullified in sixty on account of taste, while this one is not nullified, on account of what sets it.
+</div>
+
+<!-- ============================================================= -->
+<h2 class="section-title">8. The Rama’s ruling on cheese — Rabbenu Tam בדיעבד</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ Detailed explanation (level 1)</a>
+
+<div class="machloket-box">
+<strong>The degrees the Rama’s gloss distinguishes:</strong>
 <table>
-<tr><th>המצב</th><th>הדין</th><th>הטעם</th></tr>
+<tr><th>The case</th><th>The din</th><th>The reason</th></tr>
 <tr>
-  <td><strong>ראה החליבה ואת עשיית הגבינות</strong></td>
-  <td>מותר (וכן המנהג פשוט)</td>
-  <td>אין כל חשש — ראייה גמורה</td>
+  <td><strong>He saw the milking and the making of the cheese</strong></td>
+  <td>permitted, and such is the widespread custom</td>
+  <td>nothing remains to fear — the sight is complete</td>
 </tr>
 <tr>
-  <td><strong>ראה העשייה ולא החליבה</strong></td>
-  <td>מותר <strong>בדיעבד</strong></td>
-  <td>חלב טמא אינו עומד, ובודאי לא עירב מאחר שדעתו לעשות גבינה</td>
+  <td><strong>He saw the making but not the milking</strong></td>
+  <td>permitted <strong>בדיעבד</strong></td>
+  <td>non-kosher milk does not set, and certainly he mixed nothing in, since his intention was to make cheese</td>
 </tr>
 <tr>
-  <td><strong>אותו חלב עצמו לשתייה</strong></td>
-  <td><strong>אסור</strong> — אף שהגבינה הותרה</td>
-  <td>לעניין שתייה לא נתברר שלא עירב</td>
+  <td><strong>That very milk, to be eaten as it is</strong></td>
+  <td><strong>forbidden</strong> — although the cheese was permitted</td>
+  <td>the Rama says so in plain words and does not give the reason here</td>
 </tr>
 </table>
 </div>
+<blockquote>«&nbsp;<span class="he-q">כי אין לחוש שמא עירב בו דבר טמא מאחר שעשה גבינות מן החלב כי דבר טמא אינו עומד</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד קט״ו:ב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ומכל מקום אסור לאכול החלב כך</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד קט״ו:ב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">חָלָב טָהוֹר עוֹמֵד, חָלָב טָמֵא אֵינוֹ עוֹמֵד</span>&nbsp;» <span class="source-ref">(עבודה זרה ל״ה ע״ב)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שיטת ר״ת בדיעבד וקושיית הרמ״א (ט״ז ס״ק יא) :</strong> יסוד היתר "ראה עשייה ולא חליבה" הוא סברת <strong>ר״ת</strong> — <span class="he-q">חלב טמא אינו עומד</span> (אינו נקרש לגבינה), ומאחר שיצאה גבינה בידוע שהיה זה חלב טהור. ומקשה הט״ז (ס״ק יא) על הרמ״א: אם סברה זו אמת, מדוע אסור החלב עצמו לשתייה ? ומיישב — דלשתייה חוששין שמא ערב מקצת חלב טמא שלא היה בו כדי לקלקל הקרישה ; אבל לעצם הגבינה, עיקר גופה מחלב טהור, ואין בה אלא מיעוט מבוטל. נמצא היתר ר״ת מוגבל ל<em>גבינה</em> ולא לחלב.
+<div class="pilpul-box">
+<strong>The Taz’s objection (ס״ק יא):</strong> the basis of the heter “he saw the making and not the milking” is the sevara of <strong>Rabbenu Tam</strong> — non-kosher milk does not set — so that since cheese came out of it, it was pure milk. The Taz writes that he did not reach the bottom of the Rama’s thinking, and he objects: the Beis Yosef and the Shulchan Aruch ruled like the Rambam that even if it was certainly set with herbs it is forbidden, by לא פלוג — and here too it should be forbidden, since he was not present at the milking; moreover, one will come to permit eating the milk itself, for who will be able to tell the difference; moreover, in milk there is the fear of an admixture of non-kosher milk, which is a Torah prohibition; and the Rama himself wrote, close by, that one should not break through the fence. <strong>The Taz does not resolve the difficulty:</strong> he concludes that in his humble opinion one should not be lenient here either, and that one permits only if a Jew was present at the milking, following the view of the Rambam.
 </div>
+<blockquote>«&nbsp;<span class="he-q">ולא ירדתי לסוף דעת רמ״א</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קט״ו ס״ק יא)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ותו דיבוא להתיר גם אכילת החלב</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קט״ו ס״ק יא)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">נראה לע״ד שאין להקל גם בזה ואין להתיר אא״כ היה ישראל אצל החליבה לפי דעת הרמב״ם</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קט״ו ס״ק יא)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>הכרעת הנודע ביהודה (פ״ת ס״ק ו) :</strong> הנודע ביהודה פוסק <span class="he-q">כדעת הרמ״א</span> — להתיר בדיעבד גבינה שראה עשייתה אף שלא ראה החליבה — ולא כמחמירים. וכן מורה: קיבה של ישראל שנתנה העכו״ם בחלב להעמידו — מותרת לכולי עלמא (דהמעמיד עצמו היתר). וכל זה במקום שנהגו בו היתר מקדמונים ; אבל <span class="he-q">אין לפרוץ גדר</span> במקום שנהגו איסור.
+<div class="rishon-card">
+<strong>The Noda BiYehuda’s ruling (פ״ת ס״ק ו):</strong> the Pischei Teshuva reports that the Noda BiYehuda decided like the words of the Rama — and not like the Shach, the Taz and the Pri Chadash — ; that the Minchas Yaakov and the Pri To’ar taught the same; and that he wrote that such is the widespread custom. He further reports: if the rennet belongs to a Jew, even when it is the non-Jew who places it into the milk, it is permitted in the opinion of all, and even לכתחילה. All of this in a place where the permission was held from of old; where the custom is to refrain, the Rama wrote at seif 2 that one should not break through the fence.
 </div>
+<blockquote>«&nbsp;<span class="he-q">שהכריע כדברי הרמ״א ולא כהש״ך וט״ז ופר״ח וכן הורה המנ״י והפרי תואר וכתב שכן פשט המנהג</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד קט״ו ס״ק ו)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ואם הקיבה של ישראל אף שהעובד כוכבים נותנה לתוך החלב מותר לכ״ע אף לכתחלה</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד קט״ו ס״ק ו)</span></blockquote>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">9. חמאה — טעם ההיתר וחומרי המקום</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">9. Butter — the reason for the leniency and the stringencies of the place</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיף ג')
-  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 העתק</button>
+<h3>The text of the Mechaber and the Rama (seif 3)
+  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-7">
-"החמאה של עכו״ם — <strong>אין מוחין</strong> לאנשי המקום שנוהגים בו היתר ; ואם רוב בני המקום נוהגים איסור — <strong>אין לשנות</strong> ; ובמקום שאין מנהג — אם בשלה עד שהלכו <span class="he-q">צחצוחי החלב</span> — מותרת. (הגה: גם מותר לבשלה לכתחילה כדי שילכו צחצוחי חלב ; ואם בשלה עכו״ם — מותרת, דסתם כליהם אינן בני יומן. וההולך ממקום שנהגו היתר למקום שנהגו איסור — אסור לאכלה שם … ויש אומרים דהוא הדין אם הובאה ממקום היתר למקום איסור — אסורה אפילו יש בה היכר, <span class="he-q">והכי נהוג</span>.)"
+  <p>החמאה של עובד כוכבים אין מוחין לאנשי המקום שנוהגים בו היתר ואם רוב בני המקום נוהגים איסור אין לשנות ובמקום שאין מנהג אם בשלה עד שהלכו צחצוחי החלב מותרת:</p>
+  <p>הגה גם מותר לבשלה לכתחלה כדי שילכו צחצוחי חלב (ב״י) ואם בשלה עובד כוכבים מותרת דסתם כליהם אינן בני יומן (ב״י לדעת הפוסקים) ואם הולך ממקום שאין אוכלין אותה למקום שאוכלים אותה אוכל שם עמהם אבל אסור להביאה עמו ולאכלה במקום שנוהגים בה איסור אם לא שיש בה היכר שהיא ממקומות המותרים וההולך ממקום שנהגו בה היתר למקום שנהגו שם איסור אסור לאכלה שם (ארוך) וי״א דה״ה אם הובאה ממקום היתר למקום איסור נמי אסורה אפילו יש בה היכר (תשובת מהרי״ל סימן ל״ה) והכי נהוג:</p>
+  <span class="source-ref">(שו״ע יו״ד קט״ו:ג)</span>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — טעם קולת החמאה :</strong><br>
-שני טעמים נאמרו להקל בחמאה: (א) <span class="he-q">חלב טמא אינו נעשה חמאה</span> (אינו נקרש), כסברת ר״ת בגבינה — ואם כן עצם החמאה מחלב טהור. (ב) אף אם נשתיירו בה <span class="he-q">צחצוחי חלב</span> (שמנונית של חלב הבלוע) — הם <strong>בטֵלים במיעוטם</strong> לאחר בישול, שמתמעטים והולכים (ט״ז ס״ק יב). ומשני טעמים אלו, החמאה קלה — ואין מוחין בנוהגים בה היתר.
+<div class="yesod-box">
+<strong>The yesod — why butter is lighter:</strong><br>
+The Taz (ס״ק יב) unfolds his explanation in several steps, and the last is the most decisive. (a) As for non-kosher milk, it is obvious that there is nothing to fear, <em>since it does not set</em>. (b) And even supposing non-kosher milk was mixed in at the start, since the butter is boiled the residues of milk go off, and what did not go off and remained is nullified in its minority. (c) And if one objects that with cheese we forbid even where everything was done permissibly — butter is different: <strong>it was never included in the decree of the mishna at all</strong>, and so there is no room here to say לא פלוג רבנן.
 </div>
+<blockquote>«&nbsp;<span class="he-q">שלחלב טמא פשיטא שאין לחוש שאינו מעמיד</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קט״ו ס״ק יב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">כיון דמבשלים אותה הלכו צחצוחי חלב טמא שיש בה ומה שלא הלך ונשאר שם בטל במיעוטו</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קט״ו ס״ק יב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">שאני חמאה שלא היתה כלל בתוך הגזירה במשנה ע״כ לא שייך בזה לומר לא פלוג רבנן</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קט״ו ס״ק יב)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>בישול והדחה (ט״ז ס״ק יב, פ״ת ס״ק ח) :</strong> במקום שאין מנהג — <span class="he-q">אם בשלה עד שהלכו צחצוחי החלב — מותרת</span>, והרמ״א מוסיף דמותר לבשלה לכתחילה לשם כך. והפרי חדש (פ״ת ס״ק ח) מתיר אף במקום שנהגו איסור על ידי <span class="he-q">הדחה ג׳ פעמים</span> ; אך הנודע ביהודה דחה והחמיר, דאין מנהג איסור ניתר בהדחה. ובישלה עכו״ם — מותרת, <span class="he-q">דסתם כליהם אינן בני יומן</span> (אינם בולעים טעם איסור בן יומו).
+<div class="pilpul-box">
+<strong>Boiling and rinsing:</strong> where no custom is established, the Mechaber permits butter that has been boiled until the residues of milk have gone, and the Rama adds that it may be boiled לכתחילה for that purpose. The Pri Chadash, for his part, took issue with the Mechaber and holds that it is permitted even where a custom to refrain does exist. The Pischei Teshuva reports that the Noda BiYehuda rejected his words; he further reports, in the same place, that a certain rav permitted a non-Jew’s butter in a place where the custom is to refrain, by means of rinsing three times — and that the Noda BiYehuda found the reasoning sound, yet refused to rely on it, having found this sevara nowhere. Boiling done by the non-Jew himself is no obstacle, since their vessels are presumed not to have been used that day.
 </div>
+<blockquote>«&nbsp;<span class="he-q">ובמקום שאין מנהג אם בשלה עד שהלכו צחצוחי החלב מותרת</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קט״ו:ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">עפר״ח שהשיג על המחבר ודעתו דמותר אף ביש מנהג</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד קט״ו ס״ק ח)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">וכתב עוד שרב אחד התיר חמאה של עובדי כוכבים במקום שנהגו איסור ע״י הדחה ג״פ</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד קט״ו ס״ק ח)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">וכתב דטעמא דמסתבר הוא ואעפ״כ כיון שלא מצאנו סברא זו קשה להתיר</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד קט״ו ס״ק ח)</span></blockquote>
 
-<div class="machloket-box" dir="rtl">
-<strong>חומרי המקום של ההולך (ט״ז ס״ק יג–יד, פ״ת ס״ק ט) :</strong>
+<div class="machloket-box">
+<strong>The stringencies of the place, for one who travels (ט״ז ס״ק יג–יד, פ״ת ס״ק ט):</strong>
 <table>
-<tr><th>המצב</th><th>הדין</th></tr>
+<tr><th>The case</th><th>The din</th></tr>
 <tr>
-  <td><strong>הולך ממקום היתר למקום היתר</strong></td>
-  <td>אוכל שם עמהם</td>
+  <td><strong>He goes from a place where they do not eat it to a place where they do</strong></td>
+  <td>he eats it there with them — and the Taz explains that the stringencies of the place he left do not apply here, since there they make it in full kashrus</td>
 </tr>
 <tr>
-  <td><strong>הולך למקום איסור — לאכול שם</strong></td>
-  <td>אסור לאכלה שם (חומרי המקום שהלך לשם)</td>
+  <td><strong>He goes from a place of permission to a place where they refrain</strong></td>
+  <td>he may not eat it there</td>
 </tr>
 <tr>
-  <td><strong>להביא חמאה למקום איסור</strong></td>
-  <td>אסור — אלא אם יש בה <span class="he-q">היכר</span> שהיא ממקום היתר ; ויש אומרים אף בהיכר אסור, <span class="he-q">והכי נהוג</span></td>
+  <td><strong>Bringing butter into a place where they refrain</strong></td>
+  <td>forbidden — unless it bears a <span class="he-q">היכר</span> showing that it comes from a place where it is permitted; and there are those who say that even with a היכר it is forbidden, and such is the practice</td>
 </tr>
 </table>
 </div>
+<blockquote>«&nbsp;<span class="he-q">ואם הולך ממקום שאין אוכלין אותה למקום שאוכלים אותה אוכל שם עמהם</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד קט״ו:ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ולא שייך כאן נותנים עליו חומרי המקום שהלך משם דמה שאוכלין אותה במקום ההוא משום דשם עושין אותה בהכשר בלא חשש בעולם</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קט״ו ס״ק יג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">וההולך ממקום שנהגו בה היתר למקום שנהגו שם איסור אסור לאכלה שם</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד קט״ו:ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">וי״א דה״ה אם הובאה ממקום היתר למקום איסור נמי אסורה אפילו יש בה היכר</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד קט״ו:ג)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>נפקא מינה בחמאה מן הגבינה (פ״ת ס״ק ז, ט) :</strong> מביא הפתחי תשובה בשם החתם סופר (יו״ד ע״ט) — חמאה הנעשית משיירי <strong>גבינה</strong> ("צווארי״ך"), דין החמאה לה ולא דין הגבינה. וכן הנודע ביהודה (פ״ת ס״ק ט) דן בהולך ומביא חמאה ממקום למקום. ויסוד הכל: החמאה דין מנהג לה — <span class="he-q">חומרי המקום</span> — ולא דין איסור גמור, ולפיכך משתנית מקום למקום.
+<div class="rishon-card">
+<strong>A nafka mina between butter and cheese (פ״ת ס״ק ז):</strong> the Pischei Teshuva brings the Chasam Sofer (יו״ד סימן ע״ט), who was asked about butter made from the cheese residues left in the vat — what is called צווארי״ך. His answer distinguishes: if the cheeses were set with rennet skin, this butter too is forbidden; if they were not, then although the cheeses are forbidden as a thing forbidden במנין, <strong>butter itself was not forbidden במנין</strong>, and where the custom is to permit butter, this too is permitted. The Pischei Teshuva (ס״ק ט) deals in the same chapter with one who carries butter from place to place, and brings the objections of the Beis Efraim. The root of it all: butter belongs to the din of custom — <span class="he-q">חומרי המקום</span> — and not to a full prohibition, and that is why it changes from place to place.
 </div>
+<blockquote>«&nbsp;<span class="he-q">נהי דהגבינות אסורים משום דבר שנאסר במנין מ״מ חמאה לא נאסר במנין</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד קט״ו ס״ק ז)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">10. חקירה ונפקא מינה למעשה</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">10. Chakira and nafka mina for practice</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ Detailed explanation (level 1)</a>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה הכוללת של הסימן :</strong> מהו גדר כל אחד משלושת האיסורים, ומה תלוי בו ?
+<div class="hakira-box">
+<strong>The chakira that embraces the whole siman:</strong> what is the geder of each of the three prohibitions, and what depends on it?
 <ul class="stylish">
-<li><strong>חלב</strong> — ספק עירוב (רדב״ז/פר״ח) או דבר שנמנה במנין כיין נסך (חתם סופר) ; וכל מחלוקת חלב סתם תלויה בזה.</li>
-<li><strong>מרתת</strong> — ראייה בכוח ; שמא יעמוד ויראהו, יוצא ונכנס (כשחיטת כותי), שפחה, קטן.</li>
-<li><strong>גבינה</strong> — גזרה במנין, לא פלוג (אף בעשבים), ואינה בטֵלה — דין מעמיד ולא נותן טעם.</li>
-<li><strong>חמאה</strong> — מנהג קל ; אינה אוסרת כלים, בטֵלה במיעוטה, וחומרי המקום של ההולך.</li>
+<li><strong>Milk</strong> — a doubt of admixture (Radbaz, Pri Chadash) or a thing forbidden במנין like יין נסך (Chasam Sofer); the whole discussion of חלב סתם hangs on this.</li>
+<li><strong>מרתת</strong> — sight in potential: lest he stand up and see him; going in and out suffices, as with the shechita of a Kuti; a maidservant, a child. And according to the Shach (ס״ק ג), all this only when he milks for the Jew’s need.</li>
+<li><strong>Cheese</strong> — a decree taken במנין, and לא פלוג (even with herbs); it is not nullified, because it belongs to מעמיד and not to נותן טעם.</li>
+<li><strong>Butter</strong> — a light custom: it does not forbid vessels, it is nullified in its minority, and it follows the stringencies of the place for one who travels; it was never included in the decree of the mishna.</li>
 </ul>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה למעשה (לפי הכרעת רוב האחרונים) :</strong>
+<div class="nafka-mina-box">
+<strong>Nafka mina for practice (as it emerges from the sources cited above):</strong>
 <ol class="stylish">
-<li>חלב שחלבו עכו״ם בלא ראייה — <strong>אסור</strong> ; וההיתר ביושב בצד עדרו, או מרתת (שמא יעמוד ויראהו), או שפחה/קטן בבית ישראל (רמ״א ס״א).</li>
-<li>סוגיית <strong>חלב סתם</strong> תלויה בחקירת היסוד — צירוף הפיקוח הממשלתי כ"כאילו ישראל רואה" מול הצורך בחלב ישראל בפועל.</li>
-<li>גבינת עכו״ם — <strong>אסורה אף בעשבים</strong> (לא פלוג), ואינה בטֵלה בס׳ (דין מעמיד) ; גבינה טעונה תמיד הכשר.</li>
-<li>חמאה — <strong>אין מוחין</strong> בנוהגים היתר, ובמקום שאין מנהג די בבישול ; חומרי המקום על ההולך וב<span class="he-q">היכר</span>.</li>
+<li>Milk drawn by a non-Jew unseen is <strong>forbidden</strong>; the heter runs through sitting outside beside the herd, through מרתת, or through a maidservant or a child in the Jew’s house (Rama, seif 1).</li>
+<li>The question of <strong>חלב סתם</strong> hangs on the underlying chakira: treating public supervision as the equivalent of sight, or requiring חלב ישראל in fact.</li>
+<li>A non-Jew’s cheese is <strong>forbidden even when set with herbs</strong> (לא פלוג), and it is not nullified in sixty (the din of מעמיד); cheese therefore always requires certification.</li>
+<li>As for butter, <strong>we do not protest</strong> against those who hold it permitted; where no custom is established, boiling suffices; and the stringencies of the place bear on the traveller and on what he brings with him, with the question of the <span class="he-q">היכר</span>.</li>
 </ol>
-<em>ולמעשה — שאל את רבך.</em>
+<em>And for practice — ask your Rav.</em>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">11. טבלאות סיכום</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">11. Summary tables</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">טבלה — שלושת המינים והדין</h3>
-
-<table>
-<tr>
-  <th>המין</th>
-  <th>טעם האיסור</th>
-  <th>ההיתר / החומרא</th>
-  <th>מקור בקורפוס</th>
-</tr>
-<tr>
-  <td><strong>חלב עכו״ם (ס״א)</strong></td>
-  <td>שמא עירב חלב טמא</td>
-  <td>ראייה / מרתת / שפחה / בזמן הזה ; אוסר כלים</td>
-  <td>מחבר ס״א; ט״ז ס״ק א–ו</td>
-</tr>
-<tr>
-  <td><strong>גבינת עכו״ם (ס״ב)</strong></td>
-  <td>עור קיבת נבלה — וגזרה במנין</td>
-  <td>אסורה אף בעשבים (לא פלוג) ; אינה בטֵלה בס׳</td>
-  <td>מחבר ס״ב; ט״ז ס״ק ט–י</td>
-</tr>
-<tr>
-  <td><strong>חמאה (ס״ג)</strong></td>
-  <td>צחצוחי חלב — מנהג בלבד</td>
-  <td>אין מוחין ; בישול / ביטול במיעוט ; חומרי המקום</td>
-  <td>מחבר ס״ג; ט״ז ס״ק יב–יד</td>
-</tr>
-<tr>
-  <td><strong>חלב שנאסר ונעשה גבינה/חמאה</strong></td>
-  <td>נשאר באיסורו — אין שינוי צורה מתיר</td>
-  <td>הכל אסור</td>
-  <td>מחבר ס״א (סוף)</td>
-</tr>
-<tr>
-  <td><strong>ראה עשיית גבינה ולא חליבה</strong></td>
-  <td>חלב טמא אינו עומד (ר״ת)</td>
-  <td>גבינה מותרת בדיעבד ; החלב לשתייה אסור</td>
-  <td>רמ״א ס״ב; ט״ז ס״ק יא; פ״ת ס״ק ו</td>
-</tr>
-</table>
-
-<h3 class="he-h3">טבלה — מחלוקות מרכזיות בסימן</h3>
+<h3>Table — the three foods and their din</h3>
 
 <table>
 <tr>
-  <th>נושא</th>
-  <th>שיטה א'</th>
-  <th>שיטה ב'</th>
+  <th>The food</th>
+  <th>The reason for the prohibition</th>
+  <th>The heter / the stringency</th>
+  <th>Where to read it</th>
 </tr>
 <tr>
-  <td>יסוד איסור החלב</td>
-  <td>רדב״ז/פר״ח — ספק עירוב, ובטל החשש בטל האיסור</td>
-  <td>חתם סופר — דבר שנמנה במנין כיין נסך (פ״ת ס״ק ג)</td>
+  <td><strong>Milk (seif 1)</strong></td>
+  <td>lest he mixed in non-kosher milk</td>
+  <td>sight / מרתת / maidservant / “nowadays”; forbids the vessels</td>
+  <td>Mechaber and Rama seif 1; ט״ז ס״ק א–ו; ש״ך ס״ק א–ח</td>
 </tr>
 <tr>
-  <td>חלבו לצרכו או לצורך ישראל</td>
-  <td>—</td>
-  <td>ט״ז ס״ק א — שניהם אסורים בלא ראייה</td>
+  <td><strong>Cheese (seif 2)</strong></td>
+  <td>the skin of the stomach of a נבלה — and a decree taken במנין</td>
+  <td>forbidden even with herbs (לא פלוג); not nullified in sixty</td>
+  <td>Mechaber seif 2; ט״ז ס״ק ט–י</td>
 </tr>
 <tr>
-  <td>גבינה אף בעשבים</td>
-  <td>הטעם משום קיבת נבלה</td>
-  <td>ט״ז ס״ק י — לא פלוג, גזרה כוללת (ניגוד לגילוי קי״ו)</td>
+  <td><strong>Butter (seif 3)</strong></td>
+  <td>residues of milk — and a custom, nothing more</td>
+  <td>we do not protest; boiling / nullification in the minority; stringencies of the place</td>
+  <td>Mechaber and Rama seif 3; ט״ז ס״ק יב–יד; פ״ת ס״ק ז–ט</td>
 </tr>
 <tr>
-  <td>למה אין הגבינה בטֵלה בס׳</td>
-  <td>נותן טעם בטל בס'</td>
-  <td>ריב״ם/ט״ז ס״ק ט — דין מעמיד אינו בטל, ואין כאן טעם</td>
+  <td><strong>Milk that became forbidden and was made into cheese or butter</strong></td>
+  <td>it remains in its prohibition — a change of form does not release</td>
+  <td>all of it is forbidden</td>
+  <td>Rama, end of seif 1</td>
 </tr>
 <tr>
-  <td>ראה עשיית גבינה ולא חליבה</td>
-  <td>הרמ״א — מותר בדיעבד (נו״ב, פ״ת ס״ק ו)</td>
-  <td>מחמירים — קושיית הט״ז (ס״ק יא) מן החלב לשתייה</td>
-</tr>
-<tr>
-  <td>חמאה במקום שנהגו איסור</td>
-  <td>פר״ח — מותר בהדחה ג״פ (פ״ת ס״ק ח)</td>
-  <td>נודע ביהודה — אין מנהג ניתר בהדחה</td>
+  <td><strong>He saw the cheese being made but not the milking</strong></td>
+  <td>non-kosher milk does not set (Rabbenu Tam)</td>
+  <td>the cheese is permitted בדיעבד; the milk, to be eaten as it is, stays forbidden</td>
+  <td>Rama seif 2; ט״ז ס״ק יא; פ״ת ס״ק ו</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מקורות הסוגיא</h3>
+<h3>Table — the central machlokos of the siman</h3>
 
-<div class="rishon-card" dir="rtl">
-<strong>גמרא :</strong> עבודה זרה ל״ה. (חלב שחלבו עכו״ם, גבינת העכו״ם) · עבודה זרה ל״ה:–ל״ו: (דבר שנמנה במנין, מעמיד) · חולין ג׳: (שחיטת כותי — יוצא ונכנס) · ועיין לעיל סימן פ״א (חלב בהמה שדמה יוצא) · סימן קי״ב (פת עכו״ם — ביטול ברוב) · סימן קי״ו (גילוי) · סימן קל״ד (ביטול)
+<table>
+<tr>
+  <th>Subject</th>
+  <th>Shita א</th>
+  <th>Shita ב</th>
+</tr>
+<tr>
+  <td>The basis of the milk prohibition</td>
+  <td>Radbaz and Pri Chadash — a doubt of admixture; once the fear is gone, the prohibition is gone</td>
+  <td>Chasam Sofer — the milk was forbidden במנין like יין נסך (פ״ת ס״ק ג)</td>
+</tr>
+<tr>
+  <td>Did he milk for himself or for the Jew?</td>
+  <td>ש״ך ס״ק ג — for his own need, actual sight is required</td>
+  <td>ט״ז ס״ק א — in both cases it is forbidden without sight</td>
+</tr>
+<tr>
+  <td>The Rama’s “בדיעבד אין לחוש”</td>
+  <td>Rama — בדיעבד there is no reason to be concerned for all this</td>
+  <td>ט״ז ס״ק ד and ש״ך ס״ק ח — more is required, even בדיעבד</td>
+</tr>
+<tr>
+  <td>Cheese even when set with herbs</td>
+  <td>the reason is the rennet of a נבלה</td>
+  <td>ט״ז ס״ק י — לא פלוג, a decree covering the species (against גילוי, siman 116)</td>
+</tr>
+<tr>
+  <td>Why cheese is not nullified in sixty</td>
+  <td>what imparts taste is nullified in sixty</td>
+  <td>Ri Ibn Migash, brought by the ט״ז ס״ק ט — the din of מעמיד, which forbids in any quantity; and the Raavad gives another reason</td>
+</tr>
+<tr>
+  <td>He saw the cheese being made but not the milking</td>
+  <td>Rama — permitted בדיעבד; so ruled the Noda BiYehuda (פ״ת ס״ק ו)</td>
+  <td>ט״ז ס״ק יא — he did not reach the bottom of the Rama’s thinking and concludes stringently; likewise the Shach and the Pri Chadash</td>
+</tr>
+<tr>
+  <td>Butter where the custom is to refrain</td>
+  <td>Pri Chadash — permitted even where a custom exists (פ״ת ס״ק ח)</td>
+  <td>Noda BiYehuda — he rejects his words, and does not rely on rinsing three times either</td>
+</tr>
+</table>
+
+<h3>Table — the sources of the sugya</h3>
+
+<div class="rishon-card">
+<strong>Gemara:</strong> עבודה זרה ל״ה ע״ב (the mishna of forbidden things, and חלב טהור עומד חלב טמא אינו עומד) · עבודה זרה ל״ה ע״א (the reasons for the decree on cheese) · עבודה זרה ל״ו ע״א (one beis din does not annul the words of another unless it is greater בחכמה ובמנין) · עבודה זרה ל״ט ע״ב (the beraisa: יושב ישראל בצד עדרו) · חולין ג׳ ע״א (the shechita of a Kuti — יוצא ונכנס) · and see above siman 112 (the bread of a non-Jew), siman 116 (גילוי), siman 134 (nullification)
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>ראשונים :</strong> רמב״ם · רש״י · רבנו תם (ר״ת) · ריב״ם (ר״י אבן מיגאש) · רשב״א (תורת הבית) · רא״ש · מרדכי · מהרא״י · אגור · הגהות אשירי · איסור והיתר הארוך · ר״ף · סמ״ק
+<div class="rishon-card">
+<strong>Rishonim, as the siman and its commentators name them:</strong> רמב״ם · רש״י (cited from the שערי דורא in ט״ז ס״ק ד) · תוספות · רבנו תם · ר״י אבן מיגאש · ראב״ד · רשב״א (תורת הבית) · מרדכי · אגודה · מהר״ם · מהרא״י · אגור · הגהות אשיר״י · איסור והיתר הארוך · שערי דורא · הר״ף · סמ״ק · מגיד משנה
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>אחרונים :</strong> בית יוסף · רמ״א · ש״ך (ס״ק א) · ט״ז (ס״ק א–יד) · רדב״ז · פרי חדש · חכמת אדם · חתם סופר (יו״ד ק״ז, ע״ט) · נודע ביהודה · פתחי תשובה · ערוך השולחן · אגרות משה (אגרות משה יו״ד א' מ״ז–מ״ט) · חזון איש · יביע אומר / ילקוט יוסף · אור לציון
+<div class="rishon-card">
+<strong>Acharonim:</strong> בית יוסף · רמ״א · לבוש · ש״ך · ט״ז · ב״ח · רדב״ז · פרי חדש · חכמת אדם · מנחת יעקב · פרי תואר · חתם סופר (יו״ד ק״ז, ע״ט) · נודע ביהודה · בית אפרים · מקום שמואל · תפארת למשה · ביאור הגר״א · באר היטב · פתחי תשובה · ערוך השולחן. The contemporary discussion of חלב סתם continues, among other places, in אגרות משה יו״ד ח״א סימנים מ״ז–מ״ט.
 </div>
 
 <hr class="ornament">
 
-  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;direction:rtl;">
-    <a href="niveau-1-base-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">→ רמה א' — יסוד</a>
-    <a href="niveau-3-synthese-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">רמה ג' — סיכום ←</a>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;">
+    <a href="niveau-1-base-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">← Level 1 — Base</a>
+    <a href="niveau-3-synthese-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">Level 3 — Synthesis →</a>
   </div>
 
 <div class="yh-watermark">
 ~ ~ ~ ~ ~<br>
 <strong>DAAT</strong> · <strong>הרב יוסף חיים סממה</strong><br>
-תלמיד חכם · מעביר שיעורים בהלכה ובחסידות<br>
-<em>פלפול ועיון בדין חלב וגבינה וחמאה של עכו״ם · סימן קט״ו · ⚡ רמה ב' — לַמְדָּן</em>
+Talmid chacham · teaches shiurim in halakha and chassidus<br>
+<em>Pilpul and study on the milk, cheese and butter of a non-Jew · סימן קט״ו · ⚡ Level 2 — Lamdan</em>
 </div>
 
-  <div class="disclaimer" style="background:#fff8e1;border-right:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;direction:rtl;text-align:right;">
-    ⚠️ תוכן זה נכתב לצורך לימוד ועיון בלבד. לכל הוראה למעשה (לְמַעֲשֶׂה) — שאל את רבך.
+  <div class="disclaimer" style="background:#fff8e1;border-left:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;">
+    ⚠️ This content is written for study and analysis only. For any practical ruling (לְמַעֲשֶׂה) — ask your Rav.
   </div>
 
   <div style="background:#1A1F3A;border-top:2px solid #C5A55A;padding:24px 40px;text-align:center;margin-top:0;">
-    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;direction:rtl;">
-      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">לעמוד הבית</a> · <a href="index-en.html" style="color:#C5A55A;text-decoration:none;">סימן קט״ו</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ לתמיכה</a>
+    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;">
+      DAAT דעת — © 5786 / 2026 · <a href="../../../index-en.html" style="color:#C5A55A;text-decoration:none;">Home</a> · <a href="index-en.html" style="color:#C5A55A;text-decoration:none;">Siman 115</a> · <a href="../../../soutenir-en.html" style="color:#C5A55A;text-decoration:none;">♥ Support</a>
     </p>
   </div>
 
@@ -886,7 +945,7 @@
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="../../../assets/js/chat-widget.js" defer></script>
 <script src="../../../assets/js/daat-copy.js" defer></script>
-<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="מצא חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">הצטרף לחברותא</span></a>
+<a href="../../../communaute-en.html#khavroutha" class="daat-khavroutha-fab" title="Join the chavrusa"><span class="icon">📖</span><span class="label-long">Join the chavrusa</span></a>
   <script src="/assets/js/share-text.js" defer></script>
 </body>
 </html>
