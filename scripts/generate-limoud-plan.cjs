@@ -36,27 +36,22 @@ const START_DATE_ISO = '2026-06-08'; // lundi
 const SITE_URL = 'https://daattorah.com';
 const SEIFIM_PER_DAY = 5;
 
-// ─── Nombre de séifim par siman (extrait des niveau-1-base.html) ─────────
-// Compté via le pattern utilisé par scripts/audit-seifim-coverage.py
-// (Seif latin/translit/héb, Séif, סעיף). Régénéré le 2026-06-08.
-const SEIFIM_COUNT = {
-  242: 1,  243: 2,  244: 6,  245: 2,  246: 5,  247: 6,  248: 4,  249: 4,
-  250: 2,  251: 2,  252: 6,  253: 4,  254: 8,  255: 3,  256: 1,  257: 7,
-  258: 4,  259: 6,  260: 2,  261: 4,  262: 3,  263: 9,  264: 8,  265: 4,
-  266: 10, 267: 3,  268: 10, 269: 1,  270: 2,  271: 10, 272: 10, 273: 7,
-  274: 4,  275: 10, 276: 5,  277: 5,  278: 1,  279: 7,  280: 2,  281: 1,
-  282: 7,  283: 1,  284: 7,  285: 7,  286: 5,  287: 1,  288: 10, 289: 2,
-  290: 2,  291: 6,  292: 2,  293: 3,  294: 5,  295: 1,  296: 8,  297: 5,
-  298: 10, 299: 10, 300: 1,  301: 14, 302: 10, 303: 11, 304: 3,  305: 11,
-  306: 10, 307: 11, 308: 14, 309: 5,  310: 9,  311: 9,  312: 10, 313: 10,
-  314: 10, 315: 10, 316: 10, 317: 7,  318: 10, 319: 10, 320: 11, 321: 10,
-  322: 6,  323: 10, 324: 10, 325: 10, 326: 10, 327: 4,  328: 13, 329: 9,
-  330: 10, 331: 10, 332: 4,  333: 3,  334: 11, 335: 5,  336: 10, 337: 4,
-  338: 8,  339: 7,  340: 10, 341: 3,  342: 1,  343: 1,  344: 2,  345: 10,
-  346: 3,  347: 1,  348: 1,  349: 5,  350: 3,  351: 1,  352: 2,  353: 3,
-  354: 2,  355: 5,  356: 2,  357: 3,  358: 10, 359: 1,  360: 3,  361: 2,
-  362: 10, 363: 12, 364: 5,  365: 8
-};
+// ─── Nombre de séifim par siman — PRIS À LA SOURCE ───────────────────────
+// La table était écrite en dur ici, et son commentaire disait d'où elle venait :
+// « extrait des niveau-1-base.html ». C'était la racine du défaut. Une page ne
+// reproduit pas toujours tout le siman, et le plan héritait donc de la troncature
+// des pages au lieu de suivre le Choul'han Aroukh : 742 séifim programmés pour
+// 1 053 réels, 311 jamais prévus — dont les séifim 11 à 15 du siman 298, dont le
+// texte annonce pourtant lui-même « ובו טו סעיפים ».
+// Le fichier est régénéré par scripts/generer-seifim-count.py, qui lit Sefaria.
+// Le fichier est structuré par OUVRAGE : les numéros se recouvrent d'un ouvrage
+// à l'autre (Yoré Déa 87 et Orah Haïm 87 sont deux simanim différents), et ce
+// générateur les indexe encore par numéro seul — défaut latent tant que le plan
+// ne couvre que l'Orah Haïm, à traiter avant d'y ajouter Yoré Déa.
+const SEIFIM_COUNT = Object.fromEntries(
+  Object.entries(require(path.join(DATA_DIR, 'seifim-count.json'))['orach-chayim'])
+    .map(([k, v]) => [Number(k), v])
+);
 
 // ─── Helpers date ──────────────────────────────────────────────────────────
 function isStudyDay(date) {

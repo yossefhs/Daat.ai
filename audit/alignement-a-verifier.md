@@ -1310,3 +1310,64 @@ la marque `<em>résumé</em>`. **Rien n'a été modifié** : choisir entre les d
 lire la source et relève du Rav.
 
 Les 31 **variantes** du même passage sont dans `audit/citations-sources-yoreh-deah.csv`.
+
+---
+
+## Siman 298 et le plan d'étude — vérification du 23 septembre 2026
+
+Signalement du Rav sur les séifim 1-5 du siman 298. **Les quatre points sont confirmés mot
+pour mot sur la source**, re-téléchargée depuis Sefaria.
+
+### 🔴 Le calendrier — et le défaut est bien plus large que le siman 298
+
+Le Choul'han Aroukh annonce lui-même `ובו טו סעיפים` et Sefaria rend **quinze** séifim. Le
+plan n'en programmait que dix, en deux lots — 11 à 15 n'étaient prévus aucun jour.
+
+En mesurant l'étendue réelle : **quarante simanim** sont dans ce cas. Le plan annonce
+**739 séifim programmés pour 1 053 réels — 314 ne le sont aucun jour.** Les plus lourds :
+siman 301 (14 programmés sur 51), 308 (14 sur 52), 328 (13 sur 49), 363 (12 sur 36),
+128 (11 sur 45), 90 (5 sur 27). Et un écart en sens inverse : le **siman 258**, quatre
+séifim annoncés là où la source n'en a qu'un.
+
+**Racine.** `generate-limoud-plan.cjs` portait le compte dans une table écrite en dur dont
+le commentaire disait l'origine : « extrait des niveau-1-base.html ». Le plan héritait donc
+de la **troncature des pages** — les trente et un simanim partiels relevés le 17 septembre —
+au lieu de suivre le Choul'han Aroukh. Corrigé : le compte vient de `data/seifim-count.json`,
+tiré de Sefaria par `scripts/generer-seifim-count.py`, et `scripts/verifier-plan-limoud.py`
+confronte désormais le plan à la source.
+
+**Ce qui n'a PAS été fait, et pourquoi.** Le plan n'a pas été régénéré. Un plan fidèle
+demanderait **264 journées contre 194**, déplacerait **toutes les dates à venir** pour des
+abonnés en cours de plan, et réécrirait 1 959 pages `limoud/`. Par ailleurs 77 journées sont
+déjà passées, dont douze simanim (245, 252, 253, 254, 257, 259, 263, 264, 266, 268, 271, 275)
+laissent 34 séifim jamais programmés : les rattraper est une décision éditoriale.
+**C'est une décision, pas un correctif** — elle revient au Rav.
+
+### 🟠 Les trois précisions, corrigées dans les trois langues
+
+- **Séif ד** — le critère n'est pas « distinguer deux pièces » mais
+  `בין מטבע מדינה זו למטבע מדינה אחרת`. La nuance n'est pas de style : « deux pièces » se
+  satisfait de voir deux objets, la source demande de **reconnaître une monnaie**. Le niveau 1
+  et le niveau 4 disaient déjà juste ; la synthèse et les récapitulatifs disaient « 2 pièces ».
+  **34 occurrences** corrigées, FR/HE/EN.
+- **Séif ב** — le Mé'haber porte une clause que la synthèse ne reprenait nulle part :
+  `ויש מי שאומר שאם אין לו אבוקה צריך להדליק נר אחר לצורך הבדלה חוץ מהנר המיוחד להאיר בבית`.
+  Elle vise exactement le « ★★ bedi'avad 2 » de la hiérarchie de la page — se servir d'une
+  bougie déjà allumée pour l'éclairage — que cette opinion écarte. Encadré ajouté après le
+  schéma, dans les trois langues, avec sa référence.
+- **Séif ג** — le geste était juste mais tronqué : le Rama dit **pourquoi** les doigts se
+  replient, `שאז רואה הצפרנים עם הכפות בבת אחת`. Précisé dans les trois langues.
+- **Séif ה** — vérifié, le résumé est exact ; rien changé.
+
+### Un angle mort trouvé en chemin, et qu'il faut mesurer avant d'agir
+
+En posant ma propre citation, je l'ai marquée `<span class="he-q">` — et elle n'a **pas** été
+vérifiée. `verifier-citations.py` ne lit que `<blockquote>` et les guillemets : **il ne lit pas
+le marqueur `he-q`**, contrairement à `verifier-encadres.py` qui en fait un marqueur de verbatim.
+
+Le dépôt compte **22 855** `he-q` portant des guillemets — donc lus — et **67 906** qui n'en
+portent pas, hors blocs source. **Mais ce second nombre ne doit pas être lu comme 67 906
+citations non vérifiées** : `he-q` sert ici à deux choses, marquer un verbatim et simplement
+composer de l'hébreu (titres, termes — `שלושת חילוקי רב פפא`). C'est cette **ambiguïté du
+marqueur** qui est le vrai constat. Trancher demande de décider ce que `he-q` signifie ; en
+attendant, la forme que le garde-fou lit est le guillemet **à l'intérieur** du span.

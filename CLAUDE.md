@@ -185,6 +185,25 @@ python3 scripts/verifier-denombrements.py [--path …] [--a-verifier] [--bref]
 # l'écart SYSTÉMATIQUE, tout un siman décalé, qui est le piège de la règle 22-bis.
 python3 scripts/verifier-ancrage.py [N N …] [--path …]
 
+# Garde-fou du plan d'étude — le Daat Yomi couvre-t-il les simanim qu'il annonce ?
+# verifier-limoud.py compare deux CHEMINS (le tableau des pages et le JSON du
+# courriel) et vérifie qu'ils s'accordent ; il ne compare ni l'un ni l'autre au
+# Choul'han Aroukh, et tous deux s'accordaient sur un plan tronqué. Mesuré le
+# 23 septembre 2026 : 739 séifim programmés pour 1 053 réels — 314 ne l'étaient
+# AUCUN jour, sur quarante simanim. Deux formes : le plan s'arrête sous le compte
+# (siman 298 au séif 10 quand le texte dit « ובו טו סעיפים », siman 301 au 14 pour
+# 51), ou il le dépasse (siman 258, quatre séifim annoncés pour un seul réel).
+# RACINE : le tableau SEIFIM_COUNT de generate-limoud-plan.cjs était écrit en dur
+# et, son commentaire le disait, « extrait des niveau-1-base.html » — le plan
+# héritait donc de la troncature des PAGES au lieu de suivre la source. Le compte
+# vient désormais de data/seifim-count.json, tiré de Sefaria.
+python3 scripts/generer-seifim-count.py --sections shabbat orah-haim [--write]
+python3 scripts/verifier-plan-limoud.py [--bref]
+# ⚠️ generate-limoud-plan.cjs S'EXÉCUTE AU require() : ne jamais l'importer pour
+# le tester — il réécrit le plan, 1 959 pages limoud/ et les bandeaux d'accueil.
+# Régénérer déplace toutes les dates à venir pour des abonnés en cours de plan :
+# c'est une décision éditoriale, pas un correctif.
+
 # Generate a siman's index page from data/simanim/siman-XXX.json (does NOT generate study levels — those are written by hand)
 node scripts/generate-siman.js --siman XXX [--force] [--no-sitemap]
 ```
