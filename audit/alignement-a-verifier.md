@@ -1341,5 +1341,17 @@ existent tous, et leurs équivalents `-en` aussi. Mesuré sur tout le dépôt : 
 dans 3 954 fichiers** mènent un lecteur hébréophone ou anglophone vers la page FRANÇAISE.
 
 C'est le même défaut que les 1 841 liens déjà corrigés, sous une troisième forme que la
-porte ne couvrait pas. À reprendre en un lot dédié : étendre `verifier-liens-langue.py` à
-cette forme, puis `fix-liens-langue.py`, qui ne réécrit jamais vers une variante absente.
+porte ne couvrait pas.
+
+**Corrigé le 23 septembre 2026**, et la mesure définitive est de **18 412 liens dans 3 957
+fichiers** — le premier comptage, fait à la main sur une liste de pages, en oubliait 551 :
+il ne cherchait que l'accueil, soutenir, communaute, chat et faq, et laissait de côté la
+chitah de l'Admour HaZaken. C'est pourquoi ni la porte ni le correctif ne codent désormais
+la moindre liste de pages : la cible est résolue sur le disque, et un lien n'est réécrit
+que si la variante de langue existe réellement à côté d'elle.
+
+Après coup : `verifier-liens-langue.py` rend 0, et `verifier-liens.py` rend toujours 0 lien
+mort. Son total de liens examinés passe de 142 212 à 142 199 — il compte les href DISTINCTS
+par page, et treize pages portaient déjà les deux formes, la française et la leur ; les
+rendre à leur langue en a fusionné deux en une. Vérifié fichier par fichier, rien n'est
+perdu.
