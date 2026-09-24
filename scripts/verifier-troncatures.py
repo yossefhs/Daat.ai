@@ -178,6 +178,26 @@ CITATION_MIN = 25       # le seuil du dépôt : sous 25 consonnes, une coïncide
 # les ancres soient à peu près disjointes, et relever le seuil de longueur à celui que le
 # dépôt emploie partout ailleurs, suffit à l'écarter.
 
+def rogner_aux_mots(saute, brut, deb, fin):
+    """Ramener les bords du trou sur des frontières de mot.
+
+    La neutralisation des matres lectionis décale l'index d'une lettre ou deux, si bien
+    que le trou imprimé commençait ou finissait au milieu d'un mot — « ו הכי », « יפר ב ».
+    Ce n'était pas seulement laid : un trou de quatre consonnes dont deux appartiennent aux
+    mots voisins n'est pas un passage sauté, c'est un artefact d'alignement. On rogne donc
+    jusqu'à la première espace de chaque côté, puis le seuil TROU_MIN est appliqué à ce
+    qui reste — ce qui écarte l'artefact sans écarter le mot réellement retiré.
+    """
+    def lettre(c): return '\u05D0' <= c <= '\u05EA'
+    i, j = deb, fin
+    # une espace, une virgule, un crochet ou une parenthèse sont des frontières ;
+    # seule une LETTRE collée au bord prouve qu'on coupe un mot en deux.
+    while i < j and i > 0 and lettre(brut[i - 1]):
+        i += 1
+    while j > i and j < len(brut) and lettre(brut[j]):
+        j -= 1
+    return brut[i:j].strip()
+
 def juger(cit, segs):
     """None si rien à dire ; sinon (ref, sauté, pref, suff).
 
@@ -207,7 +227,8 @@ def juger(cit, segs):
             bi = i if vers_b0 is None else vers_b0[i]
             bj = j if vers_b0 is None else vers_b0[j]
             if bj >= len(b0idx): continue
-            saute = brut[b0idx[bi]:b0idx[bj]].strip()
+            saute = brut[b0idx[bi]:b0idx[bj]]
+            saute = rogner_aux_mots(saute, brut, b0idx[bi], b0idx[bj])
             if len(sk(saute)[0]) < TROU_MIN: continue
             if meilleur is None or p + q > meilleur[2] + meilleur[3]:
                 meilleur = (ref, saute, p, q)
@@ -311,7 +332,7 @@ def main():
                     print(f"✗ TROU · siman {n} · {os.path.basename(f)}")
                     print(f"   « {c[:150]} »")
                     print(f"   {ref} : {p} consonnes au début + {q} à la fin, et entre les deux")
-                    print(f"   la source porte — SAUTÉ SANS ELLIPSE : [{saute[:160]}]")
+                    print(f"   la source porte — SAUTÉ SANS ELLIPSE ({len(sk(saute)[0])} consonnes) : [{saute[:160]}]")
                     if not bref: print()
                     continue
                 r2 = couper_avant_la_suite(c, segs, page_entiere)
