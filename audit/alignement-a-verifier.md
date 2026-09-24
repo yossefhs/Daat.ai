@@ -1773,3 +1773,40 @@ Autrement dit : **les trois variantes d'un même siman ne disent plus la même c
 c'est l'hébreu qui est en retard. L'arbitre du 253 l'avait nommé « l'état le plus coûteux du
 dépôt ». Il faut un chantier dédié aux `niveau-2-lamdan-he.html` de Hilkhot Chabbat, mené
 sur les sources comme l'ont été les traductions.
+
+## Le chantier des niveaux 2 est achevé — 83 simanim, et un zéro qui compte
+
+Au 24 septembre 2026, `verifier-url-langue.py` rend, sur les **7 707 pages du dépôt**, zéro
+page dont le `lang=` contredit le nom du fichier et **zéro variante dont le corps est
+identique au français**. Au début du chantier, il en comptait 49 et 100 pour le seul Yoré
+Déa, puis 57 de plus pour Hilkhot Chabbat.
+
+Soit **83 simanim** dont le niveau 2 servait la page hébraïque sous trois URL : 49 en Yoré
+Déa (87-118, 183-200) et 34 en Hilkhot Chabbat (242-261, 263, 264, 271, 280, 290, 292, 299,
+313, 324, 342, 348, 350, 356, 359).
+
+### Les deux derniers défauts, et ils valent d'être gardés
+
+- **348** — une citation coupée à la virgule, là même où la phrase bascule. La page donnait
+  `הִדְבִּיק פַּת בַּתַּנּוּר, הִתִּירוּ לוֹ לִרְדּוֹתָהּ קוֹדֶם שֶׁיָּבֹא לִידֵי חִיּוּב חַטָּאת`
+  comme une règle ; la source continue par `אוֹ לֹא הִתִּירוּ?` — c'est une **בעיא** de Rav
+  Bibi bar Abayé, que la sougya ne tranche pas : elle propose `תִּפְשׁוֹט דְּלֹא הִתִּירוּ`
+  puis se referme sur un `וְאִיבָּעֵית אֵימָא, לְעוֹלָם לָא תִּפְשׁוֹט`. Et la déduction
+  n'est pas de la guemara : le Beit Yossef l'attribue aux Richonim — `ולמדו כן מדא״ר ביבי` —
+  et chez lui le motif n'est pas `חיוב חטאת` mais `איסור סקילה`. Les deux sont rétablis ;
+- **324** — une נפקא מינה étiquetée comme telle dans l'hébreu n'avait traversé dans aucune
+  des deux langues : l'ordre de 'Habad et la décision des poskim sur la
+  `בלילה רכה` et la `בלילה עבה`, qui relèvent du siman שכ״א. Rendue, en nommant le renvoi
+  sans trancher le partage. Et une phrase que la page démentait vingt lignes plus bas : le
+  séif 1 n'est pas `מרקד` mais `כמרקד`.
+
+### Ce qui reste, et c'est maintenant le premier poste
+
+Les `niveau-2-lamdan-he.html` de Hilkhot Chabbat portent encore ce que les traductions ont
+corrigé. Le relevé des arbitres, siman par siman : six fabrications au 258, cinq au 259, six
+au 253, onze au 246 dont deux inversions de psak, et au 258 une inversion de la Michna
+Beroura. **Les trois variantes d'un même siman ne disent donc plus la même chose, et c'est
+l'hébreu qui est en retard.**
+
+C'est le chantier qui doit suivre : reprendre ces pages hébraïques sur les sources, comme
+l'ont été les traductions. Rien de ce qui suit ne devrait passer avant.
