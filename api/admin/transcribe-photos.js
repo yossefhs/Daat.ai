@@ -24,7 +24,7 @@
 //   }
 
 import Anthropic from '@anthropic-ai/sdk';
-import { corsAdmin, freinage, echecAdmin, reussiteAdmin, refuser } from '../_admin-gate.js';
+import { corsAdmin, origineRefusee, refuserOrigine, freinage, echecAdmin, reussiteAdmin, refuser } from '../_admin-gate.js';
 
 export const config = {
   api: {
@@ -154,6 +154,7 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'POST uniquement' });
 
+  if (origineRefusee(req)) return refuserOrigine(res);
   const frein = await freinage(req);
   if (frein.bloque) return refuser(res);
   const auth = checkAuth(req);
