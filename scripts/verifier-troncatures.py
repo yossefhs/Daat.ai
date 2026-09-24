@@ -166,7 +166,17 @@ COUVERTURE_MIN = 0.85   # préfixe + suffixe doivent couvrir presque toute la ci
 
 ANCRE_MIN = 12          # sous douze consonnes, un ancrage ne prouve rien
 COUVERTURE_MIN = 0.85   # préfixe + suffixe doivent couvrir presque toute la citation
+COUVERTURE_MAX = 1.10   # …sans la couvrir DEUX FOIS : voir ci-dessous
 TROU_MIN = 4            # en deçà, c'est une variante d'orthographe, pas un passage sauté
+CITATION_MIN = 25       # le seuil du dépôt : sous 25 consonnes, une coïncidence est probable
+
+# ⚠️ COUVERTURE_MAX, et la mesure qui l'a imposé. Au siman 101 de Yoré Déa, la citation
+# « הראויה להתכבד בה לפני האורחים » (24 consonnes) sortait avec un préfixe de 12 ET un
+# suffixe de 24 — soit 36 ancrages pour 24 consonnes. Les deux ancres se recouvraient donc
+# largement dans la CITATION, tout en tombant loin l'une de l'autre dans la SOURCE : ce
+# n'est pas un passage sauté, c'est une locution courante qui paraît deux fois. Exiger que
+# les ancres soient à peu près disjointes, et relever le seuil de longueur à celui que le
+# dépôt emploie partout ailleurs, suffit à l'écarter.
 
 def juger(cit, segs):
     """None si rien à dire ; sinon (ref, sauté, pref, suff).
@@ -177,7 +187,7 @@ def juger(cit, segs):
     et que le trou du milieu — le crochet [סמך ממרדכי ריש מסכת ר״ה] — reste invisible.
     """
     s0, _ = sk(cit)
-    if len(s0) < 20: return None
+    if len(s0) < CITATION_MIN: return None
     meilleur = None
     for ref, brut in segs:
         b0, b0idx = sk(brut)
@@ -189,6 +199,7 @@ def juger(cit, segs):
             p, q = _prefixe(chaine, cible), _suffixe(chaine, cible)
             if p < ANCRE_MIN or q < ANCRE_MIN: continue
             if p + q < len(chaine) * COUVERTURE_MIN: continue
+            if p + q > len(chaine) * COUVERTURE_MAX: continue   # ancres qui se recouvrent
             i = cible.find(chaine[:p]) + p
             j = cible.rfind(chaine[-q:])
             if j - i < TROU_MIN: continue     # chevauchement ou variante d'orthographe
