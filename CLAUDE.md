@@ -95,6 +95,23 @@ python3 scripts/audit-simanim.py --write-progress   # regenerates PROGRESS.md (n
 python3 scripts/verifier-citations.py                       # whole site, FR (Hebrew quotes are shared across the 3 languages)
 python3 scripts/verifier-citations.py --only-absent          # just the list to fix
 python3 scripts/verifier-citations.py --path sources/shabbat/siman-297
+# ⚠️ LA MICHNA BEROURA MANQUAIT À SA TABLE D'OUVRAGES, et c'est l'ouvrage le plus cité du
+# compartiment. RE_MB ne lit que la forme à deux-points (« מ״ב רמ״ו:ב ») ; la forme
+# conventionnelle du dépôt — « (משנה ברורה רמ״ו ס״ק ב) » ou « (מ״ב רמ״ו ס״ק ב) » — ne
+# produisait AUCUNE référence, ni par RE_MB qui exige le deux-points, ni par OUVRAGES où elle
+# ne figurait pas. Ces citations partaient en « sans référence » et n'étaient confrontées à
+# RIEN. 648 références sont dans ce cas — 642 en Hilkhot Chabbat, 6 en Orah Haïm.
+# Le motif exige le nom en toutes lettres, OU le sigle avec ses frontières de mot et non suivi
+# d'une marque de folio : « מ״ב » est aussi la guématria 42, et « (מנחות מ״ב.) » est un DAF.
+# Mon premier comptage, qui l'ignorait, annonçait 1 934 au lieu de 648.
+# EFFET MESURÉ, avant → après :
+#   siman 246 : sans réf 12 → 4  · conformes 24 → 32 · variantes 2 → 2
+#   siman 248 : sans réf 29 → 27 · conformes 55 → 55 · variantes 1 → 3
+#   siman 253 : sans réf  9 → 8  · conformes 50 → 50 · variantes 3 → 5
+# Référence fausse et INTROUVABLES restent à 0 partout. Mais les VARIANTES augmentent sur deux
+# des trois simanim : des citations qui n'étaient confrontées à rien reviennent « texte réel,
+# mais pas mot pour mot ». C'est la porte qui fait enfin son travail, et il faut le dire —
+# j'avais d'abord annoncé « elle n'accuse rien de neuf » sur la foi du seul siman 246.
 
 # Garde-fou de langue — chaque page est-elle écrite dans la langue qu'elle annonce ?
 # Trois échelles : la page entière, le bloc isolé, et l'entête (title/og/twitter/JSON-LD),
