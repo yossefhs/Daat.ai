@@ -197,9 +197,34 @@ python3 scripts/verifier-ancrage.py [N N …] [--path …]
 # poursuit « אלא אם כן יש שהות… ». Sur Chabbat : 9 trous et 35 coupures pour 3 554 citations.
 # Deux filtres ont fait la différence entre une porte et un bruit : « ואם » retiré de la liste
 # des mots qui retournent (83 des 201 premiers candidats, aucun n'était un défaut — « ואם »
-# introduit un AUTRE CAS), et la clause qui retourne cherchée dans TOUT le siman avant d'être
-# signalée (citer une clause et traiter la suivante à la section voisine est la conduite
+# introduit un AUTRE CAS), et la clause qui retourne cherchée AILLEURS DANS LA PAGE avant
+# d'être signalée (citer une clause et traiter la suivante à la section voisine est la conduite
 # normale d'une page d'étude). Rend des CANDIDATS ; sort en 1 s'il en reste.
+#
+# ⚠️ ELLE A ÉTÉ MUETTE, ET LA LEÇON VAUT PLUS QUE LA PORTE. Trois défauts la faisaient rater
+# SON PROPRE CAS TÉMOIN — שו״ע הרב רמ״ז:ב, celui qu'un arbitre avait trouvé à la main :
+#   1. la PONCTUATION DÉTACHÉE — « …בְּיוֹם רִאשׁוֹן , אֶלָּא » : mots[0].strip(',;') rendait la
+#      chaîne vide et le test ne passait jamais ;
+#   2. le NIKOUD — le Choul'han Aroukh HaRav est servi VOCALISÉ, la source écrit אֶלָּא, la
+#      liste porte אלא, et « אֶלָּא ».startswith(« אלא ») est FAUX. On compare les SQUELETTES ;
+#   3. le FILTRE TROP LARGE — il balayait les quinze fichiers du siman, les trois langues
+#      confondues. La clause venait d'être rétablie dans le fichier HÉBREU : le filtre l'y
+#      trouvait et taisait le défaut pour le FRANÇAIS et l'ANGLAIS, qui le portaient intact.
+#      Restreindre à la langue ne suffisait pas non plus — la clause vit aussi dans le niveau 4
+#      français. UNE CLAUSE NE COUVRE LE LECTEUR QUE DANS LA PAGE QU'IL A SOUS LES YEUX.
+# J'avais resserré cette porte QUATRE fois contre des faux positifs, et il a fallu un agent
+# extérieur pour trouver qu'elle ratait des vrais. Un garde-fou qu'on ne règle que dans un sens
+# devient muet sans qu'on s'en aperçoive.
+#
+# CHIFFRES RÉELS, porte réparée (les précédents, 9 et 35, sont à jeter) :
+#   Hilkhot Chabbat :  9 370 citations →  20 trous ·   113 coupures ·  59 couples distincts
+#   Yoré Déa        : 81 299 citations → 256 trous · 1 005 coupures · 349 couples distincts
+# Deux unités, et il faut les deux : les occurrences comptent chaque PAGE atteinte (un défaut
+# dans les trois langues est trois lecteurs trompés), les couples comptent le TRAVAIL réel.
+# Relevés dans audit/chabbat-troncatures.txt et audit/yoreh-deah-troncatures.txt.
+# RÉSERVE À DONNER AVEC LES CHIFFRES : le mot אלא produit des candidats faibles — au siman 100
+# de Yoré Déa la suite non citée est « אלא חתיכת גיד וחתיכת אבר מיקרו », une précision de fin
+# de ס״ק et non un renversement. Le tri revient au lecteur.
 python3 scripts/verifier-troncatures.py --path sources/shabbat/siman-246
 python3 scripts/verifier-troncatures.py --section shabbat [--bref]
 
