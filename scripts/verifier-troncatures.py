@@ -252,11 +252,21 @@ CLOTURE = (':', '.', '׃')
 def couper_avant_la_suite(cit, segs, page_entiere=''):
     """None, ou (ref, suite, premier_mot) — la citation s'arrête avant ce qui la retourne.
 
-    `page_entiere` est le squelette de TOUTES les pages du siman, les trois langues
-    réunies. Si la clause qui retourne s'y trouve ailleurs, la page la dit au lecteur et
-    il n'y a rien à signaler : citer une clause et traiter la suivante dans la section
-    voisine est la conduite NORMALE d'une page d'étude. Sans ce second filtre, la porte
-    reprocherait à une page bien faite d'avoir découpé son exposé.
+    `page_entiere` est le squelette de LA PAGE EXAMINÉE, elle seule.
+    Si la clause qui retourne s'y trouve ailleurs, la page la dit à SON lecteur et il n'y a
+    rien à signaler : citer une clause et traiter la suivante dans la section voisine est
+    la conduite NORMALE d'une page d'étude. Sans ce filtre, la porte reprocherait à une page
+    bien faite d'avoir découpé son exposé.
+
+    ⚠️ LA PAGE, ET RIEN QU'ELLE — deux mesures l'ont imposé, l'une après l'autre.
+    La première version réunissait TOUT le siman, les trois langues et les quinze fichiers.
+    Au siman 247, la clause qui lève l'interdit de שו״ע הרב רמ״ז:ב venait d'être rétablie
+    dans le fichier HÉBREU du niveau 2 : le filtre l'y trouvait et taisait le défaut pour
+    le FRANÇAIS et pour l'ANGLAIS, qui le portaient intact. Restreindre à la langue ne
+    suffisait pas : la clause vit AUSSI dans le niveau 4 français, et le filtre taisait
+    encore le défaut du niveau 2. Or un lecteur du niveau 2 n'ouvre pas forcément le
+    niveau 4, et jamais la page hébraïque s'il lit le français. Une clause ne couvre le
+    lecteur que là où il la lit : dans la page qu'il a sous les yeux.
     """
     s0, _ = sk(cit)
     if len(s0) < 20: return None
@@ -269,11 +279,23 @@ def couper_avant_la_suite(cit, segs, page_entiere=''):
         # la source s'est-elle close juste après ?
         tete = reste[:6]
         if any(c in tete for c in CLOTURE): return None
-        mots = reste.strip().split()
+        # ⚠️ LA PONCTUATION DÉTACHÉE. La source sépare souvent la clause qui retourne par une
+        # virgule, et le texte vocalisé la détache par une espace : « …בְּיוֹם רִאשׁוֹן , אֶלָּא
+        # אִם כֵּן ». Prendre mots[0] puis le dépouiller rendait alors la chaîne VIDE, et le test
+        # ne passait jamais — la porte ratait SON PROPRE CAS TÉMOIN, שו״ע הרב רמ״ז:ב, celui-là
+        # même qu'un arbitre avait trouvé à la main. Un « 0 coupure » ne valait rien tant que
+        # ce défaut vivait. On dépouille donc la TÊTE du reste avant de découper.
+        mots = [m for m in reste.strip(' ,;\u05C3\u00A0\t\n-–—').split() if m.strip(',;')]
         if not mots: return None
-        # le premier mot de la suite retourne-t-il le propos ?
         premier = mots[0].strip(',;')
-        if not any(premier.startswith(r) or premier == r for r in RETOURNEMENT):
+        # ⚠️ COMPARER LES SQUELETTES, JAMAIS LES FORMES. Le Choulhan Aroukh HaRav est servi
+        # VOCALISÉ : la source écrit אֶלָּא, la liste porte אלא, et « אֶלָּא ».startswith(« אלא »)
+        # est FAUX — le nikoud s'intercale entre les lettres. La porte ratait ainsi son propre
+        # cas témoin, שו״ע הרב רמ״ז:ב, celui-là même qu'un arbitre avait trouvé à la main et
+        # que deux langues portaient intact. Un « 0 coupure » ne vaut rien tant qu'on compare
+        # une forme vocalisée à une forme qui ne l'est pas.
+        sp = sk(premier)[0]
+        if not any(sp.startswith(sk(r)[0]) or sp == sk(r)[0] for r in RETOURNEMENT if sk(r)[0]):
             return None
         sq = sk(reste)[0]
         if len(sq) < 12: return None
@@ -317,12 +339,18 @@ def main():
         segs = None
         vues = set()
         fichiers = sorted(glob.glob(os.path.join(d, '*.html')))
-        page_entiere = ''.join(
-            sk(re.sub(r'<[^>]+>', ' ', open(x, encoding='utf-8').read()))[0] for x in fichiers)
+        def langue(x):
+            b = os.path.basename(x)
+            return 'he' if b.endswith('-he.html') else ('en' if b.endswith('-en.html') else 'fr')
         for f in fichiers:
+            page_entiere = sk(re.sub(r'<[^>]+>', ' ',
+                                     open(f, encoding='utf-8').read()))[0]
             for c in citations(f):
-                if c in vues: continue
-                vues.add(c)
+                # dédoublonner PAR FICHIER : la même citation dans deux pages est deux
+                # fois la même question, mais posée à deux lecteurs différents, et le
+                # filtre « la clause est-elle dite ailleurs » ne leur répond pas pareil.
+                if (f, c) in vues: continue
+                vues.add((f, c))
                 if segs is None: segs = appareil(n, sec)
                 total += 1
                 r = juger(c, segs)
