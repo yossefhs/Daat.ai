@@ -32,6 +32,19 @@ que A et B sont chacun verbatim. Une citation qui porte une ellipse est donc dé
 l'ellipse et chaque morceau jugé seul, exactement comme le fait `verifier-fabrications.py`.
 Ce que cette porte cherche, c'est la coupure NON MARQUÉE.
 
+DEUX FAMILLES, ET LA SECONDE EST LA PLUS DANGEREUSE.
+· LE TROU — la citation saute un passage du milieu et recolle les deux bords. C'est le cas
+  témoin ci-dessus.
+· LA COUPURE AVANT LA SUITE — la citation s'arrête juste avant la clause qui la retourne, et
+  comme elle EST alors une sous-chaîne exacte de la source, aucune porte de citation ne peut
+  la voir : elle est verbatim. Deux arbitres l'ont trouvée à la main, le même jour, sur deux
+  simanim différents — le מגן אברהם רמ״ו ס״ק ו coupé sur שרי quand le mot suivant est אבל, et
+  ce qui suit est le צריך עיון qui empêche d'en faire un היתר plat ; et שו״ע הרב רמ״ז:ב coupé
+  sur אסור quand la source poursuit אלא אם כן יש שהות…, c'est-à-dire la condition qui le lève.
+  Un correctif appliqué aux seuls cas vus n'est pas un correctif : d'où cette seconde mesure.
+  Le signal est étroit à dessein — la suite doit commencer par un mot qui RETOURNE (אבל, אלא,
+  ומיהו, וצ״ע, ודלא…) et la phrase ne doit pas s'être close entre-temps.
+
 ELLE REND DES CANDIDATS. Un trou peut être une variante d'édition — Sefaria n'est pas
 l'édition que la page suit. Mais un crochet de source sauté, une clause retirée du milieu
 d'un verbatim, une parenthèse d'attribution perdue sont chacun un défaut, et tous se
@@ -189,6 +202,54 @@ def juger(cit, segs):
                 meilleur = (ref, saute, p, q)
     return meilleur
 
+# Les mots par lesquels une source RETOURNE ce qu'elle vient de dire. La liste est courte
+# à dessein : elle ne cherche pas toutes les continuations, seulement celles dont l'omission
+# change le sens. Une citation qui s'arrête avant un simple ו־ narratif n'est pas un défaut.
+# ⚠️ « ואם » EN A ÉTÉ RETIRÉ, et la mesure qui l'a exigé mérite d'être gardée. Au premier
+# balayage il rendait 83 des 201 candidats — et aucun n'était un défaut. « ואם » introduit
+# presque toujours un AUTRE CAS, non un renversement : la page cite « והוא שקוצץ לו דמים
+# ובלבד שלא יאמר לו שילך בשבת », le Mehaber enchaîne « ואם לא קצב… », et c'est le cas suivant,
+# que la page traite ailleurs. Même chose pour ואסור, ומותר, ואינו. Une porte qui compte mal
+# est pire qu'une porte absente : ne garder que ce qui RETOURNE.
+RETOURNEMENT = ('אבל', 'אלא', 'ומיהו', 'מיהו', 'ואך', 'אך', 'ודלא', 'וצ״ע', 'וצ"ע', 'וצריך עיון',
+                'ולפיכך', 'ולכן', 'והלכך', 'הילכך', 'ומכל מקום', 'ומ״מ', 'ומ"מ', 'ויש מתירין',
+                'ויש מקילין', 'ויש חולקין', 'ויש חולקים')
+# Une phrase close : la source a fini de parler, s'arrêter là n'omet rien.
+CLOTURE = (':', '.', '׃')
+
+def couper_avant_la_suite(cit, segs, page_entiere=''):
+    """None, ou (ref, suite, premier_mot) — la citation s'arrête avant ce qui la retourne.
+
+    `page_entiere` est le squelette de TOUTES les pages du siman, les trois langues
+    réunies. Si la clause qui retourne s'y trouve ailleurs, la page la dit au lecteur et
+    il n'y a rien à signaler : citer une clause et traiter la suivante dans la section
+    voisine est la conduite NORMALE d'une page d'étude. Sans ce second filtre, la porte
+    reprocherait à une page bien faite d'avoir découpé son exposé.
+    """
+    s0, _ = sk(cit)
+    if len(s0) < 20: return None
+    for ref, brut in segs:
+        b0, b0idx = sk(brut)
+        i = b0.find(s0)
+        if i < 0: continue
+        fin = b0idx[i + len(s0) - 1]
+        reste = brut[fin + 1:]
+        # la source s'est-elle close juste après ?
+        tete = reste[:6]
+        if any(c in tete for c in CLOTURE): return None
+        mots = reste.strip().split()
+        if not mots: return None
+        # le premier mot de la suite retourne-t-il le propos ?
+        premier = mots[0].strip(',;')
+        if not any(premier.startswith(r) or premier == r for r in RETOURNEMENT):
+            return None
+        sq = sk(reste)[0]
+        if len(sq) < 12: return None
+        # la clause qui retourne est-elle dite ailleurs dans le siman ?
+        if page_entiere and sq[:25] in page_entiere: return None
+        return (ref, reste.strip(), premier)
+    return None
+
 def simanim(path):
     for d in sorted(glob.glob(os.path.join(path, 'siman-*'))):
         m = re.search(r'siman-(\d+)$', d)
@@ -218,12 +279,15 @@ def main():
     if not cibles:
         print(__doc__.strip().split('Usage :')[-1]); return 2
 
-    total = trouve = 0
+    total = trouve = coupe = 0
     for n, d in cibles:
         sec = 'yoreh-deah' if 'yoreh-deah' in d else ('shabbat' if 'shabbat' in d else 'orah-haim')
         segs = None
         vues = set()
-        for f in sorted(glob.glob(os.path.join(d, '*.html'))):
+        fichiers = sorted(glob.glob(os.path.join(d, '*.html')))
+        page_entiere = ''.join(
+            sk(re.sub(r'<[^>]+>', ' ', open(x, encoding='utf-8').read()))[0] for x in fichiers)
+        for f in fichiers:
             for c in citations(f):
                 if c in vues: continue
                 vues.add(c)
@@ -233,19 +297,30 @@ def main():
                 if r:
                     trouve += 1
                     ref, saute, p, q = r
-                    print(f"✗ siman {n} · {os.path.basename(f)}")
+                    print(f"✗ TROU · siman {n} · {os.path.basename(f)}")
                     print(f"   « {c[:150]} »")
                     print(f"   {ref} : {p} consonnes au début + {q} à la fin, et entre les deux")
                     print(f"   la source porte — SAUTÉ SANS ELLIPSE : [{saute[:160]}]")
                     if not bref: print()
+                    continue
+                r2 = couper_avant_la_suite(c, segs, page_entiere)
+                if r2:
+                    coupe += 1
+                    ref, suite, premier = r2
+                    print(f"✗ COUPÉE AVANT LA SUITE · siman {n} · {os.path.basename(f)}")
+                    print(f"   « {c[:150] } »")
+                    print(f"   {ref} — la source enchaîne sur « {premier} » sans que la phrase soit close :")
+                    print(f"   [{suite[:200]}]")
+                    if not bref: print()
     print(f"\nCitations confrontées : {total}")
-    print(f"Coupures NON MARQUÉES : {trouve}")
-    if not trouve:
+    print(f"TROUS non marqués (un passage sauté au milieu)       : {trouve}")
+    print(f"COUPURES avant la suite (la clause qui retourne)      : {coupe}")
+    if not trouve and not coupe:
         print("\nAucune citation ne saute un passage de sa source sans le dire.")
     else:
         print("\nUne ellipse marque la coupure : « A… B » dit que A et B sont chacun verbatim.")
         print("Le remède est l'un des deux — rétablir le passage, ou écrire « … ».")
-    return 1 if trouve else 0
+    return 1 if (trouve or coupe) else 0
 
 if __name__ == '__main__':
     sys.exit(main())

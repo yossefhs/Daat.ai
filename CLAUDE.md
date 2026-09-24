@@ -185,6 +185,24 @@ python3 scripts/verifier-denombrements.py [--path …] [--a-verifier] [--bref]
 # l'écart SYSTÉMATIQUE, tout un siman décalé, qui est le piège de la règle 22-bis.
 python3 scripts/verifier-ancrage.py [N N …] [--path …]
 
+# Garde-fou de troncature — la citation SAUTE-t-elle un passage de sa source sans le dire ?
+# Deux familles, et la seconde est invisible à toutes les autres portes. LE TROU : la page
+# saute un passage du milieu et recolle les bords — « ונוהגין ללוש כדי שעור חלה… » (242,
+# niveau 4) est le Rama mot pour mot, sauf qu'elle retire le crochet [סמך ממרדכי ריש מסכת
+# ר״ה] que Sefaria place DANS le texte, sans « … ». LA COUPURE AVANT LA SUITE : la citation
+# s'arrête juste avant la clause qui la retourne, et comme elle EST alors une sous-chaîne
+# exacte, aucune porte de citation ne peut la voir — elle est verbatim. Deux arbitres l'ont
+# trouvée le même jour sur deux simanim : מג״א רמ״ו ס״ק ו coupé sur שרי quand la suite est
+# « אבל … וצ״ע … ויש להקל בעת הצורך », et שו״ע הרב רמ״ז:ב coupé sur אסור quand la source
+# poursuit « אלא אם כן יש שהות… ». Sur Chabbat : 9 trous et 35 coupures pour 3 554 citations.
+# Deux filtres ont fait la différence entre une porte et un bruit : « ואם » retiré de la liste
+# des mots qui retournent (83 des 201 premiers candidats, aucun n'était un défaut — « ואם »
+# introduit un AUTRE CAS), et la clause qui retourne cherchée dans TOUT le siman avant d'être
+# signalée (citer une clause et traiter la suivante à la section voisine est la conduite
+# normale d'une page d'étude). Rend des CANDIDATS ; sort en 1 s'il en reste.
+python3 scripts/verifier-troncatures.py --path sources/shabbat/siman-246
+python3 scripts/verifier-troncatures.py --section shabbat [--bref]
+
 # Garde-fou du plan d'étude — le Daat Yomi couvre-t-il les simanim qu'il annonce ?
 # verifier-limoud.py compare deux CHEMINS (le tableau des pages et le JSON du
 # courriel) et vérifie qu'ils s'accordent ; il ne compare ni l'un ni l'autre au
