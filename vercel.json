@@ -93,15 +93,138 @@
     }
   ],
   "rewrites": [
-    { "source": "/questions", "destination": "/questions/index.html" },
-    { "source": "/questions/", "destination": "/questions/index.html" },
-    { "source": "/questions/:slug([a-z0-9-]+)", "destination": "/questions/:slug.html" },
-    { "source": "/partenaires", "destination": "/partenaires.html" },
-    { "source": "/partenaires/", "destination": "/partenaires.html" },
-    { "source": "/aujourdhui", "destination": "/aujourdhui.html" },
-    { "source": "/aujourdhui/", "destination": "/aujourdhui.html" },
-    { "source": "/aujourdhui/he", "destination": "/aujourdhui-he.html" },
-    { "source": "/aujourdhui/en", "destination": "/aujourdhui-en.html" },
+    {
+      "source": "/faq",
+      "destination": "/faq.html"
+    },
+    {
+      "source": "/faq/",
+      "destination": "/faq.html"
+    },
+    {
+      "source": "/faq/he",
+      "destination": "/faq-he.html"
+    },
+    {
+      "source": "/faq/en",
+      "destination": "/faq-en.html"
+    },
+    {
+      "source": "/chat",
+      "destination": "/chat.html"
+    },
+    {
+      "source": "/chat/",
+      "destination": "/chat.html"
+    },
+    {
+      "source": "/chat/he",
+      "destination": "/chat-he.html"
+    },
+    {
+      "source": "/chat/en",
+      "destination": "/chat-en.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/about.html"
+    },
+    {
+      "source": "/about/",
+      "destination": "/about.html"
+    },
+    {
+      "source": "/about/he",
+      "destination": "/about-he.html"
+    },
+    {
+      "source": "/about/en",
+      "destination": "/about-en.html"
+    },
+    {
+      "source": "/communaute",
+      "destination": "/communaute.html"
+    },
+    {
+      "source": "/communaute/",
+      "destination": "/communaute.html"
+    },
+    {
+      "source": "/communaute/he",
+      "destination": "/communaute-he.html"
+    },
+    {
+      "source": "/communaute/en",
+      "destination": "/communaute-en.html"
+    },
+    {
+      "source": "/soutenir",
+      "destination": "/soutenir.html"
+    },
+    {
+      "source": "/soutenir/",
+      "destination": "/soutenir.html"
+    },
+    {
+      "source": "/soutenir/he",
+      "destination": "/soutenir-he.html"
+    },
+    {
+      "source": "/soutenir/en",
+      "destination": "/soutenir-en.html"
+    },
+    {
+      "source": "/chitah-admour-hazaken",
+      "destination": "/chitah-admour-hazaken.html"
+    },
+    {
+      "source": "/chitah-admour-hazaken/",
+      "destination": "/chitah-admour-hazaken.html"
+    },
+    {
+      "source": "/chitah-admour-hazaken/he",
+      "destination": "/chitah-admour-hazaken-he.html"
+    },
+    {
+      "source": "/chitah-admour-hazaken/en",
+      "destination": "/chitah-admour-hazaken-en.html"
+    },
+    {
+      "source": "/questions",
+      "destination": "/questions/index.html"
+    },
+    {
+      "source": "/questions/",
+      "destination": "/questions/index.html"
+    },
+    {
+      "source": "/questions/:slug([a-z0-9-]+)",
+      "destination": "/questions/:slug.html"
+    },
+    {
+      "source": "/partenaires",
+      "destination": "/partenaires.html"
+    },
+    {
+      "source": "/partenaires/",
+      "destination": "/partenaires.html"
+    },
+    {
+      "source": "/aujourdhui",
+      "destination": "/aujourdhui.html"
+    },
+    {
+      "source": "/aujourdhui/",
+      "destination": "/aujourdhui.html"
+    },
+    {
+      "source": "/aujourdhui/he",
+      "destination": "/aujourdhui-he.html"
+    },
+    {
+      "source": "/aujourdhui/en",
+      "destination": "/aujourdhui-en.html"
+    },
     {
       "source": "/contenu",
       "destination": "/contenu.html"
@@ -736,14 +859,46 @@
     }
   ],
   "redirects": [
-    { "source": "/aujoudhui", "destination": "/aujourdhui", "permanent": false },
-    { "source": "/aujourd-hui", "destination": "/aujourdhui", "permanent": false },
-    { "source": "/aujourdui", "destination": "/aujourdhui", "permanent": false },
-    { "source": "/today", "destination": "/aujourdhui/en", "permanent": false },
-    { "source": "/hayom", "destination": "/aujourdhui/he", "permanent": false },
-    { "source": "/nida/:n(\\d+)", "destination": "/yd/:n/", "permanent": false },
-    { "source": "/nida/:n(\\d+)/", "destination": "/yd/:n/", "permanent": false },
-    { "source": "/nida/:n(\\d+)/:rest*", "destination": "/yd/:n/:rest*", "permanent": false },
+    {
+      "source": "/aujoudhui",
+      "destination": "/aujourdhui",
+      "permanent": false
+    },
+    {
+      "source": "/aujourd-hui",
+      "destination": "/aujourdhui",
+      "permanent": false
+    },
+    {
+      "source": "/aujourdui",
+      "destination": "/aujourdhui",
+      "permanent": false
+    },
+    {
+      "source": "/today",
+      "destination": "/aujourdhui/en",
+      "permanent": false
+    },
+    {
+      "source": "/hayom",
+      "destination": "/aujourdhui/he",
+      "permanent": false
+    },
+    {
+      "source": "/nida/:n(\\d+)",
+      "destination": "/yd/:n/",
+      "permanent": false
+    },
+    {
+      "source": "/nida/:n(\\d+)/",
+      "destination": "/yd/:n/",
+      "permanent": false
+    },
+    {
+      "source": "/nida/:n(\\d+)/:rest*",
+      "destination": "/yd/:n/:rest*",
+      "permanent": false
+    },
     {
       "source": "/sources/yoreh-deah/siman-:n(\\d+)/index.html",
       "destination": "/yd/:n/",
