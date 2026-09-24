@@ -1656,3 +1656,64 @@ nom de nombreux Richonim, `דהג׳ ימים נחשבין עם השבת גופא
 - **9 pages employaient `.he-q` sans que leur feuille la définisse** — et six de ces neuf sont
   de mon fait, en portant les corrections ci-dessus dans des pages de niveau 3 et 4 dont le
   gabarit ne connaît pas cette classe. La porte des classes l'a vu ; la définition y est posée.
+
+## Chabbat, lot 250-257
+
+### Le piège Sefaria : une URL qui rend l'œuvre entière sans jamais dire non
+
+`Mishnah_Berurah_on_Shulchan_Arukh,_Orach_Chayim.253` renvoie **HTTP 200, sans champ
+`error`**, et rend **697 entrées** — tout le livre. Idem pour `Magen_Avraham_on_…`. Les
+formes justes sont `Mishnah_Berurah.N` (106 entrées pour le 253) et `Magen_Avraham.N` (43).
+
+Ce n'est pas un échec, c'est un **succès silencieux** : qui lit `he[4]` sur la mauvaise
+forme lit le cinquième siman du livre. Je l'ai fait moi-même en vérifiant le siman 245, et
+ce qui est revenu parlait de עולה et de חטאת — le siman 1. Le témoin est le champ `ref` :
+« Mishnah Berurah » sur la mauvaise forme, « Mishnah Berurah 253 » sur la bonne. La règle
+écrite dans `docs/brief-yoreh-deah.md` et dans le prompt du chantier est donc de **contrôler
+`ref` à chaque téléchargement**, et non de mémoriser une forme par compartiment — en Yoré
+Déa c'est l'autre forme qui est la bonne.
+
+### 784 titres qui affichaient leurs balises
+
+`<title>Siman <bdi>רמ״ה</bdi> · Niveau 2 Lamdan — … | DAAT</title>`. Le contenu d'un
+`<title>` est du TEXTE : la spécification HTML n'y reconnaît aucun élément, et l'analyseur
+de la bibliothèque standard rend bien le titre entier, balises comprises, comme une seule
+donnée texte. C'est donc ce que montrent l'onglet du navigateur, le résultat Google et tout
+aperçu de partage.
+
+Un arbitre l'a signalé sur un siman en demandant qu'on en mesure d'abord l'étendue : **784
+pages, toutes dans Hilkhot Chabbat**, et pas une occurrence dans `og:title`,
+`twitter:title`, `headline` ni les descriptions. Dans le corps, où l'élément fonctionne
+réellement, 613 pages l'emploient et `scripts/fix-title-bdi.py` n'y touche pas.
+
+### Ce que les arbitres ont nommé dans les pages traduites
+
+- **252** : une liste fermée de six cas pour la michna de שבת א׳, qui en compte sept sur
+  cinq clauses « בית שמאי אומרים » — et l'omis était `ולא כלים לכובס נכרי`, c'est-à-dire
+  précisément le cas que le séif 2 développe ; une position du Beit Yossef et du Bayit
+  Hadach prêtée au Magen Avraham, alors qu'il la rapporte, lui oppose un צ״ע et conclut
+  contre elle avec le Rokéa'h ; un renvoi au ס״ק כ״א pour une remarque qui est au ס״ק כ״ב ;
+  et « la permission tombe donc d'elle-même », qui se lit en français comme « s'effondre »,
+  l'inverse de ce que dit l'anglais ;
+- **253** : « n'est permis selon aucun des deux avis du seif 1 » — le premier avis du
+  Mehaber permet justement le plat entièrement cru, `או שהוא חי שלא נתבשל כלל`, et la page
+  le cite deux fois ailleurs. Corrigé dans les TROIS langues, l'hébreu compris, d'où
+  l'absolue venait. Et l'étape de pilpoul perdue au §5 — le rang relatif de גרופה et de
+  קטומה — est rendue, écrite comme une conséquence des textes cités et non comme le psak
+  d'une autorité nommée, faute de pouvoir sourcer l'attribution du -he au ר״ן et au רא״ש ;
+- **256** : une citation du Choul'han Aroukh HaRav **tronquée de sa clause d'ouverture**,
+  `כשהיו ישראל בישובן`, et glosée comme « la formulation la plus nette de la voie A ». La
+  clause élidée est exactement celle qui situe l'institution dans un état du peuple qui
+  n'est plus le nôtre. Rétablie, et la glose dit maintenant ce que la phrase établit et ce
+  qu'elle ne tranche pas ;
+- **257** : « la formule fait rimer QUATRE mots en מין », quand le verbatim du בעל המאור
+  imprimé deux lignes plus haut en porte six. C'est la faute du siman 234, et la page se
+  démentait elle-même. Rendue à une forme ouverte.
+
+### Ce qui reste, et qui est lourd
+
+Les **niveaux 2 hébreux** de ce lot portent encore ce que les arbitres y ont trouvé : au 253
+six fabrications, dont une citation prêtée au Rambam et une au Beit Yossef, l'attribution du
+Rif à Hananya, et une inversion sur le Ran. Le lecteur hébraïsant lit donc autre chose que
+le lecteur francophone. C'est, comme l'écrit l'arbitre du 253, **l'état le plus coûteux du
+dépôt**, et il ne doit pas durer.
