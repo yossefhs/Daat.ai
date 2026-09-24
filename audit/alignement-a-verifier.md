@@ -1717,3 +1717,59 @@ six fabrications, dont une citation prêtée au Rambam et une au Beit Yossef, l'
 Rif à Hananya, et une inversion sur le Ran. Le lecteur hébraïsant lit donc autre chose que
 le lecteur francophone. C'est, comme l'écrit l'arbitre du 253, **l'état le plus coûteux du
 dépôt**, et il ne doit pas durer.
+
+## Chabbat, lot 258-280 — « qui parle, et de qui »
+
+Cinq des huit simanim ont été refusés, et presque tous les défauts sont de la même famille :
+une parole rendue au mauvais locuteur. Aucun ne touche un verbatim — les citations étaient
+exactes —, et donc aucune porte ne pouvait les voir.
+
+- **260** : « Rav tient que l'ablution du soir est facultative, et c'est l'anonyme de la
+  sougya qui la relève au rang de mitsva ». Il n'y a pas d'anonyme : le
+  `וַאֲנִי אוֹמֵר: מִצְוָה` est à l'intérieur de la même dicta, après
+  `רְחִיצַת יָדַיִם וְרַגְלַיִם בְּחַמִּין עַרְבִית, רְשׁוּת` (שבת כ״ה ע״ב) ;
+- **263** : « Abayé rapporte au nom de Rav » — c'est Rava qui répond à une objection d'Abayé
+  (`אֲמַר לֵיהּ אַבָּיֵי: וְיֵצֵא! אֲמַר לֵיהּ…`), et la chaîne nommée est Rav Nahman bar Rav
+  Zavda, ou Rav Nahman bar Rava, au nom de Rav. Abayé est l'objectant. Au même siman, « le
+  ס״ק suivant » pour un ס״ק qui **précède**, et un nom propre qui divergeait entre les deux
+  langues — Rav Chizbi en français, Rav Sheizvi en anglais, pour רַב שֵׁיזְבִי ;
+- **264** : « Le Taz l'écrit en trois mots, et le Michna Beroura le développe » — c'est
+  l'inverse : le ט״ז ס״ק ד est le plus long des cinq qu'il donne sur ce siman, et le
+  מ״ב ס״ק כ״ב le condense. L'ordre des recours que la page tire du Michna Beroura, celui-ci
+  l'attribue expressément au **Maté Moché** (`[מטה משה]`). Et la citation du Choul'han Aroukh
+  HaRav s'arrêtait juste avant sa raison : la préférence pour les autres huiles est d'abord
+  `לְפִי שֶׁיֵּשׁ אוֹסְרִים אוֹתָן`, la limpidité ne venant qu'à l'étape suivante ;
+- **259** : la permission « par un non-Juif » du séif 7 porte sur la **fermeture**, et la
+  crainte est d'**éteindre** — `אסור לסתום דמכבה הגחלים … משום פסיק רישא` ; l'ouverture qui
+  attise les braises est un point dérivé, que le Maguen Avraham introduit par
+  `ומשמע בת״ה דה״ה לפותחו`. La page avait pris le dérivé pour le principal. Plus : une
+  responsa du Rama rattachée à l'interdit principal au lieu de la restriction à laquelle le
+  מ״ב ס״ק כ״ה l'attache, un renvoi au siman 253 pour un ס״ק qui renvoie au 257, et une phrase
+  du **Roch** — que le Beit Yossef introduit par `וכתב הרא״ש ע״ז` — donnée au Beit Yossef.
+
+### Le siman 280 : une fabrication qui ne vivait plus que dans l'hébreu
+
+`« עונה של תלמידי חכמים — מערב שבת לערב שבת. שנאמר 'אשר פריו יתן בעתו' »` fondait en une
+seule phrase, avec un `שנאמר` inventé, deux dicta que la guemara donne séparément :
+
+> `עוֹנָה שֶׁל תַּלְמִידֵי חֲכָמִים אֵימַת? אָמַר רַב יְהוּדָה אָמַר שְׁמוּאֵל: מֵעֶרֶב שַׁבָּת לְעֶרֶב שַׁבָּת`
+> puis `אֲשֶׁר פִּרְיוֹ יִתֵּן בְּעִתּוֹ, אָמַר רַב יְהוּדָה, וְאִיתֵּימָא רַב הוּנָא, וְאִיתֵּימָא רַב נַחְמָן: זֶה הַמְשַׁמֵּשׁ מִטָּתוֹ מֵעֶרֶב שַׁבָּת לְעֶרֶב שַׁבָּת`
+> (כתובות ס״ב ע״ב)
+
+Les traducteurs l'avaient retirée de leurs deux fichiers ; elle ne vivait plus que dans le
+`-he`, où elle bloquait la porte des fabrications. Les deux dicta y sont désormais rendus
+séparément, chacun avec sa référence.
+
+### Et le fond du problème, que ce lot rend impossible à ignorer
+
+Les arbitres relèvent, siman après siman, que **le niveau 2 hébreu porte encore ce que les
+traductions ont corrigé** : six fabrications au 258, cinq au 259, des attributions croisées
+au 258 (le critère géométrique donné au Beit Yossef alors qu'il est du Taz et du Rama), et
+une inversion de la Michna Beroura au 258 §7 — la page lui fait dire que l'interdit du
+Chabbat n'est pas la hatmana mais la cuisson, quand elle écrit le contraire dans le cas
+principal.
+
+Autrement dit : **les trois variantes d'un même siman ne disent plus la même chose**, et
+c'est l'hébreu qui est en retard. L'arbitre du 253 l'avait nommé « l'état le plus coûteux du
+dépôt ». Il faut un chantier dédié aux `niveau-2-lamdan-he.html` de Hilkhot Chabbat, mené
+sur les sources comme l'ont été les traductions.
