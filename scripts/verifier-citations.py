@@ -1215,6 +1215,19 @@ def ref_mb_du_siman(path, ctx):
 # exactement pareil.
 OUVRAGES = [
     # (sigle, gabarit Orah Haim, gabarit Yoreh Deah, second niveau requis)
+    # ⚠️ LA MICHNA BEROURA MANQUAIT A CETTE TABLE, et c'est l'ouvrage le plus cité du
+    # compartiment. RE_MB ne lit que la forme à deux-points (« מ״ב רמ״ו:ב ») ; la forme
+    # conventionnelle du dépôt, « (משנה ברורה רמ״ו ס״ק ב) » ou « (מ״ב רמ״ו ס״ק ב) »,
+    # n'en produisait AUCUNE référence — ni par RE_MB, qui exige le deux-points, ni par
+    # cette table, où elle ne figurait pas. Ces citations partaient donc en « sans
+    # référence » et n'étaient JAMAIS confrontées à quoi que ce soit. Deux agents de
+    # contrôle l'ont signalé indépendamment sur les simanim 246 et 247 ; mesuré ensuite
+    # sur tout le dépôt : 648 références nomment la seule Michna Beroura avec un ס״ק et
+    # sans deux-points, 642 dans Hilkhot Chabbat et 6 dans Orah Haïm.
+    # Le sigle doit être écrit ici avec ses frontières et sans marque de folio : « מ״ב »
+    # est aussi la guématria 42, et « מנחות מ״ב. » est un DAF, pas la Michna Beroura.
+    (r'משנה ברורה|משנ["״]ב|(?<![א-ת])מ["״]ב(?![א-ת])(?!\s*[.:\u05C3]|\s*ע["״][אב])',
+     'Mishnah_Berurah.{s}.{n}', None, True),
     (r'מג["״]א|מגן אברהם', 'Magen_Avraham.{s}.{n}', None, True),
     (r'ט["״]ז|טורי זהב', 'Turei_Zahav_on_Shulchan_Arukh,_Orach_Chayim.{s}.{n}',
      "Turei_Zahav_on_Shulchan_Arukh,_Yoreh_De'ah.{s}.{n}", True),
