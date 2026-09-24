@@ -245,6 +245,29 @@ python3 scripts/verifier-ancrage.py [N N …] [--path …]
 python3 scripts/verifier-troncatures.py --path sources/shabbat/siman-246
 python3 scripts/verifier-troncatures.py --section shabbat [--bref]
 
+# Garde-fou d'étiquette — la cellule de niveau 4 nomme-t-elle un séif qui porte ce qu'elle
+# annonce ? Les tableaux comparatifs rangent la source par colonne et posent au-dessus de
+# chaque cellule une adresse : « OH 243:2 », « Hagaha sur OH 243:2 », « MB 242:3-4 ». Le
+# contenu, lui, est le plus souvent une CONDENSATION introduite par `<em>résumé</em> :`, que
+# la convention exempte à bon droit du verbatim — une condensation n'est pas une citation.
+# L'exemption laissait DEUX trous. Le premier — une condensation peut être FAUSSE (au siman
+# 247, une qui inverse le psak : elle attache la condition du בי דואר au cas où l'on a fixé
+# un prix, quand le Mehaber ne l'ouvre qu'« ואם לא קצב ») — ne se tranche pas mécaniquement,
+# et cette porte ne le prétend pas. LE SECOND, SI : l'ADRESSE elle-même peut mentir.
+# Trois questions fermées : le séif existe-t-il · porte-t-il une glose du Rama quand la
+# cellule en promet une · le ס״ק existe-t-il dans la Michna Beroura de ce siman.
+# Premier balayage de Hilkhot Chabbat : 308 étiquettes confrontées, 26 ANOMALIES sur
+# 7 simanim (242, 247-251, 264) — et toutes dans la plage 242-264, comme les troncatures.
+# Vérifiées à la main contre Sefaria : le siman 249 a QUATRE séifim (son chapeau l'écrit,
+# « ובו ד סעיפים ») et la page annonce « OH 249:5 » ; ses gloses du Rama sont aux séifim ב
+# et ד, la page en annonce trois, aux séifim 1, 3 et 5. Le siman 250 a SIX ס״ק de Michna
+# Beroura, la page annonce « MB 250:14-17 ».
+# ⚠️ Le décalage de la פתיחה se MESURE, jamais ne se suppose : dans Mishnah_Berurah.N la
+# première entrée est la פתיחה non numérotée au siman 248 et ne l'est PAS aux simanim 250
+# et 251. La porte regarde si la première entrée porte le marqueur « (א) ».
+python3 scripts/verifier-etiquettes.py --section shabbat [--bref]
+python3 scripts/verifier-etiquettes.py 249
+
 # Garde-fou du plan d'étude — le Daat Yomi couvre-t-il les simanim qu'il annonce ?
 # verifier-limoud.py compare deux CHEMINS (le tableau des pages et le JSON du
 # courriel) et vérifie qu'ils s'accordent ; il ne compare ni l'un ni l'autre au
