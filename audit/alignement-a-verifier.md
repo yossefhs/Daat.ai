@@ -1579,3 +1579,234 @@ citations non vérifiées** : `he-q` sert ici à deux choses, marquer un verbati
 composer de l'hébreu (titres, termes — `שלושת חילוקי רב פפא`). C'est cette **ambiguïté du
 marqueur** qui est le vrai constat. Trancher demande de décider ce que `he-q` signifie ; en
 attendant, la forme que le garde-fou lit est le guillemet **à l'intérieur** du span.
+
+## Hilkhot Chabbat, lot 242-249 — un psak inversé en production, et une porte qui ne comparait rien
+
+### La porte verte qui n'examinait rien
+
+`verifier-fabrications.py N` avec un numéro nu résolvait son chemin sous `sources/yoreh-deah`
+et rien d'autre. Sur un siman de Hilkhot Chabbat ou d'Orah Haïm il annonçait donc
+« 0 citation examinée » et sortait en 0 : **une porte verte sur 365 simanim qu'elle ne
+regardait pas**. C'est exactement ce que CLAUDE.md tient pour pire qu'une porte absente, et
+la forme fautive était écrite dans la consigne que j'avais donnée aux agents. Un arbitre l'a
+vue en relisant le siman 248.
+
+Le même défaut vivait dans `fix-lamdan-ltr.py` — qui annonçait « 0 fichier examiné » sur les
+simanim de Chabbat — et dans `verifier-ancrage.py`. Les trois résolvent désormais un numéro
+nu dans les quatre compartiments, et **un numéro introuvable est une erreur de sortie 2**,
+non plus un silence.
+
+### Le psak inversé — siman 246, niveau 3, TROIS langues
+
+La page enseignait : « Rama : même le prêt gratuit est interdit », « Ashkénazes (Rama) :
+INTERDIT — נראה כשלוחו », et le piège n°2 corrigeait le lecteur dans ce sens. Le Rama écrit
+le contraire, au séif א du siman 246 :
+
+> `וכן עיקר כסברא האחרונה ומותר להשאיל לו בערב שבת`
+
+et la Michna Beroura ס״ק ד donne la raison, qui renverse le raisonnement de la page :
+
+> `דכיון שאין ריוח לישראל במלאכת הא״י לא יאמרו שלוחו הוא לזה וע״כ מותר להשאיל לו אפילו ליום השבת לחוד אפילו כלים שיעשה הא״י מלאכה בהן`
+
+C'est **l'absence de profit** qui permet le prêt ; la page s'en servait pour l'interdire. La
+page se contredisait d'ailleurs elle-même, une ligne plus bas disant « le prêt gratuit reste
+permis, même la veille ». Corrigé dans les trois langues — chronologie, règle ③, arbre de
+décision, piège, moyen mnémotechnique et questions de compréhension — avec les deux verbatim
+à l'appui. **Le niveau 2 hébreu du 246 porte encore onze fabrications**, dont deux inversions
+de psak, et n'est pas repris ici.
+
+### La fabrication du siman 248, niveau 4, trois langues
+
+`« אַרְבַּעַת יָמִים קֹדֶם הַשַּׁבָּת »` — quatre jours avant Chabbat — était donné entre
+guillemets et attribué à מ״ב רמ״ח:א-ה. La braïta dit trois : `אין מפליגין בספינה פחות מג׳
+ימים קודם לשבת`. La cellule prêtait en outre à Tossafot, à Rachi et au Rif un décompte
+qu'aucun ne donne. Refaite sur le ס״ק ד réel, dont tout le contenu est une ma'hloket sur le
+**mercredi** : le Magen Avraham l'interdit au nom de nombreux Aharonim, le Gaon le permet au
+nom de nombreux Richonim, `דהג׳ ימים נחשבין עם השבת גופא`.
+
+### Ce que le lot a corrigé dans les pages traduites
+
+- **242** : le Biour Halakha du siman, que le rapport disait absent de Sefaria et qui y est
+  (`Biur_Halacha.242`), est rétabli — il dit que la Michna Beroura a tranché **contre** le Taz,
+  resté isolé, et que pour un `כסא דהרסנא` même celui dont l'heure est la plus serrée est
+  tenu. La colonne « ce que la Michna Beroura ajoute » devient « ce que la Michna Beroura
+  tient ». Les références des trois Aharonim (חת״ס, צמח צדק, רב פעלים) sont rendues, avec la
+  mention explicite qu'elles n'ont pas pu être confrontées, Sefaria ne servant pas ces œuvres ;
+- **243** : trois renvois à `מ״ב ס״ק א` visaient en réalité l'ouverture non numérotée sur
+  `לא ישכיר`, et un `ס״ק ו` valait `ס״ק ה` ; une nafka mina (le non-juif mineur) manquait aux
+  deux traductions ; un `he-q` enveloppait de la prose éditoriale ; et une conclusion absolue
+  est rendue ouverte. Deux lignes du tableau hébreu ne sont **pas** reproduites, et la page
+  dit pourquoi : le seul `רשב״א` que le Beit Yossef nomme ici est le Tanna Rabbi Chimon ben
+  Elazar, et le critère de l'usage du lieu est du Mehaber au séif ב, non du Rama ;
+- **245** : le moulin était rangé parmi les interdits du siman 243 alors que le séif s'achève
+  sur `ותנור דינו כמרחץ ורחיים דינו כשדה` — le moulin suit le champ, donc permis ; et le
+  תירוץ de הבלעה était donné au Taz quand la Michna Beroura ס״ק ט״ו l'attribue au Magen
+  Avraham ;
+- **244** : `« שבות דשבות במקום מצוה לא גזרו »` était donné comme verbatim d'Eruvin 67b ; c'est
+  une formule des Aharonim, rendue sans guillemets et sans la fausse référence, dans les trois
+  langues.
+
+### Deux défauts mécaniques mesurés
+
+- **1 476 numéros de séif katan sans gershayim** — `ס״ק יב` au lieu de `ס״ק י״ב` — dans 164
+  fichiers, tous compartiments. `fix-sk-nums.py` les rend à leur forme, avec un contrôle par
+  aller-retour qui n'accepte un mot que s'il est un numéral canonique : `שם` n'en est pas un.
+  Vérifié ensuite sur les 160 fichiers hors lot : **aucune citation `he-q` n'a changé**, seules
+  les références l'ont fait ;
+- **9 pages employaient `.he-q` sans que leur feuille la définisse** — et six de ces neuf sont
+  de mon fait, en portant les corrections ci-dessus dans des pages de niveau 3 et 4 dont le
+  gabarit ne connaît pas cette classe. La porte des classes l'a vu ; la définition y est posée.
+
+## Chabbat, lot 250-257
+
+### Le piège Sefaria : une URL qui rend l'œuvre entière sans jamais dire non
+
+`Mishnah_Berurah_on_Shulchan_Arukh,_Orach_Chayim.253` renvoie **HTTP 200, sans champ
+`error`**, et rend **697 entrées** — tout le livre. Idem pour `Magen_Avraham_on_…`. Les
+formes justes sont `Mishnah_Berurah.N` (106 entrées pour le 253) et `Magen_Avraham.N` (43).
+
+Ce n'est pas un échec, c'est un **succès silencieux** : qui lit `he[4]` sur la mauvaise
+forme lit le cinquième siman du livre. Je l'ai fait moi-même en vérifiant le siman 245, et
+ce qui est revenu parlait de עולה et de חטאת — le siman 1. Le témoin est le champ `ref` :
+« Mishnah Berurah » sur la mauvaise forme, « Mishnah Berurah 253 » sur la bonne. La règle
+écrite dans `docs/brief-yoreh-deah.md` et dans le prompt du chantier est donc de **contrôler
+`ref` à chaque téléchargement**, et non de mémoriser une forme par compartiment — en Yoré
+Déa c'est l'autre forme qui est la bonne.
+
+### 784 titres qui affichaient leurs balises
+
+`<title>Siman <bdi>רמ״ה</bdi> · Niveau 2 Lamdan — … | DAAT</title>`. Le contenu d'un
+`<title>` est du TEXTE : la spécification HTML n'y reconnaît aucun élément, et l'analyseur
+de la bibliothèque standard rend bien le titre entier, balises comprises, comme une seule
+donnée texte. C'est donc ce que montrent l'onglet du navigateur, le résultat Google et tout
+aperçu de partage.
+
+Un arbitre l'a signalé sur un siman en demandant qu'on en mesure d'abord l'étendue : **784
+pages, toutes dans Hilkhot Chabbat**, et pas une occurrence dans `og:title`,
+`twitter:title`, `headline` ni les descriptions. Dans le corps, où l'élément fonctionne
+réellement, 613 pages l'emploient et `scripts/fix-title-bdi.py` n'y touche pas.
+
+### Ce que les arbitres ont nommé dans les pages traduites
+
+- **252** : une liste fermée de six cas pour la michna de שבת א׳, qui en compte sept sur
+  cinq clauses « בית שמאי אומרים » — et l'omis était `ולא כלים לכובס נכרי`, c'est-à-dire
+  précisément le cas que le séif 2 développe ; une position du Beit Yossef et du Bayit
+  Hadach prêtée au Magen Avraham, alors qu'il la rapporte, lui oppose un צ״ע et conclut
+  contre elle avec le Rokéa'h ; un renvoi au ס״ק כ״א pour une remarque qui est au ס״ק כ״ב ;
+  et « la permission tombe donc d'elle-même », qui se lit en français comme « s'effondre »,
+  l'inverse de ce que dit l'anglais ;
+- **253** : « n'est permis selon aucun des deux avis du seif 1 » — le premier avis du
+  Mehaber permet justement le plat entièrement cru, `או שהוא חי שלא נתבשל כלל`, et la page
+  le cite deux fois ailleurs. Corrigé dans les TROIS langues, l'hébreu compris, d'où
+  l'absolue venait. Et l'étape de pilpoul perdue au §5 — le rang relatif de גרופה et de
+  קטומה — est rendue, écrite comme une conséquence des textes cités et non comme le psak
+  d'une autorité nommée, faute de pouvoir sourcer l'attribution du -he au ר״ן et au רא״ש ;
+- **256** : une citation du Choul'han Aroukh HaRav **tronquée de sa clause d'ouverture**,
+  `כשהיו ישראל בישובן`, et glosée comme « la formulation la plus nette de la voie A ». La
+  clause élidée est exactement celle qui situe l'institution dans un état du peuple qui
+  n'est plus le nôtre. Rétablie, et la glose dit maintenant ce que la phrase établit et ce
+  qu'elle ne tranche pas ;
+- **257** : « la formule fait rimer QUATRE mots en מין », quand le verbatim du בעל המאור
+  imprimé deux lignes plus haut en porte six. C'est la faute du siman 234, et la page se
+  démentait elle-même. Rendue à une forme ouverte.
+
+### Ce qui reste, et qui est lourd
+
+Les **niveaux 2 hébreux** de ce lot portent encore ce que les arbitres y ont trouvé : au 253
+six fabrications, dont une citation prêtée au Rambam et une au Beit Yossef, l'attribution du
+Rif à Hananya, et une inversion sur le Ran. Le lecteur hébraïsant lit donc autre chose que
+le lecteur francophone. C'est, comme l'écrit l'arbitre du 253, **l'état le plus coûteux du
+dépôt**, et il ne doit pas durer.
+
+## Chabbat, lot 258-280 — « qui parle, et de qui »
+
+Cinq des huit simanim ont été refusés, et presque tous les défauts sont de la même famille :
+une parole rendue au mauvais locuteur. Aucun ne touche un verbatim — les citations étaient
+exactes —, et donc aucune porte ne pouvait les voir.
+
+- **260** : « Rav tient que l'ablution du soir est facultative, et c'est l'anonyme de la
+  sougya qui la relève au rang de mitsva ». Il n'y a pas d'anonyme : le
+  `וַאֲנִי אוֹמֵר: מִצְוָה` est à l'intérieur de la même dicta, après
+  `רְחִיצַת יָדַיִם וְרַגְלַיִם בְּחַמִּין עַרְבִית, רְשׁוּת` (שבת כ״ה ע״ב) ;
+- **263** : « Abayé rapporte au nom de Rav » — c'est Rava qui répond à une objection d'Abayé
+  (`אֲמַר לֵיהּ אַבָּיֵי: וְיֵצֵא! אֲמַר לֵיהּ…`), et la chaîne nommée est Rav Nahman bar Rav
+  Zavda, ou Rav Nahman bar Rava, au nom de Rav. Abayé est l'objectant. Au même siman, « le
+  ס״ק suivant » pour un ס״ק qui **précède**, et un nom propre qui divergeait entre les deux
+  langues — Rav Chizbi en français, Rav Sheizvi en anglais, pour רַב שֵׁיזְבִי ;
+- **264** : « Le Taz l'écrit en trois mots, et le Michna Beroura le développe » — c'est
+  l'inverse : le ט״ז ס״ק ד est le plus long des cinq qu'il donne sur ce siman, et le
+  מ״ב ס״ק כ״ב le condense. L'ordre des recours que la page tire du Michna Beroura, celui-ci
+  l'attribue expressément au **Maté Moché** (`[מטה משה]`). Et la citation du Choul'han Aroukh
+  HaRav s'arrêtait juste avant sa raison : la préférence pour les autres huiles est d'abord
+  `לְפִי שֶׁיֵּשׁ אוֹסְרִים אוֹתָן`, la limpidité ne venant qu'à l'étape suivante ;
+- **259** : la permission « par un non-Juif » du séif 7 porte sur la **fermeture**, et la
+  crainte est d'**éteindre** — `אסור לסתום דמכבה הגחלים … משום פסיק רישא` ; l'ouverture qui
+  attise les braises est un point dérivé, que le Maguen Avraham introduit par
+  `ומשמע בת״ה דה״ה לפותחו`. La page avait pris le dérivé pour le principal. Plus : une
+  responsa du Rama rattachée à l'interdit principal au lieu de la restriction à laquelle le
+  מ״ב ס״ק כ״ה l'attache, un renvoi au siman 253 pour un ס״ק qui renvoie au 257, et une phrase
+  du **Roch** — que le Beit Yossef introduit par `וכתב הרא״ש ע״ז` — donnée au Beit Yossef.
+
+### Le siman 280 : une fabrication qui ne vivait plus que dans l'hébreu
+
+`« עונה של תלמידי חכמים — מערב שבת לערב שבת. שנאמר 'אשר פריו יתן בעתו' »` fondait en une
+seule phrase, avec un `שנאמר` inventé, deux dicta que la guemara donne séparément :
+
+> `עוֹנָה שֶׁל תַּלְמִידֵי חֲכָמִים אֵימַת? אָמַר רַב יְהוּדָה אָמַר שְׁמוּאֵל: מֵעֶרֶב שַׁבָּת לְעֶרֶב שַׁבָּת`
+> puis `אֲשֶׁר פִּרְיוֹ יִתֵּן בְּעִתּוֹ, אָמַר רַב יְהוּדָה, וְאִיתֵּימָא רַב הוּנָא, וְאִיתֵּימָא רַב נַחְמָן: זֶה הַמְשַׁמֵּשׁ מִטָּתוֹ מֵעֶרֶב שַׁבָּת לְעֶרֶב שַׁבָּת`
+> (כתובות ס״ב ע״ב)
+
+Les traducteurs l'avaient retirée de leurs deux fichiers ; elle ne vivait plus que dans le
+`-he`, où elle bloquait la porte des fabrications. Les deux dicta y sont désormais rendus
+séparément, chacun avec sa référence.
+
+### Et le fond du problème, que ce lot rend impossible à ignorer
+
+Les arbitres relèvent, siman après siman, que **le niveau 2 hébreu porte encore ce que les
+traductions ont corrigé** : six fabrications au 258, cinq au 259, des attributions croisées
+au 258 (le critère géométrique donné au Beit Yossef alors qu'il est du Taz et du Rama), et
+une inversion de la Michna Beroura au 258 §7 — la page lui fait dire que l'interdit du
+Chabbat n'est pas la hatmana mais la cuisson, quand elle écrit le contraire dans le cas
+principal.
+
+Autrement dit : **les trois variantes d'un même siman ne disent plus la même chose**, et
+c'est l'hébreu qui est en retard. L'arbitre du 253 l'avait nommé « l'état le plus coûteux du
+dépôt ». Il faut un chantier dédié aux `niveau-2-lamdan-he.html` de Hilkhot Chabbat, mené
+sur les sources comme l'ont été les traductions.
+
+## Le chantier des niveaux 2 est achevé — 83 simanim, et un zéro qui compte
+
+Au 24 septembre 2026, `verifier-url-langue.py` rend, sur les **7 707 pages du dépôt**, zéro
+page dont le `lang=` contredit le nom du fichier et **zéro variante dont le corps est
+identique au français**. Au début du chantier, il en comptait 49 et 100 pour le seul Yoré
+Déa, puis 57 de plus pour Hilkhot Chabbat.
+
+Soit **83 simanim** dont le niveau 2 servait la page hébraïque sous trois URL : 49 en Yoré
+Déa (87-118, 183-200) et 34 en Hilkhot Chabbat (242-261, 263, 264, 271, 280, 290, 292, 299,
+313, 324, 342, 348, 350, 356, 359).
+
+### Les deux derniers défauts, et ils valent d'être gardés
+
+- **348** — une citation coupée à la virgule, là même où la phrase bascule. La page donnait
+  `הִדְבִּיק פַּת בַּתַּנּוּר, הִתִּירוּ לוֹ לִרְדּוֹתָהּ קוֹדֶם שֶׁיָּבֹא לִידֵי חִיּוּב חַטָּאת`
+  comme une règle ; la source continue par `אוֹ לֹא הִתִּירוּ?` — c'est une **בעיא** de Rav
+  Bibi bar Abayé, que la sougya ne tranche pas : elle propose `תִּפְשׁוֹט דְּלֹא הִתִּירוּ`
+  puis se referme sur un `וְאִיבָּעֵית אֵימָא, לְעוֹלָם לָא תִּפְשׁוֹט`. Et la déduction
+  n'est pas de la guemara : le Beit Yossef l'attribue aux Richonim — `ולמדו כן מדא״ר ביבי` —
+  et chez lui le motif n'est pas `חיוב חטאת` mais `איסור סקילה`. Les deux sont rétablis ;
+- **324** — une נפקא מינה étiquetée comme telle dans l'hébreu n'avait traversé dans aucune
+  des deux langues : l'ordre de 'Habad et la décision des poskim sur la
+  `בלילה רכה` et la `בלילה עבה`, qui relèvent du siman שכ״א. Rendue, en nommant le renvoi
+  sans trancher le partage. Et une phrase que la page démentait vingt lignes plus bas : le
+  séif 1 n'est pas `מרקד` mais `כמרקד`.
+
+### Ce qui reste, et c'est maintenant le premier poste
+
+Les `niveau-2-lamdan-he.html` de Hilkhot Chabbat portent encore ce que les traductions ont
+corrigé. Le relevé des arbitres, siman par siman : six fabrications au 258, cinq au 259, six
+au 253, onze au 246 dont deux inversions de psak, et au 258 une inversion de la Michna
+Beroura. **Les trois variantes d'un même siman ne disent donc plus la même chose, et c'est
+l'hébreu qui est en retard.**
+
+C'est le chantier qui doit suivre : reprendre ces pages hébraïques sur les sources, comme
+l'ont été les traductions. Rien de ce qui suit ne devrait passer avant.

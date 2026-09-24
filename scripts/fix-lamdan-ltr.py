@@ -157,18 +157,35 @@ def traiter(path, dry=False):
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith('--')]
     dry = '--dry-run' in sys.argv
+    # Un numéro nu se résout dans TOUS les compartiments, pas dans le seul Yoré Déa.
+    # Avant ce correctif, `fix-lamdan-ltr.py 242` annonçait « 0 fichier examiné » et
+    # sortait en 0 sur un siman de Hilkhot Chabbat : le script ne faisait rien et le
+    # disait sans qu'on l'entende. Le même défaut vivait dans verifier-fabrications.py,
+    # où un arbitre l'a trouvé. Un numéro introuvable est maintenant une ERREUR.
+    COMPARTIMENTS = ('yoreh-deah', 'shabbat', 'orah-haim', 'nida')
     if '--tous' in sys.argv:
-        cibles = [p for p in sorted(glob.glob(
-            os.path.join(ROOT, 'sources/yoreh-deah/siman-*/niveau-2-lamdan*.html')))
-            if not p.endswith('-he.html')]
-    else:
         cibles = []
+        for c in COMPARTIMENTS:
+            cibles += [p for p in sorted(glob.glob(
+                os.path.join(ROOT, f'sources/{c}/siman-*/niveau-2-lamdan*.html')))
+                if not p.endswith('-he.html')]
+    else:
+        cibles, manquants = [], []
         for a in args:
-            for suf in ('', '-en'):
-                p = os.path.join(ROOT,
-                                 f'sources/yoreh-deah/siman-{a}/niveau-2-lamdan{suf}.html')
-                if os.path.exists(p):
-                    cibles.append(p)
+            trouves = []
+            for c in COMPARTIMENTS:
+                for suf in ('', '-en'):
+                    p = os.path.join(ROOT,
+                                     f'sources/{c}/siman-{a}/niveau-2-lamdan{suf}.html')
+                    if os.path.exists(p):
+                        trouves.append(p)
+            if not trouves:
+                manquants.append(a)
+            cibles += trouves
+        if manquants:
+            print(f"Siman(im) sans niveau 2 dans sources/ : {', '.join(manquants)}")
+            print("  (compartiments cherchés : " + ', '.join(COMPARTIMENTS) + ")")
+            return 2
     tr = tl = 0
     for p in cibles:
         r, l = traiter(p, dry)

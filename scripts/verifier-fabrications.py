@@ -148,7 +148,29 @@ def main():
         racines = ([cible] if os.path.basename(cible).startswith('siman-')
                    else sorted(glob.glob(os.path.join(cible, 'siman-*'))))
     elif args:
-        racines = [os.path.join(ROOT, 'sources', 'yoreh-deah', f'siman-{a}') for a in args]
+        # Un numéro nu se résout dans LE compartiment où ce siman existe, et pas
+        # seulement dans Yoré Déa. Avant ce correctif, `verifier-fabrications.py 248`
+        # cherchait sources/yoreh-deah/siman-248, qui n'existe pas, examinait zéro
+        # citation et sortait en 0 : une porte VERTE QUI NE COMPARE RIEN sur les 124
+        # simanim de Hilkhot Chabbat et les 241 d'Orah Haïm. Un arbitre l'a vue en
+        # relisant le siman 248 ; la forme fautive était dans la consigne du lot.
+        # CLAUDE.md le dit : une porte qui ne compare rien et sort verte est pire
+        # qu'une porte absente. Un numéro introuvable est désormais une ERREUR.
+        COMPARTIMENTS = ('yoreh-deah', 'shabbat', 'orah-haim', 'nida')
+        racines, manquants = [], []
+        for a in args:
+            trouve = [os.path.join(ROOT, 'sources', c, f'siman-{a}') for c in COMPARTIMENTS
+                      if os.path.isdir(os.path.join(ROOT, 'sources', c, f'siman-{a}'))]
+            if not trouve:
+                manquants.append(a)
+            racines.extend(trouve)
+        if manquants:
+            print(f"Siman(im) introuvable(s) dans sources/ : {', '.join(manquants)}")
+            print("  (compartiments cherchés : " + ', '.join(COMPARTIMENTS) + ")")
+            return 2
+        if len(racines) > len(args):
+            print("Note : un même numéro existe dans plusieurs compartiments ; "
+                  "tous sont examinés.\n")
     else:
         print(__doc__); return 2
 
