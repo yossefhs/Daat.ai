@@ -13,7 +13,7 @@ import {
   deleteDynamicEntry,
   listDynamicEntries,
 } from '../_corpus.js';
-import { corsAdmin, origineRefusee, refuserOrigine, freinage, echecAdmin, reussiteAdmin, refuser } from '../_admin-gate.js';
+import { corsAdmin, origineRefusee, refuserOrigine, adminParJeton, freinage, echecAdmin, reussiteAdmin, refuser } from '../_admin-gate.js';
 
 function checkAuth(req) {
   const expected = process.env.ADMIN_PASSWORD;
@@ -42,10 +42,15 @@ export default async function handler(req, res) {
   if (origineRefusee(req)) return refuserOrigine(res);
   const frein = await freinage(req);
   if (frein.bloque) return refuser(res);
-  const auth = checkAuth(req);
-  if (!auth.ok) {
-    if (auth.status === 401) await echecAdmin(req);
-    return res.status(auth.status).json({ error: auth.error });
+  // Deux voies : le JWT du site s'il identifie un administrateur, sinon le mot
+  // de passe partagé. Additif — sans ADMIN_EMAILS, rien ne change.
+  const parJeton = adminParJeton(req);
+  if (!parJeton) {
+    const auth = checkAuth(req);
+    if (!auth.ok) {
+      if (auth.status === 401) await echecAdmin(req);
+      return res.status(auth.status).json({ error: auth.error });
+    }
   }
   await reussiteAdmin(req);
 

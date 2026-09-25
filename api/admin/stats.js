@@ -8,7 +8,7 @@
 // POST /api/admin/stats  { action: 'reset-limit', email }
 
 import { kv } from '../_kv.js';
-import { corsAdmin, origineRefusee, refuserOrigine, freinage, echecAdmin, reussiteAdmin, refuser } from '../_admin-gate.js';
+import { corsAdmin, origineRefusee, refuserOrigine, adminParJeton, freinage, echecAdmin, reussiteAdmin, refuser } from '../_admin-gate.js';
 
 function today() { return new Date().toISOString().slice(0, 10); }
 function daysAgo(n) {
@@ -33,10 +33,15 @@ export default async function handler(req, res) {
   if (origineRefusee(req)) return refuserOrigine(res);
   const frein = await freinage(req);
   if (frein.bloque) return refuser(res);
-  const secret = req.headers['x-admin-secret'];
-  if (!secret || secret !== process.env.ADMIN_PASSWORD) {
-    await echecAdmin(req);
-    return res.status(401).json({ error: 'Non autorisé' });
+  // Deux voies, et la première ne coûte rien quand elle n'est pas configurée :
+  // le JWT du site (identité, expiration, révocation), sinon le mot de passe.
+  const parJeton = adminParJeton(req);
+  if (!parJeton) {
+    const secret = req.headers['x-admin-secret'];
+    if (!secret || secret !== process.env.ADMIN_PASSWORD) {
+      await echecAdmin(req);
+      return res.status(401).json({ error: 'Non autorisé' });
+    }
   }
   await reussiteAdmin(req);
 
