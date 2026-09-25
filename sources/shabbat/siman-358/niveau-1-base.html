@@ -178,17 +178,28 @@
 
     /* Navigation seif ↔ explication */
     html { scroll-behavior: smooth; }
+    /* Navy sur or, et non blanc sur or : blanc sur #C5A55A ne donne que
+       2,36:1, très en dessous des 4,5:1 exigés pour un texte de cette taille
+       (.72em). Le navy de la charte donne 6,84:1 sur le même or — le correctif
+       n'invente aucune couleur, il emploie celles du site. */
     .seif-jump, .seif-back { display: inline-block; text-decoration: none;
-      background: #C5A55A; color: #fff; font-weight: 700; font-size: .72em; line-height: 1;
+      background: #C5A55A; color: #1A1F3A; font-weight: 700; font-size: .72em; line-height: 1;
       padding: .35em .65em; border-radius: 999px; margin-inline-start: .5em;
       vertical-align: middle; white-space: nowrap; box-shadow: 0 1px 2px rgba(0,0,0,.15);
       transition: background .15s, transform .15s; }
-    .seif-jump:hover, .seif-back:hover { background: #1A1F3A; transform: translateY(-1px); }
+    .seif-jump:hover, .seif-back:hover { background: #1A1F3A; color: #FAF6EE; transform: translateY(-1px); }
     .seif-jump::before { content: "Explication "; }
     .seif-back::before { content: "Texte "; }
     h4[id], tr[id] { scroll-margin-top: 20px; }
     h4[id]:target { background: rgba(197,165,90,0.16); border-radius: 4px; }
+    /* La surbrillance doit porter sur les CELLULES, pas seulement sur la ligne :
+       « tr:nth-child(even) td » peint un fond OPAQUE (#FAF6EE) par-dessus celui
+       de la ligne. L'en-tête étant le premier enfant, les séifim 1, 3, 5… sont
+       des enfants pairs — la moitié des cibles n'affichait donc aucune
+       surbrillance. Le sélecteur ci-dessous a la spécificité supérieure, sans
+       recourir à !important. */
     tr[id]:target { background: rgba(197,165,90,0.16); }
+    tr[id]:target td { background: rgba(197,165,90,0.28); }
 </style>
 <link rel="stylesheet" href="/assets/css/intra-links.css">
 
