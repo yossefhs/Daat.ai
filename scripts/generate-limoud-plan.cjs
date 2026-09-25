@@ -358,7 +358,7 @@ const HEADER_FR = `<header>
   <a class="logo" href="/index.html"><span class="logo-hebrew">דעת</span><span class="logo-latin">Daat Torah</span></a>
   <nav>
     <a href="/index.html">Accueil</a>
-    <a href="/limoud/index.html" class="active">Daat Yomi</a>
+    <a href="/limoud/" class="active">Daat Yomi</a>
     <a href="/chat.html">IA Daat</a>
     <a href="/about.html">À propos</a>
     <span class="lang-switcher">
@@ -431,6 +431,24 @@ function buildLevelLinks(entry, lang) {
   return out.join('\n            ');
 }
 
+/**
+ * L'ADRESSE d'une journée, toujours absolue — jamais le seul nom de fichier.
+ *
+ * L'index de /limoud/ portait 272 liens relatifs, « jour-001.html ». Depuis
+ * `/limoud/` ils résolvaient bien ; mais `/limoud` SANS barre oblique finale
+ * répond 200 lui aussi, et de là le navigateur les envoie à la racine du site —
+ * `/jour-001.html`, qui n'existe pas. Les 272 liens cassaient donc d'un coup,
+ * selon la façon dont le lecteur était arrivé sur la page.
+ *
+ * Le reste du site ne fait pas cette erreur : /blog/ et /questions/ n'emploient
+ * que des liens absolus, 27 et 10, aucun relatif. /limoud/ était le seul écart,
+ * avec 275 liens relatifs pour un absolu. Le correctif est donc de l'aligner sur
+ * la convention du dépôt, et non d'inventer une règle pour lui.
+ */
+function dayHref(dayNum, lang) {
+  return `/limoud/${dayFileName(dayNum, lang)}`;
+}
+
 function dayFileName(dayNum, lang) {
   const n = String(dayNum).padStart(3, '0');
   if (lang === 'fr') return `jour-${n}.html`;
@@ -500,9 +518,9 @@ function renderDayPage(entry, lang) {
   const dir = isHE ? 'rtl' : 'ltr';
 
   let header;
-  const fileFR = dayFileName(entry.dayNumber, 'fr');
-  const fileEN = dayFileName(entry.dayNumber, 'en');
-  const fileHE = dayFileName(entry.dayNumber, 'he');
+  const fileFR = dayHref(entry.dayNumber, 'fr');
+  const fileEN = dayHref(entry.dayNumber, 'en');
+  const fileHE = dayHref(entry.dayNumber, 'he');
   if (lang === 'fr') header = HEADER_FR
     .replace('LANG_FR_LINK', fileFR).replace('LANG_HE_LINK', fileHE).replace('LANG_EN_LINK', fileEN);
   else if (lang === 'en') header = HEADER_EN
@@ -563,8 +581,8 @@ function renderDayPage(entry, lang) {
 
   const prevNum = entry.dayNumber - 1;
   const nextNum = entry.dayNumber + 1;
-  const prevHref = prevNum >= 1 ? dayFileName(prevNum, lang) : null;
-  const nextHref = nextNum <= totalDays ? dayFileName(nextNum, lang) : null;
+  const prevHref = prevNum >= 1 ? dayHref(prevNum, lang) : null;
+  const nextHref = nextNum <= totalDays ? dayHref(nextNum, lang) : null;
   const idxHref = lang === 'fr' ? 'index.html' : (lang === 'en' ? 'index-en.html' : 'index-he.html');
 
   const levelLinks = buildLevelLinks(entry, lang);
@@ -696,7 +714,13 @@ function renderIndex(lang) {
   }[lang];
 
   const indexFile = lang === 'fr' ? 'index.html' : (lang === 'en' ? 'index-en.html' : 'index-he.html');
-  const canonical = `${SITE_URL}/limoud/${indexFile}`;
+  // La page se déclare sur l'URL PROPRE — « /limoud/ », et non « /limoud/index.html ».
+  // Trois formes cohabitaient : /limoud, /limoud/ et /limoud/index.html. Poser une
+  // redirection vers la deuxième pendant que la page désigne la troisième, c'est
+  // donner au lecteur une adresse et à Google une autre — le désaccord même que les
+  // six pages publiques ont corrigé le 24 septembre.
+  const indexHref = lang === 'fr' ? '/limoud/' : `/limoud/${indexFile}`;
+  const canonical = `${SITE_URL}${indexHref}`;
 
   // Génération HTML des semaines
   const weeksHTML = weeks.map((w, idx) => {
@@ -718,7 +742,7 @@ function renderIndex(lang) {
       const simanLine = isSplit
         ? `<strong>${t.siman} ${e.siman.num}</strong> · ${t.seif} ${rangeText} (${e.lotIndex}/${e.lotTotal})`
         : `<strong>${t.siman} ${e.siman.num}</strong> · ${numHe}`;
-      return `      <a class="day-item${isSplit ? ' is-split' : ''}" href="${dayFileName(e.dayNumber, lang)}">
+      return `      <a class="day-item${isSplit ? ' is-split' : ''}" href="${dayHref(e.dayNumber, lang)}">
         <span class="day-meta"><span class="day-dow">${dowName}</span> · <span class="day-num">${t.day} ${e.dayNumber}</span> · <span class="day-date">${dt.getUTCDate()}/${(dt.getUTCMonth()+1)}</span></span>
         <span class="day-siman">${simanLine}</span>
         <span class="day-title">${title}</span>
@@ -786,10 +810,10 @@ ${COMMON_HEAD}
   <title>${t.pageTitle}</title>
   <meta name="description" content="${t.pageDesc}">
   <link rel="canonical" href="${canonical}">
-  <link rel="alternate" hreflang="fr" href="${SITE_URL}/limoud/index.html">
+  <link rel="alternate" hreflang="fr" href="${SITE_URL}/limoud/">
   <link rel="alternate" hreflang="en" href="${SITE_URL}/limoud/index-en.html">
   <link rel="alternate" hreflang="he" href="${SITE_URL}/limoud/index-he.html">
-  <link rel="alternate" hreflang="x-default" href="${SITE_URL}/limoud/index.html">
+  <link rel="alternate" hreflang="x-default" href="${SITE_URL}/limoud/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="${t.title}">
   <meta property="og:description" content="${t.pageDesc}">
