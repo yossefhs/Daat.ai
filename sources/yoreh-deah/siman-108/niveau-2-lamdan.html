@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="fr" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,8 +23,7 @@
   @page { size: A4; margin: 2cm 1.8cm; }
   body {
     font-family: 'Frank Ruhl Libre', 'David', 'Georgia', 'Cambria', serif;
-    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0;
-    direction: rtl; text-align: right;
+    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0; text-align: left;
   }
   .he {
     direction: rtl; text-align: right;
@@ -72,14 +71,12 @@
   h2.section-title {
     color: #fff; background: #1A1F3A;
     font-size: 16pt; padding: 10px 18px; margin-top: 30px;
-    border-right: 6px solid #C5A55A;
-    direction: rtl; text-align: right;
+    border-left: 6px solid #C5A55A; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3 {
     color: #1A1F3A; font-size: 14pt; margin-top: 25px;
-    border-right: 4px solid #C5A55A; padding-right: 10px;
-    direction: rtl; text-align: right;
+    border-left: 4px solid #C5A55A; padding-left: 10px; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3.he-h3 {
@@ -89,8 +86,7 @@
   }
   h4 {
     color: #5a4a1a; font-size: 12pt;
-    margin-top: 20px; margin-bottom: 8px; font-weight: bold;
-    direction: rtl; text-align: right;
+    margin-top: 20px; margin-bottom: 8px; font-weight: bold; text-align: left;
   }
 
   .sacred-text {
@@ -100,8 +96,8 @@
     font-size: 12.5pt; line-height: 1.9;
   }
   .pilpul-box {
-    background: #eef3fa; border-right: 4px solid #1A1F3A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #eef3fa; border-left: 4px solid #1A1F3A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .pilpul-box::before {
     content: "⚡ פלפול"; display: block;
@@ -110,8 +106,8 @@
     direction: rtl; text-align: right;
   }
   .kashya-box {
-    background: #fef4e4; border-right: 4px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #fef4e4; border-left: 4px solid #C5A55A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .kashya-box::before {
     content: "❓ קושיא"; display: block;
@@ -120,8 +116,8 @@
     direction: rtl; text-align: right;
   }
   .teruts-box {
-    background: #e8f4ea; border-right: 4px solid #2d7a3e;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #e8f4ea; border-left: 4px solid #2d7a3e;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .teruts-box::before {
     content: "✓ תירוץ"; display: block;
@@ -130,8 +126,8 @@
     direction: rtl; text-align: right;
   }
   .hakira-box {
-    background: #f5e9f5; border-right: 4px solid #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #f5e9f5; border-left: 4px solid #6a1b7a;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .hakira-box::before {
     content: "🔍 חקירה"; display: block;
@@ -141,8 +137,7 @@
   }
   .nafka-mina-box {
     background: #fff4e6; border: 2px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; border-radius: 4px; text-align: left;
   }
   .nafka-mina-box::before {
     content: "⚖️ נפקא מינה"; display: block;
@@ -152,8 +147,7 @@
   }
   .yesod-box {
     background: #1A1F3A; color: #fff;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
   .yesod-box::before {
     content: "💎 יסוד"; display: block;
@@ -164,7 +158,7 @@
   .yesod-box .he-q { color: #C5A55A; }
   .machloket-box {
     background: #faf5ff; border: 1.5px dashed #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
 
   table {
@@ -173,10 +167,9 @@
   }
   th {
     background: #1A1F3A; color: #fff;
-    padding: 10px; text-align: right; direction: rtl; font-size: 11pt;
+    padding: 10px; text-align: left; font-size: 11pt;
   }
-  td {
-    direction: rtl; text-align: right;
+  td { text-align: left;
     border: 1px solid #d4c89a; padding: 10px; vertical-align: top;
   }
   tr:nth-child(even) td { background: #FAF6EE; }
@@ -197,12 +190,11 @@
   }
 
   ol.stylish li, ul.stylish li { margin-bottom: 8px; }
-  ol.stylish, ul.stylish { padding-right: 22px; padding-left: 0; }
+  ol.stylish, ul.stylish { padding-left: 22px; padding-right: 0; }
 
   .rishon-card {
-    background: #f7f3e4; border-right: 4px solid #8a6a1a;
-    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt;
-    direction: rtl; text-align: right;
+    background: #f7f3e4; border-left: 4px solid #8a6a1a;
+    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt; text-align: left;
   }
   .rishon-card strong { color: #1A1F3A; font-size: 11pt; }
 
@@ -217,10 +209,9 @@
 
   .index-box {
     background: #FAF6EE; border: 1px solid #C5A55A;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
-  .index-box ol { margin: 5px 0; padding-right: 25px; padding-left: 0; }
+  .index-box ol { margin: 5px 0; padding-left: 25px; padding-right: 0; }
   .index-box li { margin-bottom: 5px; }
 
   h3.sugya {
@@ -237,7 +228,6 @@
     font-size: 12pt;
     text-decoration: none;
     border-bottom: 1px dotted #C5A55A;
-    direction: rtl;
   }
   a.daat-explain:hover { color: #8a6a1a; border-bottom-style: solid; }
 
@@ -273,7 +263,7 @@
   "headline": "Siman ק״ח · Niveau 2 Lamdan — Pilpoul approfondi · ריחא מילתא או לאו מילתא, פיטום ודבר חריף",
   "description": "Niveau 2 (Lamdan) du Siman ק״ח (Yoreh De'ah) — Pilpoul approfondi. סוגיית ריחא מילתא / לאו מילתא (פסחים ע״ו, ע״ז ס״ו), פיטום ההיתר את האיסור, דבר חריף, מחבת זה אחר זה, צירוף ששים וחמץ בפסח במשהו — חקירה ונפקא מינה.",
   "url": "https://daattorah.com/yd/108/lamdan",
-  "inLanguage": "he-IL",
+  "inLanguage": "fr-FR",
   "isAccessibleForFree": true,
   "author": {
     "@id": "https://daattorah.com/#rav-samama"
@@ -378,37 +368,36 @@
     .catch(function () { /* erreur réseau → on n'affiche rien */ });
 })();
 </script>
-
 <!-- COUVERTURE -->
 <div class="cover">
   <div class="ornament">✦ ❖ ✦</div>
-  <div class="badge-top">DAAT · רמה ב' — לַמְדָּן</div>
-  <h1>שולחן ערוך · יורה דעה</h1>
-  <div class="subtitle">דין שלא לאפות היתר ואיסור בתנור אחד — עיון ופלפול</div>
+  <div class="badge-top">DAAT · NIVEAU 2 — LAMDAN</div>
+  <h1>Siman 108 — Niveau Lamdan : ce que l’odeur transporte, et ce qu’elle ne transporte pas</h1>
+  <div class="subtitle">Ne pas cuire ensemble le permis et l’interdit dans un même four — étude et pilpoul</div>
 
   <div class="he-title">סימן ק״ח</div>
   <div class="he-sub">ריחא מילתא או לאו מילתא, פיטום, דבר חריף, מחבת וצירוף ששים</div>
-  <div class="he-subject">עיון, פלפול, שיטות הראשונים והאחרונים</div>
+  <div class="he-subject">Sougya, chakiroth, shitoth des Richonim et des Aharonim, nafka minoth</div>
 
-  <div class="level-badge">⚡ ללומדים ותלמידי חכמים ⚡</div>
+  <div class="level-badge">⚡ Pour les lomdim et les talmidei hakhamim ⚡</div>
 
   <div class="ornament">✦ ❖ ✦</div>
 
-  <h2 style="margin-top:20px; color: #1A1F3A;">פלפול ועיון מעמיק</h2>
+  <h2 style="margin-top:20px; color: #1A1F3A;">Pilpoul et étude approfondie</h2>
   <p style="font-size:12pt; color:#555;">
-    סוגיות, מקורות, חקירת היסוד, מחלוקות ראשונים ואחרונים,<br>
-    נפקא מינות להלכה ועיון בשיטות
+    Sougyoth, sources, hakira de fond, ma’hlokoth des Richonim et des Aharonim,<br>
+    nafka minoth pour la halakha et examen des shitoth
   </p>
 
   <div class="credits">
-    <p><strong>הנושא :</strong><br>
-    שולחן ערוך יורה דעה סימן ק״ח (ז' סעיפים)<br>
-    עם נושאי כלים: ש״ך (שפתי כהן), ט״ז (טורי זהב), פרי מגדים, פתחי תשובה</p>
+    <p><strong>Sujet :</strong><br>
+    שולחן ערוך יורה דעה סימן ק״ח (ז׳ סעיפים)<br>
+    avec ש״ך (שפתי כהן), ט״ז (טורי זהב), פתחי תשובה</p>
 
-    <p><strong>יסוד הסוגיא בש״ס :</strong><br>
-    פסחים ע״ו. (כיצד צולין — ריחא מילתא או לאו מילתא, תתאה גבר) · עבודה זרה ס״ו. (ריחא בנותן טעם) · סוכה ל״ז: (הדס ואתרוג, ורד והדס)</p>
+    <p><strong>Racine de la sougya dans le Chas :</strong><br>
+    פסחים ע״ו (כיצד צולין — ריחא מילתא ou ריחא לאו מילתא) · עבודה זרה ס״ו ע״ב · סוכה ל״ז ע״ב (הדס ואתרוג)</p>
 
-    <p><strong>עריכה ועיון :</strong><br>
+    <p><strong>Rédaction :</strong><br>
     הרב יוסף חיים סממה · DAAT</p>
   </div>
 </div>
@@ -416,520 +405,530 @@
 <div class="page-break"></div>
 
 <!-- TABLE DES MATIÈRES -->
-<h2 class="section-title">📑 תוכן העניינים</h2>
+<h2 class="section-title">📑 Table des matières</h2>
 
-<div class="index-box" dir="rtl">
+<div class="index-box">
 <ol>
-  <li><strong>הקדמת הסוגיא</strong> — ריחא מילתא או לאו מילתא, היתר ואיסור בתנור אחד (סעיף א')</li>
-  <li><strong>יסוד הפיטום</strong> — חידוש רש״י "ההיתר מפטם לאיסור וחוזר ואוסר", וקושיית אין הנאסר אוסר (ט״ז ס״ק א, ש״ך ס״ק א)</li>
-  <li><strong>כחוש בכחוש ושמן בכחוש</strong> — מתי ריחא לאו מילתא לכ״ע, ואיסור דאורייתא כחוש לכתחילה (ש״ך ס״ק א–ב)</li>
-  <li><strong>דבר חריף — ריחא מילתא בדיעבד</strong> — עשוי להריח, ומחלוקת הזיע / מחבת זה אחר זה (ש״ך ס״ק ט, יב; פ״ת ס״ק ב)</li>
-  <li><strong>צירוף ששים וחמץ בפסח במשהו</strong> — ריחא ככל האיסורין (ש״ך ס״ק יג, יד–טו; ט״ז ס״ק ו, ז)</li>
-  <li><strong>הקדירה מפסקת · המרדה</strong> — בישול לעומת צלייה, וחד בתרי בטל (סעיפים ב'–ג'; ש״ך ס״ק טז, כא; ט״ז ס״ק ז–ח)</li>
-  <li><strong>לחם חם על חבית יין · להריח ולטעום</strong> — סעיפים ד'–ז', זילוף וסוגיית הדס ואתרוג</li>
-  <li><strong>חקירה ונפקא מינה למעשה</strong></li>
-  <li><strong>טבלאות סיכום מקיפות</strong></li>
+  <li><strong>Introduction à la sougya</strong> — ריחא מילתא ou ריחא לאו מילתא, le permis et l’interdit dans un même four (séif 1)</li>
+  <li><strong>Le fondement du פיטום</strong> — le hiddouch de Rachi rapporté par le Taz, et la difficulté de אין הנאסר אוסר (ט״ז ס״ק א, ש״ך ס״ק א)</li>
+  <li><strong>Maigre avec maigre, gras avec maigre</strong> — quand ריחא לאו מילתא de l’avis de tous, et ce que le Chakh refuse de déduire pour un interdit d’ordre biblique (ש״ך ס״ק א–ב)</li>
+  <li><strong>דבר חריף — ריחא מילתא même בדיעבד</strong> — ce qui est fait pour l’odeur, la מחבת commune et le זה אחר זה (ש״ך ס״ק ט, יב ; פ״ת ס״ק ב)</li>
+  <li><strong>Le compte des soixante et le חמץ בפסח qui interdit במשהו</strong> (ש״ך ס״ק י״ג, יד–טו ; ט״ז ס״ק א, ו)</li>
+  <li><strong>La marmite sépare · la מרדה</strong> — cuisson et rôtissage, et חד בתרי בטל (séifim 2–3 ; ש״ך ס״ק ט״ז–כ ; ט״ז ס״ק ז–ח)</li>
+  <li><strong>Pain chaud sur un tonneau de vin · sentir et goûter</strong> — séifim 4–7, le זילוף et la sougya de הדס ואתרוג</li>
+  <li><strong>Hakira et nafka mina pour la pratique</strong></li>
+  <li><strong>Tableaux récapitulatifs</strong></li>
 </ol>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<!-- לשון השולחן ערוך — סעיף א' -->
-<h2 class="section-title">📜 לשון השולחן ערוך — סעיף א'
-  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 העתק</button>
+<h2 class="section-title">📜 Le texte du Choulhan Aroukh — séif 1
+  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 Copier</button>
 </h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ Explication détaillée (niveau 1)</a>
 
 <div class="sacred-text he" data-copy-block id="cp-1">
-  <p>אֵין צוֹלִין בָּשָׂר כְּשֵׁרָה עִם בְּשַׂר נְבֵלָה אוֹ שֶׁל בְּהֵמָה טְמֵאָה בְּתַנּוּר אֶחָד, וְאַף עַל פִּי שֶׁאֵין נוֹגְעִים זֶה בָּזֶה. וְאִם צְלָאָן — הֲרֵי זֶה מֻתָּר, וַאֲפִלּוּ הָיְתָה הָאֲסוּרָה שְׁמֵנָה הַרְבֵּה וְהַמֻּתֶּרֶת רָזָה. וְאִם הַתַּנּוּר גָּדוֹל וּפִיו פָּתוּחַ — מֻתָּר לְצָלוֹתָן לְכַתְּחִלָּה, וּבִלְבַד שֶׁלֹּא יִגְּעוּ זֶה בָּזֶה. וְאִם הָיָה אֶחָד מֵהֶם מְכֻסֶּה — מֻתָּר אֲפִלּוּ בְּתַנּוּר קָטָן וּפִיו סָתוּם. (הגה: וְכֵן בָּשָׂר וְחָלָב, וְנוֹהֲגִין לְהַחְמִיר לְכַתְּחִלָּה, וּבְדִיעֲבַד מֻתָּר; וְאִם הָיָה דָּבָר חָרִיף — אָסוּר אֲפִלּוּ בְּדִיעֲבַד.)</p>
+<p>אין צולין בשר כשרה עם בשר נבילה או של בהמה טמאה בתנור א׳ ואף על פי שאין נוגעים זה בזה ואם צלאן הרי זה מותר ואפילו היתה האסורה שמינה הרבה והמותרת רזה ואם התנור גדול שמחזיק י״ב עשרונים ופיו פתוח מותר לצלותם בו ובלבד שלא יגעו זה בזה ואם אחד מהם מכוסה בקערה או בבצק וכיוצא בו מותר לצלותם אפילו בתנור קטן ופיו סתום</p>
+<p>הגה: וה״ה לבשר עם חלב נמי דינא הכי (טור סימן צ״ז) ונוהגין להחמיר לכתחלה אפילו בתנור גדול ובדיעבד להקל אפילו בתנור קטן (ארוך כלל ל״ט דלא כב״י ובתשובת ר״י מינץ ובהגהת ש״ד ואגור בשם מהרי״ל וטור בשם רשב״א שכן הסכמת רוב המורים והוא שיטת רש״י וה״ג ורי״ף ורמב״ם) ואם אפה פת עם בשר אסור לאכלו עם חלב אם יש לו פת אחר (שם) וכן אם עובד כוכבים אפה פת עם איסור אסור לקנות אותו פת אם יש פת אחר דכל זה מקרי לכתחלה אבל אם אין לו פת אחר בריוח מותר בשניהם דזה מקרי לענין זה דיעבד (אגור בשם ר״י מולין) י״א דאין מתירין ריחא אפילו בדיעבד אלא אם כן התנור פתוח קצת מן הצד או למעלה במקום שהעשן יוצא (שם בארוך) ובמקום הפסד אין להחמיר בדיעבד אפילו סתום לגמרי</p>
+<span class="source-ref">(שו״ע יו״ד ק״ח:א)</span>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">1. הקדמת הסוגיא — ריחא מילתא או לאו מילתא</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">1. Introduction à la sougya — ריחא מילתא ou ריחא לאו מילתא</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">היסוד — האם הריח מעביר את האיסור
-  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 העתק</button>
+<h3>Le fondement — l’odeur fait-elle passer l’interdit ?
+  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 Copier</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-2">
-יסוד הסימן: צולין או אופין היתר ואיסור בתנור אחד, והאיסור מעלה ריח (הבל) הנבלע בהיתר — האם ה<span class="he-q">ריח</span> מעביר את האיסור ? נחלקו תנאים ואמוראים בסוגיית <strong>כיצד צולין</strong> (פסחים ע״ו.) ובעבודה זרה (ס״ו.) אם <strong>ריחא מילתא</strong> (הריח דבר ואוסר) או <strong>ריחא לאו מילתא</strong> (אין הריח דבר ואינו אוסר). וקיימא לן <span class="he-q">ריחא לאו מילתא</span> — הריח לבדו אינו אוסר, ולפיכך <strong>בדיעבד מותר</strong>. ומכל מקום <strong>לכתחילה</strong> אין צולין היתר ואיסור יחד, מחשש שמא ייגעו ומשום מראית עין וזהירות.
+<div class="sacred-text" data-copy-block id="cp-2">
+Tout le siman part d’une situation unique. On rôtit, ou l’on cuit, du permis et de l’interdit dans un même four, sans qu’ils se touchent ; l’interdit dégage un souffle chaud — un <span class="he-q">ריח</span> — que le permis respire. Reste à savoir si ce souffle fait passer l’interdit avec lui. Tannaïm et amoraïm en ont débattu dans la sougya de <strong>כיצד צולין</strong> (Pessahim 76) et à la fin d’Avoda Zara (66b) : <strong>ריחא מילתא</strong> — l’odeur est quelque chose, et elle interdit — ou <strong>ריחא לאו מילתא</strong> — l’odeur n’est rien, et elle n’interdit pas. La halakha suit le second terme, et le Chakh l’écrit en toutes lettres à propos des mots du Mehaber « ואם צלאן הרי זה מותר ». De là : <strong>בדיעבד, c’est permis</strong> ; et <strong>לכתחילה</strong> on ne rôtit pas ensemble le permis et l’interdit, de peur qu’ils ne se touchent et par simple précaution.
+</div>
+<blockquote>«&nbsp;<span class="he-q">דריחא לאו מלתא היא בדיעבד</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק ב)</span></blockquote>
+
+<div class="pilpul-box">
+<strong>Les deux portes qui permettent לכתחילה :</strong> bien que ריחא לאו מילתא et que בדיעבד tout soit permis, le Mehaber ouvre deux cas où l’on peut rôtir <em>même לכתחילה</em> : (a) un four <strong>grand</strong> — qui contient douze עשרונים — <strong>et dont la bouche est ouverte</strong>, l’odeur se dispersant alors au lieu d’être absorbée ; (b) l’un des deux <strong>couvert</strong> d’un plat, de pâte ou de semblable, et alors même un petit four à bouche fermée est permis. Et par-dessus les deux, une condition générale : <strong>qu’ils ne se touchent pas</strong> — car s’ils se touchent ce n’est plus de l’odeur mais un contact, qui interdit par נותן טעם. Le Taz relève que les deux qualités du premier cas sont cumulatives, et non l’une ou l’autre.
+</div>
+<blockquote>«&nbsp;<span class="he-q">משמע דתרתי בעינן גדול וגם פיו פתוח</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ח ס״ק ב)</span></blockquote>
+
+<div class="rishon-card">
+<strong>La décision du Rama (glose) :</strong> le Rama étend d’abord le din à בשר בחלב, puis fixe l’usage — <strong>rigoureux לכתחילה</strong> même dans un grand four, <strong>indulgent בדיעבד</strong> même dans un petit. Il donne ensuite le cas qui sert de mesure à tout le reste : du pain cuit avec de la viande est interdit avec du lait <em>s’il a un autre pain</em> ; s’il n’en a pas aisément, les deux sont permis — et le Rama nomme cela du dièvad. Il ajoute enfin un י״א plus strict, pour qui on ne permet même בדיעבד que si le four est un peu ouvert sur le côté ou en haut ; mais en cas de perte, on ne se montre pas rigoureux בדיעבד même si le four est entièrement fermé.
+</div>
+<blockquote>«&nbsp;<span class="he-q">וה״ה לבשר עם חלב נמי דינא הכי</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״ח:א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ואם אפה פת עם בשר אסור לאכלו עם חלב אם יש לו פת אחר</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״ח:א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל אם אין לו פת אחר בריוח מותר בשניהם דזה מקרי לענין זה דיעבד</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״ח:א)</span></blockquote>
+
+<!-- ============================================================= -->
+<h2 class="section-title">2. Le fondement du פיטום — <em>le permis assaisonne l’interdit, qui revient interdire</em></h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
+
+<p style="margin:15px 0; font-style:italic;">C’est l’un des hiddouchim les plus aigus de la sougya, et tout le gadr de ריחא מילתא en dépend : le hiddouch de Rachi sur כיצד צולין, que le Taz cite en son nom et sur lequel le Chakh bâtit son ס״ק א.</p>
+
+<div class="hakira-box">
+<strong>La hakira — comment une odeur peut-elle interdire si elle n’a pas de corps ?</strong> À première vue, si <em>ריחא לאו מילתא</em>, pourquoi craindre le moins du monde de rôtir ensemble interdit et permis ? L’odeur n’a pas de corps et ne transporte pas l’interdit. Et inversement — si l’odeur interdit vraiment, pourquoi n’interdit-elle pas toujours ?
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>תנאי ההיתר לכתחילה :</strong> אף שריחא לאו מילתא ובדיעבד מותר, יש שני אופנים שמתירים בהם אף <em>לכתחילה</em>: (א) <span class="he-q">תנור גדול ופיו פתוח</span> — שמכיל י״ב עשרונים ופיו פתוח, שאז הריח מתפזר ויוצא ואינו נבלע; (ב) <span class="he-q">אחד מהם מכוסה</span> בקערה, בצק וכיוצא — שאז אין הריח עולה כלל, ומותר אפילו בתנור קטן ופיו סתום. וביניהם תנאי כללי: <strong>שלא ייגעו זה בזה</strong>, שאם ייגעו הרי זה מגע ממש ולא ריחא, ואוסר בנותן טעם.
+<div class="teruts-box">
+<strong>La réponse de Rachi, rapportée par le Taz — le mécanisme du פיטום :</strong> l’odeur ne tient pas debout seule. La graisse et le souffle brûlant du <strong>permis</strong> <em>assaisonnent</em> — מפטם — l’odeur de l’<strong>interdit</strong> ; et cette odeur enrichie <em>revient</em> se faire absorber dans le permis et l’interdit. Le Taz souligne que cela vaut même quand c’est la pièce cachère qui est grasse et l’interdite maigre. Le Chakh dit la même chose et en tire la borne : la crainte n’existe qu’à la condition que l’un des deux soit <span class="he-q">שמן</span>.
 </div>
+<blockquote>«&nbsp;<span class="he-q">אפי׳ אם הכשירה שמינה והאיסור רזה דריח הכשירה מפטם לאיסור וחוזר ואוסר את ההיתר כן פרש״י בפרק כיצד צולין</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ח ס״ק א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דוקא כשהאחד מהן שמן אפילו הכשרה דאזיל ההיתר ומפטם לאיסור בריחיה והדר אזיל האיסור ואוסר להיתר</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק א)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>הכרעת הרמ״א (הגה) :</strong> "<span class="he-q">וכן בשר וחלב</span>" — שאף בבב״ח ריחא לאו מילתא; ונוהגין <strong>להחמיר לכתחילה</strong> אף בתנור גדול, ו<strong>להקל בדיעבד</strong> אף בתנור קטן. ומדמהו הרמ״א לפת שנאפה עם בשר: <span class="he-q">אם יש לו פת אחר</span> — אסור לאכלו עם חלב (לכתחילה); ואם אין לו פת אחר בנקל — מותר (דהוי כדיעבד). ועיין סימן צ״ז ובסימן קי״ח.
+<div class="kashya-box">
+<strong>La difficulté de אין הנאסר אוסר :</strong> si le permis assaisonne l’interdit et que l’interdit revient interdire le permis, le permis finit par être la cause de sa propre interdiction. Or nous tenons partout qu’une chose rendue interdite ne va pas à son tour interdire là où le corps de l’interdit lui-même ne pourrait aller (voir siman 105). Le Chakh pose la difficulté en ces termes, et le Taz renvoie à ce qu’il a écrit au siman 105 au nom du Mahara’i.
+</div>
+<blockquote>«&nbsp;<span class="he-q">ואע״ג דקי״ל בכל דוכתי דאין הנאסר יכול לילך ולאסור במקום שאין האיסור בעצמו יכול לילך שם</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דאין הנאסר אוסר אלא במקום שהאיסור עצמו יכול לילך שם</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ח ס״ק א)</span></blockquote>
+
+<div class="teruts-box">
+<strong>La réponse du Mahara’i — ריחא שאני :</strong> l’odeur ne se règle pas comme une absorption ordinaire. Dans les autres interdits, ce qui voyage est le corps de l’interdit absorbé, et c’est de lui qu’on dit « אין הנאסר אוסר » ; ici, le פיטום conduit l’odeur <em>et le goût du maigre avec elle</em>, ce qui est un autre mécanisme, auquel la règle ne s’applique pas. Le Chakh rapporte ce תירוץ des הגהות שערי דורא, et le Taz le rappelle au même endroit.
+</div>
+<blockquote>«&nbsp;<span class="he-q">תירץ מהרא״י בהגהת ש״ד סי׳ ל״ה דריחא שאני לפי שהפטום מוליך הריח וטעם הכחוש עמו</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק א)</span></blockquote>
+
+<div class="pilpul-box">
+<strong>La racine de l’affaire :</strong> toute la sougya de ריחא se tient entre deux pôles. D’un côté <span class="he-q">ריחא לאו מילתא</span> — l’odeur seule n’a pas la force d’interdire, et בדיעבד tout est permis. De l’autre, partout où il y a <strong>פיטום</strong> ou une force particulière donnée à l’odeur — la graisse, la חריפות — l’odeur interdit bel et bien. Tous les détails du siman — gras ou maigre, חריף, la מחבת commune, le זה אחר זה — ne font que délimiter l’endroit où l’odeur a assez de force pour interdire.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">2. יסוד הפיטום — "ההיתר מפטם לאיסור וחוזר ואוסר"</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">3. Maigre avec maigre, gras avec maigre — où s’arrête ריחא לאו מילתא</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זהו אחד מן החידושים החריפים שבסוגיא, ובו תלוי כל גדרו של ריחא מילתא — חידוש רש״י (פסחים ע״ו.) שעליו עומדים הט״ז (ס״ק א) והש״ך (ס״ק א).</p>
-
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — כיצד הריח אוסר אם אין בו ממש :</strong> לכאורה אם <em>ריחא לאו מילתא</em>, מדוע יש לחוש כלל לצליית איסור עם היתר ? והלא הריח אין בו ממש, ואינו מעביר גוף האיסור ! וכן להיפך — אם הריח אכן אוסר, מדוע אינו אוסר לעולם ?
+<div class="yesod-box">
+<strong>Le fondement — ce que le Chakh tient, et ce qu’il refuse de tenir (ס״ק א) :</strong><br>
+Le Chakh tire de la formule de Rachi que tout le souci de l’odeur ne naît que si l’un des deux est <span class="he-q">שמן</span>, et il en tire les distinctions qui suivent.<br><br>• <strong>Maigre avec maigre</strong> — les deux secs : le Chakh apporte le Rashba, qui permet de l’avis de tous, et il entend même לכתחילה, puisqu’il n’y a là aucun פיטום.<br>• <strong>Gras avec maigre</strong> — que le gras soit l’interdit ou le permis : il y a פיטום, donc לכתחילה on s’abstient, et בדיעבד c’est permis, ריחא לאו מילתא.<br>• <strong>Interdit d’ordre biblique, et maigre</strong> — l’איסור והיתר הארוך permet לכתחילה de cuire notre ‘halla, qui est d’ordre rabbinique, avec le pain ; on pourrait en déduire qu’un interdit d’ordre biblique, même maigre, serait interdit לכתחילה. <strong>Le Chakh écarte cette déduction</strong> — « וז״א » — et l’appuie sur les responsa de Rabbenou Tam et du Raavya, les תשובות מיימוניות, le Mordekhi, le Roke’ah et le Maharshal.
 </div>
+<blockquote>«&nbsp;<span class="he-q">אבל כששניה׳ כחושים כתב הרשב״א בת״ה דף ק״ה ע״ג דשרי לכ״ע ומביאו ב״י ומשמע אפילו לכתחלה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">משמע דאיסור דאורייתא כחוש אסור לכתחלה וז״א</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק א)</span></blockquote>
 
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ רש״י (פסחים ע״ו.) — מנגנון הפיטום :</strong> מבאר רש״י דהריח אינו עומד בפני עצמו, אלא <strong>ה<span class="he-q">היתר מפטם את האיסור</span> וחוזר ואוסר</strong>:
-<ul class="stylish">
-<li>השומן וההבל החם של ה<strong>היתר</strong> "מפטמים" (מעבים ומחזקים) את ריח ה<strong>איסור</strong>;</li>
-<li>וריח האיסור המפוטם <em>חוזר ונבלע</em> בהיתר ואוסרו.</li>
-</ul>
-מכאן שהחשש דווקא כשיש <strong>פיטום</strong> — דהיינו כשאחד מהם (לרוב האיסור, וכל שכן ההיתר) <span class="he-q">שמן</span> ומפטם; אבל בלא פיטום אין כח בריח לבדו לאסור.
-</div>
+<p>Le Chakh appuie encore sa lecture sur la sougya elle-même : le mot de Rav, tel qu’il le cite, ne parle que de gras avec maigre, et il n’a pas énoncé de cas plus fort ; puisque la raison donnée est מפטמי אהדדי, il ressort que là où les deux sont maigres, même Rav permet.</p>
+<blockquote>«&nbsp;<span class="he-q">רב בשר שחוטה שמן שצלאו עם בשר נבלה כחוש אסור מ״ט מפטמי אהדדי</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">משמע להדיא דבששניהם כחושים אפילו לרב שרי</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק א)</span></blockquote>
 
-<div class="kashya-box" dir="rtl">
-<strong>קושיית המהרא״י (אין הנאסר אוסר) :</strong> הקשה המהרא״י — אם ההיתר מפטם את האיסור והאיסור חוזר ואוסר את ההיתר, נמצא ש<span class="he-q">ההיתר אוסר את עצמו</span> ! והלא כלל בידינו <strong>אין הנאסר אוסר במקום שאין האיסור הולך</strong> (עיין סימן ק״ה) — דבר שנאסר אינו חוזר ואוסר אלא במקום שגוף האיסור מגיע לשם.
-</div>
+<p>Reste une réserve d’usage, et le Chakh ne la cache pas : le תורת חטאת, après avoir tranché comme le Rashba, écrit qu’il est tout de même bon d’être rigoureux לכתחילה, parce que le Beit Yossef a écrit que ce raisonnement ne lui paraît pas. Le Chakh s’en étonne — le Beit Yossef n’a contesté que le cas du Mahara’i (rôtir un foie avec un plat gras), non le cas des deux maigres, qu’il a rapporté du Rashba sans réserve.</p>
+<blockquote>«&nbsp;<span class="he-q">ומ״מ טוב להחמיר לכתחלה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ותימה דהא הב״י לא פליג</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק א)</span></blockquote>
 
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ המהרא״י — חילוק דריחא שאני (ש״ך ס״ק א, ט״ז ס״ק א) :</strong> מתרץ המהרא״י ד<span class="he-q">ריחא שאני</span> — דין הריח אינו ככל בליעה. בשאר איסורין הולך גוף האיסור הבלוע, ובו נאמר "אין הנאסר אוסר"; אבל בריח, ה<em>ריח עצמו</em> הוא הדבר הנבלע (אחר שנתפטם), ובו לא שייך הכלל. ומביאים זה הש״ך (ס״ק א) והט״ז (ס״ק א) ליישב את שורש הדין.
-</div>
-
-<div class="pilpul-box" dir="rtl">
-<strong>שורש הענין :</strong> נמצא שכל סוגיית ריחא מתנהלת בין שני קצוות — מצד אחד <span class="he-q">ריחא לאו מילתא</span> (בדיעבד מותר), שאין כח בריח לבדו; ומצד שני, היכן שיש <strong>פיטום</strong> וכח מיוחד לריח (שמנונית, חריפות) — הריח כן אוסר. וכל דקדוקי הסימן (שמן/כחוש, חריף, מחבת) הם הגדרת המקום שבו לריח יש די כח לאסור.
-</div>
-
-<!-- ============================================================= -->
-<h2 class="section-title">3. כחוש בכחוש ושמן בכחוש — מתי ריחא לאו מילתא</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
-
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — שלוש מדרגות (ש״ך ס״ק א, ט״ז ס״ק א) :</strong><br>
-מדקדק הש״ך (ס״ק א) דכל חשש הריח אינו אלא כשאחד מהם <span class="he-q">שמן (מפטם)</span>:<br><br>
-• <strong>כחוש בכחוש</strong> — שניהם רזים → <span class="he-q">מותר לכ״ע</span>, אף לכתחילה, שאין כאן פיטום כלל.<br>
-• <strong>שמן בכחוש</strong> (האיסור שמן או ההיתר שמן) → יש פיטום → לכתחילה אסור, ובדיעבד מותר (ריחא לאו מילתא).<br>
-• <strong>איסור דאורייתא כחוש</strong> → אף שכחוש הוא, <strong>לכתחילה אסור</strong> (חומרא דדאורייתא), אבל בדיעבד מותר.
-</div>
-
-<div class="machloket-box" dir="rtl">
-<strong>שמן בכחוש — האם שמן ההיתר אוסר :</strong>
+<div class="machloket-box">
+<strong>Gras et maigre — le tableau des cas</strong>
 <table>
-<tr><th>המצב</th><th>הדין</th><th>מקור</th></tr>
+<tr><th>Le cas</th><th>Le din</th><th>Source</th></tr>
 <tr>
-  <td><strong>האיסור שמן וההיתר כחוש</strong></td>
-  <td>פיטום מן האיסור → חשש; ובדיעבד מותר דריחא לאו מילתא</td>
-  <td>מחבר ס״א; ש״ך ס״ק א</td>
+  <td><strong>L’interdit gras, le permis maigre</strong></td>
+  <td>פיטום venant de l’interdit → crainte לכתחילה ; בדיעבד permis, ריחא לאו מילתא</td>
+  <td><span class="source-ref" dir="rtl">מחבר ס״א · ש״ך ס״ק א–ב</span></td>
 </tr>
 <tr>
-  <td><strong>ההיתר שמן והאיסור כחוש</strong></td>
-  <td>אף שמנונית ההיתר מפטמת את ריח האיסור (כל שכן) → חשש</td>
-  <td>רש״י; ט״ז ס״ק א</td>
+  <td><strong>Le permis gras, l’interdit maigre</strong></td>
+  <td>la graisse du permis assaisonne elle aussi l’odeur de l’interdit → crainte</td>
+  <td><span class="source-ref" dir="rtl">רש״י · ט״ז ס״ק א · ש״ך ס״ק א</span></td>
 </tr>
 <tr>
-  <td><strong>כחוש בכחוש</strong></td>
-  <td>מותר לכ״ע — אין פיטום (כדם קלוש / כבד, ט״ז)</td>
-  <td>ש״ך ס״ק א; ט״ז ס״ק א</td>
+  <td><strong>Maigre avec maigre</strong></td>
+  <td>permis de l’avis de tous — pas de פיטום ; et le Chakh entend même לכתחילה</td>
+  <td><span class="source-ref" dir="rtl">רשב״א (תורת הבית) · ש״ך ס״ק א</span></td>
+</tr>
+<tr>
+  <td><strong>Interdit biblique, et maigre</strong></td>
+  <td>déduction de l’או״ה : interdit לכתחילה — et le Chakh l’écarte</td>
+  <td><span class="source-ref" dir="rtl">ש״ך ס״ק א</span></td>
 </tr>
 </table>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>דקדוק הש״ך (ס״ק ב) — בדיעבד וכותח :</strong> מבאר הש״ך ד<span class="he-q">ריחא לאו מילתא בדיעבד</span> — ולפיכך אם צלאן בדיעבד, מותר אף לאכלו כמות שהוא. אבל פת שנאפה עם בשר — אסור לאכלו <strong>בכותח</strong> (תבשיל חלב), <span class="he-q">משום דאפשר בלא כותח</span> — שאינו דחוק לאכלו דווקא בחלב, ולפיכך החמירו בו לכתחילה (וכדמיון הרמ״א "אם יש לו פת אחר"). ומכאן שכל חילוקי לכתחילה / דיעבד תלויים ב"אפשר".
+<div class="rishon-card">
+<strong>La finesse du Chakh (ס״ק ב) — בדיעבד et le כותח :</strong> si on les a rôtis בדיעבד, le permis se mange tel quel. Mais du pain cuit avec du rôti, le Rambam et le Mehaber (fin du siman 97) interdisent de le manger avec du <strong>כותח</strong>, plat lacté — et le Chakh en donne la raison au nom du Rif : puisqu’il <em>peut</em> le manger sans כותח, cela compte comme לכתחילה. C’est exactement le ressort de la glose du Rama, <em>s’il a un autre pain</em> : tout le partage entre לכתחילה et דיעבד tient à ce que l’on <em>peut faire autrement</em>.
 </div>
+<blockquote>«&nbsp;<span class="he-q">דכיון דאפשר לאכלו בלא כותח הוי כלכתחלה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק ב)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">4. דבר חריף — ריחא מילתא בדיעבד</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">4. דבר חריף — quand ריחא redevient מילתא, même בדיעבד</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זוהי החזית העיקרית של הסוגיא — היכן ריחא חוזר ונעשה מילתא ואוסר אף בדיעבד.</p>
+<p style="margin:15px 0; font-style:italic;">C’est le front principal du siman : l’endroit où l’odeur reprend assez de force pour interdire alors même que la chose est faite.</p>
 
-<h3 class="he-h3">לשון הרמ״א (המשך סעיף א')
-  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 העתק</button>
+<h3>La glose du Rama (suite du séif 1)
+  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-3">
-"(הגה:) <strong>ואם היה האיסור דבר חריף, וכל שכן אם ההיתר חריף — ריחא מילתא ואסור אפילו בדיעבד</strong>, אם שניהם מגולים; אבל אם אחד מהם מכוסה אפילו בבצק בעלמא — מותר. ואם צלו או אפו איסור והיתר <strong>תחת מחבת אחת</strong> מגולים — אסור אפילו בדיעבד; וכן פת עם בשר → אסור עם חלב. אבל <strong>זה אחר זה</strong> — אין לחוש; אלא אם כן <strong>הזיע המחבת משניהם</strong>, שאז אסור אף זה אחר זה אם מגולים (כדין כיסוי הקדירה, סימן צ״ג)."
+<p>הגה: ואם האיסור דבר חריף וכל שכן אם ההיתר דבר חריף ריחא מילתא היא ואפילו בדיעבד אסור אם שניהם מגולים אבל אם אחד מהם מכוסה אפילו בבצק בעלמא מותר (מרדכי פ׳ ג״ה ואו״ה) אם אפו או צלו איסור והיתר תחת מחבת אחת מגולין אסור (תוספות) אפילו בדיעבד (שם בארוך) וה״ה אם אפו בכה״ג פת עם בשר אסור לאכלו בחלב (ש״ד סימן ס׳ ומהרא״י) אבל בזה אחר זה אין לחוש (תשובת מיי׳ סוף הל׳ מ״א ותשובת ר״י ואו״ה) אלא אם כן הזיע המחבת משניהם דאז אסור אפילו בזה אחר זה אם היו שניהם מגולין דהוי ככיסוי של קדרה (ד״ע ממשמעות הרא״ש סימן צ״ג) כדלעיל סימן צ״ג.</p>
+<span class="source-ref">(שו״ע יו״ד ק״ח:א)</span>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — דבר חריף "עשוי להריח" :</strong><br>
-מבאר הש״ך (ס״ק ט) דבדבר <span class="he-q">חריף</span> (כבצלים, שום, צנון) — או דבר ה<span class="he-q">עשוי להריח</span> — הריח חזק ופועל יותר, ולפיכך בו <strong>ריחא מילתא אפילו בדיעבד</strong>, ואף בתנור הפתוח מן הצד. וכל שכן אם ה<em>היתר</em> חריף — שהרי החריפות מבליעה ומפעפעת ביתר שאת. ומכל מקום, אם אחד מהם מכוסה אפילו בבצק בעלמא — בטל החשש, שאין הריח עולה.
+<div class="yesod-box">
+<strong>Le fondement — le חריף et ce qui est <em>fait pour l’odeur</em> (ש״ך ס״ק ט) :</strong><br>
+Le Rama interdit même בדיעבד quand l’interdit est un <span class="he-q">דבר חריף</span> — et à plus forte raison quand c’est le <em>permis</em> qui est חריף, la חריפות faisant pénétrer davantage. Le Chakh y ajoute, au nom de l’איסור והיתר הארוך, une seconde catégorie qui vaut d’être notée : ce qui a été <strong>fait pour son odeur</strong>. Là, dit-il, ריחא מילתא même בדיעבד, même dans de grands fours, et même si la bouche du four est ouverte sur le côté. Et malgré tout cela : si l’un des deux est couvert, même d’une simple pâte, la crainte tombe, car l’odeur ne monte pas.
 </div>
+<blockquote>«&nbsp;<span class="he-q">או שנעשה לריח ונאפה אפילו עם הפת ובתנורים גדולים ודאי אמרינן ריחא מילתא היא אפילו בדיעבד אפילו פי התנור פתוח בצידו</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק ט)</span></blockquote>
 
-<div class="machloket-box" dir="rtl">
-<strong>מחבת אחת · זה אחר זה · הזיע (ש״ך ס״ק יב; פ״ת ס״ק ב) :</strong>
+<div class="machloket-box">
+<strong>Une seule מחבת · l’un après l’autre · le poêle qui a sué</strong>
 <table>
-<tr><th>המצב</th><th>הדין</th><th>מקור</th></tr>
+<tr><th>Le cas</th><th>Le din</th><th>Source</th></tr>
 <tr>
-  <td><strong>תחת מחבת אחת, מגולים, בבת אחת</strong></td>
-  <td>כבישול → אסור אף בדיעבד</td>
-  <td>רמ״א ס״א; ש״ך</td>
+  <td><strong>Sous une même מחבת, découverts, en même temps</strong></td>
+  <td>comme une cuisson → interdit même בדיעבד</td>
+  <td><span class="source-ref" dir="rtl">רמ״א ס״א</span></td>
 </tr>
 <tr>
-  <td><strong>זה אחר זה (לא בבת אחת)</strong></td>
-  <td>אין לחוש — אין פיטום לכלי</td>
-  <td>ש״ך ס״ק יב</td>
+  <td><strong>L’un après l’autre (זה אחר זה)</strong></td>
+  <td>pas de crainte — l’ustensile ne reçoit ni odeur ni פיטום qu’il rendrait ensuite</td>
+  <td><span class="source-ref" dir="rtl">רמ״א ס״א · ש״ך ס״ק י״ב</span></td>
 </tr>
 <tr>
-  <td><strong>הזיע המחבת משניהם</strong></td>
-  <td>אסור אף זה אחר זה (כמכסה קדירה, סי' צ״ג)</td>
-  <td>רמ״א; סימן צ״ג</td>
+  <td><strong>Le poêle a sué des deux</strong></td>
+  <td>interdit même l’un après l’autre, comme le couvercle d’une marmite (siman 93)</td>
+  <td><span class="source-ref" dir="rtl">רמ״א ס״א</span></td>
 </tr>
 </table>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>דקדוק הפתחי תשובה (ס״ק ב) בזה אחר זה :</strong> מדקדק הפתחי תשובה (בשם חינוך בית יהודה סי' ס״ב) דהיתר ה<span class="he-q">זה אחר זה</span> אמור דווקא כשהפעם השנייה אף היא <strong>על ידי ריח</strong> בלבד; אבל אם בפעם השנייה נעשה האיסור על ידי <strong>מגע</strong> ממש בכלי הבלוע — אסור, שכבר אין זה דין ריחא אלא דין בליעה רגילה. נמצא שכל קולת "זה אחר זה" תלויה בכך שאין כאן אלא ריח ולא נגיעה.
+<div class="pilpul-box">
+<strong>Ce que le Chakh ajoute, et ce que le Pit’hei Techouva retranche :</strong> le Chakh donne la raison du זה אחר זה — l’ustensile n’a reçu ni odeur ni פיטום qu’il pourrait rejeter ensuite dans l’aliment, et cela même s’il est בן יומו, pourvu qu’il n’y ait pas contact réel. Puis il va plus loin : même une chose faite pour son odeur, dont le parfum flotte encore dans le four, ne donne pas de souci pour le זה אחר זה. Le Pit’hei Techouva, au nom du חינוך בית יהודה, borne la chose : cette indulgence ne vaut que si la seconde fois aussi tout se passe <strong>par l’odeur</strong> ; si la seconde fois se fait par un <strong>contact</strong> réel, c’est interdit — car ce n’est plus un din de ריחא mais une absorption ordinaire.
 </div>
+<blockquote>«&nbsp;<span class="he-q">כי לא נמצא ריחא ופיטום לכלי שיחזור ויפלוט לאוכל ואפילו כלי בן יומו רק שלא יגע ממש</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק י״ב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ונראה דאפילו דבר שנעשה להריח ועדיין ריחו בתנור אין לחוש לבזה אחר זה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק י״ב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דדוקא אם גם בפעם שאח״ז הוא ע״י ריח אבל אם פעם שני הוא ע״י נגיעה אסור</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד ק״ח ס״ק ב)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">5. צירוף ששים וחמץ בפסח במשהו</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">5. Le compte des soixante, et le חמץ בפסח qui interdit במשהו</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">כאן נדון אם לריחא יש שיעור ביטול ככל איסור, ומה דין איסור האוסר במשהו.</p>
+<p style="margin:15px 0; font-style:italic;">Deux questions se posent ici : l’odeur a-t-elle un seuil d’annulation comme tout interdit, et que devient-elle face à un interdit qui interdit à la moindre quantité ?</p>
 
-<h3 class="he-h3">לשון הרמ״א (המשך סעיף א')
-  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 העתק</button>
+<h3>La glose du Rama (suite du séif 1)
+  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-4">
-"(הגה:) <strong>ויש אומרים דכל מקום שריחא אוסר בדיעבד — דווקא כשאין ששים בהיתר כנגד האיסור; אבל אם יש ששים (אפילו בכל התנור) — מבטלו</strong>, ובהפסד יש לעשות כן. <strong>ויש אומרים דאיסור האוסר במשהו (כחמץ בפסח) — ריחא אוסר אף בדיעבד</strong> בתנור קטן וסתום מגולים; ויש אומרים דאין חילוק, ובהפסד יש לסמוך על המקילים. ועיין סימן קי״ח."
+<p>הגה: י״א דכל מקום דאמרינן ריחא מלתא ואוסר בדיעבד היינו דוקא דליכא ששים מן ההיתר נגד האיסור אבל בדאיכא ששים מן ההיתר אפי׳ בכל מה שבתנור מבטל האיסו׳ (שם בארוך כלל ל״ט די״ח) ולצורך הפסד יש לנהוג כן. י״א דאיסור האוסר במשהו כגון חמץ בפסח ריחא מלתא ואוסר אפילו בדיעבד אם התנור קטן והוא סתום והאיסור וההיתר מגולין תוך התנור (ד״מ בשם הגהת סמ״ק ובשם תוספות עבודת כוכבים דף ס״ו ע״ב) ויש אומרים שאין לחלק (ד״מ בשם מרדכי) ובמקום הפסד יש לסמוך אדברי המקילין ועיין לקמן סוף סימן קי״ח.</p>
+<span class="source-ref">(שו״ע יו״ד ק״ח:א)</span>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>צירוף ששים — ריחא ככל האיסורין (ש״ך ס״ק יג; ט״ז ס״ק ו) :</strong> מבאר הש״ך (ס״ק יג) דריחא דינו <span class="he-q">ככל האיסורין</span> לעניין צירוף הששים (ועיין סימן קי״א): בלא הפסד — כל חתיכה צריכה ששים מצד עצמה; ובהפסד — כל מה שבתנור מצטרף לבטל. והט״ז (ס״ק ו) הוסיף הסברה: <span class="he-q">כל הנכנס בספק מסייע לבטל</span> — שכיון שספק אם נבלע כלל, הכל מצטרף להקל.
+<div class="rishon-card">
+<strong>Le compte des soixante — ריחא se règle comme les autres interdits (ש״ך ס״ק י״ג ; ט״ז ס״ק ו) :</strong> le Chakh rassemble les endroits où le Rama en parle et conclut que, pour le compte des soixante, le din de ריחא est le même que celui des autres interdits (voir la fin du siman 111). Hors perte, chaque morceau doit trouver ses soixante par lui-même, quand bien même les morceaux se touchent. En cas de perte — et le Chakh précise qu’il s’agit d’une <strong>perte importante</strong> — tout ce qui est dans le four se joint pour annuler. Le Taz y ajoute la sevara : puisqu’il n’est même pas sûr qu’il y ait eu absorption, tout ce qui est entré dans le doute aide à annuler.
 </div>
+<blockquote>«&nbsp;<span class="he-q">שדעת הרב שדין ריחא שוה לשאר איסורים לענין צירוף ששים</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק י״ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דבמקום שאין הפסד צריך בכל חתיכה וחתיכה בפני עצמה ששים לבטל</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק י״ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל במקום הפסד יש לצרף כל החתיכות אפילו אינן נוגעות לבטל בששים דכולן נכנסו בספק</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק י״ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">מכל מקום בריחא יש להקל מטעם דכל הנכנס בספק מסייע לבטל</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ח ס״ק ו)</span></blockquote>
 
-<div class="machloket-box" dir="rtl">
-<strong>חמץ בפסח במשהו — האם הריח אוסר (ש״ך ס״ק יד–טו; ט״ז ס״ק א) :</strong>
+<div class="machloket-box">
+<strong>חמץ בפסח — l’odeur interdit-elle un interdit qui interdit במשהו ?</strong>
 <table>
-<tr><th>שיטה</th><th>ריחא בחמץ בפסח</th><th>מקור</th></tr>
+<tr><th>Shitah</th><th>Position</th><th>Rattachement</th></tr>
 <tr>
-  <td><strong>יש אומרים (מרדכי)</strong></td>
-  <td>איסור האוסר במשהו — ריחא אוסר אף בדיעבד</td>
-  <td>רמ״א; ש״ך ס״ק יד</td>
+  <td><strong>Le premier י״א du Rama</strong></td>
+  <td>un interdit qui interdit במשהו, comme le חמץ à Pessah : ריחא interdit même בדיעבד, dans un petit four fermé, les deux découverts</td>
+  <td><span class="source-ref" dir="rtl">ד״מ בשם הגהת סמ״ק ובשם תוספות עבודת כוכבים דף ס״ו ע״ב</span></td>
 </tr>
 <tr>
-  <td><strong>ויש אומרים (תוס')</strong></td>
-  <td>אין חילוק — אף בחמץ ריחא לאו מילתא בדיעבד</td>
-  <td>רמ״א; ש״ך ס״ק טו</td>
+  <td><strong>Le second י״א du Rama</strong></td>
+  <td>il n’y a pas de distinction — même pour le חמץ, ריחא לאו מילתא בדיעבד</td>
+  <td><span class="source-ref" dir="rtl">ד״מ בשם מרדכי</span></td>
 </tr>
 <tr>
-  <td><strong>הט״ז (ס״ק א) — בפת</strong></td>
-  <td>פת אין לה ריח (ר״ת); חמץ שנאפה עם מצה — מותר</td>
-  <td>ט״ז ס״ק א</td>
+  <td><strong>Le Chakh ס״ק י״ד</strong></td>
+  <td>צ״ע sur la borne <em>petit four</em> : les Tossafot laissent entendre que même dans de grands fours c’est interdit ; il propose que les Tossafot suivent leur propre voie, et laisse la question ouverte</td>
+  <td><span class="source-ref" dir="rtl">ש״ך ס״ק י״ד</span></td>
+</tr>
+<tr>
+  <td><strong>Le Chakh ס״ק ט״ו</strong></td>
+  <td>צ״ע sur le rattachement du second י״א : dans le Mordekhi il ne trouve pas ce qu’on lui prête, mais seulement que le pain de חמץ cuit avec de la מצה ne pose pas de ריחא ; sur le principe du משהו il ne l’a pas vu contester les Tossafot et le סמ״ק</td>
+  <td><span class="source-ref" dir="rtl">ש״ך ס״ק ט״ו</span></td>
 </tr>
 </table>
 </div>
+<blockquote>«&nbsp;<span class="he-q">צ״ע דבתוס׳ דעבודת כוכבים משמע להדיא דאפילו בתנורים גדולים אסור</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק י״ד)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">משמע דלהמרדכי אין חילוק בין איסור האוסר במשהו לשאר איסורים</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק ט״ו)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>חידוש הט״ז — "פת אין לה ריח" :</strong> מחדש הט״ז (ס״ק א) בשם רבנו תם דה<span class="he-q">פת אין לה ריח</span> כל כך, ולפיכך אף בחמץ בפסח האוסר במשהו, אם נאפה חמץ עם מצה בתנור אחד — <strong>המצה מותרת</strong>, שאין כאן ריח בר־פיטום. ומכאן שכל חומרת "במשהו" אמורה במאכל ה<em>עשוי להריח</em>, ולא בפת. ובהפסד, מסיים הרמ״א, יש לסמוך על המקילים אף בחמץ בפסח.
+<div class="pilpul-box">
+<strong>Le pain n’a pas d’odeur — le Taz (ס״ק א) et le Chakh (ס״ק ט״ו) :</strong> le Taz rapporte au nom de Rabbenou Tam que le pain ne tient tout simplement pas d’odeur, et il en tire que du pain de חמץ cuit à Pessah avec de la מצה ne rend pas la מצה interdite — alors même que le חמץ interdit במשהו. Le Chakh cite la raison dans la forme du Mordekhi : on ne trouve pas d’odeur de pain dans du pain. Il ressort de là que toute la rigueur du במשהו ne vise que l’aliment qui est <em>de nature à répandre une odeur</em>, et non le pain. Et en cas de perte, conclut le Rama, on peut s’appuyer sur ceux qui allègent.
 </div>
+<blockquote>«&nbsp;<span class="he-q">ובפת כתבו הפוסקים בשם ר״ת שאין שייך בו ריח כלל משום הכי אין אוסר פת חמץ בפסח שנאפית עם מצה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ח ס״ק א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דלא מצינו ריח פת בפת</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק ט״ו)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">6. הקדירה מפסקת · המרדה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">6. La marmite sépare · la pelle du boulanger (מרדה)</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ב')
-  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 העתק</button>
+<h3>Le Mehaber et le Rama (séif 2)
+  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-5">
-"<strong>כל זה ב<span class="he-q">צלי</span>; אבל אם בא לבשלם בקדירה — כל אחד בקדירה בפני עצמה, אפילו בתנור קטן וסתום — מותר, אף שפי הקדירות מגולה</strong> (הגה: ודווקא שהתנור פתוח קצת; אבל אם סתום מכל צד כדרך שטומנין חמין לשבת — אסור; ובדיעבד יש מחמירין כשהאיסור וההיתר מגולים, ובהפסד גדול יש להקל)."
+<p>בד״א בצלי אבל אם בא לבשלם בקדרה זה לעצמו וזה לעצמו אפילו בתנור קטן ופיו סתום מותר ואף על פי שפי הקדרות מגולה: הגה ודוקא שהתנור פתוח קצת אבל אם הוא סתום מכל הצדדים כדרך שמטמינים החמין לצורך שבת אסור (מהרי״ו סימן מ״ד ואו״ה והגהת ש״ד בשם מהר״מ) ואפילו בדיעבד יש מחמירין ואוסרין אם האיסור וההיתר מגולה (כך משמע בהגהת ש״ד) ובמקום הפסד מרובה יש להקל.</p>
+<span class="source-ref">(שו״ע יו״ד ק״ח:ב)</span>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — הקדירה מפסקת (ש״ך ס״ק טז; ב״י נגד הטור) :</strong><br>
-בצלי, האיסור וההיתר ערומים בתנור, והריח עולה מזה לזה. אבל ב<strong>בישול בקדירה</strong> — דופן הקדירה <span class="he-q">מפסקת</span> בין המאכל לאוויר התנור, ואין הריח עולה מן המאכל עצמו אלא מן הקדירה, ולפיכך מותר אף בתנור קטן וסתום. ומדייק הש״ך (ס״ק טז) דזו ראיית הבית יוסף נגד הטור — דהקדירה חוצצת בפני הריח כשני קדירות הנוגעות.
+<div class="yesod-box">
+<strong>Le fondement — c’est la marmite qui fait écran (ש״ך ס״ק ט״ז–יז) :</strong><br>
+Dans un rôtissage, l’interdit et le permis sont nus dans le four et l’odeur monte de l’un à l’autre. Dans une cuisson en marmite, la paroi s’interpose : l’odeur ne monte plus de l’aliment mais de la marmite, et c’est permis même dans un petit four à bouche fermée. Le Chakh montre que le Beit Yossef, contre le Tour, ne fait tenir la chose à rien d’autre qu’à <em>l’écran de la marmite</em> — ni à la cuisson ni au rôtissage comme tels. Et il précise que lorsque le four est un peu ouvert, c’est permis même לכתחילה : c’est exactement là que passe la différence entre la cuisson et le rôtissage.
 </div>
+<blockquote>«&nbsp;<span class="he-q">רק בהפסק הקדרה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק ט״ז)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ואז אפילו לכתחלה מותר</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק י״ז)</span></blockquote>
 
-<div class="machloket-box" dir="rtl">
-<strong>תנור פתוח קצת לעומת סתום לגמרי (הטמנה) :</strong>
+<div class="machloket-box">
+<strong>Four un peu ouvert, four entièrement scellé (הטמנה)</strong>
 <table>
-<tr><th>המצב</th><th>הדין</th><th>מקור</th></tr>
-<tr>
-  <td><strong>בישול בקדירות, תנור פתוח קצת</strong></td>
-  <td>מותר — הקדירה מפסקת</td>
-  <td>מחבר ס״ב</td>
-</tr>
-<tr>
-  <td><strong>סתום מכל צד (כהטמנת חמין לשבת)</strong></td>
-  <td>אסור — הריח כלוא ונבלע</td>
-  <td>רמ״א ס״ב</td>
-</tr>
-<tr>
-  <td><strong>בדיעבד, מגולים, הפסד גדול</strong></td>
-  <td>יש מחמירין; ובהפסד גדול יש להקל</td>
-  <td>רמ״א ס״ב</td>
-</tr>
+<tr><th>Le cas</th><th>Le din</th><th>Source</th></tr>
+<tr><td><strong>Cuisson en marmites, four un peu ouvert</strong></td><td>permis — la marmite fait écran, et même לכתחילה</td><td><span class="source-ref" dir="rtl">מחבר ס״ב · ש״ך ס״ק י״ז</span></td></tr>
+<tr><td><strong>Scellé de tous côtés, comme on enfouit le ‘hamin du Chabbat</strong></td><td>interdit</td><td><span class="source-ref" dir="rtl">רמ״א ס״ב</span></td></tr>
+<tr><td><strong>בדיעבד, les deux découverts</strong></td><td>il y a qui sont rigoureux ; en cas de perte importante, il y a lieu d’alléger</td><td><span class="source-ref" dir="rtl">רמ״א ס״ב</span></td></tr>
+<tr><td><strong>L’avis du Maharshal</strong></td><td>il ne distingue pas, et interdit toujours dans un four scellé, même grand ; le Chakh entend qu’il interdit jusque dans la perte importante, et note que le ב״ח tranche comme le Rama</td><td><span class="source-ref" dir="rtl">ש״ך ס״ק י״ח</span></td></tr>
 </table>
 </div>
+<blockquote>«&nbsp;<span class="he-q">ומהרש״ל באו״ש ובספרו פג״ה סי׳ י״ד לא חילק ואוסר לעולם בתנור סתום אפילו גדול</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק י״ח)</span></blockquote>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ג' — המרדה)
-  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 העתק</button>
+<h3>Le Mehaber et le Rama (séif 3 — la מרדה)
+  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-6">
-"<strong>אם יש שמנונית איסור על ה<span class="he-q">מרדה</span> (הפלה שאופין בה הפת) — אסור ליתן עליה היתר כל אותו היום; ומכל מקום כשאינה בת יומא — מותר להשתמש בה, מפני שאי אפשר בעניין אחר</strong> (הגה: וכל זמן שהיא בת יומא — לא מהני לה לא הגעלה ולא קליפה, לפי שהיא כלי של אומן)."
+<p>אם יש שמנונית של איסור על המרדה שקורין פאל״א אסור ליתן עליה היתר כל היום מיהו כשאינה בת יומא מותר להשתמש בה משום דאי אפשר בענין אחר: הגה כל זמן שהיא בת יומא לא מהני בה הגעלה ולא קליפה בכלי אומנות.</p>
+<span class="source-ref">(שו״ע יו״ד ק״ח:ג)</span>
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>חקירה — "אי אפשר בעניין אחר" (ט״ז ס״ק ז–ח) :</strong> מדוע בלא בת יומא הקלו במרדה אף לכתחילה ? מבאר הט״ז (ס״ק ח) ד<span class="he-q">אי אפשר בעניין אחר</span> — אין הנחתום יכול לעשות מרדה חדשה בכל יום, וכן אין הנכרי משאיל פלה אחרת; ובנותן טעם לפגם (אינה בת יומא) הקלו מחמת ההכרח. וזהו יסוד "אי אפשר" — שבמקום הכרח הקלו אף לכתחילה בנטל״פ.
+<div class="hakira-box">
+<strong>La hakira — que fait au juste <em>il n’est pas possible autrement</em> ? (ט״ז ס״ק ח ; ש״ך ס״ק י״ט)</strong> Pourquoi, lorsque la pelle n’est pas בת יומא, a-t-on allégé jusqu’à permettre לכתחילה, alors qu’ailleurs on ne se sert pas לכתחילה d’un ustensile qui n’est pas בן יומו ? Le Taz rapporte des Tossafot que le boulanger non juif n’écoutera pas qui lui demanderait de refaire une pelle neuve chaque fois qu’il y verse de l’interdit ; de là, conclut-il, on a permis à l’Israélite de s’en servir לכתחילה. Le Chakh dit la même chose et donne le mot qui porte tout : <em>puisqu’il n’est pas possible</em>. Le Taz, lui, écarte l’explication du Levouch, qui voyait là une simple absence de décret — il la juge inventée et sans source. Ce qui reste : c’est la contrainte, et non une indulgence de principe, qui permet ici le נותן טעם לפגם לכתחילה.
 </div>
+<blockquote>«&nbsp;<span class="he-q">שהרי לא ישמע לו העובד כוכבים לעשות מרדה חדשה בכל פעם שישפוך עליה איסור</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ח ס״ק ח)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ע״כ הותר גם לישראל להשתמש בה לכתחלה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ח ס״ק ח)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">כיון דלא אפשר שהרי העובד כוכבים לא ישמע לו לעשות מרדה חדשה בכל פעם שישפוך עליה של איסור</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק י״ט)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">והוא פירוש בדוי מלב אין לו מקור</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ח ס״ק ח)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>חד בתרי בטל וראויה להתכבד (ט״ז ס״ק ז) :</strong> מדקדק הט״ז (ס״ק ז) דשמנונית האיסור שעל המרדה אינה אוסרת אלא את ה<span class="he-q">פת הראשונה</span> הנוגעת בה; ואותה פת — אף שהיא חתיכה הראויה להתכבד — <strong>חד בתרי בטל</strong> בשאר הפת, לפי שאיסורה <em>בלוע</em> ולא ניכר (ואין דין דבר חשוב באיסור בלוע); והמהרש״ל הצריך ששים. ומכל מקום כל זמן שהמרדה בת יומא — אין הגעלה ולא קליפה מועילות לה, לפי שכלי אומן הוא שצריך ליבון (ועיין סימן קכ״א).
+<div class="pilpul-box">
+<strong>חד בתרי בטל et la pièce <em>digne d’être offerte</em> (ט״ז ס״ק ז ; ש״ך ס״ק כ) :</strong> le Taz rapporte de l’איסור והיתר הארוך que l’on a interdit même בדיעבד lorsque le non-Juif a sorti du four, sur une même pelle, des gâteaux et un pâté interdit — mais il relève aussitôt que seul le <strong>premier pain</strong> a été interdit, celui dont on sait avec certitude qu’il est sorti immédiatement après le pâté, à cause de la graisse d’interdit restée sur la pelle. Et si l’on ne sait plus le reconnaître, un contre deux l’annule, bien qu’il s’agisse d’une pièce digne d’être offerte — car son interdiction ne vient pas de son propre corps. Le Maharshal, lui, exige soixante, suivant sa propre voie. Pour la pelle elle-même, le Chakh rappelle qu’aussi longtemps qu’elle est בת יומא ni הגעלה ni קליפה n’y servent : elle relève des ustensiles dont l’usage se fait par le feu, et c’est le ליבון qu’il faudrait (voir siman 121).
 </div>
+<blockquote>«&nbsp;<span class="he-q">מיהו לא אסר אלא הפת הראשון שידוע בבירור שהוציאוהו מיד אחר הפשטיד״א משום שמנונית של איסור שעל המרדה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ח ס״ק ז)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ואם אין מכירו חד בתרי בטל אע״ג דהוה ראוי להתכבד דאין איסורו מגופו</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ח ס״ק ז)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">וכתב רש״ל פ׳ גיד הנשה סי׳ ל״ח דצריך ששים בהיתר נגד האיסור שברחת</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ח ס״ק ז)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דמרדה דינה ככלי שתשמישו ע״י האור</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק כ)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">7. לחם חם על חבית יין · להריח ולטעום</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">7. Pain chaud sur un tonneau de vin · sentir, goûter, asperger</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיף ד' — לחם חם על חבית)
-  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 העתק</button>
+<h3>Le Mehaber (séif 4 — le pain chaud sur le tonneau)
+  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-7">
-"<strong>פת חמה שהניחהּ על פי חבית של יין נסך פתוחה — אסורה</strong> (ודווקא כנגד המגופה); <strong>אבל פת צוננת — אפילו חבית פתוחה, או פת חמה וחבית סתומה — מותרת. ואם היה פת של שעורים — אסורה כשהפת חמה אפילו חבית סתומה.</strong>"
+<p>פת חמה שמונח על גבי חבית פתוחה של יין נסך אסורה (ודווקא אם מונחת נגד המגופה) (ארוך כלל ל״ט) אבל אם הפת צוננת אפילו אם החבית פתוחה או פת חמה וחבית מגופה (פי׳ סתומה) מותר ואם היה פת שעורים אסור אם הפת חמה אפילו חבית מגופה.</p>
+<span class="source-ref">(שו״ע יו״ד ק״ח:ד)</span>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — הפת החמה שואבת את הריח (ש״ך ס״ק כא–כב) :</strong><br>
-מבאר הש״ך (ס״ק כא–כב) דפת <span class="he-q">חמה</span> שואבת אל תוכה את ריח היין, וריח זה <strong>כאכילה</strong> ואוסר אף ב<em>סתם יינם</em> שמותר בהנאה — שהרי כאן אוכלו ממש. וזה <strong>שלא כדין סעיף א'</strong>: ששם ריחא לאו מילתא בדיעבד, וכאן הפת החמה והשואבת הופכת את הריח לטעם ממש. ולפיכך פת צוננת (אינה שואבת) או חבית סתומה (אין ריח) — מותרת; ופת שעורים (סופגת יותר) — אסורה אף בחבית סתומה.
+<div class="yesod-box">
+<strong>Le fondement — le pain chaud aspire l’odeur (ש״ך ס״ק כ״א–כג) :</strong><br>
+Le Chakh donne la raison sans détour : c’est interdit <em>parce que le pain aspire l’odeur du vin</em>. Et il en tire une conséquence qui n’allait pas de soi : cela vaut même pour du סתם יינם, dont on a le droit de tirer profit, car une odeur de cette sorte compte comme un aliment — ici, il la mange réellement. De là aussi les deux cas permis : un pain froid n’aspire pas, et c’est permis même si le tonneau est ouvert ; et un tonneau bouché ne laisse pas monter d’odeur. Le pain d’orge, qui absorbe davantage, reste interdit chaud même contre un tonneau bouché.
 </div>
+<blockquote>«&nbsp;<span class="he-q">אסור מפני ששואב הריח של יין</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק כ״א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">משום דריח כי האי חשיב כאוכל</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק כ״ב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ה״ה בחבית פתוחה ופת צוננת</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק כ״ג)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>חילוק מסעיף א' (תוס', רא״ש) :</strong> הקשו הראשונים — מאי שנא לחם חם על חבית, שאוסר, מצליית היתר ואיסור בתנור שריחא לאו מילתא ובדיעבד מותר ? ותירצו (תוס', רא״ש) דהתם אין הריח אלא <em>הבל</em> מתפזר, וכאן הפת החמה <span class="he-q">שואבת</span> את הריח ממש מן החבית הסמוכה, וכמו שמערה משקה מזה לזה; ולפיכך כאן ריחא מילתא ואוסר.
+<div class="rishon-card">
+<strong>Pourquoi ce séif ne contredit pas le séif 1 (ש״ך ס״ק כ״א) :</strong> la question se pose d’elle-même : au séif 1 le Mehaber écrit que si on les a rôtis c’est permis, et ici le pain chaud est interdit. Le Chakh répond que les poskim rapprochent bien ces deux dins, mais que les Tossafot et le Rosh écrivent explicitement, au dernier chapitre d’Avoda Zara, qu’<em>ils ne se comparent pas l’un à l’autre</em> — et qu’il en va de même chez le Raavan et d’autres. Là-bas l’odeur n’est qu’un souffle qui se disperse ; ici le pain chaud tire à lui l’odeur du tonneau qui le touche presque.
 </div>
+<blockquote>«&nbsp;<span class="he-q">הא התוס׳ והרא״ש כתבו להדיא בפרק בתרא דעבודת כוכבים דף ס״ז דל״ד להדדי</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק כ״א)</span></blockquote>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיפים ה'–ז' — להריח, לטעום, זילוף)
-  <button class="daat-copy" type="button" data-copy-target="#cp-8">📋 העתק</button>
+<h3>Le Mehaber et le Rama (séifim 5–7 — sentir, goûter, asperger)
+  <button class="daat-copy" type="button" data-copy-target="#cp-8">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-8">
-"<strong>(ה) מותר לשאוב בפיו ריח יין נסך</strong> דרך נקב החבית לדעת אם הוא יפה (הגה: אבל אסור לטעמו אף שאינו בולעו; ואסור לזלף יין נסך האסור בהנאה, ומותר לזלף סתם יינם המותר בהנאה). <strong>(ו) שק של פלפלין וזנגביל שהניחו בכדי יין נסך — מותר להריחם; אבל בשמים של הבדלה — אסור. (ז) בשמים של עבודה זרה, של כלאי הכרם ושל ערלה — אסור להריחן.</strong>"
+<p>ה. מותר לשאוף בפיו ריח יין נסך דרך נקב שבחבית לידע אם הוא טוב: הגה אבל אסור לטועמו אע״פ שאינו בולעו (ריב״ש סימן רפ״ח) ואסור לזלף יין נסך שאסור בהנאה (בשערים בשם הגהות אשיר״י סוף עבודת כוכבים) אבל מותר לזלף סתם יינם דמותר בהנאה.</p>
+<p>ו. שק של פלפלין וזנגביל שמשימין בקנקני יין נסך מותר להריח בהם אבל לבשמים דהבדלה אסור.</p>
+<p>ז. בשמים של עבודת כוכבים וכלאי הכרם וערלה אסור להריח בהם.</p>
+<span class="source-ref">(שו״ע יו״ד ק״ח:ה–ז)</span>
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>להריח · לטעום · לזלף (רי״ב״ש; ש״ך ס״ק כד–כז) :</strong>
+<div class="machloket-box">
+<strong>Sentir · goûter · asperger — et pourquoi les trois ne se valent pas</strong>
 <table>
-<tr><th>הפעולה</th><th>הדין</th><th>טעם / מקור</th></tr>
-<tr>
-  <td><strong>לשאוב ריח יין לבדיקה</strong></td>
-  <td>מותר</td>
-  <td>אין בו הנאת איסור (מחבר ס״ה)</td>
-</tr>
-<tr>
-  <td><strong>לטעום יין נסך (בלא בליעה)</strong></td>
-  <td>אסור</td>
-  <td>הריב״ש — אף בלא אכילה (ש״ך ס״ק כד)</td>
-</tr>
-<tr>
-  <td><strong>לזלף יין האסור בהנאה</strong></td>
-  <td>אסור</td>
-  <td>זילוף = הנאה גמורה (ש״ך ס״ק כה)</td>
-</tr>
-<tr>
-  <td><strong>פלפלין וזנגביל מכד יין</strong></td>
-  <td>מותר להריח</td>
-  <td>הם מפטמים את היין, לא להיפך (ש״ך ס״ק כו)</td>
-</tr>
-<tr>
-  <td><strong>בשמים של הבדלה (מן הכד)</strong></td>
-  <td>אסור</td>
-  <td>הקריבהו נא לפחתך (ש״ך ס״ק כו)</td>
-</tr>
+<tr><th>L’acte</th><th>Le din</th><th>Raison et source</th></tr>
+<tr><td><strong>Aspirer l’odeur du vin par le trou du tonneau pour l’éprouver</strong></td><td>permis</td><td>il n’y a pas là de jouissance d’interdit (<span class="source-ref" dir="rtl">מחבר ס״ה</span>)</td></tr>
+<tr><td><strong>Le goûter, même sans l’avaler</strong></td><td>interdit</td><td>le Rivach : dans tous les interdits alimentaires, même ceux dont le profit est permis (<span class="source-ref" dir="rtl">רמ״א ס״ה · ש״ך ס״ק כ״ד</span>)</td></tr>
+<tr><td><strong>Asperger du vin interdit au profit (זילוף)</strong></td><td>interdit</td><td>le זילוף est une jouissance pleine (<span class="source-ref" dir="rtl">רמ״א ס״ה · ש״ך ס״ק כ״ה</span>)</td></tr>
+<tr><td><strong>Un sac de poivre et de gingembre mis dans des cruches de vin</strong></td><td>permis à sentir</td><td>ce sont eux qui parfument le vin, et non l’inverse (<span class="source-ref" dir="rtl">מחבר ס״ו · ש״ך ס״ק כ״ו · ט״ז ס״ק י</span>)</td></tr>
+<tr><td><strong>Les mêmes, pris pour les בשמים de la havdala</strong></td><td>interdit</td><td>הקריבהו נא לפחתך (<span class="source-ref" dir="rtl">מחבר ס״ו · ש״ך ס״ק כ״ו</span>)</td></tr>
 </table>
 </div>
+<blockquote>«&nbsp;<span class="he-q">דבכל איסורי אכילה אפי׳ שאינם אסורים בהנאה נמי אסור לטועמן</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק כ״ד)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דזילוף חשיב הנאה גמורה ואסור לכ״ע ביין האסור בהנאה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק כ״ה)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">לפי שאין היין נותן בהם כח ואין עושין כן כדי ליתן היין טעם בתבלין אלא אדרבה ליתן התבלין טעם ביין</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק כ״ו)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">מסתבר דלבשמים דהבדלה אסור משום הקריבהו נא לפחתך</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק כ״ו)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>בשמים של עבודה זרה, ערלה וכלאי הכרם — סוגיית הדס ואתרוג (ש״ך ס״ק כז) :</strong> מבאר הש״ך (ס״ק כז) דבשמים של ע״ז, ערלה וכלאי הכרם — <span class="he-q">אסור להריחן</span>, לפי שהם <strong>אסורין בהנאה</strong>, וריח ב<em>דבר העומד להריח</em> נחשב הנאה (כסוגיית <strong>הדס ואתרוג</strong> בסוכה ל״ז:, ובדין ורד והדס). וזהו החילוק: יין ופלפלין אינם עומדים להריח אלא לאכילה ולפיטום, ולפיכך הריח אינו הנאה האסורה; אבל בשמים העומדים להריח — הריח עצמו הוא ההנאה ונאסר.
+<div class="pilpul-box">
+<strong>Ce qui est fait pour être senti — et la preuve que le Chakh refuse (ש״ך ס״ק כ״ז) :</strong> pour les בשמים d’avoda zara, de כלאי הכרם et d’ערלה, le Chakh donne la raison au nom du Rashba : ces choses sont interdites au profit, et tout ce qui est fait pour être senti — comme la rose et le myrte — est interdit ; le Beit Yossef le formule comme une règle générale. C’est là le partage avec le séif 5 : le vin et le poivre ne sont pas faits pour l’odorat, et l’odeur n’y est donc pas la jouissance interdite ; mais un parfum fait pour l’odorat, l’odeur <em>est</em> sa jouissance. Le Mordekhi tire preuve de la sougya de הדס ואתרוג à Souka 37b ; et c’est ici que le Chakh s’arrête : il dit ne pas reconnaître cette preuve, et que le passage semblerait même dire l’inverse — car là-bas le myrte est interdit parce qu’il a été <em>mis de côté pour la mitsva</em>, ce qui ne dit rien d’un interdit de la Torah, où il n’y aurait pas lieu de distinguer, puisque de toute façon il jouit de l’odeur. Aussi conclut-il, avec les Tossafot d’Avoda Zara, qu’au moins pour l’avoda zara il n’y a pas à alléger.
 </div>
+<blockquote>«&nbsp;<span class="he-q">דאסורים הם בהנאה דכל שעשויים להריח כורד והדס כו׳ אסור</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק כ״ז)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל דבר שעומד להריח כגון ורד והדס אסור ליהנות מהריח</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק כ״ז)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">הדס של מצוה אסור להריח בו אתרוג של מצוה מותר להריח בו</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק כ״ז)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל באמת ראייה זה איני מכיר ואדרבה משמע לכאורה איפכא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק כ״ז)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">הלכך בעבודת כוכבים עכ״פ אין להקל</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ח ס״ק כ״ז)</span></blockquote>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה — עומד להריח (פ״ת ס״ק ה) :</strong> נחלקו האחרונים בעומד להריח של איסור שאינו אסור בהנאה: ה<span class="he-q">שער אפרים</span> אסר, וה<strong>אמונת שמואל</strong> התיר, וחולק על הש״ך (ס״ק כז). ומביא הפתחי תשובה (ס״ק ה) דכל אלו תלויים אם הריח שבעומד להריח חשוב כגוף ההנאה. <em>ולמעשה — שאל את רבך.</em>
+<div class="nafka-mina-box">
+<strong>Nafka mina — ce qui est fait pour être senti sans être interdit au profit (פ״ת ס״ק ה) :</strong> le Pit’hei Techouva rapporte le שלטי הגיבורים, dont l’avis est que, même pour les interdits qui ne sont pas interdits au profit, si leur objet principal est d’être sentis, il est interdit de les sentir — et à plus forte raison de réciter une bénédiction sur eux. L’אמונת שמואל le conteste et permet de les sentir, fût-ce quand ils sont faits pour le parfum ; et il conteste au même endroit la lecture que le Chakh (ס״ק כ״ז) fait du Mordekhi. La question reste donc ouverte, et le Pit’hei Techouva ne la tranche pas. <em>Et pour la pratique — demande à ton Rav.</em>
 </div>
+<blockquote>«&nbsp;<span class="he-q">שדעתו דה״ה בשאר איסורים שאינם איסורי הנאה אם עיקרם להריח אסור להריח בהם וק״ו לברך עליהם</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד ק״ח ס״ק ה)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ועיין בתשובת אמונת שמואל סימן מ״ה שהשיג עליו והעלה דאם אינם איסורי הנאה שרי להריח בהם אפילו עשוייה לריח</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד ק״ח ס״ק ה)</span></blockquote>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">8. חקירה ונפקא מינה למעשה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">8. Hakira et nafka mina pour la pratique</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ Explication détaillée (niveau 1)</a>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה הכוללת של הסימן :</strong> אימתי הריח מעביר את האיסור, ומה כוחו לעומת מגע ובליעה ?
+<div class="hakira-box">
+<strong>La hakira qui traverse tout le siman : quand l’odeur fait-elle passer l’interdit, et que vaut sa force auprès du contact et de l’absorption ?</strong>
 <ul class="stylish">
-<li><strong>ריחא לאו מילתא</strong> — בדיעבד מותר; ולכתחילה נמנעים (פסחים ע״ו, ע״ז ס״ו).</li>
-<li><strong>פיטום</strong> — שמן מפטם → חשש; כחוש בכחוש מותר לכ״ע (ש״ך ס״ק א).</li>
-<li><strong>דבר חריף / עשוי להריח</strong> — ריחא מילתא אף בדיעבד (ש״ך ס״ק ט).</li>
-<li><strong>מחבת אחת / הזיע</strong> — כבישול ואוסר; זה אחר זה מותר (ש״ך ס״ק יב).</li>
-<li><strong>צירוף ששים / חמץ במשהו</strong> — ריחא ככל איסורין (ש״ך ס״ק יג–טו).</li>
-<li><strong>לחם חם על חבית · להריח</strong> — שאיבה כאכילה; ועומד להריח כהנאה.</li>
+<li><strong>ריחא לאו מילתא</strong> — בדיעבד permis ; לכתחילה on s’abstient (Pessahim 76 ; Avoda Zara 66b).</li>
+<li><strong>פיטום</strong> — il faut que l’un des deux soit gras ; maigre avec maigre est permis de l’avis de tous (ש״ך ס״ק א).</li>
+<li><strong>דבר חריף, ou ce qui est fait pour l’odeur</strong> — ריחא מילתא même בדיעבד, sauf si l’un est couvert (ש״ך ס״ק ט).</li>
+<li><strong>Une seule מחבת, le poêle qui a sué</strong> — comme une cuisson ; mais l’un après l’autre ne fait pas de souci (ש״ך ס״ק י״ב ; פ״ת ס״ק ב).</li>
+<li><strong>Compte des soixante, חמץ במשהו</strong> — ריחא se règle comme les autres interdits ; et le pain, dit le Taz, n’a pas d’odeur (ש״ך ס״ק י״ג–טו ; ט״ז ס״ק א, ו).</li>
+<li><strong>Pain chaud sur un tonneau · sentir</strong> — ce qui est aspiré vaut un aliment ; et ce qui est fait pour être senti, une jouissance (ש״ך ס״ק כ״א–כב, כז).</li>
 </ul>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה למעשה (לפי הכרעת רוב האחרונים) :</strong>
+<div class="nafka-mina-box">
+<strong>Nafka minoth pour la pratique, telles que le siman les pose :</strong>
 <ol class="stylish">
-<li>ריחא לאו מילתא → <strong>בדיעבד מותר</strong>; לכתחילה אין צולין/אופין היתר ואיסור יחד (מחבר ורמ״א ס״א).</li>
-<li>היתר לכתחילה רק ב<strong>תנור גדול ופתוח</strong> או כשאחד מהם מכוסה, ושלא ייגעו.</li>
-<li>דבר חריף או עשוי להריח → ריחא מילתא <strong>אף בדיעבד</strong>, אלא אם כן אחד מכוסה (ש״ך ס״ק ט).</li>
-<li>תחת מחבת אחת מגולים בבת אחת → אסור אף בדיעבד; זה אחר זה — מותר (ש״ך ס״ק יב).</li>
-<li>בישול בקדירות — הקדירה מפסקת ומותר; פת חמה על חבית — אסורה (שואבת).</li>
+<li>ריחא לאו מילתא → <strong>בדיעבד permis</strong> ; לכתחילה on ne rôtit ni ne cuit ensemble permis et interdit (מחבר ורמ״א ס״א).</li>
+<li>לכתחילה n’est permis que dans un <strong>grand four à bouche ouverte</strong>, ou quand l’un des deux est couvert — et à condition qu’ils ne se touchent pas.</li>
+<li>Un דבר חריף, ou ce qui est fait pour son odeur → ריחא מילתא <strong>même בדיעבד</strong>, sauf si l’un des deux est couvert (ש״ך ס״ק ט).</li>
+<li>Sous une même מחבת, découverts et en même temps → interdit même בדיעבד ; l’un après l’autre est permis, tant que la seconde fois se fait par l’odeur seule (ש״ך ס״ק י״ב ; פ״ת ס״ק ב).</li>
+<li>Cuire en marmites est permis, la marmite faisant écran ; un pain chaud sur un tonneau ouvert est interdit, parce qu’il aspire (מחבר ס״ב, ס״ד ; ש״ך ס״ק ט״ז, כא).</li>
 </ol>
-<em>ולמעשה — שאל את רבך.</em>
+<em>Et pour la pratique — demande à ton Rav.</em>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">9. טבלאות סיכום</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">9. Tableaux récapitulatifs</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">טבלה — אופני הריח והדין</h3>
+<h3>Tableau — les figures de l’odeur et leur din</h3>
 
 <table>
+<tr><th>La figure</th><th>Le din</th><th>Source</th></tr>
 <tr>
-  <th>אופן המגע</th>
-  <th>התוצאה</th>
-  <th>מקור בקורפוס</th>
+  <td><strong>Rôtir interdit et permis dans un même four</strong></td>
+  <td>ריחא לאו מילתא → בדיעבד permis ; לכתחילה on s’abstient</td>
+  <td><span class="source-ref" dir="rtl">מחבר ס״א · ש״ך ס״ק ב</span></td>
 </tr>
 <tr>
-  <td><strong>צליית איסור והיתר בתנור אחד</strong></td>
-  <td>ריחא לאו מילתא → בדיעבד מותר; לכתחילה אסור</td>
-  <td>מחבר ס״א; ש״ך ס״ק ב</td>
+  <td><strong>Maigre avec maigre</strong></td>
+  <td>permis de l’avis de tous — il n’y a pas de פיטום</td>
+  <td><span class="source-ref" dir="rtl">רשב״א · ש״ך ס״ק א</span></td>
 </tr>
 <tr>
-  <td><strong>כחוש בכחוש</strong></td>
-  <td>מותר לכ״ע — אין פיטום</td>
-  <td>ש״ך ס״ק א; ט״ז ס״ק א</td>
+  <td><strong>Grand four à bouche ouverte, ou l’un des deux couvert</strong></td>
+  <td>permis même לכתחילה, pourvu qu’ils ne se touchent pas</td>
+  <td><span class="source-ref" dir="rtl">מחבר ס״א · ט״ז ס״ק ב · פ״ת ס״ק א</span></td>
 </tr>
 <tr>
-  <td><strong>תנור גדול ופתוח / אחד מכוסה</strong></td>
-  <td>מותר אף לכתחילה (ובלבד שלא ייגעו)</td>
-  <td>מחבר ס״א; פ״ת ס״ק א</td>
+  <td><strong>דבר חריף, ou ce qui est fait pour son odeur</strong></td>
+  <td>ריחא מילתא même בדיעבד, si les deux sont découverts</td>
+  <td><span class="source-ref" dir="rtl">רמ״א ס״א · ש״ך ס״ק ט</span></td>
 </tr>
 <tr>
-  <td><strong>דבר חריף / עשוי להריח</strong></td>
-  <td>ריחא מילתא אף בדיעבד (אם שניהם מגולים)</td>
-  <td>רמ״א ס״א; ש״ך ס״ק ט</td>
+  <td><strong>Sous une même מחבת, découverts</strong></td>
+  <td>comme une cuisson → interdit même בדיעבד ; l’un après l’autre est permis</td>
+  <td><span class="source-ref" dir="rtl">רמ״א ס״א · ש״ך ס״ק י״ב</span></td>
 </tr>
 <tr>
-  <td><strong>תחת מחבת אחת מגולים</strong></td>
-  <td>כבישול → אסור אף בדיעבד; זה אחר זה מותר</td>
-  <td>רמ״א ס״א; ש״ך ס״ק יב</td>
+  <td><strong>Le compte des soixante</strong></td>
+  <td>ריחא se règle comme les autres interdits ; en cas de perte importante tout ce qui est au four se joint</td>
+  <td><span class="source-ref" dir="rtl">ש״ך ס״ק י״ג · ט״ז ס״ק ו</span></td>
 </tr>
 <tr>
-  <td><strong>צירוף ששים</strong></td>
-  <td>ריחא ככל האיסורין; בהפסד הכל מצטרף</td>
-  <td>ש״ך ס״ק יג; ט״ז ס״ק ו</td>
+  <td><strong>חמץ בפסח, qui interdit במשהו</strong></td>
+  <td>deux avis rapportés par le Rama ; et pour le Taz le pain n’a pas d’odeur, de sorte que la מצה reste permise</td>
+  <td><span class="source-ref" dir="rtl">רמ״א ס״א · ט״ז ס״ק א · ש״ך ס״ק י״ד–טו</span></td>
 </tr>
 <tr>
-  <td><strong>חמץ בפסח (במשהו)</strong></td>
-  <td>מחלוקת; פת אין לה ריח (ר״ת) → מצה מותרת</td>
-  <td>רמ״א ס״א; ט״ז ס״ק א; ש״ך ס״ק יד–טו</td>
+  <td><strong>Cuisson en marmites</strong></td>
+  <td>permis — la marmite fait écran ; scellé de tous côtés, c’est interdit</td>
+  <td><span class="source-ref" dir="rtl">מחבר ס״ב · רמ״א ס״ב · ש״ך ס״ק ט״ז–יז</span></td>
 </tr>
 <tr>
-  <td><strong>בישול בקדירות (הקדירה מפסקת)</strong></td>
-  <td>מותר בתנור פתוח קצת; סתום לגמרי — אסור</td>
-  <td>מחבר ס״ב; ש״ך ס״ק טז</td>
+  <td><strong>Graisse d’interdit sur la מרדה</strong></td>
+  <td>בת יומא : interdit d’y poser du permis tout ce jour ; sinon : permis, car il n’est pas possible autrement</td>
+  <td><span class="source-ref" dir="rtl">מחבר ס״ג · ט״ז ס״ק ז–ח · ש״ך ס״ק י״ט</span></td>
 </tr>
 <tr>
-  <td><strong>שמנונית על המרדה</strong></td>
-  <td>בת יומא — אסור; אינה בת יומא — מותר (אי אפשר)</td>
-  <td>מחבר ס״ג; ט״ז ס״ק ז–ח</td>
+  <td><strong>Pain chaud sur un tonneau de vin</strong></td>
+  <td>interdit, parce qu’il aspire l’odeur ; froid, ou tonneau bouché : permis</td>
+  <td><span class="source-ref" dir="rtl">מחבר ס״ד · ש״ך ס״ק כ״א–כג</span></td>
 </tr>
 <tr>
-  <td><strong>פת חמה על חבית יין</strong></td>
-  <td>אסורה (שואבת); צוננת / סתומה — מותרת</td>
-  <td>מחבר ס״ד; ש״ך ס״ק כא–כב</td>
+  <td><strong>Sentir, goûter, asperger</strong></td>
+  <td>sentir pour éprouver est permis ; goûter et asperger sont interdits</td>
+  <td><span class="source-ref" dir="rtl">מחבר ס״ה · רמ״א ס״ה · ש״ך ס״ק כ״ד–כה</span></td>
 </tr>
 <tr>
-  <td><strong>להריח / לטעום / לזלף</strong></td>
-  <td>להריח לבדיקה מותר; לטעום ולזלף אסור</td>
-  <td>מחבר ס״ה; ש״ך ס״ק כד–כה</td>
-</tr>
-<tr>
-  <td><strong>בשמים של ע״ז, ערלה, כלאי הכרם</strong></td>
-  <td>אסור להריחן (עומד להריח = הנאה)</td>
-  <td>מחבר ס״ז; ש״ך ס״ק כז</td>
+  <td><strong>בשמים d’avoda zara, d’ערלה et de כלאי הכרם</strong></td>
+  <td>interdits à sentir — ce qui est fait pour l’odorat, l’odeur en est la jouissance</td>
+  <td><span class="source-ref" dir="rtl">מחבר ס״ז · ש״ך ס״ק כ״ז</span></td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מחלוקות מרכזיות בסימן</h3>
+<h3>Tableau — les ma’hlokoth centrales du siman</h3>
 
 <table>
-<tr>
-  <th>נושא</th>
-  <th>שיטה א'</th>
-  <th>שיטה ב'</th>
-</tr>
-<tr>
-  <td>ריחא מילתא או לאו מילתא</td>
-  <td>ריחא מילתא — הריח אוסר (לוי, פסחים ע״ו)</td>
-  <td>ריחא לאו מילתא — בדיעבד מותר (וקיי״ל)</td>
-</tr>
-<tr>
-  <td>אין הנאסר אוסר בריחא</td>
-  <td>קושיית המהרא״י — ההיתר אוסר עצמו</td>
-  <td>תירוץ — ריחא שאני (ש״ך ס״ק א; ט״ז ס״ק א)</td>
-</tr>
-<tr>
-  <td>חמץ בפסח (במשהו) בריחא</td>
-  <td>מרדכי — ריחא אוסר אף בדיעבד</td>
-  <td>תוס' — אין חילוק, בדיעבד מותר (ש״ך יד–טו)</td>
-</tr>
-<tr>
-  <td>פת על חבית — שלא כסעיף א'</td>
-  <td>תוס'/רא״ש — שואבת, ריחא מילתא</td>
-  <td>הט״ז — פת אין לה ריח (ר״ת)</td>
-</tr>
-<tr>
-  <td>עומד להריח של איסור (לא הנאה)</td>
-  <td>שער אפרים / ש״ך ס״ק כז — אסור</td>
-  <td>אמונת שמואל — מותר (פ״ת ס״ק ה)</td>
-</tr>
+<tr><th>Le point</th><th>Première shitah</th><th>Seconde shitah</th></tr>
+<tr><td>ריחא מילתא ou ריחא לאו מילתא</td><td>Rav, tel que le Chakh le cite : du gras rôti avec du maigre interdit, מפטמי אהדדי</td><td>ריחא לאו מילתא — et c’est la halakha : בדיעבד permis (ש״ך ס״ק ב, יד)</td></tr>
+<tr><td>אין הנאסר אוסר appliqué à ריחא</td><td>la difficulté : le permis finirait par être cause de sa propre interdiction (ש״ך ס״ק א ; ט״ז ס״ק א)</td><td>la réponse du מהרא״י : ריחא שאני — le פיטום conduit l’odeur et le goût du maigre avec elle</td></tr>
+<tr><td>חמץ בפסח, qui interdit במשהו</td><td>תוספות והגהות סמ״ק, par le ד״מ : ריחא interdit même בדיעבד</td><td>מרדכי, par le ד״מ : il n’y a pas de distinction — et le ש״ך pose un צ״ע sur les deux rattachements (ס״ק י״ד–טו)</td></tr>
+<tr><td>Le pain chaud du séif 4 face au séif 1</td><td>תוספות ורא״ש : les deux cas ne se comparent pas, car ici le pain aspire (ש״ך ס״ק כ״א)</td><td>ט״ז ס״ק א au nom de ר״ת : le pain ne tient pas d’odeur du tout</td></tr>
+<tr><td>Ce qui est fait pour être senti, sans être interdit au profit</td><td>שלטי הגיבורים : interdit à sentir, et a fortiori à bénir (פ״ת ס״ק ה)</td><td>אמונת שמואל : permis — et il conteste la lecture que le ש״ך (ס״ק כ״ז) fait du מרדכי</td></tr>
 </table>
 
-<h3 class="he-h3">טבלה — מקורות הסוגיא</h3>
+<h3>Tableau — les sources de la sougya</h3>
 
-<div class="rishon-card" dir="rtl">
-<strong>גמרא :</strong> פסחים ע״ו. (כיצד צולין — ריחא מילתא או לאו מילתא, תתאה גבר) · עבודה זרה ס״ו. (ריחא בנותן טעם, אבי תרי קדרי) · סוכה ל״ז: (הדס ואתרוג, ורד והדס — עומד להריח)
+<div class="rishon-card">
+<strong>Guemara :</strong> פסחים ע״ו (כיצד צולין) · עבודה זרה ס״ו ע״ב · עבודה זרה ס״ז · סוכה ל״ז ע״ב (הדס ואתרוג)
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>ראשונים :</strong> רש״י (ההיתר מפטם לאיסור) · ר״ת (פת אין לה ריח) · רמב״ם · תוספות · רא״ש · רשב״א (תורת הבית) · ר״ן · מרדכי · ריב״ש · מהרא״י (תרומת הדשן · אין הנאסר אוסר) · חינוך בית יהודה · טור
+<div class="rishon-card">
+<strong>Richonim :</strong> רש״י · רבנו תם · תוספות · רא״ש · רשב״א (תורת הבית) · רמב״ם · רי״ף · מרדכי · ראב״ן · ראבי״ה · רוקח · ריב״ש · מהרא״י (הגהות שערי דורא) · תשובות מיימוניות · הגהות סמ״ק · טור
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>אחרונים :</strong> בית יוסף · רמ״א · ש״ך · ט״ז · ב״ח · דרכי משה · מהרש״ל · פרי חדש · פרי מגדים · שער אפרים · אמונת שמואל · יד אליהו · שער המלך · פתחי תשובה
+<div class="rishon-card">
+<strong>Aharonim :</strong> בית יוסף · דרכי משה · רמ״א · תורת חטאת · איסור והיתר הארוך · מהרש״ל · לבוש · ש״ך · ט״ז · ב״ח · חינוך בית יהודה · שלטי הגיבורים · אמונת שמואל · יד אליהו · פרי מגדים · שער המלך · פתחי תשובה
 </div>
 
 <hr class="ornament">
 
-  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;direction:rtl;">
-    <a href="niveau-1-base.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">→ רמה א' — יסוד</a>
-    <a href="niveau-3-synthese.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">רמה ג' — סיכום ←</a>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;">
+    <a href="niveau-1-base.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">← Niveau 1 — Base</a>
+    <a href="niveau-3-synthese.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">Niveau 3 — Synthèse →</a>
   </div>
 
 <div class="yh-watermark">
 ~ ~ ~ ~ ~<br>
 <strong>DAAT</strong> · <strong>הרב יוסף חיים סממה</strong><br>
-תלמיד חכם · מעביר שיעורים בהלכה ובחסידות<br>
-<em>פלפול ועיון בדין שלא לאפות היתר ואיסור בתנור אחד · סימן ק״ח · ⚡ רמה ב' — לַמְדָּן</em>
+Talmid hakham · donne des cours de halakha et de hassidout<br>
+<em>Pilpoul et étude sur la cuisson du permis et de l’interdit dans un même four · סימן ק״ח · ⚡ Niveau 2 — Lamdan</em>
 </div>
 
-  <div class="disclaimer" style="background:#fff8e1;border-right:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;direction:rtl;text-align:right;">
-    ⚠️ תוכן זה נכתב לצורך לימוד ועיון בלבד. לכל הוראה למעשה (לְמַעֲשֶׂה) — שאל את רבך.
+  <div class="disclaimer" style="background:#fff8e1;border-left:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;">
+    ⚠️ Ce contenu est écrit pour l’étude et l’examen seulement. Pour toute application pratique (לְמַעֲשֶׂה) — demande à ton Rav.
   </div>
 
   <div style="background:#1A1F3A;border-top:2px solid #C5A55A;padding:24px 40px;text-align:center;margin-top:0;">
-    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;direction:rtl;">
-      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">לעמוד הבית</a> · <a href="index.html" style="color:#C5A55A;text-decoration:none;">סימן ק״ח</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ לתמיכה</a>
+    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;">
+      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">Accueil</a> · <a href="index.html" style="color:#C5A55A;text-decoration:none;">Siman 108</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ Soutenir</a>
     </p>
   </div>
-
   <link rel="stylesheet" href="../../../assets/css/khavroutha-fab.css">
 <link rel="stylesheet" href="../../../assets/css/chat-widget.css">
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="../../../assets/js/chat-widget.js" defer></script>
 <script src="../../../assets/js/daat-copy.js" defer></script>
-<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="מצא חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">הצטרף לחברותא</span></a>
+<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="Rejoindre la khavroutha"><span class="icon">📖</span><span class="label-long">Rejoindre la khavroutha</span></a>
   <script src="/assets/js/share-text.js" defer></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,8 +23,7 @@
   @page { size: A4; margin: 2cm 1.8cm; }
   body {
     font-family: 'Frank Ruhl Libre', 'David', 'Georgia', 'Cambria', serif;
-    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0;
-    direction: rtl; text-align: right;
+    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0; text-align: left;
   }
   .he {
     direction: rtl; text-align: right;
@@ -72,14 +71,12 @@
   h2.section-title {
     color: #fff; background: #1A1F3A;
     font-size: 16pt; padding: 10px 18px; margin-top: 30px;
-    border-right: 6px solid #C5A55A;
-    direction: rtl; text-align: right;
+    border-left: 6px solid #C5A55A; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3 {
     color: #1A1F3A; font-size: 14pt; margin-top: 25px;
-    border-right: 4px solid #C5A55A; padding-right: 10px;
-    direction: rtl; text-align: right;
+    border-left: 4px solid #C5A55A; padding-left: 10px; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3.he-h3 {
@@ -89,8 +86,7 @@
   }
   h4 {
     color: #5a4a1a; font-size: 12pt;
-    margin-top: 20px; margin-bottom: 8px; font-weight: bold;
-    direction: rtl; text-align: right;
+    margin-top: 20px; margin-bottom: 8px; font-weight: bold; text-align: left;
   }
 
   .sacred-text {
@@ -100,8 +96,8 @@
     font-size: 12.5pt; line-height: 1.9;
   }
   .pilpul-box {
-    background: #eef3fa; border-right: 4px solid #1A1F3A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #eef3fa; border-left: 4px solid #1A1F3A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .pilpul-box::before {
     content: "⚡ פלפול"; display: block;
@@ -110,8 +106,8 @@
     direction: rtl; text-align: right;
   }
   .kashya-box {
-    background: #fef4e4; border-right: 4px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #fef4e4; border-left: 4px solid #C5A55A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .kashya-box::before {
     content: "❓ קושיא"; display: block;
@@ -120,8 +116,8 @@
     direction: rtl; text-align: right;
   }
   .teruts-box {
-    background: #e8f4ea; border-right: 4px solid #2d7a3e;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #e8f4ea; border-left: 4px solid #2d7a3e;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .teruts-box::before {
     content: "✓ תירוץ"; display: block;
@@ -130,8 +126,8 @@
     direction: rtl; text-align: right;
   }
   .hakira-box {
-    background: #f5e9f5; border-right: 4px solid #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #f5e9f5; border-left: 4px solid #6a1b7a;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .hakira-box::before {
     content: "🔍 חקירה"; display: block;
@@ -141,8 +137,7 @@
   }
   .nafka-mina-box {
     background: #fff4e6; border: 2px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; border-radius: 4px; text-align: left;
   }
   .nafka-mina-box::before {
     content: "⚖️ נפקא מינה"; display: block;
@@ -152,8 +147,7 @@
   }
   .yesod-box {
     background: #1A1F3A; color: #fff;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
   .yesod-box::before {
     content: "💎 יסוד"; display: block;
@@ -164,7 +158,7 @@
   .yesod-box .he-q { color: #C5A55A; }
   .machloket-box {
     background: #faf5ff; border: 1.5px dashed #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
 
   table {
@@ -173,10 +167,9 @@
   }
   th {
     background: #1A1F3A; color: #fff;
-    padding: 10px; text-align: right; direction: rtl; font-size: 11pt;
+    padding: 10px; text-align: left; font-size: 11pt;
   }
-  td {
-    direction: rtl; text-align: right;
+  td { text-align: left;
     border: 1px solid #d4c89a; padding: 10px; vertical-align: top;
   }
   tr:nth-child(even) td { background: #FAF6EE; }
@@ -197,12 +190,11 @@
   }
 
   ol.stylish li, ul.stylish li { margin-bottom: 8px; }
-  ol.stylish, ul.stylish { padding-right: 22px; padding-left: 0; }
+  ol.stylish, ul.stylish { padding-left: 22px; padding-right: 0; }
 
   .rishon-card {
-    background: #f7f3e4; border-right: 4px solid #8a6a1a;
-    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt;
-    direction: rtl; text-align: right;
+    background: #f7f3e4; border-left: 4px solid #8a6a1a;
+    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt; text-align: left;
   }
   .rishon-card strong { color: #1A1F3A; font-size: 11pt; }
 
@@ -217,10 +209,9 @@
 
   .index-box {
     background: #FAF6EE; border: 1px solid #C5A55A;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
-  .index-box ol { margin: 5px 0; padding-right: 25px; padding-left: 0; }
+  .index-box ol { margin: 5px 0; padding-left: 25px; padding-right: 0; }
   .index-box li { margin-bottom: 5px; }
 
   h3.sugya {
@@ -237,7 +228,6 @@
     font-size: 12pt;
     text-decoration: none;
     border-bottom: 1px dotted #C5A55A;
-    direction: rtl;
   }
   a.daat-explain:hover { color: #8a6a1a; border-bottom-style: solid; }
 
@@ -382,54 +372,40 @@
 <!-- COUVERTURE -->
 <div class="cover">
   <div class="ornament">✦ ❖ ✦</div>
-  <div class="badge-top">DAAT · רמה ב' — לַמְדָּן</div>
-  <h1>שולחן ערוך · יורה דעה</h1>
-  <div class="subtitle">דין המבשל ביצים וסדר ההסרה, ודבר מאוס בתבשיל — עיון ופלפול</div>
-
+  <div class="badge-top">DAAT · LEVEL 2 — LAMDAN</div>
+  <h1>Siman 107 — Lamdan Level: the egg that might be left last, and the fly that fell into the food</h1>
   <div class="he-title">סימן ק״ז</div>
   <div class="he-sub">נשאר באחרונה, לא מחזקינן איסורא, ביטול ברוב יבש, הזבוב והכף</div>
   <div class="he-subject">עיון, פלפול, שיטות הראשונים והאחרונים</div>
-
-  <div class="level-badge">⚡ ללומדים ותלמידי חכמים ⚡</div>
-
+  <div class="level-badge">📜 רמת הלמדן · Talmid Hakham</div>
   <div class="ornament">✦ ❖ ✦</div>
-
-  <h2 style="margin-top:20px; color: #1A1F3A;">פלפול ועיון מעמיק</h2>
-  <p style="font-size:12pt; color:#555;">
-    סוגיות, מקורות, חקירת היסוד, מחלוקות ראשונים ואחרונים,<br>
-    נפקא מינות להלכה ועיון בשיטות
-  </p>
-
+  <div class="subtitle">Two seifim, and two questions that are not alike: what permits a mixture whose pieces are taken out one by one, and what force there is in what a repulsive thing gives off.</div>
   <div class="credits">
-    <p><strong>הנושא :</strong><br>
-    שולחן ערוך יורה דעה סימן ק״ז (ב' סעיפים)<br>
-    עם נושאי כלים: ש״ך (שפתי כהן), ט״ז (טורי זהב), פרי מגדים, פתחי תשובה</p>
-
-    <p><strong>יסוד הסוגיא בש״ס :</strong><br>
-    חולין ק׳. (ביצה שנמצא בה אפרוח) · ביטול ברוב יבש ולא מחזקינן איסורא · חולין צ״ז:–צ״ח. (טעם, מין במינו, ביטול בששים) · נ״ט לפגם ודברים המאוסים</p>
-
-    <p><strong>עריכה ועיון :</strong><br>
-    הרב יוסף חיים סממה · DAAT</p>
+    <p><strong>Subject:</strong><br>
+    שולחן ערוך יורה דעה סימן ק״ז · ב׳ סעיפים · with ש״ך · ט״ז · פתחי תשובה</p>
+    <p><strong>Root of the sugya in Shas:</strong><br>
+    חולין צ״ח ע״א (kosher eggs boiled with non-kosher eggs, and the egg containing a chick) · חולין צ״ז ע״ב (taste, מין במינו, nullification in sixty) · חולין ק׳ ע״א (חתיכה נעשית נבילה, and the objection “let it be nullified in the majority”)</p>
+    <p><strong>Written by:</strong><br>הרב יוסף חיים סממה · DAAT</p>
   </div>
 </div>
 
 <div class="page-break"></div>
 
 <!-- TABLE DES MATIÈRES -->
-<h2 class="section-title">📑 תוכן העניינים</h2>
+<h2 class="section-title">📑 Table of contents</h2>
 
-<div class="index-box" dir="rtl">
+<div class="index-box">
 <ol>
-  <li><strong>הקדמת הסוגיא</strong> — המבשל ביצים בקליפתן וסדר ההסרה, שמא יישאר האיסור באחרונה (סעיף א')</li>
-  <li><strong>חקירת היתֵּר היש מתירין</strong> — שני המוטיבים: לא מחזקינן איסורא (ר׳ שמשון) לעומת בטל ברוב יבש (ר׳ ברוך / סה״ת), ושיטת ריב״א</li>
-  <li><strong>אסימטריית ביצים ודגים</strong> — מדוע דגים מותרים וביצים אסורות (ט״ז ס״ק ד, מהרש״ל, ש״ך ס״ק א)</li>
-  <li><strong>עירוי וכדי קליפה</strong> — העירוי ככלי ראשון, ומין במינו/אינו מינו בדג טמא (ש״ך ס״ק א, סימן צ״ח)</li>
-  <li><strong>מעמידין הכלי על חזקתו</strong> — שאף המחמירים אינם אוסרים הכלים (מהרי״ל, ש״ך ס״ק ב)</li>
-  <li><strong>דם ביצים וציר דגים טמאים דרבנן</strong> — דווקא במליחה ולא בבישול (ש״ך, פ״ת ס״ק א, סימן ס״ו / פ״ג)</li>
-  <li><strong>הזבוב ודבר המאוס</strong> — נ״ט לפגם, מנהג פשוט להקל (סעיף ב', לינק לסימן ק״ד)</li>
-  <li><strong>דין הכף</strong> — שאין חתיכה נעשית נבילה בכלי, ומיעוט התבשיל שנעשה נבילה (ש״ך ס״ק ה–ז)</li>
-  <li><strong>חקירה ונפקא מינה למעשה</strong></li>
-  <li><strong>טבלאות סיכום מקיפות</strong></li>
+  <li><strong>Opening the sugya</strong> — boiling eggs in their shells and the order of removal, the fear that the issur is left last (seif 1)</li>
+  <li><strong>The chakira behind “there are those who permit”</strong> — the two motives: we do not presume an issur (R. Shimshon) against nullification in a dry majority (R. Baruch, author of Sefer HaTeruma), and the position of the Riva</li>
+  <li><strong>The asymmetry of eggs and fish</strong> — why fish are permitted and eggs forbidden (ט״ז ס״ק ד, the Maharshal, ש״ך ס״ק א)</li>
+  <li><strong>Iruy and the thickness of a peel</strong> — iruy as a first vessel, and מין במינו / אינו מינו in the non-kosher fish (ש״ך ס״ק א, siman 98)</li>
+  <li><strong>We leave the vessel in its presumption</strong> — even those who are strict about the food are not strict about the vessels (the Maharil, ש״ך ס״ק ב)</li>
+  <li><strong>Blood of eggs and brine of non-kosher fish, rabbinic</strong> — precisely through salting, and not through cooking (ש״ך, פ״ת ס״ק א, simanim 66 / 83)</li>
+  <li><strong>The fly and the repulsive thing</strong> — נותן טעם לפגם, and the widespread custom to be lenient (seif 2, referring to siman 104)</li>
+  <li><strong>The law of the spoon</strong> — that we do not say “a piece becomes neveila” of a vessel, and the little food that became neveila (ש״ך ס״ק ה–ז)</li>
+  <li><strong>Chakira and nafka mina lema‘aseh</strong></li>
+  <li><strong>Summary tables</strong></li>
 </ol>
 </div>
 
@@ -437,399 +413,502 @@
 
 <!-- ============================================================= -->
 <!-- לשון השולחן ערוך — סעיף א' -->
-<h2 class="section-title">📜 לשון השולחן ערוך — סעיף א'
-  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 העתק</button>
+<h2 class="section-title">📜 The text of the Shulchan Aruch — seif 1
+  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 Copy</button>
 </h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ Detailed explanation (Level 1)</a>
 
 <div class="sacred-text he" data-copy-block id="cp-1">
-  <p>הַמְבַשֵּׁל בֵּיצִים הַרְבֵּה בִּקְלִפָּתָן, לֹא יוֹצִיאֵם מֵהַמַּיִם שֶׁנִּתְבַּשְּׁלוּ בָּהֶם עַד שֶׁיִּצְטַנְּנוּ, אוֹ יִתֵּן עֲלֵיהֶם מַיִם צוֹנְנִים לְצַנְּנָם, וְאַחַר כָּךְ יוֹצִיאֵם, מִשּׁוּם דְּחַיְישִׁינַן שֶׁמָּא יִמָּצֵא בְּאַחַת מֵהֶן אֶפְרוֹחַ; שֶׁאִם הָיָה מוֹצִיאָן קֹדֶם שֶׁיִּצְטַנְּנוּ, שֶׁמָּא זוֹ שֶׁיֵּשׁ בָּהּ אֶפְרוֹחַ תִּשָּׁאֵר בָּאַחֲרוֹנָה וְתֶאֱסוֹר, שֶׁלֹּא יִשָּׁאֵר שִׁשִּׁים לְבַטְּלָהּ. (הגה: וְאִם לֹא עָשָׂה כֵן, אֶלָּא עֵרָה הַכֹּל לִקְעָרָה וְנִמְצֵאת אַחַת טְרֵפָה — יֵשׁ אוֹסְרִין הַכֹּל; וְיֵשׁ מַתִּירִין בְּכָל עִנְיָן, דְּלָא מַחֲזְקִינַן אִסּוּרָא, וְכֵן עִקָּר.)</p>
+  <p>דין המבשל ביצה ודבר מיאוס הנמצא בתבשיל. ובו ב׳ סעיפים: המבשל ביצים הרבה בקליפתן לא יוציאם מהמים שנתבשלו בהם עד שיצטננו או יתן עליהם מים צוננים לצננם ואחר כך יוציאם משום דחיישינן שמא ימצא באחת מהן אפרוח ואם היה מוציא מהם קודם שיצטננו שמא היתה נשאר אותה שיש בה אפרוח עם האחרונות והיתה אוסרתן לפי שלא היה נשאר שם ששים לבטלו: הגה ואם לא עשה כן אלא עירה אותן לקערה ונמצא אחת מהן טרפה יש אוסרין הכל דחיישינן שמא הטרפה נשאר לבסוף ולא היה ששים בקדרה לבטל ונאסר מה שבקדרה וחוזר ואוסר כל מה שבקערה (ב״י בשם סמ״ג ובארוך) וכן בדגים קטנים שנמצא דג טמא בקערה ולא עירה כלם בפעם אחת אל תוך הקערה דאז יש לחוש שמא נשאר האיסור לבסוף ויש מתירין בכל ענין (טור בשם י״א) דלא מחזקינן איסור לומר דנשאר האיסור בלא ס׳ (בית יוסף בשם ר״ש) וכן עיקר ואפילו לדעת האוסרים אין לאסור הכלים שנתבשלו בו דמעמידין הכלי על חזקתו (ב״י בשם סמ״ג והגהות מיימוני):</p>
 </div>
 
-<!-- ============================================================= -->
-<h2 class="section-title">1. הקדמת הסוגיא — המבשל ביצים וסדר ההסרה</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<p><em>summary</em>: one who boils many eggs in their shells should not take them out of the water in which they were cooked until they have cooled, or else pour cold water over them to cool them and take them out afterwards — because we fear that a chick may be found in one of them, and that, were he to take them out before they cooled, the one containing the chick would be left with the last ones and would forbid them, there no longer being sixty to nullify it. The Rama’s gloss: if he did not do so but poured them all into a dish and one of them is found to be tereifa, there are those who forbid everything, out of fear that the tereifa was left at the end; the same applies to small fish among which a non-kosher fish is found and which were not poured out at once. And there are those who permit in every case, for we do not presume an issur so as to say that it was left without sixty — and this is the main ruling. And even according to those who forbid, the vessels in which they were cooked are not forbidden, for we leave the vessel in its presumption.</p>
 
-<h3 class="he-h3">היסוד — "תישאר באחרונה ותאסור"
-  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 העתק</button>
+<!-- ============================================================= -->
+<h2 class="section-title">1. Opening the sugya — boiling eggs and the order of removal</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ Detailed explanation (Level 1)</a>
+
+<h3 class="sugya">The foundation — “it would be left with the last ones and would forbid them”
+  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 Copy</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-2">
-יסוד הסימן: המבשל <strong>ביצים הרבה בקליפתן</strong>, חוששין שמא תימצא באחת מהן <span class="he-q">אפרוח</span> או <span class="he-q">דם</span> האסור. וכל זמן שכולן בקדירה — האחת האסורה <strong>בטלה בששים</strong> שכנגד שאר הביצים והמים. אבל אם <strong>מוציאן אחת אחת בעודן חמין</strong>, יש לחוש שמא זו שיש בה האיסור תישאר באחרונה — וכשנתמעטו האחרות אין עוד ששים לבטלה, ו<strong>חוזרת ואוסרת</strong> את הנותרות ואת המים. תקנתו: <span class="he-q">יצננם תחילה</span>, או יתן עליהם מים צוננים, ואחר כך יוציאם, שבצונן שוב אין פליטה ובליעה לאסור.
+<div class="sacred-text" data-copy-block id="cp-2">
+<p>The foundation of the siman is a fear about facts: when many eggs are boiled <strong>in their shells</strong>, one of them may contain a chick — or a drop of blood — and so be forbidden. As long as they are all in the pot, the forbidden egg is <strong>nullified</strong> by the other eggs and the water, which make up sixty against it. But if they are taken out <strong>one by one, while still hot</strong>, we must fear that this very one will be left last: the others having gone, there is no longer sixty to nullify it, and it comes back to forbid what remains and the water with it.</p>
+<p>The Mechaber’s remedy is not to count differently but to <strong>stop the exchange of taste</strong>: cool them first, or pour cold water on them, and only then take them out — for in the cold there is no more emission or absorption that could forbid.</p>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שורש החשש — "נשאר באחרונה" :</strong> הסכנה אינה בעצם בליעת האיסור, אלא ב<strong>סדר ההוצאה</strong>. בעוד הכל מעורב — האיסור <span class="he-q">בטל ברוב</span> או בששים; אבל ההוצאה אחת אחת מחזירה אותנו למצב שבו פעם אחת היה רוב ופעם אחרת אֵין, שהרי באחרונה תיתכן האסורה לבדה בלא מבטל. ועל כן הצינון הוא ה<strong>מנגנון</strong> שעוצר את הפליטה לפני שיתהפך היחס.
-</div>
+<div class="sacred-text">«&nbsp;<span class="he-q">המבשל ביצים הרבה בקליפתן לא יוציאם מהמים שנתבשלו בהם עד שיצטננו</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״ז:א)</span></div>
+<div class="sacred-text">«&nbsp;<span class="he-q">או יתן עליהם מים צוננים לצננם ואחר כך יוציאם</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״ז:א)</span></div>
+<div class="sacred-text">«&nbsp;<span class="he-q">משום דחיישינן שמא ימצא באחת מהן אפרוח</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״ז:א)</span></div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הגהת הרמ״א (הגה) :</strong> "<span class="he-q">ואם לא עשה כן אלא ערה הכל לקערה ונמצאת אחת טרפה — יש אוסרין הכל</span>... <span class="he-q">ויש מתירין בכל ענין, דלא מחזקינן איסורא, וכן עיקר</span>" (ב״י בשם ר׳ שמשון). וכן הדין ב<strong>דגים קטנים</strong> שנמצא בהם דג טמא ולא ערה כולם כאחת. ואף לדעת המחמירים — <span class="he-q">אין אוסרין הכלים</span> שבישלו בהם, שמעמידין הכלי על חזקתו.
-</div>
+<div class="pilpul-box">
+<strong>The root of the fear — what is left last.</strong> The danger is not the absorption of the issur as such but the <strong>order of removal</strong>. While everything is mixed, the issur is nullified; but taking them out one by one brings us back to a state in which there was a majority a moment ago and there is none at the end — for the last egg may be the forbidden one, alone and with nothing to nullify it. The Mechaber says so in his own words:
+<br>«&nbsp;<span class="he-q">שמא היתה נשאר אותה שיש בה אפרוח עם האחרונות והיתה אוסרתן לפי שלא היה נשאר שם ששים לבטלו</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״ז:א)</span>
+<br>Cooling is therefore the <strong>mechanism</strong> that halts the emission before the ratio turns around.</div>
+
+<div class="rishon-card">
+<strong>The Rama’s gloss (הגה).</strong> If this precaution was not taken and everything was poured into a dish, and one of the eggs is found to be tereifa:
+<br>«&nbsp;<span class="he-q">ואם לא עשה כן אלא עירה אותן לקערה ונמצא אחת מהן טרפה יש אוסרין הכל</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ז:א)</span>
+<br>and the reason for this stringency is the same fear, carried to its end:
+<br>«&nbsp;<span class="he-q">דחיישינן שמא הטרפה נשאר לבסוף ולא היה ששים בקדרה לבטל ונאסר מה שבקדרה וחוזר ואוסר כל מה שבקערה</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ז:א)</span>
+<br>The Rama extends the case to <strong>small fish</strong> among which a non-kosher fish is found, when they were not poured out at once:
+<br>«&nbsp;<span class="he-q">וכן בדגים קטנים שנמצא דג טמא בקערה ולא עירה כלם בפעם אחת אל תוך הקערה</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ז:א)</span>
+<br>He then brings the lenient opinion, gives its motive, and rules:
+<br>«&nbsp;<span class="he-q">ויש מתירין בכל ענין… דלא מחזקינן איסור לומר דנשאר האיסור בלא ס׳… וכן עיקר</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ז:א)</span>
+<br>And he adds that even according to the strict opinion the vessels are not forbidden:
+<br>«&nbsp;<span class="he-q">ואפילו לדעת האוסרים אין לאסור הכלים שנתבשלו בו דמעמידין הכלי על חזקתו</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ז:א)</span></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">2. חקירת היתֵּר היש מתירין — שני המוטיבים</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">2. The chakira behind “there are those who permit” — the two motives</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (Level 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זהו לב הסימן: על מה נשען היתר היש מתירין, ומדוע יש בו שני נימוקים שונים בתכלית.</p>
+<p style="margin:15px 0; font-style:italic;">This is the heart of the siman: on what does the leniency of “there are those who permit” rest, and why does it carry two reasons that do not say the same thing?</p>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — מהו ה"היתר" כשלא צינן :</strong> אם הוציא או עירה ולא נשמר מן הסדר, ונמצאה אחת אסורה — על מה נתיר את הכל ? האם משום שאיננו <em>מניחים</em> שהאיסור נשאר באחרונה (ספק במציאות), או משום שמעיקר הדין <em>בטל</em> האחד ברוב היבש (ביטול ממשי) ?
-</div>
+<div class="hakira-box">
+<strong>The chakira — what permits, when one did not cool them?</strong> If one took them out or poured them without keeping to the order, and one of the eggs is found forbidden, on what grounds do we permit the rest? Is it because we do not <em>presume</em> that the issur was left last — a doubt about the facts — or because by strict law the single forbidden item is <em>nullified</em> in the dry majority — a real nullification?</div>
 
-<div class="teruts-box" dir="rtl">
-<strong>שני המוטיבים של ההיתר (ש״ך ס״ק א) :</strong> מבאר הש״ך כי בהיתר גלומים <strong>שני טעמים נפרדים</strong>:
-<ul class="stylish">
-<li><strong>(א) לא מחזקינן איסורא / איסורא ברובא איתא</strong> (ר׳ שמשון, ועיקר לרמ״א) — אין אנו <span class="he-q">מחזיקים</span> שהאיסור נשאר דווקא במיעוט שאין כנגדו ששים; אדרבה, האיסור נחשב מצוי <strong>ברוב</strong>, ושם בטל.</li>
-<li><strong>(ב) בטל ברוב יבש</strong> (ר׳ ברוך בעל סה״ת) — הביצים והדגים <em>יבשים</em> זה בזה, ואחד אסור בטל ברוב היבש שכנגדו, ככל יבש ביבש שבטל ברוב.</li>
-</ul>
-</div>
+<div class="teruts-box">
+<strong>The two motives, as the Shach disentangles them (ס״ק א).</strong> The Shach first sets out the strict position, that of the Riva and those who follow him:
+<br>«&nbsp;<span class="he-q">דריב״א וסייעתו שהביאו הסה״ת והמרדכי סוף פא״ט</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק א)</span>
+<br>whose fear is factual: the non-kosher fish may remain at the bottom as the gravy diminishes.
+<br>«&nbsp;<span class="he-q">דחוששין שמא נשאר הדג טמא בצד מטה בסוף כשמתמעט הרוטב ע״י עירוי</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק א)</span>
+<br>He then sets out the position of R. Baruch, author of Sefer HaTeruma, to which all the poskim subscribe:
+<br>«&nbsp;<span class="he-q">ודעת ר׳ ברוך בעל סה״ת וסייעתו</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק א)</span>
+<br>«&nbsp;<span class="he-q">מ״מ בטלים ברוב לפי שדרך להיות הרבה דגים קטנים דיש רוב נגד אותן שנאסרו</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק א)</span>
+<br>and he specifies that what permits here is nullification <strong>in the dry</strong>, once the gravy has been poured off:
+<br>«&nbsp;<span class="he-q">א״כ לא נתערבו אלא ביבש ובטלים ברוב</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק א)</span>
+<br>Finally he brings the position of R. Shimshon, which is of a wholly different order:
+<br>«&nbsp;<span class="he-q">ודעת ר״ש שהביא הסמ״ג והגהת ש״ד ר״ס נ׳ דמתיר מטעם דתלינן דאיסור ברובא איתא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק א)</span></div>
 
-<div class="machloket-box" dir="rtl">
-<strong>מחלוקת ריב״א / ר׳ ברוך / ר׳ שמשון :</strong>
+<div class="machloket-box">
+<strong>Riva / R. Baruch / R. Shimshon.</strong>
 <table>
-<tr><th>שיטה</th><th>תוכן</th><th>מקור</th></tr>
+<tr><th>Position</th><th>Content</th><th>Source</th></tr>
 <tr>
-  <td><strong>ריב״א</strong></td>
-  <td>מחמיר — חוששין שמא נשאר האיסור באחרונה בלא ששים, ואוסר את הכל</td>
+  <td><strong>The Riva and those who follow him</strong></td>
+  <td>Strict — we fear that the issur was left at the end without sixty, and everything is forbidden</td>
   <td>ש״ך ס״ק א</td>
 </tr>
 <tr>
-  <td><strong>ר׳ ברוך (בעל ספר התרומה)</strong></td>
-  <td>מתיר בדגים מטעם <span class="he-q">בטל ברוב יבש</span> — הדגים האסורים מועטים ובטלים ברוב הכשרים</td>
+  <td><strong>R. Baruch, author of Sefer HaTeruma</strong></td>
+  <td>Permits in fish, since they are numerous and the few that became forbidden are nullified in the majority, and do not come back to forbid the others by contact</td>
   <td>ש״ך ס״ק א</td>
 </tr>
 <tr>
-  <td><strong>ר׳ שמשון</strong></td>
-  <td>מתיר בכל ענין מטעם <span class="he-q">לא מחזקינן איסורא</span> (איסורא ברובא איתא) — וזהו עיקר לרמ״א</td>
-  <td>ב״י; רמ״א ס״א; ש״ך ס״ק א</td>
+  <td><strong>R. Shimshon</strong></td>
+  <td>Permits because we attach the issur to the majority — and this is the motive the Rama adopts</td>
+  <td>ב״י ; רמ״א ס״א ; ש״ך ס״ק א</td>
 </tr>
 </table>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שורש החילוק שבין שני הטעמים :</strong> ה<strong>נפקא מינה</strong> בין שני המוטיבים גדולה: לטעם ה<span class="he-q">בטל ברוב יבש</span> צריך <strong>רוב</strong> ממש של היתר כנגד האיסור — ובלא רוב אין היתר. אבל לטעם <span class="he-q">לא מחזקינן איסורא</span> אין אנו צריכים ביטול במניין, אלא תולים שהאיסור מצוי ברוב ולא נשאר לבדו — ולכאורה אף בלא רוב גמור. ומכאן יתבארו האסימטריה שבין ביצים לדגים (אות ג).
-</div>
+<div class="pilpul-box">
+<strong>The root of the difference between the two motives.</strong> The <strong>nafka mina</strong> is large: the motive of nullification in the dry requires a real <strong>majority</strong> of permitted against forbidden, and without a majority there is no leniency. R. Shimshon’s motive, on the other hand, does not count: it attaches the issur to the majority, where it is most likely to be found.
+<br>But the Shach refuses to conclude from this that R. Shimshon dispenses with a majority. He holds, on the contrary, that a majority is needed for him as well:
+<br>«&nbsp;<span class="he-q">נראה דעכ״פ בעינן שיהיו אותן של צד מעלה הרוב</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק א)</span>
+<br>and he infers, against the usual reading, that in <strong>eggs</strong> R. Shimshon too would forbid:
+<br>«&nbsp;<span class="he-q">ואם כן בביצים דאסר ר״ב מטעם שאין רגילין להיות רוב אף לר״ש אסור</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק א)</span>
+<br>He even says expressly that he does not understand the opposite reading of the Maharshal:
+<br>«&nbsp;<span class="he-q">ולא אבין מ״ש מהרש״ל פרק ג״ה סי׳ מ״ד דלר״ש מותרים אף הביצים</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק א)</span>
+<br>As to the ruling, the Shach concludes that all the poskim follow the path of R. Baruch:
+<br>«&nbsp;<span class="he-q">ולענין דינא הנה כל הפוסקים הנ״ל עומדים בשטת ר״ב</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק א)</span>
+<br>It is out of this difference of reading that the asymmetry of eggs and fish arises, set out in the next section. <strong>We report, and we do not rule.</strong></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">3. אסימטריית ביצים ודגים — מדוע דגים מותרים וביצים אסורות</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">3. The asymmetry of eggs and fish — why fish are permitted and eggs forbidden</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (Level 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">חידוש הט״ז (ס״ק ד) והמהרש״ל — שאין דין הביצים כדין הדגים.</p>
+<p style="margin:15px 0; font-style:italic;">The chiddush of the Taz (ס״ק ד) and of the Maharshal — the law of eggs is not the law of fish.</p>
 
-<div class="hakira-box" dir="rtl">
-<strong>הקושיא — אם מתירין דגים, מדוע יחמירו בביצים :</strong> והלא בשניהם נמצא איסור אחד מרובים שיוצאים אחד אחד ? אלא שהט״ז מחלק ביניהם מעיקר היחס המספרי.
-</div>
+<div class="hakira-box">
+<strong>The kushya — if fish are permitted, why be strict with eggs?</strong> In both cases there is a single forbidden item among many, taken out one by one. The Taz answers that the difference does not lie in the nature of the issur but in the <strong>ratio of numbers</strong> — and hence in which motive one adopts.</div>
 
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ הט״ז (ס״ק ד) והמהרש״ל :</strong> ההיתר של ר׳ ברוך לדגים תלוי ב<span class="he-q">בטל ברוב יבש</span> — והדגים הקטנים מתבשלים <strong>מרובים מאוד</strong> בקדירה אחת, ויש בהם רוב גמור לבטל את המעטים האסורים. אבל <strong>ביצים</strong> — אין דרך לבשל עשרים ושלושים ביצים יחד, ועל כן <span class="he-q">אין שם רוב</span> לבטל. נמצא: לטעם הביטול ברוב — <strong>דגים מותרים, ביצים אסורות</strong> (מהרש״ל). וביצה בביצים הוא <strong>מין במינו</strong>, ולכך אין ההיתר תלוי בטעם אלא במניין.
-</div>
+<div class="teruts-box">
+<strong>The answer of the Taz (ס״ק ד) and of the Maharshal.</strong> The Taz first establishes that the motive written by the Rama is R. Shimshon’s, and that according to him eggs too would be permitted:
+<br>«&nbsp;<span class="he-q">הטעם דכתב כאן רמ״א דלא מחזקינן איסור כו׳ הוא טעם הרב רבינו שמשון שמביא בסמ״ג ולפ״ז אף בביצים מותרים</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ז ס״ק ד)</span>
+<br>But a second motive runs through the Semag and the Tur, and that one holds only for fish:
+<br>«&nbsp;<span class="he-q">דהיינו דמתיר בדגים לפי שאותן מעט דגים שנאסרו בקדירה בטלים ברוב תערובות אח״כ ואין חוזרים ואוסרים השאר</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ז ס״ק ד)</span>
+<br>and it cannot hold for eggs, since it is not usual to cook enough of them to make a majority:
+<br>«&nbsp;<span class="he-q">ולפי זה יש לאסור בביצים כיון דאין רגילות לבשל ביצים כ״כ ביחד שיהא עשרים או שלשים ביצים שנאסרו בטלים ברוב תערובות של היתר</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ז ס״ק ד)</span>
+<br>The Maharshal, holding that it is this second motive that is adopted, draws from it the stringency in eggs:
+<br>«&nbsp;<span class="he-q">וכתב רש״ל פג״ה סימן מ״ד מדזכר הטור הטעם השני כוותיה קי״ל ויש להחמיר בביצים</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ז ס״ק ד)</span>
+<br>and the Taz concludes like him:
+<br>«&nbsp;<span class="he-q">על כן נראה להחמיר כדעת רש״ל דבביצים אסור ובדגים מותר כל זמן שאפשר שיש ס׳ נגד המעט מים שנשאר בקדרה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ז ס״ק ד)</span></div>
 
-<div class="rishon-card" dir="rtl">
-<strong>ט״ז ס״ק א–ג :</strong> הט״ז מבאר שכל החומרא אינה אלא <span class="he-q">לכתחילה</span>, אבל <strong>בדיעבד</strong> אם הוציא ולא צינן — מותר, כדעת היש מתירין (ס״ק א). ואף ב<strong>עירוי המים הרותחים</strong> יש לאסור אם האסורה בתחתית (או״ה כלל כ״ז, ס״ק ב). ובמקום <span class="he-q">ספק</span> אם ערה הכל בבת אחת — מחמירין (טור / או״ה, ס״ק ג).
-</div>
+<div class="rishon-card">
+<strong>What the Taz writes about the nature of the issur in the egg.</strong> The Taz states in so many words that the issur — the chick or the blood — is <strong>not of the same species</strong> as the eggs around it:
+<br>«&nbsp;<span class="he-q">דכאן בביצה שיש בה אפרוח או דם הוה מין באינו מינו דהאיסור הוא אינו מינו עם הביצים</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ז ס״ק ד)</span>
+<br>and the Shach says the same on his side:
+<br>«&nbsp;<span class="he-q">ונראה דכל הנך פוסקים מיירי במין בשאינו מינו שהדג טמא אינו מינו וכן הביצת אפרוח או ביצה של טפת דם הוא אינו מינו עם שאר הביצים</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק א)</span>
+<br>This must be kept in mind, for it is from here that the Shach’s answer about what “enters the doubt” will come in section 4.</div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה — היחס המספרי קובע :</strong> כל זמן שהאסור <strong>אחד מתוך רוב</strong> ניכר (כדגים) — בטל; אבל כשמספר המבושלים מועט (כביצים) — אין ביטול, ויש לחוש לנשאר באחרונה. וזהו <span class="he-q">שורש האסימטריה</span> — לא בעצם האיסור, אלא בכמות. <em>ולמעשה — שאל את רבך.</em>
-</div>
+<div class="rishon-card">
+<strong>The Taz at ס״ק א–ג.</strong> The Mechaber’s warning concerns only the first instance, and not the accomplished fact:
+<br>«&nbsp;<span class="he-q">דדוקא לכתחלה קמזהיר ובדיעבד מותר כיש מתירין שזכר רמ״א</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ז ס״ק א)</span>
+<br>If the eggs were not poured into a dish but only the boiling water was poured off, there is reason to forbid, the forbidden egg possibly lying at the bottom of the pot:
+<br>«&nbsp;<span class="he-q">דאם לא עירה אותן לקערה אלא נשארו בקדירה ועירה הרותחין מהן ג״כ אסור דשמא היתה ביצה האסורה בשולי הקדירה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ז ס״ק ב)</span>
+<br>And where there is doubt about the manner of pouring, one is strict:
+<br>«&nbsp;<span class="he-q">ואם יש ספק בדבר אם עירה בפעם אחת משמע בטור להחמיר וכן כתב או״ה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ז ס״ק ג)</span></div>
+
+<div class="nafka-mina-box">
+<strong>Nafka mina — it is the ratio of numbers that decides.</strong> As long as the forbidden item is one among a clear majority, as with small fish, it is nullified; when the number of cooked items is small, as with eggs, there is no nullification, and the fear of what is left last remains. The asymmetry therefore lies not in the nature of the issur but in the quantity — and, according to the Shach, it holds even for R. Shimshon’s motive. <em>And for practice — ask your Rav.</em></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">4. עירוי וכדי קליפה — ומין במינו בדג טמא</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">4. Iruy and the thickness of a peel — and the species of the non-kosher fish</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (Level 1)</a>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — עירוי ככלי ראשון, ואוסר כדי קליפה :</strong><br>
-ה<strong>עירוי</strong> (שפיכת המים הרותחים מן הביצים על הכלי או על הביצה) — דינו <span class="he-q">ככלי ראשון</span> לחומרא, ואוסר <span class="he-q">כדי קליפה</span> בלבד (ועיין סימן ק״ה). על כן אם נמצאה האסורה למטה והמים נשפכו דרכה — נאסר כדי קליפת מקומה, ולא יותר; וכל זה הוא נדבך נוסף בחומרת היש אוסרין.
-</div>
+<div class="yesod-box">
+<strong>The foundation — iruy counts as a first vessel, and forbids only the thickness of a peel.</strong><br>
+Pouring the boiling water off the pot is treated as a first vessel as regards stringency:
+<br>«&nbsp;<span class="he-q">דעירוי ככלי ראשון</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק א)</span>
+<br>and what it forbids is measured:
+<br>«&nbsp;<span class="he-q">הכל אסור אף לר״ב כדי קליפה דעירוי מבשל כדי קליפה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק א)</span>
+<br>The Shach adds that according to the Beit Yosef himself a peel is required in any case, and that the dispute is only about forbidding everything:
+<br>«&nbsp;<span class="he-q">ונ״ל דס״ל לב״י דקליפה עכ״פ בעינן ולא נחלקו אלא לאסור הכל</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק א)</span>
+<br>The Taz states the same rule of iruy (ס״ק ד): <span class="he-q">דעירוי ככלי ראשון</span> <span class="source-ref">(ט״ז יו״ד ק״ז ס״ק ד)</span>. See also siman 105.</div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>מין במינו ואינו מינו בדג הטמא (ש״ך ס״ק א) :</strong> הדגים הכשרים מבטלים את הטמא בהיותם <strong>שלא במינו</strong> (כשמותר לעומת אסור), ומכל מקום ביניהם לבין עצמם הם <strong>מין במינו</strong>. ובעצם דין הדג הטמא נחלקו — אם הוא מין במינו עם הכשר או אינו מינו: והכרעת הש״ך כי <span class="he-q">בתר שמא אזלינן</span> (הולכים אחר השם), ובדג טמא וטהור — שמם שונה, ונדון כ<strong>אינו מינו</strong> (ועיין סימן צ״ח). ולפי זה אף דיני הביטול (במשהו או בששים) משתנים לפי הגדרה זו.
-</div>
+<div class="pilpul-box">
+<strong>“Everything enters the doubt” — a lenient argument, and the Shach’s answer.</strong> The Shach examines the position of the Torat Chatat, which is lenient, and begins by conceding that its argument looks sound: since we hold like the Rashba and the Tur at siman 111 that everything enters the doubt, why should not everything here join together to nullify?
+<br>«&nbsp;<span class="he-q">כיון דקי״ל כהרשב״א והטור ס״ס קי״א דהכל נכנס בספק ולמה לא יצטרף כאן הכל לבטל</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק א)</span>
+<br>His answer is that the poskim of our siman are speaking of one species within another — the non-kosher fish, the chick, the drop of blood, not being of the species of what surrounds them — and that in such a case the rule does not apply:
+<br>«&nbsp;<span class="he-q">והלכך במין בשאינו מינו כיון דאיכא למיקם אטעמא מתחלה לא נכנס הכל בספק</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק א)</span>
+<br>«&nbsp;<span class="he-q">דהכא גם הרשב״א והטור מודים דאין מצטרפין</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק א)</span>
+<br>So “everything enters the doubt” is, in the Rashba and the Tur, a ground for <strong>leniency</strong>; the Shach does not deny it, he limits its field.</div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הכל נכנס בספק (ש״ך, סימן קי״א) :</strong> מאחר שאיננו יודעים היכן נשארה האסורה — <span class="he-q">הכל נכנס בספק</span>, ומחמירים המחמירים מחמת שכל פרט עלול להיות זה שנשאר באחרונה (ש״ך ס״ק א, ועיין סימן קי״א ס״א). וזהו צד החומרא שכנגד היתר ה"לא מחזקינן" — שהרי לשיטת המחמירים אין תולין שהאיסור ברוב, אלא חוששין שמא נשאר במיעוט.
-</div>
+<div class="rishon-card">
+<strong>The non-kosher fish — same species or not (ס״ק א).</strong> The Shach further supports his reading with the criterion of the name, which the Rama lays down at siman 98:
+<br>«&nbsp;<span class="he-q">דאזלינן בתר שמא דפשיטא דדג טמא דאית ליה שמא באפי נפשיה דהוי מין באינו מינו</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק א)</span>
+<br>The non-kosher fish bearing a name of its own, it is judged as another species — and the laws of nullification change accordingly.</div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">5. מעמידין הכלי על חזקתו — שאין אוסרין הכלים</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">5. We leave the vessel in its presumption — the vessels are not forbidden</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ Detailed explanation (Level 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">אף לדעת המחמירים בתבשיל — אין מחמירים בכלים. וטעם הדבר חידוש גדול.</p>
+<p style="margin:15px 0; font-style:italic;">Even for those who are strict about the food, one is not strict about the vessels. And the reason for this is a great chiddush.</p>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — חזקת הכלי :</strong><br>
-אף שיש אוסרין את הביצים או הדגים — <span class="he-q">אין אוסרין את הכלים</span> שבישלו בהם, ש<strong>מעמידין הכלי על חזקתו</strong> של היתר. שהרי הספק הוא אם נשאר האיסור באחרונה בלא ששים — וכלפי הכלי, חזקתו שלא נאסר, ואין מליחה ולא בישול ודאי לאסרו מחדש.
-</div>
+<div class="yesod-box">
+<strong>The foundation — the presumption of the vessel.</strong><br>
+Although there are those who forbid the eggs or the fish, the vessels in which they were cooked are not forbidden:
+<br>«&nbsp;<span class="he-q">ואפילו לדעת האוסרים אין לאסור הכלים שנתבשלו בו דמעמידין הכלי על חזקתו</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ז:א)</span>
+<br>For the doubt concerns what was left last without sixty; as for the vessel, its presumption is that it was not rendered forbidden.</div>
 
-<div class="machloket-box" dir="rtl">
-<strong>מחלוקת מתי הכלי על חזקתו (ש״ך ס״ק ב) :</strong>
+<div class="machloket-box">
+<strong>How long the vessel stays in its presumption (ש״ך ס״ק ב).</strong>
 <table>
-<tr><th>שיטה</th><th>תוכן</th><th>מקור</th></tr>
+<tr><th>Position</th><th>Content</th><th>Source</th></tr>
 <tr>
-  <td><strong>סתם המתירין</strong></td>
-  <td>הכלי על חזקתו לעולם — שאין מחזיקים איסור</td>
+  <td><strong>The Rama’s formulation</strong></td>
+  <td>The vessel remains in its presumption, with no condition of delay</td>
   <td>רמ״א ס״א</td>
 </tr>
 <tr>
-  <td><strong>מהרי״ל (בש״ך)</strong></td>
-  <td>הכלי מותר דווקא <span class="he-q">לאחר מעת לעת</span> — שאז נעשה הבלוע נ״ט לפגם, וספק דרבנן להקל</td>
+  <td><strong>The Maharil, brought by the Shach</strong></td>
+  <td>The vessel is permitted only after twenty-four hours, the absorbed taste being spoiled by then and the doubt becoming rabbinic</td>
   <td>ש״ך ס״ק ב</td>
 </tr>
 </table>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>דקדוק הש״ך — ראיה שמדובר באיסור דאורייתא :</strong> מדייק הש״ך — מאחר שמהרי״ל הצריך <span class="he-q">מעת לעת</span> כדי שיהיה הבלוע <strong>נ״ט לפגם</strong> ויהיה ספק דרבנן להקל — מוכח שבתוך מעת לעת הוא <strong>איסור דאורייתא</strong> ממש. ומכאן ש<strong>הראשונים מדברים באיסור דאורייתא</strong> (אפרוח / דם / דג טמא בעין), ולא בחומרא בעלמא. <em>ולמעשה — שאל את רבך.</em>
-</div>
+<div class="pilpul-box">
+<strong>The Shach’s inference — the proof that a Torah prohibition is at stake.</strong> The Shach refers to the responsum of the Maharil, who gives several reasons for distinguishing the food from the vessel:
+<br>«&nbsp;<span class="he-q">עיין בתשובת מהרי״ל סימן קס״ב שכתב הרבה טעמים לחלק בין המאכל לכלי</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק ב)</span>
+<br>then notes the condition of delay the Maharil lays down there:
+<br>«&nbsp;<span class="he-q">וכתב שם דנראה דלא התיר הכלי אלא אחר מעל״ע משום דהוה ספיקא דרבנן דנטל״פ</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק ב)</span>
+<br>and draws his conclusion: if the Maharil needed the twenty-four hours for the doubt to become rabbinic, then without them the prohibition at issue is of Torah standing.
+<br>«&nbsp;<span class="he-q">ומזה ראיה דהסמ״ג והפוסקים מיירי באיסור דאורייתא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק ב)</span>
+<em>And for practice — ask your Rav.</em></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">6. דם ביצים וציר דגים טמאים דרבנן — דווקא במליחה</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">6. Blood of eggs and brine of non-kosher fish, rabbinic — precisely through salting</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ Detailed explanation (Level 1)</a>
 
-<div class="hakira-box" dir="rtl">
-<strong>חקירה — דאורייתא או דרבנן :</strong> ה<span class="he-q">דם שבביצים</span> ו<span class="he-q">ציר הדגים הטמאים</span> — האם איסורם מן התורה או מדרבנן ? והרי לדם ביצים אין דין דם גמור, ולציר אין דין הדג עצמו.
-</div>
+<div class="hakira-box">
+<strong>Chakira — of the Torah or of the Sages?</strong> Are the blood found in eggs and the brine of non-kosher fish forbidden by the Torah or by the Sages? For the blood of eggs does not have the status of full blood, and brine is not the fish itself. On the answer hangs the fate of every doubt in the siman.</div>
 
-<div class="teruts-box" dir="rtl">
-<strong>הכרעת הש״ך והפתחי תשובה (ס״ק א) :</strong> <span class="he-q">דם ביצים</span> ו<span class="he-q">ציר דגים טמאים</span> אסורים מדרבנן בלבד — ולפיכך ספק דרבנן להקל. <strong>אבל</strong> חידוש גדול: זאת דווקא ב<span class="he-q">מליחה</span>, שאין כוח המלח להוציא אלא דבר קלוש; אבל ב<strong>בישול</strong> — הטעם יוצא לגמרי, ודינו <strong>כדאורייתא</strong> (ש״ך; נודע ביהודה; ועיין סימן ס״ו / פ״ג).
-</div>
+<div class="teruts-box">
+<strong>What the Shach and the Pitchei Teshuva rule (ס״ק א).</strong> The Pitchei Teshuva refers to the end of the Shach’s ס״ק א and states its conclusion:
+<br>«&nbsp;<span class="he-q">עש״ך סוף סק״א מ״ש דהא דציר דגים טמאים דרבנן היינו דווקא ע״י מליחה ולא על ידי בישול</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד ק״ז ס״ק א)</span>
+<br>«&nbsp;<span class="he-q">ועיין מ״ש מזה לעיל סימן פ״ג ס״ק ה׳ בשם תשובת נו״ב</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד ק״ז ס״ק א)</span>
+<br>The Shach, at the place referred to, writes the distinction in so many words:
+<br>«&nbsp;<span class="he-q">דוקא ציר ע״י מליחה הוא מדרבנן משא״כ טעם ע״י בישול דיוצא עיקר הטעם והלחלוחית</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק א)</span>
+<br>and supports it from the Mahara”i: a non-kosher fish pickled with a kosher fish is forbidden by Torah law, the brine and the moisture coming out in full.
+<br>«&nbsp;<span class="he-q">דדג טמא שכבשו עם הדג טהור אסור מדאוריית׳ שאז יוצא עיקר הציר והלחלוחית</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק א)</span>
+<br>He also notes that the Semag, for his part, holds the blood of eggs to be a Torah prohibition:
+<br>«&nbsp;<span class="he-q">דסבירא ליה לסמ״ג דדם ביצים דאורייתא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק א)</span></div>
 
-<div class="rishon-card" dir="rtl">
-<strong>ט״ז ס״ק ה — דם ביצים :</strong> אף הט״ז (ס״ק ה) נוגע בשאלת <span class="he-q">דם ביצים — דאורייתא או דרבנן</span> (ועיין סימן ס״ו), ומחמת זה דן בחומרת היש אוסרין. ובס״ק ה מוסיף הט״ז שאף לדעת המתירין, אם הוציא כל אחת <strong>באותו כף</strong> — מחמירין, שהכף נאסרה תחילה וחוזרת ואוסרת (וזהו פתח לדין הכף שבסעיף ב').
-</div>
+<div class="rishon-card">
+<strong>The Taz ס״ק ה — the blood of eggs, and the spoon.</strong> The Taz refers to siman 66 for the status of the blood of eggs:
+<br>«&nbsp;<span class="he-q">ולענין עיקר הדין שכתב או״ה דקי״ל דם ביצים דרבנן כבר נתבאר בסימן ס״ו סעיף ד׳</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ז ס״ק ה)</span>
+<br>and recalls the middle path the Rama traces there:
+<br>«&nbsp;<span class="he-q">הכרעת רמ״א דכל היכא די״ל חד בתרי בטל אז סמכינן אמ״ד דם ביצים דרבנן אבל בלאו הכי אנו מחמירין כמ״ד דם ביצים הוא דאורייתא</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ז ס״ק ה)</span>
+<br>He adds — and this is the door onto the second seif — that even according to the lenient opinion one is strict if each egg was taken out with the same spoon:
+<br>«&nbsp;<span class="he-q">ואפילו לדעה זו יש להחמיר אם בישל ביצים הרבה בקדירה והיה ביניהם אחת שהיא אסורה והוציא כל א׳ בכף אחת דיש לחוש שמא הוציא האסורה בראשונה ונאסר הכף ממילא נאסרו האחרים אח״כ</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ז ס״ק ה)</span>
+<br>for R. Shimshon’s leniency rests on the issur being in the majority, which can no longer be said here:
+<br>«&nbsp;<span class="he-q">דהא דאמרי׳ לא מחזקינן איסורא כו׳ היינו מטעם דאמרינן איסורא ברובא איתא</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ז ס״ק ה)</span>
+<br>The Nekudot HaKesef, on this same ס״ק ד of the Taz, simply refer to the Shach: <span class="he-q">עיין בש״ך סק״א נתבאר הכל על נכון</span> <span class="source-ref">(נקודות הכסף יו״ד ק״ז)</span>.</div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
 <!-- לשון השולחן ערוך — סעיף ב' -->
-<h2 class="section-title">📜 לשון השולחן ערוך — סעיף ב'
-  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 העתק</button>
+<h2 class="section-title">📜 The text of the Shulchan Aruch — seif 2
+  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 Copy</button>
 </h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ Detailed explanation (Level 1)</a>
 
 <div class="sacred-text he" data-copy-block id="cp-3">
-  <p>זְבוּב וְכַיּוֹצֵא בּוֹ מִדְּבָרִים הַמְאוּסִים שֶׁנֶּפֶשׁ הָאָדָם קָצָה בָּהֶם, שֶׁנִּמְצָא בַּתַּבְשִׁיל — מַשְׁלִיכוֹ וְהַתַּבְשִׁיל מֻתָּר, שֶׁפְּלִיטַת דְּבָרִים הַמְאוּסִים אֵינָהּ אוֹסֶרֶת. (הגה: וְכֵן הַמִּנְהָג; וְאַף עַל פִּי שֶׁיֵּשׁ מַחְמִירִין, הָעִיקָר לְהָקֵל וְאֵין לְשַׁנּוֹת הַמִּנְהָג. וְאִם הֶעֱלָה בְּכַף דָּג טָמֵא מִן הַקְּדֵרָה אוֹ דָּבָר אַחֵר שֶׁאֵינוֹ פוֹגֵם, אָסוּר לְהַחֲזִיר הַכַּף לַקְּדֵרָה; וְאִם הֶחֱזִיר — צָרִיךְ שִׁשִּׁים בַּקְּדֵרָה כְּנֶגֶד הָאִסּוּר, וְלֹא כְּנֶגֶד כָּל הַכַּף.)</p>
+  <p>זבוב וכיוצא בו מדברים המאוסים שנפשו של אדם קצה בהם שנמצא בתבשיל זורקן והתבשיל מותר שאין פליטת דברים אלו הפגומים אוסרת (ועיין ס״ק ו׳): הגה וכן המנהג פשוט אף על גב דיש מחמירין דברי המקילין עיקר (ב״י פסק כרשב״א ורוקח וטור סי׳ ק״ד) ואין לשנות המנהג ואם לקח עם הכף דג טמא מן הקדירה או שאר דבר שאינו פוגם אסור להחזיר הכף לקדרה ואם החזירו צריך ס׳ מן הקדירה נגד האיסור ולא נגד כל הכף (ד״ע דלא אמרינן גבי כלי חתיכה נעשית נבילה) אבל אם היה מעט מן התבשיל עם האיסור בכף והוחזר לקדירה צריך ס׳ גם נגד מעט התבשיל דהרי נעשה נבילה בכף (ארוך כלל כ״ז):</p>
 </div>
+
+<p><em>summary</em>: a fly and the like, of those repulsive things from which a person’s soul recoils, found in a dish — he throws it out and the dish is permitted, for the emission of these spoiled things does not forbid. The Rama’s gloss: such is the widespread custom; although there are those who are strict, the words of those who are lenient are the main ruling, and the custom is not to be changed. And if one took a non-kosher fish out of the pot with the spoon, or some other thing that does not spoil, it is forbidden to put the spoon back into the pot; and if one did put it back, sixty are required in the pot against the issur, and not against the whole spoon. But if a little of the food was on the spoon with the issur and the spoon was put back, sixty are required against that little food as well, since it became neveila on the spoon.</p>
 
 <!-- ============================================================= -->
-<h2 class="section-title">7. הזבוב ודבר המאוס — נ״ט לפגם</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">7. The fly and the repulsive thing — the taste that spoils</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (Level 1)</a>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — פליטת המאוס אינה אוסרת :</strong><br>
-<span class="he-q">זבוב</span> וכיוצא בו מדברים המאוסים שנפש האדם קצה בהם — אין פליטתם אלא <strong>נותן טעם לפגם (נ״ט לפגם)</strong>, ונ״ט לפגם אינו אוסר (ועיין סימן ק״ד). על כן <span class="he-q">משליכו והתבשיל מותר</span>. וזהו דין מיוחד שבדברים מאוסים, שאף שטעמם נכנס בתבשיל — מאחר שהוא פוגם אינו אוסר.
-</div>
+<div class="yesod-box">
+<strong>The foundation — what a repulsive thing gives off does not forbid.</strong><br>
+«&nbsp;<span class="he-q">זבוב וכיוצא בו מדברים המאוסים שנפשו של אדם קצה בהם שנמצא בתבשיל זורקן והתבשיל מותר</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״ז:ב)</span>
+<br>and the reason is given in the seif itself:
+<br>«&nbsp;<span class="he-q">שאין פליטת דברים אלו הפגומים אוסרת</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד ק״ז:ב)</span>
+<br>This is the rule of the taste that spoils: what gives only a bad taste does not forbid, even though that taste really enters the dish. The Shach refers, for the whole subject, to the end of siman 104: <span class="he-q">ע״ל ס״ס ק״ד ועיין מ״ש בס״ס זה</span> <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק ג)</span>.</div>
 
-<div class="machloket-box" dir="rtl">
-<strong>מנהג ומחמירים (ש״ך ס״ק ז, פ״ת ס״ק ב) :</strong>
+<div class="machloket-box">
+<strong>The custom, and those who are strict (ש״ך ס״ק ז, פ״ת ס״ק ב).</strong>
 <table>
-<tr><th>שיטה</th><th>תוכן</th><th>מקור</th></tr>
+<tr><th>Position</th><th>Content</th><th>Source</th></tr>
 <tr>
-  <td><strong>המחבר והרמ״א</strong></td>
-  <td><span class="he-q">העיקר להקל</span> — וכן המנהג, ואין לשנותו (ב״י בעקבות רשב״א, רוקח, טור סימן ק״ד)</td>
+  <td><strong>The Mechaber and the Rama</strong></td>
+  <td>The words of those who are lenient are the main ruling, such is the widespread custom, and it is not to be changed</td>
   <td>מחבר ורמ״א ס״ב</td>
 </tr>
 <tr>
-  <td><strong>מהר״ם פדואה ומהרש״ל (בש״ך)</strong></td>
-  <td>מנהג להחמיר, אלא במקום <span class="he-q">הפסד מרובה</span>; ובחומץ או שֵׁכָר — הכל מחמירין (סימן ק״ד)</td>
+  <td><strong>The Maharam of Padua and the Maharshal, in the Shach</strong></td>
+  <td>The custom is to be strict; one is lenient in case of great loss or pressing circumstance, and in vinegar or beer all forbid</td>
   <td>ש״ך ס״ק ז</td>
 </tr>
 </table>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>פתחי תשובה (ס״ק ב) — מנהג פשוט להקל :</strong> מביא הפתחי תשובה בשם הרדב״ז (החדשות סימן מ״ז) שה<span class="he-q">מנהג פשוט</span> להקל בזבוב ובדברים המאוסים, ואין לפקפק בו. וזהו לפי עיקר הדין דנ״ט לפגם (לינק לסימן ק״ד — דין בריה ודברים שנפשו של אדם קצה בהם).
-</div>
+<div class="pilpul-box">
+<strong>The Shach’s astonishment (ס״ק ז).</strong> The Shach first notes that the Rama sided with the Mechaber:
+<br>«&nbsp;<span class="he-q">ולענין אי זבוב אוסר בטעמו הסכים הרב להמחבר וסייעתו</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק ז)</span>
+<br>then expresses his astonishment, the poskim who forbid being many, and reports the contrary custom:
+<br>«&nbsp;<span class="he-q">וכ״כ מהר״ם פדוואה דכן נוהגין</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק ז)</span>
+<br>He then indicates where one may be lenient:
+<br>«&nbsp;<span class="he-q">מיהו במקום הפסד מרובה או שעת הדחק וכה״ג נראה דעת מהר״ם פדוואה בתשובה להתיר וכ״פ הב״ח</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק ז)</span>
+<br>and where none is lenient:
+<br>«&nbsp;<span class="he-q">מיהו בחלא ושיכרא לכ״ע אסור וכמו שנתבאר בס״ס ק״ד</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק ז)</span></div>
+
+<div class="rishon-card">
+<strong>Pitchei Teshuva (ס״ק ב) — on the widespread custom.</strong> On the Rama’s words “such is the widespread custom”, the Pitchei Teshuva refers to the responsum of the Radbaz:
+<br>«&nbsp;<span class="he-q">עיין בתשובת רדב״ז החדשות סי׳ מ״ז</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד ק״ז ס״ק ב)</span>
+<br>The Rama himself writes:
+<br>«&nbsp;<span class="he-q">וכן המנהג פשוט אף על גב דיש מחמירין דברי המקילין עיקר</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ז:ב)</span>
+<br>«&nbsp;<span class="he-q">ואין לשנות המנהג</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ז:ב)</span></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">8. דין הכף — שאין חתיכה נעשית נבילה בכלי</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">8. The law of the spoon — that a vessel does not become neveila</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ Detailed explanation (Level 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">חלקו השני של הסעיף — הכף שהעלתה איסור, וחקירת חנ״נ בכלי.</p>
+<p style="margin:15px 0; font-style:italic;">The second half of the seif — the spoon that brought up an issur, and the question of “a piece becomes neveila” in a vessel.</p>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — אין חנ״נ בכלי :</strong><br>
-מי שהעלה ב<span class="he-q">כף</span> דג טמא או דבר אחר שאינו פוגם מן הקדירה — <strong>אסור להחזיר הכף לקדירה</strong>; ואם החזיר — צריך <span class="he-q">ששים בקדירה כנגד האיסור</span> שעל הכף, <strong>ולא כנגד כל הכף</strong>. שאין אומרים <span class="he-q">חתיכה נעשית נבילה (חנ״נ)</span> בכלי — שהכלי אינו «חתיכה» שתֵּעשה כולה נבילה (ועיין סימן צ״ב וסימן ק״ה).
-</div>
+<div class="yesod-box">
+<strong>The foundation — no “piece become neveila” in a vessel.</strong><br>
+«&nbsp;<span class="he-q">ואם לקח עם הכף דג טמא מן הקדירה או שאר דבר שאינו פוגם אסור להחזיר הכף לקדרה</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ז:ב)</span>
+<br>«&nbsp;<span class="he-q">ואם החזירו צריך ס׳ מן הקדירה נגד האיסור ולא נגד כל הכף</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ז:ב)</span>
+<br>and the Rama gives his reason in parentheses:
+<br>«&nbsp;<span class="he-q">דלא אמרינן גבי כלי חתיכה נעשית נבילה</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ז:ב)</span>
+<br>A vessel is not a “piece” that would become neveila in its entirety; the sixty are therefore measured only against the issur it carries. The Shach adds that the spoon is not helped by what it contains itself: <span class="he-q">אע״פ דיש בכף ס׳ נגד האיסור דאין משערינן בכלי בס׳</span> <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק ד)</span> — and he refers to siman 92, seif 5.</div>
 
-<div class="machloket-box" dir="rtl">
-<strong>חנ״נ בכף — חדשה לעומת ישנה / חרס (ש״ך ס״ק ה) :</strong>
+<div class="machloket-box">
+<strong>The new spoon and the old or earthenware spoon (ש״ך ס״ק ה).</strong>
 <table>
-<tr><th>סוג הכף</th><th>הדין</th><th>מקור</th></tr>
+<tr><th>Kind of spoon</th><th>The law</th><th>Source</th></tr>
 <tr>
-  <td><strong>כף עץ או מתכת חדשה</strong></td>
-  <td><span class="he-q">אין חנ״נ</span> — ששים כנגד האיסור הבלוע בלבד</td>
+  <td><strong>Wood or metal, new</strong></td>
+  <td>No “become neveila” — sixty against the absorbed issur alone</td>
   <td>ש״ך ס״ק ה</td>
 </tr>
 <tr>
-  <td><strong>כף ישנה (בלועה) או של חרס</strong></td>
-  <td><span class="he-q">אמרינן חנ״נ</span> — ששים כנגד כל הכף (ועיין סימן צ״ח ס״ה)</td>
+  <td><strong>Old, or earthenware even when new</strong></td>
+  <td>There is reason to be strict — sixty against the whole spoon (see siman 98, seif 5)</td>
   <td>ש״ך ס״ק ה</td>
 </tr>
 </table>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>מיעוט התבשיל שעל הכף נעשה נבילה (ש״ך ס״ק ו) :</strong> ואם היה <strong>מעט מן התבשיל</strong> יחד עם האיסור על הכף, והחזירה — צריך ששים <strong>אף כנגד אותו מעט תבשיל</strong>, שהרי הוא <span class="he-q">נעשה נבילה</span> על הכף (איסור והיתר כלל כ״ז). ומסיים הש״ך ב<span class="he-q">צ״ע</span>, שהרי אין אנו יודעים כמה בלעה הכף ולא כמה תבשיל נעשה נבילה.
-</div>
+<div class="rishon-card">
+<strong>The text of the Shach (ס״ק ה).</strong>
+<br>«&nbsp;<span class="he-q">והיינו דוקא בכלי של עץ ומתכות חדש אבל בישן או של חרס אפילו חדש דעת הרב לעיל סימן צ״ח ס״ה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק ה)</span>
+<br>«&nbsp;<span class="he-q">דיש להחמיר דנ״נ וצריך ששים נגד כל הכף</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק ה)</span></div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה — הכף ככלי ראשון לחומרא (ש״ך ס״ק ז) :</strong> הכף שהוצאה חמה מן הקדירה — דינה <span class="he-q">ככלי ראשון לחומרא</span>, ועל כן כל מה שבה מבליע ומפליט כדין רותח. ולפיכך ההקפדה על החזרתה — שלא תחזיר הכף ותפליט האיסור הבלוע אל הקדירה. <em>ולמעשה — שאל את רבך.</em>
-</div>
+<div class="pilpul-box">
+<strong>The little food that became neveila on the spoon (ש״ך ס״ק ו).</strong> If a little of the food was on the spoon with the issur and the spoon was put back, sixty are required against that little food as well; the Rama writes it in so many words:
+<br>«&nbsp;<span class="he-q">אבל אם היה מעט מן התבשיל עם האיסור בכף והוחזר לקדירה צריך ס׳ גם נגד מעט התבשיל דהרי נעשה נבילה בכף</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ז:ב)</span>
+<br>The Shach defines its scope:
+<br>«&nbsp;<span class="he-q">משמע דאפילו הוחזר לקדרה עם הכף אינו צריך אלא ששים נגד מעט התבשיל אם הוא יותר מן האיסור דנ״נ אבל א״צ ס׳ גם נגד כל הכף</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק ו)</span>
+<br>and then raises a difficulty that he does not resolve, ending on a “this requires examination”:
+<br>«&nbsp;<span class="he-q">וקשה דכיון דידעי׳ דהיה מעט תבשיל עם האיסור בכף א״כ מאן לימא לן דאין כל הכף בלוע מאיסור דנהי דלא נעשה נבילה מ״מ לא ידעינן כמה בלע וכ״פ באו״ה וצריך עיון</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק ו)</span>
+<br><strong>It is reported here because it is asked, and it is not resolved.</strong></div>
+
+<div class="nafka-mina-box">
+<strong>Nafka mina — the spoon as a first vessel as regards stringency (ש״ך ס״ק ז).</strong> The spoon taken boiling out of the pot is treated as the pot itself:
+<br>«&nbsp;<span class="he-q">דאנו מחזיקין הכף ההיא שעתא כמו הקדרה עצמה מאחר שהוציאה עתה מהקדרה רותחת וחשיב כלי ראשון לחומרא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ז ס״ק ז)</span>
+<br>This is the source of the precaution: not to put it back, lest it give back to the pot what it has absorbed. <em>And for practice — ask your Rav.</em></div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">9. חקירה ונפקא מינה למעשה</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">9. Chakira and nafka mina lema‘aseh</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ Detailed explanation (Level 1)</a>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה הכוללת של הסימן :</strong> כיצד מתירים תערובת שאחד מפרטיה אסור כשמוציאים אותם אחד אחד, ומהו כוח פליטת הדבר המאוס ?
+<div class="hakira-box">
+<strong>The overall chakira of the siman.</strong> How do we permit a mixture one of whose items is forbidden, when they are taken out one by one? And what force is there in what a repulsive thing gives off?
 <ul class="stylish">
-<li><strong>נשאר באחרונה</strong> — חשש סדר ההוצאה; תקנתו צינון או עירוי בבת אחת.</li>
-<li><strong>שני המוטיבים</strong> — לא מחזקינן איסורא (ר׳ שמשון, עיקר) לעומת בטל ברוב יבש (ר׳ ברוך).</li>
-<li><strong>אסימטריית ביצים ודגים</strong> — דגים בטלים ברוב (מרובים); ביצים אין בהן רוב (מהרש״ל).</li>
-<li><strong>הכלים</strong> — על חזקתם; ומהרי״ל — לאחר מעת לעת (נ״ט לפגם, ספק דרבנן).</li>
-<li><strong>הזבוב והכף</strong> — נ״ט לפגם אינו אוסר; ובכף אין חנ״נ אלא כנגד האיסור (וחדשה/ישנה).</li>
+<li><strong>What is left last</strong> — a fear born of the order of removal; its remedy is cooling, or pouring out at once.</li>
+<li><strong>The two motives</strong> — we do not presume an issur (R. Shimshon, adopted by the Rama) against nullification in a dry majority (R. Baruch); and according to the Shach a majority is required in both.</li>
+<li><strong>The asymmetry of eggs and fish</strong> — fish are numerous and are nullified; eggs make no majority (the Maharshal, the Taz).</li>
+<li><strong>The vessels</strong> — in their presumption; and for the Maharil, only after twenty-four hours.</li>
+<li><strong>The fly and the spoon</strong> — a spoiling taste does not forbid; and of a spoon we do not say “become neveila”, unless it is old or of earthenware.</li>
 </ul>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה למעשה (לפי הכרעת רוב האחרונים) :</strong>
+<div class="nafka-mina-box">
+<strong>Nafka mina lema‘aseh (according to the ruling of most Acharonim).</strong>
 <ol class="stylish">
-<li>המבשל ביצים הרבה בקליפתן — <strong>לא יוציאן אחת אחת בעודן חמין</strong>; יצננן או יערה בבת אחת (מחבר ס״א).</li>
-<li>אם לא נשמר ונמצאת אחת אסורה — <span class="he-q">יש מתירין וכן עיקר</span>, דלא מחזקינן איסורא (רמ״א ס״א).</li>
-<li>בדגים יש להקל יותר (בטלים ברוב), ובביצים יש לחוש (אין רוב — מהרש״ל); ובדיעבד הקל (ט״ז).</li>
-<li>הכלים — על חזקתם, ולמהרי״ל לאחר מעת לעת (ש״ך ס״ק ב).</li>
-<li>זבוב או בריה מאוסה בתבשיל — משליכו והתבשיל מותר, נ״ט לפגם (מחבר ס״ב; ולמחמירים — הפסד מרובה).</li>
-<li>כף שהעלתה איסור ואינו פוגם — לא יחזירנה; ואם החזיר, ששים כנגד האיסור (וכף ישנה/חרס — כנגד כולה).</li>
+<li>One who boils many eggs in their shells should not take them out one by one while they are hot: he should cool them, or pour them out at once (מחבר ס״א).</li>
+<li>If he did not take care and one is found forbidden — there are those who permit, and this is the main ruling, for we do not presume an issur (רמ״א ס״א).</li>
+<li>In fish there is more room for leniency, since they are nullified in the majority; in eggs there is reason to fear, for want of a majority (מהרש״ל, ט״ז ס״ק ד); and after the fact the Taz is lenient (ט״ז ס״ק א).</li>
+<li>The vessels remain in their presumption, and for the Maharil after twenty-four hours (ש״ך ס״ק ב).</li>
+<li>A fly or a repulsive creature in a dish — one throws it out and the dish is permitted, the taste being spoiled (מחבר ס״ב); and for those who are strict, in case of great loss (ש״ך ס״ק ז).</li>
+<li>A spoon that brought up an issur that does not spoil — one should not put it back; and if one did, sixty against the issur (and against the whole spoon if it is old or of earthenware).</li>
 </ol>
-<em>ולמעשה — שאל את רבך.</em>
+<em>And for practice — ask your Rav.</em>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">10. טבלאות סיכום</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">10. Summary tables</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (Level 1)</a>
 
-<h3 class="he-h3">טבלה — אופני המקרה והדין</h3>
+<h3 class="sugya">Table — the cases and their law</h3>
 
 <table>
 <tr>
-  <th>המצב</th>
-  <th>התוצאה</th>
-  <th>מקור בקורפוס</th>
+  <th>The situation</th>
+  <th>What follows</th>
+  <th>Source</th>
 </tr>
 <tr>
-  <td><strong>מוציא ביצים אחת אחת בחמין</strong></td>
-  <td>חשש נשאר באחרונה ואוסר; תקנה — צינון</td>
+  <td><strong>Taking the eggs out one by one while hot</strong></td>
+  <td>Fear that the issur is left last and forbids; remedy: cooling</td>
   <td>מחבר ס״א</td>
 </tr>
 <tr>
-  <td><strong>ערה הכל לקערה ונמצאת אחת טרפה</strong></td>
-  <td>יש אוסרין; ויש מתירין — וכן עיקר (לא מחזקינן)</td>
-  <td>רמ״א ס״א; ש״ך ס״ק א</td>
+  <td><strong>Having poured everything into the dish, and one is found tereifa</strong></td>
+  <td>There are those who forbid; and there are those who permit — and this is the main ruling</td>
+  <td>רמ״א ס״א ; ש״ך ס״ק א</td>
 </tr>
 <tr>
-  <td><strong>דגים קטנים שנמצא בהם דג טמא</strong></td>
-  <td>בטלים ברוב יבש — מותרים (מרובים)</td>
-  <td>ר׳ ברוך; ט״ז ס״ק ד</td>
+  <td><strong>Small fish among which a non-kosher fish is found</strong></td>
+  <td>They are nullified in the dry majority — permitted, because they are numerous</td>
+  <td>ר׳ ברוך ; ט״ז ס״ק ד</td>
 </tr>
 <tr>
-  <td><strong>ביצים (אין רוב)</strong></td>
-  <td>אין ביטול ברוב — להחמיר</td>
-  <td>מהרש״ל; ט״ז ס״ק ד</td>
+  <td><strong>Eggs — with no majority</strong></td>
+  <td>No nullification in the majority — there is reason to be strict</td>
+  <td>מהרש״ל ; ט״ז ס״ק ד</td>
 </tr>
 <tr>
-  <td><strong>עירוי המים הרותחים</strong></td>
-  <td>ככלי ראשון — אוסר כדי קליפה</td>
-  <td>ש״ך ס״ק א; סימן ק״ה</td>
+  <td><strong>Pouring off the boiling water</strong></td>
+  <td>Like a first vessel — forbids only the thickness of a peel</td>
+  <td>ש״ך ס״ק א ; סימן ק״ה</td>
 </tr>
 <tr>
-  <td><strong>הכלים שבישלו בהם</strong></td>
-  <td>על חזקתם; מהרי״ל — לאחר מעת לעת</td>
-  <td>רמ״א ס״א; ש״ך ס״ק ב</td>
+  <td><strong>The vessels in which they were cooked</strong></td>
+  <td>In their presumption; for the Maharil, after twenty-four hours</td>
+  <td>רמ״א ס״א ; ש״ך ס״ק ב</td>
 </tr>
 <tr>
-  <td><strong>זבוב / דבר מאוס בתבשיל</strong></td>
-  <td>משליכו והתבשיל מותר (נ״ט לפגם)</td>
-  <td>מחבר ס״ב; פ״ת ס״ק ב</td>
+  <td><strong>A fly or a repulsive thing in the dish</strong></td>
+  <td>One throws it out, and the dish is permitted — the taste spoils</td>
+  <td>מחבר ס״ב ; פ״ת ס״ק ב</td>
 </tr>
 <tr>
-  <td><strong>כף שהעלתה איסור והוחזרה</strong></td>
-  <td>ששים כנגד האיסור בלבד (אין חנ״נ בכלי)</td>
-  <td>רמ״א ס״ב; ש״ך ס״ק ה–ז</td>
+  <td><strong>A spoon that brought up an issur and was put back</strong></td>
+  <td>Sixty against the issur alone — a vessel does not become neveila</td>
+  <td>רמ״א ס״ב ; ש״ך ס״ק ה–ז</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מחלוקות מרכזיות בסימן</h3>
+<h3 class="sugya">Table — the central machlokot of the siman</h3>
 
 <table>
 <tr>
-  <th>נושא</th>
-  <th>שיטה א'</th>
-  <th>שיטה ב'</th>
+  <th>Subject</th>
+  <th>First position</th>
+  <th>Second position</th>
 </tr>
 <tr>
-  <td>נמצאת אחת אסורה לאחר עירוי</td>
-  <td>ריב״א / יש אוסרין — חוששין שנשאר באחרונה</td>
-  <td>ר׳ שמשון / יש מתירין — לא מחזקינן איסורא (עיקר)</td>
+  <td>One is found forbidden after the pouring</td>
+  <td>The Riva and those who forbid — we fear what was left last</td>
+  <td>R. Shimshon and those who permit — we do not presume an issur (adopted)</td>
 </tr>
 <tr>
-  <td>טעם ההיתר</td>
-  <td>ר׳ שמשון — לא מחזקינן (איסורא ברובא איתא)</td>
-  <td>ר׳ ברוך — בטל ברוב יבש (צריך רוב)</td>
+  <td>The motive of the leniency</td>
+  <td>R. Shimshon — the issur is found in the majority</td>
+  <td>R. Baruch — nullification in the dry majority (a majority is required)</td>
 </tr>
 <tr>
-  <td>ביצים לעומת דגים</td>
-  <td>דגים — מרובים, בטלים ברוב</td>
-  <td>ביצים — אין רוב, להחמיר (מהרש״ל)</td>
+  <td>Eggs against fish</td>
+  <td>Fish — numerous, they are nullified in the majority</td>
+  <td>Eggs — no majority, there is reason to be strict (the Maharshal)</td>
 </tr>
 <tr>
-  <td>הכלים</td>
-  <td>על חזקתם לעולם</td>
-  <td>מהרי״ל — דווקא לאחר מעת לעת (נ״ט לפגם)</td>
+  <td>The vessels</td>
+  <td>In their presumption, with no condition of delay</td>
+  <td>The Maharil — only after twenty-four hours</td>
 </tr>
 <tr>
-  <td>חנ״נ בכף</td>
-  <td>כף עץ/מתכת חדשה — אין חנ״נ</td>
-  <td>כף ישנה / חרס — חנ״נ, כנגד כל הכף</td>
+  <td>“Become neveila” in the spoon</td>
+  <td>Wood or metal, new — no “become neveila”</td>
+  <td>Old or earthenware — sixty against the whole spoon</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מקורות הסוגיא</h3>
+<h3 class="sugya">Table — the sources of the sugya</h3>
 
-<div class="rishon-card" dir="rtl">
-<strong>גמרא :</strong> חולין ק׳. (ביצה שנמצא בה אפרוח; ביטול ברוב) · חולין צ״ז:–צ״ח. (טעם, מין במינו, ביטול בששים) · דין דברים המאוסים ונ״ט לפגם
-</div>
-<div class="rishon-card" dir="rtl">
-<strong>ראשונים :</strong> ריב״א · ר׳ ברוך (בעל ספר התרומה) · ר׳ שמשון · רש״י · רמב״ם · רשב״א (תורת הבית) · רוקח · מרדכי · טור · איסור והיתר הארוך (כלל כ״ז) · מהרי״ל
-</div>
-<div class="rishon-card" dir="rtl">
-<strong>אחרונים :</strong> בית יוסף · רמ״א · ש״ך · ט״ז · מהרש״ל (ים של שלמה) · מהר״ם פדואה · פרי מגדים · פתחי תשובה · נודע ביהודה · רדב״ז (החדשות סימן מ״ז)
-</div>
+<div class="rishon-card">
+<strong>Gemara:</strong> חולין צ״ח ע״א (kosher eggs boiled with non-kosher eggs, and the egg containing a chick) · חולין צ״ז ע״ב (taste, מין במינו, nullification in sixty) · חולין ק׳ ע״א (חתיכה נעשית נבילה, and the objection “let it be nullified in the majority”)</div>
+<div class="rishon-card">
+<strong>Rishonim:</strong> ריב״א · ר׳ ברוך בעל ספר התרומה · ר׳ שמשון · רשב״א · רוקח · מרדכי · סמ״ג · הגהות מיימוניות · שערי דורא · טור · איסור והיתר הארוך (כלל כ״ז) · מהרי״ל</div>
+<div class="rishon-card">
+<strong>Acharonim:</strong> בית יוסף · רמ״א (ותורת חטאת) · ש״ך · ט״ז · נקודות הכסף · מהרש״ל (ים של שלמה) · מהר״ם פדוואה · ב״ח · פתחי תשובה · נודע ביהודה · רדב״ז (החדשות סימן מ״ז)</div>
 
 <hr class="ornament">
 
-  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;direction:rtl;">
-    <a href="niveau-1-base-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">→ רמה א' — יסוד</a>
-    <a href="niveau-3-synthese-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">רמה ג' — סיכום ←</a>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;">
+    <a href="niveau-1-base-en.html" style="font-family:'Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">← Level 1 — Base</a>
+    <a href="niveau-3-synthese-en.html" style="font-family:'Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">Level 3 — Synthesis →</a>
   </div>
 
 <div class="yh-watermark">
 ~ ~ ~ ~ ~<br>
 <strong>DAAT</strong> · <strong>הרב יוסף חיים סממה</strong><br>
 תלמיד חכם · מעביר שיעורים בהלכה ובחסידות<br>
-<em>פלפול ועיון בדין המבשל ביצים ודבר מאוס בתבשיל · סימן ק״ז · ⚡ רמה ב' — לַמְדָּן</em>
+<em>סימן ק״ז · Level 2 — Lamdan · דין המבשל ביצה ודבר מיאוס הנמצא בתבשיל</em><br>
+<em>daattorah.com</em>
 </div>
 
-  <div class="disclaimer" style="background:#fff8e1;border-right:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;direction:rtl;text-align:right;">
-    ⚠️ תוכן זה נכתב לצורך לימוד ועיון בלבד. לכל הוראה למעשה (לְמַעֲשֶׂה) — שאל את רבך.
+  <div class="disclaimer" style="background:#fff8e1;border-left:4px solid #C5A55A;padding:16px 40px;font-family:'Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;">
+    ⚠️ This content is written for study and analysis only. For any practical application (לְמַעֲשֶׂה) — ask your Rav.
   </div>
 
   <div style="background:#1A1F3A;border-top:2px solid #C5A55A;padding:24px 40px;text-align:center;margin-top:0;">
-    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;direction:rtl;">
-      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">לעמוד הבית</a> · <a href="index-en.html" style="color:#C5A55A;text-decoration:none;">סימן ק״ז</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ לתמיכה</a>
+    <p style="font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;">
+      DAAT דעת — © 5786 / 2026 · <a href="../../../index-en.html" style="color:#C5A55A;text-decoration:none;">Back to home</a> · <a href="index-en.html" style="color:#C5A55A;text-decoration:none;">סימן ק״ז</a> · <a href="../../../soutenir-en.html" style="color:#C5A55A;text-decoration:none;">♥ Support</a>
     </p>
   </div>
 
@@ -838,7 +917,7 @@
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="../../../assets/js/chat-widget.js" defer></script>
 <script src="../../../assets/js/daat-copy.js" defer></script>
-<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="מצא חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">הצטרף לחברותא</span></a>
+<a href="../../../communaute-en.html#khavroutha" class="daat-khavroutha-fab" title="Join a khavrouta"><span class="icon">📖</span><span class="label-long">Join a khavrouta</span></a>
   <script src="/assets/js/share-text.js" defer></script>
 </body>
 </html>

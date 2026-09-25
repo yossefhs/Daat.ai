@@ -309,3 +309,37 @@ plutôt que sur une correspondance. **Ne les tranche pas : signale-les.**
 Et si le relevé que le coordinateur t'a transmis est faux, **suis la source contre
 lui** et dis-le. C'est arrivé trois fois (chapitre du Rambam au siman 180, matière
 du siman 216, comptage du Chakh au 201) et c'est chaque fois la bonne conduite.
+
+## ⚠️ Sefaria : la forme d'URL qui rend l'ŒUVRE ENTIÈRE sans jamais dire non
+
+En Orah Haïm — Hilkhot Chabbat compris — les deux formes ci-dessous renvoient
+**HTTP 200, sans champ `error`**, et rendent la totalité du livre au lieu du siman :
+
+```
+Mishnah_Berurah_on_Shulchan_Arukh,_Orach_Chayim.253   → ref « Mishnah Berurah », 697 entrées
+Magen_Avraham_on_Shulchan_Arukh,_Orach_Chayim.253     → ref « Magen Avraham »,   697 entrées
+```
+
+Les formes justes sont **`Mishnah_Berurah.N`** (106 entrées pour le 253, la première étant
+la פתיחה non numérotée, donc l'index est décalé de 1 par rapport au numéro de ס״ק) et
+**`Magen_Avraham.N`** (43 ס״ק pour le 253).
+
+Le danger n'est pas l'échec, c'est le **succès silencieux** : un agent qui lit `he[4]` sur
+la mauvaise forme lit le cinquième siman du livre et le prend pour le ס״ק ה de son siman.
+J'ai fait exactement cela en vérifiant le siman 245, et ce qui est revenu parlait de
+עולה, שלמים et חטאת — c'est-à-dire du siman 1.
+
+**Le témoin est le champ `ref`** : il rend `« Mishnah Berurah »` sur la mauvaise forme et
+`« Mishnah Berurah 253 »` sur la bonne. Le contrôler coûte une ligne :
+
+```python
+d = requests.get(url).json()
+assert d['ref'].endswith(str(n)), f"mauvaise forme d'URL : {d['ref']}"
+```
+
+Pour Yoré Déa, en revanche, la forme `X_on_Shulchan_Arukh,_Yoreh_De'ah.N` est la bonne —
+c'est ainsi que Sefaria y publie le Chakh, le Taz et le Pit'hei Techouva. La règle est donc
+**de vérifier `ref` à chaque téléchargement**, et non de mémoriser une forme par compartiment.
+
+Et une référence au Choul'han Aroukh HaRav s'écrit `(שו״ע הרב רנ״ג:ט)` **sans `או״ח`** :
+`verifier-citations.py` ne résout pas la forme avec le compartiment.

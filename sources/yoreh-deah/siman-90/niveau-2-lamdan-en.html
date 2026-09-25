@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,9 +22,9 @@
 <style>
   @page { size: A4; margin: 2cm 1.8cm; }
   body {
-    font-family: 'Frank Ruhl Libre', 'David', 'Georgia', 'Cambria', serif;
+    font-family: 'Georgia', 'Cambria', serif;
     font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0;
-    direction: rtl; text-align: right;
+    direction: ltr; text-align: left;
   }
   .he {
     direction: rtl; text-align: right;
@@ -73,19 +73,19 @@
     color: #fff; background: #1A1F3A;
     font-size: 16pt; padding: 10px 18px; margin-top: 30px;
     border-right: 6px solid #C5A55A;
-    direction: rtl; text-align: right;
+    direction: ltr; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3 {
     color: #1A1F3A; font-size: 14pt; margin-top: 25px;
     border-right: 4px solid #C5A55A; padding-right: 10px;
-    direction: rtl; text-align: right;
+    direction: ltr; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3.sugya {
     background: #1A1F3A; color: #fff;
-    padding: 8px 15px; border-right: none;
-    border-left: 6px solid #C5A55A;
+    padding: 8px 15px; border-left: none;
+    border-right: 6px solid #C5A55A;
   }
   h3.he-h3 {
     direction: rtl; text-align: right;
@@ -104,7 +104,7 @@
     font-size: 12.5pt; line-height: 1.9;
   }
   .pilpul-box {
-    background: #eef3fa; border-left: 4px solid #1A1F3A;
+    background: #eef3fa; border-right: 4px solid #1A1F3A;
     padding: 12px 18px; margin: 15px 0;
   }
   .pilpul-box::before {
@@ -113,7 +113,7 @@
     margin-bottom: 5px; letter-spacing: 1px;
   }
   .kashya-box {
-    background: #fef4e4; border-left: 4px solid #C5A55A;
+    background: #fef4e4; border-right: 4px solid #C5A55A;
     padding: 12px 18px; margin: 15px 0;
   }
   .kashya-box::before {
@@ -122,7 +122,7 @@
     margin-bottom: 5px; letter-spacing: 1px;
   }
   .teruts-box {
-    background: #e8f4ea; border-left: 4px solid #2d7a3e;
+    background: #e8f4ea; border-right: 4px solid #2d7a3e;
     padding: 12px 18px; margin: 15px 0;
   }
   .teruts-box::before {
@@ -131,7 +131,7 @@
     margin-bottom: 5px; letter-spacing: 1px;
   }
   .hakira-box {
-    background: #f5e9f5; border-left: 4px solid #6a1b7a;
+    background: #f5e9f5; border-right: 4px solid #6a1b7a;
     padding: 12px 18px; margin: 15px 0;
   }
   .hakira-box::before {
@@ -169,9 +169,9 @@
   }
   th {
     background: #1A1F3A; color: #fff;
-    padding: 10px; text-align: right; direction: rtl; font-size: 11pt;
+    padding: 10px; text-align: left; direction: ltr; font-size: 11pt;
   }
-  td { direction: rtl; text-align: right; }
+  td { direction: ltr; text-align: left; }
   td {
     border: 1px solid #d4c89a; padding: 10px; vertical-align: top;
   }
@@ -195,16 +195,16 @@
   ol.stylish li, ul.stylish li { margin-bottom: 8px; }
 
   .rishon-card {
-    background: #f7f3e4; border-left: 4px solid #8a6a1a;
+    background: #f7f3e4; border-right: 4px solid #8a6a1a;
     padding: 10px 15px; margin: 10px 0; font-size: 10.5pt;
   }
   .rishon-card strong { color: #1A1F3A; font-size: 11pt; }
 
   blockquote {
-    border-right: 3px solid #C5A55A;
-    margin: 10px 15px 10px 0; padding: 8px 15px;
+    border-left: 3px solid #C5A55A;
+    margin: 10px 0 10px 15px; padding: 8px 15px;
     background: #faf8f0; font-style: italic;
-    direction: rtl; text-align: right;
+    direction: ltr; text-align: left;
     font-family: 'Frank Ruhl Libre', serif; font-size: 11.5pt;
   }
 
@@ -215,30 +215,43 @@
   .index-box ol { margin: 5px 0; padding-right: 25px; }
   .index-box li { margin-bottom: 5px; }
 
-  /* ── RTL global (כל הדף בלשון הקודש) ── */
+  /* ── LTR global (page française / anglaise) ── */
   .pilpul-box, .kashya-box, .teruts-box, .hakira-box,
   .nafka-mina-box, .yesod-box, .machloket-box, .rishon-card, .index-box {
-    direction: rtl; text-align: right;
+    direction: ltr; text-align: left;
   }
-  /* תיבות פלפול וכו' — הקו הצבעוני בצד ימין */
-  .pilpul-box   { border-left: none; border-right: 4px solid #1A1F3A; }
-  .kashya-box   { border-left: none; border-right: 4px solid #C5A55A; }
-  .teruts-box   { border-left: none; border-right: 4px solid #2d7a3e; }
-  .hakira-box   { border-left: none; border-right: 4px solid #6a1b7a; }
-  .yesod-box    { border-left: none; }
-  .rishon-card  { border-left: none; border-right: 4px solid #8a6a1a; }
   .pilpul-box::before, .kashya-box::before, .teruts-box::before,
   .hakira-box::before, .nafka-mina-box::before, .yesod-box::before {
-    direction: rtl; text-align: right;
+    direction: rtl; text-align: left;
   }
-  .index-box ol { padding-right: 25px; padding-left: 0; }
-  ol.stylish, ul.stylish { padding-right: 22px; padding-left: 0; }
-  h3.sugya { border-left: none; border-right: 6px solid #C5A55A; }
-  h4 { direction: rtl; text-align: right; }
-  .cover, .cover h1, .cover h2 { direction: rtl; }
-  blockquote { unicode-bidi: embed; }
+  .index-box ol { padding-left: 25px; padding-right: 0; }
+  ol.stylish, ul.stylish { padding-left: 22px; padding-right: 0; }
+  h4 { direction: ltr; text-align: left; }
+  .cover, .cover h1, .cover h2 { direction: ltr; }
+  .cover .he-title, .cover .he-sub, .cover .he-subject { direction: rtl; }
 
-  /* ── חץ אל ההסבר המפורט (רמה 1) ── */
+  /* Le texte source et les citations restent lus de droite à gauche. */
+  .sacred-text { direction: rtl; text-align: right; }
+  blockquote.comment-source {
+    background: #f7f3e4; border-right: 3px solid #8a6a1a; border-left: none;
+    font-style: normal; margin: 10px 0; padding: 8px 15px;
+    direction: rtl; text-align: right;
+    font-family: 'Frank Ruhl Libre', serif; font-size: 11.5pt;
+  }
+  blockquote.comment-source .src-ref {
+    display: inline-block; margin-top: 6px; color: #6a5a1a;
+    font-style: italic; font-size: 0.88em;
+    font-family: 'Georgia', 'Cambria', serif;
+  }
+  .src-ref { font-size: 0.85em; color: #5a4a1a; font-style: italic; }
+  .translation {
+    background: #f5f5f0; border-right: 3px solid #1A1F3A;
+    padding: 12px 18px; margin: 15px 0; font-style: italic;
+  }
+  .translation .he-q { font-style: normal; }
+  .sacred-text .source-ref { font-style: italic; }
+
+  /* ── arrow to the detailed explanation (Level 1) ── */
   a.daat-explain {
     display: inline-block;
     margin: 4px 0 14px 0;
@@ -247,14 +260,14 @@
     font-size: 12pt;
     text-decoration: none;
     border-bottom: 1px dotted #C5A55A;
-    direction: rtl;
+    direction: ltr;
   }
   a.daat-explain:hover { color: #8a6a1a; border-bottom-style: solid; }
 
-  /* ── כפתור העתקה ── */
+  /* ── copy button ── */
   button.daat-copy {
     display: inline-block;
-    margin: 0 10px 0 0;
+    margin: 0 0 0 10px;
     padding: 3px 12px;
     font-family: 'Frank Ruhl Libre', 'David', serif;
     font-size: 10.5pt;
@@ -264,7 +277,7 @@
     border-radius: 4px;
     cursor: pointer;
     vertical-align: middle;
-    direction: rtl;
+    direction: ltr;
   }
   button.daat-copy:hover { background: #C5A55A; color: #fff; }
   @media print { button.daat-copy, a.daat-explain { display: none; } }
@@ -386,69 +399,69 @@
 })();
 </script>
 
-<!-- COUVERTURE -->
+<!-- COVER -->
 <div class="cover">
   <div class="ornament">✦ ❖ ✦</div>
-  <div class="badge-top">DAAT · רמה ב' — לַמְדָּן</div>
-  <h1>שולחן ערוך · יורה דעה</h1>
-  <div class="subtitle">דיני כחל — עיון ופלפול</div>
+  <div class="badge-top">DAAT · LEVEL 2 — LAMDAN</div>
+  <h1>Shulchan Arukh · Yoreh De'ah</h1>
+  <div class="subtitle">The laws of the כחל (the udder) — study and pilpul</div>
 
   <div class="he-title">סימן צ׳</div>
   <div class="he-sub">דיני כחל</div>
-  <div class="he-subject">עיון, פלפול, שיטות הראשונים והאחרונים</div>
+  <div class="he-subject">Study, pilpul, shitos of the Rishonim and Acharonim</div>
 
-  <div class="level-badge">⚡ ללומדים ותלמידי חכמים ⚡</div>
+  <div class="level-badge">⚡ FOR LAMDANIM ⚡</div>
 
   <div class="ornament">✦ ❖ ✦</div>
 
-  <h2 style="margin-top:20px; color: #1A1F3A;">פלפול ועיון מעמיק</h2>
+  <h2 style="margin-top:20px; color: #1A1F3A;">Pilpul and in-depth study</h2>
   <p style="font-size:12pt; color:#555;">
-    סוגיות, מקורות, חקירת היסוד, מחלוקות ראשונים ואחרונים,<br>
-    נפקא מינות להלכה ועיון בשיטות
+    Sugyos, sources, the chakira of the yesod, machlokos of Rishonim and Acharonim,<br>
+    nafka minos for halakha and examination of the shitos
   </p>
 
   <div class="credits">
-    <p><strong>הנושא :</strong><br>
-    שולחן ערוך יורה דעה סימן צ׳ (ד' סעיפים)<br>
-    עם נושאי כלים: ש״ך (שפתי כהן), ט״ז (טורי זהב), פרי מגדים, פתחי תשובה</p>
+    <p><strong>The subject:</strong><br>
+    Shulchan Arukh Yoreh De'ah siman צ׳ (4 seifim)<br>
+    with the commentaries: Shakh (שפתי כהן), Taz (טורי זהב), Pri Megadim, Pischei Teshuva</p>
 
-    <p><strong>יסוד הסוגיא בש״ס :</strong><br>
-    חולין ק״ט: — ק״י. · חולין צ״ז. (שיעור ששים) · עיין תורת חטאת כלל כ״ט—ל'</p>
+    <p><strong>The root of the sugya in Shas:</strong><br>
+    Chullin 109b — 110a · Chullin 97a (the measure of sixty) · see Toras Chatas, kelal כ״ט—ל'</p>
 
-    <p><strong>עריכה ועיון :</strong><br>
-    הרב יוסף חיים סממה · DAAT</p>
+    <p><strong>Written and edited by:</strong><br>
+    Rav Yossef Haim Samama · DAAT</p>
   </div>
 </div>
 
 <div class="page-break"></div>
 
-<!-- TABLE DES MATIÈRES -->
-<h2 class="section-title">📑 תוכן העניינים</h2>
+<!-- TABLE OF CONTENTS -->
+<h2 class="section-title">📑 Table of contents</h2>
 
-<div class="index-box" dir="rtl">
+<div class="index-box">
 <ol>
-  <li><strong>הקדמת הסוגיא</strong> — חלב שחוטה אינו אסור מן התורה (חולין ק״ט:)</li>
-  <li><strong>חקירת היסוד</strong> — מהו טעם איסור הכחל, ומדוע דרבנן</li>
-  <li><strong>גדרי הכשר הכחל</strong> — קריעה שתי וערב, טיחה בכותל, ומירוק החלב</li>
-  <li><strong>צלי, בישול וטיגון</strong> — שלוש דרגות חומרה (סעיף א'—ב')</li>
-  <li><strong>ביטול בששים וכחל מן המנין</strong> — מדוע הכחל מצטרף</li>
-  <li><strong>חתיכה נעשית נבילה בכחל</strong> — מחלוקת הרמב״ם והרשב״א (ט״ז ס״ק ד)</li>
-  <li><strong>פלוגתת המחבר, מהרש״ל והב״ח</strong> — בישול עם בשר בדיעבד (ש״ך ס״ק ח)</li>
-  <li><strong>סוגיית "וי״א" של הרמ״א</strong> — אם נאסר הכחל אינו מצטרף (ש״ך ס״ק ה)</li>
-  <li><strong>דין הסכין, השפוד והכבישה</strong> — סעיף ג'—ד' וסוגיית כבוש כמבושל</li>
-  <li><strong>חקירה ונפקא מינה למעשה</strong></li>
-  <li><strong>טבלאות סיכום מקיפות</strong></li>
+  <li><strong>Introducing the sugya</strong> — milk of a slaughtered animal is not forbidden by the Torah (Chullin 109b)</li>
+  <li><strong>The chakira of the yesod</strong> — what is the reason for the prohibition of the כחל, and why is it rabbinic</li>
+  <li><strong>The parameters of preparing the כחל</strong> — cutting crosswise, pressing against the wall, and squeezing out the milk</li>
+  <li><strong>Roasting, cooking and frying</strong> — three degrees of stringency (seifim א'—ב')</li>
+  <li><strong>Nullification in sixty, and the כחל as part of the count</strong> — why the כחל joins in</li>
+  <li><strong>חתיכה נעשית נבילה in the כחל</strong> — the machlokes of the Rambam and the Rashba (Taz ס״ק ד)</li>
+  <li><strong>The dispute of the Mechaber, the Maharshal and the Bach</strong> — cooked with meat, בדיעבד (Shakh ס״ק ח)</li>
+  <li><strong>The sugya of the Rama's « וי״א »</strong> — once the כחל has been forbidden it no longer joins in (Shakh ס״ק ה)</li>
+  <li><strong>The knife, the spit and soaking</strong> — seifim ג'—ד' and the sugya of כבוש כמבושל</li>
+  <li><strong>Chakira and nafka mina in practice</strong></li>
+  <li><strong>Summary tables</strong></li>
 </ol>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<!-- לשון השולחן ערוך — סעיף א' -->
-<h2 class="section-title">📜 לשון השולחן ערוך — סעיף א'
-  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 העתק</button>
+<!-- The text of the Shulchan Arukh — seif א' -->
+<h2 class="section-title">📜 The text of the Shulchan Arukh — seif א'
+  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 Copy</button>
 </h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ Detailed explanation (Level 1)</a>
 
 <div class="sacred-text he" data-copy-block id="cp-1">
   <p>הַכָּחָל (פֵּרוּשׁ הַדַּד שֶׁל הַבְּהֵמָה) אָסוּר מִדִּבְרֵי סוֹפְרִים, שֶׁאֵין בָּשָׂר שֶׁנִּתְבַּשֵּׁל בַּחֲלֵב שְׁחוּטָה אָסוּר מִן הַתּוֹרָה.</p>
@@ -457,421 +470,531 @@
   <p style="margin-top:14px;">(וְיֵשׁ אוֹמְרִים דְּאִם נָפַל תְּחִילָּה לִקְדֵרָה שֶׁאֵין בָּהּ ס' וְנֶאֱסַר הַכָּחָל, אִם נָפַל אַחַר כָּךְ לִקְדֵרָה אַחֶרֶת — אֵין הַכָּחָל מִצְטָרֵף לְס', וְכֵן עִיקָר. <span class="source-ref">[הגה: טור בשם הרשב״א]</span>)</p>
 </div>
 
-<!-- ============================================================= -->
-<h2 class="section-title">1. הקדמת הסוגיא — חלב שחוטה אינו אסור מן התורה</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<div class="translation"><strong>Translation.</strong> The כחל — that is, the udder of the animal — is forbidden by the words of the Soferim, since meat cooked in the milk of a slaughtered animal is not forbidden by the Torah.
+<br><br>Therefore, if he cut it open and squeezed out the milk in it, it is permitted to roast it and eat it; and if he cut it crosswise (warp and woof) and pressed it against the wall until no moisture of milk remained in it, it is permitted to cook it with meat.
+<br><br>A כחל that he did not cut open — whether of a young animal that never nursed or of a mature one — it is forbidden to cook it; and if he transgressed and cooked it by itself (and all the more so if he roasted it), it is permitted to eat it. And if he cooked it with other meat, one measures it in sixty, and the כחל is part of the count.
+<br><br><em>Gloss of the Rama:</em> and there are those who say that if it first fell into a pot that does not contain sixty and the כחל thereby became forbidden, then if it afterwards falls into another pot the כחל no longer joins the sixty — and this is the main view.</div>
 
-<h3 class="he-h3">המקור הבסיסי
-  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 העתק</button>
+<!-- ============================================================= -->
+<h2 class="section-title">1. Introducing the sugya — milk of a slaughtered animal is not forbidden by the Torah</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ Detailed explanation (Level 1)</a>
+
+<h3>The basic source
+  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-2">
 שורש הסימן בסוגיא בחולין (ק״ט: — ק״י.) ובלשון המחבר הפותח: <strong>"הכחל... אסור מדברי סופרים, שאין בשר שנתבשל בחלב שחוטה אסור מן התורה"</strong>. כלומר, החלב הכנוס בכחל אינו חלב גמור האסור מן התורה, שהרי לא יצא מן הבהמה בחייה, ולפיכך כל איסורו <strong>מדרבנן</strong>.
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>הערה יסודית :</strong> בשר בחלב מן התורה (סימן פ״ז) הוא צירוף בשר טהורה <em>בחלב</em> טהורה, והחלב — חלב הבהמה <strong>בחייה</strong>. ואילו הכחל — החלב שבתוכו הוא חלב <span class="he-q">שחוטה</span>, חלב שנשאר בדדי הבהמה לאחר שחיטתה. וכיון שלא בא לכלל "חלב" גמור, אין כאן איסור תורה — אלא גזירת חכמים. ובטעם עצם האיסור הביא הש״ך (ס״ק ה) שני צדדים: <span class="he-q">שמא יאכלנו קודם גמר בישולו</span>, <span class="he-q">אי נמי משום מראית העין</span>.
+<div class="translation"><strong>Translation.</strong> The root of the siman is the sugya in Chullin (109b — 110a), and it is already in the Mechaber's opening words: the כחל is forbidden by the words of the Soferim, since meat cooked in the milk of a slaughtered animal is not forbidden by the Torah. That is: the milk contained in the udder is not full-fledged milk of the kind the Torah forbids, since it never left the animal in its lifetime; its entire prohibition is therefore rabbinic.</div>
+
+<div class="pilpul-box">
+<strong>A foundational note.</strong> The Torah prohibition of meat and milk (siman פ״ז) is the meeting of the meat of a kosher animal <em>with the milk</em> of a kosher animal — and that milk is the milk of the animal <strong>in its lifetime</strong>. In the כחל, however, the milk within is the milk of a <span class="he-q">שחוטה</span> — milk left in the udder after the animal was slaughtered. Since it never became "milk" in the full sense, there is no Torah prohibition here, but a rabbinic decree. As for the reason of the prohibition itself, the Shakh (ס״ק ה) brings two sides: lest one eat it before the cooking is finished, or else because of appearances.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הט״ז</strong> (ס״ק א, על "<span class="he-q">מותר לאוכלו</span>") מביא טעם הגמרא ורש״י:<br>
-"<span class="he-q">בגמרא מפרש הטעם, לפי שאין החלב כנוס במיעיו. ופירש רש״י: שלא יצא מדדי הבהמה בחייה, ולא נאסף — אלא מובלע בבשר הוא, ולא בא לכלל חלב. ומיהו לכתחלה בעי קריעה מדרבנן</span>." — הרי שעצם החלב שבכחל אינו "חלב" אלא בלוע בבשר, ולכן דרבנן.
+<blockquote class="comment-source">«&nbsp;<span class="he-q">משום דחיישינן שמא יאכלנו קודם גמר בישולו</span>&nbsp;…&nbsp;<span class="he-q">א״נ משום מראית העין</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ׳ ס״ק ה)</span></blockquote>
+
+<div class="rishon-card">
+<strong>The Taz</strong> (ס״ק א, on the words <span class="he-q">מותר לאוכלו</span>) brings the reason of the gemara and Rashi: the milk is not gathered inside, it is <em>absorbed in the flesh</em> and never became milk — hence a purely rabbinic prohibition, though cutting is still required לכתחלה.
 </div>
+
+<blockquote class="comment-source">«&nbsp;<span class="he-q">בגמרא מפרש הטעם לפי שאין החלב כנוס במיעיו ופירש״י שלא יצא מדדי הבהמה בחייה ולא נאסף אלא מובלע בבשר הוא ולא בא לכלל חלב ומיהו לכתחלה בעי קריעה מדרבנן</span>&nbsp;» <span class="src-ref">(ט״ז יו״ד צ׳ ס״ק א)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">2. חקירת היסוד — מהו טעם איסור הכחל</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">2. The chakira of the yesod — what is the reason for the prohibition of the כחל</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ Detailed explanation (Level 1)</a>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה :</strong> מה גדר החלב שבכחל ?
+<div class="hakira-box">
+<strong>The chakira.</strong> What is the status of the milk contained in the כחל?
 <ul class="stylish">
-  <li>(א) <strong>בלוע בבשר</strong> — אינו חלב כלל אלא חלק מן הבשר עצמו (רש״י: "מובלע בבשר... ולא בא לכלל חלב"), ואיסורו רק חומרא דרבנן.</li>
-  <li>(ב) <strong>חלב כנוס בגומות</strong> — יש בו ממשות חלב, אלא שאינו חלב <em>חי</em>. נפקא מינה גדולה לעניין הגומות שבכחל לאחר בישול.</li>
+  <li>(a) <strong>Absorbed in the flesh</strong> — it is not milk at all but part of the flesh itself (Rashi, quoted by the Taz: absorbed in the flesh, and never became milk); its prohibition is then only a rabbinic stringency.</li>
+  <li>(b) <strong>Milk gathered in cavities</strong> — there is substance of milk here, only it is not <em>living</em> milk. The nafka mina is great regarding the cavities of the כחל after cooking.</li>
 </ul>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד החקירתי :</strong><br>
-<span class="he-q">הש״ך (ס״ק ה)</span> מכריע שאין איסור הכחל מפני טעם החלב יותר משאר בשר, <strong>אלא מפני הגומות שבכחל שהחלב כנוס בתוכן</strong>, ויש באותו חלב טעם מן הבשר שנתבשל עמו. ובלשונו: "<span class="he-q">אין איסור של הכחל מפני שיש בו טעם חלב יותר משאר בשר, אלא מפני שיש בו גומות בכחל שהחלב כנוס בתוכן... ואותו חלב שבגומות אי אפשר להפרישו מן הבשר, דלא מהני קריעה לאחר בישול</span>".<br><br>
-מכאן: שני הטעמים אמת — מצד אחד אין כאן חלב גמור (דרבנן), ומצד שני יש "<span class="he-q">חלב שבגומות</span>" שצריך להוציאו על ידי קריעה <em>לפני</em> הבישול.
+<div class="yesod-box">
+<strong>The yesod of the chakira.</strong><br>
+The Shakh (ס״ק ה) decides that the prohibition of the כחל is not because it has more taste of milk than other meat, <strong>but because of the cavities in the כחל in which the milk is gathered</strong> — and that milk takes on the taste of the meat cooked with it.<br><br>
+From here: both reasons are true together. On the one hand there is no full-fledged milk (hence rabbinic); on the other there is a <span class="he-q">חלב שבגומות</span> that must be driven out by cutting <em>before</em> cooking.
 </div>
 
-<div class="pilpul-box" dir="rtl">
-ומדייק הש״ך מדוע אסור אף לאחר שבגמר בישולו יוצא כל החלב: "<span class="he-q">ואף על גב דבגמר בישולו יוצא כל חלב, מכל מקום קודם גמר בישולו נאסר בשביל חלב שבגומות, ותו לא משתרי, משום דחיישינן שמא יאכלנו קודם גמר בישולו, אי נמי משום מראית העין</span>". שני תירוצים בש״ך לעצם האיסור.
+<blockquote class="comment-source">«&nbsp;<span class="he-q">שאין איסור של הכחל מפני שיש בו טעם חלב יותר משאר בשר אלא מפני שיש בו גומות בכחל שהחלב כנוס בתוכן ויש באותו חלב טעם מן הבשר שנתבשל עמה</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ׳ ס״ק ה)</span></blockquote>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">ואותו חלב שבגומות א״א להפרישו מן הבשר דלא מהני קריעה לאחר בישול</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ׳ ס״ק ה)</span></blockquote>
+
+<div class="pilpul-box">
+And the Shakh explains why it remains forbidden even though all the milk comes out by the end of the cooking: it is <em>before</em> the cooking is finished that the piece was rendered forbidden by the milk of the cavities, and once forbidden it does not become permitted again — either lest one eat it before the cooking is finished, or because of appearances. Two answers, in the Shakh, to the prohibition itself.
 </div>
+
+<blockquote class="comment-source">«&nbsp;<span class="he-q">ואף על גב דבגמר בישולו יוצא כל חלב מ״מ קודם גמר בישולו נאסר בשביל חלב שבגומות ותו לא משתרי משום דחיישינן שמא יאכלנו קודם גמר בישולו א״נ משום מראית העין</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ׳ ס״ק ה)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">3. גדרי הכשר הכחל — קריעה, טיחה ומירוק</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">3. The parameters of preparing the כחל — cutting, pressing and squeezing out</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (Level 1)</a>
 
-<h3 class="he-h3">שלוש דרגות הכשר לפי המחבר</h3>
+<h3>Three levels of preparation according to the Mechaber</h3>
 
-<div class="machloket-box" dir="rtl">
+<div class="machloket-box">
 <table>
-<tr><th>המעשה</th><th>ההכשר הנדרש</th><th>מקור</th></tr>
+<tr><th>The act</th><th>The preparation required</th><th>Source</th></tr>
 <tr>
-  <td><strong>צלי</strong> (ואכילה)</td>
-  <td>קריעה ומירוק החלב (קריעה שתי וערב לכתחלה)</td>
-  <td>מחבר ס״א, ס״ב</td>
+  <td><strong>Roasting</strong> (and eating)</td>
+  <td>Cutting and squeezing out the milk (crosswise cutting לכתחלה)</td>
+  <td>Mechaber seif א', seif ב'</td>
 </tr>
 <tr>
-  <td><strong>בישול עם בשר</strong></td>
-  <td>קריעה שתי וערב <strong>וגם</strong> טיחה בכותל עד שלא נשאר לחלוחית</td>
-  <td>מחבר ס״א</td>
+  <td><strong>Cooking with meat</strong></td>
+  <td>Crosswise cutting <strong>and also</strong> pressing against the wall until no moisture remains</td>
+  <td>Mechaber seif א'</td>
 </tr>
 <tr>
-  <td><strong>טיגון / פשטיד״א</strong></td>
-  <td>קריעה שתי וערב וטיחה בכותל (כבישול)</td>
-  <td>מחבר ס״ב</td>
+  <td><strong>Frying / pie (פשטיד״א)</strong></td>
+  <td>Crosswise cutting and pressing against the wall (as for cooking)</td>
+  <td>Mechaber seif ב'</td>
 </tr>
 </table>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הרמ״א (ס״ב)</strong> מוסיף חידוש בגדר ההכשר: "<span class="he-q">ומה שנהגו לקורעו ולחתכו כמה פעמים שתי וערב על פני כולו — עדיף ומהני יותר מטיחה בכותל</span>" (תרומת הדשן סי' קפ״ב). כלומר, ריבוי הקריעות עדיף על הטיחה.
+<div class="rishon-card">
+<strong>The Rama (seif ב')</strong> adds a chidush in the very definition of the preparation: the practice of cutting and recutting the piece several times crosswise over its whole surface is preferable, and works better, than pressing against the wall (Terumas HaDeshen, siman קפ״ב). In other words: multiplying the cuts outweighs the pressing.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הש״ך (ס״ק ט)</strong> מביא בשם הב״י בשם הרשב״א: "<span class="he-q">דאם נתנו תחת המכבש — הוי כטחו בכותל</span>". הרי שהמכבש שקול לטיחה בכותל, ששניהם פועלים סחיטת החלב.
+<blockquote class="comment-source">«&nbsp;<span class="he-q">ומה שנהגו לקורעו ולחתכו כמה פעמים שתי וערב על פני כולו עדיף ומהני יותר מטיח' בכותל</span>&nbsp;» <span class="src-ref">(רמ״א יו״ד צ׳:ב)</span></blockquote>
+
+<div class="rishon-card">
+<strong>The Shakh (ס״ק ט)</strong> brings, in the name of the Beis Yosef in the name of the Rashba, that placing it under the press is like pressing it against the wall. The press and the wall carry equal weight: both express the milk.
 </div>
 
-<div class="kashya-box" dir="rtl">
-<strong>קושיא :</strong> מדוע לצלי די בקריעה לבד, ואילו לבישול בעי גם טיחה ?
+<blockquote class="comment-source">«&nbsp;<span class="he-q">וכתב ב״י ע״ש הרשב״א דאם נתנו תחת המכבש הוי כטחו בכותל</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ׳ ס״ק ט)</span></blockquote>
+
+<div class="kashya-box">
+<strong>Kashya.</strong> Why, for roasting, does cutting alone suffice, while for cooking pressing is also required?
 </div>
 
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ :</strong> בצלי, האש שואבת ומפליטה את החלב כלפי חוץ, ואין חשש שיחזור וייבלע; ואילו בבישול ברוטב, החלב היוצא <em>חוזר ונבלע</em> בבשר שבקדרה, ולכן צריך להקדים ולסחוט את כל החלב מן הגומות על ידי טיחה בכותל. וכמבואר ביסוד הש״ך (ס״ק ה) שהחשש הוא "<span class="he-q">חלב שבגומות</span>".
+<div class="teruts-box">
+<strong>Teretz.</strong> In roasting, the fire draws the milk out and expels it; there is no concern that it will be reabsorbed. In cooking, by contrast, the milk that comes out <em>is reabsorbed</em> into the meat in the pot. One must therefore press all the milk out of the cavities beforehand by pressing against the wall. This is exactly the Shakh's yesod (ס״ק ה): what is feared is the <span class="he-q">חלב שבגומות</span>.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">4. צלי, בישול וטיגון — שלוש דרגות חומרה</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">4. Roasting, cooking and frying — three degrees of stringency</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ Detailed explanation (Level 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ב')
-  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 העתק</button>
+<h3>The text of the Mechaber and the Rama (seif ב')
+  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-3">
 "<strong>נהגו שלא לבשלו עם בשר כלל</strong>. ולבשלו בלא בשר, בטיגון או בפשטיד״א — מצריכין קריעה שתי וערב וטיחה בכותל; ולצלי — קריעה שתי וערב." <span class="source-ref">[ובהגה: ולקדירה בלא בשר נוהגין בו איסור לכתחלה, והוא הדין לטגן אפילו בלא בשר; מיהו אם נתייבשה לאחר ל' יום, אם עבר ובשלו אפילו עם בשר — מותר בדיעבד.]</span>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שלוש דרגות :</strong>
+<div class="translation"><strong>Translation.</strong> The practice has become not to cook it with meat at all; and to cook it without meat, in frying or in a pie, one requires crosswise cutting and pressing against the wall; for roasting — crosswise cutting. <em>Gloss:</em> and for a pot without meat the practice is to forbid it לכתחלה, and likewise for frying, even without meat; however, if it dried out — that is, after thirty days — and one transgressed and cooked it, even with meat, it is permitted בדיעבד.</div>
+
+<div class="pilpul-box">
+<strong>Three degrees.</strong>
 <ol class="stylish">
-<li><strong>צלי</strong> — הקל שבכולם, "<span class="he-q">וכל שכן אם צלאו</span>" (ס״א), שכן האש מפליטה החלב.</li>
-<li><strong>בישול / טיגון לבדו</strong> — מדרבנן מותר בדיעבד (ס״א), אך <strong>נהגו איסור לכתחלה</strong> (גזירה).</li>
-<li><strong>בישול עם בשר</strong> — נהגו איסור גמור, ובדיעבד תלוי בשיעור ובהפסד.</li>
+<li><strong>Roasting</strong> — the lightest of all: <span class="he-q">וכ״ש אם צלאו</span> <span class="src-ref">(שו״ע יו״ד צ׳:א)</span>, since the fire expels the milk.</li>
+<li><strong>Cooking or frying, alone</strong> — permitted בדיעבד by the letter of the din (seif א'), but <strong>the practice forbids it לכתחלה</strong> (a decree).</li>
+<li><strong>Cooking with meat</strong> — the practice forbids it entirely, and בדיעבד it depends on the measure and on the loss.</li>
 </ol>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הש״ך (ס״ק ו)</strong> פותח את כל סעיף ב' בהגדרה מכרעת: "<span class="he-q">נהגו שלא לבשלו כו' — כל זה מצד המנהג, אבל לענין דינא בדיעבד נתבאר דעת המחבר בס״א, ודעת הר״ב בהג״ה בסעיף זה</span>". כלומר, כל סעיף ב' עניינו <strong>מנהג</strong> וגזירה, ולא עיקר הדין.
+<div class="rishon-card">
+<strong>The Shakh (ס״ק ו)</strong> opens the whole of seif ב' with a definition that governs how it is read: all of this is a matter of <strong>custom</strong>; as for the letter of the din בדיעבד, the Mechaber's view was set out in seif א', and the Rama's view in the gloss to this seif.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הש״ך (ס״ק יד)</strong> מבאר טעם הגזירה: "<span class="he-q">נוהגים בו איסור לכתחלה — אפילו על ידי קריעה שתי וערב וטיחה בכותל</span>" (והטעם — כדבריו עצמו בס״ק כא): המנהג בקדרה אינו אלא "<span class="he-q">משום גזירה שמא יבואו לבשל עם בשר יחד</span>".
+<blockquote class="comment-source">«&nbsp;<span class="he-q">כל זה מצד המנהג אבל לענין דינא בדיעבד נתבאר דעת המחבר בס״א ודעת הר״ב בהג״ה בסעיף זה</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ׳ ס״ק ו)</span></blockquote>
+
+<div class="rishon-card">
+<strong>The Shakh (ס״ק י״ד)</strong> sets out the reach of the custom: the prohibition לכתחלה holds <em>even</em> after crosswise cutting and pressing against the wall — and he himself refers, for the reason, to his ס״ק כ״א, where he writes that the stringency of the pot is only a decree lest one come to cook it with meat.
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה — כחל יבש :</strong> הרמ״א פוסק שכחל ש<strong>נתייבש</strong> (לאחר ל' יום) — אם עבר ובישלו אפילו עם בשר, מותר בדיעבד. והש״ך (ס״ק יז) מדייק: "<span class="he-q">דהיינו לאחר ל' יום — היינו מסתמא, אבל אי חזינן דיבשה היא ממש, פשיטא דאפילו תוך ל' מותר</span>". הרי של' יום אינו לעיכובא אלא חזקה. <em>למעשה — שאל את רבך.</em>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">נוהגים בו איסור לכתחלה</span>&nbsp;…&nbsp;<span class="he-q">אפילו ע״י קריעה שתי וערב וטיחה בכותל והטעם יתבאר בס״ק כ״א</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ׳ ס״ק י״ד)</span></blockquote>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">דמה שהחמירו בקדרה אינו אלא משום גזירה שמא יבאו לבשל עם בשר יחד וזה לא שייך גבי סכין</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ׳ ס״ק כ״א)</span></blockquote>
+
+<div class="nafka-mina-box">
+<strong>Nafka mina — a dried-out כחל.</strong> The Rama rules that a <strong>dried-out</strong> כחל (after thirty days) is permitted בדיעבד even if it was cooked with meat. And the Shakh (ס״ק י״ז) specifies that the thirty days are only a presumption: if we plainly see that it is genuinely dry, it is permitted even before then. The thirty days are therefore not an absolute condition but a chazaka. <em>In practice — ask your Rav.</em>
 </div>
+
+<blockquote class="comment-source">«&nbsp;<span class="he-q">היינו מסתמא אבל אי חזינן דיבשה היא ממש פשיטא דאפילו תוך ל' מותר</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ׳ ס״ק י״ז)</span></blockquote>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">5. ביטול בששים וכחל מן המנין</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">5. Nullification in sixty, and the כחל as part of the count</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (Level 1)</a>
 
-<h3 class="he-h3">לשון הש״ך (ס״ק ד)
-  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 העתק</button>
+<h3>The text of the Shakh (ס״ק ד)
+  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-4">
-<strong>הש״ך</strong> (ס״ק ד) על "<span class="he-q">משערין אותו בס'</span>": "<span class="he-q">ואיתא בש״ס ומוסכם מכל הפוסקים, דבעינן ס' נגד כל הכחל, ולא משערינן במאי דנפק מיניה, דלא ידעינן כמה נפק... וכבר כתב כיוצא בזה בסימן ס״ט סי״א גבי בשר שנתבשל בלא מליחה, שצריך ס' נגד אותו בשר ולא סגי נגד דם שבתוכו</span>".
+<strong>הש״ך</strong> (ס״ק ד) על "<span class="he-q">משערין אותו בס'</span>": "<span class="he-q">ואיתא בש״ס ומוסכם מכל הפוסקים דבעינן ס' נגד כל הכחל ולא משערינן במאי דנפק מיניה דלא ידעינן כמה נפק&nbsp;…&nbsp;וכבר כתב כיוצא בזה בסי' ס״ט סי״א גבי בשר שנתבשל בלא מליחה שצריך ס' נגד אותו בשר ולא סגי נגד דם שבתוכו</span>".
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — מדוע הכחל "מן המנין" :</strong> מאחר שהכחל עצמו אסור (חתיכה האסורה), כיצד הוא עצמו מצטרף לס' לבטל את החלב שבו ?
+<div class="translation"><strong>Translation.</strong> The Shakh (ס״ק ד), on the words "one measures it in sixty": it is stated in Shas, and agreed by all the poskim, that sixty are required against <em>the whole כחל</em>, and not against what came out of it, since we do not know how much came out. And he has already written the like at siman ס״ט, seif י״א, regarding meat cooked without having been salted: sixty are needed against that meat, and it does not suffice to have sixty against the blood within it.</div>
+
+<blockquote class="comment-source">«&nbsp;<span class="he-q">ואיתא בש״ס ומוסכם מכל הפוסקים דבעינן ס' נגד כל הכחל ולא משערינן במאי דנפק מיניה דלא ידעינן כמה נפק</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ׳ ס״ק ד)</span></blockquote>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">וכבר כתב כיוצא בזה בסי' ס״ט סי״א גבי בשר שנתבשל בלא מליחה שצריך ס' נגד אותו בשר ולא סגי נגד דם שבתוכו</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ׳ ס״ק ד)</span></blockquote>
+
+<div class="hakira-box">
+<strong>The chakira — why is the כחל "part of the count"?</strong> Since the כחל is itself forbidden (it is a forbidden piece), how can it itself enter into the sixty that nullify the milk it contains?
 </div>
 
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ הראשונים (מובא בט״ז ס״ק ב בשם הרשב״א) :</strong> טעם הרשב״א — "<span class="he-q">דהוא עצמו בשר, ומצטרף עם הבשר לבטל החלב שבו</span>". כלומר, גוף הכחל הוא בשר היתר, והאיסור אינו אלא החלב הבלוע; לפיכך בשר הכחל מצטרף עם שאר הבשר לבטל את מיעוט החלב. ובלשון הט״ז: "<span class="he-q">כיון שאין על הבשר עצמו שם איסור, רק שמחובר בו איסור, וכשיש כדי לבטלו אזיל ליה החיבור</span>".
+<div class="teruts-box">
+<strong>The teretz of the Rishonim (brought by the Taz ס״ק ב in the name of the Rashba).</strong> The Rashba's reason: the כחל is itself meat, and it joins with the meat to nullify the milk within it. That is, the body of the כחל is permitted meat, and the prohibition is only the absorbed milk; the flesh of the כחל therefore joins the rest of the meat to nullify the small quantity of milk. And in the Taz's words: the flesh itself bears no name of prohibition, only a prohibition is attached to it — and once there is enough to nullify it, the attachment falls away.
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שני טעמים לכחל מן המנין :</strong>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">דהוא עצמו בשר ומצטרף עם הבשר לבטל החלב שבו</span>&nbsp;» <span class="src-ref">(ט״ז יו״ד צ׳ ס״ק ב)</span></blockquote>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">כיון שאין על הבשר עצמו שם איסור רק שמחובר בו איסור וכשיש כדי לבטלו אזיל ליה החיבור</span>&nbsp;» <span class="src-ref">(ט״ז יו״ד צ׳ ס״ק ב)</span></blockquote>
+
+<div class="pilpul-box">
+<strong>Two reasons for the "כחל of the count".</strong>
 <ul class="stylish">
-<li><strong>טעם הרשב״א והר״ן</strong> — גוף הכחל בשר היתר ומצטרף לבטל החלב שבו.</li>
-<li><strong>טעם הרמב״ם (והראב״ד בהשגות, מובא ש״ך ס״ק ה)</strong> — "<span class="he-q">שהכחל מן המנין מפני שהוא מותר בפני עצמו</span>". וכתב הש״ך: "<span class="he-q">ונראה שגם זה הוא מכוון למה שכתבו הפוסקים, והכל הולך למקום אחד</span>".</li>
+<li><strong>The reason of the Rashba and the Ran</strong> — the body of the כחל is permitted meat, and it joins in to nullify the milk it contains.</li>
+<li><strong>The reason brought by the Maggid Mishneh on the Rambam, and by the Raavad in his Hasagos</strong> (both cited by the Shakh ס״ק ה) — the כחל is part of the count because it is permitted <em>by itself</em>. And the Shakh writes that this reason too accords with what the poskim wrote, and that it all comes to the same place.</li>
 </ul>
 </div>
 
+<blockquote class="comment-source">«&nbsp;<span class="he-q">שהכחל מן המנין מפני שהוא מותר בפני עצמו</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ׳ ס״ק ה)</span></blockquote>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">ונראה שגם זה הוא מכוון למ״ש הפוסקים והכל הולך למקום אחד</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ׳ ס״ק ה)</span></blockquote>
+
 <!-- ============================================================= -->
-<h2 class="section-title">6. חתיכה נעשית נבילה בכחל — מחלוקת הרמב״ם והרשב״א</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">6. חתיכה נעשית נבילה in the כחל — the machlokes of the Rambam and the Rashba</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ Detailed explanation (Level 1)</a>
 
-<p style="margin: 15px 0; font-style: italic; direction: rtl; text-align: right;">זוהי המחלוקת הלמדנית המרכזית של הסימן, ונפתח בלשון הט״ז מן הקורפוס.</p>
+<p style="margin: 15px 0; font-style: italic;">This is the central lamdanic machlokes of the siman, and we open it with the text of the Taz.</p>
 
-<h3 class="he-h3">לשון הט״ז (ס״ק ד)
-  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 העתק</button>
+<h3>The text of the Taz (ס״ק ד)
+  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-5">
-<strong>הט״ז</strong> (ס״ק ד) על "<span class="he-q">ומשערין בו בס' כבראשונה</span>": "<span class="he-q">משמע אפילו אם נפל תחילה בפחות מס' הוי כבתחילה לצרף גם הכחל... וכן כתב בספר בדק הבית להרא״ה. והי״א של רמ״א, שהוא הרשב״א, סבירא ליה דכל שנפלה בפחות מס' נעשה גם ההיתר חתיכת נבילה, דהא עשאוהו רבנן כבשר בחלב, ובשר בחלב לדברי הכל נעשה נבילה — על כן צריך אחר כך ס' נגד הכחל, והכחל אינו מצטרף</span>".
+<strong>הט״ז</strong> (ס״ק ד) על "<span class="he-q">ומשערין בו בס' כבראשונה</span>": "<span class="he-q">משמע אפי' אם נפל תחילה בפחות מס' הוי כבתחילה לצרף גם הכחל&nbsp;…&nbsp;וכ״כ בס' בדק הבית להרא״ה&nbsp;…&nbsp;והי״א של רמ״א שהוא הרשב״א ס״ל דכל שנפלה בפחות מס' נעשה גם ההיתר חתיכת נבילה דהא עשאוהו רבנן כבשר בחלב ובשר בחלב לדברי הכל נעשה נבילה ע״כ צריך אח״כ ס' נגד הכחל והכחל אינו מצטרף</span>".
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה המדויקת :</strong> כשנפל הכחל לקדרה שאין בה ס' (פחות מששים) ונאסר —
+<div class="translation"><strong>Translation.</strong> The Taz (ס״ק ד), on the words "and one measures it in sixty as at first": this implies that even if it first fell into less than sixty, it is as at the beginning — one joins the כחל as well; so wrote the Bedek HaBayis of the Ra'ah. Whereas the Rama's "there are those who say", which is the Rashba, holds that once it fell into less than sixty, the permitted part itself becomes a piece of neveila, since the Sages made it like meat-and-milk, and meat-and-milk, by all opinions, becomes neveila; one therefore needs sixty afterwards against the כחל, and the כחל does not join in.</div>
+
+<blockquote class="comment-source">«&nbsp;<span class="he-q">משמע אפי' אם נפל תחילה בפחות מס' הוי כבתחילה לצרף גם הכחל</span>&nbsp;» <span class="src-ref">(ט״ז יו״ד צ׳ ס״ק ד)</span></blockquote>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">וכ״כ בס' בדק הבית להרא״ה דכל הנאסר מאותו כחל הוי דינא הכי שהוא מצטרף אח״כ לס' שלא יהא סופו חמור מתחילתו</span>&nbsp;» <span class="src-ref">(ט״ז יו״ד צ׳ ס״ק ד)</span></blockquote>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">והי״א של רמ״א שהוא הרשב״א ס״ל דכל שנפלה בפחות מס' נעשה גם ההיתר חתיכת נבילה דהא עשאוהו רבנן כבשר בחלב ובשר בחלב לדברי הכל נעשה נבילה ע״כ צריך אח״כ ס' נגד הכחל והכחל אינו מצטרף</span>&nbsp;» <span class="src-ref">(ט״ז יו״ד צ׳ ס״ק ד)</span></blockquote>
+
+<div class="hakira-box">
+<strong>The chakira, precisely.</strong> When the כחל fell into a pot that does not hold sixty and thereby became forbidden —
 <ul class="stylish">
-<li>(א) האם הוא עדיין "<strong>בשר היתר</strong>" שרק החלב שבו אסור, ולכן אם יפול לקדרה שנייה — <strong>מצטרף</strong> לס' (דעת הרמב״ם / הרא״ה / הב״י) ?</li>
-<li>(ב) או שמא, כיון ש"<span class="he-q">עשאוהו רבנן כבשר בחלב</span>", חלה עליו <strong>"חתיכה נעשית נבילה"</strong>, וכל גופו נאסר — ולכן <strong>אינו מצטרף</strong> לקדרה שנייה (דעת הרשב״א, וכן פסק הרמ״א) ?</li>
+<li>(a) is it still <strong>permitted meat</strong> of which only the milk is forbidden, so that if it falls into a second pot it <strong>joins</strong> the sixty (the view of the Rambam, the Ra'ah, the Beis Yosef)?</li>
+<li>(b) or, since the Sages made it like meat-and-milk, does the rule of <strong>a piece becoming neveila</strong> apply to it, so that its whole body is forbidden — and it <strong>does not join</strong> in the second pot (the view of the Rashba, and so the Rama rules)?</li>
 </ul>
 </div>
 
-<div class="machloket-box" dir="rtl">
+<div class="machloket-box">
 <table>
-<tr><th>שיטה</th><th>נפל לפחות מס' — מצטרף בקדרה שנייה ?</th><th>מקור</th></tr>
+<tr><th>Shita</th><th>Fell into less than sixty — does it join in the second pot?</th><th>Source</th></tr>
 <tr>
-  <td><strong>הרמב״ם, הרא״ה (בדק הבית), הב״י</strong></td>
-  <td><strong>מצטרף</strong> — "שלא יהא סופו חמור מתחילתו"; אין חנ״נ בבשר בחלב דרבנן</td>
-  <td>ט״ז ס״ק ד; ב״י</td>
+  <td><strong>Rambam, Ra'ah (Bedek HaBayis), Beis Yosef</strong></td>
+  <td><strong>It joins</strong> — "so that its end should not be more stringent than its beginning"; there is no חנ״נ in rabbinic meat-and-milk</td>
+  <td>Taz ס״ק ד; Beis Yosef</td>
 </tr>
 <tr>
-  <td><strong>הרשב״א, הרמ״א (וכן עיקר)</strong></td>
-  <td><strong>אינו מצטרף</strong> — נעשה חתיכת נבילה, "דבשר בחלב לדברי הכל נעשה נבילה"</td>
-  <td>הגה ס״א; ט״ז ס״ק ד; תה״א</td>
+  <td><strong>Rashba, Rama ("and this is the main view")</strong></td>
+  <td><strong>It does not join</strong> — it became a piece of neveila, since meat-and-milk, by all opinions, becomes neveila</td>
+  <td>Gloss to seif א'; Taz ס״ק ד; Toras HaBayis HaArokh</td>
 </tr>
 </table>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה גדולה (ט״ז ס״ק ד) :</strong> "<span class="he-q">ומעכשיו נולד לנו מחלוקת חדשה בין רמב״ם לרשב״א, מה שלא הוזכר בפוסקים — דהיינו, להרמב״ם לא אמרינן אפילו בבשר בחלב שהוא מדרבנן 'חתיכה עצמה נעשית נבילה'... ולפי מה שפסק רמ״א כאן כרשב״א, נמצא לדידן... אמרינן בכל האיסורין נעשה נבילה אפילו באיסור דרבנן</span>". כלומר, הכרעת הרמ״א בכחל היא תקדים לכל דיני חתיכה נעשית נבילה באיסורי דרבנן (ועיין סי' צ״ב). <em>למעשה — שאל את רבך.</em>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">שלא יהא סופו חמור מתחילתו</span>&nbsp;» <span class="src-ref">(ט״ז יו״ד צ׳ ס״ק ד)</span></blockquote>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">וכן עיקר</span>&nbsp;» <span class="src-ref">(רמ״א יו״ד צ׳:א)</span></blockquote>
+
+<div class="pilpul-box">
+The Taz himself limits the reach of the divergence with an observation worth holding on to for section 8: the Ran's reasoning, he says, speaks only of the case where the כחל fell into sixty — for then the כחל is forbidden only because of appearances, and it does not forbid the second pot more than the first.
 </div>
 
-<!-- ============================================================= -->
-<h2 class="section-title">7. פלוגתת המחבר, מהרש״ל והב״ח — בישול עם בשר בדיעבד</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">מדנתן הר״ן טעם כיון שאין אסור הכחל רק משום מראית עין ע״כ אינו אוסר בשנייה יותר מבראשונה</span>&nbsp;» <span class="src-ref">(ט״ז יו״ד צ׳ ס״ק ד)</span></blockquote>
 
-<h3 class="he-h3">לשון הרמ״א (סעיף ב')
-  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 העתק</button>
+<div class="nafka-mina-box">
+<strong>A great nafka mina (Taz ס״ק ד).</strong> The Taz writes that a new machlokes is born here between the Rambam and the Rashba, one the poskim had not mentioned: for the Rambam, we do not say "the piece itself becomes neveila" even in rabbinic meat-and-milk; and since the Rama ruled here like the Rashba, it turns out that for us we say, in all prohibitions, that the piece becomes neveila even for a rabbinic prohibition — and he refers to siman צ״ב, seif ד'. The Rama's decision on the כחל thus serves as a precedent for the whole field of חתיכה נעשית נבילה in rabbinic prohibitions. <em>In practice — ask your Rav.</em>
+</div>
+
+<blockquote class="comment-source">«&nbsp;<span class="he-q">ומעכשיו נולד לנו מחלוקת חדשה בין רמב״ם לרשב״א מה שלא הוזכר בפוסקים דהיינו להרמב״ם לא אמרינן אפי' בבשר בחלב שהוא מדרבנן חתיכה עצמה נעשה נבילה</span>&nbsp;» <span class="src-ref">(ט״ז יו״ד צ׳ ס״ק ד)</span></blockquote>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">ולפי מה שפסק רמ״א כאן כרשב״א נמצא לדידן דלא קי״ל כרבינו אפרים אמרינן בכל האיסורין נעשה נבילה אפי' באיסור דרבנן</span>&nbsp;» <span class="src-ref">(ט״ז יו״ד צ׳ ס״ק ד)</span></blockquote>
+
+<!-- ============================================================= -->
+<h2 class="section-title">7. The dispute of the Mechaber, the Maharshal and the Bach — cooked with meat, בדיעבד</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ Detailed explanation (Level 1)</a>
+
+<h3>The text of the Rama (seif ב')
+  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-6">
 <strong>הגה (הרמ״א)</strong>: "<span class="he-q">ואם עבר ובשלו — אם קרעו שתי וערב וטחו בכותל, יש להתיר בדיעבד... במקום הפסד מרובה, אבל בלאו הכי אין להתיר</span>" (סה״ת, מרדכי, הגה״מ, הטור).
 </div>
 
-<h3 class="he-h3">לשון הש״ך (ס״ק ח)
-  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 העתק</button>
+<div class="translation"><strong>Translation.</strong> Gloss of the Rama: and if he transgressed and cooked it — if he had cut it crosswise and pressed it against the wall, there is room to permit בדיעבד, in a case of substantial loss; but without that, there is no room to permit (Sefer HaTeruma, Mordechai, Hagahos Maimoniyos, the Tur).</div>
+
+<blockquote class="comment-source">«&nbsp;<span class="he-q">ואם עבר ובשלו אם קרעו שתי וערב וטחו בכותל יש להתיר בדיעבד</span>&nbsp;…&nbsp;<span class="he-q">במקום הפסד מרובה אבל בלאו הכי אין להתיר</span>&nbsp;» <span class="src-ref">(רמ״א יו״ד צ׳:ב)</span></blockquote>
+
+<h3>The text of the Shakh (ס״ק ח)
+  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-7">
-<strong>הש״ך</strong> (ס״ק ח): "<span class="he-q">יש להתיר בדיעבד במקום הפסד מרובה — אפילו עם בשר, כן מוכח להדיא בת״ח שם ד״ג... ודעת מהרש״ל באו״ש... להתיר בדיעבד עם בשר על ידי קריעה שתי וערב וטיחה בכותל אפילו בלא הפסד מרובה. והב״ח פסק... דהכל אסור אף בדיעבד אפילו קרעו שתי וערב וטחו בכותל, ודלא כהגהת ש״ע דמיקל בזה במקום הפסד מרובה</span>".
+<strong>הש״ך</strong> (ס״ק ח): "<span class="he-q">יש להתיר בדיעבד במקום הפסד מרובה&nbsp;…&nbsp;אפילו עם בשר כן מוכח להדיא בת״ח שם ד״ג&nbsp;…&nbsp;ודעת מהרש״ל באו״ש ובספרו פ' כ״ה סי' מ״ז להתיר בדיעבד עם בשר ע״י קריעה שתי וערב וטיחה בכותל אפי' בלא הפסד מרוב&nbsp;…&nbsp;והב״ח פסק&nbsp;…&nbsp;הכל אסור אף בדיעבד אפי' קרעו שתי וערב וטחו בכותל ודלא כהגהת ש״ע דמיקל בזה במקום הפסד מרובה</span>".
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שלוש שיטות מן הקורפוס :</strong>
+<div class="translation"><strong>Translation.</strong> The Shakh (ס״ק ח): "there is room to permit בדיעבד in a case of substantial loss" — even with meat, as is clearly proven from the Toras Chatas; but by itself it is permitted through crosswise cutting and pressing against the wall, even without substantial loss. And the view of the Maharshal, in his Issur veHetter and in his work (Yam shel Shlomo, chapter כ״ה, siman מ״ז), is to permit בדיעבד with meat, through crosswise cutting and pressing against the wall, even without substantial loss. And the Bach ruled that if it was cooked with other meat and there is no sixty against it, everything is forbidden even בדיעבד, even if he cut it crosswise and pressed it against the wall — and not like the gloss of the Shulchan Arukh which is lenient here in a case of substantial loss.</div>
+
+<blockquote class="comment-source">«&nbsp;<span class="he-q">אפילו עם בשר כן מוכח להדיא בת״ח שם ד״ג</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ׳ ס״ק ח)</span></blockquote>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">אבל לבדה מותר ע״י קריעת שתי וערב וטיחה בכותל אפילו בלא הפסד מרובה</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ׳ ס״ק ח)</span></blockquote>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">ודעת מהרש״ל באו״ש ובספרו פ' כ״ה סי' מ״ז להתיר בדיעבד עם בשר ע״י קריעה שתי וערב וטיחה בכותל אפי' בלא הפסד מרוב</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ׳ ס״ק ח)</span></blockquote>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">ואם בשלו עם שאר בשר ואין ס' כנגדו הכל אסור אף בדיעבד אפי' קרעו שתי וערב וטחו בכותל ודלא כהגהת ש״ע דמיקל בזה במקום הפסד מרובה</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ׳ ס״ק ח)</span></blockquote>
+
+<div class="pilpul-box">
+<strong>Three shitos.</strong>
 <ul class="stylish">
-<li><strong>המהרש״ל</strong> (ים של שלמה פכ״ה סי' מ״ז) — מיקל ביותר: בדיעבד עם בשר אחר קריעה וטיחה, <em>אפילו בלא הפסד מרובה</em>.</li>
-<li><strong>הרמ״א / המחבר</strong> — דרך אמצע: בדיעבד עם בשר רק <strong>במקום הפסד מרובה</strong>.</li>
-<li><strong>הב״ח</strong> — מחמיר: עם בשר בלא ס' — <strong>הכל אסור אף בדיעבד</strong>, ואף לאחר קריעה וטיחה.</li>
+<li><strong>The Maharshal</strong> (Yam shel Shlomo, ch. כ״ה siman מ״ז) — the most lenient: בדיעבד with meat after cutting and pressing, <em>even without substantial loss</em>.</li>
+<li><strong>The Rama</strong> — the middle path: בדיעבד with meat, but <strong>only in a case of substantial loss</strong>.</li>
+<li><strong>The Bach</strong> — stringent: with meat and without sixty, <strong>everything is forbidden even בדיעבד</strong>, and even after cutting and pressing.</li>
 </ul>
 </div>
 
-<div class="teruts-box" dir="rtl">
-<strong>הכרעת הש״ך נגד הב״ח :</strong> "<span class="he-q">ולא ירדתי לסוף דעתו, שהרי כל הפוסקים — הרי״ף והרמב״ם ור״ת והתוספות והרא״ש והרשב״א והר״ן וסמ״ג וסמ״ק ומרדכי וש״ד ושאר פוסקים, והמחבר מכללם — מתירין בדיעבד, והרבה מהם מתירין אפילו לכתחלה... אם כן ודאי דעל כל פנים יש לסמוך אכל הנך רבוותא בדיעבד במקום הפסד מרובה, בפרט באיסור דרבנן, ובשגם שפשטא דסוגיא משמע כוותייהו</span>". הרי שהש״ך תומך ברמ״א ודוחה את הב״ח.
+<div class="teruts-box">
+<strong>The Shakh's decision against the Bach.</strong> The Shakh writes that he has not fathomed the Bach's reasoning: all the poskim — the Rif, the Rambam, Rabbenu Tam, the Tosafos, the Rosh, the Rashba, the Ran, the Semag, the Semak, the Mordechai, the Sha'arei Dura and the rest, the Mechaber among them — permit בדיעבד, and many of them permit even לכתחלה; only the Ravyah and the Or Zarua are stringent even בדיעבד. There is therefore certainly ground to rely, at the very least בדיעבד in a case of substantial loss, all the more so since this is a rabbinic prohibition and the plain sense of the sugya runs their way.
 </div>
 
-<!-- ============================================================= -->
-<h2 class="section-title">8. סוגיית "וי״א" של הרמ״א — אם נאסר הכחל אינו מצטרף</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-rama">↩ הסבר מפורט (רמה 1)</a>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">ולא ירדתי לסוף דעתו שהרי כל הפוסקים הרי״ף והרמב״ם ור״ת והתוספות והרא״ש והרשב״א והר״ן וסמ״ג וסמ״ק ומרדכי וש״ד ושאר פוסקים והמחבר מכללם מתירין בדיעבד והרבה מהם מתירין אפילו לכתחלה</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ׳ ס״ק ח)</span></blockquote>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">אלא שראבי״ה וא״ז מחמירין אפי' דיעבד</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ׳ ס״ק ח)</span></blockquote>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">א״כ ודאי דעכ״פ יש לסמוך אכל הנך רבוותא בדיעבד במקום הפסד מרובה בפרט באיסור דרבנן ובשגם שפשטא דסוגיא משמע כוותייהו</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ׳ ס״ק ח)</span></blockquote>
 
-<h3 class="he-h3">לשון הש״ך (ס״ק ה)
-  <button class="daat-copy" type="button" data-copy-target="#cp-8">📋 העתק</button>
+<!-- ============================================================= -->
+<h2 class="section-title">8. The sugya of the Rama's « וי״א » — once the כחל has been forbidden it no longer joins in</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-rama">↩ Detailed explanation (Level 1)</a>
+
+<h3>The text of the Shakh (ס״ק ה)
+  <button class="daat-copy" type="button" data-copy-target="#cp-8">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-8">
-<strong>הש״ך</strong> (ס״ק ה) על "<span class="he-q">וי״א דאם נפל תחילה לקדירה כו'</span>": "<span class="he-q">כלומר, לקדרה של בשר שאין בה ס' אפילו עם הכחל, דהיינו שנפל לפחות מחמשים ותשעה, שאז החלב היוצא ממנה לא נתבטל — אם כן נאסר הכחל מדינא. אבל כשנפל בס', שאז החלב היוצא ממנה נתבטל ולא נאסר הכחל אלא מפני מראית העין — אף בקדרה שנית מצטרף הכחל לס', דלא גרע מפני שנאסר, דהא בקדירה הראשונה מצטרף הכחל לס' אף על פי שהוא עצמו אסור</span>".
+<strong>הש״ך</strong> (ס״ק ה) על "<span class="he-q">וי״א דאם נפל תחלה לקדירה</span>": "<span class="he-q">כלומר לקדרה של בשר שאין בה ס' אפילו עם הכחל דהיינו שנפל לפחות מחמשים ותשעה שאז החלב היוצא ממנה לא נתבטל א״כ נאסר הכחל מדינא אבל כשנפל בס' שאז החלב היוצא ממנה נתבטל ולא נאסר הכחל אלא מפני מראית העין אף בקדרה שנית מצטרף הכחל לס' דלא גרע מפני שנאסר דהא בקדירה הראשונה מצטרף הכחל לס' אע״פ שהוא עצמו אסור</span>".
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>דיוק הש״ך :</strong> ה"וי״א" של הרמ״א מדבר <em>דווקא</em> בנפל <strong>בפחות מס'</strong> (פחות מנ״ט) — שאז נאסר הכחל <strong>מדינא</strong> (חתיכה נעשית נבילה), ולכן אינו מצטרף שוב. אבל בנפל <strong>בס'</strong> — לא נאסר הכחל אלא משום מראית עין, ולכן <strong>כן מצטרף</strong> אף בקדרה שנייה. וזה מתאים לדברי הט״ז (לעיל סעיף 6).
+<div class="translation"><strong>Translation.</strong> The Shakh (ס״ק ה), on the words "and there are those who say that if it first fell into a pot, etc.": that is, into a pot of meat that does not hold sixty even counting the כחל — that is, that it fell into less than fifty-nine, so that the milk coming out of it was not nullified; the כחל therefore became forbidden by the letter of the din. But when it fell into sixty, so that the milk coming out of it was nullified and the כחל was forbidden only because of appearances — even in a second pot the כחל joins the sixty, since it is not diminished by having been forbidden: in the first pot too the כחל joined the sixty although it was itself forbidden.</div>
+
+<blockquote class="comment-source">«&nbsp;<span class="he-q">וי״א דאם נפל תחלה לקדירה</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ׳ ס״ק ה)</span></blockquote>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">כלומר לקדרה של בשר שאין בה ס' אפילו עם הכחל דהיינו שנפל לפחות מחמשים ותשעה שאז החלב היוצא ממנה לא נתבטל א״כ נאסר הכחל מדינא</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ׳ ס״ק ה)</span></blockquote>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">אבל כשנפל בס' שאז החלב היוצא ממנה נתבטל ולא נאסר הכחל אלא מפני מראית העין אף בקדרה שנית מצטרף הכחל לס' דלא גרע מפני שנאסר דהא בקדירה הראשונה מצטרף הכחל לס' אע״פ שהוא עצמו אסור</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ׳ ס״ק ה)</span></blockquote>
+
+<div class="hakira-box">
+<strong>The Shakh's precision.</strong> The Rama's "וי״א" speaks <em>exclusively</em> of the case where the כחל fell into <strong>less than sixty</strong> (less than fifty-nine) — for then it was forbidden <strong>by the letter of the din</strong> (the piece becomes neveila), and so it no longer joins in a second time. But if it fell into sixty, the כחל was forbidden only because of appearances, and it <strong>does indeed join</strong>, even in a second pot. And this accords with the words of the Taz cited above (section 6).
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>בריה — דחיית הב״ח :</strong> הש״ך (סוף ס״ק ה) דוחה את הב״ח שכתב ש"<span class="he-q">כחל הוי בריה כמו גיד הנשה</span>": "<span class="he-q">והוא תמוה, כדאיתא בש״ס ופוסקים לקמן סימן ק' דלא הוי בריה אלא מה שנאסר מתחלת ברייתו... דגיד הנשה הוי בריה וכחל לא הוי בריה</span>". נפקא מינה: בריה אינה בטלה אפילו באלף; אך כחל אינו בריה, ובטל בששים.
+<div class="pilpul-box">
+<strong>בריה — the rejection of the Bach.</strong> The Shakh, at the end of his ס״ק ה, rejects the Bach who had written that the כחל would be a בריה like the sciatic nerve. That, says the Shakh, is astonishing: it is established in Shas and among the poskim, at siman ק', that only what was forbidden from the very beginning of its formation is a בריה; and it is explained in the Rambam that the sciatic nerve is a בריה, whereas the כחל is not. Nafka mina: a בריה is not nullified even in a thousand, whereas the כחל, not being a בריה, is nullified in sixty.
 </div>
+
+<blockquote class="comment-source">«&nbsp;<span class="he-q">ועמ״ש הב״ח דכחל הוי בריה כמו גיד הנשה</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ׳ ס״ק ה)</span></blockquote>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">והוא תמוה כדאיתא בש״ס ופוסקים לקמן סימן ק' דלא הוי בריה אלא מה שנאסר מתחלת ברייתו</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ׳ ס״ק ה)</span></blockquote>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">דגיד הנשה הוי בריה וכחל לא הוי בריה</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ׳ ס״ק ה)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">9. דין הסכין, השפוד והכבישה — סעיף ג'—ד'</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">9. The knife, the spit and soaking — seifim ג'—ד'</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ Detailed explanation (Level 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיף ג')
-  <button class="daat-copy" type="button" data-copy-target="#cp-9">📋 העתק</button>
+<h3>The text of the Mechaber (seif ג')
+  <button class="daat-copy" type="button" data-copy-target="#cp-9">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-9">
-"<strong>מותר לחתוך כחל רותח בסכין שחתכו בו בשר</strong> (וכל שכן כחל חי אף על פי שהיא מלאה חלב), וכן מותר לחתוך בשר בסכין שחתכו בו כחל... <span class="source-ref">[הגה: והוא הדין לצלות זה בשפוד שצלו בו זה... דלאחר צליית הכחל דינו כשאר בשר לכל דבר — ודוקא שנצלה כדינו]</span>".
+"<strong>מותר לחתוך כחל רותח בסכין שחתכו בו בשר</strong> (וכל שכן כחל חי אע״פ שהיא מלאה חלב), וכן מותר לחתוך בשר בסכין שחתכו בו כחל... <span class="source-ref">[הגה: והוא הדין לצלות זה בשפוד שצלו בו זה... דלאחר צליית הכחל דינו כשאר בשר לכל דבר — ודוקא שנצלה כדינו]</span>".
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הש״ך (ס״ק כא)</strong> מנמק מדוע הסכין קל מן הקדרה: "<span class="he-q">דין זה אפילו לדידן, אם קרעו שתי וערב וטחו בכותל... ולא דמי לקדירה שנהגו שלא לבשלה לבדה... דמה שהחמירו בקדרה אינו אלא משום גזירה שמא יבואו לבשל עם בשר יחד, וזה לא שייך גבי סכין</span>" (סמ״ק והגה״מ).
+<div class="translation"><strong>Translation.</strong> It is permitted to cut a hot כחל with a knife that has cut meat (and all the more so a raw כחל, even though it is full of milk), and likewise it is permitted to cut meat with a knife that has cut a כחל. <em>Gloss:</em> and the same applies to roasting one on a spit on which the other was roasted, for once the כחל has been roasted its status is that of any other meat in every respect — and this on condition that it was roasted according to its rule.</div>
+
+<div class="rishon-card">
+<strong>The Shakh (ס״ק כ״א)</strong> explains why the knife is lighter than the pot: this rule applies even for us, provided it was cut crosswise and pressed against the wall, as the Rama wrote in his gloss; and one does not compare this to the pot, where the practice is not to cook it alone even after cutting and pressing — for the stringency of the pot is only a decree lest one come to cook it together with meat, which does not apply to a knife (Semak siman רי״ג, Hagahos Maimoniyos).
 </div>
 
-<h3 class="he-h3">סוגיית כבוש כמבושל בחלב שחוטה (סעיף ג' / ט״ז ס״ק יב)
-  <button class="daat-copy" type="button" data-copy-target="#cp-10">📋 העתק</button>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">דין זה אפילו לדידן אם קרעו שתי וערב וטחו בכותל וכמו שכתב הרב בהג״ה ול״ד לקדירה שנהגו שלא לבשלה לבדה אפילו ע״י קריעה שתי וערב וטיחה בכותל</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ׳ ס״ק כ״א)</span></blockquote>
+
+<h3>The sugya of כבוש כמבושל in the milk of a slaughtered animal (seif ג' / Taz ס״ק י״ב)
+  <button class="daat-copy" type="button" data-copy-target="#cp-10">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-10">
-לשון המחבר (בהגה ס״ג): "<span class="he-q">וכן אם הניחו כך שלם קודם צלייתו עם חלבו יום שלם — מותר, ולא אמרינן כבוש כמבושל בכי האי גוונא</span>" (או״ה). והט״ז (ס״ק יב) הביא טעם או״ה: "<span class="he-q">לפי שחלב שחוטה מדרבנן, לא גזרו ביה רבנן בצונן לומר כבוש כמבושל, אף על פי שהחלב הוא צלול בעין</span>".
+לשון המחבר (בהגה ס״ג): "<span class="he-q">וכן אם הניחו כך שלם קודם צלייתו עם חלבו יום שלם — מותר, ולא אמרינן כבוש כמבושל בכי האי גוונא</span>" <span class="src-ref">(או״ה; רמ״א יו״ד צ׳:ג)</span>
+ והט״ז (ס״ק י״ב) הביא טעם או״ה: "<span class="he-q">לפי שחלב שחוטה מדרבנן לא גזרו ביה רבנן בצונן לומר כבוש כמבושל אע״פ שהחלב הוא צלול בעין</span>".
 </div>
 
-<div class="kashya-box" dir="rtl">
-<strong>קושיית הט״ז (ס״ק יב) :</strong> או״ה עצמו כתב שאם <strong>בשר אחר</strong> שרוי בצונן בחלב שחוטה — אסור משום כבוש. ותמה הט״ז: "<span class="he-q">תמהתי על פה קדוש יאמר כן לאסור בזה... דהא עיקר האיסור משום גזירה דבשר בחלב בעלמא, והא בכבוש כמבושל אפילו בשאר בשר בחלב מן התורה שרי... אם כן הוה ליה גזירה לגזירה, ומנלן למיגזר ביה גזירה לגזירה</span>".
+<div class="translation"><strong>Translation.</strong> Text of the Mechaber (in the gloss to seif ג'): and likewise, if he left it whole before roasting it, with its milk, for a whole day — it is permitted, and we do not say "soaked is like cooked" in such a case (Issur veHetter). And the Taz (ס״ק י״ב) brings the reason in the name of the Issur veHetter: since the milk of a slaughtered animal is rabbinic, the Sages did not decree about it in cold conditions to say "soaked is like cooked", even though the milk is there, liquid and visible.</div>
+
+<blockquote class="comment-source">«&nbsp;<span class="he-q">הטעם שם באו״ה לפי שחלב שחוטה מדרבנן לא גזרו ביה רבנן בצונן לומר כבוש כמבושל אע״פ שהחלב הוא צלול בעין</span>&nbsp;» <span class="src-ref">(ט״ז יו״ד צ׳ ס״ק י״ב)</span></blockquote>
+
+<div class="kashya-box">
+<strong>The Taz's kashya (ס״ק י״ב).</strong> The Issur veHetter himself wrote that if <strong>other meat</strong> soaks cold in the milk of a slaughtered animal, it is forbidden on account of soaking. And the Taz is astonished: the underlying prohibition is only a decree on account of meat-and-milk in general; yet regarding soaking, even in Torah-level meat-and-milk it is permitted — this would therefore be a decree upon a decree, and whence would we derive to decree here a decree upon a decree?
 </div>
 
-<div class="teruts-box" dir="rtl">
-<strong>הכרעת הט״ז ודעת הרמ״א :</strong> הט״ז מסיק שאין לאסור כבוש בחלב שחוטה (גזירה לגזירה), "<span class="he-q">וכן נראה דעת רמ״א כאן, שלא העתיק לאיסור בשאר בשר בכבוש בחלב שחוטה</span>". ואילו <strong>הפתחי תשובה (ס״ק ה)</strong> מביא בשם הפרי מגדים צד להחמיר: "<span class="he-q">אם שהה הכחל עם בשר בכלי שאינו מנוקב כשיעור על האש ויש ציר — אפשר דאסור לדידן, דאמרינן כבוש בחלב שחוטה, דלא כט״ז</span>". <em>למעשה — שאל את רבך.</em>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">אמנם תמהתי על פה קדוש יאמר כן לאסור בזה בשאר בשר בכבוש בחלב שחוטה דהא עיקר האיסור משום גזירה דבשר בחלב בעלמא והא בכבוש כמבושל אפילו בשאר בשר בחלב מן התורה שרי</span>&nbsp;» <span class="src-ref">(ט״ז יו״ד צ׳ ס״ק י״ב)</span></blockquote>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">א״כ ה״ל גזירה לגזירה בחלב שחוטה ומנלן למיגזר ביה גזירה לגזירה</span>&nbsp;» <span class="src-ref">(ט״ז יו״ד צ׳ ס״ק י״ב)</span></blockquote>
+
+<div class="teruts-box">
+<strong>The Taz's conclusion and the Rama's view.</strong> The Taz concludes that there is no ground to forbid soaking in the milk of a slaughtered animal (it would be a decree upon a decree), and he adds that this appears to be the Rama's view here too, since he did not copy the prohibition concerning other meat soaked in the milk of a slaughtered animal. By contrast, <strong>the Pischei Teshuva (ס״ק ה)</strong> brings in the name of the Pri Megadim a stringent side: if the כחל remained with meat, over the fire, in an unperforated vessel, for the required time, and there is brine, it may be forbidden for us, since we would say "soaked" in the milk of a slaughtered animal — and not like the Taz. <em>In practice — ask your Rav.</em>
 </div>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ד')
-  <button class="daat-copy" type="button" data-copy-target="#cp-11">📋 העתק</button>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">וכ״נ דעת רמ״א כאן שלא העתיק לאיסור בשאר בשר בכבוש בחלב שחוטה</span>&nbsp;» <span class="src-ref">(ט״ז יו״ד צ׳ ס״ק י״ב)</span></blockquote>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">דאם שהה הכחל עם בשר בבלי שאינו מנוקב כשיעור על האש ויש ציר אפשר דאסור לדידן דאמרינן כבוש בחלב שחוטה דלא כט״ז</span>&nbsp;» <span class="src-ref">(פתחי תשובה יו״ד צ׳ ס״ק ה)</span></blockquote>
+
+<h3>The text of the Mechaber and the Rama (seif ד')
+  <button class="daat-copy" type="button" data-copy-target="#cp-11">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-11">
-"<strong>לצלות כחל או למלחו עם הבשר — דינו כדין צליית או מליחת כבד עם בשר. ויש מי שמתיר למלוח כחל על הבשר.</strong> <span class="source-ref">[הגה: ואין למלחו עם בשר, אבל בדיעבד בכל ענין מותר. עור הקיבה, לאחר שהוסר חלבו והודח — יש לו דין שאר בשר... ואין לו דין כחל כלל.]</span>"
+"<strong>לצלות כחל או למולחו עם הבשר — דינו כדין צליית או מליחת כבד עם בשר. ויש מי שמתיר למלוח כחל על הבשר.</strong> <span class="source-ref">[הגה: ואין למלחו עם בשר, אבל בדיעבד בכל ענין מותר. עור הקיבה, לאחר שהוסר חלבו והודח — יש לו דין שאר בשר... ואין לו דין כחל כלל.]</span>"
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הש״ך (ס״ק כו)</strong> על "<span class="he-q">ויש מי שמתיר</span>": "<span class="he-q">אפילו לכתחלה למלוח כחל על בשר, אפילו בלא קריעה כלל; ולא דמי לכבד, שאין דרך המלח להפליט אלא דם, אבל לא חלב שבו</span>" (טור בשם הרא״ש). חידוש: המלח אינו מפליט חלב כדרך שמפליט דם, ולכן קל יותר.
+<div class="translation"><strong>Translation.</strong> To roast a כחל, or to salt it with meat, has the same status as roasting or salting a liver with meat. And there is one who permits salting a כחל above the meat. <em>Gloss:</em> and one should not salt it with meat, but בדיעבד it is permitted in every case. The skin of the maw, once its fat has been removed from within it and it has been rinsed, has the status of any other meat — and has no status of a כחל at all.</div>
+
+<div class="rishon-card">
+<strong>The Shakh (ס״ק כ״ו)</strong>, on the words "and there is one who permits": even לכתחלה, to salt a כחל above meat, and even without having cut it at all; and one does not compare this to a liver, for the way of salt is to draw out only blood, and not the milk within it (the Tur in the name of the Rosh). The chidush: salt does not draw out milk the way it draws out blood, hence the greater leniency.
 </div>
+
+<blockquote class="comment-source">«&nbsp;<span class="he-q">ויש מי שמתיר</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ׳ ס״ק כ״ו)</span></blockquote>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">אפילו לכתחלה למלוח כחל על בשר אפילו בלא קריעה כלל ול״ד לכבד שאין דרך המלח להפליט אלא דם אבל לא חלב שבו</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ׳ ס״ק כ״ו)</span></blockquote>
+
+<div class="pilpul-box">
+The Pischei Teshuva (ס״ק ה) limits this chidush in the name of the Pri Megadim: it is only regarding the milk <em>of the כחל</em> that the nature of salt is not to draw out milk; but if milk was absorbed into a piece of meat, that piece itself becomes forbidden and then forbids through salting.
+</div>
+
+<blockquote class="comment-source">«&nbsp;<span class="he-q">דאין טבע המלח להפליט חלב ונראה דוקא חלב של כחל אבל אם נבלע חלב בחתיכה נ״נ ואוסר אח״כ ע״י מליחה</span>&nbsp;» <span class="src-ref">(פתחי תשובה יו״ד צ׳ ס״ק ה)</span></blockquote>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">10. חקירה ונפקא מינה למעשה</h2>
+<h2 class="section-title">10. Chakira and nafka mina in practice</h2>
 
-<div class="hakira-box" dir="rtl">
-<strong>חקירת היסוד הכוללת :</strong> איסור הכחל — האם הוא <strong>איסור חפצא</strong> (החלב הבלוע בגומות הוא איסור) או <strong>גזירה בעלמא</strong> (שמא יבוא לבשל בשר בחלב גמור) ?
+<div class="hakira-box">
+<strong>The overall chakira.</strong> The prohibition of the כחל — is it a <strong>prohibition of the object</strong> (the milk absorbed in the cavities is itself the prohibition), or a <strong>mere decree</strong> (lest one come to cook meat in genuine milk)?
 <ul class="stylish">
-<li>אם <strong>איסור חפצא</strong> — מובן מדוע נעשה "חתיכה נעשית נבילה" (כדעת הרשב״א והרמ״א).</li>
-<li>אם <strong>גזירה / מראית עין</strong> — מובן מדוע בנפל לס' "<span class="he-q">לא נאסר אלא מפני מראית העין</span>" ומצטרף שוב (ש״ך ס״ק ה).</li>
+<li>If it is a <strong>prohibition of the object</strong> — one understands why it becomes "a piece that turns into neveila" (the view of the Rashba and the Rama).</li>
+<li>If it is a <strong>decree / appearances</strong> — one understands why, having fallen into sixty, it was forbidden only because of appearances and joins in again (Shakh ס״ק ה).</li>
 </ul>
-ושני הצדדים אמת — כשנפל לפחות מס', יש ממשות חלב (חפצא); וכשנפל לס', נשאר רק מראית עין.
+And both sides are true: having fallen into less than sixty, there is substance of milk; having fallen into sixty, only appearances remain.
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינות למעשה :</strong>
+<div class="nafka-mina-box">
+<strong>Nafka minos in practice.</strong>
 <ol class="stylish">
-<li><strong>כחל יבש</strong> (לאחר ל' יום, או יבש ממש) — מותר בדיעבד אף עם בשר (רמ״א ס״ב; ש״ך ס״ק יז).</li>
-<li><strong>פשטיד״א של כחל</strong> — מותר שלא במחבת; במחבת — כבישול (רמ״א; ש״ך ס״ק יט).</li>
-<li><strong>הפסד מרובה</strong> — מתירין בדיעבד עם בשר לאחר קריעה וטיחה (ש״ך ס״ק ח, נגד הב״ח).</li>
-<li><strong>כבוש בחלב שחוטה</strong> — להלכה אין אומרים כבוש כמבושל (ט״ז), ולפרי מגדים יש לחוש (פת״ש ס״ק ה).</li>
+<li><strong>A dried-out כחל</strong> (after thirty days, or genuinely dry) — permitted בדיעבד even with meat (Rama seif ב'; Shakh ס״ק י״ז).</li>
+<li><strong>A כחל pie</strong> — permitted outside a pan; in a pan — like cooking (Rama; Shakh ס״ק י״ט).</li>
+<li><strong>Substantial loss</strong> — one permits בדיעבד with meat after cutting and pressing (Shakh ס״ק ח, against the Bach).</li>
+<li><strong>Soaking in the milk of a slaughtered animal</strong> — for halakha we do not say "soaked is like cooked" (Taz), and according to the Pri Megadim there is room for concern (Pischei Teshuva ס״ק ה).</li>
 </ol>
-<em>בכל אלו — ולמעשה — שאל את רבך.</em>
+<em>In all of these — and in practice — ask your Rav.</em>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">11. טבלאות סיכום מקיפות</h2>
+<h2 class="section-title">11. Summary tables</h2>
 
-<h3 class="he-h3">טבלה — דרגות ההכשר וההיתר</h3>
+<h3>Table — degrees of preparation and permission</h3>
 
 <table>
-<tr><th>מצב</th><th>הדין</th><th>מקור</th></tr>
+<tr><th>Situation</th><th>The din</th><th>Source</th></tr>
 <tr>
-  <td>קרעו ומירק החלב</td>
-  <td>מותר לצלות ולאכול</td>
-  <td>מחבר ס״א</td>
+  <td>Cut open, and the milk squeezed out</td>
+  <td>Permitted to roast it and eat it</td>
+  <td>Mechaber seif א'</td>
 </tr>
 <tr>
-  <td>קרעו שתי וערב וטחו בכותל</td>
-  <td>מותר לבשל עם בשר (מעיקר הדין)</td>
-  <td>מחבר ס״א</td>
+  <td>Cut crosswise and pressed against the wall</td>
+  <td>Permitted to cook it with meat (by the letter of the din)</td>
+  <td>Mechaber seif א'</td>
 </tr>
 <tr>
-  <td>בישלו לבדו בלא קריעה/טיחה</td>
-  <td>אסור אף בדיעבד עד שיהא ס' (כחל מן המנין)</td>
-  <td>ש״ך ס״ק טז</td>
+  <td>Cooked alone, without cutting or pressing</td>
+  <td>Forbidden even בדיעבד until there is sixty (the כחל being part of the count)</td>
+  <td>Shakh ס״ק ט״ז</td>
 </tr>
 <tr>
-  <td>בישלו לבדו אחר קריעה וטיחה</td>
-  <td>מותר בדיעבד (בלא ס')</td>
-  <td>מחבר ס״א; ש״ך ס״ק טז</td>
+  <td>Cooked alone after cutting and pressing</td>
+  <td>Permitted בדיעבד (without sixty)</td>
+  <td>Mechaber seif א'; Shakh ס״ק ט״ז</td>
 </tr>
 <tr>
-  <td>בישלו עם בשר, אין ס'</td>
-  <td>לכתחלה אסור; בדיעבד — בהפסד מרובה (רמ״א); מהרש״ל מיקל אף בלא״ה</td>
-  <td>הגה ס״ב; ש״ך ס״ק ח</td>
+  <td>Cooked with meat, no sixty</td>
+  <td>Forbidden לכתחלה; בדיעבד — in a case of substantial loss (Rama); the Maharshal is lenient even without that</td>
+  <td>Gloss to seif ב'; Shakh ס״ק ח</td>
 </tr>
 <tr>
-  <td>כחל יבש (ל' יום)</td>
-  <td>בדיעבד מותר אף עם בשר</td>
-  <td>הגה ס״ב; ש״ך ס״ק יז</td>
+  <td>Dried-out כחל (thirty days)</td>
+  <td>בדיעבד permitted even with meat</td>
+  <td>Gloss to seif ב'; Shakh ס״ק י״ז</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מחלוקות מרכזיות</h3>
+<blockquote class="comment-source">«&nbsp;<span class="he-q">בלא ששים אבל אם לא קרעו שתי וערב או לא טחו בכותל אפי' דיעבד אסור עד שיהא ס' במים נגד הכחל וכחל מן המנין</span>&nbsp;» <span class="src-ref">(ש״ך יו״ד צ׳ ס״ק ט״ז)</span></blockquote>
+
+<h3>Table — the central machlokos</h3>
 
 <table>
-<tr><th>נושא</th><th>מקל</th><th>מחמיר</th><th>הכרעה</th></tr>
+<tr><th>Subject</th><th>Lenient</th><th>Stringent</th><th>Decision</th></tr>
 <tr>
-  <td>חתיכה נעשית נבילה בכחל (פחות מס')</td>
-  <td>רמב״ם, רא״ה, ב״י — מצטרף</td>
-  <td>רשב״א — אינו מצטרף</td>
-  <td>רמ״א כרשב״א ("וכן עיקר")</td>
+  <td>The piece becomes neveila in the כחל (less than sixty)</td>
+  <td>Rambam, Ra'ah, Beis Yosef — it joins</td>
+  <td>Rashba — it does not join</td>
+  <td>The Rama like the Rashba ("and this is the main view")</td>
 </tr>
 <tr>
-  <td>בישול עם בשר בדיעבד (אין ס')</td>
-  <td>מהרש״ל — אף בלא הפסד</td>
-  <td>ב״ח — אסור לגמרי</td>
-  <td>רמ״א/ש״ך — בהפסד מרובה</td>
+  <td>Cooking with meat בדיעבד (no sixty)</td>
+  <td>Maharshal — even without loss</td>
+  <td>Bach — forbidden entirely</td>
+  <td>Rama / Shakh — in a case of substantial loss</td>
 </tr>
 <tr>
-  <td>כבוש בחלב שחוטה</td>
-  <td>ט״ז — אין כבוש כמבושל</td>
-  <td>פרי מגדים — אפשר דאסור</td>
-  <td>פת״ש מביא תרוייהו</td>
+  <td>Soaking in the milk of a slaughtered animal</td>
+  <td>Taz — no "soaked is like cooked"</td>
+  <td>Pri Megadim — it may be forbidden</td>
+  <td>The Pischei Teshuva brings both</td>
 </tr>
 <tr>
-  <td>מליחת כחל על הבשר</td>
-  <td>הרא״ש/הטור — מתיר אף לכתחלה</td>
-  <td>או״ה — אין למלוח עם בשר</td>
-  <td>רמ״א — בדיעבד בכל ענין מותר</td>
+  <td>Salting the כחל above meat</td>
+  <td>The Rosh / the Tur — permit even לכתחלה</td>
+  <td>Issur veHetter — do not salt with meat</td>
+  <td>Rama — בדיעבד it is permitted in every case</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מקורות הסוגיא</h3>
+<h3>Table — the sources of the sugya</h3>
 
-<div class="rishon-card" dir="rtl">
-<strong>גמרא :</strong> חולין ק״ט: — ק״י. (כחל וחלב שחוטה) · חולין צ״ז. (שיעור ששים) · ועיין רמב״ם פ״ט מהלכות מאכלות אסורות
+<div class="rishon-card">
+<strong>Gemara:</strong> Chullin 109b — 110a (the כחל and the milk of a slaughtered animal) · Chullin 97a (the measure of sixty) · see Rambam, Hilkhos Ma'akhalos Assuros, ch. ט'
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>ראשונים :</strong> רש״י · רמב״ם (פ״ט מהמ״א) · ראב״ד (השגות) · רשב״א (תורת הבית הארוך, משמרת הבית) · ר״ן · רא״ה (בדק הבית) · רא״ש · ר״ת · תוספות · טור · סמ״ג · סמ״ק · מרדכי · שערי דורא (ש״ד) · הגהות מיימוני · רבינו ירוחם (תא״ו)
+<div class="rishon-card">
+<strong>Rishonim:</strong> Rashi · Rambam · Raavad (Hasagos) · Rashba (Toras HaBayis HaArokh, Mishmeres HaBayis) · Ran · Ra'ah (Bedek HaBayis) · Rosh · Rabbenu Tam · Tosafos · Tur · Semag · Semak · Mordechai · Sha'arei Dura · Hagahos Maimoniyos · Rabbenu Yerucham (Toldos Adam veChava)
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>אחרונים :</strong> בית יוסף · רמ״א · ש״ך · ט״ז · ב״ח · דרישה · לבוש · מהרש״ל (ים של שלמה פכ״ה, איסור והיתר שלו) · מהרא״י (תרומת הדשן סי' קפ״ב, תורת חטאת) · איסור והיתר הארוך (כלל י״ח, ל') · פרי מגדים · פתחי תשובה · נודע ביהודה · חתם סופר · מהר״א ששון · דגול מרבבה
+<div class="rishon-card">
+<strong>Acharonim:</strong> Beis Yosef · Rama · Shakh · Taz · Bach · Maharshal (Yam shel Shlomo ch. כ״ה; his Issur veHetter) · Mahari (Terumas HaDeshen siman קפ״ב; Toras Chatas) · Issur veHetter HaArokh (kelal י״ח, ל') · Pri Megadim · Pischei Teshuva · Ravyah · Or Zarua
 </div>
 
 <hr class="ornament">
 
-  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;direction:rtl;">
-    <a href="niveau-1-base-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">→ רמה א' — יסוד</a>
-    <a href="niveau-3-synthese-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">רמה ג' — סיכום ←</a>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;">
+    <a href="niveau-1-base-en.html" style="font-family:'Georgia','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">← Level 1 — Foundation</a>
+    <a href="niveau-3-synthese-en.html" style="font-family:'Georgia','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">Level 3 — Synthesis →</a>
   </div>
 
 <div class="yh-watermark">
 ~ ~ ~ ~ ~<br>
-<strong>DAAT</strong> · <strong>הרב יוסף חיים סממה</strong><br>
-תלמיד חכם · מעביר שיעורים בהלכה ובחסידות<br>
-<em>פלפול ועיון בדיני כחל · סימן צ׳ · ⚡ רמה ב' — לַמְדָּן</em>
+<strong>DAAT</strong> · <strong>Rav Yossef Haim Samama</strong><br>
+Talmid chakham · maggid shiur in halakha and chassidus<br>
+<em>Pilpul and study of the דיני כחל · siman צ׳ · ⚡ Level 2 — Lamdan</em>
 </div>
 
-  <div class="disclaimer" style="background:#fff8e1;border-right:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;direction:rtl;text-align:right;">
-    ⚠️ תוכן זה נכתב לצורך לימוד ועיון בלבד. לכל הוראה למעשה (לְמַעֲשֶׂה) — שאל את רבך.
+  <div class="disclaimer" style="background:#fff8e1;border-left:4px solid #C5A55A;padding:16px 40px;font-family:'Georgia','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;">
+    ⚠️ This content is written for study and analysis only. For any practical ruling (לְמַעֲשֶׂה) — ask your Rav.
   </div>
 
   <div style="background:#1A1F3A;border-top:2px solid #C5A55A;padding:24px 40px;text-align:center;margin-top:0;">
-    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;direction:rtl;">
-      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">לעמוד הבית</a> · <a href="index-en.html" style="color:#C5A55A;text-decoration:none;">סימן צ׳</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ לתמיכה</a>
+    <p style="font-family:'Georgia','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;">
+      DAAT דעת — © 5786 / 2026 · <a href="../../../index-en.html" style="color:#C5A55A;text-decoration:none;">Home</a> · <a href="index-en.html" style="color:#C5A55A;text-decoration:none;">Siman צ׳</a> · <a href="../../../soutenir-en.html" style="color:#C5A55A;text-decoration:none;">♥ Support</a>
     </p>
   </div>
 
@@ -880,7 +1003,7 @@
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="../../../assets/js/chat-widget.js" defer></script>
 <script src="../../../assets/js/daat-copy.js" defer></script>
-<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="מצא חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">הצטרף לחברותא</span></a>
+<a href="../../../communaute-en.html#khavroutha" class="daat-khavroutha-fab" title="Find a chavruta for this siman"><span class="icon">📖</span><span class="label-long">Join a chavruta</span></a>
   <script src="/assets/js/share-text.js" defer></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="fr" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,9 +22,8 @@
 <style>
   @page { size: A4; margin: 2cm 1.8cm; }
   body {
-    font-family: 'Frank Ruhl Libre', 'David', 'Georgia', 'Cambria', serif;
+    font-family: 'Georgia', 'Cambria', serif;
     font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0;
-    direction: rtl; text-align: right;
   }
   .he {
     direction: rtl; text-align: right;
@@ -37,18 +36,14 @@
     font-weight: 600; color: #1A1F3A;
   }
 
-  .cover {
-    text-align: center; margin-top: 2.5cm; margin-bottom: 2cm;
-  }
+  .cover { text-align: center; margin-top: 2.5cm; margin-bottom: 2cm; }
   .cover h1 {
     font-size: 30pt; color: #1A1F3A; margin: 5px 0;
     font-family: 'Cormorant Garamond', 'Georgia', serif;
   }
   .cover .he-title { font-size: 38pt; color: #1A1F3A; margin: 15px 0 5px 0; }
   .cover .he-sub { font-size: 18pt; color: #C5A55A; margin-bottom: 20px; }
-  .cover .he-subject {
-    font-size: 15pt; color: #5a4a1a; margin: 15px 0; font-style: italic;
-  }
+  .cover .he-subject { font-size: 15pt; color: #5a4a1a; margin: 15px 0; font-style: italic; }
   .cover .ornament { color: #C5A55A; font-size: 22pt; margin: 15px 0; }
   .cover .level-badge {
     display: inline-block;
@@ -62,41 +57,28 @@
     margin-top: 2cm; padding-top: 20px; border-top: 1px solid #C5A55A;
     font-size: 10pt; color: #555; line-height: 1.8;
   }
-  .cover .subtitle {
-    font-size: 14pt; color: #5a4a1a; font-style: italic; margin: 10px 0 30px 0;
-  }
-  .cover .badge-top {
-    color: #C5A55A; font-size: 11pt; letter-spacing: 4px; margin-bottom: 10px;
-  }
-
+  .cover .subtitle { font-size: 14pt; color: #5a4a1a; font-style: italic; margin: 10px 0 30px 0; }
+  .cover .badge-top { color: #C5A55A; font-size: 11pt; letter-spacing: 4px; margin-bottom: 10px; }
   h2.section-title {
     color: #fff; background: #1A1F3A;
     font-size: 16pt; padding: 10px 18px; margin-top: 30px;
     border-right: 6px solid #C5A55A;
-    direction: rtl; text-align: right;
-    font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
   }
   h3 {
     color: #1A1F3A; font-size: 14pt; margin-top: 25px;
     border-right: 4px solid #C5A55A; padding-right: 10px;
-    direction: rtl; text-align: right;
-    font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
-  }
-  h3.sugya {
-    background: #1A1F3A; color: #fff;
-    padding: 8px 15px; border-right: none;
-    border-left: 6px solid #C5A55A;
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
   }
   h3.he-h3 {
     direction: rtl; text-align: right;
-    border-right: none; border-left: 4px solid #C5A55A;
-    padding-right: 0; padding-left: 10px;
+    border-left: none; border-right: 4px solid #C5A55A;
+    padding-left: 0; padding-right: 10px;
   }
   h4 {
     color: #5a4a1a; font-size: 12pt;
     margin-top: 20px; margin-bottom: 8px; font-weight: bold;
   }
-
   .sacred-text {
     background: #FAF6EE;
     border-right: 3px solid #C5A55A; border-left: 3px solid #C5A55A;
@@ -104,74 +86,75 @@
     font-size: 12.5pt; line-height: 1.9;
   }
   .pilpul-box {
-    background: #eef3fa; border-left: 4px solid #1A1F3A;
-    padding: 12px 18px; margin: 15px 0;
+    background: #eef3fa; border-right: 4px solid #1A1F3A;
+    padding: 12px 18px; margin: 15px 0; 
   }
   .pilpul-box::before {
     content: "⚡ פלפול"; display: block;
     color: #1A1F3A; font-weight: bold; font-size: 10pt;
     margin-bottom: 5px; letter-spacing: 1px;
+    direction: rtl; text-align: left;
   }
   .kashya-box {
-    background: #fef4e4; border-left: 4px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0;
+    background: #fef4e4; border-right: 4px solid #C5A55A;
+    padding: 12px 18px; margin: 15px 0; 
   }
   .kashya-box::before {
     content: "❓ קושיא"; display: block;
     color: #8a6a1a; font-weight: bold; font-size: 10pt;
     margin-bottom: 5px; letter-spacing: 1px;
+    direction: rtl; text-align: left;
   }
   .teruts-box {
-    background: #e8f4ea; border-left: 4px solid #2d7a3e;
-    padding: 12px 18px; margin: 15px 0;
+    background: #e8f4ea; border-right: 4px solid #2d7a3e;
+    padding: 12px 18px; margin: 15px 0; 
   }
   .teruts-box::before {
     content: "✓ תירוץ"; display: block;
     color: #2d7a3e; font-weight: bold; font-size: 10pt;
     margin-bottom: 5px; letter-spacing: 1px;
+    direction: rtl; text-align: left;
   }
   .hakira-box {
-    background: #f5e9f5; border-left: 4px solid #6a1b7a;
-    padding: 12px 18px; margin: 15px 0;
+    background: #f5e9f5; border-right: 4px solid #6a1b7a;
+    padding: 12px 18px; margin: 15px 0; 
   }
   .hakira-box::before {
     content: "🔍 חקירה"; display: block;
     color: #6a1b7a; font-weight: bold; font-size: 10pt;
     margin-bottom: 5px; letter-spacing: 1px;
+    direction: rtl; text-align: left;
   }
   .nafka-mina-box {
     background: #fff4e6; border: 2px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; border-radius: 4px;
+    padding: 12px 18px; margin: 15px 0; border-radius: 4px; 
   }
   .nafka-mina-box::before {
     content: "⚖️ נפקא מינה"; display: block;
     color: #1A1F3A; font-weight: bold; font-size: 10pt;
     margin-bottom: 5px; letter-spacing: 1px;
+    direction: rtl; text-align: left;
   }
   .yesod-box {
     background: #1A1F3A; color: #fff;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; 
   }
   .yesod-box::before {
     content: "💎 יסוד"; display: block;
     color: #C5A55A; font-weight: bold; font-size: 10pt;
     margin-bottom: 8px; letter-spacing: 2px;
+    direction: rtl; text-align: left;
   }
   .yesod-box .he-q { color: #C5A55A; }
   .machloket-box {
     background: #faf5ff; border: 1.5px dashed #6a1b7a;
-    padding: 12px 18px; margin: 15px 0;
+    padding: 12px 18px; margin: 15px 0; 
   }
-
-  table {
-    width: 100%; border-collapse: collapse;
-    margin: 20px 0; font-size: 10pt;
-  }
+  table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 10pt; }
   th {
     background: #1A1F3A; color: #fff;
-    padding: 10px; text-align: right; direction: rtl; font-size: 11pt;
+    padding: 10px; text-align: left; font-size: 11pt;
   }
-  td { direction: rtl; text-align: right; }
   td {
     border: 1px solid #d4c89a; padding: 10px; vertical-align: top;
   }
@@ -182,9 +165,7 @@
   hr.ornament { border: none; text-align: center; margin: 25px 0; }
   hr.ornament::before { content: "✦ ❖ ✦"; color: #C5A55A; font-size: 14pt; }
 
-  .source-ref {
-    color: #6a5a1a; font-style: italic; font-size: 0.95em;
-  }
+  .source-ref { color: #6a5a1a; font-style: italic; font-size: 0.95em; }
 
   .yh-watermark {
     text-align: center; font-size: 9pt; color: #8a7a4a;
@@ -193,52 +174,33 @@
   }
 
   ol.stylish li, ul.stylish li { margin-bottom: 8px; }
-
+  ol.stylish, ul.stylish { padding-left: 22px; padding-right: 0; }
   .rishon-card {
-    background: #f7f3e4; border-left: 4px solid #8a6a1a;
+    background: #f7f3e4; border-right: 4px solid #8a6a1a;
     padding: 10px 15px; margin: 10px 0; font-size: 10.5pt;
   }
   .rishon-card strong { color: #1A1F3A; font-size: 11pt; }
 
   blockquote {
     border-right: 3px solid #C5A55A;
-    margin: 10px 15px 10px 0; padding: 8px 15px;
+    margin: 10px 0 10px 15px; padding: 8px 15px;
     background: #faf8f0; font-style: italic;
     direction: rtl; text-align: right;
     font-family: 'Frank Ruhl Libre', serif; font-size: 11.5pt;
+    unicode-bidi: embed;
   }
 
   .index-box {
     background: #FAF6EE; border: 1px solid #C5A55A;
     padding: 15px 20px; margin: 20px 0; border-radius: 4px;
   }
-  .index-box ol { margin: 5px 0; padding-right: 25px; }
+  .index-box ol { margin: 5px 0; padding-left: 25px; padding-right: 0; }
   .index-box li { margin-bottom: 5px; }
-
-  /* ── RTL global (כל הדף בלשון הקודש) ── */
-  .pilpul-box, .kashya-box, .teruts-box, .hakira-box,
-  .nafka-mina-box, .yesod-box, .machloket-box, .rishon-card, .index-box {
-    direction: rtl; text-align: right;
+  h3.sugya {
+    background: #1A1F3A; color: #fff;
+    padding: 8px 15px; border-right: none; border-left: 6px solid #C5A55A;
   }
-  /* תיבות פלפול וכו' — הקו הצבעוני בצד ימין */
-  .pilpul-box   { border-left: none; border-right: 4px solid #1A1F3A; }
-  .kashya-box   { border-left: none; border-right: 4px solid #C5A55A; }
-  .teruts-box   { border-left: none; border-right: 4px solid #2d7a3e; }
-  .hakira-box   { border-left: none; border-right: 4px solid #6a1b7a; }
-  .yesod-box    { border-left: none; }
-  .rishon-card  { border-left: none; border-right: 4px solid #8a6a1a; }
-  .pilpul-box::before, .kashya-box::before, .teruts-box::before,
-  .hakira-box::before, .nafka-mina-box::before, .yesod-box::before {
-    direction: rtl; text-align: right;
-  }
-  .index-box ol { padding-right: 25px; padding-left: 0; }
-  ol.stylish, ul.stylish { padding-right: 22px; padding-left: 0; }
-  h3.sugya { border-left: none; border-right: 6px solid #C5A55A; }
-  h4 { direction: rtl; text-align: right; }
-  .cover, .cover h1, .cover h2 { direction: rtl; }
-  blockquote { unicode-bidi: embed; }
 
-  /* ── חץ אל ההסבר המפורט (רמה 1) ── */
   a.daat-explain {
     display: inline-block;
     margin: 4px 0 14px 0;
@@ -247,11 +209,9 @@
     font-size: 12pt;
     text-decoration: none;
     border-bottom: 1px dotted #C5A55A;
-    direction: rtl;
   }
   a.daat-explain:hover { color: #8a6a1a; border-bottom-style: solid; }
 
-  /* ── כפתור העתקה ── */
   button.daat-copy {
     display: inline-block;
     margin: 0 10px 0 0;
@@ -267,7 +227,50 @@
     direction: rtl;
   }
   button.daat-copy:hover { background: #C5A55A; color: #fff; }
+  .rishon-card[dir="rtl"] { border-left: none; border-right: 4px solid #8a6a1a; text-align: right; }
+  .hakira-box[dir="rtl"] { border-left: none; border-right: 4px solid #6a1b7a; text-align: right; }
+  .kashya-box[dir="rtl"] { border-left: none; border-right: 4px solid #C5A55A; text-align: right; }
+  .teruts-box[dir="rtl"] { border-left: none; border-right: 4px solid #2d7a3e; text-align: right; }
+  .pilpul-box[dir="rtl"] { border-left: none; border-right: 4px solid #1A1F3A; text-align: right; }
+  .machloket-box[dir="rtl"], .nafka-mina-box[dir="rtl"], .yesod-box[dir="rtl"] { text-align: right; }
+  .index-box[dir="rtl"] ol { padding-right: 25px; padding-left: 0; }
+  [dir="rtl"] th, [dir="rtl"] td { text-align: right; direction: rtl; }
   @media print { button.daat-copy, a.daat-explain { display: none; } }
+
+  .lang-switcher-float {
+    position: fixed; top: 12px; right: 12px; z-index: 9999;
+    display: flex; gap: 4px; background: rgba(255,255,255,0.95);
+    border: 1px solid #C5A55A; padding: 4px 6px; border-radius: 3px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); font-family: 'Inter', sans-serif;
+    direction: ltr;
+  }
+  .lang-switcher-float a {
+    font-size: 11px; letter-spacing: 1px; padding: 3px 7px; border-radius: 2px;
+    color: #5a4a1a; text-decoration: none; border: 1px solid transparent;
+  }
+  .lang-switcher-float a.active { color: #1A1F3A; background: #FFF8E5; border-color: #1A1F3A; font-weight: 600; }
+  .lang-switcher-float a:hover { color: #1A1F3A; border-color: #C5A55A; }
+  @media print { .lang-switcher-float { display: none; } }
+
+  blockquote.comment-source {
+    background: #f7f3e4; border-right: 3px solid #8a6a1a; border-left: none;
+    font-style: normal; margin: 10px 0; padding: 8px 15px;
+    direction: rtl; text-align: right; font-family: 'Frank Ruhl Libre', serif; font-size: 11.5pt;
+  }
+  blockquote.comment-source .src-ref {
+    display: inline-block; margin-top: 6px; color: #6a5a1a; font-style: italic; font-size: 0.88em;
+    font-family: 'Georgia', 'Cambria', serif;
+  }
+
+  /* Classes employées par cette page et définies nulle part ailleurs.
+     Formes majoritaires du dépôt — cf. scripts/fix-classes.py. */
+  .remember { background: #e8f4ea; border: 1.5px solid #2d7a3e; padding: 12px 18px; margin: 12px 0; border-radius: 4px; }
+
+  /* Classes employées par cette page et définies nulle part ailleurs.
+     Formes majoritaires du dépôt — cf. scripts/fix-classes.py. */
+  .print-btn { position: fixed; top: 18px; right: 18px; z-index: 50; background: #1A1F3A; color: #C5A55A; border: 1px solid #C5A55A; border-radius: 4px; padding: 8px 16px; font-family: 'Georgia',serif; font-size: 10pt; cursor: pointer; }
+  .print-btn:hover { background: #2a2a4e; }
+  @media print { .print-btn { display: none; } }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/daat-enhance.css">
@@ -283,7 +286,7 @@
   "headline": "Siman פ״ט · Niveau 2 Lamdan — Pilpoul approfondi · ההמתנה בין בשר לחלב, Houlin 105a",
   "description": "Niveau 2 (Lamdan) du Siman פ״ט (Yoreh De'ah) — Pilpoul approfondi. La sougya de Houlin 105a (Mar Oukva), les deux te'amim (goût persistant / viande entre les dents), la machloket sur l'heure et le birkat ha-mazon (Tossafot/Rabbenou Tam vs Rif/Rambam), le fromage dur, le Zohar, kinou'ah et hadaha, une vraie מחלוקת Shach/Taz, חקירה et נפקא מינה.",
   "url": "https://daattorah.com/yd/89/lamdan",
-  "inLanguage": "he-IL",
+  "inLanguage": "fr-FR",
   "isAccessibleForFree": true,
   "author": {
     "@id": "https://daattorah.com/#rav-samama"
@@ -301,6 +304,7 @@
 <!-- Vercel Web Analytics. Le script n'est servi qu'une fois Web Analytics activé
      sur le projet ; tant qu'il ne l'est pas, la requête est un 404 sans effet. -->
 <script defer src="/_vercel/insights/script.js"></script>
+</head>
 </head>
 <body>
   <div class="lang-switcher-float" role="navigation" aria-label="Langue / Language">
@@ -394,560 +398,627 @@
 <!-- COUVERTURE -->
 <div class="cover">
   <div class="ornament">✦ ❖ ✦</div>
-  <div class="badge-top">DAAT · רמה ב' — לַמְדָּן</div>
-  <h1>שולחן ערוך · יורה דעה</h1>
-  <div class="subtitle">הלכות ההמתנה בין בשר לחלב — עיון ופלפול</div>
+  <div class="badge-top">DAAT · NIVEAU 2 — LAMDAN</div>
+  <h1>Choul’han Aroukh · Yoré Déa</h1>
+  <div class="subtitle">Les lois de l’attente entre la viande et le lait — étude et pilpoul</div>
 
   <div class="he-title">סימן פ״ט</div>
-  <div class="he-sub">שלא לאכול גבינה אחר בשר</div>
-  <div class="he-subject">עיון, פלפול, שיטות הראשונים והאחרונים</div>
+  <div class="he-sub">Ne pas manger de fromage après de la viande («&nbsp;<span class="he-q">שלא לאכול גבינה אחר בשר</span>&nbsp;»)</div>
+  <div class="he-subject">Étude, pilpoul, chitot des Richonim et des A’haronim</div>
 
-  <div class="level-badge">⚡ ללומדים ותלמידי חכמים ⚡</div>
+  <div class="level-badge">⚡ POUR LES LAMDANIM ET LES TALMIDEI ’HAKHAMIM ⚡</div>
 
   <div class="ornament">✦ ❖ ✦</div>
 
-  <h2 style="margin-top:20px; color: #1A1F3A;">פלפול ועיון מעמיק</h2>
+  <h2 style="margin-top:20px; color: #1A1F3A;">Pilpoul et étude approfondie</h2>
   <p style="font-size:12pt; color:#555;">
-    סוגיות, מקורות, חקירת היסוד, מחלוקות ראשונים ואחרונים,<br>
-    נפקא מינות להלכה ועיון בשיטות
+    Sougyot, sources, la ’hakira de fond, ma’hlokot des Richonim et des A’haronim,<br>
+    nafka minot pour la halakha et examen des chitot
   </p>
 
   <div class="credits">
-    <p><strong>הנושא :</strong><br>
-    שולחן ערוך יורה דעה סימן פ״ט (ד' סעיפים)<br>
-    עם נושאי כלים: ש״ך (שפתי כהן), ט״ז (טורי זהב), פרי מגדים, פתחי תשובה</p>
+    <p><strong>Le sujet :</strong><br>
+    Choul’han Aroukh, Yoré Déa, siman פ״ט (4 seifim)<br>
+    avec les nossei kelim : Chakh (Siftei Kohen), Taz (Tourei Zahav), Peri Megadim, Pit’hei Techouva</p>
 
-    <p><strong>יסוד הסוגיא בש״ס :</strong><br>
-    חולין ק״ה. (מר עוקבא) · פרק כל הבשר ("פכ״ה" בלשון הש״ך) · זוהר פרשת משפטים</p>
+    <p><strong>Le fondement de la sougya dans le Chass :</strong><br>
+    Houlin 105a (Mar Oukva) · chapitre <em>Kol ha-bassar</em> («&nbsp;<span class="he-q">פכ״ה</span>&nbsp;» dans la langue du Chakh) · Zohar, parachat Michpatim</p>
 
-    <p><strong>עריכה ועיון :</strong><br>
-    הרב יוסף חיים סממה · DAAT</p>
+    <p><strong>Rédaction et étude :</strong><br>
+    Rav Yossef Haim Samama · DAAT</p>
   </div>
 </div>
 
 <div class="page-break"></div>
 
 <!-- TABLE DES MATIÈRES -->
-<h2 class="section-title">📑 תוכן העניינים</h2>
+<h2 class="section-title">📑 Table des matières</h2>
 
-<div class="index-box" dir="rtl">
+<div class="index-box">
 <ol>
-  <li><strong>הקדמת הסוגיא</strong> — מר עוקבא וההמתנה אחר בשר (חולין ק״ה.)</li>
-  <li><strong>שני הטעמים</strong> — שומן מושך טעם (רש״י/הטור) מול בשר שבין השינים (הרמב״ם)</li>
-  <li><strong>חקירת היסוד</strong> — מהו "סעודה אחרת" ומה תפקיד ברכת המזון</li>
-  <li><strong>מחלוקת הראשונים</strong> — שש שעות (רי״ף/רמב״ם) מול "מיד אם סילק ובירך" (תוס'/ראבי״ה)</li>
-  <li><strong>שיטת הרמ״א</strong> — שלוש מדרגות: מיד, שעה, שש שעות</li>
-  <li><strong>בשר שבין השינים</strong> — לאחר שיעור ההמתנה ולאחר שעה</li>
-  <li><strong>גבינה אחר בשר — והלכה למעשה בקינוח והדחה</strong></li>
-  <li><strong>בשר אחר גבינה</strong> — אסימטריה, גבינה קשה והזוהר</li>
-  <li><strong>פלוגתת הש״ך והט״ז</strong> — בשר אחר גבינה קשה ובמתולעת</li>
-  <li><strong>תבשיל, שומן, ושמש המשמש</strong> — סעיף ג'</li>
-  <li><strong>השולחן, המפה והסכין</strong> — נעיצה ומנהג שני סכינים (סעיף ד')</li>
-  <li><strong>חקירה ונפקא מינה למעשה · טבלאות סיכום</strong></li>
+  <li><strong>Ouverture de la sougya</strong> — Mar Oukva et l’attente après la viande (Houlin 105a)</li>
+  <li><strong>Les deux ta’amim</strong> — la graisse qui prolonge le goût (Rachi / le Tour) contre la viande entre les dents (le Rambam)</li>
+  <li><strong>La ’hakira de fond</strong> — qu’est-ce qu’un « autre repas », et quel est le rôle du birkat ha-mazon</li>
+  <li><strong>Ma’hloket des Richonim</strong> — six heures (Rif / Rambam) contre « immédiatement, s’il a desservi et béni » (Tossafot / Raavia)</li>
+  <li><strong>La chita du Rama</strong> — trois degrés : immédiatement, une heure, six heures</li>
+  <li><strong>La viande entre les dents</strong> — après la durée d’attente et après l’heure</li>
+  <li><strong>Kinou’ah et hadaha — le mécanisme du séif ב</strong> — et son application au fromage après la viande</li>
+  <li><strong>Viande après fromage</strong> — l’asymétrie, le fromage dur et le Zohar</li>
+  <li><strong>La plougta du Chakh et du Taz</strong> — viande après fromage dur et fromage véreux</li>
+  <li><strong>Plat cuisiné, graisse et serveur</strong> — séif ג</li>
+  <li><strong>La table, la nappe et le couteau</strong> — le plantage en terre et l’usage des deux couteaux (séif ד)</li>
+  <li><strong>’Hakira et nafka minot pratiques · tableaux de synthèse</strong></li>
 </ol>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<!-- לשון השולחן ערוך — סעיף א' -->
-<h2 class="section-title">📜 לשון השולחן ערוך — סעיף א'
-  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 העתק</button>
-</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">📜 Le texte du Choul’han Aroukh — séif א <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 Copier</button></h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ Explication détaillée (niveau 1)</a>
 
 <div class="sacred-text he" data-copy-block id="cp-1">
-  <p>אָכַל בָּשָׂר, אֲפִלּוּ שֶׁל חַיָּה וְעוֹף, לֹא יֹאכַל גְּבִינָה אַחֲרָיו עַד שֶׁיִּשְׁהֶה שֵׁשׁ שָׁעוֹת. וַאֲפִלּוּ אִם שָׁהָה כַּשִּׁעוּר, אִם יֵשׁ בָּשָׂר בֵּין הַשִּׁנַּיִם צָרִיךְ לַהֲסִירוֹ. וְהַלּוֹעֵס לְתִינוֹק צָרִיךְ לְהַמְתִּין.</p>
-  <p style="margin-top:14px;">(הגה: וְאִם מָצָא אַחַר כָּךְ בָּשָׂר שֶׁבֵּין הַשִּׁנַּיִם וּמְסִירוֹ, צָרִיךְ לְהָדִיחַ פִּיו קֹדֶם שֶׁיֹּאכַל גְּבִינָה. וְיֵשׁ אוֹמְרִים דְּאֵין צְרִיכִין לְהַמְתִּין שֵׁשׁ שָׁעוֹת, רַק מִיָּד אִם סִלֵּק וּבֵירֵךְ בִּרְכַּת הַמָּזוֹן מֻתָּר עַל יְדֵי קִנּוּחַ וַהֲדָחָה. וְהַמִּנְהָג הַפָּשׁוּט בִּמְדִינוֹת אֵלּוּ לְהַמְתִּין אַחַר אֲכִילַת הַבָּשָׂר שָׁעָה אַחַת וְאוֹכְלִין אַחַר כָּךְ גְּבִינָה, מִיהוּ צְרִיכִים לְבָרֵךְ גַּם כֵּן בִּרְכַּת הַמָּזוֹן אַחַר הַבָּשָׂר. וְיֵשׁ מְדַקְדְּקִים לְהַמְתִּין שֵׁשׁ שָׁעוֹת אַחַר אֲכִילַת בָּשָׂר לִגְבִינָה, וְכֵן נָכוֹן לַעֲשׂוֹת. <span class="source-ref">[הגה: הר״ן פכ״ה; תוס' ומרדכי; הגהות ש״ד]</span>)</p>
+  <p>אכל בשר אפילו של חיה ועוף לא יאכל גבינה אחריו עד שישהה שש שעות ואפילו אם שהה כשיעור אם יש בשר בין השינים צריך להסירו והלועס לתינוק צריך להמתין</p>
+  <p style="margin-top:14px;">(הגה: ואם מצא אחר כך בשר שבין השינים ומסירו צריך להדיח פיו קודם שיאכל גבינה (הר״ן פכ״ה) ויש אומרים דאין צריכין להמתין שש שעות רק מיד אם סלק ובירך ברכת המזון מותר על ידי קנוח והדחה (תוס׳ ומרדכי פכ״ה והגהות אשיר״י והג״ה מיימוני פ״ט דמ״א וראבי״ה) והמנהג הפשוט במדינות אלו להמתין אחר אכילת הבשר שעה אחת ואוכלין אחר כך גבינה מיהו צריכים לברך גם כן ברכת המזון אחר הבשר (ע״פ הארוך והגהות ש״ד) דאז הוי כסעודה אחרת דמותר לאכול לדברי המקילין אבל בלא ברכת המזון לא מהני המתנת שעה ואין חילוק אם המתין השעה קודם ברכת המזון או אחר כך (ד״ע ממהרא״י ולאפוקי או״ה) ואם מצא בשר בין שיניו אחר השעה צריך לנקרו ולהסירו (ד״ע ממשמעות הר״ן הנ״ל) ויש אומרים דאין לברך ברכת המזון על מנת לאכול גבינה (ארוך בשם מהר״ח) אבל אין נזהרין בזה ויש מדקדקים להמתין שש שעות אחר אכילת בשר לגבינה וכן נכון לעשות)</p>
 </div>
 
-<!-- ============================================================= -->
-<h2 class="section-title">1. הקדמת הסוגיא — מר עוקבא וההמתנה אחר בשר</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<p><em>Traduction</em> — <strong>Le Me’haber</strong> : celui qui a mangé de la viande, fût-ce de bête sauvage ou de volaille, ne mangera pas de fromage après elle avant d’avoir attendu six heures ; et même s’il a attendu la durée requise, s’il reste de la viande entre les dents, il doit l’ôter ; et celui qui mâche pour un enfant doit attendre.</p>
+<p><strong>Le Rama</strong> : s’il trouve ensuite de la viande entre les dents et l’ôte, il doit rincer la bouche avant de manger du fromage (Ran, chapitre <em>Kol ha-bassar</em>). Et certains disent qu’il n’est pas nécessaire d’attendre six heures : dès qu’il a desservi et récité le birkat ha-mazon, c’est permis moyennant kinou’ah et hadaha (Tossafot, Mordekhi, Haghot Acheri, Haghot Maïmoniyot, Raavia). L’usage répandu dans ces pays est d’attendre une heure après avoir mangé de la viande et de manger ensuite du fromage ; mais il faut aussi réciter le birkat ha-mazon après la viande (d’après le Aroukh et les Haghot Chaarei Doura), car alors c’est comme un autre repas, permis selon ceux qui allègent ; tandis que sans birkat ha-mazon, l’attente d’une heure ne sert à rien. Et il n’y a pas de différence entre avoir attendu l’heure avant le birkat ha-mazon ou après (opinion propre, d’après le Mahara’i, à l’exclusion du Issour ve-Heter). S’il trouve de la viande entre ses dents après l’heure, il doit la curer et l’ôter (opinion propre, d’après ce qui ressort du Ran cité plus haut). Certains disent qu’on ne récite pas le birkat ha-mazon dans le but de manger du fromage (Aroukh au nom du Maharah), mais on n’y prend pas garde. Et certains sont méticuleux et attendent six heures entre la viande et le fromage — et il est juste d’agir ainsi.</p>
 
-<h3 class="he-h3">המקור בש״ס
-  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 העתק</button>
-</h3>
+<!-- ============================================================= -->
+<h2 class="section-title">1. Ouverture de la sougya — Mar Oukva et l’attente après la viande</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ Explication détaillée (niveau 1)</a>
+
+<h3>La source dans le Chass <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 Copier</button></h3>
+
+<p>Le din prend sa source au traité <strong>Houlin (105a)</strong>, au chapitre <em>Kol ha-bassar</em> — que le Chakh désigne par le sigle
+«&nbsp;<span class="he-q">פכ״ה</span>&nbsp;». Mar Oukva y compare sa propre pratique à celle de son père :</p>
 
 <div class="sacred-text he" data-copy-block id="cp-2">
-מקור הדין במסכת <strong>חולין (ק״ה.)</strong> בפרק "כל הבשר" (הוא "<span class="he-q">פכ״ה</span>" בלשון הש״ך): אמר מר עוקבא: "<span class="he-q">אנא להא מילתא חלא בר חמרא לגבי אבא, דאילו אבא כי הוה אכיל בשרא האידנא לא הוה אכיל גבינה עד למחר עד השתא, ואנא בהא סעודתא הוא דלא אכילנא, לסעודתא אחריתא אכילנא</span>". מכאן יסוד ההמתנה אחר הבשר, ומכאן גם נחלקו הראשונים בשיעורה.
+<p>אָמַר מָר עוּקְבָא: אֲנָא, לְהָא מִלְּתָא, חַלָּא בַּר חַמְרָא לְגַבֵּי אַבָּא, דְּאִילּוּ אַבָּא כִּי הֲוָה אָכֵיל בִּשְׂרָא הָאִידָּנָא, לָא הֲוָה אָכֵל גְּבִינָה עַד לִמְחַר עַד הַשְׁתָּא, וְאִילּוּ אֲנָא – בְּהָא סְעוֹדְתָּא הוּא דְּלָא אָכֵילְנָא, לִסְעוֹדְתָּא אַחְרִיתָא – אָכֵילְנָא</p>
 </div>
+<p class="source-ref">(חולין ק״ה ע״א — Houlin 105a)</p>
 
-<div class="pilpul-box" dir="rtl">
-<strong>הערה יסודית :</strong> מלשון מר עוקבא משתמע שהדין אינו עצם איסור תורה אלא <em>הרחקה</em> שתיקנו חכמים בין הבשר לגבינה. אביו של מר עוקבא נהג "<span class="he-q">עד למחר</span>", ומר עוקבא עצמו רק "<span class="he-q">לסעודתא אחריתא</span>". מתוך שתי לשונות אלו צמחו <strong>שתי השיטות</strong> שיובאו ברמ״א: שיעור <em>הזמן</em> (שש שעות) מזה, ושיעור <em>"סעודה אחרת"</em> (סילוק וברכה) מזה.
-</div>
+<p><em>Traduction</em> — « Moi, en cette matière, je suis du vinaigre fils de vin auprès de mon père : car mon père, lorsqu’il mangeait de la viande maintenant, ne mangeait pas de fromage jusqu’au lendemain à la même heure ; tandis que moi, c’est <em>à ce repas-ci</em> que je n’en mange pas — à un autre repas, j’en mange. »</p>
+
+<div class="pilpul-box">
+<strong>Remarque de fond :</strong> la langue de Mar Oukva laisse entendre que ce din n’est pas un interdit de la Torah en lui-même, mais une <em>harhaka</em> — un écart institué par les ’hakhamim entre la viande et le fromage. Le père de Mar Oukva s’abstenait
+«&nbsp;<span class="he-q">עַד לִמְחַר</span>&nbsp;» (« jusqu’au lendemain »), tandis que Mar Oukva lui-même s’abstenait seulement
+«&nbsp;<span class="he-q">לִסְעוֹדְתָּא אַחְרִיתָא</span>&nbsp;» (« jusqu’à un autre repas ») <span class="source-ref">(חולין ק״ה ע״א — Houlin 105a)</span>. De ces deux formulations sont nées les <strong>deux chitot</strong> que le Rama rapportera : la mesure du <em>temps</em> (six heures) de l’une, et la mesure de <em>l’« autre repas »</em> (desservir et bénir) de l’autre.</div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">2. שני הטעמים — שומן מושך טעם מול בשר שבין השינים</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">2. Les deux ta’amim — la graisse qui prolonge le goût contre la viande entre les dents</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון הש״ך (ס״ק ב) בשם הטור
-  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 העתק</button>
-</h3>
+<h3>La langue du Chakh (ס״ק ב), au nom du Tour <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 Copier</button></h3>
+
+<p>Le <strong>Chakh</strong> (ס״ק ב), sur le lemme
+«&nbsp;<span class="he-q">עד שישהה כו</span>&nbsp;», cite le Tour et le confronte au Rambam :</p>
 
 <div class="sacred-text he" data-copy-block id="cp-3">
-<strong>הש״ך</strong> (ס״ק ב) על "<span class="he-q">עד שישהה כו'</span>": "ז״ל הטור: ובתוך השש שעות אפילו אין בשר בין השינים אסור, לפי שהבשר מוציא שומן ומושך טעם עד זמן ארוך. ולפ״ז הטעם, אם לא אכלו אלא שלעסו לתינוק — אין צריך להמתין, דכיון שלא אכלו אינו מוצא טעם. <strong>והרמב״ם נתן טעם לשהייה משום בשר שבין השינים</strong>, והלועס לתינוק צריך להמתין. <strong>וטוב לאחוז כחומרי שני הטעמים</strong>."
+<p>ז״ל הטור ובתוך השש שעות אפי׳ אין בשר בין השינים אסור לפי שהבשר מוציא שומן ומושך טעם עד זמן ארוך ולפ״ז הטעם אם לא אכלו אלא שלעסו לתינוק א״צ להמתין דכיון שלא אכלו אינו מוצא טעם והרמב״ם נתן טעם לשהייה משום בשר שבין השינים והלועס לתינוק צריך להמתין וטוב לאחוז כחומרי שני הטעמים עכ״ל</p>
 </div>
+<p class="source-ref">(Chakh — ש״ך יו״ד פ״ט ס״ק ב)</p>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה היסודית של הסימן :</strong> מהו שורש ההמתנה אחר בשר ?
+<div class="hakira-box">
+<strong>La ’hakira fondamentale du siman :</strong> quelle est la racine de l’attente après la viande ?
 <ul class="stylish">
-  <li><strong>טעם א' (רש״י/הטור) :</strong> "<span class="he-q">הבשר מוציא שומן ומושך טעם עד זמן ארוך</span>" — שורש ההרחקה הוא <em>טעם הבשר הנותר בפה</em>. לפי זה, הלועס לתינוק (שלא אכל) <strong>אינו צריך להמתין</strong>.</li>
-  <li><strong>טעם ב' (הרמב״ם) :</strong> ההמתנה היא משום <em>בשר שבין השינים</em>, שעד שש שעות "<span class="he-q">מקרי בשר</span>". לפי זה, אף הלועס לתינוק <strong>צריך להמתין</strong> (שמא נשאר בין שיניו).</li>
+  <li><strong>Ta’am א (Rachi / le Tour) :</strong>
+«&nbsp;<span class="he-q">הבשר מוציא שומן ומושך טעם עד זמן ארוך</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק ב — Chakh, au nom du Tour)</span> — la viande rend de la graisse et prolonge le goût longtemps ; la racine de l’écart est donc <em>le goût de la viande qui demeure dans la bouche</em>. De là : celui qui mâche pour un enfant sans manger lui-même <strong>n’a pas à attendre</strong>.</li>
+  <li><strong>Ta’am ב (le Rambam) :</strong> l’attente tient à <em>la viande restée entre les dents</em>, qui jusqu’à six heures
+«&nbsp;<span class="he-q">דמקרי בשר עד שש שעות</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד פ״ט ס״ק א — Taz)</span> — est encore appelée « viande ». De là : même celui qui mâche pour un enfant <strong>doit attendre</strong>, car il se peut qu’il en soit resté entre ses dents.</li>
 </ul>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד החקירתי :</strong><br>
-ההכרעה למעשה — "<span class="he-q">לאחוז כחומרי שני הטעמים</span>". ומכאן שתי תוצאות מצטרפות:<br><br>
-• מטעם <strong>השומן</strong> — בעינן שהיית <em>זמן</em> (שש שעות) אף בלא בשר בין השינים.<br>
-• מטעם <strong>בין השינים</strong> — בעינן הסרת הבשר אף <em>לאחר</em> שש שעות, וכן הלועס לתינוק חייב להמתין.
+<div class="yesod-box">
+<strong>Le yessod de la ’hakira :</strong><br>
+la décision pratique du Tour est de ne trancher ni l’un ni l’autre mais —
+«&nbsp;<span class="he-q">וטוב לאחוז כחומרי שני הטעמים</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק ב — Chakh)</span>, « il est bon de tenir les rigueurs des deux ta’amim ». Le Taz écrit de même :
+«&nbsp;<span class="he-q">וקי״ל להחמיר כשני הטעמים</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד פ״ט ס״ק א — Taz)</span>.<br><br>
+• Du ta’am de <strong>la graisse</strong> — il faut une attente de <em>temps</em> (six heures), même sans viande entre les dents.<br>
+• Du ta’am de <strong>l’entre-dents</strong> — il faut ôter la viande <em>même après</em> six heures, et celui qui mâche pour un enfant est tenu d’attendre.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הש״ך</strong> (ס״ק ב, בסיומו) מקשה על <strong>העטרת זקנים</strong>, שכתב טעם לאיחוד שאם לעס לתינוק "<span class="he-q">טעם הבשר נשאר לו בפיו ומשך לו טעם שומן כאילו אכל</span>" — וכתב הש״ך: "<span class="he-q">ודבריו תמוהין</span>". דהיינו, הש״ך אינו מערב את שני הטעמים זה בזה: הלועס חייב <em>מטעם בין השינים</em> ולא מטעם שומן.
-</div>
+<div class="rishon-card">
+<strong>Le Chakh</strong> (ס״ק ב, en fin de note) s’en prend à l’<strong>Atérèt Zekenim</strong>, qui avait voulu fondre les deux ta’amim en un : selon lui, celui qui mâche pour un enfant doit attendre parce que
+«&nbsp;<span class="he-q">טעם הבשר נשאר לו בפיו ומשך לו טעם שומן כאלו אכל</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק ב — Chakh)</span> — « le goût de la viande lui est resté dans la bouche et lui a tiré un goût de graisse comme s’il avait mangé ». Et le Chakh tranche :
+«&nbsp;<span class="he-q">ודבריו תמוהין</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק ב — Chakh)</span>, « ses propos sont étonnants ». C’est-à-dire : le Chakh refuse de mélanger les deux ta’amim l’un dans l’autre. Celui qui mâche est tenu <em>du ta’am de l’entre-dents</em>, et non de celui de la graisse.</div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הפתחי תשובה</strong> (ס״ק א, על "<span class="he-q">שש שעות</span>") מביא נפקא מינה מן הפר״מ: הלועס לתינוק <strong>תבשיל שיש בו שומן</strong> — לכאורה לכל הפירושים אין צריך להמתין (אין "מושך" כיון שלא אכל, ואין "בין שינים"), ומכל מקום כתב הפמ״ג <strong>שיש להחמיר להמתין שש שעות משום "לא פלוג" ושלא לפרוץ גדר</strong>.
-</div>
+<div class="rishon-card">
+<strong>Le Pit’hei Techouva</strong> (ס״ק א, sur le lemme
+«&nbsp;<span class="he-q">שש שעות</span>&nbsp;») tire du Peri Megadim une nafka mina : celui qui mâche pour un enfant <strong>un plat contenant de la graisse</strong> — à première vue, aucun des deux ta’amim ne s’applique (il n’y a pas de goût « tiré » puisqu’il n’a pas mangé, et rien entre les dents). Et pourtant le Peri Megadim écrit
+«&nbsp;<span class="he-q">דיש להחמיר להמתין שש שעות משום לא פלוג ולא לפרוץ גדר</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד פ״ט ס״ק א — Pit’hei Techouva)</span> — qu’il y a lieu d’être rigoureux et d’attendre six heures, au titre du <em>lo plog</em> et pour ne pas ouvrir une brèche dans la clôture.</div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">3. חקירת היסוד — מהו "סעודה אחרת" ותפקיד ברכת המזון</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">3. La ’hakira de fond — qu’est-ce qu’un « autre repas », et le rôle du birkat ha-mazon</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון הש״ך (ס״ק ה)
-  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 העתק</button>
-</h3>
+<h3>La langue du Chakh (ס״ק ה) <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 Copier</button></h3>
+
+<p>Le <strong>Chakh</strong> (ס״ק ה), sur le lemme
+«&nbsp;<span class="he-q">וי״א כו</span>&nbsp;», explique la racine même de la ma’hloket :</p>
 
 <div class="sacred-text he" data-copy-block id="cp-4">
-<strong>הש״ך</strong> (ס״ק ה) על "<span class="he-q">וי״א כו'</span>": "טעם פלוגתתן, דאיתא בש״ס פכ״ה דאחר בשר אסור לאכול גבינה <strong>עד סעודה אחרת</strong>. ודעת סברא הראשונה דהיינו מכדי זמן סעודת הבקר עד סעודת הערב, שהוא ו' שעות. וסברת הי״א דמיד כשסילק ובירך מיקרי סעודה אחרת. וכ' מהרש״ל שם <strong>דלכ״ע אם לא סילק ובירך אפילו כל היום כולו אסור</strong>, דהא בעינן סעודה אחרת, והרבה בני אדם מקילין בזה וטעות הוא בידם."
+<p>טעם פלוגתתן דאיתא בש״ס פכ״ה דאחר בשר אסור לאכול גבינה עד סעודה אחרת ודעת סברא הראשונה דהיינו מכדי זמן סעודת הבקר עד סעודת הערב שהוא ו׳ שעות וסברת הי״א דמיד כשסילק ובירך מיקרי סעודה אחרת וכ׳ מהרש״ל שם דלכ״ע אם לא סילק ובירך אפי׳ כל היום כולו אסור דהא בעינן סעודה אחרת והרבה בני אדם מקילין בזה וטעות הוא בידם עכ״ל ומ״ש הרב בהג״ה אבל בלא ברכת המזון לא מהני המתנת שעה הוא לאו דוקא דאה״נ דכל היום כולו אסור עד שסילק ובירך</p>
 </div>
+<p class="source-ref">(Chakh — ש״ך יו״ד פ״ט ס״ק ה)</p>
 
-<div class="hakira-box" dir="rtl">
-<strong>חקירה :</strong> מהו השיעור שתיקנו חכמים — <em>זמן</em> או <em>"סעודה אחרת"</em> ?
+<div class="hakira-box">
+<strong>’Hakira :</strong> quelle est la mesure instituée par les ’hakhamim — un <em>temps</em>, ou un <em>« autre repas »</em> ?
 <ul class="stylish">
-<li><strong>צד הזמן :</strong> השיעור הוא פרק <em>זמן</em> שבו מתעכל הבשר ופג טעמו (שש שעות, מסעודת שחרית לסעודת ערבית). זו דעת סברא הראשונה (רי״ף/רמב״ם).</li>
-<li><strong>צד הסעודה :</strong> השיעור הוא מעבר ל<em>"סעודה אחרת"</em> — וזה נקבע בסילוק וברכה, ולא בזמן. זו דעת הי״א (תוס'/ראבי״ה).</li>
+<li><strong>Le côté du temps :</strong> la mesure est la durée au terme de laquelle la viande est digérée et son goût dissipé — six heures, du repas du matin à celui du soir. C’est l’avis de la première opinion (Rif / Rambam).</li>
+<li><strong>Le côté du repas :</strong> la mesure est le passage à un <em>autre repas</em> — et cela se détermine par le fait d’avoir desservi et béni, non par le temps écoulé. C’est l’avis du yech omrim (Tossafot / Raavia).</li>
 </ul>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>דיוק הש״ך :</strong> אף לדעת הי״א המקילים, אין הקולא ב<em>זמן</em> אלא ב<em>סעודה</em>. ולכן "<span class="he-q">אם לא סילק ובירך אפילו כל היום כולו אסור</span>". ומוסיף הש״ך (ס״ק ה, בסיום) שמה שכתב הרמ״א "<span class="he-q">אבל בלא ברכת המזון לא מהני המתנת שעה</span>" — הוא <strong>לאו דווקא שעה</strong>: "<span class="he-q">דאה״נ דכל היום כולו אסור עד שסילק ובירך</span>".
-</div>
+<div class="pilpul-box">
+<strong>Le diyouk du Chakh :</strong> même pour le yech omrim qui allège, l’allègement ne porte pas sur le <em>temps</em> mais sur le <em>repas</em>. Aussi le Maharchal écrit-il, rapporté par le Chakh :
+«&nbsp;<span class="he-q">אם לא סילק ובירך אפי׳ כל היום כולו אסור</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק ה — Chakh, au nom du Maharchal)</span> — s’il n’a pas desservi ni béni, c’est interdit <em>même toute la journée durant</em>. Et le Chakh ajoute, en fin de note, que ce qu’écrit le Rama —
+«&nbsp;<span class="he-q">אבל בלא ברכת המזון לא מהני המתנת שעה</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד פ״ט:א — Rama, séif א)</span> — n’est <strong>pas à prendre à la lettre quant à l’heure</strong> :
+«&nbsp;<span class="he-q">דאה״נ דכל היום כולו אסור עד שסילק ובירך</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק ה — Chakh)</span>.</div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הש״ך</strong> (ס״ק ו) על "<span class="he-q">ובירך ברכת המזון</span>": "<span class="he-q">נראה דאם אכל בשר בלא סעודה צריך לברך ברכה אחרונה מקודם, ובלאו הכי לא הוה סילוק</span>". כלומר אף אכילת ארעי טעונה ברכה אחרונה כדי שייחשב "סילוק".
-</div>
+<div class="rishon-card">
+<strong>Le Chakh</strong> (ס״ק ו), sur le lemme
+«&nbsp;<span class="he-q">ובירך ברכת המזון</span>&nbsp;» :
+«&nbsp;<span class="he-q">נראה דאם אכל בשר בלא סעודה צריך לברך ברכה אחרונה מקודם ובלאו הכי לא הוה סילוק</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק ו — Chakh)</span> — s’il a mangé de la viande hors d’un repas, il doit d’abord réciter la berakha a’harona, faute de quoi il n’y a pas eu de « silouk », de sortie du repas. Autrement dit : même une consommation occasionnelle exige sa berakha pour compter comme un dessertissement.</div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">4. מחלוקת הראשונים — שש שעות מול "מיד אם סילק ובירך"</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">4. Ma’hloket des Richonim — six heures contre « immédiatement, s’il a desservi et béni »</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">שתי השיטות</h3>
+<h3>Les deux chitot</h3>
 
-<div class="machloket-box" dir="rtl">
+<div class="machloket-box">
 <table>
-<tr><th>שיטה</th><th>שיעור ההמתנה</th><th>מקור</th></tr>
+<tr><th>Chita</th><th>Mesure de l’attente</th><th>Source</th></tr>
 <tr>
-  <td><strong>סברא ראשונה (המחבר)</strong> — הרי״ף, הרמב״ם, הר״ן</td>
-  <td><strong>שש שעות</strong> — מסעודת שחרית עד סעודת ערבית; וכן הסרת בשר שבין השינים</td>
-  <td>מחבר ס״א; ש״ך ס״ק ה</td>
+  <td><strong>Première opinion (le Me’haber)</strong> — le Rif, le Rambam, le Ran</td>
+  <td><strong>Six heures</strong> — du repas du matin à celui du soir ; et, de surcroît, ôter la viande restée entre les dents</td>
+  <td>Me’haber séif א ; Chakh ס״ק ה ; Taz ס״ק ב</td>
 </tr>
 <tr>
-  <td><strong>יש אומרים (הי״א ברמ״א)</strong> — תוס', מרדכי, ראבי״ה, הגהות אשר״י</td>
-  <td><strong>מיד</strong> כשסילק ובירך ברכת המזון — על ידי קינוח והדחה</td>
-  <td>הגה ס״א; ש״ך ס״ק ה, ז</td>
+  <td><strong>Yech omrim (le י״א du Rama)</strong> — Tossafot, Mordekhi, Raavia, Haghot Acheri</td>
+  <td><strong>Immédiatement</strong> dès qu’il a desservi et récité le birkat ha-mazon — moyennant kinou’ah et hadaha</td>
+  <td>Hagaha séif א ; Chakh ס״ק ה, ז</td>
 </tr>
 </table>
 </div>
 
-<div class="teruts-box" dir="rtl">
-<strong>הכרעת המחבר :</strong> פסק <strong>שש שעות</strong> כרי״ף וכרמב״ם. <strong>הכרעת הרמ״א :</strong> הביא את הי״א, ואת מנהג ההמתנה שעה, אך חתם "<span class="he-q">ויש מדקדקים להמתין שש שעות... וכן נכון לעשות</span>". <strong>הש״ך (ס״ק ח)</strong> מצרף: "<span class="he-q">וכ״כ מהרש״ל דכן ראוי לעשות לכל מי שיש בו ריח תורה</span>".
-</div>
+<div class="teruts-box">
+<strong>La décision du Me’haber :</strong> il tranche <strong>six heures</strong>, comme le Rif et le Rambam — le Taz rapporte d’ailleurs que le Maharchal s’étonnait qu’on ait allégé contre eux, eux qui exigeaient au moins six heures <span class="source-ref">(ט״ז יו״ד פ״ט ס״ק ב — Taz)</span>. <strong>La décision du Rama :</strong> il rapporte le yech omrim, puis l’usage d’attendre une heure, mais scelle la hagaha par
+«&nbsp;<span class="he-q">ויש מדקדקים להמתין שש שעות אחר אכילת בשר לגבינה וכן נכון לעשות</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד פ״ט:א — Rama, séif א)</span>. <strong>Le Chakh (ס״ק ח)</strong> y joint :
+«&nbsp;<span class="he-q">וכ״כ מהרש״ל דכן ראוי לעשות לכל מי שיש בו ריח תורה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק ח — Chakh)</span> — « il convient d’agir ainsi pour quiconque a en lui un parfum de Torah ».</div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הר״ן</strong> (מובא בש״ך ס״ק ג) מחדש בענין הסרת בשר שבין השינים: "<span class="he-q">דא״צ שהייה ו' שעות מאותו זמן שמסירו אלא מאכילה</span>" — שיעור השש שעות נמנה מן <em>האכילה</em> ולא מרגע שהסיר את הבשר שבין השינים. וכתב בתורת חטאת ש<strong>הוא הדין לענין מנהג המתנת שעה</strong>.
-</div>
+<div class="rishon-card">
+<strong>Le Ran</strong> (rapporté par le Chakh ס״ק ג) innove sur le retrait de la viande d’entre les dents :
+«&nbsp;<span class="he-q">דא״צ שהייה ו׳ שעות מאותו זמן שמסירו אלא מאכילה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק ג — Chakh, au nom du Ran)</span> — les six heures ne se comptent pas à partir du moment où il ôte la viande, mais à partir de <em>l’acte de manger</em>. Et le Torat ’Hatat écrit que
+«&nbsp;<span class="he-q">דה״ה לענין המנהג בהמתנת שעה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק ג — Chakh, au nom du Torat ’Hatat)</span> — il en va de même pour l’usage de l’attente d’une heure.</div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">5. שיטת הרמ״א — שלוש מדרגות</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-rama">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">5. La chita du Rama — trois degrés</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-rama">↩ Explication détaillée (niveau 1)</a>
 
-<div class="machloket-box" dir="rtl">
+<div class="machloket-box">
 <table>
-<tr><th>מדרגה</th><th>הנדרש</th><th>מקור הרמ״א</th></tr>
-<tr>
-  <td><strong>מיד (י״א)</strong></td>
-  <td>סילק ובירך ברכת המזון → מותר ע״י קינוח והדחה</td>
-  <td>תוס', מרדכי, ראבי״ה</td>
-</tr>
-<tr>
-  <td><strong>מנהג פשוט</strong></td>
-  <td>המתנת <strong>שעה אחת</strong> <em>וגם</em> ברכת המזון</td>
-  <td>ע״פ הארוך והגהות ש״ד</td>
-</tr>
-<tr>
-  <td><strong>מדקדקים</strong></td>
-  <td>שש שעות — "<span class="he-q">וכן נכון לעשות</span>"</td>
-  <td>הכרעת הרמ״א</td>
-</tr>
+<tr><th>Degré</th><th>Ce qui est requis</th><th>La source du Rama</th></tr>
+<tr><td><strong>Immédiatement (yech omrim)</strong></td>
+    <td>il a desservi et récité le birkat ha-mazon → permis moyennant kinou’ah et hadaha</td>
+    <td>Tossafot, Mordekhi, Raavia</td></tr>
+<tr><td><strong>L’usage répandu</strong></td>
+    <td>attendre <strong>une heure</strong> <em>et aussi</em> réciter le birkat ha-mazon</td>
+    <td>d’après le Aroukh et les Haghot Chaarei Doura</td></tr>
+<tr><td><strong>Les méticuleux</strong></td>
+    <td>six heures —
+«&nbsp;<span class="he-q">וכן נכון לעשות</span>&nbsp;»</td>
+    <td>la décision du Rama</td></tr>
 </table>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>דיוק במנהג השעה :</strong> כתב הרמ״א "<span class="he-q">ואין חילוק אם המתין השעה קודם ברכת המזון או אחר כך</span>" (ד״ע ממהרא״י, ולאפוקי או״ה). כלומר, הברכה היא העיקר, וההמתנה רק תוספת מנהג — ולכן סדר השעה והברכה אינו מעכב. אך <strong>בלא ברכה</strong> — אין השעה מועילה כלל (וכדברי הש״ך ס״ק ה דכל היום אסור).
-</div>
+<div class="pilpul-box">
+<strong>Diyouk sur l’usage de l’heure :</strong> le Rama écrit
+«&nbsp;<span class="he-q">ואין חילוק אם המתין השעה קודם ברכת המזון או אחר כך</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד פ״ט:א — Rama, séif א)</span> — il n’y a pas de différence entre avoir attendu l’heure avant le birkat ha-mazon ou après (opinion propre, d’après le Mahara’i, à l’exclusion du Issour ve-Heter). C’est-à-dire : la berakha est l’essentiel, et l’attente n’est qu’un surcroît d’usage — l’ordre des deux n’est donc pas dirimant. Mais <strong>sans la berakha</strong>, l’heure ne sert à rien du tout, conformément au Chakh ס״ק ה pour qui c’est toute la journée qui reste interdite.</div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הט״ז</strong> (ס״ק ב, על "<span class="he-q">אחר אכילת הבשר שעה אחת</span>") מאריך בשם <strong>מהרא״י</strong>: "<span class="he-q">רבים עושים פשרה מדעתן להמתין שעה אחת... אע״ג דלא אשכחן רמז לשיעור זה, מ״מ מי ימחה בידם הואיל והתוס' וראבי״ה מתירין... אבל הצנועים מושכים ידיהם מסעודת שחרית לערבית</span>". ומביא הט״ז שם דברי הרש״ל (פכ״ה סי' ט') שתמה למה הקילו נגד הרי״ף והרמב״ם שהצריכו לכל הפחות שש שעות.
-</div>
+<div class="rishon-card">
+<strong>Le Taz</strong> (ס״ק ב, sur le lemme
+«&nbsp;<span class="he-q">אחר אכילת הבשר שעה אחת</span>&nbsp;») s’étend au nom du <strong>Mahara’i</strong> :
+«&nbsp;<span class="he-q">רבים עושים פשרה מדעתן להמתין שעה אחת אחר הסעודת בשר וסילקו ובירכו ואוכלין גבינה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד פ״ט ס״ק ב — Taz, au nom du Mahara’i)</span> — beaucoup font d’eux-mêmes un compromis et attendent une heure après le repas carné, une fois desservi et béni, puis mangent du fromage ;
+«&nbsp;<span class="he-q">אע״ג דלא אשכחן רמז לשיעור זה מ״מ מי ימחה בידם הואיל והתו׳ וראבי״ה מתירין</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד פ״ט ס״ק ב — Taz)</span> — bien qu’on ne trouve aucune allusion à cette mesure, qui protestera contre eux, puisque Tossafot et le Raavia permettent ? Et pourtant
+«&nbsp;<span class="he-q">אבל הצנועים מושכים ידיהם מסעודת שחרית לערבית</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד פ״ט ס״ק ב — Taz)</span> — « les pudiques retiennent leur main du repas du matin jusqu’à celui du soir ».</div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הט״ז</strong> (סוף ס״ק ב) מדייק עוד: <strong>הלבוש</strong> כתב שמנהג השעה הוא מדברי הסמ״ג — "<span class="he-q">והוא ט״ס, שלא כתב שום פוסק כן, רק מהרא״י ואו״ה כתבו שהעולם נוהגים כן אבל לא דדינא הכי</span>". ומסיק הט״ז: "<span class="he-q">ודבר פשוט הוא דמי שנוהג בקולא זו להמתין שעה אחת שצריך ג״כ לקינוח והדחה</span>".
-</div>
+<div class="rishon-card">
+<strong>Le Taz</strong> (fin du ס״ק ב) précise encore : le <strong>Levouch</strong> a écrit que l’usage de l’heure vient du Semag — et le Taz répond
+«&nbsp;<span class="he-q">והוא ט״ס שלא כתב שום פוסק כן רק מהרא״י ואו״ה כתבו שהעולם נוהגים כן אבל לא דדינא הכי</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד פ״ט ס״ק ב — Taz)</span> — c’est une faute d’impression : aucun poseq n’a écrit cela ; seuls le Mahara’i et le Issour ve-Heter rapportent que le monde en a l’usage, mais non que tel soit le din. Et le Taz conclut :
+«&nbsp;<span class="he-q">ודבר פשוט הוא דמי שנוהג בקולא זו להמתין שעה אחת שצריך ג״כ לקינוח והדחה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד פ״ט ס״ק ב — Taz)</span> — il est évident que celui qui suit cet allègement de l’heure a <strong>également</strong> besoin de kinou’ah et de hadaha.</div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">6. בשר שבין השינים — אחר השיעור ואחר שעה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">6. La viande entre les dents — après la durée et après l’heure</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון הש״ך (ס״ק ז)
-  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 העתק</button>
-</h3>
+<h3>La langue du Chakh (ס״ק ז) <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 Copier</button></h3>
+
+<p>Le <strong>Chakh</strong> (ס״ק ז), sur le lemme
+«&nbsp;<span class="he-q">צריך לנקרו ולהסירו</span>&nbsp;» :</p>
 
 <div class="sacred-text he" data-copy-block id="cp-5">
-<strong>הש״ך</strong> (ס״ק ז) על "<span class="he-q">צריך לנקרו ולהסירו</span>": "וכבר נתבאר בס״ק ד' דצריך הדחה וקינוח הפה. אבל ודאי אם לא מצא בשר בין שיניו — <strong>דהמנהג בהמתנת שעה סגי אפילו בלא קינוח והדחה</strong>, וכ״כ באו״ה... ומ״ש הרב די״א מיד אם סילק ובירך מותר ע״י קינוח והדחה — <strong>משמע דקינוח והדחה מיהא בעי</strong>, היינו אם בא לאכול מיד אחר שסילק ובירך."
+<p>וכבר נתבאר בס״ק ד׳ דצריך הדחה וקינוח הפה אבל ודאי אם לא מצא בשר בין שיניו דהמנהג בהמתנת שעה סגי אפי׳ בלא קינוח והדחה וכ״כ באו״ה שם ד״ד ומביאו בת״ח לפסק הלכה וכ״נ ומ״ש הרב די״א מיד אם סילק ובירך מותר ע״י קינוח והדחה משמע דקינוח והדחה מיהא בעי היינו אם בא לאכול מיד אחר שסילק ובירך</p>
 </div>
+<p class="source-ref">(Chakh — ש״ך יו״ד פ״ט ס״ק ז)</p>
 
-<div class="hakira-box" dir="rtl">
-<strong>נפקא מינה דקה בין שלוש המדרגות :</strong>
+<div class="hakira-box">
+<strong>Une nafka mina fine entre les trois degrés du Rama rappelés ci-dessus :</strong>
 <ul class="stylish">
-<li><strong>מיד (י״א) :</strong> בעי קינוח <em>והדחה</em> בכל גוונא (שאין כאן שהייה כלל).</li>
-<li><strong>שעה :</strong> אם לא מצא בשר בין שיניו — "<span class="he-q">סגי אפילו בלא קינוח והדחה</span>"; ואם מצא — בעי ניקור, הסרה, קינוח והדחה.</li>
-<li><strong>שש שעות :</strong> סגי בהסרת בשר שבין השינים אם נמצא (וכבר נתעכל הטעם).</li>
+<li><strong>Immédiatement (yech omrim) :</strong> il faut kinou’ah <em>et</em> hadaha en toute hypothèse, puisqu’il n’y a ici aucune attente — le Chakh l’infère du Rama lui-même :
+«&nbsp;<span class="he-q">משמע דקינוח והדחה מיהא בעי</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק ז — Chakh)</span>.</li>
+<li><strong>Une heure :</strong> s’il n’a pas trouvé de viande entre ses dents —
+«&nbsp;<span class="he-q">דהמנהג בהמתנת שעה סגי אפי׳ בלא קינוח והדחה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק ז — Chakh, d’après le Issour ve-Heter)</span>, l’usage de l’heure suffit <em>même sans</em> kinou’ah ni hadaha ; et s’il en a trouvé, il lui faut curer, ôter, faire kinou’ah et hadaha.</li>
+<li><strong>Six heures :</strong> il suffit d’ôter la viande d’entre les dents si l’on en trouve, le goût étant déjà digéré.</li>
 </ul>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הש״ך</strong> (ס״ק ד) על "<span class="he-q">צריך להדיח פיו</span>": "והר״ן כתב שצריך <em>קינוח</em> הפה ולא הזכיר הדחת הפה... אבל לדידן דבעינן הדחת הפה כמ״ש הט״ו בסעיף ב', ה״ה הכא. ולזה כתב הרב 'צריך להדיח פיו', <strong>ופשיטא דבעי נמי קינוח</strong>, אלא שקיצר בלשון". כלומר, אף שהרמ״א הזכיר רק הדחה — צריך גם קינוח, ולמד הש״ך מסעיף ב'.
-</div>
+<div class="rishon-card">
+<strong>Le Chakh</strong> (ס״ק ד), sur le lemme
+«&nbsp;<span class="he-q">צריך להדיח פיו</span>&nbsp;» :
+«&nbsp;<span class="he-q">והר״ן כתב שצריך קנוח הפה ולא הזכיר הדחת הפה וכן העתיק בב״י בא״ח שם ובת״ח והיינו דאזיל לטעמיה דס״ל בעלמא דלא בעינן הדחת הפה אבל לדידן דבעינן הדחת הפה וכמ״ש הט״ו בסעיף ב׳ ה״ה הכא ולזה כתב הרב צריך להדיח פיו ופשיטא דבעי נמי קנוח אלא שקיצר בלשון</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק ד — Chakh)</span>. Le Ran avait écrit qu’il faut un <em>kinou’ah</em> de la bouche sans mentionner la hadaha — et c’est qu’il suit sa propre chita, pour qui la hadaha n’est pas requise en général. Mais pour nous, qui exigeons la hadaha de la bouche comme l’écrivent le Tour et le Choul’han Aroukh au séif ב, il en va de même ici. C’est pourquoi le Rama a écrit « il doit rincer sa bouche » —
+«&nbsp;<span class="he-q">ופשיטא דבעי נמי קנוח אלא שקיצר בלשון</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק ד — Chakh)</span> : il va de soi qu’un kinou’ah est requis lui aussi, le Rama ayant simplement abrégé. <strong>À retenir</strong> : c’est du séif ב — qui traite de la viande après le fromage — que le Chakh tire l’exigence de hadaha pour le fromage après la viande.</div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">7. גבינה אחר בשר — קינוח והדחה בסדר ובאמצעים</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">7. Kinou’ah et hadaha — le mécanisme du séif ב, et son application au fromage après la viande</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיף ב')
-  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 העתק</button>
-</h3>
+<h3>La langue du Me’haber (séif ב) <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 Copier</button></h3>
 
 <div class="sacred-text he" data-copy-block id="cp-6">
-"<strong>אכל גבינה, מותר לאכול אחריו בשר מיד</strong>, ובלבד שיעיין ידיו שלא יהא שום דבר מהגבינה נדבק בהם... וצריך לקנח פיו ולהדיחו. <strong>והקינוח הוא שילעוס פת</strong> ויקנח בו פיו יפה, וכן בכל דבר שירצה — <strong>חוץ מקמחא ותמרי וירקא</strong>, לפי שהם נדבקים בחניכין ואין מקנחים יפה. ואחר כך ידיח פיו במים או ביין."
+<p>אכל גבינה מותר לאכול אחריו בשר מיד ובלבד שיעיין ידיו שלא יהא שום דבר מהגבינה נדבק בהם ואם הוא בלילה שאינו יכול לעיין אותם היטב צריך לרחצם וצריך לקנח פיו ולהדיחו והקינוח הוא שילעוס פת ויקנח בו פיו יפה וכן בכל דבר שירצה חוץ מקימחא ותמרי וירקא לפי שהם נדבקים בחניכין (פי׳ מקום למעלה מבית הבליעה קרוב לשינים) ואין מקנחים יפה ואחר כך ידיח פיו במים או ביין במה דברים אמורים בבשר בהמה וחיה אבל אם בא לאכול בשר עוף אחר גבינה אינו צריך לא קינוח ולא נטילה</p>
 </div>
+<p class="source-ref">(Choul’han Aroukh — שו״ע יו״ד פ״ט:ב)</p>
 
-<div class="pilpul-box" dir="rtl">
-<strong>הש״ך (ס״ק יב)</strong> על "<span class="he-q">חוץ מקמחא</span>": "כ״כ הטור, ומשמע דבכל קמחא לא הוי קינוח... ובש״ס ר״פ כ״ה (דף ק״ה ע״א) משמע להדיא דבכל קמחא אסור. <strong>והדבר פשוט שט״ס הוא בטור</strong> שכתב 'חוץ מקמחא דשערי'". כלומר, לדעת הש״ך אין חילוק בין קמח חיטים לקמח שעורים — כל קמח אינו מקנח.
-</div>
+<p><em>Traduction</em> — celui qui a mangé du fromage peut manger de la viande après lui <strong>immédiatement</strong>, à condition d’examiner ses mains pour qu’il n’y reste rien de collé du fromage ; et s’il fait nuit et qu’il ne peut les examiner correctement, il doit les laver. Il doit aussi faire le kinou’ah de sa bouche et la rincer. Le kinou’ah consiste à mâcher du pain et à s’en essuyer soigneusement la bouche — et de même avec tout ce qu’il voudra, <strong>hormis la farine, les dattes et les légumes</strong>, qui collent aux gencives et n’essuient pas correctement ; après quoi il rincera sa bouche à l’eau ou au vin. Tout cela vaut pour la viande de bête domestique ou sauvage ; mais s’il vient manger de la volaille après du fromage, il n’a besoin ni de kinou’ah ni de nétilat yadayim.</p>
 
-<div class="rishon-card" dir="rtl">
-<strong>הפתחי תשובה</strong> (ס״ק ה, על "<span class="he-q">שילעוס פת</span>") מביא מן <strong>הפרי תואר</strong>: "<span class="he-q">דהקינוח הוא שיבלע דוקא, לא שלועס ופולט</span>". ומוסיף הפת״ש: "<span class="he-q">ומיהו לכתחילה בלא״ה צריך לבלוע, ואסור לפלוט משום הפסד אוכלין</span>" (עי' או״ח סי' קע״ב).
-</div>
+<div class="pilpul-box">
+<strong>Le Chakh (ס״ק י״ב)</strong>, sur le lemme
+«&nbsp;<span class="he-q">חוץ מקימחא</span>&nbsp;» :
+«&nbsp;<span class="he-q">כ״כ הטור ומשמע דבכל קימחא לא הוי קינוח</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק י״ב — Chakh)</span> — ainsi a écrit le Tour, et il en ressort qu’<em>aucune</em> farine ne vaut kinou’ah ; et de même
+«&nbsp;<span class="he-q">ועוד דבש״ס ר״פ כ״ה (דף ק״ה ע״א) משמע להדיא דבכל קימחא אסור</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק י״ב — Chakh)</span> — le Chass, au début du chapitre <em>Kol ha-bassar</em> (105a), laisse entendre explicitement que toute farine est écartée. Le Chakh en conclut
+«&nbsp;<span class="he-q">והדבר פשוט שט״ס הוא בטור</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק י״ב — Chakh)</span> — que la leçon du Tour
+«&nbsp;<span class="he-q">חוץ מקימחא דשערי</span>&nbsp;» (« hormis la farine <em>d’orge</em> ») est une faute d’impression. Autrement dit : pour le Chakh, il n’y a pas à distinguer entre farine de blé et farine d’orge — nulle farine ne fait kinou’ah.</div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הפתחי תשובה</strong> (ס״ק ו, על "<span class="he-q">ותמרי וירקי</span>") מביא מן הכנסת הגדולה בהגהת הטור: "<span class="he-q">די״א שאר פירות נמי לא [מקנחים]</span>", והעלה "<span class="he-q">דבשאר פירות הוי קינוח</span>" — דהיינו רק קמח, תמרים וירקות פסולים, ושאר פירות כשרים לקינוח.
-</div>
+<div class="rishon-card">
+<strong>Le Pit’hei Techouva</strong> (ס״ק ה, sur le lemme
+«&nbsp;<span class="he-q">שילעוס פת</span>&nbsp;») rapporte le <strong>Peri Toar</strong> :
+«&nbsp;<span class="he-q">דהקינוח הוא שיבלע דוקא לא שלועס ופולט</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד פ״ט ס״ק ה — Pit’hei Techouva, au nom du Peri Toar)</span> — le kinou’ah suppose qu’il <em>avale</em>, et non qu’il mâche et recrache. Et le Pit’hei Techouva ajoute :
+«&nbsp;<span class="he-q">ומיהו לכתחלה בלא״ה צריך לבלוע ואסור לפלוט משום הפסד אוכלין</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד פ״ט ס״ק ה — Pit’hei Techouva)</span> — de toute façon, il faut de prime abord avaler, et il est interdit de recracher, à cause du gaspillage de nourriture (voir Ora’h ’Haïm ס״י קע״ב).</div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הש״ך</strong> (ס״ק ט) על "<span class="he-q">שיעיין ידיו</span>": רבנו ירוחם כתב דה״ה בלילה אם יש לו נר יפה אינו צריך נטילה, "<span class="he-q">ונראה דדוקא נר יפה, אבל בסתם נר צריך נטילה</span>". ומוסיף שהטור בשם הר״ף הצריך רחיצה אף ביום, "<span class="he-q">לפי שלפעמים הגבינה שמינה ונדבקת בלחלוחית הידים</span>", וכן דעת האחרונים. <strong>הפתחי תשובה</strong> (ס״ק ד) מצרף את הפר״ח, ומסיק שנכון להחמיר בדבר שאין בו טורח.
-</div>
+<div class="rishon-card">
+<strong>Le Pit’hei Techouva</strong> (ס״ק ו, sur le lemme
+«&nbsp;<span class="he-q">ותמרי וירקי</span>&nbsp;») rapporte la Knesset ha-Guedola, dans ses gloses sur le Tour :
+«&nbsp;<span class="he-q">די״א שאר פירות נמי לא</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד פ״ט ס״ק ו — Pit’hei Techouva)</span> — certains disent que les autres fruits non plus ne conviennent pas ; mais il conclut
+«&nbsp;<span class="he-q">דבשאר פירות הוי קינוח</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד פ״ט ס״ק ו — Pit’hei Techouva)</span> — que les autres fruits font bien kinou’ah. Seuls sont donc écartés la farine, les dattes et les légumes.</div>
+
+<div class="rishon-card">
+<strong>Le Chakh</strong> (ס״ק ט), sur le lemme
+«&nbsp;<span class="he-q">ובלבד שיעיין ידיו</span>&nbsp;» : Rabbenou Yerou’ham a écrit que, la nuit aussi, s’il dispose d’une belle lampe, il n’a pas besoin de nétila — et le Chakh précise
+«&nbsp;<span class="he-q">ונראה דדוקא נקט נר יפה אבל בסתם נר צריך נטילה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק ט — Chakh)</span> : c’est bien d’une <em>belle</em> lampe qu’il parle ; avec une lampe ordinaire, la nétila s’impose. Il ajoute que le Tour, au nom du Raf, exigeait le lavage même de jour —
+«&nbsp;<span class="he-q">לפי שלפעמים הגבינה שמינה ונדבקת בלחלוחית הידים</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק ט — Chakh, au nom du Tour et du Raf)</span>, « parce qu’il arrive que le fromage soit gras et adhère à l’humidité des mains » — et tel est l’avis des A’haronim. <strong>Le Pit’hei Techouva</strong> (ס״ק ד) y joint le Peri ’Hadach et conclut
+«&nbsp;<span class="he-q">דנכון להחמיר בדבר שאין בו טורח</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד פ״ט ס״ק ד — Pit’hei Techouva, au nom du Peri Megadim)</span> — qu’il est juste d’être rigoureux là où cela ne coûte aucune peine.</div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">8. בשר אחר גבינה — אסימטריה, גבינה קשה והזוהר</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-rama">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">8. Viande après fromage — l’asymétrie, le fromage dur et le Zohar</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-rama">↩ Explication détaillée (niveau 1)</a>
 
-<div class="hakira-box" dir="rtl">
-<strong>שורש האסימטריה :</strong> מדוע אחר בשר בעינן שש שעות, ואחר גבינה מותר <em>מיד</em> ?<br>
-התשובה נעוצה בשני הטעמים: גבינה <strong>אינה מוציאה שומן הנמשך זמן רב</strong>, ואינה נדבקת בין השינים כבשר. לכן אחר גבינה סגי בקינוח, הדחה ונטילת ידים. <em>אבל גבינה קשה — טעמה נמשך</em>, ולכן דינה כבשר.
-</div>
+<div class="hakira-box">
+<strong>La racine de l’asymétrie :</strong> pourquoi faut-il six heures après la viande, alors qu’après le fromage c’est permis <em>immédiatement</em> ?<br>La réponse tient aux deux ta’amim : le fromage <strong>ne rend pas une graisse dont le goût se prolonge longtemps</strong>, et il ne se loge pas entre les dents comme la viande. Après le fromage, kinou’ah, hadaha et examen des mains suffisent donc. <em>Mais le fromage dur, lui, prolonge son goût</em> — et son din devient celui de la viande.</div>
 
-<h3 class="he-h3">לשון הרמ״א (סעיף ב')
-  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 העתק</button>
-</h3>
+<h3>La langue du Rama (séif ב) <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 Copier</button></h3>
 
 <div class="sacred-text he" data-copy-block id="cp-7">
-<strong>הגה (הרמ״א)</strong>: "ויש מחמירין אפילו בבשר אחר גבינה. <strong>וכן נוהגין שכל שהגבינה קשה אין אוכלין אחריה אפילו בשר עוף כמו בגבינה אחר בשר</strong> (וכן הוא בזוהר). ויש מקילין, ואין למחות רק שיעשו קינוח והדחה ונטילת ידים. מיהו טוב להחמיר."
+<p>הגה: ויש מחמירין אפילו בבשר אחר גבינה (מרדכי בשם מהר״ם וב״י בא״ח סי׳ קע״ג) וכן נוהגין שכל שהגבינה קשה אין אוכלין אחריה אפילו בשר עוף כמו בגבינה אחר בשר (וכן הוא בזוהר) ויש מקילין ואין למחות רק שיעשו קנוח והדחה ונטילת ידים מיהו טוב להחמיר</p>
 </div>
+<p class="source-ref">(Rama — רמ״א יו״ד פ״ט:ב)</p>
 
-<div class="rishon-card" dir="rtl">
-<strong>הש״ך</strong> (ס״ק טו) על "<span class="he-q">שכל שהגבינה קשה</span>": "<span class="he-q">ומן הסתם אם היא ישנה ו' חדשים חשיבה קשה, והכי איתא בת״ח שם די״ב</span>". כלומר שיעור "קשה" — גבינה ישנה ששה חודשים.
-</div>
+<p><em>Traduction</em> — certains sont rigoureux même pour la viande après le fromage (Mordekhi au nom du Maharam, et Beit Yossef dans Ora’h ’Haïm ס״י קע״ג). Et tel est l’usage : dès lors que le fromage est dur, on ne mange après lui même pas de la volaille, comme pour le fromage après la viande (et il en est ainsi dans le Zohar). Certains allègent, et il n’y a pas lieu de protester, pourvu qu’ils fassent kinou’ah, hadaha et nétilat yadayim ; toutefois il est bon d’être rigoureux.</p>
 
-<div class="rishon-card" dir="rtl">
-<strong>הש״ך</strong> (ס״ק טז) על "<span class="he-q">אין אוכלין כו'</span>" מביא מן <strong>ספר מצרף לחכמה</strong>: "<span class="he-q">דלפי מה שנתבאר... דאחר אכילת בשר נוהגין להמתין שעה אחת, א״כ אפשר דגם הזוהר מודה שלא אסר רק בסעודה חדא ובשעתא חדא</span>". כלומר, אף הזוהר (פרשת משפטים) שהחמיר — אפשר שאינו אוסר אלא בסעודה אחת ושעה אחת.
-</div>
+<div class="rishon-card">
+<strong>Le Chakh</strong> (ס״ק ט״ו), sur le lemme
+«&nbsp;<span class="he-q">שכל שהגבינה קשה</span>&nbsp;» :
+«&nbsp;<span class="he-q">ומן הסתם אם היא ישנה ו׳ חדשים חשיבה קשה והכי איתא בת״ח שם די״ב</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק ט״ו — Chakh)</span> — en règle générale, si le fromage a six mois, il est réputé dur ; ainsi est-il écrit dans le Torat ’Hatat. Voilà donc la mesure du « dur » : un fromage vieux de six mois.</div>
+
+<div class="rishon-card">
+<strong>Le Chakh</strong> (ס״ק ט״ז), sur le lemme
+«&nbsp;<span class="he-q">אין אוכלין כו</span>&nbsp;», rapporte le <strong>Sefer Metsaref la-’Hokhma</strong> :
+«&nbsp;<span class="he-q">דלפי מה שנתבאר בסעיף ח׳ דאחר אכילת בשר נוהגין להמתין שעה א׳ א״כ אפשר דגם הזוהר מודה שלא אסר רק בסעודה חדא ובשעתא חדא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק ט״ז — Chakh, au nom du Metsaref la-’Hokhma)</span> — puisqu’on a l’usage, après avoir mangé de la viande, d’attendre une heure, il se peut que le Zohar lui-même ne prohibe que dans un seul et même repas et une seule et même heure. Et le Chakh ajoute :
+«&nbsp;<span class="he-q">ולישנא דהזוהר פרשת משפטי׳ הכי משמע</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק ט״ז — Chakh)</span> — la langue du Zohar, parachat Michpatim, va bien en ce sens.</div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">9. פלוגתת הש״ך והט״ז — בשר אחר גבינה קשה ומתולעת</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">9. La plougta du Chakh et du Taz — viande après fromage dur et fromage véreux</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
 
-<p style="margin: 15px 0; font-style: italic; direction: rtl; text-align: right;">זוהי נקודת המחלוקת המעניינת של הסימן בין הש״ך לט״ז בענין החומרא של בשר אחר גבינה — נציג תחילה את לשון שניהם מן הקורפוס, ואחר כך את הניתוח.</p>
+<p style="margin: 15px 0; font-style: italic;">C’est ici le point de ma’hloket notable du siman entre le Chakh et le Taz, sur la rigueur de la viande après le fromage. Présentons d’abord la langue de l’un et de l’autre, puis l’analyse.</p>
 
-<h3 class="he-h3">לשון הש״ך (ס״ק יז)
-  <button class="daat-copy" type="button" data-copy-target="#cp-8">📋 העתק</button>
-</h3>
+<h3>La langue du Chakh (ס״ק י״ז) <button class="daat-copy" type="button" data-copy-target="#cp-8">📋 Copier</button></h3>
 
 <div class="sacred-text he" data-copy-block id="cp-8">
-<strong>הש״ך</strong> (ס״ק יז) על "<span class="he-q">מיהו טוב להחמיר</span>": "ומהרש״ל שם קרא תגר על המחמירים <strong>שהוא כמו מינות</strong>, ואמר דוקא מהר״ם שבא מכשול לידו פעם א' החמיר, אבל מי שלא בא לידו תקלה לא יכול להחמיר. ע״ש <strong>שאין דבריו מוכרחים, ואדרבה בדברי מהר״ם שם משמע איפכא</strong>." הרי שהש״ך מצדד בחומרא של בשר אחר גבינה (קשה), נגד קולת המהרש״ל.
+<p>ומהרש״ל שם קרא תגר על המחמירים שהוא כמו מינות ואמר דוקא מהר״מ שבא מכשול לידו פעם א׳ החמיר אבל מי שלא בא לידו תקלה לא יכול להחמיר ע״ש שאין דבריו מוכרחים ואדרבה בדברי מהר״מ שם משמע איפכא</p>
 </div>
+<p class="source-ref">(Chakh — ש״ך יו״ד פ״ט ס״ק י״ז, sur le lemme «&nbsp;<span class="he-q">מיהו טוב להחמיר</span>&nbsp;»)</p>
 
-<h3 class="he-h3">לשון הט״ז (ס״ק ד)
-  <button class="daat-copy" type="button" data-copy-target="#cp-9">📋 העתק</button>
-</h3>
+<p><em>Traduction</em> — le Maharchal s’est élevé contre ceux qui sont rigoureux, disant que c’est «&nbsp;<span class="he-q">שהוא כמו מינות</span>&nbsp;» — « comme une forme d’hérésie » — et que seul le Maharam, à qui un trébuchement était arrivé une fois, s’est montré rigoureux, tandis que celui à qui nul accident n’est arrivé ne saurait l’être. Mais le Chakh rétorque «&nbsp;<span class="he-q">שאין דבריו מוכרחים ואדרבה בדברי מהר״מ שם משמע איפכא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק י״ז — Chakh)</span> : ses propos ne s’imposent pas, et au contraire les termes mêmes du Maharam impliquent le contraire.</p>
+<p>Le Chakh prend donc parti pour la rigueur de la viande après le fromage (dur), contre l’allègement du Maharchal.</p>
+
+<h3>La langue du Taz (ס״ק ד) <button class="daat-copy" type="button" data-copy-target="#cp-9">📋 Copier</button></h3>
 
 <div class="sacred-text he" data-copy-block id="cp-9">
-<strong>הט״ז</strong> (ס״ק ד) על "<span class="he-q">ויש מחמירין אפילו בבשר אחר גבינה</span>": "פי' להמתין שש שעות. ושיעור גבינה קשה שזכר רמ״א היינו <strong>שעברו עליה ו' חדשים או שהיא מתולעת</strong>... ונלע״ד דדוקא <strong>בגבינה מתולעת</strong> יש להחמיר כן, והוא מדינא מטעם [שטעמה נמשך זמן רב]. <strong>אבל בגבינה ישנה ואינה מתולעת... אין להחמיר בזה יותר מקינוח וניקור שינים והדחת פה וידים</strong>, כי אם מי שנוהג בתוספת פרישות וזהירות."
+<p>פי׳ להמתין שש שעות. ושיעור גבינה קשה שזכר רמ״א היינו שעברו עליה ו׳ חדשים או שהיא מתולעת… אבל נלע״ד דדוקא בגבינה מותלעת יש להחמיר כן והוא מדינא מטעם שזכרנו. אבל בגבינה ישינה ואינה מותלעת… אין להחמיר בזה יותר מקינוח וניקור שינים והדחת פה וידים כי אם מי שנוהג בתוספת פרישות וזהירות.</p>
 </div>
+<p class="source-ref">(Taz — ט״ז יו״ד פ״ט ס״ק ד, sur le lemme «&nbsp;<span class="he-q">ויש מחמירין אפי׳ בבשר אחר גבינה</span>&nbsp;»)</p>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה המדויקת :</strong> איזו גבינה מצריכה המתנה אחריה ?
+<p><em>Traduction</em> — « Entendre : attendre six heures. Et la mesure du fromage dur dont a parlé le Rama, c’est qu’il ait passé six mois ou qu’il soit véreux… Mais il me semble que c’est <strong>précisément</strong> pour le fromage véreux qu’il y a lieu d’être rigoureux ainsi, et cela relève du din même, pour la raison que nous avons dite… Tandis que pour un fromage vieux et non véreux… il n’y a pas lieu d’être rigoureux au-delà du kinou’ah, du curage des dents et du rinçage de la bouche et des mains — sauf pour celui qui se conduit avec un surcroît d’abstinence et de vigilance. »</p>
+<p>La raison que le Taz invoque pour le fromage véreux est donnée dans sa propre note : «&nbsp;<span class="he-q">שטעם שלה נמשך בפה זמן רב</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד פ״ט ס״ק ד — Taz)</span> — son goût se prolonge longtemps dans la bouche, c’est-à-dire qu’il relève du ta’am de la graisse.</p>
+
+<div class="hakira-box">
+<strong>La ’hakira précise :</strong> quel fromage impose une attente après lui ?
 <ul class="stylish">
-<li><strong>הרמ״א :</strong> "<span class="he-q">כל שהגבינה קשה</span>" — והש״ך (ס״ק טו) פירש ישנה ו' חדשים.</li>
-<li><strong>הט״ז (ס״ק ד) :</strong> מצמצם <em>מדינא</em> רק ל<strong>גבינה מתולעת</strong> (שטעמה חריף ונמשך), ואילו גבינה ישנה בעלמא — סגי בקינוח, ניקור והדחה, "כי אם מי שנוהג בתוספת פרישות".</li>
+<li><strong>Le Rama :</strong>
+«&nbsp;<span class="he-q">שכל שהגבינה קשה</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד פ״ט:ב — Rama, séif ב)</span> — « tout fromage qui est dur » ; et le Chakh (ס״ק ט״ו) l’entend d’un fromage vieux de six mois.</li>
+<li><strong>Le Taz (ס״ק ד) :</strong> restreint la chose, <em>quant au din lui-même</em>, au seul <strong>fromage véreux</strong>, dont le goût est piquant et se prolonge ; tandis que pour un fromage simplement vieux, kinou’ah, curage et rinçage suffisent — « sauf pour celui qui se conduit avec un surcroît d’abstinence ».</li>
 </ul>
 </div>
 
-<div class="teruts-box" dir="rtl">
-<strong>הכרעה :</strong> נמצא ש<em>הש״ך מחמיר</em> כפשט הרמ״א (כל גבינה קשה / ישנה ו' חדשים), ו<em>הט״ז מיקל מדינא</em> ומצמצם לגבינה מתולעת. זו מחלוקת אמיתית מן הקורפוס: הש״ך (ס״ק יז) דוחה את קולת המהרש״ל ומחזיק בחומרא, והט״ז (ס״ק ד) מצמצם את עיקר הדין למתולעת בלבד. <em>למעשה — שאל את רבך.</em>
-</div>
+<div class="teruts-box">
+<strong>Où cela mène :</strong> il se trouve donc que <em>le Chakh est rigoureux</em> selon le sens simple du Rama (tout fromage dur, soit vieux de six mois), tandis que <em>le Taz allège quant au din</em> et restreint au fromage véreux. C’est une ma’hloket véritable, tirée des textes eux-mêmes : le Chakh (ס״ק י״ז) écarte l’allègement du Maharchal et tient la rigueur, le Taz (ס״ק ד) ramène l’essentiel du din au seul fromage véreux. <em>Pour la pratique — demandez à votre Rav.</em></div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">10. תבשיל, שומן, ושמש המשמש — סעיף ג'</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">10. Plat cuisiné, graisse et serveur — séif ג</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ג')
-  <button class="daat-copy" type="button" data-copy-target="#cp-10">📋 העתק</button>
-</h3>
+<h3>La langue du Me’haber et du Rama (séif ג) <button class="daat-copy" type="button" data-copy-target="#cp-10">📋 Copier</button></h3>
 
 <div class="sacred-text he" data-copy-block id="cp-10">
-המחבר: "<span class="he-q">אכל תבשיל של בשר, מותר לאכול אחריו תבשיל של גבינה, והנטילה ביניהם אינה אלא רשות</span>" (ויש מצריכים נטילה). <strong>הגה</strong>: "<span class="he-q">ושומן של בשר דינו כבשר עצמו... ונהגו עכשיו להחמיר שלא לאכול גבינה אחר תבשיל בשר כמו אחר בשר עצמו, ואין לשנות. מיהו אם אין בשר בתבשיל רק שנתבשל בקדירה של בשר — מותר לאכול אחריו גבינה</span>".
+<p>אכל תבשיל של בשר מותר לאכול אחריו תבשיל של גבינה והנטילה ביניהם אינה אלא רשות (ויש מצריכים נטילה) (שערים והגהות ש״ד) אבל אם בא לאכול הגבינה עצמה אחר תבשיל של בשר או הבשר עצמו אחר תבשיל של גבינה חובה ליטול ידיו</p>
+<p style="margin-top:14px;">הגה: ושומן של בשר דינו כבשר עצמו (רשב״א סימן ש״י ומרדכי והגהת ש״ד) ונהגו עכשיו להחמיר שלא לאכול גבינה אחר תבשיל בשר כמו אחר בשר עצמו ואין לשנות ולפרוץ גדר (ארוך וב״י) מיהו אם אין בשר בתבשיל רק שנתבשל בקדירה של בשר מותר לאכול אחריו גבינה (שם) ואין בו מנהג להחמיר וכן נוהגין לאכול בשר אחר תבשיל שיש בו גבינה או חלב מיהו יש ליטול ידיו ביניהם ואפי׳ לא יאכל בשר ממש רק תבשיל של בשר אחר תבשיל של גבינה אם נגע בהן בידיו (בשערים והג״ה שערי דורא) שמש המשמש בסעודה ונוגע באוכלין אינו צריך נטילה דלא הצריכו נטילה רק לאוכלים</p>
 </div>
+<p class="source-ref">(Choul’han Aroukh et Rama — שו״ע ורמ״א יו״ד פ״ט:ג)</p>
 
-<div class="pilpul-box" dir="rtl">
-<strong>הש״ך (ס״ק יט)</strong> מבאר את ההיתר ד"<span class="he-q">נתבשל בקדירה של בשר</span>": "<span class="he-q">לקמן ריש סי' צ״ה יתבאר דאפילו לאכלו עם גבינה מותר דהוי נ״ט בר נ״ט</span>" — נתינת טעם בר נתינת טעם. ומדייק שאשמועינן הכא דמותר אף "<span class="he-q">אפילו נתבשל בקדרה שלא הודחה יפה דהוי קצת ממשות של איסור</span>". <strong>הפתחי תשובה</strong> (ס״ק ז) מצרף שאף תבשיל שהושם בו <em>מעט שומן</em> מותר אם אין ס' נגדו, ומביא חולק (ס' בל״י) דאם נותן הממשות טעם בתבשיל הוי כשומן.
-</div>
+<p><em>Traduction</em> — <strong>Le Me’haber</strong> : celui qui a mangé un plat de viande peut manger après lui un plat de fromage, et la nétila entre les deux n’est qu’une faculté (certains l’exigent) ; mais s’il vient à manger le fromage lui-même après un plat de viande, ou la viande elle-même après un plat de fromage, la nétila est obligatoire. <strong>Le Rama</strong> : la graisse de la viande a le din de la viande elle-même (Rachba, Mordekhi, Haghot Chaarei Doura) ; et l’usage est désormais d’être rigoureux et de ne pas manger de fromage après un plat de viande, comme après la viande elle-même, et il ne faut ni y changer ni ouvrir une brèche (Aroukh et Beit Yossef). Toutefois, si le plat ne contient pas de viande mais a seulement été cuit dans une marmite de viande, il est permis de manger du fromage après lui, et il n’y a là aucun usage de rigueur. De même a-t-on l’usage de manger de la viande après un plat contenant du fromage ou du lait — mais il faut se laver les mains entre les deux, et même s’il ne mange pas de viande proprement dite mais un plat de viande après un plat de fromage, s’il les a touchés de ses mains. Le serveur qui sert au repas et touche aux aliments n’a pas besoin de nétila, car on n’a imposé la nétila qu’à ceux qui mangent (Beit Yossef au nom de Rachi).</p>
 
-<div class="rishon-card" dir="rtl">
-<strong>הש״ך</strong> (ס״ק יח) על "<span class="he-q">ושומן של בשר</span>": "<span class="he-q">ואפילו שומן של עוף דינו כשומן ממש, כ״כ בת״ח בשם המרדכי והגהת ש״ד</span>". <strong>הט״ז</strong> (ס״ק ה) מצרף שאף "<span class="he-q">שומן אווז יש להחמיר</span>", ומביא חילוק רבנו יונה: מרק צלול דינו כתבשיל בשר, אבל אם הוא <em>עב כירקות</em> דינו כבשר ממש.
-</div>
+<div class="pilpul-box">
+<strong>Le Chakh (ס״ק י״ט)</strong> explique le heter du
+«&nbsp;<span class="he-q">מיהו אם אין בשר בתבשיל רק שנתבשל בקדירה של בשר מותר לאכול אחריו גבינה</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד פ״ט:ג — Rama, séif ג)</span> :
+«&nbsp;<span class="he-q">לקמן ריש סי׳ צ״ה יתבאר דאפי׳ לאכלו עם גבינה מותר דהוי נ״ט בר נ״ט</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק י״ט — Chakh)</span> — au début du siman צ״ה il sera expliqué qu’il est même permis de le manger <em>avec</em> du fromage, puisque c’est un noten ta’am bar noten ta’am. Et le Chakh en déduit que ce que le Rama nous enseigne ici vaut
+«&nbsp;<span class="he-q">אפילו נתבשל בקדרה שלא הודחה יפה דהוי קצת ממשות של איסור</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק י״ט — Chakh)</span> — même si le plat a été cuit dans une marmite mal rincée, où subsiste un peu de substance interdite : manger cela <em>avec</em> du fromage serait défendu, mais le manger <em>avant</em> le fromage est permis. <strong>Le Pit’hei Techouva</strong> (ס״ק ז) y joint :
+«&nbsp;<span class="he-q">ולפ״ז פשיטא דתבשיל שהושם בו מעט שומן מותר לאכול אחריו גבינה אף אם לא היה ס׳ נגד השומן</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד פ״ט ס״ק ז — Pit’hei Techouva)</span> — un plat dans lequel on a mis un peu de graisse est permis même s’il n’y a pas soixante contre elle ; et il rapporte un contradicteur, le Beit Le’hem Yehouda :
+«&nbsp;<span class="he-q">אבל אם נותן הממשות טעם בתבשיל הוי כמו שומן</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד פ״ט ס״ק ז — Pit’hei Techouva, au nom du Beit Le’hem Yehouda)</span> — si la substance donne du goût au plat, c’est comme de la graisse.</div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הש״ך</strong> (ס״ק כ) על "<span class="he-q">מיהו יש ליטול ידיו ביניהם</span>" (בבשר אחר תבשיל גבינה): "<span class="he-q">אף ביום לכ״ע, דיותר נדבק בידים מגבינה עצמה, כן הסכימו הפוסקים</span>".
-</div>
+<div class="rishon-card">
+<strong>Le Chakh</strong> (ס״ק י״ח), sur le lemme
+«&nbsp;<span class="he-q">ושומן של בשר וכו</span>&nbsp;» :
+«&nbsp;<span class="he-q">ואפילו שומן של עוף דינו כשומן ממש כ״כ בת״ח שם ד״ד בשם המרדכי והגהת ש״ד</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק י״ח — Chakh)</span> — même la graisse de volaille a le din de la graisse proprement dite. <strong>Le Taz</strong> (ס״ק ה) y joint
+«&nbsp;<span class="he-q">דאפי׳ בשומן אווז יש להחמיר כן</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד פ״ט ס״ק ה — Taz, au nom du Torat ’Hatat et des Haghot Chaarei Doura)</span> — qu’il y a lieu d’être rigoureux même pour la graisse d’oie ; et il rapporte la distinction de <strong>Rabbenou Yona</strong> :
+«&nbsp;<span class="he-q">ורבי׳ יונה פ׳ אלו הדברים כתב דיש לו דין תבשיל של בשר הואיל והוא צלול אבל אם הוא עב כמו ירקות יש לו דין בשר</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד פ״ט ס״ק ה — Taz, au nom de Rabbenou Yona)</span> — un bouillon clair a le din d’un plat de viande, mais s’il est épais comme des légumes, il a le din de la viande elle-même.</div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הש״ך</strong> (ס״ק כא) על "<span class="he-q">שמש המשמש</span>": כתב הב״י בשם רש״י (פכ״ה דף ק״ז ע״ב) דשמש הנוגע באוכלין אינו צריך נטילה, אבל הש״ך מדייק: "<span class="he-q">באמת לא דקדקו כלל, דרש״י לא איירי התם אלא לענין נטילה ראשונה לאכילה</span>" — אבל במים אמצעים בין תבשיל לגבינה, שטעמם משום שנדבק בידים, "<span class="he-q">פשיטא דאין חילוק בין אוכל לנוגע</span>".
-</div>
+<div class="rishon-card">
+<strong>Le Chakh</strong> (ס״ק כ), sur le lemme
+«&nbsp;<span class="he-q">מיהו יש ליטול ידיו ביניהם</span>&nbsp;» (pour la viande après un plat de fromage) :
+«&nbsp;<span class="he-q">אף ביום לכ״ע דיותר נדבק בידים מגבינה עצמה כן הסכימו הפוסקים</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק כ — Chakh)</span> — de jour aussi, de l’avis de tous, car cela adhère aux mains plus que le fromage lui-même ; ainsi en ont convenu les poskim.</div>
+
+<div class="rishon-card">
+<strong>Le Chakh</strong> (ס״ק כ״א), sur le lemme
+«&nbsp;<span class="he-q">שמש המשמש כו</span>&nbsp;» : le Beit Yossef a écrit au nom de Rachi (chapitre <em>Kol ha-bassar</em>, 107b) que le serveur qui touche aux aliments n’a pas besoin de nétila ; mais le Chakh objecte :
+«&nbsp;<span class="he-q">ובאמת לא דקדקו כלל דרש״י לא איירי התם אלא לענין נ״י הראשונים לאכילה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק כ״א — Chakh)</span> — on n’y a pas regardé d’assez près : Rachi ne parle là que des <em>premières</em> eaux, celles qui précèdent le repas. Mais pour les eaux <em>intermédiaires</em>, entre un plat et le fromage, dont la raison est que cela adhère aux mains,
+«&nbsp;<span class="he-q">פשיטא דאין חילוק בין אוכל לנוגע</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק כ״א — Chakh)</span> — il est évident qu’il n’y a pas de différence entre celui qui mange et celui qui touche.</div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">11. השולחן, המפה והסכין — נעיצה ומנהג שני סכינים</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">11. La table, la nappe et le couteau — le plantage en terre et l’usage des deux couteaux (séif ד)</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ד')
-  <button class="daat-copy" type="button" data-copy-target="#cp-11">📋 העתק</button>
-</h3>
+<h3>La langue du Me’haber et du Rama (séif ד) <button class="daat-copy" type="button" data-copy-target="#cp-11">📋 Copier</button></h3>
 
 <div class="sacred-text he" data-copy-block id="cp-11">
-המחבר: "<span class="he-q">מי שאכל גבינה ורוצה לאכול בשר צריך לבער מעל השלחן שיורי פת... ואסור לחתוך גבינה אפילו צוננת בסכין שרגילין לחתוך בה בשר</span>". <strong>הגה</strong>: "<span class="he-q">וכן להפך נמי אסור, מיהו על ידי נעיצה בקרקע קשה שרי. אבל כבר נהגו כל ישראל להיות להם שני סכינים ולרשום אחד מהם שיהא לו היכר, ונהגו לרשום של חלב, ואין לשנות מנהג של ישראל</span>".
+<p>מי שאכל גבינה ורוצה לאכול בשר צריך לבער מעל השלחן שיורי פת שאכלו עם הגבינה ואסור לאכול גבינה על מפה שאכלו בה בשר (וכן להפך אסור) (כן משמע בארוך) וכל שכן שאסור לחתוך גבינה אפי׳ צוננת בסכין שרגילין לחתוך בשר ולא עוד אלא אפילו הפת שאוכלים עם הגבינה אסור לחתוך בסכין שחותכין בה בשר</p>
+<p style="margin-top:14px;">הגה: וכן להפך נמי אסור מיהו על ידי נעיצה בקרקע קשה שרי (ב״י בשם א״ח וכל בו) אבל כבר נהגו כל ישראל להיות להם שני סכינים ולרשום אחד מהם שיהא לו היכר ונהגו לרשום של חלב ואין לשנות מנהג של ישראל</p>
 </div>
+<p class="source-ref">(Choul’han Aroukh et Rama — שו״ע ורמ״א יו״ד פ״ט:ד)</p>
 
-<div class="pilpul-box" dir="rtl">
-<strong>הש״ך (ס״ק כב)</strong> מאריך בדין נעיצה: "<span class="he-q">משמע דאם נעצו בקרקע קשה מותר לכתחלה לחתוך בו פת לאכול עם גבינה</span>" (וכן הא״ח והכל בו). ומהרש״ל (פכ״ה סי' ח') אוסר, "<span class="he-q">דלא התירו נעיצה אלא אם אירע במקרה שחתכו בסכין בשר... שצריך נעיצה להכשירו מן האיסור</span>". והקשה עליו הש״ך דקי״ל דחתך לפת בסכין של בשר מותר לחתוך בו אפילו צנון לכותח (ס״ס צ״ו), <strong>וכ״ש דנעיצה עדיף טפי</strong>.
-</div>
+<p><em>Traduction</em> — <strong>Le Me’haber</strong> : celui qui a mangé du fromage et veut manger de la viande doit débarrasser de la table les restes de pain mangés avec le fromage ; et il est interdit de manger du fromage sur une nappe sur laquelle on a mangé de la viande (et inversement, c’est interdit aussi) ; et à plus forte raison est-il interdit de couper du fromage, fût-il froid, avec un couteau dont on a l’habitude de couper de la viande ; et bien plus, même le pain que l’on mange avec le fromage, il est interdit de le couper avec un couteau qui sert à couper de la viande. <strong>Le Rama</strong> : et l’inverse est interdit de même ; toutefois, en plantant le couteau dans une terre dure, c’est permis (Beit Yossef au nom du Or’hot ’Haïm et du Kol Bo). Mais tout Israël a déjà pris l’usage d’avoir deux couteaux et d’en marquer un pour qu’il ait un signe distinctif ; et l’usage est de marquer celui du laitage — et l’on ne change pas un usage d’Israël.</p>
 
-<div class="hakira-box" dir="rtl">
-<strong>חקירה בדין נעיצה :</strong> מהי פעולת הנעיצה ?
+<div class="pilpul-box">
+<strong>Le Chakh (ס״ק כ״ב)</strong> s’étend sur le din du plantage :
+«&nbsp;<span class="he-q">משמע דאם נעצו בקרקע קשה מותר לכתחלה לחתוך בו פת לאכול עם גבינה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק כ״ב — Chakh)</span> — il en ressort que s’il l’a planté dans une terre dure, il est permis <em>de prime abord</em> d’y couper du pain à manger avec du fromage ; ainsi ressort-il du Or’hot ’Haïm et du Kol Bo. Le <strong>Maharchal</strong> (chapitre <em>Kol ha-bassar</em>, ס״י ח׳) l’interdit :
+«&nbsp;<span class="he-q">דלא התירו נעיצה אלא אם אירע במקרה שחתכו בסכין בשר או איפכא שצריך נעיצה להכשירו מן האיסור</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק כ״ב — Chakh, au nom du Maharchal)</span> — on n’a permis le plantage que lorsqu’il est arrivé par accident qu’on ait coupé avec un couteau carné (ou l’inverse), de sorte qu’il faille le plantage pour le rendre kacher de son interdit. Et le Chakh objecte : or nous tenons que celui qui a coupé un navet avec un couteau carné peut ensuite y couper même un radis pour le manger avec du koutah (fin du siman צ״ו) —
+«&nbsp;<span class="he-q">והא ודאי דנעיצה עדיף טפי מחתיכת לפת</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק כ״ב — Chakh)</span>, et il est certain que le plantage vaut mieux encore que la coupe d’un navet.</div>
+
+<div class="hakira-box">
+<strong>’Hakira sur le din du plantage :</strong> qu’opère au juste le plantage en terre ?
 <ul class="stylish">
-<li><strong>צד א' (הש״ך) :</strong> נעיצה <em>מנקה</em> את הסכין ומסירה את הטעם הדבוק, ולכן מהני אף לכתחילה (כל שכן מחתיכת לפת המבטלת טעם).</li>
-<li><strong>צד ב' (מהרש״ל) :</strong> נעיצה רק <em>מכשירה מאיסור</em> בדיעבד שאירע, ולא ניתנה היתר לכתחילה לערב מערכות.</li>
+<li><strong>Côté א (le Chakh) :</strong> le plantage <em>nettoie</em> le couteau et en ôte le goût qui y adhère ; il vaut donc même de prime abord — a fortiori par rapport à la coupe d’un navet, qui ne fait qu’annuler le goût.</li>
+<li><strong>Côté ב (le Maharchal) :</strong> le plantage ne fait que <em>rendre permis après coup</em> un couteau qu’un accident a rendu interdit ; ce n’est pas une permission donnée d’avance de mêler les deux services.</li>
 </ul>
-ומסיק הש״ך: "<span class="he-q">וכל זה מדינא, אבל כבר נהגו כל ישראל להיות להם ב' סכינים... ובשעת הדחק שאין לו סכין אחר מוקמינן לה אדינא</span>".
-</div>
+Et le Chakh conclut :
+«&nbsp;<span class="he-q">וכל זה מדינא אבל כבר נהגו כל ישראל להיות להם ב׳ סכינים</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק כ״ב — Chakh)</span> — tout cela relève du din ; mais tout Israël a déjà pris l’usage d’avoir deux couteaux, comme l’écrit le Rama dans sa hagaha —
+«&nbsp;<span class="he-q">ובשעת הדחק שאין לו סכין אחר מוקמינן לה אדינא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק כ״ב — Chakh)</span> : et dans une situation de nécessité, lorsqu’il n’a pas d’autre couteau, on s’en tient au din.</div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הט״ז</strong> (ס״ק ו-ז) מחלק: דין נעיצה קאי על <em>חיתוך גבינה</em> בסכין של בשר; אבל לחתוך <em>לחם</em> לאכול עם גבינה — "<span class="he-q">לא צריך רק קינוח הסכין... דלדידן א״צ לזה שהרי מבואר בסי' צ״ו דדוקא בדבר חריף אמרינן דבולע משום דוחקא דסכין</span>". ולמנהג שני הסכינים — "<span class="he-q">אסור לחתוך גבינה בסכין של בשר אפילו ע״י נעיצה</span>", אבל לחתוך לחם — סגי בקינוח הסכין.
-</div>
+<div class="rishon-card">
+<strong>Le Taz</strong> (ס״ק ו–ז) distingue : le din du plantage porte sur le fait de <em>couper du fromage</em> avec un couteau carné ; mais pour couper du <em>pain</em> à manger avec du fromage,
+«&nbsp;<span class="he-q">לא צריך רק קינוח הסכין</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד פ״ט ס״ק ו — Taz)</span> — il ne faut qu’essuyer le couteau ; et il ajoute
+«&nbsp;<span class="he-q">ולדידן א״צ לזה שהרי מבואר בסי׳ צ״ו דדוקא בדבר חריף אמרינן דבולע משום דוחקא דסכין</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד פ״ט ס״ק ו — Taz)</span> — pour nous, même cette raison de noten ta’am bar noten ta’am n’est pas nécessaire, puisqu’il est expliqué au siman צ״ו que ce n’est que pour un aliment piquant qu’on dit qu’il absorbe, à cause de la pression du couteau. Et quant à l’usage des deux couteaux —
+«&nbsp;<span class="he-q">אסור לחתוך גבינה בסכין של בשר אפי׳ ע״י נעיצה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד פ״ט ס״ק ז — Taz)</span> : il est interdit de couper du fromage avec un couteau carné <em>même</em> par le plantage ; mais pour couper du pain, l’essuyage suffit.</div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הפתחי תשובה</strong> (ס״ק ח, על "<span class="he-q">על מפה</span>") מביא מן <strong>הרדב״ז</strong> (ח״ב סי' תשכ״א): שאין דברי הרב אלא כשהיו מניחים הבשר והגבינה על המפה, "<span class="he-q">אבל מנהגינו להביא כל מאכל על השלחן בקערות... הלכך אפילו לצאת ידי חומרת הרשב״א בהפוך המפה לחוד ובהסרת הפתיתין סגי, וכן נהגו</span>".
-</div>
+<div class="rishon-card">
+<strong>Le Pit’hei Techouva</strong> (ס״ק ח, sur le lemme
+«&nbsp;<span class="he-q">על מפה</span>&nbsp;») rapporte le <strong>Radbaz</strong> (ח״ב ס״י תשכ״א) :
+«&nbsp;<span class="he-q">שאין דברי הרב אלא כשהיו מניחין הבשר והגבינה על המפה</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד פ״ט ס״ק ח — Pit’hei Techouva, au nom du Radbaz)</span> — les propos du Rama ne valent que là où l’on posait la viande et le fromage à même la nappe ;
+«&nbsp;<span class="he-q">אבל מנהגינו להביא כל מאכל על השלחן בקערות</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד פ״ט ס״ק ח — Pit’hei Techouva)</span> — mais notre usage est d’apporter tout mets à table dans des écuelles ; dès lors
+«&nbsp;<span class="he-q">הלכך אפי׳ לצאת ידי חומרת הרשב״א ז״ל בהפוך המפה לחוד ובהסרת הפתיתין סגי וכן נהגו</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד פ״ט ס״ק ח — Pit’hei Techouva, au nom du Radbaz)</span> — même pour satisfaire à la rigueur du Rachba, il suffit de retourner la nappe et d’en ôter les miettes ; et tel est l’usage.</div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">12. חקירה ונפקא מינה למעשה · טבלאות סיכום</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">12. ’Hakira et nafka minot pratiques · tableaux de synthèse</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<div class="hakira-box" dir="rtl">
-<strong>חקירת היסוד של הסימן :</strong> מהו טבע ההמתנה אחר בשר ?
+<div class="hakira-box">
+<strong>La ’hakira de fond du siman :</strong> quelle est la nature de l’attente après la viande ?
 <ul class="stylish">
-<li><strong>צד א — הרחקת זמן (טעם השומן) :</strong> ההמתנה היא פרק זמן שבו פג טעם הבשר בפה; השיעור — שש שעות (רי״ף/רמב״ם), מסעודה לסעודה.</li>
-<li><strong>צד ב — סילוק מן הבשר (בין השינים / סעודה אחרת) :</strong> השיעור אינו זמן אלא <em>מצב</em>: שתהא "סעודה אחרת" (סילוק וברכה — תוס'), ושלא יישאר בשר בין השינים (רמב״ם).</li>
+<li><strong>Côté א — un écart de temps (le ta’am de la graisse) :</strong> l’attente est la durée au terme de laquelle le goût de la viande s’est dissipé dans la bouche ; la mesure en est six heures (Rif / Rambam), d’un repas à l’autre.</li>
+<li><strong>Côté ב — la sortie hors de la viande (entre les dents / autre repas) :</strong> la mesure n’est pas un temps mais un <em>état</em> : qu’il y ait « un autre repas » (desservir et bénir — Tossafot), et qu’il ne reste pas de viande entre les dents (Rambam).</li>
 </ul>
-ומכאן ההכרעה "<span class="he-q">לאחוז כחומרי שני הטעמים</span>" — והרמ״א חתם "<span class="he-q">וכן נכון לעשות</span>" לשש שעות.
-</div>
+De là la décision
+«&nbsp;<span class="he-q">וטוב לאחוז כחומרי שני הטעמים</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק ב — Chakh, au nom du Tour)</span> — tenir les rigueurs des deux ta’amim ; et le Rama a scellé
+«&nbsp;<span class="he-q">וכן נכון לעשות</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד פ״ט:א — Rama, séif א)</span> pour les six heures.</div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה לחקירה (מעוגנות בקורפוס) :</strong>
+<div class="nafka-mina-box">
+<strong>Nafka minot de la ’hakira (toutes ancrées dans les textes du siman) :</strong>
 <ol class="stylish">
-<li><strong>לועס לתינוק</strong> — לטעם השומן אין צריך להמתין, ולטעם בין השינים צריך (ש״ך ס״ק ב; ט״ז ס״ק א). ולמעשה — "לאחוז כשני הטעמים".</li>
-<li><strong>לועס תבשיל שיש בו שומן לתינוק</strong> — לכל הטעמים פטור, ומ״מ הפמ״ג מחמיר משום "לא פלוג" (פת״ש ס״ק א).</li>
-<li><strong>בשר בין השינים אחר השיעור</strong> — מטעם השומן כבר נתעכל, אבל מטעם בין השינים בעי הסרה אף אחר שש שעות (מחבר ס״א; ש״ך ס״ק ז).</li>
-<li><strong>גבינה קשה</strong> — לטעם השומן/המשכת הטעם, גבינה קשה כבשר; הט״ז מצמצם למתולעת (ס״ק ד).</li>
+<li><strong>Celui qui mâche pour un enfant</strong> — pour le ta’am de la graisse il n’a pas à attendre ; pour le ta’am de l’entre-dents il le doit (Chakh ס״ק ב ; Taz ס״ק א). Et pour la pratique — tenir les deux ta’amim.</li>
+<li><strong>Celui qui mâche pour un enfant un plat contenant de la graisse</strong> — pour tous les ta’amim il en serait dispensé, et pourtant le Peri Megadim est rigoureux au titre du lo plog (פת״ש יו״ד פ״ט ס״ק א — Pit’hei Techouva).</li>
+<li><strong>De la viande entre les dents après la durée d’attente</strong> — pour le ta’am de la graisse elle est déjà digérée, mais pour le ta’am de l’entre-dents il faut l’ôter même après six heures (Me’haber séif א ; Chakh ס״ק ז).</li>
+<li><strong>Le fromage dur</strong> — pour le ta’am de la graisse, c’est-à-dire du goût qui se prolonge, le fromage dur est comme de la viande ; le Taz restreint au fromage véreux (ס״ק ד).</li>
 </ol>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<h4>טבלת מעשה — שיעורי ההמתנה והניקיון</h4>
+<div class="nafka-mina-box">
+<h4>Tableau pratique — les mesures d’attente et de nettoyage</h4>
 
 <table>
 <tr>
-  <th>מצב</th>
-  <th>שיעור</th>
-  <th>קינוח / הדחה / נטילה</th>
+  <th>Situation</th>
+  <th>Mesure</th>
+  <th>Kinou’ah / hadaha / nétila</th>
 </tr>
 <tr>
-  <td>בשר (אף עוף) → גבינה — שיטת המחבר</td>
-  <td>שש שעות; והסרת בשר שבין השינים אף אחר השיעור</td>
-  <td>הסרה אם נמצא; ובמדקדקים אין צריך עוד</td>
+  <td>Viande (même volaille) → fromage — chita du Me’haber</td>
+  <td>six heures ; et retrait de la viande d’entre les dents même après la durée</td>
+  <td>retrait si l’on en trouve</td>
 </tr>
 <tr>
-  <td>בשר → גבינה — מנהג הרמ״א</td>
-  <td>שעה אחת <em>וגם</em> ברכת המזון</td>
-  <td>אם לא מצא בשר בין שיניו — סגי בלא קינוח (ש״ך ס״ק ז)</td>
+  <td>Viande → fromage — l’usage rapporté par le Rama</td>
+  <td>une heure <em>et aussi</em> le birkat ha-mazon</td>
+  <td>s’il n’a pas trouvé de viande entre ses dents —
+«&nbsp;<span class="he-q">דהמנהג בהמתנת שעה סגי אפי׳ בלא קינוח והדחה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק ז — Chakh)</span></td>
 </tr>
 <tr>
-  <td>בשר → גבינה — הי״א (מיד)</td>
-  <td>מיד אם סילק ובירך</td>
-  <td>קינוח <em>והדחה</em> בעי בכל גוונא</td>
+  <td>Viande → fromage — le yech omrim (immédiatement)</td>
+  <td>immédiatement s’il a desservi et béni</td>
+  <td>kinou’ah <em>et</em> hadaha en toute hypothèse</td>
 </tr>
 <tr>
-  <td>גבינה (רכה) → בשר</td>
-  <td>מיד</td>
-  <td>קינוח, הדחה, עיון/נטילת ידים</td>
+  <td>Fromage (tendre) → viande</td>
+  <td>immédiatement</td>
+  <td>kinou’ah, hadaha, examen ou lavage des mains</td>
 </tr>
 <tr>
-  <td>גבינה קשה → בשר</td>
-  <td>כבשר אחר גבינה (להמתין; הט״ז: דווקא מתולעת מדינא)</td>
+  <td>Fromage dur → viande</td>
+  <td>comme le fromage après la viande (attendre) ; pour le Taz, quant au din, le fromage véreux seulement</td>
   <td>—</td>
 </tr>
 </table>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<h4>נפקא מינה נוספות מן הקורפוס</h4>
+<div class="nafka-mina-box">
+<h4>Autres nafka minot tirées des textes</h4>
 
 <table>
-<tr><th>נושא</th><th>הלכה למעשה (לעיון בלבד)</th></tr>
+<tr><th>Sujet</th><th>Ce que disent les poskim (pour l’étude seulement)</th></tr>
 <tr>
-  <td>שעות זמניות או רגילות</td>
-  <td>אינן זמניות — כדעת הכנה״ג, כו״פ, פמ״ג וחכמת אדם, "וכן המנהג" (פת״ש ס״ק ג).</td>
+  <td>Heures saisonnières ou heures ordinaires ?</td>
+  <td>Ce ne sont pas des heures saisonnières, comme l’avis de la Knesset ha-Guedola, auquel se rangent le Kereti ou-Feleti, le Peri Megadim et le ’Hokhmat Adam —
+«&nbsp;<span class="he-q">וכן המנהג</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד פ״ט ס״ק ג — Pit’hei Techouva)</span>.</td>
 </tr>
 <tr>
-  <td>חולה השותה מי חלב לרפואה</td>
-  <td>אפילו חולה קצת אין צריך להמתין יותר משעה, ואחר ברכת המזון ישתה (ח״ס סי' ע״ג, בפת״ש ס״ק ג).</td>
+  <td>Le malade qui boit du petit-lait comme remède</td>
+  <td>«&nbsp;<span class="he-q">דחולה השותה מימי חלב לרפואתו אפילו הוא רק חולה קצת א״צ להמתין אחר אכילת בשר יותר משעה ואחר שכבר בירך ברהמ״ז ישתה וירוח לו</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד פ״ט ס״ק ג — ’Hatam Sofer ס״י ע״ג)</span> — même s’il n’est que légèrement malade, il n’a pas à attendre plus d’une heure après la viande, et il boira une fois le birkat ha-mazon récité.</td>
 </tr>
 <tr>
-  <td>קינוח — בליעה או פליטה</td>
-  <td>הקינוח שיבלע דווקא, ואסור לפלוט משום הפסד אוכלין (פרי תואר, פת״ש ס״ק ה).</td>
+  <td>Le kinou’ah — avaler ou recracher ?</td>
+  <td>Le kinou’ah suppose d’avaler, et il est interdit de recracher à cause du gaspillage de nourriture <span class="source-ref">(פת״ש יו״ד פ״ט ס״ק ה — Peri Toar)</span>.</td>
 </tr>
 <tr>
-  <td>קינוח בפירות (חוץ מקמח/תמרים/ירקות)</td>
-  <td>שאר פירות הוי קינוח (כה״ג בהגהת הטור, פת״ש ס״ק ו).</td>
+  <td>Le kinou’ah avec des fruits (hors farine, dattes et légumes)</td>
+  <td>Les autres fruits font kinou’ah <span class="source-ref">(פת״ש יו״ד פ״ט ס״ק ו — Knesset ha-Guedola sur le Tour)</span>.</td>
 </tr>
 </table>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>סיכום היסוד :</strong><br>
-כל הסימן סובב סביב שני הטעמים — <span class="he-q">"מושך טעם"</span> ו<span class="he-q">"בשר שבין השינים"</span>. מהם נגזרות:
-<br>• <strong>ההמתנה אחר בשר</strong> (שש שעות / שעה+ברכה / מיד+סילוק) — אסימטרית לאחר גבינה.<br>• <strong>הסרת בשר שבין השינים</strong> אף אחר השיעור.<br>• <strong>חומרת הגבינה הקשה</strong> (וצמצום הט״ז למתולעת).<br>• <strong>קינוח, הדחה ונטילה</strong>, וכן הפרדת השולחן, המפה והסכינים.
-</div>
+<div class="yesod-box">
+<strong>Le yessod, en bref :</strong><br>
+tout le siman tourne autour des deux ta’amim — celui du goût que la viande prolonge, et celui de la viande restée entre les dents. Il en découle :<br>• <strong>l’attente après la viande</strong> (six heures / une heure + berakha / immédiatement + dessertissement) — asymétrique de ce qui vaut après le fromage.<br>• <strong>le retrait de la viande d’entre les dents</strong> même après la durée d’attente.<br>• <strong>la rigueur du fromage dur</strong> (et la restriction du Taz au fromage véreux).<br>• <strong>kinou’ah, hadaha et nétila</strong>, ainsi que la séparation de la table, de la nappe et des couteaux.</div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">13. סיכום השיטות בטבלה מקיפה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">13. Synthèse des chitot en tableau</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">טבלה — מחלוקות מרכזיות הש״ך / ט״ז / אחרים</h3>
+<h3>Tableau — les ma’hlokot centrales : Chakh / Taz / autres</h3>
 
 <table>
 <tr>
-  <th>נושא</th>
-  <th>הש״ך</th>
-  <th>הט״ז</th>
-  <th>חולק / מקור</th>
+  <th>Sujet</th><th>Le Chakh</th><th>Le Taz</th><th>Qui s’y oppose / source</th>
 </tr>
 <tr>
-  <td>שני הטעמים להמתנה</td>
-  <td>שומן (טור) + בין השינים (רמב״ם); דוחה העט״ז (ס״ק ב)</td>
-  <td>שני טעמים, "קי״ל להחמיר כשני הטעמים" (ס״ק א)</td>
-  <td>עט״ז — מערב הטעמים, ו"דבריו תמוהין"</td>
+  <td>Les deux ta’amim de l’attente</td>
+  <td>la graisse (le Tour) + l’entre-dents (le Rambam) ; il écarte l’Atérèt Zekenim (ס״ק ב)</td>
+  <td>deux ta’amim —
+«&nbsp;<span class="he-q">וקי״ל להחמיר כשני הטעמים</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד פ״ט ס״ק א — Taz)</span></td>
+  <td>l’Atérèt Zekenim — il fond les deux ta’amim, et
+«&nbsp;<span class="he-q">ודבריו תמוהין</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק ב — Chakh)</span></td>
 </tr>
 <tr>
-  <td>בלא ברכת המזון — מהני שעה ?</td>
-  <td>לא; "כל היום אסור עד שסילק ובירך" (ס״ק ה)</td>
-  <td>"דאל״כ אפילו המתין כל היום אסור" (ס״ק ב)</td>
-  <td>מהרש״ל — מסכים</td>
+  <td>Sans birkat ha-mazon, l’heure sert-elle ?</td>
+  <td>non ;
+«&nbsp;<span class="he-q">אם לא סילק ובירך אפי׳ כל היום כולו אסור</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק ה — Chakh)</span></td>
+  <td>«&nbsp;<span class="he-q">דאל״כ אפילו המתין כל היום אסור</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד פ״ט ס״ק ב — Taz)</span></td>
+  <td>le Maharchal — même avis, rapporté par l’un et l’autre</td>
 </tr>
 <tr>
-  <td>בשר אחר גבינה קשה</td>
-  <td>מחמיר; דוחה קולת מהרש״ל "כמו מינות" (ס״ק יז)</td>
-  <td>מדינא דווקא מתולעת; ישנה בעלמא — סגי בקינוח (ס״ק ד)</td>
-  <td>מהרש״ל — מיקל לגמרי</td>
+  <td>Viande après un fromage dur</td>
+  <td>rigoureux ; il écarte l’allègement du Maharchal, qualifié de
+«&nbsp;<span class="he-q">שהוא כמו מינות</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד פ״ט ס״ק י״ז — Chakh)</span></td>
+  <td>quant au din, le fromage véreux seulement ; un fromage simplement vieux — kinou’ah, curage et rinçage suffisent (ס״ק ד)</td>
+  <td>le Maharchal — allège entièrement</td>
 </tr>
 <tr>
-  <td>נעיצת סכין לכתחילה</td>
-  <td>מהני לכתחילה לחתוך פת לגבינה (ס״ק כב)</td>
-  <td>למנהג — אסור בגבינה אף בנעיצה; בפת סגי בקינוח (ס״ק ו-ז)</td>
-  <td>מהרש״ל — אוסר נעיצה לכתחילה</td>
+  <td>Le plantage du couteau, de prime abord</td>
+  <td>il vaut de prime abord pour couper du pain à manger avec du fromage (ס״ק כ״ב)</td>
+  <td>selon l’usage — interdit pour le fromage même par plantage ; pour le pain, l’essuyage suffit (ס״ק ו–ז)</td>
+  <td>le Maharchal — interdit le plantage de prime abord</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מקורות הסוגיא</h3>
+<h3>Tableau — les sources de la sougya</h3>
 
-<div class="rishon-card" dir="rtl">
-<strong>גמרא :</strong> חולין ק״ה. (מר עוקבא — שיעור ההמתנה) · פרק כל הבשר ("פכ״ה")
+<div class="rishon-card">
+<strong>Guemara :</strong> Houlin 105a (Mar Oukva — la mesure de l’attente) · chapitre <em>Kol ha-bassar</em> («&nbsp;<span class="he-q">פכ״ה</span>&nbsp;»)
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>ראשונים :</strong> רש״י · ר״ן (פכ״ה) · תוספות · רבנו תם · ראבי״ה · מרדכי · הגהות אשר״י · הגהות מיימוני · רי״ף · רמב״ם (פ״ט מהמ״א) · רבנו ירוחם · הר״ף · רבנו יונה · הטור · הזוהר (פרשת משפטים)
+<div class="rishon-card">
+<strong>Richonim :</strong> Rachi · le Ran (chapitre <em>Kol ha-bassar</em>) · Tossafot · Rabbenou Tam · le Raavia · le Mordekhi · les Haghot Acheri · les Haghot Maïmoniyot · le Rif · le Rambam · Rabbenou Yerou’ham · le Raf · Rabbenou Yona · le Tour · le Zohar (parachat Michpatim)
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>אחרונים :</strong> בית יוסף · רמ״א · ש״ך · ט״ז · ב״ח · מהרש״ל (ים של שלמה פכ״ה) · מהרא״י · מהר״ם · עטרת זקנים · לבוש · ארוך (איסור והיתר) · הגהות שערי דורא · תורת חטאת · ספר מצרף לחכמה · פרי חדש · פרי תואר · כנסת הגדולה · כרתי ופלתי · חכמת אדם · פרי מגדים · פתחי תשובה · חתם סופר · בכור שור · רדב״ז
+<div class="rishon-card">
+<strong>A’haronim :</strong> Beit Yossef · Rama · Chakh · Taz · Ba’h · Maharchal (Yam chel Chelomo, chapitre <em>Kol ha-bassar</em>) · Mahara’i · Maharam · Atérèt Zekenim · Levouch · le Aroukh (Issour ve-Heter) · Haghot Chaarei Doura · Torat ’Hatat · Sefer Metsaref la-’Hokhma · Peri ’Hadach · Peri Toar · Knesset ha-Guedola · Kereti ou-Feleti · ’Hokhmat Adam · Peri Megadim · Pit’hei Techouva · ’Hatam Sofer · Bekhor Chor · Radbaz
 </div>
 
 <hr class="ornament">
 
-  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;direction:rtl;">
-    <a href="niveau-1-base.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">→ רמה א' — יסוד</a>
-    <a href="niveau-3-synthese.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">רמה ג' — סיכום ←</a>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;">
+    <a href="niveau-1-base.html" style="font-family:'Cormorant Garamond','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">← Niveau 1 — Base</a>
+    <a href="niveau-3-synthese.html" style="font-family:'Cormorant Garamond','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">Niveau 3 — Synthèse →</a>
   </div>
 
 <div class="yh-watermark">
 ~ ~ ~ ~ ~<br>
-<strong>DAAT</strong> · <strong>הרב יוסף חיים סממה</strong><br>
-תלמיד חכם · מעביר שיעורים בהלכה ובחסידות<br>
-<em>פלפול ועיון בהלכות ההמתנה בין בשר לחלב · סימן פ״ט · ⚡ רמה ב' — לַמְדָּן</em>
+<strong>DAAT</strong> · <strong>Rav Yossef Haim Samama</strong><br>
+Talmid ’hakham · donne des chiourim en halakha et en ’hassidout<br>
+<em>Pilpoul et étude des lois de l’attente entre la viande et le lait · siman פ״ט · ⚡ Niveau 2 — Lamdan</em>
 </div>
 
-  <div class="disclaimer" style="background:#fff8e1;border-right:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;direction:rtl;text-align:right;">
-    ⚠️ תוכן זה נכתב לצורך לימוד ועיון בלבד. לכל הוראה למעשה (לְמַעֲשֶׂה) — שאל את רבך.
+  <div class="disclaimer" style="background:#fff8e1;border-left:4px solid #C5A55A;padding:16px 40px;font-family:'Cormorant Garamond','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;">
+    ⚠️ Ce contenu est écrit pour l’étude et l’examen seulement. Pour toute décision pratique (לְמַעֲשֶׂה) — demandez à votre Rav.
   </div>
 
   <div style="background:#1A1F3A;border-top:2px solid #C5A55A;padding:24px 40px;text-align:center;margin-top:0;">
-    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;direction:rtl;">
-      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">לעמוד הבית</a> · <a href="index.html" style="color:#C5A55A;text-decoration:none;">סימן פ״ט</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ לתמיכה</a>
+    <p style="font-family:'Cormorant Garamond','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;">
+      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">Accueil</a> · <a href="index.html" style="color:#C5A55A;text-decoration:none;">Siman פ״ט</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ Soutenir</a>
     </p>
   </div>
 
@@ -956,7 +1027,7 @@
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="../../../assets/js/chat-widget.js" defer></script>
 <script src="../../../assets/js/daat-copy.js" defer></script>
-<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="מצא חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">הצטרף לחברותא</span></a>
+<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="Trouver une ’havrouta pour ce siman"><span class="icon">📖</span><span class="label-long">Rejoindre une ’havrouta</span></a>
   <script src="/assets/js/share-text.js" defer></script>
 </body>
 </html>

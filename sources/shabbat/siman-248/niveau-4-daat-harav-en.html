@@ -211,6 +211,9 @@
     .niveau-nav { flex-direction: column; gap: 0.75rem; }
   }
   @media print { .niveau-nav { display: none; } }
+    /* he-q : une locution hébraïque citée à l'intérieur d'une phrase. La classe est
+       employée partout dans le dépôt ; elle manquait à la feuille de cette page. */
+    .he-q { font-family: 'Frank Ruhl Libre', serif; direction: rtl; unicode-bidi: isolate; }
 </style>
 <link rel="stylesheet" href="/assets/css/intra-links.css">
   <!-- PWA / app installable -->
@@ -234,21 +237,21 @@
 <div class="lang-switcher-float" role="navigation" aria-label="Language"><a href="/oh/248/daat-harav">FR</a><a href="/oh/248/daat-harav/he">HE</a><a href="/oh/248/daat-harav/en" class="active">EN</a></div>
 
 <header>
-  <a href="../../../index.html" class="logo">
+  <a href="../../../index-en.html" class="logo">
     <span class="logo-he">דעת</span>
     <span class="logo-en">DAAT</span>
   </a>
   <nav>
-    <a href="../../../index.html">Home</a>
+    <a href="../../../index-en.html">Home</a>
     <a href="/oh/">Hilchos Shabbos</a>
     <a href="/oh/248/">Siman רמ״ח</a>
-    <a href="../../../chitah-admour-hazaken.html">📜 Shitah of the Alter Rebbe</a>
+    <a href="../../../chitah-admour-hazaken-en.html">📜 Shitah of the Alter Rebbe</a>
   <span class="lang-switcher"><a href="/oh/248/daat-harav">FR</a><a href="/oh/248/daat-harav/he">HE</a><a href="/oh/248/daat-harav/en" class="active">EN</a></span></nav>
 </header>
 
 <div class="breadcrumb">
   <div class="breadcrumb-inner">
-    <a href="../../../index.html">Home</a>
+    <a href="../../../index-en.html">Home</a>
     <span class="sep">›</span>
     <a href="/oh/">Hilchos Shabbos</a>
     <span class="sep">›</span>
@@ -272,7 +275,7 @@
   <div class="intro-block">
     <p><strong>Why a Level 4 dedicated to the Alter Rebbe?</strong> The <strong>Shulchan Aruch of the Alter Rebbe</strong> is not a commentary on the Mechaber (מחבר) — it is an <strong>autonomous and complete Shulchan Aruch</strong>, authored by the Alter Rebbe. Its uniqueness: it combines <em>halacha (הלכה) + טעמי המצוות + inner dimension</em> in a single work, and rules with a unique Talmudic rigor.</p>
     <p>For Chabad, the Alter Rebbe is <strong>הפוסק האחרון</strong>. This page gathers, for siman <a class="intra-ref" href="#שלחן-ערוך-הרב-סימן-רמ״ח">רמ״ח</a>, the full text of the Rav, his originality, and the divrei haRebbe that illuminate the subject.</p>
-    <p style="margin-top:14px;"><a href="../../../chitah-admour-hazaken.html" style="color:var(--habad);font-weight:600;">→ Read the general preface on the shitah of the Alter Rebbe</a></p>
+    <p style="margin-top:14px;"><a href="../../../chitah-admour-hazaken-en.html" style="color:var(--habad);font-weight:600;">→ Read the general preface on the shitah of the Alter Rebbe</a></p>
   </div>
 
   <!-- 1. TEXT OF THE SHULCHAN ARUCH HARAV -->
@@ -521,7 +524,7 @@
           <td>Rule of the three days before Shabbat (תלת-יומא קודם השבת)</td>
           <td data-label="Mechaber">OC 248:1 — "אֵין מַפְלִיגִין בִּסְפִינָה פָּחוֹת מִשְּׁלשָׁה יָמִים קֹדֶם הַשַּׁבָּת". Prohibits boarding within 3 days before Shabbat in salt waters (Mediterranean Sea) without necessity, due to מצטער (physical suffering of the first days at sea). Source: Shabbat 19a. States the rule without explaining the conceptual framework.</td>
           <td data-label="Rama (רמ״א)"><em>Hagaha on OC 248:1:</em> specifies the exceptions for devar mitzvah — <em>summary</em> : וְלִדְבַר מִצְוָה — מֻתָּר לְהַפְלִיג אֲפִלּוּ בְּעֶרֶב שַׁבָּת, וְקוֹצֵץ עִם הָעַכּוּ״ם עַל מְנָת שֶׁיִּשְׁבֹּת. For mitzvah (talmud Torah, marriage, אביו ואמו), one may embark even late, subject to agreement with the sailors that they do nothing for the Jew on Shabbat.</td>
-          <td data-label="Mishnah Berurah">MB 248:1-5 — discusses the calculation of the 3 days: (1) "אַרְבַּעַת יָמִים קֹדֶם הַשַּׁבָּת" according to some Rishonim include Wednesday, Thursday, Friday (Tosafot Shabbat 19a); (2) according to others (Rashi, Rif) — only the 3 full days; (3) the Chafetz Chaim rules like the Mechaber: 3 days = Wednesday, Thursday, Friday. Cites the Talmudic sugya in detail.</td>
+          <td data-label="Mishnah Berurah">MB 248 ס״ק ד — the count of the three days is disputed, and the difference falls on Wednesday. The Magen Avraham, in the name of many Acharonim, forbids Wednesday — <span class="he-q">דהיינו ביום רביעי בשבת אסור מ״א בשם הרבה אחרונים</span>; the Vilna Gaon brings in the name of many Rishonim that the three days are counted together with Shabbos itself, so that Wednesday is permitted — <span class="he-q">אבל הגר״א הביא בשם הרבה ראשונים דהג׳ ימים נחשבין עם השבת גופא וביום רביעי מותר</span>, adding that the Tosefta and the Yerushalmi bear this out. The braisa itself says three days, not four: <span class="he-q">אין מפליגין בספינה פחות מג׳ ימים קודם לשבת</span> (שבת י״ט ע״א, quoted at ס״ק א).</td>
           <td data-label="Shulchan Aruch of the Alter Rebbe"><strong>Shulchan Aruch of the Alter Rebbe רמ״ח:1-2</strong> — articulates the <em>integral conceptual framework</em>: the rule of the 3 days is grounded in the principle of מצטער (anticipated physical suffering) in salt waters and on the conceptual distinction בעצם הפרישה (intrinsic detachment). The Rav <strong>structures</strong> what the others simply state.</td>
         </tr>
         <tr>
@@ -667,7 +670,7 @@
 </main>
 
 <footer>
-  <p>DAAT דעת — © 5786 / 2026 · <a href="../../../index.html">Back to home</a> · Initiated by Rav Yossef Haim Samama</p>
+  <p>DAAT דעת — © 5786 / 2026 · <a href="../../../index-en.html">Back to home</a> · Initiated by Rav Yossef Haim Samama</p>
 </footer>
 
 <link rel="stylesheet" href="../../../assets/css/chat-widget.css">

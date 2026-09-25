@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,9 +22,8 @@
 <style>
   @page { size: A4; margin: 2cm 1.8cm; }
   body {
-    font-family: 'Frank Ruhl Libre', 'David', 'Georgia', 'Cambria', serif;
+    font-family: 'Georgia', 'Cambria', serif;
     font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0;
-    direction: rtl; text-align: right;
   }
   .he {
     direction: rtl; text-align: right;
@@ -36,19 +35,14 @@
     font-family: 'Frank Ruhl Libre', 'David', serif;
     font-weight: 600; color: #1A1F3A;
   }
-
-  .cover {
-    text-align: center; margin-top: 2.5cm; margin-bottom: 2cm;
-  }
+  .cover { text-align: center; margin-top: 2.5cm; margin-bottom: 2cm; }
   .cover h1 {
-    font-size: 30pt; color: #1A1F3A; margin: 5px 0;
+    font-size: 28pt; color: #1A1F3A; margin: 5px 0;
     font-family: 'Cormorant Garamond', 'Georgia', serif;
   }
   .cover .he-title { font-size: 38pt; color: #1A1F3A; margin: 15px 0 5px 0; }
   .cover .he-sub { font-size: 18pt; color: #C5A55A; margin-bottom: 20px; }
-  .cover .he-subject {
-    font-size: 15pt; color: #5a4a1a; margin: 15px 0; font-style: italic;
-  }
+  .cover .he-subject { font-size: 15pt; color: #5a4a1a; margin: 15px 0; font-style: italic; }
   .cover .ornament { color: #C5A55A; font-size: 22pt; margin: 15px 0; }
   .cover .level-badge {
     display: inline-block;
@@ -62,202 +56,164 @@
     margin-top: 2cm; padding-top: 20px; border-top: 1px solid #C5A55A;
     font-size: 10pt; color: #555; line-height: 1.8;
   }
-  .cover .subtitle {
-    font-size: 14pt; color: #5a4a1a; font-style: italic; margin: 10px 0 30px 0;
-  }
-  .cover .badge-top {
-    color: #C5A55A; font-size: 11pt; letter-spacing: 4px; margin-bottom: 10px;
-  }
-
+  .cover .subtitle { font-size: 14pt; color: #5a4a1a; font-style: italic; margin: 10px 0 30px 0; }
+  .cover .badge-top { color: #C5A55A; font-size: 11pt; letter-spacing: 4px; margin-bottom: 10px; }
   h2.section-title {
     color: #fff; background: #1A1F3A;
     font-size: 16pt; padding: 10px 18px; margin-top: 30px;
     border-right: 6px solid #C5A55A;
-    direction: rtl; text-align: right;
-    font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
   }
   h3 {
     color: #1A1F3A; font-size: 14pt; margin-top: 25px;
     border-right: 4px solid #C5A55A; padding-right: 10px;
-    direction: rtl; text-align: right;
-    font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
   }
   h3.he-h3 {
-    direction: rtl; text-align: right;
-    border-right: none; border-left: 4px solid #C5A55A;
-    padding-right: 0; padding-left: 10px;
+    direction: ltr; text-align: left;
+    border-left: 4px solid #C5A55A; border-right: none;
+    padding-left: 10px; padding-right: 0;
   }
-  h4 {
-    color: #5a4a1a; font-size: 12pt;
-    margin-top: 20px; margin-bottom: 8px; font-weight: bold;
-    direction: rtl; text-align: right;
-  }
-
+  h4 { color: #5a4a1a; font-size: 12pt; margin-top: 20px; margin-bottom: 8px; font-weight: bold; }
   .sacred-text {
     background: #FAF6EE;
     border-right: 3px solid #C5A55A; border-left: 3px solid #C5A55A;
     padding: 15px 20px; margin: 15px 0;
     font-size: 12.5pt; line-height: 1.9;
   }
-  .pilpul-box {
-    background: #eef3fa; border-right: 4px solid #1A1F3A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
-  }
+  .pilpul-box { background: #eef3fa; border-right: 4px solid #1A1F3A; padding: 12px 18px; margin: 15px 0; }
   .pilpul-box::before {
-    content: "⚡ פלפול"; display: block;
+    content: "\26A1 \05E4\05DC\05E4\05D5\05DC"; display: block;
     color: #1A1F3A; font-weight: bold; font-size: 10pt;
-    margin-bottom: 5px; letter-spacing: 1px;
-    direction: rtl; text-align: right;
+    margin-bottom: 5px; letter-spacing: 1px; direction: rtl; text-align: left;
   }
-  .kashya-box {
-    background: #fef4e4; border-right: 4px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
-  }
+  .kashya-box { background: #fef4e4; border-right: 4px solid #C5A55A; padding: 12px 18px; margin: 15px 0; }
   .kashya-box::before {
-    content: "❓ קושיא"; display: block;
+    content: "\2753 \05E7\05D5\05E9\05D9\05D0"; display: block;
     color: #8a6a1a; font-weight: bold; font-size: 10pt;
-    margin-bottom: 5px; letter-spacing: 1px;
-    direction: rtl; text-align: right;
+    margin-bottom: 5px; letter-spacing: 1px; direction: rtl; text-align: left;
   }
-  .teruts-box {
-    background: #e8f4ea; border-right: 4px solid #2d7a3e;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
-  }
+  .teruts-box { background: #e8f4ea; border-right: 4px solid #2d7a3e; padding: 12px 18px; margin: 15px 0; }
   .teruts-box::before {
-    content: "✓ תירוץ"; display: block;
+    content: "\2713 \05EA\05D9\05E8\05D5\05E5"; display: block;
     color: #2d7a3e; font-weight: bold; font-size: 10pt;
-    margin-bottom: 5px; letter-spacing: 1px;
-    direction: rtl; text-align: right;
+    margin-bottom: 5px; letter-spacing: 1px; direction: rtl; text-align: left;
   }
-  .hakira-box {
-    background: #f5e9f5; border-right: 4px solid #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
-  }
+  .hakira-box { background: #f5e9f5; border-right: 4px solid #6a1b7a; padding: 12px 18px; margin: 15px 0; }
   .hakira-box::before {
-    content: "🔍 חקירה"; display: block;
+    content: "\1F50D \05D7\05E7\05D9\05E8\05D4"; display: block;
     color: #6a1b7a; font-weight: bold; font-size: 10pt;
-    margin-bottom: 5px; letter-spacing: 1px;
-    direction: rtl; text-align: right;
+    margin-bottom: 5px; letter-spacing: 1px; direction: rtl; text-align: left;
   }
   .nafka-mina-box {
     background: #fff4e6; border: 2px solid #C5A55A;
     padding: 12px 18px; margin: 15px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
   }
   .nafka-mina-box::before {
-    content: "⚖️ נפקא מינה"; display: block;
+    content: "\2696 \05E0\05E4\05E7\05D0 \05DE\05D9\05E0\05D4"; display: block;
     color: #1A1F3A; font-weight: bold; font-size: 10pt;
-    margin-bottom: 5px; letter-spacing: 1px;
-    direction: rtl; text-align: right;
+    margin-bottom: 5px; letter-spacing: 1px; direction: rtl; text-align: left;
   }
-  .yesod-box {
-    background: #1A1F3A; color: #fff;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
-  }
+  .yesod-box { background: #1A1F3A; color: #fff; padding: 15px 20px; margin: 20px 0; border-radius: 4px; }
   .yesod-box::before {
-    content: "💎 יסוד"; display: block;
+    content: "\1F48E \05D9\05E1\05D5\05D3"; display: block;
     color: #C5A55A; font-weight: bold; font-size: 10pt;
-    margin-bottom: 8px; letter-spacing: 2px;
-    direction: rtl; text-align: right;
+    margin-bottom: 8px; letter-spacing: 2px; direction: rtl; text-align: left;
   }
   .yesod-box .he-q { color: #C5A55A; }
-  .machloket-box {
-    background: #faf5ff; border: 1.5px dashed #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
-  }
-
-  table {
-    width: 100%; border-collapse: collapse;
-    margin: 20px 0; font-size: 10pt;
-  }
-  th {
-    background: #1A1F3A; color: #fff;
-    padding: 10px; text-align: right; direction: rtl; font-size: 11pt;
-  }
-  td {
-    direction: rtl; text-align: right;
-    border: 1px solid #d4c89a; padding: 10px; vertical-align: top;
-  }
+  .yesod-box a { color: #C5A55A; }
+  .machloket-box { background: #faf5ff; border: 1.5px dashed #6a1b7a; padding: 12px 18px; margin: 15px 0; }
+  table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 10pt; }
+  th { background: #1A1F3A; color: #fff; padding: 10px; text-align: left; font-size: 11pt; }
+  td { border: 1px solid #d4c89a; padding: 10px; vertical-align: top; }
   tr:nth-child(even) td { background: #FAF6EE; }
   td.he, th.he { text-align: right; direction: rtl; font-size: 11.5pt; }
-
   .page-break { page-break-before: always; }
   hr.ornament { border: none; text-align: center; margin: 25px 0; }
-  hr.ornament::before { content: "✦ ❖ ✦"; color: #C5A55A; font-size: 14pt; }
-
-  .source-ref {
-    color: #6a5a1a; font-style: italic; font-size: 0.95em;
+  hr.ornament::before { content: "\2726 \2756 \2726"; color: #C5A55A; font-size: 14pt; }
+  .source-ref { color: #6a5a1a; font-style: italic; font-size: 0.95em; }
+  .src-ref { font-size: 0.82em; color: #5a4a1a; font-style: italic; font-family: 'Georgia', 'Cambria', serif; }
+  .translation {
+    background: #fbfaf6; border-right: 3px solid #C5A55A;
+    padding: 10px 16px; margin: 10px 0 18px 0; font-size: 10.8pt; line-height: 1.7;
   }
-
+  .translation::before {
+    content: attr(data-label); display: block;
+    color: #8a6a1a; font-weight: bold; font-size: 9pt;
+    letter-spacing: 1px; margin-bottom: 5px; text-transform: uppercase;
+  }
   .yh-watermark {
     text-align: center; font-size: 9pt; color: #8a7a4a;
     margin-top: 40px; padding-top: 15px;
     border-top: 1px solid #C5A55A; font-style: italic;
   }
-
   ol.stylish li, ul.stylish li { margin-bottom: 8px; }
-  ol.stylish, ul.stylish { padding-right: 22px; padding-left: 0; }
-
+  ol.stylish, ul.stylish { padding-left: 22px; padding-right: 0; }
   .rishon-card {
     background: #f7f3e4; border-right: 4px solid #8a6a1a;
     padding: 10px 15px; margin: 10px 0; font-size: 10.5pt;
-    direction: rtl; text-align: right;
   }
   .rishon-card strong { color: #1A1F3A; font-size: 11pt; }
-
   blockquote {
-    border-right: 3px solid #C5A55A;
-    margin: 10px 0 10px 15px; padding: 8px 15px;
+    border-right: 3px solid #C5A55A; border-left: none;
+    margin: 10px 0; padding: 8px 15px;
     background: #faf8f0; font-style: italic;
     direction: rtl; text-align: right;
     font-family: 'Frank Ruhl Libre', serif; font-size: 11.5pt;
     unicode-bidi: embed;
   }
-
+  blockquote.comment-source {
+    background: #f7f3e4; border-right: 3px solid #8a6a1a; border-left: none;
+    font-style: normal; margin: 10px 0; padding: 8px 15px;
+    direction: rtl; text-align: right; font-family: 'Frank Ruhl Libre', serif; font-size: 11.5pt;
+  }
+  blockquote.comment-source .src-ref {
+    display: inline-block; margin-top: 6px; color: #6a5a1a; font-style: italic; font-size: 0.88em;
+  }
   .index-box {
     background: #FAF6EE; border: 1px solid #C5A55A;
     padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
   }
-  .index-box ol { margin: 5px 0; padding-right: 25px; padding-left: 0; }
+  .index-box ol { margin: 5px 0; padding-left: 25px; padding-right: 0; }
   .index-box li { margin-bottom: 5px; }
-
-  h3.sugya {
-    background: #1A1F3A; color: #fff;
-    padding: 8px 15px; border-left: none; border-right: 6px solid #C5A55A;
-  }
-
-  /* ── חץ אל ההסבר המפורט (רמה 1) ── */
+  .disclaimer { background: #fff8e1; border-right: 4px solid #C5A55A; }
   a.daat-explain {
-    display: inline-block;
-    margin: 4px 0 14px 0;
-    color: #C5A55A;
-    font-family: 'Frank Ruhl Libre', 'David', serif;
-    font-size: 12pt;
-    text-decoration: none;
-    border-bottom: 1px dotted #C5A55A;
-    direction: rtl;
+    display: inline-block; margin: 4px 0 14px 0; color: #C5A55A;
+    font-family: 'Georgia', 'Cambria', serif; font-size: 10.5pt;
+    text-decoration: none; border-bottom: 1px dotted #C5A55A;
   }
   a.daat-explain:hover { color: #8a6a1a; border-bottom-style: solid; }
-
-  /* ── כפתור העתקה ── */
   button.daat-copy {
-    display: inline-block;
-    margin: 0 10px 0 0;
-    padding: 3px 12px;
-    font-family: 'Frank Ruhl Libre', 'David', serif;
-    font-size: 10.5pt;
-    color: #1A1F3A;
-    background: #FAF6EE;
-    border: 1px solid #C5A55A;
-    border-radius: 4px;
-    cursor: pointer;
-    vertical-align: middle;
-    direction: rtl;
+    display: inline-block; margin: 0 0 0 10px; padding: 3px 12px;
+    font-family: 'Georgia', 'Cambria', serif; font-size: 10pt;
+    color: #1A1F3A; background: #FAF6EE;
+    border: 1px solid #C5A55A; border-radius: 4px;
+    cursor: pointer; vertical-align: middle; direction: ltr;
   }
   button.daat-copy:hover { background: #C5A55A; color: #fff; }
+  .rishon-card[dir="rtl"] { border-left: none; border-right: 4px solid #8a6a1a; text-align: right; }
+  .hakira-box[dir="rtl"] { border-left: none; border-right: 4px solid #6a1b7a; text-align: right; }
+  .kashya-box[dir="rtl"] { border-left: none; border-right: 4px solid #C5A55A; text-align: right; }
+  .teruts-box[dir="rtl"] { border-left: none; border-right: 4px solid #2d7a3e; text-align: right; }
+  .pilpul-box[dir="rtl"] { border-left: none; border-right: 4px solid #1A1F3A; text-align: right; }
+  .machloket-box[dir="rtl"], .nafka-mina-box[dir="rtl"], .yesod-box[dir="rtl"] { text-align: right; }
+  .index-box[dir="rtl"] ol { padding-right: 25px; padding-left: 0; }
+  [dir="rtl"] th, [dir="rtl"] td { text-align: right; direction: rtl; }
   @media print { button.daat-copy, a.daat-explain { display: none; } }
+  .lang-switcher-float {
+    position: fixed; top: 12px; right: 12px; z-index: 9999;
+    display: flex; gap: 4px; background: rgba(255,255,255,0.95);
+    border: 1px solid #C5A55A; padding: 4px 6px; border-radius: 3px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); font-family: 'Inter', sans-serif;
+    direction: ltr;
+  }
+  .lang-switcher-float a {
+    font-size: 11px; letter-spacing: 1px; padding: 3px 7px; border-radius: 2px;
+    color: #5a4a1a; text-decoration: none; border: 1px solid transparent;
+  }
+  .lang-switcher-float a.active { color: #1A1F3A; background: #FFF8E5; border-color: #1A1F3A; font-weight: 600; }
+  .lang-switcher-float a:hover { color: #1A1F3A; border-color: #C5A55A; }
+  @media print { .lang-switcher-float { display: none; } }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/daat-enhance.css">
@@ -284,8 +240,8 @@
   "isPartOf": {
     "@id": "https://daattorah.com/yd/#webpage"
   },
-  "educationalLevel": "Avancé",
-  "learningResourceType": "Cours d'étude halakhique (niveau 2 — Lamdan)"
+  "educationalLevel": "Advanced",
+  "learningResourceType": "Halakhic study course (level 2 — Lamdan)"
 }
   </script>
 <!-- Vercel Web Analytics. Le script n'est servi qu'une fois Web Analytics activé
@@ -379,527 +335,618 @@
 })();
 </script>
 
-<!-- COUVERTURE -->
+<!-- COVER -->
 <div class="cover">
-  <div class="ornament">✦ ❖ ✦</div>
-  <div class="badge-top">DAAT · רמה ב' — לַמְדָּן</div>
-  <h1>שולחן ערוך · יורה דעה</h1>
-  <div class="subtitle">דין חלב שנפל לקדירה של בשר — עיון ופלפול</div>
+  <div class="ornament">&#10022; &#10070; &#10022;</div>
+  <div class="badge-top">DAAT &middot; LEVEL 2 &mdash; LAMDAN</div>
+  <h1>Siman 92 &mdash; Lamdan Level: milk that fell into a meat pot</h1>
+  <div class="subtitle">What has to be nullified, and what joins together to nullify it</div>
 
-  <div class="he-title">סימן צ״ב</div>
+  <div class="he-title">&#1505;&#1497;&#1502;&#1503; &#1510;&#1524;&#1489;</div>
   <div class="he-sub">טעימת קפילא, ביטול בששים, ניער וכיסה, חתיכה נעשית נבילה</div>
-  <div class="he-subject">עיון, פלפול, שיטות הראשונים והאחרונים</div>
+  <div class="he-subject">Iyun and pilpul &mdash; Rishonim, Acharonim, chakiros and nafka minos</div>
 
-  <div class="level-badge">⚡ ללומדים ותלמידי חכמים ⚡</div>
+  <div class="level-badge">&#9889; For lamdanim and talmidei chachamim &#9889;</div>
 
-  <div class="ornament">✦ ❖ ✦</div>
+  <div class="ornament">&#10022; &#10070; &#10022;</div>
 
-  <h2 style="margin-top:20px; color: #1A1F3A;">פלפול ועיון מעמיק</h2>
+  <h2 style="margin-top:20px; color: #1A1F3A;">In-depth pilpul and iyun</h2>
   <p style="font-size:12pt; color:#555;">
-    סוגיות, מקורות, חקירת היסוד, מחלוקות ראשונים ואחרונים,<br>
-    נפקא מינות להלכה ועיון בשיטות
+    Sugyos, sources, the underlying chakira, machlokos of Rishonim and Acharonim,<br>
+    nafka minos for halakha and study of the shitos
   </p>
 
   <div class="credits">
-    <p><strong>הנושא :</strong><br>
-    שולחן ערוך יורה דעה סימן צ״ב (ט' סעיפים)<br>
-    עם נושאי כלים: ש״ך (שפתי כהן), ט״ז (טורי זהב), פרי מגדים, פתחי תשובה</p>
+    <p><strong>The subject:</strong><br>
+    Shulchan Aruch, Yoreh De&rsquo;ah, siman 92 (9 seifim)<br>
+    with the commentaries: Shach (Siftei Kohen), Taz (Turei Zahav), Pri Megadim, Pischei Teshuva</p>
 
-    <p><strong>יסוד הסוגיא בש״ס :</strong><br>
-    חולין צ״ז:–צ״ח. (טעם כעיקר, קפילא, ביטול בששים) · חולין ק״ח. (חתיכה נעשית נבילה) · חולין קי״א:–קי״ב. (זיעה, תתאה גבר)</p>
+    <p><strong>The foundation of the sugya in Shas:</strong><br>
+    Chullin 97b&ndash;98a (taste as substance, קפילא, nullification in sixty) &middot; Chullin 108a (chaticha naaseis neveila) &middot; Chullin 111b&ndash;112a (steam, tata&rsquo;a gavar)</p>
 
-    <p><strong>עריכה ועיון :</strong><br>
-    הרב יוסף חיים סממה · DAAT</p>
+    <p><strong>Written and edited by:</strong><br>
+    Rav Yossef Chaim Samama &middot; DAAT</p>
   </div>
 </div>
 
 <div class="page-break"></div>
 
-<!-- TABLE DES MATIÈRES -->
-<h2 class="section-title">📑 תוכן העניינים</h2>
+<!-- TABLE OF CONTENTS -->
+<h2 class="section-title">&#128209; Table of contents</h2>
 
-<div class="index-box" dir="rtl">
+<div class="index-box">
 <ol>
-  <li><strong>הקדמת הסוגיא</strong> — כזית בשר שנפל ליורה של חלב, וטעימת הקפילא (סעיף א')</li>
-  <li><strong>שני האיסורים שבסעיף א'</strong> — חידוש הט״ז (ס״ק א), מין במינו, ריב״א ור״ת</li>
-  <li><strong>יסוד הצירוף</strong> — ניער / כיסה ומחלוקת אם מהני אלא לאלתר (סעיף ב')</li>
-  <li><strong>חתיכה נעשית נבילה</strong> — מהו היסוד דחנ״נ דווקא בבב״ח (סעיף ג')</li>
-  <li><strong>הכרעת הרמ״א</strong> — חנ״נ בכל איסורין מדרבנן, ותנאי דבוק / לח בלח / יבש ביבש (סעיף ד')</li>
-  <li><strong>טיפת חלב על הדופן</strong> — מפעפע, כנגד הרוטב וכנגד הריקן (סעיפים ה'–ו')</li>
-  <li><strong>שעת הדחק · תתאה גבר · עירוי וקלוח</strong> — וטיפה על הכיסוי (סעיף ז')</li>
-  <li><strong>חקירת הזיעה</strong> — זיעת אוכלין וזיעת משקין, יד סולדת ומכוסה (סעיף ח')</li>
-  <li><strong>נר של חלב</strong> — חֵלֶב ולא חָלָב, גרידה והגעלה (סעיף ט')</li>
-  <li><strong>חקירה ונפקא מינה למעשה</strong></li>
-  <li><strong>טבלאות סיכום מקיפות</strong></li>
+  <li><strong>Introduction to the sugya</strong> &mdash; a kezayis of meat that fell into a pot of milk, and the tasting of the קפילא (seif 1)</li>
+  <li><strong>The two prohibitions in seif 1</strong> &mdash; the chidush of the Taz (ס״ק א), min b&rsquo;mino, the Riva and Rabbeinu Tam</li>
+  <li><strong>The foundation of tzeiruf</strong> &mdash; stirring / covering, and whether it helps only at once (seif 2)</li>
+  <li><strong>Chaticha naaseis neveila</strong> &mdash; why this principle belongs first to meat and milk (seif 3)</li>
+  <li><strong>The Rama&rsquo;s ruling</strong> &mdash; ch.n.n. in all prohibitions, mid&rsquo;rabanan, and the conditions of adhering, wet in wet, dry in dry (seif 4)</li>
+  <li><strong>A drop of milk on the wall of the pot</strong> &mdash; מפעפע, opposite the food and opposite the empty space (seifim 5&ndash;6)</li>
+  <li><strong>Pressing need &middot; תתאה גבר &middot; pouring and a stream</strong> &mdash; and the drop on the lid (seif 7)</li>
+  <li><strong>The chakira of steam</strong> &mdash; steam of liquids and steam of foods, yad soledes, a covered pan (seif 8)</li>
+  <li><strong>A tallow candle</strong> &mdash; חֵלֶב and not חָלָב, scraping and hagala (seif 9)</li>
+  <li><strong>Chakira and nafka mina for practice</strong></li>
+  <li><strong>Summary tables</strong></li>
 </ol>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<!-- לשון השולחן ערוך — סעיף א' -->
-<h2 class="section-title">📜 לשון השולחן ערוך — סעיף א'
-  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 העתק</button>
+<h2 class="section-title">&#128220; The text of the Shulchan Aruch &mdash; seif 1
+  <button class="daat-copy" type="button" data-copy-target="#cp-1">&#128203; Copy</button>
 </h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">&#8617; Detailed explanation (level 1)</a>
 
 <div class="sacred-text he" data-copy-block id="cp-1">
-  <p>כְּזַיִת בָּשָׂר שֶׁנָּפַל לְתוֹךְ יוֹרָה שֶׁל חָלָב רוֹתֵחַ — טוֹעֵם הָעוֹבֵד כּוֹכָבִים הַקְּדֵרָה; אִם אָמַר שֶׁיֵּשׁ בָּהּ טַעַם בָּשָׂר אֲסוּרָה, וְאִם לָאו מֻתֶּרֶת — אֲפִלּוּ בְּפָחוֹת מִשִּׁשִּׁים; וְאוֹתָהּ חֲתִיכָה אֲסוּרָה. וְהוּא שֶׁהֵסִיר הַחֲתִיכָה קֹדֶם שֶׁתִּפְלוֹט הֶחָלָב שֶׁבָּלְעָה, דְּהַיְינוּ קֹדֶם שֶׁתָּנוּחַ הַיּוֹרָה מֵרְתִיחָתָהּ. (הגה: וְאֵין אָנוּ נוֹהֲגִין לִסְמוֹךְ אַטְעִימַת עוֹבֵד כּוֹכָבִים, וּבָעֵינַן שִׁשִּׁים בְּכָל עִנְיָן.)</p>
+  <p>דינין אם נפל חלב לקדירה של בשר. ובו ט׳ סעיפים: כזית בשר שנפל לתוך יורה של חלב רותח טועם העובד כוכבים הקדירה אם אמר שיש בה טעם בשר אסורה ואם לאו מותרת אפי׳ בפחות מששים ואותה חתיכה אסורה במה דברים אמורים בשקדם והוציא החתיכה קודם שתפלוט חלב שבלעה דהיינו קודם שתנוח היורה מרתיחה אבל אם לא הספיק לסלקו עד שתוכל לפלוט החלב שבלעה אע״פ שטעמו עובד כוכבים ואין בו טעם כלל אסור אא״כ יש בו ס׳: הגה וע״ל סימן צ״ח דאין אנו נוהגין לסמוך אטעימת עובד כוכבים ובעינן ס׳ בכל ענין:</p>
+</div>
+<div class="translation" data-label="Translation">
+  <p><em>Summary of the heading</em>: the siman opens with its title &mdash; laws of milk that fell into a meat pot &mdash; and announces nine seifim; the edition followed here does divide it into nine.</p>
+  <p>A kezayis of meat fell into a pot of boiling milk: the non-Jew tastes the pot. If he says there is a taste of meat in it, it is forbidden; if not, it is permitted <strong>even with less than sixty</strong> &mdash; and that piece itself is forbidden. When is this said? When one hastened and removed the piece before it could release the milk it had absorbed, that is, before the pot ceased boiling. But if one did not manage to remove it, such that it was able to release the absorbed milk, then even though the non-Jew tasted it and finds no taste at all, it is forbidden &mdash; unless there is sixty. <em>Rama&rsquo;s gloss</em>: and see below siman 98, that we do not have the practice of relying on the tasting of a non-Jew, and we require sixty in every case.</p>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">1. הקדמת הסוגיא — כזית בשר שנפל ליורה של חלב</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">1. Introduction to the sugya &mdash; a kezayis of meat in a pot of milk</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">&#8617; Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">היסוד — טעימת קפילא וזמן ההסרה
-  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 העתק</button>
+<h3 class="he-h3">The foundation &mdash; the tasting of the קפילא and the moment of removal
+  <button class="daat-copy" type="button" data-copy-target="#cp-2">&#128203; Copy</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-2">
-יסוד הסימן: כזית בשר שנפל ליורה של חלב רותח — מאחר שאיסור בשר בחלב תלוי ב<strong>טעם</strong>, התירה הגמרא (חולין צ״ז:) לסמוך על <strong>טעימת קפילא</strong>, אומן עובד כוכבים שמלאכתו בכך, להעיד אם יש טעם בשר בחלב. אם אמר שיש טעם — אסור; אם אמר שאין טעם — מותר אף ב<span class="he-q">פחות מששים</span>, שהרי טעם כעיקר תלוי בטעם ולא במדידה. אבל <strong>אותה חתיכה אסורה</strong> — שהרי היא בלעה חלב, והוא איסור הנמצא בגופה.
+<div class="sacred-text" data-copy-block id="cp-2">
+<p>The whole siman rests on one simple observation: the prohibition of meat with milk is a prohibition of <strong>taste</strong>. It is not a quantity to be measured but a flavour to be established. Hence the permission of the gemara (Chullin 97b) to rely on the <strong>קפילא</strong>, the gentile craftsman whose trade this is, to say whether or not there is a taste of meat in the milk. If he says there is, it is forbidden; if he says there is not, it is permitted <em>even with less than sixty</em>. But the piece itself remains forbidden: it absorbed milk, and that prohibition sits inside its own body &mdash; no external tasting washes it out.</p>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>תנאי הזמן — "קודם שתנוח היורה" :</strong> כל היתר הקפילא אמור דווקא כשהוסרה החתיכה <em>קודם שתפלוט החלב שבלעה</em>, דהיינו <span class="he-q">קודם שתנוח היורה מרתיחתה</span>. כי כל זמן שהיא רותחת — אין הבשר פולט מה שבלע (איידי דבלע לא פליט), אבל משנחה הרתיחה — חוזר הבשר ופולט את החלב הבלוע לתוך שאר החלב. ולפיכך, אם לא הספיק להסירה ופלטה את החלב הבלוע, <strong>אפילו אין הנכרי מרגיש טעם — אסור אלא אם כן יש ששים</strong>.
-</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">כזית בשר שנפל לתוך יורה של חלב רותח טועם העובד כוכבים הקדירה</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1493;&#1524;&#1506; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1488;&#1524;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ואם לאו מותרת אפי׳ בפחות מששים ואותה חתיכה אסורה</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1493;&#1524;&#1506; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1488;&#1524;)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>הכרעת הרמ״א (הגה) :</strong> "<span class="he-q">ואין אנו נוהגין לסמוך אטעימת עובד כוכבים, ובעינן ששים בכל ענין</span>" (ועיין סימן צ״ח). למעשה, בטל היתר הקפילא בזמננו, וכל הסוגיא נדונה ב<strong>שיעור ששים</strong> בלבד — וזהו השינוי המכריע בין פשט המחבר לבין ההוראה לאשכנזים ולרבים מן הספרדים.
-</div>
+<div class="pilpul-box">
+<strong>The time condition.</strong> The whole permission of the קפילא is stated only where the piece was removed <em>before</em> it gave back the milk it had drunk &mdash; and the Shulchan Aruch gives that &ldquo;before&rdquo; a physical measure: before the pot settles from its boiling. Past that moment, even the testimony of taste no longer serves, and sixty is required.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">במה דברים אמורים בשקדם והוציא החתיכה קודם שתפלוט חלב שבלעה</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1493;&#1524;&#1506; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1488;&#1524;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דהיינו קודם שתנוח היורה מרתיחה</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1493;&#1524;&#1506; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1488;&#1524;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אע״פ שטעמו עובד כוכבים ואין בו טעם כלל אסור אא״כ יש בו ס׳</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1493;&#1524;&#1506; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1488;&#1524;)</span></blockquote>
+
+<div class="rishon-card">
+<strong>The Rama&rsquo;s ruling (gloss).</strong> The Rama refers to siman 98 and withdraws the permission of tasting: we do not rely on it, and sixty is required in every case. In practice the permission of the קפילא has ceased to operate, and the whole sugya is replayed in the single measure of sixty &mdash; and that is the decisive gap between the letter of the Mechaber and the received practice.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דאין אנו נוהגין לסמוך אטעימת עובד כוכבים ובעינן ס׳ בכל ענין</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1488;&#1524;)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">2. שני האיסורים שבסעיף א' — חידוש הט״ז</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">2. The two prohibitions in seif 1 &mdash; the chidush of the Taz</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">&#8617; Detailed explanation (level 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זהו אחד מן החידושים החריפים שבסימן, וכל כובד ידו של הט״ז (ס״ק א) נתון בו.</p>
+<p style="margin:15px 0; font-style:italic;">This is one of the sharpest passages in the siman, and the full weight of the Taz (ס״ק א) is invested in it.</p>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — מהו "החלב שבלעה" :</strong> לכאורה אם הנכרי טעם ולא הרגיש טעם בשר, מדוע יש לחוש שמא תפלוט החלב הבלוע ? והלא הבשר אינו אוסר אלא בטעמו, וכבר נטעם ולא נמצא בו טעם !
-</div>
+<div class="hakira-box">
+<strong>The chakira.</strong> If the non-Jew tasted and sensed nothing, why should we still fear that the piece will release the milk it drank? Meat forbids only by its taste &mdash; and we have just tasted and found nothing. What is left to forbid?</div>
 
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ הט״ז (ס״ק א) — שני איסורים נפרדים :</strong> מבאר הט״ז דבסעיף זה גלומים <strong>שני איסורים שונים</strong>:
-<ul class="stylish">
-<li><strong>(א) טעם הבשר</strong> שהחתיכה פולטת מיד אל החלב — וזה נדון בטעימת הקפילא (או בששים), <span class="he-q">ובטל בששים לכולי עלמא</span>.</li>
-<li><strong>(ב) החלב שהבשר בלע</strong> תחילה ו<em>חוזר ופולטו</em> אל שאר החלב לאחר שתנוח הרתיחה — ואיסור זה אינו ניכר בטעימה כלל, שכן מין במינו הוא (חלב בחלב).</li>
-</ul>
-זהו שורש התנאי "קודם שתנוח היורה": כדי שלא יבוא לידי האיסור השני.
-</div>
+<div class="teruts-box">
+<strong>The Taz&rsquo;s answer.</strong> The Taz answers that this seif contains not one prohibition but <strong>two</strong>, and that the question touched only the first. The first is the taste of meat that the piece releases at once into the milk &mdash; that one is judged by tasting, or by sixty, and everyone agrees to it. The second is the <em>milk</em> that the meat first absorbed and then returns to the rest of the milk in the pot: that one is milk within milk, and no tasting in the world can detect it.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ויש כאן ב׳ איסורין האחד מצד טעם בשר שמפליט להחלב תכף אחר הנפילה לשם ולזה מהני ששים בחלב לכ״ע</span>&nbsp;&raquo; <span class="src-ref">(&#1496;&#1524;&#1494; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1488;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ויש איסור אחר דהיינו החלב שבולע הבשר לתוכו חוזר ואוסר שאר החלב שביורה</span>&nbsp;&raquo; <span class="src-ref">(&#1496;&#1524;&#1494; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1488;)</span></blockquote>
 
-<div class="machloket-box" dir="rtl">
-<strong>מין במינו — ריב״א (רש״י) ורבנו תם :</strong>
+<p>Here lies the root of the time condition: the second prohibition does not exist while the pot is boiling, because as long as it boils the meat does not give back what it drank. It is born at the instant the boiling stops.</p>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ואיסור זה אינו שייך אלא אחר שתנוח היורה אז חוזר הבשר ומפליט החלב שבלע ולא קודם לזה</span>&nbsp;&raquo; <span class="src-ref">(&#1496;&#1524;&#1494; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1488;)</span></blockquote>
+
+<div class="machloket-box">
+<strong>Min b&rsquo;mino &mdash; the Riva (Rashi) and Rabbeinu Tam.</strong> The second prohibition is milk mixed into milk: a kind within its own kind. On this the Taz sets two shitos against one another, and the legibility of the whole seif depends on which of them we hold.
 <table>
-<tr><th>שיטה</th><th>חלב בחלב (מין במינו)</th><th>מקור</th></tr>
+<tr><th>Shita</th><th>Milk in milk (min b&rsquo;mino)</th><th>Source</th></tr>
 <tr>
-  <td><strong>רש״י (ושיטת ריב״א)</strong></td>
-  <td><strong>במשהו</strong> — מין במינו אינו בטל, ולפיכך ס' לא יועיל נגד החלב הבלוע</td>
-  <td>ט״ז ס״ק א</td>
+  <td><strong>Rashi (and the shita of the Riva)</strong></td>
+  <td><strong>Even in the smallest amount</strong> &mdash; a kind within its own kind is not nullified; sixty would therefore be of no use against the absorbed milk</td>
+  <td>Taz ס״ק א</td>
 </tr>
 <tr>
-  <td><strong>רבנו תם (וקיימא לן כוותיה)</strong></td>
-  <td><strong>בטל בששים</strong> — אף מין במינו, וכן עיקר להלכה</td>
-  <td>ט״ז ס״ק א</td>
+  <td><strong>Rabbeinu Tam (and this is what we hold)</strong></td>
+  <td><strong>Nullified in sixty</strong> &mdash; even a kind within its own kind</td>
+  <td>Taz ס״ק א</td>
 </tr>
 </table>
 </div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ובזה לא מהני ס׳ לרש״י דס״ל מין במינו במשהו</span>&nbsp;&raquo; <span class="src-ref">(&#1496;&#1524;&#1494; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1488;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אבל אנן קיימא לן כר״ת דאפי׳ מין במינו בטל בס׳</span>&nbsp;&raquo; <span class="src-ref">(&#1496;&#1524;&#1494; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1488;)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שורש הענין :</strong> אלמלא קיימא לן כרבנו תם, היה החלב הבלוע (מין במינו) אוסר במשהו ולא היה לו תקנה אף בששים. אבל מאחר שאנו פוסקים <span class="he-q">מין במינו בטל בששים</span> כרבנו תם — אף האיסור השני (החלב החוזר ונפלט) מתבטל בששים, וזהו שאמר המחבר "אסור אלא אם כן יש ששים". ועתה מובן מדוע הרמ״א מצריך ששים בכל ענין: שהרי נגד שני האיסורים גם יחד מודדים בס'.
-</div>
+<div class="pilpul-box">
+<strong>The root of the matter.</strong> Were we not to hold like Rabbeinu Tam, the absorbed milk &mdash; a kind within its own kind &mdash; would forbid in the smallest amount, and nothing, not even sixty, could help it. It is because we hold that a kind is nullified within its own kind by sixty that the second prohibition becomes measurable again &mdash; and that is why the Mechaber can write, for that case, that it is forbidden &ldquo;unless there is sixty&rdquo;. And with that one also understands the Rama&rsquo;s requirement: the sixty he demands in every case is measured against both prohibitions together.</div>
+
+<div class="rishon-card">
+<strong>The kezayis is not a measure here.</strong> The Taz closes his ס״ק with a point of reading worth hearing: when the Shulchan Aruch speaks of a kezayis, the rule does not depend on it &mdash; the same would be true of less than a kezayis. The kezayis governs only the question of lashes.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">וכזית דנקט כאן לאו דוקא אלא ה״ה פחות מכזית רק לענין מלקות יש חילוק</span>&nbsp;&raquo; <span class="src-ref">(&#1496;&#1524;&#1494; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1488;)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">3. יסוד הצירוף — ניער וכיסה</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">3. The foundation of tzeiruf &mdash; stirring and covering</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">&#8617; Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיף ב')
-  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 העתק</button>
+<h3 class="he-h3">The text of the Mechaber and the Rama (seif 2)
+  <button class="daat-copy" type="button" data-copy-target="#cp-3">&#128203; Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-3">
-"<strong>נפל חלב לתוך קדירה של בשר — טועם החתיכה שנפל עליה החלב; אם אין בה טעם חלב — הכל מותר, ואם יש בה טעם חלב — אותה חתיכה אסורה</strong> (הגה: ואנו שאין סומכין על הטעימה, צריך ששים בחתיכה נגד החלב, ואם לאו — הכל אסור). ומשערים נגד כל מה שבקדירה — חתיכות, ירקות, רוטב ותבלין: אם יש בכולן ששים כנגד אותה חתיכה — אותה חתיכה לבדה אסורה והשאר מותר. <strong>והוא שלא ניער הקדירה בתחילה אלא בסוף, ולא כיסה אותה; אבל אם ניער מתחילה ועד סוף, או כיסה אותה מעת שנפל בה החלב עד גמר בישולה — הכל מצטרף</strong> לבטל טעם החלב."
+  <p>נפל חלב לתוך קדירה של בשר טועמין החתיכה שנפל עליה החלב אם אין בה טעם חלב הכל מותר ואם יש בחתיכה מטעימת חלב נאסרה אותה חתיכה (ולדידן דאין סומכין אעובדי כוכבים בעינן ששים בחתיכה ואם לאו כולה אסורה) ומשערין בכולה אם היה בכל מה שיש בקדירה מהחתיכת והירק והמרק והתבלין כדי שתהא חתיכה זו אחד מששים מהכל החתיכה אסורה והשאר מותר במה דברים אמורים בשלא ניער הקדרה בתחילה כשנפל החלב אלא לבסוף ולא כיסה אבל אם ניער מתחילה ועד סוף או שכיסה משעת נפילה ועד סוף הכל מצטרף לבטל טעם החלב: הגה וכן אם לא ניער כלל לא בתחילה ולא בסוף ולא כיסה כלל אם יש ס׳ בקדירה נגד טיפת חלב שנפל אינו אסור רק החתיכה לבד ושאר הקדירה מותר (בית יוסף בשם הראב״ד והמגיד משנה בשם הרמב״ם) וכן אם ניער בתחלה או כסה מיד אע״ג דלא ניער ולא כיסה לבסוף כל הקדירה מצטרף והוא שניער וכיסה מיד שנפל שם האיסור (טור וב״י בשם ר״י ן׳ חביב): וכן אם נפל לתוך המרק או לחתיכות ולא נודע לאיזו חתיכה נפל נוער את הקדירה כולה עד שישוב ויתערב הכל אם יש בקדירה כולה טעם חלב אסורה ואם לאו מותרת ואם לא נמצא עובד כוכבים שיטעום ונסמוך עליו משערים בששים (עכ״ל רמב״ם): הגה ויש חולקין וסבירא להו דאינו מועיל מה שנוער הקדירה אם לא שניער מיד שנפל האיסור (טור) והכי נהוג:</p>
+</div>
+<div class="translation" data-label="Translation">
+  <p>Milk fell into a pot of meat: one tastes the piece on which the milk fell. If it has no taste of milk, everything is permitted; if it has taken on a taste of milk, that piece is forbidden <em>(and for us, who do not rely on non-Jews, sixty is required in the piece, and if not, all of it is forbidden)</em>. And one measures against the whole: if there is in everything the pot contains &mdash; the pieces, the vegetable, the broth and the spices &mdash; enough for this piece to be one sixtieth of the whole, that piece is forbidden and the rest permitted. When is this said? When one did not stir the pot at the outset, when the milk fell, but only at the end, and did not cover it. But if one stirred from beginning to end, or covered it from the moment of the fall until the end, everything joins together to nullify the taste of the milk.</p>
+  <p><em>Rama&rsquo;s gloss</em>: likewise, if one did not stir at all, neither at the outset nor at the end, and did not cover at all &mdash; if there is sixty in the pot against the drop of milk that fell, only the piece is forbidden and the rest of the pot is permitted (Beis Yosef in the name of the Raavad, and the Maggid Mishneh in the name of the Rambam). And likewise, if one stirred at the outset or covered immediately, even though one neither stirred nor covered at the end, the whole pot joins &mdash; provided that one stirred or covered immediately when the prohibited thing fell there (Tur, and Beis Yosef in the name of R. Yosef ibn Chaviv).</p>
+  <p>Likewise, if it fell into the broth or onto the pieces and it is not known onto which piece it fell, one stirs the whole pot until it all mixes again: if there is a taste of milk in the whole pot, it is forbidden, and if not it is permitted; and if no non-Jew is found to taste and be relied upon, one measures by sixty <em>(end of the Rambam&rsquo;s words)</em>. <em>Gloss</em>: and there are those who disagree and hold that stirring the pot is of no avail unless one stirred immediately when the prohibited thing fell (Tur) &mdash; and so is the practice.</p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — מהו "צירוף" :</strong><br>
-טעם החלב מתפשט בכל הקדירה רק במקום שיש <em>ערבוב</em>. כל זמן שלא ניערו ולא כיסו — נשאר טעם החלב מרוכז באותה חתיכה, ואין שאר הקדירה <span class="he-q">מצטרף</span> לבטלו, על כן רק אותה חתיכה אסורה (אם אין בה לבדה ס'). אבל אם <span class="he-q">ניער מתחילה ועד סוף</span> או כיסה — מתערב הטעם בכל, וכל מה שבקדירה מצטרף לששים. ניעור וכיסוי הם איפוא ה<strong>מנגנון המוליך</strong> את הטעם.
-</div>
+<div class="yesod-box">
+<strong>What a &ldquo;tzeiruf&rdquo; is.</strong> The taste of the milk spreads through the whole pot only where something carries it. As long as one has neither stirred nor covered, the taste stays concentrated in the single piece that received it, and the rest of the pot does not <em>join</em> to nullify it: hence the prohibition of that piece alone, if it does not contain sixty by itself. Stirring and covering are therefore, in this siman, the <strong>conducting mechanism</strong> of taste &mdash; and the Shach, explaining the seif, says exactly this.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דכשנפל על חתיכה א׳ אין השאר שבקדירה מצטרף לבטל החלב אלא צריך שיהא בחתיכה עצמה ששים לבטל הטעם</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1524;&#1498; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1490;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אבל ניער מיד בשעת נפילת הטיפה הרי נכנסה החתיכה מיד בכלל הקדרה וכל הקדרה מצטרף</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1524;&#1498; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1490;)</span></blockquote>
 
-<div class="machloket-box" dir="rtl">
-<strong>מחלוקת אימתי מהני ניעור — לאלתר או בכל גוונא :</strong>
+<div class="machloket-box">
+<strong>When does stirring join?</strong> Within the same seif the Rama brings two positions that do not say the same thing about the moment.
 <table>
-<tr><th>שיטה</th><th>ניעור / כיסוי</th><th>מקור</th></tr>
+<tr><th>Shita</th><th>Stirring / covering</th><th>Source</th></tr>
 <tr>
-  <td><strong>הראב״ד והמגיד משנה בשם הרמב״ם</strong></td>
-  <td>אף שלא ניער כלל — אם יש ס' בקדירה כנגד הטיפה, אותה חתיכה לבדה אסורה והשאר מותר</td>
-  <td>ב״י; רמ״א ס״ב</td>
+  <td><strong>The Raavad, and the Maggid Mishneh in the name of the Rambam</strong></td>
+  <td>Even without stirring at all: if there is sixty in the pot against the drop, only that piece is forbidden and the rest permitted</td>
+  <td>Rama, seif 2</td>
 </tr>
 <tr>
-  <td><strong>הטור (וב״י בשם ר״י אבן חביב)</strong></td>
-  <td>ניעור וכיסוי מצרפין דווקא כשניער/כיסה <strong>לאלתר</strong> משעת נפילת האיסור — <span class="he-q">והכי נהוג</span></td>
-  <td>רמ״א ס״ב</td>
+  <td><strong>The Tur, and the Beis Yosef in the name of R. Yosef ibn Chaviv</strong></td>
+  <td>Stirring and covering join only if done <strong>at the very moment</strong> of the fall &mdash; and so is the practice</td>
+  <td>Rama, seif 2</td>
 </tr>
 </table>
 </div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">וכן אם לא ניער כלל לא בתחילה ולא בסוף ולא כיסה כלל אם יש ס׳ בקדירה נגד טיפת חלב שנפל אינו אסור רק החתיכה לבד ושאר הקדירה מותר</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1489;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">וכן אם ניער בתחלה או כסה מיד אע״ג דלא ניער ולא כיסה לבסוף כל הקדירה מצטרף והוא שניער וכיסה מיד שנפל שם האיסור</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1489;)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>הכרעת הרמ״א :</strong> מביא הרמ״א שתי הדעות, ומכריע: "<span class="he-q">ויש חולקין וסבירא להו דלא מהני ניעור רק אם ניער משעה שנפל האיסור — והכי נהוג</span>". כלומר: ניעור באמצע או בסוף אינו מצרף את כל הקדירה אלא אם כן ניער <em>מיד</em> בשעת הנפילה. וטעם הדבר: אם שהה האיסור במקומו עד שנבלע באותה חתיכה לבדה — שוב אין הניעור המאוחר מועיל להחזיר ולפזר את הבלוע. ובנפל החלב לרוטב או על חתיכות ואינו יודע להיכן (סיפא דסעיף) — מנער הכל עד שיחזור ויתערב, ומשערים בס'.
-</div>
+<p>The Shach adds here a reading worth keeping: according to the Tur it is not even required to keep stirring &mdash; it is enough to have stirred or covered at the instant of the fall, even if one stopped afterwards. And he concludes that this is the main view.</p>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ונראה שאין צריך רק שינער או יכסה מיד בשעת נפילה ואפי׳ פסק אחר כך מלנער</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1524;&#1498; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1492;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ומ״מ דעת מהר״י ן׳ חביב והרב עיקר</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1524;&#1498; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1492;)</span></blockquote>
+
+<div class="pilpul-box">
+<strong>The Rama&rsquo;s ruling.</strong> The Rama brings both positions and then rules: stirring in the middle or at the end does not join the whole pot unless one stirred <em>from</em> the fall. The reason follows the mechanism the Shach described: if the prohibited thing stayed in place until it was absorbed into that one piece, the piece has become what it has become, and stirring afterwards does not undo it &mdash; it only introduces into the pot a piece that is now itself forbidden. And where the milk fell into the broth, or onto pieces without knowing which, the Rambam writes that one stirs everything until it mixes again, and measures by sixty.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ויש חולקין וסבירא להו דאינו מועיל מה שנוער הקדירה אם לא שניער מיד שנפל האיסור</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1489;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">וכן אם נפל לתוך המרק או לחתיכות ולא נודע לאיזו חתיכה נפל נוער את הקדירה כולה עד שישוב ויתערב הכל</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1493;&#1524;&#1506; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1489;)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">4. חתיכה נעשית נבילה — היסוד</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">4. Chaticha naaseis neveila &mdash; the foundation</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">&#8617; Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיף ג')
-  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 העתק</button>
+<h3 class="he-h3">The text of the Mechaber (seif 3)
+  <button class="daat-copy" type="button" data-copy-target="#cp-4">&#128203; Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-4">
-"<strong>כשנאסרה אותה חתיכה מחמת החלב — נעשית כל החתיכה נבילה; ואם נתבשלה אחר כך עם חתיכות אחרות, צריך ששים לבטל את כל החתיכה. ואם מכירה — זורקה והשאר מותר; ואם אינו מכירה — הרוטב מותר, אבל כל החתיכות אסורות אם החתיכה האסורה ראויה להתכבד</strong> (עיין סימן ק״א)."
+  <p>כשנאסרה החתיכה מחמת החלב נעשית כל החתיכה איסור ואם בשלה עם אחרות צריך ששים לבטל כולה ואם מכירה משליכה והאחרות מותרות ואם אינו מכירה הרוטב מותר וכל החתיכות אסורות אם חתיכת האיסור ראויה להתכבד:</p>
+</div>
+<div class="translation" data-label="Translation">
+  <p>When that piece became forbidden on account of the milk, the <strong>whole</strong> piece becomes forbidden; and if it was afterwards cooked with other pieces, sixty is needed to nullify the whole of it. If one recognises it, one throws it away and the others are permitted; if one does not recognise it, the broth is permitted, and all the pieces are forbidden if the forbidden piece is one of those with which a host honours his guests.</p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד החקירתי — מדוע "כל החתיכה" נבילה :</strong><br>
-המגיד משנה נתן טעם נפלא לחנ״נ דבשר בחלב: ב<span class="he-q">איסור בשר בחלב</span> אין שם איסור על הבשר לבדו ולא על החלב לבדו — <strong>האיסור אינו אלא לאחר התערובת</strong>. נמצא ש<em>כל החתיכה כולה</em> היא "גופו של איסור", שהרי כולה ספגה והיתה לבשר־בחלב. לפיכך אין משערים ס' נגד החלב הבלוע בלבד, אלא נגד <strong>כל החתיכה</strong> — שכולה נעשתה נבילה.
-</div>
+<div class="yesod-box">
+<strong>Why the <em>whole</em> piece.</strong> The reason, as the Shach reports it in the name of the poskim, lies in what makes this prohibition singular: meat by itself is permitted, milk by itself is permitted, and it is their meeting that forbids. It follows that there is no foreign forbidden body lodged inside a permitted one &mdash; <em>the piece itself</em> has become the prohibition. One therefore does not measure sixty against the absorbed milk, but against the entire piece.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">הטעם כתבו הפוסקים משום דבשר וחלב כל חד באפיה נפשיה שרי וכי איתנהו בהדי הדדי אסור הלכך הבשר עצמו נעשה איסור משא״כ בשאר איסורים</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1524;&#1498; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1497;)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>ראויה להתכבד (עיין סימן ק״א) :</strong> אם אינו מכיר את החתיכה האסורה והיא חתיכה <span class="he-q">ראויה להתכבד</span> בה לפני האורחים — דבר חשוב הוא ואינו בטל ברוב, ולפיכך אף שיש שם רוב חתיכות היתר — כולן אסורות (והרוטב מותר, שאינו "חשוב"). וכל זה מדין דבר שבמנין / דבר חשוב המבואר בסימן ק״א.
-</div>
+<div class="rishon-card">
+<strong>&ldquo;Fit to be presented&rdquo; (see siman 101).</strong> If one does not recognise the forbidden piece and it is of the kind one would set before guests, it is a thing of importance, which is not nullified in a majority: even surrounded by a majority of permitted pieces, all are forbidden &mdash; while the broth remains permitted, not being a &ldquo;thing of importance&rdquo;. The Shach ties this to siman 101 and gives the reason: meat with milk is a prohibition in its own right.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דקי״ל לקמן ר״ס ק״א דבשר בחלב הוי איסור מחמת עצמו ואם היא ראוי׳ להתכבד לא בטיל באלף</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1524;&#1498; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1496;)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">5. הכרעת הרמ״א — חנ״נ בכל האיסורין</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">5. The Rama&rsquo;s ruling &mdash; ch.n.n. in all prohibitions</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">&#8617; Detailed explanation (level 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זוהי אחת מן המחלוקות החריפות והנפוצות שבכל הלכות תערובות.</p>
+<p style="margin:15px 0; font-style:italic;">This is one of the sharpest and most far-reaching machlokos in the whole body of the laws of mixtures.</p>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ד')
-  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 העתק</button>
+<h3 class="he-h3">The text of the Mechaber and the Rama (seif 4)
+  <button class="daat-copy" type="button" data-copy-target="#cp-5">&#128203; Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-5">
-"<strong>לא אמרינן 'נעשית החתיכה עצמה נבילה' אלא בבשר בחלב, אבל בשאר איסורין לא.</strong> כיצד ? כזית חֵלֶב שנבלע בחתיכה ואין בה ששים לבטלו — אסורה החתיכה; ואם נתבשלה אחר כך עם אחרות, די בששים כנגד כזית החֵלֶב, ואז אף אותה חתיכה חוזרת להיתרה." (הגה: ויש אומרים דבכל האיסורין אמרינן חתיכה נעשית נבילה, <span class="he-q">וכן נוהגין ואין לשנות</span>; ומיהו דווקא כשהאיסור דבוק בחתיכת ההיתר, או כשהחתיכה כולה חוץ לרוטב; אבל מקצת החתיכה ברוטב ואין האיסור דבוק — לא אמרינן חנ״נ, רק הכל מצטרף, ויש להחמיר באותה חתיכה.)
+  <p>לא אמרו חתיכה עצמה נעשית נבילה אלא בבשר בחלב אבל לא בשאר איסורים כגון כזית חלב שנבלע בחתיכה ואין בה ששים לבטלו ונאסרה ואחר כך בישלה עם אחרות אין צריך אלא ששים כדי כזית חלב ואז אפילו חתיכה עצמה חוזרת להיות מותרת: הגה וי״א דאמרינן בכל האסורים חתיכה נעשית נבילה (תוס׳ וסמ״ג וסמ״ק ומרדכי והאחרוני׳) וכן המנהג פשוט ואין לשנות ודוקא אם האסור דבוק בחתיכת היתר או שהחתיכה כולה חוץ לרוטב ונפל עליה איסור אבל אם מקצת החתיכה תוך הרוטב ואין האיסור דבוק בו לא אמרינן חתיכה נעשית נבילה ומצטרף כל הקדירה לבטל האיסור ומכל מקום יש להחמיר לאסור אותה חתיכה (ארוך כלל כ״ח) וכל זה בשאר איסורים אבל בבשר בחלב אע״פ שאין האסור דבוק ומקצת החתיכה תוך הרוטב אמרינן חתיכה נעשית נבילה יש אומרים דלא אמרינן חתיכה נעשית נבילה אם נתערב איסור לח בהיתר לח ואחר כך נתערב הכל בהיתר אחר ואין צריכים רק ששים נגד האיסור שנפל (מרדכי פכ״ה ורשב״א ור״ן בשם ראב״ד) ויש לסמוך על זה בשאר אסורים לצורך הפסד גדול אבל לא בבשר בחלב ואם נתערב יבש ביבש לא אמרינן בשום איסור חתיכה נעשית נבילה. וע״ל סימן צ״ט ס״ק ט״ו מדין חתיכה נעשית נבילה כלי הנאסר מבליעת איסור לא אמרינן ביה חתיכה נעשית נבילה ולא בעינן ס׳ רק נגד האיסור שבלע (מרדכי פג״ה וע״ל סימן צ״ח):</p>
+</div>
+<div class="translation" data-label="Translation">
+  <p>They said that the piece itself becomes neveila only for meat with milk, but not for the other prohibitions. For example: a kezayis of forbidden fat absorbed into a piece, with no sixty to nullify it, and the piece became forbidden; if it is afterwards cooked with others, only sixty against the kezayis of fat is required &mdash; and then even the piece itself returns to being permitted.</p>
+  <p><em>Rama&rsquo;s gloss</em>: and there are those who say that for all prohibitions we say the piece becomes neveila (Tosafos, Semag, Semak, Mordechai and the later authorities), and such is the widespread practice, which is not to be changed. But this only where the prohibited thing adheres to the permitted piece, or where the piece is entirely outside the broth and the prohibited thing fell upon it; but if part of the piece is inside the broth and the prohibited thing does not adhere to it, we do not say the piece becomes neveila, and the whole pot joins together to nullify the prohibition &mdash; and nevertheless one should be stringent and forbid that piece (Aroch, rule 28). And all this for the other prohibitions; but for meat with milk, even where the prohibited thing does not adhere and part of the piece is inside the broth, we say that the piece becomes neveila.</p>
+  <p>There are those who say that we do not say &ldquo;the piece becomes neveila&rdquo; where a wet prohibited substance was mixed into a wet permitted one, and afterwards the whole was mixed into another permitted substance: only sixty against the prohibited thing that fell is then required (Mordechai ch. 25, Rashba and Ran in the name of the Raavad); and one may rely on this for the other prohibitions in case of great loss, but not for meat with milk. And if dry was mixed with dry, we do not say for any prohibition that the piece becomes neveila; see below siman 99. A vessel made forbidden by what it absorbed &mdash; we do not say of it that the piece becomes neveila, and only sixty against what it absorbed is required (Mordechai; see below siman 98).</p>
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>שורש המחלוקת :</strong>
+<div class="machloket-box">
+<strong>The root of the machlokes.</strong>
 <table>
-<tr><th>שיטה</th><th>חנ״נ בשאר איסורין</th><th>מקור</th></tr>
+<tr><th>Shita</th><th>Ch.n.n. in the other prohibitions</th><th>Source</th></tr>
 <tr>
-  <td><strong>המחבר (בעקבות הרמב״ם והמגיד משנה)</strong></td>
-  <td><strong>רק בבב״ח</strong> — דשם כל החתיכה גופו של איסור; ובשאר איסורין ס' נגד האיסור הבלוע בלבד</td>
-  <td>מחבר ס״ד</td>
+  <td><strong>The Mechaber</strong></td>
+  <td><strong>Only for meat with milk</strong> &mdash; there the whole piece is the body of the prohibition; elsewhere, sixty against the absorbed prohibition alone</td>
+  <td>Mechaber, seif 4</td>
 </tr>
 <tr>
-  <td><strong>הרמ״א (תוס', סמ״ג, סמ״ק, מרדכי)</strong></td>
-  <td>חנ״נ <strong>בכל איסורין</strong> (מדרבנן) — "<span class="he-q">וכן נוהגין ואין לשנות</span>"</td>
-  <td>רמ״א ס״ד</td>
+  <td><strong>The Rama</strong> (Tosafos, Semag, Semak, Mordechai)</td>
+  <td><strong>In all prohibitions</strong> &mdash; and the Shach recalls that by all opinions this is only mid&rsquo;rabanan</td>
+  <td>Rama, seif 4; Shach ס״ק י״ב</td>
 </tr>
 </table>
 </div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">לא אמרו חתיכה עצמה נעשית נבילה אלא בבשר בחלב אבל לא בשאר איסורים</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1493;&#1524;&#1506; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1491;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">וי״א דאמרינן בכל האסורים חתיכה נעשית נבילה</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1491;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">וכן המנהג פשוט ואין לשנות</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1491;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">וכ״כ הר״ן דבשאר איסורים הוי מדרבנן</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1524;&#1498; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1497;&#1524;&#1489;)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>תנאי הרמ״א — דבוק / חוץ לרוטב / מקצתה ברוטב :</strong> אף לדעת הרמ״א דחנ״נ בכל איסורין, אין זה אלא בשני אופנים — (א) שה<strong>איסור דבוק</strong> בחתיכת ההיתר; (ב) או שהחתיכה <strong>כולה חוץ לרוטב</strong> והאיסור נפל עליה. אבל אם <strong>מקצת החתיכה ברוטב</strong> ואין האיסור דבוק — <span class="he-q">לא אמרינן חנ״נ</span>, אלא הכל מצטרף לבטל, ומכל מקום ראוי להחמיר באותה חתיכה (איסור והיתר הארוך כלל כ״ח). וכל זה בשאר איסורין; אבל ב<strong>בשר בחלב</strong> — אף שאינו דבוק ואף שמקצתה ברוטב — אמרינן חנ״נ בכל גוונא, שזהו דין מיוחד שבו.
-</div>
+<div class="pilpul-box">
+<strong>The Rama&rsquo;s conditions.</strong> Even for the Rama, who extends the principle to all prohibitions, the extension holds only in two configurations: either the prohibited thing <strong>adheres</strong> to the permitted piece, or the piece is <strong>entirely outside the broth</strong> and the prohibited thing fell upon it. If part of the piece is bathing in the broth and the prohibited thing does not adhere, the principle does not operate: the whole pot joins to nullify, and only a stringency remains upon that piece. All this for the other prohibitions; for meat with milk the Rama writes that the principle operates in every case.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ודוקא אם האסור דבוק בחתיכת היתר או שהחתיכה כולה חוץ לרוטב ונפל עליה איסור</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1491;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אבל אם מקצת החתיכה תוך הרוטב ואין האיסור דבוק בו לא אמרינן חתיכה נעשית נבילה ומצטרף כל הקדירה לבטל האיסור</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1491;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ומכל מקום יש להחמיר לאסור אותה חתיכה</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1491;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">וכל זה בשאר איסורים אבל בבשר בחלב אע״פ שאין האסור דבוק ומקצת החתיכה תוך הרוטב אמרינן חתיכה נעשית נבילה</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1491;)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>לח בלח (מרדכי פכ״ה, רשב״א, ר״ן בשם הראב״ד) :</strong> איסור <em>לח</em> שנתערב בהיתר <em>לח</em> ואחר כך נפל לתוך היתר אחר — אין אומרים חנ״נ, אלא די בס' נגד האיסור עצמו שנפל; ואפשר לסמוך עליו בשאר איסורין ב<span class="he-q">הפסד גדול</span>, <strong>אבל לא בבשר בחלב</strong>. והפתחי תשובה (ס״ק ב) מביא בשם מהרש״ל דאם נעשה <span class="he-q">דרך בישול</span> אמרינן חנ״נ אף בלח, ובשם הנודע ביהודה (תניינא יו״ד מ״ט) דיש להקל בהפסד גדול.
-</div>
+<div class="kashya-box">
+<strong>The Shach does not receive this compromise in silence.</strong> Behind the condition &ldquo;part of it in the broth&rdquo; stands an old divergence, which the Shach sets out already on seif 2: for Rabbeinu Yitzchak, the piece blocks the tzeiruf only if it is entirely outside the broth; for Rashi, even part of it in the broth changes nothing. The Rama built his rule as a compromise between these two readings &mdash; the Shach says so in as many words, and then marks a צ״ע on the second half of the gloss, the half that extends the principle to meat with milk even when part of the piece is bathing in the broth. <strong>We report, and we do not rule.</strong></div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דר״י סובר דוקא שכל החתיכה חוץ לרוטב</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1524;&#1498; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1491;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ורש״י פי׳ אפי׳ מקצתה ברוטב אין הכל מצטרף לבטל החלב</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1524;&#1498; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1491;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">הרב הכריע כן הכל מסברתו כעין פשר</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1524;&#1498; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1497;&#1524;&#1490;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ומ״ש דבבשר בחלב אפילו מקצת החתיכה תוך הרוטב חנ״נ ג״כ צ״ע דהוא נגד כל הפוסקים</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1524;&#1498; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1497;&#1524;&#1490;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ונראה דמ״ש הרב דבבשר בחלב אפילו מקצתה תוך הרוטב חנ״נ היינו בשניער אח״כ עד שנכנסה כולה לתוך הרוטב</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1524;&#1498; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1497;&#1524;&#1490;)</span></blockquote>
+<p>And the Shakh does not leave his צ״ע unanswered: he offers a yishuv of his own — what the Rama writes of meat with milk, even where part of the piece lies in the broth, holds <strong>where one afterwards stirred</strong> (<span class="he-q">בשניער</span>) until the piece entered the broth entirely. We report the difficulty and its answer, without deciding between them.</p>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה — יבש ביבש וכלי :</strong> ב<strong>יבש ביבש</strong> (חתיכת איסור יבשה שנתערבה בחתיכות יבשות) — <span class="he-q">אין שום איסור עושה חנ״נ</span> (ועיין סימן צ״ט סט״ו). וכן <strong>כלי</strong> שבלע איסור — <span class="he-q">לא אמרינן ביה חנ״נ</span>, אלא די בששים נגד האיסור הבלוע בלבד (מרדכי; ועיין סימן צ״ח). <em>ולמעשה — שאל את רבך.</em>
-</div>
+<div class="rishon-card">
+<strong>Wet in wet.</strong> A <em>wet</em> prohibited substance mixed into a <em>wet</em> permitted one, and then fallen into another permitted substance: we do not say that the whole becomes neveila, and sixty against the prohibited substance itself suffices. The Shach gives the reason: the principle rests on the <em>importance</em> of the piece, which presupposes that it be recognisable and distinct &mdash; which a liquid inside a liquid is not. The Rama allows relying on this for the other prohibitions in case of great loss, but not for meat with milk. The Pischei Teshuva (ס״ק ב) reports in the name of the Maharshal that if the mixing came about by way of cooking, the principle applies even to a liquid, and in the name of the Noda BiYehuda (Tinyana, Yoreh De&rsquo;ah 49) that there is room for leniency in case of great loss.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">יש אומרים דלא אמרינן חתיכה נעשית נבילה אם נתערב איסור לח בהיתר לח ואחר כך נתערב הכל בהיתר אחר ואין צריכים רק ששים נגד האיסור שנפל</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1491;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דדוקא כשנתערב איסור לח בהיתר יבש אמרינן חנ״נ מטעם חשיבות כי החתיכות איסור ניכר ומובדל נ״נ הוא</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1524;&#1498; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1497;&#1524;&#1491;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ויש לסמוך על זה בשאר אסורים לצורך הפסד גדול אבל לא בבשר בחלב</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1491;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דווקא שנתערב שלא כדרך בישול אבל אם הוא דרך בישול אמרינן חנ״נ</span>&nbsp;&raquo; <span class="src-ref">(&#1508;&#1524;&#1514; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1489;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">וכתב להתיר במקום הפסד גדול ואף שרש״ל אוסר אם הוא דרך בישול</span>&nbsp;&raquo; <span class="src-ref">(&#1508;&#1524;&#1514; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1489;)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>הפתחי תשובה</strong> (ס״ק א) מביא בשם הר״ן (וש״ך ס״ק ג) דחתיכה הנמצאת בקדירה, מחמת חום ולחלוחית, החלב <span class="he-q">מתפשט בכל החתיכה</span> אף במקצתה שחוץ לרוטב; והנודע ביהודה (תניינא) דק דדווקא כשאין האיסור דבוק וכבר נתבשל בה, וצריך לדמותו לדין איסור גוש / איסור צלול שבסימן ק״ה.
-</div>
+<div class="nafka-mina-box">
+<strong>Where the principle does not operate.</strong> Dry mixed with dry: no prohibition there makes the piece become neveila (and see siman 99). And a vessel that absorbed a prohibited substance: the principle is not applied to it, and sixty against what it absorbed suffices (Mordechai; see siman 98). <em>And in practice &mdash; ask your rav.</em></div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ואם נתערב יבש ביבש לא אמרינן בשום איסור חתיכה נעשית נבילה</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1491;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">כלי הנאסר מבליעת איסור לא אמרינן ביה חתיכה נעשית נבילה ולא בעינן ס׳ רק נגד האיסור שבלע</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1491;)</span></blockquote>
+
+<div class="rishon-card">
+<strong>The Pischei Teshuva (ס״ק א) and the part outside the broth.</strong> He reports, in the name of the Ran as cited by the Shach, that a piece standing in the pot &mdash; because of the vapour and moisture that fill it &mdash; has the milk spread through <em>all</em> of it, even the part that emerges from the broth. And he reports the Noda BiYehuda, who defines the scope of the Shach&rsquo;s distinction between a fluid and a solid prohibited substance: where the prohibited thing adheres to the piece from the outset and has cooked together with it, the vapour and moisture of the pot cause it to spread through the whole. There is matter here for comparison with the laws of siman 105 on a solid prohibited substance.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דחתיכה שעומדת בקדרה מתוך שיש בה הבל ולחלוחית החלב מתפשט בכולה אף שהיא חוץ לרוטב</span>&nbsp;&raquo; <span class="src-ref">(&#1508;&#1524;&#1514; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1488;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אבל כשדבוק האיסור באותה חתיכה בתולדתו ונתבשל עמו בקדרה אז ע״י הבל הקדרה ולחלוחית גורם שמתפשט בכולו</span>&nbsp;&raquo; <span class="src-ref">(&#1508;&#1524;&#1514; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1488;)</span></blockquote>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">6. טיפת חלב על הדופן — מפעפע, כנגד הרוטב וכנגד הריקן</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">6. A drop of milk on the wall &mdash; מפעפע, facing the food and facing the empty space</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">&#8617; Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיפים ה'–ו')
-  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 העתק</button>
+<h3 class="he-h3">The text of the Mechaber and the Rama (seifim 5&ndash;6)
+  <button class="daat-copy" type="button" data-copy-target="#cp-6">&#128203; Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-6">
-"<strong>טיפת חלב שנפלה על הקדירה של בשר מבחוץ, סמוך לאש: אם נפלה כנגד הרוטב — די בששים כנגד הטיפה, שהיא מפעפעת לפנים והרי היא כאילו נפלה לתוך התבשיל. ואם נפלה כנגד הריקן ופעפעה בעובי הדופן עד סמוך לרוטב, ואין ששים כנגדה באותו מקום — נאסר אותו מקום שבקדירה; ואם עירה התבשיל דרך אותו מקום שנאסר — נאסר התבשיל.</strong> תקנתו: שיניחנה כך ולא יגע בה עד שתצטנן." (הגה: ודווקא בקדירה ישנה, אבל בחדשה בכל ענין די בששים כנגד הטיפה — עיין סימן צ״ד.) — סעיף ו': "<strong>נהגו לאסור כנגד הריקן, ודווקא שלא כנגד האש; אבל כנגד האש — מותר, שהאש שורפו ומייבשו, ואז גם הקדירה מותרת. ודווקא מעט (טיפה), אבל נפל הרבה — אין היתר אף כנגד האש, אלא כנגד הרוטב ובששים.</strong>"
+  <p>טיפת חלב שנפלה על הקדירה שאצל האש מבחוץ אם נפלה כנגד התבשיל אין צריך אלא ס׳ כנגד הטיפה שמפעפעת לפנים והוי כאילו נפלה בתבשיל ואם נפלה במקום הריקן והיא מפעפעת בדופן הקדירה עד סמוך לרוטב כל כך שאין ס׳ כנגד הטיפה הרי נאסר אותו מקום הקדירה ואם יערה התבשיל דרך מקום הקדירה שנאסר הרי יאסר התבשיל וזה תקנתו שיניחנה כך ולא יגע בה עד שתצטנן: הגה ודוקא אם הקדרה ישנה אבל אם היא חדשה בכל ענין א״צ ס׳ רק נגד הטיפה שנפל עליה כדלקמן סי׳ צ״ד גבי כף:</p>
+  <p>נהגו העולם לאסור כשנפלה על הדופן שלא כנגד הרוטב ודוקא כשנופל באותו צד שאינו כנגד האש אבל אם נפל כנגד האש מותר שהאש שורפו ומייבשו (ואז הקדירה נמי שרי) (הגהות ש״ד וארוך כלל ל״א) ודוקא בדבר מועט כגון טיפה אבל אם נפל הרבה אין להתיר אפי׳ אם נפל כנגד האש אא״כ כנגד הרוטב וע״י ס׳: הגה ואז הקדירה הוי אסורה אפילו יש ס׳ בתבשיל נגד הטיפה שנפלה ויערה מיד התבשיל ממנו בצד אחר שלא כנגד הטיפה ואם בשלו בקדירה תבשיל אחר דינו כמו בפעם הראשון (ארוך כלל ל״א):</p>
+</div>
+<div class="translation" data-label="Translation">
+  <p><strong>Seif 5.</strong> A drop of milk that fell from outside onto a pot standing by the fire: if it fell opposite the food, only sixty against the drop is needed, for it permeates inwards and it is as if it had fallen into the food. But if it fell at the empty place and permeates the thickness of the pot&rsquo;s wall until close to the broth, to the point that there is not sixty there against the drop, that place in the pot has become forbidden; and if one pours out the food through the place that became forbidden, the food will become forbidden. The remedy is that one leave it so and not touch it until it cools. <em>Gloss</em>: and this only if the pot is old; but if it is new, in every case only sixty against the drop that fell on it is needed, as stated below in siman 94 regarding a spoon.</p>
+  <p><strong>Seif 6.</strong> The world has taken the practice of forbidding when it fell on the wall, not opposite the broth &mdash; and this only when it falls on the side that is not facing the fire; but if it fell facing the fire it is permitted, for the fire burns it and dries it out (and then the pot too is permitted). And this only for a small amount, such as a drop; but if much fell, there is no permission even facing the fire, unless facing the broth and by sixty. <em>Gloss</em>: and then the pot is forbidden even if there is sixty in the food against the drop that fell; one pours the food out of it at once on the other side, not opposite the drop. And if another dish was cooked in the pot, its law is as the first time.</p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — מפעפע ושני אופני הנפילה :</strong><br>
-שומן ולחות חמה <em>מפעפעים</em>, מתפשטים בעובי הדופן ונבלעים פנימה. ומכאן שני אופנים:<br><br>
-• <span class="he-q">כנגד הרוטב</span> — הטיפה מפעפעת מיד אל תוך התבשיל, וכאילו נפלה לתוכו → די בס' כנגד הטיפה.<br>
-• <span class="he-q">כנגד הריקן</span> — מפעפעת בעובי הדופן עד סמוך לרוטב; ואם אין שם ס' באותו מקום — נאסר אותו מקום בדופן, וכשמערה דרכו נאסר התבשיל.<br><br>
-התקנה: <span class="he-q">לא יגע בה עד שתצטנן</span> — שלא יסחוט את הטיפה פנימה בעודה חמה.
-</div>
+<div class="yesod-box">
+<strong>The foundation &mdash; what &ldquo;permeating&rdquo; means.</strong> Hot fat and moisture <em>permeate</em>: they penetrate the thickness of the wall and pass inwards. Hence two cases, and two regimes.<br><br>
+&bull; <strong>Facing the broth</strong> &mdash; the drop permeates at once to the food, as if it had fallen into it: sixty against the drop suffices.<br>
+&bull; <strong>Facing the empty space</strong> &mdash; it permeates the thickness of the wall up to near the broth; if there is not sixty there, that place in the wall becomes forbidden, and pouring through it forbids the food.<br><br>
+The remedy the Mechaber gives is a remedy of abstention: not to touch it until it cools.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">טיפת חלב שנפלה על הקדירה שאצל האש מבחוץ אם נפלה כנגד התבשיל אין צריך אלא ס׳ כנגד הטיפה שמפעפעת לפנים והוי כאילו נפלה בתבשיל</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1493;&#1524;&#1506; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1492;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ואם נפלה במקום הריקן והיא מפעפעת בדופן הקדירה עד סמוך לרוטב כל כך שאין ס׳ כנגד הטיפה הרי נאסר אותו מקום הקדירה</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1493;&#1524;&#1506; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1492;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">וזה תקנתו שיניחנה כך ולא יגע בה עד שתצטנן</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1493;&#1524;&#1506; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1492;)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>"ממה נפשך" של הט״ז (ס״ק יז) :</strong> מביא הט״ז את לשון האיסור והיתר (כלל ל״א בשם הסמ״ק) ב<span class="he-q">מפעפעת</span>: ממה נפשך — אם הטיפה מפעפעת ומגעת אל הרוטב, הרי בטלה בס' שבתבשיל; ואם אינה מפעפעת כל כך, אינה אוסרת אלא כדי קליפת מקומה. ולפי זה כל החומרא היא דווקא במקום שאין ס' כנגד הטיפה בעובי הדופן עצמו.
-</div>
+<div class="pilpul-box">
+<strong>The Taz&rsquo;s &ldquo;either way&rdquo; (ס״ק י״ז).</strong> The Taz brings the reasoning of the Issur V&rsquo;Heter (rule 31, in the name of the Semak), which proceeds by elimination: either the drop permeates through to the broth, and it is nullified there in sixty; or it does not permeate that far, and then by what would the pot be forbidden? But the Taz immediately draws a restrictive consequence: this reasoning permits only the <em>food</em> &mdash; the pot itself remains forbidden, and we do not treat the drop as having fallen into the food for every purpose.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אי מפעפע לתוך הרוטב הרי נתבטל הטיפה בששים ואם אינו מפעפע לתוכה ממה יאסר</span>&nbsp;&raquo; <span class="src-ref">(&#1496;&#1524;&#1494; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1497;&#1524;&#1494;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">מבואר מזה דהקדירה אסורה ולא חשבינן כאילו נפלה לתבשיל אלא לענין היתר התבשיל לחוד</span>&nbsp;&raquo; <span class="src-ref">(&#1496;&#1524;&#1494; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1497;&#1524;&#1494;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ורש״ל כ׳ פ׳ גיד הנשה סימן ל״ז בזה אף הקדירה מותר מן הדין לבשל בה בשר עוד אלא שלכתחלה אסורה להשתמש בה אפילו בשר שנראה כאילו נאסר בחלב כו׳ עכ״ל וכן נראה עיקר כמו שאזכיר בסמוך</span>&nbsp;&raquo; <span class="src-ref">(&#1496;&#1524;&#1494; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1497;&#1524;&#1494;)</span></blockquote>
+<p>But the Taz does not stop there: he at once brings the Maharshal (<em>Pereq Gid ha-Nasheh</em>, siman 37), for whom the pot itself is <strong>permitted מן הדין</strong> — one may still cook meat in it — and is forbidden only <strong>לכתחילה</strong>, because it would appear forbidden through the milk. And the Taz concludes that he holds this to be the main view: <span class="he-q">וכן נראה עיקר</span>.</p>
 
-<div class="machloket-box" dir="rtl">
-<strong>קדירה ישנה וחדשה · צד האש :</strong>
+<div class="machloket-box">
+<strong>An old pot and a new one &middot; the side of the fire.</strong>
 <table>
-<tr><th>המצב</th><th>הדין</th></tr>
+<tr><th>The case</th><th>The law</th></tr>
 <tr>
-  <td><strong>קדירה ישנה, כנגד הריקן, שלא כנגד האש</strong></td>
-  <td>נהגו לאסור אותו מקום (אם אין ס' כנגד הטיפה שם)</td>
+  <td><strong>Old pot, facing the empty space, away from the fire</strong></td>
+  <td>The practice has been to forbid that place (if there is not sixty there against the drop)</td>
 </tr>
 <tr>
-  <td><strong>כנגד האש</strong></td>
-  <td>מותר — <span class="he-q">האש שורפו ומייבשו</span>, וגם הקדירה מותרת</td>
+  <td><strong>Facing the fire</strong></td>
+  <td>Permitted &mdash; the fire burns it and dries it out, and then the pot too is permitted</td>
 </tr>
 <tr>
-  <td><strong>קדירה חדשה</strong></td>
-  <td>בכל ענין די בס' כנגד הטיפה (כדין הכף בסי' צ״ד)</td>
+  <td><strong>A new pot</strong></td>
+  <td>In every case sixty against the drop suffices (as with the spoon, siman 94)</td>
 </tr>
 <tr>
-  <td><strong>נפל הרבה (לא טיפה)</strong></td>
-  <td>אין היתר אף כנגד האש — אלא כנגד הרוטב ובס'</td>
+  <td><strong>Much fell (not a drop)</strong></td>
+  <td>No permission even facing the fire &mdash; only facing the broth and by sixty</td>
 </tr>
 </table>
 </div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ודוקא אם הקדרה ישנה אבל אם היא חדשה בכל ענין א״צ ס׳ רק נגד הטיפה שנפל עליה</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1492;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אבל אם נפל כנגד האש מותר שהאש שורפו ומייבשו</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1493;&#1524;&#1506; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1493;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ודוקא בדבר מועט כגון טיפה אבל אם נפל הרבה אין להתיר אפי׳ אם נפל כנגד האש אא״כ כנגד הרוטב וע״י ס׳</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1493;&#1524;&#1506; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1493;)</span></blockquote>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה בעירוי :</strong> הרמ״א מוסיף (סוף ס״ו) — כשנפל הרבה, אף שיש ס' בתבשיל כנגד הטיפה, <strong>הקדירה אסורה</strong>; ומערה התבשיל מיד דרך הצד האחר, <span class="he-q">ולא כנגד</span> מקום הטיפה; ובישול שני באותה קדירה — דינו כראשון. <em>ולמעשה — שאל את רבך.</em>
-</div>
+<div class="nafka-mina-box">
+<strong>Nafka mina in the pouring.</strong> The Rama adds, at the end of seif 6: where much has fallen, even if there is sixty in the food against the drop, <strong>the pot is forbidden</strong>; one pours the food out at once on the other side, not opposite the drop &mdash; and a second cooking in that pot falls under the same law as the first. <em>And in practice &mdash; ask your rav.</em></div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ואז הקדירה הוי אסורה אפילו יש ס׳ בתבשיל נגד הטיפה שנפלה ויערה מיד התבשיל ממנו בצד אחר שלא כנגד הטיפה</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1493;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ואם בשלו בקדירה תבשיל אחר דינו כמו בפעם הראשון</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1493;)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">7. שעת הדחק · תתאה גבר · עירוי וקלוח</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">7. Pressing need &middot; תתאה גבר &middot; pouring and a stream</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">&#8617; Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ז')
-  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 העתק</button>
+<h3 class="he-h3">The text of the Mechaber and the Rama (seif 7)
+  <button class="daat-copy" type="button" data-copy-target="#cp-7">&#128203; Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-7">
-"<strong>יש מי שמתיר בשעת הדחק, כגון בערב שבת, אפילו שלא כנגד הרוטב ואפילו שלא כנגד האש — על ידי ששים.</strong> (הגה: וכן נוהגין.) — חלב (או שאר איסור) רותח שנשפך על הקרקע והניחו עליו קדירה חמה: אם אין הנשפך סמוך לאש — אינו אלא <strong>כלי שני</strong>, והקדירה אסורה (שבולעת מעט) אבל התבשיל שבתוכה מותר משום <span class="he-q">תתאה גבר</span>. וקלוח היורד מקדירה רותחת לקדירה צוננת: אם נפסק הקלוח קודם שהגיע — כלי שני; ואם לא נפסק — הרי הוא כעירוי, והקדירה הצוננת אסורה אם יד סולדת בקלוח בשעת המגע, אבל התבשיל שבתוכה מותר, שאין עירוי אוסר אלא כדי קליפה. אבל אם הקדירה חמה / כלי ראשון, וכל שכן סמוך לאש — הכל אסור אף שהקלוח צונן, משום תתאה גבר, כצונן לתוך חם."
+  <p>יש מי שמתיר בשעת הדחק כגון בערב שבת אפי׳ שלא כנגד הרוטב אפילו שלא כנגד האש על ידי ס׳: הגה והכי נהוג (ארוך) ואם נשפך חלב או שאר איסור רותח על גבי קרקע והעמידו עליו קדירה חמה אם מה שנשפך אינו אצל האש לא הוי רק כלי שני ולכן הקדירה אסורה דבולע קצת והתבשיל מותר דתתאה גבר (הגהת ש״ד סימן כ״ה) וקלוח מן הקדירה רותחת שהלך אל קדירה צוננת אם נפסק הקלוח מן הקדירה הרותחת קודם שהגיע אל הצונן הוי נמי ככלי שני (כך משמע בשערים מתשובת מוהר״ם) ואם לא נפסק הוי כעירוי והקדירה הצוננת נאסרה אם היד סולדת בקלוח הנוגע בקדירה (ת״ה סי׳ קפ״ה) והתבשיל שבתוכה שרי דאין עירוי אוסר רק כדי קליפה אבל אם הקדירה היא חמה והוא כלי ראשון וכ״ש עומד אצל האש אפי׳ הקלוח הוא צונן הכל אסור דתתאה גבר והוי כצונן לתוך חם דכולו אסור (כך משמע מב״י) כמו שנתבאר לעיל סי׳ צ״א. טפה הנופל׳ על גבי כיסוי קדירה דינה כנפלה על גבי קדירה נגד הרוטב והוא שהתחיל הקדירה להרתיח דאז עולה הזיעה תמיד ומגיע אל הכיסוי ויורד משם אל הרוטב (ארוך כלל ל״א וש״ד):</p>
+</div>
+<div class="translation" data-label="Translation">
+  <p>There is one who permits, in a pressing hour &mdash; such as Erev Shabbos &mdash; even not facing the broth and even not facing the fire, by means of sixty. <em>Gloss</em>: and so is the practice.</p>
+  <p>And if milk, or another boiling prohibited substance, was spilled on the ground and a hot pot was set upon it: if what was spilled is not next to the fire, it is only a second vessel; the pot is therefore forbidden, since it absorbs a little, but the food inside it is permitted, since the lower one prevails.</p>
+  <p>A stream running from a boiling pot into a cold pot: if the stream broke off before reaching the cold one, it too is a second vessel; if it did not break off, it is as a pouring, and the cold pot is forbidden if the hand recoils from the stream where it touches &mdash; but the food inside it is permitted, for a pouring forbids only the thickness of a peel. But if the pot is hot and is a first vessel, and all the more so if it stands next to the fire, then even if the stream is cold everything is forbidden: for the lower one prevails, and it is like cold poured into hot, where all is forbidden &mdash; as was explained above in siman 91.</p>
+  <p>A drop falling onto the lid of a pot has the law of one that fell onto the pot facing the broth &mdash; provided the pot has begun to boil, for then the steam rises continually, reaches the lid and descends from there into the broth.</p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — תתאה גבר ומדרגות החום :</strong><br>
-שורש הדינים שבסעיף זה הוא <span class="he-q">תתאה גבר</span> (פסחים ע״ו., ועיין סימן צ״א) — התחתון גובר. ומכאן:<br><br>
-• <strong>נשפך על הקרקע</strong> שלא סמוך לאש → כלי שני → אינו מבליע אלא מעט → הקדירה אסורה והתבשיל מותר (תתאה — הקדירה החמה — גבר).<br>
-• <strong>קלוח שנפסק</strong> → כלי שני; <strong>לא נפסק</strong> → עירוי, ואוסר רק <span class="he-q">כדי קליפה</span> (אם יד סולדת), והתבשיל שבפנים מותר.<br>
-• <strong>כלי ראשון / סמוך לאש</strong> → אף בקלוח צונן הכל אסור, דתתאה (החם) גבר כצונן לתוך חם.
-</div>
+<div class="yesod-box">
+<strong>The foundation &mdash; &ldquo;the lower one prevails&rdquo; and the degrees of heat.</strong> The whole root of this seif is the principle studied in siman 91: in a contact between a hot and a cold, it is the <em>lower</em> that prevails. Hence the three cases.<br><br>
+&bull; <strong>Spilled on the ground</strong>, away from the fire: a second vessel, which causes only slight absorption &mdash; the pot is forbidden, the food permitted.<br>
+&bull; <strong>A stream that broke off</strong>: a second vessel; <strong>a stream that did not break off</strong>: a pouring, which forbids only the thickness of a peel, if the hand recoils there.<br>
+&bull; <strong>A first vessel, or next to the fire</strong>: even a cold stream forbids everything, for the hot one below prevails.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ואם נשפך חלב או שאר איסור רותח על גבי קרקע והעמידו עליו קדירה חמה אם מה שנשפך אינו אצל האש לא הוי רק כלי שני ולכן הקדירה אסורה דבולע קצת והתבשיל מותר דתתאה גבר</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1494;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ואם לא נפסק הוי כעירוי והקדירה הצוננת נאסרה אם היד סולדת בקלוח הנוגע בקדירה</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1494;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">והתבשיל שבתוכה שרי דאין עירוי אוסר רק כדי קליפה</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1494;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אבל אם הקדירה היא חמה והוא כלי ראשון וכ״ש עומד אצל האש אפי׳ הקלוח הוא צונן הכל אסור דתתאה גבר והוי כצונן לתוך חם דכולו אסור</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1494;)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>טיפה על הכיסוי :</strong> טיפה שנפלה על <span class="he-q">כיסוי</span> הקדירה — הרי היא כנופלת כנגד הרוטב, ובלבד שכבר התחילה הקדירה להרתיח; שאז ה<strong>זיעה</strong> עולה אל הכיסוי וחוזרת ונוטפת לתבשיל, ונמצא הכיסוי כמחובר לרוטב. (וכאן שורש המעבר לדין הזיעה שבסעיף ח'.)
-</div>
+<div class="rishon-card">
+<strong>The drop on the lid.</strong> A drop that fell on the lid is treated as having fallen facing the broth &mdash; on condition that the pot has already begun to boil: the steam then rises to the lid and descends from there into the food, so that the lid is, for this calculation, continuous with the broth. It is by this clause that the siman passes to the next seif, that of steam.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">טפה הנופל׳ על גבי כיסוי קדירה דינה כנפלה על גבי קדירה נגד הרוטב והוא שהתחיל הקדירה להרתיח דאז עולה הזיעה תמיד ומגיע אל הכיסוי ויורד משם אל הרוטב</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1494;)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>דקדוק הפתחי תשובה :</strong> מביא הפתחי תשובה (ס״ק ג) בשם מגן אברהם (סי' תנ״ב) — קדירת מתכת שנאסרה, אין די למלאותה מים ולהרתיח להכשירה, אלא צריך להטבילה כולה ביורה גדולה יותר; ובס״ק ד מביא מלבושי שרד שאין לסמוך על נתינת <span class="he-q">אפר</span> תחת הקלוח להפסיקו. <em>ולמעשה — שאל את רבך.</em>
-</div>
+<div class="pilpul-box">
+<strong>Two refinements of the Pischei Teshuva.</strong> At his ס״ק ג he notes that wherever this siman says &ldquo;the pot is forbidden&rdquo;, if it is a metal pot, filling it with water and boiling it does not suffice to kasher it &mdash; for the outer face would not be treated; it must be immersed in its entirety in a larger cauldron (Magen Avraham, Orach Chaim 452). At his ס״ק ד he reports the Levushei Serad against those who permitted by means of ash placed beneath the stream: since the law of ash is itself disputed, one should not rely on it, except for a light prohibition. <em>And in practice &mdash; ask your rav.</em></div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אם היא של מתכות ובא להגעילה לא מהני כשימלאנה מים וירתיחנה דא״כ צד החיצון לא נגעל אלא צריך להכניסה כולה ליורה</span>&nbsp;&raquo; <span class="src-ref">(&#1508;&#1524;&#1514; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1490;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">מאחר שדין אפר גופיה הוא מחלוקת לכן ח״ו לסמוך ע״ז אלא באיסור קל</span>&nbsp;&raquo; <span class="src-ref">(&#1508;&#1524;&#1514; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1491;)</span></blockquote>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">8. חקירת הזיעה — זיעת אוכלין וזיעת משקין</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">8. The chakira of steam &mdash; steam of liquids, steam of foods</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">&#8617; Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ח')
-  <button class="daat-copy" type="button" data-copy-target="#cp-8">📋 העתק</button>
+<h3 class="he-h3">The text of the Mechaber and the Rama (seif 8)
+  <button class="daat-copy" type="button" data-copy-target="#cp-8">&#128203; Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-8">
-"<strong>מחבת של חלב שהניחה בכירה תחת קדירה של בשר — הזיעה עולה ונבלעת בקדירה ואוסרתה</strong> (הגה: ואם היה חלב במחבת, צריך ששים בתבשיל הקדירה כנגד החלב שבמחבת). <strong>ודווקא שהמחבת מגולה, והזיעה עולה מן המאכל עצמו, וסמוכים כל כך עד שיד סולדת בזיעה במקום המגע; אבל אם רחוקים — הכל מותר. ולכן תולין בשר לייבש על קדירות של חלב ואין חוששין לזיעה. וכן אם המחבת מכוסה — הכל מותר, כשתי קדירות הנוגעות זו בזו</strong> (מרדכי פכ״ה). ומכל מקום לכתחילה יש ליזהר."
+  <p>מחבת של חלב שנתנו בכירה תחת קדירה של בשר הזיעה עולה ונבלע בקדיר׳ ואוסרת׳: הגה אם היה חלב במחבת בעינן ס׳ בתבשיל שבקדירה נגד החלב שבמחבת (ד״ע) וכל זה מיירי שהמחבת מגולה והזיעה עולה מן המאכל עצמו לקדירה שעליה (ארוך) וגם מיירי שהוא בקרוב כל כך שהיד סולדת בזיעה במקום שנוגע בקדירה אבל אם אין היד סולדת בזיעה הכל שרי ולכן תולין בשר לייבש על קדירות של חלב ולא חיישינן לזיעה שעולה (פסקי מהרא״י סימן ק״ג) וכן אם המחבת מכוסה הכל שרי מידי דהוי אשתי קדירות נוגעות זו בזו דאין אוסרין זו את זו בנגיעה כל שכן בזיעה (מרדכי פרק כ״ה) מיהו לכתחלה יש ליזהר בכל זה (הגהות ש״ד):</p>
+</div>
+<div class="translation" data-label="Translation">
+  <p>A milk pan placed in the stove beneath a meat pot: the steam rises, is absorbed into the pot and forbids it. <em>Gloss</em>: if there was milk in the pan, sixty is needed in the food of the pot against the milk in the pan (his own view). And all this speaks of an uncovered pan, the steam rising from the food itself to the pot above it (Aroch); and it also speaks of a closeness such that the hand recoils from the steam at the place where it touches the pot &mdash; but if the hand does not recoil from the steam, everything is permitted. Therefore one hangs meat to dry above pots of milk without fearing the steam that rises (Piskei Maharai, 103). And likewise, if the pan is covered, everything is permitted &mdash; like two pots that touch one another without forbidding one another by contact, and all the more so by steam (Mordechai, ch. 25). Nevertheless one should be careful in all this a priori.</p>
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>חקירה — מהי "זיעה" ומה כוחה :</strong> זיעה היא האד החם העולה מן התבשיל. וחקרו האחרונים: האם דין הזיעה תלוי ב<strong>חום</strong> בלבד (יד סולדת), או גם בטיב המתאדה ? והמחבר תלאהּ בשני תנאים: (א) <span class="he-q">מגולה</span> — שתעלה הזיעה מן המאכל עצמו; (ב) <span class="he-q">יד סולדת בזיעה</span> במקום המגע — וברחוקים, שאין יד סולדת, הכל מותר.
-</div>
+<div class="hakira-box">
+<strong>The chakira &mdash; what is steam, and what is its power?</strong> The question this seif opens is what the power of steam to forbid depends upon. The Rama&rsquo;s text sets two conditions, and they are not of the same nature: one concerns <em>provenance</em> &mdash; the pan must be uncovered, the steam rising from the food itself; the other concerns <em>heat</em> &mdash; the hand must recoil from the steam at the point of contact. Hence the question: is steam like the body of the food from which it rises, or is it only a carrier of heat?</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">וכל זה מיירי שהמחבת מגולה והזיעה עולה מן המאכל עצמו לקדירה שעליה</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1495;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">וגם מיירי שהוא בקרוב כל כך שהיד סולדת בזיעה במקום שנוגע בקדירה אבל אם אין היד סולדת בזיעה הכל שרי</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1495;)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>חידוש הפרי מגדים — זיעת אוכלין וזיעת משקין (פתחי תשובה ס״ק ו) :</strong> מחלק הפרי מגדים בין <span class="he-q">זיעת משקין</span> — אד העולה ממשקה (כחלב נוזלי), שדינו כמשקה עצמו ואוסר — לבין <span class="he-q">זיעת אוכלין</span> — אד העולה ממאכל מוצק (כחֵלֶב מהותך או בשר), שמא <em>אינו</em> כגוף המאכל ואינו אוסר כמותו. נמצא שעצם החקירה — אם הזיעה "כגוף האיסור" — תלויה בטיב המתאדה, ולא בחום בלבד.
-</div>
+<div class="pilpul-box">
+<strong>The distinction of the Pri Megadim, reported by the Pischei Teshuva (ס״ק ו).</strong> The Pri Megadim derives from the Rambam (Tumas Ochlin 7:4) that the steam of a <em>liquid</em> is like the liquid itself, whereas that of a <em>food</em> is not. The chakira therefore bears not only on heat but on the nature of what is evaporating. The Pischei Teshuva himself draws the consequence, and he states it cautiously: in such a case, even if the hand recoils from the steam, <em>it is possible</em> that there is room to permit. He does not rule, and neither do we.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">דדוקא זיעת משקין כמוהו אבל אוכלין כמו חלב המהותך אין זיעתו כמוהו</span>&nbsp;&raquo; <span class="src-ref">(&#1508;&#1524;&#1514; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1493;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אם היה מחבת מחלב למטה חם ולמעלה סמוך דבר כשר והזיעה עולה אפי׳ יד סולדת בזיעה אפשר יש להתיר</span>&nbsp;&raquo; <span class="src-ref">(&#1508;&#1524;&#1514; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1493;)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>מכוסה — קל וחומר משתי קדירות :</strong> אם המחבת <span class="he-q">מכוסה</span> — הכל מותר, שהרי אף שתי קדירות הנוגעות זו בזו אין מבליעות זו מזו בלא רוטב (סימן צ״ב הוא, ועיין מרדכי פכ״ה), וכל שכן הזיעה הנחסמת בכיסוי. ומכאן ההיתר לתלות בשר לייבוש מעל קדירות חלב. ומכל מקום מסיים המחבר: "<span class="he-q">לכתחילה יש ליזהר</span>".
-</div>
+<div class="rishon-card">
+<strong>Covered &mdash; a kal vachomer from two pots.</strong> If the pan is covered, everything is permitted: two pots that touch do not forbid one another by contact alone, and steam, stopped by the lid, does less still. It is from this same reasoning that the permission to hang meat to dry above pots of milk emerges. And yet the Rama closes with a reservation: a priori, one should be careful in all this.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">וכן אם המחבת מכוסה הכל שרי מידי דהוי אשתי קדירות נוגעות זו בזו דאין אוסרין זו את זו בנגיעה כל שכן בזיעה</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1495;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">ולכן תולין בשר לייבש על קדירות של חלב ולא חיישינן לזיעה שעולה</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1495;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">מיהו לכתחלה יש ליזהר בכל זה</span>&nbsp;&raquo; <span class="src-ref">(&#1512;&#1502;&#1524;&#1488; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1495;)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">9. נר של חלב — חֵלֶב ולא חָלָב</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">9. A tallow candle &mdash; חֵלֶב and not חָלָב</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">&#8617; Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיף ט')
-  <button class="daat-copy" type="button" data-copy-target="#cp-9">📋 העתק</button>
+<h3 class="he-h3">The text of the Mechaber (seif 9)
+  <button class="daat-copy" type="button" data-copy-target="#cp-9">&#128203; Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-9">
-"<strong>נר של חֵלֶב, שעשאוֹ כעין נר של שעוה, שנטפה ממנו טיפה על הכלי — די בגרידה. אבל חֵלֶב מהותך חם שנטפה ממנו טיפה על הכלי — צריך הגעלה.</strong>"
+  <p>נר של חלב עשוי כנר של שעוה שנטף ממנו טפה על כלי אין צריך כי אם גרידה אבל חלב מהותך חם שנפל ממנו טפה על כלי צריך הגעלה:</p>
+</div>
+<div class="translation" data-label="Translation">
+  <p>A tallow candle made like a wax candle, a drop of which fell onto a vessel: only scraping is required. But melted hot tallow, a drop of which fell onto a vessel: hagala is required.</p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — חֵלֶב (סוּיף) ולא חָלָב (לבן) :</strong><br>
-שים לב: כאן <span class="he-q">חֵלֶב</span> (בצירי, סוּיף) — שומן אסור של בהמה, ולא <span class="he-q">חָלָב</span> (בקמץ, לבן) של הסעיפים הקודמים. ושני אופנים:<br>
-• נר של חֵלֶב <strong>קרוש</strong>, שנטף כשעוה צוננת → אין בליעה אלא בפניו → <span class="he-q">גרידה</span> בלבד.<br>
-• חֵלֶב מהותך <strong>חם</strong> → רותח שמבליע → <span class="he-q">הגעלה</span> ככל איסור חם.
-</div>
+<div class="yesod-box">
+<strong>The foundation &mdash; חֵלֶב and not חָלָב.</strong> A warning about reading, before any halakha: the printed text is unvocalised, and the same three letters carry here a different word from the one in all the preceding seifim. The word is read <strong>חֵלֶב</strong> &mdash; tallow, the forbidden fat of an animal &mdash; and not <strong>חָלָב</strong>, milk. Two cases follow:<br>
+&bull; A candle of <strong>congealed</strong> tallow, dripping like cold wax &rarr; there is no absorption into the thickness, only a body resting on the surface &rarr; scraping suffices.<br>
+&bull; <strong>Melted and hot</strong> tallow &rarr; this is boiling matter, which causes absorption &rarr; hagala is required.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">נר של חלב עשוי כנר של שעוה שנטף ממנו טפה על כלי אין צריך כי אם גרידה</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1493;&#1524;&#1506; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1496;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אבל חלב מהותך חם שנפל ממנו טפה על כלי צריך הגעלה</span>&nbsp;&raquo; <span class="src-ref">(&#1513;&#1493;&#1524;&#1506; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1506;&#1497;&#1507; &#1496;)</span></blockquote>
 
-<div class="hakira-box" dir="rtl">
-<strong>חקירה — גרידה כנגד הגעלה :</strong> שורש החילוק הוא חוֹם המגע: בקרוש אין הפלטה ובליעה ממש (כצונן), על כן די בהסרת הגוף שעל פני הכלי (גרידה); ובמהותך חם — דין רותח לו, ומבליע בעובי הכלי, על כן בעי הגעלה. והפתחי תשובה (ס״ק ז–ח) דן בהדלקה מנר של חֵלֶב ובחֵלֶב שעל הכלי, ומדמהו לדיני בליעה דלעיל.
-</div>
+<div class="hakira-box">
+<strong>Chakira &mdash; scraping against hagala.</strong> The root of the distinction is the heat of the contact, not the nature of the substance. In the congealed state there is neither real release nor real absorption, as with something cold: it is therefore enough to remove the body resting on the surface. In the melted and hot state the law is that of boiling matter, which causes absorption into the thickness of the vessel: hence hagala. The Pischei Teshuva (ס״ק ז&ndash;ח) extends these two cases: the one to kindling from a tallow candle, the other to a wick that fell onto a vessel.</div>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אם מותר להדליק שפופרת של טובאק מנר של חלב</span>&nbsp;&raquo; <span class="src-ref">(&#1508;&#1524;&#1514; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1494;)</span></blockquote>
+<blockquote class="comment-source">&laquo;&nbsp;<span class="he-q">אם נפל ראש הפתילה שכבר נשרף ונעשה אפר אינו אוסר</span>&nbsp;&raquo; <span class="src-ref">(&#1508;&#1524;&#1514; &#1497;&#1493;&#1524;&#1491; &#1510;&#1524;&#1489; &#1505;&#1524;&#1511; &#1495;)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">10. חקירה ונפקא מינה למעשה</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">10. Chakira and nafka mina for practice</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">&#8617; Detailed explanation (level 1)</a>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה הכוללת של הסימן :</strong> מהו השיעור לבטל את טעם החלב, ומתי כל הקדירה מצטרפת ?
+<div class="hakira-box">
+<strong>The overall chakira of the siman.</strong> What is the measure that nullifies the taste of milk, and on what condition does the whole pot join it?
 <ul class="stylish">
-<li><strong>טעימת קפילא</strong> — היתר עיוני (טעם), אך <span class="he-q">אין אנו סומכין עליו</span> ובעינן ס' בכל ענין.</li>
-<li><strong>שני האיסורים</strong> — טעם הבשר הנפלט (בטל בס' לכו״ע) והחלב הבלוע החוזר ונפלט (כר״ת, בטל בס').</li>
-<li><strong>ניער / כיסה</strong> — מצרפין את כל הקדירה, ולמנהג דווקא <em>לאלתר</em>.</li>
-<li><strong>חתיכה נעשית נבילה</strong> — בבב״ח מדאורייתא (כל החתיכה גופו של איסור); ולמנהג הרמ״א — בכל איסורין מדרבנן.</li>
-<li><strong>טיפה על הדופן · עירוי · זיעה</strong> — מפעפע, תתאה גבר, ויד סולדת.</li>
+<li><strong>The tasting of the קפילא</strong> &mdash; a permission in principle, grounded in taste; but we do not rely on it, and sixty is required in every case.</li>
+<li><strong>The two prohibitions</strong> &mdash; the released taste of meat (nullified in sixty by all opinions) and the milk absorbed and then given back (nullified in sixty, according to Rabbeinu Tam).</li>
+<li><strong>Stirring / covering</strong> &mdash; what joins the whole pot, and, by the practice, only if done from the moment of the fall.</li>
+<li><strong>Chaticha naaseis neveila</strong> &mdash; for meat with milk according to the Mechaber; for all prohibitions according to the Rama, and by all opinions mid&rsquo;rabanan (Shach ס״ק י״ב).</li>
+<li><strong>A drop on the wall &middot; pouring &middot; steam</strong> &mdash; permeation of the wall, the rule that the lower prevails, and the hand that recoils.</li>
 </ul>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה למעשה (לפי הכרעת רוב האחרונים) :</strong>
+<div class="nafka-mina-box">
+<strong>Nafka mina for practice, as the siman states it.</strong>
 <ol class="stylish">
-<li>אין סומכין על טעימת נכרי → <strong>בעינן ששים בכל ענין</strong> (רמ״א ס״א).</li>
-<li>ניעור/כיסוי מצרפין את כל הקדירה <strong>דווקא לאלתר</strong> משעת הנפילה (רמ״א ס״ב — "והכי נהוג").</li>
-<li>חתיכה נעשית נבילה — נוהגין בכל איסורין (רמ״א ס״ד), בתנאי דבוק / כולה חוץ לרוטב.</li>
-<li>טיפה כנגד הריקן שלא כנגד האש — נהגו לאסור; כנגד האש — האש שורפו; קדירה חדשה — די בס'.</li>
-<li>זיעה — אוסרת רק במגולה ויד סולדת; מכוסה או רחוק — מותר, ולכתחילה יש ליזהר.</li>
+<li>We do not rely on the tasting of a non-Jew &rarr; <strong>sixty is required in every case</strong> (Rama, seif 1).</li>
+<li>Stirring or covering joins the whole pot only if done <strong>from the moment of the fall</strong> (Rama, seif 2 &mdash; &ldquo;and so is the practice&rdquo;).</li>
+<li>Chaticha naaseis neveila &mdash; the practice applies it to all prohibitions (Rama, seif 4), under the conditions of adhering or of the piece being entirely outside the broth &mdash; with the Shach (ס״ק י״ג) marking a צ״ע on the end of the gloss.</li>
+<li>A drop facing the empty space, away from the fire: the practice has been to forbid; facing the fire, the fire burns it; a new pot, sixty suffices.</li>
+<li>Steam &mdash; it forbids only where the pan is uncovered and the hand recoils; covered or distant, it is permitted, and a priori one should be careful.</li>
 </ol>
-<em>ולמעשה — שאל את רבך.</em>
-</div>
+<em>And in practice &mdash; ask your rav.</em></div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">11. טבלאות סיכום</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">11. Summary tables</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">&#8617; Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">טבלה — אופני נפילת החלב והדין</h3>
-
-<table>
-<tr>
-  <th>אופן המגע</th>
-  <th>התוצאה</th>
-  <th>מקור בקורפוס</th>
-</tr>
-<tr>
-  <td><strong>כזית בשר ביורה של חלב</strong></td>
-  <td>קפילא / ס'; ואותה חתיכה אסורה</td>
-  <td>מחבר ס״א; ט״ז ס״ק א</td>
-</tr>
-<tr>
-  <td><strong>נפל חלב לקדירה — לא ניער</strong></td>
-  <td>ס' באותה חתיכה; אם לאו — היא לבדה אסורה</td>
-  <td>מחבר ס״ב; רמ״א</td>
-</tr>
-<tr>
-  <td><strong>ניער/כיסה לאלתר</strong></td>
-  <td>הכל מצטרף לששים</td>
-  <td>מחבר ס״ב; רמ״א — "והכי נהוג"</td>
-</tr>
-<tr>
-  <td><strong>חתיכה שנאסרה (חנ״נ)</strong></td>
-  <td>כל החתיכה נבילה; ס' נגד כולה</td>
-  <td>מחבר ס״ג–ד'; מגיד משנה</td>
-</tr>
-<tr>
-  <td><strong>טיפה כנגד הרוטב</strong></td>
-  <td>מפעפע → ס' כנגד הטיפה</td>
-  <td>מחבר ס״ה; ט״ז ס״ק יז</td>
-</tr>
-<tr>
-  <td><strong>טיפה כנגד הריקן (שלא כנגד האש)</strong></td>
-  <td>נהגו לאסור אותו מקום</td>
-  <td>מחבר ס״ה–ו'</td>
-</tr>
-<tr>
-  <td><strong>עירוי / קלוח לא נפסק</strong></td>
-  <td>אוסר כדי קליפה; תבשיל מותר (תתאה גבר)</td>
-  <td>מחבר ס״ז</td>
-</tr>
-<tr>
-  <td><strong>זיעה (מגולה, יד סולדת)</strong></td>
-  <td>נבלעת ואוסרת; מכוסה/רחוק — מותר</td>
-  <td>מחבר ס״ח; פמ״ג בפ״ת ס״ק ו</td>
-</tr>
-<tr>
-  <td><strong>נר של חֵלֶב</strong></td>
-  <td>קרוש — גרידה; מהותך חם — הגעלה</td>
-  <td>מחבר ס״ט; פ״ת ס״ק ז–ח</td>
-</tr>
-</table>
-
-<h3 class="he-h3">טבלה — מחלוקות מרכזיות בסימן</h3>
+<h3>Table &mdash; the modes in which the milk falls, and their law</h3>
 
 <table>
 <tr>
-  <th>נושא</th>
-  <th>שיטה א'</th>
-  <th>שיטה ב'</th>
+  <th>The mode of contact</th>
+  <th>The result</th>
+  <th>The source</th>
 </tr>
 <tr>
-  <td>סמיכה על טעימת נכרי</td>
-  <td>המחבר — סומכין על הקפילא (אף בפחות מס')</td>
-  <td>הרמ״א — אין סומכין, ובעינן ס' בכל ענין</td>
+  <td><strong>A kezayis of meat in a pot of milk</strong></td>
+  <td>Tasting of the קפילא, or sixty; and that piece is forbidden</td>
+  <td>Mechaber, seif 1; Taz ס״ק א</td>
 </tr>
 <tr>
-  <td>חלב בחלב (מין במינו) — האיסור הבלוע</td>
-  <td>רש״י/ריב״א — במשהו</td>
-  <td>רבנו תם — בטל בס' (וקיי״ל)</td>
+  <td><strong>Milk fell into the pot &mdash; without stirring</strong></td>
+  <td>Sixty within the piece itself; failing that, it alone is forbidden</td>
+  <td>Mechaber and Rama, seif 2</td>
 </tr>
 <tr>
-  <td>אימתי ניעור מצרף</td>
-  <td>ראב״ד/מ״מ — אף בלא ניעור די בס'</td>
-  <td>טור/רמ״א — דווקא ניער לאלתר ("והכי נהוג")</td>
+  <td><strong>Stirred or covered from the moment of the fall</strong></td>
+  <td>Everything joins for the sixty</td>
+  <td>Mechaber and Rama, seif 2</td>
 </tr>
 <tr>
-  <td>חתיכה נעשית נבילה</td>
-  <td>מחבר — רק בבב״ח</td>
-  <td>רמ״א — בכל איסורין ("ואין לשנות")</td>
+  <td><strong>A piece that became forbidden (ch.n.n.)</strong></td>
+  <td>The whole piece is neveila; sixty against all of it</td>
+  <td>Mechaber, seifim 3&ndash;4; Shach ס״ק י</td>
 </tr>
 <tr>
-  <td>לח בלח שנפל להיתר</td>
-  <td>מרדכי/רשב״א/ר״ן — די בס', לא חנ״נ</td>
-  <td>מהרש״ל — דרך בישול אמרינן חנ״נ (פ״ת ס״ק ב)</td>
+  <td><strong>A drop facing the broth</strong></td>
+  <td>It permeates &rarr; sixty against the drop</td>
+  <td>Mechaber, seif 5; Taz ס״ק י״ז</td>
+</tr>
+<tr>
+  <td><strong>A drop facing the empty space, away from the fire</strong></td>
+  <td>The practice has been to forbid that place</td>
+  <td>Mechaber, seifim 5&ndash;6</td>
+</tr>
+<tr>
+  <td><strong>Pouring / an unbroken stream</strong></td>
+  <td>Forbids the thickness of a peel; the food stays permitted (the lower prevails)</td>
+  <td>Rama, seif 7</td>
+</tr>
+<tr>
+  <td><strong>Steam (uncovered pan, hand recoils)</strong></td>
+  <td>Absorbed and forbidding; covered or distant &mdash; permitted</td>
+  <td>Mechaber and Rama, seif 8; Pri Megadim in the P&rsquo;T ס״ק ו</td>
+</tr>
+<tr>
+  <td><strong>A tallow candle</strong></td>
+  <td>Congealed &mdash; scraping; melted and hot &mdash; hagala</td>
+  <td>Mechaber, seif 9; P&rsquo;T ס״ק ז&ndash;ח</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מקורות הסוגיא</h3>
+<h3>Table &mdash; the central machlokos of the siman</h3>
 
-<div class="rishon-card" dir="rtl">
-<strong>גמרא :</strong> חולין צ״ז:–צ״ח. (טעם כעיקר, קפילא, ביטול בששים) · חולין ק״ח. (חתיכה נעשית נבילה) · חולין קי״א:–קי״ב. (זיעה, דגים שעלו בקערה) · פסחים ע״ו. (כיצד צולין — תתאה גבר)
+<table>
+<tr>
+  <th>The subject</th>
+  <th>First shita</th>
+  <th>Second shita</th>
+</tr>
+<tr>
+  <td>Relying on the tasting of a non-Jew</td>
+  <td>The Mechaber &mdash; one relies on the קפילא, even with less than sixty</td>
+  <td>The Rama &mdash; one does not rely on it, and sixty is required in every case</td>
+</tr>
+<tr>
+  <td>Milk in milk &mdash; the absorbed prohibition</td>
+  <td>Rashi and the Riva &mdash; in the smallest amount</td>
+  <td>Rabbeinu Tam &mdash; nullified in sixty (and this is what we hold)</td>
+</tr>
+<tr>
+  <td>When does stirring join?</td>
+  <td>Raavad and Maggid Mishneh &mdash; even without stirring, sixty suffices</td>
+  <td>Tur and Rama &mdash; only if one stirred from the moment of the fall</td>
+</tr>
+<tr>
+  <td>Chaticha naaseis neveila</td>
+  <td>The Mechaber &mdash; only for meat with milk</td>
+  <td>The Rama &mdash; in all prohibitions, and mid&rsquo;rabanan according to the Shach</td>
+</tr>
+<tr>
+  <td>The piece wholly or partly outside the broth</td>
+  <td>R. Yitzchak &mdash; only wholly outside the broth</td>
+  <td>Rashi &mdash; even part of it inside the broth (Shach ס״ק ד)</td>
+</tr>
+<tr>
+  <td>Wet in wet that fell into a permitted substance</td>
+  <td>Mordechai, Rashba and Ran &mdash; sixty suffices, no ch.n.n.</td>
+  <td>Maharshal &mdash; by way of cooking we say ch.n.n. (P&rsquo;T ס״ק ב)</td>
+</tr>
+</table>
+
+<h3>Table &mdash; the sources of the sugya</h3>
+
+<div class="rishon-card">
+<strong>Gemara:</strong> Chullin 97b&ndash;98a (taste as substance, קפילא, nullification in sixty) &middot; Chullin 108a (chaticha naaseis neveila) &middot; Chullin 111b&ndash;112a (steam, fish served on a dish) &middot; Pesachim 76a (the lower prevails)
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>ראשונים :</strong> רש״י · ר״ת · ריב״א · רמב״ם · ראב״ד · המגיד משנה · תוספות · רא״ש · רשב״א (תורת הבית) · ר״ן · מרדכי (פרק כ״ה) · סמ״ג · סמ״ק · ר״י אבן חביב · טור · איסור והיתר הארוך (כלל כ״ח, ל״א)
+<div class="rishon-card">
+<strong>Rishonim:</strong> Rashi &middot; Rabbeinu Tam &middot; the Riva &middot; Rambam &middot; Raavad &middot; Maggid Mishneh &middot; Tosafos &middot; Rosh &middot; Rashba &middot; Ran &middot; Mordechai (ch. 25) &middot; Semag &middot; Semak &middot; R. Yosef ibn Chaviv &middot; Tur &middot; Issur V&rsquo;Heter HaAroch (rules 28 and 31)
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>אחרונים :</strong> בית יוסף · רמ״א · ש״ך · ט״ז · ב״ח · דרכי משה · תורת חטאת · מהרש״ל (ים של שלמה פכ״ה) · פרי חדש · פרי מגדים · מנחת יעקב · מגן אברהם (סי' תנ״ב) · פתחי תשובה · נודע ביהודה · לבושי שרד
+<div class="rishon-card">
+<strong>Acharonim:</strong> Beis Yosef &middot; Rama &middot; Shach &middot; Taz &middot; Bach &middot; Darkei Moshe &middot; Toras Chatas &middot; Maharshal (Yam Shel Shlomo, ch. 25) &middot; Pri Chadash &middot; Pri Megadim &middot; Minchas Yaakov &middot; Magen Avraham (Orach Chaim 452) &middot; Pischei Teshuva &middot; Noda BiYehuda &middot; Levushei Serad
 </div>
 
 <hr class="ornament">
 
-  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;direction:rtl;">
-    <a href="niveau-1-base-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">→ רמה א' — יסוד</a>
-    <a href="niveau-3-synthese-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">רמה ג' — סיכום ←</a>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;">
+    <a href="niveau-1-base-en.html" style="font-family:'Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">&larr; Level 1 &mdash; Base</a>
+    <a href="niveau-3-synthese-en.html" style="font-family:'Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">Level 3 &mdash; Summary &rarr;</a>
   </div>
 
 <div class="yh-watermark">
 ~ ~ ~ ~ ~<br>
-<strong>DAAT</strong> · <strong>הרב יוסף חיים סממה</strong><br>
-תלמיד חכם · מעביר שיעורים בהלכה ובחסידות<br>
-<em>פלפול ועיון בדין חלב שנפל לקדירה של בשר · סימן צ״ב · ⚡ רמה ב' — לַמְדָּן</em>
+<strong>DAAT</strong> &middot; <strong>Rav Yossef Chaim Samama</strong><br>
+Talmid chacham &middot; gives shiurim in halakha and chassidus<br>
+<em>Pilpul and iyun on milk that fell into a meat pot &middot; Siman 92 &middot; &#9889; Level 2 &mdash; Lamdan</em>
 </div>
 
-  <div class="disclaimer" style="background:#fff8e1;border-right:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;direction:rtl;text-align:right;">
-    ⚠️ תוכן זה נכתב לצורך לימוד ועיון בלבד. לכל הוראה למעשה (לְמַעֲשֶׂה) — שאל את רבך.
+  <div class="disclaimer" style="padding:16px 40px;font-family:'Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;">
+    &#9888;&#65039; This content is written for study and analysis only. For any practical ruling (&#1500;&#1456;&#1502;&#1463;&#1506;&#1458;&#1513;&#1462;&#1474;&#1492;) &mdash; ask your rav.
   </div>
 
   <div style="background:#1A1F3A;border-top:2px solid #C5A55A;padding:24px 40px;text-align:center;margin-top:0;">
-    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;direction:rtl;">
-      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">לעמוד הבית</a> · <a href="index-en.html" style="color:#C5A55A;text-decoration:none;">סימן צ״ב</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ לתמיכה</a>
+    <p style="font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;">
+      DAAT &#1491;&#1506;&#1514; &mdash; &copy; 5786 / 2026 &middot; <a href="../../../index-en.html" style="color:#C5A55A;text-decoration:none;">Home</a> &middot; <a href="index-en.html" style="color:#C5A55A;text-decoration:none;">Siman 92</a> &middot; <a href="../../../soutenir-en.html" style="color:#C5A55A;text-decoration:none;">&hearts; Support</a>
     </p>
+  </div>
+
   </div>
 
   <link rel="stylesheet" href="../../../assets/css/khavroutha-fab.css">
@@ -907,7 +954,7 @@
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="../../../assets/js/chat-widget.js" defer></script>
 <script src="../../../assets/js/daat-copy.js" defer></script>
-<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="מצא חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">הצטרף לחברותא</span></a>
+<a href="../../../communaute-en.html#khavroutha" class="daat-khavroutha-fab" title="Find a chavrusa for this siman"><span class="icon">📖</span><span class="label-long">Join a chavrusa</span></a>
   <script src="/assets/js/share-text.js" defer></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="fr" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,8 +23,7 @@
   @page { size: A4; margin: 2cm 1.8cm; }
   body {
     font-family: 'Frank Ruhl Libre', 'David', 'Georgia', 'Cambria', serif;
-    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0;
-    direction: rtl; text-align: right;
+    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0; text-align: left;
   }
   .he {
     direction: rtl; text-align: right;
@@ -72,14 +71,12 @@
   h2.section-title {
     color: #fff; background: #1A1F3A;
     font-size: 16pt; padding: 10px 18px; margin-top: 30px;
-    border-right: 6px solid #C5A55A;
-    direction: rtl; text-align: right;
+    border-left: 6px solid #C5A55A; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3 {
     color: #1A1F3A; font-size: 14pt; margin-top: 25px;
-    border-right: 4px solid #C5A55A; padding-right: 10px;
-    direction: rtl; text-align: right;
+    border-left: 4px solid #C5A55A; padding-left: 10px; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3.he-h3 {
@@ -89,8 +86,7 @@
   }
   h4 {
     color: #5a4a1a; font-size: 12pt;
-    margin-top: 20px; margin-bottom: 8px; font-weight: bold;
-    direction: rtl; text-align: right;
+    margin-top: 20px; margin-bottom: 8px; font-weight: bold; text-align: left;
   }
 
   .sacred-text {
@@ -100,8 +96,8 @@
     font-size: 12.5pt; line-height: 1.9;
   }
   .pilpul-box {
-    background: #eef3fa; border-right: 4px solid #1A1F3A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #eef3fa; border-left: 4px solid #1A1F3A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .pilpul-box::before {
     content: "⚡ פלפול"; display: block;
@@ -110,8 +106,8 @@
     direction: rtl; text-align: right;
   }
   .kashya-box {
-    background: #fef4e4; border-right: 4px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #fef4e4; border-left: 4px solid #C5A55A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .kashya-box::before {
     content: "❓ קושיא"; display: block;
@@ -120,8 +116,8 @@
     direction: rtl; text-align: right;
   }
   .teruts-box {
-    background: #e8f4ea; border-right: 4px solid #2d7a3e;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #e8f4ea; border-left: 4px solid #2d7a3e;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .teruts-box::before {
     content: "✓ תירוץ"; display: block;
@@ -130,8 +126,8 @@
     direction: rtl; text-align: right;
   }
   .hakira-box {
-    background: #f5e9f5; border-right: 4px solid #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #f5e9f5; border-left: 4px solid #6a1b7a;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .hakira-box::before {
     content: "🔍 חקירה"; display: block;
@@ -141,8 +137,7 @@
   }
   .nafka-mina-box {
     background: #fff4e6; border: 2px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; border-radius: 4px; text-align: left;
   }
   .nafka-mina-box::before {
     content: "⚖️ נפקא מינה"; display: block;
@@ -152,8 +147,7 @@
   }
   .yesod-box {
     background: #1A1F3A; color: #fff;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
   .yesod-box::before {
     content: "💎 יסוד"; display: block;
@@ -164,7 +158,7 @@
   .yesod-box .he-q { color: #C5A55A; }
   .machloket-box {
     background: #faf5ff; border: 1.5px dashed #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
 
   table {
@@ -173,10 +167,9 @@
   }
   th {
     background: #1A1F3A; color: #fff;
-    padding: 10px; text-align: right; direction: rtl; font-size: 11pt;
+    padding: 10px; text-align: left; font-size: 11pt;
   }
-  td {
-    direction: rtl; text-align: right;
+  td { text-align: left;
     border: 1px solid #d4c89a; padding: 10px; vertical-align: top;
   }
   tr:nth-child(even) td { background: #FAF6EE; }
@@ -197,12 +190,11 @@
   }
 
   ol.stylish li, ul.stylish li { margin-bottom: 8px; }
-  ol.stylish, ul.stylish { padding-right: 22px; padding-left: 0; }
+  ol.stylish, ul.stylish { padding-left: 22px; padding-right: 0; }
 
   .rishon-card {
-    background: #f7f3e4; border-right: 4px solid #8a6a1a;
-    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt;
-    direction: rtl; text-align: right;
+    background: #f7f3e4; border-left: 4px solid #8a6a1a;
+    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt; text-align: left;
   }
   .rishon-card strong { color: #1A1F3A; font-size: 11pt; }
 
@@ -217,10 +209,9 @@
 
   .index-box {
     background: #FAF6EE; border: 1px solid #C5A55A;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
-  .index-box ol { margin: 5px 0; padding-right: 25px; padding-left: 0; }
+  .index-box ol { margin: 5px 0; padding-left: 25px; padding-right: 0; }
   .index-box li { margin-bottom: 5px; }
 
   h3.sugya {
@@ -237,7 +228,6 @@
     font-size: 12pt;
     text-decoration: none;
     border-bottom: 1px dotted #C5A55A;
-    direction: rtl;
   }
   a.daat-explain:hover { color: #8a6a1a; border-bottom-style: solid; }
 
@@ -273,7 +263,7 @@
   "headline": "Siman קי״א · Niveau 2 Lamdan — Pilpoul approfondi · תולין להקל (שאני אומר) והכל נכנס בספק",
   "description": "Niveau 2 (Lamdan) du Siman קי״א (Yoreh De'ah) — Pilpoul approfondi. דין תולין ושאני אומר (יבמות פ״ב, ספק דרבנן לקולא, ט״ז ס״ק א), שיעור דרבנן, מין במינו ואינו מינו (ט״ז ס״ק ג), חתיכה הראויה להתכבד בספק, שתי קדרות מאי חזית, הכל נכנס בספק וצירוף, ומחלוקת רמב״ן ורשב״א בשני בני אדם — חקירה et נפקא מינה.",
   "url": "https://daattorah.com/yd/111/lamdan",
-  "inLanguage": "he-IL",
+  "inLanguage": "fr-FR",
   "isAccessibleForFree": true,
   "author": {
     "@id": "https://daattorah.com/#rav-samama"
@@ -379,36 +369,37 @@
 })();
 </script>
 
+
 <!-- COUVERTURE -->
 <div class="cover">
   <div class="ornament">✦ ❖ ✦</div>
-  <div class="badge-top">DAAT · רמה ב' — לַמְדָּן</div>
-  <h1>שולחן ערוך · יורה דעה</h1>
-  <div class="subtitle">דין תולין להקל וצירוף בספק — עיון ופלפול</div>
+  <div class="badge-top">DAAT · NIVEAU 2 — LAMDAN</div>
+  <h1>Choulhan Aroukh · Yoré Déa</h1>
+  <div class="subtitle">Attribuer dans le doute (תולין להקל) et le cumul des marmites — étude et pilpoul</div>
 
   <div class="he-title">סימן קי״א</div>
-  <div class="he-sub">תולין, שאני אומר, ספק דרבנן לקולא, הכל נכנס בספק</div>
+  <div class="he-sub">תולין, שאני אומר, ספק דרבנן לקולא, צירוף הקדרות</div>
   <div class="he-subject">עיון, פלפול, שיטות הראשונים והאחרונים</div>
 
-  <div class="level-badge">⚡ ללומדים ותלמידי חכמים ⚡</div>
+  <div class="level-badge">⚡ Pour lamdanim et talmidei ‘hakhamim ⚡</div>
 
   <div class="ornament">✦ ❖ ✦</div>
 
-  <h2 style="margin-top:20px; color: #1A1F3A;">פלפול ועיון מעמיק</h2>
+  <h2 style="margin-top:20px; color: #1A1F3A;">Pilpoul et étude approfondie</h2>
   <p style="font-size:12pt; color:#555;">
-    סוגיות, מקורות, חקירת היסוד, מחלוקות ראשונים ואחרונים,<br>
-    נפקא מינות להלכה ועיון בשיטות
+    Sougyot, sources, la ‘hakira de fond, ma’hlokot de Richonim et d’A’haronim,<br>
+    nafka minot pour la pratique et étude des chitot
   </p>
 
   <div class="credits">
-    <p><strong>הנושא :</strong><br>
-    שולחן ערוך יורה דעה סימן קי״א (ז' סעיפים)<br>
-    עם נושאי כלים: ש״ך (שפתי כהן), ט״ז (טורי זהב), פרי מגדים, פתחי תשובה</p>
+    <p><strong>Le sujet :</strong><br>
+    שולחן ערוך יורה דעה סימן קי״א (ז׳ סעיפים)<br>
+    avec son appareil : ש״ך (שפתי כהן) · ט״ז (טורי זהב) · פתחי תשובה</p>
 
-    <p><strong>יסוד הסוגיא בש״ס :</strong><br>
-    יבמות פ״ב. (שתי קופות חולין ותרומה, תרומה לתוך תרומה) · פסחים י'. (תולין בזה אחר זה, תשע חנויות) · כתובות כ״ו. (שני בני אדם וצירוף)</p>
+    <p><strong>Le fondement de la sougya dans le Chass :</strong><br>
+    יבמות פ״ב ע״א — la braïta des deux paniers de ‘houlin et de teroumah, d’où sort שאני אומר · פסחים י׳ ע״א — les deux sentiers, d’où sort l’indulgence lorsqu’on interroge l’un après l’autre · et le Chakh (ס״ק י״ט) renvoie encore à כתובות כ״ו</p>
 
-    <p><strong>עריכה ועיון :</strong><br>
+    <p><strong>Rédaction et étude :</strong><br>
     הרב יוסף חיים סממה · DAAT</p>
   </div>
 </div>
@@ -416,467 +407,585 @@
 <div class="page-break"></div>
 
 <!-- TABLE DES MATIÈRES -->
-<h2 class="section-title">📑 תוכן העניינים</h2>
+<h2 class="section-title">📑 Table des matières</h2>
 
-<div class="index-box" dir="rtl">
+<div class="index-box">
 <ol>
-  <li><strong>הקדמת הסוגיא</strong> — יסוד התולין ושאני אומר, יבמות פ״ב (סעיף א')</li>
-  <li><strong>שלושת המקרים שבסעיף א'</strong> — שתי קדרות, קדרה אחת, חתיכה אחת; ספק דרבנן לקולא (ט״ז ס״ק א, ש״ך ס״ק א–ב)</li>
-  <li><strong>שיעור דרבנן ושאני אומר</strong> — מדוע ספק דאורייתא דשיעור דרבנן מותר, קל מסימן ס״ו (ט״ז ס״ק א)</li>
-  <li><strong>תנאי התולין</strong> — אין האיסור מרובה (סעיף ב'); דאורייתא וביטול ברוב (סעיף ג'); מין במינו ואינו מינו (סעיף ד', ט״ז ס״ק ג)</li>
-  <li><strong>חתיכה הראויה להתכבד בספק</strong> — קולא דט״ז ס״ק ה ושיטת הר״ן</li>
-  <li><strong>שתי קדרות של היתר</strong> — מאי חזית ושתיהן אסורות (סעיף ה', ש״ך ס״ק יא)</li>
-  <li><strong>נפילות בזה אחר זה</strong> — ידוע / אינו ידוע (סעיף ו', ש״ך ס״ק יד–טו)</li>
-  <li><strong>הכל נכנס בספק וצירוף</strong> — אחת בבית ואחת בעלייה (סעיף ז')</li>
-  <li><strong>מחלוקת רמב״ן ורשב״א בשני בני אדם</strong> — חנ״נ וצירוף, כאלו כבר מעורב (ש״ך ס״ק יג–כ, ט״ז ס״ק ו, ח, י)</li>
-  <li><strong>חקירה ונפקא מינה למעשה</strong></li>
-  <li><strong>טבלאות סיכום מקיפות</strong></li>
+  <li><strong>Introduction de la sougya</strong> — le fondement de תולין et de שאני אומר, יבמות פ״ב (séif א׳)</li>
+  <li><strong>Les trois cas du séif א׳</strong> — deux marmites, une marmite, un seul morceau ; ספק דרבנן לקולא (ט״ז ס״ק א׳, ש״ך ס״ק א׳–ו׳)</li>
+  <li><strong>Mesure rabbinique et שאני אומר</strong> — pourquoi un doute d’interdit de la Torah est ici permis — plus léger que le siman 66 (ט״ז ס״ק א׳)</li>
+  <li><strong>Les conditions du תולין</strong> — l’interdit ne domine pas (séif ב׳) ; interdit de la Torah et annulation dans la majorité (séif ג׳) ; מין במינו et אינו מינו (séif ד׳, ט״ז ס״ק ג׳)</li>
+  <li><strong>Le morceau digne d’être servi, dans le doute</strong> — la קולא du ט״ז ס״ק ה׳ et la chita du ר״ן</li>
+  <li><strong>Deux marmites de permis</strong> — מאי חזית, et toutes deux interdites (séif ה׳, ש״ך ס״ק י״א–י״ב)</li>
+  <li><strong>Chutes successives</strong> — connu / inconnu (séif ו׳, ש״ך ס״ק י״ד–ט״ו)</li>
+  <li><strong>Tout entre dans le doute, et les marmites se joignent</strong> — l’une à la maison et l’autre à l’étage (séif ז׳, ש״ך ס״ק ט״ז–י״ח)</li>
+  <li><strong>Ma’hloket du רמב״ן et du רשב״א pour deux personnes</strong> — חנ״נ et cumul, « comme si c’était déjà mêlé » (ש״ך ס״ק י״ג, י״ז, י״ט–כ׳ ; ט״ז ס״ק ו׳, ח׳, י׳)</li>
+  <li><strong>‘Hakira et nafka mina pour la pratique</strong></li>
+  <li><strong>Tableaux récapitulatifs</strong></li>
 </ol>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<!-- לשון השולחן ערוך — סעיף א' -->
-<h2 class="section-title">📜 לשון השולחן ערוך — סעיף א'
-  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 העתק</button>
+<!-- לשון השולחן ערוך — סעיף א׳ -->
+<h2 class="section-title">📜 Le texte du Choulhan Aroukh — séif א׳
+  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 Copier</button>
 </h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ Explication détaillée (niveau 1)</a>
 
 <div class="sacred-text he" data-copy-block id="cp-1">
-  <p>שְׁתֵּי קְדֵרוֹת, אַחַת שֶׁל הֶתֵּר וְאַחַת שֶׁל אִסּוּר, וּלְפָנָיו שְׁתֵּי חֲתִיכוֹת, אַחַת שֶׁל הֶתֵּר וְאַחַת שֶׁל אִסּוּר — אִם הַחֲתִיכָה הִיא מֵאִסּוּר דְּרַבָּנָן, כְּגוֹן שׁוּמָּנוֹ שֶׁל גִּיד, וְנָפְלוּ אֵלּוּ לְתוֹךְ אֵלּוּ — מֻתָּרִים, שֶׁאָנוּ תּוֹלִין לוֹמַר הָאִסּוּר נָפַל לְתוֹךְ הָאִסּוּר וְהַהֶתֵּר לְתוֹךְ שֶׁל הֶתֵּר; וַאֲפִלּוּ אֵין הַהֶתֵּר שֶׁבַּקְּדֵרָה רַבָּה עַל הַחֲתִיכָה. וְכֵן אִם לֹא הָיְתָה כָּאן אֶלָּא קְדֵרָה אַחַת שֶׁל שְׁחוּטָה, וְנָפְלָה אַחַת מִשְּׁתֵּי הַחֲתִיכוֹת וְאֵינוֹ יוֹדֵעַ אֵיזוֹ — תּוֹלִין שֶׁהַהֶתֵּר נָפַל, אַף עַל פִּי שֶׁאֵין הַהֶתֵּר רַבָּה עַל הָאִסּוּר. אוֹ אִם לֹא הָיְתָה אֶלָּא חֲתִיכָה אַחַת שֶׁל אִסּוּר דְּרַבָּנָן וּשְׁתֵּי קְדֵרוֹת, וְאֵינוֹ יוֹדֵעַ לְאֵיזוֹ נָפְלָה — אַף בָּזֶה תּוֹלִין לְהָקֵל.</p>
+  <p>«&nbsp;<span class="he-q">שתי קדרות אחת של היתר ואחת של איסור ולפניו שתי חתיכות אחת של היתר ואחת של איסור אם החתיכה היא מאיסור דרבנן כגון שומנו של גיד ונפלו אלו לתוך אלו מותרים שאנו תולין לומר האיסור נפל לתוך האיסור וההיתר לתוך של היתר ואפילו אם ההיתר שבקדרה אינה רבה על שלפניה וכן הדין אם לא היה כאן אלא קדירה אחת של בשר שחוטה ונפל בה אחת מאלו השתי החתיכות ואין ידוע איזו היא אנו תולין דשל היתר נפלה אפילו אין ההיתר רבה על האיסור או אם לא היה כאן אלא חתיכה אחת מאיסור דרבנן ויש שתי קדרות אחת של היתר ואחת של איסור ואין ידוע לאיזו נפלה גם בזו תולין להקל</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״א:א)</span></p>
 </div>
 
-<!-- ============================================================= -->
-<h2 class="section-title">1. הקדמת הסוגיא — יסוד התולין ושאני אומר</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<p><em>Traduction</em> : deux marmites, l’une de permis et l’autre d’interdit, et devant lui deux morceaux, l’un de permis et l’autre d’interdit — si le morceau relève d’un interdit rabbinique, tel que la graisse qui enveloppe le nerf sciatique, et qu’ils sont tombés les uns dans les autres, ils sont permis, car nous attribuons en disant que l’interdit est tombé dans l’interdit et le permis dans ce qui est permis ; et cela même si le permis qui est dans la marmite ne domine pas ce qui se trouvait devant elle. Et il en va de même s’il n’y avait là qu’une seule marmite de viande abattue rituellement, que l’un de ces deux morceaux y soit tombé et qu’on ignore lequel : nous attribuons que c’est celui du permis qui est tombé, même si le permis ne domine pas l’interdit. Ou encore, s’il n’y avait là qu’un seul morceau d’interdit rabbinique et deux marmites, l’une de permis et l’autre d’interdit, et qu’on ignore dans laquelle il est tombé — là aussi on attribue dans le sens indulgent.</p>
 
-<h3 class="he-h3">היסוד — תולין ושאני אומר, ומקורו ביבמות פ״ב
-  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 העתק</button>
+<!-- ============================================================= -->
+<h2 class="section-title">1. Introduction de la sougya — le fondement de תולין et de שאני אומר</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ Explication détaillée (niveau 1)</a>
+
+<h3>Le fondement — תולין et שאני אומר, et sa source dans יבמות פ״ב
+  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 Copier</button>
 </h3>
 
+<p>Le fondement du siman est le din de <strong>תולין</strong> — attribuer : lorsqu’un morceau interdit et un morceau permis sont tombés dans deux marmites, l’une de permis et l’autre d’interdit, ou qu’un seul morceau est tombé dans l’une de deux marmites, nous <em>attribuons</em> la chute et disons que l’interdit est allé du côté de l’interdit. La racine du din est la braïta que la guemara cite à propos de la teroumah :</p>
+
 <div class="sacred-text he" data-copy-block id="cp-2">
-יסוד הסימן הוא דין <strong>תולין</strong> (שאני אומר): כאשר חתיכת איסור וחתיכת היתר נפלו לשתי קדרות (אחת של היתר ואחת של איסור), או שחתיכה אחת נפלה לאחת משתי קדרות, אנו <span class="he-q">תולין</span> ואומרים שהאיסור נפל לצד האיסור (או "לא לכאן נפל"). שורש הדין הוא ב<strong>יבמות פ״ב.</strong> — <span class="he-q">שתי קופות, אחת של חולין ואחת של תרומה, ולפניהם שתי סאין, אחת של חולין ואחת של תרומה, ונפלו אלו לתוך אלו — מותרין, שאני אומר תרומה לתוך תרומה נפלה וחולין לתוך חולין</span>. ויסוד ההיתר הוא <strong>ספק דרבנן לקולא</strong> בצירוף סברת <span class="he-q">שאני אומר</span>.
+  <p>«&nbsp;<span class="he-q">שְׁתֵּי קוּפּוֹת, אַחַת שֶׁל חוּלִּין וְאַחַת שֶׁל תְּרוּמָה, וְלִפְנֵיהֶם שְׁתֵּי סְאִין, אַחַת שֶׁל חוּלִּין וְאַחַת שֶׁל תְּרוּמָה, וְנָפְלוּ אֵלּוּ בְּתוֹךְ אֵלּוּ — הֲרֵי אֵלּוּ מוּתָּרִים, שֶׁאֲנִי אוֹמֵר: תְּרוּמָה לְתוֹךְ תְּרוּמָה נָפְלָה, וְחוּלִּין בְּתוֹךְ חוּלִּין נָפְלוּ</span>&nbsp;» <span class="source-ref">(יבמות פ״ב ע״א)</span></p>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>למה דווקא איסור דרבנן (ש״ך ס״ק א) :</strong> כל ההיתר של תולין אמור דווקא ב<span class="he-q">איסור דרבנן</span>, כגון <strong>שומנו של גיד</strong> (חלב שעל הגיד, שהוא אסור מדרבנן). וטעם הדבר: שהרי כל יסוד התולין הוא <strong>ספק דרבנן לקולא</strong> — ומאחר שהאיסור מצד עצמו דרבנן, ספיקו לקולא. אבל באיסור דאורייתא — ספיקו לחומרא, ואין תולין להקל אלא אם כן יש רוב היתר (כדלקמן בסעיף ג'). וכתב הש״ך (ס״ק ב) דאף איסור ש<strong>עיקרו מן התורה</strong>, כגון <span class="he-q">גבינת עובד כוכבים</span>, מאחר שגזירה דרבנן היא — דינו כספק דרבנן ותולין בו (רשב״א).
+<p><em>Traduction</em> : deux paniers, l’un de ‘houlin et l’autre de teroumah, et devant eux deux séas, l’une de ‘houlin et l’autre de teroumah ; elles sont tombées les unes dans les autres — elles sont permises, car je dis : c’est la teroumah qui est tombée dans la teroumah, et le ‘houlin dans le ‘houlin. Le fondement de la permission est donc <strong>ספק דרבנן לקולא</strong>, joint à la sevara de שאני אומר, « car je dis ».</p>
+
+<div class="pilpul-box">
+<strong>Pourquoi précisément un interdit rabbinique (ש״ך ס״ק א׳–ב׳) :</strong> toute la permission de תולין n’est dite que pour un interdit rabbinique — ainsi la graisse qui enveloppe le nerf sciatique, l’exemple même que donne le Mehaber. Le Chakh en donne la raison :
+«&nbsp;<span class="he-q">דספק דרבנן קי״ל לקולא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק א׳)</span>
+Pour un interdit de la Torah, au contraire, le doute va vers la rigueur, et l’on n’attribue dans le sens indulgent que s’il y a majorité de permis — ce sera le séif ג׳. Et le Chakh ajoute qu’un interdit dont la racine est pourtant dans la Torah, tel le fromage des non-juifs, entre lui aussi dans cette règle :
+«&nbsp;<span class="he-q">וגבינה של עובד כוכבים וכיוצא בו אפילו איסור שיש להם עיקר בדאורייתא כ״כ הרשב״א בת״ה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק ב׳)</span>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>גדר "שאני אומר" (ט״ז ס״ק א) :</strong> אין זה ביטול ברוב, אלא הנהגת ספק. אנו <span class="he-q">תולין</span> — מסבירים את מצב הספק לקולא, ואומרים שמן הסתם נפל האיסור למקום שבו הוא ממילא אסור (לקדרת האיסור), וההיתר למקום ההיתר. וכל כוחה של סברה זו הוא ב<strong>איסור דרבנן</strong>, שבו הולכים בספק לקולא.
+<div class="rishon-card">
+<strong>Le gader de שאני אומר (ט״ז ס״ק א׳) :</strong> ce n’est pas une annulation dans la majorité, mais une conduite du doute : nous attribuons, c’est-à-dire que nous lisons l’état de doute du côté indulgent, en disant que l’interdit est probablement allé là où il est de toute façon interdit. Le Taz y reviendra à la fin de ce même ס״ק, pour dire que tout doute où l’on peut dire שאני אומר est <em>plus léger</em> qu’un doute ordinaire — on lira ses mots à la section 3.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">2. שלושת המקרים שבסעיף א' — ספק דרבנן לקולא</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">2. Les trois cas du séif א׳ — ספק דרבנן לקולא</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">המחבר מונה שלושה מקרים, וכולם מותרים באיסור דרבנן אף בלא רוב היתר.</p>
+<p style="margin:15px 0; font-style:italic;">Le Mehaber compte trois cas, et tous trois sont permis dans un interdit rabbinique, même sans majorité de permis.</p>
 
-<div class="machloket-box" dir="rtl">
-<strong>שלושת המקרים :</strong>
+<div class="machloket-box">
+<strong>Les trois cas :</strong>
 <table>
-<tr><th>המקרה</th><th>הציור</th><th>הדין</th></tr>
+<tr><th>Le cas</th><th>La figure</th><th>Le din</th></tr>
 <tr>
-  <td><strong>(א) שתי קדרות + שתי חתיכות</strong></td>
-  <td>קדרת היתר וקדרת איסור, וחתיכת היתר וחתיכת איסור נפלו לתוכן</td>
-  <td>מותר — תולין שהאיסור לאיסור וההיתר להיתר</td>
+  <td><strong>(א) Deux marmites + deux morceaux</strong></td>
+  <td>Une marmite de permis et une marmite d’interdit ; un morceau de permis et un morceau d’interdit y sont tombés</td>
+  <td>Permis — on attribue l’interdit à l’interdit et le permis au permis</td>
 </tr>
 <tr>
-  <td><strong>(ב) קדרה אחת של היתר + שתי חתיכות</strong></td>
-  <td>נפלה אחת מן השתים ואינו יודע איזו</td>
-  <td>מותר — תולין שההיתר נפל</td>
+  <td><strong>(ב) Une seule marmite de viande abattue + deux morceaux</strong></td>
+  <td>L’un des deux morceaux y est tombé, et l’on ignore lequel</td>
+  <td>Permis — on attribue que c’est le permis qui est tombé</td>
 </tr>
 <tr>
-  <td><strong>(ג) חתיכת איסור אחת + שתי קדרות</strong></td>
-  <td>איסור דרבנן אחד, אינו יודע לאיזו קדרה נפל</td>
-  <td>מותר — תולין להקל</td>
+  <td><strong>(ג) Un seul morceau d’interdit + deux marmites</strong></td>
+  <td>Un seul morceau d’interdit rabbinique ; deux marmites, <strong>l’une de permis et l’autre d’interdit</strong>, et l’on ignore dans laquelle il est tombé</td>
+  <td>Permis — là aussi on attribue dans le sens indulgent</td>
 </tr>
 </table>
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>חקירה — שתי קדרות קל או חמור (ש״ך ס״ק ו, ב״י בשם רשב״א) :</strong> מבחין הב״י בין הציורים: ב<strong>שתי קדרות</strong> (מקרה א) בעינן <span class="he-q">חד בחד</span> — שלא יהא האיסור מרובה, וזהו דין רבי יוחנן ביבמות; אבל ב<strong>קדרה אחת ושתי חתיכות</strong> (מקרה ב) — תולין להקל <em>אף אם האיסור מרובה</em> על ההיתר, כדין <span class="he-q">שתי מדוכות</span> שבתוספתא תרומות. וה<strong>ראה</strong> מיקל עוד יותר.
+<div class="hakira-box">
+<strong>Deux marmites : plus léger ou plus lourd ? (ש״ך ס״ק ו׳, posé sur le בד״א du séif ב׳)</strong> Le Chakh observe d’abord que la formulation du Tour vient du תורת הבית הקצר, et que le רשב״א, dans le תורת הבית הארוך, ne semble pas dire cela :
+«&nbsp;<span class="he-q">כל זה הוא לשון הטור מת״ה אבל קשה לי דמדברי הרשב״א בתה״א לא משמע כן</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק ו׳)</span>
+Il en tire la distinction : dans le cas des <strong>deux marmites</strong>, où il est certain qu’un interdit est tombé là et qu’on ignore seulement dans laquelle, il faut au moins חד בחד selon רבי יוחנן —
+«&nbsp;<span class="he-q">אלמא דדוקא בב׳ קדרות משום דבודאי נפל שם איסור אלא שאין ידוע לאיזו בעינן חד בחד לר׳ יוחנן</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק ו׳)</span>
+— tandis que dans le cas de <strong>deux morceaux et une seule marmite</strong>, où l’on peut dire que rien n’est tombé du tout dans la marmite, c’est permis même si l’interdit domine le permis, à l’image des deux mortiers de la תוספתא (on lira le texte de la תוספתא à la section 9). Et le רא״ה, dans le בדק הבית, allège davantage encore :
+«&nbsp;<span class="he-q">והרא״ה בב״ה שם חולק על הרשב״א וס״ל דאפילו בב׳ קדרות שרי אפילו האיסור רבה על ההיתר משום ספיקא דרבנן לקולא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק ו׳)</span>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>איסורי משהו (ש״ך ס״ק ג, נמוקי יוסף) :</strong> ביאר הנמוקי יוסף דב<strong>איסורי משהו</strong> החמורים (כחמץ בפסח, יין נסך) — אין אומרים בהם תולין ושאני אומר אף שהם דרבנן, כל זמן שאין רוב היתר; שכל קולת התולין היא באיסור דרבנן <em>קל</em> שבטל ברוב או בשישים, ולא במה שאוסר במשהו.
+<div class="pilpul-box">
+<strong>Les interdits qui interdisent au plus infime (ש״ך ס״ק ג׳, au nom du נמוקי יוסף) :</strong> le נמוקי יוסף écrit qu’en matière d’interdits sévères qui ne s’annulent pas, on ne dit pas שאני אומר, même dans un interdit rabbinique, tant qu’il n’y a pas majorité de permis :
+«&nbsp;<span class="he-q">דאפשר דלענין איסורי משהו החמורים לא אמרינן שאני אומר אפילו באיסורי דרבנן בפחות מרוב</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק ג׳)</span>
 </div>
 
-<!-- ============================================================= -->
-<h2 class="section-title">3. שיעור דרבנן ושאני אומר — קל מסימן ס״ו</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
-
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זהו אחד מן החידושים החריפים שבסימן, וכל כובד ידו של הט״ז (ס״ק א) נתון בו.</p>
-
-<div class="kashya-box" dir="rtl">
-<strong>קושיית הט״ז (ס״ק א) :</strong> בסעיף ג' יתבאר שאף איסור <strong>דאורייתא</strong> — כשהוא בטל ברוב מן התורה (ורק מדרבנן בעי ששים) — תולין בו להקל. ולכאורה תקשה: והלא <span class="he-q">ספק איסור דאורייתא לחומרא</span> (סימן ס״ו), ואיך נתיר כאן בספק היכן נפל ?
-</div>
-
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ הט״ז — שאני אומר אינו כספק דאורייתא רגיל :</strong> מחדש הט״ז דכאן הספק הוא ב<strong>שיעור דרבנן</strong> בלבד: עצם האיסור כבר <em>בטל ברוב מן התורה</em>, ואין הספק אלא על השיעור שהוסיפו חכמים (ששים). וכיון שכן — הספק כולו <span class="he-q">דרבנן</span>, ולקולא. ועוד: סברת <span class="he-q">שאני אומר</span> (שלא לכאן נפל) קלה מספק רגיל, שהרי יש לנו על מה לתלות — ולפיכך מקילים כאן אף יותר ממה שהקילו בספק דאורייתא דשיעורא של סימן ס״ו.
-</div>
-
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — שני רובדי האיסור :</strong><br>
-בכל איסור שבטל ברוב יש להבחין בין:<br><br>
-• <strong>עצם האיסור</strong> — שבטל ברוב מן התורה (ב<span class="he-q">מין במינו</span>, או ביבש ביבש).<br>
-• <strong>שיעור הביטול</strong> — שהוסיפו חכמים (ששים) להחמיר.<br><br>
-וכשהספק הוא רק על השיעור הדרבנני — <span class="he-q">ספק דרבנן לקולא</span>, ומכאן כל היתר התולין. וזהו שורש דברי הט״ז דקל מסימן ס״ו.
+<div class="rishon-card">
+<strong>Morceaux reconnaissables ou non (ש״ך ס״ק ד׳) :</strong> le Chakh précise que le cas (ב) se lit d’une manière précise — les deux morceaux étaient distincts et reconnaissables avant de tomber :
+«&nbsp;<span class="he-q">נראה דכאן מיירי דהב׳ חתיכות היו ניכרות בפני עצמן קודם נפילתן איזה מהן של היתר ואיזה מהן של איסור</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק ד׳)</span>
+car s’ils avaient d’abord été mêlés l’un à l’autre, chacun serait déjà tenu pour un corps d’interdit et l’on ne dirait plus ספק דרבנן לקולא :
+«&nbsp;<span class="he-q">דאי נתערבו מתחלה חד בחד א״כ כיון דאתחזק איסור בב׳ חתיכות כל א׳ וא׳ דיינינן ליה כגופו של איסור ותו לא אמרינן ספקא דרבנן לקולא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק ד׳)</span>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">4. תנאי התולין — אין איסור מרובה, דאורייתא, מין במינו</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">3. Mesure rabbinique et שאני אומר — plus léger que le siman 66</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיפים ב'–ד')
-  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 העתק</button>
+<p style="margin:15px 0; font-style:italic;">C’est l’un des ‘hidouchim les plus aigus du siman, et c’est le Taz, au ס״ק א׳, qui en porte tout le poids.</p>
+
+<div class="kashya-box">
+<strong>La question du Taz (ס״ק א׳) :</strong> les séifim ג׳ et ד׳ vont enseigner qu’un interdit <strong>de la Torah</strong>, lorsqu’il est déjà annulé dans la majorité selon la Torah et que seul le seuil des soixante reste rabbinique, se prête lui aussi au תולין. Or au siman 66 le Taz a posé la règle inverse : dans un tel doute on ne se montre pas indulgent, et l’on traite la chose comme un interdit de la Torah certain. Il pose lui-même la contradiction :
+«&nbsp;<span class="he-q">ולכאורה יש להקשות על מה שכ׳ בסימן זה דאם ספק נפל איסור דאוריית׳ מותר בשיעור דרבנן וזה סותר הכלל שאמרנו בסי׳ ס״ו ס״ד דבזה א״א מקילין אלא הוה כודאי דאורייתא</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״א ס״ק א׳)</span>
+</div>
+
+<div class="teruts-box">
+<strong>La réponse du Taz — שאני אומר n’est pas un doute ordinaire :</strong> il répond que la permission, ici, ne vient pas du doute comme tel mais de la sevara de שאני אומר, et que la guemara de פרק הערל le dit expressément : un doute dans lequel on peut dire « aucun interdit n’est tombé ici » est plus léger.
+«&nbsp;<span class="he-q">דכאן ההיתר מכח שאני אומר ובהדיא אמרינן בפ׳ הערל שזכרתי בסמוך דכל ספק שיש בו לומר שאני אומר לא נפל כאן איסור קיל טפי</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״א ס״ק א׳)</span>
+</div>
+
+<div class="yesod-box">
+<strong>Le yessod — les deux étages de l’interdit :</strong><br>
+Dans tout interdit qui s’annule dans la majorité, il faut distinguer :
+<br><br>
+• <strong>le corps de l’interdit</strong> — annulé dans la majorité selon la Torah, dans מין במינו comme dans le sec avec le sec ;<br>
+• <strong>la mesure de l’annulation</strong> — les soixante, que les Sages ont exigés par rigueur.<br><br>
+Quand le doute ne porte plus que sur cette mesure rabbinique, il reste un ספק דרבנן, et il va vers l’indulgence : c’est de là que sort toute la permission de תולין, et c’est la racine des mots du Taz sur le siman 66.
+</div>
+
+<!-- ============================================================= -->
+<h2 class="section-title">4. Les conditions du תולין — l’interdit ne domine pas, interdit de la Torah, מין במינו</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
+
+<h3>Le texte du Mehaber (séifim ב׳–ד׳)
+  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-3">
-"<strong>(ב) כָּל זֶה אֵינוֹ אֶלָּא כְּשֶׁאֵין הָאִסּוּר רַבֶּה עַל הַהֶתֵּר; אֲבָל אִם הָאִסּוּר רַבֶּה עַל הַהֶתֵּר — אֵין תּוֹלִין לְהָקֵל.</strong> (ג) <strong>וְאִם הָיָה הָאִסּוּר שֶׁל תּוֹרָה — אֵין תּוֹלִין לְהָקֵל עַד שֶׁיְּהֵא הַהֶתֵּר רַבֶּה עַל הָאִסּוּר כְּדֵי לְבַטְּלוֹ מִן הַתּוֹרָה.</strong> (ד) <strong>וְאִם הָיָה הַהֶתֵּר רַבֶּה כְּדֵי לְבַטְּלוֹ מִן הַתּוֹרָה — תּוֹלִין לְהָקֵל. כֵּיצַד ? שְׁתֵּי קְדֵרוֹת, אַחַת שֶׁל שְׁחוּטָה וְאַחַת שֶׁל נְבֵילָה, וְנָפְלָה חֲתִיכַת נְבֵילָה לְאַחַת מֵהֶן — אִם הַהֶתֵּר רַבֶּה עָלֶיהָ מְעַט, תּוֹלִין לְהָקֵל, שֶׁמִּן הַתּוֹרָה מִין בְּמִינוֹ בָּטֵל בְּרוֹב; וְאִם הָיוּ שְׁתֵּי הַקְּדֵרוֹת מִין אֶחָד וְהָאִסּוּר מִין אַחֵר — אֵין תּוֹלִין עַד שֶׁיְּהֵא בַּהֶתֵּר שִׁשִּׁים.</strong>"
+  <p><strong>סעיף ב׳.</strong> «&nbsp;<span class="he-q">במה דברים אמורים שתולין בכל אלו להקל אפי׳ אין ההיתר רבה על האיסור שאין האיסור גם כן רבה על ההיתר אבל אם האיסור רבה על ההיתר אין תולין להקל:</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״א:ב)</span></p>
+  <p><strong>סעיף ג׳.</strong> «&nbsp;<span class="he-q">היה האיסור של תורה אין תולין להקל לומר לתוך האיסור נפל עד שיהא ההיתר רבה על האיסור כדי שיתבטל בתוכו מדברי תורה:</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״א:ג)</span></p>
+  <p><strong>סעיף ד׳.</strong> «&nbsp;<span class="he-q">היה ההיתר רבה על האיסור כדי שיתבטל בתוכו מד״ת תולין להקל כיצד שתי קדרות אחת של בשר שחוטה ואחת של נבילה ונפלה חתיכת נבילה לתוך אחת מהן אם ההיתר שבקדרת ההיתר רבה קצת על חתיכת הנבילה תולין להקל לפי שדבר תורה מין במינו בטל ברוב אלא שחכמים הצריכו ששים היו שתי הקדירות ממין אחד והאיסור ממין אחר אין תולין להקל עד שירבה ההיתר ששים על האיסור:</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״א:ד)</span></p>
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>שלוש מדרגות התנאי :</strong>
+<p><em>Traduction</em> : <strong>ב׳</strong> — tout ce qui précède, où l’on attribue dans le sens indulgent même sans que le permis domine l’interdit, ne vaut que si l’interdit, lui non plus, ne domine pas le permis ; mais si l’interdit domine le permis, on n’attribue pas dans le sens indulgent. <strong>ג׳</strong> — si l’interdit était de la Torah, on n’attribue pas dans le sens indulgent en disant qu’il est tombé dans l’interdit, tant que le permis ne domine pas l’interdit assez pour l’annuler en son sein selon la Torah. <strong>ד׳</strong> — si le permis domine l’interdit assez pour l’annuler selon la Torah, on attribue dans le sens indulgent. Comment ? Deux marmites, l’une de viande abattue rituellement et l’autre de nevéla, et un morceau de nevéla est tombé dans l’une d’elles : si le permis de la marmite de permis dépasse un peu le morceau de nevéla, on attribue dans le sens indulgent, car selon la Torah une espèce dans son espèce s’annule dans la majorité, et ce sont les Sages qui ont exigé soixante. Si les deux marmites étaient d’une même espèce et l’interdit d’une autre espèce, on n’attribue pas dans le sens indulgent tant que le permis ne dépasse pas l’interdit de soixante.</p>
+
+<div class="machloket-box">
+<strong>Les trois degrés de la condition :</strong>
 <table>
-<tr><th>המצב</th><th>השיעור הנדרש</th><th>מקור</th></tr>
+<tr><th>La situation</th><th>La mesure requise</th><th>Source</th></tr>
 <tr>
-  <td><strong>איסור דרבנן, אין האיסור מרובה (ס״ב)</strong></td>
-  <td>תולין אף בלא רוב היתר (חד בחד)</td>
-  <td>מחבר ס״א–ב'</td>
+  <td><strong>Interdit rabbinique, l’interdit ne domine pas (séif ב׳)</strong></td>
+  <td>On attribue même sans majorité de permis (חד בחד)</td>
+  <td class="he">מחבר ס״א–ב׳</td>
 </tr>
 <tr>
-  <td><strong>איסור דאורייתא (ס״ג)</strong></td>
-  <td>צריך רוב היתר לבטלו מן התורה</td>
-  <td>מחבר ס״ג</td>
+  <td><strong>Interdit de la Torah (séif ג׳)</strong></td>
+  <td>Il faut une majorité de permis, de quoi l’annuler selon la Torah</td>
+  <td class="he">מחבר ס״ג · ש״ך ס״ק ח׳</td>
 </tr>
 <tr>
-  <td><strong>מין במינו (ס״ד)</strong></td>
-  <td>רוב כל שהוא — דמן התורה מב״מ בטל ברוב</td>
-  <td>מחבר ס״ד; ט״ז ס״ק ג</td>
+  <td><strong>מין במינו (séif ד׳)</strong></td>
+  <td>Une majorité, si faible soit-elle — car selon la Torah une espèce dans son espèce s’annule dans la majorité</td>
+  <td class="he">מחבר ס״ד · ט״ז ס״ק ג׳</td>
 </tr>
 <tr>
-  <td><strong>אינו מינו (ס״ד)</strong></td>
-  <td>ששים</td>
-  <td>מחבר ס״ד; ועיין סימן צ״ח</td>
+  <td><strong>אינו מינו (séif ד׳)</strong></td>
+  <td>Soixante</td>
+  <td class="he">מחבר ס״ד · ועיין סימן צ״ח</td>
 </tr>
 </table>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>מין במינו ואינו מינו (ט״ז ס״ק ג) :</strong> מבאר הט״ז ש<span class="he-q">מין במינו</span> בטל מן התורה ברוב (שאין בו טעם להעיד), ולפיכך כיון שהאיסור כבר בטל מן התורה — תולין אף ברוב מועט. אבל ב<span class="he-q">אינו מינו</span> — האיסור נותן טעם, ואינו בטל מן התורה ברוב אלא בששים (כדין סימן צ״ח), ולכן בעינן ששים בהיתר כדי לתלות. וזהו ההבדל בין שתי קדרות מין אחד (אינו מינו) הצריכות ששים, לבין שחוטה ונבילה (מין במינו) הצריכות רוב כל שהוא.
+<div class="pilpul-box">
+<strong>מין במינו et אינו מינו (ט״ז ס״ק ג׳) :</strong> le Taz explique que la même règle vaut lorsqu’il y a du mêlé et du non-mêlé : on retire par la pensée ce qui n’est pas de l’espèce, comme s’il n’y était pas, et l’espèce domine alors l’interdit et l’annule, ainsi qu’il est au siman 98 :
+«&nbsp;<span class="he-q">הוא הדין מין במינו ואינו מינו דאמרינן סליק שאינו מינו כאלו אינו ומינו רבה עליו ומבטלו כדאיתא סי׳ צ״ח</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״א ס״ק ג׳)</span>
+Et le Chakh dit la même chose sur le séif ג׳ : la majorité seule ne suffit que dans מין במינו.
+«&nbsp;<span class="he-q">כלומר במין במינו דוקא סגי ברוב לחוד כדבסמוך ס״ד</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק ח׳)</span>
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>חקירת "האיסור מרובה" (ט״ז ס״ק ב) :</strong> דקדק הט״ז בלשון "אם האיסור מרובה על ההיתר" — היאך נצייר זאת ? שהרי בשתי חתיכות שוות אין כאן רוב לכאן ולכאן. ומבאר דמיירי בשהחתיכות אינן שוות, או שיש חתיכות איסור מרובות — שאז אזלינן בתר הרוב, ואין תולין להקל אלא כשאין האיסור מרובה.
+<div class="hakira-box">
+<strong>Comment se figurer « l’interdit domine » ? (ט״ז ס״ק ב׳, ש״ך ס״ק ז׳)</strong> Le Taz demande : puisqu’on connaît la quantité de permis qui est dans la marmite et celle de l’interdit, qu’on regarde donc si le contenu de la marmite a grossi — on saurait alors avec certitude que l’interdit y est tombé !
+«&nbsp;<span class="he-q">אין להקשות כיון שיודע שיעור ההיתר שבקדירה והאיסור א״כ נחזי אם נתרבה ההיתר שבקדירה מכמות שהיה בודאי שם נפל האיסור</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״א ס״ק ב׳)</span>
+Sa réponse : celui qui sait que l’interdit était le plus grand le tient d’autrui, et il ignore lui-même la quantité de permis qu’il y avait au départ.
+«&nbsp;<span class="he-q">י״ל שזה יודע בבירור שהיה באיסור יותר כגון ששמע מאחר דבר זה אבל הוא אינו יודע כמה הוא שיעור ההיתר בעצמו אם היה כ״כ הרבה כמו שיעור ההיתר עכשיו או אם פחות מזה עד שעם האיסור שנפל שם נעשה כ״כ הרבה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״א ס״ק ב׳)</span>
+Et la דרישה se figure la chose autrement, dans du sec : deux morceaux, un grand et un petit, dont on sait au moins que le petit n’est pas l’interdit.
+«&nbsp;<span class="he-q">ובדרישה מפרש לה על ב׳ חתיכות ביבש דהיינו שיודע שיעור האיסור ולא שיעור ההיתר ועכשיו מוצא ב׳ חתיכות אחת גדולה ואחת קטנה וידוע לו שעכ״פ אין הקטנה של איסור ואין ידוע אם הגדולה היא של איסור ממילא יש בה רוב על ההיתר או גם הגדולה היא של היתר והאיסור נפל לקדירת איסור</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״א ס״ק ב׳)</span>
+Le Chakh pose la même difficulté sur le troisième cas — un morceau et deux marmites — et répond que la figure se rencontre lorsque l’interdit avait été retiré auparavant :
+«&nbsp;<span class="he-q">אין להקשות בחתיכה א׳ וב׳ קדירות היכי משכחת לה שיהא האיסור מרובה על ההיתר דאי ידעינן שהאיסור הוא רוב נבדוק בקדרה של היתר י״ל דמשכחת לה שפיר כשקדם וסלק האיסור קודם לכן</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק ז׳)</span>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">5. חתיכה הראויה להתכבד בספק — קולת הט״ז</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">5. Le morceau digne d’être servi, dans le doute — la קולא du Taz</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<div class="kashya-box" dir="rtl">
-<strong>קושיא — חתיכה הראויה להתכבד אינה בטלה :</strong> חתיכה הראויה להתכבד (חהל״ה) — דבר חשוב היא ואינה בטלה אף באלף (סימן ק״א). ולכאורה אף כאן, בספק היכן נפלה, לא יועיל הביטול ולא התולין, שהרי דבר חשוב לפנינו !
+<div class="kashya-box">
+<strong>La question :</strong> un morceau digne d’être servi à des hôtes est une chose importante, et il ne s’annule pas, fût-ce dans mille — c’est le siman 101. Ici même, dans le doute sur la marmite où il est tombé, ni l’annulation ni le תולין ne devraient servir : une chose importante est devant nous !
 </div>
 
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ הט״ז (ס״ק ה) בשם הר״ן — בספק מקילים :</strong> אף שחהל״ה אינה בטלה ברוב (ואף לא בששים מדרבנן), מכל מקום ב<span class="he-q">ספק</span> — היכן נפלה — מקילין. שכל החומרא של דבר שאינו בטל היא ב<strong>ודאי תערובת</strong> (שהאיסור החשוב לפנינו ודאי מעורב); אבל בספק אם בכלל נפל לכאן — תולין להקל, דספק דרבנן לקולא, ואין החשיבות מעכבת. וכן דעת הר״ן.
+<div class="teruts-box">
+<strong>La réponse du Taz (ס״ק ה׳, au nom du ר״ן) — dans le doute on allège :</strong> le Taz écrit, sur les mots « jusqu’à ce que le permis dépasse de soixante » du séif ד׳, que la chose vise précisément un morceau digne d’être servi : les Sages n’ont pas fait valoir sa rigueur dans un doute.
+«&nbsp;<span class="he-q">זה מיירי בחתיכה הראוייה לכבד שמדרבנן לא מהני ס׳ מכל מקום כאן בספק הקילו כן הוא בר״ן סוף פרק הערל</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״א ס״ק ה׳)</span>
+Le Chakh dit la même chose au ס״ק ה׳, au nom de la פרישה :
+«&nbsp;<span class="he-q">אפי׳ אם החתיכות ראויות להתכבד דמה״ת גם היא בטילה אלא דרבנן אמרו שהחה״ל אינה בטלה ובספק כזה שהקדרה א׳ של נבלה לא אמרו</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק ה׳)</span>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — חשיבות מול ספק :</strong><br>
-דין <span class="he-q">דבר שאינו בטל</span> (חהל״ה, בריה, דבר שבמנין) פועל ב<strong>תערובת ודאית</strong>: כיון שהחשוב מעורב, אינו מתבטל. אבל בסימן זה הספק אינו על הביטול אלא על <strong>עצם הנפילה</strong> — ובזה גובר כלל <span class="he-q">ספק דרבנן לקולא</span>, ואף החשוב נידון להיתר (ט״ז ס״ק ה, ר״ן).
+<div class="yesod-box">
+<strong>Le yessod — l’importance face au doute :</strong><br>
+La règle d’une chose qui ne s’annule pas — le morceau digne d’être servi, la בריה, la chose qui se compte — agit dans un mélange <strong>certain</strong> : puisque l’important est mêlé, il ne se dissout pas. Mais dans notre siman le doute ne porte pas sur l’annulation ; il porte sur <strong>la chute elle-même</strong>. C’est là que la règle ספק דרבנן לקולא l’emporte, et que l’important lui-même est jugé permis.
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">6. שתי קדרות של היתר — מאי חזית</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">6. Deux marmites de permis — מאי חזית</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיף ה')
-  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 העתק</button>
+<h3>Le texte du Mehaber (séif ה׳)
+  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-4">
-"<strong>הָיוּ כָּאן שְׁתֵּי קְדֵרוֹת שֶׁל הֶתֵּר וּלְפָנֵיהֶן שְׁתֵּי חֲתִיכוֹת, אַחַת שֶׁל הֶתֵּר וְאַחַת שֶׁל אִסּוּר, וְנָפְלָה זוֹ לְאַחַת וְזוֹ לְאַחַת — שְׁתֵּיהֶן אֲסוּרוֹת, וַאֲפִלּוּ בְּאִסּוּר דְּרַבָּנָן, אִם אֵין בְּאַחַת מֵהֶן כְּדֵי לְבַטֵּל הָאִסּוּר; אֲבָל אִם יֵשׁ בְּאַחַת מֵהֶן כְּדֵי לְבַטֵּל הָאִסּוּר — שְׁתֵּיהֶן מֻתָּרוֹת.</strong>"
+  <p>«&nbsp;<span class="he-q">היו כאן שתי קדרות של היתר ולפניהם שתי חתיכות אחת של היתר ואחת של איסור ונפלה אחת לתוך זו ואחת לתוך זו אסורות שתיהן אפילו באיסור דרבנן אם אין בשום אחת כדי לבטל האיסור אבל אם יש באחת מהן לבטל האיסור שתיהן מותרות:</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״א:ה)</span></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — מאי חזית :</strong><br>
-כאן <strong>שתי קדרות של היתר</strong>, וחתיכת איסור נפלה לאחת מהן. ולכאורה נתלה ונאמר באחת שהיא מותרת ; אבל אי אפשר, שהרי <span class="he-q">מאי חזית</span> דתלית בהא טפי מהא — מה ראית לתלות שזו מותרת והאיסור בחברתה ? ולפיכך <strong>שתיהן אסורות</strong>, שאין כאן צד היתר לתלות בו (להבדיל מסעיף א', ששם הייתה קדרת איסור שהאיסור "ממילא" נופל לתוכה).
+<p><em>Traduction</em> : il y avait là deux marmites de permis, et devant elles deux morceaux, l’un de permis et l’autre d’interdit ; l’un est tombé dans celle-ci et l’autre dans celle-là — toutes deux sont interdites, même dans un interdit rabbinique, s’il n’y a dans aucune des deux de quoi annuler l’interdit ; mais s’il y a dans l’une d’elles de quoi annuler l’interdit, toutes deux sont permises.</p>
+
+<div class="yesod-box">
+<strong>Le yessod — מאי חזית :</strong><br>
+Ici les <strong>deux marmites sont de permis</strong>, et un morceau interdit est tombé dans l’une d’elles. On voudrait attribuer et déclarer l’une permise ; mais c’est impossible, car en permettant l’une on interdit l’autre de ce qui lui était permis — et le Chakh pose la question dans les termes de la guemara :
+«&nbsp;<span class="he-q">מאי חזית דאסרת להאי דלמא איפכא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק י״א)</span>
+Toutes deux sont donc interdites : à la différence du séif א׳, il n’y a ici aucun côté d’interdit auquel rattacher la chute.
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>אף כשהאחת קטנה (ש״ך ס״ק יא נגד או״ה) :</strong> חולק הש״ך על האיסור והיתר, וסובר ש<strong>שתיהן אסורות</strong> אף כשאחת הקדרות קטנה מחברתה. שאין הולכים כאן בתר הרוב לומר שהאיסור נפל דווקא לגדולה, אלא <span class="he-q">מאי חזית</span> — וכל אחת בספק שמא בה נפל. ורק כשיש ב<strong>אחת מהן</strong> כדי לבטל (ששים) — שתיהן מותרות, שאז ממה נפשך: אם נפל לזו שיש בה ששים — בטל ; ואם נפל לחברתה — לא נפל כלל לזו.
+<div class="pilpul-box">
+<strong>Même lorsque l’une est plus petite (ש״ך ס״ק י״א, contre l’או״ה) :</strong> l’או״ה tenait qu’on peut attribuer la chute à la <em>petite</em> marmite et permettre ainsi la grande. Le Chakh le refuse : de toute façon tu interdis l’une des deux de ce qui lui était permis, et מאי חזית.
+«&nbsp;<span class="he-q">אין בידינו להתיר הגדולה ולומר דהאיסור לתוך הקטנה נפל</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק י״א)</span>
+Et lorsque l’une des deux contient de quoi annuler, la raison de la permission n’est pas un ממה נפשך mais, de nouveau, שאני אומר — le Chakh le dit au ס״ק י״ב :
+«&nbsp;<span class="he-q">שאני אומר האיסור נפל לתוך אותו שיש בה כדי לבטל</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק י״ב)</span>
+Il en tire aussitôt la limite, et elle vaut pour tout le siman :
+«&nbsp;<span class="he-q">והיינו דוקא באיסור דרבנן אבל בדאורייתא לא אמרינן שאני אומר דהספק דאורייתא לחומרא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק י״ב)</span>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">7. נפילות בזה אחר זה — ידוע ואינו ידוע</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">7. Chutes successives — connu et inconnu</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ו')
-  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 העתק</button>
+<h3>Le texte du Mehaber et du Rama (séif ו׳)
+  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-5">
-"<strong>הָיוּ שְׁתֵּי קְדֵרוֹת שֶׁל הֶתֵּר, וְנָפַל אִסּוּר לְאַחַת מֵהֶן וְיוֹדֵעַ לְאֵיזוֹ, וְחָזַר וְנָפַל אִסּוּר לְאַחַת מֵהֶן וְאֵינוֹ יוֹדֵעַ לְאֵיזוֹ — אוֹמֵר אֲנִי: הַשֵּׁנִי נָפַל לְמָקוֹם שֶׁנָּפַל הָרִאשׁוֹן</strong> [וְהָאַחֶרֶת מֻתֶּרֶת]. <strong>אֲבָל אִם נָפַל לְאַחַת וְאֵינוֹ יוֹדֵעַ לְאֵיזוֹ, וְחָזַר וְנָפַל אִסּוּר לְאַחַת וְיוֹדֵעַ לְאֵיזוֹ — שְׁתֵּיהֶן אֲסוּרוֹת.</strong> (הגה: וְכָל זֶה כְּשֶׁאֵין בָּהֶן שִׁשִּׁים לְבַטֵּל הָאִסּוּר הַנּוֹפֵל; אֲבָל אִם הָיָה בָּהֶן שִׁשִּׁים לְבַטְּלוֹ — הֲרֵי הוּא כְּאִלּוּ לֹא נָפַל בָּהֶן אִסּוּר כְּלָל [ב״י בשם הרשב״א].)"
+  <p>«&nbsp;<span class="he-q">היו כאן שתי קדרות של היתר ונפל איסור לתוך אחת מהן וידוע לאיזו נפל וחזר ונפל איסור לתוך אחת מהן ואין ידוע לאיזו נפל אני אומר למקום איסור הראשון נפל גם השני אבל אם נפל איסור לתוך אחת מהן ואין ידוע לאיזו נפל ואחר כך נפל איסור לתוך אחת מהן וידוע לאיזו נפל שתיהן אסורות:</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״א:ו)</span></p>
+  <p><small><strong>הגה.</strong> «&nbsp;<span class="he-q">ודוקא שאין ס׳ לבטל האיסור שנפל שם אבל אם היה ס׳ לבטל האיסור שנפל שם הוי כאילו לא נפל שם איסור כלל</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״א:ו — הגהת הרמ״א, ב״י בשם הרשב״א)</span></small></p>
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>שני הציורים :</strong>
+<p><em>Traduction</em> : il y avait là deux marmites de permis, un interdit est tombé dans l’une d’elles et l’on sait dans laquelle, puis un interdit est de nouveau tombé dans l’une d’elles sans qu’on sache dans laquelle — je dis : le second est tombé à l’endroit du premier interdit. Mais si un interdit est tombé dans l’une d’elles sans qu’on sache laquelle, et qu’ensuite un interdit est tombé dans l’une d’elles et qu’on sait laquelle — toutes deux sont interdites. <em>Glose du Rama</em> : et cela précisément lorsqu’il n’y a pas soixante pour annuler l’interdit qui y est tombé ; mais s’il y avait soixante pour l’annuler, c’est comme si aucun interdit n’y était tombé du tout (Beit Yossef au nom du Rachba).</p>
+
+<div class="machloket-box">
+<strong>Les deux figures :</strong>
 <table>
-<tr><th>הסדר</th><th>הדין</th><th>הטעם</th></tr>
+<tr><th>L’ordre</th><th>Le din</th><th>La raison</th></tr>
 <tr>
-  <td><strong>ידוע ואחר כך אינו ידוע</strong></td>
-  <td>השנייה מותרת; האחרת בלבד אסורה</td>
-  <td>אומר אני: השני נפל למקום הראשון (ש״ך ס״ק יד)</td>
+  <td><strong>Connu, puis inconnu</strong></td>
+  <td>La seconde marmite reste permise ; seule celle qui était déjà atteinte est interdite</td>
+  <td>Je dis : le second est tombé à l’endroit du premier (מחבר ס״ו)</td>
 </tr>
 <tr>
-  <td><strong>אינו ידוע ואחר כך ידוע</strong></td>
-  <td>שתיהן אסורות</td>
-  <td>הראשון כבר הטיל ספק בשתיהן (ש״ך ס״ק טו)</td>
+  <td><strong>Inconnu, puis connu</strong></td>
+  <td>Toutes deux sont interdites</td>
+  <td>Le premier avait déjà jeté le doute sur les deux (ש״ך ס״ק ט״ו)</td>
 </tr>
 </table>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>הטעם לחילוק (ש״ך ס״ק יד–טו) :</strong> כשהראשון <strong>ידוע</strong> — הרי קדרה אחת כבר אסורה בודאי, וכשבא השני בספק, אנו <span class="he-q">תולין</span> שהשני נפל לאותה קדרה שכבר נאסרה (שאין מקום לחדש איסור בשנייה) — והשנייה נשארת בהיתרה. אבל כש<strong>הראשון בספק</strong> — כבר הוטל ספק בשתי הקדרות, ושוב כשבא השני הידוע ומצטרף — אין במה לתלות, ושתיהן אסורות. והרמ״א מסייג: כל זה כשאין ששים ; אבל <span class="he-q">יש ששים</span> — כאילו לא נפל כלל (רשב״א).
+<div class="pilpul-box">
+<strong>La raison de la distinction (ש״ך ס״ק ט״ו) :</strong> lorsque la seconde chute est incertaine mais la première connue, une marmite est déjà interdite avec certitude, et l’on rattache la seconde chute à celle-là. Lorsque c’est l’inverse, le Chakh refuse le raisonnement symétrique :
+«&nbsp;<span class="he-q">ואין אומרים למקום שנפל האיסור האחרון נפל גם הראשון</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק ט״ו)</span>
+</div>
+
+<div class="hakira-box">
+<strong>Jusqu’où va cette permission ? (ש״ך ס״ק י״ד)</strong> Le ב״ח voulait étendre le séif même à un interdit de la Torah. Le Chakh s’en étonne, car la guemara du premier chapitre de פסחים est explicite : on ne dit pas שאני אומר dans un interdit de la Torah.
+«&nbsp;<span class="he-q">ואני תמה היאך אפשר לומר בדאורייתא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק י״ד)</span>
+Il finit par expliquer ce que le séif enseigne réellement — un interdit de la Torah dont le seuil seul est rabbinique — et conclut :
+«&nbsp;<span class="he-q">אבל באיסור דאורייתא ממש ודאי אין תולין להקל</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק י״ד)</span>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">8. הכל נכנס בספק — צירוף הקדרות</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">8. Tout entre dans le doute — le cumul des marmites</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ז')
-  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 העתק</button>
+<h3>Le texte du Mehaber et du Rama (séif ז׳)
+  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 Copier</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-6">
-"<strong>הָיוּ שְׁתֵּי קְדֵרוֹת שֶׁל הֶתֵּר, וְנָפַל אִסּוּר לְאַחַת מֵהֶן וְאֵינוֹ יוֹדֵעַ לְאֵיזוֹ, וְאֵין בְּאַחַת מֵהֶן כְּדֵי לְבַטֵּל הָאִסּוּר, אֲבָל בִּשְׁתֵּיהֶן יַחַד יֵשׁ — מִצְטָרְפוֹת לְבַטְּלוֹ. וְלֹא עוֹד אֶלָּא אֲפִלּוּ אַחַת בַּבַּיִת וְאַחַת בָּעֲלִיָּה — מִצְטָרְפוֹת. וְכֵן עַד מֵאָה. וְהוּא שֶׁיִּהְיוּ שֶׁל אָדָם אֶחָד, שֶׁכָּל שֶׁל אָדָם אֶחָד עָתִיד לְהִתְעָרֵב; אֲבָל אִם הֵן שֶׁל שְׁנֵי בְּנֵי אָדָם — אֵין מִצְטָרְפוֹת.</strong> (הגה: יֵשׁ מַחְמִירִין שֶׁאַף בְּאָדָם אֶחָד אֵין לְהָקֵל; וּבְמָקוֹם הֶפְסֵד מַתִּירִין בְּאָדָם אֶחָד, וְאֵינוֹ אוֹכֵל עַד שֶׁיְּעָרֵב אוֹתָן יַחַד, שֶׁאָז הָאִסּוּר בָּטֵל.)"
+  <p>«&nbsp;<span class="he-q">היו כאן שתי קדרות של היתר ונפל איסור לתוך אחת מהן ואין ידוע לאיזו נפל ואין באחת כדי לבטל האיסור ויש בשתיהן כדי לבטלו שתיהן מצטרפות לבטלו ולא עוד אלא אפי׳ אחת בבית וא׳ בעליה מצטרפות. והוא הדין אפילו למאה בד״א בששתיהן של אדם א׳ לפי שכל שהן של אדם אחד עתיד להתערב אבל אם הם של שני בני אדם אין מצטרפות:</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״א:ז)</span></p>
+  <p><small><strong>הגה.</strong> «&nbsp;<span class="he-q">ויש מחמירים דאפי׳ באדם א׳ אין להקל ולצורך הפסד יש להתיר באדם א׳ ומיהו אין לאכלו אלא לאחר שיערבנו יחד דאז כבר נתבטל האיסור</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״א:ז — הגהת הרמ״א, בארוך כלל כ״ו בשם מהרי״ש)</span></small></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — "הכל נכנס בספק" :</strong><br>
-מאחר שאיני יודע לאיזו קדרה נפל האיסור — <span class="he-q">הכל נכנס בספק</span>: שתי הקדרות כאחת נתונות בספק האיסור. וכיון שכולן בספק שוה, הרי הן <strong>מצטרפות</strong> זו עם זו לבטל את האיסור בששים, אף שאין באחת מהן לבדה כדי לבטל. ולא עוד, אלא <span class="he-q">אחת בבית ואחת בעלייה</span> מצטרפות, וכן עד מאה — ובלבד שיהיו של אדם אחד, ש<span class="he-q">כל של אדם אחד עתיד להתערב</span>.
+<p><em>Traduction</em> : il y avait là deux marmites de permis, un interdit est tombé dans l’une d’elles sans qu’on sache laquelle, aucune d’elles ne contient de quoi annuler l’interdit mais les deux ensemble le contiennent — toutes deux se joignent pour l’annuler. Bien plus : même l’une à la maison et l’autre à l’étage, elles se joignent ; et il en va de même jusqu’à cent. En quel cas ? Lorsqu’elles appartiennent toutes deux à un seul homme, car tout ce qui est à un seul homme est destiné à se mêler ; mais si elles sont à deux hommes, elles ne se joignent pas. <em>Glose du Rama</em> : il y en a qui sont plus rigoureux et tiennent que, même chez un seul homme, on n’allège pas ; et en cas de perte il y a lieu de permettre chez un seul homme, mais il ne le mangera qu’après les avoir mêlées ensemble, car alors l’interdit est déjà annulé (au nom du Maharich, dans l’Issour vé-Hetter HaArokh, règle 26).</p>
+
+<div class="yesod-box">
+<strong>Le yessod — tout ce qui est entré dans le doute :</strong><br>
+Puisque j’ignore dans quelle marmite l’interdit est tombé, les deux marmites sont prises ensemble dans le doute de l’interdit. Et le Chakh formule la règle en une ligne :
+«&nbsp;<span class="he-q">שכל שנכנס בספק מחמת איסור מצטרף לבטלו</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק ט״ז)</span>
+Elles se joignent donc l’une à l’autre pour annuler l’interdit dans soixante, bien qu’aucune ne le puisse à elle seule — et jusqu’à cent, et même l’une à la maison et l’autre à l’étage, ainsi que le dit le séif.
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>תנאי "אדם אחד" — עתיד להתערב :</strong> כל הצירוף תלוי בכך ש<strong>עתיד להתערב</strong>: כיון שהכל של אדם אחד, סופן לבוא לכלל תערובת (יאכל זו וזו), ולפיכך כבר עכשיו דנים בהן כמעורבות ומצטרפות. אבל ב<strong>שני בני אדם</strong> — אין סופן להתערב, וכל אחד מחזיק בשלו, ולכן <span class="he-q">אין מצטרפות</span> (וזו עיקר מחלוקת הראשונים שבסעיף הבא).
+<div class="pilpul-box">
+<strong>La condition « un seul homme » — destiné à se mêler :</strong> tout le cumul tient à ce que les marmites soient <strong>destinées à se mêler</strong> : puisque tout est à un seul homme, elles finiront par venir au mélange, et l’on juge dès maintenant comme si elles l’étaient. Le Taz le dit en propres termes :
+«&nbsp;<span class="he-q">דכיון שעתידים להתערב חשבינן כאלו כבר נתערבו</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״א ס״ק י׳)</span>
+Chez deux hommes, au contraire, elles ne sont pas destinées à se mêler, chacun gardant la sienne — et c’est là le nœud de la ma’hloket des Richonim que traite la section suivante.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הכרעת הרמ״א — יש מחמירין והפסד (ט״ז ס״ק ט) :</strong> מביא הרמ״א <span class="he-q">יש מחמירין</span> שאף באדם אחד לא יקילו בצירוף ; ובמקום <strong>הפסד</strong> מתירין באדם אחד, אך אינו אוכל עד <span class="he-q">שיערב אותן יחד</span> — שאז ודאי האיסור בטל בששים שבכולן. ומקור ההחמרה במהרי״ש (ט״ז ס״ק ט).
+<div class="rishon-card">
+<strong>La décision du Rama — יש מחמירין et le cas de perte (ט״ז ס״ק ט׳) :</strong> le Rama rapporte ceux qui sont plus rigoureux et n’allègent pas même chez un seul homme ; en cas de perte on permet chez un seul homme, mais il ne mangera qu’après avoir mêlé les marmites. Le Taz en donne la provenance :
+«&nbsp;<span class="he-q">בד״מ כ״כ בשם או״ה סוף כלל כ״ו בשם מהרי״ש</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״א ס״ק ט׳)</span>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">9. מחלוקת רמב״ן ורשב״א — שני בני אדם וצירוף</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">9. Ma’hloket du רמב״ן et du רשב״א — deux personnes et le cumul</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ Explication détaillée (niveau 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זוהי אחת מן המחלוקות החריפות שבכל דיני התערובות, ובה האריך הש״ך (ס״ק יג–כ).</p>
+<p style="margin:15px 0; font-style:italic;">C’est l’une des ma’hlokot les plus serrées de tout le droit des mélanges, et le Chakh y revient du ס״ק י״ג au ס״ק כ׳.</p>
 
-<div class="machloket-box" dir="rtl">
-<strong>שורש המחלוקת (ש״ך ס״ק יג–יט) :</strong>
+<div class="machloket-box">
+<strong>La racine de la ma’hloket :</strong>
 <table>
-<tr><th>שיטה</th><th>תולין וצירוף בשני בני אדם</th><th>מקור</th></tr>
+<tr><th>Chita</th><th>Deux personnes venant l’une après l’autre</th><th>Source</th></tr>
 <tr>
-  <td><strong>הרמב״ן</strong></td>
-  <td>תולין בזה אחר זה, וכעיקר ההלכה — דנין בכל אחד בפני עצמו</td>
-  <td>ש״ך ס״ק יג, יח (פסחים י', כתובות כ״ו)</td>
+  <td class="he"><strong>הרמב״ן</strong></td>
+  <td>On permet à chacun et l’on attribue que l’interdit est tombé chez l’autre, même si aucune des deux ne contient de quoi annuler</td>
+  <td class="he">ש״ך ס״ק י״ג · ס״ק י״ט</td>
 </tr>
 <tr>
-  <td><strong>הרשב״א</strong></td>
-  <td>חולק בפרטי הצירוף והתולין</td>
-  <td>ש״ך ס״ק טז–יז</td>
+  <td class="he"><strong>הרשב״א</strong></td>
+  <td>Même chez deux hommes il n’y a de permission que par l’annulation ; sans cela, interdire l’un de ce qui lui était permis est un מאי חזית</td>
+  <td class="he">ש״ך ס״ק י״ג · ס״ק י״ט</td>
 </tr>
 </table>
-<p style="margin-top:8px;">והעיקר להלכה כ<strong>רמב״ן</strong> (ש״ך), ושורש הסוגיא ב<span class="he-q">פסחים י'.</span> (תשע חנויות, תולין בזה אחר זה) וב<span class="he-q">כתובות כ״ו.</span>.</p>
+<p style="margin-top:8px;">Le Chakh expose d’abord la position du רמב״ן —</p>
+«&nbsp;<span class="he-q">דס״ל דבשל ב׳ בני אדם ובאו לישאל בזה אחר זה אפילו אין בשום אחד מהן לבטל אנו מתירין לכל א׳ וא׳ ותולין דבשל חבירו נפל</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק י״ג)</span>
+<p>— et il tranche, dans ce même ס״ק, en renvoyant au ס״ק י״ט :</p>
+«&nbsp;<span class="he-q">העיקר כהרמב״ן</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק י״ג)</span>
+<p>Au ס״ק י״ט il donne la preuve : c’est ainsi qu’il ressort du premier chapitre de פסחים (le cas des deux sentiers, où l’on est indulgent lorsque chacun interroge séparément) et de la fin du chapitre האשה שנתארמלה dans כתובות.</p>
+«&nbsp;<span class="he-q">דאפילו בשניהם של היתר תולין להקל באיסור דרבנן כשבאו זא״ז</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק י״ט)</span>
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — חנ״נ מול הצירוף (ש״ך ס״ק יז, ט״ז ס״ק י) :</strong> לכאורה, אם החתיכה שנפל בה האיסור <span class="he-q">נעשית נבילה</span> (חנ״נ), שוב אין דרך לצרף את שאר הקדרות לבטלה ! וכיצד אומר המחבר שמצטרפות ?
+<div class="rishon-card">
+<strong>La guemara des deux sentiers (פסחים י׳ ע״א) :</strong> c’est la michna que la guemara rapproche du tas de ‘hamets et des deux maisons fouillées :
+«&nbsp;<span class="he-q">שְׁנֵי שְׁבִילִין. דִּתְנַן: שְׁנֵי שְׁבִילִין, אֶחָד טָמֵא וְאֶחָד טָהוֹר, וְהָלַךְ בְּאֶחָד מֵהֶן וְעָשָׂה טְהָרוֹת</span>&nbsp;» <span class="source-ref">(פסחים י׳ ע״א)</span>
+Et c’est là que se trouve la distinction entre celui qui interroge séparément et ceux qui interrogent ensemble :
+«&nbsp;<span class="he-q">אִם נִשְׁאֲלוּ זֶה בִּפְנֵי עַצְמוֹ וְזֶה בִּפְנֵי עַצְמוֹ — טְהוֹרִין. שְׁנֵיהֶן בְּבַת אַחַת — טְמֵאִין</span>&nbsp;» <span class="source-ref">(פסחים י׳ ע״א)</span>
 </div>
 
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ — "כאלו כבר מעורב" (ש״ך ס״ק יז בשם מגיד משנה) :</strong> כיון ש<strong>אין יודעים היכן נפל</strong> האיסור, אין כאן חתיכה מסוימת שנעשתה נבילה ; אדרבה — מאחר שהכל בספק שוה, דנים בכל הקדרות <span class="he-q">כאלו כבר מעורב</span> הכל יחד, ובמעורב אין חנ״נ מעכב את הצירוף (שהרי הצירוף קודם, כביכול, לחלות שם נבילה על חתיכה אחת). וכן כתב הט״ז (ס״ק י) להדיא: דהיתר הצירוף נאמר אף בלא עירוב בפועל, שהספק עצמו עושה אותן כמעורבות.
+<div class="hakira-box">
+<strong>La ‘hakira — חתיכה נעשית נבילה contre le cumul (ש״ך ס״ק י״ז) :</strong> le ב״ח objecte : pour nous, qui tenons חתיכה נעשית נבילה dans tous les interdits, le morceau atteint devient lui-même interdit, et le cumul ne peut plus rien.
+«&nbsp;<span class="he-q">כתב הב״ח דהיינו דוקא למ״ד דלא אמרינן חנ״נ רק בבשר וחלב ולא בשאר איסורים אבל לדידן דקי״ל חנ״נ בכל האיסורים אין מועיל צירוף</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק י״ז)</span>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>דחיית חילוק "שתי נפילות / נפילה אחת" (ט״ז ס״ק ו) :</strong> הדרישה והב״ח רצו לחלק בין נפילה אחת לשתי נפילות. ודוחה הט״ז (ס״ק ו) חילוק זה מן ה<span class="he-q">תוספתא בתרומות</span> (דין שתי מדוכות), ומוכיח שאין מקור לחלק, אלא הכל תלוי בגדרי התולין והצירוף בלבד.
+<div class="teruts-box">
+<strong>La réponse du Chakh — « comme s’il était déjà mêlé » (ס״ק י״ז) :</strong> puisqu’on <strong>ignore</strong> où l’interdit est tombé, aucun morceau déterminé n’est devenu nevéla ; tout étant également dans le doute et destiné à se mêler, on regarde l’ensemble comme déjà mêlé — et le Chakh en apporte une preuve du מגיד משנה.
+«&nbsp;<span class="he-q">דלא אמרינן חנ״נ אלא היכא דידוע להיכן נפל אבל כאן דלא ידענו להיכן נפל א״כ כל שנכנס הכל לספק והוא עתיד להתערב רואין אותו כאלו הוא כבר מעורב</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק י״ז)</span>
+Le Taz dit la même chose au ס״ק י׳, et il en tire expressément que le cumul vaut même sans mélange effectué :
+«&nbsp;<span class="he-q">שאף אם לא נתערבו כיון שמן התורה מותר ע״י ביטול ברוב רק מדרבנן צריך ס׳ וכיון שיש ספק לאיזה נפל ונכנסו שניהם בספק שניהם מצטרפים לבטל ומותר כל אחד בפני עצמו</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״א ס״ק י׳)</span>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>"עתיד להתערב" — שני מינים (ט״ז ס״ק ח) :</strong> מסייג הט״ז (ס״ק ח) דכל הצירוף ב<strong>עתיד להתערב</strong> דווקא ; אבל שני מינים <span class="he-q">שאינם ראויים להתערב</span> זה בזה (כבשר וגבינה, או דברים שדרכם להיאכל לחוד) — אין מצטרפים, שאינם עתידים לבוא לכלל תערובת. וכן הביא בשם מהרש״ל. <em>ולמעשה — שאל את רבך.</em>
+<div class="pilpul-box">
+<strong>Le rejet de la distinction « une chute / deux chutes » (ט״ז ס״ק ו׳) :</strong> la פרישה, au nom du מהרש״ל, et le ב״ח voulaient distinguer entre le séif ה׳, où il y a deux chutes, et le séif ז׳, où il n’y en a qu’une :
+«&nbsp;<span class="he-q">ובפרישה כתב בשם רש״ל דהכא שאני שיש ב׳ נפילות אחד היתר ואחד איסור וזה גרע טפי מהא דלקמן שאין שם אלא נפילה אחת</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״א ס״ק ו׳)</span>
+Le Taz écarte cette distinction en s’appuyant sur la תוספתא des deux mortiers, que le רשב״א oppose lui-même au cas de deux chutes — preuve qu’à ses yeux les deux figures ne diffèrent pas :
+«&nbsp;<span class="he-q">היו לפניו שתי מדוכות אחת של חולין ואחת של תרומה ונתן מאחת מהן ואין ידוע מאיזה מהן נתן הריני אומר משל חולין נתן</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״א ס״ק ו׳)</span>
+Sa conclusion est nette :
+«&nbsp;<span class="he-q">אלא ודאי שאין חילוק זה כלל ועיקר לפי האמת</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״א ס״ק ו׳)</span>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>השגת הראה — צירוף דווקא בלא טעם (ש״ך ס״ק כ) :</strong> מביא הש״ך (ס״ק כ) שהראה משיג על הצירוף במקום שיש <span class="he-q">טעם</span> : כל הצירוף נאמר דווקא ב<strong>איסור דרבנן</strong>, או ב<strong>שיעור דרבנן</strong>, או ב<strong>יבש ביבש</strong> ; אבל כשהאיסור <span class="he-q">ראוי ליתן טעם</span> (אינו מינו, או לח בלח שנותן טעם) — אין הקדרות מצטרפות, שהטעם כבר נתפשט ואינו "נכנס בספק". ובמקום <strong>הפסד</strong> יש לצדד בזה.
+<div class="nafka-mina-box">
+<strong>« Destiné à se mêler » — deux espèces (ט״ז ס״ק ח׳) :</strong> le Taz restreint le cumul : lorsque les deux mets permis sont interdits l’un avec l’autre — l’un de viande, l’autre de fromage — ils ne se joignent pas.
+«&nbsp;<span class="he-q">דאם הב׳ מיני היתר אסורים בתערובות כגון הא׳ בשר והב׳ גבינה אין מצטרפין לבטלו</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״א ס״ק ח׳)</span>
+Et il ajoute, au nom du מהרש״ל, que la même chose vaut de deux mets qui ne sont simplement pas destinés à se mêler :
+«&nbsp;<span class="he-q">וכתב רש״ל דאם הם אינם עומדים להתערב כגון שהא׳ נתבשל במתיקות והב׳ בקיוהא אינם מצטרפים</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״א ס״ק ח׳)</span>
+<p style="margin-top:8px;"><em>Et pour la pratique — demande à ton Rav.</em></p>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הפתחי תשובה — שמן רוקח, שלוש קדרות (פ״ת ס״ק ב) :</strong> מביא הפתחי תשובה בשם ה<strong>שמן רוקח</strong> ציור של <span class="he-q">שלוש קדרות</span> וספיקות בזה אחר זה ; ואם הספק הראשון לא נודע אלא לאחר הספק השני — ב<strong>הפסד מרובה</strong> יש להקל, וצריך עיון בכל ציור לגופו. ובס״ק א מביא בשם ה<strong>שער המלך</strong> דהחתיכות ה<span class="he-q">ניכרות</span> הוו <span class="he-q">איתחזק איסורא</span> (דלא כפרי חדש), אלא שכנגדן <span class="he-q">חזקת היתר</span> של הקדרה, ולפיכך תולין להקל, ודנים בו כדיני ספק ספיקא.
+<div class="rishon-card">
+<strong>L’objection du רא״ה — le cumul seulement là où il n’y a pas de goût (ש״ך ס״ק כ׳) :</strong> le Chakh rapporte le רא״ה dans le בדק הבית : ces allègements n’ont été dits que dans un interdit rabbinique, ou dans un interdit de la Torah dont la mesure est rabbinique, ou dans du sec avec du sec, où il n’y a pas de goût.
+«&nbsp;<span class="he-q">לא נאמרו קולות הללו אלא באיסורי דרבנן או באיסור תורה ושיעורי דרבנן וכן יבש ביבש דלית בה טעמא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק כ׳)</span>
+Mais là où l’interdit donne du goût, ou est susceptible d’en donner, les marmites ne se joignent pas — et cela même dans un interdit rabbinique :
+«&nbsp;<span class="he-q">אבל היכא דאית בה טעמא ודאי כל היכא דיהיב טעמא או שראוי ליתן טעם כגון לח בלח במין במינו ואין ס׳ לא אמרינן ביה הני קולי אפילו באיסורי דרבנן</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק כ׳)</span>
+C’est pourquoi le Chakh, commentant les mots « et en cas de perte » du Rama, conclut qu’il ne faut permettre qu’en cas de perte importante, précisément parce que le רא״ה conteste :
+«&nbsp;<span class="he-q">וכן נראה בדין דאין להתיר אלא במקו׳ הפ״מ דהא הרא״ה בבדק הבית… חולק על הרשב״א בזה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״א ס״ק כ׳)</span>
+</div>
+
+<div class="rishon-card">
+<strong>Le פתחי תשובה — le שמן רוקח et les trois marmites (פ״ת ס״ק ב׳) :</strong> le פתחי תשובה rapporte du שמן רוקח que l’on attribue même à une marmite qui n’est interdite que par doute, et il en donne la figure :
+«&nbsp;<span class="he-q">שהיו עומדים ג׳ קדרות של היתר ונפל איסור דרבנן לאחד מב׳ קדרות מהם ובקדרה שלישית עדיין לא היה שום ספק ואח״ז נפל איסור דרבנן לאחד מהקדרות ונולד לנו ספק בקדרה שלישית ועל אחד מהראשונות</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד קי״א ס״ק ב׳)</span>
+Mais si le premier doute n’a été connu qu’après le second, la chose demande réflexion, et il n’allège qu’en cas de perte importante :
+«&nbsp;<span class="he-q">אך אם לא נודע הספק הראשון עד אחר שנולד השני יש להתיישב בדבר ובהפ״מ יש להקל</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד קי״א ס״ק ב׳)</span>
+</div>
+
+<div class="rishon-card">
+<strong>Le פתחי תשובה — le שער המלך sur la ‘hazaka (פ״ת ס״ק א׳) :</strong> sur les mots « les morceaux » du séif א׳, le פתחי תשובה rapporte le שער המלך, qui se sépare du פרי חדש sur deux points et du Chakh sur un. Contre le פרי חדש, qui tenait que même des morceaux reconnaissables font un איתחזק איסורא, il donne raison au Chakh :
+«&nbsp;<span class="he-q">דמה שכתב הפר״ח דאף בשהחתיכות ניכרות בפ״ע מיקרי איתחזק איסורא בזה נראה עיקר כהש״ך</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד קי״א ס״ק א׳)</span>
+Mais il allège plus que le Chakh : même lorsque les morceaux ne sont pas reconnaissables et qu’il y a donc איתחזק איסורא, il attribue dans le sens indulgent, parce que la marmite, elle, garde une ‘hazaka de permis.
+«&nbsp;<span class="he-q">דאפילו בשאין החתיכות ניכרות דאיתחזק איסורא תלינן לקולא</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד קי״א ס״ק א׳)</span>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">10. חקירה ונפקא מינה למעשה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">10. ‘Hakira et nafka mina pour la pratique</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ Explication détaillée (niveau 1)</a>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה הכוללת של הסימן :</strong> מתי תולין להקל, ומתי הקדרות מצטרפות לבטל ?
+<div class="hakira-box">
+<strong>La ‘hakira d’ensemble du siman : quand attribue-t-on dans le sens indulgent, et quand les marmites se joignent-elles pour annuler ?</strong>
 <ul class="stylish">
-<li><strong>תולין / שאני אומר</strong> — היתר ספק דרבנן לקולא ; דווקא באיסור דרבנן (או דאורייתא בטל ברוב).</li>
-<li><strong>שלושת המקרים</strong> — שתי קדרות, קדרה אחת, חתיכה אחת ; כולם בדרבנן אף בלא רוב.</li>
-<li><strong>שיעור דרבנן</strong> — ספק בשיעור בלבד, קל מסימן ס״ו (ט״ז ס״ק א).</li>
-<li><strong>מין במינו / אינו מינו</strong> — רוב כל שהוא מול ששים (ס״ד, סימן צ״ח).</li>
-<li><strong>שתי קדרות של היתר</strong> — מאי חזית, שתיהן אסורות (ס״ה).</li>
-<li><strong>הכל נכנס בספק</strong> — צירוף עד מאה, באדם אחד שעתיד להתערב (ס״ז).</li>
+<li><strong>תולין / שאני אומר</strong> — la permission du ספק דרבנן לקולא ; précisément dans un interdit rabbinique, ou dans un interdit de la Torah déjà annulé dans la majorité.</li>
+<li><strong>Les trois cas</strong> — deux marmites, une marmite, un seul morceau ; tous permis dans le rabbinique, même sans majorité (séif א׳).</li>
+<li><strong>La mesure rabbinique</strong> — un doute qui ne porte que sur le seuil est plus léger que le doute du siman 66 (ט״ז ס״ק א׳).</li>
+<li><strong>מין במינו / אינו מינו</strong> — une majorité quelconque d’un côté, soixante de l’autre (séif ד׳, et voir le siman 98).</li>
+<li><strong>Deux marmites de permis</strong> — מאי חזית — toutes deux sont interdites (séif ה׳).</li>
+<li><strong>Le cumul</strong> — jusqu’à cent, chez un seul homme, dont les marmites sont destinées à se mêler (séif ז׳).</li>
 </ul>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה למעשה (לפי הכרעת רוב האחרונים) :</strong>
+<div class="nafka-mina-box">
+<strong>Nafka mina pour la pratique, telles que les posent le Mehaber et son appareil :</strong>
 <ol class="stylish">
-<li>איסור <strong>דרבנן</strong> (כשומנו של גיד או רכיב אסור מדרבנן) שנפל לאחת משתי קדרות ואינו יודע לאיזו → תולין להקל (מחבר ס״א).</li>
-<li><strong>אינו מרובה</strong> תנאי הוא ; ובאיסור דאורייתא בעי רוב היתר לבטלו מן התורה (ס״ב–ג').</li>
-<li><strong>מין במינו</strong> — רוב כל שהוא ; <strong>אינו מינו</strong> — ששים (ס״ד).</li>
-<li><strong>שתי קדרות של היתר</strong> — מאי חזית, שתיהן אסורות, אלא אם כן יש באחת ששים (ס״ה).</li>
-<li><strong>צירוף</strong> — שתי קדרות (אף בבית ובעלייה) מצטרפות לששים באדם אחד ; ולמחמירין מערב תחילה (ס״ז, ט״ז ס״ק י).</li>
+<li>Un interdit <strong>rabbinique</strong> tombé dans l’une de deux marmites, l’une de permis et l’autre d’interdit, sans qu’on sache laquelle : on attribue dans le sens indulgent (Mehaber séif א׳).</li>
+<li>Que l’interdit <strong>ne domine pas</strong> est une condition ; et dans un interdit de la Torah il faut une majorité de permis pour l’annuler selon la Torah (séifim ב׳–ג׳).</li>
+<li><strong>מין במינו</strong> — une majorité quelconque ; <strong>אינו מינו</strong> — soixante (séif ד׳).</li>
+<li><strong>Deux marmites de permis</strong> — מאי חזית, toutes deux interdites, sauf si l’une contient soixante (séif ה׳).</li>
+<li><strong>Le cumul</strong> — deux marmites, fût-ce l’une à la maison et l’autre à l’étage, se joignent pour les soixante chez un seul homme ; et pour ceux qui sont rigoureux, il mêle d’abord (séif ז׳, ט״ז ס״ק י׳).</li>
 </ol>
-<em>ולמעשה — שאל את רבך.</em>
+<em>Et pour la pratique — demande à ton Rav.</em>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">11. טבלאות סיכום</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">11. Tableaux récapitulatifs</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">טבלה — מקרי הספק והדין</h3>
+<h3>Tableau — les figures du doute et leur din</h3>
 
 <table>
 <tr>
-  <th>אופן הספק</th>
-  <th>התוצאה</th>
-  <th>מקור בקורפוס</th>
+  <th>La figure du doute</th>
+  <th>Le résultat</th>
+  <th>Source</th>
 </tr>
 <tr>
-  <td><strong>שתי קדרות (היתר ואיסור) + שתי חתיכות, דרבנן</strong></td>
-  <td>מותר — תולין האיסור לאיסור</td>
-  <td>מחבר ס״א; ט״ז ס״ק א</td>
+  <td><strong>Deux marmites (permis et interdit) + deux morceaux, interdit rabbinique</strong></td>
+  <td>Permis — on attribue l’interdit à l’interdit</td>
+  <td class="he">מחבר ס״א · ט״ז ס״ק א׳</td>
 </tr>
 <tr>
-  <td><strong>קדרה אחת של היתר + שתי חתיכות</strong></td>
-  <td>מותר — תולין שההיתר נפל</td>
-  <td>מחבר ס״א; ש״ך ס״ק ו</td>
+  <td><strong>Une marmite de permis + deux morceaux</strong></td>
+  <td>Permis — on attribue que c’est le permis qui est tombé</td>
+  <td class="he">מחבר ס״א · ש״ך ס״ק ד׳–ה׳</td>
 </tr>
 <tr>
-  <td><strong>איסור מרובה על ההיתר</strong></td>
-  <td>אין תולין להקל</td>
-  <td>מחבר ס״ב; ט״ז ס״ק ב</td>
+  <td><strong>L’interdit domine le permis</strong></td>
+  <td>On n’attribue pas dans le sens indulgent</td>
+  <td class="he">מחבר ס״ב · ט״ז ס״ק ב׳</td>
 </tr>
 <tr>
-  <td><strong>איסור דאורייתא, מין במינו</strong></td>
-  <td>תולין ברוב כל שהוא</td>
-  <td>מחבר ס״ג–ד'; ט״ז ס״ק ג</td>
+  <td><strong>Interdit de la Torah, מין במינו</strong></td>
+  <td>On attribue dès qu’il y a une majorité quelconque</td>
+  <td class="he">מחבר ס״ג–ד׳ · ט״ז ס״ק ג׳</td>
 </tr>
 <tr>
   <td><strong>אינו מינו</strong></td>
-  <td>צריך ששים</td>
-  <td>מחבר ס״ד; סימן צ״ח</td>
+  <td>Soixante sont requis</td>
+  <td class="he">מחבר ס״ד · ועיין סימן צ״ח</td>
 </tr>
 <tr>
-  <td><strong>חתיכה הראויה להתכבד בספק</strong></td>
-  <td>מקילין — דספק דרבנן לקולא</td>
-  <td>ט״ז ס״ק ה; ר״ן</td>
+  <td><strong>Morceau digne d’être servi, dans le doute</strong></td>
+  <td>On allège — ספק דרבנן לקולא</td>
+  <td class="he">ט״ז ס״ק ה׳ · ש״ך ס״ק ה׳ · ר״ן</td>
 </tr>
 <tr>
-  <td><strong>שתי קדרות של היתר</strong></td>
-  <td>מאי חזית → שתיהן אסורות</td>
-  <td>מחבר ס״ה; ש״ך ס״ק יא</td>
+  <td><strong>Deux marmites de permis</strong></td>
+  <td>מאי חזית → toutes deux interdites</td>
+  <td class="he">מחבר ס״ה · ש״ך ס״ק י״א</td>
 </tr>
 <tr>
-  <td><strong>נפילות בזה אחר זה (ידוע ואז אינו ידוע)</strong></td>
-  <td>השנייה מותרת — השני למקום הראשון</td>
-  <td>מחבר ס״ו; ש״ך ס״ק יד–טו</td>
+  <td><strong>Chutes successives (connu puis inconnu)</strong></td>
+  <td>La seconde reste permise — le second est tombé là où le premier était tombé</td>
+  <td class="he">מחבר ס״ו · ש״ך ס״ק י״ד–ט״ו</td>
 </tr>
 <tr>
-  <td><strong>הכל נכנס בספק (אדם אחד)</strong></td>
-  <td>מצטרפות לששים, אף עד מאה</td>
-  <td>מחבר ס״ז; ש״ך ס״ק יז; ט״ז ס״ק י</td>
+  <td><strong>Tout est entré dans le doute (un seul homme)</strong></td>
+  <td>Elles se joignent pour les soixante, même jusqu’à cent</td>
+  <td class="he">מחבר ס״ז · ש״ך ס״ק ט״ז–י״ז · ט״ז ס״ק י׳</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מחלוקות מרכזיות בסימן</h3>
+<h3>Tableau — les ma’hlokot centrales du siman</h3>
 
 <table>
 <tr>
-  <th>נושא</th>
-  <th>שיטה א'</th>
-  <th>שיטה ב'</th>
+  <th>Sujet</th><th>Première chita</th><th>Seconde chita</th>
 </tr>
 <tr>
-  <td>שתי קדרות מול קדרה אחת</td>
-  <td>ב״י/רשב״א — בשתי קדרות בעי חד בחד</td>
-  <td>הראה — מיקל אף ביותר (ש״ך ס״ק ו)</td>
+  <td>Deux marmites face à une seule marmite</td>
+  <td>רשב״א בתורת הבית — dans deux marmites il faut au moins חד בחד (ש״ך ס״ק ו׳)</td>
+  <td>רא״ה בבדק הבית — permis même si l’interdit domine (ש״ך ס״ק ו׳)</td>
 </tr>
 <tr>
-  <td>שיעור דרבנן ושאני אומר</td>
-  <td>ט״ז — קל מספק דאורייתא דסימן ס״ו</td>
-  <td>נמוקי יוסף — באיסורי משהו אין תולין (ש״ך ס״ק ג)</td>
+  <td>Mesure rabbinique et שאני אומר</td>
+  <td>ט״ז — plus léger que le doute de la Torah du siman 66 (ס״ק א׳)</td>
+  <td>נמוקי יוסף — dans les interdits qui interdisent au plus infime on n’attribue pas (ש״ך ס״ק ג׳)</td>
 </tr>
 <tr>
-  <td>צירוף בשני בני אדם</td>
-  <td>רמב״ן — וכעיקר ההלכה (ש״ך)</td>
-  <td>רשב״א — חולק בפרטי הצירוף</td>
+  <td>Deux personnes venant l’une après l’autre</td>
+  <td>רמב״ן — on attribue et l’on permet à chacun ; et c’est l’essentiel de la halakha (ש״ך ס״ק י״ג, י״ט)</td>
+  <td>רשב״א — sans annulation il n’y a pas de permission (ש״ך ס״ק י״ג, י״ט)</td>
 </tr>
 <tr>
-  <td>חנ״נ מול הצירוף</td>
-  <td>ש״ך/ט״ז — כאלו כבר מעורב, ולא מעכב</td>
-  <td>הראה — בטעם אין מצטרפות (ש״ך ס״ק כ)</td>
+  <td>חתיכה נעשית נבילה face au cumul</td>
+  <td>ב״ח — depuis que nous tenons חנ״נ partout, le cumul ne sert plus (ש״ך ס״ק י״ז)</td>
+  <td>ש״ך et ט״ז — on regarde le tout comme déjà mêlé, et חנ״נ n’empêche pas (ש״ך ס״ק י״ז ; ט״ז ס״ק י׳)</td>
 </tr>
 <tr>
-  <td>צירוף באדם אחד</td>
-  <td>מחבר — מצטרפות בכל ענין</td>
-  <td>רמ״א — יש מחמירין, ובהפסד מערב תחילה</td>
+  <td>Le cumul chez un seul homme</td>
+  <td>מחבר — elles se joignent, même l’une à la maison et l’autre à l’étage (ס״ז)</td>
+  <td>רמ״א — יש מחמירין ; et en cas de perte il mêle d’abord (ס״ז, ט״ז ס״ק ט׳)</td>
+</tr>
+<tr>
+  <td>Le cumul là où il y a du goût</td>
+  <td>מחבר / רשב״א — elles se joignent</td>
+  <td>רא״ה — non, lorsque l’interdit donne ou peut donner du goût (ש״ך ס״ק כ׳)</td>
+</tr>
+<tr>
+  <td>Des morceaux non reconnaissables</td>
+  <td>ש״ך — il y a איתחזק איסורא et l’on n’allège pas (ס״ק ד׳)</td>
+  <td>שער המלך — on attribue quand même, car la marmite a une ‘hazaka de permis (פ״ת ס״ק א׳)</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מקורות הסוגיא</h3>
+<h3>Tableau — les sources de la sougya</h3>
 
-<div class="rishon-card" dir="rtl">
-<strong>גמרא :</strong> יבמות פ״ב. (שתי קופות חולין ותרומה, שאני אומר תרומה לתוך תרומה) · פסחים י'. (תשע חנויות, תולין בזה אחר זה) · כתובות כ״ו. (שני בני אדם וצירוף)
+<div class="rishon-card">
+<strong>Guemara :</strong> יבמות פ״ב ע״א — les deux paniers de ‘houlin et de teroumah, d’où sort שאני אומר · פסחים י׳ ע״א — les deux sentiers et le tas de ‘hamets, d’où sort l’indulgence lorsque chacun interroge séparément · et le Chakh renvoie encore à כתובות כ״ו (ס״ק י״ט).
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>ראשונים :</strong> רש״י · תוספות · רמב״ם · המגיד משנה · רמב״ן · רשב״א (תורת הבית) · ר״ן · הראה (בדק הבית) · נמוקי יוסף · טור · בית יוסף
+<div class="rishon-card">
+<strong>Richonim nommés dans le siman :</strong> רמב״ן · רשב״א (תורת הבית הארוך והקצר) · ר״ן · רא״ה (בדק הבית) · נמוקי יוסף · רבינו שמשון · מגיד משנה · טור · בית יוסף
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>אחרונים :</strong> מרן המחבר · רמ״א · ש״ך · ט״ז · ב״ח · דרישה · פרי חדש · פרי מגדים · פתחי תשובה · שער המלך · שמן רוקח · מהרי״ש
+<div class="rishon-card">
+<strong>A’haronim nommés dans le siman :</strong> מרן המחבר · רמ״א · ש״ך · ט״ז · ב״ח · פרישה ודרישה · מהרש״ל · איסור והיתר הארוך · מהרי״ש · עטרת זהב · דרכי משה · פרי חדש · שער המלך · שמן רוקח · פתחי תשובה
 </div>
 
 <hr class="ornament">
 
-  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;direction:rtl;">
-    <a href="niveau-1-base.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">→ רמה א' — יסוד</a>
-    <a href="niveau-3-synthese.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">רמה ג' — סיכום ←</a>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;direction:ltr;">
+    <a href="niveau-1-base.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">← Niveau 1 — Base</a>
+    <a href="niveau-3-synthese.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">Niveau 3 — Synthèse →</a>
   </div>
 
 <div class="yh-watermark">
 ~ ~ ~ ~ ~<br>
-<strong>DAAT</strong> · <strong>הרב יוסף חיים סממה</strong><br>
-תלמיד חכם · מעביר שיעורים בהלכה ובחסידות<br>
-<em>פלפול ועיון בדין תולין להקל וצירוף בספק · סימן קי״א · ⚡ רמה ב' — לַמְדָּן</em>
+<strong>DAAT</strong> · <strong>Rav Yossef Haim Samama</strong><br>
+Talmid ‘hakham · cours de halakha et de ‘hassidout<br>
+<em>Pilpoul et étude sur le din de תולין להקל et le cumul dans le doute · siman קי״א · ⚡ Niveau 2 — Lamdan</em>
 </div>
 
-  <div class="disclaimer" style="background:#fff8e1;border-right:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;direction:rtl;text-align:right;">
-    ⚠️ תוכן זה נכתב לצורך לימוד ועיון בלבד. לכל הוראה למעשה (לְמַעֲשֶׂה) — שאל את רבך.
+  <div class="disclaimer" style="background:#fff8e1;border-left:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;direction:ltr;text-align:left;">
+    ⚠️ Ce contenu est écrit pour l’étude et l’approfondissement seulement. Pour toute décision pratique (לְמַעֲשֶׂה) — demande à ton Rav.
   </div>
 
   <div style="background:#1A1F3A;border-top:2px solid #C5A55A;padding:24px 40px;text-align:center;margin-top:0;">
-    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;direction:rtl;">
-      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">לעמוד הבית</a> · <a href="index.html" style="color:#C5A55A;text-decoration:none;">סימן קי״א</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ לתמיכה</a>
+    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;direction:ltr;">
+      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">Page d’accueil</a> · <a href="index.html" style="color:#C5A55A;text-decoration:none;">Siman קי״א</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ Soutenir</a>
     </p>
   </div>
 
@@ -885,7 +994,7 @@
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="../../../assets/js/chat-widget.js" defer></script>
 <script src="../../../assets/js/daat-copy.js" defer></script>
-<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="מצא חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">הצטרף לחברותא</span></a>
+<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="Trouver une ‘havrouta pour ce siman"><span class="icon">📖</span><span class="label-long">Rejoindre une ‘havrouta</span></a>
   <script src="/assets/js/share-text.js" defer></script>
 </body>
 </html>

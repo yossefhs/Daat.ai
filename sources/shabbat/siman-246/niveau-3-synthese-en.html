@@ -194,6 +194,9 @@
     .niveau-nav { flex-direction: column; gap: 0.75rem; }
   }
   @media print { .niveau-nav { display: none; } }
+    /* he-q : une locution hébraïque citée à l'intérieur d'une phrase. La classe est
+       employée partout dans le dépôt ; elle manquait à la feuille de cette page. */
+    .he-q { font-family: 'Frank Ruhl Libre', serif; direction: rtl; unicode-bidi: isolate; }
 </style>
 
 <script type="application/ld+json" data-schema="niveau-jsonld">
@@ -311,7 +314,7 @@
 <div class="lang-switcher-float" role="navigation" aria-label="Language"><a href="/oh/246/synthese">FR</a><a href="/oh/246/synthese/he">HE</a><a href="/oh/246/synthese/en" class="active">EN</a></div>
 
   <header>
-    <a href="../../../index.html" class="logo">
+    <a href="../../../index-en.html" class="logo">
       <span class="logo-he">דעת</span>
       <span class="logo-en">DAAT</span>
     </a>
@@ -320,7 +323,7 @@
 <main>
 
   <div class="breadcrumb">
-    <a href="../../../index.html">Home</a>
+    <a href="../../../index-en.html">Home</a>
     <span class="sep">›</span>
     <a href="/oh/246/">Siman רמ״ו</a>
     <span class="sep">›</span>
@@ -362,7 +365,7 @@
         <div class="timeline-item">
           <div class="timeline-author">הרמ״א — 16th c.</div>
           <div class="timeline-period">Acharonim — Krakow (Ashkenazim)</div>
-          <div class="timeline-opinion op-pesak">Confirms opinion ② and <strong>extends</strong>: forbids even <em>free lending</em> (השאלה), since nireh ke-shlucho applies even without remuneration.</div>
+          <div class="timeline-opinion op-pesak">Rules like the second opinion for <em>rental</em> — and <strong>expressly permits free lending</strong> (השאלה) on erev Shabbat: <span class="he-q">וכן עיקר כסברא האחרונה ומותר להשאיל לו בערב שבת</span> (רמ״א או״ח רמ״ו:א).</div>
         </div>
       </div>
     </div>
@@ -417,8 +420,8 @@
         </div>
         <div class="rule-card">
           <div class="rule-num">③</div>
-          <div class="rule-he">שכירות ≤ השאלה (רמ״א)</div>
-          <div class="rule-fr"><strong>Rama: even free lending is forbidden.</strong> The prohibition is not limited to rental — free lending while knowing the kli will be used on Shabbat is also forbidden.</div>
+          <div class="rule-he">השכרה אסורה · השאלה מותרת (רמ״א)</div>
+          <div class="rule-fr"><strong>Rama: free lending remains permitted.</strong> The prohibition bears on <em>renting</em> a work tool on erev Shabbat; lending is permitted, and the Mishnah Berurah states that it is permitted even for the day of Shabbat alone and even for a work tool, <em>because</em> the Jew draws no profit from it — so it is not taken for an agency.</div>
         </div>
         <div class="rule-card">
           <div class="rule-num">④</div>
@@ -440,8 +443,8 @@
             <div class="dt-branch-label">YES — I know he will use it on Shabbat</div>
             <div class="dt-result">
               <span class="result-interdit">FORBIDDEN</span> for all.<br>
-              Reason: sekhar Shabbat (rental) + nireh ke-shlucho (lending per Rama).<br>
-              <em>Do not rent or lend.</em>
+              Reason: sekhar Shabbat — it is the <em>rental</em> that is at issue.<br>
+              <em>Do not rent.</em>
             </div>
           </div>
           <div class="dt-branch no">
@@ -465,8 +468,8 @@
           <div class="dt-branch no">
             <div class="dt-branch-label">FREE LENDING (השאלה)</div>
             <div class="dt-result">
-              <strong>Sephardim:</strong> <span style="color:orange;">Dispute — some permit</span>.<br>
-              <strong>Ashkenazim (Rama):</strong> <span class="result-interdit">FORBIDDEN</span> — nireh ke-shlucho.<br>
+              <strong>Mechaber and Rama:</strong> <span class="result-permis">PERMITTED</span>, even on erev Shabbat — <span class="he-q">ולהשאיל לו מותר אפי׳ בערב שבת</span> (שו״ע) and <span class="he-q">וכן עיקר כסברא האחרונה ומותר להשאיל לו בערב שבת</span> (רמ״א).<br>
+              <strong>Mishnah Berurah ס״ק ד:</strong> permitted even for the day of Shabbat alone and even a work tool.<br>
               <span class="result-rav">In practice: consult a Rav.</span>
             </div>
           </div>
@@ -524,9 +527,9 @@
           <div class="trap-correction">✓ The date of the contract is irrelevant. What matters: does the Jew <em>know</em> at the moment of the transaction that the kli will be used on Shabbat?</div>
         </div>
         <div class="trap-card">
-          <div class="trap-title">⚠️ Pitfall 2 — "It's a free loan, therefore permitted"</div>
-          <div class="trap-text">Confusion: thinking that only paid rental is forbidden, and that free lending is always permitted.</div>
-          <div class="trap-correction">✓ For Ashkenazim (Rama): even free lending is forbidden because of nireh ke-shlucho. Sephardim are less strict, but it is still debated.</div>
+          <div class="trap-title">⚠️ Pitfall 2 — "Lending is like renting"</div>
+          <div class="trap-text">Confusion: thinking that free lending follows the rule of rental, and is forbidden on erev Shabbat.</div>
+          <div class="trap-correction">✓ Both the Mechaber and the Rama permit free lending, even on erev Shabbat; and it is precisely the absence of profit that allows it — <span class="he-q">דכיון שאין ריוח לישראל במלאכת הא״י לא יאמרו שלוחו הוא לזה וע״כ מותר להשאיל לו אפילו ליום השבת לחוד אפילו כלים שיעשה הא״י מלאכה בהן</span> (משנה ברורה ס״ק ד). What is at issue is renting a work tool.</div>
         </div>
         <div class="trap-card">
           <div class="trap-title">⚠️ Pitfall 3 — "The baraita follows Beit Shammai"</div>
@@ -556,7 +559,7 @@
       <div class="memory-box" style="background:#1E2847; margin-top:16px;">
         <div class="memory-label">The 3 reasons — mnemonic summary</div>
         <div class="memory-he">שביתה · שכר · שליח — שלוש ש׳</div>
-        <div class="memory-fr">The "three Shin": שביתת כלים (Beit Hillel/Shammai dispute), שכר שבת (main reason — rental), שלוחו = נראה כשלוחו (free lending per Rama).</div>
+        <div class="memory-fr">The "three Shin": שביתת כלים (Beit Hillel/Shammai dispute), שכר שבת (main reason — rental), שלוחו = נראה כשלוחו — the appearance of agency, which bears on rental and which free lending, drawing no profit, does not incur.</div>
       </div>
     </div>
 
@@ -674,11 +677,11 @@
       <div class="divider"></div>
       <ol style="font-size:17px; color:var(--text-mid); line-height:2; padding-left:24px;">
         <li>What is the difference between the Rambam's opinion and that of Rabbenu Yona on the Talmudic baraita?</li>
-        <li>Why does the Rama extend the prohibition to free lending while the Shulchan Aroukh mentions only rental?</li>
+        <li>Why does free lending escape the prohibition that bears on rental — and what does the Mishnah Berurah ס״ק ד say the reason is?</li>
         <li>What does "יודע" mean in this context — is certainty required or a strong presumption?</li>
         <li>What is the nafka mina between sekhar Shabbat and nireh ke-shlucho as the main reason?</li>
         <li>If I rent my apartment for a year to a non-Jew, is there a sekhar Shabbat problem for the included Shabbatot?</li>
-        <li>Do the Taz and the Magen Avraham agree on the reason for the prohibition of free lending?</li>
+        <li>Do the Taz and the Magen Avraham agree on the reason for the prohibition on renting a work tool?</li>
       </ol>
     </div>
 
@@ -701,14 +704,14 @@
 </nav>
 </main>
 <footer>
-    <p>DAAT דעת · Siman רמ״ו · Magisterial Synthesis · <a href="../../../index.html">Home</a> · <a href="../../../soutenir.html">♥ Support</a> · © 5786 — Rav Yossef Haim Samama</p>
+    <p>DAAT דעת · Siman רמ״ו · Magisterial Synthesis · <a href="../../../index-en.html">Home</a> · <a href="../../../soutenir-en.html">♥ Support</a> · © 5786 — Rav Yossef Haim Samama</p>
   </footer>
 
   <link rel="stylesheet" href="../../../assets/css/khavroutha-fab.css">
 <link rel="stylesheet" href="../../../assets/css/chat-widget.css">
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="../../../assets/js/chat-loader.js" defer></script>
-<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="Find a khavroutha for this siman"><span class="icon">📖</span><span class="label-long">Join the khavroutha</span></a>
+<a href="../../../communaute-en.html#khavroutha" class="daat-khavroutha-fab" title="Find a khavroutha for this siman"><span class="icon">📖</span><span class="label-long">Join the khavroutha</span></a>
   <script src="../../../assets/js/daat-progress.js" defer></script>
 
 <div style="text-align:center;margin:20px 0;">

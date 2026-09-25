@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,8 +23,7 @@
   @page { size: A4; margin: 2cm 1.8cm; }
   body {
     font-family: 'Frank Ruhl Libre', 'David', 'Georgia', 'Cambria', serif;
-    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0;
-    direction: rtl; text-align: right;
+    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0; text-align: left;
   }
   .he {
     direction: rtl; text-align: right;
@@ -72,14 +71,12 @@
   h2.section-title {
     color: #fff; background: #1A1F3A;
     font-size: 16pt; padding: 10px 18px; margin-top: 30px;
-    border-right: 6px solid #C5A55A;
-    direction: rtl; text-align: right;
+    border-left: 6px solid #C5A55A; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3 {
     color: #1A1F3A; font-size: 14pt; margin-top: 25px;
-    border-right: 4px solid #C5A55A; padding-right: 10px;
-    direction: rtl; text-align: right;
+    border-left: 4px solid #C5A55A; padding-left: 10px; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3.he-h3 {
@@ -89,8 +86,7 @@
   }
   h4 {
     color: #5a4a1a; font-size: 12pt;
-    margin-top: 20px; margin-bottom: 8px; font-weight: bold;
-    direction: rtl; text-align: right;
+    margin-top: 20px; margin-bottom: 8px; font-weight: bold; text-align: left;
   }
 
   .sacred-text {
@@ -100,8 +96,8 @@
     font-size: 12.5pt; line-height: 1.9;
   }
   .pilpul-box {
-    background: #eef3fa; border-right: 4px solid #1A1F3A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #eef3fa; border-left: 4px solid #1A1F3A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .pilpul-box::before {
     content: "⚡ פלפול"; display: block;
@@ -110,8 +106,8 @@
     direction: rtl; text-align: right;
   }
   .kashya-box {
-    background: #fef4e4; border-right: 4px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #fef4e4; border-left: 4px solid #C5A55A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .kashya-box::before {
     content: "❓ קושיא"; display: block;
@@ -120,8 +116,8 @@
     direction: rtl; text-align: right;
   }
   .teruts-box {
-    background: #e8f4ea; border-right: 4px solid #2d7a3e;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #e8f4ea; border-left: 4px solid #2d7a3e;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .teruts-box::before {
     content: "✓ תירוץ"; display: block;
@@ -130,8 +126,8 @@
     direction: rtl; text-align: right;
   }
   .hakira-box {
-    background: #f5e9f5; border-right: 4px solid #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #f5e9f5; border-left: 4px solid #6a1b7a;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .hakira-box::before {
     content: "🔍 חקירה"; display: block;
@@ -141,8 +137,7 @@
   }
   .nafka-mina-box {
     background: #fff4e6; border: 2px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; border-radius: 4px; text-align: left;
   }
   .nafka-mina-box::before {
     content: "⚖️ נפקא מינה"; display: block;
@@ -152,8 +147,7 @@
   }
   .yesod-box {
     background: #1A1F3A; color: #fff;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
   .yesod-box::before {
     content: "💎 יסוד"; display: block;
@@ -164,7 +158,7 @@
   .yesod-box .he-q { color: #C5A55A; }
   .machloket-box {
     background: #faf5ff; border: 1.5px dashed #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
 
   table {
@@ -173,10 +167,9 @@
   }
   th {
     background: #1A1F3A; color: #fff;
-    padding: 10px; text-align: right; direction: rtl; font-size: 11pt;
+    padding: 10px; text-align: left; font-size: 11pt;
   }
-  td {
-    direction: rtl; text-align: right;
+  td { text-align: left;
     border: 1px solid #d4c89a; padding: 10px; vertical-align: top;
   }
   tr:nth-child(even) td { background: #FAF6EE; }
@@ -197,12 +190,11 @@
   }
 
   ol.stylish li, ul.stylish li { margin-bottom: 8px; }
-  ol.stylish, ul.stylish { padding-right: 22px; padding-left: 0; }
+  ol.stylish, ul.stylish { padding-left: 22px; padding-right: 0; }
 
   .rishon-card {
-    background: #f7f3e4; border-right: 4px solid #8a6a1a;
-    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt;
-    direction: rtl; text-align: right;
+    background: #f7f3e4; border-left: 4px solid #8a6a1a;
+    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt; text-align: left;
   }
   .rishon-card strong { color: #1A1F3A; font-size: 11pt; }
 
@@ -217,10 +209,9 @@
 
   .index-box {
     background: #FAF6EE; border: 1px solid #C5A55A;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
-  .index-box ol { margin: 5px 0; padding-right: 25px; padding-left: 0; }
+  .index-box ol { margin: 5px 0; padding-left: 25px; padding-right: 0; }
   .index-box li { margin-bottom: 5px; }
 
   h3.sugya {
@@ -237,7 +228,6 @@
     font-size: 12pt;
     text-decoration: none;
     border-bottom: 1px dotted #C5A55A;
-    direction: rtl;
   }
   a.daat-explain:hover { color: #8a6a1a; border-bottom-style: solid; }
 
@@ -382,33 +372,30 @@
 <!-- COUVERTURE -->
 <div class="cover">
   <div class="ornament">✦ ❖ ✦</div>
-  <div class="badge-top">DAAT · רמה ב' — לַמְדָּן</div>
-  <h1>שולחן ערוך · יורה דעה</h1>
-  <div class="subtitle">דין פת של עכו״ם — עיון ופלפול</div>
-
-  <div class="he-title">סימן קי״ב</div>
-  <div class="he-sub">חתנות ולא פלוג, פלטר ובעל הבית, בתר תחילתו, חיתוי וקיסם, בציעה ואיבה</div>
+  <div class="badge-top">DAAT · LEVEL 2 — LAMDAN</div>
+  <h1>Siman 112 — Lamdan Level: what makes a loaf "bread of a non-Jew"</h1>
+  <div class="he-title">יורה דעה · סימן קי״ב</div>
+  <div class="he-sub">חתנות ולא פלוג · פלטר ובעל הבית · בתר תחלתו · חיתוי וקיסם · בציעה ואיבה</div>
   <div class="he-subject">עיון, פלפול, שיטות הראשונים והאחרונים</div>
 
-  <div class="level-badge">⚡ ללומדים ותלמידי חכמים ⚡</div>
+  <div class="level-badge">📜 רמת הלמדן · Talmid Hakham</div>
 
   <div class="ornament">✦ ❖ ✦</div>
 
-  <h2 style="margin-top:20px; color: #1A1F3A;">פלפול ועיון מעמיק</h2>
-  <p style="font-size:12pt; color:#555;">
-    סוגיות, מקורות, חקירת היסוד, מחלוקות ראשונים ואחרונים,<br>
-    נפקא מינות להלכה ועיון בשיטות
-  </p>
+  <div class="subtitle">Eight places in the siman where the Shakh, the Taz and the Pit'hei Teshuvah answer one another</div>
 
   <div class="credits">
-    <p><strong>הנושא :</strong><br>
-    שולחן ערוך יורה דעה סימן קי״ב (ט״ז סעיפים)<br>
-    עם נושאי כלים: ש״ך (שפתי כהן), ט״ז (טורי זהב), פרי מגדים, פתחי תשובה</p>
+    <p><strong>Subject:</strong><br>
+    שולחן ערוך יורה דעה סימן קי״ב · ט״ז סעיפים<br>
+    with its commentaries: ש״ך · ט״ז · פתחי תשובה</p>
 
-    <p><strong>יסוד הסוגיא בש״ס :</strong><br>
-    עבודה זרה ל״ה:–ל״ח. (פת של עכו״ם, חתנות, פלטר, חיתוי) · ירושלמי עבודה זרה פ״ב ה״ח (פת באתר דליכא ישראל)</p>
+    <p><strong>The sugya in the Talmud:</strong><br>
+    עבודה זרה ל״ה ע״ב (the mishnah, the motive of intermarriage, the baker and the householder) ·
+    ל״ו ע״א (Daniel and the king's bread) · ל״ח ע״א (the table of kings) ·
+    ל״ח ע״ב (Ravina's ruling on stoking the fire) ·
+    ירושלמי עבודה זרה פרק אין מעמידין</p>
 
-    <p><strong>עריכה ועיון :</strong><br>
+    <p><strong>Written by:</strong><br>
     הרב יוסף חיים סממה · DAAT</p>
   </div>
 </div>
@@ -416,491 +403,667 @@
 <div class="page-break"></div>
 
 <!-- TABLE DES MATIÈRES -->
-<h2 class="section-title">📑 תוכן העניינים</h2>
+<h2 class="section-title">📑 Table of contents</h2>
 
-<div class="index-box" dir="rtl">
+<div class="index-box">
 <ol>
-  <li><strong>הקדמת הסוגיא</strong> — איסור פת של עכו״ם מטעם חתנות, ולא פלוג (סעיף א')</li>
-  <li><strong>חמשת מיני דגן וקטנית</strong> — מאי טעמא לא אסרו אלא הדגן (סעיף א', ט״ז ס״ק ב–ג)</li>
-  <li><strong>מחלוקת פלטר ובעל הבית</strong> — שעת הדחק, ופירוש פלטר ובעה״ב (סעיפים ב'–ה')</li>
-  <li><strong>פת בעירוב ביצים, כעכים ואינפנדה</strong> — קימחא עיקר ובישול עכו״ם (סעיף ו')</li>
-  <li><strong>בתר תחילתו</strong> — אזלינן בתר שעת אפייה ולא בתר השתא (סעיף ז')</li>
-  <li><strong>היסוד הגדול — אפייה דווקא או אף לישה ?</strong> — שיטת הרמב״ם והרשב״א נגד הר״ן והטור (ש״ך ס״ק א)</li>
-  <li><strong>חיתוי, השלכת קיסם ונפיחה</strong> — היכר וביעור הפת, והכשר התנור (סעיפים ט'–י״ב)</li>
-  <li><strong>בציעה על הפת היפה, ביטול ואיבה</strong> — דבר חשוב, כותח, ועל הלחם יחיה האדם (סעיפים י״ג–ט״ז)</li>
-  <li><strong>חקירה ונפקא מינה למעשה</strong></li>
-  <li><strong>טבלאות סיכום מקיפות</strong></li>
+  <li><strong>Opening the sugya</strong> — the prohibition on bread, the motive of intermarriage, and "they drew no distinction" (seif 1)</li>
+  <li><strong>The five grains and the legumes</strong> — why the decree stops where it stops (seif 1, Taz ס״ק ב–ג, Shakh ס״ק ה)</li>
+  <li><strong>The baker and the householder</strong> — the hour of need, and what defines each of the two (seifim 2–5, and 8)</li>
+  <li><strong>Eggs, kichlech and empanada</strong> — "the flour is the main thing" and food cooked by a non-Jew (seif 6)</li>
+  <li><strong>We follow the beginning</strong> — the loaf's status is fixed at the hour of baking (seif 7)</li>
+  <li><strong>The great foundation — baking alone, or kneading too?</strong> — Rambam and Rashba against the Ran and the Tur (Shakh ס״ק א)</li>
+  <li><strong>Stoking, the chip of wood and blowing</strong> — the distinguishing mark, and readying the oven (seifim 9–12)</li>
+  <li><strong>Breaking bread on the finer loaf, nullification and enmity</strong> — a thing of importance, kutach, and "by bread does man live" (seifim 13–16)</li>
+  <li><strong>The hakirah and what follows from it</strong></li>
+  <li><strong>Summary tables</strong></li>
 </ol>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<!-- לשון השולחן ערוך — סעיף א' -->
-<h2 class="section-title">📜 לשון השולחן ערוך — סעיף א'
-  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 העתק</button>
+<h2 class="section-title">📜 The text of the Shulchan Arukh — seif 1
+  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 Copy</button>
 </h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ Detailed explanation (level 1)</a>
 
 <div class="sacred-text he" data-copy-block id="cp-1">
-  <p>אָסְרוּ חֲכָמִים לֶאֱכֹל פַּת שֶׁל עוֹבְדֵי כּוֹכָבִים מִשּׁוּם חַתְנוּת. (הגה: וַאֲפִלּוּ בִּמְקוֹם שֶׁאֵין שַׁיָּךְ חַתְנוּת — אָסוּר, דְּלֹא פְּלוּג רַבָּנָן.) וְלֹא אָסְרוּ אֶלָּא פַּת שֶׁל חֲמֵשֶׁת מִינֵי דָגָן, אֲבָל פַּת שֶׁל קִטְנִית וְשֶׁל אֹרֶז וְדֹחַן אֵינוֹ בִּכְלַל פַּת סְתָם שֶׁאָסְרוּ. (הגה: וְגַם אֵינוֹ אָסוּר מִשּׁוּם בִּשּׁוּלֵי עוֹבְדֵי כּוֹכָבִים אִם אֵינוֹ עוֹלֶה עַל שֻׁלְחַן מְלָכִים.)</p>
+  <p>דיני פת של עובדי כוכבים. ובו ט״ז סעיפים: אסרו חכמים לאכול פת של עממים עובדי כוכבים משום חתנות (ואפילו במקום דליכא משום חתנות אסור) (רשב״א סימן רמ״ח) ולא אסרו אלא פת של חמשת מיני דגן אבל פת של קטנית ושל אורז ודוחן אינו בכלל פת סתם שאסרו: הגה וגם אינו אסור משו׳ בישולי עובדי כוכבי׳ אם אינו עולה על שלחן מלכי׳ (טור וב״י בשם תשו׳ הרא״ש): <span class="source-ref">(שולחן ערוך יורה דעה קי״ב:א)</span></p>
 </div>
 
-<!-- ============================================================= -->
-<h2 class="section-title">1. הקדמת הסוגיא — איסור פת של עכו״ם מטעם חתנות</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<p><em>Translation:</em> "The laws of the bread of non-Jews, containing sixteen seifim. The Sages forbade eating the bread of non-Jewish peoples because of intermarriage <em>(gloss: and even in a place where there is no concern of intermarriage it is forbidden — Rashba §248)</em>. And they forbade only bread of the five species of grain; but bread of legumes, of rice and of millet is not included in what is called plainly 'bread' and which they forbade. <em>Gloss: and neither is it forbidden on account of food cooked by a non-Jew, if it does not come up on the table of kings.</em>"</p>
 
-<h3 class="he-h3">היסוד — טעם חתנות ולא פלוג
-  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 העתק</button>
+<!-- ============================================================= -->
+<h2 class="section-title">1. Opening the sugya — bread forbidden because of intermarriage</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ Detailed explanation (level 1)</a>
+
+<h3>The foundation — the motive of intermarriage, and "they drew no distinction"
+  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 Copy</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-2">
-יסוד הסימן: גזרו חכמים על <strong>פת של עכו״ם</strong> — והוא מן הדברים שגזרו עליהם <span class="he-q">משום חתנות</span>, היינו משום קירוב הדעת המביא לידי חיתון. ואין זה איסור שבגוף הפת, אלא גזרה <strong>הרחקה</strong>, שלא יבוא הישראל לאכול עמו ולהתחתן בו. ולפיכך, אף שהוא איסור דרבנן הקל, נגעו בו טובא, וכל פרטיו סובבים על שני צירים: <span class="he-q">עד כמה התפשטה הגזרה</span> (פלטר, בעל הבית, מקום שאין נחתום), ו<span class="he-q">מתי נחשבת הפת "פת ישראל"</span> (חיתוי, קיסם, השתתפות הישראל).
+<div class="sacred-text" data-copy-block id="cp-2">
+The foundation of the siman: the Sages decreed against the <strong>bread of non-Jews</strong>, and it belongs to the prohibitions they enacted <em>because of intermarriage</em> — <span class="he-q">חתנות</span> — that is, because of the closeness of mind that leads to marriage. This is therefore not a prohibition lodged in the substance of the bread, but a decree of <strong>distancing</strong>, so that a Jew should not come to eat with him and marry into his family. And because that is so, the whole siman turns on two axes: <em>how far did the decree spread</em> — the baker, the householder, a place with no Jewish baker — and <em>by what act does the loaf become a Jew's bread</em> — the stoking, the chip of wood, the Jew's participation.
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>חידוש הרמ״א — "לא פלוג" :</strong> מוסיף הרמ״א ש<em>אף במקום שאין שייך חתנות</em> — כגון פת של כומר שאינו בא לידי חיתון — <strong>אסור</strong>, ד<span class="he-q">לא פלוג רבנן</span>. וכבר עמד הט״ז (ס״ק א) על כך: כיון שגוף הגזרה משום חתנות, הוה אמינא דהיכא דליכא חתנות לישתרי; קמ״ל דלא חילקו חכמים, ואסרו את הפת בכל ענין, ואפילו כהנים עכו״ם שאין להם בנים — אסור, דלא פלוג.
+<div class="pilpul-box">
+<strong>The Rama's gloss — "they drew no distinction."</strong> The Rama adds that even where intermarriage is not at issue the bread remains forbidden. The Taz at once supplies the textbook case and the reason:
+<blockquote>«&nbsp;<span class="he-q">כגון שאין לו בנים דלא פלוג רבנן</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ב ס״ק א)</span></blockquote>
+The Shakh names the same case and goes back to the Rashba to say why the concern is not in fact extinguished: it was never the daughter of the seller that was spoken of.
+<blockquote>«&nbsp;<span class="he-q">כגון פת הכומרים שאין להם בנים אסור</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ב ס״ק ד)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דלא משום בתו של מוכר או נותן אמרו אלא משום בנות עובדי כוכבים שאם אין לזה יש לזה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ב ס״ק ד)</span></blockquote>
+The lamdan's argument lies in that gap: if the decree is motivated, one would expect it to lapse where the motive is absent; if it is a general distancing, it holds everywhere. The Taz and the Shakh each answer in their own way — the first by the formal principle (<span class="he-q">דלא פלוג רבנן</span>), the second by showing that the motive itself has not disappeared.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>פת ובישולי עכו״ם — שתי גזרות (הגה השנייה) :</strong> מסיים הרמ״א ד<span class="he-q">קטנית ואורז ודוחן</span> — אף שאינם בכלל "פת" שאסרו — <strong>גם אינם אסורים משום בישולי עכו״ם</strong> אם אינם עולים על שלחן מלכים. הרי לפנינו שתי גזרות נפרדות: גזרת <em>פת</em> (דווקא חמשת מיני דגן, משום חתנות) וגזרת <em>בישולי עכו״ם</em> (דווקא העולה על שלחן מלכים ונאכל כמות שהוא חי לא נאכל — סימן קי״ג). ופת קטנית אינה נכנסת בשתיהן.
-</div>
-
-<!-- ============================================================= -->
-<h2 class="section-title">2. חמשת מיני דגן וקטנית — מאי טעמא</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
-
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">דקדוק לשון המחבר "לא אסרו אלא פת של חמשת מיני דגן" — וחקירת טעמו.</p>
-
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — מדוע דווקא חמשת מיני דגן :</strong> אם עיקר הגזרה משום חתנות וקירוב הדעת, מה לי פת חיטים מה לי פת אורז ? ולמה צמצמו חכמים את הגזרה לחמשת המינים בלבד ?
-</div>
-
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ הט״ז (ס״ק ב–ג) — חשיבות הפת :</strong> מבאר הט״ז דעיקר קירוב הדעת ב<strong>דבר חשוב</strong>, והוא הפת של חמשת מיני דגן — שעליה מברכין <span class="he-q">המוציא לחם מן הארץ</span> והיא "סעודת קבע". אבל
-<ul class="stylish">
-<li><strong>קטנית, אורז ודוחן</strong> — אין עליהם תורת לחם גמור (ברכתם בורא מיני מזונות ולא המוציא), ואינם <em>עולים על שלחן מלכים</em> בתורת פת — ועל כן לא נכנסו בגזרה.</li>
-<li><strong>חמשת מיני דגן</strong> — דבר חשוב הוא, ומביא לידי קירוב הדעת, ובו דווקא גזרו.</li>
-</ul>
-</div>
-
-<div class="pilpul-box" dir="rtl">
-<strong>שורש הענין :</strong> נמצא שגדר הגזרה אינו "כל מאכל של עכו״ם" אלא דווקא ה<span class="he-q">דבר החשוב</span> המביא קירוב דעת. ומכאן יסוד גדול לכל הסימן: כל הקולות שבפלטר נובעות מאותו שורש — שאין כאן איסור עצמי בגוף הפת אלא הרחקה, ולפיכך במקום צורך (שעת הדחק, פלטר, פת יפה) הקלו.
+<div class="rishon-card">
+<strong>Two separate decrees, not one (the second gloss of seif 1).</strong> The Rama concludes that bread of legumes, rice and millet is not caught by the prohibition of food cooked by a non-Jew either, if it does not come up on the table of kings:
+<blockquote>«&nbsp;<span class="he-q">וגם אינו אסור משו׳ בישולי עובדי כוכבי׳ אם אינו עולה על שלחן מלכי׳</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד קי״ב:א)</span></blockquote>
+We therefore have before us <strong>two separate decrees</strong>: that of <em>bread</em>, which aims precisely at the five grains and whose motive is intermarriage, and that of <em>cooked food</em>, which aims at what comes up on the table of kings and is not eaten raw (siman 113). Bread of legumes falls into neither. The Shakh, in passing, sets aside a third concern one might have raised here, that of the vessels:
+<blockquote>«&nbsp;<span class="he-q">אבל משום געולי עובדי כוכבים ליכא למיחש דסתם כליהם אינן בני יומן</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ב ס״ק ג)</span></blockquote>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">3. מחלוקת פלטר ובעל הבית</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">2. The five grains and the legumes — why the decree stops there</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיפים ב'–ה')
-  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 העתק</button>
+<p style="margin:15px 0; font-style:italic;">A close reading of the Mehaber's words — "they forbade only bread of the five species of grain" — and a search for its reason.</p>
+
+<div class="hakira-box">
+<strong>The hakirah — why precisely the five grains?</strong> If the ground of the decree is intermarriage and the closeness of mind it brings, what difference is there between wheat bread and rice bread? Why did the Sages narrow the decree to the <span class="he-q">חמשת מיני דגן</span> alone?
+</div>
+
+<div class="teruts-box">
+<strong>The Taz's answer (ס״ק ב) — the standing of bread.</strong> The Taz holds that closeness of mind is born of a thing <em>that counts</em>, and he says it in seven words:
+<blockquote>«&nbsp;<span class="he-q">שזהו דבר חשוב ומביא לידי קירוב דעת</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ב ס״ק ב)</span></blockquote>
+Bread of the five grains is that thing; legumes, rice and millet are not. The Taz adds, on the second gloss, that the question whether they come up on the table of kings does not even arise:
+<blockquote>«&nbsp;<span class="he-q">משמע דמסתמא א״צ שאלה על זה אם עולה על שלחן מלכים אלא בודאי אינו עולה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ב ס״ק ג)</span></blockquote>
+</div>
+
+<div class="pilpul-box">
+<strong>The Shakh (ס״ק ה) — the Bach disputes the wording, not the outcome.</strong> The Shakh brings the Bayit Chadash's objection: there is no doubt at all that bread of legumes, rice or millet does not come up on the table of kings; the qualification of the Rosh, from which this gloss comes, concerned a <em>dish</em> of rice or millet, where there is room to distinguish.
+<blockquote>«&nbsp;<span class="he-q">דאין ספק דפת קטנית ואורז ודוחן אינו עולה על שולחן מלכים</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ב ס״ק ה)</span></blockquote>
+<strong>The root of the matter.</strong> It follows that the field of the decree is not "any food of a non-Jew" but the thing of importance that brings closeness of mind. And from there a foundation for the whole siman: the leniencies about the baker all come out of the same root — there is no prohibition proper to the substance of the bread here, only a distancing; which is why, where there is need, they eased.
+</div>
+
+<!-- ============================================================= -->
+<h2 class="section-title">3. The baker and the householder</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
+
+<h3>The text of the Mehaber and the Rama (seifim 2 to 5)
+  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-3">
-"<strong>יש מקומות שנהגו להקל ולקנות פת של פלטר (נחתום) עכו״ם במקום שאין פלטר ישראל, מפני שהוא שעת הדחק</strong> (ויש אומרים דאפילו במקום שפת ישראל מצוי — שרי); <strong>אבל פת של בעלי בתים — לא נהגו בו היתר, דעיקר הגזרה משום חתנות, ואכילת פת בעל הבית מביאה לסעוד אצלו</strong> (הגה: ואין נקרא 'פת בעל הבית' אלא מה שעשה לבני ביתו; אבל מה שעשה למכור — נקרא 'פלטר', אף שאין דרכו בכך; ופלטר שעשה לעצמו — נקרא 'בעל הבית'). <strong>ויש מי שאומר שפלטר שזימן ישראל אצלו — פתו כפת בעל הבית. ובמקום שאין פלטר ישראל מצוי — אם בא פלטר ישראל, נאסר פת הפלטר עכו״ם עד שימכור הישראל פתו, וכשיכלה פת ישראל — חוזר פת העכו״ם להיתרו. ויש אומרים שאם יש לו פת ישראל, או פלטר עכו״ם העושה פת יפה יותר או ממין אחר שאין לפלטר ישראל — מותר לקנות מן הפלטר עכו״ם, דכיון שמחבב פת זה הרי הוא כדחוקה לו.</strong>"
+  <p>יש מקומות שמקילין בדבר ולוקחים פת מנחתום העובד כוכבים במקום שאין שם נחתום ישראל מפני שהיא שעת הדחק (וי״א דאפילו במקום שפת ישראל מצוי שרי) (ב״י לדעת המרדכי וסמ״ק והג״א ומהרא״י ואו״ה ריש כלל מ״ד) אבל פת של בעלי בתים אין שם מי שמורה בה להקל שעיקר הגזרה משום חתנות ואם יאכל פת בעלי בתים יבא לסעוד אצלם: הגה ולא מיקרי פת בעל הבית אלא אם עשאו לבני ביתו אבל עשאו למכור מיקרי פלטר אע״פ שאין דרכו בכך וכן פלטר שעשאו לעצמו מיקרי בעל הבית (כך משמע בב״י): <span class="source-ref">(שולחן ערוך יורה דעה קי״ב:ב)</span></p>
+  <p>יש מי שאומר שאם פלטר הזמין ישראל הרי פתו כפת בעל הבית: <span class="source-ref">(שולחן ערוך יורה דעה קי״ב:ג)</span></p>
+  <p>מקום שאין פלטר ישראל מצוי לדעת המתירין ליקח פת מפלטר עובד כוכבים אם הגיע שם פלטר ישראל הרי פת פלטר עובד כוכבים אסורה עד שימכור פלטר ישראל פתו ולאחר שכלה פת ישראל חוזר פתו של עובד כוכבים להכשירו: <span class="source-ref">(שולחן ערוך יורה דעה קי״ב:ד)</span></p>
+  <p>יש אומרים שמי שיש בידו פת או שיש פלטר ישראל ויש פלטר עובד כוכבים עושה פת יפה ממנו או ממין אחר שאין בידו של פלטר ישראל מותר לקנות מפלטר עובד כוכבים במקום שנהגו היתר בפת של פלטר דכיון דדעתו נוחה יותר בפת פלטר זה מפני חשיבותו בעיניו ה״ז בפת דחוקה לו: <span class="source-ref">(שולחן ערוך יורה דעה קי״ב:ה)</span></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — שני צירי הקולא :</strong><br>
-הגזרה משום חתנות התפשטה אל <span class="he-q">פת בעל הבית</span> — שהיא המביאה ממש לסעוד אצלו ולהתחתן; אבל <span class="he-q">פת פלטר</span> (נחתום המוכר לכל) אינה דרך קירוב, ובה הקלו במקום הדחק. ומכאן שני קני־מידה:<br><br>
-• <strong>היעד</strong> — מה שעשה <em>למכור</em> נקרא פלטר (אף בעה״ב שמכר); מה שעשה <em>לבני ביתו</em> נקרא בעל הבית (אף נחתום שאפה לעצמו).<br>
-• <strong>הדחק</strong> — היכא דליכא פלטר ישראל, הקלו בפלטר עכו״ם; ויש מקילין אף במקום שפת ישראל מצוי.
+<p><em>Translation of seif 2:</em> "There are places where they are lenient in the matter and take bread from the non-Jewish baker where there is no Jewish baker, because it is an hour of need <em>(and there are those who say that even where Jewish bread is to be had it is permitted)</em>. But the bread of householders — there is no one who rules leniently on it, for the ground of the decree is intermarriage, and if he eats the bread of householders he will come to dine with them. <em>Gloss: and nothing is called 'householder's bread' except what he made for the members of his household; but what he made in order to sell is called 'baker's', even if that is not his practice; and likewise a baker who made bread for himself is called a householder.</em>"</p>
+
+<p><em>Translation of seif 3:</em> "There is one who says that if the baker invited the Jew, his bread is like the bread of a householder."</p>
+
+<p><em>Translation of seif 4:</em> "A place where no Jewish baker is to be found, according to those who permit taking bread from a non-Jewish baker: if a Jewish baker arrives there, the bread of the non-Jewish baker is forbidden until the Jewish baker has sold his bread; and once the Jewish bread is exhausted, the non-Jew's bread returns to its permitted state."</p>
+
+<p><em>Translation of seif 5:</em> "There are those who say that one who has bread in hand, or where there is a Jewish baker and there is a non-Jewish baker who makes finer bread than his, or of another kind that the Jewish baker does not have — he is permitted to buy from the non-Jewish baker, in a place where the practice is to permit a baker's bread; for since his mind inclines more to that bread, on account of its standing in his eyes, he is as one for whom bread is scarce."</p>
+
+<div class="yesod-box">
+<strong>The foundation — two measures, not one.</strong><br>
+The decree grounded in intermarriage extended to <span class="he-q">פת בעל הבית</span>, which truly leads to dining at his table; a baker's bread, sold to all comers, is no path of closeness, and that is where they eased in the hour of need. Hence two criteria, which the Rama keeps sharply apart:<br><br>
+• <strong>The destination</strong> — what was made <em>to sell</em> is called baker's (even a householder's); what was made <em>for one's own</em> is called householder's (even a baker's).<br>
+• <strong>The need</strong> — where there is no Jewish baker they eased on the non-Jewish baker; and there are those who ease even where Jewish bread is to be had.
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>מחלוקת מקום הדחק — הצריך אין פלטר ישראל ? :</strong>
+<div class="machloket-box">
+<strong>How far does the leniency on the baker reach?</strong>
 <table>
-<tr><th>שיטה</th><th>פלטר עכו״ם</th><th>מקור</th></tr>
+<tr><th>Opinion</th><th>The non-Jewish baker's bread</th><th>Source</th></tr>
 <tr>
-  <td><strong>דעה ראשונה (סתם)</strong></td>
-  <td>מותר <strong>דווקא במקום שאין פלטר ישראל</strong> — דשעת הדחק היא</td>
-  <td>מחבר ס״ב</td>
+  <td><strong>First (anonymous) opinion</strong></td>
+  <td>Permitted <strong>only where there is no Jewish baker</strong> — that is an hour of need</td>
+  <td>Mehaber, seif 2</td>
 </tr>
 <tr>
-  <td><strong>יש אומרים</strong></td>
-  <td>מותר <strong>אף במקום שפת ישראל מצוי</strong></td>
-  <td>מחבר ס״ב; ש״ך ס״ק ו–ז</td>
+  <td><strong>"There are those who say" (Rama)</strong></td>
+  <td>Permitted <strong>even where Jewish bread is to be had</strong></td>
+  <td>Rama, seif 2; Shakh ס״ק ח–ט</td>
 </tr>
 </table>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>ביאור הש״ך (ס״ק ו–ט) — התפשטות הגזרה :</strong> מאריך הש״ך (ועיין מרדכי וירושלמי פרק אין מעמידין) דעיקר הגזרה היא ש<span class="he-q">לא נתפשטה בכל ישראל בשווה</span> — יש מקומות שלא קיבלו עליהם איסור פלטר כלל, ויש שקיבלו רק היכא דליכא פלטר ישראל. ועל כן כתב הרמ״א דהמנהג להקל בפלטר; ומכל מקום <strong>בעשרת ימי תשובה</strong> נהגו להחמיר אף בפלטר (ש״ך ס״ק ט, ועיין או״ח תר״ג), משום שאז ראוי להוסיף קדושה.
+<div class="pilpul-box">
+<strong>The root of the disagreement — the decree did not spread everywhere alike.</strong> The Taz gives the reason in one line:
+<blockquote>«&nbsp;<span class="he-q">לפי שגזירת הפת לא נתפשט בכל המקומות בשעה שגזרו עליה בימי התנאים</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ב ס״ק ד)</span></blockquote>
+The Shakh develops it from the Mordechai, and draws a consequence the Taz does not draw: if in those places the prohibition never took hold at all, then <em>even the bread of householders</em> would be permitted there.
+<blockquote>«&nbsp;<span class="he-q">לפי שפת של עובד כוכבים לא פשט איסורו בכל ישראל</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ב ס״ק ח)</span></blockquote>
+Against that he sets the Yerushalmi, which forbids the bread of householders: those authorities hold that the prohibition did spread everywhere, and that it was only afterwards that the non-Jewish baker was permitted again where there is no Jewish baker, for the sake of sustenance.
+<blockquote>«&nbsp;<span class="he-q">אלא דחזרו והתירו משום חיי נפש פלטר עובד כוכבים היכא דליכא פלטר ישראל</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ב ס״ק ח)</span></blockquote>
+And he closes by noting that the Issur veHeter, the Rama and the Ateret Zahav hold that even those whose practice is to permit a baker's bread remain forbidden in the bread of householders. The Shakh had already given that reason of sustenance at his ס״ק ו, distinguishing bread from the cooked foods of siman 113:
+<blockquote>«&nbsp;<span class="he-q">דעל הפת יחיה האדם ושייך ביה טעמא דירושלמי דחיי נפש</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ב ס״ק ו)</span></blockquote>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>פת יפה / ממין אחר (סעיף ה') :</strong> אף לשיטת המחמירים, אם פת הפלטר עכו״ם <span class="he-q">יפה יותר</span> או <em>ממין אחר</em> שאין לפלטר ישראל — מותר ליטול ממנו (במקום שנהגו היתר בפלטר), <strong>דכיון שמחבב פת זה הרי הוא כדחוקה לו</strong> — ושעת הדחק כאן אינה חוסר פת אלא חוסר הפת הרצויה לו. ובא פלטר ישראל למקום שלא היה — נאסר פת העכו״ם <em>עד שימכור הישראל</em>, וכשיכלה — חוזר להיתרו (סעיף ד').
+<div class="rishon-card">
+<strong>What the Shakh adds to the practice (ס״ק ט).</strong> He reports the widespread practice of leniency on the baker, and at once sets two limits to it. The first is seasonal:
+<blockquote>«&nbsp;<span class="he-q">דבי׳ ימי התשובה יש ליזהר בפת של עובדי כוכבים וכן נתבאר בא״ח סימן תר״ב ס״ב</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ב ס״ק ט)</span></blockquote>
+<em>A note on the reference:</em> the cross-reference is to <strong>Orach Chaim 602:2</strong>, as the Shakh himself writes. The second limit holds all year round:
+<blockquote>«&nbsp;<span class="he-q">מיהו נראה דיש ליזהר אף כל ימות השנה שלא ליקח פת של עובד כוכבים מן הפלטר היכא דיש פלטר ישראל</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ב ס״ק ט)</span></blockquote>
+— except where the non-Jew's bread is finer, which seif 5 permits.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>פלטר שזימן ישראל (סעיף ג') :</strong> "יש מי שאומר" — פלטר שזימן את הישראל אצלו לאכול, <span class="he-q">פתו כפת בעל הבית</span>, שהרי כאן יש קירוב הדעת ממש (סעודה משותפת), והוא עיקר טעם החתנות. הרי שגדר "פלטר" אינו במעמדו של האופה בלבד אלא ב<em>אופן</em> שהפת באה לידי הישראל.
+<div class="rishon-card">
+<strong>The finer bread, and the Jewish baker who arrives (seifim 5 and 4).</strong> At seif 5 the Mehaber gives the reason for the leniency, and it is remarkable: the need here is not the absence of bread but the absence of the bread <em>he wants</em>.
+<blockquote>«&nbsp;<span class="he-q">דכיון דדעתו נוחה יותר בפת פלטר זה מפני חשיבותו בעיניו ה״ז בפת דחוקה לו</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״ב:ה)</span></blockquote>
+And at seif 4: if a Jewish baker arrives where there was none, the non-Jew's bread is forbidden until the Jew has sold his own. The Shakh (ס״ק י״ג) marks a doubt here, and resolves it towards leniency:
+<blockquote>«&nbsp;<span class="he-q">אבל אם לקחו כבר הישראל בהיתר לא כתב דאסור ונראה דשרי</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ב ס״ק י״ג)</span></blockquote>
 </div>
+
+<div class="rishon-card">
+<strong>The baker who invites (seif 3), and the baker who bakes for himself.</strong> The Mehaber reports in the name of "there is one who says" that the bread of a baker who invited the Jew to his house is like a householder's bread — for there is real closeness there, which is the very motive of the decree. The Shakh (ס״ק י״א) illuminates the converse case, the baker who bakes for himself:
+<blockquote>«&nbsp;<span class="he-q">אפילו קבוע ומומחה לרבים כל שעשאו לעצמו איכא משום איקרובי דעתא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ב ס״ק י״א)</span></blockquote>
+The status of "baker," then, does not follow the man's trade but the <em>manner</em> in which the bread reaches the Jew.
+</div>
+
+<div class="rishon-card">
+<strong>A place with no baker at all (seif 8).</strong> The Mehaber reports a single opinion that permits even the bread of householders there:
+<blockquote>«&nbsp;<span class="he-q">יש מי שאומר דבמקום שאין פלטר מצוי כלל מותר אפי׳ של בעלי הבתים</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״ב:ח)</span></blockquote>
+And the Rama adds that the practice follows that opinion:
+<blockquote>«&nbsp;<span class="he-q">וא״צ להמתין על פת כשר וכן נוהגין</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד קי״ב:ח)</span></blockquote>
+It is to this seif that the Shakh (ס״ק י) refers when he says that the stringency of seif 2 on the bread of householders is the Rambam's position, and that it is not how we rule:
+<blockquote>«&nbsp;<span class="he-q">זהו דעת הרמב״ם אבל אנן לא קי״ל הכי כדלקמן ס״ח</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ב ס״ק י)</span></blockquote>
+</div>
+
+<div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">4. פת בעירוב ביצים, כעכים ואינפנדה</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">4. Eggs, kichlech and empanada</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ו')
-  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 העתק</button>
+<h3>The text of the Mehaber and the Rama (seif 6)
+  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-4">
-"<strong>במקום שנהגו היתר בפת פלטר — אף שנילושה בביצים או שטחו ביצים על פניה, מותר. אבל אינפנדה (פת ממולאת) שאפאה עכו״ם — הפת שסביבה אסורה (עיין סימן קי״ג).</strong> (הגה: ויש אוסרים פת שטחו ביצים על פניה, מפני שהן בעין ואין מתבטלות בפת, ויש בהן משום בישולי עכו״ם; וכן נוהגין. והנילושים הנקראים קיכלי״ך, או המתיקה הנקראת לעקו״ך — הרי הן בכלל פת, ובמקום שפת העכו״ם מותר אף הם מותרים בלא בישול עכו״ם; ומקצת קיכלי״ך הנאפים על ברזל הטוח בחֵלֶב או בחלב — יש ליזהר ולאוסרם, וכן נוהגין.)"
+  <p>במקום שנהגו היתר בפת של פלטר אפי׳ הוא נלוש בביצים או שביצים טוחים על פניו מותר אבל אינפנ״דה שאפאה עובד כוכבים אסור לאכול מהפת שלה (ע״ל סימן קי״ג ס״ג): הגה ויש אוסרים בפת שביצים טוחים על פניו משום שהן בעין ואינם בטלים לגבי פת ויש בהם משום בשולי עובד כוכבים (תוספות וסמ״ג והגהות אשיר״י וארוך ומרדכי פא״ט וסמ״ק סי׳ ר״ז) וכן נוהגין) ואותן נילו״ש שקורין קיכלי״ך או מיני מתיקה שקורין לעקו״ך הם בכלל פת ובמקום שנוהגין היתר בפת של עובד כוכבים גם הם מותרים ולא אמרינן שיש בהם משום בשולי עובד כוכבים ויש מיני נילו״ש שקורין קיכלי״ך שאופין אותם על ברזלים ומושחים הברזל בשעת אפייה בחלב או חזיר באותן יש ליזהר ולאסרן וכן המנהג (מהרא״י בהגהת ש״ד ואגור בשם ר״י מפרי״ש): <span class="source-ref">(שולחן ערוך יורה דעה קי״ב:ו)</span></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — קימחא עיקר :</strong><br>
-כל אלו — פת בעירוב ביצים, כעכים (קיכלי״ך) ועוגות (לעקו״ך) — <span class="he-q">קימחא עיקר</span>, היינו עיקרם קמח ותורת פת עליהם (ברכתם המוציא או מזונות מחמת לחם). ולפיכך, במקום שנהגו היתר בפת פלטר — אף הם בכלל ההיתר, <strong>ואין בהם משום בישולי עכו״ם</strong>, דבטלי לגבי הפת. וזהו לשון הט״ז (ס״ק ה–ו): הביצים <span class="he-q">טפלים לפת</span>, וקיכלי״ך — כיון דמברכין עליהם המוציא, דין פת להם.
+<p><em>Translation:</em> "In a place where the practice is to permit a baker's bread, even if it was kneaded with eggs or eggs are smeared on its surface — it is permitted. But an empanada baked by a non-Jew — it is forbidden to eat the bread surrounding it (see below §113:3). <em>Gloss: and there are those who forbid bread with eggs smeared on its surface, because they are there in their own substance and are not nullified in the bread, and there is in them the matter of food cooked by a non-Jew — and so we do. And those doughs called kichlech, or the sweets called lekach, are in the category of bread, and in a place where the practice is to permit the bread of a non-Jew they too are permitted, and we do not say that there is in them the matter of food cooked by a non-Jew. And there are kichlech baked on irons, the iron being greased at the time of baking with fat or with pork: of those one must beware and forbid them, and such is the practice.</em>"</p>
+
+<div class="yesod-box">
+<strong>The foundation — "the flour is the main thing."</strong><br>
+All of these — bread kneaded with eggs, <span class="he-q">קיכלי״ך</span> and <span class="he-q">לעקו״ך</span> — have flour as their main substance and carry the status of bread. The Shakh says so while setting aside one by one the three concerns one might raise about the eggs, and he ends on the word that decides:
+<blockquote>«&nbsp;<span class="he-q">ואי משום בשולי עובדי כוכבים דאסור בביצים לקמן סי׳ קי״ג ס״ד קימחא עיקר</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ב ס״ק ט״ו)</span></blockquote>
+The Taz gives the same thing in another form, that of subordination:
+<blockquote>«&nbsp;<span class="he-q">כיון שהפת מותר הביצים טפלים לו</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ב ס״ק ה)</span></blockquote>
+And for the kichlech he gives the criterion of the blessing:
+<blockquote>«&nbsp;<span class="he-q">כיון דאי קבע עלייהו סעודה מברך המוציא ע״כ דינם כפת ממש</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ב ס״ק ו)</span></blockquote>
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>מחלוקת ביצים — נילוש בעיסה לעומת טוח על פניה :</strong>
+<div class="machloket-box">
+<strong>The eggs: kneaded into the dough, or smeared on the surface?</strong>
 <table>
-<tr><th>אופן</th><th>הדין</th><th>מקור</th></tr>
+<tr><th>Case</th><th>The ruling</th><th>Source</th></tr>
 <tr>
-  <td><strong>ביצים נילושות בעיסה</strong></td>
-  <td>בטלות בפת → מותר (קימחא עיקר)</td>
-  <td>מחבר ס״ו; ש״ך ס״ק ט״ו</td>
+  <td><strong>Eggs kneaded into the dough</strong></td>
+  <td>They are nullified in the bread → permitted (the flour is the main thing)</td>
+  <td>Mehaber, seif 6; Shakh ס״ק ט״ו</td>
 </tr>
 <tr>
-  <td><strong>ביצים טוחות על פניה (בעין)</strong></td>
-  <td>יש אוסרים — בעין הן ולא בטלי, ויש בישול עכו״ם; "וכן נוהגין" (רמ״א)</td>
-  <td>רמ״א ס״ו; ט״ז</td>
+  <td><strong>Eggs smeared on the surface (in their own substance)</strong></td>
+  <td>There are those who forbid — they are there in their own substance and are not nullified, and there is in them the matter of food cooked by a non-Jew; "and so we do" (Rama)</td>
+  <td>Rama, seif 6; Shakh ס״ק י״ז</td>
 </tr>
 </table>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>אינפנדה וברזל הטוח (סעיף ו') :</strong> <span class="he-q">אינפנדה</span> (פת ממולאת בשר או דגים) שאפאה עכו״ם — אף הפת שסביבה אסורה, שהרי המילוי בישולי עכו״ם הוא ובלע בפת (ושם דין שלקות, סימן קי״ג:ג). וכן <span class="he-q">קיכלי״ך הנאפים על ברזל הטוח בחֵלֶב או בבשר־חזיר</span> — יש ליזהר ולאוסרם, דהשומן האסור נבלע, ואין כאן ביטול. ומסיים הרמ״א "וכן נוהגין".
+<div class="rishon-card">
+<strong>Why the Rama's stringency holds (Shakh ס״ק י״ז).</strong> The Shakh grounds it in the comparison with cooked foods, on which no place ever had a lenient practice:
+<blockquote>«&nbsp;<span class="he-q">ודמי לשלקות דלא נהגו היתר בשום מקום</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ב ס״ק י״ז)</span></blockquote>
+It is the same argument that, turned around, produced the leniency on bread at his ס״ק ו: bread touches on sustenance, cooked food does not. That is how one and the same page can be lenient on one side and stringent on the other.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הש״ך (ס״ק ט״ו) :</strong> מדקדק שאין חוששין בביצים אלו <span class="he-q">לדם</span> ולא ל<em>ביצים טמאות</em>, שרובן אינן טמאות, וכל שעיקרו קמח — <strong>קימחא עיקר</strong> ואזלינן בתריה. ולמדנו שגדר הביטול כאן אינו ששים גרידא אלא <em>טפלות</em> — הביצה טפלה לקמח שהוא העיקר.
+<div class="rishon-card">
+<strong>The empanada and the greased iron (seif 6).</strong> The Mehaber forbids the bread surrounding the <span class="he-q">אינפנ״דה</span>: the filling is food cooked by a non-Jew and has been absorbed into the dough — and he himself refers to siman 113:3. The Rama adds the kichlech baked on an iron greased with fat or pork:
+<blockquote>«&nbsp;<span class="he-q">שאופין אותם על ברזלים ומושחים הברזל בשעת אפייה בחלב או חזיר באותן יש ליזהר ולאסרן וכן המנהג</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד קי״ב:ו)</span></blockquote>
+And the Shakh (ס״ק י״ח) bounds in passing what the word "kichlech" covers:
+<blockquote>«&nbsp;<span class="he-q">דוקא שבלילתן עבה ויש בהן תואר לחם</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ב ס״ק י״ח)</span></blockquote>
+</div>
+
+<div class="rishon-card">
+<strong>What the Shakh sets aside, and what he does not (ס״ק ט״ו).</strong> On the eggs he begins by removing the concern of blood:
+<blockquote>«&nbsp;<span class="he-q">אי משום דם רוב ביצים אין בהם דם</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ב ס״ק ט״ו)</span></blockquote>
+— most eggs contain none (siman 66:8), and eggs of an unclean bird are not found among us (siman 86:2). We learn from this that the nullification at issue here is not that of one-in-sixty but that of <em>subordination</em>: the egg is ancillary to the flour, which is the main thing.
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">5. בתר תחילתו — אזלינן בתר שעת אפייה</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">5. We follow the beginning — the hour of baking</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיף ז' רישא)
-  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 העתק</button>
+<h3>The text of the Mehaber (seif 7)
+  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-5">
-"<strong>פת של בעל הבית — אסורה לעולם, אף אם לקחה הפלטר ממנו, ואף אם נשלחה לבית ישראל, ואף אם שלחהּ ישראל לישראל אחר. ופת של פלטר — מותרת לעולם, אף אם לקחהּ בעל הבית ממנו. שאין הולכין בזה האיסור אחר מי שהפת בידו עתה, אלא אחר מי שהיתה בידו בשעת אפייה.</strong>"
+  <p>פת בעה״ב אסורה לעולם אפילו קנאה פלטר ממנו ואפילו שלחה לישראל לביתו וכן אפי׳ שלחה אותה ישראל לאחר אסורה לעולם ושל פלטר מותרת לעולם אפי׳ קנאה בעה״ב ממנו שלא הלכו באיסור זה אחר מי שהפת בידו עכשיו אלא אחר מי שהיה לו בשעת אפייה: <span class="source-ref">(שולחן ערוך יורה דעה קי״ב:ז)</span></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — בתר תחילתו ולא בתר השתא :</strong><br>
-חידוש גדול: בכל איסור תערובות אזלינן בתר ה<em>מצב עתה</em>; אבל בפת עכו״ם — <span class="he-q">בתר תחילתו</span>, היינו בתר שעת האפייה. נמצא שמעמד הפת (פלטר או בעל הבית) <strong>נקבע ונחתם בשעת האפייה</strong>, ושוב אינו משתנה ביד מי שהיא עתה. פת בעה״ב שנמכרה לפלטר — אסורה לעולם; פת פלטר שלקחה בעה״ב — מותרת לעולם.
+<p><em>Translation:</em> "A householder's bread is forbidden for ever, even if a baker bought it from him, even if he sent it to a Jew's house, and likewise even if a Jew sent it to another: forbidden for ever. And a baker's bread is permitted for ever, even if a householder bought it from him. For in this prohibition they did not follow the one who has the bread in hand now, but the one who had it at the hour of baking."</p>
+
+<div class="yesod-box">
+<strong>The foundation — we follow the beginning, not the present state.</strong><br>
+In the prohibitions of mixtures we ordinarily follow the <em>present</em> state; here, <span class="he-q">בתר תחלתו</span> — we follow the hour of baking. The loaf's status, baker's or householder's, is fixed and sealed then, and no longer changes with the hand that holds it. The Mehaber says so himself in so many words:
+<blockquote>«&nbsp;<span class="he-q">שלא הלכו באיסור זה אחר מי שהפת בידו עכשיו אלא אחר מי שהיה לו בשעת אפייה</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״ב:ז)</span></blockquote>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שורש החקירה — מהו "בתר תחילתו" (רא״ה ורשב״א, ש״ך ס״ק י״ב) :</strong> נחלקו הראשונים בטעם הדבר. ל<span class="he-q">שיטת הרשב״א</span>, גדר הגזרה אינו על הפת אלא על ה<em>קנייה מן העכו״ם</em>; וכיון שבשעת האפייה כך היה דרכה (לבני ביתו או למכור), נקבע מעמדה לפי <em>ייעוד האפייה</em>. ולפי זה ה"חתנות" נבחנת ב<strong>מקור הפת</strong> ולא במי שאוכלהּ עתה. והש״ך (ס״ק י״ב) מביא שאף הרא״ה כן, דאזלינן בתר תחילתו, וכן עיקר להלכה.
+<div class="pilpul-box">
+<strong>What the Shakh (ס״ק י״ב) shows — and it must be read the right way round.</strong> The "there is one who says" of seif 3, the baker who invites, comes from the Orchot Chaim in the name of the <strong>Ra'ah</strong>; and the Shakh observes that the Ra'ah is faithful to his own method, which is precisely the <em>reverse</em> of ours:
+<blockquote>«&nbsp;<span class="he-q">דהיינו לשטתו דלא אזלינן בתר תחלתו רק בתר דהשתא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ב ס״ק י״ב)</span></blockquote>
+For the authorities who do follow the beginning, that bread would remain permitted. And the Shakh cites the Rashba, who says so explicitly:
+<blockquote>«&nbsp;<span class="he-q">וכן כתב הרשב״א במ״ה שם להדיא דאפילו זימנו הפלטר אצלו מותר כיון שהיה מותר בשעת אפייתו</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ב ס״ק י״ב)</span></blockquote>
+From this comes his difficulty with the Mehaber himself, who will rule at seif 7 that we follow the beginning:
+<blockquote>«&nbsp;<span class="he-q">ולפ״ז קשה דהא המחבר ס״ל לקמן ס״ז דבתר תחלתו אזלינן והיאך כתב כאן דין זה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ב ס״ק י״ב)</span></blockquote>
+And his answer is twofold, without his choosing between the two:
+<blockquote>«&nbsp;<span class="he-q">ואולי לכך כתבו בשם יש מי שאומר או אפשר דס״ל מסברתו לחלק דמזמינו אצלו גרע טפי</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ב ס״ק י״ב)</span></blockquote>
+<strong>A point worth holding on to, because it reverses easily:</strong> it is the <em>Rashba</em> who holds "we follow the beginning," and the <em>Ra'ah</em> who holds "we follow the present state." That is why seif 3 is given in the name of a single opinion, while seif 7 is given anonymously.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>נפקא מינה בלשון "לעולם" :</strong> דקדקו האחרונים בלשון "לעולם" — להשמיענו שאין כאן <em>חזרת היתר</em> או <em>חזרת איסור</em> מחמת שינוי הבעלות; שלא כדין פלטר ישראל הבא למקום (סעיף ד'), ששם ההיתר תלוי במצוי בשוק. כאן, לעומת זאת, השעה הקובעת היא שעת האפייה לבדה.
+<div class="rishon-card">
+<strong>The weight of the word "for ever."</strong> The Mehaber repeats "for ever" twice, and the word does work: there is here neither a return of prohibition nor a return of permission through a change of hands. It is otherwise at seif 4, where the arrival of a Jewish baker forbids the non-Jew's bread, and where the exhaustion of the Jewish bread restores it to its permission. Two regimes, then, within one siman: at seif 4 the market decides and the matter can come and go; at seif 7 it is the hour of baking, and that does not come round again.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">6. היסוד הגדול — אפייה דווקא או אף לישה ?</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">6. The great foundation — baking alone, or kneading too?</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ Detailed explanation (level 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זוהי המחלוקת המייסדת של כל הסימן — מהו ה"מעשה" המכריע אם הפת ישראל או עכו״ם.</p>
+<p style="margin:15px 0; font-style:italic;">This is the machloket that founds the whole siman: which act decides whether the bread is a Jew's or a non-Jew's?</p>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — איזה מעשה קובע "פת עכו״ם" :</strong> האם האיסור תלוי דווקא ב<span class="he-q">מי שאָפה</span> (מעשה האפייה הוא הקובע), או אף ב<span class="he-q">לישה ועריכה</span> (כל מעשה העיסה) ? נפקא מינה: עכו״ם שלש וישראל אפה, או להפך.
+<div class="hakira-box">
+<strong>The hakirah — which act makes "bread of a non-Jew"?</strong> Does the prohibition depend precisely on <em>who baked</em>, baking being the decisive act, or also on <span class="he-q">לישה ועריכה</span> — the whole working of the dough? The consequence is immediate: a non-Jew kneads and a Jew bakes, or the reverse.
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>שורש המחלוקת (ש״ך ס״ק א) :</strong>
+<div class="machloket-box">
+<strong>The root of the machloket (Shakh ס״ק א)</strong>
 <table>
-<tr><th>שיטה</th><th>המעשה הקובע</th><th>מקור</th></tr>
+<tr><th>Opinion</th><th>The decisive act</th><th>Source</th></tr>
 <tr>
-  <td><strong>רמב״ם ורשב״א (וכן דעת המחבר)</strong></td>
-  <td><strong>אפייה דווקא</strong> — אם <em>ישראל אפה</em>, מותר אף שעכו״ם לש; וכל האיסור היכא דהעכו״ם אפה</td>
-  <td>ש״ך ס״ק א</td>
+  <td><strong>Rambam and Rashba (and this is the view the Mehaber follows)</strong></td>
+  <td><strong>Baking alone</strong> — if the Jew performed an act in the baking it is permitted, even though the non-Jew kneaded and shaped</td>
+  <td>Shakh ס״ק א</td>
 </tr>
 <tr>
-  <td><strong>הר״ן והטור</strong></td>
-  <td>אף <strong>לישה ועריכה</strong> בכלל — וצריך השתתפות ישראל אף בהן</td>
-  <td>ש״ך ס״ק א</td>
+  <td><strong>The Ran and the Tur</strong></td>
+  <td><strong>Kneading and shaping</strong> count as well — hence the case-distinctions the Beit Yosef sets out</td>
+  <td>Shakh ס״ק א</td>
 </tr>
 </table>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>ביאור הש״ך (ס״ק א) :</strong> מכריע הש״ך כדעת ה<span class="he-q">רמב״ם והרשב״א</span> ש<strong>המחבר נמשך אחריהם</strong> — דעיקר הגזרה ב<em>אפייה</em>, שהיא גמר מלאכת הפת והנותנת בה תורת לחם. ולפיכך, אם הישראל עשה את מעשה האפייה — הפת פת ישראל, אף שהעכו״ם לש ועָרך. ובזה מיושב כל דין החיתוי שלהלן (סעיף ט'): השתתפות הישראל בְּחֻם התנור (היא תחילת האפייה) — די בה.
+<div class="pilpul-box">
+<strong>The Shakh's argument (ס״ק א) — and it is drawn from a silence.</strong> He first establishes the position of the Rambam and the Rashba:
+<blockquote>«&nbsp;<span class="he-q">דאע״פ שלשו וערכו עובד כוכבים כל שעשה בו ישראל מעשה באפייה מותר</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ב ס״ק א)</span></blockquote>
+Then he explains why the Mehaber did not carry over into the Shulchan Arukh the distinctions of kneading and shaping that he had nevertheless set out in the Beit Yosef:
+<blockquote>«&nbsp;<span class="he-q">לפי שכל מ״ש בב״י היינו דוקא לדעת הר״ן והטור משא״כ להרמב״ם והרשב״א</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ב ס״ק א)</span></blockquote>
+The argument is therefore <em>a silentio</em>, and must be weighed as such: it is not that the Mehaber wrote against the Ran, but that he did not write what the Ran required. The Shakh reinforces this reading from the Rama's Torat Chatat and from the Acharonim he found there. It is from this foundation that all the rest follows: if the <span class="he-q">מעשה באפייה</span> suffices, then the Jew's participation in the heat of the oven — the stoking of seif 9 — suffices too.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>נפקא מינה — פת ישראל שאפאה עכו״ם (סוף סעיף ז') :</strong> להפך — עיסת ישראל שאפאהּ העכו״ם בלא חיתוי ובלא קיסם — <span class="he-q">אסורה משום בישולי עכו״ם</span> (לא משום פת עכו״ם, שהרי העיסה של ישראל), ודינה כשלקות (סימן קי״ג). וכן דקדק הט״ז (ס״ק ז) והש״ך (ס״ק ז): היכא דהעכו״ם <em>אפה</em>, אף שהבצק של ישראל — דין בישול עכו״ם לו. הרי שמעשה האפייה הוא הציר, בין לקולא בין לחומרא.
+<div class="rishon-card">
+<strong>The consequence in the other direction: a Jew's bread baked by a non-Jew (seif 11).</strong> If it is the act of baking that decides, then a Jew's dough baked by a non-Jew without stoking or a chip of wood is caught — not as bread of a non-Jew, since the dough is a Jew's, but as cooked food. The Taz (ס״ק ז) says it in a line:
+<blockquote>«&nbsp;<span class="he-q">בזה יש לו דין שלקות הנזכר בסימן קי״ג</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ב ס״ק ז)</span></blockquote>
+And the Shakh (ס״ק ז) gives the source and, more rarely, the reason for the asymmetry:
+<blockquote>«&nbsp;<span class="he-q">אבל פת ישראל שאפאו עובד כוכבים כתב הטור שלא נהגו בשום מקום להתיר שהרי הוא כבישולי עובד כוכבים</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ב ס״ק ז)</span></blockquote>
+The reason he gives for the leniency on a non-Jew's bread is this:
+<blockquote>«&nbsp;<span class="he-q">דהוא גזירה שאין רוב הצבור יכולים לעמוד בה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ב ס״ק ז)</span></blockquote>
+— and it does not hold for a Jew's bread baked by a non-Jew, which is not the ordinary food of the public. The reasoning is therefore not the same on both sides, and that is precisely why the two cases do not receive the same ruling.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">7. חיתוי, השלכת קיסם ונפיחה — היכר וביעור הפת</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">7. Stoking, the chip of wood and blowing — the distinguishing mark</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיפים ט'–י״ב)
-  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 העתק</button>
+<h3>The text of the Mehaber and the Rama (seifim 9 to 12)
+  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-6">
-"<strong>עכו״ם שהדליק את התנור וישראל אפה, או ישראל הדליק ועכו״ם אפה, או שהדליק העכו״ם ואפה — וישראל ניער מעט את האש: מותר. ואפילו לא השליך בתנור אלא עץ אחד — התיר את כל הפת שבו, שאין הדבר אלא להיכר בעלמא שפת עכו״ם אסור</strong> (הגה: ונפיחה באש — כחיתוי). אפו בתנור על ידי עכו״ם שלוש פעמים ביום, וכישרהּ הישראל בקיסם בשתי הראשונות ולא בשלישית — מותר (הגה: ויש אומרים שאם כישר הישראל פעם אחת, ולא עמד התנור עשרים וארבע שעות בלא היסק — אף שאפו בו כמה ימים, הכל מותר מכוח הכשר ראשון, ויש לסמוך על זה). <strong>פת של ישראל שאפאה עכו״ם בלא חיתוי ובלא קיסם — אסורה, ואסור למכרה לעכו״ם פן יחזור וימכרנה לישראל; ואם בצע הפת לשניים — מותר למכרה לעכו״ם</strong> (הגה: והוא הדין לכל פת עכו״ם האסורה; ומכאן נהגו שלא לקנות פתיתי פת מן העכו״ם). <strong>חיתה הישראל אף לאחר שקרמו פני הפת — מהני, כל זמן שהפת צריכה עדיין לתנור ומשתבחת באפייה; ויש מי שאומר שאף אם הוציא הפת, יש תקנה — להחזירה לתנור על ידי ישראל אם משתבחת.</strong>"
+  <p>הדליק עובד כוכבים התנור ואפה בו ישראל או שהדליק ישראל ואפה עובד כוכבים או שהדליק העובד כוכבים ואפה העובד כוכבים ובא ישראל וניער האש מעט הרי זה מותר ואפי׳ לא זרק אלא עץ אחד לתוך התנור התיר כל הפת שבו שאין הדבר אלא להיות היכר שהפת שלהן אסורה. (ואם נפח באש הוי כחיתוי) (עוד סימן קי״ג ובאגור בשם ר״י מולין והוא בתשובת מהרי״ל רכ״א): <span class="source-ref">(שולחן ערוך יורה דעה קי״ב:ט)</span></p>
+  <p>אם אפו בתנור על ידי עובד כוכבים ג׳ פעמים ביום א׳ והכשירו התנור על ידי קיסם בב׳ הפעמים ובפעם השלישית לא הכשירו מותר (מרדכי) : הגה וי״א דאם הכשיר התנור פעם א׳ ולא עמד התנור מעת לעת בלא היסק אפילו אפאו בו כך כמה ימים הכל מותר מכח הכשר הראשון (ארוך כלל ע״ד ואגור) ויש לסמוך על זה: <span class="source-ref">(שולחן ערוך יורה דעה קי״ב:י)</span></p>
+  <p>פת של ישראל שאפאה עובד כוכבים בלי חיתוי דישראל ובלא קיסם אסור (ואסור) לזבוני לעובד כוכבים דילמא אתי לזבוני לישראל ואם פיתת הלחם לשנים מותר לזבוני לעובד כוכבים: הגה וה״ה לכל פת של עובד כוכבים שאסור ולכן נהגו שלא לקנות חתיכות פת מן העובד כוכבים דחיישינן שמא הוא פת איסור ומכרה לו ישראל כך (מרדכי פא״מ ובארוך): <span class="source-ref">(שולחן ערוך יורה דעה קי״ב:י״א)</span></p>
+  <p>אם אפה עובד כוכבים הפת בלא חיתוי ישראל ובלא קיסם אפילו קרמו פני הפת בתנור מועיל חיתוי ישראל כל זמן שהפת צריך לתנור ומשביח באפייתו עדיין ויש מי שאומר שאפילו הוציא הפת יש תקנה להחזירו לתנור על ידי ישראל אם הוא משביח: <span class="source-ref">(שולחן ערוך יורה דעה קי״ב:י״ב)</span></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — חיתוי כהיכר ולא כבישול :</strong><br>
-ההשתתפות של הישראל באש — <span class="he-q">חיתוי</span> (ניעור האש), <span class="he-q">השלכת קיסם</span> (זריקת עץ אחד) או <span class="he-q">נפיחה</span> — אינה צריכה לפעול שיעור ממשי בבישול, ש<strong>אין הדבר אלא להיכר בעלמא</strong>. די בעץ אחד להתיר את כל הפת שבתנור. ומכאן יסוד גדול: כל גזרת פת עכו״ם — הרחקה והיכר היא, ולא איסור עצמי; ועל כן סגי במעשה כל־שהוא של ישראל לשנות את שֵם הפת.
+<p><em>Translation of seif 9:</em> "A non-Jew lit the oven and a Jew baked in it; or a Jew lit it and a non-Jew baked; or the non-Jew lit it and the non-Jew baked, and a Jew came and stirred the fire a little — it is permitted. And even if he threw only a single piece of wood into the oven, he has permitted all the bread in it, for the thing is only so that there should be a distinguishing mark, namely that their bread is forbidden. <em>(And if he blew on the fire, that is like stoking.)</em>"</p>
+
+<p><em>Translation of seif 10:</em> "If they baked in the oven by way of a non-Jew three times in one day, and readied the oven with a chip of wood the first two times but not the third — it is permitted (Mordechai). <em>Gloss: and there are those who say that if the oven was readied once and the oven did not stand twenty-four hours without being fired, even if they baked in it that way for several days, all is permitted by force of the first readying — and one may rely on this.</em>"</p>
+
+<p><em>Translation of seif 11:</em> "A Jew's bread that a non-Jew baked without a Jew's stoking and without a chip of wood is forbidden; and it is forbidden to sell it to a non-Jew, lest he come to sell it to a Jew. And if he broke the loaf in two, it is permitted to sell it to a non-Jew. <em>Gloss: and the same holds for any forbidden bread of a non-Jew; which is why the practice arose not to buy pieces of bread from a non-Jew, for we fear that it is forbidden bread that a Jew sold him in that way.</em>"</p>
+
+<p><em>Translation of seif 12:</em> "If a non-Jew baked the bread without a Jew's stoking and without a chip of wood, even if the surface of the bread has formed a crust in the oven, a Jew's stoking is effective as long as the bread still needs the oven and still improves by the baking. And there is one who says that even if he took the bread out there is a remedy: to return it to the oven by way of a Jew, if it improves."</p>
+
+<div class="yesod-box">
+<strong>The foundation — stoking is a mark, not a cooking.</strong><br>
+The Jew's participation in the fire — <span class="he-q">חיתוי</span>, throwing a <span class="he-q">קיסם</span>, or blowing — need not produce any real effect in the baking. The Mehaber says so himself, and it is the phrase that governs everything:
+<blockquote>«&nbsp;<span class="he-q">ואפי׳ לא זרק אלא עץ אחד לתוך התנור התיר כל הפת שבו שאין הדבר אלא להיות היכר שהפת שלהן אסורה</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״ב:ט)</span></blockquote>
+A single piece of wood permits all the bread in the oven; and the Rama adds blowing:
+<blockquote>«&nbsp;<span class="he-q">ואם נפח באש הוי כחיתוי</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד קי״ב:ט)</span></blockquote>
+Hence a general foundation: the decree on bread is a distancing and a <span class="he-q">היכר</span>, not a prohibition lodged in the substance — which is why the smallest act by a Jew suffices to change the loaf's name.
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>הכשר התנור — כמה פעמים ולכמה זמן (סעיף י') :</strong>
+<div class="machloket-box">
+<strong>Readying the oven — how many times, and for how long (seif 10)?</strong>
 <table>
-<tr><th>שיטה</th><th>הכשר הקיסם</th><th>מקור</th></tr>
+<tr><th>Opinion</th><th>The reach of the readying with a chip of wood</th><th>Source</th></tr>
 <tr>
-  <td><strong>המרדכי (וסתם המחבר)</strong></td>
-  <td>צריך לכשר <strong>בכל אפייה ואפייה</strong> (וכאן הקיל בשתי הראשונות ולא בשלישית)</td>
-  <td>מחבר ס״י; מרדכי</td>
+  <td><strong>The Mordechai (the Mehaber's anonymous view)</strong></td>
+  <td>Three bakings in one day, readied the first two times and not the third: <strong>permitted</strong></td>
+  <td>Mehaber, seif 10</td>
 </tr>
 <tr>
-  <td><strong>יש אומרים (רמ״א)</strong></td>
-  <td>הכשר <strong>פעם אחת</strong> מועיל, כל עוד לא עמד התנור כ״ד שעות בלא היסק — "ויש לסמוך על זה"</td>
-  <td>רמ״א ס״י</td>
+  <td><strong>"There are those who say" (Rama)</strong></td>
+  <td>A <strong>single</strong> readying suffices, so long as the oven has not stood twenty-four hours without being fired — "and one may rely on this"</td>
+  <td>Rama, seif 10</td>
 </tr>
 </table>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>ספק דרבנן לקולא (ש״ך ס״ק כ) :</strong> כתב הש״ך דהיכא ד<span class="he-q">מספקא לן</span> אם כישר הישראל את התנור או לא — אזלינן לקולא, ד<strong>ספק דרבנן לקולא</strong> הוא (שהרי כל פת עכו״ם דרבנן). ומכאן יסוד מרחיב: בכל ספק שבסימן זה — אם ניער, אם השליך קיסם, אם עמד התנור כ״ד שעות — נוטים להקל, מאחר ש<em>גזרת הרחקה</em> היא, ולא איסור גמור.
+<div class="pilpul-box">
+<strong>Doubt resolves towards leniency (Shakh ס״ק כ).</strong> The Shakh brings the rule of doubt from the Shaarei Dura, and it follows directly from the foundation laid above:
+<blockquote>«&nbsp;<span class="he-q">דאם הוא מסופק אם הכשיר ישראל התנור או לא שרי דהוה ספיקא דרבנן ולקולא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ב ס״ק כ)</span></blockquote>
+Hence a wide reach: in every doubt in this siman — did he stir, did he throw a chip, did the oven stand twenty-four hours — one inclines to leniency, since we are within a decree of distancing and not a Torah prohibition. <strong>We report the rule here; we do not rule on a case.</strong>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>חיתוי תוך כדי ולאחר קרימה (סעיף י״ב) :</strong> אף <span class="he-q">לאחר שקרמו פני הפת</span> בתנור — מהני חיתוי הישראל, <strong>כל זמן שהפת צריכה עוד לתנור ומשתבחת באפייה</strong>. ו"יש מי שאומר" דאף הוציא הפת — תקנה יש: יחזירנה לתנור על ידי ישראל אם משתבחת. הרי שגדר ההיכר אינו רגע אחד אלא כל משך השבחת הפת.
+<div class="rishon-card">
+<strong>Stoking after the crust has formed (seif 12).</strong> The Mehaber is explicit:
+<blockquote>«&nbsp;<span class="he-q">אפילו קרמו פני הפת בתנור מועיל חיתוי ישראל כל זמן שהפת צריך לתנור ומשביח באפייתו עדיין</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״ב:י״ב)</span></blockquote>
+And he adds, in the name of a single opinion, a remedy for bread already taken out:
+<blockquote>«&nbsp;<span class="he-q">ויש מי שאומר שאפילו הוציא הפת יש תקנה להחזירו לתנור על ידי ישראל אם הוא משביח</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״ב:י״ב)</span></blockquote>
+The distinguishing mark is therefore not tied to a single instant, but to the whole span during which the bread still gains by the baking.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>איסור מכירה לעכו״ם ובציעת הפת (סעיף י״א) :</strong> פת עכו״ם אסורה — אסור למכרהּ לעכו״ם, <span class="he-q">פן יחזור וימכרהּ לישראל</span> (פתחי תשובה ס״ק ג בשם נודע ביהודה — מקור איסור הזביני). ואם <strong>בצעהּ לשניים</strong> — מותר למכרה, דעתה ניכרת ולא יבוא לידי מכשול. ומכאן נהגו (רמ״א) <span class="he-q">שלא לקנות פתיתי פת מן העכו״ם</span>, שמא פת ישראל אסורה היא שמכרהּ ישראל לעכו״ם בבציעה.
+<div class="rishon-card">
+<strong>Selling to a non-Jew and breaking the loaf (seif 11).</strong> The Mehaber forbids selling the forbidden bread to a non-Jew, and gives the reason:
+<blockquote>«&nbsp;<span class="he-q">לזבוני לעובד כוכבים דילמא אתי לזבוני לישראל</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״ב:י״א)</span></blockquote>
+And he gives the remedy:
+<blockquote>«&nbsp;<span class="he-q">ואם פיתת הלחם לשנים מותר לזבוני לעובד כוכבים</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״ב:י״א)</span></blockquote>
+The Rama extends the measure to any forbidden bread and draws the practice from it:
+<blockquote>«&nbsp;<span class="he-q">ולכן נהגו שלא לקנות חתיכות פת מן העובד כוכבים דחיישינן שמא הוא פת איסור ומכרה לו ישראל כך</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד קי״ב:י״א)</span></blockquote>
+<em>On where this rule comes from:</em> the Pit'hei Teshuvah (ס״ק ג) notes that the Mordechai derived it from elsewhere —
+<blockquote>«&nbsp;<span class="he-q">דין זה למד המרדכי בפ״ב דע״ז</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד קי״ב ס״ק ג)</span></blockquote>
+— and he wonders at it: there the prohibition was of the Torah, whereas here it is rabbinic. For this he refers to the Noda biYehudah and to the Shakh of siman 57. <strong>The difficulty is reported as he poses it, and it remains open.</strong>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">8. בציעה על הפת היפה, ביטול ואיבה</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">8. Breaking bread on the finer loaf, nullification and enmity</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיפים י״ג–ט״ז)
-  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 העתק</button>
+<h3>The text of the Mehaber and the Rama (seifim 13 to 16)
+  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-7">
-"<strong>מי שאינו נזהר בפת עכו״ם, שנתארח אצל בעל הבית הנזהר, ויש על השלחן פת ישראל ופת עכו״ם יפה ממנו — בעל הבית בוצע על היפה, ומותר לו כל אותה הסעודה (לאכול) מפת עכו״ם.</strong> כותח של עכו״ם — מותר, ואין חוששין לפת עכו״ם המעורב בו (הגה: וכן כל מקום שנתערב פת עכו״ם במאכל אחר — בטל ברוב, בין בלח בין ביבש; ואסור לבטלו לכתחילה כדי לאוכלו). <strong>הנזהר מפת עכו״ם — אוכל מקערה אחת עם שאינו נזהר, ואף שטעם פת העכו״ם מתערב — אינו חושש לכך</strong> (הגה: ויש אומרים דהנזהר האוכל עם אחרים שאינם נזהרים — אוכל עמהם משום איבה, הואיל ואם לא יאכל עמהם הפת, שהוא עיקר הסעודה, התירו לו משום איבה; ואין למדין מזה לשאר איסורין). <strong>ויש מי שאומר שהנזהר מפת עכו״ם, ההולך בדרך, אם יש פת ישראל בתוך ארבעה מילין לפניו — ימתין</strong> (הגה: וכבר נתבאר לעיל שהמנהג להקל)."
+  <p>מי שאינו נזהר מפת של עובד כובבים שהיסב אצל בעל הבית הנזהר מפת של עובד כוכבים ועל השלחן פת ישראל ופת של עובד כוכבים היפה משל ישראל יבצע בעה״ב מן היפה ומותר בכל אותה סעודה בפת של עובד כוכבים: <span class="source-ref">(שולחן ערוך יורה דעה קי״ב:י״ג)</span></p>
+  <p>כותח של עובד כוכבים מותר ואין חוששין לפת עובד כוכבים שבו: הגה וכן כל מקום שנתערבה פת של עובד כוכבים בשאר מאכל בטל ברוב בין בלח בין ביבש אבל אסור לערב כדי לאכלו (ארוך): <span class="source-ref">(שולחן ערוך יורה דעה קי״ב:י״ד)</span></p>
+  <p>מי שנזהר מפת עובד כוכבים מותר לאכול בקערה עם מי שאינו נזהר ממנו ואף על פי שטעם פת עובד כוכבים מתערב בפת ישראל אינו חושש: הגה י״א דמי שנזהר מפת של עובד כוכבים ואוכל עם אחרים שאינן נזהרין מותר לאכול עמהם משום איבה וקטטה הואיל ואם לא יאכל עמהם פת שהוא עיקר הסעודה התירו לו משום איבה ואין ללמוד מכאן לשאר איסורין (ב״י בשם תשובה אשכנזית והוא תשובת מהרי״ל סימן ל״ה): <span class="source-ref">(שולחן ערוך יורה דעה קי״ב:ט״ו)</span></p>
+  <p>יש מי שאומר שהנזהר מפת עובד כוכבים והוא בדרך אם יש פת של ישראל עד ד׳ מילין ימתין: (וכבר נתבאר לעיל דנוהגין להקל): <span class="source-ref">(שולחן ערוך יורה דעה קי״ב:ט״ז)</span></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — בציעה על הפת היפה :</strong><br>
-מצד דין הבציעה (או״ח קס״ח) בוצעין על ה<span class="he-q">פת היפה</span>; וכאן הפת היפה היא פת העכו״ם. נחלקו הראשונים מה יעשה הנזהר המארח את שאינו נזהר: הראבי״ה (וירושלמי <em>פת נקייה</em>) — יבצע בעל הבית על היפה, והותר לו פת עכו״ם כל אותה סעודה; והשר מקוצי (בעל הבית) חולק (עיין ט״ז ס״ק ח, ש״ך ס״ק כ״א, ואו״ח קס״ח). ועיקר ההיתר: כיון שכבר בצע על היפה — אין לגרוע מכבוד הפת באמצע הסעודה.
+<p><em>Translation of seif 13:</em> "One who is not scrupulous about the bread of non-Jews and who reclined at the table of a householder who is scrupulous, and there is on the table Jewish bread and non-Jewish bread finer than the Jew's: let the householder break bread on the finer one, and he is permitted, throughout that meal, to eat non-Jewish bread."</p>
+
+<p><em>Translation of seif 14:</em> "The kutach of non-Jews is permitted, and we are not concerned for the non-Jewish bread in it. <em>Gloss: and likewise, wherever non-Jewish bread has been mixed into another food, it is nullified in the majority, whether in liquid or in dry; but it is forbidden to mix it in order to eat it.</em>"</p>
+
+<p><em>Translation of seif 15:</em> "One who is scrupulous about the bread of non-Jews may eat from one dish with one who is not, and although the taste of the non-Jewish bread mixes into the Jewish bread, he need not be concerned. <em>Gloss: there are those who say that one who is scrupulous and who eats with others who are not may eat with them because of enmity and strife, since if he did not eat the bread with them — bread being the main part of the meal — it would anger them; so they permitted it to him because of enmity, and one draws no conclusion from this for other prohibitions.</em>"</p>
+
+<p><em>Translation of seif 16:</em> "There is one who says that one who is scrupulous about the bread of non-Jews and is on the road, if there is Jewish bread within four <em>mil</em>, let him wait. <em>(And it has already been explained above that the practice is to be lenient.)</em>"</p>
+
+<div class="yesod-box">
+<strong>The foundation — breaking bread on the finer loaf.</strong><br>
+The rule of breaking bread (Orach Chaim 168) calls for breaking on the <span class="he-q">פת יפה</span>; and here the finer loaf is the non-Jew's. The Mehaber rules that the householder breaks on the finer one and that the permission covers the whole meal:
+<blockquote>«&nbsp;<span class="he-q">יבצע בעה״ב מן היפה ומותר בכל אותה סעודה בפת של עובד כוכבים</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״ב:י״ג)</span></blockquote>
+The Taz (ס״ק ח) goes back to the Mordechai, who reports the Ravyah, and finds there the two halves of the reasoning:
+<blockquote>«&nbsp;<span class="he-q">כיון שמצוה זו מוטלת עליו לבצוע יבצע על היפה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ב ס״ק ח)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">וכיון שהותר לו לבצוע מותר בכל הסעודה כולה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ב ס״ק ח)</span></blockquote>
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>הבציעה — ראבי״ה, ירושלמי והשר מקוצי (ט״ז ס״ק ח) :</strong>
+<div class="machloket-box">
+<strong>Breaking bread on a non-Jew's loaf — the views the Taz sets side by side (ס״ק ח)</strong>
 <table>
-<tr><th>שיטה</th><th>הבציעה על הפת היפה (עכו״ם)</th><th>מקור</th></tr>
+<tr><th>Opinion</th><th>What it holds</th><th>Source</th></tr>
 <tr>
-  <td><strong>ראבי״ה (וירושלמי פת נקייה)</strong></td>
-  <td>בוצע על היפה, והותר פת עכו״ם כל אותה סעודה</td>
-  <td>ט״ז ס״ק ח; מחבר ס״י״ג</td>
+  <td><strong>The Ravyah (via the Mordechai), leaning on the Yerushalmi</strong></td>
+  <td>He breaks on the finer loaf, and the permission covers the whole meal</td>
+  <td>Taz ס״ק ח; Mehaber, seif 13</td>
 </tr>
 <tr>
-  <td><strong>השר מקוצי (ועיין או״ח קס״ח)</strong></td>
-  <td>חולק — אין לבצע על האסור לו, ויקדים פת ישראל</td>
-  <td>ט״ז ס״ק ח; ש״ך ס״ק כ״א</td>
+  <td><strong>The Sar miKutzi (via the Mordechai, chapter Keitzad Mevarkhin)</strong></td>
+  <td>One who is scrupulous removes the non-Jew's finer loaf from the table and breaks on the Jew's</td>
+  <td>Taz ס״ק ח; Shakh ס״ק כ״א</td>
 </tr>
 </table>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>ביטול אף דבר חשוב (ש״ך ס״ק כ״ג) :</strong> חידוש גדול בכותח (סעיף י״ד): פת עכו״ם המעורב באוכל אחר <span class="he-q">בטל ברוב</span> — בין בלח בין ביבש. ומחדש הש״ך ד<strong>אף שהפת היא דבר חשוב</strong> (כפת שלמה הראויה להתכבד) — <em>מתבטלת ברוב</em>, ולא אמרינן בה "דבר חשוב אינו בטל", וכן בבישולי עכו״ם (איסור והיתר); דכל גזרת הרחקה — אין מחמירין בה כאיסור גמור. ומכל מקום <span class="he-q">אסור לבטלו לכתחילה</span> לאוכלו. והש״ך (ס״ק כ״ד) מוסיף: עירוב פת בקערה (כלי שני) אינו אוסר אף בטעם, דאין בו דרך בישול.
+<div class="pilpul-box">
+<strong>The Taz's difficulty, and how he lifts it.</strong> The Taz reports the Sar miKutzi in these terms:
+<blockquote>«&nbsp;<span class="he-q">שמי שנזהר משל עובד כוכבים יש לו לסלק מן השלחן הפת נקייה של עובד כוכבים ולבצוע על של ישראל</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ב ס״ק ח)</span></blockquote>
+Yet, he observes, the Shulchan Arukh rules here like the Ravyah, whereas in Orach Chaim 168 he rules like the Sar miKutzi. His resolution turns on this: seif 13 is not speaking of someone eating alone — the householder breaks bread <em>for his guest</em>, who is not scrupulous and will eat that bread in any case.
+<blockquote>«&nbsp;<span class="he-q">וכיון שהותר לו לבצוע בשבילו הותר לו לכל הסעודה בשבילו</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ב ס״ק ח)</span></blockquote>
+The Shakh (ס״ק כ״א) reaches the same place by way of enmity, and produces the other half of the Orach Chaim 168 text, the half where the bread is removed:
+<blockquote>«&nbsp;<span class="he-q">מסלק פת של עובד כוכבים מעל השלחן עד אחר ברכת המוציא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ב ס״ק כ״א)</span></blockquote>
+and he explains the difference between the two halves:
+<blockquote>«&nbsp;<span class="he-q">כיון דישראל אחר מיסב אצלו אם לא יברך על פת נקייה איכא איבה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ב ס״ק כ״א)</span></blockquote>
+— in the first case no other Jew is at table with him; here there is one, and not blessing on the finer loaf would give rise to enmity.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>איבה — דווקא בפת (ש״ך ס״ק כ״ו) :</strong> הרמ״א התיר לנזהר לאכול עם שאינם נזהרים משום <span class="he-q">איבה</span>; ומדקדק הש״ך ד<strong>היתר האיבה דווקא בפת</strong>, משום ש<em>"על הלחם יחיה האדם"</em> — הפת היא עיקר הסעודה, ובלעדיה לא יוכל לאכול עמהם כלל. אבל <strong>בחמאה ובשאר מאכלות עכו״ם — אין מתירין משום איבה</strong> (עיין סימן קט״ו), שאינם עיקר הסעודה. הרי שגדר האיבה כאן צר — לפת לבדה.
+<div class="pilpul-box">
+<strong>A nullification that holds even for a thing of importance (Shakh ס״ק כ״ג).</strong> The Rama writes at seif 14 that bread mixed into another food is nullified in the majority:
+<blockquote>«&nbsp;<span class="he-q">בטל ברוב בין בלח בין ביבש אבל אסור לערב כדי לאכלו</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד קי״ב:י״ד)</span></blockquote>
+And the Shakh adds the word that makes it a chiddush:
+<blockquote>«&nbsp;<span class="he-q">אפילו הוא דבר חשוב</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ב ס״ק כ״ג)</span></blockquote>
+— even though a whole loaf is a <span class="he-q">דבר חשוב</span>, of the kind ordinarily said not to be nullified. He extends the same rule to food cooked by a non-Jew:
+<blockquote>«&nbsp;<span class="he-q">כתב דינים אלו אפילו בבישולי עובדי כוכבים ממש</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ב ס״ק כ״ג)</span></blockquote>
+On the prohibition of mixing deliberately, he brings the Darkhei Moshe and weighs the matter:
+<blockquote>«&nbsp;<span class="he-q">ולא אסרו לערב לכתחלה אלא לאכול הפת עצמו אבל משום טעמא ליכא למיחש</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ב ס״ק כ״ד)</span></blockquote>
+and he adds a reason of fact:
+<blockquote>«&nbsp;<span class="he-q">הא קערה היא כלי שני ואינו מבשל</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ב ס״ק כ״ד)</span></blockquote>
+The Taz (ס״ק י) approaches the same material from another side, that of taste:
+<blockquote>«&nbsp;<span class="he-q">כי לא גזרו חכמים על פת של עובד כוכבים על טעם כעיקר</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ב ס״ק י)</span></blockquote>
+but he at once sets the limit:
+<blockquote>«&nbsp;<span class="he-q">אבל על הפרורים שהם בעין ודאי אסורין כל זמן שלא נתבטלו ברוב</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ב ס״ק י)</span></blockquote>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>ההולך בדרך (סעיף ט״ז) ; ומומר ; וחנ״נ :</strong> "יש מי שאומר" — הנזהר ההולך בדרך, אם יש פת ישראל בתוך <span class="he-q">ארבעה מילין</span> לפניו (או מיל לאחריו) — ימתין (פתחי תשובה ס״ק ו בשם חכמת אדם; ומחלק בין הולך רגלי לרוכב). והרמ״א מסיים שהמנהג להקל. ובפתחי תשובה (ס״ק א, תפארת למשה) — <strong>פת של מומר מותרת</strong>, דליכא חתנות, שהרי מותר לישא בתו. ובסוף (ס״ק ה, חתם סופר ופרי מגדים) — פת/בישול/חמאת עכו״ם שנתערבו ונפלו למאכל אחר, <span class="he-q">אין בהם חתיכה נעשית נבילה</span> כשאר איסורי דרבנן, מאחר שאין קולות אלו ענין לבשר בחלב.
+<div class="rishon-card">
+<strong>Enmity — and it holds only for bread (Shakh ס״ק כ״ו).</strong> The Rama permits one who is scrupulous to eat with those who are not, because of enmity, and adds that nothing is to be drawn from this for other prohibitions. The Shakh gives the reason, and it is a narrow one:
+<blockquote>«&nbsp;<span class="he-q">דדוקא בפת איכא איבה משום דעל הלחם יחיה האדם אבל לא בשאר מאכלים</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ב ס״ק כ״ו)</span></blockquote>
+The butter of non-Jews and the like are not the main part of the meal, and <span class="he-q">איבה</span> does not operate there (see the end of siman 115).
+</div>
+
+<div class="rishon-card">
+<strong>One who is on the road (seif 16), and three notes of the Pit'hei Teshuvah.</strong> The Mehaber reports in the name of a single opinion that one must wait if there is Jewish bread within <span class="he-q">ד׳ מילין</span>, and the Rama recalls that the practice is to be lenient. The Pit'hei Teshuvah (ס״ק ו) adds, in the name of the Chokhmat Adam, that one must at least go a <em>mil</em>; and he sets aside a distinction one might have supposed:
+<blockquote>«&nbsp;<span class="he-q">דאין חילוק בין רוכב על סוס או הולך ברגליו</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד קי״ב ס״ק ו)</span></blockquote>
+The distinction he does retain is a different one:
+<blockquote>«&nbsp;<span class="he-q">אלא בזה יש חילוק אם הוא הולך לבדו או אם הולך עם בניו ובני ביתו</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד קי״ב ס״ק ו)</span></blockquote>
+At his ס״ק א he reports from the Tiferet leMoshe that the bread of a <span class="he-q">מומר</span> is permitted:
+<blockquote>«&nbsp;<span class="he-q">דפת של מומר שרי דמשום חתנות ליכא דאע״פ שחטא ישראל הוא ומותר לישא בתו</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד קי״ב ס״ק א)</span></blockquote>
+And at his ס״ק ה, in the name of the Chatam Sofer and the Peri Megadim, that these prohibitions do not render the piece itself forbidden:
+<blockquote>«&nbsp;<span class="he-q">אין אומרים בו חנ״נ</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד קי״ב ס״ק ה)</span></blockquote>
+— unlike other rabbinic prohibitions, because these leniencies do not belong to the regime of meat and milk. <strong>We report, and we do not rule.</strong>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">9. חקירה ונפקא מינה למעשה</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">9. The hakirah and what follows from it</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ Detailed explanation (level 1)</a>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה הכוללת של הסימן :</strong> מהו גדר גזרת פת עכו״ם — איסור עצמי בגוף הפת, או הרחקה (היכר) משום חתנות ?
+<div class="hakira-box">
+<strong>The hakirah that runs through the whole siman:</strong> is the decree on the bread of non-Jews a prohibition lodged in the substance of the bread, or a distancing — a mark — grounded in intermarriage?
 <ul class="stylish">
-<li><strong>טעם חתנות ולא פלוג</strong> — גזרת הרחקה; ואף בליכא חתנות אסור (רמ״א ס״א).</li>
-<li><strong>חמשת מיני דגן</strong> — דווקא הדבר החשוב המביא קירוב דעת (ט״ז ס״ק ב–ג).</li>
-<li><strong>פלטר ובעל הבית</strong> — בעה״ב מביא לסעוד אצלו (אסור); פלטר — הקלו בשעת הדחק, ויש מקילין לגמרי.</li>
-<li><strong>בתר תחילתו</strong> — מעמד הפת נחתם בשעת אפייה (רשב״א/רא״ה, ש״ך ס״ק י״ב).</li>
-<li><strong>חיתוי / קיסם / נפיחה</strong> — היכר בעלמא, ודי בעץ אחד; וספק דרבנן לקולא (ש״ך ס״ק כ).</li>
-<li><strong>ביטול ואיבה</strong> — בטל אף דבר חשוב; איבה דווקא בפת ("על הלחם יחיה האדם").</li>
+<li><strong>The motive of intermarriage, and "they drew no distinction"</strong> — a decree of distancing, which holds even where the motive is absent (Rama, seif 1; Taz ס״ק א; Shakh ס״ק ד).</li>
+<li><strong>The five grains</strong> — only the thing of importance, which brings closeness of mind (Taz ס״ק ב).</li>
+<li><strong>The baker and the householder</strong> — a householder's bread leads to dining at his table; on a baker's they eased in the hour of need, and there are those who ease more widely (Shakh ס״ק ו, ח, ט).</li>
+<li><strong>We follow the beginning</strong> — the loaf's status is sealed at the hour of baking (Mehaber, seif 7; Shakh ס״ק י״ב, in the name of the Rashba).</li>
+<li><strong>Stoking, chip of wood, blowing</strong> — a mere mark; a single piece of wood suffices; and doubt resolves towards leniency (Mehaber, seif 9; Shakh ס״ק כ).</li>
+<li><strong>Nullification and enmity</strong> — even a thing of importance is nullified; enmity holds only for bread (Shakh ס״ק כ״ג and כ״ו).</li>
 </ul>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה למעשה (לפי הכרעת רוב האחרונים) :</strong>
+<div class="nafka-mina-box">
+<strong>What follows from it, according to what the commentaries report:</strong>
 <ol class="stylish">
-<li>פת עכו״ם אסורה משום חתנות, ואף בליכא חתנות — <strong>לא פלוג</strong> (מחבר ורמ״א ס״א); ודווקא חמשת מיני דגן.</li>
-<li>פת <strong>פלטר</strong> — נהגו להקל (ויש מקילין לגמרי); פת <strong>בעל הבית</strong> — אסורה, אלא במקום שאין פלטר כלל (סעיף ח').</li>
-<li>אזלינן <strong>בתר שעת אפייה</strong>, ואין הולכין אחר מי שהפת בידו עתה (סעיף ז').</li>
-<li>חיתוי / השלכת קיסם / נפיחה של ישראל — מתירין את כל הפת (היכר); הכשר התנור פעם אחת מועיל בלא כ״ד שעות (רמ״א ס״י).</li>
-<li>פת עכו״ם בטלה ברוב אף דבר חשוב; הנזהר אוכל עם שאינו נזהר משום <strong>איבה — דווקא בפת</strong> (ש״ך ס״ק כ״ו).</li>
+<li>The bread of non-Jews is forbidden because of intermarriage, and it is forbidden even where intermarriage is not at issue (Mehaber and Rama, seif 1); and this concerns precisely the five species of grain.</li>
+<li>A <strong>baker's</strong> bread: the practice became to be lenient, and there are those who ease even where Jewish bread is to be had. A <strong>householder's</strong> bread is forbidden, except where no baker at all is to be found (seif 8, and Shakh ס״ק י).</li>
+<li>We follow <strong>the hour of baking</strong>, not the one who has the bread in hand now (seif 7).</li>
+<li>A Jew's stoking, throwing of a chip of wood or blowing permits all the bread in the oven — it is a mark (seif 9); and according to the Rama a single readying of the oven suffices so long as it has not stood twenty-four hours without being fired (seif 10).</li>
+<li>Non-Jewish bread mixed into another food is nullified in the majority, even though it is a thing of importance, and one does not mix deliberately (seif 14 and Shakh ס״ק כ״ג); one who is scrupulous eats with one who is not because of <strong>enmity — and for bread alone</strong> (Shakh ס״ק כ״ו).</li>
 </ol>
-<em>ולמעשה — שאל את רבך.</em>
+<em>And in practice — ask your teacher.</em>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">10. טבלאות סיכום</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">10. Summary tables</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">טבלה — אופני הפת והדין</h3>
-
-<table>
-<tr>
-  <th>האופן</th>
-  <th>הדין</th>
-  <th>מקור בקורפוס</th>
-</tr>
-<tr>
-  <td><strong>פת עכו״ם סתם (חמשת מיני דגן)</strong></td>
-  <td>אסורה משום חתנות; ואף בליכא חתנות — לא פלוג</td>
-  <td>מחבר ורמ״א ס״א; ט״ז ס״ק א</td>
-</tr>
-<tr>
-  <td><strong>פת קטנית / אורז / דוחן</strong></td>
-  <td>מותרת — אינה בכלל "פת"; ואף לא בישול עכו״ם</td>
-  <td>מחבר ורמ״א ס״א; ט״ז ס״ק ג</td>
-</tr>
-<tr>
-  <td><strong>פת פלטר עכו״ם</strong></td>
-  <td>נהגו להקל (שעת הדחק); ויש מקילין לגמרי</td>
-  <td>מחבר ס״ב; ש״ך ס״ק ו–ט</td>
-</tr>
-<tr>
-  <td><strong>פת בעל הבית</strong></td>
-  <td>אסורה — מביאה לסעוד אצלו; אלא בליכא פלטר כלל</td>
-  <td>מחבר ס״ב, ס״ח; רמ״א</td>
-</tr>
-<tr>
-  <td><strong>פלטר שזימן ישראל</strong></td>
-  <td>פתו כפת בעל הבית</td>
-  <td>מחבר ס״ג</td>
-</tr>
-<tr>
-  <td><strong>פת יפה / ממין אחר</strong></td>
-  <td>מותר ליטול מן הפלטר עכו״ם — כדחוקה לו</td>
-  <td>מחבר ס״ה</td>
-</tr>
-<tr>
-  <td><strong>בתר תחילתו (שעת אפייה)</strong></td>
-  <td>נקבע מעמדה בשעת אפייה — לעולם</td>
-  <td>מחבר ס״ז; ש״ך ס״ק י״ב</td>
-</tr>
-<tr>
-  <td><strong>חיתוי / קיסם / נפיחה</strong></td>
-  <td>מתירין כל הפת — היכר בעלמא, די בעץ אחד</td>
-  <td>מחבר ס״ט; רמ״א</td>
-</tr>
-<tr>
-  <td><strong>פת ישראל שאפאהּ עכו״ם</strong></td>
-  <td>אסורה משום בישול עכו״ם (סימן קי״ג)</td>
-  <td>מחבר ס״ז; ט״ז ס״ק ז; ש״ך ס״ק ז</td>
-</tr>
-<tr>
-  <td><strong>כותח / פת מעורבת</strong></td>
-  <td>בטל ברוב אף דבר חשוב; ואין מבטלין לכתחילה</td>
-  <td>מחבר ס״י״ד; ש״ך ס״ק כ״ג</td>
-</tr>
-<tr>
-  <td><strong>איבה</strong></td>
-  <td>הנזהר אוכל עם שאינו נזהר — דווקא בפת</td>
-  <td>רמ״א ס״ט״ו; ש״ך ס״ק כ״ו</td>
-</tr>
-</table>
-
-<h3 class="he-h3">טבלה — מחלוקות מרכזיות בסימן</h3>
+<h3>Table — the cases of bread and their ruling</h3>
 
 <table>
 <tr>
-  <th>נושא</th>
-  <th>שיטה א'</th>
-  <th>שיטה ב'</th>
+  <th>The case</th>
+  <th>The ruling</th>
+  <th>Source</th>
 </tr>
 <tr>
-  <td>פלטר במקום שפת ישראל מצוי</td>
-  <td>דעה ראשונה — דווקא בליכא פלטר ישראל (שעת הדחק)</td>
-  <td>יש אומרים — מותר אף בפת ישראל מצוי</td>
+  <td><strong>Bread of a non-Jew, plainly (five grains)</strong></td>
+  <td>Forbidden because of intermarriage; and even where that is not at issue</td>
+  <td>Mehaber and Rama, seif 1; Taz ס״ק א</td>
 </tr>
 <tr>
-  <td>איזה מעשה קובע פת עכו״ם</td>
-  <td>רמב״ם/רשב״א — אפייה דווקא</td>
-  <td>הר״ן/הטור — אף לישה ועריכה</td>
+  <td><strong>Bread of legumes, rice, millet</strong></td>
+  <td>Permitted — outside what is called "bread"; and not caught as cooked food either</td>
+  <td>Mehaber and Rama, seif 1; Taz ס״ק ג</td>
 </tr>
 <tr>
-  <td>הכשר התנור בקיסם</td>
-  <td>המרדכי — בכל אפייה ואפייה</td>
-  <td>רמ״א — פעם אחת בלא כ״ד שעות ("ויש לסמוך")</td>
+  <td><strong>Bread of a non-Jewish baker</strong></td>
+  <td>The practice is to be lenient (hour of need); and there are those who ease more widely</td>
+  <td>Mehaber and Rama, seif 2; Shakh ס״ק ו–ט</td>
 </tr>
 <tr>
-  <td>הבציעה על הפת היפה (עכו״ם)</td>
-  <td>ראבי״ה/ירושלמי — בוצע על היפה</td>
-  <td>השר מקוצי — אין לבצע על האסור לו</td>
+  <td><strong>Bread of a householder</strong></td>
+  <td>Forbidden — it leads to dining at his table; except where no baker at all is to be found</td>
+  <td>Mehaber, seifim 2 and 8; Shakh ס״ק י</td>
 </tr>
 <tr>
-  <td>ביצים טוחות על פני הפת</td>
-  <td>מחבר — בטלות בפת, מותר</td>
-  <td>רמ״א — בעין הן, אסור (בישול עכו״ם)</td>
+  <td><strong>A baker who invited the Jew</strong></td>
+  <td>His bread is like a householder's (a single opinion)</td>
+  <td>Mehaber, seif 3; Shakh ס״ק י״ב</td>
+</tr>
+<tr>
+  <td><strong>Finer bread, or of another kind</strong></td>
+  <td>Permitted to take it from the non-Jewish baker — he is as one for whom bread is scarce</td>
+  <td>Mehaber, seif 5</td>
+</tr>
+<tr>
+  <td><strong>We follow the beginning (the hour of baking)</strong></td>
+  <td>The status is fixed at the baking — "for ever"</td>
+  <td>Mehaber, seif 7; Shakh ס״ק י״ב</td>
+</tr>
+<tr>
+  <td><strong>Stoking, chip of wood, blowing</strong></td>
+  <td>They permit all the bread in the oven — a mere mark; a single piece of wood suffices</td>
+  <td>Mehaber and Rama, seif 9</td>
+</tr>
+<tr>
+  <td><strong>A Jew's bread baked by a non-Jew</strong></td>
+  <td>Forbidden as cooked food (siman 113)</td>
+  <td>Mehaber, seif 11; Taz ס״ק ז; Shakh ס״ק ז</td>
+</tr>
+<tr>
+  <td><strong>Kutach, or bread mixed into a food</strong></td>
+  <td>Nullified in the majority, even a thing of importance; and one does not mix deliberately</td>
+  <td>Mehaber and Rama, seif 14; Shakh ס״ק כ״ג</td>
+</tr>
+<tr>
+  <td><strong>Enmity</strong></td>
+  <td>The scrupulous one eats with one who is not — for bread alone</td>
+  <td>Rama, seif 15; Shakh ס״ק כ״ו</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מקורות הסוגיא</h3>
+<h3>Table — the central machlokot of the siman</h3>
 
-<div class="rishon-card" dir="rtl">
-<strong>גמרא :</strong> עבודה זרה ל״ה: (גזרת פת ושמן, "ושמן דניאל וחבריו גזור") · עבודה זרה ל״ו: (פלטר ובעל הבית, חתנות) · עבודה זרה ל״ז:–ל״ח. (חיתוי, מי שהדליק התנור) · ירושלמי עבודה זרה פ״ב ה״ח (פת באתר דליכא ישראל)
+<table>
+<tr>
+  <th>Question</th>
+  <th>First view</th>
+  <th>Second view</th>
+</tr>
+<tr>
+  <td>The baker where Jewish bread is to be had</td>
+  <td>Anonymous view — only if there is no Jewish baker (need)</td>
+  <td>"There are those who say" — permitted even if Jewish bread is to be had</td>
+</tr>
+<tr>
+  <td>Which act makes "bread of a non-Jew"</td>
+  <td>Rambam and Rashba — baking alone</td>
+  <td>The Ran and the Tur — kneading and shaping too</td>
+</tr>
+<tr>
+  <td>Do we follow the beginning or the present state</td>
+  <td>The Rashba — we follow the hour of baking (and that is seif 7)</td>
+  <td>The Ra'ah — we follow the present state (and that is where seif 3 comes from)</td>
+</tr>
+<tr>
+  <td>Readying the oven with a chip of wood</td>
+  <td>The Mordechai — the first two bakings of the day suffice for the third</td>
+  <td>The Rama — a single readying, so long as the oven has not idled twenty-four hours</td>
+</tr>
+<tr>
+  <td>Breaking bread on the non-Jew's finer loaf</td>
+  <td>The Ravyah, leaning on the Yerushalmi — he breaks on the finer one</td>
+  <td>The Sar miKutzi — he removes the finer loaf and breaks on the Jew's</td>
+</tr>
+<tr>
+  <td>Eggs smeared on the surface</td>
+  <td>The Mehaber — they are nullified in the bread, permitted</td>
+  <td>The Rama — they are there in their own substance, forbidden (cooked food)</td>
+</tr>
+</table>
+
+<h3>Table — the sources of the sugya</h3>
+
+<div class="rishon-card">
+<strong>Gemara:</strong> עבודה זרה ל״ה ע״ב (the mishnah « ואלו דברים של גוים אסורין », the motive of intermarriage, the baker and the householder) · ל״ו ע״א (Daniel and the king's bread) · ל״ח ע״א ("what does not come up on the table of kings") · ל״ח ע״ב (Ravina's ruling on stoking) · ירושלמי עבודה זרה פרק אין מעמידין
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>ראשונים :</strong> רש״י · רמב״ם (מאכלות אסורות פי״ז) · רשב״א (תורת הבית) · ראבי״ה · ר״ן · רא״ש · הטור · מרדכי (עבודה זרה) · השר מקוצי · ראב״ד · ר״ה (ראָ״ה) · איסור והיתר הארוך
+<div class="rishon-card">
+<strong>Rishonim:</strong> רמב״ם · רשב״א (תורת הבית) · ראב״ד · הרא״ה · ראבי״ה · ר״ן · רא״ש · הטור · מרדכי · השר מקוצי · איסור והיתר הארוך · אורחות חיים · רבינו ירוחם
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>אחרונים :</strong> בית יוסף · רמ״א · דרכי משה · ש״ך · ט״ז · ב״ח · פרי חדש · פרי מגדים · פתחי תשובה · נודע ביהודה · חתם סופר (סי' ק') · תפארת למשה · מים רבים · חכמת אדם
+<div class="rishon-card">
+<strong>Acharonim:</strong> בית יוסף · רמ״א (תורת חטאת ודרכי משה) · ש״ך · ט״ז · ב״ח · פרישה · עטרת זהב · פרי מגדים · פתחי תשובה · נודע ביהודה · חתם סופר · תפארת למשה · מים רבים · חכמת אדם
 </div>
 
 <hr class="ornament">
 
-  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;direction:rtl;">
-    <a href="niveau-1-base-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">→ רמה א' — יסוד</a>
-    <a href="niveau-3-synthese-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">רמה ג' — סיכום ←</a>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;">
+    <a href="niveau-1-base-en.html" style="font-family:'Cormorant Garamond','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">← Level 1 — Base</a>
+    <a href="niveau-3-synthese-en.html" style="font-family:'Cormorant Garamond','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">Level 3 — Synthesis →</a>
   </div>
 
 <div class="yh-watermark">
 ~ ~ ~ ~ ~<br>
 <strong>DAAT</strong> · <strong>הרב יוסף חיים סממה</strong><br>
 תלמיד חכם · מעביר שיעורים בהלכה ובחסידות<br>
-<em>פלפול ועיון בדין פת של עכו״ם · סימן קי״ב · ⚡ רמה ב' — לַמְדָּן</em>
+<em>סימן קי״ב · Level 2 — Lamdan · דין פת של עכו״ם</em><br>
+<em>daattorah.com</em>
 </div>
 
-  <div class="disclaimer" style="background:#fff8e1;border-right:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;direction:rtl;text-align:right;">
-    ⚠️ תוכן זה נכתב לצורך לימוד ועיון בלבד. לכל הוראה למעשה (לְמַעֲשֶׂה) — שאל את רבך.
+  <div class="disclaimer" style="background:#fff8e1;border-left:4px solid #C5A55A;padding:16px 40px;font-family:'Cormorant Garamond','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;">
+    ⚠️ This content is written for study and analysis only. For any practical ruling (לְמַעֲשֶׂה) — ask your teacher.
   </div>
 
   <div style="background:#1A1F3A;border-top:2px solid #C5A55A;padding:24px 40px;text-align:center;margin-top:0;">
-    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;direction:rtl;">
-      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">לעמוד הבית</a> · <a href="index-en.html" style="color:#C5A55A;text-decoration:none;">סימן קי״ב</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ לתמיכה</a>
+    <p style="font-family:'Cormorant Garamond','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;">
+      DAAT דעת — © 5786 / 2026 · <a href="../../../index-en.html" style="color:#C5A55A;text-decoration:none;">Home</a> · <a href="index-en.html" style="color:#C5A55A;text-decoration:none;">Siman 112</a> · <a href="../../../soutenir-en.html" style="color:#C5A55A;text-decoration:none;">♥ Support</a>
     </p>
   </div>
 
@@ -909,7 +1072,7 @@
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="../../../assets/js/chat-widget.js" defer></script>
 <script src="../../../assets/js/daat-copy.js" defer></script>
-<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="מצא חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">הצטרף לחברותא</span></a>
+<a href="../../../communaute-en.html#khavroutha" class="daat-khavroutha-fab" title="Join the khavroutha"><span class="icon">📖</span><span class="label-long">Join the khavroutha</span></a>
   <script src="/assets/js/share-text.js" defer></script>
 </body>
 </html>

@@ -155,7 +155,21 @@ def main():
         racines = ([cible] if os.path.basename(cible).startswith('siman-')
                    else sorted(glob.glob(os.path.join(cible, 'siman-*'))))
     elif args:
-        racines = [os.path.join(ROOT, 'sources', 'yoreh-deah', f'siman-{a}') for a in args]
+        # Un numéro nu se résout dans TOUS les compartiments. Dans sa forme d'origine
+        # ce script ne cherchait que Yoré Déa : sur un siman de Chabbat ou d'Orah Haïm
+        # il n'examinait rien et sortait vert, ce que CLAUDE.md tient pour pire qu'une
+        # porte absente. Même correctif que verifier-fabrications.py et fix-lamdan-ltr.py.
+        COMPARTIMENTS = ('yoreh-deah', 'shabbat', 'orah-haim', 'nida')
+        racines, manquants = [], []
+        for a in args:
+            trouve = [os.path.join(ROOT, 'sources', c, f'siman-{a}') for c in COMPARTIMENTS
+                      if os.path.isdir(os.path.join(ROOT, 'sources', c, f'siman-{a}'))]
+            if not trouve:
+                manquants.append(a)
+            racines.extend(trouve)
+        if manquants:
+            print(f"Siman(im) introuvable(s) dans sources/ : {', '.join(manquants)}")
+            return 2
     else:
         racines = sorted(glob.glob(os.path.join(ROOT, 'sources', '*', 'siman-*')))
 

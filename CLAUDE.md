@@ -156,6 +156,16 @@ python3 scripts/verifier-classes.py [--path …] [--lignes]
 python3 scripts/verifier-liens-langue.py [--path …] [--lignes]
 python3 scripts/fix-liens-langue.py [--dry-run]   # ne réécrit jamais vers une variante absente
 
+# Garde-fou de couverture — chaque séif a-t-il son encadré, et la page a-t-elle le séif ?
+# Mesure la PLACE et non l'intitulé : il reprend l'ancrage du moteur d'encadrés et
+# regarde si un encadré se trouve dans l'étendue du séif, quel que soit le mot qui
+# l'introduit. Né d'un chiffre faux — compter « Ce que dit ce séif : » donnait
+# « 38 simanim faits sur 241 » pour Orah Haïm, qui est en réalité servi partout ;
+# un lot entier était prêt pour six simanim qui les avaient déjà. Il a trouvé
+# davantage : 31 simanim dont le niveau 1 ne reproduit qu'une PARTIE du siman
+# (264 séifim absents en Orah Haïm, 104 en Yoré Déa), dont 28 sans le déclarer.
+python3 scripts/verifier-couverture-encadres.py --section orah-haim [--bref] [N …]
+
 # Garde-fou de dénombrement — la page COMPTE-t-elle juste ? « c'est le seul séif
 # où… », « l'un des trois plus longs », « son plus long ס״ק ». Cinq de ces phrases
 # étaient fausses sur le seul siman 234, les neuf autres portes vertes : aucune
@@ -174,6 +184,25 @@ python3 scripts/verifier-denombrements.py [--path …] [--a-verifier] [--bref]
 # autre séif quand il éclaire le sien. Ce qui compte : l'écart isolé, à ouvrir, et
 # l'écart SYSTÉMATIQUE, tout un siman décalé, qui est le piège de la règle 22-bis.
 python3 scripts/verifier-ancrage.py [N N …] [--path …]
+
+# Garde-fou du plan d'étude — le Daat Yomi couvre-t-il les simanim qu'il annonce ?
+# verifier-limoud.py compare deux CHEMINS (le tableau des pages et le JSON du
+# courriel) et vérifie qu'ils s'accordent ; il ne compare ni l'un ni l'autre au
+# Choul'han Aroukh, et tous deux s'accordaient sur un plan tronqué. Mesuré le
+# 23 septembre 2026 : 739 séifim programmés pour 1 053 réels — 314 ne l'étaient
+# AUCUN jour, sur quarante simanim. Deux formes : le plan s'arrête sous le compte
+# (siman 298 au séif 10 quand le texte dit « ובו טו סעיפים », siman 301 au 14 pour
+# 51), ou il le dépasse (siman 258, quatre séifim annoncés pour un seul réel).
+# RACINE : le tableau SEIFIM_COUNT de generate-limoud-plan.cjs était écrit en dur
+# et, son commentaire le disait, « extrait des niveau-1-base.html » — le plan
+# héritait donc de la troncature des PAGES au lieu de suivre la source. Le compte
+# vient désormais de data/seifim-count.json, tiré de Sefaria.
+python3 scripts/generer-seifim-count.py --sections shabbat orah-haim [--write]
+python3 scripts/verifier-plan-limoud.py [--bref]
+# ⚠️ generate-limoud-plan.cjs S'EXÉCUTE AU require() : ne jamais l'importer pour
+# le tester — il réécrit le plan, 1 959 pages limoud/ et les bandeaux d'accueil.
+# Régénérer déplace toutes les dates à venir pour des abonnés en cours de plan :
+# c'est une décision éditoriale, pas un correctif.
 
 # Generate a siman's index page from data/simanim/siman-XXX.json (does NOT generate study levels — those are written by hand)
 node scripts/generate-siman.js --siman XXX [--force] [--no-sitemap]
@@ -331,7 +360,7 @@ Shared modules are prefixed `_` (e.g. `_kv.js`, `_auth.js`, `_corpus.js`, `_syst
 
 **Monetization / plans**: HelloAsso donations hit `helloasso-webhook.js` (verified via `HELLOASSO_WEBHOOK_SECRET`), which sets the user's plan in KV. Plans: `anonymous`, `free`, `khavroutha`, `beit_midrash`, `beit_midrash_plus`, `yeshiva`, `lifetime` — each with daily + monthly question caps defined in `chat.js`. `dedicaces.js` / `dedicace/[siman].js` drive the dedication banners.
 
-**Admin** (`api/admin/*`, pages under `admin/`): gated by `ADMIN_PASSWORD` / `SOUTIEN_ADMIN_SECRET` via the `X-Admin-Secret` header.
+**Admin** (`api/admin/*`, pages under `admin/`): gated by `ADMIN_PASSWORD` / `SOUTIEN_ADMIN_SECRET` via the `X-Admin-Secret` header — **never in the query string**. `api/_admin-gate.js` is the shared door: a **server-side origin refusal** (`origineRefusee` → 403, allowlist extendable with `ADMIN_ALLOWED_ORIGINS`) backed by a matching CORS allowlist (`corsAdmin`) and a **failure counter** in KV (`freinage` / `echecAdmin` / `reussiteAdmin`, 5 per IP and 200 global per 15 min, `logs:admin`). Both exist because of what was measured in production on 22 September 2026: ten wrong secrets in a row returned ten plain `401`s with no throttling, and `Access-Control-Allow-Origin: *` was set **before** the auth check — so the `401` itself was readable cross-origin, and any web page could have the secret brute-forced by ordinary visitors' browsers. The origin check is **server-side on purpose**: the CORS allowlist alone did NOT hold — measured in production on 23 September 2026, **ten of fourteen** requests from a foreign origin still got `Access-Control-Allow-Origin: *`, because `vercel.json` sets that header on `/api/` at the platform level and the `/api/((?!admin/).*)` exclusion is not applied reliably. The deeper lesson is not syntax: **CORS is a browser control**. It asks the browser not to let a page READ the response; it never stops the request arriving, and it protects nothing that is not a browser. A page hosted elsewhere now gets `403` before the password is ever compared. The gate **fails open** when KV is unavailable: it still demands the password, and closing there would lock the real admin out on every Upstash hiccup. Two things it does NOT fix, and that remain open: the comparison is not constant-time, and the shared password itself — the real answer is to carry admin on the existing JWT/OTP (`_auth.js`). `api/daily-pack.js` and `api/social.js` still accept `?secret=` **on purpose**: they use `CRON_SECRET` and serve a browser login page that puts it in the URL; closing that needs a cookie-based login, not a one-line change.
 
 ### Environment variables
 

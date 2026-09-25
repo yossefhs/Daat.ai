@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,8 +23,7 @@
   @page { size: A4; margin: 2cm 1.8cm; }
   body {
     font-family: 'Frank Ruhl Libre', 'David', 'Georgia', 'Cambria', serif;
-    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0;
-    direction: rtl; text-align: right;
+    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0; text-align: left;
   }
   .he {
     direction: rtl; text-align: right;
@@ -72,14 +71,12 @@
   h2.section-title {
     color: #fff; background: #1A1F3A;
     font-size: 16pt; padding: 10px 18px; margin-top: 30px;
-    border-right: 6px solid #C5A55A;
-    direction: rtl; text-align: right;
+    border-left: 6px solid #C5A55A; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3 {
     color: #1A1F3A; font-size: 14pt; margin-top: 25px;
-    border-right: 4px solid #C5A55A; padding-right: 10px;
-    direction: rtl; text-align: right;
+    border-left: 4px solid #C5A55A; padding-left: 10px; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3.he-h3 {
@@ -89,8 +86,7 @@
   }
   h4 {
     color: #5a4a1a; font-size: 12pt;
-    margin-top: 20px; margin-bottom: 8px; font-weight: bold;
-    direction: rtl; text-align: right;
+    margin-top: 20px; margin-bottom: 8px; font-weight: bold; text-align: left;
   }
 
   .sacred-text {
@@ -100,8 +96,8 @@
     font-size: 12.5pt; line-height: 1.9;
   }
   .pilpul-box {
-    background: #eef3fa; border-right: 4px solid #1A1F3A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #eef3fa; border-left: 4px solid #1A1F3A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .pilpul-box::before {
     content: "⚡ פלפול"; display: block;
@@ -110,8 +106,8 @@
     direction: rtl; text-align: right;
   }
   .kashya-box {
-    background: #fef4e4; border-right: 4px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #fef4e4; border-left: 4px solid #C5A55A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .kashya-box::before {
     content: "❓ קושיא"; display: block;
@@ -120,8 +116,8 @@
     direction: rtl; text-align: right;
   }
   .teruts-box {
-    background: #e8f4ea; border-right: 4px solid #2d7a3e;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #e8f4ea; border-left: 4px solid #2d7a3e;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .teruts-box::before {
     content: "✓ תירוץ"; display: block;
@@ -130,8 +126,8 @@
     direction: rtl; text-align: right;
   }
   .hakira-box {
-    background: #f5e9f5; border-right: 4px solid #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #f5e9f5; border-left: 4px solid #6a1b7a;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .hakira-box::before {
     content: "🔍 חקירה"; display: block;
@@ -141,8 +137,7 @@
   }
   .nafka-mina-box {
     background: #fff4e6; border: 2px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; border-radius: 4px; text-align: left;
   }
   .nafka-mina-box::before {
     content: "⚖️ נפקא מינה"; display: block;
@@ -152,8 +147,7 @@
   }
   .yesod-box {
     background: #1A1F3A; color: #fff;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
   .yesod-box::before {
     content: "💎 יסוד"; display: block;
@@ -164,7 +158,7 @@
   .yesod-box .he-q { color: #C5A55A; }
   .machloket-box {
     background: #faf5ff; border: 1.5px dashed #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
 
   table {
@@ -173,10 +167,9 @@
   }
   th {
     background: #1A1F3A; color: #fff;
-    padding: 10px; text-align: right; direction: rtl; font-size: 11pt;
+    padding: 10px; text-align: left; font-size: 11pt;
   }
-  td {
-    direction: rtl; text-align: right;
+  td { text-align: left;
     border: 1px solid #d4c89a; padding: 10px; vertical-align: top;
   }
   tr:nth-child(even) td { background: #FAF6EE; }
@@ -197,12 +190,11 @@
   }
 
   ol.stylish li, ul.stylish li { margin-bottom: 8px; }
-  ol.stylish, ul.stylish { padding-right: 22px; padding-left: 0; }
+  ol.stylish, ul.stylish { padding-left: 22px; padding-right: 0; }
 
   .rishon-card {
-    background: #f7f3e4; border-right: 4px solid #8a6a1a;
-    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt;
-    direction: rtl; text-align: right;
+    background: #f7f3e4; border-left: 4px solid #8a6a1a;
+    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt; text-align: left;
   }
   .rishon-card strong { color: #1A1F3A; font-size: 11pt; }
 
@@ -217,15 +209,14 @@
 
   .index-box {
     background: #FAF6EE; border: 1px solid #C5A55A;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
-  .index-box ol { margin: 5px 0; padding-right: 25px; padding-left: 0; }
+  .index-box ol { margin: 5px 0; padding-left: 25px; padding-right: 0; }
   .index-box li { margin-bottom: 5px; }
 
   h3.sugya {
     background: #1A1F3A; color: #fff;
-    padding: 8px 15px; border-left: none; border-right: 6px solid #C5A55A;
+    padding: 8px 15px; border-right: none; border-left: 6px solid #C5A55A;
   }
 
   /* ── חץ אל ההסבר המפורט (רמה 1) ── */
@@ -237,7 +228,6 @@
     font-size: 12pt;
     text-decoration: none;
     border-bottom: 1px dotted #C5A55A;
-    direction: rtl;
   }
   a.daat-explain:hover { color: #8a6a1a; border-bottom-style: solid; }
 
@@ -382,33 +372,33 @@
 <!-- COUVERTURE -->
 <div class="cover">
   <div class="ornament">✦ ❖ ✦</div>
-  <div class="badge-top">DAAT · רמה ב' — לַמְדָּן</div>
-  <h1>שולחן ערוך · יורה דעה</h1>
-  <div class="subtitle">דין דבר שיש לו מתירין — עיון ופלפול</div>
+  <div class="badge-top">DAAT · LEVEL 2 — LAMDAN</div>
+  <h1>Shulchan Arukh · Yoreh De'ah</h1>
+  <div class="subtitle">דבר שיש לו מתירין — study and pilpul</div>
 
   <div class="he-title">סימן ק״ב</div>
   <div class="he-sub">דבר שיש לו מתירין אינו בטל, מין במינו, שני תנאי המתיר, וחקירת הטעם</div>
   <div class="he-subject">עיון, פלפול, שיטות הראשונים והאחרונים</div>
 
-  <div class="level-badge">⚡ ללומדים ותלמידי חכמים ⚡</div>
+  <div class="level-badge">⚡ For lamdanim and talmidei chachamim ⚡</div>
 
   <div class="ornament">✦ ❖ ✦</div>
 
-  <h2 style="margin-top:20px; color: #1A1F3A;">פלפול ועיון מעמיק</h2>
+  <h2 style="margin-top:20px; color: #1A1F3A;">In-depth pilpul and iyun</h2>
   <p style="font-size:12pt; color:#555;">
-    סוגיות, מקורות, חקירת היסוד, מחלוקות ראשונים ואחרונים,<br>
-    נפקא מינות להלכה ועיון בשיטות
+    Sugyot, sources, the chakira of the yesod, machlokot of Rishonim and Acharonim,<br>
+    practical nafka minot and examination of the shitot
   </p>
 
   <div class="credits">
-    <p><strong>הנושא :</strong><br>
-    שולחן ערוך יורה דעה סימן ק״ב (ד' סעיפים)<br>
-    עם נושאי כלים: ש״ך (שפתי כהן), ט״ז (טורי זהב), פרי מגדים, פתחי תשובה</p>
+    <p><strong>Subject:</strong><br>
+    שולחן ערוך יורה דעה סימן ק״ב (4 seifim)<br>
+    with the commentaries: ש״ך (Shach) · ט״ז (Taz) · פתחי תשובה (Pitchei Teshuva)</p>
 
-    <p><strong>יסוד הסוגיא בש״ס :</strong><br>
-    ביצה ג׳:–ד׳. (ביצה שנולדה ביו״ט, דשיל״מ אינו בטל) · נדרים נ״ב. (מין במינו לא בטיל) · עבודה זרה ע״ג.–ע״ד. (מין במינו במשהו, בתר שמא)</p>
+    <p><strong>The sugya in Shas:</strong><br>
+    ביצה ג׳: — ד׳. (the egg born on Yom Tov; a דשיל״מ is not nullified) · נדרים נ״ב. (מין במינו) · עבודה זרה ס״ו. (בתר שמא ולא בתר טעמא)</p>
 
-    <p><strong>עריכה ועיון :</strong><br>
+    <p><strong>Written and edited by:</strong><br>
     הרב יוסף חיים סממה · DAAT</p>
   </div>
 </div>
@@ -416,21 +406,21 @@
 <div class="page-break"></div>
 
 <!-- TABLE DES MATIÈRES -->
-<h2 class="section-title">📑 תוכן העניינים</h2>
+<h2 class="section-title">📑 Table of contents</h2>
 
-<div class="index-box" dir="rtl">
+<div class="index-box">
 <ol>
-  <li><strong>הקדמת הסוגיא</strong> — מהו דבר שיש לו מתירין, וביצה שנולדה ביום טוב (סעיף א')</li>
-  <li><strong>יסוד הדין</strong> — מן התורה חד בתרי בטל, וחומרת הסופרים "עד שתאכלנו באיסור תאכלנו בהיתר" (ט״ז ס״ק א)</li>
-  <li><strong>חומר דשיל״מ אף בספק</strong> — מדוע חמור מבריה וחתיכה הראויה להתכבד (ט״ז ס״ק ג)</li>
-  <li><strong>מין במינו או שלא במינו</strong> — בתר שמא ולא בתר טעמא (ש״ך ס״ק ד, רבא ע״ז ; ט״ז ס״ק ה, הר״ן בדם הפר ושעיר ; לתקן הקדרה ס״ק ו)</li>
-  <li><strong>שני תנאי המתיר</strong> — ודאי שיבוא או בידו בלא הפסד, וספק טריפה (סעיף ב', ט״ז ס״ק ז)</li>
-  <li><strong>הכלי אינו דשיל״מ</strong> — צריך הוצאות להגעילו (סעיף ג', הרשב״א ; ש״ך ס״ק ח הראה ומהרי״ל)</li>
-  <li><strong>חקירת הטעם דסעיף ד'</strong> — טעמו בטל או לא, ומחלוקת הרמ״א והש״ך (ס״ק ט–י)</li>
-  <li><strong>אין איסורו מחמת עצמו · כל שעיקר היתרו ע״י ביטול</strong> — חתיכה שלא נמלחה (ט״ז ס״ק י)</li>
-  <li><strong>נדר · חמץ בפסח · המבשל בשבת</strong> — דשיל״מ לדידיה ויש חולקין (ט״ז ס״ק יב–יג, ש״ך ס״ק יג–טו)</li>
-  <li><strong>חקירה ונפקא מינה למעשה</strong></li>
-  <li><strong>טבלאות סיכום מקיפות</strong></li>
+  <li><strong>Opening the sugya</strong> — what a דבר שיש לו מתירין is, and the egg born on Yom Tov (seif 1)</li>
+  <li><strong>The yesod of the din</strong> — mid'oraita חד בתרי בטל, and the stringency of the Sages (Taz ס״ק א)</li>
+  <li><strong>The stringency of דשיל״מ even in doubt</strong> — why it is heavier than other things that are not nullified (Taz ס״ק ג)</li>
+  <li><strong>מין במינו or שלא במינו</strong> — בתר שמא and not בתר טעמא (Shach ס״ק ג–ד, from Rava, AZ 66a; Taz ס״ק ה, the Ran on the blood of the bull and the goat; לתקן הקדרה, ס״ק ו)</li>
+  <li><strong>The two conditions of the מתיר</strong> — certain to come, or in his power without loss, and the egg of a ספק טריפה (seif 2, Taz ס״ק ז, Shach ס״ק ז)</li>
+  <li><strong>A vessel is not a דשיל״מ</strong> — kashering it costs money (seif 3, Rashba; Shach ס״ק ח: Maharshal, Ra'ah, Maharil)</li>
+  <li><strong>The chakira of seif 4</strong> — is the taste nullified? Rama against Shach (ס״ק ט–י)</li>
+  <li><strong>אין איסורו מחמת עצמו · כל שעיקר היתרו ע״י ביטול</strong> — the unsalted piece of meat (Taz ס״ק י)</li>
+  <li><strong>A vow · chametz on Pesach · one who cooks on Shabbat</strong> — דשיל״מ לדידיה and the dissenting views (Taz ס״ק י״ב–יג, Shach ס״ק י״ג–טו)</li>
+  <li><strong>Chakira and practical nafka mina</strong></li>
+  <li><strong>Summary tables</strong></li>
 </ol>
 </div>
 
@@ -438,497 +428,596 @@
 
 <!-- ============================================================= -->
 <!-- לשון השולחן ערוך — סעיף א' -->
-<h2 class="section-title">📜 לשון השולחן ערוך — סעיף א'
-  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 העתק</button>
+<h2 class="section-title">📜 The text of the Shulchan Arukh — seif 1
+  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 Copy</button>
 </h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ Detailed explanation (Level 1)</a>
 
 <div class="sacred-text he" data-copy-block id="cp-1">
-  <p>כָּל דָּבָר שֶׁיֵּשׁ לוֹ מַתִּירִין — כְּגוֹן בֵּיצָה שֶׁנּוֹלְדָה בְּיוֹם טוֹב שֶׁרְאוּיָה לְמָחָר — אִם נִתְעָרְבָה בַּאֲחֵרוֹת, בֵּין שְׁלֵמָה בֵּין טְרוּפָה, אֵינָהּ בְּטֵלָה אֲפִלּוּ בְּאֶלֶף. וַאֲפִלּוּ סָפֵק אִם נוֹלְדָה בְּיוֹם טוֹב וְנִתְעָרְבָה בַּאֲחֵרוֹת — אֲסוּרוֹת. וְאִם נִתְעָרְבָה בְּשֶׁאֵינָהּ מִינָהּ — בְּטֵלָה בְּשִׁשִּׁים. (הגה: וּמִיהוּ אִם לִבְּנוֹ בָהּ מַאֲכָל אוֹ נְתָנָהּ לְתַקֵּן הַקְּדֵרָה, כְּגוֹן שֶׁמִּלְּאוּהָ בְּתַרְנְגֹלֶת — אֵינָהּ בְּטֵלָה. עיין אורח חיים סימן תקי״ג.)</p>
+  <p>«&nbsp;<span class="he-q">כל דבר שיש לו מתירין כגון ביצה שנולדה ביום טוב שראויה למחר אם נתערב׳ באחרות בין שלימה בין טרופה אינה בטלה אפילו באלף ואפי׳ ספק אם נולדה בי״ט ונתערבה באחרו׳ אסורו׳ ואם נתערבה בשאינה מינה בטלה בס׳ … מיהו אם לבנו בה מאכל או נתנו בקדרה לתקן הקדרה כגון שמלאוה בתרנגולת אינה בטלה … ועיין בא״ח סימן תקי״ג</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה ק״ב:א)</span></p>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">1. הקדמת הסוגיא — מהו דבר שיש לו מתירין</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">1. Opening the sugya — what a דבר שיש לו מתירין is</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ Detailed explanation (Level 1)</a>
 
-<h3 class="he-h3">היסוד — ביצה שנולדה ביום טוב
-  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 העתק</button>
+<h3>The starting point — the egg born on Yom Tov
+  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 Copy</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-2">
-יסוד הסימן: <strong>דבר שיש לו מתירין (דשיל״מ)</strong> — דבר שאינו צריך כלל לביטול כדי שיהא מותר, שהרי <strong>ממילא יהא מותר לאחר זמן</strong>. כדוגמת ה<span class="he-q">ביצה שנולדה ביום טוב</span>, שאסורה ביום טוב משום הכנה (או משום מוקצה), אך <strong>למחר תהא ראויה</strong> ומותרת בלא שום פעולה. וכל דבר כזה, אם נתערב באחרות — <span class="he-q">אינו בטל אפילו באלף</span>, בין שהביצה שלימה בין טרופה, <strong>ואף בספק</strong> אם נולדה ביום טוב. ודין זה דווקא <strong>מין במינו</strong>; אבל בשאינה מינה — בטלה בששים.
+<div class="sacred-text" data-copy-block id="cp-2">
+The yesod of the siman is the <strong>דבר שיש לו מתירין</strong> (in short, דשיל״מ): a thing that needs no nullification at all in order to become permitted, since it <strong>will become permitted by itself after a time</strong>. The paradigm case is the <span class="he-q">ביצה שנולדה ביום טוב</span> <span class="source-ref">(שו״ע יו״ד ק״ב:א)</span>, forbidden on the festival and permitted the next day with nothing done to it. Such a thing, once mixed into others, is not nullified even in a thousand — whether the egg is whole or beaten, and <strong>even where there is a doubt</strong> about the day it was laid. But all of this holds only <strong>מין במינו</strong>; mixed into another species, it is nullified in sixty.
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>מקור הדין — ביצה ג׳:–ד׳. :</strong> שורש דשיל״מ בגמרא בביצה, בביצה שנולדה ביום טוב שנתערבה באלף — כולן אסורות. וטעם הדבר בגמרא: <span class="he-q">כל דבר שיש לו מתירין — אפילו בדרבנן לא בטיל</span>. ומכאן למדו דבכל איסור שיהא לו היתר לאחר זמן (שבת/יו״ט/שמיטה/הקדש שיפדה וכיוצא) אומרים כן. והמחבר העתיק כאן את הביצה כדוגמא ראשית, שכן בה נאמר הדין במקורו.
+<div class="pilpul-box">
+<strong>The source of the din — ביצה ד׳. :</strong> the root of דשיל״מ is the gemara in Beitza, about an egg born on Yom Tov that fell into a thousand others: all of them are forbidden. Rav Ashi there states the rule in its general form.
+<blockquote>«&nbsp;<span class="he-q">וְכׇל דָּבָר שֶׁיֵּשׁ לוֹ מַתִּירִין — אֲפִילּוּ בִּדְרַבָּנַן לֹא בָּטֵיל</span>&nbsp;» <span class="source-ref">(ביצה ד׳.)</span></blockquote>
+From there the rule was extended to every prohibition destined to become permitted after a time (Shabbat, Yom Tov, shemitta, hekdesh that will be redeemed, and the rest). The Mechaber takes the egg as his first example because that is where the din was stated at its source.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הגהת הרמ״א (הגה) — לבנו או לתקן הקדרה :</strong> "<span class="he-q">אם לבנו בה מאכל או נתנה לתקן הקדרה, כגון שמלאוה בתרנגולת — אינה בטלה</span>" (ועיין אורח חיים סימן תקי״ג). חידוש זה הוא בגדר <strong>מין במינו</strong>, שכן מה שניתן לתקן ולהשביח את התבשיל נחשב כמינו, ועל כן אף שלכאורה הביצה והתרנגולת שתי "מינים" הן — מאחר שהביצה ניתנה לתקן ולהשביח, דינה כמין במינו ואינה בטלה. וזהו עומק שיטת הרמ״א המשלים את לשון המחבר.
-</div>
-
-<!-- ============================================================= -->
-<h2 class="section-title">2. יסוד הדין — מן התורה חד בתרי בטל</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
-
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זהו שורש הסימן כולו, וכל כובד ידו של הט״ז (ס״ק א) נתון בו.</p>
-
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — מדוע דשיל״מ אינו בטל אפילו באלף :</strong> והלא <strong>מן התורה</strong>, בכל איסור שנתערב בהיתר מין במינו — <span class="he-q">חד בתרי בטל</span>, ברוב, מ"אחרי רבים להטות" ! ואם כן מדוע כאן אינו בטל אף באלף ?
-</div>
-
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ הט״ז (ס״ק א) — חומרא דרבנן :</strong> מבאר הט״ז (בשם רש״י ביצה) דמן התורה אכן <strong>חד בתרי בטל</strong>, ואין כאן איסור תורה כלל. אלא ש<strong>חכמים החמירו</strong> בדבר שיש לו מתירין שלא יתבטל, ונתנו טעם לדבריהם:
-<blockquote dir="rtl">עַד שֶׁתֹּאכְלֶנּוּ בְּאִיסּוּר — תֹּאכְלֶנּוּ בְּהֶיתֵּר.</blockquote>
-כלומר: מאחר שבידך להמתין ולאכול את הדבר ב<strong>היתר גמור</strong> לאחר זמן (כשיבוא המתיר), אין לך רשות "לקנות" אותו עתה דרך ביטול, שהוא היתר על ידי איסור. ועל כן החמירו חכמים שלא יבטל.
-</div>
-
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — הביטול הוא "פתח" שאין בו צורך :</strong><br>
-שורש הענין: הביטול ברוב הוא <span class="he-q">מנגנון של דוחק</span> — התירו חכמים (ואף התורה) להפקיע איסור על ידי רוב היתר משום שאין דרך אחרת. אבל בדבר שיש לו מתירין — <strong>יש דרך אחרת</strong>: להמתין. על כן אמרו: <span class="he-q">"עד שתאכלנו באיסור תאכלנו בהיתר"</span> — אל תיזקק לפתח הביטול כל זמן שפתוח לפניך פתח של היתר ממש. ומכאן שכל חומרת דשיל״מ אינה משום חשיבות האיסור, אלא משום <strong>קיומו של היתר עתידי</strong>.
-</div>
-
-<div class="pilpul-box" dir="rtl">
-<strong>הט״ז (ס״ק ב) — "בין שלימה בין טרופה" :</strong> מדקדק הט״ז: ביצה <strong>שלימה</strong> הרי היא בלאו הכי <span class="he-q">דבר שבמנין</span> (סימן פ״ו) שאינו בטל ! ומהו אם כן החידוש דדשיל״מ בשלימה ? ומתרץ דהחידוש כאן הוא שיש בה <strong>גם</strong> חומרת דשיל״מ, ונפקא מינה ל<strong>ספק</strong>: בדבר שבמנין לבד היה מקום להקל בספק, ואילו מטעם דשיל״מ אסורה אף בספק — וכמו שיתבאר.
+<div class="rishon-card">
+<strong>The Rama's gloss — לבנו בה מאכל or לתקן הקדרה :</strong> the Rama adds that if the egg was used to whiten a dish, or was put into the pot to improve it, it is not nullified.
+<blockquote>«&nbsp;<span class="he-q">מיהו אם לבנו בה מאכל או נתנו בקדרה לתקן הקדרה כגון שמלאוה בתרנגולת אינה בטלה</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ב:א)</span></blockquote>
+The Rama himself refers to אורח חיים סימן תקי״ג. What this addition presupposes — and it is the Taz and the Shach at ס״ק ו who will say it explicitly — is that whatever is given in order to <em>improve</em> a dish counts as its own species: the question of מין במינו is therefore taken up below.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">3. חומר דשיל״מ אף בספק — חמור מבריה וחהל״ה</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">2. The yesod of the din — mid'oraita חד בתרי בטל</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (Level 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סיפא דסעיף א')
-  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 העתק</button>
+<p style="margin:15px 0; font-style:italic;">This is the root of the whole siman, and the Taz puts all his weight on it in his very first ס״ק.</p>
+
+<div class="hakira-box">
+<strong>The chakira — why is a דשיל״מ not nullified, even in a thousand?</strong> Mid'oraita, a prohibited item that falls into permitted food of the same species is nullified by majority — <span class="he-q">חד בתרי בטל</span> <span class="source-ref">(ט״ז יו״ד ק״ב ס״ק א)</span> — from "אחרי רבים להטות". Why then is it not nullified here even in a thousand?
+</div>
+
+<div class="teruts-box">
+<strong>The Taz's answer (ס״ק א) — a rabbinic stringency:</strong> the Taz explains, in the name of Rashi on Beitza, that mid'oraita the nullification does take effect, and there is no Torah prohibition here at all; it is the Sages who added their stringency.
+<blockquote>«&nbsp;<span class="he-q">מדאורייתא חד בתרי בטל דכתיב אחרי רבים להטות ואחמירו רבנן הואיל ויש לו מתירין לאחר זמן לא יאכלנו באיסורו ע״י ביטול. רש״י פ״ק דביצה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ב ס״ק א)</span></blockquote>
+In other words: since it is in your power to wait and eat the thing <strong>in full permission</strong> after a time, you have no licence to acquire it now by way of nullification, which is a permission obtained through a prohibition.
+</div>
+
+<div class="yesod-box">
+<strong>The yesod — nullification is a door not needed here:</strong><br>
+The root of the matter: nullification by majority is a way out of necessity — the Sages (and the Torah) allowed a prohibition to be dissolved in a majority of permitted matter because there is no other way. But in a דבר שיש לו מתירין <strong>there is another way</strong>: to wait. The Shach formulates the principle in the very words the gemara uses elsewhere.
+<blockquote>«&nbsp;<span class="he-q">עד שאתה אוכלו באיסור תאכלנו בהיתר</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ב ס״ק ט)</span></blockquote>
+It follows that the whole stringency of דשיל״מ rests not on the importance of the prohibition but on <strong>the existence of a permission still to come</strong>.
+</div>
+
+<div class="pilpul-box">
+<strong>The Taz (ס״ק ב) — "בין שלימה בין טרופה":</strong> the Taz points out that a <strong>whole</strong> egg is in any case a דבר שבמנין (siman 86), which is not nullified. Where, then, is the novelty of דשיל״מ for a whole egg? He answers that the novelty is that it also carries the stringency of דשיל״מ, with a consequence for the case of <strong>doubt</strong>.
+<blockquote>«&nbsp;<span class="he-q">קמ״ל דיש שם ג״כ חומרא דיש לו מתירין ונ״מ לענין ספק</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ב ס״ק ב)</span></blockquote>
+</div>
+
+<!-- ============================================================= -->
+<h2 class="section-title">3. The stringency of דשיל״מ even in doubt</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (Level 1)</a>
+
+<h3>The Mechaber's words (end of seif 1)
+  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-3">
-"<strong>ואפילו ספק אם נולדה ביום טוב ונתערבה באחרות — אסורות.</strong>" — ולכאורה הרי <strong>ספק דרבנן לקולא</strong>, ואיסור הביצה ביו״ט מדרבנן הוא; ואף האיסור שלא לבטל דשיל״מ — מדרבנן ! ואם כן, ספק ספיקא דרבנן — ויהא מותר. וכאן חידש המחבר שאף בספק — אסורות.
+<p>«&nbsp;<span class="he-q">ואפי׳ ספק אם נולדה בי״ט ונתערבה באחרו׳ אסורו׳</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה ק״ב:א)</span></p>
 </div>
 
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ הט״ז (ס״ק ג) — דשיל״מ חמור אף מבריה ומחתיכה הראויה להתכבד :</strong> מבאר הט״ז דדשיל״מ <strong>חמור</strong> אף מבריה ומחתיכה הראויה להתכבד, שאף שגם הם אינם בטלים — מכל מקום <span class="he-q">בספק</span> שלהם מקילין; ואילו בדשיל״מ אף בספק <strong>אסור</strong>. וטעם החילוק:
+<div class="hakira-box">
+<strong>The difficulty:</strong> a doubt in a rabbinic prohibition is resolved leniently, and the prohibition of the egg on Yom Tov is rabbinic; so is the prohibition against nullifying a דשיל״מ. One would therefore expect a lenient ruling — yet the Mechaber writes that even in doubt they are forbidden.
+</div>
+
+<div class="teruts-box">
+<strong>The Taz's answer (ס״ק ג) — דשיל״מ is heavier than other things that are not nullified:</strong> the Taz distinguishes דשיל״מ from the other cases of non-nullification, where the doubt is permitted.
+<blockquote>«&nbsp;<span class="he-q">בדבר זה חמור דבר שיש לו מתירין משאר דברים שאינם בטלים דשם מותר בספיקן אם הודאי איסור הוא דרבנן אמרינן בספק שלו דמותר ככל ספק דרבנן ולא יזיק לו אם הוא דבר חשוב אבל כאן אפי׳ בספק איסור דרבנן אסור כיון שיש לו מתירין</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ב ס״ק ג)</span></blockquote>
+The dividing line, as the Taz draws it:
 <ul class="stylish">
-<li>חומרת <strong>בריה</strong> ו<strong>חהל״ה</strong> נובעת מן ה<span class="he-q">חשיבות</span> שבגוף האיסור — ובספק, יש להקל שמא לאו "חשוב" הוא.</li>
-<li>אבל חומרת <strong>דשיל״מ</strong> אינה מצד החשיבות כלל, אלא מצד <span class="he-q">קיום היתר עתידי</span> — ובזה אין נפקא מינה בין ודאי לספק, שהרי בין כך ובין כך אומרים "עד שתאכלנו באיסור תאכלנו בהיתר".</li>
+<li>the stringency of the other cases rests on the <strong>importance</strong> of the body of the prohibition (the Taz says "דבר חשוב") — and in doubt one is lenient, since perhaps it is not "important" at all;</li>
+<li>the stringency of דשיל״מ rests not at all on importance, but on the fact that a permission will come — and in that there is no difference between the certain and the doubtful.</li>
 </ul>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה — אף ספק איסור דרבנן :</strong> מן הט״ז (ס״ק ג) למדנו יסוד גדול — שבדשיל״מ אין הולכין אחר הכלל "ספק דרבנן לקולא", אלא <span class="he-q">אף ספק איסור דרבנן אסור</span>. שכן עיקר הדין אינו תלוי בחומר האיסור אלא בקיום ההיתר; וכל זמן שאפשר להמתין ולאכלו בהיתר — אין מתירין דרך ביטול אף בספק. <em>ולמעשה — שאל את רבך.</em>
+<div class="nafka-mina-box">
+<strong>Nafka mina — even a doubt in a rabbinic prohibition:</strong> from the Taz (ס״ק ג) a great principle emerges — in a דשיל״מ one does not follow the rule <em>safek derabanan lekula</em>. As long as it is possible to wait and eat the thing in permission, one does not permit by way of nullification, even in doubt. <em>And for practice — ask your Rav.</em>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">4. מין במינו או שלא במינו — בתר שמא</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">4. מין במינו or שלא במינו — בתר שמא</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (Level 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סיפא דסעיף א')
-  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 העתק</button>
+<h3>The Mechaber's words (end of seif 1)
+  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-4">
-"<strong>ואם נתערבה בשאינה מינה — בטלה בששים.</strong>" — חומרת דשיל״מ אינה אלא <span class="he-q">מין במינו</span> (ביצה בביצים); אבל נתערבה ב<strong>שאינה מינה</strong> (ביצה בתבשיל אחר) — חוזרת לדין הרגיל ו<strong>בטלה בששים</strong>.
+<p>«&nbsp;<span class="he-q">ואם נתערבה בשאינה מינה בטלה בס׳</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה ק״ב:א)</span></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — מדוע דווקא מין במינו :</strong><br>
-מבאר הש״ך (ס״ק ד): כל חומרת דשיל״מ אינה מצד האיסור עצמו, אלא <span class="he-q">מאחר שיהיה לו היתר</span> — והרי "עד שתאכלנו באיסור תאכלנו בהיתר". ועל כן דווקא <strong>מין במינו</strong>, ששם ה<em>היתר</em> והאיסור <strong>שם אחד להם</strong>, וכשתמתין ייהפך הכל להיתר. אבל <strong>שלא במינו</strong> — האיסור והתערובת אינם נושאים שם אחד, ואין "ההיתר העתידי" חל על המין האחר; על כן בטל בששים ככל איסור.
+<p>The stringency of דשיל״מ therefore applies only <strong>מין במינו</strong> (an egg among eggs); mixed into another species, it returns to the ordinary din and is nullified in sixty.</p>
+
+<div class="yesod-box">
+<strong>The yesod — why specifically מין במינו :</strong><br>
+The Shach (ס״ק ד) explains: the whole stringency does not come from the prohibition itself, but from the fact that a permission will come; and when the mixture was made with another species, the future permission does not bear the name of the forbidden thing.
+<blockquote>«&nbsp;<span class="he-q">שאני הכא דאין החשיבות מצד האיסור עצמו אלא מאחר שיהיה לו היתר אחר כך לא רצו חכמים להתבטל וכל שנתערב שלא במינו אין ההיתר נקרא על הדבר האסור אלא ע״ש דבר שנתערב בו והוי כמי שאין לו מתירין</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ב ס״ק ד)</span></blockquote>
+The Shach adds that for a בריה or a חתיכה הראויה להתכבד there is no difference between מינו and שאינו מינו — and that is precisely what shows that the stringency of דשיל״מ is of another order.
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>בתר שמא או בתר טעמא — ש״ך (ס״ק ב–ג) :</strong>
+<div class="machloket-box">
+<strong>By name or by taste — Shach ס״ק ג :</strong> the Shach establishes that the criterion of "its own species" is the <strong>name</strong> and not the <strong>taste</strong>, and he grounds it in Rava.
 <table>
-<tr><th>שיטה</th><th>במה הולכין לקבוע "מינו"</th><th>מקור</th></tr>
+<tr><th>Case</th><th>The din according to the Shach</th><th>Source</th></tr>
 <tr>
-  <td><strong>הב״ח</strong></td>
-  <td>אזלינן בתר <strong>טעמא</strong> — שני דברים שטעמם שווה דינם כמין במינו</td>
-  <td>ש״ך ס״ק ב (ודחה)</td>
-</tr>
-<tr>
-  <td><strong>הש״ך (ע״פ רבא, ע״ז ס״ו.)</strong></td>
-  <td>אזלינן <strong>בתר שמא ולא בתר טעמא</strong> — לפי השם, לא לפי הטעם</td>
+  <td>Same <strong>name</strong>, different taste</td>
+  <td>מין במינו — not nullified</td>
   <td>ש״ך ס״ק ג</td>
 </tr>
+<tr>
+  <td>Same <strong>taste</strong>, different name</td>
+  <td>שלא במינו — nullified</td>
+  <td>ש״ך ס״ק ג, from Rava</td>
+</tr>
 </table>
+<blockquote>«&nbsp;<span class="he-q">נראה דהכא אזלינן בתר שמא ולא בתר טעמא דאם הוא שוה בשמא אע״ג דלא שוה בטעמא ה״ל מין במינו ולא בטיל ואם אינו שוה בשמא אף על גב דשוה בטעמא ה״ל שלא במינו ובטל</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ב ס״ק ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דהא קי״ל כרבא פרק בתרא דעבודת כוכבים … דבתר שמא אזלינן ולא בתר טעמא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ב ס״ק ג)</span></blockquote>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שיטת הט״ז (ס״ק ה) והר״ן בדם הפר ושעיר :</strong> מביא הט״ז ראיה ל<span class="he-q">שלא במינו בטל</span> מן הר״ן, שהקשה מדוע בדם הפר ושעיר ביום הכיפורים מערבן יחד והוו <strong>מין במינו</strong> שאינו בטל — ותירץ דהיתר עתידי "תופס שם" של האיסור דווקא במינו. ובשלא במינו, ה<span class="he-q">היתר נתפס על התערובת</span> ולא על האיסור עצמו, ולכך בטל בששים. וזהו שורש החילוק: מין במינו — ההיתר העתידי חל על גוף הדבר; שלא במינו — אינו חל עליו, ובטל.
+<div class="pilpul-box">
+<strong>The Taz (ס״ק ה) and the Ran on the blood of the bull and the goat:</strong> the Taz first brings the reason he had given in siman 101 — the future permission bears the name of the mixture, not of the prohibition — and he is not satisfied with it.
+<blockquote>«&nbsp;<span class="he-q">לפי שאין ההיתר אח״כ נקרא על האיסור אלא על התערובת שנאסר והוא אינו מינו של האיסור ואין טעם זה מספיק כל כך</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ב ס״ק ה)</span></blockquote>
+He then wonders why the Ran's reason (Nedarim 52) was not brought here. The Ran starts from the verse « ולקח מדם הפר ומדם השעיר »: although the blood of the bull is more abundant, Scripture still calls the mixture the <em>blood of the goat</em> — a sign that מין במינו there is no nullification, for what resembles its like does not weaken it but strengthens it. The Sages do not derive the rule for forbidden and permitted from there, because there one item is forbidden and the other permitted — except, precisely, in a דשיל״מ:
+<blockquote>«&nbsp;<span class="he-q">דהא אין כאן חילוק בין איסור להיתר שהרי גם האיסור סופו להיות מותר</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ב ס״ק ה)</span></blockquote>
+The Taz ends by writing that this reason of the Ran is entirely correct.
 </div>
 
-<div class="teruts-box" dir="rtl">
-<strong>לתקן הקדרה = מין במינו (ט״ז ס״ק ו) :</strong> ומכאן יתבאר דין הרמ״א שבסעיף א' — מה שנתן <span class="he-q">לתקן הקדרה</span> או <span class="he-q">לבנו במאכל</span> נחשב מין במינו ואינו בטל. ומדמה לו הט״ז (וכן הש״ך ס״ק ו) ל<strong>מים ומלח שבעיסה</strong> (תוספות) — שאף שאינם מין העיסה ממש, מאחר שניתנו לתקן ולהשביח את המאכל, בטלים אל המאכל ונחשבים כמינו; הכא נמי, מה שניתן לתקן הקדרה — מינו הוא ואינו בטל בדשיל״מ.
+<div class="teruts-box">
+<strong>"Improving the pot" = מין במינו (Taz ס״ק ו, Shach ס״ק ו):</strong> this is what illuminates the Rama's gloss on seif 1. The Taz compares it to water and salt in dough, in the name of Tosafot.
+<blockquote>«&nbsp;<span class="he-q">דכל דבר שצריך זה לזה כגון מים ומלח בעיסה הוה מין במינו</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ב ס״ק ו)</span></blockquote>
+The Shach says the same in the name of the Mahara"i:
+<blockquote>«&nbsp;<span class="he-q">דכל שנותנין זה בזה לתקן זה את זה מקרי מין במינו כגון מים ומלח בעיסה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ב ס״ק ו)</span></blockquote>
+The Taz warns against over-extending this: the reasoning holds here, for דשיל״מ, and one may not conclude that everywhere whatever improves the pot is מין במינו — for where everything depends on taste, something that imparts taste from outside its species keeps the stringency of שלא במינו.
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">5. שני תנאי המתיר — ודאי שיבוא או בידו</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-rama">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">5. The two conditions of the מתיר — certain to come, or in his power</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-rama">↩ Detailed explanation (Level 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיף ב')
-  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 העתק</button>
+<h3>The Mechaber's words (seif 2)
+  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-5">
-"<strong>יש מי שאומר שלא אמרו דבר שיש לו מתירין אינו בטל אלא כשהמתיר עתיד לבוא על כל פנים, או שהוא בידו לעשותו בלא הפסד; אבל דבר שאין בידו ואין ודאי שיבוא המתיר — אינו בכלל דבר שיש לו מתירין. ולכן ביצה של ספק טריפה שנתערבה באחרות — אינה בכלל דבר שיש לו מתירין</strong>, שאין המתיר ודאי לבוא ולא בידו."
+<p>«&nbsp;<span class="he-q">יש מי שאומר שלא אמרו דבר שיש לו מתירין אלא כשהמתיר עתיד לבא על כל פנים או אם המתיר בידו לעשותו בלא הפסד אבל דבר שאינו בידו ואינו ודאי שיבא המתיר אינו בדין דבר שיש לו מתירין לפיכך ביצה של ספק טריפה שנתערבה באחרות אינו בדין דבר שיש לו מתירין לפי שאין המתיר בודאי ואינו בידו</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה ק״ב:ב)</span></p>
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — מהו "מתיר" המספיק לדשיל״מ :</strong> כל יסוד דשיל״מ הוא "עד שתאכלנו באיסור תאכלנו בהיתר" — אך מתי באמת אפשר לומר שיש לפניו "היתר" ? האם די בכל אפשרות, או צריך <strong>ודאות</strong> או <strong>שליטה</strong> ?
+<div class="hakira-box">
+<strong>The chakira — which "מתיר" is enough to make a דשיל״מ?</strong> The whole yesod rests on a permission being available. But when can one truly say that it is? Does any possibility suffice, or is <strong>certainty</strong> required, or <strong>control</strong>?
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>שני התנאים — ט״ז (ס״ק ז) :</strong>
+<div class="machloket-box">
+<strong>The two conditions, as seif 2 sets them out:</strong>
 <table>
-<tr><th>תנאי</th><th>הביאור</th><th>הדוגמא</th></tr>
+<tr><th>Condition</th><th>Explanation</th><th>Example</th></tr>
 <tr>
-  <td><strong>(א) עתיד לבוא על כל פנים</strong></td>
-  <td>המתיר יבוא בודאי, מאליו, בלא מעשה</td>
-  <td>ביצת יו״ט שתהא מותרת למחר בודאי</td>
+  <td><strong>(a) עתיד לבא על כל פנים</strong></td>
+  <td>the מתיר will come in any case, by itself, with no act</td>
+  <td>the Yom Tov egg, certainly permitted after the festival — this is the Taz's example at ס״ק ז</td>
 </tr>
 <tr>
-  <td><strong>(ב) בידו לעשותו בלא הפסד</strong></td>
-  <td>המתיר בשליטתו, ויוכל להביאו בלי הפסד ממון</td>
-  <td>שאלת חכם על נדר וכיו״ב</td>
+  <td><strong>(b) בידו לעשותו בלא הפסד</strong></td>
+  <td>the מתיר is in his power, and he can obtain it without financial loss</td>
+  <td>asking a sage about a vow (seif 4)</td>
 </tr>
 </table>
+<blockquote>«&nbsp;<span class="he-q">פי׳ כגון ביצה שנולדה בי״ט שתהיה בודאי מותרת לאחר י״ט לאפוקי ביצת ספק טריפה דנקט אח״כ</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ב ס״ק ז)</span></blockquote>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>ספק טריפה — מדוע אינו דשיל״מ :</strong> ביצה של <span class="he-q">ספק טריפה</span> שנתערבה — אין לה לא תנאי (א) ולא תנאי (ב): המתיר אינו <strong>ודאי לבוא</strong> (שמא טריפה היא ולעולם לא תותר), ואף אינו <strong>בידו</strong> להתירה. על כן אינה בכלל דשיל״מ ובטלה כדין. והעירו האחרונים (פתחי תשובה ס״ק ד בשם צמח צדק סי' ס״ט ומנחת יעקב) דאף בביצת ספק טריפה יש צד דשיל״מ — שהרי <span class="he-q">איסור הכולל</span> ("נולד") יתבטל ממילא לאחר יום טוב; וזהו עומק נוסף בגדר המתיר.
+<div class="pilpul-box">
+<strong>The egg of a ספק טריפה — why it is not a דשיל״מ:</strong> it satisfies neither (a) nor (b): the מתיר is not certain to come — perhaps the hen is a טריפה and the egg will never be permitted — and neither is it in his power. Yet the Acharonim noted that one aspect of דשיל״מ remains: the Tzemach Tzedek (responsum 69), cited by the Pitchei Teshuva (ס״ק ד), answers the questioner that a partial permission will certainly come.
+<blockquote>«&nbsp;<span class="he-q">והוא ז״ל חולק עליו דמ״מ ודאי שיבא לידי היתר קצת דלאחר י״ט יסתלק איסור הכולל דהיינו נולד</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד ק״ב ס״ק ד)</span></blockquote>
+The Pitchei Teshuva adds that the Pri Chadash and the Minchat Yaakov concluded likewise, and he further brings the discussion of the Pri Megadim and of Rabbi Akiva Eiger (responsum 65) about one who vows not to eat a נבילה — where Rabbi Akiva Eiger reconsiders his first suggestion and leaves the matter בצריך עיון.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הש״ך (ס״ק ז) — מדוע "יש מי שאומר" :</strong> תמה הש״ך: מדוע נקט המחבר לשון "יש מי שאומר" (לשון יחיד וחלוש), והרי <strong>הרשב״א והטור</strong> מודים בעיקר הדין שצריך מתיר ודאי או שבידו ? ומיישב דאף שעיקר הדין מוסכם, לא נאמר בלשון ודאית בכל הראשונים, על כן נקט המחבר בלשון "יש מי שאומר" כדרכו.
+<div class="rishon-card">
+<strong>The Shach (ס״ק ז) — why "יש מי שאומר":</strong> the Shach is puzzled by the Mechaber's phrasing, which is the phrasing of a single, isolated opinion.
+<blockquote>«&nbsp;<span class="he-q">לא ידעתי למה כתב המחבר דין זה בשם יש מי שאומר שהרי הרשב״א והטור סוברים כן ואין חולק עליהם</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ב ס״ק ז)</span></blockquote>
+He then brings a proof from the Shas at the beginning of Beitza, where the gemara assumes that the egg of a ספק טריפה is not a דשיל״מ — and he does not resolve his own question: he leaves it open.
+<blockquote>«&nbsp;<span class="he-q">אלא ודאי כל כה״ג לא הוי דשיל״מ וצ״ע</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ב ס״ק ז)</span></blockquote>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">6. הכלי אינו דשיל״מ — צריך הוצאות</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">6. A vessel is not a דשיל״מ — it costs money</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ Detailed explanation (Level 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיף ג')
-  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 העתק</button>
+<h3>The Mechaber's words (seif 3)
+  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-6">
-"<strong>כלי שנאסר בבליעת איסור, שנתערב באחרים ואינו ניכר — בטל ברוב, ואין דנין אותו כדבר שיש לו מתירין</strong> (מפני שצריך להוציא הוצאות להגעילו, וכל כיוצא בזה)."
+<p>«&nbsp;<span class="he-q">כלי שנאסר בבליעת איסור שנתערב באחרים ואינו ניכר בטל ברוב ואין דנין אותו כדבר שיש לו מתירין</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה ק״ב:ג)</span></p>
+<p>«&nbsp;<span class="he-q">לפי שצריך להוציא עליו הוצאות להגעילו וכל כיוצא בזה</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה ק״ב:ג)</span></p>
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — לכאורה הכלי הוא דשיל״מ גמור :</strong> כלי שבלע איסור — הרי <strong>בידו</strong> להתירו על ידי הגעלה ! ואם כן הוא דבר שיש לו מתירין, ולא יתבטל אף באלף; ומדוע פסק המחבר ש<span class="he-q">בטל ברוב</span> ?
+<div class="hakira-box">
+<strong>The chakira — at first sight the vessel is a perfect דשיל״מ:</strong> a vessel that has absorbed a prohibition — it is <strong>in his power</strong> to render it permitted by הגעלה. It should therefore not be nullified, even in a thousand. Why does the Mechaber rule that it is nullified by majority?
 </div>
 
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ הרשב״א (במחבר) — צריך הוצאות :</strong> תנאי (ב) דדשיל״מ הוא "בידו <span class="he-q">בלא הפסד</span>". והכא, אף שבידו להגעיל את הכלי — <strong>צריך להוציא הוצאות</strong> (עצים, טורח, פעולת ההגעלה). ומאחר שאין המתיר בא <em>בלא הפסד</em>, יצא הכלי מכלל דשיל״מ ובטל ברוב. וזהו "וכל כיוצא בזה" — כל מתיר הכרוך בהפסד ממון.
+<div class="teruts-box">
+<strong>The Rashba's answer, as the Mechaber brings it — it costs money:</strong> the second condition requires that the מתיר be in his power <em>without loss</em>. Here, הגעלה must be paid for — wood, labour, the work itself. Since the מתיר does not come without loss, the vessel leaves the category of דשיל״מ and is nullified by majority. That is the sense of "וכל כיוצא בזה": every מתיר that costs money.
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>ש״ך (ס״ק ח) — האם הגעלה "הפסד" היא :</strong>
+<div class="machloket-box">
+<strong>The Shach (ס״ק ח) — the views on this reason:</strong>
 <table>
-<tr><th>שיטה</th><th>ההגעלה</th><th>מקור</th></tr>
+<tr><th>View</th><th>What it says about the reason of "expense"</th><th>Source</th></tr>
 <tr>
-  <td><strong>המהרש״ל</strong></td>
-  <td>חולק; ואין ההגעלה מוציאה מכלל דשיל״מ בכל אופן</td>
-  <td>ש״ך ס״ק ח (חולק עליו)</td>
+  <td><strong>The Maharshal</strong></td>
+  <td>the reason was unnecessary: in any case the permission does not come by itself through the passage of time, so there is no דשיל״מ at all</td>
+  <td>ש״ך ס״ק ח, who disputes him</td>
 </tr>
 <tr>
-  <td><strong>הש״ך (בשם הראה ומהרי״ל)</strong></td>
-  <td>ההגעלה היא <strong>הפסד מועט</strong> בלבד, ובכך די להוציאו מדשיל״מ ולבטלו ברוב</td>
+  <td><strong>The Maharil</strong> (responsum 194)</td>
+  <td>he disputes the Rashba: the cost of הגעלה is only a <strong>small loss</strong> — so the vessel <strong>remains</strong> a דשיל״מ and is not nullified. The Shach writes that one should be concerned for his words where the loss is not great</td>
   <td>ש״ך ס״ק ח</td>
 </tr>
 </table>
+<blockquote>«&nbsp;<span class="he-q">כתב מהרש״ל פכ״ה ס״ס פ״ו דלא היה צריך לזה הטעם של פיזור מעותיו כי בלאו הכי נמי כיון דלא בא ההיתר ממילא מכח זמן לא חשיב דשיל״מ עכ״ל</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ב ס״ק ח)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ולא ירדתי לסוף דעתו דהא אפילו בא ההיתר בלא זמן חשיב דשיל״מ כגון נדרים וכה״ג</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ב ס״ק ח)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ומהרי״ל בתשובה סימן קצ״ד חולק גם כן אהרשב״א דההוצאה להגעילו הפסד מועט הוא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ב ס״ק ח)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ויש לחוש לדבריו במקום שאין הפסד מרובה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ב ס״ק ח)</span></blockquote>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>הש״ך (ס״ק ח) — בן יומו ושהייה :</strong> מוסיף הש״ך נופך: כל זה בכלי <strong>בן יומו</strong> שאיסורו בעין בטעמו; אבל כלי שאינו בן יומו — אף בלא ביטול דינו קל, וכל שכן שאינו דשיל״מ. ומדקדק עוד בלשון הרשב״א מדוע נצרך לטעם "צריך הוצאות" — דלכאורה אף בלא טעם זה אין הכלי "דבר" הראוי לאכילה שיחול עליו גדר דשיל״מ; וזהו דקדוק הט״ז (ס״ק ח) גופא. <em>ולמעשה — שאל את רבך.</em>
+<div class="pilpul-box">
+<strong>The Ra'ah, and the Shach's practical conduct:</strong> the Shach further brings the Ra'ah (בדק הבית, folio 128b), who gives the Rashba a different reason: wherever the prohibition is discernible there is no nullification, and since the prohibition can be drawn out by הגעלה, it is as though it were discernible.
+<blockquote>«&nbsp;<span class="he-q">והרא״ה בב״ה דף קכ״ח ע״ב משיג על הרשב״א ואומר דהכא טעמא אחרינא איכא דאין לו ביטול לבד מטעמא דשיל״מ דכל היכא דניכר האיסור אין לו ביטול וכיון דאפשר להוציא האיסור מתוכו ע״י הגעלה הוי כניכר האיסור</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ב ס״ק ח)</span></blockquote>
+The Shach then adds a <em>stringent</em> practice: to wait until the vessels are no longer בני יומן.
+<blockquote>«&nbsp;<span class="he-q">וגם נ״ל שיש לשהות הכלים עד שלא יהיו בני יומן דאז שרי מן התורה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ב ס״ק ח)</span></blockquote>
+Unlike another view he brings, the Shach holds that it is forbidden to use even each one of them separately before twenty-four hours have passed. The Taz (ס״ק ח), for his part, asks why the Rashba needed this reason of expense at all.
+<blockquote>«&nbsp;<span class="he-q">ק״ל למה צריך הרשב״א לטעם זה דצריך הוצאות שזכר רמ״א אח״כ הא אין הנאסר שהוא הכלי יכול לאסור טפי מן האוסר ואילו האוסר שהוא הבלוע בו לא יהיה עליו דין דבר שיש לו מתירין</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ב ס״ק ח)</span></blockquote>
+<em>And for practice — ask your Rav.</em>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>פתחי תשובה (ס״ק ח) — בשר שלא נמלח :</strong> מביא הפתחי תשובה את <strong>תשובה מאהבה</strong> (ח״ג) ו<strong>הנודע ביהודה</strong> בענין חתיכת בשר שלא נמלחה תוך שלושה ימים, אם דנים אותה כדשיל״מ (שהרי בידו לצלותה) או לא — ויובא להלן בסעיף ד'. וכאן עיקר הענין: כל מתיר הכרוך בהוצאה או בהפסד אינו מוציא מכלל ביטול.
+<div class="rishon-card">
+<strong>Pitchei Teshuva (ס״ק ו) — the Maharshal defended:</strong> the Pitchei Teshuva brings the Beit Yaakov (responsum 110), who justifies the Maharshal against the Shach's objection: vows are different, since there is a mitzva in dissolving them.
+<blockquote>«&nbsp;<span class="he-q">עיין בתשובת בית יעקב סימן ק״י שהצדיק דברי רש״ל דשאני נדרים דיש מצוה בהתרתן</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד ק״ב ס״ק ו)</span></blockquote>
+He adds Rabbi Akiva Eiger's question on the Shach, and a reasoning of his own: following the Tzelach and the Noda Biyhuda, the rule of דשיל״מ concerns only <em>eating</em> — what I eat today I shall not eat tomorrow — and not use, since one can use the vessel today as well as tomorrow.
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">7. חקירת הטעם דסעיף ד' — טעמו בטל</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">7. The chakira of seif 4 — is the taste nullified?</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ Detailed explanation (Level 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זוהי החקירה הגדולה של הסימן, וכל סעיף ד' עומד עליה.</p>
+<p style="margin:15px 0; font-style:italic;">This is the great chakira of the siman, and the whole of seif 4 rests on it.</p>
 
-<h3 class="he-h3">לשון הרמ״א (סעיף ד')
-  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 העתק</button>
+<h3>The words of the Mechaber and the Rama (seif 4)
+  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-7">
-"<strong>יש מי שאומר שלא נאמר דבר שיש לו מתירין אינו בטל אלא במקום שאין המאכל מתקלקל.</strong>" (הגה: ולא אמרינן דבר שיש לו מתירין אינו בטל אלא כשהאיסור <span class="he-q">בעין</span>, או שיש עדיין <span class="he-q">ממשות האיסור</span> בתערובת; אבל <strong>טעמו בטל</strong>. וכן אם <strong>אין איסורו מחמת עצמו</strong> — בטל.)
+<p>«&nbsp;<span class="he-q">יש מי שאומר דלא שייך דבר שיש לו מתירין היכא שהמאכל מתקלקל</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה ק״ב:ד)</span></p>
+<p>«&nbsp;<span class="he-q">הא דדבר שיש לו מתירין אינו בטל היינו דוקא אם האיסור בעין או שיש עדיין ממשות האיסור בתערובת אבל טעמו בטל</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ב:ד)</span></p>
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה הכוללת — מהו "דבר" שאינו בטל :</strong> האם גדר דשיל״מ הוא דין ב<strong>גוף האיסור</strong> (שכל ממשו אינו בטל), או דין ב<strong>איסור</strong> (שאף טעמו ורישומו אינו בטל) ? וזו מחלוקת הרמ״א והש״ך, ועליה תלויים כמה דינים.
+<div class="hakira-box">
+<strong>The overall chakira — what exactly is it, in a דשיל״מ, that is not nullified?</strong> Does the status attach to the <strong>body of the prohibition</strong> — so that only its substance escapes nullification — or to the <strong>prohibition</strong> as such, so that even the taste it left behind is not nullified? This is the machloket of the Rama and the Shach, and several dinim hang on it.
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>מחלוקת הרמ״א והש״ך — טעמו בטל או לא :</strong>
+<div class="machloket-box">
+<strong>The Rama and the Shach — טעמו בטל or not:</strong>
 <table>
-<tr><th>שיטה</th><th>טעם של דשיל״מ (מין במינו)</th><th>מקור</th></tr>
+<tr><th>View</th><th>The taste of a דשיל״מ, מין במינו</th><th>Source</th></tr>
 <tr>
-  <td><strong>הרמ״א</strong></td>
-  <td>דווקא <strong>האיסור בעין / ממשות</strong> אינו בטל; אבל <span class="he-q">טעמו בטל</span> (אין מחמירין על טעם בלבד)</td>
-  <td>רמ״א ס״ד; ט״ז ס״ק ט</td>
+  <td><strong>The Rama</strong></td>
+  <td>only the prohibition <strong>בעין</strong> or its <strong>ממשות</strong> is not nullified; its taste is nullified</td>
+  <td>רמ״א ס״ד ; ט״ז ס״ק ט</td>
 </tr>
 <tr>
-  <td><strong>הש״ך (נדרים נ״ב, ר״ן, רא״ש)</strong></td>
-  <td>אף ה<strong>טעם</strong> אינו בטל במין במינו — <span class="he-q">חולק על הרמ״א</span></td>
+  <td><strong>The Shach</strong></td>
+  <td>even the <strong>taste</strong> is not nullified מין במינו — from the Shas in Nedarim, the Yerushalmi, Tosafot, the Rosh and the Ran</td>
   <td>ש״ך ס״ק ט–י</td>
 </tr>
 </table>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>הט״ז (ס״ק ט) — "אבל טעמו בטל" :</strong> מבאר הט״ז דכל החומרא דדשיל״מ אינה אלא ב<span class="he-q">גוף האיסור הניכר</span>, אבל הטעם הפלוט שכבר אין בו ממש — אין מחמירין בו, ובטל בששים ככל טעם. ולפי זה, אף בדשיל״מ מין במינו, אם לא נשאר אלא טעם — בטל. וזהו שורש שיטת הרמ״א בהגה.
+<div class="pilpul-box">
+<strong>The Taz (ס״ק ט) — "אבל טעמו בטל":</strong> the Taz explains that the stringency bears only on the body of the prohibition; the taste it gave off, having no substance left, is not weighty enough to forbid on account of דשיל״מ.
+<blockquote>«&nbsp;<span class="he-q">פירוש שאם האיסור ניטל משם רק שפלט שם טעם אוחו טעם אינו חמיר לאסור בשביל דבר שיש לו מתירין</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ב ס״ק ט)</span></blockquote>
+<span class="source-ref">The word "אוחו" is the spelling of the edition Sefaria follows, for "אותו"; it is copied as it stands.</span>
+The Taz distinguishes this case from that of seif 1: there, the egg was put into the pot precisely in order to give it flavour.
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>הש״ך (ס״ק ט–י) — חולק :</strong> הש״ך חולק וסובר דאף ה<strong>טעם</strong> אינו בטל במין במינו, וראייתו מן הגמרא בנדרים (נ״ב.) ומן הר״ן והרא״ש דמין במינו לא בטיל אף בטעם. ולשיטתו, כל גדר דשיל״מ הוא בעצם קיום ההיתר העתידי, ואין נפקא מינה בין ממש לטעם. וכן הב״ח מחמיר; ונמצא דהרמ״א להקל והש״ך להחמיר. ולמעשה — הפתחי תשובה (ס״ק ז–ח בשם פני אריה) <strong>מסייע לרמ״א</strong>, שטעמו בטל.
+<div class="pilpul-box">
+<strong>The Shach (ס״ק ט–י) — he disputes:</strong> the Shach holds that even the taste is not nullified מין במינו, and he relies on the gemara in Nedarim, the Yerushalmi, Tosafot, the Rosh and the Ran; the daf reference printed in the Shach (דף צ״ח) matches no folio of Nedarim, which has only 91 — the usual reading is נדרים נ״ב.
+<blockquote>«&nbsp;<span class="he-q">מיהו צ״ע גם בזה דנלפע״ד מן הש״ס דנדרים … וירושלמי פ״ו דנדרים ותוספות והרא״ש ור״ן בנדרים שם דדשיל״מ אפי׳ טעמו לא בטיל במינו</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ב ס״ק ט)</span></blockquote>
+He examines at length whether one should distinguish the case where the body of the prohibition remained in the mixture from the case where it was removed whole, and he finally refuses the distinction — for in any event «&nbsp;<span class="he-q">עד שאתה אוכלו באיסור תאכלנו בהיתר</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ב ס״ק ט)</span>. He finally brings the Ba"ch in the same direction.
+<blockquote>«&nbsp;<span class="he-q">שוב מצאתי בב״ח שפסק ג״כ דאין חילוק ולעולם אינו בטל</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ב ס״ק ט)</span></blockquote>
+On the Rama's side, the Pitchei Teshuva brings the Pnei Aryeh, who upholds him against the Ba"ch and the Shach.
+<blockquote>«&nbsp;<span class="he-q">ועיין בתשובת פני אריה סי׳ ב׳ שהעלה כדעת הרמ״א דטעמו בטל ולא כב״ח וש״ך שהשיגו עליו</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד ק״ב ס״ק ז)</span></blockquote>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה — מאכל שאין בו אלא טעם האיסור :</strong> תבשיל שנפל בו דשיל״מ ואין בו אלא <strong>טעם</strong> (כגון שהאיסור עצמו הוסר או נימוח) — לרמ״א <span class="he-q">בטל בששים</span>; ולש״ך (וב״ח) <span class="he-q">אינו בטל</span> אף בטעם, ויש להחמיר. <em>ולמעשה — שאל את רבך.</em>
+<div class="nafka-mina-box">
+<strong>Nafka mina — a dish in which only the taste of the prohibition remains:</strong> a dish into which a דשיל״מ fell, of which only the <strong>taste</strong> remains (the prohibited item itself having been removed or dissolved): for the Rama it is nullified in sixty; for the Shach and the Ba"ch it is not nullified, and one should be stringent. The question remains disputed among the Acharonim. <em>And for practice — ask your Rav.</em>
 </div>
 
 <!-- ============================================================= -->
 <h2 class="section-title">8. אין איסורו מחמת עצמו · כל שעיקר היתרו ע״י ביטול</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ Detailed explanation (Level 1)</a>
 
-<h3 class="he-h3">לשון הרמ״א (המשך סעיף ד')
-  <button class="daat-copy" type="button" data-copy-target="#cp-8">📋 העתק</button>
+<h3>The Rama's words (continuation of seif 4)
+  <button class="daat-copy" type="button" data-copy-target="#cp-8">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-8">
-(הגה:) "<strong>וכן אם אין איסורו מחמת עצמו — בטל. ולכן חתיכה שלא נמלחה תוך שלושה ימים, אף שיש אומרים דהוי דבר שיש לו מתירין (שהרי מותרת בצלי) — בטלה, שאינה אסורה אלא מחמת הדם הבלוע בה. וכל איסור שלא היה ניכר קודם שנתערב — בטל, אף שהוא דבר שיש לו מתירין.</strong>"
+<p>«&nbsp;<span class="he-q">וכן אם אין איסורו מחמת עצמו בטיל ולכן חתיכה שלא נמלחה תוך ג׳ ימים אע״פ שי״א דמקרי דבר שיש לו מתירין הואיל ומותרת לצלי אפי׳ הכי בטילה דאין אסורה אלא מחמת דם הבלוע בה</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ב:ד)</span></p>
+<p>«&nbsp;<span class="he-q">כל איסור שלא היה ניכר קודם שנתערב הוי בטל אע״פ שהוא דבר שיש לו מתירין</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ב:ד)</span></p>
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — "אין איסורו מחמת עצמו" :</strong> חתיכה שלא נמלחה תוך שלושה ימים אסורה לבישול (מפני הדם שבה), אך <strong>מותרת בצלי</strong>. ואם כן יש לה מתיר (הצלייה), והרי היא דשיל״מ ולא תתבטל ! ומדוע פסק הרמ״א שבטלה ?
+<div class="hakira-box">
+<strong>The difficulty — "אין איסורו מחמת עצמו":</strong> a piece of meat not salted within three days is forbidden for cooking, because of the blood it holds, but it remains <strong>permitted for roasting</strong>. It therefore has a מתיר, and should be a דשיל״מ that is not nullified. Why does the Rama rule that it is nullified?
 </div>
 
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ הרמ״א — אין איסורה מחמת עצמה :</strong> מבאר הרמ״א דאין החתיכה אסורה <strong>מחמת עצמה</strong> כלל, אלא <span class="he-q">מחמת הדם הבלוע בה</span>. וכל איסור שאינו בגוף הדבר אלא מחמת דבר בלוע — אינו בכלל דשיל״מ, ובטל. ועוד כלל הרמ״א: כל איסור <span class="he-q">שלא היה ניכר קודם שנתערב</span> — בטל, אף שהוא דשיל״מ (כענבים שנדרכו בשבת ונתערב יינם ביין צלול).</div>
-
-<div class="yesod-box" dir="rtl">
-<strong>כלל הט״ז (ס״ק י) — היסוד החותך :</strong><br>
-מבאר הט״ז יסוד גדול:
-<blockquote dir="rtl">כָּל אִיסּוּר שֶׁעִיקַּר הֶיתֵּרוֹ עַל יְדֵי בִּיטּוּל — אֵין בּוֹ דִּין דְּבָר שֶׁיֵּשׁ לוֹ מַתִּירִין.</blockquote>
-כלומר: גדר דשיל״מ נאמר דווקא באיסור שיש לו <strong>היתר עצמאי</strong> (כביצת יו״ט שתותר מאליה); אבל איסור ש<span class="he-q">עיקר היתרו אינו אלא דרך ביטול</span> (כדם הבלוע, שכל היתרו בששים או בצלי המפליטו) — אין בו גדר דשיל״מ כלל, ובטל. ולפי זה מתיישבים דין החתיכה שלא נמלחה ודין הביכורים (שהט״ז מחלק שם).
+<div class="teruts-box">
+<strong>The Rama's answer — its prohibition does not come from itself:</strong> the piece is not forbidden <strong>in itself</strong>, but only because of the blood absorbed in it. A prohibition that lies not in the body of the thing but in what it absorbed does not enter the category of דשיל״מ, and is nullified. The Rama adds a further general rule: any prohibition that was not discernible before the mixture is nullified even though it is a דשיל״מ — the paradigm case being grapes pressed on Shabbat whose juice runs into clear wine.
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>הש״ך (ס״ק י) חולק על הרמ״א :</strong> הש״ך דוחה את חילוק הרמ״א ד"אין איסורו מחמת עצמו בטל", וסובר דאף כך אינו בטל; וכן הב״ח מחמיר. אבל הפתחי תשובה (ס״ק ז–ח) בשם <strong>פני אריה</strong> (ח״ב–ג) מסייע לרמ״א; ומביא את <strong>תשובה מאהבה</strong> (ח״ג) וה<strong>נודע ביהודה</strong> (ח״ו) בענין החתיכה שלא נמלחה, והפרי מגדים מסכים לרמ״א.</div>
+<div class="yesod-box">
+<strong>The Taz's conclusion (ס״ק י):</strong><br>
+The Taz devotes his longest passage to this clause. He disputes the Rama's reason — showing that the Terumat HaDeshen, on whom the Rama relies, did not give that reason — and asks what ground there could be for denying the status of דשיל״מ to an absorbed prohibition, once a permission exists. He then argues a fortiori from the mishna in Bikkurim, and concludes:
+<blockquote>«&nbsp;<span class="he-q">מכל זה נראה לי ברור דכל איסור שבעולם שעיקר היתירו ע״י ביטול אין היתר בדבר שיש לו מתירין</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ב ס״ק י)</span></blockquote>
+That is: wherever the permission of a prohibition essentially runs through nullification, that nullification does not operate in a דבר שיש לו מתירין. The Taz notes that the Maharshal writes the same — <em>to read this conclusion the other way round, as though it removed such cases from the category of דשיל״מ, is an error that must be flagged.</em>
+</div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הט״ז (ס״ק יא) — "שלא היה ניכר" :</strong> ענבים שנדרכו בשבת ויצא מהם יין ונתערב ביין צלול — אף שהוא דשיל״מ (שהרי במוצאי שבת יותר), <strong>בטל</strong>, מאחר שהאיסור (היין היוצא) <span class="he-q">לא היה ניכר קודם שנתערב</span>. וזהו כלל הרמ״א האחרון בהגה.</div>
+<div class="machloket-box">
+<strong>The Shach (ס״ק י) disputes the Rama as well:</strong> the Shach writes that all the Acharonim took issue with the Rama's distinction: once there is a דשיל״מ, it makes no difference whether the prohibition is absorbed or not, since in the end a permission exists.
+<blockquote>«&nbsp;<span class="he-q">הכל תפסו על הרב בזה כיון דדשיל״מ הוא מה לי בלוע הוא או לא ס״ס יש היתר לאיסורו</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ב ס״ק י)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל בדשיל״מ משמע שם בת״ה להדיא דלא בטיל אפילו אם אין איסור מחמת עצמו</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ב ס״ק י)</span></blockquote>
+At ס״ק י״א, however, the Shach indicates that the unsalted piece is in any case not a דשיל״מ — but for an entirely different reason from the Rama's: for roasting it was never forbidden at all.
+<blockquote>«&nbsp;<span class="he-q">כלומר והעיקר אינו כן דלא מקרי דשיל״מ הואיל ולצלי לא נאסר מעולם</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ב ס״ק י״א)</span></blockquote>
+On the other side, the Pitchei Teshuva (ס״ק ח) brings the Pnei Aryeh, who upholds the Rama while limiting his scope to cases where the absorbed prohibition is not of the same species as that into which the mixture was made.
+<blockquote>«&nbsp;<span class="he-q">ועיין בתשובת פני אריה סימן ג׳ שהעלה כדעת הרמ״א ז״ל דכל שאינו אסור מחמת עצמו בטל ולא ככל אחרונים שהשיגו עליו</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד ק״ב ס״ק ח)</span></blockquote>
+</div>
+
+<div class="rishon-card">
+<strong>The Taz (ס״ק י״א) — "שלא היה ניכר":</strong> grapes from which wine runs on Shabbat into clear wine that was there before Shabbat: although there is a דשיל״מ here, it is nullified, because the prohibition never appeared separately before it was mixed.
+<blockquote>«&nbsp;<span class="he-q">כגון ענבים שיוצא מהן יין בשבת בתוך יין צלול שהיה שם קודם השבת</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ב ס״ק י״א)</span></blockquote>
+The Taz underlines the difference from the unsalted piece: there the prohibition was known, since the piece was forbidden; here there was no prohibition at the outset.
+</div>
+
+<div class="rishon-card">
+<strong>Pitchei Teshuva (ס״ק ח) — the unsalted piece among the Acharonim:</strong> the Pitchei Teshuva brings the Teshuva MeAhava (part one, responsum 3), who wonders at the Acharonim's position and shows, in the name of the Rambam, Rashi and the Ran, that even where the permission does not bear on what was forbidden one is within דשיל״מ — while himself concluding leniently for the unsalted piece mixed into others, since this is, as he writes, only a stringency of the Geonim. The Noda Biyhuda (at responsum 6 of the same collection) rejects his proofs and endorses the Acharonim's lenient ruling; the Pri Megadim writes likewise.
+<blockquote>«&nbsp;<span class="he-q">ועיין שם בסי׳ ו׳ תשובת הגאון בעל נו״ב ז״ל שדחה ראיותיו וכתב דיפה הכריעו האחרונים להקל בזה</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד ק״ב ס״ק ח)</span></blockquote>
+</div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">9. נדר · חמץ בפסח · המבשל בשבת</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-rama">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">9. A vow · chametz on Pesach · one who cooks on Shabbat</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-rama">↩ Detailed explanation (Level 1)</a>
 
-<h3 class="he-h3">לשון הרמ״א (סוף סעיף ד')
-  <button class="daat-copy" type="button" data-copy-target="#cp-9">📋 העתק</button>
+<h3>The Rama's words (end of seif 4)
+  <button class="daat-copy" type="button" data-copy-target="#cp-9">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-9">
-(הגה:) "<strong>מי שנדר מדבר ונתערב — לדידיה הוי דבר שיש לו מתירין</strong> (שיכול לישאל על נדרו). <strong>ודבר שהיה לו היתר וחזר ונאסר, כגון חמץ בפסח — אינו נקרא דבר שיש לו מתירין, ויש חולקין. ואינו דבר שיש לו מתירין אלא אם כן חוזר ומותר לזה שנאסר לו; אבל אם נשאר אסור לעולם לאדם אחד, אף שמותר לאחרים — כגון המבשל בשבת — אינו דבר שיש לו מתירין.</strong>"
+<p>«&nbsp;<span class="he-q">מי שנדר מדבר אחד ונתערב אח״כ לדידיה מקרי דבר שיש לו מתירין … דהא אפשר לשאול על נדרו</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ב:ד)</span></p>
+<p>«&nbsp;<span class="he-q">דבר שיש לו היתר וחוזר ונאסר כגון חמץ בפסח לא מקרי דבר שיש לו מתירין</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ב:ד)</span></p>
+<p>«&nbsp;<span class="he-q">ולא מקרי דבר שיש לו מתירין אלא א״כ הותר למי שנאסר אבל אם נשאר לאחד לעולם אסור אע״ג שמותר לאחרים כגון המבשל בשבת</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד ק״ב:ד)</span></p>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>נדר = דשיל״מ לדידיה (ט״ז ס״ק יב) :</strong> הנודר מדבר ונתערב — <strong>לדידיה</strong> הוי דשיל״מ, שהרי <span class="he-q">בידו לישאל לחכם</span> ולהתיר נדרו (תנאי (ב) — בידו בלא הפסד). אבל לאחֵר, שאינו יכול להתיר את נדר זה — אינו דשיל״מ. והפתחי תשובה (ס״ק י) מדקדק (בשם ברית אברהם, מהרי״ט ו<strong>רבי עקיבא איגר</strong> סי' ס״ה): דשיל״מ דנדר הוא <strong>דווקא למי שיכול להתיר וגם הוא אסור לו</strong> — שני התנאים יחד.</div>
+<div class="pilpul-box">
+<strong>A vow = דשיל״מ לדידיה (Taz ס״ק י״ב):</strong> one who vowed against a thing and saw it mixed into others: <strong>for him</strong> it is a דשיל״מ, since he can ask a sage and have his vow dissolved — this is the second condition of seif 2: the מתיר is in his power, without loss.
+<blockquote>«&nbsp;<span class="he-q">הוה דבר שיש לו מתירין כיון דמצי לשאול על הנדר לחכם</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ב ס״ק י״ב)</span></blockquote>
+The Pitchei Teshuva (ס״ק י) specifies, in the name of the Brit Avraham, the Maharit and Rabbi Akiva Eiger (end of responsum 65), that the Rama wrote "לדידיה" deliberately: the one who can dissolve must be the one to whom the thing is forbidden.
+<blockquote>«&nbsp;<span class="he-q">דדוקא בכה״ג דביד האוסר גופיה לשאול על נדרו הוי דשיל״מ אבל אם אסר דבר על חבירו בקונם לא הוי דשיל״מ</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד ק״ב ס״ק י)</span></blockquote>
+</div>
 
-<div class="rishon-card" dir="rtl">
-<strong>פתחי תשובה (ס״ק י) — שבועה ≠ נדר :</strong> מביא הפתחי תשובה ד<strong>שבועה</strong> אינה דשיל״מ אף שאפשר להתירה, מפני ש<span class="he-q">אין מצוה לאיתשולי</span> עליה (אין מצוה לחפש פתח להתרת שבועה כבנדר) — בשם בית יעקב ותשובה מאהבה. ורבי עקיבא איגר (סי' ס״ה) דן עוד בנודר מנבילה, אם הוי דשיל״מ.</div>
+<div class="rishon-card">
+<strong>Pitchei Teshuva (ס״ק י) — an oath is not a vow:</strong> the Pitchei Teshuva brings the Beit Yaakov, followed by the Teshuva MeAhava: an oath is not a דשיל״מ, even though it can be dissolved, because there is no mitzva to have it dissolved as there is for a vow.
+<blockquote>«&nbsp;<span class="he-q">ועיין בתשובת בית יעקב סימן ק״י שכתב דדוקא בנדר משום דאיכא מצוה לאיתשולי ביה הוי דשיל״מ אבל אם נשבע שלא לאכול מאכל פלוני ונתערב לא הוי דשיל״מ דליכא מצוה</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד ק״ב ס״ק י)</span></blockquote>
+The Pri Megadim wrote the contrary, in his introduction to the laws of Pesach, that דשיל״מ applies to an oath as well; the Chavot Yair (responsum 131) deals with a mixed case of his own. The question is not closed.
+</div>
 
-<div class="machloket-box" dir="rtl">
-<strong>חמץ בפסח — מחלוקת :</strong>
+<div class="machloket-box">
+<strong>Chametz on Pesach — a machloket:</strong>
 <table>
-<tr><th>שיטה</th><th>חמץ שנתערב לפני פסח, ועבר עליו הפסח</th><th>מקור</th></tr>
+<tr><th>View</th><th>Is chametz on Pesach a דשיל״מ?</th><th>Source</th></tr>
 <tr>
-  <td><strong>המרדכי (וכן עיקר ברמ״א)</strong></td>
-  <td>דבר שהיה לו היתר וחזר ונאסר <strong>אינו</strong> דשיל״מ (שהרי לא יחזור להיתרו אלא לאחר זמן רב, ואדרבה עתה נאסר)</td>
-  <td>רמ״א ס״ד; ט״ז ס״ק יג</td>
+  <td><strong>The Mordechai</strong> (the Rama's first view)</td>
+  <td>a thing that had a permission and became forbidden again is <strong>not</strong> a דשיל״מ</td>
+  <td>רמ״א ס״ד ; ט״ז ס״ק י״ג</td>
 </tr>
 <tr>
-  <td><strong>הרמב״ם (יש חולקין)</strong></td>
-  <td>חמץ בפסח <strong>הוי</strong> דשיל״מ (שהרי יותר לאחר הפסח) — ואינו בטל</td>
-  <td>ט״ז ס״ק יג; ש״ך ס״ק יג–יד</td>
+  <td><strong>The Rambam</strong> ("ויש חולקין")</td>
+  <td>chametz on Pesach <strong>is</strong> a דשיל״מ — and the Maharshal writes that this is the main view</td>
+  <td>ט״ז ס״ק י״ג ; ש״ך ס״ק י״ג–יד</td>
 </tr>
 </table>
+<blockquote>«&nbsp;<span class="he-q">הוא הרמב״ם דס״ל דחמץ בפסח הוה דבר שיש לו מתירין וכתב רש״ל פרק כ״ה סימן פ״ז דכן נראה עיקר ולא כת״ח שפסק כהמרדכי שהוא דעה קמייתא</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד ק״ב ס״ק י״ג)</span></blockquote>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>הש״ך (ס״ק יג–יד) — חומר חמץ בפסח :</strong> מוסיף הש״ך דלהרמב״ם (פרק ט״ו) חמץ בפסח חמור עד שאף <strong>שלא במינו לא בטיל</strong>, משום חומר האיסור (לא רק מטעם דשיל״מ). והרש״ל (בט״ז ס״ק יג) הכריע דחמץ בפסח הוי דשיל״מ. ונמצאת מחלוקת כפולה: אם הוי דשיל״מ, ואם חמור עד שאף שלא במינו אינו בטל.</div>
+<div class="pilpul-box">
+<strong>The Shach (ס״ק י״ג–יד) — the particular gravity of chametz:</strong> the Shach adds a distinction that must not be confused with the previous one: if chametz is not nullified on Pesach even outside its own species, that is not on account of דשיל״מ but because of the particular gravity of this prohibition, as the Rambam writes.
+<blockquote>«&nbsp;<span class="he-q">ומה שאינו בטל בפסח אפי׳ שלא במינו היינו משום חומר איסורו</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ב ס״ק י״ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ובת״ח שם ד״ט פסק כסברא הראשונה ומהרש״ל חולק עליו</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ב ס״ק י״ד)</span></blockquote>
+There are therefore two superimposed questions: whether chametz is a דשיל״מ, and how far the particular stringency of the prohibition of chametz reaches.
+</div>
 
-<div class="rishon-card" dir="rtl">
-<strong>המבשל בשבת (ש״ך ס״ק טו) :</strong> ה<span class="he-q">מבשל בשבת במזיד</span> — אסור <strong>לו לעולם</strong>, ולאחרים מותר במוצאי שבת. ולפי כלל הרמ״א, מאחר שלזה שנאסר לו אינו חוזר ומותר לעולם — <strong>אינו דשיל״מ</strong> (אף שלאחרים יותר במוצ״ש). והפתחי תשובה (ס״ק יב) מביא מגן אברהם (סי' ש״ח) דאם נתערב <strong>בשבת עצמה</strong> — אף לאחֵרים הוי דשיל״מ באותה שבת, שהרי במוצ״ש יותר.</div>
+<div class="rishon-card">
+<strong>One who cooks on Shabbat (Shach ס״ק ט״ו):</strong> one who cooks on Shabbat <strong>deliberately</strong> — the food is forbidden to him for ever, while it is permitted to others after Shabbat.
+<blockquote>«&nbsp;<span class="he-q">במזיד דאסור לו לעולם ולאחרים מותר למוצאי שבת</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד ק״ב ס״ק ט״ו)</span></blockquote>
+By the Rama's rule, since the thing never becomes permitted again to the one to whom it is forbidden, it is not a דשיל״מ. The Pitchei Teshuva (ס״ק י״ב) brings the Magen Avraham (siman 308): the Rama speaks of a mixture that occurred <em>after</em> Shabbat; if it occurred on Shabbat itself, the food is forbidden to the one who cooked it, since the status of דשיל״מ had taken effect for others.
+<blockquote>«&nbsp;<span class="he-q">עיין במג״א סימן ש״ח סק״ב שכתב דמיירי שנתערב אחר השבת אבל אם נתערב בו ביום אסור לו … הואיל וחל דשיל״מ לאחרים</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד ק״ב ס״ק י״ב)</span></blockquote>
+</div>
 
-<div class="rishon-card" dir="rtl">
-<strong>פתחי תשובה (ס״ק א) — כל דפריש :</strong> מביא הפתחי תשובה (בשם סידורו של שבת, צמח צדק סי' ס״ט, צל״ח, חוות יאיר) דבתערובת דשיל״מ <strong>אין אומרים</strong> "כל דפריש מרובא פריש" — אלא אף הפורש מן התערובת דינו כדשיל״מ ואסור, שאין כאן רוב המתיר את הפורש.</div>
+<div class="rishon-card">
+<strong>Pitchei Teshuva (ס״ק א) — כל דפריש :</strong> in a mixture of דשיל״מ, do we say <em>kol deparish meruba parish</em> — whatever separates out comes from the majority? The Sidduro shel Shabbat concludes that we do not, and the Tzemach Tzedek (responsum 69) as well as the Magen Avraham (siman 513) go the same way.
+<blockquote>«&nbsp;<span class="he-q">ולבסוף העלה דאף בכה״ג לא אמרינן כל דפריש כו׳ וזה הוא ג״כ בכלל דבר שיש לו מתירין</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד ק״ב ס״ק א)</span></blockquote>
+In the same ס״ק, however, the Pitchei Teshuva refers to the Tzelach, who brings a proof to the contrary — that we do say כל דפריש in a דשיל״מ — and he adds that such appears to be the view of the Chavot Yair (siman 133). The question is therefore divided.
+<blockquote>«&nbsp;<span class="he-q">ועיין בספר צל״ח על ביצה ד׳ יו״ד ע״ב בד״ה והואיל שהאריך להביא ראיה דאמרינן בדבר שיל״מ כל דפריש מר״פ</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד ק״ב ס״ק א)</span></blockquote>
+</div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">10. חקירה ונפקא מינה למעשה</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">10. Chakira and practical nafka mina</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ Detailed explanation (Level 1)</a>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה הכוללת של הסימן :</strong> מהו טעם דשיל״מ, ומתי הוא חל ?
+<div class="hakira-box">
+<strong>The overall chakira of the siman:</strong> what is the reason for דשיל״מ, and when does it apply?
 <ul class="stylish">
-<li><strong>היסוד</strong> — מן התורה חד בתרי בטל; חכמים החמירו "עד שתאכלנו באיסור תאכלנו בהיתר" (ט״ז ס״ק א).</li>
-<li><strong>אף בספק</strong> — חמור מבריה וחהל״ה, שאינו מצד חשיבות אלא מצד היתר עתידי (ט״ז ס״ק ג).</li>
-<li><strong>מין במינו דווקא</strong> — שלא במינו בטל בששים; בתר שמא ולא בתר טעמא (ש״ך ס״ק ג–ד).</li>
-<li><strong>שני תנאי המתיר</strong> — ודאי שיבוא, או בידו בלא הפסד; ספק טריפה וכלי (צריך הוצאות) אינם דשיל״מ.</li>
-<li><strong>גבולות הרמ״א</strong> — טעמו בטל, אין איסורו מחמת עצמו בטל, ולא היה ניכר בטל; ונדר/חמץ/מבשל בשבת.</li>
+<li><strong>The yesod</strong> — mid'oraita חד בתרי בטל; the Sages added their stringency because a permission will come (Taz ס״ק א).</li>
+<li><strong>Even in doubt</strong> — heavier than other things that are not nullified, because the issue is not importance but a permission still to come (Taz ס״ק ג).</li>
+<li><strong>מין במינו only</strong> — outside its species, nullification in sixty; and the criterion is the name, not the taste (Shach ס״ק ג–ד).</li>
+<li><strong>The two conditions of the מתיר</strong> — certain to come, or in his power without loss; the egg of a ספק טריפה and the vessel (which costs money) meet neither.</li>
+<li><strong>The limits set by the Rama</strong> — טעמו בטל, אין איסורו מחמת עצמו, ולא היה ניכר; then the vow, chametz, and one who cooks on Shabbat. The Shach disputes the first two.</li>
 </ul>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה למעשה (לפי הכרעת רוב האחרונים) :</strong>
+<div class="nafka-mina-box">
+<strong>Practical nafka mina — what the siman puts at stake:</strong>
 <ol class="stylish">
-<li>דשיל״מ <strong>אינו בטל אף באלף ואף בספק</strong> — אבל דווקא <strong>מין במינו</strong>; שלא במינו בטל בששים (מחבר ס״א).</li>
-<li>המתיר צריך להיות <strong>ודאי שיבוא</strong> או <strong>בידו בלא הפסד</strong>; ספק טריפה — בטל (מחבר ס״ב).</li>
-<li>כלי שבלע איסור — <strong>בטל ברוב</strong>, שצריך הוצאות להגעילו (מחבר ס״ג; ש״ך ס״ק ח).</li>
-<li>טעמו בטל (רמ״א — והש״ך מחמיר); אין איסורו מחמת עצמו, ולא היה ניכר — בטל (רמ״א ס״ד).</li>
-<li>נדר — דשיל״מ <strong>לדידיה</strong>; חמץ בפסח — מחלוקת (מרדכי/רמב״ם); המבשל בשבת — אינו דשיל״מ.</li>
+<li>A דשיל״מ is <strong>nullified neither in a thousand nor in doubt</strong> — but only מין במינו; outside its species it is nullified in sixty (Mechaber, seif 1).</li>
+<li>The מתיר must be <strong>certain to come</strong> or <strong>in his power without loss</strong>; the egg of a ספק טריפה is nullified (Mechaber, seif 2) — yet the Shach leaves his question בצריך עיון.</li>
+<li>A vessel that absorbed a prohibition is <strong>nullified by majority</strong>, because הגעלה costs money (Mechaber, seif 3); the Shach brings the Maharil, for whom that expense is slight, and writes that one should take his words into account where the loss is not great.</li>
+<li>Taste alone: nullified for the Rama, not nullified for the Shach and the Ba"ch; the Pnei Aryeh upholds the Rama (seif 4).</li>
+<li>A vow is a דשיל״מ <strong>לדידיה</strong>; chametz on Pesach is a machloket (Mordechai / Rambam); one who cooks on Shabbat is not a דשיל״מ.</li>
 </ol>
-<em>ולמעשה — שאל את רבך.</em>
+<em>And for practice — ask your Rav.</em>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">11. טבלאות סיכום</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">11. Summary tables</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (Level 1)</a>
 
-<h3 class="he-h3">טבלה — אופני התערובת והדין</h3>
+<h3>Table — forms of the mixture and their din</h3>
 
 <table>
 <tr>
-  <th>אופן התערובת</th>
-  <th>התוצאה</th>
-  <th>מקור בקורפוס</th>
+  <th>Form of the mixture</th>
+  <th>The resulting din</th>
+  <th>Source</th>
 </tr>
 <tr>
-  <td><strong>ביצת יו״ט בביצים (מין במינו)</strong></td>
-  <td>אינה בטלה אפילו באלף, ואף בספק</td>
-  <td>מחבר ס״א; ט״ז ס״ק א, ג</td>
+  <td><strong>Yom Tov egg among eggs (מין במינו)</strong></td>
+  <td>not nullified even in a thousand, nor in doubt</td>
+  <td>מחבר ס״א ; ט״ז ס״ק א, ג</td>
 </tr>
 <tr>
-  <td><strong>ביצת יו״ט בשאינה מינה</strong></td>
-  <td>בטלה בששים</td>
-  <td>מחבר ס״א; ש״ך ס״ק ד</td>
+  <td><strong>Yom Tov egg outside its species</strong></td>
+  <td>nullified in sixty</td>
+  <td>מחבר ס״א ; ש״ך ס״ק ד</td>
 </tr>
 <tr>
-  <td><strong>ניתנה לתקן הקדרה / לבנו במאכל</strong></td>
-  <td>מין במינו → אינה בטלה</td>
-  <td>רמ״א ס״א; ט״ז ס״ק ו</td>
+  <td><strong>Given to improve the pot / to whiten a dish</strong></td>
+  <td>counted as מין במינו → not nullified</td>
+  <td>רמ״א ס״א ; ט״ז ס״ק ו ; ש״ך ס״ק ה–ו</td>
 </tr>
 <tr>
-  <td><strong>ספק טריפה שנתערבה</strong></td>
-  <td>בטלה — אין מתיר ודאי ולא בידו</td>
-  <td>מחבר ס״ב; ט״ז ס״ק ז</td>
+  <td><strong>Egg of a ספק טריפה mixed into others</strong></td>
+  <td>nullified — the מתיר is neither certain nor in his power</td>
+  <td>מחבר ס״ב ; ט״ז ס״ק ז</td>
 </tr>
 <tr>
-  <td><strong>כלי שבלע איסור ונתערב</strong></td>
-  <td>בטל ברוב — צריך הוצאות להגעילו</td>
-  <td>מחבר ס״ג; ש״ך ס״ק ח</td>
+  <td><strong>Vessel that absorbed a prohibition, mixed into others</strong></td>
+  <td>nullified by majority — הגעלה costs money; the Maharil disputes</td>
+  <td>מחבר ס״ג ; ש״ך ס״ק ח</td>
 </tr>
 <tr>
-  <td><strong>נשאר טעם בלבד (לא בעין)</strong></td>
-  <td>רמ״א — בטל; ש״ך — אינו בטל</td>
-  <td>רמ״א ס״ד; ש״ך ס״ק ט–י</td>
+  <td><strong>Only the taste remains (nothing בעין)</strong></td>
+  <td>Rama — nullified; Shach and Ba"ch — not nullified</td>
+  <td>רמ״א ס״ד ; ש״ך ס״ק ט–י</td>
 </tr>
 <tr>
-  <td><strong>אין איסורו מחמת עצמו (בשר שלא נמלח)</strong></td>
-  <td>בטל — אסור רק מחמת הדם הבלוע</td>
-  <td>רמ״א ס״ד; ט״ז ס״ק י</td>
+  <td><strong>אין איסורו מחמת עצמו (unsalted meat)</strong></td>
+  <td>Rama — nullified, the prohibition coming only from the absorbed blood; the Taz and the Shach dispute this reason</td>
+  <td>רמ״א ס״ד ; ט״ז ס״ק י ; ש״ך ס״ק י–יא</td>
 </tr>
 <tr>
-  <td><strong>נדר ונתערב</strong></td>
-  <td>דשיל״מ לדידיה (יכול לישאל)</td>
-  <td>רמ״א ס״ד; ט״ז ס״ק יב</td>
+  <td><strong>A vow, then a mixture</strong></td>
+  <td>דשיל״מ לדידיה (he can have his vow dissolved)</td>
+  <td>רמ״א ס״ד ; ט״ז ס״ק י״ב</td>
 </tr>
 <tr>
-  <td><strong>חמץ בפסח · המבשל בשבת</strong></td>
-  <td>מחלוקת (מרדכי/רמב״ם) · אינו דשיל״מ</td>
-  <td>רמ״א ס״ד; ש״ך ס״ק יג–טו</td>
+  <td><strong>Chametz on Pesach · one who cooks on Shabbat</strong></td>
+  <td>machloket (Mordechai / Rambam) · not a דשיל״מ</td>
+  <td>רמ״א ס״ד ; ש״ך ס״ק י״ג–טו</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מחלוקות מרכזיות בסימן</h3>
+<h3>Table — the central machlokot of the siman</h3>
 
 <table>
 <tr>
-  <th>נושא</th>
-  <th>שיטה א'</th>
-  <th>שיטה ב'</th>
+  <th>Subject</th>
+  <th>First view</th>
+  <th>Second view</th>
 </tr>
 <tr>
-  <td>קביעת "מינו"</td>
-  <td>הב״ח — בתר טעמא</td>
-  <td>הש״ך — בתר שמא ולא בתר טעמא (רבא)</td>
+  <td>What determines "its own species"</td>
+  <td>Shach ס״ק ג — by the name (בתר שמא), from Rava</td>
+  <td>and not by the taste (בתר טעמא), even where the taste agrees</td>
 </tr>
 <tr>
-  <td>מין במינו — דם הפר ושעיר</td>
-  <td>ט״ז (הר״ן) — ההיתר תופס שם האיסור במינו</td>
-  <td>שלא במינו — ההיתר על התערובת, ובטל</td>
+  <td>The reason why שלא במינו is nullified</td>
+  <td>Taz ס״ק ה — the reason of siman 101 does not satisfy him</td>
+  <td>the Ran (Nedarim 52), on the blood of the bull and the goat</td>
 </tr>
 <tr>
-  <td>טעמו של דשיל״מ (מין במינו)</td>
-  <td>הרמ״א — טעמו בטל</td>
-  <td>הש״ך (נדרים, ר״ן) — אף טעמו אינו בטל</td>
+  <td>The reason "cost of הגעלה" (seif 3)</td>
+  <td>Maharshal — unnecessary: there is no דשיל״מ at all</td>
+  <td>Maharil — the expense is slight, so the vessel remains a דשיל״מ (ש״ך ס״ק ח)</td>
+</tr>
+<tr>
+  <td>The taste of a דשיל״מ מין במינו</td>
+  <td>Rama — טעמו בטל (and the Pnei Aryeh upholds him)</td>
+  <td>Shach and Ba"ch — even the taste is not nullified</td>
 </tr>
 <tr>
   <td>אין איסורו מחמת עצמו</td>
-  <td>הרמ״א — בטל (וכן פני אריה, פ״ת ס״ק ז–ח)</td>
-  <td>הש״ך והב״ח — אינו בטל</td>
+  <td>Rama — nullified (Pnei Aryeh, פ״ת ס״ק ח)</td>
+  <td>Shach ס״ק י and Taz ס״ק י dispute the reason</td>
 </tr>
 <tr>
-  <td>חמץ בפסח</td>
-  <td>המרדכי — אינו דשיל״מ</td>
-  <td>הרמב״ם — הוי דשיל״מ (ואף שלא במינו לא בטיל)</td>
+  <td>Chametz on Pesach</td>
+  <td>Mordechai — not a דשיל״מ</td>
+  <td>Rambam — it is one; and the Maharshal holds this is the main view</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מקורות הסוגיא</h3>
+<h3>Table — the sources of the sugya</h3>
 
-<div class="rishon-card" dir="rtl">
-<strong>גמרא :</strong> ביצה ג׳:–ד׳. (ביצה שנולדה ביו״ט, דשיל״מ אפילו בדרבנן לא בטיל) · נדרים נ״ב. (מין במינו לא בטיל אף בטעם) · עבודה זרה ס״ו., ע״ג.–ע״ד. (מין במינו במשהו, בתר שמא — רבא)
+<div class="rishon-card">
+<strong>Gemara:</strong> ביצה ג׳:–ד׳. (the egg born on Yom Tov; Rav Ashi's general rule is stated on Beitza 4a, quoted at the head of section 1) · נדרים נ״ב. (מין במינו, and the Ran on the blood of the bull and the goat) · עבודה זרה ס״ו. (בתר שמא ולא בתר טעמא, from Rava, cited by the Shach ס״ק ג)
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>ראשונים :</strong> רש״י (ביצה) · ר״ת · רמב״ם (מאכלות אסורות פט״ו) · רשב״א (תורת הבית) · רא״ש · ר״ן · מרדכי · תוספות · טור · בית יוסף
+<div class="rishon-card">
+<strong>Rishonim:</strong> רש״י (ביצה, cited by the Taz ס״ק א) · רמב״ם (מאכלות אסורות פט״ו) · רשב״א · רא״ש · ר״ן · מרדכי · תוספות · טור · בית יוסף
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>אחרונים :</strong> רמ״א · ש״ך · ט״ז · ב״ח · פרי חדש · מנחת יעקב · מהרש״ל · פרי מגדים · פתחי תשובה · נודע ביהודה · תשובה מאהבה · צמח צדק (הקדמון) · חוות יאיר · פני אריה · רבי עקיבא איגר · מגן אברהם (סי' ש״ח, תנ״ב)
+<div class="rishon-card">
+<strong>Acharonim:</strong> רמ״א · ש״ך · ט״ז · ב״ח · מהרש״ל · מהרי״ל · רא״ה (בדק הבית) · פרי חדש · מנחת יעקב · פרי מגדים · פתחי תשובה · נודע ביהודה · תשובה מאהבה · צמח צדק (הקדמון) · חוות יאיר · פני אריה · בית יעקב · ברית אברהם · מהרי״ט · רבי עקיבא איגר · צל״ח · מגן אברהם (סי׳ ש״ח, תקי״ג)
 </div>
 
 <hr class="ornament">
 
-  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;direction:rtl;">
-    <a href="niveau-1-base-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">→ רמה א' — יסוד</a>
-    <a href="niveau-3-synthese-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">רמה ג' — סיכום ←</a>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;">
+    <a href="niveau-1-base-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">← Level 1 — Base</a>
+    <a href="niveau-3-synthese-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">Level 3 — Synthesis →</a>
   </div>
 
 <div class="yh-watermark">
 ~ ~ ~ ~ ~<br>
 <strong>DAAT</strong> · <strong>הרב יוסף חיים סממה</strong><br>
 תלמיד חכם · מעביר שיעורים בהלכה ובחסידות<br>
-<em>פלפול ועיון בדין דבר שיש לו מתירין · סימן ק״ב · ⚡ רמה ב' — לַמְדָּן</em>
+<em>Pilpul and iyun on דבר שיש לו מתירין · Siman ק״ב · ⚡ Level 2 — Lamdan</em>
 </div>
 
-  <div class="disclaimer" style="background:#fff8e1;border-right:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;direction:rtl;text-align:right;">
-    ⚠️ תוכן זה נכתב לצורך לימוד ועיון בלבד. לכל הוראה למעשה (לְמַעֲשֶׂה) — שאל את רבך.
+  <div class="disclaimer" style="background:#fff8e1;border-left:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;">
+    ⚠️ This content is written for study and iyun only. For any practical ruling (לְמַעֲשֶׂה) — ask your Rav.
   </div>
 
   <div style="background:#1A1F3A;border-top:2px solid #C5A55A;padding:24px 40px;text-align:center;margin-top:0;">
-    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;direction:rtl;">
-      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">לעמוד הבית</a> · <a href="index-en.html" style="color:#C5A55A;text-decoration:none;">סימן ק״ב</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ לתמיכה</a>
+    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;">
+      DAAT דעת — © 5786 / 2026 · <a href="../../../index-en.html" style="color:#C5A55A;text-decoration:none;">Home</a> · <a href="index-en.html" style="color:#C5A55A;text-decoration:none;">Siman ק״ב</a> · <a href="../../../soutenir-en.html" style="color:#C5A55A;text-decoration:none;">♥ Support</a>
     </p>
   </div>
 
@@ -937,7 +1026,7 @@
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="../../../assets/js/chat-widget.js" defer></script>
 <script src="../../../assets/js/daat-copy.js" defer></script>
-<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="מצא חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">הצטרף לחברותא</span></a>
+<a href="../../../communaute-en.html#khavroutha" class="daat-khavroutha-fab" title="Find a chavruta for this siman"><span class="icon">📖</span><span class="label-long">Join a chavruta</span></a>
   <script src="/assets/js/share-text.js" defer></script>
 </body>
 </html>

@@ -36,27 +36,22 @@ const START_DATE_ISO = '2026-06-08'; // lundi
 const SITE_URL = 'https://daattorah.com';
 const SEIFIM_PER_DAY = 5;
 
-// ─── Nombre de séifim par siman (extrait des niveau-1-base.html) ─────────
-// Compté via le pattern utilisé par scripts/audit-seifim-coverage.py
-// (Seif latin/translit/héb, Séif, סעיף). Régénéré le 2026-06-08.
-const SEIFIM_COUNT = {
-  242: 1,  243: 2,  244: 6,  245: 2,  246: 5,  247: 6,  248: 4,  249: 4,
-  250: 2,  251: 2,  252: 6,  253: 4,  254: 8,  255: 3,  256: 1,  257: 7,
-  258: 4,  259: 6,  260: 2,  261: 4,  262: 3,  263: 9,  264: 8,  265: 4,
-  266: 10, 267: 3,  268: 10, 269: 1,  270: 2,  271: 10, 272: 10, 273: 7,
-  274: 4,  275: 10, 276: 5,  277: 5,  278: 1,  279: 7,  280: 2,  281: 1,
-  282: 7,  283: 1,  284: 7,  285: 7,  286: 5,  287: 1,  288: 10, 289: 2,
-  290: 2,  291: 6,  292: 2,  293: 3,  294: 5,  295: 1,  296: 8,  297: 5,
-  298: 10, 299: 10, 300: 1,  301: 14, 302: 10, 303: 11, 304: 3,  305: 11,
-  306: 10, 307: 11, 308: 14, 309: 5,  310: 9,  311: 9,  312: 10, 313: 10,
-  314: 10, 315: 10, 316: 10, 317: 7,  318: 10, 319: 10, 320: 11, 321: 10,
-  322: 6,  323: 10, 324: 10, 325: 10, 326: 10, 327: 4,  328: 13, 329: 9,
-  330: 10, 331: 10, 332: 4,  333: 3,  334: 11, 335: 5,  336: 10, 337: 4,
-  338: 8,  339: 7,  340: 10, 341: 3,  342: 1,  343: 1,  344: 2,  345: 10,
-  346: 3,  347: 1,  348: 1,  349: 5,  350: 3,  351: 1,  352: 2,  353: 3,
-  354: 2,  355: 5,  356: 2,  357: 3,  358: 10, 359: 1,  360: 3,  361: 2,
-  362: 10, 363: 12, 364: 5,  365: 8
-};
+// ─── Nombre de séifim par siman — PRIS À LA SOURCE ───────────────────────
+// La table était écrite en dur ici, et son commentaire disait d'où elle venait :
+// « extrait des niveau-1-base.html ». C'était la racine du défaut. Une page ne
+// reproduit pas toujours tout le siman, et le plan héritait donc de la troncature
+// des pages au lieu de suivre le Choul'han Aroukh : 742 séifim programmés pour
+// 1 053 réels, 311 jamais prévus — dont les séifim 11 à 15 du siman 298, dont le
+// texte annonce pourtant lui-même « ובו טו סעיפים ».
+// Le fichier est régénéré par scripts/generer-seifim-count.py, qui lit Sefaria.
+// Le fichier est structuré par OUVRAGE : les numéros se recouvrent d'un ouvrage
+// à l'autre (Yoré Déa 87 et Orah Haïm 87 sont deux simanim différents), et ce
+// générateur les indexe encore par numéro seul — défaut latent tant que le plan
+// ne couvre que l'Orah Haïm, à traiter avant d'y ajouter Yoré Déa.
+const SEIFIM_COUNT = Object.fromEntries(
+  Object.entries(require(path.join(DATA_DIR, 'seifim-count.json'))['orach-chayim'])
+    .map(([k, v]) => [Number(k), v])
+);
 
 // ─── Helpers date ──────────────────────────────────────────────────────────
 function isStudyDay(date) {
@@ -127,63 +122,109 @@ const titleByNum = (idx) => {
 const enByNum = titleByNum(simanimEN);
 const heByNum = titleByNum(simanimHE);
 
-// ─── Construction des "lots" (avant assignation des dates) ────────────────
-// Chaque "lot" = un jour d'étude. Pour un siman de N séifim :
-//   - N ≤ 5  → 1 lot couvrant tout le siman
-//   - N > 5  → ceil(N/5) lots de 5 séifim consécutifs
-const lots = [];
-for (const s of simanimFR.simanim) {
-  const num = s.num;
-  const nbSeifim = SEIFIM_COUNT[num] || 1;
-  if (nbSeifim <= SEIFIM_PER_DAY) {
-    lots.push({
+// ─── Construction des "lots" — LE PASSÉ NE SE RÉÉCRIT PAS ─────────────────
+//
+// Le générateur assignait les dates séquentiellement depuis le 8 juin, si bien
+// que corriger le nombre de séifim d'un siman ANCIEN décalait tout ce qui suit :
+// la page d'hier n'aurait plus correspondu au courriel d'hier. Il gèle donc
+// désormais les journées déjà passées et ne reconstruit qu'à partir de LIMOUD_GEL
+// (par défaut : aujourd'hui).
+//
+// Trois règles, et elles se lisent dans cet ordre :
+//   1. le plan couvre HILKHOT CHABBAT, et lui seul — le catalogue compte
+//      aujourd'hui 513 simanim sur quatre compartiments, et régénérer sans ce
+//      filtre en ferait un tout autre produit ;
+//   2. le siman EN COURS et ceux qu'on n'a pas encore abordés se suivent dans le
+//      fil ; ceux qu'on a laissés en plan derrière soi passent en RATTRAPAGE, à
+//      la fin — sans quoi le lecteur sauterait du siman 298 au 245 en pleine étude ;
+//   3. le découpage suit les frontières CANONIQUES de lots (1-5, 6-10, 11-15…),
+//      et non des tranches de cinq à partir du premier séif restant : c'est ce
+//      qui permet à « 2/3 » de vouloir dire quelque chose.
+const PLAN_JSON = path.join(DATA_DIR, 'limoud-plan.json');
+const GEL = process.env.LIMOUD_GEL || new Date().toISOString().slice(0, 10);
+const ancien = fs.existsSync(PLAN_JSON) ? loadJSON(PLAN_JSON) : { entries: [] };
+const gelees = (ancien.entries || []).filter((e) => e.date < GEL);
+
+const couvert = new Map();
+for (const e of gelees) {
+  const [a, b] = e.seifRange;
+  if (!couvert.has(e.siman.num)) couvert.set(e.siman.num, new Set());
+  for (let s = a; s <= b; s++) couvert.get(e.siman.num).add(s);
+}
+const simanCourant = gelees.length ? gelees[gelees.length - 1].siman.num : null;
+const auPlan = simanimFR.simanim.filter((s) => s.section === 'shabbat');
+
+const suite = [];
+const rattrapage = [];
+for (const s of auPlan) {
+  const nbSeifim = SEIFIM_COUNT[s.num] || 1;
+  const vus = couvert.get(s.num) || new Set();
+  const lotTotal = Math.ceil(nbSeifim / SEIFIM_PER_DAY);
+  const cible = (s.num === simanCourant || !couvert.has(s.num)) ? suite : rattrapage;
+  for (let k = 1; k <= lotTotal; k++) {
+    const d0 = (k - 1) * SEIFIM_PER_DAY + 1;
+    const d1 = Math.min(k * SEIFIM_PER_DAY, nbSeifim);
+    const reste = [];
+    for (let i = d0; i <= d1; i++) if (!vus.has(i)) reste.push(i);
+    if (!reste.length) continue;
+    cible.push({
       siman: s,
       nbSeifim,
-      seifRange: [1, nbSeifim],
-      lotIndex: 1,
-      lotTotal: 1
+      seifRange: [reste[0], reste[reste.length - 1]],
+      lotIndex: k,
+      lotTotal
     });
-  } else {
-    const lotTotal = Math.ceil(nbSeifim / SEIFIM_PER_DAY);
-    let start = 1;
-    let lotIndex = 1;
-    while (start <= nbSeifim) {
-      const end = Math.min(start + SEIFIM_PER_DAY - 1, nbSeifim);
-      lots.push({
-        siman: s,
-        nbSeifim,
-        seifRange: [start, end],
-        lotIndex,
-        lotTotal
-      });
-      start = end + 1;
-      lotIndex++;
-    }
+  }
+}
+const lots = suite.concat(rattrapage);
+
+// Le lotTotal des journées gelées était calculé sur l'ancien compte : le siman
+// 298 y annonce « 1/2 » alors qu'il compte trois lots. On corrige l'ÉTIQUETTE,
+// jamais la date ni les séifim — ce qui a été étudié l'a été.
+for (const e of gelees) {
+  const n = SEIFIM_COUNT[e.siman.num];
+  if (!n) continue;
+  e.lotTotal = Math.ceil(n / SEIFIM_PER_DAY);
+  // Une journée gelée peut promettre des séifim qui N'EXISTENT PAS — le siman 258
+  // annonçait « séifim 1-4 » pour un siman qui n'en compte qu'un. On borne au
+  // compte réel : ce n'est pas réécrire le passé, c'est retirer une promesse
+  // fausse que la page fait encore aujourd'hui. On n'ÉTEND jamais une plage.
+  if (e.seifRange[1] > n) {
+    e.seifRange = [Math.min(e.seifRange[0], n), n];
+    e.seifCount = e.seifRange[1] - e.seifRange[0] + 1;
+    e.lotIndex = Math.min(e.lotIndex, e.lotTotal);
   }
 }
 
-const totalDays = lots.length;
+// Deux comptes distincts, et les confondre est un piège : `nbNouvelles` sert à
+// tirer les dates des journées À VENIR, `totalDays` est la longueur du plan
+// ENTIER — gelées comprises. Le bandeau et la navigation entre journées lisent
+// le second ; les avoir confondus faisait annoncer « 194 » au-dessus d'un
+// tableau de 272 entrées, et la page du jour se serait calée sur le mauvais rang.
+const nbNouvelles = lots.length;
+const totalDays = gelees.length + nbNouvelles;
 
 // ─── Calcul des dates des jours d'étude ────────────────────────────────────
-const startDate = parseISODate(START_DATE_ISO);
+// Les dates des NOUVELLES journées partent du gel, pas du 8 juin.
+const startDate = parseISODate(GEL);
 const dayDates = [];
 {
   let cur = new Date(startDate.getTime());
-  while (dayDates.length < totalDays) {
+  while (dayDates.length < nbNouvelles) {
     if (isStudyDay(cur)) dayDates.push(new Date(cur.getTime()));
     cur.setUTCDate(cur.getUTCDate() + 1);
   }
 }
 
 // ─── Construction du plan ─────────────────────────────────────────────────
-const entries = lots.map((lot, i) => {
+const nouvelles = lots.map((lot, i) => {
   const date = dayDates[i];
   const num = lot.siman.num;
   const enS = enByNum[num] || {};
   const heS = heByNum[num] || {};
   const [seifStart, seifEnd] = lot.seifRange;
   return {
-    dayNumber: i + 1,
+    dayNumber: gelees.length + i + 1,
     date: toISODate(date),
     dow: date.getUTCDay(),
     siman: {
@@ -202,6 +243,8 @@ const entries = lots.map((lot, i) => {
     status: lot.siman.status
   };
 });
+
+const entries = gelees.concat(nouvelles);
 
 // ─── Groupement par "semaine" (5 jours dim→jeu) ───────────────────────────
 function getSundayOfWeek(d) {
@@ -234,7 +277,7 @@ const planJSON = {
     startDate: START_DATE_ISO,
     endDate: entries[entries.length - 1].date,
     totalDays: entries.length,
-    totalSeifim: Object.values(SEIFIM_COUNT).reduce((a, b) => a + b, 0),
+    totalSeifim: auPlan.reduce((acc, s) => acc + (SEIFIM_COUNT[s.num] || 1), 0),
     seifimPerDay: SEIFIM_PER_DAY,
     studyDaysPerWeek: 5,
     studyDows: [0, 1, 2, 3, 4],

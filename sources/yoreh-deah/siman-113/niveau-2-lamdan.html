@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="fr" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,8 +23,7 @@
   @page { size: A4; margin: 2cm 1.8cm; }
   body {
     font-family: 'Frank Ruhl Libre', 'David', 'Georgia', 'Cambria', serif;
-    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0;
-    direction: rtl; text-align: right;
+    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0; text-align: left;
   }
   .he {
     direction: rtl; text-align: right;
@@ -72,14 +71,12 @@
   h2.section-title {
     color: #fff; background: #1A1F3A;
     font-size: 16pt; padding: 10px 18px; margin-top: 30px;
-    border-right: 6px solid #C5A55A;
-    direction: rtl; text-align: right;
+    border-left: 6px solid #C5A55A; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3 {
     color: #1A1F3A; font-size: 14pt; margin-top: 25px;
-    border-right: 4px solid #C5A55A; padding-right: 10px;
-    direction: rtl; text-align: right;
+    border-left: 4px solid #C5A55A; padding-left: 10px; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3.he-h3 {
@@ -89,8 +86,7 @@
   }
   h4 {
     color: #5a4a1a; font-size: 12pt;
-    margin-top: 20px; margin-bottom: 8px; font-weight: bold;
-    direction: rtl; text-align: right;
+    margin-top: 20px; margin-bottom: 8px; font-weight: bold; text-align: left;
   }
 
   .sacred-text {
@@ -100,8 +96,8 @@
     font-size: 12.5pt; line-height: 1.9;
   }
   .pilpul-box {
-    background: #eef3fa; border-right: 4px solid #1A1F3A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #eef3fa; border-left: 4px solid #1A1F3A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .pilpul-box::before {
     content: "⚡ פלפול"; display: block;
@@ -110,8 +106,8 @@
     direction: rtl; text-align: right;
   }
   .kashya-box {
-    background: #fef4e4; border-right: 4px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #fef4e4; border-left: 4px solid #C5A55A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .kashya-box::before {
     content: "❓ קושיא"; display: block;
@@ -120,8 +116,8 @@
     direction: rtl; text-align: right;
   }
   .teruts-box {
-    background: #e8f4ea; border-right: 4px solid #2d7a3e;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #e8f4ea; border-left: 4px solid #2d7a3e;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .teruts-box::before {
     content: "✓ תירוץ"; display: block;
@@ -130,8 +126,8 @@
     direction: rtl; text-align: right;
   }
   .hakira-box {
-    background: #f5e9f5; border-right: 4px solid #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #f5e9f5; border-left: 4px solid #6a1b7a;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .hakira-box::before {
     content: "🔍 חקירה"; display: block;
@@ -141,8 +137,7 @@
   }
   .nafka-mina-box {
     background: #fff4e6; border: 2px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; border-radius: 4px; text-align: left;
   }
   .nafka-mina-box::before {
     content: "⚖️ נפקא מינה"; display: block;
@@ -152,8 +147,7 @@
   }
   .yesod-box {
     background: #1A1F3A; color: #fff;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
   .yesod-box::before {
     content: "💎 יסוד"; display: block;
@@ -164,7 +158,7 @@
   .yesod-box .he-q { color: #C5A55A; }
   .machloket-box {
     background: #faf5ff; border: 1.5px dashed #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
 
   table {
@@ -173,10 +167,9 @@
   }
   th {
     background: #1A1F3A; color: #fff;
-    padding: 10px; text-align: right; direction: rtl; font-size: 11pt;
+    padding: 10px; text-align: left; font-size: 11pt;
   }
-  td {
-    direction: rtl; text-align: right;
+  td { text-align: left;
     border: 1px solid #d4c89a; padding: 10px; vertical-align: top;
   }
   tr:nth-child(even) td { background: #FAF6EE; }
@@ -197,12 +190,11 @@
   }
 
   ol.stylish li, ul.stylish li { margin-bottom: 8px; }
-  ol.stylish, ul.stylish { padding-right: 22px; padding-left: 0; }
+  ol.stylish, ul.stylish { padding-left: 22px; padding-right: 0; }
 
   .rishon-card {
-    background: #f7f3e4; border-right: 4px solid #8a6a1a;
-    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt;
-    direction: rtl; text-align: right;
+    background: #f7f3e4; border-left: 4px solid #8a6a1a;
+    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt; text-align: left;
   }
   .rishon-card strong { color: #1A1F3A; font-size: 11pt; }
 
@@ -217,10 +209,9 @@
 
   .index-box {
     background: #FAF6EE; border: 1px solid #C5A55A;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
-  .index-box ol { margin: 5px 0; padding-right: 25px; padding-left: 0; }
+  .index-box ol { margin: 5px 0; padding-left: 25px; padding-right: 0; }
   .index-box li { margin-bottom: 5px; }
 
   h3.sugya {
@@ -237,7 +228,6 @@
     font-size: 12pt;
     text-decoration: none;
     border-bottom: 1px dotted #C5A55A;
-    direction: rtl;
   }
   a.daat-explain:hover { color: #8a6a1a; border-bottom-style: solid; }
 
@@ -273,7 +263,7 @@
   "headline": "Siman קי״ג · Niveau 2 Lamdan — Pilpoul approfondi · דין בישולי עכו״ם, שני התנאים ומאכל בן דרוסאי",
   "description": "Niveau 2 (Lamdan) du Siman קי״ג (Yoreh De'ah) — Pilpoul approfondi. שני התנאים (אינו נאכל חי ועולה על שלחן מלכים), טעם חתנות, נשתנה ע״י האור, שומן בעין, שפחות, מאכל בן דרוסאי, שגירה וחיתוי, מליחה ועישון — חקירה ונפקא מינה.",
   "url": "https://daattorah.com/yd/113/lamdan",
-  "inLanguage": "he-IL",
+  "inLanguage": "fr-FR",
   "isAccessibleForFree": true,
   "author": {
     "@id": "https://daattorah.com/#rav-samama"
@@ -382,33 +372,35 @@
 <!-- COUVERTURE -->
 <div class="cover">
   <div class="ornament">✦ ❖ ✦</div>
-  <div class="badge-top">DAAT · רמה ב' — לַמְדָּן</div>
-  <h1>שולחן ערוך · יורה דעה</h1>
-  <div class="subtitle">דין בישולי עכו״ם — עיון ופלפול</div>
+  <div class="badge-top">DAAT · NIVEAU 2 — LAMDAN</div>
+  <h1>Choulhan Aroukh · Yoré Déa — Niveau Lamdan : ce que le décret appelle exactement « cuire »</h1>
+  <div class="subtitle">Le bichoul akoum — étude et pilpoul</div>
 
   <div class="he-title">סימן קי״ג</div>
   <div class="he-sub">שני התנאים, עולה על שלחן מלכים, מאכל בן דרוסאי, שגירה וחיתוי</div>
   <div class="he-subject">עיון, פלפול, שיטות הראשונים והאחרונים</div>
 
-  <div class="level-badge">⚡ ללומדים ותלמידי חכמים ⚡</div>
+  <div class="level-badge">⚡ Pour les lamdanim et les talmidé hakhamim ⚡</div>
 
   <div class="ornament">✦ ❖ ✦</div>
 
-  <h2 style="margin-top:20px; color: #1A1F3A;">פלפול ועיון מעמיק</h2>
+  <h2 style="margin-top:20px; color: #1A1F3A;">Pilpoul et étude approfondie</h2>
   <p style="font-size:12pt; color:#555;">
-    סוגיות, מקורות, חקירת היסוד, מחלוקות ראשונים ואחרונים,<br>
-    נפקא מינות להלכה ועיון בשיטות
+    Sougyot, sources, hakira de fond, ma’hlokot des Richonim et des Aharonim,<br>
+    nafka minot pour la halakha, et examen des chitot
   </p>
 
   <div class="credits">
-    <p><strong>הנושא :</strong><br>
-    שולחן ערוך יורה דעה סימן קי״ג (ט״ז סעיפים)<br>
-    עם נושאי כלים: ש״ך (שפתי כהן), ט״ז (טורי זהב), פרי מגדים, פתחי תשובה</p>
+    <p><strong>Le sujet :</strong><br>
+    Choulhan Aroukh, Yoré Déa, siman קי״ג — seize seifim<br>
+    avec ses nossé kélim : Chakh (שפתי כהן), Taz (טורי זהב), Baer Hetev, Pit’hé Techouva</p>
 
-    <p><strong>יסוד הסוגיא בש״ס :</strong><br>
-    עבודה זרה ל״ז:–ל״ח. (שני התנאים, מאכל בן דרוסאי, אין שמחת חתנות) · עבודה זרה ל״ח. (חתה בגחלים, שגר התנור) · עבודה זרה ל״ח: (מליח אינו כרותח, כבוש אינו כמבושל)</p>
+    <p><strong>Le fond de la sougya dans le Chass :</strong><br>
+    עבודה זרה ל״ז:–ל״ח. — les deux conditions, le maakhal ben Droussaï, le motif du rapprochement ·
+    עבודה זרה ל״ח. — le tisonnage des braises et le chauffage du four ·
+    עבודה זרה ל״ח: — le salé n’est pas comme le bouillant, le mariné n’est pas comme le cuit</p>
 
-    <p><strong>עריכה ועיון :</strong><br>
+    <p><strong>Rédaction et étude :</strong><br>
     הרב יוסף חיים סממה · DAAT</p>
   </div>
 </div>
@@ -416,525 +408,722 @@
 <div class="page-break"></div>
 
 <!-- TABLE DES MATIÈRES -->
-<h2 class="section-title">📑 תוכן העניינים</h2>
+<h2 class="section-title">📑 Table des matières</h2>
 
-<div class="index-box" dir="rtl">
+<div class="index-box">
 <ol>
-  <li><strong>הקדמת הסוגיא</strong> — שני התנאים וטעם האיסור: חתנות ושמא יאכילנו (סעיף א')</li>
-  <li><strong>חקירת היסוד</strong> — האם בעינן נשתנה ע״י האור ? רש״י/ר״ן/רי״ף נגד הרמב״ם (ש״ך ס״ק א)</li>
-  <li><strong>עיקר ושומן בעין</strong> — תערובת נאכל ושאינו נאכל, פנאד״ה ושומן בעין (סעיפים ב'–ג')</li>
-  <li><strong>השפחות</strong> — קנויות נגד שכורות, ויסוד "אי אפשר שלא יחתה" (סעיף ד')</li>
-  <li><strong>לא נתכוון לבישול</strong> — חגבים ושׂער הראש, נתכוון לאיסור (סעיף ה')</li>
-  <li><strong>בישולי ישראל מעט</strong> — תחילה או סוף, ואף שלא היה מתבשל בלעדיו (סעיף ו')</li>
-  <li><strong>שגירת התנור · חיתוי · הנחה</strong> — המחלוקת המרכזית: פת לעומת שאר בישול (סעיף ז')</li>
-  <li><strong>מאכל בן דרוסאי</strong> — הסיר והחזיר, גמרו ישראל, ספק בישול עכו״ם (סעיפים ח'–י״א)</li>
-  <li><strong>מליחה · עישון · כבוש</strong> — אינם כבישול; דגים, ביצה ותמרים (סעיפים י״ב–ט״ו)</li>
-  <li><strong>הכלים והחולה בשבת</strong> — הכשר בלא שורש דאורייתא; מחלוקת הרא״ה והרשב״א (סעיף ט״ז)</li>
-  <li><strong>חקירה ונפקא מינה למעשה</strong></li>
-  <li><strong>טבלאות סיכום מקיפות</strong></li>
+  <li><strong>Ouverture de la sougya</strong> — les deux conditions et le motif du décret : le rapprochement, et la crainte qu’il ne lui fasse manger de l’interdit (seif 1)</li>
+  <li><strong>La hakira de fond</strong> — faut-il que le feu ait <em>changé</em> l’aliment ? Rachi, le Rif et le Ran contre le Rambam (Chakh ס״ק א)</li>
+  <li><strong>L’essentiel et la graisse en nature</strong> — mélange de ce qui se mange cru et de ce qui ne s’en mange pas, la פנאד״ה et la graisse (seifim 2–3)</li>
+  <li><strong>Les servantes</strong> — achetées ou louées, et le fondement « il est impossible que l’un des gens de la maison ne tisonne » (seif 4)</li>
+  <li><strong>Sans intention de cuire</strong> — les sauterelles et le poil de la tête, et l’intention portée sur la cuisson (seif 5)</li>
+  <li><strong>Un peu de cuisson par le Juif</strong> — au début ou à la fin, et même si cela n’aurait pas cuit sans lui (seif 6)</li>
+  <li><strong>Chauffage du four · tisonnage · dépôt</strong> — la ma’hloket centrale : le pain contre le reste de la cuisson (seif 7)</li>
+  <li><strong>Maakhal ben Droussaï</strong> — retirer et remettre, l’achèvement par le Juif, le doute de bichoul akoum (seifim 8–11)</li>
+  <li><strong>Salaison · fumage · marinade</strong> — ce ne sont pas des cuissons ; poissons, œuf et dattes (seifim 12–15)</li>
+  <li><strong>Les ustensiles et le malade le Chabbat</strong> — une cachérisation sans racine dans la Tora ; la ma’hloket du Ra’ah et du Rachba (seif 16)</li>
+  <li><strong>Hakira et nafka mina pour la pratique</strong></li>
+  <li><strong>Tableaux de synthèse</strong></li>
 </ol>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<!-- לשון השולחן ערוך — סעיף א' -->
-<h2 class="section-title">📜 לשון השולחן ערוך — סעיף א'
-  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 העתק</button>
+<h2 class="section-title">📜 Le texte du Choulhan Aroukh — seif 1
+  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 Copier</button>
 </h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ Explication détaillée (niveau 1)</a>
 
-<div class="sacred-text he" data-copy-block id="cp-1">
-  <p>דָּבָר שֶׁאֵינוֹ נֶאֱכָל כְּמוֹ שֶׁהוּא חַי, וְגַם עוֹלֶה עַל שֻׁלְחַן מְלָכִים לְלַפֵּת בּוֹ אֶת הַפַּת אוֹ לְפַרְפֶּרֶת, שֶׁבִּשְּׁלוֹ עוֹבֵד כּוֹכָבִים — אֲפִלּוּ בִּכְלִי יִשְׂרָאֵל וּבְבֵית יִשְׂרָאֵל — אָסוּר מִשּׁוּם בִּשּׁוּלֵי עוֹבֵד כּוֹכָבִים. אֲבָל דָּבָר שֶׁנֶּאֱכָל כְּמוֹ שֶׁהוּא חַי, אוֹ שֶׁאֵינוֹ עוֹלֶה עַל שֻׁלְחַן מְלָכִים — אֵין בּוֹ מִשּׁוּם בִּשּׁוּלֵי עוֹבֵד כּוֹכָבִים.</p>
+<div class="sacred-text he" data-copy-block id="cp-1" dir="rtl">
+  <p>«&nbsp;<span class="he-q">דיני בשולי עובדי כוכבים. ובו ט״ז סעיפים</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״ג:א)</span></p>
+  <p>«&nbsp;<span class="he-q">דבר שאינו נאכל כמו שהוא חי וגם עולה על שלחן מלכים ללפת בו את הפת או לפרפרת שבישלו עובד כוכבים אפילו בכלי ישראל ובבית ישראל אסור משום בישולי עובד כוכבים</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״ג:א)</span></p>
 </div>
 
-<!-- ============================================================= -->
-<h2 class="section-title">1. הקדמת הסוגיא — שני התנאים וטעם החתנות</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<p><strong>Traduction.</strong> <em>Les lois de la cuisson faite par les non-Juifs ; il comporte seize seifim.</em> — Un aliment qui ne se mange pas tel quel, cru, <strong>et</strong> qui de surcroît monte sur la table des rois pour accompagner le pain ou comme entremets, et qu’un non-Juif a cuit — même dans un ustensile appartenant à un Juif et dans la maison d’un Juif — est interdit au titre du bichoul akoum.</p>
 
-<h3 class="he-h3">היסוד — שני תנאים מצטברים
-  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 העתק</button>
+<!-- ============================================================= -->
+<h2 class="section-title">1. Ouverture de la sougya — les deux conditions et le motif du rapprochement</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-seifim">↩ Explication détaillée (niveau 1)</a>
+
+<h3>Le fondement — deux conditions qui doivent se rejoindre
+  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 Copier</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-2">
-יסוד הסימן: גזרו חכמים על <strong>בישולי עכו״ם</strong> — מאכל שבישלוֹ נכרי. ובגמרא (עבודה זרה ל״ז:–ל״ח.) למדנו ששני <span class="he-q">תנאים מצטברים</span> נדרשים לאיסור: (א) <strong>אינו נאכל כמו שהוא חי</strong> — שדבר הנאכל חי אינו חשוב כל כך והנכרי לא יזמין עליו; (ב) <strong>עולה על שלחן מלכים</strong> ללפת בו את הפת או לפרפרת. רק בהצטרף שני התנאים — אסור; חסר אחד מהם — מותר. ואיסור זה חל <span class="he-q">אפילו בכלי ישראל ובבית ישראל</span>, שאין הגזרה תלויה בכלי הנכרי אלא במעשה בישולו.
+<div id="cp-2" data-copy-block>
+<p>Le siman repose tout entier sur un décret rabbinique : les Sages ont interdit le <strong>bichoul akoum</strong>, l’aliment qu’un non-Juif a cuit. La guemara (עבודה זרה ל״ז:–ל״ח.) enseigne que deux conditions doivent <strong>se rejoindre</strong> pour que l’interdit s’applique : (a) l’aliment <strong>ne se mange pas tel quel, cru</strong> — ce qui se mange cru n’a pas assez d’importance pour qu’un non-Juif invite son prochain autour de lui ; (b) il <strong>monte sur la table des rois</strong> pour accompagner le pain ou comme entremets. Il faut les deux : si l’une manque, il n’y a pas d’interdit. Et le Choulhan Aroukh prend soin de dire que le décret ne dépend pas de l’ustensile du non-Juif mais de son acte de cuisson — il vaut donc <em>même dans un ustensile de Juif et dans la maison d’un Juif</em>.</p>
+<blockquote>«&nbsp;<span class="he-q">אפילו בכלי ישראל ובבית ישראל אסור משום בישולי עובד כוכבים</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״ג:א)</span></blockquote>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>טעם הגזרה — חתנות ושמא יאכילנו :</strong> שני טעמים נאמרו בראשונים ובנושאי הכלים. <strong>(א) משום חתנות</strong> — שלא יבוא לידי קירוב ורעות עם הנכרי על ידי אכילה משותפת, ויבוא לחתנות. ולפי טעם זה כתב <strong>הט״ז (ס״ק א)</strong> שדווקא דבר העולה על שלחן מלכים נאסר, <span class="he-q">שאין אדם מזמין את חברו על דבר שאינו חשוב</span> — ואין בזה משום קירוב. <strong>(ב) שמא יאכילנו דברים אסורים</strong> — חשש שמא יערב הנכרי דבר איסור. ושני הטעמים גלומים בגזרה, ונפקא מינה ביניהם בכמה דינים.
+<div class="pilpul-box">
+<strong>Le motif du décret — le rapprochement, et la crainte qu’il ne lui fasse manger de l’interdit.</strong> Deux motifs sont énoncés. <strong>(a) חתנות</strong> — que le Juif n’en vienne pas, par le partage de la nourriture, à une familiarité avec le non-Juif qui conduise à l’alliance par mariage. C’est de ce motif que le Taz tire la seconde condition : on n’invite personne autour d’un mets sans importance, et il n’y a donc là aucun rapprochement.
+<blockquote>«&nbsp;<span class="he-q">הטעם דעיקר הגזירה משום חתנות ודבר שאינו חשוב כ״כ אין אדם מזמין חבירו עליו</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ג ס״ק א׳)</span></blockquote>
+<strong>(b) שמא יאכילנו דברים אסורים</strong> — la crainte que le non-Juif n’y mêle une chose interdite. Le Pit’hé Techouva rappelle ce second motif au nom du Beit Yossef, et les deux motifs habitent ensemble le décret : c’est de leur écart que naissent plusieurs des dins du siman.
+<blockquote>«&nbsp;<span class="he-q">אלא שהיה עוד טעם מבואר בב״י דשמא יאכילנו דברים אסורים</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד קי״ג ס״ק א׳)</span></blockquote>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>מומר ומחלל שבת (פתחי תשובה ס״ק א) :</strong> מביא הפתחי תשובה דבמומר אין שייך טעם <span class="he-q">חתנות</span> (שהרי ישראל הוא ביחס לחתנות), ומכל מקום בישולו אסור משום הטעם השני — <strong>שמא יאכילנו דברים אסורים</strong>; וכן <span class="he-q">מחלל שבת בפרהסיא</span> דינו כנכרי לענין זה (ועיין סימן ב' ס״ה וסימן קי״ט). הרי שהנפקא מינה בין שני הטעמים נחתכת למעשה.
+<div class="rishon-card">
+<strong>Le mumar et le profanateur du Chabbat (Pit’hé Techouva ס״ק א).</strong> C’est là que l’écart entre les deux motifs devient tranchant. Le Pit’hé Techouva rapporte le Tiférèt LeMoché : selon le seul motif du rapprochement, la cuisson d’un <em>mumar</em> serait permise, puisqu’il n’y a pas d’alliance à craindre avec lui.
+<blockquote>«&nbsp;<span class="he-q">דלפי טעם זה שרי בישול של מומר דמשום חתנות ליכא</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד קי״ג ס״ק א׳)</span></blockquote>
+Mais le second motif demeure, et il suffit à interdire — d’où la conséquence que le Pit’hé Techouva tire jusqu’au profanateur public du Chabbat, en renvoyant au siman 2 seif 5 et au siman 119.
+<blockquote>«&nbsp;<span class="he-q">ה״ה מומר לחלל שבת בפרהסיא או לכל התורה כולה חוץ משתים אלו דדינו כעובד כוכבים</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד קי״ג ס״ק א׳)</span></blockquote>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">2. חקירת היסוד — האם בעינן "נשתנה ע״י האור" ?</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">2. La hakira de fond — faut-il que le feu ait changé l’aliment ?</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זוהי חקירת היסוד שעליה עומד כל גדר ה"בישול" שבסימן, וכל כובד ידו של הש״ך (ס״ק א) נתון בה.</p>
+<p style="margin:15px 0; font-style:italic;">C’est la hakira sur laquelle repose toute la définition de la « cuisson » dans ce siman, et c’est là que le Chakh met tout son poids, dès son premier ס״ק.</p>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — מהו גדר "בישול" האסור :</strong> האם כל פעולת בישול של נכרי אסורה, או דווקא בישול ה<span class="he-q">משנה את המאכל על ידי האור</span> — שמתחילה היה גוף אחד ועתה נשתנה ? ובמילים אחרות: האם הגזרה תלויה במעשה הנכרי בלבד, או בתוצאת השינוי שבמאכל ?
+<div class="hakira-box">
+<strong>La hakira — quelle est la définition de la cuisson interdite ?</strong> Tout acte de cuisson d’un non-Juif est-il interdit, ou seulement celui qui <em>transforme</em> l’aliment par le feu — de sorte qu’il était une chose et qu’il en est devenu une autre ? Autrement dit : le décret tient-il à l’acte du non-Juif seul, ou au changement produit dans l’aliment ?
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>מחלוקת הראשונים (ש״ך ס״ק א) :</strong>
+<div class="machloket-box">
+<strong>La ma’hloket des Richonim, telle que le Chakh la pose (ס״ק א).</strong> Le Chakh commence par lire le silence du Mehaber : puisqu’il n’a pas posé la condition du changement, c’est qu’il tient comme le Rambam.
+<blockquote>«&nbsp;<span class="he-q">מדלא התנה המחבר שיהא נשתנה מברייתו ע״י האור אלמא דס״ל אפילו לא נשתנה אסור וכדעת הרמב״ם</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק א׳)</span></blockquote>
+Puis il dit ce qui lui paraît être l’essentiel dans la guemara, et il l’appuie sur le Ran, Rachi, le Rif et le Raavan.
+<blockquote>«&nbsp;<span class="he-q">אבל באמת נראה עיקר בש״ס … כהר״ן ורש״י דאין אסור משום בשולי עובדי כוכבים אלא כשנשתנה מברייתו ע״י האור</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק א׳)</span></blockquote>
+Et il ne cache pas que le reste des décisionnaires ne fait pas cette distinction.
+<blockquote>«&nbsp;<span class="he-q">מיהו דעת שאר הפוסקים נראה דאין לחלק בזה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק א׳)</span></blockquote>
 <table>
-<tr><th>שיטה</th><th>גדר הבישול</th><th>מקור</th></tr>
+<tr><th>Chita</th><th>Définition de la cuisson</th><th>Source</th></tr>
 <tr>
-  <td><strong>רש״י · רי״ף · ר״ן</strong></td>
-  <td>בעינן ש<strong>נשתנה הדבר על ידי האור</strong> — וכל שלא נשתנה, אף שבישלוֹ הנכרי, אין בו משום ביש״ע</td>
-  <td>ש״ך ס״ק א</td>
+  <td><strong>Rachi · Rif · Ran</strong> (et le Raavan)</td>
+  <td>il faut que la chose ait été <strong>changée par le feu</strong> — et tant qu’elle ne l’a pas été, même cuite par un non-Juif, il n’y a pas de bichoul akoum</td>
+  <td>Chakh ס״ק א</td>
 </tr>
 <tr>
-  <td><strong>הרמב״ם</strong></td>
-  <td>אין צריך שינוי ניכר — עצם בישול הנכרי בדבר שאינו נאכל חי והעולה על שלחן מלכים אוסר</td>
-  <td>ש״ך ס״ק א</td>
+  <td><strong>Le Rambam</strong></td>
+  <td>aucun changement visible n’est requis — la cuisson du non-Juif suffit dès lors que l’aliment ne se mange pas cru et monte sur la table des rois</td>
+  <td>Chakh ס״ק א</td>
+</tr>
+</table>
+<p>Le Chakh ajoute une lecture de la glose du Rama au seif 2 : s’il n’a permis les pois grillés que parce qu’ils ne montent pas sur la table des rois, et non parce qu’ils n’ont pas été changés, c’est que lui aussi tient comme le Rambam.</p>
+</div>
+
+<div class="pilpul-box">
+<strong>Le point de mesure — l’importance du mets, non sa seule transformation (Chakh ס״ק ב).</strong> Le Chakh rapporte l’Issour véHetter : les entrailles et le gésier, dont on avait pourtant dit ailleurs qu’ils ne sont pas une nourriture d’homme, tombent malgré tout sous le bichoul akoum.
+<blockquote>«&nbsp;<span class="he-q">כתב האו״ה קרביים וקורקבן ובני מעיים אע״ג דאמרינן לעיל … אוכליהון לאו בר אינש ולא הוי חה״ל מ״מ אסורים משום בישולי עובדי כוכבים</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק ב׳)</span></blockquote>
+Et de même les truffes et les champignons, qui montent sur la table des rois <em>au titre de l’entremets</em>.
+<blockquote>«&nbsp;<span class="he-q">דכמהין ופטריות עולין על שלחן מלכים משום פרפראות ויש בו משום בשולי עובדי כוכבים</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק ב׳)</span></blockquote>
+La mesure n’est donc pas la seule transformation de la forme, mais l’importance du mets et la manière dont on le mange — et c’est exactement le foyer de la hakira.
+</div>
+
+<!-- ============================================================= -->
+<h2 class="section-title">3. L’essentiel et la graisse en nature — le mélange et la פנאד״ה</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
+
+<h3>Le texte du Mehaber et du Rama (seifim 2–3)
+  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 Copier</button>
+</h3>
+
+<div class="sacred-text he" data-copy-block id="cp-3" dir="rtl">
+  <p>«&nbsp;<span class="he-q">עירב דבר הנאכל כמו שהוא חי עם דבר שאינו נאכל כמו שהוא חי ובישלם העובד כוכבים אם העיקר מדבר שיש בו משום בישולי עובד כוכבים אסור ואם לאו מותר:</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״ג:ב)</span></p>
+  <p>«&nbsp;<span class="he-q">הגה ומותר לאכול אפונים קלויים של עובד כוכבים וכן הקטניות שקורין ערבשי״ן קלויים דאינן עולים על שלחן של מלכים וכן נהגו בהם היתר אם לא במקום שנהגו למשוח המחבת בחלב שאז נוהגים בהם איסור … אבל בלאו הכי שרי ואין לחוש לכליהם של עובד כוכבים דסתמן אינן בני יומן וכל פרי שנאכל כמו שהוא חי אע״פ שבשלו אותו עובד כוכבים ונמחה ונעשה תבשיל בידיהם שרי ועל כן אוכלין הפובידל״א שעושין העובדי כוכבים:</span>&nbsp;» <span class="source-ref">(רמ״א שו״ע יו״ד קי״ג:ב)</span></p>
+  <p>«&nbsp;<span class="he-q">פנאד״ה שאפאה עובד כוכבים אסורה אפילו למי שנוהג היתר בפת של עובד כוכבים מפני שהשומן נאסר כשהוא בעין משום בישולי עובדי כוכבים ונבלע בפת וכן ירקות הנאכלים חיים שבשלם עם בשר אסורים מפני ששומן של בשר נבלע בהם:</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״ג:ג)</span></p>
+</div>
+
+<p><strong>Traduction du seif 2 (Mehaber).</strong> S’il a mélangé une chose qui se mange telle quelle, crue, avec une chose qui ne se mange pas telle quelle, crue, et qu’un non-Juif les a cuites : si <strong>l’essentiel</strong> vient de la chose à laquelle s’applique le bichoul akoum — interdit ; sinon — permis.</p>
+
+<p><strong>Traduction de la glose du Rama (seif 2).</strong> Il est permis de manger des pois grillés d’un non-Juif, ainsi que les légumineuses qu’on appelle ערבשי״ן grillées, parce qu’elles ne montent pas sur la table des rois ; et l’usage a été de les permettre — sauf à l’endroit où l’on a coutume d’enduire la poêle de graisse, où l’usage est alors d’interdire. Mais hors de ce cas c’est permis, et il n’y a pas à craindre leurs ustensiles, qui ordinairement ne sont pas בני יומן. Et tout fruit qui se mange tel quel, cru — même cuit par un non-Juif, délité et devenu un mets entre leurs mains — est permis ; c’est pourquoi l’on mange le פובידל״א que font les non-Juifs.</p>
+
+<p><strong>Traduction du seif 3 (Mehaber).</strong> Une פנאד״ה qu’un non-Juif a cuite au four est interdite, même pour celui qui a coutume de permettre le pain des non-Juifs, parce que la graisse devient interdite <strong>quand elle est en nature</strong> au titre du bichoul akoum, et qu’elle est absorbée dans le pain. De même, des légumes qui se mangent crus et qu’il a cuits avec de la viande sont interdits, parce que la graisse de la viande y est absorbée.</p>
+
+<div class="yesod-box">
+<strong>Le fondement — on suit l’essentiel.</strong><br>
+Dans un mélange de ce qui se mange cru (où il n’y a pas de bichoul akoum) et de ce qui ne s’en mange pas (où il y en a), on ne juge pas chaque élément séparément : on suit l’<em>essentiel</em>. Si l’essentiel vient de l’interdit, le tout est interdit ; s’il vient du permis, cela s’annule. C’est l’endroit où le bichoul akoum <em>entre en annulation</em> — à la différence de la <strong>graisse en nature</strong>, qui ne s’annule pas.
+<blockquote>«&nbsp;<span class="he-q">אם העיקר מדבר שיש בו משום בישולי עובד כוכבים אסור ואם לאו מותר</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״ג:ב)</span></blockquote>
+</div>
+
+<div class="pilpul-box">
+<strong>La graisse en nature ne s’annule pas — le Taz (ס״ק ב).</strong> Le long ס״ק du Taz est d’abord une discussion de leçon : le Tour porte <em>פנאד״ה של עובד כוכבים</em>, le Beit Yossef y voit une faute de copiste, et le Taz conclut au contraire que la leçon du Tour est la bonne. Ce qui importe ici est la raison qu’il en donne : dans la פנאד״ה d’un non-Juif, on aurait pu croire que la farine étant l’essentiel, la graisse suit — et le Choulhan Aroukh nous apprend qu’il n’en est rien.
+<blockquote>«&nbsp;<span class="he-q">קמ״ל דכאן לא אמרינן כן כיון שהשומן בעין לא בטיל</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ג ס״ק ב׳)</span></blockquote>
+Le Chakh, de son côté, précise de quelle פנאד״ה il s’agit et pose la distinction que le Taz discutait.
+<blockquote>«&nbsp;<span class="he-q">והיינו בפנאד״ה של עובד כוכבים אבל פנאד״ה של ישראל שאפאה עובדי כוכבים לא נהגו היתר בשום מקום</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק ו׳)</span></blockquote>
+</div>
+
+<div class="hakira-box">
+<strong>Hakira — y a-t-il « cuisson après cuisson » en matière de bichoul akoum ?</strong> Comme on dit, pour le Chabbat, qu’il n’y a pas de cuisson après cuisson (voir או״ח שי״ח), il y a lieu de se demander ce qu’il en est du décret : une chose déjà entièrement cuite, ou déjà fondue, qu’un non-Juif recuit — est-elle interdite ? Le Taz rapporte la réponse dans le même ס״ק, pour la graisse d’oie ou de bête, qui est ordinairement déjà fondue.
+<blockquote>«&nbsp;<span class="he-q">וראיתי כתוב דבשומן אווז או של בהמה אין איסור בישול עובד כוכבים כי מסתמא כבר מהותך ואין בישול אחר בישול</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ג ס״ק ב׳)</span></blockquote>
+Le Chakh dit la même chose à son ס״ק ה, où il précise que la פנאד״ה dont parle le Choulhan Aroukh est celle de poisson.
+<blockquote>«&nbsp;<span class="he-q">דאלו שומן בשר או של אווזא סתמן כבר מהותך ואין בו משום בשולי עובדי כוכבים דאין בישול אחר בישול</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק ה׳)</span></blockquote>
+</div>
+
+<!-- ============================================================= -->
+<h2 class="section-title">4. Les servantes — achetées, louées, et « il est impossible que l’un des gens de la maison ne tisonne »</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
+
+<h3>Le texte du Mehaber et du Rama (seif 4)
+  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 Copier</button>
+</h3>
+
+<div class="sacred-text he" data-copy-block id="cp-4" dir="rtl">
+  <p>«&nbsp;<span class="he-q">יש מי שמתיר בשפחות שלנו ויש מי שאוסר ואפילו בדיעבד</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״ג:ד)</span></p>
+  <p>«&nbsp;<span class="he-q">הגה ובדיעבד יש לסמוך אדברי המתירים … ואפילו לכתחילה נוהגין להקל בבית ישראל שהשפחות והעבדים מבשלים בבית ישראל כי אי אפשר שלא יחתה אחד מבני הבית מעט</span>&nbsp;» <span class="source-ref">(רמ״א שו״ע יו״ד קי״ג:ד)</span></p>
+</div>
+
+<p><strong>Traduction.</strong> <em>Mehaber :</em> il y a qui permet dans le cas de nos servantes, et il y a qui interdit, même a posteriori (responsum du Rachba §68). <em>Rama :</em> a posteriori, on peut s’appuyer sur ceux qui permettent ; et même a priori l’usage est d’être indulgent dans la maison d’un Juif, où les servantes et les esclaves font la cuisine dans la maison du Juif, car il est impossible que l’un des gens de la maison ne tisonne un peu.</p>
+
+<div class="machloket-box">
+<strong>Les deux avis du Mehaber.</strong>
+<table>
+<tr><th>Chita</th><th>Nos servantes</th><th>Source</th></tr>
+<tr>
+  <td><strong>Il y a qui permet</strong></td>
+  <td>la cuisson des servantes attachées à la maison du Juif est permise</td>
+  <td>Mehaber seif 4</td>
+</tr>
+<tr>
+  <td><strong>Il y a qui interdit — même a posteriori</strong></td>
+  <td>il n’y a pas à distinguer une servante d’un autre non-Juif ; interdit même a posteriori</td>
+  <td>Mehaber seif 4, au nom du responsum du Rachba §68</td>
 </tr>
 </table>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שורש הענין ונפקא מינה :</strong> לפי שתי שיטות אלו תלוי דין דברים שאינם "מתבשלים" כדרך הבישול אלא רק מתחממים או נצלים מעט. ועיין ש״ך (ס״ק ב) שדן ב<span class="he-q">קרביים וקורקבן</span>, ובכמהין ופטריות שעולים <strong>לפרפראות</strong> — שיש בהם משום בישולי עכו״ם, שהרי דרכם להתבשל ולעלות על שלחן חשוב. הרי שהמדד אינו רק "שינוי הצורה" אלא חשיבות המאכל ודרך אכילתו — וזהו מוקד החקירה.
+<div class="pilpul-box">
+<strong>La distinction du Taz et du Chakh — achetées contre louées (Taz ס״ק ג ; Chakh ס״ק ז).</strong> Le Taz explique que l’avis indulgent ne parle que des servantes <em>achetées</em>, dont le travail nous est interdit le Chabbat par la Tora : elles ne sont pas dans la catégorie du non-Juif.
+<blockquote>«&nbsp;<span class="he-q">פי׳ הקנויות לנו ומוזהרין אנו על מלאכתן בשבת מן התורה ואין מכלל זה השפחות עובדי כוכבים שהם נשכרים לישראל לזמן</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ג ס״ק ג׳)</span></blockquote>
+Et il ajoute aussitôt que, même pour les servantes louées, l’Issour véHetter permet a posteriori.
+<blockquote>«&nbsp;<span class="he-q">אלא דבאו״ה כלל מ״ג כתב גם באלו להתיר בדיעבד</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ג ס״ק ג׳)</span></blockquote>
+Le Chakh donne à la même distinction sa raison, au nom du responsum du <strong>Ramban</strong> rapporté par le Beit Yossef : l’esclave acheté sort de la catégorie du non-Juif, et sort donc des décrets du rapprochement.
+<blockquote>«&nbsp;<span class="he-q">שקנויות לנו דמלאכה דעבד העובד כוכבים דישראל הוא ומוזהר עליו בשבת מן התורה וליתיה בכלל עובד כוכבים והלכך ליתיה בכלל גזרות חתנות</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק ז׳)</span></blockquote>
+Il en tire une difficulté sur le Rama : nos servantes à nous, dans ces pays, ne sont pas achetées mais louées à l’année, et l’indulgence a posteriori ne leur convient donc pas telle quelle.
+<blockquote>«&nbsp;<span class="he-q">אבל לא בשפחות שלנו שבארצות אלו שאין קנויות לנו רק שנשכרו לשנה ואין אנו מוזהרין עליהם בשבת</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק ז׳)</span></blockquote>
+</div>
+
+<div class="rishon-card">
+<strong>Le fondement de la sevara.</strong> Le Chakh propose plusieurs issues à sa difficulté, et il finit par celle-ci : ce sur quoi le Rama s’appuie réellement n’est pas le statut de la servante, mais la présomption de tisonnage.
+<blockquote>«&nbsp;<span class="he-q">דעיקר דמילתא סמיך אטעמא דא״א שלא יחתה אחד מבני הבית מעט</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק ז׳)</span></blockquote>
+Il rapporte encore, au nom du responsum du Ramban cité par le Issour VeHeter du Maharchal, un autre motif d’indulgence — que la servante travaille par contrainte et non de son gré, de sorte qu’il n’y a pas là de rapprochement des cœurs. La réserve qui suit appartient encore aux paroles rapportées, que le Chakh clôt par ע״כ עכ״ל, et non à lui&nbsp;:
+<blockquote>«&nbsp;<span class="he-q">ומ״מ אין דבריהם מחוורין ואין אנו סומכין ע״ז ואנו נוהגין איסור אפילו בדיעבד</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק ז׳)</span></blockquote>
+Et le ס״ק ne s’arrête pas là. Le Chakh reprend en son nom, et la suite renverse l’impression que laisserait cette fin&nbsp;: ce motif-là est justement celui sur lequel repose l’avis indulgent du Mehaber, et c’est sur lui que le Rama s’appuie pour permettre a posteriori.
+<blockquote>«&nbsp;<span class="he-q">ולפ״ז י״ל דסברת המתיר שכתב המחבר הוא מטעם זה ולזה כתב הרב דיש לסמוך עליהם בדיעבד</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק ז׳)</span></blockquote>
+<p>L’indulgence ne tient donc pas à ce que l’on <em>ait vu</em> un membre de la maison tisonner, mais à la présomption qu’il l’a fait ; et c’est pourquoi elle est dite de la maison du Juif, et des servantes qui y sont attachées.</p>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">3. עיקר ושומן בעין — תערובת ופנאד״ה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">5. Sans intention de cuire</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיפים ב'–ג')
-  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 העתק</button>
+<h3>Le texte du Mehaber (seif 5)
+  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 Copier</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-3">
-"<strong>עירב דבר הנאכל חי עם דבר שאינו נאכל חי ובישלם עובד כוכבים: אם העיקר הוא מן הדבר שיש בו משום בישולי עכו״ם — אסור; ואם לאו — מותר</strong> (הגה: ולכן מותר לאכול אפונים קלויים של עובד כוכבים, וכן הקטניות הנקראות ערבשי״ן קלויות, שאינן עולות על שלחן מלכים — וכן המנהג להקל; אלא במקום שנוהגין למשוח המחבת בחלב — מחמירין. ואין לחוש לכלי הנכרי [סתם כלים אינם בני יומן]. וכל פרי הנאכל חי, אף שבישלוֹ הנכרי ונימוח למאכל — מותר, ולכן אוכלין הפוביד״לא שעושין הנכרים). <strong>פנאד״ה שבישלה עובד כוכבים — אסורה אף למקל בפת של עובדי כוכבים, מפני שהשומן אסור כשהוא בעין משום בישולי עכו״ם ונבלע בבצק; וכן ירק הנאכל חי שבישלוֹ עם בשר — אסור, מפני שומן הבשר הנבלע בו.</strong>"
+<div class="sacred-text he" data-copy-block id="cp-5" dir="rtl">
+  <p>«&nbsp;<span class="he-q">עובד כוכבים שבישל ולא נתכוון לבישול מותר כיצד עובד כוכבים שהצית אור באגם כדי להעביר החציר ונתבשלו בו חגבים הרי אלו מותרים ואפילו במקום שעולים על שלחן מלכים וכן אם חרך הראש להעביר השער מותר לאכול ראשי האזנים שנצלו בשעת החריכה אבל אם כוון לשם בישול כגון שהסיק התנור לבשל בו והיה בו בשר תחילה ונצלה אף על פי שלא כיון לזה הבשר שהרי לא ידע בו אסור:</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״ג:ה)</span></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — הולכין אחר העיקר :</strong><br>
-בתערובת של דבר הנאכל חי (שאין בו ביש״ע) עם דבר שאינו נאכל חי (שיש בו ביש״ע) — אין דנים על כל פרט בפני עצמו אלא הולכין אחר ה<span class="he-q">עיקר</span>. אם העיקר הוא מן האסור — נאסר הכל; ואם העיקר מן ההיתר — בטל. וזהו מקום שבישולי עכו״ם <em>נדון בביטול</em> (ועיין סימן קי״ב לענין הפת), בשונה מן ה<strong>שומן בעין</strong>, שאינו בטל.
+<p><strong>Traduction.</strong> Un non-Juif qui a cuit sans avoir visé la cuisson — permis. Comment ? Un non-Juif qui a mis le feu à un marais pour en faire disparaître l’herbe, et que des sauterelles y ont cuit — elles sont permises, et même là où elles montent sur la table des rois. De même, s’il a flambé la tête pour en ôter le poil, il est permis de manger le bout des oreilles qui a rôti pendant le flambage. Mais s’il a visé la cuisson — par exemple qu’il a chauffé le four pour y cuire, qu’il s’y trouvait de la viande auparavant et qu’elle a rôti — bien qu’il n’ait pas visé <em>cette</em> viande, puisqu’il n’en savait rien — c’est interdit.</p>
+
+<div class="yesod-box">
+<strong>Le fondement — la cuisson sans intention.</strong><br>
+Le décret porte sur un <em>acte de cuisson voulu</em> du non-Juif. Là où il n’a rien visé de tel, il n’y a pas d’« acte de cuisson d’un non-Juif » mais un accident. D’où :<br><br>
+• les <strong>sauterelles</strong> rôties par un feu allumé pour brûler l’herbe → permises, et même là où elles montent sur la table des rois ;<br>
+• le <strong>bout des oreilles</strong> rôti pendant le flambage du poil → permis ;<br>
+• mais celui qui <strong>a visé la cuisson</strong>, même sans savoir que cette viande-là se trouvait dans le four → interdit ; l’intention portée sur l’acte de cuire suffit.
+<blockquote>«&nbsp;<span class="he-q">ואפילו במקום שעולים על שלחן מלכים</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״ג:ה)</span></blockquote>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שומן בעין אינו בטל — חידוש הט״ז (ס״ק ב) :</strong> מבאר הט״ז שב<span class="he-q">פנאד״ה</span> השומן עומד <strong>בעין</strong> ונבלע בבצק, ולכן אינו בטל ואוסר אף את הפת — אף למי שמקל בסתם פת של נכרים. ומחלק הט״ז בין <strong>פנאד״ה של נכרי</strong> לבין של ישראל; ומוסיף ש<strong>שומן בהמה או אווז שכבר נמהתך</strong> (נמס) — <span class="he-q">אין בישול אחר בישול</span> בו, שכבר נתבשל פעם אחת, ושוב אין בו משום בישולי עכו״ם בבישול השני. ועיין ש״ך (ס״ק ה) בפנאד״ה של <strong>דגים</strong> ובשומן בשר ואווז מהותך.
+<div class="hakira-box">
+<strong>Hakira — l’intention porte-t-elle sur la melakha ou sur l’aliment ? (Taz ס״ק ה)</strong> La fin du seif le dit : il a visé le chauffage du four pour y cuire, et bien qu’il n’ait pas su qu’il y avait là cette viande, c’est interdit. L’intention requise porte donc sur l’<strong>acte de cuire</strong>, non sur tel mets déterminé ; au début du seif, au contraire, il n’a visé ni cuisson ni rôtissage, mais l’herbe ou le poil. Le Taz, à cet endroit, part du Tour, qui va plus loin encore.
+<blockquote>«&nbsp;<span class="he-q">בטור כתוב לפיכך אם ידע שהיה בשר בתנור אפילו חממו לייבש בו כלי אסור חיישינן שמא כוון גם לבישול</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ג ס״ק ה׳)</span></blockquote>
+Et il lui oppose une difficulté tirée du seif 11 : là, le doute sur le bichoul akoum s’allège, puisqu’il s’agit d’une prescription rabbinique.
+<blockquote>«&nbsp;<span class="he-q">וקשה לי הא כתב הטור אח״כ בסי׳ זה דאם היפך בו עובד כוכבים ואין ידוע אם סילקו כו׳ ולא חיישינן שמא סילקו דספק דבריהם להקל</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ג ס״ק ה׳)</span></blockquote>
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>חקירה — אין בישול אחר בישול בביש״ע :</strong> כדרך שאמרו "אין בישול אחר בישול" בהלכות שבת (ועיין אורח חיים שי״ח), כן יש לחקור בגזרת בישולי עכו״ם: דבר שכבר נתבשל כל צרכו ביד ישראל (או נמהתך), ובא הנכרי ובישלוֹ שנית — האם נאסר ? ודעת רוב האחרונים שאין בו משום ביש״ע, שהרי כבר ראוי לאכילה והנכרי לא "חידש" בו בישול. וזהו שורש קולת השומן המהותך שבט״ז.
+<div class="teruts-box">
+<strong>Ce que le Taz répond, et il dit lui-même que la réponse est forcée.</strong> Le retrait de la marmite n’est pas une chose si courante ; ici, au contraire, il est courant qu’on vise aussi la cuisson. Le doute n’est donc pas du même genre, et l’on ne peut pas passer de l’un à l’autre.
+<blockquote>«&nbsp;<span class="he-q">וצריך לדחוק ולחלק דשאני גבי סילוק דהוא אינו דבר מצוי כ״כ לעשותו כמו כאן שמצוי הוא לכוין גם לבישול</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ג ס״ק ה׳)</span></blockquote>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">4. השפחות — קנויות, שכורות ו"אי אפשר שלא יחתה"</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">6. Un peu de cuisson par le Juif — au début ou à la fin</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ד')
-  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 העתק</button>
+<h3>Le texte du Mehaber et du Rama (seif 6)
+  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 Copier</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-4">
-"<strong>יש מי שמתיר בשפחות שלנו, ויש מי שאוסר אפילו בדיעבד</strong> (הגה: ובדיעבד יש לסמוך על המתירין, ואף לכתחילה נהגו להקל בבית ישראל ששפחות ועבדים מבשלין בבית ישראל, מפני שאי אפשר שלא יחתה אחד מבני הבית מעט)."
+<div class="sacred-text he" data-copy-block id="cp-6" dir="rtl">
+  <p>«&nbsp;<span class="he-q">כל שבישלו ישראל מעט בישולו בין בתחילה בין בסוף מותר לפיכך אם הניח עובד כוכבים בשר או קדרה על גבי האש והפך ישראל בבשר והגיס בקדרה או שהגיס ישראל וגמר העובד כוכבים הרי זה מותר.</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״ג:ו)</span></p>
+  <p>«&nbsp;<span class="he-q">ואפי׳ לא היה מתבשל בלא סיוע העובד כוכבים:</span>&nbsp;» <span class="source-ref">(רמ״א שו״ע יו״ד קי״ג:ו)</span></p>
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>מחלוקת המחבר — שתי הדעות :</strong>
-<table>
-<tr><th>שיטה</th><th>שפחות שלנו</th><th>מקור</th></tr>
-<tr>
-  <td><strong>יש מי שמתיר</strong></td>
-  <td>בישול שפחות הגרות בבית ישראל — מותר, שבני הבית מסייעים</td>
-  <td>מחבר ס״ד</td>
-</tr>
-<tr>
-  <td><strong>יש מי שאוסר (אף בדיעבד)</strong></td>
-  <td>אין חילוק בין שפחה לנכרי אחר, ואסור אף בדיעבד</td>
-  <td>מחבר ס״ד</td>
-</tr>
-</table>
+<p><strong>Traduction.</strong> <em>Mehaber :</em> tout ce dont un Juif a fait un peu la cuisson, au début comme à la fin — permis. C’est pourquoi, si un non-Juif a posé de la viande ou une marmite sur le feu et qu’un Juif a retourné la viande ou remué la marmite, ou que le Juif a remué et que le non-Juif a achevé, cela est permis. <em>Rama :</em> et même si cela n’aurait pas cuit sans le concours du non-Juif.</p>
+
+<div class="yesod-box">
+<strong>Le fondement — le concours du Juif retire au décret son motif.</strong><br>
+Puisque le décret tient au rapprochement, dès lors que le Juif <strong>participe</strong> à la cuisson — fût-ce d’un geste minime — le motif de l’interdit tombe : ce n’est plus le mets d’un non-Juif, c’est une cuisson faite à deux. D’où le mot du Mehaber : au début comme à la fin.
+<blockquote>«&nbsp;<span class="he-q">כל שבישלו ישראל מעט בישולו בין בתחילה בין בסוף מותר</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״ג:ו)</span></blockquote>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>חילוק הט״ז והש״ך — קנויות נגד שכורות (ט״ז ס״ק ג; ש״ך ס״ק ז) :</strong> מחלקים הט״ז והש״ך בין <strong>שפחות קנויות</strong> (עבדי עולם) — שעליהן מצוות שבת <span class="he-q">מן התורה</span> כבני בית, ובני הבית מסייעים בבישולן — לבין <strong>שפחות שכורות</strong> בלבד, שאין בהן אותו צד היתר. ובשכורות מחמירים אף <span class="he-q">בדיעבד</span> (ש״ך בשם הרשב״א סימן ס״ח). ויסוד ההיתר בקנויות: <span class="he-q">אי אפשר שלא יחתה אחד מבני הבית</span> — שמתוך שהן בבית ישראל, ודאי יסייע בן בית בחיתוי או בהנחה, והרי זה בישולי ישראל מעט.
+<div class="pilpul-box">
+<strong>La glose du Rama et la guemara — le ס״ק ח du Chakh.</strong> Le Rama ajoute que le concours du Juif vaut même si le plat n’aurait pas cuit sans le non-Juif, et le Chakh ouvre en disant que cela paraît contredire la guemara.
+<blockquote>«&nbsp;<span class="he-q">לכאורה קשה דהוא נגד הש״ס דעבודת כוכבים … ומביאה ב״י דאמרינן אי דלא הפך בה עובד כוכבים לא הוי בשיל בשולי עבודת כוכבים הוא ואסור</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק ח׳)</span></blockquote>
+Il explique alors sur quoi l’Issour véHetter et le Rama s’appuient : sur l’assimilation au <strong>copeau</strong> du siman 112, qui permet le pain.
+<blockquote>«&nbsp;<span class="he-q">אלא היינו מטעמא דקי״ל דכי היכי דמהני קיסם לעיל סימן קי״ב ס״י ה״ה בבשולי עובד כוכבים</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק ח׳)</span></blockquote>
+Et il dit franchement d’où vient l’indulgence du copeau lui-même : non de la stricte lettre de la guemara, mais d’un usage rapporté dans les <em>différences de coutumes</em> entre les gens d’Erets Israël et ceux de Bavel.
+<blockquote>«&nbsp;<span class="he-q">אלא דסמכינן אמ״ש בחילופי מנהגים דבין בני א״י ובין בני בבל דמהני והנח להם לישראל שיהו שוגגין כו׳</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק ח׳)</span></blockquote>
+Le ס״ק ne s’achève pourtant pas sur une décision tranquille : le Chakh y revient à la fin et laisse la chose en suspens.
+<blockquote>«&nbsp;<span class="he-q">ומ״מ לענין דינא צ״ע</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק ח׳)</span></blockquote>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>יסוד הסברא :</strong> אין ההיתר תלוי בכך ש<em>ראינו</em> את בן הבית מחתה, אלא ב<span class="he-q">חזקה</span> שאי אפשר שלא יחתה — סברא של "מעשה שהיה". ולכן דווקא בבית ישראל ובשפחות הקבועות בו ההיתר; אבל בנכרי בעלמא או בשכורה בלבד, שאין חזקת סיוע — אין להקל.
-</div>
-
-<!-- ============================================================= -->
-<h2 class="section-title">5. לא נתכוון לבישול</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
-
-<h3 class="he-h3">לשון המחבר (סעיף ה')
-  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 העתק</button>
-</h3>
-
-<div class="sacred-text he" data-copy-block id="cp-5">
-"<strong>עובד כוכבים שבישל ולא נתכוון לבישול — מותר. כיצד ? עובד כוכבים שהצית אש באגם לבער את העשבים, ונתבשלו בו חגבים — מותרים, ואפילו במקום שעולים על שלחן מלכים; וכן אם חרך את הראש להעביר השׂער — מותר לאכול ראשי אזנים המתחרכים בשעת החריכה. אבל אם נתכוון לבישול — כגון שהיסק את התנור לבשל בו והיה בו בשר ונצלה, אף שלא נתכוון לאותו בשר (שלא ידע בו) — אסור.</strong>"
-</div>
-
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — בישול בלא כוונה :</strong><br>
-גדר הגזרה הוא ב<span class="he-q">מעשה בישול מכוון</span> של הנכרי; ובמקום שלא נתכוון כלל לבישול — אין כאן "מעשה בישול עכו״ם" אלא תקלה ממילא. ולכן:<br><br>
-• <strong>חגבים שנצלו</strong> באש שהוצתה לביעור עשבים → מותרים, <span class="he-q">ואף במקום שעולים על שלחן מלכים</span>.<br>
-• <strong>ראשי אזנים</strong> שנחרכו אגב חריכת השׂער → מותרים.<br>
-• <strong>נתכוון לבישול</strong> אף בלא ידיעת אותו בשר דווקא → <span class="he-q">אסור</span>, שהכוונה לעצם הבישול מספקת.
-</div>
-
-<div class="hakira-box" dir="rtl">
-<strong>חקירה — כוונה למלאכה או כוונה לאוכל ? (ט״ז ס״ק ה–ו) :</strong> דקדק הט״ז: בסיפא נתכוון להיסק התנור לבשל, ואף שלא ידע באותו בשר — אסור. שמע מינה ש<strong>הכוונה הנדרשת היא לעצם פעולת הבישול</strong>, לא לאותו מאכל מסוים. וברישא (אגם, חריכה) — לא נתכוון כלל לבשל, אלא לבער עשבים או להעביר שׂער, ולכן מותר. נמצא שהמדד הוא "נתכוון לבישול" — מלאכת הבישול עצמה.
-</div>
-
-<!-- ============================================================= -->
-<h2 class="section-title">6. בישולי ישראל מעט — תחילה או סוף</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
-
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ו')
-  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 העתק</button>
-</h3>
-
-<div class="sacred-text he" data-copy-block id="cp-6">
-"<strong>כל שבישל בו ישראל מעט, בין בתחילה בין בסוף — מותר. לפיכך אם הניח עובד כוכבים בשר או קדירה על האש, ובא ישראל והפך בבשר או הגיס בקדירה, או שהגיס ישראל וגמר עובד כוכבים — מותר</strong> (הגה: ואפילו לא היה מתבשל בלא סיוע העובד כוכבים)."
-</div>
-
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — הסרת טעם הגזרה על ידי סיוע ישראל :</strong><br>
-מאחר שכל הגזרה היא משום <span class="he-q">חתנות</span> וקירוב, הרי כשישראל <strong>שותף בבישול</strong> — אף סיוע מועט — נסתלק טעם האיסור, שאין זה "תבשיל של נכרי" אלא בישול בשותפות. ולכן <span class="he-q">בין בתחילה בין בסוף</span> — הפיכת הבשר או הגסת הקדירה מתירה.
-</div>
-
-<div class="pilpul-box" dir="rtl">
-<strong>"אף שלא היה מתבשל בלעדיו" — סוגיית ע״ז ל״ח (ט״ז ס״ק ו; ש״ך ס״ק ח) :</strong> מוסיף הרמ״א חידוש: אף אם סיוע ישראל היה <strong>שלא היה מתבשל בלעדי הנכרי</strong> — מועיל. ובגמרא (עבודה זרה ל״ח) למדנו זאת מן ה<span class="he-q">קיסם</span> שזרק ישראל לתוך התנור, שמסייע לבישול. ומדמה הש״ך (ס״ק ח) את כל סיוע ישראל לאותו קיסם — שכל פעולה הגורמת תוספת בבישול מתירה. ועיין שם ש<span class="he-q">חילופי מנהגים</span> היו בין בני ארץ ישראל לבני בבל בשיעור הסיוע הנדרש.
-</div>
-
-<div class="rishon-card" dir="rtl">
-<strong>שורש הסברא :</strong> אין ההיתר תלוי בכך שסיוע ישראל היה <em>מכריע</em> בבישול, אלא בעצם השותפות המסלקת את "בישול הנכרי". ולכן אף קיסם אחד, אף שאין בו כדי לבשל לבדו, מתיר — שהרי הוא חלק ממעשה הבישול המשותף.
+<div class="rishon-card">
+<strong>Le Taz au même endroit (ס״ק ו).</strong> Le Taz ouvre par la même surprise, en termes plus vifs.
+<blockquote>«&nbsp;<span class="he-q">תימה לי הא איתא בהדיא בגמרא אלא לאו דאי לא היפך העובד כוכבים לא הוה בשיל אמאי מותר</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ג ס״ק ו׳)</span></blockquote>
+Il propose d’abord de lire la glose autrement : le plat n’aurait pas cuit <em>comme il faut</em> sans le non-Juif, mais il serait parvenu au maakhal ben Droussaï.
+<blockquote>«&nbsp;<span class="he-q">וצ״ל דה״ק דלא היה מתבשל כראוי בלא סיוע עובד כוכבים אבל כמאכל בן דרוסאי הוי בשיל</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ג ס״ק ו׳)</span></blockquote>
+Puis il conclut, pour la pratique, en bornant l’indulgence à la maison du Juif.
+<blockquote>«&nbsp;<span class="he-q">ונראה לע״ד לענין הלכה דדוקא בבית ישראל יש לסמוך אקולא זו</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ג ס״ק ו׳)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל בבית עובד כוכבים אין להקל רק שהישראל יניח הקדירה למקום הראוי להתבשל</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ג ס״ק ו׳)</span></blockquote>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">7. שגירת התנור · חיתוי · הנחה — המחלוקת המרכזית</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">7. Chauffage du four · tisonnage · dépôt — la ma’hloket centrale</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-shach-taz">↩ Explication détaillée (niveau 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זוהי אחת מן המחלוקות החריפות והמעשיות שבכל הסימן, וההכרעה בה היא שורש כל היתרי ההשגחה בזמננו.</p>
+<p style="margin:15px 0; font-style:italic;">C’est la ma’hloket la plus vive et la plus pratique du siman : c’est d’elle que dépend, aujourd’hui encore, ce qu’un surveillant doit faire pour rendre une cuisson permise.</p>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ז')
-  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 העתק</button>
+<h3>Le texte du Mehaber et du Rama (seif 7)
+  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 Copier</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-7">
-"<strong>שגירת התנור אינה מועלת אלא לפת; אבל לשאר דברים הנאפים או נצלים — אין שגירת התנור ולא הצתת האש מועלת כלום, אלא ההנחה היא המתרת; לפיכך הרוצה לאפות בתנור של עובד כוכבים — יניח ישראל את המאפה בתנור במקום הראוי לאפות.</strong> (הגה: ויש חולקין וסבירא להו דהצתת האש או חיתוי הגחלים מועיל לבישול כמו לפת — וכן המנהג; ואפילו חיתוי שלא לכוונת בישול מועיל. ויש אומרים שאף אם לא חיתה ישראל ולא השליך קיסם, אלא שהדליק הנכרי אורו מאורו של ישראל — מותר)."
+<div class="sacred-text he" data-copy-block id="cp-7" dir="rtl">
+  <p>«&nbsp;<span class="he-q">אין שגירת … התנור מועלת אלא בפת אבל בשאר המתבשלים אין שגירת התנור ולא הדלקת האש מעלה ומוריד אלא ההנחה דוקא לפיכך הרוצה לבשל במחבת בתנור של עובד כוכבים צריך שיתן ישראל המחבת לתוך התנור למקום הראוי להתבשל בו</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״ג:ז)</span></p>
+  <p>«&nbsp;<span class="he-q">הגה ויש חולקין וסבירא להו דהדלקת האש או חיתוי בגחלים מהני לענין בישול כמו לענין פת וכן נוהגין</span>&nbsp;» <span class="source-ref">(רמ״א שו״ע יו״ד קי״ג:ז)</span></p>
+  <p>«&nbsp;<span class="he-q">ואפילו חיתוי בלא כוונה מהני ומועיל</span>&nbsp;» <span class="source-ref">(רמ״א שו״ע יו״ד קי״ג:ז)</span></p>
+  <p>«&nbsp;<span class="he-q">וי״א דאפילו לא חיתה ישראל ולא השליך שם קיסם רק שהעובד כוכבים הדליק האש מאש של ישראל שרי</span>&nbsp;» <span class="source-ref">(רמ״א שו״ע יו״ד קי״ג:ז)</span></p>
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>שורש המחלוקת — מהי פעולת ההיתר :</strong>
+<p><strong>Traduction.</strong> <em>Mehaber :</em> le chauffage du four (c’est-à-dire l’attisement) n’est utile que pour le pain ; mais pour les autres mets qui cuisent, ni le chauffage du four ni l’allumage du feu n’ajoutent ni ne retranchent — c’est le <strong>dépôt</strong> seul qui compte. C’est pourquoi celui qui veut cuire une poêle dans le four d’un non-Juif doit faire mettre la poêle par le Juif dans le four, à l’endroit propre à ce qu’elle y cuise. <em>Rama :</em> il y a qui contestent et tiennent que l’allumage du feu ou le tisonnage des braises est utile pour la cuisson comme il l’est pour le pain, et tel est l’usage ; et même un tisonnage sans intention est utile. Et il y a qui disent que même si le Juif n’a pas tisonné et n’a pas jeté de copeau, mais que le non-Juif a allumé son feu au feu d’un Juif, c’est permis.</p>
+
+<div class="machloket-box">
+<strong>La racine de la ma’hloket — quel est l’acte qui rend permis ?</strong>
 <table>
-<tr><th>שיטה</th><th>מה מתיר ?</th><th>מקור</th></tr>
+<tr><th>Chita</th><th>Qu’est-ce qui rend permis ?</th><th>Source</th></tr>
 <tr>
-  <td><strong>המחבר (ור״ן)</strong></td>
-  <td>שגירת התנור מועלת <span class="he-q">דווקא לפת</span>; לשאר בישול — רק <strong>הנחת ישראל</strong> במקום הראוי</td>
-  <td>מחבר ס״ז</td>
+  <td><strong>Le Mehaber</strong> (et le Ran)</td>
+  <td>le chauffage du four n’est utile que <em>pour le pain</em> ; pour toute autre cuisson, c’est le <strong>dépôt par le Juif</strong>, à l’endroit propre à la cuisson</td>
+  <td>Mehaber seif 7</td>
 </tr>
 <tr>
-  <td><strong>הרמ״א (יש חולקין)</strong></td>
-  <td>אף <strong>הצתת האש או חיתוי הגחלים</strong> מועיל לבישול כמו לפת — "וכן המנהג"; ואף חיתוי שלא בכוונה</td>
-  <td>רמ״א ס״ז</td>
+  <td><strong>Le Rama</strong> (« il y a qui contestent »)</td>
+  <td>l’allumage du feu ou le tisonnage des braises vaut pour la cuisson comme pour le pain — et tel est l’usage ; même sans intention</td>
+  <td>Rama seif 7</td>
 </tr>
 <tr>
-  <td><strong>יש אומרים (קולא נוספת)</strong></td>
-  <td>אף הדליק הנכרי אורו <span class="he-q">מאורו של ישראל</span> — מותר</td>
-  <td>רמ״א ס״ז</td>
+  <td><strong>« Il y a qui disent » — une indulgence de plus</strong></td>
+  <td>il suffit que le non-Juif ait allumé son feu au feu d’un Juif</td>
+  <td>Rama seif 7</td>
 </tr>
 </table>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שגירה — מלאכה מיוחדת לפת (ט״ז ס״ק ז; ש״ך ס״ק י״א) :</strong> מבאר הט״ז (ס״ק ז) ש<span class="he-q">שגירת התנור</span> אינה מועלת אלא ל<strong>פת</strong> מפני שאפיית הפת היא <em>מלאכה מיוחדת</em> התלויה בהיסק התנור, ולכן ההיסק עצמו נחשב סיוע ישראל בפת; אבל בשאר בישול אין ההיסק "מעשה בישול" אלא הכשרת הכלי, ולכן בעי הנחה דווקא. אך הרמ״א (יש חולקין) משווה את ה<strong>חיתוי</strong> וההדלקה לקיסם שבסעיף ו' — שכל הוספה באש היא סיוע בגוף הבישול. והש״ך (ס״ק י״א) מסכים ש<span class="he-q">קיסם מועיל אף לבישול</span>, ולא רק לפת.
+<div class="pilpul-box">
+<strong>Pourquoi le chauffage ne vaut-il que pour le pain ? (Taz ס״ק ז)</strong> Le Taz part du Ran : pour le pain, le chauffage du four est une <em>melakha propre</em> à cette cuisson-là.
+<blockquote>«&nbsp;<span class="he-q">בר״ן כתוב הטעם ששגירת התנור בפת מלאכה מיוחדת בו</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ג ס״ק ז׳)</span></blockquote>
+Puis il explique ce que cela veut dire concrètement, et son explication est d’ordre technique : pour le pain on chauffe le four et l’on en retire toutes les braises avant d’enfourner, tandis que pour un autre mets on entretient le feu pendant que le plat cuit — de sorte que l’acte du Juif ne s’y distingue plus.
+<blockquote>«&nbsp;<span class="he-q">נראה פירושו שבפת צריך להסיק התנור ולהוציא כל הגחלים קודם שיאפה הלחם מה שאין כן בשאר תבשיל מסיק האור בשעה שהתבשיל מתבשל מוסיף והולך תמיד ע״כ לא ניכר כ״כ מעשה ישראל</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ג ס״ק ז׳)</span></blockquote>
+Le Chakh, de son côté, déduit de la formulation même du Rama que le copeau vaut aussi pour la cuisson, et non pour le seul pain.
+<blockquote>«&nbsp;<span class="he-q">משמע אבל השליך קיסם מועיל גם בבשולי עובד כוכבי׳ וכן הוא בסמ״ק ובאו״ה להדיא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק י״א)</span></blockquote>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה למנהגים :</strong> לפי המחבר — בעי ש<strong>ישראל יניח</strong> את הקדירה או המאפה (וזהו עיקר מנהג הספרדים, שמרן מצריך הנחה). לפי הרמ״א — די ש<strong>ישראל ידליק או יחתה</strong> (מנהג אשכנז). ובזה תלויים כל היתרי המשגיח בזמננו: ההדלקה לעומת ההנחה. <em>ולמעשה — שאל את רבך.</em>
+<div class="kashya-box">
+<strong>Une borne que l’on oublie facilement (Chakh ס״ק ט).</strong> Le tisonnage n’est pas un geste symbolique : le Chakh rapporte l’Issour véHetter, qui exige qu’il serve réellement à la cuisson.
+<blockquote>«&nbsp;<span class="he-q">אך יזהר כשמחתה בגחלים שאותו חיתוי יועיל לתקן האש ויועיל למהר בישולו ע״י ישראל</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק ט׳)</span></blockquote>
+Et il ajoute que c’est bien ce qui ressort de la guemara et des décisionnaires.
+<blockquote>«&nbsp;<span class="he-q">וכן משמע בש״ס ופוסקים דבעינן שהישראל יעשה קירוב בישול</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק ט׳)</span></blockquote>
+</div>
+
+<div class="machloket-box">
+<strong>Le tisonnage sans intention — le Rama contre une glose de l’Issour véHetter.</strong> Le Rama écrit qu’un tisonnage même sans intention est utile ; le Taz montre d’où cela vient.
+<blockquote>«&nbsp;<span class="he-q">כתב בד״מ שמעינן מכאן אפילו לא כוון להתיר ע״י חיתוי זו אלא עשאו בלא כוונה דמותר</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ג ס״ק ד׳)</span></blockquote>
+Mais le Chakh signale qu’une glose imprimée à la fin de l’Issour véHetter tient le contraire.
+<blockquote>«&nbsp;<span class="he-q">ובהגהה שבסוף ספר או״ה כלל מ״ג פסק שצריך שיכוין לסייע בתיקון האש להכשיר</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק י׳)</span></blockquote>
+Et le Taz, à son ס״ק ח, ajoute que le Darké Moché étend l’indulgence au souffle sur le feu.
+<blockquote>«&nbsp;<span class="he-q">וכתב בד״מ דהוא הדין דניפוח באש בפה דמהני</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ג ס״ק ח׳)</span></blockquote>
+</div>
+
+<div class="nafka-mina-box">
+<strong>Nafka mina pour les usages.</strong> Selon le Mehaber, il faut que <strong>le Juif dépose</strong> la marmite ou la pièce à cuire — et c’est l’usage séfarade, puisque Maran exige le dépôt. Selon le Rama, il suffit que <strong>le Juif allume ou tisonne</strong> — et c’est l’usage achkénaze. C’est de là que dépendent les pratiques de surveillance d’aujourd’hui : l’allumage d’un côté, le dépôt de l’autre. Le Pit’hé Techouva renvoie, sur le tisonnage, à un responsum du Radbaz.
+<blockquote>«&nbsp;<span class="he-q">עיין בתשובת רדב״ז החדשות סימן ג׳</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד קי״ג ס״ק ב׳)</span></blockquote>
+<em>Et pour la pratique — demande à ton rav.</em>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">8. מאכל בן דרוסאי — הסיר, החזיר וגמרו ישראל</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">8. Maakhal ben Droussaï — retirer, remettre, et l’achèvement</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיפים ח'–י״א)
-  <button class="daat-copy" type="button" data-copy-target="#cp-8">📋 העתק</button>
+<h3>Le texte du Mehaber et du Rama (seifim 8–11)
+  <button class="daat-copy" type="button" data-copy-target="#cp-8">📋 Copier</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-8">
-"<strong>(ח) ישראל שהניח קדירה על האש והסירהּ, ובא עובד כוכבים והחזירהּ — אסור, אלא אם כן הגיעה למאכל בן דרוסאי (שליש בישולה) כשהסירה. (ט) בישל העובד כוכבים כמאכל בן דרוסאי וגמר ישראל — יש לאסור, אלא אם כן הוא ערב שבת או ערב יום טוב או הפסד מרובה</strong> (הגה: ויש מתירין בכל ענין — וכן נוהגין). <strong>(י) הניח ישראל על גחלים עוממות שאינן ראויות לבשל עד מאכל בן דרוסאי, ובא עובד כוכבים והפך בה ונתבשלה — אסור. (י״א) הניח ישראל על האש והניח עובד כוכבים לשמרו, והפך בה העובד כוכבים, ואין יודעים אם הסירה קודם שהגיעה למאכל בן דרוסאי — מותר; וכן כל ספק בישולי עכו״ם וכיוצא בו — מותר.</strong>"
+<div class="sacred-text he" data-copy-block id="cp-8" dir="rtl">
+  <p>«&nbsp;<span class="he-q">נתן ישראל קדרה על האש וסלקה ובא עובד כוכבים והחזירה אסור אא״כ הגיע למאכל בן דרוסאי שהוא שליש בישולו כשסילקה:</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״ג:ח)</span></p>
+  <p>«&nbsp;<span class="he-q">אם בישלו עובד כוכבים כמאכל בן דרוסאי וגמרו ישראל יש לאסור אלא אם כן הוא ערב שבת או ערב יום טוב או שיש הפסד מרובה בדבר.</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״ג:ט)</span></p>
+  <p>«&nbsp;<span class="he-q">ויש מתירין בכל ענין</span>&nbsp;» <span class="source-ref">(רמ״א שו״ע יו״ד קי״ג:ט)</span></p>
+  <p>«&nbsp;<span class="he-q">וכן נוהגין</span>&nbsp;» <span class="source-ref">(רמ״א שו״ע יו״ד קי״ג:ט)</span></p>
+  <p>«&nbsp;<span class="he-q">הניח ישראל על גבי גחלים עוממות שלא היה ראוי להתבשל עליהם כמאכל בן דרוסאי ובא עובד כוכבים והפך בו ונתבשל אסור:</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״ג:י)</span></p>
+  <p>«&nbsp;<span class="he-q">הניח ישראל על גבי האש והניח עובד כוכבים לשמרו והפך בו ואין ידוע אם סלקו העובד כוכבים עד שלא הגיע למאכל בן דרוסאי מותר.</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״ג:י״א)</span></p>
+  <p>«&nbsp;<span class="he-q">וכן כל ספק בישולי עובדי כוכבים וכיוצא בו מותר:</span>&nbsp;» <span class="source-ref">(רמ״א שו״ע יו״ד קי״ג:י״א)</span></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — שיעור מאכל בן דרוסאי :</strong><br>
-<span class="he-q">מאכל בן דרוסאי</span> = שליש בישולו (לדעת רוב הפוסקים), שיעור שכבר ראוי לאכילה בשעת הדחק. וכל שהגיע המאכל לידי שיעור זה <strong>ביד ישראל</strong> — שוב אין בו משום בישולי עכו״ם, אף אם הנכרי החזיר וגמר; כי משהגיע למאב״ד <span class="he-q">אינו עוד "תבשיל נכרי"</span>. ולפיכך, הסיר ישראל קודם מאב״ד והחזיר נכרי — אסור; הסיר לאחר מאב״ד — מותר.
+<p><strong>Traduction.</strong> <em>Seif 8 (Mehaber) :</em> un Juif a posé une marmite sur le feu et l’a retirée ; un non-Juif est venu et l’a remise — interdit, à moins qu’elle ne fût parvenue au maakhal ben Droussaï — c’est-à-dire au tiers de sa cuisson — au moment où il l’a retirée. <em>Seif 9 (Mehaber) :</em> si un non-Juif l’a cuit à la mesure du maakhal ben Droussaï et qu’un Juif l’a achevé, il y a lieu d’interdire, sauf la veille de Chabbat, la veille d’un Yom Tov, ou en cas de perte importante ; <em>Rama :</em> et il y a qui permettent en tout état de cause, et tel est l’usage. <em>Seif 10 (Mehaber) :</em> un Juif a posé sur des braises mourantes, impropres à cuire jusqu’au maakhal ben Droussaï, un non-Juif est venu, a retourné, et cela a cuit — interdit. <em>Seif 11 (Mehaber) :</em> un Juif a posé sur le feu et a laissé un non-Juif garder ; celui-ci a retourné, et l’on ne sait pas s’il l’a retirée avant qu’elle ne parvînt au maakhal ben Droussaï — permis. <em>Rama :</em> car dans leurs prescriptions le doute s’allège ; et de même tout doute de bichoul akoum et ce qui lui ressemble — permis.</p>
+
+<div class="yesod-box">
+<strong>Le fondement — la mesure du maakhal ben Droussaï.</strong><br>
+Le Choulhan Aroukh donne lui-même la mesure, dans le seif 8 : le tiers de la cuisson. Dès que l’aliment y est parvenu <strong>entre les mains du Juif</strong>, il n’y a plus de bichoul akoum, même si le non-Juif le remet et l’achève. D’où la symétrie des seifim 8 et 10 : ce qui est retiré avant le maakhal ben Droussaï reste vulnérable, ce qui l’a atteint ne l’est plus.
+<blockquote>«&nbsp;<span class="he-q">אא״כ הגיע למאכל בן דרוסאי שהוא שליש בישולו כשסילקה</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״ג:ח)</span></blockquote>
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>בישל עכו״ם כמאב״ד וגמר ישראל (סעיף ט') :</strong>
+<div class="machloket-box">
+<strong>Le non-Juif a cuit jusqu’au maakhal ben Droussaï, le Juif achève (seif 9).</strong>
 <table>
-<tr><th>שיטה</th><th>הדין</th><th>מקור</th></tr>
+<tr><th>Chita</th><th>Le din</th><th>Source</th></tr>
 <tr>
-  <td><strong>המחבר</strong></td>
-  <td>יש לאסור — אלא בערב שבת / ערב יו״ט / הפסד מרובה</td>
-  <td>מחבר ס״ט</td>
+  <td><strong>Le Mehaber</strong></td>
+  <td>il y a lieu d’interdire — sauf veille de Chabbat, veille de Yom Tov, ou perte importante</td>
+  <td>Mehaber seif 9</td>
 </tr>
 <tr>
-  <td><strong>יש מתירין (רמ״א)</strong></td>
-  <td>מותר <span class="he-q">בכל ענין</span> — "וכן נוהגין"</td>
-  <td>רמ״א ס״ט</td>
+  <td><strong>« Il y a qui permettent » (Rama)</strong></td>
+  <td>permis en tout état de cause — et tel est l’usage</td>
+  <td>Rama seif 9</td>
 </tr>
 </table>
+<p>Le Taz explique le ressort de l’avis indulgent : la mesure du maakhal ben Droussaï ne vaut comme « cuisson accomplie » que pour alléger, non pour aggraver — de sorte que l’achèvement par le Juif reste utile.</p>
+<blockquote>«&nbsp;<span class="he-q">דדוקא לקולא אמרינן דכמאכל בן דרוסאי הוי בישול שלא יאסרו אח״כ העובד כוכבים אבל לחומרא לא ועדיין מהני אם יגמור ישראל אח״כ</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ג ס״ק י׳)</span></blockquote>
+<p>Et le Chakh note que l’avis indulgent est celui de la plupart des décisionnaires.</p>
+<blockquote>«&nbsp;<span class="he-q">וכן הסכמת רוב הפוסקים ודלא כמהרש״ל בא״ו שלו</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק י״ד)</span></blockquote>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>החמרת התפארת למשה והשל״ה (פתחי תשובה ס״ק ג–ד) :</strong> מביא הפתחי תשובה בשם <strong>תפארת למשה</strong> (ס״ק ג) דכשבישל הנכרי עד מאב״ד ואחר כך גמר ישראל — יש לאסור, ואין זה דומה לדגים מלוחים; ובשם ה<strong>של״ה</strong> (ס״ק ד) להחמיר כדעת המהרש״ל ש<span class="he-q">אין תקנה לאחר מאב״ד</span>. הרי שיש מן האחרונים שדקדקו בסעיף ט' להחמיר אף נגד מנהג הרמ״א.
+<div class="kashya-box">
+<strong>Qui a retiré la marmite ? — le Chakh et le Taz ne lisent pas le seif 8 de la même façon.</strong> Le seif dit « un Juif a posé et a retiré ». Le Chakh écrit que cela n’est pas limitatif.
+<blockquote>«&nbsp;<span class="he-q">לאו דוקא סלקה ישראל אלא ה״ה סלקה העובד כוכבים והחזירו אסור כמ״ש הרשב״א</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק י״ב)</span></blockquote>
+Il rapporte que le Bayit Hadach conteste longuement et tient que si c’est le non-Juif qui a retiré et remis, c’est permis.
+<blockquote>«&nbsp;<span class="he-q">ובב״ח האריך לסתור ולבנות ולחלוק ע״ז ודעתו דבסילקו עובד כוכבים והחזירו שרי</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק י״ב)</span></blockquote>
+Le Chakh oppose au Bayit Hadach une réserve — <span class="he-q">ויש לי להשיב על דבריו וכאן אין מקום להאריך</span> — mais il ne la développe pas, et il conclut que la question n’a pas de portée pratique&nbsp;: puisque nous tenons que même lorsque le Juif a allumé le feu ou jeté un copeau c’est permis, rien ne change ici.
+<blockquote>«&nbsp;<span class="he-q">כי למאי דקי״ל דאפילו הדליק ישראל האש או השליך קיסם שרי לא נ״מ מידי בהא דפשיטא דשרי</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק י״ב)</span></blockquote>
+Et comme ce n’est pas le Juif qui a retiré la marmite, il écrit que le cas ressemble au copeau.
+<blockquote>«&nbsp;<span class="he-q">כאן כיון דלא סלקו הישראל רק העובד כוכבים נראה דדמי מיהת לקיסם וכה״ג</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק י״ב)</span></blockquote>
+Le Taz, lui, ne s’en tient pas là. Il donne à l’interdit une raison propre : le non-Juif a lui-même défait l’acte du Juif et tout refait, si bien que le nom du Juif s’est retiré de cette melakha.
+<blockquote>«&nbsp;<span class="he-q">ונראה לי דכל שכן הוא דאסור בסילקה עובד כוכבים כיון שהעובד כוכבים עצמו ביטל מעשה ישראל ועשה מחדש הכל ממילא עקר שם ישראל ממלאכה זו</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ג ס״ק ט׳)</span></blockquote>
+Et il écarte expressément l’indulgence a posteriori du Bayit Hadach.
+<blockquote>«&nbsp;<span class="he-q">ומ״ש שם דבדיעבד מותר אם סילק עובד כוכבים והחזירה אין לסמוך על זה כלל</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ג ס״ק ט׳)</span></blockquote>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>ספק בישולי עכו״ם — ספק דבריהם להקל (סעיף י״א) :</strong> מאחר שבישולי עכו״ם הוא <strong>איסור דרבנן</strong>, נוקטים בו הכלל <span class="he-q">ספק דבריהם להקל</span>. ולכן הפך הנכרי, ואין יודעים אם הסיר קודם מאב״ד או אחריו — <strong>מותר</strong>; וכן כל ספק כיוצא בזה. וזהו יסוד גדול בכל הסימן: הקולות הרבות נשענות על היותו איסור דרבנן. <em>ולמעשה — שאל את רבך.</em>
+<div class="rishon-card">
+<strong>Deux voix d’Aharonim qui resserrent le seif 9 (Pit’hé Techouva ס״ק ג–ד).</strong> Le Pit’hé Techouva rapporte le Tiférèt LeMoché sur un cas que le seif ne dit pas : le non-Juif a cuit jusqu’au maakhal ben Droussaï, on a ôté du feu, puis un non-Juif — le même ou un autre — est revenu et a achevé.
+<blockquote>«&nbsp;<span class="he-q">דמ״מ אם בישל עובד כוכבים כמאב״ד ולקחו מהאש וחזר בין אותו עובד כוכבים בין עובד כוכבים אחר וגמרו אסור</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד קי״ג ס״ק ג׳)</span></blockquote>
+Et il laisse en suspens le cas inverse — c’est le Juif qui a ôté du feu, et c’est le non-Juif qui a remis.
+<blockquote>«&nbsp;<span class="he-q">מיהו אם לקחו ישראל מהאש והחזירו עובד כוכבים צ״ע</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד קי״ג ס״ק ג׳)</span></blockquote>
+Le ס״ק suivant rapporte le Chelah, qui tient pour la rigueur du Maharchal contre l’usage que le Rama vient d’enregistrer.
+<blockquote>«&nbsp;<span class="he-q">ובשל״ה ד׳ ע״ו כתב דיש להחמיר כמהרש״ל דלא מהני אחר בישול מאב״ד</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד קי״ג ס״ק ד׳)</span></blockquote>
+</div>
+
+<div class="nafka-mina-box">
+<strong>Le doute de bichoul akoum — et ce qui, dans le seif 11, est du Rama.</strong> Le seif 11 permet le cas où l’on ne sait pas si le non-Juif a retiré la marmite avant le maakhal ben Droussaï. La raison — <em>dans leurs prescriptions, le doute s’allège</em> — et la généralisation à tout doute de bichoul akoum sont, dans le texte imprimé, une <strong>glose du Rama</strong>, non la parole du Mehaber ; c’est une distinction à tenir, parce qu’elle porte loin. Le Chakh borne d’ailleurs le cas : il faut que l’on n’ait pas à craindre une substitution par le non-Juif.
+<blockquote>«&nbsp;<span class="he-q">והוא בענין שאין לחוש בו שהחליפן העובד כוכבים</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק ט״ו)</span></blockquote>
+Et le Taz précise de quel doute il s’agit dans la généralisation du Rama.
+<blockquote>«&nbsp;<span class="he-q">פי׳ שיש ספק אם חיתה ישראל באור או לא</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ג ס״ק י״א)</span></blockquote>
+<em>Et pour la pratique — demande à ton rav.</em>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">9. מליחה · עישון · כבוש — אינם כבישול</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">9. Salaison · fumage · marinade — ce ne sont pas des cuissons</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיפים י״ב–ט״ו)
-  <button class="daat-copy" type="button" data-copy-target="#cp-9">📋 העתק</button>
+<h3>Le texte du Mehaber et du Rama (seifim 12–15)
+  <button class="daat-copy" type="button" data-copy-target="#cp-9">📋 Copier</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-9">
-"<strong>(י״ב) דגים קטנים שמלחם ישראל או עובד כוכבים — הרי הם כמבושלים קצת, ואם צלאם עובד כוכבים אחר כך — מותרים; אבל דגים גדולים מלוחים אינם נאכלים אלא על ידי הדחק, ואם צלאם עובד כוכבים — אסורים, ויש מתירין</strong> (הגה: וכן כל הנאכל חי על ידי הדחק שבישלוֹ עובד כוכבים — דינו כדגים גדולים; ובשר מליח שאינו נאכל חי כלל — אסור). <strong>(י״ג) דג שמלחוֹ עובד כוכבים, ופירות שעישנם עד שהוכשרו לאכילה — מותרים, שהמליח אינו כרותח והמעושן אינו כמבושל בענין זה</strong> (הגה: וכן הכבוש אינו כמבושל, שלא אסרו אלא בישול האור). <strong>(י״ד) ביצה — אף שראויה לִגָּמַע חיה, אם בישלהּ עובד כוכבים — אסורה. (ט״ו) תמרים המרים מעט שאינם נאכלים אלא על ידי הדחק, אם בישלם עובד כוכבים — אסורים.</strong>"
+<div class="sacred-text he" data-copy-block id="cp-9" dir="rtl">
+  <p>«&nbsp;<span class="he-q">דגים קטנים שמלחן ישראל או עובד כוכבים הרי הן כמו שנתבשלו מקצת בישול ואם צלאן עובד כוכבים אחר כן מותרים אבל דגים מלוחים גדולים אינם נאכלים אלא ע״י הדחק לפיכך אם צלאן עובד כוכבים אסורים ויש מתירין:</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״ג:י״ב)</span></p>
+  <p>«&nbsp;<span class="he-q">הגה וכן כל דבר שנאכל חי ע״י הדחק ובשלו עובד כוכבים דינו כדגים גדולים … ובשר מלוח אינו נאכל כלל כמו שהוא חי ואסור אם נתבשל ע״י עובד כוכבים:</span>&nbsp;» <span class="source-ref">(רמ״א שו״ע יו״ד קי״ג:י״ב)</span></p>
+  <p>«&nbsp;<span class="he-q">דג שמלחו עובד כוכבים ופירות שעשנן עד שהכשירן לאכילה הרי אלו מותרין דמלוח אינו כרותח בגזירה זו והמעושן אינו כמבושל:</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״ג:י״ג)</span></p>
+  <p>«&nbsp;<span class="he-q">הגה גם כבוש אינו כמבושל דלא אסרו אלא בישול של אש:</span>&nbsp;» <span class="source-ref">(רמ״א שו״ע יו״ד קי״ג:י״ג)</span></p>
+  <p>«&nbsp;<span class="he-q">ביצה אף על פי שראויה לגומעה חיה אם בשלה עובד כוכבים אסורה:</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״ג:י״ד)</span></p>
+  <p>«&nbsp;<span class="he-q">תמרים המרים קצת שאינם נאכלים אלא על ידי הדחק אם בשלם עובד כוכבים אסורים:</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״ג:ט״ו)</span></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — גדר ה"בישול" של הגזרה :</strong><br>
-לא כל הכשרת מאכל קרויה "בישול" לענין הגזרה. <span class="he-q">מליחה</span>, <span class="he-q">עישון</span> ו<span class="he-q">כבוש</span> — אינם בכלל הגזרה, שלא אסרו אלא <strong>בישול האור</strong>. ומכאן:<br>
-• מליח אינו כרותח · מעושן אינו כמבושל · כבוש אינו כמבושל.<br>
-• דבר הנאכל חי <strong>על ידי הדחק</strong> (דגים גדולים, בשר מליח, ביצה, תמרים מרים) — נחשב כ"אינו נאכל חי", ולכן יש בו ביש״ע אם בישלוֹ הנכרי באור.
+<p><strong>Traduction.</strong> <em>Seif 12 :</em> de petits poissons qu’un Juif ou un non-Juif a salés sont comme ayant subi une part de cuisson, et si un non-Juif les rôtit ensuite, ils sont permis ; mais de grands poissons salés ne se mangent qu’à la rigueur, de sorte que, rôtis par un non-Juif, ils sont interdits — et il y a qui permettent. <em>Rama :</em> de même tout ce qui ne se mange cru qu’à la rigueur et qu’un non-Juif a cuit a le statut des grands poissons ; et la viande salée, qui ne se mange pas du tout crue, est interdite si un non-Juif l’a cuite. <em>Seif 13 :</em> un poisson qu’un non-Juif a salé, et des fruits qu’il a fumés jusqu’à les rendre propres à la consommation, sont permis, car le salé n’est pas comme le bouillant pour ce décret, et le fumé n’est pas comme le cuit ; <em>Rama :</em> le mariné non plus n’est pas comme le cuit, car on n’a interdit que la cuisson par le feu. <em>Seif 14 :</em> un œuf, bien qu’il soit propre à être gobé cru, est interdit si un non-Juif l’a cuit. <em>Seif 15 :</em> des dattes un peu amères, qui ne se mangent qu’à la rigueur, sont interdites si un non-Juif les a cuites.</p>
+
+<div class="yesod-box">
+<strong>Le fondement — ce que le décret appelle « cuire ».</strong><br>
+Toute préparation d’un aliment ne s’appelle pas cuisson au regard de ce décret. Le Rama le dit d’un mot : on n’a interdit que la cuisson du feu.
+<blockquote>«&nbsp;<span class="he-q">גם כבוש אינו כמבושל דלא אסרו אלא בישול של אש</span>&nbsp;» <span class="source-ref">(רמ״א שו״ע יו״ד קי״ג:י״ג)</span></blockquote>
+D’où les deux versants du seif 13 : le salé n’est pas comme le bouillant, le fumé n’est pas comme le cuit, le mariné non plus. Et d’où, à l’inverse, la ligne des seifim 12, 14 et 15 : ce qui ne se mange cru qu’à la rigueur — grands poissons salés, viande salée, œuf, dattes amères — compte comme ne se mangeant pas cru, et tombe donc sous le décret si le non-Juif l’a cuit au feu.
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>אכילה על ידי הדחק (ש״ך ס״ק ט״ז, י״ח; ט״ז ס״ק י״ב, י״ד) :</strong> ביאר הש״ך (ס״ק ט״ז) שדגים "קטנים" היינו אף קצת גדולים, הנאכלים על ידי מליחה; ובס״ק י״ח ש<span class="he-q">עישון דינו כמליחה</span>, ולכן דגים קטנים מעושנים — מותרים. והט״ז (ס״ק י״ד) ביאר ש<strong>ביצה ותמרים מרים</strong> — אף שאפשר לגומעם או לאוכלם, הרי זו <span class="he-q">אכילה על ידי דוחק גדול</span>, וחשיב "אינו נאכל חי". ובמליח שאינו נאכל חי כלל (בשר) — אסור לכולי עלמא.
+<div class="pilpul-box">
+<strong>« À la rigueur » — comment les Aharonim l’ont mesuré (Chakh ס״ק ט״ז–י״ט ; Taz ס״ק י״ב, י״ד).</strong> Le Chakh commence par élargir les « petits poissons » du seif.
+<blockquote>«&nbsp;<span class="he-q">כתבו התוס׳ ושאר פוסקים דהיינו אפילו גדולים קצת</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק ט״ז)</span></blockquote>
+Le Taz, au même endroit, donne la raison de l’indulgence et rapporte trois réponses à la difficulté — le Beit Yossef, le Maharchal et son beau-père le Bayit Hadach — sur ce qui fait qu’un petit poisson monte, ou non, sur la table des rois.
+<blockquote>«&nbsp;<span class="he-q">דכיון שנאכלין כמות שהן חיין ע״י המליחה אין בהם משום בישול עובד כוכבים ועל המליחה תחילה לא גזרו שלא גזרו רק בבישול שעל ידי האש</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ג ס״ק י״ב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">תירץ ב״י דאחר המליחה עולין הם ורש״ל תירץ דאינם קטנים לגמרי ומו״ח ז״ל תירץ דהמין דאותן דגים הם קטנים לעולם והן חשובין אבל המין שהוא גדול אח״כ אין עולין כל זמן שהם קטנים</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ג ס״ק י״ב)</span></blockquote>
+Le Chakh, à son ס״ק י״ח, tire du fumage la même conséquence que de la salaison, au nom de l’Issour véHetter.
+<blockquote>«&nbsp;<span class="he-q">דדגים קטנים אפילו עישנם עובד כוכבים ובשלם אח״כ שרי דעישון הוא שוה בכל מיניו למליחה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק י״ח)</span></blockquote>
+Et le Taz, sur l’œuf, explique pourquoi la chose reste interdite bien qu’on puisse le gober.
+<blockquote>«&nbsp;<span class="he-q">הטעם דאכילה ע״י הדחק היא</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ג ס״ק י״ד)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">שכאן אין נאכלין אלא ע״י דוחק גדול וכן סיים הטור בהדיא ע״י דוחק גדול</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ג ס״ק י״ד)</span></blockquote>
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הכרעות "עולה על שלחן מלכים" (ב״י, מהרש״ל, ב״ח · ט״ז ס״ק י״ב) :</strong> מביא הט״ז את חילוקי הבית יוסף, המהרש״ל והב״ח בגדר <span class="he-q">עולה על שלחן מלכים</span> — אם הולכים אחר מלכי אותה מדינה או אחר רוב העולם, ואם די שעולה לפרפרת. ומכאן נגזרים הרבה ספקות מעשיים בדגים, ירקות ופירות מבושלים.
+<div class="rishon-card">
+<strong>Là où la mesure devient une question de pays (Chakh ס״ק י״ז et י״ט).</strong> Le Chakh rapporte l’Issour véHetter sur les coings et les châtaignes, qui ne se mangeraient crus qu’à la rigueur.
+<blockquote>«&nbsp;<span class="he-q">וכ׳ האו״ה דחבושים וערמונים … אינן נאכלין חיין אלא ע״י הדחק ויש בהן משום בשולי עובד כוכבים</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק י״ז)</span></blockquote>
+Et il rapporte aussitôt l’objection du Torat Hatat, tirée de l’usage du lieu.
+<blockquote>«&nbsp;<span class="he-q">ואינו נראה בערמונים דהא בכל מדינות אלו רוב אכילתן חיין</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק י״ז)</span></blockquote>
+Le même ressort joue en sens inverse pour les poires et les pommes, que l’on mange le plus souvent cuites et qui restent pourtant permises.
+<blockquote>«&nbsp;<span class="he-q">ומיהו הני אגסים ותפוחין אף ע״פ שרוב אכילתן ע״י צלי ובישול אם צלאן ובשלן עובד כוכבים מותרים דמ״מ נאכלים גם כן חיין</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק י״ט)</span></blockquote>
+<p>Le critère n’est donc pas une propriété fixe de l’aliment : il se mesure sur la manière dont on le mange là où l’on est. C’est la raison pour laquelle ce seif a produit tant de questions pratiques, et pourquoi elles ne se règlent pas par une liste.</p>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">10. הכלים והחולה בשבת</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">10. Les ustensiles et le malade le Chabbat</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ט״ז)
-  <button class="daat-copy" type="button" data-copy-target="#cp-10">📋 העתק</button>
+<h3>Le texte du Mehaber et du Rama (seif 16)
+  <button class="daat-copy" type="button" data-copy-target="#cp-10">📋 Copier</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-10">
-"<strong>כלים שבישל בהם העובד כוכבים בפנינו דברים שיש בהם משום בישולי עכו״ם — צריכים הכשר; ויש אומרים שאינם צריכים. ולדברי המצריכים, אם הוא כלי חרס — שלוש הגעלות סגי, לפי שאיסור זה אין לו שורש מן התורה</strong> (הגה: עובד כוכבים שבישל לחולה בשבת — מותר אחר השבת אף לבריא, ואין בו משום בישולי עכו״ם, שבכהאי גוונא יש היכר. ועיין סימן קכ״ג)."
+<div class="sacred-text he" data-copy-block id="cp-10" dir="rtl">
+  <p>«&nbsp;<span class="he-q">כלים שבשל בהם העובד כוכבים לפנינו דברים שיש בהם משום בישולי עובדי כוכבים צריכים הכשר ויש אומרים שאינם צריכים ואף לדברי המצריכים הכשר אם הוא כלי חרס מגעילו שלש פעמים ודיו מפני שאין לאיסור זה עיקר בדאורייתא:</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״ג:ט״ז)</span></p>
+  <p>«&nbsp;<span class="he-q">הגה עובד כוכבים שבשל לחולה בשבת מותר למוצאי שבת אפילו לבריא ואין בו משום בשולי עובדי כוכבים דכל כה״ג היכרא איכא:</span>&nbsp;» <span class="source-ref">(רמ״א שו״ע יו״ד קי״ג:ט״ז)</span></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — אין לו שורש מן התורה :</strong><br>
-מאחר שבישולי עכו״ם הוא <strong>איסור דרבנן</strong> שאין לו <span class="he-q">שורש מן התורה</span>, הקילו בכליו: ב<strong>כלי חרס</strong> — שלוש הגעלות סגי (במקום הצורך לשוברו, כבשאר איסורי בליעה). וכן מטעם זה — בדיעבד מתבטל בליעת הכלי <span class="he-q">ברוב</span> (ועיין סימן קי״ב סכ״ג וסימן קט״ו), ולא בעי ששים כבאיסורי תורה.
+<p><strong>Traduction.</strong> <em>Mehaber :</em> des ustensiles dans lesquels un non-Juif a cuit devant nous des aliments soumis au bichoul akoum ont besoin d’être cachérisés ; et il y a qui disent qu’ils n’en ont pas besoin. Et même selon ceux qui l’exigent, s’il s’agit d’un ustensile de terre, il lui suffit de le passer trois fois à l’eau bouillante, parce que cet interdit n’a pas de racine dans la Tora. <em>Rama :</em> un non-Juif qui a cuit pour un malade le Chabbat — c’est permis à l’issue du Chabbat, même pour un bien portant, et il n’y a pas là de bichoul akoum, car en pareil cas il y a un signe distinctif.</p>
+
+<div class="yesod-box">
+<strong>Le fondement — un interdit sans racine dans la Tora.</strong><br>
+Le Mehaber donne lui-même la raison de l’allègement sur l’ustensile de terre, et c’est la clef de tout le siman.
+<blockquote>«&nbsp;<span class="he-q">מפני שאין לאיסור זה עיקר בדאורייתא</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד קי״ג:ט״ז)</span></blockquote>
+De la même racine sort l’allègement du Chakh sur l’absorption : elle s’annule dans la majorité, et non dans soixante comme pour les interdits de la Tora.
+<blockquote>«&nbsp;<span class="he-q">ואם נתבשלה בהן בדיעבד ויש רוב בתבשיל שרי דבשולי עובדי כוכבים בטלים ברוב כדלעיל סי׳ קי״ב ס״ק כ״ג וע״ל סימן קט״ו ס״ק י״ז</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק כ״א)</span></blockquote>
 </div>
 
-<div class="machloket-box" dir="rtl">
-<strong>החולה בשבת — מחלוקת הראׄה והרשב״א (ט״ז ס״ק ט״ו) :</strong>
+<div class="machloket-box">
+<strong>Le malade le Chabbat — le Ra’ah et le Rachba (Taz ס״ק ט״ו).</strong>
 <table>
-<tr><th>שיטה</th><th>בישל נכרי לחולה בשבת</th><th>מקור</th></tr>
+<tr><th>Chita</th><th>Un non-Juif a cuit pour un malade le Chabbat</th><th>Source</th></tr>
 <tr>
-  <td><strong>הראׄה</strong></td>
-  <td>מותר, ואף לאחר השבת לבריא — שיש בו <span class="he-q">היכר</span> (נתבשל בהיתר לחולה)</td>
-  <td>ט״ז ס״ק ט״ו</td>
+  <td><strong>Le Ra’ah</strong> (rapporté par le Ran, suivi par le Rama)</td>
+  <td>permis, et même après le Chabbat pour un bien portant — il y a un signe distinctif</td>
+  <td>Taz ס״ק ט״ו</td>
 </tr>
 <tr>
-  <td><strong>הרשב״א [משמרת הבית]</strong></td>
-  <td>חולק וכותב <span class="he-q">"חלילה"</span> — לאחר השבת חוזר ונאסר, שאין מתירים בישולי עכו״ם מחמת שעת חולי</td>
-  <td>ט״ז ס״ק ט״ו</td>
+  <td><strong>Le Rachba</strong> (Michmeret HaBayit)</td>
+  <td>seule la nécessité du moment a été permise ; à l’issue du Chabbat la chose revient à son interdit, et a fortiori pour un bien portant</td>
+  <td>Taz ס״ק ט״ו</td>
 </tr>
 </table>
+<blockquote>«&nbsp;<span class="he-q">ובעל משמרת הבית שהוא הרשב״א כתב על זה וחלילה וחס שלא הותר אפילו לחולה עצמו אלא בעת הצורך בלבד דהיינו בשבת הא למוצאי שבת חוזר לאיסורו וכ״ש לבריא</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ג ס״ק ט״ו)</span></blockquote>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>דקדוק הט״ז (ס״ק ט״ו) :</strong> מעיר הט״ז שהרמ״א נמשך אחר הראׄה (להתיר אף לאחר השבת), אך הרשב״א ב<span class="he-q">משמרת הבית</span> השיב על הראׄה בלשון "חלילה", שלאחר השבת חוזר האיסור למקומו. ומסיק הט״ז שאילו ראו המחבר והרמ״א את דברי הרשב״א שבמשמרת הבית — אפשר שהיו פוסקים אחרת (ועיין סימן קכ״ג). הרי שההכרעה למעשה כאן צריכה עיון. <em>ולמעשה — שאל את רבך.</em>
+<div class="pilpul-box">
+<strong>Le Taz prend parti — et dit ce que le Beit Yossef et le Rama n’avaient pas sous les yeux (ס״ק ט״ו).</strong> Le Taz ne se contente pas de rapporter : il tranche pour le Rachba.
+<blockquote>«&nbsp;<span class="he-q">ודבריו נכונים</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ג ס״ק ט״ו)</span></blockquote>
+Il ajoute une preuve tirée du siman 112, puis formule la remarque qui a fait la fortune de ce ס״ק.
+<blockquote>«&nbsp;<span class="he-q">ואלו ראו ב״י ורמ״א ספר משמרת הבית לא היו פוסקים להיתר כהרא״ה בזה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ג ס״ק ט״ו)</span></blockquote>
+Et il signale enfin que le Beit Yossef lui-même, au siman 123, rapporte un responsum du Ran qui ne suit pas le Ra’ah.
+<blockquote>«&nbsp;<span class="he-q">והיותר תימה שבסימן קכ״ג בסופו כתב ב״י תשובת הר״ן דלא קי״ל כהרא״ה בזה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד קי״ג ס״ק ט״ו)</span></blockquote>
+<p>La décision pratique en ce point demande donc examen : le texte du Rama dit une chose, l’Aharon qui le commente en dit une autre, et il donne sa raison. <em>Et pour la pratique — demande à ton rav.</em></p>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה — ביטול ברוב והגעלת הכלים (ש״ך ס״ק כ–כ״א; פתחי תשובה ס״ק ו) :</strong> מבאר הש״ך (ס״ק כ–כ״א) שכלי השפחה המבשלת <strong>לעצמה</strong> חמורים יותר, ומכל מקום בדיעבד הבליעה מתבטלת <span class="he-q">ברוב</span> (ולא בעי ס'), שאין שורשו מן התורה. והפתחי תשובה (ס״ק ו) מביא מן החכמת אדם והחיי אדם לענין כלי החולה לאחר מעת לעת — אם צריכים הגעלה. <em>ולמעשה — שאל את רבך.</em>
+<div class="nafka-mina-box">
+<strong>Nafka mina — les ustensiles (Chakh ס״ק כ–כ״א ; Pit’hé Techouva ס״ק ו).</strong> Le Chakh, au ס״ק כ, aggrave le cas de la servante qui cuisine <strong>pour elle-même</strong> dans la maison de son maître.
+<blockquote>«&nbsp;<span class="he-q">וכלים שבישלו בהן עובדי כוכבי׳ אסורין לכך צריך ליזהר בשפחות עובדת כוכבים המבשלות לעצמן בבית רבן שלא יניחו ע״ג האור</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק כ׳)</span></blockquote>
+Et il en donne la raison, qui tient à la présomption du seif 4 : quand elle cuisine pour elle-même, personne de la maison n’a de motif de tisonner.
+<blockquote>«&nbsp;<span class="he-q">י״ל דאם מבשלת לעצמה אין רגילות כלל שא׳ מבני הבית יחתה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד קי״ג ס״ק כ׳)</span></blockquote>
+Le Pit’hé Techouva, au ס״ק ו, rapporte le Hokhmat Adam sur les ustensiles du malade.
+<blockquote>«&nbsp;<span class="he-q">ובספר חכמת אדם כלל ס״ו דין י״ב כתב דיש להתיר הכלים אחר מעל״ע אפילו בלא הגעלה</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד קי״ג ס״ק ו׳)</span></blockquote>
+Et le ס״ק ne s’arrête pas au Hokhmat Adam : il renvoie encore au Hayé Adam.
+<blockquote>«&nbsp;<span class="he-q">ועיין בחיי אדם כלל ס״ט דין ט״ז</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד קי״ג ס״ק ו׳)</span></blockquote>
+<em>Et pour la pratique — demande à ton rav.</em>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">11. חקירה ונפקא מינה למעשה</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">11. Hakira et nafka mina pour la pratique</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-deoraita">↩ Explication détaillée (niveau 1)</a>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה הכוללת של הסימן :</strong> מהו גדר ה"בישול" האסור, ומתי נסתלקת הגזרה ?
+<div class="hakira-box">
+<strong>La hakira d’ensemble du siman :</strong> qu’est-ce que la « cuisson » interdite, et à quel moment le décret se retire-t-il ?
 <ul class="stylish">
-<li><strong>שני התנאים</strong> — אינו נאכל חי <em>וגם</em> עולה על שלחן מלכים; חסר אחד — מותר.</li>
-<li><strong>טעם הגזרה</strong> — חתנות (ט״ז) ושמא יאכילנו (פ״ת) — ונפקא מינה במומר ובמחלל שבת.</li>
-<li><strong>נשתנה ע״י האור ?</strong> — רש״י/ר״ן/רי״ף נגד הרמב״ם (ש״ך ס״ק א).</li>
-<li><strong>סיוע ישראל</strong> — חיתוי / הנחה / קיסם — מסלקים הגזרה אף שלא היה מתבשל בלעדיו.</li>
-<li><strong>מאב״ד וספק</strong> — שליש בישול ביד ישראל פוטר; וספק ביש״ע — להקל (דרבנן).</li>
-<li><strong>מליחה / עישון / כבוש</strong> — אינם בישול; ואכילה על ידי הדחק חשיבא "אינו נאכל חי".</li>
+<li><strong>Les deux conditions</strong> — ne pas se manger cru <em>et</em> monter sur la table des rois ; si l’une manque, il n’y a pas d’interdit (seif 1).</li>
+<li><strong>Le motif du décret</strong> — le rapprochement (Taz ס״ק א) et la crainte qu’il ne lui fasse manger de l’interdit (Pit’hé Techouva ס״ק א) — avec leur nafka mina sur le mumar et sur le profanateur du Chabbat.</li>
+<li><strong>Faut-il un changement par le feu ?</strong> — Rachi, le Rif et le Ran d’un côté, le Rambam de l’autre, et le reste des décisionnaires qui ne distingue pas (Chakh ס״ק א).</li>
+<li><strong>Le concours du Juif</strong> — tisonnage, dépôt, copeau — retire au décret son motif, et le Rama l’étend même à ce qui n’aurait pas cuit sans le non-Juif ; le Chakh y laisse pourtant un צ״ע (ס״ק ח).</li>
+<li><strong>Le maakhal ben Droussaï et le doute</strong> — le tiers de la cuisson atteint entre les mains du Juif retire le décret ; et le doute de bichoul akoum s’allège, parce que l’interdit est rabbinique (seifim 8–11).</li>
+<li><strong>Salaison, fumage, marinade</strong> — ce ne sont pas des cuissons ; et ce qui ne se mange cru qu’à la rigueur compte comme ne se mangeant pas cru (seifim 12–15).</li>
 </ul>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה למעשה (לפי הכרעת רוב האחרונים) :</strong>
+<div class="nafka-mina-box">
+<strong>Ce que le siman produit pour la pratique, tel que le Choulhan Aroukh et son appareil le donnent :</strong>
 <ol class="stylish">
-<li>אין איסור אלא בדבר שאינו נאכל חי <strong>וגם</strong> עולה על שלחן מלכים (מחבר ס״א).</li>
-<li>שגירה מועלת לפת בלבד; לשאר בישול — הנחה (מרן) או חיתוי/הדלקה (רמ״א — "וכן המנהג").</li>
-<li>בישול ישראל מעט (בתחילה או בסוף) מתיר, אף שלא היה מתבשל בלעדי הנכרי (רמ״א ס״ו).</li>
-<li>הגיע ביד ישראל למאכל בן דרוסאי — שוב אין ביש״ע; וספק ביש״ע — מותר (דרבנן).</li>
-<li>מליחה/עישון/כבוש אינם בישול; שומן בעין אינו בטל; כלים — הכשר בלא שורש דאורייתא.</li>
+<li>Pas d’interdit sans les deux conditions réunies (Mehaber seif 1).</li>
+<li>Le chauffage du four ne vaut que pour le pain ; pour le reste, le dépôt selon le Mehaber, l’allumage ou le tisonnage selon le Rama, qui écrit que tel est l’usage (seif 7) — et le tisonnage doit servir réellement à la cuisson (Chakh ס״ק ט).</li>
+<li>Un peu de cuisson par le Juif, au début ou à la fin, rend permis — le Rama ajoutant même le cas où cela n’aurait pas cuit sans le non-Juif (seif 6), sur quoi le Chakh écrit צ״ע.</li>
+<li>Parvenu au maakhal ben Droussaï entre les mains du Juif, il n’y a plus de bichoul akoum ; et le doute est permis, l’interdit étant rabbinique (seifim 8 et 11).</li>
+<li>Salaison, fumage et marinade ne sont pas des cuissons ; la graisse en nature ne s’annule pas ; et les ustensiles se cachérisent d’une cachérisation allégée, faute de racine dans la Tora (seifim 3, 13 et 16).</li>
 </ol>
-<em>ולמעשה — שאל את רבך.</em>
+<em>Et pour la pratique — demande à ton rav.</em>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">12. טבלאות סיכום</h2>
-<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">12. Tableaux de synthèse</h2>
+<a class="daat-explain" href="niveau-1-base.html#exp-concepts">↩ Explication détaillée (niveau 1)</a>
 
-<h3 class="he-h3">טבלה — אופני הבישול והדין</h3>
-
-<table>
-<tr>
-  <th>המצב</th>
-  <th>התוצאה</th>
-  <th>מקור בקורפוס</th>
-</tr>
-<tr>
-  <td><strong>אינו נאכל חי + עולה על שלחן מלכים</strong></td>
-  <td>אסור משום ביש״ע — אף בכלי ובבית ישראל</td>
-  <td>מחבר ס״א; ט״ז ס״ק א</td>
-</tr>
-<tr>
-  <td><strong>תערובת נאכל ושאינו נאכל</strong></td>
-  <td>הולכין אחר העיקר; שומן בעין אינו בטל</td>
-  <td>מחבר ס״ב–ג'; ט״ז ס״ק ב; ש״ך ס״ק ה</td>
-</tr>
-<tr>
-  <td><strong>שפחות קנויות בבית ישראל</strong></td>
-  <td>מותר — "אי אפשר שלא יחתה"; שכורות חמורות</td>
-  <td>רמ״א ס״ד; ט״ז ס״ק ג; ש״ך ס״ק ז</td>
-</tr>
-<tr>
-  <td><strong>לא נתכוון לבישול</strong></td>
-  <td>מותר (חגבים, חריכה); נתכוון לבישול — אסור</td>
-  <td>מחבר ס״ה; ט״ז ס״ק ה–ו</td>
-</tr>
-<tr>
-  <td><strong>בישול ישראל מעט (תחילה/סוף)</strong></td>
-  <td>מותר אף שלא היה מתבשל בלעדיו (כקיסם)</td>
-  <td>מחבר ורמ״א ס״ו; ש״ך ס״ק ח</td>
-</tr>
-<tr>
-  <td><strong>שגירה / חיתוי / הנחה</strong></td>
-  <td>שגירה לפת; הנחה (מרן) או חיתוי (רמ״א)</td>
-  <td>מחבר ורמ״א ס״ז; ט״ז ס״ק ז; ש״ך ס״ק י״א</td>
-</tr>
-<tr>
-  <td><strong>מאכל בן דרוסאי ביד ישראל</strong></td>
-  <td>הגיע למאב״ד — מותר; ספק — להקל</td>
-  <td>מחבר ורמ״א ס״ח–י״א; פ״ת ס״ק ג</td>
-</tr>
-<tr>
-  <td><strong>מליחה / עישון / כבוש</strong></td>
-  <td>אינם בישול — מותרים</td>
-  <td>מחבר ורמ״א ס״י״ב–י״ג; ש״ך ס״ק ט״ז–י״ח</td>
-</tr>
-<tr>
-  <td><strong>ביצה · תמרים מרים · דגים גדולים</strong></td>
-  <td>נאכלים ע״י הדחק → אסורים אם בישלם נכרי</td>
-  <td>מחבר ס״י״ב, י״ד–ט״ו; ט״ז ס״ק י״ד</td>
-</tr>
-<tr>
-  <td><strong>כלים · חולה בשבת</strong></td>
-  <td>הכשר בלא שורש דאורייתא; חולה — היכר</td>
-  <td>מחבר ורמ״א ס״ט״ז; ט״ז ס״ק ט״ו; ש״ך ס״ק כ–כ״א</td>
-</tr>
-</table>
-
-<h3 class="he-h3">טבלה — מחלוקות מרכזיות בסימן</h3>
+<h3>Tableau — les cas de cuisson et leur din</h3>
 
 <table>
 <tr>
-  <th>נושא</th>
-  <th>שיטה א'</th>
-  <th>שיטה ב'</th>
+  <th>Le cas</th>
+  <th>Le résultat</th>
+  <th>Source</th>
 </tr>
 <tr>
-  <td>גדר הבישול</td>
-  <td>רש״י/ר״ן/רי״ף — בעינן נשתנה ע״י האור</td>
-  <td>הרמב״ם — אין צריך שינוי ניכר</td>
+  <td><strong>Ne se mange pas cru <em>et</em> monte sur la table des rois</strong></td>
+  <td>interdit — même dans l’ustensile et dans la maison d’un Juif</td>
+  <td>Mehaber seif 1 ; Taz ס״ק א</td>
 </tr>
 <tr>
-  <td>שפחות שלנו</td>
-  <td>יש מתיר (בית ישראל מסייע)</td>
-  <td>יש אוסר אף בדיעבד; שכורות חמורות (רשב״א ס״ח)</td>
+  <td><strong>Mélange de ce qui se mange cru et de ce qui ne s’en mange pas</strong></td>
+  <td>on suit l’essentiel ; mais la graisse en nature ne s’annule pas</td>
+  <td>Mehaber seifim 2–3 ; Taz ס״ק ב ; Chakh ס״ק ה–ו</td>
 </tr>
 <tr>
-  <td>שגירה / חיתוי</td>
-  <td>מחבר — שגירה לפת בלבד, בעי הנחה</td>
-  <td>רמ״א — חיתוי/הדלקה מועיל ("וכן המנהג")</td>
+  <td><strong>Servantes attachées à la maison du Juif</strong></td>
+  <td>l’usage est d’alléger — il est impossible que l’un des gens de la maison ne tisonne ; les servantes louées sont plus lourdes</td>
+  <td>Rama seif 4 ; Taz ס״ק ג ; Chakh ס״ק ז</td>
 </tr>
 <tr>
-  <td>גמר ישראל אחר מאב״ד</td>
-  <td>מחבר — לאסור (אלא ע״ש / הפסד מרובה)</td>
-  <td>רמ״א — יש מתירין בכל ענין ("וכן נוהגין")</td>
+  <td><strong>Sans intention de cuire</strong></td>
+  <td>permis (sauterelles, flambage) ; mais qui a visé la cuisson — interdit, même sans connaître ce mets-là</td>
+  <td>Mehaber seif 5 ; Taz ס״ק ה</td>
 </tr>
 <tr>
-  <td>חולה בשבת לאחר שבת</td>
-  <td>הראׄה (ורמ״א) — מותר אף לבריא, היכר</td>
-  <td>הרשב״א [משמרת הבית] — "חלילה", חוזר ונאסר</td>
+  <td><strong>Un peu de cuisson par le Juif (début ou fin)</strong></td>
+  <td>permis, et selon le Rama même si cela n’aurait pas cuit sans le non-Juif — le Chakh y laisse un צ״ע</td>
+  <td>Mehaber et Rama seif 6 ; Chakh ס״ק ח ; Taz ס״ק ו</td>
+</tr>
+<tr>
+  <td><strong>Chauffage du four · tisonnage · dépôt</strong></td>
+  <td>le chauffage pour le pain ; le dépôt selon le Mehaber, le tisonnage ou l’allumage selon le Rama</td>
+  <td>Mehaber et Rama seif 7 ; Taz ס״ק ז ; Chakh ס״ק ט–י״א</td>
+</tr>
+<tr>
+  <td><strong>Maakhal ben Droussaï entre les mains du Juif</strong></td>
+  <td>atteint — plus de bichoul akoum ; et le doute s’allège</td>
+  <td>Mehaber seifim 8–11 ; Rama seifim 9 et 11 ; Pit’hé Techouva ס״ק ג–ד</td>
+</tr>
+<tr>
+  <td><strong>Salaison · fumage · marinade</strong></td>
+  <td>ce ne sont pas des cuissons — permis</td>
+  <td>Mehaber seifim 12–13 ; Rama seif 13 ; Chakh ס״ק ט״ז–י״ח</td>
+</tr>
+<tr>
+  <td><strong>Œuf · dattes amères · grands poissons salés</strong></td>
+  <td>ne se mangent crus qu’à la rigueur → interdits si un non-Juif les a cuits</td>
+  <td>Mehaber seifim 12, 14–15 ; Taz ס״ק י״ב et י״ד</td>
+</tr>
+<tr>
+  <td><strong>Ustensiles · malade le Chabbat</strong></td>
+  <td>cachérisation allégée, faute de racine dans la Tora ; pour le malade, le Rama permet au titre du signe distinctif</td>
+  <td>Mehaber et Rama seif 16 ; Taz ס״ק ט״ו ; Chakh ס״ק כ–כ״א</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מקורות הסוגיא</h3>
+<h3>Tableau — les ma’hlokot du siman</h3>
 
-<div class="rishon-card" dir="rtl">
-<strong>גמרא :</strong> עבודה זרה ל״ז:–ל״ח. (שני התנאים, עולה על שלחן מלכים, מאכל בן דרוסאי) · עבודה זרה ל״ח. (חתה בגחלים, שגר התנור, חגבים) · עבודה זרה ל״ח: (מליח אינו כרותח, כבוש אינו כמבושל)
+<table>
+<tr>
+  <th>Sujet</th>
+  <th>Première chita</th>
+  <th>Seconde chita</th>
+</tr>
+<tr>
+  <td>Définition de la cuisson</td>
+  <td>Rachi, le Rif, le Ran — il faut que le feu ait changé la chose</td>
+  <td>le Rambam — aucun changement visible n’est requis</td>
+</tr>
+<tr>
+  <td>Nos servantes</td>
+  <td>il y a qui permet (Mehaber seif 4)</td>
+  <td>il y a qui interdit même a posteriori, au nom du responsum du Rachba §68 (Mehaber seif 4)</td>
+</tr>
+<tr>
+  <td>Chauffage du four et tisonnage</td>
+  <td>le Mehaber — le chauffage pour le pain seul, et le dépôt pour le reste</td>
+  <td>le Rama — l’allumage ou le tisonnage vaut aussi pour la cuisson, et tel est l’usage</td>
+</tr>
+<tr>
+  <td>Le tisonnage sans intention</td>
+  <td>le Rama, suivant le Darké Moché — il est utile (Taz ס״ק ד)</td>
+  <td>la glose imprimée à la fin de l’Issour véHetter — il faut viser (Chakh ס״ק י)</td>
+</tr>
+<tr>
+  <td>Qui a retiré la marmite du feu (seif 8)</td>
+  <td>le Chakh et le Taz — même si c’est le non-Juif qui a retiré, c’est interdit</td>
+  <td>le Bayit Hadach — si c’est le non-Juif qui a retiré et remis, permis (rapporté par le Chakh ס״ק י״ב, qui n’y voit pas de portée pratique, et écarté par le seul Taz ס״ק ט)</td>
+</tr>
+<tr>
+  <td>Le Juif achève après le maakhal ben Droussaï</td>
+  <td>le Mehaber — interdire, sauf veille de Chabbat, veille de Yom Tov ou perte importante</td>
+  <td>le Rama — permis en tout état de cause ; et le Chelah, rapporté par le Pit’hé Techouva ס״ק ד, tient pour la rigueur du Maharchal</td>
+</tr>
+<tr>
+  <td>Le malade le Chabbat, après le Chabbat</td>
+  <td>le Ra’ah, suivi par le Rama — permis même pour un bien portant</td>
+  <td>le Rachba dans Michmeret HaBayit — cela revient à son interdit ; et le Taz écrit que ses paroles sont justes</td>
+</tr>
+</table>
+
+<h3>Tableau — les sources de la sougya</h3>
+
+<div class="rishon-card">
+<strong>Guemara :</strong> עבודה זרה ל״ז:–ל״ח. — les deux conditions, la table des rois, le maakhal ben Droussaï · עבודה זרה ל״ח. — le tisonnage des braises, le chauffage du four, les sauterelles · עבודה זרה ל״ח: — le salé n’est pas comme le bouillant, le mariné n’est pas comme le cuit
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>ראשונים :</strong> רש״י · רי״ף · רמב״ם (מאכלות אסורות פי״ז) · רשב״א (תורת הבית · משמרת הבית · סימן ס״ח) · הראׄה (בדק הבית) · ר״ן (על הרי״ף ע״ז) · רא״ש · טור · איסור והיתר הארוך
+<div class="rishon-card">
+<strong>Richonim :</strong> רש״י · רי״ף · רמב״ם (מאכלות אסורות פי״ז) · ראב״ן · רמב״ן (תשובה, הובאה בב״י) · רשב״א (תורת הבית · משמרת הבית · תשובה סימן ס״ח) · הרא״ה (בדק הבית) · ר״ן (על הרי״ף, פרק אין מעמידין) · רא״ש · טור · איסור והיתר הארוך · סמ״ק עם הגהות ה״ר פרץ · מרדכי
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>אחרונים :</strong> בית יוסף · רמ״א · ש״ך · ט״ז · ב״ח · מהרש״ל (ים של שלמה) · פרי חדש · פרי מגדים · של״ה · תפארת למשה · פתחי תשובה · חכמת אדם · חיי אדם
+<div class="rishon-card">
+<strong>Aharonim :</strong> בית יוסף · דרכי משה · תורת חטאת · רמ״א · ש״ך · ט״ז · ב״ח · מהרש״ל · באר היטב · פתחי תשובה · תפארת למשה · של״ה · חכמת אדם · חיי אדם · רדב״ז (תשובות החדשות)
 </div>
 
 <hr class="ornament">
 
-  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;direction:rtl;">
-    <a href="niveau-1-base.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">→ רמה א' — יסוד</a>
-    <a href="niveau-3-synthese.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">רמה ג' — סיכום ←</a>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;">
+    <a href="niveau-1-base.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">← Niveau 1 — Base</a>
+    <a href="niveau-3-synthese.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">Niveau 3 — Synthèse →</a>
   </div>
 
 <div class="yh-watermark">
 ~ ~ ~ ~ ~<br>
 <strong>DAAT</strong> · <strong>הרב יוסף חיים סממה</strong><br>
 תלמיד חכם · מעביר שיעורים בהלכה ובחסידות<br>
-<em>פלפול ועיון בדין בישולי עכו״ם · סימן קי״ג · ⚡ רמה ב' — לַמְדָּן</em>
+<em>סימן קי״ג · Niveau 2 — Lamdan · דין בישולי עכו״ם</em><br>
+<em>daattorah.com</em>
 </div>
 
-  <div class="disclaimer" style="background:#fff8e1;border-right:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;direction:rtl;text-align:right;">
-    ⚠️ תוכן זה נכתב לצורך לימוד ועיון בלבד. לכל הוראה למעשה (לְמַעֲשֶׂה) — שאל את רבך.
+  <div class="disclaimer" style="background:#fff8e1;border-left:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;">
+    ⚠️ Ce contenu est écrit pour l’étude et l’examen seuls. Pour toute application pratique (לְמַעֲשֶׂה) — demande à ton rav.
   </div>
 
   <div style="background:#1A1F3A;border-top:2px solid #C5A55A;padding:24px 40px;text-align:center;margin-top:0;">
-    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;direction:rtl;">
-      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">לעמוד הבית</a> · <a href="index.html" style="color:#C5A55A;text-decoration:none;">סימן קי״ג</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ לתמיכה</a>
+    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;">
+      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">Retour à l’accueil</a> · <a href="index.html" style="color:#C5A55A;text-decoration:none;">סימן קי״ג</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ Soutenir</a>
     </p>
   </div>
 
@@ -943,7 +1132,7 @@
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="../../../assets/js/chat-widget.js" defer></script>
 <script src="../../../assets/js/daat-copy.js" defer></script>
-<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="מצא חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">הצטרף לחברותא</span></a>
+<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="Rejoindre la khavroutha de ce siman"><span class="icon">📖</span><span class="label-long">Rejoindre la khavroutha</span></a>
   <script src="/assets/js/share-text.js" defer></script>
 </body>
 </html>

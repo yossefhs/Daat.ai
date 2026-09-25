@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,8 +23,7 @@
   @page { size: A4; margin: 2cm 1.8cm; }
   body {
     font-family: 'Frank Ruhl Libre', 'David', 'Georgia', 'Cambria', serif;
-    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0;
-    direction: rtl; text-align: right;
+    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0; text-align: left;
   }
   .he {
     direction: rtl; text-align: right;
@@ -72,14 +71,12 @@
   h2.section-title {
     color: #fff; background: #1A1F3A;
     font-size: 16pt; padding: 10px 18px; margin-top: 30px;
-    border-right: 6px solid #C5A55A;
-    direction: rtl; text-align: right;
+    border-left: 6px solid #C5A55A; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3 {
     color: #1A1F3A; font-size: 14pt; margin-top: 25px;
-    border-right: 4px solid #C5A55A; padding-right: 10px;
-    direction: rtl; text-align: right;
+    border-left: 4px solid #C5A55A; padding-left: 10px; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3.he-h3 {
@@ -89,8 +86,7 @@
   }
   h4 {
     color: #5a4a1a; font-size: 12pt;
-    margin-top: 20px; margin-bottom: 8px; font-weight: bold;
-    direction: rtl; text-align: right;
+    margin-top: 20px; margin-bottom: 8px; font-weight: bold; text-align: left;
   }
 
   .sacred-text {
@@ -100,8 +96,8 @@
     font-size: 12.5pt; line-height: 1.9;
   }
   .pilpul-box {
-    background: #eef3fa; border-right: 4px solid #1A1F3A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #eef3fa; border-left: 4px solid #1A1F3A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .pilpul-box::before {
     content: "⚡ פלפול"; display: block;
@@ -110,8 +106,8 @@
     direction: rtl; text-align: right;
   }
   .kashya-box {
-    background: #fef4e4; border-right: 4px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #fef4e4; border-left: 4px solid #C5A55A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .kashya-box::before {
     content: "❓ קושיא"; display: block;
@@ -120,8 +116,8 @@
     direction: rtl; text-align: right;
   }
   .teruts-box {
-    background: #e8f4ea; border-right: 4px solid #2d7a3e;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #e8f4ea; border-left: 4px solid #2d7a3e;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .teruts-box::before {
     content: "✓ תירוץ"; display: block;
@@ -130,8 +126,8 @@
     direction: rtl; text-align: right;
   }
   .hakira-box {
-    background: #f5e9f5; border-right: 4px solid #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #f5e9f5; border-left: 4px solid #6a1b7a;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .hakira-box::before {
     content: "🔍 חקירה"; display: block;
@@ -141,8 +137,7 @@
   }
   .nafka-mina-box {
     background: #fff4e6; border: 2px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; border-radius: 4px; text-align: left;
   }
   .nafka-mina-box::before {
     content: "⚖️ נפקא מינה"; display: block;
@@ -152,8 +147,7 @@
   }
   .yesod-box {
     background: #1A1F3A; color: #fff;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
   .yesod-box::before {
     content: "💎 יסוד"; display: block;
@@ -164,7 +158,7 @@
   .yesod-box .he-q { color: #C5A55A; }
   .machloket-box {
     background: #faf5ff; border: 1.5px dashed #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
 
   table {
@@ -173,10 +167,9 @@
   }
   th {
     background: #1A1F3A; color: #fff;
-    padding: 10px; text-align: right; direction: rtl; font-size: 11pt;
+    padding: 10px; text-align: left; font-size: 11pt;
   }
-  td {
-    direction: rtl; text-align: right;
+  td { text-align: left;
     border: 1px solid #d4c89a; padding: 10px; vertical-align: top;
   }
   tr:nth-child(even) td { background: #FAF6EE; }
@@ -197,12 +190,11 @@
   }
 
   ol.stylish li, ul.stylish li { margin-bottom: 8px; }
-  ol.stylish, ul.stylish { padding-right: 22px; padding-left: 0; }
+  ol.stylish, ul.stylish { padding-left: 22px; padding-right: 0; }
 
   .rishon-card {
-    background: #f7f3e4; border-right: 4px solid #8a6a1a;
-    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt;
-    direction: rtl; text-align: right;
+    background: #f7f3e4; border-left: 4px solid #8a6a1a;
+    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt; text-align: left;
   }
   .rishon-card strong { color: #1A1F3A; font-size: 11pt; }
 
@@ -217,15 +209,14 @@
 
   .index-box {
     background: #FAF6EE; border: 1px solid #C5A55A;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
-  .index-box ol { margin: 5px 0; padding-right: 25px; padding-left: 0; }
+  .index-box ol { margin: 5px 0; padding-left: 25px; padding-right: 0; }
   .index-box li { margin-bottom: 5px; }
 
   h3.sugya {
     background: #1A1F3A; color: #fff;
-    padding: 8px 15px; border-left: none; border-right: 6px solid #C5A55A;
+    padding: 8px 15px; border-right: none; border-left: 6px solid #C5A55A;
   }
 
   /* ── חץ אל ההסבר המפורט (רמה 1) ── */
@@ -237,7 +228,6 @@
     font-size: 12pt;
     text-decoration: none;
     border-bottom: 1px dotted #C5A55A;
-    direction: rtl;
   }
   a.daat-explain:hover { color: #8a6a1a; border-bottom-style: solid; }
 
@@ -382,33 +372,33 @@
 <!-- COUVERTURE -->
 <div class="cover">
   <div class="ornament">✦ ❖ ✦</div>
-  <div class="badge-top">DAAT · רמה ב' — לַמְדָּן</div>
-  <h1>שולחן ערוך · יורה דעה</h1>
-  <div class="subtitle">דין איסור שנתערב בהיתר ואופן ביטולו — עיון ופלפול</div>
+  <div class="badge-top">DAAT · LEVEL 2 — LAMDAN</div>
+  <h1>Shulchan Arukh · Yoreh De‘ah</h1>
+  <div class="subtitle">A prohibited substance mixed into permitted food, and how it is nullified — iyun and pilpul</div>
 
   <div class="he-title">סימן צ״ח</div>
   <div class="he-sub">ביטול בששים, מין במינו ומין בשאינו מינו, ששים נגד הכל, ס״א לביצה ונ״ט לכחל</div>
   <div class="he-subject">עיון, פלפול, שיטות הראשונים והאחרונים</div>
 
-  <div class="level-badge">⚡ ללומדים ותלמידי חכמים ⚡</div>
+  <div class="level-badge">⚡ For students and talmidei chakhamim ⚡</div>
 
   <div class="ornament">✦ ❖ ✦</div>
 
-  <h2 style="margin-top:20px; color: #1A1F3A;">פלפול ועיון מעמיק</h2>
+  <h2 style="margin-top:20px; color: #1A1F3A;">Pilpul and in-depth study</h2>
   <p style="font-size:12pt; color:#555;">
-    סוגיות, מקורות, חקירת היסוד, מחלוקות ראשונים ואחרונים,<br>
-    נפקא מינות להלכה ועיון בשיטות
+    Sugyos, sources, the underlying chakira, the disputes of the Rishonim and Acharonim,<br>
+    the nafka minos for practice and the examination of the shitos
   </p>
 
   <div class="credits">
-    <p><strong>הנושא :</strong><br>
-    שולחן ערוך יורה דעה סימן צ״ח (ט' סעיפים)<br>
-    עם נושאי כלים: ש״ך (שפתי כהן), ט״ז (טורי זהב), פרי מגדים, פתחי תשובה</p>
+    <p><strong>The subject:</strong><br>
+    Shulchan Arukh Yoreh De‘ah, siman 98 (nine seifim)<br>
+    with its commentaries: Shakh (Siftei Kohen), Taz (Turei Zahav), Pri Megadim, Pischei Teshuva</p>
 
-    <p><strong>יסוד הסוגיא בש״ס :</strong><br>
-    חולין צ״ז:–צ״ח. (טעם כעיקר, קפילא, ביטול בששים) · ביצה ג:–ד. (ספק הבא ממיעוט הכרה, ביצה במנין) · חולין צ״ז:–צ״ט: (שיעורי הביטול, כחל, ירך)</p>
+    <p><strong>The foundation of the sugya in Shas:</strong><br>
+    Chullin 97b–98a (ta‘am ke-ikkar, the kefeila, nullification in sixty) · Beitza 3b–4a (the egg, davar she-beminyan) · Chullin 97b–99b (the measures of nullification, the ke‘hal, the thigh)</p>
 
-    <p><strong>עריכה ועיון :</strong><br>
+    <p><strong>Written and edited by:</strong><br>
     הרב יוסף חיים סממה · DAAT</p>
   </div>
 </div>
@@ -416,477 +406,720 @@
 <div class="page-break"></div>
 
 <!-- TABLE DES MATIÈRES -->
-<h2 class="section-title">📑 תוכן העניינים</h2>
+<h2 class="section-title">📑 Table of contents</h2>
 
-<div class="index-box" dir="rtl">
+<div class="index-box">
 <ol>
-  <li><strong>הקדמת הסוגיא</strong> — איסור שנתערב בהיתר, מין בשאינו מינו וטעימת הקפילא (סעיף א')</li>
-  <li><strong>יסוד הביטול</strong> — מין במינו ברוב מדאורייתא ומין בשאינו מינו טעם כעיקר (ט״ז ס״ק ג)</li>
-  <li><strong>קפילא · נ״ט לפגם · סופו להשביח</strong> — מדוע אין אנו סומכין, וטעימת ישראל (סעיף א')</li>
-  <li><strong>נשפך · שֵם ולא טַעַם · סלק את שאינו מינו</strong> (סעיף ב')</li>
-  <li><strong>ספק הבא ממיעוט הכרה</strong> — דעת שוטים, ואינו ספק דרבנן (סעיף ג')</li>
-  <li><strong>ששים נגד הכל</strong> — בליעת האור וכדי קליפת מליחה, וחובת ההסרה (סעיף ד')</li>
-  <li><strong>חתיכה נעשית נבילה דכלים</strong> — מדוע אין כלי נעשה נבילה, ישן/חדש/חרס (סעיף ה')</li>
-  <li><strong>שיעורי הביטול</strong> — חצי כזית, ס״א לביצה, נ״ט לכחל (סעיפים ו'–ח')</li>
-  <li><strong>דבר שאינו בטל ומצטרף לבטל</strong> — נותן טעם ואסור בעצמו, וצירוף (סעיפים ח'–ט')</li>
-  <li><strong>חקירה ונפקא מינה למעשה</strong></li>
-  <li><strong>טבלאות סיכום מקיפות</strong></li>
+  <li><strong>Introduction to the sugya</strong> — a prohibited substance mixed into permitted food, a different species, and the kefeila’s tasting (seif 1)</li>
+  <li><strong>The foundation of nullification</strong> — same species: majority by Torah law; different species: ta‘am ke-ikkar (Taz ס״ק ג)</li>
+  <li><strong>Kefeila · nosen ta‘am lifgam · destined to improve</strong> — why we no longer rely on it, and tasting by a Jew (seif 1)</li>
+  <li><strong>The mixture spilled · the name and not the taste · set aside what is not its species</strong> (seif 2)</li>
+  <li><strong>A doubt arising from deficient discernment</strong> — “the view of fools”, and it is not a rabbinic doubt (seif 3)</li>
+  <li><strong>Sixty against the whole</strong> — absorption by fire and the thickness of a peel in salting, and the duty to remove (seif 4)</li>
+  <li><strong>“The piece becomes neveila” and vessels</strong> — why a vessel does not become neveila; old/new, earthenware (seif 5)</li>
+  <li><strong>The measures of nullification</strong> — half a kezayis, sixty-one for the egg, fifty-nine for the ke‘hal (seifim 6–8)</li>
+  <li><strong>What is never nullified, and what joins to nullify</strong> — giving taste while forbidden in itself, and joining (seifim 8–9)</li>
+  <li><strong>Chakira and nafka mina for practice</strong></li>
+  <li><strong>Summary tables</strong></li>
 </ol>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<!-- לשון השולחן ערוך — סעיף א' -->
-<h2 class="section-title">📜 לשון השולחן ערוך — סעיף א'
-  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 העתק</button>
+<h2 class="section-title">📜 The text of the Shulchan Arukh — seif 1
+  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 Copy</button>
 </h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
-
+<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ Detailed explanation (level 1)</a>
 <div class="sacred-text he" data-copy-block id="cp-1">
-  <p>אִסּוּר שֶׁנִּתְעָרֵב בְּהֶתֵּר מִין בְּשֶׁאֵינוֹ מִינוֹ, כְּגוֹן חֵלֶב שֶׁנִּתְעָרֵב בְּבָשָׂר — יִטְעֲמֶנּוּ עוֹבֵד כּוֹכָבִים; אִם אוֹמֵר שֶׁאֵין בּוֹ טַעַם, אוֹ שֶׁיֵּשׁ בּוֹ טַעַם אֶלָּא שֶׁהוּא פָּגוּם, מֻתָּר — וְהוּא שֶׁלֹּא יְהֵא הָאִסּוּר עָתִיד לְהַשְׁבִּיחַ אַחַר כָּךְ, וְשֶׁלֹּא יֵדַע הָעוֹבֵד כּוֹכָבִים שֶׁאָנוּ סוֹמְכִין עָלָיו. וְאִם אֵין שָׁם עוֹבֵד כּוֹכָבִים לְטָעֳמוֹ — מְשַׁעֲרִים בְּשִׁשִּׁים. וְכֵן אִם נִתְעָרֵב מִין בְּמִינוֹ — מִתּוֹךְ שֶׁאֵין שָׁם לַעֲמֹד עַל הַטַּעַם, מְשַׁעֲרִים בְּשִׁשִּׁים. (הגה: וְהָאִידְנָא אֵין אָנוּ נוֹהֲגִין לִסְמוֹךְ עַל טְעִימַת הָעוֹבֵד כּוֹכָבִים, וּמְשַׁעֲרִינַן בְּשִׁשִּׁים בְּכָל מָקוֹם.)</p>
+<p>«&nbsp;<span class="he-q"><b>דין איסור שנתערב בהיתר ואופן ביטולו. ובו ט׳ סעיפים:</b><br> איסור שנתערב בהיתר מין בשאינו מינו כגון חלב שנתערב בבשר יטעמנו עובד כוכבים אם אומר שאין בו טעם חלב או שאומר שיש בו טעם אלא שהוא פגום מותר והוא שלא יהא סופו להשביח וצריך שלא ידע שסומכין עליו ואם אין שם עובד כוכבים לטועמו משערינן בס׳ וכן אם הוא מין במינו כיון דליכא למיקם אטעמא משערים בס׳ <small>(ואין נוהגים עכשיו לסמוך אעובד כוכבים ומשערינן הכל בס׳) (באגור ותשובת מהר״מ פדואה סימן ע״ט ושאר אחרונים):</small></span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ח:1)</span></p>
 </div>
+<p><em>Translation.</em> Heading: “The law of a prohibited substance mixed into permitted food and the manner of its nullification. And it contains nine seifim.” — A prohibited substance mixed into permitted food, of a different species — for example cheilev (the forbidden fat) mixed into meat: let a non-Jew taste it. If he says there is no taste of cheilev in it, or if he says there is a taste but that it is spoiled — it is permitted. And this, provided that the prohibited substance is not destined to improve afterwards, and he must not know that we are relying on him. And if there is no non-Jew there to taste it — we estimate in sixty. Likewise if it is its own species: since there is no way of settling the matter by taste, we estimate in sixty. <em>Rama’s gloss:</em> and nowadays we do not have the practice of relying on a non-Jew, and we estimate everything in sixty.</p>
 
 <!-- ============================================================= -->
-<h2 class="section-title">1. הקדמת הסוגיא — איסור שנתערב בהיתר</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">1. Introduction to the sugya — a prohibition that fell into permitted food</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">היסוד — שתי דרכי הבירור: טעימה ושיעור
-  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 העתק</button>
+<h3>The foundation — the two ways of clarifying: tasting and measuring
+  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 Copy</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-2">
-יסוד הסימן — וכל הלכות תערובות תלויות בו: אִסּוּר שנפל לתוך היתר. מאחר שאיסור הנבלע תלוי ב<strong>טעם</strong>, יש לבירורו שתי דרכים. ב<strong>מין בשאינו מינו</strong> — כחֵלֶב (שומן אסור) שנתערב בבשר, ששני הטעמים נכרים זה מזה — אפשר לעמוד על הטעם, ולכך <span class="he-q">טועם העובד כוכבים</span> (קפילא): אם אין טעם איסור, או שיש אלא שהוא <span class="he-q">פגום</span> — מותר. אבל ב<strong>מין במינו</strong> — שאין שני הטעמים נכרים זה מזה — <span class="he-q">ליכא למיקם אטעמא</span>, אין אפשרות לטעום, ולכך <strong>משערים בששים</strong> מיד. וכשאין נכרי לטעום — אף בשאינו מינו משערים בס'.
+<div class="sacred-text" data-copy-block id="cp-2">
+<p>This is the foundation of the siman, and all the laws of mixtures depend on it: a prohibited substance that fell
+into permitted food. Since what the prohibition imparts depends on its <strong>taste</strong>, there are two ways of
+establishing it. In a <strong>species different from its own</strong> — such as cheilev that fell into meat, where
+the two tastes are distinguishable from one another — one can settle the matter by taste, and therefore the Shulchan
+Arukh writes that the non-Jew tastes it: if there is no taste of the prohibition, or there is one but it is spoiled,
+it is permitted. But in <strong>its own species</strong> — where the two tastes are not distinguishable — there is no
+way of settling the matter by taste, and one <strong>estimates in sixty</strong> at once. And when there is no
+non-Jew to taste, even in a different species one estimates in sixty.</p>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>חֵלֶב הוא תַּרְבָּא ולא בשר — הש״ך (ס״ק א) :</strong> מדקדק הש״ך מדוע נקט המחבר "חֵלֶב שנתערב בבשר" דווקא כדוגמת <span class="he-q">מין בשאינו מינו</span>: לפי שטעם ה<strong>חֵלֶב</strong> (תרבא, השומן האסור) חלוק מטעם ה<strong>בשר</strong> (הכשר), ועל כן נכרים זה מזה והוו שני מינים. ולא כדעת הראב״ן שטעם השומן כטעם הבשר ויהיה מין במינו — אלא קיימא לן דחֵלֶב ובשר שני מינים הם, ויש לעמוד על טעמם בקפילא.
-</div>
+<blockquote>«&nbsp;<span class="he-q">יטעמנו עובד כוכבים אם אומר שאין בו טעם חלב</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ח:1)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">או שאומר שיש בו טעם אלא שהוא פגום מותר</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ח:1)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">כיון דליכא למיקם אטעמא משערים בס׳</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ח:1)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>הכרעת הרמ״א (הגה) :</strong> "<span class="he-q">והאידנא אין אנו נוהגין לסמוך על טעימת העובד כוכבים, ומשערינן בששים בכל מקום</span>". למעשה בטל היתר הקפילא בזמננו, והכל — בין מין במינו בין מין בשאינו מינו — נדון ב<strong>שיעור ששים</strong> בלבד. וזהו השינוי המכריע בין פשט המחבר (המבחין בין שתי דרכי הבירור) לבין ההוראה לדורנו, שמשערת הכל במידת הששים.
+<div class="pilpul-box">
+<strong>Cheilev is <em>tarba</em> and not meat — the Shakh (ס״ק א).</strong> The Shakh asks why the Mechaber takes
+precisely “cheilev mixed into meat” as his example of a <em>different species</em>: it is because the word is to be
+read <em>cheilev</em> with a tzeire, that is the <em>tarba</em>, the forbidden fat, whose taste is not that of meat.
+The two are therefore distinguishable and are two species. The Shakh adds that the Ra’avan wrote in a responsum that
+the taste of cheilev and the taste of meat are the same — and he concludes that this must be speaking of fatty meat.
 </div>
+<blockquote>«&nbsp;<span class="he-q">דעת הט״ו דטעם חלב ובשר אינו שוה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ח ס״ק א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל ראב״ן כ׳ בתשובה בסי׳ ב׳ ובסוף עבודת כוכבים דחלב ובשר טעמם שוה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ח ס״ק א)</span></blockquote>
+
+<div class="rishon-card">
+<strong>The Rama’s ruling (gloss).</strong> In practice the heter of the kefeila has lapsed in our day, and
+everything — both in its own species and in a different species — is judged by the single <strong>measure of
+sixty</strong>. This is the decisive difference between the plain sense of the Mechaber, who distinguishes two ways
+of clarifying, and the instruction given for our generation, which measures everything by sixty.
+</div>
+<blockquote>«&nbsp;<span class="he-q">ואין נוהגים עכשיו לסמוך אעובד כוכבים ומשערינן הכל בס׳</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ח:1)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">2. יסוד הביטול — מין במינו ומין בשאינו מינו</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">2. The foundation of nullification — its own species and a different species</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זהו לב הסימן וחקירת היסוד שבכל תורת התערובות, וכל כובד ידו של הט״ז (ס״ק ג) נתון בו.</p>
+<p style="margin:15px 0; font-style:italic;">This is the heart of the siman and the underlying chakira of the whole doctrine of mixtures, and it is here that the Taz (ס״ק ג) puts all his weight.</p>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — מה שורש הששים, ולמה מין במינו ומין בשאינו מינו חלוקים :</strong> מדוע במין במינו אומר המחבר "מתוך שאין שם לעמוד על הטעם — משערים בששים", ואילו בשאינו מינו עיקר הבירור בטעימה, ורק <em>בהעדר</em> נכרי משערים בס' ? וכי שני שיעורי ששים שונים הם ? אדרבה — נראה שיסודם הפוך לגמרי.
+<div class="hakira-box">
+<strong>The chakira — what is the root of the sixty, and why do its own species and a different species part ways?</strong>
+Why, regarding its own species, does the Mechaber write that we estimate in sixty <em>because</em> there is no way of
+settling the matter by taste, whereas in a different species the clarification is primarily by tasting, and we
+estimate in sixty only <em>in the absence</em> of a non-Jew? Are these two distinct measures of sixty? It appears, on
+the contrary, that their foundations are exactly opposite.
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>יסוד הט״ז (ס״ק ג) — שני שורשים הפוכים :</strong><br>
-מבאר הט״ז את החילוק הגדול:<br><br>
-• <strong>מין במינו</strong> — מן התורה <span class="he-q">בטל ברוב</span> (אַחֲרֵי רַבִּים לְהַטֹּת), שאין בו טעם נכר לאוסרו; ורבנן הוא דהחמירו לשערו ב<strong>ששים</strong> דרבנן. ולפיכך, כשבא ל<em>ספק</em> (כגון נשפך) — <span class="he-q">ספיקא דרבנן לקולא</span>.<br>
-• <strong>מין בשאינו מינו</strong> — <span class="he-q">טעם כעיקר מדאורייתא</span>, וצריך ששים <strong>מן התורה</strong> לבטל טעמו; ולפיכך כשבא לספק — <span class="he-q">ספיקא דאורייתא לחומרא</span>.
+<div class="yesod-box">
+<strong>The Taz’s foundation (ס״ק ג) — two opposite roots.</strong><br>
+The Taz explains the great distinction:<br><br>
+• <strong>Its own species</strong> — by Torah law the prohibition is nullified by mere majority, as the verse says
+“אחרי רבים להטות”, for there is no perceptible taste to forbid it; it is the Sages who required
+<strong>sixty</strong> here. Therefore, when a <em>doubt</em> arises (such as the mixture having spilled), we stand
+before a rabbinic doubt and rule leniently.<br>
+• <strong>A different species</strong> — taste is as the substance itself, by Torah law, and sixty are required
+<strong>by Torah law</strong> to nullify that taste; therefore, when a doubt arises, we rule stringently.
 </div>
+<blockquote>«&nbsp;<span class="he-q">מין שנתערב במינו מן התורה בטל ברוב בעלמא שנאמר אחרי רבים להטות אלא דרבנן אצרכו בה ששים</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ח ס״ק ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל במין באינו מינו צריך ששים מן התורה כיון שמרגישין בהיתר טעם האיסור ע״כ במקום ספק אזלינן לחומרא</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ח ס״ק ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">וספיקא דאורייתא לחומרא</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ח ס״ק ה)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>טעם כעיקר — מקורו (פתחי תשובה ס״ק ה) :</strong> מקור דין <span class="he-q">טעם כעיקר מדאורייתא</span> — מ"<strong>מִשְׁרַת</strong> ענבים" (נזיר) דאסרה תורה הטעם, או מ"<strong>גיעולי עכו״ם</strong>" (כל דבר אשר יבא באש). ומביא הפתחי תשובה (בשם הנודע ביהודה) דעת המצדדים דטעם כעיקר דאורייתא <em>דווקא בלאוין שיש בהם מלקות</em> (כחֵלֶב), אבל בשאר איסורין אינו אלא מדרבנן. ונפקא מינה גדולה לדינא בעצם הספק לקולא או לחומרא.
+<div class="rishon-card">
+<strong>Ta‘am ke-ikkar — its source, and how far it reaches (Pischei Teshuva ס״ק ה).</strong> The Pischei Teshuva
+recalls that the rule that taste is as the substance is derived from the <strong>מִשְׁרַת of grapes</strong> (Nazir),
+where the Torah forbade the taste, or from the <strong>vessels of the nations</strong> that must be purged by fire.
+And he brings, in the name of the Noda BiYehuda, the view of those who hold that taste is as the substance by Torah
+law only <em>in prohibitions that carry lashes</em> — such as cheilev — but not in a prohibition whose transgression
+carries no lashes. The nafka mina is considerable for the doubt itself: leniency or stringency.
 </div>
+<blockquote>«&nbsp;<span class="he-q">דהא דטעם כעיקר דאורייתא ילפינן ממשרת או מגיעולי עובדי כוכבים</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד צ״ח ס״ק ה)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דוקא באיסורים דכוותייהו שהם לאווין שיש בהם מלקות אבל לא בלאו שאין בו מלקות</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד צ״ח ס״ק ה)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שורש הנפקא מינה :</strong> מאחר שמין במינו ביטולו ברוב מדאורייתא (וששים דרבנן בלבד), הרי שכל ספק הבא בו — לקולא; ואילו מין בשאינו מינו, שטעמו אוסר מדאורייתא וששים דאורייתא — ספיקו לחומרא. ועל יסוד זה תיבנה כל הסוגיא: סעיף ב' (נשפך) הולך בעקבותיו ממש — מין במינו נשפך → אם רובו היתר מותר (לקולא), ומין בשאינו מינו נשפך → אסור אף ברובו היתר (לחומרא).
+<div class="pilpul-box">
+<strong>The root of the nafka mina.</strong> The Shakh states the same structure as the Taz and draws the consequence
+in the same terms: since, in its own species, nullification is by majority from the Torah and the sixty are only
+rabbinic, every doubt that arises there is ruled leniently; whereas in a different species, where the taste forbids
+by Torah law and the sixty are by Torah law, the doubt is ruled stringently. The whole sugya is built on this
+foundation: seif 2 (the spilled mixture) is its immediate application — same species spilled → if the permitted
+part was the majority, it is permitted; different species spilled → forbidden even if the permitted part was the
+majority.
 </div>
+<blockquote>«&nbsp;<span class="he-q">דק״ל טעם כעיקר אסור מדאורייתא במין בשאינו מינו</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ח ס״ק ו)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ה״ל ספיקא דרבנן ולקולא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ח ס״ק ו)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">3. קפילא · נותן טעם לפגם · סופו להשביח</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">3. The kefeila · nosen ta‘am lifgam · destined to improve</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">ביאור היתר הקפילא ותנאיו (סעיף א')
-  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 העתק</button>
+<h3>The heter of the kefeila and its conditions (seif 1)
+  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 Copy</button>
 </h3>
 
-<div class="sacred-text he" data-copy-block id="cp-3">
-היתר הטעימה בשאינו מינו תלוי בשלושה תנאים שבמחבר: (א) שהנכרי יאמר <strong>אין בו טעם</strong>, או שיש טעם <strong>פגום</strong> — ש<span class="he-q">נותן טעם לפגם</span> אינו אוסר; (ב) <span class="he-q">שלא יהא האיסור עתיד להשביח</span> — שאם <strong>סופו להשביח</strong>, הרי עתה הוא פגום ולמחר ישביח ויאסור, ואין סומכין על פגימה שאינה עומדת; (ג) <span class="he-q">שלא ידע הנכרי שאנו סומכין עליו</span> — שמא ישקר. בהצטרף שלושתם — נאמן הקפילא להתיר אף בפחות מששים, שהבירור בטעם ולא במדידה.
+<div class="sacred-text" data-copy-block id="cp-3">
+<p>The heter of relying on tasting, in a different species, rests on three conditions laid down by the Mechaber:
+<strong>(a)</strong> that the non-Jew say there is no taste, or that there is a taste but a <strong>spoiled</strong>
+one — for what gives taste to the detriment does not forbid; <strong>(b)</strong> that the prohibition not be
+<strong>destined to improve</strong> — for if it will improve, it is spoiled now and will improve tomorrow and then
+forbid, and one does not rely on a spoiling that does not hold; <strong>(c)</strong> that he not know that we are
+relying on him — lest he lie. With all three together, the kefeila is believed to permit even with less than sixty:
+the clarification here is by taste and not by measure.</p>
 </div>
+<blockquote>«&nbsp;<span class="he-q">והוא שלא יהא סופו להשביח</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ח:1)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">וצריך שלא ידע שסומכין עליו</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ח:1)</span></blockquote>
 
-<div class="hakira-box" dir="rtl">
-<strong>חקירה — האם ישראל נאמן לטעום ? (פתחי תשובה ס״ק ג) :</strong> כל ההיתר אמור בנכרי קפילא; ודנו האחרונים אם <strong>ישראל</strong> מומחה נאמן לטעום בעצמו. מביא הפתחי תשובה דעת ה<span class="he-q">בכור שור</span> ו<span class="he-q">הפרי מגדים</span> בנידון — אם נטילת טעם ישראל כקפילא, או שמא חיישינן שאינו בקי כאומן ולא ירגיש. ולמעשה — מאחר שבטל מנהג הקפילא, נדחה כל הספק, ובעינן ששים בכל מקום.
+<div class="hakira-box">
+<strong>Chakira — is a Jew believed to taste? (Pischei Teshuva ס״ק ג).</strong> The entire heter is stated regarding
+a non-Jewish kefeila; the Acharonim discussed the case of an expert <strong>Jew</strong> tasting it himself. The
+Pischei Teshuva brings the Bechor Shor, who hesitates and holds that there is no room for leniency, and the Pri
+Megadim, who distinguishes: for a mere lick on the tongue only an expert knows, whereas for tasting a dish everyone
+knows, and a Jew is believed. The question does not close here: the Shakh (ס״ק ה) reads the Rama’s gloss as
+excluding only the <em>non-Jew</em>, and maintains that we do rely on a Jew’s tasting.
+<em>And in practice — ask your Rav.</em>
 </div>
+<blockquote>«&nbsp;<span class="he-q">שמפקפק בזה ודעתו שאין להקל</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד צ״ח ס״ק ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל אטעימת ישראל סמכינן במין בשאינו מינו דהתירא</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ח ס״ק ה)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>מדוע בטל הקפילא בזמננו (רמ״א) :</strong> כתבו הראשונים והאחרונים טעם לביטול ההיתר — לפי שאין אנו בקיאין בטעמים, ואין נכרי אומן מצוי שיהא נאמן, ועוד שמא יטעה או ישקר; ועל כן הנהיגו <span class="he-q">ששים בכל מקום</span>, ולא לסמוך על הטעימה כלל. וכן הכרעת הרמ״א בכל מקום בהלכות תערובות (ועיין סימן צ״ב).
+<div class="rishon-card">
+<strong>Why the kefeila lapsed in our day (Rama).</strong> The Rishonim and Acharonim gave the reason for the
+disappearance of this heter: we are no longer expert in tastes, no professional non-Jew is to be found whom one
+could trust, and there is concern that he err or lie. It was therefore established to measure everywhere in sixty
+and no longer to rely at all on a non-Jew’s tasting. Such is the Rama’s ruling throughout the laws of mixtures
+(and see siman 92).
 </div>
+<blockquote>«&nbsp;<span class="he-q">ואין נוהגים עכשיו לסמוך אעובד כוכבים ומשערינן הכל בס׳</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ח:1)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">4. נשפך · שֵם ולא טַעַם · סלק את שאינו מינו</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">4. The mixture spilled · the name and not the taste · setting aside what is not its species</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיף ב')
-  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 העתק</button>
+<h3>The Mechaber’s text (seif 2)
+  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 Copy</button>
 </h3>
-
 <div class="sacred-text he" data-copy-block id="cp-4">
-"<strong>נתערב מין במינו ונשפך, באופן שאי אפשר לעמוד על שיעורו: אם ידוע שהיה ההיתר רוב — מותר; ואם לאו — אסור.</strong> (הגה: ומין במינו אזלינן בתר השם — אם שֵם אחד להם, מין במינו הוא; ולא אזלינן בתר הטעם.) <strong>אבל מין בשאינו מינו שנשפך — אף על פי שידוע שהיה ההיתר רוב, אסור</strong> (שהרי הטעם נרגש ואוסר מן התורה). <strong>ואם נתערב במינו ובשאינו מינו ונשפך, ויודע שמינו של ההיתר היה רוב — מסלק את שאינו מינו כאילו אינו, ומינו רבה עליו ומבטלו.</strong>"
+<p>«&nbsp;<span class="he-q">אם נתערב מין במינו ונשפך בענין שאין יכולין לעמוד עליו לשערו אם נודע שהיה רובו היתר מותר ואם לא נודע שהיה רובו היתר אסור: <small>הגה ולענין מין במינו אזלינן בתר שמא אם הוא שוה הוי מין במינו אבל לא אזלינן בתר טעמא אם הוא שוה או לא (ב״י בשם האגור וכן הוא בהגהת ש״ד סי׳ ל״ט):</small> אבל אם נתערב בשאינו מינו ונשפך בענין שאין יכולין לעמוד עליו לשערו אפי׳ נודע שהיה רובו היתר אסור ואם נתערב במינו ובשאינו מינו ונשפך בענין שאין יכולין לעמוד עליו לשערו ונודע שהיה רובו היתר ממינו רואין את שאינו מינו כאילו אינו והשאר מינו רבה עליו ומבטלו:</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ח:2)</span></p>
+</div>
+<p><em>Translation.</em> If the prohibition became mixed with its own species and the mixture spilled, so that one can no longer settle upon it to estimate it: if it is known that the majority was permitted — it is permitted; and if it is not known that the majority was permitted — it is forbidden. <em>Rama’s gloss:</em> and as to what counts as “its own species”, we follow the <strong>name</strong>: if it is the same, it is its own species; but we do not follow the taste, whether it is the same or not. — But if it became mixed with a different species and the mixture spilled so that one can no longer settle upon it to estimate it, even if it is known that the majority was permitted, it is forbidden. And if it became mixed with its own species and with a different species and the mixture spilled so that one can no longer settle upon it to estimate it, and it is known that the majority of its own species was permitted — we regard what is not its own species as though it were not there, and the remainder, which is its own species, prevails over it and nullifies it.</p>
+
+<div class="yesod-box">
+<strong>The foundation — the spilled mixture is the nafka mina of seif 2.</strong><br>
+“Spilled” is nothing other than the doubt: it is no longer possible to measure. And according to the Taz’s
+foundation recalled above:<br><br>
+• <strong>Its own species, spilled</strong> → its nullification is by Torah law through majority, the sixty being
+only rabbinic; the doubt is ruled <strong>leniently</strong> → if the permitted part was the majority, it is permitted.<br>
+• <strong>A different species, spilled</strong> → its taste forbids by Torah law; the doubt is ruled
+<strong>stringently</strong> → even if the permitted part was the majority, it is forbidden.<br><br>
+The whole of seif 2 is therefore the direct application of the underlying chakira set out at Taz ס״ק ג.
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — נשפך הוא הנפקא מינה של סעיף ב' :</strong><br>
-"נשפך" אינו אלא הספק — שאי אפשר עוד למדוד. ולפי יסוד הט״ז דלעיל:<br><br>
-• <strong>מין במינו נשפך</strong> → ביטולו מדאורייתא ברוב, וששים דרבנן; הספק <span class="he-q">לקולא</span> → ברובו היתר — מותר.<br>
-• <strong>מין בשאינו מינו נשפך</strong> → טעמו אוסר מדאורייתא; הספק <span class="he-q">לחומרא</span> → אף ברובו היתר — אסור.<br><br>
-הרי שכל סעיף ב' אינו אלא יישום ישיר של חקירת היסוד שבט״ז ס״ק ג.
-</div>
-
-<div class="machloket-box" dir="rtl">
-<strong>שֵם ולא טַעַם — מהו מין במינו (רמ״א, פתחי תשובה ס״ק ד) :</strong>
+<div class="machloket-box">
+<strong>The name and not the taste — what is “its own species”? (Rama, Pischei Teshuva ס״ק ד)</strong>
 <table>
-<tr><th>הגדרה</th><th>הדוגמה והנפקא מינה</th><th>מקור</th></tr>
+<tr><th>The definition</th><th>The example and the nafka mina</th><th>The source</th></tr>
 <tr>
-  <td><strong>הולכים אחר השֵם</strong></td>
-  <td>אם שֵם אחד לשניהם — מין במינו, אף שטעמיהם חלוקים</td>
+  <td><strong>We follow the name</strong></td>
+  <td>If both bear the same name — it is its own species, though their tastes differ</td>
   <td>רמ״א ס״ב</td>
 </tr>
 <tr>
-  <td><strong>בשר עוף ובשר בהמה</strong></td>
-  <td>שניהם "בשר" — מין במינו (ולא אזלינן בתר הטעם החלוק)</td>
-  <td>פ״ת ס״ק ד; תבת גמא</td>
+  <td><strong>Poultry meat and animal meat</strong></td>
+  <td>Both are “meat” — its own species (and we do not follow the taste, which differs)</td>
+  <td>פ״ת ס״ק ד ; תיבת גמא</td>
 </tr>
 <tr>
-  <td><strong>דם וחלב</strong></td>
-  <td>שמות חלוקים — מין בשאינו מינו, אף שלובן זה כלובן זה</td>
+  <td><strong>Blood and cheilev</strong></td>
+  <td>Distinct names — a different species; and the Pri Megadim, in his Teivas Gomeh, holds that their tastes are
+      not the same either</td>
   <td>פ״ת ס״ק ד</td>
 </tr>
 </table>
 </div>
+<blockquote>«&nbsp;<span class="he-q">ולענין מין במינו אזלינן בתר שמא אם הוא שוה הוי מין במינו אבל לא אזלינן בתר טעמא</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ח:2)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דדם וחלב אין טעמם שוה</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד צ״ח ס״ק ד)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>סלק את שאינו מינו — מנגנון הרשב״א (ט״ז ס״ק ה) :</strong> כשנתערב גם במינו וגם בשאינו מינו ונשפך — מנגנון הרשב״א (בתורת הבית): <span class="he-q">מסלק את שאינו מינו כאילו אינו</span>, ומה שנשאר — מינו של ההיתר — רבה עליו ומבטלו. והט״ז (ס״ק ה) מעמיד היטב: שאינו מינו אינו מסייע לאסור (שאין בו טעם איסור נגדו), על כן מסלקים אותו ומשערים ברוב המין בלבד. וזהו ה<strong>היפוך</strong> של "סלק את מינו" הרגיל — שכאן מסלקים את ה<em>שאינו</em> מינו לקולא.
+<div class="pilpul-box">
+<strong>Setting aside what is not its species — the Rashba’s mechanism (Taz ס״ק ה).</strong> When the prohibition
+became mixed both with its own species and with a different species and the whole spilled, the Rashba (in Toras
+HaBayis) teaches to set aside what is not its own species as though it were not there: what remains — its own
+species, permitted food — prevails over it and nullifies it. The Taz defends this mechanism at length: since, by
+Torah law, its own species is nullified by majority, the prohibition may be treated as non-existent, ; what then subsisted was only a <em>rabbinic</em> prohibition — for rabbinically a majority does not suffice, sixty are required (<span class="he-q">כי מדרבנן לא סגי ברוב</span>) — and it is that remainder which the spilled mixture allows us to treat leniently. This is the <strong>reverse</strong> of the usual “set aside its own species” of the
+gemara: here one sets aside what is <em>not</em> its species, and in the direction of leniency. But the Shakh
+(ס״ק ח) contests the comparison and leaves the prohibition standing on what is not its species; the Pischei Teshuva
+(ס״ק ז) sums up the two positions and brings the Chasam Sofer, who does not see room for leniency against the Shakh.
+<em>And in practice — ask your Rav.</em>
 </div>
+<blockquote>«&nbsp;<span class="he-q">אם נתערב במינו ואינו מינו סלק את שאינו מינו כאלו אינו ומינו רבה עליו ומבטלו</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ח ס״ק ה)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל הכא איך נאמר רואין את שאינו מינו כאלו אינו סוף סוף השתא נ״ט בשאינו מינו</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ח ס״ק ח)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דהש״ך אוסר את שאינו מינו והט״ז מתיר</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד צ״ח ס״ק ז)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">5. ספק הבא ממיעוט הכרה — לפנינו ואינו ספק דרבנן</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">5. A doubt arising from deficient discernment — it is before us, and it is not a rabbinic doubt</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ Detailed explanation (level 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זהו אחד מן החידושים החריפים שבסימן, ויסודו בסוגיית הגמרא דביצה (ג:–ד.).</p>
+<p style="margin:15px 0; font-style:italic;">This is one of the sharpest novelties of the siman, and it turns entirely on the reading the Taz and the Shakh give to the clause by which the Mechaber sets this case apart from the previous one.</p>
 
-<h3 class="he-h3">לשון המחבר (סעיף ג')
-  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 העתק</button>
+<h3>The Mechaber’s text (seif 3)
+  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 Copy</button>
 </h3>
-
 <div class="sacred-text he" data-copy-block id="cp-5">
-"<strong>במה דברים אמורים — בשנשפך; אבל איסור שנתערב בהיתר והוא לפנינו, אלא שאי אפשר לעמוד על שיעורו לדעת אם יש ששים — אסור, אפילו הוא דבר שאיסורו מדרבנן.</strong>"
+<p>«&nbsp;<span class="he-q">במה דברים אמורים בשנשפך אבל איסור שנתערב בהיתר והוא לפנינו ואי אפשר לעמוד על שיעורו אף על פי שהוא מאיסורים של דבריהם אסור:</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ח:3)</span></p>
+</div>
+<p><em>Translation.</em> In what case was this said? Where the mixture spilled. But a prohibition mixed into permitted food that is <strong>before us</strong>, and whose measure it is impossible to establish — even though it belongs to the prohibitions that are of their words, it is forbidden.</p>
+
+<div class="hakira-box">
+<strong>The chakira — why do we not say here that a rabbinic doubt is ruled leniently?</strong> Granted for the
+spilled mixture, which has gone from the world: it is judged as a doubt. But here the <strong>prohibition is before
+us</strong>, and it is only that we do not know how to measure it! Why not be lenient on account of doubt — all the
+more so in a rabbinic prohibition? Yet it seems to be a full doubt: are there sixty, or not?
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — מדוע לא נאמר כאן ספיקא דרבנן לקולא :</strong> בשלמא בנשפך, שאזל לעולמו — נדון כספק; אבל כאן ה<strong>איסור לפנינו</strong>, רק שאיננו יודעים לשערו ! מדוע לא נקל מספק (ומכל שכן באיסור דרבנן) ? והלא לכאורה הוא ספק גמור אם יש ששים.
+<div class="teruts-box">
+<strong>The Taz’s answer (ס״ק ו) — “the view of fools”, a doubt arising from deficient discernment.</strong> The Taz
+explains it in the name of the Mordechai (chapter <em>ha-Socher</em>), and then in the name of the Rashba as quoted
+by the Beis Yosef: this is no doubt at all, but a doubt born of a <em>deficiency in discernment</em> — the lack is
+in us, not in the thing. The thing itself is settled: either there are sixty or there are not, and the reality is
+fixed before us. A doubt whose whole source is the shortness of our grasp is “the view of fools”, and it does not
+bring the prohibition down to the status of a doubt. The Taz adds a precision that gives his answer its edge: what
+strips this doubt of its name is that <em>another</em> would resolve it — this one is not expert, another would be.
+Where the deficiency belongs to an entire generation, it would again be a doubt.
 </div>
+<blockquote>«&nbsp;<span class="he-q">במרדכי פ׳ השוכר נתן טעם דדעת שוטים אינו כלום</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ח ס״ק ו)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">שאין זה כספיקא דרבנן דספק הבא ממיעוט הכרה אינו ספק דאם אין זה בקי ומכיר אחר יכיר והיינו באפשר למיקם עלה דמילתא</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ח ס״ק ו)</span></blockquote>
 
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ הט״ז (ס״ק ו) — דעת שוטים, ספק הבא ממיעוט הכרה :</strong> מבאר הט״ז (בשם המרדכי וסוגיית ביצה ג:) דאין זה ספק כלל, אלא <span class="he-q">ספק הבא ממיעוט הכרה</span> — חיסרון הידיעה בנו הוא ולא בדבר. הדבר עצמו <em>מבורר</em>: או שיש ששים או שאין, והמציאות קבועה לפנינו; וכל ספק שעיקרו בקוצר השגתנו — <span class="he-q">דעת שוטים</span> הוא, ואינו מוריד את האיסור לדין ספק. ולכך אסור, אף בדרבנן.
+<div class="hakira-box">
+<strong>The boundary of doubt — “one could have settled it” and “it does not commonly occur” (Shakh ס״ק ט, Pischei Teshuva ס״ק ח).</strong>
+The Shakh gives the same reason as the Taz, and then brings the Ran’s reason, which is not the same: were we lenient
+in a matter impossible to establish, all prohibitions would become doubtful and each man would measure by his own
+eye — the Sages therefore came to make their measures uniform. The Pischei Teshuva then brings the Emunas Shmuel:
+where a child or a non-Jew put blood into a pot of meat, the one in doubt had no duty to know, and such a thing
+<em>does not commonly occur</em>; it is then like the spilled mixture, and one is lenient. But the Emunas Shmuel
+himself did not decide the matter: he wrote it in theory and not for practice.
+<em>And in practice — ask your Rav.</em>
 </div>
-
-<div class="hakira-box" dir="rtl">
-<strong>חקירת הגמרא — "אפשר לאקרובי" / לא שכיח (אמונת שמואל, פתחי תשובה ס״ק ח) :</strong> בגמרא דביצה נתחדד גדר זה: ספק שאפשר היה ל<span class="he-q">מיקם עלה</span> (לברר בעין, לו רצינו) — אינו ספק המתיר; וכן דבר ש<span class="he-q">לא שכיח</span> אין בו דין ספק רגיל. ומביא הפתחי תשובה (ס״ק ח) דברי האמונת שמואל בגדרי הספק — אימתי נחשב ספק שקול שדנים בו לקולא, ואימתי הוא ספק הבא ממיעוט הכרה שדינו כודאי. <em>ולמעשה — שאל את רבך.</em>
-</div>
+<blockquote>«&nbsp;<span class="he-q">דספק התלוי בחסרון ידיעה לא מיקרי ספק דדעת שוטים הוא זה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ח ס״ק ט)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">משום דבדבר שא״א לעמוד עליו אי אזלינן לקולא יהיו כל האיסורים בספק</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ח ס״ק ט)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">כיון דמילתא דלא שכיחא הוא ודאי דינו כנשפך</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד צ״ח ס״ק ח)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ומ״מ לא החליט הדבר רק להלכה ולא למעשה</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד צ״ח ס״ק ח)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">6. ששים נגד הכל — בליעת האור, כדי קליפה וחובת ההסרה</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">6. Sixty against the whole — absorption by fire, the thickness of a peel, and the duty to remove</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ד')
-  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 העתק</button>
+<h3>The text of the Mechaber and the Rama (seif 4)
+  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 Copy</button>
 </h3>
-
 <div class="sacred-text he" data-copy-block id="cp-6">
-"<strong>איסור שנתבשל עם ההיתר, אף על פי שהוא ניכר ובעין והוציאו — צריך ששים נגד כל האיסור, לפי שאין אנו יודעין כמה ממנו יצא ונבלע בהיתר. לפיכך המבשל בקדירה אסורה בת יומא, או שהגיס בכף אסורה — צריך ששים נגד כל הקדירה / כל מה שנכנס מן הכף, שאין יודעין כמה בלעה.</strong> (הגה: ודווקא שבלע על ידי <strong>חום האור</strong>, שאז נכנס בכל הכלי; אבל אם בלע על ידי <strong>מליחה</strong> — אינו בולע אלא <span class="he-q">כדי קליפה</span>, ואין משערין אלא נגד כדי קליפה — ועיין סימן ס״ט.) ויש מחמירין בכף של מתכת לשער נגד הכל אף בלא הכניס אלא מקצתה (<span class="he-q">חם מקצתו חם כולו</span>); והרמ״א פסק כסברא הראשונה. <strong>וכל איסור שבטל בששים — אם מכירו, צריך להסירו אף לאחר שנתבטל טעמו;</strong> כיצד ? נפל חלב לתבשיל ונתבטל בס', נותן בו <strong>מים צוננים</strong> כדי שיקרוש החלב ויצוף, ומסירו — שכל הניכר וניתן להסירו כאילו לא נתבטל. <strong>וכל איסור שנתבטל וחזר ונפל לקדירה אחרת — צריך לחזור ולבטלו בס' נגד הכל, וכן לעולם; אבל נפל ב' פעמים לאותה קדירה — די בס' אחד</strong> (עיין סימן צ״ד)."
+<p>«&nbsp;<span class="he-q">איסור שנתבשל עם היתר אפי׳ מכירו והוא שלם וזרקו צריך ששים כנגד כל האיסור מפני שאין אנו יודעים כמה יצא ממנו לפיכך המבשל בקדירת איסור שהיא בת יומא או תוחב כף של איסור בהיתר צריך ס׳ כנגד כל הקדירה וכנגד כל מה שתחב מהכף שאין אנו יודעין כמה בלעו בין שהם של חרס או עץ או מתכת: <small>הגה ובלבד שבלעו ע״י רתיחת אש שאז הבליעה הולכת בכל הכלי אבל על ידי רתיחת מליחה אינו נבלע בכלי רק כדי קליפה וא״צ לשער רק כדי קליפה (מרדכי פכ״ה ובארוך כלל כ״ד) וע״ל סימן ס״ט: </small>ויש מי שמחמיר בכף של מתכת להצריך ס׳ כנגד כולו אפי׳ לא הכניס אלא מקצת משום דחם מקצתו חם כולו: <small>הגה ונוהגין כסברא הראשונה וכל איסור שמבטלים בששים אם מכירו צריך להסירו משם אף על גב דכבר נתבטל טעמו בששים ולכן אם נפל חלב לתוך התבשיל ונתבטל טעמו בששים צריך ליתן שם מים צוננים וטבע החלב להקפיא ולצוף למעלה על המים ויסירנו משם דמאחר דאפשר להסירו הוי כאילו מכירו וצריך להסירו משם (הגהות מרדכי בחולין ובארוך כלל כ״ג) איסור שנתבטל בקדירה והסירוהו משם ונפל לקדירה אחרת צריך לחזור ולבטלו בששים נגד כולו וכן לעולם אבל אם נפל לקדירה הראשונה ב׳ פעמים אין צריך רק ששים (פעם) אחת כנגדו (בארוך כלל כ״ד דין ב׳) ועיין לעיל סימן צ״ד:</small></span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ח:4)</span></p>
 </div>
+<p><em>Translation.</em> A prohibited substance cooked together with permitted food — even if one recognises it, and it is whole, and one threw it out — requires sixty against the whole of the prohibited substance, because we do not know how much came out of it. Therefore one who cooks in a forbidden pot that was used within twenty-four hours, or who inserts a forbidden spoon into permitted food, needs sixty against the whole pot and against all that he inserted of the spoon, for we do not know how much they absorbed — whether they are of earthenware, wood or metal. <em>Rama’s gloss:</em> and this is provided that they absorbed through the seething of fire, for then the absorption goes through the whole vessel; but through the heat of salting, only the thickness of a peel is absorbed into the vessel, and one need only estimate against the thickness of a peel — and see below, siman 69. — And there is one who is stringent regarding a metal spoon, requiring sixty against the whole of it even if he inserted only part, because “when part of it is hot, all of it is hot”. <em>Rama’s gloss:</em> and the practice follows the first view. And any prohibition that is nullified in sixty, if one recognises it, must be removed from there, even though its taste has already been nullified in sixty. Therefore, if cheilev fell into the dish and its taste was nullified in sixty, one must put cold water there — for the nature of cheilev is to congeal and float upon the water — and he shall remove it from there; for since it is possible to remove it, it is as though he recognised it and he must remove it from there. A prohibition that was nullified in a pot and was removed from there, and then fell into another pot, must again be nullified in sixty against its whole, and so on forever; but if it fell twice into the first pot, only sixty once against it are required — and see above, siman 94.</p>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — מדוע ששים נגד הכל ולא נגד מה שיצא :</strong><br>
-שורש החומרא: <span class="he-q">אין אנו יודעין כמה יצא ונבלע</span>. ספק הבא ממיעוט הכרה הוא (כסעיף ג') — ולכן משערים נגד <strong>כל</strong> גוף האיסור, שמא כולו נפלט. ומכאן שני דיני בליעה:<br><br>
-• <strong>בליעת האור</strong> (בישול) — נכנס בכל עובי הכלי → משערים נגד <span class="he-q">כל הקדירה / כל הכף</span>.<br>
-• <strong>בליעת מליחה</strong> — אינה אלא <span class="he-q">כדי קליפה</span> → משערים נגד הקליפה בלבד (ועיין סימן ס״ט).
+<div class="yesod-box">
+<strong>The foundation — why sixty against the whole, and not against what came out.</strong><br>
+The root of this stringency is stated by the Mechaber himself: we do not know how much came out and was absorbed.
+It is a doubt born of deficient discernment, as in seif 3 — we therefore measure against the
+<strong>whole</strong> body of the prohibition, on the assumption that all of it may have been exuded. From this,
+two regimes of absorption:<br><br>
+• <strong>Absorption by fire</strong> (cooking) — it goes through the whole thickness of the vessel → one measures
+against the whole pot and against all that was inserted of the spoon.<br>
+• <strong>Absorption by salting</strong> — it reaches only the thickness of a peel → one measures against that peel
+alone (and see siman 69).
 </div>
+<blockquote>«&nbsp;<span class="he-q">מפני שאין אנו יודעים כמה יצא ממנו</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ח:4)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">צריך ס׳ כנגד כל הקדירה וכנגד כל מה שתחב מהכף שאין אנו יודעין כמה בלעו</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ח:4)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אינו נבלע בכלי רק כדי קליפה</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ח:4)</span></blockquote>
 
-<div class="machloket-box" dir="rtl">
-<strong>חם מקצתו חם כולו — בכף מתכת :</strong>
+<div class="machloket-box">
+<strong>“When part of it is hot, all of it is hot” — the metal spoon:</strong>
 <table>
-<tr><th>שיטה</th><th>כף מתכת שהוכנס מקצתה</th><th>מקור</th></tr>
+<tr><th>The view</th><th>A metal spoon partly inserted</th><th>The source</th></tr>
 <tr>
-  <td><strong>הסברא הראשונה (וקיי״ל)</strong></td>
-  <td>משערין נגד מה <em>שהוכנס</em> בלבד — אין אומרים חם כולו</td>
-  <td>מחבר ס״ד; רמ״א — "וכן עיקר"</td>
+  <td><strong>The first view (and such is the practice)</strong></td>
+  <td>One measures against what was <em>inserted</em> only — we do not say that the whole is hot</td>
+  <td>מחבר ס״ד ; רמ״א — “ונוהגין כסברא הראשונה”</td>
 </tr>
 <tr>
-  <td><strong>היש מחמירין</strong></td>
-  <td><span class="he-q">חם מקצתו חם כולו</span> — משערין נגד כל הכף אף שלא הוכנס אלא מקצתה</td>
+  <td><strong>“There is one who is stringent”</strong></td>
+  <td>When part is hot the whole is hot — one measures against the whole spoon, though only part was inserted</td>
   <td>מחבר ס״ד</td>
 </tr>
 </table>
 </div>
+<blockquote>«&nbsp;<span class="he-q">משום דחם מקצתו חם כולו</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ח:4)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>חובת ההסרה — הסרת החלב במים צוננים (ט״ז ס״ק ז) :</strong> אף לאחר שנתבטל הטעם בס', כל איסור ש<span class="he-q">מכירו</span> — חייב להסירו, שכל הניתן להסרה אינו "מבוטל" אמיתי. ועל כן נותן <strong>מים צוננים</strong> שיקרוש החלב ויצוף, ומסירו. ודנו האחרונים: האם ההסרה מועילה אף ב<strong>פחות מששים</strong> (להציל את התבשיל) — דעת המרדכי דמהני, ובאור זרוע מצדד דלא, שכבר נבלע טעם בכל. <em>ולמעשה — שאל את רבך.</em>
+<div class="pilpul-box">
+<strong>The duty to remove — the cheilev congealed by cold water (Taz ס״ק ז, Shakh ס״ק ט״ז).</strong> Even after the
+taste has been nullified in sixty, any prohibition that one <em>recognises</em> must be removed: what can be removed
+is not truly “nullified”. One therefore pours cold water, the cheilev congeals and floats, and one takes it away.
+The Acharonim debated whether this remedy also helps with <strong>less than sixty</strong>, to save the dish: the
+Hagahos Issur ve-Heter, in the name of the Mordechai, wrote so, and the Bayis Chadash ruled that way after the fact.
+The Taz flatly refuses this leniency — the taste came out before the cheilev rose, and removing it afterwards
+changes nothing — and the Shakh likewise writes that where there are not sixty, cold water is of no avail.
+<em>And in practice — ask your Rav.</em>
 </div>
+<blockquote>«&nbsp;<span class="he-q">משמע דבפחות מס׳ לא מהני הך תקנה</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ח ס״ק ז)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אלא פשוט דלא אמרינן תקנה זו דיצוף החלב למעלה אלא לחומרא בדאיכא ס׳</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ח ס״ק ז)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">משמע דהיכא דליכא ס׳ לא מהני נתינת מים צוננים</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ח ס״ק ט״ז)</span></blockquote>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה — חזר ונפל (סוף סעיף ד') :</strong> איסור שנתבטל בס' וחזר ונפל ל<strong>קדירה אחרת</strong> → חוזר ומצריך ס' נגד הכל, וכן לעולם (שהרי כל החתיכה כבר טעם איסור בה). אבל נפל <strong>שתי פעמים לאותה קדירה</strong> → די ב<span class="he-q">ששים אחד</span>, שאין כאן אלא איסור אחד החוזר למקומו (ועיין סימן צ״ד). <em>ולמעשה — שאל את רבך.</em>
+<div class="nafka-mina-box">
+<strong>Nafka mina — the prohibition that falls again (end of seif 4).</strong> A prohibition nullified in sixty,
+removed, and then falling into <strong>another pot</strong>, again requires sixty against its whole, and so on
+forever. But if it falls <strong>twice into the same pot</strong>, sixty once are enough: there is here only one
+prohibition returning to its place (and see siman 94).
+<em>And in practice — ask your Rav.</em>
 </div>
+<blockquote>«&nbsp;<span class="he-q">וכל איסור שמבטלים בששים אם מכירו צריך להסירו משם</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ח:4)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אין צריך רק ששים (פעם) אחת כנגדו</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ח:4)</span></blockquote>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">7. חתיכה נעשית נבילה דכלים — מדוע אין כלי נעשה נבילה</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">7. “The piece becomes neveila” and vessels — why a vessel does not become neveila</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיף ה')
-  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 העתק</button>
+<h3>The text of the Mechaber and the Rama (seif 5)
+  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 Copy</button>
 </h3>
-
 <div class="sacred-text he" data-copy-block id="cp-7">
-"<strong>אם יודע כמה הוא האיסור — כגון כף חדשה או שאינה בת יומא שבלעה כזית חלב, והגיס בה בקדירה של בשר — די בששים לבטל אותו כזית שבלעה, ואין אומרים בכלי 'חתיכה נעשית נבילה' אף שהגיס בו באיסור. אבל כף ישנה ובת יומא — משערין נגד כל מה שבלעה (שהכל נעשה איסור ואין יודעין כמה). ויש אומרים שאף בזו די בששים נגד הכזית.</strong> (הגה: והעיקר כסברא הראשונה, כמו שנתבאר — עיין סימן צ״ב בטיפת חלב. ויש שאין מחלקין בין ישנה לחדשה, אלא בין <strong>חרס לשאר כלים</strong>: של חרס, שאינו יוצא מידי דופיו בהגעלה — נעשה נבילה; ושאר כלים — לא. וטוב להחמיר. ועיין סימן צ״ב.)"
+<p>«&nbsp;<span class="he-q">אם ידוע כמה הוא האיסור כגון כף חדשה או שאינה בת יומא שניער בה ובלעה כזית חלב ואחר כך ניער בה קדרה של בשר אין צריך אלא ס׳ לבטל הכזית שבלעה <small>(ולא אמרינן גבי כלי חתיכה נעשית נבילה אפילו אם ניערו בו איסור) </small>אבל כף ישנה ובת יומא משערין בכולה <small>(דכל מה שבלע נעשה איסור ולא ידעינן כמה בלע) (שם) </small>ויש מי שאומר שגם בזו אין צריך אלא ס׳ לבטל הכזית שבלע: <small>הגה והסברא ראשונה עיקר כמו שנתבאר לעיל גבי טיפת חלב שנפלה על הקדרה ויש שאינן מחלקין בין כף ישן לחדש רק בין כלי חרס לשאר כלים (מרדכי פ׳ ג״ה) ואומרים דבכלי חרס דאי אפשר להפריד האיסור על ידי הגעלה אמרינן הכלי נעשה נבילה אבל לא בשאר כלים וטוב לחוש לחומרא וע״ל סימן צ״ב:</small></span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ח:5)</span></p>
 </div>
+<p><em>Translation.</em> If it is known how much the prohibition is — for example a new spoon, or one not used within twenty-four hours, with which one stirred and which absorbed a kezayis of cheilev, and with which one then stirred a pot of meat — only sixty are needed to nullify the kezayis it absorbed. <em>Rama’s gloss:</em> and we do not say, regarding a vessel, that “the piece becomes neveila”, even if one stirred a prohibited substance in it. — But an old spoon used within twenty-four hours: one estimates against the whole of it (for all that it absorbed has become forbidden and we do not know how much it absorbed). And there is one who says that in this case too only sixty are needed to nullify the kezayis it absorbed. <em>Rama’s gloss:</em> and the first view is the main one, as was explained above regarding the drop of milk that fell on the pot. And there are those who do not distinguish between an old spoon and a new one, but between an earthenware vessel and other vessels, and who say that in an earthenware vessel, where the prohibition cannot be separated out by hag‘ala, we say that the vessel becomes neveila — but not in other vessels; and it is well to be stringent. And see below, siman 92.</p>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — מדוע אין כלי נעשה נבילה :</strong><br>
-חתיכה נעשית נבילה אמרינן בגוף מאכל שבלע איסור, ש<em>כולה</em> נעשית גוף איסור. אבל ב<strong>כלי</strong> — אין הכלי עצמו "נאכל", ואין שמו עליו לאוסרו ככל החתיכה; אלא רק ה<strong>בלוע</strong> שבו אסור. על כן, כשיודעים כמה בלע (כף חדשה / שאינה בת יומא שבלעה כזית) — <span class="he-q">די בששים נגד הכזית</span>, ואין הכף כולה נבילה. וזהו חידוש גדול: דין חנ״נ אינו חל בכלים.
+<div class="yesod-box">
+<strong>The foundation — why a vessel does not become neveila.</strong><br>
+We say that a piece “becomes neveila” of a food that absorbed a prohibition: it becomes <em>entirely</em> a body of
+prohibition. But a <strong>vessel</strong> is not eaten, and its name does not rest upon it so as to forbid it
+entirely; only what is <strong>absorbed</strong> in it is forbidden. Therefore, when we know how much it absorbed —
+a new spoon, or one not of the day, that absorbed a kezayis — sixty against that kezayis suffice, and the whole
+spoon is not neveila. The Shakh says it in the plainest terms: with regard to a vessel, the rule of “the piece
+becomes neveila” does not apply according to anyone.
 </div>
+<blockquote>«&nbsp;<span class="he-q">אין צריך אלא ס׳ לבטל הכזית שבלעה</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ח:5)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ולא אמרינן גבי כלי חתיכה נעשית נבילה אפילו אם ניערו בו איסור</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ח:5)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דלגבי הכלי לא אמרינן חנ״נ לכ״ע</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ח ס״ק י״ז)</span></blockquote>
 
-<div class="machloket-box" dir="rtl">
-<strong>שורש המחלוקת — ישן/חדש מול חרס/שאר כלים :</strong>
+<div class="machloket-box">
+<strong>The root of the dispute — old/new, or earthenware/other vessels:</strong>
 <table>
-<tr><th>שיטה</th><th>אימתי הכלי "נעשה נבילה"</th><th>מקור</th></tr>
+<tr><th>The view</th><th>When the vessel “becomes neveila”</th><th>The source</th></tr>
 <tr>
-  <td><strong>הבית יוסף (המחבר)</strong></td>
-  <td>תלוי <strong>ישן ובן יומא</strong> (אין יודעין כמה בלע → נגד הכל) מול חדש/אינו ב״י (יודעין → נגד הכזית)</td>
-  <td>מחבר ס״ה; ב״י</td>
+  <td><strong>The Beis Yosef (the Mechaber)</strong></td>
+  <td>It depends on <strong>age and the day</strong>: old and of the day (we do not know how much it absorbed →
+      against the whole) as against new or not of the day (we know → against the kezayis)</td>
+  <td>מחבר ס״ה ; ב״י</td>
 </tr>
 <tr>
-  <td><strong>המרדכי והרמ״א</strong></td>
-  <td>אין חילוק ישן/חדש, אלא <strong>חרס</strong> (שאינו יוצא מידי דופיו בהגעלה) נעשה נבילה, ושאר כלים לא — "וטוב להחמיר"</td>
-  <td>רמ״א ס״ה; מרדכי</td>
+  <td><strong>The Mordechai and the Rama</strong></td>
+  <td>No distinction of old/new, but <strong>earthenware</strong> (from which the prohibition cannot be separated by
+      hag‘ala) becomes neveila, and other vessels do not — “and it is well to be stringent”</td>
+  <td>רמ״א ס״ה ; מרדכי</td>
 </tr>
 </table>
 </div>
+<blockquote>«&nbsp;<span class="he-q">ויש שאינן מחלקין בין כף ישן לחדש רק בין כלי חרס לשאר כלים</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ח:5)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דבכלי חרס דאי אפשר להפריד האיסור על ידי הגעלה אמרינן הכלי נעשה נבילה אבל לא בשאר כלים וטוב לחוש לחומרא</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ח:5)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>הניתוח הארוך של הט״ז (ס״ק ח) :</strong> מאריך הט״ז בביאור המחלוקת — מדוע לב״י תלוי הדבר בידיעת השיעור (ישן/חדש), ואילו למרדכי תלוי בעצם <em>סילוק</em> הבלוע: כלי חרס שאי אפשר להפליט בלעו בהגעלה — דינו כגוף איסור הקבוע בו (כעין נבילה), משא״כ שאר כלים שיוצאין מידי דופיים. וכל זה דין מיוחד שבכלים, ולמדהו הב״י ממה שנתבאר בסימן צ״ב בטיפת חלב שעל הדופן. <em>ולמעשה — שאל את רבך.</em>
+<div class="pilpul-box">
+<strong>The Taz’s long analysis (ס״ק ח).</strong> The Taz dwells on this dispute, and derives it from a difference in
+the <em>reading of the Tur</em> between the Toras Chatas and the Beis Yosef. For the Beis Yosef the matter turns on
+knowing the measure: “new” does not mean literally new, but not of the day — for then, at the moment of absorption,
+there was no prohibition and nothing could become neveila. For the Mordechai the matter turns on the possibility of
+<em>expelling</em> what is absorbed: an earthenware vessel, which cannot be purged by hag‘ala, is like a body of
+prohibition fixed within it, which other vessels are not. And all of this is a law peculiar to vessels, which the
+Beis Yosef derives from what was explained in siman 92 regarding the drop of milk that fell on the wall of the pot.
+<em>And in practice — ask your Rav.</em>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">8. שיעורי הביטול — חצי כזית, ס״א לביצה, נ״ט לכחל</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">8. The measures of nullification — half a kezayis, sixty-one for the egg, fifty-nine for the ke‘hal</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">לשון המחבר והרמ״א (סעיפים ו'–ח')
-  <button class="daat-copy" type="button" data-copy-target="#cp-8">📋 העתק</button>
+<h3>The text of the Mechaber and the Rama (seifim 6 to 8)
+  <button class="daat-copy" type="button" data-copy-target="#cp-8">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-8">
-<strong>סעיף ו':</strong> "חצי זית מאיסור שנתערב בהיתר — צריך ששים חצאי זיתים מן ההיתר לבטלו, ואין מקילין בו אף באיסור דרבנן." <br>
-<strong>סעיף ז':</strong> "ביצה שיש בה אפרוח, או טיפת דם, שנתבשלה עם אחרות — צריך <span class="he-q">ששים ואחת</span> לבטל פליטתה (שהאיסור עצמו נמנה עמהן, ובעינן ששים <em>אחרות</em> ועוד הוא — הרי ס״א)." <br>
-<strong>סעיף ח':</strong> "כחל — בטל ב<span class="he-q">חמישים ותשעה</span> (שכבר הוא מותר מצד עצמו לאחר קריעה וסחיטה, ונחשב כמחצה היתר)." (הגה: וכל האיסורין בזמן הזה — בטלים בששים, חוץ מ<strong>חמץ בפסח</strong> ו<strong>יין נסך</strong>, כמו שנתבאר במקומו. והוא שלא יתן האיסור טעם בקדירה; אבל אם <strong>נותן טעם</strong> בקדירה והוא אסור בעצמו — <span class="he-q">אפילו באלף לא בטיל</span> כל זמן שטעמו נרגש.)
+<p><strong>סעיף ו׳</strong> — «&nbsp;<span class="he-q">כחצי זית של איסור שנתערב בהיתר צריך ששים חצאי זיתי היתר לבטלו:</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ח:ו)</span></p>
+<p><strong>סעיף ז׳</strong> — «&nbsp;<span class="he-q">ביצה שיש בה אפרוח או טיפת דם שנתבשלה עם אחרות צריך ששים ואחת לבטל פליטתה:</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ח:ז)</span></p>
+<p><strong>סעיף ח׳</strong> — «&nbsp;<span class="he-q">כחל מתבטל בתשעה וחמשים: <small>הגה כל האיסורים הנוהגין בזמן הזה כולם מתבטלים בששים מלבד חמץ בפסח ויין נסך כאשר נתבאר בהלכותיהם (טור) ובלבד שהאיסור אינו נותן טעם בקדירה אבל אם נותן טעם באותה קדירה והוא אסור מצד עצמו אפילו באלף לא בטיל כל זמן שמרגישין טעמו ולכן מלח ותבלין מדברים דעבידי לטעמא אם אסורים מחמת עצמן אינן בטילים בששים (בארוך כלל כ״ה עיין ס״ק כ״ז וע״ל סוף סימן ק״ה):</small></span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ח:ח)</span></p>
+</div>
+<p><em>Translation.</em> <strong>Seif 6:</strong> half a kezayis of a prohibited substance mixed into permitted food
+requires sixty half-kezeisim of permitted food to nullify it. — <strong>Seif 7:</strong> an egg containing a chick,
+or a drop of blood, cooked together with others, requires sixty-one to nullify what it exudes. —
+<strong>Seif 8:</strong> the ke‘hal (the udder) is nullified in fifty-nine. <em>Rama’s gloss:</em> all the
+prohibitions in force nowadays are nullified in sixty, apart from chametz on Pesach and yayin nesech, as has been
+explained in their laws; and provided that the prohibition does not give taste in the pot. But if it gives taste in
+that pot and is forbidden in itself, it is not nullified even in a thousand, as long as its taste is perceived.
+Therefore salt and spices, which are of those things made to give taste, if they are forbidden in themselves, are
+not nullified in sixty.</p>
+
+<div class="yesod-box">
+<strong>The foundation — why the measures change (60, 61, 59).</strong><br>
+The base measure is sixty, but it varies with what enters the count:<br><br>
+• <strong>Half a kezayis</strong> — sixty half-kezeisim are required. The Taz (ס״ק ט) gives the reason: this holds
+even for a rabbinic prohibition, for “one may not make light of a rabbinic measure”. The Shakh (ס״ק כ״ג) gives
+another reason, which does not pass through the Sages: half a measure too is forbidden by Torah law, only one is
+not flogged for it.<br>
+• <strong>The egg — sixty-one</strong> — the prohibited item itself is counted among the eggs; so that it not
+nullify itself, sixty <em>others</em> besides it are needed — that is, sixty-one. The Shakh (ס״ק כ״ד) specifies
+what exactly this count is about: about what the egg <em>exudes</em>, and not about the egg itself, which, if not
+recognised, is a <em>beriya</em> once it contains a chick — and a beriya is never nullified.<br>
+• <strong>The ke‘hal — fifty-nine</strong> — the udder is not in itself a body of prohibition: the milk it holds is
+that of the animal itself. It therefore enters the count of the permitted, and fifty-nine others besides it,
+together with itself, make the sixty. The Shakh (ס״ק כ״ה) refers to siman 90, where the laws of the ke‘hal belong.
+</div>
+<blockquote>«&nbsp;<span class="he-q">דהכי אמרי׳ פ׳ ג״ה לא תזלזל בשיעורא דרבנן</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ח ס״ק ט)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דקי״ל חצי שיעור נמי אסור מן התורה אלא שאין לוקין עליו</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ח ס״ק כ״ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">צריך ששים ואחת לבטל פליטתה</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ח:7)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">לאפוקי לבטל היא עצמה אם אינו מכירה דאז חשיבה בריה כשיש בה אפרוח</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ח ס״ק כ״ד)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">כחל מתבטל בתשעה וחמשים</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ח:8)</span></blockquote>
+
+<div class="rishon-card">
+<strong>Half a kezayis — “one may not make light of a rabbinic measure” (Taz ס״ק ט).</strong> The Taz explains why
+sixty half-kezeisim are required even for half a kezayis, which is not the full measure of a prohibition: so that we
+not come to make light of the measures of the Sages. And although there is no full kezayis here — since the taste of
+the prohibition spreads in proportion to its quantity, sixty are needed against what there is, half against half.
+The same holds for every rabbinic prohibition: one is not lenient about its measure.
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — מדוע השיעורים משתנים (ס', ס״א, נ״ט) :</strong><br>
-עיקר השיעור ששים, אך נשתנה לפי גדרי המנין:<br><br>
-• <strong>חצי כזית</strong> — בעי ששים חצאי זיתים, ד<span class="he-q">לא תזלזל בשיעורא דרבנן</span> (ט״ז ס״ק ט): אף בשיעור קטן ואיסור דרבנן אין מקילין.<br>
-• <strong>ביצה — ס״א</strong> — האיסור עצמו (הביצה) <em>נמנה בכלל</em> הביצים; וכדי שלא יבטל את עצמו, בעי ששים <em>אחרות</em> חוץ ממנה — הרי <span class="he-q">ששים ואחת</span>.<br>
-• <strong>כחל — נ״ט</strong> — מאחר שהכחל לאחר קריעה וסחיטה <em>חציו מותר</em>, נחשב כמחצה היתר, ודי ב<span class="he-q">חמישים ותשעה</span> (החכל עצמו משלים).
-</div>
-
-<div class="rishon-card" dir="rtl">
-<strong>חצי כזית — לא תזלזל בשיעורא דרבנן (ט״ז ס״ק ט) :</strong> מבאר הט״ז מדוע מצריכים ששים חצאי זיתים אף בחצי כזית (שאינו שיעור איסור גמור): שלא נבוא לזלזל בשיעורי חכמים. ואף שאין כאן כזית שלם — מאחר שטעם האיסור מתפשט כפי כמותו, בעי ששים כנגד מה שיש, חצי כנגד חצי. וכן בכל איסור דרבנן — אין מקילין בשיעורו.
-</div>
-
-<div class="pilpul-box" dir="rtl">
-<strong>הביצה במנין — סוגיית ביצה (ג:) :</strong> יסוד דין הס״א בביצה הוא מסוגיית הגמרא דביצה: ביצה אסורה שנתערבה בהיתרות — מאחר שדרכה להימנות, היא <span class="he-q">דבר שבמנין</span> ואינה בטלה ברוב רגיל; ולעניין ביטול טעם פליטתה — נמנית היא בכלל הששים, ולכך בעינן ששים <em>חוץ ממנה</em>, דהיינו ס״א. וזהו הקשר בין דין המנין (סימן ק״א) לדין הביטול שכאן.
+<div class="pilpul-box">
+<strong>The egg in the count.</strong> The Taz (ס״ק י) does not develop the reason for the sixty-one here: he refers
+to siman 86, seif 5, where it was set out. The point the Shakh (ס״ק כ״ד) insists on is that the seif speaks of
+“to nullify what it exudes” — and that the egg itself, if not recognised, belongs to another regime, that of the
+beriya, which is treated at the beginning of siman 100. This is the link between the law of what is counted and the
+law of nullification treated here.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">9. דבר שאינו בטל ומצטרף לבטל</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">9. What is never nullified, and what joins to nullify</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">דבר שאינו בטל לעולם (סעיף ח') והשומן (ט״ז ס״ק יא)
-  <button class="daat-copy" type="button" data-copy-target="#cp-9">📋 העתק</button>
+<h3>What is never nullified (seif 8) and the fat (Taz ס״ק י״א)
+  <button class="daat-copy" type="button" data-copy-target="#cp-9">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-9">
-<strong>סעיף ח' (הגה):</strong> "וכל זה כשאין האיסור <strong>נותן טעם</strong> בקדירה; אבל דבר שדרכו <strong>לתת טעם</strong> והוא <strong>אסור בעצמו</strong> — כמלח ותבלין, וכן <strong>חמץ בפסח</strong> ו<strong>יין נסך</strong> — <span class="he-q">אפילו באלף לא בטיל</span> כל זמן שטעמו נרגש (עיין סוף סימן ק״ה)." <br>
-<strong>סעיף ט':</strong> "קדירה שיש בה חמישים ותשעה כזיתים של היתר, ונפלו לתוכה שני כזיתים — אחד של דם ואחד של חלב — <strong>כל אחד מצטרף עם החמישים ותשעה של היתר לבטל את חברו</strong>. וכן עשרים ותשעה של היתר וכזית חלב בקדירה אחת, ושלושים של היתר וכזית דם באחרת, ונתערבו ב<strong>שוגג</strong> — מותר." (הגה: וכל שכן שני כזיתים, אחד של גבינה ואחד של בשר, שכל אחד מבטל חברו.)
+<p><strong>סעיף ח׳ (הגה)</strong> — «&nbsp;<span class="he-q">אבל אם נותן טעם באותה קדירה והוא אסור מצד עצמו אפילו באלף לא בטיל כל זמן שמרגישין טעמו</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ח:ח)</span></p>
+<p>«&nbsp;<span class="he-q">ולכן מלח ותבלין מדברים דעבידי לטעמא אם אסורים מחמת עצמן אינן בטילים בששים</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ח:ח)</span></p>
+<p><strong>סעיף ט׳</strong> — «&nbsp;<span class="he-q">קדירה שיש בה נ״ט זיתים היתר ונפלו בה ב׳ זיתים א׳ של דם וא׳ של חלב כל א׳ מצטרף עם הנ״ט של היתר לבטל חבירו וכן כ״ט זיתים של היתר שנפל בהם כזית חלב ובקדרה אחרת היו שלשים של היתר ונפל לתוכו כזית של דם ונתערבו בשוגג מותר. (וכ״ש בב׳ זיתים אחד של גבינה ואחד של בשר דכל אחד מבטל חבירו) (בארוך כלל ארבעה ועשרים):</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ח:ט)</span></p>
 </div>
+<p><em>Translation.</em> <strong>Seif 8, Rama’s gloss:</strong> but if the prohibition gives taste in that pot and is
+forbidden in itself, it is not nullified even in a thousand, as long as its taste is perceived; therefore salt and
+spices, which are of those things made to give taste, if they are forbidden in themselves, are not nullified in
+sixty. — <strong>Seif 9:</strong> a pot containing fifty-nine kezeisim of permitted food, into which two kezeisim
+fell, one of blood and one of cheilev: each joins with the fifty-nine of permitted food to nullify its fellow.
+Likewise twenty-nine kezeisim of permitted food into which a kezayis of cheilev fell, and in another pot thirty of
+permitted food into which a kezayis of blood fell, and the two became mixed inadvertently — it is permitted.
+<em>Rama’s gloss:</em> and all the more so with two kezeisim, one of cheese and one of meat, for each nullifies its
+fellow.</p>
 
-<div class="hakira-box" dir="rtl">
-<strong>חקירת הט״ז (ס״ק יא) — השומן עביד לטעמא, ולמה בטל בס' :</strong> מקשה הט״ז: אם דבר ה<span class="he-q">עביד לטעמא</span> (העשוי לתת טעם) אינו בטל אף באלף — מדוע <strong>שומן</strong> איסור בטל בששים, והלא אף הוא עשוי לתת טעם ?! ומדמה לדין <span class="he-q">ביצה שנולדה ביום טוב</span> שאוסרת תערובתה — דהתם משום דבר שבמנין, וכאן משום נתינת טעם. ומיישב: לא כל הנותן טעם הוא "עביד לטעמא" שאינו בטל, אלא דווקא דבר שכל מהותו וייעודו לתבל (מלח, תבלין) — ולא שומן שהוא מאכל בפני עצמו.
+<div class="hakira-box">
+<strong>The Taz’s chakira (ס״ק י״א) — fat is made for taste, so why is it nullified in sixty?</strong> The Taz raises
+the difficulty: if a thing <em>made to give taste</em> is not nullified even in a thousand, why should the
+<strong>fat</strong> of a forbidden animal that fell into a dish be nullified in sixty — is it not itself made for
+taste? And how does it differ from an egg laid on Yom Tov, concerning which it is ruled in Orach Chayim, siman 513,
+that sixty do not help? He answers first that sixty indeed do not help once the taste is <em>perceived</em>, and
+that where it is not perceived we assume it gives none. He then brings the Issur ve-Heter, and this is his settled
+answer: only a <strong>sharp</strong> substance — salt, spices — is called “made for taste”, and not fat, which does
+enhance the dish but is not felt as strongly; this is why the Rama himself concluded with “salt and spices”.
 </div>
+<blockquote>«&nbsp;<span class="he-q">צ״ע לענין שומן של איסור שנפל למאכל אמאי יהיה בטל בששים הא לטעמא עביד</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ח ס״ק י״א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ומאי שנא מביצה שנולדה בי״ט ולבנו בו מאכל</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ח ס״ק י״א)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">משמע דלא מקרי טעם בזה אלא דבר חריף ולא שומן</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ח ס״ק י״א)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>יין וחומץ עבידי לטעמא (פתחי תשובה ס״ק ט) :</strong> מביא הפתחי תשובה דברי האחרונים בגדר "דבר שאינו בטל" — אם <span class="he-q">יין נסך</span> ו<span class="he-q">חומץ</span> בכלל הדברים העבידי לטעמא שאינם בטלים. ודנו אם הוא דווקא במין המתבל ממש, או אף בכל נותן טעם חשוב; ונפקא מינה לדינא בתערובת יין נסך בכלל. ועיין בסוף סימן ק״ה בגדרי דבר חשוב ועביד לטעמא.
+<div class="rishon-card">
+<strong>Are wine and vinegar “made for taste”? (Pischei Teshuva ס״ק ט).</strong> The Pischei Teshuva brings the words
+of the Acharonim on the definition of “what is never nullified”: the Minchas Yaakov implies that wine and vinegar
+too are not called “made for taste”. The question is therefore whether the rule covers only what seasons in the
+strict sense, or anything that imparts a marked taste — and the nafka mina bears in particular on mixtures of yayin
+nesech. See also the end of siman 105 on the definitions of “an important thing” and of “made for taste”.
 </div>
+<blockquote>«&nbsp;<span class="he-q">דה״ה יין וחומץ לא מקרי עביד לטעמא</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד צ״ח ס״ק ט)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>מצטרף לבטל — כללי החוות דעת (פתחי תשובה ס״ק י) :</strong> דין הצירוף שבסעיף ט' — שכל איסור מצטרף עם ההיתר לבטל את חברו — אינו אלא בשני איסורים ש<strong>טעמיהם חלוקים</strong> (כדם וחלב, כגבינה ובשר). אבל מביא הפתחי תשובה את ה<span class="he-q">חוות דעת</span>: שני איסורים מ<strong>אותו טעם</strong> (או שֵם אחד, או יבש ביבש) — <em>אין</em> מצטרפין לבטל זה את זה, שהרי כמין אחד הם ומסייעין זה לזה לאסור.
+<div class="pilpul-box">
+<strong>Joining to nullify — the rules of the Chavos Daas (Pischei Teshuva ס״ק י).</strong> The rule of joining in
+seif 9 — each prohibition joining with the permitted food to nullify the other — rests, as the Shakh (ס״ק ל״ג)
+writes in the name of the Rosh, on a simple reason: every prohibition is nullified once it can no longer give taste
+in the permitted food, and it makes no difference whether it is a prohibition or permitted food that nullifies it.
+But this presupposes two prohibitions whose <strong>tastes differ</strong> — like blood and cheilev, like cheese and
+meat. The Pischei Teshuva brings on this the <strong>Chavos Daas</strong>: two prohibitions that came from things
+whose taste is the same do not nullify one another, and sixty are needed against both; and in a dry-into-dry
+mixture, prohibitions never nullify one another.
 </div>
+<blockquote>«&nbsp;<span class="he-q">דכל איסור בטל כשאינו יכול ליתן טעם בהיתר וטעם דם וחלב אינה שוה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ח ס״ק ל״ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">כל א׳ מצטרף עם הנ״ט של היתר לבטל חבירו</span>&nbsp;» <span class="source-ref">(שולחן ערוך יורה דעה צ״ח:9)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל שני כזתים שאין טעמם שוה שנ״נ מדברים שטעמן שוה אין מבטלין זא״ז</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד צ״ח ס״ק י)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">וביבש ביבש אין איסורים מבטלין זה את זה</span>&nbsp;» <span class="source-ref">(פתחי תשובה יו״ד צ״ח ס״ק י)</span></blockquote>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה — חנ״נ מול הצירוף (ט״ז ס״ק יד) :</strong> מעיר הט״ז: כל היתר הצירוף שבסעיף ט' אמור למאן דלית ליה <span class="he-q">חתיכה נעשית נבילה</span>; אבל לדידן דאמרינן חנ״נ בכל איסורין (כרמ״א סימן צ״ב) — משנפל הדם (או החלב) ונאסרה הקדירה, נעשה הכל <strong>נבילה</strong>, ושוב אין הצירוף מתיר. ולכך למעשה — דין הצירוף שבסעיף נדון בעיקר באופן שלא שייך בו חנ״נ. <em>ולמעשה — שאל את רבך.</em>
+<div class="nafka-mina-box">
+<strong>Nafka mina — “the piece become neveila” against the joining (Taz ס״ק י״ד).</strong> The Taz notes it: the
+whole heter of joining in seif 9 is stated for one who does not hold the rule of “the piece become neveila”; but for
+us, who hold it in all prohibitions (siman 92), once the blood — or the cheilev — has fallen and the pot has been
+forbidden, the whole has become <strong>neveila</strong> before the mixture ever occurred, and the joining permits
+nothing. The Shakh (ס״ק ל״ד) raises the same difficulty and seeks the case to which the seif can still apply. In
+practice, then, the rule of this seif is discussed chiefly where the rule of the piece become neveila does not
+apply. <em>And in practice — ask your Rav.</em>
 </div>
+<blockquote>«&nbsp;<span class="he-q">אבל לדידן דקי״ל בסי׳ צ״ב דבכל האיסורים אמרינן חתיכ׳ עצמה נעשה נבילה גם זה התערובו׳ אסור</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ח ס״ק י״ד)</span></blockquote>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">10. חקירה ונפקא מינה למעשה</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">10. Chakira and nafka mina for practice</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ Detailed explanation (level 1)</a>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה הכוללת של הסימן :</strong> מהו שיעור הביטול, ומה שורשו בכל מצב ?
+<div class="hakira-box">
+<strong>The chakira that embraces the whole siman:</strong> what is the measure of nullification, and what is its
+root in each situation?
 <ul class="stylish">
-<li><strong>מין במינו</strong> — בטל ברוב מדאורייתא, ששים דרבנן → ספיקו <span class="he-q">לקולא</span>.</li>
-<li><strong>מין בשאינו מינו</strong> — טעם כעיקר דאורייתא, ששים דאורייתא → ספיקו <span class="he-q">לחומרא</span>.</li>
-<li><strong>קפילא</strong> — היתר עיוני (טעם), אך <span class="he-q">אין אנו סומכין עליו</span> ובעינן ס' בכל מקום.</li>
-<li><strong>ספק ממיעוט הכרה</strong> — חיסרון ידיעה בנו, ולא ספק; אסור אף בדרבנן (דעת שוטים).</li>
-<li><strong>ששים נגד הכל · כלי</strong> — נגד כל גוף האיסור; וכלי אינו נעשה נבילה.</li>
-<li><strong>שיעורים · דבר שאינו בטל</strong> — ס״א לביצה, נ״ט לכחל; ונותן טעם האסור בעצמו לא בטיל.</li>
+<li><strong>Its own species</strong> — nullified by majority from the Torah, the sixty being rabbinic → its doubt is ruled leniently.</li>
+<li><strong>A different species</strong> — taste is as the substance, from the Torah, and the sixty are from the Torah → its doubt is ruled stringently.</li>
+<li><strong>The kefeila</strong> — a heter resting on taste, but the practice is no longer to rely on it, and sixty are required everywhere.</li>
+<li><strong>A doubt arising from deficient discernment</strong> — the lack is in us, and it is not a doubt; it is forbidden even in a rabbinic matter.</li>
+<li><strong>Sixty against the whole · the vessel</strong> — against the whole body of the prohibition; and a vessel does not become neveila.</li>
+<li><strong>The measures · what is never nullified</strong> — sixty-one for the egg, fifty-nine for the ke‘hal; and what gives taste while forbidden in itself is never nullified.</li>
 </ul>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה למעשה (לפי הכרעת רוב האחרונים) :</strong>
+<div class="nafka-mina-box">
+<strong>Nafka mina for practice (according to the ruling of most Acharonim):</strong>
 <ol class="stylish">
-<li>אין סומכין על טעימת נכרי → <strong>בעינן ששים בכל מקום</strong>, בין במינו בין בשאינו מינו (רמ״א ס״א).</li>
-<li>נשפך מין במינו ורובו היתר → מותר (לקולא); שאינו מינו → אסור אף ברובו היתר (מחבר ס״ב).</li>
-<li>לפנינו ואי אפשר לשער → אסור אף בדרבנן (ספק ממיעוט הכרה — מחבר ס״ג, ט״ז ס״ק ו).</li>
-<li>בישול בכלי איסור בן יומא → ס' נגד הכל; מליחה → כדי קליפה; ואיסור הניכר חייב הסרה (ס״ד).</li>
-<li>כלי אינו נעשה נבילה (יודעין כמה בלע → ס' נגד הכזית); ויש להחמיר בחרס (ס״ה, רמ״א).</li>
-<li>חצי כזית → ס' חצאי זיתים; ביצה → ס״א; כחל → נ״ט; חמץ בפסח / יין נסך ועביד לטעמא → לא בטיל (ס״ו–ח').</li>
+<li>We no longer rely on a non-Jew’s tasting → <strong>sixty are required everywhere</strong>, in its own species as in a different species (Rama, seif 1). Tasting by a Jew, however, remains disputed (Shakh ס״ק ה, Pischei Teshuva ס״ק ג).</li>
+<li>Its own species spilled with the permitted part in the majority → permitted; a different species spilled → forbidden even if the permitted part was the majority (Mechaber, seif 2).</li>
+<li>Before us and impossible to measure → forbidden even in a rabbinic matter (a doubt arising from deficient discernment — Mechaber seif 3, Taz ס״ק ו, Shakh ס״ק ט).</li>
+<li>Cooking in a forbidden vessel used that day → sixty against the whole; salting → the thickness of a peel; and a prohibition one recognises must be removed (seif 4).</li>
+<li>A vessel does not become neveila (if we know how much it absorbed → sixty against the kezayis); and one should be stringent with earthenware (seif 5, Rama).</li>
+<li>Half a kezayis → sixty half-kezeisim; egg → sixty-one; ke‘hal → fifty-nine; chametz on Pesach, yayin nesech and what is made for taste → never nullified (seifim 6 to 8).</li>
 </ol>
-<em>ולמעשה — שאל את רבך.</em>
+<em>And in practice — ask your Rav.</em>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">11. טבלאות סיכום</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">11. Summary tables</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (level 1)</a>
 
-<h3 class="he-h3">טבלה — אופני התערובת והדין</h3>
-
-<table>
-<tr>
-  <th>אופן התערובת</th>
-  <th>התוצאה</th>
-  <th>מקור בקורפוס</th>
-</tr>
-<tr>
-  <td><strong>מין בשאינו מינו (חֵלֶב בבשר)</strong></td>
-  <td>קפילא / ס'; טעם כעיקר דאורייתא</td>
-  <td>מחבר ס״א; ט״ז ס״ק ג; ש״ך ס״ק א</td>
-</tr>
-<tr>
-  <td><strong>מין במינו</strong></td>
-  <td>ליכא למיקם אטעמא → ס' (ובטל ברוב מדאורייתא)</td>
-  <td>מחבר ס״א; ט״ז ס״ק ג</td>
-</tr>
-<tr>
-  <td><strong>מין במינו נשפך (רובו היתר)</strong></td>
-  <td>מותר — ספיקא דרבנן לקולא</td>
-  <td>מחבר ס״ב</td>
-</tr>
-<tr>
-  <td><strong>מין בשאינו מינו נשפך</strong></td>
-  <td>אסור אף ברובו היתר — לחומרא</td>
-  <td>מחבר ס״ב</td>
-</tr>
-<tr>
-  <td><strong>לפנינו ואי אפשר לשער</strong></td>
-  <td>אסור אף בדרבנן (ספק ממיעוט הכרה)</td>
-  <td>מחבר ס״ג; ט״ז ס״ק ו</td>
-</tr>
-<tr>
-  <td><strong>בישול בכלי בן יומא / מליחה</strong></td>
-  <td>אור — ס' נגד הכל; מליחה — כדי קליפה</td>
-  <td>מחבר ס״ד; רמ״א (סי' ס״ט)</td>
-</tr>
-<tr>
-  <td><strong>כלי שבלע כזית ידוע</strong></td>
-  <td>ס' נגד הכזית; אין כלי נעשה נבילה</td>
-  <td>מחבר ס״ה; ט״ז ס״ק ח</td>
-</tr>
-<tr>
-  <td><strong>ביצה (אפרוח/דם) · כחל</strong></td>
-  <td>ביצה — ס״א; כחל — נ״ט</td>
-  <td>מחבר ס״ז–ח'; ט״ז ס״ק ט</td>
-</tr>
-<tr>
-  <td><strong>נותן טעם ואסור בעצמו</strong></td>
-  <td>מלח/תבלין, חמץ בפסח, יין נסך — לא בטיל</td>
-  <td>רמ״א ס״ח; ט״ז ס״ק יא; פ״ת ס״ק ט</td>
-</tr>
-</table>
-
-<h3 class="he-h3">טבלה — מחלוקות מרכזיות בסימן</h3>
+<h3>Table — the forms of mixture and their law</h3>
 
 <table>
 <tr>
-  <th>נושא</th>
-  <th>שיטה א'</th>
-  <th>שיטה ב'</th>
+  <th>The form of the mixture</th>
+  <th>The outcome</th>
+  <th>The source</th>
 </tr>
 <tr>
-  <td>סמיכה על טעימת נכרי</td>
-  <td>המחבר — סומכין על הקפילא (אף בפחות מס')</td>
-  <td>הרמ״א — אין סומכין, ובעינן ס' בכל מקום</td>
+  <td><strong>A different species (cheilev in meat)</strong></td>
+  <td>Kefeila, or sixty; taste is as the substance, by Torah law</td>
+  <td>מחבר ס״א ; ט״ז ס״ק ג ; ש״ך ס״ק א</td>
 </tr>
 <tr>
-  <td>גדר טעם כעיקר (שאינו מינו)</td>
-  <td>הש״ך — אוסר; ולמחבר עיקר הבירור בטעימה</td>
-  <td>נוה״י (פ״ת ס״ק ה) — דאורייתא רק בלאוין שיש בהן מלקות</td>
+  <td><strong>Its own species</strong></td>
+  <td>No way of settling the matter by taste → sixty (and by Torah law, nullified by majority)</td>
+  <td>מחבר ס״א ; ט״ז ס״ק ג ; ש״ך ס״ק ו</td>
 </tr>
 <tr>
-  <td>כף מתכת שהוכנס מקצתה</td>
-  <td>הרמ״א — נגד מה שהוכנס בלבד</td>
-  <td>יש מחמירין — חם מקצתו חם כולו, נגד הכל</td>
+  <td><strong>Its own species, spilled (permitted part in the majority)</strong></td>
+  <td>Permitted — a rabbinic doubt, hence leniency</td>
+  <td>מחבר ס״ב ; ש״ך ס״ק ו</td>
 </tr>
 <tr>
-  <td>כלי הנעשה נבילה</td>
-  <td>המחבר/ב״י — תלוי ישן ובן יומא מול חדש</td>
-  <td>המרדכי/רמ״א — חרס נעשה נבילה ושאר כלים לא</td>
+  <td><strong>A different species, spilled</strong></td>
+  <td>Forbidden, even if the permitted part was the majority — stringency</td>
+  <td>מחבר ס״ב ; ט״ז ס״ק ה</td>
 </tr>
 <tr>
-  <td>הסרת החלב הקרוש בפחות מס'</td>
-  <td>מרדכי — מהני להסירו</td>
-  <td>אור זרוע — לא מהני, שכבר נבלע טעם</td>
+  <td><strong>Before us, impossible to measure</strong></td>
+  <td>Forbidden even in a rabbinic matter (a doubt arising from deficient discernment)</td>
+  <td>מחבר ס״ג ; ט״ז ס״ק ו ; ש״ך ס״ק ט</td>
+</tr>
+<tr>
+  <td><strong>Cooking in a vessel used that day / salting</strong></td>
+  <td>Fire — sixty against the whole; salting — the thickness of a peel</td>
+  <td>מחבר ס״ד ; רמ״א (ועיין סימן ס״ט)</td>
+</tr>
+<tr>
+  <td><strong>A vessel that absorbed a known kezayis</strong></td>
+  <td>Sixty against the kezayis; a vessel does not become neveila</td>
+  <td>מחבר ס״ה ; ט״ז ס״ק ח ; ש״ך ס״ק י״ז</td>
+</tr>
+<tr>
+  <td><strong>The egg (chick / drop of blood) · the ke‘hal</strong></td>
+  <td>The egg — sixty-one; the ke‘hal — fifty-nine</td>
+  <td>מחבר ס״ז–ח׳ ; ש״ך ס״ק כ״ד</td>
+</tr>
+<tr>
+  <td><strong>What gives taste while forbidden in itself</strong></td>
+  <td>Salt and spices, chametz on Pesach, yayin nesech — never nullified</td>
+  <td>רמ״א ס״ח ; ט״ז ס״ק י״א ; פ״ת ס״ק ט</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מקורות הסוגיא</h3>
+<h3>Table — the central disputes of the siman</h3>
 
-<div class="rishon-card" dir="rtl">
-<strong>גמרא :</strong> חולין צ״ז:–צ״ח. (טעם כעיקר, קפילא, ביטול בששים) · חולין צ״ז: (כחל, ירך, שיעורי הביטול) · ביצה ג:–ד. (ספק הבא ממיעוט הכרה, דבר שבמנין, ביצה) · נזיר ל״ז. (טעם כעיקר ממשרת) · עבודה זרה ס״ז: (נותן טעם לפגם)
+<table>
+<tr>
+  <th>The subject</th>
+  <th>First view</th>
+  <th>Second view</th>
+</tr>
+<tr>
+  <td>Relying on a non-Jew’s tasting</td>
+  <td>The Mechaber — we rely on the kefeila (even with less than sixty)</td>
+  <td>The Rama — we do not rely on him, and sixty are required everywhere</td>
+</tr>
+<tr>
+  <td>Relying on a Jew’s tasting</td>
+  <td>The Shakh (ס״ק ה) and the Pri Megadim — we rely on it in a different species</td>
+  <td>The Bechor Shor (פ״ת ס״ק ג) — there is no room for leniency</td>
+</tr>
+<tr>
+  <td>The reach of “ta‘am ke-ikkar” by Torah law</td>
+  <td>The Shakh (ס״ק ו), following Rabbeinu Tam — by Torah law in any different species</td>
+  <td>The Noda BiYehuda (פ״ת ס״ק ה) — by Torah law only in prohibitions carrying lashes</td>
+</tr>
+<tr>
+  <td>Setting aside what is not its species (seif 2)</td>
+  <td>The Rashba and the Taz (ס״ק ה) — it is set aside, and its own species nullifies it</td>
+  <td>The Shakh (ס״ק ח) — the comparison does not hold; and the Chasam Sofer (פ״ת ס״ק ז) is not lenient against him</td>
+</tr>
+<tr>
+  <td>A metal spoon partly inserted</td>
+  <td>The first view, followed by the Rama — against what was inserted only</td>
+  <td>“There is one who is stringent” — part hot, all hot: against the whole</td>
+</tr>
+<tr>
+  <td>The vessel that “becomes neveila”</td>
+  <td>The Mechaber and the Beis Yosef — it depends on age and the day</td>
+  <td>The Mordechai and the Rama — earthenware becomes neveila, other vessels do not</td>
+</tr>
+<tr>
+  <td>Removing the congealed cheilev with less than sixty</td>
+  <td>The Hagahos Issur ve-Heter in the name of the Mordechai, and the Bayis Chadash — the remedy helps after the fact</td>
+  <td>The Taz (ס״ק ז) and the Shakh (ס״ק ט״ז) — it is of no avail, the taste has already come out</td>
+</tr>
+</table>
+
+<h3>Table — the sources of the sugya</h3>
+
+<div class="rishon-card">
+<strong>Gemara:</strong> Chullin 97b–98a (ta‘am ke-ikkar, the kefeila, nullification in sixty) · Chullin 97b
+(the ke‘hal, the thigh, the measures of nullification) · Beitza 3b–4a (davar she-beminyan, the egg) · Nazir 37a
+(ta‘am ke-ikkar derived from מִשְׁרַת) · Avodah Zarah 67b (nosen ta‘am lifgam). The “doubt arising from deficient
+discernment”, however, does not come from a sugya of the Shas but from the Mordechai (chapter <em>ha-Socher</em>)
+and the Rashba, both brought by the Taz ס״ק ו.
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>ראשונים :</strong> רש״י · ר״ת · רמב״ם · ראב״ד · המגיד משנה · תוספות · רא״ש · רשב״א (תורת הבית — סלק את שאינו מינו) · ר״ן · מרדכי · ראב״ן · סמ״ג · סמ״ק · טור · איסור והיתר הארוך
+<div class="rishon-card">
+<strong>Rishonim:</strong> Rashi · Rabbeinu Tam · Rambam · Raavad · Maggid Mishneh · Tosafos · Rosh · Rashba
+(Toras HaBayis — setting aside what is not its species) · Ran · Mordechai · Ra’avan · Semag · Semak · Tur ·
+Issur ve-Heter he-Arokh
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>אחרונים :</strong> בית יוסף · רמ״א · ש״ך · ט״ז · ב״ח · דרכי משה · תורת חטאת · פרי חדש · פרי מגדים · מנחת יעקב · תבת גמא · אמונת שמואל · חוות דעת · פתחי תשובה · נודע ביהודה · בכור שור
+<div class="rishon-card">
+<strong>Acharonim:</strong> Beis Yosef · Rama · Shakh · Taz · Bayis Chadash · Darkei Moshe · Toras Chatas ·
+Pri Chadash · Pri Megadim · Minchas Yaakov · Teivas Gomeh · Emunas Shmuel · Chavos Daas · Pischei Teshuva ·
+Noda BiYehuda · Bechor Shor · Chasam Sofer
 </div>
 
 <hr class="ornament">
 
-  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;direction:rtl;">
-    <a href="niveau-1-base-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">→ רמה א' — יסוד</a>
-    <a href="niveau-3-synthese-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">רמה ג' — סיכום ←</a>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;">
+    <a href="niveau-1-base-en.html" style="font-family:'Cormorant Garamond','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">← Level 1 — Foundation</a>
+    <a href="niveau-3-synthese-en.html" style="font-family:'Cormorant Garamond','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">Level 3 — Synthesis →</a>
   </div>
 
 <div class="yh-watermark">
 ~ ~ ~ ~ ~<br>
 <strong>DAAT</strong> · <strong>הרב יוסף חיים סממה</strong><br>
 תלמיד חכם · מעביר שיעורים בהלכה ובחסידות<br>
-<em>פלפול ועיון בדין איסור שנתערב בהיתר ואופן ביטולו · סימן צ״ח · ⚡ רמה ב' — לַמְדָּן</em>
+<em>Pilpul and iyun on a prohibition mixed into permitted food and the manner of its nullification · Siman 98 · ⚡ Level 2 — Lamdan</em>
 </div>
 
-  <div class="disclaimer" style="background:#fff8e1;border-right:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;direction:rtl;text-align:right;">
-    ⚠️ תוכן זה נכתב לצורך לימוד ועיון בלבד. לכל הוראה למעשה (לְמַעֲשֶׂה) — שאל את רבך.
+  <div class="disclaimer" style="background:#fff8e1;border-left:4px solid #C5A55A;padding:16px 40px;font-family:'Cormorant Garamond','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;">
+    ⚠️ This content is written for study and analysis only. For any practical ruling (לְמַעֲשֶׂה) — ask your Rav.
   </div>
 
   <div style="background:#1A1F3A;border-top:2px solid #C5A55A;padding:24px 40px;text-align:center;margin-top:0;">
-    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;direction:rtl;">
-      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">לעמוד הבית</a> · <a href="index-en.html" style="color:#C5A55A;text-decoration:none;">סימן צ״ח</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ לתמיכה</a>
+    <p style="font-family:'Cormorant Garamond','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;">
+      DAAT דעת — © 5786 / 2026 · <a href="../../../index-en.html" style="color:#C5A55A;text-decoration:none;">Home</a> · <a href="index-en.html" style="color:#C5A55A;text-decoration:none;">Siman 98</a> · <a href="../../../soutenir-en.html" style="color:#C5A55A;text-decoration:none;">♥ Support</a>
     </p>
   </div>
 
@@ -895,7 +1128,7 @@
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="../../../assets/js/chat-widget.js" defer></script>
 <script src="../../../assets/js/daat-copy.js" defer></script>
-<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="מצא חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">הצטרף לחברותא</span></a>
+<a href="../../../communaute-en.html#khavroutha" class="daat-khavroutha-fab" title="Join the khavroutha"><span class="icon">📖</span><span class="label-long">Join the khavroutha</span></a>
   <script src="/assets/js/share-text.js" defer></script>
 </body>
 </html>

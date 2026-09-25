@@ -194,6 +194,9 @@
     .niveau-nav { flex-direction: column; gap: 0.75rem; }
   }
   @media print { .niveau-nav { display: none; } }
+    /* he-q : une locution hébraïque citée à l'intérieur d'une phrase. La classe est
+       employée partout dans le dépôt ; elle manquait à la feuille de cette page. */
+    .he-q { font-family: 'Frank Ruhl Libre', serif; direction: rtl; unicode-bidi: isolate; }
 </style>
 
 <script type="application/ld+json" data-schema="niveau-jsonld">
@@ -311,7 +314,7 @@
 <div class="lang-switcher-float" role="navigation" aria-label="Language"><a href="/oh/246/synthese">FR</a><a href="/oh/246/synthese/he" class="active">HE</a><a href="/oh/246/synthese/en">EN</a></div>
 
   <header>
-    <a href="../../../index.html" class="logo">
+    <a href="../../../index-he.html" class="logo">
       <span class="logo-he">דעת</span>
       <span class="logo-en">DAAT</span>
     </a>
@@ -320,7 +323,7 @@
 <main>
 
   <div class="breadcrumb">
-    <a href="../../../index.html">דף הבית</a>
+    <a href="../../../index-he.html">דף הבית</a>
     <span class="sep">›</span>
     <a href="/oh/246/">סימן רמ״ו</a>
     <span class="sep">›</span>
@@ -362,7 +365,7 @@
         <div class="timeline-item">
           <div class="timeline-author">הרמ״א — המאה ה־16</div>
           <div class="timeline-period">אחרונים — קרקוב (אשכנזים)</div>
-          <div class="timeline-opinion op-pesak">מאשר את דעה ② ו<strong>מרחיב</strong>: אוסר גם <em>השאלה בחינם</em>, שכן נראה כשלוחו חל גם ללא תמורה.</div>
+          <div class="timeline-opinion op-pesak">פוסק כסברא האחרונה ב<em>השכרה</em>, ו<strong>מתיר במפורש השאלה בחינם</strong> בערב שבת: <span class="he-q">וכן עיקר כסברא האחרונה ומותר להשאיל לו בערב שבת</span> (רמ״א או״ח רמ״ו:א).</div>
         </div>
       </div>
     </div>
@@ -417,8 +420,8 @@
         </div>
         <div class="rule-card">
           <div class="rule-num">③</div>
-          <div class="rule-he">שכירות ≤ השאלה (רמ״א)</div>
-          <div class="rule-fr"><strong>רמ״א: גם השאלה בחינם אסורה.</strong> האיסור אינו מצומצם להשכרה — גם השאלה בחינם, ביודעו שהכלי ישמש בשבת, אסורה.</div>
+          <div class="rule-he">השכרה אסורה · השאלה מותרת (רמ״א)</div>
+          <div class="rule-fr"><strong>רמ״א: השאלה בחינם מותרת.</strong> האיסור הוא ב<em>השכרת</em> כלי מלאכה בערב שבת ; השאלה מותרת, והמשנה ברורה מוסיפה שמותרת אפילו ליום השבת לחוד ואפילו כלים שעושים בהם מלאכה, <em>משום</em> שאין ריוח לישראל ואין אומרים שלוחו הוא.</div>
         </div>
         <div class="rule-card">
           <div class="rule-num">④</div>
@@ -440,8 +443,8 @@
             <div class="dt-branch-label">כן — אני יודע שישתמש בו בשבת</div>
             <div class="dt-result">
               <span class="result-interdit">אסור</span> לכולם.<br>
-              טעם: שכר שבת (השכרה) + נראה כשלוחו (השאלה לרמ״א).<br>
-              <em>לא להשכיר ולא להשאיל.</em>
+              טעם: שכר שבת — ב<em>השכרה</em> הדברים אמורים.<br>
+              <em>לא להשכיר.</em>
             </div>
           </div>
           <div class="dt-branch no">
@@ -465,8 +468,8 @@
           <div class="dt-branch no">
             <div class="dt-branch-label">השאלה בחינם</div>
             <div class="dt-result">
-              <strong>ספרדים:</strong> <span style="color:orange;">מחלוקת — יש מתירים</span>.<br>
-              <strong>אשכנזים (רמ״א):</strong> <span class="result-interdit">אסור</span> — נראה כשלוחו.<br>
+              <strong>מחבר ורמ״א:</strong> <span class="result-permis">מותר</span>, אף בערב שבת — <span class="he-q">ולהשאיל לו מותר אפי׳ בערב שבת</span> (שו״ע) ו<span class="he-q">וכן עיקר כסברא האחרונה ומותר להשאיל לו בערב שבת</span> (רמ״א).<br>
+              <strong>משנה ברורה ס״ק ד :</strong> מותר אפילו ליום השבת לחוד ואפילו כלי מלאכה.<br>
               <span class="result-rav">למעשה: לשאול רב.</span>
             </div>
           </div>
@@ -524,9 +527,9 @@
           <div class="trap-correction">✓ תאריך החוזה אינו חשוב. מה שקובע: האם היהודי <em>יודע</em> בעת העסקה שהכלי ישמש בשבת?</div>
         </div>
         <div class="trap-card">
-          <div class="trap-title">⚠️ מכשול 2 — "זו השאלה בחינם, לכן מותר"</div>
-          <div class="trap-text">בלבול: לחשוב שרק השכרה בתשלום אסורה, ושהשאלה בחינם תמיד מותרת.</div>
-          <div class="trap-correction">✓ לאשכנזים (רמ״א): גם השאלה בחינם אסורה מטעם נראה כשלוחו. הספרדים פחות מחמירים, אך גם בכך יש מחלוקת.</div>
+          <div class="trap-title">⚠️ מכשול 2 — "השאלה כהשכרה"</div>
+          <div class="trap-text">בלבול: לחשוב שהשאלה בחינם דינה כהשכרה ואסורה בערב שבת.</div>
+          <div class="trap-correction">✓ המחבר והרמ״א מתירים שניהם השאלה בחינם, אף בערב שבת ; ודווקא העדר הריוח הוא המתיר — <span class="he-q">דכיון שאין ריוח לישראל במלאכת הא״י לא יאמרו שלוחו הוא לזה וע״כ מותר להשאיל לו אפילו ליום השבת לחוד אפילו כלים שיעשה הא״י מלאכה בהן</span> (משנה ברורה ס״ק ד). האיסור הוא בהשכרת כלי מלאכה.</div>
         </div>
         <div class="trap-card">
           <div class="trap-title">⚠️ מכשול 3 — "הברייתא היא לבית שמאי"</div>
@@ -556,7 +559,7 @@
       <div class="memory-box" style="background:#1E2847; margin-top:16px;">
         <div class="memory-label">שלושת הטעמים — סיכום לזיכרון</div>
         <div class="memory-he">שביתה · שכר · שליח — שלוש ש׳</div>
-        <div class="memory-fr">"שלוש השי״נים": שביתת כלים (מחלוקת בית הלל/שמאי), שכר שבת (טעם עיקרי — השכרה), שלוחו = נראה כשלוחו (השאלה בחינם לרמ״א).</div>
+        <div class="memory-fr">"שלוש השי״נים": שביתת כלים (מחלוקת בית הלל/שמאי), שכר שבת (טעם עיקרי — השכרה), שלוחו = נראה כשלוחו — מראית השליחות, שבהשכרה היא אמורה ושאין בהשאלה בחינם, שאין בה ריוח.</div>
       </div>
     </div>
 
@@ -571,7 +574,7 @@
         <div class="memory-fr" style="line-height:2;">
           <strong>ה</strong>בלעה — פותרת את בעיית שכר שבת<br>
           <strong>ש</strong>כר יום (סכר יום בודד) — תמיד אסור<br>
-          <strong>ס</strong>מוך לחשכה — אסור גם בהשאלה לכלי מלאכה (רמ״א)<br>
+          <strong>ס</strong>מוך לחשכה — ההשכרה אסורה בכלי מלאכה ; ההשאלה מותרת (רמ״א)<br>
           <strong>ה</strong>שאלה ≠ שכירות — כללים שונים
         </div>
       </div>
@@ -606,7 +609,7 @@
       <ol style="font-size:17px; color:var(--text-mid); line-height:2; padding-right:24px;">
         <li><strong>לפני שמשאילים או משכירים כלי לנוכרי, שאל את עצמך: "האם הוא ישתמש בו בשבת?"</strong> אם אינך יודע → מותר. אם אתה יודע → הפעל את הכלל הבא.</li>
         <li><strong>להשכרה: השתמש תמיד בתשלום כולל מרובה ימים (הבלעה).</strong> לעולם לא שכר יומי המבודד את הכנסת השבת.</li>
-        <li><strong>להשאלה (בחינם) סמוך לחשכה: היה זהיר עם כלי מלאכה.</strong> אשכנזי: אסור. ספרדי: מותר אם אינך שולח.</li>
+        <li><strong>השאלה בחינם סמוך לחשכה: מותרת</strong> — אף בכלי מלאכה, ואף ליום השבת לחוד (רמ״א ומשנה ברורה ס״ק ד). מה שאסור הוא ההשכרה.</li>
         <li><strong>לעולם אל תאמר לנוכרי לבצע מלאכה ספציפית בשבת.</strong> זוהי אמירה לגוי, איסור נוסף. הרמ״א מציין זאת במפורש.</li>
         <li><strong>להשכרה ארוכת טווח (דירה, רכב שנתי): שאל את הרב שלך.</strong> חלים הכללים הספציפיים של השכרת בית והבלעה מורחבת.</li>
       </ol>
@@ -674,11 +677,11 @@
       <div class="divider"></div>
       <ol style="font-size:17px; color:var(--text-mid); line-height:2; padding-right:24px;">
         <li>מהו ההבדל בין דעת הרמב״ם לדעת רבנו יונה בנוגע לברייתא בתלמוד?</li>
-        <li>מדוע הרמ״א מרחיב את האיסור להשאלה בחינם בעוד שהשולחן ערוך מזכיר רק השכרה?</li>
+        <li>מדוע השאלה בחינם אינה בכלל האיסור שבהשכרה — ומה טעמה של המשנה ברורה בס״ק ד?</li>
         <li>מה משמעות "יודע" בהקשר זה — האם נדרשת ודאות או חזקה חזקה?</li>
         <li>מהי הנפקא מינה בין שכר שבת לנראה כשלוחו כטעם עיקרי?</li>
         <li>אם אני משכיר את דירתי לשנה לנוכרי, האם יש בעיית שכר שבת על השבתות הכלולות?</li>
-        <li>האם הט״ז והמגן אברהם מסכימים על טעם איסור ההשאלה בחינם?</li>
+        <li>האם הט״ז והמגן אברהם מסכימים על טעם איסור השכרת כלי מלאכה?</li>
       </ol>
     </div>
 
@@ -701,14 +704,14 @@
 </nav>
 </main>
 <footer>
-    <p>DAAT דעת · סימן רמ״ו · סיכום מגיסטרלי · <a href="../../../index.html">דף הבית</a> · <a href="../../../soutenir.html">♥ תמיכה</a> · © תשפ״ו — הרב יוסף חיים סממה</p>
+    <p>DAAT דעת · סימן רמ״ו · סיכום מגיסטרלי · <a href="../../../index-he.html">דף הבית</a> · <a href="../../../soutenir-he.html">♥ תמיכה</a> · © תשפ״ו — הרב יוסף חיים סממה</p>
   </footer>
 
   <link rel="stylesheet" href="../../../assets/css/khavroutha-fab.css">
 <link rel="stylesheet" href="../../../assets/css/chat-widget.css">
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="../../../assets/js/chat-loader.js" defer></script>
-<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="מצא חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">הצטרף לחברותא</span></a>
+<a href="../../../communaute-he.html#khavroutha" class="daat-khavroutha-fab" title="מצא חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">הצטרף לחברותא</span></a>
   <script src="../../../assets/js/daat-progress.js" defer></script>
 
 <div style="text-align:center;margin:20px 0;">

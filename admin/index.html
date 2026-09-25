@@ -1120,11 +1120,13 @@ onReady(() => {
 
 async function anFetch(path, opts) {
   opts = opts || {};
-  const sep = path.includes('?') ? '&' : '?';
-  const url = anApiUrl + path + sep + 'secret=' + encodeURIComponent(anSecret);
+  // Le secret voyage par EN-TÊTE, plus par l'URL : cet appel est cross-origin
+  // vers l'API, et un secret dans une URL s'écrit dans les journaux d'accès,
+  // dans l'historique du navigateur, et part dans le Referer.
+  const url = anApiUrl + path;
   const res = await fetch(url, {
-    headers: { 'Content-Type': 'application/json' },
-    ...opts
+    ...opts,
+    headers: { 'Content-Type': 'application/json', 'X-Admin-Secret': anSecret, ...(opts.headers || {}) },
   });
   if (!res.ok) throw new Error('HTTP ' + res.status);
   return res.json();
@@ -1565,11 +1567,11 @@ async function anResetPreview(email) {
 // ════════════════════════════════════════════════════════════
 async function soutFetch(path, opts) {
   opts = opts || {};
-  const sep = path.includes('?') ? '&' : '?';
-  const url = anApiUrl + path + sep + 'secret=' + encodeURIComponent(anSecret);
+  // En-tête seulement, pour la même raison que ci-dessus.
+  const url = anApiUrl + path;
   const res = await fetch(url, {
-    headers: { 'Content-Type': 'application/json', 'X-Admin-Secret': anSecret },
     ...opts,
+    headers: { 'Content-Type': 'application/json', 'X-Admin-Secret': anSecret, ...(opts.headers || {}) },
   });
   if (!res.ok) {
     let msg = 'HTTP ' + res.status;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,8 +23,7 @@
   @page { size: A4; margin: 2cm 1.8cm; }
   body {
     font-family: 'Frank Ruhl Libre', 'David', 'Georgia', 'Cambria', serif;
-    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0;
-    direction: rtl; text-align: right;
+    font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0; text-align: left;
   }
   .he {
     direction: rtl; text-align: right;
@@ -72,14 +71,12 @@
   h2.section-title {
     color: #fff; background: #1A1F3A;
     font-size: 16pt; padding: 10px 18px; margin-top: 30px;
-    border-right: 6px solid #C5A55A;
-    direction: rtl; text-align: right;
+    border-left: 6px solid #C5A55A; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3 {
     color: #1A1F3A; font-size: 14pt; margin-top: 25px;
-    border-right: 4px solid #C5A55A; padding-right: 10px;
-    direction: rtl; text-align: right;
+    border-left: 4px solid #C5A55A; padding-left: 10px; text-align: left;
     font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', 'Georgia', serif;
   }
   h3.he-h3 {
@@ -89,8 +86,7 @@
   }
   h4 {
     color: #5a4a1a; font-size: 12pt;
-    margin-top: 20px; margin-bottom: 8px; font-weight: bold;
-    direction: rtl; text-align: right;
+    margin-top: 20px; margin-bottom: 8px; font-weight: bold; text-align: left;
   }
 
   .sacred-text {
@@ -100,8 +96,8 @@
     font-size: 12.5pt; line-height: 1.9;
   }
   .pilpul-box {
-    background: #eef3fa; border-right: 4px solid #1A1F3A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #eef3fa; border-left: 4px solid #1A1F3A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .pilpul-box::before {
     content: "⚡ פלפול"; display: block;
@@ -110,8 +106,8 @@
     direction: rtl; text-align: right;
   }
   .kashya-box {
-    background: #fef4e4; border-right: 4px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #fef4e4; border-left: 4px solid #C5A55A;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .kashya-box::before {
     content: "❓ קושיא"; display: block;
@@ -120,8 +116,8 @@
     direction: rtl; text-align: right;
   }
   .teruts-box {
-    background: #e8f4ea; border-right: 4px solid #2d7a3e;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #e8f4ea; border-left: 4px solid #2d7a3e;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .teruts-box::before {
     content: "✓ תירוץ"; display: block;
@@ -130,8 +126,8 @@
     direction: rtl; text-align: right;
   }
   .hakira-box {
-    background: #f5e9f5; border-right: 4px solid #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    background: #f5e9f5; border-left: 4px solid #6a1b7a;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
   .hakira-box::before {
     content: "🔍 חקירה"; display: block;
@@ -141,8 +137,7 @@
   }
   .nafka-mina-box {
     background: #fff4e6; border: 2px solid #C5A55A;
-    padding: 12px 18px; margin: 15px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; border-radius: 4px; text-align: left;
   }
   .nafka-mina-box::before {
     content: "⚖️ נפקא מינה"; display: block;
@@ -152,8 +147,7 @@
   }
   .yesod-box {
     background: #1A1F3A; color: #fff;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
   .yesod-box::before {
     content: "💎 יסוד"; display: block;
@@ -164,7 +158,7 @@
   .yesod-box .he-q { color: #C5A55A; }
   .machloket-box {
     background: #faf5ff; border: 1.5px dashed #6a1b7a;
-    padding: 12px 18px; margin: 15px 0; direction: rtl; text-align: right;
+    padding: 12px 18px; margin: 15px 0; text-align: left;
   }
 
   table {
@@ -173,10 +167,9 @@
   }
   th {
     background: #1A1F3A; color: #fff;
-    padding: 10px; text-align: right; direction: rtl; font-size: 11pt;
+    padding: 10px; text-align: left; font-size: 11pt;
   }
-  td {
-    direction: rtl; text-align: right;
+  td { text-align: left;
     border: 1px solid #d4c89a; padding: 10px; vertical-align: top;
   }
   tr:nth-child(even) td { background: #FAF6EE; }
@@ -197,12 +190,11 @@
   }
 
   ol.stylish li, ul.stylish li { margin-bottom: 8px; }
-  ol.stylish, ul.stylish { padding-right: 22px; padding-left: 0; }
+  ol.stylish, ul.stylish { padding-left: 22px; padding-right: 0; }
 
   .rishon-card {
-    background: #f7f3e4; border-right: 4px solid #8a6a1a;
-    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt;
-    direction: rtl; text-align: right;
+    background: #f7f3e4; border-left: 4px solid #8a6a1a;
+    padding: 10px 15px; margin: 10px 0; font-size: 10.5pt; text-align: left;
   }
   .rishon-card strong { color: #1A1F3A; font-size: 11pt; }
 
@@ -217,15 +209,14 @@
 
   .index-box {
     background: #FAF6EE; border: 1px solid #C5A55A;
-    padding: 15px 20px; margin: 20px 0; border-radius: 4px;
-    direction: rtl; text-align: right;
+    padding: 15px 20px; margin: 20px 0; border-radius: 4px; text-align: left;
   }
-  .index-box ol { margin: 5px 0; padding-right: 25px; padding-left: 0; }
+  .index-box ol { margin: 5px 0; padding-left: 25px; padding-right: 0; }
   .index-box li { margin-bottom: 5px; }
 
   h3.sugya {
     background: #1A1F3A; color: #fff;
-    padding: 8px 15px; border-left: none; border-right: 6px solid #C5A55A;
+    padding: 8px 15px; border-right: none; border-left: 6px solid #C5A55A;
   }
 
   /* ── חץ אל ההסבר המפורט (רמה 1) ── */
@@ -237,7 +228,6 @@
     font-size: 12pt;
     text-decoration: none;
     border-bottom: 1px dotted #C5A55A;
-    direction: rtl;
   }
   a.daat-explain:hover { color: #8a6a1a; border-bottom-style: solid; }
 
@@ -379,472 +369,607 @@
 })();
 </script>
 
-<!-- COUVERTURE -->
+<!-- COVER -->
 <div class="cover">
   <div class="ornament">✦ ❖ ✦</div>
-  <div class="badge-top">DAAT · רמה ב' — לַמְדָּן</div>
-  <h1>שולחן ערוך · יורה דעה</h1>
-  <div class="subtitle">דין שלא ללוש עיסה בחלב — עיון ופלפול</div>
+  <div class="badge-top">DAAT · LEVEL 2 — LAMDAN</div>
+  <h1>Siman 97 — Lamdan Level: dough kneaded with milk, where nothing is mixed and everything is forbidden</h1>
+  <div class="subtitle">What a גזירה does when there is no absorption at all — and what lifts it</div>
 
   <div class="he-title">סימן צ״ז</div>
-  <div class="he-sub">גזירה שמא יבוא לאכלה עם בשר, כדי אכילה בבת אחת, שינה צורת הפת, תנור טוח באליה, ריחא</div>
+  <div class="he-sub">שמא יבוא לאכלה עם בשר · דבר מועט כדי אכילה בבת אחת · ששינה צורת הפת שתהא ניכרת</div>
   <div class="he-subject">עיון, פלפול, שיטות הראשונים והאחרונים</div>
 
-  <div class="level-badge">⚡ ללומדים ותלמידי חכמים ⚡</div>
+  <div class="level-badge">⚡ For lomdim and talmidei chachamim ⚡</div>
 
   <div class="ornament">✦ ❖ ✦</div>
 
-  <h2 style="margin-top:20px; color: #1A1F3A;">פלפול ועיון מעמיק</h2>
+  <h2 style="margin-top:20px; color: #1A1F3A;">In-depth pilpul and iyun</h2>
   <p style="font-size:12pt; color:#555;">
-    סוגיות, מקורות, חקירת היסוד, מחלוקות ראשונים ואחרונים,<br>
-    נפקא מינות להלכה ועיון בשיטות
+    Sugyos, sources, the underlying chakira, machlokos of Rishonim and Acharonim,<br>
+    practical nafka minos and an examination of the shitos
   </p>
 
   <div class="credits">
-    <p><strong>הנושא :</strong><br>
-    שולחן ערוך יורה דעה סימן צ״ז (ג' סעיפים)<br>
-    עם נושאי כלים: ש״ך (שפתי כהן), ט״ז (טורי זהב), פרי מגדים, פתחי תשובה</p>
+    <p><strong>Subject:</strong><br>
+    שולחן ערוך יורה דעה סימן צ״ז — three seifim<br>
+    with its apparatus: ש״ך (five ס״ק) · ט״ז (five ס״ק) · פתחי תשובה (seven ס״ק)</p>
 
-    <p><strong>יסוד הסוגיא בש״ס :</strong><br>
-    פסחים ע״ו: (ריחא מילתא · פת שאפאה עם הצלי) · חולין צ״ז: (טעם ואיסור בליעה) · חולין קי״א:–קי״ב. (דגים שעלו בקערה · ריחא)</p>
+    <p><strong>Root of the sugya in Shas:</strong><br>
+    פסחים ע״ו ע״ב — ריחא מילתא, and bread baked together with the roast</p>
 
-    <p><strong>עריכה ועיון :</strong><br>
+    <p><strong>Written and edited by:</strong><br>
     הרב יוסף חיים סממה · DAAT</p>
   </div>
 </div>
 
 <div class="page-break"></div>
 
-<!-- TABLE DES MATIÈRES -->
-<h2 class="section-title">📑 תוכן העניינים</h2>
+<!-- TABLE OF CONTENTS -->
+<h2 class="section-title">📑 Table of contents</h2>
 
-<div class="index-box" dir="rtl">
+<div class="index-box">
 <ol>
-  <li><strong>הקדמת הסוגיא</strong> — עיסה הנילושה בחלב, האם דין בליעה או גזירה (סעיף א')</li>
-  <li><strong>יסוד הגזירה</strong> — "שמא יבוא לאכלה עם בשר", ואיסור אף לאכלה לבדה (ש״ך)</li>
-  <li><strong>שני ההיכרים המתירים</strong> — כדי אכילה בבת אחת ושינה צורת הפת, וגדריהם (פ״ת ס״ק ג)</li>
-  <li><strong>שוגג ומזיד · קנסו</strong> — האם נאסר אף בשוגג ובדיעבד (פרי מגדים, פ״ת ס״ק ב)</li>
-  <li><strong>תנור טוח באליה</strong> — שומן בעין, ליבון ולא קינוח, ופלאד״ן כנגדו (סעיף ב', ט״ז ס״ק ד)</li>
-  <li><strong>בוכיא והיסק מבחוץ</strong> — וטעם שאין היתר בהיסק חיצוני (ט״ז ס״ק ה)</li>
-  <li><strong>ריחא — פת וצלי ודגים עם בשר</strong> — תנור קטן וגדול, י״ב עשרונים, וכיסוי (סעיף ג')</li>
-  <li><strong>נ״ט בר נ״ט ואיסור עומד במקומו</strong> — פני אריה ומהרי״ט (פ״ת ס״ק ד–ו)</li>
-  <li><strong>הרחבת הגזירה למדוכה</strong> — והבדל מסימן צ״ו (ט״ז ס״ק א)</li>
-  <li><strong>חקירה ונפקא מינה למעשה</strong></li>
-  <li><strong>טבלאות סיכום מקיפות</strong></li>
+  <li><strong>Opening the sugya</strong> — dough kneaded with milk: absorption, or a גזירה? (seif א)</li>
+  <li><strong>The ground of the גזירה</strong> — <span class="he-q">שמא יבוא לאכלה עם בשר</span> <span class="source-ref">(שו״ע יו״ד צ״ז:א)</span>, and the prohibition even to eat it by itself (Shach ס״ק א)</li>
+  <li><strong>The two distinguishing marks that permit</strong> — a small amount and a changed shape, and their limits (Pischei Teshuva ס״ק ג)</li>
+  <li><strong>Inadvertently or deliberately</strong> — was the shogeg penalised as well? (Pri Megadim, Pischei Teshuva ס״ק ב)</li>
+  <li><strong>An oven smeared with alya</strong> — fat in substance, libbun rather than wiping, and the pladen alongside it (seif ב, Taz ס״ק ג–ד)</li>
+  <li><strong>The buchya and heating from outside</strong> — and why there is no way out by that road (Taz ס״ק ה)</li>
+  <li><strong>ריחא — bread, roast and fish together with meat</strong> — small oven and large, twelve issaronim, covering (seif ג)</li>
+  <li><strong>נ״ט בר נ״ט and the prohibition that stays in its place</strong> — Pnei Aryeh and Maharit (Pischei Teshuva ס״ק ד–ו)</li>
+  <li><strong>Extending the גזירה to a mortar</strong> — and the difference from siman 96 (Taz ס״ק א)</li>
+  <li><strong>Chakira and practical nafka mina</strong></li>
+  <li><strong>Summary tables</strong></li>
 </ol>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<!-- לשון השולחן ערוך — סעיף א' -->
-<h2 class="section-title">📜 לשון השולחן ערוך — סעיף א'
-  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 העתק</button>
+<!-- The text of the Shulchan Aruch — seif א -->
+<h2 class="section-title">📜 The text of the Shulchan Aruch — seif א
+  <button class="daat-copy" type="button" data-copy-target="#cp-1">📋 Copy</button>
 </h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ Detailed explanation (Level 1)</a>
 
 <div class="sacred-text he" data-copy-block id="cp-1">
-  <p>אֵין לָשִׁין עִיסָּה בְּחָלָב, שֶׁמָּא יָבוֹא לְאָכְלָהּ עִם בָּשָׂר; וְאִם לָשׁ — כָּל הַפַּת אֲסוּרָה, אֲפִלּוּ לְאָכְלָהּ לְבַדָּהּ. וְאִם הָיָה דָּבָר מוּעָט כְּדֵי אֲכִילָה בְּבַת אַחַת, אוֹ שֶׁשִּׁנָּה צוּרַת הַפַּת שֶׁתְּהֵא נִכֶּרֶת שֶׁלֹּא יֹאכַל עִמָּהּ בָּשָׂר — מֻתָּר. וְכֵן אֵין אוֹפִין פַּת בְּתַנּוּר שֶׁטָּחוֹ בְּאַלְיָה, וְאִם אֲפָאוֹ — הֲרֵי דִּינוֹ כְּעִיסָּה שֶׁנִּלּוֹשָׁה בְּחָלָב. (הגה: וְלָכֵן נוֹהֲגִין לִלּוֹשׁ פַּת בְּחָלָב בְּשָׁבוּעוֹת, וּבְשׁוּמָן לִכְבוֹד שַׁבָּת, מִשּׁוּם דְּהַוֵי דָּבָר מוּעָט וְצוּרָתָן מְשֻׁנָּה; וְכָל שֶׁכֵּן פְלַאד״ן וּפְשׁטיד״א שֶׁמֻּתָּרִין. אֲבָל אֵין אוֹפִין שׁוּם פַּת עִם פְלַאד״ן בְּתַנּוּר, שֶׁמָּא יָזוּב הַשּׁוּמָן עַל הַפַּת, וְאִם זָב תַּחְתָּיו — הֲרֵי הוּא כְּנִלּוֹשׁ עִמּוֹ. וְנוֹהֲגִין לְהַנִּיחַ הַטְּפֵלָה בְּפִי הַתַּנּוּר, וַאֲפִלּוּ בְּמַחֲבַת יֵשׁ לְהַחְמִיר לְכַתְּחִלָּה.)</p>
+<p>«&nbsp;<span class="he-q">שלא ללוש עיסה בחלב. ובו ג׳ סעיפים</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד צ״ז:א)</span></p>
+<p>«&nbsp;<span class="he-q">אין לשין עיסה בחלב שמא יבוא לאכלה עם בשר ואם לש כל הפת אסור אפי׳ לאכלה לבדה ואם היה דבר מועט כדי אכילה בבת אחת או ששינה צורת הפת שתהא ניכרת שלא יאכל בה בשר מותר כיוצא בו אין אופין פת בתנור שטחו באליה ואם אפאו דינו כעיסה שנילושה בחלב</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד צ״ז:א)</span></p>
+<p>«&nbsp;<span class="he-q">ולכן נוהגין ללוש פת עם חלב בחג השבועות גם בשומן לכבוד שבת כי כל זה מחשב כדבר מועט גם כי צורתן משונה משאר פת וכ״ש פלאד״ן או פשטיד״א דמותרין</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד צ״ז:א)</span></p>
+<p>«&nbsp;<span class="he-q">ואין לאפות שום פת עם פלאד״ן או פשטיד״א בתנור דחיישינן שמא יזוב מן השומן על הפת ואם זב תחתיו דינו כאלו נילוש עמו</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד צ״ז:א)</span></p>
+<p>«&nbsp;<span class="he-q">ונוהגין לשום הטפילה בפי התנור</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד צ״ז:א)</span></p>
+<p>«&nbsp;<span class="he-q">ואפי׳ הוא במחבת נוהגין להחמיר לכתחלה</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד צ״ז:א)</span></p>
 </div>
 
-<!-- ============================================================= -->
-<h2 class="section-title">1. הקדמת הסוגיא — עיסה הנילושה בחלב</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ הסבר מפורט (רמה 1)</a>
+<p><em>summary</em>: one does not knead dough with milk, lest one come to eat it with meat; and if one did knead, the entire loaf is forbidden, even to eat by itself. Two cases are excepted: a small amount eaten at one sitting, and a loaf whose shape has been changed so as to be recognisable. The same rule applies to an oven smeared with tail fat. The Rama derives from this the custom of kneading with milk on Shavuos and with fat in honour of Shabbos, and adds the precaution concerning bread baked together with a pladen.</p>
 
-<h3 class="he-h3">היסוד — אין כאן בליעה אלא גזירה
-  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 העתק</button>
+<!-- ============================================================= -->
+<h2 class="section-title">1. Opening the sugya — dough kneaded with milk</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-seifim">↩ Detailed explanation (Level 1)</a>
+
+<h3>The ground — there is no absorption here at all, but a גזירה
+  <button class="daat-copy" type="button" data-copy-target="#cp-2">📋 Copy</button>
 </h3>
 
+<p>The whole siman rests on a fact that must be set down before any discussion opens: dough kneaded with milk contains <strong>no prohibition whatever</strong>. No meat has entered it, and milk taken by itself is permitted without reservation. Nothing has been absorbed that should not have been. And yet the Shulchan Aruch forbids it, and forbids the entire loaf.</p>
+<p>The reason it gives is not a reason of mixture but of <strong>apprehension</strong>: that one may come, later, to eat this bread together with meat.</p>
+<blockquote>«&nbsp;<span class="he-q">שמא יבוא לאכלה עם בשר</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד צ״ז:א)</span></blockquote>
+<p>That is why the bread is forbidden <strong>even to eat by itself</strong> — although, on that assumption, eating it by itself would involve no transgression at all. The Shach, in five words, ties this stringency explicitly to the גזירה itself.</p>
 <div class="sacred-text he" data-copy-block id="cp-2">
-יסוד הסימן: עיסה שנילושה בחלב — אין בה כל איסור בליעה, שהרי לא נתערב בה בשר כלל, והחלב לעצמו היתר גמור. אלא <strong>גזירה</strong> היא — <span class="he-q">שמא יבוא לאכלה עם בשר</span> ויעבור על איסור בשר בחלב. ולפיכך אם לש — אסור <strong>אף לאכלה לבדה</strong>, ולא משום שיש בה תערובת איסור, אלא משום שגזרו עליה כדי שלא יבוא לידי תקלה. נמצא שכל הסימן אינו דין <strong>טעם / בליעה</strong> אלא דין <strong>גזירה</strong>, וזהו השורש לכל פרטיו.
+<p>«&nbsp;<span class="he-q">אפילו לאכלה לבדה. גזירה שמא יאכלנה עם בשר</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ז ס״ק א)</span></p>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>נפקא מינה — איסור אף בעין :</strong> מאחר שזו גזירה ולא בליעה, אין כאן ביטול בששים כדרך שאר תערובות. הפת עצמה נאסרת <em>בעצמותה</em> מכוח הגזירה, ואין החלב הנילוש בה בטל ברוב הקמח והמים. וזהו הפלא שבסימן: דבר היתר (חלב) הנילוש בדבר היתר (עיסה) — אוסר את הכל <span class="he-q">בגזירה</span>, אף שאין שם איסור כלל בעצם.
+<div class="pilpul-box">
+<strong>נפקא מינה — a prohibition that does not dissolve in the majority:</strong> since this is a גזירה and not an absorption, there is no בטל בששים here as in other mixtures. The bread is struck <em>in itself</em> by the decree, and the milk kneaded into it is not lost in the mass of flour and water. Here lies the oddity of the siman: a permitted thing (milk) kneaded into a permitted thing (dough) renders the whole forbidden, although in substance there is no prohibition there at all.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>טעם הש״ך (ושמא יאכלנה עם בשר) :</strong> מבאר הש״ך דהא דאסרו <span class="he-q">אפילו לאכלה לבדה</span> — היינו משום ה<strong>גזירה</strong> עצמה: אם תתיר לאכלה לבדה, שוב לא תהיה הפת נחשבת "חלבית" בעיני האדם, ויבוא לאכלה עם בשר. על כן אסרוה לגמרי כדי לעשות בה היכר. ולפי זה כל ההיתרים שבסעיף (מועט / שינוי צורה) אינם מתירים את ה<em>איסור</em> אלא מסירים את עצם ה<em>גזירה</em>, שכבר ניכר שלא יבוא לאכלה עם בשר.
+<div class="rishon-card">
+<strong>The Shach’s reading (ס״ק א):</strong> the Shach says only five words — «&nbsp;<span class="he-q">גזירה שמא יאכלנה עם בשר</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ז ס״ק א)</span> — but he sets them precisely on the words <em>even to eat it by itself</em>, and that placement is the reading: the stringency of forbidding it even by itself <em>is</em> the גזירה, and not a consequence of some absorption. It follows that the two permissions of the seif do not lift a <strong>prohibition</strong>: they remove the <em>ground for apprehension</em>.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">2. שני ההיכרים המתירים — מועט ושינוי צורה</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">2. The two distinguishing marks that permit — small amount and changed shape</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (Level 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">זהו לב הסעיף: כיצד נסלקת הגזירה, ומה גדרי כל אחד משני ההיכרים.</p>
+<p style="margin:15px 0; font-style:italic;">This is the heart of the seif: how the גזירה is lifted, and what the limits of each of the two marks are.</p>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — מהו ההיכר שמסיר את הגזירה :</strong> אם כל האיסור גזירה משום "שמא יאכלנה עם בשר", הרי בכל מקום שאין חשש זה — אין הגזירה. ומכאן שני אופנים שבהם בטל החשש: (א) <span class="he-q">דבר מועט כדי אכילה בבת אחת</span> — שאוכלה כולה בבת אחת ואין שהות שיבוא בה לידי בשר; (ב) <span class="he-q">שינה צורת הפת</span> — שתהא נכרת שלא יאכל עמה בשר. אבל אם ניכר ההיכר — אין כאן גזירה כלל.
+<div class="hakira-box">
+<strong>The chakira — what is a mark that lifts the גזירה?</strong> If the whole prohibition rests on the apprehension that one will eat this bread with meat, then wherever that apprehension has no place there is no גזירה. The Shulchan Aruch names two situations in which it falls away: an amount so small that it is eaten at one sitting, and a loaf whose shape has been changed so as to be recognisable. It remains to ask whether the two marks operate in the same way — or whether one removes the <em>occasion</em> of the transgression and the other the <em>warning</em> that forestalls it.
 </div>
+<blockquote>«&nbsp;<span class="he-q">ואם היה דבר מועט כדי אכילה בבת אחת או ששינה צורת הפת שתהא ניכרת שלא יאכל בה בשר מותר</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד צ״ז:א)</span></blockquote>
 
-<div class="teruts-box" dir="rtl">
-<strong>שני ההיכרים — הסבר הדין :</strong>
+<div class="teruts-box">
+<strong>The two marks, each in its own order:</strong>
 <ul class="stylish">
-<li><strong>(א) כדי אכילה בבת אחת</strong> — כמות מועטת הנאכלת במושב אחד, שאין דרך לאכול עמה בשר ולא ישהה בה עד שישכח שהיא חלבית.</li>
-<li><strong>(ב) שינה צורת הפת</strong> — צורה משונה (קליעה, סימן, צורת פשטיד״א) <span class="he-q">שתהא נכרת</span> לכל רואיה שזו פת חלבית. וזה היתר אף בכמות מרובה, שכן הצורה עצמה היא ההיכר.</li>
+<li><strong>(א) כדי אכילה בבת אחת</strong> — an amount eaten at one sitting. Here nothing warns anyone: it is the <em>occasion</em> that disappears, since the bread does not survive long enough for one to come to eat it with meat.</li>
+<li><strong>(ב) שינה צורת הפת</strong> — a distinct shape, made in order <em>to be recognised</em>. Here the occasion remains entire, and it is the warning that neutralises it; which is why this second mark holds good even for a large amount.</li>
 </ul>
-ולכן נוהגין (רמ״א) ללוש פת בחלב בשבועות ובשומן לכבוד שבת — שגם מועטין הם וגם צורתן משונה.
+The Rama draws from this the received custom: kneading bread with milk on Shavuos and with fat in honour of Shabbos — because these are small amounts <em>and</em> their shape differs from ordinary bread.
 </div>
+<blockquote>«&nbsp;<span class="he-q">ולכן נוהגין ללוש פת עם חלב בחג השבועות גם בשומן לכבוד שבת כי כל זה מחשב כדבר מועט גם כי צורתן משונה משאר פת וכ״ש פלאד״ן או פשטיד״א דמותרין</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד צ״ז:א)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>דקדוק הפתחי תשובה (ס״ק ג, בשם מהרי״ט) — גבולות השינוי :</strong> שני סייגים חשובים ב<span class="he-q">שינה צורת הפת</span>: (א) אין השינוי מועיל אלא <strong>בבית</strong>, שהאוכלים מכירים בצורה; אבל <strong>למכור בשוק</strong> — לא מהני, שהקונים והאורחים אינם יודעים שצורה זו מורה על חלב. (ב) אין השינוי מועיל אלא <strong>בשעת האפיה</strong>; ופת שכבר נאפתה ונאסרה — שוב אין מועיל לעשות בה צורה אחר כך.
+<div class="rishon-card">
+<strong>The limits of the change of shape — Maharit, brought by the Pischei Teshuva (ס״ק ג):</strong> the mark does not operate everywhere. The Maharit confines it <strong>to the home</strong>: making a large quantity to sell in the market does not help, since guests will not recognise the mark; nor is it enough to rely on telling them, lest one forget to tell.
 </div>
+<blockquote>«&nbsp;<span class="he-q">דאין מועיל שינוי רק בביתו אבל לעשות הפת מרובה למכור בשוק אסור דאורחים לא יכירו בשינוי</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ז ס״ק ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ואף על סמך ההודעה אסור דחיישינן שמא ישכח מלהודיע</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ז ס״ק ג)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>אין מחלקין נבילה — חידוש החוות דעת (פ״ת ס״ק ג) :</strong> פת גדולה שנילושה בחלב כדרכה ונאסרה — <span class="he-q">אין מועיל לחלקה</span> אחר כך לחתיכות קטנות "כדי אכילה בבת אחת" כדי להתירה. שכבר נאסרה הפת מכוח הגזירה ונעשתה נבילה, ושוב אין החלוקה המאוחרת מסירה את האיסור שכבר חל. וזהו ככלל "אין מחלקין דבר שכבר נאסר", וכמו שאמרו (לעיל סימן צ״ב) שאין שינוי מאוחר מועיל לחתיכה שכבר נעשתה נבילה.
+<div class="rishon-card">
+<strong>The second limit is the Chavos Daas’s, not the Maharit’s:</strong> the Pischei Teshuva brings it at the same ס״ק, but under a different name, and the distinction matters — it is the Chavos Daas who requires that the change be made <strong>at the time of baking</strong>, when no prohibition had yet taken hold; a shape given afterwards, to bread already forbidden, is worth nothing.
 </div>
+<blockquote>«&nbsp;<span class="he-q">ועיין ח״ד שכתב עוד דשינוי אין מועיל רק כששינה בשעת אפיה דלא היה עליו איסור כלל אבל לעשות שינוי אחר שכבר נאסר אינו מועיל</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ז ס״ק ג)</span></blockquote>
+
+<div class="pilpul-box">
+<strong>One does not divide what has already become נבלה — the Chavos Daas (פ״ת ס״ק ג):</strong> from the same root comes a harder consequence still. A large loaf kneaded with milk in the ordinary way is forbidden; one does not save it by afterwards dividing it among several people so that each receives only a small amount. The reason is that the prohibition <em>has already taken hold</em>: the bread has become נבלה, and a later division does not undo what has occurred. From this one sees that the first mark (the small amount) is not assessed at the moment of eating but at the moment when the גזירה could have applied.
+</div>
+<blockquote>«&nbsp;<span class="he-q">וכן לחלקו להרבה ב״א שיגיע לכ״א דבר מועט אסור כיון שכבר נאסר ונעשה נבלה</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ז ס״ק ג)</span></blockquote>
+
+<div class="nafka-mina-box">
+<strong>נפקא מינה — a third road, which is neither the amount nor the shape:</strong> the Pischei Teshuva further brings, in the name of the Maharit, that the prohibition reaches only what one is actually liable to eat with cheese. Pastries filled with sweet things, which it is not the way to eat with cheese, would therefore be permitted to knead with fat. This is no longer a distinguishing mark, but the disappearance of the apprehension itself. <em>In practice — ask your Rav.</em>
+</div>
+<blockquote>«&nbsp;<span class="he-q">אבל היכא דליכא למיחש להכי כמו אותם הממולאים במיני מתיקה שאין דרך לאכלן עם גבינה מותר ללוש אותם עם שומן</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ז ס״ק ג)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">3. שוגג ומזיד — האם קנסו</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">3. Inadvertently or deliberately — was a penalty imposed?</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (Level 1)</a>
 
-<h3 class="he-h3">חקירת השוגג
-  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 העתק</button>
+<h3>The chakira of the shogeg
+  <button class="daat-copy" type="button" data-copy-target="#cp-3">📋 Copy</button>
 </h3>
 
+<p>The Mechaber writes that <em>if he kneaded, the entire loaf is forbidden, even to eat by itself</em> — and he draws no distinction. Neither between one who kneaded <em>deliberately</em> and one who kneaded <em>inadvertently</em>, nor between what is done beforehand and what is already done.</p>
+
+<div class="hakira-box">
+<strong>The chakira — was a penalty imposed even on the shogeg?</strong> Since the prohibition is not one in itself but a decree, there is room to ask: when one transgressed and kneaded, was the kneader <strong>penalised</strong> by forbidding the bread even in the case of inadvertence and after the fact — or was the penalty imposed only on one who acted deliberately, the bread remaining permitted to the shogeg?
+</div>
 <div class="sacred-text he" data-copy-block id="cp-3">
-לשון המחבר: "<strong>ואם לש — כל הפת אסורה, אפילו לאכלה לבדה</strong>". ולא חילק בין לש <em>במזיד</em> (ביודעין) ובין לש <em>בשוגג</em> (בלא יודע שאסור), ולא בין לכתחילה לדיעבד — אלא בכל ענין הפת אסורה.
+<p>«&nbsp;<span class="he-q">ואם לש כל הפת אסור אפי׳ לאכלה לבדה</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד צ״ז:א)</span></p>
+<p>«&nbsp;<span class="he-q">ועיין פמ״ג בשפ״ד סק״א שכתב דיש לעיין אם לש פת עם חלב בשוגג שלא ידע שזה אסור או נפל בשוגג חלב מי אסור או לא קנסו כ״א היכא שעבר במזיד</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ז ס״ק ב)</span></p>
+<p>«&nbsp;<span class="he-q">ומסתימת הפוסקים משמע אף בשוגג אסור</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ז ס״ק ב)</span></p>
 </div>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — האם קנסו אף בשוגג :</strong> מאחר שעיקר האיסור גזירה ולא איסור עצמי, יש לחקור: כשעבר ולש — האם <strong>קנסוהו</strong> ואסרו את הפת אף ב<em>שוגג</em> ובדיעבד, או שמא לא קנסו אלא במזיד, ובשוגג תהא מותרת ?
+<div class="teruts-box">
+<strong>What the Pischei Teshuva (ס״ק ב) actually says:</strong> it must be read closely, for the form of the answer is not that of a ruling. The Pri Megadim, in the Siftei Daas, <em>raises the question</em> — he writes that it requires examination whether a penalty was imposed also on one who kneaded without knowing it was forbidden, or on one into whose dough milk fell inadvertently. And he settles it not by any express view of the poskim but by their <strong>silence</strong>: from the fact that the poskim write without distinguishing, it appears that it is forbidden even to the shogeg.
 </div>
 
-<div class="teruts-box" dir="rtl">
-<strong>הכרעת הפרי מגדים (פתחי תשובה ס״ק ב) :</strong> מביא הפתחי תשובה בשם הפרי מגדים — דעת רוב הפוסקים ד<span class="he-q">אסורה אף בשוגג</span>, שלא חילקו חכמים בגזירתם, וקנסו אף את השוגג, וכל הפת אסורה אף בדיעבד. נמצא שזהו דין חמור: לא רק שאין לעשות כן לכתחילה, אלא אף אם נעשה בשוגג — נאסרה הפת.
+<div class="pilpul-box">
+<strong>What an argument from silence is worth:</strong> the support is not of the same order as a reasoned ruling, and that must be said. The Pri Megadim produces no posek who writes <em>even for a shogeg</em>; he produces the absence of a distinction among those who write. This is a legitimate way of concluding, and it is also the weakest: it holds so long as no one shows that the poskim had in view the ordinary case, that of the מזיד. The Pischei Teshuva, who brings all of this, further refers on this point to the Nachalas Tzvi, and does not rule of his own accord.
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה :</strong> פת שנילושה בחלב בלא היכר (לא מועטת ולא משונת צורה), אף שנעשה הדבר בטעות — אסורה באכילה. <em>ולמעשה — שאל את רבך.</em>
+<div class="nafka-mina-box">
+<strong>נפקא מינה:</strong> bread kneaded with milk with no distinguishing mark at all — neither a small amount nor a changed shape — is forbidden to eat even though the thing was done by mistake. <em>In practice — ask your Rav.</em>
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">4. תנור טוח באליה — שומן בעין וליבון</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">4. An oven smeared with alya — fat in substance, and libbun</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (Level 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיף ב')
-  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 העתק</button>
+<h3>The text of the Mechaber (seif ב)
+  <button class="daat-copy" type="button" data-copy-target="#cp-4">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-4">
-"<strong>תנור שטָּחוֹ בְּאַלְיָה — אין אופין בו פת עד שיסיקנו מבפנים עד שיתלבן. ואפילו הוא בּוּכְיָא</strong> (כלי חרס שמסיקין אותו מתחתיו ואופין עליו עוגות) <strong>— אין לו תקנה בהיסק מבחוץ.</strong>"
+<p>«&nbsp;<span class="he-q">תנור שטחו באליה אין אופין בו פת עד שיסיקנו מבפנים עד שיתלבן</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד צ״ז:ב)</span></p>
+<p>«&nbsp;<span class="he-q">ואפילו אם הוא של בוכיא … אין לו היתירא על ידי היסק מבחוץ</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד צ״ז:ב)</span></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — שומן בעין ולא בליעה :</strong><br>
-תנור הטוח באליה (שומן זנב הבהמה) שונה מן הפת הנילושה בחלב. כאן ה<span class="he-q">שמנונית בעין</span> — גוף האיסור עומד על דפנות התנור, ואין התנור נמחה ונקנח כקדירה. לפיכך אין די ב<strong>קינוח</strong> (ניגוב), אלא בעי <span class="he-q">ליבון</span> — היסק מבפנים עד שיתלבן, ששורף את גוף השומן. וזהו ההבדל היסודי: בפת הנילושה — בליעה גרידא; בתנור הטוח — שומן בעין.
-</div>
+<p><em>summary</em>: an oven that has been smeared with tail fat — one does not bake bread in it until one has heated it from within until it glows. And even if it is a buchya, there is no permission through heating applied from the outside.</p>
 
-<div class="machloket-box" dir="rtl">
-<strong>חידוש הט״ז (ס״ק ד) — מדוע ליבון ולא קינוח :</strong>
+<div class="yesod-box">
+<strong>יסוד — fat in substance, not an absorption:</strong><br>
+An oven smeared with alya is not of the same order as bread kneaded with milk. Here the fat is <em>in substance</em> on the wall: it is not a taste that has passed into the clay, it is the body of the thing itself clinging there. And the Taz adds the material fact that governs everything: an oven <strong>cannot be wiped clean properly</strong>. Hence wiping does not suffice, and it must be heated until it glows, which burns away the fat itself.
+</div>
+<blockquote>«&nbsp;<span class="he-q">הא דלא סגי בקינוח מפני שא״א לתנור להתקנח יפה והוה השמנונית בעין עד שיוסק</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ז ס״ק ד)</span></blockquote>
+
+<div class="machloket-box">
+<strong>What the Taz distinguishes, and where he distinguishes it:</strong>
 <table>
-<tr><th>המצב</th><th>הדין</th><th>הטעם</th></tr>
+<tr><th>The case</th><th>The ruling</th><th>The reason, and where it is written</th></tr>
 <tr>
-  <td><strong>פלאד״ן (פשטיד״א של גבינה) על קרקע התנור</strong></td>
-  <td>בליעה בלבד — אין צריך ליבון</td>
-  <td>אין שם שומן בעין, רק טעם בלוע (ט״ז ס״ק ג)</td>
+  <td><strong>A cheese pladen baked on the oven floor itself</strong></td>
+  <td>Absorption only — no libbun required</td>
+  <td>There is no fat in substance in the oven there, nothing but an absorption from the pladen (Taz ס״ק ד)</td>
 </tr>
 <tr>
-  <td><strong>תנור טוח באליה</strong></td>
-  <td>בעי <strong>ליבון עד שיתלבן</strong></td>
-  <td>השמנונית בעין, והתנור אינו נקנח יפה (ט״ז ס״ק ד)</td>
+  <td><strong>An oven smeared with alya</strong></td>
+  <td>It must be heated from within until it glows</td>
+  <td>The fat itself is smeared onto the wall, and that moisture cannot be wiped clean properly (Taz ס״ק ד)</td>
 </tr>
 </table>
 </div>
+<blockquote>«&nbsp;<span class="he-q">משא״כ בפלאדי״ן דלעיל שאין שם שומן בעין כלל בתנור אלא בליעה מן הפלאדי״ן</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ז ס״ק ד)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דשאני כאן שהשמנונית עצמה מטיח ממנה בתנור ואותו לחות אינו מתקנח יפה בתנור</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ז ס״ק ד)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שורש החילוק :</strong> מבאר הט״ז (ס״ק ד) דכל מקום שיש <span class="he-q">שמנונית בעין</span> שאין הכלי נקנח ממנה — בעי ליבון דווקא, שאין הקינוח מסיר את הגוף הדבוק; משא״כ באיסור בלוע בלא שומן בעין — די בהגעלה או בקינוח כפי הענין. ולפי זה דין התנור הטוח חמור מדין הפת, שבפת אין שומן בעין אלא בליעה, ואילו בתנור גוף האליה דבוק על הדפנות.
+<div class="kashya-box">
+<strong>קושיא — the Taz against himself:</strong> at the preceding ס״ק he has just written that an oven floor that absorbed from a pladen is like an absorption in a pot; and here he writes that there is prohibited matter in substance. He raises the objection himself. Then a second one: the Rama at seif א says to be concerned lest the fat run beneath the bread — which suggests that there is, beneath the pladen, prohibited matter in substance.
 </div>
 
-<div class="rishon-card" dir="rtl">
-<strong>הפלאד״ן על קרקע התנור (ט״ז ס״ק ג) :</strong> אשה שאפתה פלאד״ן של גבינה על קרקע התנור עצמו, ואחר כך הניחה שם קדירת בשר חמה — <span class="he-q">אין כאן איסור</span>. שהקרקע שבלע חלב הוא ככלי שני, וכ<strong>שתי קדירות הנוגעות זו בזו</strong> (כדין סימן צ״ב סעיף ח') שאין מבליעות זו מזו בלא רוטב. ועיקר חומרת המחבת אינה אלא <span class="he-q">לכתחילה</span>.
+<div class="teruts-box">
+<strong>תירוץ:</strong> to the first, the Taz answers that the two cases are not the same: in the smeared oven it is the fat itself that is applied to the wall; beneath a pladen there is only an absorption. To the second he answers from observation: we shall not deny what the eye sees, namely that the place of the pladen stays dry; the Rama’s meaning is that as a rule nothing runs beneath a pladen, but that at times it happens that it does.
+</div>
+<blockquote>«&nbsp;<span class="he-q">דודאי לא נכחיש חוש הראות שרואין שמקומו יבש</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ז ס״ק ד)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אלא פשוט דסתם פלאדי״ן אין זב תחתיו כמו שאנו רואין תמיד אלא דלפעמים אירע שזב</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ז ס״ק ד)</span></blockquote>
+
+<div class="rishon-card">
+<strong>The case put to the Taz (ס״ק ג):</strong> a woman had baked a cheese pladen directly on the floor of her oven, without a vessel, and had then set a boiling pot of meat on the same spot. The Taz answers that there is no prohibition there: the clay of the oven which absorbed from milk is no worse than a pot in which milk was cooked and which touched a meat pot — a case in which the poskim see no prohibition, and which the Rama brings at siman 92, seif ח. As for the Rama’s stringency about the pan, at the end of seif א, it applies only beforehand.
+</div>
+<blockquote>«&nbsp;<span class="he-q">נשאלתי באשה שאפתה פלאדי״ן של גבינה בתנור על קרקע שלו בלא כלי ואח״כ שמה שם קדרה של בשר רותחת על אותו המקום שהיה הפלאדי״ן</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ז ס״ק ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">והשבתי שאין כאן איסור דחרסית של תנור שבלעו מן החלב לא גרע מקדירה שמבשלין בתוכה חלב ונגעה בקדירה של בשר</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ז ס״ק ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">דאין שם איסור כמ״ש הפוסקים בשתי קדרות שנוגעות זו בזו</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ז ס״ק ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">וכאן שהחמיר במחבת היינו לכתחלה דוקא</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ז ס״ק ג)</span></blockquote>
+
+<div class="pilpul-box">
+<strong>What remains open:</strong> the Taz rests his answer on what <em>the eye sees</em>, that is, on a state of fact about the ovens and the pladen of his own day. The criterion he lays down is a legal one — fat in substance or mere absorption; but its application depends on an observation. We report the distinction, and we do not presume to decide what the eye would see elsewhere.
 </div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">5. בוכיא והיסק מבחוץ</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">5. The buchya and heating from outside</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ Detailed explanation (Level 1)</a>
 
-<p style="margin:15px 0; font-style:italic; direction:rtl; text-align:right;">דקדוק בסיפא דסעיף ב' — מדוע אף הבוכיא, שמסיקין אותו מבחוץ, בעי ליבון מבפנים.</p>
+<p style="margin:15px 0; font-style:italic;">An examination of the end of seif ב — why the buchya itself, which is heated from below, is not made permitted by that heating.</p>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה — מהו "בוכיא" ומדוע אין תקנה מבחוץ :</strong> בוכיא הוא כלי חרס חלול, כעין מושב לקדירה, שמסיקין אותו מתחתיו (מבחוץ) ואופין עליו עוגות מבפנים. ויש לחקור: מאחר שהיסקו מבחוץ — מדוע לא יועיל אותו היסק חיצוני ללבנו ולהכשירו ?
+<div class="hakira-box">
+<strong>The chakira — what is a buchya, and why is there no way out from the outside?</strong> The Mechaber himself supplies the gloss: an earthenware vessel that is heated from below and on which cakes are baked. Since its heating is precisely an external one, one might have thought that this very heating would suffice to make it permitted. That is what the seif refuses.
+</div>
+<blockquote>«&nbsp;<span class="he-q">ואפילו אם הוא של בוכיא</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד צ״ז:ב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אין לו היתירא על ידי היסק מבחוץ</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד צ״ז:ב)</span></blockquote>
+
+<div class="teruts-box">
+<strong>The Taz’s gloss (ס״ק ה):</strong> the Taz explains what the thing is — a hollow, after the manner of a pot-stand — and where the baking is done: <strong>inside</strong>. And he states the rule in his own terms: in this case even a heating is of no avail if one heats it from without.
+</div>
+<blockquote>«&nbsp;<span class="he-q">פירוש הוא חלל כמין שפיתות קדירה ואופין בו בפנים וקאמר דבזה אפי׳ היסק לא מהני אם מסיקו בחוץ</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ז ס״ק ה)</span></blockquote>
+
+<div class="pilpul-box">
+<strong>What the Taz says, and what he does not:</strong> one must be exact. The Taz gives the <em>fact</em> — the baking is inside, the heating is outside, and it does not avail — but he does not write the physical reason for that inefficacy. The reading that suggests itself is that the heating must reach <strong>the place where the prohibited matter has lodged</strong>, and not warm the vessel in general; that is a reading, and we give it as such. It agrees with the rule of the preceding seif, where the heating had to be done from within, precisely where the fat had been applied.
 </div>
 
-<div class="teruts-box" dir="rtl">
-<strong>תירוץ הט״ז (ס״ק ה) :</strong> השמנונית והאיסור עומדים על הפנים שבו (במקום האפיה), ואילו ההיסק מבחוץ אינו מגיע לחום ליבון בצד הפנימי שבו דבוק האיסור. נמצא שאף שמסיקין את הבוכיא מבחוץ — אין אותו חום מלבן את <span class="he-q">פנים</span> הכלי, ולפיכך <strong>אין לו תקנה בהיסק מבחוץ</strong>, אלא צריך ליבון מבפנים ממש כשאר תנור הטוח באליה.
-</div>
-
-<div class="pilpul-box" dir="rtl">
-<strong>נפקא מינה לעצם דין הליבון :</strong> מכאן שהליבון הנדרש אינו "חימום" סתם, אלא <span class="he-q">ליבון במקום בליעת האיסור</span> ממש. ולכן בוכיא שהאיסור בפנימיותו אינו ניתר בהיסק חיצוני, שאין החום מגיע לגוף האיסור הבלוע והדבוק; וזהו עומק דברי המחבר "אין לו תקנה בהיסק מבחוץ".
+<div class="nafka-mina-box">
+<strong>נפקא מינה:</strong> the Mechaber’s word is not that there is <em>no remedy</em>, but that there is <em>no permission</em> by way of heating from the outside. Nothing is said here about heating a buchya from within — the seif closes off one road, it does not close off others. <em>In practice — ask your Rav.</em>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">6. ריחא — פת וצלי ודגים עם בשר</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">6. ריחא — bread, roast and fish together with meat</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (Level 1)</a>
 
-<h3 class="he-h3">לשון המחבר (סעיף ג')
-  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 העתק</button>
+<h3>The text of the Mechaber (seif ג)
+  <button class="daat-copy" type="button" data-copy-target="#cp-5">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-5">
-"<strong>פת שאפאהּ עם הצלי, וכן דגים שצלאן בתנור אחד עם בשר — אסורין לאכלן בחלב; והני מילי בתנור קטן, אבל בתנור גדול שמחזיק שנים עשר עשרונים ופיו פתוח — מותר. ואם הצלי מכוסה, וכן פשטיד״א שפיהּ מכוסה — מותר אפילו בתנור צר.</strong> (ועיין לקמן סימן ק״ח כיצד נוהגין.)"
+<p>«&nbsp;<span class="he-q">פת שאפאו עם הצלי ודגים שצלאן בתנור אחד עם הבשר אסור לאכלם בחלב</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד צ״ז:ג)</span></p>
+<p>«&nbsp;<span class="he-q">והני מילי בתנור קטן אבל בתנור גדול המחזיק שנים עשר עשרונים ופיו פתוח מותר</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד צ״ז:ג)</span></p>
+<p>«&nbsp;<span class="he-q">ואם הצלי מכוסה וכן פשטיד״א שמכוסה הנקב שבו מותר אפילו בתנור צר</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד צ״ז:ג)</span></p>
+<p>«&nbsp;<span class="he-q">ועיין לקמן סימן ק״ח כיצד נוהגין</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד צ״ז:ג)</span></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — ריחא מילתא :</strong><br>
-כל סעיף זה בנוי על <span class="he-q">ריחא מילתא היא</span> (פסחים ע״ו:) — שה<strong>ריח / הזיעה</strong> העולה מן הצלי בשעת האפיה מעביר טעם בשר אל הפת או אל הדגים האפויים עמו, ואוסרם לאכלם בחלב. ומכאן שלשה גורמים המתירים: (א) <span class="he-q">תנור גדול</span> שהריח מתפזר בו; (ב) <span class="he-q">פיו פתוח</span> שהריח יוצא; (ג) <span class="he-q">כיסוי</span> הצלי או הפשטיד״א, שאין הריח עולה כלל.
-</div>
+<p><em>summary</em>: bread baked together with the roast, and fish roasted in the same oven as meat, are forbidden to eat with milk. This applies to a small oven; in a large oven holding twelve issaronim, whose mouth is open, it is permitted. And if the roast is covered, or the pashtida whose hole is stopped, it is permitted even in a narrow oven.</p>
 
-<div class="machloket-box" dir="rtl">
-<strong>תנור קטן וגדול · כיסוי :</strong>
+<div class="yesod-box">
+<strong>יסוד — ריחא מילתא:</strong><br>
+This whole seif rests on a position in the gemara in Pesachim: smell is something. The vapour rising from the roast during baking carries a taste of meat to the bread or to the fish baked with it, and renders them forbidden to eat with milk. The gemara even supplies the very formulation that will become this seif: bread baked with a roast in an oven is forbidden to eat with kutach.
+</div>
+<blockquote>«&nbsp;<span class="he-q">רֵיחָא מִילְּתָא הִיא</span>&nbsp;» <span class="source-ref">(פסחים ע״ו ע״ב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">פַּת שֶׁאֲפָאָהּ עִם צָלִי בַּתַּנּוּר — אָסוּר לְאׇכְלָהּ בְּכוּתָּחָא</span>&nbsp;» <span class="source-ref">(פסחים ע״ו ע״ב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">הָהִיא בִּינִיתָא דְּאִיטְּווֹא בַּהֲדֵי בִּישְׂרָא, אַסְרַהּ רָבָא מִפַּרְזִיקְיָא לְמֵיכְלַיהּ בְּכוּתָּחָא</span>&nbsp;» <span class="source-ref">(פסחים ע״ו ע״ב)</span></blockquote>
+
+<div class="machloket-box">
+<strong>The three situations of the seif:</strong>
 <table>
-<tr><th>המצב</th><th>הדין</th></tr>
+<tr><th>The case</th><th>The ruling</th></tr>
 <tr>
-  <td><strong>תנור קטן (וסתום) — פת/דגים עם צלי בשר</strong></td>
-  <td>אסורין לאכלן בחלב (הריח מעביר טעם)</td>
+  <td><strong>Small oven — bread or fish together with a meat roast</strong></td>
+  <td>Forbidden to eat with milk</td>
 </tr>
 <tr>
-  <td><strong>תנור גדול (י״ב עשרונים) ופיו פתוח</strong></td>
-  <td>מותר — הריח מתפזר ויוצא</td>
+  <td><strong>Large oven, holding twelve issaronim, mouth open</strong></td>
+  <td>Permitted</td>
 </tr>
 <tr>
-  <td><strong>הצלי מכוסה / פשטיד״א פיה מכוסה</strong></td>
-  <td>מותר אפילו בתנור צר</td>
+  <td><strong>Roast covered, or pashtida whose hole is stopped</strong></td>
+  <td>Permitted even in a narrow oven</td>
 </tr>
 </table>
 </div>
+<blockquote>«&nbsp;<span class="he-q">והני מילי בתנור קטן אבל בתנור גדול המחזיק שנים עשר עשרונים ופיו פתוח מותר</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד צ״ז:ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ואם הצלי מכוסה וכן פשטיד״א שמכוסה הנקב שבו מותר אפילו בתנור צר</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד צ״ז:ג)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>שיעור י״ב עשרונים (פתחי תשובה ס״ק ז) :</strong> נחלקו האחרונים בשיעור התנור הגדול: יש שמדדו ב<span class="he-q">קרקע</span> התנור בלבד (שטח רצפתו), ויש שמדדו בכל <span class="he-q">חללו</span> של התנור (יד אליהו ופרי מגדים). והנפקא מינה בתנור שרצפתו קטנה אך חללו רחב, אם דינו כגדול או כקטן.
+<div class="pilpul-box">
+<strong>Why it is forbidden here, when siman 108 permits after the fact:</strong> the Shach raises the difficulty and answers it in a word worth keeping. At the start of siman 108, kosher meat roasted with the meat of a neveila in one oven, even a small one, is permitted after the fact; here it is not. The reason is not that ריחא is stronger here: it is that in our case <strong>one can eat the bread without milk</strong>. Nothing compels one to consume the thing in the forbidden manner; and therefore this is not a case of after the fact at all, but a case of beforehand.
 </div>
+<blockquote>«&nbsp;<span class="he-q">הכא כיון דאפשר לאכלו בלא חלב הוי כלכתחלה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ז ס״ק ד)</span></blockquote>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>הרמ״א מפנה לסימן ק״ח :</strong> המחבר מסיים "<span class="he-q">ועיין לקמן סימן ק״ח כיצד נוהגין</span>" — ששם נתבארו דיני ריחא בהרחבה (אם ריחא מילתא להלכה, ואם אוסר בדיעבד), וכן חומרת <strong>דגים שנצלו עם בשר</strong> מפני הסכנה. ולמעשה כל הוראת ריחא בזמננו נדונה על פי האמור בסימן ק״ח. <em>ולמעשה — שאל את רבך.</em>
+<div class="rishon-card">
+<strong>The measure of twelve issaronim — a machlokes the Pischei Teshuva (ס״ק ז) brings, and which must be attributed the right way round:</strong> the <strong>Yad Eliyahu</strong> holds that the <em>floor</em> of the oven need not hold that measure, but that it is enough for the whole <strong>inner space</strong> to hold it. The <strong>Pri Megadim</strong> is not of that view: he requires that it be the <em>floor</em> of the oven that holds twelve issaronim of bread a tefach thick.
 </div>
+<blockquote>«&nbsp;<span class="he-q">דאין צריך שיהא קרקעיתו של תנור מחזיק כל כך אלא שיהא כל חלל התנור מחזיק כל כך</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ז ס״ק ז)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ועיין פמ״ג שאין דעתו כן רק דבעינן שיהא קרקעית התנור מחזיק י״ב עשרונים מפת עבה טפח</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ז ס״ק ז)</span></blockquote>
+
+<div class="nafka-mina-box">
+<strong>נפקא מינה:</strong> an oven with a narrow floor but a wide inner space will be <em>large</em> for the Yad Eliyahu and <em>small</em> for the Pri Megadim — and bread baked in it together with a roast will be permitted or forbidden with milk according to the view one follows. The Shach elsewhere gives the measure of an issaron: it is the measure of challah, forty-three eggs and a fifth of an egg. <em>In practice — ask your Rav.</em>
+</div>
+<blockquote>«&nbsp;<span class="he-q">וכל עשרון הוא שיעור חלה מ״ג ביצים וחומש ביצה</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ז ס״ק ה)</span></blockquote>
+
+<div class="pilpul-box">
+<strong>Where the siman refers, and where it does not — two referrals not to be confused:</strong> the seif closes with a referral to <strong>siman 108</strong>, and the Shach confirms it: that is where the laws of ריחא מילתא are set out as they should be, for that is their place. But the Shach takes care, at his ס״ק ג, to set aside a second subject: he deals here only with the <em>prohibition</em>, and not with the <strong>danger</strong> of fish roasted together with meat — which, he says, will be explained at the beginning of <strong>siman 116</strong>. Two referrals, two simanim, and to treat them as one would be an error.
+</div>
+<blockquote>«&nbsp;<span class="he-q">ועיין לקמן סימן ק״ח כיצד נוהגין</span>&nbsp;» <span class="source-ref">(שו״ע יו״ד צ״ז:ג)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">וע״ל סי׳ ק״ח שם יתבארו על נכון דיני ריחא מילתא כי שם מקומם</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ז ס״ק ד)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">לא איירי כאן אלא מדין איסור אבל מסכנתא לא מיירי וזה יתבאר בר״ס קי״ו</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ז ס״ק ג)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">7. נ״ט בר נ״ט ואיסור עומד במקומו</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">7. נ״ט בר נ״ט and the prohibition that stays in its place</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-shach-taz">↩ Detailed explanation (Level 1)</a>
 
-<h3 class="he-h3">דקדוקי הפתחי תשובה (ס״ק ד–ו)
-  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 העתק</button>
+<h3>The two foundations of the Pischei Teshuva (ס״ק ד–ו)
+  <button class="daat-copy" type="button" data-copy-target="#cp-6">📋 Copy</button>
 </h3>
 
+<p>Two opposing principles govern this section, and everything turns on knowing which of them applies to the case before us. If the bread received only an <strong>absorbed taste</strong>, without fat in substance, it is a נ״ט בר נ״ט and its regime is light. If fat <strong>in substance</strong> settled upon it, it <em>stays in its place</em> and does not dissolve.</p>
+
 <div class="sacred-text he" data-copy-block id="cp-6">
-שני יסודות חדים שמעלה הפתחי תשובה בעקבות האחרונים: (א) פת שאין בה אלא <strong>טעם בלוע</strong> ולא שומן בעין — הרי היא <span class="he-q">נותן טעם בר נותן טעם</span> (נ״ט בר נ״ט), ודינה קל; (ב) שומן <strong>בעין</strong> שעל הפת — הרי הוא <span class="he-q">איסור עומד במקומו</span> ואינו בטל.
+<p>«&nbsp;<span class="he-q">דפת שנאפה עם עיסה שאין בה שומן בעין אלא טעם בלוע אפילו נגע בה ע״י לח רותח מותר בין עם בשר בין עם חלב דנ״ט בר נ״ט הוא</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ז ס״ק ד)</span></p>
+<p>«&nbsp;<span class="he-q">מבואר שם דאפילו בפחות מכדי נ״ט אסור משום דהאיסור עומד במקומו ואינו מתבטל</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ז ס״ק ו)</span></p>
 </div>
 
-<div class="pilpul-box" dir="rtl">
-<strong>נ״ט בר נ״ט — חידוש הפני אריה (פ״ת ס״ק ד) :</strong> פת שנאפתה אצל עיסה חלבית וקלטה ממנה <span class="he-q">טעם בלבד</span> (בלא שזב עליה שומן בעין) — הרי זה <strong>נ״ט בר נ״ט</strong>: טעם החלב בעיסה, ומשם טעם בפת. ולפיכך <strong>בדיעבד מותרת</strong> אף לאכלה בחלב, ועם <strong>בשר מותרת אף לכתחילה</strong> — שכן בדיעבד שאין כאן איסור, פקעה הגזירה, וכדין נ״ט בר נ״ט דסימן צ״ה שמותר. נמצא שהפת ה"חלבית" הזו אינה כפת הנילושה ממש, אלא קלה ממנה.
+<div class="pilpul-box">
+<strong>נ״ט בר נ״ט — the Pnei Aryeh (פ״ת ס״ק ד):</strong> bread baked beside a dough that contains no fat in substance but only an absorbed taste — and this even if it touched it by way of a hot liquid — is permitted both with meat and with milk, for it is a נ״ט בר נ״ט. The Pnei Aryeh adds the restriction that orders the whole: beforehand it is forbidden, as the Rama writes at siman 95, seif ב, in his gloss; but after the fact, if it was put into milk, it may be eaten, and with meat it is permitted even beforehand.
 </div>
+<blockquote>«&nbsp;<span class="he-q">דפת שנאפה עם עיסה שאין בה שומן בעין אלא טעם בלוע אפילו נגע בה ע״י לח רותח מותר בין עם בשר בין עם חלב דנ״ט בר נ״ט הוא</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ז ס״ק ד)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אלא דלכתחלה אסור כמ״ש הרמ״א לעיל סימן צ״ה ס״ב בהגהה אבל בדיעבד אה נתנו לתוך החלב מותר לאוכלו ועם בשר מותר לאוכלו אפילו לכתחלה</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ז ס״ק ד)</span></blockquote>
 
-<div class="rishon-card" dir="rtl">
-<strong>"זב תחתיו" — דקדוק לשון הרמ״א (פ״ת ס״ק ה, מהר״ר עוזר) :</strong> מה שכתב הרמ״א "ואם זב תחתיו הרי הוא כנילוש עמו" — היינו דווקא שזב השומן <span class="he-q">תחת הפת ממש</span> ונבלע בה בעין. אבל אם זב במקום אחר בתנור ולא תחת הפת — אין הפת אסורה, אלא הרי היא כנ״ט בר נ״ט המותר בדיעבד. והחוות דעת דקדק עוד בגדרי "זב", ולא הקיל כל כך.
+<div class="machloket-box">
+<strong><span class="he-q">ואם זב תחתיו</span> <span class="source-ref">(רמ״א יו״ד צ״ז:א)</span> — three readings of one gloss of the Rama:</strong> the Rama wrote that if the fat ran <em>beneath</em>, the bread is as though kneaded with it. It remains to ask: beneath what?
 </div>
+<blockquote>«&nbsp;<span class="he-q">ואם זב תחתיו דינו כאלו נילוש עמו</span>&nbsp;» <span class="source-ref">(רמ״א יו״ד צ״ז:א)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>איסור עומד במקומו — מהרי״ט (פ״ת ס״ק ו) :</strong> שומן (אליה) שעל גבי הפת או התנור — אסור <span class="he-q">אף בפחות מכדי נותן טעם</span>, לפי שאינו מעורב ובטל אלא <strong>עומד במקומו</strong> בעין, ואיסור העומד במקומו אינו בטל. ונחלקו האחרונים: ה<strong>חוות דעת</strong> סובר שאין ששים מועיל לשומן שעל הפת (שהוא בעין) אך מועיל לחלב הנילוש בתוך הפת; וה<strong>בית אפרים</strong> סובר שששים מועיל בכל ענין, אלא שצריך <span class="he-q">נטילת מקום</span>.
+<div class="rishon-card">
+<strong>(א) The Taz (ס״ק ב) — the fat need not be seen beneath the bread itself:</strong> it is enough that it spread beyond the pashtida and was absorbed into the oven, and we are concerned that the absorption may have travelled as far as the bread.
 </div>
+<blockquote>«&nbsp;<span class="he-q">לא בעינן שיהא נראה השומן תחת הפת ממש אלא כל שמתפשט חוץ לפשטיד״א ונבלע בתנור חיישינן שמא הלכה הבליעה עד הפת</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ז ס״ק ב)</span></blockquote>
+
+<div class="rishon-card">
+<strong>(ב) The Shach (ס״ק ב) — the Rama’s gloss means beneath the pashtida:</strong> the Shach writes it in so many words, and his reading is wider still than the Taz’s, since it reaches bread even at a distance from the pashtida. He grounds his own distinction between beforehand and after the fact on a ספק ספיקא: perhaps nothing ran, and supposing it ran, perhaps it did not spread throughout.
+</div>
+<blockquote>«&nbsp;<span class="he-q">מ״ש הרב בהג״ה כאן ואם זב תחתיו ר״ל זב תחת הפשטי״ד אפי׳ רחוק מן הפת</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ז ס״ק ב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל בדיעבד אם אין התנור משופע או שהפת למעלה מן הפשטי״ד לא מחזקינן איסורא דשמא זב</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ז ס״ק ב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">והלכך היכא דלא חזינן דזב איכא ספק ספיקא ספק זב או לא זב ואת״ל זב שמא לא פעפע בכולו</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ז ס״ק ב)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">אבל אי חזינן דזב מן הפשטי״ד לחוץ אפילו אינו זב תחת הפת עצמו אלא הפת רחוק מן הפשטי״ד הפת אסור אף דיעבד</span>&nbsp;» <span class="source-ref">(ש״ך יו״ד צ״ז ס״ק ב)</span></blockquote>
+
+<div class="rishon-card">
+<strong>(ג) The Gaon Maharar Ozer, brought by the Pischei Teshuva (ס״ק ה) — against both of the foregoing:</strong> the Rama speaks strictly, the word <em>תחתיו</em> meaning <em>beneath the bread itself</em>; otherwise it would be a נ״ט בר נ״ט, permitted after the fact. The Pischei Teshuva notes that the Kreisi u-Pleisi raised the same objection against the Taz and the Shach.
+</div>
+<blockquote>«&nbsp;<span class="he-q">דדוקא קאמר הרמ״א ואם זב תחתיו היינו תחת הפת ממש דאל״כ הוי נ״ט בר נ״ט דשרי בדיעבד</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ז ס״ק ה)</span></blockquote>
+
+<div class="teruts-box">
+<strong>The Chavos Daas’s תירוץ — and what it costs:</strong> the Chavos Daas dismisses the objection at a stroke: there is no difficulty at all, for we say נ״ט בר נ״ט only where the other taste is <em>already absorbed</em>; at the very time of cooking the notion has no place. The answer is strong, but it has a price: it removes from the bread any benefit of נ״ט בר נ״ט in the very case the Rama is speaking of.
+</div>
+<blockquote>«&nbsp;<span class="he-q">ועיין בח״ד שכתב דלא קשה מידי דלא אמרינן נ״ט בר נ״ט רק כשטעם האחר הוא בלוע כבר אבל בשעת בישול לא שייך זה</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ז ס״ק ה)</span></blockquote>
+
+<div class="nafka-mina-box">
+<strong>נפקא מינה — the actual case of the Beis Efraim:</strong> women were baking their bread, and one of the neighbours had put in small loaves filled with onions and butter, from which some ran onto the oven floor. The Beis Efraim concludes that it is permitted, and for two distinct reasons — first because nothing ran beneath the bread itself, which makes it a נ״ט בר נ״ט, <em>against</em> the Chavos Daas; and second because the butter was a small amount, not enough to give taste to the bread, which all agree to. The two reasons do not carry equally far, and the Pischei Teshuva marks this: on the first, eating those loaves <em>with milk</em> remains forbidden; on the second, even that is permitted. <em>In practice — ask your Rav.</em>
+</div>
+<blockquote>«&nbsp;<span class="he-q">והעלה דכיון דלא זב תחת הפת ממש הוי נ״ט בר נ״ט דלא כח״ד</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ז ס״ק ה)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ועוד דכיון שהיה החמאה דבר מועט ואין בה בכדי נ״ט בפת מותר אליבא דכ״ע</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ז ס״ק ה)</span></blockquote>
+
+<div class="pilpul-box">
+<strong>איסור עומד במקומו — the Maharit (פ״ת ס״ק ו):</strong> fat lying upon the bread or in the oven is forbidden <em>even in less than the measure needed to impart taste</em>, because it is not mixed in and nullified but stays in its place, and what stays in its place is not nullified. Three positions then separate, and they must be kept apart: the <strong>Chavos Daas</strong> divides — if the fat fell on the bread or stuck to an oven smeared with alya, sixty is of no avail; but if the milk was kneaded <em>into</em> the bread, sixty suffices. The <strong>Beis Efraim</strong> disputes this: sixty avails in every case, save that one must remove the place.
+</div>
+<blockquote>«&nbsp;<span class="he-q">מבואר שם דאפילו בפחות מכדי נ״ט אסור משום דהאיסור עומד במקומו ואינו מתבטל</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ז ס״ק ו)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">וס״ל לחלק בין אם נפל על הפת או שנדבק בתנור שטחוהו באליה דאז לא מהני ס׳ ובין אם נילוש החלב בתוך הפת דאז שרי אי איכא ששים</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ז ס״ק ו)</span></blockquote>
+<blockquote>«&nbsp;<span class="he-q">ודעתו דבכל ענין מהני ס׳ רק דצריך נטילה באותו מקום</span>&nbsp;» <span class="source-ref">(פת״ש יו״ד צ״ז ס״ק ו)</span></blockquote>
 
 <!-- ============================================================= -->
-<h2 class="section-title">8. הרחבת הגזירה למדוכה</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">8. Extending the גזירה to a mortar</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ Detailed explanation (Level 1)</a>
 
-<h3 class="he-h3">חידוש הט״ז (ס״ק א)
-  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 העתק</button>
+<h3>The Taz’s chidush (ס״ק א)
+  <button class="daat-copy" type="button" data-copy-target="#cp-7">📋 Copy</button>
 </h3>
 
 <div class="sacred-text he" data-copy-block id="cp-7">
-מבאר הט״ז (ס״ק א) שיש להרחיב את גזירת הסימן אף ל<strong>מדוכה</strong>: מדוכה שכתשו בה שום עם רוטב של שומן אווז ונתנוהו על האווז — נבלע בה טעם חלב/בשר, ו<span class="he-q">אסור לכתוש בה תבלין אף לצורך בשר</span>, שמא יבוא לאכלן בחלב; וצריכה הכשר, ואסור אף בדיעבד — ככל דין הפת שבסימן זה.
+<p>«&nbsp;<span class="he-q">ופעם אחת דכו שם שום עם מרק משל שומן אווז ואחר כך מחזירין אותו הרוטב על האווז</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ז ס״ק א)</span></p>
+<p>«&nbsp;<span class="he-q">נ״ל שאותה מדוכה אסורה לדוך בה עוד בשמים אפילו לאכול בבשר שמא יבוא לאכול בחלב דומיא דכאן</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ז ס״ק א)</span></p>
+<p>«&nbsp;<span class="he-q">וצריכה הכשר דוקא ואפילו דיעבד אסור בלא הכשר כמו הפת דכאן</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ז ס״ק א)</span></p>
 </div>
 
-<div class="yesod-box" dir="rtl">
-<strong>היסוד — הרחבת הגזירה מן הפת אל הכלי :</strong><br>
-לכאורה דין הסימן בפת בלבד, אך הט״ז למד ממנו <span class="he-q">קל וחומר</span> אל המדוכה: כשם שגזרו על הפת שמא יאכלנה עם בשר, כך יש לגזור על מדוכה שנבלע בה טעם, שמא יבוא לכתוש בה ולתת על דבר האסור עמו. ונמצא שיסוד "שמא יבוא לאכלה עם בשר" הוא <strong>עיקרון רחב</strong>, לא דין נקודתי בפת.
-</div>
+<p>The Taz begins from a mortar in which spices are pounded, spices used sometimes with meat and sometimes with milk. On one occasion garlic was pounded in it together with broth of goose fat, and that broth was afterwards returned onto the goose. The mortar has therefore absorbed a taste of <strong>meat</strong>. The Taz concludes that it is henceforth forbidden to pound spices in it <em>even to eat with meat</em>, lest one come to eat them with milk — and he adds two stringencies: the mortar requires kashering, and without it the prohibition holds even after the fact, exactly like the bread of our siman.</p>
 
-<div class="machloket-box" dir="rtl">
-<strong>הבדל מסימן צ״ו (מדוכה מיוחדת) :</strong>
+<div class="yesod-box">
+<strong>יסוד — extending the גזירה from the bread to the vessel:</strong><br>
+One might have thought the rule of the siman confined to bread. The Taz carries it over to the mortar, and the way he does so deserves notice: he does not argue from a קל וחומר, but from a <strong>likeness</strong> — he writes that it is <em>as here</em>. The reasoning is therefore analogical: since the apprehension is the same, the rule is the same. It follows that <span class="he-q">שמא יבוא לאכלה עם בשר</span> <span class="source-ref">(שו״ע יו״ד צ״ז:א)</span> is not a local rule attached to bread, but a <strong>principle</strong> that follows the apprehension wherever it is met with.
+</div>
+<blockquote>«&nbsp;<span class="he-q">נ״ל שאותה מדוכה אסורה לדוך בה עוד בשמים אפילו לאכול בבשר שמא יבוא לאכול בחלב דומיא דכאן</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ז ס״ק א)</span></blockquote>
+
+<div class="machloket-box">
+<strong>Why siman 96 does not contradict — and what siman 96 actually says:</strong>
 <table>
-<tr><th>המקור</th><th>הדין</th><th>החילוק</th></tr>
+<tr><th>The source</th><th>What is said there</th><th>The Taz’s distinction</th></tr>
 <tr>
-  <td><strong>סימן צ״ו סעיף ג'</strong></td>
-  <td>מדוכה <strong>מיוחדת</strong> (שכותשין בה תמיד תבלין) — מקילין</td>
-  <td>כלי המיוחד לכך, ולא שכיח בו תקלה</td>
+  <td><strong>Siman 96, seif ג</strong></td>
+  <td>Spices pounded in a <strong>meat</strong> mortar are forbidden with milk, but permitted with meat</td>
+  <td>There the mortar is <em>designated for meat</em> exclusively: its use is fixed, and one knows what one is dealing with</td>
 </tr>
 <tr>
-  <td><strong>סימן צ״ז (ט״ז ס״ק א)</strong></td>
-  <td>מדוכה שנבלע בה טעם שום בשומן — אסור, וצריך הכשר</td>
-  <td>שמא יבוא לאכלן עם בשר, כגזירת הפת</td>
+  <td><strong>Siman 97 (Taz ס״ק א)</strong></td>
+  <td>An all-purpose mortar that absorbed a taste of meat — forbidden even for meat, and it must be kashered</td>
+  <td>Here nothing is designated: it serves for the one and for the other, and from that the apprehension is born</td>
 </tr>
 </table>
 </div>
+<blockquote>«&nbsp;<span class="he-q">ולא דמי למ״ש בסי׳ צ״ו סעיף ג׳ תבלין שנידוכו במדוכה של בשר אסור בחלב אבל עם בשר מותר שם מיירי שהמדוכה מיוחדת לבשר דוקא</span>&nbsp;» <span class="source-ref">(ט״ז יו״ד צ״ז ס״ק א)</span></blockquote>
 
-<div class="pilpul-box" dir="rtl">
-<strong>שורש הענין :</strong> אין סתירה בין סימן צ״ו לסימן צ״ז: בסימן צ״ו מדובר במדוכה <span class="he-q">מיוחדת</span> שאין בה חשש תקלה, ולפיכך מקילין; ואילו כאן (סימן צ״ז) מדובר במדוכה שנבלע בה טעם חריף בשומן ויבוא להשתמש בה לבשר ולאכול בחלב — ובזה גזרו ככל גזירת הפת. נמצא שהט״ז מלמד את <strong>גבול</strong> הגזירה: היכן שיש חשש תקלה — מרחיבין, והיכן שאין — מקילין.
+<div class="pilpul-box">
+<strong>The root of the matter:</strong> there is therefore no contradiction between the two simanim, and the difference is not one of stringency but of the <em>designation of the vessel</em>. Where the mortar is set apart for a single use, the prohibition is circumscribed and there is no fear of a mistake. Where it serves indifferently for both, the apprehension returns and the גזירה of the bread extends. From this one sees that the Taz teaches not so much a stringency as a <strong>limit</strong>: the גזירה follows the apprehension, and stops where the apprehension stops. The Taz indeed ends with a word that states his own confidence — he writes that this seems to him plain.
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">9. חקירה ונפקא מינה למעשה</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">9. Chakira and practical nafka mina</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-deoraita">↩ Detailed explanation (Level 1)</a>
 
-<div class="hakira-box" dir="rtl">
-<strong>החקירה הכוללת של הסימן :</strong> מהו יסוד האיסור — בליעה או גזירה ? ומתי נסלקת הגזירה ?
+<div class="hakira-box">
+<strong>The chakira that runs through the whole siman:</strong> what is the ground of the prohibition — an absorption, or a גזירה? And when is the גזירה lifted?
 <ul class="stylish">
-<li><strong>גזירה ולא בליעה</strong> — "שמא יבוא לאכלה עם בשר", ואסורה <span class="he-q">אף לאכלה לבדה</span> (ש״ך).</li>
-<li><strong>שני היכרים</strong> — כדי אכילה בבת אחת, ושינה צורת הפת (ובבית ובשעת אפיה דווקא — פ״ת).</li>
-<li><strong>שוגג ומזיד</strong> — קנסו אף בשוגג ובדיעבד (פרי מגדים).</li>
-<li><strong>אליה — שומן בעין</strong> — בעי ליבון ולא קינוח; ובוכיא אין לו תקנה מבחוץ (ט״ז).</li>
-<li><strong>ריחא</strong> — תנור גדול ופתוח או כיסוי מתירין; ועיין סימן ק״ח.</li>
-<li><strong>נ״ט בר נ״ט</strong> — טעם בלוע בלבד קל; שומן בעין עומד במקומו ואינו בטל (פ״ת).</li>
+<li><strong>A גזירה, not an absorption</strong> — lest one come to eat it with meat, and it is forbidden even to eat by itself (Mechaber seif א; Shach ס״ק א).</li>
+<li><strong>Two distinguishing marks</strong> — an amount eaten at one sitting, and a changed shape of the loaf; at home, and at the time of baking (Mechaber seif א; Maharit and Chavos Daas, Pischei Teshuva ס״ק ג).</li>
+<li><strong>Inadvertence and intent</strong> — from the silence of the poskim, the Pri Megadim concludes that it is forbidden even to a shogeg (Pischei Teshuva ס״ק ב).</li>
+<li><strong>Alya — fat in substance</strong> — it must be heated until it glows and not merely wiped, because an oven cannot be wiped clean properly; and a buchya is not permitted by heating from outside (Mechaber seif ב; Taz ס״ק ד–ה).</li>
+<li><strong>ריחא</strong> — a large open oven, or a covering, lift the prohibition; and for the subject itself, see siman 108 (Mechaber seif ג; Shach ס״ק ד).</li>
+<li><strong>נ״ט בר נ״ט</strong> — a taste merely absorbed is light; fat in substance stays in its place and is not nullified (Pischei Teshuva ס״ק ד and ו).</li>
 </ul>
 </div>
 
-<div class="nafka-mina-box" dir="rtl">
-<strong>נפקא מינה למעשה (לפי הכרעת רוב האחרונים) :</strong>
+<div class="nafka-mina-box">
+<strong>נפקא מינה for practice, as the apparatus sets them out:</strong>
 <ol class="stylish">
-<li>פת הנילושה בחלב בלא היכר — אסורה <strong>אף לאכלה לבדה ואף בשוגג</strong> (מחבר ס״א; פמ״ג).</li>
-<li>היתר ע״י <strong>מועט (כדי אכילה בבת אחת)</strong> או <strong>שינוי צורה</strong> — ובבית ובשעת האפיה דווקא (רמ״א ס״א; פ״ת ס״ק ג).</li>
-<li>אין מחלקין פת שכבר נאסרה לחתיכות קטנות להתירה (חוות דעת, פ״ת ס״ק ג).</li>
-<li>תנור טוח באליה — בעי <strong>ליבון עד שיתלבן</strong>, ואף בוכיא בהיסק פנימי (מחבר ס״ב; ט״ז ס״ק ד–ה).</li>
-<li>פת/דגים שנאפו עם צלי בתנור קטן סתום — אסורין בחלב; גדול ופתוח או מכוסה — מותר (מחבר ס״ג; ועיין סי' ק״ח).</li>
+<li>Bread kneaded with milk with no distinguishing mark is forbidden <strong>even to eat by itself</strong>, and, from the silence of the poskim, <strong>even if it was kneaded by mistake</strong> (Mechaber seif א; Pri Megadim in Pischei Teshuva ס״ק ב).</li>
+<li>The permission comes from a <strong>small amount eaten at one sitting</strong> or from a <strong>changed shape</strong> — both written by the Mechaber at seif א, and the Rama derives from them the custom of Shavuos and of Shabbos. The change of shape holds only at home (Maharit) and only at the time of baking (Chavos Daas), Pischei Teshuva ס״ק ג.</li>
+<li>One does not afterwards divide bread already forbidden in order to permit it (Chavos Daas, Pischei Teshuva ס״ק ג).</li>
+<li>An oven smeared with alya must be heated from within until it glows, and a buchya is not made permitted by heating from outside (Mechaber seif ב; Taz ס״ק ד–ה).</li>
+<li>Bread and fish baked together with a roast in a small oven are forbidden with milk; in a large open oven, or under a covering, it is permitted (Mechaber seif ג). The laws of ריחא are set out at siman 108; the question of danger, at the beginning of siman 116 (Shach ס״ק ג–ד).</li>
 </ol>
-<em>ולמעשה — שאל את רבך.</em>
+<em>In practice — ask your Rav.</em>
 </div>
 
 <div class="page-break"></div>
 
 <!-- ============================================================= -->
-<h2 class="section-title">10. טבלאות סיכום</h2>
-<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ הסבר מפורט (רמה 1)</a>
+<h2 class="section-title">10. Summary tables</h2>
+<a class="daat-explain" href="niveau-1-base-en.html#exp-concepts">↩ Detailed explanation (Level 1)</a>
 
-<h3 class="he-h3">טבלה — אופני האיסור וההיתר</h3>
-
-<table>
-<tr>
-  <th>המקרה</th>
-  <th>התוצאה</th>
-  <th>מקור בקורפוס</th>
-</tr>
-<tr>
-  <td><strong>עיסה נילושה בחלב בלא היכר</strong></td>
-  <td>כל הפת אסורה אף לאכלה לבדה</td>
-  <td>מחבר ס״א; ש״ך</td>
-</tr>
-<tr>
-  <td><strong>דבר מועט / שינה צורת הפת</strong></td>
-  <td>מותר (פקעה הגזירה)</td>
-  <td>מחבר ס״א; פ״ת ס״ק ג</td>
-</tr>
-<tr>
-  <td><strong>לש בשוגג</strong></td>
-  <td>אסורה אף בדיעבד (קנסו)</td>
-  <td>פמ״ג; פ״ת ס״ק ב</td>
-</tr>
-<tr>
-  <td><strong>תנור טוח באליה</strong></td>
-  <td>ליבון עד שיתלבן (שומן בעין)</td>
-  <td>מחבר ס״ב; ט״ז ס״ק ד</td>
-</tr>
-<tr>
-  <td><strong>בוכיא — היסק מבחוץ</strong></td>
-  <td>אין לו תקנה; בעי ליבון פנימי</td>
-  <td>מחבר ס״ב; ט״ז ס״ק ה</td>
-</tr>
-<tr>
-  <td><strong>פת/דגים עם צלי בתנור קטן</strong></td>
-  <td>אסורין לאכלן בחלב (ריחא)</td>
-  <td>מחבר ס״ג</td>
-</tr>
-<tr>
-  <td><strong>תנור גדול (י״ב עשרונים) ופתוח</strong></td>
-  <td>מותר — הריח מתפזר ויוצא</td>
-  <td>מחבר ס״ג; פ״ת ס״ק ז</td>
-</tr>
-<tr>
-  <td><strong>צלי / פשטיד״א מכוסה</strong></td>
-  <td>מותר אפילו בתנור צר</td>
-  <td>מחבר ס״ג</td>
-</tr>
-<tr>
-  <td><strong>פת שקלטה טעם בלבד (בלא שומן בעין)</strong></td>
-  <td>נ״ט בר נ״ט — בדיעבד מותר</td>
-  <td>פ״ת ס״ק ד (פני אריה)</td>
-</tr>
-</table>
-
-<h3 class="he-h3">טבלה — מחלוקות ודקדוקים מרכזיים בסימן</h3>
+<h3>Table — the cases of prohibition and permission</h3>
 
 <table>
 <tr>
-  <th>נושא</th>
-  <th>שיטה א'</th>
-  <th>שיטה ב'</th>
+  <th>The case</th>
+  <th>The ruling</th>
+  <th>Where it is written</th>
 </tr>
 <tr>
-  <td>שינוי צורת הפת — היכן מהני</td>
-  <td>מהרי״ט — דווקא בבית ובשעת אפיה (פ״ת ס״ק ג)</td>
-  <td>סתם — כל שניכרת הצורה</td>
+  <td><strong>Dough kneaded with milk, with no distinguishing mark</strong></td>
+  <td>The whole loaf is forbidden, even to eat by itself</td>
+  <td>Mechaber seif א; Shach ס״ק א</td>
 </tr>
 <tr>
-  <td>לש בשוגג</td>
-  <td>פמ״ג — אסורה אף בדיעבד (קנסו)</td>
-  <td>יש מקילין בשוגג (ונדחה)</td>
+  <td><strong>A small amount, or a changed shape of the loaf</strong></td>
+  <td>Permitted — the apprehension falls away</td>
+  <td>Mechaber seif א; Pischei Teshuva ס״ק ג</td>
 </tr>
 <tr>
-  <td>תנור הטוח — קינוח או ליבון</td>
-  <td>ט״ז — ליבון, ששומן בעין (ס״ק ד)</td>
-  <td>פלאד״ן בלוע — אין צריך ליבון (ס״ק ג)</td>
+  <td><strong>Kneaded inadvertently</strong></td>
+  <td>Forbidden even after the fact, from the silence of the poskim</td>
+  <td>Pri Megadim, in Pischei Teshuva ס״ק ב</td>
 </tr>
 <tr>
-  <td>שומן שעל הפת — אם בטל בס'</td>
-  <td>מהרי״ט/חוות דעת — עומד במקומו, אינו בטל (ס״ק ו)</td>
-  <td>בית אפרים — ס' מועיל בנטילת מקום</td>
+  <td><strong>An oven smeared with alya</strong></td>
+  <td>Heat it from within until it glows</td>
+  <td>Mechaber seif ב; Taz ס״ק ד</td>
 </tr>
 <tr>
-  <td>שיעור י״ב עשרונים</td>
-  <td>קרקע התנור בלבד</td>
-  <td>יד אליהו/פמ״ג — כל חללו (פ״ת ס״ק ז)</td>
+  <td><strong>A buchya — heating from outside</strong></td>
+  <td>No permission by that road</td>
+  <td>Mechaber seif ב; Taz ס״ק ה</td>
+</tr>
+<tr>
+  <td><strong>Bread or fish with a roast, small oven</strong></td>
+  <td>Forbidden to eat with milk (ריחא)</td>
+  <td>Mechaber seif ג</td>
+</tr>
+<tr>
+  <td><strong>Large oven (twelve issaronim) with open mouth</strong></td>
+  <td>Permitted</td>
+  <td>Mechaber seif ג; Pischei Teshuva ס״ק ז</td>
+</tr>
+<tr>
+  <td><strong>Roast covered, or pashtida whose hole is stopped</strong></td>
+  <td>Permitted even in a narrow oven</td>
+  <td>Mechaber seif ג</td>
+</tr>
+<tr>
+  <td><strong>Bread that received only an absorbed taste, without fat in substance</strong></td>
+  <td>נ״ט בר נ״ט — permitted after the fact with milk, and with meat even beforehand</td>
+  <td>Pnei Aryeh, in Pischei Teshuva ס״ק ד</td>
+</tr>
+<tr>
+  <td><strong>An all-purpose mortar that absorbed a taste of meat</strong></td>
+  <td>Forbidden even for meat; kashering required</td>
+  <td>Taz ס״ק א</td>
 </tr>
 </table>
 
-<h3 class="he-h3">טבלה — מקורות הסוגיא</h3>
+<h3>Table — the machlokos and close readings of the siman</h3>
 
-<div class="rishon-card" dir="rtl">
-<strong>גמרא :</strong> פסחים ע״ו: (ריחא מילתא · פת שאפאה עם הצלי) · חולין צ״ז: (טעם ובליעה) · חולין קי״א:–קי״ב. (דגים שעלו בקערה · ריחא · סכנה)
+<table>
+<tr>
+  <th>The point</th>
+  <th>First position</th>
+  <th>Second position</th>
+</tr>
+<tr>
+  <td>The change of shape — where it operates</td>
+  <td>Maharit — at home only, and not in order to sell in the market (פ״ת ס״ק ג)</td>
+  <td>Chavos Daas — and at the time of baking only, never afterwards (פ״ת ס״ק ג)</td>
+</tr>
+<tr>
+  <td><span class="he-q">ואם זב תחתיו</span> <span class="source-ref">(רמ״א יו״ד צ״ז:א)</span> — beneath what?</td>
+  <td>Taz (ס״ק ב) and Shach (ס״ק ב) — it is enough that it spread beyond the pashtida</td>
+  <td>Maharar Ozer and Kreisi u-Pleisi — beneath the bread itself, failing which it is a נ״ט בר נ״ט (פ״ת ס״ק ה)</td>
+</tr>
+<tr>
+  <td>A taste absorbed at the very time of cooking</td>
+  <td>Chavos Daas — we do not say נ״ט בר נ״ט during the cooking (פ״ת ס״ק ה)</td>
+  <td>Beis Efraim — once nothing ran beneath the bread, it is a נ״ט בר נ״ט (פ״ת ס״ק ה)</td>
+</tr>
+<tr>
+  <td>Fat lying on the bread — is it nullified in sixty?</td>
+  <td>Maharit and Chavos Daas — it stays in its place and is not nullified (פ״ת ס״ק ו)</td>
+  <td>Beis Efraim — sixty avails, provided one removes the place (פ״ת ס״ק ו)</td>
+</tr>
+<tr>
+  <td>The measure of twelve issaronim</td>
+  <td>Yad Eliyahu — the inner space of the oven suffices (פ״ת ס״ק ז)</td>
+  <td>Pri Megadim — it is the floor of the oven that must hold them (פ״ת ס״ק ז)</td>
+</tr>
+</table>
+
+<h3>Table — the sources of the siman</h3>
+
+<div class="rishon-card">
+<strong>Gemara:</strong> פסחים ע״ו ע״ב — ריחא מילתא, bread baked with the roast, and fish roasted together with meat.
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>ראשונים :</strong> רש״י · תוספות · רמב״ם (מאכלות אסורות) · רא״ש · רשב״א (תורת הבית) · ר״ן · מרדכי · טור · איסור והיתר הארוך
+<div class="rishon-card">
+<strong>Works named in the apparatus of this siman:</strong> תוספות and ר״ן (Taz ס״ק ד) · הגהות אשר״י · הגהת ש״ד · הגהת או״ה · א״ז · תורת חטאת (Shach ס״ק ב) · בית יוסף and בית חדש (Shach ס״ק ב).
 </div>
-<div class="rishon-card" dir="rtl">
-<strong>אחרונים :</strong> בית יוסף · רמ״א · ש״ך · ט״ז · פרי חדש · פרי מגדים · פתחי תשובה · מהרי״ט · פני אריה · מהר״ר עוזר · חוות דעת · בית אפרים · יד אליהו
+<div class="rishon-card">
+<strong>Acharonim:</strong> ש״ך · ט״ז · פרי מגדים · פתחי תשובה · מהרי״ט · פני אריה · מהר״ר עוזר · חוות דעת · בית אפרים · יד אליהו · כרתי ופלתי · לבושי שרד · צמח צדק · נחלת צבי.
 </div>
 
 <hr class="ornament">
 
-  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;direction:rtl;">
-    <a href="niveau-1-base-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">→ רמה א' — יסוד</a>
-    <a href="niveau-3-synthese-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">רמה ג' — סיכום ←</a>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-top:1px solid #E4DDD0;margin-top:48px;">
+    <a href="niveau-1-base-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#1A1F3A;text-decoration:none;font-weight:500;">← Level 1 — Foundations</a>
+    <a href="niveau-3-synthese-en.html" style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;background:#1A1F3A;color:#C5A55A;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:4px;">Level 3 — Synthesis →</a>
   </div>
 
 <div class="yh-watermark">
 ~ ~ ~ ~ ~<br>
 <strong>DAAT</strong> · <strong>הרב יוסף חיים סממה</strong><br>
 תלמיד חכם · מעביר שיעורים בהלכה ובחסידות<br>
-<em>פלפול ועיון בדין שלא ללוש עיסה בחלב · סימן צ״ז · ⚡ רמה ב' — לַמְדָּן</em>
+<em>סימן צ״ז · Level 2 — Lamdan · dough kneaded with milk, the גזירה and what lifts it</em><br>
+<em>daattorah.com</em>
 </div>
 
-  <div class="disclaimer" style="background:#fff8e1;border-right:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;direction:rtl;text-align:right;">
-    ⚠️ תוכן זה נכתב לצורך לימוד ועיון בלבד. לכל הוראה למעשה (לְמַעֲשֶׂה) — שאל את רבך.
+  <div class="disclaimer" style="background:#fff8e1;border-left:4px solid #C5A55A;padding:16px 40px;font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:14px;color:#5a4a1a;margin:40px 0 0 0;">
+    ⚠️ This material is written for study and iyun only. For any practical ruling (לְמַעֲשֶׂה) — ask your Rav.
   </div>
 
   <div style="background:#1A1F3A;border-top:2px solid #C5A55A;padding:24px 40px;text-align:center;margin-top:0;">
-    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;direction:rtl;">
-      DAAT דעת — © 5786 / 2026 · <a href="../../../index.html" style="color:#C5A55A;text-decoration:none;">לעמוד הבית</a> · <a href="index-en.html" style="color:#C5A55A;text-decoration:none;">סימן צ״ז</a> · <a href="../../../soutenir.html" style="color:#C5A55A;text-decoration:none;">♥ לתמיכה</a>
+    <p style="font-family:'Frank Ruhl Libre','Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.35);margin:0;">
+      DAAT דעת — © 5786 / 2026 · <a href="../../../index-en.html" style="color:#C5A55A;text-decoration:none;">Back to home</a> · <a href="index-en.html" style="color:#C5A55A;text-decoration:none;">Siman 97</a> · <a href="../../../soutenir-en.html" style="color:#C5A55A;text-decoration:none;">♥ Support</a>
     </p>
   </div>
 
@@ -853,7 +978,7 @@
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="../../../assets/js/chat-widget.js" defer></script>
 <script src="../../../assets/js/daat-copy.js" defer></script>
-<a href="../../../communaute.html#khavroutha" class="daat-khavroutha-fab" title="מצא חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">הצטרף לחברותא</span></a>
+<a href="../../../communaute-en.html#khavroutha" class="daat-khavroutha-fab" title="Join the chavrusa for this siman"><span class="icon">📖</span><span class="label-long">Join the chavrusa</span></a>
   <script src="/assets/js/share-text.js" defer></script>
 </body>
 </html>

@@ -11,6 +11,7 @@
 //   response : { ok, text, pages, info, suggested: { title, summary, tags } }
 
 import { extractText, getDocumentProxy } from 'unpdf';
+import { corsAdmin, origineRefusee, refuserOrigine, freinage, echecAdmin, reussiteAdmin, refuser } from '../_admin-gate.js';
 
 export const config = {
   api: {
@@ -65,16 +66,23 @@ function suggestMetadata(text, filename, meta) {
 
 export default async function handler(req, res) {
   // CORS
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  // L'origine est comparée à une liste : le 401 n'est plus lisible
+  // par une page quelconque (voir ../_admin-gate.js).
+  corsAdmin(req, res, 'POST, OPTIONS', 'Content-Type, Authorization');
 
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'POST uniquement' });
 
   // Auth
+  if (origineRefusee(req)) return refuserOrigine(res);
+  const frein = await freinage(req);
+  if (frein.bloque) return refuser(res);
   const auth = checkAuth(req);
-  if (!auth.ok) return res.status(auth.status).json({ error: auth.error });
+  if (!auth.ok) {
+    if (auth.status === 401) await echecAdmin(req);
+    return res.status(auth.status).json({ error: auth.error });
+  }
+  await reussiteAdmin(req);
 
   try {
     const { pdfBase64, filename, meta } = req.body || {};
