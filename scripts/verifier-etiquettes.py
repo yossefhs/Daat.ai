@@ -26,6 +26,9 @@ nomme un siman autre que celui de la page — ce qui est licite mais rare, et m�
 Usage :
   python3 scripts/verifier-etiquettes.py --section shabbat [--bref]
   python3 scripts/verifier-etiquettes.py 243 245 249
+  python3 scripts/verifier-etiquettes.py --path sources/yoreh-deah/siman-202
+Un numéro nu n'est accepté que s'il ne désigne qu'un seul compartiment ; les simanim
+125, 128, 129 ou 202 existent en Orah Haïm ET en Yoré Déa, et il faut alors --path.
 """
 import re, sys, os, io, json, glob, time, urllib.request
 
@@ -245,16 +248,35 @@ def examiner(path, siman_page, anomalies, candidats, compte):
 def main():
     argv = sys.argv[1:]
     bref = '--bref' in argv
+    # ⚠️ DEUX DÉFAUTS DE LIGNE DE COMMANDE, ET LE SECOND RENDAIT UN VERT MENSONGER.
+    # (1) --path n'était pas géré du tout, alors que toutes les autres portes du dépôt
+    #     l'acceptent : la commande était silencieusement ignorée, dirs restait vide, et le
+    #     script imprimait son mode d'emploi. J'ai cru mesurer onze simanim ainsi.
+    # (2) UN NUMÉRO NU SE RÉSOLVAIT AU PREMIER COMPARTIMENT QUI LE PORTE. Les simanim 125,
+    #     128, 129 et 202 existent en Orah Haïm ET en Yoré Déa : « verifier-etiquettes.py 202 »
+    #     confrontait donc Orah Haïm 202 en croyant lire Yoré Déa 202, et sortait vert. Un
+    #     numéro ambigu est désormais REFUSÉ, avec les chemins possibles nommés.
     if '--section' in argv:
         sec = argv[argv.index('--section') + 1]
         dirs = sorted(glob.glob(os.path.join(ROOT, 'sources', sec, 'siman-*')))
+    elif '--path' in argv:
+        cible = os.path.join(ROOT, argv[argv.index('--path') + 1])
+        dirs = ([cible] if re.search(r'siman-\d+$', cible)
+                else sorted(glob.glob(os.path.join(cible, 'siman-*'))))
+        dirs = [d for d in dirs if os.path.isdir(d)]
     else:
         nums = [a for a in argv if a.isdigit()]
         dirs = []
         for n in nums:
-            for s in ('shabbat', 'orah-haim', 'yoreh-deah'):
-                d = os.path.join(ROOT, 'sources', s, f'siman-{n}')
-                if os.path.isdir(d): dirs.append(d); break
+            trouves = [os.path.join(ROOT, 'sources', s, f'siman-{n}')
+                       for s in ('shabbat', 'orah-haim', 'yoreh-deah')
+                       if os.path.isdir(os.path.join(ROOT, 'sources', s, f'siman-{n}'))]
+            if len(trouves) > 1:
+                print(f"✗ le siman {n} existe dans plusieurs compartiments — précisez :")
+                for d in trouves:
+                    print(f"    --path {os.path.relpath(d, ROOT)}")
+                return 2
+            dirs += trouves
     if not dirs:
         print(__doc__.strip().split('Usage :')[-1]); return 2
 
