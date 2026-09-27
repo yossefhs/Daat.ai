@@ -67,13 +67,13 @@ TIRET = r'(?:[-\u2013])'
 OH = r'(?:OH|OC|או["\u05F4]?ח|אורח חיים)'
 
 RX_HAGAHA = re.compile(r'(?:Hagahah?|Gloss|הגהה|הגה(?![\u05D0-\u05EA]))\s*(?:sur|on|על)?\s*'
-                       rf'{OH}\s*({NB})\s*[:\u05C3]\s*({NB})(?:{TIRET}({NB}))?', re.I)
+                       rf'{OH}\s*({NB})\s*[:\u05C3]\s*({NB})(?:{TIRET}({NB})(?:\s*[:\u05C3]\s*({NB}))?)?', re.I)
 RX_SEIF   = re.compile(rf'(?<![\w:\u05D0-\u05EA]){OH}\s*({NB})\s*[:\u05C3]\s*({NB})'
-                       rf'(?:{TIRET}({NB}))?', re.I)
+                       rf'(?:{TIRET}({NB})(?:\s*[:\u05C3]\s*({NB}))?)?', re.I)
 # « MB 242:3-4 », « מ״ב רמ״ט:יד », « MB 248 ס״ק ד », « משנ״ב רס״ד ס״ק כג »
 MBW = r'(?:MB|מ["\u05F4]ב|משנ["\u05F4]ב|משנה ברורה)'
 RX_MB     = re.compile(rf'(?<![\w:\u05D0-\u05EA]){MBW}\s*({NB})\s*'
-                       rf'(?:[:\u05C3]|ס["\u05F4]?ק|סעיף\s*קטן)\s*({NB})(?:{TIRET}({NB}))?')
+                       rf'(?:[:\u05C3]|ס["\u05F4]?ק|סעיף\s*קטן)\s*({NB})(?:{TIRET}({NB})(?:\s*[:\u05C3]\s*({NB}))?)?')
 # La colonne du Choulhan Aroukh HaRav : « שו״ע הרב רמ״ט:יב », « רמ״ט:6-8 » dans sa cellule.
 RAVW = r'(?:שו["\u05F4]ע הרב|שוע["\u05F4]ר|אדמו["\u05F4]ר הזקן|ש["\u05F4]ע אדה["\u05F4]ז|SA HaRav)'
 
@@ -86,19 +86,19 @@ RAVW = r'(?:שו["\u05F4]ע הרב|שוע["\u05F4]ר|אדמו["\u05F4]ר הזק�
 # est un renvoi licite, et sort en candidat.
 YD = r'(?:YD|יו["\u05F4]?ד|יורה דעה)'
 RX_SEIF_YD = re.compile(rf'(?<![\w:\u05D0-\u05EA]){YD}\s*({NB})\s*[:\u05C3]\s*({NB})'
-                        rf'(?:{TIRET}({NB}))?', re.I)
+                        rf'(?:{TIRET}({NB})(?:\s*[:\u05C3]\s*({NB}))?)?', re.I)
 RX_HAGAHA_YD = re.compile(r'(?:Hagahah?|Gloss|הגהה|הגה(?![\u05D0-\u05EA]))\s*(?:sur|on|על)?\s*'
-                          rf'{YD}\s*({NB})\s*[:\u05C3]\s*({NB})(?:{TIRET}({NB}))?', re.I)
+                          rf'{YD}\s*({NB})\s*[:\u05C3]\s*({NB})(?:{TIRET}({NB})(?:\s*[:\u05C3]\s*({NB}))?)?', re.I)
 # Le Chakh et le Taz, seifim ketanim, avec ou sans deux-points.
 SHKW = r'(?:ש["\u05F4]ך|שפתי כהן|Shach)'
 TAZW = r'(?:ט["\u05F4]ז|טורי זהב|Taz)'
 # La forme réelle du dépôt intercale le tractat : « ש״ך יו״ד קכ״ד ס״ק ע״א ». Il est donc
 # optionnel entre le sigle et le numéro de siman — sans lui, « ט״ז ק״ה ס״ק ג » se lit aussi.
 RX_SHK = re.compile(rf'(?<![\w:\u05D0-\u05EA]){SHKW}\s*(?:{YD}\s*)?({NB})\s*'
-                    rf'(?:[:\u05C3]|ס["\u05F4]?ק|סעיף\s*קטן)\s*({NB})(?:{TIRET}({NB}))?')
+                    rf'(?:[:\u05C3]|ס["\u05F4]?ק|סעיף\s*קטן)\s*({NB})(?:{TIRET}({NB})(?:\s*[:\u05C3]\s*({NB}))?)?')
 RX_TAZ = re.compile(rf'(?<![\w:\u05D0-\u05EA]){TAZW}\s*(?:{YD}\s*)?({NB})\s*'
-                    rf'(?:[:\u05C3]|ס["\u05F4]?ק|סעיף\s*קטן)\s*({NB})(?:{TIRET}({NB}))?')
-RX_RAV    = re.compile(rf'{RAVW}\s*(?:{OH}\s*)?({NB})\s*[:\u05C3]\s*({NB})(?:{TIRET}({NB}))?')
+                    rf'(?:[:\u05C3]|ס["\u05F4]?ק|סעיף\s*קטן)\s*({NB})(?:{TIRET}({NB})(?:\s*[:\u05C3]\s*({NB}))?)?')
+RX_RAV    = re.compile(rf'{RAVW}\s*(?:{OH}\s*)?({NB})\s*[:\u05C3]\s*({NB})(?:{TIRET}({NB})(?:\s*[:\u05C3]\s*({NB}))?)?')
 
 GEM = {'א':1,'ב':2,'ג':3,'ד':4,'ה':5,'ו':6,'ז':7,'ח':8,'ט':9,'י':10,'כ':20,'ך':20,'ל':30,
        'מ':40,'ם':40,'נ':50,'ן':50,'ס':60,'ע':70,'פ':80,'ף':80,'צ':90,'ץ':90,'ק':100,
@@ -192,7 +192,13 @@ def examiner(path, siman_page, anomalies, candidats, compte):
                     continue
                 vus.add((m.start(), m.end()))
                 n = _num(m.group(1)); a = _num(m.group(2))
-                b = _num(m.group(3)) or a
+                # ⚠️ UNE PLAGE PEUT RÉPÉTER LE SIMAN : « יו״ד ק״ס:ד–ק״ס:י״ב » va du séif 4 au
+                # séif 12 du siman 160, et non « du séif 4 au séif 160 ». La porte lisait la
+                # seconde chose et rendait une anomalie imaginaire sur le siman 160 de Yoré
+                # Déa, qui a bien 23 séifim. Quand la borne haute porte elle-même un
+                # deux-points, c'est sa SECONDE moitié qui est le séif.
+                b = _num(m.group(4)) if (m.lastindex or 0) >= 4 and m.group(4) else None
+                b = b or _num(m.group(3)) or a
                 if n is None or a is None: continue
                 compte[genre] += 1
                 if n != siman_page:
