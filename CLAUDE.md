@@ -258,6 +258,24 @@ python3 scripts/verifier-troncatures.py --section shabbat [--bref]
 # cellule en promet une · le ס״ק existe-t-il dans la Michna Beroura de ce siman.
 # Premier balayage de Hilkhot Chabbat : 308 étiquettes confrontées, 26 ANOMALIES sur
 # 7 simanim (242, 247-251, 264) — et toutes dans la plage 242-264, comme les troncatures.
+# Les 26 ont été corrigées ; l'état courant est 803 étiquettes, 0 anomalie, 12 candidats.
+#
+# ⚠️ CE « 26 » ÉTAIT UN PLANCHER ANNONCÉ COMME UN COMPTE, et trois agents de contrôle l'ont
+# établi indépendamment. La porte ne lisait que les chiffres ARABES : les colonnes des fichiers
+# HÉBREUX (« או״ח רמ״ז:א », « מ״ב רמ״ט ס״ק יד »), la forme mixte « MB 248 ס״ק ד » employée aussi
+# en FR et EN, et la colonne entière du Choul'han Aroukh HaRav n'avaient JAMAIS été confrontées.
+# Au siman 264, QUATRE des cinq adresses fausses réelles étaient hors de portée.
+# Élargie, elle lit 803 étiquettes au lieu de 308 — dont 148 séifim du Choul'han Aroukh HaRav.
+#
+# ⚠️ ET L'ÉLARGISSEMENT A EXIGÉ TROIS GARDE-FOUS, chacun trouvé en LISANT la sortie :
+#   1. le TIRET DE PLAGE n'a pas d'espaces. « או״ח רמ״ב:א — אין » se lisait « séif 1 à 61 »,
+#      car אין vaut 61 en guématrie : 35 des 49 premières « anomalies » étaient ce seul défaut.
+#      C'est le piège de verifier-denombrements.py, retrouvé le même jour.
+#   2. un NUMÉRAL HÉBRAÏQUE fait une ou deux lettres, ou porte un gershayim au-delà — כלל (80)
+#      et דן (54) n'en sont pas.
+#   3. « או״ח » NE DÉSIGNE PAS TOUJOURS LE CHOUL'HAN AROUKH : dans un recueil de responsa il
+#      nomme une PARTIE — « אגרות משה או״ח ד:נג-נד » est le volume 4, responsa 53-54, non le
+#      siman 4. C'était la dernière anomalie du balayage, et elle était fausse.
 # Vérifiées à la main contre Sefaria : le siman 249 a QUATRE séifim (son chapeau l'écrit,
 # « ובו ד סעיפים ») et la page annonce « OH 249:5 » ; ses gloses du Rama sont aux séifim ב
 # et ד, la page en annonce trois, aux séifim 1, 3 et 5. Le siman 250 a SIX ס״ק de Michna

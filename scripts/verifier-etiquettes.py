@@ -43,8 +43,21 @@ RXTD = re.compile(r'<t[dh]\b[^>]*>(.*?)</t[dh]>', re.S | re.I)
 # « 26 anomalies sur 7 simanim » — était donc un PLANCHER annoncé comme un compte.
 # Et la colonne du Choulhan Aroukh HaRav n'était pas lue du tout, alors que c'est elle qui
 # portait, au siman 249, une adresse (« רמ״ט:6-8 ») renvoyant à un sujet absent du siman.
-NB = r'(?:\d{1,3}|[\u05D0-\u05EA]{1,4}(?:["\u05F4][\u05D0-\u05EA])?)'
-TIRET = r'(?:\s*[-–—]\s*)'
+# ⚠️ DEUX GARDE-FOUS CONTRE MA PROPRE MESURE, ET ILS ONT COÛTÉ UN FAUX BALAYAGE.
+# Premier élargissement de cette porte : 49 « anomalies », dont 35 IMAGINAIRES, toutes de la
+# même forme — « או״ח רמ״ב:א — אין » lu comme « siman 242, séif 1 À 61 ». Car le tiret de PROSE
+# était pris pour un tiret de PLAGE, et le mot qui suit pour un nombre : en hébreu, tout mot
+# court devient un nombre si on le lit en guématrie (אין = 61, כלל = 80, דן = 54). C'est
+# exactement le piège que CLAUDE.md consigne pour verifier-denombrements.py, et j'y suis tombé
+# le même jour. Deux règles, et il faut les deux :
+#   · LE TIRET DE PLAGE N'A PAS D'ESPACES. Le dépôt écrit « נג-נד », « 3-4 », « 23–30 » ;
+#     la prose écrit « — » entouré d'espaces. C'est le discriminant, et il est net.
+#   · UN NUMÉRAL HÉBRAÏQUE FAIT UNE OU DEUX LETTRES, ou porte un gershayim au-delà.
+#     « אין », « כלל », « המחב » n'en sont pas. heb-nums.py impose déjà cette convention.
+NB = (r'(?:\d{1,3}'
+      r'|[\u05D0-\u05EA]{1,2}(?![\u05D0-\u05EA])'
+      r'|[\u05D0-\u05EA]+["\u05F4][\u05D0-\u05EA](?![\u05D0-\u05EA]))')
+TIRET = r'(?:[-\u2013])'
 OH = r'(?:OH|OC|או["\u05F4]?ח|אורח חיים)'
 
 RX_HAGAHA = re.compile(r'(?:Hagahah?|Gloss|הגהה|הגה(?![\u05D0-\u05EA]))\s*(?:sur|on|על)?\s*'
@@ -112,6 +125,20 @@ def mb_decale(n):
     if not s: return None
     return 0 if re.search(r'\(\s*א\s*\)', s[0]) else 1
 
+# ⚠️ « או״ח » NE DÉSIGNE PAS TOUJOURS LE CHOUL'HAN AROUKH. Dans un recueil de responsa il
+# nomme une PARTIE : « אגרות משה או״ח ד:נג-נד » est le quatrième volume des Iggerot Moshe,
+# responsa 53-54, et non le siman 4 du Choul'han Aroukh — qui n'a que 23 séifim. C'était la
+# dernière anomalie du balayage, et c'était une fausse. Une étiquette précédée du nom d'un
+# recueil de teshouvot n'est donc pas confrontée au Choul'han Aroukh.
+RECUEILS = re.compile(r'אגרות משה|אג["״]מ|מהרש["״]ם|שו["״]ת|יביע אומר|'
+                      r'מנחת שלמה|ציץ אליעזר|חתם סופר|חת["״]ס|אור לציון|'
+                      r'שבט הלוי|משנה הלכות|Iggerot|Igrot')
+
+def _dans_un_recueil(cell, deb):
+    """Le nom d'un recueil de responsa precede-t-il l'etiquette de pres ?"""
+    return bool(RECUEILS.search(cell[max(0, deb - 60):deb]))
+
+
 def examiner(path, siman_page, anomalies, candidats, compte):
     s = io.open(path, encoding='utf-8').read()
     nom = os.path.basename(path)
@@ -127,6 +154,8 @@ def examiner(path, siman_page, anomalies, candidats, compte):
                     if (RX_HAGAHA.search(avant) or RX_RAV.search(avant)
                             or RX_MB.search(avant)):
                         continue
+                if genre in ('seif', 'hagaha') and _dans_un_recueil(cell, m.start()):
+                    continue
                 vus.add((m.start(), m.end()))
                 n = _num(m.group(1)); a = _num(m.group(2))
                 b = _num(m.group(3)) or a
