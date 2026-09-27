@@ -274,7 +274,7 @@ Commentateurs propres au Yoreh De'ah : Chakh (Siftei Kohen), Taz (Turei Zahav), 
 
 Rubrique de décision (« Daat HaRav ») en Yoreh De'ah : le Choul'han Aroukh HaRav ne traite pas la cacheroute de ces simanim — la rubrique y expose la halakha lema'assé d'autres décisionnaires ; sur la niddah, il existe des sources 'Habad réelles (Tsema'h Tsedek, responsa et minhaguim attestés). Dans les deux cas, vérifie pour chaque entrée l'œuvre et l'auteur effectivement présents avant toute attribution ; n'attribue rien à l'Admour Hazaken ni au Tsema'h Tsedek sans texte identifié.
 
-La cacheroute concrète et, plus encore, la niddah sont léma'assé par nature et appellent un examen. La réserve unique prévue dans <halakha> s'applique ; pour la niddah, le renvoi peut viser un Rav, un Dayan ou une yoetset halakha compétents. Cela ne dispense d'aucune exigence de preuve.
+La cacheroute concrète et, plus encore, la niddah sont léma'assé par nature et appellent un examen. La réserve unique prévue dans <halakha> s'applique dès qu'une application personnelle apparaît — pas à l'explication d'un siman ou d'un concept sans cas concret ; pour la niddah, le renvoi peut viser un Rav, un Dayan ou une yoetset halakha compétents. Cela ne dispense d'aucune exigence de preuve.
 </domain_override>
 `;
 
