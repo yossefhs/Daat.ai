@@ -308,7 +308,11 @@ export async function getEntryById(id) {
 export const CORPUS_TOOLS = [
   {
     name: 'daat_search_corpus',
-    description: 'Recherche dans le corpus DAAT.AI — le texte RÉEL des pages du site (les 4 niveaux d\'étude de chaque siman : Base, Lamdan, Synthèse, et Daat HaRav qui contient le Choulhan Aroukh de l\'Admour HaZaken traduit seif par seif). Utilise CET outil EN PRIORITÉ avant Sefaria et AVANT de répondre de mémoire. Retourne des extraits avec leurs IDs ; utilise ensuite daat_get_content pour lire un seif en entier avant de le citer.',
+    // La rubrique « Daat HaRav » n'est PAS partout l'Admour HaZaken traduit : en
+    // Yoreh De'ah cacheroute, c'est la halakha lema'assé d'autres décisionnaires.
+    // La description ne doit donc pas promettre une provenance uniforme — le
+    // modèle vérifie l'œuvre et l'auteur de chaque entrée (champs de la réponse).
+    description: 'Recherche dans le corpus DAAT — le texte réel des pages du site, sur les niveaux d\'étude de chaque siman (Base, Lamdan, Synthèse, et une rubrique de décision dont l\'œuvre et l\'auteur varient selon le siman : Choulhan Aroukh HaRav traduit seif par seif là où il existe, halakha lema\'assé d\'autres décisionnaires ailleurs — vérifie-les pour chaque entrée). Point d\'entrée privilégié pour toute question halakhique, avant Sefaria et avant toute réponse de mémoire. Retourne des extraits TRONQUÉS avec leurs IDs : lis l\'entrée complète avec daat_get_content avant de citer ou de conclure.',
     input_schema: {
       type: 'object',
       properties: {
@@ -323,7 +327,10 @@ export const CORPUS_TOOLS = [
         section: {
           type: 'string',
           enum: ['orach-chaim', 'yoreh-deah'],
-          description: 'Restreint la recherche à une section. Le corpus couvre Orah Haim (dont Hilkhot Shabbat 242-365) et Yoreh De\'ah (87-118 et 183-200).',
+          // Aucune plage en dur ici : le périmètre réel est injecté dans le prompt
+          // système à chaque déploiement (withPerimeter). Des chiffres figés dans
+          // ce schéma le contrediraient dès le prochain ajout de simanim.
+          description: 'Restreint la recherche à une partie du Choulhan Aroukh : "orach-chaim" (dont Hilkhot Shabbat) ou "yoreh-deah" (cacheroute et niddah). Les deux parties partagent des numéros de siman — indispensable dès que la question porte sur le Yoreh De\'ah. Le périmètre couvert est celui indiqué dans le prompt système.',
         },
         limit: {
           type: 'integer',
