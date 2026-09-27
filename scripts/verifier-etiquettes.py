@@ -33,11 +33,43 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CACHE = os.path.join(ROOT, ".cache-etiquettes.json")
 
 RXTD = re.compile(r'<t[dh]\b[^>]*>(.*?)</t[dh]>', re.S | re.I)
-# « Hagaha sur OH 243:2 », « Hagahah on OC 243:2 », « OH 247:1 », « MB 242:3-4 »
-RX_HAGAHA = re.compile(r'(?:Hagahah?|Gloss|הגהה)\s*(?:sur|on|על)?\s*'
-                       r'(?:OH|OC|או["״]ח)\s*(\d{1,3})\s*:\s*(\d{1,3})(?:\s*[-–]\s*(\d{1,3}))?', re.I)
-RX_SEIF   = re.compile(r'(?<![\w:])(?:OH|OC)\s*(\d{1,3})\s*:\s*(\d{1,3})(?:\s*[-–]\s*(\d{1,3}))?', re.I)
-RX_MB     = re.compile(r'(?<![\w:])(?:MB|מ["״]ב)\s*(\d{1,3})\s*:\s*(\d{1,3})(?:\s*[-–]\s*(\d{1,3}))?')
+
+# ⚠️ CE QUE LA PREMIÈRE VERSION NE LISAIT PAS, ET POURQUOI SON VERT MENTAIT.
+# Elle n'acceptait que des chiffres ARABES. Or les tableaux des fichiers HÉBREUX écrivent
+# leurs adresses en numération hébraïque — « או״ח רמ״ז:א », « מ״ב רמ״ט ס״ק יד » — et les
+# fichiers français et anglais emploient aussi la forme MIXTE « MB 248 ס״ק ד ». Aucune n'a
+# jamais été confrontée. Trois agents de contrôle l'ont établi indépendamment ; au siman 264,
+# QUATRE des cinq adresses fausses réelles étaient hors de portée. Le premier chiffre publié —
+# « 26 anomalies sur 7 simanim » — était donc un PLANCHER annoncé comme un compte.
+# Et la colonne du Choulhan Aroukh HaRav n'était pas lue du tout, alors que c'est elle qui
+# portait, au siman 249, une adresse (« רמ״ט:6-8 ») renvoyant à un sujet absent du siman.
+NB = r'(?:\d{1,3}|[\u05D0-\u05EA]{1,4}(?:["\u05F4][\u05D0-\u05EA])?)'
+TIRET = r'(?:\s*[-–—]\s*)'
+OH = r'(?:OH|OC|או["\u05F4]?ח|אורח חיים)'
+
+RX_HAGAHA = re.compile(r'(?:Hagahah?|Gloss|הגהה|הגה(?![\u05D0-\u05EA]))\s*(?:sur|on|על)?\s*'
+                       rf'{OH}\s*({NB})\s*[:\u05C3]\s*({NB})(?:{TIRET}({NB}))?', re.I)
+RX_SEIF   = re.compile(rf'(?<![\w:\u05D0-\u05EA]){OH}\s*({NB})\s*[:\u05C3]\s*({NB})'
+                       rf'(?:{TIRET}({NB}))?', re.I)
+# « MB 242:3-4 », « מ״ב רמ״ט:יד », « MB 248 ס״ק ד », « משנ״ב רס״ד ס״ק כג »
+MBW = r'(?:MB|מ["\u05F4]ב|משנ["\u05F4]ב|משנה ברורה)'
+RX_MB     = re.compile(rf'(?<![\w:\u05D0-\u05EA]){MBW}\s*({NB})\s*'
+                       rf'(?:[:\u05C3]|ס["\u05F4]?ק|סעיף\s*קטן)\s*({NB})(?:{TIRET}({NB}))?')
+# La colonne du Choulhan Aroukh HaRav : « שו״ע הרב רמ״ט:יב », « רמ״ט:6-8 » dans sa cellule.
+RAVW = r'(?:שו["\u05F4]ע הרב|שוע["\u05F4]ר|אדמו["\u05F4]ר הזקן|ש["\u05F4]ע אדה["\u05F4]ז|SA HaRav)'
+RX_RAV    = re.compile(rf'{RAVW}\s*(?:{OH}\s*)?({NB})\s*[:\u05C3]\s*({NB})(?:{TIRET}({NB}))?')
+
+GEM = {'א':1,'ב':2,'ג':3,'ד':4,'ה':5,'ו':6,'ז':7,'ח':8,'ט':9,'י':10,'כ':20,'ך':20,'ל':30,
+       'מ':40,'ם':40,'נ':50,'ן':50,'ס':60,'ע':70,'פ':80,'ף':80,'צ':90,'ץ':90,'ק':100,
+       'ר':200,'ש':300,'ת':400}
+def _num(t):
+    """Un numéro d'étiquette, arabe ou hébraïque. None si ce n'est ni l'un ni l'autre."""
+    t = (t or '').strip()
+    if re.fullmatch(r'\d{1,3}', t): return int(t)
+    lettres = re.sub(r'[^\u05D0-\u05EA]', '', t)
+    if not lettres: return None
+    v = sum(GEM.get(c, 0) for c in lettres)
+    return v or None
 
 _cache = {}
 if os.path.exists(CACHE):
@@ -85,18 +117,31 @@ def examiner(path, siman_page, anomalies, candidats, compte):
     nom = os.path.basename(path)
     for cell in RXTD.findall(s):
         vus = set()
-        for rx, genre in ((RX_HAGAHA, 'hagaha'), (RX_MB, 'mb'), (RX_SEIF, 'seif')):
+        for rx, genre in ((RX_HAGAHA, 'hagaha'), (RX_MB, 'mb'), (RX_RAV, 'rav'),
+                          (RX_SEIF, 'seif')):
             for m in rx.finditer(cell):
                 if (m.start(), m.end()) in vus: continue
                 # une étiquette de hagaha contient « OH n:m » : ne pas la compter deux fois
-                if genre == 'seif' and RX_HAGAHA.search(cell[max(0, m.start()-30):m.end()]):
-                    continue
+                if genre == 'seif':
+                    avant = cell[max(0, m.start() - 40):m.end()]
+                    if (RX_HAGAHA.search(avant) or RX_RAV.search(avant)
+                            or RX_MB.search(avant)):
+                        continue
                 vus.add((m.start(), m.end()))
-                n = int(m.group(1)); a = int(m.group(2)); b = int(m.group(3) or m.group(2))
+                n = _num(m.group(1)); a = _num(m.group(2))
+                b = _num(m.group(3)) or a
+                if n is None or a is None: continue
                 compte[genre] += 1
                 if n != siman_page:
                     candidats.append(f"{nom} · « {m.group(0).strip()} » nomme le siman {n}, "
                                      f"la page est le siman {siman_page}")
+                if genre == 'rav':
+                    segs = _get(f'Shulchan_Arukh_HaRav,_Orach_Chayim.{n}', f'rav:{n}')
+                    if not segs: continue
+                    if b > len(segs):
+                        anomalies.append(f"{nom} · « {m.group(0).strip()} » — le Choul'han "
+                                         f"Aroukh HaRav du siman {n} n'a que {len(segs)} séif(im)")
+                    continue
                 if genre == 'mb':
                     entrees = mb(n)
                     if not entrees: continue
@@ -136,7 +181,7 @@ def main():
         print(__doc__.strip().split('Usage :')[-1]); return 2
 
     anomalies, candidats = [], []
-    compte = {'hagaha': 0, 'seif': 0, 'mb': 0}
+    compte = {'hagaha': 0, 'seif': 0, 'mb': 0, 'rav': 0}
     for d in dirs:
         m = re.search(r'siman-(\d+)$', d)
         if not m: continue
@@ -148,7 +193,7 @@ def main():
     if not bref:
         for c in candidats: print(f'?  {c}')
     print(f"\nÉtiquettes confrontées : {compte['seif']} séif · {compte['hagaha']} hagaha · "
-          f"{compte['mb']} ס״ק de Michna Beroura")
+          f"{compte['mb']} ס״ק de Michna Beroura · {compte['rav']} séif du Choul'han Aroukh HaRav")
     print(f'ANOMALIES  : {len(anomalies)}  (le séif ou le ס״ק annoncé n\'existe pas, '
           f'ou le Rama n\'a pas de glose là)')
     print(f'candidats  : {len(candidats)}  (l\'étiquette nomme un autre siman que la page — '
