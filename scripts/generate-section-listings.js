@@ -130,4 +130,23 @@ for (const [suffixFile, lang] of [['', 'fr'], ['-he', 'he'], ['-en', 'en']]) {
   console.log(`SSG ${rel} : teaser oh-quotidien ${OHQ.length} tuiles (${lang})`);
 }
 
+// ── 3. Compteur de l'accueil (index*.html, #hp-simanim-total) ────────────────
+// La bande « preuves sociales » affichait « 124 simanim du Choulhan Aroukh » en
+// dur — le seul compartiment de Chabbat — alors que le catalogue en couvrait
+// déjà 513 sur quatre sections. Le chiffre suit désormais le catalogue à chaque
+// build ; il ne compte que des simanim distincts (Nida vit sous Yoreh De'ah avec
+// ses propres numéros, 183-200, sans doublon avec la section yoreh-deah).
+const TOTAL = DATA.simanim.length;
+for (const suffixFile of ['', '-he', '-en']) {
+  const rel = `index${suffixFile}.html`;
+  const p = path.join(ROOT, rel);
+  if (!fs.existsSync(p)) continue;
+  const html = fs.readFileSync(p, 'utf8');
+  const re = /(<span class="social-proof-num" id="hp-simanim-total">)\d*(<\/span>)/;
+  if (!re.test(html)) { console.warn(`⚠ compteur hp-simanim-total introuvable : ${rel}`); continue; }
+  const next = html.replace(re, `$1${TOTAL}$2`);
+  if (next !== html) { fs.writeFileSync(p, next, 'utf8'); filesChanged++; }
+  console.log(`Accueil ${rel} : ${TOTAL} simanim`);
+}
+
 console.log(`\n${filesChanged} fichiers mis à jour.`);
