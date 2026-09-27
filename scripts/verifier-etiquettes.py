@@ -54,9 +54,15 @@ RXTD = re.compile(r'<t[dh]\b[^>]*>(.*?)</t[dh]>', re.S | re.I)
 #     la prose écrit « — » entouré d'espaces. C'est le discriminant, et il est net.
 #   · UN NUMÉRAL HÉBRAÏQUE FAIT UNE OU DEUX LETTRES, ou porte un gershayim au-delà.
 #     « אין », « כלל », « המחב » n'en sont pas. heb-nums.py impose déjà cette convention.
+# ⚠️ L'ORDRE DES ALTERNATIVES COMPTE, et il a coûté un faux chiffre. La forme au
+# gershayim doit venir AVANT celle à une ou deux lettres : sur « ס״ק ע״א », rien ne suit
+# le nombre, donc rien n'oblige le moteur à revenir en arrière — il prenait ע seul (70) au
+# lieu de ע״א (71). La faute ne se voyait PAS sur « או״ח רמ״ב:א », où le deux-points
+# qui suit force le backtracking et rattrape l'erreur : un motif peut être juste par accident
+# dans un contexte et faux dans l'autre.
 NB = (r'(?:\d{1,3}'
-      r'|[\u05D0-\u05EA]{1,2}(?![\u05D0-\u05EA])'
-      r'|[\u05D0-\u05EA]+["\u05F4][\u05D0-\u05EA](?![\u05D0-\u05EA]))')
+      r'|[\u05D0-\u05EA]+["\u05F4][\u05D0-\u05EA](?![\u05D0-\u05EA])'
+      r'|[\u05D0-\u05EA]{1,2}(?![\u05D0-\u05EA]))')
 TIRET = r'(?:[-\u2013])'
 OH = r'(?:OH|OC|או["\u05F4]?ח|אורח חיים)'
 
@@ -70,6 +76,28 @@ RX_MB     = re.compile(rf'(?<![\w:\u05D0-\u05EA]){MBW}\s*({NB})\s*'
                        rf'(?:[:\u05C3]|ס["\u05F4]?ק|סעיף\s*קטן)\s*({NB})(?:{TIRET}({NB}))?')
 # La colonne du Choulhan Aroukh HaRav : « שו״ע הרב רמ״ט:יב », « רמ״ט:6-8 » dans sa cellule.
 RAVW = r'(?:שו["\u05F4]ע הרב|שוע["\u05F4]ר|אדמו["\u05F4]ר הזקן|ש["\u05F4]ע אדה["\u05F4]ז|SA HaRav)'
+
+# ⚠️ YORÉ DÉA N'EST PAS ORAH HAÏM, et la porte ne savait pas le dire. Elle résolvait TOUT
+# « או״ח N » comme Shulchan_Arukh,_Orach_Chayim.N — ce qui est juste dans deux compartiments
+# sur trois, et faux dans le troisième : une étiquette « יו״ד קכ״ח:ג » d'une page de Yoré Déa
+# aurait été confrontée au siman 128 d'Orah Haïm, qui parle de la bénédiction des Cohanim.
+# Et la Michna Beroura NE COUVRE PAS Yoré Déa : ses nossei kelim sont le Chakh et le Taz.
+# Le compartiment se lit dans le CHEMIN du fichier ; une étiquette qui nomme l'autre tractat
+# est un renvoi licite, et sort en candidat.
+YD = r'(?:YD|יו["\u05F4]?ד|יורה דעה)'
+RX_SEIF_YD = re.compile(rf'(?<![\w:\u05D0-\u05EA]){YD}\s*({NB})\s*[:\u05C3]\s*({NB})'
+                        rf'(?:{TIRET}({NB}))?', re.I)
+RX_HAGAHA_YD = re.compile(r'(?:Hagahah?|Gloss|הגהה|הגה(?![\u05D0-\u05EA]))\s*(?:sur|on|על)?\s*'
+                          rf'{YD}\s*({NB})\s*[:\u05C3]\s*({NB})(?:{TIRET}({NB}))?', re.I)
+# Le Chakh et le Taz, seifim ketanim, avec ou sans deux-points.
+SHKW = r'(?:ש["\u05F4]ך|שפתי כהן|Shach)'
+TAZW = r'(?:ט["\u05F4]ז|טורי זהב|Taz)'
+# La forme réelle du dépôt intercale le tractat : « ש״ך יו״ד קכ״ד ס״ק ע״א ». Il est donc
+# optionnel entre le sigle et le numéro de siman — sans lui, « ט״ז ק״ה ס״ק ג » se lit aussi.
+RX_SHK = re.compile(rf'(?<![\w:\u05D0-\u05EA]){SHKW}\s*(?:{YD}\s*)?({NB})\s*'
+                    rf'(?:[:\u05C3]|ס["\u05F4]?ק|סעיף\s*קטן)\s*({NB})(?:{TIRET}({NB}))?')
+RX_TAZ = re.compile(rf'(?<![\w:\u05D0-\u05EA]){TAZW}\s*(?:{YD}\s*)?({NB})\s*'
+                    rf'(?:[:\u05C3]|ס["\u05F4]?ק|סעיף\s*קטן)\s*({NB})(?:{TIRET}({NB}))?')
 RX_RAV    = re.compile(rf'{RAVW}\s*(?:{OH}\s*)?({NB})\s*[:\u05C3]\s*({NB})(?:{TIRET}({NB}))?')
 
 GEM = {'א':1,'ב':2,'ג':3,'ד':4,'ה':5,'ו':6,'ז':7,'ח':8,'ט':9,'י':10,'כ':20,'ך':20,'ל':30,
@@ -116,7 +144,10 @@ def _get(slug, cle):
     return out
 
 def seifim(n):   return _get(f'Shulchan_Arukh,_Orach_Chayim.{n}', f'sa:{n}')
+def seifim_yd(n):return _get(f"Shulchan_Arukh,_Yoreh_De'ah.{n}", f'yd:{n}')
 def mb(n):       return _get(f'Mishnah_Berurah.{n}', f'mb:{n}')
+def shk(n):      return _get(f"Siftei_Kohen_on_Shulchan_Arukh,_Yoreh_De'ah.{n}", f'shk:{n}')
+def taz_yd(n):   return _get(f"Turei_Zahav_on_Shulchan_Arukh,_Yoreh_De'ah.{n}", f'tazyd:{n}')
 
 def mb_decale(n):
     """Dans Mishnah_Berurah.N la première entrée est PARFOIS la פתיחה non numérotée.
@@ -144,17 +175,20 @@ def examiner(path, siman_page, anomalies, candidats, compte):
     nom = os.path.basename(path)
     for cell in RXTD.findall(s):
         vus = set()
-        for rx, genre in ((RX_HAGAHA, 'hagaha'), (RX_MB, 'mb'), (RX_RAV, 'rav'),
-                          (RX_SEIF, 'seif')):
+        for rx, genre in ((RX_HAGAHA, 'hagaha'), (RX_HAGAHA_YD, 'hagaha_yd'),
+                          (RX_MB, 'mb'), (RX_SHK, 'shk'), (RX_TAZ, 'taz'),
+                          (RX_RAV, 'rav'), (RX_SEIF, 'seif'), (RX_SEIF_YD, 'seif_yd')):
             for m in rx.finditer(cell):
                 if (m.start(), m.end()) in vus: continue
                 # une étiquette de hagaha contient « OH n:m » : ne pas la compter deux fois
-                if genre == 'seif':
+                if genre in ('seif', 'seif_yd'):
                     avant = cell[max(0, m.start() - 40):m.end()]
-                    if (RX_HAGAHA.search(avant) or RX_RAV.search(avant)
-                            or RX_MB.search(avant)):
+                    if (RX_HAGAHA.search(avant) or RX_HAGAHA_YD.search(avant)
+                            or RX_RAV.search(avant) or RX_MB.search(avant)
+                            or RX_SHK.search(avant) or RX_TAZ.search(avant)):
                         continue
-                if genre in ('seif', 'hagaha') and _dans_un_recueil(cell, m.start()):
+                if genre in ('seif', 'seif_yd', 'hagaha', 'hagaha_yd') \
+                        and _dans_un_recueil(cell, m.start()):
                     continue
                 vus.add((m.start(), m.end()))
                 n = _num(m.group(1)); a = _num(m.group(2))
@@ -164,6 +198,14 @@ def examiner(path, siman_page, anomalies, candidats, compte):
                 if n != siman_page:
                     candidats.append(f"{nom} · « {m.group(0).strip()} » nomme le siman {n}, "
                                      f"la page est le siman {siman_page}")
+                if genre in ('shk', 'taz'):
+                    quoi = shk(n) if genre == 'shk' else taz_yd(n)
+                    nom_o = 'Chakh' if genre == 'shk' else 'Taz'
+                    if not quoi: continue
+                    if b > len(quoi):
+                        anomalies.append(f"{nom} · « {m.group(0).strip()} » — le {nom_o} du "
+                                         f"siman {n} de Yoré Déa n'a que {len(quoi)} ס״ק")
+                    continue
                 if genre == 'rav':
                     segs = _get(f'Shulchan_Arukh_HaRav,_Orach_Chayim.{n}', f'rav:{n}')
                     if not segs: continue
@@ -180,18 +222,19 @@ def examiner(path, siman_page, anomalies, candidats, compte):
                         anomalies.append(f"{nom} · « {m.group(0).strip()} » — la Michna Beroura "
                                          f"du siman {n} n'a que {haut} ס״ק")
                     continue
-                segs = seifim(n)
+                segs = seifim_yd(n) if genre.endswith('_yd') else seifim(n)
+                tract = 'Yoré Déa' if genre.endswith('_yd') else 'Orah Haïm'
                 if not segs: continue
                 if b > len(segs):
-                    anomalies.append(f"{nom} · « {m.group(0).strip()} » — le siman {n} n'a que "
-                                     f"{len(segs)} séif(im)")
+                    anomalies.append(f"{nom} · « {m.group(0).strip()} » — le siman {n} de "
+                                     f"{tract} n'a que {len(segs)} séif(im)")
                     continue
-                if genre == 'hagaha':
+                if genre in ('hagaha', 'hagaha_yd'):
                     sans = [k for k in range(a, b + 1) if 'הגה' not in segs[k - 1]]
                     if sans:
                         anomalies.append(
                             f"{nom} · « {m.group(0).strip()} » — le Rama n'a AUCUNE glose sur "
-                            f"le séif {', '.join(map(str, sans))} du siman {n}")
+                            f"le séif {', '.join(map(str, sans))} du siman {n} de {tract}")
 
 def main():
     argv = sys.argv[1:]
@@ -203,14 +246,15 @@ def main():
         nums = [a for a in argv if a.isdigit()]
         dirs = []
         for n in nums:
-            for s in ('shabbat', 'orah-haim'):
+            for s in ('shabbat', 'orah-haim', 'yoreh-deah'):
                 d = os.path.join(ROOT, 'sources', s, f'siman-{n}')
                 if os.path.isdir(d): dirs.append(d); break
     if not dirs:
         print(__doc__.strip().split('Usage :')[-1]); return 2
 
     anomalies, candidats = [], []
-    compte = {'hagaha': 0, 'seif': 0, 'mb': 0, 'rav': 0}
+    compte = {'hagaha': 0, 'hagaha_yd': 0, 'seif': 0, 'seif_yd': 0,
+              'mb': 0, 'shk': 0, 'taz': 0, 'rav': 0}
     for d in dirs:
         m = re.search(r'siman-(\d+)$', d)
         if not m: continue
@@ -221,8 +265,11 @@ def main():
     for a in anomalies: print(f'✗ {a}')
     if not bref:
         for c in candidats: print(f'?  {c}')
-    print(f"\nÉtiquettes confrontées : {compte['seif']} séif · {compte['hagaha']} hagaha · "
-          f"{compte['mb']} ס״ק de Michna Beroura · {compte['rav']} séif du Choul'han Aroukh HaRav")
+    print(f"\nÉtiquettes confrontées : {compte['seif']} séif d'Orah Haïm · "
+          f"{compte['seif_yd']} séif de Yoré Déa · "
+          f"{compte['hagaha'] + compte['hagaha_yd']} hagaha · "
+          f"{compte['mb']} ס״ק de Michna Beroura · {compte['shk']} du Chakh · "
+          f"{compte['taz']} du Taz · {compte['rav']} séif du Choul'han Aroukh HaRav")
     print(f'ANOMALIES  : {len(anomalies)}  (le séif ou le ס״ק annoncé n\'existe pas, '
           f'ou le Rama n\'a pas de glose là)')
     print(f'candidats  : {len(candidats)}  (l\'étiquette nomme un autre siman que la page — '
