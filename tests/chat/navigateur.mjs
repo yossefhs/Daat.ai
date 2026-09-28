@@ -103,14 +103,18 @@ apiCalls.length = 0;
 await aller(`${BASE}/oh/319/base`, { waitUntil: 'domcontentloaded' });
 await page.waitForSelector('.daat-chat-button', { timeout: 60000 });
 await page.locator('.daat-chat-button').click();
-await page.waitForSelector('.daat-chat-welcome', { timeout: 10000 });
+// L'écran d'accueil existe dans le DOM même panneau FERMÉ : c'est l'ouverture
+// du panneau qu'il faut attendre, pas la présence de l'accueil.
+await page.waitForSelector('.daat-chat-panel.is-open', { timeout: 15000 });
+await page.waitForTimeout(600); // fin de la transition d'ouverture
 const brouillon = "C'est quoi le mouktsé ?";
-await page.locator('.daat-chat-input, .daat-chat-panel textarea').first().fill(brouillon);
-// Clics forcés : pendant l'animation d'ouverture du panneau, Playwright voit
-// parfois un élément de la page « intercepter » le pointeur (transition CSS).
-await page.locator('.daat-chat-chips[data-group="niveau"] .daat-chat-chip').first().click({ force: true });
-await page.locator('.daat-chat-chips[data-group="minhag"] .daat-chat-chip').first().click({ force: true });
-await page.locator('#daat-chat-start').click({ force: true });
+await page.locator('.daat-chat-panel.is-open .daat-chat-input').first().fill(brouillon);
+// Clics par événement DOM (pas par coordonnées) : pendant la transition, un
+// élément de la page peut recouvrir le point visé et détourner un clic réel.
+await page.locator('.daat-chat-chips[data-group="niveau"] .daat-chat-chip').first().dispatchEvent('click');
+await page.locator('.daat-chat-chips[data-group="minhag"] .daat-chat-chip').first().dispatchEvent('click');
+await page.waitForFunction(() => { const b = document.querySelector('#daat-chat-start'); return b && !b.disabled; }, null, { timeout: 5000 });
+await page.locator('#daat-chat-start').dispatchEvent('click');
 await page.waitForTimeout(1500);
 const userMsg = await page.locator('.daat-chat-message.is-user').first().innerText().catch(() => '');
 tout &= ok(userMsg.includes(brouillon), 'la question saisie avant le profil est envoyée, pas écrasée');
