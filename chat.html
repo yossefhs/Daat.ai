@@ -73,19 +73,6 @@
       display: flex; flex-direction: column;
       overflow: hidden;
     }
-    
-    /* Accessibility — screen reader only */
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      margin: -1px;
-      padding: 0;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
-    }
 
     /* HEADER */
     header {
@@ -565,8 +552,6 @@
 
   <!-- MAIN AREA -->
   <main id="main" class="main-area">
-    <!-- H1 principal pour SEO et accessibilité -->
-    <h1 class="sr-only" style="font-family: 'Cormorant Garamond', serif;">IA Daat — Assistant d'étude halakhique</h1>
 
     <!-- WELCOME SCREEN -->
     <div class="welcome-screen" id="welcome">
@@ -660,7 +645,7 @@ function renderMarkdown(text) {
   html = html.replace(/^#### (.+)$/gm, '<h4>$1</h4>');
   html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
   html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
-  html = html.replace(/^# (.+)$/gm, '<h2>$1</h2>');
+  html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>');
   html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
   html = html.replace(/\*([^*]+)\*/g, '<em>$1</em>');
   html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
