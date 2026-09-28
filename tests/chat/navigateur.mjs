@@ -35,6 +35,34 @@ if (JWT) await ctx.addCookies([{ name: '_vercel_jwt', value: JWT, domain: host, 
 const page = await ctx.newPage();
 const apiCalls = [];
 page.on('request', (r) => { if (/\/api\/chat(\?|$)/.test(r.url()) && r.method() === 'POST') apiCalls.push(r.url()); });
+
+// ⚠️ Les pages fixent window.DAAT_CHAT_API_URL sur l'API de PRODUCTION
+// (daatai.vercel.app), dont la liste d'origines CORS ne connaît pas un
+// déploiement de prévisualisation : depuis la prévisualisation, l'appel échoue
+// (« Failed to fetch »). Pour juger le déploiement lui-même, on réachemine tout
+// POST /api/chat vers SON API, avec le cookie d'accès, et on rend la réponse au
+// navigateur avec les en-têtes CORS de l'origine de la page. Le flux SSE est
+// alors livré d'un bloc (route.fulfill) — le widget le lit tel quel.
+await page.route(/\/api\/chat(\?|$)/, async (route) => {
+  const req = route.request();
+  if (req.method() !== 'POST') return route.continue();
+  const origin = new URL(page.url()).origin;
+  try {
+    const resp = await ctx.request.post(`${BASE}/api/chat`, {
+      data: req.postData() || '',
+      headers: { 'Content-Type': 'application/json', ...(JWT ? { Cookie: `_vercel_jwt=${JWT}` } : {}) },
+      timeout: 280000,
+    });
+    const body = await resp.body();
+    const ct = resp.headers()['content-type'] || 'text/event-stream; charset=utf-8';
+    await route.fulfill({
+      status: resp.status(), body,
+      headers: { 'Content-Type': ct, 'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Credentials': 'true' },
+    });
+  } catch (e) {
+    await route.fulfill({ status: 502, body: String(e), headers: { 'Access-Control-Allow-Origin': origin } });
+  }
+});
 mkdirSync('audit/captures', { recursive: true });
 
 // ── 1. chat.html ──────────────────────────────────────────────────────────
@@ -70,7 +98,8 @@ await page.screenshot({ path: 'audit/captures/chat-html-tableau.png', fullPage: 
 // ── 2. widget sur une page de siman ───────────────────────────────────────
 console.log('\n=== widget /oh/319/base');
 apiCalls.length = 0;
-await page.goto(`${BASE}/oh/319/base`, { waitUntil: 'networkidle' });
+await page.goto(`${BASE}/oh/319/base`, { waitUntil: 'domcontentloaded' });
+await page.waitForSelector('.daat-chat-button', { timeout: 60000 });
 await page.locator('.daat-chat-button').click();
 await page.waitForSelector('.daat-chat-welcome', { timeout: 10000 });
 const brouillon = "C'est quoi le mouktsé ?";

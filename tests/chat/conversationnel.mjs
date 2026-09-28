@@ -162,7 +162,9 @@ const CAS = [
       "Fais-moi un tableau comparant Mehaber et Rama sur Orah Haïm 246:1, avec la citation hébraïque en bloc et un lien vers la source."],
     controles: [
       { nom: 'tableau Markdown bien formé', ok: t => /\|[^\n]+\|\n\|[-:| ]+\|\n\|/.test(t) },
-      { nom: 'citation hébraïque en bloc « > »', ok: t => /^> [א-ת]/m.test(t) },
+      // Le bloc peut s'ouvrir par un libellé (« > **מרן :** … ») : on cherche de
+      // l'hébreu dans les premiers caractères de la ligne de citation.
+      { nom: 'citation hébraïque en bloc « > »', ok: t => /^> .{0,40}[א-ת]/m.test(t) },
       // Le flux SSE ne porte que les ENTRÉES d'outil (la ref demandée), pas leurs
       // sorties : un lien est « issu de l'outil » si son chemin est la forme URL
       // d'une ref réellement demandée à sefaria_get_text dans cette réponse.
