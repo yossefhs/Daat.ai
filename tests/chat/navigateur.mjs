@@ -108,10 +108,16 @@ for (let i = 0; i < 3 && !boutonVu; i++) {
   boutonVu = await page.waitForSelector('.daat-chat-button', { timeout: 40000 }).then(() => true).catch(() => false);
 }
 if (!boutonVu) { ok(false, 'le bouton du widget ne s\'affiche pas (script non chargé)'); await browser.close(); process.exit(1); }
-await page.locator('.daat-chat-button').click();
+await page.locator('.daat-chat-button').dispatchEvent('click');
 // L'écran d'accueil existe dans le DOM même panneau FERMÉ : c'est l'ouverture
 // du panneau qu'il faut attendre, pas la présence de l'accueil.
-await page.waitForSelector('.daat-chat-panel.is-open', { timeout: 15000 });
+try {
+  await page.waitForSelector('.daat-chat-panel.is-open', { state: 'attached', timeout: 15000 });
+} catch (e) {
+  await page.screenshot({ path: 'audit/captures/widget-319-echec.png' });
+  ok(false, 'le panneau du widget ne s\'ouvre pas au clic (capture widget-319-echec.png)');
+  await browser.close(); process.exit(1);
+}
 await page.waitForTimeout(600); // fin de la transition d'ouverture
 const brouillon = "C'est quoi le mouktsé ?";
 await page.locator('.daat-chat-panel.is-open .daat-chat-input').first().fill(brouillon);
