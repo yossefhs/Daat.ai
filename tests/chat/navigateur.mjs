@@ -100,8 +100,14 @@ await page.screenshot({ path: 'audit/captures/chat-html-tableau.png', fullPage: 
 // ── 2. widget sur une page de siman ───────────────────────────────────────
 console.log('\n=== widget /oh/319/base');
 apiCalls.length = 0;
-await aller(`${BASE}/oh/319/base`, { waitUntil: 'domcontentloaded' });
-await page.waitForSelector('.daat-chat-button', { timeout: 60000 });
+// Le script du widget se charge après la page ; à travers un proxy lent il
+// n'arrive parfois pas : on recharge jusqu'à trois fois avant de conclure.
+let boutonVu = false;
+for (let i = 0; i < 3 && !boutonVu; i++) {
+  await aller(`${BASE}/oh/319/base`, { waitUntil: 'domcontentloaded' });
+  boutonVu = await page.waitForSelector('.daat-chat-button', { timeout: 40000 }).then(() => true).catch(() => false);
+}
+if (!boutonVu) { ok(false, 'le bouton du widget ne s\'affiche pas (script non chargé)'); await browser.close(); process.exit(1); }
 await page.locator('.daat-chat-button').click();
 // L'écran d'accueil existe dans le DOM même panneau FERMÉ : c'est l'ouverture
 // du panneau qu'il faut attendre, pas la présence de l'accueil.
