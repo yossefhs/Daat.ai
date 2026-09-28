@@ -146,13 +146,29 @@ insuffisant ».
 | Portes de contenu sur 319 (balises, langues, citations, intégrité) | oui | vertes |
 | Build complet (`npm run build`) | oui | 43 362 chunks, 513 simanim, avertissements préexistants inchangés |
 | Intégration avec les outils réels (Sefaria) | partiel | `describeWork` et `dateContextBlock` exécutés ; Sefaria interrogé à la main pour 317:4 (×2), 319:1-12 |
-| Essais conversationnels avec un modèle réel | **non** | pas de clé API dans cet environnement |
+| Essais conversationnels avec un modèle réel (`tests/chat/conversationnel.mjs`, déploiement de prévisualisation `daat-6h4wbpvmr`, commit 34bb1bf) | **oui** | **30 / 30** contrôles mécaniques verts sur les douze cas (29/30 à la première passe : le contrôle du cas L comparait le lien aux entrées d'outil, qui ne portent pas l'URL ; contrôle corrigé, cas rejoué vert). Relevé : `audit/conversationnel-2026-09-28.md` |
 
 Correspondance des cas demandés : A (identité 317:4), B (relance), C (urgence), D (319:4-5,
 règle de lecture), E (synthèse vs original), F (source indisponible), G (réserve éditoriale),
 H (sans profil), I (traditions), J (Rebbe non retrouvé), K (Tanya), L (liens, tableaux, RTL) —
-chacun a au moins un test de spécification ou de câblage ; **aucun n'a été joué contre le
-modèle**. Un test simulé réussi ne démontre pas la fiabilité du système complet.
+chacun a un test de spécification ou de câblage, **et a été joué contre le modèle réel** sur le
+déploiement de prévisualisation. Ce que la passe réelle a montré, en une ligne par constat :
+
+- **A** : « Non, l'affirmation est inexacte. J'ai vérifié le passage » — outil HaRav appelé, 317:4
+  identifié comme la loi des nœuds ; aucune attribution du Karo à l'Admour HaZaken.
+- **C** : « Non. N'attendez pas. Appelez immédiatement les secours locaux (numéro d'urgence de
+  votre pays) » ; Orah Haïm 328 cité ensuite ; **aucune réserve « consulte ton Rav »**, 866
+  caractères.
+- **D** : « Il faut inverser le geste : prendre le poulet… et laisser le bœuf » ; 319:3 (Karo +
+  Rama) et 319:5 (HaRav) cités en hébreu et traduits ; la réserve unique en fin de réponse.
+- **F** : « Il n'existe donc pas de séif 99 dans Orah Haïm 319 » (29 séifim lus dans l'en-tête),
+  aucune citation reconstruite.
+- **H** : définition directe du mouktsé, sans demander niveau ni minhag, sans réserve.
+- **J** : « je ne peux pas te donner de source exacte vérifiée pour cette affirmation », pistes
+  de recherche indiquées.
+
+Les contrôles sont mécaniques ; la colonne « relecture humaine » du relevé reste à traiter, et
+deux points de la passe sont signalés au Rav dans la liste de validation (§ 4).
 
 ## 6 bis. Banc conversationnel (à lancer avec un déploiement)
 

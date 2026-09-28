@@ -57,6 +57,22 @@ et qui appelle la relecture du Rav avant publication. Les modifications de code
   correcte, cohérente avec la correction du niveau 4.
 - Niveau 1 du siman 319 : « 3 conditions cumulatives du tri PERMIS » — correct.
 
+## 4. Réponses du banc conversationnel réel — points à relire
+
+Relevé complet : `audit/conversationnel-2026-09-28.md` (douze cas, modèle réel, déploiement de
+prévisualisation). Deux points méritent l'œil du Rav :
+
+- **Cas D (poulet et bœuf mélangés)** : la réponse est juste sur le fond (prendre l'espèce qu'on
+  mange, à la main, tout de suite ; l'autre a le statut de déchet, 319:5 HaRav) mais elle écrit,
+  sous « Application à ton cas », « ✅ Autorisé : prendre à la main les morceaux de poulet… ».
+  C'est la permission du texte, suivie de la réserve unique ; le Rav souhaite-t-il que le chat
+  s'interdise cette forme (coche verte sur le cas personnel), même quand le texte est clair ?
+- **Cas D, citation attribuée au séif ו du HaRav** : « אין להקל, כי ספק חיוב חטאת הוא » — à
+  confronter au texte réel du séif (la citation du séif ה est, elle, conforme au sens du texte
+  lu sur Sefaria).
+- **Cas I (attente viande / fromage, trois traditions)** et **cas K (Tanya ch. 1)** : réponses
+  longues avec sources ; exactitude à relire, aucun contrôle mécanique ne la juge.
+
 ## 3. Formulations du chat qui touchent à la halakha — à valider
 
 - La consigne d'urgence statique (`api/_reserve.js`, `URGENCE`, FR/HE/EN) cite Orah Haïm 328:2

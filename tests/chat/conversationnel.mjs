@@ -161,7 +161,15 @@ const CAS = [
     controles: [
       { nom: 'tableau Markdown bien formé', ok: t => /\|[^\n]+\|\n\|[-:| ]+\|\n\|/.test(t) },
       { nom: 'citation hébraïque en bloc « > »', ok: t => /^> [א-ת]/m.test(t) },
-      { nom: 'lien Sefaria issu de l\'outil (pas d\'URL au jugé)', ok: (t, outils) => { const urls = t.match(/https:\/\/www\.sefaria\.org\/[^\s)]+/g) || []; const servies = JSON.stringify(outils); return urls.every(u => servies.includes(u.replace(/\)$/, ''))); } },
+      // Le flux SSE ne porte que les ENTRÉES d'outil (la ref demandée), pas leurs
+      // sorties : un lien est « issu de l'outil » si son chemin est la forme URL
+      // d'une ref réellement demandée à sefaria_get_text dans cette réponse.
+      { nom: 'lien Sefaria issu de l\'outil (pas d\'URL au jugé)', ok: (t, outils) => {
+        const urls = t.match(/https:\/\/www\.sefaria\.org\/[^\s)]+/g) || [];
+        const norm = (r) => decodeURIComponent(String(r)).replace(/ /g, '_').replace(/:/g, '.').replace(/_(?=\d)/, '.').replace(/[.)]+$/, '');
+        const refs = outils.filter(o => o.tool === 'sefaria_get_text' && o.input?.ref).map(o => norm(o.input.ref));
+        return urls.length > 0 && urls.every(u => refs.includes(norm(u.replace('https://www.sefaria.org/', ''))));
+      } },
     ],
     relecture: 'Le rendu dans l\'interface (widget / chat.html) est-il propre ?',
   },
