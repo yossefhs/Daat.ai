@@ -14,7 +14,7 @@ export const config = {
   matcher: ['/admin', '/admin/:path*'],
 };
 
-export async function middleware(req) {
+export default async function middleware(req) {
   const authHeader = req.headers.get('authorization');
   const expectedPassword = process.env.ADMIN_PASSWORD;
 
