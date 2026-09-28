@@ -1,5 +1,10 @@
 # Audit du prompt système du chat Daat — état au 28 septembre 2026
 
+> **Suite** : ce document a été suivi, le même jour, d'une mise en œuvre. Le compte rendu
+> (problème, cause établie, correction, preuve, limites) est dans
+> `docs/RAPPORT-CHAT-2026-09-28.md` ; les passages à valider par le Rav dans
+> `audit/validation-rabbinique-chat-2026-09-28.md`.
+
 Ce document reprend le fil de la session du 27 septembre (retrouvée sur la branche
 `origin/feat/prompt-v2`, non fusionnée) et fixe le cadre dans lequel tout nouveau
 prompt proposé sera analysé. Il ne modifie aucun fichier de production.
