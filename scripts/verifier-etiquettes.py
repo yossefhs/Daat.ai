@@ -103,6 +103,27 @@ RX_TAZ = re.compile(rf'(?<![\w:\u05D0-\u05EA]){TAZW}\s*(?:{YD}\s*)?({NB})\s*'
                     rf'(?:[:\u05C3]|ס["\u05F4]?ק|סעיף\s*קטן)\s*({NB})(?:{TIRET}({NB})(?:\s*[:\u05C3]\s*({NB}))?)?')
 RX_RAV    = re.compile(rf'{RAVW}\s*(?:{OH}\s*)?({NB})\s*[:\u05C3]\s*({NB})(?:{TIRET}({NB})(?:\s*[:\u05C3]\s*({NB}))?)?')
 
+# ⚠️ UN NOM DE TRACTAT PRÉCÉDÉ D'UN NOM D'ŒUVRE NE DÉSIGNE PAS LE CHOUL'HAN AROUKH.
+# C'est le piège consigné plus bas pour « או״ח » dans un recueil de responsa — et il ne se
+# limite pas aux responsa : il se retrouve sur un CODE. L'AROUKH HACHOUL'HAN A SON PROPRE
+# DÉCOUPAGE EN SÉIFIM, bien plus fin que celui du Choul'han Aroukh : « ערוך השולחן יורה דעה
+# ר״ב:י״ב » est SON séif 12, quand le siman 202 de Yoré Déa n'en a que neuf, et son siman 201
+# en compte 218 contre 75. La porte lisait « יורה דעה ר״ב:י״ב » dans cette étiquette, laissait
+# tomber le nom de l'œuvre, et accusait la page de nommer un séif inexistant. SIX ANOMALIES
+# IMAGINAIRES sur le siman 202 de Yoré Déa, dans les trois langues, sur six citations dont
+# chacune est verbatim dans le séif qu'elle annonce (vérifié par squelette consonantique).
+# Le siman 201 y échappait PAR CHANCE : son étiquette la plus haute est ר״א:ע״ה, soit 75, et
+# le siman 201 du Choul'han Aroukh a précisément 75 séifim. Un motif peut être juste par
+# accident dans un contexte et faux dans l'autre — c'est déjà la leçon du gershayim ci-dessus.
+# On ne se contente donc pas de TAIRE l'étiquette comme pour les recueils : on la confronte à
+# l'Aroukh HaChoul'han lui-même, qui est sur Sefaria et dont le tractat se lit DANS l'étiquette
+# (l'œuvre couvre les quatre Tourim ; le chemin du fichier ne le dit pas).
+# ⚠️ Et quand Sefaria rend `he: []` — Yoré Déa 123-182 et à partir de 203 — c'est une lacune
+# de NUMÉRISATION et non de l'œuvre (règle 21 du brief) : on passe, on n'accuse pas.
+AHSW = r'(?:ערוך השולחן|ערוה["\u05F4]ש|Arukh HaShulchan|Aroukh HaChoul[\'\u2019]han)'
+RX_AHS = re.compile(rf'{AHSW}\s*(?:{OH}|{YD})\s*({NB})\s*[:\u05C3]\s*({NB})'
+                    rf'(?:{TIRET}({NB})(?:\s*[:\u05C3]\s*({NB}))?)?', re.I)
+
 GEM = {'א':1,'ב':2,'ג':3,'ד':4,'ה':5,'ו':6,'ז':7,'ח':8,'ט':9,'י':10,'כ':20,'ך':20,'ל':30,
        'מ':40,'ם':40,'נ':50,'ן':50,'ס':60,'ע':70,'פ':80,'ף':80,'צ':90,'ץ':90,'ק':100,
        'ר':200,'ש':300,'ת':400}
@@ -115,18 +136,48 @@ def _num(t):
     v = sum(GEM.get(c, 0) for c in lettres)
     return v or None
 
+# ⚠️ LE CACHE EST VERSIONNÉ DEPUIS QU'IL A CHANGÉ DE CONTENU. La v1 stockait le texte
+# tag pour tag effacé ; la v2 conserve les bornes de <small>, sans lesquelles les gloses
+# du Rama en parenthèses sont indétectables (voir porte_glose_rama). Un cache v1 relu par
+# la v2 rendrait un vert parfaitement faux, et silencieux.
+CACHE_V = 2
 _cache = {}
 if os.path.exists(CACHE):
     try: _cache = json.load(open(CACHE, encoding='utf-8'))
     except Exception: _cache = {}
+if _cache.get('__v') != CACHE_V:
+    _cache = {'__v': CACHE_V}
+
+PETIT_DEB, PETIT_FIN = '\u0001', '\u0002'
 
 def _plat(x):
     if isinstance(x, str): return x
     if isinstance(x, list): return ' '.join(_plat(y) for y in x)
     return ''
 
+def _sans_balises(b):
+    """Le texte d'un segment, les bornes de <small> remplacées par deux sentinelles.
+
+    Sefaria imprime en petit corps tout ce que l'édition imprime en caractères Rachi :
+    les gloses du Rama, et les notes explicatives du typographe. Effacer la balise
+    confond les deux avec le Mehaber."""
+    t = _plat(b)
+    t = re.sub(r'<small>', PETIT_DEB, t, flags=re.I)
+    t = re.sub(r'</small>', PETIT_FIN, t, flags=re.I)
+    return re.sub(r'<[^>]+>', ' ', t)
+
 def _get(slug, cle):
-    """Les segments d'une œuvre, avec contrôle du champ ref — le piège du dépôt."""
+    """Les segments d'une œuvre, avec contrôle du champ ref — le piège du dépôt.
+
+    ⚠️ UN RÉSULTAT VIDE N'EST PLUS MIS EN CACHE, et le défaut méritait d'être nommé : il
+    rendait la porte SILENCIEUSEMENT VERTE POUR TOUJOURS. Un 503 de Sefaria, une coupure
+    réseau, un slug momentanément absent inscrivaient `[]` dans le cache persisté ; la
+    branche de contrôle fait `if not segs: continue`, donc l'œuvre entière cessait d'être
+    confrontée — sans un mot, et à chaque relance suivante. C'est la forme la plus grave
+    du défaut que ce dépôt traque : une porte qui ne compare rien et sort verte. Signalé
+    par un agent de contrôle du siman 202 ; le cache courant n'en portait aucune, mais
+    c'était la chance et non la conception.
+    """
     if cle in _cache: return _cache[cle]
     out = []
     try:
@@ -137,14 +188,50 @@ def _get(slug, cle):
         n = cle.split(':')[-1]
         if ref.rstrip().endswith(n):          # sinon : l'œuvre entière sans dire non
             he = d.get('he')
-            out = [re.sub(r'<[^>]+>', ' ', _plat(b)) for b in (he if isinstance(he, list) else [he])]
+            out = [_sans_balises(b) for b in (he if isinstance(he, list) else [he])]
     except Exception:
         pass
-    _cache[cle] = out
-    try: json.dump(_cache, open(CACHE, 'w', encoding='utf-8'), ensure_ascii=False)
-    except Exception: pass
+    if out:                      # jamais de vide persisté : voir le docstring
+        _cache[cle] = out
+        try: json.dump(_cache, open(CACHE, 'w', encoding='utf-8'), ensure_ascii=False)
+        except Exception: pass
     time.sleep(0.1)
     return out
+
+# ⚠️ « LE RAMA N'A AUCUNE GLOSE SUR CE SÉIF » A ÉTÉ DIT DE TROIS SÉIFIM QUI EN PORTENT UNE.
+# La porte cherchait le mot הגה dans le texte du séif, et rien d'autre. Or Sefaria ne l'écrit
+# que lorsque la glose ouvre un bloc à la fin du séif ; la glose INSÉRÉE au fil du texte est
+# rendue en petit corps entre parenthèses (Yoré Déa) ou entre crochets (Orah Haïm), sans
+# aucun mot d'introduction — seule la source suit, entre parenthèses à son tour.
+# Mesuré sur Yoré Déa 129:17 : la cellule annonce « הגה יו״ד קכ״ט:י״ז », le séif ne porte pas
+# le mot הגה, et la porte criait. La glose y est pourtant, et deux nossei kelim la nomment :
+#   Taz ס״ק כ״ו, sur ce lemme même — « ודוקא שהיא סתומה בפקק. זה למד רמ״א ממ״ש הר״ן… » ;
+#   Baer Hetev ס״ק כ״ז — « כתב הט״ז מ״ש רמ״א דאם נסתם בפקק… ».
+# Même cause aux séifim 125:1 et 128:1 de Yoré Déa : douze des dix-huit anomalies du
+# compartiment étaient cette seule lacune. Relevé sur les 148 simanim de Yoré Déa servis par
+# Sefaria : 454 blocs en petit corps ouverts par הגה, 469 ouverts par une parenthèse,
+# 80 notes explicatives et 8 restes — la forme sans הגה est donc la MAJORITAIRE.
+#
+# Ce qui n'est PAS une glose du Rama, et qu'il faut écarter sous peine de rendre la porte
+# muette pour de bon :
+#   · la note du typographe, « (פירוש סתימה) », « [פירוש אריס הוא העובד…] », « (פי׳ בגדים גסים) » ;
+#   · la note d'éditeur ou de censure, « [*עניני קהל וחרם בטלין כעת מדינא דמלכותא] ».
+# ⚠️ ET CETTE PORTE NE S'ÉLARGIT QUE DANS UN SENS : elle accepte désormais plus d'étiquettes
+# qu'avant. Ce qu'elle ne vérifie toujours pas — et c'est à écrire, pas à taire — c'est que le
+# CONTENU de la cellule vienne bien de la zone du Rama et non du Mehaber du même séif.
+RX_PETIT   = re.compile(PETIT_DEB + r'(.*?)(?:' + PETIT_FIN + r'|$)', re.S)
+RX_EXPLIC  = re.compile(r"^[\(\[]?\s*(?:פירוש|פי[\u05F3'\u2019])")
+RX_EDITEUR = re.compile(r"^[\(\[]\s*\*")
+
+def porte_glose_rama(seg):
+    """Le Rama a-t-il une glose sur ce séif ? Deux formes, et la seconde est la plus fréquente."""
+    for m in RX_PETIT.finditer(seg):
+        t = m.group(1).strip()
+        if not t: continue
+        if t.startswith('הגה'): return True
+        if RX_EXPLIC.match(t) or RX_EDITEUR.match(t): continue
+        return True
+    return 'הגה' in seg          # filet, si Sefaria cessait d'employer <small>
 
 def seifim(n):   return _get(f'Shulchan_Arukh,_Orach_Chayim.{n}', f'sa:{n}')
 def seifim_yd(n):return _get(f"Shulchan_Arukh,_Yoreh_De'ah.{n}", f'yd:{n}')
@@ -178,9 +265,21 @@ def examiner(path, siman_page, anomalies, candidats, compte):
     nom = os.path.basename(path)
     for cell in RXTD.findall(s):
         vus = set()
+        # ⚠️ L'ÉTENDUE, ET NON LA PROXIMITÉ. « ערוך השולחן יורה דעה ר״ב:י״ב » CONTIENT
+        # « יורה דעה ר״ב:י״ב » : c'est ce chevauchement-là, et lui seul, qu'il faut taire.
+        # Le regard-en-arrière de 40 caractères employé pour les autres sigles taisait en
+        # prime toute étiquette du Choul'han Aroukh VOISINE d'une étiquette de l'Aroukh
+        # HaChoul'han dans la même cellule — mesuré : « שו״ע יו״ד ר״ב:כ » (le siman 202 de
+        # Yoré Déa n'a que 9 séifim) est accusé quand il est seul, et MUET dès qu'une
+        # étiquette de l'Aroukh HaChoul'han le précède de moins de 40 signes. Aucune page
+        # du dépôt n'était dans ce cas — le trou était latent, et c'est la seule raison
+        # pour laquelle il n'a rien coûté. Un garde-fou qu'on n'élargit que dans un sens
+        # devient muet sans qu'on s'en aperçoive (leçon de verifier-troncatures.py).
+        etendues_ahs = [(a.start(), a.end()) for a in RX_AHS.finditer(cell)]
         for rx, genre in ((RX_HAGAHA, 'hagaha'), (RX_HAGAHA_YD, 'hagaha_yd'),
                           (RX_MB, 'mb'), (RX_SHK, 'shk'), (RX_TAZ, 'taz'),
-                          (RX_RAV, 'rav'), (RX_SEIF, 'seif'), (RX_SEIF_YD, 'seif_yd')):
+                          (RX_RAV, 'rav'), (RX_AHS, 'ahs'),
+                          (RX_SEIF, 'seif'), (RX_SEIF_YD, 'seif_yd')):
             for m in rx.finditer(cell):
                 if (m.start(), m.end()) in vus: continue
                 # une étiquette de hagaha contient « OH n:m » : ne pas la compter deux fois
@@ -189,6 +288,8 @@ def examiner(path, siman_page, anomalies, candidats, compte):
                     if (RX_HAGAHA.search(avant) or RX_HAGAHA_YD.search(avant)
                             or RX_RAV.search(avant) or RX_MB.search(avant)
                             or RX_SHK.search(avant) or RX_TAZ.search(avant)):
+                        continue
+                    if any(d <= m.start() and m.end() <= f for d, f in etendues_ahs):
                         continue
                 if genre in ('seif', 'seif_yd', 'hagaha', 'hagaha_yd') \
                         and _dans_un_recueil(cell, m.start()):
@@ -222,6 +323,17 @@ def examiner(path, siman_page, anomalies, candidats, compte):
                         anomalies.append(f"{nom} · « {m.group(0).strip()} » — le Choul'han "
                                          f"Aroukh HaRav du siman {n} n'a que {len(segs)} séif(im)")
                     continue
+                if genre == 'ahs':
+                    yd = bool(re.search(YD, m.group(0)))
+                    slug = (f"Arukh_HaShulchan,_Yoreh_De'ah.{n}" if yd
+                            else f'Arukh_HaShulchan,_Orach_Chayim.{n}')
+                    segs = _get(slug, f"ahs{'yd' if yd else 'oh'}:{n}")
+                    # he: [] = lacune de numérisation Sefaria, jamais une absence d'œuvre
+                    if not segs: continue
+                    if b > len(segs):
+                        anomalies.append(f"{nom} · « {m.group(0).strip()} » — l'Aroukh "
+                                         f"HaChoul'han du siman {n} n'a que {len(segs)} séif(im)")
+                    continue
                 if genre == 'mb':
                     entrees = mb(n)
                     if not entrees: continue
@@ -239,7 +351,7 @@ def examiner(path, siman_page, anomalies, candidats, compte):
                                      f"{tract} n'a que {len(segs)} séif(im)")
                     continue
                 if genre in ('hagaha', 'hagaha_yd'):
-                    sans = [k for k in range(a, b + 1) if 'הגה' not in segs[k - 1]]
+                    sans = [k for k in range(a, b + 1) if not porte_glose_rama(segs[k - 1])]
                     if sans:
                         anomalies.append(
                             f"{nom} · « {m.group(0).strip()} » — le Rama n'a AUCUNE glose sur "
@@ -282,7 +394,7 @@ def main():
 
     anomalies, candidats = [], []
     compte = {'hagaha': 0, 'hagaha_yd': 0, 'seif': 0, 'seif_yd': 0,
-              'mb': 0, 'shk': 0, 'taz': 0, 'rav': 0}
+              'mb': 0, 'shk': 0, 'taz': 0, 'rav': 0, 'ahs': 0}
     for d in dirs:
         m = re.search(r'siman-(\d+)$', d)
         if not m: continue
@@ -297,7 +409,8 @@ def main():
           f"{compte['seif_yd']} séif de Yoré Déa · "
           f"{compte['hagaha'] + compte['hagaha_yd']} hagaha · "
           f"{compte['mb']} ס״ק de Michna Beroura · {compte['shk']} du Chakh · "
-          f"{compte['taz']} du Taz · {compte['rav']} séif du Choul'han Aroukh HaRav")
+          f"{compte['taz']} du Taz · {compte['rav']} séif du Choul'han Aroukh HaRav · "
+          f"{compte['ahs']} séif de l'Aroukh HaChoul'han")
     print(f'ANOMALIES  : {len(anomalies)}  (le séif ou le ס״ק annoncé n\'existe pas, '
           f'ou le Rama n\'a pas de glose là)')
     print(f'candidats  : {len(candidats)}  (l\'étiquette nomme un autre siman que la page — '
