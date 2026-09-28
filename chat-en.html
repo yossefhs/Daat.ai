@@ -363,6 +363,9 @@
     .bubble blockquote { border-left: 3px solid var(--gold); padding-left: 12px; margin: 8px 0; color: var(--text-mid); }
     /* Bloc hébreu isolé DANS une bulle non-hébraïque : barre à droite, aligné à droite. */
     .bubble blockquote[dir="rtl"] { border-left: none; border-right: 3px solid var(--gold); padding: 4px 12px 4px 0; text-align: right; }
+    .bubble table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 0.95em; }
+    .bubble th, .bubble td { border: 1px solid rgba(197,165,90,0.45); padding: 6px 10px; vertical-align: top; text-align: start; }
+    .bubble th { background: rgba(197,165,90,0.12); font-weight: 600; }
     .bubble p[dir="rtl"], .bubble li[dir="rtl"] { text-align: right; direction: rtl; }
     .bubble [dir="rtl"], .bubble [lang="he"] {
       font-family: 'Frank Ruhl Libre', serif; direction: rtl; unicode-bidi: isolate;
@@ -652,13 +655,23 @@ function renderMarkdown(text) {
   html = html.replace(/\*([^*]+)\*/g, '<em>$1</em>');
   html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
   html = html.replace(/^[\s]*[-*] (.+)$/gm, (_, c) => '<li' + blockDirAttr(c) + '>' + c + '</li>');
-  html = html.replace(/(<li>[\s\S]+?<\/li>)/g, m => m.includes('<ul>') || m.includes('<ol>') ? m : '<ul>' + m + '</ul>');
-  html = html.replace(/^> (.+)$/gm, (_, c) => '<blockquote' + blockDirAttr(c) + '>' + c + '</blockquote>');
+  html = html.replace(/(<li[^>]*>[\s\S]+?<\/li>)/g, m => m.includes('<ul>') || m.includes('<ol>') ? m : '<ul>' + m + '</ul>');
+  // ⚠️ The ">" was escaped to "&gt;" two lines above: the old /^> / pattern NEVER
+  // matched, and every quotation was displayed as raw text "> אסור…" (audit of
+  // 28 September 2026). Same defect for tables, which were not rendered at all —
+  // the "|" bars stayed on screen.
+  html = html.replace(/^&gt; (.+)$/gm, (_, c) => '<blockquote' + blockDirAttr(c) + '>' + c + '</blockquote>');
+  html = html.replace(/^\|(.+)\|[ \t]*\n\|[-:| \t]+\|[ \t]*\n((?:\|.*\|[ \t]*(?:\n|$))+)/gm, (_, headerLine, bodyLines) => {
+    const cells = (line) => line.split('|').slice(1, -1).map(c => c.trim());
+    const ths = cells('|' + headerLine + '|').map(h => '<th' + blockDirAttr(h) + '>' + h + '</th>').join('');
+    const trs = bodyLines.trim().split('\n').map(l => '<tr>' + cells(l.trim()).map(c => '<td' + blockDirAttr(c) + '>' + c + '</td>').join('') + '</tr>').join('');
+    return '<table><thead><tr>' + ths + '</tr></thead><tbody>' + trs + '</tbody></table>';
+  });
   const blocks = html.split(/\n\n+/);
   html = blocks.map(b => {
     b = b.trim();
     if (!b) return '';
-    if (/^<(h[1-6]|ul|ol|pre|blockquote|li)/.test(b)) return b;
+    if (/^<(h[1-6]|ul|ol|pre|blockquote|li|table)/.test(b)) return b;
     return '<p' + blockDirAttr(b) + '>' + b.replace(/\n/g, '<br>') + '</p>';
   }).join('\n');
   return html;

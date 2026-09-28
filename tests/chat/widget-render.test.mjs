@@ -62,6 +62,35 @@ test('UX — la question saisie pendant le choix du profil n\'est plus écrasée
   assert.ok(/const draft = this\.inputEl\.value\.trim\(\);\s*\n\s*if \(draft\) \{ this\.send\(\); return; \}/.test(src));
 });
 
+// Le renderMarkdown des pages plein écran (chat.html, -he, -en) est distinct de
+// celui du widget. Trouvé le 28/09/2026 : il échappait « > » en « &gt; » AVANT de
+// chercher /^> / — aucune citation n'était jamais rendue — et n'avait aucun
+// tableau. On l'extrait et on l'évalue avec le stub blockDirAttr.
+function pageRenderer(file) {
+  const page = readFileSync(new URL(`../../${file}`, import.meta.url), 'utf8');
+  const start = page.indexOf('function renderMarkdown(');
+  let i = page.indexOf('{', start), depth = 0;
+  for (; i < page.length; i++) { if (page[i] === '{') depth++; else if (page[i] === '}') { depth--; if (depth === 0) break; } }
+  const fn = page.slice(start, i + 1);
+  return new Function('function blockDirAttr(t){return /[\\u05d0-\\u05ea]/.test(String(t))?\' dir="rtl"\':\'\';}' + fn + '; return renderMarkdown;')();
+}
+
+test('L — pages plein écran : une citation « > » devient un <blockquote>, pas du texte brut', () => {
+  for (const f of ['chat.html', 'chat-he.html', 'chat-en.html']) {
+    const html = pageRenderer(f)('Le Mehaber écrit :\n\n> קושרין דלי במשיחה\n\nTraduction.');
+    assert.ok(/<blockquote dir="rtl">/.test(html), f);
+    assert.ok(!html.includes('&gt; '), `${f} : citation en texte brut`);
+  }
+});
+
+test('L — pages plein écran : un tableau Markdown devient une <table>', () => {
+  for (const f of ['chat.html', 'chat-he.html', 'chat-en.html']) {
+    const html = pageRenderer(f)('| Source | Position |\n|---|---|\n| Mehaber | permis |\n| Rama | interdit |');
+    assert.ok(html.includes('<table>') && html.includes('<th>Source</th>') && html.includes('<td>Rama</td>'), f);
+    assert.ok(!/\|---\|/.test(html), `${f} : tableau en texte brut`);
+  }
+});
+
 test('H/UX — les trois pages de chat plein écran : accueil statique, profil non obligatoire', () => {
   for (const f of ['chat.html', 'chat-he.html', 'chat-en.html']) {
     const page = readFileSync(new URL(`../../${f}`, import.meta.url), 'utf8');
