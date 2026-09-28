@@ -68,6 +68,32 @@ function looksHebrew(s) {
   return /[֐-׿]/.test(s || '');
 }
 
+// Numéral hébreu d'un numéro de siman : 299 → רצ״ט, 15 → ט״ו, 16 → ט״ז.
+// Même règle que scripts/heb-nums.py (gershayim U+05F4, geresh U+05F3).
+//
+// POURQUOI. Faute de numéral lisible dans le <title>, ce générateur mettait le
+// CHIFFRE (`String(num)`) dans numHe — et comme la fusion garde la valeur
+// précédente, ce chiffre restait collé d'un build à l'autre. 119 des 124 simanim
+// de Chabbat portaient ainsi numHe = « 299 », et les pages du Daat Yomi
+// affichaient « סימן 299 · 299 » au lieu de « סימן רצ״ט · 299 ».
+const H_UNITES = ['', 'א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ז', 'ח', 'ט'];
+const H_DIZAINES = ['', 'י', 'כ', 'ל', 'מ', 'נ', 'ס', 'ע', 'פ', 'צ'];
+const H_CENTAINES = ['', 'ק', 'ר', 'ש', 'ת', 'תק', 'תר', 'תש', 'תת', 'תתק'];
+function numeralHebreu(n) {
+  const r = n % 100;
+  const corps = H_CENTAINES[Math.floor(n / 100)]
+    + (r === 15 ? 'טו' : r === 16 ? 'טז' : H_DIZAINES[Math.floor(r / 10)] + H_UNITES[r % 10]);
+  return corps.length === 1 ? corps + '׳' : corps.slice(0, -1) + '״' + corps.slice(-1);
+}
+
+// Un numHe n'est retenu que s'il est HÉBREU, et on y rétablit le gershayim :
+// deux entrées (244, 245) portaient un guillemet ASCII (רמ"ד), que la règle du
+// dépôt proscrit à l'intérieur d'un mot hébreu.
+function numHeValide(s) {
+  if (!looksHebrew(s)) return null;
+  return String(s).replace(/"/g, '״').replace(/'/g, '׳');
+}
+
 function main() {
   // 1. Index existant → réserve de titres (title/titleHe/titleEn/numHe)
   let previous = {};
@@ -103,12 +129,12 @@ function main() {
       // Lecture HTML UNIQUEMENT si l'info manque dans le JSON précédent :
       // sur ce disque (iCloud) chaque read peut coûter très cher, et les titres
       // ne changent pas — le merge garantit zéro perte.
-      const fr = prev.title && prev.numHe ? null : extractTitle(indexPath);
+      const fr = prev.title && numHeValide(prev.numHe) ? null : extractTitle(indexPath);
       const he = prev.titleHe ? null : extractTitle(path.join(dir, 'index-he.html'));
       const en = prev.titleEn ? null : extractTitle(path.join(dir, 'index-en.html'));
 
-      const numHe = prev.numHe || (fr && looksHebrew(fr.numHe) ? fr.numHe : null)
-        || (he && looksHebrew(he.numHe) ? he.numHe : null) || String(num);
+      const numHe = numHeValide(prev.numHe) || (fr && numHeValide(fr.numHe))
+        || (he && numHeValide(he.numHe)) || numeralHebreu(num);
 
       const entry = {
         num,
