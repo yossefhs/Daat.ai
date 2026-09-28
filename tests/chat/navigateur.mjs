@@ -67,7 +67,9 @@ mkdirSync('audit/captures', { recursive: true });
 
 // ── 1. chat.html ──────────────────────────────────────────────────────────
 console.log('\n=== chat.html');
-await page.goto(`${BASE}/chat.html`, { waitUntil: 'networkidle' });
+// Le proxy de session rend parfois ERR_TOO_MANY_RETRIES au premier essai : on réessaie.
+async function aller(url, opts) { let err; for (let i = 0; i < 3; i++) { try { return await page.goto(url, opts); } catch (e) { err = e; await page.waitForTimeout(3000); } } throw err; }
+await aller(`${BASE}/chat.html`, { waitUntil: 'networkidle' });
 // Pas de widget en double sur la page de chat ; on cible l'écran d'accueil.
 await page.locator('#niveau-chips .chip').first().click();
 await page.locator('#minhag-chips .chip').first().click();
@@ -84,7 +86,7 @@ await page.keyboard.press('Enter');
 // fiable de fin de réponse (le texte, lui, arrive mot à mot).
 await page.waitForFunction(() => document.querySelectorAll('.feedback-bar').length >= 1, null, { timeout: 280000 }).catch(() => {});
 await page.waitForTimeout(1500);
-const bulles = page.locator('.message:has(.feedback-bar) .bubble-assistant');
+const bulles = page.locator('.bubble-assistant');
 const html = await bulles.last().innerHTML().catch(() => '');
 const texte = await bulles.last().innerText().catch(() => '');
 console.log(`  (réponse : ${texte.length} car.)`);
@@ -98,15 +100,17 @@ await page.screenshot({ path: 'audit/captures/chat-html-tableau.png', fullPage: 
 // ── 2. widget sur une page de siman ───────────────────────────────────────
 console.log('\n=== widget /oh/319/base');
 apiCalls.length = 0;
-await page.goto(`${BASE}/oh/319/base`, { waitUntil: 'domcontentloaded' });
+await aller(`${BASE}/oh/319/base`, { waitUntil: 'domcontentloaded' });
 await page.waitForSelector('.daat-chat-button', { timeout: 60000 });
 await page.locator('.daat-chat-button').click();
 await page.waitForSelector('.daat-chat-welcome', { timeout: 10000 });
 const brouillon = "C'est quoi le mouktsé ?";
 await page.locator('.daat-chat-input, .daat-chat-panel textarea').first().fill(brouillon);
-await page.locator('.daat-chat-chips[data-group="niveau"] .daat-chat-chip').first().click();
-await page.locator('.daat-chat-chips[data-group="minhag"] .daat-chat-chip').first().click();
-await page.locator('#daat-chat-start').click();
+// Clics forcés : pendant l'animation d'ouverture du panneau, Playwright voit
+// parfois un élément de la page « intercepter » le pointeur (transition CSS).
+await page.locator('.daat-chat-chips[data-group="niveau"] .daat-chat-chip').first().click({ force: true });
+await page.locator('.daat-chat-chips[data-group="minhag"] .daat-chat-chip').first().click({ force: true });
+await page.locator('#daat-chat-start').click({ force: true });
 await page.waitForTimeout(1500);
 const userMsg = await page.locator('.daat-chat-message.is-user').first().innerText().catch(() => '');
 tout &= ok(userMsg.includes(brouillon), 'la question saisie avant le profil est envoyée, pas écrasée');

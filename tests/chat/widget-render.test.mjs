@@ -40,6 +40,15 @@ test('L — une citation « > » en hébreu devient un <blockquote dir="rtl">', 
   assert.ok(!html.includes('&gt; אסור'));
 });
 
+test('L — un filet « --- » devient un <hr>, dans le widget comme dans les pages plein écran', () => {
+  assert.ok(/<hr>/.test(renderMarkdown('Texte.\n\n---\n\n_Réserve._')));
+  assert.ok(!/---/.test(renderMarkdown('Texte.\n\n---\n\n_Réserve._')));
+  for (const f of ['chat.html', 'chat-he.html', 'chat-en.html']) {
+    const html = pageRenderer(f)('Texte.\n\n---\n\n*Réserve.*');
+    assert.ok(/<hr>/.test(html) && !/---/.test(html), f);
+  }
+});
+
 test('L — un lien Markdown Sefaria devient un <a target="_blank">', () => {
   const html = renderMarkdown('[Choulhan Aroukh HaRav 317:4](https://www.sefaria.org/Shulchan_Arukh_HaRav,_Orach_Chayim.317.4)');
   assert.ok(/<a href="https:\/\/www\.sefaria\.org\/Shulchan_Arukh_HaRav,_Orach_Chayim\.317\.4" target="_blank"/.test(html));

@@ -660,6 +660,7 @@ function renderMarkdown(text) {
   // matched, and every quotation was displayed as raw text "> אסור…" (audit of
   // 28 September 2026). Same defect for tables, which were not rendered at all —
   // the "|" bars stayed on screen.
+  html = html.replace(/^(?:---|\*\*\*|___)[ \t]*$/gm, '<hr>');
   html = html.replace(/^&gt; (.+)$/gm, (_, c) => '<blockquote' + blockDirAttr(c) + '>' + c + '</blockquote>');
   html = html.replace(/^\|(.+)\|[ \t]*\n\|[-:| \t]+\|[ \t]*\n((?:\|.*\|[ \t]*(?:\n|$))+)/gm, (_, headerLine, bodyLines) => {
     const cells = (line) => line.split('|').slice(1, -1).map(c => c.trim());
@@ -671,7 +672,7 @@ function renderMarkdown(text) {
   html = blocks.map(b => {
     b = b.trim();
     if (!b) return '';
-    if (/^<(h[1-6]|ul|ol|pre|blockquote|li|table)/.test(b)) return b;
+    if (/^<(h[1-6]|ul|ol|pre|blockquote|li|table|hr)/.test(b)) return b;
     return '<p' + blockDirAttr(b) + '>' + b.replace(/\n/g, '<br>') + '</p>';
   }).join('\n');
   return html;

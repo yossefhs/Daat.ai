@@ -82,6 +82,9 @@
     s = s.replace(/^## (.+)$/gm, '<h2>$1</h2>');
     s = s.replace(/^# (.+)$/gm, '<h1>$1</h1>');
 
+    // Filet horizontal (« --- » seul sur sa ligne) — sinon il s'affiche en texte brut.
+    s = s.replace(/^(?:---|\*\*\*|___)[ \t]*$/gm, '<hr>');
+
     // Blockquote
     // Le bloc porte SA PROPRE direction : une citation hébraïque dans une réponse
     // française doit être RTL (barre de citation à droite, alignement à droite).
@@ -149,7 +152,7 @@
       const trimmed = p.trim();
       if (!trimmed) return '';
       // Skip if already a block-level element
-      if (/^<(h[1-6]|ul|ol|pre|blockquote|table)/.test(trimmed)) return trimmed;
+      if (/^<(h[1-6]|ul|ol|pre|blockquote|table|hr)/.test(trimmed)) return trimmed;
       return '<p' + blockDir(trimmed) + '>' + trimmed.replace(/\n/g, '<br>') + '</p>';
     }).join('');
 
