@@ -25,6 +25,9 @@ if (!API) {
   process.exit(2);
 }
 const COOKIE = process.env.DAAT_SESSION_COOKIE || '';
+// Déploiement de prévisualisation protégé par Vercel Authentication : le jeton
+// « Protection Bypass for Automation » du projet passe dans cet en-tête.
+const BYPASS = process.env.VERCEL_PROTECTION_BYPASS || '';
 const ONLY = (process.env.DAAT_CAS || '').split(',').map(s => s.trim()).filter(Boolean);
 
 const PROFIL = (niveau, minhag, lang = 'français') =>
@@ -167,7 +170,11 @@ const CAS = [
 async function poserQuestion(messages, section = 'orach-chaim') {
   const res = await fetch(API, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...(COOKIE ? { Cookie: COOKIE } : {}) },
+    headers: {
+      'Content-Type': 'application/json',
+      ...(COOKIE ? { Cookie: COOKIE } : {}),
+      ...(BYPASS ? { 'x-vercel-protection-bypass': BYPASS, 'x-vercel-set-bypass-cookie': 'true' } : {}),
+    },
     body: JSON.stringify({ messages, section }),
   });
   if (res.status === 429) {
