@@ -73,6 +73,19 @@
       display: flex; flex-direction: column;
       overflow: hidden;
     }
+    
+    /* Accessibility — screen reader only */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
 
     /* HEADER */
     header {
@@ -552,11 +565,12 @@
 
   <!-- MAIN AREA -->
   <main id="main" class="main-area">
+    <!-- H1 principal pour SEO et accessibilité -->
+    <h1 class="sr-only" style="font-family: 'Cormorant Garamond', serif;">IA Daat — Assistant d'étude halakhique</h1>
 
     <!-- WELCOME SCREEN -->
     <div class="welcome-screen" id="welcome">
       <div class="welcome-inner">
-        <h1 style="font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 600; color: #1A1F3A; margin-bottom: 16px; letter-spacing: 2px;">IA Daat — Assistant d'étude halakhique</h1>
         <div class="welcome-he">דעת</div>
         <div class="welcome-en">DAAT</div>
         <p class="welcome-tagline">
