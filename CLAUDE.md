@@ -95,6 +95,23 @@ python3 scripts/audit-simanim.py --write-progress   # regenerates PROGRESS.md (n
 python3 scripts/verifier-citations.py                       # whole site, FR (Hebrew quotes are shared across the 3 languages)
 python3 scripts/verifier-citations.py --only-absent          # just the list to fix
 python3 scripts/verifier-citations.py --path sources/shabbat/siman-297
+# ⚠️ LA MICHNA BEROURA MANQUAIT À SA TABLE D'OUVRAGES, et c'est l'ouvrage le plus cité du
+# compartiment. RE_MB ne lit que la forme à deux-points (« מ״ב רמ״ו:ב ») ; la forme
+# conventionnelle du dépôt — « (משנה ברורה רמ״ו ס״ק ב) » ou « (מ״ב רמ״ו ס״ק ב) » — ne
+# produisait AUCUNE référence, ni par RE_MB qui exige le deux-points, ni par OUVRAGES où elle
+# ne figurait pas. Ces citations partaient en « sans référence » et n'étaient confrontées à
+# RIEN. 648 références sont dans ce cas — 642 en Hilkhot Chabbat, 6 en Orah Haïm.
+# Le motif exige le nom en toutes lettres, OU le sigle avec ses frontières de mot et non suivi
+# d'une marque de folio : « מ״ב » est aussi la guématria 42, et « (מנחות מ״ב.) » est un DAF.
+# Mon premier comptage, qui l'ignorait, annonçait 1 934 au lieu de 648.
+# EFFET MESURÉ, avant → après :
+#   siman 246 : sans réf 12 → 4  · conformes 24 → 32 · variantes 2 → 2
+#   siman 248 : sans réf 29 → 27 · conformes 55 → 55 · variantes 1 → 3
+#   siman 253 : sans réf  9 → 8  · conformes 50 → 50 · variantes 3 → 5
+# Référence fausse et INTROUVABLES restent à 0 partout. Mais les VARIANTES augmentent sur deux
+# des trois simanim : des citations qui n'étaient confrontées à rien reviennent « texte réel,
+# mais pas mot pour mot ». C'est la porte qui fait enfin son travail, et il faut le dire —
+# j'avais d'abord annoncé « elle n'accuse rien de neuf » sur la foi du seul siman 246.
 
 # Garde-fou de langue — chaque page est-elle écrite dans la langue qu'elle annonce ?
 # Trois échelles : la page entière, le bloc isolé, et l'entête (title/og/twitter/JSON-LD),
@@ -184,6 +201,90 @@ python3 scripts/verifier-denombrements.py [--path …] [--a-verifier] [--bref]
 # autre séif quand il éclaire le sien. Ce qui compte : l'écart isolé, à ouvrir, et
 # l'écart SYSTÉMATIQUE, tout un siman décalé, qui est le piège de la règle 22-bis.
 python3 scripts/verifier-ancrage.py [N N …] [--path …]
+
+# Garde-fou de troncature — la citation SAUTE-t-elle un passage de sa source sans le dire ?
+# Deux familles, et la seconde est invisible à toutes les autres portes. LE TROU : la page
+# saute un passage du milieu et recolle les bords — « ונוהגין ללוש כדי שעור חלה… » (242,
+# niveau 4) est le Rama mot pour mot, sauf qu'elle retire le crochet [סמך ממרדכי ריש מסכת
+# ר״ה] que Sefaria place DANS le texte, sans « … ». LA COUPURE AVANT LA SUITE : la citation
+# s'arrête juste avant la clause qui la retourne, et comme elle EST alors une sous-chaîne
+# exacte, aucune porte de citation ne peut la voir — elle est verbatim. Deux arbitres l'ont
+# trouvée le même jour sur deux simanim : מג״א רמ״ו ס״ק ו coupé sur שרי quand la suite est
+# « אבל … וצ״ע … ויש להקל בעת הצורך », et שו״ע הרב רמ״ז:ב coupé sur אסור quand la source
+# poursuit « אלא אם כן יש שהות… ». Sur Chabbat : 9 trous et 35 coupures pour 3 554 citations.
+# Deux filtres ont fait la différence entre une porte et un bruit : « ואם » retiré de la liste
+# des mots qui retournent (83 des 201 premiers candidats, aucun n'était un défaut — « ואם »
+# introduit un AUTRE CAS), et la clause qui retourne cherchée AILLEURS DANS LA PAGE avant
+# d'être signalée (citer une clause et traiter la suivante à la section voisine est la conduite
+# normale d'une page d'étude). Rend des CANDIDATS ; sort en 1 s'il en reste.
+#
+# ⚠️ ELLE A ÉTÉ MUETTE, ET LA LEÇON VAUT PLUS QUE LA PORTE. Trois défauts la faisaient rater
+# SON PROPRE CAS TÉMOIN — שו״ע הרב רמ״ז:ב, celui qu'un arbitre avait trouvé à la main :
+#   1. la PONCTUATION DÉTACHÉE — « …בְּיוֹם רִאשׁוֹן , אֶלָּא » : mots[0].strip(',;') rendait la
+#      chaîne vide et le test ne passait jamais ;
+#   2. le NIKOUD — le Choul'han Aroukh HaRav est servi VOCALISÉ, la source écrit אֶלָּא, la
+#      liste porte אלא, et « אֶלָּא ».startswith(« אלא ») est FAUX. On compare les SQUELETTES ;
+#   3. le FILTRE TROP LARGE — il balayait les quinze fichiers du siman, les trois langues
+#      confondues. La clause venait d'être rétablie dans le fichier HÉBREU : le filtre l'y
+#      trouvait et taisait le défaut pour le FRANÇAIS et l'ANGLAIS, qui le portaient intact.
+#      Restreindre à la langue ne suffisait pas non plus — la clause vit aussi dans le niveau 4
+#      français. UNE CLAUSE NE COUVRE LE LECTEUR QUE DANS LA PAGE QU'IL A SOUS LES YEUX.
+# J'avais resserré cette porte QUATRE fois contre des faux positifs, et il a fallu un agent
+# extérieur pour trouver qu'elle ratait des vrais. Un garde-fou qu'on ne règle que dans un sens
+# devient muet sans qu'on s'en aperçoive.
+#
+# CHIFFRES RÉELS, porte réparée (les précédents, 9 et 35, sont à jeter) :
+#   Hilkhot Chabbat :  9 370 citations →  20 trous ·   113 coupures ·  59 couples distincts
+#   Yoré Déa        : 81 299 citations → 256 trous · 1 005 coupures · 349 couples distincts
+# Deux unités, et il faut les deux : les occurrences comptent chaque PAGE atteinte (un défaut
+# dans les trois langues est trois lecteurs trompés), les couples comptent le TRAVAIL réel.
+# Relevés dans audit/chabbat-troncatures.txt et audit/yoreh-deah-troncatures.txt.
+# RÉSERVE À DONNER AVEC LES CHIFFRES : le mot אלא produit des candidats faibles — au siman 100
+# de Yoré Déa la suite non citée est « אלא חתיכת גיד וחתיכת אבר מיקרו », une précision de fin
+# de ס״ק et non un renversement. Le tri revient au lecteur.
+python3 scripts/verifier-troncatures.py --path sources/shabbat/siman-246
+python3 scripts/verifier-troncatures.py --section shabbat [--bref]
+
+# Garde-fou d'étiquette — la cellule de niveau 4 nomme-t-elle un séif qui porte ce qu'elle
+# annonce ? Les tableaux comparatifs rangent la source par colonne et posent au-dessus de
+# chaque cellule une adresse : « OH 243:2 », « Hagaha sur OH 243:2 », « MB 242:3-4 ». Le
+# contenu, lui, est le plus souvent une CONDENSATION introduite par `<em>résumé</em> :`, que
+# la convention exempte à bon droit du verbatim — une condensation n'est pas une citation.
+# L'exemption laissait DEUX trous. Le premier — une condensation peut être FAUSSE (au siman
+# 247, une qui inverse le psak : elle attache la condition du בי דואר au cas où l'on a fixé
+# un prix, quand le Mehaber ne l'ouvre qu'« ואם לא קצב ») — ne se tranche pas mécaniquement,
+# et cette porte ne le prétend pas. LE SECOND, SI : l'ADRESSE elle-même peut mentir.
+# Trois questions fermées : le séif existe-t-il · porte-t-il une glose du Rama quand la
+# cellule en promet une · le ס״ק existe-t-il dans la Michna Beroura de ce siman.
+# Premier balayage de Hilkhot Chabbat : 308 étiquettes confrontées, 26 ANOMALIES sur
+# 7 simanim (242, 247-251, 264) — et toutes dans la plage 242-264, comme les troncatures.
+# Les 26 ont été corrigées ; l'état courant est 803 étiquettes, 0 anomalie, 12 candidats.
+#
+# ⚠️ CE « 26 » ÉTAIT UN PLANCHER ANNONCÉ COMME UN COMPTE, et trois agents de contrôle l'ont
+# établi indépendamment. La porte ne lisait que les chiffres ARABES : les colonnes des fichiers
+# HÉBREUX (« או״ח רמ״ז:א », « מ״ב רמ״ט ס״ק יד »), la forme mixte « MB 248 ס״ק ד » employée aussi
+# en FR et EN, et la colonne entière du Choul'han Aroukh HaRav n'avaient JAMAIS été confrontées.
+# Au siman 264, QUATRE des cinq adresses fausses réelles étaient hors de portée.
+# Élargie, elle lit 803 étiquettes au lieu de 308 — dont 148 séifim du Choul'han Aroukh HaRav.
+#
+# ⚠️ ET L'ÉLARGISSEMENT A EXIGÉ TROIS GARDE-FOUS, chacun trouvé en LISANT la sortie :
+#   1. le TIRET DE PLAGE n'a pas d'espaces. « או״ח רמ״ב:א — אין » se lisait « séif 1 à 61 »,
+#      car אין vaut 61 en guématrie : 35 des 49 premières « anomalies » étaient ce seul défaut.
+#      C'est le piège de verifier-denombrements.py, retrouvé le même jour.
+#   2. un NUMÉRAL HÉBRAÏQUE fait une ou deux lettres, ou porte un gershayim au-delà — כלל (80)
+#      et דן (54) n'en sont pas.
+#   3. « או״ח » NE DÉSIGNE PAS TOUJOURS LE CHOUL'HAN AROUKH : dans un recueil de responsa il
+#      nomme une PARTIE — « אגרות משה או״ח ד:נג-נד » est le volume 4, responsa 53-54, non le
+#      siman 4. C'était la dernière anomalie du balayage, et elle était fausse.
+# Vérifiées à la main contre Sefaria : le siman 249 a QUATRE séifim (son chapeau l'écrit,
+# « ובו ד סעיפים ») et la page annonce « OH 249:5 » ; ses gloses du Rama sont aux séifim ב
+# et ד, la page en annonce trois, aux séifim 1, 3 et 5. Le siman 250 a SIX ס״ק de Michna
+# Beroura, la page annonce « MB 250:14-17 ».
+# ⚠️ Le décalage de la פתיחה se MESURE, jamais ne se suppose : dans Mishnah_Berurah.N la
+# première entrée est la פתיחה non numérotée au siman 248 et ne l'est PAS aux simanim 250
+# et 251. La porte regarde si la première entrée porte le marqueur « (א) ».
+python3 scripts/verifier-etiquettes.py --section shabbat [--bref]
+python3 scripts/verifier-etiquettes.py 249
 
 # Garde-fou du plan d'étude — le Daat Yomi couvre-t-il les simanim qu'il annonce ?
 # verifier-limoud.py compare deux CHEMINS (le tableau des pages et le JSON du
