@@ -185,6 +185,26 @@ DAAT_CHAT_API_URL=https://<deploiement-de-prévisualisation>/api/chat node tests
 Il ne contourne aucun quota : anonyme, il s'arrête au quatrième cas et le dit. Un contrôle
 mécanique vert n'est pas un verdict halakhique.
 
+## 6 ter. Parcours navigateur réel (Chromium, `tests/chat/navigateur.mjs`)
+
+Joué sur le déploiement de prévisualisation `daat-mx6a2cpw4` (commit 3565f76), avec les appels
+`/api/chat` réacheminés vers l'API de ce déploiement (les pages visent l'API de production, dont
+la liste d'origines CORS ignore une prévisualisation). Relevé : `audit/navigateur-2026-09-28.md`,
+captures : `audit/captures/`.
+
+- **chat.html** : « Commencer » ne fait aucun appel au modèle, l'accueil statique s'affiche ; la
+  question de tableau déclenche exactement un appel ; la réponse est rendue en `<table>`, la
+  citation hébraïque en `<blockquote>`, le lien Sefaria est cliquable, aucune barre « | » ni
+  « > » en texte brut. C'est ce parcours qui a révélé, puis confirmé corrigé, le défaut du
+  renderer des pages plein écran (§ 5) et le filet « --- » affiché en texte brut.
+- **widget sur /oh/319/base** : la question saisie avant le choix du profil part avec le
+  profil, sans être écrasée ; un seul appel ; réponse reçue ; le profil n'est pas redemandé.
+
+Deux limites de l'environnement de test, à ne pas confondre avec des défauts du site : le
+proxy de la session rend parfois `ERR_TOO_MANY_RETRIES` (reprise automatique), et un clic par
+coordonnées pendant l'animation d'ouverture du widget peut tomber sur la page (clics par
+événement DOM dans le script).
+
 ## 7. Ce qui reste
 
 - Les trois pages de chat plein écran ont reçu le même correctif d'accueil que le widget
