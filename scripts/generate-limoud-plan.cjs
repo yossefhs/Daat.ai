@@ -122,63 +122,109 @@ const titleByNum = (idx) => {
 const enByNum = titleByNum(simanimEN);
 const heByNum = titleByNum(simanimHE);
 
-// ─── Construction des "lots" (avant assignation des dates) ────────────────
-// Chaque "lot" = un jour d'étude. Pour un siman de N séifim :
-//   - N ≤ 5  → 1 lot couvrant tout le siman
-//   - N > 5  → ceil(N/5) lots de 5 séifim consécutifs
-const lots = [];
-for (const s of simanimFR.simanim) {
-  const num = s.num;
-  const nbSeifim = SEIFIM_COUNT[num] || 1;
-  if (nbSeifim <= SEIFIM_PER_DAY) {
-    lots.push({
+// ─── Construction des "lots" — LE PASSÉ NE SE RÉÉCRIT PAS ─────────────────
+//
+// Le générateur assignait les dates séquentiellement depuis le 8 juin, si bien
+// que corriger le nombre de séifim d'un siman ANCIEN décalait tout ce qui suit :
+// la page d'hier n'aurait plus correspondu au courriel d'hier. Il gèle donc
+// désormais les journées déjà passées et ne reconstruit qu'à partir de LIMOUD_GEL
+// (par défaut : aujourd'hui).
+//
+// Trois règles, et elles se lisent dans cet ordre :
+//   1. le plan couvre HILKHOT CHABBAT, et lui seul — le catalogue compte
+//      aujourd'hui 513 simanim sur quatre compartiments, et régénérer sans ce
+//      filtre en ferait un tout autre produit ;
+//   2. le siman EN COURS et ceux qu'on n'a pas encore abordés se suivent dans le
+//      fil ; ceux qu'on a laissés en plan derrière soi passent en RATTRAPAGE, à
+//      la fin — sans quoi le lecteur sauterait du siman 298 au 245 en pleine étude ;
+//   3. le découpage suit les frontières CANONIQUES de lots (1-5, 6-10, 11-15…),
+//      et non des tranches de cinq à partir du premier séif restant : c'est ce
+//      qui permet à « 2/3 » de vouloir dire quelque chose.
+const PLAN_JSON = path.join(DATA_DIR, 'limoud-plan.json');
+const GEL = process.env.LIMOUD_GEL || new Date().toISOString().slice(0, 10);
+const ancien = fs.existsSync(PLAN_JSON) ? loadJSON(PLAN_JSON) : { entries: [] };
+const gelees = (ancien.entries || []).filter((e) => e.date < GEL);
+
+const couvert = new Map();
+for (const e of gelees) {
+  const [a, b] = e.seifRange;
+  if (!couvert.has(e.siman.num)) couvert.set(e.siman.num, new Set());
+  for (let s = a; s <= b; s++) couvert.get(e.siman.num).add(s);
+}
+const simanCourant = gelees.length ? gelees[gelees.length - 1].siman.num : null;
+const auPlan = simanimFR.simanim.filter((s) => s.section === 'shabbat');
+
+const suite = [];
+const rattrapage = [];
+for (const s of auPlan) {
+  const nbSeifim = SEIFIM_COUNT[s.num] || 1;
+  const vus = couvert.get(s.num) || new Set();
+  const lotTotal = Math.ceil(nbSeifim / SEIFIM_PER_DAY);
+  const cible = (s.num === simanCourant || !couvert.has(s.num)) ? suite : rattrapage;
+  for (let k = 1; k <= lotTotal; k++) {
+    const d0 = (k - 1) * SEIFIM_PER_DAY + 1;
+    const d1 = Math.min(k * SEIFIM_PER_DAY, nbSeifim);
+    const reste = [];
+    for (let i = d0; i <= d1; i++) if (!vus.has(i)) reste.push(i);
+    if (!reste.length) continue;
+    cible.push({
       siman: s,
       nbSeifim,
-      seifRange: [1, nbSeifim],
-      lotIndex: 1,
-      lotTotal: 1
+      seifRange: [reste[0], reste[reste.length - 1]],
+      lotIndex: k,
+      lotTotal
     });
-  } else {
-    const lotTotal = Math.ceil(nbSeifim / SEIFIM_PER_DAY);
-    let start = 1;
-    let lotIndex = 1;
-    while (start <= nbSeifim) {
-      const end = Math.min(start + SEIFIM_PER_DAY - 1, nbSeifim);
-      lots.push({
-        siman: s,
-        nbSeifim,
-        seifRange: [start, end],
-        lotIndex,
-        lotTotal
-      });
-      start = end + 1;
-      lotIndex++;
-    }
+  }
+}
+const lots = suite.concat(rattrapage);
+
+// Le lotTotal des journées gelées était calculé sur l'ancien compte : le siman
+// 298 y annonce « 1/2 » alors qu'il compte trois lots. On corrige l'ÉTIQUETTE,
+// jamais la date ni les séifim — ce qui a été étudié l'a été.
+for (const e of gelees) {
+  const n = SEIFIM_COUNT[e.siman.num];
+  if (!n) continue;
+  e.lotTotal = Math.ceil(n / SEIFIM_PER_DAY);
+  // Une journée gelée peut promettre des séifim qui N'EXISTENT PAS — le siman 258
+  // annonçait « séifim 1-4 » pour un siman qui n'en compte qu'un. On borne au
+  // compte réel : ce n'est pas réécrire le passé, c'est retirer une promesse
+  // fausse que la page fait encore aujourd'hui. On n'ÉTEND jamais une plage.
+  if (e.seifRange[1] > n) {
+    e.seifRange = [Math.min(e.seifRange[0], n), n];
+    e.seifCount = e.seifRange[1] - e.seifRange[0] + 1;
+    e.lotIndex = Math.min(e.lotIndex, e.lotTotal);
   }
 }
 
-const totalDays = lots.length;
+// Deux comptes distincts, et les confondre est un piège : `nbNouvelles` sert à
+// tirer les dates des journées À VENIR, `totalDays` est la longueur du plan
+// ENTIER — gelées comprises. Le bandeau et la navigation entre journées lisent
+// le second ; les avoir confondus faisait annoncer « 194 » au-dessus d'un
+// tableau de 272 entrées, et la page du jour se serait calée sur le mauvais rang.
+const nbNouvelles = lots.length;
+const totalDays = gelees.length + nbNouvelles;
 
 // ─── Calcul des dates des jours d'étude ────────────────────────────────────
-const startDate = parseISODate(START_DATE_ISO);
+// Les dates des NOUVELLES journées partent du gel, pas du 8 juin.
+const startDate = parseISODate(GEL);
 const dayDates = [];
 {
   let cur = new Date(startDate.getTime());
-  while (dayDates.length < totalDays) {
+  while (dayDates.length < nbNouvelles) {
     if (isStudyDay(cur)) dayDates.push(new Date(cur.getTime()));
     cur.setUTCDate(cur.getUTCDate() + 1);
   }
 }
 
 // ─── Construction du plan ─────────────────────────────────────────────────
-const entries = lots.map((lot, i) => {
+const nouvelles = lots.map((lot, i) => {
   const date = dayDates[i];
   const num = lot.siman.num;
   const enS = enByNum[num] || {};
   const heS = heByNum[num] || {};
   const [seifStart, seifEnd] = lot.seifRange;
   return {
-    dayNumber: i + 1,
+    dayNumber: gelees.length + i + 1,
     date: toISODate(date),
     dow: date.getUTCDay(),
     siman: {
@@ -197,6 +243,8 @@ const entries = lots.map((lot, i) => {
     status: lot.siman.status
   };
 });
+
+const entries = gelees.concat(nouvelles);
 
 // ─── Groupement par "semaine" (5 jours dim→jeu) ───────────────────────────
 function getSundayOfWeek(d) {
@@ -229,7 +277,7 @@ const planJSON = {
     startDate: START_DATE_ISO,
     endDate: entries[entries.length - 1].date,
     totalDays: entries.length,
-    totalSeifim: Object.values(SEIFIM_COUNT).reduce((a, b) => a + b, 0),
+    totalSeifim: auPlan.reduce((acc, s) => acc + (SEIFIM_COUNT[s.num] || 1), 0),
     seifimPerDay: SEIFIM_PER_DAY,
     studyDaysPerWeek: 5,
     studyDows: [0, 1, 2, 3, 4],
@@ -310,7 +358,7 @@ const HEADER_FR = `<header>
   <a class="logo" href="/index.html"><span class="logo-hebrew">דעת</span><span class="logo-latin">Daat Torah</span></a>
   <nav>
     <a href="/index.html">Accueil</a>
-    <a href="/limoud/index.html" class="active">Daat Yomi</a>
+    <a href="/limoud/" class="active">Daat Yomi</a>
     <a href="/chat.html">IA Daat</a>
     <a href="/about.html">À propos</a>
     <span class="lang-switcher">
@@ -383,6 +431,24 @@ function buildLevelLinks(entry, lang) {
   return out.join('\n            ');
 }
 
+/**
+ * L'ADRESSE d'une journée, toujours absolue — jamais le seul nom de fichier.
+ *
+ * L'index de /limoud/ portait 272 liens relatifs, « jour-001.html ». Depuis
+ * `/limoud/` ils résolvaient bien ; mais `/limoud` SANS barre oblique finale
+ * répond 200 lui aussi, et de là le navigateur les envoie à la racine du site —
+ * `/jour-001.html`, qui n'existe pas. Les 272 liens cassaient donc d'un coup,
+ * selon la façon dont le lecteur était arrivé sur la page.
+ *
+ * Le reste du site ne fait pas cette erreur : /blog/ et /questions/ n'emploient
+ * que des liens absolus, 27 et 10, aucun relatif. /limoud/ était le seul écart,
+ * avec 275 liens relatifs pour un absolu. Le correctif est donc de l'aligner sur
+ * la convention du dépôt, et non d'inventer une règle pour lui.
+ */
+function dayHref(dayNum, lang) {
+  return `/limoud/${dayFileName(dayNum, lang)}`;
+}
+
 function dayFileName(dayNum, lang) {
   const n = String(dayNum).padStart(3, '0');
   if (lang === 'fr') return `jour-${n}.html`;
@@ -452,9 +518,9 @@ function renderDayPage(entry, lang) {
   const dir = isHE ? 'rtl' : 'ltr';
 
   let header;
-  const fileFR = dayFileName(entry.dayNumber, 'fr');
-  const fileEN = dayFileName(entry.dayNumber, 'en');
-  const fileHE = dayFileName(entry.dayNumber, 'he');
+  const fileFR = dayHref(entry.dayNumber, 'fr');
+  const fileEN = dayHref(entry.dayNumber, 'en');
+  const fileHE = dayHref(entry.dayNumber, 'he');
   if (lang === 'fr') header = HEADER_FR
     .replace('LANG_FR_LINK', fileFR).replace('LANG_HE_LINK', fileHE).replace('LANG_EN_LINK', fileEN);
   else if (lang === 'en') header = HEADER_EN
@@ -515,8 +581,8 @@ function renderDayPage(entry, lang) {
 
   const prevNum = entry.dayNumber - 1;
   const nextNum = entry.dayNumber + 1;
-  const prevHref = prevNum >= 1 ? dayFileName(prevNum, lang) : null;
-  const nextHref = nextNum <= totalDays ? dayFileName(nextNum, lang) : null;
+  const prevHref = prevNum >= 1 ? dayHref(prevNum, lang) : null;
+  const nextHref = nextNum <= totalDays ? dayHref(nextNum, lang) : null;
   const idxHref = lang === 'fr' ? 'index.html' : (lang === 'en' ? 'index-en.html' : 'index-he.html');
 
   const levelLinks = buildLevelLinks(entry, lang);
@@ -648,7 +714,13 @@ function renderIndex(lang) {
   }[lang];
 
   const indexFile = lang === 'fr' ? 'index.html' : (lang === 'en' ? 'index-en.html' : 'index-he.html');
-  const canonical = `${SITE_URL}/limoud/${indexFile}`;
+  // La page se déclare sur l'URL PROPRE — « /limoud/ », et non « /limoud/index.html ».
+  // Trois formes cohabitaient : /limoud, /limoud/ et /limoud/index.html. Poser une
+  // redirection vers la deuxième pendant que la page désigne la troisième, c'est
+  // donner au lecteur une adresse et à Google une autre — le désaccord même que les
+  // six pages publiques ont corrigé le 24 septembre.
+  const indexHref = lang === 'fr' ? '/limoud/' : `/limoud/${indexFile}`;
+  const canonical = `${SITE_URL}${indexHref}`;
 
   // Génération HTML des semaines
   const weeksHTML = weeks.map((w, idx) => {
@@ -670,7 +742,7 @@ function renderIndex(lang) {
       const simanLine = isSplit
         ? `<strong>${t.siman} ${e.siman.num}</strong> · ${t.seif} ${rangeText} (${e.lotIndex}/${e.lotTotal})`
         : `<strong>${t.siman} ${e.siman.num}</strong> · ${numHe}`;
-      return `      <a class="day-item${isSplit ? ' is-split' : ''}" href="${dayFileName(e.dayNumber, lang)}">
+      return `      <a class="day-item${isSplit ? ' is-split' : ''}" href="${dayHref(e.dayNumber, lang)}">
         <span class="day-meta"><span class="day-dow">${dowName}</span> · <span class="day-num">${t.day} ${e.dayNumber}</span> · <span class="day-date">${dt.getUTCDate()}/${(dt.getUTCMonth()+1)}</span></span>
         <span class="day-siman">${simanLine}</span>
         <span class="day-title">${title}</span>
@@ -738,10 +810,10 @@ ${COMMON_HEAD}
   <title>${t.pageTitle}</title>
   <meta name="description" content="${t.pageDesc}">
   <link rel="canonical" href="${canonical}">
-  <link rel="alternate" hreflang="fr" href="${SITE_URL}/limoud/index.html">
+  <link rel="alternate" hreflang="fr" href="${SITE_URL}/limoud/">
   <link rel="alternate" hreflang="en" href="${SITE_URL}/limoud/index-en.html">
   <link rel="alternate" hreflang="he" href="${SITE_URL}/limoud/index-he.html">
-  <link rel="alternate" hreflang="x-default" href="${SITE_URL}/limoud/index.html">
+  <link rel="alternate" hreflang="x-default" href="${SITE_URL}/limoud/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="${t.title}">
   <meta property="og:description" content="${t.pageDesc}">

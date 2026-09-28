@@ -19,3 +19,14 @@ audit-system/
 # Ils portent des constats sur des erreurs en cours de correction : servis
 # depuis daattorah.com, ils seraient lus comme du contenu du site.
 audit/
+
+# Démonstration technique (POC corpus + Haiku) : déjà noindex, hors sitemap et
+# hors scripts d'accessibilité — mais le projet se déployant tel quel, elle
+# restait publiquement atteignable (HTTP 200 sur daattorah.com), sans lien
+# entrant. Or elle appelle /api/chat-corpus, dont le prompt est une COPIE
+# divergente de celui de api/chat.js : il ignore la réserve « hors corpus, à
+# vérifier » que le Rav a posée sur 423 extraits de Yoreh De'ah, et ne connaît
+# que 2 domaines sur 4 (une question de Nidah y est cadrée comme de la
+# cacheroute). Servie depuis le domaine d'autorité du Rav, elle pouvait donc
+# rendre un passage réservé comme s'il était tranché.
+poc-corpus.html
