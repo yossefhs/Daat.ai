@@ -1038,31 +1038,30 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
 });
 setLang(getLang());
 
-function buildIntroMessage() {
+// בלוק הפרופיל מצורף להודעה הראשונה בלבד. מה שלא נבחר מסומן «לא צוין»:
+// הגדרה אינה דורשת רמה או מנהג, וה-prompt מבקש הבהרה רק אם היא משנה את התשובה.
+function profilBlock() {
   const lang = getLang();
-  return `[פרופיל סשן זה]
-- רמת לימוד: ${state.selectedNiveau}
-- מנהג: ${state.selectedMinhag}
-- שפת המענה המבוקשת: ${LANG_LABELS[lang].name}
-
-הנני מוכן להתחיל. התאם את תשובותיך לפרופיל זה והשב בשפה המצוינת.`;
+  return `[פרופיל סשן זה]\n- רמה: ${state.selectedNiveau || 'לא צוין'}\n- מנהג: ${state.selectedMinhag || 'לא צוין'}\n- שפת המענה המבוקשת: ${LANG_LABELS[lang].name}\n\n`;
 }
 
+// «להתחיל» אינו קורא עוד למודל (ביקורת 28.9.2026): הודעת הפתיחה הישנה חרגה מסף
+// ה-meta ונשלחה ל-Sonnet/Opus עם ה-prompt המלא — שאלה מהמכסה (ואף Aperçu Opus)
+// שבוזבזה על ברכת שלום. הפתיחה כעת סטטית; הפרופיל מצורף לשאלה האמיתית הראשונה.
 $startBtn.addEventListener('click', () => {
   if ($startBtn.disabled) return;
-  beginNewConversation(buildIntroMessage());
+  state.currentConvId = newConversationId();
+  state.messages = [];
+  $messagesInner.innerHTML = '';
+  $welcome.classList.add('hidden');
+  $messagesWrap.classList.add('active');
+  renderMessage('assistant', `מצוין — נלמד ברמה **${state.selectedNiveau}**, מנהג **${state.selectedMinhag}**. באיזה נושא נתחיל: סימן, מושג, שאלה מעשית?`);
+  $input.focus();
 });
 
 document.querySelectorAll('.quick-q').forEach(btn => {
   btn.addEventListener('click', () => {
-    if (!state.selectedNiveau || !state.selectedMinhag) {
-      alert('בחר תחילה את רמתך ואת מנהגך.');
-      return;
-    }
-    const q = btn.dataset.q;
-    const lang = getLang();
-    const msg = `[פרופיל סשן זה]\n- רמה: ${state.selectedNiveau}\n- מנהג: ${state.selectedMinhag}\n- שפת המענה המבוקשת: ${LANG_LABELS[lang].name}\n\n${q}`;
-    beginNewConversation(msg);
+    beginNewConversation(profilBlock() + btn.dataset.q);
   });
 });
 
@@ -1107,17 +1106,12 @@ function submitInput() {
   $input.value = '';
   $input.style.height = 'auto';
 
-  if (state.messages.length === 0 && state.selectedNiveau && state.selectedMinhag) {
-    const lang = getLang();
-    const msg = `[פרופיל סשן זה]\n- רמה: ${state.selectedNiveau}\n- מנהג: ${state.selectedMinhag}\n- שפת המענה המבוקשת: ${LANG_LABELS[lang].name}\n\n${text}`;
+  // הודעה ראשונה בשיחה: הפרופיל (גם חלקי) מצורף. הפרופיל אינו חובה עוד.
+  if (state.messages.length === 0) {
     if (!state.currentConvId) state.currentConvId = newConversationId();
     $welcome.classList.add('hidden');
     $messagesWrap.classList.add('active');
-    send(msg);
-    return;
-  }
-  if (!state.currentConvId) {
-    alert('בחר תחילה את רמתך ואת מנהגך במסך הבית.');
+    send(profilBlock() + text);
     return;
   }
   send(text);

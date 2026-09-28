@@ -402,10 +402,14 @@ agentique, corpus-first Haiku, corpus brut, secours à quota épuisé, `chat-cor
 
 ```bash
 npm test          # tests/chat/*.test.mjs — outils SIMULÉS, aucun modèle appelé
+# Les douze cas A-L contre l'API RÉELLE d'un déploiement (outils, routage, quotas réels) :
+DAAT_CHAT_API_URL=https://<deploiement>/api/chat node tests/chat/conversationnel.mjs
 ```
 
-Ces tests vérifient le câblage et la spécification ; ils ne démontrent pas le comportement du
-modèle. Un essai conversationnel réel reste nécessaire avant de déclarer un constat clos.
+`npm test` vérifie le câblage et la spécification ; il ne démontre pas le comportement du
+modèle. Le banc conversationnel le fait, sur un déploiement de prévisualisation, et dépose son
+relevé dans `audit/conversationnel-<date>.md` avec une question de relecture humaine par cas.
+Un constat n'est clos qu'après cette passe.
 
 ## Ce que le corpus indexe — à lire avant d'écrire du contenu
 

@@ -1032,31 +1032,33 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
 });
 setLang(getLang());
 
-function buildIntroMessage() {
+// Bloc de profil joint au PREMIER message réel. Ce qui n'a pas été choisi est
+// dit « non précisé » : une définition n'exige ni niveau ni minhag, et le prompt
+// système ne demande une précision que si elle change la réponse.
+function profilBlock() {
   const lang = getLang();
-  return `[Profil de cette session]
-- Niveau d'étude : ${state.selectedNiveau}
-- Minhag : ${state.selectedMinhag}
-- Langue de réponse souhaitée : ${LANG_LABELS[lang].name}
-
-Je suis prêt à commencer. Adapte tes réponses à ce profil et réponds dans la langue indiquée.`;
+  return `[Profil de cette session]\n- Niveau : ${state.selectedNiveau || 'non précisé'}\n- Minhag : ${state.selectedMinhag || 'non précisé'}\n- Langue de réponse souhaitée : ${LANG_LABELS[lang].name}\n\n`;
 }
 
+// « Commencer » n'appelle plus le modèle (audit du 28 septembre 2026) : l'ancien
+// message d'introduction dépassait le seuil méta et partait en Sonnet/Opus avec
+// le prompt complet — une question de quota, voire un Aperçu Opus, consommée
+// pour un accueil. L'accueil est désormais STATIQUE ; le profil part avec la
+// première vraie question (submitInput).
 $startBtn.addEventListener('click', () => {
   if ($startBtn.disabled) return;
-  beginNewConversation(buildIntroMessage());
+  state.currentConvId = newConversationId();
+  state.messages = [];
+  $messagesInner.innerHTML = '';
+  $welcome.classList.add('hidden');
+  $messagesWrap.classList.add('active');
+  renderMessage('assistant', `Parfait — on étudie au niveau **${state.selectedNiveau}**, minhag **${state.selectedMinhag}**. Sur quel sujet veux-tu commencer : un siman, un concept, une question pratique ?`);
+  $input.focus();
 });
 
 document.querySelectorAll('.quick-q').forEach(btn => {
   btn.addEventListener('click', () => {
-    if (!state.selectedNiveau || !state.selectedMinhag) {
-      alert('Choisis d\'abord ton niveau et ton minhag.');
-      return;
-    }
-    const q = btn.dataset.q;
-    const lang = getLang();
-    const msg = `[Profil de cette session]\n- Niveau : ${state.selectedNiveau}\n- Minhag : ${state.selectedMinhag}\n- Langue de réponse souhaitée : ${LANG_LABELS[lang].name}\n\n${q}`;
-    beginNewConversation(msg);
+    beginNewConversation(profilBlock() + btn.dataset.q);
   });
 });
 
@@ -1102,19 +1104,13 @@ function submitInput() {
   $input.value = '';
   $input.style.height = 'auto';
 
-  // First-message in a new conversation: include profile
-  if (state.messages.length === 0 && state.selectedNiveau && state.selectedMinhag) {
-    const lang = getLang();
-    const msg = `[Profil de cette session]\n- Niveau : ${state.selectedNiveau}\n- Minhag : ${state.selectedMinhag}\n- Langue de réponse souhaitée : ${LANG_LABELS[lang].name}\n\n${text}`;
+  // Premier message d'une conversation : le profil (même partiel) est joint.
+  // Le profil n'est plus obligatoire — une question simple part telle quelle.
+  if (state.messages.length === 0) {
     if (!state.currentConvId) state.currentConvId = newConversationId();
     $welcome.classList.add('hidden');
     $messagesWrap.classList.add('active');
-    send(msg);
-    return;
-  }
-  // Continuing an existing conversation
-  if (!state.currentConvId) {
-    alert('Choisis d\'abord ton niveau et ton minhag dans l\'écran d\'accueil.');
+    send(profilBlock() + text);
     return;
   }
   send(text);

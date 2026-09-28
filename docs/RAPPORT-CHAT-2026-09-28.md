@@ -154,15 +154,31 @@ H (sans profil), I (traditions), J (Rebbe non retrouvé), K (Tanya), L (liens, t
 chacun a au moins un test de spécification ou de câblage ; **aucun n'a été joué contre le
 modèle**. Un test simulé réussi ne démontre pas la fiabilité du système complet.
 
+## 6 bis. Banc conversationnel (à lancer avec un déploiement)
+
+`tests/chat/conversationnel.mjs` joue les douze cas A-L contre l'API **réelle** (outils,
+routage, quotas réels), avec des contrôles mécaniques par cas et une question de relecture
+humaine, et dépose le relevé dans `audit/conversationnel-<date>.md` :
+
+```bash
+DAAT_CHAT_API_URL=https://<deploiement-de-prévisualisation>/api/chat node tests/chat/conversationnel.mjs
+# facultatif : DAAT_SESSION_COOKIE='daat_session=<jwt>' (compte connecté, quota 10/mois)
+#              DAAT_CAS=A,C,D (sous-ensemble)
+```
+
+Il ne contourne aucun quota : anonyme, il s'arrête au quatrième cas et le dit. Un contrôle
+mécanique vert n'est pas un verdict halakhique.
+
 ## 7. Ce qui reste
 
-- Les trois pages de chat plein écran (`chat.html`, `chat-he.html`, `chat-en.html`) ont leur
-  propre accueil : « Commencer » y envoie encore le message d'introduction au modèle, et l'envoi
-  y exige encore le profil. Même correctif à porter (trois fichiers).
+- Les trois pages de chat plein écran ont reçu le même correctif d'accueil que le widget
+  (accueil statique, profil non obligatoire) ; leur rendu n'a été vérifié que par contrôle de
+  syntaxe et test statique, pas dans un navigateur.
 - `api/_query-rewrite.js` réduit la question à des mots-clés : une négation peut disparaître
   (limite architecturale ; le prompt demande de relire la question avant de conclure).
 - Les Igrot Kodesh, Likoutei Si'hot, Sefer HaMinhagim et responsa du Tsema'h Tsedek ne sont
   dans aucun outil : le prompt le dit et interdit de prétendre les avoir consultés.
 - Les ancres de séif n'existent que sur le pilote 358.
 - Le détecteur d'urgence est lexical ; à élargir à partir des journaux (`[chat.js] URGENCE`).
-- Une passe conversationnelle réelle sur les douze cas, avec clé API, avant tout déploiement.
+- Une passe conversationnelle réelle sur les douze cas (§ 6 bis) sur un déploiement de
+  prévisualisation, avant toute fusion sur `main`.

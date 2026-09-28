@@ -62,6 +62,16 @@ test('UX — la question saisie pendant le choix du profil n\'est plus écrasée
   assert.ok(/const draft = this\.inputEl\.value\.trim\(\);\s*\n\s*if \(draft\) \{ this\.send\(\); return; \}/.test(src));
 });
 
+test('H/UX — les trois pages de chat plein écran : accueil statique, profil non obligatoire', () => {
+  for (const f of ['chat.html', 'chat-he.html', 'chat-en.html']) {
+    const page = readFileSync(new URL(`../../${f}`, import.meta.url), 'utf8');
+    assert.ok(!/buildIntroMessage/.test(page), `${f} envoie encore le message d'introduction`);
+    assert.ok(!/alert\('(?:Choisis|בחר|First choose)/.test(page), `${f} exige encore le profil`);
+    assert.ok(/function profilBlock\(\)/.test(page), `${f} sans profilBlock`);
+    assert.ok(/renderMessage\('assistant', `/.test(page), `${f} sans accueil statique`);
+  }
+});
+
 test('compteurs — le widget corrige la jauge mensuelle quand `done` la renvoie', () => {
   assert.ok(/typeof parsed\.month_remaining === 'number' && this\.rateInfo/.test(src));
 });

@@ -1023,31 +1023,32 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
 });
 setLang(getLang());
 
-function buildIntroMessage() {
+// Profile block attached to the FIRST real message only. Whatever was not chosen
+// is marked "not specified": a definition needs neither level nor minhag, and
+// the system prompt asks for a detail only when it changes the answer.
+function profilBlock() {
   const lang = getLang();
-  return `[Session profile]
-- Study level: ${state.selectedNiveau}
-- Minhag: ${state.selectedMinhag}
-- Desired response language: ${LANG_LABELS[lang].name}
-
-I am ready to begin. Adapt your answers to this profile and reply in the indicated language.`;
+  return `[Session profile]\n- Level: ${state.selectedNiveau || 'not specified'}\n- Minhag: ${state.selectedMinhag || 'not specified'}\n- Desired response language: ${LANG_LABELS[lang].name}\n\n`;
 }
 
+// "Start" no longer calls the model (audit of 28 September 2026): the former
+// intro message exceeded the meta threshold and went to Sonnet/Opus with the full
+// prompt — one quota question, even an Opus preview, spent on a greeting. The
+// welcome is now STATIC; the profile goes with the first real question.
 $startBtn.addEventListener('click', () => {
   if ($startBtn.disabled) return;
-  beginNewConversation(buildIntroMessage());
+  state.currentConvId = newConversationId();
+  state.messages = [];
+  $messagesInner.innerHTML = '';
+  $welcome.classList.add('hidden');
+  $messagesWrap.classList.add('active');
+  renderMessage('assistant', `Great — we'll study at the **${state.selectedNiveau}** level, **${state.selectedMinhag}** minhag. What would you like to start with: a siman, a concept, a practical question?`);
+  $input.focus();
 });
 
 document.querySelectorAll('.quick-q').forEach(btn => {
   btn.addEventListener('click', () => {
-    if (!state.selectedNiveau || !state.selectedMinhag) {
-      alert('First choose your level and your minhag.');
-      return;
-    }
-    const q = btn.dataset.q;
-    const lang = getLang();
-    const msg = `[Session profile]\n- Level: ${state.selectedNiveau}\n- Minhag: ${state.selectedMinhag}\n- Desired response language: ${LANG_LABELS[lang].name}\n\n${q}`;
-    beginNewConversation(msg);
+    beginNewConversation(profilBlock() + btn.dataset.q);
   });
 });
 
@@ -1092,17 +1093,13 @@ function submitInput() {
   $input.value = '';
   $input.style.height = 'auto';
 
-  if (state.messages.length === 0 && state.selectedNiveau && state.selectedMinhag) {
-    const lang = getLang();
-    const msg = `[Session profile]\n- Level: ${state.selectedNiveau}\n- Minhag: ${state.selectedMinhag}\n- Desired response language: ${LANG_LABELS[lang].name}\n\n${text}`;
+  // First message of a conversation: the (possibly partial) profile is attached.
+  // The profile is no longer mandatory — a simple question goes as is.
+  if (state.messages.length === 0) {
     if (!state.currentConvId) state.currentConvId = newConversationId();
     $welcome.classList.add('hidden');
     $messagesWrap.classList.add('active');
-    send(msg);
-    return;
-  }
-  if (!state.currentConvId) {
-    alert('First choose your level and your minhag on the welcome screen.');
+    send(profilBlock() + text);
     return;
   }
   send(text);
