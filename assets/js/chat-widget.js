@@ -82,6 +82,9 @@
     s = s.replace(/^## (.+)$/gm, '<h2>$1</h2>');
     s = s.replace(/^# (.+)$/gm, '<h1>$1</h1>');
 
+    // Filet horizontal (« --- » seul sur sa ligne) — sinon il s'affiche en texte brut.
+    s = s.replace(/^(?:---|\*\*\*|___)[ \t]*$/gm, '<hr>');
+
     // Blockquote
     // Le bloc porte SA PROPRE direction : une citation hébraïque dans une réponse
     // française doit être RTL (barre de citation à droite, alignement à droite).
@@ -149,7 +152,7 @@
       const trimmed = p.trim();
       if (!trimmed) return '';
       // Skip if already a block-level element
-      if (/^<(h[1-6]|ul|ol|pre|blockquote|table)/.test(trimmed)) return trimmed;
+      if (/^<(h[1-6]|ul|ol|pre|blockquote|table|hr)/.test(trimmed)) return trimmed;
       return '<p' + blockDir(trimmed) + '>' + trimmed.replace(/\n/g, '<br>') + '</p>';
     }).join('');
 
@@ -904,8 +907,19 @@
         if (startBtn) {
           startBtn.addEventListener('click', () => {
             if (!this.selectedNiveau || !this.selectedMinhag) return;
-            this.inputEl.value = buildIntroMessage(this.selectedNiveau, this.selectedMinhag);
-            this.send();
+            // ⚠️ Deux défauts corrigés ici (audit du 28 septembre 2026) :
+            //  1. la question déjà SAISIE pendant le choix du profil était
+            //     écrasée par le message d'introduction ;
+            //  2. « Commencer » envoyait au serveur un « Bonjour Daat ! Voici mon
+            //     profil… » de 200 caractères — trop long pour le chemin méta, il
+            //     partait donc en Sonnet/Opus avec le prompt complet et CONSOMMAIT
+            //     une question du quota (voire un Aperçu Opus) pour un accueil.
+            // Désormais : une question saisie part avec le profil ; sans question,
+            // l'accueil est STATIQUE, rendu localement, et le profil sera joint
+            // au premier vrai message (send() le fait si messages est vide).
+            const draft = this.inputEl.value.trim();
+            if (draft) { this.send(); return; }
+            this.renderLocalWelcome();
           });
         }
         return;
@@ -913,6 +927,26 @@
 
       this.messagesEl.innerHTML = '';
       this.messages.forEach(m => this.appendMessage(m.role, m.content));
+    }
+
+    // Accueil statique après le choix du profil : aucun appel réseau, aucun
+    // quota consommé. Le message n'entre PAS dans this.messages (le serveur
+    // exige que le premier message soit celui de l'utilisateur) : il est rendu
+    // à l'écran seulement, et le profil sera joint au premier envoi réel.
+    renderLocalWelcome() {
+      this.messagesEl.innerHTML = '';
+      if (!this.currentConvId) this.currentConvId = newConversationId();
+      const niveauTxt = NIVEAU_LABELS[this.selectedNiveau] || this.selectedNiveau || '';
+      const minhagTxt = MINHAG_LABELS[this.selectedMinhag] || this.selectedMinhag || '';
+      const short = (s) => String(s).split(' — ')[0].split(' (')[0];
+      const texts = {
+        fr: `Parfait — on étudie au niveau **${short(niveauTxt)}**, minhag **${short(minhagTxt)}**. Sur quel sujet veux-tu commencer : un siman, un concept, une question pratique ?`,
+        he: `מצוין — נלמד ברמה **${short(niveauTxt)}**, מנהג **${short(minhagTxt)}**. באיזה נושא נתחיל: סימן, מושג, שאלה מעשית?`,
+        en: `Great — we'll study at the **${short(niveauTxt)}** level, **${short(minhagTxt)}** minhag. What would you like to start with: a siman, a concept, a practical question?`,
+      };
+      const el = this.appendMessage('assistant', texts[pageUiLang()] || texts.fr);
+      el.dataset.local = '1';
+      this.inputEl.focus();
     }
 
     appendMessage(role, content) {
@@ -1351,17 +1385,19 @@
 
       // Welcome screen → first message
       if (this.messages.length === 0) {
-        // L'utilisateur doit avoir choisi niveau + minhag avant d'envoyer
-        if (!this.selectedNiveau || !this.selectedMinhag) {
-          alert('Choisis d\'abord ton niveau et ton minhag.');
-          return;
-        }
-        this.messagesEl.innerHTML = '';
+        // Le profil n'est plus OBLIGATOIRE : une définition ou une question
+        // simple n'a pas besoin d'un minhag, et le prompt système sait répondre
+        // « à ce qui peut l'être » sans profil. Ce qui a été choisi est transmis ;
+        // ce qui ne l'a pas été est dit « non précisé » (le modèle ne demandera
+        // une précision que si elle change la réponse).
+        // On retire l'écran de choix, pas l'accueil statique éventuel.
+        const welcomeEl = this.messagesEl.querySelector('.daat-chat-welcome');
+        if (welcomeEl) welcomeEl.remove();
         // Génère un nouvel id de conversation
         if (!this.currentConvId) this.currentConvId = newConversationId();
 
-        const niveauTxt = NIVEAU_LABELS[this.selectedNiveau] || this.selectedNiveau;
-        const minhagTxt = MINHAG_LABELS[this.selectedMinhag] || this.selectedMinhag;
+        const niveauTxt = NIVEAU_LABELS[this.selectedNiveau] || this.selectedNiveau || 'non précisé';
+        const minhagTxt = MINHAG_LABELS[this.selectedMinhag] || this.selectedMinhag || 'non précisé';
         const langTxt = LANG_LABELS[getLang()] || 'français';
         if (!/•\s*Niveau/i.test(text)) {
           text =
@@ -1531,6 +1567,14 @@
                     this.previousAperçuRemaining = parsed.preview_remaining;
                     this.updateStatusBanner();
                   }
+                }
+                // Jauge mensuelle RÉELLE : rate_info l'a décrémentée avant de
+                // savoir que le corpus (ou la consigne d'urgence) servirait sans
+                // consommer. Le serveur renvoie la valeur juste dans `done`.
+                if (typeof parsed.month_remaining === 'number' && this.rateInfo) {
+                  this.rateInfo.month_remaining = parsed.month_remaining;
+                  this.rateInfo.month_count = Math.max(0, (this.rateInfo.month_limit || 0) - parsed.month_remaining);
+                  this.updateStatusBanner();
                 }
                 if (window.DAAT_CHAT_DEBUG) {
                   console.log('[Daat] Usage:', parsed.usage, 'Iterations:', parsed.iterations, 'Provider:', parsed.provider);

@@ -376,6 +376,41 @@ Deux défauts trouvés à la main pendant ces lots n'ont **toujours pas** de gar
 
 The recurring pattern is worth stating plainly, because it dictates where to look: in every case **levels 1 and 4 were correct** (they translate the primary text) and the error was born in the **pedagogical synthesis**, from where it spread to the derived `/questions/` pages and to the index metadata. The veilleur produces **candidates, never verdicts**, and never writes into a page: `--signalements` files them in the reader-report registry as `NEEDS_RABBINIC_VALIDATION`, deduplicated server-side, so the Rav triages machine findings and reader reports in one place. `.github/workflows/veilleur.yml` runs it every Sunday (needs the `ADMIN_PASSWORD` repo secret to file; without it, it reports only).
 
+## Le chat : ce qui est câblé côté serveur, et pourquoi (28 septembre 2026)
+
+Trois constats de l'interface publique ont montré que la qualité du chat ne tient pas au seul
+prompt. Chaque correctif vit dans un module partagé par TOUTES les voies de réponse (chemin
+agentique, corpus-first Haiku, corpus brut, secours à quota épuisé, `chat-corpus.js`) :
+
+- **`api/_reserve.js`** — la phrase de réserve UNIQUE (`RESERVE`, quatre langues) et la consigne
+  d'urgence statique (`URGENCE`). Six formulations différentes coexistaient ; le modèle en
+  recopiait deux dans une même réponse. Aucun fichier de `api/` ne doit réécrire cette phrase.
+- **`api/_urgence.js`** — détection d'un danger vital dans la question. Mesuré : « appelle les
+  secours… c'est à ton Rav de trancher ». La détection court-circuite corpus-first, pré-RAG et
+  sauvetage à quota, injecte une consigne de priorité devant la question, et sert une consigne
+  statique (0 modèle) si aucun modèle n'est disponible. La synthèse forcée a une variante sans
+  renvoi au Rav.
+- **`api/_sefaria.js`** — chaque résultat porte l'identité de l'ouvrage RÉELLEMENT servi
+  (`work`, `author`, `url`, `attribution_note`). Mesuré : `Shulchan_Arukh,_Orach_Chayim.317.4`
+  (Karo) attribué au Choul'han Aroukh HaRav. L'URL vient de la ref servie, jamais du jugé.
+- **`api/_corpus.js`** — chaque résultat porte sa `nature` (texte source / synthèse du site /
+  rubrique de décision) : une synthèse ne prouve pas l'original (borer 319).
+- **`api/_date.js`** — la date du jour dans un second bloc système NON caché.
+- **`api/_system-prompt.js`** — V3 : hiérarchie unique, états documentaires à la place des
+  pourcentages, identification des ouvrages, urgence, périmètre injecté. Le prompt Orah Haïm
+  reste un préfixe exact du prompt Yoreh De'ah (cache partagé).
+
+```bash
+npm test          # tests/chat/*.test.mjs — outils SIMULÉS, aucun modèle appelé
+# Les douze cas A-L contre l'API RÉELLE d'un déploiement (outils, routage, quotas réels) :
+DAAT_CHAT_API_URL=https://<deploiement>/api/chat node tests/chat/conversationnel.mjs
+```
+
+`npm test` vérifie le câblage et la spécification ; il ne démontre pas le comportement du
+modèle. Le banc conversationnel le fait, sur un déploiement de prévisualisation, et dépose son
+relevé dans `audit/conversationnel-<date>.md` avec une question de relecture humaine par cas.
+Un constat n'est clos qu'après cette passe.
+
 ## Ce que le corpus indexe — à lire avant d'écrire du contenu
 
 Deux chantiers avancent en parallèle sur ce dépôt : l'un **écrit le contenu**

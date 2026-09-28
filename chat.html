@@ -364,6 +364,9 @@
     .bubble blockquote { border-left: 3px solid var(--gold); padding-left: 12px; margin: 8px 0; color: var(--text-mid); }
     /* Bloc hébreu isolé DANS une bulle française : barre à droite, aligné à droite. */
     .bubble blockquote[dir="rtl"] { border-left: none; border-right: 3px solid var(--gold); padding: 4px 12px 4px 0; text-align: right; }
+    .bubble table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 0.95em; }
+    .bubble th, .bubble td { border: 1px solid rgba(197,165,90,0.45); padding: 6px 10px; vertical-align: top; text-align: start; }
+    .bubble th { background: rgba(197,165,90,0.12); font-weight: 600; }
     .bubble p[dir="rtl"], .bubble li[dir="rtl"] { text-align: right; direction: rtl; }
     .bubble [dir="rtl"], .bubble [lang="he"] {
       font-family: 'Frank Ruhl Libre', serif; direction: rtl; unicode-bidi: isolate;
@@ -665,13 +668,24 @@ function renderMarkdown(text) {
   html = html.replace(/\*([^*]+)\*/g, '<em>$1</em>');
   html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
   html = html.replace(/^[\s]*[-*] (.+)$/gm, (_, c) => '<li' + blockDirAttr(c) + '>' + c + '</li>');
-  html = html.replace(/(<li>[\s\S]+?<\/li>)/g, m => m.includes('<ul>') || m.includes('<ol>') ? m : '<ul>' + m + '</ul>');
-  html = html.replace(/^> (.+)$/gm, (_, c) => '<blockquote' + blockDirAttr(c) + '>' + c + '</blockquote>');
+  html = html.replace(/(<li[^>]*>[\s\S]+?<\/li>)/g, m => m.includes('<ul>') || m.includes('<ol>') ? m : '<ul>' + m + '</ul>');
+  // ⚠️ Le « > » a été échappé en « &gt; » deux lignes plus haut : l'ancien motif
+  // /^> / ne correspondait JAMAIS, et chaque citation s'affichait en texte brut
+  // « > אסור… » (audit du 28 septembre 2026). Même défaut pour les tableaux, qui
+  // n'étaient pas rendus du tout — les barres « | » restaient à l'écran.
+  html = html.replace(/^(?:---|\*\*\*|___)[ \t]*$/gm, '<hr>');
+  html = html.replace(/^&gt; (.+)$/gm, (_, c) => '<blockquote' + blockDirAttr(c) + '>' + c + '</blockquote>');
+  html = html.replace(/^\|(.+)\|[ \t]*\n\|[-:| \t]+\|[ \t]*\n((?:\|.*\|[ \t]*(?:\n|$))+)/gm, (_, headerLine, bodyLines) => {
+    const cells = (line) => line.split('|').slice(1, -1).map(c => c.trim());
+    const ths = cells('|' + headerLine + '|').map(h => '<th' + blockDirAttr(h) + '>' + h + '</th>').join('');
+    const trs = bodyLines.trim().split('\n').map(l => '<tr>' + cells(l.trim()).map(c => '<td' + blockDirAttr(c) + '>' + c + '</td>').join('') + '</tr>').join('');
+    return '<table><thead><tr>' + ths + '</tr></thead><tbody>' + trs + '</tbody></table>';
+  });
   const blocks = html.split(/\n\n+/);
   html = blocks.map(b => {
     b = b.trim();
     if (!b) return '';
-    if (/^<(h[1-6]|ul|ol|pre|blockquote|li)/.test(b)) return b;
+    if (/^<(h[1-6]|ul|ol|pre|blockquote|li|table|hr)/.test(b)) return b;
     return '<p' + blockDirAttr(b) + '>' + b.replace(/\n/g, '<br>') + '</p>';
   }).join('\n');
   return html;
@@ -1047,31 +1061,33 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
 });
 setLang(getLang());
 
-function buildIntroMessage() {
+// Bloc de profil joint au PREMIER message réel. Ce qui n'a pas été choisi est
+// dit « non précisé » : une définition n'exige ni niveau ni minhag, et le prompt
+// système ne demande une précision que si elle change la réponse.
+function profilBlock() {
   const lang = getLang();
-  return `[Profil de cette session]
-- Niveau d'étude : ${state.selectedNiveau}
-- Minhag : ${state.selectedMinhag}
-- Langue de réponse souhaitée : ${LANG_LABELS[lang].name}
-
-Je suis prêt à commencer. Adapte tes réponses à ce profil et réponds dans la langue indiquée.`;
+  return `[Profil de cette session]\n- Niveau : ${state.selectedNiveau || 'non précisé'}\n- Minhag : ${state.selectedMinhag || 'non précisé'}\n- Langue de réponse souhaitée : ${LANG_LABELS[lang].name}\n\n`;
 }
 
+// « Commencer » n'appelle plus le modèle (audit du 28 septembre 2026) : l'ancien
+// message d'introduction dépassait le seuil méta et partait en Sonnet/Opus avec
+// le prompt complet — une question de quota, voire un Aperçu Opus, consommée
+// pour un accueil. L'accueil est désormais STATIQUE ; le profil part avec la
+// première vraie question (submitInput).
 $startBtn.addEventListener('click', () => {
   if ($startBtn.disabled) return;
-  beginNewConversation(buildIntroMessage());
+  state.currentConvId = newConversationId();
+  state.messages = [];
+  $messagesInner.innerHTML = '';
+  $welcome.classList.add('hidden');
+  $messagesWrap.classList.add('active');
+  renderMessage('assistant', `Parfait — on étudie au niveau **${state.selectedNiveau}**, minhag **${state.selectedMinhag}**. Sur quel sujet veux-tu commencer : un siman, un concept, une question pratique ?`);
+  $input.focus();
 });
 
 document.querySelectorAll('.quick-q').forEach(btn => {
   btn.addEventListener('click', () => {
-    if (!state.selectedNiveau || !state.selectedMinhag) {
-      alert('Choisis d\'abord ton niveau et ton minhag.');
-      return;
-    }
-    const q = btn.dataset.q;
-    const lang = getLang();
-    const msg = `[Profil de cette session]\n- Niveau : ${state.selectedNiveau}\n- Minhag : ${state.selectedMinhag}\n- Langue de réponse souhaitée : ${LANG_LABELS[lang].name}\n\n${q}`;
-    beginNewConversation(msg);
+    beginNewConversation(profilBlock() + btn.dataset.q);
   });
 });
 
@@ -1117,19 +1133,13 @@ function submitInput() {
   $input.value = '';
   $input.style.height = 'auto';
 
-  // First-message in a new conversation: include profile
-  if (state.messages.length === 0 && state.selectedNiveau && state.selectedMinhag) {
-    const lang = getLang();
-    const msg = `[Profil de cette session]\n- Niveau : ${state.selectedNiveau}\n- Minhag : ${state.selectedMinhag}\n- Langue de réponse souhaitée : ${LANG_LABELS[lang].name}\n\n${text}`;
+  // Premier message d'une conversation : le profil (même partiel) est joint.
+  // Le profil n'est plus obligatoire — une question simple part telle quelle.
+  if (state.messages.length === 0) {
     if (!state.currentConvId) state.currentConvId = newConversationId();
     $welcome.classList.add('hidden');
     $messagesWrap.classList.add('active');
-    send(msg);
-    return;
-  }
-  // Continuing an existing conversation
-  if (!state.currentConvId) {
-    alert('Choisis d\'abord ton niveau et ton minhag dans l\'écran d\'accueil.');
+    send(profilBlock() + text);
     return;
   }
   send(text);

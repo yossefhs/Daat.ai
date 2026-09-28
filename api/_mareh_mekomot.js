@@ -3,9 +3,10 @@
 //
 // CE N'EST PAS UN REGISTRE DE PSAKIM. C'est un outil d'étude qui présente
 // ce que chaque autorité dit (Mehaber, Rama, Mishna Brura, Choulchan Aroukh
-// haRav, Yabia Omer, Igrot Moshe, etc.). Daat doit ensuite conclure avec :
-//   "Cette analyse présente ce que disent les sources. Ce n'est pas un psak
-//   halakha. Pour ton cas concret, consulte ton Rav."
+// haRav, Yabia Omer, Igrot Moshe, etc.). La réserve que Daat ajoute à un cas
+// pratique est la phrase UNIQUE de api/_reserve.js — jamais une formulation
+// propre à cet outil (une formulation divergente ici était recopiée telle
+// quelle par le modèle, d'où deux réserves différentes dans une même réponse).
 //
 // Expose deux outils Claude :
 // - daat_search_mareh_mekomot : cherche une question halakhique avec ses sources
@@ -14,6 +15,7 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { RESERVE } from './_reserve.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const MM_PATH = join(__dirname, '..', 'data', 'mareh_mekomot.json');
@@ -113,7 +115,8 @@ function summarizeEntry(e, minhag) {
     synthesis_neutre: e.synthesis_neutre,
     alternative_dans_sources: e.alternative_dans_sources || null,
     tags: e.tags || [],
-    disclaimer: "Cette analyse présente ce que disent les sources. Ce n'est PAS un psak halakha. Pour ton cas concret, consulte ton Rav."
+    nature: 'fiche de renvois du site (résumés + références) — elle localise les sources, elle ne prouve pas leur contenu',
+    disclaimer: RESERVE.fr,
   };
 }
 
@@ -153,11 +156,13 @@ export async function executeMarehMekomotTool(toolName, input) {
 export const MAREH_MEKOMOT_TOOLS = [
   {
     name: 'daat_search_mareh_mekomot',
+    // Description alignée sur le prompt système : le registre localise des
+    // sources, il ne prouve pas leur contenu ; « clarity » oriente sans remplacer
+    // la lecture ; la phrase de réserve appartient au prompt, pas à l'outil.
     description:
-      "Cherche dans le registre **מראי מקומות** de DAAT — questions halakhiques pratiques associées aux positions des sources classiques (Guemara, Rambam, Choulchan Aroukh, Rama, Tour) et des poskim par minhag (Mishna Brura/Igrot Moshe pour Ashkénazes ; Yabia Omer/Yalkout Yossef/Ben Ish Hai pour Séfarades ; Choulchan Aroukh haRav pour Habad). " +
-      "**CE N'EST PAS UN REGISTRE DE PSAKIM** — c'est un outil d'étude. Chaque entrée présente ce que dit chaque autorité. " +
-      "**À CONSULTER EN PREMIER** pour toute question halakhique pratique. Si une entrée correspond, présente les positions filtrées par le minhag de l'utilisateur, puis termine TOUJOURS par : 'Cette analyse présente ce que disent les sources. Ce n'est pas un psak halakha. Pour ton cas concret, consulte ton Rav.' " +
-      "Le champ `clarity` indique : 'shulchan-aroukh-tranche' (le Mehaber dit clairement מותר/אסור — tu peux transmettre directement) ou 'requires-rav' (מחלוקת ou ambiguïté — présente sans trancher).",
+      "Cherche dans le registre מראי מקומות de DAAT — questions halakhiques pratiques associées aux positions des sources classiques (Guemara, Rambam, Choulhan Aroukh, Rama, Tour) et de décisionnaires, filtrables par minhag. Valeurs de filtre disponibles : sefarade, ashkenaze, habad ; les autres traditions n'ont pas de filtre — cherche alors sans filtre, et ne masque pas une divergence utile parce qu'un filtre l'a écartée. " +
+      "C'est un registre de SOURCES, pas de psakim : une entrée résume ce que dit chaque autorité et donne ses références ; elle ne prouve pas le contenu des livres qu'elle cite — vérifie les textes déterminants avec daat_search_corpus puis daat_get_content, ou avec sefaria_get_text. À consulter en premier pour un cas halakhique pratique, puis lire l'entrée complète avec daat_get_mareh_mekomot. " +
+      "Le champ clarity oriente sans remplacer la lecture : 'shulchan-aroukh-tranche' signale que le texte tranche le cas TYPE décrit dans l'entrée, pas nécessairement le cas de l'utilisateur ; 'requires-rav' signale qu'un examen est nécessaire (faits, désaccord ou situation matérielle) — il n'établit pas à lui seul l'existence d'une controverse.",
     input_schema: {
       type: 'object',
       properties: {
