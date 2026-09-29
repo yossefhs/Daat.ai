@@ -25,7 +25,10 @@ et qui appelle la relecture du Rav avant publication. Les modifications de code
   déchet (séif א) ; à la main, sans tamis ni crible (séif י) ; pour consommer aussitôt (séifim
   ב-ג). Les trois oui = permis. Un seul non = interdit. » La formule inverse est présentée comme
   « pas fausse en soi, mais incomplète ».
-- **Points à trancher par le Rav** :
+- **Décision du Rav (29 septembre 2026)** : le renvoi au séif י est bon ; écrire חייב (hayav)
+  explicitement là où le texte le dit, et אסור là où c'est le décret rabbinique (קנון ותמחוי) ;
+  conserver le mot hidoush de l'Admour HaZaken. Appliqué en FR et EN (l'hébreu portait déjà חייב).
+- **Points qui avaient été soumis** :
   1. le rattachement de la condition « à la main » au séif י (קנון ותמחוי / נפה וכברה) est-il le
      bon renvoi dans l'édition suivie par le site ?
   2. la mention « passible » (חייב) pour le déchet hors de l'aliment et pour le tri différé est
