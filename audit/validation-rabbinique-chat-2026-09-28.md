@@ -67,9 +67,11 @@ prévisualisation). Deux points méritent l'œil du Rav :
   sous « Application à ton cas », « ✅ Autorisé : prendre à la main les morceaux de poulet… ».
   C'est la permission du texte, suivie de la réserve unique ; le Rav souhaite-t-il que le chat
   s'interdise cette forme (coche verte sur le cas personnel), même quand le texte est clair ?
-- **Cas D, citation attribuée au séif ו du HaRav** : « אין להקל, כי ספק חיוב חטאת הוא » — à
-  confronter au texte réel du séif (la citation du séif ה est, elle, conforme au sens du texte
-  lu sur Sefaria).
+- **Cas D, citations des séifim ה et ו du HaRav** : confrontées le 29/09 au texte Kehot servi par
+  Sefaria (consonnes comparées). Séif ה : « אם היו לפניו שני מיני אוכלים מעורבים … דהיינו אוכל
+  מתוך הפסולת, ולא להפך » — **verbatim**. Séif ו : « אין להקל, כי ספק חיוב חטאת הוא » — **verbatim**
+  (le séif ו le dit à propos de morceaux gros et distincts de deux espèces : « ואפשר שלא שייך
+  כאן ברירה כלל — אף על פי כן אין להקל »). Point clos ; rien à trancher.
 - **Cas I (attente viande / fromage, trois traditions)** et **cas K (Tanya ch. 1)** : réponses
   longues avec sources ; exactitude à relire, aucun contrôle mécanique ne la juge.
 
