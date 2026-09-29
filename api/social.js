@@ -237,6 +237,12 @@ export default async function handler(req, res) {
     if (action === 'force') {
       return res.status(200).json(await runBroadcast({ force: true }));
     }
+    // Le post quotidien validé d'un clic (/api/daily-post) remplace ce pilote
+    // hebdomadaire : sans SOCIAL_WEEKLY_ENABLED=1, le cron du mardi ne publie
+    // plus rien, pour ne pas doubler les posts une fois les réseaux branchés.
+    if (env('SOCIAL_WEEKLY_ENABLED') !== '1') {
+      return res.status(200).json({ ok: true, skipped: 'remplacé par /api/daily-post (SOCIAL_WEEKLY_ENABLED≠1)' });
+    }
     // Cron : ne publie que le mardi (UTC) — les autres jours, no-op.
     if (new Date().getUTCDay() !== 2) {
       return res.status(200).json({ ok: true, skipped: 'not-broadcast-day' });

@@ -1222,6 +1222,9 @@
     "api/social.js": {
       "maxDuration": 60
     },
+    "api/daily-post.js": {
+      "maxDuration": 300
+    },
     "api/chat-corpus.js": {
       "includeFiles": "data/corpus-{shabbat.json,index.br}"
     }
@@ -1242,6 +1245,10 @@
     {
       "path": "/api/social",
       "schedule": "10 9 * * 2"
+    },
+    {
+      "path": "/api/daily-post",
+      "schedule": "0 4 * * 0-4"
     }
   ]
 }
