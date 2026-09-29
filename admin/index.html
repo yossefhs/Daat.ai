@@ -1151,7 +1151,7 @@ async function anFetch(path, opts) {
   // vers l'API, et un secret dans une URL s'écrit dans les journaux d'accès,
   // dans l'historique du navigateur, et part dans le Referer.
   const url = anBase() + path;
-  const res = await fetch(url, { ...opts, credentials: 'same-origin', headers: anEntetes(opts.headers) });
+  const res = await fetch(url, { ...opts, credentials: anMode === 'jeton' ? 'same-origin' : 'omit', headers: anEntetes(opts.headers) });
   if (!res.ok) throw new Error('HTTP ' + res.status);
   return res.json();
 }
@@ -1243,19 +1243,27 @@ async function anValiderCode() {
 }
 
 async function anDeconnexion() {
-  try { await fetch(location.origin + '/api/auth/logout', { method: 'POST', credentials: 'same-origin' }); } catch (_) {}
-  try { localStorage.removeItem('daat_admin_mode'); } catch (_) {}
-  anMode = 'secret'; anJetonEmail = '';
+  // Se déconnecter doit aussi faire DISPARAÎTRE ce qui a été affiché : les
+  // statistiques, la liste des utilisateurs, les journaux et les dons restent
+  // sinon lisibles à l'écran — sur un ordinateur partagé, c'est une fuite.
+  // Plutôt que d'effacer panneau par panneau (et d'en oublier un le jour où
+  // on en ajoute), on recharge la page : rien n'y survit que le formulaire.
   if (typeof anStopAutoRefresh === 'function') anStopAutoRefresh();
-  anAfficherCourriel('adresse');
-  anEtatCourriel('Déconnecté(e).');
-  const s1 = document.getElementById('an-status');
-  if (s1) { s1.textContent = ''; }
+  anMode = 'secret'; anJetonEmail = '';
+  try { await fetch(location.origin + '/api/auth/logout', { method: 'POST', credentials: 'same-origin' }); } catch (_) {}
+  try { localStorage.removeItem('daat_admin_mode'); sessionStorage.setItem('daat_admin_deconnecte', '1'); } catch (_) {}
+  location.reload();
 }
 
 // Au chargement : si une session par courriel était ouverte, on la reprend.
 // Aucun secret n'est stocké pour cette voie — seul le cookie HttpOnly fait foi.
 onReady(async () => {
+  try {
+    if (sessionStorage.getItem('daat_admin_deconnecte')) {
+      sessionStorage.removeItem('daat_admin_deconnecte');
+      anEtatCourriel('Déconnecté(e). Les données affichées ont été effacées.');
+    }
+  } catch (_) {}
   let mode = null;
   try { mode = localStorage.getItem('daat_admin_mode'); } catch (_) {}
   if (mode !== 'jeton') return;
@@ -1291,11 +1299,16 @@ async function anConnect() {
   dbg.innerHTML = '';
   log('▶ anConnect() lancée', '#C5A55A');
 
-  anSecret = document.getElementById('an-secret').value.trim();
-  anApiUrl = (document.getElementById('an-api-url').value.trim() || 'https://daatai.vercel.app').replace(/\/$/, '');
-  log(`· Clé saisie : ${anSecret.length} caractères`);
-  log(`· URL API    : ${anApiUrl}`);
-  if (!anSecret) {
+  // La clé et l'URL saisies ne sont ADOPTÉES qu'après vérification réussie.
+  // Sinon, une clé fausse tapée alors qu'une session tourne déjà (par courriel
+  // ou par une bonne clé) serait reprise par le rafraîchissement automatique
+  // toutes les 30 s : cinq échecs, et le serveur bloque l'adresse IP quinze
+  // minutes — la session valide comprise, puisque le freinage passe avant.
+  const cle = document.getElementById('an-secret').value.trim();
+  const urlApi = (document.getElementById('an-api-url').value.trim() || 'https://daatai.vercel.app').replace(/\/$/, '');
+  log(`· Clé saisie : ${cle.length} caractères`);
+  log(`· URL API    : ${urlApi}`);
+  if (!cle) {
     log('✗ Aucune clé saisie — clique dans le champ et tape ton ADMIN_PASSWORD', '#fca5a5');
     return;
   }
@@ -1310,12 +1323,14 @@ async function anConnect() {
   // plus ?secret= : ce bouton l'envoyait encore dans l'URL seulement, et
   // répondait donc 401 même au bon mot de passe — chaque essai comptant comme
   // un échec, cinq essais bloquaient l'accès quinze minutes.
-  anMode = 'secret';
-  const url = `${anApiUrl}/api/admin/stats?action=overview&days=1`;
+  const url = `${urlApi}/api/admin/stats?action=overview&days=1`;
   log(`▶ fetch (preflight + GET)…`, '#C5A55A');
   try {
     const t0 = performance.now();
-    const res = await fetch(url, { headers: anEntetes() });
+    // credentials: 'omit' — c'est la CLÉ qu'on vérifie, pas une session : si le
+    // cookie d'une session courriel partait avec, le serveur l'accepterait et une
+    // clé fausse passerait pour bonne (puis serait enregistrée comme telle).
+    const res = await fetch(url, { credentials: 'omit', headers: { 'Content-Type': 'application/json', 'X-Admin-Secret': cle } });
     const dt = Math.round(performance.now() - t0);
     log(`◀ Réponse en ${dt} ms : HTTP ${res.status} ${res.statusText}`, res.ok ? '#86efac' : '#fca5a5');
 
@@ -1337,6 +1352,8 @@ async function anConnect() {
     const data = await res.json();
     log(`◀ JSON OK : ${JSON.stringify(data).slice(0,140)}…`, '#86efac');
 
+    // Vérifiée : on l'adopte, et c'est elle qui sert désormais.
+    anSecret = cle; anApiUrl = urlApi; anMode = 'secret'; anJetonEmail = '';
     localStorage.setItem('daat_admin_secret', anSecret);
     localStorage.setItem('daat_admin_api', anApiUrl);
     if (status) { status.textContent = '✅ Connecté à ' + anApiUrl; status.style.color = 'var(--green)'; }
@@ -1712,7 +1729,7 @@ async function soutFetch(path, opts) {
   opts = opts || {};
   // En-tête seulement, pour la même raison que ci-dessus.
   const url = anBase() + path;
-  const res = await fetch(url, { ...opts, credentials: 'same-origin', headers: anEntetes(opts.headers) });
+  const res = await fetch(url, { ...opts, credentials: anMode === 'jeton' ? 'same-origin' : 'omit', headers: anEntetes(opts.headers) });
   if (!res.ok) {
     let msg = 'HTTP ' + res.status;
     try { const j = await res.json(); msg = j.error || msg; } catch (_) {}
