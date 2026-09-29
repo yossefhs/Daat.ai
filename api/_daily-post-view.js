@@ -27,6 +27,7 @@ export function renderReviewPage(data) {
     <h1 id="h-title">Post du jour</h1>
     <p id="h-sub" class="muted"></p>
   </header>
+  <section id="anomalies" class="verdict orange" hidden></section>
   <section id="verdict" class="verdict pending"><strong>Vérification en cours…</strong></section>
   <div class="layout">
     <section class="col-visual">
@@ -329,6 +330,10 @@ function clientMain() {
     } catch (e) { b.disabled = false; b.textContent = 'Refaire le texte'; $('results').innerHTML = `<div class="res ko">${esc(e.message)}</div>`; }
   });
 
+  if (D.anomalies && D.anomalies.length) {
+    const el = $('anomalies'); el.hidden = false;
+    el.innerHTML = '<strong>⚠️ Calendrier : ' + D.anomalies.length + ' anomalie(s) détectée(s)</strong><ul>' + D.anomalies.map((a) => `<li>${esc(a)}</li>`).join('') + '</ul>';
+  }
   renderVisual(); renderTexts(); renderVerdict(D.verify); showResults(D.published);
   loadImages(false);
   if (!D.verify && !D.preview) {

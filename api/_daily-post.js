@@ -28,6 +28,7 @@ import Anthropic from '@anthropic-ai/sdk';
 import { Resend } from 'resend';
 import { kv } from './_kv.js';
 import { getEntryForDate, loadPlan } from './_daily-limoud.js';
+import { fetchSiman, auditCalendar, checkTexts } from './_daily-post-checks.js';
 
 export const SITE = 'https://daattorah.com';
 const TTL = 10 * 24 * 3600;
@@ -39,11 +40,13 @@ const MODELS = [env('DAILY_POST_MODEL') || 'claude-sonnet-5-5', 'claude-sonnet-4
 
 // ---------- dates & plan ----------
 
-export function parisToday() {
+// Date civile du jour à Jérusalem (fuseau du programme d'étude).
+export function studyToday() {
   return new Intl.DateTimeFormat('fr-CA', {
-    timeZone: 'Europe/Paris', year: 'numeric', month: '2-digit', day: '2-digit',
+    timeZone: 'Asia/Jerusalem', year: 'numeric', month: '2-digit', day: '2-digit',
   }).format(new Date());
 }
+export const parisToday = studyToday;
 
 export function dayInfo(date) {
   const entry = getEntryForDate(date);
@@ -94,23 +97,6 @@ export function tokenOk(date, token) {
 // ---------- sources ----------
 
 const HEB = ['', 'א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ז', 'ח', 'ט', 'י', 'יא', 'יב', 'יג', 'יד', 'טו', 'טז', 'יז', 'יח', 'יט', 'כ'];
-
-// Texte exact des séifim du jour (Mehaber + gloses du Rama marquées « הגה »).
-export async function fetchSeifim(num, from, to) {
-  const out = [];
-  for (let n = from; n <= to; n++) {
-    const url = `https://www.sefaria.org/api/v3/texts/Shulchan_Arukh,_Orach_Chayim.${num}.${n}?version=hebrew`;
-    const r = await fetch(url, { headers: { Accept: 'application/json' } });
-    if (!r.ok) throw new Error(`Sefaria ${num}:${n} → HTTP ${r.status}`);
-    const d = await r.json();
-    let t = d?.versions?.[0]?.text;
-    if (Array.isArray(t)) t = t.join(' ');
-    t = String(t || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
-    if (!t) throw new Error(`Sefaria ${num}:${n} → texte vide`);
-    out.push({ n, lettre: HEB[n] || String(n), he: t });
-  }
-  return out;
-}
 
 // Texte de la page d'étude (niveau 1), servi par le site public.
 export async function fetchStudyPage(num) {
@@ -191,7 +177,7 @@ function writerPrompt(info, seifim, page) {
 DONNÉES DU JOUR (à reprendre telles quelles, ne jamais les recalculer) :
 - ${info.jourSemaine} ${info.dateCourte} · Semaine ${info.semaine} · Jour ${info.dayNumber}${total}
 - Siman ${info.siman.num} · ${info.siman.numHe} — ${info.siman.titleHe}
-- Séifim ${info.seifRange[0]}–${info.seifRange[1]}${lot}
+- Séifim ${info.seifRange[0]}–${info.seifRange[1]}${lot} (le siman en compte ${info.seifimReels})
 - Lien d'étude : ${info.studyUrl}
 
 TEXTE EXACT DES SÉIFIM DU JOUR (Sefaria). La glose du Rama commence par « הגה » ; tout le reste est le Mehaber.
@@ -203,9 +189,9 @@ ${page}
 >>>
 
 RÈGLES DE FOND — non négociables :
-1. N'écris que ce que dit le texte source ci-dessus. Aucune halakha ajoutée, aucun commentaire (Michna Beroura, etc.) sauf s'il figure dans la page du site.
+1. N'écris que ce que dit le texte source ci-dessus. Aucune halakha ajoutée, aucun commentaire (Michna Beroura, etc.) sauf s'il figure dans la page du site. Les explications de la page sont la pédagogie de DAAT : ne les présente jamais comme le texte du Choul'han Aroukh.
 2. Attribution exacte : n'attribue au Rama que ce qui suit « הגה ». « יש אומרים / יש מי שאומר » = « une opinion » / « certains disent », jamais « le Rama ».
-3. Ne tranche pas là où le texte rapporte une discussion : présente les opinions.
+3. Ne tranche pas là où le texte rapporte une discussion : présente les opinions. Jamais une opinion secondaire en règle unique, une mahloket en décision unanime, un minhag en obligation générale.
 4. Termes en translittération usuelle (Havdala, berakha, melakha, Birkat Hamazon, bessamim…). Hébreu seulement s'il est cité mot pour mot du texte source.
 5. Pas de psak personnel. Termine WhatsApp, Facebook et LinkedIn par : « Pour la pratique, consulte ton Rav. »
 
@@ -244,13 +230,36 @@ function toolInput(res, name) {
   return block.input;
 }
 
+export class BlockedError extends Error {
+  constructor(reasons) { super(reasons.join(' · ')); this.reasons = reasons; }
+}
+
 export async function writePost(date) {
   const info = dayInfo(date);
   if (!info) return null;
-  const [seifim, page] = await Promise.all([
-    fetchSeifim(info.siman.num, info.seifRange[0], info.seifRange[1]),
-    fetchStudyPage(info.siman.num),
-  ]);
+  const entry = getEntryForDate(date);
+
+  // Verrouillage : rien n'est rédigé tant que le jour n'est pas confronté au
+  // nombre réel de séifim, au reste du plan et à la page publiée.
+  let simanTexte, page;
+  try {
+    [simanTexte, page] = await Promise.all([fetchSiman(info.siman.num), fetchStudyPage(info.siman.num)]);
+  } catch (e) {
+    throw new BlockedError([`Source injoignable : ${e.message}`]);
+  }
+  const audit = await auditCalendar(entry, simanTexte);
+  if (audit.bloquant.length) {
+    await kv.set(`dailypost:${date}:blocked`, { info, audit, at: new Date().toISOString() }, { ex: TTL });
+    await logEvent({ date, event: 'bloqué', reasons: audit.bloquant });
+    throw new BlockedError(audit.bloquant);
+  }
+  info.lotIndex = audit.partie.index;
+  info.lotTotal = audit.partie.total;
+  info.seifimReels = audit.seifimReels;
+  const seifim = [];
+  for (let n = info.seifRange[0]; n <= info.seifRange[1]; n++) {
+    seifim.push({ n, lettre: HEB[n] || String(n), he: simanTexte[n - 1] });
+  }
   const { res, model } = await callClaude({
     max_tokens: 6000,
     tools: [POST_TOOL],
@@ -258,7 +267,7 @@ export async function writePost(date) {
     messages: [{ role: 'user', content: writerPrompt(info, seifim, page) }],
   });
   const post = toolInput(res, 'post_du_jour');
-  const record = { info, seifim, post, model, usage: res.usage, createdAt: new Date().toISOString() };
+  const record = { info, seifim, post, model, usage: res.usage, anomalies: audit.avertissement, createdAt: new Date().toISOString() };
   await kv.set(`dailypost:${date}`, record, { ex: TTL });
   await kv.del(`dailypost:${date}:verify`);
   await logEvent({ date, event: 'rédigé', model, usage: res.usage });
@@ -313,6 +322,13 @@ Signale : toute affirmation absente du texte, toute attribution fausse (Rama / M
     messages: [{ role: 'user', content: prompt }],
   });
   const verdict = { ...toolInput(res, 'verdict'), model, usage: res.usage, at: new Date().toISOString() };
+  // Contrôles mécaniques : jour, total, siman, séifim et lien repris à l'identique.
+  const meca = checkTexts(rec.info, rec.post);
+  if (meca.length) {
+    verdict.points = [...meca, ...(verdict.points || [])];
+    if (meca.some((m) => m.statut === 'faux')) verdict.global = 'rouge';
+    else if (verdict.global === 'vert') verdict.global = 'orange';
+  }
   await kv.set(`dailypost:${date}:verify`, verdict, { ex: TTL });
   await logEvent({ date, event: `vérifié : ${verdict.global}`, model, usage: res.usage });
   return verdict;
@@ -330,7 +346,7 @@ export function imageSlots(rec) {
   return slots;
 }
 
-export async function generateImage(date, slot, { force = false } = {}) {
+export async function generateImage(date, slot, { force = false, retried = false } = {}) {
   const key = `dailypost:${date}:img:${slot}`;
   if (!force) {
     const cached = await kv.get(key);
@@ -340,6 +356,7 @@ export async function generateImage(date, slot, { force = false } = {}) {
   if (!rec) throw new Error('post introuvable');
   const def = imageSlots(rec).find((s) => s.slot === slot);
   if (!def) throw new Error(`illustration inconnue : ${slot}`);
+  def.retried = retried;
   const apiKey = env('OPENAI_API_KEY');
   if (!apiKey) return null; // pas de clé : le visuel utilise un fond sobre
   const r = await fetch('https://api.openai.com/v1/images/generations', {
@@ -360,9 +377,35 @@ export async function generateImage(date, slot, { force = false } = {}) {
   const b64 = d?.data?.[0]?.b64_json;
   if (!b64) throw new Error('OpenAI : image absente de la réponse');
   const dataUrl = `data:image/jpeg;base64,${b64}`;
+  const controle = await inspectImage(b64, def.prompt);
+  if (!controle.ok) {
+    await logEvent({ date, event: `image ${slot} rejetée`, raison: controle.raison });
+    if (!force && !def.retried) return generateImage(date, slot, { force: true, retried: true });
+    return null; // deuxième refus : fond sobre plutôt qu'une image douteuse
+  }
   await kv.set(key, dataUrl, { ex: TTL });
   await logEvent({ date, event: `image ${slot}`, quality: def.quality, size: def.size });
   return dataUrl;
+}
+
+// L'illustration contient-elle du texte, des personnes, un symbole religieux
+// étranger, ou est-elle sans rapport avec le sujet ? (vision Claude, ~0,3 c).
+async function inspectImage(b64, attendu) {
+  try {
+    const { res } = await callClaude({
+      max_tokens: 300,
+      tools: [{ name: 'controle', description: 'Résultat du contrôle', input_schema: { type: 'object', required: ['ok', 'raison'], properties: {
+        ok: { type: 'boolean' }, raison: { type: 'string' } } } }],
+      tool_choice: { type: 'tool', name: 'controle' },
+      messages: [{ role: 'user', content: [
+        { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: b64 } },
+        { type: 'text', text: `Illustration d'un post d'étude juive (halakha de Chabbat). Attendu : ${attendu}. Refuse (ok=false) si tu vois : du texte, des lettres ou chiffres lisibles, des personnes ou des mains, une croix ou tout symbole d'une autre religion, ou une scène sans rapport avec l'attendu. Sinon ok=true.` },
+      ] }],
+    });
+    return toolInput(res, 'controle');
+  } catch (e) {
+    return { ok: true, raison: `contrôle indisponible : ${e.message}` };
+  }
 }
 
 export async function generateAllImages(date) {
@@ -382,36 +425,83 @@ function esc(s) {
   return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
+// Destinataires : DAILY_POST_EMAIL (liste séparée par des virgules), sinon
+// l'administrateur et la boîte de l'association.
+function recipients() {
+  const list = (env('DAILY_POST_EMAIL') || [env('ADMIN_EMAIL'), 'daattorah.com@gmail.com'].filter(Boolean).join(','))
+    .split(',').map((x) => x.trim().toLowerCase()).filter(Boolean);
+  return [...new Set(list)];
+}
+
+async function send(subject, html, date, label) {
+  const to = recipients();
+  if (!to.length || !env('RESEND_API_KEY')) {
+    await logEvent({ date, event: `EMAIL NON ENVOYÉ (${label})`, error: 'destinataire ou RESEND_API_KEY absent' });
+    return { ok: false, error: 'destinataire ou RESEND_API_KEY absent' };
+  }
+  const resend = new Resend(env('RESEND_API_KEY'));
+  const from = env('RESEND_FROM_EMAIL') || 'noreply@daattorah.com';
+  const r = await resend.emails.send({ from: `DAAT <${from}>`, to, subject, html });
+  // Seule la réponse de Resend (un identifiant) atteste l'envoi.
+  if (r.error || !r.data?.id) {
+    const error = r.error?.message || String(r.error || 'aucun identifiant renvoyé');
+    await logEvent({ date, event: `EMAIL NON ENVOYÉ (${label})`, error });
+    return { ok: false, error };
+  }
+  await logEvent({ date, event: `email ${label} envoyé`, id: r.data.id, to });
+  return { ok: true, id: r.data.id, to };
+}
+
+const box = (inner) => `<div style="font-family:Georgia,serif;background:#FAF6EE;padding:20px;color:#1A1F3A"><div style="max-width:640px;margin:auto;background:#fff;border:1px solid #E6DDC9;border-radius:10px;padding:24px">${inner}</div></div>`;
+const h2 = (t) => `<h2 style="margin:22px 0 8px;font:700 13px Arial;letter-spacing:.14em;color:#A8883E;text-transform:uppercase">${t}</h2>`;
+const pre = (t) => `<div style="white-space:pre-wrap;font:14.5px/1.55 Arial;background:#FFFDF8;border:1px solid #EFE6D2;border-radius:8px;padding:12px">${esc(t)}</div>`;
+
 export async function sendReviewEmail(date) {
   const rec = await kv.get(`dailypost:${date}`);
   if (!rec) return { ok: false, error: 'post introuvable' };
   const verdict = await kv.get(`dailypost:${date}:verify`);
-  const to = env('DAILY_POST_EMAIL') || env('ADMIN_EMAIL');
-  if (!to || !env('RESEND_API_KEY')) return { ok: false, error: 'destinataire ou RESEND_API_KEY absent' };
   const { info, post } = rec;
+  const total = info.totalDays ? `/${info.totalDays}` : '';
+  const partie = info.lotTotal > 1 ? ` (${info.lotIndex}/${info.lotTotal})` : '';
   const flag = verdict?.global === 'rouge' ? '⛔ À corriger' : verdict?.global === 'orange' ? '⚠️ À relire' : verdict?.global === 'vert' ? '✅ Vérifié' : '⏳ Vérification en cours';
-  const url = reviewUrl(date);
-  const html = `<div style="font-family:Georgia,serif;background:#FAF6EE;padding:24px;color:#1A1F3A">
-<div style="max-width:560px;margin:auto;background:#fff;border:1px solid #E6DDC9;border-radius:10px;padding:26px">
-<p style="margin:0 0 4px;color:#A8883E;font:600 12px Arial;letter-spacing:.14em">DAAT YOMI · JOUR ${info.dayNumber}${info.totalDays ? '/' + info.totalDays : ''} · ${esc(info.dateFr.toUpperCase())}</p>
+  const anomalies = [...(rec.anomalies || []), ...(verdict?.points || []).map((p) => `${p.ou} · ${p.statut} — « ${p.affirmation} » : ${p.explication}`)];
+  const p = post.posts || {};
+  const html = box(`
+<p style="margin:0 0 4px;color:#A8883E;font:600 12px Arial;letter-spacing:.14em">DAAT YOMI · ${flag}</p>
 <h1 style="margin:0 0 6px;font-size:24px">${esc(post.titre)}</h1>
-<p style="margin:0 0 14px;color:#5B6078">Siman ${info.siman.num} · ${esc(info.siman.numHe)} · séifim ${info.seifRange[0]}–${info.seifRange[1]}</p>
-<p style="margin:0 0 16px;font:600 14px Arial">${flag}${verdict?.points?.length ? ` — ${verdict.points.length} point(s) signalé(s)` : ''}</p>
-<ol style="margin:0 0 20px;padding-left:20px;font:15px/1.5 Arial">${post.seifim.map((s) => `<li value="${s.n}"><strong>${esc(s.titre)}</strong></li>`).join('')}</ol>
-<p style="text-align:center;margin:0 0 20px"><a href="${url}" style="display:inline-block;background:#C5A55A;color:#1A1F3A;text-decoration:none;font:700 16px Arial;padding:14px 26px;border-radius:8px">Voir le visuel et publier</a></p>
-<p style="font:13px/1.5 Arial;color:#5B6078;margin:0">Rien n'est publié tant que tu n'as pas cliqué sur « Publier partout » dans la page. Le texte WhatsApp et l'image à partager s'y trouvent aussi.</p>
-</div></div>`;
-  const resend = new Resend(env('RESEND_API_KEY'));
-  const from = env('RESEND_FROM_EMAIL') || 'noreply@daattorah.com';
-  const r = await resend.emails.send({
-    from: `DAAT <${from}>`,
-    to,
-    subject: `${flag} · Daat Yomi du ${info.dateCourte} — ${post.titre}`,
-    html,
-  });
-  if (r.error) return { ok: false, error: r.error.message || String(r.error) };
-  await logEvent({ date, event: 'email envoyé' });
-  return { ok: true, id: r.data?.id };
+<p style="text-align:center;margin:18px 0"><a href="${reviewUrl(date)}" style="display:inline-block;background:#C5A55A;color:#1A1F3A;text-decoration:none;font:700 16px Arial;padding:14px 26px;border-radius:8px">Voir le visuel, corriger et publier</a></p>
+${anomalies.length ? `${h2('⚠️ Anomalies détectées')}<ul style="font:14px/1.5 Arial;margin:0;padding-left:18px">${anomalies.map((a) => `<li>${esc(a)}</li>`).join('')}</ul>` : ''}
+${h2('1. Données vérifiées')}
+<table style="font:14px/1.6 Arial;border-collapse:collapse">
+<tr><td style="padding-right:14px;color:#5B6078">Date</td><td>${esc(info.dateFr)}</td></tr>
+<tr><td style="padding-right:14px;color:#5B6078">Semaine</td><td>${info.semaine}</td></tr>
+<tr><td style="padding-right:14px;color:#5B6078">Jour</td><td>${info.dayNumber}${total}</td></tr>
+<tr><td style="padding-right:14px;color:#5B6078">Siman</td><td>${info.siman.num} · ${esc(info.siman.numHe)} — ${esc(info.siman.titleHe)}</td></tr>
+<tr><td style="padding-right:14px;color:#5B6078">Séifim</td><td>${info.seifRange[0]}–${info.seifRange[1]}${partie} · le siman en compte ${info.seifimReels} (Sefaria)</td></tr>
+<tr><td style="padding-right:14px;color:#5B6078">Vérification</td><td>${flag}${verdict?.nb_affirmations_verifiees ? ` · ${verdict.nb_affirmations_verifiees} affirmations confrontées au Choul'han Aroukh` : ''}</td></tr>
+</table>
+${h2('2. WhatsApp')}${pre(p.whatsapp)}
+${h2('3. Facebook')}${pre(p.facebook)}
+${h2('4. Instagram')}${pre(p.instagram)}
+${h2('5. LinkedIn')}${pre(p.linkedin)}
+${h2('6. X')}${pre(p.x)}
+${h2('7. Hashtags')}${pre((post.hashtags || []).join(' '))}
+${h2('8. Lien de l\'étude')}<p style="font:14px Arial"><a href="${info.studyUrl}">${info.studyUrl}</a></p>
+<p style="font:13px/1.5 Arial;color:#5B6078;margin-top:20px">Rien n'est publié tant que tu n'as pas cliqué sur « Publier partout » dans la page. Le visuel se télécharge et se partage sur WhatsApp depuis la même page.</p>`);
+  return send(`${flag} Daat Yomi — ${info.dateCourte} — Jour ${info.dayNumber}${total} — Siman ${info.siman.num}`, html, date, 'du pack');
+}
+
+// Blocage : aucun pack, seulement l'explication de ce qui n'a pas pu être vérifié.
+export async function sendBlockedEmail(date, reasons) {
+  const info = dayInfo(date);
+  const titre = info ? `Jour ${info.dayNumber}${info.totalDays ? '/' + info.totalDays : ''} — Siman ${info.siman.num} — séifim ${info.seifRange[0]}–${info.seifRange[1]}` : date;
+  const html = box(`
+<p style="margin:0 0 4px;color:#9B2F2F;font:700 12px Arial;letter-spacing:.14em">DAAT YOMI · PACK NON PRÉPARÉ</p>
+<h1 style="margin:0 0 10px;font-size:22px">${esc(titre)}</h1>
+<p style="font:15px/1.55 Arial">Le post du jour n'a pas été rédigé : une donnée essentielle n'a pas pu être vérifiée. Rien n'a été inventé et rien ne sera publié.</p>
+${h2('Ce qui bloque')}<ul style="font:14px/1.55 Arial;padding-left:18px">${reasons.map((r) => `<li>${esc(r)}</li>`).join('')}</ul>
+<p style="font:13px/1.5 Arial;color:#5B6078">Après correction, relancer : <code>/api/daily-post?date=${date}&amp;force=1</code> (avec le CRON_SECRET).</p>`);
+  return send(`⛔ Daat Yomi — ${info?.dateCourte || date} — PACK NON PRÉPARÉ`, html, date, 'd\'anomalie');
 }
 
 // ---------- journal ----------

@@ -19,7 +19,7 @@
 import { kv } from './_kv.js';
 import {
   parisToday, dayInfo, tokenOk, tokenFor, writePost, verifyPost, generateImage,
-  generateAllImages, imageSlots, sendReviewEmail, logEvent, SITE,
+  generateAllImages, imageSlots, sendReviewEmail, sendBlockedEmail, BlockedError, logEvent, SITE,
 } from './_daily-post.js';
 import { renderReviewPage } from './_daily-post-view.js';
 import { configuredPlatforms, publishAll } from './_social-publish.js';
@@ -44,7 +44,15 @@ async function runDay(date, { force = false } = {}) {
   if (!dayInfo(date)) return { ok: true, date, skipped: 'pas d\'étude Daat Yomi ce jour' };
   const existing = await kv.get(`dailypost:${date}`);
   if (existing && !force) return { ok: true, date, skipped: 'déjà préparé' };
-  const rec = await writePost(date);
+  let rec;
+  try {
+    rec = await writePost(date);
+  } catch (e) {
+    // Mieux vaut ne rien envoyer qu'un Daat Yomi faux : on explique pourquoi.
+    const reasons = e instanceof BlockedError ? e.reasons : [`Rédaction impossible : ${e.message}`];
+    const email = await sendBlockedEmail(date, reasons);
+    return { ok: false, date, bloque: reasons, email };
+  }
   const [verify, images] = await Promise.allSettled([verifyPost(date), generateAllImages(date)]);
   const email = await sendReviewEmail(date);
   return {
@@ -77,7 +85,7 @@ export default async function handler(req, res) {
         return res.status(200).json({ ok: true, platforms: configuredPlatforms(), images: !!env('OPENAI_API_KEY'),
           log: (log || []).map((s) => { try { return typeof s === 'string' ? JSON.parse(s) : s; } catch { return s; } }) });
       }
-      const d = date || parisToday();
+      const d = date || parisToday(); // date civile à Jérusalem
       const out = await runDay(d, { force: req.query?.force === '1' });
       if (!out.skipped) out.review = `${SITE}/api/daily-post?action=review&date=${d}&t=${tokenFor(d)}`;
       return res.status(200).json(out);
@@ -97,7 +105,7 @@ export default async function handler(req, res) {
       res.setHeader('Content-Type', 'text/html; charset=utf-8');
       res.setHeader('Cache-Control', 'no-store');
       return res.status(200).send(renderReviewPage({
-        date, token: req.query.t, info: rec.info, post: rec.post, verify, published,
+        date, token: req.query.t, info: rec.info, post: rec.post, verify, published, anomalies: rec.anomalies || [],
         platforms: configuredPlatforms(), imagesEnabled: !!env('OPENAI_API_KEY'),
         slots: imageSlots(rec).map((s) => s.slot),
       }));
