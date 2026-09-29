@@ -109,7 +109,7 @@
 
     <p class="about">
       <strong>דעת יומי</strong> — לימוד רציף של השולחן ערוך, כמה סעיפים ביום: מקור, ביאור ושיטת אדמו"ר הזקן על פני
-      <a href="/limoud/" style="color:var(--gold)">194 ימי לימוד</a>. שמור את הדף במועדפים — הוא מחכה לך כל בוקר עם הלימוד של היום.
+      <a href="/limoud/" style="color:var(--gold)"><span class="dy-total">272</span> ימי לימוד</a>. שמור את הדף במועדפים — הוא מחכה לך כל בוקר עם הלימוד של היום.
     </p>
   </main>
 
@@ -136,10 +136,11 @@
 
     fetch('https://daatai.vercel.app/api/aujourdhui').then(function(r){ return r.json(); }).then(function (d) {
       if (!d || !d.ok) return;
+      if (d.totalDays) document.querySelectorAll('.dy-total').forEach(function (el) { el.textContent = d.totalDays; });
       var pad = function (n) { return String(n).padStart(3, '0'); };
       if (d.isStudyDay && d.entry) {
         var e = d.entry;
-        document.getElementById('dy-num').textContent = e.dayNumber + ' / 194';
+        document.getElementById('dy-num').textContent = e.dayNumber + (d.totalDays ? ' / ' + d.totalDays : '');
         document.getElementById('dy-siman').textContent = 'סימן ' + e.siman.num + (e.lotTotal > 1 ? ' · חלק ' + e.lotIndex + '/' + e.lotTotal : '');
         document.getElementById('dy-title').textContent = e.siman.titleHe || e.siman.title;
         document.getElementById('dy-meta').textContent = 'סעיפים ' + e.seifRange[0] + '–' + e.seifRange[1] + ' · כ־20 דקות · 4 רמות לימוד';
@@ -148,7 +149,7 @@
         document.getElementById('dy-num').textContent = '—';
         document.getElementById('dy-siman').textContent = '';
         document.getElementById('dy-title').textContent = (now.getDay() === 6 ? 'שבת שלום — ' : 'אין לימוד היום — ') + 'ממשיכים עם סימן ' + d.next.siman.num + '.';
-        document.getElementById('dy-meta').textContent = 'הלימוד הבא: יום ' + d.next.dayNumber + ' / 194';
+        document.getElementById('dy-meta').textContent = 'הלימוד הבא: יום ' + d.next.dayNumber + (d.totalDays ? ' / ' + d.totalDays : '');
         document.getElementById('dy-cta').href = '/limoud/jour-' + pad(d.next.dayNumber) + '-he.html';
         document.getElementById('dy-cta').textContent = 'להתכונן ללימוד הבא ←';
       }
