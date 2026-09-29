@@ -1223,7 +1223,8 @@
       "maxDuration": 60
     },
     "api/daily-post.js": {
-      "maxDuration": 300
+      "maxDuration": 300,
+      "includeFiles": "data/{limoud-plan.json,seifim-count.json}"
     },
     "api/chat-corpus.js": {
       "includeFiles": "data/corpus-{shabbat.json,index.br}"

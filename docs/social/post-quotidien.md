@@ -7,6 +7,26 @@ Code : `api/daily-post.js` (routes), `api/_daily-post.js` (rédaction, vérifica
 illustrations, email), `api/_daily-post-view.js` (page de validation), `api/_social-publish.js`
 (publication). Cron : `/api/daily-post`, `0 4 * * 0-4` (UTC) dans `vercel.json`.
 
+## Contrôles bloquants (mieux vaut ne rien envoyer qu'un Daat Yomi faux)
+
+Avant toute rédaction (`api/_daily-post-checks.js`), le jour du plan est confronté :
+- au **nombre réel de séifim** du siman, lu en direct sur Sefaria (et à `data/seifim-count.json`) ;
+- aux **autres journées du même siman** : séifim 1..N couverts une fois et une seule, ≤ 5 par jour ;
+- à la **page du calendrier publiée** (`/limoud/jour-NNN.html`) : même jour, siman, séifim ;
+- à la **cohérence du plan** : total annoncé = journées réelles.
+
+Un seul écart bloquant → aucun pack : un email « PACK NON PRÉPARÉ » explique ce qui n'a pas pu
+être vérifié. Les écarts non bloquants (étiquette de partie fausse, siman étudié en rattrapage)
+sont corrigés à l'affichage et signalés en tête de l'email et de la page.
+
+Après rédaction : jour, total, siman, séifim et lien sont contrôlés mécaniquement dans chaque
+texte ; chaque illustration est inspectée (texte, personnes, symbole religieux étranger, hors
+sujet) et régénérée une fois si besoin, sinon remplacée par un fond sobre.
+
+La date est celle de **Jérusalem**. L'email part à `DAILY_POST_EMAIL` (liste séparée par des
+virgules), sinon à `ADMIN_EMAIL` et `daattorah.com@gmail.com` ; il n'est donné pour envoyé que
+sur l'identifiant renvoyé par Resend (sinon « EMAIL NON ENVOYÉ » au journal).
+
 ## Ce qui se passe chaque matin
 
 1. Le jour, le total, le siman et les séifim viennent de `data/limoud-plan.json`.
@@ -28,7 +48,7 @@ Coût estimé : 2 à 3 $ par mois de Claude, environ 2,5 $ par mois d'images (qu
 |---|---|---|
 | `ANTHROPIC_API_KEY`, `RESEND_API_KEY`, `CRON_SECRET`, KV | déjà en place | oui |
 | `OPENAI_API_KEY` | illustrations (clé API OpenAI avec paiement activé) | pour les images |
-| `DAILY_POST_EMAIL` | destinataire de l'email du matin (défaut : `ADMIN_EMAIL`) | non |
+| `DAILY_POST_EMAIL` | destinataires, séparés par des virgules (défaut : `ADMIN_EMAIL` + `daattorah.com@gmail.com`) | non |
 | `DAILY_POST_MODEL` | modèle Claude (défaut `claude-sonnet-5-5`, repli `claude-sonnet-4-6`) | non |
 | `OPENAI_IMAGE_MODEL`, `DAILY_POST_HERO_QUALITY`, `DAILY_POST_THUMB_QUALITY` | réglages des images | non |
 | `FB_PAGE_ID`, `FB_PAGE_TOKEN` | Facebook (page) | par réseau |
