@@ -110,7 +110,7 @@
     <p class="about">
       <strong>Le Daat Yomi</strong>, c'est le Choulhan Aroukh étudié en continu, à raison de quelques séifim
       par jour : texte hébreu, traduction, explication et la chitah de l'Admour HaZaken sur
-      <a href="/limoud/" style="color:var(--gold)">194 jours d'étude</a>. Garde cette page en favori —
+      <a href="/limoud/" style="color:var(--gold)"><span class="dy-total">272</span> jours d'étude</a>. Garde cette page en favori —
       elle t'attend chaque matin avec l'étude du jour.
     </p>
   </main>
@@ -138,10 +138,11 @@
 
     fetch('https://daatai.vercel.app/api/aujourdhui').then(function(r){ return r.json(); }).then(function (d) {
       if (!d || !d.ok) return;
+      if (d.totalDays) document.querySelectorAll('.dy-total').forEach(function (el) { el.textContent = d.totalDays; });
       var pad = function (n) { return String(n).padStart(3, '0'); };
       if (d.isStudyDay && d.entry) {
         var e = d.entry;
-        document.getElementById('dy-num').textContent = e.dayNumber + ' / 194';
+        document.getElementById('dy-num').textContent = e.dayNumber + (d.totalDays ? ' / ' + d.totalDays : '');
         document.getElementById('dy-siman').textContent = 'Siman ' + e.siman.num + (e.lotTotal > 1 ? ' · partie ' + e.lotIndex + '/' + e.lotTotal : '');
         document.getElementById('dy-title').textContent = e.siman.title;
         document.getElementById('dy-meta').textContent = 'Séifim ' + e.seifRange[0] + ' à ' + e.seifRange[1] + ' · ≈20 minutes · 4 niveaux d\'étude';
@@ -150,7 +151,7 @@
         document.getElementById('dy-num').textContent = '—';
         document.getElementById('dy-siman').textContent = '';
         document.getElementById('dy-title').textContent = (now.getDay() === 6 ? 'Chabbat shalom — ' : 'Pas d\'étude aujourd\'hui — ') + 'reprise avec le Siman ' + d.next.siman.num + '.';
-        document.getElementById('dy-meta').textContent = 'Prochaine étude : jour ' + d.next.dayNumber + ' / 194';
+        document.getElementById('dy-meta').textContent = 'Prochaine étude : jour ' + d.next.dayNumber + (d.totalDays ? ' / ' + d.totalDays : '');
         document.getElementById('dy-cta').href = '/limoud/jour-' + pad(d.next.dayNumber) + '.html';
         document.getElementById('dy-cta').textContent = 'Préparer la prochaine étude →';
       }

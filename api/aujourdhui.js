@@ -56,7 +56,9 @@ export default function handler(req, res) {
       }
       const ttlW = Math.min(secondsUntilParisMidnight(), 21600);
       res.setHeader('Cache-Control', `public, s-maxage=${ttlW}, stale-while-revalidate=300`);
-      return res.status(200).json({ ok: true, weekStart: sunday.toISOString().slice(0, 10), days });
+      let totalDaysW = null;
+      try { totalDaysW = loadPlan()?.meta?.totalDays || null; } catch { /* plan illisible */ }
+      return res.status(200).json({ ok: true, weekStart: sunday.toISOString().slice(0, 10), days, totalDays: totalDaysW });
     }
 
     const entry = getEntryForDate(date);
@@ -75,7 +77,12 @@ export default function handler(req, res) {
     const ttl = Math.min(secondsUntilParisMidnight(), 21600);
     res.setHeader('Cache-Control', `public, s-maxage=${ttl}, stale-while-revalidate=300`);
 
-    return res.status(200).json({ ok: true, date, isStudyDay: !!entry, entry, next });
+    // Total du programme lu dans le plan (jamais écrit en dur dans les pages :
+    // il est passé de 194 à 272 jours le 24 septembre 2026).
+    let totalDays = null;
+    try { totalDays = loadPlan()?.meta?.totalDays || null; } catch { /* plan illisible */ }
+
+    return res.status(200).json({ ok: true, date, isStudyDay: !!entry, entry, next, totalDays });
   } catch (e) {
     return res.status(500).json({ ok: false, error: 'plan indisponible' });
   }
