@@ -78,6 +78,15 @@ prévisualisation). Deux points méritent l'œil du Rav :
 - **Cas I (attente viande / fromage, trois traditions)** et **cas K (Tanya ch. 1)** : réponses
   longues avec sources ; exactitude à relire, aucun contrôle mécanique ne la juge.
 
+### Décisions du Rav (29 septembre 2026)
+
+- **Cas D, coche « ✅ Autorisé » sur un cas personnel** : forme acceptée quand le texte tranche
+  clairement le cas décrit, à condition de nommer la source avec sa référence et d'ajouter un
+  sous-texte renvoyant au Rav pour le psak (la réserve unique en fin de réponse). Inscrit dans
+  `<halakha>` du prompt.
+- **Consigne d'urgence** : on met toujours une référence — Orah Haïm 328:2 est conservé.
+- **Siman 247, test à trois critères (§ 2)** : reste tel quel.
+
 ## 3. Formulations du chat qui touchent à la halakha — à valider
 
 - La consigne d'urgence statique (`api/_reserve.js`, `URGENCE`, FR/HE/EN) cite Orah Haïm 328:2
