@@ -167,7 +167,7 @@
         });
         body.innerHTML = rows;
         var first = d.days[0], last = d.days[d.days.length - 1];
-        document.getElementById('week-range').textContent = '· jours ' + first.dayNumber + '–' + last.dayNumber + ' / 194';
+        document.getElementById('week-range').textContent = '· jours ' + first.dayNumber + '–' + last.dayNumber + (d.totalDays ? ' / ' + d.totalDays : '');
 
         var waText = '📖 *Daat Yomi — le programme de la semaine*\n'
           + 'Le Choulhan Aroukh en ≈20 min/jour, en français, sur 4 niveaux :\n\n'

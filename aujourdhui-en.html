@@ -110,7 +110,7 @@
     <p class="about">
       <strong>Daat Yomi</strong> is the Shulchan Aruch studied continuously, a few seifim
       a day: Hebrew text, translation, explanation and the Alter Rebbe's shita over
-      <a href="/limoud/" style="color:var(--gold)">194 study days</a>. Bookmark this page —
+      <a href="/limoud/" style="color:var(--gold)"><span class="dy-total">272</span> study days</a>. Bookmark this page —
       it waits for you every morning with the day's study.
     </p>
   </main>
@@ -138,10 +138,11 @@
 
     fetch('https://daatai.vercel.app/api/aujourdhui').then(function(r){ return r.json(); }).then(function (d) {
       if (!d || !d.ok) return;
+      if (d.totalDays) document.querySelectorAll('.dy-total').forEach(function (el) { el.textContent = d.totalDays; });
       var pad = function (n) { return String(n).padStart(3, '0'); };
       if (d.isStudyDay && d.entry) {
         var e = d.entry;
-        document.getElementById('dy-num').textContent = e.dayNumber + ' / 194';
+        document.getElementById('dy-num').textContent = e.dayNumber + (d.totalDays ? ' / ' + d.totalDays : '');
         document.getElementById('dy-siman').textContent = 'Siman ' + e.siman.num + (e.lotTotal > 1 ? ' · part ' + e.lotIndex + '/' + e.lotTotal : '');
         document.getElementById('dy-title').textContent = e.siman.titleEn || e.siman.title;
         document.getElementById('dy-meta').textContent = 'Seifim ' + e.seifRange[0] + ' to ' + e.seifRange[1] + ' · ≈20 minutes · 4 study levels';
@@ -150,7 +151,7 @@
         document.getElementById('dy-num').textContent = '—';
         document.getElementById('dy-siman').textContent = '';
         document.getElementById('dy-title').textContent = (now.getDay() === 6 ? 'Shabbat shalom — ' : 'No study today — ') + 'we resume with Siman ' + d.next.siman.num + '.';
-        document.getElementById('dy-meta').textContent = 'Next study: day ' + d.next.dayNumber + ' / 194';
+        document.getElementById('dy-meta').textContent = 'Next study: day ' + d.next.dayNumber + (d.totalDays ? ' / ' + d.totalDays : '');
         document.getElementById('dy-cta').href = '/limoud/jour-' + pad(d.next.dayNumber) + '-en.html';
         document.getElementById('dy-cta').textContent = 'Prepare the next study →';
       }

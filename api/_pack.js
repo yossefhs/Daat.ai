@@ -182,7 +182,7 @@ export function buildPack(num, day, opts = {}) {
 
   const yomi = opts.yomi || null;
   const yomiLine = yomi
-    ? `📅 Daat Yomi — jour ${yomi.dayNumber}/${yomi.totalDays} · séifim ${yomi.seifRange[0]}–${yomi.seifRange[1]}` +
+    ? `📅 Daat Yomi — jour ${yomi.dayNumber}${yomi.totalDays ? "/" + yomi.totalDays : ""} · séifim ${yomi.seifRange[0]}–${yomi.seifRange[1]}` +
       (yomi.lotTotal > 1 ? ` (${yomi.lotIndex}/${yomi.lotTotal})` : '') +
       ` · rejoindre : ${SITE}/#daat-yomi-banner`
     : '';
@@ -214,7 +214,7 @@ export function buildPack(num, day, opts = {}) {
 
   // Slides structurées pour le générateur d'images (canvas côté page).
   const slides = [
-    { k: yomi ? `Daat Yomi · jour ${yomi.dayNumber}/${yomi.totalDays}` : `Siman ${num}${s.numHe ? ' · ' + s.numHe : ''}`,
+    { k: yomi ? `Daat Yomi · jour ${yomi.dayNumber}${yomi.totalDays ? "/" + yomi.totalDays : ""}` : `Siman ${num}${s.numHe ? ' · ' + s.numHe : ''}`,
       t: yomi ? `Siman ${num}${s.numHe ? ' · ' + s.numHe : ''} — ${s.title}` : s.title, cover: true },
     { k: angle.label, t: hook },
     ...e.concepts.slice(0, 2).map((c) => ({ k: 'Concept-clé', t: c })),
@@ -531,7 +531,7 @@ export function renderPackHtml(pack) {
     (pack.nav.next ? `<a class="tab" data-nav data-siman="${pack.nav.next}" data-day="${pack.day}">${pack.nav.next} ›</a>` : '');
 
   const yomiBadge = pack.yomi
-    ? `<p class="yomi">📅 Daat Yomi · jour ${pack.yomi.dayNumber}/${pack.yomi.totalDays} · séifim ${pack.yomi.seifRange[0]}–${pack.yomi.seifRange[1]}${pack.yomi.lotTotal > 1 ? ` (${pack.yomi.lotIndex}/${pack.yomi.lotTotal})` : ''}</p>`
+    ? `<p class="yomi">📅 Daat Yomi · jour ${pack.yomi.dayNumber}${pack.yomi.totalDays ? "/" + pack.yomi.totalDays : ""} · séifim ${pack.yomi.seifRange[0]}–${pack.yomi.seifRange[1]}${pack.yomi.lotTotal > 1 ? ` (${pack.yomi.lotIndex}/${pack.yomi.lotTotal})` : ''}</p>`
     : '';
 
   const styleTabs = `
