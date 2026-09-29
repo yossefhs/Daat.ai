@@ -148,7 +148,7 @@ const POST_TOOL = {
           properties: {
             n: { type: 'integer' },
             titre: { type: 'string', description: 'Titre de la carte, ≤ 40 caractères.' },
-            points: { type: 'array', items: { type: 'string' }, description: '1 ou 2 phrases, chacune ≤ 110 caractères.' },
+            points: { type: 'array', items: { type: 'string' }, description: '1 ou 2 phrases, chacune ≤ 110 caractères. Entoure de **…** un ou deux mots-clés par phrase (ex. « jusqu\'à la fin de **mardi** »).' },
             illustration: { type: 'string', description: 'En anglais : décrire UNE photo d\'objet ou de scène qui illustre ce séif (ex. « a silver kiddush cup beside a vintage alarm clock »). Aucune personne, aucun texte, aucune lettre.' },
           },
         },
@@ -158,10 +158,11 @@ const POST_TOOL = {
         description: '3 ou 4 mémos très courts.',
         items: {
           type: 'object',
-          required: ['label', 'texte'],
+          required: ['label', 'texte', 'icone'],
           properties: {
             label: { type: 'string', description: '≤ 20 caractères, ex. « Oubli : »' },
             texte: { type: 'string', description: '≤ 38 caractères.' },
+            icone: { type: 'string', enum: ['clock', 'candle', 'bread', 'gear', 'wine', 'water', 'plate', 'book', 'alert', 'check'], description: 'Pictogramme le plus proche du mémo.' },
           },
         },
       },
@@ -209,7 +210,7 @@ RÈGLES DE FOND — non négociables :
 5. Pas de psak personnel. Termine WhatsApp, Facebook et LinkedIn par : « Pour la pratique, consulte ton Rav. »
 
 FORME :
-- Visuel : titre ≤ 45 car., sous-titre ≤ 55, une carte par séif (titre ≤ 40, 1-2 phrases ≤ 110 car.), 3-4 mémos « À retenir » très courts.
+- Visuel : titre ≤ 45 car., sous-titre ≤ 55, une carte par séif (titre ≤ 40, 1-2 phrases ≤ 110 car., un ou deux mots-clés en **gras** par phrase), 3-4 mémos « À retenir » très courts, chacun avec son pictogramme.
 - WhatsApp : en-tête « 📖 DAAT YOMI — JOUR ${info.dayNumber}${total} », date, semaine, siman, séifim, titre en capitales ; puis un bloc par séif numéroté en émoji (${info.seifRange[0]}️⃣…) avec un titre-question et des phrases courtes ; « 💡 À RETENIR » ; lien d'étude.
 - Facebook : un paragraphe d'accroche (question), l'essentiel en prose, le lien.
 - Instagram : lignes courtes, émojis sobres, le lien (sera dans la bio aussi).
