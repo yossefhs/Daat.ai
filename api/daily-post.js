@@ -58,7 +58,7 @@ async function deliveryStatus(ids) {
 async function runDay(date, { force = false } = {}) {
   if (!dayInfo(date)) return { ok: true, date, skipped: 'pas d\'étude Daat Yomi ce jour' };
   const [existing, emailed] = await Promise.all([
-    kv.get(`dailypost:${date}`), kv.get(`dailypost:${date}:emailed:du pack`),
+    kv.get(`dailypost:${date}`), kv.get(`dailypost:${date}:emailed:pack`),
   ]);
   if (existing && emailed && !force) {
     // Accepté par Resend ne veut pas dire livré : on relève le dernier état connu.

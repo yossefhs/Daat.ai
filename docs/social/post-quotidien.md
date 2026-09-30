@@ -5,13 +5,14 @@ jour et l'envoie par email pour validation. Rien n'est publié sans un clic.
 
 Code : `api/daily-post.js` (routes), `api/_daily-post.js` (rédaction, vérification,
 illustrations, email), `api/_daily-post-view.js` (page de validation), `api/_social-publish.js`
-(publication). Cron : `/api/daily-post` à 4 h, 7 h et 10 h UTC, dimanche → jeudi (`vercel.json`).
+(publication). Cron : `/api/daily-post` à 4 h, 7 h, 10 h et 13 h UTC, dimanche → jeudi (`vercel.json`).
 
 Les deux passages de rattrapage ne font rien si l'email du jour est déjà **confirmé** par Resend
-(`dailypost:{date}:emailed:du pack`) ; sinon ils reprennent là où le précédent s'est arrêté, sans
+(`dailypost:{date}:emailed:pack`) ; sinon ils reprennent là où le précédent s'est arrêté, sans
 réécrire un post déjà rédigé. Un email non confirmé rend un 500, visible dans les logs Vercel, où
-chaque étape est aussi écrite (`[daily-post] …`). Si l'envoi groupé est refusé, chaque
-destinataire est retenté séparément.
+chaque étape est aussi écrite (`[daily-post] …`). Un email part par destinataire, avec une
+version texte, comme les autres emails du site : l'envoi groupé sans texte du 30/09 a été donné
+« delivered » par Resend et n'est arrivé dans aucune boîte.
 
 ## Contrôles bloquants (mieux vaut ne rien envoyer qu'un Daat Yomi faux)
 

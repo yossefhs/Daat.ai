@@ -441,32 +441,30 @@ async function send(subject, html, date, label) {
   }
   const resend = new Resend(env('RESEND_API_KEY'));
   const from = env('RESEND_FROM_EMAIL') || 'noreply@daattorah.com';
-  const attempt = async (dest) => {
+  // Comme les emails du site qui arrivent (plan, newsletter) : UN destinataire par
+  // envoi et une version texte. L'envoi groupé à deux adresses, sans texte, était
+  // donné « delivered » par Resend le 30/09 et n'est arrivé dans aucune boîte.
+  const text = html.replace(/<(br|\/p|\/h[12]|\/li|\/tr|\/div)[^>]*>/gi, '\n').replace(/<a [^>]*href="([^"]+)"[^>]*>([^<]*)<\/a>/gi, '$2 : $1')
+    .replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/\n\s*\n+/g, '\n\n').trim();
+  const each = await Promise.all(to.map(async (d) => {
     try {
-      const r = await resend.emails.send({ from: `DAAT <${from}>`, to: dest, subject, html });
+      const r = await resend.emails.send({ from: `DAAT <${from}>`, to: d, subject, html, text });
       // Seule la réponse de Resend (un identifiant) atteste l'envoi.
-      if (r.error || !r.data?.id) return { error: r.error?.message || JSON.stringify(r.error || 'aucun identifiant renvoyé') };
-      return { id: r.data.id };
-    } catch (e) { return { error: e?.message || String(e) }; }
-  };
-  let r = await attempt(to);
-  let sentTo = to;
-  if (!r.id && to.length > 1) {
-    // Une adresse refusée ne doit pas priver les autres : un envoi par destinataire.
-    const each = await Promise.all(to.map(async (d) => ({ d, ...(await attempt([d])) })));
-    await logEvent({ date, event: `envoi groupé refusé (${label}), repli un par un`,
-      error: `groupé : ${r.error} · ${each.map((x) => `${x.d} : ${x.id ? 'envoyé' : x.error}`).join(' · ')}` });
-    const ok = each.filter((x) => x.id);
-    r = ok.length ? { id: ok.map((x) => x.id).join(',') } : { error: each.map((x) => `${x.d} : ${x.error}`).join(' · ') };
-    if (ok.length) sentTo = ok.map((x) => x.d);
+      if (r.error || !r.data?.id) return { to: d, error: r.error?.message || JSON.stringify(r.error || 'aucun identifiant renvoyé') };
+      return { to: d, id: r.data.id };
+    } catch (e) { return { to: d, error: e?.message || String(e) }; }
+  }));
+  const ok = each.filter((x) => x.id);
+  if (!ok.length) {
+    const error = each.map((x) => `${x.to} : ${x.error}`).join(' · ');
+    await logEvent({ date, event: `EMAIL NON ENVOYÉ (${label})`, error });
+    return { ok: false, error };
   }
-  if (!r.id) {
-    await logEvent({ date, event: `EMAIL NON ENVOYÉ (${label})`, error: r.error, to });
-    return { ok: false, error: r.error };
-  }
-  await kv.set(`dailypost:${date}:emailed:${label}`, { at: new Date().toISOString(), id: r.id, to: sentTo }, { ex: TTL });
-  await logEvent({ date, event: `email ${label} envoyé`, id: r.id, to: sentTo });
-  return { ok: true, id: r.id, to: sentTo };
+  const id = ok.map((x) => x.id).join(',');
+  const sentTo = ok.map((x) => x.to);
+  await kv.set(`dailypost:${date}:emailed:${label}`, { at: new Date().toISOString(), id, to: sentTo, envois: each }, { ex: TTL });
+  await logEvent({ date, event: `email ${label} envoyé`, envois: each });
+  return { ok: true, id, to: sentTo, envois: each };
 }
 
 const box = (inner) => `<div style="font-family:Georgia,serif;background:#FAF6EE;padding:20px;color:#1A1F3A"><div style="max-width:640px;margin:auto;background:#fff;border:1px solid #E6DDC9;border-radius:10px;padding:24px">${inner}</div></div>`;
@@ -505,7 +503,7 @@ ${h2('6. X')}${pre(p.x)}
 ${h2('7. Hashtags')}${pre((post.hashtags || []).join(' '))}
 ${h2('8. Lien de l\'étude')}<p style="font:14px Arial"><a href="${info.studyUrl}">${info.studyUrl}</a></p>
 <p style="font:13px/1.5 Arial;color:#5B6078;margin-top:20px">Rien n'est publié tant que tu n'as pas cliqué sur « Publier partout » dans la page. Le visuel se télécharge et se partage sur WhatsApp depuis la même page.</p>`);
-  return send(`${flag} Daat Yomi — ${info.dateCourte} — Jour ${info.dayNumber}${total} — Siman ${info.siman.num}`, html, date, 'du pack');
+  return send(`Daat Yomi — ${info.dateCourte} — Jour ${info.dayNumber}${total} — Siman ${info.siman.num} · ${flag}`, html, date, 'pack');
 }
 
 // Blocage : aucun pack, seulement l'explication de ce qui n'a pas pu être vérifié.
@@ -518,7 +516,7 @@ export async function sendBlockedEmail(date, reasons) {
 <p style="font:15px/1.55 Arial">Le post du jour n'a pas été rédigé : une donnée essentielle n'a pas pu être vérifiée. Rien n'a été inventé et rien ne sera publié.</p>
 ${h2('Ce qui bloque')}<ul style="font:14px/1.55 Arial;padding-left:18px">${reasons.map((r) => `<li>${esc(r)}</li>`).join('')}</ul>
 <p style="font:13px/1.5 Arial;color:#5B6078">Après correction, relancer : <code>/api/daily-post?date=${date}&amp;force=1</code> (avec le CRON_SECRET).</p>`);
-  return send(`⛔ Daat Yomi — ${info?.dateCourte || date} — PACK NON PRÉPARÉ`, html, date, 'd\'anomalie');
+  return send(`Daat Yomi — ${info?.dateCourte || date} — PACK NON PRÉPARÉ ⛔`, html, date, 'd\'anomalie');
 }
 
 // ---------- journal ----------
