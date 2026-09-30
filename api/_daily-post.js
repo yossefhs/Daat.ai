@@ -519,22 +519,19 @@ export async function sendLinkEmail(date) {
   const rec = await kv.get(`dailypost:${date}`);
   if (!rec) return { ok: false, error: 'post introuvable' };
   const { info } = rec;
+  const verdict = await kv.get(`dailypost:${date}:verify`);
+  const etat = { vert: 'vérifié', orange: 'à relire', rouge: 'à corriger' }[verdict?.global] || 'vérification en cours';
   const url = shortReviewUrl(date);
   const total = info.totalDays ? `/${info.totalDays}` : '';
-  const html = `<p>Bonjour,</p><p>Le post Daat Yomi du ${esc(info.dateFr)} est prêt : jour ${info.dayNumber}${total}, siman ${info.siman.num}.</p><p><a href="${url}">Ouvrir le post</a></p><p>${url}</p>`;
+  const html = `<p>Bonjour,</p><p>Le post Daat Yomi du ${esc(info.dateFr)} est prêt : jour ${info.dayNumber}${total}, siman ${info.siman.num}, séifim ${info.seifRange[0]} à ${info.seifRange[1]}.</p><p>Vérification : ${etat}.</p><p><a href="${url}">Ouvrir le post</a></p><p>${url}</p>`;
   return send(`Daat Yomi ${info.dateCourte} : le post du jour est prêt`, html, date, 'lien');
 }
-
 export async function sendBlockedEmail(date, reasons) {
+  // Même forme sobre que l'email du lien : la forme riche n'arrivait pas dans Gmail.
   const info = dayInfo(date);
-  const titre = info ? `Jour ${info.dayNumber}${info.totalDays ? '/' + info.totalDays : ''} — Siman ${info.siman.num} — séifim ${info.seifRange[0]}–${info.seifRange[1]}` : date;
-  const html = box(`
-<p style="margin:0 0 4px;color:#9B2F2F;font:700 12px Arial;letter-spacing:.14em">DAAT YOMI · PACK NON PRÉPARÉ</p>
-<h1 style="margin:0 0 10px;font-size:22px">${esc(titre)}</h1>
-<p style="font:15px/1.55 Arial">Le post du jour n'a pas été rédigé : une donnée essentielle n'a pas pu être vérifiée. Rien n'a été inventé et rien ne sera publié.</p>
-${h2('Ce qui bloque')}<ul style="font:14px/1.55 Arial;padding-left:18px">${reasons.map((r) => `<li>${esc(r)}</li>`).join('')}</ul>
-<p style="font:13px/1.5 Arial;color:#5B6078">Après correction, relancer : <code>/api/daily-post?date=${date}&amp;force=1</code> (avec le CRON_SECRET).</p>`);
-  return send(`Daat Yomi — ${info?.dateCourte || date} — PACK NON PRÉPARÉ ⛔`, html, date, 'd\'anomalie');
+  const titre = info ? `jour ${info.dayNumber}${info.totalDays ? '/' + info.totalDays : ''}, siman ${info.siman.num}, séifim ${info.seifRange[0]} à ${info.seifRange[1]}` : date;
+  const html = `<p>Bonjour,</p><p>Le post Daat Yomi du ${esc(info?.dateFr || date)} (${esc(titre)}) n'a pas été préparé : une donnée essentielle n'a pas pu être vérifiée. Rien n'a été inventé et rien ne sera publié.</p><p>Ce qui bloque :</p><ul>${reasons.map((r) => `<li>${esc(r)}</li>`).join('')}</ul>`;
+  return send(`Daat Yomi ${info?.dateCourte || date} : post non préparé`, html, date, 'd\'anomalie');
 }
 
 // ---------- journal ----------
