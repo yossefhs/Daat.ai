@@ -5,7 +5,33 @@ jour et l'envoie par email pour validation. Rien n'est publié sans un clic.
 
 Code : `api/daily-post.js` (routes), `api/_daily-post.js` (rédaction, vérification,
 illustrations, email), `api/_daily-post-view.js` (page de validation), `api/_social-publish.js`
-(publication). Cron : `/api/daily-post`, `0 4 * * 0-4` (UTC) dans `vercel.json`.
+(publication). Cron : `/api/daily-post` à 4 h, 7 h et 10 h UTC, dimanche → jeudi (`vercel.json`).
+
+Les deux passages de rattrapage ne font rien si l'email du jour est déjà **confirmé** par Resend
+(`dailypost:{date}:emailed:du pack`) ; sinon ils reprennent là où le précédent s'est arrêté, sans
+réécrire un post déjà rédigé. Un email non confirmé rend un 500, visible dans les logs Vercel, où
+chaque étape est aussi écrite (`[daily-post] …`). Si l'envoi groupé est refusé, chaque
+destinataire est retenté séparément.
+
+## Contrôles bloquants (mieux vaut ne rien envoyer qu'un Daat Yomi faux)
+
+Avant toute rédaction (`api/_daily-post-checks.js`), le jour du plan est confronté :
+- au **nombre réel de séifim** du siman, lu en direct sur Sefaria (et à `data/seifim-count.json`) ;
+- aux **autres journées du même siman** : séifim 1..N couverts une fois et une seule, ≤ 5 par jour ;
+- à la **page du calendrier publiée** (`/limoud/jour-NNN.html`) : même jour, siman, séifim ;
+- à la **cohérence du plan** : total annoncé = journées réelles.
+
+Un seul écart bloquant → aucun pack : un email « PACK NON PRÉPARÉ » explique ce qui n'a pas pu
+être vérifié. Les écarts non bloquants (étiquette de partie fausse, siman étudié en rattrapage)
+sont corrigés à l'affichage et signalés en tête de l'email et de la page.
+
+Après rédaction : jour, total, siman, séifim et lien sont contrôlés mécaniquement dans chaque
+texte ; chaque illustration est inspectée (texte, personnes, symbole religieux étranger, hors
+sujet) et régénérée une fois si besoin, sinon remplacée par un fond sobre.
+
+La date est celle de **Jérusalem**. L'email part à `DAILY_POST_EMAIL` (liste séparée par des
+virgules), sinon à `ADMIN_EMAIL` (à défaut `yossefhs@gmail.com`) et `daattorah.com@gmail.com` ; il n'est donné pour envoyé que
+sur l'identifiant renvoyé par Resend (sinon « EMAIL NON ENVOYÉ » au journal).
 
 ## Contrôles bloquants (mieux vaut ne rien envoyer qu'un Daat Yomi faux)
 
