@@ -40,6 +40,18 @@ async function readJson(req) {
   return {};
 }
 
+async function deliveryStatus(ids) {
+  const key = env('RESEND_API_KEY');
+  if (!key || !ids) return null;
+  return Promise.all(String(ids).split(',').map(async (id) => {
+    try {
+      const r = await fetch(`https://api.resend.com/emails/${id}`, { headers: { Authorization: `Bearer ${key}` } });
+      const d = await r.json();
+      return { id, to: d.to, last_event: d.last_event || d.message || `HTTP ${r.status}` };
+    } catch (e) { return { id, error: e.message }; }
+  }));
+}
+
 // Idempotent : le cron repasse plusieurs fois dans la matinée (vercel.json).
 // Tant qu'aucun email n'est CONFIRMÉ par Resend pour ce jour, il reprend là où
 // le passage précédent s'est arrêté ; une fois confirmé, il ne fait plus rien.
@@ -48,7 +60,12 @@ async function runDay(date, { force = false } = {}) {
   const [existing, emailed] = await Promise.all([
     kv.get(`dailypost:${date}`), kv.get(`dailypost:${date}:emailed:du pack`),
   ]);
-  if (existing && emailed && !force) return { ok: true, date, skipped: 'déjà préparé et envoyé', emailed };
+  if (existing && emailed && !force) {
+    // Accepté par Resend ne veut pas dire livré : on relève le dernier état connu.
+    const livraison = await deliveryStatus(emailed.id);
+    await logEvent({ date, event: 'état de livraison du pack', id: emailed.id, livraison });
+    return { ok: true, date, skipped: 'déjà préparé et envoyé', emailed, livraison };
+  }
   let rec = existing;
   if (!existing || force) {
     try {
