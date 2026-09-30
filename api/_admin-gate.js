@@ -24,6 +24,7 @@
 // (`_auth.js`), ce qui supprimerait la cause au lieu de la protéger.
 
 import { kv } from './_kv.js';
+import { getUserFromRequest } from './_auth.js';
 
 // Les pages d'administration appellent `/api/admin/*` en MÊME origine ; aucune
 // requête légitime n'a donc besoin de CORS. La liste sert aux déploiements de
@@ -78,6 +79,40 @@ export function corsAdmin(req, res, methodes = 'GET, POST, OPTIONS',
   res.setHeader('Access-Control-Allow-Headers', entetes);
   res.setHeader('Access-Control-Max-Age', '86400');
 }
+
+/**
+ * L'administrateur est-il identifié par le JWT du site, plutôt que par le mot
+ * de passe partagé ? Rend son adresse, ou null.
+ *
+ * PREMIÈRE ÉTAPE DU REMPLACEMENT DU MOT DE PASSE PARTAGÉ, et elle est purement
+ * ADDITIVE : le mot de passe continue de fonctionner exactement comme avant, et
+ * si `ADMIN_EMAILS` n'est pas définie, rien ne change du tout. Aucun risque
+ * d'enfermer dehors l'administrateur légitime.
+ *
+ * Ce que cette voie apporte, et que le mot de passe ne peut pas donner : une
+ * IDENTITÉ (on sait QUI a changé un plan), une EXPIRATION (le jeton vit ce que
+ * dure la session), une RÉVOCATION individuelle (retirer une adresse de la
+ * liste ne dérange personne d'autre), et plus aucun secret à se transmettre.
+ *
+ * ⚠️ Le cookie de session est `SameSite=None` — il le faut, l'API vit sur
+ * daatai.vercel.app et le site sur daattorah.com. Il part donc AUSSI sur une
+ * requête déclenchée par une page tierce. C'est exactement pourquoi le refus
+ * d'origine ci-dessus doit rester, et pourquoi il devient PLUS important une
+ * fois qu'un cookie peut authentifier : il est la seule défense contre une page
+ * malveillante qui ferait agir le navigateur de l'administrateur à son insu.
+ * L'en-tête `Origin` est posé par le navigateur sur toute requête d'origine
+ * étrangère et ne peut pas être falsifié par du JavaScript.
+ */
+export function adminParJeton(req) {
+  const liste = String(process.env.ADMIN_EMAILS || process.env.ADMIN_EMAIL || '')
+    .split(',').map((s) => s.trim().toLowerCase()).filter(Boolean);
+  if (!liste.length) return null;
+  const user = getUserFromRequest(req);
+  if (!user?.email) return null;
+  const email = String(user.email).trim().toLowerCase();
+  return liste.includes(email) ? email : null;
+}
+
 
 export const FENETRE = 15 * 60;   // secondes
 const MAX_PAR_IP = 5;

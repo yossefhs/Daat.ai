@@ -33,6 +33,26 @@ La date est celle de **Jérusalem**. L'email part à `DAILY_POST_EMAIL` (liste s
 virgules), sinon à `ADMIN_EMAIL` (à défaut `yossefhs@gmail.com`) et `daattorah.com@gmail.com` ; il n'est donné pour envoyé que
 sur l'identifiant renvoyé par Resend (sinon « EMAIL NON ENVOYÉ » au journal).
 
+## Contrôles bloquants (mieux vaut ne rien envoyer qu'un Daat Yomi faux)
+
+Avant toute rédaction (`api/_daily-post-checks.js`), le jour du plan est confronté :
+- au **nombre réel de séifim** du siman, lu en direct sur Sefaria (et à `data/seifim-count.json`) ;
+- aux **autres journées du même siman** : séifim 1..N couverts une fois et une seule, ≤ 5 par jour ;
+- à la **page du calendrier publiée** (`/limoud/jour-NNN.html`) : même jour, siman, séifim ;
+- à la **cohérence du plan** : total annoncé = journées réelles.
+
+Un seul écart bloquant → aucun pack : un email « PACK NON PRÉPARÉ » explique ce qui n'a pas pu
+être vérifié. Les écarts non bloquants (étiquette de partie fausse, siman étudié en rattrapage)
+sont corrigés à l'affichage et signalés en tête de l'email et de la page.
+
+Après rédaction : jour, total, siman, séifim et lien sont contrôlés mécaniquement dans chaque
+texte ; chaque illustration est inspectée (texte, personnes, symbole religieux étranger, hors
+sujet) et régénérée une fois si besoin, sinon remplacée par un fond sobre.
+
+La date est celle de **Jérusalem**. L'email part à `DAILY_POST_EMAIL` (liste séparée par des
+virgules), sinon à `ADMIN_EMAIL` et `daattorah.com@gmail.com` ; il n'est donné pour envoyé que
+sur l'identifiant renvoyé par Resend (sinon « EMAIL NON ENVOYÉ » au journal).
+
 ## Ce qui se passe chaque matin
 
 1. Le jour, le total, le siman et les séifim viennent de `data/limoud-plan.json`.
