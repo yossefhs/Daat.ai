@@ -531,8 +531,18 @@ git commit -m "Initial commit — DAAT.AI Siman 246"
         <p>Consommation OpenAI, coûts et activité en temps réel.</p>
       </div>
 
+      <div class="an-secret-bar" id="an-courriel-bar">
+        <span style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);">Connexion par courriel :</span>
+        <input type="email" id="an-courriel" placeholder="Votre adresse (listée dans ADMIN_EMAILS)" autocomplete="email" />
+        <button class="btn btn-gold btn-sm" id="an-courriel-envoyer" onclick="anEnvoyerCode()">Recevoir un code →</button>
+        <input type="text" id="an-code" placeholder="Code à 6 chiffres" inputmode="numeric" autocomplete="one-time-code" maxlength="6" style="display:none;max-width:170px;" />
+        <button class="btn btn-gold btn-sm" id="an-code-valider" onclick="anValiderCode()" style="display:none;">Valider</button>
+        <button class="btn btn-outline btn-sm" id="an-deconnexion" onclick="anDeconnexion()" style="display:none;">Se déconnecter</button>
+        <span id="an-courriel-etat" role="status" aria-live="polite" style="font-size:12px;color:var(--muted);width:100%;"></span>
+      </div>
+
       <div class="an-secret-bar">
-        <span style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);">Clé admin Vercel :</span>
+        <span style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);">Ou clé admin Vercel :</span>
         <input type="password" id="an-secret" placeholder="ADMIN_SECRET (stocké localement)" />
         <input type="text" id="an-api-url" placeholder="https://daatai.vercel.app" style="max-width:280px;" />
         <button class="btn btn-gold btn-sm" onclick="anConnect()">Connecter →</button>
@@ -1106,6 +1116,23 @@ onReady(() => {
 // ════════════════════════════════════════════════════════════
 let anSecret = localStorage.getItem('daat_admin_secret') || '';
 let anApiUrl = localStorage.getItem('daat_admin_api') || 'https://daatai.vercel.app';
+
+// ── Deux voies d'accès ──────────────────────────────────────────────────────
+// « secret » : la clé partagée ADMIN_PASSWORD, envoyée en en-tête à anApiUrl.
+// « jeton »  : la connexion par code courriel. Le cookie de session est posé
+//   par le MÊME site que cette page (location.origin) et non par daatai.vercel.app :
+//   un cookie « maison » est accepté par tous les navigateurs, quand Safari et
+//   Chrome bloquent de plus en plus ceux d'un autre domaine. Le serveur reconnaît
+//   l'adresse si elle figure dans ADMIN_EMAILS (à défaut ADMIN_EMAIL).
+let anMode = 'secret';
+let anJetonEmail = '';
+function anConnecte() { return anMode === 'jeton' ? Boolean(anJetonEmail) : Boolean(anSecret); }
+function anBase() { return anMode === 'jeton' ? location.origin : anApiUrl; }
+function anEntetes(extra) {
+  const h = { 'Content-Type': 'application/json', ...(extra || {}) };
+  if (anMode !== 'jeton') h['X-Admin-Secret'] = anSecret;
+  return h;
+}
 let anCharts = {};
 
 // Pré-remplir les champs si déjà en localStorage
@@ -1123,14 +1150,133 @@ async function anFetch(path, opts) {
   // Le secret voyage par EN-TÊTE, plus par l'URL : cet appel est cross-origin
   // vers l'API, et un secret dans une URL s'écrit dans les journaux d'accès,
   // dans l'historique du navigateur, et part dans le Referer.
-  const url = anApiUrl + path;
-  const res = await fetch(url, {
-    ...opts,
-    headers: { 'Content-Type': 'application/json', 'X-Admin-Secret': anSecret, ...(opts.headers || {}) },
-  });
+  const url = anBase() + path;
+  const res = await fetch(url, { ...opts, credentials: anMode === 'jeton' ? 'same-origin' : 'omit', headers: anEntetes(opts.headers) });
   if (!res.ok) throw new Error('HTTP ' + res.status);
   return res.json();
 }
+
+// ── Connexion par code courriel ─────────────────────────────────────────────
+function anEtatCourriel(txt, couleur) {
+  const el = document.getElementById('an-courriel-etat');
+  if (el) { el.textContent = txt; el.style.color = couleur || 'var(--muted)'; }
+}
+function anAfficherCourriel(etape) {
+  // etape : 'adresse' | 'code' | 'connecte'
+  const vis = (id, oui) => { const el = document.getElementById(id); if (el) el.style.display = oui ? '' : 'none'; };
+  vis('an-courriel', etape !== 'connecte');
+  vis('an-courriel-envoyer', etape !== 'connecte');
+  vis('an-code', etape === 'code');
+  vis('an-code-valider', etape === 'code');
+  vis('an-deconnexion', etape === 'connecte');
+}
+async function anLireJson(res) { try { return await res.json(); } catch (_) { return {}; } }
+
+async function anEnvoyerCode() {
+  const email = (document.getElementById('an-courriel').value || '').trim().toLowerCase();
+  if (!email) { anEtatCourriel('Tapez votre adresse courriel.', 'var(--red)'); return; }
+  anEtatCourriel('Envoi du code…');
+  try {
+    const res = await fetch(location.origin + '/api/auth/send-code', {
+      method: 'POST', credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email }),
+    });
+    const j = await anLireJson(res);
+    if (!res.ok) { anEtatCourriel('✗ ' + (j.error || ('HTTP ' + res.status)), 'var(--red)'); return; }
+    anAfficherCourriel('code');
+    anEtatCourriel('Code envoyé à ' + email + ' — valable 10 minutes. Regardez aussi les courriers indésirables.', 'var(--green)');
+    const c = document.getElementById('an-code'); if (c) { c.value = ''; c.focus(); }
+  } catch (e) {
+    anEtatCourriel('✗ Réseau : ' + (e && e.message || e), 'var(--red)');
+  }
+}
+
+// Une fois la session ouverte, on vérifie que l'adresse est bien ADMINISTRATRICE :
+// une session valide ne suffit pas, il faut que le serveur la reconnaisse.
+async function anActiverJeton(email) {
+  anMode = 'jeton';
+  anJetonEmail = email;
+  const res = await fetch(location.origin + '/api/admin/stats?action=overview&days=1', {
+    credentials: 'same-origin', headers: anEntetes(),
+  });
+  if (res.status === 401) {
+    anMode = 'secret'; anJetonEmail = '';
+    anAfficherCourriel('connecte');
+    anEtatCourriel('✗ Vous êtes connecté(e) en tant que ' + email + ', mais cette adresse n\'est pas administratrice : ajoutez-la à ADMIN_EMAILS dans Vercel (Settings → Environment Variables), puis redéployez.', 'var(--red)');
+    return false;
+  }
+  if (!res.ok) {
+    anMode = 'secret'; anJetonEmail = '';
+    anEtatCourriel('✗ Vérification admin : HTTP ' + res.status, 'var(--red)');
+    return false;
+  }
+  try { localStorage.setItem('daat_admin_mode', 'jeton'); } catch (_) {}
+  anAfficherCourriel('connecte');
+  anEtatCourriel('✅ Connecté(e) en tant qu\'administrateur : ' + email, 'var(--green)');
+  const s1 = document.getElementById('an-status');
+  if (s1) { s1.textContent = '✅ Connecté (courriel)'; s1.style.color = 'var(--green)'; }
+  const s2 = document.getElementById('an-status2');
+  if (s2) { s2.textContent = '✅ Connecté'; s2.style.color = 'var(--green)'; }
+  for (const f of [anLoadOverview, anLoadUsers, anLoadLogs]) {
+    try { await f(); } catch (e) { console.warn('[admin]', e); }
+  }
+  anStartAutoRefresh();
+  return true;
+}
+
+async function anValiderCode() {
+  const email = (document.getElementById('an-courriel').value || '').trim().toLowerCase();
+  const code = (document.getElementById('an-code').value || '').replace(/\D/g, '');
+  if (code.length !== 6) { anEtatCourriel('Le code fait 6 chiffres.', 'var(--red)'); return; }
+  anEtatCourriel('Vérification du code…');
+  try {
+    const res = await fetch(location.origin + '/api/auth/verify-code', {
+      method: 'POST', credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, code }),
+    });
+    const j = await anLireJson(res);
+    if (!res.ok) { anEtatCourriel('✗ ' + (j.error || ('HTTP ' + res.status)), 'var(--red)'); return; }
+    await anActiverJeton((j.user && j.user.email) || email);
+  } catch (e) {
+    anEtatCourriel('✗ Réseau : ' + (e && e.message || e), 'var(--red)');
+  }
+}
+
+async function anDeconnexion() {
+  // Se déconnecter doit aussi faire DISPARAÎTRE ce qui a été affiché : les
+  // statistiques, la liste des utilisateurs, les journaux et les dons restent
+  // sinon lisibles à l'écran — sur un ordinateur partagé, c'est une fuite.
+  // Plutôt que d'effacer panneau par panneau (et d'en oublier un le jour où
+  // on en ajoute), on recharge la page : rien n'y survit que le formulaire.
+  if (typeof anStopAutoRefresh === 'function') anStopAutoRefresh();
+  anMode = 'secret'; anJetonEmail = '';
+  try { await fetch(location.origin + '/api/auth/logout', { method: 'POST', credentials: 'same-origin' }); } catch (_) {}
+  try { localStorage.removeItem('daat_admin_mode'); sessionStorage.setItem('daat_admin_deconnecte', '1'); } catch (_) {}
+  location.reload();
+}
+
+// Au chargement : si une session par courriel était ouverte, on la reprend.
+// Aucun secret n'est stocké pour cette voie — seul le cookie HttpOnly fait foi.
+onReady(async () => {
+  try {
+    if (sessionStorage.getItem('daat_admin_deconnecte')) {
+      sessionStorage.removeItem('daat_admin_deconnecte');
+      anEtatCourriel('Déconnecté(e). Les données affichées ont été effacées.');
+    }
+  } catch (_) {}
+  let mode = null;
+  try { mode = localStorage.getItem('daat_admin_mode'); } catch (_) {}
+  if (mode !== 'jeton') return;
+  try {
+    const res = await fetch(location.origin + '/api/auth/me', { credentials: 'same-origin' });
+    if (!res.ok) { try { localStorage.removeItem('daat_admin_mode'); } catch (_) {} return; }
+    const j = await anLireJson(res);
+    if (j.user && j.user.email) {
+      const c = document.getElementById('an-courriel'); if (c) c.value = j.user.email;
+      await anActiverJeton(j.user.email);
+    }
+  } catch (e) { console.warn('[admin] reprise de session', e); }
+});
 
 async function anConnect() {
   // ── Panneau de debug visible (élimine tous les diagnostics à distance) ──
@@ -1153,11 +1299,16 @@ async function anConnect() {
   dbg.innerHTML = '';
   log('▶ anConnect() lancée', '#C5A55A');
 
-  anSecret = document.getElementById('an-secret').value.trim();
-  anApiUrl = (document.getElementById('an-api-url').value.trim() || 'https://daatai.vercel.app').replace(/\/$/, '');
-  log(`· Clé saisie : ${anSecret.length} caractères`);
-  log(`· URL API    : ${anApiUrl}`);
-  if (!anSecret) {
+  // La clé et l'URL saisies ne sont ADOPTÉES qu'après vérification réussie.
+  // Sinon, une clé fausse tapée alors qu'une session tourne déjà (par courriel
+  // ou par une bonne clé) serait reprise par le rafraîchissement automatique
+  // toutes les 30 s : cinq échecs, et le serveur bloque l'adresse IP quinze
+  // minutes — la session valide comprise, puisque le freinage passe avant.
+  const cle = document.getElementById('an-secret').value.trim();
+  const urlApi = (document.getElementById('an-api-url').value.trim() || 'https://daatai.vercel.app').replace(/\/$/, '');
+  log(`· Clé saisie : ${cle.length} caractères`);
+  log(`· URL API    : ${urlApi}`);
+  if (!cle) {
     log('✗ Aucune clé saisie — clique dans le champ et tape ton ADMIN_PASSWORD', '#fca5a5');
     return;
   }
@@ -1168,11 +1319,18 @@ async function anConnect() {
     status.style.color = 'var(--muted)';
   }
 
-  const url = `${anApiUrl}/api/admin/stats?action=overview&days=1&secret=${encodeURIComponent(anSecret)}`;
+  // Le secret part en EN-TÊTE. Depuis le 22 septembre 2026 le serveur ne lit
+  // plus ?secret= : ce bouton l'envoyait encore dans l'URL seulement, et
+  // répondait donc 401 même au bon mot de passe — chaque essai comptant comme
+  // un échec, cinq essais bloquaient l'accès quinze minutes.
+  const url = `${urlApi}/api/admin/stats?action=overview&days=1`;
   log(`▶ fetch (preflight + GET)…`, '#C5A55A');
   try {
     const t0 = performance.now();
-    const res = await fetch(url, { headers: { 'Content-Type': 'application/json' } });
+    // credentials: 'omit' — c'est la CLÉ qu'on vérifie, pas une session : si le
+    // cookie d'une session courriel partait avec, le serveur l'accepterait et une
+    // clé fausse passerait pour bonne (puis serait enregistrée comme telle).
+    const res = await fetch(url, { credentials: 'omit', headers: { 'Content-Type': 'application/json', 'X-Admin-Secret': cle } });
     const dt = Math.round(performance.now() - t0);
     log(`◀ Réponse en ${dt} ms : HTTP ${res.status} ${res.statusText}`, res.ok ? '#86efac' : '#fca5a5');
 
@@ -1194,6 +1352,8 @@ async function anConnect() {
     const data = await res.json();
     log(`◀ JSON OK : ${JSON.stringify(data).slice(0,140)}…`, '#86efac');
 
+    // Vérifiée : on l'adopte, et c'est elle qui sert désormais.
+    anSecret = cle; anApiUrl = urlApi; anMode = 'secret'; anJetonEmail = '';
     localStorage.setItem('daat_admin_secret', anSecret);
     localStorage.setItem('daat_admin_api', anApiUrl);
     if (status) { status.textContent = '✅ Connecté à ' + anApiUrl; status.style.color = 'var(--green)'; }
@@ -1269,9 +1429,9 @@ function anUpdateLastSync() {
 
 function anStartAutoRefresh() {
   anStopAutoRefresh();
-  if (!anAutoRefresh || !anSecret) return;
+  if (!anAutoRefresh || !anConnecte()) return;
   anAutoTimer = setInterval(() => {
-    if (!anSecret || document.hidden) return;
+    if (!anConnecte() || document.hidden) return;
     anLoadOverview();
     anLoadUsers();
     anLoadLogs();
@@ -1362,7 +1522,7 @@ async function anSearchUser() {
   const out = document.getElementById('an-search-result');
   const email = (document.getElementById('an-search-email').value || '').trim().toLowerCase();
   if (!email) { out.innerHTML = '<span style="color:var(--muted)">Saisis un email.</span>'; return; }
-  if (!anSecret) { out.innerHTML = '<span style="color:var(--red)">Connecte-toi d\'abord (onglet Stats).</span>'; return; }
+  if (!anConnecte()) { out.innerHTML = '<span style="color:var(--red)">Connecte-toi d\'abord (onglet Stats).</span>'; return; }
   out.innerHTML = '<span style="color:var(--muted)">Recherche…</span>';
   try {
     const u = await anFetch('/api/admin/stats?action=user-detail&email=' + encodeURIComponent(email));
@@ -1402,7 +1562,7 @@ async function anSearchUser() {
 
 async function anLoadUsers() {
   const wrap = document.getElementById('an-users-wrap');
-  if (!anSecret) return;
+  if (!anConnecte()) return;
   wrap.innerHTML = '<div style="padding:24px;color:var(--muted);">Chargement…</div>';
   try {
     const data = await anFetch('/api/admin/stats?action=users');
@@ -1462,7 +1622,7 @@ async function anLoadUsers() {
 
 async function anLoadLogs() {
   const wrap = document.getElementById('an-logs-wrap');
-  if (!anSecret) return;
+  if (!anConnecte()) return;
   wrap.innerHTML = '<div style="padding:24px;color:var(--muted);">Chargement…</div>';
   try {
     const data = await anFetch('/api/admin/stats?action=logs&limit=100');
@@ -1568,11 +1728,8 @@ async function anResetPreview(email) {
 async function soutFetch(path, opts) {
   opts = opts || {};
   // En-tête seulement, pour la même raison que ci-dessus.
-  const url = anApiUrl + path;
-  const res = await fetch(url, {
-    ...opts,
-    headers: { 'Content-Type': 'application/json', 'X-Admin-Secret': anSecret, ...(opts.headers || {}) },
-  });
+  const url = anBase() + path;
+  const res = await fetch(url, { ...opts, credentials: anMode === 'jeton' ? 'same-origin' : 'omit', headers: anEntetes(opts.headers) });
   if (!res.ok) {
     let msg = 'HTTP ' + res.status;
     try { const j = await res.json(); msg = j.error || msg; } catch (_) {}
@@ -1599,7 +1756,7 @@ async function soutLoadStats() {
 
 async function soutLoadRecent() {
   const wrap = document.getElementById('sout-recent-wrap');
-  if (!anSecret) {
+  if (!anConnecte()) {
     wrap.innerHTML = '<div style="padding:20px;color:var(--muted);">Connecte-toi d\'abord dans "Stats & Tokens".</div>';
     return;
   }
@@ -1634,7 +1791,7 @@ async function soutLoadRecent() {
 
 async function soutLoadAll() {
   const status = document.getElementById('sout-status');
-  if (!anSecret) {
+  if (!anConnecte()) {
     status.textContent = '— Connecte-toi d\'abord dans Stats & Tokens';
     status.style.color = 'var(--muted)';
     return;
@@ -1645,7 +1802,7 @@ async function soutLoadAll() {
 }
 
 async function soutDelete(id, name, amount) {
-  if (!anSecret) {
+  if (!anConnecte()) {
     toast('Connecte-toi d\'abord');
     return;
   }
@@ -1662,7 +1819,7 @@ async function soutDelete(id, name, amount) {
 
 async function soutSubmit() {
   const msg = document.getElementById('sout-submit-msg');
-  if (!anSecret) {
+  if (!anConnecte()) {
     msg.innerHTML = '<span style="color:var(--red)">❌ Connecte-toi d\'abord dans "Stats & Tokens"</span>';
     return;
   }
@@ -1706,7 +1863,7 @@ async function soutSubmit() {
 // Auto-charger les soutiens quand on ouvre l'onglet
 document.addEventListener('click', (e) => {
   const navItem = e.target.closest('.nav-item[data-page="soutiens"]');
-  if (navItem && anSecret) {
+  if (navItem && anConnecte()) {
     setTimeout(soutLoadAll, 100);
   }
 });

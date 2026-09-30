@@ -15,6 +15,7 @@
 
 import { kv } from './_kv.js';
 import { randomBytes } from 'node:crypto';
+import { origineRefusee, adminParJeton } from './_admin-gate.js';
 
 function setCors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -27,6 +28,13 @@ function setCors(res) {
 //   - x-admin-secret: <ADMIN_PASSWORD>              (header, admin UI)
 //   - ?secret=<ADMIN_PASSWORD>                       (query, admin UI simple)
 function isAuthed(req) {
+  // L'administrateur connecté par courriel (JWT du site, adresse listée dans
+  // ADMIN_EMAILS) — même voie que /api/admin/*. Le cookie de session étant
+  // SameSite=None, il part aussi sur une requête déclenchée par une page tierce :
+  // on ne l'accepte donc JAMAIS d'une origine étrangère. Sans variable définie,
+  // adminParJeton rend null et rien ne change.
+  if (!origineRefusee(req) && adminParJeton(req)) return true;
+
   const adminPwd = process.env.ADMIN_PASSWORD;
   const soutienSecret = process.env.SOUTIEN_ADMIN_SECRET;
 
