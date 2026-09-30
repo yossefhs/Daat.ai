@@ -419,6 +419,14 @@ def lire_ancre(tag):
     # aux simanim 250 et 251, 6 entrées pour 6 ancres et 9 pour 9.
     return qui, numero_attribut(a.get('data-label'))
 
+# Les simanim que la source n'a PAS rendus, et pourquoi. Sans ce registre, les trois
+# chemins d'échec de `carte()` — exception réseau, `he` vide, `ref` qui ne finit pas par
+# le siman — rendaient tous `{}, 0, 0, 0`, c'est-à-dire exactement ce que rend un siman
+# qui n'a rien à confronter. Éprouvé en coupant `urlopen` avec le cache écarté : la porte
+# imprimait « Rattachements confrontés : 0 » et SORTAIT EN 0, sans une ligne pour le dire.
+# C'est le défaut que le CLAUDE.md de ce dépôt nomme comme le pire.
+NON_ATTEINTS = {}
+
 def carte(section, n):
     """({commentateur: {numéro de ס״ק: séif}}, ancres, non lisibles, nb de séifim).
 
@@ -435,18 +443,21 @@ def carte(section, n):
         d = json.loads(subprocess.run(["curl", "-s", url], capture_output=True,
                                       text=True, timeout=60).stdout)
         he = d.get('he') or []
-    except Exception:
+    except Exception as e:
+        NON_ATTEINTS[f"{section} {n}"] = f"réseau : {type(e).__name__}"
         return {}, 0, 0, 0
     # Un 503 de Sefaria rend un `he` vide. Le mettre en cache rendrait cette porte
     # verte POUR TOUJOURS sur ce siman, sans qu'aucune ligne ne le dise. On ne met
     # jamais en cache un résultat vide ; on refait l'appel au prochain passage.
     if not he:
+        NON_ATTEINTS[f"{section} {n}"] = "source vide (503, ou siman non numérisé)"
         return {}, 0, 0, 0
     # Sefaria rend HTTP 200 ET LE LIVRE ENTIER sur un ref mal forme. Le signe qui ne
     # trompe pas est que le champ `ref` finit par le numero du siman demande ; sinon le
     # `len(he)` qu'on s'apprete a prendre pour un nombre de seifim est un nombre de
     # SIMANIM, et la borne du seif deviendrait une passoire.
     if not re.search(r"\b%d$" % n, str(d.get('ref') or '')):
+        NON_ATTEINTS[f"{section} {n}"] = "ref servi ≠ siman demandé (le livre entier)"
         return {}, 0, 0, 0
     ns = len(he)
     c, ancres, sans = {}, 0, 0
@@ -688,6 +699,15 @@ def main():
     if par_ouvrage:
         resume.append("  par ouvrage               : " + ", ".join(
             f"{k} {v}" for k, v in sorted(par_ouvrage.items(), key=lambda x: -x[1])))
+    # LE VERT N'EST PAS GRATUIT. Un siman que la source n'a pas rendu n'est pas un siman
+    # sans rattachement : il est NON MESURÉ, et les deux se lisaient jusqu'ici « 0 ».
+    if NON_ATTEINTS:
+        resume.append(f"Simanim NON ATTEINTS        : {len(NON_ATTEINTS)}"
+                      "  (rien n'y a été confronté)")
+        for cle, pourquoi in sorted(NON_ATTEINTS.items())[:12]:
+            resume.append(f"    ⚠ {cle} — {pourquoi}")
+        if len(NON_ATTEINTS) > 12:
+            resume.append(f"    … et {len(NON_ATTEINTS) - 12} autres")
     print()
     for l in resume:
         print(l)
@@ -702,6 +722,18 @@ def main():
         with open(dest, 'w', encoding='utf-8') as f:
             f.write("\n".join(lignes) + "\n\n" + "\n".join(resume) + "\n")
         print(f"\n→ {os.path.relpath(dest, ROOT)}")
+
+    # Une porte qui ne compare rien et sort verte est pire qu'une porte absente. Quand
+    # AUCUN rattachement n'a été confronté alors que des simanim n'ont pas été atteints,
+    # il n'y a pas de verdict à rendre — ni vert ni rouge — et le code de sortie doit le
+    # dire, parce qu'un gate est lu par son code de sortie avant de l'être par son texte.
+    # Un écart, lui, ne fait JAMAIS sortir en 1 : cette porte rend des candidats.
+    if (tj + len(tous)) == 0 and NON_ATTEINTS:
+        print()
+        print(f"✗✗ MESURE NON FAITE : aucun rattachement confronté, et {len(NON_ATTEINTS)} "
+              "siman(im) n'ont pas été atteints.")
+        print("Aucun verdict n'est rendu ici. Vérifier l'accès à Sefaria, puis relancer.")
+        return 3
     return 0
 
 if __name__ == '__main__':
