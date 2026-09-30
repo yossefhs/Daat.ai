@@ -23,6 +23,24 @@ Trois questions fermées, vérifiables, et qui ont déjà trouvé des défauts �
 Elle rend des ANOMALIES là où la réponse est non, et des CANDIDATS là où l'étiquette
 nomme un siman autre que celui de la page — ce qui est licite mais rare, et mérite l'œil.
 
+UNE PLAGE EST CONFRONTÉE SUR TOUTE SON ÉTENDUE. « MB 250:14-17 » annonce quatre ס״ק et
+n'en faisait regarder qu'un — le dernier. Sur une liste contiguë cela suffit à l'existence,
+et c'est ce qui rendait le trou invisible : le vert était juste par accident de structure,
+non par vérification. Chaque point est désormais regardé pour lui-même, ce qui ferme trois
+portes que la borne haute seule laissait ouvertes — la plage inversée (dans le même siman
+ET d'un siman à l'autre : « MB 250:2-249:3 » descend, et se lit sur le couple, non sur le
+point seul), la plage qui change de siman en chemin, et le segment vide servi par Sefaria
+au milieu d'une œuvre. Le compte imprimé distingue les ÉTIQUETTES LUES des POINTS DE SOURCE
+CONFRONTÉS : 3 992 étiquettes, dont 397 portent une plage, valent 5 264 points — c'étaient
+3 992 regards pour 5 264 points annoncés. La largeur d'une plage se compte en POINTS, borne
+haute comprise, et le compte des points confrontés est un PLANCHER : un tronçon qui casse
+n'ajoute que le parcouru.
+
+ET ELLE REFUSE DE CERTIFIER CE QU'ELLE N'A PAS COMPARÉ. Sefaria injoignable, la porte lisait
+ses étiquettes, sautait chaque point, et sortait en 0 sur « ANOMALIES : 0 ». Trois registres
+de charge le disent désormais, et la sortie 3 les traduit : œuvres chargées · non numérisées
+par Sefaria (autoritatif, on passe) · NON CHARGÉES (la mesure n'a pas eu lieu).
+
 Usage :
   python3 scripts/verifier-etiquettes.py --section shabbat [--bref]
   python3 scripts/verifier-etiquettes.py 243 245 249
@@ -150,6 +168,11 @@ if _cache.get('__v') != CACHE_V:
 
 PETIT_DEB, PETIT_FIN = '\u0001', '\u0002'
 
+# Les trois registres de charge. Une œuvre absente du cache et injoignable rend `[]` comme
+# une œuvre que Sefaria ne numérise pas : sans ces registres, la porte ne peut pas dire si
+# elle a comparé quoi que ce soit. Voir le docstring de _get et le refus de vert de main().
+_chargees, _lacunes, _echecs = set(), set(), {}
+
 def _plat(x):
     if isinstance(x, str): return x
     if isinstance(x, list): return ' '.join(_plat(y) for y in x)
@@ -177,24 +200,57 @@ def _get(slug, cle):
     du défaut que ce dépôt traque : une porte qui ne compare rien et sort verte. Signalé
     par un agent de contrôle du siman 202 ; le cache courant n'en portait aucune, mais
     c'était la chance et non la conception.
+
+    ⚠️ NE PAS PERSISTER LE VIDE NE SUFFISAIT PAS, et le trou restant était le pire de tous.
+    Un agent de contrôle l'a mesuré en trois gestes : racine fantôme, cache réduit à
+    {"__v": 2}, HTTPS_PROXY dirigé sur 127.0.0.1:9. Toutes les œuvres échouent au chargement,
+    `if not segs: continue` saute chaque point, et la porte imprime « points de source
+    réellement confrontés : 0 pour 47 étiquettes lues », « ANOMALIES : 0 », « Aucune étiquette
+    ne nomme un séif qui ne porte pas ce qu'elle annonce » — et SORT EN 0. Le nouveau compte
+    de points était le seul témoin, et rien n'agissait sur lui : ni le code de sortie, ni la
+    phrase de conclusion, ni la ligne historique « Étiquettes confrontées », qui affiche le
+    même 47 réseau coupé ou non. C'est mot pour mot ce que CLAUDE.md nomme le pire : une porte
+    qui ne compare rien et sort verte.
+
+    D'où trois registres, et la distinction qu'ils portent est tout l'enjeu :
+      · _chargees — l'œuvre a répondu et porte du texte : ses points sont confrontables ;
+      · _lacunes  — Sefaria a RÉPONDU et ne numérise pas ce siman (`he: []`, Yoré Déa 123-182
+        et à partir de 203). C'est une lacune de numérisation, elle est AUTORITATIVE, on passe
+        sans accuser (règle 21 du brief) — et sans que la mesure en soit invalidée ;
+      · _echecs   — l'œuvre n'a PAS été chargée : exception réseau, timeout, ou champ « ref »
+        qui ne finit pas par le numéro demandé. Rien n'est confronté, et la porte ne peut plus
+        prétendre au vert : main() refuse alors de certifier (voir la sortie 3).
+    Un échec et une lacune rendent tous deux `[]` à l'appelant ; seul le registre les sépare,
+    et c'est pour cela qu'il fallait le tenir ici et non au point d'appel.
     """
-    if cle in _cache: return _cache[cle]
-    out = []
+    if cle in _cache:
+        _chargees.add(cle)
+        return _cache[cle]
+    out, raison = [], None
     try:
         with urllib.request.urlopen(
                 f'https://www.sefaria.org/api/texts/{slug}?context=0&pad=0', timeout=30) as r:
             d = json.load(r)
         ref = str(d.get('ref', ''))
         n = cle.split(':')[-1]
-        if ref.rstrip().endswith(n):          # sinon : l'œuvre entière sans dire non
+        if not ref.rstrip().endswith(n):      # sinon : l'œuvre entière sans dire non
+            raison = f"Sefaria rend « {ref[:60]} » et non {slug}"
+        else:
             he = d.get('he')
-            out = [_sans_balises(b) for b in (he if isinstance(he, list) else [he])]
-    except Exception:
-        pass
+            segs = [_sans_balises(b) for b in (he if isinstance(he, list) else [he])]
+            # `he` vide ou tout blanc : l'œuvre a répondu, elle ne numérise pas ce siman.
+            out = segs if any(_plein(x) for x in segs) else []
+    except Exception as e:
+        raison = f'{type(e).__name__}: {e}'
     if out:                      # jamais de vide persisté : voir le docstring
+        _chargees.add(cle)
         _cache[cle] = out
         try: json.dump(_cache, open(CACHE, 'w', encoding='utf-8'), ensure_ascii=False)
         except Exception: pass
+    elif raison is None:
+        _lacunes.add(cle)        # lacune de numérisation, autoritative
+    else:
+        _echecs[cle] = raison    # œuvre NON CHARGÉE : la mesure est incomplète
     time.sleep(0.1)
     return out
 
@@ -246,6 +302,126 @@ def mb_decale(n):
     if not s: return None
     return 0 if re.search(r'\(\s*א\s*\)', s[0]) else 1
 
+# ⚠️ UNE PLAGE N'ÉTAIT CONFRONTÉE QUE PAR SA BORNE HAUTE, ET LA PORTE L'AVOUAIT.
+# « MB 250:14-17 » passait au vert dès lors que le ס״ק 17 existait : ni le 14, ni le 15,
+# ni le 16 n'étaient jamais regardés. Sur une liste contiguë 1..N cela SUFFIT pour
+# l'existence — et c'est précisément ce qui rendait le trou invisible : le vert était
+# juste par accident de structure, non par vérification. Il cessait de l'être dans trois
+# cas, dont deux qu'aucune autre porte ne voit :
+#   · la PLAGE INVERSÉE — « או״ח רמ״ט:ה-ב » : la borne haute lue (2) existe, la borne
+#     basse (5) n'existe pas, et le siman 249 n'a que quatre séifim ;
+#   · la PLAGE QUI CHANGE DE SIMAN — « MB 249:3-250:14 » : la porte prenait 14 pour un
+#     ס״ק du siman 249 (qui en a 23) et sortait verte, quand le ס״ק annoncé est celui du
+#     siman 250, qui n'en a que SIX. C'est la forme « N:a–M:b », déjà employée par le
+#     dépôt (« יו״ד ק״ס:ד–ק״ס:י״ב »), où M se trouve être le même siman ;
+#   · le POINT VIDE — Sefaria sert parfois un segment blanc au milieu d'une œuvre ; il
+#     compte dans len() et fait passer la borne haute sans que rien ne soit écrit là.
+# MESURE (les trois compartiments, cache du 29 septembre 2026) : 3 992 étiquettes lues, dont
+# 397 portent une plage ; ces 397 plages annoncent 1 669 POINTS et ne faisaient regarder que
+# 397 bornes hautes. La largeur d'une plage se compte donc en POINTS, borne haute comprise —
+# « MB 250:3-6 » vaut QUATRE points et non trois ; l'histogramme des largeurs est en points,
+# et sa somme est 1 669. La somme des écarts b−a vaut 1 272, qui est le nombre de regards
+# AJOUTÉS : c'est le même chiffre vu de l'autre bord, et confondre les deux décale
+# l'histogramme d'un cran.
+#
+# ⚠️ CE QUE CE 1 272 N'EST PAS, et l'énoncé précédent le disait faux. Il ne vaut PAS
+# « +31,9 % de vérification » : sur une liste contiguë servie par Sefaria, a ≤ b ≤ len entraîne
+# l'existence de tout point intermédiaire, si bien que les regards ajoutés sont logiquement
+# REDONDANTS avec la borne haute déjà contrôlée. Mesuré sur le cache : 199 œuvres, 0 segment
+# vide, 34 cartes de marqueurs de Michna Beroura, 0 carte à trou, 0 carte illisible. Sur cet
+# état, l'élargissement ne peut rendre AUCUN verdict que la borne haute ne rendait déjà.
+# L'énoncé honnête n'est pas un pourcentage de couverture, c'est : TROIS MODES DE DÉFAILLANCE
+# NOUVEAUX (plage inversée, plage qui change de siman, borne basse hors d'atteinte) plus un
+# TEST DE VACUITÉ PAR POINT, aucun d'eux constaté aujourd'hui, tous couverts le jour où l'un
+# paraît. Le gain immédiat est un compte de confrontations qui cesse de mentir — rien de plus.
+# ⚠️ LE TIRET DE PLAGE N'A TOUJOURS PAS D'ESPACES, et RIEN ici n'y touche : TIRET et NB
+# sont inchangés, le nombre d'étiquettes lues reste 3 992 au signe près. « או״ח רמ״ב:א — אין »
+# n'est pas plus une plage après qu'avant ; c'est le faux positif qui avait coûté 35
+# anomalies imaginaires sur 49, et on ne le rouvre pas pour élargir la borne basse.
+
+RX_MARQ = re.compile(r'^\s*\(\s*([\u05D0-\u05EA]{1,4})\s*\)')
+_cartes_mb = {}
+
+def mb_carte(n):
+    """ס״ק → index, lue sur les marqueurs « (א) » que Sefaria imprime DANS l'entrée.
+
+    Plus vraie que le compte : elle dit quels ס״ק existent, et non combien il y en a.
+    On ne devine rien — dès qu'une entrée (hors פתיחה de tête) ne porte pas de marqueur
+    lisible, ou qu'un marqueur se répète, la numérotation est illisible et on retombe sur
+    le compte et le décalage mesuré. Relevé sur les 34 simanim de Michna Beroura servis au
+    dépôt : tous alignés, la seule entrée sans marqueur étant la פתיחה des simanim 243,
+    248 et 253. La carte ne change donc AUCUN verdict aujourd'hui ; elle tiendra le jour
+    où une entrée non numérotée paraîtra au milieu."""
+    if n in _cartes_mb: return _cartes_mb[n]   # relue à chaque point d'une plage, sinon
+    segs = mb(n)
+    if not segs: return None
+    carte = {}
+    for i, seg in enumerate(segs):
+        m = RX_MARQ.match(seg)
+        if m is None:
+            if i == 0: continue          # la פתיחה non numérotée
+            _cartes_mb[n] = None; return None
+        v = _num(m.group(1))
+        if v is None or v in carte:
+            _cartes_mb[n] = None; return None
+        carte[v] = i
+    _cartes_mb[n] = carte or None
+    return _cartes_mb[n]
+
+def _plein(seg):
+    """Sefaria écrit-il quelque chose à cet endroit ?"""
+    return bool(re.sub(r'[\s\u00a0]', '', seg or ''))
+
+def _bornes(m, n):
+    """(borne basse, borne haute, siman de la borne haute, est-ce une plage).
+
+    ⚠️ UNE PLAGE PEUT RÉPÉTER LE SIMAN : « יו״ד ק״ס:ד–ק״ס:י״ב » va du séif 4 au séif 12
+    du siman 160, et non « du séif 4 au séif 160 ». Quand la borne haute porte elle-même
+    un deux-points, sa PREMIÈRE moitié est un siman et la seconde le point — et ce siman
+    n'est pas forcément celui de la borne basse."""
+    a = _num(m.group(2))
+    dernier = m.lastindex or 0
+    g3 = m.group(3) if dernier >= 3 else None
+    g4 = m.group(4) if dernier >= 4 else None
+    if not g3: return a, a, n, False
+    if g4: return a, _num(g4), (_num(g3) or n), True
+    return a, (_num(g3) or a), n, True
+
+def _oeuvre(genre, m):
+    """(chargeur, unité, comment nommer l'œuvre du siman k). Un seul endroit où le genre
+    se traduit en œuvre, pour que la plage se déploie de la même façon pour toutes."""
+    if genre == 'shk':
+        return shk, 'ס״ק', (lambda k: f"le Chakh du siman {k} de Yoré Déa")
+    if genre == 'taz':
+        return taz_yd, 'ס״ק', (lambda k: f"le Taz du siman {k} de Yoré Déa")
+    if genre == 'rav':
+        return ((lambda k: _get(f'Shulchan_Arukh_HaRav,_Orach_Chayim.{k}', f'rav:{k}')),
+                'séif', (lambda k: f"le Choul'han Aroukh HaRav du siman {k}"))
+    if genre == 'ahs':
+        yd = bool(re.search(YD, m.group(0)))
+        pre = 'ahsyd' if yd else 'ahsoh'
+        slug = ((lambda k: f"Arukh_HaShulchan,_Yoreh_De'ah.{k}") if yd
+                else (lambda k: f'Arukh_HaShulchan,_Orach_Chayim.{k}'))
+        return ((lambda k: _get(slug(k), f'{pre}:{k}')),
+                'séif', (lambda k: f"l'Aroukh HaChoul'han du siman {k}"))
+    if genre == 'mb':
+        return mb, 'ס״ק', (lambda k: f"la Michna Beroura du siman {k}")
+    if genre.endswith('_yd'):
+        return seifim_yd, 'séif', (lambda k: f"le siman {k} de Yoré Déa")
+    return seifim, 'séif', (lambda k: f"le siman {k} d'Orah Haïm")
+
+def _place(genre, n, segs, x):
+    """L'index du point x dans les segments, et le nombre de points numérotés de l'œuvre.
+    Pour la Michna Beroura, la carte des marqueurs prime sur le compte ; ailleurs, Sefaria
+    sert un segment par séif et l'index est le rang."""
+    if genre == 'mb':
+        carte = mb_carte(n)
+        if carte is not None:
+            return carte.get(x), max(carte)
+        d = mb_decale(n) or 0
+        return (x - 1 + d), (len(segs) - d)
+    return (x - 1), len(segs)
+
 # ⚠️ « או״ח » NE DÉSIGNE PAS TOUJOURS LE CHOUL'HAN AROUKH. Dans un recueil de responsa il
 # nomme une PARTIE : « אגרות משה או״ח ד:נג-נד » est le quatrième volume des Iggerot Moshe,
 # responsa 53-54, et non le siman 4 du Choul'han Aroukh — qui n'a que 23 séifim. C'était la
@@ -296,66 +472,101 @@ def examiner(path, siman_page, anomalies, candidats, compte):
                     continue
                 vus.add((m.start(), m.end()))
                 n = _num(m.group(1)); a = _num(m.group(2))
-                # ⚠️ UNE PLAGE PEUT RÉPÉTER LE SIMAN : « יו״ד ק״ס:ד–ק״ס:י״ב » va du séif 4 au
-                # séif 12 du siman 160, et non « du séif 4 au séif 160 ». La porte lisait la
-                # seconde chose et rendait une anomalie imaginaire sur le siman 160 de Yoré
-                # Déa, qui a bien 23 séifim. Quand la borne haute porte elle-même un
-                # deux-points, c'est sa SECONDE moitié qui est le séif.
-                b = _num(m.group(4)) if (m.lastindex or 0) >= 4 and m.group(4) else None
-                b = b or _num(m.group(3)) or a
                 if n is None or a is None: continue
+                a, b, n_haut, plage = _bornes(m, n)
+                if b is None: b = a
+                txt = m.group(0).strip()
                 compte[genre] += 1
+                compte['_plages'] += 1 if plage else 0
                 if n != siman_page:
-                    candidats.append(f"{nom} · « {m.group(0).strip()} » nomme le siman {n}, "
+                    candidats.append(f"{nom} · « {txt} » nomme le siman {n}, "
                                      f"la page est le siman {siman_page}")
-                if genre in ('shk', 'taz'):
-                    quoi = shk(n) if genre == 'shk' else taz_yd(n)
-                    nom_o = 'Chakh' if genre == 'shk' else 'Taz'
-                    if not quoi: continue
-                    if b > len(quoi):
-                        anomalies.append(f"{nom} · « {m.group(0).strip()} » — le {nom_o} du "
-                                         f"siman {n} de Yoré Déa n'a que {len(quoi)} ס״ק")
+
+                charge, unite, libelle = _oeuvre(genre, m)
+                sans, casse, prive = [], False, []
+
+                def _regarder(k, x):
+                    """Le point x de l'œuvre du siman k : existe-t-il, porte-t-il du texte ?
+
+                    Rend le segment, ou None. Un seul endroit où un point est confronté, pour
+                    que la plage inversée reçoive le MÊME examen que la plage licite — c'est
+                    le défaut (c) : « MB 249:26-23 » sortait « plage inversée » et ne disait
+                    JAMAIS que la Michna Beroura du siman 249 n'a pas de ס״ק 26 (elle en a 23),
+                    parce que le `continue` de l'inversion coupait l'examen. Le diagnostic
+                    rendu n'était pas le plus grave."""
+                    segs = charge(k)
+                    if not segs:
+                        # œuvre non chargée OU siman que Sefaria ne numérise pas : dans les
+                        # deux cas rien n'est confronté ici, et il faut que cela se COMPTE.
+                        prive.append(k)
+                        compte['_sans_source'] += 1
+                        return None, None
+                    i, haut = _place(genre, k, segs, x)
+                    compte['_points'] += 1
+                    if i is None or not (0 <= i < len(segs)):
+                        anomalies.append(f"{nom} · « {txt} » — {libelle(k)} n'a pas de "
+                                         f"{unite} {x} (il en a {haut})")
+                        return None, haut
+                    if not _plein(segs[i]):
+                        anomalies.append(f"{nom} · « {txt} » — {libelle(k)} ne porte "
+                                         f"RIEN au {unite} {x} : le segment est vide")
+                        return None, haut
+                    return segs[i], haut
+
+                # ⚠️ L'INVERSION SE LIT SUR LE COUPLE (siman, point), ET NON SUR LE POINT SEUL.
+                # C'était le défaut (b), et c'est le croisement exact des deux témoins que
+                # l'élargissement aux plages revendique : le test « n_haut == n and b < a » ne
+                # voyait pas « MB 250:2-249:3 », que la porte traitait comme un parcours licite
+                # en deux tronçons — elle confrontait 250:2..6 puis 249:1..3, huit points, et
+                # sortait verte. Mesuré : 0 plage changeant de siman dans l'état courant du
+                # dépôt, donc le défaut est DORMANT — mais c'est le chemin que l'élargissement
+                # vient d'ouvrir, et une comparaison de tuples le ferme.
+                if (n_haut, b) < (n, a):
+                    ou = (f"du {unite} {a} au {unite} {b}" if n_haut == n else
+                          f"du {unite} {a} du siman {n} au {unite} {b} du siman {n_haut}")
+                    anomalies.append(f"{nom} · « {txt} » — plage inversée : elle va {ou}")
+                    # et l'examen ne s'arrête PAS là : les deux bornes nommées sont confrontées,
+                    # sinon le lecteur reçoit le diagnostic le moins grave (défaut c).
+                    for k, x in ((n, a), (n_haut, b)):
+                        if x is not None and x >= 1: _regarder(k, x)
+                    if prive: compte['_etiq_sans_source'] += 1
                     continue
-                if genre == 'rav':
-                    segs = _get(f'Shulchan_Arukh_HaRav,_Orach_Chayim.{n}', f'rav:{n}')
-                    if not segs: continue
-                    if b > len(segs):
-                        anomalies.append(f"{nom} · « {m.group(0).strip()} » — le Choul'han "
-                                         f"Aroukh HaRav du siman {n} n'a que {len(segs)} séif(im)")
+                if a < 1:
+                    anomalies.append(f"{nom} · « {txt} » — borne basse {a} : "
+                                     f"il n'y a pas de {unite} {a}")
                     continue
-                if genre == 'ahs':
-                    yd = bool(re.search(YD, m.group(0)))
-                    slug = (f"Arukh_HaShulchan,_Yoreh_De'ah.{n}" if yd
-                            else f'Arukh_HaShulchan,_Orach_Chayim.{n}')
-                    segs = _get(slug, f"ahs{'yd' if yd else 'oh'}:{n}")
+                # ⚠️ TOUTE SON ÉTENDUE, ET NON SA SEULE BORNE HAUTE. Un tronçon par siman
+                # traversé : une plage ordinaire en a un, une plage qui change de siman en
+                # a deux, et dans chacun CHAQUE point annoncé est regardé pour lui-même.
+                troncons = ([(n, a, b)] if n_haut == n
+                            else [(n, a, None), (n_haut, 1, b)])
+                for k, bas, haut_dit in troncons:
+                    segs = charge(k)
                     # he: [] = lacune de numérisation Sefaria, jamais une absence d'œuvre
-                    if not segs: continue
-                    if b > len(segs):
-                        anomalies.append(f"{nom} · « {m.group(0).strip()} » — l'Aroukh "
-                                         f"HaChoul'han du siman {n} n'a que {len(segs)} séif(im)")
-                    continue
-                if genre == 'mb':
-                    entrees = mb(n)
-                    if not entrees: continue
-                    d = mb_decale(n)
-                    haut = len(entrees) - d
-                    if b > haut:
-                        anomalies.append(f"{nom} · « {m.group(0).strip()} » — la Michna Beroura "
-                                         f"du siman {n} n'a que {haut} ס״ק")
-                    continue
-                segs = seifim_yd(n) if genre.endswith('_yd') else seifim(n)
-                tract = 'Yoré Déa' if genre.endswith('_yd') else 'Orah Haïm'
-                if not segs: continue
-                if b > len(segs):
-                    anomalies.append(f"{nom} · « {m.group(0).strip()} » — le siman {n} de "
-                                     f"{tract} n'a que {len(segs)} séif(im)")
-                    continue
-                if genre in ('hagaha', 'hagaha_yd'):
-                    sans = [k for k in range(a, b + 1) if not porte_glose_rama(segs[k - 1])]
-                    if sans:
-                        anomalies.append(
-                            f"{nom} · « {m.group(0).strip()} » — le Rama n'a AUCUNE glose sur "
-                            f"le séif {', '.join(map(str, sans))} du siman {n} de {tract}")
+                    if not segs:
+                        prive.append(k); compte['_sans_source'] += 1
+                        continue
+                    _, haut = _place(genre, k, segs, bas)
+                    fin_t = haut if haut_dit is None else haut_dit
+                    # sinon range(bas, fin_t+1) est VIDE et la borne basse hors d'atteinte
+                    # sortirait en silence — le défaut même que cette réparation ferme.
+                    if bas > fin_t:
+                        anomalies.append(f"{nom} · « {txt} » — {libelle(k)} n'a pas de "
+                                         f"{unite} {bas} (il en a {haut})")
+                        casse = True; break
+                    for x in range(bas, fin_t + 1):
+                        seg, _h = _regarder(k, x)
+                        if seg is None:
+                            casse = True; break
+                        if genre in ('hagaha', 'hagaha_yd') and not porte_glose_rama(seg):
+                            sans.append(x)
+                    if casse: break
+                if prive: compte['_etiq_sans_source'] += 1
+                if sans and not casse:
+                    tract = 'Yoré Déa' if genre.endswith('_yd') else 'Orah Haïm'
+                    anomalies.append(
+                        f"{nom} · « {txt} » — le Rama n'a AUCUNE glose sur "
+                        f"le séif {', '.join(map(str, sans))} du siman {n} de {tract}")
 
 def main():
     argv = sys.argv[1:]
@@ -394,7 +605,8 @@ def main():
 
     anomalies, candidats = [], []
     compte = {'hagaha': 0, 'hagaha_yd': 0, 'seif': 0, 'seif_yd': 0,
-              'mb': 0, 'shk': 0, 'taz': 0, 'rav': 0, 'ahs': 0}
+              'mb': 0, 'shk': 0, 'taz': 0, 'rav': 0, 'ahs': 0,
+              '_plages': 0, '_points': 0, '_sans_source': 0, '_etiq_sans_source': 0}
     for d in dirs:
         m = re.search(r'siman-(\d+)$', d)
         if not m: continue
@@ -411,16 +623,60 @@ def main():
           f"{compte['mb']} ס״ק de Michna Beroura · {compte['shk']} du Chakh · "
           f"{compte['taz']} du Taz · {compte['rav']} séif du Choul'han Aroukh HaRav · "
           f"{compte['ahs']} séif de l'Aroukh HaChoul'han")
+    # ⚠️ UNE PORTE QUI NE COMPARE RIEN ET SORT VERTE EST PIRE QU'UNE PORTE ABSENTE : le
+    # compte des étiquettes n'est PAS le compte des confrontations. Une étiquette simple
+    # vaut un point de source ; « MB 250:3-6 » en vaut quatre, et n'en valait qu'un.
+    # ⚠️ ET CE COMPTE EST UN PLANCHER, non un total, dès qu'une anomalie paraît : un tronçon
+    # qui casse en chemin n'ajoute que le parcouru, et un point dont l'œuvre n'a pas été
+    # chargée n'ajoute rien du tout. Il faut le NOMMER ainsi. Un plancher annoncé comme un
+    # compte est l'erreur la plus coûteuse de ce dépôt.
+    lues = sum(v for k, v in compte.items() if not k.startswith('_'))
+    print(f"dont {compte['_plages']} portent une plage (largeur comptée en POINTS, "
+          f"borne haute comprise : « MB 250:3-6 » vaut QUATRE points, pas trois)")
+    print(f"points de source confrontés : {compte['_points']} pour {lues} étiquettes lues "
+          f"— PLANCHER : un tronçon qui casse n'ajoute que le parcouru")
+    # Les trois registres de charge, imprimés sans condition : c'est le seul témoin qui dise
+    # si la porte a comparé quelque chose, et le seul sur lequel le code de sortie agisse.
+    print(f"œuvres chargées : {len(_chargees)} · "
+          f"non numérisées par Sefaria (he vide, on passe sans accuser) : {len(_lacunes)} · "
+          f"NON CHARGÉES (rien n'y a été confronté) : {len(_echecs)}")
+    if _echecs:
+        for cle, raison in list(_echecs.items())[:8]:
+            print(f"    ⚠ {cle} — {raison}")
+        if len(_echecs) > 8: print(f"    … et {len(_echecs) - 8} autres")
+        print(f"    étiquettes dont au moins un point n'a pu être confronté : "
+              f"{compte['_etiq_sans_source']} · points hors d'atteinte : "
+              f"{compte['_sans_source']}")
     print(f'ANOMALIES  : {len(anomalies)}  (le séif ou le ס״ק annoncé n\'existe pas, '
           f'ou le Rama n\'a pas de glose là)')
     print(f'candidats  : {len(candidats)}  (l\'étiquette nomme un autre siman que la page — '
           f'licite, mais rare)')
-    if not anomalies:
-        print('\nAucune étiquette ne nomme un séif qui ne porte pas ce qu\'elle annonce.')
-    else:
+
+    # ⚠️ LE REFUS DE CERTIFIER. C'était le défaut le plus grave, et il tenait à ceci : rien
+    # n'agissait sur le compte de points. Racine fantôme, cache vidé, HTTPS_PROXY sur
+    # 127.0.0.1:9 — la porte imprimait « 0 pour 47 étiquettes lues », « ANOMALIES : 0 »,
+    # « Aucune étiquette ne nomme un séif qui ne porte pas ce qu'elle annonce », et SORTAIT
+    # EN 0. Deux verrous, et la sortie 3 se distingue de la sortie 1 (des anomalies) parce
+    # que ce n'est pas la même nouvelle : l'une dit que le contenu est fautif, l'autre que la
+    # MESURE n'a pas eu lieu. Une lacune de numérisation ne déclenche NI l'un ni l'autre :
+    # Sefaria a répondu, et son silence sur ce siman est autoritatif.
+    incomplete = (lues > 0 and compte['_points'] == 0) or bool(_echecs)
+    if lues > 0 and compte['_points'] == 0:
+        print(f"\n✗✗ MESURE NON FAITE : {lues} étiquettes lues et AUCUN point de source "
+              f"confronté.\nAucun verdict n'est rendu ici — ni vert ni rouge. Vérifier "
+              f"l'accès à Sefaria, puis relancer.")
+    elif _echecs:
+        print(f"\n✗✗ MESURE INCOMPLÈTE : {len(_echecs)} œuvre(s) n'ont pas été chargées, "
+              f"{compte['_etiq_sans_source']} étiquette(s) sur {lues} n'ont donc pas été "
+              f"entièrement confrontées.\nAucune anomalie sur ce qui a pu être comparé : ce "
+              f"n'est pas un vert, c'est une mesure partielle. Relancer Sefaria joignable.")
+    if anomalies:
         print('\nUne étiquette fausse est invisible aux portes de citation : le contenu de la '
               'cellule\nest une condensation, que la convention du dépôt exempte du verbatim.')
-    return 1 if anomalies else 0
+    elif not incomplete:
+        print('\nAucune étiquette ne nomme un séif qui ne porte pas ce qu\'elle annonce.')
+    if anomalies: return 1
+    return 3 if incomplete else 0
 
 if __name__ == '__main__':
     sys.exit(main())

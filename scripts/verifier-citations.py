@@ -47,7 +47,42 @@ Usage
   python3 scripts/verifier-citations.py --only-absent      # n'affiche que REF_FAUSSE / INTROUVABLE
   python3 scripts/verifier-citations.py --csv audit/citations-verifiees.csv
 
-Sort non-zéro s'il reste des REF_FAUSSE ou des INTROUVABLE (utilisable comme gate CI).
+Codes de sortie (utilisable comme gate CI)
+-----------------------------------------
+  0   tout ce qui a été confronté est conforme
+  1   il reste des REF_FAUSSE ou des INTROUVABLE — la porte a comparé, et c'est faux
+  3   LA PORTE N'A PAS PU COMPARER : la source d'un siman de Michna Beroura est
+      injoignable, ou son texte ne porte pas les marqueurs « (א) » sur lesquels le
+      recalage des ס״ק se fonde. Le vert est alors impossible — une porte qui ne
+      compare rien et sort verte est pire qu'une porte absente. Le rapport nomme le
+      siman et le motif ; « SOURCE INDISPONIBLE » se rejoue, « MARQUEURS ILLISIBLES »
+      demande d'élargir le lecteur de marqueurs.
+
+Portée du recalage — LIMITE À DÉCLARER
+--------------------------------------
+Le recalage positionnel des ס״ק ne couvre QUE la Michna Beroura. Quatre ouvrages
+frères de la table OUVRAGES sont adressés par la même hypothèse — un ס״ק supposé égal
+à l'index du segment — et restent NON RECALÉS. Mesuré sur les simanim 242, 246 et 253,
+en lisant les trois premiers segments et en comptant les marqueurs que
+RE_MB_MARQUEUR reconnaît :
+  · `Magen_Avraham.S.N`        4 / 16 / 43 segments,  0 marqueur lu
+  · `Turei_Zahav_on_…OH.S.N`   1 /  6 / 18 segments,  0 marqueur lu
+  · `Siftei_Kohen_on_…YD.S.N` 71 / 28 / 12 segments,  0 marqueur lu
+    Ces trois-là ouvrent leurs segments sur le lemme commenté (« מצטמק. פי׳ … »),
+    sans numéro : aucun décalage n'y est LISIBLE, donc aucun corrigeable par lecture
+    de marqueur. S'il en existe un, ce contrôle ne peut pas le voir — ce n'est pas
+    « il n'y en a pas ».
+  · `Kaf_HaChayim_on_…OH.S.N` 32 / 76 / 103 segments, 0 marqueur lu — et pour une
+    autre raison : il MARQUE, « א) [סעיף א׳] אפי׳ מי שצריך לאחרים », mais SANS
+    parenthèse ouvrante. Élargir RE_MB_MARQUEUR n'y suffirait pas : au siman 253 le
+    marqueur « א) » ouvre DEUX segments consécutifs (le second « א) שם. »), si bien
+    qu'un numéro n'y désigne pas un segment unique.
+  · Repère de comparaison, même mesure : `Mishnah_Berurah` rend 7/7, 34/34 et 105/106
+    marqueurs lus — le seul segment sans marqueur du siman 253 étant sa פתיחה.
+Et la limite plus générale, qui vaut pour tout ce fichier : `hebrew_versions()` est
+elle aussi un point de défaillance unique, mais ANCIEN — sa panne rend une liste
+d'éditions vide, et le code de sortie n'en tient pas compte. Ce n'est pas traité ici.
+
 Le cache disque (scripts/.cache-sefaria/) rend les passages suivants instantanés.
 """
 
@@ -226,7 +261,16 @@ def _flat(x, out):
 
 
 def fetch(ref):
-    """Segments hébreux d'une référence Sefaria, **toutes éditions hébraïques réunies**."""
+    """Segments hébreux d'une référence Sefaria, **toutes éditions hébraïques réunies**.
+
+    Un ס״ק de Michna Beroura passe d'abord par ``mb_recale`` : l'adresse Sefaria
+    d'un ס״ק n'est pas son numéro (voir la note de ce résolveur). Une adresse que
+    l'on ne sait pas recaler rend None — donc NON_RESOLU — plutôt qu'un texte
+    voisin ramassé au hasard.
+    """
+    ref = mb_recale(ref)
+    if ref is None:
+        return None
     book = re.split(r'[.]\d|[.][א-ת]', ref)[0].replace('_', ' ')
     titles = hebrew_versions(book)
     qs = '?return_format=text_only&version=hebrew'
@@ -337,6 +381,227 @@ def gem(s):
     if any(a < b for a, b in zip(vals, vals[1:])):
         return None
     return sum(vals)
+
+
+# ───────────── Michna Beroura : l'adresse d'un ס״ק n'est pas son numéro ─────────────
+#
+# Dans `Mishnah_Berurah.N`, Sefaria sert les segments du siman dans l'ordre du
+# livre — et ce premier segment est PARFOIS la פתיחה, l'introduction non numérotée
+# que le Hafets Haïm place en tête de certains simanim. Quand elle est là, tout
+# est décalé d'un cran : l'adresse `Mishnah_Berurah.248.36` ne sert pas le ס״ק לו
+# mais le ס״ק לה. MESURÉ, et c'est le cas témoin de ce correctif :
+#
+#   page  sources/shabbat/siman-248/niveau-2-lamdan.html:551
+#         « אבל במקום שלא נהגו להקל אין כדאי לכתחלה להקל … » (משנה ברורה רמ״ח ס״ק ל״ו)
+#   Sefaria, Mishnah_Berurah.248.36 → « (לה) והליכת שיירא — ודעת מ״א … אין להקל »
+#   Sefaria, segment portant le marqueur (לו) → « … אבל במקום שלא נהגו להקל … »
+#
+# La citation est exacte et la page a raison ; c'est le résolveur qui la confrontait
+# au ס״ק voisin. Toutes les citations de Michna Beroura d'un siman à פתיחה étaient
+# dans ce cas — dans les DEUX sens : une citation juste opposée au mauvais texte, et
+# une citation réellement mal rattachée absoute parce que le décalage la ramenait
+# par hasard sur le ס״ק qui la porte.
+#
+# ⚠️ LE DÉCALAGE SE MESURE, JAMAIS NE SE SUPPOSE, et « +1 partout » serait faux :
+# la פתיחה est là au siman 248, elle n'y est PAS aux simanim 250 et 251. On ne
+# calcule donc aucun décalage — ON LIT LE MARQUEUR « (א) », « (לה) » que le texte
+# porte lui-même, et on cherche le segment qui porte le numéro revendiqué.
+#
+# RECENSEMENT, et il est EXHAUSTIF, non un plancher : les 697 simanim d'Orah Haïm de
+# `Mishnah_Berurah` interrogés un par un, « a une פתיחה » signifiant que le marqueur
+# « (א) » n'ouvre PAS le segment d'index 0. ONZE simanim : 69, 178, 211, 243, 248,
+# 253, 308, 317, 319, 337, 645 — et zéro siman illisible une fois les deux formes de
+# marqueur lues. Le recensement ne dit pas combien de citations en dépendent : les
+# simanim que le dépôt NOMME avec un ס״ק de Michna Beroura sont 224, et cinq d'entre
+# eux sont dans cette liste (211, 243, 248, 253, 308). Au 308, aucune citation réelle
+# n'est en jeu — ce qui pointe vers lui est le faux positif de guématrie de RE_MB.
+#
+# Un siman dont les marqueurs ne se lisent pas est déclaré NON RECALABLE et compté :
+# sa citation part en NON_RESOLU, ET LA PORTE SORT EN 3 — n'avoir rien comparé n'est
+# pas un résultat vert. Deviner vaudrait confronter au mauvais texte, ce qui est
+# précisément le défaut réparé ici.
+RE_MB_REF = re.compile(r'^Mishnah_Berurah\.(\d{1,3})\.(\d{1,3})$')
+# Le marqueur ouvre le segment : « (כח) והעולה לארץ ישראל - … ». Une lettre à
+# quatre caractères n'est pas un numéral ; le gershayim est accepté sans être exigé,
+# Sefaria imprimant « (לה) » sans lui.
+#
+# ⚠️ DEUX FORMES, ET N'EN LIRE QU'UNE RENDAIT 35 SIMANIM ILLISIBLES. Sefaria écrit le
+# marqueur entre PARENTHÈSES sur la quasi-totalité de l'ouvrage — mais entre ACCOLADES
+# sur un bloc entier : « {א} ביום נ׳ לספירת העומר וכו׳ - … ». Mesuré sur les 697
+# simanim : 32 simanim du bloc 494-529 emploient « {n} » (le 525 est le seul de sa
+# plage à employer « (n) »), et ils étaient TOUS déclarés sans marqueur lisible. Tant
+# que le code de sortie ignorait ce cas, cela ne coûtait « que » des citations non
+# confrontées ; maintenant qu'une source illisible fait sortir la porte en 3, c'eût été
+# une classe entière de rouges imaginaires — le mutisme échangé contre du bruit.
+# Aucune autre forme n'a été relevée : ni crochets, ni chevrons.
+#
+# ⚠️ ET LE MARQUEUR N'OUVRE PAS TOUJOURS LE SEGMENT. Aux simanim 505, 509 et 515,
+# Sefaria colle le ס״ק א à la fin de la פתיחה, sans séparateur :
+# « …ויתבאר לקמיה:{א} עומדת לאכילה - … ». Le ס״ק א EST dans le segment 0, et l'y
+# rattacher est la vérité ; l'ignorer le faisait passer pour inexistant. On accepte
+# donc un marqueur en tête de segment OU immédiatement après un deux-points — la
+# ponctuation par laquelle la Michna Beroura ferme chacun de ses ס״ק —, la lecture en
+# tête gardant la priorité pour qu'un marqueur intérieur ne puisse que COMBLER un trou,
+# jamais déplacer un ס״ק déjà situé.
+RE_MB_MARQUEUR = re.compile(r'^[({]\s*([א-ת]{1,3}["\u05f4\u05f3\']?[א-ת]?)\s*[)}]')
+RE_MB_MARQUEUR_INTERNE = re.compile(r':\s*[({]\s*([א-ת]{1,3}["\u05f4\u05f3\']?[א-ת]?)\s*[)}]')
+RE_BALISE = re.compile(r'<[^>]+>')
+
+# Compteurs de transparence. Une porte qui ne dit pas combien de fois elle a
+# comparé, et sur quoi, ne se relit pas.
+#
+# ⚠️ ET CE RECALAGE A INTRODUIT UN POINT DE DÉFAILLANCE UNIQUE DONT L'ÉCHEC LAISSAIT
+# LA PORTE VERTE — le défaut le plus grave qu'un garde-fou puisse avoir, et il est né
+# de sa propre réparation. Interroger `Mishnah_Berurah.N` avant toute citation de
+# Michna Beroura veut dire que la panne de ce seul endpoint fait partir TOUTES les
+# citations MB du siman en « Référence non résolue », lesquelles ne comptent ni dans
+# INTROUVABLE ni dans REF_FAUSSE : le code de sortie restait 0. MESURÉ — `_get`
+# forcé à un 503 sur les seules URL /texts/Mishnah_Berurah.*, cache des marqueurs
+# purgé, siman 248 : « Référence non résolue : 17 · non recalables : 16 » et
+# « CODE DE SORTIE : 0 ». L'entête annonce « utilisable comme gate CI » : un gate lu
+# par son code de sortie passait donc au vert en n'ayant RIEN comparé, et ce mode de
+# défaillance n'existait pas pour la Michna Beroura avant le recalage.
+#
+# On sépare donc trois choses que « non recalable » confondait, parce qu'elles
+# appellent trois conduites différentes :
+#   · SOURCE INDISPONIBLE — réseau muet, réponse portant un autre ref, aucun segment.
+#     La porte n'a pas comparé ; elle doit le dire et SORTIR NON NULLE (code 3).
+#     Rejouer suffit d'ordinaire.
+#   · MARQUEURS ILLISIBLES — Sefaria sert bien le siman, mais son texte ne porte pas
+#     les « (א) » sur lesquels le recalage se fonde. La porte n'a pas comparé non
+#     plus : même sortie non nulle, mais le remède est ici d'élargir le lecteur de
+#     marqueurs, pas de rejouer.
+#   · ס״ק REVENDIQUÉ INEXISTANT — la source est lue, ses ס״ק sont connus, et le
+#     résolveur en nomme un qui n'y est pas. Ce n'est PAS une panne de la porte, et
+#     ce n'est PAS un constat sur la page non plus : compté et dénombré pour que
+#     « non recalables » ne cache rien, mais SANS faire rougir la porte, et sans être
+#     présenté comme un défaut. MESURÉ — 14 couples (siman, ס״ק) sur les 1 077 que le
+#     dépôt nomme ; SEPT ouverts à la main, SEPT faux, tous de la même cause, qui est
+#     ANTÉRIEURE à ce recalage : RE_MB n'a AUCUNE frontière de mot, ni à gauche ni à
+#     droite, et se déclenche À L'INTÉRIEUR de « רמב״ם ». Dans « רמב״ם : שלא תהא שבת
+#     קלה », elle lit le « מב » de Rambam, prend le « ״ם » qui suit pour un siman
+#     (guématria 40), le deux-points pour le séparateur, et « שלא » pour un ס״ק
+#     (ש=300 + ל=30 + א=1 = 331) : d'où « MB 40 ס״ק 331 ». La table OUVRAGES, elle,
+#     écrit bien « (?<![א-ת])מ["״]ב(?![א-ת]) ». RE_MB n'est PAS corrigée ici : la
+#     réparer déplacerait l'extraction de références de tout le dépôt, ce qui est un
+#     autre chantier et ne doit pas être mêlé à celui-ci. La cause est nommée pour
+#     qu'il soit pris. `verifier-etiquettes.py` reste le contrôle qui répond de
+#     l'existence d'un ס״ק.
+MB_STATS = {'refs': 0, 'recalees': 0, 'identiques': 0, 'non_recalables': 0,
+            'simanim_petiha': set(), 'simanim_indisponibles': {},
+            'simanim_sans_marqueur': set(), 'sk_absents': []}
+
+# Mémo de session. Le cache DISQUE ne retient jamais une panne — et c'est la bonne
+# règle — mais sans mémo un siman en panne était réinterrogé à chaque citation : le
+# siman 248 en porte dix-sept, soit dix-sept appels à un endpoint déjà connu muet.
+_MB_MEMO = {}
+
+
+def _mb_marqueurs(siman):
+    """{numéro de ס״ק → index 0 du segment} lu DANS le texte de Mishnah_Berurah.N.
+
+    On interroge l'édition par défaut, en un seul appel : c'est elle que l'API
+    adresse par `Mishnah_Berurah.N.k`, et c'est donc son indexation qu'il faut lire.
+    Réunir plusieurs éditions comme le fait ``fetch`` concaténerait leurs segments
+    et détruirait justement l'index qu'on cherche.
+
+    Le cache ne retient JAMAIS un résultat vide : un unique 503 de Sefaria rendrait
+    sinon la Michna Beroura non recalable pour toujours, et la porte muette.
+
+    Rend le dictionnaire `{'idx': …, 'total': …}` en cas de succès, ou
+    `{'panne': 'indisponible'|'sans_marqueur', 'motif': '…'}` — jamais None : le
+    motif de l'échec est ce qui décide du code de sortie, et l'écraser en None était
+    précisément ce qui laissait la porte verte sur une source injoignable.
+    """
+    def produire():
+        data = _get('https://www.sefaria.org/api/texts/Mishnah_Berurah.%d'
+                    '?context=0&pad=0' % siman)
+        if _echec(data) or not isinstance(data, dict):
+            return {'error': 'indisponible/réseau: %s'
+                    % (data.get('error') if isinstance(data, dict) else type(data).__name__)}
+        he = data.get('he') or []
+        he = _flat(he, [])
+        # Le « ref » qui ne trompe pas : la réponse doit porter sur CE siman.
+        # `Mishnah_Berurah_on_Shulchan_Arukh,_Orach_Chayim.N` rend 200 et le LIVRE
+        # ENTIER ; le bon ref finit par le numéro du siman.
+        if not re.search(r'\b%d$' % siman, str(data.get('ref', ''))):
+            return {'error': 'indisponible/ref inattendu: %r' % data.get('ref')}
+        if not he:
+            return {'error': 'indisponible/aucun segment'}
+        propres = [RE_BALISE.sub('', NIKUD.sub('', seg)).strip() for seg in he]
+        idx = {}
+        for i, seg in enumerate(propres):
+            m = RE_MB_MARQUEUR.match(seg)
+            if not m:
+                continue
+            n = gem(m.group(1))
+            if n and str(n) not in idx:
+                idx[str(n)] = i
+        # Second passage : un ס״ק collé à la fin du segment précédent (cf. la note de
+        # RE_MB_MARQUEUR_INTERNE). Il ne peut que combler un trou.
+        for i, seg in enumerate(propres):
+            for m in RE_MB_MARQUEUR_INTERNE.finditer(seg):
+                n = gem(m.group(1))
+                if n and str(n) not in idx:
+                    idx[str(n)] = i
+        if not idx:
+            return {'error': 'sans_marqueur/aucun marqueur lisible'}
+        return {'idx': idx, 'total': len(he)}
+
+    # Le mémo de session épargne les appels répétés à un siman déjà connu en panne,
+    # sans jamais écrire une panne sur le disque.
+    if siman in _MB_MEMO:
+        return _MB_MEMO[siman]
+    data = _cached('mb-marqueurs-v2::%d' % siman, produire)
+    if isinstance(data, dict) and 'idx' in data:
+        out = data
+    else:
+        motif = (data or {}).get('error', 'indisponible/inconnu') \
+            if isinstance(data, dict) else 'indisponible/inconnu'
+        genre, _, detail = motif.partition('/')
+        out = {'panne': genre if genre in ('indisponible', 'sans_marqueur') else 'indisponible',
+               'motif': detail or motif}
+        _MB_MEMO[siman] = out
+    return out
+
+
+def mb_recale(ref):
+    """`Mishnah_Berurah.S.N` → l'adresse Sefaria du segment qui porte le ס״ק N.
+
+    Rend la référence inchangée pour tout ce qui n'est pas un ס״ק de Michna
+    Beroura, et None quand le siman n'est pas recalable — en consignant AU PASSAGE
+    laquelle des trois causes a joué, parce que deux d'entre elles signifient que la
+    porte n'a rien comparé et doivent la faire sortir non nulle (voir MB_STATS).
+    """
+    m = RE_MB_REF.match(ref or '')
+    if not m:
+        return ref
+    siman, sk = int(m.group(1)), int(m.group(2))
+    MB_STATS['refs'] += 1
+    table = _mb_marqueurs(siman)
+    if 'idx' not in table:
+        MB_STATS['non_recalables'] += 1
+        if table.get('panne') == 'sans_marqueur':
+            MB_STATS['simanim_sans_marqueur'].add(siman)
+        else:
+            MB_STATS['simanim_indisponibles'].setdefault(siman, table.get('motif', ''))
+        return None
+    if table['idx'].get('1') not in (0, None):
+        MB_STATS['simanim_petiha'].add(siman)
+    i = table['idx'].get(str(sk))
+    if i is None:
+        # La source est lue et ses ס״ק sont connus, et la référence EXTRAITE nomme un
+        # ס״ק que ce siman ne porte pas. Ce n'est pas une panne — mais ce n'est pas
+        # non plus un défaut de la page tant qu'on n'a pas écarté le faux positif de
+        # RE_MB décrit dans la note de MB_STATS : sept sur sept l'étaient.
+        MB_STATS['non_recalables'] += 1
+        MB_STATS['sk_absents'].append((siman, sk, max((int(k) for k in table['idx']), default=0)))
+        return None
+    if i + 1 == sk:
+        MB_STATS['identiques'] += 1
+    else:
+        MB_STATS['recalees'] += 1
+    return 'Mishnah_Berurah.%d.%d' % (siman, i + 1)
 
 
 MASSEKHTOT = {
@@ -1713,8 +1978,61 @@ def main():
     print(f"  Variantes           : {stats['VARIANTE']}")
     print(f"  Référence fausse    : {stats['REF_FAUSSE']}  (texte réel, mais pas là où la page le situe)")
     print(f"  INTROUVABLES        : {stats['INTROUVABLE']}  (absentes de tout Sefaria)")
+    # Ce que la porte a réellement confronté du côté de la Michna Beroura. Sans ce
+    # bloc, un recalage muet (Sefaria indisponible, marqueurs illisibles) ressemble
+    # à un passage vert : les citations partent en NON_RESOLU et personne ne le voit.
+    print('--- Michna Beroura : recalage des ס״ק ---')
+    # Ce compteur dénombre les ADRESSES DISTINCTES résolues (le site mémorise le
+    # texte déjà rapatrié) : deux citations du même ס״ק n'en font qu'une ici.
+    print(f"  adresses résolues   : {MB_STATS['refs']}"
+          f"  (adresse déjà juste : {MB_STATS['identiques']}"
+          f" · recalés : {MB_STATS['recalees']}"
+          f" · non recalables : {MB_STATS['non_recalables']})")
+    if MB_STATS['simanim_petiha']:
+        print("  simanim à פתיחה     : "
+              + ', '.join(str(n) for n in sorted(MB_STATS['simanim_petiha'])))
+    if MB_STATS['sk_absents']:
+        # Ni panne de la porte, ni défaut de la page : le siman est lu, ses ס״ק sont
+        # connus, et la référence extraite en nomme un qui n'y figure pas. Imprimé
+        # pour que « non recalables » ne cache rien — et étiqueté pour ce que c'est,
+        # les sept cas ouverts à la main étant sept faux positifs de guématrie dus à
+        # RE_MB (voir la note de MB_STATS).
+        vus = sorted(set(MB_STATS['sk_absents']))
+        print(f"  ס״ק extraits inexistants : {len(vus)}  "
+              '— candidats FAIBLES, faux positifs de guématrie préexistants attendus')
+        print('      ' + ' · '.join(f'MB {si} ס״ק {sk} (ce siman s\'arrête à {hi})'
+                                    for si, sk, hi in vus[:8])
+              + (' …' if len(vus) > 8 else ''))
+    if MB_STATS['simanim_sans_marqueur']:
+        print("  MARQUEURS ILLISIBLES: "
+              + ', '.join(str(n) for n in sorted(MB_STATS['simanim_sans_marqueur'])))
+    for n, motif in sorted(MB_STATS['simanim_indisponibles'].items()):
+        print(f"  SOURCE INDISPONIBLE : Mishnah_Berurah.{n} — {motif}")
     if args.csv:
         print(f"  Détail              : {args.csv}")
+
+    # ─── LA PORTE N'A-T-ELLE RIEN COMPARÉ ? ───
+    # Une porte qui ne compare rien et sort verte est pire qu'une porte absente. Le
+    # recalage des ס״ק fait dépendre TOUTES les citations de Michna Beroura d'un siman
+    # d'un seul appel à `Mishnah_Berurah.N` : sa panne les envoie en « Référence non
+    # résolue », qui ne compte ni dans INTROUVABLE ni dans REF_FAUSSE. Sans ce bloc,
+    # le code de sortie restait 0 et un gate CI passait au vert sur une source
+    # injoignable. Code 3 pour distinguer « je n'ai pas pu comparer » (rejouer, ou
+    # élargir le lecteur de marqueurs) de « j'ai comparé et c'est faux » (code 1),
+    # étant entendu qu'un gate lu par son code de sortie échoue sur les deux.
+    aveugle = sorted(MB_STATS['simanim_indisponibles']) + \
+        sorted(MB_STATS['simanim_sans_marqueur'])
+    if aveugle:
+        print()
+        print('!!! PORTE AVEUGLE — aucune citation de Michna Beroura n\'a été confrontée')
+        print('    pour %d siman(im) : %s' % (len(aveugle),
+                                              ', '.join(str(n) for n in aveugle)))
+        # `non_recalables` et `sk_absents` s'incrémentent tous deux une fois par
+        # référence : on retire les occurrences, non les couples distincts.
+        print('    %d référence(s) partie(s) en « non résolue » de ce seul fait.'
+              % (MB_STATS['non_recalables'] - len(MB_STATS['sk_absents'])))
+        print('    Le vert est impossible ici : rien n\'a été comparé.')
+        return 3
     return 1 if (stats['INTROUVABLE'] or stats['REF_FAUSSE']) else 0
 
 
