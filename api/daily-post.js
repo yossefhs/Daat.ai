@@ -40,23 +40,38 @@ async function readJson(req) {
   return {};
 }
 
+// Idempotent : le cron repasse plusieurs fois dans la matinée (vercel.json).
+// Tant qu'aucun email n'est CONFIRMÉ par Resend pour ce jour, il reprend là où
+// le passage précédent s'est arrêté ; une fois confirmé, il ne fait plus rien.
 async function runDay(date, { force = false } = {}) {
   if (!dayInfo(date)) return { ok: true, date, skipped: 'pas d\'étude Daat Yomi ce jour' };
-  const existing = await kv.get(`dailypost:${date}`);
-  if (existing && !force) return { ok: true, date, skipped: 'déjà préparé' };
-  let rec;
-  try {
-    rec = await writePost(date);
-  } catch (e) {
-    // Mieux vaut ne rien envoyer qu'un Daat Yomi faux : on explique pourquoi.
-    const reasons = e instanceof BlockedError ? e.reasons : [`Rédaction impossible : ${e.message}`];
-    const email = await sendBlockedEmail(date, reasons);
-    return { ok: false, date, bloque: reasons, email };
+  const [existing, emailed] = await Promise.all([
+    kv.get(`dailypost:${date}`), kv.get(`dailypost:${date}:emailed:du pack`),
+  ]);
+  if (existing && emailed && !force) return { ok: true, date, skipped: 'déjà préparé et envoyé', emailed };
+  let rec = existing;
+  if (!existing || force) {
+    try {
+      rec = await writePost(date);
+    } catch (e) {
+      // Mieux vaut ne rien envoyer qu'un Daat Yomi faux : on explique pourquoi.
+      const reasons = e instanceof BlockedError ? e.reasons : [`Rédaction impossible : ${e.message}`];
+      await logEvent({ date, event: 'pack bloqué', error: reasons.join(' · ') });
+      // Un seul email de blocage par jour et par motif, même si le cron repasse.
+      const cle = `dailypost:${date}:blockedmail`;
+      const deja = await kv.get(cle);
+      const email = deja === reasons.join(' · ') && !force ? { ok: true, skipped: 'déjà signalé' } : await sendBlockedEmail(date, reasons);
+      if (email.ok && !email.skipped) await kv.set(cle, reasons.join(' · '), { ex: 10 * 24 * 3600 });
+      return { ok: false, date, bloque: reasons, email };
+    }
   }
-  const [verify, images] = await Promise.allSettled([verifyPost(date), generateAllImages(date)]);
+  const [verify, images] = await Promise.allSettled([
+    existing && !force ? kv.get(`dailypost:${date}:verify`).then((v) => v || verifyPost(date)) : verifyPost(date),
+    generateAllImages(date),
+  ]);
   const email = await sendReviewEmail(date);
   return {
-    ok: true, date, titre: rec.post.titre,
+    ok: email.ok, date, titre: rec.post.titre, reprise: !!existing && !force,
     verify: verify.status === 'fulfilled' ? verify.value?.global : `échec : ${verify.reason?.message}`,
     images: images.status === 'fulfilled' ? images.value : `échec : ${images.reason?.message}`,
     email,
@@ -87,8 +102,10 @@ export default async function handler(req, res) {
       }
       const d = date || parisToday(); // date civile à Jérusalem
       const out = await runDay(d, { force: req.query?.force === '1' });
+      console.log('[daily-post] cron', JSON.stringify({ ...out, images: undefined }).slice(0, 1500));
       if (!out.skipped) out.review = `${SITE}/api/daily-post?action=review&date=${d}&t=${tokenFor(d)}`;
-      return res.status(200).json(out);
+      // Email non confirmé → 500 : l'échec se voit dans les logs et le tableau des crons Vercel.
+      return res.status(out.email && !out.email.ok ? 500 : 200).json(out);
     }
 
     // ---- actions de la page de validation : jeton du jour ----

@@ -98,11 +98,14 @@ export async function auditCalendar(entry, sefariaSeifim) {
     const r = await fetch(`${SITE}/limoud/jour-${pad}.html`);
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     const html = await r.text();
+    // Deux formes de titre : « Jour 82 — Siman 299 (séif 6-10 / 10) » pour une partie,
+    // « Jour 83 — Siman 300 · » quand la journée couvre le siman entier.
     const m = html.match(/Jour (\d+) — Siman (\d+) \(séif (\d+)-(\d+) \/ (\d+)\)/);
-    if (!m) {
+    const entier = !m && html.match(/Jour (\d+) — Siman (\d+) ·/);
+    if (!m && !entier) {
       avertissement.push(`Page publiée du jour ${entry.dayNumber} : format non reconnu, confrontation impossible.`);
     } else {
-      const [, j, s, pa, pb, pn] = m.map(Number);
+      const [, j, s, pa, pb, pn] = m ? m.map(Number) : [0, Number(entier[1]), Number(entier[2]), 1, reel, reel];
       if (j !== entry.dayNumber || s !== num || pa !== a || pb !== b) {
         bloquant.push(`La page publiée /limoud/jour-${pad} annonce « Jour ${j}, siman ${s}, séifim ${pa}-${pb} » alors que le plan dit « Jour ${entry.dayNumber}, siman ${num}, séifim ${a}-${b} ».`);
       }

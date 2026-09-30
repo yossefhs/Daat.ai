@@ -428,7 +428,7 @@ function esc(s) {
 // Destinataires : DAILY_POST_EMAIL (liste séparée par des virgules), sinon
 // l'administrateur et la boîte de l'association.
 function recipients() {
-  const list = (env('DAILY_POST_EMAIL') || [env('ADMIN_EMAIL'), 'daattorah.com@gmail.com'].filter(Boolean).join(','))
+  const list = (env('DAILY_POST_EMAIL') || [env('ADMIN_EMAIL') || 'yossefhs@gmail.com', 'daattorah.com@gmail.com'].join(','))
     .split(',').map((x) => x.trim().toLowerCase()).filter(Boolean);
   return [...new Set(list)];
 }
@@ -441,15 +441,32 @@ async function send(subject, html, date, label) {
   }
   const resend = new Resend(env('RESEND_API_KEY'));
   const from = env('RESEND_FROM_EMAIL') || 'noreply@daattorah.com';
-  const r = await resend.emails.send({ from: `DAAT <${from}>`, to, subject, html });
-  // Seule la réponse de Resend (un identifiant) atteste l'envoi.
-  if (r.error || !r.data?.id) {
-    const error = r.error?.message || String(r.error || 'aucun identifiant renvoyé');
-    await logEvent({ date, event: `EMAIL NON ENVOYÉ (${label})`, error });
-    return { ok: false, error };
+  const attempt = async (dest) => {
+    try {
+      const r = await resend.emails.send({ from: `DAAT <${from}>`, to: dest, subject, html });
+      // Seule la réponse de Resend (un identifiant) atteste l'envoi.
+      if (r.error || !r.data?.id) return { error: r.error?.message || JSON.stringify(r.error || 'aucun identifiant renvoyé') };
+      return { id: r.data.id };
+    } catch (e) { return { error: e?.message || String(e) }; }
+  };
+  let r = await attempt(to);
+  let sentTo = to;
+  if (!r.id && to.length > 1) {
+    // Une adresse refusée ne doit pas priver les autres : un envoi par destinataire.
+    const each = await Promise.all(to.map(async (d) => ({ d, ...(await attempt([d])) })));
+    await logEvent({ date, event: `envoi groupé refusé (${label}), repli un par un`,
+      error: `groupé : ${r.error} · ${each.map((x) => `${x.d} : ${x.id ? 'envoyé' : x.error}`).join(' · ')}` });
+    const ok = each.filter((x) => x.id);
+    r = ok.length ? { id: ok.map((x) => x.id).join(',') } : { error: each.map((x) => `${x.d} : ${x.error}`).join(' · ') };
+    if (ok.length) sentTo = ok.map((x) => x.d);
   }
-  await logEvent({ date, event: `email ${label} envoyé`, id: r.data.id, to });
-  return { ok: true, id: r.data.id, to };
+  if (!r.id) {
+    await logEvent({ date, event: `EMAIL NON ENVOYÉ (${label})`, error: r.error, to });
+    return { ok: false, error: r.error };
+  }
+  await kv.set(`dailypost:${date}:emailed:${label}`, { at: new Date().toISOString(), id: r.id, to: sentTo }, { ex: TTL });
+  await logEvent({ date, event: `email ${label} envoyé`, id: r.id, to: sentTo });
+  return { ok: true, id: r.id, to: sentTo };
 }
 
 const box = (inner) => `<div style="font-family:Georgia,serif;background:#FAF6EE;padding:20px;color:#1A1F3A"><div style="max-width:640px;margin:auto;background:#fff;border:1px solid #E6DDC9;border-radius:10px;padding:24px">${inner}</div></div>`;
@@ -507,6 +524,8 @@ ${h2('Ce qui bloque')}<ul style="font:14px/1.55 Arial;padding-left:18px">${reaso
 // ---------- journal ----------
 
 export async function logEvent(e) {
+  // Aussi dans les logs Vercel : le journal KV n'est lisible qu'avec le secret.
+  console.log('[daily-post]', JSON.stringify(e).slice(0, 1500));
   try {
     await kv.lpush('dailypost:log', JSON.stringify({ at: new Date().toISOString(), ...e }));
     await kv.ltrim('dailypost:log', 0, 29);
