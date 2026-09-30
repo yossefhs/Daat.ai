@@ -200,6 +200,40 @@ python3 scripts/verifier-denombrements.py [--path …] [--a-verifier] [--bref]
 # Aroukh. Rend des CANDIDATS et sort toujours en 0 — une page peut citer le ס״ק d'un
 # autre séif quand il éclaire le sien. Ce qui compte : l'écart isolé, à ouvrir, et
 # l'écart SYSTÉMATIQUE, tout un siman décalé, qui est le piège de la règle 22-bis.
+#
+# ⚠️ ELLE N'AVAIT JAMAIS CONFRONTÉ UN SEUL ס״ק DE LA MICHNA BEROURA — l'ouvrage le plus
+# cité du dépôt — et elle sortait verte. Son motif exigeait l'ADJACENCE de
+# `data-commentator="…"` et `data-order="…"`, or Sefaria intercale parfois un `data-label`,
+# et la Michna Beroura ne porte AUCUN `data-order` : son numéro de ס״ק est un NUMÉRAL
+# HÉBREU dans `data-label`. Mesuré sur `Shulchan_Arukh,_Orach_Chayim.246` : 90 ancres,
+# 37 captées, 53 RATÉES — les 34 de la Michna Beroura, 15 Be'er HaGolah, 3 Ateret
+# Zekenim, 1 Eshel Avraham. Soit 59 % des ancres.
+# ET ELLE NE COUVRAIT QU'UN LECTEUR SUR TROIS : `SF_` était sensible à la casse et ne
+# lisait pas « Seif » (16 070 occurrences dans sources/), `SK_` n'acceptait que le ס״ק
+# hébreu (5 722 formes latines). Le cas témoin du siman 267 existe dans les trois langues
+# et seul l'HÉBREU était lu — le français, langue par défaut du site, était muet. C'est
+# mot pour mot la leçon de verifier-troncatures.py : UNE CLAUSE NE COUVRE LE LECTEUR QUE
+# DANS LA PAGE QU'IL A SOUS LES YEUX. Et le groupe `sk2` était capté sans jamais être lu :
+# « MB ס״ק ה-ו » promet DEUX rattachements et un seul était confronté (54 cas).
+# ÉTAT MESURÉ, avant → après, site entier :
+#   Orah Haïm    0 →   159 confrontations ·   0 écart
+#   Chabbat      0 →    32 confrontations ·   9 écarts
+#   Yoré Déa   107 →   982 confrontations · 143 écarts
+#   TOTAL      107 → 1 173 confrontations · 152 écarts — ×11 · 40 714 ancres lues
+#   par ouvrage : Siftei Kohen 573 · Turei Zahav 352 · MICHNA BEROURA 189 ·
+#                 Pithei Teshuva 46 · Ba'er Hetev 11 · Magen Avraham 2
+# Le défaut du siman 267 est réel : Sefaria ancre MB ס״ק ה ET ו au séif 2 d'OH 267 quand
+# la page annonce le séif 3 ; ce qui traite de שומר עמו est le ס״ק ז. Le lecteur qui ouvre
+# le ס״ק ה tombe sur les lois du repas avant la nuit.
+# ⚠️ ELLE SORTAIT AUSSI VERTE SANS AVOIR RIEN COMPARÉ. `carte()` rendait `{}, 0, 0, 0` sur
+# ses TROIS chemins d'échec — exception réseau, `he` vide, `ref` servi ≠ siman demandé —
+# c'est-à-dire exactement ce que rend un siman sans rattachement, et `examiner()` rendait
+# la main sans même ouvrir les pages. Éprouvé en coupant `urlopen` avec le cache écarté :
+# « Rattachements confrontés : 0 », CODE DE SORTIE 0, pas une ligne pour le dire. Les
+# trois chemins se déclarent désormais dans `NON_ATTEINTS` AVEC LEUR RAISON, et la porte
+# sort en 3 quand rien n'a été confronté. Une lacune de la source et un échec de mesure
+# n'y sont PAS confondus : un siman que Sefaria ne numérise pas rend le BON `ref`, `error`
+# nul et `he` vide (vérifié sur `Shulchan_Arukh,_Yoreh_De'ah.169`, le seul du dépôt).
 python3 scripts/verifier-ancrage.py [N N …] [--path …]
 
 # Garde-fou de troncature — la citation SAUTE-t-elle un passage de sa source sans le dire ?
@@ -339,13 +373,18 @@ relecture adversariale — laquelle a trouvé **26 défauts les neuf autres port
   absolue fausse par une énumération fermée également fausse n'est pas une correction.**
   D'où le choix de signaler aussi les énumérations fermées, et de préférer partout une
   forme ouverte (« notamment aux seifim 22, 49, 51 et 57 ») — ou de ne rien écrire.
-- `verifier-ancrage.py` — **le ס״ק cité est-il sur le séif annoncé ?** Portée volontairement
-  étroite, et il faut le dire : les pages énoncent rarement le couple ס״ק/séif, si bien que
-  101 rattachements seulement sont confrontables sur les 424 simanim. 91 sont conformes,
-  **10 ne le sont pas** — dont le Taz ס״ק י״ח du siman 119, donné au séif 7 dans les trois
-  langues quand son ancre le pose au séif 19, et quatre écarts présents dans la seule page
-  HÉBRAÏQUE, c'est-à-dire là où l'hébreu dit ce que le français ne dit pas. Candidats déposés
-  dans `audit/ancrage-candidats.txt` ; aucune page n'a été modifiée.
+- `verifier-ancrage.py` — **le ס״ק cité est-il sur le séif annoncé ?** J'ai d'abord décrit
+  sa portée comme « volontairement étroite : 101 rattachements confrontables sur les 424
+  simanim, 91 conformes, 10 non ». **Cette étroitesse n'était pas un choix, c'était une
+  cécité** — et c'est la leçon à garder de cette porte. Elle ne lisait pas les ancres de la
+  Michna Beroura, ni « Seif » avec une majuscule, ni la forme latine du ס״ק, ni la seconde
+  borne d'une plage ; et sur trois chemins d'échec elle rendait un zéro impossible à
+  distinguer d'un compartiment sans rattachement. Réparée, elle confronte **1 173
+  rattachements dont 189 de Michna Beroura** (×11), en rend **152 candidats**, et **refuse
+  de conclure** (code 3) quand la source n'a pas répondu. Le Taz ס״ק י״ח du siman 119, donné
+  au séif 7 dans les trois langues quand son ancre le pose au séif 19, reste dans le relevé.
+  Candidats dans `audit/ancrage-candidats.txt` ; aucune page n'a été modifiée.
+  **Un chiffre bas n'est pas une portée modeste : c'est d'abord une hypothèse à éprouver.**
 
 Ce contrôle a été **beaucoup plus difficile à rendre juste qu'à écrire**, et la leçon vaut
 d'être gardée : son premier essai rendait **118 « FAUX » sur le seul siman 228, tous
