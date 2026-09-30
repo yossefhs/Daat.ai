@@ -24,6 +24,7 @@ import {
 } from './_deepseek.js';
 import { RESERVE, urgenceFor } from './_reserve.js';
 import { detecteUrgenceVitale, CONSIGNE_URGENCE_MODELE } from './_urgence.js';
+import { reponseAccueil } from './_accueil.js';
 import { dateContextBlock } from './_date.js';
 
 const client = new Anthropic();
@@ -117,7 +118,7 @@ const META_PATTERNS = new RegExp('^(?:' + [
   'yasher koah', 'yaacher koah',
   // Identité / capacités
   'qui (?:es|est)[- ]?tu', '(?:tu es|t es|vous etes) qui', 'tu es quoi',
-  "c est quoi (?:daat|daat torah|ce site|ce chat)", 'presente toi', 'tu sers a quoi',
+  "c est quoi (?:daat|daat torah|ce site|ce chat)", 'presente[- ]toi', 'tu sers a quoi',
   'que sais[- ]?tu faire', 'qu est[- ]?ce que tu sais faire', 'tu fais quoi',
   'qui te supervise', 'tu es une ia', 'tu es un robot',
   // Fonctionnement
@@ -321,7 +322,11 @@ function genGuestId() {
 // exact-match en KV. Un hit = 0 token LLM. TTL 14j (assez stable, refresh régulier).
 // Version dans la clé : bumper METÀ_CACHE_VERSION invalide tout le cache d'un coup
 // (utile si on change le ton/contenu des réponses méta dans le system prompt).
-const META_CACHE_VERSION = 'v1';
+// v2 (30/09/2026) : purge des réponses méta générées puis figées 14 jours — dont
+// « Shalom ! Rav de te retrouver ici. » servi à chaque « Bonjour ». Les messages
+// d'accueil sont désormais ÉCRITS (api/_accueil.js) et ne passent plus par ce
+// cache ; il ne reste qu'un repli, qui ne doit pas pouvoir resservir l'ancien.
+const META_CACHE_VERSION = 'v2';
 const META_CACHE_TTL = 14 * 24 * 60 * 60;
 function metaCacheKey(text) {
   const norm = String(text || '')
@@ -1230,6 +1235,40 @@ export default async function handler(req, res) {
       soutenir_url: SOUTENIR_URL,
     });
     res.write(`data: ${rateInfoPayload}\n\n`);
+
+    // ── Accueil ÉCRIT : salutations, remerciements, « qui es-tu », « ça marche comment » ──
+    // Texte fixe, aucun modèle (voir api/_accueil.js). Passe AVANT le cache et
+    // avant DeepSeek : une phrase fautive restée en cache ne peut plus être servie
+    // pour ces messages. Le décompte des quotas est celui du chemin du cache,
+    // inchangé (la question compte, le coût est nul).
+    if (model._meta) {
+      const lastUserText = trimmedMessages[trimmedMessages.length - 1].content;
+      const accueil = reponseAccueil(lastUserText, { declared: req.body?.lang, referer: req.headers.referer });
+      if (accueil) {
+        const CHUNK = 24;
+        for (let i = 0; i < accueil.texte.length; i += CHUNK) {
+          res.write(`data: ${JSON.stringify({ type: 'text', delta: accueil.texte.slice(i, i + CHUNK) })}\n\n`);
+        }
+        res.write(`data: ${JSON.stringify({
+          type: 'done', stop_reason: 'end_turn', iterations: 1,
+          usage: { input_tokens: 0, output_tokens: 0 }, provider: 'accueil-statique',
+        })}\n\n`);
+        try {
+          await kv.incr(rateKey);
+          const ttl = await kv.ttl(rateKey);
+          if (ttl === -1 || ttl === -2) await kv.expire(rateKey, 24 * 60 * 60);
+          await kv.incr(monthRateKey);
+          const mttl = await kv.ttl(monthRateKey);
+          if (mttl === -1 || mttl === -2) await kv.expire(monthRateKey, 35 * 24 * 60 * 60);
+          await kv.sadd('users:known', userId);
+          console.log(`[chat.js] accueil statique (${accueil.famille}/${accueil.lang}): ${userId}`);
+        } catch (err) {
+          console.error('[chat.js] accueil statique tracking error:', err?.message || err);
+        }
+        res.end();
+        return;
+      }
+    }
 
     // ── Cache méta-réponses : exact-match KV avant tout appel LLM ──
     // Les méta-questions sont des premiers messages courts (cf. isMetaQuestion),
