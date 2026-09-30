@@ -5,7 +5,7 @@ jour et l'envoie par email pour validation. Rien n'est publié sans un clic.
 
 Code : `api/daily-post.js` (routes), `api/_daily-post.js` (rédaction, vérification,
 illustrations, email), `api/_daily-post-view.js` (page de validation), `api/_social-publish.js`
-(publication). Cron : `/api/daily-post` à 4 h, 7 h, 10 h et 13 h UTC, dimanche → jeudi (`vercel.json`).
+(publication). Cron : `/api/daily-post` à 4 h, 7 h, 10 h, 13 h et 15 h UTC, dimanche → jeudi (`vercel.json`).
 
 Les deux passages de rattrapage ne font rien si l'email du jour est déjà **confirmé** par Resend
 (`dailypost:{date}:emailed:pack`) ; sinon ils reprennent là où le précédent s'est arrêté, sans
@@ -96,3 +96,10 @@ WhatsApp n'a pas d'API de publication pour les groupes : il reste un partage man
 - Le lien de l'email porte un jeton propre à la date, dérivé de `CRON_SECRET` : il n'ouvre
   que le post de ce jour-là et ne révèle pas le secret.
 - Le jeton LinkedIn expire au bout d'environ 60 jours : le refaire à l'échéance.
+
+## Email minimal (diagnostic de livraison, 30/09/2026)
+
+L'email complet du pack a été donné « delivered » par Resend sans jamais paraître dans Gmail,
+quand les codes de connexion du même expéditeur arrivent en secondes. Un second email, minimal
+(quelques lignes, lien court `https://daattorah.com/valider/{date}/{jeton}`), part donc avec lui.
+Celui des deux qui arrive dit si le contenu est en cause.

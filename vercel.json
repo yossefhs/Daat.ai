@@ -94,6 +94,10 @@
   ],
   "rewrites": [
     {
+      "source": "/valider/:date/:t",
+      "destination": "/api/daily-post?action=review&date=:date&t=:t"
+    },
+    {
       "source": "/faq",
       "destination": "/faq.html"
     },
@@ -1262,6 +1266,10 @@
     {
       "path": "/api/daily-post",
       "schedule": "0 13 * * 0-4"
+    },
+    {
+      "path": "/api/daily-post",
+      "schedule": "0 15 * * 0-4"
     }
   ]
 }

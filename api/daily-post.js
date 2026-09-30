@@ -19,7 +19,7 @@
 import { kv } from './_kv.js';
 import {
   parisToday, dayInfo, tokenOk, tokenFor, writePost, verifyPost, generateImage,
-  generateAllImages, imageSlots, sendReviewEmail, sendBlockedEmail, BlockedError, logEvent, SITE,
+  generateAllImages, imageSlots, sendReviewEmail, sendLinkEmail, sendBlockedEmail, BlockedError, logEvent, SITE,
 } from './_daily-post.js';
 import { renderReviewPage } from './_daily-post-view.js';
 import { configuredPlatforms, publishAll } from './_social-publish.js';
@@ -64,7 +64,8 @@ async function runDay(date, { force = false } = {}) {
     // Accepté par Resend ne veut pas dire livré : on relève le dernier état connu.
     const livraison = await deliveryStatus(emailed.id);
     await logEvent({ date, event: 'état de livraison du pack', id: emailed.id, livraison });
-    return { ok: true, date, skipped: 'déjà préparé et envoyé', emailed, livraison };
+    const lien = (await kv.get(`dailypost:${date}:emailed:lien`)) || await sendLinkEmail(date);
+    return { ok: true, date, skipped: 'déjà préparé et envoyé', emailed, livraison, lien };
   }
   let rec = existing;
   if (!existing || force) {
@@ -87,11 +88,12 @@ async function runDay(date, { force = false } = {}) {
     generateAllImages(date),
   ]);
   const email = await sendReviewEmail(date);
+  const lien = (await kv.get(`dailypost:${date}:emailed:lien`)) || await sendLinkEmail(date);
   return {
     ok: email.ok, date, titre: rec.post.titre, reprise: !!existing && !force,
     verify: verify.status === 'fulfilled' ? verify.value?.global : `échec : ${verify.reason?.message}`,
     images: images.status === 'fulfilled' ? images.value : `échec : ${images.reason?.message}`,
-    email,
+    email, lien,
   };
 }
 
