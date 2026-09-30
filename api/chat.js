@@ -1239,8 +1239,11 @@ export default async function handler(req, res) {
     // ── Accueil ÉCRIT : salutations, remerciements, « qui es-tu », « ça marche comment » ──
     // Texte fixe, aucun modèle (voir api/_accueil.js). Passe AVANT le cache et
     // avant DeepSeek : une phrase fautive restée en cache ne peut plus être servie
-    // pour ces messages. Le décompte des quotas est celui du chemin du cache,
-    // inchangé (la question compte, le coût est nul).
+    // pour ces messages.
+    // L'accueil NE COMPTE PAS dans les quotas (décision du Rav, 30/09/2026) : un
+    // visiteur anonyme a trois questions par mois, et « Bonjour » puis « merci »
+    // lui en prenaient deux sans qu'il ait rien demandé. Une salutation n'est pas
+    // une question, et elle ne coûte rien.
     if (model._meta) {
       const lastUserText = trimmedMessages[trimmedMessages.length - 1].content;
       const accueil = reponseAccueil(lastUserText, { declared: req.body?.lang, referer: req.headers.referer });
@@ -1252,14 +1255,14 @@ export default async function handler(req, res) {
         res.write(`data: ${JSON.stringify({
           type: 'done', stop_reason: 'end_turn', iterations: 1,
           usage: { input_tokens: 0, output_tokens: 0 }, provider: 'accueil-statique',
+          // rate_info a déjà annoncé « count + 1 » au client, avant de savoir que
+          // ce message ne serait pas compté : on lui rend la jauge RÉELLE, comme
+          // le fait le chemin du corpus. Le widget relit month_remaining ici.
+          quota_consumed: false,
+          month_remaining: Math.max(0, monthLimit - currentMonthCount),
         })}\n\n`);
         try {
-          await kv.incr(rateKey);
-          const ttl = await kv.ttl(rateKey);
-          if (ttl === -1 || ttl === -2) await kv.expire(rateKey, 24 * 60 * 60);
-          await kv.incr(monthRateKey);
-          const mttl = await kv.ttl(monthRateKey);
-          if (mttl === -1 || mttl === -2) await kv.expire(monthRateKey, 35 * 24 * 60 * 60);
+          // Ni rateKey ni monthRateKey : l'accueil ne consomme aucun quota.
           await kv.sadd('users:known', userId);
           console.log(`[chat.js] accueil statique (${accueil.famille}/${accueil.lang}): ${userId}`);
         } catch (err) {
