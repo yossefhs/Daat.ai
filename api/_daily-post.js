@@ -507,6 +507,24 @@ ${h2('8. Lien de l\'étude')}<p style="font:14px Arial"><a href="${info.studyUrl
 }
 
 // Blocage : aucun pack, seulement l'explication de ce qui n'a pas pu être vérifié.
+// Email minimal, envoyé EN PLUS de l'email complet : quelques lignes et un lien
+// court. Le 30/09, l'email complet a été donné « delivered » par Resend sans
+// jamais paraître dans Gmail, quand les codes de connexion du même expéditeur
+// arrivent en secondes : celui-ci dit, par comparaison, si c'est le contenu.
+export function shortReviewUrl(date) {
+  return `${SITE}/valider/${date}/${tokenFor(date)}`;
+}
+
+export async function sendLinkEmail(date) {
+  const rec = await kv.get(`dailypost:${date}`);
+  if (!rec) return { ok: false, error: 'post introuvable' };
+  const { info } = rec;
+  const url = shortReviewUrl(date);
+  const total = info.totalDays ? `/${info.totalDays}` : '';
+  const html = `<p>Bonjour,</p><p>Le post Daat Yomi du ${esc(info.dateFr)} est prêt : jour ${info.dayNumber}${total}, siman ${info.siman.num}.</p><p><a href="${url}">Ouvrir le post</a></p><p>${url}</p>`;
+  return send(`Daat Yomi ${info.dateCourte} : le post du jour est prêt`, html, date, 'lien');
+}
+
 export async function sendBlockedEmail(date, reasons) {
   const info = dayInfo(date);
   const titre = info ? `Jour ${info.dayNumber}${info.totalDays ? '/' + info.totalDays : ''} — Siman ${info.siman.num} — séifim ${info.seifRange[0]}–${info.seifRange[1]}` : date;
