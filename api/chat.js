@@ -11,7 +11,12 @@ import { getClientIp } from './_http.js';
 import { SYSTEM_PROMPT, buildSystemPrompt } from './_system-prompt.js';
 import { SEFARIA_TOOLS, executeSefariaTool } from './_sefaria.js';
 import { CORPUS_TOOLS, executeCorpusTool, searchCorpus } from './_corpus.js';
-import { searchCorpus as searchShabbatCorpus, corpusCacheKey, CORPUS_CACHE_TTL, stripProfileBlock, profileSignature } from './_corpus-search.js';
+import { searchCorpusForRouting as searchShabbatCorpus, corpusCacheKey, CORPUS_CACHE_TTL, stripProfileBlock, profileSignature } from './_corpus-search.js';
+// searchCorpusForRouting = searchCorpus, SAUF quand la question nomme un siman :
+// les résultats sont alors restreints à CE siman, et le chemin court décline si
+// rien n'en ressort (voir le constat dans api/_corpus-search.js). Les trois voies
+// de routage ci-dessous passent par lui ; l'outil daat_search_corpus garde sa
+// propre recherche (le modèle y impose le siman explicitement).
 import { MAREH_MEKOMOT_TOOLS, executeMarehMekomotTool } from './_mareh_mekomot.js';
 import { getUserFromRequest, isAllowedOrigin } from './_auth.js';
 import { createHash } from 'node:crypto';
@@ -143,8 +148,19 @@ function isConversationalMeta(text) {
 }
 
 function pickModel(messages, hint, plan, previewUsed, aperçuBlocked, forceOpus) {
-  // Hint explicite du client (ex: depuis une page Lamdan/Synthèse) — gagne toujours
-  if (hint === 'opus' || hint === 'sonnet' || hint === 'haiku') return MODELS[hint];
+  // Un hint du client ne peut pas OUVRIR un droit — il ne peut que demander moins
+  // cher. Auparavant `hint === 'opus'` rendait Opus avant TOUTE vérification de
+  // plan : n'importe quel appelant de /api/chat obtenait Opus en ajoutant
+  // model_hint:"opus" au corps, sans passer par le plafond de l'Aperçu Premium
+  // (PREVIEW_OPUS_LIMIT) ni par un abonnement. Vérifié : aucune page du site
+  // n'envoie ce champ — le commentaire d'origine (« ex: depuis une page
+  // Lamdan/Synthèse ») décrivait une intention, pas un usage. La profondeur des
+  // pages d'étude est déjà couverte par les mots-clés Opus du point 6
+  // ('lamdan', 'synthèse', 'machloket'…), donc rien ne se dégrade.
+  if (hint === 'haiku' || hint === 'sonnet') return MODELS[hint];
+  // Une demande d'Opus est traitée comme une DEMANDE : elle est honorée plus bas
+  // si le plan ou l'Aperçu y donnent droit, et ignorée sinon.
+  const opusHint = hint === 'opus';
 
   const lastUser = [...messages].reverse().find(m => m.role === 'user');
   const text = (lastUser?.content || '').toString().trim();
@@ -182,6 +198,12 @@ function pickModel(messages, hint, plan, previewUsed, aperçuBlocked, forceOpus)
     // Aperçu : Opus en effort 'medium' (TTFB plus court). Les abonnés payants
     // gardent 'high' (promesse « payant = profondeur Opus complète »).
     return { ...MODELS.opus, _aperçu: true, effort: 'medium' };
+  }
+
+  // 4 bis. Demande d'Opus sans droit : on la trace et on suit le routage normal
+  // (les mots-clés du point 6 peuvent encore donner Opus, légitimement).
+  if (opusHint) {
+    console.log(`[chat.js] model_hint=opus non honoré : plan=${plan} previewUsed=${previewUsed} aperçuBlocked=${aperçuBlocked} → routage normal`);
   }
 
   // 5. Khavroutha : Opus sur halakhique pointu uniquement
@@ -931,7 +953,12 @@ async function tryCorpusRescue({ req, res, messages, section, userId, isGuest, p
     console.error('[chat.js] corpus rescue search error:', err?.message || err);
     return false;
   }
-  if (!cs || cs.results.length === 0) return false;
+  if (!cs || cs.results.length === 0) {
+    if (cs?.declinedNamedSiman) {
+      console.log(`[chat.js] corpus RESCUE décliné : la question nomme le siman ${cs.declinedNamedSiman}, aucun extrait de CE siman au-dessus de la barre`);
+    }
+    return false;
+  }
   console.log(`[chat.js] corpus RESCUE (${scope}): ${userId} plan=${plan} → siman-${cs.results[0].siman}`);
   return serveCorpusAnswer({
     req, res, cs, section,
@@ -1386,6 +1413,12 @@ export default async function handler(req, res) {
         }
       }
 
+      if (cs?.declinedNamedSiman) {
+        // La question DÉSIGNE un siman : plutôt que de servir l'extrait d'un autre
+        // siman (et de laisser le modèle conclure que celui-ci n'est pas couvert),
+        // on laisse le chemin agentique ouvrir plusieurs seifim de CE siman.
+        console.log(`[chat.js] corpus-first décliné : question sur le siman ${cs.declinedNamedSiman}, aucun extrait de CE siman → chemin agentique`);
+      }
       if (cs && cs.results.length > 0) {
         const served = await serveCorpusAnswer({
           req, res, cs, section, lastUserText, userId, isGuest, plan,
