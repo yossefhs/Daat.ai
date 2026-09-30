@@ -58,14 +58,13 @@ async function deliveryStatus(ids) {
 async function runDay(date, { force = false } = {}) {
   if (!dayInfo(date)) return { ok: true, date, skipped: 'pas d\'étude Daat Yomi ce jour' };
   const [existing, emailed] = await Promise.all([
-    kv.get(`dailypost:${date}`), kv.get(`dailypost:${date}:emailed:pack`),
+    kv.get(`dailypost:${date}`), kv.get(`dailypost:${date}:emailed:lien`),
   ]);
   if (existing && emailed && !force) {
     // Accepté par Resend ne veut pas dire livré : on relève le dernier état connu.
     const livraison = await deliveryStatus(emailed.id);
-    await logEvent({ date, event: 'état de livraison du pack', id: emailed.id, livraison });
-    const lien = (await kv.get(`dailypost:${date}:emailed:lien`)) || await sendLinkEmail(date);
-    return { ok: true, date, skipped: 'déjà préparé et envoyé', emailed, livraison, lien };
+    await logEvent({ date, event: 'état de livraison', id: emailed.id, livraison });
+    return { ok: true, date, skipped: 'déjà préparé et envoyé', emailed, livraison };
   }
   let rec = existing;
   if (!existing || force) {
@@ -87,13 +86,16 @@ async function runDay(date, { force = false } = {}) {
     existing && !force ? kv.get(`dailypost:${date}:verify`).then((v) => v || verifyPost(date)) : verifyPost(date),
     generateAllImages(date),
   ]);
-  const email = await sendReviewEmail(date);
-  const lien = (await kv.get(`dailypost:${date}:emailed:lien`)) || await sendLinkEmail(date);
+  // L'email court est l'email du jour. L'email complet (textes des réseaux, anomalies)
+  // n'arrivait jamais dans Gmail le 30/09, alors que Resend le disait livré ; il ne
+  // part plus que sur demande (DAILY_POST_FULL_EMAIL=1). Tout son contenu est dans la page.
+  const email = await sendLinkEmail(date);
+  const complet = env('DAILY_POST_FULL_EMAIL') === '1' ? await sendReviewEmail(date) : undefined;
   return {
     ok: email.ok, date, titre: rec.post.titre, reprise: !!existing && !force,
     verify: verify.status === 'fulfilled' ? verify.value?.global : `échec : ${verify.reason?.message}`,
     images: images.status === 'fulfilled' ? images.value : `échec : ${images.reason?.message}`,
-    email, lien,
+    email, complet,
   };
 }
 

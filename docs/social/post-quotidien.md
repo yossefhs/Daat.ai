@@ -8,7 +8,7 @@ illustrations, email), `api/_daily-post-view.js` (page de validation), `api/_soc
 (publication). Cron : `/api/daily-post` à 4 h, 7 h, 10 h, 13 h et 15 h UTC, dimanche → jeudi (`vercel.json`).
 
 Les deux passages de rattrapage ne font rien si l'email du jour est déjà **confirmé** par Resend
-(`dailypost:{date}:emailed:pack`) ; sinon ils reprennent là où le précédent s'est arrêté, sans
+(`dailypost:{date}:emailed:lien`) ; sinon ils reprennent là où le précédent s'est arrêté, sans
 réécrire un post déjà rédigé. Un email non confirmé rend un 500, visible dans les logs Vercel, où
 chaque étape est aussi écrite (`[daily-post] …`). Un email part par destinataire, avec une
 version texte, comme les autres emails du site : l'envoi groupé sans texte du 30/09 a été donné
@@ -97,9 +97,11 @@ WhatsApp n'a pas d'API de publication pour les groupes : il reste un partage man
   que le post de ce jour-là et ne révèle pas le secret.
 - Le jeton LinkedIn expire au bout d'environ 60 jours : le refaire à l'échéance.
 
-## Email minimal (diagnostic de livraison, 30/09/2026)
+## L'email du jour est court (30/09/2026)
 
-L'email complet du pack a été donné « delivered » par Resend sans jamais paraître dans Gmail,
-quand les codes de connexion du même expéditeur arrivent en secondes. Un second email, minimal
-(quelques lignes, lien court `https://daattorah.com/valider/{date}/{jeton}`), part donc avec lui.
-Celui des deux qui arrive dit si le contenu est en cause.
+L'email complet (textes des cinq réseaux, anomalies, tableau des données) a été donné « delivered »
+par Resend trois fois le 30/09 — groupé, puis un par destinataire avec version texte — sans jamais
+paraître dans Gmail, ni en spam. L'email court (quelques lignes, lien
+`https://daattorah.com/valider/{date}/{jeton}`) est arrivé à la minute. C'est donc lui l'email du
+jour ; tout le contenu de l'ancien est dans la page de validation. L'email complet ne part plus que
+si `DAILY_POST_FULL_EMAIL=1`. L'email de blocage a pris la même forme sobre.
