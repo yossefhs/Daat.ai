@@ -450,7 +450,15 @@ def carte(section, n):
     # verte POUR TOUJOURS sur ce siman, sans qu'aucune ligne ne le dise. On ne met
     # jamais en cache un résultat vide ; on refait l'appel au prochain passage.
     if not he:
-        NON_ATTEINTS[f"{section} {n}"] = "source vide (503, ou siman non numérisé)"
+        # Une lacune de Sefaria et un echec de mesure ne se valent pas, et les confondre
+        # dans une meme ligne est ce que ce registre doit eviter. Le signe qui tranche :
+        # un siman que Sefaria ne numerise pas rend le BON `ref`, `error` nul et `he` vide
+        # (verifie sur Shulchan_Arukh,_Yoreh_De'ah.169) ; une defaillance ne rend pas cela.
+        franc = (d.get('error') is None
+                 and re.search(r"\b%d$" % n, str(d.get('ref') or '')))
+        NON_ATTEINTS[f"{section} {n}"] = (
+            "siman non numérisé par Sefaria (lacune de la source, pas un échec)"
+            if franc else "source vide — défaillance (503 ou réponse tronquée)")
         return {}, 0, 0, 0
     # Sefaria rend HTTP 200 ET LE LIVRE ENTIER sur un ref mal forme. Le signe qui ne
     # trompe pas est que le champ `ref` finit par le numero du siman demande ; sinon le
