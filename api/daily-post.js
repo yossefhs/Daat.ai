@@ -18,8 +18,8 @@
 
 import { kv } from './_kv.js';
 import {
-  parisToday, dayInfo, tokenOk, tokenFor, writePost, verifyPost, generateImage,
-  generateAllImages, imageSlots, sendReviewEmail, sendLinkEmail, sendBlockedEmail, BlockedError, logEvent, SITE,
+  parisToday, jerusalemHour, SEND_HOUR, dayInfo, tokenOk, tokenFor, writePost, verifyPost, generateImage,
+  generateAllImages, imageSlots, sendReviewEmail, sendLinkEmail, recipients, sendBlockedEmail, BlockedError, logEvent, SITE,
 } from './_daily-post.js';
 import { renderReviewPage } from './_daily-post-view.js';
 import { configuredPlatforms, publishAll } from './_social-publish.js';
@@ -64,7 +64,10 @@ async function runDay(date, { force = false } = {}) {
     // Accepté par Resend ne veut pas dire livré : on relève le dernier état connu.
     const livraison = await deliveryStatus(emailed.id);
     await logEvent({ date, event: 'état de livraison', id: emailed.id, livraison });
-    return { ok: true, date, skipped: 'déjà préparé et envoyé', emailed, livraison };
+    // Une adresse ajoutée après l'envoi du matin reçoit le post du jour au passage suivant.
+    const manquants = recipients().filter((d) => !(emailed.to || []).includes(d));
+    const complement = manquants.length ? await sendLinkEmail(date, manquants) : undefined;
+    return { ok: true, date, skipped: 'déjà préparé et envoyé', emailed, livraison, complement };
   }
   let rec = existing;
   if (!existing || force) {
@@ -89,6 +92,11 @@ async function runDay(date, { force = false } = {}) {
   // L'email court est l'email du jour. L'email complet (textes des réseaux, anomalies)
   // n'arrivait jamais dans Gmail le 30/09, alors que Resend le disait livré ; il ne
   // part plus que sur demande (DAILY_POST_FULL_EMAIL=1). Tout son contenu est dans la page.
+  // Préparé avant 7 h à Jérusalem (l'hiver, le passage de 4 h UTC y tombe à 6 h) :
+  // l'email attend le passage de 5 h UTC.
+  if (!force && date === parisToday() && jerusalemHour() < SEND_HOUR) {
+    return { ok: true, date, titre: rec.post.titre, attente: `email à ${SEND_HOUR} h (Jérusalem)` };
+  }
   const email = await sendLinkEmail(date);
   const complet = env('DAILY_POST_FULL_EMAIL') === '1' ? await sendReviewEmail(date) : undefined;
   return {
