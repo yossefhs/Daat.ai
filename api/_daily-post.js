@@ -435,7 +435,7 @@ function esc(s) {
 // Destinataires : DAILY_POST_EMAIL (liste séparée par des virgules), sinon
 // l'administrateur et la boîte de l'association.
 export function recipients() {
-  const list = (env('DAILY_POST_EMAIL') || [env('ADMIN_EMAIL') || 'yossefhs@gmail.com', 'yosefhs@gmail.com', 'daattorah.com@gmail.com'].join(','))
+  const list = (env('DAILY_POST_EMAIL') || [env('ADMIN_EMAIL') || 'yossefhs@gmail.com', 'daattorah.com@gmail.com'].join(','))
     .split(',').map((x) => x.trim().toLowerCase()).filter(Boolean);
   return [...new Set(list)];
 }
