@@ -85,14 +85,179 @@ réparent de la même manière : rétablir le passage, ou écrire « … ».
   chacune trouvée en ouvrant à la main ce que je venais de faire taire (voir les
   notes du siman 342, du 318/263/287, et du siman 99 de Yoré Déa).
 
-  DOUZE CITATIONS OUVERTES À LA MAIN contre Sefaria parmi les verdicts qui restent :
+  ─────────────────────────────────────────────────────────────────────────────────
+  TOUR SUIVANT, 1er octobre 2026 — ET IL FERME UN MUTISME QUI NE SE COMPTAIT PAS.
+  Le tour ci-dessus fermait le RABATTEMENT : un TROU rendu contre une œuvre voisine
+  était refusé, et le refus était COMPTÉ. Celui-ci ferme le même défaut un cran plus
+  haut, dans `presente` — là où il ne laissait AUCUNE trace. `presente` était évaluée
+  sur la concaténation de TOUT l'appareil : une citation qui saute un passage de
+  l'œuvre qu'elle NOMME, mais qui se retrouve mot pour mot dans une œuvre VOISINE
+  citant le même passage sans ce fragment, était déclarée CONFRONTÉE, n'atteignait
+  jamais la porte TROU, et n'entrait dans aucun compteur de refus.
+
+  LES DEUX TÉMOINS, rejoués sur les deux versions, et vérifiés CONTRE SEFARIA.
+  · Chabbat 353, niveau 2, les trois langues. La page écrit, en nommant le Rama,
+    « "אין נותנין עליו אלא כלי חרס וזכוכית" » ; le séif ג du Mehaber porte
+    « אין נותנין עליו ואין נוטלים ממנו אלא כלי חרס וזכוכית » — « ואין נוטלים ממנו »
+    sauté sans ellipse, DANS les guillemets. L'Aroukh HaChoul'han, Orah Haïm 353, cite
+    le même passage en INVERSANT l'ordre (« אין נוטלין ממנו ואין נותנין עליו אלא כלי
+    חרס וזכוכית ») : la citation y est une sous-chaîne exacte. AVANT : « Aucune citation
+    ne saute un passage de sa source sans le dire », 3 CONFRONTÉES, pas un compteur qui
+    bouge. APRÈS : 3 TROUS.
+  · Yoré Déa 99, niveau 1, les trois langues. Témoin PARTIEL, et il faut le dire :
+    la page porte le même défaut DEUX FOIS, et la porte d'avant en voyait une — 3 TROUS
+    avant, 6 après. Ce qui était tu est la SECONDE occurrence, celle qui écrit
+    « האיסור » et « עיקר » en plein là où la première abrège : l'Aroukh HaChoul'han,
+    Yoré Déa 99, la porte sans le crochet « (הגהה אחת בש״ד בשם א״ז) », et le verdict
+    disparaissait. « YD 99 ne sort plus du tout » aurait été faux.
+
+  ÉTAT MESURÉ, avant → après, sur LES TROIS sections (même appareil, même cache) :
+
+                                 Chabbat        Yoré Déa        Orah Haïm
+    citations extraites          9 706→9 706   81 304→81 304   73 257→73 257
+    jugeables                    7 128         70 875          59 503
+    CONFRONTÉES                  5 917→5 917   60 686→60 686   43 189→43 189
+      · dans l'ŒUVRE NOMMÉE         — → 4 012     — →54 356       — →34 180
+      · ABSENTE d'elle, dans une
+        VOISINE (la population
+        qui était MUETTE)           0 →   313     0 → 2 065       0 → 1 230
+      · aucune œuvre nommée         — → 1 273     — → 1 828       — → 4 778
+      · œuvre nommée hors de
+        portée (daf, Richon)        — →   317     — → 2 430       — → 2 987
+      · œuvre nommée que Sefaria
+        ne sert pas ici             — →     2     — →     7       — →    14
+    TROUS                            5 →     9    22 →    37     241 →   280
+    COUPURES                        91 →    91  1 354 → 1 366     940 →   940
+    repli non restreint compté   (aucun)→    6  (aucun)→   46   (aucun)→   24
+
+  TROUS : 268 → 326, soit CINQUANTE-HUIT de plus. COUPURES : 2 385 → 2 397.
+  ET RIEN N'EST PERDU : les ensembles de verdicts d'avant sont des SOUS-ENSEMBLES de
+  ceux d'après, vérifié en les dédoublonnant ligne à ligne — 0 TROU et 0 COUPURE
+  retirés sur les trois sections. C'est l'inverse exact du tour précédent, qui ne
+  faisait que retirer.
+  LES 12 COUPURES NOUVELLES DE YORÉ DÉA NE SONT PAS DE CE TOUR-CI : elles sont celles
+  que le commit « Ba'er Hetev » (b92a48dc) a rendues atteignables, aux simanim 174 et
+  206, et le relevé de Yoré Déa versionné avait été produit avant lui. Les attribuer
+  à cette correction aurait été faux.
+
+  2 002 → 3 608 : LE PLANCHER DE L'ARBITRE ÉTAIT UN PLANCHER. La population « absente
+  de l'œuvre nommée, présente dans une voisine » avait été mesurée à 262 (Chabbat) et
+  1 740 (Yoré Déa), Orah Haïm non mesuré. Ma mesure donne 313 et 2 065 au seuil
+  d'entrée de la porte (20 consonnes) ; au seuil de 25 qu'employait l'arbitre, Chabbat
+  donne 261 — à une unité de son 262, que je ne sais pas expliquer et que je ne
+  maquille pas. Et Orah Haïm en porte 1 230 de plus : les 17 « TROUS cachés » annoncés
+  étaient 50 avant même la correction du Tour ci-dessous.
+
+  UN SECOND DÉFAUT TROUVÉ EN OUVRANT LE PREMIER, et c'est lui qui a imposé
+  `vise_loeuvre` : « Tur » est un PRÉFIXE de « Turei Zahav ». Toute citation attribuée
+  au Tour était donc lue dans le Taz, et un verdict pouvait être rendu contre lui —
+  observé au siman 87 de Yoré Déa. Les 21 `ref` distincts que Sefaria sert sur les
+  trois sections ont été confrontés aux 15 cibles : UNE seule fuyait, celle-là, et
+  aucun ref servi n'est hors d'atteinte de toute cible. Cette borne vaut 8 des 58
+  TROUS nouveaux (Chabbat 0, Yoré Déa +2, Orah Haïm +6).
+
+  ET J'AI DÛ DÉFAIRE MA PROPRE CORRECTION UNE FOIS, exactement comme le tour d'avant.
+  Ma première version faisait de la présence dans l'ŒUVRE NOMMÉE l'unique aiguillage :
+  une citation absente de son œuvre n'atteignait plus la porte COUPURE du tout. Mesuré
+  sur les trois sections : 51 COUPURES perdues, dont celles du siman 318 que cet en-tête
+  donne nommément comme RÉELLES. J'aurais échangé un mutisme contre un autre. Les deux
+  portes ont donc DEUX conditions d'entrée distinctes, pour la raison que l'en-tête
+  donnait déjà : le TROU s'appuie sur un ancrage SPÉCULATIF et doit être rendu contre
+  l'œuvre nommée ; la COUPURE part d'une présence EXACTE, et le texte qui la porte est
+  connu. Une citation peut recevoir les deux verdicts, et c'est une information.
+
+  DOUZE SIGNALEMENTS NOUVEAUX OUVERTS À LA MAIN CONTRE SEFARIA — SIX RÉELS, CINQ FAUX,
+  UNE LIMITE.
+  RÉELS, et cinq des six sont la famille du témoin fondateur de cette porte, le crochet
+  que Sefaria place DANS le texte et que la page saute sans ellipse :
+   · Chabbat 353 (3 pages) — « ואין נוטלים ממנו » ;
+   · Yoré Déa 99, 2ᵈᵉ occurrence (3 pages) — « (הגהה אחת בש״ד בשם א״ז) » ;
+   · Yoré Déa 87 (1 page) — le mot « בהמה » retiré de « בחלב בהמה טמאה » du Tour ;
+     il n'était atteignable qu'après la borne Tur/Turei Zahav ;
+   · Orah Haïm 158 (3 pages) — « [פירוש רביעית הלוג דהיינו שיעור ביצה וחצי] » ;
+   · Orah Haïm 167 (3 pages) — « (פירש"י כל דבר הנאכל עם הפת) » ;
+   · Orah Haïm 212 (5 pages) — « (פירוש דבר בלתי נחשב) ».
+  FAUX, et tous rangés dans une famille DÉJÀ déclarée sauf un :
+   · Yoré Déa 127 (3), Yoré Déa 187 (3), Orah Haïm 108 (6) — le suffixe ancré sur une
+     répétition plus loin ; le trou annoncé fait 1 312, 185 et 56 consonnes pour des
+     citations de 40, 33 et 30. Au siman 108, le séif ז porte « בתפלה הסמוכה לה » DEUX
+     fois et la citation est une sous-chaîne contiguë du premier au second ;
+   · Orah Haïm 124 (3) — l'abréviation développée : la source porte « יחזיר ש"צ התפל' »
+     et la page « יחזיר ש״ץ התפלה ». Le ץ final n'est pas le צ, et le trou annoncé est
+     cette seule différence de graphie ;
+   · Yoré Déa 228 (3) — UNE FAMILLE NOUVELLE, voir ci-dessous.
+  LA LIMITE, ni vraie ni fausse, et c'est celle du siman 141 de Yoré Déa retrouvée :
+  Orah Haïm 105 (1 page). La cellule écrit « המתפלל שתי תפלות זו אחר זו צריך להמתין בין
+  זו לזו » dans un `he-q`, quand le Choul'han Aroukh HaRav intercale « כגון שחרית ומוסף,
+  או ששכח ולא התפלל… ומתפלל שתים זו אחר זו » — mais la page donne ce contenu juste après,
+  HORS des guillemets : « (כגון שחרית ומוסף, או תשלומין) ». C'est une condensation qui
+  porte les marques d'une citation, donc un manquement à la convention `<em>résumé</em> :`,
+  et non une troncature. Et le trou IMPRIMÉ y est faux de surcroît : la page écrit
+  « שתי תפלות » là où le corps du séif abrège « ב' תפלות », si bien que le préfixe s'ancre
+  dans le CHAPEAU du siman (« דין המתפלל שתי תפלות ») que Sefaria colle au séif א, et le
+  trou annoncé commence par « ובו סעיף אחד: ». Une ancre tombée dans le chapeau est un
+  quatrième mécanisme, voisin du suffixe répété et pas identique à lui.
+
+  TROISIÈME FAMILLE DE FAUX POSITIFS, nommée ici et NON mesurée : L'ŒUVRE VISÉE LUE
+  DANS UNE PARENTHÈSE DE SOURCE QUE SEFARIA PLACE DANS LE SÉIF. Au siman 228 de Yoré
+  Déa la page cite « וחרמי צבור נהגו להתיר אף על פי שאינם לצורך השבת: » et écrit
+  elle-même « (שו״ע יו״ד רכ״ח:ג) » juste après — la citation est le Mehaber, mot pour
+  mot. Mais `situer` retient la PREMIÈRE occurrence de la citation dans la page, qui est
+  celle du séif recopié ; là, le nom le plus proche à gauche est le « (ב״י בשם הרמב״ם) »
+  que Sefaria insère DANS le séif, et le TROU part contre le Beit Yosef — une œuvre que
+  la page ne nomme nulle part.
+  SON ÉTENDUE N'EST PAS MESURÉE, et le substitut que j'ai essayé NE MESURE RIEN : « la
+  citation paraît au moins deux fois dans la page » est vrai de 208 des 326 TROUS, parce
+  que c'est la forme NORMALE de ces pages — le séif est recopié, puis cité. Ce qu'il
+  faudrait mesurer, et qui n'est pas fait : écarter de `oeuvre_visee` les noms qui vivent
+  à l'intérieur des `<small class="sef-small">` de Sefaria, et préférer l'occurrence
+  qui porte un `src-ref`. Un chiffre bas n'est pas une portée modeste, et un chiffre
+  absent n'est pas un zéro.
+
+  LA FIGURE « לא מיבעיא … אלא » COUPÉE EN DEUX — déclarée, et elle MARCHE DÉJÀ. Un
+  arbitre l'a signalée comme une famille non nommée, plus grave que celles triées, avec
+  pour exemple `sources/yoreh-deah/siman-131/niveau-2-lamdan-en.html` : la page cite
+  « לא מיבעיא אם יש בו פירות שירא הנכרי שמא יעלה עליו ללקט פירותיו » quand le Tour, Yoré
+  Déa 131, poursuit « אלא אפילו אין עליו פירות » — la moitié citée dit l'inverse du tout.
+  MESURE, les trois sections : 203 citations portent la figure, 64 la portent ENTIÈRE,
+  139 sont coupées ; de ces 139, 37 sont absentes de l'œuvre qu'elles nomment, 78 ont une
+  source qui n'enchaîne PAS sur « אלא » juste après, et 24 forment le défaut — dont 15
+  SONT DÉJÀ SIGNALÉES, le cas du siman 131 compris (6 pages, relevé de Yoré Déa).
+  LES 9 AUTRES SONT TUES PAR LE FILTRE « dite ailleurs », ET C'EST JUSTE — vérifié à la
+  main : au siman 207 de Yoré Déa la page cite les deux moitiés dans DEUX blockquotes
+  consécutifs, et au siman 212 d'Orah Haïm dans deux cases voisines d'un enchaînement
+  « → ». Le lecteur reçoit les deux. Y poser une exemption aurait produit 9 faux positifs
+  pour zéro gain. La figure ne demandait donc pas une règle, mais un nom.
+  CE QUI RESTE OUVERT : les 78 où la source n'enchaîne pas immédiatement sur « אלא » ne
+  sont pas innocentées — le « אלא » peut venir plus loin. Mon test est celui de la porte,
+  le mot SUIVANT, et il ne dit rien au-delà.
+
+  DEUX CHIFFRES DE L'EN-TÊTE, VÉRIFIÉS PLUTÔT QUE RECOPIÉS.
+  · « la ligne avant de Chabbat est 13 → 5 TROUS et 94 → 91 COUPURES » : c'est DÉJÀ ce
+    que le tableau du haut porte, depuis le commit 6f332d0b qui l'a écrit (vérifié par
+    `git log -L`). Rien à redresser ; le dire plutôt que corriger un nombre juste.
+  · le repli non restreint de la COUPURE : aucun nombre ne le décrivait dans ce fichier,
+    et il est désormais IMPRIMÉ au lieu d'être gelé — 6 en Chabbat, 46 en Yoré Déa, 24 en
+    Orah Haïm. Et la correction « Ba'er Hetev » ne l'a PAS changé : mesuré en remettant
+    l'ancienne orthographe de la cible, le compte est le même avant et après (6 / 46 / 24).
+    Ce qu'elle a recouvré est ailleurs — 12 COUPURES de Yoré Déa, aux simanim 174 et 206,
+    qui n'étaient rendues NI dans l'œuvre visée NI dans le repli.
+  · LE CACHE N'EST PAS REVERSIONNÉ, et c'est une décision : cette correction ne change
+    RIEN de ce qui est lu dans la source — la table de l'appareil est inchangée, seule la
+    PORTION de l'appareil confrontée à une citation donnée l'est. Le cache v2 reste exact.
+  ─────────────────────────────────────────────────────────────────────────────────
+
+  DOUZE CITATIONS OUVERTES À LA MAIN contre Sefaria parmi les verdicts du tour du
+  29 septembre (à ne pas confondre avec les douze du 1er octobre, ci-dessus) :
   NEUF réelles — un crochet de source sauté au milieu d'un verbatim (Chabbat 342,
   YD 99, YD 114, YD 91 Mehaber, YD 87 Chakh), une clause entière retirée
   (Chabbat 268 « וגומר אחריה ג' ברכות האחרונות », YD 91 Pit'hei Techouva
   « אין להקל », YD 109 « בין במינה בין שלא במינה »), un mot retiré (YD 190 « עליה »).
   DEUX fausses, et UNE limite.
 
-  LES DEUX FAMILLES DE FAUX POSITIFS QUI RESTENT, déclarées et non fermées :
+  LES DEUX FAMILLES DE FAUX POSITIFS QUI RESTENT, déclarées et non fermées — une
+  TROISIÈME les a rejointes le 1er octobre, décrite plus haut : l'œuvre visée lue dans
+  une parenthèse de source que Sefaria place DANS le séif (Yoré Déa 228) :
    1. L'ABRÉVIATION DÉVELOPPÉE. La page écrit en clair ce que la source abrège, si bien
       que les squelettes divergent sans qu'un passage ait été sauté. Mesuré : YD 118,
       la source porte « (כך דקדק התה״ד סי' ר' מאשיר״י פג״ה) » et la page
@@ -605,7 +770,51 @@ def preparer(segs):
     # séparateur que l'hébreu ne contient jamais interdit qu'une citation soit reconnue
     # à cheval sur deux segments : le verdict est le même, à la vitesse près.
     SEP = '\x01'
-    return out, SEP.join(x[2] for x in out), SEP.join(x[4] for x in out)
+    # Le quatrième élément est un CACHE PAR ŒUVRE, rempli à la demande : la concaténation
+    # restreinte aux segments d'une seule œuvre. Voir `segments_de` et `presente`.
+    return out, SEP.join(x[2] for x in out), SEP.join(x[4] for x in out), {}
+
+SEP_SEG = '\x01'
+
+def vise_loeuvre(ref, cible):
+    """Le `ref` servi par Sefaria est-il celui de l'ŒUVRE VISÉE ?
+
+    ⚠️ ET CE N'EST PAS `ref.startswith(cible)`, qui était employé partout : « Tur » est un
+    PRÉFIXE de « Turei Zahav ». La cible « Tur » atteignait donc « Turei Zahav on Shulchan
+    Arukh, Yoreh De'ah » autant que « Tur, Yoreh De'ah », si bien qu'une citation attribuée
+    au Tour était lue dans le Taz — et un verdict rendu contre lui. Trouvé en ouvrant à la
+    main le siman 87 de Yoré Déa : la page nomme « הטור », et le TROU sortait contre
+    « Turei Zahav on Shulchan Arukh, Yoreh De'ah 87 ».
+
+    LA MESURE, et elle est exhaustive, non échantillonnée : les 21 `ref` distincts que
+    Sefaria sert sur les trois sections, confrontés aux 15 cibles de NOMS. UNE seule cible
+    fuit, celle-ci, sur deux refs ; toutes les autres sont exactes, et aucun ref servi n'est
+    hors d'atteinte de toute cible — il n'y a pas de second « Ba'er Hetev ». C'est le même
+    contrôle que ce commit-là réclamait : une table dont les clés doivent correspondre à des
+    chaînes SERVIES PAR UN TIERS ne vaut que confrontée à ce que le tiers sert.
+
+    La borne est un caractère non alphanumérique : « Tur, » et « Tur 1 » passent, « Turei »
+    non. Elle n'écarte rien de légitime — « Shulchan Arukh, » garde sa virgule, qui est ce
+    qui la distingue de « Shulchan Arukh HaRav, ».
+    """
+    if not ref.startswith(cible): return False
+    suite = ref[len(cible):]
+    return (not suite) or (not suite[0].isalnum())
+
+def segments_de(paquet, cible):
+    """Les segments de l'appareil qui appartiennent à l'ŒUVRE VISÉE, et leurs concaténations.
+
+    Rend (xs, c0, c1). `xs` est vide quand Sefaria ne sert pas cette œuvre pour ce siman —
+    ce qui n'est pas « aucun défaut », c'est « rien à comparer », et `main` le compte à part.
+
+    Mémoïsé par siman : une quinzaine d'œuvres au plus, contre des dizaines de milliers de
+    citations. Sans cela la restriction coûterait un balayage de l'appareil par citation.
+    """
+    prep, _t0, _t1, memo = paquet
+    if cible not in memo:
+        xs = [x for x in prep if vise_loeuvre(x[0], cible)]
+        memo[cible] = (xs, SEP_SEG.join(x[2] for x in xs), SEP_SEG.join(x[4] for x in xs))
+    return memo[cible]
 
 def _prefixe(s, cible):
     lo, hi = 0, len(s)
@@ -659,7 +868,7 @@ def rogner_aux_mots(saute, brut, deb, fin):
         j -= 1
     return brut[i:j].strip()
 
-def presente(s0, s1, paquet):
+def presente(s0, s1, paquet, cible=None):
     """La citation est-elle dans l'appareil telle quelle ? C'est LA confrontation.
 
     Tant qu'elle est vraie, les deux mesures de cette porte ont un texte sous la main.
@@ -667,8 +876,29 @@ def presente(s0, s1, paquet):
     ne fait qu'un ancrage aveugle sur un texte qui n'est peut-être pas le bon. `main`
     compte ces deux populations séparément : une citation non retrouvée n'est pas une
     citation confrontée, et les confondre, c'est annoncer un plancher comme un compte.
+
+    ⚠️ ET ELLE ÉTAIT ÉVALUÉE SUR LA CONCATÉNATION DE TOUT L'APPAREIL, sans égard pour
+    l'œuvre que la page NOMME — c'est le mutisme que ce paramètre `cible` ferme, et c'était
+    le plus silencieux de tous ceux qu'on a trouvés dans cette porte. Le mécanisme : une
+    citation qui saute un passage de l'œuvre qu'elle nomme, mais qui se retrouve mot pour
+    mot dans une œuvre VOISINE citant le même passage SANS ce fragment, était déclarée
+    CONFRONTÉE. Elle n'atteignait donc jamais la porte TROU — et, n'ayant pas été refusée,
+    elle n'était comptée dans AUCUN compteur de refus. La fermeture du rabattement qui
+    précède, elle, se comptait ; celle-ci ne laissait aucune trace.
+
+    CAS TÉMOIN, vérifié contre Sefaria le 1er octobre 2026 — Hilkhot Chabbat 353, les TROIS
+    pages de niveau 2. La page écrit « "אין נותנין עליו אלא כלי חרס וזכוכית" » en nommant
+    le Rama ; le séif ג du Mehaber porte « אין נותנין עליו ואין נוטלים ממנו אלא כלי חרס
+    וזכוכית » — « ואין נוטלים ממנו » est sauté sans ellipse, à l'intérieur des guillemets.
+    Et l'Aroukh HaChoul'han, Orah Haïm 353, citant le même passage, en INVERSE l'ordre :
+    « אין נוטלין ממנו ואין נותנין עליו אלא כלי חרס וזכוכית ». La citation de la page y est
+    donc une sous-chaîne exacte : `presente` non restreinte était satisfaite, et le verdict
+    contre l'œuvre nommée disparaissait sans un mot.
     """
-    _prep, tout0, tout1 = paquet
+    if cible is not None:
+        _xs, c0, c1 = segments_de(paquet, cible)
+        return s0 in c0 or s1 in c1
+    _prep, tout0, tout1, _memo = paquet
     return s0 in tout0 or s1 in tout1
 
 def juger(s0, s1, prep):
@@ -750,7 +980,7 @@ def couper_avant_la_suite(s0, prep, page_entiere='', cible=None):
         # que la page cite : le Beit Yosef reprend le Tour, l'Aroukh HaChoul'han reprend
         # le Mehaber, et « la source enchaîne sur אבל » se lisait alors dans la suite du
         # VOISIN. Quand la page nomme une œuvre de l'appareil, on ne lit que la sienne.
-        if cible and not ref.startswith(cible): continue
+        if cible and not vise_loeuvre(ref, cible): continue
         i = b0.find(s0)
         if i < 0: continue
         fin = b0idx[i + len(s0) - 1]
@@ -815,6 +1045,15 @@ def main():
     total = trouve = coupe = 0
     juges = 0            # citations d'au moins SEUIL_COUPURE consonnes : les seules jugeables
     confrontees = 0      # …et RETROUVÉES dans l'appareil : les seules réellement confrontées
+    confrontees_visee = 0            # …dans l'ŒUVRE QUE LA PAGE NOMME : la confrontation pleine
+    confrontees_hors_portee = 0      # …dans l'appareil, mais la page vise un daf ou un Richon
+    confrontees_sans_nom = 0         # …dans l'appareil, et la page ne nomme aucune œuvre
+    confrontees_visee_non_servie = 0 # …et Sefaria ne sert pas l'œuvre nommée pour ce siman
+    voisine_seulement = 0 # ABSENTE de l'œuvre nommée, présente dans une VOISINE : la
+                          # population que `presente` non restreinte taisait sans la compter
+    visee_non_servie = 0  # l'œuvre nommée n'est pas servie par Sefaria pour ce siman
+    coupure_repli = 0     # COUPURE lue dans une œuvre VOISINE faute de l'avoir trouvée
+                          # dans celle que la page nomme — le repli non restreint, compté
     hors_siman = 0       # …absentes, mais dont le voisinage nomme un daf ou un Richon
     inconnues = 0        # …absentes, et rien n'explique pourquoi
     # Ce qui a été TU, et pourquoi. Un verdict refusé en silence est un mutisme ; un
@@ -894,14 +1133,59 @@ def main():
                 bornes = situer(page_entiere, page_idx, s0, plaine)
                 if bornes is None: non_situees += 1
                 visee = oeuvre_visee(plaine, bornes) if bornes else None
-                if not presente(s0, s1, paquet):
+                cible = visee[1] if visee else None
+                # ⚠️ LA CONFRONTATION SE FAIT CONTRE L'ŒUVRE QUE LA PAGE NOMME, et non
+                # contre la concaténation de tout l'appareil : voir la note de `presente`.
+                # Trois cas, et les trois sont comptés à la sortie :
+                #  · la page nomme une œuvre que Sefaria sert ici → on ne lit QUE la sienne ;
+                #  · la page nomme une œuvre hors de portée (daf, Richon) ou n'en nomme
+                #    aucune → on ne sait pas contre qui l'on parlerait, et le comportement
+                #    non restreint est le seul possible. Il est gardé, et compté à part.
+                #  · la page nomme une œuvre que Sefaria ne sert PAS pour ce siman → il n'y
+                #    a rien à comparer, ce qui n'est pas « aucun défaut ». Compté à part.
+                xs_visee = segments_de(paquet, cible)[0] if cible else []
+                if cible and not xs_visee: visee_non_servie += 1
+                restreindre = bool(cible) and bool(xs_visee)
+                dans_appareil = presente(s0, s1, paquet)
+                if restreindre:
+                    dedans = presente(s0, s1, paquet, cible)
+                    voisine = (not dedans) and dans_appareil
+                else:
+                    dedans = presente(s0, s1, paquet)
+                    voisine = False
+                # ⚠️ DEUX PORTES, DEUX CONDITIONS D'ENTRÉE, ET LES CONFONDRE M'A FAIT PERDRE
+                # UN DÉFAUT QUE LE TOUR PRÉCÉDENT AVAIT RÉTABLI. Ma première version faisait
+                # de `dedans` l'unique aiguillage : une citation absente de l'œuvre NOMMÉE
+                # n'atteignait plus la porte COUPURE du tout. Mesuré : 51 coupures perdues
+                # sur les trois sections, dont celle du siman 318 que l'en-tête donne nommément
+                # comme RÉELLE — la page cite la Michna Beroura en écrivant « le Mehaber »
+                # juste avant, et la suite qui la retourne est bien celle de la Michna Beroura.
+                # J'aurais échangé un mutisme contre un autre.
+                # LA RAISON EST CELLE QUE L'EN-TÊTE DONNE DÉJÀ : un TROU s'appuie sur un
+                # ancrage SPÉCULATIF et doit donc être rendu contre l'œuvre nommée ; une
+                # COUPURE part d'une présence EXACTE, et le texte qui la porte est connu —
+                # le nom écrit dans la page est alors le signal le plus faible des deux.
+                # Donc : la porte TROU s'ouvre quand la citation est absente de SON œuvre,
+                # la porte COUPURE dès qu'elle est présente QUELQUE PART dans l'appareil.
+                # Une citation peut recevoir les deux verdicts, et c'est une information :
+                # l'œuvre nommée a un trou ici, et celle qui porte vraiment le texte enchaîne
+                # sur ce qui le retourne.
+                if not dedans:
                     # NON CONFRONTABLE. On dit laquelle, et on ne la rabat sur rien —
                     # et cette fois le code le fait, au lieu de l'écrire en en-tête.
-                    if visee and visee[1] is None:
+                    if voisine:
+                        # LA POPULATION QUI ÉTAIT MUETTE : absente de l'œuvre NOMMÉE, et
+                        # retrouvée mot pour mot dans une VOISINE qui cite le même passage.
+                        voisine_seulement += 1
+                    elif visee and visee[1] is None:
                         hors_siman += 1
                     else:
                         inconnues += 1
-                    r = juger(s0, s1, prep) if len(s0) >= CITATION_MIN else None
+                    # L'ANCRAGE AUSSI EST RESTREINT : quand on sait quelle œuvre la page
+                    # nomme, le trou se mesure contre elle seule, et le rabattement devient
+                    # impossible par construction, non par veto appliqué après coup.
+                    socle = xs_visee if restreindre else prep
+                    r = juger(s0, s1, socle) if len(s0) >= CITATION_MIN else None
                     if r:
                         # ⚠️ QUAND RIEN N'EST NOMMÉ, L'ŒUVRE VISÉE N'EST PAS INCONNUE :
                         # c'est le Choul'han Aroukh de CE siman. Toute page de ce dépôt
@@ -919,7 +1203,7 @@ def main():
                             refus_sans_visee += 1; r = None
                         elif visee and visee[1] is None:
                             refus_hors_portee += 1; r = None
-                        elif visee and not r[0].startswith(visee[1]):
+                        elif visee and not vise_loeuvre(r[0], visee[1]):
                             refus_rabattement += 1; r = None
                     if r:
                         trouve += 1
@@ -929,9 +1213,15 @@ def main():
                         print(f"   {ref} : {pf} consonnes au début + {qf} à la fin, et entre les deux")
                         print(f"   la source porte — SAUTÉ SANS ELLIPSE ({len(sk(saute)[0])} consonnes) : [{saute[:160]}]")
                         if not bref: print()
-                    continue
+                    if not dans_appareil: continue
                 confrontees += 1
-                cible = visee[1] if visee else None
+                # `voisine` est déjà compté dans `voisine_seulement`, et il ne faut pas le
+                # compter deux fois : CONFRONTÉES est la somme exacte de ses cinq lignes.
+                if voisine: pass
+                elif restreindre: confrontees_visee += 1
+                elif visee and visee[1] is None: confrontees_hors_portee += 1
+                elif visee: confrontees_visee_non_servie += 1
+                else: confrontees_sans_nom += 1
                 # ⚠️ LA RÈGLE N'EST PAS LA MÊME ICI QUE POUR LE TROU, et j'ai dû défaire
                 # ma propre correction pour l'apprendre. Un TROU s'appuie sur un ancrage
                 # SPÉCULATIF — la citation n'est nulle part dans l'appareil, et le nom que
@@ -958,6 +1248,12 @@ def main():
                     if cible: coupure_recadree += 1
                 else:
                     r2 = couper_avant_la_suite(s0, prep, page_entiere)
+                    # ⚠️ ET CE REPLI EST COMPTÉ, désormais. La note du commit « Ba'er Hetev »
+                    # donnait pour unique cause du repli non restreint une cible mal
+                    # orthographiée ; c'était une cause parmi plusieurs, et un nombre gelé
+                    # dans un commentaire ne le dira jamais. La porte l'imprime maintenant,
+                    # avec l'œuvre qui a servi à la place de celle que la page nomme.
+                    if r2 and cible: coupure_repli += 1
                 if r2:
                     coupe += 1
                     ref, suite, premier = r2
@@ -974,6 +1270,19 @@ def main():
     print(f"  · trop courtes pour être jugées (< {SEUIL_COUPURE} consonnes)   : {total - juges}")
     print(f"  · jugeables                                        : {juges}")
     print(f"CONFRONTÉES (retrouvées dans l'appareil du siman)    : {confrontees}")
+    # ⚠️ ET CE COMPTE SE DÉTAILLE, parce qu'il ne désignait pas une seule opération. Une
+    # citation retrouvée dans l'ŒUVRE QUE LA PAGE NOMME est confrontée ; une citation
+    # retrouvée dans l'appareil pendant que la page nomme un daf de guemara n'est pas
+    # confrontée à ce qu'elle cite, elle est seulement retrouvée quelque part.
+    print(f"  · dans l'ŒUVRE que la page NOMME                   : {confrontees_visee}")
+    print(f"  · aucune œuvre nommée auprès de la citation         : {confrontees_sans_nom}")
+    print(f"  · l'œuvre nommée est hors de portée (daf, Richon)   : {confrontees_hors_portee}")
+    print(f"  · l'œuvre nommée n'est pas servie pour ce siman     : {confrontees_visee_non_servie}")
+    print(f"  · ABSENTES de l'œuvre nommée, retrouvées dans une VOISINE : {voisine_seulement}")
+    print(f"    (c'est la population que `presente` taisait : elles passaient pour")
+    print(f"     CONFRONTÉES sans réserve et n'atteignaient jamais la porte TROU.")
+    print(f"     Elles reçoivent un TROU contre l'œuvre nommée, et gardent l'accès à la")
+    print(f"     porte COUPURE, qui part d'une présence exacte et non d'un ancrage.)")
     print(f"NON CONFRONTABLES (absentes de tout l'appareil)      : {hors_siman + inconnues}")
     # ⚠️ CE SOUS-COMPTE A EXPLOSÉ, ET IL FAUT DIRE POURQUOI — 295 → 816 sur Hilkhot
     # Chabbat, quand le mandat de correction attendait qu'il DIMINUE. Deux changements
@@ -1010,6 +1319,8 @@ def main():
     print(f"  · TROU refusé, l'ancrage tombait sur une œuvre VOISINE        : {refus_rabattement}")
     print(f"  · COUPURE refusée, l'œuvre visée est hors de portée           : {refus_coupure}")
     print(f"  · (COUPURES lues dans l'œuvre visée et non dans une voisine    : {coupure_recadree})")
+    print(f"  · (COUPURES lues dans une VOISINE, le repli non restreint      : {coupure_repli})")
+    print(f"  · (œuvre nommée que Sefaria ne sert pas pour ce siman          : {visee_non_servie})")
     if vides:
         print(f"\n⚠️  APPAREIL VIDE — Sefaria ne sert AUCUN texte pour : "
               f"{', '.join(str(x) for x in sorted(set(vides)))}")
