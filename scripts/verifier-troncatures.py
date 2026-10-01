@@ -555,8 +555,19 @@ NOMS = [
                                         r'' + _PFX + r'רי["״]ף(?![א-ת])|' + _PFX + r'רש["״]י(?![א-ת])|'
                                         r'תוס[\'׳](?![א-ת])|תוספות|' + _PFX + r'מרדכי(?![א-ת])|'
                                         r'ראב["״]ד|Rambam|Mishneh\s+Torah')),
+    # ⚠️ LE MEME DEFAUT DE CONTENANCE QUE « Beer Hetev », DE L'AUTRE COTE DE LA TABLE, et un
+    # arbitre l'a trouve apres coup : « שולחן ערוך » est une SOUS-CHAINE de « שולחן ערוך הרב ».
+    # Cette cible n'acceptait en hebreu que les ABREVIATIONS (שו״ע הרב, שוע״ה, אדמו״ר הזקן,
+    # אדה״ז) et n'avait AUCUNE alternative en pleine graphie, quand la cible « Shulchan Arukh, »
+    # accepte שולחן\s*ערוך. Mesure : « שולחן ערוך הרב » etait apparie a « Shulchan Arukh, » SEUL,
+    # c'est-a-dire qu'une page nommant l'Admour HaZaken EN TOUTES LETTRES voyait sa citation
+    # confrontee au MEHABER — un autre livre, a numerotation propre, avec 63 lacunes.
+    # La pleine graphie est ajoutee ici. La resolution des ex aequo prefere, a position egale,
+    # l'appariement le PLUS LONG (voir oeuvre_visee) : « שולחן ערוך הרב » gagne donc sur
+    # « שולחן ערוך », et l'ordre des deux entrees dans la table n'y change rien.
     ('Shulchan Arukh HaRav',  re.compile(r'שו["״]ע\s*הרב|שוע["״]ה|אדמו["״]ר\s*הזקן|'
-                                        r'אדה["״]ז|Shulchan\s+Arukh\s+HaRav|'
+                                        r'אדה["״]ז|ש[ול]לחן\s*ערוך\s*הרב|שלחן\s*ערוך\s*הרב|'
+                                        r'שולחן\s*ערוך\s*הרב|Shulchan\s+Arukh\s+HaRav|'
                                         r'Choul[\'’]?han\s+Aroukh\s+HaRav|(?<![A-Za-z])SAR(?![A-Za-z])')),
     # ⚠️ « מ״ב » EST AUSSI LA GUÉMATRIE 42, et CLAUDE.md le dit noir sur blanc : le sigle
     # ne compte que s'il n'est PAS suivi d'une marque de folio. Mesuré au siman 318 :
