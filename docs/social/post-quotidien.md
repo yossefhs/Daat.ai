@@ -31,7 +31,7 @@ texte ; chaque illustration est inspectée (texte, personnes, symbole religieux 
 sujet) et régénérée une fois si besoin, sinon remplacée par un fond sobre.
 
 La date est celle de **Jérusalem**. L'email part à `DAILY_POST_EMAIL` (liste séparée par des
-virgules), sinon à `ADMIN_EMAIL` (à défaut `yossefhs@gmail.com`), `yosefhs@gmail.com` et `daattorah.com@gmail.com` ; il n'est donné pour envoyé que
+virgules), sinon à `ADMIN_EMAIL` (à défaut `yossefhs@gmail.com`) et `daattorah.com@gmail.com` ; il n'est donné pour envoyé que
 sur l'identifiant renvoyé par Resend (sinon « EMAIL NON ENVOYÉ » au journal).
 
 ## Contrôles bloquants (mieux vaut ne rien envoyer qu'un Daat Yomi faux)
