@@ -128,8 +128,17 @@ Le **séif 40 est juste** — c'est lui qui dit `יקוב הכלי בשוליו 
 un bassin, **rien sur le percement d'un récipient** ; son ancre est au séif 22. Le Chakh
 du séif 40 est ס״ק פ״ג–פ״ח. **Et la source donne elle-même la bonne adresse :** la glose
 du Rama du séif 40 porte le renvoi `(עיין ס״ק פ״ז)`. נ״ז / פ״ז diffèrent d'une lettre
-(נ=50, פ=80) : c'est un lapsus d'une lettre, et il envoie le lecteur à cinquante-huit séifim
-de là.
+(נ=50, פ=80) : c'est un lapsus d'une lettre, et il envoie le lecteur à **dix-huit** séifim
+de là (séif 22 au lieu du séif 40).
+
+> **Correction d'un arbitre, 2026-10-01.** Ce relevé écrivait « cinquante-huit séifim de
+> là ». L'écart réel est de **18 séifim** : l'ancre de ס״ק נ״ז est au séif 22, la page
+> annonce le séif 40. Le « 58 » paraît venir de 80 − 22, soit la guématrie du ס״ק
+> (פ=80) retranchée d'un numéro de SÉIF — deux unités différentes soustraites l'une de
+> l'autre, qui est le défaut de méthode que ce dépôt documente partout ailleurs. Le
+> défaut d'ancrage lui-même est confirmé par mesure indépendante (ס״ק נ״ז → séif 22 ;
+> ס״ק פ״ז → séif 40 ; le renvoi `(עיין ס״ק פ״ז)` est bien dans la glose du Rama du
+> séif 40 ; le siman compte 75 séifim).
 
 ### 1.3 Les trois citations éclairantes légitimes
 
@@ -327,10 +336,36 @@ nommé.
 
 Les **trois** citations de ce bloc emploient la même forme de référence
 (`משנה ברורה שנ״ח סק״…`), et **deux seulement** sont sorties en `NON_RESOLU` : le
-« סקי״א » de la ligne 409 n'apparaît pas dans le CSV. Je **n'ai pas** établi pourquoi
+« סקי״א » de la ligne 411 n'apparaît pas dans le CSV. Je **n'ai pas** établi pourquoi
 — l'hypothèse la plus simple est que la forme du numéral diffère (`סק״ו` / `סק״ח`, une
 lettre avec gershayim interne, contre `סקי״א`, deux lettres), mais **je ne l'ai pas
 éprouvée** et je ne peux pas la relancer dans ce lot (règle 3). À reprendre.
+
+> **Éprouvée par un arbitre, 2026-10-01 — l'hypothèse est juste, et la cause est plus
+> large que l'asymétrie qu'elle explique.** Il n'était pas nécessaire de relancer le
+> script : il suffit de lire `RE_SK_NU` (`scripts/verifier-citations.py:1452`) et de
+> l'essayer sur les trois chaînes réelles, ce qui n'écrit rien dans le cache partagé.
+>
+> `RE_SK_NU = (?<![א-ת])(?:ס["״]?ק|סעיף\s*קטן)(?![א-ת])\s*(?P<sk>…)`. Résultat mesuré :
+> `(משנה ברורה שנ״ח סק״ו)` → capture `״ו` · `(משנה ברורה שנ״ח סק״ח)` → capture `״ח` ·
+> **`(משנה ברורה שנ״ח סקי״א)` → AUCUN MATCH.** La cause n'est pas « deux lettres » : c'est
+> que le garde-fou de frontière de mot `(?![א-ת])` — écrit pour empêcher `סק` de mordre à
+> l'intérieur de `סקירה` ou `סקילה`, ce qu'il fait très bien — **rejette aussi toute forme
+> compacte où le numéral commence par une LETTRE collée à `סק`.** `סק״ו` passe (le
+> caractère suivant est un gershayim) ; `סקי״א` est rejeté (le caractère suivant est `י`).
+>
+> **Deux corrections de localisation :** la citation `סקי״א` est à la ligne **411**, non
+> 409 (la ligne 409 est de la prose française et ne porte aucune citation) ; les trois
+> références du bloc sont donc aux lignes 404, 411 et 412.
+>
+> **Étendue mesurée dans `sources/` : 89 occurrences, 58 fichiers, 17 formes distinctes**
+> (Chabbat 80 · Yoré Déa 6 · Orah Haïm 3) — `סקי״ד` ×20, `סקי״א` ×16, `סקי״ח` ×12,
+> `סקי״ג` ×6, puis `סקכ״א`, `סקכ״ד`, `סקכ״ו`, `סקכ״ח`, `סקל״ב`, `סקל״ג`, `סקל״ח`,
+> `סקמ״א`, `סקמ״ג`. Le compte exige un gershayim ou un geresh dans le numéral, faute de
+> quoi `סקירה` (×43), `סקילה` (×36) et `סקירת` (×30) entrent dans le chiffre : un premier
+> comptage sans ce filtre annonçait 225 et était faux. **Ce qui est établi est la cécité
+> du DÉTECTEUR de ס״ק sur ces 89 occurrences ; la conséquence en aval sur le verdict rendu
+> à chacune n'a pas été tracée.**
 
 ---
 
@@ -344,8 +379,8 @@ lettre avec gershayim interne, contre `סקי״א`, deux lettres), mais **je ne 
 
 **Les trois piles méritent d'être lues.** Aucune n'est à neuf dixièmes du bruit. La plus
 dense est celle de l'ancrage (36 % de défauts réels, et les défauts qu'elle trouve sont
-sérieux — un bloc entier du siman 168 décalé de cinq séifim, un ס״ק à cinquante-huit
-séifim de son séif au 201). La plus trompeuse est celle des « verdicts les plus graves » :
+sérieux — un bloc entier du siman 168 décalé de cinq séifim, un ס״ק à dix-huit
+séifim de son séif au 201 — chiffre corrigé par un arbitre, le relevé écrivait 58). La plus trompeuse est celle des « verdicts les plus graves » :
 elle porte le nom le plus alarmant du dispositif et **une seule de ses onze lignes est une
 absence réelle**, laquelle est une erreur de terme et non une halakha inventée.
 
