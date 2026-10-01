@@ -14,6 +14,17 @@ Principe
    <blockquote>, ou texte entre guillemets « … » / " … ". La classe `he-q` n'en
    fait pas partie — c'est une classe typographique (RTL + police hébraïque),
    appliquée aussi bien à une citation qu'à la thèse propre de l'auteur.
+   DEUX PASSES, et la seconde est nouvelle : le CORPS de la page, ligne à ligne,
+   puis ses CHAMPS D'ENTÊTE — meta description, og:, twitter:, JSON-LD. Ces
+   derniers ne s'affichent pas à la lecture, mais Google et tout aperçu de partage
+   ne lisent que ceux-là, et ce fichier a longtemps écrit noir sur blanc qu'ils
+   « n'ont pas à être jugés comme une citation ». Ils portaient 25 occurrences
+   d'un verbatim FABRIQUÉ, dont les 15 de « הא קא מתהני ממאור » au siman 69,
+   confrontées à rien du tout. Mesuré : 0 → 7 432 citations d'entête examinées
+   (Orah Haïm 5 502, Yoré Déa 1 928, Chabbat 2 ; json-ld 5 806, description 895,
+   og:description 730, twitter:description 1). Le rapport les compte à part et
+   nomme le champ dans le CSV, parce qu'un correcteur qui ne voit que les lignes
+   du corps corrige le corps et laisse la fabrication dans la vitrine.
    Est « présenté comme une citation » ce que précède une formule d'annonce
    (תניא, וז״ל, כלשון…) **ou une référence nommée** — « רמב״ם (הלכות תפלה פי״ב
    הי״ג) — "…" ». Nommer sa source revendique le littéral au moins autant qu'une
@@ -83,7 +94,22 @@ Et la limite plus générale, qui vaut pour tout ce fichier : `hebrew_versions()
 elle aussi un point de défaillance unique, mais ANCIEN — sa panne rend une liste
 d'éditions vide, et le code de sortie n'en tient pas compte. Ce n'est pas traité ici.
 
+Ce que la seconde passe NE juge PAS — limite assumée et chiffrée
+---------------------------------------------------------------
+Dans un champ d'entête, seuls les guillemets TYPOGRAPHIQUES « … » / „ … ” délimitent
+une citation. Le « " » n'y est pas un délimiteur, et c'est mesuré : écrit ``&quot;``
+dans un attribut et ``\"`` en JSON, il sert de gershayim à l'intérieur d'un mot —
+« Rem"a », « אדמו"ר », « הרמ"א », « פ"ט:א ». 987 champs d'entête du dépôt portent un
+nombre IMPAIR de « " » hors des blocs « … » ; sur les autres, l'appariement
+séquentiel rend 59 fragments dont la plupart commencent AU MILIEU d'un mot. C'est le
+défaut documenté au siman 10, et il fabriquerait des citations que la page n'a jamais
+écrites. Une minorité de ces 59 sont de vraies citations (vues au siman 89 de Yoré
+Déa) : elles ne sont donc pas jugées, et c'est un trou connu, non un trou ignoré.
+
 Le cache disque (scripts/.cache-sefaria/) rend les passages suivants instantanés.
+Les deux correctifs de cette révision ne changent RIEN à ce qui est demandé à Sefaria
+pour une référence donnée — ils changent ce qui est lu dans la PAGE, et les adresses
+nouvelles sont de nouvelles clés. Aucune version de cache n'est donc à incrémenter.
 """
 
 import argparse
@@ -1186,10 +1212,94 @@ def straight_pairs(s):
 RE_PREFIX = re.compile(r'^[^"«„]{0,90}?[:—–-]\s*(?=["«„])')
 
 
-# Le JSON-LD des pages porte un champ "description" qui résume le siman et cite
-# souvent un fragment entre guillemets. C'est une métadonnée SEO, pas du contenu
-# affiché : elle n'a pas à être jugée comme une citation.
+# ⚠️ « C'EST UNE MÉTADONNÉE SEO, PAS DU CONTENU AFFICHÉ : ELLE N'A PAS À ÊTRE JUGÉE
+# COMME UNE CITATION. » C'est ce qu'a dit cette ligne pendant des mois, et c'était
+# faux sur les deux moitiés. Une meta description et un JSON-LD ne sont pas affichés
+# À LA LECTURE DE LA PAGE, mais ils sont lus par Google et par tout aperçu de
+# partage : ce sont les seules lignes du dépôt qu'un lecteur voit AVANT d'ouvrir la
+# page. Et le lot qui a ouvert à la main les 16 verdicts INTROUVABLE d'Orah Haïm y a
+# trouvé SEPT FABRICATIONS RÉELLES, dont « הא קא מתהני ממאור » au siman 69 : neuf
+# phrases fautives distinctes, 134 occurrences dans 35 fichiers, et 25 DE CES
+# OCCURRENCES VIVENT DANS UNE meta, UNE og: OU LE JSON-LD. Un correcteur qui suivait
+# le CSV ne voyait que les lignes du corps : il corrigeait le corps et laissait la
+# fabrication dans la vitrine.
+#
+# Le corps continue d'ignorer le JSON-LD (il est neutralisé ci-dessous, et les
+# balises meta disparaissent avec leur attribut content au nettoyage des balises) :
+# les champs d'entête sont lus par une SECONDE passe, `champs_entete`, de façon à
+# ne rien compter deux fois et à pouvoir dire combien de verdicts en viennent.
 SCRIPT_LD = re.compile(r'<script[^>]+application/ld\+json[^>]*>.*?</script>', re.S | re.I)
+
+# ───────────────────── Les champs d'entête (meta, og:, twitter:, JSON-LD) ─────────
+#
+# Un attribut HTML est du TEXTE ÉCHAPPÉ : « &quot; », « &#39; », « &laquo; », « &lt;em&gt; ».
+# On déséchappe donc avant d'extraire, sans quoi « &laquo;…&raquo; » n'est pas un
+# guillemet pour le motif. Un attribut entre guillemets doubles ne peut pas contenir
+# de « " » littéral — d'où `[^"]*`, qui est exact et non approximatif — mais il peut
+# contenir un « > », et c'est pourquoi la balise n'est PAS découpée sur `[^>]*>` :
+# on consomme ses attributs un par un. (Mesuré : 0 fichier du dépôt porte aujourd'hui
+# un « > » brut dans un content=, mais 8 en portent un « &gt; » et 97 un « &quot; ».)
+RE_BALISE_META = re.compile(
+    r'<meta\b(?P<attrs>(?:\s+[\w:.-]+'
+    r'(?:\s*=\s*(?:"[^"]*"|\'[^\']*\'|[^\s"\'>]+))?)*)\s*/?>', re.I)
+RE_ATTR_META = re.compile(
+    r'([\w:.-]+)\s*=\s*(?:"([^"]*)"|\'([^\']*)\'|([^\s"\'>]+))')
+RE_LD_BLOC = re.compile(r'<script[^>]+application/ld\+json[^>]*>(.*?)</script>', re.S | re.I)
+# Les chaînes littérales d'un JSON — repli quand le bloc ne se parse pas (il est
+# arrivé que l'échappement de ces blocs soit cassé dans ce dépôt).
+RE_LD_CHAINE = re.compile(r'"((?:[^"\\]|\\.)*)"')
+# Champs d'entête retenus. `<title>` n'y est PAS : son texte survit au nettoyage des
+# balises et la passe du corps le lit déjà — l'ajouter compterait deux fois.
+CHAMPS_META = ('description', 'keywords', 'abstract', 'news_keywords')
+
+
+def _ligne_de(text, pos):
+    return text.count('\n', 0, pos) + 1
+
+
+def champs_entete(text):
+    """(nom du champ, numéro de ligne, texte déséchappé) pour chaque champ d'entête.
+
+    Deux familles. Les balises ``meta`` — ``description``, ``og:*``, ``twitter:*`` —
+    dont le contenu est du texte échappé dans un attribut. Et le JSON-LD, qui est du
+    JSON dans une balise ``script`` : les guillemets y délimitent les chaînes, donc
+    un « " » de citation y est écrit ``\\"`` et les guillemets typographiques, eux,
+    y sont littéraux.
+    """
+    for mb in RE_BALISE_META.finditer(text):
+        attrs = {}
+        for ma in RE_ATTR_META.finditer(mb.group('attrs')):
+            val = next((g for g in ma.groups()[1:] if g is not None), '')
+            attrs[ma.group(1).lower()] = val
+        cle = (attrs.get('name') or attrs.get('property') or '').strip().lower()
+        contenu = attrs.get('content')
+        if contenu is None or not cle:
+            continue
+        if not (cle.startswith('og:') or cle.startswith('twitter:') or cle in CHAMPS_META):
+            continue
+        yield cle, _ligne_de(text, mb.start()), html.unescape(contenu)
+
+    for mld in RE_LD_BLOC.finditer(text):
+        bloc = mld.group(1)
+        base = mld.start(1)
+        try:
+            json.loads(bloc)
+            valide = True
+        except Exception:
+            valide = False
+        # Qu'il soit valide ou non, on relit les chaînes À LEUR POSITION : c'est le
+        # numéro de ligne qui rend le signalement corrigeable. Le parse ne sert donc
+        # qu'à dire si le bloc est sain ; l'extraction est positionnelle.
+        for mc in RE_LD_CHAINE.finditer(bloc):
+            brut = mc.group(1)
+            if not re.search(r'[א-ת]', brut):
+                continue
+            try:
+                val = json.loads('"' + brut + '"')
+            except Exception:
+                val = brut.replace('\\"', '"').replace('\\n', ' ').replace('\\/', '/')
+            yield ('json-ld' if valide else 'json-ld (bloc illisible)'), \
+                _ligne_de(text, base + mc.start(1)), val
 
 
 def flatten_html(text):
@@ -1260,57 +1370,90 @@ def quotes_in(text, path=None):
     citation sur sa propre ligne, et un guillemet non apparié ailleurs dans la page
     ne peut donc pas décaler l'appariement de toutes les suivantes.
     """
-    text = SCRIPT_LD.sub(lambda m: '\n' * m.group(0).count('\n'), text)
-    for lineno, line in enumerate(text.split('\n'), 1):
-        plain = flatten_html(line)
-        if not re.search(r'[א-ת]', plain):
-            continue
-        marked = [next(g for g in m.groups() if g is not None).strip()
-                  for m in RE_GUILL.finditer(plain)]
+    corps = SCRIPT_LD.sub(lambda m: '\n' * m.group(0).count('\n'), text)
+    for lineno, line in enumerate(corps.split('\n'), 1):
+        for frag, plain in _citations_du_texte(flatten_html(line), path, droits=True):
+            yield frag, lineno, plain, ''
+
+    # ─── SECONDE PASSE : LES CHAMPS D'ENTÊTE ───
+    # Invisibles à la lecture, lus par Google et par les aperçus de partage. Ils
+    # portaient 25 occurrences de verbatim FABRIQUÉ confrontées à rien du tout.
+    for champ, lineno, contenu in champs_entete(text):
+        # Un `&lt;em&gt;` déséchappé redevient une balise : on la retire, comme le
+        # fait le nettoyage du corps. (Un arbitre a relevé des `<em>` à l'intérieur
+        # d'un `content=` de meta description dans ce dépôt.)
+        contenu = re.sub(r'<[^>]+>', ' ', contenu)
+        for frag, plain in _citations_du_texte(contenu, path, droits=False):
+            yield frag, lineno, plain, champ
+
+
+def _citations_du_texte(plain, path, droits):
+    """Les citations hébraïques d'UN texte déjà mis à plat, avec ce texte.
+
+    ``droits`` dit si les guillemets DROITS appariés comptent comme délimiteurs.
+    Ils comptent dans le corps ; ils ne comptent PAS dans un champ d'entête, et
+    c'est mesuré, non supposé : dans ces champs le « " » (écrit ``&quot;`` ou, en
+    JSON, ``\\"``) sert de gershayim à l'intérieur d'un mot translittéré —
+    « Rem"a », « Ba"h », « אדמו"ר », « הרמ"א ». 987 champs d'entête du dépôt ont un
+    nombre IMPAIR de « " » hors des blocs « … » ; sur les autres, l'appariement
+    séquentiel rend 59 fragments dont la plupart commencent au MILIEU d'un mot
+    (« ט לשבח) / עכברא דמתא… », « ר הזקן על 63 הסעיפים… ») : c'est exactement le
+    défaut documenté au siman 10, et il fabriquerait des citations que la page n'a
+    jamais écrites. La convention du dépôt met le verbatim des entêtes entre « … ».
+    LIMITE ASSUMÉE ET CHIFFRÉE : une citation d'entête délimitée par des guillemets
+    droits seuls n'est donc pas jugée — au plus 59 fragments, dont une minorité de
+    vraies citations (vues au siman 89 de Yoré Déa).
+    """
+    if not re.search(r'[א-ת]', plain):
+        return
+    marked = [next(g for g in m.groups() if g is not None).strip()
+              for m in RE_GUILL.finditer(plain)]
+    blocks = [(b, True) for b in marked]
+    if droits:
         # les guillemets droits hors de tout bloc marqué sont eux aussi des citations
         outside = plain
         for b in marked:
             outside = outside.replace(b, ' ')
-        blocks = [(b, True) for b in marked] + [(b, False) for b in straight_pairs(outside)]
+        blocks += [(b, False) for b in straight_pairs(outside)]
 
-        for block, from_marked in blocks:
-            # Un bloc marqué (<blockquote>, span.he-q) contient souvent un préfixe de
-            # référence, la citation entre guillemets droits, puis un commentaire de
-            # l'auteur. Dans ce cas seule la portion entre guillemets est la citation.
-            inner = [s for s in straight_pairs(block) if is_hebrew_quote(s)]
-            for frag in (inner or [block]):
-                frag = RE_PREFIX.sub('', frag).strip(' —–-:.«»')
-                if not is_hebrew_quote(frag):
+    for block, from_marked in blocks:
+        # Un bloc marqué (<blockquote>, span.he-q) contient souvent un préfixe de
+        # référence, la citation entre guillemets droits, puis un commentaire de
+        # l'auteur. Dans ce cas seule la portion entre guillemets est la citation.
+        inner = [s for s in straight_pairs(block) if is_hebrew_quote(s)] if droits else []
+        for frag in (inner or [block]):
+            frag = RE_PREFIX.sub('', frag).strip(' —–-:.«»')
+            if not is_hebrew_quote(frag):
+                continue
+            # écarte les identifiants d'ancre (mots collés par des tirets)
+            if re.fullmatch(r'[\wא-ת֐-׿-]+', frag):
+                continue
+            at = plain.find(frag)
+            # Un terme technique entre guillemets n'est pas une citation — sauf si
+            # une référence l'accompagne : alors c'est une affirmation sur la source.
+            nl = n_letters(frag)
+            if nl < MIN_CITATION:
+                if nl < MIN_CITATION_REFERENCEE:
                     continue
-                # écarte les identifiants d'ancre (mots collés par des tirets)
-                if re.fullmatch(r'[\wא-ת֐-׿-]+', frag):
+                deb = max(0, (at if at > 0 else 0) - FENETRE_REF)
+                fin = (at if at > 0 else 0) + len(frag) + FENETRE_REF
+                # `refs_in` ne reconnaît pas la forme conventionnelle du dépôt
+                # pour les nossei kelim — « (ט״ז יורה דעה קפ״ז ס״ק ב) » — qui n'a
+                # pas de deux-points. Le site d'appel le sait et se rabat sur
+                # `candidats_ouvrages` ; mais la citation COURTE était écartée
+                # ici, en amont, et n'y parvenait jamais. Le repli était donc
+                # sans effet sur elle. 1 200 citations de 12 à 24 lettres
+                # portant une référence d'ouvrage n'étaient vérifiées par rien
+                # — 1 018 en Yoré Déa, la classe même où la clause fabriquée du
+                # siman 187 a été trouvée le 19 septembre.
+                if not refs_in(plain[deb:fin]) and not (
+                        path and candidats_ouvrages(path, plain[deb:fin])):
                     continue
-                at = plain.find(frag)
-                # Un terme technique entre guillemets n'est pas une citation — sauf si
-                # une référence l'accompagne : alors c'est une affirmation sur la source.
-                nl = n_letters(frag)
-                if nl < MIN_CITATION:
-                    if nl < MIN_CITATION_REFERENCEE:
-                        continue
-                    deb = max(0, (at if at > 0 else 0) - FENETRE_REF)
-                    fin = (at if at > 0 else 0) + len(frag) + FENETRE_REF
-                    # `refs_in` ne reconnaît pas la forme conventionnelle du dépôt
-                    # pour les nossei kelim — « (ט״ז יורה דעה קפ״ז ס״ק ב) » — qui n'a
-                    # pas de deux-points. Le site d'appel le sait et se rabat sur
-                    # `candidats_ouvrages` ; mais la citation COURTE était écartée
-                    # ici, en amont, et n'y parvenait jamais. Le repli était donc
-                    # sans effet sur elle. 1 200 citations de 12 à 24 lettres
-                    # portant une référence d'ouvrage n'étaient vérifiées par rien
-                    # — 1 018 en Yoré Déa, la classe même où la clause fabriquée du
-                    # siman 187 a été trouvée le 19 septembre.
-                    if not refs_in(plain[deb:fin]) and not (
-                            path and candidats_ouvrages(path, plain[deb:fin])):
-                        continue
-                if at > 0 and RESUME.search(plain[:at]):
-                    continue          # résumé assumé : pas une citation
-                if at > 0 and not (from_marked or has_cue(plain[:at])):
-                    continue
-                yield frag, lineno, plain
+            if at > 0 and RESUME.search(plain[:at]):
+                continue          # résumé assumé : pas une citation
+            if at > 0 and not (from_marked or has_cue(plain[:at])):
+                continue
+            yield frag, plain
 
 
 # ─────────────────────────── Comparaison ───────────────────────────
@@ -1449,7 +1592,27 @@ def ref_collee(plain, at, n):
 # Beroura ס״ק ג, et ressortait en REF_FAUSSE contre Chabbat ו ע״א.
 # Les frontières de mot sont obligatoires : sans elles, « ס״ק » se retrouvait à
 # l'intérieur de פוסקים, et le mot était lu comme une référence de sa′if katan.
-RE_SK_NU = re.compile(r'(?<![א-ת])(?:ס["״]?ק|סעיף\s*קטן)(?![א-ת])\s*(?P<sk>[\dא-ת"״\'׳]{1,4})')
+#
+# ⚠️ MAIS CETTE FRONTIÈRE AVEUGLAIT LA PORTE AUX FORMES COMPACTES. Le dépôt écrit
+# aussi le ס״ק COLLÉ à son numéral — « (משנה ברורה מ״ו סקי״ד) », « סקכ״ו », « סקל״ב »
+# — et `(?![א-ת])` les rejetait toutes : « סקי״ד » n'est pas un mot, c'est le ס״ק 14.
+# Mesuré sur le dépôt entier : 89 occurrences, 58 fichiers, 17 formes.
+#
+# LE GERSHAYIM EST OBLIGATOIRE DANS LA FORME COMPACTE, et c'est tout le garde-fou.
+# Sans lui, le même motif lit 227 occurrences au lieu de 89, et les 138 de plus sont
+# des MOTS HÉBREUX ORDINAIRES qui commencent par les deux lettres ס et ק :
+# סקירה (43), סקילה (36) — la lapidation —, סקירת (30), סקרנות (6), ס״קים (6),
+# סקרה (3), סקריפטי (2), סקאלה/סקאלות (4)… Un numéral hébreu porte son gershayim ;
+# un mot n'en porte pas. La frontière de droite reste exigée dans les deux formes.
+RE_SK_NU = re.compile(
+    r'(?<![א-ת])(?:ס["״]?ק|סעיף\s*קטן)'
+    r'(?:'
+    r'(?![א-ת])\s*'                                  # « ס״ק י״ד », « ס״ק 14 », « ס״ק ב »
+    r'|'
+    r'(?=[א-ת]{1,2}["״][א-ת](?![א-ת])'               # « סקי״ד », « סקל״ב » (compacte)
+    r'|[א-ת][\'׳](?![א-ת]))'                         # « סקא׳ » (compacte, geresh)
+    r')'
+    r'(?P<sk>[\dא-ת"״\'׳]{1,4})')
 
 
 def ref_mb_du_siman(path, ctx):
@@ -1641,6 +1804,26 @@ def _plus_proche(rx, ctx, rejeter=None):
     return meilleur
 
 
+# « (משנה ברורה מ״ו סקי״ד) », « (משנה ברורה שנ״ח סקי״א) » — LA SIGLE, PUIS UN NUMÉRAL
+# DE SIMAN NU, PUIS LE ס״ק. C'est la forme conventionnelle du dépôt, et le siman y est
+# écrit sans « סימן » ni « או״ח » : aucun des deux lecteurs de siman ne le voyait, et le
+# siman retenu était celui de la PAGE. Tant que le ס״ק compact n'était pas lu non plus,
+# ces références ne produisaient rien et partaient en « sans référence ». Dès que le ס״ק
+# est lu, elles produisent une adresse FAUSSE — MB 290:14 pour un renvoi au siman 46, MB
+# 359:11 pour un renvoi au siman 358 : dix occurrences mesurées sur les 21 simanim à
+# forme compacte, toutes de cette seule espèce. On ferme donc la classe plutôt que de la
+# déclarer.
+#
+# DEUX EXIGENCES, et ce sont elles qui empêchent la guématrie de tout avaler : le numéral
+# doit porter son GERSHAYIM, et il doit être IMMÉDIATEMENT SUIVI du marqueur de ס״ק. Sans
+# la seconde, « (ט״ז יו״ד קפ״ז ס״ק ב) » ferait lire « יו״ד » comme le siman 20 ; sans la
+# première, n'importe quel mot hébreu court deviendrait un numéro de siman.
+RE_SIMAN_COLLE = re.compile(
+    r'^[\s(\[]*(?!ס["״]?ק(?![א-ת])|סעיף)'
+    r'(?P<s>[א-ת]{1,2}["״][א-ת](?![א-ת]))'
+    r'\s*(?=ס["״]?ק|סעיף\s*קטן)')
+
+
 def candidats_ouvrages(path, ctx):
     """Références de repli pour les ouvrages nommés dans la fenêtre.
 
@@ -1714,7 +1897,9 @@ def candidats_ouvrages(path, ctx):
         s_loc = RE_TOUR_SIMAN.search(proche)
         m_loc = RE_SIMAN_SEIF.search(proche)
         k_loc = RE_SK_NU.search(proche)
+        c_loc = RE_SIMAN_COLLE.match(proche)
         si = (_num(s_loc.group('s')) if s_loc else None) \
+             or (_num(c_loc.group('s')) if c_loc else None) \
              or (_num(m_loc.group('s')) if m_loc else None) or siman
         ni = (_num(k_loc.group('sk')) if k_loc else None) \
              or (_num(m_loc.group('n')) if m_loc else None) or n
@@ -1785,12 +1970,20 @@ def main():
 
     rows, stats = [], {'OK': 0, 'VARIANTE': 0, 'REF_FAUSSE': 0, 'INTROUVABLE': 0,
                        'NON_RESOLU': 0, 'SANS_REF': 0}
+    # Ce que la SECONDE PASSE a réellement confronté. Sans ce décompte, élargir la
+    # lecture aux metas serait une affirmation et non une mesure : une passe qui
+    # n'extrait rien et une passe absente rendent le même vert.
+    entete = {'OK': 0, 'VARIANTE': 0, 'REF_FAUSSE': 0, 'INTROUVABLE': 0,
+              'NON_RESOLU': 0, 'SANS_REF': 0}
+    champs_vus = {}
     cache_src = {}
 
     for path in pages(base, langues):
         text = open(path, encoding='utf-8').read()
 
-        for frag, lineno, plain in quotes_in(text, path):
+        for frag, lineno, plain, champ in quotes_in(text, path):
+            if champ:
+                champs_vus[champ] = champs_vus.get(champ, 0) + 1
             # la référence doit accompagner la citation, pas simplement figurer
             # quelque part sur la même ligne
             at = plain.find(frag)
@@ -1810,6 +2003,8 @@ def main():
                 refs = [c for c in candidats_ouvrages(path, window) if c]
             if not refs:
                 stats['SANS_REF'] += 1
+                if champ:
+                    entete['SANS_REF'] += 1
                 continue
             segs = []
             for r in refs[:3]:
@@ -1914,6 +2109,8 @@ def main():
                 # Tanakh ; tant qu'il ne le lira pas, il doit se taire ici.
                 if RE_VERSET.search(avant30) or not refs_in(proche):
                     stats['SANS_REF'] += 1
+                    if champ:
+                        entete['SANS_REF'] += 1
                     continue
 
             ailleurs = ''
@@ -1926,11 +2123,14 @@ def main():
                     v = 'REF_FAUSSE' if found else 'INTROUVABLE'
                     ailleurs = ' · '.join(found[:3])
             stats[v] = stats.get(v, 0) + 1
+            if champ:
+                entete[v] = entete.get(v, 0) + 1
             if v == 'OK' or (args.only_absent and v not in ('INTROUVABLE', 'REF_FAUSSE')):
                 continue
 
             rows.append({
                 'fichier': os.path.relpath(path, ROOT), 'ligne': lineno,
+                'champ': champ,
                 'refs': ' | '.join(refs[:3]), 'verdict': v, 'ratio': f'{ratio:.2f}',
                 'citation': re.sub(r'\s+', ' ', frag)[:400],
                 'source_reelle': re.sub(r'\s+', ' ', extract)[:400],
@@ -1939,7 +2139,7 @@ def main():
 
     if args.csv:
         import csv as _csv
-        champs = ['fichier', 'ligne', 'refs', 'verdict', 'ratio', 'citation',
+        champs = ['fichier', 'ligne', 'champ', 'refs', 'verdict', 'ratio', 'citation',
                   'source_reelle', 'texte_trouve_en']
         out = args.csv if os.path.isabs(args.csv) else os.path.join(ROOT, args.csv)
         os.makedirs(os.path.dirname(out), exist_ok=True)
@@ -1964,7 +2164,9 @@ def main():
 
     if not args.quiet:
         for r in sorted(rows, key=lambda r: (r['verdict'] != 'INTROUVABLE', r['fichier'])):
-            print(f"[{r['verdict']:9}] {r['fichier']}:{r['ligne']}  ← {r['refs']}  (r={r['ratio']})")
+            ou = f" [{r['champ']}]" if r.get('champ') else ''
+            print(f"[{r['verdict']:9}] {r['fichier']}:{r['ligne']}{ou}"
+                  f"  ← {r['refs']}  (r={r['ratio']})")
             print(f"    page   : {r['citation'][:160]}")
             if r['source_reelle']:
                 print(f"    source : {r['source_reelle'][:160]}")
@@ -1978,6 +2180,26 @@ def main():
     print(f"  Variantes           : {stats['VARIANTE']}")
     print(f"  Référence fausse    : {stats['REF_FAUSSE']}  (texte réel, mais pas là où la page le situe)")
     print(f"  INTROUVABLES        : {stats['INTROUVABLE']}  (absentes de tout Sefaria)")
+    # ─── CE QUE LA SECONDE PASSE A COMPARÉ ───
+    # Les champs d'entête ne sont pas affichés à la lecture, mais Google et les
+    # aperçus de partage ne lisent QUE ceux-là. Ce bloc dit combien de citations y
+    # ont été trouvées, et combien de verdicts en viennent : une passe muette ne
+    # doit pas pouvoir ressembler à une passe propre.
+    n_ent = sum(entete.values())
+    print('--- Champs d\'entête (meta, og:, twitter:, JSON-LD) ---')
+    print(f"  Citations examinées : {n_ent}")
+    if n_ent:
+        print('  par champ           : '
+              + ' · '.join(f'{k} {v}' for k, v in sorted(champs_vus.items(),
+                                                         key=lambda kv: -kv[1])))
+        print(f"  sans référence {entete['SANS_REF']} · conformes {entete['OK']}"
+              f" · variantes {entete['VARIANTE']}"
+              f" · référence fausse {entete['REF_FAUSSE']}"
+              f" · INTROUVABLES {entete['INTROUVABLE']}")
+    else:
+        print('  AUCUNE — soit ces pages n\'ont pas de citation en entête, soit la')
+        print('  seconde passe ne lit rien. Les deux se distinguent en comptant les')
+        print('  « … » des balises meta et du JSON-LD de la cible.')
     # Ce que la porte a réellement confronté du côté de la Michna Beroura. Sans ce
     # bloc, un recalage muet (Sefaria indisponible, marqueurs illisibles) ressemble
     # à un passage vert : les citations partent en NON_RESOLU et personne ne le voit.

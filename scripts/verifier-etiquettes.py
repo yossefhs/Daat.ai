@@ -36,6 +36,25 @@ CONFRONTÉS : 3 992 étiquettes, dont 397 portent une plage, valent 5 264 points
 haute comprise, et le compte des points confrontés est un PLANCHER : un tronçon qui casse
 n'ajoute que le parcouru.
 
+UNE LACUNE DE LA SOURCE ET UNE ADRESSE QUI DÉPASSE L'ŒUVRE NE SONT PAS LA MÊME CHOSE, et la
+porte les confondait — au profit du silence. Sefaria rend `ref` juste, `error` nul et `he` VIDE
+dans les deux cas : pour le siman 169 de Yoré Déa, qu'elle ne numérise pas et qui existe, comme
+pour « Mishnah Berurah 999 », qui n'existe pas. Tout `he` vide passait donc « sans accuser ». Le
+discriminant se DEMANDE (`api/shape/<œuvre>` : combien de simanim sont servis), il ne se devine
+pas : dans l'étendue de l'œuvre, c'est une lacune de la source et on passe ; au-delà, c'est une
+ADRESSE FAUSSE, et c'est ce que cette porte existe pour dire. Étendue inconnue = on ne certifie
+pas. Et le refus motivé de Sefaria — « ends at Siman 697 » — est autoritatif : il valait jusqu'ici
+une œuvre « non chargée », donc le diagnostic le moins grave, alors que la source a répondu.
+
+CE QU'ELLE ANNONCE ET CE QU'ELLE PEUT CONFRONTER SONT DEUX CHOSES, et le compte doit dire
+laquelle il compte. Les points de source ANNONCÉS par les étiquettes sont imprimés en face des
+points RÉELLEMENT CONFRONTÉS : l'écart est le plancher, mesuré au lieu d'être nommé. Et la
+ventilation du thème dit ce que la porte ne peut pas faire : 603 des 3 992 étiquettes vivent
+dans une cellule qui, toutes adresses retirées, ne porte pas un mot (toutes en Yoré Déa, 24,3 %
+du compartiment) — leur contenu est dans les cellules VOISINES de la rangée, que la porte ne lit
+pas. L'annonce antérieure, « 3 987 sur 3 992 portent un thème confrontable, seules 5 n'en portent
+aucun », était fausse d'un facteur cent vingt.
+
 ET ELLE REFUSE DE CERTIFIER CE QU'ELLE N'A PAS COMPARÉ. Sefaria injoignable, la porte lisait
 ses étiquettes, sautait chaque point, et sortait en 0 sur « ANOMALIES : 0 ». Trois registres
 de charge le disent désormais, et la sortie 3 les traduit : œuvres chargées · non numérisées
@@ -172,6 +191,22 @@ PETIT_DEB, PETIT_FIN = '\u0001', '\u0002'
 # une œuvre que Sefaria ne numérise pas : sans ces registres, la porte ne peut pas dire si
 # elle a comparé quoi que ce soit. Voir le docstring de _get et le refus de vert de main().
 _chargees, _lacunes, _echecs = set(), set(), {}
+# Deux registres de plus. _fausses sépare du silence légitime ce qui est une adresse hors de
+# l'œuvre ; _du_cache / _du_reseau disent si la porte a parlé à Sefaria ou relu un instantané.
+_fausses = {}
+# ⚠️ « RELUE DANS LE CACHE » SE MESURE À L'ÉTAT DU FICHIER AU DÉMARRAGE, non au dictionnaire en
+# mémoire — et ma première version de cette ligne a menti pour cette exact raison : une œuvre est
+# redemandée à chaque point d'une plage, si bien que le deuxième appel trouvait dans `_cache` ce
+# que le PREMIER venait de télécharger, et la porte créditait le cache d'une lecture qu'elle
+# venait de faire à Sefaria. Éprouvé en écartant le cache : « 3 RELUES DANS LE CACHE et 0
+# obtenues de Sefaria » pour trois œuvres toutes téléchargées. C'est le défaut que cette ligne
+# existe pour empêcher, commis dans la ligne elle-même.
+_INITIAL = {k for k in _cache if not k.startswith(('__', 'shape:'))}
+_du_reseau = set()
+
+def _ecrire_cache():
+    try: json.dump(_cache, open(CACHE, 'w', encoding='utf-8'), ensure_ascii=False)
+    except Exception: pass
 
 def _plat(x):
     if isinstance(x, str): return x
@@ -226,27 +261,48 @@ def _get(slug, cle):
     if cle in _cache:
         _chargees.add(cle)
         return _cache[cle]
-    out, raison = [], None
+    titre = slug.rpartition('.')[0]
+    n = cle.split(':')[-1]
+    out, raison, fausse = [], None, None
     try:
         with urllib.request.urlopen(
                 f'https://www.sefaria.org/api/texts/{slug}?context=0&pad=0', timeout=30) as r:
             d = json.load(r)
-        ref = str(d.get('ref', ''))
-        n = cle.split(':')[-1]
+        _du_reseau.add(cle)
+        ref = str(d.get('ref') or '')
+        err = str(d.get('error') or '')
         if not ref.rstrip().endswith(n):      # sinon : l'œuvre entière sans dire non
-            raison = f"Sefaria rend « {ref[:60]} » et non {slug}"
+            # ⚠️ UN REFUS MOTIVÉ N'EST PAS UN ÉCHEC DE MESURE. « Shulchan Arukh, Orach Chayim
+            # ends at Siman 697 » est la source qui dit jusqu'où elle va : c'est autoritatif,
+            # et c'est une adresse fausse. La porte en faisait une œuvre NON CHARGÉE, donc une
+            # « mesure incomplète » — le lecteur recevait le diagnostic le moins grave, et la
+            # ligne du relevé disait « Sefaria rend «  » », ce qui est faux : elle a répondu.
+            f = RX_FIN.search(err)
+            if f: fausse = int(f.group(1))
+            else:
+                raison = f"Sefaria rend « {ref[:60]} » et non {slug}"
+                if err: raison += f" (error : {err[:80]})"
         else:
             he = d.get('he')
             segs = [_sans_balises(b) for b in (he if isinstance(he, list) else [he])]
-            # `he` vide ou tout blanc : l'œuvre a répondu, elle ne numérise pas ce siman.
             out = segs if any(_plein(x) for x in segs) else []
+            if not out:
+                # `he` vide : lacune de la source, ou siman qui dépasse l'œuvre ? On DEMANDE.
+                ext = etendue(titre)
+                if ext is None:
+                    raison = ("he vide ET étendue de l'œuvre inconnue (api/shape ne nomme pas "
+                              f"« {titre.replace('_', ' ')} ») : impossible de dire si c'est "
+                              "une lacune de la source ou une adresse hors de l'œuvre")
+                elif n.isdigit() and int(n) > ext:
+                    fausse = ext
     except Exception as e:
         raison = f'{type(e).__name__}: {e}'
     if out:                      # jamais de vide persisté : voir le docstring
         _chargees.add(cle)
         _cache[cle] = out
-        try: json.dump(_cache, open(CACHE, 'w', encoding='utf-8'), ensure_ascii=False)
-        except Exception: pass
+        _ecrire_cache()
+    elif fausse is not None:
+        _fausses[cle] = fausse   # ADRESSE HORS DE L'ŒUVRE : accusée, jamais passée en silence
     elif raison is None:
         _lacunes.add(cle)        # lacune de numérisation, autoritative
     else:
@@ -288,6 +344,73 @@ def porte_glose_rama(seg):
         if RX_EXPLIC.match(t) or RX_EDITEUR.match(t): continue
         return True
     return 'הגה' in seg          # filet, si Sefaria cessait d'employer <small>
+
+# ⚠️ « he VIDE » N'EST PAS UNE RÉPONSE : C'EST DEUX RÉPONSES, ET LA PORTE LES CONFONDAIT.
+# Sefaria rend une réponse D'APPARENCE VALIDE — `ref` juste, `error` nul, `he` vide — pour un
+# siman qu'elle ne numérise pas ET pour un siman QUI N'EXISTE PAS. Sondes vérifiées une par une :
+#   Mishnah_Berurah.999                              → ref juste · error nul · he VIDE
+#   Mishnah_Berurah.700                              → idem (la Michna Beroura s'arrête au 697)
+#   Siftei_Kohen_…,_Yoreh_De'ah.550                  → idem (le Chakh s'arrête au 403)
+#   Shulchan_Arukh,_Yoreh_De'ah.169                  → idem, et c'est une LACUNE RÉELLE
+#   Shulchan_Arukh_HaRav,_Orach_Chayim.140           → idem, lacune réelle (l'Admour HaZaken
+#                                                      n'a pas écrit 132-154 ; api/shape en
+#                                                      compte 140 sur 651, dont 132-154 et 157)
+#   Shulchan_Arukh,_Orach_Chayim.700                 → ref=None + « ends at Siman 697 »
+# La porte traitait TOUT `he` vide comme « lacune de numérisation, autoritative, on passe sans
+# accuser ». C'est juste pour le Choul'han Aroukh, dont la lacune du siman 169 de Yoré Déa est
+# réelle. Mais le chemin était atteignable pour TOUTE œuvre : une étiquette « MB 999 ס״ק ב »
+# sortait au vert, comptée parmi les « non numérisées », c'est-à-dire rangée du côté des silences
+# légitimes. Or un siman qui dépasse l'œuvre n'est pas une lacune : c'est une ADRESSE FAUSSE, et
+# c'est exactement ce que cette porte existe pour dire.
+#
+# LE DISCRIMINANT NE SE DEVINE PAS, IL SE DEMANDE : `api/shape/<œuvre>` rend `length`, le nombre
+# de simanim que Sefaria sert, et `chapters`, leur taille un par un. Mesuré : la Michna Beroura
+# 697 simanim et AUCUN vide ; le Choul'han Aroukh de Yoré Déa 403 dont le SEUL vide est le 169 ;
+# le Choul'han Aroukh HaRav d'Orah Haïm 651 dont 140 vides, à commencer par 132-154 et 157 —
+# ce que CLAUDE.md consigne de mémoire, et que la source confirme ici d'elle-même.
+# Donc : siman ≤ length et vide = lacune de la source, on passe. siman > length = adresse fausse.
+# ⚠️ ET L'ÉTENDUE INCONNUE NE RETOMBE PAS DANS LE SILENCE. Si `api/shape` ne répond pas, ou ne
+# rend pas une entrée dont le titre est CELUI QU'ON A DEMANDÉ (même piège que le champ `ref` :
+# elle rend 200 et autre chose — « Arukh_HaShulchan,_Orach_Chayim » rend
+# {'error': 'No index or category found'}), alors on ne SAIT pas, et une porte qui ne sait pas
+# ne certifie pas : le cas part en œuvre NON CHARGÉE, et la mesure est déclarée incomplète.
+SHAPE_V = 1
+if _cache.get('__shape_v') != SHAPE_V:
+    _cache = {k: v for k, v in _cache.items() if not k.startswith('shape:')}
+    _cache['__shape_v'] = SHAPE_V
+_etendues = {}
+RX_FIN = re.compile(r'ends at\s+\w+\s+(\d+)', re.I)
+
+def etendue(titre):
+    """Combien de simanim Sefaria SERT-ELLE de cette œuvre ? None si elle ne le dit pas.
+
+    Le cache de ce chiffre est versionné à part (`__shape_v`) : les segments déjà en cache
+    gardent exactement le sens qu'ils avaient, rien dans leur lecture ne change, et il n'y a
+    donc pas à les jeter — mais un chiffre d'étendue lu d'une version antérieure, lui, serait
+    muet et faux de la même façon qu'un segment vide persisté. Un vide n'est JAMAIS persisté
+    ici non plus : une étendue inconnue est redemandée à chaque exécution."""
+    if titre in _etendues: return _etendues[titre]
+    cle = f'shape:{titre}'
+    if cle in _cache:
+        _etendues[titre] = _cache[cle]
+        return _cache[cle]
+    val = None
+    try:
+        with urllib.request.urlopen(
+                f'https://www.sefaria.org/api/shape/{titre}', timeout=30) as r:
+            d = json.load(r)
+        attendu = titre.replace('_', ' ').strip()
+        for e in (d if isinstance(d, list) else []):
+            if str(e.get('title', '')).strip() == attendu and isinstance(e.get('length'), int):
+                val = e['length']; break
+    except Exception:
+        val = None
+    _etendues[titre] = val
+    if val is not None:
+        _cache[cle] = val
+        _ecrire_cache()
+    time.sleep(0.1)
+    return val
 
 def seifim(n):   return _get(f'Shulchan_Arukh,_Orach_Chayim.{n}', f'sa:{n}')
 def seifim_yd(n):return _get(f"Shulchan_Arukh,_Yoreh_De'ah.{n}", f'yd:{n}')
@@ -387,28 +510,43 @@ def _bornes(m, n):
     if g4: return a, _num(g4), (_num(g3) or n), True
     return a, (_num(g3) or a), n, True
 
+# ⚠️ ET UNE CIBLE QUE SEFARIA N'A JAMAIS SERVIE : « Arukh_HaShulchan,_Orach_Chayim » rend
+# « Unable to find text for that ref » (HTTP 400) — le titre servi s'écrit « Orach CHAIM »,
+# sans le yod, alors que le Choul'han Aroukh s'écrit « Orach Chayim ». C'est mot pour mot la
+# leçon du commit b92a48dc : LE NOM D'UNE CIBLE EST UN PRÉFIXE DU « ref » SERVI, non une
+# étiquette qu'on écrit de mémoire. Mesuré : « Arukh_HaShulchan,_Orach_Chaim.246 » rend
+# 24 séifim, « …_Orach_Chayim.246 » rend une erreur. Aucune étiquette du dépôt ne passe
+# aujourd'hui par cette branche (les 6 de l'Aroukh HaChoul'han sont toutes de Yoré Déa) :
+# le défaut était DORMANT, et c'est la seule raison pour laquelle il n'a rien coûté.
 def _oeuvre(genre, m):
-    """(chargeur, unité, comment nommer l'œuvre du siman k). Un seul endroit où le genre
-    se traduit en œuvre, pour que la plage se déploie de la même façon pour toutes."""
+    """(chargeur, unité, nom de l'œuvre du siman k, clé de cache du siman k). Un seul endroit
+    où le genre se traduit en œuvre, pour que la plage se déploie de la même façon pour toutes
+    — et pour que le diagnostic d'absence puisse retrouver la clé qui porte la raison."""
     if genre == 'shk':
-        return shk, 'ס״ק', (lambda k: f"le Chakh du siman {k} de Yoré Déa")
+        return (shk, 'ס״ק', (lambda k: f"le Chakh du siman {k} de Yoré Déa"),
+                (lambda k: f'shk:{k}'))
     if genre == 'taz':
-        return taz_yd, 'ס״ק', (lambda k: f"le Taz du siman {k} de Yoré Déa")
+        return (taz_yd, 'ס״ק', (lambda k: f"le Taz du siman {k} de Yoré Déa"),
+                (lambda k: f'tazyd:{k}'))
     if genre == 'rav':
         return ((lambda k: _get(f'Shulchan_Arukh_HaRav,_Orach_Chayim.{k}', f'rav:{k}')),
-                'séif', (lambda k: f"le Choul'han Aroukh HaRav du siman {k}"))
+                'séif', (lambda k: f"le Choul'han Aroukh HaRav du siman {k}"),
+                (lambda k: f'rav:{k}'))
     if genre == 'ahs':
         yd = bool(re.search(YD, m.group(0)))
         pre = 'ahsyd' if yd else 'ahsoh'
         slug = ((lambda k: f"Arukh_HaShulchan,_Yoreh_De'ah.{k}") if yd
-                else (lambda k: f'Arukh_HaShulchan,_Orach_Chayim.{k}'))
+                else (lambda k: f'Arukh_HaShulchan,_Orach_Chaim.{k}'))
         return ((lambda k: _get(slug(k), f'{pre}:{k}')),
-                'séif', (lambda k: f"l'Aroukh HaChoul'han du siman {k}"))
+                'séif', (lambda k: f"l'Aroukh HaChoul'han du siman {k}"),
+                (lambda k: f'{pre}:{k}'))
     if genre == 'mb':
-        return mb, 'ס״ק', (lambda k: f"la Michna Beroura du siman {k}")
+        return (mb, 'ס״ק', (lambda k: f"la Michna Beroura du siman {k}"),
+                (lambda k: f'mb:{k}'))
     if genre.endswith('_yd'):
-        return seifim_yd, 'séif', (lambda k: f"le siman {k} de Yoré Déa")
-    return seifim, 'séif', (lambda k: f"le siman {k} d'Orah Haïm")
+        return (seifim_yd, 'séif', (lambda k: f"le siman {k} de Yoré Déa"),
+                (lambda k: f'yd:{k}'))
+    return (seifim, 'séif', (lambda k: f"le siman {k} d'Orah Haïm"), (lambda k: f'sa:{k}'))
 
 def _place(genre, n, segs, x):
     """L'index du point x dans les segments, et le nombre de points numérotés de l'œuvre.
@@ -436,10 +574,60 @@ def _dans_un_recueil(cell, deb):
     return bool(RECUEILS.search(cell[max(0, deb - 60):deb]))
 
 
+# ⚠️ « 3 987 ÉTIQUETTES SUR 3 992 ANNONCENT UN THÈME CONFRONTABLE, SEULES 5 N'EN PORTENT
+# AUCUN » : C'ÉTAIT FAUX D'UN FACTEUR CENT VINGT, et le chiffre venait de ce que l'on ne
+# retirait de la cellule QUE l'adresse appariée, en laissant passer pour un « thème » les
+# autres adresses de la même cellule. Recompté ici, non sur un relevé mais sur les pages :
+#   603 étiquettes (15,1 %) dont la cellule, toutes adresses retirées, ne porte PAS UN MOT —
+#       et les 603 sont en Yoré Déa, soit 24,3 % de ce compartiment ;
+#   1 850 (46,3 %) à un à cinq mots · 1 539 (38,6 %) à six mots ou plus.
+# ⚠️ ET LA SUITE CORRIGE AUSSI CE RECOMPTAGE-LÀ, car « aucun thème » n'est pas « rien n'est
+# annoncé » : ces 603 étiquettes vivent dans une COLONNE D'ANCRAGE (« Cas | Berakha | Ancrage »),
+# et le contenu qu'elles adressent est dans les cellules VOISINES de leur rangée. Mesuré :
+# 572 des 603 sont dans une rangée dont les autres cellules portent six mots ou plus, 31 dans
+# une rangée qui en porte un à cinq, et AUCUNE n'est orpheline (mesuré par un arbitre, en
+# instrumentant ce compteur-ci ; le « 563 / 40 » qui figurait ici venait d'un appariement
+# cellule↔rangée par égalité de chaîne, quand la porte apparie par POSITION — et ses deux
+# nombres contredisaient la sortie que ce même fichier imprime, « dont 572 »). Ce que la porte
+# ne peut donc pas
+# faire, et qu'il faut écrire au lieu de le taire : confronter l'adresse au contenu de SA cellule.
+# Le mot « mot » est ici un jeton de deux lettres au moins ; en comptant aussi les jetons d'une
+# seule lettre (un numéral hébraïque nu, « א »), la classe sans thème tombe à 540 et non 603.
+# La frontière des classes dépend de cette convention, et c'est pour cela qu'elle est écrite.
+MOT_THEME = re.compile(r'[A-Za-z\u00C0-\u024F\u05D0-\u05EA]{2,}')
+RXTR = re.compile(r'<tr\b.*?</tr>', re.S | re.I)
+TOUTES_ADRESSES = (RX_HAGAHA, RX_HAGAHA_YD, RX_MB, RX_SHK, RX_TAZ,
+                   RX_RAV, RX_AHS, RX_SEIF, RX_SEIF_YD)
+
+def mots_du_theme(cell):
+    """Les mots de la cellule, TOUTES les adresses retirées — pas seulement l'appariée."""
+    t = list(cell)
+    for rx in TOUTES_ADRESSES:
+        for m in rx.finditer(cell):
+            t[m.start():m.end()] = [' '] * (m.end() - m.start())
+    txt = re.sub(r'<[^>]*>', ' ', ''.join(t))
+    txt = re.sub(r'&[#0-9A-Za-z]+;', ' ', txt)
+    return MOT_THEME.findall(txt)
+
+def _voisinage(s):
+    """Pour chaque cellule (par son début), les mots des AUTRES cellules de sa rangée."""
+    rangees = [(m.start(), m.end()) for m in RXTR.finditer(s)]
+    cells = [(m.start(), m.end(), m.group(1)) for m in RXTD.finditer(s)]
+    out = {}
+    for i, (d, f, c) in enumerate(cells):
+        r = next(((a, b) for a, b in rangees if a <= d and f <= b), None)
+        if r is None: continue
+        soeurs = [cc for j, (dd, ff, cc) in enumerate(cells)
+                  if j != i and r[0] <= dd and ff <= r[1]]
+        out[d] = len(mots_du_theme(' '.join(soeurs)))
+    return out
+
 def examiner(path, siman_page, anomalies, candidats, compte):
     s = io.open(path, encoding='utf-8').read()
     nom = os.path.basename(path)
-    for cell in RXTD.findall(s):
+    voisinage = _voisinage(s)
+    for _mcell in RXTD.finditer(s):
+        cell = _mcell.group(1)
         vus = set()
         # ⚠️ L'ÉTENDUE, ET NON LA PROXIMITÉ. « ערוך השולחן יורה דעה ר״ב:י״ב » CONTIENT
         # « יורה דעה ר״ב:י״ב » : c'est ce chevauchement-là, et lui seul, qu'il faut taire.
@@ -478,12 +666,51 @@ def examiner(path, siman_page, anomalies, candidats, compte):
                 txt = m.group(0).strip()
                 compte[genre] += 1
                 compte['_plages'] += 1 if plage else 0
+                # la ventilation du thème : ce que la cellule annonce, hors adresses
+                k_mots = len(mots_du_theme(cell))
+                compte['_th0' if k_mots == 0 else ('_th15' if k_mots <= 5 else '_th6')] += 1
+                if k_mots == 0 and voisinage.get(_mcell.start(), 0) >= 6:
+                    compte['_th0_rangee'] += 1
+                # les POINTS ANNONCÉS, face aux points confrontés : sans eux, « plancher »
+                # est un mot et non une mesure.
+                if n_haut == n and b >= a: compte['_annonces'] += b - a + 1
+                else: compte['_annonces_flou'] += 1
                 if n != siman_page:
                     candidats.append(f"{nom} · « {txt} » nomme le siman {n}, "
                                      f"la page est le siman {siman_page}")
 
-                charge, unite, libelle = _oeuvre(genre, m)
-                sans, casse, prive = [], False, []
+                charge, unite, libelle, cle_de = _oeuvre(genre, m)
+                sans, casse, prive, dits = [], False, [], set()
+
+                def _absence(k):
+                    """Rien n'a été servi pour le siman k de cette œuvre — faut-il accuser ?
+
+                    Trois raisons possibles, et elles ne se valent pas : l'œuvre n'a pas été
+                    chargée (la mesure n'a pas eu lieu, main() refuse de certifier) ; Sefaria
+                    a répondu et ne numérise pas ce siman (lacune de la source, autoritative,
+                    on passe) ; ou LE SIMAN DÉPASSE L'ŒUVRE, et c'est une adresse fausse — le
+                    cas que cette porte existe pour dire, et qu'elle rangeait avec les silences
+                    légitimes. _get a déjà tranché et inscrit sa raison : on la relit ici."""
+                    ext = _fausses.get(cle_de(k))
+                    if ext is None or k in dits: return
+                    dits.add(k)
+                    compte['_hors_oeuvre'] += 1
+                    # ⚠️ LA SEULE CLASSE DE FAUX POSITIFS DE CE VERDICT, ET ELLE SE MESURE :
+                    # le siman JUSTE au-delà de ce que Sefaria sert peut être une lacune de
+                    # numérisation en FIN d'ouvrage et non une adresse fausse. Mesuré sur le
+                    # Taz de Yoré Déa : api/shape en sert 402, et api/v2/raw/index en déclare
+                    # 403 (« lengths: [403, 3421] ») ; Turei_Zahav…403 rend un `ref` juste et
+                    # un `he` vide. Aucune étiquette du dépôt n'est dans ce cas aujourd'hui —
+                    # le siman le plus haut cité du Taz est le 203 — mais la réserve se dit.
+                    queue = ("" if k > ext + 1 else
+                             " — ATTENTION : c'est le siman JUSTE au-delà ; vérifier à la main "
+                             "qu'il ne s'agit pas d'une lacune de numérisation en fin "
+                             "d'ouvrage (l'index déclare parfois un siman de plus que le "
+                             "texte servi : le Taz de Yoré Déa, 403 déclarés, 402 servis)")
+                    anomalies.append(
+                        f"{nom} · « {txt} » — {libelle(k)} n'existe pas : Sefaria ne sert que "
+                        f"{ext} simanim de cette œuvre (adresse HORS DE L'ŒUVRE, "
+                        f"et non une lacune de la source){queue}")
 
                 def _regarder(k, x):
                     """Le point x de l'œuvre du siman k : existe-t-il, porte-t-il du texte ?
@@ -496,8 +723,10 @@ def examiner(path, siman_page, anomalies, candidats, compte):
                     rendu n'était pas le plus grave."""
                     segs = charge(k)
                     if not segs:
-                        # œuvre non chargée OU siman que Sefaria ne numérise pas : dans les
-                        # deux cas rien n'est confronté ici, et il faut que cela se COMPTE.
+                        # œuvre non chargée, lacune de la source, ou adresse hors de l'œuvre :
+                        # rien n'est confronté ici, il faut que cela se COMPTE, et le troisième
+                        # cas doit s'ACCUSER.
+                        _absence(k)
                         prive.append(k)
                         compte['_sans_source'] += 1
                         return None, None
@@ -542,8 +771,10 @@ def examiner(path, siman_page, anomalies, candidats, compte):
                             else [(n, a, None), (n_haut, 1, b)])
                 for k, bas, haut_dit in troncons:
                     segs = charge(k)
-                    # he: [] = lacune de numérisation Sefaria, jamais une absence d'œuvre
+                    # he: [] = lacune de la source SI le siman est dans l'étendue de l'œuvre ;
+                    # au-delà, c'est une adresse fausse, et _absence l'accuse.
                     if not segs:
+                        _absence(k)
                         prive.append(k); compte['_sans_source'] += 1
                         continue
                     _, haut = _place(genre, k, segs, bas)
@@ -606,7 +837,9 @@ def main():
     anomalies, candidats = [], []
     compte = {'hagaha': 0, 'hagaha_yd': 0, 'seif': 0, 'seif_yd': 0,
               'mb': 0, 'shk': 0, 'taz': 0, 'rav': 0, 'ahs': 0,
-              '_plages': 0, '_points': 0, '_sans_source': 0, '_etiq_sans_source': 0}
+              '_plages': 0, '_points': 0, '_sans_source': 0, '_etiq_sans_source': 0,
+              '_hors_oeuvre': 0, '_annonces': 0, '_annonces_flou': 0,
+              '_th0': 0, '_th15': 0, '_th6': 0, '_th0_rangee': 0}
     for d in dirs:
         m = re.search(r'siman-(\d+)$', d)
         if not m: continue
@@ -633,13 +866,60 @@ def main():
     lues = sum(v for k, v in compte.items() if not k.startswith('_'))
     print(f"dont {compte['_plages']} portent une plage (largeur comptée en POINTS, "
           f"borne haute comprise : « MB 250:3-6 » vaut QUATRE points, pas trois)")
-    print(f"points de source confrontés : {compte['_points']} pour {lues} étiquettes lues "
-          f"— PLANCHER : un tronçon qui casse n'ajoute que le parcouru")
+    # ⚠️ « PLANCHER » ÉTAIT UN MOT ; LE VOICI MESURÉ. Le compte des points confrontés ne peut
+    # pas être relu seul : un tronçon qui casse n'ajoute que le parcouru, un point dont l'œuvre
+    # n'a pas été chargée n'ajoute rien, et une plage inversée ne fait regarder que ses deux
+    # bornes nommées au lieu de sa largeur. Face à lui, les POINTS ANNONCÉS par les étiquettes
+    # elles-mêmes : l'écart des deux EST le plancher, et il se lit au lieu de se croire.
+    manque = compte['_annonces'] - compte['_points']
+    print(f"points de source : {compte['_annonces']} ANNONCÉS par les étiquettes · "
+          f"{compte['_points']} RÉELLEMENT CONFRONTÉS"
+          + ("" if manque <= 0 else f" · {manque} jamais regardés"))
+    if compte['_annonces_flou']:
+        print(f"    + {compte['_annonces_flou']} étiquette(s) dont la largeur annoncée n'est pas "
+              f"calculable avant chargement (plage inversée, ou qui change de siman)")
+    if manque > 0:
+        print("    le compte des confrontés est donc un PLANCHER : un tronçon qui casse "
+              "n'ajoute que le parcouru, un point dont l'œuvre n'a pas été chargée n'ajoute "
+              "rien, et une plage inversée ne fait regarder que ses deux bornes nommées.")
+    # La ventilation du THÈME : une étiquette dont la cellule ne porte, toutes adresses retirées,
+    # aucun mot n'est pas confrontable au contenu de cette cellule — le dire est le seul moyen de
+    # ne pas prendre un plafond pour un compte. Voir le commentaire de mots_du_theme.
+    th = compte['_th0'] + compte['_th15'] + compte['_th6']
+    if th:
+        print(f"thème annoncé dans la cellule (toutes adresses retirées, un mot = deux lettres "
+              f"au moins) : {compte['_th6']} étiquettes à six mots ou plus "
+              f"({100 * compte['_th6'] / th:.1f} %) · {compte['_th15']} à un à cinq mots "
+              f"({100 * compte['_th15'] / th:.1f} %) · {compte['_th0']} SANS AUCUN MOT "
+              f"({100 * compte['_th0'] / th:.1f} %)")
+        if compte['_th0']:
+            print(f"    dont {compte['_th0_rangee']} dans une rangée dont les AUTRES cellules "
+                  f"portent six mots ou plus (colonne d'ancrage : le contenu adressé est là, "
+                  f"et cette porte ne le lit pas)")
     # Les trois registres de charge, imprimés sans condition : c'est le seul témoin qui dise
     # si la porte a comparé quelque chose, et le seul sur lequel le code de sortie agisse.
-    print(f"œuvres chargées : {len(_chargees)} · "
-          f"non numérisées par Sefaria (he vide, on passe sans accuser) : {len(_lacunes)} · "
-          f"NON CHARGÉES (rien n'y a été confronté) : {len(_echecs)}")
+    print(f"œuvres chargées : {len(_chargees)} — dont {len(_chargees & _INITIAL)} RELUES DANS "
+          f"LE CACHE ({os.path.basename(CACHE)}) et {len(_chargees - _INITIAL)} obtenues de Sefaria "
+          f"sur cette exécution ({len(_du_reseau)} appels de texte, "
+          f"{len(_etendues)} d'étendue) · "
+          f"lacunes de la source (he vide DANS l'étendue de l'œuvre, on passe sans accuser) : "
+          f"{len(_lacunes)} · HORS DE L'ŒUVRE (siman au-delà de ce que Sefaria sert — accusé) : "
+          f"{len(_fausses)} · NON CHARGÉES (rien n'y a été confronté) : {len(_echecs)}")
+    # ⚠️ RÉSERVE À LIRE AVEC LA LIGNE CI-DESSUS. « œuvres chargées : 199 · … · 0 · 0 » décrit
+    # LE CACHE, pas Sefaria : un lecteur y voit « la source a répondu 199 fois » quand elle n'a
+    # pas été appelée une seule fois. Le cache est un instantané ; il ne vieillit pas tout seul.
+    if _chargees and not _du_reseau:
+        print(f"    ⚠ AUCUNE œuvre n'a été demandée à Sefaria sur cette exécution : tout vient "
+              f"du cache, et ce verdict confronte les pages à un INSTANTANÉ, non à la source "
+              f"d'aujourd'hui. Supprimer {os.path.basename(CACHE)} pour re-confronter.")
+    elif _etendues:
+        print(f"    étendues d'œuvre demandées à api/shape : "
+              f"{sum(1 for v in _etendues.values() if v is not None)} connues, "
+              f"{sum(1 for v in _etendues.values() if v is None)} inconnues")
+    if _fausses:
+        for cle, ext in list(_fausses.items())[:8]:
+            print(f"    ✗ {cle} — l'œuvre s'arrête au siman {ext}")
+        if len(_fausses) > 8: print(f"    … et {len(_fausses) - 8} autres")
     if _echecs:
         for cle, raison in list(_echecs.items())[:8]:
             print(f"    ⚠ {cle} — {raison}")
@@ -647,8 +927,8 @@ def main():
         print(f"    étiquettes dont au moins un point n'a pu être confronté : "
               f"{compte['_etiq_sans_source']} · points hors d'atteinte : "
               f"{compte['_sans_source']}")
-    print(f'ANOMALIES  : {len(anomalies)}  (le séif ou le ס״ק annoncé n\'existe pas, '
-          f'ou le Rama n\'a pas de glose là)')
+    print(f'ANOMALIES  : {len(anomalies)}  (le séif ou le ס״ק annoncé n\'existe pas — '
+          f'hors de l\'œuvre : {compte["_hors_oeuvre"]} —, ou le Rama n\'a pas de glose là)')
     print(f'candidats  : {len(candidats)}  (l\'étiquette nomme un autre siman que la page — '
           f'licite, mais rare)')
 
