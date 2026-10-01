@@ -5,7 +5,7 @@ jour et l'envoie par email pour validation. Rien n'est publié sans un clic.
 
 Code : `api/daily-post.js` (routes), `api/_daily-post.js` (rédaction, vérification,
 illustrations, email), `api/_daily-post-view.js` (page de validation), `api/_social-publish.js`
-(publication). Cron : `/api/daily-post` à 4 h, 7 h, 10 h, 13 h et 15 h UTC, dimanche → jeudi (`vercel.json`).
+(publication). Cron : `/api/daily-post` à 4 h, 5 h, 7 h, 10 h, 13 h et 15 h UTC, dimanche → jeudi (`vercel.json`).
 
 Les deux passages de rattrapage ne font rien si l'email du jour est déjà **confirmé** par Resend
 (`dailypost:{date}:emailed:lien`) ; sinon ils reprennent là où le précédent s'est arrêté, sans
@@ -31,7 +31,7 @@ texte ; chaque illustration est inspectée (texte, personnes, symbole religieux 
 sujet) et régénérée une fois si besoin, sinon remplacée par un fond sobre.
 
 La date est celle de **Jérusalem**. L'email part à `DAILY_POST_EMAIL` (liste séparée par des
-virgules), sinon à `ADMIN_EMAIL` (à défaut `yossefhs@gmail.com`) et `daattorah.com@gmail.com` ; il n'est donné pour envoyé que
+virgules), sinon à `ADMIN_EMAIL` (à défaut `yossefhs@gmail.com`), `yosefhs@gmail.com` et `daattorah.com@gmail.com` ; il n'est donné pour envoyé que
 sur l'identifiant renvoyé par Resend (sinon « EMAIL NON ENVOYÉ » au journal).
 
 ## Contrôles bloquants (mieux vaut ne rien envoyer qu'un Daat Yomi faux)
@@ -105,3 +105,10 @@ paraître dans Gmail, ni en spam. L'email court (quelques lignes, lien
 `https://daattorah.com/valider/{date}/{jeton}`) est arrivé à la minute. C'est donc lui l'email du
 jour ; tout le contenu de l'ancien est dans la page de validation. L'email complet ne part plus que
 si `DAILY_POST_FULL_EMAIL=1`. L'email de blocage a pris la même forme sobre.
+
+## Heure d'envoi : 7 h, heure d'Israël, toute l'année
+
+Vercel ne connaît que l'UTC. Le passage de 4 h UTC tombe à 7 h à Jérusalem l'été et à 6 h
+l'hiver : avant 7 h (heure de Jérusalem), il prépare le post sans envoyer l'email, et le
+passage de 5 h UTC l'envoie. Une adresse ajoutée après l'envoi du matin reçoit le post du jour
+au passage suivant.
