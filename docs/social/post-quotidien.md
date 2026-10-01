@@ -1,5 +1,11 @@
 # Post quotidien du Daat Yomi — validé d'un clic
 
+> **DÉSACTIVÉ le 01/10/2026, à la demande de l'utilisateur.** Le post quotidien vient de la
+> tâche ChatGPT (texte et visuel) ; le site ne rédige plus rien, ne génère plus d'illustration
+> et n'envoie plus d'email. Les passages du cron ont été retirés de `vercel.json` ; le code est
+> conservé. Pour réactiver : remettre les entrées `/api/daily-post` dans `crons`
+> (`0 4 * * 0-4`, `0 5 * * 0-4`, plus les rattrapages `0 7`, `0 10`, `0 13`, `0 15`).
+
 Chaque jour d'étude (dimanche → jeudi), vers 6 h (heure de Paris), le site prépare le post du
 jour et l'envoie par email pour validation. Rien n'est publié sans un clic.
 
