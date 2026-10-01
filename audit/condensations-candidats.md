@@ -11,7 +11,7 @@ Date : 1er octobre 2026.
 
 ## 0. Ce que ce relevé établit en une phrase
 
-Le trou n'est pas théorique, il est peuplé, et il est **vingt fois plus large que l'estimation de 328**.
+Le trou n'est pas théorique, il est peuplé, et il est **vingt-cinq fois plus large que l'estimation de 328** [corrigé par l'arbitre : 8 386 / 328 = 25,6 ; « vingt fois » était le rapport des textes distincts, 6 357 / 328 = 19,4 — le paragraphe mélangeait les deux unités, et §a dit déjà « facteur 25 »].
 Sur **8 386 occurrences** du marqueur de condensation (6 357 textes distincts), un seul sous-ensemble
 a été confronté séif par séif — les **165 cellules de tableau qui portent leur propre adresse** — et il
 a rendu **11 condensations fausses sur 15 examinées à la main**, dont une inversion de chiffre
@@ -219,18 +219,18 @@ condensation AVEC hébreu vocalisé                                    43
 ```
 
 **40 occurrences, 15 cellules distinctes (comptées en français). Les 15 ont été ouvertes une par une
-contre Sefaria : 11 fausses, 3 fidèles, 1 en réserve.** Rendement **73 %** — la meilleure des trois,
-d'un ordre de grandeur.
+contre Sefaria : ~~11 fausses, 3 fidèles, 1 en réserve~~ → après arbitrage, **10 fausses, 5 fidèles,
+0 réserve**.** Rendement ~~73 %~~ → **67 %** — toujours la meilleure des trois, d'un ordre de grandeur.
 
 | cellule | colonne | verdict | preuve |
 |---|---|---|---|
-| OH 1:2 | Mehaber | **FAUSSE** | `ראוי לכל ירא שמים שיהא מיצר ודואג על חורבן בית המקדש` **est le séif 1:3** mot pour mot ; 1:2 traite des veilles de la nuit |
+| OH 1:2 | Mehaber | ~~FAUSSE~~ → **FIDÈLE (réfutée par l'arbitre)** | l'étiquette réelle est **`OH 1:2-3`**, non `OH 1:2` : la cellule cite le séif **2** verbatim (`המשכים להתחנן… יכוין לשעות שמשתנות המשמרות`, vérifié au séif 2) **et** condense le séif **3**. Les deux séifim sont dans la plage annoncée. Motif d'adresse tronqué sur le tiret de plage — le piège même que le mandat signalait |
 | OH 243:2 | **Rama** | **FAUSSE** | contenu = Mehaber du séif **א** (`ותנור דינו כמרחץ ורחיים דינו כשדה`) ; la glose du Rama sur 243:2 dit tout autre chose (`ואפילו במקום האסור… רק שכרם מעכו״ם`) |
 | OH 244:1 | Mehaber | **FAUSSE** | `אין אומרים` **absent du siman 244 entier**, et du Choul'han Aroukh HaRav 244 (22 séifim) ; 244:1 énonce une **permission** |
 | OH 246:1 | Rama | FIDÈLE | la glose du Rama sur 246:1 porte bien `ומותר להשאיל לו בערב שבת` |
 | OH 246:3 | Mehaber | FIDÈLE | même psak, même raison (`שאדם מצווה על שביתת בהמתו`) ; phrasé emprunté à la Michna |
 | OH 252:1 | Mehaber | **FAUSSE** | `פותקין מים לגינה` et `מוגמר תחת הכלים` sont au séif **252:5** (`ומותר לפתוח מים לגנה… ולתת מוגמר תחת הכלים`) |
-| OH 252:5 | Mehaber | **RÉSERVE** | `משתרף` absent du siman 252 entier ; adresse non établie, à ouvrir |
+| OH 252:5 | Mehaber | ~~RÉSERVE~~ → **FIDÈLE sur l'adresse et le psak (résolu par l'arbitre)** | `משתרף` est bien absent de SA OH 252 (7 séifim) **et** de SA HaRav 252 (20 séifim) — formulation composée. Mais le psak est **au séif 252:5** qu'elle nomme : `וטוענין בקורות בית הבד והגת מבעוד יום על זיתים וענבים והשמן והיין היוצא מהן מותר`. Adresse juste, psak juste, hébreu composé : même classe de faux positif que 246:1 et 253:1 |
 | OH 252:6 | Mehaber | **FAUSSE** | `דיו וסממנים` est au séif **252:1** (`לשרות דיו וסממנין`) ; 252:6 traite de `לא יצא אדם במחטו` |
 | OH 253:1 | Mehaber | FIDÈLE | `קטומה`, `גרופה` et `באפר` sont tous trois au séif 1 |
 | OH 254:1 | Mehaber | **FAUSSE** | `מצטמק ויפה לו` **absent du siman 254 entier** ; c'est le séif **253:1** |
@@ -247,7 +247,7 @@ Deux remarques qui comptent plus que le tableau :
   `verifier-etiquettes.py` les laisse passer parce qu'elle pose trois questions fermées — le séif
   existe-t-il, porte-t-il une glose du Rama quand on en promet une, le ס״ק existe-t-il — et la réponse
   est oui aux trois pour 243:2, 254:2, 261:1 et 263:1.
-- **Le défaut est groupé : 11 des 15 cellules sont dans Chabbat 243-263.** C'est la même plage que les
+- **Le défaut est groupé : ~~11 des 15 cellules~~ → les 10 cellules fausses sont dans Chabbat 243-263, sans exception** (l'arbitrage a retiré la seule fausse hors Chabbat, OH 1:2-3 ; le groupement en ressort **plus** net, non moins). C'est la même plage que les
   26 étiquettes fausses et que les troncatures. Ce n'est probablement pas une coïncidence mais une
   campagne de production.
 
@@ -280,9 +280,9 @@ l'adresse qui la porte) · **FAUSSE** (la source citée ne dit pas cela).
 | 13 | `sources/yoreh-deah/siman-131/niveau-1-base.html` | ט״ז יו״ד קל״א ס״ק א | **FIDÈLE** (réserve) | le Taz dit bien `ולא הבנתי זה דאדרבה בחצר מרתת טפי מבבית כיון שיש לו שייכות גם בבית` et `ויפה עשה רמ״א שלא זכר כאן בש״ע מחילוק זה`. Réserve : la condensation résume la distinction du Raavad sans sa clause opératoire `עד שיושיב שומר`, ce qui la rend inintelligible, et tait le `ובאמת צ״ע שם בר״ן` |
 | 14 | `sources/yoreh-deah/siman-119/niveau-4-halakha.html` | ש״ך ס״ק כ״ד | **FIDÈLE** | `והדבר פשוט דלכל האיסורים אינו נאמן אלא דאינו עושה יין נסך כיון שהוא יהודי באמת` — rendu exactement |
 
-**Bilan du tri : 6 FAUSSES · 3 IMPRÉCISES · 5 FIDÈLES.** Six sur quatorze.
-Par compartiment : Orah Haïm 5 items (1 fausse, 2 imprécises, 2 fidèles) · Chabbat 7 (5 fausses,
-1 imprécise, 1 fidèle) · Yoré Déa 2 (2 fidèles).
+**Bilan du tri : ~~6 FAUSSES · 3 IMPRÉCISES · 5 FIDÈLES~~ → après arbitrage 5 FAUSSES · 3 IMPRÉCISES · 6 FIDÈLES.** Cinq sur quatorze (item 1, OH 1:2-3, réfuté).
+Par compartiment : Orah Haïm 5 items (~~1 fausse~~ **0 fausse**, 2 imprécises, ~~2~~ **3** fidèles) ·
+Chabbat 7 (5 fausses, 1 imprécise, 1 fidèle) · Yoré Déa 2 (2 fidèles).
 
 **Le trou est peuplé, et il est peuplé inégalement** : les six fausses sont toutes des cellules de
 niveau 4, cinq des six dans Chabbat 243-263. Les deux condensations de Yoré Déa examinées sont fidèles,
@@ -325,3 +325,64 @@ C'est en prose, hors condensation, donc hors de ce lot — mais c'est la même f
   établi où vit la règle, donc je ne la compte pas comme fausse.
 - Les **trois « FIDÈLE » du tableau de l'hypothèse 3** (246:1, 246:3, 253:1) sont des acquittements de
   l'adresse et du psak, pas une relecture halakhique de la condensation.
+
+---
+
+## e) Note d'arbitrage — 1er octobre 2026
+
+Relevé contradictoire, par un second agent. Aucune page de `sources/` touchée, aucun commit.
+Toutes les confrontations ci-dessous sont des interrogations directes de Sefaria faites pour cet
+arbitrage, cache séparé ; `verifier-citations.py` n'a pas été lancé.
+
+**Chiffres reproduits sans le script de l'auteur** (grep seul, puis une pile de balises réécrite) :
+8 386 occurrences · 860 fichiers · orah-haim 6 563 / yoreh-deah 1 539 / shabbat 284 ·
+niveau-1 4 436 / niveau-2 3 347 / niveau-3 123 / n4-daat-harav 379 / n4-halakha 47 / index 54 ·
+fr 2 823 / en 2 805 / he 2 758 · `תמצית` 4 796 / `résumé` 1 800 / `summary` 1 790 ·
+**272 cellules** · **3 198 encadrés pédagogiques**. Tous exacts au chiffre près.
+Donc « 328 surestime de 20 % la famille des cellules » **tient**.
+
+**Chiffres qui ne tombent pas**, et il faut le dire :
+- **6 357 textes distincts** → 6 305 avec ma normalisation (−0,8 %). Dépend du normaliseur ; ce n'est
+  pas un compte au même titre que 8 386, contrairement à ce qu'écrit §a.
+- **165 cellules adressées** → non reproductible : un motif `OH <n>:<n>` en chiffres arabes n'en lit
+  que **56 sur 272**. Non réfuté, mais non vérifiable depuis la description donnée.
+- **`<li>` 357 · `<p>` 312 · lamdan 2 709** → j'obtiens 9 · 282 · 3 084. L'écart est l'**ordre de
+  priorité** du classement (`<li>` testé avant ou après les familles de classe), pas le comptage :
+  le total et les familles décisives sont identiques. La table n'est pas reproductible sans cette règle.
+
+**Ce que l'arbitrage ajoute :**
+
+1. **`scripts/verifier-alignement.py` ne lit pas le niveau 4** — et c'est la porte écrite POUR ce
+   défaut. Son commentaire dit qu'elle est née du siman 243. Sa liste de fichiers est
+   `ENTIER = ("niveau-1-base.html",)` et `INLINE = ("index.html", "niveau-2-lamdan.html",
+   "niveau-3-synthese.html")` : **`niveau-4-daat-harav.html` n'y est pas, ni aucune variante `-he`
+   / `-en`.** Sept des dix cellules fausses sont des décalages de séif ou des attributions croisées
+   — sa question exacte — et toutes vivent au niveau 4, dans trois langues. Le relevé impute le
+   silence à l'exemption de verbatim ; la cause immédiate est une **liste de fichiers**.
+2. **Les 1 539 occurrences de Yoré Déa ne sont pas « non mesurables ».** `1 237 des 1 256`
+   condensations de niveau 1 de Yoré Déa (98,5 %) suivent immédiatement un `blockquote` qui porte
+   **sa propre référence** (`(ט״ז יו״ד קמ״ט ס״ק א)`). L'ancre juste était une balise au-dessus.
+   `non_fait` n° 9 diagnostique correctement que l'ancre « Séif N » est fausse en Yoré Déa, puis
+   s'arrête là.
+3. **Échantillon indépendant, 13 items, 0 fausse.** 7 condensations de niveau 1 de Yoré Déa
+   (simanim 136, 137, 141, 149, 153, 158, 160) et 6 cellules de niveau 4 d'Orah Haïm **hors** de la
+   plage chaude (OH 6:3, 11:14, 12:3, 13:1, 13:2, 14:3) : **13 fidèles**. Avec les 2 items Yoré Déa
+   de l'auteur, 9 sur 9 en Yoré Déa. Le groupement en Chabbat 243-263 est **corroboré**, et le 67 %
+   est un taux de plage chaude, non un taux de site.
+   *Mise en garde méthodique : mon premier passage rattachait la condensation au DERNIER blockquote
+   et rendait 5 discordances sur 7 ; les 5 se sont dissoutes à la lecture du HTML brut — une
+   condensation couvre le GROUPE de blockquotes qui la précède. Trois d'entre elles auraient été
+   publiées comme défauts.*
+4. **La troisième question de l'hypothèse 3 n'est pas une porte à elle seule.** Sur mes 6 cellules
+   fidèles d'Orah Haïm, le squelette consonantique est **absent du séif cité dans 4 cas** (OH 13:1,
+   13:2, 14:3, 11:14) : une condensation écrit `ד׳` pour `ארבע`, `מעכבות` pour `מעכבין`, et déplace
+   les clauses. Le « squelette RETROUVÉ 0 / ABSENT 40 » n'est exact que parce que le filtre du
+   nikoud passe d'abord. Qui écrira la porte ne doit pas retirer la première question.
+5. **L'étiquette composée, un piège non nommé.** Au-delà du tiret de plage (11 étiquettes sur les 56
+   que lit mon motif), des cellules portent **deux adresses** : `OH 11:4, 12` · `OH 8:7, 8:9` ·
+   `OH 8:10, 8:15-16`. Un test à un seul séif y produit le même faux positif que sur `OH 1:2-3`.
+6. **Deux marqueurs `résumé` français dans un fichier anglais**, relevés par l'auteur comme
+   « 2 égarés » et laissés là : `sources/shabbat/siman-293/niveau-2-lamdan-en.html`, page
+   `<html lang="en" dir="rtl">`, dont les deux condensations sont **intégralement en français** — et
+   l'une porte un reste de chantier éditorial, « source primaire à établir (citation retirée faute de
+   source vérifiée) », dans une page publiée.
