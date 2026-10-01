@@ -409,7 +409,15 @@ NOMS = [
     ('Siftei Kohen',         re.compile(r'שפתי\s*כהן|' + _PFX + r'ש["״]ך(?![א-ת])|(?<![A-Za-z])Shakh(?![A-Za-z])|'
                                         r'Siftei\s+Kohen')),
     ('Pitchei Teshuva',      re.compile(r'פתחי\s*תשובה|' + _PFX + r'פת["״]ש(?![א-ת])|Pitchei\s+Teshuva')),
-    ('Beer Hetev',           re.compile(r'באר\s*היטב|Beer\s+Hetev')),
+    # ⚠️ LE NOM DE LA CIBLE EST UN PRÉFIXE DU `ref` SEFARIA, pas une étiquette : il est
+    # comparé par `ref.startswith(cible)`. Cette entrée portait « Beer Hetev » quand
+    # Sefaria sert « Ba'er Hetev on Shulchan Arukh, Yoreh De'ah » — avec l'apostrophe.
+    # Elle n'a donc JAMAIS atteint son œuvre, et 2 261 segments d'appareil étaient hors de
+    # portée de toute cible : le repli non restreint s'y appliquait, c'est-à-dire que la
+    # clause « dite ailleurs » était cherchée dans TOUT l'appareil et non dans l'œuvre
+    # visée. Un arbitre l'a établi en confrontant les 15 cibles à tous les refs servis sur
+    # les trois sections : UNE seule œuvre était dans ce cas, celle-ci.
+    ("Ba'er Hetev",          re.compile(r'באר\s*היטב|Ba.?er\s+Hetev|Beer\s+Hetev')),
     ('Nekudot HaKesef',      re.compile(r'נקודות\s*הכסף|' + _PFX + r'נקוה["״]כ(?![א-ת])|Nekudot\s+HaKesef')),
     ('Arukh HaShulchan',     re.compile(r'ערוך\s*הש[ול]לחן|ערוך\s*השלחן|ערוך\s*השולחן|'
                                         r'' + _PFX + r'ערוה["״]ש(?![א-ת])|Arukh\s+HaShulchan|'
