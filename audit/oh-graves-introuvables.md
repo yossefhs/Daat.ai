@@ -394,3 +394,121 @@ couverture.
    commentateurs. Les cinq verdicts de fabrication sont solides sur ce que j'ai mesuré, mais
    « absent de tout Sefaria » reste, chez moi comme chez la porte, une conclusion tirée d'un
    nombre fini de requêtes.
+
+---
+
+# ARBITRAGE ADVERSARIAL (second lecteur, 1er octobre 2026)
+
+Tranche reproduite depuis le CSV : **16 lignes de verdict `INTROUVABLE`, pas une de plus, pas une
+de moins** ; première et dernière ligne conformes à ce qu'il annonce. Chaque affirmation ci-dessous
+vient d'une requête Sefaria que j'ai faite moi-même (`api/texts` segment par segment, et
+`api/search-wrapper` en `field: exact` **et** en `field: naive_lemmatizer`), jamais du relevé.
+
+## Ce qui tient
+
+- **Les 5 fabrications en sont.** Zéro résultat sur **deux** champs d'index distincts, et absence
+  vérifiée **dans les segments servis** de la référence revendiquée. Pour le siman 9, les **neuf**
+  dibourim de `Tosafot_on_Menachot.39b` sont exactement ceux qu'il liste, dans son ordre.
+- **Les 5 mal adressées en sont**, et chaque adresse vraie est verbatim dans le segment :
+  `Shulchan Arukh HaRav, OH 83:1` · `Menachot 37b:2` · `Berakhot 25b:7-8` · `Shulchan Arukh, OH 158:9`.
+  **J'ai en outre éprouvé la SECONDE référence du siman 83, qu'il n'avait pas ouverte** :
+  `Mishneh Torah, Reading the Shema 3` ne porte pas la phrase non plus (plus proche : 3:3,
+  `בית הכסא החדש שהוכן ועדין לא נשתמש בו`). Sa conclusion tient sur les deux références, pas sur une.
+- **Mécanismes A et C : montrés, pas seulement nommés.** `MIN_LETTRES = 12` l.105, le recollage
+  `parts = parts or [frag]` l.1385, et `locate()` qui ne garde que `max(..., key=len)` l.198 puis
+  refuse sous 12 lettres l.199. Mécanisme C reproduit en direct : `חל עליו שם בית הכסא` → **0**,
+  `שחל עליו שם בית הכסא` → **`Shulchan Arukh HaRav, Orach Chayim 83:1`, deux éditions**.
+- **Famille 4 = 0 : vérifié mécaniquement sur les 16 lignes.** Toutes ouvrent sur un guillemet,
+  aucune ne porte de marqueur `résumé`/`תמצית`/`summary` **avant** la citation. Le seul marqueur
+  présent sur une ligne signalée (siman 127 L577) gouverne la liste des noussa'ot qui **suit** la
+  citation fautive.
+- **Étendue reproduite à l'identique** : **134 occurrences / 35 fichiers**, et par phrase
+  15 / 9 / 1 en `<meta>`+JSON-LD. Chiffres confirmés.
+- **Périmètre respecté** : `sources/` intact (0 ligne en `git status` comme en `git diff`), et
+  **aucune écriture dans `scripts/.cache-sefaria` après 16 h 00** alors que ce relevé est de 16 h 11
+  — `verifier-citations.py` n'a pas tourné. Le commit `265b778a` qui porte ce fichier est postérieur
+  de seize minutes et de la main de l'orchestrateur ; il ne touche aucune page de `sources/`.
+
+## RECLASSEMENT — F3.2, siman 25 L488 : « faux positif pur » → faux positif de la porte **ET** défaut de famille 2
+
+C'est la seule correction de fond, et elle porte sur le classement le plus commode.
+
+Il écrit « **Rien à corriger sur la citation** » et compte ce cas parmi « **deux** faux positifs
+**purs** », en reléguant le défaut réel dans une réserve « à passer au contenu, sans rapport avec
+la fabrication ». Mesuré : **`Berakhot 6a` ne contient ni `וקשרתם` ni `ודברת בם`** — grep sur la
+totalité des segments servis ; 6a:17-20 est la sougya des tefilin du Saint béni soit-Il. Les deux
+mots d'ordre sont verbatim, mais à **`Devarim 6:8`** et **`Devarim 6:7`**, et la drasha vit à
+**`Berakhot 14b:13`** (`והא כתיב ושננתם וקשרתם וכתבתם … והא כתיב וקשרתם וכתבתם`).
+
+Texte réel, autre adresse que celle imprimée : **c'est la définition de sa propre famille 2.**
+Le verdict `INTROUVABLE` est bien un faux positif (mécanisme A l'explique : `וקשרתם` = 6 lettres,
+`ודברת בם` = 7), **mais il n'y a pas « rien à corriger »**. Le compte des cas sans travail est
+**UN** — le siman 106 — **et non deux**. Rien n'est caché ici, la réserve est écrite ; c'est le
+décompte qui est faux, et dans le sens qui rassure.
+
+## Le « 25 occurrences confrontées à RIEN » est **16**, pas 25
+
+Sa limite de porte est présentée comme « **UNE LIMITE QUE PERSONNE N'AVAIT VUE** », et
+l'orchestrateur l'a reprise telle quelle dans `265b778a`. Mesuré, les 25 se répartissent ainsi :
+
+| où | occurrences | statut réel |
+|---|---:|---|
+| `<meta name="description">` / `og:description` | **16** | **trou non nommé** — invisible par aplatissement des balises |
+| JSON-LD | **9** | **exemption DÉLIBÉRÉE et documentée** |
+
+`SCRIPT_LD` (l.1192) est appliqué l.1263 pour **retirer** le JSON-LD, sous un commentaire écrit
+l.1189-1191 : *« C'est une métadonnée SEO, pas du contenu affiché : elle n'a pas à être jugée
+comme une citation. »* L'auteur de la porte l'a vu, l'a nommé, et l'a exclu exprès. La trouvaille
+réelle est de **16**, et elle reste une vraie trouvaille.
+
+## Trois corrections de preuve (le classement ne change pas)
+
+1. **Siman 69 — « la sougya est sur l'AUTRE FACE du folio » est à retirer.** Il écrit que
+   « Meguila 24a ne porte que la michna (24a:13 `סומא — פורס את שמע ומתרגם`) ». La michna continue :
+   **`רבי יהודה אומר כל שלא ראה מאורות מימיו אינו פורס על שמע`** — c'est la michna qui **ouvre cette
+   sougya même**, et le seul endroit des deux faces où paraît le mot `מאורות`. Le verbatim fabriqué
+   tient entièrement ; l'erreur d'adresse, non.
+2. **Siman 158 — l'adresse talmudique vraie qu'il ne cite pas** est `Shabbat 62b:13` :
+   **`שלשה דברים מביאין את האדם לידי עניות … ומזלזל בנטילת ידים`**. Il cite 62b:16-17, qui sont la
+   restriction de Rava et le mot de Rav Hisda, non l'énoncé.
+3. **Siman 158 — L639 n'est pas propre.** Il la range parmi les lignes qui citent « correctement ».
+   Elle porte `המזלזל — נידוי, עניות, ונעקר מן העולם (סוטה ד:)` : elle attribue `עניות` **et**
+   `נידוי` à Sotah 4b, qui ne porte que `נעקר מן העולם`. Sans guillemets, donc hors de la portée de
+   la convention — mais le lecteur s'entend dire la même chose fausse. « Un unique glissement » ne
+   vaut que de la forme guillemetée.
+
+## Deux réserves de méthode
+
+- **Les 16 lignes sont toutes françaises, et il ne le dit pas.** Le commit `1c88e5c2`, une heure
+  avant le sien, venait de juger qu'« ils sont tous dans des niveau-2-lamdan français » est *« un
+  ARTEFACT DE PORTÉE présenté comme une trouvaille »*. Sa signature — « **15 sur 16** vivent dans
+  `niveau-2-lamdan` » — a exactement cette forme. Son tableau d'étendue sur trois langues répare
+  le fond ; c'est l'énoncé qui part sans sa portée.
+- **Mécanisme B : l'énoncé est plus serré que ses cas.** Titré « la citation de **trois à quatre
+  mots** … **un seul** mot changé », il couvre F3.3 qui fait **cinq** mots et **trois** écarts, et
+  F3.4 dont le deuxième mot ne diffère que par un `ל` attaché — c'est-à-dire le mécanisme **C**
+  autant que B. Le mécanisme est réel ; sa formulation promet plus d'étroitesse qu'il n'en a.
+
+## Ce que je ferme en sa faveur (sa réserve n° 6)
+
+Il s'interdisait de supposer que ces phrases ne vivent pas hors d'Orah Haïm. **Mesuré : les huit
+phrases fautives n'apparaissent dans AUCUN fichier de `sources/shabbat` ni de
+`sources/yoreh-deah`.** L'étendue est confinée à Orah Haïm, et les 134 occurrences sont le compte
+du site entier, non un plancher.
+
+## Hors lot, mais sur une ligne qu'il déclare sans travail
+
+Siman 106 L469 porte, à côté de la citation acquittée, `«תפלה רחמי נינהו»` sous l'adresse
+`ברכות כ׳.-כ׳:`. Cette forme **existe** (Meiri sur Sotah 32a ; Megillat Esther sur Sefer
+HaMitzvot) **mais pas à Berakhot**, qui écrit `דרחמי נינהו` (20b:5). Ce n'est pas une des 16
+lignes et la porte ne l'a pas retenue ; mais « rien à corriger » vaut de la citation signalée,
+pas de la ligne.
+
+## Ce que cet arbitrage n'a pas fait
+
+- Je n'ai **pas** rouvert les 74 `REF_FAUSSE`, 16 `NON_RESOLU` ni 295 `VARIANTE` : hors mandat.
+- Je n'ai **modifié aucune page de `sources/`**, rien committé, rien ajouté à l'index ; je n'ai
+  **pas lancé `verifier-citations.py`** (cache partagé). Seul ce fichier est écrit.
+- « Absent de tout Sefaria » reste, chez lui comme chez moi, la conclusion d'un **nombre fini de
+  requêtes** — j'en ai ajouté un second champ d'index et la lecture des segments, pas une preuve.
+- Je n'ai **pas** corrigé les mécanismes A, B et C dans la porte, ni le trou des 16 `<meta>`.
