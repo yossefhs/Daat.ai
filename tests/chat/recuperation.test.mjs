@@ -28,11 +28,13 @@ const skip = existsSync(corpusPath) ? false : 'data/corpus-shabbat.json absent �
 const { limit, minScore, strict } = bench.parametres;
 const cas = bench.cas;
 
-// Planchers à ne pas franchir vers le bas. Mesurés le 7 octobre 2026 sur 44 cas
-// « attendu » (défaillants connus inclus) : rappel@3 = 39/44 (88,6 %), rang 1 =
-// 29/44 (65,9 %). À relever quand le moteur progresse ; ne jamais les baisser
-// pour faire passer un correctif.
-const PLANCHER_RAPPEL_3 = 0.88;
+// Planchers à ne pas franchir vers le bas. Mesurés le 7 octobre 2026 sur 46 cas
+// « attendu » (défaillants connus inclus) : rappel@3 = 40/46 (87,0 %), rang 1 =
+// 30/46 (65,2 %). Ils ont reculé de 88/66 % à 87/65 % quand deux cas ont été
+// ajoutés au banc (dont un défaillant connu), sans que le moteur ait changé sur
+// les anciens. À relever quand le moteur progresse ; ne jamais les baisser pour
+// faire passer un correctif.
+const PLANCHER_RAPPEL_3 = 0.86;
 const PLANCHER_RANG_1 = 0.65;
 
 async function mesurer() {

@@ -419,6 +419,8 @@ const NON_TOPICAL = new Set([
 // une source fausse sur une réponse halakhique. chat-he.html et chat-en.html
 // postent sur le même /api/chat : la parité trilingue est une règle du dépôt.
 //
+// `yd: true` marque les sujets de Yoreh De'ah (cacheroute, nidah) : le corpus
+// d'Orah Haïm ne les traite pas, voir la garde de section dans searchCorpus.
 // `daily: true` marque les sujets qui appartiennent à la journée du juif
 // (Orah Haïm 1-185). Ils servent de PREUVE POSITIVE qu'une question ne porte pas
 // sur Shabbat, et déclenchent alors le déclassement des simanim 242-365.
@@ -465,19 +467,19 @@ const ANCHOR_FAMILIES = [
   { daily: false, forms: ['plata', 'פלטה'] },
   { daily: false, forms: ['kira', 'כירה'] },
   // ── Yoreh De'ah — cacheroute ──
-  { daily: false, forms: ['viande', 'בשר', 'meat'] },
-  { daily: false, forms: ['lait', 'חלב', 'milk', 'dairy'] },
-  { daily: false, forms: ['fromage', 'גבינה', 'cheese'] },
-  { daily: false, forms: ['casher', 'cacheroute', 'כשר', 'kosher'] },
-  { daily: false, forms: ['taarovet', 'תערובת'] },
+  { daily: false, yd: true, forms: ['viande', 'בשר', 'meat'] },
+  { daily: false, yd: true, forms: ['lait', 'חלב', 'milk', 'dairy'] },
+  { daily: false, yd: true, forms: ['fromage', 'גבינה', 'cheese'] },
+  { daily: false, yd: true, forms: ['casher', 'cacheroute', 'כשר', 'kosher'] },
+  { daily: false, yd: true, forms: ['taarovet', 'תערובת'] },
   // ── Yoreh De'ah — nidah ──
-  { daily: false, forms: ['nidda', 'נדה', 'נידה'] },
-  { daily: false, forms: ['mikve', 'מקוה', 'מקווה'] },
-  { daily: false, forms: ['tevila', 'טבילה'] },
-  { daily: false, forms: ['וסת', 'וסתות'] },
-  { daily: false, forms: ['כתם', 'כתמים'] },
-  { daily: false, forms: ['הרחקות'] },
-  { daily: false, forms: ['נקיים'] },
+  { daily: false, yd: true, forms: ['nidda', 'נדה', 'נידה'] },
+  { daily: false, yd: true, forms: ['mikve', 'מקוה', 'מקווה'] },
+  { daily: false, yd: true, forms: ['tevila', 'טבילה'] },
+  { daily: false, yd: true, forms: ['וסת', 'וסתות'] },
+  { daily: false, yd: true, forms: ['כתם', 'כתמים'] },
+  { daily: false, yd: true, forms: ['הרחקות'] },
+  { daily: false, yd: true, forms: ['נקיים'] },
 ];
 
 // ── Graphies concurrentes de la translittération française ──────────────────
@@ -1047,6 +1049,19 @@ export function searchCorpus(question, opts = {}) {
   // Shabbat formulées sans le mot (« peut-on trier les couverts ? », relance dans
   // une conversation, page /oh/319) — jusqu'à servir un siman du quotidien sous
   // une source affirmée, c'est-à-dire le mécanisme même du faux heter borer.
+  // 🛡️ SECTION PAR DÉFAUT. Le chat sert 'orach-chaim' tant que le client n'a pas
+  // demandé 'yoreh-deah'. Une question dont TOUS les sujets reconnus sont de
+  // Yoreh De'ah (« fromage après de la viande ») n'a alors aucune réponse dans la
+  // section filtrée, et le BM25 en servait une quand même — le siman 173 (« eaux
+  // intermédiaires ») à 26,4, sous le filtre qui exclut le siman 89. S'abstenir
+  // renvoie la question au chemin complet. Un sujet d'Orah Haïm ou de Shabbat
+  // dans la question (« cuire de la viande à Shabbat »), ou un mot de la journée
+  // (« bénédiction sur le fromage », OH 202-204), lève la garde.
+  if (strict && section === 'orach-chaim' && !shabbatQ && activeFamilies.size > 0
+      && [...activeFamilies].every((fi) => ANCHOR_FAMILIES[fi].yd)
+      && !tokens.some((t) => DAILY_EXTRA.has(t))) {
+    return { results: [], keyTokens, totalChunks: _N };
+  }
   const otherDomainQ = [...activeFamilies].some((fi) => ANCHOR_FAMILIES[fi].daily)
     || tokens.some((t) => DAILY_EXTRA.has(t));
 
