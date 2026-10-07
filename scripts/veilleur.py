@@ -32,6 +32,7 @@ NEEDS_RABBINIC_VALIDATION, afin que le Rav les traite au même endroit que les
 retours de lecteurs.
 """
 import argparse, json, os, re, sys, time, urllib.request
+import html as html_entities
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -98,14 +99,32 @@ def pages_of(sec, siman):
         if f.exists(): out[stem] = f.read_text(errors='ignore')
     return out
 
+def source_consonants(text):
+    """Compare source text independently of HTML, nikud and Hebrew quote typography."""
+    text = re.sub(r'<[^>]+>', '', html_entities.unescape(text))
+    return ''.join(re.findall(r'[א-ת]', text))
+
+
+def source_without_heading(text):
+    """The first seif may include the edition heading, which is not a seif clause."""
+    return re.sub(r'^[^:]{0,180}ובו\s+[^:]{0,30}סעיפ(?:ים|ין)\s*:|^[^:]{0,180}ובו\s+סעיף\s+אחד\s*:', '', text, count=1)
+
+
 def detect_seifim_orphelins(siman, pages, seifim):
     """A — un séif du texte n'est mentionné nulle part dans les pages du siman."""
     if not seifim: return []
     blob = ' '.join(pages.values())
     blob_he = strip_nikud(blob)
+    base_blocks = [source_consonants(b) for b in re.findall(
+        r'<blockquote\b[^>]*class="text-source"[^>]*>(.*?)</blockquote>',
+        pages.get('niveau-1-base', ''), re.S)]
     out = []
     for i, txt in enumerate(seifim, 1):
         if len(txt.strip()) < 25:   # séif vide/technique
+            continue
+        # Full source presence is evidence even when typography defeats the heuristics.
+        source = source_consonants(source_without_heading(txt))
+        if source and any(source in block for block in base_blocks):
             continue
         # mentionné par numéro (arabe ou hébreu) ou par un fragment de son texte
         hits = re.search(rf'(?:s[ée]if|séif|סעיף)\s*{i}\b', blob, re.I) \
