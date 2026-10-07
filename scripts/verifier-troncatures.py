@@ -96,7 +96,8 @@ réparent de la même manière : rétablir le passage, ou écrire « … ».
   jamais la porte TROU, et n'entrait dans aucun compteur de refus.
 
   LES DEUX TÉMOINS, rejoués sur les deux versions, et vérifiés CONTRE SEFARIA.
-  · Chabbat 353, niveau 2, les trois langues. La page écrit, en nommant le Rama,
+  · Chabbat 353, niveau 2, les trois langues. La page écrit, en nommant le Rama
+    [⚠️ FAUX — la page ne nomme personne ; voir le tour du 7 octobre],
     « "אין נותנין עליו אלא כלי חרס וזכוכית" » ; le séif ג du Mehaber porte
     « אין נותנין עליו ואין נוטלים ממנו אלא כלי חרס וזכוכית » — « ואין נוטלים ממנו »
     sauté sans ellipse, DANS les guillemets. L'Aroukh HaChoul'han, Orah Haïm 353, cite
@@ -245,6 +246,63 @@ réparent de la même manière : rétablir le passage, ou écrire « … ».
   · LE CACHE N'EST PAS REVERSIONNÉ, et c'est une décision : cette correction ne change
     RIEN de ce qui est lu dans la source — la table de l'appareil est inchangée, seule la
     PORTION de l'appareil confrontée à une citation donnée l'est. Le cache v2 reste exact.
+  ─────────────────────────────────────────────────────────────────────────────────
+  TOUR DU 7 OCTOBRE 2026 — LA RÉGRESSION DU TOUR PRÉCÉDENT, ET UNE PORTE QUI SORTAIT
+  VERTE SANS RIEN COMPARER. Le commit 0abd84f8 a été poussé avant son arbitrage, qui
+  l'a jugé non prêt ; ce tour ferme les deux bloquants laissés ouverts.
+
+  1. L'ŒUVRE VISÉE LUE DANS UN BLOC VOISIN. La fenêtre de `oeuvre_visee` enjambait les
+     fins de bloc. MESURE de l'étendue, que personne n'avait faite : des 58 TROUS ouverts
+     par 0abd84f8, 19 lisaient leur nom DANS l'élément de la citation, 39 AILLEURS — 20
+     dans le bloc suivant, 12 dans un titre qui précède, 7 dans un bloc précédent. Et le
+     TÉMOIN de 0abd84f8, Chabbat 353, est l'un des 39 : la page ne nomme personne, le
+     « הרמ״א » lu était le titre de la section suivante. « En nommant le Rama » était faux.
+     FERMETURE : le nom ne vaut que dans l'élément de bloc (une rangée de tableau comptant
+     pour un élément, un <p class="src-ref"> qui suit y étant rattaché) ; et un élément qui
+     ne nomme rien a pour sujet le Choul'han Aroukh du siman, pour la porte TROU. Voir les
+     notes de l'ÉLÉMENT DE BLOC et de `main`.
+  2. TROIS ÉTATS DE SORTIE. 1 = défauts rendus ; 3 = aucun défaut MAIS rien de confronté,
+     ou un téléchargement a échoué ; 0 = comparé et propre. Un échec de transport n'est
+     plus annoncé « CHOUL'HAN AROUKH ABSENT de Sefaria » : il est nommé, œuvre par œuvre.
+     ÉPROUVÉ, cache écarté, `urlopen` coupé : tout coupé (Chabbat 353 + 244) — l'ancienne
+     rendait « ABSENT de Sefaria pour 244, 353 », « Aucune citation ne saute… », code 0 ;
+     la nouvelle « INJOIGNABLE », 22 œuvres nommées, code 3. Mishnah_Berurah seule coupée
+     sur 244 : ancienne code 0, nouvelle code 3. Mehaber seul coupé sur 353 : ancienne
+     « ABSENT », code 0 ; nouvelle « INJOIGNABLE », code 3. Lacune RÉELLE, réseau réel,
+     Yoré Déa 169 (ref juste, error nul, he vide, vérifié sur Sefaria) : « ABSENT » dans
+     les deux, et 0 citation confrontée — l'ancienne sortait en 0, la nouvelle en 3.
+
+  ÉTAT MESURÉ, avant (HEAD 800f886e) → après, même cache, les trois sections :
+                                 Chabbat        Yoré Déa        Orah Haïm
+    TROUS                         9 →  11        37 →   37       279 →  292
+    COUPURES                     91 →  91     1 366 → 1 369      940 →  958
+    nom lu HORS de l'élément,
+      écarté (rien dans l'élément) — →  589      — → 2 682        — → 6 354
+      remplacé par celui de l'élément — →  49     — →   559        — →   350
+  DÉDOUBLONNAGE LIGNE À LIGNE, et chaque ligne ouverte contre Sefaria :
+    TROUS perdus 10, TOUS FAUX — Chabbat 268 (he), Yoré Déa 228 (×3), Orah Haïm 1 (n4),
+      105 (×2), 232 (×3) : chaque fois la page cite le MEHABER mot pour mot, et le nom
+      d'un bloc voisin (Choul'han Aroukh HaRav, Beit Yosef, Tour) l'en détournait.
+    TROUS gagnés 25 — 12 réels (Orah Haïm 113 « (פי' שהשפיל) », 159 « [פירוש כלים עשוים
+      מרפת בקר ועפר] », 181 ; Yoré Déa 89 ×2, 91 — des crochets de source sautés), 4 limites
+      (Orah Haïm 212 ×4 : la glose « (פירוש דבר בלתי נחשב) » est sautée sans « … », mais la
+      même page la cite à part), 9 faux, tous de familles déclarées (Chabbat 362 et Orah
+      Haïm 108 : suffixe ancré sur une répétition ; Orah Haïm 67 : ancre dans le chapeau).
+    COUPURES perdue 1, FAUSSE — Yoré Déa 91. La page cite, dans le MÊME hakira-box (hébreu)
+      et dans un blockquote sept lignes plus haut (français, anglais), la phrase du même
+      ש״ך ס״ק י״א qui porte la clause « כששהה שיעור מליחה … הוי רותח ». La disparition
+      retire un bruit ; les verdicts FR et EN qui subsistent sont le même faux positif.
+    COUPURES gagnées 22 — AU PLUS 6 réelles (Orah Haïm 153 ×6, elles-mêmes discutables),
+      6 limites (Orah Haïm 160 : la suite est le cas inverse que le motif implique), AU MOINS
+      9 fausses (Orah Haïm 168 ×3 : « אבל » ouvre un AUTRE cas ; Yoré Déa 120 ×3 : la page
+      cite le VERSET, que l'Aroukh HaChoul'han poursuit ; Orah Haïm 164 ×3 : « אבל לא יברך »
+      est cité IMMÉDIATEMENT APRÈS, dans la même phrase, mais le filtre « dite ailleurs » ne
+      le voit pas parce que sq[:25] déborde sur « הגה והא דמהני »), et Yoré Déa 138, fausse
+      ou limite (la suite du ט״ז est paraphrasée au paragraphe suivant).
+    ⚠️ CES DEUX LIGNES ONT D'ABORD ÉTÉ ÉCRITES FAUSSES ICI — « perdue 1, RÉELLE » et
+      « 10 réelles » — et un arbitre les a redressées en ouvrant chaque page. Une
+      coupure se juge dans la page entière, jamais sur la seule ligne qui la porte.
+  Chabbat 353 reste à 3 TROUS, Yoré Déa 99 à 6 : le gain du tour précédent tient.
   ─────────────────────────────────────────────────────────────────────────────────
 
   DOUZE CITATIONS OUVERTES À LA MAIN contre Sefaria parmi les verdicts du tour du
@@ -641,15 +699,135 @@ def situer(P_sk, P_idx, s0, plaine):
     j = min(i + n - 1, len(P_idx) - 1)
     return P_idx[i], min(len(plaine), P_idx[j] + 1)
 
-def oeuvre_visee(plaine, bornes, avant=260, apres=160):
+# ═══════════════════════════════════════════════════════════════════════════════════
+# L'ÉLÉMENT DE BLOC — et c'est la régression que le commit 0abd84f8 avait introduite.
+#
+# `oeuvre_visee` lisait une fenêtre de 260 caractères à gauche et 160 à droite dans le
+# texte débalisé, SANS ÉGARD POUR LES BLOCS : la fenêtre enjambait la fin d'un <p>, d'une
+# cellule, d'un blockquote, et le nom trouvé de l'autre côté était pris pour l'attribution
+# de la citation. Tant que `presente` était évaluée sur tout l'appareil, ce faux nom ne
+# coûtait presque rien. Le jour où elle a été restreinte à l'œuvre NOMMÉE, il est devenu
+# un AIGUILLAGE : une citation retrouvée mot pour mot dans l'appareil passait pour absente
+# de « son » œuvre — celle d'un bloc voisin — et la porte TROU s'ouvrait contre elle.
+#
+# MESURÉ, 7 octobre 2026, sur les 58 TROUS que ce commit a ouverts (Chabbat 4, Yoré Déa
+# 15, Orah Haïm 39) : 19 seulement avaient leur nom DANS l'élément de la citation. Les 39
+# autres le lisaient ailleurs, en trois familles :
+#   · 20 dans le bloc SUIVANT — un paragraphe, l'item de liste d'après, le titre de la
+#     section d'après, le blockquote de commentaire qui suit le séif recopié ;
+#   · 12 dans un TITRE qui précède (h2, h3), parfois avec un paragraphe entre les deux ;
+#   · 7 dans un bloc PRÉCÉDENT qui n'est pas un titre — une cellule de tableau adjacente,
+#     le div d'avant.
+# ET LE TÉMOIN FONDATEUR DE CE COMMIT EST DANS LA PREMIÈRE FAMILLE. Chabbat 353, niveau 2 :
+# la page écrit, dans un yesod-box de la section « 8. גזירת הכלים », la citation sans
+# nommer personne ; le « הרמ״א » lu par la porte est celui du titre de la section SUIVANTE,
+# « 9. הגהת הרמ״א », à 144 caractères. Le message de 0abd84f8 disait « en nommant le
+# Rama » : c'était faux. Le TROU est réel (Shulchan_Arukh,_Orach_Chayim.353, séif ג) ; il
+# était rendu contre le bon livre PAR HASARD, le Rama et le Mehaber partageant la cible.
+#
+# LA FERMETURE. Le nom n'attribue la citation que s'il est dans le MÊME élément de bloc
+# qu'elle : même <p>, <td>, <li>, <blockquote>, <div>… — ou dans un <p class="src-ref">
+# qui suit immédiatement cet élément, la référence que la convention du dépôt y pose
+# (45 occurrences dans sources/). Les fins et débuts de bloc sont gardés comme
+# FRONTIÈRES SANS DÉPLACER UN CARACTÈRE de `plaine` : c'est la leçon de `debaliser()`
+# dans verifier-ancrage.py, où remplacer une balise par plus d'un caractère avait allongé
+# les distances et fait disparaître des appariements. Ici `plaine` est reconstruite à
+# l'identique — même texte, mêmes positions — et les frontières vivent à côté.
+# <br> N'EST PAS une frontière : un « citation<br>(référence) » est un seul élément.
+#
+# ⚠️ UNE RANGÉE DE TABLEAU EST UN SEUL ÉLÉMENT, et c'est un écart MESURÉ à la règle
+# « même <td> ». Les tableaux du dépôt posent l'auteur dans la première cellule et la
+# citation dans la suivante — « הש״ך (ס״ק ו) | "וכן הסכימו האחרונים…" ». Au siman 87 de
+# Yoré Déa (niveau 2, hébreu) la règle stricte retirait ainsi un TROU RÉEL : la page saute
+# « (שוב בא לידי ס' באר שבע ומצאתי שפסק נמי הכי) », que Sefaria place DANS le ס״ק ו du
+# Chakh. Compter la rangée entière ne change, sur les trois sections, que DEUX verdicts :
+# celui-là, et Yoré Déa 143 (niveau 3), une condensation entre guillemets — un manquement
+# à la convention, non un faux. Une transition « </td><td> » seule n'est donc pas une
+# frontière ; dès qu'un <tr>, un <table> ou un autre bloc s'y mêle, c'en est une. Les
+# EN-TÊTES de colonne (<th>) ne sont pas dans la rangée : au niveau 4 d'Orah Haïm 1, le
+# « שולחן ערוך הרב » d'un <th> attribuait au Choul'han Aroukh HaRav une citation du
+# Mehaber (séif א, mot pour mot) — un faux TROU de 76 consonnes, que la règle ferme.
+#
+# CE QUI RESTE OUVERT, et c'est un MUTISME, pas du bruit : quand l'attribution juste est
+# un TITRE au-dessus du bloc — <h4>ט״ז ס״ק א</h4> puis <blockquote>«…»</blockquote> sans
+# src-ref, la mise en page du niveau 1 de Yoré Déa 138 — le titre est un AUTRE élément,
+# la citation n'a plus d'œuvre visée, et un vrai trou dans le ט״ז n'est plus jugé contre
+# lui. Démontré par un arbitre sur une page synthétique : l'ancienne version rendait le
+# TROU, celle-ci se tait. Coût mesuré sur le corpus actuel : 0 (les 10 TROUS perdus sont
+# tous faux). Le remède est de laisser un titre <h1>-<h6> IMMÉDIATEMENT précédent nommer
+# le bloc qui le suit, et lui seul.
+# Corollaire : le compteur « TROU refusé, aucune œuvre nommée » est devenu NUL PAR
+# CONSTRUCTION — sans œuvre nommée, la citation est restreinte au Choul'han Aroukh, et
+# l'ancrage ne peut plus tomber ailleurs. Son 0 ne dit donc pas que rien n'a été refusé :
+# il dit que cette population n'est plus examinée sous cette question.
+# (Ce paragraphe affirmait d'abord qu'une COUPURE RÉELLE était perdue à Yoré Déa 91.
+# C'était faux : voir l'en-tête, tour du 7 octobre.)
+# ═══════════════════════════════════════════════════════════════════════════════════
+_BLOC_TAG = re.compile(r'</?(?:p|div|li|ul|ol|td|th|tr|table|thead|tbody|tfoot|blockquote|'
+                       r'section|article|header|footer|nav|aside|main|h[1-6]|details|summary|'
+                       r'dd|dt|dl|figure|figcaption|body|head|html|title)(?=[\s>/])[^>]*>', re.I)
+_SRCREF_P = re.compile(r'<p\s[^>]*class="[^"]*\bsrc-ref\b', re.I)
+_J_BLOC, _J_SRCREF, _J_CELLULE = '\x02', '\x03', '\x04'
+_CELLULE = re.compile(r'</?t[dh](?=[\s>/])[^>]*>', re.I)
+
+def debaliser(texte):
+    """(plaine, frontieres, srcref) — `plaine` IDENTIQUE à l'ancienne construction.
+
+    `frontieres` : positions triées, dans `plaine`, des espaces qui remplacent au moins
+    une balise de bloc. `srcref` : celles où s'ouvre un <p class="src-ref">.
+    """
+    # Les deux jalons sont des caractères de contrôle qu'aucune page HTML du dépôt ne
+    # porte (vérifié : seuls des PDF en contiennent). Si une page en portait, on ne les
+    # emploie pas — `plaine` resterait identique, l'élément serait la page entière, et
+    # c'est l'ancien comportement, non un verdict inventé.
+    jalons = not any(j in texte for j in (_J_BLOC, _J_SRCREF, _J_CELLULE))
+    def rep(m):
+        t = m.group(0)
+        if jalons and _CELLULE.fullmatch(t): return _J_CELLULE
+        if jalons and _BLOC_TAG.fullmatch(t):
+            return _J_SRCREF if _SRCREF_P.match(t) else _J_BLOC
+        return ' '
+    p = re.sub(r'<[^>]+>', rep, texte)
+    p = (p.replace('&nbsp;', ' ').replace('&#160;', ' ')
+          .replace('&amp;', '&').replace('&quot;', '"').replace('&#39;', "'"))
+    morceaux, frontieres, srcref, pos, n = [], [], set(), 0, 0
+    for m in re.finditer(r'[\s\x02\x03\x04]+' if jalons else r'\s+', p):
+        lit = p[pos:m.start()]
+        morceaux.append(lit); n += len(lit)
+        run = m.group(0)
+        # Une transition de cellule SEULE (« </td><td> ») n'est pas une frontière : les
+        # cellules d'une même rangée sont un seul enregistrement. Dès qu'un <tr> ou un
+        # autre bloc s'y mêle, c'en est une.
+        if _J_BLOC in run or _J_SRCREF in run: frontieres.append(n)
+        if _J_SRCREF in run: srcref.add(n)
+        morceaux.append(' '); n += 1
+        pos = m.end()
+    morceaux.append(p[pos:])
+    return ''.join(morceaux), frontieres, srcref
+
+def element_de(frontieres, srcref, bornes, longueur):
+    """[eb, ef) : l'élément de bloc qui contient la citation, src-ref suivant compris."""
+    import bisect
+    deb, fin = bornes
+    i = bisect.bisect_left(frontieres, deb) - 1
+    eb = frontieres[i] + 1 if i >= 0 else 0
+    j = bisect.bisect_left(frontieres, fin)
+    ef = frontieres[j] if j < len(frontieres) else longueur
+    if j < len(frontieres) and frontieres[j] in srcref:
+        ef = frontieres[j + 1] if j + 1 < len(frontieres) else longueur
+    return eb, ef
+
+def oeuvre_visee(plaine, bornes, avant=260, apres=160, element=None):
     """L'œuvre que la page NOMME le plus près de la citation.
 
     Rend (nom, cible) — `cible` étant le préfixe du `ref` Sefaria, ou None quand l'œuvre
     est hors de portée d'une porte indexée par siman — ou None si rien n'est nommé.
+    `element` = (eb, ef) borne les deux fenêtres à l'élément de bloc de la citation.
     """
     deb, fin = bornes
-    gauche = plaine[max(0, deb - avant):deb]
-    droite = plaine[fin:fin + apres]
+    eb, ef = element if element else (0, len(plaine))
+    gauche = plaine[max(eb, deb - avant):deb]
+    droite = plaine[fin:min(ef, fin + apres)]
     # ⚠️ LA PARENTHÈSE QUI SUIT LA CITATION PASSE AVANT TOUT LE RESTE, et c'est la
     # convention du dépôt elle-même : « citation » (ouvrage référence). Le plus proche
     # ne suffisait pas, et le siman 254 l'a montré — la page écrit, en FRANÇAIS, « il
@@ -690,6 +868,7 @@ def plat(x):
     return ''
 
 _cache = {}
+ETATS = {}      # 'section:n' -> ce que chaque téléchargement a rendu ; voir `appareil`
 if os.path.exists(CACHE):
     try: _cache = json.load(open(CACHE, encoding='utf-8'))
     except Exception: _cache = {}
@@ -718,32 +897,75 @@ def appareil(n, section):
     appareil complet une fois gravé.
     """
     cle = f'{section}:{n}'
-    if cle in _cache: return _cache[cle]
     modeles = ([OEUVRES['yd']] + APPAREIL_YD) if section == 'yoreh-deah' \
               else ([OEUVRES['or']] + APPAREIL_OR)
+    if cle in _cache:
+        # Une entrée gravée l'a été COMPLÈTE (voir plus bas) : rien n'y a échoué en
+        # transport, et une œuvre absente y est une lacune de la source.
+        ETATS[cle] = {'cache': True, 'transport': [], 'ref': [], 'lacune': [], 'erreur': []}
+        return _cache[cle]
+    # ⚠️ LE DRAPEAU `complet` NE QUITTAIT JAMAIS CETTE FONCTION. Il ne gouvernait que
+    # l'écriture du cache, si bien qu'un ÉCHEC DE TRANSPORT sur le Mehaber rendait le même
+    # appareil — sans Mehaber — qu'une LACUNE RÉELLE de Sefaria, et `main` annonçait au
+    # lecteur « CHOUL'HAN AROUKH ABSENT de Sefaria » pour une panne de réseau. Les deux
+    # ne se distinguent qu'ICI, au moment du téléchargement, et chacune reçoit son nom :
+    #  · 'transport' — trois essais, trois exceptions (réseau, délai, HTTP) : on ne sait
+    #    RIEN de la source, et la porte n'a rien comparé à cette œuvre ;
+    #  · 'ref'       — Sefaria a répondu, mais pas le siman demandé : HTTP 200 et le
+    #    livre entier sur un ref mal formé. Rien comparé non plus ;
+    #  · 'erreur'    — Sefaria répond `error` : il ne connaît pas ce ref ;
+    #  · 'lacune'    — ref juste, `error` nul, `he` vide : la source n'a pas ce siman
+    #    (Yoré Déa 169 ; Mishnah_Berurah.999 rend exactement cela). C'est un fait de la
+    #    source, non un échec de mesure.
+    etat = {'cache': False, 'transport': [], 'ref': [], 'lacune': [], 'erreur': []}
+    ETATS[cle] = etat
     out, complet = [], True
     for m in modeles:
         url = f'https://www.sefaria.org/api/texts/{m.format(n=n)}?context=0&pad=0'
-        ok = False
+        ok, cause = False, ''
         for essai in range(3):
             try:
                 with urllib.request.urlopen(url, timeout=30) as r:
                     d = json.load(r)
                 ok = True
                 break
-            except Exception:
+            except Exception as e:
+                cause = type(e).__name__
                 time.sleep(1 + essai)
         if not ok:
             complet = False
+            etat['transport'].append((m.format(n=n), cause))
+            continue
+        if not isinstance(d, dict):
+            complet = False
+            etat['ref'].append((m.format(n=n), 'réponse non conforme'))
+            continue
+        if d.get('error'):
+            # ⚠️ UNE RÉPONSE `error` N'EST NI UNE LACUNE NI UN APPAREIL COMPLET. Sefaria dit
+            # qu'il ne connaît pas ce ref — titre mal orthographié (le cas « Beer Hetev »
+            # qu'a connu ce dépôt rend exactement HTTP 200 + error « Could not find title in
+            # reference »), ou siman hors de l'œuvre. Dans les deux cas RIEN n'a été comparé
+            # à cette œuvre. Cette branche laissait `complet` vrai : l'entrée du siman était
+            # gravée SANS l'œuvre, rien n'était imprimé, et la porte sortait en 0 — un
+            # arbitre l'a démontré en faisant répondre `error` à Mishnah_Berurah.244.
+            complet = False
+            etat['erreur'].append((m.format(n=n), str(d.get('error'))[:80]))
             continue
         ref = str(d.get('ref', ''))
         if not ref.rstrip().endswith(str(n)):
-            continue                      # le piège : l'œuvre entière sans dire non
+            # le piège : l'œuvre entière sans dire non. Ce n'est PAS une lacune, et le
+            # graver ferait passer pour un fait de la source ce qui est un refus de servir.
+            complet = False
+            etat['ref'].append((m.format(n=n), f'ref servi « {ref[:60]} »'))
+            continue
         he = d.get('he')
+        avant = len(out)
         for b in (he if isinstance(he, list) else [he]):
             t = re.sub(r'<[^>]+>', ' ', plat(b))
             t = re.sub(r'\s+', ' ', t).strip()
             if t: out.append((ref, t))
+        if len(out) == avant:
+            etat['lacune'].append((m.format(n=n), 'he vide'))
         time.sleep(0.12)
     if complet:
         _cache[cle] = out
@@ -898,8 +1120,9 @@ def presente(s0, s1, paquet, cible=None):
     précède, elle, se comptait ; celle-ci ne laissait aucune trace.
 
     CAS TÉMOIN, vérifié contre Sefaria le 1er octobre 2026 — Hilkhot Chabbat 353, les TROIS
-    pages de niveau 2. La page écrit « "אין נותנין עליו אלא כלי חרס וזכוכית" » en nommant
-    le Rama ; le séif ג du Mehaber porte « אין נותנין עליו ואין נוטלים ממנו אלא כלי חרס
+    pages de niveau 2. La page écrit « "אין נותנין עליו אלא כלי חרס וזכוכית" » sans nommer
+    personne (le « Rama » d'abord annoncé était le titre de la section SUIVANTE : la page
+    est rendue contre le Choul'han Aroukh, son sujet par défaut — voir `main`) ; le séif ג du Mehaber porte « אין נותנין עליו ואין נוטלים ממנו אלא כלי חרס
     וזכוכית » — « ואין נוטלים ממנו » est sauté sans ellipse, à l'intérieur des guillemets.
     Et l'Aroukh HaChoul'han, Orah Haïm 353, citant le même passage, en INVERSE l'ordre :
     « אין נוטלין ממנו ואין נותנין עליו אלא כלי חרס וזכוכית ». La citation de la page y est
@@ -1058,7 +1281,10 @@ def main():
     confrontees = 0      # …et RETROUVÉES dans l'appareil : les seules réellement confrontées
     confrontees_visee = 0            # …dans l'ŒUVRE QUE LA PAGE NOMME : la confrontation pleine
     confrontees_hors_portee = 0      # …dans l'appareil, mais la page vise un daf ou un Richon
-    confrontees_sans_nom = 0         # …dans l'appareil, et la page ne nomme aucune œuvre
+    confrontees_sans_nom = 0         # …dans l'appareil, aucune œuvre nommée ET pas de Mehaber servi
+    confrontees_defaut = 0           # …dans le Choul'han Aroukh du siman, sujet par défaut
+    voisine_defaut = 0               # absente du Choul'han Aroukh (sujet par défaut), présente
+                                     # dans une autre œuvre de l'appareil
     confrontees_visee_non_servie = 0 # …et Sefaria ne sert pas l'œuvre nommée pour ce siman
     voisine_seulement = 0 # ABSENTE de l'œuvre nommée, présente dans une VOISINE : la
                           # population que `presente` non restreinte taisait sans la compter
@@ -1076,6 +1302,9 @@ def main():
     coupure_recadree = 0     # COUPURE lue dans l'œuvre VISÉE plutôt que dans la première
                              # de l'appareil où la citation paraissait aussi
     non_situees = 0          # citations que le repérage dans la page n'a pas situées
+    nom_hors_element = 0     # la fenêtre libre lisait un nom HORS de l'élément de bloc, et
+                             # l'élément n'en nomme aucun : la citation n'a pas d'œuvre visée
+    nom_hors_element_remplace = 0  # …et l'élément en nomme un AUTRE, qui est retenu
     # ⚠️ CES CINQ COMPTEURS NE COMPTENT QUE DES VERDICTS RÉELLEMENT PERDUS, et il a fallu
     # les reprendre pour cela. Ma première version incrémentait le refus AVANT d'appeler
     # `juger()` : elle annonçait « 741 TROUS refusés » sur Hilkhot Chabbat quand la mesure
@@ -1087,6 +1316,9 @@ def main():
     vides = []           # simanim dont Sefaria ne sert AUCUN texte : la porte y est aveugle
     sans_mehaber = []    # …et ceux dont le Choul'han Aroukh lui-même est vide, ce qui est
                          # le seul signal qui compte : voir la note plus bas.
+    mehaber_injoignable = []  # …absent parce que Sefaria n'a PAS RÉPONDU : ce n'est pas
+                              # une lacune de la source, c'est un échec de mesure
+    injoignables = {}    # siman -> [(œuvre, cause)] : téléchargements qui ont ÉCHOUÉ
 
     for n, d in cibles:
         sec = 'yoreh-deah' if 'yoreh-deah' in d else ('shabbat' if 'shabbat' in d else 'orah-haim')
@@ -1095,17 +1327,15 @@ def main():
         fichiers = sorted(glob.glob(os.path.join(d, '*.html')))
         for f in fichiers:
             texte = open(f, encoding='utf-8').read()
-            plaine = re.sub(r'<[^>]+>', ' ', texte)
             # ⚠️ LES ENTITÉS, et ce n'est pas cosmétique. La convention du dépôt écrit
             # « &nbsp;<span class="he-q">…</span>&nbsp;» (ouvrage réf.) : une fois les
             # balises retirées, il reste « &nbsp;» (מג״א… » entre la citation et sa
             # référence. La parenthèse n'était donc jamais reconnue comme adjacente, et
             # au siman 254 l'œuvre visée retombait sur le « Rambam » de la phrase
             # française d'avant. Six caractères d'entité valaient une coupure tue.
-            plaine = (plaine.replace('&nbsp;', ' ').replace('&#160;', ' ')
-                            .replace('&amp;', '&').replace('&quot;', '"')
-                            .replace('&#39;', "'"))
-            plaine = re.sub(r'\s+', ' ', plaine)
+            # `debaliser` fait la même chose, à l'identique, et garde en plus les
+            # frontières de bloc — voir la note de l'ÉLÉMENT DE BLOC.
+            plaine, frontieres, srcref = debaliser(texte)
             page_entiere, page_idx = sk(plaine)
             for c in citations(f):
                 # dédoublonner PAR FICHIER : la même citation dans deux pages est deux
@@ -1115,7 +1345,6 @@ def main():
                 vues.add((f, c))
                 if prep is None:
                     segs = appareil(n, sec)
-                    if not segs: vides.append(n)
                     # ⚠️ ET L'ÉLARGISSEMENT A FAILLI ÉTEINDRE CE SIGNAL. Au siman 169 de
                     # Yoré Déa, Sefaria ne sert RIEN — ni Mehaber, ni Chakh, ni Taz, ni
                     # Beit Yosef : l'ancienne table rendait zéro segment et l'alerte
@@ -1123,8 +1352,19 @@ def main():
                     # Tour, et l'alerte se taisait — alors que la porte y est tout aussi
                     # aveugle qu'avant sur le texte du Choul'han Aroukh. On surveille donc
                     # le Mehaber lui-même, et non le total.
+                    # ⚠️ ET UNE PANNE N'EST PAS UNE LACUNE. Le Mehaber absent de l'appareil
+                    # n'est « ABSENT de Sefaria » que si Sefaria l'a DIT — ref juste, error
+                    # nul, he vide. S'il n'a pas répondu, ou pas le bon siman, la porte n'en
+                    # sait rien, et le dire absent serait inventer un fait de la source.
+                    etat = ETATS.get(f'{sec}:{n}', {})
+                    base = OEUVRES['yd' if sec == 'yoreh-deah' else 'or'].format(n=n)
+                    rates = [(o, c_) for o, c_ in etat.get('transport', []) + etat.get('ref', [])
+                             + etat.get('erreur', [])]
+                    if rates: injoignables[n] = rates
+                    if not segs and not rates: vides.append(n)   # vide PAR LA SOURCE
                     if not any(r.startswith('Shulchan Arukh,') for r, _t in segs):
-                        sans_mehaber.append(n)
+                        if any(o == base for o, _c in rates): mehaber_injoignable.append(n)
+                        else: sans_mehaber.append(n)
                     paquet = preparer(segs)
                     prep = paquet[0]
                 total += 1
@@ -1143,23 +1383,59 @@ def main():
                 s1, _ = nomat_idx(s0, list(range(len(s0))))
                 bornes = situer(page_entiere, page_idx, s0, plaine)
                 if bornes is None: non_situees += 1
-                visee = oeuvre_visee(plaine, bornes) if bornes else None
+                # L'œuvre visée se lit DANS L'ÉLÉMENT DE BLOC de la citation, et l'on
+                # compte ce que la fenêtre libre aurait lu de l'autre côté d'une frontière.
+                # Ce compte n'est pas décoratif : sans lui, la fermeture ne se distingue
+                # pas d'un mutisme.
+                if bornes:
+                    elt = element_de(frontieres, srcref, bornes, len(plaine))
+                    visee = oeuvre_visee(plaine, bornes, element=elt)
+                    large = oeuvre_visee(plaine, bornes)
+                    if large and visee is None: nom_hors_element += 1
+                    elif large and large[1] != visee[1]: nom_hors_element_remplace += 1
+                else:
+                    visee = None
                 cible = visee[1] if visee else None
                 # ⚠️ LA CONFRONTATION SE FAIT CONTRE L'ŒUVRE QUE LA PAGE NOMME, et non
                 # contre la concaténation de tout l'appareil : voir la note de `presente`.
                 # Trois cas, et les trois sont comptés à la sortie :
                 #  · la page nomme une œuvre que Sefaria sert ici → on ne lit QUE la sienne ;
-                #  · la page nomme une œuvre hors de portée (daf, Richon) ou n'en nomme
-                #    aucune → on ne sait pas contre qui l'on parlerait, et le comportement
-                #    non restreint est le seul possible. Il est gardé, et compté à part.
+                #  · la page nomme une œuvre hors de portée (daf, Richon) → on ne sait pas
+                #    contre qui l'on parlerait, et le comportement non restreint est le seul
+                #    possible. Il est gardé, et compté à part ;
+                #  · l'ÉLÉMENT de la citation ne nomme aucune œuvre → la porte TROU la
+                #    confronte au Choul'han Aroukh du siman (voir juste en dessous) ;
                 #  · la page nomme une œuvre que Sefaria ne sert PAS pour ce siman → il n'y
                 #    a rien à comparer, ce qui n'est pas « aucun défaut ». Compté à part.
-                xs_visee = segments_de(paquet, cible)[0] if cible else []
+                #
+                # ⚠️ ET QUAND L'ÉLÉMENT NE NOMME RIEN, LE SUJET EST LE CHOUL'HAN AROUKH DU
+                # SIMAN — pour la porte TROU seulement. C'est la doctrine que cette porte
+                # écrivait déjà plus bas (« quand rien n'est nommé, l'œuvre visée n'est pas
+                # inconnue ») sans l'appliquer à `presente`. La fermeture de l'élément de
+                # bloc l'a rendue nécessaire, et la mesure l'a imposée : le témoin fondateur
+                # du tour précédent, Chabbat 353, ne nomme AUCUNE œuvre dans son élément.
+                # Le « הרמ״א » qui l'attribuait était le titre de la section suivante. Sans
+                # ce défaut, l'élément fermé rendait 353 muet — c'est-à-dire la version
+                # d'avant, qui retrouvait la citation dans l'Aroukh HaChoul'han et se taisait.
+                # La COUPURE, elle, reste non restreinte faute de nom, comme avant : elle
+                # part d'une présence exacte et sait déjà quel texte la porte.
+                # MESURÉ, 7 octobre 2026, sur les trois sections : ce défaut ajoute 49 TROUS
+                # à la seule fermeture de l'élément ; ouverts un par un contre Sefaria, 25
+                # sont réels (Chabbat 353 ; Orah Haïm 158, 159, 181, 212 — le crochet
+                # « פירוש… » sauté, pour l'essentiel ; Yoré Déa 198, la clause « בענין שלא
+                # באו המים בהם »), 3 sont une limite (Orah Haïm 240 : une chaîne « → » de
+                # condensations entre guillemets, la clause sautée étant citée entière
+                # ailleurs dans la page) et 21 sont faux, TOUS dans des familles déjà
+                # déclarées (suffixe ancré sur une répétition : 108, 362 ; abréviation
+                # développée : 124, 362 ; ancre tombée dans le chapeau : 67).
+                cible_t = cible if cible else (OEUVRES_BASE if visee is None else None)
+                xs_visee = segments_de(paquet, cible_t)[0] if cible_t else []
                 if cible and not xs_visee: visee_non_servie += 1
-                restreindre = bool(cible) and bool(xs_visee)
+                restreindre = bool(cible_t) and bool(xs_visee)
+                par_defaut = restreindre and not cible
                 dans_appareil = presente(s0, s1, paquet)
                 if restreindre:
-                    dedans = presente(s0, s1, paquet, cible)
+                    dedans = presente(s0, s1, paquet, cible_t)
                     voisine = (not dedans) and dans_appareil
                 else:
                     dedans = presente(s0, s1, paquet)
@@ -1184,7 +1460,11 @@ def main():
                 if not dedans:
                     # NON CONFRONTABLE. On dit laquelle, et on ne la rabat sur rien —
                     # et cette fois le code le fait, au lieu de l'écrire en en-tête.
-                    if voisine:
+                    if voisine and par_defaut:
+                        # absente du Choul'han Aroukh, sujet PAR DÉFAUT faute de nom, et
+                        # retrouvée mot pour mot dans une autre œuvre de l'appareil.
+                        voisine_defaut += 1
+                    elif voisine:
                         # LA POPULATION QUI ÉTAIT MUETTE : absente de l'œuvre NOMMÉE, et
                         # retrouvée mot pour mot dans une VOISINE qui cite le même passage.
                         voisine_seulement += 1
@@ -1227,8 +1507,9 @@ def main():
                     if not dans_appareil: continue
                 confrontees += 1
                 # `voisine` est déjà compté dans `voisine_seulement`, et il ne faut pas le
-                # compter deux fois : CONFRONTÉES est la somme exacte de ses cinq lignes.
+                # compter deux fois : CONFRONTÉES est la somme exacte de ses SEPT lignes.
                 if voisine: pass
+                elif par_defaut: confrontees_defaut += 1
                 elif restreindre: confrontees_visee += 1
                 elif visee and visee[1] is None: confrontees_hors_portee += 1
                 elif visee: confrontees_visee_non_servie += 1
@@ -1286,7 +1567,11 @@ def main():
     # retrouvée dans l'appareil pendant que la page nomme un daf de guemara n'est pas
     # confrontée à ce qu'elle cite, elle est seulement retrouvée quelque part.
     print(f"  · dans l'ŒUVRE que la page NOMME                   : {confrontees_visee}")
-    print(f"  · aucune œuvre nommée auprès de la citation         : {confrontees_sans_nom}")
+    print(f"  · aucune œuvre nommée dans l'élément — dans le CHOUL'HAN AROUKH du siman,")
+    print(f"    son sujet par défaut                              : {confrontees_defaut}")
+    print(f"  · aucune œuvre nommée, Choul'han Aroukh non servi   : {confrontees_sans_nom}")
+    print(f"  · aucune œuvre nommée, ABSENTES du Choul'han Aroukh, retrouvées ailleurs : {voisine_defaut}")
+    print(f"    (elles accèdent à la porte TROU contre le Choul'han Aroukh, et gardent la COUPURE)")
     print(f"  · l'œuvre nommée est hors de portée (daf, Richon)   : {confrontees_hors_portee}")
     print(f"  · l'œuvre nommée n'est pas servie pour ce siman     : {confrontees_visee_non_servie}")
     print(f"  · ABSENTES de l'œuvre nommée, retrouvées dans une VOISINE : {voisine_seulement}")
@@ -1319,6 +1604,11 @@ def main():
     print(f"    (ref Sefaria « Traité.daf », hors de portée d'une porte par siman)")
     print(f"  · dont rien dans la page n'explique l'absence          : {inconnues}")
     print(f"  · que le repérage n'a pas situées dans la page         : {non_situees}")
+    print(f"ŒUVRE VISÉE lue HORS de l'élément de bloc de la citation (jugeables) :")
+    print(f"  · écartée, l'élément ne nomme rien → pas d'œuvre visée : {nom_hors_element}")
+    print(f"  · écartée au profit de l'œuvre que l'élément nomme     : {nom_hors_element_remplace}")
+    print(f"    (avant la fermeture, ces citations étaient attribuées au nom d'un bloc")
+    print(f"     VOISIN — paragraphe suivant, titre, cellule adjacente.)")
     print(f"TROUS non marqués (un passage sauté au milieu)       : {trouve}")
     print(f"COUPURES avant la suite (la clause qui retourne)      : {coupe}")
     # ⚠️ CE BLOC EST LA CONTREPARTIE DE LA FERMETURE, et il n'est pas décoratif : une
@@ -1341,12 +1631,35 @@ def main():
               f"{', '.join(str(x) for x in sorted(set(sans_mehaber)))}")
         print("   Le texte de base n'y est pas : aucune citation du Mehaber ni du Rama n'y est")
         print("   confrontée, quoi que dise le compte des CONFRONTÉES ci-dessus.")
+    if mehaber_injoignable:
+        print(f"\n⚠️  CHOUL'HAN AROUKH INJOIGNABLE — Sefaria n'a pas répondu pour : "
+              f"{', '.join(str(x) for x in sorted(set(mehaber_injoignable)))}")
+        print("   Ce n'est PAS une lacune de la source : c'est un échec de transport. La porte")
+        print("   ne sait rien de ce texte, et ne l'a comparé à rien.")
+    if injoignables:
+        nb = sum(len(v) for v in injoignables.values())
+        print(f"\n⚠️  ÉCHECS DE TÉLÉCHARGEMENT — {nb} œuvre(s) sur {len(injoignables)} siman(im) "
+              f"n'ont PAS été comparées :")
+        for k in sorted(injoignables):
+            print(f"   siman {k} : " + ' · '.join(f"{o} ({c_})" for o, c_ in injoignables[k]))
+        print("   Le silence de la porte sur ces œuvres n'est pas un feu vert. Relancer la porte.")
     if not trouve and not coupe:
-        print("\nAucune citation ne saute un passage de sa source sans le dire.")
+        if confrontees == 0 or injoignables:
+            print("\nAucun défaut rendu — MAIS LA PORTE N'A PAS TOUT COMPARÉ : "
+                  f"{confrontees} citation(s) confrontée(s), "
+                  f"{len(injoignables)} siman(im) dont un téléchargement a échoué.")
+        else:
+            print("\nAucune citation ne saute un passage de sa source sans le dire.")
     else:
         print("\nUne ellipse marque la coupure : « A… B » dit que A et B sont chacun verbatim.")
         print("Le remède est l'un des deux — rétablir le passage, ou écrire « … ».")
-    return 1 if (trouve or coupe) else 0
+    # ⚠️ TROIS ÉTATS, ET NON DEUX. « return 1 if (trouve or coupe) else 0 » sortait en 0
+    # — vert — quand la porte n'avait RIEN comparé : Sefaria injoignable, appareil vide,
+    # aucune citation jugeable. 1 : des défauts sont rendus. 3 : aucun défaut, mais la
+    # mesure est incomplète ou nulle — ce n'est pas un feu vert. 0 : comparé, et propre.
+    if trouve or coupe: return 1
+    if confrontees == 0 or injoignables: return 3
+    return 0
 
 if __name__ == '__main__':
     sys.exit(main())
