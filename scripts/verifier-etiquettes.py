@@ -60,6 +60,17 @@ ses étiquettes, sautait chaque point, et sortait en 0 sur « ANOMALIES : 0 ». 
 de charge le disent désormais, et la sortie 3 les traduit : œuvres chargées · non numérisées
 par Sefaria (autoritatif, on passe) · NON CHARGÉES (la mesure n'a pas eu lieu).
 
+CODES DE SORTIE — deux nouvelles distinctes, et aucune ne masque l'autre :
+  0  mesure complète, aucune anomalie ;
+  1  anomalies, mesure COMPLÈTE ;
+  2  ligne de commande refusée (rien n'a été lu) ;
+  3  mesure INCOMPLÈTE ou NON FAITE, aucune anomalie sur ce qui a pu être comparé ;
+  4  anomalies ET mesure incomplète — le nombre d'anomalies est alors un PLANCHER.
+Jusqu'ici « if anomalies: return 1 » précédait le test d'incomplétude : une seule anomalie
+suffisait à faire taire, dans le code de sortie, une mesure qui n'avait pas eu lieu. La
+ligne « MESURE INCOMPLÈTE / NON FAITE » est imprimée chaque fois qu'elle est vraie, avec ou
+sans anomalie.
+
 Usage :
   python3 scripts/verifier-etiquettes.py --section shabbat [--bref]
   python3 scripts/verifier-etiquettes.py 243 245 249
@@ -203,6 +214,14 @@ _fausses = {}
 # existe pour empêcher, commis dans la ligne elle-même.
 _INITIAL = {k for k in _cache if not k.startswith(('__', 'shape:'))}
 _du_reseau = set()
+# ⚠️ ET ELLE A MENTI UNE SECONDE FOIS, EN SENS INVERSE. `_du_reseau.add(cle)` n'était exécuté
+# qu'APRÈS un json.load réussi : une exécution dont TOUTES les lectures réseau échouaient
+# (proxy coupé, cache écarté) imprimait « 0 appels de texte » et la mise en garde « AUCUNE œuvre
+# n'a été demandée à Sefaria » — c'est-à-dire qu'elle déclarait n'avoir rien demandé au moment
+# même où elle avait demandé, et échoué, à chaque fois. Une demande, une réponse et un échec
+# sont trois faits ; ils se comptent séparément, pour le texte comme pour l'étendue.
+_reseau = {'texte': {'tentes': 0, 'reussis': 0, 'echoues': 0},
+           'shape': {'tentes': 0, 'reussis': 0, 'echoues': 0}}
 
 def _ecrire_cache():
     try: json.dump(_cache, open(CACHE, 'w', encoding='utf-8'), ensure_ascii=False)
@@ -264,10 +283,14 @@ def _get(slug, cle):
     titre = slug.rpartition('.')[0]
     n = cle.split(':')[-1]
     out, raison, fausse = [], None, None
+    _reseau['texte']['tentes'] += 1
+    recu = False
     try:
         with urllib.request.urlopen(
                 f'https://www.sefaria.org/api/texts/{slug}?context=0&pad=0', timeout=30) as r:
             d = json.load(r)
+        recu = True
+        _reseau['texte']['reussis'] += 1
         _du_reseau.add(cle)
         ref = str(d.get('ref') or '')
         err = str(d.get('error') or '')
@@ -297,6 +320,7 @@ def _get(slug, cle):
                     fausse = ext
     except Exception as e:
         raison = f'{type(e).__name__}: {e}'
+        if not recu: _reseau['texte']['echoues'] += 1
     if out:                      # jamais de vide persisté : voir le docstring
         _chargees.add(cle)
         _cache[cle] = out
@@ -395,15 +419,20 @@ def etendue(titre):
         _etendues[titre] = _cache[cle]
         return _cache[cle]
     val = None
+    _reseau['shape']['tentes'] += 1
+    recu = False
     try:
         with urllib.request.urlopen(
                 f'https://www.sefaria.org/api/shape/{titre}', timeout=30) as r:
             d = json.load(r)
+        recu = True
+        _reseau['shape']['reussis'] += 1
         attendu = titre.replace('_', ' ').strip()
         for e in (d if isinstance(d, list) else []):
             if str(e.get('title', '')).strip() == attendu and isinstance(e.get('length'), int):
                 val = e['length']; break
     except Exception:
+        if not recu: _reseau['shape']['echoues'] += 1
         val = None
     _etendues[titre] = val
     if val is not None:
@@ -585,11 +614,12 @@ def _dans_un_recueil(cell, deb):
 # annoncé » : ces 603 étiquettes vivent dans une COLONNE D'ANCRAGE (« Cas | Berakha | Ancrage »),
 # et le contenu qu'elles adressent est dans les cellules VOISINES de leur rangée. Mesuré :
 # 572 des 603 sont dans une rangée dont les autres cellules portent six mots ou plus, 31 dans
-# une rangée qui en porte un à cinq, et AUCUNE n'est orpheline (mesuré par un arbitre, en
-# instrumentant ce compteur-ci ; le « 563 / 40 » qui figurait ici venait d'un appariement
-# cellule↔rangée par égalité de chaîne, quand la porte apparie par POSITION — et ses deux
-# nombres contredisaient la sortie que ce même fichier imprime, « dont 572 »). Ce que la porte
-# ne peut donc pas
+# une rangée qui en porte un à cinq, 0 dans une rangée sans aucun mot, 0 hors de toute <tr> —
+# 572 + 31 = 603. Remesuré le 7 octobre 2026 en instrumentant CE compteur (appariement par
+# POSITION, celui de _voisinage), --section yoreh-deah ; la sortie imprime désormais les quatre
+# classes, si bien que ce commentaire se confronte à elle au lieu de la répéter. Un « 563 / 40 »
+# a figuré ici : il venait d'un appariement cellule↔rangée par égalité de chaîne et
+# contredisait le « dont 572 » que ce fichier imprime. Ce que la porte ne peut donc pas
 # faire, et qu'il faut écrire au lieu de le taire : confronter l'adresse au contenu de SA cellule.
 # Le mot « mot » est ici un jeton de deux lettres au moins ; en comptant aussi les jetons d'une
 # seule lettre (un numéral hébraïque nu, « א »), la classe sans thème tombe à 540 et non 603.
@@ -669,8 +699,11 @@ def examiner(path, siman_page, anomalies, candidats, compte):
                 # la ventilation du thème : ce que la cellule annonce, hors adresses
                 k_mots = len(mots_du_theme(cell))
                 compte['_th0' if k_mots == 0 else ('_th15' if k_mots <= 5 else '_th6')] += 1
-                if k_mots == 0 and voisinage.get(_mcell.start(), 0) >= 6:
-                    compte['_th0_rangee'] += 1
+                if k_mots == 0:
+                    v = voisinage.get(_mcell.start())
+                    compte['_th0_orpheline' if v is None else
+                           ('_th0_rangee0' if v == 0 else
+                            ('_th0_rangee15' if v <= 5 else '_th0_rangee'))] += 1
                 # les POINTS ANNONCÉS, face aux points confrontés : sans eux, « plancher »
                 # est un mot et non une mesure.
                 if n_haut == n and b >= a: compte['_annonces'] += b - a + 1
@@ -839,7 +872,8 @@ def main():
               'mb': 0, 'shk': 0, 'taz': 0, 'rav': 0, 'ahs': 0,
               '_plages': 0, '_points': 0, '_sans_source': 0, '_etiq_sans_source': 0,
               '_hors_oeuvre': 0, '_annonces': 0, '_annonces_flou': 0,
-              '_th0': 0, '_th15': 0, '_th6': 0, '_th0_rangee': 0}
+              '_th0': 0, '_th15': 0, '_th6': 0, '_th0_rangee': 0,
+              '_th0_rangee15': 0, '_th0_rangee0': 0, '_th0_orpheline': 0}
     for d in dirs:
         m = re.search(r'siman-(\d+)$', d)
         if not m: continue
@@ -895,24 +929,35 @@ def main():
         if compte['_th0']:
             print(f"    dont {compte['_th0_rangee']} dans une rangée dont les AUTRES cellules "
                   f"portent six mots ou plus (colonne d'ancrage : le contenu adressé est là, "
-                  f"et cette porte ne le lit pas)")
+                  f"et cette porte ne le lit pas) · {compte['_th0_rangee15']} dans une rangée "
+                  f"à un à cinq mots · {compte['_th0_rangee0']} dans une rangée SANS AUCUN MOT · "
+                  f"{compte['_th0_orpheline']} hors de toute rangée <tr>")
     # Les trois registres de charge, imprimés sans condition : c'est le seul témoin qui dise
     # si la porte a comparé quelque chose, et le seul sur lequel le code de sortie agisse.
     print(f"œuvres chargées : {len(_chargees)} — dont {len(_chargees & _INITIAL)} RELUES DANS "
           f"LE CACHE ({os.path.basename(CACHE)}) et {len(_chargees - _INITIAL)} obtenues de Sefaria "
-          f"sur cette exécution ({len(_du_reseau)} appels de texte, "
-          f"{len(_etendues)} d'étendue) · "
+          f"sur cette exécution · "
           f"lacunes de la source (he vide DANS l'étendue de l'œuvre, on passe sans accuser) : "
           f"{len(_lacunes)} · HORS DE L'ŒUVRE (siman au-delà de ce que Sefaria sert — accusé) : "
           f"{len(_fausses)} · NON CHARGÉES (rien n'y a été confronté) : {len(_echecs)}")
     # ⚠️ RÉSERVE À LIRE AVEC LA LIGNE CI-DESSUS. « œuvres chargées : 199 · … · 0 · 0 » décrit
     # LE CACHE, pas Sefaria : un lecteur y voit « la source a répondu 199 fois » quand elle n'a
     # pas été appelée une seule fois. Le cache est un instantané ; il ne vieillit pas tout seul.
-    if _chargees and not _du_reseau:
+    rt, rs = _reseau['texte'], _reseau['shape']
+    print(f"appels à Sefaria sur cette exécution : texte {rt['tentes']} tentés · "
+          f"{rt['reussis']} réussis · {rt['echoues']} ÉCHOUÉS — étendue (api/shape) "
+          f"{rs['tentes']} tentés · {rs['reussis']} réussis · {rs['echoues']} ÉCHOUÉS")
+    tentes = rt['tentes'] + rs['tentes']
+    reussis = rt['reussis'] + rs['reussis']
+    if tentes == 0:
         print(f"    ⚠ AUCUNE œuvre n'a été demandée à Sefaria sur cette exécution : tout vient "
               f"du cache, et ce verdict confronte les pages à un INSTANTANÉ, non à la source "
               f"d'aujourd'hui. Supprimer {os.path.basename(CACHE)} pour re-confronter.")
-    elif _etendues:
+    elif reussis == 0:
+        print(f"    ⚠ {tentes} demande(s) à Sefaria, TOUTES ÉCHOUÉES : la source n'a pas répondu "
+              f"une seule fois. " + (f"Les {len(_chargees)} œuvre(s) confrontées viennent du "
+              f"cache seul (instantané)." if _chargees else "Rien n'a été confronté."))
+    if _etendues:
         print(f"    étendues d'œuvre demandées à api/shape : "
               f"{sum(1 for v in _etendues.values() if v is not None)} connues, "
               f"{sum(1 for v in _etendues.values() if v is None)} inconnues")
@@ -948,13 +993,21 @@ def main():
     elif _echecs:
         print(f"\n✗✗ MESURE INCOMPLÈTE : {len(_echecs)} œuvre(s) n'ont pas été chargées, "
               f"{compte['_etiq_sans_source']} étiquette(s) sur {lues} n'ont donc pas été "
-              f"entièrement confrontées.\nAucune anomalie sur ce qui a pu être comparé : ce "
-              f"n'est pas un vert, c'est une mesure partielle. Relancer Sefaria joignable.")
+              f"entièrement confrontées.")
+        if anomalies:
+            print(f"Les {len(anomalies)} anomalie(s) ci-dessus sont un PLANCHER : ce qui n'a "
+                  f"pas été comparé peut en porter d'autres. Relancer Sefaria joignable.")
+        else:
+            print("Aucune anomalie sur ce qui a pu être comparé : ce n'est pas un vert, c'est "
+                  "une mesure partielle. Relancer Sefaria joignable.")
     if anomalies:
         print('\nUne étiquette fausse est invisible aux portes de citation : le contenu de la '
               'cellule\nest une condensation, que la convention du dépôt exempte du verbatim.')
     elif not incomplete:
         print('\nAucune étiquette ne nomme un séif qui ne porte pas ce qu\'elle annonce.')
+    # Convention documentée dans l'en-tête : l'incomplétude n'est jamais masquée par une
+    # anomalie, ni l'inverse.
+    if anomalies and incomplete: return 4
     if anomalies: return 1
     return 3 if incomplete else 0
 

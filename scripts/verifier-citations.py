@@ -43,8 +43,22 @@ Verdicts
   REF_FAUSSE   le texte existe bien, mais pas là où la page le situe (la vraie
                référence est indiquée) — corriger le renvoi
   INTROUVABLE  absent de la source citée *et* du reste de Sefaria — citation
-               vraisemblablement fabriquée, à réécrire
-  NON_RESOLU   référence non reconnue ou source indisponible
+               vraisemblablement fabriquée, à réécrire. Le reste de Sefaria est
+               interrogé par la recherche plein-texte, relancée avec une lettre
+               servile en tête (citation d'au moins 4 mots) ; une citation trop
+               courte pour cette recherche reste INTROUVABLE dans la source citée,
+               mais le rapport la compte à part — « NON CHERCHÉE ailleurs ».
+  NON_RESOLU   aucune des références n'a pu être comparée : source injoignable,
+               adresse sans texte sur Sefaria, recherche plein-texte muette. Le
+               rapport donne la cause par ouvrage, et la porte sort en 3.
+
+Une citation de 3 à 5 mots à qui UN mot manque ou diffère sort VARIANTE (et non plus
+INTROUVABLE) si ses mots se retrouvent dans l'ordre, dans une fenêtre à peine plus
+large qu'elle, dont deux au moins à l'identique (voir `mots_proches`). Une citation à
+ellipse dont chaque côté est court voit ses côtés confrontés séparément.
+
+La langue examinée et le nombre de pages HORS examen sont imprimés : par défaut la porte
+ne lit que le français, et ses totaux ne comptent pas les pages -he et -en.
 
 Un fragment de moins de MIN_CITATION lettres n'est pas jugé : entre guillemets,
 « תשמישי קדושה » ou « אמירה לנכרי שבות » sont des termes techniques, pas des
@@ -62,12 +76,18 @@ Codes de sortie (utilisable comme gate CI)
 -----------------------------------------
   0   tout ce qui a été confronté est conforme
   1   il reste des REF_FAUSSE ou des INTROUVABLE — la porte a comparé, et c'est faux
-  3   LA PORTE N'A PAS PU COMPARER : la source d'un siman de Michna Beroura est
-      injoignable, ou son texte ne porte pas les marqueurs « (א) » sur lesquels le
-      recalage des ס״ק se fonde. Le vert est alors impossible — une porte qui ne
-      compare rien et sort verte est pire qu'une porte absente. Le rapport nomme le
-      siman et le motif ; « SOURCE INDISPONIBLE » se rejoue, « MARQUEURS ILLISIBLES »
-      demande d'élargir le lecteur de marqueurs.
+  3   LA PORTE N'A PAS PU COMPARER — prime sur 1. Trois cas :
+      · une citation au moins est NON_RESOLU, QUEL QUE SOIT L'OUVRAGE (jusqu'au
+        7 octobre 2026, seule la Michna Beroura était surveillée, et NON_RESOLU
+        n'entrait pas dans le code de sortie). Le rapport donne la cause par ouvrage :
+        « indisponible » (réseau, réponse illisible, recherche plein-texte muette) se
+        rejoue ; « illisible » (marqueurs « (א) » de la Michna Beroura) demande
+        d'élargir le lecteur ; « adresse_sans_texte » (Sefaria répond que l'adresse
+        n'a pas de texte, ou le ס״ק n'existe pas) demande d'OUVRIR la citation ;
+      · aucune page examinée (mauvais --path, copie lancée hors du dépôt) ;
+      · aucune citation confrontée à un texte.
+      Le vert est alors impossible — une porte qui ne compare rien et sort verte est
+      pire qu'une porte absente.
 
 Portée du recalage — LIMITE À DÉCLARER
 --------------------------------------
@@ -121,6 +141,7 @@ import os
 import re
 import sys
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 
@@ -155,10 +176,32 @@ FENETRE_REF = 200
 # ─────────────────────────────── Sefaria ───────────────────────────────
 
 def _get(url, tries=3):
+    """GET JSON. Un 400/404 qui PORTE un message d'erreur Sefaria est une RÉPONSE, pas une panne.
+
+    Sefaria répond 404 avec un corps JSON à une adresse qui n'existe pas — « We have no
+    text for Shulchan Arukh, Orach Chayim 239:6. », « Mishnah Berakhot ends at Chapter
+    9. » (mesuré le 7 octobre 2026 sur l'API v3). Ce corps était jeté : l'exception
+    rendait « HTTP Error 404 », indiscernable d'une coupure réseau, rejouée trois fois
+    avec six secondes d'attente à CHAQUE exécution (une erreur n'est jamais mise en
+    cache). On garde désormais le message, marqué `http`, ce qui le sort de `_echec` :
+    « cette adresse n'a pas de texte » et « Sefaria n'a pas répondu » ne se confondent
+    plus, et ils n'appellent pas la même conduite (voir ECHECS_SOURCE).
+    """
     for i in range(tries):
         try:
             with urllib.request.urlopen(url, timeout=45) as r:
                 return json.loads(r.read().decode())
+        except urllib.error.HTTPError as e:
+            if e.code in (400, 404):
+                try:
+                    corps = json.loads(e.read().decode())
+                except Exception:
+                    corps = None
+                if isinstance(corps, dict) and corps.get('error'):
+                    return {'error': str(corps['error']), 'http': e.code}
+            if i == tries - 1:
+                return {'error': str(e)}
+            time.sleep(2 * (i + 1))
         except Exception as e:
             if i == tries - 1:
                 return {'error': str(e)}
@@ -223,30 +266,75 @@ def locate(frag):
     q = re.sub(r'\s+', ' ', re.sub(r'[«»"„”\[\]]', '', frag)).strip()
     q = max((p.strip() for p in re.split(r'…|\.\.\.', q)), key=len)[:180]
     if n_letters(q) < MIN_CITATION_REFERENCEE:
-        return []
+        # ⚠️ REFUS DE CHERCHER, et non « rien trouvé ». Rendre [] ici faisait conclure
+        # INTROUVABLE — « absente de tout Sefaria » — sur une citation que l'on n'avait
+        # cherchée nulle part : c'est le cas de toute citation à ellipse dont chaque
+        # côté fait moins de MIN_CITATION_REFERENCEE lettres (« וקשרתם… ודברת בם »).
+        LOCATE_STATS['refus'] += 1
+        return None
 
-    def ask():
-        body = json.dumps({'query': q, 'type': 'text', 'field': 'exact', 'size': 4}).encode()
-        req = urllib.request.Request('https://www.sefaria.org/api/search-wrapper',
-                                     data=body, headers={'Content-Type': 'application/json'})
-        for i in range(3):
-            try:
-                with urllib.request.urlopen(req, timeout=45) as r:
-                    return json.loads(r.read().decode())
-            except Exception as e:
-                if i == 2:
-                    return {'error': str(e)}
-                time.sleep(2 * (i + 1))
+    def ask(q):
+        def produire():
+            body = json.dumps({'query': q, 'type': 'text', 'field': 'exact',
+                               'size': 4}).encode()
+            req = urllib.request.Request('https://www.sefaria.org/api/search-wrapper',
+                                         data=body,
+                                         headers={'Content-Type': 'application/json'})
+            for i in range(3):
+                try:
+                    with urllib.request.urlopen(req, timeout=45) as r:
+                        return json.loads(r.read().decode())
+                except Exception as e:
+                    if i == 2:
+                        return {'error': str(e)}
+                    time.sleep(2 * (i + 1))
+        data = _cached('search::' + q, produire)
+        if not isinstance(data, dict) or 'error' in data:
+            return None
+        out = []
+        for h in data.get('hits', {}).get('hits', []):
+            ref = re.sub(r'\s*\(.*$', '', h.get('_id', ''))
+            if ref:
+                out.append(ref)
+        return out
 
-    data = _cached('search::' + q, ask)
-    if not isinstance(data, dict) or 'error' in data:
+    LOCATE_STATS['recherches'] += 1
+    out = ask(q)
+    if out is None:
+        # La recherche n'a pas répondu : on ne sait pas, et INTROUVABLE serait un
+        # verdict rendu sur une panne. L'appelant en fait un NON_RESOLU « indisponible ».
+        LOCATE_STATS['pannes'] += 1
+        return None
+    if out:
+        return out
+    # ─── LE PRÉFIXE SERVILE ───
+    # `field: exact` apparie des JETONS ENTIERS. Une citation qui commence au milieu
+    # d'un mot de la source — la page coupe la particule — n'y est donc pas trouvée :
+    # « חל עליו שם בית הכסא » rend 0 hit, quand « שחל עליו שם בית הכסא » rend
+    # Shulchan Arukh HaRav OH 83:1 (mesuré le 7 octobre 2026). Le verdict était
+    # INTROUVABLE (« absente de tout Sefaria ») au lieu de REF_FAUSSE. On relance avec
+    # chacune des lettres serviles collée au premier mot. Seulement après un zéro, et
+    # le cache rend les passages suivants gratuits.
+    # ⚠️ PAS SOUS QUATRE MOTS. Mesuré au siman 9 : « כל המינים מדאורייתא » (trois mots,
+    # attribué aux Tossefot de Menahot 39b) devenait, une fois préfixé d'un ב, un hit
+    # dans Penei Yehoshua sur Chabbat 27b — trois mots génériques retrouvés par hasard
+    # dans un autre livre, et une piste de correction fausse. Le témoin réel en a cinq.
+    if len(q.split()) < SERVILE_MIN_MOTS:
         return []
-    out = []
-    for h in data.get('hits', {}).get('hits', []):
-        ref = re.sub(r'\s*\(.*$', '', h.get('_id', ''))
-        if ref:
-            out.append(ref)
-    return out
+    for lettre in SERVILES:
+        res = ask(lettre + q)
+        if res:
+            LOCATE_STATS['par_servile'] += 1
+            return [r + ' (avec « %s » servile en tête)' % lettre for r in res]
+    return []
+
+
+# Les lettres qui se collent en tête d'un mot hébreu (ו, ש, ד, ב, כ, ל, ה, מ).
+SERVILES = 'שודבכלהמ'
+SERVILE_MIN_MOTS = 4
+# Ce que `locate` a fait, pour que le rapport le dise : une recherche refusée (trop
+# courte) ou en panne n'est pas une recherche vide.
+LOCATE_STATS = {'recherches': 0, 'refus': 0, 'pannes': 0, 'par_servile': 0}
 
 
 def hebrew_title(book):
@@ -268,7 +356,7 @@ def bien_attribuee(frag, window):
     à côté. On demande à Sefaria où le texte se trouve réellement, et si le nom de
     cet ouvrage figure au voisinage de la citation, l'attribution de la page est juste.
     """
-    for ref in locate(frag):
+    for ref in locate(frag) or []:
         book = re.split(r'\s+\d|:', ref)[0].strip()
         if any(he in window for he in hebrew_title(book)):
             return ref
@@ -294,8 +382,10 @@ def fetch(ref):
     l'on ne sait pas recaler rend None — donc NON_RESOLU — plutôt qu'un texte
     voisin ramassé au hasard.
     """
+    demande = ref
     ref = mb_recale(ref)
     if ref is None:
+        _echec_source(demande, *MB_DERNIER_ECHEC)
         return None
     book = re.split(r'[.]\d|[.][א-ת]', ref)[0].replace('_', ' ')
     titles = hebrew_versions(book)
@@ -304,13 +394,63 @@ def fetch(ref):
         qs += '&version=' + urllib.parse.quote('hebrew|' + t)
     data = _cached(ref + '::multi', lambda: _get(
         'https://www.sefaria.org/api/v3/texts/' + urllib.parse.quote(ref, safe=',._-') + qs))
-    if not isinstance(data, dict) or 'error' in data:
+    if not isinstance(data, dict):
+        _echec_source(demande, 'indisponible', 'réponse non JSON')
+        return None
+    if 'error' in data:
+        if data.get('http'):
+            # Sefaria a RÉPONDU : cette adresse n'a pas de texte (« ends at Siman 697 »,
+            # « We have no text for … »). La source est jointe ; c'est l'adresse qui
+            # est vide — lue de travers par le résolveur, ou fausse dans la page.
+            _echec_source(demande, 'adresse_sans_texte', data['error'])
+        else:
+            _echec_source(demande, 'indisponible', data['error'])
+        return None
+    # Le « ref » servi doit être celui demandé : Sefaria rend 200 et un texte plus large
+    # (le livre, le siman) sur une adresse mal formée. On compare les numéros de fin.
+    servi = str(data.get('ref') or '')
+    voulu = re.findall(r'\d+[ab]?', ref.split(',')[-1].split('.', 1)[-1]) if '.' in ref else []
+    if voulu and servi and re.findall(r'\d+[ab]?', servi)[-len(voulu):] != voulu:
+        # Sefaria a répondu, mais pour autre chose (au siman 174, « Berakhot.174b » —
+        # le traité n'a que 64 folios — sert le LIVRE ENTIER, ref « Berakhot ») : ce
+        # n'est pas une panne à rejouer, c'est une adresse que la source n'a pas.
+        _echec_source(demande, 'adresse_sans_texte', 'ref servi inattendu : %r' % servi)
         return None
     segs = []
     for v in data.get('versions') or []:
         if v.get('language') == 'he':
             segs += _flat(v.get('text'), [])
-    return segs or None
+    if not segs:
+        # Adresse juste, réponse sans erreur, texte VIDE : l'ouvrage ou le siman n'est
+        # pas numérisé à cet endroit (Yoré Déa 169 dans le Choul'han Aroukh).
+        _echec_source(demande, 'adresse_sans_texte', 'réponse sans segment hébreu')
+        return None
+    return segs
+
+
+# ─────────── Ce que la porte n'a PAS pu comparer, et pourquoi — TOUT OUVRAGE ───────────
+#
+# Le détecteur « PORTE AVEUGLE » ne couvrait que la Michna Beroura. Or la panne d'UN appel
+# à Sefaria, pour n'importe quel ouvrage, envoie la citation en NON_RESOLU, et le code de
+# sortie ignorait NON_RESOLU : la porte pouvait rendre 0 en n'ayant rien comparé. Chaque
+# échec de `fetch` est désormais consigné avec sa cause, et le rapport les rend par
+# ouvrage. Trois causes, qui n'appellent pas la même conduite :
+#   · indisponible       — réseau, réponse illisible, recherche muette : REJOUER ;
+#   · illisible          — Michna Beroura sans marqueurs « (א) » : ÉLARGIR le lecteur ;
+#   · adresse_sans_texte — Sefaria a répondu que cette adresse n'a pas de texte, ou a
+#                          servi un autre ref (le livre entier), ou le ס״ק n'existe
+#                          pas dans ce siman : OUVRIR la citation — le
+#                          résolveur a mal lu la référence, ou la page la donne fausse.
+ECHECS_SOURCE = {}
+
+
+def _echec_source(ref, cause, detail=''):
+    ECHECS_SOURCE.setdefault(ref, (cause, detail))
+
+
+def _ouvrage(ref):
+    """« Mishnah_Berurah.237.3 » → « Mishnah_Berurah » ; « Berakhot.26a » → « Berakhot »."""
+    return re.split(r'\.(?=\d)', ref.split(' (')[0], maxsplit=1)[0]
 
 
 # ─────────────────────────── Normalisation hébraïque ───────────────────────────
@@ -500,8 +640,10 @@ RE_BALISE = re.compile(r'<[^>]+>')
 #   · ס״ק REVENDIQUÉ INEXISTANT — la source est lue, ses ס״ק sont connus, et le
 #     résolveur en nomme un qui n'y est pas. Ce n'est PAS une panne de la porte, et
 #     ce n'est PAS un constat sur la page non plus : compté et dénombré pour que
-#     « non recalables » ne cache rien, mais SANS faire rougir la porte, et sans être
-#     présenté comme un défaut. MESURÉ — 14 couples (siman, ס״ק) sur les 1 077 que le
+#     « non recalables » ne cache rien, et sans être présenté comme un défaut.
+#     (Révision du 7 octobre 2026 : il fait sortir en 3 — « adresse_sans_texte » —
+#     QUAND LA CITATION N'A RIEN D'AUTRE À QUOI ÊTRE CONFRONTÉE ; c'est alors une
+#     citation non comparée, et le code de sortie ne peut plus l'ignorer.) MESURÉ — 14 couples (siman, ס״ק) sur les 1 077 que le
 #     dépôt nomme ; SEPT ouverts à la main, SEPT faux, tous de la même cause, qui est
 #     ANTÉRIEURE à ce recalage : RE_MB n'a AUCUNE frontière de mot, ni à gauche ni à
 #     droite, et se déclenche À L'INTÉRIEUR de « רמב״ם ». Dans « רמב״ם : שלא תהא שבת
@@ -521,6 +663,8 @@ MB_STATS = {'refs': 0, 'recalees': 0, 'identiques': 0, 'non_recalables': 0,
 # règle — mais sans mémo un siman en panne était réinterrogé à chaque citation : le
 # siman 248 en porte dix-sept, soit dix-sept appels à un endpoint déjà connu muet.
 _MB_MEMO = {}
+# Cause du dernier refus de `mb_recale`, relue par `fetch` pour ECHECS_SOURCE.
+MB_DERNIER_ECHEC = ('indisponible', '')
 
 
 def _mb_marqueurs(siman):
@@ -604,13 +748,16 @@ def mb_recale(ref):
         return ref
     siman, sk = int(m.group(1)), int(m.group(2))
     MB_STATS['refs'] += 1
+    global MB_DERNIER_ECHEC
     table = _mb_marqueurs(siman)
     if 'idx' not in table:
         MB_STATS['non_recalables'] += 1
         if table.get('panne') == 'sans_marqueur':
             MB_STATS['simanim_sans_marqueur'].add(siman)
+            MB_DERNIER_ECHEC = ('illisible', 'Mishnah_Berurah.%d sans marqueur lisible' % siman)
         else:
             MB_STATS['simanim_indisponibles'].setdefault(siman, table.get('motif', ''))
+            MB_DERNIER_ECHEC = ('indisponible', table.get('motif', ''))
         return None
     if table['idx'].get('1') not in (0, None):
         MB_STATS['simanim_petiha'].add(siman)
@@ -621,7 +768,10 @@ def mb_recale(ref):
         # non plus un défaut de la page tant qu'on n'a pas écarté le faux positif de
         # RE_MB décrit dans la note de MB_STATS : sept sur sept l'étaient.
         MB_STATS['non_recalables'] += 1
-        MB_STATS['sk_absents'].append((siman, sk, max((int(k) for k in table['idx']), default=0)))
+        hi = max((int(k) for k in table['idx']), default=0)
+        MB_STATS['sk_absents'].append((siman, sk, hi))
+        MB_DERNIER_ECHEC = ('adresse_sans_texte',
+                            'MB %d n\'a pas de ס״ק %d (il s\'arrête à %d)' % (siman, sk, hi))
         return None
     if i + 1 == sk:
         MB_STATS['identiques'] += 1
@@ -1523,8 +1673,19 @@ def verdict(frag, sources):
     if not hay:
         return 'NON_RESOLU', 0.0, ''
     # « … », « וכו׳ », « כו׳ » marquent une coupe : chaque tronçon est vérifié séparément
-    parts = [p for p in re.split(r'…|\.\.\.|וכו[׳\']|\bכו[׳\']', frag)
-             if n_letters(p) >= MIN_LETTRES]
+    troncons = [p for p in re.split(r'…|\.\.\.|וכו[׳\']|\bכו[׳\']', frag)
+                if n_letters(p) > 0]
+    parts = [p for p in troncons if n_letters(p) >= MIN_LETTRES]
+    # ⚠️ ELLIPSE DONT AUCUN CÔTÉ N'ATTEINT MIN_LETTRES. L'ancien repli `parts or [frag]`
+    # RECOLLAIT la citation entière, ellipse comprise, et la comparait d'un bloc : `norm`
+    # efface le « … », si bien que « נשים ועבדים… חייבין בתפלה » était cherché comme
+    # « נשיםועבדיםחייביןבתפלה », suite qui n'existe nulle part puisque l'ellipse dit
+    # justement qu'un passage manque entre les deux. AUCUNE citation à ellipse courte ne
+    # pouvait être acquittée. Chaque côté est désormais confronté SÉPARÉMENT — c'est ce
+    # que l'ellipse affirme. Un côté court absent garde un ratio bas et la citation ne
+    # passe pas : rien n'est acquitté qui ne soit trouvé.
+    if not parts and len(troncons) >= 2:
+        parts = troncons
     parts = parts or [frag]
     ratios, worst_extract = [], ''
     for p in parts:
@@ -1552,6 +1713,109 @@ def verdict(frag, sources):
     return 'ABSENT', lo, worst_extract
 
 
+# Bornes de la règle des citations courtes : de 3 à 5 mots hébreux. En deçà, « n − 1 »
+# mot commun ne prouve rien ; au-delà, MIN_MOTS_SUIVIS couvre déjà le cas.
+MOTS_COURTE = (3, 5)
+# Deux mots « se répondent » à partir de ce ratio sur leurs consonnes (שבאה/שבאת 0,75,
+# באה/באתה 0,86, הודאה/תודה 0,67).
+SEUIL_MOT = 0.6
+SEUIL_MOT_3 = 0.5
+# …mais il faut AUSSI deux mots IDENTIQUES (au préfixe servile près : בעלי = לבעלי).
+# MESURÉ, et c'est cette exigence qui sépare la variante du bruit. Sans elle, sur les
+# simanim 9, 69, 83, 106, 127 et 246, la règle requalifiait en VARIANTE des citations
+# dont la fenêtre ne partageait qu'UN mot avec elles : « הזמנה מילתא היא » contre
+# « דילמא … היא » (מילתא/דילמא valent 0,6), « דהוי דברים שבקדושה » contre « כל דבר
+# שבקדושה » — deux REF_FAUSSE réelles (texte existant, mais ailleurs que là où la
+# page le situe) éteintes en « variante de la source citée ».
+MOTS_IDENTIQUES = 2
+# Gershayim / geresh À L'INTÉRIEUR d'un mot (« מק״ש », « מק"ש », « ר׳ל »).
+RE_SIGLE_INTERNE = re.compile(r'(?<=[א-ת])["\u05f4\u05f3\'](?=[א-ת])')
+
+
+def _meme_mot(a, b):
+    """Identiques, ou identiques une fois ôtée UNE lettre servile en tête de l'un."""
+    if a == b:
+        return True
+    return (len(a) > 2 and a[0] in SERVILES and a[1:] == b) or \
+        (len(b) > 2 and b[0] in SERVILES and b[1:] == a)
+
+
+def _sans_servile(w):
+    """Le mot sans sa première lettre si elle est servile. La proximité de deux mots se
+    mesure sur leur RACINE apparente : une lettre servile commune gonflait le ratio —
+    בעשרה/ביה valaient 0,5 sur le seul ב, et « בעשרה בני ישראל » (siman 55) passait pour
+    une variante de « קרינן ביה בתוך בני ישראל » (mesuré sur Orah Haïm)."""
+    return w[1:] if len(w) > 2 and w[0] in SERVILES else w
+
+
+def _se_repondent(x, y, seuil, communes=0):
+    sm = difflib.SequenceMatcher(None, _sans_servile(x), _sans_servile(y))
+    if sm.ratio() < seuil:
+        return False
+    return sum(b.size for b in sm.get_matching_blocks()) >= communes
+
+
+def mots_proches(frag, sources):
+    """Une citation de 3 à 5 mots dont tous les mots sauf un au plus ont, DANS L'ORDRE et
+    dans une fenêtre de la source à peine plus large qu'elle, un répondant proche — et
+    dont au moins MOTS_IDENTIQUES mots y figurent à l'identique. Rend l'extrait de la
+    source, ou ''.
+
+    La fenêtre est la garde contre le bruit : des mots courants dispersés dans tout un
+    daf ne font pas une citation ; il faut qu'ils se suivent à deux mots près.
+    """
+    # Un sigle est UN mot : « מק״ש » coupé en « מק » + « ש » comptait pour deux mots
+    # identiques avec n'importe quelle source qui l'écrit, et suffisait à lui seul à
+    # remplir MOTS_IDENTIQUES (vu au siman 106).
+    def mots(t):
+        return mots_he(RE_SIGLE_INTERNE.sub('', t))
+    q = [w for w in (norm(w) for w in mots(frag)) if w]
+    if not (MOTS_COURTE[0] <= len(q) <= MOTS_COURTE[1]):
+        return ''
+    brut = mots(' '.join(sources))
+    s = [norm(w) for w in brut]
+    # Trois mots : les TROIS doivent se répondre (seuil abaissé à SEUIL_MOT_3). « n − 1 »
+    # y revenait à n'exiger que deux mots identiques voisins, et un binôme banal suffisait :
+    # « בעשרה בני ישראל » (siman 55) passait pour une variante de « בתוך בני ישראל »
+    # (Sanhedrin 74b) sur le seul « בני ישראל ». טובלין/טבילה vaut 0,55.
+    exige = len(q) if len(q) == 3 else len(q) - 1
+    seuil = SEUIL_MOT_3 if len(q) == 3 else SEUIL_MOT
+    # …et à trois mots, le mot qui diffère doit garder TROIS consonnes communes avec son
+    # répondant : עושה/עלות vaut 0,5 sur deux lettres (« אומר לעכו״ם ועושה », Chabbat
+    # 307), טובלין/טבילה 0,55 sur trois.
+    communes = 3 if len(q) == 3 else 0
+    largeur = len(q) + 2
+    vus, meilleur = set(), None
+    for i, w in enumerate(s):
+        if not any(_meme_mot(w, x) for x in q):
+            continue                     # une fenêtre doit contenir un mot identique
+        for deb in range(max(0, i - largeur + 1), i + 1):
+            if deb in vus:
+                continue
+            vus.add(deb)
+            fen = s[deb:deb + largeur]
+            # plus longue sous-suite commune, mots « proches » ; on compte à part les
+            # appariements identiques le long du meilleur chemin
+            t = [[(0, 0)] * (len(fen) + 1) for _ in range(len(q) + 1)]
+            for a in range(1, len(q) + 1):
+                for b in range(1, len(fen) + 1):
+                    x, y = q[a - 1], fen[b - 1]
+                    cands = [t[a - 1][b], t[a][b - 1]]
+                    if _meme_mot(x, y):
+                        p = t[a - 1][b - 1]
+                        cands.append((p[0] + 1, p[1] + 1))
+                    elif y and _se_repondent(x, y, seuil, communes):
+                        p = t[a - 1][b - 1]
+                        cands.append((p[0] + 1, p[1]))
+                    t[a][b] = max(cands)
+            proches, identiques = t[len(q)][len(fen)]
+            if proches >= exige and identiques >= MOTS_IDENTIQUES:
+                cle = (proches, identiques)
+                if meilleur is None or cle > meilleur[0]:
+                    meilleur = (cle, ' '.join(brut[deb:deb + largeur]))
+    return meilleur[1] if meilleur else ''
+
+
 # ─────────────────────────── Passage sur le site ───────────────────────────
 
 def pages(base, langues):
@@ -1565,10 +1829,20 @@ def pages(base, langues):
 
 
 # Une référence talmudique collée à la citation : la page la revendique.
+# ⚠️ LA LISTE ÉTAIT ÉCRITE À LA MAIN ET IL Y MANQUAIT DES TRAITÉS — סוטה, נדה, חגיגה,
+# זבחים, מכות, עבודה זרה… Une citation suivie de « (סוטה ד:) » n'était donc pas reconnue
+# comme revendiquant ce folio, et le repli sur le siman de la page pouvait l'acquitter.
+# Vu au siman 158 dès que les ellipses courtes ont été lues côté par côté : « המזלזל… בא
+# לידי עניות » (סוטה ד:) sortait OK contre le Mehaber 158, quand Sotah 4b ne porte que
+# « כל המזלזל בנטילת ידים נעקר מן העולם ». On complète la liste par MASSEKHTOT.
+_TRAITES_COLLES = ['ברכות', 'שבת', 'מגילה', 'יבמות', 'פסחים', 'חולין', 'סוכה', 'ביצה',
+                   'ר״ה', 'ראש השנה', 'בבא', 'יומא', 'תענית', 'כתובות', 'עירובין', 'מנחות',
+                   'סנהדרין', 'נדרים', 'גיטין', 'קידושין', 'מועד קטן']
+_TRAITES_COLLES += [k.strip() for k in MASSEKHTOT
+                    if re.search(r'[א-ת]', k) and k.strip() not in _TRAITES_COLLES]
 RE_REF_COLLEE = re.compile(
     r"^[»\"'\s):.]{0,6}\((?:[^)]{0,30})"
-    r"(ברכות|שבת|מגילה|יבמות|פסחים|חולין|סוכה|ביצה|ר״ה|ראש השנה|בבא|יומא"
-    r"|תענית|כתובות|עירובין|מנחות|סנהדרין|נדרים|גיטין|קידושין|מועד קטן)"
+    r"(" + '|'.join(sorted(_TRAITES_COLLES, key=len, reverse=True)) + r")"
 )
 
 
@@ -1656,6 +1930,35 @@ OUVRAGES = [
     # est aussi la guématria 42, et « מנחות מ״ב. » est un DAF, pas la Michna Beroura.
     (r'משנה ברורה|משנ["״]ב|(?<![א-ת])מ["״]ב(?![א-ת])(?!\s*[.:\u05C3]|\s*ע["״][אב])',
      'Mishnah_Berurah.{s}.{n}', None, True),
+    # ⚠️ L'ELIYA RABBA MANQUAIT AUSSI — le défaut même de la Michna Beroura ci-dessus,
+    # sur un autre ouvrage. Un lot l'a déclaré « non numérisé » ; son arbitre a montré
+    # l'inverse, et c'est vérifié le 7 octobre 2026 :
+    # `Eliyah_Rabbah_on_Shulchan_Arukh,_Orach_Chayim.237` rend le bon ref, error nul,
+    # 4 segments ; l'index va jusqu'au siman 697. Ses citations partaient donc en « sans
+    # référence », ou — pire — leur numéro était ANNEXÉ par l'ouvrage voisin : au siman
+    # 237, « (אליה רבה רל״ז:ג) » devenait Mishnah_Berurah.237.3, siman qui n'a que deux
+    # ס״ק, et la citation, verbatim dans l'Eliya Rabba 237:3, sortait NON_RESOLU.
+    # EXPOSITION MESURÉE (lignes de sources/, trois langues confondues) : « אליהו? רבה »
+    # paraît sur 1 064 lignes d'Orah Haïm, 49 de Chabbat, 0 de Yoré Déa (la seule graphie
+    # « אליה רבה » : 1 063 et 47 — recompté par l'arbitre). Le « 1 219 »
+    # annoncé par le lot se reproduit (1 223 aujourd'hui) par un comptage de « אליה רבה »
+    # OU de « א״ר » SANS FRONTIÈRE : avec frontière (et « אליהו? רבה ») il tombe à 1 124 lignes, et les ~100
+    # lignes d'écart portent le sigle préfixé (« בא״ר » 40, « הא״ר » 27, « והא״ר » 6) ou
+    # des mots étrangers qui finissent en א״ר (« סוקא״ר » 19, « ציטווא״ר » 6). C'est un
+    # plafond d'exposition, trois langues confondues, non un compte de citations.
+    # ADRESSAGE : l'index de segment EST le ס״ק — mesuré sur les 101 simanim que le dépôt
+    # nomme avec cet ouvrage : 1 092 segments ouverts par « [n] » avec n = index, 0
+    # décalé, 3 sans marqueur (133:1, 162:5, 240:11). Aucun recalage n'est nécessaire.
+    # LE SIGLE « א״ר » N'EST PAS RETENU, et c'est mesuré : sur les pages françaises
+    # d'Orah Haïm et de Chabbat il paraît 32 fois, dont 3 pour l'Eliya Rabba et 29 pour
+    # « אמר רבי/רב » (א״ר יוחנן, א״ר חסדא, א״ר יפה תענית…) ; et 0 fois, toutes langues
+    # et tous compartiments, en position de référence (suivi d'un siman:ס״ק ou d'un ס״ק).
+    # Les formes préfixées (« בא״ר », « הא״ר » : 181 occurrences, elles désignent bien
+    # l'Eliya Rabba) n'y sont pas davantage : 0 en position de référence.
+    # Le retenir n'aurait rien résolu et aurait fait extraire comme « citations
+    # référencées » des fragments courts de guemara.
+    (r'אליהו? רבה(?![א-ת])', 'Eliyah_Rabbah_on_Shulchan_Arukh,_Orach_Chayim.{s}.{n}',
+     None, True),
     (r'מג["״]א|מגן אברהם', 'Magen_Avraham.{s}.{n}', None, True),
     (r'ט["״]ז|טורי זהב', 'Turei_Zahav_on_Shulchan_Arukh,_Orach_Chayim.{s}.{n}',
      "Turei_Zahav_on_Shulchan_Arukh,_Yoreh_De'ah.{s}.{n}", True),
@@ -1977,8 +2280,14 @@ def main():
               'NON_RESOLU': 0, 'SANS_REF': 0}
     champs_vus = {}
     cache_src = {}
+    # NON_RESOLU par cause, et par ouvrage → cause → adresses (voir ECHECS_SOURCE).
+    causes_nr, ouvrages_nr = {}, {}
+    non_cherchees = 0          # INTROUVABLE dont la recherche plein-texte a été refusée
+    n_pages = {}               # pages examinées, par langue
 
     for path in pages(base, langues):
+        lg = 'he' if path.endswith('-he.html') else 'en' if path.endswith('-en.html') else 'fr'
+        n_pages[lg] = n_pages.get(lg, 0) + 1
         text = open(path, encoding='utf-8').read()
 
         for frag, lineno, plain, champ in quotes_in(text, path):
@@ -2012,6 +2321,7 @@ def main():
                     cache_src[r] = fetch(r) or []
                 segs += cache_src[r]
             v, ratio, extract = verdict(frag, segs)
+            essayees = [segs]
 
             # Repli sur l'ouvrage dont la page EST l'exposé. Une page de siman
             # cite d'abord son propre siman ; si la prose voisine mentionne au
@@ -2031,6 +2341,7 @@ def main():
                     if propre not in cache_src:
                         cache_src[propre] = fetch(propre) or []
                     if cache_src[propre]:
+                        essayees.append(cache_src[propre])
                         v2, ratio2, extract2 = verdict(frag, cache_src[propre])
                         if v2 in ('OK', 'VARIANTE'):
                             v, ratio, extract = v2, ratio2, extract2
@@ -2056,6 +2367,7 @@ def main():
                         cache_src[cand] = fetch(cand) or []
                     if not cache_src[cand]:
                         continue
+                    essayees.append(cache_src[cand])
                     v2, ratio2, extract2 = verdict(frag, cache_src[cand])
                     if v2 in ('OK', 'VARIANTE'):
                         v, ratio, extract = v2, ratio2, extract2
@@ -2072,6 +2384,7 @@ def main():
                             cache_src[cand] = fetch(cand) or []
                         if not cache_src[cand]:
                             continue
+                        essayees.append(cache_src[cand])
                         v2, ratio2, extract2 = verdict(frag, cache_src[cand])
                         if v2 in ('OK', 'VARIANTE'):
                             v, ratio, extract = v2, ratio2, extract2
@@ -2119,9 +2432,61 @@ def main():
                 if juste:
                     v, ailleurs = 'OK', juste          # la page cite un ouvrage non résolu
                 else:
-                    found = [r for r in locate(frag) if r]
-                    v = 'REF_FAUSSE' if found else 'INTROUVABLE'
-                    ailleurs = ' · '.join(found[:3])
+                    pannes_avant = LOCATE_STATS['pannes']
+                    found = locate(frag)
+                    if found is None and LOCATE_STATS['pannes'] > pannes_avant:
+                        # La recherche plein-texte n'a pas répondu : « absente de tout
+                        # Sefaria » serait un verdict rendu sur une panne.
+                        v = 'NON_RESOLU'
+                        causes_nr['indisponible'] = causes_nr.get('indisponible', 0) + 1
+                        ouvrages_nr.setdefault('recherche Sefaria', {}).setdefault(
+                            'indisponible', set()).add('search-wrapper')
+                        ailleurs = 'recherche plein-texte Sefaria indisponible'
+                    elif found:
+                        v = 'REF_FAUSSE'
+                        ailleurs = ' · '.join([r for r in found if r][:3])
+                    else:
+                        # ⚠️ LA CITATION COURTE, À UN MOT PRÈS — et SEULEMENT ICI, au
+                        # moment où le verdict serait INTROUVABLE. Sur trois à cinq mots,
+                        # UN mot changé ferme les deux voies de `verdict` (le ratio tombe
+                        # sous SEUIL_VARIANTE, la suite commune n'atteint plus trois mots)
+                        # et la recherche exacte rend 0 : « טובלין בעלי קריין » (Bava Kamma
+                        # 82a : « טבילה לבעלי קריין »), « כיון שבאה עבודה באה הודאה »
+                        # (Megillah 18a : « וכיון שבאת עבודה באתה תודה ») sortaient
+                        # « absentes de tout Sefaria ». Ce sont des VARIANTES — jamais OK.
+                        # Placée plus tôt (dans `verdict`), la règle a été MESURÉE nuisible
+                        # sur Orah Haïm et Chabbat en français : 17 OK et 19 REF_FAUSSE
+                        # devenaient VARIANTE — « צרכי עמך מרובים », verbatim dans la Michna
+                        # Berakhot 4:4, rabattu en « variante » de la guemara 29b. Elle ne
+                        # remplace donc que le verdict qu'elle vise.
+                        proche = next((e for e in (mots_proches(frag, x) for x in essayees)
+                                       if e), '')
+                        if proche:
+                            v, extract = 'VARIANTE', proche
+                            ailleurs = ''
+                        elif found is None:
+                            # Refusée : citation (ou plus long côté d'ellipse) trop courte
+                            # pour être cherchée. Absente de la source citée, NON CHERCHÉE
+                            # ailleurs.
+                            v = 'INTROUVABLE'
+                            non_cherchees += 1
+                            ailleurs = 'non cherchée ailleurs dans Sefaria (trop courte)'
+                        else:
+                            v = 'INTROUVABLE'
+            if v == 'NON_RESOLU' and not ailleurs:
+                # Pourquoi rien n'a-t-il été comparé ? Toutes les références essayées ont
+                # échoué ; on garde la plus grave des causes (une panne se rejoue, une
+                # adresse vide s'ouvre).
+                cs = [ECHECS_SOURCE.get(r, ('indisponible', 'cause non consignée'))
+                      for r in refs[:3]]
+                rang = {'indisponible': 0, 'illisible': 1, 'adresse_sans_texte': 2}
+                cause = min((c for c, _ in cs), key=lambda c: rang.get(c, 0),
+                            default='indisponible')
+                causes_nr[cause] = causes_nr.get(cause, 0) + 1
+                for r, (c, d) in zip(refs[:3], cs):
+                    ouvrages_nr.setdefault(_ouvrage(r), {}).setdefault(c, set()).add(r)
+                ailleurs = ' · '.join('%s : %s (%s)' % (r, c, d[:80])
+                                      for r, (c, d) in zip(refs[:3], cs))
             stats[v] = stats.get(v, 0) + 1
             if champ:
                 entete[v] = entete.get(v, 0) + 1
@@ -2137,6 +2502,10 @@ def main():
                 'texte_trouve_en': ailleurs,
             })
 
+    if args.csv and not n_pages:
+        # Aucune page : aucun rapport. Une --path erronée créait sinon dans audit/ un CSV
+        # vide au nom de la cible (vu le 7 octobre 2026 avec « siman-9999 »).
+        args.csv = None
     if args.csv:
         import csv as _csv
         champs = ['fichier', 'ligne', 'champ', 'refs', 'verdict', 'ratio', 'citation',
@@ -2172,14 +2541,43 @@ def main():
                 print(f"    source : {r['source_reelle'][:160]}")
         print()
     total = sum(stats.values())
+    confrontees = stats['OK'] + stats['VARIANTE'] + stats['REF_FAUSSE'] + stats['INTROUVABLE']
     print('=== Vérification des citations (Sefaria) ===')
+    # ─── QUELLES PAGES CES TOTAUX COUVRENT-ILS ? ───
+    # La porte tourne en FRANÇAIS par défaut, et son CSV ne contient alors qu'une langue
+    # sur trois : dix des onze verdicts graves de Chabbat existent À L'IDENTIQUE dans les
+    # fichiers -he et -en, que ce passage n'a pas ouverts. Le défaut reste le français
+    # (l'hébreu cité est le même dans les trois langues, et tripler les comptes ne dirait
+    # rien de plus sur la source) — mais aucun total ne doit se lire comme un compte de
+    # PAGES ATTEINTES : on imprime la langue examinée et ce qui est resté hors examen.
+    hors = {}
+    for path in pages(base, {'fr', 'he', 'en'} - langues):
+        lg = 'he' if path.endswith('-he.html') else 'en' if path.endswith('-en.html') else 'fr'
+        hors[lg] = hors.get(lg, 0) + 1
+    print('  Langue(s) examinée(s): ' + (', '.join(
+        f'{lg} ({n_pages.get(lg, 0)} pages)' for lg in sorted(langues)) or 'aucune'))
+    if hors:
+        print('  HORS EXAMEN         : ' + ', '.join(f'{lg} ({n} pages)' for lg, n in sorted(hors.items()))
+              + ' — les verdicts ci-dessous ne les couvrent pas ;')
+        print('                        une citation fautive y est d\'ordinaire répétée '
+              '(--langues fr,he,en)')
     print(f"  Citations examinées : {total}")
+    print(f"  CONFRONTÉES à un texte : {confrontees}  (conformes + variantes + réf. fausse + introuvables)")
     print(f"  Sans référence      : {stats['SANS_REF']}  (non vérifiables automatiquement)")
-    print(f"  Référence non résolue: {stats['NON_RESOLU']}")
+    print(f"  Référence non résolue: {stats['NON_RESOLU']}"
+          + (('  (' + ' · '.join(f'{c} {n}' for c, n in sorted(causes_nr.items())) + ')')
+             if causes_nr else ''))
     print(f"  Conformes           : {stats['OK']}")
     print(f"  Variantes           : {stats['VARIANTE']}")
     print(f"  Référence fausse    : {stats['REF_FAUSSE']}  (texte réel, mais pas là où la page le situe)")
-    print(f"  INTROUVABLES        : {stats['INTROUVABLE']}  (absentes de tout Sefaria)")
+    print(f"  INTROUVABLES        : {stats['INTROUVABLE']}  (absentes de la source citée et de la recherche Sefaria)")
+    if non_cherchees:
+        print(f"    dont NON CHERCHÉES ailleurs : {non_cherchees}  (trop courtes pour la recherche"
+              " plein-texte : « absente de tout Sefaria » n'est PAS établi)")
+    print(f"  Recherche plein-texte : {LOCATE_STATS['recherches']} lancées"
+          f" · {LOCATE_STATS['refus']} refusées (trop courtes)"
+          f" · {LOCATE_STATS['pannes']} en panne"
+          f" · {LOCATE_STATS['par_servile']} trouvées par préfixe servile")
     # ─── CE QUE LA SECONDE PASSE A COMPARÉ ───
     # Les champs d'entête ne sont pas affichés à la lecture, mais Google et les
     # aperçus de partage ne lisent QUE ceux-là. Ce bloc dit combien de citations y
@@ -2192,10 +2590,19 @@ def main():
         print('  par champ           : '
               + ' · '.join(f'{k} {v}' for k, v in sorted(champs_vus.items(),
                                                          key=lambda kv: -kv[1])))
-        print(f"  sans référence {entete['SANS_REF']} · conformes {entete['OK']}"
+        # NON_RESOLU était compté dans le total mais absent du détail : un bloc dont
+        # toutes les citations étaient non résolues affichait SIX ZÉROS sous un total
+        # non nul, ce qui se lit comme « tout est sans défaut ». On l'imprime, et on dit
+        # combien ont réellement été confrontées.
+        ent_conf = entete['OK'] + entete['VARIANTE'] + entete['REF_FAUSSE'] + entete['INTROUVABLE']
+        print(f"  CONFRONTÉES {ent_conf} · sans référence {entete['SANS_REF']}"
+              f" · NON RÉSOLUES {entete['NON_RESOLU']}"
+              f" · conformes {entete['OK']}"
               f" · variantes {entete['VARIANTE']}"
               f" · référence fausse {entete['REF_FAUSSE']}"
               f" · INTROUVABLES {entete['INTROUVABLE']}")
+        if not ent_conf:
+            print('  ⚠ AUCUNE citation d\'entête n\'a été confrontée à un texte.')
     else:
         print('  AUCUNE — soit ces pages n\'ont pas de citation en entête, soit la')
         print('  seconde passe ne lit rien. Les deux se distinguent en comptant les')
@@ -2234,28 +2641,62 @@ def main():
         print(f"  Détail              : {args.csv}")
 
     # ─── LA PORTE N'A-T-ELLE RIEN COMPARÉ ? ───
-    # Une porte qui ne compare rien et sort verte est pire qu'une porte absente. Le
-    # recalage des ס״ק fait dépendre TOUTES les citations de Michna Beroura d'un siman
-    # d'un seul appel à `Mishnah_Berurah.N` : sa panne les envoie en « Référence non
-    # résolue », qui ne compte ni dans INTROUVABLE ni dans REF_FAUSSE. Sans ce bloc,
-    # le code de sortie restait 0 et un gate CI passait au vert sur une source
-    # injoignable. Code 3 pour distinguer « je n'ai pas pu comparer » (rejouer, ou
-    # élargir le lecteur de marqueurs) de « j'ai comparé et c'est faux » (code 1),
-    # étant entendu qu'un gate lu par son code de sortie échoue sur les deux.
-    aveugle = sorted(MB_STATS['simanim_indisponibles']) + \
-        sorted(MB_STATS['simanim_sans_marqueur'])
-    if aveugle:
+    # Une porte qui ne compare rien et sort verte est pire qu'une porte absente.
+    #
+    # ⚠️ LE DÉTECTEUR NE COUVRAIT QUE LA MICHNA BEROURA, et le code de sortie ignorait
+    # NON_RESOLU. La panne d'un seul appel à Sefaria — pour le Talmud, le Choul'han
+    # Aroukh, l'Eliya Rabba, n'importe quel ouvrage — envoyait les citations en
+    # « Référence non résolue », qui ne comptait ni dans INTROUVABLE ni dans REF_FAUSSE :
+    # la porte rendait 0. Toute citation NON_RESOLU fait désormais sortir en 3, avec sa
+    # cause et son ouvrage. Le code 3 garde son sens — « je n'ai pas pu comparer » — et
+    # prime sur le code 1, un gate lu par son code de sortie échouant sur les deux.
+    #
+    # Ce qui change pour la Michna Beroura : un ס״ק revendiqué que le siman ne porte
+    # pas (`sk_absents`) ne faisait pas rougir la porte. Il le fait désormais QUAND LA
+    # CITATION N'A RIEN D'AUTRE À QUOI ÊTRE CONFRONTÉE — c'est alors une citation non
+    # comparée, et c'est ce que le code 3 dit. Quand une autre référence de la même
+    # citation a répondu, elle est comparée et rien ne change.
+    code = 1 if (stats['INTROUVABLE'] or stats['REF_FAUSSE']) else 0
+    if stats['NON_RESOLU']:
         print()
-        print('!!! PORTE AVEUGLE — aucune citation de Michna Beroura n\'a été confrontée')
-        print('    pour %d siman(im) : %s' % (len(aveugle),
-                                              ', '.join(str(n) for n in aveugle)))
-        # `non_recalables` et `sk_absents` s'incrémentent tous deux une fois par
-        # référence : on retire les occurrences, non les couples distincts.
-        print('    %d référence(s) partie(s) en « non résolue » de ce seul fait.'
-              % (MB_STATS['non_recalables'] - len(MB_STATS['sk_absents'])))
-        print('    Le vert est impossible ici : rien n\'a été comparé.')
-        return 3
-    return 1 if (stats['INTROUVABLE'] or stats['REF_FAUSSE']) else 0
+        aveugle = sum(n for c, n in causes_nr.items() if c in ('indisponible', 'illisible'))
+        if aveugle:
+            print('!!! PORTE AVEUGLE — %d citation(s) n\'ont pu être confrontées à RIEN, '
+                  'la source n\'ayant pas répondu ou pas été lisible.' % aveugle)
+        if causes_nr.get('adresse_sans_texte'):
+            print('!!! %d citation(s) renvoient à une ADRESSE SANS TEXTE sur Sefaria — '
+                  'à ouvrir : le résolveur a mal lu la référence, ou la page la donne fausse.'
+                  % causes_nr['adresse_sans_texte'])
+        print('    par ouvrage :')
+        conduite = {'indisponible': 'rejouer', 'illisible': 'élargir le lecteur de marqueurs',
+                    'adresse_sans_texte': 'ouvrir la citation'}
+        for ouv, par_cause in sorted(ouvrages_nr.items()):
+            for c, adresses in sorted(par_cause.items()):
+                ex = sorted(adresses)
+                print('      %-40s %-19s %d adresse(s) — %s : %s%s'
+                      % (ouv, c, len(ex), conduite.get(c, ''), ', '.join(ex[:4]),
+                         ' …' if len(ex) > 4 else ''))
+        if MB_STATS['simanim_indisponibles'] or MB_STATS['simanim_sans_marqueur']:
+            print('    Michna Beroura, simanim non recalés : %s'
+                  % ', '.join(str(n) for n in sorted(set(MB_STATS['simanim_indisponibles'])
+                                                     | MB_STATS['simanim_sans_marqueur'])))
+        print('    Le vert est impossible ici : %d citation(s) n\'ont été comparées à rien.'
+              % stats['NON_RESOLU'])
+        code = 3
+    if not n_pages:
+        # Le piège qui a coûté trois fois dans une même séance : une copie lancée hors
+        # du dépôt, ou une --path erronée, rend « 0 page » — ce qui RESSEMBLE à un succès.
+        print()
+        print('!!! AUCUNE PAGE examinée sous %s (langues : %s) — rien n\'a été comparé.'
+              % (base, ','.join(sorted(langues))))
+        code = 3
+    elif not confrontees:
+        print()
+        print('!!! AUCUNE CITATION CONFRONTÉE à un texte (%d page(s), %d citation(s) '
+              'examinée(s)) — la porte n\'a rien comparé, elle ne sort pas en 0.'
+              % (sum(n_pages.values()), total))
+        code = 3
+    return code
 
 
 if __name__ == '__main__':

@@ -69,6 +69,16 @@ Ce qui subsiste est un plancher de bruit connu : des blocs sans titre de séif
 qui citent une baraïta ou récapitulent, que les filtres de contenu n'attrapent
 pas. Il vaut comme garde-fou de non-régression.
 
+Mesure du 7 octobre 2026, après trois réparations (plage chaînée lue en
+entier dans les deux écritures ; numéral de base exigé VRAI, « סעיף אחד/יחיד »
+lu 1 quand le siman n'a qu'un séif ; lacune légitime seulement sur la liste
+mesurée) : 7 695 fichiers, 23 701 blocs, 22 887 étiquettes (+68), 24 anomalies
+— contre 26. Les deux disparues sont un seul bloc, OH 8 séifim 7-10, que FR et
+EN signalaient « introuvable » et HE taisait : il EST bien ces quatre séifim,
+dans l'ordre. Mais il TRONQUE le séif 10 (« או כשילבש טלית אחר… של ראשון »
+manque dans les trois langues) — défaut de recopie que cette porte ne juge pas
+et que l'ancien signal ne voyait que par accident, sous un faux motif.
+
 Son intérêt principal est en amont d'un travail de traduction en série. Avant
 d'écrire les traductions des simanim 310, 311, 317 et 323, ce contrôle a établi
 que chacun de leurs blocs était bien le séif attendu — sans quoi une traduction
@@ -276,27 +286,60 @@ def _lacune_ou_echec(livre: str, n: int) -> str:
          f"{urllib.parse.quote(livre.replace(' ', '_'))}.{n}?context=0&pad=0")
     try:
         d = json.load(urllib.request.urlopen(u, timeout=40))
-    except Exception:
+    except Exception as e:
+        RAISONS[(livre, n)] = f"api/texts : {type(e).__name__}"
         return ECHEC
     if d.get("error") or not str(d.get("ref", "")).rstrip().endswith(f" {n}"):
+        RAISONS[(livre, n)] = f"ref servi {d.get('ref')!r}, error {d.get('error')!r}"
         return ECHEC
     he = d.get("he")
     he = he if isinstance(he, list) else ([he] if he else [])
-    return LACUNE if not any(str(x).strip() for x in he) else ECHEC
+    if not any(str(x).strip() for x in he):
+        return _lacune(livre, n)
+    RAISONS[(livre, n)] = "v3 sans texte, v1 avec texte"
+    return ECHEC
 
 
 # Trois issues qu'il ne faut surtout pas confondre, et que l'ancien
 # ``seifim`` confondait en rendant ``None`` pour les deux dernieres :
 LACUNE = "lacune"        # le livre n'a pas ce siman : rien a confronter, c'est normal
 ECHEC = "echec"          # la mesure n'a pas abouti : la porte ne doit RIEN conclure
+RAISONS: dict[tuple[str, int], str] = {}
+# ⚠ UN REF JUSTE AVEC UN he VIDE N'EST PAS A LUI SEUL UNE LACUNE. Sefaria rend ce
+# meme triplet pour un siman que l'ouvrage n'a pas ET pour une reponse
+# degradee : les blocs du niveau 4 disparaissaient alors, la porte imprimait
+# « lacune, normal : 1 » et SORTAIT EN 0. Une lacune n'est donc legitime que
+# pour un siman de cette liste, MESUREE le 7 octobre 2026 en interrogeant
+# api/texts siman par siman sur tous les simanim du depot qui ont un niveau 4 :
+# 63 simanim du Choul'han Aroukh HaRav, et Yoreh De'ah 169. Ailleurs, un he vide
+# est une mesure non faite (code 3).
+#
+# Deux ecarts avec la liste qui circulait (« 170-179 », puis « 170-173, 175-176,
+# 208-241 ») : 169 MANQUE au Choul'han Aroukh HaRav (he vide, ref juste) et
+# 212-215 y FIGURENT (11, 7, 2 et 5 seifim). Une liste recopiee sans mesure
+# aurait fait de 212-215 une lacune « normale » le jour ou Sefaria repondrait mal.
+_HARAV = "Shulchan Arukh HaRav, Orach Chayim"
+LACUNES_MESUREES = (
+    {(_HARAV, n) for n in [*range(132, 155), 157, *range(169, 174), 175, 176,
+                           *range(208, 212), *range(216, 242), 304, 322]}
+    | {("Shulchan Arukh, Yoreh De'ah", 169)})
+
+
+def _lacune(livre: str, n: int) -> str:
+    """Un he vide sous un ref juste : LACUNE si elle est mesuree, ECHEC sinon."""
+    if (livre, n) in LACUNES_MESUREES:
+        return LACUNE
+    RAISONS[(livre, n)] = "ref juste, he VIDE, hors de la liste des lacunes mesurees"
+    return ECHEC
 _MEMO_HARAV: dict[int, list[str] | str] = {}
 
 
 def seifim_harav(livre: str, n: int) -> list[str] | str:
     """Les seifim du Choul'han Aroukh HaRav, ou ``LACUNE`` / ``ECHEC``.
 
-    L'Admour HaZaken n'a pas redige tout Orah Haim — les simanim 132 a 154, 157,
-    170-179, 210, 220, 240 et d'autres manquent, et la page est alors une
+    L'Admour HaZaken n'a pas redige tout Orah Haim — voir LACUNES_MESUREES
+    (132-154, 157, 169-173, 175-176, 208-211, 216-241, 304, 322 parmi les
+    simanim du depot ; 174 et 177-179 EXISTENT), et la page est alors une
     page-pont sans aucun bloc de seif. Sefaria rend pour ces simanim un ``ref``
     juste, ``error`` nul et un ``he`` VIDE : c'est une lacune de l'ouvrage, pas
     un echec de mesure, et les deux doivent se dire differemment — une porte qui
@@ -325,17 +368,19 @@ def seifim_harav(livre: str, n: int) -> list[str] | str:
          f"{urllib.parse.quote(livre.replace(' ', '_'))}.{n}?context=0&pad=0")
     try:
         d = json.load(urllib.request.urlopen(u, timeout=40))
-    except Exception:
+    except Exception as e:
+        RAISONS[(livre, n)] = f"api/texts : {type(e).__name__}"
         _MEMO_HARAV[n] = ECHEC
         return ECHEC
     if d.get("error") or not str(d.get("ref", "")).rstrip().endswith(f" {n}"):
+        RAISONS[(livre, n)] = f"ref servi {d.get('ref')!r}, error {d.get('error')!r}"
         _MEMO_HARAV[n] = ECHEC          # ref servi != siman demande : on ne conclut pas
         return ECHEC
     he = d.get("he")
     he = he if isinstance(he, list) else ([he] if he else [])
     if not any(str(x).strip() for x in he):
-        _MEMO_HARAV[n] = LACUNE         # jamais mis en cache
-        return LACUNE
+        _MEMO_HARAV[n] = _lacune(livre, n)      # jamais mis en cache
+        return _MEMO_HARAV[n]
     out = [lettres_mots(x if isinstance(x, str) else " ".join(map(str, x)))
            for x in he]
     f.write_text(json.dumps(out, ensure_ascii=False), encoding="utf-8")
@@ -423,17 +468,19 @@ def blocs_harav(chemin: pathlib.Path) -> list[tuple[str, str, list[int] | None, 
             ms = RE_SUMMARY.search(inner)
             brut = RE_TAG.sub(" ", ms.group("s")) if ms else ""
         brut = re.sub(r"\s+", " ", brut).strip()
-        me = RE_ETQ_HARAV.search(brut)
-        if not me:
+        # Meme lecture que numeros() : vrai numeral, frontiere de mot, et
+        # « סעיף אחד / יחיד » rendu UNIQUE. L'ancienne guematrie brute lisait
+        # « סעיף אחד » 13 ici aussi.
+        if not RE_ETQ_HARAV.search(brut):
             continue                      # pas d'etiquette de seif : hors du perimetre
-        g = gematria(me.group(1))
-        if not g:
+        nums = _lire_lettres(brut)
+        if not nums:
             continue
         textes = [RE_TAG.sub(" ", t) for t in RE_SA_HE.findall(inner)]
         texte = re.sub(r"\s+", " ", " ".join(textes)).strip()
         if not texte:
             continue
-        out.append((texte, f"[seif-details] {brut[:40]}", [g], False))
+        out.append((texte, f"[seif-details] {brut[:40]}", nums, False))
     return out
 
 
@@ -480,9 +527,13 @@ def numeros(titre: str) -> list[int] | None:
         brut = re.split(r"\s+[-–—]\s+", m.group(1).strip())[0]
         out: list[int] = []
         for part in re.split(r"[,\s]+|\bet\b|\band\b|&", brut.strip()):
-            r = re.fullmatch(r"(\d+)[–—-](\d+)", part or "")
+            # « 7-8-9-10 » : une plage CHAINEE a plus de deux bornes. L'ancien
+            # motif n'en voulait que deux, et la chaine entiere etait perdue.
+            r = re.fullmatch(r"\d+(?:[–—-]\d+)+", part or "")
             if r:
-                out += list(range(int(r.group(1)), int(r.group(2)) + 1))
+                b = [int(x) for x in re.split(r"[–—-]", part)]
+                if all(y > x for x, y in zip(b, b[1:])):
+                    out += list(range(b[0], b[-1] + 1))
             elif part.isdigit():
                 out.append(int(part))
         if out:
@@ -495,21 +546,71 @@ def numeros(titre: str) -> list[int] | None:
     # première borne faisait crier au décalage sur un bloc qui porte le séif 11,
     # c'est-à-dire DANS la plage annoncée. Le tiret sans espaces, là encore, est
     # ce qui distingue la plage du séparateur de titre.
-    m = (re.search(rf"[Ss][ée]if(?:im)?\s+({NUM_HE})(?:[-־–—]({NUM_HE}))?(?P<suite>.*)",
-                   titre)
-         or re.search(rf"(?:סעיפים|סעיף)\s+({NUM_HE})(?:[-־–—]({NUM_HE}))?(?P<suite>.*)",
-                      titre))
-    if m:
-        g = gematria(m.group(1))
-        fin = gematria(m.group(2)) if m.group(2) else None
-        if g and fin and fin > g:
-            out = list(range(g, fin + 1))
-        elif g:
-            out = [g]
-        else:
-            return []
-        return out + _suite_he(m.group("suite"))
+    #
+    # ⚠ LA GUEMATRIE DU NUMERAL DE BASE. Le garde-fou de _suite_he ne couvrait que
+    # la SUITE ; le premier jeton, lui, etait lu en guematrie quel qu'il fut, sur
+    # ses trois premieres lettres et sans frontiere de mot : « סעיף אחד » valait
+    # 13, « סעיף יחיד » [28, 4], « הסעיף היחיד » 23, « הסעיף המדבר … (סעיף י״ג) »
+    # 49 (« המד » !), un « מי » inline 50. Mesure sur les 7 695 pages : 101 blocs
+    # qui DECLARAIENT leur seif perdaient ainsi leur etiquette au rabotage hors
+    # bornes, et retombaient en silence dans la question faible. On exige donc
+    # un VRAI numeral (voir _numeral) suivi d'une frontiere de mot, on essaie
+    # chaque occurrence de « סעיף » et non la premiere seule, et « אחד / יחיד »
+    # devient UNIQUE, que examiner() lit 1 si le siman n'a qu'un seif.
+    #
+    # ⚠ LA PLAGE CHAINEE. « (סעיפים ז-ח-ט-י) » etait lue [7, 8] : le motif ne
+    # prenait que deux bornes, et la suite « -ט-י » n'etait pas un jeton de
+    # _suite_he. Au siman 8 d'Orah Haim, le meme bloc (recouvrement 43 %)
+    # basculait d'un seuil a l'autre selon la langue : signale en FR et EN,
+    # silencieux en HE. On lit la chaine en entier.
+    return _lire_lettres(titre)
+
+
+def _lire_lettres(titre: str) -> list[int]:
+    """Les seifim ecrits en LETTRES apres « Seif » ou « סעיף » (voir numeros)."""
+    for mot in (r"[Ss][ée]if(?:im)?", r"(?:סעיפים|סעיף)"):
+        for m in re.finditer(mot + r"\s+", titre):
+            reste = titre[m.end():]
+            if mot.startswith("(") and re.match(r"ה?(?:אחד|יחיד)(?![א-ת])", reste):
+                return [UNIQUE]
+            c = RE_CHAINE_HE.match(reste)
+            if not c:
+                continue
+            bornes = [_numeral(x) for x in re.split(r"[-־–—]", c.group(0))]
+            if not all(bornes):
+                continue
+            if any(b <= a for a, b in zip(bornes, bornes[1:])):
+                bornes = bornes[:1]       # chaine non croissante : un seul numero sur
+            out = list(range(bornes[0], bornes[-1] + 1))
+            return out + _suite_he(reste[c.end():])
     return []
+
+
+# Un vrai numeral hebraique : 1 ou 2 lettres, ou un geresh/gershayim ; une lettre
+# par ordre de grandeur, de la plus grande a la plus petite (כ״ג, jamais גכ ni
+# מי) ; 15 et 16 s'ecrivent ט״ו / ט״ז, jamais י״ה / י״ו. « אחד » (1, 8, 4) et
+# « מי » (40, 10) n'en sont pas.
+RE_CHAINE_HE = re.compile(rf"{NUM_HE}(?:[-־–—]{NUM_HE})*(?![א-ת])")
+UNIQUE = 0          # « סעיף אחד / יחיד » : le seif 1 SI le siman n'en a qu'un
+
+
+def _numeral(j: str) -> int | None:
+    lettres_ = re.sub(r"[׳״\"']", "", j)
+    if not lettres_ or not all(c in VALEURS for c in lettres_):
+        return None
+    if len(lettres_) > 2 and not re.search(r"[׳״\"']", j):
+        return None
+    vals = [VALEURS[c] for c in lettres_]
+    if lettres_ in ("טו", "טז"):
+        return sum(vals)
+    if lettres_ in ("יה", "יו"):
+        return None
+    # Une lettre par ORDRE DE GRANDEUR, dans l'ordre decroissant : « מי » (40 et
+    # 10, deux dizaines) n'est pas 50, qui s'ecrit נ.
+    ordres = [len(str(v)) for v in vals]
+    if any(b >= a for a, b in zip(ordres, ordres[1:])):
+        return None
+    return sum(vals)
 
 
 # ⚠ ET LA MEME CLAUSE DANS LA PAGE HEBRAIQUE. J'ai d'abord ferme la classe des
@@ -532,11 +633,10 @@ def _suite_he(txt: str) -> list[int]:
         if not j:
             continue        # un separateur en tete ne termine pas la liste
         j = re.sub(r"^ו[־–—-]?(?=[א-ת])", "", j)      # « וז׳ », « ו־י״ב »
-        r = re.fullmatch(rf"({NUM_HE})[-־–—]({NUM_HE})", j)
-        if r:
-            a, b = _num_he(r.group(1)), _num_he(r.group(2))
-            if a and b and b > a:
-                out += list(range(a, b + 1))
+        if re.fullmatch(rf"{NUM_HE}(?:[-־–—]{NUM_HE})+", j):
+            b = [_num_he(x) for x in re.split(r"[-־–—]", j)]
+            if all(b) and all(y > x for x, y in zip(b, b[1:])):
+                out += list(range(b[0], b[-1] + 1))
                 continue
             break
         g = _num_he(j)
@@ -551,13 +651,8 @@ def _num_he(j: str) -> int | None:
     if not j or not re.fullmatch(NUM_HE, j):
         return None
     if re.search(r"[׳״']", j) or len(re.findall(r"[א-ת]", j)) == 1:
-        return gematria(j)
+        return _numeral(j)
     return None
-
-
-def gematria(s: str) -> int | None:
-    s = re.sub(r"[׳״\"']", "", s)
-    return sum(VALEURS[c] for c in s) if s and all(c in VALEURS for c in s) else None
 
 
 def examiner(chemin: pathlib.Path, livre: str, n: int,
@@ -572,6 +667,14 @@ def examiner(chemin: pathlib.Path, livre: str, n: int,
     """
     if role == "harav":
         src = seifim_harav(livre, n)
+        if src == LACUNE:
+            # Une lacune legitime se dit en page-pont, sans AUCUN bloc de seif :
+            # un bloc qui y revendique un seif cite un texte que l'ouvrage n'a pas.
+            lot = blocs_harav(chemin)
+            return 0, 0, [f"bloc {i} : annoncé séif {'-'.join(map(str, a))} du "
+                          f"Choul'han Aroukh HaRav, qui n'a pas de siman {n} — "
+                          f"« {t[:60]} »" for i, (_, t, a, _) in enumerate(lot, 1)
+                          ], [], src
         if isinstance(src, str):
             return 0, 0, [], [], src
         lot = blocs_harav(chemin)
@@ -622,9 +725,25 @@ def examiner(chemin: pathlib.Path, livre: str, n: int,
         scores = [(sum(1 for w in temoins if w in s) / len(temoins), j + 1)
                   for j, s in enumerate(sq)]
         meilleur, place = max(scores)
+        # « סעיף אחד / יחיד » n'est le seif 1 que d'un siman qui n'en a qu'un ;
+        # ailleurs c'est « un seif », et le bloc n'a pas d'etiquette.
+        if UNIQUE in annonces:
+            annonces = ([1] if len(src) == 1
+                        else [k for k in annonces if k != UNIQUE])
+        hors = [k for k in annonces if not 1 <= k <= len(src)]
         annonces = [k for k in annonces if 1 <= k <= len(src)]
         if inline and not annonces:
             continue          # etiquette inline hors du siman : ce n'est pas un seif
+        # Un bloc qui DECLARE un seif que le siman n'a pas — et rien d'autre —
+        # retombait en silence dans la question faible. C'est la deuxieme
+        # question du contrat de cette porte (« le bloc annonce existe-t-il
+        # seulement dans ce siman ? ») ; elle n'etait posee nulle part.
+        if hors and not annonces:
+            etq += 1
+            ecarts.append(
+                f"bloc {i} : annoncé séif {'-'.join(map(str, hors))}, mais le siman "
+                f"{n} n'a que {len(src)} séif(s) — « {titre[:60]} »")
+            continue
         if annonces:
             etq += 1
             # Vérification forte : le bloc est-il le séif qu'il annonce ?
@@ -766,7 +885,7 @@ def main() -> int:
     if echecs:
         print(f"⚠ Simanim NON ATTEINTS (la mesure n'a pas abouti) : {len(echecs)}")
         for livre, n in sorted(echecs)[:20]:
-            print(f"     {livre} {n}")
+            print(f"     {livre} {n} — {RAISONS.get((livre, n), '?')}")
     if not total_blocs:
         print("⚠ RIEN N'A ÉTÉ CONFRONTÉ — la porte ne conclut pas.")
         return 3
