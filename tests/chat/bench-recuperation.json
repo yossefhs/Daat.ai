@@ -1,0 +1,555 @@
+{
+ "version": 1,
+ "parametres": {
+  "limit": 3,
+  "minScore": 8,
+  "strict": true,
+  "commentaire": "Mêmes réglages que le routage corpus-first de api/chat.js (CORPUS_MIN_SCORE=8, strict). `siman` = liste de simanim acceptables, établie à partir du titre du siman et du Choul’han Aroukh, JAMAIS recopiée de la sortie du moteur. `connu_defaillant` = défaut mesuré, motif à l’appui ; le test échoue quand un tel cas se met à réussir, pour qu’on retire le drapeau."
+ },
+ "cas": [
+  {
+   "id": "fr-borer",
+   "q": "Qu’est-ce que le borer ?",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    319
+   ]
+  },
+  {
+   "id": "fr-trier-couverts",
+   "q": "Peut-on trier des couverts le Chabbat ?",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    319
+   ]
+  },
+  {
+   "id": "fr-citron",
+   "q": "Peut-on presser un citron le Chabbat ?",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    320
+   ]
+  },
+  {
+   "id": "fr-bougies-moment",
+   "q": "Quand allume-t-on les bougies de Chabbat ?",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    261,
+    263
+   ]
+  },
+  {
+   "id": "fr-bougies-qui",
+   "q": "Qui doit allumer les bougies de Chabbat ?",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    263
+   ]
+  },
+  {
+   "id": "fr-bougies-meches",
+   "q": "Quelles mèches et quelle huile pour les bougies de Chabbat ?",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    264
+   ]
+  },
+  {
+   "id": "fr-bougie-malade",
+   "q": "Peut-on éteindre la bougie de Chabbat pour un malade ?",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    278
+   ]
+  },
+  {
+   "id": "fr-bougie-nonjuif",
+   "q": "Un non-juif a allumé la bougie le Chabbat, puis-je en profiter ?",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    276
+   ]
+  },
+  {
+   "id": "fr-vaisselle",
+   "q": "Peut-on laver la vaisselle le Chabbat ?",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    323
+   ]
+  },
+  {
+   "id": "fr-cuire",
+   "q": "Peut-on cuire un aliment le Chabbat ?",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    318
+   ]
+  },
+  {
+   "id": "fr-eau-chaude",
+   "q": "Peut-on se laver à l’eau chaude le Chabbat ?",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    326
+   ]
+  },
+  {
+   "id": "fr-deux-sifrei-torah",
+   "q": "Pourquoi ne sort-on pas deux sifrei Torah le Chabbat ?",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    283,
+    282,
+    144
+   ]
+  },
+  {
+   "id": "fr-cloture-transport",
+   "q": "Quelle clôture permet de transporter le Chabbat ?",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    362
+   ]
+  },
+  {
+   "id": "fr-hagomel",
+   "q": "Quand récite-t-on HaGomel ?",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    219
+   ]
+  },
+  {
+   "id": "fr-arbre-fleur",
+   "q": "Dois-je réciter une berakha devant un arbre en fleur ?",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    226
+   ]
+  },
+  {
+   "id": "fr-netilat-matin",
+   "q": "Faut-il se laver les mains le matin au réveil ?",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    4
+   ]
+  },
+  {
+   "id": "fr-netilat-pain",
+   "q": "Comment se laver les mains avant de manger du pain ?",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    158
+   ]
+  },
+  {
+   "id": "fr-zimoun",
+   "q": "Le zimoun à trois personnes",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    192
+   ]
+  },
+  {
+   "id": "fr-tsitsit-chabbat",
+   "q": "Peut-on sortir avec des tsitsit le Chabbat ?",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    13
+   ]
+  },
+  {
+   "id": "fr-tsitsit-femmes",
+   "q": "Les femmes sont-elles obligées de porter des tsitsit ?",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    17
+   ]
+  },
+  {
+   "id": "fr-tsitsit-vetements",
+   "q": "Quels vêtements sont soumis au tsitsit ?",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    9
+   ],
+   "connu_defaillant": "rang 1-3 = simanim 17 et 14 ; le siman 9 (« Quels vêtements sont obligés au tsitsit ») est absent du top-3"
+  },
+  {
+   "id": "fr-tefilin-moment",
+   "q": "À quel moment de la journée met-on les tefilin ?",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    30
+   ]
+  },
+  {
+   "id": "fr-tefilin-chabbat",
+   "q": "Met-on les tefilin le Chabbat ?",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    31
+   ]
+  },
+  {
+   "id": "fr-amida-direction",
+   "q": "Dans quelle direction se tourne-t-on pour la Amida ?",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    94
+   ]
+  },
+  {
+   "id": "fr-priere-matin-heure",
+   "q": "Jusqu’à quelle heure peut-on réciter la prière du matin ?",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    89
+   ],
+   "connu_defaillant": "top-3 = simanim 97 et 157 ; le siman 89 (temps de la prière du matin) est absent"
+  },
+  {
+   "id": "fr-vin-priere",
+   "q": "Peut-on prier après avoir bu du vin ?",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    99
+   ]
+  },
+  {
+   "id": "fr-viande-fromage",
+   "q": "Peut-on manger du fromage après de la viande ?",
+   "section": "yoreh-deah",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    89
+   ]
+  },
+  {
+   "id": "fr-lait-marmite",
+   "q": "Peut-on cuire du lait dans une marmite à viande ?",
+   "section": "yoreh-deah",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    93
+   ]
+  },
+  {
+   "id": "fr-petrir-lait",
+   "q": "Peut-on pétrir une pâte avec du lait ?",
+   "section": "yoreh-deah",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    97
+   ]
+  },
+  {
+   "id": "fr-vin-nonjuif",
+   "q": "Quel vin d’un non-juif est interdit ?",
+   "section": "yoreh-deah",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    123
+   ]
+  },
+  {
+   "id": "fr-tevilat-kelim",
+   "q": "Peut-on faire tremper un ustensile acheté à un non-juif ?",
+   "section": "yoreh-deah",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    120
+   ]
+  },
+  {
+   "id": "fr-sept-jours-propres",
+   "q": "Quand la femme compte-t-elle sept jours propres ?",
+   "section": "yoreh-deah",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    183
+   ]
+  },
+  {
+   "id": "fr-tatouage",
+   "q": "Le tatouage est-il permis ?",
+   "section": "yoreh-deah",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    180
+   ]
+  },
+  {
+   "id": "fr-barbe",
+   "q": "Peut-on se raser la barbe ?",
+   "section": "yoreh-deah",
+   "lang": "fr",
+   "type": "attendu",
+   "siman": [
+    181
+   ]
+  },
+  {
+   "id": "en-borer",
+   "q": "What is borer on Shabbat?",
+   "section": "orach-chaim",
+   "lang": "en",
+   "type": "attendu",
+   "siman": [
+    319
+   ]
+  },
+  {
+   "id": "en-bougies",
+   "q": "When should I light Shabbat candles?",
+   "section": "orach-chaim",
+   "lang": "en",
+   "type": "attendu",
+   "siman": [
+    261,
+    263
+   ]
+  },
+  {
+   "id": "en-citron",
+   "q": "Can I squeeze a lemon on Shabbat?",
+   "section": "orach-chaim",
+   "lang": "en",
+   "type": "attendu",
+   "siman": [
+    320
+   ],
+   "connu_defaillant": "H2 : la question anglaise n’a qu’un token clé ; le top-3 est le siman 276 (bougie)"
+  },
+  {
+   "id": "en-manger-avant-priere",
+   "q": "Can I eat before praying in the morning?",
+   "section": "orach-chaim",
+   "lang": "en",
+   "type": "attendu",
+   "siman": [
+    89
+   ],
+   "connu_defaillant": "C1/H2 : keyTokens vide, aucune garde ; top-3 = simanim 320, 291, 319"
+  },
+  {
+   "id": "en-vaisselle",
+   "q": "May I wash dishes on Shabbat?",
+   "section": "orach-chaim",
+   "lang": "en",
+   "type": "attendu",
+   "siman": [
+    323
+   ],
+   "connu_defaillant": "H2 : top-3 = simanim 260, 326, 158"
+  },
+  {
+   "id": "he-hagomel",
+   "q": "מהו דין ברכת הגומל",
+   "section": "orach-chaim",
+   "lang": "he",
+   "type": "attendu",
+   "siman": [
+    219
+   ]
+  },
+  {
+   "id": "he-citron",
+   "q": "מותר לסחוט לימון בשבת",
+   "section": "orach-chaim",
+   "lang": "he",
+   "type": "attendu",
+   "siman": [
+    320
+   ]
+  },
+  {
+   "id": "he-netilat",
+   "q": "דין נטילת ידים שחרית",
+   "section": "orach-chaim",
+   "lang": "he",
+   "type": "attendu",
+   "siman": [
+    4
+   ]
+  },
+  {
+   "id": "he-bishul",
+   "q": "מותר לבשל בשבת",
+   "section": "orach-chaim",
+   "lang": "he",
+   "type": "attendu",
+   "siman": [
+    318
+   ]
+  },
+  {
+   "id": "he-bougies",
+   "q": "הדלקת נרות שבת",
+   "section": "orach-chaim",
+   "lang": "he",
+   "type": "attendu",
+   "siman": [
+    261,
+    263
+   ]
+  },
+  {
+   "id": "abst-bonjour",
+   "q": "Bonjour",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "abstention"
+  },
+  {
+   "id": "abst-charabia",
+   "q": "xqzv wkjt",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "abstention"
+  },
+  {
+   "id": "abst-kitniyot",
+   "q": "kitniyot à Pessah",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "abstention",
+   "connu_defaillant": "C1 : Pessah est hors du périmètre (OH 242-365 = Chabbat) ; sert le siman 292 à 15,8 parce que « pessah » figure dans SHABBAT_MARKERS"
+  },
+  {
+   "id": "abst-hanouka",
+   "q": "Peut-on allumer les bougies de Hanouka ?",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "abstention",
+   "connu_defaillant": "C1 : Hanouka est hors périmètre ; sert le siman 263 (bougies de Chabbat) à 43,3 — un autre jour, une autre mitsva"
+  },
+  {
+   "id": "abst-mariage",
+   "q": "Le mariage : combien de témoins ?",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "abstention",
+   "connu_defaillant": "C1 : Even HaEzer est hors périmètre ; sert le siman 306 à 15,8"
+  },
+  {
+   "id": "abst-fromage-section-oh",
+   "q": "Peut-on manger du fromage après de la viande ?",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "abstention",
+   "connu_defaillant": "H3 : le filtre de section par défaut (orach-chaim) exclut le siman 89 de Yoreh De’ah et sert le 173 à 26,4"
+  },
+  {
+   "id": "abst-relance",
+   "q": "Et si c’est un enfant ?",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "abstention",
+   "connu_defaillant": "H4 : une relance cherchée sans son contexte tombe sur le siman 81 à 12,9"
+  },
+  {
+   "id": "abst-merci",
+   "q": "Merci beaucoup",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "abstention",
+   "connu_defaillant": "C1 : sert le siman 47 (birkot haTorah) à 12,9"
+  },
+  {
+   "id": "abst-capitale",
+   "q": "Quelle est la capitale de la France ?",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "abstention",
+   "connu_defaillant": "C1 : sert le siman 246 à 10,5, au-dessus du seuil de 8"
+  },
+  {
+   "id": "abst-gateau",
+   "q": "Donne-moi une recette de gâteau au chocolat",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "abstention",
+   "connu_defaillant": "C1 : sert le siman 168 (pain) à 19,3"
+  },
+  {
+   "id": "abst-forfait",
+   "q": "Quel est le meilleur forfait téléphonique ?",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "abstention",
+   "connu_defaillant": "C1 : sert le siman 243 à 15,5"
+  },
+  {
+   "id": "abst-python",
+   "q": "Comment installer Python sur Mac ?",
+   "section": "orach-chaim",
+   "lang": "fr",
+   "type": "abstention",
+   "connu_defaillant": "C1 : sert le siman 290 à 13,4"
+  }
+ ]
+}
