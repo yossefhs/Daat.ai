@@ -830,6 +830,21 @@ const SHABBAT_MARKERS = new Set([
   'shabes','sabbath',
 ]);
 
+// Sujets que le corpus ne couvre PAS : les fêtes à lois propres (OH 417 et suivants)
+// et le mariage (Even HaEzer). Le BM25 y répond pourtant par le siman qui partage
+// un mot de décor — « bougies de Hanouka » → les bougies de Chabbat (siman 263,
+// score 43), « kitniyot à Pessah » → la tefilla de Minha (siman 292). Le score
+// ne sépare pas ces faux matchs des bons (plages qui se recouvrent, mesuré par
+// tests/chat/recuperation.test.mjs) : seule une liste de sujets hors périmètre
+// peut le faire. Elle ne vaut que pour le ROUTAGE (mode strict) : l'outil de
+// recherche du modèle, lui, garde sa recherche large, et une question qui tombe
+// ici passe simplement par le chemin complet au lieu de corpus-first.
+const HORS_PERIMETRE = new Set([
+  'pessah','pesah','pessach','pesach','passover','hanouka','hanoucca','hanouca','hanukkah','chanukah',
+  'pourim','purim','souccot','soukkot','sukkot','seder','haggada','hagada','kitniyot',
+  'mariage','mariages','fiancailles','divorce','kidouchin','ketouba',
+]);
+
 // Graphies HÉBRAÏQUES. Un Set de tokens ne peut pas suffire : le tokeniseur garde
 // les préfixes attachés (ב/ל/מ/ה/ו/כ/ש), « בשבת » est UN token. On teste donc le
 // RADICAL sur la chaîne. chat-he.html poste sur le même /api/chat : sans cela,
@@ -916,6 +931,9 @@ export function searchCorpus(question, opts = {}) {
   const section = opts.section || null;
   const tokens = tokenize(stripProfileBlock(question));
   if (tokens.length === 0) return { results: [], keyTokens: [], totalChunks: _N };
+  if (strict && tokens.some((t) => HORS_PERIMETRE.has(t))) {
+    return { results: [], keyTokens: [], totalChunks: _N };
+  }
 
   // Key tokens = les 2 tokens originaux de plus haute IDF, choisis UNIQUEMENT
   // parmi ceux qui EXISTENT dans le corpus. getIdf() attribue l'IDF maximale à
@@ -1000,6 +1018,13 @@ export function searchCorpus(question, opts = {}) {
   // sûr que renvoyer un extrait au hasard : c'est exactement ce qui a produit
   // une réponse sur la kablanout pour une question sur le poisson sur la plata.
   if (keyTokens.length === 0 && conceptKeys.length === 0) {
+    return { results: [], keyTokens: [], totalChunks: _N };
+  }
+  // Un SEUL mot utile qui n'est ni une ancre ni un concept reconnu (« merci »,
+  // « et si c'est un enfant ? » une fois les mots vides retirés) ne désigne aucun
+  // sujet : le servir, c'est répondre à un mot de décor. Un mot seul reste servi
+  // quand il est une ancre (« borer ») ou un concept.
+  if (strict && known.length <= 1 && anchorTerms.length === 0 && conceptKeys.length === 0) {
     return { results: [], keyTokens: [], totalChunks: _N };
   }
   // Idem pour le mode strict : n'exiger que des tokens réellement indexables.
