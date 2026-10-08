@@ -94,6 +94,10 @@
   ],
   "rewrites": [
     {
+      "source": "/valider/:date/:t",
+      "destination": "/api/daily-post?action=review&date=:date&t=:t"
+    },
+    {
       "source": "/faq",
       "destination": "/faq.html"
     },
@@ -1221,6 +1225,10 @@
     },
     "api/social.js": {
       "maxDuration": 60
+    },
+    "api/daily-post.js": {
+      "maxDuration": 300,
+      "includeFiles": "data/{limoud-plan.json,seifim-count.json}"
     },
     "api/chat-corpus.js": {
       "includeFiles": "data/corpus-{shabbat.json,index.br}"

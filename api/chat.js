@@ -22,6 +22,9 @@ import {
   reformulateForCorpus,
   DEEPSEEK_PRICING,
 } from './_deepseek.js';
+import { RESERVE, urgenceFor } from './_reserve.js';
+import { detecteUrgenceVitale, CONSIGNE_URGENCE_MODELE } from './_urgence.js';
+import { dateContextBlock } from './_date.js';
 
 const client = new Anthropic();
 
@@ -424,12 +427,14 @@ async function serveCorpusAnswer({ req, res, cs, section, lastUserText, userId, 
     }
   };
 
-  // Le corpus couvre QUATRE domaines, pas deux : OH quotidien (1-185), OH Shabbat
-  // (242-365), YD Issour ve-Heter (87-118), YD Nidah (183-200). Cadrer le prompt
-  // sur la seule `section` annonçait « les hilkhot Shabbat » pour les 9 241 chunks
-  // du quotidien et « cacheroute » pour toute la nidah : Haiku reformulait alors
-  // un extrait de tefila comme s'il s'agissait d'une question de Shabbat.
-  // On dérive donc le domaine du siman RÉELLEMENT servi.
+  // Le corpus couvre plusieurs domaines, pas deux : Orah Haïm quotidien, Hilkhot
+  // Shabbat (242-365 dans le Choul'han Aroukh), Yoreh De'ah Issour ve-Heter et
+  // Nidah (183-200 dans le Choul'han Aroukh). Les bornes ci-dessous sont celles
+  // du LIVRE, pas du périmètre indexé — lequel est calculé (corpusPerimeter) et
+  // jamais recopié ici. Cadrer le prompt sur la seule `section` annonçait « les
+  // hilkhot Shabbat » pour tout le quotidien et « cacheroute » pour toute la
+  // nidah : Haiku reformulait alors un extrait de tefila comme une question de
+  // Shabbat. On dérive donc le domaine du siman RÉELLEMENT servi.
   const topNum = Number(top.siman);
   const corpusDom = section === 'yoreh-deah'
     ? (topNum >= 183
@@ -477,7 +482,8 @@ RÈGLES STRICTES :
 - Si l'extrait n'aborde pas vraiment la question : « L'extrait du corpus traite de [sujet réel], mais ta question porte sur [Y] — pour une réflexion précise sur ce point, repose la question en mode étendu. » (puis source).
 - **JAMAIS d'autorisation personnelle.** Tu peux RAPPORTER ce qu'écrit le corpus (« le Rav écrit que … est permis lorsque … »), mais jamais le convertir en feu vert pour cette personne (« tu peux », « pas de problème pour toi », « tu es dans la zone permissive »). Tu rapportes une source, tu ne donnes pas de psak.
 - **N'extrapole jamais de l'extrait au cas de l'utilisateur** : son cas comporte des détails que l'extrait ne couvre pas. Si sa situation ajoute une condition absente de l'extrait, dis-le au lieu de trancher.
-- Dès que la question porte sur un cas CONCRET, termine (AVANT la ligne source) par : « Pour ton cas précis, c'est à ton Rav de trancher. »
+- Si la question porte sur un cas CONCRET et non urgent, termine (AVANT la ligne source) par cette phrase exacte, dans la langue de la réponse : « ${RESERVE.fr} » (hébreu : « ${RESERVE.he} » ; anglais : « ${RESERVE.en} »). Pas de réserve pour une définition ou une explication sans cas personnel.
+- ⛔ Si la question décrit un DANGER IMMÉDIAT pour une vie (personne effondrée, inconsciente, qui ne respire plus, hémorragie, etc.), réponds EXACTEMENT par HORS-SUJET : ce chemin court n'est pas fait pour cela, et aucune réserve « consulte ton Rav » ne doit suivre une consigne d'urgence.
 - **Glose de l'hébreu (sauf si tu réponds en hébreu)** : à sa **première occurrence**, chaque mot, terme ou citation en hébreu (${corpusTerms}) est **immédiatement suivi de sa traduction** (et d'une translittération pour un terme isolé), entre parenthèses, pour le lecteur qui ne lit pas l'hébreu — ex. : מוקצה (mouktsé — objet qu'on ne peut pas déplacer Shabbat) ; נר (ner — lampe). Inutile de re-gloser un mot déjà expliqué juste au-dessus ; ne laisse jamais un mot hébreu **non encore traduit** seul.
 - Ton conversationnel et pédagogique, comme si tu expliquais à un ami curieux. Pas de listes à puces sauf vraie nécessité. Pas de markdown lourd.
 - Ne dis JAMAIS que tu reformules un extrait — parle directement du sujet.`;
@@ -791,7 +797,7 @@ const RAW_CORPUS_I18N = {
     head: `**Le modèle d'IA est momentanément indisponible.** Je ne peux donc ni lire ces passages ni vérifier qu'ils traitent bien de ton cas : voici, tel quel, ce que la recherche par mots-clés a rapproché de ta question. **Vérifie le titre ci-dessous avant de lire — il arrive que ce ne soit pas le bon sujet.** C'est une citation du corpus, pas une réponse rédigée, et surtout pas un psak.\n\n`,
     about: (h) => `> Cet extrait traite de : **${h.simanTitle || 'Siman ' + h.siman}**${h.sectionTitle ? ` — ${h.sectionTitle}` : ''}\n\n`,
     src: (h) => `\n\n*Source : Siman ${h.siman}${h.levelLabel ? ' · ' + h.levelLabel : ''}*`,
-    foot: `\n\nPour toute question **lema'assé**, adresse-toi à ton Rav.`,
+    foot: `\n\n_${RESERVE.fr}_`,
   },
   he: {
     caveat: `> ⚠️ הרב ציין כי קטע זה **מחוץ לחומר, טעון בדיקה** — כיוון בלבד, לא מקור מבורר.\n\n`,
@@ -800,16 +806,39 @@ const RAW_CORPUS_I18N = {
     // titre français inséré dans une phrase hébraïque bascule le rendu en LTR.
     about: (h) => `> קטע זה עוסק ב: **${h.simanTitleHe || h.simanTitle || 'סימן ' + h.siman}**\n\n`,
     src: (h) => `\n\n*מקור : סימן ${h.siman}${h.levelLabel ? ' · ' + h.levelLabel : ''}*`,
-    foot: `\n\nלכל שאלה **למעשה**, יש לפנות לרב.`,
+    foot: `\n\n_${RESERVE.he}_`,
   },
   en: {
     caveat: `> ⚠️ The Rav marked this passage **outside the corpus, to be verified** — an orientation, not an established source.\n\n`,
     head: `**The AI model is temporarily unavailable.** I therefore cannot read these passages or verify that they address your case: here, as-is, is what the keyword search matched to your question. **Check the heading below before reading — it is sometimes not the right topic.** This is a quotation from the corpus, not a written answer, and certainly not a psak.\n\n`,
     about: (h) => `> This excerpt is about: **${h.simanTitle || 'Siman ' + h.siman}**${h.sectionTitle ? ` — ${h.sectionTitle}` : ''}\n\n`,
     src: (h) => `\n\n*Source: Siman ${h.siman}${h.levelLabel ? ' · ' + h.levelLabel : ''}*`,
-    foot: `\n\nFor any practical question (**lema'asse**), please ask your Rav.`,
+    foot: `\n\n_${RESERVE.en}_`,
   },
 };
+
+// ── Consigne d'urgence STATIQUE (0 modèle, 0 coût) ──────────────────────────
+// Servie quand un danger vital est détecté et qu'aucun modèle ne peut répondre
+// (quota épuisé, budget IA épuisé, erreur avant le premier mot). Aucune réserve
+// « consulte ton Rav » n'y figure — c'est le contraire du constat B.
+function serveUrgenceStatique({ res, lang, question, doneExtra = {} }) {
+  const text = urgenceFor(resolveLang(lang, question));
+  if (!res.headersSent) {
+    res.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
+    res.setHeader('Cache-Control', 'no-cache, no-transform');
+    res.setHeader('Connection', 'keep-alive');
+    res.setHeader('X-Accel-Buffering', 'no');
+  }
+  res.write(`data: ${JSON.stringify({ type: 'text', delta: text })}\n\n`);
+  res.write(`data: ${JSON.stringify({
+    type: 'done', stop_reason: 'end_turn', iterations: 0,
+    usage: { input_tokens: 0, output_tokens: 0 },
+    provider: 'urgence-statique',
+    ...doneExtra,
+  })}\n\n`);
+  res.end();
+  return true;
+}
 
 // ⚠️ La langue DÉCLARÉE par le client fait foi : chat-he.html et chat-en.html
 // envoient déjà `lang` dans le corps de la requête. La deviner alors qu'elle est
@@ -953,6 +982,17 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Le champ "messages" doit être un tableau non vide' });
     }
 
+    // ── Danger vital ? Décidé AVANT tout routage : une urgence ne passe ni par
+    // le corpus (Haiku + réserve automatique), ni par un 429, ni par un modèle
+    // sans consigne de priorité. Voir api/_urgence.js (constat B).
+    const lastUserForUrgence = [...messages].reverse().find(
+      (m) => m && m.role === 'user' && typeof m.content === 'string'
+    );
+    const urgence = detecteUrgenceVitale(lastUserForUrgence ? lastUserForUrgence.content : '');
+    if (urgence.urgent) {
+      console.log(`[chat.js] URGENCE VITALE détectée (${urgence.indices.slice(0, 3).join(' | ')})${urgence.etude ? ' — indices d\'étude présents' : ''}`);
+    }
+
     // Identifier l'utilisateur (email connecté OU guest_id par cookie)
     const { userId, plan, isGuest, guestIdSetCookie, forceOpus, previewUsed, planExpires } = await identifyUser(req);
     const today = new Date().toISOString().slice(0, 10);
@@ -1016,6 +1056,10 @@ export default async function handler(req, res) {
         // Cet utilisateur paie cette question avec un crédit → Opus garanti, décrémenté au tracking
         usingCredit = true;
       } else {
+        // Danger vital à quota épuisé : la consigne statique, jamais un paywall.
+        if (urgence.urgent && !urgence.etude) {
+          return serveUrgenceStatique({ res, lang: req.body?.lang, question: lastUserForUrgence?.content, doneExtra: { quota_rescued: 'daily' } });
+        }
         // Sauvetage corpus : les quotas ne rationnent que l'IA générative. Si la
         // question matche le corpus du Rav, on la sert (cache ou Haiku ~0.002 €)
         // au lieu du 429 — la promesse « corpus gratuit et illimité » tient
@@ -1056,6 +1100,10 @@ export default async function handler(req, res) {
       if (opusCredits > 0) {
         usingCredit = true;
       } else {
+      // Danger vital à quota épuisé : la consigne statique, jamais un paywall.
+      if (urgence.urgent && !urgence.etude) {
+        return serveUrgenceStatique({ res, lang: req.body?.lang, question: lastUserForUrgence?.content, doneExtra: { quota_rescued: 'monthly' } });
+      }
       // Sinon : sauvetage corpus (le corpus du Rav reste ouvert malgré le quota).
       if (await tryCorpusRescue({ req, res, messages, section, userId, isGuest, plan, scope: 'monthly' })) {
         return;
@@ -1317,6 +1365,7 @@ export default async function handler(req, res) {
     if (
       !model._meta &&
       !model._aperçu &&
+      !urgence.urgent &&
       model.id !== MODELS.opus.id &&
       !SUBSCRIBER_PLANS.has(plan) &&
       process.env.CORPUS_FIRST_ENABLED !== 'false'
@@ -1348,6 +1397,13 @@ export default async function handler(req, res) {
             is_aperçu: false,
             aperçu_intercepted: Boolean(model._aperçu),
             preview_remaining: model._aperçu ? Math.max(0, PREVIEW_OPUS_LIMIT - previewUsed) : null,
+            // rate_info a annoncé « count + 1 » avant de savoir que le corpus
+            // servirait gratuitement : on rend au client la jauge RÉELLE, sinon
+            // le compteur affiché décroît d'une question qui n'a rien consommé.
+            quota_consumed: process.env.CORPUS_QUOTA_FREE === 'false',
+            month_remaining: process.env.CORPUS_QUOTA_FREE === 'false'
+              ? Math.max(0, monthLimit - (currentMonthCount + 1))
+              : Math.max(0, monthLimit - currentMonthCount),
           },
         });
         if (served) return;
@@ -1380,7 +1436,19 @@ export default async function handler(req, res) {
     //  Sur ces cas le pré-RAG ajoute 3-5s upfront sans réduire les tool calls — c'est perdu.
     const isOpus = model.id === MODELS.opus.id;
     const lastUserText = trimmedMessages[trimmedMessages.length - 1].content;
-    const skipPreRag = isOpus || (lastUserText?.length || 0) > 220 || trimmedMessages.length > 4;
+    const skipPreRag = isOpus || urgence.urgent || (lastUserText?.length || 0) > 220 || trimmedMessages.length > 4;
+
+    // Danger vital : la consigne de priorité est placée DEVANT la question, dans
+    // le dernier message. Elle ne modifie pas le prompt système (cache intact).
+    if (urgence.urgent) {
+      const lastIdx = conversation.length - 1;
+      const last = conversation[lastIdx];
+      const originalText = last.content.map(b => b.text || '').join('');
+      conversation[lastIdx] = {
+        role: 'user',
+        content: [{ type: 'text', text: CONSIGNE_URGENCE_MODELE + originalText }],
+      };
+    }
 
     if (deepSeekAvailable() && !model._meta && !skipPreRag) {
       if (lastUserText && lastUserText.length >= 30) {
@@ -1476,12 +1544,17 @@ export default async function handler(req, res) {
 
       if (forceSynthesis && !forcedSynthesis) {
         forcedSynthesis = true;
+        // ⚠️ Deux variantes. La consigne « renvoie la conclusion pratique au Rav »
+        // est juste pour un cas pratique ordinaire ; sur un danger vital elle
+        // produit exactement la contradiction du constat B. Et dans les deux cas
+        // la vérification incomplète interdit autant une INTERDICTION inventée
+        // qu'une permission : on demande l'état des sources, pas la rigueur.
+        const synthText = urgence.urgent
+          ? 'Ta recherche de sources s\'arrête ici. Rédige maintenant ta réponse à ma question initiale, sans appeler d\'outil. Si ma question décrit un danger immédiat pour une vie, la consigne d\'appeler les secours locaux passe avant tout, sans aucun renvoi à l\'avis d\'un Rav. Signale ce que tu n\'as pas pu vérifier.'
+          : 'Ta recherche de sources s\'arrête ici (limite de temps ou d\'outils atteinte). Rédige maintenant ta réponse complète et structurée à ma question initiale, en t\'appuyant UNIQUEMENT sur ce que tu as déjà recueilli. N\'appelle plus aucun outil. IMPORTANT : ta vérification des sources est peut-être INCOMPLÈTE — ne formule donc ni permission ni interdiction personnelle que les textes lus ne portent pas. Expose l\'état des sources tel que tu l\'as vérifié, signale explicitement ce que tu n\'as pas pu vérifier, et, s\'il s\'agit d\'un cas pratique non urgent, renvoie l\'application au Rav de l\'utilisateur avec la réserve habituelle.';
         conversation.push({
           role: 'user',
-          content: [{
-            type: 'text',
-            text: 'Ta recherche de sources s\'arrête ici (limite de temps ou d\'outils atteinte). Rédige maintenant ta réponse complète et structurée à ma question initiale, en t\'appuyant UNIQUEMENT sur ce que tu as déjà recueilli. N\'appelle plus aucun outil. IMPORTANT : ta vérification des sources est peut-être INCOMPLÈTE — tu ne dois donc formuler AUCUNE permission pratique. Expose l\'état des sources, signale explicitement ce que tu n\'as pas pu vérifier, et renvoie la conclusion pratique au Rav de l\'utilisateur.',
-          }],
+          content: [{ type: 'text', text: synthText }],
         });
         console.log(`[chat.js] forcing synthesis at iter ${iterations} (elapsed ${elapsedBefore}ms)`);
       }
@@ -1520,6 +1593,10 @@ export default async function handler(req, res) {
             text: buildSystemPrompt(section),
             cache_control: { type: 'ephemeral', ttl: '1h' },
           },
+          // Date du jour, HORS du bloc caché : elle change chaque jour, le prompt
+          // système non. Sans elle le modèle ne sait ni quel jour on est, ni
+          // quelle parasha, ni si « ce Shabbat » est déjà passé.
+          { type: 'text', text: dateContextBlock() },
         ],
         messages: conversation,
       };
@@ -1844,6 +1921,10 @@ export default async function handler(req, res) {
           const lastQ = [...(req.body?.messages || [])].reverse().find(
             (m) => m && m.role === 'user' && typeof m.content === 'string' && m.content.length > 0
           );
+          // Danger vital sans aucun modèle disponible : la consigne statique.
+          if (lastQ && detecteUrgenceVitale(lastQ.content).urgent) {
+            return serveUrgenceStatique({ res, lang: req.body?.lang, question: lastQ.content, doneExtra: { anthropic_quota_exhausted: true } });
+          }
           if (lastQ) {
             const sec = req.body?.section === 'yoreh-deah' ? 'yoreh-deah' : 'orach-chaim';
             const cs = searchShabbatCorpus(lastQ.content, {

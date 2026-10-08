@@ -20,6 +20,8 @@ import { searchCorpus, getCorpusStats, corpusCacheKey, CORPUS_CACHE_TTL } from '
 import { expandHalakhicQuery } from './_query-rewrite.js';
 import { kv } from './_kv.js';
 import { getClientIp } from './_http.js';
+import { RESERVE, urgenceFor } from './_reserve.js';
+import { detecteUrgenceVitale } from './_urgence.js';
 
 const client = new Anthropic();
 
@@ -69,14 +71,20 @@ function sseWrite(res, event, data) {
   res.write(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`);
 }
 
-function buildSystemPrompt(lang, section) {
+// Le domaine est dérivé du siman RÉELLEMENT servi, comme dans chat.js : la
+// section seule annonçait « hilkhot Shabbat » pour tout Orah Haïm quotidien et
+// « cacheroute » pour toute la nidah.
+function buildSystemPrompt(lang, section, topSiman) {
   const langName = lang === 'en' ? 'English' : lang === 'he' ? 'Hebrew' : 'French';
+  const n = Number(topSiman);
   const domain = section === 'yoreh-deah'
-    ? "les hilkhot Issour ve-Heter (cacheroute : bassar be-halav, taarovot…)"
-    : 'les hilkhot Shabbat';
+    ? (n >= 183 ? 'les hilkhot Nidah / Taharat haMishpaha (pureté familiale)'
+                : "les hilkhot Issour ve-Heter (cacheroute : bassar be-halav, taarovot…)")
+    : (n >= 242 && n <= 365 ? 'les hilkhot Shabbat'
+                            : "les hilkhot de la journée du juif (Orah Haïm : tefila, berakhot, tsitsit, tefilin…)");
   const terms = section === 'yoreh-deah'
-    ? 'bassar be-halav, taarovet, ben yomo, nat bar nat'
-    : 'borer, bishoul, mouktsé';
+    ? (n >= 183 ? 'vesatot, ketamim, harhakot, hefsek tahara, tevila' : 'bassar be-halav, taarovet, ben yomo, nat bar nat')
+    : (n >= 242 && n <= 365 ? 'borer, bishoul, mouktsé' : 'tsitsit, tefilin, netilat yadaïm, berakha, kavana');
   return `Tu es Daat, l'assistant halakhique de DAAT — site d'étude du Rav Yossef Haim Samama.
 
 CONTEXTE : tu reçois une question d'utilisateur sur ${domain} et UN EXTRAIT précis du corpus (écrit par le Rav) qui répond à cette question.
@@ -95,7 +103,7 @@ RÈGLES STRICTES :
 - Si l'extrait n'aborde pas vraiment la question : « L'extrait du corpus traite de [sujet réel], mais ta question porte sur [Y] — pour une réflexion précise sur ce point, repose la question à Daat IA en mode étendu. » (puis source).
 - **JAMAIS d'autorisation personnelle.** Tu peux RAPPORTER ce qu'écrit le corpus (« le Rav écrit que … est permis lorsque … »), mais jamais le convertir en feu vert pour cette personne (« tu peux », « pas de problème pour toi », « tu es dans la zone permissive »). Tu rapportes une source, tu ne donnes pas de psak.
 - **N'extrapole jamais de l'extrait au cas de l'utilisateur** : son cas comporte des détails que l'extrait ne couvre pas. Si sa situation ajoute une condition absente de l'extrait, dis-le au lieu de trancher.
-- Dès que la question porte sur un cas CONCRET, termine (AVANT la ligne source) par : « Pour ton cas précis, c'est à ton Rav de trancher. »
+- Si la question porte sur un cas CONCRET et non urgent, termine (AVANT la ligne source) par cette phrase exacte, dans la langue de la réponse : « ${RESERVE.fr} » (hébreu : « ${RESERVE.he} » ; anglais : « ${RESERVE.en} »). Pas de réserve pour une définition ou une explication sans cas personnel.
 - Réponds dans la langue de la question (par défaut : ${langName}).
 - **Glose de l'hébreu (sauf si tu réponds en hébreu)** : à sa **première occurrence**, chaque mot, terme ou citation en hébreu (${terms}) est **immédiatement suivi de sa traduction** (et d'une translittération pour un terme isolé), entre parenthèses, pour le lecteur qui ne lit pas l'hébreu — ex. : מוקצה (mouktsé — objet qu'on ne peut pas déplacer Shabbat) ; נר (ner — lampe). Inutile de re-gloser un mot déjà expliqué juste au-dessus ; ne laisse jamais un mot hébreu **non encore traduit** seul.
 - Ton conversationnel et pédagogique, comme si tu expliquais à un ami curieux. Pas de listes à puces sauf vraie nécessité. Pas de markdown lourd.
@@ -145,6 +153,17 @@ export default async function handler(req, res) {
 
   if (!question) return res.status(400).json({ error: 'question required' });
   if (question.length > 800) return res.status(400).json({ error: 'question too long (max 800 chars)' });
+
+  // Danger vital : ce chemin (un extrait + Haiku) n'est pas fait pour cela. La
+  // consigne statique, sans réserve « consulte ton Rav », part immédiatement.
+  const urgence = detecteUrgenceVitale(question);
+  if (urgence.urgent && !urgence.etude) {
+    res.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
+    res.setHeader('Cache-Control', 'no-cache, no-transform');
+    sseWrite(res, 'delta', { text: urgenceFor(lang) });
+    sseWrite(res, 'done', { usage: { input_tokens: 0, output_tokens: 0 }, cost_eur: 0, urgence: true });
+    return res.end();
+  }
 
   // ── Anti-abus : limite par IP + globale (avant tout appel payant) ──
   if (await isRateLimited(getClientIp(req))) {
@@ -243,7 +262,7 @@ export default async function handler(req, res) {
     console.error('[chat-corpus] cache read error (continue Haiku):', err?.message || err);
   }
 
-  const systemPrompt = buildSystemPrompt(lang, section);
+  const systemPrompt = buildSystemPrompt(lang, section, top.siman);
   const userMsg = buildUserMessage(question, top, others);
 
   let inputTokens = 0;

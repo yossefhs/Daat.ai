@@ -182,6 +182,11 @@ const lots = suite.concat(rattrapage);
 // 298 y annonce « 1/2 » alors qu'il compte trois lots. On corrige l'ÉTIQUETTE,
 // jamais la date ni les séifim — ce qui a été étudié l'a été.
 for (const e of gelees) {
+  // Le numéral hébreu des journées gelées est repris du catalogue : c'est une
+  // ÉTIQUETTE (« סימן 299 · 299 » devient « סימן רצ״ט · 299 »), ni la date, ni
+  // le siman, ni les séifim ne bougent.
+  const auCatalogue = auPlan.find((s) => s.num === e.siman.num);
+  if (auCatalogue && auCatalogue.numHe) e.siman.numHe = auCatalogue.numHe;
   const n = SEIFIM_COUNT[e.siman.num];
   if (!n) continue;
   e.lotTotal = Math.ceil(n / SEIFIM_PER_DAY);
@@ -619,7 +624,7 @@ ${header}
   <div class="day-date">${dateStr} · <span style="opacity:.8">${t.sub}</span></div>
 
   <div class="siman-card">
-    <div class="siman-num">${t.siman} ${entry.siman.num} · ${numHe}</div>
+    <div class="siman-num">${t.siman} ${lang === 'he' ? `${numHe} · ${entry.siman.num}` : `${entry.siman.num} · ${numHe}`}</div>
     <div class="siman-title">${localTitle}</div>
     <div class="levels-list">
             ${levelLinks}
@@ -739,9 +744,12 @@ function renderIndex(lang) {
       const isSplit = e.lotTotal > 1;
       const rangeText = a === b ? String(a) : `${a}-${b}`;
       // Cellule "Siman X · séif A-B (K/N)" si split, sinon "Siman X"
+      // Les deux numéros, toujours : le numéral hébreu est la forme lue, le
+      // chiffre celle qu'on cherche. En hébreu, le numéral vient en premier.
+      const deuxNums = lang === 'he' ? `${numHe} · ${e.siman.num}` : `${e.siman.num} · ${numHe}`;
       const simanLine = isSplit
-        ? `<strong>${t.siman} ${e.siman.num}</strong> · ${t.seif} ${rangeText} (${e.lotIndex}/${e.lotTotal})`
-        : `<strong>${t.siman} ${e.siman.num}</strong> · ${numHe}`;
+        ? `<strong>${t.siman} ${deuxNums}</strong> · ${t.seif} ${rangeText} (${e.lotIndex}/${e.lotTotal})`
+        : `<strong>${t.siman} ${deuxNums}</strong>`;
       return `      <a class="day-item${isSplit ? ' is-split' : ''}" href="${dayHref(e.dayNumber, lang)}">
         <span class="day-meta"><span class="day-dow">${dowName}</span> · <span class="day-num">${t.day} ${e.dayNumber}</span> · <span class="day-date">${dt.getUTCDate()}/${(dt.getUTCMonth()+1)}</span></span>
         <span class="day-siman">${simanLine}</span>
@@ -881,6 +889,7 @@ function bannerSnippet(lang) {
       todayLabel: 'היום',
       jourLabel: 'יום',
       simanLabel: 'סימן',
+      hebFirst: true,
       seifLabel: 'סעיף',
       cta: 'ללמוד עכשיו ←',
       indexCta: 'לתוכנית המלאה',
@@ -1031,10 +1040,10 @@ function bannerSnippet(lang) {
   html+='<div class="dy-day">'+T.jourLabel+' <span class="dy-day-num">'+e[0]+'</span> <span style="opacity:.55">/ '+total+'</span></div>';
   if(isSplit){
     var rangeStr = (seifStart===seifEnd) ? String(seifStart) : (seifStart+'-'+seifEnd);
-    html+='<div class="dy-siman">'+T.simanLabel+' '+e[2]+' · '+e[3]+'</div>';
+    html+='<div class="dy-siman">'+T.simanLabel+' '+(T.hebFirst ? e[3]+' · '+e[2] : e[2]+' · '+e[3])+'</div>';
     html+='<div class="dy-seif">'+T.seifLabel+' '+rangeStr+' · ('+lotIdx+'/'+lotTot+')</div>';
   } else {
-    html+='<div class="dy-siman">'+T.simanLabel+' '+e[2]+' · '+e[3]+'</div>';
+    html+='<div class="dy-siman">'+T.simanLabel+' '+(T.hebFirst ? e[3]+' · '+e[2] : e[2]+' · '+e[3])+'</div>';
   }
   html+='<div class="dy-title">'+e[4]+'</div>';
   container.innerHTML=html;

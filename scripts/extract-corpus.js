@@ -287,6 +287,17 @@ function extractSynSection(siman, body) {
 // de pilpoul — voir la note dans le rapport de session.
 const BLOCK_TYPES = 'definition|remember|key-point';
 
+// Dernier id="seif-N" (ou id="detail-seif-N") rencontré AVANT une position.
+// Seules les pages qui portent ces ancres en profitent (pilote : siman 358) ;
+// ailleurs la fonction rend null et l'URL reste celle de la page.
+function nearestSeifAnchor(content, pos) {
+  const head = content.slice(0, pos);
+  const re = /id="((?:detail-)?seif-\d+)"/g;
+  let m, last = null;
+  while ((m = re.exec(head)) !== null) last = m[1];
+  return last;
+}
+
 function typedBlocks(content) {
   const out = [];
   const openRe = new RegExp(`<div class="(${BLOCK_TYPES})"[^>]*>`, 'g');
@@ -362,6 +373,9 @@ function extractChunks(siman, html) {
           siman: siman.num,
           sectionNum: sectionIndex,
           sectionTitle, subsection: null,
+          // Ancre du séif le plus proche EN AMONT (pilote 358 : <h4 id="seif-N">).
+          // Quand elle existe, sourceUrl mène au séif cité, pas au haut de page.
+          anchor: nearestSeifAnchor(sectionContent, block.outerStart),
           text, type: block.type,
         });
       }
@@ -649,7 +663,8 @@ for (const section of SECTIONS) {
         c.simanTitle = meta.titleFr;
         c.simanTitleHe = meta.titleHe;
         c.simanSubtitle = meta.subtitle || '';
-        c.sourceUrl = `${section.urlPrefix}/${simanNum}/${variant.urlSuffix}`;
+        c.sourceUrl = `${section.urlPrefix}/${simanNum}/${variant.urlSuffix}` + (c.anchor ? `#${c.anchor}` : '');
+        delete c.anchor;
         // ID GLOBALEMENT UNIQUE. Le numéro de siman seul est ambigu : /oh-quotidien
         // et /yd partagent 35 numéros (87-118, 183-185), et deux niveaux d'un même
         // siman peuvent forger la même suite « s2-b3 ». getChunkById() fait un

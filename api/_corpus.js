@@ -5,9 +5,10 @@
 // - daat_get_content : récupère un contenu précis par son ID
 //
 // ⚠️ DEUX SOURCES, ne pas les confondre :
-//  1. data/corpus-shabbat.json — LE corpus du site : 10 824 chunks extraits des
-//     4 niveaux d'étude de 241 simanim (Orah Haim + Yoreh De'ah), régénéré par
-//     `npm run build`. C'est la source PRINCIPALE, interrogée en BM25 via
+//  1. data/corpus-shabbat.json — LE corpus du site : les chunks extraits des
+//     niveaux d'étude de chaque siman publié (Orah Haim + Yoreh De'ah), régénéré
+//     par `npm run build`. Le périmètre exact est CALCULÉ (corpusPerimeter),
+//     jamais écrit ici. C'est la source PRINCIPALE, interrogée en BM25 via
 //     _corpus-search.js (index partagé avec le routage corpus-first de chat.js,
 //     donc aucun coût de chargement supplémentaire).
 //  2. data/corpus.json — 28 entrées éditoriales écrites à la main (simanim 242,
@@ -157,7 +158,26 @@ function excerpt(text, max) {
 // Le champ booléen ne suffit pas — on ajoute une phrase, que le modèle lit.
 const CAVEAT_NOTE = "⚠️ RÉSERVE DE L'AUTEUR : le Rav a marqué ce passage « hors corpus, à vérifier ». Ne le présente JAMAIS comme tranché ni comme « le corpus du Rav dit que » ; formule au conditionnel et renvoie explicitement au Rav.";
 
-function formatChunkHit(c) {
+// Nature du contenu selon le niveau : le modèle doit savoir s'il lit un TEXTE
+// SOURCE (niveau 1 : Mehaber/Rama ; niveau 4 Orah Haïm : Choul'han Aroukh HaRav
+// traduit) ou une SYNTHÈSE rédigée par le site (niveaux 2-3 ; niveau 4 Yoreh
+// De'ah : halakha lema'assé d'autres décisionnaires). Une synthèse ne prouve pas
+// l'original — c'est le mécanisme du constat C (borer 319).
+function natureOf(c) {
+  const lvl = String(c.level || '');
+  const sec = String(c.section || '');
+  if (lvl.startsWith('base')) return 'texte source (Choul\'han Aroukh, Mehaber + Rama) avec traduction et explication du site';
+  if (lvl.startsWith('daat-harav') || lvl.startsWith('halakha')) {
+    return sec === 'yoreh-deah'
+      ? 'rubrique de décision du site (halakha lema\'assé selon d\'autres décisionnaires — vérifie l\'auteur cité dans le texte)'
+      : 'Choul\'han Aroukh HaRav (Admour HaZaken) traduit séif par séif, avec commentaires du site';
+  }
+  if (lvl.startsWith('lamdan')) return 'synthèse pédagogique du site (pilpoul) — ne prouve pas l\'original';
+  if (lvl.startsWith('synth')) return 'synthèse pédagogique du site (récapitulatif) — ne prouve pas l\'original';
+  return 'contenu du site';
+}
+
+export function formatChunkHit(c) {
   const full = String(c.text || '');
   return {
     id: c.id,
@@ -167,6 +187,7 @@ function formatChunkHit(c) {
     seif: c.subsection || null,
     level: c.level || null,
     levelLabel: c.levelLabel || null,
+    nature: natureOf(c),
     origin: 'site',
     url: c.sourceUrl || null,
     tags: [],
@@ -293,6 +314,7 @@ export async function getEntryById(id) {
     seif: chunk.subsection || null,
     level: chunk.level || null,
     levelLabel: chunk.levelLabel || null,
+    nature: natureOf(chunk),
     origin: 'site',
     url: chunk.sourceUrl || null,
     summary: excerpt(chunk.text, EXCERPT_CHARS),
@@ -308,13 +330,17 @@ export async function getEntryById(id) {
 export const CORPUS_TOOLS = [
   {
     name: 'daat_search_corpus',
-    description: 'Recherche dans le corpus DAAT.AI — le texte RÉEL des pages du site (les 4 niveaux d\'étude de chaque siman : Base, Lamdan, Synthèse, et Daat HaRav qui contient le Choulhan Aroukh de l\'Admour HaZaken traduit seif par seif). Utilise CET outil EN PRIORITÉ avant Sefaria et AVANT de répondre de mémoire. Retourne des extraits avec leurs IDs ; utilise ensuite daat_get_content pour lire un seif en entier avant de le citer.',
+    // La rubrique « Daat HaRav » n'est PAS partout l'Admour HaZaken traduit : en
+    // Yoreh De'ah cacheroute, c'est la halakha lema'assé d'autres décisionnaires.
+    // Chaque résultat porte un champ `nature` qui le dit ; la description ne
+    // promet donc aucune provenance uniforme.
+    description: 'Recherche dans le corpus DAAT — le texte réel des pages du site, sur les niveaux d\'étude de chaque siman (Base : texte du Choul\'han Aroukh traduit ; Lamdan et Synthèse : synthèses pédagogiques du site ; rubrique de décision : Choul\'han Aroukh HaRav traduit séif par séif là où il existe, halakha lema\'assé d\'autres décisionnaires ailleurs). Chaque résultat indique sa `nature` : une synthèse du site ne prouve pas l\'original. Point d\'entrée privilégié pour toute question halakhique, avant Sefaria et avant toute réponse de mémoire. Retourne des extraits TRONQUÉS avec leurs IDs : lis l\'entrée complète avec daat_get_content avant de citer ou de conclure.',
     input_schema: {
       type: 'object',
       properties: {
         query: {
           type: 'string',
-          description: 'Mots-clés à chercher (français, hébreu, ou translittération). Écris le vocabulaire halakhique classique plutôt que des mots modernes. Exemples : "bishoul ahar tseliya kli sheni", "mouktsé mahmat hisaron kis", "hazara plata", "basar bè-halav taarovot".',
+          description: 'Mots-clés à chercher (français, hébreu, ou translittération). Écris le vocabulaire halakhique classique plutôt que des mots modernes, mais garde les faits concrets qui changent l\'analyse. Exemples : "bishoul ahar tseliya kli sheni", "mouktsé mahmat hisaron kis", "hazara plata", "basar bè-halav taarovot".',
         },
         siman: {
           type: 'integer',
@@ -323,7 +349,10 @@ export const CORPUS_TOOLS = [
         section: {
           type: 'string',
           enum: ['orach-chaim', 'yoreh-deah'],
-          description: 'Restreint la recherche à une section. Le corpus couvre Orah Haim (dont Hilkhot Shabbat 242-365) et Yoreh De\'ah (87-118 et 183-200).',
+          // Aucune plage en dur ici : le périmètre réel est injecté dans le prompt
+          // système à chaque déploiement (withPerimeter). Des chiffres figés dans
+          // ce schéma le contrediraient dès le prochain ajout de simanim.
+          description: 'Restreint la recherche à une partie du Choul\'han Aroukh : "orach-chaim" (dont Hilkhot Shabbat) ou "yoreh-deah" (cacheroute et niddah). Les deux parties partagent des numéros de siman — indispensable dès que la question porte sur le Yoreh De\'ah. Le périmètre couvert est celui indiqué dans le prompt système.',
         },
         limit: {
           type: 'integer',
@@ -395,6 +424,7 @@ export async function executeCorpusTool(toolName, input) {
       seif: entry.seif,
       level: entry.level,
       levelLabel: entry.levelLabel,
+      nature: entry.nature || 'pédagogie rédigée du site — ne prouve pas l\'original',
       origin: entry.origin || 'editorial',
       url: entry.url || null,
       summary: entry.summary,

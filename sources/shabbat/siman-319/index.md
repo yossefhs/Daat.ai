@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 29 seifim qui codifient la mélakha de בורר (trier) Shabbat. Cadre : 3 critères pour interdire (mélange + intention + outil), application moderne aux salades, tris
+La chitah de l'Admour HaZaken sur les 29 seifim qui codifient la mélakha de בורר (trier) Shabbat. Cadre : les trois conditions cumulatives du tri permis (l'aliment hors du déchet, à la main, pour consommer aussitôt — une seule manque et le tri est interdit), application moderne aux salades, tris
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

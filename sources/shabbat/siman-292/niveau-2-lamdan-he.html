@@ -151,6 +151,29 @@
   h3 { font-size: 11.5pt; }
   .sacred-text, .he { font-size: 11.5pt; }
 }
+
+  /* Niveau navigation (prev/next siman + onglets N1-N4) */
+  .niveau-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 1rem; padding: 1.5rem 0; border-top: 1px solid #d4c89a;
+    margin: 3rem 0 1.5rem; flex-wrap: wrap;
+    font-family: 'Inter', 'Helvetica', sans-serif; font-size: 11pt;
+  }
+  .niveau-nav a {
+    color: #1A1F3A; text-decoration: none;
+    padding: 0.5rem 1rem; border-radius: 4px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .niveau-nav a:hover { background: #FAF6EE; color: #1A1F3A; }
+  .niveau-nav .nav-niveaux { display: flex; gap: 0.5rem; }
+  .niveau-nav .nav-level { border: 1px solid #d4c89a; font-weight: 600; letter-spacing: 1px; }
+  .niveau-nav .nav-level.active { background: #1A1F3A; color: #fff; border-color: #1A1F3A; }
+  .niveau-nav .nav-level.active:hover { background: #1A1F3A; color: #fff; }
+  .niveau-nav .nav-spacer { flex: 1; }
+  @media (max-width: 640px) {
+    .niveau-nav { flex-direction: column; gap: 0.75rem; }
+  }
+  @media print { .niveau-nav { display: none; } }
 </style>
 <link rel="stylesheet" href="/assets/css/intra-links.css">
 
@@ -457,14 +480,14 @@
 </div>
 
 <div class="pilpul-box" dir="rtl">
-<p class="he"><strong>פרקי אבות בקיץ (מנהג אשכנז):</strong></p>
+<p class="he"><strong>פרקי אבות בקיץ (כל מקום לפי מנהגו):</strong></p>
 <ul class="he">
   <li>מ-Shabbat שאחר Pessah עד Shabbat שלפני Roch Hashana.</li>
-  <li>פרק אחד כל שבת. 6 + 1 (קנין תורה) = 7 פרקים. מחזור = 7 שבועות.</li>
+  <li>פרק אחד כל שבת. 6 פרקים בסך הכול; קנין תורה הוא הפרק השישי. מחזור של פרק לשבת נמשך 6 שבועות.</li>
   <li>קוראים בקבוצה אחר מנחה. <em>אינו "קביעת מדרש" אלא "אמירה"</em> — אין דרישות הסבר.</li>
 </ul>
 
-<p class="he"><strong>שיר המעלות בחורף (מנהג ספרד):</strong></p>
+<p class="he"><strong>שיר המעלות בחורף (כל מקום לפי מנהגו):</strong></p>
 <ul class="he">
   <li>מ-Shabbat Bereshit עד Shabbat HaGadol.</li>
   <li>תהלים ק״כ-קל״ד — 15 מזמורי "שיר המעלות".</li>
@@ -484,8 +507,8 @@
 <tr><td class="he">"ואני תפלתי"</td><td class="he">בלילה אומרים גם ביחיד ובלא ס״ת</td></tr>
 <tr><td class="he">צדקתך צדק</td><td class="he">אומרים אא״כ ערב חג / יום של שמחה</td></tr>
 <tr><td class="he">קביעת מדרש בין מנחה למעריב</td><td class="he">אסור (זוהר)</td></tr>
-<tr><td class="he">פרקי אבות בקיץ</td><td class="he">מנהג אשכנז (לא מדרש פורמלי)</td></tr>
-<tr><td class="he">שיר המעלות בחורף</td><td class="he">מנהג ספרד</td></tr>
+<tr><td class="he">פרקי אבות בקיץ</td><td class="he">כל מקום לפי מנהגו (לא מדרש פורמלי)</td></tr>
+<tr><td class="he">שיר המעלות בחורף</td><td class="he">כל מקום לפי מנהגו</td></tr>
 </table>
 </div>
 
@@ -518,6 +541,16 @@
   <script src="../../../assets/js/chat-loader.js" defer></script>
 <a href="../../../communaute-he.html#khavroutha" class="daat-khavroutha-fab" title="מציאת חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">להצטרף לחברותא</span></a>
   <script src="../../../assets/js/daat-progress.js"></script>
+<nav class="niveau-nav" aria-label="ניווט בין רמות">
+  <a href="../siman-291/niveau-2-lamdan-he.html" class="nav-prev">סימן רצ״א · 291 →</a>
+  <div class="nav-niveaux">
+    <a href="niveau-1-base-he.html" class="nav-level">N1</a>
+    <a href="niveau-2-lamdan-he.html" class="nav-level active">N2</a>
+    <a href="niveau-3-synthese-he.html" class="nav-level">N3</a>
+    <a href="niveau-4-daat-harav-he.html" class="nav-level">N4</a>
+  </div>
+  <a href="../siman-293/niveau-2-lamdan-he.html" class="nav-next">← סימן רצ״ג · 293</a>
+</nav>
 </main>
 <script src="/assets/js/intra-links.js" defer></script>
 </body>

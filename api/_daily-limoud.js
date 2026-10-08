@@ -7,7 +7,7 @@
  *
  * Format d'une entry (cf. data/limoud-plan.json) :
  *   {
- *     dayNumber: number,            // 1..194
+ *     dayNumber: number,            // 1..meta.totalDays (272 depuis le 24/09/2026)
  *     date: "YYYY-MM-DD",           // ex "2026-06-08"
  *     dow: 0..4,                    // 0=dim, 1=lun, ..., 4=jeu
  *     siman: {

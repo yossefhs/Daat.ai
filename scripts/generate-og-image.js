@@ -169,7 +169,7 @@ function renderDefault() {
     numberLabel: 'דעת התורה לעומקה',
     titleFr: "L'étude halakhique en français",
     titleHe: 'דעת',
-    subtitle: 'Choulhan Aroukh par siman, en 3 niveaux — Base, Lamdan, Synthèse',
+    subtitle: 'Choulhan Aroukh par siman, en 4 niveaux — Base, Lamdan, Synthèse, Daat HaRav',
   });
 }
 

@@ -44,7 +44,8 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { fetchSefariaText } from '../_sefaria.js';
-import { corsAdmin, origineRefusee, refuserOrigine, freinage, echecAdmin, reussiteAdmin, refuser } from '../_admin-gate.js';
+import { RESERVE } from '../_reserve.js';
+import { corsAdmin, origineRefusee, refuserOrigine, adminParJeton, freinage, echecAdmin, reussiteAdmin, refuser } from '../_admin-gate.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const TEMPLATE_DIR = join(__dirname, '..', '..', 'sources', 'shabbat', 'siman-242');
@@ -103,7 +104,7 @@ PRINCIPES NON-NÉGOCIABLES :
 6. **Liens internes** : entre les 3 niveaux (level-1 ↔ level-2 ↔ level-3) et vers le chat IA (chat.html), tels qu'ils existent dans le siman 242.
 7. **PDF** : les liens vers les PDFs (href="pdfs/Siman_XXX_*.pdf") sont à inclure même si le PDF n'existe pas encore — l'admin les générera plus tard. Utilise le pattern de nommage du siman 242.
 8. **Aucun lien factice** : si tu ne sais pas, tu omets, tu n'inventes pas d'URL.
-9. **Disclaimer** : à la fin de chaque niveau, le disclaimer "Cette analyse présente ce que disent les sources. Ce n'est pas un psak halakha. Pour ton cas concret, consulte ton Rav."
+9. **Réserve** : à la fin de chaque niveau, la phrase de réserve unique du site : "${RESERVE.fr}"
 
 FORMAT DE SORTIE : tu réponds UNIQUEMENT avec le code HTML complet du fichier demandé, depuis <!DOCTYPE html> jusqu'à </html>. Pas de bloc markdown, pas de commentaire avant ou après, juste le HTML brut.
 
@@ -228,10 +229,15 @@ export default async function handler(req, res) {
   if (origineRefusee(req)) return refuserOrigine(res);
   const frein = await freinage(req);
   if (frein.bloque) return refuser(res);
-  const auth = checkAuth(req);
-  if (!auth.ok) {
-    if (auth.status === 401) await echecAdmin(req);
-    return res.status(auth.status).json({ error: auth.error });
+  // Deux voies : le JWT du site s'il identifie un administrateur, sinon le mot
+  // de passe partagé. Additif — sans ADMIN_EMAILS, rien ne change.
+  const parJeton = adminParJeton(req);
+  if (!parJeton) {
+    const auth = checkAuth(req);
+    if (!auth.ok) {
+      if (auth.status === 401) await echecAdmin(req);
+      return res.status(auth.status).json({ error: auth.error });
+    }
   }
   await reussiteAdmin(req);
 

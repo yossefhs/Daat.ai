@@ -521,6 +521,41 @@ Deux défauts trouvés à la main pendant ces lots n'ont **toujours pas** de gar
 
 The recurring pattern is worth stating plainly, because it dictates where to look: in every case **levels 1 and 4 were correct** (they translate the primary text) and the error was born in the **pedagogical synthesis**, from where it spread to the derived `/questions/` pages and to the index metadata. The veilleur produces **candidates, never verdicts**, and never writes into a page: `--signalements` files them in the reader-report registry as `NEEDS_RABBINIC_VALIDATION`, deduplicated server-side, so the Rav triages machine findings and reader reports in one place. `.github/workflows/veilleur.yml` runs it every Sunday (needs the `ADMIN_PASSWORD` repo secret to file; without it, it reports only).
 
+## Le chat : ce qui est câblé côté serveur, et pourquoi (28 septembre 2026)
+
+Trois constats de l'interface publique ont montré que la qualité du chat ne tient pas au seul
+prompt. Chaque correctif vit dans un module partagé par TOUTES les voies de réponse (chemin
+agentique, corpus-first Haiku, corpus brut, secours à quota épuisé, `chat-corpus.js`) :
+
+- **`api/_reserve.js`** — la phrase de réserve UNIQUE (`RESERVE`, quatre langues) et la consigne
+  d'urgence statique (`URGENCE`). Six formulations différentes coexistaient ; le modèle en
+  recopiait deux dans une même réponse. Aucun fichier de `api/` ne doit réécrire cette phrase.
+- **`api/_urgence.js`** — détection d'un danger vital dans la question. Mesuré : « appelle les
+  secours… c'est à ton Rav de trancher ». La détection court-circuite corpus-first, pré-RAG et
+  sauvetage à quota, injecte une consigne de priorité devant la question, et sert une consigne
+  statique (0 modèle) si aucun modèle n'est disponible. La synthèse forcée a une variante sans
+  renvoi au Rav.
+- **`api/_sefaria.js`** — chaque résultat porte l'identité de l'ouvrage RÉELLEMENT servi
+  (`work`, `author`, `url`, `attribution_note`). Mesuré : `Shulchan_Arukh,_Orach_Chayim.317.4`
+  (Karo) attribué au Choul'han Aroukh HaRav. L'URL vient de la ref servie, jamais du jugé.
+- **`api/_corpus.js`** — chaque résultat porte sa `nature` (texte source / synthèse du site /
+  rubrique de décision) : une synthèse ne prouve pas l'original (borer 319).
+- **`api/_date.js`** — la date du jour dans un second bloc système NON caché.
+- **`api/_system-prompt.js`** — V3 : hiérarchie unique, états documentaires à la place des
+  pourcentages, identification des ouvrages, urgence, périmètre injecté. Le prompt Orah Haïm
+  reste un préfixe exact du prompt Yoreh De'ah (cache partagé).
+
+```bash
+npm test          # tests/chat/*.test.mjs — outils SIMULÉS, aucun modèle appelé
+# Les douze cas A-L contre l'API RÉELLE d'un déploiement (outils, routage, quotas réels) :
+DAAT_CHAT_API_URL=https://<deploiement>/api/chat node tests/chat/conversationnel.mjs
+```
+
+`npm test` vérifie le câblage et la spécification ; il ne démontre pas le comportement du
+modèle. Le banc conversationnel le fait, sur un déploiement de prévisualisation, et dépose son
+relevé dans `audit/conversationnel-<date>.md` avec une question de relecture humaine par cas.
+Un constat n'est clos qu'après cette passe.
+
 ## Ce que le corpus indexe — à lire avant d'écrire du contenu
 
 Deux chantiers avancent en parallèle sur ce dépôt : l'un **écrit le contenu**
@@ -606,7 +641,7 @@ Shared modules are prefixed `_` (e.g. `_kv.js`, `_auth.js`, `_corpus.js`, `_syst
 
 **Monetization / plans**: HelloAsso donations hit `helloasso-webhook.js` (verified via `HELLOASSO_WEBHOOK_SECRET`), which sets the user's plan in KV. Plans: `anonymous`, `free`, `khavroutha`, `beit_midrash`, `beit_midrash_plus`, `yeshiva`, `lifetime` — each with daily + monthly question caps defined in `chat.js`. `dedicaces.js` / `dedicace/[siman].js` drive the dedication banners.
 
-**Admin** (`api/admin/*`, pages under `admin/`): gated by `ADMIN_PASSWORD` / `SOUTIEN_ADMIN_SECRET` via the `X-Admin-Secret` header — **never in the query string**. `api/_admin-gate.js` is the shared door: a **server-side origin refusal** (`origineRefusee` → 403, allowlist extendable with `ADMIN_ALLOWED_ORIGINS`) backed by a matching CORS allowlist (`corsAdmin`) and a **failure counter** in KV (`freinage` / `echecAdmin` / `reussiteAdmin`, 5 per IP and 200 global per 15 min, `logs:admin`). Both exist because of what was measured in production on 22 September 2026: ten wrong secrets in a row returned ten plain `401`s with no throttling, and `Access-Control-Allow-Origin: *` was set **before** the auth check — so the `401` itself was readable cross-origin, and any web page could have the secret brute-forced by ordinary visitors' browsers. The origin check is **server-side on purpose**: the CORS allowlist alone did NOT hold — measured in production on 23 September 2026, **ten of fourteen** requests from a foreign origin still got `Access-Control-Allow-Origin: *`, because `vercel.json` sets that header on `/api/` at the platform level and the `/api/((?!admin/).*)` exclusion is not applied reliably. The deeper lesson is not syntax: **CORS is a browser control**. It asks the browser not to let a page READ the response; it never stops the request arriving, and it protects nothing that is not a browser. A page hosted elsewhere now gets `403` before the password is ever compared. The gate **fails open** when KV is unavailable: it still demands the password, and closing there would lock the real admin out on every Upstash hiccup. Two things it does NOT fix, and that remain open: the comparison is not constant-time, and the shared password itself — the real answer is to carry admin on the existing JWT/OTP (`_auth.js`). `api/daily-pack.js` and `api/social.js` still accept `?secret=` **on purpose**: they use `CRON_SECRET` and serve a browser login page that puts it in the URL; closing that needs a cookie-based login, not a one-line change.
+**Admin** (`api/admin/*`, pages under `admin/`): gated by `ADMIN_PASSWORD` / `SOUTIEN_ADMIN_SECRET` via the `X-Admin-Secret` header — **never in the query string**. `api/_admin-gate.js` is the shared door: a **server-side origin refusal** (`origineRefusee` → 403, allowlist extendable with `ADMIN_ALLOWED_ORIGINS`) backed by a matching CORS allowlist (`corsAdmin`) and a **failure counter** in KV (`freinage` / `echecAdmin` / `reussiteAdmin`, 5 per IP and 200 global per 15 min, `logs:admin`). Both exist because of what was measured in production on 22 September 2026: ten wrong secrets in a row returned ten plain `401`s with no throttling, and `Access-Control-Allow-Origin: *` was set **before** the auth check — so the `401` itself was readable cross-origin, and any web page could have the secret brute-forced by ordinary visitors' browsers. The origin check is **server-side on purpose**: the CORS allowlist alone did NOT hold — measured in production on 23 September 2026, **ten of fourteen** requests from a foreign origin still got `Access-Control-Allow-Origin: *`, because `vercel.json` sets that header on `/api/` at the platform level and the `/api/((?!admin/).*)` exclusion is not applied reliably. The deeper lesson is not syntax: **CORS is a browser control**. It asks the browser not to let a page READ the response; it never stops the request arriving, and it protects nothing that is not a browser. A page hosted elsewhere now gets `403` before the password is ever compared. The gate **fails open** when KV is unavailable: it still demands the password, and closing there would lock the real admin out on every Upstash hiccup. **The JWT path is now in place, and it is purely additive**: `adminParJeton` accepts the site's own session cookie when its email is listed in `ADMIN_EMAILS` (falling back to `ADMIN_EMAIL`), and falls back to the shared password otherwise. With the variable unset **nothing changes at all** — the password keeps working exactly as before, so configuring it can never lock the real admin out. What it buys that a shared password cannot: an **identity** (who changed a plan), an **expiry**, individual **revocation**, and no secret to pass around. ⚠️ The session cookie is `SameSite=None` by necessity (API on daatai.vercel.app, site on daattorah.com), so it rides along on requests a third-party page triggers: the **origin refusal is what stops CSRF**, and it becomes *more* important once a cookie can authenticate, not less. One thing still open: the password comparison is not constant-time. `api/daily-pack.js` and `api/social.js` still accept `?secret=` **on purpose**: they use `CRON_SECRET` and serve a browser login page that puts it in the URL; closing that needs a cookie-based login, not a one-line change.
 
 ### Environment variables
 

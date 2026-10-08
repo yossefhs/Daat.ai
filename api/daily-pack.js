@@ -94,8 +94,8 @@ export default async function handler(req, res) {
     // Daat Yomi du jour (si le plan couvre la date) — sinon curseur social.
     let yomiEntry = null;
     try { yomiEntry = getEntryForDate(now.dateISO); } catch { /* plan indisponible */ }
-    let totalDays = 194;
-    try { totalDays = loadPlan()?.meta?.totalDays || 194; } catch { /* défaut */ }
+    let totalDays = null;
+    try { totalDays = loadPlan()?.meta?.totalDays || null; } catch { /* défaut */ }
 
     let num = Number(req.query?.siman) || 0;
     if (!num) {

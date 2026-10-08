@@ -99,29 +99,33 @@ export const SEQUENCE = [
   {
     id: 'j3',
     dayOffset: 3,
-    subject: 'Comment lire un siman Daat — les 3 niveaux',
+    subject: 'Comment lire un siman Daat — les 4 niveaux',
     build(ctx = {}) {
       const body = `
-        <p>Tu as peut-être commencé le Siman 242. Si oui, tu as vu que chaque siman est étudié à <strong>3 niveaux</strong>. Voici ce que ça signifie :</p>
+        <p>Tu as peut-être commencé le Siman 242. Si oui, tu as vu que chaque siman est étudié à <strong>4 niveaux</strong>. Voici ce que ça signifie :</p>
         <p style="background:#FAF6EE;border-left:3px solid #C5A55A;padding:14px 18px;margin:16px 0;">
           <strong style="color:#2E7D52;">Niveau 1 — Base.</strong><br>
-          Initiation pédagogique. Texte hébreu, traduction française fluide, explication des concepts. À étudier d'abord, sans pression.
+          Initiation pédagogique. Texte hébreu intégral du Mehaber avec traduction française fluide et explication des concepts. À étudier d'abord, sans pression.
         </p>
         <p style="background:#FAF6EE;border-left:3px solid #6B3FA0;padding:14px 18px;margin:16px 0;">
           <strong style="color:#6B3FA0;">Niveau 2 — Lamdan.</strong><br>
-          Pilpoul approfondi. <em>Hakirat haYesod</em>, débats des Acharonim, sougyot du Talmud. Pour celui qui veut creuser.
+          Pilpoul approfondi. <em>Hakirat haYesod</em>, débats des Rishonim et Acharonim, sougyot du Talmud. Largement en hébreu, pour celui qui veut creuser les fondements.
         </p>
         <p style="background:#FFF8E5;border-left:3px solid #C5A55A;padding:14px 18px;margin:16px 0;">
           <strong style="color:#C5A55A;">Niveau 3 — Synthèse Magistrale.</strong><br>
-          Récap pour révision : axiomes, mnémoniques, arbres de décision, cas pratiques. À garder pour la mémorisation.
+          Récap structuré pour révision : axiomes, mnémoniques, arbres de décision, cas pratiques. À garder pour la mémorisation.
         </p>
-        <p>Le bon ordre : <strong>Base → Lamdan → Synthèse</strong>. Mais rien ne t'empêche de sauter la Lamdan si tu veux d'abord la pratique.</p>
+        <p style="background:#E8F4F8;border-left:3px solid #1A1F3A;padding:14px 18px;margin:16px 0;">
+          <strong style="color:#1A1F3A;">Niveau 4 — Daat HaRav.</strong><br>
+          La <em>chitah</em> de l'Admour HaZaken (Rabbi Schneur Zalman de Liadi, fondateur de Habad). Le texte intégral hébreu du Choulhan Aroukh HaRav avec le Kountress Aharon, traduction française, analyse, force du psak et conduite <em>lema'asseh</em>.
+        </p>
+        <p>Le bon ordre : <strong>Base → Lamdan → Synthèse → Daat HaRav</strong>. Mais rien ne t'empêche d'adapter selon ton parcours et ton temps disponible.</p>
         <p>Et pour toute question pendant ton étude : <a href="${SITE}/chat.html" style="color:#C5A55A;font-weight:600;">l'IA Daat</a> est là, avec sources citées.</p>
       `;
       const unsubUrl = unsubscribeUrl(ctx);
       return {
-        subject: 'Comment lire un siman Daat — les 3 niveaux',
-        html: shell('La pédagogie Daat — 3 niveaux par siman', body, {
+        subject: 'Comment lire un siman Daat — les 4 niveaux',
+        html: shell('La pédagogie Daat — 4 niveaux par siman', body, {
           href: `${SITE}/sources/shabbat/siman-242/`,
           label: 'Continuer Siman 242 →',
         }, null, ctx),
