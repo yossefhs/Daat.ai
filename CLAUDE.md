@@ -13,11 +13,11 @@ Elle comporte, au minimum :
 2. **Confrontation aux sources (Sefaria)** : re-télécharger le Mehaber (`Shulchan_Arukh,_Orach_Chayim.N`) et le Choul'han Aroukh HaRav (`Shulchan_Arukh_HaRav,_Orach_Chayim.N`) et **comparer le texte hébreu source du niveau-4** (`.sa-he` dans les blocs `seif-details`) au texte réel — verbatim, consonnes identiques — pour garantir qu'aucun seif n'a été inventé, tronqué, ni altéré, et que le nombre de seifim est exact. En cas de doute halakhique sur un contenu (traduction, explication, psak), **retourner voir la source** avant de publier.
 3. **Ne publier qu'une fois cette vérification entièrement verte**, et n'annoncer « c'est en ligne » qu'après confirmation. Toute divergence détectée doit être corrigée (et re-vérifiée) avant le déploiement.
 
-Le script `scripts/verify-oh-source.py N [N...]` automatise la confrontation aux sources pour le compartiment `oh-quotidien` ; le lancer sur chaque lot avant de proposer la mise en ligne.
+Le script `scripts/verify-oh-source.py N [N...]` automatise la confrontation aux sources pour le compartiment `oh-quotidien` ; le lancer sur chaque lot avant de proposer la mise en ligne. Il ne contrôle que le **niveau 4** (Choul'han Aroukh HaRav). Le **niveau 1** (Mehaber + Rama) a sa propre porte depuis le 8 octobre 2026, `scripts/verify-oh-niveau1-source.py N [N...]` : la lancer aussi, et elle ne doit pas devenir **plus** rouge sur les simanim du lot — 161 des 241 simanim y divergeaient déjà au-delà du ktiv quand elle a été écrite (voir plus bas).
 
 ### ⚠️ Lacune du Choul'han Aroukh HaRav dans `oh-quotidien` (niveau-4 = page-pont 🌉)
 
-Le Choul'han Aroukh HaRav (Admour HaZaken) **ne couvre pas tout Orah Haïm** : il y a des blocs entiers qu'il n'a pas rédigés. Dans le compartiment `oh-quotidien`, la première lacune connue est **les simanim 132 à 154** (il s'arrête au 131 et reprend au 155) ; d'autres trous suivent (ex. 157, 170-179, 210, 220, 240, 420…). **AVANT de produire un niveau-4, toujours vérifier le nombre de seifim SA HaRav** : `curl -s "https://www.sefaria.org/api/texts/Shulchan_Arukh_HaRav,_Orach_Chayim.N?context=0&pad=0"` → si `he` est vide (0 seif), l'Admour HaZaken **n'a pas écrit ce siman**.
+Le Choul'han Aroukh HaRav (Admour HaZaken) **ne couvre pas tout Orah Haïm** : il y a des blocs entiers qu'il n'a pas rédigés. Dans le compartiment `oh-quotidien`, les lacunes, **mesurées sur Sefaria pour les simanim 1 à 365** le 8 octobre 2026 (302 servis, 63 vides — les simanim au-delà de 365 n'ont pas été mesurés), sont **132-154, 157, 169-173, 175-176, 208-211, 216-241** en Orah Haïm quotidien, et **304, 322** en Hilkhot Chabbat. Cette liste a été fausse deux fois, et c'est la raison de la donner mesurée : ce fichier écrivait « 132 à 154 … ex. 157, 170-179, 210, 220, 240, 420… », puis un message de commit de la session elle-même (800f886e), repris par un arbitre (b9845687), l'a « corrigée » en « 132-154, 157, 170-173, 175-176, 208-241, 304, 322 » — soixante-six simanim pour un total annoncé de soixante-trois. La liste juste n'est entrée dans le code que le 7 octobre 2026 (`scripts/verifier-alignement.py`, `LACUNES_MESUREES`, commit b9845687) ; jusque-là la porte détectait la lacune à la volée, et sa docstring portait l'ancienne liste fausse. **AVANT de produire un niveau-4, toujours vérifier le nombre de seifim SA HaRav** : `curl -s "https://www.sefaria.org/api/texts/Shulchan_Arukh_HaRav,_Orach_Chayim.N?context=0&pad=0"` → si `he` est vide (0 seif), l'Admour HaZaken **n'a pas écrit ce siman**.
 
 Dans ce cas, **NE JAMAIS fabriquer de texte SA HaRav** (règle anti-fabrication ABSOLUE). Le niveau-4 devient une **page-passerelle sobre** (🌉), générée par `scripts/gen-bridge.py` (ou `/tmp/gen-bridge.py`) : elle explique honnêtement l'absence, renvoie aux niveaux 1-3 (Mehaber/Rama) et au **Siddour de l'Admour HaZaken** (où sa pratique sur la tefila est consignée), **sans aucune citation reconstruite ni le mot « n'existe pas sur Sefaria »**. Les niveaux 1-3 + index restent des pages normales (contenu Mehaber/Rama). `verify-oh-source.py` passe alors avec 0 seif attendu = 0 bloc `seif-details`. Décision utilisateur (2026) : **page-pont sobre**, pas de reconstruction façon 304/322.
 
@@ -47,6 +47,18 @@ l'étiquette de séif dans le titre **et dans le paragraphe** (`<p><strong>סע�
 `niveau-2-lamdan.html`, `niveau-3-synthese.html` pour les seules étiquettes inline. Il pose
 deux questions : *le bloc annoncé séif N est-il le séif N ?* et *les blocs se suivent-ils
 dans l'ordre de la source ?* Le lancer avant de publier une page de séif.
+
+⚠️ **La porte écrite pour le siman 243 ne lisait ni le niveau 4 ni deux langues sur trois.**
+Sa liste de fichiers s'arrêtait à `niveau-1-base.html` et trois pages françaises : 2 052 pages
+lues sur 7 695. Et sur les 1 095 pages `niveau-4-daat-harav`, son motif captait **zéro bloc** —
+le texte source y vit dans un `<p class="sa-he">` d'un `<details class="seif-details">`. Ce texte
+n'est pas le Choul'han Aroukh mais le **Choul'han Aroukh HaRav**, un autre livre à numérotation
+propre : le confronter au Mehaber aurait produit un bruit massif et faux. Réparée (octobre 2026),
+mesure du 8 octobre : 7 695 fichiers, 23 701 blocs, 22 887 étiquettes de séif, les trois langues,
+le niveau 4 confronté au Choul'han Aroukh HaRav ; plages chaînées « ז-ח-ט-י » lues en entier dans
+les deux écritures ; « סעיף אחד » n'est plus lu comme le séif 13. Le niveau 4 rend **0 anomalie**
+(9 926 blocs au commit 800f886e) : l'élargissement le plus rentable en couverture n'est pas celui
+qui trouve le plus.
 
 ## ⚠️ Avant tout push sur `main` : fusionner puis vérifier (RÈGLE ABSOLUE)
 
@@ -112,6 +124,40 @@ python3 scripts/verifier-citations.py --path sources/shabbat/siman-297
 # des trois simanim : des citations qui n'étaient confrontées à rien reviennent « texte réel,
 # mais pas mot pour mot ». C'est la porte qui fait enfin son travail, et il faut le dire —
 # j'avais d'abord annoncé « elle n'accuse rien de neuf » sur la foi du seul siman 246.
+#
+# ⚠️ OCTOBRE 2026 — CE QU'ELLE NE LISAIT PAS, ET CE QU'ON Y A TROUVÉ.
+#   · Les <meta name="description">, og:, twitter: et le JSON-LD : 7 432 citations d'entête, dans
+#     les trois langues, n'étaient pas LUES — invisibles à la lecture, lues par Google. Elles sont
+#     désormais examinées ; comme dans le corps, une partie reste sans référence.
+#   · L'Eliya Rabba manquait à OUVRAGES — un lot l'avait déclarée « non numérisée » ; elle est
+#     sur Sefaria (Eliyah_Rabbah_on_Shulchan_Arukh,_Orach_Chayim).
+#   · Le code 3 sort désormais dès qu'une citation part en NON_RESOLU parce qu'un ouvrage est
+#     injoignable, QUEL QUE SOIT l'ouvrage — il ne couvrait que la Michna Beroura. Une panne
+#     PARTIELLE d'un ouvrage (une référence sur deux) reste, elle, non signalée. Mesure qui l'a
+#     motivé, faite par sabotage par un arbitre (commit b9845687) : quand seule la recherche
+#     plein-texte tombait, l'ancienne porte rendait 8 INTROUVABLE FICTIVES — des accusations de
+#     fabrication nées d'une panne d'index.
+#   · Elle tourne en FRANÇAIS par défaut : son CSV ne couvre qu'UNE langue sur trois. Sur les onze
+#     verdicts graves de Chabbat, dix existaient à l'identique en -he et -en. --langues fr,he,en.
+#   · La פתיחה non numérotée décale la Michna Beroura aux simanim 69, 178, 211 (Orah Haïm) et
+#     243, 248, 253, 308, 317, 319, 337 (Chabbat) parmi les simanim du dépôt — le recensement
+#     exhaustif écrit dans le script en compte onze, le 645 compris, et un vérificateur l'a refait
+#     sur Sefaria pour 1-365 ; elle ne le fait pas aux simanim 250 et 251.
+# PREMIER BALAYAGE D'ORAH HAÏM — 1er octobre, porte d'AVANT la lecture des entêtes et l'ajout de
+# l'Eliya Rabba, français seul : 106 verdicts graves, soit 74 REF_FAUSSE, 16 INTROUVABLE et
+# 16 NON_RESOLU (le total des citations examinées ce jour-là n'est consigné nulle part ; un rejeu
+# de cette porte le 8 octobre rend 14 238 citations, 74 REF_FAUSSE, 16 INTROUVABLE, 15 NON_RESOLU).
+# Ces 106 verdicts ont été ouverts un par un contre Sefaria par quatre lots et quatre arbitres
+# (audit/oh-graves-*.md) : 7 verdicts de FABRICATION (5 phrases distinctes ; six en
+# niveau-2-lamdan, un en niveau-3-synthese) — des mots d'ordre talmudiques mis entre guillemets
+# (« מודים רבנן מאי אמרי » pour « העם מה הם אומרים », Sotah 40a, siman 127) et un dibour de
+# Tossafot inventé (siman 9) — et des dizaines de citations réelles MAL ADRESSÉES (un verset
+# donné sous l'adresse d'un daf, les mots du Choul'han Aroukh sous celle de la guemara).
+# Corrigées siman par siman en octobre 2026, chaque lot arbitré avant commit ; ce que les
+# arbitres ont laissé est dans audit/oh-corrections-restes.md. LEÇON : les 9 phrases fautives du
+# lot INTROUVABLE apparaissaient 134 fois dans 35 fichiers, dont une seule 57 fois — des chaînes
+# comptées, dont une partie étaient des paraphrases licites ou des citations à la bonne adresse.
+# Chaque occurrence se juge à part, et corriger la ligne du CSV n'est pas corriger.
 
 # Garde-fou de langue — chaque page est-elle écrite dans la langue qu'elle annonce ?
 # Trois échelles : la page entière, le bloc isolé, et l'entête (title/og/twitter/JSON-LD),
@@ -137,6 +183,28 @@ python3 scripts/verify-yd-source.py 129 130 131
 # a été produit à partir du 284 est conforme, le 309-314 excepté.
 python3 scripts/verify-chabbat-source.py 292 301 308
 python3 scripts/verify-chabbat-source.py --tous --bref
+
+# Garde-fou de source pour le NIVEAU 1 d'Orah Haïm — la porte qui manquait. verify-oh-source.py
+# ne regarde que le niveau 4 ; rien ne vérifiait que le niveau 1 des 241 simanim recopie le
+# Mehaber et le Rama, et la troncature du séif 10 d'Orah Haïm 8 (17 mots, trois langues)
+# n'était PLUS signalée par aucune porte (verifier-alignement la signalait jusque-là, en FR et EN,
+# par un faux motif). Nomme la famille de chaque écart : absent déclaré ou non,
+# TRONCATURE (début, fin, intérieure ; Rama ou Mehaber ; déclarée par « … » ou non), DÉPLACÉ,
+# ALTÉRATION (abréviation développée, parenthèse omise, mots changés), REPRISE.
+# Premier balayage, 8 octobre 2026 — 241 simanim, 1 453 séifim : IDENTIQUE 73 · ÉQUIVALENT 7 ·
+# TRONCATURE 56 · ALTÉRATION 90 · ABSENT NON DÉCLARÉ 14 · ABSENT DÉCLARÉ 1. 219 séifim tronqués,
+# dont 141 touchés dans la glose du RAMA ; sur 276 coupures (séif × position), 158 portent sur le
+# Rama et 26 seulement sont déclarées par « … ». 655 séifim altérés, dont 504 par une abréviation
+# développée — écart mécanique, qui ne change pas le din. Relevé : une PILE, pas une
+# liste de corrections, dans audit/orah-haim-recopie-niveau1.txt.
+# ⚠️ Faux positif connu : quand le chapeau du siman répète les premiers mots du séif א, la page
+# est appariée au chapeau et le séif 1 sort « TRONCATURE début » (67:1, 97:1). Le vérifier à la main.
+# Elle a redressé la LECTURE de verifier-couverture-encadres.py (non modifié, qui imprime toujours
+# « 264 séifim absents » pour Orah Haïm) : sa mesure est « séifim moins blocs ». 133 séifim sont
+# réellement absents de la page française (139 dans l'union des trois langues) ; les autres, 131 par
+# différence, sont présents — regroupés à plusieurs dans un bloc, ou réordonnés — et non absents.
+python3 scripts/verify-oh-niveau1-source.py 8 9 10
+python3 scripts/verify-oh-niveau1-source.py --tous --bref
 
 # Garde-fou d'URL et de langue — le nom du FICHIER promet une langue, le lang= en
 # annonce une, et le corps en parle une troisième. verifier-langues.py compare la
@@ -181,6 +249,10 @@ python3 scripts/fix-liens-langue.py [--dry-run]   # ne réécrit jamais vers une
 # un lot entier était prêt pour six simanim qui les avaient déjà. Il a trouvé
 # davantage : 31 simanim dont le niveau 1 ne reproduit qu'une PARTIE du siman
 # (264 séifim absents en Orah Haïm, 104 en Yoré Déa), dont 28 sans le déclarer.
+# ⚠️ CES 264 COMPTENT DES BLOCS, PAS DES SÉIFIM (mesure « séifim moins blocs ») :
+# verify-oh-niveau1-source.py, séif par séif, trouve 133 séifim réellement absents de
+# la page française d'Orah Haïm, dans 15 simanim ; les autres sont présents, regroupés
+# ou réordonnés. Lire ce chiffre-ci comme un plafond.
 python3 scripts/verifier-couverture-encadres.py --section orah-haim [--bref] [N …]
 
 # Garde-fou de dénombrement — la page COMPTE-t-elle juste ? « c'est le seul séif
@@ -267,12 +339,42 @@ python3 scripts/verifier-ancrage.py [N N …] [--path …]
 # extérieur pour trouver qu'elle ratait des vrais. Un garde-fou qu'on ne règle que dans un sens
 # devient muet sans qu'on s'en aperçoive.
 #
-# CHIFFRES RÉELS, porte réparée (les précédents, 9 et 35, sont à jeter) :
-#   Hilkhot Chabbat :  9 370 citations →  20 trous ·   113 coupures ·  59 couples distincts
-#   Yoré Déa        : 81 299 citations → 256 trous · 1 005 coupures · 349 couples distincts
+# CHIFFRES RÉELS — et ils ont changé trois fois, dont une fois par une RÉGRESSION :
+#   24 septembre 2026 : Chabbat 20 trous · 113 coupures ; Yoré Déa 256 · 1 005 ; Orah Haïm NON MESURÉ
+#     (le cache portait UN siman sur 241 — 47 % des répertoires du dépôt jamais passés par la porte).
+#   8 octobre 2026, contre le cache rempli entre fin septembre et le 1er octobre (Orah Haïm le
+#   1er octobre) — avant les corrections de Sefaria, voir plus bas : Chabbat 11 trous · 91 coupures ; Yoré Déa 37 · 1 369 ; Orah Haïm 292 · 958.
+# Ce qui a fait bouger ces chiffres, et chaque point est une façon de se tromper :
+#   · le RABATTEMENT : une citation de guemara exacte était accusée d'un TROU contre un Richon
+#     qui paraphrase la même guemara (siman 263, Tour). Les TROUS s'effondrent, à appareil
+#     identique : 244 → 22 en Yoré Déa, 13 → 5 en Chabbat (29 septembre).
+#   · presente() évaluée sur TOUT l'appareil : une citation tronquée de son œuvre, retrouvée
+#     telle quelle dans une œuvre voisine qui cite le même passage autrement, était déclarée
+#     confrontée — mutisme silencieux, sans aucun compteur. Témoin : Chabbat 353, où la page ne
+#     nomme aucune œuvre, où le trou contre le Mehaber est réel, et où l'Aroukh HaChoul'han, qui
+#     cite le séif en INVERSANT l'ordre, le masquait. La restriction à l'œuvre visée a rendu
+#     +58 TROUS — une population à trier, pas 58 défauts…
+#   · …et a ouvert une RÉGRESSION, poussée avant son arbitrage : le nom de l'œuvre était cherché
+#     dans une fenêtre qui ENJAMBAIT LES BLOCS — 39 des 58 TROUS gagnés venaient de là : 20 dans le
+#     bloc suivant, 12 dans un titre qui précède, 7 dans un bloc précédent. Le nom n'attribue plus la
+#     citation que s'il est dans le MÊME élément qu'elle, sa rangée de tableau, ou le src-ref qui
+#     la suit.
+#   · une cible dont le nom n'est pas un PRÉFIXE du ref servi n'atteint jamais son œuvre
+#     (« Beer Hetev » contre « Ba'er Hetev ») ; un préfixe en contient un autre (« Tur » dans
+#     « Turei Zahav ») ; et un motif de nom qui ignore la pleine graphie laisse ses citations à
+#     une voisine (« שולחן ערוך הרב » en toutes lettres était attribué au Mehaber).
+#   · une réponse Sefaria `error` (HTTP 200) était gravée dans le cache comme un appareil complet.
+#   · Défaut OUVERT, déclaré dans le script : une attribution juste portée par un TITRE au-dessus
+#     du bloc (<h4>ט״ז ס״ק א</h4>) n'est plus lue ; coût mesuré sur le corpus actuel : 0.
+# ⚠️ UN CACHE COMPLET COMPARE À UN INSTANTANÉ, ET L'INSTANTANÉ VIEILLIT. Balayage à froid du
+# 8 octobre 2026 (audit/troncatures-cache-froid-2026-10-08.txt), 513 simanim retéléchargés :
+# aucune œuvre manquante, mais 23 simanim divergeaient du cache rempli entre fin septembre et le
+# 1er octobre. Sefaria corrige son texte : surtout des coquilles d'OCR du Beit Yosef OC 342-365
+# (« אכילו » → « אפילו », « כטור » → « פטור »), plus un redécoupage de segments au siman 357 et une
+# correction de contenu au Biour Halakha 314. Une page qui cite juste était confrontée à la coquille.
 # Deux unités, et il faut les deux : les occurrences comptent chaque PAGE atteinte (un défaut
 # dans les trois langues est trois lecteurs trompés), les couples comptent le TRAVAIL réel.
-# Relevés dans audit/chabbat-troncatures.txt et audit/yoreh-deah-troncatures.txt.
+# Relevés dans audit/{chabbat,yoreh-deah,orah-haim}-troncatures.txt.
 # RÉSERVE À DONNER AVEC LES CHIFFRES : le mot אלא produit des candidats faibles — au siman 100
 # de Yoré Déa la suite non citée est « אלא חתיכת גיד וחתיכת אבר מיקרו », une précision de fin
 # de ס״ק et non un renversement. Le tri revient au lecteur.
@@ -292,7 +394,10 @@ python3 scripts/verifier-troncatures.py --section shabbat [--bref]
 # cellule en promet une · le ס״ק existe-t-il dans la Michna Beroura de ce siman.
 # Premier balayage de Hilkhot Chabbat : 308 étiquettes confrontées, 26 ANOMALIES sur
 # 7 simanim (242, 247-251, 264) — et toutes dans la plage 242-264, comme les troncatures.
-# Les 26 ont été corrigées ; l'état courant est 803 étiquettes, 0 anomalie, 12 candidats.
+# Les 26 ont été corrigées. État des pages au 8 octobre 2026, confronté au cache du 1er octobre
+# (la porte ne retélécharge rien quand son cache est complet), trois compartiments : 3 992 étiquettes
+# (805 Chabbat · 709 Orah Haïm · 2 478 Yoré Déa), 397 plages déployées sur toute leur étendue
+# (la porte ne testait que la borne HAUTE), 5 264 points de source, 0 anomalie, 93 candidats.
 #
 # ⚠️ CE « 26 » ÉTAIT UN PLANCHER ANNONCÉ COMME UN COMPTE, et trois agents de contrôle l'ont
 # établi indépendamment. La porte ne lisait que les chiffres ARABES : les colonnes des fichiers
@@ -315,8 +420,9 @@ python3 scripts/verifier-troncatures.py --section shabbat [--bref]
 # et ד, la page en annonce trois, aux séifim 1, 3 et 5. Le siman 250 a SIX ס״ק de Michna
 # Beroura, la page annonce « MB 250:14-17 ».
 # ⚠️ Le décalage de la פתיחה se MESURE, jamais ne se suppose : dans Mishnah_Berurah.N la
-# première entrée est la פתיחה non numérotée au siman 248 et ne l'est PAS aux simanim 250
-# et 251. La porte regarde si la première entrée porte le marqueur « (א) ».
+# première entrée est la פתיחה non numérotée aux simanim 69, 178, 211 (Orah Haïm) et 243, 248,
+# 253, 308, 317, 319, 337 (Chabbat) — recensement exhaustif dans verifier-citations.py —, et ne
+# l'est PAS aux simanim 250 et 251. La porte regarde si la première entrée porte le marqueur « (א) ».
 python3 scripts/verifier-etiquettes.py --section shabbat [--bref]
 python3 scripts/verifier-etiquettes.py 249
 
@@ -456,7 +562,7 @@ main en ajoutant des simanim.
 
 ## Content model — the core of the repo
 
-`sources/` holds **424 simanim** in three compartments — **Orah Haïm quotidien** (`sources/orah-haim/`, 241), **Hilkhot Shabbat** (`sources/shabbat/siman-242/` … `siman-365/`, 124) and **Yoreh De'ah** (`sources/yoreh-deah/`, 59). The catalogue of record is `data/simanim-disponibles.json` — a build output, never hand-edited; count from it or from disk, never from memory. Each siman directory holds an `index.html` plus up to **4 study levels**, and **every page exists in 3 languages**:
+`sources/` holds **513 simanim** in three compartments — **Orah Haïm quotidien** (`sources/orah-haim/`, 241), **Hilkhot Shabbat** (`sources/shabbat/siman-242/` … `siman-365/`, 124) and **Yoreh De'ah** (`sources/yoreh-deah/`, 148) — counted on disk on 8 October 2026; this line said 424 and 59 for weeks. The catalogue of record is `data/simanim-disponibles.json` — a build output, never hand-edited; count from it or from disk, never from memory. Each siman directory holds an `index.html` plus up to **4 study levels**, and **every page exists in 3 languages**:
 
 | Level | File stem | Audience |
 |-------|-----------|----------|
