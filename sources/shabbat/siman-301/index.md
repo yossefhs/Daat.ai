@@ -3,7 +3,7 @@
 > Choulhan Aroukh, Orah Haïm, Hilkhot Shabbat — Siman 301 (ש"א)
 
 - **Français :** Sortir avec vêtements et objets Shabbat
-- **עברית :** הַאֵיךְ יְהֵא הִלּוּכוֹ בְּשַׁבָּת
+- **עברית :** הֵיאַךְ יְהֵא הִלּוּכוֹ בְּשַׁבָּת
 - **English :** Going out with clothes and objects on Shabbat
 - **Path canonique :** https://daattorah.com/oh/301/
 - **Versions linguistiques :** [FR](https://daattorah.com/oh/301/) · [HE](https://daattorah.com/oh/301/he) · [EN](https://daattorah.com/oh/301/en)
