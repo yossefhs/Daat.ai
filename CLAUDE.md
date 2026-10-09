@@ -13,7 +13,7 @@ Elle comporte, au minimum :
 2. **Confrontation aux sources (Sefaria)** : re-télécharger le Mehaber (`Shulchan_Arukh,_Orach_Chayim.N`) et le Choul'han Aroukh HaRav (`Shulchan_Arukh_HaRav,_Orach_Chayim.N`) et **comparer le texte hébreu source du niveau-4** (`.sa-he` dans les blocs `seif-details`) au texte réel — verbatim, consonnes identiques — pour garantir qu'aucun seif n'a été inventé, tronqué, ni altéré, et que le nombre de seifim est exact. En cas de doute halakhique sur un contenu (traduction, explication, psak), **retourner voir la source** avant de publier.
 3. **Ne publier qu'une fois cette vérification entièrement verte**, et n'annoncer « c'est en ligne » qu'après confirmation. Toute divergence détectée doit être corrigée (et re-vérifiée) avant le déploiement.
 
-Le script `scripts/verify-oh-source.py N [N...]` automatise la confrontation aux sources pour le compartiment `oh-quotidien` ; le lancer sur chaque lot avant de proposer la mise en ligne. Il ne contrôle que le **niveau 4** (Choul'han Aroukh HaRav). Le **niveau 1** (Mehaber + Rama) a sa propre porte depuis le 8 octobre 2026, `scripts/verify-oh-niveau1-source.py N [N...]` : la lancer aussi, et elle ne doit pas devenir **plus** rouge sur les simanim du lot — 161 des 241 simanim y divergeaient déjà au-delà du ktiv quand elle a été écrite (voir plus bas).
+Le script `scripts/verify-oh-source.py N [N...]` automatise la confrontation aux sources pour le compartiment `oh-quotidien` ; le lancer sur chaque lot avant de proposer la mise en ligne. Il ne contrôle que le **niveau 4** (Choul'han Aroukh HaRav). Le **niveau 1** (Mehaber + Rama) a sa propre porte depuis le 8 octobre 2026, `scripts/verify-oh-niveau1-source.py N [N...]` : la lancer aussi, et elle ne doit pas devenir **plus** rouge sur les simanim du lot — 133 des 241 simanim y divergent encore au 9 octobre 2026, aucun par un séif absent sans le dire (voir plus bas). ⚠️ Sefaria sert **plusieurs éditions hébraïques** du Choul'han Aroukh, dont deux de référence pour chaque livre (l'édition par défaut et la Torat Emet numérotée), et les pages en recopient tantôt l'une, tantôt l'autre : les trois portes de source du Choul'han Aroukh (niveau 1 d'Orah Haïm, Chabbat, Yoré Déa) confrontent ces deux-là depuis le 9 octobre 2026, sous une règle unique — voir « Les éditions de Sefaria » plus bas. `verify-oh-source.py` (niveau 4) ne lit toujours qu'une édition du Choul'han Aroukh HaRav, dont Sefaria sert aussi deux éditions hébraïques.
 
 ### ⚠️ Lacune du Choul'han Aroukh HaRav dans `oh-quotidien` (niveau-4 = page-pont 🌉)
 
@@ -167,6 +167,51 @@ python3 scripts/verifier-citations.py --path sources/shabbat/siman-297
 python3 scripts/verifier-langues.py            # tout le site
 python3 scripts/verifier-langues.py --lignes   # + la liste des blocs à traduire
 
+# ⚠️ LES ÉDITIONS DE SEFARIA — à lire avant toute porte de source, et avant de recopier un séif.
+# Sefaria sert PLUSIEURS éditions hébraïques du même livre ; api/texts ne sert que le TEXTE de
+# l'édition par défaut (qu'il nomme dans heVersionTitle ; les autres n'y figurent que par leur titre) :
+#   https://www.sefaria.org/api/v3/texts/REF?version=hebrew%7Call  → « versions », chacune avec
+#   « versionTitle » et « text » (un segment par séif).
+#   · Orah Haïm (1-241) et Hilkhot Chabbat (242-365), même livre : « Maginei Eretz: Shulchan Aruch
+#     Orach Chaim, Lemberg, 1893 » (PAR DÉFAUT, non vocalisée, porte le chapeau « ובו יז סעיפים ») et
+#     « Torat Emet 363 » (vocalisée, DÉVELOPPE des abréviations — « לבה״כ » → « לבית הכסא » —, sans
+#     chapeau, leçons propres : « יאמר » / « יאמרו »). Sur 105 simanim de Chabbat, aussi « Torat Emet
+#     Freeware », et sur un siman « שלחן ערוך מטור ארוח חיים » ; R1 les écarte.
+#   · Yoré Déa : « Ashlei Ravrevei » (par défaut, Lemberg 1888), « Torat Emet 357 » (vocalisée, texte
+#     censuré : « עבודת כוכבים » pour « אלילים »), « Torat Emet Freeware » (113 simanim, entre 113 et
+#     234), « Wikisource » (51 simanim).
+# Les pages d'Orah Haïm recopient tantôt Maginei Eretz, tantôt Torat Emet (vocalisée), et beaucoup de
+# pages non vocalisées sont du Maginei Eretz aux abréviations développées comme le fait Torat Emet ;
+# 142 séifs mêlent les deux éditions. Chabbat et les simanim conformes de Yoré Déa recopient l'édition
+# par défaut ; les simanim 87-118 de Yoré Déa suivent souvent Torat Emet 357. Jusqu'au 9 octobre 2026,
+# les trois portes de source du Choul'han Aroukh ne lisaient que l'édition par défaut : une page fidèle
+# à Torat Emet y sortait « altérée » — plus de 140 séifs d'Orah Haïm comptés comme altérés ne l'étaient
+# que par l'édition (141 au premier tour du 8 octobre, et 49 de plus quand la porte a admis les leçons
+# mêlées dans un séif), et 28 séifs français de l'état de Chabbat du 14 septembre (31 avant la garde
+# ktiv).
+# Une première réparation retenait, séif par séif, l'édition la plus proche : ses arbitres l'ont fait
+# certifier conforme, code 0, sur des pages qui recopiaient une édition DÉSALIGNÉE (Freeware sert sous
+# Orah Haïm 344:1 le texte du 343:1, et la porte de Chabbat l'acceptait ; sous Yoré Déa 139 elle sert
+# celui du 138, que la garde de siman de la porte de Yoré Déa écartait déjà) ou LACUNAIRE (Freeware
+# 252:2 saute « מלאכתו בשבת אם היה עושה », 316:7 omet « ועקרבים » ; Freeware Yoré Déa 190:35 n'a pas
+# « הגה: וכן עיקר », la décision du Rama). D'où la RÈGLE COMMUNE aux trois portes de source :
+#   R1  éditions de référence : l'édition par défaut et la Torat Emet numérotée (363, 357), et ELLES
+#       SEULES ; Freeware et Wikisource sont ignorées, et la sortie le dit ;
+#   R2  la Torat Emet n'est admise pour un séif que si elle est ALIGNÉE sur le séif de même numéro de
+#       l'édition par défaut ;
+#   R3  UNE AUTRE ÉDITION EXPLIQUE UNE LEÇON, JAMAIS UNE OMISSION : tout passage de l'édition par défaut
+#       absent de la page reste signalé, « absent aussi de Torat Emet » le cas échéant — y compris une
+#       DITTOGRAPHIE de Torat Emet 357 (234:37 « או שרוי לך או שרוי לך » pour « או מותר ליך או שרוי ליך ») ;
+#   R4  chaque séif retenu hors de l'édition par défaut est imprimé avec son édition.
+# Et la GARDE KTIV : les portes d'Orah Haïm et de Chabbat ôtaient yod et vav pour comparer — à l'intérieur
+# du mot pour Orah Haïm, partout pour Chabbat, vav de conjonction compris —, si bien que « כוס » (coupe)
+# et « כיס » (poche), « מים » et « מום », « הוא » et « היא » avaient la même clé : une page qui changeait
+# l'un en l'autre sortait ÉQUIVALENT. La porte de Yoré Déa n'a jamais excusé le ktiv. Deux mots ne sont égaux au ktiv que si l'un s'obtient de
+# l'autre en AJOUTANT des yod/vav ; un échange est un mot changé, imprimé. Sous ÉQUIVALENT, la porte
+# LISTE les mots égaux au ktiv près, pour qu'on les contrôle.
+# POUR RECOPIER UN SÉIF : bloc vocalisé → Torat Emet, nikoud compris ; bloc non vocalisé → l'édition par
+# défaut, gershayim ״ et geresh ׳ ; un passage que Torat Emet omet se recopie de l'édition par défaut.
+
 # Garde-fou de source pour Yoré Déa — la concaténation des <blockquote class="text-source">
 # du niveau 1 reproduit-elle VERBATIM, et dans l'ordre, la totalité des seifim que
 # Sefaria donne pour ce siman ? Consonnes comparées, nikoud et ponctuation libres.
@@ -180,7 +225,11 @@ python3 scripts/verify-yd-source.py 129 130 131
 # parce que le ktiv haser/malé est le faux positif dominant et ne dit rien de la
 # fidélité à la source. Premier balayage, 14 septembre 2026 : 44 des 124 simanim
 # divergent au-delà du ktiv, et c'est un bloc — 242-283 et 309-314 ; tout ce qui
-# a été produit à partir du 284 est conforme, le 309-314 excepté.
+# a été produit à partir du 284 est conforme, le 309-314 excepté. Corrigés depuis :
+# au 9 octobre 2026, les 124 sont conformes (366 pages IDENTIQUES, 6 ÉQUIVALENTES ;
+# découpe de 242 et 243 en avertissement). Rejoué sous R1-R4 sur l'état du 14 septembre,
+# le compte reste 44, mais 28 séifs français n'y sont fidèles qu'à Torat Emet 363 (31
+# avant la garde ktiv) : une partie de ces « divergences » était du bruit d'édition.
 python3 scripts/verify-chabbat-source.py 292 301 308
 python3 scripts/verify-chabbat-source.py --tous --bref
 
@@ -191,18 +240,30 @@ python3 scripts/verify-chabbat-source.py --tous --bref
 # par un faux motif). Nomme la famille de chaque écart : absent déclaré ou non,
 # TRONCATURE (début, fin, intérieure ; Rama ou Mehaber ; déclarée par « … » ou non), DÉPLACÉ,
 # ALTÉRATION (abréviation développée, parenthèse omise, mots changés), REPRISE.
-# Premier balayage, 8 octobre 2026 — 241 simanim, 1 453 séifim : IDENTIQUE 73 · ÉQUIVALENT 7 ·
+# Premier balayage, 8 octobre 2026, contre la SEULE Maginei Eretz — 241 simanim, 1 453 séifim : IDENTIQUE 73 · ÉQUIVALENT 7 ·
 # TRONCATURE 56 · ALTÉRATION 90 · ABSENT NON DÉCLARÉ 14 · ABSENT DÉCLARÉ 1. 219 séifim tronqués,
 # dont 141 touchés dans la glose du RAMA ; sur 276 coupures (séif × position), 158 portent sur le
-# Rama et 26 seulement sont déclarées par « … ». 655 séifim altérés, dont 504 par une abréviation
-# développée — écart mécanique, qui ne change pas le din. Relevé : une PILE, pas une
+# Rama et 26 seulement sont déclarées par « … ». 655 séifim altérés, dont 504 « par une abréviation
+# développée » — chiffre FAUX par construction : une bonne part de ces séifs recopiaient fidèlement
+# Torat Emet 363 (voir « Les éditions de Sefaria » plus haut).
+# ÉTAT AU 9 OCTOBRE 2026, porte sous R1-R4 et garde ktiv : IDENTIQUE 88 · ÉQUIVALENT 20 · TRONCATURE 59 ·
+# ALTÉRATION 73 · ABSENT DÉCLARÉ 1 (le 32) · ABSENT NON DÉCLARÉ 0 — 133 divergents ; séifs, chacun sous
+# son pire défaut : 1 005 conformes, 136 tronqués, 264 altérés, 8 déplacés, 40 absents déclarés (par
+# famille, l'unité des 219 et 655 ci-dessus : 136 tronqués, 338 altérés, 12 déplacés ; coupures, en
+# séif × position : 123 sur la glose du Rama, 17 seulement déclarées par « … »). Entre les deux : les 14 simanim qui omettaient des séifs sans le dire (3 8 53 55 66 79 90 94
+# 113 128 153 158 159 160) ont été restaurés — 176 séifs, en tout ou en partie, dans au moins une
+# langue (commits 39d7d567 à 42140f53) —, puis texte rendu conforme et ORDRE du Choul'han Aroukh
+# rétabli (commits 368bb709 à b433e894), et ce que le Rav doit relire (traductions
+# nouvelles, 25 points d'encadrés que le texte restauré contredit ou nuance) est dans audit/oh-niveau1-a-relire-rav.md.
+# Le faux positif du chapeau (67:1, 97:1) a disparu avec la réparation. Relevé : une PILE, pas une
 # liste de corrections, dans audit/orah-haim-recopie-niveau1.txt.
-# ⚠️ Faux positif connu : quand le chapeau du siman répète les premiers mots du séif א, la page
-# est appariée au chapeau et le séif 1 sort « TRONCATURE début » (67:1, 97:1). Le vérifier à la main.
-# Elle a redressé la LECTURE de verifier-couverture-encadres.py (non modifié, qui imprime toujours
-# « 264 séifim absents » pour Orah Haïm) : sa mesure est « séifim moins blocs ». 133 séifim sont
+# Elle a redressé la LECTURE de verifier-couverture-encadres.py (non modifié), dont la mesure est
+# « séifim moins blocs » : il imprimait « 264 séifim absents » pour Orah Haïm le 8 octobre, et en
+# imprime 209 le 9 (24 simanim : au 32, des séifs réellement absents, et déclarés ; dans les 23
+# autres, dont 12 des 14 restaurés, des séifs regroupés dans un bloc passent pour absents). 133 séifim étaient
 # réellement absents de la page française (139 dans l'union des trois langues) ; les autres, 131 par
-# différence, sont présents — regroupés à plusieurs dans un bloc, ou réordonnés — et non absents.
+# différence, étaient présents — regroupés à plusieurs dans un bloc, ou réordonnés — et non absents.
+# Depuis la restauration du 9 octobre 2026, il n'en reste que 40, tous au siman 32, et déclarés.
 python3 scripts/verify-oh-niveau1-source.py 8 9 10
 python3 scripts/verify-oh-niveau1-source.py --tous --bref
 
@@ -250,9 +311,11 @@ python3 scripts/fix-liens-langue.py [--dry-run]   # ne réécrit jamais vers une
 # davantage : 31 simanim dont le niveau 1 ne reproduit qu'une PARTIE du siman
 # (264 séifim absents en Orah Haïm, 104 en Yoré Déa), dont 28 sans le déclarer.
 # ⚠️ CES 264 COMPTENT DES BLOCS, PAS DES SÉIFIM (mesure « séifim moins blocs ») :
-# verify-oh-niveau1-source.py, séif par séif, trouve 133 séifim réellement absents de
-# la page française d'Orah Haïm, dans 15 simanim ; les autres sont présents, regroupés
-# ou réordonnés. Lire ce chiffre-ci comme un plafond.
+# verify-oh-niveau1-source.py, séif par séif, trouvait le 8 octobre 2026 133 séifim
+# réellement absents de la page française d'Orah Haïm, dans 15 simanim ; les autres
+# étaient présents, regroupés ou réordonnés. Lire ce chiffre-ci comme un plafond. Depuis
+# la restauration du 9 octobre, il n'en reste que 40, au seul siman 32, déclarés ; la
+# porte de couverture, elle, imprime 209 (voir le bloc de verify-oh-niveau1-source).
 python3 scripts/verifier-couverture-encadres.py --section orah-haim [--bref] [N …]
 
 # Garde-fou de dénombrement — la page COMPTE-t-elle juste ? « c'est le seul séif
@@ -455,7 +518,7 @@ A fourth gate watches what those three structurally cannot see. The four halakhi
 
 **Quatre contrôles de plus sont nés en produisant Yoré Déa 119-145, chacun d'un défaut qu'aucun des autres ne pouvait voir.** Ils ne sont pas facultatifs : chacun a trouvé, sur des pages déjà publiées, quelque chose que les trois portes historiques laissaient passer.
 
-- `verify-yd-source.py` — le texte source lui-même. Les 50 simanim de Yoré Déa antérieurs échouent tous : leur niveau 1 développe les abréviations de Sefaria (`ויש אומרים` pour `וי״א`), laisse tomber des parenthèses de sources, remplace des mots par des synonymes. `verifier-citations.py` ne le voyait pas, parce qu'il juge les citations, pas la recopie du texte de base.
+- `verify-yd-source.py` — le texte source lui-même. Les 50 simanim de Yoré Déa antérieurs échouaient tous ; au 9 octobre 2026 il en reste 32, les simanim 87 à 118 (183-200 ont été refaits), et ils divergent de TOUTES les éditions de Sefaria, pas de la seule édition par défaut — ce n'est pas un artefact d'édition. Leur niveau 1 change et omet des mots bien plus qu'il ne développe des abréviations (mesure ponctuelle du 8 octobre, contre l'édition la plus proche de chaque siman, Wikisource comprise, script non conservé : de l'ordre de 700 mots changés et 200 omis, pour 164 abréviations développées). `verifier-citations.py` ne le voyait pas, parce qu'il juge les citations, pas la recopie du texte de base.
 - `verifier-url-langue.py` — l'URL contre le contenu. A trouvé 49 pages dont le `lang=` contredit le nom du fichier et 100 variantes jamais traduites, toutes dans les 50 simanim antérieurs.
 - `verifier-liens.py` — 27 liens morts en production, dont des renvois vers `/oh-quotidien/` pour des simanim qui vivent sous `/oh/`.
 - `verifier-balises.py` — 11 défauts de charpente sur 6 528 pages : `<body<body class="…">` dans trois index du siman 132, un `<li` sans chevron fermant dans un niveau 1 hébreu de Chabbat, des `<em>` à l'intérieur d'un `content=` de meta description.
