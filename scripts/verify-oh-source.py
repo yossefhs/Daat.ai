@@ -33,14 +33,20 @@ conclu pour ce qui n'a pas été lu. Une source absente n'est jamais une source 
      bloc ou autour ; aucune balise non vide écrite « /> » ; aucun attribut en double ; aucun bloc imbriqué ;
      aucun séif hors bloc (classe « seif… », titre h1-h6/summary/dt/th « סעיף X ») ; les caractères du texte :
      lettres, nikoud (sans paseq, sof pasuq ni nun hafukha), maqaf, ׳ ״, ponctuation ASCII, — – … « » “ ” ‘ ’,
-     ZWJ, espace insécable. Une page-pont ne porte aucun .sa-he, sauf 304 et 322, FIGÉES par empreinte.
+     ZWJ, espace insécable. Une page-pont ne porte aucun .sa-he, sauf 304 et 322, FIGÉES par empreinte ;
+  7. ce qui entoure le texte, mesuré de même et FIGÉ : le CSS de la page (la suite de ses <style>, par empreinte :
+     CSS_ADMIS, 225 suites pour les 1 095 pages), les <link> (LIENS_ADMIS : feuilles du site, polices Google),
+     <meta name="viewport"> (une seule valeur), aucun <meta name="color-scheme">, aucune <img> hors du texte
+     source, ni <picture>, <source>, <video>, <audio>, <canvas>, <svg>, ni srcset, ni style= qui suive l'écran,
+     le thème ou une ressource (vw, calc(), url(), image-set()…). Les scripts sont ceux du site (SCRIPTS_ADMIS).
   L'étage statique NE SIMULE PAS LE NAVIGATEUR : il ne lit ni la CSS ni le JavaScript. C'est l'étage 2.
 
 ÉTAGE 2, RENDU (--rendu) — ce que le lecteur VOIT. Les scripts sont fermés à l'étage 1 (ceux du site, et eux
 seuls) ; ici, Chromium ouvre la page servie en local (toute requête vers un autre hôte bloquée), à 1280×900, à
 390×844, et à UNE LARGEUR PAR INTERVALLE que les conditions @media de la page découpent (481, 641 et 761 px sur
 les pages actuelles), mesure dans un MONDE ISOLÉ (la page ne peut pas falsifier la mesure), ouvre chaque séif
-par un vrai clic sur son titre, parcourt la page, attend 1,2 s, puis :
+par un clic synthétique sur son titre (HTMLElement.click(), sans pointeur ni focus), parcourt la page, attend
+1,2 s, puis :
   - lit le CSSOM par le navigateur lui-même (@import, @media, échappements, variables compris), et n'admet que
     ce que les 1 095 pages emploient (mesure du 9 octobre 2026) : des règles de style, @media et @keyframes —
     ni @supports, @container, @layer, @scope, @property, ni CSS imbriqué, ni feuille adoptée ni arbre fantôme
@@ -50,8 +56,13 @@ par un vrai clic sur son titre, parcourt la page, attend 1,2 s, puis :
     aucun état (:hover, :focus…) ni pseudo-élément (::before, ::marker, ::selection…), aucune valeur qui suit
     l'écran ou le thème (vw, vh, %, calc(), min(), max(), clamp(), light-dark(), env(), attr(), color-scheme),
     aucune règle d'impression ou de mouvement réduit (elles ne sont pas rendues), aucun style en ligne ; sur la
-    chaîne, des propriétés typographiques ou de boîte seulement ; aucune animation sur la chaîne ou ses ancêtres,
-    ni transformation (scale, rotate, translate, zoom ; transform sur la chaîne) ;
+    chaîne, des propriétés typographiques ou de boîte seulement ; aucune animation sur la chaîne ou ses ancêtres.
+    Les sélecteurs sont lus comme le navigateur les lit (chaînes, crochets, échappements) et réécrits sans leurs
+    états — sous :not, la pseudo-classe tombe en entier : le sélecteur réécrit atteint plus, jamais moins ;
+  - exige, sur la chaîne et ses ancêtres, les valeurs CALCULÉES que les 1 095 pages y ont toutes (filtre, ombre,
+    transformation, opacité, découpe, masque, espacements, bidi, sens de droite à gauche du .sa-he, fond non
+    découpé aux glyphes, remplissage du glyphe = couleur, aucune transition…), et une police d'au moins 12 px
+    (les pages descendent à 14,2 px) ;
   - PHOTOGRAPHIE CHAQUE MOT deux fois, tel quel puis avec le seul texte source rendu transparent : un mot qui ne
     change pas les pixels n'est pas vu, quelle qu'en soit la cause (voile, dégradé, couleur, contour, surlignage,
     découpe, recouvrement). L'écran est parcouru par tuiles, en hauteur ET en largeur (une page de droite à gauche
@@ -67,15 +78,22 @@ CE QUE LA PORTE NE COUVRE PAS, et qui relève d'autres portes ou du relecteur :
   - les .sa-he HORS des blocs (3 752 citations des sections d'étude, dans 768 pages) : verifier-citations.py ;
   - les traductions et commentaires (.sa-fr, chidush, sections למעשה) : relecture, verifier-citations.py ;
   - du texte hébreu ajouté dans le div.sa-block hors du .sa-he, la place des <small>/<b> dans le .sa-he, un
-    séif fabriqué hors bloc sous la forme d'un paragraphe ordinaire (<strong>סעיף א.</strong> sert à 60 reprises,
-    légitimement, dans les explications hébraïques) ;
-  - ce que les scripts DU SITE affichent depuis d'autres hôtes (bannière de dédicace, chat), bloqués au rendu ;
-  - à l'intérieur d'un intervalle de largeur, une seule largeur est rendue : un élément d'une AUTRE partie de la
-    page (ni la chaîne ni un ancêtre) dont la taille suit l'écran (vw, %, calc…) pourrait recouvrir le texte à
-    une largeur et non à une autre ; en deçà de 320 px, rien n'est rendu ;
-  - l'impression, le mouvement réduit (leurs règles sont seulement interdites sur la chaîne et ses ancêtres), le
-    schéma sombre, forced-colors, la densité de pixels (aucune page n'emploie ces conditions, et l'étage 2 les
-    refuse) ; le temps au-delà de 1,2 s après l'ouverture des séifs ;
+    séif fabriqué hors bloc sous la forme d'un paragraphe ordinaire (« <strong>סעיף</strong> » paraît 42 fois dans
+    les niveaux 4, dont 36 sous la forme « סעיף X », légitimement, dans les explications hébraïques) ;
+  - ce que les scripts DU SITE font plus tard ou ailleurs : ce qu'ils affichent depuis d'autres hôtes (bannière
+    de dédicace, chat, bloqués au rendu), ce qu'ils insèrent pour un lecteur qui revient (daat-progress.js), les
+    classes qu'ils posent au clic (intra-links.js) — le CSS figé n'y attache rien qui cache le texte, et c'est
+    tout ce que la porte en sait ;
+  - les états d'interaction (survol, focus, ancre #…), le temps au-delà de 1,2 s : le CSS figé n'en porte aucun
+    sur le texte ou ses ancêtres (mesuré), et c'est ce qui en répond ;
+  - à l'intérieur d'un intervalle de largeur, une seule largeur est rendue : un élément d'une autre partie de la
+    page placé en pourcentage pourrait recouvrir le texte à une largeur et non à une autre ; en deçà de 320 px,
+    rien n'est rendu ;
+  - la POLICE : Google Fonts est un autre hôte, bloqué : la mesure se fait dans la police de repli de Chromium,
+    non dans Frank Ruhl Libre ; les moteurs autres que Chromium (Safari, Firefox) ; la densité de pixels (DPR 1
+    seulement) ; l'impression et le mouvement réduit (leurs règles sont seulement interdites sur la chaîne et ses
+    ancêtres) ; le schéma sombre et forced-colors (aucune page ne s'y déclare : <meta name="color-scheme">
+    refusé, CSS figé) ;
   - les mots dont les seuls crochets, guillemets ou ponctuation changent (ignorés à dessein).
 
 LES NORMALISATIONS, des deux côtés, et elles seules : NFC ; nikoud et te'amim retirés ; le maqaf est une
@@ -120,14 +138,17 @@ et 36. Orah Haïm 1, 3, 8, 11, 12, 13 omettaient des propositions dans les trois
 Chabbat, les pages HÉBRAÏQUES et ANGLAISES de 17 simanim — 261 (HE seule), 276, 309, 310, 311, 313, 321, 323,
 324, 328, 329, 330, 355, 356, 357, 358, 360 — omettaient des propositions que la page française portait (le
 lecteur hébreu ou anglais lisait un texte source tronqué) ; au 359, elles écrivaient « היא » pour « הוא ».
-Restaurés le jour même. Trois arbitrages adversariaux ont ensuite trouvé, sur des témoins, une centaine de
+Restaurés le jour même. Trois premiers arbitrages adversariaux ont ensuite trouvé, sur des témoins, une centaine de
 façons de tromper les versions intermédiaires — CSS (couleur du fond, opacité, police nulle, ::first-line,
 @import, variables), scripts, éléments recouvrants, balises auto-fermées, blocs hors <details>, lettres
 larges, « … » déplacée, dessins permutés. Chaque tentative d'énumérer les ruses de CSS en ouvrait d'autres, et
 faisait dépendre la porte de la feuille du chat (chat-widget.css, chargée par 1 056 pages) : d'où l'étage 2,
 où c'est le navigateur qui dit ce que le lecteur voit. Son premier état (calculs de styles, elementFromPoint) a
 été arbitré à son tour et trompé par des voiles en pointer-events:none, des dégradés, des contours de glyphes,
-des minuteurs : d'où la fermeture des scripts et la mesure par PIXELS.
+des minuteurs : d'où la fermeture des scripts et la mesure par PIXELS. Le quatrième a trouvé un texte caché
+au-delà de 1 280 px et un autre sous :focus-within : d'où une largeur rendue par intervalle @media. Le cinquième
+en a trouvé une vingtaine de plus, et TOUS passaient par du CSS ou un entête AJOUTÉS à la page : d'où le CSS et
+l'entête FIGÉS par mesure (point 7), et les valeurs calculées exigées sur la chaîne et ses ancêtres.
 """
 import sys, re, json, os, unicodedata, subprocess, difflib, importlib.util, hashlib
 from html.parser import HTMLParser
@@ -158,6 +179,69 @@ VIDES = {"br", "img", "hr", "meta", "link", "input", "wbr", "source", "area", "b
 MUETS = {"script", "style", "template", "noscript", "title", "textarea", "iframe", "noembed", "noframes", "object",
          "video", "audio", "canvas", "dialog", "select", "datalist", "svg", "math", "head", "del", "s", "strike"}
 ALTS = {"dessin de la lettre (édition Kehot)", "צורת האות (מהדורת קה״ת)", "drawing of the letter (Kehot edition)"}
+# L'ENTÊTE ET LE CSS, mesurés le 9 octobre 2026 sur les 1 095 pages, et FIGÉS (cinquième arbitrage : une vingtaine de
+# façons de cacher le texte au lecteur passaient toutes par du CSS AJOUTÉ à la page — sélecteur piégé, fond découpé aux
+# glyphes, filtre d'ancêtre, bidi forcé — ou par l'entête — <picture><source media>, <meta viewport>, ressource d'un
+# autre hôte). Les pages ne portent que des <style> nus : la suite de leurs contenus, espaces normalisés, a une
+# empreinte (_empreinte_css), et CSS_ADMIS est l'ensemble de celles des 1 095 pages (225 suites distinctes). Une page
+# dont le CSS change sort en « FEUILLE DE STYLE NON ADMISE » avec son empreinte : la relire, la rendre (--rendu), puis
+# l'ajouter ici. Les feuilles et scripts du SITE (assets/) sont admis par leur chemin, comme SCRIPTS_ADMIS.
+VIEWPORT_ADMIS = {"width=device-width, initial-scale=1.0"}
+# (rel, href) des <link> chargés ; alternate/canonical vers daattorah.com ne chargent rien et sont admis à part
+GF = "https://fonts.googleapis.com/css2?family="
+LIENS_ADMIS = {("preconnect", "https://fonts.googleapis.com"), ("preconnect", "https://fonts.gstatic.com"),
+               ("manifest", "/manifest.webmanifest"), ("apple-touch-icon", "/apple-touch-icon.png"),
+               ("icon", "../../../favicon.svg"), ("stylesheet", "../../../assets/css/chat-widget.css"),
+               ("stylesheet", "/assets/css/intra-links.css")} | {
+    (rel, GF + f) for rel in ("preload", "stylesheet") for f in (
+        "Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600&display=swap",
+        "Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600&display=swap",
+        "Frank+Ruhl+Libre:wght@300;400;500;700;900&display=swap",
+        "Cormorant+Garamond:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600&display=swap",
+        "Cormorant+Garamond:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@400;700&family=Inter:wght@400;500;600&display=swap",
+        "Frank+Ruhl+Libre:wght@400;700&display=swap",
+        "Cormorant+Garamond:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@400;700&family=Inter:wght@300;400;500;600&display=swap")}
+ATTRS_LIEN = {"rel", "href", "as", "onload", "crossorigin", "type", "hreflang"}
+# un style= hors de la chaîne : rien qui suive l'écran, le thème ou la densité de pixels (aucune page n'en porte)
+VARIABLE_EN_LIGNE = re.compile(r"[\d.][sld]?v(?:w|h|i|b|min|max)\b|[\d.]cq(?:w|h|i|b|min|max)\b|image-set\(|url\(|calc\(|"
+                               r"min\(|max\(|clamp\(|light-dark\(|env\(|attr\(", re.I)
+NON_ADMIS_HORS_BLOC = {"picture", "source", "video", "audio", "canvas", "svg", "math", "track", "marquee"}
+CSS_ADMIS = frozenset("""
+0093309ca9e82c58 05ade841c086ccd5 06e8684d21503bbe 08c0534061b6c36a 09378c39508f08e4 0982f2f70b1a348a 0a6d561defdea769
+0ad286c9d1c7c4fa 0dcb2def4b766cdb 0e2aa71870e59672 106c48f2eb928a20 107f99a065fe3cfd 109325c0396f5257 11cc56a32ee2134a
+1221b673743bfc89 1256b58ffa1c5c63 126802208cf992bb 1280100b27d7e7f3 132f0027367d893c 14c01fce1b230597 160407846298aba1
+17206fc3c56e1753 172fabf7c539a01a 18befccb7cbb10e7 1a251e56d647ff1d 1bb2ac0106ca8359 1d2510c6af80c6bb 1d80e875ad70cb83
+1da2ddff19c853ee 1e5bc9bb77769319 1ffa70c2e5762d42 203e52e92e92a25e 2346127e6bc60175 23bd756d498810d5 244c3513185ad8fa
+26a69a864239fc7c 28f99bb1c6e30871 299ff7d9c1ea2522 2a6ec3c871679905 2aa15a055307edde 2af6c2efa9c7ade0 2bb66a9a87ee236b
+2c1dd1284091c77a 2da86192278689ac 2e31c5c3dc206123 2e669a21ccbdd11b 2f3d53d659108f4d 30c311ce46bae71b 31752542020ae8f4
+3200e1023622aa98 34f3240819f1f111 354a721260b89058 386e072eb9032862 387e34c5aa8a340b 39696292868c462a 398de8fcd16f3980
+3b75b8b053bc5407 3bc4eeeda42678ab 3d7a2ef71e1dc03e 3f14a7f889a9954e 3f58cd3ff437ab23 3f5b51c2ce7988f2 3f893611f7eba9c4
+4111f01e41bab46c 41aad61cb8b34509 42058fa7bd562095 42b3b19de0252179 43e75f46c4b4510e 447ba891382568b6 449c9b8edacdc265
+4613339bbb5f3feb 492657d52cfbea23 4af98363b84fdcf6 4dd730a83d082f00 4df906b3cd4b5c0b 501d31de825f8808 50afb1805d41494c
+5251344014f692f1 52516f5bf25894e3 54bd09a4b7848fe6 575b901b8e24a475 58b4e3c31ef341f0 5a7c2164af2018fb 5ab29f01bfc8e163
+5b3a6161df6291e7 5b6389bc5da9198a 5b8659a5c2f55d3e 5e2012b9bdf3517a 5e9ec9f3c7b72eeb 5f195d31a93a9192 62608ca3c7542e4d
+650a065213907cc7 662b13ac6040f965 6781867b953605c3 6b3a6f3ac15fd5da 6bb6bfc151f7292b 6c0b53fa221a6de2 6d095cee9059f54e
+6dcd73aed3c7eda5 6e33b398113dab03 6f5a1d8be9a27aff 715531951a128dda 723d8871c2848ac0 72bd55f3087cca43 74252ca6bc51bded
+746ca15b36287a95 7665be70e4567594 77218a2f9876a3ac 78f050b2504ebec6 7924f1f5c154b159 795e5d0b9bbe0077 7a1e526da99b1186
+7cf6547f9bb867fd 7dd061a7f712e460 7de7df286905cd46 7f9b4742a7167236 8076f80942b37679 807c41c35994a8b5 8140006536ab8380
+84a0ea427425a868 85772bc41b3c319f 86d38757a0f5d819 870b2e25ee98a9ce 875841f095832bcc 89049b843f6b5f0b 897c16c449d12c10
+8d1c04b5e81fc63f 8e3a873f929c0549 8e82c1e795668604 8eac71761ad0fc0f 8f4a201247736a65 90d42ed6aefa6f77 912be9ba89f4c60e
+916bbebabdcf1139 927b331c138929eb 95168c64d2bec731 968911cb178d015d 9774fa338ea2aa0d 98c188e0779a0124 99e2d42ea67f61b4
+a0b004eff864788d a179b8191d904047 a1ce4f946ecc852b a215225e52bebf7e a2d42e020f2f712a a3eeca1e840ec4e7 a43705c9fb15b686
+a474cfcce20435e5 a50b1ecd9c157b59 a54cdfa98823badc a5694a2bb2bb1137 a749919d95beda7f a7bd12bd8137230d ab16cff2cbb254aa
+ab7e99f3eb0a309d abed6e97c8862408 ac9fb3b83658ea2d ad9ec45909238ddc b006f71693828389 b022da3d2c5cfa3c b0b4c9a63ac54133
+b0f7deb908f452ae b287e98e33c9d3cd b2afb605d974eb67 b415f344ca6303a9 b49665c3116129df ba9fd92e1ea13623 baf31224d2d1f514
+bb3c7980fc355770 bb747f9ecd372ab6 bc514a85fe0b5ba4 bd0156807a24d3f2 bd9191bc047511d0 bea7a9080ea0eb44 bfffd55712e53db5
+c1e8b4675601cfa2 c40ee016acafc46b c694ae481cfee143 c70968950d937d26 c8909a254476c76f c9fba1312cfbcb25 ca6f69d35ff7d630
+cabcd6edd43f6c24 cc209cfdabd468f9 cc6ea2645c6c1e50 ce473df24d57376b cf6e79a3f465ce33 cf8e55b93d438cca cfb309643475096b
+d26da9e3fd5ce588 d2c2f0dfccdd52bf d3c3dab9a14916c1 d49dd32538de9ded d5a915d3a0a07006 d7016aa867a32ea5 d9b18f9a8b943e91
+dc9eae1f0ee3f901 dcd5c924ce8780e8 dd0c180b75b5e11c dee545fd4d429502 e121a8821f00d5da e34a34e77c242568 e5e154ef4ccea99b
+e6571e55a6a3f995 e83fa67a1fef18ca e99bb4fba6ebc8bb ec1fabf48c020437 ed7ef0ee1657c348 ef9d3851bd8a7799 f15bf7d0e6a0dbde
+f2b9cb54c8922201 f2d16b5323ec1a91 f33abe92f60db04e f460995233c143d1 f4dcc89b99a55d41 f55bb9d162f4954c f67aa4bd1711d386
+f6a32642ff9d47df f6ea4d99687e72f9 f7092c1bde1df0c1 f7326a2882002b95 f9af17a3f4fe026e fb843db8dcea8453 fd2b0a3d2326c061
+fe976da66c024629
+""".split())
+
 # le seul style= que porte un .sa-he de bloc, mesuré le 9 octobre 2026 (OH 207, trois langues)
 STYLES_SAHE = {"color:var(--text-muted);font-size:15px;margin-top:14px"}
 
@@ -319,6 +403,8 @@ class Lecteur(HTMLParser):
         self.tous_sahe = []      # le texte de CHAQUE .sa-he de la page, dans ou hors bloc
         self._titres = []        # [balise, texte] des titres ouverts hors bloc
         self._script = None      # le texte du script en ligne en cours de lecture
+        self._style = None       # le texte du <style> en cours de lecture
+        self.styles = []         # le contenu de chaque <style>, dans l'ordre
 
     def _faute(self, fam, det):
         if len(self.fautes) < 60:
@@ -352,8 +438,31 @@ class Lecteur(HTMLParser):
                 self._faute("ATTRIBUT D'ÉVÉNEMENT NON ADMIS", f"<{tag} {k}=\"{v[:60]}\">")
             if re.sub(r"\s+", "", v).lower().startswith(("javascript:", "data:text/html")):
                 self._faute("URL SCRIPTÉE", f"<{tag} {k}=\"{v[:60]}\">")
-        if tag in INTERDITS:
+        if tag in INTERDITS or tag in NON_ADMIS_HORS_BLOC:
             self._faute("ÉLÉMENT NON ADMIS", f"<{tag}>")
+        if tag == "style":
+            if attrs:
+                self._faute("FEUILLE DE STYLE NON ADMISE", f"<style {' '.join(noms)}> (les pages ne portent que des <style> nus)")
+            self._style = ""
+        if tag == "link":
+            rel, href = " ".join(a.get("rel", "").lower().split()), a.get("href", "")
+            if rel in ("alternate", "canonical") and href.startswith("https://daattorah.com/") and not set(a) - {"rel", "href", "hreflang"}:
+                pass
+            elif (rel, href) not in LIENS_ADMIS or set(a) - ATTRS_LIEN:
+                self._faute("LIEN NON ADMIS", f"<link {' '.join(noms)} rel=\"{rel}\" href=\"{href[:70]}\">")
+        if tag == "meta":
+            nom = a.get("name", "").lower()
+            if nom == "viewport" and re.sub(r"\s+", " ", a.get("content", "")).strip() not in VIEWPORT_ADMIS:
+                self._faute("ÉLÉMENT NON ADMIS", f"<meta name=\"viewport\" content=\"{a.get('content', '')[:60]}\">")
+            if nom in ("color-scheme", "supported-color-schemes"):
+                self._faute("ÉLÉMENT NON ADMIS", f"<meta name=\"{nom}\"> (le rendu n'est mesuré qu'en clair)")
+        for k in ("srcset", "sizes", "imagesrcset", "imagesizes", "poster"):
+            if k in a:
+                self._faute("ATTRIBUT NON ADMIS", f"<{tag} {k}=…> (une ressource qui suit l'écran ou la densité de pixels)")
+        if a.get("style") and VARIABLE_EN_LIGNE.search(a["style"]):
+            self._faute("STYLE EN LIGNE NON ADMIS", f"<{tag} style=\"{a['style'][:70]}\"> (une valeur qui suit l'écran, le thème ou une ressource)")
+        if tag == "img" and not (self.sahe and self.bloc):
+            self._faute("ÉLÉMENT NON ADMIS", "<img> hors du texte source (aucune page n'en porte)")
         # un arbre fantôme déclaratif : ses feuilles de style échappent à document.styleSheets, donc au rendu (aucune
         # page n'en porte, aucun script du site n'en crée)
         if tag == "template" and any(k.startswith("shadowroot") for k in a):
@@ -421,6 +530,9 @@ class Lecteur(HTMLParser):
         self.bloc += est_bloc
 
     def handle_endtag(self, tag):
+        if tag == "style" and self._style is not None:
+            self.styles.append(self._style)
+            self._style = None
         if tag == "script" and self._script is not None:
             if hashlib.sha256(re.sub(r"\s+", "", self._script).encode()).hexdigest()[:16] not in SCRIPTS_EN_LIGNE:
                 self._faute("SCRIPT NON ADMIS", "script en ligne : « " + re.sub(r"\s+", " ", self._script).strip()[:70] + " »")
@@ -447,6 +559,9 @@ class Lecteur(HTMLParser):
         if self._script is not None:
             self._script += data
             return
+        if self._style is not None:
+            self._style += data
+            return
         if self.sahe and self.tous_sahe:
             self.tous_sahe[-1] += data
         for x in self._titres:
@@ -456,6 +571,10 @@ class Lecteur(HTMLParser):
             for ch in set(unicodedata.normalize("NFC", data)):
                 if not ("א" <= ch <= "ת" or NIKUD.match(ch) or ch in ADMIS):
                     self._faute("CARACTÈRE NON ADMIS", f"U+{ord(ch):04X} « {ch} » dans le texte source")
+
+
+def _empreinte_css(styles):
+    return hashlib.sha256("\x1e".join(re.sub(r"\s+", " ", x).strip() for x in styles).encode()).hexdigest()[:16]
 
 
 def _style_norm(s):
@@ -468,6 +587,12 @@ def lire_page(path):
     lx = Lecteur()
     lx.feed(html)
     lx.close()
+    if lx._style is not None:
+        lx.styles.append(lx._style)
+    e = _empreinte_css(lx.styles)
+    if e not in CSS_ADMIS:
+        lx._faute("FEUILLE DE STYLE NON ADMISE", f"empreinte {e} : le CSS de la page n'est pas l'un des 225 mesurés (voir CSS_ADMIS)")
+    lx.empreinte_css = e
     lx.empreinte = hashlib.sha256("|".join(re.sub(r"\s+", " ", unicodedata.normalize("NFC", x)).strip()
                                            for x in lx.tous_sahe).encode()).hexdigest()[:16]
     return lx.blocs, list(lx.fautes), lx
@@ -730,21 +855,58 @@ MESURE_JS = r"""
   // que des règles de style, @media et @keyframes ; aucun sélecteur qui atteint le texte source ou un ancêtre ne
   // porte de pseudo-classe d'état ni de pseudo-élément ; aucune valeur n'y dépend de la largeur (vw, %%, calc…) ;
   // aucune règle @media print ou prefers-reduced-motion ne les atteint. Tout le reste est refusé.
-  const STRUCT = /^(not|is|where|has|nth-child|nth-last-child|nth-of-type|nth-last-of-type|lang|dir|root|first-child|last-child|only-child|first-of-type|last-of-type|only-of-type|empty)$/i;
-  // le sélecteur sans ses états ni pseudo-éléments, aux arguments de :not/:is/:where/:has compris : il atteint
-  // PLUS d'éléments que l'original, jamais moins — un argument dont un membre se vide (« :is(.x, :focus) »,
-  // « :not(:hover) ») fait tomber toute la pseudo-classe ; au-delà de deux niveaux de parenthèses, le sélecteur
-  // devient illisible et la porte le refuse
-  const membres = s => { const r = []; let d = 0, cur = '';
-    for (const ch of s) { if (ch === '(') d++; if (ch === ')') d--; if (ch === ',' && d === 0) { r.push(cur); cur = ''; } else cur += ch; }
+  // LES SÉLECTEURS, lus comme le navigateur les lit : virgules, « : » et parenthèses comptés hors des chaînes, des
+  // crochets et des échappements (cinquième arbitrage : « [data-a=",[data-b="] .sa-he::before » coupé aux virgules
+  // donnait deux morceaux qui n'atteignaient rien)
+  const decouper = s => { const r = []; let d = 0, q = null, cur = '';
+    for (let i = 0; i < s.length; i++) { const ch = s[i];
+      if (ch === '\\') { cur += ch + (s[i + 1] || ''); i++; continue; }
+      if (q) { if (ch === q) q = null; cur += ch; continue; }
+      if (ch === '"' || ch === "'") { q = ch; cur += ch; continue; }
+      if (ch === '(' || ch === '[') d++; else if (ch === ')' || ch === ']') d--;
+      if (ch === ',' && d === 0) { r.push(cur); cur = ''; } else cur += ch; }
     r.push(cur); return r; };
-  const reecrire = s => s.replace(/(::?)([a-z-]+)(\((?:[^()]|\([^()]*\))*\))?/gi, (m, c, n, a) => {
-    if (!(c === ':' && STRUCT.test(n))) return '';
-    if (!a) return m;
-    const r = membres(a.slice(1, -1)).map(x => reecrire(x).trim());
-    return r.some(x => !x) ? '' : ':' + n + '(' + r.join(', ') + ')';
-  });
-  const nonStruct = s => [...s.matchAll(/(::?)([a-z-]+)/gi)].some(([, c, n]) => !(c === ':' && STRUCT.test(n)));
+  // [préfixe « : » ou « :: », nom, argument ou null, début, fin]
+  const pseudos = s => { const r = []; let q = null, br = 0;
+    for (let i = 0; i < s.length; i++) { const ch = s[i];
+      if (ch === '\\') { i++; continue; }
+      if (q) { if (ch === q) q = null; continue; }
+      if (ch === '"' || ch === "'") { q = ch; continue; }
+      if (ch === '[') { br++; continue; } if (ch === ']') { br--; continue; }
+      if (br || ch !== ':') continue;
+      const deb = i; let j = i + 1; if (s[j] === ':') j++;
+      const m = /^-?[a-zA-Z_][\w-]*/.exec(s.slice(j)); if (!m) continue;
+      let fin = j + m[0].length, arg = null;
+      if (s[fin] === '(') { let d = 0, qq = null, k = fin;
+        for (; k < s.length; k++) { const c = s[k];
+          if (c === '\\') { k++; continue; } if (qq) { if (c === qq) qq = null; continue; }
+          if (c === '"' || c === "'") { qq = c; continue; }
+          if (c === '(') d++; else if (c === ')') { d--; if (d === 0) break; } }
+        arg = s.slice(fin + 1, k); fin = k + 1; }
+      r.push([s.slice(deb, j), m[0].toLowerCase(), arg, deb, fin]); i = fin - 1; }
+    return r; };
+  const STRUCT = /^(not|is|where|has|nth-child|nth-last-child|nth-of-type|nth-last-of-type|lang|dir|root|scope|first-child|last-child|only-child|first-of-type|last-of-type|only-of-type|empty)$/;
+  const structurel = (c, n) => c === ':' && STRUCT.test(n);
+  const nonStruct = s => pseudos(s).some(([c, n, a]) => !structurel(c, n) || (a !== null && nonStruct(a)));
+  // le sélecteur sans ses états ni pseudo-éléments : il atteint PLUS d'éléments que l'original, jamais moins. Ce qui
+  // tombe devient « :is(*) » (le composé reste valide) ; sous :not la polarité s'inverse, et un :not dont l'argument
+  // porte un état tombe EN ENTIER (cinquième arbitrage : « html:not(html:not(:hover)) » réécrit « html:not(html) »
+  // n'atteignait plus rien)
+  const reecrire = s => { let out = '', k = 0;
+    for (const [c, n, a, deb, fin] of pseudos(s)) {
+      out += s.slice(k, deb); k = fin;
+      const tel = s.slice(deb, fin);
+      if (!structurel(c, n)) { out += ':is(*)'; continue; }
+      if (a === null || n === 'lang' || n === 'dir') { out += tel; continue; }
+      if (n === 'not') { out += nonStruct(a) ? ':is(*)' : tel; continue; }
+      if (/^nth-/.test(n)) { const o = /\s+of\s+/i.exec(a);
+        if (!o) { out += tel; continue; }
+        const r = reecrire(a.slice(o.index + o[0].length)).trim();
+        out += r ? ':' + n + '(' + a.slice(0, o.index) + ' of ' + r + ')' : ':is(*)'; continue; }
+      const m = decouper(a).map(x => reecrire(x).trim());           // :is, :where, :has
+      out += m.some(x => !x) ? ':is(*)' : ':' + n + '(' + m.join(', ') + ')';
+    }
+    return out + s.slice(k); };
   const VARIABLE = /[\d.][sld]?v(?:w|h|i|b|min|max)\b|[\d.]cq(?:w|h|i|b|min|max)\b|%%|calc\(|min\(|max\(|clamp\(|light-dark\(|env\(|attr\(/i;
   const MEDIA = new RegExp(%(media)s);
   const coupes = new Set();
@@ -789,7 +951,7 @@ MESURE_JS = r"""
     // l'impression et le mouvement réduit ne sont pas rendus : leurs règles n'atteignent ni la chaîne ni un ancêtre
     const nonRendu = cond.some(m => /print|prefers-reduced-motion/i.test(m));
     const ou = cond.length ? '@media ' + cond.join(' / ') + ' ' : '';
-    for (const sel0 of r.selectorText.split(',')) {
+    for (const sel0 of decouper(r.selectorText)) {
       const sel = reecrire(sel0).trim() || '*';
       let touche = false, toucheAnc = false;
       try { for (const e of document.querySelectorAll(sel)) { if (chaine.has(e)) { touche = true; break; } if (anc.has(e)) toucheAnc = true; } }
@@ -810,9 +972,25 @@ MESURE_JS = r"""
     }
   }
   out.coupes = [...coupes].sort((a, b) => a - b);
-  // états calculés : animation, liste, styles en ligne
+  // états calculés : animation, liste, styles en ligne ; et les valeurs que les 1 095 pages laissent TOUTES à leur
+  // défaut sur la chaîne et ses ancêtres (mesure du 9 octobre 2026, à 1280 et 390 px) — un filtre, une ombre, une
+  // transformation d'ancêtre rend le mot illisible sans l'effacer, et les pixels changent quand même
+  const DEFAUTS = {'filter': 'none', 'backdrop-filter': 'none', 'transform': 'none', 'text-shadow': 'none',
+    'mix-blend-mode': 'normal', 'opacity': '1', 'clip-path': 'none', 'mask-image': 'none', '-webkit-mask-image': 'none',
+    '-webkit-text-security': 'none', 'writing-mode': 'horizontal-tb', 'letter-spacing': 'normal', 'word-spacing': '0px',
+    'font-size-adjust': 'none', 'text-transform': 'none', 'font-feature-settings': 'normal', 'font-variant-ligatures': 'normal',
+    'perspective': 'none', 'content-visibility': 'visible', 'transition-delay': '0s', 'transition-duration': '0s',
+    '-webkit-text-stroke-width': '0px', 'background-clip': 'border-box', '-webkit-background-clip': 'border-box'};
+  const sousSahe = new Set();
+  for (const d of blocs) for (const he of d.querySelectorAll('.sa-he')) { sousSahe.add(he); he.querySelectorAll('*').forEach(x => sousSahe.add(x)); }
   for (const e of [...chaine, ...anc]) {
     const s = getComputedStyle(e);
+    const nom = e.tagName.toLowerCase() + (e.className && typeof e.className === 'string' ? '.' + e.className.trim().split(/\s+/)[0] : '');
+    for (const [p, v] of Object.entries(DEFAUTS)) { const w = s.getPropertyValue(p);
+      if (w && w !== v) faute('STYLE CALCULÉ HORS DE LA FORME MESURÉE', nom + ' ' + p + ': ' + w.slice(0, 50)); }
+    if (!/^(normal|isolate)$/.test(s.unicodeBidi)) faute('STYLE CALCULÉ HORS DE LA FORME MESURÉE', nom + ' unicode-bidi: ' + s.unicodeBidi);
+    if (sousSahe.has(e) && s.direction !== 'rtl') faute('STYLE CALCULÉ HORS DE LA FORME MESURÉE', nom + ' direction: ' + s.direction);
+    if (s.webkitTextFillColor && s.webkitTextFillColor !== s.color) faute('STYLE CALCULÉ HORS DE LA FORME MESURÉE', nom + ' -webkit-text-fill-color: ' + s.webkitTextFillColor);
     if (s.animationName && s.animationName !== 'none') faute('ANIMATION SUR LE TEXTE SOURCE OU UN ANCÊTRE', e.tagName.toLowerCase() + ' : ' + s.animationName);
     if (chaine.has(e) && /list-item/.test(s.display)) faute('LISTE (::marker) SUR LE TEXTE SOURCE', e.tagName.toLowerCase());
     if (chaine.has(e) && e.getAttribute('style') && e.tagName !== 'P') faute('STYLE EN LIGNE SUR LA CHAÎNE', e.tagName.toLowerCase());
@@ -843,6 +1021,7 @@ MESURE_JS = r"""
           const fs = parseFloat(getComputedStyle(n.parentElement).fontSize);
           let raison = null;
           if (!rs.length) raison = 'boîte vide';
+          else if (fs < 12) raison = 'police de ' + Math.round(fs * 10) / 10 + ' px (les pages descendent à 14,2 px)';
           else if (rs.some(r => r.height < Math.max(MINPX, 0.6 * fs) * 0.85)) raison = 'écrasé (' + Math.round(rs[0].height) + ' px)';
           const id = out.mots.length; window.__mots.push(rg);
           out.mots.push({b: bi, i: window.__mots.length - 1, t: m[0], r: rs.map(r => [r.left + X(), r.top + Y(), r.width, r.height]), raison});
@@ -884,6 +1063,12 @@ MASQUE_JS = r"""
 def _travailleur(conn, port, root):
     """Processus de rendu : un Chromium, des pages ; reçoit (chemin, n° de blocs), rend la liste des fautes."""
     import io
+    try:                          # mourir avec le parent, même tué par SIGKILL (Linux : PR_SET_PDEATHSIG)
+        import ctypes
+        import signal as _sig
+        ctypes.CDLL("libc.so.6").prctl(1, _sig.SIGKILL)
+    except Exception:  # noqa: BLE001
+        pass
     try:
         from playwright.sync_api import sync_playwright
         import numpy as np
@@ -1046,6 +1231,10 @@ class Rendu:
         self.port = self.srv.server_address[1]
         threading.Thread(target=self.srv.serve_forever, daemon=True).start()
         self.mp = multiprocessing.get_context("fork")
+        self.ouvriers = []
+        import signal as _sig
+        for sg in (_sig.SIGTERM, _sig.SIGHUP):       # un parent tué proprement tue ses processus de rendu
+            _sig.signal(sg, lambda *_a: sys.exit(3))
         self.ouvriers = [self._lancer() for _ in range(self.PROCESSUS)]
         return self
 
@@ -1196,8 +1385,9 @@ def main(argv):
             with Rendu() as rendu:
                 rendus = rendu.juger_tous(travaux)
         except RuntimeError as e:
+            # le rapport continue : un défaut établi par l'étage statique sort en 1, pas en 3
             print(f"⛔ RENDU IMPOSSIBLE : {e} — rien n'est conclu sur ce que voit le lecteur")
-            return 3
+            rendus = {cle: ([("RENDU IMPOSSIBLE", str(e)[:160], 1)], True) for cle, _p, _b in travaux}
     # 3. le rapport
     for n, sec, k, d in etats:
         if k == "absent":

@@ -246,7 +246,7 @@ python3 scripts/verify-chabbat-source.py --tous --bref
 # propositions que la page française portait, et le 359 écrivait « היא » pour « הוא » ; 36:2 avait perdu ses 27
 # dessins de lettres (« זוֹ תְּמוּנַת הָאוֹתִיּוֹת: »), 32:36 ses deux. Tous restaurés le 9 octobre ; les traductions
 # nouvelles et les synthèses que le texte rétabli contredit sont dans audit/niv4-a-relire-rav.md.
-# ⚠️ L'ÉTAGE --rendu N'EST PAS UNE OPTION DE CONFORT. Quatre arbitrages ont trouvé plus d'une centaine de façons
+# ⚠️ L'ÉTAGE --rendu N'EST PAS UNE OPTION DE CONFORT. Cinq arbitrages ont trouvé plus d'une centaine de façons
 # de faire sortir vert un texte que le lecteur ne voit pas (couleur du fond, opacité, police nulle, ::first-line,
 # @import, variable CSS redéfinie, voile en pointer-events:none, dégradé, contour de glyphe, minuteur, script) ;
 # chaque tentative d'énumérer ces ruses en ouvrait d'autres. D'où : les scripts FERMÉS (ceux du site, et eux
@@ -257,7 +257,14 @@ python3 scripts/verify-chabbat-source.py --tous --bref
 # page est donc rendue à 1280 et 390 px PLUS une largeur par intervalle que découpent ses propres conditions
 # @media (481, 641 et 761 px aujourd'hui), et le CSS qui atteint le texte source ou ses ancêtres n'admet que ce
 # que les 1 095 pages emploient (mesure du 9 octobre 2026) : ni état, ni pseudo-élément, ni vw/%/calc(), ni
-# règle d'impression ou de mouvement réduit, ni @supports/@container/@layer/CSS imbriqué. Une passe sans --rendu l'imprime : « RENDU NON
+# règle d'impression ou de mouvement réduit, ni @supports/@container/@layer/CSS imbriqué. Le cinquième arbitrage en
+# a encore trouvé une vingtaine — sélecteur piégé par une virgule dans une chaîne ou par « :not(:not(:hover)) »,
+# fond découpé aux glyphes, filtre ou ombre posés sur un ancêtre, bidi forcé, <picture><source media>, <meta
+# viewport>, feuille d'un autre hôte — et TOUS passaient par du CSS ou un entête AJOUTÉS à la page. D'où leur GEL :
+# la suite des <style> de chaque page doit être l'une des 225 empreintes mesurées sur les 1 095 pages
+# (CSS_ADMIS), les <link> l'un des chemins admis, aucune image, <picture> ni srcset hors du texte source ; et les
+# valeurs CALCULÉES sur le texte et ses ancêtres doivent être celles que toutes les pages y ont. Une page dont le
+# CSS change sort en « FEUILLE DE STYLE NON ADMISE » avec son empreinte : la relire, la rendre, puis l'admettre. Une passe sans --rendu l'imprime : « RENDU NON
 # EXÉCUTÉ ». Une page qui sort de la forme mesurée (chaîne details > div.sa-block > p.sa-he, balises
 # br/b/small/img, liste de caractères) n'est pas certifiable : la faire entrer dans la forme, ou mesurer et
 # justifier l'élargissement dans la docstring.
