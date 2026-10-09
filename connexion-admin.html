@@ -72,10 +72,13 @@
   function json(res) { return res.json().catch(function () { return {}; }); }
 
   // La session est-elle celle d'un ADMINISTRATEUR ? Une session valide ne suffit
-  // pas : le serveur doit reconnaître l'adresse (ADMIN_EMAILS).
+  // pas : le serveur doit reconnaître l'adresse (ADMIN_EMAILS). On le demande à
+  // /api/auth/me et JAMAIS à /api/admin/* : là, une sonde sans identifiants compte
+  // comme un échec de mot de passe, et cinq visites bloquaient l'adresse IP.
   function estAdmin() {
-    return fetch('/api/admin/stats?action=overview&days=1', { credentials: 'same-origin' })
-      .then(function (r) { return r.status === 200; })
+    return fetch('/api/auth/me', { credentials: 'same-origin' })
+      .then(function (r) { return r.ok ? r.json() : {}; })
+      .then(function (j) { return j.admin === true; })
       .catch(function () { return false; });
   }
 
