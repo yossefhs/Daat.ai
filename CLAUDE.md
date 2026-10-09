@@ -250,9 +250,14 @@ python3 scripts/verify-chabbat-source.py --tous --bref
 # de faire sortir vert un texte que le lecteur ne voit pas (couleur du fond, opacité, police nulle, ::first-line,
 # @import, variable CSS redéfinie, voile en pointer-events:none, dégradé, contour de glyphe, minuteur, script) ;
 # chaque tentative d'énumérer ces ruses en ouvrait d'autres. D'où : les scripts FERMÉS (ceux du site, et eux
-# seuls), et le rendu par Chromium qui PHOTOGRAPHIE chaque mot, tel quel puis transparent, à 1280 et 390 px — un
-# mot qui ne change pas les pixels n'est pas vu, quelle qu'en soit la cause. L'étage statique vérifie le texte et
-# la forme de la page ; le rendu dit ce que le lecteur voit. Une passe sans --rendu l'imprime : « RENDU NON
+# seuls), et le rendu par Chromium qui PHOTOGRAPHIE chaque mot, tel quel puis transparent — un mot qui ne change
+# pas les pixels n'est pas vu, quelle qu'en soit la cause. L'étage statique vérifie le texte et la forme de la
+# page ; le rendu dit ce que le lecteur voit. Deux largeurs ne suffisaient pas : au quatrième arbitrage, un texte
+# rendu transparent sous « @media (min-width: 1281px) » sortait vert, comme un autre sous « :focus-within ». La
+# page est donc rendue à 1280 et 390 px PLUS une largeur par intervalle que découpent ses propres conditions
+# @media (481, 641 et 761 px aujourd'hui), et le CSS qui atteint le texte source ou ses ancêtres n'admet que ce
+# que les 1 095 pages emploient (mesure du 9 octobre 2026) : ni état, ni pseudo-élément, ni vw/%/calc(), ni
+# règle d'impression ou de mouvement réduit, ni @supports/@container/@layer/CSS imbriqué. Une passe sans --rendu l'imprime : « RENDU NON
 # EXÉCUTÉ ». Une page qui sort de la forme mesurée (chaîne details > div.sa-block > p.sa-he, balises
 # br/b/small/img, liste de caractères) n'est pas certifiable : la faire entrer dans la forme, ou mesurer et
 # justifier l'élargissement dans la docstring.

@@ -37,16 +37,21 @@ conclu pour ce qui n'a pas été lu. Une source absente n'est jamais une source 
   L'étage statique NE SIMULE PAS LE NAVIGATEUR : il ne lit ni la CSS ni le JavaScript. C'est l'étage 2.
 
 ÉTAGE 2, RENDU (--rendu) — ce que le lecteur VOIT. Les scripts sont fermés à l'étage 1 (ceux du site, et eux
-seuls) ; ici, Chromium ouvre la page servie en local (toute requête vers un autre hôte bloquée), à 1280×900 puis
-à 390×844, mesure dans un MONDE ISOLÉ (la page ne peut pas falsifier la mesure), ouvre chaque séif par un vrai
-clic sur son titre, parcourt la page, attend 1,2 s, puis :
-  - lit le CSSOM par le navigateur lui-même (@import, @media, @layer, échappements, variables compris) : les
-    règles qui atteignent réellement le bloc, sa chaîne jusqu'au .sa-he et son contenu, à toute largeur, ne
-    portent que des propriétés typographiques ou de boîte ; aucun pseudo-élément (::before, ::after, ::marker,
-    ::first-line, ::first-letter, ::selection, ::highlight) ni aucun état (:hover, :focus…) ne les vise ; seules
-    les conditions @media de largeur, d'impression et prefers-reduced-motion sont admises (les seules que les
-    pages emploient) ; aucune police n'est définie par la page ; aucune animation sur la chaîne ou ses
-    ancêtres, ni transformation (scale, rotate, translate, zoom ; transform sur la chaîne) ;
+seuls) ; ici, Chromium ouvre la page servie en local (toute requête vers un autre hôte bloquée), à 1280×900, à
+390×844, et à UNE LARGEUR PAR INTERVALLE que les conditions @media de la page découpent (481, 641 et 761 px sur
+les pages actuelles), mesure dans un MONDE ISOLÉ (la page ne peut pas falsifier la mesure), ouvre chaque séif
+par un vrai clic sur son titre, parcourt la page, attend 1,2 s, puis :
+  - lit le CSSOM par le navigateur lui-même (@import, @media, échappements, variables compris), et n'admet que
+    ce que les 1 095 pages emploient (mesure du 9 octobre 2026) : des règles de style, @media et @keyframes —
+    ni @supports, @container, @layer, @scope, @property, ni CSS imbriqué, ni feuille adoptée ni arbre fantôme
+    (shadow DOM, dont les feuilles échappent au CSSOM du document) ; des conditions @media de largeur en
+    px, d'impression et prefers-reduced-motion, et rien d'autre ; aucune police définie par la page. Sur les
+    règles qui atteignent réellement le bloc, sa chaîne jusqu'au .sa-he et son contenu, OU l'un de ses ancêtres :
+    aucun état (:hover, :focus…) ni pseudo-élément (::before, ::marker, ::selection…), aucune valeur qui suit
+    l'écran ou le thème (vw, vh, %, calc(), min(), max(), clamp(), light-dark(), env(), attr(), color-scheme),
+    aucune règle d'impression ou de mouvement réduit (elles ne sont pas rendues), aucun style en ligne ; sur la
+    chaîne, des propriétés typographiques ou de boîte seulement ; aucune animation sur la chaîne ou ses ancêtres,
+    ni transformation (scale, rotate, translate, zoom ; transform sur la chaîne) ;
   - PHOTOGRAPHIE CHAQUE MOT deux fois, tel quel puis avec le seul texte source rendu transparent : un mot qui ne
     change pas les pixels n'est pas vu, quelle qu'en soit la cause (voile, dégradé, couleur, contour, surlignage,
     découpe, recouvrement). L'écran est parcouru par tuiles, en hauteur ET en largeur (une page de droite à gauche
@@ -56,7 +61,7 @@ clic sur son titre, parcourt la page, attend 1,2 s, puis :
     pas lisible), que le texte et le nombre de blocs après les scripts sont ceux du fichier, et que chaque dessin
     est chargé, visible, et n'a pas été changé ;
   - tue un processus de rendu bloqué (900 s par page) : la page sort en « RENDU IMPOSSIBLE », code 3.
-  Trois processus en parallèle ; ~1 h pour les 1 095 pages, quelques minutes pour un lot.
+  Trois processus en parallèle ; ~2 h 30 pour les 1 095 pages, quelques minutes pour un lot.
 
 CE QUE LA PORTE NE COUVRE PAS, et qui relève d'autres portes ou du relecteur :
   - les .sa-he HORS des blocs (3 752 citations des sections d'étude, dans 768 pages) : verifier-citations.py ;
@@ -65,10 +70,12 @@ CE QUE LA PORTE NE COUVRE PAS, et qui relève d'autres portes ou du relecteur :
     séif fabriqué hors bloc sous la forme d'un paragraphe ordinaire (<strong>סעיף א.</strong> sert à 60 reprises,
     légitimement, dans les explications hébraïques) ;
   - ce que les scripts DU SITE affichent depuis d'autres hôtes (bannière de dédicace, chat), bloqués au rendu ;
-  - les largeurs autres que 1280 et 390 px (les règles qui atteignent la chaîne sont jugées à toute largeur,
-    mais un élément d'une autre partie de la page qui ne recouvrirait le texte qu'entre deux paliers ne l'est
-    pas), le schéma sombre, forced-colors, la densité de pixels (aucune page n'emploie ces conditions, et
-    l'étage 2 les refuse) ; le temps au-delà de 1,2 s après l'ouverture des séifs ;
+  - à l'intérieur d'un intervalle de largeur, une seule largeur est rendue : un élément d'une AUTRE partie de la
+    page (ni la chaîne ni un ancêtre) dont la taille suit l'écran (vw, %, calc…) pourrait recouvrir le texte à
+    une largeur et non à une autre ; en deçà de 320 px, rien n'est rendu ;
+  - l'impression, le mouvement réduit (leurs règles sont seulement interdites sur la chaîne et ses ancêtres), le
+    schéma sombre, forced-colors, la densité de pixels (aucune page n'emploie ces conditions, et l'étage 2 les
+    refuse) ; le temps au-delà de 1,2 s après l'ouverture des séifs ;
   - les mots dont les seuls crochets, guillemets ou ponctuation changent (ignorés à dessein).
 
 LES NORMALISATIONS, des deux côtés, et elles seules : NFC ; nikoud et te'amim retirés ; le maqaf est une
@@ -347,6 +354,10 @@ class Lecteur(HTMLParser):
                 self._faute("URL SCRIPTÉE", f"<{tag} {k}=\"{v[:60]}\">")
         if tag in INTERDITS:
             self._faute("ÉLÉMENT NON ADMIS", f"<{tag}>")
+        # un arbre fantôme déclaratif : ses feuilles de style échappent à document.styleSheets, donc au rendu (aucune
+        # page n'en porte, aucun script du site n'en crée)
+        if tag == "template" and any(k.startswith("shadowroot") for k in a):
+            self._faute("ÉLÉMENT NON ADMIS", "<template shadowrootmode> (arbre fantôme)")
         if tag == "meta" and a.get("http-equiv", "").lower() in ("refresh", "set-cookie", "content-security-policy"):
             self._faute("ÉLÉMENT NON ADMIS", f"<meta http-equiv=\"{a['http-equiv']}\">")
         classes = a.get("class", "").lower().split()
@@ -645,18 +656,19 @@ def juger(n, segs, path):
 #      remplacer elementFromPoint ni getComputedStyle ;
 #   3. chaque séif est ouvert par un vrai clic sur son <summary> ; la page est parcourue de haut en bas ; la
 #      mesure a lieu après 1,2 s ;
-#   4. les règles CSS qui ATTEIGNENT réellement le bloc, sa chaîne jusqu'au .sa-he et son contenu (évaluées
-#      par le navigateur, toutes conditions @media comprises, états :hover/:focus/:active retirés) ne portent
-#      que des propriétés typographiques ou de boîte (CSS_CHAINE) ; aucun pseudo-élément (::before, ::after,
-#      ::marker, ::first-line, ::first-letter, ::selection, ::highlight) ne vise le texte source ; sur les
-#      ancêtres, aucune propriété qui masque ; aucune animation ; seules sont admises les conditions @media de
-#      largeur, d'impression et prefers-reduced-motion — les seules que les pages emploient ;
+#   4. le CSSOM n'admet que ce que les pages emploient (règles de style, @media, @keyframes ; conditions de
+#      largeur en px, d'impression, de mouvement réduit). Les règles qui ATTEIGNENT réellement le bloc, sa chaîne
+#      jusqu'au .sa-he et son contenu, ou un de ses ancêtres (évaluées par le navigateur sur le sélecteur privé
+#      de ses états et pseudo-éléments, qui atteint donc plus et jamais moins) : ni état ni pseudo-élément, ni
+#      valeur qui suive l'écran ou le thème, ni règle d'impression ou de mouvement réduit ; sur la chaîne, des
+#      propriétés typographiques ou de boîte seulement (CSS_CHAINE) ; aucune animation ;
 #   5. chaque mot est photographié deux fois, tel quel puis rendu transparent : s'il ne change pas les pixels,
 #      le lecteur ne le voit pas (un voile, un dégradé, une couleur, un contour, un surlignage, une découpe —
 #      quelle qu'en soit la cause) ; un mot qui échoue est repris seul, au milieu de l'écran, contre les
 #      éléments fixes. L'ordre visuel des mots doit être celui du texte (droite à gauche, ligne après ligne) ;
-#   6. le tout à 1280×900 et à 390×844 (téléphone) ;
-#   7. un processus de rendu bloqué plus de 240 s est tué : la page sort en « RENDU IMPOSSIBLE », code 3.
+#   6. le tout à 1280×900, à 390×844 (téléphone) et à la plus petite largeur de chaque autre intervalle que les
+#      conditions @media découpent (largeurs_supplementaires) : chaque jeu de règles de largeur est rendu ;
+#   7. un processus de rendu bloqué plus de DELAI secondes sur une page est tué : la page sort en « RENDU IMPOSSIBLE », code 3.
 
 CSS_CHAINE = re.compile(r"^(font(-[a-z]+)*|line-height|color|direction|text-align|unicode-bidi|"
                         r"padding(-[a-z]+)*|margin(-[a-z]+)*|border(-[a-z]+)*|background(-[a-z]+)*|"
@@ -667,6 +679,21 @@ CSS_CHAINE = re.compile(r"^(font(-[a-z]+)*|line-height|color|direction|text-alig
 MEDIA_ADMIS = re.compile(r"^\s*(?:(?:only|not)\s+)?(?:screen|print|all)?(?:\s*(?:and\s+)?\(\s*(?:min-width|max-width|width|"
                          r"prefers-reduced-motion)\s*:[^)]*\))*\s*$")
 LARGEURS = ((1280, 900), (390, 844))
+LARGEUR_MIN = 320
+
+
+def largeurs_supplementaires(coupes):
+    """Les conditions @media admises ne portent que sur la largeur (en px), l'impression et le mouvement réduit.
+    Leurs points de rupture découpent l'axe des largeurs en intervalles où le même jeu de règles s'applique ; rendre
+    une largeur par intervalle, c'est les avoir tous vus. Rend la plus petite largeur de chaque intervalle qu'aucune
+    de LARGEURS ne représente (en deçà de LARGEUR_MIN, rien n'est rendu)."""
+    bornes = sorted({LARGEUR_MIN} | {c for c in coupes if c > LARGEUR_MIN})
+    out = []
+    for i, a in enumerate(bornes):
+        b = bornes[i + 1] - 1 if i + 1 < len(bornes) else float("inf")
+        if not any(a <= w <= b for w, _ in LARGEURS):
+            out.append(a)
+    return out
 
 PREPARE_JS = r"""
 (async () => {
@@ -699,49 +726,97 @@ MESURE_JS = r"""
       he.querySelectorAll('*').forEach(e => chaine.add(e));
     }
   }
-  // 4. le CSSOM, lu par le navigateur : @media, @supports, @layer, @container, @import
-  const ETATS = /:(hover|focus|focus-within|focus-visible|active|target|visited|checked)\b/g;
-  const A_ETAT = /:(hover|focus|focus-within|focus-visible|active|target|visited|checked)\b/;
-  const PSEUDO = /::?(before|after|marker|first-line|first-letter|selection|highlight\([^)]*\)|placeholder|backdrop)\b/i;
-  const CACHE = /^(opacity|filter|visibility|display|transform|scale|rotate|translate|zoom|clip|clip-path|mask.*|-webkit-mask.*|content-visibility|animation.*|position|inset|top|left|right|bottom|z-index|overflow.*|height|max-height|width|max-width|-webkit-text-fill-color|-webkit-text-stroke.*|text-shadow|mix-blend-mode|backdrop-filter|order|flex-direction|writing-mode)$/;
+  // 4. le CSSOM, lu par le navigateur. Mesuré le 9 octobre 2026 sur les 1 095 pages du niveau 4 : elles n'emploient
+  // que des règles de style, @media et @keyframes ; aucun sélecteur qui atteint le texte source ou un ancêtre ne
+  // porte de pseudo-classe d'état ni de pseudo-élément ; aucune valeur n'y dépend de la largeur (vw, %%, calc…) ;
+  // aucune règle @media print ou prefers-reduced-motion ne les atteint. Tout le reste est refusé.
+  const STRUCT = /^(not|is|where|has|nth-child|nth-last-child|nth-of-type|nth-last-of-type|lang|dir|root|first-child|last-child|only-child|first-of-type|last-of-type|only-of-type|empty)$/i;
+  // le sélecteur sans ses états ni pseudo-éléments, aux arguments de :not/:is/:where/:has compris : il atteint
+  // PLUS d'éléments que l'original, jamais moins — un argument dont un membre se vide (« :is(.x, :focus) »,
+  // « :not(:hover) ») fait tomber toute la pseudo-classe ; au-delà de deux niveaux de parenthèses, le sélecteur
+  // devient illisible et la porte le refuse
+  const membres = s => { const r = []; let d = 0, cur = '';
+    for (const ch of s) { if (ch === '(') d++; if (ch === ')') d--; if (ch === ',' && d === 0) { r.push(cur); cur = ''; } else cur += ch; }
+    r.push(cur); return r; };
+  const reecrire = s => s.replace(/(::?)([a-z-]+)(\((?:[^()]|\([^()]*\))*\))?/gi, (m, c, n, a) => {
+    if (!(c === ':' && STRUCT.test(n))) return '';
+    if (!a) return m;
+    const r = membres(a.slice(1, -1)).map(x => reecrire(x).trim());
+    return r.some(x => !x) ? '' : ':' + n + '(' + r.join(', ') + ')';
+  });
+  const nonStruct = s => [...s.matchAll(/(::?)([a-z-]+)/gi)].some(([, c, n]) => !(c === ':' && STRUCT.test(n)));
+  const VARIABLE = /[\d.][sld]?v(?:w|h|i|b|min|max)\b|[\d.]cq(?:w|h|i|b|min|max)\b|%%|calc\(|min\(|max\(|clamp\(|light-dark\(|env\(|attr\(/i;
+  const MEDIA = new RegExp(%(media)s);
+  const coupes = new Set();
+  const condition = (m, ou) => {
+    if (!m || /^\s*$/.test(m)) return false;
+    if (!m.split(',').every(q => MEDIA.test(q))) { faute('CONDITION @media NON ADMISE', ou + m.slice(0, 80)); return true; }
+    // les points de rupture : chaque intervalle qu'ils découpent sera rendu (voir largeurs_supplementaires)
+    for (const [, f, v] of m.matchAll(/\(\s*(min-width|max-width|width)\s*:\s*([^)]*)\)/gi)) {
+      const x = /^\s*(\d+(?:\.\d+)?)px\s*$/i.exec(v);
+      if (!x) { faute('CONDITION @media NON ADMISE', ou + m.slice(0, 80) + ' (largeur en px seulement)'); continue; }
+      const w = parseFloat(x[1]);
+      if (/^max/i.test(f)) coupes.add(Math.floor(w) + 1);
+      else if (/^min/i.test(f)) coupes.add(Math.ceil(w));
+      else { coupes.add(Math.ceil(w)); coupes.add(Math.floor(w) + 1); }
+    }
+    return true;
+  };
   const regles = [];
-  const visite = (rules, media) => { for (const r of rules) {
-    if (r.media && r.cssRules) { const m = r.media.mediaText;
-      if (m && !/^\s*$/.test(m) && !m.split(',').every(q => new RegExp(%(media)s).test(q))) faute('CONDITION @media NON ADMISE', m.slice(0, 80));
-      try { visite(r.cssRules, m); } catch (e) {} continue; }
-    if (r.styleSheet) { try { visite(r.styleSheet.cssRules, media); } catch (e) { faute('FEUILLE ILLISIBLE', String(r.href)); } continue; }
-    if (r.constructor && r.constructor.name === 'CSSFontFaceRule') { faute('POLICE DÉFINIE PAR LA PAGE', '@font-face'); continue; }
-    if (r.constructor && r.constructor.name === 'CSSKeyframesRule') continue;
-    if (r.cssRules && !r.selectorText) { try { visite(r.cssRules, media); } catch (e) {} }
-    if (r.selectorText) regles.push([r, media]); } };
-  for (const sh of document.styleSheets) { try { visite(sh.cssRules, ''); } catch (e) { faute('FEUILLE ILLISIBLE', String(sh.href)); } }
-  for (const [r, media] of regles) {
+  const visite = (rules, cond) => { for (const r of rules) {
+    const t = r.constructor ? r.constructor.name : '?';
+    if (t === 'CSSMediaRule' || t === 'CSSImportRule') {
+      const m = r.media ? r.media.mediaText : '';
+      const c = condition(m, '') ? cond.concat([m]) : cond;
+      if (t === 'CSSMediaRule') visite(r.cssRules, c);
+      else { try { visite(r.styleSheet.cssRules, c); } catch (e) { faute('FEUILLE ILLISIBLE', String(r.href)); } }
+      continue;
+    }
+    if (t === 'CSSFontFaceRule') { faute('POLICE DÉFINIE PAR LA PAGE', '@font-face'); continue; }
+    if (t === 'CSSKeyframesRule') continue;
+    if (t !== 'CSSStyleRule') { faute('RÈGLE CSS NON ADMISE', t + ' : ' + String(r.cssText || '').slice(0, 70)); continue; }
+    if (r.cssRules && r.cssRules.length) faute('CSS IMBRIQUÉ NON ADMIS', r.selectorText.slice(0, 80));
+    regles.push([r, cond]);
+  } };
+  if (document.adoptedStyleSheets && document.adoptedStyleSheets.length) faute('RÈGLE CSS NON ADMISE', 'feuille adoptée (adoptedStyleSheets)');
+  for (const e of document.querySelectorAll('*')) if (e.shadowRoot) { faute('RÈGLE CSS NON ADMISE', 'arbre fantôme (shadow DOM) sur <' + e.tagName.toLowerCase() + '>'); break; }
+  for (const sh of document.styleSheets) {
+    const m = sh.media ? sh.media.mediaText : '';
+    const c = condition(m, '<' + (sh.ownerNode ? sh.ownerNode.tagName.toLowerCase() : '?') + ' media> ') ? [m] : [];
+    try { visite(sh.cssRules, c); } catch (e) { faute('FEUILLE ILLISIBLE', String(sh.href)); }
+  }
+  for (const [r, cond] of regles) {
+    // l'impression et le mouvement réduit ne sont pas rendus : leurs règles n'atteignent ni la chaîne ni un ancêtre
+    const nonRendu = cond.some(m => /print|prefers-reduced-motion/i.test(m));
+    const ou = cond.length ? '@media ' + cond.join(' / ') + ' ' : '';
     for (const sel0 of r.selectorText.split(',')) {
-      const pseudo = PSEUDO.test(sel0);
-      let sel = sel0.replace(ETATS, '').replace(/::?[a-z-]+(\([^)]*\))?/gi, m => /^::?(not|is|where|has|nth-[a-z-]+|lang|dir|root|first-child|last-child|only-child|first-of-type|last-of-type|empty)\b/i.test(m) ? m : '').trim();
-      if (!sel) sel = '*';
+      const sel = reecrire(sel0).trim() || '*';
       let touche = false, toucheAnc = false;
-      try { for (const e of document.querySelectorAll(sel)) { if (chaine.has(e)) { touche = true; break; } if (anc.has(e)) toucheAnc = true; } } catch (e) { continue; }
+      try { for (const e of document.querySelectorAll(sel)) { if (chaine.has(e)) { touche = true; break; } if (anc.has(e)) toucheAnc = true; } }
+      catch (e) { faute('SÉLECTEUR QUE LA PORTE NE SAIT PAS LIRE', sel0.trim().slice(0, 80)); continue; }
       if (!touche && !toucheAnc) continue;
-      const props = [...r.style].map(p => [p, r.style.getPropertyValue(p)]);
-      if (touche && pseudo && !/summary/i.test(sel0)) { faute('PSEUDO-ÉLÉMENT SUR LE TEXTE SOURCE', sel0.trim().slice(0, 80)); continue; }
-      // un état (:hover, :focus…) qui atteint la chaîne : la mesure ne survole ni ne focalise ; aucune page réelle
-      // n'en a (mesuré le 9 octobre 2026 : les seuls :hover visent des liens, des tableaux et .seif-summary)
-      if (touche && A_ETAT.test(sel0)) { faute('ÉTAT (:hover, :focus…) SUR LE TEXTE SOURCE', sel0.trim().slice(0, 80)); continue; }
-      for (const [p, v] of props) {
-        if (touche && !new RegExp(%(chaine)s).test(p)) faute('STYLE NON ADMIS SUR LA CHAÎNE', (media ? '@media ' + media + ' ' : '') + sel0.trim().slice(0, 60) + ' { ' + p + ': ' + v.slice(0, 40) + ' }');
-        else if (toucheAnc && (media || A_ETAT.test(sel0)) && /^(display|visibility|opacity|content-visibility|filter|clip-path|mask)$/.test(p)
-                 && /^(none|hidden|collapse|0(\.0*)?|auto)$|blur|opacity|inset|circle|polygon/.test(v.trim()))
-          faute('STYLE QUI PEUT MASQUER SUR UN ANCÊTRE', (media ? '@media ' + media + ' ' : '') + sel0.trim().slice(0, 60) + ' { ' + p + ': ' + v.slice(0, 40) + ' }');
+      const qui = touche ? 'LE TEXTE SOURCE' : 'UN ANCÊTRE DU TEXTE SOURCE';
+      // un état (:hover, :focus…) : la mesure ne survole ni ne focalise ; un pseudo-élément : du texte ou un voile
+      // que le DOM ne porte pas
+      if (nonStruct(sel0)) { faute('PSEUDO-CLASSE OU PSEUDO-ÉLÉMENT SUR ' + qui, ou + sel0.trim().slice(0, 80)); continue; }
+      if (nonRendu) { faute('RÈGLE @media NON RENDUE SUR ' + qui, ou + sel0.trim().slice(0, 60)); continue; }
+      for (const p of r.style) {
+        const v = r.style.getPropertyValue(p);
+        const d = ou + sel0.trim().slice(0, 60) + ' { ' + p + ': ' + v.slice(0, 40) + ' }';
+        // une valeur qui suit la largeur de l'écran ou son thème change ENTRE les largeurs rendues
+        if (VARIABLE.test(v) || /^(color-scheme|zoom|-webkit-text-fill-color|-webkit-text-stroke.*)$/.test(p)) faute('VALEUR QUI DÉPEND DE L\'ÉCRAN OU DU THÈME SUR ' + qui, d);
+        else if (touche && !new RegExp(%(chaine)s).test(p)) faute('STYLE NON ADMIS SUR LA CHAÎNE', d);
       }
     }
   }
+  out.coupes = [...coupes].sort((a, b) => a - b);
   // états calculés : animation, liste, styles en ligne
   for (const e of [...chaine, ...anc]) {
     const s = getComputedStyle(e);
     if (s.animationName && s.animationName !== 'none') faute('ANIMATION SUR LE TEXTE SOURCE OU UN ANCÊTRE', e.tagName.toLowerCase() + ' : ' + s.animationName);
     if (chaine.has(e) && /list-item/.test(s.display)) faute('LISTE (::marker) SUR LE TEXTE SOURCE', e.tagName.toLowerCase());
     if (chaine.has(e) && e.getAttribute('style') && e.tagName !== 'P') faute('STYLE EN LIGNE SUR LA CHAÎNE', e.tagName.toLowerCase());
+    if (anc.has(e) && e.getAttribute('style')) faute('STYLE EN LIGNE SUR UN ANCÊTRE DU TEXTE SOURCE', e.tagName.toLowerCase() + ' : ' + e.getAttribute('style').slice(0, 60));
     for (const p of ['scale', 'rotate', 'translate', 'zoom']) { const v = s[p]; if (v && v !== 'none' && v !== '1' && v !== 'normal' && v !== '0px') faute('TRANSFORMATION', e.tagName.toLowerCase() + ' ' + p + ': ' + v); }
     if (s.transform !== 'none' && chaine.has(e)) faute('TRANSFORMATION', e.tagName.toLowerCase() + ' transform: ' + s.transform);
   }
@@ -838,7 +913,10 @@ def _travailleur(conn, port, root):
             break
         path = job
         fautes, resultats = [], []
-        for (W, VH) in LARGEURS:
+        largeurs, coupes, k = list(LARGEURS), set(), 0
+        while k < len(largeurs):
+            W, VH = largeurs[k]
+            k += 1
             ctx = nav.new_context(viewport={"width": W, "height": VH}, device_scale_factor=1, color_scheme="light")
             try:
                 page = ctx.new_page()
@@ -857,6 +935,9 @@ def _travailleur(conn, port, root):
                 ev(PREPARE_JS, attendre=True)
                 m = ev(MESURE_JS % {"minpx": 8, "media": json.dumps(MEDIA_ADMIS.pattern), "chaine": json.dumps(CSS_CHAINE.pattern)})
                 fautes += [(f"{f} [{W} px]", d) for f, d in m["fautes"]]
+                # 6. les intervalles de largeur que les conditions @media de la page découpent : un rendu par intervalle
+                coupes |= set(m.get("coupes") or [])
+                largeurs += [(w, 900) for w in largeurs_supplementaires(coupes) if w not in {x for x, _ in largeurs}]
                 # 5. les pixels, par tuiles d'écran (verticales ET horizontales : une page de droite à gauche qui
                 # déborde sur téléphone se lit en défilant vers la gauche), telles quelles puis texte transparent
                 mots, imgs = m["mots"], m["imgs"]
@@ -897,9 +978,16 @@ def _travailleur(conn, port, root):
                     return ev(f"""(() => {{ const o = window.__mots[{k}]; const r0 = (o.getClientRects ? o.getClientRects()[0] : null) || o.getBoundingClientRect();
                         window.scrollBy({{left: r0.left + r0.width / 2 - innerWidth / 2, top: r0.top + r0.height / 2 - innerHeight * 0.4, behavior: 'instant'}});
                         const q = (o.getClientRects ? o.getClientRects()[0] : null) || o.getBoundingClientRect(); return [q.left, q.top, q.width, q.height]; }})()""")
+                # trois mots d'un séif confirmés invisibles suffisent à le dire : les suivants ne sont pas repris un à un
+                # (une page entièrement voilée en demanderait des milliers), ils sortent « non repris »
+                echecs = {}
                 for genre, liste, etat, seuil in (("m", mots, vis, (6, 0.03)), ("i", imgs, vis_img, (12, 0.02))):
                     for i, x in enumerate(liste):
                         if etat[i] or not x["r"] or x.get("raison"):
+                            continue
+                        if echecs.get((genre, x["b"]), 0) >= 3:
+                            if genre == "m":
+                                x["raison"] = "non repris un à un (trois mots du séif déjà confirmés invisibles)"
                             continue
                         vx, vy, rw, rh = centrer(x["i"])
                         if rw < 1 or rh < 1:
@@ -909,6 +997,8 @@ def _travailleur(conn, port, root):
                         b = capture(cdp)
                         ev(MASQUE_JS % "false")
                         etat[i] = comparer(ecart(a, b), vx, vy, rw, rh, seuil)
+                        if not etat[i]:
+                            echecs[(genre, x["b"])] = echecs.get((genre, x["b"]), 0) + 1
                 resultats.append((W, m, vis, vis_img))
             except Exception as e:  # noqa: BLE001
                 fautes.append(("RENDU IMPOSSIBLE", f"[{W} px] " + str(e).splitlines()[0][:160]))
@@ -942,6 +1032,7 @@ class Rendu:
     """Un serveur HTTP local sur ROOT et PROCESSUS processus de rendu sous surveillance : un processus bloqué plus de
     DELAI secondes sur une page est tué et relancé, la page sort en « RENDU IMPOSSIBLE » (code 3)."""
     DELAI = 900
+    largeurs_vues = set()
     PROCESSUS = max(1, min(3, (os.cpu_count() or 2) - 1))
 
     def __enter__(self):
@@ -1019,6 +1110,7 @@ class Rendu:
     @staticmethod
     def _analyser(msg, blocs_statiques):
         fautes0, resultats = msg
+        Rendu.largeurs_vues.update(W for (W, *_r) in resultats)
         fautes = [(f, d, 1) for f, d in fautes0]
         impossible = any(f.startswith("RENDU IMPOSSIBLE") for f, _ in fautes0)
         from collections import Counter
@@ -1204,7 +1296,7 @@ def main(argv):
     if stats["injoignables"]:
         print(f"  ⛔ source non lue : {' '.join(map(str, stats['injoignables']))}")
     if a_rendre:
-        print(f"Rendu : Chromium, 1280×900 et 390×844, monde isolé, séifs ouverts au clic, pixels comparés, scripts du site seuls, autres hôtes bloqués"
+        print(f"Rendu : Chromium, largeurs {', '.join(f'{w} px' for w in sorted(Rendu.largeurs_vues, reverse=True)) or 'aucune'} (une par intervalle @media), monde isolé, séifs ouverts au clic, pixels comparés, scripts du site seuls, autres hôtes bloqués"
               + (f" · RENDU IMPOSSIBLE pour {' '.join(map(str, sorted(set(stats['rendu_impossible']))))}" if stats["rendu_impossible"] else ""))
     else:
         print("RENDU NON EXÉCUTÉ : le texte est confronté, sa VISIBILITÉ ne l'est pas — avant de publier, relancer avec --rendu")
