@@ -338,6 +338,7 @@ Shabbat.19a"></textarea>
 <!-- JSZip pour le ZIP côté client -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
+<script src="/admin/session-courriel.js"></script>
 <script>
 const TOKEN_KEY = 'daat-admin-token-v1';
 
@@ -389,7 +390,7 @@ function showConnected() {
     '<strong>✓ Connecté admin</strong>' +
     '<div style="flex:1; font-size: 13px; color: var(--muted);">Tu peux uploader des photos et générer des simanim.</div>' +
     '<button id="logout-btn" class="ghost">Déconnexion</button>';
-  $('logout-btn').addEventListener('click', () => { setToken(''); location.reload(); });
+  $('logout-btn').addEventListener('click', () => { setToken(''); DaatAdminSession.quitter(); });
   enableCard('step-photos', true);
 }
 
@@ -409,6 +410,9 @@ $('admin-pw').addEventListener('keydown', e => { if (e.key === 'Enter') $('auth-
     const r = await tryAuth(t);
     if (r.ok) showConnected();
     else setToken('');
+  } else if (await DaatAdminSession.estAdmin()) {
+    // Session par courriel d'un administrateur : les API acceptent le cookie.
+    showConnected();
   }
 })();
 

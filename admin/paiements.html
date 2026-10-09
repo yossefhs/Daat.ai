@@ -195,6 +195,7 @@
     </div>
   </main>
 
+<script src="/admin/session-courriel.js"></script>
 <script>
 const STORE_KEY = 'daat-admin-paiements-token';
 let allItems = [];
@@ -216,8 +217,8 @@ function fmtMonth(ym) {
 }
 
 async function fetchData() {
-  const token = sessionStorage.getItem(STORE_KEY);
-  if (!token) return showGate();
+  const token = sessionStorage.getItem(STORE_KEY) || '';
+  if (!token && !DaatAdminSession.active) return showGate();
   $('tbody').innerHTML = '<tr><td colspan="7" class="loading">Chargement…</td></tr>';
   try {
     const r = await fetch('/api/soutenir?action=admin-all', {
@@ -431,8 +432,8 @@ $('pwd').addEventListener('keydown', e => { if (e.key === 'Enter') $('login-btn'
 $('refresh-btn').addEventListener('click', fetchData);
 $('export-btn').addEventListener('click', exportCsv);
 $('qonto-sync-btn').addEventListener('click', async () => {
-  const token = sessionStorage.getItem(STORE_KEY);
-  if (!token) return showGate();
+  const token = sessionStorage.getItem(STORE_KEY) || '';
+  if (!token && !DaatAdminSession.active) return showGate();
   const btn = $('qonto-sync-btn');
   const label = btn.textContent;
   btn.disabled = true; btn.textContent = '⏳ Sync…';
@@ -455,8 +456,8 @@ $('qonto-sync-btn').addEventListener('click', async () => {
   }
 });
 $('qonto-accounts-btn').addEventListener('click', async () => {
-  const token = sessionStorage.getItem(STORE_KEY);
-  if (!token) return showGate();
+  const token = sessionStorage.getItem(STORE_KEY) || '';
+  if (!token && !DaatAdminSession.active) return showGate();
   try {
     const r = await fetch('/api/qonto-sync?accounts=1', { headers: { 'Authorization': 'Bearer ' + token } });
     const d = await r.json();
@@ -471,8 +472,8 @@ $('qonto-accounts-btn').addEventListener('click', async () => {
   }
 });
 $('qonto-reset-btn').addEventListener('click', async () => {
-  const token = sessionStorage.getItem(STORE_KEY);
-  if (!token) return showGate();
+  const token = sessionStorage.getItem(STORE_KEY) || '';
+  if (!token && !DaatAdminSession.active) return showGate();
   if (!confirm('Retirer TOUS les paiements importés depuis Qonto (source « qonto ») ?\nLes dons manuels et HelloAsso ne sont pas touchés. Tu pourras re-synchroniser ensuite (filtré).')) return;
   try {
     const r = await fetch('/api/qonto-sync?reset=1', { headers: { 'Authorization': 'Bearer ' + token } });
@@ -493,8 +494,8 @@ $('add-payment-btn').addEventListener('click', () => {
 });
 $('add-cancel').addEventListener('click', () => { $('add-form').style.display = 'none'; });
 $('add-submit').addEventListener('click', async () => {
-  const token = sessionStorage.getItem(STORE_KEY);
-  if (!token) return showGate();
+  const token = sessionStorage.getItem(STORE_KEY) || '';
+  if (!token && !DaatAdminSession.active) return showGate();
   const name = $('add-name').value.trim();
   const amount = parseFloat($('add-amount').value);
   const source = $('add-source').value;
@@ -533,8 +534,8 @@ $('tbody').addEventListener('click', async (e) => {
   const id = btn.getAttribute('data-id');
   if (!id) return;
   if (!confirm('Supprimer ce paiement ? (irréversible)')) return;
-  const token = sessionStorage.getItem(STORE_KEY);
-  if (!token) return showGate();
+  const token = sessionStorage.getItem(STORE_KEY) || '';
+  if (!token && !DaatAdminSession.active) return showGate();
   btn.disabled = true;
   try {
     const r = await fetch('/api/soutenir?id=' + encodeURIComponent(id), {
@@ -550,12 +551,15 @@ $('tbody').addEventListener('click', async (e) => {
 });
 
 // === BOOT ===
-if (sessionStorage.getItem(STORE_KEY)) {
-  hideGate();
-  fetchData();
-} else {
-  showGate();
-}
+// Mot de passe déjà donné, ou session par courriel d'un administrateur.
+(async () => {
+  if (sessionStorage.getItem(STORE_KEY) || await DaatAdminSession.estAdmin()) {
+    hideGate();
+    fetchData();
+  } else {
+    showGate();
+  }
+})();
 </script>
 </body>
 </html>

@@ -12,6 +12,7 @@ import { kv } from './_kv.js';
 import { Resend } from 'resend';
 import { randomBytes } from 'node:crypto';
 import { getClientIp } from './_http.js';
+import { adminParJetonMemeSite } from './_admin-gate.js';
 import {
   K_POOL, K_MATCHES, K_ALL, kProfile,
   NIVEAUX, GENRES, LANGUES, JOURS, MOMENTS, FORMATS,
@@ -34,6 +35,8 @@ function esc(s) {
 }
 
 function isAdmin(req) {
+  // Session par courriel d'une adresse de ADMIN_EMAILS, sur le même site.
+  if (adminParJetonMemeSite(req)) return true;
   const pwd = process.env.ADMIN_PASSWORD;
   if (!pwd) return false;
   const bearer = (req.headers.authorization || '').replace(/^Bearer\s+/i, '');

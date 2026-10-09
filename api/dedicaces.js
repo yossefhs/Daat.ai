@@ -12,8 +12,11 @@
 //   - x-admin-secret: <ADMIN_PASSWORD>
 //   - ?secret=<ADMIN_PASSWORD>
 import { getRedis, listAll, makeDedicace, saveDedicace, deleteDedicace } from './_dedicaces.js';
+import { adminParJetonMemeSite } from './_admin-gate.js';
 
 function isAuthed(req) {
+  // Session par courriel d'une adresse de ADMIN_EMAILS, sur le même site.
+  if (adminParJetonMemeSite(req)) return true;
   const adminPwd = process.env.ADMIN_PASSWORD;
   if (!adminPwd) return false;
   const bearer = (req.headers.authorization || '').replace(/^Bearer\s+/i, '');

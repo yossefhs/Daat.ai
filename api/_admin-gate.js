@@ -113,6 +113,26 @@ export function adminParJeton(req) {
   return liste.includes(email) ? email : null;
 }
 
+/**
+ * adminParJeton, pour les API HORS de /api/admin/ qui n'ont pas la porte
+ * complète (dédicaces, khavroutha, newsletter, qonto-sync, signalement).
+ *
+ * Deux refus de plus, parce que le cookie part aussi sur une requête qu'une
+ * page tierce déclenche :
+ *   · une origine étrangère (`Origin`) — comme origineRefusee ;
+ *   · `Sec-Fetch-Site: cross-site` — l'en-tête `Origin` n'est PAS posé sur un
+ *     GET déclenché par une image, un lien ou un formulaire GET d'un autre site,
+ *     et certaines de ces API agissent sur GET (qonto-sync lance une
+ *     synchronisation). Les navigateurs actuels posent Sec-Fetch-Site sur toute
+ *     requête, et JavaScript ne peut pas le falsifier.
+ * Les pages /admin appellent ces API sur LEUR origine : rien ne leur est refusé.
+ */
+export function adminParJetonMemeSite(req) {
+  if (origineRefusee(req)) return null;
+  if (String(req.headers['sec-fetch-site'] || '').toLowerCase() === 'cross-site') return null;
+  return adminParJeton(req);
+}
+
 
 export const FENETRE = 15 * 60;   // secondes
 const MAX_PAR_IP = 5;

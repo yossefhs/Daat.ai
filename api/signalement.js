@@ -19,6 +19,7 @@
 // personnelle exigée ; l'IP n'est utilisée que pour le rate-limit (clé hashée, TTL 24h).
 
 import { kv } from './_kv.js';
+import { adminParJetonMemeSite } from './_admin-gate.js';
 
 const STATUSES = ['NEW', 'TRIAGED', 'NEEDS_RABBINIC_VALIDATION', 'APPROVED', 'FIXED', 'REJECTED'];
 // Catégories du signalement — distinctes dès la soumission pour que le triage
@@ -34,6 +35,8 @@ function clientIp(req) {
 }
 
 function isAdmin(req) {
+  // Session par courriel d'une adresse de ADMIN_EMAILS, sur le même site.
+  if (adminParJetonMemeSite(req)) return true;
   const expected = process.env.ADMIN_PASSWORD;
   if (!expected) return false;
   const auth = req.headers['authorization'] || '';

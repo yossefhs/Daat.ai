@@ -330,6 +330,7 @@
 
 <div id="toast" class="toast"></div>
 
+<script src="/admin/session-courriel.js"></script>
 <script>
 const TOKEN_KEY = 'daat-admin-token-v1';
 
@@ -361,7 +362,7 @@ function showAdminUI(connected) {
       '<button id="logout-btn" class="ghost">Déconnexion</button>';
     document.getElementById('logout-btn').addEventListener('click', () => {
       setToken('');
-      location.reload();
+      DaatAdminSession.quitter();
     });
     loadEntries();
   }
@@ -653,6 +654,9 @@ document.getElementById('pdf-cancel-btn').addEventListener('click', () => {
     const r = await tryAuth(t);
     if (r.ok) showAdminUI(true);
     else setToken('');
+  } else if (await DaatAdminSession.estAdmin()) {
+    // Session par courriel d'un administrateur : l'API accepte le cookie.
+    showAdminUI(true);
   }
 })();
 </script>
