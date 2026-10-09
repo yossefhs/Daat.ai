@@ -25,6 +25,19 @@
 
 import { kv } from './_kv.js';
 import { getUserFromRequest } from './_auth.js';
+import { createHash, timingSafeEqual } from 'node:crypto';
+
+/**
+ * Comparaison d'un secret À TEMPS CONSTANT. `a === b` s'arrête au premier
+ * caractère différent : le temps de réponse dit alors combien de caractères
+ * étaient justes, et laisse deviner le mot de passe caractère par caractère.
+ * On compare les empreintes SHA-256, de longueur fixe — ni le secret ni sa
+ * longueur ne transparaissent. Un côté vide ne vaut jamais égalité.
+ */
+export function egal(a, b) {
+  if (!a || !b) return false;
+  return timingSafeEqual(createHash('sha256').update(String(a)).digest(), createHash('sha256').update(String(b)).digest());
+}
 
 // Les pages d'administration appellent `/api/admin/*` en MÊME origine ; aucune
 // requête légitime n'a donc besoin de CORS. La liste sert aux déploiements de
@@ -111,6 +124,26 @@ export function adminParJeton(req) {
   if (!user?.email) return null;
   const email = String(user.email).trim().toLowerCase();
   return liste.includes(email) ? email : null;
+}
+
+/**
+ * adminParJeton, pour les API HORS de /api/admin/ qui n'ont pas la porte
+ * complète (dédicaces, khavroutha, newsletter, qonto-sync, signalement).
+ *
+ * Deux refus de plus, parce que le cookie part aussi sur une requête qu'une
+ * page tierce déclenche :
+ *   · une origine étrangère (`Origin`) — comme origineRefusee ;
+ *   · `Sec-Fetch-Site: cross-site` — l'en-tête `Origin` n'est PAS posé sur un
+ *     GET déclenché par une image, un lien ou un formulaire GET d'un autre site,
+ *     et certaines de ces API agissent sur GET (qonto-sync lance une
+ *     synchronisation). Les navigateurs actuels posent Sec-Fetch-Site sur toute
+ *     requête, et JavaScript ne peut pas le falsifier.
+ * Les pages /admin appellent ces API sur LEUR origine : rien ne leur est refusé.
+ */
+export function adminParJetonMemeSite(req) {
+  if (origineRefusee(req)) return null;
+  if (String(req.headers['sec-fetch-site'] || '').toLowerCase() === 'cross-site') return null;
+  return adminParJeton(req);
 }
 
 

@@ -6,7 +6,7 @@
 // /admin/paiements.html avec la source « qonto ».
 //
 // Déclenchement :
-//   - Manuel (bouton admin)  : GET /api/qonto-sync?secret=<ADMIN_PASSWORD>
+//   - Manuel (page Paiements) : Authorization: Bearer <ADMIN_PASSWORD>, ou session admin
 //   - Cron Vercel (quotidien): Authorization: Bearer <CRON_SECRET>
 //   - Test à blanc           : ?dry=1  (compte sans écrire)
 //   - Fenêtre                : ?since=YYYY-MM-DD  (défaut : QONTO_SINCE ou 90 j)
@@ -42,6 +42,7 @@
 //   revanche la barre de progression mensuelle (soutien:total), comme un don manuel.
 
 import { kv } from './_kv.js';
+import { adminParJetonMemeSite, egal } from './_admin-gate.js';
 
 const QONTO_BASE = 'https://thirdparty.qonto.com/v2';
 const DEFAULT_EXCLUDE = ['helloasso', 'stripe', 'remboursement', 'refund'];
@@ -70,20 +71,23 @@ function setCors(res) {
 
 // Auth : admin (UI) OU cron Vercel.
 function isAuthed(req) {
+  // Session par courriel d'une adresse de ADMIN_EMAILS, sur le même site.
+  if (adminParJetonMemeSite(req)) return true;
   const adminPwd = process.env.ADMIN_PASSWORD;
   const soutienSecret = process.env.SOUTIEN_ADMIN_SECRET;
   const cronSecret = process.env.CRON_SECRET;
 
   const bearer = (req.headers.authorization || '').replace(/^Bearer\s+/i, '');
-  if (bearer && cronSecret && bearer === cronSecret) return true;
-  if (bearer && soutienSecret && bearer === soutienSecret) return true;
-  if (bearer && adminPwd && bearer === adminPwd) return true;
+  if (egal(bearer, cronSecret)) return true;
+  if (egal(bearer, soutienSecret)) return true;
+  if (egal(bearer, adminPwd)) return true;
 
   const headerSecret = req.headers['x-admin-secret'];
-  if (headerSecret && adminPwd && headerSecret === adminPwd) return true;
+  if (egal(headerSecret, adminPwd)) return true;
 
-  const qsSecret = req.query?.secret;
-  if (qsSecret && adminPwd && qsSecret === adminPwd) return true;
+  // Le secret n'est plus accepté en query : dans une URL il s'écrit dans les
+  // journaux d'accès, l'historique du navigateur, et part dans le Referer. La
+  // page Paiements envoie « Authorization: Bearer » ; le cron, son CRON_SECRET.
 
   return false;
 }

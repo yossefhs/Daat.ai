@@ -12,6 +12,7 @@ import { kv } from './_kv.js';
 import { Resend } from 'resend';
 import { randomBytes } from 'node:crypto';
 import { getClientIp } from './_http.js';
+import { adminParJetonMemeSite, egal } from './_admin-gate.js';
 import {
   K_POOL, K_MATCHES, K_ALL, kProfile,
   NIVEAUX, GENRES, LANGUES, JOURS, MOMENTS, FORMATS,
@@ -34,11 +35,13 @@ function esc(s) {
 }
 
 function isAdmin(req) {
+  // Session par courriel d'une adresse de ADMIN_EMAILS, sur le même site.
+  if (adminParJetonMemeSite(req)) return true;
   const pwd = process.env.ADMIN_PASSWORD;
   if (!pwd) return false;
   const bearer = (req.headers.authorization || '').replace(/^Bearer\s+/i, '');
-  if (bearer && bearer === pwd) return true;
-  if (req.headers['x-admin-secret'] && req.headers['x-admin-secret'] === pwd) return true;
+  if (egal(bearer, pwd)) return true;
+  if (egal(req.headers['x-admin-secret'], pwd)) return true;
   // Le secret n'est plus accepté en query : dans une URL il s'écrit dans les
   // journaux d'accès, dans l'historique du navigateur, et part dans le Referer.
   // Les interfaces d'administration envoient déjà « Authorization: Bearer ».

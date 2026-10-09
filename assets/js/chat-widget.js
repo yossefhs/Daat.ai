@@ -675,6 +675,20 @@
           if (this.scrollDownBtn) this.scrollDownBtn.classList.toggle('is-visible', this.isStreaming);
         }
       };
+      // Mesure : clic sur une source citée DANS une réponse — Sefaria, une page
+      // du site, ou autre. Les liens de l'interface (connexion, soutien) ne
+      // sont pas dans le corps d'une réponse et ne comptent pas.
+      this.messagesEl.addEventListener('click', (e) => {
+        const a = e.target && e.target.closest ? e.target.closest('.daat-chat-message.is-assistant a[href]') : null;
+        if (!a) return;
+        let type = 'autre';
+        try {
+          const u = new URL(a.href, location.href);
+          if (/(^|\.)sefaria\.org$/.test(u.hostname)) type = 'sefaria';
+          else if (u.origin === location.origin || /(^|\.)daattorah\.com$|^daatai\.vercel\.app$/.test(u.hostname)) type = 'site';
+        } catch (_) {}
+        vaTrack('chat_source_clicked', { type: type });
+      });
       this.messagesEl.addEventListener('wheel', markScrolledUp, { passive: true });
       this.messagesEl.addEventListener('touchstart', () => { this._touchScrolling = true; }, { passive: true });
       this.messagesEl.addEventListener('touchend', () => { this._touchScrolling = false; }, { passive: true });
@@ -1579,6 +1593,12 @@
                 if (window.DAAT_CHAT_DEBUG) {
                   console.log('[Daat] Usage:', parsed.usage, 'Iterations:', parsed.iterations, 'Provider:', parsed.provider);
                 }
+                // Mesure : une réponse est arrivée au bout. « voie » distingue le
+                // corpus du Rav (chemin court) d'une réponse du modèle.
+                vaTrack('chat_answer_received', {
+                  section: chatSection,
+                  voie: (typeof parsed.provider === 'string' && parsed.provider.startsWith('corpus')) ? 'corpus' : 'modele',
+                });
               }
             } catch (e) {
               // JSON parse failure — likely partial chunk, ignore unless real error
