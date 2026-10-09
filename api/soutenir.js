@@ -14,8 +14,11 @@
 //   - soutien:count:YYYY-MM     → nombre de soutiens du mois
 
 import { kv } from './_kv.js';
-import { randomBytes } from 'node:crypto';
-import { origineRefusee, adminParJeton } from './_admin-gate.js';
+import { randomBytes, createHash, timingSafeEqual } from 'node:crypto';
+import {
+  origineRefusee, refuserOrigine, corsAdmin, adminParJeton,
+  freinage, echecAdmin, reussiteAdmin, refuser,
+} from './_admin-gate.js';
 
 function setCors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -23,10 +26,22 @@ function setCors(res) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Admin-Secret');
 }
 
-// Vérifie le secret admin — accepte 3 formats :
-//   - Authorization: Bearer <SOUTIEN_ADMIN_SECRET>  (historique, webhooks)
-//   - x-admin-secret: <ADMIN_PASSWORD>              (header, admin UI)
-//   - ?secret=<ADMIN_PASSWORD>                       (query, admin UI simple)
+// Comparaison à temps constant : on compare les empreintes SHA-256, de longueur
+// fixe, pour ne révéler par le temps de réponse ni le secret ni sa longueur.
+function egal(a, b) {
+  if (!a || !b) return false;
+  const ha = createHash('sha256').update(String(a)).digest();
+  const hb = createHash('sha256').update(String(b)).digest();
+  return timingSafeEqual(ha, hb);
+}
+
+// Vérifie l'administrateur — trois voies :
+//   - session du site (connexion par courriel, adresse dans ADMIN_EMAILS) ;
+//   - Authorization: Bearer <SOUTIEN_ADMIN_SECRET ou ADMIN_PASSWORD>  (webhooks, page Paiements) ;
+//   - X-Admin-Secret: <ADMIN_PASSWORD>                                (tableau de bord admin).
+// ?secret= n'est PLUS accepté (1er octobre 2026) : dans une URL, le secret
+// s'écrit dans les journaux d'accès, dans l'historique et part dans le Referer.
+// Aucun appelant du dépôt ne s'en servait.
 function isAuthed(req) {
   // L'administrateur connecté par courriel (JWT du site, adresse listée dans
   // ADMIN_EMAILS) — même voie que /api/admin/*. Le cookie de session étant
@@ -39,16 +54,36 @@ function isAuthed(req) {
   const soutienSecret = process.env.SOUTIEN_ADMIN_SECRET;
 
   const bearer = (req.headers.authorization || '').replace(/^Bearer\s+/i, '');
-  if (bearer && soutienSecret && bearer === soutienSecret) return true;
-  if (bearer && adminPwd && bearer === adminPwd) return true;
+  if (egal(bearer, soutienSecret)) return true;
+  if (egal(bearer, adminPwd)) return true;
 
-  const headerSecret = req.headers['x-admin-secret'];
-  if (headerSecret && adminPwd && headerSecret === adminPwd) return true;
-
-  const qsSecret = req.query?.secret;
-  if (qsSecret && adminPwd && qsSecret === adminPwd) return true;
+  if (egal(req.headers['x-admin-secret'], adminPwd)) return true;
 
   return false;
+}
+
+// La porte des actions ADMIN — la même que /api/admin/* (api/_admin-gate.js),
+// posée ici parce que ce point en était resté à l'état d'avant le 22 septembre
+// 2026 : « Access-Control-Allow-Origin: * » sur les réponses admin, secret
+// accepté dans l'URL, aucun freinage — c'est-à-dire un mot de passe que les
+// navigateurs de visiteurs ordinaires pouvaient être employés à deviner.
+// Dans l'ordre : refus d'une origine étrangère AVANT toute comparaison, puis
+// freinage, puis vérification ; un échec est compté, un succès remet à zéro.
+// Les actions PUBLIQUES (mur, statistiques du mois) n'y passent pas et gardent
+// leur CORS ouvert : la page Soutenir les lit depuis daattorah.com.
+async function porteAdmin(req, res) {
+  res.removeHeader('Access-Control-Allow-Origin');
+  corsAdmin(req, res, 'GET, POST, DELETE, OPTIONS', 'Content-Type, Authorization, X-Admin-Secret');
+  if (origineRefusee(req)) { refuserOrigine(res); return false; }
+  const frein = await freinage(req);
+  if (frein.bloque) { refuser(res); return false; }
+  if (!isAuthed(req)) {
+    await echecAdmin(req);
+    res.status(401).json({ error: 'Unauthorized' });
+    return false;
+  }
+  await reussiteAdmin(req);
+  return true;
 }
 
 function clean(s, max = 200) {
@@ -89,7 +124,7 @@ export default async function handler(req, res) {
   if (req.method === 'GET') {
     // GET ?action=recent → liste des derniers dons (admin only, données complètes)
     if (req.query.action === 'recent') {
-      if (!isAuthed(req)) return res.status(401).json({ error: 'Unauthorized' });
+      if (!(await porteAdmin(req, res))) return;
       try {
         const limit = Math.min(parseInt(req.query.limit || '50', 10), 200);
         const ids = (await kv.lrange('soutien:list', 0, limit - 1)) || [];
@@ -110,7 +145,7 @@ export default async function handler(req, res) {
     //   ?since=YYYY-MM-DD (optionnel, par défaut 12 mois en arrière)
     //   ?source=manuel|helloasso (optionnel)
     if (req.query.action === 'admin-all') {
-      if (!isAuthed(req)) return res.status(401).json({ error: 'Unauthorized' });
+      if (!(await porteAdmin(req, res))) return;
       try {
         const sinceParam = req.query.since;
         const sourceFilter = req.query.source || 'all';
@@ -274,9 +309,7 @@ export default async function handler(req, res) {
 
   // ---- POST : ajout d'un soutien (admin-only) ----
   if (req.method === 'POST') {
-    if (!isAuthed(req)) {
-      return res.status(401).json({ error: 'Unauthorized' });
-    }
+    if (!(await porteAdmin(req, res))) return;
 
     try {
       const body = req.body || {};
@@ -339,9 +372,7 @@ export default async function handler(req, res) {
 
   // ---- DELETE : supprimer un soutien (admin-only) ----
   if (req.method === 'DELETE') {
-    if (!isAuthed(req)) {
-      return res.status(401).json({ error: 'Unauthorized' });
-    }
+    if (!(await porteAdmin(req, res))) return;
     const id = clean(req.query.id, 64);
     if (!id) {
       return res.status(400).json({ error: 'id requis (?id=s-xxx)' });
