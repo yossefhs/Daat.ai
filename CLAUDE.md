@@ -13,13 +13,13 @@ Elle comporte, au minimum :
 2. **Confrontation aux sources (Sefaria)** : re-télécharger le Mehaber (`Shulchan_Arukh,_Orach_Chayim.N`) et le Choul'han Aroukh HaRav (`Shulchan_Arukh_HaRav,_Orach_Chayim.N`) et **comparer le texte hébreu source du niveau-4** (`.sa-he` dans les blocs `seif-details`) au texte réel — verbatim, consonnes identiques — pour garantir qu'aucun seif n'a été inventé, tronqué, ni altéré, et que le nombre de seifim est exact. En cas de doute halakhique sur un contenu (traduction, explication, psak), **retourner voir la source** avant de publier.
 3. **Ne publier qu'une fois cette vérification entièrement verte**, et n'annoncer « c'est en ligne » qu'après confirmation. Toute divergence détectée doit être corrigée (et re-vérifiée) avant le déploiement.
 
-Le script `scripts/verify-oh-source.py N [N...]` automatise la confrontation aux sources pour le compartiment `oh-quotidien` ; le lancer sur chaque lot avant de proposer la mise en ligne. Il ne contrôle que le **niveau 4** (Choul'han Aroukh HaRav). Le **niveau 1** (Mehaber + Rama) a sa propre porte depuis le 8 octobre 2026, `scripts/verify-oh-niveau1-source.py N [N...]` : la lancer aussi, et elle ne doit pas devenir **plus** rouge sur les simanim du lot — 133 des 241 simanim y divergent encore au 9 octobre 2026, aucun par un séif absent sans le dire (voir plus bas). ⚠️ Sefaria sert **plusieurs éditions hébraïques** du Choul'han Aroukh, dont deux de référence pour chaque livre (l'édition par défaut et la Torat Emet numérotée), et les pages en recopient tantôt l'une, tantôt l'autre : les trois portes de source du Choul'han Aroukh (niveau 1 d'Orah Haïm, Chabbat, Yoré Déa) confrontent ces deux-là depuis le 9 octobre 2026, sous une règle unique — voir « Les éditions de Sefaria » plus bas. `verify-oh-source.py` (niveau 4) ne lit toujours qu'une édition du Choul'han Aroukh HaRav, dont Sefaria sert aussi deux éditions hébraïques.
+Le script `scripts/verify-oh-source.py N [N...] --rendu` automatise la confrontation aux sources du **niveau 4** (Choul'han Aroukh HaRav), pour Orah Haïm (1-241) ET Hilkhot Chabbat (242-365) — jusqu'au 9 octobre 2026, son chemin était écrit en dur sous `sources/orah-haim` et le niveau 4 de Chabbat n'était confronté par aucune porte ; le lancer sur chaque lot avant de proposer la mise en ligne, avec `--rendu` (Chromium : il vérifie que chaque mot confronté est réellement VISIBLE pour le lecteur) et sans `--cache`. Le **niveau 1** (Mehaber + Rama) a sa propre porte depuis le 8 octobre 2026, `scripts/verify-oh-niveau1-source.py N [N...]` : la lancer aussi, et elle ne doit pas devenir **plus** rouge sur les simanim du lot — 133 des 241 simanim y divergent encore au 9 octobre 2026, aucun par un séif absent sans le dire (voir plus bas). ⚠️ Sefaria sert **plusieurs éditions hébraïques** du Choul'han Aroukh, dont deux de référence pour chaque livre (l'édition par défaut et la Torat Emet numérotée), et les pages en recopient tantôt l'une, tantôt l'autre : les trois portes de source du Choul'han Aroukh (niveau 1 d'Orah Haïm, Chabbat, Yoré Déa) confrontent ces deux-là depuis le 9 octobre 2026, sous une règle unique — voir « Les éditions de Sefaria » plus bas. `verify-oh-source.py` (niveau 4) confronte à l'édition vocalisée de Kehot, l'une des deux éditions hébraïques du Choul'han Aroukh HaRav que sert Sefaria : c'est l'édition par défaut, celle que les pages recopient, et la seule qui porte les dessins des lettres (32:36, 36:2).
 
 ### ⚠️ Lacune du Choul'han Aroukh HaRav dans `oh-quotidien` (niveau-4 = page-pont 🌉)
 
 Le Choul'han Aroukh HaRav (Admour HaZaken) **ne couvre pas tout Orah Haïm** : il y a des blocs entiers qu'il n'a pas rédigés. Dans le compartiment `oh-quotidien`, les lacunes, **mesurées sur Sefaria pour les simanim 1 à 365** le 8 octobre 2026 (302 servis, 63 vides — les simanim au-delà de 365 n'ont pas été mesurés), sont **132-154, 157, 169-173, 175-176, 208-211, 216-241** en Orah Haïm quotidien, et **304, 322** en Hilkhot Chabbat. Cette liste a été fausse deux fois, et c'est la raison de la donner mesurée : ce fichier écrivait « 132 à 154 … ex. 157, 170-179, 210, 220, 240, 420… », puis un message de commit de la session elle-même (800f886e), repris par un arbitre (b9845687), l'a « corrigée » en « 132-154, 157, 170-173, 175-176, 208-241, 304, 322 » — soixante-six simanim pour un total annoncé de soixante-trois. La liste juste n'est entrée dans le code que le 7 octobre 2026 (`scripts/verifier-alignement.py`, `LACUNES_MESUREES`, commit b9845687) ; jusque-là la porte détectait la lacune à la volée, et sa docstring portait l'ancienne liste fausse. **AVANT de produire un niveau-4, toujours vérifier le nombre de seifim SA HaRav** : `curl -s "https://www.sefaria.org/api/texts/Shulchan_Arukh_HaRav,_Orach_Chayim.N?context=0&pad=0"` → si `he` est vide (0 seif), l'Admour HaZaken **n'a pas écrit ce siman**.
 
-Dans ce cas, **NE JAMAIS fabriquer de texte SA HaRav** (règle anti-fabrication ABSOLUE). Le niveau-4 devient une **page-passerelle sobre** (🌉), générée par `scripts/gen-bridge.py` (ou `/tmp/gen-bridge.py`) : elle explique honnêtement l'absence, renvoie aux niveaux 1-3 (Mehaber/Rama) et au **Siddour de l'Admour HaZaken** (où sa pratique sur la tefila est consignée), **sans aucune citation reconstruite ni le mot « n'existe pas sur Sefaria »**. Les niveaux 1-3 + index restent des pages normales (contenu Mehaber/Rama). `verify-oh-source.py` passe alors avec 0 seif attendu = 0 bloc `seif-details`. Décision utilisateur (2026) : **page-pont sobre**, pas de reconstruction façon 304/322.
+Dans ce cas, **NE JAMAIS fabriquer de texte SA HaRav** (règle anti-fabrication ABSOLUE). Le niveau-4 devient une **page-passerelle sobre** (🌉), générée par `scripts/gen-bridge.py` (ou `/tmp/gen-bridge.py`) : elle explique honnêtement l'absence, renvoie aux niveaux 1-3 (Mehaber/Rama) et au **Siddour de l'Admour HaZaken** (où sa pratique sur la tefila est consignée), **sans aucune citation reconstruite ni le mot « n'existe pas sur Sefaria »**. Les niveaux 1-3 + index restent des pages normales (contenu Mehaber/Rama). `verify-oh-source.py` passe alors avec 0 seif attendu = 0 bloc `seif-details`, à condition que la lacune soit confirmée par les deux API de Sefaria ET par `LACUNES_MESUREES`, et que la page-pont ne porte aucun `.sa-he` (304 et 322, antérieures à cette décision, sont figées par empreinte). Décision utilisateur (2026) : **page-pont sobre**, pas de reconstruction façon 304/322.
 
 ## ⚠️ Le Choul'han Aroukh est le repère — ordre compris (RÈGLE ABSOLUE)
 
@@ -216,7 +216,8 @@ python3 scripts/verifier-langues.py --lignes   # + la liste des blocs à traduir
 # du niveau 1 reproduit-elle VERBATIM, et dans l'ordre, la totalité des seifim que
 # Sefaria donne pour ce siman ? Consonnes comparées, nikoud et ponctuation libres.
 # Contrôle aussi la parité FR/HE/EN du texte source. L'équivalent d'Orah Haïm est
-# verify-oh-source.py, et pour Hilkhot Shabbat verify-chabbat-source.py.
+# verify-oh-niveau1-source.py, et pour Hilkhot Shabbat verify-chabbat-source.py ; le NIVEAU 4 des deux
+# (Choul'han Aroukh HaRav) est confronté par verify-oh-source.py (voir son bloc plus bas).
 python3 scripts/verify-yd-source.py 129 130 131
 
 # Garde-fou de source pour Hilkhot Chabbat — le même invariant que ci-dessus, plus
@@ -232,6 +233,29 @@ python3 scripts/verify-yd-source.py 129 130 131
 # avant la garde ktiv) : une partie de ces « divergences » était du bruit d'édition.
 python3 scripts/verify-chabbat-source.py 292 301 308
 python3 scripts/verify-chabbat-source.py --tous --bref
+
+# Garde-fou de source pour le NIVEAU 4 (Choul'han Aroukh HaRav), Orah Haïm ET Chabbat — réécrit le 9 octobre
+# 2026. L'ancienne porte comparait la concaténation des consonnes d'un siman, ne lisait que sources/orah-haim,
+# s'arrêtait à la première balise interne du .sa-he et effaçait les dessins de la source : elle sortait en rouge
+# 25 simanim sur le seul CHAPEAU (« הנהגת בית הכסא ובו כ״ה סעיפים: ») et ne voyait pas les vrais défauts.
+# Réécrite, séif par séif et MOT POUR MOT, elle a trouvé sur les pages publiées 26 simanim divergents et deux
+# simanim sans leurs dessins : Orah Haïm 1, 3, 8, 11, 12, 13 omettaient des propositions de l'Admour HaZaken
+# dans les trois langues, le plus souvent sans « … » (8:6 « ואף בימיהם לא היו מתעטפין… », 3:7 « אף על פי שמגלה
+# את עצמו מלפניו ») ; 30 et 31 développaient « וגו׳ », 30:5 changeait « שסותרין » en « שסותרות » ; à Chabbat, les
+# pages HÉBRAÏQUES et ANGLAISES de 17 simanim (261 276 309-311 313 321 323 324 328-330 355-358 360) omettaient des
+# propositions que la page française portait, et le 359 écrivait « היא » pour « הוא » ; 36:2 avait perdu ses 27
+# dessins de lettres (« זוֹ תְּמוּנַת הָאוֹתִיּוֹת: »), 32:36 ses deux. Tous restaurés le 9 octobre ; les traductions
+# nouvelles et les synthèses que le texte rétabli contredit sont dans audit/niv4-a-relire-rav.md.
+# ⚠️ L'ÉTAGE --rendu N'EST PAS UNE OPTION DE CONFORT. Trois arbitrages ont trouvé une centaine de façons de faire
+# sortir vert un texte que le lecteur ne voit pas (couleur du fond, opacité, police nulle, ::first-line, @import,
+# variable CSS redéfinie, script, élément posé par-dessus) ; chaque tentative d'énumérer ces ruses dans un
+# analyseur statique en ouvrait d'autres et faisait dépendre la porte de chat-widget.css, que maintient le chantier
+# du chat. L'étage statique vérifie le texte et la forme de la page ; le rendu (Chromium, module playwright) dit ce
+# que le lecteur voit. Une page qui sort de la forme mesurée (chaîne details > div.sa-block > p.sa-he, balises
+# br/b/small/img, liste de caractères) n'est pas certifiable : la faire entrer dans la forme, ou mesurer et
+# justifier l'élargissement dans la docstring.
+python3 scripts/verify-oh-source.py 307 308 --rendu
+python3 scripts/verify-oh-source.py --tous --bref [--rendu]     # ~20 min avec --rendu, sans --cache
 
 # Garde-fou de source pour le NIVEAU 1 d'Orah Haïm — la porte qui manquait. verify-oh-source.py
 # ne regarde que le niveau 4 ; rien ne vérifiait que le niveau 1 des 241 simanim recopie le

@@ -11,7 +11,8 @@ indexe.
 **Aucun garde-fou ne le lisait.** `verifier-citations.py` juge ce que la page met
 entre guillemets ; `verifier-alignement.py` juge les blocs `text-source` des
 niveaux d'étude ; `verify-chabbat-source.py`, `verify-yd-source.py` et
-`verify-oh-source.py` jugent le niveau 1. La page d'index n'était lue par aucun.
+`verify-oh-niveau1-source.py` jugent le niveau 1, `verify-oh-source.py` le niveau 4
+(Choul'han Aroukh HaRav). La page d'index n'était lue par aucun.
 
 Ce que cela laissait passer, trouvé le 16 septembre 2026 par la session
 ravabichid.org sur le siman 246 : le bloc disait **l'inverse** du Choul'han
