@@ -1684,5 +1684,25 @@
   <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
   <script src="assets/js/chat-widget.min.js" defer></script>
 
+<script>
+  // Mesure : DÉBUT d'un don — clic vers le formulaire HelloAsso. La fin du don ne
+  // se mesure pas ici (HelloAsso s'ouvre dans un autre onglet, sans page de
+  // retour) : elle est enregistrée côté serveur par api/helloasso-webhook.js, et
+  // se lit dans la page Paiements de l'administration.
+  (function () {
+    var FORMULES = { 'א': 'don', 'ב': 'dedicace', 'ג': 'mensuel' };
+    document.addEventListener('click', function (e) {
+      var a = e.target && e.target.closest ? e.target.closest('a[href*="helloasso.com"]') : null;
+      if (!a) return;
+      var pilier = a.closest('.pillar');
+      var num = pilier && pilier.querySelector('.pillar-num');
+      var montant = a.classList.contains('amount') ? ((a.firstChild && a.firstChild.textContent) || '').trim() : 'libre';
+      try {
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+        window.va('event', { name: 'don_started', data: { formule: (num && FORMULES[num.textContent.trim()]) || 'autre', montant: montant } });
+      } catch (_) {}
+    });
+  })();
+</script>
 </body>
 </html>
