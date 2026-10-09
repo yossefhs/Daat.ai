@@ -11,7 +11,7 @@
 //   response : { ok, text, pages, info, suggested: { title, summary, tags } }
 
 import { extractText, getDocumentProxy } from 'unpdf';
-import { corsAdmin, origineRefusee, refuserOrigine, adminParJeton, freinage, echecAdmin, reussiteAdmin, refuser } from '../_admin-gate.js';
+import { corsAdmin, origineRefusee, refuserOrigine, adminParJeton, freinage, echecAdmin, reussiteAdmin, refuser, egal } from '../_admin-gate.js';
 
 export const config = {
   api: {
@@ -26,7 +26,7 @@ function checkAuth(req) {
   }
   const auth = req.headers['authorization'] || '';
   const provided = auth.startsWith('Bearer ') ? auth.slice(7) : '';
-  if (provided !== expected) {
+  if (!egal(provided, expected)) {
     return { ok: false, status: 401, error: 'Non autorisé' };
   }
   return { ok: true };

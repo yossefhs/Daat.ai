@@ -8,7 +8,7 @@
 // POST /api/admin/stats  { action: 'reset-limit', email }
 
 import { kv } from '../_kv.js';
-import { corsAdmin, origineRefusee, refuserOrigine, adminParJeton, freinage, echecAdmin, reussiteAdmin, refuser } from '../_admin-gate.js';
+import { corsAdmin, origineRefusee, refuserOrigine, adminParJeton, freinage, echecAdmin, reussiteAdmin, refuser, egal } from '../_admin-gate.js';
 
 function today() { return new Date().toISOString().slice(0, 10); }
 function daysAgo(n) {
@@ -38,7 +38,7 @@ export default async function handler(req, res) {
   const parJeton = adminParJeton(req);
   if (!parJeton) {
     const secret = req.headers['x-admin-secret'];
-    if (!secret || secret !== process.env.ADMIN_PASSWORD) {
+    if (!egal(secret, process.env.ADMIN_PASSWORD)) {
       await echecAdmin(req);
       return res.status(401).json({ error: 'Non autorisé' });
     }
