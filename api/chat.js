@@ -15,6 +15,7 @@ import { searchCorpus as searchShabbatCorpus, corpusCacheKey, CORPUS_CACHE_TTL, 
 import { MAREH_MEKOMOT_TOOLS, executeMarehMekomotTool } from './_mareh_mekomot.js';
 import { getUserFromRequest, isAllowedOrigin } from './_auth.js';
 import { createHash } from 'node:crypto';
+import { questionDePermission, autorisationPersonnelle } from './_garde-corpus.js';
 import {
   deepSeekAvailable,
   streamMetaQuestion,
@@ -405,6 +406,19 @@ const TOOL_EXECUTORS = {
 // été écrit (l'appelant reprend son flux : Claude, ou la réponse 429).
 async function serveCorpusAnswer({ req, res, cs, section, lastUserText, userId, isGuest, plan, rateKey = null, monthRateKey = null, doneExtra = {}, allowRawFallback = false }) {
   const top = cs.results[0];
+  // ⛔ YORÉ DÉA : une question de PERMISSION ou de DÉLAI ne passe pas par le
+  // chemin court. Le sens d'un séif de cacherout s'y inverse selon l'ordre
+  // (viande puis lait / lait puis viande), et la recherche par mots-clés ne voit
+  // pas l'ordre : au siman 89 (פ״ט), « combien de temps entre la viande et le
+  // fromage » servait un extrait de contexte sans règle, et Haiku a répondu
+  // « tu peux recommencer aussitôt » — l'inverse du séif 1, six heures. On rend
+  // la main AVANT d'écrire quoi que ce soit : le chemin complet ouvre le séif ;
+  // en sauvetage à quota, l'appelant répond honnêtement plutôt qu'à côté.
+  // Voir api/_garde-corpus.js.
+  if ((top.section || section) === 'yoreh-deah' && questionDePermission(lastUserText)) {
+    console.log(`[chat.js] corpus-first décliné (Yoré Déa, question de permission) : siman-${top.siman} « ${String(lastUserText).slice(0, 50)} »`);
+    return false;
+  }
   const others = cs.results.slice(1);
   const subs = top.subsection ? ` · ${top.subsection}` : '';
   const corpusSource = {
@@ -540,7 +554,10 @@ RÈGLES STRICTES :
         // n'accepte donc le cache que si son état de réserve est identique — et
         // jamais du tout pour un extrait sous réserve dont le texte ne la porte pas.
         && Boolean(raw.caveat) === Boolean(top.caveat)
-        && (!top.caveat || /hors corpus|à vérifier|טעון בדיקה|to be verified/i.test(raw.text))) {
+        && (!top.caveat || /hors corpus|à vérifier|טעון בדיקה|to be verified/i.test(raw.text))
+        // Une entrée qui donne un feu vert personnel ne se ressert pas, quelle
+        // que soit la date où elle a été écrite (voir api/_garde-corpus.js).
+        && !autorisationPersonnelle(raw.text)) {
       cachedCorpus = raw;
     }
   } catch (_) {}
@@ -597,6 +614,8 @@ RÈGLES STRICTES :
   let corpusAnswer = '';
   // Le modèle a jugé que l'extrait ne répond pas à la question.
   let offTopic = false;
+  // La réponse donnait un feu vert personnel : refusée par le code.
+  let refuse = false;
   let inTok = 0, outTok = 0;
   let corpusErrored = false;
   let corpusStopReason = null;
@@ -628,59 +647,48 @@ RÈGLES STRICTES :
       ? (RAW_CORPUS_I18N[resolveLang(req?.body?.lang, lastUserText)] || RAW_CORPUS_I18N.fr).caveat
       : '';
 
-    // ── Tampon de décision ──────────────────────────────────────────────────
-    // Le modèle DÉTECTE le hors-sujet (mesuré en production : sur « kitniyot à
-    // Pessah » servi avec le siman 319, il a lui-même écrit que l'extrait « ne
-    // porte pas » sur la question) — mais on ne l'écoutait pas : la réponse
-    // partait quand même sous « Source : Siman 319 ». On retient donc les
-    // premiers caractères, le temps de lire son verdict, avant d'écrire quoi que
-    // ce soit au client. Rien n'est perdu : le tampon est vidé dès la décision.
+    // ── Tampon COMPLET, puis décision ─────────────────────────────────────────
+    // La réponse était diffusée dès ses 24 premiers caractères : un garde-fou
+    // appliqué ensuite ne pouvait plus retenir ce qui était déjà affiché. Au
+    // siman 89 (פ״ט), « tu peux recommencer aussitôt » est parti ainsi, puis a été
+    // mis en cache trente jours. On attend désormais la réponse ENTIÈRE — Haiku
+    // la produit en quelques secondes — et on ne la sert qu'après l'avoir lue :
+    //  · HORS-SUJET en tête → le modèle juge que l'extrait ne répond pas ;
+    //  · autorisation personnelle → interdite par le prompt, désormais refusée
+    //    par le code : ni servie, ni mise en cache, et la question repart sur le
+    //    chemin complet.
+    // Le marqueur de hors-sujet reste ANCRÉ EN TÊTE et tolérant aux langues : le
+    // modèle répond parfois « OFF-TOPIC » ou « מחוץ לנושא » (chat-he/-en postent
+    // sur cette même API) ; non ancré, une réponse légitime citant la consigne
+    // était refusée à tort.
     let buffer = '';
-    let decided = false;
     for await (const event of stream) {
       if (event.type === 'content_block_delta' && event.delta?.type === 'text_delta') {
-        const text = event.delta.text || '';
-        if (text) {
-          if (!decided) {
-            buffer += text;
-            // ⚠️ ANCRÉ EN TÊTE, et tolérant aux variantes de langue : le modèle
-            // répond parfois « OFF-TOPIC » ou « מחוץ לנושא » quand la question
-            // est en anglais ou en hébreu — chat-he.html et chat-en.html postent
-            // sur cette même API. Et le test doit être ancré : non ancré, une
-            // réponse LÉGITIME citant la consigne (« je ne suis pas hors-sujet
-            // car… ») était refusée à tort.
-            if (/^\s*(?:HORS[-\s]?SUJET|OFF[-\s]?TOPIC|\u05de\u05d7\u05d5\u05e5 \u05dc\u05e0\u05d5\u05e9\u05d0)/i.test(buffer)) { offTopic = true; break; }
-            // 24 caractères suffisent à voir le marqueur ; en deçà on attend.
-            if (buffer.length < 24) continue;
-            decided = true;
-            ensureSse();
-            const first = caveatPrefix + buffer;
-            corpusAnswer += first;
-            res.write(`data: ${JSON.stringify({ type: 'text', delta: first })}\n\n`);
-            buffer = '';
-            continue;
-          }
-          if (!corpusAnswer) ensureSse();
-          corpusAnswer += text;
-          res.write(`data: ${JSON.stringify({ type: 'text', delta: text })}\n\n`);
-        }
+        buffer += event.delta.text || '';
+        if (buffer.length >= 24 && /^\s*(?:HORS[-\s]?SUJET|OFF[-\s]?TOPIC|\u05de\u05d7\u05d5\u05e5 \u05dc\u05e0\u05d5\u05e9\u05d0)/i.test(buffer)) { offTopic = true; break; }
       }
     }
-    // Réponse plus courte que le tampon : la vider avant de conclure.
-    if (!decided && !offTopic && buffer) {
-      decided = true;
-      ensureSse();
-      const first = caveatPrefix + buffer;
-      corpusAnswer += first;
-      res.write(`data: ${JSON.stringify({ type: 'text', delta: first })}\n\n`);
-      buffer = '';
-    }
+    if (!offTopic && /^\s*(?:HORS[-\s]?SUJET|OFF[-\s]?TOPIC|\u05de\u05d7\u05d5\u05e5 \u05dc\u05e0\u05d5\u05e9\u05d0)/i.test(buffer)) offTopic = true;
     if (offTopic) {
       try { corpusAbort.abort(); } catch (_) { /* déjà terminé */ }
       console.log(`[chat.js] corpus HORS-SUJET : siman-${top.siman} écarté pour « ${String(lastUserText).slice(0, 50)} »`);
       return false;   // l'appelant reprend : chemin complet, ou paywall honnête
     }
+    const feuVert = autorisationPersonnelle(buffer);
+    if (feuVert) {
+      refuse = true;
+      console.warn(`[chat.js] corpus REFUSÉ (autorisation personnelle « ${feuVert} ») : siman-${top.siman} « ${String(lastUserText).slice(0, 50)} »`);
+      return false;   // rien n'a été écrit : l'appelant reprend sur le chemin complet
+    }
     const final = await stream.finalMessage();
+    // Lue, vérifiée : on la sert, par fragments comme une réponse en cache.
+    if (buffer) {
+      ensureSse();
+      corpusAnswer = caveatPrefix + buffer;
+      for (let i = 0; i < corpusAnswer.length; i += 48) {
+        res.write(`data: ${JSON.stringify({ type: 'text', delta: corpusAnswer.slice(i, i + 48) })}\n\n`);
+      }
+    }
     if (final?.usage) {
       inTok = final.usage.input_tokens || 0;
       outTok = final.usage.output_tokens || 0;
@@ -775,7 +783,7 @@ RÈGLES STRICTES :
   // sans limite » ne peut pas dépendre d'un appel payant. Sinon on rend la main.
   // ⚠️ Pas de repli brut si l'extrait a été jugé HORS-SUJET : servir tel quel un
   // passage dont le modèle vient de dire qu'il ne répond pas serait pire encore.
-  if (allowRawFallback && !offTopic) return serveRawCorpus({ res, cs, ensureSse, doneExtra, userId, plan, question: lastUserText, lang: req?.body?.lang });
+  if (allowRawFallback && !offTopic && !refuse) return serveRawCorpus({ res, cs, ensureSse, doneExtra, userId, plan, question: lastUserText, lang: req?.body?.lang });
   return false;
 }
 
