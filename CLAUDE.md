@@ -269,7 +269,7 @@ python3 scripts/verify-chabbat-source.py --tous --bref
 # br/b/small/img, liste de caractères) n'est pas certifiable : la faire entrer dans la forme, ou mesurer et
 # justifier l'élargissement dans la docstring.
 python3 scripts/verify-oh-source.py 307 308 --rendu         # quelques minutes ; modules playwright, pillow, numpy
-python3 scripts/verify-oh-source.py --tous --bref --rendu     # ~1 h (trois processus) ; sans --rendu : texte seul, ~2 min
+python3 scripts/verify-oh-source.py --tous --bref --rendu     # ~2 h 30 (trois processus, 5 largeurs) ; sans --rendu : texte seul, ~2 min
 
 # Garde-fou de source pour le NIVEAU 1 d'Orah Haïm — la porte qui manquait. verify-oh-source.py
 # ne regarde que le niveau 4 ; rien ne vérifiait que le niveau 1 des 241 simanim recopie le

@@ -37,8 +37,9 @@ conclu pour ce qui n'a pas été lu. Une source absente n'est jamais une source 
   7. ce qui entoure le texte, mesuré de même et FIGÉ : le CSS de la page (la suite de ses <style>, par empreinte :
      CSS_ADMIS, 225 suites pour les 1 095 pages), les <link> (LIENS_ADMIS : feuilles du site, polices Google),
      <meta name="viewport"> (une seule valeur), aucun <meta name="color-scheme">, aucune <img> hors du texte
-     source, ni <picture>, <source>, <video>, <audio>, <canvas>, <svg>, ni srcset, ni style= qui suive l'écran,
-     le thème ou une ressource (vw, calc(), url(), image-set()…). Les scripts sont ceux du site (SCRIPTS_ADMIS).
+     source, ni <picture>, <source>, <video>, <audio>, <canvas>, <svg>, ni srcset ; chaque style= est l'une des
+     264 valeurs mesurées (STYLES_EN_LIGNE_ADMIS) ; aucune construction que html.parser et le navigateur ne lisent
+     pas de même (« <![ », « --!> », « <? », éléments à texte brut). Les scripts sont ceux du site (SCRIPTS_ADMIS).
   L'étage statique NE SIMULE PAS LE NAVIGATEUR : il ne lit ni la CSS ni le JavaScript. C'est l'étage 2.
 
 ÉTAGE 2, RENDU (--rendu) — ce que le lecteur VOIT. Les scripts sont fermés à l'étage 1 (ceux du site, et eux
@@ -59,6 +60,9 @@ par un clic synthétique sur son titre (HTMLElement.click(), sans pointeur ni fo
     chaîne, des propriétés typographiques ou de boîte seulement ; aucune animation sur la chaîne ou ses ancêtres.
     Les sélecteurs sont lus comme le navigateur les lit (chaînes, crochets, échappements) et réécrits sans leurs
     états — sous :not, la pseudo-classe tombe en entier : le sélecteur réécrit atteint plus, jamais moins ;
+  - relit la page par le DOMParser du navigateur, sans l'exécuter, et la confronte à la lecture de l'étage 1 :
+    mêmes balises dans le même ordre, mêmes <style>, mêmes scripts — sinon « PAGE LUE AUTREMENT PAR LE
+    NAVIGATEUR » (aucun désaccord sur les 1 095 pages, mesure du 9 octobre 2026) ;
   - exige, sur la chaîne et ses ancêtres, les valeurs CALCULÉES que les 1 095 pages y ont toutes (filtre, ombre,
     transformation, opacité, découpe, masque, espacements, bidi, sens de droite à gauche du .sa-he, fond non
     découpé aux glyphes, remplissage du glyphe = couleur, aucune transition…), et une police d'au moins 12 px
@@ -80,6 +84,8 @@ CE QUE LA PORTE NE COUVRE PAS, et qui relève d'autres portes ou du relecteur :
   - du texte hébreu ajouté dans le div.sa-block hors du .sa-he, la place des <small>/<b> dans le .sa-he, un
     séif fabriqué hors bloc sous la forme d'un paragraphe ordinaire (« <strong>סעיף</strong> » paraît 42 fois dans
     les niveaux 4, dont 36 sous la forme « סעיף X », légitimement, dans les explications hébraïques) ;
+  - les feuilles et les scripts DU SITE (assets/), admis par leur chemin et non par leur contenu : une règle
+    ajoutée à intra-links.css ou chat-widget.css s'applique à toutes les pages sans qu'aucune change ;
   - ce que les scripts DU SITE font plus tard ou ailleurs : ce qu'ils affichent depuis d'autres hôtes (bannière
     de dédicace, chat, bloqués au rendu), ce qu'ils insèrent pour un lecteur qui revient (daat-progress.js), les
     classes qu'ils posent au clic (intra-links.js) — le CSS figé n'y attache rien qui cache le texte, et c'est
@@ -205,7 +211,56 @@ ATTRS_LIEN = {"rel", "href", "as", "onload", "crossorigin", "type", "hreflang"}
 # un style= hors de la chaîne : rien qui suive l'écran, le thème ou la densité de pixels (aucune page n'en porte)
 VARIABLE_EN_LIGNE = re.compile(r"[\d.][sld]?v(?:w|h|i|b|min|max)\b|[\d.]cq(?:w|h|i|b|min|max)\b|image-set\(|url\(|calc\(|"
                                r"min\(|max\(|clamp\(|light-dark\(|env\(|attr\(", re.I)
-NON_ADMIS_HORS_BLOC = {"picture", "source", "video", "audio", "canvas", "svg", "math", "track", "marquee"}
+NON_ADMIS_HORS_BLOC = {"picture", "source", "video", "audio", "canvas", "svg", "math", "track", "marquee", "image",
+                       "template", "plaintext", "xmp", "listing", "noembed", "noframes", "textarea", "select"}
+# Le navigateur et html.parser doivent lire la MÊME page (sixième arbitrage : « <![CDATA[ --><style>…</style><!-- ]]> »
+# est une section marquée pour Python et un commentaire fermé au premier « > » pour Chromium — le <style> échappait à
+# l'empreinte). Refusés, et absents des 1 095 pages : « <![ », « --!> », « <? », les éléments à texte brut ; au rendu,
+# la page est relue par le DOMParser du navigateur et confrontée à la lecture de la porte (balises, <style>, scripts).
+DIVERGENTS = ("<![", "--!>", "<?")
+# les style= de la page, FIGÉS comme le CSS : l'empreinte de chaque valeur (espaces normalisés, ordre gardé) doit être
+# l'une des 264 mesurées sur les 1 095 pages (sixième arbitrage : un voile en style=, placé en pixels ou animé après
+# cinq minutes, recouvrait le texte à une largeur ou à un moment que le rendu ne voit pas)
+STYLES_EN_LIGNE_ADMIS = frozenset("""
+009fd3ddcf9b5447 00c45a0c305f4140 01b5b89d0dc8b1e2 01fdaf03807abac8 03dd9dd2248ea1da 062ec98d8bbcc46b 06aaea48e6e5edbd
+0723976085c891f3 078720123b0bea68 082143fad2843002 090b402a4db1acc9 0ae17c5763559770 0af531e6bfdb540c 0fd15eccec7b51f5
+1034106c175151ba 1370ff46f598dd96 17e5a3eaef9dac26 1a9d7c409c739154 1e398d5a53e29157 1e61c98fc60a4398 228e126c1597046a
+2407365b8d5870c1 24cd0dccc3fdad56 259648988d9afeed 259ddbee9fb6d660 267fa6a13ed0b81a 27b8029f2c999f6f 2892d3c2b010b8aa
+28fd18e5e01ac3b3 29c95841a88204f9 2a76b99638a56b8f 2cf829de5ec6a029 2e130087280312ce 2e21a57cf0169f8d 2e5fd2f5cfd8436e
+2ed3c6e637b1626e 2eeaae9adb5d85ee 2f2327e3c25b0e08 2f63efc2741487b7 30a3e0f1985b55a2 3106344cde56a033 3149338042c3316a
+3168a6c1c8874b15 31d08eb46e4c3682 33cce49e310be874 33e99c9e701c9973 341ec736f7be1e5d 355fa865e8672407 365c850d560ad773
+37b60ede1b155d9a 389709ab9735be5d 3a3c2483ed84f20d 3c79823d0780095e 3e8f55d1a128ea0c 4105ae9ff5e22d88 42590dcd10c77199
+42a1bcae95e650d0 42f0dc7aad7cd4c0 43a97fe4943c812e 44184a264fb88181 45c395ac908a3f7f 48bd50faed389243 491355b18ecb8150
+49d1789dd35f3230 49ddd56eada23ddd 4a8a618941e27f4d 4bffcb7dc3f569fe 4c2d17d0be09aa30 4c6bb10c75147894 4c9eb88fb3187ed8
+4d3c9554aedfb15d 4d7676a6f180412e 4fe09416d718176e 5044a61a00f16ab0 525ac634c31e852c 53798a4a891b601d 552fb754c46dcfc2
+57e8a817d48e9c91 5b5914ddd58de111 5ce55dd6457a220b 5eb51c1ed52b842a 5ecdf3779e648033 5f326564a568f9f7 602d6c78340264aa
+60ad8abc22b87cab 61b2b52872adb8bf 62c37971a75cedd0 62d13db6ae4e7a7e 633770dc025dc194 64636b91f4755f1f 66190492d4f086c2
+675e81c53eab4dba 6895b00a550fc40f 68c144cc58eab0d1 6b46382dac2ef426 6b913e0edccc4996 6bd6d71f722a6f4f 6e50be71649ea3e1
+6e8e5db4eb5d5da8 6e9a91fe147ea52f 6f93dad77d9a7be1 70deaaf384735f97 71260e9e3e49c347 7153457c8ecb65dc 715e0308d659f623
+722d55bd400968d9 7279098edd35dd54 733c1398e4a05885 7379fd89d2637e16 73934bb99fda3b76 7482382802b5f7c1 7663de66f5025350
+78996ab92df5818e 7a6eea331c7faf11 7a8895cb330f363a 7b9f1bb358a28a93 7d7079c1deed4f4a 7ee4d8d1c212a628 7f07ba2f60c6f8ac
+7f8ee0da73ffbb45 7fcbf3e19e1084cd 7fe73871d758db31 8190bda7d36757b9 82a60315b2424c05 86a4299ee862198e 874fc4b00cf5b423
+87b6d18a640fb6be 89c2a85aa4e883f2 8b07ca1875d95674 8d591a244c98615e 8ddc4604da23706f 8ed77c91b22f0126 90720377fb6fd778
+91d779514c624fe0 938bb39905fe5db2 9449e24d49700132 94baa8df5b9f96a7 94fbbd9167ec85bf 9509304260793f91 9543bbe29e9246b3
+967a333e5d2cca67 971245b85a9d0b7d 9827a231dc3cf4a0 988f4454b2db9f84 99f19d300898ab85 9be20130184ba7f0 9c09f41270282b64
+9c6a4940cab3cc1e 9d39ef8eb547c99e 9d9c74c7464f64ee 9dcbb6951a5f4bc6 9de7ed6cbc19b6dd 9e47d76da781beb9 9e7f3e8f8b972a17
+9f6c64cad4aabe61 a114d5e93308a9c4 a1c8a6ecfbb8b0e5 a3948e1f94ecb69f a4c1106c6dad35a5 a4ef3c5497ac9e58 a51821ee3fa9a33f
+a6be1e29de928fc6 a8d6f7de438ef854 a8eaff9d50a44f8f a96528005be3be1d a99e29a095cafd1e ab79ea2b8573788f ad2749cf784c7c30
+ae389b169427a142 afd8591f6d426025 b00f7e02c5be1b03 b054c4372bc2e18d b1e6f3a36eecb71d b1f5d8398375b8a3 b260d80aeb41419c
+b4b2c631e337c167 b604a74caf21445b b6554d4b52ab2bc7 b6ac20c5c9a26c58 b79cc094459fdca8 b7dc66ace9e0fa64 b89a8b108072021a
+b922c89f16f9f86c b9694013c3c5e192 bb028d32aa1e0063 bb4499e06cb6395f bc350dbedb18a569 bc793342db318dfb bceac1126915cd84
+bd89cc0266915f15 be2c6b7cc78cb4cf be421d932785991b bffaba4925566769 c073c89c9c15782c c13474e2a17a8ee1 c22f6e887f467736
+c35fc7973b15ec19 c45ccc62cae31b0d c53ea1da23850a67 c5463e32c477d3f4 c5b62a99a63c9dcf c63c6510309381cb c64ab54bc8fa52c4
+c6b0e2b8020f485b c8360ac8d75f286a c86e6d208de29712 c956e52e5aecb455 ca4fd153831d4285 cba889065a1dcfb2 cbc825371d028ee0
+ccc1843e10ca0871 cddadfe5aab1b082 ceb0ca2e65ddfe9a cec446706c48462d cecf417dba204c4f cfa2cefc27fbf2aa cfec463e2f234607
+d0516e83f54d4db5 d0d546e7e61daeaa d1177e24dfe1d008 d341026bf8832a4a d3b57c73cfb5dbdb d3f947e0b7d31b0a d452f294af6ddab4
+d5ea4af37353d97b d65b33e7bda72ebd daad45567aff96d4 dd6be243693f9bef de1d6d1df8855316 de50ad980c7ad083 de52e3be99f485f9
+df403feba04b6aba e01126a5367d9ecb e06c04790961dd94 e20f6568f46f8da9 e252fe1acc940db7 e2aaae8cb08b41a2 e31017aee243331a
+e50caf5fcab8de42 e5c623617e2f52d8 e5f622815ac47f84 e74d5030c19b119f e8696971a7e11b8b e8fe18b7a107d96d e9c2e70e437461a2
+ea8b8be8513d800a ebdb8ca612c1962f ebf31ea1e9df488e ecfc607429be41ff ee72234c517cffc7 f016bdf8783e255f f11dfc285b8840c8
+f18ce3f652ff41fb f1bd6cd38de884a9 f2d2217002147033 f40ac25098bcba57 f419720aee881982 f6485e08c746ef53 f6ff7f54dc1d8558
+f8003480acc47f50 fa210469db527fc3 fa4f95de6f937d12 fc628cc358d51628 ff0ee4170125db0d
+""".split())
 CSS_ADMIS = frozenset("""
 0093309ca9e82c58 05ade841c086ccd5 06e8684d21503bbe 08c0534061b6c36a 09378c39508f08e4 0982f2f70b1a348a 0a6d561defdea769
 0ad286c9d1c7c4fa 0dcb2def4b766cdb 0e2aa71870e59672 106c48f2eb928a20 107f99a065fe3cfd 109325c0396f5257 11cc56a32ee2134a
@@ -405,6 +460,8 @@ class Lecteur(HTMLParser):
         self._script = None      # le texte du script en ligne en cours de lecture
         self._style = None       # le texte du <style> en cours de lecture
         self.styles = []         # le contenu de chaque <style>, dans l'ordre
+        self.balises = []        # chaque balise ouvrante, dans l'ordre (confrontée à la lecture du navigateur)
+        self.scripts = []        # chaque <script> : « src:… » ou « txt:… »
 
     def _faute(self, fam, det):
         if len(self.fautes) < 60:
@@ -425,10 +482,12 @@ class Lecteur(HTMLParser):
             self.tous_sahe[-1] += " "
 
     def _ouvre(self, tag, attrs, auto):
+        self.balises.append(tag)
         noms = [k.lower() for k, _ in attrs]
         a = {k.lower(): (v or "") for k, v in attrs}
         if tag == "script":
             if "src" in a:
+                self.scripts.append("src:" + a["src"])
                 if a["src"] not in SCRIPTS_ADMIS:
                     self._faute("SCRIPT NON ADMIS", f"<script src=\"{a['src'][:80]}\">")
             elif "json" not in a.get("type", "").lower():
@@ -459,8 +518,9 @@ class Lecteur(HTMLParser):
         for k in ("srcset", "sizes", "imagesrcset", "imagesizes", "poster"):
             if k in a:
                 self._faute("ATTRIBUT NON ADMIS", f"<{tag} {k}=…> (une ressource qui suit l'écran ou la densité de pixels)")
-        if a.get("style") and VARIABLE_EN_LIGNE.search(a["style"]):
-            self._faute("STYLE EN LIGNE NON ADMIS", f"<{tag} style=\"{a['style'][:70]}\"> (une valeur qui suit l'écran, le thème ou une ressource)")
+        if "style" in a and (VARIABLE_EN_LIGNE.search(a["style"]) or _empreinte_style(a["style"]) not in STYLES_EN_LIGNE_ADMIS):
+            self._faute("STYLE EN LIGNE NON ADMIS", f"<{tag} style=\"{a['style'][:70]}\"> (empreinte {_empreinte_style(a['style'])} : "
+                        f"aucune des {len(STYLES_EN_LIGNE_ADMIS)} valeurs mesurées — voir STYLES_EN_LIGNE_ADMIS)")
         if tag == "img" and not (self.sahe and self.bloc):
             self._faute("ÉLÉMENT NON ADMIS", "<img> hors du texte source (aucune page n'en porte)")
         # un arbre fantôme déclaratif : ses feuilles de style échappent à document.styleSheets, donc au rendu (aucune
@@ -534,6 +594,7 @@ class Lecteur(HTMLParser):
             self.styles.append(self._style)
             self._style = None
         if tag == "script" and self._script is not None:
+            self.scripts.append("txt:" + self._script)
             if hashlib.sha256(re.sub(r"\s+", "", self._script).encode()).hexdigest()[:16] not in SCRIPTS_EN_LIGNE:
                 self._faute("SCRIPT NON ADMIS", "script en ligne : « " + re.sub(r"\s+", " ", self._script).strip()[:70] + " »")
             self._script = None
@@ -573,6 +634,17 @@ class Lecteur(HTMLParser):
                     self._faute("CARACTÈRE NON ADMIS", f"U+{ord(ch):04X} « {ch} » dans le texte source")
 
 
+def _empreinte_style(v):
+    return hashlib.sha256(re.sub(r"\s+", " ", v).strip().rstrip(";").strip().encode()).hexdigest()[:16]
+
+
+def _lecture(lx):
+    """Ce que la porte a lu de la page, pour le confronter à la lecture du navigateur (DOMParser)."""
+    return {"balises": [b for b in lx.balises if b not in ("html", "head", "body")],
+            "styles": [re.sub(r"\s+", " ", x).strip() for x in lx.styles],
+            "scripts": [re.sub(r"\s+", " ", x).strip() for x in lx.scripts]}
+
+
 def _empreinte_css(styles):
     return hashlib.sha256("\x1e".join(re.sub(r"\s+", " ", x).strip() for x in styles).encode()).hexdigest()[:16]
 
@@ -585,13 +657,16 @@ def lire_page(path):
     html = open(path, encoding="utf-8").read()
     html = re.sub(r"<!---?>", "<!---->", html)          # HTML5 : « <!--> » est un commentaire vide
     lx = Lecteur()
+    for k in DIVERGENTS:
+        if k in html:
+            lx._faute("ÉLÉMENT NON ADMIS", f"« {k} » : le navigateur et la porte ne liraient pas la même page")
     lx.feed(html)
     lx.close()
     if lx._style is not None:
         lx.styles.append(lx._style)
     e = _empreinte_css(lx.styles)
     if e not in CSS_ADMIS:
-        lx._faute("FEUILLE DE STYLE NON ADMISE", f"empreinte {e} : le CSS de la page n'est pas l'un des 225 mesurés (voir CSS_ADMIS)")
+        lx._faute("FEUILLE DE STYLE NON ADMISE", f"empreinte {e} : le CSS de la page n'est aucun des {len(CSS_ADMIS)} mesurés (CSS_ADMIS)")
     lx.empreinte_css = e
     lx.empreinte = hashlib.sha256("|".join(re.sub(r"\s+", " ", unicodedata.normalize("NFC", x)).strip()
                                            for x in lx.tous_sahe).encode()).hexdigest()[:16]
@@ -769,7 +844,7 @@ def juger(n, segs, path):
         parite.append((i, pm))
         if out:
             fautes.append((f"séif {i + 1:>2}", out))
-    return len(B), fautes, parite, chap_recopie, vides, B
+    return len(B), fautes, parite, chap_recopie, vides, B, _lecture(lx)
 
 
 # ---------------------------------------------------------------- étage de RENDU (--rendu)
@@ -1045,6 +1120,19 @@ MESURE_JS = r"""
 })()
 """
 
+# la page relue par le navigateur lui-même, sans l'exécuter : ses balises, ses <style>, ses scripts
+LECTURE_JS = r"""
+(async () => {
+  const t = await (await fetch(location.href, {cache: 'no-store'})).text();
+  const d = new DOMParser().parseFromString(t, 'text/html');
+  const n = x => x.replace(/\s+/g, ' ').trim();
+  return {balises: [...d.querySelectorAll('*')].map(e => e.tagName.toLowerCase()).filter(b => !['html', 'head', 'body'].includes(b)),
+          styles: [...d.querySelectorAll('style')].map(e => n(e.textContent)),
+          scripts: [...d.querySelectorAll('script')].filter(e => !/json/i.test(e.getAttribute('type') || ''))
+                     .map(e => e.hasAttribute('src') ? 'src:' + e.getAttribute('src') : 'txt:' + n(e.textContent))};
+})()
+"""
+
 MASQUE_JS = r"""
 ((on) => {
   // une feuille, posée par le monde isolé, activée puis désactivée : les GLYPHES du texte source transparents, les
@@ -1100,7 +1188,7 @@ def _travailleur(conn, port, root):
         if job is None:
             break
         path = job
-        fautes, resultats = [], []
+        fautes, resultats, lecture = [], [], None
         largeurs, coupes, k = list(LARGEURS), set(), 0
         while k < len(largeurs):
             W, VH = largeurs[k]
@@ -1120,6 +1208,8 @@ def _travailleur(conn, port, root):
                     if "exceptionDetails" in r:
                         raise RuntimeError("évaluation : " + str(r["exceptionDetails"].get("text"))[:120])
                     return r["result"].get("value")
+                if lecture is None:
+                    lecture = ev(LECTURE_JS, attendre=True)
                 ev(PREPARE_JS, attendre=True)
                 m = ev(MESURE_JS % {"minpx": 8, "media": json.dumps(MEDIA_ADMIS.pattern), "chaine": json.dumps(CSS_CHAINE.pattern)})
                 fautes += [(f"{f} [{W} px]", d) for f, d in m["fautes"]]
@@ -1193,7 +1283,7 @@ def _travailleur(conn, port, root):
             finally:
                 ctx.close()
         conn.send(("FAIT", (fautes, [(W, m["blocs"], [(x["b"], x["t"], x["raison"]) for x in m["mots"]], v,
-                                      [(x["b"], x["src"], x["ok"]) for x in m["imgs"]], vi) for (W, m, v, vi) in resultats])))
+                                      [(x["b"], x["src"], x["ok"]) for x in m["imgs"]], vi) for (W, m, v, vi) in resultats], lecture)))
     try:
         nav.close()
         pw.stop()
@@ -1301,11 +1391,19 @@ class Rendu:
         return res
 
     @staticmethod
-    def _analyser(msg, blocs_statiques):
-        fautes0, resultats = msg
+    def _analyser(msg, statique):
+        blocs_statiques, lu = statique
+        fautes0, resultats, lecture = msg
         Rendu.largeurs_vues.update(W for (W, *_r) in resultats)
         fautes = [(f, d, 1) for f, d in fautes0]
         impossible = any(f.startswith("RENDU IMPOSSIBLE") for f, _ in fautes0)
+        if lecture is not None:
+            for quoi in ("balises", "styles", "scripts"):
+                a, b = lu[quoi], lecture.get(quoi) or []
+                if a != b:
+                    k = next((i for i, (x, y) in enumerate(zip(a, b)) if x != y), min(len(a), len(b)))
+                    fautes.append(("PAGE LUE AUTREMENT PAR LE NAVIGATEUR", f"{quoi} n° {k + 1} : porte « {(a[k] if k < len(a) else '—')[:50]} », "
+                                   f"navigateur « {(b[k] if k < len(b) else '—')[:50]} » ({len(a)} contre {len(b)})", 1))
         from collections import Counter
         for (W, blocs, mots_, vis, imgs, vis_img) in resultats:
             if len(blocs) != len(blocs_statiques):
@@ -1352,6 +1450,7 @@ def main(argv):
         print(f"⛔ LACUNES_MESUREES illisible ({LACUNES_ERR}) : aucune lacune ne sera admise")
     stats = {"conformes": [], "divergents": [], "lacunes": [], "injoignables": [], "absents": [], "rendu_impossible": [],
              "conclus": []}
+    nouvelles = []          # CSS ou style= hors des empreintes mesurées : à relire, rendre, puis admettre
     fam, edition_vue, provenances = {}, set(), set()
     # 1. l'étage statique, pour tous les simanim
     etats = []
@@ -1383,7 +1482,7 @@ def main(argv):
     rendus = {}
     a_rendre = "--rendu" in argv
     if a_rendre:
-        travaux = [((n, lang), x[1], x[2][5]) for n, sec, k, d in etats if k == "ok" for lang, x in d[3].items() if x[0] == "lu"]
+        travaux = [((n, lang), x[1], (x[2][5], x[2][6])) for n, sec, k, d in etats if k == "ok" for lang, x in d[3].items() if x[0] == "lu"]
         try:
             with Rendu() as rendu:
                 rendus = rendu.juger_tous(travaux)
@@ -1416,7 +1515,7 @@ def main(argv):
                 lignes.append(f"  {lang}: ⛔ {x[2]}")
                 bad = conclu = True
                 continue
-            nb, fautes, parite, chap, vd, B = x[2]
+            nb, fautes, parite, chap, vd, B, _lu = x[2]
             fautes = list(fautes)
             if fautes or nb != len(segs):
                 conclu = True
@@ -1432,10 +1531,17 @@ def main(argv):
             par_langue[lang] = parite
             chap_par_langue[lang] = chap
             cnt_ok = nb == len(segs)
-            etat = "✅ IDENTIQUE" if (cnt_ok and not fautes) else "❌ DIVERGENCE"
+            texte_ok = cnt_ok and not any(etiq.startswith("séif") for etiq, _ec in fautes)
+            autres = [ec for etiq, ec in fautes if not etiq.startswith("séif")]
+            etat = "✅ IDENTIQUE" if texte_ok else "❌ DIVERGENCE"
             lignes.append(f"  {lang}: {nb} blocs seif-details [{'OK' if cnt_ok else f'≠ {len(segs)} ATTENDUS'}]"
                           f" | texte source vs Sefaria : {etat}"
-                          + (f" — {len(fautes)} écart(s)" if fautes else ""))
+                          + (f" — {len(fautes)} écart(s)" if fautes and not texte_ok else "")
+                          + (" | ❌ PAGE NON CERTIFIABLE (forme, CSS ou rendu)" if autres else ""))
+            for ec in autres:
+                for f_, t, _k in ec:
+                    if f_ in ("FEUILLE DE STYLE NON ADMISE", "STYLE EN LIGNE NON ADMIS"):
+                        nouvelles.append((n, lang, f_, t))
             if not cnt_ok or fautes:
                 bad = True
             for etiq, ec in fautes:
@@ -1481,7 +1587,7 @@ def main(argv):
         if bref:
             if bad:
                 print(f"❌ {n:>3} ({sec}) : " + " · ".join(l.strip() for l in lignes
-                      if any(k in l for k in ("DIVERGENCE", "ABSENT", "PARITÉ", "ATTENDUS", "⛔"))))
+                      if any(k in l for k in ("DIVERGENCE", "ABSENT", "PARITÉ", "ATTENDUS", "⛔", "NON CERTIFIABLE"))))
         else:
             print(f"\n=== Siman {n} ({sec}) — SA HaRav : {len(segs)} séifim [{titre} ; {prov}] ===")
             print("\n".join(lignes))
@@ -1497,6 +1603,11 @@ def main(argv):
         print(f"  divergents : {' '.join(map(str, stats['divergents']))}")
     if stats["injoignables"]:
         print(f"  ⛔ source non lue : {' '.join(map(str, stats['injoignables']))}")
+    if nouvelles:
+        print(f"CSS OU style= HORS DES EMPREINTES MESURÉES ({len(nouvelles)}) — si le changement est voulu : le relire, rendre la page "
+              f"(--rendu), puis ajouter l'empreinte à CSS_ADMIS ou STYLES_EN_LIGNE_ADMIS :")
+        for n_, l_, f_, t in nouvelles[:40]:
+            print(f"    {n_} {l_} : {f_} — {t[:150]}")
     if a_rendre:
         print(f"Rendu : Chromium, largeurs {', '.join(f'{w} px' for w in sorted(Rendu.largeurs_vues, reverse=True)) or 'aucune'} (une par intervalle @media), monde isolé, séifs ouverts au clic, pixels comparés, scripts du site seuls, autres hôtes bloqués"
               + (f" · RENDU IMPOSSIBLE pour {' '.join(map(str, sorted(set(stats['rendu_impossible']))))}" if stats["rendu_impossible"] else ""))
