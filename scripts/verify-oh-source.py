@@ -40,7 +40,9 @@ conclu pour ce qui n'a pas été lu. Une source absente n'est jamais une source 
      source, ni <picture>, <source>, <video>, <audio>, <canvas>, <svg>, ni srcset ; chaque style= est l'une des
      264 valeurs mesurées (STYLES_EN_LIGNE_ADMIS) ; aucun attribut en double (le navigateur garde le premier,
      html.parser le dernier : la porte lit le premier, et refuse le doublon) ; <html>, <head>, <body> une fois
-     chacun ; aucun bouton de copie posé par la page (data-copy-target) ; aucune construction que html.parser et le navigateur ne lisent
+     chacun ; un seul <meta charset="utf-8">, aucun caractère de contrôle ; aucun bloc dans <rp>, <option>,
+     <fieldset>, <progress> ou un autre <details> ; aucun bouton de copie posé par la page (data-copy-target) ;
+     aucune construction que html.parser et le navigateur ne lisent
      pas de même (« <![ », « --!> », « <? », éléments à texte brut ; un <noscript> — que le navigateur lit comme du
      texte — ne contient qu'un <link> de police admis). Les scripts sont ceux du site (SCRIPTS_ADMIS).
   L'étage statique NE SIMULE PAS LE NAVIGATEUR : il ne lit ni la CSS ni le JavaScript. C'est l'étage 2.
@@ -94,7 +96,13 @@ CE QUE LA PORTE NE COUVRE PAS, et qui relève d'autres portes ou du relecteur :
     classes qu'ils posent au clic (intra-links.js) — le CSS figé n'y attache rien qui cache le texte, et c'est
     tout ce que la porte en sait ;
   - les états d'interaction (survol, focus, ancre #…), le temps au-delà de 1,2 s : le CSS figé n'en porte aucun
-    sur le texte ou ses ancêtres (mesuré), et c'est ce qui en répond ;
+    sur le texte ou ses ancêtres (mesuré). Mais ses 225 suites portent des règles d'état et de position (« :hover »
+    sur .seif-summary et les tableaux, « .lang-switcher-float » en position fixe) qu'une page peut attacher à un
+    élément AJOUTÉ hors de la chaîne : sans état, un tel élément est photographié ; avec un état, il ne l'est pas ;
+  - le SERVICE de la page : la porte la sert depuis le dépôt, par un serveur local, non par Vercel. L'en-tête est
+    aligné sur celui de Vercel (« text/html; charset=utf-8 » : huitième arbitrage, une page en iso-2022-jp se
+    lisait autrement ici) et /_vercel/* est bloqué comme un autre hôte ; les rewrites, redirects et en-têtes de
+    vercel.json ne sont pas rejoués ;
   - à l'intérieur d'un intervalle de largeur, une seule largeur est rendue : un élément d'une autre partie de la
     page placé en pourcentage pourrait recouvrir le texte à une largeur et non à une autre ; en deçà de 320 px,
     rien n'est rendu ;
@@ -193,7 +201,9 @@ INTERDITS = {"iframe", "object", "embed", "frame", "frameset", "portal", "base",
 TITRES = {"h1", "h2", "h3", "h4", "h5", "h6", "summary", "dt", "th", "legend", "caption"}
 VIDES = {"br", "img", "hr", "meta", "link", "input", "wbr", "source", "area", "base", "col", "embed", "param", "track"}
 MUETS = {"script", "style", "template", "noscript", "title", "textarea", "iframe", "noembed", "noframes", "object",
-         "video", "audio", "canvas", "dialog", "select", "datalist", "svg", "math", "head", "del", "s", "strike"}
+         "video", "audio", "canvas", "dialog", "select", "datalist", "svg", "math", "head", "del", "s", "strike",
+         # huitième arbitrage : contenus que le navigateur ne rend pas ou rend en repli (aucune page n'en porte)
+         "rp", "rt", "progress", "meter", "optgroup", "option", "fieldset"}
 # les te'amim présents dans les 1 095 pages (3 fois chacun) ; les autres sont refusés
 TEAMIM_ADMIS = {"\u0596", "\u05AF"}
 ALTS = {"dessin de la lettre (édition Kehot)", "צורת האות (מהדורת קה״ת)", "drawing of the letter (Kehot edition)"}
@@ -537,6 +547,12 @@ class Lecteur(HTMLParser):
                 self._faute("LIEN NON ADMIS", f"<link {' '.join(noms)} rel=\"{rel}\" href=\"{href[:70]}\">")
         if tag == "meta":
             nom = a.get("name", "").lower()
+            if "charset" in a:
+                self.uniques["meta charset"] = self.uniques.get("meta charset", 0) + 1
+                if a["charset"].strip().lower() != "utf-8":
+                    self._faute("ÉLÉMENT NON ADMIS", f"<meta charset=\"{a['charset'][:20]}\"> (le site sert l'UTF-8)")
+            if a.get("http-equiv", "").lower() == "content-type":
+                self._faute("ÉLÉMENT NON ADMIS", "<meta http-equiv=\"content-type\"> (l'encodage se déclare par <meta charset=\"utf-8\"> seul)")
             if nom == "viewport" and re.sub(r"\s+", " ", a.get("content", "")).strip() not in VIEWPORT_ADMIS:
                 self._faute("ÉLÉMENT NON ADMIS", f"<meta name=\"viewport\" content=\"{a.get('content', '')[:60]}\">")
             if nom in ("color-scheme", "supported-color-schemes"):
@@ -564,7 +580,7 @@ class Lecteur(HTMLParser):
             self._faute("BLOC IMBRIQUÉ", "un seif-details dans un autre")
         if est_bloc and (set(a) - {"class", "open"} or set(classes) != {"seif-details"}):
             self._faute("ATTRIBUT NON ADMIS", f"<details {' '.join(noms)} class=\"{a.get('class')}\">")
-        if est_bloc and any(t in MUETS or cache for t, _s, _b, _c, cache in self.pile):
+        if est_bloc and any(t in MUETS or t == "details" or cache for t, _s, _b, _c, cache in self.pile):
             self._faute("BLOC DANS UN ÉLÉMENT NON ADMIS", " > ".join(t for t, *_ in self.pile)[-120:])
         if "seif-num" in classes and not self.bloc:
             self._faute("SÉIF HORS BLOC", "span seif-num hors d'un bloc seif-details")
@@ -703,7 +719,9 @@ def lire_page(path):
             lx._faute("ÉLÉMENT NON ADMIS", f"<noscript> : « {vu} » (les pages n'y mettent qu'un <link> de police)")
     lx.feed(html)
     lx.close()
-    for t in ("html", "head", "body"):
+    if re.search(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]", html):
+        lx._faute("CARACTÈRE NON ADMIS", "caractère de contrôle dans le fichier (ESC d'un encodage à états, etc.)")
+    for t in ("html", "head", "body", "meta charset"):
         if lx.uniques.get(t, 0) != 1:
             lx._faute("ÉLÉMENT NON ADMIS", f"<{t}> écrit {lx.uniques.get(t, 0)} fois (le navigateur en fusionne les attributs)")
     if lx._style is not None:
@@ -958,6 +976,7 @@ MESURE_JS = r"""
   const out = {blocs: [], fautes: [], mots: [], imgs: []};
   const faute = (f, d) => { if (out.fautes.length < 60) out.fautes.push([f, d]); };
   const blocs = [...document.querySelectorAll('details')].filter(d => d.classList.contains('seif-details'));
+  if (document.characterSet !== 'UTF-8') faute('ENCODAGE', 'la page est lue en ' + document.characterSet + ', le site la sert en UTF-8');
   const ferme = blocs.filter(d => !d.open).length;
   if (ferme) faute('SÉIF QUI NE S\'OUVRE PAS', ferme + ' bloc(s) restés fermés après un clic sur leur titre');
   // la chaîne : chaque bloc, son div.sa-block, son .sa-he et tout ce qu'il contient ; les ancêtres des blocs
@@ -1241,7 +1260,8 @@ def _travailleur(conn, port, root):
             ctx = nav.new_context(viewport={"width": W, "height": VH}, device_scale_factor=1, color_scheme="light")
             try:
                 page = ctx.new_page()
-                page.route("**/*", lambda r: r.continue_() if r.request.url.startswith(base) else r.abort())
+                # /_vercel/* est servi par Vercel, non par le dépôt : bloqué comme un autre hôte
+                page.route("**/*", lambda r: r.continue_() if r.request.url.startswith(base) and not r.request.url.startswith(base + "_vercel/") else r.abort())
                 page.goto(base + os.path.relpath(path, root), wait_until="load", timeout=45000)
                 cdp = ctx.new_cdp_session(page)
                 fid = cdp.send("Page.getFrameTree")["frameTree"]["frame"]["id"]
@@ -1362,6 +1382,10 @@ class Rendu:
         import threading, http.server, socketserver, functools, multiprocessing
 
         class _Q(http.server.SimpleHTTPRequestHandler):
+            # l'en-tête de Vercel (« text/html; charset=utf-8 ») : c'est lui, et non la page, qui fixe l'encodage chez le
+            # lecteur (huitième arbitrage : sans lui, une page en <meta charset="iso-2022-jp"> se lisait autrement ici)
+            extensions_map = {**http.server.SimpleHTTPRequestHandler.extensions_map, ".html": "text/html; charset=utf-8"}
+
             def log_message(self, *a):
                 pass
         self.srv = socketserver.ThreadingTCPServer(("127.0.0.1", 0), functools.partial(_Q, directory=ROOT))
