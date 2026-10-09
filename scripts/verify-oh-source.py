@@ -1158,7 +1158,8 @@ def main(argv):
         return 2
     if LACUNES_ERR:
         print(f"⛔ LACUNES_MESUREES illisible ({LACUNES_ERR}) : aucune lacune ne sera admise")
-    stats = {"conformes": [], "divergents": [], "lacunes": [], "injoignables": [], "absents": [], "rendu_impossible": []}
+    stats = {"conformes": [], "divergents": [], "lacunes": [], "injoignables": [], "absents": [], "rendu_impossible": [],
+             "conclus": []}
     fam, edition_vue, provenances = {}, set(), set()
     # 1. l'étage statique, pour tous les simanim
     etats = []
@@ -1209,26 +1210,31 @@ def main(argv):
             continue
         segs, titre, prov, par = d
         lignes, bad, par_langue, chap_par_langue, vides = [], False, {}, {}, set()
+        conclu = False      # un défaut établi, hors « rendu impossible » : la page sort en 1, pas en 3
         for lang, _suf in LANGS:
             x = par.get(lang)
             if x is None:
                 continue
             if x[0] == "absent":
                 lignes.append(f"  {lang}: FICHIER ABSENT {os.path.relpath(x[1], ROOT)}")
-                bad = True
+                bad = conclu = True
                 continue
             if x[0] == "erreur":
                 lignes.append(f"  {lang}: ⛔ {x[2]}")
-                bad = True
+                bad = conclu = True
                 continue
             nb, fautes, parite, chap, vd, B = x[2]
             fautes = list(fautes)
+            if fautes or nb != len(segs):
+                conclu = True
             if (n, lang) in rendus:
                 fr, imposs = rendus[(n, lang)]
                 if imposs:
                     stats["rendu_impossible"].append(n)
                 if fr:
                     fautes.append(("rendu", fr))
+                    if any(not f_.startswith("RENDU IMPOSSIBLE") for f_, _t, _k in fr):
+                        conclu = True
             vides.update(vd)
             par_langue[lang] = parite
             chap_par_langue[lang] = chap
@@ -1266,7 +1272,7 @@ def main(argv):
                         ou.append(f"{L} ≠ {ref_lang} (nombre de blocs)")
                 lignes.append(f"  ⚠️  PARITÉ FR/HE/EN du texte source : DIVERGENTE — {' ; '.join(ou)}")
                 fam.setdefault("PARITÉ", set()).add((n, "", ""))
-                bad = True
+                bad = conclu = True
             else:
                 lignes.append("  parité FR/HE/EN du texte source : ✅ identique")
             cv = {L: c for L, c in chap_par_langue.items() if c is not None}
@@ -1277,6 +1283,8 @@ def main(argv):
         if not segs:
             stats["lacunes"].append(n)
         (stats["divergents"] if bad else stats["conformes"]).append(n)
+        if conclu:
+            stats["conclus"].append(n)
         if bref:
             if bad:
                 print(f"❌ {n:>3} ({sec}) : " + " · ".join(l.strip() for l in lignes
@@ -1307,7 +1315,8 @@ def main(argv):
                   else "⛔ VÉRIFICATION SOURCE : source non lue pour une partie — RIEN N'EST CONCLU pour elle"))
     if stats["rendu_impossible"]:
         print(f"⛔ RENDU IMPOSSIBLE pour {' '.join(map(str, sorted(set(stats['rendu_impossible']))))} : rien n'est conclu sur ce que voit le lecteur")
-    if stats["rendu_impossible"] and set(stats["divergents"]) <= set(stats["rendu_impossible"]):
+    # 3 quand le seul « défaut » est un rendu impossible ; un défaut établi (texte, forme, rendu mesuré) sort en 1
+    if stats["rendu_impossible"] and not stats["conclus"] and set(stats["divergents"]) <= set(stats["rendu_impossible"]):
         return 3
     if not ok:
         return 1
