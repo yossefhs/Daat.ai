@@ -42,6 +42,7 @@
 //   revanche la barre de progression mensuelle (soutien:total), comme un don manuel.
 
 import { kv } from './_kv.js';
+import { adminParJetonMemeSite } from './_admin-gate.js';
 
 const QONTO_BASE = 'https://thirdparty.qonto.com/v2';
 const DEFAULT_EXCLUDE = ['helloasso', 'stripe', 'remboursement', 'refund'];
@@ -70,6 +71,8 @@ function setCors(res) {
 
 // Auth : admin (UI) OU cron Vercel.
 function isAuthed(req) {
+  // Session par courriel d'une adresse de ADMIN_EMAILS, sur le même site.
+  if (adminParJetonMemeSite(req)) return true;
   const adminPwd = process.env.ADMIN_PASSWORD;
   const soutienSecret = process.env.SOUTIEN_ADMIN_SECRET;
   const cronSecret = process.env.CRON_SECRET;
