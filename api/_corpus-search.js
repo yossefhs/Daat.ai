@@ -1276,3 +1276,48 @@ export function getCorpusStats() {
   loadAndIndex();
   return { totalChunks: _N, totalSimanim: _corpus?.meta?.totalSimanim || 0, avgdl: _avgdl };
 }
+
+// ── Routage quand la question NOMME un siman ────────────────────────────────
+// Constat observé sur l'interface publique : à « Explique le siman 100 de Yoreh
+// De'ah », le chemin court (corpus-first Haiku) a répondu « aucun extrait du
+// corpus du Rav n'explique le contenu du Siman 100 » — alors que le corpus
+// contient bien ce siman (yd-base-siman-100-*, yd-synthese-siman-100-*), que le
+// chemin agentique retrouve au premier appel. La recherche BM25 sert le meilleur
+// match LEXICAL ; quand la question ne porte aucun mot de sujet (« explique le
+// siman N »), ce match vient d'un autre siman, et l'utilisateur gratuit repart
+// en croyant le siman absent.
+
+// Numéro de siman EXPLICITEMENT nommé. Strict par construction : le mot-clé est
+// OBLIGATOIRE. api/_corpus.js a un simanFromQuery() dont le mot-clé est optionnel
+// — acceptable là-bas (le numéro n'y sert qu'à remonter des entrées éditoriales),
+// inacceptable ici : un faux positif sur « j'ai 3 invités » ferait DÉCLINER le
+// chemin court à tort. On n'accepte donc pas non plus la forme nue « 319:5 »,
+// qui capture les heures (« à 19:30 »).
+// ⚠️ Pas de \b autour de « סימן » : en JavaScript \b se définit sur [A-Za-z0-9_],
+// donc une lettre hébraïque n'ouvre aucune limite de mot et /\bסימן\b/ ne matche
+// JAMAIS « סימן 128 ». Le mot est assez distinctif pour s'en passer.
+const NAMED_SIMAN_RE = /(?:\bsimane?\b|סימן|\bchapitre\b|\bo\.?h\.?\b|\by\.?d\.?\b|\borah\s+ha[iï]m\b|\byoreh\s+de'?ah\b)[\s:n°º]{0,4}(\d{1,3})\b/i;
+
+export function namedSimanInQuestion(text) {
+  const m = String(text || '').match(NAMED_SIMAN_RE);
+  if (!m) return null;
+  const n = parseInt(m[1], 10);
+  return n >= 1 && n <= 1714 ? n : null;
+}
+
+// Recherche destinée au ROUTAGE (décider si le chemin court peut répondre).
+// Identique à searchCorpus, SAUF quand la question nomme un siman : les résultats
+// sont alors restreints à CE siman. S'il n'en ressort rien au-dessus de la barre,
+// on rend une liste vide — le chemin court décline et la question part sur le
+// chemin agentique, qui sait ouvrir plusieurs seifim. Mieux vaut une réponse
+// complète un peu plus lente qu'une réponse rapide qui nie un siman publié.
+export function searchCorpusForRouting(question, opts = {}) {
+  const named = namedSimanInQuestion(question);
+  if (named == null) return searchCorpus(question, opts);
+  const limit = opts.limit || 3;
+  // On élargit la fenêtre avant de filtrer : le bon siman peut être au 5ᵉ rang
+  // du classement lexical tout en étant le seul que la question désigne.
+  const wide = searchCorpus(question, { ...opts, limit: Math.max(limit * 6, 18) });
+  const kept = wide.results.filter((r) => r.siman === named);
+  return { ...wide, results: kept.slice(0, limit), namedSiman: named, declinedNamedSiman: kept.length === 0 ? named : null };
+}
