@@ -39,7 +39,8 @@ conclu pour ce qui n'a pas été lu. Une source absente n'est jamais une source 
      <meta name="viewport"> (une seule valeur), aucun <meta name="color-scheme">, aucune <img> hors du texte
      source, ni <picture>, <source>, <video>, <audio>, <canvas>, <svg>, ni srcset ; chaque style= est l'une des
      264 valeurs mesurées (STYLES_EN_LIGNE_ADMIS) ; aucune construction que html.parser et le navigateur ne lisent
-     pas de même (« <![ », « --!> », « <? », éléments à texte brut). Les scripts sont ceux du site (SCRIPTS_ADMIS).
+     pas de même (« <![ », « --!> », « <? », éléments à texte brut ; un <noscript> — que le navigateur lit comme du
+     texte — ne contient qu'un <link> de police admis). Les scripts sont ceux du site (SCRIPTS_ADMIS).
   L'étage statique NE SIMULE PAS LE NAVIGATEUR : il ne lit ni la CSS ni le JavaScript. C'est l'étage 2.
 
 ÉTAGE 2, RENDU (--rendu) — ce que le lecteur VOIT. Les scripts sont fermés à l'étage 1 (ceux du site, et eux
@@ -660,6 +661,17 @@ def lire_page(path):
     for k in DIVERGENTS:
         if k in html:
             lx._faute("ÉLÉMENT NON ADMIS", f"« {k} » : le navigateur et la porte ne liraient pas la même page")
+    # <noscript> : le navigateur, scripts actifs, le lit comme du TEXTE jusqu'au premier « </noscript », quand
+    # html.parser et le DOMParser (scripts inactifs) le lisent comme du HTML — un « </noscript> » caché dans un
+    # attribut y ferait naître un <style> que ni l'un ni l'autre ne voit. Les pages n'y mettent qu'un <link> admis.
+    bas = html.lower()
+    for m_ in re.finditer(r"<noscript\b", bas):
+        fin = bas.find("</noscript", m_.end())
+        brut = html[m_.end():fin if fin >= 0 else len(html)]
+        lien = re.fullmatch(r'>\s*<link rel="stylesheet" href="([^"<>]*)">\s*', brut)
+        if not lien or ("stylesheet", lien.group(1)) not in LIENS_ADMIS:
+            vu = re.sub(r"\s+", " ", brut)[:70]
+            lx._faute("ÉLÉMENT NON ADMIS", f"<noscript> : « {vu} » (les pages n'y mettent qu'un <link> de police)")
     lx.feed(html)
     lx.close()
     if lx._style is not None:
