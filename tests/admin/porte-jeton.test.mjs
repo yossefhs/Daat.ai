@@ -27,3 +27,14 @@ test('requête déclenchée par un autre site → refusée, même avec le bon co
   assert.equal(porte(req('admin@exemple.org', { 'sec-fetch-site': 'cross-site' })), null);
   assert.equal(porte(req('admin@exemple.org', { origin: 'https://mechant.example' })), null);
 });
+
+test('egal : comparaison de secret à temps constant — juste, faux, vide', async () => {
+  const { egal } = await import('../../api/_admin-gate.js');
+  assert.equal(egal('mot-de-passe', 'mot-de-passe'), true);
+  assert.equal(egal('mot-de-passe', 'mot-de-passe!'), false);
+  assert.equal(egal('mot-de-passe', 'Mot-de-passe'), false);
+  // un côté vide ou absent ne vaut JAMAIS égalité — pas même vide contre vide
+  for (const [a, b] of [['', ''], [undefined, undefined], ['', 'x'], ['x', ''], [null, 'x'], ['x', undefined]]) {
+    assert.equal(egal(a, b), false, `${a} / ${b}`);
+  }
+});

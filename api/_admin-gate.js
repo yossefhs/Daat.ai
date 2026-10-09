@@ -25,6 +25,19 @@
 
 import { kv } from './_kv.js';
 import { getUserFromRequest } from './_auth.js';
+import { createHash, timingSafeEqual } from 'node:crypto';
+
+/**
+ * Comparaison d'un secret À TEMPS CONSTANT. `a === b` s'arrête au premier
+ * caractère différent : le temps de réponse dit alors combien de caractères
+ * étaient justes, et laisse deviner le mot de passe caractère par caractère.
+ * On compare les empreintes SHA-256, de longueur fixe — ni le secret ni sa
+ * longueur ne transparaissent. Un côté vide ne vaut jamais égalité.
+ */
+export function egal(a, b) {
+  if (!a || !b) return false;
+  return timingSafeEqual(createHash('sha256').update(String(a)).digest(), createHash('sha256').update(String(b)).digest());
+}
 
 // Les pages d'administration appellent `/api/admin/*` en MÊME origine ; aucune
 // requête légitime n'a donc besoin de CORS. La liste sert aux déploiements de

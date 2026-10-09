@@ -13,7 +13,7 @@ import {
   deleteDynamicEntry,
   listDynamicEntries,
 } from '../_corpus.js';
-import { corsAdmin, origineRefusee, refuserOrigine, adminParJeton, freinage, echecAdmin, reussiteAdmin, refuser } from '../_admin-gate.js';
+import { corsAdmin, origineRefusee, refuserOrigine, adminParJeton, freinage, echecAdmin, reussiteAdmin, refuser, egal } from '../_admin-gate.js';
 
 function checkAuth(req) {
   const expected = process.env.ADMIN_PASSWORD;
@@ -22,7 +22,7 @@ function checkAuth(req) {
   }
   const auth = req.headers['authorization'] || '';
   const provided = auth.startsWith('Bearer ') ? auth.slice(7) : '';
-  if (provided !== expected) {
+  if (!egal(provided, expected)) {
     return { ok: false, status: 401, error: 'Non autorisé' };
   }
   return { ok: true };
