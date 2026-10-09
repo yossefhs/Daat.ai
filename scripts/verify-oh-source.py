@@ -848,8 +848,10 @@ def _travailleur(conn, port, root):
                     if rw > 0 and rh > 0:
                         tuiles.setdefault((int(ry // VH), int(rx // W)), []).append(("i", i, rx, ry, rw, rh))
 
-                def comparer(a, b, vx, vy, rw, rh, seuil):
-                    d = (np.abs(a - b).max(axis=2) > 40)
+                def ecart(a, b):
+                    return np.abs(a - b).max(axis=2) > 40
+
+                def comparer(d, vx, vy, rw, rh, seuil):
                     x0, x1 = max(0, int(vx)), min(d.shape[1], int(vx + rw) + 1)
                     y0, y1 = max(0, int(vy)), min(d.shape[0], int(vy + rh) + 1)
                     if x1 <= x0 or y1 <= y0:
@@ -861,11 +863,12 @@ def _travailleur(conn, port, root):
                     ev(MASQUE_JS % "true")
                     b = capture(cdp)
                     ev(MASQUE_JS % "false")
+                    d = ecart(a, b)                     # une fois par tuile
                     for (genre, i, rx, ry, rw, rh) in objets:
                         if genre == "m" and not vis[i]:
-                            vis[i] = comparer(a, b, rx - sx, ry - sy, rw, rh, (6, 0.03))
+                            vis[i] = comparer(d, rx - sx, ry - sy, rw, rh, (6, 0.03))
                         elif genre == "i" and not vis_img[i]:
-                            vis_img[i] = comparer(a, b, rx - sx, ry - sy, rw, rh, (12, 0.02))
+                            vis_img[i] = comparer(d, rx - sx, ry - sy, rw, rh, (12, 0.02))
                 # seconde chance, objet par objet, centré à l'écran (un élément fixe ne couvre pas tout l'écran)
                 def centrer(k):
                     return ev(f"""(() => {{ const o = window.__mots[{k}]; const r0 = (o.getClientRects ? o.getClientRects()[0] : null) || o.getBoundingClientRect();
@@ -882,7 +885,7 @@ def _travailleur(conn, port, root):
                         ev(MASQUE_JS % "true")
                         b = capture(cdp)
                         ev(MASQUE_JS % "false")
-                        etat[i] = comparer(a, b, vx, vy, rw, rh, seuil)
+                        etat[i] = comparer(ecart(a, b), vx, vy, rw, rh, seuil)
                 resultats.append((W, m, vis, vis_img))
             except Exception as e:  # noqa: BLE001
                 fautes.append(("RENDU IMPOSSIBLE", f"[{W} px] " + str(e).splitlines()[0][:160]))
