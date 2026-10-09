@@ -56,11 +56,17 @@
     /* ── HEADER ── */
     header {
       background: var(--navy);
-      padding: 0 28px;
+      padding: 6px 28px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 64px;
+      min-height: 64px;
+      /* Quand les liens ne tiennent pas à côté du logo (en français, 855 px de
+         liens : la page défilait de côté entre 769 et ~1 080 px), ils passent sur
+         une seconde ligne, sans seuil fixe — la largeur dépend de la langue et du
+         bouton de connexion. */
+      flex-wrap: wrap;
+      row-gap: 4px;
       position: sticky;
       top: 0;
       z-index: 100;
@@ -101,8 +107,11 @@
 
     nav {
       display: flex;
-      gap: 16px;
+      gap: 6px 16px;
       align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      margin-inline-start: auto;
     }
 
     nav a {
@@ -582,6 +591,15 @@
       display: flex;
       align-items: baseline;
       gap: 12px;
+      /* Les trois blocs restent sur une rangée : c'est le libellé qui passe à la
+         ligne dans son bloc. Mesuré : 1 219 px de contenu en français, 1 187 en
+         anglais, pour 1 100 de place — le troisième chiffre tombait seul dessous. */
+      flex: 0 1 auto;
+      min-width: 0;
+    }
+    @media (min-width: 769px) {
+      .social-proof-inner { flex-wrap: nowrap; gap: 28px; }
+      .social-proof-label { line-height: 1.5; }
     }
     .social-proof-num {
       font-family: 'Cormorant Garamond', serif;
