@@ -948,6 +948,8 @@ MESURE_JS = r"""
     try { visite(sh.cssRules, c); } catch (e) { faute('FEUILLE ILLISIBLE', String(sh.href)); }
   }
   for (const [r, cond] of regles) {
+    // une image qui suit la densité de pixels n'est rendue qu'à DPR 1 : refusée partout (aucune feuille n'en porte)
+    if (/image-set\(/i.test(r.style.cssText)) faute('VALEUR QUI DÉPEND DE LA DENSITÉ DE PIXELS', r.selectorText.slice(0, 60) + ' { … image-set() … }');
     // l'impression et le mouvement réduit ne sont pas rendus : leurs règles n'atteignent ni la chaîne ni un ancêtre
     const nonRendu = cond.some(m => /print|prefers-reduced-motion/i.test(m));
     const ou = cond.length ? '@media ' + cond.join(' / ') + ' ' : '';
@@ -1251,11 +1253,12 @@ class Rendu:
             raise RuntimeError(msg)
         return [proc, conn]
 
-    def __exit__(self, *a):
+    def __exit__(self, exc_type, *a):
         for proc, conn in self.ouvriers:
             try:
-                conn.send(None)
-                proc.join(10)
+                if exc_type is None:          # sortie normale : on prévient ; sur signal ou erreur : on tue
+                    conn.send(None)
+                    proc.join(10)
             except Exception:  # noqa: BLE001
                 pass
             if proc.is_alive():
