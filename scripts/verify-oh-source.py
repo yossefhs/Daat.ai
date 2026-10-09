@@ -6,7 +6,7 @@ Usage :
   python3 scripts/verify-oh-source.py 71 72 73          # simanim nommés (1-241 : Orah Haïm, 242-365 : Chabbat)
   python3 scripts/verify-oh-source.py --tous [--bref]   # les 365
   python3 scripts/verify-oh-source.py --section shabbat [--bref]
-  options : --rendu (ouvre aussi chaque page dans Chromium : voir ÉTAGE 2 ; ~1 s par page) ·
+  options : --rendu (ouvre aussi chaque page dans Chromium : voir ÉTAGE 2 ; modules playwright, pillow, numpy) ·
             --bref (une ligne par siman en défaut) · --cache (lit/écrit scripts/.cache-sefaria/saharav : un
             INSTANTANÉ, et la sortie le dit ; par défaut, la source est RE-TÉLÉCHARGÉE, comme la clause de
             vérification le demande)
@@ -36,25 +36,40 @@ conclu pour ce qui n'a pas été lu. Une source absente n'est jamais une source 
      ZWJ, espace insécable. Une page-pont ne porte aucun .sa-he, sauf 304 et 322, FIGÉES par empreinte.
   L'étage statique NE SIMULE PAS LE NAVIGATEUR : il ne lit ni la CSS ni le JavaScript. C'est l'étage 2.
 
-ÉTAGE 2, RENDU (--rendu) — Chromium ouvre la page servie en local (scripts LOCAUX exécutés, feuilles locales
-appliquées par le navigateur lui-même — @import, @media, @layer, échappements et variables compris —, requêtes
-vers tout autre hôte BLOQUÉES), à 1280×900, déplie tous les séifs, et vérifie MOT PAR MOT que chaque mot
-confronté par l'étage 1 est VISIBLE : boîte non vide, police d'au moins 9 px, opacité cumulée d'au moins 0,5,
-contraste d'au moins 2,5 avec le premier fond opaque, et, sur toute sa chaîne d'ancêtres, ni filtre, ni
-masque, ni découpe, ni transformation, ni inversion bidi, ni visibilité réduite ; ni interlettrage négatif, ni
-rayure ; et — par document.elementFromPoint, à deux hauteurs d'écran — aucun élément posé par-dessus. Il
-vérifie aussi : le texte et le nombre de blocs après les scripts sont ceux du fichier ; aucune règle ne met
-de contenu ::before/::after dans le texte source ni ne le vise par ::first-line/::first-letter ; aucune police
-n'est définie par la page (@font-face : aucune sur les 1 095 pages) ; chaque dessin est chargé, visible et
-n'a pas été changé par un script.
+ÉTAGE 2, RENDU (--rendu) — ce que le lecteur VOIT. Les scripts sont fermés à l'étage 1 (ceux du site, et eux
+seuls) ; ici, Chromium ouvre la page servie en local (toute requête vers un autre hôte bloquée), à 1280×900 puis
+à 390×844, mesure dans un MONDE ISOLÉ (la page ne peut pas falsifier la mesure), ouvre chaque séif par un vrai
+clic sur son titre, parcourt la page, attend 1,2 s, puis :
+  - lit le CSSOM par le navigateur lui-même (@import, @media, @layer, échappements, variables compris) : les
+    règles qui atteignent réellement le bloc, sa chaîne jusqu'au .sa-he et son contenu, à toute largeur, ne
+    portent que des propriétés typographiques ou de boîte ; aucun pseudo-élément (::before, ::after, ::marker,
+    ::first-line, ::first-letter, ::selection, ::highlight) ni aucun état (:hover, :focus…) ne les vise ; seules
+    les conditions @media de largeur, d'impression et prefers-reduced-motion sont admises (les seules que les
+    pages emploient) ; aucune police n'est définie par la page ; aucune animation sur la chaîne ou ses
+    ancêtres, ni transformation (scale, rotate, translate, zoom ; transform sur la chaîne) ;
+  - PHOTOGRAPHIE CHAQUE MOT deux fois, tel quel puis avec le seul texte source rendu transparent : un mot qui ne
+    change pas les pixels n'est pas vu, quelle qu'en soit la cause (voile, dégradé, couleur, contour, surlignage,
+    découpe, recouvrement). L'écran est parcouru par tuiles, en hauteur ET en largeur (une page de droite à gauche
+    qui déborde sur téléphone se lit en défilant vers la gauche) ; un mot qui échoue est repris seul, centré à
+    l'écran, contre les éléments fixes ;
+  - vérifie l'ordre visuel des mots (de droite à gauche, ligne après ligne), leur hauteur (un mot écrasé n'est
+    pas lisible), que le texte et le nombre de blocs après les scripts sont ceux du fichier, et que chaque dessin
+    est chargé, visible, et n'a pas été changé ;
+  - tue un processus de rendu bloqué (900 s par page) : la page sort en « RENDU IMPOSSIBLE », code 3.
+  Trois processus en parallèle ; ~1 h pour les 1 095 pages, quelques minutes pour un lot.
 
 CE QUE LA PORTE NE COUVRE PAS, et qui relève d'autres portes ou du relecteur :
   - les .sa-he HORS des blocs (3 752 citations des sections d'étude, dans 768 pages) : verifier-citations.py ;
   - les traductions et commentaires (.sa-fr, chidush, sections למעשה) : relecture, verifier-citations.py ;
-  - un séif fabriqué hors bloc sous la forme d'un paragraphe ordinaire (<strong>סעיף א.</strong> sert à 60
-    reprises, légitimement, dans les explications hébraïques) ;
-  - les scripts d'autres hôtes, bloqués au rendu ; les écrans autres que 1280×900 ; les mots dont les seuls
-    crochets, guillemets ou ponctuation changent (ignorés à dessein, voir les normalisations).
+  - du texte hébreu ajouté dans le div.sa-block hors du .sa-he, la place des <small>/<b> dans le .sa-he, un
+    séif fabriqué hors bloc sous la forme d'un paragraphe ordinaire (<strong>סעיף א.</strong> sert à 60 reprises,
+    légitimement, dans les explications hébraïques) ;
+  - ce que les scripts DU SITE affichent depuis d'autres hôtes (bannière de dédicace, chat), bloqués au rendu ;
+  - les largeurs autres que 1280 et 390 px (les règles qui atteignent la chaîne sont jugées à toute largeur,
+    mais un élément d'une autre partie de la page qui ne recouvrirait le texte qu'entre deux paliers ne l'est
+    pas), le schéma sombre, forced-colors, la densité de pixels (aucune page n'emploie ces conditions, et
+    l'étage 2 les refuse) ; le temps au-delà de 1,2 s après l'ouverture des séifs ;
+  - les mots dont les seuls crochets, guillemets ou ponctuation changent (ignorés à dessein).
 
 LES NORMALISATIONS, des deux côtés, et elles seules : NFC ; nikoud et te'amim retirés ; le maqaf est une
 frontière de mot ; <br>, <p>, <div>, <li>, <tr>, <td>, <th>, <blockquote> (et « </br> », que le navigateur lit
@@ -103,7 +118,9 @@ façons de tromper les versions intermédiaires — CSS (couleur du fond, opacit
 @import, variables), scripts, éléments recouvrants, balises auto-fermées, blocs hors <details>, lettres
 larges, « … » déplacée, dessins permutés. Chaque tentative d'énumérer les ruses de CSS en ouvrait d'autres, et
 faisait dépendre la porte de la feuille du chat (chat-widget.css, chargée par 1 056 pages) : d'où l'étage 2,
-où c'est le navigateur qui dit ce que le lecteur voit.
+où c'est le navigateur qui dit ce que le lecteur voit. Son premier état (calculs de styles, elementFromPoint) a
+été arbitré à son tour et trompé par des voiles en pointer-events:none, des dégradés, des contours de glyphes,
+des minuteurs : d'où la fermeture des scripts et la mesure par PIXELS.
 """
 import sys, re, json, os, unicodedata, subprocess, difflib, importlib.util, hashlib
 from html.parser import HTMLParser
@@ -645,8 +662,10 @@ CSS_CHAINE = re.compile(r"^(font(-[a-z]+)*|line-height|color|direction|text-alig
                         r"padding(-[a-z]+)*|margin(-[a-z]+)*|border(-[a-z]+)*|background(-[a-z]+)*|"
                         r"cursor|list-style(-type)?|box-sizing|-webkit-font-smoothing|text-rendering|"
                         r"transition(-[a-z]+)*|gap|--[\w-]+)$")
-MEDIA_ADMIS = re.compile(r"^(?:\s*(?:not\s+|only\s+)?(?:screen|print|all)?\s*(?:and\s+)?"
-                         r"(?:\(\s*(?:min-width|max-width|width|prefers-reduced-motion)\s*:[^)]*\)\s*(?:and\s+)?)*)+$")
+# une requête @media admise (la liste est coupée aux virgules) : un type, puis des conditions de largeur ou de
+# mouvement réduit — chaque répétition exige « ( », pas de retour arrière en cascade
+MEDIA_ADMIS = re.compile(r"^\s*(?:(?:only|not)\s+)?(?:screen|print|all)?(?:\s*(?:and\s+)?\(\s*(?:min-width|max-width|width|"
+                         r"prefers-reduced-motion)\s*:[^)]*\))*\s*$")
 LARGEURS = ((1280, 900), (390, 844))
 
 PREPARE_JS = r"""
@@ -682,12 +701,13 @@ MESURE_JS = r"""
   }
   // 4. le CSSOM, lu par le navigateur : @media, @supports, @layer, @container, @import
   const ETATS = /:(hover|focus|focus-within|focus-visible|active|target|visited|checked)\b/g;
+  const A_ETAT = /:(hover|focus|focus-within|focus-visible|active|target|visited|checked)\b/;
   const PSEUDO = /::?(before|after|marker|first-line|first-letter|selection|highlight\([^)]*\)|placeholder|backdrop)\b/i;
   const CACHE = /^(opacity|filter|visibility|display|transform|scale|rotate|translate|zoom|clip|clip-path|mask.*|-webkit-mask.*|content-visibility|animation.*|position|inset|top|left|right|bottom|z-index|overflow.*|height|max-height|width|max-width|-webkit-text-fill-color|-webkit-text-stroke.*|text-shadow|mix-blend-mode|backdrop-filter|order|flex-direction|writing-mode)$/;
   const regles = [];
   const visite = (rules, media) => { for (const r of rules) {
     if (r.media && r.cssRules) { const m = r.media.mediaText;
-      if (m && !/^\s*$/.test(m) && !new RegExp(%(media)s).test(m)) faute('CONDITION @media NON ADMISE', m.slice(0, 80));
+      if (m && !/^\s*$/.test(m) && !m.split(',').every(q => new RegExp(%(media)s).test(q))) faute('CONDITION @media NON ADMISE', m.slice(0, 80));
       try { visite(r.cssRules, m); } catch (e) {} continue; }
     if (r.styleSheet) { try { visite(r.styleSheet.cssRules, media); } catch (e) { faute('FEUILLE ILLISIBLE', String(r.href)); } continue; }
     if (r.constructor && r.constructor.name === 'CSSFontFaceRule') { faute('POLICE DÉFINIE PAR LA PAGE', '@font-face'); continue; }
@@ -705,9 +725,12 @@ MESURE_JS = r"""
       if (!touche && !toucheAnc) continue;
       const props = [...r.style].map(p => [p, r.style.getPropertyValue(p)]);
       if (touche && pseudo && !/summary/i.test(sel0)) { faute('PSEUDO-ÉLÉMENT SUR LE TEXTE SOURCE', sel0.trim().slice(0, 80)); continue; }
+      // un état (:hover, :focus…) qui atteint la chaîne : la mesure ne survole ni ne focalise ; aucune page réelle
+      // n'en a (mesuré le 9 octobre 2026 : les seuls :hover visent des liens, des tableaux et .seif-summary)
+      if (touche && A_ETAT.test(sel0)) { faute('ÉTAT (:hover, :focus…) SUR LE TEXTE SOURCE', sel0.trim().slice(0, 80)); continue; }
       for (const [p, v] of props) {
         if (touche && !new RegExp(%(chaine)s).test(p)) faute('STYLE NON ADMIS SUR LA CHAÎNE', (media ? '@media ' + media + ' ' : '') + sel0.trim().slice(0, 60) + ' { ' + p + ': ' + v.slice(0, 40) + ' }');
-        else if (toucheAnc && (media || ETATS.test(sel0)) && /^(display|visibility|opacity|content-visibility|filter|clip-path|mask)$/.test(p)
+        else if (toucheAnc && (media || A_ETAT.test(sel0)) && /^(display|visibility|opacity|content-visibility|filter|clip-path|mask)$/.test(p)
                  && /^(none|hidden|collapse|0(\.0*)?|auto)$|blur|opacity|inset|circle|polygon/.test(v.trim()))
           faute('STYLE QUI PEUT MASQUER SUR UN ANCÊTRE', (media ? '@media ' + media + ' ' : '') + sel0.trim().slice(0, 60) + ' { ' + p + ': ' + v.slice(0, 40) + ' }');
       }

@@ -246,16 +246,18 @@ python3 scripts/verify-chabbat-source.py --tous --bref
 # propositions que la page française portait, et le 359 écrivait « היא » pour « הוא » ; 36:2 avait perdu ses 27
 # dessins de lettres (« זוֹ תְּמוּנַת הָאוֹתִיּוֹת: »), 32:36 ses deux. Tous restaurés le 9 octobre ; les traductions
 # nouvelles et les synthèses que le texte rétabli contredit sont dans audit/niv4-a-relire-rav.md.
-# ⚠️ L'ÉTAGE --rendu N'EST PAS UNE OPTION DE CONFORT. Trois arbitrages ont trouvé une centaine de façons de faire
-# sortir vert un texte que le lecteur ne voit pas (couleur du fond, opacité, police nulle, ::first-line, @import,
-# variable CSS redéfinie, script, élément posé par-dessus) ; chaque tentative d'énumérer ces ruses dans un
-# analyseur statique en ouvrait d'autres et faisait dépendre la porte de chat-widget.css, que maintient le chantier
-# du chat. L'étage statique vérifie le texte et la forme de la page ; le rendu (Chromium, module playwright) dit ce
-# que le lecteur voit. Une page qui sort de la forme mesurée (chaîne details > div.sa-block > p.sa-he, balises
+# ⚠️ L'ÉTAGE --rendu N'EST PAS UNE OPTION DE CONFORT. Quatre arbitrages ont trouvé plus d'une centaine de façons
+# de faire sortir vert un texte que le lecteur ne voit pas (couleur du fond, opacité, police nulle, ::first-line,
+# @import, variable CSS redéfinie, voile en pointer-events:none, dégradé, contour de glyphe, minuteur, script) ;
+# chaque tentative d'énumérer ces ruses en ouvrait d'autres. D'où : les scripts FERMÉS (ceux du site, et eux
+# seuls), et le rendu par Chromium qui PHOTOGRAPHIE chaque mot, tel quel puis transparent, à 1280 et 390 px — un
+# mot qui ne change pas les pixels n'est pas vu, quelle qu'en soit la cause. L'étage statique vérifie le texte et
+# la forme de la page ; le rendu dit ce que le lecteur voit. Une passe sans --rendu l'imprime : « RENDU NON
+# EXÉCUTÉ ». Une page qui sort de la forme mesurée (chaîne details > div.sa-block > p.sa-he, balises
 # br/b/small/img, liste de caractères) n'est pas certifiable : la faire entrer dans la forme, ou mesurer et
 # justifier l'élargissement dans la docstring.
-python3 scripts/verify-oh-source.py 307 308 --rendu
-python3 scripts/verify-oh-source.py --tous --bref [--rendu]     # ~20 min avec --rendu, sans --cache
+python3 scripts/verify-oh-source.py 307 308 --rendu         # quelques minutes ; modules playwright, pillow, numpy
+python3 scripts/verify-oh-source.py --tous --bref --rendu     # ~1 h (trois processus) ; sans --rendu : texte seul, ~2 min
 
 # Garde-fou de source pour le NIVEAU 1 d'Orah Haïm — la porte qui manquait. verify-oh-source.py
 # ne regarde que le niveau 4 ; rien ne vérifiait que le niveau 1 des 241 simanim recopie le
