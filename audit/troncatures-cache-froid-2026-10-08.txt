@@ -1,0 +1,75 @@
+BALAYAGE A CACHE FROID de l'appareil de verifier-troncatures.py — 8 octobre 2026
+=================================================================================
+Methode : pour chacune des 513 cles du cache .cache-troncatures-v2.json (rempli fin septembre),
+l'appareil du siman est retelecharge de Sefaria dans un cache VIDE separe, avec le code de la porte
+(appareil()), puis compare au cache, oeuvre par oeuvre et segment par segment. Le vrai cache n'est
+pas touche. But : prouver qu'aucune reponse Sefaria `error` n'avait ete gravee comme un appareil
+complet avant le correctif 71a8041a (une oeuvre presente a froid et absente du cache le montrerait).
+
+cles comparees : 513 · identiques : 490 · ecarts : 23 · injoignables : 0
+
+RESULTAT : AUCUNE oeuvre manquante, AUCUN siman injoignable. Les 23 ecarts sont des CORRECTIONS
+QUE SEFARIA A APPORTEES A SON TEXTE depuis le remplissage du cache — coquilles d'OCR, surtout du
+Beit Yosef OC 342-365 — et, au siman 357 de Chabbat, un redecoupage de 7 segments.
+Consequence : un cache complet compare les pages a un instantane qui vieillit ; une page qui
+cite juste etait confrontee a la coquille.
+
+orah-haim:32       segments differents   1 (dont ref change 0)
+    Beit Yosef, Orach Chayim 32 : « משי באלכסונא ועמד שם עוד שר"י ד » -> « משי באלכסונא וכתב שם עוד שר"י ד »
+orah-haim:94       segments differents   1 (dont ref change 0)
+    Beit Yosef, Orach Chayim 94 : « ת כורע עכ"ל : ונראה שיש ליזהר » -> « ת כורע עכ"ל : נראה שיש ליזהר »
+shabbat:314        segments differents   1 (dont ref change 0)
+    Biur Halacha 314 : «  וכו' - עיין בבה"ל דבמחזקת אסור  » -> «  וכו' - עיין במ"ב דבמחזקת אסור  »
+shabbat:342        segments differents   1 (dont ref change 0)
+    Beit Yosef, Orach Chayim 342 : « א מתני' דקתני בתנו לעירוב באי » -> « א מתני' דקתני נתנו לעירוב באי »
+shabbat:345        segments differents   2 (dont ref change 0)
+    Beit Yosef, Orach Chayim 345 : « לוגתא דהרמב"ם ישאר פוסקים דלה » -> « לוגתא דהרמב"ם ושאר פוסקים דלה »
+    Beit Yosef, Orach Chayim 345 : « ש אצטבא ומ"ד אנטבא אבל בין הע » -> « ש אצטבא ומ"ד אצטבא אבל בין הע »
+shabbat:346        segments differents   4 (dont ref change 0)
+    Beit Yosef, Orach Chayim 346 : « ר"ה כך כתוב בניסחא שבידי לפ"ז » -> « ר"ה כך כתוב בנוסחא שבידי לפ"ז »
+    Beit Yosef, Orach Chayim 346 : « פ שאין ברוחב התור ד' א"נ בכות » -> « פ שאין ברוחב החור ד' א"נ בכות »
+shabbat:347        segments differents   1 (dont ref change 0)
+    Beit Yosef, Orach Chayim 347 : « אפי' אם העומד שחוץ עכו"ם אסור » -> « אפי' אם העומד בחוץ עכו"ם אסור »
+shabbat:348        segments differents   1 (dont ref change 0)
+    Beit Yosef, Orach Chayim 348 : « ו הכא אתעבידא ומחשבתו ופירש"י » -> « ו הכא אתעבידא מחשבתו ופירש"י »
+shabbat:349        segments differents   4 (dont ref change 0)
+    Beit Yosef, Orach Chayim 349 : «  לו ד"א בינונים. פשוט בפ' מי  » -> «  לו ד"א בינוניות. פשוט בפ' מי  »
+    Beit Yosef, Orach Chayim 349 : « אבל היכא דמשערון באמה בינונית » -> « אבל היכא דמשערין באמה בינונית »
+shabbat:350        segments differents   1 (dont ref change 0)
+    Beit Yosef, Orach Chayim 350 : « יב הנחה במקום כטור ולפ"ז אסור » -> « יב הנחה במקום פטור ולפ"ז אסור »
+shabbat:353        segments differents   1 (dont ref change 0)
+    Beit Yosef, Orach Chayim 353 : « רים זה על זה אכילו אינם זה כנ » -> « רים זה על זה אפילו אינם זה כנ »
+shabbat:355        segments differents   2 (dont ref change 0)
+    Beit Yosef, Orach Chayim 355 : « זורק וההגהות בכט"ו מה"ש בשם מ » -> « זורק וההגהות בפט"ו מה"ש בשם מ »
+    Beit Yosef, Orach Chayim 355 : « יני רואה להם יישיב: » -> « יני רואה להם ישוב: »
+shabbat:356        segments differents   1 (dont ref change 0)
+    Beit Yosef, Orach Chayim 356 : « ת בחצר אין ממלחין ממנה מים בש » -> « ת בחצר אין ממלאין ממנה מים בש »
+shabbat:357        segments differents  16 (dont ref change 7)
+    Beit Yosef, Orach Chayim 357 : « חצר שפחותה מד"א על ד"א וכו' משנה וברייתא » -> « חצר שפחותה מד' אמות וכו' מש »
+    Beit Yosef, Orach Chayim 357 : « ומ"ש וצריך לכסות ב » -> « חצר ואכסדרה שאין  »
+shabbat:358        segments differents   9 (dont ref change 0)
+    Beit Yosef, Orach Chayim 358 : « יא ע' אמה ושירוים וכו' ואמרינ » -> « יא ע' אמה ושיריים וכו' ואמרינ »
+    Beit Yosef, Orach Chayim 358 : « ו אם היה ארכה בשנים ברחבה מטל » -> « ו אם היה ארכה [פי] שנים ברחבה מטל »
+shabbat:360        segments differents   2 (dont ref change 0)
+    Beit Yosef, Orach Chayim 360 : «  וכו' משמע דלכר א' נותנין בית » -> «  וכו' משמע דלכל א' נותנין בית »
+    Beit Yosef, Orach Chayim 360 : « כו' ואסיקנא דהק לא הוצרכו אל » -> « כו' ואסיקנא דה"ק לא הוצרכו אל »
+shabbat:361        segments differents   2 (dont ref change 0)
+    Beit Yosef, Orach Chayim 361 : « אותה שבת ואמריבן בגמ' דר' יוס » -> « אותה שבת ואמרינן בגמ' דר' יוס »
+    Beit Yosef, Orach Chayim 361 : « שמע כהרי"ף דסתס אכסדרה וש לה ג' מחיצות » -> « שמע כהרי"ף דסתם אכסדרה יש לה ג' מחיצות »
+shabbat:362        segments differents  13 (dont ref change 0)
+    Beit Yosef, Orach Chayim 362 : « א מקפת פחות מבות סאתים אין מט » -> « א מקפת פחות מבית סאתים אין מט »
+    Beit Yosef, Orach Chayim 362 : « ית סאתים אם הית היקפו יתר על  » -> « ית סאתים אם היה היקפו יתר על  »
+shabbat:363        segments differents  18 (dont ref change 0)
+    Beit Yosef, Orach Chayim 363 : «  גמור קאמר ליחויב הזורק מר"ה  » -> «  גמור קאמר ליחייב הזורק מר"ה  »
+    Beit Yosef, Orach Chayim 363 : « ר של יחיד ונעשות של רבים דאין » -> « ר של יחיד ונעשית של רבים דאין »
+shabbat:364        segments differents   4 (dont ref change 0)
+    Beit Yosef, Orach Chayim 364 : « נקטינן וז"ל הרוב"ש בתשובה אם  » -> « נקטינן וז"ל הריב"ש בתשובה אם  »
+    Beit Yosef, Orach Chayim 364 : «  כמפולש ואילו כפשט עקמומיתו ו » -> «  כמפולש ואילו נפשט עקמומיתו ו »
+shabbat:365        segments differents   4 (dont ref change 0)
+    Beit Yosef, Orach Chayim 365 : « ריה דרב יהושע פגון שנפרץ בקרן » -> « ריה דרב יהושע כגון שנפרץ בקרן »
+    Beit Yosef, Orach Chayim 365 : « ת שלא מאותו כוחל היו. ופריך ת » -> « ת שלא מאותו כותל היו. ופריך ת »
+yoreh-deah:184     segments differents   2 (dont ref change 0)
+    Pitchei Teshuva on Shulchan Arukh, Yoreh De'ah 184 : « ת ראייתה שלא נידע למתי תקבע ו » -> « ת ראייתה שלא נודע למתי תקבע ו »
+    Pitchei Teshuva on Shulchan Arukh, Yoreh De'ah 184 : « ם כפרה כ"כ הש"ך בסי' ז' ועי'  » -> « ם כפרה כ"כ הש"ד בסי' ז' ועי'  »
+yoreh-deah:94      segments differents   1 (dont ref change 0)
+    Beit Yosef, Yoreh De'ah 94 : «  סמ"ק סימן רי"ד שאסור להשתמש  » -> «  סמ"ק סימן רי"ג שאסור להשתמש  »
