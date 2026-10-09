@@ -12,10 +12,10 @@ import { SYSTEM_PROMPT, buildSystemPrompt } from './_system-prompt.js';
 import { SEFARIA_TOOLS, executeSefariaTool } from './_sefaria.js';
 import { CORPUS_TOOLS, executeCorpusTool, searchCorpus } from './_corpus.js';
 import { searchCorpus as searchShabbatCorpus, corpusCacheKey, CORPUS_CACHE_TTL, stripProfileBlock, profileSignature } from './_corpus-search.js';
-import { questionDePermission, autorisationPersonnelle } from './_garde-corpus.js';
 import { MAREH_MEKOMOT_TOOLS, executeMarehMekomotTool } from './_mareh_mekomot.js';
 import { getUserFromRequest, isAllowedOrigin } from './_auth.js';
 import { createHash } from 'node:crypto';
+import { questionDePermission, autorisationPersonnelle } from './_garde-corpus.js';
 import {
   deepSeekAvailable,
   streamMetaQuestion,
