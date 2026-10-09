@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Connexion admin — DAAT</title>
+<!--
+  Page de connexion à /admin. middleware.js y renvoie toute visite de /admin
+  sans identifiants. Deux voies :
+    · le CODE PAR COURRIEL — /api/auth/send-code puis /api/auth/verify-code
+      (les mêmes que la connexion du site) ; l'adresse doit figurer dans
+      ADMIN_EMAILS, ce que la page vérifie avant de renvoyer vers /admin ;
+    · le MOT DE PASSE — le lien ajoute ?motdepasse, et le middleware répond
+      par la fenêtre du navigateur, comme avant.
+  Aucun secret n'est stocké ici : seul le cookie HttpOnly de session fait foi.
+-->
+<style>
+  :root { --navy: #1A1F3A; --or: #C5A55A; --creme: #FAF6EE; --texte: #1A1F3A; --doux: #5b6078; --rouge: #a12a2a; --vert: #1f6b3a; }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; background: var(--creme); color: var(--texte);
+    font-family: 'Cormorant Garamond', Georgia, serif; display: flex; align-items: center; justify-content: center; padding: 16px; }
+  main { width: 100%; max-width: 420px; background: #fff; border: 1px solid #e6dcc4; border-radius: 12px; padding: 28px 24px; box-shadow: 0 6px 24px rgba(26,31,58,.08); }
+  h1 { margin: 0 0 6px; font-size: 26px; color: var(--navy); }
+  p { margin: 0 0 16px; font-size: 17px; line-height: 1.45; color: var(--doux); }
+  label { display: block; font-size: 16px; margin: 14px 0 6px; color: var(--navy); font-weight: 600; }
+  input { width: 100%; font-size: 18px; padding: 12px; border: 1px solid #cfc6ae; border-radius: 8px; font-family: inherit; }
+  input:focus { outline: 2px solid var(--or); border-color: var(--or); }
+  button { width: 100%; margin-top: 14px; padding: 13px; font-size: 18px; font-family: inherit; font-weight: 600;
+    background: var(--navy); color: var(--creme); border: 0; border-radius: 8px; cursor: pointer; }
+  button:disabled { opacity: .6; cursor: wait; }
+  #etat { min-height: 1.4em; margin-top: 14px; font-size: 16px; }
+  .autre { margin-top: 22px; padding-top: 16px; border-top: 1px solid #eee3cb; font-size: 16px; text-align: center; }
+  .autre a { color: var(--navy); }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Administration DAAT</h1>
+  <p>Tapez votre adresse courriel : un code à 6 chiffres vous est envoyé.</p>
+
+  <form id="f-courriel">
+    <label for="courriel">Adresse courriel</label>
+    <input id="courriel" type="email" autocomplete="email" inputmode="email" required>
+    <button id="b-envoyer" type="submit">Recevoir le code</button>
+  </form>
+
+  <form id="f-code" hidden>
+    <label for="code">Code reçu par courriel</label>
+    <input id="code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" required>
+    <button id="b-valider" type="submit">Se connecter</button>
+  </form>
+
+  <div id="etat" role="status" aria-live="polite"></div>
+
+  <div class="autre">
+    <a id="lien-mdp" href="/admin/?motdepasse">Se connecter avec le mot de passe admin</a>
+  </div>
+</main>
+<script>
+(function () {
+  // Le retour n'est accepté que vers /admin : jamais vers une autre origine
+  // (« //exemple.org ») ni une autre partie du site.
+  var demande = new URLSearchParams(location.search).get('retour') || '/admin/';
+  var retour = /^\/admin(?:[\/?#]|$)/.test(demande) && demande.indexOf('//') === -1 ? demande : '/admin/';
+  var lienMdp = document.getElementById('lien-mdp');
+  lienMdp.href = retour + (retour.indexOf('?') === -1 ? '?' : '&') + 'motdepasse';
+
+  var etat = document.getElementById('etat');
+  function dire(texte, couleur) { etat.textContent = texte; etat.style.color = couleur || ''; }
+  function json(res) { return res.json().catch(function () { return {}; }); }
+
+  // La session est-elle celle d'un ADMINISTRATEUR ? Une session valide ne suffit
+  // pas : le serveur doit reconnaître l'adresse (ADMIN_EMAILS).
+  function estAdmin() {
+    return fetch('/api/admin/stats?action=overview&days=1', { credentials: 'same-origin' })
+      .then(function (r) { return r.status === 200; })
+      .catch(function () { return false; });
+  }
+
+  document.getElementById('f-courriel').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = document.getElementById('courriel').value.trim().toLowerCase();
+    if (!email) return dire('Tapez votre adresse courriel.', 'var(--rouge)');
+    var b = document.getElementById('b-envoyer'); b.disabled = true;
+    dire('Envoi du code…');
+    fetch('/api/auth/send-code', {
+      method: 'POST', credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email }),
+    }).then(function (res) {
+      return json(res).then(function (j) {
+        b.disabled = false;
+        if (!res.ok) return dire('✗ ' + (j.error || ('Erreur ' + res.status)), 'var(--rouge)');
+        document.getElementById('f-courriel').hidden = true;
+        document.getElementById('f-code').hidden = false;
+        document.getElementById('code').focus();
+        dire('Code envoyé à ' + email + ' — valable 10 minutes. Regardez aussi les courriers indésirables.', 'var(--vert)');
+      });
+    }).catch(function (err) { b.disabled = false; dire('✗ Réseau : ' + (err && err.message || err), 'var(--rouge)'); });
+  });
+
+  document.getElementById('f-code').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = document.getElementById('courriel').value.trim().toLowerCase();
+    var code = document.getElementById('code').value.replace(/\D/g, '');
+    if (code.length !== 6) return dire('Le code fait 6 chiffres.', 'var(--rouge)');
+    var b = document.getElementById('b-valider'); b.disabled = true;
+    dire('Vérification du code…');
+    fetch('/api/auth/verify-code', {
+      method: 'POST', credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email, code: code }),
+    }).then(function (res) {
+      return json(res).then(function (j) {
+        if (!res.ok) { b.disabled = false; return dire('✗ ' + (j.error || ('Erreur ' + res.status)), 'var(--rouge)'); }
+        return estAdmin().then(function (ok) {
+          b.disabled = false;
+          if (ok) {
+            // admin/index.html ne reprend une session courriel que sous cette marque.
+            try { sessionStorage.removeItem('daat_admin_entree'); localStorage.setItem('daat_admin_mode', 'jeton'); } catch (_) {}
+            dire('Connecté(e). Ouverture de l’administration…', 'var(--vert)');
+            entrer();
+            return;
+          }
+          dire('✗ Vous êtes connecté(e) en tant que ' + email + ', mais cette adresse n’est pas administratrice : elle doit figurer dans ADMIN_EMAILS (Vercel → Settings → Environment Variables).', 'var(--rouge)');
+        });
+      });
+    }).catch(function (err) { b.disabled = false; dire('✗ Réseau : ' + (err && err.message || err), 'var(--rouge)'); });
+  });
+
+  // Vers /admin — une seule fois par minute. Si l'API reconnaît la session mais
+  // que la protection de /admin la refuse (variable absente côté middleware),
+  // celle-ci nous renverrait ici sans fin : on s'arrête et on le dit.
+  function entrer() {
+    var dernier = 0;
+    try { dernier = Number(sessionStorage.getItem('daat_admin_entree') || 0); } catch (_) {}
+    if (Date.now() - dernier < 60000) {
+      dire('Votre session est reconnue, mais la protection de /admin ne l’accepte pas. Utilisez le mot de passe ci-dessous, et signalez-le.', 'var(--rouge)');
+      return;
+    }
+    try { sessionStorage.setItem('daat_admin_entree', String(Date.now())); } catch (_) {}
+    location.replace(retour);
+  }
+
+  // Déjà connecté(e) en administrateur : on y va directement.
+  estAdmin().then(function (ok) {
+    if (!ok) return;
+    try { localStorage.setItem('daat_admin_mode', 'jeton'); } catch (_) {}
+    entrer();
+  });
+})();
+</script>
+</body>
+</html>
