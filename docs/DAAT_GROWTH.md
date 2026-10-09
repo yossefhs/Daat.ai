@@ -20,6 +20,13 @@ Google → question → réponse → source → siman → approfondissement → 
 - **Dons** : Qonto (4 montants), HelloAsso (dédicaces + upgrade plan auto via webhook), Tomhei Adaat.
 - **Communauté** : 1 lien WhatsApp unique (communaute×3). Aucun lien WhatsApp sur simanim/limoud/blog.
 
+## État au 9 octobre 2026 (mesuré sur disque et dans le catalogue)
+
+L'état des lieux ci-dessus date de la session 1 (fin août) et n'est plus juste ; il est gardé tel quel pour l'historique.
+- **Corpus** : 513 simanim — Orah Haïm quotidien 241, Hilkhot Chabbat 124, Yoreh De'ah 148 (dont Nida, section d'index : 18). Source : `data/simanim-disponibles.json` et `sources/`.
+- **Daat Yomi** : plan de 272 jours (8 juin 2026 → 22 juin 2027), 1 053 séifim, 3 langues.
+- **Mesure du Daat Yomi : les 819 pages `limoud/jour-NNN` ne chargeaient AUCUN script** — ni le compteur de visites Vercel, ni `daat-copy.js`. Le journal S3 annonçait le partage actif sur ces pages : il ne l'était pas. Corrigé le 9 octobre (gabarit `generate-limoud-plan.cjs` et pages existantes, à l'identique, sans régénérer le plan).
+
 ## KPIs — BASELINE (23→26 août 2026, ~3 jours de collecte)
 
 | Métrique | Valeur | Lecture |
@@ -45,6 +52,7 @@ Google → question → réponse → source → siman → approfondissement → 
 - [x] Listings `/yd`, `/oh-quotidien`, `/nida` : 247 tuiles statiques injectées au build (generate-section-listings.js) ; générateur JSON v2.1 section-aware réintégré au build, zéro perte de titres (S1)
 - [x] Teaser « 64 simanim » → compteur généré au build (197) + 197 tuiles statiques sur /oh/ (S1)
 - [x] Events custom v1 : chat_open, chat_question_sent(+section), daat_yomi_started, whatsapp_clicked, chat_cta_hero — vérifiés en prod (POST /event 200) (S2)
+- [x] Events custom v2 (S10, 9 octobre) : `chat_answer_received` {section, voie corpus|modele}, `chat_source_clicked` {type sefaria|site|autre}, `don_started` {formule don|dedicace|mensuel, montant}, `daat_yomi_level_opened` {jour, niveau}, `daat_yomi_next_day` {jour} — testés dans Chromium (vaq), pas encore observés dans le tableau de bord. La FIN d'un don n'est pas mesurable côté navigateur (HelloAsso, nouvel onglet, sans retour) : elle est dans les paiements (webhook HelloAsso, page admin Paiements).
 - [x] Chat contextuel : detectSimanContext() (routes + chemins physiques + niveaux, 12 cas testés), contexte injecté dans le 1er message (jamais dans le system prompt caché 1h), FAB « Poser une question sur le Siman N », chat_question_sent enrichi du siman — vérifié en prod sur /oh/318/lamdan (S2)
 
 ### P2
@@ -68,6 +76,9 @@ Google → question → réponse → source → siman → approfondissement → 
 | E1 | Un CTA orienté bénéfice augmente l'usage du chat vs « Tester l'IA » | Hero ×3 langues | chat_cta_hero / visiteurs | **3,7 % (4/107, S7)** | S1 | — | — |
 
 ## Journal des sessions
+
+### S10 (9 octobre 2026)
+Mesures du parcours (events v2, voir P1) et découverte que les pages du Daat Yomi n'étaient pas mesurées du tout (aucun script). Accueil : la page ne défile plus de côté entre 769 et ~1 080 px, les trois chiffres tiennent sur une rangée (PR #278). Administration : connexion par courriel sur toutes les pages, sans la fenêtre du mot de passe (PR #275 à #277). E1 reste ouverte : il faut lire le tableau de bord (chat_cta_hero / visiteurs) avant de conclure — aucune donnée n'a été inventée ici.
 
 ### S9
 Pilote long-tail SEO livré (commit 801c3ab90) : /questions/ + 5 pages (réchauffer 318, plata 253, borer 319, kiddoush 271, bougie 275) — réponses résumées depuis les synthèses N3 publiées, machloket Mehaber/Rama signalée, CTA siman + chat. TOUTES en noindex + bandeau jusqu'à validation du Rav (registre C3). Après validation : retirer noindex, sitemap, liens internes depuis les simanim, puis industrialiser (objectif : dizaines de questions). Incident /partenaires (404 par merge concurrent) réparé + règle D6 appliquée et vérifiée.
