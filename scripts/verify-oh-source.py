@@ -38,7 +38,9 @@ conclu pour ce qui n'a pas été lu. Une source absente n'est jamais une source 
      CSS_ADMIS, 225 suites pour les 1 095 pages), les <link> (LIENS_ADMIS : feuilles du site, polices Google),
      <meta name="viewport"> (une seule valeur), aucun <meta name="color-scheme">, aucune <img> hors du texte
      source, ni <picture>, <source>, <video>, <audio>, <canvas>, <svg>, ni srcset ; chaque style= est l'une des
-     264 valeurs mesurées (STYLES_EN_LIGNE_ADMIS) ; aucune construction que html.parser et le navigateur ne lisent
+     264 valeurs mesurées (STYLES_EN_LIGNE_ADMIS) ; aucun attribut en double (le navigateur garde le premier,
+     html.parser le dernier : la porte lit le premier, et refuse le doublon) ; <html>, <head>, <body> une fois
+     chacun ; aucun bouton de copie posé par la page (data-copy-target) ; aucune construction que html.parser et le navigateur ne lisent
      pas de même (« <![ », « --!> », « <? », éléments à texte brut ; un <noscript> — que le navigateur lit comme du
      texte — ne contient qu'un <link> de police admis). Les scripts sont ceux du site (SCRIPTS_ADMIS).
   L'étage statique NE SIMULE PAS LE NAVIGATEUR : il ne lit ni la CSS ni le JavaScript. C'est l'étage 2.
@@ -62,7 +64,7 @@ par un clic synthétique sur son titre (HTMLElement.click(), sans pointeur ni fo
     Les sélecteurs sont lus comme le navigateur les lit (chaînes, crochets, échappements) et réécrits sans leurs
     états — sous :not, la pseudo-classe tombe en entier : le sélecteur réécrit atteint plus, jamais moins ;
   - relit la page par le DOMParser du navigateur, sans l'exécuter, et la confronte à la lecture de l'étage 1 :
-    mêmes balises dans le même ordre, mêmes <style>, mêmes scripts — sinon « PAGE LUE AUTREMENT PAR LE
+    mêmes balises dans le même ordre, mêmes attributs, mêmes <style>, mêmes scripts — sinon « PAGE LUE AUTREMENT PAR LE
     NAVIGATEUR » (aucun désaccord sur les 1 095 pages, mesure du 9 octobre 2026) ;
   - exige, sur la chaîne et ses ancêtres, les valeurs CALCULÉES que les 1 095 pages y ont toutes (filtre, ombre,
     transformation, opacité, découpe, masque, espacements, bidi, sens de droite à gauche du .sa-he, fond non
@@ -101,7 +103,14 @@ CE QUE LA PORTE NE COUVRE PAS, et qui relève d'autres portes ou du relecteur :
     seulement) ; l'impression et le mouvement réduit (leurs règles sont seulement interdites sur la chaîne et ses
     ancêtres) ; le schéma sombre et forced-colors (aucune page ne s'y déclare : <meta name="color-scheme">
     refusé, CSS figé) ;
-  - les mots dont les seuls crochets, guillemets ou ponctuation changent (ignorés à dessein).
+  - les mots dont les seuls crochets, guillemets ou ponctuation changent (ignorés à dessein) ;
+  - le NIKOUD : la confrontation porte sur les consonnes (règle de la maison, CLAUDE.md), et « parité FR/HE/EN »
+    aussi — « חָלָב » (lait) et « חֵלֶב » (graisse interdite) y sont le même mot. Seuls sont refusés plus de trois
+    signes sur une lettre et les te'amim absents des pages ;
+  - l'APERÇU du titre de chaque bloc (<summary> > span.seif-preview), vocalisé, que le lecteur lit d'abord quand le
+    séif est fermé : aucune porte ne le confronte. Mesure de l'arbitre du septième tour : 9 859 aperçus, dont 2 694
+    portent un mot absent du .sa-he de leur bloc (abrégés, reformulés, ou faux : un témoin « כָּשֵׁר » pour « פָּסוּל »
+    sortait conforme).
 
 LES NORMALISATIONS, des deux côtés, et elles seules : NFC ; nikoud et te'amim retirés ; le maqaf est une
 frontière de mot ; <br>, <p>, <div>, <li>, <tr>, <td>, <th>, <blockquote> (et « </br> », que le navigateur lit
@@ -185,6 +194,8 @@ TITRES = {"h1", "h2", "h3", "h4", "h5", "h6", "summary", "dt", "th", "legend", "
 VIDES = {"br", "img", "hr", "meta", "link", "input", "wbr", "source", "area", "base", "col", "embed", "param", "track"}
 MUETS = {"script", "style", "template", "noscript", "title", "textarea", "iframe", "noembed", "noframes", "object",
          "video", "audio", "canvas", "dialog", "select", "datalist", "svg", "math", "head", "del", "s", "strike"}
+# les te'amim présents dans les 1 095 pages (3 fois chacun) ; les autres sont refusés
+TEAMIM_ADMIS = {"\u0596", "\u05AF"}
 ALTS = {"dessin de la lettre (édition Kehot)", "צורת האות (מהדורת קה״ת)", "drawing of the letter (Kehot edition)"}
 # L'ENTÊTE ET LE CSS, mesurés le 9 octobre 2026 sur les 1 095 pages, et FIGÉS (cinquième arbitrage : une vingtaine de
 # façons de cacher le texte au lecteur passaient toutes par du CSS AJOUTÉ à la page — sélecteur piégé, fond découpé aux
@@ -462,6 +473,8 @@ class Lecteur(HTMLParser):
         self._style = None       # le texte du <style> en cours de lecture
         self.styles = []         # le contenu de chaque <style>, dans l'ordre
         self.balises = []        # chaque balise ouvrante, dans l'ordre (confrontée à la lecture du navigateur)
+        self.attributs = []      # (balise, [(nom, valeur)…]) de chaque balise ouvrante, dans l'ordre
+        self.uniques = {}        # html, head, body : chacun une fois
         self.scripts = []        # chaque <script> : « src:… » ou « txt:… »
 
     def _faute(self, fam, det):
@@ -484,8 +497,20 @@ class Lecteur(HTMLParser):
 
     def _ouvre(self, tag, attrs, auto):
         self.balises.append(tag)
+        self.attributs.append((tag, [(k.lower(), v or "") for k, v in attrs]))
         noms = [k.lower() for k, _ in attrs]
-        a = {k.lower(): (v or "") for k, v in attrs}
+        # la PREMIÈRE occurrence d'un attribut, comme le navigateur (septième arbitrage : html.parser donnait la
+        # dernière, et un style=, un href, un onload ou une classe doublés montraient au lecteur une autre valeur
+        # que celle qu'on confrontait) ; et un attribut en double est refusé partout
+        a = {}
+        for k, v in attrs:
+            a.setdefault(k.lower(), v or "")
+        if len(noms) != len(set(noms)):
+            self._faute("ATTRIBUT EN DOUBLE", f"<{tag}> {sorted({k for k in noms if noms.count(k) > 1})}")
+        if tag in ("html", "head", "body"):
+            self.uniques[tag] = self.uniques.get(tag, 0) + 1
+        if "data-copy-target" in a or "data-copy-block" in a or "daat-copy" in a.get("class", "").split():
+            self._faute("ATTRIBUT NON ADMIS", f"<{tag}> bouton de copie posé par la page (daat-copy.js copie la cible, non ce qu'on voit)")
         if tag == "script":
             if "src" in a:
                 self.scripts.append("src:" + a["src"])
@@ -531,8 +556,6 @@ class Lecteur(HTMLParser):
         if tag == "meta" and a.get("http-equiv", "").lower() in ("refresh", "set-cookie", "content-security-policy"):
             self._faute("ÉLÉMENT NON ADMIS", f"<meta http-equiv=\"{a['http-equiv']}\">")
         classes = a.get("class", "").lower().split()
-        if len(noms) != len(set(noms)) and (self.bloc or "seif-details" in classes or "sa-he" in classes):
-            self._faute("ATTRIBUT EN DOUBLE", f"<{tag}> {noms}")
         est_bloc = "seif-details" in classes
         if est_bloc and tag != "details":
             self._faute("SÉIF HORS BLOC", f"<{tag} class=\"{a.get('class')}\">")
@@ -630,9 +653,14 @@ class Lecteur(HTMLParser):
             x[1] += data
         if self.sahe and self.bloc:
             self.blocs[-1]["txt"] += data
-            for ch in set(unicodedata.normalize("NFC", data)):
+            nfc = unicodedata.normalize("NFC", data)
+            for ch in set(nfc):
                 if not ("א" <= ch <= "ת" or NIKUD.match(ch) or ch in ADMIS):
                     self._faute("CARACTÈRE NON ADMIS", f"U+{ord(ch):04X} « {ch} » dans le texte source")
+                elif "\u0591" <= ch <= "\u05AF" and ch not in TEAMIM_ADMIS:
+                    self._faute("CARACTÈRE NON ADMIS", f"U+{ord(ch):04X} (te'am absent des 1 095 pages) dans le texte source")
+            if re.search(r"[\u0591-\u05C7]{4,}", nfc):
+                self._faute("CARACTÈRE NON ADMIS", "plus de trois signes sur une lettre (les pages en portent trois au plus)")
 
 
 def _empreinte_style(v):
@@ -643,7 +671,8 @@ def _lecture(lx):
     """Ce que la porte a lu de la page, pour le confronter à la lecture du navigateur (DOMParser)."""
     return {"balises": [b for b in lx.balises if b not in ("html", "head", "body")],
             "styles": [re.sub(r"\s+", " ", x).strip() for x in lx.styles],
-            "scripts": [re.sub(r"\s+", " ", x).strip() for x in lx.scripts]}
+            "scripts": [re.sub(r"\s+", " ", x).strip() for x in lx.scripts],
+            "attributs": [t + "\x1f" + "\x1f".join(f"{k}={v}" for k, v in at) for t, at in lx.attributs]}
 
 
 def _empreinte_css(styles):
@@ -674,6 +703,9 @@ def lire_page(path):
             lx._faute("ÉLÉMENT NON ADMIS", f"<noscript> : « {vu} » (les pages n'y mettent qu'un <link> de police)")
     lx.feed(html)
     lx.close()
+    for t in ("html", "head", "body"):
+        if lx.uniques.get(t, 0) != 1:
+            lx._faute("ÉLÉMENT NON ADMIS", f"<{t}> écrit {lx.uniques.get(t, 0)} fois (le navigateur en fusionne les attributs)")
     if lx._style is not None:
         lx.styles.append(lx._style)
     e = _empreinte_css(lx.styles)
@@ -1141,7 +1173,8 @@ LECTURE_JS = r"""
   return {balises: [...d.querySelectorAll('*')].map(e => e.tagName.toLowerCase()).filter(b => !['html', 'head', 'body'].includes(b)),
           styles: [...d.querySelectorAll('style')].map(e => n(e.textContent)),
           scripts: [...d.querySelectorAll('script')].filter(e => !/json/i.test(e.getAttribute('type') || ''))
-                     .map(e => e.hasAttribute('src') ? 'src:' + e.getAttribute('src') : 'txt:' + n(e.textContent))};
+                     .map(e => e.hasAttribute('src') ? 'src:' + e.getAttribute('src') : 'txt:' + n(e.textContent)),
+          attributs: [...d.querySelectorAll('*')].map(e => e.tagName.toLowerCase() + '\x1f' + [...e.attributes].map(x => x.name + '=' + x.value).join('\x1f'))};
 })()
 """
 
@@ -1410,7 +1443,7 @@ class Rendu:
         fautes = [(f, d, 1) for f, d in fautes0]
         impossible = any(f.startswith("RENDU IMPOSSIBLE") for f, _ in fautes0)
         if lecture is not None:
-            for quoi in ("balises", "styles", "scripts"):
+            for quoi in ("balises", "styles", "scripts", "attributs"):
                 a, b = lu[quoi], lecture.get(quoi) or []
                 if a != b:
                     k = next((i for i, (x, y) in enumerate(zip(a, b)) if x != y), min(len(a), len(b)))
