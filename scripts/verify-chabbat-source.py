@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Confronte le texte source (Mehaber + Rama) des simanim de Hilkhot Chabbat aux
 sources Sefaria — verbatim, consonnes identiques — à l'édition hébraïque PAR
-DÉFAUT de Sefaria, et à elle seule pour ce qui est des OMISSIONS ; une seconde
-édition, Torat Emet 363, peut seulement EXPLIQUER une leçon (voir R1-R4 plus bas).
+DÉFAUT, Maginei Eretz, épinglée par son NOM, et à elle seule pour ce qui est des
+OMISSIONS ; une seconde édition, Torat Emet 363, peut seulement EXPLIQUER une
+leçon (voir R1-R4, puis TOUR 3, plus bas).
 
 Usage : python3 scripts/verify-chabbat-source.py 292 301 308
         python3 scripts/verify-chabbat-source.py --tous          # les 124
@@ -12,11 +13,14 @@ Usage : python3 scripts/verify-chabbat-source.py 292 301 308
 Codes de sortie : 0 aucune divergence de texte · 1 une divergence au moins
 (au-delà du ktiv haser/malé, contre les éditions de référence ; une OMISSION
 d'un passage de l'édition par défaut en est une, même quand Torat Emet l'omet
-aussi) · 2 usage · 3 rien n'a été confronté, ou un siman n'a pas été atteint
-(Sefaria injoignable, erreur servie en HTTP 200, ref servi faux, édition par
-défaut vide face à une page qui publie des blocs — le Mehaber n'a pas de lacune
-connue en Hilkhot Chabbat —, ou aucune page sous ROOT pour un siman demandé) —
-la porte ne conclut pas, elle ne sort pas verte. Une divergence trouvée ailleurs
+aussi ; un yod/vav ÉCHANGÉ, déplacé, ou ajouté en tête ou en fin de mot aussi —
+garde ktiv) · 2 usage · 3 rien n'a été confronté, ou un siman n'a pas été atteint
+(Sefaria injoignable, erreur servie en HTTP 200, ref servi faux ; Maginei Eretz
+absente, déclarée dans une autre langue, servie deux fois, vide — le Mehaber n'a
+pas de lacune connue en Hilkhot Chabbat —, trouée, ou TRONQUÉE : autre nombre de
+séifs que Torat Emet 363 ou que son propre chapeau ; Torat Emet 363 absente ; ou
+aucune page sous ROOT pour un siman demandé) — la porte ne conclut pas, elle ne
+sort pas verte, et rien n'est mis en cache. Une divergence trouvée ailleurs
 l'emporte : 1.
 
 C'est l'équivalent, pour Hilkhot Chabbat, de `verify-yd-source.py` (Yoré Déa) et
@@ -65,8 +69,9 @@ plusieurs éditions hébraïques (`api/v3/texts/…?version=hebrew|all`), et ell
 disent pas toujours les mêmes mots :
   · « Maginei Eretz: Shulchan Aruch Orach Chaim, Lemberg, 1893 » — non vocalisée,
     seule à porter le chapeau du siman ; priorité Sefaria 2.0, c'est l'édition
-    PAR DÉFAUT d'`api/texts` (la porte la reconnaît à sa priorité, strictement la
-    plus haute, et l'imprime) ;
+    PAR DÉFAUT d'`api/texts`. La porte la reconnaissait à sa priorité ; depuis le
+    tour 3 elle l'ÉPINGLE PAR SON NOM (voir TOUR 3), et DIT si Sefaria en sert une
+    autre par défaut ;
   · « Torat Emet 363 » — vocalisée, développe certaines abréviations, a son ktiv ;
   · « Torat Emet Freeware Shulchan Aruch » — servie sur 105 des 124 simanim ;
   · au siman 264, « שלחן ערוך מטור ארוח חיים », un séif.
@@ -196,18 +201,119 @@ trois versions de la porte : celle de HEAD, le premier tour, celle-ci) :
     363 » ou « ב=Maginei Eretz » ; celle-ci nomme toujours le séif pris HORS de
     l'édition par défaut.
 
+TOUR 3 (9 octobre 2026) — quatre corrections demandées par l'arbitre du tour 2 et
+par celui d'Orah Haïm, mesurées sur des instantanés FIGÉS (`git archive` de HEAD
+56151b14 et de cbd2ad85, le 14 septembre), cache Sefaria du 8 octobre, inchangé.
+
+  1. LA GARDE KTIV (`garde_ktiv`). Le squelette ôte tout yod et tout vav : « כוס »
+     et « כיס », « מים » et « מום », « לו » et « לי », « הוא » et « היא » y avaient la
+     même clé, et une page qui changeait l'un en l'autre sortait ÉQUIVALENT, code 0,
+     sans un mot imprimé. RÈGLE : deux mots ne sont égaux au ktiv près que si l'un
+     s'obtient de l'autre en AJOUTANT des yod/vav (sous-suite ; finales normalisées
+     — sans objet ici, yod et vav n'ont pas de finale) ; un yod/vav ÉCHANGÉ au même
+     endroit est un mot changé. La porte va un pas plus loin que la règle commune,
+     mesure à l'appui : l'ajout doit être INTÉRIEUR au mot (ni l'initiale, le ו de
+     conjonction — « ועקרבים » / « עקרבים », le témoin N7 de l'arbitre, sortait 0 —,
+     ni la finale, « עליו » / « עלי »), et d'un seul côté (« יוכל » / « יכול » ajoute
+     un vav de chaque côté : déplacé). Mise en œuvre : entre deux mêmes consonnes du
+     squelette, les yod/vav de la page et de la source sont comparés (`_trou`), chaque
+     lettre portant sa place dans son mot (`lettres`). Un séif qui ne passe que le
+     squelette est un « MOT CHANGÉ » (code 1) et ses mots sont imprimés, avec, quand
+     c'est le cas, « à cette place, « X » est le mot de Torat Emet 363 : deux éditions
+     mêlées dans le séif ». La garde court aussi sur le chapeau, et sur les séifs
+     retrouvés d'une page déjà divergente. Sous ÉQUIVALENT, la porte LISTE les mots
+     égaux au ktiv près seulement, pour que le lecteur les contrôle.
+     COÛT MESURÉ, sur les pages réelles :
+       · HEAD — 124 simanim, 372 pages : verdicts inchangés, 366 IDENTIQUE · 6
+         ÉQUIVALENT · code 0. Les 6 pages ÉQUIVALENT (278 et 280, trois langues)
+         listent 4 mots, tous du ktiv véritable : « מתר » / « מותר », « שיישן » /
+         « שישן », « לכתחילה » / « לכתחלה ». 0 faux positif.
+       · 14 septembre — 44 simanim divergents, comme avant ; 5 séifs (× 3 langues)
+         passent de « retenu » à MOT CHANGÉ, tous dans des pages déjà divergentes :
+         248:ד « היא » pour « הוא », 271:יד « יש » pour « ויש », 279:א « להסתפק »
+         pour « ולהסתפק » — les trois, le mot de Maginei Eretz dans le texte de Torat
+         Emet, deux éditions mêlées — ; 264:י, le marqueur « [י] » collé au séif, que
+         le squelette effaçait ; et 273:ו « שנתכוון » pour « שנתכוין », le SEUL faux
+         positif : le même mot, une autre graphie de la consonne vav.
+       · contrôle exhaustif croisé : dans chacun des 1 053 séifs, une page = Maginei
+         Eretz dont tous les mots que Torat Emet 363 écrit autrement AU KTIV PRÈS
+         prennent sa graphie (961 séifs concernés) : 0 DIVERGENCE. Puis chacun des 157
+         mots que Torat Emet écrit avec un yod/vav ÉCHANGÉ, déplacé, ou en tête ou en
+         fin de mot, substitué SEUL : 141 DIVERGENCE ; les 16 autres sont des séifs où
+         la page devient Torat Emet 363 au ktiv près, retenus comme tels (leçon que
+         Torat Emet porte, R3) et imprimés « hors de l'édition par défaut » (R4).
+     LIMITE DÉCLARÉE : « ים » / « יום » est un AJOUT intérieur — la règle le tient pour
+     du ktiv, la page sort ÉQUIVALENT et le mot est LISTÉ. On ne peut pas mieux sans
+     dictionnaire : Torat Emet 363 elle-même écrit « חל », « רב », « רק », « לה »,
+     « כף » là où Maginei Eretz écrit « חול », « רוב », « רוק », « ליה », « כוף » (30
+     occurrences, sur 4 442 mots que les deux éditions écrivent au ktiv près
+     autrement) ; une règle des mots de deux lettres accuserait du vrai ktiv. Entre
+     les deux éditions, la garde classe encore 157 mots comme CHANGÉS (45 échanges,
+     dont « היא » / « הוא », préfixés ou non, 26 fois ; 100 en tête ou en fin de
+     mot ; 12 déplacés) : ce sont leurs leçons, et le contrôle croisé ci-dessus les
+     a tous éprouvés.
+
+  2. L'ÉDITION PAR DÉFAUT EST ÉPINGLÉE PAR SON NOM (`DEFAUT`, `valider`). Elle était
+     déduite de la priorité Sefaria : Maginei Eretz servie tronquée, absente ou
+     déclarée « en » faisait de Torat Emet 363 l'édition par défaut, et le résultat
+     était mis en cache (sabotages S10, S12 de l'arbitre : code 1, cache écrit). Le
+     siman est désormais NON ATTEINT (code 3) et RIEN n'est mis en cache si Maginei
+     Eretz est absente (en hébreu), déclarée dans une autre langue, servie deux fois,
+     vide, trouée (un séif vide avant son dernier), ou tronquée — un autre nombre de
+     séifs que Torat Emet 363, ou que son propre chapeau n'en annonce (« ובו ז
+     סעיפים », « ובו סעיף אחד » ; les 124 chapeaux en annoncent un, égal partout
+     au nombre servi). Torat Emet 363 absente : NON ATTEINT aussi, la complétude ne
+     pouvant plus être contrôlée. Le même `valider` juge un fichier de cache avant
+     de le relire. Sabotages (urlopen remplacé, cache vide, siman 252) : quinze
+     réponses ; les treize anomalies sortent en 3 sans écrire le cache — la porte
+     du tour 2 en sortait sept en 0 ou en 1, cache écrit — ; la réponse fidèle et
+     celle où Sefaria donne la priorité à Torat Emet sortent en 0 (la porte reste
+     épinglée et le dit ; celle du tour 2 jugeait alors la page contre Torat Emet,
+     code 1). Un fichier de cache tronqué n'est plus relu : réseau coupé,
+     code 3 ; réseau rendu, le fichier est réécrit entier. Les 124 fichiers du
+     8 octobre passent `valider` ; la FORME du cache reste 1 (son contenu n'a pas
+     changé de forme, seul le critère de relecture s'est resserré).
+
+  3. LE DÉVELOPPEMENT PARTIEL (`_partiel`, dans `_remplacement`). Une abréviation
+     de plusieurs mots appariée au seul premier mot qu'elle développe (« ב״י » avec
+     « בית ») faisait du mot suivant une « leçon », et le mot réellement omis sortait
+     de la liste. Témoin N3 : 315:1 de Torat Emet dont « (בית יוסף וכל בו) » est
+     réduite à « (בית יוסף) » — avant, DIVERGENT sans aucune ligne ; désormais « mots
+     de Maginei Eretz sans contrepartie dans la page : « וכלבו) » — Torat Emet 363 le
+     porte ». Effet sur le reste, mesuré : les 22 lacunes de Torat Emet 363 sont les
+     mêmes, le contrôle exhaustif de l'arbitre (chacun des 1 009 séifs où Torat Emet
+     diffère, substitué seul) rend les mêmes 21 séifs DIVERGENTS, et les 105 lignes
+     « sans contrepartie » du 14 septembre sont identiques.
+
+  4. 303:26 — Torat Emet 363 écrit « יכולה לח שערה » où Maginei Eretz a « לחלוק » :
+     une COQUILLE, un mot tronqué. Pour la porte c'est une leçon (un mot qui diffère),
+     EXCUSÉE : une page qui recopierait ce séif de Torat Emet sortirait IDENTIQUE,
+     code 0, le séif imprimé « כו=Torat Emet 363 » (témoin vérifié). Les trois pages
+     du dépôt portent « לחלוק ».
+
+  Témoins du tour 3 (instantané de HEAD, UN bloc retouché dans les trois langues ;
+  code porte du tour 2 / celle-ci) : 271:ו « כוס » → « כיס » 0/1 ; 252:ה « מים » →
+  « מום » 0/1 ; 244:ו « הוא » → « היא » 0/1 ; 243:ג « לו » → « לי » 0/1 ; 316:ז
+  « ועקרבים » → « עקרבים » 0/1 ; 245:א « עליו » → « עלי » 0/1 ; 301:לג « יוכל » →
+  « יכול » 0/1 ; 244:ה « ויש » → « יש » 0/1 ; chapeau du 252 recopié avec « ובי »
+  pour « ובו » 0/1 (recopié exact : 0/0) ; 331:ו « היא » → « הוא », le mot de Torat
+  Emet à cette place 0/1, « deux éditions mêlées » ; 245:א « יום » → « ים » 0/0, LISTÉ ;
+  243:א « מותר » → « מתר » 0/0, listé (contrôle). Les 8 témoins de l'arbitre du tour 1
+  et les 18 de celui du tour 2, rejoués : mêmes codes, sauf N7 (316:ז sans
+  « ועקרבים »), 0 → 1.
+
 Pièges tenus :
   · Sefaria rend HTTP 200 et le LIVRE ENTIER sur un ref mal formé : le `ref` servi
     doit finir par le numéro demandé, sinon le siman est NON ATTEINT, avec sa
     raison, et jamais compté conforme ;
   · une réponse injoignable n'est pas un siman vide : NON ATTEINT ;
   · le cache (`scripts/.cache-sefaria/chabbat-editions/`) ne persiste JAMAIS un
-    résultat dont l'édition par défaut est vide ou indécidable, et porte sa FORME :
-    un cache d'une autre forme est relu sur Sefaria. Il garde toutes les éditions
-    servies, ignorées comprises, pour pouvoir les nommer ; sa FORME est restée 1,
-    R1-R3 changeant ce qu'on en lit et non ce qu'il contient — seul le critère de
-    complétude s'est resserré (l'édition par défaut doit avoir du texte), et les
-    124 fichiers du 8 octobre le remplissent ;
+    résultat que `valider` refuse (voir TOUR 3, 2), et porte sa FORME : un cache
+    d'une autre forme, ou qui ne passe plus `valider`, est relu sur Sefaria. Il
+    garde toutes les éditions servies, ignorées comprises, pour pouvoir les nommer ;
+    sa FORME est restée 1, R1-R3 et le tour 3 changeant ce qu'on en lit et non ce
+    qu'il contient — seul le critère de complétude s'est resserré, et les 124
+    fichiers du 8 octobre le remplissent ;
   · ROOT se déduit de `__file__` : une copie lancée hors du dépôt ne trouve aucune
     page — par `--tous` comme par numéro — et sort en 3, elle ne passe pas pour
     verte ; elle ne va même pas sur Sefaria. La porte imprime ce qu'elle a confronté.
@@ -215,11 +321,16 @@ Ce que la porte ne fait pas : un remplacement où un mot est CHANGÉ et un autre
 omis (« A B » pour « C ») est lu comme une leçon, entière ; dans un séif
 DIVERGENT, la liste des mots absents a la même limite, et un séif remplacé en
 entier (le 344:1 ci-dessus) sort DIVERGENT, ressemblance 0,00, sans liste ; un
-chapeau RÉCRIT reste un écart (seule son ABSENCE est permise) ; enfin le
-squelette ne voit pas un « ו » de conjonction perdu (« וכן » / « כן ») — c'est
-le prix du verdict ÉQUIVALENT.
+chapeau RÉCRIT reste un écart (seule son ABSENCE est permise). Le « ו » de
+conjonction perdu (« וכן » / « כן »), que le squelette ne voyait pas, est vu
+depuis le tour 3 (garde ktiv) — SAUF quand Torat Emet 363 porte elle-même la
+forme de la page à tout le séif : c'est alors sa leçon, excusée (R3) et imprimée.
+Restent : « ים » pour « יום », ajout intérieur, LISTÉ et non bloquant ; une
+coquille de Torat Emet (303:26 « לח ») excusée comme leçon ; et la garde ktiv
+juge les yod/vav entre deux mêmes consonnes, elle ne juge pas le sens — une
+autre graphie d'un même mot (« שנתכוון » / « שנתכוין ») y est un mot changé.
 """
-import sys, re, json, unicodedata, os, html, difflib, urllib.request, urllib.parse
+import sys, re, json, unicodedata, os, html, difflib, itertools, urllib.request, urllib.parse
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECTION = os.path.join(ROOT, "sources", "shabbat")
@@ -233,12 +344,20 @@ LANGS = [("FR", ""), ("HE", "-he"), ("EN", "-en")]
 ANCRE = 24               # consonnes (squelette) qui reconnaissent le début d'un séif
 NGRAMME = 5              # pour désigner l'édition la plus proche d'un séif divergent
 SEUIL_ALIGNEMENT = 0.70  # R2 — mesuré : alignés ≥ 0,864, voisins ≤ 0,556 (voir docstring)
-REFERENCE_ALT = re.compile(r'^Torat Emet \d+$')   # R1 — la Torat Emet NUMÉROTÉE
+# R1 — les deux éditions de référence, ÉPINGLÉES PAR LEUR NOM (tour 3) : l'édition par
+# défaut n'est plus déduite de la priorité Sefaria.
+DEFAUT = "Maginei Eretz: Shulchan Aruch Orach Chaim, Lemberg, 1893"
+ALTERNATIVE = "Torat Emet 363"
 MARQUE = re.compile(r'[א-ת]["\'׳״]')    # guerech / guerchayim après une lettre
+GERSHAYIM = re.compile(r'[א-ת]["״][א-ת]')   # abréviation de plusieurs mots (« ב״י »)
+YV = "יו"
+# Balises qui séparent deux mots ; toute autre balise (<strong>, <b>, <small>…) peut
+# tomber au milieu d'un mot — « ו<strong>בדאג״ה</strong> » (état du 14 septembre).
+BLOC = re.compile(r'<\s*/?\s*(?:br|p|div|li|ul|ol|tr|td|th|blockquote|h\d)\b[^>]*>', re.I)
 
 COURT = {
-    "Maginei Eretz: Shulchan Aruch Orach Chaim, Lemberg, 1893": "Maginei Eretz",
-    "Torat Emet 363": "Torat Emet 363",
+    DEFAUT: "Maginei Eretz",
+    ALTERNATIVE: "Torat Emet 363",
     "Torat Emet Freeware Shulchan Aruch": "Torat Emet Freeware",
 }
 
@@ -273,33 +392,86 @@ def _texte_plat(t):
     return [t] if isinstance(t, str) and t else []
 
 
+def _titre(e):
+    return (e.get("titre") or "").strip()
+
+
 def defaut_de(eds):
-    """L'édition PAR DÉFAUT : la priorité Sefaria strictement la plus haute
-    (Maginei Eretz, 2.0, sur les 124 simanim). None si elle est indécidable."""
-    if not eds:
+    """L'édition PAR DÉFAUT, épinglée par son NOM : Maginei Eretz, et elle seule.
+    None si elle n'est pas servie, en hébreu, une fois et une seule."""
+    me = [e for e in eds or [] if _titre(e) == DEFAUT]
+    return me[0] if len(me) == 1 else None
+
+
+def _nombre_seifs(seifim):
+    """(nombre de séifs jusqu'au dernier non vide, [séifs vides avant lui])."""
+    der = max([i + 1 for i, s in enumerate(seifim) if consonants(s)] or [0])
+    return der, [i + 1 for i in range(der) if not consonants(seifim[i])]
+
+
+GEMATRIE = dict(zip("אבגדהוזחטיכלמנסעפצקרשתךםןףץ",
+                    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100,
+                     200, 300, 400, 20, 40, 50, 80, 90]))
+
+
+def annonce_chapeau(premier):
+    """Le nombre de séifs que le chapeau de Maginei Eretz annonce — « ובו י״ז
+    סעיפים », « ובו סעיף אחד » —, ou None s'il n'en annonce pas."""
+    m = CHAPEAU.match(premier or "")
+    if not m:
         return None
-    top = max(e["priorite"] for e in eds)
-    tops = [e for e in eds if e["priorite"] == top]
-    return tops[0] if len(tops) == 1 and top > 0 else None
+    t = re.sub(r'<[^>]+>', ' ', m.group(0))
+    if re.search(r'ובו\s+סעיף\s+אחד', t):
+        return 1
+    m = re.search(r'ובו\s+([א-ת"\'׳״]+)\s+סעיפים', t)
+    return sum(GEMATRIE.get(c, 0) for c in m.group(1)) if m else None
 
 
-def _complet(d):
-    e = defaut_de(d.get("editions") or [])
-    return e is not None and bool(consonants("".join(e["seifim"])))
+def valider(d):
+    """None si la réponse est complète, sinon la raison du refus. L'édition par
+    défaut doit être là, par son nom, en hébreu, non vide, sans séif vide avant son
+    dernier séif, avec AUTANT de séifs que Torat Emet 363 et que son propre chapeau
+    en annonce. Le même contrôle juge une réponse de Sefaria avant de la mettre en
+    cache et un fichier de cache avant de le relire."""
+    eds = d.get("editions") or []
+    me = [e for e in eds if _titre(e) == DEFAUT]
+    if not me:
+        return f"édition par défaut {court(DEFAUT)} absente de la réponse (en hébreu)"
+    if len(me) > 1:
+        return f"{court(DEFAUT)} servie {len(me)} fois"
+    nme, trous = _nombre_seifs(me[0]["seifim"])
+    if not nme:
+        return (f"{court(DEFAUT)} servie VIDE — le Mehaber n'a pas de lacune connue en "
+                f"Hilkhot Chabbat")
+    if trous:
+        return f"{court(DEFAUT)} a des séifs VIDES avant son dernier : {trous[:8]}"
+    te = [e for e in eds if _titre(e) == ALTERNATIVE]
+    nte = _nombre_seifs(te[0]["seifim"])[0] if len(te) == 1 else 0
+    if not nte:
+        return (f"{ALTERNATIVE} absente ou vide : la complétude de {court(DEFAUT)} ne peut "
+                f"pas être contrôlée")
+    if nte != nme:
+        return (f"{nme} séifs dans {court(DEFAUT)}, {nte} dans {ALTERNATIVE} — l'une des "
+                f"deux est tronquée")
+    ann = annonce_chapeau(me[0]["seifim"][0])
+    if ann is not None and ann != nme:
+        return f"le chapeau de {court(DEFAUT)} annonce {ann} séifs, elle en sert {nme}"
+    return None
 
 
 def fetch(n, rafraichir=False):
     """Les éditions hébraïques du siman N : {"ref", "editions": [{"titre",
     "priorite", "seifim": [html brut…]}]}, ou None — et alors RAISONS[n] dit
-    pourquoi. Une réponse dont l'édition par défaut est vide ou indécidable
-    n'est jamais mise en cache."""
+    pourquoi. Une réponse que `valider` refuse (édition par défaut absente,
+    déclarée dans une autre langue, vide, tronquée) n'est jamais mise en cache, et
+    le siman est NON ATTEINT."""
     os.makedirs(CACHE, exist_ok=True)
     f = os.path.join(CACHE, f"OH-{n}.json")
     if not rafraichir and os.path.exists(f):
         try:
             d = json.load(open(f, encoding="utf-8"))
             if (d.get("forme") == FORME_CACHE and str(d.get("ref", "")).endswith(f" {n}")
-                    and _complet(d)):
+                    and valider(d) is None):
                 return d
         except Exception:
             pass
@@ -310,6 +482,9 @@ def fetch(n, rafraichir=False):
     except Exception as e:
         RAISONS[n] = f"api/v3/texts injoignable : {type(e).__name__} {e}"[:160]
         return None
+    if not isinstance(d, dict):
+        RAISONS[n] = f"réponse de Sefaria inattendue : {type(d).__name__}"
+        return None
     ref = str(d.get("ref") or "").rstrip()
     if d.get("error"):
         RAISONS[n] = f"Sefaria répond une erreur (HTTP 200) : {d.get('error')!r}, ref {d.get('ref')!r}"[:200]
@@ -317,29 +492,44 @@ def fetch(n, rafraichir=False):
     if not ref.endswith(f" {n}"):
         RAISONS[n] = f"ref servi {d.get('ref')!r} ≠ siman {n} demandé"[:200]
         return None
-    eds = []
+    eds, ailleurs = [], []
     for v in d.get("versions") or []:
-        if (v.get("actualLanguage") or v.get("language")) != "he":
+        langue = v.get("actualLanguage") or v.get("language")
+        if langue != "he":
+            if (v.get("versionTitle") or "").strip() in (DEFAUT, ALTERNATIVE):
+                ailleurs.append(f"{court(v.get('versionTitle'))} déclarée « {langue} »")
             continue
         eds.append({"titre": v.get("versionTitle") or "?",
                     "priorite": v.get("priority") if isinstance(v.get("priority"), (int, float)) else 0,
                     "seifim": _texte_plat(v.get("text"))})
-    # La plus prioritaire d'abord : c'est l'édition par défaut d'api/texts.
     eds.sort(key=lambda e: -e["priorite"])
     out = {"forme": FORME_CACHE, "ref": ref, "editions": eds}
-    if _complet(out):
-        with open(f, "w", encoding="utf-8") as fh:
-            json.dump(out, fh, ensure_ascii=False)
+    raison = valider(out)
+    if raison:
+        RAISONS[n] = (raison + (f" ({' · '.join(ailleurs)})" if ailleurs else ""))[:240]
+        return None
+    with open(f, "w", encoding="utf-8") as fh:
+        json.dump(out, fh, ensure_ascii=False)
     return out
 
 
 def references(eds):
-    """R1 : (édition par défaut, [Torat Emet numérotée], [éditions servies, avec
-    du texte, et IGNORÉES])."""
+    """R1 : (édition par défaut, [Torat Emet 363], [éditions servies, avec du
+    texte, et IGNORÉES]) — les deux premières par leur NOM."""
     d = defaut_de(eds)
-    alts = [e for e in eds if e is not d and REFERENCE_ALT.match((e["titre"] or "").strip())]
+    alts = [e for e in eds if e is not d and _titre(e) == ALTERNATIVE][:1]
     ign = [e for e in eds if e is not d and e not in alts and consonants("".join(e["seifim"]))]
     return d, alts, ign
+
+
+def defaut_sefaria(eds):
+    """L'édition que Sefaria sert par défaut (priorité strictement la plus haute),
+    pour le DIRE si ce n'est plus Maginei Eretz — la porte, elle, reste épinglée."""
+    if not eds:
+        return None
+    top = max(e["priorite"] for e in eds)
+    tops = [e for e in eds if e["priorite"] == top]
+    return _titre(tops[0]) if len(tops) == 1 else None
 
 
 # ------------------------------------------------------------- normalisation
@@ -359,9 +549,10 @@ def squelette(s):
     ktiv haser/malé, le faux positif dominant du dépôt, et il ne dit rien de la
     fidélité au Choul'han Aroukh. Deux verdicts sont donc rendus, et ils ne se
     valent pas : IDENTIQUE (consonnes strictement égales) et ÉQUIVALENT (égal
-    aux matres lectionis près). Seul un écart qui SURVIT au squelette est un
-    écart de texte — un mot remplacé, une abréviation développée, une
-    parenthèse de source perdue, un séif tronqué.
+    aux matres lectionis près). Un écart qui SURVIT au squelette est un écart de
+    texte — un mot remplacé, une abréviation développée, une parenthèse de source
+    perdue, un séif tronqué. Celui qui ne lui survit pas passe encore la GARDE
+    KTIV (tour 3, `garde_ktiv`) : le squelette égalait « כוס » et « כיס ».
     """
     return re.sub(r"[יו]", "", s)
 
@@ -386,6 +577,129 @@ def mots_autour(brut, k, avant=6, apres=6):
             return " ".join(mots[max(0, i - avant):i]) + " ⟦" + mots[i] + "⟧ " + \
                 " ".join(mots[i + 1:i + 1 + apres])
     return " ".join(mots[-avant:]) + " ⟦fin⟧"
+
+
+# ------------------------------------------------------------- garde ktiv
+
+def lettres(brut):
+    """Les consonnes d'un texte avec leur place : ([(lettre, n° de mot, intérieure)],
+    [mot lisible]). La suite des lettres est exactement `consonants(brut)` ; un mot
+    est coupé aux espaces, au maqaf, à la ponctuation et aux balises de bloc —
+    jamais au nikoud, au guerech, aux guerchayim, ni à une balise de texte
+    (« ו<strong>בדאג״ה</strong> » est un mot). Une lettre est INTÉRIEURE quand elle
+    n'est ni la première ni la dernière de son mot."""
+    t = BLOC.sub(" ", brut)
+    t = re.sub(r'<[^>]+>', '', t)
+    t = unicodedata.normalize('NFC', t)
+    L, lis_mots, cur, lis = [], [], [], []
+
+    def fin_mot():
+        if cur:
+            w = len(lis_mots)
+            L.extend((ch, w, 0 < k < len(cur) - 1) for k, ch in enumerate(cur))
+            lis_mots.append("".join(lis))
+        cur.clear()
+        lis.clear()
+    for ch in t:
+        if HE_CONS.match(ch):
+            cur.append(ch)
+            lis.append(ch)
+        elif unicodedata.combining(ch):
+            continue
+        elif ch in "\"'׳״":
+            if cur:
+                lis.append(ch)
+        else:
+            fin_mot()
+    fin_mot()
+    return L, lis_mots
+
+
+def _trou(rp, rs):
+    """Les yod/vav que la page (rp) et la source (rs) placent entre deux MÊMES
+    consonnes du squelette. Rend None (mêmes lettres), ou (nature, lettres de rp
+    en cause, lettres de rs en cause) : « ktiv » quand l'un s'obtient de l'autre en
+    AJOUTANT des yod/vav à l'intérieur d'un mot (« כשיבא » / « כשיבוא », « ים » /
+    « יום ») ; « en tête ou en fin de mot » quand l'ajout touche l'initiale ou la
+    finale (« ועקרבים » / « עקרבים », « עליו » / « עלי ») ; « échange » sinon
+    (« כוס » / « כיס », « מים » / « מום », « הוא » / « היא »). Un trou ne voit pas
+    le mot entier : `garde_ktiv` juge ensuite le vav qui CHANGE DE PLACE
+    (« יוכל » / « יכול », un ajout de chaque côté)."""
+    cp, cs = "".join(x[0] for x in rp), "".join(x[0] for x in rs)
+    if cp == cs:
+        return None
+    if len(cp) == len(cs):
+        k = next(t for t in range(len(cp)) if cp[t] != cs[t])
+        return "échange", [rp[k]], [rs[k]]
+    page_longue = len(cp) > len(cs)
+    lo, co = (rp, rs) if page_longue else (rs, rp)
+    cc = "".join(x[0] for x in co)
+    bord = None
+    for comb in itertools.combinations(range(len(lo)), len(co)):
+        if any(lo[k][0] != cc[t] for t, k in enumerate(comb)):
+            continue
+        extra = [lo[k] for k in range(len(lo)) if k not in comb]
+        if all(x[2] for x in extra):
+            return ("ktiv", extra, []) if page_longue else ("ktiv", [], extra)
+        bord = bord or extra
+    if bord:
+        return ("en tête ou en fin de mot", bord, []) if page_longue else \
+            ("en tête ou en fin de mot", [], bord)
+    return "échange", rp[:1], rs[:1]
+
+
+def _en_regard(g, L, b, Lo, bo, en_cause):
+    """Le n° du mot de L qui répond, au trou g, au mot de l'autre texte (Lo) où se
+    trouve la lettre en cause : celui de la consonne voisine que Lo rattache au même
+    mot. None si la lettre est un mot à elle seule (« [י] »)."""
+    w = en_cause[0][1]
+    if bo[g] >= 0 and Lo[bo[g]][1] == w and b[g] >= 0:
+        return L[b[g]][1]
+    if bo[g + 1] < len(Lo) and Lo[bo[g + 1]][1] == w and b[g + 1] < len(L):
+        return L[b[g + 1]][1]
+    return None
+
+
+def garde_ktiv(Lp, mots_p, Ls, mots_s):
+    """LA GARDE KTIV (tour 3). Le squelette ôte TOUT yod et tout vav, si bien que
+    « כוס » et « כיס », « מים » et « מום », « לו » et « לי », « הוא » et « היא » y ont
+    la même clé : une page qui changeait l'un en l'autre sortait ÉQUIVALENT, code 0,
+    sans qu'un mot fût imprimé. Deux mots ne sont égaux au ktiv près que si l'un
+    s'obtient de l'autre en AJOUTANT des yod/vav à l'INTÉRIEUR du mot ; un yod/vav
+    ÉCHANGÉ au même endroit, ou ajouté en tête (le ו de conjonction) ou en fin de
+    mot (« עליו » / « עלי »), ou déplacé dans le mot (« יוכל » / « יכול »), est un
+    mot changé.
+
+    Lp et Ls (page, source, sorties de `lettres`) ont le même squelette. Rend
+    (changés, ktiv) : deux listes de (mot de la page, mot de la source, nature,
+    n° du mot de la page ou None)."""
+    sp = [k for k, x in enumerate(Lp) if x[0] not in YV]
+    ss = [k for k, x in enumerate(Ls) if x[0] not in YV]
+    if [Lp[k][0] for k in sp] != [Ls[k][0] for k in ss]:
+        return [("?", "?", "squelettes inégaux", None)], []
+    bp, bs = [-1] + sp + [len(Lp)], [-1] + ss + [len(Ls)]
+    changes, ktiv, sens = [], [], {}
+    for g in range(len(sp) + 1):
+        r = _trou(Lp[bp[g] + 1:bp[g + 1]], Ls[bs[g] + 1:bs[g + 1]])
+        if r is None:
+            continue
+        nature, ep, es = r
+        wp = ep[0][1] if ep else _en_regard(g, Lp, bp, Ls, bs, es)
+        ws = es[0][1] if es else _en_regard(g, Ls, bs, Lp, bp, ep)
+        mp = "∅" if wp is None else mots_p[wp]
+        ms = "∅" if ws is None else mots_s[ws]
+        (ktiv if nature == "ktiv" else changes).append((mp, ms, nature, wp))
+        if nature == "ktiv":
+            sens.setdefault((wp, ws), set()).add("page" if ep else "source")
+    # Un mot n'est égal à l'autre au ktiv près que si l'AJOUT est d'un seul côté :
+    # « יכול » / « יוכל » ajoute un vav de chaque côté, en deux trous — le vav a
+    # CHANGÉ DE PLACE, ce n'est pas du ktiv (ni l'un ni l'autre n'est sous-suite).
+    deplaces = {(mots_p[wp] if wp is not None else "∅", mots_s[ws] if ws is not None else "∅")
+                for (wp, ws), v in sens.items() if len(v) > 1}
+    changes += [x[:2] + ("déplacé dans le mot",) + x[3:] for x in ktiv if x[:2] in deplaces]
+    ktiv = [x for x in ktiv if x[:2] not in deplaces]
+    uniques = lambda l: list({x[:3]: x for x in l}.values())
+    return uniques(changes), uniques(ktiv)
 
 
 # ------------------------------------------------------------ R3 : omissions
@@ -479,6 +793,28 @@ def _formes(c):
     return [c] + ([c[1:]] if c[:1] == "ו" and len(c) > 1 else [])
 
 
+def _developpe(x, ws):
+    """Le mot x répond-il à la suite de mots ws — soudé (même squelette) ou
+    abréviation qui la développe (« ר״ה » / « רשות הרבים ») ?"""
+    cc = "".join(y[2] for y in ws)
+    return (squelette(cc) == squelette(x[2]) or
+            (_abrev(x[1]) and any(f[0] == g[0] and _sous_suite(squelette(f), squelette(g))
+                                  for f in _formes(x[2]) for g in _formes(cc))))
+
+
+def _partiel(a, b, suite_a, suite_b):
+    """La paire 1 pour 1 (a, b) n'est-elle qu'un DÉVELOPPEMENT PARTIEL — une
+    abréviation de plusieurs mots (guerchayim : « ב״י ») appariée au seul PREMIER
+    des mots qu'elle développe (« בית »), quand elle se lit en entier sur les
+    suivants (« בית יוסף ») ? `suite_a`, `suite_b` : les mots qui commencent à a, b."""
+    for x, y, ws in ((a, b, suite_b), (b, a, suite_a)):
+        if (GERSHAYIM.search(x[1]) and not _abrev(y[1]) and x[0] != y[0]
+                and squelette(x[2]) != squelette(y[2])
+                and any(_developpe(x, ws[:k]) for k in range(2, min(4, len(ws)) + 1))):
+            return True
+    return False
+
+
 def _remplacement(A, B):
     """Un REMPLACEMENT de difflib (des mots de A à la place desquels B en a
     d'autres) peut cacher une omission : au 244:1, « לעשות בו מלאכ׳ בשבת » contre
@@ -491,44 +827,45 @@ def _remplacement(A, B):
     B employés, nombre de mots SUBSTITUÉS). `omissions` ne retient les mots sans
     contrepartie que si aucun mot n'y est substitué : là où l'autre texte CHANGE
     un mot, on ne sait plus lequel de ses voisins il remplace — « פרק במה טומנין »
-    / « פרק כירה » (257:8), « פ׳ ה׳ » / « פכ״ה » (308:1) sont des leçons."""
+    / « פרק כירה » (257:8), « פ׳ ה׳ » / « פכ״ה » (308:1) sont des leçons.
+
+    TOUR 3 — le DÉVELOPPEMENT PARTIEL. Une abréviation de plusieurs mots
+    s'appariait à un seul des mots qu'elle développe : au 315:1, une page qui
+    réduit « (ב״י וכלבו) » à « (בית יוסף) » était lue « ב״י » = « בית » (paire,
+    0) et « וכלבו » → « יוסף » (leçon, 0,5) — et, une leçon dans le bloc, le mot
+    réellement omis, « וכלבו », disparaissait de la liste (verdict 1 tout de même).
+    Une telle paire, quand l'abréviation se lit en entier sur les mots suivants
+    (`_partiel`), ne vaut plus qu'une leçon (0,5) ; et à coût égal, l'alignement qui
+    substitue le MOINS de mots l'emporte : « ב״י » = « בית יוסף » (0) et « וכלבו »
+    omis (1) battent deux leçons (0,5 + 0,5)."""
     m, n = len(A), len(B)
-    INF = float("inf")
+    INF = (float("inf"), 0)
     best = [[(INF, None)] * (n + 1) for _ in range(m + 1)]
-    best[0][0] = (0.0, None)
+    best[0][0] = ((0.0, 0), None)
     for i in range(m + 1):
         for j in range(n + 1):
-            c = best[i][j][0]
-            if c == INF:
+            c, nl = best[i][j][0]
+            if c == INF[0]:
                 continue
 
             def pose(i2, j2, cout, quoi):
-                if c + cout < best[i2][j2][0]:
-                    best[i2][j2] = (c + cout, (i, j, quoi))
+                v = (c + cout, nl + (quoi == "leçon"))
+                if v < best[i2][j2][0]:
+                    best[i2][j2] = (v, (i, j, quoi))
             if i < m:
                 pose(i + 1, j, 1.0, "omis")
             if j < n:
                 pose(i, j + 1, 0.0, "ajout")
             if i < m and j < n:
-                if _egal(A[i], B[j]):
+                if _egal(A[i], B[j]) and not _partiel(A[i], B[j], A[i:], B[j:]):
                     pose(i + 1, j + 1, 0.0, "paire")
                 else:
                     pose(i + 1, j + 1, 0.5, "leçon")
                 for k in range(2, 5):
-                    if j + k <= n:          # un mot de A pour k mots de B
-                        cc = "".join(x[2] for x in B[j:j + k])
-                        if (squelette(cc) == squelette(A[i][2]) or
-                                (_abrev(A[i][1]) and any(
-                                    f[0] == g[0] and _sous_suite(squelette(f), squelette(g))
-                                    for f in _formes(A[i][2]) for g in _formes(cc)))):
-                            pose(i + 1, j + k, 0.0, "paire")
-                    if i + k <= m:          # k mots de A pour un mot de B
-                        cc = "".join(x[2] for x in A[i:i + k])
-                        if (squelette(cc) == squelette(B[j][2]) or
-                                (_abrev(B[j][1]) and any(
-                                    f[0] == g[0] and _sous_suite(squelette(f), squelette(g))
-                                    for f in _formes(B[j][2]) for g in _formes(cc)))):
-                            pose(i + k, j + 1, 0.0, "paire")
+                    if j + k <= n and _developpe(A[i], B[j:j + k]):    # un mot de A pour k de B
+                        pose(i + 1, j + k, 0.0, "paire")
+                    if i + k <= m and _developpe(B[j], A[i:i + k]):    # k mots de A pour un de B
+                        pose(i + k, j + 1, 0.0, "paire")
     omis, pris, lecons, i, j = [], set(), 0, m, n
     while (i, j) != (0, 0):
         pi, pj, quoi = best[i][j][1]
@@ -596,6 +933,8 @@ class Ref:
         self.nom_alts = [court(e["titre"]) for e in self.alts]
         self.chap, self.seifs, self.bruts = {"": []}, [], []
         self.mots, self.omis, self.ratio, self.ecartees = [], [], [], []
+        self.chap_brut, self._lettres = "", {}
+        self.defaut_sefaria = defaut_sefaria(eds)
         if not self.defaut:
             return
         sd = self.defaut["seifim"]
@@ -606,6 +945,7 @@ class Ref:
                 m = CHAPEAU.match(raw)
                 if m:
                     self.chap[consonants(m.group(0))] = [D]
+                    self.chap_brut = m.group(0)
                     raw = CHAPEAU.sub('', raw)
             c0 = consonants(raw)
             var, br, rat, om = {}, {}, {}, {}
@@ -631,6 +971,53 @@ class Ref:
             self.ratio.append(rat)
             self.omis.append(om)
             self.mots.append(md)
+
+    def lettres_de(self, i, nom):
+        """`lettres` du séif i+1 dans l'édition `nom` (i = "chapeau" : le chapeau)."""
+        if (i, nom) not in self._lettres:
+            self._lettres[(i, nom)] = lettres(self.chap_brut if i == "chapeau" else
+                                              self.bruts[i].get(nom, ""))
+        return self._lettres[(i, nom)]
+
+    def garde(self, i, labs, Lp, mots_p):
+        """La garde ktiv sur un passage de la page dont le squelette est celui du
+        séif i+1 dans les éditions `labs`. Rend (éditions où la page ne s'écarte
+        qu'au ktiv près — l'édition par défaut d'abord —, mots changés si AUCUNE ne
+        passe — rapportés à l'édition par défaut si elle est de `labs` —, mots égaux
+        au ktiv près seulement dans la première retenue)."""
+        retenues, changes, ktiv, rapporte = [], None, None, None
+        for nom in sorted(labs, key=lambda l: l != self.D):
+            Ls, ms = self.lettres_de(i, nom)
+            ch, kt = garde_ktiv(Lp, mots_p, Ls, ms)
+            if not ch:
+                retenues.append(nom)
+                ktiv = kt if ktiv is None else ktiv
+            elif changes is None:
+                changes, rapporte = ch, nom
+        if retenues or not changes:
+            return tuple(retenues), [], ktiv or []
+        # Le mot de la page est-il, À SA PLACE, celui de l'AUTRE édition de référence ?
+        # La page mêle alors deux éditions à l'intérieur du séif — ce qui ne passe pas.
+        # La place se lit par un alignement mot à mot (squelettes) de la page et de
+        # l'autre édition : un mot seulement présent ailleurs dans le séif ne compte pas.
+        ids = list(dict.fromkeys(x[1] for x in Lp))
+        cles_p = [squelette(consonants(mots_p[w])) for w in ids]
+        lecon = {}
+        for nom in ([] if i == "chapeau" else [x for x in self.bruts[i] if x != rapporte]):
+            mo = [consonants(w) for w in self.lettres_de(i, nom)[1]]
+            sm = difflib.SequenceMatcher(None, cles_p, [squelette(w) for w in mo], autojunk=False)
+            for op, i1, i2, j1, j2 in sm.get_opcodes():
+                if op == "equal" or (op == "replace" and i2 - i1 == j2 - j1):
+                    for d in range(i2 - i1):
+                        if consonants(mots_p[ids[i1 + d]]) == mo[j1 + d]:
+                            lecon.setdefault(ids[i1 + d], []).append(nom)
+        out = []
+        for mp, ms, nat, wp in changes:
+            chez = lecon.get(wp, [])
+            out.append((mp, ms, nat + (f" ; à cette place, « {mp} » est le mot de "
+                                       f"{' / '.join(chez)} : deux éditions mêlées dans le séif"
+                                       if chez else "")))
+        return (), out, []
 
     def omis_par(self, i, nom):
         """Indices des mots du séif i+1 de l'édition par défaut que `nom` n'a pas."""
@@ -703,7 +1090,7 @@ def _omission_retenue(ref, i, labs, deb, fin):
                                              for r in runs]}
 
 
-def localiser(SP, ref, brut_page):
+def localiser(page, ref):
     """La page diverge : où, et de quelle édition est-elle la plus proche ?
     Parcours séif par séif, au squelette. Un séif retrouvé tel quel dans l'une
     des éditions est « retenu » (ou, s'il ne l'est que hors de l'édition par
@@ -711,8 +1098,11 @@ def localiser(SP, ref, brut_page):
     sinon on cherche le début d'un séif suivant pour borner le passage de la page
     qui lui correspond, et l'écart est rapporté à l'édition la plus proche DE CE
     SÉIF — plus la liste des mots de l'édition par défaut absents de la page.
+    Un séif retrouvé au squelette passe encore la garde ktiv : un yod/vav échangé
+    en fait un « MOT CHANGÉ ».
     Rend une liste de (séif, statut, éditions, détail)."""
     chap, seifs, bruts = ref.chap, ref.seifs, ref.bruts
+    SP, brut_page = squelette(page.cons), page.brut
     pm = mots(brut_page)
     sq_seifs = []
     for u in seifs:
@@ -722,10 +1112,14 @@ def localiser(SP, ref, brut_page):
             d[squelette(c)] += [l for l in labs if l not in d[squelette(c)]]
         sq_seifs.append(d)
     pos, out = 0, []
+    suite = None                 # lettre où commence un séif qui suit un séif retenu
     chaps = sorted((squelette(c) for c in chap if c), key=len, reverse=True)
     for k in chaps:
         if SP.startswith(k, 0):
             pos = len(k)
+            suite, _, chg, _ = _garde_unite(ref, "chapeau", [ref.D], page, 0, pos)
+            if chg:
+                out.append((0, "MOT CHANGÉ", (ref.D,), {"deb": 0, "fin": pos, "mots": chg}))
             break
     else:
         # Un chapeau RÉCRIT (au siman 252, « בע"ש » développé en « בערב שבת ») :
@@ -782,15 +1176,21 @@ def localiser(SP, ref, brut_page):
                     if autres and max(proximite(seg, kk) for kk in autres) > proximite(seg, k):
                         plus_loin = q
             if not plus_loin:
-                om = _omission_retenue(ref, i, labs, pos, pos + len(k))
-                if om:
-                    out.append((i + 1, "OMISSION", labs, om))
+                debut = suite if suite is not None else page._bout(pos)
+                suite, ret, chg, _ = _garde_unite(ref, i, labs, page, debut, pos + len(k))
+                om = ret and _omission_retenue(ref, i, ret, pos, pos + len(k))
+                if not ret:
+                    out.append((i + 1, "MOT CHANGÉ", labs,
+                                {"deb": pos, "fin": pos + len(k), "mots": chg}))
+                elif om:
+                    out.append((i + 1, "OMISSION", ret, om))
                 else:
-                    out.append((i + 1, "RETENU", labs, {"deb": pos, "fin": pos + len(k)}))
+                    out.append((i + 1, "RETENU", ret, {"deb": pos, "fin": pos + len(k)}))
                 pos += len(k)
                 i += 1
                 continue
         # Borner le passage : le premier séif suivant dont le début se retrouve.
+        suite = None
         fin, j = len(SP), N
         for jj in range(i + 1, N):
             q = [SP.find(k2[:ANCRE], pos) for k2 in sq_seifs[jj] if k2]
@@ -858,6 +1258,65 @@ def retenue(chemin, D):
 
 # ----------------------------------------------------------------------- page
 
+class Page:
+    """Le texte source d'une page : ses consonnes, ses lettres placées dans leurs
+    mots (`lettres`), et la position de chaque consonne du squelette."""
+
+    def __init__(self, brut):
+        self.brut, self.cons = brut, consonants(brut)
+        self.L, self.mots = lettres(brut)
+        self.sk = [k for k, x in enumerate(self.L) if x[0] not in YV]
+        # `lettres` lit exactement les consonnes de `consonants` ; si ce n'était pas le
+        # cas, la garde ne saurait où sont les mots : elle ne passe rien (MOT CHANGÉ).
+        self.lisible = "".join(x[0] for x in self.L) == self.cons
+
+    def _bout(self, b):
+        """L'indice de lettre qui suit la consonne b-1 du squelette et les yod/vav
+        de SON mot : les yod/vav suivants appartiennent au mot (au séif) suivant."""
+        if b <= 0:
+            return 0
+        if b >= len(self.sk):
+            return len(self.L)
+        k, w = self.sk[b - 1] + 1, self.L[self.sk[b - 1]][1]
+        while k < len(self.L) and self.L[k][0] in YV and self.L[k][1] == w:
+            k += 1
+        return k
+
+    def fins(self, b):
+        """Les fins possibles, en indice de lettre, d'un passage dont le squelette
+        s'achève à la consonne b-1 : après le mot de cette consonne, puis après
+        chacun des mots faits de yod/vav SEULS qui le suivent avant le mot de la
+        consonne b (« ו׳ » qui clôt 346:1) — un tel mot ne dit pas de lui-même à quel
+        séif il appartient ; `_garde_unite` essaie chaque coupure."""
+        if b >= len(self.sk):
+            return [len(self.L)]
+        k = self._bout(b)
+        out, w_suiv = [k], self.L[self.sk[b]][1]
+        while k < self.sk[b] and self.L[k][1] != w_suiv:
+            w = self.L[k][1]
+            while k < self.sk[b] and self.L[k][1] == w:
+                k += 1
+            out.append(k)
+        return out
+
+
+def _garde_unite(ref, i, labs, page, debut, b):
+    """La garde ktiv sur une unité de la page (séif i+1, ou i = "chapeau") qui
+    commence à la lettre `debut` et dont le squelette s'achève à la consonne b-1 :
+    (fin, éditions retenues, mots changés, mots égaux au ktiv près). La première
+    coupure (`Page.fins`) où une édition passe l'emporte ; si aucune ne passe, le
+    rapport est celui de la coupure la plus courte."""
+    if not page.lisible:
+        return (len(page.L), (), [("?", "?", "lettres de la page illisibles par la garde")], [])
+    premier = None
+    for fin in page.fins(b):
+        ret, chg, kt = ref.garde(i, labs, page.L[debut:fin], page.mots)
+        if ret:
+            return fin, ret, chg, kt
+        premier = premier or (fin, ret, chg, kt)
+    return premier
+
+
 def page_source(path):
     html_ = open(path, encoding="utf-8").read()
     b = re.findall(r'<blockquote class="text-source"[^>]*>(.*?)</blockquote>',
@@ -871,10 +1330,13 @@ def chemin(n, suf):
 
 
 def juger(cons, brut, ref):
-    """(verdict, éditions retenues par séif, rapport de localisation). Une page
-    qui est, séif par séif, la copie d'une édition de référence passe — sauf si un
-    séif pris hors de l'édition par défaut y perd un passage que celle-ci porte
-    (R3) : la page est alors DIVERGENTE et le rapport nomme l'omission."""
+    """(verdict, éditions retenues par séif, rapport de localisation, mots égaux au
+    ktiv près seulement). Une page qui est, séif par séif, la copie d'une édition
+    de référence passe — sauf si un séif pris hors de l'édition par défaut y perd un
+    passage que celle-ci porte (R3), ou si, au squelette près seulement, un yod/vav
+    y est ÉCHANGÉ ou ajouté en tête ou en fin de mot (garde ktiv) : la page est
+    alors DIVERGENTE et le rapport nomme l'omission ou le mot changé."""
+    page = Page(brut)
     with_chap = [ref.chap] + ref.seifs
     premier = None
     for verdict, cle, P in (("IDENTIQUE", lambda c: c, cons),
@@ -882,19 +1344,34 @@ def juger(cons, brut, ref):
         ch = apparier(P, with_chap, cle, ref.D)
         if ch is None:
             continue
-        ch = ch[1:]
-        loc, omis = [], False
+        (labs0, a0, b0), ch = ch[0], ch[1:]
+        loc, defaut_, retenus, ktiv, debut = [], False, [], [], 0
+        if verdict == "ÉQUIVALENT" and b0 > a0:
+            debut, _, chg, _ = _garde_unite(ref, "chapeau", labs0, page, 0, b0)
+            if chg:
+                loc.append((0, "MOT CHANGÉ", labs0, {"deb": a0, "fin": b0, "mots": chg}))
+                defaut_ = True
         for i, (labs, a, b) in enumerate(ch):
+            if verdict == "ÉQUIVALENT":
+                debut, ret, chg, kt = _garde_unite(ref, i, labs, page, debut, b)
+                if not ret:
+                    loc.append((i + 1, "MOT CHANGÉ", labs, {"deb": a, "fin": b, "mots": chg}))
+                    retenus.append(labs)
+                    defaut_ = True
+                    continue
+                labs = ret
+                ktiv += [(i + 1, mp, ms, labs[0]) for mp, ms, *_ in kt]
             om = _omission_retenue(ref, i, labs, a, b)
-            omis = omis or bool(om)
+            defaut_ = defaut_ or bool(om)
             loc.append((i + 1, "OMISSION", labs, om) if om else
                        (i + 1, "RETENU", labs, {"deb": a, "fin": b}))
-        if not omis:
-            return verdict, [x[0] for x in ch], None
+            retenus.append(labs)
+        if not defaut_:
+            return verdict, retenus, None, ktiv
         premier = premier or loc
     if premier:
-        return "DIVERGENCE", None, premier
-    return "DIVERGENCE", None, localiser(squelette(cons), ref, brut)
+        return "DIVERGENCE", None, premier, []
+    return "DIVERGENCE", None, localiser(page, ref), []
 
 
 def un_siman(n, bref, rafraichir, stats):
@@ -914,41 +1391,16 @@ def un_siman(n, bref, rafraichir, stats):
         return None
     eds = src["editions"]
     ref = Ref(eds)
-    if ref.defaut is None:
-        RAISONS[n] = ("édition par défaut indécidable (aucune priorité Sefaria strictement "
-                      "plus haute) : " + " · ".join(f"{court(e['titre'])} {e['priorite']}" for e in eds))
+    D = ref.D
+    seifs = ref.seifs
+    if ref.defaut is None or not seifs:
+        # `fetch` ne rend que des réponses que `valider` accepte : ce cas ne se
+        # présente pas. Il reste gardé — la porte ne conclut pas sur une référence
+        # vide (le Mehaber n'a aucune lacune connue en Hilkhot Chabbat).
+        RAISONS[n] = f"édition par défaut {court(DEFAUT)} introuvable ou vide après lecture"
         print(f"  siman {n:3d} : NON ATTEINT — {RAISONS[n]}")
         stats["non_atteints"].append((n, RAISONS[n]))
         return None
-    D = ref.D
-    seifs = ref.seifs
-    if not seifs:
-        # Le Mehaber n'a aucune lacune connue en Hilkhot Chabbat. Un texte vide
-        # dans l'édition par défaut face à une page qui publie des blocs est un
-        # échec de mesure, non une divergence : la porte ne conclut pas, au lieu
-        # d'accuser la page d'un séif « que la source ne donne pas ».
-        blocs = sum(page_source(chemin(n, suf))[0] for _, suf in presentes)
-        if blocs:
-            RAISONS[n] = (f"ref juste mais texte VIDE dans l'édition par défaut ({D}), quand la "
-                          f"page publie {blocs} blocs (trois langues) — le Mehaber n'a pas de "
-                          f"lacune connue en Hilkhot Chabbat")
-            print(f"  siman {n:3d} : NON ATTEINT — {RAISONS[n]}")
-            stats["non_atteints"].append((n, RAISONS[n]))
-            return None
-        stats["simanim"] += 1
-        print(f"\n=== Siman {n} — aucun séif dans l'édition par défaut (page-passerelle attendue) ===")
-        ok = True
-        for lang, suf in LANGS:
-            p = chemin(n, suf)
-            if not os.path.exists(p):
-                print(f"  {lang}: FICHIER ABSENT {p}"); ok = False; continue
-            nb, _, _ = page_source(p)
-            stats["pages"] += 1
-            bon = (nb == 0)
-            print(f"  {lang}: {nb} blocs | "
-                  f"{'✅ aucun séif prétendu' if bon else '❌ la page cite un séif que la source ne donne pas'}")
-            ok = ok and bon
-        return ok, True
 
     stats["simanim"] += 1
     stats["defaut"][D] = stats["defaut"].get(D, 0) + 1
@@ -981,8 +1433,10 @@ def un_siman(n, bref, rafraichir, stats):
         nb, cons, brut = page_source(p)
         stats["pages"] += 1
         cons_par_langue[lang], nb_par_langue[lang] = cons, nb
-        verdict, ch, loc = juger(cons, brut, ref)
-        res[lang] = (verdict, ch, loc)
+        verdict, ch, loc, kt = juger(cons, brut, ref)
+        res[lang] = (verdict, ch, loc, kt)
+        if kt:
+            stats["ktiv"].append((n, lang, kt))
         stats["pages_verdict"][verdict] = stats["pages_verdict"].get(verdict, 0) + 1
         if verdict == "DIVERGENCE":
             texte_ok = False
@@ -995,6 +1449,8 @@ def un_siman(n, bref, rafraichir, stats):
                     stats["div_proches"][labs[0]] = stats["div_proches"].get(labs[0], 0) + 1
                 if st == "OMISSION":
                     stats["omissions"].append((n, lang, s_, labs[0], [t for t, _ in d["runs"]]))
+                if st == "MOT CHANGÉ":
+                    stats["mots_changes"].append((n, lang, s_, d["mots"]))
         else:
             for l in retenue(ch, D)[1]:
                 stats["seifs_par_edition"][l] = stats["seifs_par_edition"].get(l, 0) + 1
@@ -1016,11 +1472,14 @@ def un_siman(n, bref, rafraichir, stats):
         eds_txt = sorted({retenue(v[1], D)[0] for v in res.values() if v[1] is not None})
         div = sorted({s for v in res.values() if v[2] for s, st, _, _ in v[2]
                       if st in ("DIVERGENT", "NON RETROUVÉ", "SANS TEXTE", "CHAPEAU DIVERGENT",
-                                "OMISSION")
+                                "OMISSION", "MOT CHANGÉ")
                       and s is not None})
         proches = sorted({labs[0] for v in res.values() if v[2] for _, st, labs, _ in v[2]
                           if st == "DIVERGENT" and labs})
         omis = sorted({s for v in res.values() if v[2] for s, st, _, _ in v[2] if st == "OMISSION"})
+        changes = sorted({(s, mp, ms) for v in res.values() if v[2] for s, st, _, d in v[2]
+                          if st == "MOT CHANGÉ" for mp, ms, _ in d["mots"]})
+        ktiv = sorted({(s, mp, ms) for v in res.values() for s, mp, ms, _ in v[3]})
         hors = sorted({f"{lettre(i)}={c}" for v in res.values() if v[1] is not None
                        for i, c in enumerate(retenue(v[1], D)[1], 1) if c != D})
         extra = (f" · édition {' / '.join(eds_txt)}" if eds_txt else "")
@@ -1031,6 +1490,14 @@ def un_siman(n, bref, rafraichir, stats):
                       f"{' / '.join(proches) or '—'}")
         if omis:
             extra += f" · OMISSION (R3) au séif {','.join(lettre(s) for s in omis)}"
+        if changes:
+            extra += " · MOT CHANGÉ (garde ktiv) : " + " ".join(
+                f"{lettre(s) if s else 'chapeau'} «{mp}»/«{ms}»" for s, mp, ms in changes)
+        if ktiv:
+            extra += " · au ktiv près seulement : " + " ".join(
+                f"{lettre(s)} «{mp}»/«{ms}»" for s, mp, ms in ktiv)
+        if ref.defaut_sefaria not in (None, DEFAUT):
+            extra += f" · Sefaria sert {court(ref.defaut_sefaria)} par défaut"
         if ref.ecartees:
             extra += f" · non alignée (R2) : {' '.join(f'{lettre(s)}={nom}' for s, nom, _ in ref.ecartees)}"
         print(f"  siman {n:3d} : {nseifs:2d} séifim · blocs {blocs:>8s} · "
@@ -1042,8 +1509,11 @@ def un_siman(n, bref, rafraichir, stats):
                       for e in [ref.defaut] + ref.alts)
     print(f"\n=== Siman {n} — Hilkhot Chabbat : {nseifs} séifim dans l'édition par défaut ===")
     print(f"  éditions de référence (séifs non vides) : {lues} — par défaut : {D}")
+    if ref.defaut_sefaria not in (None, DEFAUT):
+        print(f"  ⚠️  Sefaria sert désormais {court(ref.defaut_sefaria)} par défaut ; la porte "
+              f"reste épinglée sur {D}")
     if ref.ignorees:
-        print("  servies et IGNORÉES (R1 — ni par défaut, ni Torat Emet numérotée) : " + " · ".join(
+        print(f"  servies et IGNORÉES (R1 — ni {D}, ni {ALTERNATIVE}) : " + " · ".join(
             f"{court(e['titre'])} ({sum(1 for s in e['seifim'] if consonants(s))})" for e in ref.ignorees))
     for s_, nom, r in ref.ecartees:
         print(f"  ⚠️  R2 : {nom} séif {lettre(s_)} ({s_}) NON ALIGNÉE sur {D} (ressemblance {r:.2f} "
@@ -1054,7 +1524,7 @@ def un_siman(n, bref, rafraichir, stats):
                 print(f"  {lang}: FICHIER ABSENT {chemin(n, suf)}")
             continue
         nb = nb_par_langue[lang]
-        verdict, ch, loc = res[lang]
+        verdict, ch, loc, kt = res[lang]
         dec = "✅" if nb == nseifs else f"⚠️  {nb} blocs pour {nseifs} séifim"
         if verdict == "IDENTIQUE":
             v = f"✅ IDENTIQUE à {retenue(ch, D)[0]}"
@@ -1063,6 +1533,10 @@ def un_siman(n, bref, rafraichir, stats):
         else:
             v = "❌ DIVERGENCE"
         print(f"  {lang}: {nb} blocs | texte : {v} | découpe : {dec}")
+        if kt:
+            print(f"      mots égaux au ktiv près SEULEMENT (yod/vav ajouté à l'intérieur du mot ; "
+                  f"à contrôler) : " + " · ".join(f"séif {lettre(s)} page « {mp} » / {e} « {ms} »"
+                                                 for s, mp, ms, e in kt))
         if ch is not None:
             choix = retenue(ch, D)[1]
             hors = [(i, c) for i, c in enumerate(choix, 1) if c != D]
@@ -1092,6 +1566,14 @@ def un_siman(n, bref, rafraichir, stats):
                 if st in ("NON RETROUVÉ", "SANS TEXTE"):
                     print(f"      séif {lettre(s)} ({s}) : {st} — son début ne se lit nulle part "
                           f"après le séif précédent (absent, fondu, ou altéré dès ses premiers mots)")
+                    continue
+                if st == "MOT CHANGÉ":
+                    nom_s = f"séif {lettre(s)} ({s})" if s else "chapeau"
+                    ed = D if D in labs else labs[0]
+                    print(f"      {nom_s} : MOT CHANGÉ (garde ktiv) — égal à {'+'.join(labs)} au "
+                          f"squelette seulement :")
+                    for mp, ms, nat in d["mots"]:
+                        print(f"          page « {mp} » / {ed} « {ms} » — yod/vav {nat}")
                     continue
                 if st == "OMISSION":
                     print(f"      séif {lettre(s)} ({s}) : OMISSION (R3) — la page est {'+'.join(labs)} "
@@ -1133,9 +1615,9 @@ def main(argv):
              "verdict": {}, "pages_verdict": {}, "seifs_par_edition": {},
              "seifs_hors_defaut": set(), "editions_lues": {}, "ignorees": {}, "defaut": {},
              "alignement": {}, "ecartees": [], "omissions": [], "fichiers_absents": [],
-             "div_seifs": {}, "div_proches": {}}
-    print(f"=== Texte source de Hilkhot Chabbat vs l'édition par défaut de Sefaria (et Torat "
-          f"Emet numérotée pour les leçons) — {len(nums)} siman(im) · ROOT {ROOT} ===")
+             "div_seifs": {}, "div_proches": {}, "ktiv": [], "mots_changes": []}
+    print(f"=== Texte source de Hilkhot Chabbat vs {court(DEFAUT)}, l'édition par défaut (et "
+          f"{ALTERNATIVE} pour les leçons) — {len(nums)} siman(im) · ROOT {ROOT} ===")
     faux_texte, faux_decoupe = [], []
     for n in nums:
         r = un_siman(n, bref, rafraichir, stats)
@@ -1181,6 +1663,19 @@ def main(argv):
               + " ".join(f"{n}{g}:{lettre(s)}" for n, g, s, *_ in stats["omissions"]))
     else:
         print("OMISSIONS (R3) sur des séifs copiés d'une autre édition : 0")
+    nk = sum(len(k) for _, _, k in stats["ktiv"])
+    print(f"GARDE KTIV — mots égaux au ktiv près SEULEMENT (yod/vav ajouté à l'intérieur du mot), "
+          f"dans les pages ÉQUIVALENT : {nk}"
+          + (" — " + " ".join(f"{n}{g}:{lettre(s)} «{mp}»/«{ms}»" for n, g, k in stats["ktiv"]
+                             for s, mp, ms, _ in k) if nk else ""))
+    if stats["mots_changes"]:
+        print(f"GARDE KTIV — séifs égaux au squelette seulement, un yod/vav ÉCHANGÉ, déplacé, ou "
+              f"ajouté en tête ou en fin de mot (MOT CHANGÉ) : {len(stats['mots_changes'])} (× page) — "
+              + " ".join(f"{n}{g}:{lettre(s) if s else 'chapeau'} " + ",".join(
+                  f"«{mp}»/«{ms}»" for mp, ms, _ in m) for n, g, s, m in stats["mots_changes"]))
+    else:
+        print("GARDE KTIV — séifs où un yod/vav est ÉCHANGÉ, déplacé, ou ajouté en tête ou en fin "
+              "de mot (MOT CHANGÉ) : 0")
     if stats["div_seifs"]:
         d = stats["div_seifs"]
         print(f"Dans les pages DIVERGENTES, séif par séif (× page) : "
@@ -1188,6 +1683,7 @@ def main(argv):
               f"{d.get('RETENU hors défaut', 0)} retrouvés tels quels dans Torat Emet seulement "
               f"(leçon, plus signalée) · "
               f"{d.get('OMISSION', 0)} copiés de Torat Emet avec omission (R3) · "
+              f"{d.get('MOT CHANGÉ', 0)} égaux au squelette seulement (garde ktiv) · "
               f"{d.get('DIVERGENT', 0)} divergents des éditions de référence · "
               f"{d.get('NON RETROUVÉ', 0) + d.get('SANS TEXTE', 0)} non retrouvés · "
               f"{d.get('CHAPEAU DIVERGENT', 0)} chapeaux récrits · "
