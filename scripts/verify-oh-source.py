@@ -40,7 +40,9 @@ conclu pour ce qui n'a pas été lu. Une source absente n'est jamais une source 
      source, ni <picture>, <source>, <video>, <audio>, <canvas>, <svg>, ni srcset ; chaque style= est l'une des
      264 valeurs mesurées (STYLES_EN_LIGNE_ADMIS) ; aucun attribut en double (le navigateur garde le premier,
      html.parser le dernier : la porte lit le premier, et refuse le doublon) ; <html>, <head>, <body> une fois
-     chacun ; un seul <meta charset="utf-8">, aucun caractère de contrôle ; aucun bloc dans <rp>, <option>,
+     chacun ; le VOCABULAIRE des pages (les 42 balises et les 59 classes qu'elles emploient : TAGS_ADMIS,
+     CLASSES_ADMISES ; aucun identifiant « daat-… » ou « dr-… », que lisent les scripts du site ; rien d'autre
+     qu'un <span> dans le titre d'un bloc) ; un seul <meta charset="utf-8">, aucun caractère de contrôle ; aucun bloc dans <rp>, <option>,
      <fieldset>, <progress> ou un autre <details> ; aucun bouton de copie posé par la page (data-copy-target) ;
      aucune construction que html.parser et le navigateur ne lisent
      pas de même (« <![ », « --!> », « <? », éléments à texte brut ; un <noscript> — que le navigateur lit comme du
@@ -106,6 +108,12 @@ CE QUE LA PORTE NE COUVRE PAS, et qui relève d'autres portes ou du relecteur :
   - à l'intérieur d'un intervalle de largeur, une seule largeur est rendue : un élément d'une autre partie de la
     page placé en pourcentage pourrait recouvrir le texte à une largeur et non à une autre ; en deçà de 320 px,
     rien n'est rendu ;
+  - la HAUTEUR de l'écran : 900 px seulement (844 à 390 px de large). Ce qui en dépend hors de la chaîne — le vh
+    des feuilles du site, un élément en position absolue rapporté au bloc initial — n'est vu qu'à cette hauteur ;
+    le vocabulaire figé (classes, balises) borne ce qu'une page peut y attacher (neuvième arbitrage : un aplat du
+    widget de chat, couvrant l'entête à 900 px et le séif 1 à 1 300 px, est refusé par sa classe) ;
+  - le CLIC du lecteur : la porte ouvre chaque séif par HTMLElement.click() sur le <summary> ; un lecteur clique
+    sous son pointeur — d'où le refus de tout autre élément qu'un <span> dans ce titre ;
   - la POLICE : Google Fonts est un autre hôte, bloqué : la mesure se fait dans la police de repli de Chromium,
     non dans Frank Ruhl Libre ; les moteurs autres que Chromium (Safari, Firefox) ; la densité de pixels (DPR 1
     seulement) ; l'impression et le mouvement réduit (leurs règles sont seulement interdites sur la chaîne et ses
@@ -204,6 +212,24 @@ MUETS = {"script", "style", "template", "noscript", "title", "textarea", "iframe
          "video", "audio", "canvas", "dialog", "select", "datalist", "svg", "math", "head", "del", "s", "strike",
          # huitième arbitrage : contenus que le navigateur ne rend pas ou rend en repli (aucune page n'en porte)
          "rp", "rt", "progress", "meter", "optgroup", "option", "fieldset"}
+# LE VOCABULAIRE des pages, mesuré le 9 octobre 2026 sur les 1 095 pages et FIGÉ (neuvième arbitrage : un élément ajouté
+# portant les classes du widget de chat, « daat-chat-history-panel is-open », sans CSS ni style= ajouté, devenait un aplat
+# opaque du haut au bas de l'écran — il ne couvrait que l'entête à 900 px de haut, et le séif 1 à 1 300 px). Les feuilles
+# du site définissent 81 classes qu'aucune page n'emploie ; les scripts du site lisent des identifiants « daat-… », « dr-… ».
+TAGS_ADMIS = frozenset("""
+a b bdi body br button code details div em footer h1 h2 h3 head header html img li link main meta nav noscript
+ol p script section small span strong style summary sup table tbody td th thead title tr ul
+""".split())
+CLASSES_ADMISES = frozenset("""
+active breadcrumb breadcrumb-inner bridge-banner bridge-icon bridge-links compare-table container current
+harav he he-q hero-inner hero-meta hero-subtitle hero-title hero-title-he intra-ref intro-block lang-switcher
+lang-switcher-float lemaaseh-block logo logo-en logo-he missing-banner nav-level nav-next nav-niveaux nav-prev
+nav-spacer niveau-nav page-hero pilpul-block print-btn quote-block quote-fr quote-he quote-source route-table
+sa-block sa-comment sa-en sa-fr sa-he section-block section-divider section-num section-title-en
+section-title-fr section-title-he section-title-sub seif-details seif-num seif-preview seif-summary sep
+src-list warning-block
+""".split())
+ID_RESERVE = re.compile(r"^(daat|dr)-", re.I)
 # les te'amim présents dans les 1 095 pages (3 fois chacun) ; les autres sont refusés
 TEAMIM_ADMIS = {"\u0596", "\u05AF"}
 ALTS = {"dessin de la lettre (édition Kehot)", "צורת האות (מהדורת קה״ת)", "drawing of the letter (Kehot edition)"}
@@ -533,8 +559,15 @@ class Lecteur(HTMLParser):
                 self._faute("ATTRIBUT D'ÉVÉNEMENT NON ADMIS", f"<{tag} {k}=\"{v[:60]}\">")
             if re.sub(r"\s+", "", v).lower().startswith(("javascript:", "data:text/html")):
                 self._faute("URL SCRIPTÉE", f"<{tag} {k}=\"{v[:60]}\">")
-        if tag in INTERDITS or tag in NON_ADMIS_HORS_BLOC:
-            self._faute("ÉLÉMENT NON ADMIS", f"<{tag}>")
+        if tag in INTERDITS or tag in NON_ADMIS_HORS_BLOC or tag not in TAGS_ADMIS:
+            self._faute("ÉLÉMENT NON ADMIS", f"<{tag}>" + ("" if tag in INTERDITS or tag in NON_ADMIS_HORS_BLOC else f" (aucune des {len(TAGS_ADMIS)} balises des pages)"))
+        hors = [c for c in a.get("class", "").split() if c not in CLASSES_ADMISES]
+        if hors:
+            self._faute("CLASSE NON ADMISE", f"<{tag} class=\"{' '.join(hors)[:60]}\"> (aucune des {len(CLASSES_ADMISES)} classes des pages)")
+        if ID_RESERVE.match(a.get("id", "")):
+            self._faute("ATTRIBUT NON ADMIS", f"<{tag} id=\"{a['id'][:40]}\"> (identifiant réservé aux scripts du site)")
+        if self.bloc and any(t == "summary" for t, *_ in self.pile) and tag != "span":
+            self._faute("ÉLÉMENT NON ADMIS DANS UN BLOC", f"<{tag}> dans le titre d'un bloc (les pages n'y mettent que des <span> ; un lien ou un bouton y prend le clic du lecteur)")
         if tag == "style":
             if attrs:
                 self._faute("FEUILLE DE STYLE NON ADMISE", f"<style {' '.join(noms)}> (les pages ne portent que des <style> nus)")

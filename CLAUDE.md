@@ -246,7 +246,7 @@ python3 scripts/verify-chabbat-source.py --tous --bref
 # propositions que la page française portait, et le 359 écrivait « היא » pour « הוא » ; 36:2 avait perdu ses 27
 # dessins de lettres (« זוֹ תְּמוּנַת הָאוֹתִיּוֹת: »), 32:36 ses deux. Tous restaurés le 9 octobre ; les traductions
 # nouvelles et les synthèses que le texte rétabli contredit sont dans audit/niv4-a-relire-rav.md.
-# ⚠️ L'ÉTAGE --rendu N'EST PAS UNE OPTION DE CONFORT. Cinq arbitrages ont trouvé plus d'une centaine de façons
+# ⚠️ L'ÉTAGE --rendu N'EST PAS UNE OPTION DE CONFORT. Neuf arbitrages ont trouvé plus d'une centaine de façons
 # de faire sortir vert un texte que le lecteur ne voit pas (couleur du fond, opacité, police nulle, ::first-line,
 # @import, variable CSS redéfinie, voile en pointer-events:none, dégradé, contour de glyphe, minuteur, script) ;
 # chaque tentative d'énumérer ces ruses en ouvrait d'autres. D'où : les scripts FERMÉS (ceux du site, et eux
@@ -264,7 +264,13 @@ python3 scripts/verify-chabbat-source.py --tous --bref
 # la suite des <style> de chaque page doit être l'une des 225 empreintes mesurées sur les 1 095 pages
 # (CSS_ADMIS), les <link> l'un des chemins admis, aucune image, <picture> ni srcset hors du texte source ; et les
 # valeurs CALCULÉES sur le texte et ses ancêtres doivent être celles que toutes les pages y ont. Une page dont le
-# CSS change sort en « FEUILLE DE STYLE NON ADMISE » avec son empreinte : la relire, la rendre, puis l'admettre. Une passe sans --rendu l'imprime : « RENDU NON
+# CSS change sort en « FEUILLE DE STYLE NON ADMISE » avec son empreinte : la relire, la rendre, puis l'admettre.
+# Les tours 6 à 9 ont fermé ce que le gel laissait : une page lue AUTREMENT par le navigateur que par la porte
+# (<![CDATA[, attribut en double, <noscript>, encodage iso-2022-jp — d'où la relecture par le DOMParser au rendu,
+# attributs compris, et le serveur local qui envoie l'en-tête UTF-8 de Vercel), les style= (figés : 264 valeurs),
+# et les classes du site qu'aucune page n'emploie (vocabulaire figé : 42 balises, 59 classes). Ce qui reste hors
+# champ est écrit dans la docstring : police de repli, autres moteurs, DPR 1, hauteur 900 px, états d'interaction,
+# feuilles et scripts du site, nikoud, aperçu du titre (span.seif-preview). Une passe sans --rendu l'imprime : « RENDU NON
 # EXÉCUTÉ ». Une page qui sort de la forme mesurée (chaîne details > div.sa-block > p.sa-he, balises
 # br/b/small/img, liste de caractères) n'est pas certifiable : la faire entrer dans la forme, ou mesurer et
 # justifier l'élargissement dans la docstring.
