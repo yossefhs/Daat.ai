@@ -1,8 +1,8 @@
 # Niveau 1 d'Orah Haïm — ce que le Rav doit relire (chantier 3, octobre 2026)
 
 Le niveau 1 de quatorze simanim d'Orah Haïm (3, 8, 53, 55, 66, 79, 90, 94, 113, 128, 153, 158,
-159, 160) omettait des séifs entiers ou en coupait la fin sans le dire au lecteur : 157 séifs restaurés
-(commits 39d7d567 à 42140f53), puis le texte source rendu conforme, séif par séif, à une édition de
+159, 160) omettait des séifs entiers ou en coupait la fin sans le dire au lecteur : 176 séifs restaurés,
+en tout ou en partie, dans au moins une langue (commits 39d7d567 à 42140f53), puis le texte source rendu conforme, séif par séif, à une édition de
 Sefaria — Maginei Eretz (Lemberg 1893) ou Torat Emet 363 — avec l'ordre du Choul'han Aroukh rétabli
 (commits 368bb709 à b433e894). Chaque lot a été confronté à Sefaria par un arbitre avant commit.
 
