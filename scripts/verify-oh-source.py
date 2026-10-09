@@ -866,12 +866,13 @@ MESURE_JS = r"""
 
 MASQUE_JS = r"""
 ((on) => {
-  // une feuille, posée par le monde isolé, activée puis désactivée : le texte source transparent, les dessins
-  // cachés. Une règle de la page plus forte la mettrait en échec : le mot paraîtrait INVISIBLE (fausse alerte,
-  // jamais faux vert).
+  // une feuille, posée par le monde isolé, activée puis désactivée : les GLYPHES du texte source transparents, les
+  // dessins cachés. Jamais « color » : un fond, une bordure ou une ombre en currentColor changerait avec lui, et un
+  // texte peint sur un fond de sa couleur paraîtrait visible (témoin R4 du quatrième arbitrage). Une règle de la page
+  // plus forte mettrait la feuille en échec : le mot paraîtrait INVISIBLE (fausse alerte, jamais faux vert).
   let s = document.getElementById('porte-niveau4-masque');
   if (!s) { s = document.createElement('style'); s.id = 'porte-niveau4-masque';
-    s.textContent = 'details.seif-details .sa-he, details.seif-details .sa-he * { color: transparent !important; -webkit-text-fill-color: transparent !important; -webkit-text-stroke-width: 0 !important; text-shadow: none !important; } details.seif-details .sa-he img { visibility: hidden !important; }';
+    s.textContent = 'details.seif-details .sa-he, details.seif-details .sa-he * { -webkit-text-fill-color: transparent !important; -webkit-text-stroke-width: 0 !important; text-shadow: none !important; } details.seif-details .sa-he img { visibility: hidden !important; }';
     document.documentElement.appendChild(s); }
   s.disabled = !on;
   void document.body.offsetHeight;
