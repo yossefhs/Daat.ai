@@ -31,8 +31,13 @@ const __dirname = dirname(__filename);
 const ROOT = resolve(__dirname, '..');
 const DATA_DIR = resolve(ROOT, 'data', 'simanim');
 const OUT_DIR  = resolve(ROOT, 'assets', 'img', 'og');
+const FONTS_DIR = resolve(ROOT, 'assets', 'fonts');
 
 if (!existsSync(OUT_DIR)) mkdirSync(OUT_DIR, { recursive: true });
+
+// Charger les polices
+const frankRuhlFont = readFileSync(join(FONTS_DIR, 'FrankRuhlLibre.ttf'));
+const cormorantFont = readFileSync(join(FONTS_DIR, 'CormorantGaramond.ttf'));
 
 // -- Helpers --
 const args = process.argv.slice(2);
@@ -80,14 +85,14 @@ function wrap(text, maxLen) {
 function renderOG({ titleFr, titleHe, numberLabel, subtitle }) {
   // Adapter la taille du titre hébreu selon sa longueur
   const heLength = (titleHe || '').length;
-  const heFontSize = heLength > 30 ? 62 : heLength > 20 ? 70 : 78;
+  const heFontSize = heLength > 50 ? 48 : heLength > 35 ? 54 : heLength > 25 ? 62 : 70;
   
-  // Découper le titre hébreu en mots pour éviter qu'il déborde
+  // Découper le titre hébreu intelligemment
   const heWords = (titleHe || '').split(/\s+/);
   let heLines = [];
   if (heWords.length > 0) {
-    // Si le titre fait plus de 40 caractères, on le découpe en deux lignes
-    if (titleHe.length > 40) {
+    // Si le titre est très long, on le découpe en lignes de longueur équilibrée
+    if (titleHe.length > 35) {
       const mid = Math.ceil(heWords.length / 2);
       heLines = [
         heWords.slice(0, mid).join(' '),
@@ -98,29 +103,38 @@ function renderOG({ titleFr, titleHe, numberLabel, subtitle }) {
     }
   }
   
-  const titleLines = wrap(titleFr, 38).slice(0, 3);
-  const subtitleLines = wrap(subtitle || '', 80).slice(0, 3);
-
-  const fontImport = `<![CDATA[
-    @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Frank+Ruhl+Libre:wght@500;700;900&family=Inter:wght@400;500;600&display=swap");
-  ]]>`;
-
+  // Position Y du titre hébreu (ajusté pour ne pas chevaucher)
+  const heBaseY = 190;
+  const heLineHeight = heFontSize + 8;
+  
+  // Titre français : wrap plus court pour éviter le débordement
+  const titleLines = wrap(titleFr, 32).slice(0, 2);
+  const frFontSize = titleLines.length > 1 ? 48 : 54;
+  
+  // Position Y du français (après l'hébreu avec marge)
+  const frStartY = heBaseY + (heLines.length * heLineHeight) + 35;
+  const frLineHeight = frFontSize + 10;
+  
+  // Subtitle : plus bas encore
+  const subtitleLines = wrap(subtitle || '', 70).slice(0, 2);
+  const subStartY = frStartY + (titleLines.length * frLineHeight) + 30;
+  
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
-    <style>${fontImport}
+    <style>
       .bg          { fill: ${COLORS.parchment}; }
       .border-frame{ fill: none; stroke: ${COLORS.gold}; stroke-width: 4; }
       .border-inner{ fill: none; stroke: ${COLORS.gold}; stroke-width: 1.5; opacity: 0.4; }
-      .label       { font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600;
-                     letter-spacing: 6px; fill: ${COLORS.gold}; text-transform: uppercase; }
-      .title-fr    { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 54px;
+      .label       { font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600;
+                     letter-spacing: 5px; fill: ${COLORS.gold}; text-transform: uppercase; }
+      .title-fr    { font-family: 'Cormorant Garamond', Georgia, serif; font-size: ${frFontSize}px;
                      font-weight: 600; fill: ${COLORS.navy}; }
       .title-he    { font-family: 'Frank Ruhl Libre', serif; font-size: ${heFontSize}px; font-weight: 900;
                      fill: ${COLORS.gold}; direction: rtl; }
-      .subtitle    { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 21px;
+      .subtitle    { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 19px;
                      font-style: italic; fill: ${COLORS.textMid}; }
-      .number      { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 28px;
+      .number      { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 26px;
                      font-weight: 500; fill: ${COLORS.gold}; letter-spacing: 2px; }
       .brand-he    { font-family: 'Frank Ruhl Libre', serif; font-size: 32px; font-weight: 700;
                      fill: ${COLORS.gold}; }
@@ -153,19 +167,19 @@ function renderOG({ titleFr, titleHe, numberLabel, subtitle }) {
   <rect class="border-frame" x="32" y="32" width="1136" height="566" rx="6"/>
   <rect class="border-inner" x="48" y="48" width="1104" height="534" rx="3"/>
 
-  <text class="label" x="120" y="95">CHOULHAN AROUKH · ÉTUDE EN FRANÇAIS</text>
+  <text class="label" x="120" y="88">CHOULHAN AROUKH · ÉTUDE EN FRANÇAIS</text>
 
-  ${numberLabel ? `<text class="number" x="120" y="140">${esc(numberLabel)}</text>` : ''}
+  ${numberLabel ? `<text class="number" x="120" y="135">${esc(numberLabel)}</text>` : ''}
 
-  ${heLines.map((line, i) => `<text class="title-he" x="1140" y="${185 + i * (heFontSize + 10)}" text-anchor="end">${esc(line)}</text>`).join('\n  ')}
+  ${heLines.map((line, i) => `<text class="title-he" x="1080" y="${heBaseY + i * heLineHeight}" text-anchor="end">${esc(line)}</text>`).join('\n  ')}
 
-  ${titleLines.map((line, i) => `<text class="title-fr" x="120" y="${280 + i * 64}">${esc(line)}</text>`).join('\n  ')}
+  ${titleLines.map((line, i) => `<text class="title-fr" x="120" y="${frStartY + i * frLineHeight}">${esc(line)}</text>`).join('\n  ')}
 
-  ${subtitleLines.map((line, i) => `<text class="subtitle" x="120" y="${450 + i * 28}">${esc(line)}</text>`).join('\n  ')}
+  ${subtitleLines.map((line, i) => `<text class="subtitle" x="120" y="${subStartY + i * 26}">${esc(line)}</text>`).join('\n  ')}
 
   <line x1="120" y1="545" x2="1080" y2="545" stroke="${COLORS.gold}" stroke-width="1" opacity="0.4"/>
   <text class="brand-he" x="120" y="582">דעת</text>
-  <text class="brand-en" x="180" y="580">DAAT</text>
+  <text class="brand-en" x="185" y="580">DAAT</text>
   <text class="brand-tag" x="1080" y="580" text-anchor="end">daattorah.com</text>
 </svg>
 `;
@@ -177,6 +191,13 @@ function svgToPng(svgString) {
     fitTo: {
       mode: 'width',
       value: 1200,
+    },
+    font: {
+      loadSystemFonts: false,
+      fontFiles: [
+        join(FONTS_DIR, 'FrankRuhlLibre.ttf'),
+        join(FONTS_DIR, 'CormorantGaramond.ttf'),
+      ],
     },
   });
   const pngData = resvg.render();
