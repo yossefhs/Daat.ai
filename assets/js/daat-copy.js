@@ -327,3 +327,34 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount);
   else mount();
 })();
+
+// ── Mesure du Daat Yomi (pages /limoud/jour-NNN) ─────────────────────────────
+// Ces pages ne chargeaient AUCUN script jusqu'en octobre 2026 : ni le compteur
+// de visites, ni ce fichier. Deux événements y mesurent le parcours :
+//   · daat_yomi_level_opened {jour, niveau} — le lecteur passe du plan du jour
+//     à l'étude (lien vers un niveau du siman) ;
+//   · daat_yomi_next_day {jour} — il enchaîne sur le jour suivant, le meilleur
+//     signe disponible qu'il a terminé celui-ci.
+(function () {
+  var m = location.pathname.match(/\/limoud\/jour-(\d+)/);
+  if (!m) return;
+  var jour = m[1];
+  function ev(nom, donnees) {
+    try {
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+      window.va('event', { name: nom, data: donnees });
+    } catch (_) {}
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (a.classList.contains('level-link')) {
+      var n = href.match(/niveau-(\d)/);
+      ev('daat_yomi_level_opened', { jour: jour, niveau: n ? 'niveau-' + n[1] : 'autre' });
+      return;
+    }
+    var suivant = a.closest('.nav-days') ? href.match(/jour-(\d+)/) : null;
+    if (suivant && Number(suivant[1]) > Number(jour)) ev('daat_yomi_next_day', { jour: jour });
+  });
+})();

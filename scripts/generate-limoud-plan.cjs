@@ -638,6 +638,8 @@ ${header}
     ${nextHref ? `<a href="${nextHref}">${t.next}</a>` : `<span class="placeholder">·</span>`}
   </nav>
 </main>
+<script defer src="/_vercel/insights/script.js"></script>
+<script src="/assets/js/daat-copy.js" defer></script>
 </body>
 </html>`;
 }
@@ -842,6 +844,8 @@ ${header}
 
 ${weeksHTML}
 </main>
+<script defer src="/_vercel/insights/script.js"></script>
+<script src="/assets/js/daat-copy.js" defer></script>
 </body>
 </html>`;
 }

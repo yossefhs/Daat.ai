@@ -62,9 +62,13 @@
   <div id="msg"></div>
   <div id="wrap"><div class="empty">Saisis le mot de passe admin puis « Charger ».</div></div>
 
-  <script>
+  <script src="/admin/session-courriel.js"></script>
+<script>
   (function () {
-    var API = 'https://daatai.vercel.app/api/signalement';
+    // Même origine que la page : daattorah.com et daatai.vercel.app servent le même
+    // déploiement, et la session par courriel n'existe que sur l'origine où l'on s'est
+    // connecté. L'adresse absolue de daatai.vercel.app ne l'emportait jamais.
+    var API = '/api/signalement';
     var STATUSES = ['NEW','TRIAGED','NEEDS_RABBINIC_VALIDATION','APPROVED','FIXED','REJECTED'];
     var STATUS_FR = { NEW:'🆕 Nouveau', TRIAGED:'📋 Trié', NEEDS_RABBINIC_VALIDATION:'🕓 Validation du Rav requise', APPROVED:'✅ Approuvé — à corriger', FIXED:'🔧 Corrigé sur le site', REJECTED:'✖ Rejeté' };
     var TYPE_LABELS = { halakha:'❌ Erreur halakhique', traduction:'📝 Traduction à améliorer', langue:'✍️ Faute de langue', source:'📚 Source / référence', pedagogie:'💡 Suggestion pédagogique',
@@ -77,8 +81,8 @@
 
     function load() {
       var pw = pwEl.value.trim();
-      if (!pw) { msg.textContent = 'Mot de passe requis.'; msg.style.color = '#a33'; return; }
-      try { localStorage.setItem('daat-admin-pw', pw); } catch (_) {}
+      if (!pw && !DaatAdminSession.active) { msg.textContent = 'Mot de passe requis.'; msg.style.color = '#a33'; return; }
+      if (pw) { try { localStorage.setItem('daat-admin-pw', pw); } catch (_) {} }
       msg.textContent = 'Chargement…'; msg.style.color = '';
       var f = document.getElementById('filter').value;
       fetch(API + '?limit=300' + (f ? '&status=' + f : ''), { headers: hdrs() })
@@ -138,7 +142,9 @@
     document.getElementById('filter').addEventListener('change', load);
     document.getElementById('filter-type').addEventListener('change', load);
     document.getElementById('filter-type').addEventListener('change', load);
+    // Mot de passe déjà donné, ou session par courriel d'un administrateur.
     if (pwEl.value) load();
+    else DaatAdminSession.estAdmin().then(function (ok) { if (ok) load(); });
   })();
   </script>
 </body>

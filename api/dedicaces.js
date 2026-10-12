@@ -12,13 +12,16 @@
 //   - x-admin-secret: <ADMIN_PASSWORD>
 //   - ?secret=<ADMIN_PASSWORD>
 import { getRedis, listAll, makeDedicace, saveDedicace, deleteDedicace } from './_dedicaces.js';
+import { adminParJetonMemeSite, egal } from './_admin-gate.js';
 
 function isAuthed(req) {
+  // Session par courriel d'une adresse de ADMIN_EMAILS, sur le même site.
+  if (adminParJetonMemeSite(req)) return true;
   const adminPwd = process.env.ADMIN_PASSWORD;
   if (!adminPwd) return false;
   const bearer = (req.headers.authorization || '').replace(/^Bearer\s+/i, '');
-  if (bearer && bearer === adminPwd) return true;
-  if (req.headers['x-admin-secret'] && req.headers['x-admin-secret'] === adminPwd) return true;
+  if (egal(bearer, adminPwd)) return true;
+  if (egal(req.headers['x-admin-secret'], adminPwd)) return true;
   // Le secret n'est plus accepté en query : dans une URL il s'écrit dans les
   // journaux d'accès, dans l'historique du navigateur, et part dans le Referer.
   // Les interfaces d'administration envoient déjà « Authorization: Bearer ».
