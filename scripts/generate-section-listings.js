@@ -23,8 +23,12 @@ const DATA = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'simanim-disponi
 
 const ROUTE = { 'yoreh-deah': '/yd/', 'nida': '/yd/', 'oh-quotidien': '/oh-quotidien/', 'shabbat': '/oh/' };
 
+// Les titres du catalogue arrivent parfois DÉJÀ échappés (« Beer &amp; Beverages », lu tel
+// quel dans le <title> de la page) : ré-échapper leur & donnait « &amp;amp; », et la tuile
+// affichait « Beer &amp; Beverages ». Une entité existante est donc laissée intacte.
 const esc = (s) => String(s ?? '')
-  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  .replace(/&(?!(?:[a-z]+|#\d+|#x[0-9a-f]+);)/gi, '&amp;')
+  .replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 function tilesHTML(sectionKeys, lang) {
   const items = DATA.simanim.filter((s) => sectionKeys.includes(s.section));
