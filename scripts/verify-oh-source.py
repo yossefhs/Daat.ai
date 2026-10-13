@@ -124,9 +124,9 @@ CE QUE LA PORTE NE COUVRE PAS, et qui relève d'autres portes ou du relecteur :
     aussi — « חָלָב » (lait) et « חֵלֶב » (graisse interdite) y sont le même mot. Seuls sont refusés plus de trois
     signes sur une lettre et les te'amim absents des pages ;
   - l'APERÇU du titre de chaque bloc (<summary> > span.seif-preview), vocalisé, que le lecteur lit d'abord quand le
-    séif est fermé : aucune porte ne le confronte. Mesure de l'arbitre du septième tour : 9 859 aperçus, dont 2 694
-    portent un mot absent du .sa-he de leur bloc (abrégés, reformulés, ou faux : un témoin « כָּשֵׁר » pour « פָּסוּל »
-    sortait conforme).
+    séif est fermé : c'est verifier-apercus.py qui le confronte au .sa-he de son bloc, avec CE Lecteur et CES
+    normalisations (13 octobre 2026 : 3 955 aperçus non conformes sur 9 830, dont 3 922 à Orah Haïm, corrigés le
+    jour même ; voir audit/apercus-niveau4.md). Sa conformité ne vaut que si celle-ci certifie le .sa-he de la même page.
 
 LES NORMALISATIONS, des deux côtés, et elles seules : NFC ; nikoud et te'amim retirés ; le maqaf est une
 frontière de mot ; <br>, <p>, <div>, <li>, <tr>, <td>, <th>, <blockquote> (et « </br> », que le navigateur lit
