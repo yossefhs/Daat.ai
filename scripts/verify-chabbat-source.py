@@ -23,8 +23,9 @@ aucune page sous ROOT pour un siman demandé) — la porte ne conclut pas, elle 
 sort pas verte, et rien n'est mis en cache. Une divergence trouvée ailleurs
 l'emporte : 1.
 
-C'est l'équivalent, pour Hilkhot Chabbat, de `verify-yd-source.py` (Yoré Déa) et
-de `verify-oh-source.py` (Orah Haïm quotidien). Il manquait : `CLAUDE.md` le
+C'est l'équivalent, pour le niveau 1 de Hilkhot Chabbat, de `verify-yd-source.py`
+(Yoré Déa) et de `verify-oh-niveau1-source.py` (Orah Haïm) ; le niveau 4 des deux
+compartiments est confronté par `verify-oh-source.py`. Il manquait : `CLAUDE.md` le
 notait — « Hilkhot Shabbat n'en a pas encore » — et c'est le plus gros
 compartiment du site, 124 simanim.
 
