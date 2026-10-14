@@ -1,52 +1,91 @@
 # DAAT דעת — daattorah.com
 # Plateforme d'étude halakhique en français
 
+# Règles générales pour tous les robots
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /data/
+Disallow: /chiourim/
 
 # AI search & answer engines (explicitly welcome)
 User-agent: GPTBot
 Allow: /
-
-User-agent: ChatGPT-User
-Allow: /
-
-User-agent: OAI-SearchBot
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: Claude-Web
-Allow: /
-
-User-agent: anthropic-ai
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: Perplexity-User
-Allow: /
-
-User-agent: Google-Extended
-Allow: /
-
-User-agent: Applebot-Extended
-Allow: /
-
-User-agent: CCBot
-Allow: /
-
-# Disallow private endpoints
 Disallow: /api/
 Disallow: /admin/
 Disallow: /data/
+Disallow: /chiourim/
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /data/
+Disallow: /chiourim/
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /data/
+Disallow: /chiourim/
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /data/
+Disallow: /chiourim/
+
+User-agent: Claude-Web
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /data/
+Disallow: /chiourim/
+
+User-agent: anthropic-ai
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /data/
+Disallow: /chiourim/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /data/
+Disallow: /chiourim/
+
+User-agent: Perplexity-User
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /data/
+Disallow: /chiourim/
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /data/
+Disallow: /chiourim/
+
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /data/
+Disallow: /chiourim/
+
+User-agent: CCBot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /data/
+Disallow: /chiourim/
 
 Sitemap: https://daattorah.com/sitemap.xml
 Sitemap: https://daattorah.com/sitemap-llm.xml
-
-# Fichiers de travail des chiourim : sauvegardés dans le dépôt,
-# mais hors index (ce ne sont pas des pages du site).
-User-agent: *
-Disallow: /chiourim/
