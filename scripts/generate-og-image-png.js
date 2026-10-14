@@ -83,24 +83,14 @@ function wrap(text, maxLen) {
 
 // -- Render SVG for a level --
 function renderOG({ titleFr, titleHe, numberLabel, subtitle }) {
-  // Adapter la taille du titre hébreu selon sa longueur
+  // Adapter la taille du titre hébreu selon sa longueur (titres longs : plus petit, pas de débordement)
   const heLength = (titleHe || '').length;
-  const heFontSize = heLength > 50 ? 48 : heLength > 35 ? 54 : heLength > 25 ? 62 : 70;
+  const heFontSize = heLength > 50 ? 42 : heLength > 40 ? 46 : heLength > 35 ? 52 : heLength > 25 ? 62 : 70;
   
-  // Découper le titre hébreu intelligemment
-  const heWords = (titleHe || '').split(/\s+/);
+  // Découper le titre hébreu par mots (coupure naturelle, sans débordement)
   let heLines = [];
-  if (heWords.length > 0) {
-    // Si le titre est très long, on le découpe en lignes de longueur équilibrée
-    if (titleHe.length > 35) {
-      const mid = Math.ceil(heWords.length / 2);
-      heLines = [
-        heWords.slice(0, mid).join(' '),
-        heWords.slice(mid).join(' ')
-      ];
-    } else {
-      heLines = [titleHe];
-    }
+  if (titleHe) {
+    heLines = titleHe.length > 28 ? wrap(titleHe, 28).slice(0, 3) : [titleHe];
   }
   
   // Position Y du titre hébreu (ajusté pour ne pas chevaucher)
@@ -223,7 +213,15 @@ async function generateForSiman(filepath) {
   
   // Vérifier si c'est un siman-passerelle (304, 322)
   const isBridge = [304, 322].includes(simanNum);
-  
+
+  // Titre Mehaber (en-tête du siman) pour la seule image Base du 301 ;
+  // les autres niveaux gardent titleHe du JSON (הַאֵיךְ …).
+  const TITLE_HE_BASE = {
+    301: 'באיזה כלים מותר לצאת בשבת ואיזה מהם אסורים',
+  };
+
+  const onlySuffix = flag('--suffix'); // ex. --suffix base
+
   const levels = [
     {
       suffix: 'base',
@@ -253,9 +251,10 @@ async function generateForSiman(filepath) {
   
   let totalSize = 0;
   for (const level of levels) {
+    if (onlySuffix && level.suffix !== onlySuffix) continue;
     const svg = renderOG({
       titleFr,
-      titleHe,
+      titleHe: (level.suffix === 'base' && TITLE_HE_BASE[simanNum]) || titleHe,
       numberLabel,
       subtitle: level.subtitle,
     });
