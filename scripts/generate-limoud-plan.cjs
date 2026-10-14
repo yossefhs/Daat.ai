@@ -105,6 +105,13 @@ function fmtDate(d, lang) {
   return `${DAYS_FR[dow]} ${day} ${MONTHS_FR[month]} ${year}`;
 }
 
+// Un titre peut porter un guillemet — « (משנה שבת פ"ב) » au jour 39 : posé tel quel
+// dans content="…", il fermait la valeur et la description s'arrêtait à « פ ».
+// Seul le guillemet est échappé : aucun titre du catalogue ne porte d'entité.
+function attr(s) {
+  return String(s).replace(/"/g, '&quot;');
+}
+
 // ─── Chargement données ───────────────────────────────────────────────────
 function loadJSON(p) {
   return JSON.parse(fs.readFileSync(p, 'utf8'));
@@ -600,15 +607,15 @@ function renderDayPage(entry, lang) {
 <head>
 ${COMMON_HEAD}
   <title>${t.pageTitle}</title>
-  <meta name="description" content="${t.pageDesc}">
+  <meta name="description" content="${attr(t.pageDesc)}">
   <link rel="canonical" href="${canonical}">
   <link rel="alternate" hreflang="fr" href="${SITE_URL}/limoud/${dayFileName(entry.dayNumber, 'fr')}">
   <link rel="alternate" hreflang="en" href="${SITE_URL}/limoud/${dayFileName(entry.dayNumber, 'en')}">
   <link rel="alternate" hreflang="he" href="${SITE_URL}/limoud/${dayFileName(entry.dayNumber, 'he')}">
   <link rel="alternate" hreflang="x-default" href="${SITE_URL}/limoud/${dayFileName(entry.dayNumber, 'fr')}">
   <meta property="og:type" content="article">
-  <meta property="og:title" content="${titleParts.titleShort}">
-  <meta property="og:description" content="${t.pageDesc}">
+  <meta property="og:title" content="${attr(titleParts.titleShort)}">
+  <meta property="og:description" content="${attr(t.pageDesc)}">
   <meta property="og:url" content="${canonical}">
   <meta property="og:image" content="${SITE_URL}/assets/img/og/og-default.svg">
 ${PAGE_CSS}
@@ -818,15 +825,15 @@ ${days}
 <head>
 ${COMMON_HEAD}
   <title>${t.pageTitle}</title>
-  <meta name="description" content="${t.pageDesc}">
+  <meta name="description" content="${attr(t.pageDesc)}">
   <link rel="canonical" href="${canonical}">
   <link rel="alternate" hreflang="fr" href="${SITE_URL}/limoud/">
   <link rel="alternate" hreflang="en" href="${SITE_URL}/limoud/index-en.html">
   <link rel="alternate" hreflang="he" href="${SITE_URL}/limoud/index-he.html">
   <link rel="alternate" hreflang="x-default" href="${SITE_URL}/limoud/">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="${t.title}">
-  <meta property="og:description" content="${t.pageDesc}">
+  <meta property="og:title" content="${attr(t.title)}">
+  <meta property="og:description" content="${attr(t.pageDesc)}">
   <meta property="og:url" content="${canonical}">
 ${INDEX_CSS}
 </head>

@@ -39,10 +39,11 @@ CE QUE DIT CHAQUE LIGNE DE DÉFAUT — pour qui corrige une page avec cette port
 POURQUOI UN NOUVEAU SCRIPT, ET NON UN MODE DE ``verify-oh-source.py``
 --------------------------------------------------------------------
 ``verify-oh-source.py N`` est invoqué par la clause de vérification du dépôt avant
-chaque publication ; son usage et ses codes de sortie doivent rester STRICTEMENT
-identiques. Or il lit chaque argument par ``int(x)`` — un drapeau ``--niveau1`` y
-lèverait une exception —, il ne connaît pas de code 3, et une source injoignable
-l'arrête sur une trace Python. Lui greffer un mode, c'était toucher à son analyse
+chaque publication ; son usage et ses codes de sortie devaient rester STRICTEMENT
+identiques. Le 8 octobre 2026, il lisait chaque argument par ``int(x)`` — un drapeau
+``--niveau1`` y aurait levé une exception —, ne connaissait pas de code 3, et une
+source injoignable l'arrêtait sur une trace Python (réécrit le 9 octobre : il accepte
+désormais des options et sort en 3, mais il juge toujours le seul niveau 4). Lui greffer un mode, c'était toucher à son analyse
 d'arguments et à ses chemins d'échec, c'est-à-dire à ce qui ne doit pas bouger.
 Les deux portes ne lisent d'ailleurs ni le même ouvrage (Choul'han Aroukh HaRav
 contre Mehaber + Rama), ni le même bloc (``seif-details`` du niveau 4 contre
