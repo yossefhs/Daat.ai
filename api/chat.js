@@ -12,6 +12,7 @@ import { SYSTEM_PROMPT, buildSystemPrompt } from './_system-prompt.js';
 import { SEFARIA_TOOLS, executeSefariaTool } from './_sefaria.js';
 import { CORPUS_TOOLS, executeCorpusTool, searchCorpus } from './_corpus.js';
 import { searchCorpusForRouting as searchShabbatCorpus, corpusCacheKey, CORPUS_CACHE_TTL, stripProfileBlock, profileSignature } from './_corpus-search.js';
+import { chargerTextePrimaire, cibleTextePrimaire } from './_texte-primaire.js';
 // searchCorpusForRouting = searchCorpus, SAUF quand la question nomme un siman :
 // les résultats sont alors restreints à CE siman, et le chemin court décline si
 // rien n'en ressort (voir le constat dans api/_corpus-search.js). Les trois voies
@@ -1439,11 +1440,22 @@ export default async function handler(req, res) {
     // (PR #161, gain de latence) combiné à la hausse des scores de recherche
     // (PR #191) faisait intercepter massivement ces questions par le chemin
     // court — donc SANS les garde-fous introduits après l'incident borer.
+    // Lamdan + siman nommé : JAMAIS le chemin court. Le texte primaire (Mehaber
+    // chargé par le serveur, api/_texte-primaire.js) n'existe que sur le chemin
+    // agentique ; une reformulation Haiku d'un extrait du site est précisément
+    // ce qui a produit l'erreur du 18/10 sur le 253. Relecture Codex : sans ce
+    // garde, un lamdan gratuit routé Sonnet était servi ici, avant le texte.
+    const cibleLamdan = cibleTextePrimaire({
+      messagesUtilisateur: (messages || []).filter((m) => m && m.role === 'user').map((m) => String(m.content || '')),
+      question: String((([...trimmedMessages].reverse().find((m) => m.role === 'user')) || {}).content || ''),
+      section,
+    });
     if (
       !model._meta &&
       !model._aperçu &&
       !urgence.urgent &&
       model.id !== MODELS.opus.id &&
+      !cibleLamdan &&
       !SUBSCRIBER_PLANS.has(plan) &&
       process.env.CORPUS_FIRST_ENABLED !== 'false'
     ) {
@@ -1531,6 +1543,40 @@ export default async function handler(req, res) {
         role: 'user',
         content: [{ type: 'text', text: CONSIGNE_URGENCE_MODELE + originalText }],
       };
+    }
+
+    // Texte primaire OBLIGATOIRE (niveau Lamdan + siman nommé) : le serveur lit le
+    // Mehaber sur Sefaria et le place dans le dernier message AVANT que le modèle
+    // n'écrive un mot — une règle de code, pas une consigne. Constat du 18/10/2026
+    // sur le siman 253 (opinions inversées, « תישוי », séif כ״ט coupé) : le modèle
+    // avait lu des traductions du site et reconstruit l'hébreu de mémoire.
+    // Jamais en urgence vitale (la consigne de danger prime et doit rester seule en
+    // tête), jamais sur le chemin méta. Un échec Sefaria rend null : la réponse
+    // part sans ce filet, elle n'est jamais bloquée. Voir api/_texte-primaire.js.
+    if (!urgence.urgent && !model._meta) {
+      const textePrimaire = await chargerTextePrimaire({
+        messagesUtilisateur: (messages || []).filter(m => m && m.role === 'user').map(m => String(m.content || '')),
+        question: lastUserText || '',
+        section,
+        urgent: urgence.urgent,
+      });
+      if (textePrimaire) {
+        const lastIdx = conversation.length - 1;
+        const last = conversation[lastIdx];
+        const originalText = last.content.map(b => b.text || '').join('');
+        conversation[lastIdx] = {
+          role: 'user',
+          content: [{ type: 'text', text: originalText + textePrimaire.texte }],
+        };
+        // Même événement que les outils appelés par le modèle : le widget et les
+        // bancs d'audit voient que le Mehaber a été ouvert, et par qui.
+        res.write(`data: ${JSON.stringify({
+          type: 'tool_use',
+          tool: 'sefaria_get_text',
+          input: { ref: textePrimaire.ref, par: 'serveur', raison: 'texte primaire obligatoire (lamdan + siman nommé)' },
+        })}\n\n`);
+        console.log(`[texte-primaire] siman ${textePrimaire.siman} chargé pour le modèle (${textePrimaire.ref})`);
+      }
     }
 
     if (deepSeekAvailable() && !model._meta && !skipPreRag) {
