@@ -12,7 +12,7 @@ import { SYSTEM_PROMPT, buildSystemPrompt } from './_system-prompt.js';
 import { SEFARIA_TOOLS, executeSefariaTool } from './_sefaria.js';
 import { CORPUS_TOOLS, executeCorpusTool, searchCorpus } from './_corpus.js';
 import { searchCorpusForRouting as searchShabbatCorpus, corpusCacheKey, CORPUS_CACHE_TTL, stripProfileBlock, profileSignature } from './_corpus-search.js';
-import { chargerTextePrimaire } from './_texte-primaire.js';
+import { chargerTextePrimaire, cibleTextePrimaire } from './_texte-primaire.js';
 // searchCorpusForRouting = searchCorpus, SAUF quand la question nomme un siman :
 // les résultats sont alors restreints à CE siman, et le chemin court décline si
 // rien n'en ressort (voir le constat dans api/_corpus-search.js). Les trois voies
@@ -1398,11 +1398,22 @@ export default async function handler(req, res) {
     // (PR #161, gain de latence) combiné à la hausse des scores de recherche
     // (PR #191) faisait intercepter massivement ces questions par le chemin
     // court — donc SANS les garde-fous introduits après l'incident borer.
+    // Lamdan + siman nommé : JAMAIS le chemin court. Le texte primaire (Mehaber
+    // chargé par le serveur, api/_texte-primaire.js) n'existe que sur le chemin
+    // agentique ; une reformulation Haiku d'un extrait du site est précisément
+    // ce qui a produit l'erreur du 18/10 sur le 253. Relecture Codex : sans ce
+    // garde, un lamdan gratuit routé Sonnet était servi ici, avant le texte.
+    const cibleLamdan = cibleTextePrimaire({
+      messagesUtilisateur: (messages || []).filter((m) => m && m.role === 'user').map((m) => String(m.content || '')),
+      question: String((([...trimmedMessages].reverse().find((m) => m.role === 'user')) || {}).content || ''),
+      section,
+    });
     if (
       !model._meta &&
       !model._aperçu &&
       !urgence.urgent &&
       model.id !== MODELS.opus.id &&
+      !cibleLamdan &&
       !SUBSCRIBER_PLANS.has(plan) &&
       process.env.CORPUS_FIRST_ENABLED !== 'false'
     ) {

@@ -18,7 +18,9 @@
 // une consigne, c'est un fait de contexte.
 //
 // Périmètre volontairement étroit — ce que le Rav a demandé (« point 1 ») :
-//   niveau déclaré Lamdan / Talmid Hakham  ET  un siman nommé dans la question.
+//   niveau déclaré Lamdan / Talmid Hakham  ET  un siman nommé dans la question
+//   (en chiffres ou en lettres hébraïques), dans la partie nommée ou, à défaut,
+//   celle de la requête.
 // Un visiteur sans profil ou d'un autre niveau n'est pas concerné : le coût est
 // nul pour lui. Élargir à toute question sur un siman nommé tient en une ligne
 // (demandeLamdan → true) ; mesurer d'abord.
@@ -41,13 +43,91 @@ import { fetchSefariaText } from './_sefaria.js';
 // le 253 au milieu du séif 4. Au-delà, le bloc l'annonce et renvoie aux séifim.
 const MAX_PRIMAIRE = 12000;
 
-// Libellés réellement envoyés par le widget (assets/js/chat-widget.js) :
-// « • Niveau : Lamdan / Talmid Hakham — pilpoul approfondi ». On accepte aussi
-// la forme sans puce, et « Talmid Hakham » seul.
-const LAMDAN_RE = /niveau\s*:[^\n]*?(?:lamdan|talmid\s*(?:[ḥh]akham|chacham))/i;
+// Libellés réellement émis par les quatre clients du site :
+//   widget (assets/js/chat-widget.js)  « • Niveau : Lamdan / Talmid Hakham — pilpoul approfondi »
+//   chat.html                           « - Niveau : Lamdan »
+//   chat-en.html                        « - Level: Lamdan »
+//   chat-he.html                        « - רמה: Lamdan »  (ou « למדן / תלמיד חכם » si la valeur
+//                                       localisée est un jour envoyée)
+// Relecture Codex du 18/10 : la première version n'acceptait que « niveau », donc
+// aucun lamdan des chats anglais et hébreu n'était couvert.
+const LAMDAN_RE = /(?:niveau|level|רמה)\s*:[^\n]*?(?:lamdan|talmid\s*(?:[ḥh]akham|chacham)|למדן|תלמיד\s*חכם)/i;
 
 export function demandeLamdan(texte) {
   return LAMDAN_RE.test(String(texte || ''));
+}
+
+// ── Numéro de siman en lettres hébraïques ─────────────────────────────────────
+// Les questions rapides des pages de chat disent « Siman רמ״ב », un lamdan écrit
+// « סימן ש״א » ou « סי' ק׳ » ; namedSimanInQuestion ne lit que des chiffres.
+// On exige la ponctuation d'usage (״ ou " avant la dernière lettre ; ׳ ou ' après
+// une lettre seule) : sans elle, « סימן זה » vaudrait 12.
+const GEMATRIA = { א: 1, ב: 2, ג: 3, ד: 4, ה: 5, ו: 6, ז: 7, ח: 8, ט: 9, י: 10, כ: 20, ך: 20, ל: 30, מ: 40, ם: 40, נ: 50, ן: 50, ס: 60, ע: 70, פ: 80, ף: 80, צ: 90, ץ: 90, ק: 100, ר: 200, ש: 300, ת: 400 };
+export function gematriaVersNombre(s) {
+  const lettres = String(s || '').replace(/[״"׳'\s]/g, '');
+  if (!lettres || !/^[א-ת]+$/.test(lettres)) return null;
+  let n = 0;
+  for (const c of lettres) n += GEMATRIA[c] || 0;
+  return n >= 1 && n <= 1714 ? n : null;
+}
+const SIMAN_HE_RE = /(?:\bsimane?\b|סימן|סי['׳])\s*((?:[א-ת]{1,3}[״"][א-ת])|(?:[א-ת][׳']))(?![א-ת])/i;
+
+// Le siman nommé dans un texte : chiffres (namedSimanInQuestion) ou lettres.
+export function simanNomme(texte) {
+  const t = String(texte || '');
+  const n = namedSimanInQuestion(t);
+  if (n != null) return n;
+  const m = t.match(SIMAN_HE_RE);
+  return m ? gematriaVersNombre(m[1]) : null;
+}
+
+// ── Partie du Choul'han Aroukh nommée dans un texte ───────────────────────────
+// chat.html / chat-en.html / chat-he.html envoient section = 'orach-chaim' par
+// défaut (URLSearchParams … || 'orach-chaim'). Un lecteur qui demande « le siman
+// 100 de Yoreh De'ah » depuis la page générale recevrait donc Orah Haïm 100,
+// étiqueté texte primaire — un faux texte avec autorité. La partie NOMMÉE dans
+// la question prime sur la section de la requête ; une autre partie (Even
+// HaEzer, Hoshen Michpat) interdit l'injection, le site ne les couvre pas.
+const PARTIES = [
+  ['yoreh-deah',  /yor[eé]h?\s*d[eé][’'`]?ah|יורה\s*דעה|יו[״"]ד/i],
+  ['orach-chaim', /ora[hḥ]?\s*[hḥ]a[iïy]{1,2}m|orach\s*cha[iy]{1,2}m|אורח\s*חיים|או[״"]ח/i],
+  ['autre',       /even\s*ha[’'`]?ezer|אבן\s*העזר|אה[״"]ע|[ck]?[hḥ]oshen\s*mishpat|חושן\s*משפט|חו[״"]מ/i],
+];
+export function partieNommee(texte) {
+  const t = String(texte || '');
+  let meilleur = null;
+  for (const [partie, re] of PARTIES) {
+    const m = t.match(re);
+    if (m && (meilleur === null || m.index < meilleur.index)) meilleur = { partie, index: m.index };
+  }
+  return meilleur ? meilleur.partie : null;
+}
+
+// Dernier siman de chaque partie (Choul'han Aroukh) : au-delà, rien à charger.
+const DERNIER_SIMAN = { 'orach-chaim': 697, 'yoreh-deah': 403 };
+
+// La partie « question » d'un message : les clients préfixent le profil et le
+// séparent de la question par un marqueur ; sans marqueur, tout le message.
+const MARQUEURS_QUESTION = /\[Ma question\]|\[My question\]|\[השאלה שלי\]/i;
+function partieQuestion(question) {
+  return String(question || '').split(MARQUEURS_QUESTION).pop();
+}
+
+// La CIBLE, sans réseau : { siman, partie, ref } ou null. Sert aussi au routage
+// dans chat.js (une question lamdan sur un siman nommé ne doit jamais prendre le
+// chemin court corpus-first, où ce texte n'existe pas — relecture Codex du 18/10).
+export function cibleTextePrimaire({ messagesUtilisateur = [], question = '', section = 'orach-chaim' } = {}) {
+  const profil = [...messagesUtilisateur, question].join('\n');
+  if (!demandeLamdan(profil)) return null;
+  const q = partieQuestion(question);
+  // Le siman de la question prime sur celui de la ligne « je consulte actuellement
+  // le Siman N » que le widget préfixe à chaque message (la page ouverte).
+  const siman = simanNomme(q) ?? simanNomme(question);
+  if (siman == null) return null;
+  const partie = partieNommee(q) ?? partieNommee(question) ?? section;
+  if (!(partie in DERNIER_SIMAN) || siman > DERNIER_SIMAN[partie]) return null;
+  const ref = refMehaber(siman, partie);
+  return ref ? { siman, partie, ref } : null;
 }
 
 // Référence Sefaria du Mehaber pour un siman, selon la partie du Choul'han Aroukh.
@@ -91,29 +171,23 @@ export function blocTextePrimaire(ref, d, section) {
 // pas priver l'utilisateur de réponse, il le prive seulement de ce filet.
 export async function chargerTextePrimaire({ messagesUtilisateur = [], question = '', section = 'orach-chaim', urgent = false } = {}) {
   if (urgent) return null;                                   // le danger vital court-circuite tout
-  const profil = [...messagesUtilisateur, question].join('\n');
-  if (!demandeLamdan(profil)) return null;
-  // Le widget préfixe CHAQUE message du profil et d'une ligne « je consulte
-  // actuellement le Siman N » (la page ouverte). Si la question elle-même nomme
-  // un autre siman, c'est elle qui compte ; sinon la page.
-  const partieQuestion = String(question).split(/\[Ma question\]/i).pop();
-  const siman = namedSimanInQuestion(partieQuestion) ?? namedSimanInQuestion(question);
-  if (siman == null) return null;
-  const ref = refMehaber(siman, section);
-  if (!ref) return null;
+  const cible = cibleTextePrimaire({ messagesUtilisateur, question, section });
+  if (!cible) return null;
+  const { siman, partie, ref } = cible;
   try {
     const d = await fetchSefariaText(ref);
     if (!d || d.error || !d.hebrew || !String(d.hebrew).trim()) return null;
     const hebrew = String(d.hebrew);
     return {
       siman,
+      partie,
       ref,
       texte: blocTextePrimaire(ref, {
         siman,
         hebrew: hebrew.slice(0, MAX_PRIMAIRE),
         truncated: hebrew.length > MAX_PRIMAIRE,
         url: 'https://www.sefaria.org/' + ref,
-      }, section),
+      }, partie),
     };
   } catch {
     return null;
