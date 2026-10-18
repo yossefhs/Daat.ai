@@ -130,7 +130,18 @@
 
     @media (max-width:900px) {
       .layout { grid-template-columns:1fr; }
-      .sidebar { display:none; }
+      /* Le menu ne disparaît plus sur téléphone : il devient une barre d'onglets
+         en haut, qu'on fait défiler du doigt. Il était en display:none, sans
+         aucun bouton de remplacement — sur iPhone, aucun onglet n'était
+         atteignable, « Stats & Tokens » compris. */
+      .sidebar { display:flex; flex-direction:row; align-items:stretch; height:auto;
+                 position:sticky; top:0; z-index:50; overflow-x:auto; overflow-y:hidden;
+                 -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+      .sidebar::-webkit-scrollbar { display:none; }
+      .sidebar-logo, .sidebar .nav-section, .sidebar > div:last-child { display:none; }
+      .sidebar .nav-item { flex:0 0 auto; white-space:nowrap; padding:12px 14px;
+                           border-left:0; border-bottom:3px solid transparent; }
+      .sidebar .nav-item.active { border-bottom-color:var(--gold); }
       .stats-row { grid-template-columns:1fr 1fr; }
       .form-grid { grid-template-columns:1fr; }
     }

@@ -48,6 +48,13 @@ export function studyToday() {
 }
 export const parisToday = studyToday;
 
+// Heure à Jérusalem (0-23). L'email du jour part à 7 h, heure d'Israël, toute
+// l'année : Vercel ne connaît que l'UTC (4 h UTC l'été, 5 h UTC l'hiver).
+export function jerusalemHour(d = new Date()) {
+  return Number(new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Jerusalem', hour: '2-digit', hourCycle: 'h23' }).format(d));
+}
+export const SEND_HOUR = 7;
+
 export function dayInfo(date) {
   const entry = getEntryForDate(date);
   if (!entry) return null;
@@ -427,14 +434,14 @@ function esc(s) {
 
 // Destinataires : DAILY_POST_EMAIL (liste séparée par des virgules), sinon
 // l'administrateur et la boîte de l'association.
-function recipients() {
+export function recipients() {
   const list = (env('DAILY_POST_EMAIL') || [env('ADMIN_EMAIL') || 'yossefhs@gmail.com', 'daattorah.com@gmail.com'].join(','))
     .split(',').map((x) => x.trim().toLowerCase()).filter(Boolean);
   return [...new Set(list)];
 }
 
-async function send(subject, html, date, label) {
-  const to = recipients();
+async function send(subject, html, date, label, only) {
+  const to = only || recipients();
   if (!to.length || !env('RESEND_API_KEY')) {
     await logEvent({ date, event: `EMAIL NON ENVOYÉ (${label})`, error: 'destinataire ou RESEND_API_KEY absent' });
     return { ok: false, error: 'destinataire ou RESEND_API_KEY absent' };
@@ -462,7 +469,13 @@ async function send(subject, html, date, label) {
   }
   const id = ok.map((x) => x.id).join(',');
   const sentTo = ok.map((x) => x.to);
-  await kv.set(`dailypost:${date}:emailed:${label}`, { at: new Date().toISOString(), id, to: sentTo, envois: each }, { ex: TTL });
+  const prev = only ? await kv.get(`dailypost:${date}:emailed:${label}`) : null;
+  await kv.set(`dailypost:${date}:emailed:${label}`, {
+    at: new Date().toISOString(),
+    id: [prev?.id, id].filter(Boolean).join(','),
+    to: [...new Set([...(prev?.to || []), ...sentTo])],
+    envois: [...(prev?.envois || []), ...each],
+  }, { ex: TTL });
   await logEvent({ date, event: `email ${label} envoyé`, envois: each });
   return { ok: true, id, to: sentTo, envois: each };
 }
@@ -507,16 +520,31 @@ ${h2('8. Lien de l\'étude')}<p style="font:14px Arial"><a href="${info.studyUrl
 }
 
 // Blocage : aucun pack, seulement l'explication de ce qui n'a pas pu être vérifié.
+// Email minimal, envoyé EN PLUS de l'email complet : quelques lignes et un lien
+// court. Le 30/09, l'email complet a été donné « delivered » par Resend sans
+// jamais paraître dans Gmail, quand les codes de connexion du même expéditeur
+// arrivent en secondes : celui-ci dit, par comparaison, si c'est le contenu.
+export function shortReviewUrl(date) {
+  return `${SITE}/valider/${date}/${tokenFor(date)}`;
+}
+
+export async function sendLinkEmail(date, only) {
+  const rec = await kv.get(`dailypost:${date}`);
+  if (!rec) return { ok: false, error: 'post introuvable' };
+  const { info } = rec;
+  const verdict = await kv.get(`dailypost:${date}:verify`);
+  const etat = { vert: 'vérifié', orange: 'à relire', rouge: 'à corriger' }[verdict?.global] || 'vérification en cours';
+  const url = shortReviewUrl(date);
+  const total = info.totalDays ? `/${info.totalDays}` : '';
+  const html = `<p>Bonjour,</p><p>Le post Daat Yomi du ${esc(info.dateFr)} est prêt : jour ${info.dayNumber}${total}, siman ${info.siman.num}, séifim ${info.seifRange[0]} à ${info.seifRange[1]}.</p><p>Vérification : ${etat}.</p><p><a href="${url}">Ouvrir le post</a></p><p>${url}</p>`;
+  return send(`Daat Yomi ${info.dateCourte} : le post du jour est prêt`, html, date, 'lien', only);
+}
 export async function sendBlockedEmail(date, reasons) {
+  // Même forme sobre que l'email du lien : la forme riche n'arrivait pas dans Gmail.
   const info = dayInfo(date);
-  const titre = info ? `Jour ${info.dayNumber}${info.totalDays ? '/' + info.totalDays : ''} — Siman ${info.siman.num} — séifim ${info.seifRange[0]}–${info.seifRange[1]}` : date;
-  const html = box(`
-<p style="margin:0 0 4px;color:#9B2F2F;font:700 12px Arial;letter-spacing:.14em">DAAT YOMI · PACK NON PRÉPARÉ</p>
-<h1 style="margin:0 0 10px;font-size:22px">${esc(titre)}</h1>
-<p style="font:15px/1.55 Arial">Le post du jour n'a pas été rédigé : une donnée essentielle n'a pas pu être vérifiée. Rien n'a été inventé et rien ne sera publié.</p>
-${h2('Ce qui bloque')}<ul style="font:14px/1.55 Arial;padding-left:18px">${reasons.map((r) => `<li>${esc(r)}</li>`).join('')}</ul>
-<p style="font:13px/1.5 Arial;color:#5B6078">Après correction, relancer : <code>/api/daily-post?date=${date}&amp;force=1</code> (avec le CRON_SECRET).</p>`);
-  return send(`Daat Yomi — ${info?.dateCourte || date} — PACK NON PRÉPARÉ ⛔`, html, date, 'd\'anomalie');
+  const titre = info ? `jour ${info.dayNumber}${info.totalDays ? '/' + info.totalDays : ''}, siman ${info.siman.num}, séifim ${info.seifRange[0]} à ${info.seifRange[1]}` : date;
+  const html = `<p>Bonjour,</p><p>Le post Daat Yomi du ${esc(info?.dateFr || date)} (${esc(titre)}) n'a pas été préparé : une donnée essentielle n'a pas pu être vérifiée. Rien n'a été inventé et rien ne sera publié.</p><p>Ce qui bloque :</p><ul>${reasons.map((r) => `<li>${esc(r)}</li>`).join('')}</ul>`;
+  return send(`Daat Yomi ${info?.dateCourte || date} : post non préparé`, html, date, 'd\'anomalie');
 }
 
 // ---------- journal ----------

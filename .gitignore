@@ -40,13 +40,13 @@ audit/citations-sources-*.csv
 scripts/.cache-sefaria-alignement/
 
 # cache local du garde-fou de denombrements (rejouable, non versionne)
-.cache-denombrements.json
+.cache-denombrements*.json
 
-.cache-ancrage.json
-.cache-fabrications.json
+.cache-ancrage*.json
+.cache-fabrications*.json
 
 # cache local du garde-fou de troncatures (rejouable, non versionne)
-.cache-troncatures.json
+.cache-troncatures*.json
 
 # cache local du garde-fou d'etiquettes (rejouable, non versionne)
-.cache-etiquettes.json
+.cache-etiquettes*.json

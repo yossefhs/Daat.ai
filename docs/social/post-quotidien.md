@@ -1,14 +1,20 @@
 # Post quotidien du Daat Yomi — validé d'un clic
 
+> **DÉSACTIVÉ le 01/10/2026, à la demande de l'utilisateur.** Le post quotidien vient de la
+> tâche ChatGPT (texte et visuel) ; le site ne rédige plus rien, ne génère plus d'illustration
+> et n'envoie plus d'email. Les passages du cron ont été retirés de `vercel.json` ; le code est
+> conservé. Pour réactiver : remettre les entrées `/api/daily-post` dans `crons`
+> (`0 4 * * 0-4`, `0 5 * * 0-4`, plus les rattrapages `0 7`, `0 10`, `0 13`, `0 15`).
+
 Chaque jour d'étude (dimanche → jeudi), vers 6 h (heure de Paris), le site prépare le post du
 jour et l'envoie par email pour validation. Rien n'est publié sans un clic.
 
 Code : `api/daily-post.js` (routes), `api/_daily-post.js` (rédaction, vérification,
 illustrations, email), `api/_daily-post-view.js` (page de validation), `api/_social-publish.js`
-(publication). Cron : `/api/daily-post` à 4 h, 7 h, 10 h et 13 h UTC, dimanche → jeudi (`vercel.json`).
+(publication). Cron : `/api/daily-post` à 4 h, 5 h, 7 h, 10 h, 13 h et 15 h UTC, dimanche → jeudi (`vercel.json`).
 
 Les deux passages de rattrapage ne font rien si l'email du jour est déjà **confirmé** par Resend
-(`dailypost:{date}:emailed:pack`) ; sinon ils reprennent là où le précédent s'est arrêté, sans
+(`dailypost:{date}:emailed:lien`) ; sinon ils reprennent là où le précédent s'est arrêté, sans
 réécrire un post déjà rédigé. Un email non confirmé rend un 500, visible dans les logs Vercel, où
 chaque étape est aussi écrite (`[daily-post] …`). Un email part par destinataire, avec une
 version texte, comme les autres emails du site : l'envoi groupé sans texte du 30/09 a été donné
@@ -96,3 +102,19 @@ WhatsApp n'a pas d'API de publication pour les groupes : il reste un partage man
 - Le lien de l'email porte un jeton propre à la date, dérivé de `CRON_SECRET` : il n'ouvre
   que le post de ce jour-là et ne révèle pas le secret.
 - Le jeton LinkedIn expire au bout d'environ 60 jours : le refaire à l'échéance.
+
+## L'email du jour est court (30/09/2026)
+
+L'email complet (textes des cinq réseaux, anomalies, tableau des données) a été donné « delivered »
+par Resend trois fois le 30/09 — groupé, puis un par destinataire avec version texte — sans jamais
+paraître dans Gmail, ni en spam. L'email court (quelques lignes, lien
+`https://daattorah.com/valider/{date}/{jeton}`) est arrivé à la minute. C'est donc lui l'email du
+jour ; tout le contenu de l'ancien est dans la page de validation. L'email complet ne part plus que
+si `DAILY_POST_FULL_EMAIL=1`. L'email de blocage a pris la même forme sobre.
+
+## Heure d'envoi : 7 h, heure d'Israël, toute l'année
+
+Vercel ne connaît que l'UTC. Le passage de 4 h UTC tombe à 7 h à Jérusalem l'été et à 6 h
+l'hiver : avant 7 h (heure de Jérusalem), il prépare le post sans envoyer l'email, et le
+passage de 5 h UTC l'envoie. Une adresse ajoutée après l'envoi du matin reçoit le post du jour
+au passage suivant.

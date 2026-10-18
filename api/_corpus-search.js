@@ -1189,7 +1189,13 @@ function scoreWithinSiman(chunk, queryTerms) {
 // portent le bon extrait mais pas l'avertissement ; les resservir 30 jours durant
 // reproduirait exactement le défaut corrigé. Bumper la version les rend
 // inatteignables d'un coup.
-export const CORPUS_CACHE_VERSION = 'v4';
+// v5 (octobre 2026) : PURGE. Au siman 89 de Yoré Déa (פ״ט), une réponse
+// « tu peux recommencer aussitôt » — l'inverse du séif 1, six heures — était en
+// cache depuis le 30 septembre, sous une clé que rien n'avait invalidée (ni le
+// prompt ni l'extrait n'avaient changé). Le chemin court refuse désormais toute
+// autorisation personnelle et décline les questions de permission en Yoré Déa
+// (api/_garde-corpus.js) ; les entrées v4 ont été écrites sans ces garde-fous.
+export const CORPUS_CACHE_VERSION = 'v5';
 export const CORPUS_CACHE_TTL = 30 * 24 * 60 * 60; // 30 jours
 // ⚠️ `contract` : empreinte du PROMPT de reformulation. Trois fois de suite, un
 // changement de comportement a été masqué par le cache — la réserve « à

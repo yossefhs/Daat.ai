@@ -125,6 +125,13 @@ for root, dirs, files in os.walk('.'):
             # Absente : ajouter
             new_desc = generate_from_title(title, lang, rel)
             kind = 'missing'
+        elif re.sub(r'[\s/]', '', meta_m.group(5)) != '>':
+            # Un guillemet NON échappé dans la valeur la coupe : ce qui suit n'est pas
+            # « le reste de la balise » mais le reste de la description. La récrire,
+            # c'était laisser pendre ce reste (siman 244, 292, 295, YD 102 — cd617d936).
+            print(f'  ⚠️ valeur coupée par un guillemet, non traitée : {rel}')
+            errors += 1
+            continue
         else:
             current = html.unescape(meta_m.group(3)).strip()
             L = len(current)

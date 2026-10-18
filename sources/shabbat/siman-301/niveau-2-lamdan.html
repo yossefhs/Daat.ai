@@ -16,12 +16,12 @@
 <meta property="og:title" content="Siman ש״א · Niveau 2 Lamdan — Pilpoul approfondi">
 <meta property="og:description" content="Pilpoul approfondi sur Sortir avec vêtements et objets Shabbat.">
 <meta property="og:url" content="https://daattorah.com/oh/301/lamdan">
-<meta property="og:image" content="https://daattorah.com/assets/img/og/siman-301.png">
+<meta property="og:image" content="https://daattorah.com/assets/img/og/siman-301-lamdan.png">
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Siman ש״א · Niveau 2 Lamdan">
 <meta name="twitter:description" content="Pilpoul approfondi.">
-<meta name="twitter:image" content="https://daattorah.com/assets/img/og/siman-301.png">
+<meta name="twitter:image" content="https://daattorah.com/assets/img/og/siman-301-lamdan.png">
 <style>
   @page { size: A4; margin: 2cm 1.8cm; }
   body { font-family: 'Georgia', 'Cambria', serif; font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0; }
@@ -151,6 +151,29 @@
   h3 { font-size: 11.5pt; }
   .sacred-text, .he { font-size: 11.5pt; }
 }
+
+  /* Niveau navigation (prev/next siman + onglets N1-N4) */
+  .niveau-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 1rem; padding: 1.5rem 0; border-top: 1px solid #d4c89a;
+    margin: 3rem 0 1.5rem; flex-wrap: wrap;
+    font-family: 'Inter', 'Helvetica', sans-serif; font-size: 11pt;
+  }
+  .niveau-nav a {
+    color: #1A1F3A; text-decoration: none;
+    padding: 0.5rem 1rem; border-radius: 4px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .niveau-nav a:hover { background: #FAF6EE; color: #1A1F3A; }
+  .niveau-nav .nav-niveaux { display: flex; gap: 0.5rem; }
+  .niveau-nav .nav-level { border: 1px solid #d4c89a; font-weight: 600; letter-spacing: 1px; }
+  .niveau-nav .nav-level.active { background: #1A1F3A; color: #fff; border-color: #1A1F3A; }
+  .niveau-nav .nav-level.active:hover { background: #1A1F3A; color: #fff; }
+  .niveau-nav .nav-spacer { flex: 1; }
+  @media (max-width: 640px) {
+    .niveau-nav { flex-direction: column; gap: 0.75rem; }
+  }
+  @media print { .niveau-nav { display: none; } }
 </style>
 <link rel="stylesheet" href="/assets/css/intra-links.css">
 
@@ -380,7 +403,8 @@
 <div class="sacred-text he"><span class="he-q">סעיף מח.</span> מסתפג אדם באלונטית <small>(פי' בגד שמסתפגין בו לאחר שרוחצין)</small> ומביאה בידו ולא חיישינן שמא יבא לסחוט ולא ימסור לבלנים שהם חשודים על הסחיטה:</div>
 <div class="sacred-text he"><span class="he-q">סעיף מט.</span> מותר לרחוץ ידיו בנהר בשבת ובלבד שלא יוציאם עם המים שעליהם חוץ לנהר ד' אמות:</div>
 <div class="sacred-text he"><span class="he-q">סעיף נ.</span> יוצאין בפשתן סרוק וצמר מנופץ שבראשי בעלי חטטין <small>(פי' בעלי נגעים)</small> אימתי בזמן שצבען וכרכן או שיצא בהם שעה אחת מבע״י:</div>
-<div class="sacred-text he"><span class="he-q">סעיף 51.</span> מותר לצאת במצנפת שתולין בצואר למי שיש לו מכה בראשו או בזרועו וכן בסמרטוטין <small>(פי' חתיכות בגד בלוי)</small> הכרוכים על היד או על האצבע שיש בו מכה:</div>
+<div class="sacred-text he"><span class="he-q">סעיף 51.</span> מותר לצאת במצנפת שתולים בצואר למי שיש לו מכה בידו או בזרועו וכן בסמרטוטין <small>(פי' חתיכות בגד בלוי)</small> הכרוכים על היד או על האצבע שיש בו מכה:</div>
+<p><strong>Note de texte — Michna Beroura ס״ק קפא :</strong> <span class="he-q">בידו — כצ״ל</span> ; <span class="he-q">בראשו</span>, présent dans certaines éditions, est une coquille.</p>
 
 <h2 class="section-title" id="1-הקדמת-הסוגיא-מלאכת-הוצאה">1. הקדמת הסוגיא — מלאכת הוצאה</h2>
 
@@ -606,6 +630,16 @@
   <script src="../../../assets/js/chat-loader.js" defer></script>
 <a href="../../../communaute-he.html#khavroutha" class="daat-khavroutha-fab" title="מציאת חברותא לסימן זה"><span class="icon">📖</span><span class="label-long">להצטרף לחברותא</span></a>
   <script src="../../../assets/js/daat-progress.js"></script>
+<nav class="niveau-nav" aria-label="Navigation entre niveaux">
+  <a href="../siman-300/niveau-2-lamdan.html" class="nav-prev">← Siman 300</a>
+  <div class="nav-niveaux">
+    <a href="niveau-1-base.html" class="nav-level">N1</a>
+    <a href="niveau-2-lamdan.html" class="nav-level active">N2</a>
+    <a href="niveau-3-synthese.html" class="nav-level">N3</a>
+    <a href="niveau-4-daat-harav.html" class="nav-level">N4</a>
+  </div>
+  <a href="../siman-302/niveau-2-lamdan.html" class="nav-next">Siman 302 →</a>
+</nav>
 </main>
 <script src="/assets/js/intra-links.js" defer></script>
 </body>
