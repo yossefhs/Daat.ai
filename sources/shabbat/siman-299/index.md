@@ -1,17 +1,17 @@
-# Siman 299 — Ne pas manger / boire / travailler avant avdala
+# Siman 299 — Ne pas manger / boire / travailler avant havdala
 
 > Choulhan Aroukh, Orah Haïm, Hilkhot Shabbat — Siman 299 (רצ"ט)
 
-- **Français :** Ne pas manger / boire / travailler avant avdala
+- **Français :** Ne pas manger / boire / travailler avant havdala
 - **עברית :** שֶׁלֹּא לֶאֱכוֹל וְשֶׁלֹּא לִשְׁתּוֹת וְלֹא לַעֲשׂוֹת שׁוּם מְלָאכָה קֹדֶם שֶׁיַּבְדִּיל
-- **English :** Not eating, drinking, or working before avdala
+- **English :** Not eating, drinking, or working before havdala
 - **Path canonique :** https://daattorah.com/oh/299/
 - **Versions linguistiques :** [FR](https://daattorah.com/oh/299/) · [HE](https://daattorah.com/oh/299/he) · [EN](https://daattorah.com/oh/299/en)
 - **Nombre de seifim (Mehaber + Rama) :** 10
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 21 seifim qui codifient les interdits avant avdala motsei Shabbat — pas manger, pas boire (sauf eau), pas travailler. Cadre conceptuel : Shabbat n'est pas terminé
+La chitah de l'Admour HaZaken sur les 21 seifim qui codifient les interdits avant havdala motsei Shabbat — pas manger, pas boire (sauf eau), pas travailler. Cadre conceptuel : Shabbat n'est pas terminé
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

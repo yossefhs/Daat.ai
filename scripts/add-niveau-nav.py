@@ -13,8 +13,8 @@ Pour chaque fichier sources/shabbat/siman-NNN/niveau-{1,2,3,4}-*.html :
   - insère le bloc juste avant </main> (ou </body> si pas de </main>) ;
   - n'insère rien si la nav existe déjà (idempotent).
 
-Les simanim 304 et 322 (non rédigés par l'Admour HaZaken) sont sautés
-dans le calcul prev/next ET ne reçoivent pas la nav.
+Les simanim 304 et 322 ont des pages-passerelles au niveau 4 et restent
+accessibles dans la navigation.
 
 Usage:
     python3 scripts/add-niveau-nav.py [--dry-run]
@@ -23,10 +23,13 @@ Usage:
 import os
 import re
 import sys
+import runpy
+
+heb_num = runpy.run_path(os.path.join(os.path.dirname(__file__), "heb-nums.py"))["heb"]
 
 ROOT = os.path.join(os.path.dirname(__file__), "..", "sources", "shabbat")
 FIRST, LAST = 242, 365
-NO_LEVELS = {304, 322}  # Pas de niveaux rédigés.
+NO_LEVELS = set()  # 304 et 322 ont aussi leurs quatre pages (N4 : passerelle).
 
 # Mappings de noms de fichier par niveau.
 LEVEL_FILES = {
@@ -133,7 +136,7 @@ def build_nav(siman, level, lang):
         prev_file = f"../siman-{p}/{LEVEL_FILES[level]}{suf}.html"
         if lang == "he":
             # En RTL, la flèche "précédent" pointe vers la droite.
-            label = f'{L["prev_prefix"]} {p} →'
+            label = f'{L["prev_prefix"]} {heb_num(p)} · {p} →'
         else:
             label = f'{L["prev_prefix"]} {p}'
         parts.append(f'  <a href="{prev_file}" class="nav-prev">{label}</a>')
@@ -154,7 +157,7 @@ def build_nav(siman, level, lang):
     if n is not None:
         next_file = f"../siman-{n}/{LEVEL_FILES[level]}{suf}.html"
         if lang == "he":
-            label = f'← {L["next_suffix"].format(n)}'
+            label = f'← {L["next_suffix"].format(f"{heb_num(n)} · {n}")}'
         else:
             label = L["next_suffix"].format(n)
         parts.append(f'  <a href="{next_file}" class="nav-next">{label}</a>')

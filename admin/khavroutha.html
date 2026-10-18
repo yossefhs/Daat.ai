@@ -95,6 +95,7 @@
 </main>
 <div id="toast" class="toast"></div>
 
+<script src="/admin/session-courriel.js"></script>
 <script>
 const TOKEN_KEY = 'daat-admin-token-v1';
 const J = { dim:'Dim',lun:'Lun',mar:'Mar',mer:'Mer',jeu:'Jeu',ven:'Ven' };
@@ -126,7 +127,7 @@ async function load(){
 
     $('auth-banner').classList.add('connected');
     $('auth-banner').innerHTML = '<strong>✓ Connecté</strong><div style="flex:1"></div><button class="ghost" id="logout">Déconnexion</button>';
-    $('logout').addEventListener('click', function(){ setTok(''); location.reload(); });
+    $('logout').addEventListener('click', function(){ setTok(''); DaatAdminSession.quitter(); });
     $('content').style.display='';
 
     var profiles = data.profiles||[];
@@ -181,7 +182,8 @@ async function del(id){
   } catch(e){ toast('Erreur : '+e.message,'error'); }
 }
 
-(async function(){ if (tok()) load(); })();
+// …ou si la session par courriel est celle d'un administrateur.
+(async function(){ if (tok() || await DaatAdminSession.estAdmin()) load(); })();
 </script>
 </body>
 </html>

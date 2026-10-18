@@ -209,6 +209,7 @@
 
 <div id="toast" class="toast"></div>
 
+<script src="/admin/session-courriel.js"></script>
 <script>
 const TOKEN_KEY = 'daat-admin-token-v1';
 let allEntries = [];
@@ -269,7 +270,7 @@ async function loadFeedback() {
       '<strong>✓ Connecté</strong>' +
       '<div style="flex:1; font-size: 13px; color: var(--muted);">Tu vois les ' + (data.entries?.length || 0) + ' derniers retours.</div>' +
       '<button class="ghost" id="logout-btn">Déconnexion</button>';
-    document.getElementById('logout-btn').addEventListener('click', () => { setToken(''); location.reload(); });
+    document.getElementById('logout-btn').addEventListener('click', () => { setToken(''); DaatAdminSession.quitter(); });
     document.getElementById('content').style.display = '';
 
     document.getElementById('stat-total').textContent = data.stats.total;
@@ -342,8 +343,9 @@ async function deleteEntry(id) {
 }
 
 // Auto-login si token déjà en session
+// …ou si la session par courriel est celle d'un administrateur.
 (async () => {
-  if (getToken()) await loadFeedback();
+  if (getToken() || await DaatAdminSession.estAdmin()) await loadFeedback();
 })();
 </script>
 

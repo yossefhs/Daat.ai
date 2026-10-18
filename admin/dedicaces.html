@@ -215,6 +215,7 @@
 
 <div id="toast" class="toast"></div>
 
+<script src="/admin/session-courriel.js"></script>
 <script>
 const TOKEN_KEY = 'daat-admin-token-v1';
 const TYPE_HE = { ilui: 'לעילוי נשמת', refoua: 'לרפואה שלמה', hatzlacha: 'להצלחה' };
@@ -301,7 +302,7 @@ async function loadDedicaces() {
       '<strong>✓ Connecté</strong>' +
       '<div style="flex:1; font-size:13px; color:var(--muted);">' + (data.count || 0) + ' dédicace(s) en ligne.</div>' +
       '<button class="ghost" id="logout-btn">Déconnexion</button>';
-    $('logout-btn').addEventListener('click', () => { setToken(''); location.reload(); });
+    $('logout-btn').addEventListener('click', () => { setToken(''); DaatAdminSession.quitter(); });
     $('content').style.display = '';
     allDedic = data.dedicaces || [];
     renderList();
@@ -363,7 +364,8 @@ async function deleteDedic(id) {
 
 // Auto-login si token déjà en session
 updatePreview();
-(async () => { if (getToken()) await loadDedicaces(); })();
+// …ou si la session par courriel est celle d'un administrateur.
+(async () => { if (getToken() || await DaatAdminSession.estAdmin()) await loadDedicaces(); })();
 </script>
 
 </body>

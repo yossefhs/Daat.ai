@@ -14,6 +14,7 @@
 import { kv } from './_kv.js';
 import { Resend } from 'resend';
 import { getClientIp } from './_http.js';
+import { adminParJeton } from './_admin-gate.js';
 import {
   generateCode,
   isValidEmail,
@@ -204,7 +205,12 @@ async function handleMe(req, res) {
   if (req.method !== 'GET') return res.status(405).json({ error: 'GET uniquement' });
   const user = getUserFromRequest(req);
   if (!user) return res.status(401).json({ error: 'Non authentifié' });
-  return res.status(200).json({ user });
+  // `admin` : l'adresse figure-t-elle dans ADMIN_EMAILS ? Les pages /admin et
+  // /connexion-admin.html le demandent ICI plutôt qu'à /api/admin/stats : là-bas,
+  // une sonde sans identifiants compte comme un ÉCHEC de mot de passe (freinage :
+  // 5 par IP en 15 min), et quelques visites suffisaient à bloquer l'adresse IP de
+  // l'administrateur — mot de passe compris. Ne révèle que le statut de l'appelant.
+  return res.status(200).json({ user, admin: Boolean(adminParJeton(req)) });
 }
 
 // ---------- logout ----------
