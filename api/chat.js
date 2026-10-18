@@ -1570,12 +1570,18 @@ export default async function handler(req, res) {
         };
         // Même événement que les outils appelés par le modèle : le widget et les
         // bancs d'audit voient que le Mehaber a été ouvert, et par qui.
-        res.write(`data: ${JSON.stringify({
-          type: 'tool_use',
-          tool: 'sefaria_get_text',
-          input: { ref: textePrimaire.ref, par: 'serveur', raison: 'texte primaire obligatoire (lamdan + siman nommé)' },
-        })}\n\n`);
-        console.log(`[texte-primaire] siman ${textePrimaire.siman} chargé pour le modèle (${textePrimaire.ref})`);
+        const charges = [
+          { ref: textePrimaire.ref, raison: 'texte primaire obligatoire (lamdan + siman nommé)' },
+          ...(textePrimaire.complements || []).map((c) => ({ ref: c.ref, raison: 'Beit Yossef : la question demande les opinions' })),
+        ];
+        for (const c of charges) {
+          res.write(`data: ${JSON.stringify({
+            type: 'tool_use',
+            tool: 'sefaria_get_text',
+            input: { ref: c.ref, par: 'serveur', raison: c.raison },
+          })}\n\n`);
+        }
+        console.log(`[texte-primaire] siman ${textePrimaire.siman} chargé pour le modèle (${charges.map((c) => c.ref).join(' + ')})`);
       }
     }
 

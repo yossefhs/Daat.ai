@@ -33,8 +33,21 @@
 //    le 253) dépasserait la troncature ; le bloc impose de l'ouvrir séif par séif
 //    avant de le citer.
 
+// ── Point 1b (18/10/2026) : le Beit Yossef, parce que le Mehaber ne nomme personne ──
+// Banc de 14 réponses réelles après le point 1 : ordre, mots, séifim du Mehaber
+// désormais justes — mais 5 réponses sur 7 sur le 253 attribuaient de MÉMOIRE :
+// Rambam et Rif rangés côté indulgent alors qu'ils sont stricts (Hil. Shabbat 3:4 ;
+// Beit Yossef 253), « R. Yehuda » inventé pour l'opinion stricte. Le Mehaber écrit
+// « יש אומרים » ; les noms sont dans le Beit Yossef, que le modèle n'a ouvert dans
+// aucun cas. Quand la question demande les opinions (ou nomme un Richon), le
+// serveur charge aussi le DÉBUT du Beit Yossef du siman. Sur Sefaria ses
+// paragraphes suivent le Tour, pas les séifim du Choul'han Aroukh (253 : 22
+// paragraphes, le premier — 5 197 caractères — porte toute la sougya de la שהייה),
+// et aucun lien ne les rattache aux séifim : on charge le début jusqu'au plafond,
+// coupé à une frontière de paragraphe, et on dit comment ouvrir la suite.
+
 import { namedSimanInQuestion } from './_corpus-search.js';
-import { fetchSefariaText } from './_sefaria.js';
+import { fetchSefariaText, fetchSefariaSegments } from './_sefaria.js';
 
 // Plafond du texte chargé d'office. Mesuré le 18/10/2026 sur le Mehaber d'Orah
 // Haïm : 253 → 5 451 caractères, 328 → 8 018, 301 (51 séifim, le plus long de
@@ -42,6 +55,27 @@ import { fetchSefariaText } from './_sefaria.js';
 // 4 000 de sefaria_get_text (pensés pour un résultat d'outil) auraient tronqué
 // le 253 au milieu du séif 4. Au-delà, le bloc l'annonce et renvoie aux séifim.
 const MAX_PRIMAIRE = 12000;
+
+// Plafond du Beit Yossef chargé d'office (≈ 3 000 à 4 000 jetons) : 253 → les 7
+// premiers paragraphes (7 364 car.) ; Yoreh De'ah 100 → les 7 en entier (5 377).
+const MAX_BEIT_YOSEF = 8000;
+
+// La question demande-t-elle « qui tient quoi » ? Mots des trois langues du site ;
+// un faux positif coûte un chargement, un faux négatif laisse le modèle attribuer
+// de mémoire — le motif est donc large.
+// Les noms portent leurs graphies française (Roch, Rachi, Rachba, Tossafot),
+// anglaise (Rosh, Rashi, Rashba, Tosafot) et hébraïque ; les tournures « que dit
+// le… », « d'après le… », « selon le… » comptent autant que « qui dit ».
+const OPINIONS_RE = /\b(?:opinions?|avis|positions?|shit[ao]t?|chit[ao]t?|ma[’'h]?[hḥ]?loket|machloket|mahloket|divergences?|d[ée]saccord|richonim|rishonim|a[’'h]?[hḥ]aronim|rambam|ramban|rif|ro[sc]h|ran|rachi|rashi|ra[cs]hbam|toss?afot|rabb?[ée]i?nou\s+tam|rabbeinu\s+tam|ra[cs]hba|mordekh?[ai]i?|mordechai|maguid\s+michn[eé]|maggid\s+mishneh|hagahot|beit\s+yoss?ef|tour|michna\s+b[ée]roura|mishnah?\s+berurah?|taz|chakh|shakh|qui\s+(?:dit|soutient|tient|tranche|pense)|que\s+(?:dit|pense|soutient)|dit\s+(?:le|la|l['’])|d['’]apr[èe]s\s+(?:le|la|l['’])|selon\s+(?:qui|quel|le|la|l['’])|views?|dispute|who\s+(?:holds|says|rules|maintains)|what\s+does|according\s+to)\b|דעות|דעת ה|שיטות|שיטת|מחלוקת|מי סובר|מאן דאמר|ראשונים|אחרונים|רמב[״"]ם|רמב[״"]ן|רי[״"]ף|רא[״"]ש|ר[״"]ן|רש[״"]י|תוספות|ר[״"]ת|בית יוסף|הטור|רשב[״"]א|מרדכי|מגיד משנה|הגהות/i;
+export function demandeOpinions(texte) {
+  return OPINIONS_RE.test(String(texte || ''));
+}
+
+export function refBeitYosef(siman, partie) {
+  const n = parseInt(siman, 10);
+  if (!Number.isFinite(n) || n < 1) return null;
+  return partie === 'yoreh-deah' ? `Beit_Yosef,_Yoreh_De'ah.${n}` : `Beit_Yosef,_Orach_Chayim.${n}`;
+}
 
 // Libellés réellement émis par les quatre clients du site :
 //   widget (assets/js/chat-widget.js)  « • Niveau : Lamdan / Talmid Hakham — pilpoul approfondi »
@@ -127,7 +161,40 @@ export function cibleTextePrimaire({ messagesUtilisateur = [], question = '', se
   const partie = partieNommee(q) ?? partieNommee(question) ?? section;
   if (!(partie in DERNIER_SIMAN) || siman > DERNIER_SIMAN[partie]) return null;
   const ref = refMehaber(siman, partie);
-  return ref ? { siman, partie, ref } : null;
+  if (!ref) return null;
+  const beitYosef = demandeOpinions(q) ? refBeitYosef(siman, partie) : null;
+  return { siman, partie, ref, beitYosef };
+}
+
+// Le bloc Beit Yossef : paragraphes entiers jusqu'au plafond, et la suite indiquée.
+export function blocBeitYosef(ref, segments, siman, partie) {
+  const nomPartie = partie === 'yoreh-deah' ? "Yoreh De'ah" : 'Orah Haïm';
+  const paragraphes = (Array.isArray(segments) ? segments : String(segments || '').split(/\n+/)).map((x) => String(x).trim()).filter(Boolean);
+  const hebrew = paragraphes.join('\n');
+  const gardes = [];
+  let total = 0;
+  for (const par of paragraphes) {
+    if (gardes.length && total + par.length > MAX_BEIT_YOSEF) break;
+    gardes.push(par.length > MAX_BEIT_YOSEF ? par.slice(0, MAX_BEIT_YOSEF) + ' […]' : par);
+    total += par.length;
+    if (total >= MAX_BEIT_YOSEF) break;
+  }
+  const k = gardes.length, K = paragraphes.length;
+  const etendue = K > 1
+    ? (k < K ? `(paragraphes 1-${k} sur ${K} ; les suivants : sefaria_get_text, ref ${ref}.${k + 1}-${K})` : `(les ${K} paragraphes)`)
+    : (hebrew.length > MAX_BEIT_YOSEF ? `(début, tronqué à ${MAX_BEIT_YOSEF} caractères ; la suite : sefaria_get_text, ref ${ref})` : '');
+  return [
+    '',
+    '---',
+    '[Beit Yossef chargé par le serveur — même règle : tu n\'as pas à le redemander]',
+    `Beit Yossef, ${nomPartie}, siman ${siman} · réf. Sefaria ${ref} · https://www.sefaria.org/${ref}`,
+    etendue,
+    '',
+    gardes.join('\n\n'),
+    '',
+    'C\'est ICI que sont les noms. Toute attribution d\'une opinion à un Richon ou à un décisionnaire (Rif, Rambam, Roch, Ran, Rachi, Tossafot, Rabbénou Tam, Rachba, Tour…) doit s\'appuyer sur ce texte ou sur un texte que tu as ouvert avec sefaria_get_text ; un nom que ces textes ne portent pas sur ce point n\'a pas sa place dans ta réponse — écris alors « יש אומרים », comme le Mehaber.',
+    '---',
+  ].filter((l, i, a) => !(l === '' && a[i - 1] === '')).join('\n');
 }
 
 // Référence Sefaria du Mehaber pour un siman, selon la partie du Choul'han Aroukh.
@@ -173,22 +240,27 @@ export async function chargerTextePrimaire({ messagesUtilisateur = [], question 
   if (urgent) return null;                                   // le danger vital court-circuite tout
   const cible = cibleTextePrimaire({ messagesUtilisateur, question, section });
   if (!cible) return null;
-  const { siman, partie, ref } = cible;
+  const { siman, partie, ref, beitYosef } = cible;
   try {
-    const d = await fetchSefariaText(ref);
+    // Les deux lectures partent ensemble : le Beit Yossef n'ajoute pas de latence.
+    const [d, b] = await Promise.all([
+      fetchSefariaText(ref),
+      beitYosef ? fetchSefariaSegments(beitYosef).catch(() => null) : Promise.resolve(null),
+    ]);
     if (!d || d.error || !d.hebrew || !String(d.hebrew).trim()) return null;
     const hebrew = String(d.hebrew);
-    return {
+    let texte = blocTextePrimaire(ref, {
       siman,
-      partie,
-      ref,
-      texte: blocTextePrimaire(ref, {
-        siman,
-        hebrew: hebrew.slice(0, MAX_PRIMAIRE),
-        truncated: hebrew.length > MAX_PRIMAIRE,
-        url: 'https://www.sefaria.org/' + ref,
-      }, partie),
-    };
+      hebrew: hebrew.slice(0, MAX_PRIMAIRE),
+      truncated: hebrew.length > MAX_PRIMAIRE,
+      url: 'https://www.sefaria.org/' + ref,
+    }, partie);
+    const complements = [];
+    if (beitYosef && b && !b.error && Array.isArray(b.segments) && b.segments.length) {
+      texte += '\n' + blocBeitYosef(beitYosef, b.segments, siman, partie);
+      complements.push({ ref: beitYosef, type: 'beit-yosef' });
+    }
+    return { siman, partie, ref, texte, complements };
   } catch {
     return null;
   }
