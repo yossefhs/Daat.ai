@@ -12,6 +12,7 @@ import { SYSTEM_PROMPT, buildSystemPrompt } from './_system-prompt.js';
 import { SEFARIA_TOOLS, executeSefariaTool } from './_sefaria.js';
 import { CORPUS_TOOLS, executeCorpusTool, searchCorpus } from './_corpus.js';
 import { searchCorpusForRouting as searchShabbatCorpus, corpusCacheKey, CORPUS_CACHE_TTL, stripProfileBlock, profileSignature } from './_corpus-search.js';
+import { chargerTextePrimaire } from './_texte-primaire.js';
 // searchCorpusForRouting = searchCorpus, SAUF quand la question nomme un siman :
 // les résultats sont alors restreints à CE siman, et le chemin court décline si
 // rien n'en ressort (voir le constat dans api/_corpus-search.js). Les trois voies
@@ -30,7 +31,6 @@ import {
 } from './_deepseek.js';
 import { RESERVE, urgenceFor } from './_reserve.js';
 import { detecteUrgenceVitale, CONSIGNE_URGENCE_MODELE } from './_urgence.js';
-import { chargerTextePrimaire } from './_texte-primaire.js';
 import { dateContextBlock } from './_date.js';
 
 const client = new Anthropic();
