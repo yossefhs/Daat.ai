@@ -63,7 +63,10 @@ const MAX_BEIT_YOSEF = 8000;
 // La question demande-t-elle « qui tient quoi » ? Mots des trois langues du site ;
 // un faux positif coûte un chargement, un faux négatif laisse le modèle attribuer
 // de mémoire — le motif est donc large.
-const OPINIONS_RE = /\b(?:opinions?|avis|positions?|shit[ao]t?|chit[ao]t?|ma[’'h]?[hḥ]?loket|machloket|mahloket|divergences?|d[ée]saccord|richonim|rishonim|a[’'h]?[hḥ]aronim|rambam|rif|ro?sh|ran|rachi|rashi|toss?afot|rabb?[ée]i?nou\s+tam|rabbeinu\s+tam|ra[cs]hba|beit\s+yoss?ef|tour|qui\s+(?:dit|soutient|tient|tranche|pense)|selon\s+(?:qui|quel)|views?|dispute|who\s+(?:holds|says|rules|maintains))\b|דעות|דעת ה|שיטות|שיטת|מחלוקת|מי סובר|מאן דאמר|ראשונים|אחרונים|רמב[״"]ם|רי[״"]ף|רא[״"]ש|ר[״"]ן|רש[״"]י|תוספות|ר[״"]ת|בית יוסף|הטור|רשב[״"]א/i;
+// Les noms portent leurs graphies française (Roch, Rachi, Rachba, Tossafot),
+// anglaise (Rosh, Rashi, Rashba, Tosafot) et hébraïque ; les tournures « que dit
+// le… », « d'après le… », « selon le… » comptent autant que « qui dit ».
+const OPINIONS_RE = /\b(?:opinions?|avis|positions?|shit[ao]t?|chit[ao]t?|ma[’'h]?[hḥ]?loket|machloket|mahloket|divergences?|d[ée]saccord|richonim|rishonim|a[’'h]?[hḥ]aronim|rambam|ramban|rif|ro[sc]h|ran|rachi|rashi|ra[cs]hbam|toss?afot|rabb?[ée]i?nou\s+tam|rabbeinu\s+tam|ra[cs]hba|mordekh?[ai]i?|mordechai|maguid\s+michn[eé]|maggid\s+mishneh|hagahot|beit\s+yoss?ef|tour|michna\s+b[ée]roura|mishnah?\s+berurah?|taz|chakh|shakh|qui\s+(?:dit|soutient|tient|tranche|pense)|que\s+(?:dit|pense|soutient)|dit\s+(?:le|la|l['’])|d['’]apr[èe]s\s+(?:le|la|l['’])|selon\s+(?:qui|quel|le|la|l['’])|views?|dispute|who\s+(?:holds|says|rules|maintains)|what\s+does|according\s+to)\b|דעות|דעת ה|שיטות|שיטת|מחלוקת|מי סובר|מאן דאמר|ראשונים|אחרונים|רמב[״"]ם|רמב[״"]ן|רי[״"]ף|רא[״"]ש|ר[״"]ן|רש[״"]י|תוספות|ר[״"]ת|בית יוסף|הטור|רשב[״"]א|מרדכי|מגיד משנה|הגהות/i;
 export function demandeOpinions(texte) {
   return OPINIONS_RE.test(String(texte || ''));
 }

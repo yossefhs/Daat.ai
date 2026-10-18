@@ -174,7 +174,9 @@ const BY_253 = { title: 'Beit Yosef, Orach Chayim 253', ref: 'Beit Yosef, Orach 
   versions: [{ language: 'he', text: ['כירה שהיא עשויה כקדרה וכו\' משנה רפ"ג דמסכת שבת… וכתב הרי"ף… ודעת הרמב"ם בפ"ג… והר"ן…', 'ומ"ש רבינו שכמאכל ב"ד הוא שליש בישולו כך פירש"י', 'ומ"ש אא"כ גרף או קטם מבואר במשנה'] }] };
 
 test('1b — la question demande-t-elle les opinions ? (FR / EN / HE, et les négatifs)', () => {
-  for (const q of ['Fait moi un résumé clair avec l idée des opinions', 'Quel est l\'avis du Rambam ici ?', 'quelles sont les shitot des Richonim', 'Who holds the lenient view?', 'מה דעת הרי״ף בזה', 'יש כאן מחלוקת ראשונים ?', 'Donne-moi les positions en présence'])
+  for (const q of ['Fait moi un résumé clair avec l idée des opinions', 'Quel est l\'avis du Rambam ici ?', 'quelles sont les shitot des Richonim', 'Who holds the lenient view?', 'מה דעת הרי״ף בזה', 'יש כאן מחלוקת ראשונים ?', 'Donne-moi les positions en présence',
+    // relecture Codex (#283) : graphies françaises et tournures « que dit le… »
+    'Que dit le Roch au siman 253 ?', 'D\'après le Ramban, quelle est la source ?', 'Selon le Rachba, où est la limite ?', 'What does the Rosh say here?', 'מה כתב הרמב״ן בסימן זה', 'Que pense le Maguid Michné de cette hazara ?'])
     assert.equal(demandeOpinions(q), true, q);
   for (const q of ['Explique le séif 14', 'Cite-moi le texte du séif 2 du Choul\'han Aroukh HaRav', 'Traduis le séif 1', 'מה כתוב בסעיף ב'])
     assert.equal(demandeOpinions(q), false, q);
