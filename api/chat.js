@@ -30,6 +30,7 @@ import {
 } from './_deepseek.js';
 import { RESERVE, urgenceFor } from './_reserve.js';
 import { detecteUrgenceVitale, CONSIGNE_URGENCE_MODELE } from './_urgence.js';
+import { chargerTextePrimaire } from './_texte-primaire.js';
 import { dateContextBlock } from './_date.js';
 
 const client = new Anthropic();
@@ -1489,6 +1490,40 @@ export default async function handler(req, res) {
         role: 'user',
         content: [{ type: 'text', text: CONSIGNE_URGENCE_MODELE + originalText }],
       };
+    }
+
+    // Texte primaire OBLIGATOIRE (niveau Lamdan + siman nommé) : le serveur lit le
+    // Mehaber sur Sefaria et le place dans le dernier message AVANT que le modèle
+    // n'écrive un mot — une règle de code, pas une consigne. Constat du 18/10/2026
+    // sur le siman 253 (opinions inversées, « תישוי », séif כ״ט coupé) : le modèle
+    // avait lu des traductions du site et reconstruit l'hébreu de mémoire.
+    // Jamais en urgence vitale (la consigne de danger prime et doit rester seule en
+    // tête), jamais sur le chemin méta. Un échec Sefaria rend null : la réponse
+    // part sans ce filet, elle n'est jamais bloquée. Voir api/_texte-primaire.js.
+    if (!urgence.urgent && !model._meta) {
+      const textePrimaire = await chargerTextePrimaire({
+        messagesUtilisateur: (messages || []).filter(m => m && m.role === 'user').map(m => String(m.content || '')),
+        question: lastUserText || '',
+        section,
+        urgent: urgence.urgent,
+      });
+      if (textePrimaire) {
+        const lastIdx = conversation.length - 1;
+        const last = conversation[lastIdx];
+        const originalText = last.content.map(b => b.text || '').join('');
+        conversation[lastIdx] = {
+          role: 'user',
+          content: [{ type: 'text', text: originalText + textePrimaire.texte }],
+        };
+        // Même événement que les outils appelés par le modèle : le widget et les
+        // bancs d'audit voient que le Mehaber a été ouvert, et par qui.
+        res.write(`data: ${JSON.stringify({
+          type: 'tool_use',
+          tool: 'sefaria_get_text',
+          input: { ref: textePrimaire.ref, par: 'serveur', raison: 'texte primaire obligatoire (lamdan + siman nommé)' },
+        })}\n\n`);
+        console.log(`[texte-primaire] siman ${textePrimaire.siman} chargé pour le modèle (${textePrimaire.ref})`);
+      }
     }
 
     if (deepSeekAvailable() && !model._meta && !skipPreRag) {
