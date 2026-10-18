@@ -122,6 +122,50 @@ export function describeWork(ref, data) {
  * @param {string} ref - Référence Sefaria au format URL (ex: "Shulchan_Arukh,_Orach_Chayim.246.1")
  * @returns {Promise<{ref: string, hebrew: string, english: string, error?: string}>}
  */
+/**
+ * Comme fetchSefariaText, mais rend les SEGMENTS (séifim, paragraphes) séparés au
+ * lieu de les coller avec des espaces. Nécessaire quand la structure compte : le
+ * Beit Yossef chargé d'office par api/_texte-primaire.js est coupé à une frontière
+ * de paragraphe et renvoie le modèle aux paragraphes suivants par leur numéro.
+ * Même cache KV (clé distincte), même délai, même message d'erreur explicite.
+ * @returns {Promise<{ref: string, segments: string[], error?: string}>}
+ */
+export async function fetchSefariaSegments(ref) {
+  const cacheKey = `sefaria:segments:${ref}`;
+  try {
+    const cached = await kv.get(cacheKey);
+    if (cached && typeof cached === 'object' && Array.isArray(cached.segments)) return { ...cached, _cached: true };
+  } catch (_) { /* KV indisponible → fetch direct */ }
+  try {
+    const encodedRef = encodeURIComponent(ref).replace(/%2C/g, ',').replace(/%2F/g, '/');
+    const url = `${SEFARIA_BASE}/v3/texts/${encodedRef}?return_format=text_only`;
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 8000);
+    const response = await fetch(url, { signal: controller.signal, headers: { 'Accept': 'application/json' } });
+    clearTimeout(timeoutId);
+    if (!response.ok) {
+      let detail = '';
+      try { detail = (await response.json())?.error || ''; } catch (_) { /* corps non-JSON */ }
+      return { ref, segments: [], error: detail ? `Référence inexistante sur Sefaria — ${detail}` : `Sefaria HTTP ${response.status}` };
+    }
+    const data = await response.json();
+    const aplatir = (x) => (Array.isArray(x) ? x.flatMap(aplatir) : (x == null ? [] : [String(x)]));
+    let brut = [];
+    if (Array.isArray(data.versions)) {
+      const he = data.versions.find((v) => v && v.language === 'he');
+      if (he) brut = aplatir(he.text);
+    }
+    if (!brut.length && data.he) brut = aplatir(data.he);
+    const segments = brut.map((x) => stripHtml(x).trim()).filter(Boolean);
+    const result = { ref, ref_resolved: data.ref || null, segments };
+    if (!segments.length) return { ...result, error: `Sefaria n'a renvoyé aucun texte pour « ${ref} ».` };
+    try { await kv.set(cacheKey, result, { ex: SEFARIA_CACHE_TTL }); } catch (_) { /* tant pis */ }
+    return result;
+  } catch (err) {
+    return { ref, segments: [], error: err && err.name === 'AbortError' ? 'Sefaria : délai dépassé (8 s)' : `Sefaria : ${err && err.message}` };
+  }
+}
+
 export async function fetchSefariaText(ref) {
   // 1. Tentative de lecture cache (texte immuable → cache long)
   const cacheKey = `sefaria:text:${ref}`;

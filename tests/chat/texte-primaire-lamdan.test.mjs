@@ -3,7 +3,7 @@
 import { test, beforeEach, afterEach } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { demandeLamdan, refMehaber, blocTextePrimaire, chargerTextePrimaire, cibleTextePrimaire, simanNomme, gematriaVersNombre, partieNommee } from '../../api/_texte-primaire.js';
+import { demandeLamdan, refMehaber, blocTextePrimaire, chargerTextePrimaire, cibleTextePrimaire, simanNomme, gematriaVersNombre, partieNommee, demandeOpinions, refBeitYosef, blocBeitYosef } from '../../api/_texte-primaire.js';
 
 const PROFIL_LAMDAN = "[Profil de cette session]\n• Niveau : Lamdan / Talmid Hakham — pilpoul approfondi\n• Minhag : Habad / Loubavitch\n• Langue de réponse souhaitée : français\n• Contexte : je consulte actuellement le Siman 253 (Orah Haïm — Hilkhot Shabbat, page Niveau 1 — Base) sur daattorah.com — sauf indication contraire, mes questions portent sur ce siman.\n\n[Ma question]\nFait moi un résumé clair avec l idée des opinions";
 const PROFIL_DEBUTANT = "[Profil de cette session]\n• Niveau : Débutant — peu ou pas de bagage\n• Minhag : Séfarade\n\nExplique le siman 253";
@@ -152,7 +152,7 @@ test('Codex 2 — la partie NOMMÉE dans la question prime sur la section de la 
   assert.equal(partieNommee('Quelle est la halakha ?'), null);
   // chat.html général : section = orach-chaim par défaut, mais la question dit Yoreh De'ah
   const q = "[Profil de cette session]\n- Niveau : Lamdan\n- Minhag : Séfarade\n\nPourquoi une בריה n'est-elle pas annulée dans mille, siman 100 de Yoreh De'ah ?";
-  assert.deepEqual(cibleTextePrimaire({ messagesUtilisateur: [q], question: q, section: 'orach-chaim' }), { siman: 100, partie: 'yoreh-deah', ref: "Shulchan_Arukh,_Yoreh_De'ah.100" });
+  assert.deepEqual(cibleTextePrimaire({ messagesUtilisateur: [q], question: q, section: 'orach-chaim' }), { siman: 100, partie: 'yoreh-deah', ref: "Shulchan_Arukh,_Yoreh_De'ah.100", beitYosef: null });
   // page 253 ouverte (contexte « Orah Haïm »), question explicitement Yoreh De'ah
   const q2 = PROFIL_LAMDAN.replace(/\[Ma question\][\s\S]*$/, "[Ma question]\nEt dans Yoreh De'ah siman 87, le lait et la viande ?");
   assert.equal(cibleTextePrimaire({ messagesUtilisateur: [q2], question: q2, section: 'orach-chaim' }).ref, "Shulchan_Arukh,_Yoreh_De'ah.87");
@@ -168,6 +168,74 @@ test('Codex 2 — la partie NOMMÉE dans la question prime sur la section de la 
   assert.ok(r); assert.equal(r.partie, 'yoreh-deah'); assert.match(r.texte, /Yoreh De'ah, siman 100/);
 });
 
+
+// ── Point 1b : le Beit Yossef quand la question demande les opinions ─────────
+const BY_253 = { title: 'Beit Yosef, Orach Chayim 253', ref: 'Beit Yosef, Orach Chayim 253',
+  versions: [{ language: 'he', text: ['כירה שהיא עשויה כקדרה וכו\' משנה רפ"ג דמסכת שבת… וכתב הרי"ף… ודעת הרמב"ם בפ"ג… והר"ן…', 'ומ"ש רבינו שכמאכל ב"ד הוא שליש בישולו כך פירש"י', 'ומ"ש אא"כ גרף או קטם מבואר במשנה'] }] };
+
+test('1b — la question demande-t-elle les opinions ? (FR / EN / HE, et les négatifs)', () => {
+  for (const q of ['Fait moi un résumé clair avec l idée des opinions', 'Quel est l\'avis du Rambam ici ?', 'quelles sont les shitot des Richonim', 'Who holds the lenient view?', 'מה דעת הרי״ף בזה', 'יש כאן מחלוקת ראשונים ?', 'Donne-moi les positions en présence'])
+    assert.equal(demandeOpinions(q), true, q);
+  for (const q of ['Explique le séif 14', 'Cite-moi le texte du séif 2 du Choul\'han Aroukh HaRav', 'Traduis le séif 1', 'מה כתוב בסעיף ב'])
+    assert.equal(demandeOpinions(q), false, q);
+});
+
+test('1b — la cible porte la référence du Beit Yossef seulement si la question demande les opinions', () => {
+  assert.equal(refBeitYosef(253, 'orach-chaim'), 'Beit_Yosef,_Orach_Chayim.253');
+  assert.equal(refBeitYosef(100, 'yoreh-deah'), "Beit_Yosef,_Yoreh_De'ah.100");
+  const avec = cibleTextePrimaire({ messagesUtilisateur: [PROFIL_LAMDAN], question: PROFIL_LAMDAN, section: 'orach-chaim' });
+  assert.equal(avec.beitYosef, 'Beit_Yosef,_Orach_Chayim.253', 'la question du 18/10 (« idée des opinions ») déclenche le Beit Yossef');
+  const q = PROFIL_LAMDAN.replace(/\[Ma question\][\s\S]*$/, '[Ma question]\nExplique le séif 14 du Choul\'han Aroukh HaRav');
+  const sans = cibleTextePrimaire({ messagesUtilisateur: [q], question: q, section: 'orach-chaim' });
+  assert.equal(sans.beitYosef, null, 'une question de texte, sans opinions, ne charge que le Mehaber');
+  assert.equal(sans.ref, 'Shulchan_Arukh,_Orach_Chayim.253');
+});
+
+test('1b — chargement : Mehaber + Beit Yossef en parallèle, un complément déclaré, les noms dans le bloc', async () => {
+  mockFetch({ 'Beit_Yosef,_Orach_Chayim.253': BY_253, 'Shulchan_Arukh,_Orach_Chayim.253': MEHABER_253 });
+  const r = await chargerTextePrimaire({ messagesUtilisateur: [PROFIL_LAMDAN], question: PROFIL_LAMDAN, section: 'orach-chaim' });
+  assert.ok(r); assert.deepEqual(r.complements, [{ ref: 'Beit_Yosef,_Orach_Chayim.253', type: 'beit-yosef' }]);
+  assert.match(r.texte, /Texte primaire chargé par le serveur/); assert.match(r.texte, /Beit Yossef chargé par le serveur/);
+  assert.ok(r.texte.indexOf('מצטמק ורע לו') < r.texte.indexOf('Beit Yossef chargé'), 'le Mehaber d\'abord, le Beit Yossef ensuite');
+  assert.match(r.texte, /הרי"ף/); assert.match(r.texte, /הרמב"ם/); assert.match(r.texte, /les 3 paragraphes/);
+  assert.match(r.texte, /C'est ICI que sont les noms/);
+});
+
+test('1b — le Beit Yossef est facultatif : s\'il manque (404) ou si la question n\'en veut pas, le Mehaber part seul', async () => {
+  mockFetch({ 'Beit_Yosef,_Orach_Chayim.253': 404, 'Shulchan_Arukh,_Orach_Chayim.253': MEHABER_253 });
+  const r = await chargerTextePrimaire({ messagesUtilisateur: [PROFIL_LAMDAN], question: PROFIL_LAMDAN, section: 'orach-chaim' });
+  assert.ok(r); assert.deepEqual(r.complements, []); assert.doesNotMatch(r.texte, /Beit Yossef chargé/); assert.match(r.texte, /מצטמק ורע לו/);
+  mockFetch({ 'Shulchan_Arukh,_Orach_Chayim.253': MEHABER_253 });
+  const q = PROFIL_LAMDAN.replace(/\[Ma question\][\s\S]*$/, '[Ma question]\nExplique le séif 14');
+  const r2 = await chargerTextePrimaire({ messagesUtilisateur: [q], question: q, section: 'orach-chaim' });
+  assert.ok(r2); assert.deepEqual(r2.complements, []);
+});
+
+test('1b — plafond : les paragraphes entiers jusqu\'à 8 000 caractères, et la suite indiquée au modèle', () => {
+  const he = ['א'.repeat(5000), 'ב'.repeat(2500), 'ג'.repeat(2000), 'ד'.repeat(300)];
+  const bloc = blocBeitYosef('Beit_Yosef,_Orach_Chayim.253', he, 253, 'orach-chaim');
+  assert.match(bloc, /paragraphes 1-2 sur 4/); assert.match(bloc, /Beit_Yosef,_Orach_Chayim\.253\.3-4/);
+  assert.equal((bloc.match(/ג/g) || []).length, 0, 'le 3e paragraphe (dépasserait le plafond) n\'est pas chargé');
+  const seul = blocBeitYosef('Beit_Yosef,_Orach_Chayim.1', ['ה'.repeat(9000)], 1, 'orach-chaim');
+  assert.match(seul, /tronqué à 8000/); assert.equal((seul.match(/ה/g) || []).length, 8000);
+});
+
+test('1b — câblage : chat.js émet un événement tool_use serveur par texte chargé (Mehaber, puis Beit Yossef)', () => {
+  const chat = readFileSync(new URL('../../api/chat.js', import.meta.url), 'utf8');
+  const i = chat.indexOf('const charges = [');
+  assert.ok(i > 0); const bloc = chat.slice(i, i + 900);
+  assert.match(bloc, /textePrimaire\.complements/); assert.match(bloc, /for \(const c of charges\)/); assert.match(bloc, /par: 'serveur'/);
+  assert.match(bloc, /Beit Yossef : la question demande les opinions/);
+});
+
+test('1b — réel : le Beit Yossef 253 chargé nomme le Rif et le Rambam', async (t) => {
+  globalThis.fetch = realFetch;
+  let r; try { r = await chargerTextePrimaire({ messagesUtilisateur: [PROFIL_LAMDAN], question: PROFIL_LAMDAN, section: 'orach-chaim' }); } catch { r = null; }
+  if (!r || !r.complements.length) { t.skip('Sefaria injoignable'); return; }
+  assert.match(r.texte, /הרי"ף|הרי״ף/); assert.match(r.texte, /הרמב"ם|הרמב״ם/);
+  assert.match(r.texte, /paragraphes 1-\d+ sur 22/, 'le BY 253 a 22 paragraphes, on en charge le début');
+});
+
 // Contre Sefaria réel, uniquement si le réseau répond : le cas exact du 18/10.
 test('réel — Mehaber 253:1 ouvre par l\'opinion stricte (Rif/Rambam), la lénienté vient en יש אומרים', async (t) => {
   globalThis.fetch = realFetch;
@@ -175,10 +243,11 @@ test('réel — Mehaber 253:1 ouvre par l\'opinion stricte (Rif/Rambam), la lén
   try { r = await chargerTextePrimaire({ messagesUtilisateur: [PROFIL_LAMDAN], question: PROFIL_LAMDAN, section: 'orach-chaim' }); }
   catch { r = null; }
   if (!r) { t.skip('Sefaria injoignable'); return; }
-  const iStrict = r.texte.indexOf('מצטמק ורע לו');
-  const iLenient = r.texte.indexOf('בן דרוסאי');
+  const mehaber = r.texte.split('[Beit Yossef chargé')[0];
+  const iStrict = mehaber.indexOf('מצטמק ורע לו');
+  const iLenient = mehaber.indexOf('בן דרוסאי');
   assert.ok(iStrict > 0, 'la condition stricte du séif 1 est dans le texte chargé');
   assert.ok(iLenient === -1 || iStrict < iLenient, 'si « בן דרוסאי » apparaît, c\'est APRÈS la position stricte');
-  assert.doesNotMatch(r.texte, /תישוי/, 'le mot inventé n\'existe pas dans le texte');
-  assert.doesNotMatch(r.texte, /tronqué/, 'le 253 (5 451 caractères) est livré entier, pas coupé à 4 000 comme le ferait l\'outil');
+  assert.doesNotMatch(mehaber, /תישוי/, 'le mot inventé n\'existe pas dans le texte');
+  assert.doesNotMatch(mehaber, /tronqué/, 'le 253 (5 451 caractères) est livré entier, pas coupé à 4 000 comme le ferait l\'outil');
 });
