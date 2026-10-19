@@ -138,6 +138,50 @@ test('banc — rien reçu du modèle : pas de pied à zéro', async () => {
   assert.equal(await f.terminer(), '');
 });
 
+// ── Second passage du banc (19/10, 12 réponses) ─────────────────────────────
+test('banc 2 — une prose en hébreu est reconnue au paragraphe, même si la question était en français', async () => {
+  const f = filtre({ lang: 'fr' });   // profil français, réponse en hébreu (cas L08)
+  const out = await livrer(f, ['## מה שהטקסט אומר\n\n', '**המחבר — דעה ראשונה (סתם):** כירה שהוסקה בגפת או בעצים אסור להשהות עליה תבשיל מבעוד יום אלא אם כן נתבשל כל צרכו.\n\n', 'Le Mehaber écrit en français : שלא בטלה שהייה הראשונה שהשהה אותה שם — paragraphe français.\n\n']);
+  assert.doesNotMatch(out.split('\n\n')[1], /⚠️/, 'prose hébraïque : pas de contrôle hors guillemets');
+  assert.match(out.split('\n\n')[2], /⚠️ \[non retrouvé/, 'paragraphe français : l\'hébreu libre est contrôlé');
+});
+
+test('banc 2 — une liste de termes hébreux séparés par des virgules ou des parenthèses n\'est pas une citation', async () => {
+  const f = filtre();
+  const out = await livrer(f, ['les cinq conditions (רותחת, בידו, דעתו להחזיר, מבושל כל צרכו, על גבה ולא לתוכה) selon le HaRav.\n\n', 'même pour un plat מבושל כל צרכו (אין בישול אחר בישול).\n\n', 'les cas : דבר שיש לו מתירין, חתיכה הראויה להתכבד, בעלי חיים, בריה.\n\n']);
+  assert.equal((out.match(/⚠️/g) || []).length, 0, out);
+  assert.equal(f.stats.nonRetrouves, 0);
+});
+
+test('banc 2 — une citation entre guillemets qui diffère d\'un mot sur huit est retrouvée (coquille « דעם » de Sefaria)', async () => {
+  const BY = 'ולענין הלכה כיון שהתוספות והרא"ש והר"ן מסכימים לאסור וגם דעם הרי"ף והרמב"ם נראה כן מדלא הזכירו דבר זה הכי נקטינן';
+  const f = new FiltreLivraison({ fetchTexte, sources: [{ ref: "Beit_Yosef,_Yoreh_De'ah.100", texte: BY }] });
+  const out = await livrer(f, ['Le Beit Yossef conclut : « כיון שהתוספות והרא"ש והר"ן מסכימים לאסור, וגם דעת הרי"ף והרמב"ם נראה כן מדלא הזכירו דבר זה, הכי נקטינן ».\n\n', 'Mais « אם לקחו משם משחשיכה אפילו הניחו על גבי קרקע מותר » n\'est pas la lettre du texte.\n\n']);
+  assert.doesNotMatch(out.split('\n\n')[0], /⚠️/, 'un mot sur seize : retrouvé'); 
+  assert.match(out.split('\n\n')[1], /⚠️ \[non retrouvé/, 'une paraphrase entre guillemets reste marquée');
+  assert.equal(f.stats.retrouves, 1); assert.equal(f.stats.nonRetrouves, 1);
+});
+
+test('banc 2 — bornes : mot tronqué par apostrophe (מות\' ↔ מותר) et abréviation ע"ג', () => {
+  const src = 'וי"א שכל שנתבשל כמאכל בן דרוסאי או שנתבשל כל צרכו ומצטמק ויפה לו מות\' להשהותו ע"ג כירה';
+  assert.equal(extraire(src, 'ויש אומרים שכל שנתבשל', 'מותר להשהותו על גבי כירה'), src);
+  assert.equal(extraire(src, 'וי"א שכל', 'מות\' להשהותו ע"ג כירה'), src);
+});
+
+test('banc 2 — mauvais paragraphe du Beit Yossef : l\'extrait est cherché dans le siman entier et collé avec la référence exacte', async () => {
+  const segs = ['כירה שהיא עשויה כקדרה וכו\' משנה… וכתב הרא"ש ובשביל שרבו הדעות בהאי פיסקא וישראל אדוקים במצות עונג שבת הנח להם במנהג שנהגו על פי הפוסקים כחנניה', 'ומ"ש רבינו שכמאכל ב"ד הוא שליש בישולו', 'ומ"ש אא"כ גרף או קטם'];
+  const f = new FiltreLivraison({ fetchTexte: async (ref) => ({ hebrew: ref.endsWith('.7') ? segs[2] : segs.join(' ') }), fetchSegments: async () => ({ segments: segs }), sources: [] });
+  const out = await livrer(f, ['Le Roch : [[cite:Beit_Yosef,_Orach_Chayim.253.7|וכתב הרא"ש ובשביל שרבו הדעות…הפוסקים כחנניה]]\n\n']);
+  assert.match(out, /^Le Roch : וכתב הרא"ש ובשביל שרבו הדעות[\s\S]*כחנניה _\[réf\. exacte : Beit_Yosef,_Orach_Chayim\.253\.1\]_\n\n/);
+  assert.equal(f.stats.collees, 1); assert.equal(f.stats.refCorrigees, 1); assert.match(out, /1 référence corrigée/);
+});
+
+test('banc 2 — « ה"ה » du Beit Yossef suffit à sourcer le Maguid Michné', async () => {
+  const f = new FiltreLivraison({ fetchTexte, sources: [{ ref: 'Beit_Yosef,_Orach_Chayim.253', texte: 'וכן דעת הרמב"ם בפרק קמא וכתב ה"ה שכן דעת הרמב"ן' }] });
+  const out = await livrer(f, ['Le Maguid Michné rapporte que le Ramban suit le Rambam.\n\n']);
+  assert.doesNotMatch(out, /Maguid Michné ⚠️|Ramban ⚠️|Rambam ⚠️/);
+});
+
 // ── Relecture Codex (#284) : quatre constats, chacun reproduit ──────────────
 test('Codex 1 — textePrimaire est déclaré HORS du bloc if : le filtre peut le lire sur tous les chemins', () => {
   const chat = readFileSync(new URL('../../api/chat.js', import.meta.url), 'utf8');
@@ -153,7 +197,7 @@ test('Codex 2 — la ponctuation ordinaire ne coupe pas un passage hébreu en de
   assert.match(out, /⚠️ \[non retrouvé dans les sources ouvertes\]/, 'six mots coupés par une virgule restent UN passage à vérifier');
   assert.equal(f.stats.nonRetrouves, 1);
   const g = filtre();
-  const out2 = await livrer(g, ['Mehaber : אסור ליתן עליה תבשיל, מבעוד יום — ponctuation ajoutée par le modèle.\n\n']);
+  const out2 = await livrer(g, ['Mehaber : אסור ליתן עליה תבשיל מבעוד יום, להשהותו עליה — ponctuation ajoutée par le modèle.\n\n']);
   assert.doesNotMatch(out2, /⚠️/, 'retrouvé malgré la virgule insérée'); assert.equal(g.stats.retrouves, 1);
 });
 
