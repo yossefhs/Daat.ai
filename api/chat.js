@@ -1560,8 +1560,12 @@ export default async function handler(req, res) {
     // Jamais en urgence vitale (la consigne de danger prime et doit rester seule en
     // tête), jamais sur le chemin méta. Un échec Sefaria rend null : la réponse
     // part sans ce filet, elle n'est jamais bloquée. Voir api/_texte-primaire.js.
+    // Déclaré ICI, hors du bloc : le filtre de livraison le lit plus bas, sur
+    // tous les chemins (relecture Codex #284 : un const dans le if lançait une
+    // ReferenceError sur chaque réponse agentique).
+    let textePrimaire = null;
     if (!urgence.urgent && !model._meta) {
-      const textePrimaire = await chargerTextePrimaire({
+      textePrimaire = await chargerTextePrimaire({
         messagesUtilisateur: (messages || []).filter(m => m && m.role === 'user').map(m => String(m.content || '')),
         question: lastUserText || '',
         section,

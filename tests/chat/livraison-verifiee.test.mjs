@@ -98,6 +98,43 @@ test('pied — langue de la réponse ; aucun passage : compteurs à zéro', asyn
   assert.match(he, /אימות שרת/);
 });
 
+// ── Relecture Codex (#284) : quatre constats, chacun reproduit ──────────────
+test('Codex 1 — textePrimaire est déclaré HORS du bloc if : le filtre peut le lire sur tous les chemins', () => {
+  const chat = readFileSync(new URL('../../api/chat.js', import.meta.url), 'utf8');
+  assert.match(chat, /let textePrimaire = null;\s*\n\s*if \(!urgence\.urgent && !model\._meta\) \{\s*\n\s*textePrimaire = await chargerTextePrimaire\(/, 'déclaration avant le if, affectation dedans');
+  assert.doesNotMatch(chat, /const textePrimaire = await chargerTextePrimaire/, 'plus de const dans le bloc');
+  const iDecl = chat.indexOf('let textePrimaire = null;'), iUse = chat.indexOf('new FiltreLivraison({ sources: textePrimaire.sources');
+  assert.ok(iDecl > 0 && iDecl < iUse);
+});
+
+test('Codex 2 — la ponctuation ordinaire ne coupe pas un passage hébreu en deux', async () => {
+  const f = filtre();
+  const out = await livrer(f, ['Il écrit : אחד שנים שלש, ארבע חמש שש — six mots que personne n\'a ouverts.\n\n']);
+  assert.match(out, /⚠️ \[non retrouvé dans les sources ouvertes\]/, 'six mots coupés par une virgule restent UN passage à vérifier');
+  assert.equal(f.stats.nonRetrouves, 1);
+  const g = filtre();
+  const out2 = await livrer(g, ['Mehaber : אסור ליתן עליה תבשיל, מבעוד יום — ponctuation ajoutée par le modèle.\n\n']);
+  assert.doesNotMatch(out2, /⚠️/, 'retrouvé malgré la virgule insérée'); assert.equal(g.stats.retrouves, 1);
+});
+
+test('Codex 3 — des bornes d\'extrait introuvables donnent une citation invalide, pas un séif entier', async () => {
+  const f = filtre();
+  const out = await livrer(f, ['[[cite:Shulchan_Arukh,_Orach_Chayim.253.1|מילים שאינן…בטקסט]]\n\n']);
+  assert.match(out, /\[extrait non trouvé dans Shulchan_Arukh,_Orach_Chayim\.253\.1 : « מילים שאינן…בטקסט »\]/);
+  assert.doesNotMatch(out, /כִּירָה שֶׁהִיא/, 'le séif entier n\'est pas collé à la place');
+  assert.equal(f.stats.collees, 0); assert.equal(f.stats.introuvables, 1);
+});
+
+test('Codex 4 — un marqueur inachevé à la fermeture ne fuit pas vers le lecteur', async () => {
+  const f = filtre();
+  let out = await f.pousser('Le texte dit [[cite:Shulchan_Arukh,_Orach_Chayim.253.1|אסור');
+  assert.equal(out, '');
+  out += await f.terminer();
+  assert.doesNotMatch(out, /\[\[cite:/);
+  assert.match(out, /\[citation interrompue : Shulchan_Arukh,_Orach_Chayim\.253\.1\]/);
+  assert.equal(f.stats.introuvables, 1); assert.match(out, /1 référence introuvable/);
+});
+
 test('câblage — chat.js : filtre créé sur le chemin lamdan, deltas filtrés, outils ajoutés, fin et abort vidés une fois, plafond lamdan', () => {
   const chat = readFileSync(new URL('../../api/chat.js', import.meta.url), 'utf8');
   assert.match(chat, /import \{ FiltreLivraison \} from '\.\/_livraison\.js'/);

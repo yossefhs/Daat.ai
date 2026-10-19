@@ -30,7 +30,9 @@ import { fetchSefariaText } from './_sefaria.js';
 const MAX_CITATION = 1500;          // au-delà, un séif entier est coupé avec « […] »
 const MIN_MOTS_HEBREU = 4;          // un passage hébreu plus court est un terme, pas une citation
 const MARQUEUR_RE = /\[\[cite:([^\]|]+?)(?:\|([^\]]*?))?\]\]/g;
-const HEBREU_RE = /(?:[֐-׿][֐-׿״׳"'’\-־]*\s*){4,}/g;
+// Quatre mots hébreux ou plus, la ponctuation ordinaire entre eux comprise
+// (« אחד, שנים : שלש. ארבע » est un seul passage — relecture Codex #284).
+const HEBREU_RE = /(?:[\u0590-\u05FF][\u0590-\u05FF״׳"'’\-־]*[\s,.;:!?()«»"'’]*){4,}/g;
 
 export function normaliser(t) {
   return String(t || '')
@@ -142,15 +144,21 @@ export class FiltreLivraison {
           if (plage) {
             const [debut, fin] = plage.split(/…|\.\.\./).map((x) => (x || '').trim());
             const extrait = extraire(he, debut, fin);
-            if (extrait) he = extrait;
+            // Les bornes sont de l'hébreu tapé par le modèle : si elles ne sont pas
+            // dans le texte, c'est précisément l'erreur qu'on veut voir — pas un
+            // séif entier collé à la place de l'extrait annoncé (relecture Codex).
+            if (!extrait) remplacement = `[extrait non trouvé dans ${ref} : « ${plage} »]`;
+            else he = extrait;
           }
-          if (he.length > MAX_CITATION) he = he.slice(0, MAX_CITATION) + ' […]';
-          remplacement = he;
+          if (remplacement === undefined) {
+            if (he.length > MAX_CITATION) he = he.slice(0, MAX_CITATION) + ' […]';
+            remplacement = he;
+          }
         }
       } catch {
         remplacement = `[citation introuvable : ${ref}]`;
       }
-      if (remplacement.startsWith('[citation introuvable')) this.stats.introuvables += 1;
+      if (remplacement.startsWith('[citation introuvable') || remplacement.startsWith('[extrait non trouvé')) this.stats.introuvables += 1;
       else { this.stats.collees += 1; colles.push(remplacement); }
       texte = texte.replace(m[0], remplacement);
     }
@@ -208,7 +216,13 @@ export class FiltreLivraison {
 
   async terminer() {
     let sortie = '';
-    if (this.tampon) { sortie += await this.traiterParagraphe(this.tampon); this.tampon = ''; }
+    if (this.tampon) {
+      // Génération coupée au milieu d'un marqueur : la syntaxe interne ne doit
+      // jamais atteindre le lecteur (relecture Codex #284).
+      const reste = this.tampon.replace(/\[\[cite:[^\]]*$/, (m) => { this.stats.introuvables += 1; return `[citation interrompue : ${m.slice(7).split('|')[0].trim()}]`; });
+      sortie += await this.traiterParagraphe(reste);
+      this.tampon = '';
+    }
     return sortie + this.pied();
   }
 
