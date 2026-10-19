@@ -13,6 +13,7 @@ import { SEFARIA_TOOLS, executeSefariaTool } from './_sefaria.js';
 import { CORPUS_TOOLS, executeCorpusTool, searchCorpus } from './_corpus.js';
 import { searchCorpusForRouting as searchShabbatCorpus, corpusCacheKey, CORPUS_CACHE_TTL, stripProfileBlock, profileSignature } from './_corpus-search.js';
 import { chargerTextePrimaire, cibleTextePrimaire } from './_texte-primaire.js';
+import { FiltreLivraison } from './_livraison.js';
 // searchCorpusForRouting = searchCorpus, SAUF quand la question nomme un siman :
 // les résultats sont alors restreints à CE siman, et le chemin court décline si
 // rien n'en ressort (voir le constat dans api/_corpus-search.js). Les trois voies
@@ -66,6 +67,12 @@ const MAX_TOKENS_OUTPUT = parseInt(process.env.MAX_TOKENS_OUTPUT || '8192', 10);
 // Cap output pour la SYNTHÈSE FORCÉE : doit rester assez haut pour une réponse
 // complète (l'ancien 1500 tronquait les réponses halakhiques détaillées).
 const FORCED_SYNTHESIS_MAX_TOKENS = parseInt(process.env.FORCED_SYNTHESIS_MAX_TOKENS || String(MAX_TOKENS_OUTPUT), 10);
+// Réponse de niveau lamdan sur un siman nommé (texte primaire chargé) : plafond
+// plus bas. Les bancs des 18-19/10 ont montré des réponses de 11 000 caractères
+// que personne ne lit et qui multiplient les occasions d'erreur ; le bloc de
+// rédaction demande 3 500 caractères hors citations collées, ce plafond est le
+// filet. Les citations étant collées par le serveur, elles ne coûtent rien ici.
+const MAX_TOKENS_LAMDAN = parseInt(process.env.MAX_TOKENS_LAMDAN || '3000', 10);
 const HISTORY_TURNS = 16;       // 16 derniers tours (plus de contexte = meilleure réponse)
 
 // La fonction api/chat.js a maxDuration: 300 (Vercel Pro) dans vercel.json.
@@ -1585,6 +1592,14 @@ export default async function handler(req, res) {
       }
     }
 
+    // Livraison vérifiée (api/_livraison.js) : sur le chemin lamdan, le modèle
+    // désigne ses citations et le serveur colle le texte ; chaque paragraphe est
+    // contrôlé au passage (hébreu libre, décisionnaires nommés) avant d'être
+    // livré, et un pied dit au lecteur ce qui a été vérifié. Ailleurs : null.
+    const livraison = textePrimaire
+      ? new FiltreLivraison({ sources: textePrimaire.sources || [], lang: resolveLang(req.body?.lang, lastUserText || '') })
+      : null;
+
     if (deepSeekAvailable() && !model._meta && !skipPreRag) {
       if (lastUserText && lastUserText.length >= 30) {
         try {
@@ -1720,7 +1735,7 @@ export default async function handler(req, res) {
 
       const streamParams = {
         model: iterModel.id,
-        max_tokens: forceSynthesis ? FORCED_SYNTHESIS_MAX_TOKENS : MAX_TOKENS_OUTPUT,
+        max_tokens: forceSynthesis ? FORCED_SYNTHESIS_MAX_TOKENS : (livraison ? MAX_TOKENS_LAMDAN : MAX_TOKENS_OUTPUT),
         tools: ALL_TOOLS,
         system: [
           {
@@ -1760,7 +1775,13 @@ export default async function handler(req, res) {
           if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
             iterHadText = true;
             anyTextSent = true;
-            res.write(`data: ${JSON.stringify({ type: 'text', delta: event.delta.text })}\n\n`);
+            if (livraison) {
+              // Un paragraphe à la fois : citations collées, hébreu libre et noms contrôlés.
+              const pret = await livraison.pousser(event.delta.text);
+              if (pret) res.write(`data: ${JSON.stringify({ type: 'text', delta: pret })}\n\n`);
+            } else {
+              res.write(`data: ${JSON.stringify({ type: 'text', delta: event.delta.text })}\n\n`);
+            }
           }
         }
 
@@ -1822,6 +1843,7 @@ export default async function handler(req, res) {
           })}\n\n`);
         }
 
+        if (livraison) livraison.ajouterResultats(toolUses, toolResults);
         conversation.push({ role: 'user', content: toolResults });
 
       } catch (err) {
@@ -1829,6 +1851,11 @@ export default async function handler(req, res) {
           stopReason = 'end_turn';
           console.log(`[chat.js] hard abort caught — iterHadText=${iterHadText}, elapsed=${Date.now() - startedAt}ms`);
           // Ne JAMAIS terminer en silence : l'utilisateur doit toujours voir quelque chose.
+          if (livraison && !livraison.clos) {
+            livraison.clos = true;
+            const reste = await livraison.terminer().catch(() => '');
+            if (reste) res.write(`data: ${JSON.stringify({ type: 'text', delta: reste })}\n\n`);
+          }
           if (!anyTextSent) {
             res.write(`data: ${JSON.stringify({
               type: 'text',
@@ -1855,6 +1882,12 @@ export default async function handler(req, res) {
     // finale (« mais be-di'avad… », « c'est à ton Rav de trancher ») arrive à la
     // FIN. Une troncature silencieuse transforme une réponse nuancée en psak
     // tranché. Même logique que le chemin corpus, qui avertit déjà.
+    if (livraison && !livraison.clos) {
+      livraison.clos = true;
+      const fin = await livraison.terminer().catch(() => '');
+      if (fin) res.write(`data: ${JSON.stringify({ type: 'text', delta: fin })}\n\n`);
+    }
+
     if (stopReason === 'max_tokens') {
       res.write(`data: ${JSON.stringify({
         type: 'text',
