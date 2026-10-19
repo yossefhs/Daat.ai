@@ -67,12 +67,13 @@ const MAX_TOKENS_OUTPUT = parseInt(process.env.MAX_TOKENS_OUTPUT || '8192', 10);
 // Cap output pour la SYNTHÈSE FORCÉE : doit rester assez haut pour une réponse
 // complète (l'ancien 1500 tronquait les réponses halakhiques détaillées).
 const FORCED_SYNTHESIS_MAX_TOKENS = parseInt(process.env.FORCED_SYNTHESIS_MAX_TOKENS || String(MAX_TOKENS_OUTPUT), 10);
-// Réponse de niveau lamdan sur un siman nommé (texte primaire chargé) : plafond
-// plus bas. Les bancs des 18-19/10 ont montré des réponses de 11 000 caractères
-// que personne ne lit et qui multiplient les occasions d'erreur ; le bloc de
-// rédaction demande 3 500 caractères hors citations collées, ce plafond est le
-// filet. Les citations étant collées par le serveur, elles ne coûtent rien ici.
-const MAX_TOKENS_LAMDAN = parseInt(process.env.MAX_TOKENS_LAMDAN || '3000', 10);
+// Réponse de niveau lamdan (texte primaire chargé) : PAS de plafond réduit par
+// défaut. Essayé à 3 000 le 19/10 : la réflexion adaptative d'Opus consomme le
+// budget et deux réponses sur douze sont sorties vides (stop_reason max_tokens
+// avant le premier mot). La longueur a baissé partout ailleurs grâce aux règles
+// de rédaction du bloc primaire, pas grâce au plafond. Variable gardée pour
+// expérimenter, à la même valeur que le plafond général.
+const MAX_TOKENS_LAMDAN = parseInt(process.env.MAX_TOKENS_LAMDAN || String(MAX_TOKENS_OUTPUT), 10);
 const HISTORY_TURNS = 16;       // 16 derniers tours (plus de contexte = meilleure réponse)
 
 // La fonction api/chat.js a maxDuration: 300 (Vercel Pro) dans vercel.json.

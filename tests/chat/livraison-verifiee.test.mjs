@@ -98,6 +98,46 @@ test('pied — langue de la réponse ; aucun passage : compteurs à zéro', asyn
   assert.match(he, /אימות שרת/);
 });
 
+// ── Banc du 19/10 sur l'aperçu : ce que les 12 réponses réelles ont appris ────
+const HARAV_253_4 = 'וְתַנּוּר שֶׁהוּא עָשׂוּי כְּעֵין קְדֵרָה גְּדוֹלָה… אָסוּר אֲפִלּוּ לִסְמֹךְ לוֹ אִם הַיָּד סוֹלֶדֶת שָׁם, אֲפִלּוּ הוּא גָּרוּף וְקָטוּם, שֶׁמָּא יַחְתֶּה בְּזוֹ הָאֵשׁ הַמְּעוּטָה.';
+const MEHABER_318_4 = 'תבשיל שנתבשל כל צרכו יש בו משום בישול אם נצטנן: הגה וי"א דוקא אם מצטמק ויפה לו [רבי ירוחם] ואם לא נתבשל כל צרכו אפילו הוא רותח יש בו משום בישול: וה"מ שיש בו בישול אחר בישול בתבשיל שיש בו מרק אבל דבר שנתבשל כבר והוא יבש מותר לשרותו בחמין בשבת';
+
+test('banc — bornes avec abréviation (וי"א), orthographe pleine (קדירה/אפילו/עדיין) et plusieurs « … » : l\'extrait est localisé', () => {
+  assert.equal(extraire(MEHABER_318_4, 'וי"א דוקא אם מצטמק ויפה לו'), 'וי"א דוקא אם מצטמק ויפה לו', 'borne = texte entier avec abréviation (15 cas du banc)');
+  assert.equal(extraire(MEHABER_318_4, 'ויש אומרים דוקא', 'ויפה לו'), 'וי"א דוקא אם מצטמק ויפה לו', 'abréviation développée par le modèle');
+  const ex = extraire(HARAV_253_4, 'ותנור שהוא עשוי כעין קדירה גדולה', 'שמא יחתה בזו האש המעוטה');
+  assert.ok(ex && ex.startsWith('וְתַנּוּר') && ex.endsWith('הַמְּעוּטָה'), 'קדירה (malé) retrouve קְדֵרָה (haser) — 14 cas du banc : ' + ex);
+  assert.equal(extraire(HARAV_253_4, 'אסור אפילו לסמוך לו אם היד סולדת שם, אפילו הוא גרוף וקטום'), 'אָסוּר אֲפִלּוּ לִסְמֹךְ לוֹ אִם הַיָּד סוֹלֶדֶת שָׁם, אֲפִלּוּ הוּא גָּרוּף וְקָטוּם', 'אפילו ↔ אפלו, virgule dans la borne');
+  assert.equal(extraire(MEHABER_318_4, 'והתנורים שלנו שפתחם מן הצד', 'דינם שוה'), null, 'un mauvais séif reste non trouvé (3 cas du banc)');
+});
+
+test('banc — plusieurs « … » dans la plage : on garde le premier et le dernier bout', async () => {
+  const f = new FiltreLivraison({ fetchTexte: async () => ({ hebrew: MEHABER_318_4 }), sources: [] });
+  const out = await livrer(f, ['[[cite:Shulchan_Arukh,_Orach_Chayim.318.4|תבשיל שנתבשל…הגה וי"א…אם נצטנן]]\n\n']);
+  assert.match(out, /^תבשיל שנתבשל כל צרכו יש בו משום בישול אם נצטנן\n\n/); assert.equal(f.stats.collees, 1);
+});
+
+test('banc — réponse en hébreu : seule la prose entre guillemets ou en bloc « > » est contrôlée', async () => {
+  const f = filtre({ lang: 'he' });
+  const out = await livrer(f, ['להלן סיכום הדעות העיקריות בסוגיית שהייה על גבי כירה מערב שבת, לפי המחבר והרמ"א.\n\n', 'המחבר כותב: «אסור ליתן עליה תבשיל מבעוד יום להשהותו עליה אלא אם כן נתבשל» — וזה לשון הסתם.\n\n', '> מילים שאינן במקור ואינן בשום טקסט שנפתח כאן בכלל\n\n']);
+  assert.doesNotMatch(out.split('\n\n')[0], /⚠️/, 'la prose du modèle n\'est pas une citation');
+  assert.doesNotMatch(out.split('\n\n')[1], /⚠️/, 'la citation entre guillemets est retrouvée');
+  assert.match(out.split('\n\n')[2], /⚠️ \[non retrouvé/, 'un bloc « > » inventé est marqué');
+  assert.equal(f.stats.nonRetrouves, 1); assert.equal(f.stats.retrouves, 1);
+});
+
+test('banc — le message « extrait non trouvé » n\'est pas lui-même marqué ; un libellé de quatre mots n\'est pas une citation', async () => {
+  const f = filtre();
+  const out = await livrer(f, ['[[cite:Shulchan_Arukh,_Orach_Chayim.253.1|מילים שאינן בטקסט הזה כלל…ועוד מילים שאינן שם]] puis le libellé על גבה ולא לתוכה.\n\n']);
+  assert.equal((out.match(/⚠️/g) || []).length, 0, out);
+  assert.equal(f.stats.introuvables, 1); assert.equal(f.stats.nonRetrouves, 0);
+});
+
+test('banc — rien reçu du modèle : pas de pied à zéro', async () => {
+  const f = filtre();
+  assert.equal(await f.terminer(), '');
+});
+
 // ── Relecture Codex (#284) : quatre constats, chacun reproduit ──────────────
 test('Codex 1 — textePrimaire est déclaré HORS du bloc if : le filtre peut le lire sur tous les chemins', () => {
   const chat = readFileSync(new URL('../../api/chat.js', import.meta.url), 'utf8');
@@ -109,7 +149,7 @@ test('Codex 1 — textePrimaire est déclaré HORS du bloc if : le filtre peut l
 
 test('Codex 2 — la ponctuation ordinaire ne coupe pas un passage hébreu en deux', async () => {
   const f = filtre();
-  const out = await livrer(f, ['Il écrit : אחד שנים שלש, ארבע חמש שש — six mots que personne n\'a ouverts.\n\n']);
+  const out = await livrer(f, ['Il écrit : אחד שנים שלש, ארבע חמש שש שבע — sept mots que personne n\'a ouverts.\n\n']);
   assert.match(out, /⚠️ \[non retrouvé dans les sources ouvertes\]/, 'six mots coupés par une virgule restent UN passage à vérifier');
   assert.equal(f.stats.nonRetrouves, 1);
   const g = filtre();
@@ -149,7 +189,7 @@ test('câblage — chat.js : filtre créé sur le chemin lamdan, deltas filtrés
   assert.ok(iFin > iAjout && iFin < iMax, 'vidé et pied AVANT l\'avis de troncature');
   assert.equal((chat.match(/livraison\.clos = true/g) || []).length, 2, 'fin normale + abort, une seule fois chacun');
   assert.match(chat, /max_tokens: forceSynthesis \? FORCED_SYNTHESIS_MAX_TOKENS : \(livraison \? MAX_TOKENS_LAMDAN : MAX_TOKENS_OUTPUT\)/);
-  assert.match(chat, /const MAX_TOKENS_LAMDAN = parseInt\(process\.env\.MAX_TOKENS_LAMDAN \|\| '3000', 10\)/);
+  assert.match(chat, /const MAX_TOKENS_LAMDAN = parseInt\(process\.env\.MAX_TOKENS_LAMDAN \|\| String\(MAX_TOKENS_OUTPUT\), 10\)/, 'pas de plafond réduit par défaut (banc du 19/10 : réponses vides)');
 });
 
 test('texte primaire — le bloc porte les règles de rédaction et chargerTextePrimaire rend les sources brutes', async () => {

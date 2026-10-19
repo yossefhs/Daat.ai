@@ -28,17 +28,17 @@
 import { fetchSefariaText } from './_sefaria.js';
 
 const MAX_CITATION = 1500;          // au-delà, un séif entier est coupé avec « […] »
-const MIN_MOTS_HEBREU = 4;          // un passage hébreu plus court est un terme, pas une citation
+const MIN_MOTS_HEBREU = 5;          // en dessous, un libellé (« על גבה ולא לתוכה »), pas une citation — banc du 19/10
 const MARQUEUR_RE = /\[\[cite:([^\]|]+?)(?:\|([^\]]*?))?\]\]/g;
 // Quatre mots hébreux ou plus, la ponctuation ordinaire entre eux comprise
 // (« אחד, שנים : שלש. ארבע » est un seul passage — relecture Codex #284).
-const HEBREU_RE = /(?:[\u0590-\u05FF][\u0590-\u05FF״׳"'’\-־]*[\s,.;:!?()«»"'’]*){4,}/g;
+const HEBREU_RE = /(?:[\u0590-\u05FF][\u0590-\u05FF״׳"'’\-־]*[\s,.;:!?()«»"'’]*){5,}/g;
 
 export function normaliser(t) {
   return String(t || '')
     .replace(/<[^>]+>/g, ' ')
     .replace(/[֑-ׇ]/g, '')                    // nikoud et te'amim
-    .replace(/[״׳"'“”‘’«»,.;:!?()\[\]{}־–—\-/\\|*#_`]/g, ' ')
+    .replace(/[״׳"'“”‘’«»,.;:!?()\[\]{}־–—…\-/\\|*#_`]/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
 }
@@ -142,7 +142,8 @@ export class FiltreLivraison {
         else {
           let he = String(d.hebrew).replace(/<[^>]+>/g, '').trim();
           if (plage) {
-            const [debut, fin] = plage.split(/…|\.\.\./).map((x) => (x || '').trim());
+            const segs = plage.split(/…|\.\.\./).map((x) => x.trim()).filter(Boolean);
+            const debut = segs[0] || '', fin = segs.length > 1 ? segs[segs.length - 1] : '';   // plusieurs « … » : on garde les deux bouts
             const extrait = extraire(he, debut, fin);
             // Les bornes sont de l'hébreu tapé par le modèle : si elles ne sont pas
             // dans le texte, c'est précisément l'erreur qu'on veut voir — pas un
@@ -166,16 +167,26 @@ export class FiltreLivraison {
   }
 
   verifierHebreuLibre(texte, colles) {
-    // Masquer ce que le serveur vient de coller : c'est du Sefaria, pas du modèle.
+    // Masquer ce que le serveur vient de coller (c'est du Sefaria, pas du modèle)
+    // et ses propres messages (ils citent les bornes du modèle).
     let masque = texte;
     const sauvegarde = [];
-    for (const c of colles) { sauvegarde.push(c); masque = masque.split(c).join(`\u0000${sauvegarde.length - 1}\u0000`); }
-    masque = masque.replace(HEBREU_RE, (run) => {
+    const cacher = (c) => { if (!c) return; sauvegarde.push(c); masque = masque.split(c).join(`\u0000${sauvegarde.length - 1}\u0000`); };
+    for (const c of colles) cacher(c);
+    for (const m of texte.match(/\[(?:extrait non trouvé|citation introuvable|citation interrompue)[^\]]*\]/g) || []) cacher(m);
+    const controler = (run) => {
       if (normaliser(run).split(' ').length < MIN_MOTS_HEBREU) return run;
       if (this.dansLesSources(run)) { this.stats.retrouves += 1; return run; }
       this.stats.nonRetrouves += 1;
-      return run.trimEnd() + ' ⚠️ [non retrouvé dans les sources ouvertes] ' ;
-    });
+      return run.trimEnd() + ' ⚠️ [non retrouvé dans les sources ouvertes] ';
+    };
+    if (this.lang === 'he') {
+      // Réponse en hébreu : la prose EST en hébreu. Seuls les passages donnés
+      // comme citations (guillemets, blocs « > ») sont des citations.
+      masque = masque.replace(/«[^»\n]{8,}»|"[^"\n]{8,}"|״[^״\n]{8,}״|“[^”\n]{8,}”|^>.+$/gm, (zone) => zone.replace(HEBREU_RE, controler));
+    } else {
+      masque = masque.replace(HEBREU_RE, controler);
+    }
     return masque.replace(/\u0000(\d+)\u0000/g, (_, i) => sauvegarde[Number(i)]);
   }
 
@@ -200,6 +211,7 @@ export class FiltreLivraison {
   // Reçoit un delta du modèle ; rend le texte prêt à livrer (paragraphes
   // complets), ou '' s'il faut encore attendre.
   async pousser(delta) {
+    this.aRecu = true;
     this.tampon += delta;
     // Un marqueur ouvert et non fermé : on attend sa fin avant de couper.
     const ouvert = this.tampon.lastIndexOf('[[cite:');
@@ -223,6 +235,9 @@ export class FiltreLivraison {
       sortie += await this.traiterParagraphe(reste);
       this.tampon = '';
     }
+    // Rien reçu (génération interrompue avant le premier mot) : pas de pied à zéro
+    // devant l'avis d'interruption que chat.js écrit ensuite.
+    if (!this.aRecu && !sortie.trim()) return '';
     return sortie + this.pied();
   }
 
@@ -238,28 +253,60 @@ export class FiltreLivraison {
   }
 }
 
-// L'extrait de `texte` qui va du premier `debut` au `fin` qui le suit, en
-// ignorant nikoud et ponctuation pour trouver les bornes ; rend le texte source
-// (avec son nikoud) entre ces bornes, ou null si une borne manque.
-export function extraire(texte, debut, fin) {
-  if (!debut) return null;
-  const carte = [];           // position dans le texte nu → position dans le texte source
-  let nu = '';
+// ── Localiser un extrait par ses bornes ─────────────────────────────────────
+// Le banc du 19/10 : sur 32 bornes « non trouvées », 15 étaient présentes mot
+// pour mot (l'ancien extracteur traitait les guillemets d'abréviation autrement
+// que normaliser()), 14 ne différaient que par l'orthographe pleine/défective
+// (Sefaria écrit le HaRav en haser : קדרה, עדין, מרבה), 4 portaient plusieurs
+// « … », 3 seulement visaient un mauvais séif. On compare donc des SÉQUENCES DE
+// MOTS : abréviations développées (וי"א → ויש אומרים), ו/י retirés, et l'on rend
+// le texte source intact (nikoud compris) entre le premier et le dernier mot.
+const ABR_BORNES = { 'ויא': 'ויש אומרים', 'יא': 'יש אומרים', 'עג': 'על גבי', 'אעפ': 'אף על פי', 'אעפכ': 'אף על פי כן', 'אכ': 'אם כן', 'אאכ': 'אלא אם כן', 'מבעי': 'מבעוד יום', 'בעש': 'בערב שבת', 'מש': 'מוצאי שבת', 'למש': 'למוצאי שבת', 'ממ': 'מכל מקום', 'וממ': 'ומכל מקום', 'כש': 'כל שכן', 'וכש': 'וכל שכן', 'הה': 'הוא הדין', 'והה': 'והוא הדין', 'והמ': 'והני מילי', 'וכ': 'וכתב', 'וככ': 'וכן כתב', 'ככ': 'כן כתב', 'פי': 'פירוש', 'אפי': 'אפילו', 'ואפי': 'ואפילו', 'סי': 'סימן', 'וכו': 'וכולי', 'זל': 'זכרונו לברכה', 'גה': 'גיד הנשה', 'סהת': 'ספר התרומה', 'שע': 'שולחן ערוך', 'בי': 'בית יוסף', 'רל': 'רוצה לומר', 'דה': 'דברי הכל', 'לדה': 'לדברי הכל' };
+const SEP_RE = /[\s֑-ׇ“”‘’«»,.;:!?()\[\]{}־–—…\-/\\|*#_`<>]/;   // ״ ׳ " ' restent dans le mot (abréviations)
+function motsAvecPositions(texte) {
+  const toks = []; let cur = null;
   for (let i = 0; i < texte.length; i++) {
     const c = texte[i];
-    if (/[֑-ׇ״׳"'“”‘’«»,.;:!?()\[\]{}־–—\-/\\|*#_`]/.test(c)) continue;
-    const cc = /\s/.test(c) ? ' ' : c;
-    if (cc === ' ' && nu.endsWith(' ')) continue;
-    nu += cc; carte.push(i);
+    if (/[֑-ׇ]/.test(c)) { if (cur) cur.fin = i; continue; }       // nikoud : reste collé au mot
+    if (SEP_RE.test(c)) { if (cur) { toks.push(cur); cur = null; } continue; }
+    if (!cur) cur = { mot: '', debut: i, fin: i };
+    cur.mot += c; cur.fin = i;
   }
-  const d = normaliser(debut), f = normaliser(fin || '');
-  const i0 = nu.indexOf(d);
-  if (i0 === -1) return null;
-  let i1;
-  if (f) { const k = nu.indexOf(f, i0 + d.length); if (k === -1) return null; i1 = k + f.length - 1; }
-  else i1 = i0 + d.length - 1;
-  // La dernière lettre emporte le nikoud qui la suit (« לוֹ », pas « לו »).
-  let fin2 = carte[i1];
-  while (fin2 + 1 < texte.length && /[\u0591-\u05C7]/.test(texte[fin2 + 1])) fin2++;
-  return texte.slice(carte[i0], fin2 + 1).trim();
+  if (cur) toks.push(cur);
+  return toks;
+}
+function clefs(mot) {
+  const nu = mot.replace(/[״׳"'’]/g, '');
+  return squelette(ABR_BORNES[nu] || nu).split(' ').filter(Boolean);
+}
+function sequenceComparable(toks) {
+  const cmp = [], proprio = [];
+  toks.forEach((t, j) => { for (const k of clefs(t.mot)) { cmp.push(k); proprio.push(j); } });
+  return { cmp, proprio };
+}
+function chercherSequence(cmp, motif, depuis = 0) {
+  if (!motif.length) return -1;
+  for (let i = depuis; i + motif.length <= cmp.length; i++) {
+    let ok = true;
+    for (let k = 0; k < motif.length; k++) if (cmp[i + k] !== motif[k]) { ok = false; break; }
+    if (ok) return i;
+  }
+  return -1;
+}
+export function extraire(texte, debut, fin) {
+  if (!debut) return null;
+  const toks = motsAvecPositions(String(texte || ''));
+  const { cmp, proprio } = sequenceComparable(toks);
+  const mD = sequenceComparable(motsAvecPositions(debut)).cmp;
+  const iD = chercherSequence(cmp, mD);
+  if (iD === -1) return null;
+  let iFinCmp = iD + mD.length - 1;
+  if (fin) {
+    const mF = sequenceComparable(motsAvecPositions(fin)).cmp;
+    const iF = chercherSequence(cmp, mF, iD + mD.length);
+    if (iF === -1) return null;
+    iFinCmp = iF + mF.length - 1;
+  }
+  const t0 = toks[proprio[iD]], t1 = toks[proprio[iFinCmp]];
+  return texte.slice(t0.debut, t1.fin + 1).trim();
 }
