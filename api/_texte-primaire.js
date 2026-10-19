@@ -229,6 +229,11 @@ export function blocTextePrimaire(ref, d, section) {
     (section === 'yoreh-deah'
       ? 'Les commentateurs (Chakh, Taz) et le Choul\'han Aroukh HaRav sur la niddah sont à ouvrir avec sefaria_get_text avant d\'être cités.'
       : `Le Choul'han Aroukh HaRav est à ouvrir séif par séif avec sefaria_get_text (Shulchan_Arukh_HaRav,_Orach_Chayim.${d.siman}.<séif>) avant d'être cité.`),
+    '',
+    'RÈGLES DE RÉDACTION — appliquées par le serveur, pas par toi :',
+    `1. Ne recopie jamais un passage hébreu : désigne-le, le serveur colle le texte exact de Sefaria. Écris [[cite:${ref}.1]] pour un séif entier, [[cite:${ref}.1|premiers mots…derniers mots]] pour un extrait — trois ou quatre mots de chaque bout, recopiés tels qu'ils apparaissent dans le texte ci-dessus, un seul « … » entre eux. Même syntaxe pour le Choul'han Aroukh HaRav (${section === 'yoreh-deah' ? "Shulchan_Arukh_HaRav,_Yoreh_De'ah" : 'Shulchan_Arukh_HaRav,_Orach_Chayim'}.${d.siman}.<séif>), le Beit Yossef, la Michna Beroura ou une guemara. Tout hébreu de quatre mots ou plus que tu taperais toi-même sera confronté aux sources ouvertes et marqué « non retrouvé » s'il n'y est pas.`,
+    '2. Ne nomme un décisionnaire (Rif, Rambam, Roch, Ran, Rachi, Tossafot…) que si un texte ouvert le nomme sur ce point ; sinon écris « יש אומרים ». Un nom absent des sources ouvertes sera marqué.',
+    '3. Réponds court : au plus 3 500 caractères hors citations collées, en trois parties — « Ce que dit le texte » (citations désignées, une ligne de traduction chacune), « Ce qu\'on en tire », puis une question pour développer un point. Aucun tableau de plus de cinq lignes.',
     '---',
   );
   return lignes.join('\n');
@@ -256,11 +261,14 @@ export async function chargerTextePrimaire({ messagesUtilisateur = [], question 
       url: 'https://www.sefaria.org/' + ref,
     }, partie);
     const complements = [];
+    const sources = [{ ref, texte: hebrew }];
     if (beitYosef && b && !b.error && Array.isArray(b.segments) && b.segments.length) {
       texte += '\n' + blocBeitYosef(beitYosef, b.segments, siman, partie);
       complements.push({ ref: beitYosef, type: 'beit-yosef' });
+      sources.push({ ref: beitYosef, texte: b.segments.join('\n') });
     }
-    return { siman, partie, ref, texte, complements };
+    // `sources` : les textes bruts, pour le filtre de livraison (api/_livraison.js)
+    return { siman, partie, ref, texte, complements, sources };
   } catch {
     return null;
   }
