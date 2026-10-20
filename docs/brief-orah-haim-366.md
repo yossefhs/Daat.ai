@@ -68,6 +68,13 @@ servies sur une URL morte.
 
 ### 0.2 Portes à étendre AVANT la production (sinon elles ne voient pas 366+)
 
+> **Fait le 20 octobre 2026** (commit 834212272) : `verify-oh-source.py`, `verifier-apercus.py`, `audit-simanim.py`,
+> `verifier-plan-limoud.py` lisent 366-407 ; le site connaît les sections `eruvin` et `techumin`. Reste au coordinateur,
+> à la publication de chaque lot : `assets/js/siman-nav.js`, le « suivant » du siman précédent, `api/progress.js`
+> (bornes 242-365), `scripts/extract-corpus.js` (clé de repli `dispoIds`), le catalogue statique `sources/shabbat/index*.html`,
+> `data/simanim/siman-N.json`, l'image de partage, `data/seifim-count.json`, `llms.txt`, `sitemap.xml`. Le tableau ci-dessous
+> est gardé pour mémoire.
+
 | Fichier:ligne | Aujourd'hui | À écrire |
 |---|---|---|
 | `scripts/verify-oh-source.py:191` | `("shabbat", range(242, 366))` | `range(242, 408)` (ou la borne du lot) |
