@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 4 seifim qui codifient l'autorisation d'éteindre la bougie Shabbat pour permettre à un malade de dormir. Application directe : שבות במקום חולה (relâchement rabbin
+La chitah de l'Admour HaZaken sur les 4 seifim qui codifient l'autorisation d'éteindre la bougie Shabbat pour permettre à un malade de dormir. Pour un malade sans danger, l'Admour HaZaken interdit d'éteindre.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 9 seifim qui codifient le statut de la bougie Shabbat : muktsé selon son état (allumée vs éteinte), distinction du chandelier, déplacement du plateau. Cadre conce
+La chitah de l'Admour HaZaken sur les 9 seifim qui codifient le statut de la bougie Shabbat : muktsé selon ce qu'elle était à bein ha-shemashot, distinction du chandelier. Cadre conceptuel : keli chemelakhto le-issour et bassis le-muktsé.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

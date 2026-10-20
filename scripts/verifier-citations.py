@@ -820,7 +820,11 @@ RE_DAF_HE = re.compile(
 RE_DAF_LAT = re.compile(
     r'\b(?P<mass>' + '|'.join(sorted((k for k in MASSEKHTOT if not re.search(r'[א-ת]', k)),
                                      key=len, reverse=True)) + r')\b'
-    r'[\s,]*\(?(?P<num>\d{1,3})\s*(?P<ab>[ab.:])', re.I)
+    # « . » et « : » ne marquent un amoud que s'ils ne sont pas suivis d'un chiffre : sans cette
+    # garde, « Chabbat (268:2) » — un séif du Choul'han Aroukh HaRav nommé après le mot Chabbat —
+    # se lisait Shabbat 268b, un folio qui n'existe pas, et une citation verbatim sortait en
+    # NON_RESOLU (simanim 268 et 279, octobre 2026) ; de même « Berakhot 6:1 » (Yerouchalmi, Michna).
+    r'[\s,]*\(?(?P<num>\d{1,3})\s*(?P<ab>[ab]|[.:](?!\d))', re.I)
 # Choulhan Aroukh : « OH 131:1 », « או״ח קל״א:א », « שו״ע י:א », « YD 89:1 »
 # « SAR OH 273:6 » est le Choulhan Aroukh HARAV, pas le Choulhan Aroukh. Sans ce
 # garde, le siman 273 — qui donne la bonne reference — sortait en REF_FAUSSE

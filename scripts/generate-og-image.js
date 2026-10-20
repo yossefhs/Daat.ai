@@ -76,7 +76,11 @@ function wrap(text, maxLen) {
 // -- Render a single OG image --
 function renderOG({ titleFr, titleHe, numberLabel, subtitle }) {
   const titleLines = wrap(titleFr, 28).slice(0, 3);
-  const subtitleLines = wrap(subtitle || '', 60).slice(0, 2);
+  // Deux lignes au plus ; si la phrase est coupée, la seconde finit par « … » (sans quoi le sous-titre
+  // s'arrêtait au milieu d'une proposition : « muktsé selon ce qu'elle », siman 279, octobre 2026).
+  const subtitleAll = wrap(subtitle || '', 60);
+  const subtitleLines = subtitleAll.slice(0, 2);
+  if (subtitleAll.length > 2) subtitleLines[1] = subtitleLines[1].replace(/[\s,;:.—-]+$/, '') + '…';
 
   // Le @import des Google Fonts contient des & qui cassent le parsing XML
   // → on l'enveloppe dans CDATA. Les bots OG (Facebook, Twitter, LinkedIn)

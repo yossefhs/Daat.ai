@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 18 seifim qui codifient les erreurs possibles dans la tefilla de Shabbat (Amida) — confusion entre semaine/Shabbat, oubli de Vaykhulu, oubli de Retsé. Cadre conce
+La chitah de l'Admour HaZaken sur les 18 seifim qui codifient les erreurs possibles dans la tefilla de Shabbat (Amida) — confusion entre semaine/Shabbat, oubli de Vaykhulu, omission de la mention du Chabbat. Cadre conceptuel complet.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 
