@@ -11,7 +11,14 @@ import { getClientIp } from './_http.js';
 import { SYSTEM_PROMPT, buildSystemPrompt } from './_system-prompt.js';
 import { SEFARIA_TOOLS, executeSefariaTool } from './_sefaria.js';
 import { CORPUS_TOOLS, executeCorpusTool, searchCorpus } from './_corpus.js';
-import { searchCorpus as searchShabbatCorpus, corpusCacheKey, CORPUS_CACHE_TTL, stripProfileBlock, profileSignature } from './_corpus-search.js';
+import { searchCorpusForRouting as searchShabbatCorpus, corpusCacheKey, CORPUS_CACHE_TTL, stripProfileBlock, profileSignature } from './_corpus-search.js';
+import { chargerTextePrimaire, cibleTextePrimaire } from './_texte-primaire.js';
+import { FiltreLivraison } from './_livraison.js';
+// searchCorpusForRouting = searchCorpus, SAUF quand la question nomme un siman :
+// les résultats sont alors restreints à CE siman, et le chemin court décline si
+// rien n'en ressort (voir le constat dans api/_corpus-search.js). Les trois voies
+// de routage ci-dessous passent par lui ; l'outil daat_search_corpus garde sa
+// propre recherche (le modèle y impose le siman explicitement).
 import { MAREH_MEKOMOT_TOOLS, executeMarehMekomotTool } from './_mareh_mekomot.js';
 import { getUserFromRequest, isAllowedOrigin } from './_auth.js';
 import { createHash } from 'node:crypto';
@@ -25,6 +32,7 @@ import {
 } from './_deepseek.js';
 import { RESERVE, urgenceFor } from './_reserve.js';
 import { detecteUrgenceVitale, CONSIGNE_URGENCE_MODELE } from './_urgence.js';
+import { reponseAccueil } from './_accueil.js';
 import { dateContextBlock } from './_date.js';
 
 const client = new Anthropic();
@@ -59,6 +67,13 @@ const MAX_TOKENS_OUTPUT = parseInt(process.env.MAX_TOKENS_OUTPUT || '8192', 10);
 // Cap output pour la SYNTHÈSE FORCÉE : doit rester assez haut pour une réponse
 // complète (l'ancien 1500 tronquait les réponses halakhiques détaillées).
 const FORCED_SYNTHESIS_MAX_TOKENS = parseInt(process.env.FORCED_SYNTHESIS_MAX_TOKENS || String(MAX_TOKENS_OUTPUT), 10);
+// Réponse de niveau lamdan (texte primaire chargé) : PAS de plafond réduit par
+// défaut. Essayé à 3 000 le 19/10 : la réflexion adaptative d'Opus consomme le
+// budget et deux réponses sur douze sont sorties vides (stop_reason max_tokens
+// avant le premier mot). La longueur a baissé partout ailleurs grâce aux règles
+// de rédaction du bloc primaire, pas grâce au plafond. Variable gardée pour
+// expérimenter, à la même valeur que le plafond général.
+const MAX_TOKENS_LAMDAN = parseInt(process.env.MAX_TOKENS_LAMDAN || String(MAX_TOKENS_OUTPUT), 10);
 const HISTORY_TURNS = 16;       // 16 derniers tours (plus de contexte = meilleure réponse)
 
 // La fonction api/chat.js a maxDuration: 300 (Vercel Pro) dans vercel.json.
@@ -118,7 +133,7 @@ const META_PATTERNS = new RegExp('^(?:' + [
   'yasher koah', 'yaacher koah',
   // Identité / capacités
   'qui (?:es|est)[- ]?tu', '(?:tu es|t es|vous etes) qui', 'tu es quoi',
-  "c est quoi (?:daat|daat torah|ce site|ce chat)", 'presente toi', 'tu sers a quoi',
+  "c est quoi (?:daat|daat torah|ce site|ce chat)", 'presente[- ]toi', 'tu sers a quoi',
   'que sais[- ]?tu faire', 'qu est[- ]?ce que tu sais faire', 'tu fais quoi',
   'qui te supervise', 'tu es une ia', 'tu es un robot',
   // Fonctionnement
@@ -144,8 +159,19 @@ function isConversationalMeta(text) {
 }
 
 function pickModel(messages, hint, plan, previewUsed, aperçuBlocked, forceOpus) {
-  // Hint explicite du client (ex: depuis une page Lamdan/Synthèse) — gagne toujours
-  if (hint === 'opus' || hint === 'sonnet' || hint === 'haiku') return MODELS[hint];
+  // Un hint du client ne peut pas OUVRIR un droit — il ne peut que demander moins
+  // cher. Auparavant `hint === 'opus'` rendait Opus avant TOUTE vérification de
+  // plan : n'importe quel appelant de /api/chat obtenait Opus en ajoutant
+  // model_hint:"opus" au corps, sans passer par le plafond de l'Aperçu Premium
+  // (PREVIEW_OPUS_LIMIT) ni par un abonnement. Vérifié : aucune page du site
+  // n'envoie ce champ — le commentaire d'origine (« ex: depuis une page
+  // Lamdan/Synthèse ») décrivait une intention, pas un usage. La profondeur des
+  // pages d'étude est déjà couverte par les mots-clés Opus du point 6
+  // ('lamdan', 'synthèse', 'machloket'…), donc rien ne se dégrade.
+  if (hint === 'haiku' || hint === 'sonnet') return MODELS[hint];
+  // Une demande d'Opus est traitée comme une DEMANDE : elle est honorée plus bas
+  // si le plan ou l'Aperçu y donnent droit, et ignorée sinon.
+  const opusHint = hint === 'opus';
 
   const lastUser = [...messages].reverse().find(m => m.role === 'user');
   const text = (lastUser?.content || '').toString().trim();
@@ -183,6 +209,12 @@ function pickModel(messages, hint, plan, previewUsed, aperçuBlocked, forceOpus)
     // Aperçu : Opus en effort 'medium' (TTFB plus court). Les abonnés payants
     // gardent 'high' (promesse « payant = profondeur Opus complète »).
     return { ...MODELS.opus, _aperçu: true, effort: 'medium' };
+  }
+
+  // 4 bis. Demande d'Opus sans droit : on la trace et on suit le routage normal
+  // (les mots-clés du point 6 peuvent encore donner Opus, légitimement).
+  if (opusHint) {
+    console.log(`[chat.js] model_hint=opus non honoré : plan=${plan} previewUsed=${previewUsed} aperçuBlocked=${aperçuBlocked} → routage normal`);
   }
 
   // 5. Khavroutha : Opus sur halakhique pointu uniquement
@@ -322,7 +354,11 @@ function genGuestId() {
 // exact-match en KV. Un hit = 0 token LLM. TTL 14j (assez stable, refresh régulier).
 // Version dans la clé : bumper METÀ_CACHE_VERSION invalide tout le cache d'un coup
 // (utile si on change le ton/contenu des réponses méta dans le system prompt).
-const META_CACHE_VERSION = 'v1';
+// v2 (30/09/2026) : purge des réponses méta générées puis figées 14 jours — dont
+// « Shalom ! Rav de te retrouver ici. » servi à chaque « Bonjour ». Les messages
+// d'accueil sont désormais ÉCRITS (api/_accueil.js) et ne passent plus par ce
+// cache ; il ne reste qu'un repli, qui ne doit pas pouvoir resservir l'ancien.
+const META_CACHE_VERSION = 'v2';
 const META_CACHE_TTL = 14 * 24 * 60 * 60;
 function metaCacheKey(text) {
   const norm = String(text || '')
@@ -939,7 +975,12 @@ async function tryCorpusRescue({ req, res, messages, section, userId, isGuest, p
     console.error('[chat.js] corpus rescue search error:', err?.message || err);
     return false;
   }
-  if (!cs || cs.results.length === 0) return false;
+  if (!cs || cs.results.length === 0) {
+    if (cs?.declinedNamedSiman) {
+      console.log(`[chat.js] corpus RESCUE décliné : la question nomme le siman ${cs.declinedNamedSiman}, aucun extrait de CE siman au-dessus de la barre`);
+    }
+    return false;
+  }
   console.log(`[chat.js] corpus RESCUE (${scope}): ${userId} plan=${plan} → siman-${cs.results[0].siman}`);
   return serveCorpusAnswer({
     req, res, cs, section,
@@ -1239,6 +1280,43 @@ export default async function handler(req, res) {
     });
     res.write(`data: ${rateInfoPayload}\n\n`);
 
+    // ── Accueil ÉCRIT : salutations, remerciements, « qui es-tu », « ça marche comment » ──
+    // Texte fixe, aucun modèle (voir api/_accueil.js). Passe AVANT le cache et
+    // avant DeepSeek : une phrase fautive restée en cache ne peut plus être servie
+    // pour ces messages.
+    // L'accueil NE COMPTE PAS dans les quotas (décision du Rav, 30/09/2026) : un
+    // visiteur anonyme a trois questions par mois, et « Bonjour » puis « merci »
+    // lui en prenaient deux sans qu'il ait rien demandé. Une salutation n'est pas
+    // une question, et elle ne coûte rien.
+    if (model._meta) {
+      const lastUserText = trimmedMessages[trimmedMessages.length - 1].content;
+      const accueil = reponseAccueil(lastUserText, { declared: req.body?.lang, referer: req.headers.referer });
+      if (accueil) {
+        const CHUNK = 24;
+        for (let i = 0; i < accueil.texte.length; i += CHUNK) {
+          res.write(`data: ${JSON.stringify({ type: 'text', delta: accueil.texte.slice(i, i + CHUNK) })}\n\n`);
+        }
+        res.write(`data: ${JSON.stringify({
+          type: 'done', stop_reason: 'end_turn', iterations: 1,
+          usage: { input_tokens: 0, output_tokens: 0 }, provider: 'accueil-statique',
+          // rate_info a déjà annoncé « count + 1 » au client, avant de savoir que
+          // ce message ne serait pas compté : on lui rend la jauge RÉELLE, comme
+          // le fait le chemin du corpus. Le widget relit month_remaining ici.
+          quota_consumed: false,
+          month_remaining: Math.max(0, monthLimit - currentMonthCount),
+        })}\n\n`);
+        try {
+          // Ni rateKey ni monthRateKey : l'accueil ne consomme aucun quota.
+          await kv.sadd('users:known', userId);
+          console.log(`[chat.js] accueil statique (${accueil.famille}/${accueil.lang}): ${userId}`);
+        } catch (err) {
+          console.error('[chat.js] accueil statique tracking error:', err?.message || err);
+        }
+        res.end();
+        return;
+      }
+    }
+
     // ── Cache méta-réponses : exact-match KV avant tout appel LLM ──
     // Les méta-questions sont des premiers messages courts (cf. isMetaQuestion),
     // donc zéro contexte conversationnel → une réponse cachée est toujours valide.
@@ -1370,11 +1448,22 @@ export default async function handler(req, res) {
     // (PR #161, gain de latence) combiné à la hausse des scores de recherche
     // (PR #191) faisait intercepter massivement ces questions par le chemin
     // court — donc SANS les garde-fous introduits après l'incident borer.
+    // Lamdan + siman nommé : JAMAIS le chemin court. Le texte primaire (Mehaber
+    // chargé par le serveur, api/_texte-primaire.js) n'existe que sur le chemin
+    // agentique ; une reformulation Haiku d'un extrait du site est précisément
+    // ce qui a produit l'erreur du 18/10 sur le 253. Relecture Codex : sans ce
+    // garde, un lamdan gratuit routé Sonnet était servi ici, avant le texte.
+    const cibleLamdan = cibleTextePrimaire({
+      messagesUtilisateur: (messages || []).filter((m) => m && m.role === 'user').map((m) => String(m.content || '')),
+      question: String((([...trimmedMessages].reverse().find((m) => m.role === 'user')) || {}).content || ''),
+      section,
+    });
     if (
       !model._meta &&
       !model._aperçu &&
       !urgence.urgent &&
       model.id !== MODELS.opus.id &&
+      !cibleLamdan &&
       !SUBSCRIBER_PLANS.has(plan) &&
       process.env.CORPUS_FIRST_ENABLED !== 'false'
     ) {
@@ -1394,6 +1483,12 @@ export default async function handler(req, res) {
         }
       }
 
+      if (cs?.declinedNamedSiman) {
+        // La question DÉSIGNE un siman : plutôt que de servir l'extrait d'un autre
+        // siman (et de laisser le modèle conclure que celui-ci n'est pas couvert),
+        // on laisse le chemin agentique ouvrir plusieurs seifim de CE siman.
+        console.log(`[chat.js] corpus-first décliné : question sur le siman ${cs.declinedNamedSiman}, aucun extrait de CE siman → chemin agentique`);
+      }
       if (cs && cs.results.length > 0) {
         const served = await serveCorpusAnswer({
           req, res, cs, section, lastUserText, userId, isGuest, plan,
@@ -1457,6 +1552,58 @@ export default async function handler(req, res) {
         content: [{ type: 'text', text: CONSIGNE_URGENCE_MODELE + originalText }],
       };
     }
+
+    // Texte primaire OBLIGATOIRE (niveau Lamdan + siman nommé) : le serveur lit le
+    // Mehaber sur Sefaria et le place dans le dernier message AVANT que le modèle
+    // n'écrive un mot — une règle de code, pas une consigne. Constat du 18/10/2026
+    // sur le siman 253 (opinions inversées, « תישוי », séif כ״ט coupé) : le modèle
+    // avait lu des traductions du site et reconstruit l'hébreu de mémoire.
+    // Jamais en urgence vitale (la consigne de danger prime et doit rester seule en
+    // tête), jamais sur le chemin méta. Un échec Sefaria rend null : la réponse
+    // part sans ce filet, elle n'est jamais bloquée. Voir api/_texte-primaire.js.
+    // Déclaré ICI, hors du bloc : le filtre de livraison le lit plus bas, sur
+    // tous les chemins (relecture Codex #284 : un const dans le if lançait une
+    // ReferenceError sur chaque réponse agentique).
+    let textePrimaire = null;
+    if (!urgence.urgent && !model._meta) {
+      textePrimaire = await chargerTextePrimaire({
+        messagesUtilisateur: (messages || []).filter(m => m && m.role === 'user').map(m => String(m.content || '')),
+        question: lastUserText || '',
+        section,
+        urgent: urgence.urgent,
+      });
+      if (textePrimaire) {
+        const lastIdx = conversation.length - 1;
+        const last = conversation[lastIdx];
+        const originalText = last.content.map(b => b.text || '').join('');
+        conversation[lastIdx] = {
+          role: 'user',
+          content: [{ type: 'text', text: originalText + textePrimaire.texte }],
+        };
+        // Même événement que les outils appelés par le modèle : le widget et les
+        // bancs d'audit voient que le Mehaber a été ouvert, et par qui.
+        const charges = [
+          { ref: textePrimaire.ref, raison: 'texte primaire obligatoire (lamdan + siman nommé)' },
+          ...(textePrimaire.complements || []).map((c) => ({ ref: c.ref, raison: 'Beit Yossef : la question demande les opinions' })),
+        ];
+        for (const c of charges) {
+          res.write(`data: ${JSON.stringify({
+            type: 'tool_use',
+            tool: 'sefaria_get_text',
+            input: { ref: c.ref, par: 'serveur', raison: c.raison },
+          })}\n\n`);
+        }
+        console.log(`[texte-primaire] siman ${textePrimaire.siman} chargé pour le modèle (${charges.map((c) => c.ref).join(' + ')})`);
+      }
+    }
+
+    // Livraison vérifiée (api/_livraison.js) : sur le chemin lamdan, le modèle
+    // désigne ses citations et le serveur colle le texte ; chaque paragraphe est
+    // contrôlé au passage (hébreu libre, décisionnaires nommés) avant d'être
+    // livré, et un pied dit au lecteur ce qui a été vérifié. Ailleurs : null.
+    const livraison = textePrimaire
+      ? new FiltreLivraison({ sources: textePrimaire.sources || [], lang: resolveLang(req.body?.lang, lastUserText || '') })
+      : null;
 
     if (deepSeekAvailable() && !model._meta && !skipPreRag) {
       if (lastUserText && lastUserText.length >= 30) {
@@ -1593,7 +1740,7 @@ export default async function handler(req, res) {
 
       const streamParams = {
         model: iterModel.id,
-        max_tokens: forceSynthesis ? FORCED_SYNTHESIS_MAX_TOKENS : MAX_TOKENS_OUTPUT,
+        max_tokens: forceSynthesis ? FORCED_SYNTHESIS_MAX_TOKENS : (livraison ? MAX_TOKENS_LAMDAN : MAX_TOKENS_OUTPUT),
         tools: ALL_TOOLS,
         system: [
           {
@@ -1633,7 +1780,13 @@ export default async function handler(req, res) {
           if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
             iterHadText = true;
             anyTextSent = true;
-            res.write(`data: ${JSON.stringify({ type: 'text', delta: event.delta.text })}\n\n`);
+            if (livraison) {
+              // Un paragraphe à la fois : citations collées, hébreu libre et noms contrôlés.
+              const pret = await livraison.pousser(event.delta.text);
+              if (pret) res.write(`data: ${JSON.stringify({ type: 'text', delta: pret })}\n\n`);
+            } else {
+              res.write(`data: ${JSON.stringify({ type: 'text', delta: event.delta.text })}\n\n`);
+            }
           }
         }
 
@@ -1695,6 +1848,7 @@ export default async function handler(req, res) {
           })}\n\n`);
         }
 
+        if (livraison) livraison.ajouterResultats(toolUses, toolResults);
         conversation.push({ role: 'user', content: toolResults });
 
       } catch (err) {
@@ -1702,6 +1856,11 @@ export default async function handler(req, res) {
           stopReason = 'end_turn';
           console.log(`[chat.js] hard abort caught — iterHadText=${iterHadText}, elapsed=${Date.now() - startedAt}ms`);
           // Ne JAMAIS terminer en silence : l'utilisateur doit toujours voir quelque chose.
+          if (livraison && !livraison.clos) {
+            livraison.clos = true;
+            const reste = await livraison.terminer().catch(() => '');
+            if (reste) res.write(`data: ${JSON.stringify({ type: 'text', delta: reste })}\n\n`);
+          }
           if (!anyTextSent) {
             res.write(`data: ${JSON.stringify({
               type: 'text',
@@ -1728,6 +1887,12 @@ export default async function handler(req, res) {
     // finale (« mais be-di'avad… », « c'est à ton Rav de trancher ») arrive à la
     // FIN. Une troncature silencieuse transforme une réponse nuancée en psak
     // tranché. Même logique que le chemin corpus, qui avertit déjà.
+    if (livraison && !livraison.clos) {
+      livraison.clos = true;
+      const fin = await livraison.terminer().catch(() => '');
+      if (fin) res.write(`data: ${JSON.stringify({ type: 'text', delta: fin })}\n\n`);
+    }
+
     if (stopReason === 'max_tokens') {
       res.write(`data: ${JSON.stringify({
         type: 'text',
