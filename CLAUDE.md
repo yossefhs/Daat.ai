@@ -137,6 +137,10 @@ python3 scripts/verifier-citations.py --path sources/shabbat/siman-297
 #     motivé, faite par sabotage par un arbitre (commit b9845687) : quand seule la recherche
 #     plein-texte tombait, l'ancienne porte rendait 8 INTROUVABLE FICTIVES — des accusations de
 #     fabrication nées d'une panne d'index.
+#   · « Chabbat (268:2) » — un séif du Choul'han Aroukh HaRav nommé après le mot Chabbat — se lisait comme le
+#     folio Shabbat 268b (RE_DAF_LAT) : « . » ou « : » suivi d'un chiffre n'est plus pris pour un amoud. Mesuré
+#     le 20 octobre 2026 sur tout le site, trois langues, avant/après sur les mêmes pages : deux verdicts changent
+#     — les deux NON_RESOLU faux des simanim 268 et 279 —, tous les autres sont identiques.
 #   · Elle tourne en FRANÇAIS par défaut : son CSV ne couvre qu'UNE langue sur trois. Sur les onze
 #     verdicts graves de Chabbat, dix existaient à l'identique en -he et -en. --langues fr,he,en.
 #   · La פתיחה non numérotée décale la Michna Beroura aux simanim 69, 178, 211 (Orah Haïm) et
