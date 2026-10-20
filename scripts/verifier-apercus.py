@@ -3,7 +3,8 @@
 quand le séif est fermé — au texte source de son bloc.
 
 Usage :
-  python3 scripts/verifier-apercus.py                 # Orah Haïm (1-241) et Chabbat (242-365), les trois langues
+  python3 scripts/verifier-apercus.py                 # Orah Haïm et Chabbat et suivants, les trois langues : les simanim
+                                                      # que lit verify-oh-source.py --tous (a_lire(), dérivé du disque)
   python3 scripts/verifier-apercus.py 76 186 301      # simanim nommés
   python3 scripts/verifier-apercus.py --section shabbat
   options : --bref (le décompte seul) · --lignes (chaque aperçu non conforme, avec le début de son séif) ·
@@ -309,13 +310,24 @@ def classer(apercu, txt, rang):
 
 # ---------------------------------------------------------------- balayage
 
-def pages(simanim):
+def pages(simanim, illisibles=None):
+    """Les pages niveau 4 des simanim demandés. Un siman hors des sections connues de verify-oh-source.py, ou une
+    page absente, est rangé dans `illisibles` (code 3) : jamais un TypeError, jamais ignoré en silence. (Le 20 octobre
+    2026, `verifier-apercus.py 366` levait un TypeError : section_de() rendait None pour tout siman au-delà de 365.)
+    Sans `illisibles` (fix-apercus.py, qui appelle pages([n]) siman par siman), ils sont seulement écartés."""
+    if illisibles is None:
+        illisibles = []
     for n in simanim:
         sec = V.section_de(n)
+        if sec is None:
+            illisibles.append((n, "—", f"hors des sections connues ({V.libelle_sections()})"))
+            continue
         for lang, suf in V.LANGS:
             p = os.path.join(ROOT, "sources", sec, f"siman-{n}", f"niveau-4-daat-harav{suf}.html")
             if os.path.exists(p):
                 yield n, lang, p
+            else:
+                illisibles.append((n, lang, f"page absente : {os.path.relpath(p, ROOT)}"))
 
 
 def main(argv):
@@ -328,18 +340,24 @@ def main(argv):
             return 3
         json_out = argv[k + 1]
     nums = [int(a) for a in argv if a.isdigit() and a != json_out]
+    recs, illisibles = [], []
     if "--section" in argv:
         k = argv.index("--section")
         sec = argv[k + 1] if k + 1 < len(argv) else ""
-        rng = dict(V.SECTIONS).get(sec)
-        if rng is None:
-            print(f"section inconnue : {sec} (orah-haim, shabbat)")
+        if sec not in dict(V.SECTIONS):
+            print(f"section inconnue : {sec} ({', '.join(s_ for s_, _r in V.SECTIONS)})")
             return 3
-        nums = list(rng)
-    simanim = nums or [n for _s, r in V.SECTIONS for n in r]
+        nums = V.a_lire([sec])
+        # comme verify-oh-source.py --section : un répertoire de la section qu'elle ne sait pas confronter est déclaré
+        for chemin, raison in V.hors_porte([sec]):
+            illisibles.append((0, "—", f"PAGE HORS PORTE {chemin} — {raison}"))
+    elif not nums:
+        # la passe complète : ce que lit verify-oh-source.py --tous, et tout répertoire qu'elle ne sait pas confronter
+        for chemin, raison in V.hors_porte():
+            illisibles.append((0, "—", f"PAGE HORS PORTE {chemin} — {raison}"))
+    simanim = nums or V.a_lire()
 
-    recs, illisibles = [], []
-    for n, lang, p in pages(simanim):
+    for n, lang, p in pages(simanim, illisibles):
         try:
             blocs = lire(p)
         except Exception as e:                  # une page illisible n'est jamais une page conforme
@@ -405,7 +423,14 @@ def main(argv):
             print(f"   aperçu : {ap}")
             print(f"   séif   : {r['debut_seif']} …")
     for n, lang, e in illisibles:
-        print(f"⛔ siman {n} ({gematria(n)}) {lang} : page illisible — {e}")
+        if not n:                               # un répertoire hors porte, sans siman confrontable
+            print(f"⛔ {e}")
+            continue
+        try:
+            heb = gematria(n)
+        except IndexError:                      # à partir de 500, la table HUNS s'arrête à ת : le siman reste nommé
+            heb = "—"
+        print(f"⛔ siman {n} ({heb}) {lang} : page illisible — {e}")
 
     if illisibles or not confrontes:
         print("\n⛔ APERÇUS : " + ("pages illisibles — rien n'est conclu pour elles" if illisibles

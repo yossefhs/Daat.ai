@@ -202,13 +202,18 @@ async function generateForSiman(filepath) {
   const titleFr = data.titleFr;
   const numberLabel = `Siman ${simanNum} · ${data.numberHe || ''}`;
   
-  // Récupérer le nombre de seifim du Mehaber depuis data/seifim-count.json
+  // Récupérer le nombre de seifim du Mehaber depuis data/seifim-count.json, produit par
+  // scripts/generer-seifim-count.py et STRUCTURÉ PAR OUVRAGE : {"orach-chayim": {"N": k}}.
+  // La clé lue jusqu'au 20 octobre 2026, `shabbat_N` → `.shulchan_arukh`, n'a jamais existé
+  // dans ce fichier : le sous-titre « N seifim » de l'image Base ne s'affichait pour aucun
+  // siman. Les fichiers de data/simanim/ sont tous d'Orah Haïm (Yoré Déa vit sous
+  // data/simanim/yoreh-deah/, que getSimanFiles() ne lit pas).
   let nbSeifimMehaber = null;
   const seifsPath = resolve(ROOT, 'data', 'seifim-count.json');
   if (existsSync(seifsPath)) {
     const seifsData = JSON.parse(readFileSync(seifsPath, 'utf8'));
-    const key = `shabbat_${simanNum}`;
-    nbSeifimMehaber = seifsData[key]?.shulchan_arukh || null;
+    const k = seifsData['orach-chayim']?.[String(simanNum)];
+    nbSeifimMehaber = Number.isInteger(k) && k > 0 ? k : null;
   }
   
   // Vérifier si c'est un siman-passerelle (304, 322)

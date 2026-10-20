@@ -2,7 +2,8 @@
 """
 DAAT — Générateur de représentations Markdown des simanim, pour indexation LLM.
 
-Pour chaque siman 242-365, produit :
+Pour chaque siman de sources/shabbat/ (242-365, puis la suite d'Orah Haïm servie
+sous /oh/N : sections « eruvin » 366-395 et « techumin » 396-407 du catalogue), produit :
   sources/shabbat/siman-N/index.md
 
 Ce fichier est une représentation Markdown compacte de la page index du siman :
@@ -17,9 +18,16 @@ le même contenu pour les mêmes données d'entrée.
 
 Sources :
 - data/simanim/siman-N.json (titres FR/HE, description, sous-titre)
-- data/limoud-simanim-catalog.json (titres EN, numHe)
-- data/simanim-disponibles.json / -he.json / -en.json (présence par niveau)
+- data/limoud-simanim-catalog.json (titres EN, numHe) — 242-365 seulement
+- data/simanim-disponibles.json / -he.json / -en.json (présence par niveau ; et,
+  pour un siman absent du catalogue limoud, titres, numHe et section)
 - data/reference/choulhan-aroukh-oh-242-365.json (texte hébreu officiel)
+- data/seifim-count.json (nombre de séifim, seulement à défaut du fichier de référence)
+
+Un siman absent de data/limoud-simanim-catalog.json (366 et au-delà) est pris dans
+data/simanim-disponibles.json, sans toucher au catalogue limoud — qui pilote le plan
+d'étude et ne doit pas l'absorber. Faute de texte de référence au-delà de 365, son
+.md n'a pas de section « Texte du Mehaber — Séif 1 ».
 
 Particularités :
 - Simanim 304 et 322 : pas de Niveau 4 (bridge — l'Admour HaZaken ne les
@@ -48,6 +56,15 @@ BASE_URL = "https://daattorah.com"
 SEFARIA_BASE = "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim"
 
 BRIDGE_SIMANIM = {304, 322}
+
+# Libellé de la ligne « > Choulhan Aroukh, Orah Haïm, … » selon la section du catalogue
+# (scripts/generate-simanim-index.js). Libellé de section du site, non découpe des הלכות.
+SECTION_LABELS = {
+    "shabbat": "Hilkhot Shabbat",
+    "eruvin": "Hilkhot Érouvin",
+    "techumin": "Hilkhot Te'houmin",
+}
+SECTIONS_OH = set(SECTION_LABELS)
 
 # ---------------------------------------------------------------------------
 # Data loading
@@ -84,13 +101,41 @@ def build_index() -> dict[int, dict[str, Any]]:
             "titleFrAlt": s.get("title", ""),
             "titleEnAlt": s.get("titleEn", ""),
             "titleHeAlt": s.get("titleHe", ""),
+            "section": "shabbat",
         }
 
-    # Levels from FR disponibles file
+    # Simanim servis sous /oh/N mais absents du catalogue limoud (366 et au-delà) :
+    # titres, numHe et section depuis data/simanim-disponibles.json.
+    for s in disp_fr["simanim"]:
+        n = s["num"]
+        if n in index or s.get("section") not in SECTIONS_OH:
+            continue
+        if not str(s.get("path", "")).startswith("sources/shabbat/"):
+            continue
+        index[n] = {
+            "num": n,
+            "numHe": s.get("numHe", ""),
+            "titleFr": s.get("title", ""),
+            "titleEn": s.get("titleEn", ""),
+            "titleHe": s.get("titleHe", ""),
+            "totalSeifim": 0,
+            "levels": {"n1": False, "n2": False, "n3": False, "n4": False},
+            "description": "",
+            "subtitle": "",
+            "seif1Raw": "",
+            "titleFrAlt": s.get("title", ""),
+            "titleEnAlt": s.get("titleEn", ""),
+            "titleHeAlt": s.get("titleHe", ""),
+            "section": s["section"],
+        }
+
+    # Levels (and section) from FR disponibles file
     for s in disp_fr["simanim"]:
         n = s["num"]
         if n in index:
             index[n]["levels"] = dict(s.get("levels", {}))
+            if s.get("section") in SECTIONS_OH:
+                index[n]["section"] = s["section"]
 
     # Reference text (séif 1)
     simanim_ref = reference.get("simanim", {})
@@ -101,6 +146,16 @@ def build_index() -> dict[int, dict[str, Any]]:
             entry["seifimCount"] = len(ref)
         else:
             entry["seifimCount"] = 0
+
+    # À défaut du fichier de référence (qui s'arrête à 365) : le compte de Sefaria
+    # tiré par scripts/generer-seifim-count.py, structure {"orach-chayim": {"N": k}}.
+    counts_path = DATA / "seifim-count.json"
+    oc_counts = load_json(counts_path).get("orach-chayim", {}) if counts_path.exists() else {}
+    for n, entry in index.items():
+        if not entry["seifimCount"]:
+            k = oc_counts.get(str(n))
+            if isinstance(k, int) and k > 0:
+                entry["seifimCount"] = k
 
     # Per-siman JSON (description, subtitle, sometimes better titles)
     for n in index:
@@ -240,7 +295,8 @@ def render_md(entry: dict[str, Any]) -> str:
     out: list[str] = []
     out.append(f"# Siman {n} — {title_fr}")
     out.append("")
-    out.append(f"> Choulhan Aroukh, Orah Haïm, Hilkhot Shabbat — Siman {n} ({num_he})")
+    section_label = SECTION_LABELS.get(entry.get("section", "shabbat"), "Hilkhot Shabbat")
+    out.append(f"> Choulhan Aroukh, Orah Haïm, {section_label} — Siman {n} ({num_he})")
     out.append("")
     out.append(f"- **Français :** {title_fr}")
     if title_he:

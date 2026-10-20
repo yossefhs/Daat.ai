@@ -421,7 +421,8 @@ const NON_TOPICAL = new Set([
 //
 // `daily: true` marque les sujets qui appartiennent à la journée du juif
 // (Orah Haïm 1-185). Ils servent de PREUVE POSITIVE qu'une question ne porte pas
-// sur Shabbat, et déclenchent alors le déclassement des simanim 242-365.
+// sur Shabbat, et déclenchent alors le déclassement des simanim 242-407
+// (SHABBAT_DOMAIN_MIN/MAX : Chabbat, puis Érouvin et Te'houmin).
 const ANCHOR_FAMILIES = [
   // ── Orah Haïm quotidien ──
   { daily: true,  forms: ['tefilin', 'תפילין', 'תפלין', 'phylacteres', 'phylacteries'] },
@@ -814,6 +815,18 @@ const GATE_MIN_DF = parseInt(process.env.GATE_MIN_DF || '3', 10);
 // Facteur appliqué au score d'un siman de Hilkhot Shabbat quand la question ne
 // porte aucun marqueur de Shabbat. 1 = garde-fou désactivé, 0 = exclusion pure.
 const SHABBAT_PENALTY = parseFloat(process.env.CORPUS_SHABBAT_PENALTY || '0.35');
+// Étendue du « domaine Chabbat » que vise ce déclassement : Hilkhot Shabbat (242-365)
+// ET la suite servie sous /oh/ — sections « eruvin » (366-395) et « techumin »
+// (396-407) du catalogue —, dont les lois ne s'appliquent elles aussi qu'à Chabbat.
+// Une question du quotidien ne doit pas plus être servie par un siman d'érouv que
+// par un siman de borer. L'inverse vaut aussi : étendre la borne SANS les mots de
+// l'érouv et du te'houm aurait déclassé, sur « Can I carry with an eruv to go to shul
+// for tefila? » ou « le te'houm pour aller à la tefila », les simanim mêmes qui y
+// répondent (« eruv » et « tehoum » n'étaient pas des marqueurs ; « tefila » est une
+// famille du quotidien). D'où les graphies ajoutées à SHABBAT_MARKERS et תחום à
+// SHABBAT_MARKERS_HE, dans le même changement.
+const SHABBAT_DOMAIN_MIN = 242;
+const SHABBAT_DOMAIN_MAX = 407;
 
 // Mots qui situent une question à Shabbat. Volontairement LARGE (mieux vaut
 // laisser passer une question du quotidien vers Shabbat que l'inverse).
@@ -828,6 +841,10 @@ const SHABBAT_MARKERS = new Set([
   // tombait sur le siman 45 au lieu du 319.
   'shabbath','shabbes','chabbes','shabath','chabos','shabbatot','chabbatoth',
   'shabes','sabbath',
+  // Érouvin et Te'houmin (sections « eruvin » et « techumin », 366-407, servies sous
+  // /oh/ avec Chabbat) : graphies du tokeniseur (« érouv » → erouv, « te'houm » → tehoum).
+  'eruv','eiruv','eruvin','eiruvin','erouvin','eirouvin',
+  'tehoum','tehoumin','techum','techumin','techoum','tehum','tehumin','tchoum',
 ]);
 
 // Graphies HÉBRAÏQUES. Un Set de tokens ne peut pas suffire : le tokeniseur garde
@@ -835,7 +852,7 @@ const SHABBAT_MARKERS = new Set([
 // RADICAL sur la chaîne. chat-he.html poste sur le même /api/chat : sans cela,
 // toute question de Shabbat posée en hébreu était traitée comme hors-Shabbat.
 const SHABBAT_MARKERS_HE =
-  /[בלמהוכש]{0,2}(?:שבת|מלאכ|מוקצ|בורר|בישול|הטמנ|הבדל|קידוש|עירוב|פלטה|מוצאי)/;
+  /[בלמהוכש]{0,2}(?:שבת|מלאכ|מוקצ|בורר|בישול|הטמנ|הבדל|קידוש|עירוב|פלטה|מוצאי|תחום)/;
 
 // ── Nettoyage du bloc de profil injecté par les interfaces ──────────────────
 // Le widget ET les trois pages de chat plein écran préfixent la 1re question
@@ -1037,7 +1054,7 @@ export function searchCorpus(question, opts = {}) {
     // mauvaise réponse contre une non-réponse. Le déclassement garde le siman de
     // Shabbat atteignable quand RIEN d'autre ne répond, tout en le faisant perdre
     // systématiquement face à un vrai match du domaine de la question.
-    if (s > 0 && !shabbatQ && otherDomainQ && c.section === 'orach-chaim' && +c.siman >= 242 && +c.siman <= 365) {
+    if (s > 0 && !shabbatQ && otherDomainQ && c.section === 'orach-chaim' && +c.siman >= SHABBAT_DOMAIN_MIN && +c.siman <= SHABBAT_DOMAIN_MAX) {
       s *= SHABBAT_PENALTY;
     }
     if (s >= minScore) scored.push({ chunk: c, score: s });

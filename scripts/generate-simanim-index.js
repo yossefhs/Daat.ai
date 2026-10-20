@@ -3,7 +3,8 @@
  * DAAT — Générateur de data/simanim-disponibles.json (v2.1, section-aware)
  *
  * Scanne sources/{shabbat,orah-haim,yoreh-deah} et produit l'index complet
- * avec sections : shabbat · oh-quotidien · yoreh-deah · nida (≥183).
+ * avec sections : shabbat · eruvin (366-395) · techumin (396-407) · oh-quotidien ·
+ * yoreh-deah · nida (183-200).
  *
  * IMPORTANT : fusionne avec le JSON existant — les champs title/titleHe/titleEn/numHe
  * déjà présents sont conservés si l'extraction HTML échoue (protection contre les
@@ -19,9 +20,35 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 const OUTPUT = path.join(ROOT, 'data', 'simanim-disponibles.json');
 
+const HORS_SECTION = [];
+function sectionOh(num) {
+  if (num >= 396 && num <= 407) return 'techumin';
+  if (num >= 366 && num <= 395) return 'eruvin';
+  if (num < 242 || num > 407) HORS_SECTION.push(num);
+  return 'shabbat';
+}
+
 // (répertoire physique, section par défaut, fonction section par numéro)
 const SOURCES = [
-  { dir: 'shabbat', section: () => 'shabbat' },
+  // Le répertoire sources/shabbat/ porte aussi la suite d'Orah Haïm (URL /oh/N, routes
+  // génériques de vercel.json). La section du CATALOGUE se décide au numéro, comme la
+  // borne nida : « eruvin » pour 366-395, « techumin » pour 396-407, « shabbat » pour le
+  // reste (242-365). Ce sont des libellés de section du site, non une découpe affirmée
+  // des הלכות : l'index de Sefaria range déjà les simanim 345-365 sous הלכות ערובין.
+  // Une clé distincte garde justes les compteurs de Hilkhot Shabbat (bySection.shabbat)
+  // et tient ces simanim hors du plan limoud, qui filtre section === 'shabbat'.
+  // Chaque consommateur qui énumère les sections doit connaître ces deux clés :
+  // contenu*.html (sectionsMeta, SECTION_ORDER), generate-section-listings.js (ROUTE),
+  // chat-widget.js (sectionNameFor). La grille de l'accueil (index*.html) les écarte
+  // VOLONTAIREMENT : sa carte s'intitule « Hilkhot Shabbat » (voir le commentaire du filtre).
+  // Restent à adapter avant la première page 366 : api/progress.js (bornes 242-365),
+  // data/simanim-disponibles-he/-en.json (régénérés par rien), la clé de repli de titre
+  // d'extract-corpus.js, et le listing statique sources/shabbat/index*.html.
+  // Au-delà de 407 aucune section n'est déclarée : le siman serait rangé sous « shabbat »
+  // (libellé « Hilkhot Shabbat » dans l'index.md et le widget, et absorbé par le plan limoud
+  // à sa prochaine régénération). Le catalogue est écrit quand même, mais le BUILD ÉCHOUE
+  // (code 1, voir HORS_SECTION) : déclarer la section ici avant de publier le siman.
+  { dir: 'shabbat', section: sectionOh },
   { dir: 'orah-haim', section: () => 'oh-quotidien' },
   // La section « nida » est le bloc 183-200, et RIEN d'autre. La règle « >= 183 »
   // décrivait le disque tant que 200 en était le dernier siman ; le lot 201-208 l'a
@@ -32,7 +59,11 @@ const SOURCES = [
   { dir: 'yoreh-deah', section: (num) => (num >= 183 && num <= 200 ? 'nida' : 'yoreh-deah') },
 ];
 
-const TITLE_RE = /<title>\s*Siman\s+([^\s—-]+)\s*[—-]\s*([^·|]+?)\s*(?:·|\|)/i;
+// Le <title> des pages hébraïques s'ouvre sur « סימן שס״ה — … » et non sur « Siman » :
+// l'ancien motif ne lisait que le latin, si bien qu'un siman NOUVEAU entrait au catalogue
+// sans titleHe (ses tuiles hébraïques retombaient sur le titre français). Les titres déjà
+// au catalogue ne bougent pas : la fusion ne relit une page que si le champ manque.
+const TITLE_RE = /<title>\s*(?:Siman|סימן)\s+([^\s—-]+)\s*[—-]\s*([^·|]+?)\s*(?:·|\|)/i;
 const H1_RE = /<h1[^>]*class="siman-title-fr"[^>]*>\s*Siman\s+([^\s—-]+)\s*[—-]\s*([^<]+?)\s*<\/h1>/i;
 
 function extractTitle(htmlPath) {
@@ -165,7 +196,7 @@ function main() {
     meta: {
       version: '2.1',
       description:
-        "Index auto-généré des simanim disponibles sur disque (sections shabbat, oh-quotidien, yoreh-deah, nida). Régénéré au build par scripts/generate-simanim-index.js — les titres existants (title/titleHe/titleEn) sont fusionnés, jamais perdus.",
+        "Index auto-généré des simanim disponibles sur disque (sections shabbat, eruvin, techumin, oh-quotidien, yoreh-deah, nida). Régénéré au build par scripts/generate-simanim-index.js — les titres existants (title/titleHe/titleEn) sont fusionnés, jamais perdus.",
       lastUpdated: new Date().toISOString().slice(0, 10),
       counts: {
         total: simanim.length,
@@ -183,6 +214,10 @@ function main() {
     .map(([k, v]) => `${k}:${v.counts.total}`)
     .join(' · ');
   console.log(`simanim-disponibles.json : ${simanim.length} simanim (${secSummary})${skipped ? ` — ${skipped} sans index.html ignorés` : ''}`);
+  if (HORS_SECTION.length) {
+    console.error(`❌ sources/shabbat/ : ${HORS_SECTION.length} siman(im) hors des bornes déclarées (242-407), rangés sous « shabbat » faute de mieux : ${HORS_SECTION.join(', ')} — déclarer leur section dans sectionOh() avant de les publier.`);
+    process.exitCode = 1;
+  }
 }
 
 main();

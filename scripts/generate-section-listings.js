@@ -21,7 +21,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 const DATA = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'simanim-disponibles.json'), 'utf8'));
 
-const ROUTE = { 'yoreh-deah': '/yd/', 'nida': '/yd/', 'oh-quotidien': '/oh-quotidien/', 'shabbat': '/oh/' };
+// eruvin (366-395) et techumin (396-407) vivent sous sources/shabbat/ et sont servis sous /oh/N,
+// comme Chabbat : le défaut '/oh/' y menait déjà, l'entrée explicite évite la surprise.
+const ROUTE = { 'yoreh-deah': '/yd/', 'nida': '/yd/', 'oh-quotidien': '/oh-quotidien/', 'shabbat': '/oh/', 'eruvin': '/oh/', 'techumin': '/oh/' };
 
 // Les titres du catalogue arrivent parfois DÉJÀ échappés (« Beer &amp; Beverages », lu tel
 // quel dans le <title> de la page) : ré-échapper leur & donnait « &amp;amp; », et la tuile

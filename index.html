@@ -1673,6 +1673,9 @@
         const data = await res.json();
         const frag = document.createDocumentFragment();
         for (const s of data.simanim) {
+          // Chabbat SEUL, volontairement : la carte s'intitule « Hilkhot Shabbat » et son compteur
+          // est bySection.shabbat. Les sections « eruvin » et « techumin » du catalogue n'y entrent
+          // qu'avec une carte (ou un titre) qui les nomme — décision à prendre avant de les publier.
           if ((s.section || 'shabbat') !== 'shabbat') continue;
           const a = document.createElement('a');
           a.href = s.path;

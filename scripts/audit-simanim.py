@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """
-DAAT — Audit des simanim de Hilkhot Shabbat.
+DAAT — Audit des simanim de Hilkhot Shabbat et suivants (sources/shabbat), et de Yoreh De'ah.
 
-Vérifie, pour chaque siman (242-365), l'état réel des niveaux 1-4 :
+Vérifie, pour chaque siman (sources/shabbat : la base publiée 242-365, plus tout siman-N présent
+sur le disque — Orah Haïm 366 et suivants y vivront, sous /oh/N), l'état réel des niveaux 1-4 :
   - présence des fichiers ;
   - boilerplate non réécrit (texte générique laissé par generate-niveaux-123.py) ;
   - désynchronisation de la table des matières du Niveau 2
@@ -24,7 +25,6 @@ import re
 import sys
 
 ROOT = os.path.join(os.path.dirname(__file__), "..", "sources", "shabbat")
-FIRST, LAST = 242, 365
 # Simanim que l'Admour HaZaken n'a pas rédigés : pas de niveaux 1-4 attendus.
 NO_LEVELS = {304, 322}
 
@@ -35,12 +35,49 @@ NO_LEVELS = {304, 322}
 # Le niveau 4 porte un NOM DIFFÉRENT selon la section : le Choulhan Aroukh HaRav
 # ne couvre pas les simanim de cacheroute, le niveau 4 y est donc la halakha
 # lema'asse (niveau-4-halakha) et non « Daat HaRav ».
+# La base 242-365 est ÉCRITE et n'est jamais abaissée : un siman publié qui
+# disparaît du disque reste audité, et sort en « fichier absent ». Tout siman-N
+# présent sur le disque s'y ajoute (Orah Haïm 366 et suivants vivent sous
+# sources/shabbat) : jusqu'au 20 octobre 2026 la liste était range(242, 366), et
+# un siman 366 déposé là n'aurait été audité par rien, le hook restant vert.
+_DIR_SHABBAT = os.path.join(os.path.dirname(__file__), "..", "sources", "shabbat")
+_BASE_SHABBAT = range(242, 366)
+
+
+def _simanim_du_disque(d):
+    try:
+        noms = os.listdir(d)
+    except FileNotFoundError:
+        return set()
+    return {int(m.group(1)) for m in (re.fullmatch(r"siman-([1-9][0-9]*)", e) for e in noms)
+            if m and os.path.isdir(os.path.join(d, m.group(0)))}
+
+
+def _hors_forme(d):
+    """Les entrées siman-* qui ne sont pas un répertoire siman-N (siman-366-ancien, siman-0366, fichier) : elles ne
+    sont pas auditées, et jamais passées sous silence — main() les déclare en erreur, comme verify-oh-source.py
+    --tous les refuse en PAGE HORS PORTE."""
+    try:
+        noms = sorted(os.listdir(d))
+    except FileNotFoundError:
+        return []
+    return [e for e in noms if e.startswith("siman-") and not (
+        re.fullmatch(r"siman-([1-9][0-9]*)", e) and os.path.isdir(os.path.join(d, e)))]
+
+
+_SIMANIM_SHABBAT = sorted(set(_BASE_SHABBAT) | _simanim_du_disque(_DIR_SHABBAT))
+_HORS_FORME_SHABBAT = _hors_forme(_DIR_SHABBAT)
+# Le libellé ne s'élargit que lorsqu'un siman au-delà de la base existe : le
+# rapport (et le hook SessionStart) reste mot pour mot celui d'avant tant qu'il n'y en a pas.
+_LABEL_SHABBAT = ("Hilkhot Shabbat" if _SIMANIM_SHABBAT[-1] <= _BASE_SHABBAT[-1]
+                  else f"Hilkhot Shabbat et suivants ({_BASE_SHABBAT[0]}-{_SIMANIM_SHABBAT[-1]})")
+
 SECTIONS = [
     {
         "id": "shabbat",
-        "label": "Hilkhot Shabbat",
-        "dir": os.path.join(os.path.dirname(__file__), "..", "sources", "shabbat"),
-        "simanim": [n for n in range(242, 366)],
+        "label": _LABEL_SHABBAT,
+        "dir": _DIR_SHABBAT,
+        "simanim": _SIMANIM_SHABBAT,
         "no_levels": {304, 322},
         "n4_file": "niveau-4-daat-harav.html",
     },
@@ -203,12 +240,15 @@ def main():
     print(f"Avec erreur(s)      : {n_err}")
     print(f"Avec avertissement  : {n_warn}")
     print(f"Conformes           : {len(rows) - n_err - n_warn}")
+    hors_forme = _HORS_FORME_SHABBAT if (not only or only == "shabbat") else []
+    for e in hors_forme:
+        print(f"  [ERREUR ] shabbat    {e} — entrée qui n'est pas un répertoire siman-N : NON AUDITÉE")
 
     if "--write-progress" in args:
         write_progress([r for r in rows if r.get("section") == "shabbat"])
         print("\nPROGRESS.md régénéré.")
 
-    return 1 if n_err else 0
+    return 1 if n_err or hors_forme else 0
 
 
 def write_progress(rows):
@@ -220,7 +260,7 @@ def write_progress(rows):
         "ABSENT": "❌", "n/a": "—", "bridge": "🌉",
     }
     lines = [
-        "# Progression — Hilkhot Shabbat (niveaux 1-4)",
+        f"# Progression — {_LABEL_SHABBAT} (niveaux 1-4)",
         "",
         "Généré par `scripts/audit-simanim.py --write-progress`. Ne pas éditer à la main.",
         "",

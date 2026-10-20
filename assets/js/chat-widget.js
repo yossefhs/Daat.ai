@@ -250,14 +250,24 @@
     'oh-quotidien': 'Orah Haïm — étude quotidienne',
     'shabbat': 'Orah Haïm — Hilkhot Shabbat', 'yoreh-deah': "Yoreh De'ah", 'orah-haim': 'Orah Haïm — étude quotidienne',
   };
+  // /oh/N et sources/shabbat/siman-N portent aussi la suite d'Orah Haïm : la section se lit au
+  // NUMÉRO, avec les bornes des sections « eruvin » et « techumin » du catalogue
+  // (scripts/generate-simanim-index.js). Libellé de section du site, non découpe des הלכות.
+  function sectionNameFor(key, siman) {
+    if (key === 'oh' || key === 'shabbat') {
+      if (siman >= 396 && siman <= 407) return "Orah Haïm — Hilkhot Te'houmin";
+      if (siman >= 366 && siman <= 395) return 'Orah Haïm — Hilkhot Érouvin';
+    }
+    return SECTION_NAMES[key] || key;
+  }
   function detectSimanContext() {
     try {
       const path = window.location.pathname;
       let m = path.match(/^\/(oh|yd|oh-quotidien)\/(\d+)(?:\/(base|lamdan|synthese|daat-harav|halakha))?/);
-      if (m) return { siman: Number(m[2]), sectionName: SECTION_NAMES[m[1]] || m[1], niveauPage: m[3] ? PAGE_LEVEL_LABELS[m[3]] : null };
+      if (m) return { siman: Number(m[2]), sectionName: sectionNameFor(m[1], Number(m[2])), niveauPage: m[3] ? PAGE_LEVEL_LABELS[m[3]] : null };
       m = path.match(/\/sources\/(shabbat|yoreh-deah|orah-haim)\/siman-(\d+)(?:\/niveau-\d-([a-z-]+?))?(?:-he|-en)?\.html/)
         || path.match(/\/sources\/(shabbat|yoreh-deah|orah-haim)\/siman-(\d+)/);
-      if (m) return { siman: Number(m[2]), sectionName: SECTION_NAMES[m[1]] || m[1], niveauPage: m[3] ? (PAGE_LEVEL_LABELS[m[3]] || null) : null };
+      if (m) return { siman: Number(m[2]), sectionName: sectionNameFor(m[1], Number(m[2])), niveauPage: m[3] ? (PAGE_LEVEL_LABELS[m[3]] || null) : null };
       return null;
     } catch (_) { return null; }
   }

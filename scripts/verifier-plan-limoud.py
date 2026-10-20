@@ -26,6 +26,15 @@ la source. Le compte vient désormais de `data/seifim-count.json`, que
 Ce contrôle ferme l'écart restant : il confronte le plan À LA SOURCE, séif par
 séif, et nomme ce qui n'est programmé aucun jour.
 
+Un siman du plan SANS COMPTE dans `data/seifim-count.json` fait échouer la porte
+(code 3, ou 1 si un autre défaut est établi) : jusqu'au 20 octobre 2026 il n'était
+qu'imprimé, puis sauté, et la porte pouvait conclure « chaque séif est programmé »
+sur un plan dont elle n'avait pas confronté tous les simanim — le cas d'un siman
+366 entré au plan avant que `generer-seifim-count.py --write` ne l'ait compté.
+
+Codes de sortie : 0 conforme · 1 séifim non programmés ou inexistants · 3 un siman
+du plan sans compte (rien n'est conclu pour lui).
+
   python3 scripts/verifier-plan-limoud.py [--bref]
 """
 import argparse, json, math, pathlib, sys
@@ -49,12 +58,13 @@ def main():
         deb, fin = e["seifRange"]
         couvert.setdefault(n, set()).update(range(deb, fin + 1))
 
-    manquants, surnumeraires = [], []
+    manquants, surnumeraires, sans_compte = [], [], []
     total_reel = total_prevu = 0
     for n in sorted(couvert):
         reel = comptes.get(str(n))
         if reel is None:
             print(f"  siman {n} : absent de {COMPTES.name} — compte inconnu")
+            sans_compte.append(n)
             continue
         total_reel += reel
         total_prevu += len(couvert[n] & set(range(1, reel + 1)))
@@ -87,7 +97,14 @@ def main():
         print(f"Un plan fidèle à la source demanderait {jours} journées, contre "
               f"{plan['meta']['totalDays']} aujourd'hui.")
         print("Régénérer déplace toutes les dates à venir : c'est une décision, pas un correctif.")
+    if sans_compte:
+        print(f"\n⛔ {len(sans_compte)} siman(im) du plan sans compte dans {COMPTES.name} : "
+              f"{' '.join(map(str, sans_compte))} — rien n'est conclu pour eux "
+              "(python3 scripts/generer-seifim-count.py --write, les deux sections)")
+    if manquants or surnumeraires:
         return 1
+    if sans_compte:
+        return 3
     print("\n✅ Chaque séif de chaque siman du plan est programmé.")
     return 0
 

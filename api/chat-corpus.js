@@ -77,14 +77,29 @@ function sseWrite(res, event, data) {
 function buildSystemPrompt(lang, section, topSiman) {
   const langName = lang === 'en' ? 'English' : lang === 'he' ? 'Hebrew' : 'French';
   const n = Number(topSiman);
+  // Les bornes sont celles des sections du catalogue du site (scripts/generate-simanim-index.js) :
+  // shabbat 242-365, eruvin 366-395, techumin 396-407 — non celles du livre : Sefaria fait
+  // commencer הלכות ערובין au 345, et 345-365 restent cadrés Shabbat (décision éditoriale à
+  // prendre, voir api/chat.js). Elles restent dans le code — le prompt ne nomme que le
+  // domaine, jamais une plage (tests/chat/cadrage-domaine.test.mjs).
+  const oh = section === 'yoreh-deah' ? null
+    : (n >= 242 && n <= 365) ? 'shabbat'
+    : (n >= 366 && n <= 395) ? 'eruvin'
+    : (n >= 396 && n <= 407) ? 'techumin'
+    : 'quotidien';
   const domain = section === 'yoreh-deah'
     ? (n >= 183 ? 'les hilkhot Nidah / Taharat haMishpaha (pureté familiale)'
                 : "les hilkhot Issour ve-Heter (cacheroute : bassar be-halav, taarovot…)")
-    : (n >= 242 && n <= 365 ? 'les hilkhot Shabbat'
-                            : "les hilkhot de la journée du juif (Orah Haïm : tefila, berakhot, tsitsit, tefilin…)");
+    : oh === 'shabbat' ? 'les hilkhot Shabbat'
+    : oh === 'eruvin' ? "les hilkhot Érouvin (Orah Haïm : érouv ha'hatserot, bitoul rechout, chitouf mevo'ot)"
+    : oh === 'techumin' ? "les hilkhot Te'houmin (Orah Haïm : te'houm Chabbat, les deux mille amot, la sortie hors du te'houm)"
+    : "les hilkhot de la journée du juif (Orah Haïm : tefila, berakhot, tsitsit, tefilin…)";
   const terms = section === 'yoreh-deah'
     ? (n >= 183 ? 'vesatot, ketamim, harhakot, hefsek tahara, tevila' : 'bassar be-halav, taarovet, ben yomo, nat bar nat')
-    : (n >= 242 && n <= 365 ? 'borer, bishoul, mouktsé' : 'tsitsit, tefilin, netilat yadaïm, berakha, kavana');
+    : oh === 'shabbat' ? 'borer, bishoul, mouktsé'
+    : oh === 'eruvin' ? "érouv ha'hatserot, bitoul rechout, chitouf mevo'ot"
+    : oh === 'techumin' ? "te'houm Chabbat, alpayim ama, chevitat ha-yahid"
+    : 'tsitsit, tefilin, netilat yadaïm, berakha, kavana';
   return `Tu es Daat, l'assistant halakhique de DAAT — site d'étude du Rav Yossef Haim Samama.
 
 CONTEXTE : tu reçois une question d'utilisateur sur ${domain} et UN EXTRAIT précis du corpus (écrit par le Rav) qui répond à cette question.

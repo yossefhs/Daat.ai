@@ -191,6 +191,8 @@
       simanWord: 'סימן', openAll: 'פתח הכל', closeAll: 'סגור הכל',
       sectionsMeta: {
         'shabbat':     { fr: 'אורח חיים — הלכות שבת', he: 'אורח חיים — הלכות שבת', meta: 'מנוחת השבת לפי השולחן ערוך (סימנים 242–365).' },
+        'eruvin':      { fr: 'אורח חיים — הלכות עירובין', he: 'אורח חיים — הלכות עירובין', meta: 'עירובי חצרות, ביטול רשות ושיתופי מבואות לפי השולחן ערוך (באתר: סימנים 366–395).' },
+        'techumin':    { fr: 'אורח חיים — הלכות תחומין', he: 'אורח חיים — הלכות תחומין', meta: 'תחום שבת: ארבע אמות, אלפיים אמה ומדידתן, היוצא חוץ לתחום (באתר: סימנים 396–407).' },
         'yoreh-deah':  { fr: 'יורה דעה — איסור והיתר', he: 'יורה דעה — איסור והיתר', meta: 'הכשרות: בשר בחלב, תערובות, הגעלת כלים.' },
         'nida':        { fr: 'הלכות נדה — טהרת המשפחה', he: 'הלכות נדה — טהרת המשפחה', meta: 'טהרת המשפחה: הפסק טהרה, הרחקות, חפיפה, טבילה (סימנים 183–200).' },
         'oh-quotidien':{ fr: 'אורח חיים — יום-יומי', he: 'אורח חיים — יום-יומי', meta: 'הלכת היום-יום: השכמת הבוקר, נטילת ידיים, ברכות, תפילה.' }
@@ -199,7 +201,9 @@
       langSuffix: '/he'
     };
 
-    var SECTION_ORDER = ['oh-quotidien', 'yoreh-deah', 'nida', 'shabbat'];
+    // eruvin (366-395) et techumin (396-407) : sections du catalogue servies sous /oh/ (scheme et
+    // section-card par défaut). Sans entrée ici, une section du catalogue n'est pas affichée du tout.
+    var SECTION_ORDER = ['oh-quotidien', 'yoreh-deah', 'nida', 'shabbat', 'eruvin', 'techumin'];
 
     function scheme(section) {
       if (section === 'yoreh-deah' || section === 'nida') {

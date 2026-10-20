@@ -191,6 +191,8 @@
       simanWord: 'Siman', openAll: 'Expand all', closeAll: 'Collapse all',
       sectionsMeta: {
         'shabbat':     { fr: 'Orah Haim — Hilkhot Shabbat', he: 'אורח חיים — הלכות שבת', meta: 'The rest of Shabbat according to the Shulchan Aruch (simanim 242–365).' },
+        'eruvin':      { fr: 'Orah Haim — Hilchos Eruvin', he: 'אורח חיים — הלכות עירובין', meta: 'Eruv chatzeros, bittul reshus and shittuf mevuos according to the Shulchan Aruch (on DAAT: simanim 366–395).' },
+        'techumin':    { fr: 'Orah Haim — Hilchos Techumin', he: 'אורח חיים — הלכות תחומין', meta: 'Techum Shabbos: the four amos, the two thousand amos and their measurement, leaving the techum (on DAAT: simanim 396–407).' },
         'yoreh-deah':  { fr: "Yoreh De'ah — Issur ve-Heter", he: 'יורה דעה — איסור והיתר', meta: 'Kashrut: basar be-halav, mixtures, kashering of utensils.' },
         'nida':        { fr: 'Hilkhot Nida — Family Purity', he: 'הלכות נדה — טהרת המשפחה', meta: 'Family purity: hefsek tahara, harchakos, chafifah, tevila (simanim 183–200).' },
         'oh-quotidien':{ fr: 'Orah Haim — Everyday Halacha', he: 'אורח חיים — יום-יומי', meta: 'Daily halacha: rising, netilas yadayim, berachos, tefila.' }
@@ -199,7 +201,9 @@
       langSuffix: '/en'
     };
 
-    var SECTION_ORDER = ['oh-quotidien', 'yoreh-deah', 'nida', 'shabbat'];
+    // eruvin (366-395) et techumin (396-407) : sections du catalogue servies sous /oh/ (scheme et
+    // section-card par défaut). Sans entrée ici, une section du catalogue n'est pas affichée du tout.
+    var SECTION_ORDER = ['oh-quotidien', 'yoreh-deah', 'nida', 'shabbat', 'eruvin', 'techumin'];
 
     function scheme(section) {
       if (section === 'yoreh-deah' || section === 'nida') {

@@ -202,11 +202,15 @@ export function formatChunkHit(c) {
 // Détecte un numéro de siman écrit dans la requête (« siman 318 », « OH 318 »,
 // « 318:12 »). Filet de sécurité : si la recherche plein texte ne rend rien, on
 // sait quand même où regarder.
+// La borne est celle du LIVRE (Orah Haïm compte 697 simanim ; Yoré Déa, 403), non
+// celle du corpus : elle valait 365 et rendait « siman 366 » muet le jour où Hilkhot
+// Érouvin entre au corpus. Un numéro qui n'y est pas rend simplement 0 chunk.
+const DERNIER_SIMAN_LIVRE = 697;
 function simanFromQuery(query) {
   const m = String(query || '').match(/\b(?:siman|simane?|oh|o\.h\.|yd|y\.d\.)?\s*(\d{1,3})\b/i);
   if (!m) return null;
   const n = parseInt(m[1], 10);
-  return n >= 1 && n <= 365 ? n : null;
+  return n >= 1 && n <= DERNIER_SIMAN_LIVRE ? n : null;
 }
 
 export async function searchCorpus(query, options = {}) {

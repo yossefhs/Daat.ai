@@ -481,7 +481,13 @@ async function serveCorpusAnswer({ req, res, cs, section, lastUserText, userId, 
   // Shabbat (242-365 dans le Choul'han Aroukh), Yoreh De'ah Issour ve-Heter et
   // Nidah (183-200 dans le Choul'han Aroukh). Les bornes ci-dessous sont celles
   // du LIVRE, pas du périmètre indexé — lequel est calculé (corpusPerimeter) et
-  // jamais recopié ici. Cadrer le prompt sur la seule `section` annonçait « les
+  // jamais recopié ici, ni dans le prompt. EXCEPTION : 366-395 et 396-407 sont les
+  // sections « eruvin » et « techumin » du CATALOGUE du site (servies sous /oh/ comme
+  // Chabbat), non des bornes du livre — l'index de Sefaria fait commencer הלכות ערובין
+  // au siman 345 (Te'houmin y est bien 396-407). Les simanim 345-365 (mavoï, le'hi,
+  // koré…) restent donc cadrés « hilkhot Shabbat » : les faire entrer dans le cadrage
+  // Érouvin est une décision éditoriale, pas un correctif.
+  // Cadrer le prompt sur la seule `section` annonçait « les
   // hilkhot Shabbat » pour tout le quotidien et « cacheroute » pour toute la
   // nidah : Haiku reformulait alors un extrait de tefila comme une question de
   // Shabbat. On dérive donc le domaine du siman RÉELLEMENT servi.
@@ -498,6 +504,14 @@ async function serveCorpusAnswer({ req, res, cs, section, lastUserText, userId, 
       ? { d: 'les hilkhot Shabbat',
           t: 'borer, bishoul, mouktsé',
           p: 'la mélakha (ou le principe halakhique)' }
+      : topNum >= 366 && topNum <= 395
+      ? { d: "les hilkhot Érouvin (Orah Haïm : érouv ha'hatserot, bitoul rechout, chitouf mevo'ot)",
+          t: "érouv ha'hatserot, bitoul rechout, chitouf mevo'ot",
+          p: 'le principe halakhique' }
+      : topNum >= 396 && topNum <= 407
+      ? { d: "les hilkhot Te'houmin (Orah Haïm : te'houm Chabbat, les deux mille amot, la sortie hors du te'houm)",
+          t: "te'houm Chabbat, alpayim ama, chevitat ha-yahid",
+          p: 'le principe halakhique' }
       : { d: "les hilkhot de la journée du juif (Orah Haïm : netilat yadaïm, tsitsit, tefilin, birkot hachahar, keriat chema, tefila, berakhot, birkat hamazon…)",
           t: 'tsitsit, tefilin, netilat yadaïm, berakha, kavana',
           p: 'le principe halakhique' });

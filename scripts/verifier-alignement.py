@@ -318,6 +318,13 @@ RAISONS: dict[tuple[str, int], str] = {}
 # 208-241 ») : 169 MANQUE au Choul'han Aroukh HaRav (he vide, ref juste) et
 # 212-215 y FIGURENT (11, 7, 2 et 5 seifim). Une liste recopiee sans mesure
 # aurait fait de 212-215 une lacune « normale » le jour ou Sefaria repondrait mal.
+#
+# MESURE DU 20 OCTOBRE 2026, au-dela de 365 (Orah Haim 366 et suivants vivront
+# sous sources/shabbat, URL /oh/N) : 366-407 (Erouvin, Tehoumin) — 42 simanim
+# SERVIS par le Choul'han Aroukh HaRav, 0 vide : rien a ajouter ici. 408 a un
+# seul seif. 409-416 sont VIDES (he vide, ref juste) : les ajouter a la liste
+# ci-dessous LE JOUR OU LEURS PAGES-PONT EXISTENT, apres une nouvelle mesure
+# sur Sefaria (les deux API), comme les 63 ci-dessous.
 _HARAV = "Shulchan Arukh HaRav, Orach Chayim"
 LACUNES_MESUREES = (
     {(_HARAV, n) for n in [*range(132, 155), 157, *range(169, 174), 175, 176,

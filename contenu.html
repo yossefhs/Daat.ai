@@ -191,6 +191,8 @@
       simanWord: 'Siman', openAll: 'Tout déplier', closeAll: 'Tout replier',
       sectionsMeta: {
         'shabbat':     { fr: 'Orah Haïm — Hilkhot Shabbat', he: 'אורח חיים — הלכות שבת', meta: 'Le repos du Shabbat selon le Choulhan Aroukh (simanim 242–365).' },
+        'eruvin':      { fr: 'Orah Haïm — Hilkhot Érouvin', he: 'אורח חיים — הלכות עירובין', meta: "L'érouv ha'hatserot, le bitoul rechout et le chitouf mevo'ot selon le Choulhan Aroukh (sur DAAT : simanim 366–395)." },
+        'techumin':    { fr: "Orah Haïm — Hilkhot Te'houmin", he: 'אורח חיים — הלכות תחומין', meta: "Le te'houm Chabbat : les quatre amot, les deux mille amot et leur mesure, la sortie hors du te'houm (sur DAAT : simanim 396–407)." },
         'yoreh-deah':  { fr: "Yoreh De'ah — Issour ve-Heter", he: 'יורה דעה — איסור והיתר', meta: 'La cacheroute : bassar be-halav, taarovot, cachérisation des ustensiles.' },
         'nida':        { fr: 'Hilkhot Nida — Taharat haMishpacha', he: 'הלכות נדה — טהרת המשפחה', meta: 'La pureté familiale : hefsek tahara, harhakot, ḥafifa, tevila (simanim 183–200).' },
         'oh-quotidien':{ fr: 'Orah Haïm — Lois de tous les jours', he: 'אורח חיים — יום-יומי', meta: 'La halakha du quotidien : conduite au lever, netilat yadayim, berakhot, tefila.' }
@@ -199,7 +201,9 @@
       langSuffix: '' // FR = pas de suffixe
     };
 
-    var SECTION_ORDER = ['oh-quotidien', 'yoreh-deah', 'nida', 'shabbat'];
+    // eruvin (366-395) et techumin (396-407) : sections du catalogue servies sous /oh/ (scheme et
+    // section-card par défaut). Sans entrée ici, une section du catalogue n'est pas affichée du tout.
+    var SECTION_ORDER = ['oh-quotidien', 'yoreh-deah', 'nida', 'shabbat', 'eruvin', 'techumin'];
 
     function scheme(section) {
       if (section === 'yoreh-deah' || section === 'nida') {

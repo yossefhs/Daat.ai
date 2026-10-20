@@ -3,8 +3,9 @@
 verbatim, MOT POUR MOT, SÉIF PAR SÉIF, dans les trois langues — et vérifie que le lecteur le VOIT.
 
 Usage :
-  python3 scripts/verify-oh-source.py 71 72 73          # simanim nommés (1-241 : Orah Haïm, 242-365 : Chabbat)
-  python3 scripts/verify-oh-source.py --tous [--bref]   # les 365
+  python3 scripts/verify-oh-source.py 71 72 73          # simanim nommés (sous sources/orah-haim de 1 à 241 ; sous
+                                                        # sources/shabbat de 242 au plafond de SECTIONS_CONNUES)
+  python3 scripts/verify-oh-source.py --tous [--bref]   # tout ce que le disque porte (voir « LA PORTÉE » plus bas)
   python3 scripts/verify-oh-source.py --section shabbat [--bref]
   options : --rendu (ouvre aussi chaque page dans Chromium : voir ÉTAGE 2 ; modules playwright, pillow, numpy) ·
             --bref (une ligne par siman en défaut) · --cache (lit/écrit scripts/.cache-sefaria/saharav : un
@@ -12,9 +13,9 @@ Usage :
             vérification le demande)
   AVANT DE PUBLIER : python3 scripts/verify-oh-source.py N … --rendu   (sans --cache)
 
-Codes de sortie : 0 tout conforme · 1 au moins une divergence · 3 Sefaria n'a pas répondu ou a répondu d'une
-façon que la porte ne sait pas lire, OU le rendu est impossible (Chromium, module playwright) — rien n'est
-conclu pour ce qui n'a pas été lu. Une source absente n'est jamais une source vide.
+Codes de sortie : 0 tout conforme · 1 au moins une divergence (FICHIER ABSENT, TROU et PAGE HORS PORTE compris)
+· 3 Sefaria n'a pas répondu ou a répondu d'une façon que la porte ne sait pas lire, OU le rendu est impossible
+(Chromium, module playwright) — rien n'est conclu pour ce qui n'a pas été lu. Une source absente n'est jamais une source vide.
 
 ÉTAGE 1, STATIQUE (toujours) — pour chaque siman N et ses trois pages niveau-4-daat-harav{,-he,-en}.html :
   1. nombre de blocs <details class="seif-details"> = nombre de séifim du SA HaRav sur Sefaria (0 et 0 pour un
@@ -188,7 +189,89 @@ from html.parser import HTMLParser
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CACHE = os.path.join(ROOT, "scripts", ".cache-sefaria", "saharav")
 ED_REF = "Vocalized Edition - Kehot Publication Society"
-SECTIONS = (("orah-haim", range(1, 242)), ("shabbat", range(242, 366)))
+# LA PORTÉE — jusqu'au 20 octobre 2026, elle était écrite en dur : ("shabbat", range(242, 366)), et --tous lisait
+# range(1, 366). Un siman 366 déposé sous sources/shabbat (Orah Haïm 366-407, Erouvin et Tehoumin, y vivront sous
+# /oh/N) n'aurait été lu par AUCUNE passe --tous, et la porte serait sortie verte. Elle se DÉRIVE désormais du
+# disque, dans deux bornes écrites :
+#   · SECTIONS_CONNUES — ce que la porte sait confronter (le répertoire, le livre, la plage). Le plafond de Chabbat
+#     est 407 : le Choul'han Aroukh HaRav y est servi sans lacune de 366 à 407 (mesuré le 20 octobre 2026) ; 408 n'a
+#     qu'un séif et 409-416 sont vides, à MESURER et à porter à LACUNES_MESUREES avant de relever ce plafond.
+#   · PUBLIES — la dernière borne publiée, qui n'est JAMAIS abaissée : un siman publié qui disparaît du disque reste
+#     lu, et sort en FICHIER ABSENT.
+# SECTIONS (lu par --tous, --section et verifier-apercus.py) va de la première borne au plus grand N CONTIGU tel que
+# sources/<section>/siman-N existe, sans descendre sous PUBLIES ni monter au-dessus du plafond. Sous --tous, la
+# porte lit en plus tout siman-N du disque au-delà de cette borne (le TROU qui l'en sépare sort en FICHIER ABSENT,
+# en code 1), et refuse, en code 1, tout répertoire siman-* placé hors des sections connues (PAGE HORS PORTE).
+SECTIONS_CONNUES = (("orah-haim", range(1, 242)), ("shabbat", range(242, 408)))
+PUBLIES = {"orah-haim": 241, "shabbat": 365}
+
+
+def _sur_disque(sec):
+    """Les entrées siman-* de sources/<sec> : (numéros des répertoires siman-N, autres noms siman-*)."""
+    d = os.path.join(ROOT, "sources", sec)
+    nums, autres = set(), []
+    for e in (sorted(os.listdir(d)) if os.path.isdir(d) else []):
+        if not e.startswith("siman-"):
+            continue
+        m = re.fullmatch(r"siman-([1-9][0-9]*)", e)
+        if m and os.path.isdir(os.path.join(d, e)):
+            nums.add(int(m.group(1)))
+        else:
+            autres.append(e)
+    return nums, autres
+
+
+def _borne(sec, rng):
+    nums, _a = _sur_disque(sec)
+    b = PUBLIES[sec]
+    while b + 1 < rng.stop and b + 1 in nums:
+        b += 1
+    return b
+
+
+SECTIONS = tuple((sec, range(rng.start, _borne(sec, rng) + 1)) for sec, rng in SECTIONS_CONNUES)
+
+
+def libelle_sections():
+    return ", ".join(f"{sec} {rng.start}-{rng.stop - 1}" for sec, rng in SECTIONS_CONNUES)
+
+
+def a_lire(secs=None):
+    """Les simanim d'une passe complète des sections `secs` (toutes par défaut) : la plage de SECTIONS, plus tout
+    siman-N du disque au-delà dans la section connue — et donc le trou qui l'en sépare, lu comme FICHIER ABSENT."""
+    out = []
+    for (sec, rng), (_s, connue) in zip(SECTIONS, SECTIONS_CONNUES):
+        if secs is not None and sec not in secs:
+            continue
+        nums, _a = _sur_disque(sec)
+        fin = max([rng.stop - 1] + [n for n in nums if n in connue])
+        out += range(rng.start, fin + 1)
+    return out
+
+
+def trous(secs=None):
+    """Les simanim d'a_lire() au-delà de la borne de SECTIONS dont le répertoire manque."""
+    out = []
+    for sec, rng in SECTIONS:
+        if secs is not None and sec not in secs:
+            continue
+        nums, _a = _sur_disque(sec)
+        out += [n for n in a_lire([sec]) if n >= rng.stop and n not in nums]
+    return out
+
+
+def hors_porte(secs=None):
+    """Les répertoires siman-* que la porte ne sait pas confronter : numéro hors de la plage connue de leur
+    section, ou nom qui n'est pas siman-N. Un tel répertoire n'est jamais ignoré en silence."""
+    out = []
+    for sec, connue in SECTIONS_CONNUES:
+        if secs is not None and sec not in secs:
+            continue
+        nums, autres = _sur_disque(sec)
+        out += [(f"sources/{sec}/siman-{n}", f"siman {n} hors de la plage connue de {sec} ({connue.start}-{connue.stop - 1})")
+                for n in sorted(nums) if n not in connue]
+        out += [(f"sources/{sec}/{e}", "nom qui n'est pas siman-N") for e in autres]
+    return out
 LANGS = (("FR", ""), ("HE", "-he"), ("EN", "-en"))
 NIKUD = re.compile(r"[֑-ׇֽֿׁׂׅׄ]")   # sans maqaf, paseq, sof pasuq, nun hafukha
 RETIRES = re.compile(r"[‍\[\]]")
@@ -375,7 +458,8 @@ except BaseException as e:                  # SystemExit compris : jamais un cod
 
 
 def section_de(n):
-    for sec, rng in SECTIONS:
+    """La section CONNUE du siman : un siman nommé sous le plafond est lu même si son répertoire manque."""
+    for sec, rng in SECTIONS_CONNUES:
         if n in rng:
             return sec
     return None
@@ -1536,16 +1620,20 @@ class Rendu:
 def main(argv):
     bref = "--bref" in argv
     use_cache = "--cache" in argv
-    nums = []
+    nums, balayees = [], set()
     if "--tous" in argv:
-        nums = list(range(1, 366))
+        balayees = {s for s, _r in SECTIONS_CONNUES}
+        nums = a_lire()
     for i, x in enumerate(argv):
         if x == "--section" and i + 1 < len(argv):
-            nums += [n for s, rng in SECTIONS if s == argv[i + 1] for n in rng]
+            balayees |= {s for s, _r in SECTIONS_CONNUES if s == argv[i + 1]}
+            nums += a_lire([argv[i + 1]]) if argv[i + 1] in dict(SECTIONS) else []
         elif x.isdigit():
             nums.append(int(x))
+    hors = hors_porte(balayees) if balayees else []
+    trou = set(trous(balayees)) if balayees else set()
     nums = sorted(set(nums))
-    if not nums:
+    if not nums and not hors:
         print(__doc__.split("\n\n")[1])
         return 2
     if LACUNES_ERR:
@@ -1595,7 +1683,7 @@ def main(argv):
     # 3. le rapport
     for n, sec, k, d in etats:
         if k == "absent":
-            print(f"=== Siman {n} : hors des sections couvertes (1-365)")
+            print(f"=== Siman {n} : hors des sections connues ({libelle_sections()})")
             stats["absents"].append(n)
             continue
         if k == "injoignable":
@@ -1705,6 +1793,12 @@ def main(argv):
         print(f"  divergents : {' '.join(map(str, stats['divergents']))}")
     if stats["injoignables"]:
         print(f"  ⛔ source non lue : {' '.join(map(str, stats['injoignables']))}")
+    if trou:
+        print(f"  ❌ TROU sur le disque — répertoire absent entre la borne de SECTIONS et un siman du disque au-delà, "
+              f"lu comme FICHIER ABSENT : {' '.join(map(str, sorted(trou)))}")
+    for chemin, raison in hors:
+        print(f"  ❌ PAGE HORS PORTE : {chemin} — {raison} ; sections connues : {libelle_sections()}. "
+              "La porte ne sait pas la confronter : relever SECTIONS_CONNUES après mesure, ou retirer le répertoire")
     if nouvelles:
         print(f"CSS OU style= HORS DES EMPREINTES MESURÉES ({len(nouvelles)}) — si le changement est voulu : le relire, rendre la page "
               f"(--rendu), puis ajouter l'empreinte à CSS_ADMIS ou STYLES_EN_LIGNE_ADMIS :")
@@ -1715,7 +1809,7 @@ def main(argv):
               + (f" · RENDU IMPOSSIBLE pour {' '.join(map(str, sorted(set(stats['rendu_impossible']))))}" if stats["rendu_impossible"] else ""))
     else:
         print("RENDU NON EXÉCUTÉ : le texte est confronté, sa VISIBILITÉ ne l'est pas — avant de publier, relancer avec --rendu")
-    ok = not stats["divergents"] and not stats["absents"]
+    ok = not stats["divergents"] and not stats["absents"] and not hors
     print("\n" + ("✅ VÉRIFICATION SOURCE : tout est conforme" if ok and not stats["injoignables"]
                   else "❌ VÉRIFICATION SOURCE : divergence(s) détectée(s) — NE PAS PUBLIER" if not ok
                   else "⛔ VÉRIFICATION SOURCE : source non lue pour une partie — RIEN N'EST CONCLU pour elle"))
