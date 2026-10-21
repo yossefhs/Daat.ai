@@ -11,7 +11,7 @@
 
 ## Présentation
 
-Celui qui donne de l'argent pour sa part de l'érouv des cours, au boulanger ou à un particulier, l'a-t-il acquise ? — un séif dans le Choulhan Aroukh, sans glose du Rama
+Celui qui donne de l'argent pour sa part de l'érouv des cours, au boulanger ou à un particulier, l'a-t-il acquise ? — un séif dans le Choulhan Aroukh, sans glose du Rama, et un dans le Choulhan Aroukh HaRav
 
 ## 4 niveaux d'étude
 
