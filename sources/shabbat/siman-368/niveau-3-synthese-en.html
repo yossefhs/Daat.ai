@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Siman שס״ח · Level 3 — When the eruv is spoiled after it was made | Hilchos Eruvin</title>
+<meta name="description" content="Level 3 (Synthesis) of Siman שס״ח — a courtyard eruv that is spoiled, diminished or moldy after it was made, and its measure: axiom, concepts, decision tree, mnemonic, pitfalls, practical cases and commandments, each tied to its seif.">
+<meta name="author" content="Rav Yossef Haim Samama">
+<link rel="canonical" href="https://daattorah.com/oh/368/synthese/en">
+  <link rel="alternate" hreflang="fr" href="https://daattorah.com/oh/368/synthese">
+  <link rel="alternate" hreflang="en" href="https://daattorah.com/oh/368/synthese/en">
+  <link rel="alternate" hreflang="he" href="https://daattorah.com/oh/368/synthese/he">
+  <link rel="alternate" hreflang="x-default" href="https://daattorah.com/oh/368/synthese">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="DAAT דעת">
+<meta property="og:title" content="Siman שס״ח · Level 3 Synthesis — When the eruv is spoiled after it was made">
+<meta property="og:description" content="Structured recap of Siman שס״ח for review and memorization.">
+<meta property="og:url" content="https://daattorah.com/oh/368/synthese/en">
+<meta property="og:image" content="https://daattorah.com/assets/img/og/siman-368.png">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Siman שס״ח · Level 3 Synthesis — When the eruv is spoiled after it was made">
+<meta name="twitter:description" content="Structured recap of Siman שס״ח: repairing or completing a spoiled eruv, its measure, its remnants and moldy bread.">
+<meta name="twitter:image" content="https://daattorah.com/assets/img/og/siman-368.png">
+<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&family=Inter:wght@300;400;500;600&display=swap"></noscript>
+<style>
+  @page { size: A4; margin: 2cm 1.8cm; }
+  @media print { .daat-nav-bar, .daat-breadcrumb { display: none !important; } }
+  body { font-family: 'Georgia', 'Cambria', serif; font-size: 11pt; line-height: 1.6; color: #1a1a1a; margin: 0; }
+  .he { direction: rtl; text-align: right; font-family: 'Frank Ruhl Libre', 'David', 'Times New Roman', serif; font-size: 13pt; line-height: 1.9; }
+  .he-q { direction: rtl; unicode-bidi: embed; font-family: 'Frank Ruhl Libre', 'David', serif; font-weight: 600; color: #1A1F3A; }
+  .container { max-width: 720pt; margin: 0 auto; padding: 24pt 32pt; }
+  .cover { text-align: center; margin: 2cm 0; }
+  .cover .badge-top { color: #C5A55A; font-size: 11pt; letter-spacing: 4px; margin-bottom: 10px; }
+  .cover h1 { font-family: 'Frank Ruhl Libre', serif; font-size: 32pt; color: #1A1F3A; margin: 12px 0 8px; font-weight: 900; }
+  .cover .he-title { font-family: 'Frank Ruhl Libre', serif; font-size: 28pt; color: #C5A55A; direction: rtl; margin: 4px 0; }
+  .cover .subtitle { font-style: italic; font-size: 13pt; color: #555; margin: 16px 0; }
+  .cover .meta { font-size: 11pt; color: #888; margin-top: 24px; line-height: 1.8; }
+  .ornament { border: none; height: 2px; background: #C5A55A; margin: 24px auto; width: 60px; }
+  h2 { color: #1A1F3A; font-family: 'Cormorant Garamond', serif; font-size: 18pt; margin: 32pt 0 12pt; padding-bottom: 8pt; border-bottom: 2px solid #C5A55A; }
+  h3 { color: #1A1F3A; font-family: 'Cormorant Garamond', serif; font-size: 14pt; margin: 20pt 0 8pt; font-weight: 700; }
+  h4 { color: #6B3FA0; font-size: 13pt; margin: 14pt 0 6pt; font-weight: 700; }
+  p { margin: 10pt 0; }
+  ul, ol { margin: 10pt 0 10pt 24pt; }
+  li { margin: 6pt 0; }
+  table { width: 100%; border-collapse: collapse; margin: 16pt 0; font-size: 10pt; }
+  th { background: #1A1F3A; color: #C5A55A; padding: 10pt; text-align: left; font-weight: 600; font-size: 10pt; letter-spacing: 1px; text-transform: uppercase; }
+  td { padding: 10pt; border-bottom: 1px solid #E4DDD0; vertical-align: top; }
+  tr:nth-child(even) td { background: #FAF6EE; }
+  .axiome { background: linear-gradient(135deg, #FFF8E5 0%, #FAF6EE 100%); border-left: 4px solid #C5A55A; padding: 16pt 20pt; margin: 16pt 0; font-size: 12pt; line-height: 1.8; }
+  .axiome strong { color: #C5A55A; font-size: 14pt; }
+  .remember { background: #E8F5EE; border-left: 4px solid #2E7D52; padding: 14pt 18pt; margin: 14pt 0; }
+  .warning { background: #FFE8E8; border-left: 4px solid #C0392B; padding: 14pt 18pt; margin: 14pt 0; }
+  .mnemonic { background: #F3E8FF; border-left: 4px solid #6B3FA0; padding: 14pt 18pt; margin: 14pt 0; font-family: 'Inter', sans-serif; }
+  .mnemonic .letter { font-weight: 700; color: #6B3FA0; font-size: 13pt; }
+  .schema { background: #F5F5F8; padding: 16pt; margin: 14pt 0; border: 1px solid #E4DDD0; }
+  .schema-step { display: block; padding: 8pt 12pt; margin: 6pt 0; background: #fff; border: 1px solid #E4DDD0; }
+  .schema-arrow { text-align: center; color: #C5A55A; margin: 4pt 0; font-size: 14pt; }
+  .pesak-box { background: #FFF3E0; border: 2px solid #C5A55A; padding: 14pt 18pt; margin: 16pt 0; }
+  .pesak-box h4 { margin-top: 0; color: #C5A55A; }
+  .yh-watermark { text-align: center; margin-top: 60pt; padding-top: 16pt; border-top: 1px solid #E4DDD0; font-size: 10pt; color: #999; line-height: 1.6; }
+  .compact li { margin: 3pt 0; }
+  .toc { background: #FAF6EE; padding: 16pt 20pt; margin: 16pt 0; }
+  .toc ol { margin-left: 20pt; }
+
+  .lang-switcher-float {
+    position: fixed; top: 12px; right: 12px; z-index: 9999;
+    display: flex; gap: 4px;
+    background: rgba(255,255,255,0.95);
+    border: 1px solid #C5A55A;
+    padding: 4px 6px;
+    border-radius: 3px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    font-family: 'Inter', sans-serif;
+  }
+  .lang-switcher-float a {
+    font-size: 11px; letter-spacing: 1px;
+    padding: 3px 7px; border-radius: 2px;
+    color: #5a4a1a; text-decoration: none;
+    border: 1px solid transparent;
+  }
+  .lang-switcher-float a.active {
+    color: #1A1F3A; background: #FFF8E5;
+    border-color: #1A1F3A; font-weight: 600;
+  }
+  .lang-switcher-float a:hover { color: #1A1F3A; border-color: #C5A55A; }
+  @media print { .lang-switcher-float { display: none; } }
+
+
+/* DAAT responsive mobile (auto-injected) */
+@media (max-width: 768px) {
+  body { font-size: 15px; line-height: 1.65; }
+  .container { max-width: 100%; padding: 16px; box-sizing: border-box; overflow-wrap: break-word; }
+  .cover { margin: 1.2cm 0; }
+  .cover h1 { font-size: 24pt; }
+  .cover .he-title { font-size: 22pt; }
+  .cover .subtitle { font-size: 12pt; }
+  h2 { font-size: 15pt; margin: 22pt 0 10pt; }
+  h3 { font-size: 12.5pt; margin: 16pt 0 6pt; }
+  h4 { font-size: 12pt; margin: 12pt 0 6pt; }
+  .he { font-size: 12pt; line-height: 1.85; }
+  .axiome { padding: 12pt 14pt; font-size: 11.5pt; line-height: 1.7; }
+  .axiome strong { font-size: 12.5pt; }
+  .remember, .warning, .mnemonic, .pesak-box, .toc, .schema { padding: 10pt 14pt; margin: 12pt 0; }
+  .schema-step { padding: 6pt 10pt; }
+  table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; white-space: nowrap; font-size: 10pt; }
+  th, td { padding: 8pt; }
+  .toc ol { margin-left: 16pt; }
+}
+@media (max-width: 480px) {
+  body { font-size: 14px; }
+  .container { padding: 12px; }
+  .cover h1 { font-size: 20pt; }
+  .cover .he-title { font-size: 19pt; }
+  h2 { font-size: 14pt; }
+  h3 { font-size: 12pt; }
+  .axiome { font-size: 11pt; }
+  .he { font-size: 11.5pt; }
+}
+
+  /* Niveau navigation (prev/next siman + onglets N1-N4) */
+  .niveau-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 1rem; padding: 1.5rem 0; border-top: 1px solid #d4c89a;
+    margin: 3rem 0 1.5rem; flex-wrap: wrap;
+    font-family: 'Inter', 'Helvetica', sans-serif; font-size: 11pt;
+  }
+  .niveau-nav a {
+    color: #1A1F3A; text-decoration: none;
+    padding: 0.5rem 1rem; border-radius: 4px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .niveau-nav a:hover { background: #FAF6EE; color: #1A1F3A; }
+  .niveau-nav .nav-niveaux { display: flex; gap: 0.5rem; }
+  .niveau-nav .nav-level { border: 1px solid #d4c89a; font-weight: 600; letter-spacing: 1px; }
+  .niveau-nav .nav-level.active { background: #1A1F3A; color: #fff; border-color: #1A1F3A; }
+  .niveau-nav .nav-level.active:hover { background: #1A1F3A; color: #fff; }
+  .niveau-nav .nav-spacer { flex: 1; }
+  @media (max-width: 640px) {
+    .niveau-nav { flex-direction: column; gap: 0.75rem; }
+  }
+  @media print { .niveau-nav { display: none; } }
+</style>
+<link rel="stylesheet" href="/assets/css/intra-links.css">
+
+<script type="application/ld+json" data-schema="niveau-jsonld">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": [
+        "Article",
+        "LearningResource"
+      ],
+      "@id": "https://daattorah.com/oh/368/synthese/en#article",
+      "headline": "Siman שס״ח · Level 3 — When the eruv is spoiled after it was made | Hilchos Eruvin",
+      "description": "Level 3 (Synthesis) of Siman שס״ח",
+      "url": "https://daattorah.com/oh/368/synthese/en",
+      "image": "https://daattorah.com/assets/img/og/siman-368.png",
+      "inLanguage": "en-US",
+      "isAccessibleForFree": true,
+      "learningResourceType": "Structured halakhic summary for review",
+      "educationalLevel": "Intermediate",
+      "audience": {
+        "@type": "EducationalAudience",
+        "educationalRole": "Intermediate student"
+      },
+      "isPartOf": {
+        "@id": "https://daattorah.com/oh/368/#siman"
+      },
+      "author": {
+        "@id": "https://daattorah.com/#rav-samama"
+      },
+      "publisher": {
+        "@id": "https://daattorah.com/#organization"
+      },
+      "datePublished": "2026-10-21",
+      "dateModified": "2026-10-21"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "DAAT",
+          "item": "https://daattorah.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Orach Chayim",
+          "item": "https://daattorah.com/oh/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Siman 368",
+          "item": "https://daattorah.com/oh/368/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Level 3 — Synthesis",
+          "item": "https://daattorah.com/oh/368/synthese/en"
+        }
+      ]
+    },
+    {
+      "@type": [
+        "Organization",
+        "EducationalOrganization"
+      ],
+      "@id": "https://daattorah.com/#organization",
+      "sameAs": [
+        "https://www.wikidata.org/wiki/Q140170943",
+        "https://www.linkedin.com/company/daattorah"
+      ],
+      "name": "DAAT דעת",
+      "alternateName": "Daat Torah",
+      "url": "https://daattorah.com/",
+      "logo": "https://daattorah.com/assets/img/og/siman-368.svg",
+      "description": "Plateforme d'étude du Choulhan Aroukh (Orah Haïm) en français, hébreu et anglais, 4 niveaux de profondeur, assistant IA Daat.",
+      "founder": {
+        "@id": "https://daattorah.com/#rav-samama"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://daattorah.com/#rav-samama",
+      "sameAs": [
+        "https://www.wikidata.org/wiki/Q140226680"
+      ],
+      "url": "https://daattorah.com/auteur/rav-yossef-haim-samama.html",
+      "name": "Rav Yossef Haim Samama",
+      "alternateName": "רב יוסף חיים סממה",
+      "jobTitle": "Rabbin, posek, fondateur de Daat Torah",
+      "worksFor": {
+        "@id": "https://daattorah.com/#organization"
+      }
+    }
+  ]
+}
+</script>
+  <!-- PWA / app installable -->
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#1A1F3A">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Daat Torah">
+  <script src="/assets/js/pwa.js" defer></script>
+<!-- Vercel Web Analytics. Le script n'est servi qu'une fois Web Analytics activé
+     sur le projet ; tant qu'il ne l'est pas, la requête est un 404 sans effet. -->
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+  <script src="/assets/js/dedicace-banner.js" defer></script>
+  <script src="/assets/js/daat-copy.js" defer></script>
+  <script src="/assets/js/share-text.js" defer></script>
+
+<div class="lang-switcher-float" role="navigation" aria-label="Language"><a href="/oh/368/synthese">FR</a><a href="/oh/368/synthese/he">HE</a><a href="/oh/368/synthese/en" class="active">EN</a></div>
+
+<main>
+<div style="background:#1A1F3A;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:58px;border-bottom:2px solid #C5A55A;">
+  <a href="../../../index-en.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+    <span style="font-family:'Frank Ruhl Libre',serif;font-size:24px;font-weight:700;color:#C5A55A;">דעת</span>
+    <span style="font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:#fff;letter-spacing:3px;">DAAT</span>
+  </a>
+  <div style="display:flex;gap:20px;align-items:center;">
+    <a href="/oh/en" style="color:#C5A55A;text-decoration:none;font-family:'Inter',sans-serif;font-size:13px;">Hilchos Eruvin</a>
+    <a href="/oh/368/en" style="color:#fff;text-decoration:none;font-family:'Inter',sans-serif;font-size:13px;">Siman <bdi>שס״ח</bdi></a>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="cover">
+  <div class="badge-top">DAAT · LEVEL 3 — MASTER SYNTHESIS</div>
+  <h1>Siman <bdi>שס״ח</bdi></h1>
+  <div class="he-title">סימן שס״ח · דין אם אחר שעירבו נתקלקל העירוב</div>
+  <div class="subtitle">Recap & mnemonics for review</div>
+  <hr class="ornament">
+  <div class="meta">
+    Master synthesis · Hilchos Eruvin · 5 seifim in the Shulchan Aruch, 4 seifim in the Shulchan Aruch HaRav<br>
+    <em>To memorize and review after Levels 1 & 2</em>
+  </div>
+</div>
+
+<div style="text-align:center;margin:20px 0;">
+  <button onclick="window.print()" class="print-btn" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;background:#1A1F3A;color:#C5A55A;padding:10px 22px;border:1px solid #C5A55A;border-radius:2px;cursor:pointer;text-transform:uppercase;">📄 Print / Save as PDF</button>
+</div>
+<style>@media print { .print-btn, .daat-khavroutha-fab, .daat-chat-fab { display: none !important; } }</style>
+
+
+<h3 id="synthesis-plan">📑 Synthesis plan</h3>
+
+<div class="toc">
+<ol class="compact">
+  <li><strong>The central axiom</strong> of the siman</li>
+  <li><strong>The key concepts</strong>, condensed</li>
+  <li><strong>Informing the residents</strong> — the cases of seifim א and ב, in their order</li>
+  <li><strong>Decision tree</strong> — a spoiled or diminished eruv</li>
+  <li><strong>The Mechaber and the Alter Rebbe</strong> — what the comparison of the texts shows</li>
+  <li><strong>Mnemonic מכם · שמע</strong></li>
+  <li><strong>Pitfalls to avoid</strong></li>
+  <li><strong>Practical cases</strong></li>
+  <li><strong>Final synthesis table</strong></li>
+  <li><strong>The practical commandments</strong></li>
+</ol>
+</div>
+
+<h2 id="1-the-central-axiom">1. The central axiom</h2>
+
+<div class="axiome">
+<strong>Siman <bdi>שס״ח</bdi> in one sentence.</strong><br>
+Once the eruv has been made, it may be spoiled, diminish or become moldy: the siman says when the residents must be informed again in order to redo or complete it (seifim א and ב), how much food the eruv must contain at its outset (seif ג), and what becomes of a diminished eruv (seif ד) and of moldy eruv bread (seif ה). Beneath seifim א and ב, one notion recurs in the Mishnah Berurah: what is redone or added can count as an eruv made from the outset. For a consumed eruv redone from another kind, «&nbsp;<span class="he-q">דכיון שכבר כלה המין הראשון הו״ל כמערב לכתחלה</span>&nbsp;» (משנה ברורה שס״ח ס״ק ד); for residents who were added, «&nbsp;<span class="he-q">דהוספה זו ג״כ כתחלת עירוב הוא</span>&nbsp;» (משנה ברורה שס״ח ס״ק ט).
+</div>
+
+<h2 id="2-the-condensed-key-concepts">2. The condensed key concepts</h2>
+
+<table>
+<tr><th>Concept</th><th>Definition</th><th>In the seif</th></tr>
+<tr><td><span class="he-q">מין הראשון</span> · <span class="he-q">מין אחר</span></td><td>The kind of food in the eruv; the Mishnah Berurah's example: «&nbsp;<span class="he-q">כגון שהיה מתחלה פת חטים ועכשיו רוצה לערב מפת שעורים</span>&nbsp;» (משנה ברורה שס״ח ס״ק ג)</td><td>From the same kind, no need to inform; from another kind, it depends on the state of the first and on who supplies the food (seif א)</td></tr>
+<tr><td><span class="he-q">כלה</span> · <span class="he-q">נתמעט</span></td><td>An eruv that is consumed, and one that is only diminished</td><td>From another kind: consumed, one must inform if one uses what is theirs; the Mishnah Berurah reports the Maamar Mordechai and other Acharonim: only a house that opens onto two courtyards (ס״ק ד); the Shulchan Aruch HaRav says: those whom one informs at the start of an eruv, and gives as an example, in that seif, one whose house opens onto two courtyards (368:1); only diminished, no need (seif א)</td></tr>
+<tr><td><span class="he-q">להודיע</span></td><td>To inform the residents, that is «&nbsp;<span class="he-q">לשאלם אם יתרצו לזה</span>&nbsp;» (משנה ברורה שס״ח ס״ק ב)</td><td>Seifim א and ב</td></tr>
+<tr><td><span class="he-q">משלהם</span> · <span class="he-q">משלו</span></td><td>From what belongs to the residents, or from one's own; for one's own, the reason according to the Mishnah Berurah: «&nbsp;<span class="he-q">כיון שהם אינם נותנים כלום</span>&nbsp;» (משנה ברורה שס״ח ס״ק ה)</td><td>From another kind, the first being consumed: from one's own, no need to inform (seif א)</td></tr>
+<tr><td><span class="he-q">נתוספו דיורים בחצר</span></td><td>Residents «&nbsp;<span class="he-q">שלא היו בעת הנחת העירוב</span>&nbsp;» (משנה ברורה שס״ח ס״ק ח)</td><td>If the house opens onto two courtyards, one must inform (seif ב)</td></tr>
+<tr><td><span class="he-q">הבית פתוח לשתי חצרות</span></td><td>For such a house, the eruv is not made without his knowledge: «&nbsp;<span class="he-q">דשמא אינו חפץ כלל לערב בחצר זו עם אנשים אלו אלא בחצר אחרת</span>&nbsp;» (משנה ברורה שס״ח ס״ק ט)</td><td>The condition of seif ב</td></tr>
+<tr><td><span class="he-q">שיעור העירוב בתחלתו</span></td><td>The measure of the eruv at its outset</td><td>Seif ג</td></tr>
+<tr><td><span class="he-q">שיעורו כגרוגרות</span> · <span class="he-q">מזון שתי סעודות</span></td><td>A dried fig per participant up to eighteen; beyond that, two meals, which are «&nbsp;<span class="he-q">שיעור היותר גדול</span>&nbsp;» (משנה ברורה שס״ח ס״ק י)</td><td>Six eggs, and another opinion: eight (seif ג)</td></tr>
+<tr><td><span class="he-q">כל שהוא</span></td><td>Any amount at all</td><td>Suffices after the first Shabbos has begun, for the following Shabbosos (seif ד)</td></tr>
+<tr><td><span class="he-q">נתעפש</span></td><td>Eruv bread that became moldy and unfit to eat: «&nbsp;<span class="he-q">היינו כשנתעפש כולו</span>&nbsp;» (משנה ברורה שס״ח ס״ק י״ט)</td><td>As if consumed: the eruv must be made anew (seif ה)</td></tr>
+<tr><td><span class="he-q">חלת מצה</span></td><td>A matzah loaf, which does not quickly become moldy</td><td>The custom the Rema's gloss reports (seif ה)</td></tr>
+</table>
+
+<h2 id="3-informing-the-residents">3. Informing the residents — the cases of seifim א and ב, in their order</h2>
+
+<div class="schema">
+<span class="schema-step"><strong>The setting</strong> → according to the Mishnah Berurah, seif א speaks of the first Shabbos: «&nbsp;<span class="he-q">זה מיירי בשבת ראשון ונתקלקל קודם שנכנס השבת</span>&nbsp;» (משנה ברורה שס״ח ס״ק א).</span>
+<div class="schema-arrow">↓</div>
+<span class="schema-step"><strong>Redone from the same kind</strong> → no need to inform: «&nbsp;<span class="he-q">אם בא לערב ממין הראשון אפי כלה א״צ להודיע ואפי׳ מערב עליהם משלהם</span>&nbsp;» (שו״ע או״ח שס״ח:א).</span>
+<div class="schema-arrow">↓</div>
+<span class="schema-step"><strong>From another kind, the first being consumed</strong> → inform if one uses what is theirs: «&nbsp;<span class="he-q">צריך להודיע להם אם מערב משלהם</span>&nbsp;» (שו״ע או״ח שס״ח:א); from one's own: «&nbsp;<span class="he-q">ואם משלו א״צ להודיעם כלל</span>&nbsp;» (שו״ע או״ח שס״ח:א). Whom to inform: the Mishnah Berurah reports the Maamar Mordechai, who limits this duty to a house that opens onto two courtyards, and adds that other Acharonim write the same (ס״ק ד); the Shulchan Aruch HaRav: «&nbsp;<span class="he-q">צָרִיךְ לְהוֹדִיעַ לְכָל מִי שֶׁצָּרִיךְ לְהוֹדִיעַ לוֹ בִּתְחִלַּת עֵרוּב</span>&nbsp;» (שו״ע הרב שס״ח:א), and earlier in the same seif he gives as an example «&nbsp;<span class="he-q">כְּגוֹן שֶׁבֵּיתוֹ פָּתוּחַ לִשְׁתֵּי חֲצֵרוֹת</span>&nbsp;» (שו״ע הרב שס״ח:א).</span>
+<div class="schema-arrow">↓</div>
+<span class="schema-step"><strong>The first only diminished</strong> → no need to inform: «&nbsp;<span class="he-q">ואם לא כלה הראשון אלא נתמעט אע״פ שמערב משלהם א״צ להודיעם</span>&nbsp;» (שו״ע או״ח שס״ח:א).</span>
+<div class="schema-arrow">↓</div>
+<span class="schema-step"><strong>Residents were added</strong> → «&nbsp;<span class="he-q">אם הבית פתוח לשתי חצרות צריך להודיעם מפני שאולי אינם רוצים לערב עם אלו</span>&nbsp;» (שו״ע או״ח שס״ח:ב).</span>
+</div>
+
+<h2 id="4-decision-tree-a-spoiled-or-diminished-eruv">4. Decision tree — a spoiled or diminished eruv</h2>
+
+<div class="schema">
+<span class="schema-step"><strong>Q1:</strong> Was the eruv spoiled, or did it diminish, after the first Shabbos had begun?</span>
+<div class="schema-arrow">↓ YES → for this Shabbos, «&nbsp;<span class="he-q">א״צ שום תיקון לשבת זו</span>&nbsp;» (משנה ברורה שס״ח ס״ק א); for the following ones, any remnant suffices (seif ד); when the eruv and the shituf are made together, the Magen Avraham, reported by the Mishnah Berurah, declares such a remnant invalid, and the Biur Halachah concludes that one may be lenient in a time of need (<span class="he-q">בשעת הדחק</span>); in the first place, complete the measure (ס״ק ט״ז); if it is entirely consumed, it must be made anew for the following ones (ס״ק א), and likewise if it became moldy and unfit to eat (seif ה; entirely moldy, according to the Mishnah Berurah, ס״ק י״ט). NO, it was before Shabbos began ↓</div>
+<span class="schema-step"><strong>Q2:</strong> Is it redone from the same kind?</span>
+<div class="schema-arrow">↓ YES → no need to inform, even if the first is consumed and even from what is theirs (seif א); NO ↓</div>
+<span class="schema-step"><strong>Q3:</strong> Is the first consumed?</span>
+<div class="schema-arrow">↓ NO, only diminished → no need to inform, even from what is theirs (seif א); YES ↓</div>
+<span class="schema-step"><strong>Q4:</strong> Does one use what belongs to the residents?</span>
+<div class="schema-arrow">↓ YES → they must be informed; the Mishnah Berurah reports the Maamar Mordechai and other Acharonim: only a house that opens onto two courtyards (ס״ק ד); the Shulchan Aruch HaRav says: those whom one informs at the start of an eruv, and gives as an example, in that seif, one whose house opens onto two courtyards (368:1); NO, from one's own → no need to inform (seif א)</div>
+<span class="schema-step"><strong>And if residents were added</strong> → if the house opens onto two courtyards, one must inform (seif ב).</span>
+<span class="schema-step"><strong>→</strong> The layout of the houses and courtyards also decides: ask your Rav.</span>
+</div>
+
+<h2 id="5-the-mechaber-and-the-alter-rebbe">5. The Mechaber and the Alter Rebbe — what the comparison of the texts shows</h2>
+
+<p>The Shulchan Aruch HaRav (of the Alter Rebbe) has 4 seifim for this siman, the Shulchan Aruch of the Mechaber 5: the Rav's seif 3 carries what the Mechaber says in his seifim ג and ד, and his seif 4 corresponds to seif ה and the Rema's gloss. The table sets side by side, point by point, the text of the Mechaber and the Rema and that of the Rav; it does not examine the commentators, whom Level 2 studies. Not everything the Rav writes is a difference: the condition on the residents' bread is laid down by the Mechaber in the previous siman, and the Taz connects it to seif א. The Biur Halachah notes, however, that this Taz was contested: «&nbsp;<span class="he-q">עיין בט״ז ולא העתקתיו במ״ב משום שהשיגו עליו הרבה אחרונים</span>&nbsp;» (ביאור הלכה שס״ח); whether the Rav, who writes the condition in the seif itself, takes a position here, this page does not decide.</p>
+
+<table>
+<tr><th>Point</th><th>Mechaber and Rema</th><th>Shulchan Aruch HaRav</th></tr>
+<tr><td>Redoing from the same kind, from what is the residents'</td><td>«&nbsp;<span class="he-q">אם בא לערב ממין הראשון אפי כלה א״צ להודיע ואפי׳ מערב עליהם משלהם</span>&nbsp;» (שו״ע או״ח שס״ח:א); the condition on their bread is laid down in the previous siman: «&nbsp;<span class="he-q">אבל בני החצר אין יכולים ליקח פתו מביתו לערב שלא מדעת אחד מבני הבית</span>&nbsp;» (שו״ע או״ח שס״ז:א)</td><td>The same rule; the Rav writes in the seif itself the condition that the Mechaber lays down in 367:1: «&nbsp;<span class="he-q">וּבִלְבָד שֶׁלֹּא יִטּוֹל פִּתָּם מִבָּתֵּיהֶם שֶׁלֹּא מִדַּעְתָּם, אֶלָּא בְּנֵי הַבַּיִת יִתְּנוּ לוֹ</span>&nbsp;» (שו״ע הרב שס״ח:א); and he names one whose house opens onto two courtyards: «&nbsp;<span class="he-q">אֵין צָרִיךְ לְהוֹדִיעַ לוֹ כְּשֶׁנִּתְקַלְקֵל וְחוֹזֵר וּמְתַקְּנִים אוֹתוֹ</span>&nbsp;» (שו״ע הרב שס״ח:א)</td></tr>
+<tr><td>Residents who were added</td><td>«&nbsp;<span class="he-q">אם הבית פתוח לשתי חצרות צריך להודיעם</span>&nbsp;» (שו״ע או״ח שס״ח:ב); the seif does not say whether one uses one's own or theirs</td><td>«&nbsp;<span class="he-q">אֲפִלּוּ אִם מְזַכֶּה לָהֶם מִשֶּׁלּוֹ — צָרִיךְ לְהוֹדִיעַ</span>&nbsp;» (שו״ע הרב שס״ח:ב), to each of them whose house opens onto two courtyards. The Mishnah Berurah writes likewise, and reports a more lenient opinion: «&nbsp;<span class="he-q">ויש מקילין שיכול לערב משלו בכל גווני</span>&nbsp;» (משנה ברורה שס״ח ס״ק ט)</td></tr>
+<tr><td>The remnants of the eruv</td><td>«&nbsp;<span class="he-q">נתמעט מכשיעורו אחר שנכנס שבת ראשונ׳ ונשתייר בו אפי׳ כל שהוא כשר אף לשאר שבתות</span>&nbsp;» (שו״ע או״ח שס״ח:ד)</td><td>Even a piece: «&nbsp;<span class="he-q">וַאֲפִלּוּ אִם הַמְּשֻׁיָּר אֵינוֹ כִּכָּר שָׁלֵם אֶלָּא פְּרוּסָה</span>&nbsp;» (שו״ע הרב שס״ח:ג); broken before Shabbos began, it remains valid «&nbsp;<span class="he-q">אִם שִׁעוּרוֹ קַיָּם עַד כְּנִיסַת הַשַּׁבָּת</span>&nbsp;» (שו״ע הרב שס״ח:ג); and, if it diminished below its measure before Shabbos began, «&nbsp;<span class="he-q">אַף אִם הַמְּשֻׁיָּר הוּא כִּכָּר קָטָן שָׁלֵם — פָּסוּל</span>&nbsp;» (שו״ע הרב שס״ח:ג). The limit itself, the onset of the first Shabbos, is already in the Mechaber's seif ד</td></tr>
+<tr><td>The matzah, or the eruv every Erev Shabbos</td><td>«&nbsp;<span class="he-q">וזה טוב יותר מלערב כל שבת ושבת שלא ישכחו מלערב</span>&nbsp;» (רמ״א או״ח שס״ח:ה); «&nbsp;<span class="he-q">מיהו אם רוצים לערב כל ע״ש ולאכול העירוב כל שבת הרשות בידם</span>&nbsp;» (רמ״א או״ח שס״ח:ה)</td><td>«&nbsp;<span class="he-q">אֲבָל בֶּאֱמֶת יוֹתֵר טוֹב לְעָרֵב כָּל עֶרֶב שַׁבָּת</span>&nbsp;» (שו״ע הרב שס״ח:ד); and for one who wants to do best, «&nbsp;<span class="he-q">יְעָרֵב מִשֶּׁלּוֹ בְּכָל עֶרֶב שַׁבָּת, וִיזַכֵּהוּ לְכָל הַקָּהָל עַל יְדֵי אַחֵר</span>&nbsp;» (שו״ע הרב שס״ח:ד), «&nbsp;<span class="he-q">וְלֹא יְבָרֵךְ עַל שֶׁלּוֹ</span>&nbsp;» (שו״ע הרב שס״ח:ד)</td></tr>
+</table>
+
+<h2 id="6-mnemonic-מכם-שמע">6. Mnemonic מכם · שמע</h2>
+
+<div class="mnemonic">
+<p>The three distinctions of seif א, in the order the seif introduces them, form <strong>מכם</strong> ("from you") — and that is the question: does one use what belongs to the residents?</p>
+<p><span class="letter">מ</span> — <strong><span class="he-q">מין הראשון</span></strong>: from the same kind, no need to inform (seif א).</p>
+<p><span class="letter">כ</span> — <strong><span class="he-q">כלה</span></strong>: from another kind, the first being consumed, one must inform; only diminished, no (seif א).</p>
+<p><span class="letter">ם</span> — <strong><span class="he-q">משלהם</span></strong> (final mem): one informs them if one uses what is theirs; from one's own, no (seif א).</p>
+<p>Then, for seifim ג, ד and ה, <strong>שמע</strong>:</p>
+<p><em>A device of the site</em>: each letter is taken from the key word of the distinction, and is not always its initial (the final ם of <span class="he-q">משלהם</span>, the ע of <span class="he-q">נתעפש</span>).</p>
+<p><span class="letter">ש</span> — <strong><span class="he-q">שיעור העירוב בתחלתו</span></strong>: the measure is set at the outset (seif ג).</p>
+<p><span class="letter">מ</span> — <strong><span class="he-q">נתמעט מכשיעורו</span></strong>: after the first Shabbos has begun, any remnant suffices (seif ד).</p>
+<p><span class="letter">ע</span> — <strong><span class="he-q">נתעפש פת העירוב</span></strong>: as if consumed, the eruv must be made anew (seif ה).</p>
+<p>Seif ב, the added residents, stands apart: the house that opens onto two courtyards.</p>
+</div>
+
+<h2 id="7-pitfalls-to-avoid">7. Pitfalls to avoid</h2>
+
+<div class="warning">
+<strong>Pitfall 1:</strong> Extending the exemption from informing to every redone eruv. Seif א gives it for the same kind and for an eruv that is only diminished; from another kind, the first being consumed, «&nbsp;<span class="he-q">צריך להודיע להם אם מערב משלהם</span>&nbsp;» (שו״ע או״ח שס״ח:א).
+</div>
+
+<div class="warning">
+<strong>Pitfall 2:</strong> Conversely, requiring that they be informed for a consumed eruv redone from another kind when one uses one's own: «&nbsp;<span class="he-q">ואם משלו א״צ להודיעם כלל</span>&nbsp;» (שו״ע או״ח שס״ח:א); according to the Mishnah Berurah, because the residents give nothing (ס״ק ה).
+</div>
+
+<div class="warning">
+<strong>Pitfall 3:</strong> Keeping just six eggs, or just eight, as the measure. Seif ג reports both: «&nbsp;<span class="he-q">שהם כששה ביצים וי״א שהם כשמונה ביצים</span>&nbsp;» (שו״ע או״ח שס״ח:ג); and the Mishnah Berurah: «&nbsp;<span class="he-q">ולכתחלה נכון לנהוג כן ובדיעבד די כששה ביצים</span>&nbsp;» (משנה ברורה שס״ח ס״ק י״ב). The site does not convert these measures into present-day units: ask your Rav for their equivalent.
+</div>
+
+<div class="warning">
+<strong>Pitfall 4:</strong> Applying seif ד to an eruv that diminished before the first Shabbos began. The seif says «&nbsp;<span class="he-q">נתמעט מכשיעורו אחר שנכנס שבת ראשונ׳ ונשתייר</span>&nbsp;» (שו״ע או״ח שס״ח:ד); and the Shulchan Aruch HaRav: «&nbsp;<span class="he-q">אֲבָל אִם נִתְמַעֵט מִשִּׁעוּרוֹ קֹדֶם כְּנִיסַת הַשַּׁבָּת, אַף אִם הַמְּשֻׁיָּר הוּא כִּכָּר קָטָן שָׁלֵם — פָּסוּל</span>&nbsp;» (שו״ע הרב שס״ח:ג).
+</div>
+
+<div class="warning">
+<strong>Pitfall 5:</strong> Presenting the "any remnant" of seif ד without the Mishnah Berurah's reservation. It reports the Magen Avraham, according to whom this rule held when the courtyard eruv and the alley shituf were each made separately, and not when they are made together; it notes that the Biur Halacha reports dissenting views, and concludes: «&nbsp;<span class="he-q">ולכתחלה בודאי צריך ליזהר להוסיף עד כשיעור</span>&nbsp;» (משנה ברורה שס״ח ס״ק ט״ז).
+</div>
+
+<div class="warning">
+<strong>Pitfall 6:</strong> Ascribing to the Rema a preference for the eruv every Erev Shabbos. The Rema considers the matzah better, «&nbsp;<span class="he-q">שלא ישכחו מלערב</span>&nbsp;» (רמ״א או״ח שס״ח:ה), and leaves free whoever wants to make the eruv every week. The opposite view is that of the Acharonim reported by the Mishnah Berurah, «&nbsp;<span class="he-q">והאחרונים כתבו דיותר טוב לערב כל ע״ש</span>&nbsp;» (משנה ברורה שס״ח ס״ק כ״א), and that of the Shulchan Aruch HaRav (368:4).
+</div>
+
+<div class="warning">
+<strong>Pitfall 7:</strong> Mixing the two numberings. The Mechaber has 5 seifim, the Shulchan Aruch HaRav 4: a reference to the Rav's "368:3" covers the measure and the remnants, which are the Mechaber's seifim ג and ד; the Rav's "368:4" corresponds to seif ה and the Rema's gloss.
+</div>
+
+<h2 id="8-practical-cases">8. Practical cases</h2>
+
+<p>These situations are <em>applications by the site</em>: the seif does not name them; each is tied to the seif it involves.</p>
+
+<table>
+<tr><th>Situation</th><th>Analysis</th><th>Conduct</th></tr>
+<tr><td>The communal eruv was consumed before the first Shabbos began; a resident remakes it with his own bread</td><td>Application by the site, seif א, which according to the Mishnah Berurah speaks of an eruv spoiled before the first Shabbos began (ס״ק א): from the same kind, no need to inform; from another kind, «&nbsp;<span class="he-q">ואם משלו א״צ להודיעם כלל</span>&nbsp;» (שו״ע או״ח שס״ח:א)</td><td>According to seif א he need not inform, whether his bread is of the same kind as the first or of another. Ask your Rav</td></tr>
+<tr><td>New families move into the courtyard after the eruv was made</td><td>Application by the site, seif ב: if the house opens onto two courtyards, one must inform; the Mishnah Berurah: «&nbsp;<span class="he-q">ואפילו אם מערב עתה משלו</span>&nbsp;» (משנה ברורה שס״ח ס״ק ט)</td><td>Inform — according to the Mishnah Berurah and the Shulchan Aruch HaRav (368:2), each of the new residents whose house opens onto two courtyards. The Mishnah Berurah also reports a more lenient opinion (ס״ק ט). Ask your Rav</td></tr>
+<tr><td>The eruv of a large community: how much?</td><td>Application by the site, seif ג: more than eighteen participants, even a thousand or more, food for two meals</td><td>Six eggs, and another opinion says eight (seif ג); according to the Mishnah Berurah, it is proper in the first place to follow eight; six suffice after the fact (ס״ק י״ב). No conversion into present-day units: ask the Rav</td></tr>
+<tr><td>The eruv matzah, eaten into after the first Shabbos, has fallen below its measure</td><td>Application by the site, seif ד: any remnant is valid for the following Shabbosos; the Shulchan Aruch HaRav: even a piece (368:3)</td><td>According to seif ד, valid. When the eruv and the shituf are made together, the Magen Avraham, reported by the Mishnah Berurah, declares it invalid (ס״ק ט״ז); the Biur Halachah concludes that one may be lenient in a time of need (<span class="he-q">בשעת הדחק</span>); in the first place, complete the measure (ס״ק ט״ז). Ask your Rav</td></tr>
+<tr><td>The matzah of the communal eruv, kept since Pesach, is found moldy</td><td>Application by the site, seif ה: moldy eruv bread unfit to eat is as if consumed; «&nbsp;<span class="he-q">היינו כשנתעפש כולו</span>&nbsp;» (משנה ברורה שס״ח ס״ק י״ט)</td><td>Make the eruv anew (seif ה). Discovered on Shabbos without knowing when it became moldy: «&nbsp;<span class="he-q">תלינן לקולא ואמרינן דמקרוב נתעפש</span>&nbsp;» (משנה ברורה שס״ח ס״ק כ)</td></tr>
+</table>
+
+<h2 id="9-final-synthesis-table">9. Final synthesis table</h2>
+
+<table>
+<tr><th>Element</th><th>Detail</th></tr>
+<tr><td>Subject of the siman</td><td>A courtyard eruv that is spoiled, diminished or moldy after it was made, and how much it must contain</td></tr>
+<tr><td>Place</td><td>Hilchos Eruvin, after Siman 367, which asks whether a wife may make the eruv for her husband</td></tr>
+<tr><td>Number of seifim</td><td>5 seifim (Mechaber, with a gloss of the Rema in seif ה) — 4 seifim in the Shulchan Aruch HaRav</td></tr>
+<tr><td>Mishnah Berurah</td><td>22 ס״ק</td></tr>
+<tr><td>Talmudic source</td><td>Eruvin 80b-81b, studied in Level 2</td></tr>
+<tr><td>Informing the residents</td><td>The Mishnah Berurah ranks some of these cases with the start of an eruv: a consumed eruv redone from another kind, «&nbsp;<span class="he-q">הו״ל כמערב לכתחלה</span>&nbsp;» (משנה ברורה שס״ח ס״ק ד), and the addition for new residents, «&nbsp;<span class="he-q">דהוספה זו ג״כ כתחלת עירוב הוא</span>&nbsp;» (משנה ברורה שס״ח ס״ק ט). Yet in seif א one who uses his own need not inform, «&nbsp;<span class="he-q">כיון שהם אינם נותנים כלום וכבר נתרצו לערב יחד</span>&nbsp;» (משנה ברורה שס״ח ס״ק ה). In seif א, one informs if one uses what is theirs — according to the Maamar Mordechai and other Acharonim reported by the Mishnah Berurah, only a house that opens onto two courtyards (ס״ק ד); in seif ב, a house that opens onto two courtyards — according to the Mishnah Berurah, even if one makes the eruv from one's own, and it also reports a more lenient opinion (ס״ק ט); the measure is judged at the outset (seif ג); after the first Shabbos has begun, any remnant (seif ד), with the Mishnah Berurah's reservation (ס״ק ט״ז)</td></tr>
+<tr><td>Practical ruling</td><td>Seif ג reports two opinions on the measure; for an eruv diminished after the first Shabbos began, the Mishnah Berurah reports the Magen Avraham, who invalidates it when the eruv and the shituf are made together, and asks that it be completed in the first place (ס״ק ט״ז): ask your Rav</td></tr>
+</table>
+
+<h2 id="10-the-practical-commandments-of-siman-שס-ח">10. The practical commandments of Siman <bdi>שס״ח</bdi></h2>
+
+<div class="pesak-box">
+<h4>For daily conduct</h4>
+<ol class="compact">
+  <li><strong>A spoiled eruv redone from the same kind</strong>: without informing the residents, even if the first is consumed and even from what is theirs (seif א). The Shulchan Aruch HaRav writes in this seif, as the Mechaber does in the previous siman (שו״ע או״ח שס״ז:א), that one does not take their bread from their houses without their knowledge: the members of the household give it (368:1); the Taz connects this condition to seif א, and the Biur Halachah notes that many Acharonim contested him (ביאור הלכה שס״ח).</li>
+  <li><strong>From another kind, the first being consumed</strong>: inform if one uses what is theirs; from one's own, no (seif א). Whom to inform: the Mishnah Berurah reports the Maamar Mordechai and other Acharonim: only a house that opens onto two courtyards (ס״ק ד); the Shulchan Aruch HaRav says: those whom one informs at the start of an eruv, and gives as an example, in that seif, one whose house opens onto two courtyards (368:1).</li>
+  <li><strong>The first only diminished</strong>: without informing, even from what is theirs (seif א).</li>
+  <li><strong>Residents added to the courtyard</strong>: if the house opens onto two courtyards, inform (seif ב); according to the Shulchan Aruch HaRav, even if one grants them a share of one's own (368:2); the Mishnah Berurah also reports a more lenient opinion (ס״ק ט); and according to the Magen Avraham, when they are in a single alley and one makes the eruv from what is theirs, they must also be informed (מגן אברהם שס״ח ס״ק א).</li>
+  <li><strong>The measure at the outset</strong>: a dried fig per person up to eighteen; beyond that, two meals — six eggs, and another opinion says eight (seif ג); the Mishnah Berurah: it is proper in the first place to follow eight; six suffice after the fact (ס״ק י״ב).</li>
+  <li><strong>After the first Shabbos has begun</strong>, any remnant suffices for the following Shabbosos (seif ד); when the eruv and the shituf are made together, the Magen Avraham, reported by the Mishnah Berurah, declares it invalid, and the Biur Halachah concludes that one may be lenient in a time of need (<span class="he-q">בשעת הדחק</span>); in the first place, complete the measure (Mishnah Berurah, ס״ק ט״ז). Ask your Rav. The Shulchan Aruch HaRav: even a piece; but if it diminished below its measure before Shabbos began, it is invalid (368:3).</li>
+  <li><strong>Moldy eruv bread</strong> is as if consumed: make the eruv anew (seif ה); when it is entirely moldy (Mishnah Berurah, ס״ק י״ט).</li>
+  <li><strong>The matzah or the eruv every Erev Shabbos</strong>: the Rema considers the matzah better and leaves the eruv every Erev Shabbos to whoever wants it (seif ה); the Acharonim reported by the Mishnah Berurah (ס״ק כ״א) and the Shulchan Aruch HaRav (368:4) prefer making the eruv every Erev Shabbos.</li>
+  <li><strong>In case of doubt</strong> — about the state of the eruv, the measure or the layout of the courtyards: ask your Rav.</li>
+  <li><strong>In-depth pilpul</strong> — Level 2; <strong>Chabad shitah</strong> — Level 4.</li>
+</ol>
+</div>
+
+<div class="remember">
+<strong>📚 Recap of the study path</strong><br>
+You have studied Siman <bdi>שס״ח</bdi> in 3 levels:
+<ul class="compact">
+  <li>🌱 <strong>Level 1 — Base:</strong> the Mechaber's 5 seifim with the Rema's gloss, English translation, halachic concepts</li>
+  <li>⚡ <strong>Level 2 — Lamdan:</strong> the sugya of Eruvin 80b-81b, Rashi and the Rambam, the measure, the remnants, the broken loaf, the Rema's gloss</li>
+  <li>✨ <strong>Level 3 — Synthesis:</strong> axiom, mnemonic, decision tree, practical commandments</li>
+</ul>
+To go further: <strong>Level 4 — Daat HaRav</strong> (the shitah of the Alter Rebbe in the Shulchan Aruch HaRav, siman <bdi>שס״ח</bdi>).
+</div>
+
+</div>
+
+<div class="yh-watermark">
+~ ~ ~ ~ ~<br>
+<strong>DAAT</strong> · <strong>רב יוסף חיים סממה</strong><br>
+<br>
+<em>סימן שס״ח · Level 3 — Magisterial Synthesis</em><br>
+<a href="../../../soutenir-en.html" style="display:inline-block;margin-top:14px;font-size:13px;color:#B8972A;text-decoration:none;border:1px solid rgba(184,151,42,0.5);padding:6px 16px;border-radius:2px;">♥ Support DAAT</a>
+</div>
+
+  <link rel="stylesheet" href="../../../assets/css/khavroutha-fab.css">
+<link rel="stylesheet" href="../../../assets/css/chat-widget.css">
+  <script>window.DAAT_CHAT_API_URL = 'https://daatai.vercel.app/api/chat';</script>
+  <script src="../../../assets/js/chat-loader.js" defer></script>
+<a href="../../../communaute-en.html#khavroutha" class="daat-khavroutha-fab" title="Find a chavrusa for this siman"><span class="icon">📖</span><span class="label-long">Join the chavrusa</span></a>
+  <script src="../../../assets/js/daat-progress.js" defer></script>
+<nav class="niveau-nav" aria-label="Navigation between levels">
+  <a href="/oh/367/synthese/en" class="nav-prev">← Siman 367</a>
+  <div class="nav-niveaux">
+    <a href="/oh/368/base/en" class="nav-level">N1</a>
+    <a href="/oh/368/lamdan/en" class="nav-level">N2</a>
+    <a href="/oh/368/synthese/en" class="nav-level active">N3</a>
+    <a href="/oh/368/daat-harav/en" class="nav-level">N4</a>
+  </div>
+  <span class="nav-spacer"></span>
+</nav>
+</main>
+<script src="/assets/js/intra-links.js" defer></script>
+</body>
+</html>
