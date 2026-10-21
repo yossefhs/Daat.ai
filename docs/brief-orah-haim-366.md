@@ -45,6 +45,75 @@ l'audit a trouvé, des mois après, des conduites contraires à la source sur de
 - Les citations de guemara se référencent en hébreu, `(עירובין צ״ח ע״ב)` : les formes latines accentuées
   (« Érouvin 20a ») ne sont pas encore rattachées à leur folio par `verifier-citations.py`.
 
+## 0-ter. GABARIT ARRÊTÉ SUR LE PREMIER LOT (366-369, 21 octobre 2026)
+
+Le premier lot a été écrit siman par siman, et ses choix de forme ont divergé ; il a fallu une passe
+d'harmonisation, puis une nouvelle série de vérification. Les choix ci-dessous sont arrêtés : les
+appliquer dès l'écriture. La charpente reste celle de 365 (CSS figé du niveau 4 compris) ; pour la
+forme de ce qui suit, prendre modèle sur `sources/shabbat/siman-366/` (siman à plusieurs séifs) ou
+`siman-369/` (séif unique).
+
+- **Section 2 du niveau 4 — libellé neutre**, et non « חידוש » ni « תוספות » : `section-num`
+  « 2 · לשון הרב ולשון המחבר » (FR et HE), EN « 2 · The Rav's text and the Mechaber's » ; h2 hébreu
+  « לשון הרב מול סעיף המחבר » (« … והרמ״א » quand le siman a une glose du Rama) ; h2 de la langue
+  de la page : FR « Où le texte du Rav diffère du séif du Mehaber [et du Rama] », HE « במה שונה לשון
+  הרב מסעיף המחבר [והרמ״א] », EN « Where the Rav's text differs from the Mechaber's seif [and the
+  Rema's] ». La meta description et la phrase d'introduction de la page disent « ce en quoi le texte
+  du Rav diffère » / « במה שונה לשון הרב » / « where the Rav's text differs ». Raison : « תוספות » se
+  lit comme les Tossafot (le 369 les cite dans cette section), et « ajoute » ne couvre pas un point où
+  le Rav OMET ce que le Mehaber écrit (369, point א). L'introduction de la section dit qu'un point
+  relevé n'est pas propre au Rav pour autant, et nomme où il se lit déjà (Tour, Rachi, Magen Avraham,
+  Taz…) ; quand des commentateurs lisent déjà le point dans les mots du Mehaber, elle le dit.
+- Blocs de la section 2 : « נקודה א/ב/ג — … » (HE), « Point א/ב/ג — … » (FR, EN), adresse du seul séif
+  du Rav dans le titre : HE « (שו״ע הרב שס״ו:ג) », FR « (Choulhan Aroukh HaRav 366:3) », EN « (Shulchan
+  Aruch HaRav 366:3) ». Étiquettes : « Ce qu'écrit le Mehaber : », « Ce qu'écrit le Rav : » (HE « דברי
+  המחבר: », « דברי הרב: » ; EN « What the Mechaber writes: », « What the Rav writes: »).
+- Nœud Organization du JSON-LD : logo `https://daattorah.com/assets/img/og/og-default.svg`, description,
+  `jobTitle` et `educationalRole` dans la langue de la page.
+- Renvoi au Rav : FR « consulte ton Rav », HE « היעזר ברב שלך », EN « consult your Rav ». Fin du
+  récapitulatif du niveau 2 : « Pour la halakha lema'asseh, consulte ton Rav ; l'usage de la communauté
+  compte aussi. » (HE « להלכה למעשה, היעזר ברב שלך; גם מנהג הקהילה קובע. » ; EN « For halachah
+  lema'aseh, consult your Rav; the custom of the community also counts. »).
+- h1 du niveau 1 qui nomme son ouvrage (« 15 séifim du Choulhan Aroukh ») ; ligne de couverture du
+  niveau 3 « N séifim dans le Choulhan Aroukh, M dans le Choulhan Aroukh HaRav ».
+- Section 4 du niveau 4 : un usage que le Rav rapporte « בִּזְמַן הַזֶּה » se rapporte à SON temps (« le
+  Rav écrit que l'usage, de son temps, est… »), jamais au présent comme conduite Habad d'aujourd'hui.
+- Ce que fait le coordinateur, pas l'agent (0.3) : carte du catalogue (section `#hilkhot-eruvin`),
+  « suivant » du siman précédent, `siman-nav.js`, `data/simanim/siman-N.json`, image de partage,
+  `index.md`, `llms.txt`.
+
+**Les défauts que la vérification adverse a trouvés sur 366-369, toutes portes vertes** — près de
+quatre cents corrections en trois séries (`audit/oh-366-369/decisions-N.md`). Aucun n'était une citation
+fausse : tous étaient dans ce que la page DIT des citations. Les chercher soi-même avant de rendre :
+
+1. **Le degré durci ou affaibli** : « צריך ליזהר » rendu « interdit » ; « וטוב לחוש » ou « לכתחלה טוב לחוש…
+   היכא דאפשר » rendu « le Mehaber demande » ; « יש להקל », « יש לסמוך » rendus « on allège », « סומכים » ;
+   une faculté (« יכול לערב ») devenue une conduite (« fait l'érouv ») ; « אסור » et un doute du Peri
+   Megadim confondus dans un même degré.
+2. **La condition perdue dans les résumés** : la mesure (« ובלבד שיהא בהם כשיעור ») absente de quatre
+   résumés du même séif ; « מִשֶּׁלּוֹ » tombé d'une conduite ; « היכא דאפשר » omis. Une condition se
+   cherche dans TOUS les endroits où le séif est résumé : index, encadrés, tableaux, arbres, pièges,
+   commandements, למעשה.
+3. **La raison proposée donnée pour établie** : « ונראה לי הטעם » du Rama rendu « il en donne la raison »,
+   « parce que » ; « d'où », « hence », « ומכאן » qui fabriquent une causalité entre deux séifs.
+4. **Le mauvais locuteur** : une hagaha sur le Smak attribuée au Beit Yossef, un Amora pour un autre, une
+   parenthèse de Sefaria attribuée au Rama, l'avis du Ritva qui est celui de son maître.
+5. **La liste fermée** : « gloses du Rama aux séifim ב, ג, ו… », « pain entier ou 'hala unique », « deux
+   précisions », « ne convient que si » — et toujours fausses. Préférer « notamment ».
+6. **Le rôle inversé** : מזכה rendu « acquires on behalf of » (confond le donneur et l'acquéreur), le fils
+   qui « fait acquérir » au lieu d'acquérir.
+7. **L'ordre** : concepts, tableaux, pièges et למעשה présentés dans un autre ordre que celui des séifs
+   (règle du 243).
+8. **La parité** : une citation présente en hébreu seulement, des ajouts explicatifs sans crochets en HE,
+   des champs du JSON-LD ou un bouton restés en français sur les pages -he et -en, un menu qui renvoie à
+   la page française.
+9. **L'objet moderne** : « le quartier » pour ce que le Rama appelle la ville ou le mavoy.
+10. **Le présent pour le passé** : « l'usage est… » quand le Rav écrit « בִּזְמַן הַזֶּה ».
+11. **Une citation coupée avant ce qui la limite** : le Rama du shammash arrêté avant « ואדעתא דהכי נתנו
+    קמחם מתחלה ».
+12. **Le niveau 3 qui cite ce que les niveaux 1 et 4 ne portent pas** (des ס״ק de la Michna Beroura, le
+    Biour Halakha) : la synthèse ne rapporte que ce qui est déjà dans la page.
+
 ---
 
 ## 0. AVANT DE COMMENCER — ce que le coordinateur doit avoir décidé et fait
@@ -654,9 +723,9 @@ gives no Kuntres Acharon entry for this siman. »). Retirer un élément ne chan
 CSS. Si un siman en a (re-mesurer), suivre la forme de `siman-345/niveau-4-daat-harav.html`
 (« קונטרס אחרון, אות א », `div.sa-block` + `p.sa-he style="font-size: 17px;"` + `p.sa-fr`).
 
-### 8.4 Section 2 — חידוש אדמו״ר הזקן
+### 8.4 Section 2 — לשון הרב ולשון המחבר (libellé arrêté en 0-ter)
 
-Charpente de 365 l.508-534 (`section-num` « 2 · חידוש אדמו״ר הזקן », deux `h2`, `div.sa-block`
+Charpente de 365 l.508-534 (deux `h2`, le `section-num` et les titres étant ceux de 0-ter, `div.sa-block`
 avec `p.sa-he style="font-size: 19px; font-weight: 700; margin-bottom: 12px; color: var(--habad-deep);"`
 pour le titre, `p.sa-fr` pour sa version française, `h3 style=…`, `p style="margin-bottom: 10px;"`).
 Le fond, lui, se réécrit — règle née des simanim 340-361, où **chaque** bloc חידוש était fautif :
