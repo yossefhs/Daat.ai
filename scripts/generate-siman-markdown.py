@@ -278,6 +278,12 @@ LEVEL_DEFINITIONS = [
      "Chitah de l'Admour HaZaken (Choulhan Aroukh HaRav + Kountress Aharon) — psak Habad."),
 ]
 
+# À partir du 366 (Érouvin, Te'houmin), Sefaria ne sert aucun Kountress Aharon (mesuré sur 366-407 le
+# 20 octobre 2026) et le niveau 4 ne tranche pas : il renvoie au Rav. L'ancienne description promettait
+# l'un et l'autre (objection des vérificateurs du lot 366-369) ; elle reste inchangée pour 242-365.
+N4_DESC_366 = ("Le Choulhan Aroukh de l'Admour HaZaken sur ce siman : texte intégral et traduction, "
+               "ce en quoi son texte diffère de celui du Mehaber, conduite pratique (la décision revient au Rav).")
+
 
 def render_md(entry: dict[str, Any]) -> str:
     n = entry["num"]
@@ -368,6 +374,8 @@ def render_md(entry: dict[str, Any]) -> str:
             out.append(f"- **{label}** : absent (siman bridge — voir note ci-dessus)")
             continue
         status = "" if present else " *(non disponible)*"
+        if key == "n4" and n >= 366:
+            desc = N4_DESC_366
         out.append(f"- **{label}**{status} : {desc}")
         out.append(f"  - {BASE_URL}/oh/{n}/{slug}")
         out.append(f"  - HE : {BASE_URL}/oh/{n}/{slug}/he")

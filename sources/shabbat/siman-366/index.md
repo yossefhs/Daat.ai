@@ -11,7 +11,7 @@
 
 ## Présentation
 
-Pourquoi la cour demande un érouv, où le déposer, avec quel pain, comment le faire acquérir à tous, la mitsva et la bénédiction — 15 séifim dans le Choul'han Aroukh du Mehaber, 18 dans le Choulhan Aroukh HaRav
+Pourquoi la cour demande un érouv, où le déposer, avec quel pain, comment le faire acquérir à tous, la mitsva et la bénédiction — 15 séifim dans le Choul'han Aroukh du Mehaber ; 18 dans le Choulhan Aroukh HaRav, sous sa propre numérotation.
 
 ## 4 niveaux d'étude
 
@@ -27,7 +27,7 @@ Pourquoi la cour demande un érouv, où le déposer, avec quel pain, comment le 
   - https://daattorah.com/oh/366/synthese
   - HE : https://daattorah.com/oh/366/synthese/he
   - EN : https://daattorah.com/oh/366/synthese/en
-- **Niveau 4 — Daat HaRav** : Chitah de l'Admour HaZaken (Choulhan Aroukh HaRav + Kountress Aharon) — psak Habad.
+- **Niveau 4 — Daat HaRav** : Le Choulhan Aroukh de l'Admour HaZaken sur ce siman : texte intégral et traduction, ce en quoi son texte diffère de celui du Mehaber, conduite pratique (la décision revient au Rav).
   - https://daattorah.com/oh/366/daat-harav
   - HE : https://daattorah.com/oh/366/daat-harav/he
   - EN : https://daattorah.com/oh/366/daat-harav/en
