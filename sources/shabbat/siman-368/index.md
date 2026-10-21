@@ -4,7 +4,7 @@
 
 - **Français :** L'érouv abîmé après avoir été fait
 - **עברית :** דין אם אחר שעירבו נתקלקל העירוב
-- **English :** When the eruv is spoiled after it was made
+- **English :** When the Eruv Is Spoiled After It Was Made
 - **Path canonique :** https://daattorah.com/oh/368/
 - **Versions linguistiques :** [FR](https://daattorah.com/oh/368/) · [HE](https://daattorah.com/oh/368/he) · [EN](https://daattorah.com/oh/368/en)
 - **Nombre de seifim (Mehaber + Rama) :** 5
