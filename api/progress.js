@@ -27,7 +27,9 @@ import { getUserFromRequest, setCorsHeaders } from './_auth.js';
 const RL_WRITES_PER_HOUR = 600;
 
 const VALID_LEVELS = new Set(['base', 'lamdan', 'synthese', 'daat-harav']);
-const MAX_SIMAN = 365;
+// 242-365 Hilkhot Shabbat, puis Érouvin et Te'houmin (366-416), publiés lot par lot sous /oh/.
+// Une borne au-delà du dernier siman publié ne coûte rien : le client n'envoie que ce qu'il a lu.
+const MAX_SIMAN = 416;
 const MIN_SIMAN = 242;
 
 async function isWriteRateLimited(email) {
@@ -47,7 +49,7 @@ function progressKey(email) {
 }
 
 // Nettoie un objet progress reçu du client.
-// - Ne garde que les simanim numériques dans [242, 365]
+// - Ne garde que les simanim numériques dans [MIN_SIMAN, MAX_SIMAN]
 // - Ne garde que les niveaux connus
 // - Déduplique
 function sanitize(payload) {

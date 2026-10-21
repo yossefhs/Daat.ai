@@ -80,7 +80,19 @@ function renderOG({ titleFr, titleHe, numberLabel, subtitle }) {
   // s'arrêtait au milieu d'une proposition : « muktsé selon ce qu'elle », siman 279, octobre 2026).
   const subtitleAll = wrap(subtitle || '', 60);
   const subtitleLines = subtitleAll.slice(0, 2);
-  if (subtitleAll.length > 2) subtitleLines[1] = subtitleLines[1].replace(/[\s,;:.—-]+$/, '') + '…';
+  // Une question complète (« … l'a-t-il acquise ? ») ne reçoit pas de « … » : « ?… » se lisait comme une coquille (369).
+  if (subtitleAll.length > 2 && !/[?!]$/.test(subtitleLines[1])) subtitleLines[1] = subtitleLines[1].replace(/[\s,;:.—-]+$/, '') + '…';
+
+  // Le titre hébreu est aligné à droite sur la ligne du numéro : à 78 px, un titre long (le chapeau du 366,
+  // « דין עירוב לחצר שהרבה בני אדם דרים בו ») sortait du cadre et couvrait le numéro. On réduit la police
+  // pour tenir dans HE_MAX px, à droite du numéro (largeur estimée : 0,55 em par caractère, nikoud exclu — mesuré
+  // sur les rendus de 366-369 : de 0,47 à 0,53 em selon les lettres) ; sous 30 px, on coupe au mot avec « … ».
+  const HE_MAX = 640;
+  const heLen = (t) => t.replace(/[\u0591-\u05C7]/g, '').length;
+  let heText = titleHe || '';
+  let heSize = 78;
+  if (heLen(heText) * 0.55 * heSize > HE_MAX) heSize = Math.max(30, Math.floor(HE_MAX / (0.55 * heLen(heText))));
+  while (heLen(heText) * 0.55 * heSize > HE_MAX && heText.includes(' ')) heText = heText.replace(/\s+\S+$/, '').replace(/…$/, '') + '…';
 
   // Le @import des Google Fonts contient des & qui cassent le parsing XML
   // → on l'enveloppe dans CDATA. Les bots OG (Facebook, Twitter, LinkedIn)
@@ -147,7 +159,7 @@ function renderOG({ titleFr, titleHe, numberLabel, subtitle }) {
   <text class="label" x="120" y="110">CHOULHAN AROUKH · ÉTUDE EN FRANÇAIS</text>
 
   <!-- Hebrew title (sa propre ligne, à droite) -->
-  <text class="title-he" x="1140" y="200" text-anchor="end">${esc(titleHe || '')}</text>
+  <text class="title-he" x="1140" y="200" text-anchor="end"${heSize !== 78 ? ` style="font-size:${heSize}px"` : ''}>${esc(heText)}</text>
 
   <!-- Number en français + hébreu (sa propre ligne, sous le label, plus discret) -->
   ${numberLabel ? `<text class="number" x="120" y="160">${esc(numberLabel)}</text>` : ''}

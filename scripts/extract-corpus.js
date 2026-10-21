@@ -27,7 +27,9 @@ const OUTPUT_PATH = path.join(ROOT, 'data', 'corpus-shabbat.json');
 // Sections scannées. `section` correspond exactement à la valeur utilisée par
 // /api/chat (req.body.section) afin que le filtrage soit direct.
 const SECTIONS = [
-  { id: 'orach-chaim', dir: path.join(ROOT, 'sources', 'shabbat'), urlPrefix: '/oh', useMetaDir: true },
+  // sources/shabbat/ porte aussi Érouvin et Te'houmin (366+) : leurs titres de repli sont
+  // rangés au catalogue sous 'eruvin' et 'techumin', non sous 'shabbat'.
+  { id: 'orach-chaim', dir: path.join(ROOT, 'sources', 'shabbat'), urlPrefix: '/oh', useMetaDir: true, dispoIds: ['shabbat', 'eruvin', 'techumin'] },
   // Orah Haïm quotidien (simanim 1-33+) : même section halakhique que Shabbat
   // (id 'orach-chaim' pour que le filtre de recherche du chat les couvre), mais
   // routes /oh-quotidien et titres stockés sous section 'oh-quotidien' dans le
