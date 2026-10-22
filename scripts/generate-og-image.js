@@ -81,7 +81,10 @@ function renderOG({ titleFr, titleHe, numberLabel, subtitle }) {
   const subtitleAll = wrap(subtitle || '', 60);
   const subtitleLines = subtitleAll.slice(0, 2);
   // Une question complète (« … l'a-t-il acquise ? ») ne reçoit pas de « … » : « ?… » se lisait comme une coquille (369).
-  if (subtitleAll.length > 2 && !/[?!]$/.test(subtitleLines[1])) subtitleLines[1] = subtitleLines[1].replace(/[\s,;:.—-]+$/, '') + '…';
+  if (subtitleAll.length > 2) {
+    const fin = subtitleLines[1].replace(/[\s,;:.—-]+$/, '');
+    subtitleLines[1] = /[?!]$/.test(fin) ? fin : fin + '…';
+  }
 
   // Le titre hébreu est aligné à droite sur la ligne du numéro : à 78 px, un titre long (le chapeau du 366,
   // « דין עירוב לחצר שהרבה בני אדם דרים בו ») sortait du cadre et couvrait le numéro. On réduit la police
