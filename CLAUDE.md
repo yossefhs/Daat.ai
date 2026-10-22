@@ -721,7 +721,7 @@ main en ajoutant des simanim.
 
 ## Content model — the core of the repo
 
-`sources/` holds **513 simanim** in three compartments — **Orah Haïm quotidien** (`sources/orah-haim/`, 241), **Hilkhot Shabbat** (`sources/shabbat/siman-242/` … `siman-365/`, 124) and **Yoreh De'ah** (`sources/yoreh-deah/`, 148) — counted on disk on 8 October 2026; this line said 424 and 59 for weeks. The catalogue of record is `data/simanim-disponibles.json` — a build output, never hand-edited; count from it or from disk, never from memory. Each siman directory holds an `index.html` plus up to **4 study levels**, and **every page exists in 3 languages**:
+`sources/` holds **517 simanim** in three compartments — **Orah Haïm quotidien** (`sources/orah-haim/`, 241), **Hilkhot Shabbat** (`sources/shabbat/siman-242/` … `siman-365/`, 124) followed in the same directory by **Hilkhot Érouvin** (`siman-366/` … , 4 published on 22 October 2026, catalogue section `eruvin`; production brief `docs/brief-orah-haim-366.md`), and **Yoreh De'ah** (`sources/yoreh-deah/`, 148) — counted on disk on 22 October 2026; this line said 424 and 59 for weeks, then 513. ⚠️ « Hilkhot Shabbat 242-365 » is the SITE's grouping: in Sefaria's index of the Choul'han Aroukh, הלכות שבת covers 242-344 and הלכות עירובין 345-395 — never write that 366 « opens » Hilkhot Érouvin. The catalogue of record is `data/simanim-disponibles.json` — a build output, never hand-edited; count from it or from disk, never from memory. Each siman directory holds an `index.html` plus up to **4 study levels**, and **every page exists in 3 languages**:
 
 | Level | File stem | Audience |
 |-------|-----------|----------|
