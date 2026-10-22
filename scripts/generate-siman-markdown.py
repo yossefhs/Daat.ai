@@ -282,7 +282,7 @@ LEVEL_DEFINITIONS = [
 # 20 octobre 2026) et le niveau 4 ne tranche pas : il renvoie au Rav. L'ancienne description promettait
 # l'un et l'autre (objection des vérificateurs du lot 366-369) ; elle reste inchangée pour 242-365.
 N4_DESC_366 = ("Le Choulhan Aroukh de l'Admour HaZaken sur ce siman : texte intégral et traduction, "
-               "ce en quoi son texte diffère de celui du Mehaber, conduite pratique (la décision revient au Rav).")
+               "ce en quoi son texte diffère de celui du Mehaber, conduite pratique ; pour la décision, consulte ton Rav.")
 
 
 def render_md(entry: dict[str, Any]) -> str:

@@ -27,7 +27,7 @@ Quand faut-il prévenir les habitants pour refaire ou compléter l'érouv ? Quel
   - https://daattorah.com/oh/368/synthese
   - HE : https://daattorah.com/oh/368/synthese/he
   - EN : https://daattorah.com/oh/368/synthese/en
-- **Niveau 4 — Daat HaRav** : Le Choulhan Aroukh de l'Admour HaZaken sur ce siman : texte intégral et traduction, ce en quoi son texte diffère de celui du Mehaber, conduite pratique (la décision revient au Rav).
+- **Niveau 4 — Daat HaRav** : Le Choulhan Aroukh de l'Admour HaZaken sur ce siman : texte intégral et traduction, ce en quoi son texte diffère de celui du Mehaber, conduite pratique ; pour la décision, consulte ton Rav.
   - https://daattorah.com/oh/368/daat-harav
   - HE : https://daattorah.com/oh/368/daat-harav/he
   - EN : https://daattorah.com/oh/368/daat-harav/en

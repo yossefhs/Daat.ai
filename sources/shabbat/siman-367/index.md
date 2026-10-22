@@ -11,7 +11,7 @@
 
 ## Présentation
 
-L'épouse fait-elle l'érouv des cours pour son mari, à son insu ou même malgré lui ? Et les gens de sa maison, les gens de la cour, le tribunal ? — un séif dans le Choulhan Aroukh, avec une glose du Rama
+L'épouse fait-elle l'érouv des cours pour son mari, à son insu ou même malgré lui ? Et les gens de sa maison, les gens de la cour, le tribunal ? — un séif dans le Choulhan Aroukh, avec une glose du Rama ; un aussi dans le Choulhan Aroukh HaRav
 
 ## 4 niveaux d'étude
 
@@ -27,7 +27,7 @@ L'épouse fait-elle l'érouv des cours pour son mari, à son insu ou même malgr
   - https://daattorah.com/oh/367/synthese
   - HE : https://daattorah.com/oh/367/synthese/he
   - EN : https://daattorah.com/oh/367/synthese/en
-- **Niveau 4 — Daat HaRav** : Le Choulhan Aroukh de l'Admour HaZaken sur ce siman : texte intégral et traduction, ce en quoi son texte diffère de celui du Mehaber, conduite pratique (la décision revient au Rav).
+- **Niveau 4 — Daat HaRav** : Le Choulhan Aroukh de l'Admour HaZaken sur ce siman : texte intégral et traduction, ce en quoi son texte diffère de celui du Mehaber, conduite pratique ; pour la décision, consulte ton Rav.
   - https://daattorah.com/oh/367/daat-harav
   - HE : https://daattorah.com/oh/367/daat-harav/he
   - EN : https://daattorah.com/oh/367/daat-harav/en
