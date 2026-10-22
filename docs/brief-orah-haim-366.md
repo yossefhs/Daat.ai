@@ -114,6 +114,26 @@ fausse : tous étaient dans ce que la page DIT des citations. Les chercher soi-m
 12. **Le niveau 3 qui cite ce que les niveaux 1 et 4 ne portent pas** (des ס״ק de la Michna Beroura, le
     Biour Halakha) : la synthèse ne rapporte que ce qui est déjà dans la page.
 
+**Ce que les lots 370-373 et 374-377 ont ajouté** (`audit/oh-370-373/`, `audit/oh-374-377/`). Les défauts 2 et
+11 restent les plus fréquents parmi les objections graves : une condition du séif tombée d'un encadré, d'un
+tableau ou d'un cas pratique (au 374, la condition des murs de la petite cour au séif ג et la fenêtre de quatre
+sur quatre au séif ד ; au 375, la margelle haute de dix de la citerne), et une citation arrêtée juste avant
+« אלא אם כן… ». Trois formes nouvelles :
+
+13. **La lecture d'un commentateur donnée comme celle du séif** : au 375, la règle « aisé pour l'un, malaisé pour
+    l'autre » attribuée au séif ב, quand elle est celle du Tour et de la Michna Beroura ; la règle générale du Taz
+    (« הכלל מסעי׳ זה… ») citée sans ce qu'il écrit plus loin, « כל זה שיטת הטור אבל הרמב״ם לא ס״ל כך ». Quand
+    un commentateur lit le séif, la page écrit « selon le Taz », « le Tour et la Michna Beroura lisent… », et
+    donne aussi la lecture qu'il oppose.
+14. **« Le Rav ne le dit pas » quand il le dit** : au 376, le cas de celui qui a oublié de faire l'érouv (après
+    coup) déclaré non tranché par le Rav, qui le tranche en toutes lettres dans le même séif. Avant d'écrire
+    qu'un texte se tait, relire tout le séif.
+15. **Le cas présenté avec des avis différents selon l'endroit** : au 375, le tertre haut de dix au-dessus de la
+    cour et plus bas de dix que la galerie portait trois avis dans le tableau, un seul dans l'arbre de décision —
+    et chaque correction locale déplaçait le déséquilibre ailleurs, trois passes de suite. Un cas disputé se
+    présente partout avec les mêmes avis et les mêmes locuteurs : index, encadrés, tableau, arbre, pièges,
+    commandements, למעשה, dans les trois langues ; corriger un endroit, c'est relire tous les autres.
+
 ---
 
 ## 0. AVANT DE COMMENCER — ce que le coordinateur doit avoir décidé et fait
