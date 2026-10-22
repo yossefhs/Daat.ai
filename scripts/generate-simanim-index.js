@@ -63,7 +63,9 @@ const SOURCES = [
 // l'ancien motif ne lisait que le latin, si bien qu'un siman NOUVEAU entrait au catalogue
 // sans titleHe (ses tuiles hébraïques retombaient sur le titre français). Les titres déjà
 // au catalogue ne bougent pas : la fusion ne relit une page que si le champ manque.
-const TITLE_RE = /<title>\s*(?:Siman|סימן)\s+([^\s—-]+)\s*[—-]\s*([^·|]+?)\s*(?:·|\|)/i;
+// « · 370 » facultatif après le numéro hébreu : le brief (9.3) l'impose quand le numéro se lit aussi comme un sigle
+// (« סימן ש״ע · 370 », ש״ע = שולחן ערוך) ; sans lui, le titre hébreu du 370 n'était pas lu.
+const TITLE_RE = /<title>\s*(?:Siman|סימן)\s+([^\s—-]+)(?:\s*·\s*\d+)?\s*[—-]\s*([^·|]+?)\s*(?:·|\|)/i;
 const H1_RE = /<h1[^>]*class="siman-title-fr"[^>]*>\s*Siman\s+([^\s—-]+)\s*[—-]\s*([^<]+?)\s*<\/h1>/i;
 
 function extractTitle(htmlPath) {

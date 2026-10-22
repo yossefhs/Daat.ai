@@ -1,4 +1,4 @@
-# Progression — Hilkhot Shabbat et suivants (242-369) (niveaux 1-4)
+# Progression — Hilkhot Shabbat et suivants (242-373) (niveaux 1-4)
 
 Généré par `scripts/audit-simanim.py --write-progress`. Ne pas éditer à la main.
 
@@ -134,3 +134,7 @@ Généré par `scripts/audit-simanim.py --write-progress`. Ne pas éditer à la 
 | 367 | ✅ | ✅ | ✅ | ✅ |
 | 368 | ✅ | ✅ | ✅ | ✅ |
 | 369 | ✅ | ✅ | ✅ | ✅ |
+| 370 | ✅ | ✅ | ✅ | ✅ |
+| 371 | ✅ | ✅ | ✅ | ✅ |
+| 372 | ✅ | ✅ | ✅ | ✅ |
+| 373 | ✅ | ✅ | ✅ | ✅ |
