@@ -7,10 +7,11 @@
 - **English :** Two Upper Storeys Facing Each Other, Open to a Courtyard
 - **Path canonique :** https://daattorah.com/oh/377/
 - **Versions linguistiques :** [FR](https://daattorah.com/oh/377/) · [HE](https://daattorah.com/oh/377/he) · [EN](https://daattorah.com/oh/377/en)
+- **Nombre de seifim (Mehaber + Rama) :** 1
 
 ## Présentation
 
-Deux étages face à face sur une cour qui n'a pas quatre amot : qui peut verser ses eaux dans la fosse ? — un séif, avec une glose du Rama
+Deux étages face à face sur une cour qui n'a pas quatre amot, dont l'un y a fait une fosse : qui peut y verser ses eaux ? — un séif, avec une glose du Rama
 
 ## 4 niveaux d'étude
 
