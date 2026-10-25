@@ -1232,6 +1232,9 @@
     },
     "api/chat-corpus.js": {
       "includeFiles": "data/corpus-{shabbat.json,index.br}"
+    },
+    "api/push.js": {
+      "maxDuration": 60
     }
   },
   "crons": [
@@ -1250,6 +1253,10 @@
     {
       "path": "/api/social",
       "schedule": "10 9 * * 2"
+    },
+    {
+      "path": "/api/push",
+      "schedule": "30 5 * * *"
     }
   ]
 }
