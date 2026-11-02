@@ -177,7 +177,20 @@ function natureOf(c) {
   return 'contenu du site';
 }
 
-export function formatChunkHit(c) {
+// Le texte hébreu du séif du Choul'han Aroukh HaRav, quand la page le porte à part
+// (champ `he` posé par extract-corpus.js). Point 3 du 18/10/2026 : l'extrait `text`
+// commence par le français et `summary` (700 caractères) ne montrait jamais l'hébreu ;
+// le modèle citait alors le HaRav de mémoire (« תישוי », raisons inventées). Ici il
+// reçoit le texte mot pour mot, entier, étiqueté comme celui qui fait autorité.
+const SOURCE_HE_NATURE = "Texte hébreu du Choul'han Aroukh HaRav (Admour HaZaken) pour ce séif, mot pour mot : c'est lui qui fait autorité — le reste de l'extrait est le rendu français du site. Cite CE texte, n'en reconstruis jamais.";
+function sourceHe(c) {
+  if (!c || !c.he || !String(c.level || '').startsWith('daat-harav')) return {};
+  return { source_he: String(c.he), source_he_nature: SOURCE_HE_NATURE };
+}
+
+// `avecHebreu` : les résultats de recherche au-delà du 3e rang ne portent pas le
+// texte hébreu (jusqu'à 3 000 caractères chacun) ; daat_get_content le rend toujours.
+export function formatChunkHit(c, { avecHebreu = true } = {}) {
   const full = String(c.text || '');
   return {
     id: c.id,
@@ -193,6 +206,7 @@ export function formatChunkHit(c) {
     tags: [],
     summary: excerpt(full, EXCERPT_CHARS),
     hasMore: full.length > EXCERPT_CHARS,
+    ...(avecHebreu ? sourceHe(c) : {}),
     ...(c.caveat ? { caveat: true, caveatNote: CAVEAT_NOTE } : {}),
     sources: [],
     internalLinks: [],
@@ -223,7 +237,7 @@ export async function searchCorpus(query, options = {}) {
   // alors faire écran (c'est le cas d'usage « montre-moi le siman 318 seif 12 »).
   if (Number.isFinite(askedSiman)) {
     const chunks = getSimanChunks(askedSiman, { section, question: query });
-    return chunks.slice(0, limit).map(formatChunkHit);
+    return chunks.slice(0, limit).map((c, i) => formatChunkHit(c, { avecHebreu: i < 3 }));
   }
 
   // ── Cas 2 : recherche plein corpus (10 824 chunks).
@@ -278,7 +292,7 @@ export async function searchCorpus(query, options = {}) {
 
   const out = [];
   const seen = new Set();
-  for (const h of [...editorial, ...siteHits.map(formatChunkHit)]) {
+  for (const h of [...editorial, ...siteHits.map((c, i) => formatChunkHit(c, { avecHebreu: i < 3 }))]) {
     if (!h.id || seen.has(h.id)) continue;
     seen.add(h.id);
     out.push(h);
@@ -323,6 +337,7 @@ export async function getEntryById(id) {
     url: chunk.sourceUrl || null,
     summary: excerpt(chunk.text, EXCERPT_CHARS),
     content: chunk.text || '',
+    ...sourceHe(chunk),
     ...(chunk.caveat ? { caveat: true, caveatNote: CAVEAT_NOTE } : {}),
     sources: [],
     internalLinks: chunk.sourceUrl ? [chunk.sourceUrl] : [],
@@ -360,7 +375,7 @@ export const CORPUS_TOOLS = [
         },
         limit: {
           type: 'integer',
-          description: 'Nombre maximum de résultats (défaut 5, max 12)',
+          description: 'Nombre maximum de résultats (défaut 5, max 12). Les 3 premiers résultats d\'une page Daat HaRav portent `source_he`, le texte hébreu du séif du Choul\'han Aroukh HaRav mot pour mot : cite celui-là, jamais une traduction ni ta mémoire.',
         },
       },
       required: ['query'],
@@ -434,6 +449,7 @@ export async function executeCorpusTool(toolName, input) {
       summary: entry.summary,
       content: truncated ? content.slice(0, FULL_CHARS) + '\n\n[…extrait tronqué…]' : content,
       truncated,
+      ...(entry.source_he ? { source_he: entry.source_he, source_he_nature: entry.source_he_nature } : {}),
       sources: entry.sources || [],
       internalLinks: entry.internalLinks || [],
       tags: entry.tags || [],
