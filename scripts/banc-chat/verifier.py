@@ -34,6 +34,20 @@ def expand(t):
     return t
 sq = lambda t: re.sub(r'[וי]', '', t)
 def flatten(x): return [x] if isinstance(x, str) else [s for y in (x or []) for s in flatten(y)]
+CORPUS = None
+def corpus_chunks(simanim):
+    """Textes des extraits du site pour ces simanim (data/corpus-shabbat.json, sortie de build : npm run build)."""
+    global CORPUS
+    if CORPUS is None:
+        CORPUS = []
+        for cand in ('data/corpus-shabbat.json', os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'corpus-shabbat.json')):
+            if os.path.exists(cand):
+                try:
+                    c = json.load(open(cand, encoding='utf-8')); CORPUS = c if isinstance(c, list) else c.get('chunks') or c.get('documents') or []
+                except Exception: CORPUS = []
+                break
+    return [(x.get('text') or '') + ' ' + (x.get('he') or '') for x in CORPUS if str(x.get('siman')) in simanim]
+
 def sefaria(ref):
     f = os.path.join(POOL, re.sub(r'[^A-Za-z0-9._,-]', '_', ref) + '.txt')
     if os.path.exists(f): return open(f, encoding='utf-8').read()
@@ -77,8 +91,14 @@ def verifier_cas(d, sources=False):
     if exp.get('modele') and not any(m.startswith(exp['modele']) for m in mod): pb.append(f"le modèle n'a pas ouvert {exp['modele']}")
     # ── fond déterministe ──
     if exp.get('ordre_253'):
-        i, j = rep_n.find(norm('מצטמק ורע לו')), rep_n.find(norm('בן דרוסאי'))
-        if i >= 0 and j >= 0 and i > j: pb.append('ordre des opinions du 253 INVERSÉ (בן דרוסאי avant מצטמק ורע לו)')
+        # Les deux clauses du Mehaber 253:1, dans son ordre : la stricte d'abord, le יש אומרים ensuite.
+        # On cherche les CLAUSES (abréviations développées des deux côtés), pas les mots isolés :
+        # une réponse qui ouvre par la sougya (חנניה אומר כל שהוא כמאכל בן דרוסאי…) n'est pas inversée.
+        rep_x = norm(expand(rep))
+        i = rep_x.find(norm('נתבשל כל צרכו והוא מצטמק ורע לו'))
+        j = rep_x.find(norm('שכל שנתבשל כמאכל בן דרוסאי'))
+        if i >= 0 and j >= 0 and i > j: pb.append('ordre des opinions du 253 INVERSÉ (la clause « שכל שנתבשל כמאכל בן דרוסאי » précède « נתבשל כל צרכו והוא מצטמק ורע לו »)')
+        if i < 0 and j < 0: avert.append('ordre du 253 non vérifiable : aucune des deux clauses du Mehaber n\'est citée')
     if 'תישוי' in rep_n: pb.append('« תישוי » (mot inventé du 18/10) présent')
     if exp.get('langue'):
         heb = len(re.findall(r'[\u05D0-\u05EA]', rep)); lat = len(re.findall(r'[A-Za-zÀ-ÿ]', rep))
@@ -90,9 +110,15 @@ def verifier_cas(d, sources=False):
             if LENIENT.search(fen) and not STRICT.search(fen):
                 avert.append(f"ATTRIBUTION À LIRE « {nom} » : …{fen[60:260].replace(chr(10), ' ')}…"); break
     pied = re.search(r'Vérification serveur\s*:\s*([^\n]*)', rep)
-    nr = rep.count('non retrouvé')
+    nr = rep.count('[non retrouvé dans les sources ouvertes]')   # marqueur en ligne de api/_livraison.js ; le pied, lui, dit « N passage(s) … non retrouvé(s) »
     if sources:
-        pool = ' ' + ' '.join(norm(expand(sefaria(r))) for r in srv + mod) + ' '
+        textes = {r: sefaria(r) for r in srv + mod}
+        vides = [r for r, t in textes.items() if not t.strip()]
+        if vides: avert.append(f"sources Sefaria non téléchargées (réseau ou référence) : {', '.join(vides)}")
+        question = ' '.join(t.get('question') or '' for t in d.get('tours') or [])
+        simanim = {m.group(1) for m in re.finditer(r'(?:[Ss]imane?|סימן)\s*(\d{1,3})\b', question)}
+        simanim |= {m.group(1) for r in srv + mod + [e['ref'] for e in (exp.get('serveur') or [])] for m in [re.search(r'\.(\d{1,3})(?:\.|$)', r)] if m}
+        pool = ' ' + ' '.join(norm(expand(t)) for t in textes.values()) + ' ' + ' '.join(norm(expand(t)) for t in corpus_chunks(simanim)) + ' '
         psq = sq(pool); heb_ratio = len(re.findall(r'[\u05D0-\u05EA]', rep)) / max(1, len(re.findall(r'[A-Za-zÀ-ÿ\u05D0-\u05EA]', rep)))
         runs = [m.group(0).strip() for m in HEB_RUN.finditer(rep)]
         if heb_ratio > 0.5:   # réponse en hébreu : seules les citations marquées comptent
@@ -112,14 +138,16 @@ def autotest():
     ok_done = {'type': 'done', 'stop_reason': 'end_turn'}
     srv = lambda ref: {'tool': 'sefaria_get_text', 'input': {'ref': ref, 'par': 'serveur'}}
     base = {'id': 'G0-propre', 'expect': {'serveur': [{'ref': 'Shulchan_Arukh,_Orach_Chayim.318'}], 'ordre_253': True},
-            'tours': [{'http': 200, 'ms': 1000, 'text': 'אסור… אלא אם כן נתבשל כל צרכו והוא מצטמק ורע לו. ויש אומרים כמאכל בן דרוסאי.', 'events': [ok_done], 'tools': [srv('Shulchan_Arukh,_Orach_Chayim.318')]}]}
+            'tours': [{'http': 200, 'ms': 1000, 'text': 'אסור… אלא אם כן נתבשל כל צרכו והוא מצטמק ורע לו. ויש אומרים שכל שנתבשל כמאכל בן דרוסאי מותר.', 'events': [ok_done], 'tools': [srv('Shulchan_Arukh,_Orach_Chayim.318')]}]}
     gabarits = [
         ('G0 propre → doit passer', base, False),
         ('G1 texte partiel puis événement error → doit échouer', {**base, 'tours': [{**base['tours'][0], 'events': [{'type': 'error', 'message': 'Anthropic 529'}]}]}, True),
         ('G2 flux sans done → doit échouer', {**base, 'tours': [{**base['tours'][0], 'events': []}]}, True),
-        ('G3 ordre inversé en hébreu VOCALISÉ → doit échouer', {**base, 'tours': [{**base['tours'][0], 'text': 'וְיֵשׁ אוֹמְרִים כְּמַאֲכַל בֶּן דְּרוּסַאי… אֶלָּא אִם כֵּן מִצְטַמֵּק וְרַע לוֹ'}]}, True),
+        ('G3 ordre inversé en hébreu VOCALISÉ → doit échouer', {**base, 'tours': [{**base['tours'][0], 'text': 'וְיֵשׁ אוֹמְרִים שֶׁכָּל שֶׁנִּתְבַּשֵּׁל כְּמַאֲכַל בֶּן דְּרוּסַאי מוּתָּר… אֶלָּא אִם כֵּן נִתְבַּשֵּׁל כָּל צָרְכּוֹ וְהוּא מִצְטַמֵּק וְרַע לוֹ'}]}, True),
         ('G4 référence serveur non attendue (253 en plus du 318) → doit échouer', {**base, 'tours': [{**base['tours'][0], 'tools': [srv('Shulchan_Arukh,_Orach_Chayim.318'), srv('Shulchan_Arukh,_Orach_Chayim.253')]}]}, True),
         ('G5 limit_reached après du texte → doit échouer', {**base, 'tours': [{**base['tours'][0], 'events': [{'type': 'limit_reached'}, ok_done]}]}, True),
+        ('G6 la sougya (חנניה… כמאכל בן דרוסאי) citée AVANT le Mehaber, qui garde son ordre → doit passer', {**base, 'tours': [{**base['tours'][0], 'text': 'Beit Yossef : חנניה אומר כל שהוא כמאכל בן דרוסאי מותר לשהותו. Mehaber : אסור… אלא א"כ נתבשל כל צרכו והוא מצטמק ורע לו. וי"א שכל שנתבשל כמאכל בן דרוסאי… מותר.'}]}, False),
+        ('G7 le יש אומרים du Mehaber présenté avant sa clause stricte → doit échouer', {**base, 'tours': [{**base['tours'][0], 'text': 'Le Mehaber : וי"א שכל שנתבשל כמאכל בן דרוסאי מותר להשהותו. Puis : אלא א"כ נתבשל כל צרכו והוא מצטמק ורע לו.'}]}, True),
     ]
     rate = 0
     for nom, d, doit_echouer in gabarits:
