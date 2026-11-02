@@ -1077,6 +1077,8 @@ export function searchCorpus(question, opts = {}) {
       // parvenir à TOUS les chemins d'affichage, jamais dépendre de l'un d'eux.
       caveat: r.chunk.caveat === true,
       text: r.chunk.text,
+      // Texte hébreu du séif (Choul'han Aroukh HaRav) quand la page le porte à part.
+      he: r.chunk.he || null,
       score: r.score,
       sourceUrl: r.chunk.sourceUrl,
     })),

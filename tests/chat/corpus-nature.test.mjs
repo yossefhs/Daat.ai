@@ -40,3 +40,29 @@ test('périmètre — les descriptions d\'outils ne portent plus aucune plage de
   assert.match(search.description, /nature/);
   assert.match(search.input_schema.properties.section.description, /prompt système/);
 });
+
+// Point 3 (18/10/2026) — le texte hébreu du séif du HaRav parvient au modèle, étiqueté.
+const harav = { ...base, id: 'oh-daat-harav-siman-253-daatharav-14', siman: 253, level: 'daat-harav', levelLabel: 'Niveau 4 — Daat HaRav',
+  text: 'Rendu français du séif 14 … ' + 'x'.repeat(900) + '\n\nכירה שהסיקוה בקש וגבבא ונטל הקדרה מעליה',
+  he: 'כירה שהסיקוה בקש וגבבא, או אפלו בגפת ועצים אלא שהיא גרופה וקטומה, ונטל הקדרה מעליה' };
+
+test('point 3 — un extrait Daat HaRav porte source_he (le séif en hébreu, entier) avec sa nature, hors du summary tronqué', () => {
+  const h = formatChunkHit(harav);
+  assert.equal(h.source_he, harav.he);
+  assert.match(h.source_he_nature, /Choul'han Aroukh HaRav/);
+  assert.match(h.source_he_nature, /fait autorité/);
+  assert.ok(!h.summary.includes('כירה שהסיקוה'), 'le summary (700 car.) ne contenait pas l\'hébreu : c\'est bien pour cela que source_he existe');
+});
+
+test('point 3 — seul le niveau Daat HaRav porte source_he ; au-delà du 3e résultat, on l\'omet', () => {
+  assert.equal(formatChunkHit({ ...harav, level: 'base' }).source_he, undefined, 'niveau 1 : le Mehaber est déjà le texte');
+  assert.equal(formatChunkHit({ ...harav, level: 'synthese' }).source_he, undefined);
+  assert.equal(formatChunkHit({ ...harav, he: null }).source_he, undefined, 'page sans bloc sa-he');
+  assert.equal(formatChunkHit(harav, { avecHebreu: false }).source_he, undefined);
+  assert.equal(formatChunkHit(harav, { avecHebreu: true }).source_he, harav.he);
+});
+
+test('point 3 — la description de daat_search_corpus annonce source_he', () => {
+  const search = CORPUS_TOOLS.find(t => t.name === 'daat_search_corpus');
+  assert.match(JSON.stringify(search), /source_he/);
+});

@@ -169,10 +169,17 @@ function extractDaatHaRav(siman, body) {
   parts.forEach((part) => {
     cursor = body.indexOf(part, cursor);
     const seifNum = (part.match(/<span class="seif-num"[^>]*>([\s\S]*?)<\/span>/) || [])[1];
-    const he = (part.match(/<p class="sa-he"[^>]*>([\s\S]*?)<\/p>/g) || []).map(htmlToText).join(' ').trim();
+    const blocsHe = (part.match(/<p class="sa-he"[^>]*>([\s\S]*?)<\/p>/g) || []).map(htmlToText).map((t) => t.trim()).filter(Boolean);
+    const he = blocsHe.join(' ').trim();
     const fr = (part.match(/<p class="sa-fr"[^>]*>([\s\S]*?)<\/p>/g) || []).map(htmlToText).join(' ').trim();
     const text = [fr, he].filter(Boolean).join('\n\n').trim();
     if (text.length < 40) return;
+    // Le PREMIER bloc sa-he d'un séif est le texte du Choul'han Aroukh HaRav lui-même
+    // (vérifié mot pour mot contre Sefaria : 29/29 séifim du 253, 31/31 du 318) ; les
+    // suivants sont le Kountress Aharon ou des hidouchim du site. On le garde à part :
+    // `text` commence par le français, et les 700 caractères d'un résultat de recherche
+    // n'atteignaient jamais l'hébreu — le modèle citait alors le HaRav de mémoire.
+    const heSource = blocsHe[0] || null;
     // Titre de la section la plus proche EN AMONT de ce séif.
     let sectionTitle = 'Daat HaRav — Choulhan Aroukh HaRav';
     let sectionNum = 1;
@@ -185,6 +192,7 @@ function extractDaatHaRav(siman, body) {
       sectionTitle,
       subsection: seifNum ? htmlToText(seifNum) : null,
       text,
+      he: heSource,
       type: 'daat-harav',
     });
   });
