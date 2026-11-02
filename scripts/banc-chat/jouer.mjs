@@ -54,7 +54,13 @@ async function appel(messages, cas) {
             if (!ligne.startsWith('data:')) continue;
             let ev; try { ev = JSON.parse(ligne.slice(5).trim()); } catch { continue; }
             if (ev.type === 'text' && typeof ev.delta === 'string') tour.text += ev.delta;
-            else { tour.events.push(ev); if (ev.type === 'tool_use') tour.tools.push({ tool: ev.tool, input: ev.input }); }
+            else {
+              tour.events.push(ev);
+              if (ev.type === 'tool_use') tour.tools.push({ tool: ev.tool, input: ev.input });
+              // Les chemins d'échec de api/chat.js : la réponse peut être partielle et
+              // sembler bonne — l'erreur doit rester visible dans l'archive ET le résumé.
+              if (ev.type === 'error' || ev.type === 'limit_reached' || ev.type === 'rate_limited') tour.erreur = `${ev.type} : ${ev.message || ev.error || ''}`.trim();
+            }
           }
         }
       }
@@ -62,6 +68,9 @@ async function appel(messages, cas) {
   } catch (e) {
     tour.erreur = 'EXCEPTION : ' + (e?.name === 'AbortError' ? `délai de ${DELAI_MAX_MS / 1000} s dépassé` : e?.message);
   } finally { clearTimeout(timer); tour.ms = Math.round(performance.now() - t0); }
+  const done = tour.events.find((e) => e.type === 'done');
+  if (!tour.erreur && !done) tour.erreur = 'flux terminé sans événement done';
+  if (!tour.erreur && done && done.stop_reason === 'error') tour.erreur = 'done.stop_reason = error';
   return tour;
 }
 
