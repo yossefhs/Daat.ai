@@ -29,8 +29,8 @@ une PWA en paquets stores. Entrer `https://daattorah.com` → il audite le manif
    et fusionner) : c'est ce qui fait ouvrir l'app en plein écran, sans barre de navigateur.
 5. Remplir la fiche (textes prêts ci-dessous), captures d'écran (le studio
    `/api/daily-pack` et les pages de siman font d'excellentes captures), classification
-   contenu, politique de confidentialité : `https://daattorah.com/confidentialite.html`
-   (à créer si absente — demander à Claude).
+   contenu, politique de confidentialité : `https://daattorah.com/confidentialite`
+   (trilingue : `/confidentialite`, `/confidentialite/he`, `/confidentialite/en`).
 6. Envoyer en examen (quelques jours).
 
 ### App Store (iOS) — 99 $/an + un Mac (ou un service cloud)
@@ -81,6 +81,23 @@ Le Web Push fonctionne dans la PWA installée (Android, et iPhone depuis iOS 16.
 **Catégorie** : Éducation (secondaire : Livres/Références)
 **Confidentialité** : l'app n'exige pas de compte ; le chat utilise un identifiant
 de session ; e-mail uniquement si l'utilisateur s'inscrit (OTP). Pas de publicité.
+Politique : `/confidentialite`. Suppression du compte depuis l'app : `POST /api/auth/delete`
+avec `{ "confirm": true }` (exigence App Store 5.1.1 v).
+
+## Côté serveur pour l'application (jeton, suppression, achats intégrés)
+
+- **Session sans cookie** : l'app envoie `X-Daat-Client: app` sur `/api/auth/verify-code`
+  et reçoit `token` dans la réponse ; elle le présente ensuite en
+  `Authorization: Bearer <token>` sur `/api/chat`, `/api/conversations`, `/api/progress`,
+  `/api/auth/me`, `/api/auth/delete`. Invité sans compte : `X-Daat-Guest-Id: guest_…`.
+- **Origine de l'app** : ajouter son origine (ex. `https://app.daattorah.com` si Capacitor
+  est configuré avec ce `hostname`) à la variable Vercel `ALLOWED_ORIGINS`.
+- **Achats intégrés** (`api/iap-webhook.js`, via RevenueCat) — variables Vercel :
+  `REVENUECAT_WEBHOOK_SECRET` (valeur de l'entête Authorization configurée chez RevenueCat),
+  `IAP_PRODUCTS` (JSON produit → plan, sinon déduction par le nom), `IAP_GRACE_DAYS` (défaut 3),
+  `IAP_ALLOW_SANDBOX=1` pendant les tests. URL à déclarer : `https://daatai.vercel.app/api/iap-webhook`.
+  Dans l'app, après la connexion : `Purchases.logIn(<email>)` pour relier l'achat au compte.
+  Règle de cohabitation avec HelloAsso : `api/_plans.js` (jamais de raccourcissement d'un droit acquis).
 
 ## Répartition des rôles
 

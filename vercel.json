@@ -146,6 +146,22 @@
       "destination": "/about-en.html"
     },
     {
+      "source": "/confidentialite",
+      "destination": "/confidentialite.html"
+    },
+    {
+      "source": "/confidentialite/",
+      "destination": "/confidentialite.html"
+    },
+    {
+      "source": "/confidentialite/he",
+      "destination": "/confidentialite-he.html"
+    },
+    {
+      "source": "/confidentialite/en",
+      "destination": "/confidentialite-en.html"
+    },
+    {
       "source": "/communaute",
       "destination": "/communaute.html"
     },
@@ -260,6 +276,10 @@
     {
       "source": "/api/auth/logout",
       "destination": "/api/auth?action=logout"
+    },
+    {
+      "source": "/api/auth/delete",
+      "destination": "/api/auth?action=delete"
     },
     {
       "source": "/oh",
@@ -1175,6 +1195,9 @@
       "maxDuration": 5
     },
     "api/auth.js": {
+      "maxDuration": 10
+    },
+    "api/iap-webhook.js": {
       "maxDuration": 10
     },
     "api/newsletter.js": {

@@ -8,13 +8,21 @@
 //   /api/auth/verify-code → /api/auth?action=verify-code
 //   /api/auth/me          → /api/auth?action=me
 //   /api/auth/logout      → /api/auth?action=logout
+//   /api/auth/delete      → /api/auth?action=delete   (suppression du compte)
 //
 // On peut aussi appeler directement /api/auth?action=… si besoin.
+//
+// Application mobile : elle envoie `X-Daat-Client: app` sur verify-code et reçoit
+// le jeton de session dans la réponse (le site, lui, ne le voit jamais : cookie
+// HttpOnly). Elle le présente ensuite en `Authorization: Bearer <jeton>` — même
+// JWT, même durée (voir _auth.js, getUserFromRequest).
 
+import crypto from 'node:crypto';
 import { kv } from './_kv.js';
 import { Resend } from 'resend';
 import { getClientIp } from './_http.js';
 import { adminParJeton } from './_admin-gate.js';
+import { K_ALL, K_POOL, kProfile } from './_khavroutha.js';
 import {
   generateCode,
   isValidEmail,
@@ -24,9 +32,29 @@ import {
   clearSessionCookie,
   getUserFromRequest,
   setCorsHeaders,
+  SESSION_DAYS,
 } from './_auth.js';
 
 const MAX_VERIFY_ATTEMPTS = 5;
+const GUEST_ID_RE = /^guest_[a-z0-9_]{6,48}$/;
+
+// L'application mobile se déclare par entête (ou par le corps) ; c'est la seule
+// cliente à qui l'on rend le jeton en clair.
+function isAppClient(req) {
+  const h = String(req.headers?.['x-daat-client'] || '').trim().toLowerCase();
+  return h === 'app' || req.body?.client === 'app';
+}
+
+// Identifiant invité : cookie du site, ou entête X-Daat-Guest-Id de l'application.
+function readGuestId(req) {
+  const m = String(req.headers?.cookie || '').match(/(?:^|;\s*)daat_guest_id=([^;]+)/);
+  if (m) {
+    const v = decodeURIComponent(m[1]);
+    if (v.startsWith('guest_')) return v;
+  }
+  const h = String(req.headers?.['x-daat-guest-id'] || '');
+  return GUEST_ID_RE.test(h) ? h : null;
+}
 
 // ---------- send-code ----------
 async function handleSendCode(req, res) {
@@ -173,10 +201,8 @@ async function handleVerifyCode(req, res) {
     // compte → repart à 0". Le MAX préserve aussi le cas inverse improbable
     // où le user aurait un compteur email plus élevé qu'en anonyme.
     try {
-      const cookieHeader = req.headers.cookie || '';
-      const m = cookieHeader.match(/(?:^|;\s*)daat_guest_id=([^;]+)/);
-      const guestId = m ? decodeURIComponent(m[1]) : null;
-      if (guestId && guestId.startsWith('guest_')) {
+      const guestId = readGuestId(req);
+      if (guestId) {
         const [guestPreview, emailPreview] = await Promise.all([
           kv.get(`user:preview_used:${guestId}`),
           kv.get(`user:preview_used:${cleanEmail}`),
@@ -193,7 +219,12 @@ async function handleVerifyCode(req, res) {
     const token = signSession({ email: cleanEmail });
     setSessionCookie(res, token);
 
-    return res.status(200).json({ ok: true, user: { email: cleanEmail } });
+    const payload = { ok: true, user: { email: cleanEmail } };
+    if (isAppClient(req)) {
+      payload.token = token;
+      payload.tokenExpiresInDays = SESSION_DAYS;
+    }
+    return res.status(200).json(payload);
   } catch (err) {
     console.error('[auth/verify-code] error:', err);
     return res.status(500).json({ error: err.message || 'Erreur serveur' });
@@ -220,6 +251,103 @@ async function handleLogout(req, res) {
   return res.status(200).json({ ok: true });
 }
 
+// ---------- delete (suppression du compte) ----------
+// Exigée par les magasins d'applications (App Store, règle 5.1.1 v) et par le RGPD.
+// Tout ce qui est rattaché à l'adresse disparaît : compte, plan, compteurs,
+// conversations, progression, plan d'étude, lettre, profil khavroutha, et les
+// entrées du journal d'usage qui la nomment. Restent : les écritures de dons
+// (obligation comptable, logs:helloasso) et les compteurs techniques, qui expirent
+// d'eux-mêmes. La page /confidentialite décrit exactement ce périmètre : la tenir
+// à jour si cette liste change.
+export async function effacerCompte(email) {
+  const e = String(email || '').trim().toLowerCase();
+  if (!e.includes('@')) throw new Error('effacerCompte: email requis');
+  const report = { cles: 0, compteurs: 0, journal: 0, khavroutha: 0 };
+
+  const fixes = [
+    `user:${e}`, `user:plan:${e}`, `user:plan_expires:${e}`, `user:plan_source:${e}`,
+    `user:force_opus:${e}`, `user:preview_used:${e}`, `credits:${e}`,
+    `convs:${e}`, `convs:rl:${e}`, `progress:${e}`, `progress:rl:${e}`,
+    `custom-plan:${e}`, `newsletter:${e}`, `auth:code:${e}`, `auth:send-rate:${e}`,
+    `iap:user:${e}`,
+  ];
+  try {
+    const iap = await kv.get(`iap:user:${e}`);
+    if (iap?.app_user_id) fixes.push(`iap:map:${iap.app_user_id}`);
+  } catch { /* fiche absente */ }
+  report.cles = (await kv.del(...fixes)) || 0;
+
+  // Compteurs datés (rate:, rate-month:, usage:) — balayage borné par motif.
+  for (const pattern of [`rate:${e}:*`, `rate-month:${e}:*`, `usage:${e}:*`]) {
+    let cursor = '0';
+    for (let round = 0; round < 50; round++) {
+      const [next, keys] = await kv.scan(cursor, { match: pattern, count: 200 });
+      if (Array.isArray(keys) && keys.length) report.compteurs += (await kv.del(...keys)) || 0;
+      cursor = String(next);
+      if (cursor === '0') break;
+    }
+  }
+
+  await Promise.all([
+    kv.srem('users:known', e),
+    kv.lrem('custom-plan:list', 0, e),
+    kv.lrem('newsletter:list', 0, e),
+  ]);
+
+  // Journal d'usage : retire les entrées qui nomment l'adresse (liste bornée à 500).
+  try {
+    const entries = (await kv.lrange('logs:usage', 0, 999)) || [];
+    for (const raw of entries) {
+      const str = typeof raw === 'string' ? raw : JSON.stringify(raw);
+      if (str.includes(`"${e}"`)) report.journal += (await kv.lrem('logs:usage', 0, raw)) || 0;
+    }
+  } catch (err) {
+    console.warn('[auth/delete] journal d\'usage non nettoyé :', err?.message || err);
+  }
+
+  // Profils khavroutha portant cette adresse.
+  try {
+    const ids = (await kv.lrange(K_ALL, 0, 999)) || [];
+    for (const id of ids) {
+      const p = await kv.get(kProfile(id));
+      if (p && String(p.email || '').trim().toLowerCase() === e) {
+        await Promise.all([kv.del(kProfile(id)), kv.srem(K_POOL, id), kv.lrem(K_ALL, 0, id)]);
+        report.khavroutha++;
+      }
+    }
+  } catch (err) {
+    console.warn('[auth/delete] profils khavroutha non nettoyés :', err?.message || err);
+  }
+
+  return report;
+}
+
+async function handleDelete(req, res) {
+  if (req.method !== 'POST' && req.method !== 'DELETE') {
+    return res.status(405).json({ error: 'POST ou DELETE uniquement' });
+  }
+  const user = getUserFromRequest(req);
+  if (!user) return res.status(401).json({ error: 'Non authentifié' });
+  const confirm = req.body?.confirm;
+  if (confirm !== true && confirm !== 'true') {
+    return res.status(400).json({ error: 'Confirmation requise : { "confirm": true }' });
+  }
+  try {
+    const email = user.email.trim().toLowerCase();
+    const report = await effacerCompte(email);
+    clearSessionCookie(res);
+    // Trace de l'opération sans l'adresse (empreinte tronquée) : compter, pas identifier.
+    const empreinte = crypto.createHash('sha256').update(email).digest('hex').slice(0, 16);
+    await kv.lpush('logs:comptes-supprimes', JSON.stringify({ ts: new Date().toISOString(), empreinte, ...report }));
+    await kv.ltrim('logs:comptes-supprimes', 0, 499);
+    console.log(`[auth/delete] compte supprimé (${empreinte}) :`, report);
+    return res.status(200).json({ ok: true, deleted: true, ...report });
+  } catch (err) {
+    console.error('[auth/delete] error:', err);
+    return res.status(500).json({ error: err.message || 'Erreur serveur' });
+  }
+}
+
 // ---------- dispatcher ----------
 export default async function handler(req, res) {
   setCorsHeaders(req, res);
@@ -234,9 +362,10 @@ export default async function handler(req, res) {
     case 'verify-code': return handleVerifyCode(req, res);
     case 'me':          return handleMe(req, res);
     case 'logout':      return handleLogout(req, res);
+    case 'delete':      return handleDelete(req, res);
     default:
       return res.status(400).json({
-        error: 'Paramètre action requis (send-code, verify-code, me, logout)',
+        error: 'Paramètre action requis (send-code, verify-code, me, logout, delete)',
       });
   }
 }

@@ -343,6 +343,12 @@ function readCookie(req, name) {
   return null;
 }
 
+function readGuestHeader(req) {
+  const v = req.headers?.['x-daat-guest-id'];
+  if (typeof v !== 'string') return null;
+  return /^guest_[a-z0-9_]{6,48}$/.test(v) ? v : null;
+}
+
 function genGuestId() {
   // UUID v4 simplifié — pas besoin de crypto fort, c'est juste un identifiant
   return 'guest_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
@@ -402,8 +408,10 @@ async function identifyUser(req) {
       planExpires: expiresRaw || null,
     };
   }
-  // Anonyme — lire/créer guest_id
-  let guestId = readCookie(req, GUEST_COOKIE);
+  // Anonyme — lire/créer guest_id. L'application mobile, qui ne tient pas de
+  // cookie, présente le sien dans X-Daat-Guest-Id (même format, même compteur
+  // d'Aperçu Premium) ; un identifiant mal formé est ignoré et remplacé.
+  let guestId = readCookie(req, GUEST_COOKIE) || readGuestHeader(req);
   let setCookie = null;
   if (!guestId || !guestId.startsWith('guest_')) {
     guestId = genGuestId();
@@ -1023,7 +1031,7 @@ export default async function handler(req, res) {
     res.setHeader('Access-Control-Allow-Credentials', 'true');
   }
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Daat-Client, X-Daat-Guest-Id');
   res.setHeader('Vary', 'Origin');
 
   if (req.method === 'OPTIONS') {

@@ -347,6 +347,9 @@ export default async function handler(req, res) {
   // Plan : upgrade seulement si on a un plan détecté
   if (plan) {
     ops.push(kv.set(`user:plan:${email}`, plan));
+    // Canal d'origine du plan — lu par api/_plans.js pour qu'une expiration côté
+    // magasin d'applications n'éteigne jamais un don HelloAsso encore valide.
+    ops.push(kv.set(`user:plan_source:${email}`, 'helloasso'));
     if (expiresAt) {
       ops.push(kv.set(`user:plan_expires:${email}`, expiresAt));
     } else {
