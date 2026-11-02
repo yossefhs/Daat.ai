@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 14 seifim qui codifient la règle des 3 jours avant Shabbat (תלת-יומא קודם השבת) — quand peut-on entamer un voyage en mer ou en caravane si l'on sait qu'il s'étend
+La chitah de l'Admour HaZaken sur les 14 seifim qui codifient la règle des 3 jours avant Shabbat (תלת-יומא קודם השבת) — quand peut-on entamer un voyage en mer ou en caravane si l'on sait qu'il s'étendra sur Shabbat.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

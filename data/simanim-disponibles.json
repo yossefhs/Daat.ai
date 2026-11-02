@@ -2,10 +2,10 @@
   "meta": {
     "version": "2.1",
     "description": "Index auto-généré des simanim disponibles sur disque (sections shabbat, eruvin, techumin, oh-quotidien, yoreh-deah, nida). Régénéré au build par scripts/generate-simanim-index.js — les titres existants (title/titleHe/titleEn) sont fusionnés, jamais perdus.",
-    "lastUpdated": "2026-11-01",
+    "lastUpdated": "2026-11-02",
     "counts": {
-      "total": 529,
-      "complet": 529,
+      "total": 533,
+      "complet": 533,
       "daatHarav": 0,
       "partiel": 0
     },
@@ -18,8 +18,8 @@
       },
       "eruvin": {
         "counts": {
-          "total": 16,
-          "complet": 16
+          "total": 20,
+          "complet": 20
         }
       },
       "oh-quotidien": {
@@ -2282,6 +2282,70 @@
       },
       "status": "complet",
       "path": "sources/shabbat/siman-381/index.html"
+    },
+    {
+      "num": 382,
+      "numHe": "שפ״ב",
+      "title": "La demeure du non-Juif dans la cour et la location de son domaine",
+      "titleHe": "אם דירת עכו״ם מעכב׳ בעירובו",
+      "titleEn": "A Non-Jew's Dwelling in the Courtyard and Renting His Domain",
+      "section": "eruvin",
+      "levels": {
+        "n1": true,
+        "n2": true,
+        "n3": true,
+        "n4": true
+      },
+      "status": "complet",
+      "path": "sources/shabbat/siman-382/index.html"
+    },
+    {
+      "num": 383,
+      "numHe": "שפ״ג",
+      "title": "Le non-Juif absent de sa maison, puis venu pendant Chabbat",
+      "titleHe": "כשאין העכו״ם בבית אינו מעכב",
+      "titleEn": "The Non-Jew Away from His House Who Then Came on Shabbos",
+      "section": "eruvin",
+      "levels": {
+        "n1": true,
+        "n2": true,
+        "n3": true,
+        "n4": true
+      },
+      "status": "complet",
+      "path": "sources/shabbat/siman-383/index.html"
+    },
+    {
+      "num": 384,
+      "numHe": "שפ״ד",
+      "title": "Le non-Juif hébergé de passage, et les hommes de l'armée du roi",
+      "titleHe": "עכו״ם אכסנאי אם מעכב",
+      "titleEn": "The Non-Jew Lodging Temporarily, and the Men of the King's Army",
+      "section": "eruvin",
+      "levels": {
+        "n1": true,
+        "n2": true,
+        "n3": true,
+        "n4": true
+      },
+      "status": "complet",
+      "path": "sources/shabbat/siman-384/index.html"
+    },
+    {
+      "num": 385,
+      "numHe": "שפ״ה",
+      "title": "Le Tsedouki, le Kouti et le mumar dans l'érouv",
+      "titleHe": "דין צדוקי ומומר בעירוב",
+      "titleEn": "The Tzeduki, the Kuti and the Mumar in the Eruv",
+      "section": "eruvin",
+      "levels": {
+        "n1": true,
+        "n2": true,
+        "n3": true,
+        "n4": true
+      },
+      "status": "complet",
+      "path": "sources/shabbat/siman-385/index.html"
     },
     {
       "num": 1,

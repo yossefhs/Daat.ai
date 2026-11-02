@@ -7,6 +7,7 @@
 - **English :** The Gallery of the Upper Rooms, and What Does Not Forbid in the Courtyard
 - **Path canonique :** https://daattorah.com/oh/375/
 - **Versions linguistiques :** [FR](https://daattorah.com/oh/375/) · [HE](https://daattorah.com/oh/375/he) · [EN](https://daattorah.com/oh/375/en)
+- **Nombre de seifim (Mehaber + Rama) :** 4
 
 ## Présentation
 

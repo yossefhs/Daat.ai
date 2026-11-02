@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 9 seifim qui codifient le choix des besamim (épices aromatiques) pour l'avdala : restaurer l'âme additionnelle qui s'en va, types acceptables, brakha appropriée s
+La chitah de l'Admour HaZaken sur les 9 seifim qui codifient le choix des besamim (épices aromatiques) pour l'avdala : restaurer l'âme additionnelle qui s'en va, types acceptables, brakha appropriée selon le type.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

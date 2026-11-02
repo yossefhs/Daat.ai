@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 6 seifim qui codifient le concept des 4 amot personnelles — chaque personne a 4 amot autour d'elle dans RH considérées comme RY personnelle. Cadre pour le voyageu
+La chitah de l'Admour HaZaken sur les 6 seifim qui codifient le concept des 4 amot personnelles — chaque personne a 4 amot autour d'elle dans RH considérées comme RY personnelle. Cadre pour le voyageur.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

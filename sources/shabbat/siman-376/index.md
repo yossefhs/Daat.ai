@@ -7,6 +7,7 @@
 - **English :** A Cistern and a Well Between Two Courtyards
 - **Path canonique :** https://daattorah.com/oh/376/
 - **Versions linguistiques :** [FR](https://daattorah.com/oh/376/) · [HE](https://daattorah.com/oh/376/he) · [EN](https://daattorah.com/oh/376/en)
+- **Nombre de seifim (Mehaber + Rama) :** 4
 
 ## Présentation
 

@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 5 seifim qui codifient l'usage des huiles et crèmes Shabbat — distinction entre soin médical et plaisir, application aux crèmes hydratantes, parfums, déodorants m
+La chitah de l'Admour HaZaken sur les 5 seifim qui codifient l'usage des huiles et crèmes Shabbat — distinction entre soin médical et plaisir, application aux crèmes hydratantes, parfums, déodorants modernes.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 
