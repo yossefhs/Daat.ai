@@ -4,7 +4,7 @@
 
 - **Français :** Ne pas manger / boire / travailler avant havdala
 - **עברית :** שֶׁלֹּא לֶאֱכוֹל וְשֶׁלֹּא לִשְׁתּוֹת וְלֹא לַעֲשׂוֹת שׁוּם מְלָאכָה קֹדֶם שֶׁיַּבְדִּיל
-- **English :** Not eating, drinking, or working before havdala
+- **English :** Not eating, drinking, or working before avdala
 - **Path canonique :** https://daattorah.com/oh/299/
 - **Versions linguistiques :** [FR](https://daattorah.com/oh/299/) · [HE](https://daattorah.com/oh/299/he) · [EN](https://daattorah.com/oh/299/en)
 - **Nombre de seifim (Mehaber + Rama) :** 10

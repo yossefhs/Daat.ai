@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 22 seifim qui codifient le travail spontané d'un non-juif pour le Juif Shabbat — quand peut-on en bénéficier, distinctions, application moderne (employé non-juif
+La chitah de l'Admour HaZaken sur les 22 seifim qui codifient le travail spontané d'un non-juif pour le Juif Shabbat — quand peut-on en bénéficier, distinctions, application moderne (employé non-juif d'une entreprise).
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

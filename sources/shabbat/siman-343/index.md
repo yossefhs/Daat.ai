@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 11 seifim qui codifient la responsabilité des parents envers leurs enfants Shabbat — séparer l'enfant des transgressions, éducation halakhique progressive, applic
+La chitah de l'Admour HaZaken sur les 11 seifim qui codifient la responsabilité des parents envers leurs enfants à Shabbat — séparer l'enfant des transgressions, éducation halakhique progressive, applications pratiques contemporaines.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

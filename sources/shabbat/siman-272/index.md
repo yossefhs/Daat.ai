@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 14 seifim qui codifient les qualités requises du vin pour le kiddoush : pas d'odeur désagréable, pas dénaturé, vin de raisin pur, distinction entre vin cuit / vin
+La chitah de l'Admour HaZaken sur les 14 seifim qui codifient les qualités requises du vin pour le kiddoush : pas d'odeur désagréable, pas dénaturé, vin de raisin pur, distinction entre vin cuit / vin de pression. Application moderne aux vins industriels et au jus de raisin.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 22 seifim qui codifient les critères structurels d'une clôture (mehitzah) valable Shabbat — hauteur 10 tefachim, continuité, lavoud, gud asik. Cadre conceptuel cr
+La chitah de l'Admour HaZaken sur les 22 seifim qui codifient les critères structurels d'une clôture (mehitzah) valable Shabbat — hauteur 10 tefachim, continuité, lavoud, gud asik. Cadre conceptuel central pour les hilkhot hotsaa.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 9 seifim qui codifient l'interdit de produire des sons musicaux Shabbat (gezera de réparer instrument). Application moderne aux chants, niggounim, électronique, j
+La chitah de l'Admour HaZaken sur les 9 seifim qui codifient l'interdit de produire des sons musicaux Shabbat (gezera de réparer instrument). Application moderne aux chants, niggounim, électronique, jouets sonores.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 

@@ -7,6 +7,7 @@
 - **English :** When the Doorway or Window of the Eruv Is Closed Up on Shabbos
 - **Path canonique :** https://daattorah.com/oh/374/
 - **Versions linguistiques :** [FR](https://daattorah.com/oh/374/) · [HE](https://daattorah.com/oh/374/he) · [EN](https://daattorah.com/oh/374/en)
+- **Nombre de seifim (Mehaber + Rama) :** 4
 
 ## Présentation
 

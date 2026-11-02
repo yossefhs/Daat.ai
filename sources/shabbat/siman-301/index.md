@@ -11,7 +11,7 @@
 
 ## Présentation
 
-La chitah de l'Admour HaZaken sur les 63 seifim qui codifient le grand corpus de la sortie au domaine public Shabbat avec vêtements, accessoires, objets — distinction entre porter (הוצאה) et accessoir
+La chitah de l'Admour HaZaken sur les 63 seifim qui codifient le grand corpus de la sortie au domaine public Shabbat avec vêtements, accessoires, objets — distinction entre porter (הוצאה) et accessoire intégré au vêtement.
 
 ## Texte du Mehaber — Séif 1 (hébreu)
 
