@@ -55,6 +55,11 @@ export default async function handler(req, res) {
 
     if (action === 'set-plan' && email && plan) {
       await kv.set(`user:plan:${email}`, plan);
+      // Écriture manuelle = canal « manual », et remise à plat des droits par canal
+      // (api/_plans.js) : un plan posé à la main prime, et les paiements réels qui
+      // suivront (HelloAsso, achats intégrés) se réinscriront d'eux-mêmes.
+      await kv.set(`user:plan_source:${email}`, 'manual');
+      await kv.del(`user:plan_channels:${email}`);
       await kv.sadd('users:known', email); // rendre visible dans l'admin même sans activité
       // Date d'expiration optionnelle (pour les abonnements mensuels manuels Qonto)
       if (req.body.expires) {

@@ -176,48 +176,58 @@ export async function handleWebhook(req, res, deps = {}) {
   const sandbox = environment === 'SANDBOX';
   const sandboxApplies = process.env.IAP_ALLOW_SANDBOX === '1';
 
-  // Anti-rejeu : RevenueCat renvoie le même événement tant qu'il n'a pas reçu 2xx.
+  // Anti-rejeu : RevenueCat renvoie le même événement tant qu'il n'a pas reçu 2xx. Le
+  // marqueur est posé AVANT le traitement, et libéré si le traitement échoue (y compris
+  // la résolution de l'adresse) : un incident passager ne doit jamais faire passer un
+  // achat réel pour un doublon déjà servi.
+  let marked = false;
   if (eventId) {
     try {
       const fresh = await store.set(`iap:event:${eventId}`, 1, { nx: true, ex: DEDUP_TTL_S });
       if (fresh === null) return res.status(200).json({ ok: true, duplicate: true, id: eventId });
+      marked = true;
     } catch (err) {
       console.error('[iap-webhook] dedup KV error (continue):', err?.message || err);
     }
   }
+  const release = async () => {
+    if (marked) await Promise.resolve(store.del(`iap:event:${eventId}`)).catch(() => null);
+  };
 
-  const email = await resolveEmail(event, store);
   const plan = planForEvent(event);
   const base = {
     id: eventId || null, type, store: event.store || null, environment,
     app_user_id: event.app_user_id || null, product_id: event.product_id || null,
-    period_type: event.period_type || null, email,
+    period_type: event.period_type || null,
   };
 
-  if (!email) {
-    await journal(store, { ...base, outcome: 'sans_email' }, LOG_UNMATCHED_KEY);
-    console.warn(`[iap-webhook] ${type} sans adresse de compte (app_user_id=${event.app_user_id || '?'})`);
-    return res.status(200).json({ ok: true, applied: false, reason: 'no_email' });
-  }
-
-  // Mémorise la correspondance identifiant RevenueCat → adresse, pour les événements
-  // suivants qui n'auraient que l'identifiant (EXPIRATION d'un abonné déconnecté).
-  const ids = [event.app_user_id, event.original_app_user_id, ...(Array.isArray(event.aliases) ? event.aliases : [])]
-    .filter((v) => typeof v === 'string' && v && !looksLikeEmail(v));
-  await Promise.all(ids.map((id) => Promise.resolve(store.set(`iap:map:${id}`, email, { ex: MAP_TTL_S })).catch(() => null)));
-
-  if (sandbox && !sandboxApplies) {
-    await journal(store, { ...base, plan, outcome: 'sandbox_ignore' });
-    return res.status(200).json({ ok: true, applied: false, reason: 'sandbox' });
-  }
-
-  if (!canal && (APPLY_EVENTS.has(type) || REVOKE_EVENTS.has(type))) {
-    await journal(store, { ...base, plan, outcome: 'magasin_inconnu' }, LOG_UNMATCHED_KEY);
-    return res.status(200).json({ ok: true, applied: false, reason: 'unknown_store' });
-  }
-
-  let result = { applied: false };
   try {
+    const email = await resolveEmail(event, store);
+    base.email = email;
+
+    if (!email) {
+      await journal(store, { ...base, outcome: 'sans_email' }, LOG_UNMATCHED_KEY);
+      console.warn(`[iap-webhook] ${type} sans adresse de compte (app_user_id=${event.app_user_id || '?'})`);
+      return res.status(200).json({ ok: true, applied: false, reason: 'no_email' });
+    }
+
+    // Mémorise la correspondance identifiant RevenueCat → adresse, pour les événements
+    // suivants qui n'auraient que l'identifiant (EXPIRATION d'un abonné déconnecté).
+    const ids = [event.app_user_id, event.original_app_user_id, ...(Array.isArray(event.aliases) ? event.aliases : [])]
+      .filter((v) => typeof v === 'string' && v && !looksLikeEmail(v));
+    await Promise.all(ids.map((id) => Promise.resolve(store.set(`iap:map:${id}`, email, { ex: MAP_TTL_S })).catch(() => null)));
+
+    if (sandbox && !sandboxApplies) {
+      await journal(store, { ...base, plan, outcome: 'sandbox_ignore' });
+      return res.status(200).json({ ok: true, applied: false, reason: 'sandbox' });
+    }
+
+    if (!canal && (APPLY_EVENTS.has(type) || REVOKE_EVENTS.has(type))) {
+      await journal(store, { ...base, plan, outcome: 'magasin_inconnu' }, LOG_UNMATCHED_KEY);
+      return res.status(200).json({ ok: true, applied: false, reason: 'unknown_store' });
+    }
+
+    let result = { applied: false };
     if (APPLY_EVENTS.has(type)) {
       if (!plan) {
         await journal(store, { ...base, outcome: 'produit_inconnu' }, LOG_UNMATCHED_KEY);
@@ -228,30 +238,30 @@ export async function handleWebhook(req, res, deps = {}) {
       const decision = await apply({ email, plan, expiresAt, source: canal });
       await store.set(`iap:user:${email}`, {
         store: canal, app_user_id: event.app_user_id || null, product_id: event.product_id || null,
-        plan, expires: decision.applied ? decision.expires : (decision.kept?.expires ?? null),
+        plan, expires: decision.channel?.expires ?? expiresAt, governs: decision.governs,
         lastEvent: type, lastEventId: eventId || null, updatedAt: new Date().toISOString(),
       });
-      result = { applied: decision.applied, plan, expires: decision.applied ? decision.expires : null, reason: decision.reason || null };
-      await journal(store, { ...base, plan, expires: expiresAt, outcome: decision.applied ? 'applique' : `conserve:${decision.reason}` });
-      console.log(`[iap-webhook] ✓ ${type} ${mask(email)} ${canal} plan=${plan}${expiresAt ? ' exp=' + expiresAt : ''} → ${decision.applied ? 'appliqué' : 'conservé (' + decision.reason + ')'}`);
+      result = { applied: true, governs: decision.governs, plan, expires: decision.channel?.expires ?? expiresAt, effective: decision.effective };
+      await journal(store, { ...base, plan, expires: result.expires, outcome: decision.governs ? 'applique' : 'enregistre:autre_canal_meilleur', effective: decision.effective });
+      console.log(`[iap-webhook] ✓ ${type} ${mask(email)} ${canal} plan=${plan}${result.expires ? ' exp=' + result.expires : ''} → ${decision.governs ? 'effectif' : 'enregistré (' + (decision.effective?.source || '?') + ' reste effectif)'}`);
     } else if (REVOKE_EVENTS.has(type)) {
       const decision = await revoke({ email, source: canal });
-      result = { applied: decision.revoked, revoked: decision.revoked, reason: decision.reason || null };
-      await journal(store, { ...base, plan, expiration_reason: event.expiration_reason || null, outcome: decision.revoked ? 'revoque' : `conserve:${decision.reason}` });
-      console.log(`[iap-webhook] ${type} ${mask(email)} ${canal} → ${decision.revoked ? 'révoqué' : 'conservé (' + decision.reason + ')'}`);
+      result = { applied: decision.revoked, revoked: decision.revoked, reason: decision.reason || null, effective: decision.effective };
+      await journal(store, { ...base, plan, expiration_reason: event.expiration_reason || null, outcome: decision.revoked ? 'revoque' : `conserve:${decision.reason}`, effective: decision.effective });
+      console.log(`[iap-webhook] ${type} ${mask(email)} ${canal} → ${decision.revoked ? 'droit retiré' : 'rien à retirer (' + decision.reason + ')'}${decision.effective ? ', reste ' + decision.effective.source + ':' + decision.effective.plan : ', plus de droit actif'}`);
     } else {
       await journal(store, { ...base, plan, cancel_reason: event.cancel_reason || null, new_product_id: event.new_product_id || null, outcome: LOG_ONLY_EVENTS.has(type) ? 'journal' : 'type_inconnu' });
       result = { applied: false, reason: 'log_only' };
     }
+
+    return res.status(200).json({ ok: true, type, email, ...result });
   } catch (err) {
     console.error('[iap-webhook] erreur de traitement:', err?.message || err);
     await journal(store, { ...base, plan, outcome: 'erreur', error: String(err?.message || err) }, LOG_UNMATCHED_KEY);
-    // 500 → RevenueCat rejouera ; la déduplication a déjà consommé l'id, on le libère.
-    if (eventId) await Promise.resolve(store.del(`iap:event:${eventId}`)).catch(() => null);
+    // 500 → RevenueCat rejouera ; le marqueur anti-rejeu est libéré pour que ce rejeu compte.
+    await release();
     return res.status(500).json({ error: 'Erreur de traitement' });
   }
-
-  return res.status(200).json({ ok: true, type, email, ...result });
 }
 
 export default function handler(req, res) {

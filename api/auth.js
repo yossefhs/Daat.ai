@@ -22,7 +22,7 @@ import { kv } from './_kv.js';
 import { Resend } from 'resend';
 import { getClientIp } from './_http.js';
 import { adminParJeton } from './_admin-gate.js';
-import { K_ALL, K_POOL, kProfile } from './_khavroutha.js';
+import { K_ALL, K_POOL, K_MATCHES, kProfile } from './_khavroutha.js';
 import {
   generateCode,
   isValidEmail,
@@ -262,10 +262,10 @@ async function handleLogout(req, res) {
 export async function effacerCompte(email) {
   const e = String(email || '').trim().toLowerCase();
   if (!e.includes('@')) throw new Error('effacerCompte: email requis');
-  const report = { cles: 0, compteurs: 0, journal: 0, khavroutha: 0 };
+  const report = { cles: 0, compteurs: 0, journal: 0, khavroutha: 0, khavroutha_complet: true };
 
   const fixes = [
-    `user:${e}`, `user:plan:${e}`, `user:plan_expires:${e}`, `user:plan_source:${e}`,
+    `user:${e}`, `user:plan:${e}`, `user:plan_expires:${e}`, `user:plan_source:${e}`, `user:plan_channels:${e}`,
     `user:force_opus:${e}`, `user:preview_used:${e}`, `credits:${e}`,
     `convs:${e}`, `convs:rl:${e}`, `progress:${e}`, `progress:rl:${e}`,
     `custom-plan:${e}`, `newsletter:${e}`, `auth:code:${e}`, `auth:send-rate:${e}`,
@@ -305,17 +305,48 @@ export async function effacerCompte(email) {
     console.warn('[auth/delete] journal d\'usage non nettoyé :', err?.message || err);
   }
 
-  // Profils khavroutha portant cette adresse.
+  // Profils khavroutha portant cette adresse. Aucun index n'est exhaustif à lui seul :
+  // K_ALL ne garde que les 1 000 dernières inscriptions, K_POOL les profils en attente,
+  // K_MATCHES les 500 dernières paires (identifiants seulement). On réunit les trois,
+  // puis on balaie les clés kh:profile:* elles-mêmes pour les profils plus anciens, dans
+  // une enveloppe de temps ; si elle est dépassée, le rapport le dit (khavroutha_complet).
   try {
-    const ids = (await kv.lrange(K_ALL, 0, 999)) || [];
-    for (const id of ids) {
-      const p = await kv.get(kProfile(id));
-      if (p && String(p.email || '').trim().toLowerCase() === e) {
-        await Promise.all([kv.del(kProfile(id)), kv.srem(K_POOL, id), kv.lrem(K_ALL, 0, id)]);
-        report.khavroutha++;
+    const ids = new Set();
+    for (const id of (await kv.lrange(K_ALL, 0, -1)) || []) ids.add(String(id));
+    for (const id of (await kv.smembers(K_POOL)) || []) ids.add(String(id));
+    for (const raw of (await kv.lrange(K_MATCHES, 0, -1)) || []) {
+      let m = raw;
+      if (typeof raw === 'string') { try { m = JSON.parse(raw); } catch { m = null; } }
+      if (m?.a?.id) ids.add(String(m.a.id));
+      if (m?.b?.id) ids.add(String(m.b.id));
+    }
+    const prefix = kProfile('');
+    const deadline = Date.now() + 6000;
+    let cursor = '0';
+    do {
+      const [next, keys] = await kv.scan(cursor, { match: `${prefix}*`, count: 500 });
+      for (const k of keys || []) ids.add(String(k).slice(prefix.length));
+      cursor = String(next);
+    } while (cursor !== '0' && Date.now() < deadline);
+    report.khavroutha_complet = cursor === '0';
+    if (!report.khavroutha_complet) console.warn('[auth/delete] balayage des profils khavroutha interrompu (délai) — nettoyage partiel possible');
+
+    const list = [...ids].filter(Boolean);
+    for (let i = 0; i < list.length; i += 100) {
+      const chunk = list.slice(i, i + 100);
+      const profils = (await kv.mget(...chunk.map((id) => kProfile(id)))) || [];
+      for (let j = 0; j < chunk.length; j++) {
+        let p = profils[j];
+        if (typeof p === 'string') { try { p = JSON.parse(p); } catch { p = null; } }
+        if (p && String(p.email || '').trim().toLowerCase() === e) {
+          const id = chunk[j];
+          await Promise.all([kv.del(kProfile(id)), kv.srem(K_POOL, id), kv.lrem(K_ALL, 0, id)]);
+          report.khavroutha++;
+        }
       }
     }
   } catch (err) {
+    report.khavroutha_complet = false;
     console.warn('[auth/delete] profils khavroutha non nettoyés :', err?.message || err);
   }
 
