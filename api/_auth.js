@@ -10,7 +10,7 @@ import jwt from 'jsonwebtoken';
 import { kv } from './_kv.js';
 
 const COOKIE_NAME = 'daat_session';
-const SESSION_DAYS = 30;
+export const SESSION_DAYS = 30;
 
 // === JWT ===
 
@@ -42,9 +42,19 @@ function parseCookies(req) {
   }, {});
 }
 
+// Jeton porté par l'entête `Authorization: Bearer <jwt>` — l'application mobile
+// n'a pas de cookie fiable (WebView, origine capacitor://), elle garde le jeton
+// que verify-code lui renvoie et le présente ici. Même JWT, même durée de vie.
+export function readBearerToken(req) {
+  const h = req.headers?.authorization;
+  if (!h || typeof h !== 'string') return null;
+  const m = h.match(/^\s*Bearer\s+([A-Za-z0-9._~+/=-]+)\s*$/i);
+  return m ? m[1] : null;
+}
+
 export function getUserFromRequest(req) {
-  const cookies = parseCookies(req);
-  const token = cookies[COOKIE_NAME];
+  // L'entête explicite prime sur le cookie ambiant.
+  const token = readBearerToken(req) || parseCookies(req)[COOKIE_NAME];
   if (!token) return null;
   const payload = verifySession(token);
   if (!payload || !payload.email) return null;
@@ -118,5 +128,5 @@ export function setCorsHeaders(req, res) {
   }
   res.setHeader('Vary', 'Origin');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Daat-Client, X-Daat-Guest-Id');
 }
