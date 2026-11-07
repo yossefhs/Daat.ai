@@ -20,3 +20,7 @@
 
 ## Après la passe de confirmation c1 (coordinateur, 5 novembre 2026) — trois langues
 - CORRIGÉ — N1 (section 8, puce « Glose du Rama ») et N2 (récapitulatif) : la bénédiction « vaine » est rattachée au cas du Rama, « dans le cas qu'il décrit (בכה״ג) », avec renvoi au niveau 2, section 6 (où le Beit Yossef limite la responsa du Maharam).
+
+## Après la passe de confirmation c2 (coordinateur, 7 novembre 2026) — NON RELU
+- CORRIGÉ, ÉTENDUE MESURÉE — la correction c1 (bénédiction « vaine » rattachée à « בכה״ג ») n'avait touché que deux endroits ; elle est portée à TOUTES les occurrences hors citation, 20 dans 9 fichiers : N1 (tableau section 4, section 6, cas pratique), N2 (résumé), N3 (concepts, schéma, flèche, cas pratique, commandements : « dans le cas qu'il décrit (בכה״ג) ») ; piège 4 du N3 : la citation commence désormais à « אבל בכה״ג לכ״ע אין עושין רק שתוף א׳ » (texte déjà cité au N2).
+- CORRIGÉ PAR RETRAIT — N4, chapeau de la section 2 : même adoucissement de la promesse qu'au 386.

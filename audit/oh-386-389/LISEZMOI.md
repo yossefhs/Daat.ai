@@ -4,8 +4,8 @@
 - **386, 387, 388 : non publiés.** Chacun gardait au moins une objection « à corriger » (aucune bloquante) après les trois passes
   allégées, deux passes de confirmation (c1, c2) et les corrections du coordinateur. Les dernières corrections (après c2) ont été
   faites sans être relues : ils doivent passer une nouvelle vérification avant toute publication.
-  Les pages corrigées seront conservées dans `brouillons-386-388.tar.gz` (dossier `audit/`, exclu du déploiement par
-  `.vercelignore`), à extraire dans `sources/shabbat/` le jour où elles seront vérifiées.
+  Les pages corrigées sont conservées dans `brouillons-386-388.tar.gz` (dossier `audit/`, exclu du déploiement par
+  `.vercelignore`), à extraire dans `sources/shabbat/` le jour où elles seront vérifiées ; ce que la dernière passe (c2) a relevé, et ce qui en a été corrigé, est dans `objections-c2-386-388.md` et `decisions-N.md`.
 - Navigation provisoire : 385 ↔ 389 (liens « précédent / suivant » et `assets/js/siman-nav.js`) ; à rétablir en 385 → 386 → … → 389
   quand 386-388 seront publiés.
 

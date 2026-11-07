@@ -16,3 +16,6 @@
 
 ## Après la passe de confirmation c1 (coordinateur, 5 novembre 2026) — trois langues
 - CORRIGÉ — N1, bandeau « Source » : reste de la liste fermée (« des gloses du Rama aux séifim ב et ג ») aligné sur l'index : « une glose du Rama introduite par הגה au séif ב et une au séif ג ».
+
+## Après la passe de confirmation c2 (coordinateur, 7 novembre 2026) — NON RELU
+- CORRIGÉ PAR RETRAIT — N4, chapeau de la section 2 : la promesse « quand cette page a trouvé où il se lit déjà avant le Rav, elle le nomme » (que c2 a trouvée non tenue au point ו — Magen Avraham ס״ק ח sur le vin cuit — et au point א — Rachi Érouvin 85b, le Tour) devient « il se lit souvent déjà avant le Rav, et la page en nomme parfois la source, sans les relever toutes (voir aussi le niveau 2) ».

@@ -16,3 +16,7 @@
 
 ## Après la passe de confirmation c1 (coordinateur, 5 novembre 2026) — trois langues
 - CORRIGÉ — N2, section 1 : la citation de la réponse de Rabbi Assi est prolongée jusqu'à « אֲמַר לֵיהּ: אִין, אַגַּב שִׁיטְפָא רְהִיט לִי גְּמָרַי » (שבת ק״ל ע״ב, extrait), traduite mot à mot en FR et EN (« dans le fil de mon étude, mon enseignement m'est revenu »), sans interprétation.
+
+## Après la passe de confirmation c2 (coordinateur, 7 novembre 2026) — NON RELU
+- CORRIGÉ — traduction de la Michna Beroura ס״ק ב, « כלים ששבתו בתוכו » : « des objets qui ont reposé en lui » (le mavoy, lecture étroite) devient « des objets qui ont reposé à l'intérieur (בתוכו) » en FR (N1 ×2, N2, N3), et « objects that rested within (בתוכו) » en EN, pour garder l'ambiguïté de la source.
+- CORRIGÉ PAR RETRAIT — N4, chapeau de la section 2 : même adoucissement de la promesse qu'au 386.
