@@ -1,6 +1,6 @@
 # Orah Haïm 386-389 — doutes laissés au Rav
 
-Établi le 7 novembre 2026. **389, 387 et 388 sont publiés ; 386 ne l’est pas** (voir `LISEZMOI.md`). Ce lot a été produit et vérifié sous le protocole allégé (29-30 octobre 2026) : les doutes ci-dessous
+Établi le 7 novembre 2026. **Les quatre simanim sont publiés** (389 le 7 novembre, 387, 388 et 386 le 11 novembre 2026 ; voir `LISEZMOI.md`). Ce lot a été produit et vérifié sous le protocole allégé (29-30 octobre 2026) : les doutes ci-dessous
 sont donnés **tels que les ont notés** les rédacteurs et les arbitres, avec leur origine, **sans tri** (le tri a été omis pour
 économiser). Plusieurs ont été clos ensuite par une correction — la page retire alors l'affirmation ou la remplace par une forme
 courte (« les commentateurs divergent ») avec renvoi au niveau 2 ; voir `decisions-N.md`. Sur chacun, la page **ne tranche pas**.
