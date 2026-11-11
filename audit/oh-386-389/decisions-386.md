@@ -19,3 +19,10 @@
 
 ## Après la passe de confirmation c2 (coordinateur, 7 novembre 2026) — NON RELU
 - CORRIGÉ PAR RETRAIT — N4, chapeau de la section 2 : la promesse « quand cette page a trouvé où il se lit déjà avant le Rav, elle le nomme » (que c2 a trouvée non tenue au point ו — Magen Avraham ס״ק ח sur le vin cuit — et au point א — Rachi Érouvin 85b, le Tour) devient « il se lit souvent déjà avant le Rav, et la page en nomme parfois la source, sans les relever toutes (voir aussi le niveau 2) ».
+
+## Après la passe de confirmation c3 (coordinateur, 11 novembre 2026)
+- CORRIGÉ PAR RETRAIT — N4, chapeau de la section 2 : la seconde moitié de la phrase (« elle nomme aussi la Michna Beroura … quand elle écrit la même chose »), restée promesse générale après c2, devient « elle nomme aussi parfois la Michna Beroura … sans la relever partout » (FR, EN, HE).
+
+## Mini-passe c4 (11 novembre 2026) : NON PROPRE — corrigé par le coordinateur, NON RELU
+- Les deux vérificateurs : la dernière phrase du chapeau de la section 2 du N4 promettait de signaler toute divergence (« Là où les commentateurs divergent, la page le dit … et renvoie à la Michna Beroura qui rapporte les avis »), et le point א ne disait pas que le dépôt du chitouf dans une maison est disputé (Tossafot au nom du Ri, rapportés par le Beit Yossef ; Biour Halakha), ce que les niveaux 2 et 3 disent.
+- CORRIGÉ — chapeau restreint : « Là où elle signale que les commentateurs divergent, elle ne tranche pas et renvoie au niveau 2 » ; point א (conséquence pratique) et section 4 ① : « Sur le dépôt dans une maison, les commentateurs du Mehaber divergent (Beit Yossef ; Biour Halakha) : voir le niveau 2, section 1 » / renvoi au point א. Trois langues. Portes : citations 441/441 conformes, balises 0.

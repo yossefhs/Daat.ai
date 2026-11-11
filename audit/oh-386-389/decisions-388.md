@@ -20,3 +20,5 @@
 ## Après la passe de confirmation c2 (coordinateur, 7 novembre 2026) — NON RELU
 - CORRIGÉ — traduction de la Michna Beroura ס״ק ב, « כלים ששבתו בתוכו » : « des objets qui ont reposé en lui » (le mavoy, lecture étroite) devient « des objets qui ont reposé à l'intérieur (בתוכו) » en FR (N1 ×2, N2, N3), et « objects that rested within (בתוכו) » en EN, pour garder l'ambiguïté de la source.
 - CORRIGÉ PAR RETRAIT — N4, chapeau de la section 2 : même adoucissement de la promesse qu'au 386.
+
+## Passe de confirmation c3 (11 novembre 2026) : PROPRE (0 objection grave, 7 mineures).

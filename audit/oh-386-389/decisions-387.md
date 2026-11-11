@@ -24,3 +24,6 @@
 ## Après la passe de confirmation c2 (coordinateur, 7 novembre 2026) — NON RELU
 - CORRIGÉ, ÉTENDUE MESURÉE — la correction c1 (bénédiction « vaine » rattachée à « בכה״ג ») n'avait touché que deux endroits ; elle est portée à TOUTES les occurrences hors citation, 20 dans 9 fichiers : N1 (tableau section 4, section 6, cas pratique), N2 (résumé), N3 (concepts, schéma, flèche, cas pratique, commandements : « dans le cas qu'il décrit (בכה״ג) ») ; piège 4 du N3 : la citation commence désormais à « אבל בכה״ג לכ״ע אין עושין רק שתוף א׳ » (texte déjà cité au N2).
 - CORRIGÉ PAR RETRAIT — N4, chapeau de la section 2 : même adoucissement de la promesse qu'au 386.
+
+## Passe de confirmation c3 (11 novembre 2026) : PROPRE (0 objection grave, 3 mineures).
+- Noté, non modifié (la page publiée est celle qui a été vérifiée) : le chapeau de la section 2 du N4 garde « elle nomme aussi la Michna Beroura et le Biour Halakha … quand ils écrivent la même chose » ; à adoucir avec les remarques mineures.

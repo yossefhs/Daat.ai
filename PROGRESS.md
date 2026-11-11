@@ -150,4 +150,6 @@ Généré par `scripts/audit-simanim.py --write-progress`. Ne pas éditer à la 
 | 383 | ✅ | ✅ | ✅ | ✅ |
 | 384 | ✅ | ✅ | ✅ | ✅ |
 | 385 | ✅ | ✅ | ✅ | ✅ |
+| 387 | ✅ | ✅ | ✅ | ✅ |
+| 388 | ✅ | ✅ | ✅ | ✅ |
 | 389 | ✅ | ✅ | ✅ | ✅ |
