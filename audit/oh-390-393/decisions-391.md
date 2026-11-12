@@ -1,0 +1,17 @@
+
+## Verification allegee, passe 1
+
+- Obj. 1 (niv. 2, s. 1, baraïta « כדיר של בהמה ») : FONDEE (Érouvin 62a « אֲמַר לְהוּ אַבָּיֵי … וְהָתַנְיָא » ; 62b « הָא — דְּאִיתֵיהּ. הָא — דְּלֵיתֵיהּ »). Corrige FR/HE/EN : « Abayé invoque une baraïta (וְהָתַנְיָא), que la guemara rapporte ensuite en entier » + résumé de la suite d'Érouvin 62b (la baraïta parle du non-Juif qui n'est pas là).
+- Obj. 2 et 6 (niv. 1, s. 6, MB ס״ק ב lue « plusieurs à n'avoir pas fait l'érouv ») : FONDEES (MB ס״ק ב « כיון דעכ״פ עשו ע״ח יחד כיחיד חשיבי »). Corrigé en ramenant le point à la forme courte (« les commentateurs divergent … niveau 2, section 2 »), FR/HE/EN ; le niveau 2, s. 2, traduit la MB en entier et juste.
+- Obj. 3 et 7 (niv. 1, s. 6, sous-ensemble des voix sur trois cas) : FONDEES. Section 6 ramenée à la forme courte pour les quatre cas (« rabim » → niv. 2 s. 2 ; glose du Rama, citée seule, → s. 4 ; invités eux-mêmes → s. 6 ; invité habituel → s. 5), FR/HE/EN. Le texte de la glose du Rama reste cité (c'est la source).
+- Obj. 4 (niv. 4, point א, « le Rav rapporte le "bien qu'ils soient nombreux" à la cour ») : FONDEE (SAH 391:1 n'a pas « אע״פ שהם רבים » ; il écrit « אַף עַל פִּי שֶׁיֵּשׁ בָּהּ דִּיּוּרִים הַרְבֵּה »). Corrigé FR/HE/EN : « le texte du Rav écrit, de la cour qui renonce, qu'elle devient comme un hôte …, « אַף עַל פִּי שֶׁיֵּשׁ בָּהּ דִּיּוּרִים הַרְבֵּה », et donne la raison … » ; renvoi au niveau 2 conservé.
+- Obj. 5 et 8 (niv. 4, points ד et ④, invité habituel non signalé) : FONDEES (MB ס״ק כ״ד ; MA ס״ק ב). Ajouté FR/HE/EN aux deux endroits : « Sur l'invité qui a coutume de loger là, les commentateurs divergent (niveau 2, section 5) ; consulte ton Rav. » Rien sur les trente jours du Rav (reste dans les doutes).
+- Obj. 9 (index, hero : « ne suffit pas … sauf là où ») : FONDEE (SA 391:1 « במה דברי׳ אמורי׳ בשר שאין הבתי׳ שלו … »). Remplacé FR/HE/EN par la formule de la meta description : « suffit ou non selon son pouvoir sur les maisons » (glose du Rama : renvoi au niveau 2 conservé). Niveau 3 non touché : ses étapes suivent l'ordre imprimé et donnent la précision « במה דברי׳ אמורי׳ » juste après, et son piège 5 la nomme.
+- Portes : verifier-citations (fr,he,en) 269 citations, 267 conformes, 0 variante / réf. fausse / introuvable, 2 sans référence (inchangé) ; verifier-troncatures : 0 trou, 0 coupure.
+
+## Verification allegee, passe 2
+
+- Objection 1 (N4 chapeau + N3 section 3 et Piège 1 : « glose du Rama comprise, est porté par les séifim 1 et 2 du Rav ») : FONDÉE. SAH 391:2 passe de « וְאֵין מוֹעִיל מַה שֶּׁיִּשְׂכְּרוּ מִשַּׂר הָעִיר » à « בַּמֶּה דְּבָרִים אֲמוּרִים? בְּשַׂר שֶׁאֵין הַבָּתִּים שֶׁלּוֹ… » sans la distinction du Rama (להוציא ולהכניס / לטלטל במבוי) ; aucun des 3 séifim du Rav ne la porte. Corrigé aux 9 endroits (N4 FR/HE/EN chapeau ; N3 FR/HE/EN l. 367/351 et Piège 1) : « glose du Rama comprise » → « hors l'avis que rapporte la glose du Rama » (HE « חוץ מן הדעה שמביאה הגהת הרמ״א », EN « except for the opinion the (gloss of the) Rema('s gloss) reports »), avec « (point ב) » au N4.
+- Objection 2 : doublon de l'objection 1 (même défaut, mêmes lignes) ; traitée par la même correction.
+- Index (« ב׳ סעיפים בשולחן ערוך של המחבר, עם הגהת הרמ״א ») laissé : il décrit le Mehaber, pas la correspondance avec le Rav.
+- Portes après correction : verifier-citations (fr,he,en) 267 conformes, 0 référence fausse, 0 introuvable, 2 sans référence (déjà notées) ; verifier-troncatures 0 trou, 0 coupure.
