@@ -17,6 +17,7 @@
 import { kv } from './_kv.js';
 import crypto from 'node:crypto';
 import { getRedis, K_ORDERS, makeDedicace, saveDedicace } from './_dedicaces.js';
+import { applyPaidPlan } from './_plans.js';
 
 // Barre de soutien (/soutenir.html) : tout paiement HelloAsso validé alimente le
 // total mensuel — mêmes clés que les dons manuels (soutenir.js) et les virements
@@ -344,22 +345,29 @@ export default async function handler(req, res) {
     kv.sadd('users:known', email), // au cas où c'est un nouveau compte payeur
   ];
 
-  // Plan : upgrade seulement si on a un plan détecté
-  if (plan) {
-    ops.push(kv.set(`user:plan:${email}`, plan));
-    if (expiresAt) {
-      ops.push(kv.set(`user:plan_expires:${email}`, expiresAt));
-    } else {
-      ops.push(kv.del(`user:plan_expires:${email}`));
-    }
-  }
-
   // Crédits Opus : ajoutés en plus de l'éventuel plan
   if (creditsToAdd > 0) {
     ops.push(kv.incrby(`credits:${email}`, creditsToAdd));
   }
 
   await Promise.all(ops);
+
+  // Plan : posé par la porte commune (api/_plans.js), qui tient un droit par canal et
+  // arbitre avec les achats intégrés de l'application sans jamais raccourcir un droit
+  // acquis. Repli en écriture directe si elle échoue : mieux vaut un plan posé sans
+  // arbitrage qu'un paiement réel sans plan.
+  if (plan) {
+    try {
+      await applyPaidPlan({ email, plan, expiresAt, source: 'helloasso' });
+    } catch (err) {
+      console.error('[helloasso-webhook] applyPaidPlan a échoué, écriture directe :', err?.message || err);
+      await Promise.all([
+        kv.set(`user:plan:${email}`, plan),
+        kv.set(`user:plan_source:${email}`, 'helloasso'),
+        expiresAt ? kv.set(`user:plan_expires:${email}`, expiresAt) : kv.del(`user:plan_expires:${email}`),
+      ]);
+    }
+  }
 
   // Barre de soutien : après le dédoublonnage et l'audit trail, avant res.end
   // (pas de fire-and-forget en serverless).
