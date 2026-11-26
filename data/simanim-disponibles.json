@@ -2,10 +2,10 @@
   "meta": {
     "version": "2.1",
     "description": "Index auto-généré des simanim disponibles sur disque (sections shabbat, eruvin, techumin, oh-quotidien, yoreh-deah, nida). Régénéré au build par scripts/generate-simanim-index.js — les titres existants (title/titleHe/titleEn) sont fusionnés, jamais perdus.",
-    "lastUpdated": "2026-11-17",
+    "lastUpdated": "2026-11-26",
     "counts": {
-      "total": 541,
-      "complet": 541,
+      "total": 545,
+      "complet": 545,
       "daatHarav": 0,
       "partiel": 0
     },
@@ -18,8 +18,14 @@
       },
       "eruvin": {
         "counts": {
-          "total": 28,
-          "complet": 28
+          "total": 30,
+          "complet": 30
+        }
+      },
+      "techumin": {
+        "counts": {
+          "total": 2,
+          "complet": 2
         }
       },
       "oh-quotidien": {
@@ -2474,6 +2480,70 @@
       },
       "status": "complet",
       "path": "sources/shabbat/siman-393/index.html"
+    },
+    {
+      "num": 394,
+      "numHe": "שצ״ד",
+      "title": "Le doute sur l'érouv, et l'érouv qu'on ne peut prendre au crépuscule",
+      "titleHe": "ספק עירוב, ועירוב שאי אפשר ליטלו בין השמשות",
+      "titleEn": "The Doubtful Eruv, and the Eruv that Cannot Be Taken at Twilight",
+      "section": "eruvin",
+      "levels": {
+        "n1": true,
+        "n2": true,
+        "n3": true,
+        "n4": true
+      },
+      "status": "complet",
+      "path": "sources/shabbat/siman-394/index.html"
+    },
+    {
+      "num": 395,
+      "numHe": "שצ״ה",
+      "title": "La bénédiction de l'érouv sur le chitouf du mavoy",
+      "titleHe": "דיני ברכת עירוב",
+      "titleEn": "The Blessing of the Eruv over the Shituf of the Mavoy",
+      "section": "eruvin",
+      "levels": {
+        "n1": true,
+        "n2": true,
+        "n3": true,
+        "n4": true
+      },
+      "status": "complet",
+      "path": "sources/shabbat/siman-395/index.html"
+    },
+    {
+      "num": 396,
+      "numHe": "שצ״ו",
+      "title": "Les quatre coudées de chaque homme, et le lieu compté comme quatre coudées",
+      "titleHe": "דין ארבע אמות שיש לכל אדם בשבת, והמקום הנחשב כארבע אמות",
+      "titleEn": "The Four Amos of Every Person, and the Place Counted as Four Amos",
+      "section": "techumin",
+      "levels": {
+        "n1": true,
+        "n2": true,
+        "n3": true,
+        "n4": true
+      },
+      "status": "complet",
+      "path": "sources/shabbat/siman-396/index.html"
+    },
+    {
+      "num": 397,
+      "numHe": "שצ״ז",
+      "title": "Le lieu de repos de l'individu et de ses objets ; les deux mille coudées",
+      "titleHe": "דין שביתת היחיד וכליו ומהלך אלפים אמה",
+      "titleEn": "The resting place of the individual and his belongings; walking two thousand amos",
+      "section": "techumin",
+      "levels": {
+        "n1": true,
+        "n2": true,
+        "n3": true,
+        "n4": true
+      },
+      "status": "complet",
+      "path": "sources/shabbat/siman-397/index.html"
     },
     {
       "num": 1,

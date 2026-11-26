@@ -1,0 +1,17 @@
+
+## Verification allegee, passe 1
+
+- RETENUE (a_corriger) niveau 2 section 8 « כיצד מעברין … pour le séif ב » : le Beit Yossef (שצ״ו, seg. 5-7) ne donne cette source que pour le lieu entouré ; « ואם אינו מוקף » a la baraïta de מי שהוציאוהו, « ובקמה קצורה » « שם בגמרא ». Restreint à « pour le début du séif ב (le lieu entouré pour l'habitation) », FR/HE/EN.
+- RETENUE (a_corriger) niveau 2 section 4 « discute la façon dont le Tour entend le choix de la direction » : « ומדברי רבינו נראה… » est dans la citation du Maguid Michné close par « עכ״ל », « רבינו » = le Rambam. Clause retirée, FR/HE/EN.
+- RETENUE (a_corriger, objections 2 et 4 confondues) niveau 3 : la seule conclusion du Choulhan Aroukh HaRav 396:2 (« יש לסמוך… להקל ») donnée comme réponse pratique, quand le Beit Yossef conclut « הכי נקטינן » pour le Rif et le Rambam. Retirée de l'arbre Q3, de la ligne 396:2 du tableau de la section 5 et du commandement 3 ; remplacée par « sur la pratique, les sources divergent (niveau 2, sections 4-5 ; niveau 4, point ב) », FR/HE/EN. Aucune source ajoutée. Niveau 4 laissé tel quel (« selon le texte du Rav », chitah du Rav, avec renvoi à la section 2 point ב).
+- Portes : verifier-citations (fr,he,en) 237 conformes, 0 anomalie ; verifier-troncatures 0 trou, 0 coupure.
+
+## Verification allegee, passe 2
+
+- Objection a_corriger (niveau 3, arbre Q4→Q5, perte de la condition de l'enclos) : FONDEE. Mehaber 396:2 « ואם אינו מוקף לדירה עד סאתים » suppose un enclos ; SAH 396:1 « אוֹ אֲפִלּוּ אֵינוֹ מֻקָּף לְדִירָה אֶלָּא שֶׁאֵין בּוֹ יוֹתֵר מִבֵּית סָאתַיִם » (lieu « מֻקָּף מְחִצּוֹת ») ; MB ס״ק י״ד « ואם היה ההיקף יותר מסאתים » ; SAH 396:4 compte la ville « אַף עַל פִּי שֶׁאֵינָהּ מֻקֶּפֶת מְחִצּוֹת כְּהִלְכָתָן ». Correction FR/HE/EN : Q5 demande si le lieu est entoure de cloisons (sans l'etre pour l'habitation) et a au plus deux sea ; branche NON : la phrase de la MB restreinte a « si l'enceinte depasse deux sea » ; renvoi ajoute « pour la ville, SAH 396:4 ecrit autrement (niveau 4, point ה) ».
+- Portee : les autres enonces du seif ב (niveaux 1-3, index) suivent la formule du Mehaber (« s'il n'est pas entoure pour l'habitation, jusqu'a deux sea ») et ne posent pas de question isolee sur la surface : non modifies.
+- Portes : verifier-citations (fr,he,en) 237 conformes, 0 anomalie ; verifier-troncatures : aucune coupure.
+
+## Corrections du coordinateur après la passe 3 (12 novembre 2026)
+- Grave 1 (N3, ligne « Choulhan Aroukh HaRav (396:2) », arbre Q3, commandement 3) : FONDÉE. La ligne cite maintenant la conclusion du Rav, extraite de Sefaria : « וְיֵשׁ לִסְמוֹךְ עַל דִּבְרֵיהֶם לְהָקֵל בְּדִבְרֵי סוֹפְרִים » (שו״ע הרב שצ״ו:ב). « Sur la pratique, les sources divergent (niveau 2, sections 4-5) » est passé dans la ligne des commentateurs. Q3 et commandement 3 disent que le Rav rapporte deux avis et écrit qu'il y a lieu de s'appuyer sur le second (ces quatre coudées des te'houmin ne sont pas comme celles du déplacement d'objets : quatre dans chaque direction) pour être indulgent dans une règle d'ordre rabbinique (396:2). Trois langues.
+- Grave 2 (N4, point ב « La différence » et « Conséquence pratique », section 4 point ②) : FONDÉE. La qualification du Rav est ajoutée : selon le second avis, ces quatre amot des te'houmin ne sont pas comme celles du déplacement d'objets. Ce que le Rav dit du transport selon cet avis n'est pas tranché (doute déjà noté). Trois langues.
