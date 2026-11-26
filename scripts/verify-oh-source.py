@@ -63,7 +63,8 @@ par un clic synthétique sur son titre (HTMLElement.click(), sans pointeur ni fo
     px, d'impression et prefers-reduced-motion, et rien d'autre ; aucune police définie par la page. Sur les
     règles qui atteignent réellement le bloc, sa chaîne jusqu'au .sa-he et son contenu, OU l'un de ses ancêtres :
     aucun état (:hover, :focus…) ni pseudo-élément (::before, ::marker, ::selection…), aucune valeur qui suit
-    l'écran ou le thème (vw, vh, %, calc(), min(), max(), clamp(), light-dark(), env(), attr(), color-scheme),
+    l'écran ou le thème (vw, vh, %, calc(), min(), max(), clamp(), light-dark(), env(), attr(), color-scheme ; seule
+    exception : « border-image-slice: 100% », valeur initiale que le raccourci border remet et que Chromium 158 énumère),
     aucune règle d'impression ou de mouvement réduit (elles ne sont pas rendues), aucun style en ligne ; sur la
     chaîne, des propriétés typographiques ou de boîte seulement ; aucune animation sur la chaîne ou ses ancêtres.
     Les sélecteurs sont lus comme le navigateur les lit (chaînes, crochets, échappements) et réécrits sans leurs
@@ -1222,7 +1223,12 @@ MESURE_JS = r"""
       for (const p of r.style) {
         const v = r.style.getPropertyValue(p);
         const d = ou + sel0.trim().slice(0, 60) + ' { ' + p + ': ' + v.slice(0, 40) + ' }';
-        // une valeur qui suit la largeur de l'écran ou son thème change ENTRE les largeurs rendues
+        // une valeur qui suit la largeur de l'écran ou son thème change ENTRE les largeurs rendues.
+        // Exception mesurée le 26 novembre 2026 : le raccourci « border » remet border-image à sa valeur INITIALE, et
+        // Chromium 158 énumère désormais cette valeur longue dans r.style — « border-image-slice: 100%% » apparaissait
+        // sur TOUTES les pages (365 compris, publiée et verte), sans rien changer au rendu tant qu'aucune image de
+        // bordure n'est posée. Seule cette valeur initiale, sans border-image-source, est admise.
+        if (p === 'border-image-slice' && v.trim() === '100%%' && /^(|none|initial)$/.test(r.style.getPropertyValue('border-image-source').trim())) continue;
         if (VARIABLE.test(v) || /^(color-scheme|zoom|-webkit-text-fill-color|-webkit-text-stroke.*)$/.test(p)) faute('VALEUR QUI DÉPEND DE L\'ÉCRAN OU DU THÈME SUR ' + qui, d);
         else if (touche && !new RegExp(%(chaine)s).test(p)) faute('STYLE NON ADMIS SUR LA CHAÎNE', d);
       }
